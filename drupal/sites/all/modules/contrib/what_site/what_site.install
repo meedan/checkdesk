@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Implementation of hook_requirements().
+ */
+function what_site_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+
+  require_once dirname(__FILE__) . '/what_site.module';
+  $requirements['what_site']['title'] = $t('What Site');
+  if (what_site_path()) {
+    $requirements['what_site']['value'] = $t('whatsite.js found OK.');
+    $requirements['what_site']['severity'] = REQUIREMENT_OK;
+  }
+  else {
+    $requirements['what_site']['value'] = $t('Not found');
+    $requirements['what_site']['description'] = $t('The <a href="@whatsite">WhatSite</a> library is missing. <a href="@download">Download</a> and extract it into the <em>sites/all/libraries</em> directory or the <em>what_site</em> module directory.', array(
+      '@whatsite' => 'https://github.com/jamesandres/WhatSite',
+      '@download' => 'https://github.com/jamesandres/WhatSite/zipball/master',
+    ));
+    $requirements['what_site']['severity'] = REQUIREMENT_ERROR;
+  }
+
+  return $requirements;
+}
