@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * The Node export install file.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function node_export_uninstall() {
+  variable_del('node_export_format');
+  variable_del('node_export_code');
+  variable_del('node_export_filename');
+  variable_del('node_export_file_list');
+  variable_del('node_export_nodes_without_confirm');
+  $types = node_type_get_names();
+  foreach ($types as $type => $name) {
+    variable_del('node_export_reset_' . $type);
+    variable_del('node_export_reset_created_' . $type);
+    variable_del('node_export_reset_menu_' . $type);
+    variable_del('node_export_reset_path_' . $type);
+    variable_del('node_export_reset_book_mlid_' . $type);
+  }
+
+  // Old variables.
+  variable_del('node_export_method');
+  variable_del('node_export_bulk_code');
+  variable_del('node_export_bulk_filename');
+  variable_del('node_export_omitted');
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Warn user about changed permissions and configuration.
+ *
+ * @see hook_update_N()
+ */
+function node_export_update_7300() {
+  drupal_set_message(
+    t(
+      "Node export <a href=\"!perms\">permissions</a> and <a href=\"!config\">configuration</a> "
+      . "have changed, please take this opportunity to review these options to "
+      . "ensure the correct behavior and security of the module.  The import "
+      . "form is now located under <a href=\"!add\">Create content</a>.",
+      array(
+        '!perms' => url('admin/people/permissions'),
+        '!config' => url('admin/settings/node_export'),
+        '!add' => url('node/add'),
+      )
+    ),
+    'warning'
+  );
+  drupal_set_message(
+    t(
+      "Node export no longer checks whether users have access to use the "
+      . "filter formats of the fields in the node.  Please keep this in mind "
+      . "when deciding which user roles will get the 'export nodes' "
+      . "permission."
+    ),
+    'warning'
+  );
+  return 'Note: Please update Node export permissions and configuration.';
+}
