@@ -7,7 +7,19 @@ This project is a derivative of the Meedan Drupal Boilerplate.  Please refer to 
  * **patches/README.md** regarding core and contrib module patches practices
  * **patches/PATCHES.md** for a list of reasons why each currently active patch has been applied, and other notes
 
-# TODO
+
+## Components of Meedan Boilerplate
+
+The boilerplate consists of 3 main components:
+
+ * The overall boilerplate directory structure
+ * The Meedan git submodules
+ * The separation of site specific settings and code from the boilerplate, integration points are:
+   * profiles/meedan_boilerplate which installs the basic boilerplate stuff and kicks off custom installation
+   * sites/default/settings.php includes global settings and hooks in custom settings.
+
+
+## TODO
 
  * Document:
    * Boilerplate usage best practices / guidelines
