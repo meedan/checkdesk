@@ -1,0 +1,59 @@
+name = Meedan Installer
+description = Kicks off the installation of a Meedan Boilerplate based site.
+version = 7.x-1.0
+core = 7.x
+
+; Core modules
+dependencies[] = block
+dependencies[] = color
+dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = dashboard
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = taxonomy
+dependencies[] = dblog
+dependencies[] = search
+dependencies[] = shortcut
+dependencies[] = toolbar
+dependencies[] = overlay
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = rdf
+
+; Feature handling
+dependencies[] = features
+dependencies[] = strongarm
+dependencies[] = node_export
+dependencies[] = uuid
+
+; Important contrib modules
+dependencies[] = ctools
+dependencies[] = views
+dependencies[] = context
+dependencies[] = date
+dependencies[] = link
+dependencies[] = field_group
+dependencies[] = pathauto
+
+; Development helpers
+dependencies[] = devel
+dependencies[] = diff
+dependencies[] = what_site
+
+
+;;; ADD MEEDAN MODULES HERE
+; dependencies[] = meedan_discussions
+
+
+;;; ADD FEATURE MODULES HERE
+; dependencies[] = mysite_example_feature
+
+
+;;; ADD CUSTOM MODULES HERE
+; dependencies[] = mysite_example_module
