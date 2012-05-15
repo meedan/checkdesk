@@ -20,6 +20,10 @@ function meedan_form_install_configure_form_alter(&$form, $form_state) {
 
     // Robot automatically submits the confirm form if no user input is given
     // and 5 seconds passes.
+    $form['robot_info'] = array(
+      '#markup' => '<div class="messages ok">' . t("This form will automatically submit if no user action is taken in 5 seconds…") . '</div>',
+      '#weight' => -1000,
+    );
     $form['admin_account']['account']['robot'] = array(
       '#markup' => '<script type="text/javascript">
                     // Things that should stop the autosubmit if they
