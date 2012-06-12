@@ -1,0 +1,12 @@
+name = Meedan Devel
+description = Enables development modules and settings.
+core = 7.x
+package = Meedan
+version = 7.x-1.0
+project = meedan_devel
+dependencies[] = context_ui
+dependencies[] = devel
+dependencies[] = devel_generate
+dependencies[] = views_ui
+dependencies[] = what_site
+features[features_api][] = api:1
