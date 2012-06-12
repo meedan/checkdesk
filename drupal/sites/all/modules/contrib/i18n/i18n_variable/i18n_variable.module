@@ -1,0 +1,282 @@
+<?php
+/**
+ * @file
+ * Internationalization (i18n) package. Multilingual variables API.
+ */
+
+/**
+ * Implements hook_language_init()
+ */
+function i18n_variable_language_init() {
+  if (drupal_multilingual()) {
+    i18n_variable_initialize();
+  }
+}
+
+/**
+ * Implements hook_variable_realm_controller().
+ */
+function i18n_variable_variable_realm_controller() {
+  $realm['language'] = array(
+    'weight' => 100,
+    'class' => 'VariableStoreRealmController',
+  );
+  return $realm;
+}
+
+/**
+ * Implements hook_menu()
+ */
+function i18n_variable_menu() {
+  $items['admin/config/regional/i18n/variable'] = array(
+    'title' => 'Variables',
+    'description' => 'Configure multilingual variables.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('i18n_variable_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'i18n_variable.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  return $items;
+}
+
+/**
+ * Initialization of multilingual variables.
+ *
+ * @param $langcode
+ *   Language to retrieve variables. Defaults to current language.
+ */
+function i18n_variable_initialize($language = NULL) {
+  $language = $language ? $language : i18n_variable_language();
+  $GLOBALS['language_variable'] = $language;
+  $variables = i18n_variable_load($language->language);
+  variable_realm_add('language', $language->language, $variables, 10);
+  variable_realm_switch('language', $language->language);
+}
+
+/**
+ * Get variables language, make sure it is initialized
+ */
+function i18n_variable_language($initialize = TRUE) {
+  // If we've got a variables language, it will be that one
+  if (!isset($GLOBALS['language_variable'])) {
+    if (!empty($_GET['i18n_variable_language']) && arg(0) == 'admin') {
+      $GLOBALS['language_variable'] = i18n_language($_GET['i18n_variable_language']);
+    }
+    else {
+      $GLOBALS['language_variable'] = i18n_language();
+    }
+  }
+  return $GLOBALS['language_variable'];
+}
+
+/**
+ * Get original value for global variable/s
+ */
+function i18n_variable_global($name = NULL, $default = NULL) {
+  return variable_realm_global_get($name, $default);
+}
+
+/**
+ * Implements hook_form_alter();
+ *
+ * This is the place to add language fields to all forms.
+ */
+function i18n_variable_form_alter(&$form, &$form_state, $form_id) {
+  // Multilingual variables in settings form.
+  if (isset($form['#theme']) && $form['#theme'] == 'system_settings_form' && $variables = i18n_variable_list()) {
+    if ($form_id == 'system_theme_settings') {
+      // Special treatment for theme settings
+      if (!empty($form['var']) && !empty($form['var']['#value']) && in_array($form['var']['#value'], $variables)) {
+        $variables = element_children($form['theme_settings']);
+        $variables = array_merge($variables, array('default_logo', 'logo_path', 'default_favicon', 'favicon_path'));
+        i18n_variable_form_alter_settings($form, $variables);
+        // Replace variable (theme) name so we use a temporary storage variable
+        $form['#i18n_variable'] = $form['var']['#value'];
+        $form['var']['#value'] = 'i18n_variable_theme_settings';
+        $form['#submit'][] = 'i18n_variable_theme_form_submit';
+        $form += i18n_variable_form_selector();
+      }
+    }
+    elseif ($i18n_variables = i18n_variable_form_alter_settings($form, $variables)) {
+      array_unshift($form['#submit'], 'i18n_variable_form_submit');
+      $form['#i18n_variables'] = $i18n_variables;
+      $form += i18n_variable_form_selector();
+    }
+  }
+}
+
+/**
+ * Variable form language switcher
+ */
+function i18n_variable_form_selector() {
+  $current = i18n_variable_language();
+  $form['i18n_variable'] = array(
+    '#type' => 'fieldset',
+    '#weight' => -100,
+    '#title' => t('There are multilingual variables in this form.'),
+    '#description' => t('Check you are editing the variables for the right language or select the desired one. To enable more multilingual variables visit <a href="@i18n-variable-admin">multilingual variables configuration</a>.', array('@i18n-variable-admin' => url('admin/config/regional/i18n/variable'))),
+  );
+  $form['i18n_variable']['i18n_variable_language'] = array('#type' => 'value', '#value' => $current);
+  foreach (language_list() as $language) {
+    $link =  l($language->name, $_GET['q'], array('query' => array('i18n_variable_language' => $language->language)));
+    $items[] = $current->language == $language->language ? '<strong>' . $link . '</strong>' : $link;
+  }
+  $form['i18n_variable']['i18n_language_select'] = array(
+    '#title' => t('Select language'),
+    '#type' => 'item',
+    '#markup' => implode(' | ', $items),
+  );
+  return $form;
+}
+
+/**
+ * Get list of multilingual variables or check whether a variable is multilingual
+ */
+function i18n_variable_list($name = NULL) {
+  static $variables;
+  if (!isset($variables)) {
+    // Note that variables being a global static, any other module can initialize or alter it.
+    $variables = &drupal_static(__FUNCTION__, variable_get('i18n_variable_list', array()));
+  }
+  return $name ? in_array($name, $variables) : $variables;
+}
+
+/**
+* Load language variables into array.
+*
+* Pull variables from the store but filter out the ones that are not multilingual.
+*/
+function i18n_variable_load($langcode) {
+  $variables = array();
+  foreach (variable_store('language', $langcode) as $name => $value) {
+    if (i18n_variable_list($name)) {
+      $variables[$name] = $value;
+    }
+  }
+  return $variables;
+}
+
+/**
+ * Check for multilingual variables in form.
+ */
+function i18n_variable_form_alter_settings(&$form, $variables) {
+  $result = array();
+  foreach (element_children($form) as $field) {
+    $output = '';
+    if (count(element_children($form[$field])) && empty($form[$field]['#tree'])) {
+      $result += i18n_variable_form_alter_settings($form[$field], $variables);
+    }
+    elseif (in_array($field, $variables)) {
+      // Add form field class (i18n-variable) and description text.
+      $form[$field]['#attributes']['class'][] = 'i18n-variable';
+      $form[$field]['#description'] = !empty($form[$field]['#description']) ? $form[$field]['#description'] : '';
+      $form[$field]['#description'] .= ' <strong>' . t('This is a multilingual variable.') . '</strong> ' . $output;
+      // Addd field => name to result
+      $result[$field] = !empty($form[$field]['#title']) ? $form[$field]['#title'] : $field;
+    }
+  }
+  return $result;
+}
+
+/**
+ * Save multilingual variables and remove them from form.
+ */
+function i18n_variable_form_submit($form, &$form_state) {
+  $op = isset($form_state['values']['op']) ? $form_state['values']['op'] : '';
+  $language = i18n_language($form_state['values']['i18n_variable_language']);
+  unset($form_state['values']['i18n_variable_language']);
+  $variables = array_keys($form['#i18n_variables']);
+  foreach ($variables as $name) {
+    if (isset($form_state['values'][$name])) {
+      if ($op == t('Reset to defaults')) {
+        i18n_variable_del($name, $language->language);
+      }
+      else {
+        $value = $form_state['values'][$name];
+        if (is_array($value) && isset($form_state['values']['array_filter'])) {
+          $value = array_keys(array_filter($value));
+        }
+        i18n_variable_set($name, $value, $language->language);
+      }
+      // If current is not default language, we don't set any global variable (without language)
+      if ($language->language != language_default('language')) {
+        unset($form_state['values'][$name]);
+      }
+    }
+  }
+  // The form will go now through system_settings_form_submit()
+}
+
+/**
+ * Save multilingual variables and remove them from form.
+ *
+ * Note the theme variable has already been set into 'i18n_variable_theme_settings'
+ */
+function i18n_variable_theme_form_submit($form, &$form_state) {
+  $language = i18n_language($form_state['values']['i18n_variable_language']);
+  unset($form_state['values']['i18n_variable_language']);
+  $settings = variable_get('i18n_variable_theme_settings');
+  $name = $form['#i18n_variable'];
+  i18n_variable_set($name, $settings, $language->language);
+  // If current is default language, we allow global (without language) variables to be set too
+  if ($language->language == language_default('language')) {
+    variable_set($name, $settings);
+  }
+  variable_del('i18n_variable_theme_settings');
+}
+
+/**
+ * Set a persistent language dependent variable.
+ *
+ * @param $name
+ *   The name of the variable to set.
+ * @param $value
+ *   The value to set. This can be any PHP data type; these functions take care
+ *   of serialization as necessary.
+ * @param $langcode
+ *   Language code.
+ */
+function i18n_variable_set($name, $value, $langcode) {
+  variable_store_set('language', $langcode, $name, $value);
+  variable_realm_set('language', $langcode, $name, $value);
+}
+
+/**
+ * Get single multilingual variable
+ */
+function i18n_variable_get($name, $langcode, $default = NULL) {
+  return variable_store_get('language', $langcode, $name, $default);
+}
+
+/**
+ * Unset a persistent multilingual variable.
+ *
+ * @param $name
+ *   The name of the variable to undefine.
+ * @param $langcode
+ *   Language code.
+ */
+function i18n_variable_del($name, $langcode) {
+  variable_store_del('language', $langcode, $name);
+  variable_realm_del('language', $langcode, $name);
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Move i18n_variable_form_alter() to the end of the list to
+ * translate variables added while hook_form_alter().
+ *
+ * @param $implementations
+ *   All implementations of the given hook.
+ * @param $hook
+ *   Name of the hook.
+ */
+function i18n_variable_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    $group = $implementations['i18n_variable'];
+    unset($implementations['i18n_variable']);
+    $implementations['i18n_variable'] = $group;
+  }
+}

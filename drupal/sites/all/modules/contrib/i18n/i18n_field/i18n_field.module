@@ -1,0 +1,399 @@
+<?php
+
+/**
+ * @file
+ * Internationalization (i18n) module - Field handling
+ *
+ * For string keys we use:
+ * - field:[field_name]:[bundle]:property, when it is an instance property (linked to bundle)
+ * - field:[field_name]:#property..., when it is a field property (that may have multiple values)
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function i18n_field_menu() {
+  $items = array();
+
+  // Ensure the following is not executed until field_bundles is working and
+  // tables are updated. Needed to avoid errors on initial installation.
+  if (!module_exists('field_ui') || defined('MAINTENANCE_MODE')) {
+    return $items;
+  }
+
+  // Create tabs for all possible bundles. From field_ui_menu().
+  foreach (entity_get_info() as $entity_type => $entity_info) {
+    if ($entity_info['fieldable']) {
+      foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+        if (isset($bundle_info['admin'])) {
+          // Extract path information from the bundle.
+          $path = $bundle_info['admin']['path'];
+          // Different bundles can appear on the same path (e.g. %node_type and
+          // %comment_node_type). To allow field_ui_menu_load() to extract the
+          // actual bundle object from the translated menu router path
+          // arguments, we need to identify the argument position of the bundle
+          // name string ('bundle argument') and pass that position to the menu
+          // loader. The position needs to be casted into a string; otherwise it
+          // would be replaced with the bundle name string.
+          if (isset($bundle_info['admin']['bundle argument'])) {
+            $bundle_arg = $bundle_info['admin']['bundle argument'];
+            $bundle_pos = (string) $bundle_arg;
+          }
+          else {
+            $bundle_arg = $bundle_name;
+            $bundle_pos = '0';
+          }
+          // This is the position of the %field_ui_menu placeholder in the
+          // items below.
+          $field_position = count(explode('/', $path)) + 1;
+
+          // Extract access information, providing defaults.
+          $access = array_intersect_key($bundle_info['admin'], drupal_map_assoc(array('access callback', 'access arguments')));
+          $access += array(
+            'access callback' => 'user_access',
+            'access arguments' => array('administer site configuration'),
+          );
+          $items["$path/fields/%field_ui_menu/translate"] = array(
+            'load arguments' => array($entity_type, $bundle_arg, $bundle_pos, '%map'),
+            'title' => 'Translate',
+            'page callback' => 'i18n_field_page_translate',
+            'page arguments' => array($field_position),
+            'file' => 'i18n_field.pages.inc',
+            'type' => MENU_LOCAL_TASK,
+          ) + $access;
+
+          $items["$path/fields/%field_ui_menu/translate/%i18n_language"] = array(
+            'load arguments' => array($entity_type, $bundle_arg, $bundle_pos, '%map'),
+            'title' => 'Instance',
+            'page callback' => 'i18n_field_page_translate',
+            'page arguments' => array($field_position, $field_position + 2),
+            'file' => 'i18n_field.pages.inc',
+            'type' => MENU_CALLBACK,
+          ) + $access;
+        }
+      }
+    }
+  }
+  return $items;
+}
+
+/**
+ * Implements hook_hook_info().
+ */
+function i18n_field_hook_info() {
+  $hooks['i18n_field_info'] = array(
+    'group' => 'i18n',
+  );
+  return $hooks;
+}
+
+/**
+ * Implements hook_field_attach_form().
+ *
+ * After the form fields are built. Translate title and description for fields with multiple values.
+ */
+function i18n_field_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+  // Determine the list of instances to iterate on.
+  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+  $instances = field_info_instances($entity_type, $bundle);
+  foreach ($instances as $field_name => $instance) {
+    if (isset($form[$field_name])) {
+      $langcode = $form[$field_name]['#language'];
+      $field = &$form[$field_name];
+      // Note: cardinality for unlimited fields is -1
+      if (isset($field[$langcode]['#cardinality']) && $field[$langcode]['#cardinality'] != 1) {
+        $translated = i18n_string_object_translate('field_instance', $instance);
+        if (!empty($field[$langcode]['#title'])) {
+          $field[$langcode]['#title'] = $translated['label'];
+        }
+        if (!empty($field[$langcode]['#description'])) {
+          $field[$langcode]['#description'] = $translated['description'];
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_info_alter().
+ *
+ * Cached, invoked only after field info is rebuilt
+ */
+function i18n_field_field_info_alter(&$info) {
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function i18n_field_field_formatter_info() {
+  $types = array();
+  foreach (i18n_field_type_info() as $type => $info) {
+    if (!empty($info['translate_options'])) {
+      $types[] = $type;
+    }
+  }
+  return array(
+    'i18n_list_default' => array(
+      'label' => t('Default translated'),
+      'field types' => $types,
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function i18n_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'i18n_list_default':
+      if (($translate = i18n_field_type_info($field['type'], 'translate_options'))) {
+        $allowed_values = $translate($field);
+      }
+      else {
+        // Defaults to list_default behavior
+        $allowed_values = list_allowed_values($field);
+      }
+      foreach ($items as $delta => $item) {
+        if (isset($allowed_values[$item['value']])) {
+          $output = field_filter_xss($allowed_values[$item['value']]);
+        }
+        else {
+          // If no match was found in allowed values, fall back to the key.
+          $output = field_filter_xss($item['value']);
+        }
+        $element[$delta] = array('#markup' => $output);
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ *
+ * Cached, invoked only after widget info is rebuilt
+ */
+function i18n_field_field_widget_info_alter(&$info) {
+}
+
+/**
+ * Implements hook_field_widget_properties_alter().
+ *
+ * This is called for the entity edit form and for the fields edit form
+ */
+function i18n_field_field_widget_properties_alter(&$widget, $context) {
+  // Skip the node type edit fields by checking for existing entity
+  if (!empty($context['entity']) && !empty($widget['module']) && function_exists($function = $widget['module'] . '_field_widget_form')) {
+    $widget['module'] = 'i18n_field';
+    $widget['i18n_field_callbacks'][] = $function;
+  }
+}
+
+function i18n_field_field_extra_fields_display_alter(&$displays, $context) {
+
+}
+
+/**
+ * Implements hook_field_display_alter().
+ *
+ * Called only when refreshing cache
+ */
+function i18n_field_field_display_alter(&$display, $context) {
+
+}
+
+function i18n_field_field_storage_info_alter(&$info) {
+
+}
+
+/**
+ * Field API callback to rewrite field element
+ *
+ * Translate:
+ * - Title (label)
+ * - Description (help)
+ * - Default value
+ * - List options
+ * @see field_default_form()
+ */
+function i18n_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  global $language;
+  // The field language may affect some variables (default) but not others (description will be in current page language)
+  $i18n_langcode = empty($element['#language']) || $element['#language'] == LANGUAGE_NONE ? $language->language : $element['#language'];
+  // Translate instance to current page language and set to form_state
+  // so it will be used for validation messages later.
+  $instance_current = i18n_string_object_translate('field_instance', $instance);
+  if (isset($form_state['field'][$instance['field_name']][$langcode]['instance'])) {
+    $form_state['field'][$instance['field_name']][$langcode]['instance'] = $instance_current;
+  }
+  // Now replace some form elements one at a time.
+  $delta = $element['#delta'];
+  // Translate field title if set
+  if (!empty($instance_current['label']) && !empty($element['#title'])) {
+    $element['#title'] = $instance_current['label'];
+  }
+  // Translate field description if set
+  if (!empty($instance_current['description']) && !empty($element['#description'])) {
+    $element['#description'] = $instance_current['description'];
+  }
+  // Translate default value if exists and the current value is the default
+  if (($translate = i18n_field_type_info($field['type'], 'translate_default')) && !empty($instance['default_value'][$delta]['value']) && !empty($items[$delta]['value']) && $instance['default_value'][$delta]['value'] === $items[$delta]['value']) {
+    $items[$delta]['value'] = $translate($instance, $items[$delta]['value'], $i18n_langcode);
+  }
+
+  // Redirect through original module_field_widget_form()
+  if (!empty($instance['widget']['i18n_field_callbacks'])) {
+    foreach ($instance['widget']['i18n_field_callbacks'] as $function) {
+      $element = $function($form, $form_state, $field, $instance_current, $langcode, $items, $delta, $element);
+    }
+  }
+  // Translate list options
+  if (($translate = i18n_field_type_info($field['type'], 'translate_options')) && !empty($field['settings']['allowed_values'])) {
+    $element['#options'] = $translate($field, $i18n_langcode);
+    if ($element['#properties']['empty_option']) {
+      $label = theme('options_none', array('instance' => $instance, 'option' => $element['#properties']['empty_option']));
+      $element['#options'] = array('_none' => $label) + $element['#options'];
+    }
+    if ($field['type'] == 'list_boolean' && !empty($element['#on_value'])) {
+      $on_value = $element['#on_value'];
+      $element['#title'] = $element['#options'][$on_value];
+
+      if ($instance['widget']['settings']['display_label']) {
+        $element['#title'] = $instance_current['label'];
+      }
+    }
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_field_attach_view_alter().
+ */
+function i18n_field_field_attach_view_alter(&$output, $context) {
+  foreach (element_children($output) as $field_name) {
+    $element = &$output[$field_name];
+    if (!empty($element['#entity_type']) && !empty($element['#field_name']) && !empty($element['#bundle'])) {
+      $instance = field_read_instance($element['#entity_type'], $element['#field_name'], $element['#bundle']);
+
+      // Translate field title if set
+      if (!empty($instance['label'])) {
+        $element['#title'] = i18n_field_translate_property($instance, 'label');
+      }
+
+      // Translate field description if set
+      if (!empty($instance['description'])) {
+        $element['#description'] = i18n_field_translate_property($instance, 'description');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_create_field().
+ */
+function i18n_field_field_create_field($field) {
+  i18n_field_field_update_strings($field);
+}
+
+/**
+ * Implements hook_field_create_instance().
+ */
+function i18n_field_field_create_instance($instance) {
+  i18n_field_instance_update_strings($instance);
+}
+
+/**
+ * Implements hook_field_delete_instance().
+ */
+function i18n_field_field_delete_instance($instance) {
+  i18n_string_object_remove('field_instance', $instance);
+}
+
+/**
+ * Implements hook_field_update_instance().
+ */
+function i18n_field_field_update_instance($instance, $prior_instance) {
+  i18n_field_instance_update_strings($instance);
+}
+
+/**
+ * Implements hook_field_update_field().
+ */
+function i18n_field_field_update_field($field) {
+  i18n_field_field_update_strings($field);
+}
+
+/**
+ * Update field strings
+ */
+function i18n_field_field_update_strings($field) {
+  i18n_string_object_update('field', $field);
+}
+
+/**
+ * Update field instance strings
+ */
+function i18n_field_instance_update_strings($instance) {
+  i18n_string_object_update('field_instance', $instance);
+}
+
+/**
+ * Returns the array of translated allowed values for a list field.
+ *
+ * The strings are not safe for output. Keys and values of the array should be
+ * sanitized through field_filter_xss() before being displayed.
+ *
+ * @param $field
+ *   The field definition.
+ *
+ * @return
+ *   The array of allowed values. Keys of the array are the raw stored values
+ *   (number or text), values of the array are the display labels.
+ */
+function i18n_field_translate_allowed_values($field, $langcode = NULL) {
+  if (!empty($field['settings']['allowed_values'])) {
+    return i18n_string_translate(array('field', $field['field_name'], '#allowed_values'), $field['settings']['allowed_values'], array('langcode' => $langcode));
+  }
+  else {
+    return array();
+  }
+}
+
+/**
+ * Translate field default
+ */
+function i18n_field_translate_default($instance, $value, $langcode = NULL) {
+  return i18n_string_translate(array('field', $instance['field_name'], $instance['bundle'], 'default_value'), $value, array('langcode' => $langcode));
+}
+
+/**
+ * Translate field property
+ */
+function i18n_field_translate_property($instance, $property, $langcode = NULL) {
+  // For performance reasons, we translate the whole instance once, which is cached.
+  $instance = i18n_string_object_translate('field_instance', $instance, array('langcode' => $langcode));
+  return $instance[$property];
+}
+
+/**
+ * Get i18n information for fields
+ */
+function i18n_field_type_info($type = NULL, $property = NULL) {
+  $info = &drupal_static(__FUNCTION__);
+  if (!isset($info)) {
+    $info = module_invoke_all('i18n_field_info');
+    drupal_alter('i18n_field_info', $info);
+  }
+  if ($property) {
+    return isset($info[$type]) && isset($info[$type][$property]) ? $info[$type][$property] : NULL;
+  }
+  elseif ($type) {
+    return isset($info[$type]) ? $info[$type] : array();
+  }
+  else {
+    return $info;
+  }
+}
