@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * checkdesk_core.features.filter.inc
+ * checkdesk_core_feature.features.filter.inc
  */
 
 /**
  * Implements hook_filter_default_formats().
  */
-function checkdesk_core_filter_default_formats() {
+function checkdesk_core_feature_filter_default_formats() {
   $formats = array();
 
   // Exported format: Filtered HTML + Markdown.

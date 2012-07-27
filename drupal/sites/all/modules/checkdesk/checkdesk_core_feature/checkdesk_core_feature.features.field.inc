@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * checkdesk_core.features.field.inc
+ * checkdesk_core_feature.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function checkdesk_core_field_default_fields() {
+function checkdesk_core_feature_field_default_fields() {
   $fields = array();
 
   // Exported field: 'comment-comment_node_discussion-comment_body'.
@@ -197,7 +197,7 @@ function checkdesk_core_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 2,
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'comment',
@@ -271,7 +271,7 @@ function checkdesk_core_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'body',
-      'label' => 'Description',
+      'label' => 'Story',
       'required' => 1,
       'settings' => array(
         'display_summary' => 1,
@@ -287,92 +287,6 @@ function checkdesk_core_field_default_fields() {
         ),
         'type' => 'text_textarea_with_summary',
         'weight' => '1',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-discussion-field_media'.
-  $fields['node-discussion-field_media'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_media',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'link',
-      'settings' => array(
-        'attributes' => array(
-          'class' => '',
-          'rel' => '',
-          'target' => 'default',
-        ),
-        'display' => array(
-          'url_cutoff' => 80,
-        ),
-        'enable_tokens' => 1,
-        'title' => 'optional',
-        'title_maxlength' => 128,
-        'title_value' => '',
-        'url' => 0,
-      ),
-      'translatable' => '0',
-      'type' => 'link_field',
-    ),
-    'field_instance' => array(
-      'bundle' => 'discussion',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'oembedfield',
-          'settings' => array(
-            'maxheight' => '',
-            'maxwidth' => '',
-          ),
-          'type' => 'oembed_default',
-          'weight' => '1',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_media',
-      'label' => 'Media',
-      'required' => 0,
-      'settings' => array(
-        'attributes' => array(
-          'class' => '',
-          'configurable_title' => 0,
-          'rel' => '',
-          'target' => 'default',
-          'title' => '',
-        ),
-        'display' => array(
-          'url_cutoff' => '80',
-        ),
-        'enable_tokens' => 1,
-        'title' => 'optional',
-        'title_maxlength' => '128',
-        'title_value' => '',
-        'url' => 0,
-        'user_register_form' => FALSE,
-        'validate_url' => 1,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'link',
-        'settings' => array(),
-        'type' => 'link_field',
-        'weight' => '2',
       ),
     ),
   );
@@ -445,7 +359,7 @@ function checkdesk_core_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '-4',
+        'weight' => '1',
       ),
     ),
   );
@@ -531,7 +445,7 @@ function checkdesk_core_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '-3',
+        'weight' => '2',
       ),
     ),
   );
@@ -540,10 +454,10 @@ function checkdesk_core_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Body');
   t('Comment');
-  t('Description');
   t('Desk');
   t('Media');
   t('Rating');
+  t('Story');
 
   return $fields;
 }

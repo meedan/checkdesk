@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * checkdesk_core.features.taxonomy.inc
+ * checkdesk_core_feature.features.taxonomy.inc
  */
 
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function checkdesk_core_taxonomy_default_vocabularies() {
+function checkdesk_core_feature_taxonomy_default_vocabularies() {
   return array(
     'media_rating' => array(
       'name' => 'Media Rating',

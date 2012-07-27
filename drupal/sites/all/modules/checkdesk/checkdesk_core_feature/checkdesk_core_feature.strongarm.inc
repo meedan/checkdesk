@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * checkdesk_core.strongarm.inc
+ * checkdesk_core_feature.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function checkdesk_core_strongarm() {
+function checkdesk_core_feature_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
@@ -166,7 +166,10 @@ function checkdesk_core_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
+        ),
+        'path' => array(
+          'weight' => '3',
         ),
       ),
       'display' => array(),

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * checkdesk_core.views_default.inc
+ * checkdesk_core_feature.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function checkdesk_core_views_default_views() {
+function checkdesk_core_feature_views_default_views() {
   $export = array();
 
   $view = new view;
