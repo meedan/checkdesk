@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `media_node_form`.
+ */
+function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
+  if (!empty($form['nid']['#value'])) {
+    // Hide desk reference if we're updating the report, not creating it.
+    $form['field_desk']['#access'] = false;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `post_node_form`.
+ */
+function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
+  // Are we showing the post form on the desk page?
+  if (($node = menu_get_object()) && $node->type == 'discussion') {
+    // Hard-code desk reference to current desk.
+    $form['field_desk'][LANGUAGE_NONE]['#default_value'] = $node->nid;
+    $form['field_desk']['#access'] = false;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `comment_node_discussion_form`.
+ */
+function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_state) {
+  // Hide comment attachment field on comment form.
+  $form['field_attachment']['#access'] = false;
+}
+
+/**
+ * API function to return report node title given its embedded media title.
+ */
+function checkdesk_core_oembed_title($node) {
+  $embed = oembedcore_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+  if ($embed && !empty($embed->title)) {
+    return $embed->title;    
+  }
+  return t('report-!user-!datetime', array('!user' => $node->name, '!datetime' => date('U', $node->created)));
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function checkdesk_core_node_insert($node) {
+  if (in_array($node->type, array('media', 'post'))) {
+    // Create new comment on linked desk and attach new node to this comment.
+    $nids = field_get_items('node', $node, 'field_desk', $node->language);
+    if (!empty($nids[0]['target_id'])) {
+      global $language;
+      global $user;
+      $comment = new StdClass;
+      $comment->nid = $nids[0]['target_id'];
+      $comment->pid = 0;
+      $comment->cid = 0;
+      $comment->uid = $user->uid;
+      $comment->mail = $user->mail;
+      $comment->status = COMMENT_PUBLISHED;
+      $comment->is_anonymous = 0;
+      $type = node_type_get_type($node);
+      $comment->subject = t('New !type added.', array('!type' => strtolower(t($type->name))));
+      $comment->language = LANGUAGE_NONE;
+      $comment->field_attachment[LANGUAGE_NONE][0]['target_id'] = $node->nid;
+      comment_save(comment_submit($comment));
+    }
+  }
+}
+

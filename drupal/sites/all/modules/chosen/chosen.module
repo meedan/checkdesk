@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * General functions and hook implementations.
+ *
+ * @see http://harvesthq.github.com/chosen/
+ */
+
+/**
+ * Implements hook_init().
+ */
+function chosen_init() {
+  if ($selectors = variable_get('chosen_jquery_selector', FALSE)) {
+    drupal_add_css(libraries_get_path('chosen') . '/chosen/chosen.css');
+    drupal_add_js(chosen_js_path());
+    drupal_add_js(array(
+      'chosen' => array(
+        'selector' => variable_get('chosen_jquery_selector', 'select'),
+        'minimum' => variable_get('chosen_minimum', 20),
+      ),
+    ), 'setting');
+    drupal_add_js(drupal_get_path('module', 'chosen') . '/chosen.js');
+  }
+}
+
+/**
+ * Implement hook_menu()
+ */
+function chosen_menu() {
+  $items = array();
+  
+  $items['admin/config/user-interface/chosen'] = array(
+    'title' => 'Chosen',
+    'description' => 'Configuration for Chosen plugin',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('chosen_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'chosen.admin.inc',
+  );
+  
+  return $items;
+}
+
+/**
+ * Returns the path to the Chosen JavaScript file.
+ *
+ * @return mixed
+ *   The path to the JavaScript file or FALSE if no file could be found.
+ */
+function chosen_js_path() {
+  $path = libraries_get_path('chosen');
+
+  // Use the minified file if it exists to preserve bandwidth.
+  if (file_exists($path . '/chosen/chosen.jquery.min.js')) {
+    return $path . '/chosen/chosen.jquery.min.js';
+  }
+  elseif (file_exists($path . '/chosen/chosen.jquery.js')) {
+    return $path . '/chosen/chosen.jquery.js';
+  }
+
+  return FALSE;
+}

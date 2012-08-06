@@ -67,19 +67,19 @@ function checkdesk_core_feature_field_default_fields() {
           'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => '1',
+        'weight' => '0',
       ),
     ),
   );
 
-  // Exported field: 'comment-comment_node_discussion-field_media'.
-  $fields['comment-comment_node_discussion-field_media'] = array(
+  // Exported field: 'comment-comment_node_discussion-field_attachment'.
+  $fields['comment-comment_node_discussion-field_attachment'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_media',
+      'field_name' => 'field_attachment',
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
@@ -111,6 +111,7 @@ function checkdesk_core_feature_field_default_fields() {
           ),
           'target_bundles' => array(
             'media' => 'media',
+            'post' => 'post',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -132,25 +133,22 @@ function checkdesk_core_feature_field_default_fields() {
             'view_mode' => 'full',
           ),
           'type' => 'entityreference_entity_view',
-          'weight' => '3',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'comment',
-      'field_name' => 'field_media',
-      'label' => 'Report',
-      'required' => FALSE,
+      'field_name' => 'field_attachment',
+      'label' => 'Attachment',
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'module' => 'entityreference',
-        'settings' => array(
-          'match_operator' => 'CONTAINS',
-          'path' => '',
-          'size' => 60,
-        ),
-        'type' => 'entityreference_autocomplete',
-        'weight' => '0',
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '1',
       ),
     ),
   );
@@ -278,7 +276,7 @@ function checkdesk_core_feature_field_default_fields() {
             'trim_length' => 600,
           ),
           'type' => 'text_summary_or_trimmed',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -345,11 +343,7 @@ function checkdesk_core_feature_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'media',
-      'default_value' => array(
-        0 => array(
-          'target_id' => '8',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -363,7 +357,7 @@ function checkdesk_core_feature_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'node',
@@ -375,13 +369,9 @@ function checkdesk_core_feature_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'entityreference',
-        'settings' => array(
-          'match_operator' => 'CONTAINS',
-          'path' => '',
-          'size' => '60',
-        ),
-        'type' => 'entityreference_autocomplete',
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
         'weight' => '2',
       ),
     ),
@@ -424,7 +414,7 @@ function checkdesk_core_feature_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'oembedfield',
           'settings' => array(
             'maxheight' => '',
@@ -434,10 +424,14 @@ function checkdesk_core_feature_field_default_fields() {
           'weight' => '1',
         ),
         'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'oembedfield',
+          'settings' => array(
+            'maxheight' => '',
+            'maxwidth' => '400',
+          ),
+          'type' => 'oembed_default',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'node',
@@ -528,7 +522,7 @@ function checkdesk_core_feature_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '3',
         ),
       ),
       'entity_type' => 'node',
@@ -603,16 +597,43 @@ function checkdesk_core_feature_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'body',
       'label' => 'Body',
-      'required' => FALSE,
+      'required' => 0,
       'settings' => array(
-        'display_summary' => TRUE,
-        'text_processing' => 1,
+        'better_formats' => array(
+          'allowed_formats' => array(
+            'filtered_html' => 'filtered_html',
+            'full_html' => 'full_html',
+            'liveblog' => 'liveblog',
+            'plain_text' => 'plain_text',
+          ),
+          'allowed_formats_toggle' => 0,
+          'default_order_toggle' => 1,
+          'default_order_wrapper' => array(
+            'formats' => array(
+              'filtered_html' => array(
+                'weight' => '-49',
+              ),
+              'full_html' => array(
+                'weight' => '-48',
+              ),
+              'liveblog' => array(
+                'weight' => '-50',
+              ),
+              'plain_text' => array(
+                'weight' => '-47',
+              ),
+            ),
+          ),
+        ),
+        'display_summary' => 1,
+        'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => 20,
+          'rows' => '20',
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
@@ -695,13 +716,13 @@ function checkdesk_core_feature_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'entityreference',
+        'module' => 'options',
         'settings' => array(
           'match_operator' => 'CONTAINS',
           'path' => '',
           'size' => '60',
         ),
-        'type' => 'entityreference_autocomplete',
+        'type' => 'options_select',
         'weight' => '2',
       ),
     ),
@@ -709,13 +730,13 @@ function checkdesk_core_feature_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Attachment');
   t('Body');
   t('Comment');
   t('Description');
   t('Desk');
   t('Media');
   t('Rating');
-  t('Report');
   t('Story');
 
   return $fields;

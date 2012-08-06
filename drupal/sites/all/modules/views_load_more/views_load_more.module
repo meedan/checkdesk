@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_load_more_views_api() {
+  return array('api' => '3.0-alpha1');
+}
+
+// We need to implement our own tpls for items being return via the load-more pager.
+
+/**
+ * Implementation of hook_theme().
+ */
+function views_load_more_theme() {
+  return array(
+    'views_load_more_pager' => array(
+      'variables' => array('tags' => array(), 'quantity' => 10, 'element' => 0, 'parameters' => array()),
+      'pattern' => 'views_load_more_pager__',
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_ajax_data_alter().
+ */
+function views_load_more_views_ajax_data_alter(&$commands, $view) {
+  if (is_a($view->query->pager, 'views_plugin_pager_load_more')) {
+    foreach ($commands as $key => $command) {
+      // the replace should the only one, but just incase, we'll make sure.
+      if ($command['command'] == 'insert' && $command['selector'] == '.view-dom-id-' . $view->dom_id) {
+        $commands[$key]['command'] = 'viewsLoadMoreAppend';
+        $commands[$key]['method'] = 'append';
+      }
+    }
+  }
+}
+
+function theme_views_load_more_pager($vars) {
+  global $pager_page_array, $pager_total;  
+
+  drupal_add_js(drupal_get_path('module', 'views_load_more').'/views_load_more.js');
+  
+  $tags = $vars['tags'];
+  $element = $vars['element'];
+  $parameters = $vars['parameters'];
+
+  $li_next = theme('pager_next',
+    array(
+      'text' => (isset($tags[3]) ? $tags[3] : t('Load More')),
+      'element' => $element,
+      'interval' => 1,
+      'parameters' => $parameters,
+    )
+  );
+  if (empty($li_next)) {
+    $li_next = "&nbsp;";
+  }
+
+  if ($pager_total[$element] > 1) {
+    $items[] = array(
+      'class' => array('pager-next'),
+      'data' => $li_next,
+    );
+    return theme('item_list',
+      array(
+        'items' => $items,
+        'title' => NULL,
+        'type' => 'ul',
+        'attributes' => array('class' => array('pager')),
+      )
+    );
+  }
+}

@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * Implements hook_form_alter().
+ */
+function formblock_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'node_type_form' && isset($form['#node_type']->type)) {
+    $form['formblock'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Form block'),
+      '#group' => 'additional_settings',
+      '#attributes' => array(
+        'class' => array('formblock-node-type-settings-form'),
+      ),
+      '#attached' => array(
+        'js' => array(drupal_get_path('module', 'formblock') . '/formblock.js'),
+      ),
+    );
+    $form['formblock']['formblock_expose'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable data entry from a block'),
+      '#default_value' => variable_get('formblock_expose_' . $form['#node_type']->type, 0),
+      '#description' => t('Enable this option to make the entry form for this content type available as a block.'),
+    );
+    $form['formblock']['formblock_show_help'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Show submission guidelines'),
+      '#default_value' => variable_get('formblock_show_help_' . $form['#node_type']->type, 0),
+      '#description' => t('Enable this option to show the submission guidelines in the block above the form.'),
+      '#states' => array(
+        'visible' => array(
+          ':input[name="formblock_expose"]' => array('checked' => TRUE),
+        ),
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function formblock_block_info() {
+  $blocks = array();
+
+  foreach (node_type_get_names() as $type => $name) {
+    if (variable_get('formblock_expose_' . $type, 0)) {
+      $blocks[$type] = array(
+        'info' => t('@name form block', array('@name' => $name)),
+        'cache' => DRUPAL_NO_CACHE,
+      );
+    }
+  }
+  $blocks['user_register'] = array(
+    'info' => t('User registration form'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  if (module_exists('contact')) {
+    $blocks['contact_site'] = array(
+      'info' => t('Site-wide contact form'),
+      'cache' => DRUPAL_NO_CACHE,
+    );
+  }
+  $blocks['user_password_request'] = array(
+    'info' => t('Request new password form'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function formblock_block_view($delta = '') {
+  switch ($delta) {
+    case 'user_register':
+      global $user;
+      // Don't display the form to logged in users or if registration is disabled
+      if (!$user->uid && variable_get('user_register', 1)) {
+        drupal_add_css(drupal_get_path('module', 'formblock') . '/formblock.css', 'module', 'all');
+        return array(
+          'subject' => t('Create new account'),
+          'content' => drupal_get_form('user_register_form')
+        );
+      }
+      break;
+    case 'user_password_request':
+      global $user;
+      // Don't display the form to logged in users
+      if (!$user->uid) {
+        drupal_add_css(drupal_get_path('module', 'formblock') . '/formblock.css', 'module', 'all');
+        module_load_include('inc', 'user', 'user.pages');
+        return array(
+          'subject' => t('Request new password'),
+          'content' => drupal_get_form('user_pass'),
+        );
+      }
+      break;
+    case 'contact_site':
+      if (user_access('access site-wide contact form') && module_exists('contact')) {
+        if (!flood_is_allowed('contact', variable_get('contact_hourly_threshold', 3))) {
+          $content = t("You cannot send more than %number messages per hour. Please try again later.", array('%number' => variable_get('contact_hourly_threshold', 3)));
+        }
+        else {
+          drupal_add_css(drupal_get_path('module', 'formblock') . '/formblock.css', 'module', 'all');
+          module_load_include('inc', 'contact', 'contact.pages');
+          $content = drupal_get_form('contact_site_form');
+        }
+        return array(
+          'subject' => t('Contact'),
+          'content' => $content,
+        );
+      }
+      break;
+    default:
+      return formblock_get_block($delta);
+  }
+}
+
+/**
+ * Generate a block containing a node entry form.
+ */
+function formblock_get_block($type) {
+  if (node_access('create', $type) && variable_get('formblock_expose_' . $type, 0)) {
+    $block = array();
+    // Include page handler for node_add()
+    module_load_include('inc', 'node', 'node.pages');
+    // Note title before rendering of form.
+    $title = drupal_get_title();
+    $form = node_add($type);
+    // Restore title, which will have been overridden.
+    drupal_set_title($title);
+    $node_type = node_type_load($type);
+    if (variable_get('formblock_show_help_' . $type, 0)) {
+      $block['content']['help'] = array('#markup' => !empty($node_type->help) ? '<p>' . filter_xss_admin($node_type->help) . '</p>' : '');
+    }
+    $block['subject'] = t('@type form', array('@type' => $node_type->name));
+    $block['content']['form'] = $form;
+    return $block;
+  }
+}

@@ -70,11 +70,26 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
+  // Exported menu link: main-menu:unclassified-reports
+  $menu_links['main-menu:unclassified-reports'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'unclassified-reports',
+    'router_path' => 'unclassified-reports',
+    'link_title' => 'Reports',
+    'options' => array(),
+    'module' => 'system',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '50',
+  );
   // Translatables
   // Included for use with string extractors like potx.
   t('Add report');
   t('Desks');
   t('Home');
+  t('Reports');
   t('TODO');
 
 

@@ -9,6 +9,10 @@
  */
 function checkdesk_core_feature_ctools_plugin_api() {
   list($module, $api) = func_get_args();
+  if ($module == "context" && $api == "context") {
+    return array("version" => "3");
+  }
+  list($module, $api) = func_get_args();
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -43,7 +47,7 @@ function checkdesk_core_feature_node_info() {
       'help' => '',
     ),
     'post' => array(
-      'name' => t('Post'),
+      'name' => t('Liveblog Post'),
       'base' => 'node_content',
       'description' => t('A liveblog post.'),
       'has_title' => '1',
