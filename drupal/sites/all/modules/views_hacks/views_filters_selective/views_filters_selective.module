@@ -1,0 +1,156 @@
+﻿<?php
+
+/**
+ * Implements hook_views_api().
+ */
+function views_filters_selective_views_api() {
+  return array(
+    'api' => 3.0,
+  );
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function views_filters_selective_views_query_alter(&$view, &$query) {
+  if (!empty($view->selective_oids)) {
+    // If selective view, add the base_field explicitly.
+    $query->add_field($view->base_table, $view->base_field);
+  }
+}
+
+/**
+ * Implements hook_views_filters_selective_handler().
+ *
+ * This hook allows filters of different types to be restricted.
+ * @return 
+ *   A keyed array of supported filters:
+ *   'filter_class' => 'filter_handler'
+ * 
+ * Handler signature:
+ * @param $filter
+ *    The filter handler being limited
+ * @param $oids
+ *    The base ids of the result set
+ * @return
+ *    An array of acceptable values for the filter
+ */
+function views_filters_selective_views_filters_selective_handler() {
+  return array(
+    'views_handler_filter' => 'views_filters_selective_handler_filter',
+    'views_handler_filter_term_node_tid_depth' => 'views_filters_selective_handler_filter_term_node_tid_depth',
+  );
+}
+
+/**
+ * Callback implementation for generic filter.
+ */
+function views_filters_selective_handler_filter($filter, $oids) {
+  return _views_filter_selective_query($filter, $filter->real_field, $filter->table, $oids);
+}
+
+/**
+ * Callback implementation for term_node_tid_depth filter.
+ */
+function views_filters_selective_handler_filter_term_node_tid_depth($filter, $oids) {
+  return _views_filter_selective_query($filter, 'tid', 'term_node', $oids);
+}
+
+/**
+ * Helper function to create selective query.
+ */
+function _views_filter_selective_query($filter, $field_name, $table_name, $oids) {
+  // Create new Views query object to make the SQL statement for us.
+  $views_data = views_fetch_data($filter->view->base_table);
+  $query_options = $filter->view->display_handler->get_option('query');
+  $plugin = !empty($views_data['table']['base']['query class']) ? $views_data['table']['base']['query class'] : 'views_query';
+  $query = views_get_plugin('query', $plugin);
+  $query->init($filter->view->base_table, $filter->view->base_field, $query_options['options']);
+
+  if (!empty($filter->options['relationship']) && $filter->options['relationship'] != 'none') {
+    $table_name = _views_filter_selective_query_relationship($filter->view->relationship[$filter->options['relationship']], $query);
+  }
+
+  $field_alias = $query->add_field($table_name, $field_name);
+  $query->add_where_expression(0, "{$filter->view->base_table}.{$filter->view->base_field} IN (:oids)", array(':oids' => $oids));
+  $query->set_distinct(TRUE, TRUE);
+  $query->view = (object)array('name' => 'dummy'); // needed to avoid PHP notice
+
+  // Return the results.
+  $options = array();
+  $result = $query->query()->execute();
+  foreach ($result as $id) {
+    $options[] = $id->{$field_alias};
+  }
+  return $options;
+}
+
+/**
+ * Helper function to add a relationship to the query.
+ */
+function _views_filter_selective_query_relationship($relationship, $query) {
+  $relationship_table = $relationship->table;
+
+  // Handle additional relationships recursively.
+  $link = NULL;
+  if (!empty($relationship->options['relationship']) && $relationship->options['relationship'] != 'none') {
+    $relationship_table = $link = _views_filter_selective_query_relationship($relationship->view->relationship[$relationship->options['relationship']], $query);
+  }
+
+  // Add this relationship to the query.
+  $table_data = views_fetch_data($relationship->definition['base']);
+  $base_field = empty($relationship->definition['base field']) ? $table_data['table']['base']['field'] : $relationship->definition['base field'];
+
+  $def = $relationship->definition;
+  $def['table'] = $relationship->definition['base'];
+  $def['field'] = $base_field;
+  $def['left_table'] = $relationship_table;
+  $def['left_field'] = $relationship->real_field;
+  if (!empty($relationship->options['required'])) {
+    $def['type'] = 'INNER';
+  }
+  if (!empty($relationship->definition['extra'])) {
+    $def['extra'] = $relationship->definition['extra'];
+  }
+  if (!empty($def['join_handler']) && class_exists($def['join_handler'])) {
+    $join = new $def['join_handler'];
+  }
+  else {
+    $join = new views_join();
+  }
+  $join->definition = $def;
+  $join->options = $relationship->options;
+  $join->construct();
+  $join->adjusted = TRUE;
+
+  $alias = $def['table'] . '_' . $relationship->table;
+
+  return $query->add_relationship($alias, $join, $def['base'], $link);
+}
+
+/**
+ * Helper function to find handler for given filter class.
+ */
+function _views_filters_selective_get_handler($filter_class) {
+  static $handlers = NULL;
+  if (empty($handlers)) {
+    $handlers = module_invoke_all('views_filters_selective_handler');
+  }
+  foreach (_views_filters_selective_get_ancestors($filter_class) as $class) {
+    if (isset($handlers[$class])) {
+      return $handlers[$class];
+    }
+  }
+}
+
+/**
+ * Helper function to find ancestors of given class.
+ */
+function _views_filters_selective_get_ancestors($class) {
+  $classes = array($class);
+  while ($class = get_parent_class($class)) {
+    $classes[] = $class;
+  }
+  return $classes;
+}
+

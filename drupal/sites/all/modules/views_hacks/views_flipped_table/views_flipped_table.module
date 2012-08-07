@@ -1,0 +1,44 @@
+<?php
+/**
+ * @file views_flipped_table.module
+ * Flipped table style plugin, flipping rows and columns.
+ */
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_flipped_table_views_api() {
+  return array(
+    'api' => 3.0,
+  );
+}
+
+/**
+ * Make sure the $header variable is passed to the theme file.
+ */
+function template_preprocess_views_flipped_table(&$vars) {
+  // Let the base table preprocessor act first.
+  template_preprocess_views_view_table($vars);
+
+  // Flip the table.
+  $vars['rows_flipped'] = array();
+  foreach ($vars['rows'] as $col) {
+    foreach ($col as $ltr => $value) {
+      $vars['rows_flipped'][$ltr][] = $value;
+    }
+  }
+
+  // Determine if the first row is to be shown as a table header.
+  $first_field_header = $vars['view']->style_plugin->options['flipped_table_header_first_field'];
+  if ($first_field_header) {
+    // Remove the first row to make the header.
+    $vars['header_row'] = array_shift($vars['rows_flipped']);
+  }
+
+  // Set up classes for odd and even rows.
+  $count = 0;
+  foreach ($vars['rows_flipped'] as $field_name => $row) {
+    $vars['row_classes_flipped'][$field_name] = ($count++ % 2 == 0) ? 'odd' : 'even';
+  }
+
+}

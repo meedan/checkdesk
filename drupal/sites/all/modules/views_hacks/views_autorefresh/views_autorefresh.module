@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Implementation of hook_theme().
+ */
+function views_autorefresh_theme() {
+  return array(
+    'views_autorefresh' => array(
+      'arguments' => array('interval' => array('default' => NULL)),
+    ),
+  );
+}
+
+/**
+ * Theme function for 'views_autorefresh'.
+ */
+function theme_views_autorefresh($interval) {
+  drupal_add_js(drupal_get_path('module', 'views_autorefresh') . '/views_autorefresh.js');
+  drupal_add_js(array('views_autorefresh' => array('interval' => $interval)), 'setting');
+  $query_string = drupal_http_build_query(drupal_get_query_parameters($_REQUEST, array_merge(array('q', 'pass'), array_keys($_COOKIE))));
+  $query[] = $query_string;
+  $link = l('', $_GET['q'], array('query' => count($query) ? $query : NULL));
+  return '<div class="auto-refresh">' . $link . '</div>';
+}
+

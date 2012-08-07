@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_block_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+/**
+ * Implementation of hook_views_bulk_operations_object_info().
+ */
+function views_block_views_bulk_operations_object_info() {
+  return array(
+    'block' => array(
+      'type' => 'block',
+      'base_table' => 'blocks',
+      'load' => 'views_block_load',
+      'title' => 'info',
+    ),
+  );
+}
+
+function views_block_load($bid) {
+  $block = db_fetch_object(db_query("SELECT * FROM {blocks} b LEFT JOIN {boxes} box ON b.bid = box.bid WHERE b.bid=%d", $bid));
+  if ($block) {
+    if ($block->module != 'block') {
+      $blocks = module_invoke($block->module, 'block', 'list');
+      $block->info = $blocks[$block->delta]['info'];
+    }
+    if (empty($block->info)) {
+      $block->info = '('. t('none') .')';
+    }
+    return $block;
+  }
+  return NULL;
+}
+
