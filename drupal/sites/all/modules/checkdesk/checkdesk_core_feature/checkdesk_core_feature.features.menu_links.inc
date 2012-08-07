@@ -75,7 +75,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'main-menu',
     'link_path' => 'unclassified-reports',
     'router_path' => 'unclassified-reports',
-    'link_title' => 'Reports',
+    'link_title' => 'Unclassified Reports',
     'options' => array(),
     'module' => 'system',
     'hidden' => '0',
@@ -89,8 +89,8 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Add report');
   t('Desks');
   t('Home');
-  t('Reports');
   t('TODO');
+  t('Unclassified Reports');
 
 
   return $menu_links;

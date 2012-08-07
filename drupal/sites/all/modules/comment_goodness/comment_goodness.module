@@ -1,0 +1,406 @@
+<?php
+
+/**
+ * @file
+ *
+ * Comment goodness provides newest to oldest comment sorting
+ *
+ * This module extends the sort_comments module by blackice78
+ * @see http://drupal.org/project/sort_comments
+ */
+
+/**
+ *  Constants
+ */
+define('comment_goodness_OLDER_FIRST', 1); // default
+define('comment_goodness_NEWER_FIRST', 2);
+define('comment_goodness_COMMENT_SECTION_LABEL', t('Comments'));
+define('comment_goodness_COMMENT_FORM_LABEL', t('Post new comment'));
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Provide additional comment configurations on the content type edit form.
+ */
+function comment_goodness_form_node_type_form_alter(&$form, $form_state) {
+  $form['comment']['comment_default_sorting'] = array(
+    '#title' => t('Sort order'),
+    '#type' => 'select',
+    '#options' => array(1 => t('Older first'),
+                       2 => t('Newer first')),
+    '#default_value' => variable_get('comment_default_sorting_' . $form['#node_type']->type, comment_goodness_OLDER_FIRST),
+  );
+  $form['comment']['comment_section_label'] = array(
+    '#title' => t('Comment section label'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('comment_section_label_' . $form['#node_type']->type, comment_goodness_COMMENT_SECTION_LABEL),
+  );
+  $form['comment']['comment_form_label'] = array(
+    '#title' => t('New comment form label'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('comment_form_label_' . $form['#node_type']->type, comment_goodness_COMMENT_FORM_LABEL),
+  );
+}
+/**
+ * Implements hook_query_TAG_alter().
+ *
+ * Alter comments query to order by DESC as well as the default ASC.
+ *
+ * The default ASC ordering of threaded comments looks like this
+ * where 1 is older than 2.
+ *
+ * 1
+ * 1.1
+ * 1.1.1
+ * 1.2
+ * 2
+ * 2.1
+ * 2.1.1
+ * 2.1.2
+ * 2.2
+ *
+ * DESC ordering of threaded comments (newest to oldest) should look like this.
+ *
+ * 2
+ * 2.2
+ * 2.1
+ * 2.1.2
+ * 2.1.1
+ * 1
+ * 1.2
+ * 1.1
+ * 1.1.1
+ *
+ */
+function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $query){
+  if (($node = $query->getMetaData('node')) && (get_class($query) == 'PagerDefault')) {
+    // Get the configured default sort ordering for this node type.
+    $sort = variable_get('comment_default_sorting_' . $node->type, comment_goodness_OLDER_FIRST);
+    // The default ordering is ASC (older on top). If the configured sorting is
+    // newer on top, change the ordering to DESC.
+    if ($sort == comment_goodness_NEWER_FIRST) {
+      $orderby = &$query->getOrderBy();
+      $expressions = &$query->getExpressions();
+      // Sorting for threaded comments.
+      if (isset($orderby['torder'])) {
+        // Get rid of the expressions that prepare the threads for ASC ordering.
+        unset($expressions['torder']);
+        unset($orderby['torder']);
+        // Simply order by the thread field.
+        $orderby['c.thread'] = 'DESC';
+      }
+      // Sorting for flat comments.
+      else {
+        $direction = 'DESC';
+        if (isset($orderby['c.cid'])) {
+          unset($orderby['c.cid']);
+        }
+        $orderby['c.created'] = $direction;
+        $orderby['c.cid'] = $direction;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function comment_goodness_menu() {
+  $items = array();
+  $items['comment/%comment/delete-own'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('comment_goodness_confirm_delete', 1),
+    'access callback' => 'comment_goodness_delete_comment_access',
+    'access arguments' => array(1),
+    'type' => MENU_CALLBACK,
+    'weight' => 2,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * Override the comment_permalink function. The comment module assumes ASC order
+ * and because of this, permalinks do not work with DESC sorted comments.
+ */
+function comment_goodness_menu_alter(&$items) {
+  if (isset($items['comment/%'])) {
+    $items['comment/%']['page callback'] = 'comment_goodness_permalink';
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * Override the core comment-wrapper template with the template in this module.
+ */
+function comment_goodness_theme_registry_alter(&$theme_registry) {
+  if(isset($theme_registry['comment_wrapper'])) {
+    $comment_wrapper = $theme_registry['comment_wrapper'];
+    // If the current template belongs to the core comment module, replace it.
+    if (isset($comment_wrapper['template']) && $comment_wrapper['template'] === 'modules/comment/comment-wrapper') {
+      $path = drupal_get_path('module', 'comment_goodness');
+      $theme_registry['comment_wrapper']['template'] = $path . '/templates/comment-wrapper';
+    }
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function comment_goodness_permission() {
+  return array(
+    'delete own comments' => array(
+      'title' => t('Delete own comments'),
+      'description' => t('Allows a user to delete own comments that have no replies (e.g. all if in flat mode).'),
+    ),
+  );
+}
+
+/**
+ * Access callback for deleting own comment.
+ */
+function comment_goodness_delete_comment_access($comment) {
+  global $user;
+
+  $access = ($user->uid && $user->uid == $comment->uid && $comment->status == COMMENT_PUBLISHED && (user_access('delete own comments') || user_access('administer comments')));
+  // Deletion is not allowed if any comment has this comment as a parent.
+  return $access && (0 == db_query("SELECT COUNT(cid) FROM {comment} WHERE pid = :cid", array(':cid' => $comment->cid))->fetchField());
+}
+
+/**
+ * Implements hook_comment_view().
+ */
+function comment_goodness_comment_view($comment, $view_mode, $langcode) {
+  // We only need to add the delete link if it's not there.
+  if (!isset($comment->content['links']['comment']['#links']['comment-delete']) && comment_goodness_delete_comment_access($comment)) {
+    $comment->content['links']['comment']['#links']['comment-delete'] = array(
+      'title' => t('delete'),
+      'href' => "comment/$comment->cid/delete-own",
+      'html' => TRUE,
+    );
+  }
+}
+
+/**
+ * Confirm form for deleting own comment.
+ *
+ * We can't use the core comment_confirm_delete() because it talks about
+ * deleting replies, and also mollom hooks into that form which is not
+ * appropriate for end-users.
+ */
+function comment_goodness_confirm_delete($form, &$form_state, $comment) {
+  $form['#comment'] = $comment;
+  // Always provide entity id in the same form key as in the entity edit form.
+  $form['cid'] = array(
+    '#type' => 'value',
+    '#value' => $comment->cid,
+  );
+  return confirm_form(
+    $form,
+    t('Are you sure you want to delete the comment %title?', array('%title' => $comment->subject)),
+    'node/' . $comment->nid,
+    t('This action cannot be undone.'),
+    t('Delete'),
+    t('Cancel'),
+    'comment_goodness_confirm_delete');
+}
+
+/**
+ * Form submit function copied from comment_confirm_delete_submit().
+ *
+ * The user-visible and watchdog messages are different from core.
+ */
+function comment_goodness_confirm_delete_submit($form, &$form_state) {
+  global $user;
+
+  $comment = $form['#comment'];
+  // Delete the comment and its replies.
+  comment_delete($comment->cid);
+  drupal_set_message(t('The comment has been deleted.'));
+  watchdog('content', 'User %name (@uid) deleted own comment @cid.', array('%name' => $user->name, '@uid' => $user->uid, '@cid' => $comment->cid));
+  // Clear the cache so an anonymous user sees that his comment was deleted.
+  cache_clear_all();
+
+  $form_state['redirect'] = "node/$comment->nid";
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * When a new comment is submitted, the core comment module calculates that new
+ * comment's position in the list of comments and then provides a redirect URL
+ * to the new comment on the subsequent page load. Because the comment module
+ * assumes ASC sort ordering, the redirect URL for paged comments is incorrect
+ * when the comments are DESC sort ordered. So this module overrides much of the
+ * core comment module code for calculating the position of a new comment in the
+ * paged list of DESC sorted comments.
+ *
+ * The overriding starts with adding an additional new comment form submit
+ * handler.
+ */
+function comment_goodness_form_comment_form_alter(&$form, &$form_state, $form_id) {
+  $form['#submit'][] = 'comment_goodness_form_submit';
+}
+
+/**
+ * Form submit handler.
+ *
+ * @see comment_goodness_form_comment_form_alter().
+ */
+function comment_goodness_form_submit($form, &$form_state) {
+  $node = $form['#node'];
+  $comment = $form_state['comment'];
+  if (user_access('post comments') && (user_access('administer comments') || $node->comment == COMMENT_NODE_OPEN)) {
+    // Find the current display page for this comment.
+    $query = array();
+    $page = comment_goodness_get_display_page($comment->cid, $node->type);
+    if ($page > 0) {
+      $query['page'] = $page;
+    }
+    // Redirect to the newly posted comment.
+    $form_state['redirect'] = array('node/' . $node->nid, array('query' => $query, 'fragment' => 'comment-' . $comment->cid));
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Provide a template variable to vary the placement of the comment form; either
+ * above or below the comments dependent on the sort order. For ASC sorted
+ * comments, the comment form is placed at the bottom of the list, near the
+ * newest comment. For DESC sorted comments, the comment form is placed above
+ * the comments, again, near the newest comment.
+ */
+function comment_goodness_preprocess_comment_wrapper(&$variables) {
+  // Bottom placement of the comment form is the Drupal default.
+  $variables['comment_form_placement'] = 'bottom';
+  // Get the configured default sort ordering for this node type.
+  $sort = variable_get('comment_default_sorting_' . $variables['node']->type, comment_goodness_OLDER_FIRST);
+  // Indicate that the comment form should be rendered above the comments
+  // if the sort order is newest to oldest (ASC).
+  if ($sort == comment_goodness_NEWER_FIRST) {
+    $variables['comment_form_placement'] = 'top';
+  }
+  // Get the section labels
+  $comment_section_label = variable_get('comment_section_label_' . $variables['node']->type, comment_goodness_COMMENT_SECTION_LABEL);
+  $comment_form_label = variable_get('comment_form_label_' . $variables['node']->type, comment_goodness_COMMENT_FORM_LABEL);
+  // Add the labels to the page variables
+  $variables['labels'] = array(
+    'section_label' => check_plain($comment_section_label),
+    'form_label' => check_plain($comment_form_label),
+  );
+}
+
+/**
+ * Return the page number for a comment.
+ *
+ * Finds the correct page number for a comment taking into account display,
+ * paging settings and sort order.
+ *
+ * @param $cid
+ *   The comment ID.
+ * @param $node_type
+ *   The node type the comment is attached to.
+ * @return
+ *   The page number.
+ * @see comment_get_display_page
+ */
+function comment_goodness_get_display_page($cid, $node_type) {
+  $ordinal = comment_goodness_get_display_ordinal($cid, $node_type);
+  $comments_per_page = variable_get('comment_default_per_page_' . $node_type, 50);
+  return floor($ordinal / $comments_per_page);
+}
+
+/**
+ * Redirects comment links to the correct page depending on comment settings.
+ *
+ * Since comments are paged there is no way to guarantee which page a comment
+ * appears on. Comment paging and threading settings may be changed at any time.
+ * With threaded comments, an individual comment may move between pages as
+ * comments can be added either before or after it in the overall discussion.
+ * Therefore we use a central routing function for comment links, which
+ * calculates the page number based on current comment settings and returns
+ * the full comment view with the pager set dynamically.
+ *
+ * @param $cid
+ *   A comment identifier.
+ * @return
+ *   The comment listing set to the page on which the comment appears.
+ *
+ * @see comment_permalink()
+ */
+function comment_goodness_permalink($cid) {
+  if (($comment = comment_load($cid)) && ($node = node_load($comment->nid))) {
+
+    // Find the current display page for this comment.
+    $page = comment_goodness_get_display_page($comment->cid, $node->type);
+
+    // Set $_GET['q'] and $_GET['page'] ourselves so that the node callback
+    // behaves as it would when visiting the page directly.
+    $_GET['q'] = 'node/' . $node->nid;
+    $_GET['page'] = $page;
+
+    // Return the node view, this will show the correct comment in context.
+    return menu_execute_active_handler('node/' . $node->nid, FALSE);
+  }
+  drupal_not_found();
+}
+
+/**
+ * Get the display ordinal for a comment, starting from 0.
+ *
+ * Count the number of comments which appear before the comment we want to
+ * display, taking into account display settings, threading and sort order.
+ *
+ * @param $cid
+ *   The comment ID.
+ * @param $node_type
+ *   The node type of the comment's parent.
+ * @return
+ *   The display ordinal for the comment.
+ *
+ * @see comment_get_display_ordinal()
+ */
+function comment_goodness_get_display_ordinal($cid, $node_type) {
+  // Count how many comments (c1) are before $cid (c2) in display order. This is
+  // the 0-based display ordinal.
+  $query = db_select('comment', 'c1');
+  $query->innerJoin('comment', 'c2', 'c2.nid = c1.nid');
+  $query->addExpression('COUNT(*)', 'count');
+  $query->condition('c2.cid', $cid);
+  if (!user_access('administer comments')) {
+    $query->condition('c1.status', COMMENT_PUBLISHED);
+  }
+
+  // Get the configured default sort ordering for this node type.
+  $sort = variable_get('comment_default_sorting_' . $node_type, comment_goodness_OLDER_FIRST);
+  $operation = ($sort == comment_goodness_NEWER_FIRST) ? '>' : '<';
+  $mode = variable_get('comment_default_mode_' . $node_type, COMMENT_MODE_THREADED);
+
+  if ($mode == COMMENT_MODE_FLAT) {
+    // For flat comments, cid is used for ordering comments due to
+    // unpredicatable behavior with timestamp, so we make the same assumption
+    // here.
+    $query->condition('c1.cid', $cid, $operation);
+  }
+  else {
+    // For threaded comments, the c.thread column is used for ordering.
+    if ($sort == comment_goodness_NEWER_FIRST) {
+      // For newer to older sorted comments, we look for how many comments have
+      // a higher thread value than the current comment.
+      $query->where('c1.thread ' . $operation . ' c2.thread');
+    }
+    else {
+      // We can use the vancode for comparison, but must remove the
+      // trailing slash.
+      // See comment_view_multiple().
+      $query->where('SUBSTRING(c1.thread, 1, (LENGTH(c1.thread) -1)) ' . $operation . ' SUBSTRING(c2.thread, 1, (LENGTH(c2.thread) -1))');
+    }
+  }
+
+  return $query->execute()->fetchField();
+}
+

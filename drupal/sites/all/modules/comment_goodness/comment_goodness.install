@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Provide configurations for the standard Drupal comment display and creation
+ * forms.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function comment_goodness_uninstall(){
+  db_delete('variable')->condition('name', 'comment_goodness_%', 'like')->execute();
+}

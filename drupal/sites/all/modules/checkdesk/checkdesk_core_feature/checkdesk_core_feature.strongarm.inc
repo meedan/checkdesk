@@ -303,6 +303,48 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'formblock_expose_discussion';
+  $strongarm->value = 0;
+  $export['formblock_expose_discussion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'formblock_expose_media';
+  $strongarm->value = 0;
+  $export['formblock_expose_media'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'formblock_expose_post';
+  $strongarm->value = 1;
+  $export['formblock_expose_post'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'formblock_show_help_discussion';
+  $strongarm->value = 0;
+  $export['formblock_show_help_discussion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'formblock_show_help_media';
+  $strongarm->value = 0;
+  $export['formblock_show_help_media'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'formblock_show_help_post';
+  $strongarm->value = 0;
+  $export['formblock_show_help_post'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_discussion';
   $strongarm->value = array(
     0 => 'main-menu',
@@ -451,6 +493,20 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'node_submitted_report';
   $strongarm->value = 1;
   $export['node_submitted_report'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'oembedembedly_api_key';
+  $strongarm->value = 'c5a85c42019611e190444040d3dc5c07';
+  $export['oembedembedly_api_key'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'oembedembedly_default';
+  $strongarm->value = '1';
+  $export['oembedembedly_default'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
