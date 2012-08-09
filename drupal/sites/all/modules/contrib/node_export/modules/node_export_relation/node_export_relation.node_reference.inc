@@ -43,11 +43,12 @@ function node_export_relation_node_reference_update($nodes) {
     if (!empty($node_reference_fields)) {
       foreach ($node_reference_fields as $node_reference_field) {
         $items = field_get_items('node', $node, $node_reference_field);
+        $langcode = field_language('node', $node, $node_reference_field);
         if (!empty($items)) {
           foreach ($items as $key => &$node_reference) {
             if (!empty($node_reference['nid'])) {
               $node_uuid = node_export_relation_node_reference_map($node_reference['nid']);
-              $node->{$node_reference_field}[$key] = array('nid' => $uuid[$node_uuid]);
+              $node->{$node_reference_field}[$langcode][$key] = array('nid' => $uuid[$node_uuid]);
             }
           }
         }

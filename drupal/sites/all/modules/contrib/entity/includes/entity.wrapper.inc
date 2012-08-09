@@ -788,7 +788,7 @@ class EntityDrupalWrapper extends EntityStructureWrapper {
       try {
         $this->value(array('identifier' => TRUE));
       }
-      catch (EntityMetadataWrapper $e) {
+      catch (EntityMetadataWrapperException $e) {
         // If loading data fails, we cannot determine the concrete entity type.
       }
     }
@@ -1131,11 +1131,11 @@ class EntityMetadataWrapperIterator implements RecursiveIterator {
     return isset($this->keys[$this->position]);
   }
 
-  public function hasChildren () {
+  public function hasChildren() {
     return $this->current() instanceof IteratorAggregate;
   }
 
-  public function getChildren () {
+  public function getChildren() {
     return $this->current()->getIterator();
   }
 }

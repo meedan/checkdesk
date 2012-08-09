@@ -688,10 +688,11 @@ function devel_node_access_block_view($delta) {
                   }
                   else {
                     // at least one module acknowledged the record, attribute it to the first one
+                    $acknowledged_keys = array_keys($acknowledged);
                     $fixed_grant += array(
                       'priority' => '&ndash;',
                       'state'    => 'static',
-                      '#module'  => reset(array_keys($acknowledged)),
+                      '#module'  => reset($acknowledged_keys),
                     );
                   }
                 }
@@ -984,7 +985,7 @@ function devel_node_access_block_view($delta) {
         // anyone is up for that please submit a patch.
         $query = db_select('users', 'u')
           ->fields('u', array('uid'))
-          ->orderBy('access', 'DESC')
+          ->orderBy('u.access', 'DESC')
           ->range(0, 9);
         $uids = $query->execute()->fetchCol();
         array_unshift($uids, 0);

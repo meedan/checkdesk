@@ -210,7 +210,7 @@ function entity_metadata_system_get_properties($data = FALSE, array $options, $n
       return $GLOBALS['user']->uid ? $GLOBALS['user']->uid : drupal_anonymous_user();
 
     case 'current_date':
-      return time();
+      return REQUEST_TIME;
 
     case 'current_page':
       // Subsequent getters of the struct retrieve the actual values.
@@ -341,6 +341,9 @@ function entity_metadata_user_get_properties($account, array $options, $name, $e
 
     case 'roles':
       return isset($account->roles) ? array_keys($account->roles) : array();
+
+    case 'theme':
+      return empty($account->theme) ? variable_get('theme_default', 'bartik') : $account->theme;
   }
 }
 
@@ -436,13 +439,24 @@ function entity_metadata_field_property_set($entity, $name, $value, $langcode, $
  * Callback returning the options list of a field.
  */
 function entity_metadata_field_options_list($name, $info) {
+  $field_property_info = $info;
   if (is_numeric($name) && isset($info['parent'])) {
     // The options list is to be returned for a single item of a multiple field.
     $field_property_info = $info['parent']->info();
     $name = $field_property_info['name'];
   }
-  if ($field = field_info_field($name)) {
-    return (array) module_invoke($field['module'], 'options_list', $field);
+  if (($field = field_info_field($name)) && isset($field_property_info['parent'])) {
+    // Retrieve the wrapped entity holding the field.
+    $wrapper = $field_property_info['parent'];
+    try {
+      $entity = $wrapper->value();
+    }
+    catch (EntityMetadataWrapperException $e) {
+      // No data available.
+      $entity = NULL;
+    }
+    $instance = $wrapper->getBundle() ? field_info_instance($wrapper->type(), $name, $wrapper->getBundle()) : NULL;
+    return (array) module_invoke($field['module'], 'options_list', $field, $instance, $wrapper->type(), $entity);
   }
 }
 

@@ -176,7 +176,7 @@ function devel_generate_content_form() {
   );
   $form['title_length'] = array(
     '#type' => 'textfield',
-    '#title' => t('Max word length of titles'),
+    '#title' => t('Maximum number of words in titles'),
     '#default_value' => 4,
     '#size' => 10,
   );
@@ -258,7 +258,7 @@ function devel_generate_term_form() {
   );
   $form['title_length'] = array(
     '#type' => 'textfield',
-    '#title' => t('Max word length of term names'),
+    '#title' => t('Maximum number of characters in term names'),
     '#default_value' => 12,
     '#size' => 10,
   );
@@ -286,7 +286,7 @@ function devel_generate_vocab_form() {
   );
   $form['title_length'] = array(
     '#type' => 'textfield',
-    '#title' => t('Max word length of vocabulary names'),
+    '#title' => t('Maximum number of characters in vocabulary names'),
     '#default_value' => 12,
     '#size' => 10,
   );
@@ -406,7 +406,7 @@ function devel_generate_menu_form() {
   );
   $form['title_length'] = array(
     '#type' => 'textfield',
-    '#title' => t('Max word length of menu and menu link names'),
+    '#title' => t('Maximum number of characters in menu and menu link names'),
     '#default_value' => 12,
     '#size' => 10,
     '#required' => TRUE,

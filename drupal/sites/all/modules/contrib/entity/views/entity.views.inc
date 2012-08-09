@@ -309,10 +309,19 @@ function _entity_views_field_identifier($field, array $table) {
  * Implements hook_views_plugins().
  */
 function entity_views_plugins() {
-  foreach (views_fetch_data() as $table => $data) {
-    if (!empty($data['table']['entity type']) && !empty($data['table']['base'])) {
-      $base_tables[] = $table;
+  // Have views cache the table list for us so it gets
+  // cleared at the appropriate times.
+  $data = views_cache_get('entity_base_tables', TRUE);
+  if (!empty($data->data)) {
+    $base_tables = $data->data;
+  }
+  else {
+    foreach (views_fetch_data() as $table => $data) {
+      if (!empty($data['table']['entity type']) && !empty($data['table']['base'])) {
+        $base_tables[] = $table;
+      }
     }
+    views_cache_set('entity_base_tables', $base_tables, TRUE);
   }
   if (!empty($base_tables)) {
     return array(
@@ -365,9 +374,11 @@ class EntityDefaultViewsController {
       $data[$table]['table']['group']  = drupal_ucfirst($this->info['label']);
       $data[$table]['table']['entity type'] = $this->type;
 
+      // If the plural label isn't available, use the regular label.
+      $label = isset($this->info['plural label']) ? $this->info['plural label'] : $this->info['label'];
       $data[$table]['table']['base'] = array(
         'field' => $this->info['entity keys']['id'],
-        'title' => drupal_ucfirst($this->info['label']),
+        'title' => drupal_ucfirst($label),
         'help' => isset($this->info['description']) ? $this->info['description'] : '',
       );
       $data[$table]['table']['entity type'] = $this->type;

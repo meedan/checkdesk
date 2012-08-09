@@ -1197,8 +1197,8 @@ class EntityMetadataIntegrationTestCase extends EntityWebTestCase {
    */
   function testUserProperties() {
     $account = $this->drupalCreateUser();
-    $account->login = time();
-    $account->access = time();
+    $account->login = REQUEST_TIME;
+    $account->access = REQUEST_TIME;
     $wrapper = entity_metadata_wrapper('user', $account);
     foreach ($wrapper as $key => $value) {
       $this->assertValue($wrapper, $key);
@@ -1495,7 +1495,7 @@ class EntityMetadataIntegrationTestCase extends EntityWebTestCase {
       case 'duration':
         return 1;
       case 'date':
-        return time();
+        return REQUEST_TIME;
       case 'boolean':
         return TRUE;
       case 'token':

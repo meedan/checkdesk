@@ -307,6 +307,20 @@ function entity_import($entity_type, $export) {
 }
 
 /**
+ * Checks whether an entity type is fieldable.
+ *
+ * @param $entity_type
+ *   The type of the entity.
+ *
+ * @return
+ *   TRUE if the entity type is fieldable, FALSE otherwise.
+ */
+function entity_type_is_fieldable($entity_type) {
+  $info = entity_get_info($entity_type);
+  return !empty($info['fieldable']);
+}
+
+/**
  * Builds a structured array representing the entity's content.
  *
  * The content built for the entity will vary depending on the $view_mode
@@ -538,7 +552,7 @@ function entity_var_export($var, $prefix = '') {
       $output .= ')';
     }
   }
-  else if (is_bool($var)) {
+  elseif (is_bool($var)) {
     $output = $var ? 'TRUE' : 'FALSE';
   }
   else {
@@ -570,16 +584,16 @@ function entity_var_json_export($var, $prefix = '') {
     }
     // Use several lines for long content. However for objects with a single
     // entry keep the key in the first line.
-    if (strlen($content = implode(", ", $values)) > 70 && ($use_array || count($values) > 1)) {
-      $output .= "\n  " .  implode(",\n  ", $values) . "\n";
+    if (strlen($content = implode(', ', $values)) > 70 && ($use_array || count($values) > 1)) {
+      $output .= "\n  " . implode(",\n  ", $values) . "\n";
     }
     elseif (strpos($content, "\n") !== FALSE) {
-      $output .= " " .  $content . "\n";
+      $output .= " " . $content . "\n";
     }
     else {
-      $output .= " " .  $content . " ";
+      $output .= " " . $content . ' ';
     }
-    $output .= $use_array ? "]" : "}";
+    $output .= $use_array ? ']' : '}';
   }
   else {
     $output = drupal_json_encode($var);

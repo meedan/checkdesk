@@ -249,7 +249,7 @@ class EntityDefaultUIController {
    */
   protected function operationCount() {
     $count = 3;
-    $count += !empty($this->entityInfo['bundle of']) && module_exists('field_ui') ? 2 : 0;
+    $count += !empty($this->entityInfo['bundle of']) && entity_type_is_fieldable($this->entityInfo['bundle of']) && module_exists('field_ui') ? 2 : 0;
     $count += !empty($this->entityInfo['exportable']) ? 1 : 0;
     $count += !empty($this->entityInfo['i18n controller class']) ? 1 : 0;
     return $count;
@@ -286,7 +286,7 @@ class EntityDefaultUIController {
       ));
     }
     // In case this is a bundle, we add links to the field ui tabs.
-    $field_ui = !empty($this->entityInfo['bundle of']) && module_exists('field_ui');
+    $field_ui = !empty($this->entityInfo['bundle of']) && entity_type_is_fieldable($this->entityInfo['bundle of']) && module_exists('field_ui');
     // For exportable entities we add an export link.
     $exportable = !empty($this->entityInfo['exportable']);
     // If i18n integration is enabled, add a link to the translate tab.

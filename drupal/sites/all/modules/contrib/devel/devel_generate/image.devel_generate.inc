@@ -4,11 +4,15 @@ define('DEVEL_GENERATE_IMAGE_MAX', 5);
 
 function image_devel_generate($object, $field, $instance, $bundle) {
   if (function_exists('imagejpeg')) {
+    $devel_generate_image_function = variable_get('devel_generate_image_function', '_image_devel_generate');
+    if (!function_exists($devel_generate_image_function)) {
+      $devel_generate_image_function = '_image_devel_generate';
+    }
     if (field_behaviors_widget('multiple values', $instance) == FIELD_BEHAVIOR_CUSTOM) {
-      return devel_generate_multiple('_image_devel_generate', $object, $field, $instance, $bundle);
+      return devel_generate_multiple($devel_generate_image_function, $object, $field, $instance, $bundle);
     }
     else {
-      return _image_devel_generate($object, $field, $instance, $bundle);
+      return $devel_generate_image_function($object, $field, $instance, $bundle);
     }
   }
 }
@@ -29,6 +33,7 @@ function _image_devel_generate($object, $field, $instance, $bundle) {
       $source->uri = $path;
       $source->uid = 1; // TODO: randomize? Use case specific.
       $source->filemime = 'image/' . pathinfo($path, PATHINFO_EXTENSION);
+      $source->filename = array_pop(explode("//", $path));
       $destination_dir = $field['settings']['uri_scheme'] . '://' . $instance['settings']['file_directory'];
       file_prepare_directory($destination_dir, FILE_CREATE_DIRECTORY);
       $destination = $destination_dir . '/' . basename($path);
@@ -65,9 +70,9 @@ function devel_generate_image($extension = 'png', $min_resolution, $max_resoluti
     $max = explode('x', $max_resolution);
 
     $width = rand((int)$min[0], (int)$max[0]);
-    $height = rand((int)$min[0], (int)$max[0]);
+    $height = rand((int)$min[1], (int)$max[1]);
 
-    // Make a image split into 4 sections with random colors.
+    // Make an image split into 4 sections with random colors.
     $im = imagecreate($width, $height);
     for ($n = 0; $n < 4; $n++) {
       $color = imagecolorallocate($im, rand(0, 255), rand(0, 255), rand(0, 255));

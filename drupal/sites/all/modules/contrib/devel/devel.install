@@ -38,7 +38,8 @@ function devel_uninstall() {
   variable_del('devel_redirect_page');
   variable_del('devel_api_url');
   variable_del('dev_mem');
-  variable_del('devel_error_handler');
+  variable_del('devel_error_handlers');
+  variable_del('devel_raw_names');
   variable_del('devel_switch_user_list_size');
   variable_del('devel_switch_user_include_anon');
   variable_del('devel_switch_user_show_form');
@@ -84,5 +85,24 @@ function devel_update_7002() {
 function devel_update_7003() {
   if (variable_get('devel_krumo_skin', 'white') == 'schablon.com') {
     variable_set('devel_krumo_skin', 'white');
+  }
+}
+
+/**
+ * Convert devel_error_handler variable to devel_error_handlers array.
+ */
+function devel_update_7004() {
+  define('DEVEL_ERROR_HANDLER_BACKTRACE_AND_MESSAGE', 3);
+
+  $error_handler = variable_get('devel_error_handler', NULL);
+  if (isset($error_handler)) {
+    if ($error_handler == DEVEL_ERROR_HANDLER_BACKTRACE_AND_MESSAGE) {
+      $error_handlers = array(DEVEL_ERROR_HANDLER_STANDARD, DEVEL_ERROR_HANDLER_BACKTRACE_KRUMO);
+    }
+    else {
+      $error_handlers = array($error_handler);
+    }
+    variable_del('devel_error_handler');
+    variable_set('devel_error_handlers', drupal_map_assoc($error_handlers));
   }
 }

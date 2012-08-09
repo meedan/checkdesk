@@ -2,37 +2,15 @@
 
 /**
  * @file
- * The Node export XML module.
+ * The Node export XML format handler.
  *
  * Adds XML format to Node export.
  */
 
 /**
- * Implements hook_node_export_format_handlers().
- *
- * @see hook_node_export_format_handlers()
+ * Export callback.
  */
-function node_export_xml_node_export_format_handlers() {
-  return array(
-    'xml' => array(
-      '#title' => t('XML'),
-      '#module' => 'node_export_xml',
-      '#description' => t(
-        '<a href="!xml">XML 1.0</a> representation which is good for machine-readability and human-readability.', 
-        array(
-          '!xml' => 'http://en.wikipedia.org/wiki/XML', 
-        )
-      ),
-    ),
-  );
-}
-
-/**
- * Implements hook_node_export().
- *
- * @see hook_node_export()
- */
-function node_export_xml_node_export($nodes, $format) {
+function node_export_xml_export($nodes, $format) {
   $xml_code = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
   $xml_code .= "<node_export created=\"" . date('r') . "\">\n";
   $xml_code .= node_export_xml_encode($nodes);
@@ -41,11 +19,9 @@ function node_export_xml_node_export($nodes, $format) {
 }
 
 /**
- * Implements hook_node_export_import().
- *
- * @see hook_node_export_import()
+ * Import callback.
  */
-function node_export_xml_node_export_import($code_string) {
+function node_export_xml_import($code_string) {
   // Check for "<?xml" at the start.
   if (substr(ltrim($code_string), 0, 5) == "<?xml") {
 
@@ -246,4 +222,11 @@ class NodeExportXmlDecoder {
     $this->stack[count($this->stack) - 1]['data'] .= $data;
   }
 
+}
+
+/**
+ * Callback for actions.
+ */
+function node_export_xml_action_form($context, &$form_state) {
+  return node_export_action_form($context, $form_state, 'xml');
 }

@@ -288,6 +288,8 @@ function context_update_6304() {
  */
 
 function context_update_7000() {
+  drupal_load('module', 'ctools');
+  drupal_load('module', 'context');
   $updated = array();
   $contexts = context_load(NULL, TRUE);
   foreach ($contexts as $c) {

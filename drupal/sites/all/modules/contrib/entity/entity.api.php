@@ -28,12 +28,13 @@
  * - entity class: (optional) A class the controller will use for instantiating
  *   entities. It is suggested to make use of the provided "Entity" class or to
  *   extend it.
- * - bundle of: (optional) If the described entity type is used as a bundle for
- *   another, fieldable entity type, the entity API controller can take care of
- *   invoking the field API bundle attachers. To enable this functionality,
- *   specify the name of the fieldable entity type. But note, that the usual
- *   information about the bundles is still required for the fieldable entity
- *   type, as described by the documentation of hook_entity_info(). Also,
+ * - bundle of: (optional) Entity types can be used as bundles for
+ *   other entity types. To enable this functionality, use the 'bundle of' key
+ *   to indicate which entity type this entity serves as a bundle for. But note
+ *   that the other entity type will still need to declare entities of this
+ *   type as bundles, as described by the documentation of hook_entity_info().
+ *   If the other entity type is fieldable, the entity API controller takes
+ *   care of invoking the field API bundle attachers. Note that
  *   field_attach_delete_bundle() has to be invoked manually upon module
  *   uninstallation. See entity_test_entity_info() and entity_test_uninstall()
  *   for examples.

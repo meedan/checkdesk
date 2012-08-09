@@ -32,9 +32,13 @@ Then you can log php variables to the Firebug console. Is quite useful.
 Included in this package is also:
 
 - devel_node_access module which prints out the node_access records for a given node. Also offers hook_node_access_explain for all node access modules to implement. Handy.
-- devel_generate.module which bulk creates nodes, users, comment, terms for development
+- devel_generate.module which bulk creates nodes, users, comment, terms for development.
 
 Some nifty drush integration ships with devel and devel_generate. See drush help for details.
+
+DEVEL GENERATE EXTENSIONS
+=========================
+Devel Images Provider [http://drupal.org/project/devel_image_provider] allows to configure external providers for images.
 
 COMPATIBILITY NOTES
 ==================

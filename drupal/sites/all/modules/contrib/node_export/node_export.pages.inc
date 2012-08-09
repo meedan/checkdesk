@@ -8,73 +8,6 @@
  */
 
 /**
- * Implements hook_tokens().
- */
-function node_export_tokens($type, $tokens, $data = array(), $options = array()) {
-  $replacements = array();
-  if ($type == 'node_export_filename' && !empty($data['node_export_filename'])) {
-    $object = (array)$data['node_export_filename'];
-
-    foreach ($tokens as $name => $original) {
-      switch ($name) {
-        // Simple key values on the node.
-        case 'nid-list':
-          $replacements[$original] = $object['nid-list'];
-          break;
-
-        case 'node-count':
-          $replacements[$original] = $object['node-count'];
-          break;
-
-        case 'timestamp':
-          $replacements[$original] = $object['timestamp'];
-          break;
-
-        case 'format':
-          $replacements[$original] = $object['format'];
-          break;
-      }
-    }
-  }
-  return $replacements;
-}
-
-/**
- * Implements hook_token_info().
- */
-function node_export_token_info() {
-  return array(
-    'types' => array(
-      'node_export_filename' => array(
-        'name' => t('Node export filename'),
-        'description' => t('Tokens related to the Node export filename.'),
-        'needs-data' => 'node_export_filename',
-      ),
-    ),
-    'tokens' => array(
-      'node_export_filename' => array(
-        'nid-list' => array(
-          'name' => t("Node ID list"),
-          'description' => t("Comma seperated list of Node IDs in square brackets (if available)."),
-        ),
-        'node-count' => array(
-          'name' => t("Node count"),
-          'description' => t("The number of nodes exported."),
-        ),
-        'timestamp' => array(
-          'name' => t("Timestamp"),
-          'description' => t("The timestamp when the file was generated."),
-        ),
-        'format' => array(
-          'name' => t("Format"),
-          'description' => t("The format used to export."),
-        ),
-      ),
-    ),
-  );
-}
-
-/**
  * Handles the bits of the form that are specific to the token module.
  */
 function node_export_settings_token_bits(&$form, $key) {
@@ -101,7 +34,7 @@ function node_export_settings_token_bits(&$form, $key) {
 /**
  * Menu callback to configure module settings.
  */
-function node_export_settings() {
+function node_export_settings($form, &$form_state) {
   $types = node_type_get_names();
 
   menu_rebuild();
@@ -121,11 +54,20 @@ function node_export_settings() {
       $display .= '</small></div>';
     }
     $format_options[$format_handler] = $display;
+
+    $format_settings = array();
+    if (!empty($format['#settings_callback'])) {
+      if (!empty($format['#file']) && is_file($format['#file'])) {
+        require_once $format['#file'];
+      }
+      $format_form = call_user_func($format['#settings_callback'], $form, $form_state);
+      $format_settings = $format_settings + $format_form;
+    }
+
   }
-  asort($format_options);
-  $selected_formats = variable_get('node_export_format', array('node_code'));
+  $selected_formats = variable_get('node_export_format', array('drupal'));
   if (!count(array_filter($selected_formats))) {
-    $selected_formats = array('node_code');
+    $selected_formats = array('drupal');
   }
   if (count($format_options) > 1) {
     $form['basic']['node_export_format'] = array(
@@ -133,7 +75,7 @@ function node_export_settings() {
       '#title' => t('Format to use when exporting a node'),
       '#default_value' => $selected_formats,
       '#options' => $format_options,
-      '#description' => t("If you select multiple formats, they will all be available to the user.  If you select none, or the format handler is not found, it will use the default 'Node code'.  This does not affect imports, the required import format will be used automatically."),
+      '#description' => t("If you select multiple formats, they will all be available to the user.  If you select none, or the format handler is not found, it will use the default 'Drupal var export'.  This does not affect imports, the required import format will be used automatically."),
     );
   }
   else {
@@ -143,6 +85,8 @@ function node_export_settings() {
       '#value' => array($format => $format),
     );
   }
+
+  $form['basic'][] = $format_settings;
 
   $form['basic']['node_export_code'] = array(
     '#type' => 'radios',
@@ -180,6 +124,18 @@ function node_export_settings() {
     '#description' => t('If there are more than this many nodes, the [node_export_filename:nid-list] token for the filename will not be built.  This is to prevent very long filenames.'),
   );
 
+  $form['basic']['node_export_existing'] = array(
+    '#type' => 'radios',
+    '#title' => t('When importing a node that already exists'),
+    '#options' => array(
+      'new' => t('Create a new node'),
+      'revision' => t('Create a new revision of the existing node'),
+      'skip' => t('Skip the node'),
+    ),
+    '#description' => t('UUIDs are used to uniquely identify nodes.'),
+    '#default_value' => variable_get('node_export_existing', 'new'),
+  );
+
   $form['publishing'] = array(
     '#type' => 'fieldset',
     '#title' => t('Reset values on import'),
@@ -193,10 +149,29 @@ function node_export_settings() {
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
-    $form['publishing'][$type]['node_export_reset_' . $type] = array(
+    $form['publishing'][$type]['node_export_reset_status_' . $type] = array(
       '#type' => 'checkbox',
-      '#title' => t('Publishing options (status, moderate, promote, sticky, and revision)'),
-      '#default_value' => variable_get('node_export_reset_' . $type, FALSE),
+      '#title' => t('Published'),
+      '#default_value' => variable_get('node_export_reset_status_' . $type, FALSE),
+      '#description' => t('Set to unpublished'),
+    );
+    $form['publishing'][$type]['node_export_reset_promote_' . $type] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Promoted to front page'),
+      '#default_value' => variable_get('node_export_reset_promote_' . $type, FALSE),
+      '#description' => t('Set to not promoted'),
+    );
+    $form['publishing'][$type]['node_export_reset_sticky_' . $type] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Sticky at top of lists'),
+      '#default_value' => variable_get('node_export_reset_sticky_' . $type, FALSE),
+      '#description' => t('Set to not sticky'),
+    );
+    $form['publishing'][$type]['node_export_reset_author_' . $type] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Author (will set to user performing the import)'),
+      '#default_value' => variable_get('node_export_reset_author_' . $type, TRUE),
+      '#description' => t('Recommended since User IDs could be different on import site and the wrong user may gain permission to edit the node.'),
     );
     $form['publishing'][$type]['node_export_reset_created_' . $type] = array(
       '#type' => 'checkbox',
@@ -207,6 +182,16 @@ function node_export_settings() {
       '#type' => 'checkbox',
       '#title' => t('Changed time (<em>Last updated</em> date/time)'),
       '#default_value' => variable_get('node_export_reset_changed_' . $type, TRUE),
+    );
+    $form['publishing'][$type]['node_export_reset_revision_timestamp_'. $type] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Revision changed time'),
+      '#default_value' => variable_get('node_export_reset_revision_timestamp_'. $type, TRUE),
+    );
+    $form['publishing'][$type]['node_export_reset_last_comment_timestamp_'. $type] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Last comment time (date/time the last comment was made)'),
+      '#default_value' => variable_get('node_export_reset_last_comment_timestamp_'. $type, TRUE),
     );
     $form['publishing'][$type]['node_export_reset_menu_' . $type] = array(
       '#type' => 'checkbox',
@@ -222,8 +207,69 @@ function node_export_settings() {
       '#type' => 'checkbox',
       '#title' => t('Book menu link'),
       '#default_value' => variable_get('node_export_reset_book_mlid_' . $type, TRUE),
+      '#description' => t('Prevents Book node imports causing errors.'),
     );
   }
+
+  $form['file'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('File fields'),
+  );
+
+  $types = node_type_get_names();
+  $form['file']['node_export_file_types'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Files exported for content types'),
+    '#default_value' => variable_get('node_export_file_types', array()),
+    '#options' => $types,
+    '#description' => t('Which content types should export file fields?'),
+  );
+
+  $textarea_delivery = $form['basic']['node_export_code']['#default_value'];
+
+  $mode_message_display = ($textarea_delivery != 'file');
+
+  $form['file']['node_export_file_mode'] = array(
+    '#type' => 'radios',
+    '#title' => t('File export mode'),
+    '#default_value' => variable_get('node_export_file_mode', 'inline'),
+    '#options' => array(
+      'inline' => t('Inline Base64'),
+      'local' => t('Local file export'),
+      'remote' => t('Remote file export, URL')
+     ),
+    '#description' => t('Should file exports be inline inside the export code, a local path to the file, or a URL?  Inline Base64 is the easiest option to use but can sometimes exceed PHP post limits, local and remote modes are more useful for power users.  <em>NOTE: Remote mode only works with a public files directory.</em>'),
+  );
+
+  $form['file']['node_export_file_assets_path'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Local file field assets path'),
+    '#size' => 60,
+    '#maxlength' => 255,
+    '#default_value' => variable_get('node_export_file_assets_path', ''),
+    '#description' => t(
+      'Optionally, copy files to this path when the node is exported.
+      The primary advantage of this is to divert exported files into a
+      safe location so they can be committed to source control (eg: SVN,
+      CVS, Git).  <em>Tip: For install profile developers, setting this
+      path to <code>profiles/my_profile/node_export_assets</code> may be
+      useful.</em>'
+    ),
+    '#required' => FALSE,
+    '#states' => array(
+      'visible' => array(
+        ':input[name=node_export_file_mode]' => array('value' => 'local'),
+      ),
+    ),
+  );
+
+  $form['file']['node_export_file_supported_fields'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Supported file field types'),
+    '#default_value' => variable_get('node_export_file_supported_fields', 'file, image'),
+    '#maxlength' => 512,
+    '#description' => t('Comma seperated list of file field types to detect for export/import.'),
+  );
 
   return system_settings_form($form);
 }
@@ -397,7 +443,11 @@ function node_export_get_file($nids, $code_string, $format = NULL) {
   $data = array('node_export_filename' => (object)$filename_data);
   $name = token_replace($name, $data);
 
-  header('Content-type: text/plain');
+  $formats = node_export_format_handlers();
+  $format_data = $formats[$format];
+  $mime = !empty($format_data['#mime']) ? $format_data['#mime'] : 'text/plain';
+
+  header('Content-type: ' . $mime);
   header('Content-Disposition: attachment; filename="' . $name . '"');
   print($code_string);
   // Clean exit.

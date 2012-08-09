@@ -50,6 +50,7 @@ function devel_create_users($num, $kill, $age = 0, $roles = array()) {
         'status'  => 1,
         'created' => REQUEST_TIME - mt_rand(0, $age),
         'roles' => drupal_map_assoc($roles),
+        'devel_generate' => TRUE // A flag to let hook_user_* know that this is a generated user.
       );
 
       // Populate all core fields on behalf of field.module

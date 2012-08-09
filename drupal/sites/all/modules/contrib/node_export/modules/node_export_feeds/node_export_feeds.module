@@ -49,6 +49,55 @@ function node_export_feeds_feeds_plugins() {
 function node_export_feeds_feeds_importer_default() {
   $export = array();
 
+  // Commented out properties seem to be unsupported targets in feeds?
+  $mappings_keys = array(
+    //'vid',
+    'uid',
+    'title',
+    //'log',
+    'status',
+    'comment',
+    'promote',
+    'sticky',
+    //'vuuid',
+    'nid',
+    //'type',
+    'language',
+    'created',
+    //'changed',
+    //'tnid',
+    //'translate',
+    //'uuid',
+    //'revision_timestamp',
+    //'revision_uid',
+    'body',
+    //'rdf_mapping',
+    //'cid',
+    //'last_comment_timestamp',
+    //'last_comment_name',
+    //'last_comment_uid',
+    //'comment_count',
+    //'name',
+    //'picture',
+    //'data',
+    //'path',
+    //'menu',
+    //'node_export_drupal_version',
+  );
+  $mappings = array();
+  foreach ($mappings_keys as $mappings_key) {
+    $mappings[] = array(
+      'source' => $mappings_key,
+      'target' => $mappings_key,
+      'unique' => FALSE,
+    );
+  }
+  $mappings[] = array(
+    'source' => 'uuid',
+    'target' => 'guid',
+    'unique' => 1,
+  );
+
   $feeds_importer = new stdClass;
   $feeds_importer->disabled = FALSE;
   $feeds_importer->api_version = 1;
@@ -73,28 +122,7 @@ function node_export_feeds_feeds_importer_default() {
         'content_type' => 'article',
         'update_existing' => 1,
         'expire' => '-1',
-        'mappings' => array(
-          0 => array(
-            'source' => 'title',
-            'target' => 'title',
-            'unique' => FALSE,
-          ),
-          1 => array(
-            'source' => 'body',
-            'target' => 'body',
-            'unique' => FALSE,
-          ),
-          2 => array(
-            'source' => 'published',
-            'target' => 'created',
-            'unique' => FALSE,
-          ),
-          3 => array(
-            'source' => 'uuid',
-            'target' => 'guid',
-            'unique' => 1,
-          ),
-        ),
+        'mappings' => $mappings,
         'input_format' => 'plain_text',
         'author' => 0,
       ),
@@ -113,12 +141,12 @@ function node_export_feeds_feeds_importer_default() {
 /**
  * Implementation of hook_feeds_after_import().
  */
-function node_export_feeds_feeds_after_import($importer, $source) {
-  if ($importer->importer->processor instanceOf FeedsNodeExportProcessor && !empty($importer->importer->processor->new_nodes)) {
+function node_export_feeds_feeds_after_import($source) {
+  if ($source->importer->processor instanceOf FeedsNodeExportProcessor && !empty($source->importer->processor->new_nodes)) {
     // This code is similar to some code in node_export_import()
     // which gets executed for all nodes when the $save param is TRUE.
     $save = TRUE;
-    drupal_alter('node_export_after_import', $importer->importer->processor->new_nodes, $importer->importer->parser->format, $save);
+    drupal_alter('node_export_after_import', $source->importer->processor->new_nodes, $source->importer->parser->format, $save);
     // @todo: Is this what we should do with output messages?
     drupal_set_message(("Some values may have been reset depending on Node export's configuration."));
 

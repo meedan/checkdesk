@@ -21,6 +21,7 @@ class EntityFieldHandlerHelper {
     if (entity_property_list_extract_type($handler->definition['type'])) {
       $options['list']['contains']['mode'] = array('default' => 'collapse');
       $options['list']['contains']['separator'] = array('default' => ', ');
+      $options['list']['contains']['type'] = array('default' => 'ul');
     }
     $options['link_to_entity'] = array('default' => FALSE);
 
@@ -37,6 +38,7 @@ class EntityFieldHandlerHelper {
         '#title' => t('List handling'),
         '#options' => array(
           'collapse' => t('Concatenate values using a seperator'),
+          'list' => t('Output values as list'),
           'first' => t('Show first (if present)'),
           'count' => t('Show item count'),
         ),
@@ -47,6 +49,16 @@ class EntityFieldHandlerHelper {
         '#title' => t('List seperator'),
         '#default_value' => $handler->options['list']['separator'],
         '#dependency' => array('edit-options-list-mode' => array('collapse')),
+      );
+      $form['list']['type'] = array(
+        '#type' => 'select',
+        '#title' => t('List type'),
+        '#options' => array(
+          'ul' => t('Unordered'),
+          'ol' => t('Ordered'),
+        ),
+        '#default_value' => $handler->options['list']['type'],
+        '#dependency' => array('edit-options-list-mode' => array('list')),
       );
     }
     $form['link_to_entity'] = array(
@@ -356,7 +368,7 @@ class EntityFieldHandlerHelper {
           if ($field == 'entity object') {
             $return[] = $wrapper->value();
           }
-          elseif(isset($wrapper->$field)) {
+          elseif (isset($wrapper->$field)) {
             $return[] = $wrapper->$field->value(array('identifier' => TRUE));
           }
         }
@@ -411,8 +423,9 @@ class EntityFieldHandlerHelper {
     if (method_exists($handler, 'render_list')) {
       return $handler->render_list($list, $values);
     }
-    if (isset($handler->options['list']['mode'])) {
-      if ($handler->options['list']['mode'] == 'first') {
+    $mode = isset($handler->options['list']['mode']) ? $handler->options['list']['mode'] : NULL;
+    switch ($mode) {
+      case 'first':
         $list = count($list) ? array_shift($list) : NULL;
         if (is_array($list)) {
           return self::render_list($handler, $list, $values);
@@ -421,20 +434,32 @@ class EntityFieldHandlerHelper {
           return self::render_entity_link($handler, $list, $values);
         }
         return NULL;
-      }
-      if ($handler->options['list']['mode'] == 'count') {
+
+      case 'count':
         return count($list);
-      }
+
+      // Handles both collapse and list output. Fallback is to collapse.
+      default:
+        $inner_values = array();
+        foreach ($list as $value) {
+          $value = is_array($value) ? self::render_list($handler, $value, $values) : self::render_entity_link($handler, $value, $values);
+          if ($value) {
+            $inner_values[] = $value;
+          }
+        }
+
+        // Format output as list.
+        if ($mode == 'list') {
+          $type = isset($handler->options['list']['type']) ? $handler->options['list']['type'] : 'ul';
+          return theme('item_list', array(
+            'items' => $inner_values,
+            'type' => $type,
+          ));
+        }
+
+        $separator = isset($handler->options['list']['separator']) ? $handler->options['list']['separator'] : ', ';
+        return implode($separator, $inner_values);
     }
-    $inner_values = array();
-    foreach ($list as $value) {
-      $value = is_array($value) ? self::render_list($handler, $value, $values) : self::render_entity_link($handler, $value, $values);
-      if ($value) {
-        $inner_values[] = $value;
-      }
-    }
-    $separator = isset($handler->options['list']['separator']) ? $handler->options['list']['separator'] : ', ';
-    return implode($separator, $inner_values);
   }
 
   /**

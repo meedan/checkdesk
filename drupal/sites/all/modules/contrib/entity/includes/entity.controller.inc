@@ -292,7 +292,8 @@ class EntityAPIController extends DrupalDefaultEntityController implements Entit
       $function($this->entityType, $entity);
     }
 
-    if (isset($this->entityInfo['bundle of']) && $type = $this->entityInfo['bundle of']) {
+    if (!empty($this->entityInfo['bundle of']) && entity_type_is_fieldable($this->entityInfo['bundle of'])) {
+      $type = $this->entityInfo['bundle of'];
       // Call field API bundle attachers for the entity we are a bundle of.
       if ($hook == 'insert') {
         field_attach_create_bundle($type, $entity->{$this->bundleKey});
@@ -300,10 +301,8 @@ class EntityAPIController extends DrupalDefaultEntityController implements Entit
       elseif ($hook == 'delete') {
         field_attach_delete_bundle($type, $entity->{$this->bundleKey});
       }
-      elseif ($hook == 'update' && $id = $entity->{$this->nameKey}) {
-        if ($entity->original->{$this->bundleKey} != $entity->{$this->bundleKey}) {
-          field_attach_rename_bundle($type, $entity->original->{$this->bundleKey}, $entity->{$this->bundleKey});
-        }
+      elseif ($hook == 'update' && $entity->original->{$this->bundleKey} != $entity->{$this->bundleKey}) {
+        field_attach_rename_bundle($type, $entity->original->{$this->bundleKey}, $entity->{$this->bundleKey});
       }
     }
     // Invoke the hook.

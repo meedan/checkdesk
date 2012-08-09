@@ -43,6 +43,9 @@ INSTALLATION
    package.
 3. Enable any other modules in the Node export package that tickle your fancy.
 
+For detailed instructions on installing contributed modules see:
+http://drupal.org/documentation/install/modules-themes/modules-7
+
 
 CONFIGURATION
 -------------
@@ -62,23 +65,29 @@ USAGE
 -----
 1. To export nodes, either:
    a) Use the 'Node export' tab on a node page.
-   b) Use the Content page (admin/content/node) to filter the nodes you wish to
-      export and then choose 'Node export' under the 'Update options'.
+   b) Use the Find content page (admin/content) to filter the nodes you 
+      wish to export and then choose 'Node export' under the 'Update options'.
    c) Use Drush: http://drupal.org/project/drush
-2. To import nodes, either:
+   d) Create a Feature (see tips below) http://drupal.org/project/features
+   e) Create a View of nodes and use the Views Bulk Operations (VBO) module
+      http://drupal.org/project/views_bulk_operations
+
+2. To import nodes that were exported with Node export, either:
    a) Use the form at 'Node export: import' under 'Add content'
       (node/add/node_export).
    b) Use Drush: http://drupal.org/project/drush
+   c) Using your created Feature.
+   d) For advanced imports if you are familiar with the Feeds module, enable
+      Node export feeds module to use with the Feeds import interface 
+      http://drupal.org/project/feeds
 
 
 NODE EXPORT FEATURES TIPS
 -------------------------
-Regarding the module node_export_features which integrates with the features
+Regarding the Node export features module which integrates with the Features
 module, any nodes to be used with this must have a UUID (universally unique 
 ID).  To export older nodes that don't have UUID make sure you have selected
 the content type and click on 'create missings uuids' from 
 'admin/settings/uuid' under the fieldset 'Synchronize'.  Then you should be 
 able to see more nodes under the feature component, If you don't see the node
 export component, that means no nodes has been configured with UUID.
-UUID likely to become a consistent requirement across the node export
-package.

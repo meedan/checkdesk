@@ -31,7 +31,7 @@ function entity_entity_view_content_type_content_types() {
   $types = array();
   $entities = entity_get_info();
 
-  foreach($entities as $entity_type => $info) {
+  foreach ($entities as $entity_type => $info) {
     if (entity_type_supports($entity_type, 'view')) {
       $types[$entity_type] = array(
         'title' => t('Rendered @entity_type', array('@entity_type' => $info['label'])),
@@ -104,12 +104,15 @@ function entity_entity_view_content_type_edit_form_submit(&$form, &$form_state) 
  *
  * @see ctools_content_render()
  */
-function entity_entity_view_content_type_render($entity_type, $conf, $panel_args, $contexts) {
+function entity_entity_view_content_type_render($entity_type, $conf, $panel_args, $context) {
+  if ($context->empty) {
+    return;
+  }
   $block = new stdClass();
   $block->module = 'entity';
   $block->delta = $entity_type . '-' . str_replace('-', '_', $conf['view_mode']);
 
-  $entity_id = $contexts->argument;
+  $entity_id = $context->argument;
   $entity = entity_load_single($entity_type, $entity_id);
   $block->content = entity_view($entity_type, array($entity_id => $entity), $conf['view_mode']);
   return $block;

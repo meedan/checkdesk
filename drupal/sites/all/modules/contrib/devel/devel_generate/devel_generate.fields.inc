@@ -65,7 +65,7 @@ function devel_generate_fields(&$object, $obj_type, $bundle) {
     // initializes the property with incorrect data.
     // @see http://drupal.org/node/652176
     $object->{$field['field_name']} = array(
-      $object->language => $object_field,
+      $field['translatable'] ?  $object->language : LANGUAGE_NONE => $object_field,
     );
   }
 }

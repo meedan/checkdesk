@@ -117,7 +117,7 @@ function devel_reinstall_submit($form, &$form_state) {
   // require_once './includes/install.inc';
   $modules = array_filter($form_state['values']['list']);
   module_disable($modules, FALSE);
-  drupal_uninstall_modules($modules);
+  drupal_uninstall_modules($modules, FALSE);
   module_enable($modules, FALSE);
   drupal_set_message(t('Uninstalled and installed: %names.', array('%names' => implode(', ', $modules))));
 }
@@ -249,7 +249,7 @@ function devel_variable_edit($form, &$form_state, $name) {
     $form['new'] = array(
       '#type' => 'item',
       '#title' => t('New value'),
-      '#value' => t('Sorry, complex variable types may not be edited yet. Use the <em>Execute PHP</em> block and the <a href="@variable-set-doc">variable_set()</a> function.', array('@variable-set-doc' => "http://$api/api/HEAD/function/variable_set"))
+      '#markup' => t('Sorry, complex variable types may not be edited yet. Use the <em>Execute PHP</em> block and the <a href="@variable-set-doc">variable_set()</a> function.', array('@variable-set-doc' => "http://$api/api/HEAD/function/variable_set"))
     );
   }
   drupal_set_title($name);

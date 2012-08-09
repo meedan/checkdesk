@@ -184,7 +184,7 @@ function context_form_user_profile_form_alter(&$form, $form_state) {
 /**
  * Implementation of hook_form_alter() for user_register_form.
  */
-function context_form_user_register_form(&$form, $form_state) {
+function context_form_user_register_form_alter(&$form, $form_state) {
   if ($plugin = context_get_plugin('condition', 'user_page')) {
     $plugin->execute($form['#user'], 'register');
   }
