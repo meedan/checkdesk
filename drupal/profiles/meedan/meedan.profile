@@ -21,11 +21,13 @@ function meedan_form_install_configure_form_alter(&$form, $form_state) {
     // Robot automatically submits the confirm form if no user input is given
     // and 5 seconds passes.
     $form['robot_info'] = array(
-      '#markup' => '<div class="messages ok">' . t("This form will automatically submit if no user action is taken in 5 seconds…") . '</div>',
+      '#markup' => '<div class="messages ok" id="robot-warning">' . t("This form will automatically submit if no user action is taken in 5 seconds…") . '</div>',
       '#weight' => -1000,
     );
     $form['admin_account']['account']['robot'] = array(
       '#markup' => '<script type="text/javascript">
+                    (function ($) {
+
                     // Things that should stop the autosubmit if they
                     // gain focus
                     var focus_context = "#install-configure-form input, #install-configure-form select, #install-configure-form textarea";
@@ -46,10 +48,14 @@ function meedan_form_install_configure_form_alter(&$form, $form_state) {
                       jQuery(focus_context).focus(function () {
                         clearTimeout(timer);
                         jQuery(focus_context).unbind("focus");
+                        $("#robot-warning")
+                          .slideUp(function() { $(this).remove(); });
                       });
                     };
                     // Wait a second before running the robot
                     setTimeout(pass_robot, 1000);
+
+                    })(jQuery);
                     </script>'
     );
 
