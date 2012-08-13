@@ -1,12 +1,26 @@
 <?php
 
 /**
+ * Implementation of hook_views_api().
+ */
+function views_autorefresh_views_api() {
+  return array(
+    'api' => 3.0,
+  );
+}
+
+/**
  * Implementation of hook_theme().
  */
 function views_autorefresh_theme() {
   return array(
     'views_autorefresh' => array(
-      'arguments' => array('interval' => array('default' => NULL)),
+      'variables' => array(
+        'interval' => NULL,
+        'ping' => NULL,
+        'incremental' => NULL,
+        'view' => NULL,
+      ),
     ),
   );
 }
@@ -14,12 +28,64 @@ function views_autorefresh_theme() {
 /**
  * Theme function for 'views_autorefresh'.
  */
-function theme_views_autorefresh($interval) {
+function theme_views_autorefresh($variables) {
+  $interval = $variables['interval'];
+  $ping = $variables['ping'];
+  $incremental = $variables['incremental'];
+  $view = $variables['view'];
+
+  if (empty($view)) $view = views_get_current_view();
+
+  // Signal the view that we're incrementally auto-refreshing.
+  if (!empty($incremental)) {
+    $view->autorefresh['incremental'] = $incremental;
+  }
+
+  if (!empty($ping)) {
+    $view->autorefresh['ping'] = $ping;
+  }
+
+  // Add the JavaScript settings.
   drupal_add_js(drupal_get_path('module', 'views_autorefresh') . '/views_autorefresh.js');
-  drupal_add_js(array('views_autorefresh' => array('interval' => $interval)), 'setting');
+  drupal_add_js(array('views_autorefresh' => array($view->name => array(
+    'interval' => $interval,
+    'ping' => $ping,
+    'incremental' => $incremental,
+    'timestamp' => __views_autorefresh_get_timestamp($view),
+  ))), 'setting');
   $query_string = drupal_http_build_query(drupal_get_query_parameters($_REQUEST, array_merge(array('q', 'pass'), array_keys($_COOKIE))));
   $query[] = $query_string;
   $link = l('', $_GET['q'], array('query' => count($query) ? $query : NULL));
+
+  // Signal modules to add their own plugins.
+  module_invoke_all('views_autorefresh_plugins', $view);
+
   return '<div class="auto-refresh">' . $link . '</div>';
+}
+
+/**
+ * Implementation of hook_views_ajax_data_alter().
+ */
+function views_autorefresh_views_ajax_data_alter(&$commands, $view) {
+  if (!empty($view->autorefresh['incremental']) || !empty($view->autorefresh['ping'])) {
+    // TODO
+  }
+}
+
+/**
+ * Helper function to return view's "timestamp" - either real timestamp or max primary key in view rows.
+ */
+function __views_autorefresh_get_timestamp($view) {
+  if (empty($view->autorefresh['ping']) || empty($view->autorefresh['ping']['use_base_field'])) {
+    return time(); // return standard timestamp
+  }
+  $base_field = $view->base_field;
+  $max = 0;
+  foreach ($view->result as $row) {
+    if ($row->$base_field > $max) {
+      $max = $row->$base_field;
+    }
+  }
+  return $max;
 }
 
