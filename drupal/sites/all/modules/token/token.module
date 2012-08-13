@@ -73,6 +73,13 @@ function token_menu() {
     'file' => 'token.pages.inc',
   );*/
 
+  $items['token/tree'] = array(
+    'page callback' => 'token_page_output_tree',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'token.pages.inc',
+  );
+
   // Devel token pages.
   if (module_exists('devel')) {
     $items['node/%node/devel/token'] = array(
@@ -146,16 +153,38 @@ function token_type_load($token_type) {
  * Implements hook_theme().
  */
 function token_theme() {
-  return array(
-    'tree_table' => array(
-      'variables' => array('header' => array(), 'rows' => array(), 'attributes' => array(), 'empty' => '', 'caption' => ''),
-      'file' => 'token.pages.inc',
+  $info['tree_table'] = array(
+    'variables' => array(
+      'header' => array(),
+      'rows' => array(),
+      'attributes' => array(),
+      'empty' => '',
+      'caption' => '',
     ),
-    'token_tree' => array(
-      'variables' => array('token_types' => array(), 'global_types' => TRUE, 'click_insert' => TRUE, 'show_restricted' => FALSE, 'recursion_limit' => 3),
-      'file' => 'token.pages.inc',
-    ),
+    'file' => 'token.pages.inc',
   );
+  $info['token_tree'] = array(
+    'variables' => array(
+      'token_types' => array(),
+      'global_types' => TRUE,
+      'click_insert' => TRUE,
+      'show_restricted' => FALSE,
+      'recursion_limit' => 3,
+      'dialog' => FALSE,
+    ),
+    'file' => 'token.pages.inc',
+  );
+  $info['token_tree_link'] = array(
+    'variables' => array(
+      'text' => NULL,
+      'options' => array(),
+      'dialog' => TRUE,
+    ),
+    'file' => 'token.pages.inc',
+  );
+  $info['token_tree_link']['variables'] += $info['token_tree']['variables'];
+
+  return $info;
 }
 
 /**
@@ -172,6 +201,17 @@ function token_library() {
     ),
     'css' => array(
       drupal_get_path('module', 'token') . '/jquery.treeTable.css' => array(),
+    ),
+  );
+
+  $libraries['dialog'] = array(
+    'title' => 'Token dialog',
+    'version' => '1.0',
+    'js' => array(
+      drupal_get_path('module', 'token') . '/token.js' => array(),
+    ),
+    'dependencies' => array(
+      array('system', 'ui.dialog'),
     ),
   );
 
@@ -674,7 +714,7 @@ function token_element_validate(&$element, &$form_state) {
   }
 
   // Check if the field defines specific token types.
-  if (!empty($element['#token_types'])) {
+  if (isset($element['#token_types'])) {
     $invalid_tokens = token_get_invalid_tokens_by_context($tokens, $element['#token_types']);
     if ($invalid_tokens) {
       form_error($element, t('The %element-title is using the following invalid tokens: @invalid-tokens.', array('%element-title' => $title, '@invalid-tokens' => implode(', ', $invalid_tokens))));

@@ -453,6 +453,7 @@ class context_reaction_block extends context_reaction {
    */
   function get_blocks($region = NULL, $context = NULL, $reset = FALSE) {
     static $block_info;
+    $theme_key = variable_get('theme_default', 'garland');
 
     if (!isset($block_info) || $reset) {
       $block_info = array();
@@ -460,16 +461,29 @@ class context_reaction_block extends context_reaction {
         $block_info = context_cache_get('block_info');
       }
       if (empty($block_info)) {
-        $block_info = array();
-        foreach (module_implements('block_info') as $module) {
-          $module_blocks = module_invoke($module, 'block_info');
-          if (!empty($module_blocks)) {
-            foreach ($module_blocks as $delta => $block) {
-              $block = (object) $block;
-              $block->module = $module;
-              $block->delta = $delta;
-              $block->bid = "{$block->module}-{$block->delta}";
-              $block_info[$block->bid] = $block;
+        if (module_exists('block')) {
+          $block_blocks = _block_rehash($theme_key);
+          $block_info = array();
+          // Change from numeric keys to module-delta.
+          foreach ($block_blocks as $block) {
+            $block = (object) $block;
+            unset($block->theme, $block->status, $block->weight, $block->region, $block->custom, $block->visibility, $block->pages);
+            $block->bid = "{$block->module}-{$block->delta}";
+            $block_info[$block->bid] = $block;
+          }
+        }
+        else {
+          $block_info = array();
+          foreach (module_implements('block_info') as $module) {
+            $module_blocks = module_invoke($module, 'block_info');
+            if (!empty($module_blocks)) {
+              foreach ($module_blocks as $delta => $block) {
+                $block = (object) $block;
+                $block->module = $module;
+                $block->delta = $delta;
+                $block->bid = "{$block->module}-{$block->delta}";
+                $block_info[$block->bid] = $block;
+              }
             }
           }
         }
@@ -481,7 +495,6 @@ class context_reaction_block extends context_reaction {
 
       // Gather only region info from the database.
       if (module_exists('block')) {
-        $theme_key = variable_get('theme_default', 'garland');
         $result = db_select('block')
           ->fields('block', array('module', 'weight', 'delta', 'region', 'title'))
           ->condition('theme', $theme_key)

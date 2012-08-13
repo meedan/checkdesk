@@ -13,6 +13,15 @@ class MediaInternetOEmbedHandler extends MediaInternetBaseHandler {
   }
 
   /**
+   * File should not validate if we cannot fetch valid oEmbed data.
+   */
+  public function validate() {
+    if (!$this->getOEmbed()) {
+      throw new MediaInternetValidationException(t('Unable to fetch oEmbed data for @url or it is not a valid URL.', array('@url' => $this->embedCode)));
+    }
+  }
+
+  /**
    * Returns a file object which can be used for validation
    *
    * @return StdClass
