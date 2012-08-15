@@ -1,0 +1,174 @@
+<?php
+
+
+/**
+ * Implements of hook_element_info_alter().
+ */
+function meedan_oembed_element_info_alter(&$type) {
+  $type['oembed']['#pre_render'][0] = 'meedan_oembed_pre_render_fetch';
+}
+
+/**
+ * clone this function from oembedcore
+ * and handle empty oembed case
+ * Pre render fetches the oEmbed data.
+ *
+ */
+function meedan_oembed_pre_render_fetch($element) {
+  $embed = oembedcore_oembed_data($element['#url'], $element['#options']);
+  // handle rendering if the response is bad.
+  if (!$embed) {
+    $element['#embed'] = meedan_oembed_data($element['#url'], $element['#options']);
+  }
+  else {
+    $element['#embed'] = $embed;
+  }
+
+  // Recalculate cache expire time based on response.
+  if (isset($embed->cache_age) && $element['#cache']['expire'] != CACHE_PERMANENT) {
+    $expire = REQUEST_TIME + intval($embed->cache_age);
+    if ($expire > $element['#cache']['expire']) {
+      $element['#cache']['expire'] = $expire;
+    }
+  }
+  return $element;
+}
+
+/**
+ * Fetch data for an embeddable URL.
+ *
+ * @param string $url
+ *   An external URL for the content to embed.
+ * @param array $attributes
+ *   An associative array of attributes, with the following keys:
+ *   - 'maxwidth'
+ *       The maximum width of the embed, in pixels.
+ *   - 'maxheight'
+ *       The maximum height of the embed, in pixels.
+ * @return
+ *   an object representing the embeddable data of the URL.
+ */
+function meedan_oembed_data($url, $attributes = array()) {
+  $matches = array();
+  $attributes = array_filter($attributes);
+  $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
+  $provider = array();
+  $domain = _meedan_oembed_get_domain_name($url);
+  $provider['endpoint'] = 'http://api.embed.ly/1/oembed'; 
+  //set provider name specific to domain name to use it on #theme function
+  $callback = 'meedan_oembed_theme_' . $domain;
+  if (function_exists($callback)) {
+    $callback($provider);
+  }
+  else {
+    $provider['name'] = 'meedan_oembed_theme_generic'; 
+  }
+  $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+  $embed->type = 'rich';
+  meedan_oembed_generic($embed, $domain);
+  return $embed;
+}
+
+/**
+ *
+ */
+function meedan_oembed_generic(&$embed, $domain) {
+  //TODO
+  //add data to embed object
+  $callback = 'meedan_oembed_' . $domain;
+  if (function_exists($callback)) {
+    $callback($embed);
+  }
+}
+
+/**
+ *
+ */
+function meedan_oembed_facebook(&$embed) {
+}
+
+
+/**
+ *
+ */
+function meedan_oembed_theme_facebook(&$provider) {
+  $provider['name'] = 'meedan_oembed_theme_facebook'; 
+}
+
+/**
+ * Get domain name from url.
+ * Get site name.
+ * Choose largest token of the host.
+ */
+function _meedan_oembed_get_domain_name($url) {
+  $parts = explode('.', parse_url($url, PHP_URL_HOST));
+  $domain = '';
+  foreach ($parts as $part) {
+    if (strlen($part) > strlen($domain)) {
+      $domain = $part;
+    }
+  }
+  return strtolower($domain);
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function meedan_oembed_theme() {
+  $path = drupal_get_path('module', 'meedan_oembed') . '/theme';
+  return array(
+    'oembed__rich__meedan_oembed_theme_generic' => array(
+      'variables' => array('embed' => NULL), 
+      'template' => 'oembed-generic',
+      'path' => $path,
+    ),  
+    'oembed__rich__meedan_oembed_theme_facebook' => array(
+      'variables' => array('embed' => NULL),  
+      'template' => 'oembed-facebook',
+      'path' => $path,
+    ),
+  );
+}
+
+
+function template_preprocess_oembed__rich__meedan_oembed_theme_facebook (&$vars) {
+  $embed = $vars['embed'];
+  //$vars['author_img'] = l(theme_image($embed->thumbnail_url, $embed->author_name, $embed->author_name, NULL, FALSE), $embed->author_url, array('html' => TRUE));
+  $vars['author_name'] = l($embed->author_name, $embed->author_url);
+  $vars['content'] = $embed->description;
+}
+/**
+ * Preprocessor for theme('oembed_generic').
+ */
+function template_preprocess_oembed__rich__meedan_generic(&$vars) {
+  $html = $vars['html'];
+  if (empty($html)) return;
+  $url = $vars['embed']->original_url;
+
+  // Get title.
+  $titles = $html->find('title');
+  if (count($titles)) {
+    list ($title,) = explode('|', $titles[0]->plaintext);
+    $title = html_entity_decode($title, ENT_QUOTES, 'UTF-8');
+    $vars['title_link'] = l($title, $url);
+  }
+
+  // Get favicon.
+  $favicons = $html->find('link[rel=shortcut icon]', NULL, TRUE);
+  if (count($favicons)) {
+    $favicon = $favicons[0]->href;
+    $host = parse_url($favicon, PHP_URL_HOST);
+    if (empty($host)) {
+      $favicon = NULL;
+    }
+  }
+  if (empty($favicon)) {
+    $host = parse_url($url, PHP_URL_HOST);
+    $favicon = url('http://www.google.com/s2/favicons', array('query' => array('domain' => $host), 'absolute' => TRUE));
+  }
+  $vars['favicon_link'] = l('<img src="' . $favicon . '"/>', $url, array('html' => TRUE));
+
+  $domain = liveblog_get_domain_name($url);
+  $vars['domain_link'] = l($domain, $url);
+}
+
