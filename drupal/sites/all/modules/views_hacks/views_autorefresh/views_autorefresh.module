@@ -36,11 +36,11 @@ function theme_views_autorefresh($variables) {
 
   if (empty($view)) $view = views_get_current_view();
 
-  // Signal the view that we're incrementally auto-refreshing.
+  // Signal the view that we're here.
+  $view->autorefresh['interval'] = $interval;
   if (!empty($incremental)) {
     $view->autorefresh['incremental'] = $incremental;
   }
-
   if (!empty($ping)) {
     $view->autorefresh['ping'] = $ping;
   }
@@ -67,8 +67,12 @@ function theme_views_autorefresh($variables) {
  * Implementation of hook_views_ajax_data_alter().
  */
 function views_autorefresh_views_ajax_data_alter(&$commands, $view) {
-  if (!empty($view->autorefresh['incremental']) || !empty($view->autorefresh['ping'])) {
-    // TODO
+  if (!empty($view->autorefresh['interval'])) {
+    $commands[] = array(
+      'command' => 'viewsAutoRefreshTriggerUpdate',
+      'view_dom_id' => $view->dom_id,
+      'timestamp' => __views_autorefresh_get_timestamp($view),
+    );
   }
 }
 
