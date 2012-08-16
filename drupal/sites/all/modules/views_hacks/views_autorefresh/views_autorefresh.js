@@ -58,8 +58,7 @@ Drupal.behaviors.views_autorefresh = {
                   // Settings must be used last to avoid sending url aliases to the server.
                   settings
                 );
-
-                $.extend(viewData, Drupal.Views.parseViewArgs($(this).attr('href'), settings.view_base_path));
+                Drupal.settings.views_autorefresh[settings.view_name].view_args = viewData.view_args;
 
                 // Setup the click response with Drupal.ajax.
                 var element_settings = {};
@@ -67,10 +66,10 @@ Drupal.behaviors.views_autorefresh = {
                 element_settings.event = 'click';
                 element_settings.selector = view;
                 element_settings.submit = viewData;
-                var ajax = new Drupal.ajax(view, this, element_settings);
+                Drupal.settings.views_autorefresh[settings.view_name].ajax = new Drupal.ajax(view, this, element_settings);
 
                 // Activate refresh timer.
-                Drupal.views_autorefresh.timer(settings, anchor, target);
+                Drupal.views_autorefresh.timer(settings.view_name, anchor, target);
               }); // .each function () {
         }); // $view.filter().each
       });
@@ -78,22 +77,34 @@ Drupal.behaviors.views_autorefresh = {
   }
 }
 
-Drupal.views_autorefresh.timer = function(settings, anchor, target) {
-  Drupal.settings.views_autorefresh[settings.view_name].timer = setTimeout(function() {
-    clearTimeout(Drupal.settings.views_autorefresh[settings.view_name].timer);
+Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
+  Drupal.settings.views_autorefresh[view_name].timer = setTimeout(function() {
+    clearTimeout(Drupal.settings.views_autorefresh[view_name].timer);
 
     // Handle ping path.
     var ping_base_path;
-    if (Drupal.settings.views_autorefresh[settings.view_name].ping) {
-      ping_base_path = Drupal.settings.views_autorefresh[settings.view_name].ping.ping_base_path;
+    if (Drupal.settings.views_autorefresh[view_name].ping) {
+      ping_base_path = Drupal.settings.views_autorefresh[view_name].ping.ping_base_path;
     }
+    
+    // Handle secondary view for incremental refresh.
+    // http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-a-javascript-object
+    var viewData = Drupal.settings.views_autorefresh[view_name].ajax.submit;
+    var viewArgs = Drupal.settings.views_autorefresh[view_name].view_args;
+    if (Drupal.settings.views_autorefresh[view_name].incremental) {
+      viewData.view_args = viewArgs + (viewArgs.length ? '/' : '') + Drupal.settings.views_autorefresh[view_name].timestamp;
+      viewData.view_base_path = Drupal.settings.views_autorefresh[view_name].incremental.view_base_path;
+      viewData.view_display_id = Drupal.settings.views_autorefresh[view_name].incremental.view_display_id;
+      viewData.view_name = Drupal.settings.views_autorefresh[view_name].incremental.view_name;
+    }
+    Drupal.settings.views_autorefresh[view_name].ajax.submit = viewData;
 
     // If there's a ping URL, hit it first.
     if (ping_base_path) {
       $.ajax({
         url: Drupal.settings.basePath + ping_base_path,
         data: {
-          timestamp: Drupal.settings.views_autorefresh[settings.view_name].timestamp
+          timestamp: Drupal.settings.views_autorefresh[view_name].timestamp
         },
         success: function(response) {
           if (response.pong && parseInt(response.pong) > 0) {
@@ -101,7 +112,7 @@ Drupal.views_autorefresh.timer = function(settings, anchor, target) {
             $(anchor).trigger('click');
           }
           else {
-            Drupal.views_autorefresh.timer(settings, anchor, target);
+            Drupal.views_autorefresh.timer(view_name, anchor, target);
           }
         },
         error: function(xhr) {},
@@ -111,12 +122,78 @@ Drupal.views_autorefresh.timer = function(settings, anchor, target) {
     else {
       $(anchor).trigger('click');
     }
-  }, Drupal.settings.views_autorefresh[settings.view_name].interval);
+  }, Drupal.settings.views_autorefresh[view_name].interval);
 }
 
 Drupal.ajax.prototype.commands.viewsAutoRefreshTriggerUpdate = function (ajax, response, status) {
-  var $target = $('.view-dom-id-' + response.view_dom_id);
-  $target.trigger('autorefresh.update', response.timestamp);
+  $(response.selector).trigger('autorefresh.update', response.timestamp);
+}
+
+// http://stackoverflow.com/questions/1394020/jquery-each-backwards
+jQuery.fn.reverse = [].reverse;
+
+Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, response, status) {
+  var $view = $(response.selector);
+  if (response.data) {
+    var sourceSelector = Drupal.settings.views_autorefresh[response.view_name].incremental.sourceSelector || '.view-content';
+    var $source = $(response.data).find(sourceSelector).not(sourceSelector + ' ' + sourceSelector).children();
+    if ($source.size() > 0) {
+      var targetSelector = Drupal.settings.views_autorefresh[response.view_name].incremental.targetSelector || '.view-content';
+      var $target = $view.find(targetSelector);
+
+      // If initial view was empty, remove the empty divs then add the target div.
+      if ($target.size() == 0) {
+        var emptySelector = Drupal.settings.views_autorefresh[response.view_name].incremental.emptySelector || '.view-empty';
+        var afterSelector = Drupal.settings.views_autorefresh[response.view_name].incremental.afterSelector || '.view-header';
+        var targetStructure = Drupal.settings.views_autorefresh[response.view_name].incremental.targetStructure || '<div class="view-content"></div>';
+        if ($(emptySelector, $view).size() > 0) {
+          // replace empty div with content.
+          $(emptySelector, $view).replaceWith(targetStructure);
+        }
+        else if ($(afterSelector, $view).size() > 0) {
+          // insert content after given div.
+          $(afterSelector, $view).after(targetStructure);
+        }
+        else {
+          // insert content as first child of view div.
+          $view.prepend(targetStructure);
+        }
+        // Now that it's inserted, find it for manipulation.
+        $target = $view.find(targetSelector);
+      }
+
+      // Remove first, last row classes from items.
+      var firstClass = Drupal.settings.views_autorefresh[response.view_name].incremental.firstClass || 'views-row-first';
+      var lastClass = Drupal.settings.views_autorefresh[response.view_name].incremental.lastClass || 'views-row-last';
+      $target.children().removeClass(firstClass);
+      $source.removeClass(lastClass);
+
+      // Adjust even-odd classes.
+      var oddClass = Drupal.settings.views_autorefresh[response.view_name].incremental.oddClass || 'views-row-odd';
+      var evenClass = Drupal.settings.views_autorefresh[response.view_name].incremental.evenClass || 'views-row-even';
+      var oddness = $target.children(':first').hasClass(oddClass);
+      $source.filter('.' + oddClass + ', .' + evenClass).reverse().each(function() {
+        $(this).removeClass(oddClass + ' ' + evenClass).addClass(oddness ? evenClass : oddClass);
+        oddness = !oddness;
+      });
+
+      // Add the new items to the view.
+      $target.prepend($source);
+
+      // Adjust row number classes.
+      var rowClassPrefix = Drupal.settings.views_autorefresh[response.view_name].incremental.rowClassPrefix || 'views-row-';
+      var rowRegex = new RegExp('views-row-(\\d+)');
+      $target.children().each(function(i) {
+        $(this).attr('class', $(this).attr('class').replace(rowRegex, rowClassPrefix + (i+1)));
+      });
+
+      // Trigger custom event on any plugin that needs to do extra work.
+      $view.trigger('autorefresh.incremental', $source.size());
+    }
+
+    // Reactivate refresh timer.
+    Drupal.views_autorefresh.timer(response.view_name, $('.auto-refresh a', $view), $view);
+  }
 }
 
 // END jQuery

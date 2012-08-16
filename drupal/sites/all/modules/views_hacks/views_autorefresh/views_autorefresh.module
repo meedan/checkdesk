@@ -67,10 +67,18 @@ function theme_views_autorefresh($variables) {
  * Implementation of hook_views_ajax_data_alter().
  */
 function views_autorefresh_views_ajax_data_alter(&$commands, $view) {
+  if (!empty($view->autorefresh['incremental'])) {
+    foreach ($commands as &$command) {
+      if ($command['command'] == 'insert' && $command['selector'] == ('.view-dom-id-' . $view->dom_id)) {
+        $command['command'] = 'viewsAutoRefreshIncremental';
+        $command['view_name'] = $view->name;
+      }
+    }
+  }
   if (!empty($view->autorefresh['interval'])) {
     $commands[] = array(
       'command' => 'viewsAutoRefreshTriggerUpdate',
-      'view_dom_id' => $view->dom_id,
+      'selector' => '.view-dom-id-' . $view->dom_id,
       'timestamp' => __views_autorefresh_get_timestamp($view),
     );
   }
