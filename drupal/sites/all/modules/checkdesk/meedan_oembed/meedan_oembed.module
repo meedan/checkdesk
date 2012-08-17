@@ -189,3 +189,24 @@ function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
+/**
+ * Function to extract title using embdly.
+ * ToDO : should depend on oembed module to get this info
+ */
+function meedan_oembed_get_title($url) {
+  $attributes = array();
+  $attributes['url'] = $url;
+  $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
+  $endpoint = 'http://api.embed.ly/1/oembed'; 
+  $query = http_build_query($attributes, NULL, '&');
+  $fetch_url = $endpoint . '?' . $query;
+  $response = drupal_http_request($fetch_url);
+  $title = NULL;
+  if (!isset($response->error)) {
+    $embed = json_decode($response->data);
+    if (isset($embed->title)) {
+      $title = $embed->title;
+    }
+  }
+  return $title;
+}
