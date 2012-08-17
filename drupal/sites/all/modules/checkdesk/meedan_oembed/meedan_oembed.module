@@ -87,7 +87,7 @@ function meedan_oembed_generic(&$embed, $domain) {
   $header = get_headers($check_url, 1);
   $url_type = (is_array($header['Content-Type'])) ? $header['Content-Type'][0] : $header['Content-Type'];
   if (preg_match('/text\/html/', $url_type)) {
-    require_once('simple_html_dom.php');
+    require_once(libraries_get_path('simple_html_dom') . '/simple_html_dom.php');
     $context = stream_context_create($stream_options);
     $html = file_get_html($url, FALSE, $context);
     if (is_object($html)) {
@@ -177,13 +177,15 @@ function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars)
   $vars['author_img'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->author_url, array('html' => TRUE));
   $vars['author_name'] = l($embed->author_name, $embed->author_url);
   $vars['content'] = $embed->description;
+  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
 function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
   $embed = $vars['embed'];
   $vars['favicon_link'] = $embed->favicon_link;
-  $vars['title_link'] = $embed->title;
+  $vars['title_link'] = l($embed->title, $embed->url);
   $vars['content'] = $embed->description;
   $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
+  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
