@@ -64,7 +64,6 @@ function meedan_oembed_data($url, $attributes = array()) {
     $provider['name'] = 'meedan_oembed_theme_generic'; 
   }
   $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
-  $embed->type = 'rich';
   meedan_oembed_generic($embed, $domain);
   return $embed;
 }
@@ -73,8 +72,8 @@ function meedan_oembed_data($url, $attributes = array()) {
  *
  */
 function meedan_oembed_generic(&$embed, $domain) {
-  //TODO
   //add data to embed object
+  $url = $embed->url;
   $stream_options = array(
     'http' => array(
       'timeout' => 5,      // Timeout in seconds
@@ -83,7 +82,6 @@ function meedan_oembed_generic(&$embed, $domain) {
     )
   );
   stream_context_set_default($stream_options);
-  $url = $embed->original_url;
   $check_url = preg_match('/^(http|https):\/\//', $url);
   $check_url = (!$check_url) ? 'http://' .$url : $url; 
   $header = get_headers($check_url, 1);
@@ -160,12 +158,12 @@ function _meedan_oembed_get_domain_name($url) {
 function meedan_oembed_theme() {
   $path = drupal_get_path('module', 'meedan_oembed') . '/theme';
   return array(
-    'oembed__rich__meedan_oembed_theme_generic' => array(
+    'oembed__link__meedan_oembed_theme_generic' => array(
       'variables' => array('embed' => NULL), 
       'template' => 'oembed-generic',
       'path' => $path,
     ),  
-    'oembed__rich__meedan_oembed_theme_facebook' => array(
+    'oembed__link__meedan_oembed_theme_facebook' => array(
       'variables' => array('embed' => NULL),  
       'template' => 'oembed-facebook',
       'path' => $path,
@@ -174,18 +172,18 @@ function meedan_oembed_theme() {
 }
 
 
-function template_preprocess_oembed__rich__meedan_oembed_theme_facebook (&$vars) {
+function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars) {
   $embed = $vars['embed'];
   $vars['author_img'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->author_url, array('html' => TRUE));
   $vars['author_name'] = l($embed->author_name, $embed->author_url);
   $vars['content'] = $embed->description;
 }
 
-/**
- * Preprocessor for theme('oembed_generic').
- */
-function template_preprocess_oembed__rich__meedan_generic(&$vars) {
+function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
   $embed = $vars['embed'];
   $vars['favicon_link'] = $embed->favicon_link;
+  $vars['title_link'] = $embed->title;
+  $vars['content'] = $embed->description;
+  $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
 }
 
