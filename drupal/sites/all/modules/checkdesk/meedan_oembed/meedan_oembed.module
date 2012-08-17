@@ -95,6 +95,9 @@ function meedan_oembed_generic(&$embed, $domain) {
       $favicons = $html->find('link[rel=shortcut icon]', NULL, TRUE);
       if (count($favicons)) {
         $favicon = $favicons[0]->href;
+        //check if favicon is relative url as parse_url did not work with relatvie URL
+        $favicon_url = preg_match('/^(http|https):\/\//', $favicon); 
+        $favicon = (!$favicon_url) ? $embed->provider_url . $favicon : $favicon; 
         $host = parse_url($favicon, PHP_URL_HOST);
         if (empty($host)) {
           $favicon = NULL;
@@ -104,7 +107,7 @@ function meedan_oembed_generic(&$embed, $domain) {
         $host = parse_url($url, PHP_URL_HOST);
         $favicon = url('http://www.google.com/s2/favicons', array('query' => array('domain' => $host), 'absolute' => TRUE));
       }
-      $embed->favicon_link = l('<img src="' . $favicon . '"/>', $url, array('html' => TRUE));
+      $embed->favicon_link = $favicon;
       $callback = 'meedan_oembed_' . $domain;
       if (function_exists($callback)) {
         $callback($embed, $html);
@@ -182,7 +185,7 @@ function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars)
 
 function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
   $embed = $vars['embed'];
-  $vars['favicon_link'] = $embed->favicon_link;
+  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
   $vars['title_link'] = l($embed->title, $embed->url);
   $vars['content'] = $embed->description;
   $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
