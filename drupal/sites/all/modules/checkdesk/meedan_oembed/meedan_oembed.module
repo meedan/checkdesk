@@ -84,10 +84,10 @@ function meedan_oembed_generic(&$embed, $domain) {
   stream_context_set_default($stream_options);
   $check_url = preg_match('/^(http|https):\/\//', $url);
   $check_url = (!$check_url) ? 'http://' .$url : $url; 
-  $header = get_headers($check_url, 1);
+  $header = get_headers($embed->provider_url, 1);
   $url_type = (is_array($header['Content-Type'])) ? $header['Content-Type'][0] : $header['Content-Type'];
   if (preg_match('/text\/html/', $url_type)) {
-    require_once(libraries_get_path('simple_html_dom') . '/simple_html_dom.php');
+    require_once(libraries_get_path('simplehtmldom') . '/simple_html_dom.php');
     $context = stream_context_create($stream_options);
     $html = file_get_html($url, FALSE, $context);
     if (is_object($html)) {
