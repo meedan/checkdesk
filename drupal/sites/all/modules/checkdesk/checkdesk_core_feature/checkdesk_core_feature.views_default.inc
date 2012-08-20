@@ -68,7 +68,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: Desk (field_desk) */
+  /* Contextual filter: Content: Story (field_desk) */
   $handler->display->display_options['arguments']['field_desk_target_id']['id'] = 'field_desk_target_id';
   $handler->display->display_options['arguments']['field_desk_target_id']['table'] = 'field_data_field_desk';
   $handler->display->display_options['arguments']['field_desk_target_id']['field'] = 'field_desk_target_id';
@@ -104,14 +104,14 @@ function checkdesk_core_feature_views_default_views() {
   $view->description = '';
   $view->tag = 'checkdesk';
   $view->base_table = 'node';
-  $view->human_name = 'Desks';
+  $view->human_name = 'Stories';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Desks';
+  $handler->display->display_options['title'] = 'Stories';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -171,9 +171,9 @@ function checkdesk_core_feature_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'desks';
+  $handler->display->display_options['path'] = 'stories';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Desks';
+  $handler->display->display_options['menu']['title'] = 'Stories';
   $handler->display->display_options['menu']['weight'] = '1';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
@@ -192,6 +192,7 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Liveblog';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -204,6 +205,25 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['row_options']['view_mode'] = 'full';
   $handler->display->display_options['row_options']['links'] = 0;
   $handler->display->display_options['row_options']['comments'] = 0;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['label'] = 'Autorefresh';
+  $handler->display->display_options['header']['area']['empty'] = TRUE;
+  $handler->display->display_options['header']['area']['content'] = '<?php
+print theme(\'views_autorefresh\', array(
+  \'interval\' => 5000, 
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
+  \'incremental\' => array(
+    \'view_base_path\' => \'liveblog/autorefresh\',
+    \'view_display_id\' => \'page_1\',
+    \'view_name\' => \'liveblog\',
+  ),
+));
+?>';
+  $handler->display->display_options['header']['area']['format'] = 'php_code';
+  $handler->display->display_options['header']['area']['tokenize'] = 0;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -258,6 +278,21 @@ function checkdesk_core_feature_views_default_views() {
     'default' => 'default',
     'page' => 'page',
   );
+
+  /* Display: Autorefresh Page */
+  $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Post date (with operator) */
+  $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
+  $handler->display->display_options['arguments']['created_operator']['table'] = 'node';
+  $handler->display->display_options['arguments']['created_operator']['field'] = 'created_operator';
+  $handler->display->display_options['arguments']['created_operator']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['created_operator']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['created_operator']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['created_operator']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['created_operator']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['created_operator']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['path'] = 'liveblog/autorefresh/%';
   $export['liveblog'] = $view;
 
   $view = new view;
@@ -321,7 +356,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'media' => 'media',
   );
-  /* Filter criterion: Content: Desk (field_desk) */
+  /* Filter criterion: Content: Story (field_desk) */
   $handler->display->display_options['filters']['field_desk_target_id']['id'] = 'field_desk_target_id';
   $handler->display->display_options['filters']['field_desk_target_id']['table'] = 'field_data_field_desk';
   $handler->display->display_options['filters']['field_desk_target_id']['field'] = 'field_desk_target_id';

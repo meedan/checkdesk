@@ -31,9 +31,9 @@ function checkdesk_core_feature_views_api() {
 function checkdesk_core_feature_node_info() {
   $items = array(
     'discussion' => array(
-      'name' => t('Desk'),
+      'name' => t('Story'),
       'base' => 'node_content',
-      'description' => t('A desk is where a story is discussed and media are verified.'),
+      'description' => t('Where a story is discussed and media are verified.'),
       'has_title' => '1',
       'title_label' => t('Headline'),
       'help' => '',

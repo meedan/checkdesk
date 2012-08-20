@@ -24,20 +24,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
-  // Exported menu link: main-menu:desks
-  $menu_links['main-menu:desks'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'desks',
-    'router_path' => 'desks',
-    'link_title' => 'Desks',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '1',
-  );
   // Exported menu link: main-menu:node/11
   $menu_links['main-menu:node/11'] = array(
     'menu_name' => 'main-menu',
@@ -87,7 +73,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Add report');
-  t('Desks');
   t('Home');
   t('TODO');
   t('Unclassified Reports');

@@ -296,7 +296,7 @@ function checkdesk_core_feature_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '4',
+        'weight' => '2',
       ),
     ),
   );
@@ -362,7 +362,7 @@ function checkdesk_core_feature_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_desk',
-      'label' => 'Desk',
+      'label' => 'Story',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -372,7 +372,7 @@ function checkdesk_core_feature_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '2',
+        'weight' => '5',
       ),
     ),
   );
@@ -467,6 +467,66 @@ function checkdesk_core_feature_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-media-field_location'.
+  $fields['node-media-field_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_location',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'media',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'geofield',
+          'settings' => array(
+            'data' => 'full',
+          ),
+          'type' => 'geofield_wkt',
+          'weight' => 4,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'local_solr' => array(
+          'enabled' => FALSE,
+          'lat_field' => 'lat',
+          'lng_field' => 'lng',
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(),
+        'type' => 'geofield_wkt',
+        'weight' => '4',
+      ),
+    ),
+  );
+
   // Exported field: 'node-media-field_rating'.
   $fields['node-media-field_rating'] = array(
     'field_config' => array(
@@ -505,7 +565,7 @@ function checkdesk_core_feature_field_default_fields() {
       'bundle' => 'media',
       'default_value' => array(
         0 => array(
-          'tid' => '4',
+          'tid' => '5',
         ),
       ),
       'deleted' => '0',
@@ -527,7 +587,7 @@ function checkdesk_core_feature_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_rating',
-      'label' => 'Rating',
+      'label' => 'Status',
       'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -709,7 +769,7 @@ function checkdesk_core_feature_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_desk',
-      'label' => 'Desk',
+      'label' => 'Story',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -717,11 +777,7 @@ function checkdesk_core_feature_field_default_fields() {
       'widget' => array(
         'active' => 1,
         'module' => 'options',
-        'settings' => array(
-          'match_operator' => 'CONTAINS',
-          'path' => '',
-          'size' => '60',
-        ),
+        'settings' => array(),
         'type' => 'options_select',
         'weight' => '2',
       ),
@@ -734,9 +790,9 @@ function checkdesk_core_feature_field_default_fields() {
   t('Body');
   t('Comment');
   t('Description');
-  t('Desk');
+  t('Location');
   t('Media');
-  t('Rating');
+  t('Status');
   t('Story');
 
   return $fields;
