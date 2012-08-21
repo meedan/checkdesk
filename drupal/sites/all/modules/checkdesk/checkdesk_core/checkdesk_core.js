@@ -14,7 +14,7 @@
           // Retrieve the Views information from the DOM.
           var data = $(ui.draggable).parent().parent().parent().data('views');
           // Insert the report URL into the textarea of the post body.
-          $('textarea', event.target).insertAtCaret("\n" + data.field_field_link[0].raw.display_url + "\n");
+          $('textarea', event.target).insertAtCaret("\n" + data.field_field_link[0].raw.url + "\n");
         },
       });
       // Attach the Views results to each correspoknding row in the DOM.
