@@ -100,7 +100,7 @@ function meedan_oembed_generic(&$embed, $domain) {
         $favicon = $favicons[0]->href;
         //check if favicon is relative url as parse_url did not work with relatvie URL
         $favicon_url = preg_match('/^(http|https):\/\//', $favicon); 
-        $favicon = (!$favicon_url) ? $embed->provider_url . $favicon : $favicon; 
+        $favicon = (!$favicon_url) ? $embed->provider_url .'/' . $favicon : $favicon; 
         $host = parse_url($favicon, PHP_URL_HOST);
         if (empty($host)) {
           $favicon = NULL;
