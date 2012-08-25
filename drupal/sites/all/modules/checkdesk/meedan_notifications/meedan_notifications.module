@@ -1,0 +1,261 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function meedan_notifications_menu() {
+  $items['user/%user/notifications'] = array(
+    'type' => MENU_LOCAL_TASK,
+    'access callback' => 'meedan_notifications_access',
+    'access arguments' => array(1),
+    'title' => 'Notifications',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('meedan_notifications_user_page', 1),
+  );
+  $items['admin/config/people/notifications'] = array(
+    'title' => 'Notifications',
+    'description' => 'Administer notification settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('meedan_notifications_admin_settings'),
+    'access arguments' => array('administer site configuration'), 
+  );
+  return $items;
+}
+
+/**
+ * Form function for item `admin/settings/meedan/notifications`.
+ */
+function meedan_notifications_admin_settings() {
+  $form['meedan_notifications_sender'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Notification emails sender'),
+    '#default_value' => variable_get('meedan_notifications_sender', ''),
+    '#description' => t('The FROM value that will appear on the notification email. Defaults to "site-name <site-mail>".'),
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Menu access function.
+ * Only allow users to see their own notification settings.
+ */
+function meedan_notifications_access($account) {
+  global $user;
+  return $user->uid == $account->uid || user_access('administer site configuration');
+}
+
+/**
+ * Implements hook_meedan_notifications_events().
+ */
+function meedan_notifications_meedan_notifications_events() {
+  return array(
+    'discussion' => t('New discussion'),
+    'comment' => t('New comment'),
+    'user' => t('New user'),
+  );
+}
+
+/**
+ * API to retrieve notification events.
+ */
+function meedan_notifications_get_events() {
+  $events = &drupal_static(__FUNCTION__);
+  if (!isset($events)) {
+    $events = module_invoke_all('meedan_notifications_events');
+    drupal_alter('meedan_notifications_events', $events);
+  }
+  return $events;
+}
+
+/**
+ * Form function for form `meedan_notifications_user_page`.
+ * Custom user notifications tab.
+ */
+function meedan_notifications_user_page($form, $form_state, $account) {
+  $events = meedan_notifications_get_events();
+  $subscriptions = isset($account->data['meedan_notifications']) ? $account->data['meedan_notifications'] : array_keys($events);
+  $form['subscriptions'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Please select the events for which you wish to be notified by email'),
+    '#options' => $events,
+    '#default_value' => $subscriptions,
+  );  
+  $form['account_uid'] = array(
+    '#type' => 'value',
+    '#value' => $account->uid
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
+  return $form;
+}
+
+/**
+ * Submit function for form `meedan_notifications_user_page`. 
+ */
+function meedan_notifications_user_page_submit($form, &$form_state) {
+  $account = (object)array(
+    'uid' => $form_state['values']['account_uid'],
+  );
+  user_save($account, array('data' => array('meedan_notifications' => $form_state['values']['subscriptions'])));
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function meedan_notifications_action_info() {
+  return array(
+    'meedan_notifications_action' => array(
+      'type' => 'entity',
+      'label' => t('Notify subscribed users'),
+      'configurable' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Form function for action `meedan_notifications_action`.
+ */
+function meedan_notifications_action_form($context) {
+  $options = meedan_notifications_get_events();
+  $form['event'] = array(
+    '#type' => 'radios',
+    '#title' => t('Event'),
+    '#options' => $options,
+    '#default_value' => @$context['event'],
+  );
+  $form['subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Subject'),
+    '#description' => t('You can use the following tokens in your subject: <fieldset class="collapsible collapsed"><legend>Available tokens</legend>!tokens</fieldset>', 
+      array('!tokens' => theme('token_help', array('node', 'global', 'user')))
+    ),
+    '#default_value' => @$context['subject'],
+  );
+  $form['message'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Message'),
+    '#description' => t('You can use the following tokens in your message: <fieldset class="collapsible collapsed"><legend>Available tokens</legend>!tokens</fieldset>', 
+      array('!tokens' => theme('token_help', array('node', 'global', 'user')))
+    ),
+    '#default_value' => @$context['message'],
+  );
+  return $form;
+}
+
+/**
+ * Form submit function for action `meedan_notifications_action`.
+ */
+function meedan_notifications_action_submit($form, $form_state) {
+  $params = array();
+  $params['event'] = $form_state['values']['event'];
+  $params['subject'] = $form_state['values']['subject'];
+  $params['message'] = $form_state['values']['message'];
+  return $params;
+}
+
+/**
+ * Action function for action `meedan_notifications_action`.
+ * Sends email to computed recipients of the event.
+ */
+function meedan_notifications_action($object, $context) {
+  // Get recipients.
+  $uids = NULL;//drupal_static(__FUNCTION__);
+  $hash = md5($object);
+  if (!isset($uids[$hash])) {
+    if (empty($context['event'])) {
+      $context['event'] = $object->type; // sane default in case of human error
+    }
+    $uids = module_invoke_all('meedan_notifications_recipients', $object, $context);
+    $uids = array_combine($uids, $uids); // turn into [uid=>uid]
+    drupal_alter('meedan_notifications_recipients', $uids, $object, $context);
+  }
+
+  // Send email to each recipient.
+  $from = variable_get('meedan_notifications_sender', variable_get('site_mail', ''));
+  foreach (user_load_multiple($uids) as $uid => $account) {
+    drupal_mail(
+      'meedan_notifications',
+      $context['event'],
+      $account->name . ' <' . $account->mail . '>',
+      user_preferred_language($account),
+      array('account' => $account, 'object' => $object, 'context' => $context),
+      $from
+    );
+  }
+}
+
+/**
+ * Implements hook_meedan_notifications_recipients().
+ * Used to populate recipient list.
+ */
+function meedan_notifications_meedan_notifications_recipients($object, $context) {
+  $uids = array();
+  switch ($context['event']) {
+    case 'discussion':
+      $uids = db_query("SELECT uid FROM {users}")->fetchCol(); // all users 
+      break;
+    case 'comment':
+      $uids = db_query("SELECT uid FROM {comment} WHERE nid = :nid", array(':nid' => $object->nid))->fetchCol(); // other commenters
+      $discussion = node_load($object->nid);
+      $uids[] = $discussion->uid; // discussion author
+      break;
+    case 'user':
+      $uids = db_query("SELECT uid FROM {users}")->fetchCol(); // all users
+      break;
+  }
+  return $uids;
+}
+
+/**
+ * Implements hook_meedan_notifications_recipients_alter().
+ * Used to restrict recipient list.
+ */
+function meedan_notifications_meedan_notifications_recipients_alter(&$uids, $object, $context) {
+  // Remove author.
+  if (in_array($context['event'], array('discussion', 'comment', 'user'))) {
+    unset($uids[$object->uid]);
+  }
+
+  // Remove anonymous.
+  unset($uids[0]);
+
+  // Look on remaining recipients to remove unwanted ones.
+  $events = meedan_notifications_get_events();
+  foreach (user_load_multiple($uids) as $uid => $account) {
+    // Remove users who have opted out.
+    $subscriptions = isset($account->data['meedan_notifications']) ? $account->data['meedan_notifications'] : array_keys($events);
+    if (!in_array($context['event'], array_filter($subscriptions))) {
+      unset($uids[$uid]);
+    }
+    
+    // Remove users who are blocked.
+    if (!$account->status) {
+      unset($uids[$uid]);
+    }
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function meedan_notifications_mail($key, &$message, $params) {
+  $account = $params['account'];
+  $object = $params['object'];
+  $context = $params['context'];
+
+  $message['subject'] = t($context['subject'], array(), array('langcode' => $account->language));
+  $message['body'] = t($context['message'], array(), array('langcode' => $account->language));
+}
+
+/** 
+ * Implements hook_mail_alter().
+ * Convert the default email sender from just site_mail to "site_name <site_mail>".
+ */
+function meedan_notifications_mail_alter(&$message) {
+  if ($message['from'] == variable_get('site_mail', '')) {
+    $message['from'] = $message['headers']['From'] = variable_get('site_name', '') . ' <' . variable_get('site_mail', '') . '>';
+  }
+}
+
