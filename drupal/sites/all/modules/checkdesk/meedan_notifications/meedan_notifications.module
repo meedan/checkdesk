@@ -95,9 +95,7 @@ function meedan_notifications_user_page($form, $form_state, $account) {
  * Submit function for form `meedan_notifications_user_page`. 
  */
 function meedan_notifications_user_page_submit($form, &$form_state) {
-  $account = (object)array(
-    'uid' => $form_state['values']['account_uid'],
-  );
+  $account = user_load($form_state['values']['account_uid']);
   user_save($account, array('data' => array('meedan_notifications' => $form_state['values']['subscriptions'])));
 }
 
