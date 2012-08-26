@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * meedan_devel.strongarm.inc
+ * meedan_devel_feature.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function meedan_devel_strongarm() {
+function meedan_devel_feature_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
