@@ -189,7 +189,10 @@ function meedan_notifications_action($object, $context) {
   }
 
   // Send email to each recipient.
-  $from = variable_get('meedan_notifications_sender', variable_get('site_mail', NULL));
+  $from = variable_get('meedan_notifications_sender', NULL);
+  if (empty($from)) {
+    $from = variable_get('site_mail', NULL);
+  }
   foreach (user_load_multiple($uids) as $uid => $account) {
     drupal_mail(
       'meedan_notifications',
