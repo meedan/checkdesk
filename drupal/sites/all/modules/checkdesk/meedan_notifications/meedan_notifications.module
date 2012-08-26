@@ -269,7 +269,7 @@ function meedan_notifications_mail($key, &$message, $params) {
   $options = array(
     'sanitize' => FALSE,
   );
-  if ($account->language != LANGUAGE_NONE) {
+  if (!empty($account->language) && $account->language != LANGUAGE_NONE) {
     $options['language'] = $languages[$account->language];
   }
 
