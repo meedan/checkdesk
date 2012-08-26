@@ -9,30 +9,39 @@ function meedan_notifications_rules_action_info() {
       'label' => t('Notify subscribed users'),
       'parameter' => array(
         'object' => array(
-          'type' => 'entity',
+          'type' => 'unknown',
           'label' => t('Object'),
         ),
         'event' => array(
           'type' => 'text',
           'label' => t('Event'),
-          'options list' => 'meedan_notifications_get_events',
+          'options list' => 'meedan_notifications_rules_get_events',
           'restriction' => 'input',
         ),
         'subject' => array(
           'type' => 'text',
           'label' => t('Subject'),
           'restriction' => 'input',
+          'description' => t('The notification email subject. In addition to the tokens listed below, you can also use [recipient] which will be filled with the account information of each recipient.'),
         ),
         'message' => array(
           'type' => 'text',
           'label' => t('Message'),
           'restriction' => 'input',
+          'description' => t('The notification email body. In addition to the tokens listed below, you can also use [recipient] which will be filled with the account information of each recipient.'),
         ),
       ),
-      'group' => 'Notifications',
+      'group' => 'System',
       'base' => 'meedan_notifications_rules_action',
     ),
   );
+}
+
+/**
+ * Helper to get event types.
+ */
+function meedan_notifications_rules_get_events() {
+  return meedan_notifications_get_events('label');
 }
 
 /**
