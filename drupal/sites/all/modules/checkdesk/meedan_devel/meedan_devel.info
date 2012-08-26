@@ -1,0 +1,16 @@
+name = Meedan Devel
+description = Development environment configuration
+core = 7.x
+package = Meedan
+dependencies[] = context_ui
+dependencies[] = devel
+dependencies[] = field_ui
+dependencies[] = maillog
+dependencies[] = rules_admin
+dependencies[] = strongarm
+dependencies[] = views_ui
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:1
+features[variable][] = maillog_devel
+features[variable][] = maillog_log
+features[variable][] = maillog_send
