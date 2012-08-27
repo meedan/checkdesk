@@ -28,7 +28,7 @@ function meedan_notifications_menu() {
 function meedan_notifications_admin_settings() {
   $form['meedan_notifications_sender'] = array(
     '#type' => 'textfield',
-    '#title' => t('Notification emails sender'),
+    '#title' => t('Notification email sender'),
     '#default_value' => variable_get('meedan_notifications_sender', ''),
     '#description' => t('The FROM value that will appear on the notification email. Defaults to "site-name <site-mail>".'),
   );
