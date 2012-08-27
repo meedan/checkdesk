@@ -144,19 +144,26 @@ function meedan_notifications_action_form($context) {
   $form['subject'] = array(
     '#type' => 'textfield',
     '#title' => t('Subject'),
-    '#description' => t('You can use the following tokens in your subject: <fieldset class="collapsible collapsed"><legend>Available tokens</legend>!tokens</fieldset>', 
-      array('!tokens' => theme('token_help', array('node', 'global', 'user')))
-    ),
+    '#description' => t('You can use the tokens below in your subject.'),
     '#default_value' => @$context['subject'],
   );
   $form['message'] = array(
     '#type' => 'textarea',
     '#title' => t('Message'),
-    '#description' => t('You can use the following tokens in your message: <fieldset class="collapsible collapsed"><legend>Available tokens</legend>!tokens</fieldset>', 
-      array('!tokens' => theme('token_help', array('node', 'global', 'user')))
-    ),
+    '#description' => t('You can use the tokens below in your message.'),
     '#default_value' => @$context['message'],
   );
+  if (module_exists('token')) {
+    $form['token_tree'] = array(
+      '#theme' => 'token_tree', 
+      '#token_types' => array('node', 'user'),
+    );
+  }
+  else {
+    $form['token_tree'] = array(
+      '#markup' => '<p>' . t('Enable the <a href="@drupal-token">Token module</a> to view the available token browser.', array('@drupal-token' => 'http://drupal.org/project/token')) . '</p>',
+    );
+  }
   return $form;
 }
 
