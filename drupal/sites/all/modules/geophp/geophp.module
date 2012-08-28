@@ -29,7 +29,7 @@ function geophp_load() {
 function geophp_requirements($phase) {
   $requirements = array();
   
-  $geophp = geofield_load_geophp();
+  $geophp = geophp_load();
   
   if (geoPHP::geosInstalled()) {
     $requirements['geophp'] = array(
