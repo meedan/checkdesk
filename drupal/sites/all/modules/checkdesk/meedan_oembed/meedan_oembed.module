@@ -87,7 +87,7 @@ function meedan_oembed_generic(&$embed, $domain) {
   $check_url = preg_match('/^(http|https):\/\//', $url);
   $check_url = (!$check_url) ? 'http://' .$url : $url;
   // disable get_headers until fix invalid url warning 
-  //$header = get_headers($embed->provider_url, 1);
+  //$header = get_headers($url, 1);
   //$url_type = (is_array($header['Content-Type'])) ? $header['Content-Type'][0] : $header['Content-Type'];
   if (TRUE/*preg_match('/text\/html/', $url_type)*/) {
     require_once(libraries_get_path('simplehtmldom') . '/simple_html_dom.php');
@@ -216,3 +216,69 @@ function meedan_oembed_get_title($url) {
   }
   return $title;
 }
+
+/**
+* Implements hook_entity_info_alter().
+*/
+function meedan_oembed_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['meedan_oembed'] = array(
+    'label' => t('Meedan Oembed'),
+    'custom settings' => TRUE,
+  );
+}
+
+/**
+ * Implements hook_filter_info().
+ */
+function meedan_oembed_filter_info() {
+  $filters['filter_meedan_oembed'] = array(
+    'title' => t('Meedan Oembed Filter'),
+    'description' => t('Every instance of meedan oembed nid will be replaced with the current meedan oembed node view.'),
+    'prepare callback' => '_meedan_oembed_filter_prepare',
+    'process callback' => '_meedan_oembed_filter_process',
+    'tips callback' => '_meedan_oembed_filter_tips',
+  );
+  return $filters;
+}
+
+/**
+ * Meedan Oembed filter prepare callback.
+ */
+function _meedan_oembed_filter_prepare($text, $filter) {
+  return $text;
+}
+
+/**
+ * Time filter process callback.
+ *
+ * Now, in the "process" step, we'll search for our escaped time tags and
+ * do the real filtering: replace nid with meedan oembed node view.
+ */
+function _meedan_oembed_filter_process($text, $filter) {
+  $matches = array();
+  preg_match_all('@\[nid:([0-9]+)\]@', $text, $matches);
+  if (count($matches[1])) {
+    $output = array();
+    foreach($matches[1] as $nid) {
+      if (is_numeric($nid)) {
+        $node = node_load($nid);
+        if(is_object($node)) {
+          $node_view = drupal_render(node_view($node, 'meedan_oembed'));
+          $output[] = '<em>' . $node_view . '</em>';
+        }
+      }
+    }
+    return implode("\n", $output);
+  }
+  return $text;
+}
+
+
+/**
+ * Filter tips callback for meedan oembed filter.
+ *
+ */
+function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
+  return t('<em>[node : nid]</em> is replaced with the meedan oembed node view.');
+}
+
