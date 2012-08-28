@@ -1,0 +1,13 @@
+diff --git a/drupal/sites/all/modules/geophp/geophp.module b/drupal/sites/all/modules/geophp/geophp.module
+index faa2f8f..ac233ec 100644
+--- a/drupal/sites/all/modules/geophp/geophp.module
++++ b/drupal/sites/all/modules/geophp/geophp.module
+@@ -29,7 +29,7 @@ function geophp_load() {
+ function geophp_requirements($phase) {
+   $requirements = array();
+   
+-  $geophp = geofield_load_geophp();
++  $geophp = geophp_load();
+   
+   if (geoPHP::geosInstalled()) {
+     $requirements['geophp'] = array(
