@@ -1,0 +1,25 @@
+<?php
+
+function meedan_sources_schema() {
+  $schema['meedan_sources'] = array(
+    'fields' => array(
+      'ms_id' => array('type' => 'serial', 'unsigned' => TRUE,  'not null' => TRUE),
+      'source' => array('type' => 'varchar', 'length' => 120, 'not null' => FALSE),
+      'source_url' => array('type' => 'varchar', 'length' => 250, 'not null' => FALSE),
+      'parent' => array('type' => 'int', 'length' => 11, 'not null' => FALSE),
+    ),
+    'primary key' => array('ms_id'),
+  );
+  $schema['meedan_sources_media'] = array(
+    'fields' => array(
+      'nid' => array('type' => 'int', 'unsigned' => TRUE,  'not null' => TRUE),
+      'ms_id' => array('type' => 'int', 'unsigned' => TRUE,  'not null' => TRUE),
+    ),
+    'primary key' => array('nid'),
+  );
+  return $schema;
+}
+
+function liveblog_statistics_update_1() {
+  drupal_install_schema('meedan_sources');
+}
