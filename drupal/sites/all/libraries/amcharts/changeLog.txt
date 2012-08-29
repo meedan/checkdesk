@@ -1,0 +1,419 @@
+2.7.6
+
+chart.invalidateSize() method was fixed
+charts used to ignore padding of a div.
+chartCursor.showCursorAt(category) method added. It will make the cursor to
+appear at specified cateogry or date.
+
+2.7.5
+Bug with smoothed line in scrollbar fixed.
+minMaxMultiplayer property added to ValueAxis. Default value is 1. You can increase
+min/max range using this property. Useful for bubble charts - prevents from bubbles
+being cut.
+Some other minor bugs fixed.
+
+2.7.4
+In case open and close values were equal, horizontal line wasn't drawn by candlestick chart.
+
+In case pie chart had one slice only, a tiny gap might be visible in IE8 and older.
+
+markerBorderColor of AmLegend was ignored.
+
+Ticks with no labels (when labelFrequency was > 1) were not hidden by categoryAxis.
+
+Balloons could overlap "show all" button preventing it from being clicked.
+
+
+2.7.3
+new line symbol \n was ignored in some browsers.
+
+smaller than 1 numbers were formatted incorrectly in some cases.
+
+2.7.2
+Usabilty with touch devices improved - scrollbar's drag icons has a bigger hit area.
+
+Some bugs fixed. 
+
+2.7.1
+chart.removeLegend() was not working properly.
+
+chart.startDate wasn't returning value.
+
+lineColorField added to graph's properties.
+
+2.7.0
+textAlign property added to AmBalloon. Possible values are left/middle/right,
+default is "middle".
+
+behindColumns property added to AmGraph. If set to true, line graph will be
+displayed behind column graphs.
+
+"init" event added to AmChart. Event is fired right after the chart is initialized
+for the very first time.
+
+totalText property added to ValueAxis. Usage example: 
+valueAxis.totalText = "total: [[total]]"
+It works only if the chart has column graphs and stackType is set to "regular" or "100%".
+
+showEntries property added to AmLegend. It might be used by StockChart - in case you want
+legend as it displayes title of the chart but don't want legend entries to be visible.
+
+A bug with separate data provider set to graph fixed.
+
+2.6.13
+FIXES:
+When viewing a page with a chart from iOS browser, console logged some errors
+
+gradientOrientation was ignored by area charts
+
+plotAreaGradientAngle property added to AmRectangularChart, can accept 0, 90, 
+180 and 270 values.
+
+2.6.12
+FIXES:
+Pie chart data labels were hidden behind other slices if labelRadius < 0
+
+If chart was in a div with scrollbar, cursor was displayed in wrong position after 
+scrolling with FF.
+
+Some other minor bugs fixed.
+
+2.6.11
+cursor and balloons were not shown on iPad when cursor.pan was set to true
+
+Labels near XY chart bullets were placed incorrectly (since last version only)
+
+some other minor bugs fixed
+
+2.6.10
+AmCharts.baseHref property added. Set it to true if you are using base href in your
+HTML. This will help so solve svg/base href bug (clip paths are not working and
+gradient fills are displayed as balck).
+
+Text can be wrapped again. Add \n in places you need new line in text.
+
+Some other minor bugs fixed.
+
+2.6.9
+AmCharts.useUTC property added, default value is false. Set it to true if you
+create dates using timestamps, like new Date(1256953732) and wish dates to be
+formatted usin UTC instead of local time.
+
+FIX:
+If more than two colors were set for graph.fillColors, only two first colors
+were used.
+
+FIX:
+chartCursor.bulletsEnabled was ignored, even set to true.
+
+FIX: on IE8, if one slice was 100%, the circle wasn't displayed.
+
+FIX: custom fields in balloonText were not supported by XY chart. 
+
+2.6.8
+pieAlpha property was ignored.
+plotAreaBorderAlpha was ignored if plotAreaAlphas was 0
+column graph type was ignoring startEffect property.
+chart property referencing to the chart object added to all event objects.  
+
+2.6.7
+Pie slices became invisible if startAlpha was < 1 on <= IE8 browsers (since 2.6.6 only)
+Performance with IE6 increased.
+
+2.6.6
+short year (YY) was incorrectly formatted in <= IE8 browsers
+alphaField was ignored by column graph
+chartScrollbar was not working properly when parseDates was set to false.
+some other minor bugs fixed.
+
+2.6.5
+some minor bugs fixed.
+
+2.6.4
+minSelectedTime property added to AmSerialTime
+
+some minor bugs fixed. 
+
+2.6.3
+zoom-out button wasn't working on iPad (only since 2.6.0)
+
+2.6.2
+Bug with paneEventsEnabled and older firefox (< 4) fixed
+
+//////////////////////////////////////////////////////////////////////////////////////
+// IMPOTANT UPDATE ///////////////////////////////////////////////////////////////////
+// 2.6.0           ///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+amCharts is no longer using raphael drawing library. New drawing engine is included
+inside amcharts.js file. The charts got a lot faster, the file size reduced by 70Kb!
+
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.5
+In new version of Chrome (17) a new bug was introduced - if touchEventsEnabled was set
+to true, mouse events stopped working on normal browsers. Bug fixed in this version.
+  
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.4
+Some minor bugs fixed
+
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.3
+Some minor bugs fixed
+
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.2
+Some minor bugs fixed
+
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.1
+
+TrendLines are supported by XY chart from this version
+
+//////////////////////////////////////////////////////////////////////////////////////
+// IMPORTANT UPDATE //////////////////////////////////////////////////////////////////
+// 2.5.0            //////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+Since v 2.5 we no longer distribute our old flash charts in this package, we hope this
+will help to avoid a lot of misunderstandings. If you still want to use flash charts,
+download them in a separate package from www.amcharts.com/download/
+
+We added a lot of new examples, to the "samples" folder. They are better structured,
+source code commented.
+
+BIG NEW FEATURES:
+
+Automatic margins
+margins of RectangularChart (Serial and XY charts) are calculated automatically now. 
+You can still work in old way by setting margins manually - set chart.autoMargins to
+false.
+ 
+Axis titles
+Previously you had to use addLabel method in order to give name to the axis. Since
+this version we introduced title property for AxisBase, so you can name both Category
+and Value Axes now much more easily.
+
+Chart title
+Same as with axes titles - previously you had to use addLabel method to name a chart.
+Now you can add any number of titles using 
+chart.addTitle(text, size, color, alpha, bold) method. Chart title is taken into account
+when calculating margins, also position of pie/radar center.
+
+Trend lines
+Chart can display Trend lines now.
+
+AmCharts.ready() method added so you don't need to use window.onload anymore. You can
+use amCharts.ready as many times in one page as you want. 
+
+NOT SO BIG NEW FEATURES:
+
+precision property added to ValueAxis.
+
+if chart.usePrefixes is set, prefixes will be used both in balloons and legend, not only
+by valueAxis as before.
+
+
+SOME OTHER THINGS TO MENTION:
+
+default value of autoGridCount property of AxisBase changed to true
+
+default value of textClickEnabled of AmLegend changed to false
+
+default value of hideResizeGrips of ChartScrollbar changed to false
+
+All margins of RectangularChart changed to 20, as they can still be used for sides
+without axes.  
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+2.4.7
+FEATURE:
+you can use custom tags like [[myCustomField]] in labelText / balloonText. If data item
+from your data provider has such field, the tag will be replaced with this value.
+
+FIXES:
+[[percents]] were not displayed in stacked chart labels.
+labels on the 3D columns were positioned in wrong position in some cases.
+
+2.4.6
+FIXES:
+if chartCursor.pan was set to true, mouse pointer didn't change back when off the area.
+
+in some cases balloon flashed in a wrong position (IE only) for a second.
+
+amFallback used to fail on older IE with <visible_in_legend> set to false.
+
+Rollover balloons used to overlap when all of the datapoints were very near the top of 
+the plot area.
+
+Sometimes lines became blurry after window was resized.
+
+v16 of Chrome used to display warning about deprecated layerX and layerY properties
+
+guides on CategoryAxis with not date based values used not to work properly.
+
+Some other minor bugs fixed.
+
+FEATURES:
+
+boldPeriodBeginning property with default value true added to CoordinateAxis.
+You can disable bolding of the beginning of a period (like year/month/etc) using
+it. 
+
+2.4.5
+some bugs fixed
+
+2.4.4
+some bugs fixed
+
+2.4.3
+labels added using addLabel method weren't rotated (this bug was since v 2.4.0)
+Raphael.js updated to 2.0.1, some related issues in amCharts fixed.
+
+2.4.2
+equalWidths with default value true added to AmLegend. Allows to save space
+in the legend. Won't look good if legend has more than one line.
+
+version property added to AmChart. Indicates current version of the chart script.
+
+FIXES:
+If labelRotation was set to 90, some labels were hidden.
+
+It was impossible to drag chart scrollbar if the mouse was over text in scrollbar.
+Chart cursor stayed visible sometimes even mouse wasn't over the chart.
+
+[[category]] metatag was ignored in legend value text.
+
+[[percents.value]] couldn't be displayed in value balloon.
+
+labelPosition was ignored with not stacked columns
+
+
+2.4.1
+raphael.js file was updated in order to fix conflicts with mootools.
+
+some minor bugs fixed.
+
+2.4.0
+JavaScript version moved to newly released Raphael v.2 (raphael.js file was updated).
+
+some minor bugs fixed.
+
+2.3.0
+Fixes in Flash version:
+
+	Since the release of Flash Player 11, calling setSettings could cause browser 
+	crash. This problem fixed in this version. You only need to overwrite swf files.
+
+Fixes in JavaScript version:
+
+	Rollover balloon with cornerRadius set to 0 was distorted when it's close to the
+	plot area's top.
+	
+	amClickGraphItem event wasn't working for Radar Chart.
+	
+	graph.showBalloon = false was ignored.
+	
+	The last item in chart.colors array was ignored.
+	
+	3D stacked bar charts had layer order problems.
+
+New features in JavaScript version:
+
+	minBulletSize property added to AmGraph. Might be useful for XY chart.
+	
+	animateAgain() method added to all charts. Will trigger animation.
+   
+2.2.1
+Changes were made in JavaScript version only.
+
+We used Google's Closure Compiler (http://closure-compiler.appspot.com/home)
+app to optimize the code and now size of amCharts is less by ~13 KB!
+
+oneBalloonOnly property added to ChartCursor. If true, only one value balloon
+at a time will be displayed. Default value is false.
+
+Some minor bugs were fixed.
+
+2.2.0
+JavaScript version of XY Chart is now available. 
+Code was optimized so even with this new chart the size of a file got smaller!
+Some minor bugs fixed in JS version.
+We decided to remove a possibility to have gradient fills of JS pie chart as this
+might cause some unsolvable bugs.
+
+2.1.5
+Fix in JavaScript version:
+Some garbage used to appear on plot area while zooming candlestick chart.
+
+2.1.4
+Fix in JavaScript version:
+One i variable was't declared so it became global. This might cause some conflicts
+with other scripts on a page.
+
+2.1.3
+
+Fixes / tweaks in JavaScript version:
+
+If duration of ValueAxis is set, value balloons now also display duration.
+
+If a label was added with chart.addLabel method after the chart is created, these
+labels used to dissapear after validateNow() methos was called.
+
+Some issues with positive/negative graph masking fixed.
+
+If graph type was column, startDuration was > 0, and there were values equal to 0,
+an error used to happen with Chrome while animating.
+
+Legend marker type "bubble" wasn't working at all.
+
+Legend marker type "line" or "dashed line" wasn't registering clicks on the marker. 
+ 
+2.1.0
+Radar/Polar chart added to JavaScript charts
+Some bug fixes/tweaks in both flash and JavaScript versions.
+
+
+2.0.7
+Memory leaks fixed and performance inproved for JavaScript version.
+
+
+2.0.6
+Changes in JavaScript version:
+We strongly recommend upgrading to this version, as it contains some important
+updates and fixes.
+
+One important change which might affect chart behavior on touch devices was made.
+As our charts have a possibility to zoom-in or scroll, we are capturing touch events
+and zoom or pan or scroll the chart if such event happens. This means that if a
+chart is on a page, and user is moving a page with a finger, the page won't move if
+he touches the chart first. Understanding that in most cases moving a page is a
+primary purpose of a user, we disabled our pan behaviors by default. If you think
+that selecting or or panning the chart is a primary purpose of your chart users,
+you should set:
+
+chart.panEventsEnabled = true;
+
+Another important fix - the charts were redrawing when browser was resized even
+if chart containers size didn't changed. This affected performance a lot.
+
+Some other minor fixes were made.
+
+
+2.0.5
+Changes in JavaScript version:
+Some minor bugs fixed.
+
+
+2.0.4
+Changes in JavaScript version:
+gridPosition property with possible values "start" and "middle" added to CategroryAxis;
+usePrefixes added to valueAxis;
+
+
+2.0.3
+Changes in JavaScript version:
+Mouse and text related problems which appeared in newly released IE9 were fixed.

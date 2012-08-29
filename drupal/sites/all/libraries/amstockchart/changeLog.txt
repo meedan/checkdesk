@@ -1,0 +1,268 @@
+2.7.6
+chart.invalidateSize() method was fixed.
+Charts used to ignore padding of a div.
+chartCursor.showCursorAt(category) method added. It will make the cursor to
+appear at specified cateogry or date.
+
+2.7.5
+Bug with smoothed line in scrollbar fixed.
+minMaxMultiplayer property added to ValueAxis. Default value is 1. You can increase
+min/max range using this property. Useful for bubble charts - prevents from bubbles
+being cut.
+Some other minor bugs fixed.
+
+2.7.4
+In case open and close values were equal, horizontal line wasn't drawn by candlestick chart.
+
+In case pie chart had one slice only, a tiny gap might be visible in IE8 and older.
+
+markerBorderColor of AmLegend was ignored.
+
+Ticks with no labels (when labelFrequency was > 1) were not hidden by categoryAxis.
+
+Balloons could overlap "show all" button preventing it from being clicked.
+
+Only part of a drawing icons were actually working on touch devices. 
+
+2.7.3
+new line symbol \n was ignored in some browsers.
+
+smaller than 1 numbers were formatted incorrectly in some cases.
+
+2.7.2
+Usabilty with touch devices improved - scrollbar's drag icons has a bigger hit area.
+
+Some bugs fixed.
+
+2.7.1
+categoryAxesSettings.boldPeriodBeginning was ignored when equalSpacing
+was set to true.
+
+Stock events that are attached to axis were not stacked.
+
+StockEvent.urlTarget was ignored.
+
+Predefined period buttons were not marked as selected if a period was longer when 
+available data. 
+
+
+2.7.0
+textAlign property added to AmBalloon. Possible values are left/middle/right,
+default is "middle".
+
+behindColumns property added to AmGraph. If set to true, line graph will be
+displayed behind column graphs.
+
+"init" event added to AmChart. Event is fired right after the chart is initialized
+for the very first time.
+
+totalText property added to ValueAxis. Usage example: 
+valueAxis.totalText = "total: [[total]]"
+It works only if the chart has column graphs and stackType is set to "regular" or "100%".
+
+showEntries property added to AmLegend. It might be used by StockChart - in case you want
+legend as it displayes title of the chart but don't want legend entries to be visible.
+
+A bug with separate data provider set to graph fixed.
+
+If data set doesn't have field of comparing graph mapped, the legend won't display 
+entry for this data set at all. 
+
+2.6.13
+FIXES:
+When viewing a page with a chart from iOS browser, console logged some errors
+
+gradientOrientation was ignored by area charts
+
+plotAreaGradientAngle property added to AmRectangularChart, can accept 0, 90, 
+180 and 270 values.
+
+2.6.12
+FIXES:
+Pie chart data labels were hidden behind other slices if labelRadius < 0
+
+If chart was in a div with scrollbar, cursor was displayed in wrong position after 
+scrolling with FF.
+
+Some other minor bugs fixed.
+
+2.6.11
+cursor and balloons were not shown on iPad when cursor.pan was set to true
+
+Labels near XY chart bullets were placed incorrectly (since last version only)
+
+If StockPanel had margins, drawing trenlines were offset by the size of the margin.
+
+graph.connect property was not passed to comparing graph.
+
+compareGraphBulletAlpha property added to StockGraph.
+
+some minor bugs fixed.
+
+2.6.10
+AmCharts.baseHref property added. Set it to true if you are using base href in your
+HTML. This will help so solve svg/base href bug (clip paths are not working and
+gradient fills are displayed as balck).
+
+Text can be wrapped again. Add \n in places you need new line in text.
+
+Some other minor bugs fixed.
+
+2.6.9
+AmCharts.useUTC property added, default value is false. Set it to true if you
+create dates using timestamps, like new Date(1256953732) and wish dates to be
+formatted usin UTC instead of local time.
+
+FIX:
+If more than two colors were set for graph.fillColors, only two first colors
+were used.
+
+FIX:
+chartCursor.bulletsEnabled was ignored, even set to true.
+
+FIX: on IE8, if one slice was 100%, the circle wasn't displayed.
+
+FIX: custom fields in balloonText were not supported by XY chart. 
+
+
+2.6.8
+predefined period lost focus if a data set was selected
+roll-over balloon disappeared when hovering the letter of event bullet
+ 
+pieAlpha property was ignored.
+plotAreaBorderAlpha was ignored if plotAreaAlphas was 0
+column graph type was ignoring startEffect property.
+chart property referencing to the chart object added to all event objects.
+  
+
+2.6.7
+Pie slices became invisible if startAlpha was < 1 on <= IE8 browsers (since 2.6.6 only)
+Performance with IE6 increased.
+
+2.6.6
+some minor bugs fixed.
+
+2.6.5
+some minor bugs fixed.
+
+2.6.4
+compareGraphNumberFormatter property added to StockGraph.
+some minor bugs fixed. 
+
+2.6.3
+some minor bugs fixed.
+
+2.6.2
+Bug with paneEventsEnabled and older firefox (< 4) fixed
+
+//////////////////////////////////////////////////////////////////////////////////////
+// IMPOTANT UPDATE ///////////////////////////////////////////////////////////////////
+// 2.6.0           ///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+amCharts is no longer using raphael drawing library. New drawing engine is included
+inside amstock.js file. The charts got a lot faster, the file size reduced by 70Kb!
+
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.5
+In new version of Chrome (17) a new bug was introduced - if touchEventsEnabled was set
+to true, mouse events stopped working on normal browsers. Bug fixed in this version.
+  
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.4
+Some minor bugs fixed
+
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.3
+Some minor bugs fixed                                                           
+
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.2
+Some minor bugs fixed
+
+//////////////////////////////////////////////////////////////////////////////////////
+2.5.1
+Some minor bugs fixed
+
+//////////////////////////////////////////////////////////////////////////////////////
+// IMPORTANT UPDATE //////////////////////////////////////////////////////////////////
+// 2.5.0            //////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+Since v 2.5 we no longer distribute our old flash chart in this package, we hope this
+will help to avoid a lot of misunderstandings. If you still want to use flash chart,
+download it in a separate package from www.amcharts.com/download/
+
+AmCharts.ready() method added so you don't need to use window.onload anymore. You can
+use amCharts.ready as many times in one page as you want.
+
+precision property added to ValueAxis.
+
+if chart.usePrefixes is set, prefixes will be used both in balloons adn legend, not only
+by valueAxis as before.
+
+default value of autoGridCount property of AxisBase changed to true
+
+default value of textClickEnabled of AmLegend changed to false
+
+default value of hideResizeGrips of ChartScrollbar changed to false
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+2.1.9
+Some minor bugs fixed.
+
+2.1.8
+Some minor bugs fixed.
+
+2.1.7
+FIXES:
+if chartCursor.pan was set to true, mouse pointer didn't change back when off the area.
+
+in some cases balloon flashed in a wrong position (IE only) for a second.
+
+Rollover balloons used to overlap when all of the datapoints were very near the top of 
+the plot area.
+
+Sometimes lines became blurry after window was resized.
+
+v 16 of Chrome used to display warning about deprecated layerX and layerY properties.
+
+Some other minor bugs fixed.
+
+FEATURES:
+
+boldPeriodBeginning property with default value true added to CoordinateAxis.
+You can disable bolding of the beginning of a period (like year/month/etc) using
+it. 
+
+2.1.6
+Some minor bugs fixed.
+
+2.1.5
+Some minor bugs fixed.
+
+2.1.4
+Some minor bugs fixed.
+
+2.1.3
+Some minor bugs fixed.
+
+2.1.2
+Raphael.js updated to 2.0.1, some related issues in amCharts fixed.
+
+2.1.1
+
+version property added to AmStockChart. Indicates current version of the chart
+script.
+
+FIXES:
+
+It was impossible to drag chart scrollbar if the mouse was over text in scrollbar.
+Chart cursor stayed visible sometimes even mouse wasn't over the chart.
+
+NEW FEATURES
+
+equalWidths with default value "false" was added to LegendSettings. It allows
+to save some space in the legend. 
