@@ -195,6 +195,12 @@ function checkdesk_core_feature_field_default_fields() {
           'type' => 'text_default',
           'weight' => '0',
         ),
+        'meedan_oembed' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -264,6 +270,13 @@ function checkdesk_core_feature_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
+        'meedan_oembed' => array(
+          'label' => 'above',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
@@ -353,6 +366,12 @@ function checkdesk_core_feature_field_default_fields() {
           'type' => 'hidden',
           'weight' => '3',
         ),
+        'meedan_oembed' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '3',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -414,6 +433,16 @@ function checkdesk_core_feature_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'oembedfield',
+          'settings' => array(
+            'maxheight' => '',
+            'maxwidth' => '',
+          ),
+          'type' => 'oembed_default',
+          'weight' => '1',
+        ),
+        'meedan_oembed' => array(
           'label' => 'hidden',
           'module' => 'oembedfield',
           'settings' => array(
@@ -498,6 +527,12 @@ function checkdesk_core_feature_field_default_fields() {
           'type' => 'geofield_wkt',
           'weight' => 4,
         ),
+        'meedan_oembed' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '2',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -578,6 +613,12 @@ function checkdesk_core_feature_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '2',
         ),
+        'meedan_oembed' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -643,6 +684,12 @@ function checkdesk_core_feature_field_default_fields() {
           'settings' => array(),
           'type' => 'text_default',
           'weight' => '0',
+        ),
+        'meedan_oembed' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -756,6 +803,12 @@ function checkdesk_core_feature_field_default_fields() {
           ),
           'type' => 'entityreference_label',
           'weight' => '1',
+        ),
+        'meedan_oembed' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',

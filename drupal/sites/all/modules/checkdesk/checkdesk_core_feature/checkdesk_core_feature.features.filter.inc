@@ -70,13 +70,10 @@ function checkdesk_core_feature_filter_default_formats() {
         'status' => '1',
         'settings' => array(),
       ),
-      'oembed' => array(
+      'filter_meedan_oembed' => array(
         'weight' => '0',
         'status' => '1',
-        'settings' => array(
-          'options' => '',
-          'autoembed' => 1,
-        ),
+        'settings' => array(),
       ),
       'filter_htmlcorrector' => array(
         'weight' => '10',
