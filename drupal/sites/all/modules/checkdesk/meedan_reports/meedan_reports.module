@@ -5,9 +5,9 @@
  */
 function meedan_reports_menu() {
   $items = array();
-  $items['admin/liveblog'] = array(
-    'title' => t('Liveblog statistics'),
-    'description' => t('Liveblog statistics for reviewing how the site is performing'),
+  $items['admin/meedan/reports'] = array(
+    'title' => t('Meedan Reports'),
+    'description' => t('Meedan reports for reviewing how the site is performing'),
     'page callback' => 'system_admin_menu_block_page',
     'access arguments' => array('access administration pages'),
     'position' => 'left',
@@ -26,9 +26,9 @@ function meedan_reports_menu() {
     'active_users' => t('Active Users'),
   );
   foreach ($reports as $path => $title) {
-    $items['admin/liveblog/'.$path] = array(
+    $items['admin/meedan/reports/'.$path] = array(
       'page callback' => 'drupal_get_form',
-      'page arguments' => array('statistics_filter_form', 2),
+      'page arguments' => array('statistics_filter_form', 3),
       'title' => $title,
       'access arguments' => array('administer site configuration'),
     );
