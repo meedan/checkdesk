@@ -5,7 +5,7 @@
  */
 function what_site_init() {
   if (user_access('can see whatsite') && $path = what_site_path()) {
-    drupal_add_js($path . '/whatsite.js', array('group' => JS_THEME));
+    drupal_add_js($path . '/whatsite.min.js', array('group' => JS_THEME));
     drupal_add_js('jQuery(function () { WhatSite.apply(); });', array('type' => 'inline', 'group' => JS_THEME));
   }
 }
