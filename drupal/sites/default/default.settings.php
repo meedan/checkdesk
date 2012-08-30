@@ -513,5 +513,5 @@ $conf['404_fast_html'] = '<html xmlns="http://www.w3.org/1999/xhtml"><head><titl
 
 
 // Include the local configuration file and boilerplate additions
-require dirname(__FILE__) . '/meedan_boilerplate.php';
-require dirname(__FILE__) . '/settings.local.php';
+require 'sites/default/meedan_boilerplate.php';
+require 'sites/default/settings.local.php';
