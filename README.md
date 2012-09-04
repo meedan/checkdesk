@@ -8,6 +8,19 @@ This project is a derivative of the Meedan Drupal Boilerplate.  Please refer to 
  * **patches/PATCHES.md** for a list of reasons why each currently active patch has been applied, and other notes
 
 
+## Installation
+
+Set up configuration by creating a settings.local.php file. For example:
+
+    cd drupal/sites/default
+    cp default.settings.local.php settings.local.php
+    
+    # Then tune your settings..
+    vim settings.local.php
+
+Finally, install your site using the *Meedan Installer* installation profile.
+
+
 ## Components of Meedan Boilerplate
 
 The boilerplate consists of 3 main components:
