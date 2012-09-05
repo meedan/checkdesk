@@ -15,11 +15,11 @@ function meedan_reports_menu() {
     'file' => 'system.admin.inc', 
     'file path' => drupal_get_path('module', 'system'),
   );
-  $reports = _get_reports_info(); 
+  $reports = _meedan_reports_get_info(); 
   foreach ($reports as $path => $title) {
     $items['admin/meedan/reports/'.$path] = array(
       'page callback' => 'drupal_get_form',
-      'page arguments' => array('statistics_filter_form', 3),
+      'page arguments' => array('meedan_reports_statistics_filter_form', 3),
       'title' => $title,
       'access arguments' => array('administer site configuration'),
     );
@@ -30,16 +30,10 @@ function meedan_reports_menu() {
 /**
  * Collect meedan reports info.
  */
-function _get_reports_info() {
-  $reports = array (
-    'user_registered' => t('Registered users reports'),
-    'reports_count' => t('Citizen reports'),
-    'different_sources' => t('Different sources reports'),
-    'most_active_users' => t('Most active users reports'),
-    'active_users' => t('Active Users'),
-  );
+function _meedan_reports_get_info() {
+  $reports = array();
   //invoke all module to get new reports
-  //$reports = $reports + module_invoke_all('meedan_reports_info');
+  $reports = module_invoke_all('meedan_reports_info');
   return $reports;
 }
 
@@ -50,17 +44,19 @@ function _get_reports_info() {
  * Cached must be cleared to add new reports
  */
 function meedan_reports_meedan_reports_info() {
-  return array(
-    'translation_count' => t('Translated reports words'),
-    'translation_reports' => t('Translated reports'),
-    'detailed_citizen_reports' => t('Detailed citizen reports'),
+   return  array (
+    'user_registered' => t('Registered users reports'),
+    'reports_count' => t('Citizen reports'),
+    'different_sources' => t('Different sources reports'),
+    'most_active_users' => t('Most active users reports'),
+    'active_users' => t('Active Users'),
   );
 }
 
 /**
  * Build statistics filter form.
  */
-function statistics_filter_form($form, &$form_state, $type) {
+function meedan_reports_statistics_filter_form($form, &$form_state, $type) {
   $query = db_select('node', 'n');
   $query->addExpression('FROM_UNIXTIME(created, \'%Y\')', 'year');
   $query->distinct();
@@ -90,12 +86,12 @@ function statistics_filter_form($form, &$form_state, $type) {
     '#value' => t('Search'),
     '#type' => 'submit',
     '#weight' => -90,
-    '#submit' => array('statistics_filter_form_submit'),
+    '#submit' => array('meedan_reports_statistics_filter_form_submit'),
   );
   $form['export']  = array(
     '#value' => t('Export CSV'),
     '#type' => 'submit',
-    '#submit' => array('export_to_csv'),
+    '#submit' => array('meedan_reports_export_to_csv'),
   );
   $form['#stat_type'] = $type;
   return $form;
@@ -106,20 +102,20 @@ function statistics_filter_form($form, &$form_state, $type) {
  */
 function meedan_reports_theme() {
   return array(
-    'statistics_filter_form' => array(
+    'meedan_reports_statistics_filter_form' => array(
       'render element' => 'form',
     ),
   );
 }
 
-function statistics_filter_form_submit($form, $form_state) {
+function meedan_reports_statistics_filter_form_submit($form, $form_state) {
   $_SESSION['report_year'] = $form_state['values']['year'];
 }
 
 /**
  * Statistics theme form.
  */
-function theme_statistics_filter_form($form) {
+function theme_meedan_reports_statistics_filter_form($form) {
   drupal_add_js(libraries_get_path('amstockchart') . '/amcharts/amstock.js');
   drupal_add_js(drupal_get_path('module', 'meedan_reports') . '/js/meedan_reports.js');
   drupal_add_js(drupal_get_path('module', 'meedan_reports') . '/js/jquery.ui.tabs.js');
@@ -167,7 +163,7 @@ function theme_statistics_filter_form($form) {
 /**
  * Submit handler for export CSV.
  */
-function export_to_csv($form, $form_state) { 
+function meedan_reports_export_to_csv($form, $form_state) { 
   $render_report = meedan_reports_data($form['#stat_type'], $form_state['values']['year']);
   $filename = str_replace(' ', '_', strtolower($render_report['title'])) .'.csv';
   drupal_add_http_header('Content-Type', 'text/csv');
@@ -191,7 +187,28 @@ function export_to_csv($form, $form_state) {
 
 function meedan_reports_data($type, $year = '') {
   $output = array();
-  $title  = '';
+  //invoke all meedan_repotrs_query to get report info.
+  $output = module_invoke_all('meedan_reports_query', $type, $year);
+  $query = $output['query'];
+  //allow other modules to alter query
+  foreach (module_implements('meedan_reports_query_alter') as $module) {
+    $function = $module . '_meedan_reports_query_alter';
+    $function($query, $type);
+  }   
+  $results = $query->execute()->fetchAll();
+  return array(
+    'results' => $results, 
+    'title' => $output['title'],
+  );
+}
+
+/**
+ * Implements of hook_meedan_reports_query().
+ * @param $type, $year
+ * return an ass. array with title and query keys
+ * $query must be a query object of db_select
+ */
+function meedan_reports_meedan_reports_query($type, $year) {
   switch ($type) {
   case 'user_registered':
     $query = db_select('users', 'u');
@@ -261,59 +278,6 @@ function meedan_reports_data($type, $year = '') {
     $query->groupBy('FROM_UNIXTIME(n.created, \'%M %Y\')');
     $query->orderBy('n.created');
     $title = t('Numbers of users submitting reports');
-    break;
-  }
-  if($title) {
-    $output['title'] = $title;
-    $output['query'] = $query;
-  }
-  else {
-    //invoke all meedan_repotrs_query to get report info.
-    $output = module_invoke_all('meedan_reports_query', $type, $year);
-  }
-  $query = $output['query'];
-  $results = $query->execute()->fetchAll();
-  return array(
-    'results' => $results, 
-    'title' => $output['title'],
-  );
-}
-
-/**
- * Implements of hook_meedan_reports_query().
- * @param $type, $year
- * return an ass. array with title and query keys
- * $query must be a query object of db_select
- */
-function meedan_reports_meedan_reports_query($type, $year) {
-  switch ($type) {
-  case 'translation_count':
-    $sql = "SELECT FROM_UNIXTIME(created,'%M %Y') AS date,
-      SUM(LENGTH(field_translation_value) - LENGTH(REPLACE(field_translation_value, ' ', ''))+1) as count
-      FROM `content_type_report` ctr 
-      INNER JOIN node n ON n.nid = ctr.nid
-      WHERE field_translation_value IS NOT NULL $year_filter 
-      GROUP BY FROM_UNIXTIME(created,'%m %Y')
-      ORDER BY FROM_UNIXTIME( created, '%Y-%m' ) ASC , count DESC";
-    $title = t('Translated reports words');
-    break;
-  case 'translation_reports':
-    $sql = "SELECT FROM_UNIXTIME( created, '%M %Y' ) AS date, COUNT( * ) AS count
-      FROM `content_type_report` ctr
-      INNER JOIN node n ON n.nid = ctr.nid
-      WHERE field_translation_value IS NOT NULL $year_filter
-      GROUP BY FROM_UNIXTIME( created, '%m %Y' )
-      ORDER BY FROM_UNIXTIME( created, '%Y-%m' ) ASC , count DESC";
-    $title = t('Translated reports');
-    break;
-  case 'detailed_citizen_reports' :
-    $sql = "SELECT FROM_UNIXTIME(created,'%M %Y') AS date, COUNT(*) AS count
-      FROM content_type_report ctr
-      INNER JOIN node n ON ctr.nid = n.nid
-      WHERE ((field_location_value IS NOT NULL) OR (field_time_value IS NOT NULL) OR (field_source_value IS NOT NULL) OR (field_parties_value IS NOT NULL) OR (field_corroboration_value IS NOT NULL) OR (field_transcription_value IS NOT NULL) OR (field_translation_value IS NOT NULL)) $year_filter
-      GROUP BY FROM_UNIXTIME( n.created, '%M %Y' )
-      ORDER BY FROM_UNIXTIME( created, '%Y-%m' ) ASC , count DESC";
-    $title = t('Detailed citizen Reports');
     break;
   }
   return array(
