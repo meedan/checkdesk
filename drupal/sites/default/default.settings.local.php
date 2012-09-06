@@ -23,7 +23,7 @@ $databases['default']['default'] = array(
 );
 // The before deployment database, used during complex deployments to ferry
 // data from previous schemas / site versions.
-$databases['default']['before_deploy'] = array(
+$databases['before_deploy']['default'] = array(
   'driver'   => $databases['default']['default']['driver'],
   'database' => $databases['default']['default']['database'] . '_before_deploy',
   'username' => $databases['default']['default']['username'],
