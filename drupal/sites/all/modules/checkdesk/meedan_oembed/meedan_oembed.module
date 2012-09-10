@@ -222,7 +222,7 @@ function meedan_oembed_get_title($url) {
 */
 function meedan_oembed_entity_info_alter(&$entity_info) {
   $entity_info['node']['view modes']['meedan_oembed'] = array(
-    'label' => t('Meedan Oembed'),
+    'label' => t('Meedan oEmbed'),
     'custom settings' => TRUE,
   );
 }
@@ -232,8 +232,8 @@ function meedan_oembed_entity_info_alter(&$entity_info) {
  */
 function meedan_oembed_filter_info() {
   $filters['filter_meedan_oembed'] = array(
-    'title' => t('Meedan Oembed Filter'),
-    'description' => t('Every instance of meedan oembed nid [nid:$nid] will be replaced with the current meedan oembed node view.'),
+    'title' => t('Meedan oEmbed Filter'),
+    'description' => t('Every instance of [nid:$nid] will be replaced with the corresponding Meedan oEmbed node view.'),
     'prepare callback' => '_meedan_oembed_filter_prepare',
     'process callback' => '_meedan_oembed_filter_process',
     'tips callback' => '_meedan_oembed_filter_tips',
