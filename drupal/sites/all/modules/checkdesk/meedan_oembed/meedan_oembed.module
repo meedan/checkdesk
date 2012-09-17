@@ -1,18 +1,18 @@
 <?php
 
-
 /**
  * Implements of hook_element_info_alter().
  */
 function meedan_oembed_element_info_alter(&$type) {
+  // Override oEmbed's pre_render hooks with ours.
   $type['oembed']['#pre_render'][0] = 'meedan_oembed_pre_render_fetch';
   $type['oembed_bare']['#pre_render'][0] = 'meedan_oembed_pre_render_fetch';
   $type['oembed_thumbnail']['#pre_render'][1] = 'meedan_oembed_pre_render_fetch';
 }
 
 /**
- * clone this function from oembedcore
- * and handle empty oembed case
+ * Cloned this function from oembedcore
+ * and handle empty oembed case.
  * Pre render fetches the oEmbed data.
  *
  */
@@ -266,7 +266,7 @@ function _meedan_oembed_filter_process($text, $filter) {
           //render node using custom Meedan Oembed view
           $node_view = drupal_render(node_view($node, 'meedan_oembed'));
           //replace [nid:$nid] with meedan oembed node view
-          $text = str_replace( $matches[0][$key], '<em>' . $node_view . '</em>', $text);
+          $text = str_replace($matches[0][$key], $node_view, $text);
         }
       }
     }
@@ -280,6 +280,6 @@ function _meedan_oembed_filter_process($text, $filter) {
  *
  */
 function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
-  return t('<em>[nid:$nid]</em> is replaced with the meedan oembed node view for $nid.');
+  return t('<em>[nid:$nid]</em> is replaced with the Meedan oEmbed node view for <em>$nid</em>.');
 }
 
