@@ -99,3 +99,42 @@ function meedan_sensitive_content_node_delete($node) {
     ->execute();
 }
 
+/**
+ * Implements of hook_node_view().
+ */
+function meedan_sensitive_content_node_view($node, $view_mode, $langcode) {
+  $result = db_select('meedan_sensitive_content', 'msc')
+    ->fields('msc', array('meedan_sensitive'))
+    ->condition('msc.nid', $node->nid)
+    ->execute()
+    ->fetchfield();
+  if ($result) {
+    $node->content['meedan_sensitive_content'] = array(
+      '#markup' =>  t('This media contains graphic imagery <br />which may be considered offensive'),
+      '#meedan_offensive_nid' => $node->nid,
+      '#theme' => 'meedan_sensitive_content_display',
+    );
+    $node->content['meedan_sensitive_content']['#attached']['css'] = array(
+      drupal_get_path('module', 'meedan_sensitive_content') . '/css/meedan_sensitive_content.css',
+    );
+  }
+}
+
+/**
+ * Implements of hook_theme().
+ */
+function meedan_sensitive_content_theme() {
+  $path = drupal_get_path('module', 'meedan_sensitive_content') . '/theme';
+  return array(
+    'meedan_sensitive_content_display' => array(
+      'variables' => array('meedan_offensive_nid' => NULL), 
+      'template' => 'meedan-offensive',
+      'path' => $path,
+    ),  
+  );
+}
+
+function template_preprocess_meedan_sensitive_content_display(&$vars) {
+  $vars['meedan_offensive_text'] = t('This media contains graphic imagery <br />which may be considered offensive');
+  $vars['meedan_offensive_link'] = l(t('Display'), '', array('attributes' => array('data-id' => $vars['meedan_offensive_nid'], 'class' => 'display-offensive')));
+}
