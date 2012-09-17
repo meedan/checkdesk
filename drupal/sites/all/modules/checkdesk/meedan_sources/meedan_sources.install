@@ -20,6 +20,3 @@ function meedan_sources_schema() {
   return $schema;
 }
 
-function liveblog_statistics_update_1() {
-  drupal_install_schema('meedan_sources');
-}
