@@ -1,6 +1,18 @@
 <?php
 
 /**
+ * Implements hook_permission().
+ */
+function meedan_sensitive_content_permission() {
+  return array(
+    'mark_sensitive_content' => array(
+      'title' => t('Mark sensitive content'),
+      'description' => t('Allow user to mark embed content as sensitive content'),
+    ),
+  );
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for the node type form.
  */
 function meedan_sensitive_content_form_node_type_form_alter(&$form, &$form_state) {
@@ -9,7 +21,7 @@ function meedan_sensitive_content_form_node_type_form_alter(&$form, &$form_state
     '#title' => t('Meedan sensitive content'),
     '#weight' => 0,
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,//!$default_value,
+    '#collapsed' => TRUE,
     '#access' => TRUE,
     '#group' => 'additional_settings',
     '#attached' => array(
@@ -33,36 +45,39 @@ function meedan_sensitive_content_form_node_type_form_alter(&$form, &$form_state
  *
  */
 function meedan_sensitive_content_form_node_form_alter(&$form, $form_state) {
-  if ($form['nid']['#value']) {
-    $default_value = db_select('meedan_sensitive_content', 'msc')
-      ->fields('msc', array('meedan_sensitive'))
-      ->condition('msc.nid', $form['nid']['#value'])
-      ->execute()
-      ->fetchfield();
-  }
-  else {
-    $default_value = variable_get('meedan_sensitive_'. $form['type']['#value'], FALSE);
-  }
-  $form['meedan_sensitive_content'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Meedan sensitive content'),
-    '#weight' => 0,
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-    '#access' => TRUE,
-    '#group' => 'additional_settings',
-    '#attached' => array(
-      'js' => array(
-        'meedan-sensitive-content' => drupal_get_path('module', 'meedan_sensitive_content') . '/js/meedan_sensitive_content.js',
+  //check if content sensitive is enabled for this content type
+  if (user_access('mark_sensitive_content') && variable_get('meedan_sensitive_'. $form['type']['#value'], FALSE)) {
+    if ($form['nid']['#value']) {
+      $default_value = db_select('meedan_sensitive_content', 'msc')
+        ->fields('msc', array('meedan_sensitive'))
+        ->condition('msc.nid', $form['nid']['#value'])
+        ->execute()
+        ->fetchfield();
+    }
+    else {
+      $default_value = TRUE;
+    }
+    $form['meedan_sensitive_content'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Meedan sensitive content'),
+      '#weight' => 0,
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#access' => TRUE,
+      '#group' => 'additional_settings',
+      '#attached' => array(
+        'js' => array(
+          'meedan-sensitive-content' => drupal_get_path('module', 'meedan_sensitive_content') . '/js/meedan_sensitive_content.js',
+        ),
       ),
-    ),
-  );
-  $form['meedan_sensitive_content']['meedan_sensitive'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Enable content sensitive'),
-    '#default_value' => $default_value,
-    '#description' => t('Allow user to mark embed content as sensitive content'),
-  );
+    );
+    $form['meedan_sensitive_content']['meedan_sensitive'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable content sensitive'),
+      '#default_value' => $default_value,
+      '#description' => t('Mark this content as sensitive content'),
+    );
+  }
 }
 
 /**
@@ -103,22 +118,62 @@ function meedan_sensitive_content_node_delete($node) {
  * Implements of hook_node_view().
  */
 function meedan_sensitive_content_node_view($node, $view_mode, $langcode) {
-  $result = db_select('meedan_sensitive_content', 'msc')
-    ->fields('msc', array('meedan_sensitive'))
-    ->condition('msc.nid', $node->nid)
-    ->execute()
-    ->fetchfield();
-  if ($result) {
-    $node->content['meedan_sensitive_content'] = array(
-      '#markup' =>  t('This media contains graphic imagery <br />which may be considered offensive'),
-      '#meedan_offensive_nid' => $node->nid,
-      '#theme' => 'meedan_sensitive_content_display',
-    );
-    $node->content['meedan_sensitive_content']['#attached']['css'] = array(
-      drupal_get_path('module', 'meedan_sensitive_content') . '/css/meedan_sensitive_content.css',
-    );
+  global $user;
+  $display_offensive = TRUE;
+  if (isset($user->data['sensitive_content']) && $user->data['sensitive_content']) {
+    $display_offensive = FALSE;
+  }
+  if ($display_offensive) {
+    $result = db_select('meedan_sensitive_content', 'msc')
+      ->fields('msc', array('meedan_sensitive'))
+      ->condition('msc.nid', $node->nid)
+      ->execute()
+      ->fetchfield();
+    if ($result) {
+      $node->content['field_link']['#prefix'] = '<div class="offensive-hide offensive-item-'. $node->nid .'">';
+      $node->content['field_link']['#suffix'] = '</div>';
+      $node->content['meedan_sensitive_content'] = array(
+        '#markup' =>  t('This media contains graphic imagery <br />which may be considered offensive'),
+        '#meedan_offensive_nid' => $node->nid,
+        '#theme' => 'meedan_sensitive_content_display',
+      );
+      $node->content['meedan_sensitive_content']['#attached']['css'] = array(
+        drupal_get_path('module', 'meedan_sensitive_content') . '/css/meedan_sensitive_content.css',
+      );
+      $node->content['meedan_sensitive_content']['#attached']['js'] = array(
+        drupal_get_path('module', 'meedan_sensitive_content') . '/js/meedan_offensive.js',
+      );
+    }
   }
 }
+
+/**
+ * Implementation of hook_form_FORM_ID_alter() for `user_profile_form`.
+ */
+function meedan_sensitive_content_form_user_profile_form_alter(&$form, $form_state) {
+  global $user;
+  $default_value = FALSE;
+  if (isset($user->data['sensitive_content']) && $user->data['sensitive_content']) {
+    $default_value = TRUE;
+  }
+
+  $form['sensitive_content'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('View sensitive content without displaying a warning.'),
+    '#default_value' => $default_value,
+    '#weight' => 0,
+  );
+}
+
+/**
+ * Implements hook_user_presave().
+ */
+function meedan_sensitive_content_user_presave(&$edit, $account, $category) {
+  if (isset($edit['sensitive_content'])) {
+    $edit['data']['sensitive_content'] = $edit['sensitive_content'];
+  }
+}
+
 
 /**
  * Implements of hook_theme().
@@ -136,5 +191,5 @@ function meedan_sensitive_content_theme() {
 
 function template_preprocess_meedan_sensitive_content_display(&$vars) {
   $vars['meedan_offensive_text'] = t('This media contains graphic imagery <br />which may be considered offensive');
-  $vars['meedan_offensive_link'] = l(t('Display'), '', array('attributes' => array('data-id' => $vars['meedan_offensive_nid'], 'class' => 'display-offensive')));
+  $vars['meedan_offensive_link'] = l(t('Display'), '', array('attributes' => array('class' => 'display-offensive', 'onclick' => 'meedan_display_offensive('. $vars['meedan_offensive_nid'] .'); return false;')));
 }
