@@ -4,11 +4,11 @@
  * Implements of hook_node_insert();
  */
 function meedan_sources_node_insert($node) {
-  if($node->type == 'media') {
+  if ($node->type == 'media') {
     //Import embed data info on statisctics table.
-    $embed = oembedcore_oembed_data($node->field_link['und'][0]['url']);
+    $embed = oembedcore_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
     if (empty($embed)) {
-      $embed = meedan_oembed_data($node->field_link['und'][0]['url']);
+      $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
     }
     _meedan_sources_insert($embed, $node->nid);
   }
@@ -18,7 +18,7 @@ function meedan_sources_node_insert($node) {
  * Implements of hook_node_delete();
  */
 function meedan_sources_node_delete($node) {
-  if($node->type == 'media') {
+  if ($node->type == 'media') {
     db_delete('meedan_sources_media')
       ->condition('nid', $node->nid)
       ->execute();
@@ -26,7 +26,7 @@ function meedan_sources_node_delete($node) {
 }
 
 /**
- * Insert embed data info on statisctics table.
+ * Insert embed data info in sources table.
  */
 function _meedan_sources_insert($embed, $nid = NULL) {
   $source_child = new stdClass();
@@ -67,5 +67,14 @@ function _meedan_sources_insert($embed, $nid = NULL) {
       ->fields(array('nid' => $nid, 'ms_id'  => $ms_id,))
       ->execute();
   }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function meedan_sources_views_api() {
+  return array(
+    'api' => 2.0,
+  );
 }
 
