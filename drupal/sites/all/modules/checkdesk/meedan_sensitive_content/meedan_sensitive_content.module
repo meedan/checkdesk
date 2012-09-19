@@ -84,10 +84,12 @@ function meedan_sensitive_content_form_node_form_alter(&$form, $form_state) {
  * Implements hook_node_insert().
  */
 function meedan_sensitive_content_node_insert($node) {
-  $record = new stdclass();
-  $record->nid = $node->nid;
-  $record->meedan_sensitive = $node->meedan_sensitive;
-  drupal_write_record('meedan_sensitive_content', $record);
+  if (isset($node->meedan_sensitive)) {
+    $record = new stdclass();
+    $record->nid = $node->nid;
+    $record->meedan_sensitive = $node->meedan_sensitive;
+    drupal_write_record('meedan_sensitive_content', $record);
+  }
 }
 
 /**
@@ -96,13 +98,15 @@ function meedan_sensitive_content_node_insert($node) {
 function meedan_sensitive_content_node_update($node) {
   //use db_merge instead of drupal_write_record to update existing settings 
   //to handle existing content that created before enable this module
-  db_merge('meedan_sensitive_content')
-    ->key(array('nid' => $node->nid))
-    ->fields(array(
-      'nid' => $node->nid,
-      'meedan_sensitive' => $node->meedan_sensitive,
-    ))
-    ->execute();
+  if (isset($node->meedan_sensitive)) {
+    db_merge('meedan_sensitive_content')
+      ->key(array('nid' => $node->nid))
+      ->fields(array(
+        'nid' => $node->nid,
+        'meedan_sensitive' => $node->meedan_sensitive,
+      ))
+      ->execute();
+  }
 }
 
 /**
