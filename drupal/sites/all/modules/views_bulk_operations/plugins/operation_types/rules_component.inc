@@ -40,6 +40,10 @@ function views_bulk_operations_operation_rules_component_list($operation_id = NU
   if (isset($operation_id)) {
     $id_fragments = explode('::', $operation_id);
     $components[$id_fragments[1]] = rules_config_load($id_fragments[1]);
+    // No need to go any further if the component no longer exists.
+    if (!$components[$id_fragments[1]]) {
+      return FALSE;
+    }
   }
   else {
     $components = rules_get_components(FALSE, 'action');

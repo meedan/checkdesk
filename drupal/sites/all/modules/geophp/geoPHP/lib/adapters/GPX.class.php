@@ -16,9 +16,9 @@ class GPX extends GeoAdapter
   private $nss = ''; // Name-space string. eg 'georss:'
 
   /**
-   * Read GPX string into geometry objects
+   * Read KML string into geometry objects
    *
-   * @param string $gpx A GPX string
+   * @param string $kml A KML string
    *
    * @return Geometry|GeometryCollection
    */
@@ -47,7 +47,7 @@ class GPX extends GeoAdapter
     $text = strtolower($text);
     $text = preg_replace('/<!\[cdata\[(.*?)\]\]>/s','',$text);
     
-    // Load into DOMDocument
+    // Load into DOMDOcument
     $xmlobj = new DOMDocument();
     @$xmlobj->loadXML($text);
     if ($xmlobj === false) {

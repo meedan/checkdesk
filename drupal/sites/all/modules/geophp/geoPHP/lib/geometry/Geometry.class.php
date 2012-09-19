@@ -8,7 +8,7 @@ abstract class Geometry
   private   $geos = NULL;
   protected $srid = NULL;
   protected $geom_type;
-
+  
   // Abtract: Standard
   // -----------------
   abstract public function area();
@@ -32,37 +32,35 @@ abstract class Geometry
   abstract public function equals($geom);
   abstract public function isEmpty();
   abstract public function isSimple();
-
+  
   // Abtract: Non-Standard
   // ---------------------
   abstract public function getBBox();
   abstract public function asArray();
   abstract public function getPoints();
   abstract public function explode();
-  abstract public function greatCircleLength(); //meters
-  abstract public function haversineLength(); //degrees
-
-
+  
+  
   // Public: Standard -- Common to all geometries
   // --------------------------------------------
   public function SRID() {
     return $this->srid;
   }
-
+  
   public function setSRID($srid) {
     if ($this->geos()) {
       $this->geos()->setSRID($srid);
     }
     $this->srid = $srid;
   }
-
+  
   public function envelope() {
     if ($this->isEmpty()) return new Polygon();
-
+    
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->envelope());
     }
-
+    
     $bbox = $this->getBBox();
     $points = array (
       new Point($bbox['maxx'],$bbox['miny']),
@@ -71,22 +69,22 @@ abstract class Geometry
       new Point($bbox['minx'],$bbox['miny']),
       new Point($bbox['maxx'],$bbox['miny']),
     );
-
+    
     $outer_boundary = new LineString($points);
     return new Polygon(array($outer_boundary));
   }
-
+  
   public function geometryType() {
     return $this->geom_type;
   }
-
+  
   // Public: Non-Standard -- Common to all geometries
   // ------------------------------------------------
-
+  
   // $this->out($format, $other_args);
   public function out() {
     $args = func_get_args();
-
+    
     $format = array_shift($args);
     $type_map = geoPHP::getAdapterMap();
     $processor_type = $type_map[$format];
@@ -97,14 +95,14 @@ abstract class Geometry
 
     return $result;
   }
-
-
+  
+  
   // Public: Aliases
   // ---------------
   public function getCentroid() {
     return $this->centroid();
   }
-
+  
   public function getArea() {
     return $this->area();
   }
@@ -112,7 +110,7 @@ abstract class Geometry
   public function getX() {
     return $this->x();
   }
-
+  
   public function getY() {
     return $this->y();
   }
@@ -132,11 +130,11 @@ abstract class Geometry
   public function asText() {
     return $this->out('wkt');
   }
-
+ 
   public function asBinary() {
     return $this->out('wkb');
   }
-
+  
   // Public: GEOS Only Functions
   // ---------------------------
   public function geos() {
@@ -158,20 +156,20 @@ abstract class Geometry
   public function setGeos($geos) {
     $this->geos = $geos;
   }
-
+  
   public function pointOnSurface() {
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->pointOnSurface());
     }
   }
-
-  public function equalsExact(Geometry $geometry) {
+  
+  public function equalsExact($geometry) {
     if ($this->geos()) {
       return $this->geos()->equalsExact($geometry->geos());
     }
   }
-
-  public function relate(Geometry $geometry, $pattern = NULL) {
+  
+  public function relate($geometry, $pattern = NULL) {
     if ($this->geos()) {
       if ($pattern) {
         return $this->geos()->relate($geometry->geos(), $pattern);
@@ -181,45 +179,45 @@ abstract class Geometry
       }
     }
   }
-
+  
   public function checkValidity() {
     if ($this->geos()) {
       return $this->geos()->checkValidity();
     }
   }
-
+  
   public function buffer($distance) {
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->buffer($distance));
     }
   }
-
-  public function intersection(Geometry $geometry) {
+  
+  public function intersection($geometry) {
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->intersection($geometry->geos()));
     }
   }
-
+  
   public function convexHull() {
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->convexHull());
     }
   }
-
-  public function difference(Geometry $geometry) {
+  
+  public function difference($geometry) {
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->difference($geometry->geos()));
     }
   }
-
-  public function symDifference(Geometry $geometry) {
+  
+  public function symDifference($geometry) {
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->symDifference($geometry->geos()));
     }
   }
-
+  
   // Can pass in a geometry or an array of geometries
-  public function union(Geometry $geometry) {
+  public function union($geometry) {
     if ($this->geos()) {
       if (is_array($geometry)) {
         $geom = $this->geos();
@@ -233,107 +231,102 @@ abstract class Geometry
       }
     }
   }
-
+  
   public function simplify($tolerance, $preserveTopology = FALSE) {
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->simplify($tolerance, $preserveTopology));
     }
   }
-
-  public function disjoint(Geometry $geometry) {
+  
+  public function disjoint($geometry) {
     if ($this->geos()) {
       return $this->geos()->disjoint($geometry->geos());
     }
   }
-
-  public function touches(Geometry $geometry) {
+  
+  public function touches($geometry) {
     if ($this->geos()) {
       return $this->geos()->touches($geometry->geos());
     }
   }
-
-  public function intersects(Geometry $geometry) {
+  
+  public function intersects($geometry) {
     if ($this->geos()) {
       return $this->geos()->intersects($geometry->geos());
     }
   }
-
-  public function crosses(Geometry $geometry) {
+  
+  public function crosses($geometry) {
     if ($this->geos()) {
       return $this->geos()->crosses($geometry->geos());
     }
   }
 
-  public function within(Geometry $geometry) {
+  public function within($geometry) {
     if ($this->geos()) {
       return $this->geos()->within($geometry->geos());
     }
   }
-
-  public function contains(Geometry $geometry) {
+  
+  public function contains($geometry) {
     if ($this->geos()) {
       return $this->geos()->contains($geometry->geos());
     }
   }
-
-  public function overlaps(Geometry $geometry) {
+  
+  public function overlaps($geometry) {
     if ($this->geos()) {
       return $this->geos()->overlaps($geometry->geos());
     }
   }
-
-  public function covers(Geometry $geometry) {
+  
+  public function covers($geometry) {
     if ($this->geos()) {
       return $this->geos()->covers($geometry->geos());
     }
   }
-
-  public function coveredBy(Geometry $geometry) {
+  
+  public function coveredBy($geometry) {
     if ($this->geos()) {
       return $this->geos()->coveredBy($geometry->geos());
     }
   }
 
-  public function distance(Geometry $geometry) {
+  public function distance($geometry) {
     if ($this->geos()) {
       return $this->geos()->distance($geometry->geos());
     }
   }
-
-  public function hausdorffDistance(Geometry $geometry) {
+  
+  public function hausdorffDistance($geometry) {
     if ($this->geos()) {
       return $this->geos()->hausdorffDistance($geometry->geos());
     }
   }
-
-  public function project(Geometry $point, $normalized = NULL) {
-    if ($this->geos()) {
-      return $this->geos()->project($point->geos(), $normalized);
-    }
-  }
-
+  
+  
   // Public - Placeholders
   // ---------------------
   public function hasZ() {
     // geoPHP does not support Z values at the moment
-    return FALSE;
+    return FALSE;  
   }
-
+  
   public function is3D() {
     // geoPHP does not support 3D geometries at the moment
-    return FALSE;
+    return FALSE;  
   }
-
+  
   public function isMeasured() {
     // geoPHP does not yet support M values
     return FALSE;
   }
-
+  
   public function coordinateDimension() {
     // geoPHP only supports 2-dimentional space
     return 2;
   }
-
+  
   public function z() {
     // geoPHP only supports 2-dimentional space
     return NULL;
@@ -343,5 +336,5 @@ abstract class Geometry
     // geoPHP only supports 2-dimentional space
     return NULL;
   }
-
+  
 }
