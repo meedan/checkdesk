@@ -5,26 +5,29 @@
  */
 function meedan_oembed_element_info_alter(&$type) {
   // Override oEmbed's pre_render hooks with ours.
-  $type['oembed']['#pre_render'][0] = 'meedan_oembed_pre_render_fetch';
-  $type['oembed_bare']['#pre_render'][0] = 'meedan_oembed_pre_render_fetch';
-  $type['oembed_thumbnail']['#pre_render'][1] = 'meedan_oembed_pre_render_fetch';
+  foreach (array('oembed', 'oembed_bare', 'oembed_thumbnail') as $key) {
+    foreach ($type[$key]['#pre_render'] as &$pre_render) {
+      if ($pre_render == 'oembedcore_pre_render_fetch') {
+        $pre_render = 'meedan_oembed_pre_render_fetch';
+      }
+    }
+  }
 }
 
 /**
- * Cloned this function from oembedcore
- * and handle empty oembed case.
  * Pre render fetches the oEmbed data.
- *
+ * Copy of oembedcore_pre_render_fetch with meedan_oembed_data() called instead of oembedcore_oembed_data().
  */
 function meedan_oembed_pre_render_fetch($element) {
-  $embed = oembedcore_oembed_data($element['#url'], $element['#options']);
-  // handle rendering if the response is bad.
+  $embed = meedan_oembed_data($element['#url'], $element['#options']);
+
+  // Prevent rendering if the response is bad.
   if (!$embed) {
-    $element['#embed'] = meedan_oembed_data($element['#url'], $element['#options']);
+    $element['#printed'] = TRUE;
+    return $element;
   }
-  else {
-    $element['#embed'] = $embed;
-  }
+
+  $element['#embed'] = $embed;
 
   // Recalculate cache expire time based on response.
   if (isset($embed->cache_age) && $element['#cache']['expire'] != CACHE_PERMANENT) {
@@ -33,6 +36,7 @@ function meedan_oembed_pre_render_fetch($element) {
       $element['#cache']['expire'] = $expire;
     }
   }
+
   return $element;
 }
 
@@ -51,30 +55,41 @@ function meedan_oembed_pre_render_fetch($element) {
  *   an object representing the embeddable data of the URL.
  */
 function meedan_oembed_data($url, $attributes = array()) {
+  $embed = oembedcore_oembed_data($url, $attributes);
+  if ($embed) {
+    return $embed;
+  }
+
   $matches = array();
   $attributes = array_filter($attributes);
   $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
   $provider = array();
-  $domain = _meedan_oembed_get_domain_name($url);
   $provider['endpoint'] = 'http://api.embed.ly/1/oembed'; 
-  //set provider name specific to domain name to use it on #theme function
-  $callback = 'meedan_oembed_theme_' . $domain;
+  // Set provider name specific to domain name to use it on #theme function
+  $domain = _meedan_oembed_get_domain_name($url);
+  $callback = 'meedan_oembed_scrape_' . $domain;
   if (function_exists($callback)) {
-    $callback($provider);
+    $provider['name'] = 'meedan_oembed_theme_' . $domain;
   }
   else {
     $provider['name'] = 'meedan_oembed_theme_generic'; 
   }
   $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
-  meedan_oembed_generic($embed, $domain);
+  dsm($embed);
+  if (!$embed) {
+    $embed = (object)array(
+      'url' => $url,
+      'provider_url' => 'http://' . parse_url($url, PHP_URL_HOST),
+    );
+  }
+  meedan_oembed_scrape_generic($embed, $domain);
   return $embed;
 }
 
 /**
- *
+ * Scrape page to extract oEmbed-relevent information.
  */
-function meedan_oembed_generic(&$embed, $domain) {
-  //add data to embed object
+function meedan_oembed_scrape_generic(&$embed, $domain) {
   $url = $embed->url;
   $stream_options = array(
     'http' => array(
@@ -85,7 +100,7 @@ function meedan_oembed_generic(&$embed, $domain) {
   );
   stream_context_set_default($stream_options);
   $check_url = preg_match('/^(http|https):\/\//', $url);
-  $check_url = (!$check_url) ? 'http://' .$url : $url;
+  $check_url = (!$check_url) ? 'http://' . $url : $url;
   // disable get_headers until fix invalid url warning 
   //$header = get_headers($url, 1);
   //$url_type = (is_array($header['Content-Type'])) ? $header['Content-Type'][0] : $header['Content-Type'];
@@ -100,7 +115,7 @@ function meedan_oembed_generic(&$embed, $domain) {
         $favicon = $favicons[0]->href;
         //check if favicon is relative url as parse_url did not work with relatvie URL
         $favicon_url = preg_match('/^(http|https):\/\//', $favicon); 
-        $favicon = (!$favicon_url) ? $embed->provider_url .'/' . $favicon : $favicon; 
+        $favicon = (!$favicon_url) ? $embed->provider_url . '/' . $favicon : $favicon; 
         $host = parse_url($favicon, PHP_URL_HOST);
         if (empty($host)) {
           $favicon = NULL;
@@ -111,7 +126,8 @@ function meedan_oembed_generic(&$embed, $domain) {
         $favicon = url('http://www.google.com/s2/favicons', array('query' => array('domain' => $host), 'absolute' => TRUE));
       }
       $embed->favicon_link = $favicon;
-      $callback = 'meedan_oembed_' . $domain;
+      // Call domain-specific scraping function if it exists.
+      $callback = 'meedan_oembed_scrape_' . $domain;
       if (function_exists($callback)) {
         $callback($embed, $html);
       }
@@ -120,28 +136,34 @@ function meedan_oembed_generic(&$embed, $domain) {
 }
 
 /**
- *
+ * Scrape Facebook page.
  */
-function meedan_oembed_facebook(&$embed, $html) {
+/*
+function meedan_oembed_scrape_facebook(&$embed, $html) {
+  // If login page, bail now.
+  if ($html->find('body[class=login_page]')) {
+    $embed = NULL;
+    return;
+  }
+
   // Extract message.
   foreach ($html->find('div[class=mts]') as $todelete) {
     $todelete->outertext = '';
   }
+  $embed->description = $html->find('span[class=messageBody]', 0)->innertext;
+
   // Extract author info.
   $author_block = $html->find('div[class=fbStreamPermalinkHeader]', 0);
-  $author_link = $author_block->find('div[class=UIImageBlock_Content] div a', 0);
-  $embed->author_name = $author_link->innertext;
-  $embed->author_url = $author_link->href;
+  if ($author_block) {
+    $embed->thumbnail_url = $author_block->find('img[class=profilePic]', 0)->src;
+    $author_link = $author_block->find('div[class=UIImageBlock_Content] div a', 0);
+    if ($author_link) {
+      $embed->author_name = $author_link->innertext;
+      $embed->author_url = $author_link->href;
+    }
+  }
 }
-
-
-/**
- *
- */
-function meedan_oembed_theme_facebook(&$provider) {
-  $provider['name'] = 'meedan_oembed_theme_facebook'; 
-}
-
+*/
 /**
  * Get domain name from url.
  * Get site name.
@@ -177,15 +199,21 @@ function meedan_oembed_theme() {
   );
 }
 
-
+/**
+ * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_theme_facebook'.
+ */
 function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars) {
   $embed = $vars['embed'];
+  dsm($embed);
   $vars['author_img'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->author_url, array('html' => TRUE));
   $vars['author_name'] = l($embed->author_name, $embed->author_url);
   $vars['content'] = $embed->description;
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
+/**
+ * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_theme_generic'.
+ */
 function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
   $embed = $vars['embed'];
   $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
@@ -193,28 +221,6 @@ function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
   $vars['content'] = $embed->description;
   $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
-}
-
-/**
- * Function to extract title using embdly.
- * ToDO : should depend on oembed module to get this info
- */
-function meedan_oembed_get_title($url) {
-  $attributes = array();
-  $attributes['url'] = $url;
-  $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
-  $endpoint = 'http://api.embed.ly/1/oembed'; 
-  $query = http_build_query($attributes, NULL, '&');
-  $fetch_url = $endpoint . '?' . $query;
-  $response = drupal_http_request($fetch_url);
-  $title = NULL;
-  if (!isset($response->error)) {
-    $embed = json_decode($response->data);
-    if (isset($embed->title)) {
-      $title = $embed->title;
-    }
-  }
-  return $title;
 }
 
 /**
@@ -242,7 +248,7 @@ function meedan_oembed_filter_info() {
 }
 
 /**
- * Meedan Oembed filter prepare callback.
+ * Meedan oEmbed filter prepare callback.
  */
 function _meedan_oembed_filter_prepare($text, $filter) {
   return $text;
@@ -273,7 +279,6 @@ function _meedan_oembed_filter_process($text, $filter) {
   }
   return $text;
 }
-
 
 /**
  * Filter tips callback for meedan oembed filter.

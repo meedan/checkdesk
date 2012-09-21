@@ -5,12 +5,10 @@
  */
 function meedan_sources_node_insert($node) {
   if ($node->type == 'media') {
-    //Import embed data info on statisctics table.
-    $embed = oembedcore_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
-    if (empty($embed)) {
-      $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+    $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+    if ($embed) {
+      _meedan_sources_insert($embed, $node->nid);
     }
-    _meedan_sources_insert($embed, $node->nid);
   }
 }
 

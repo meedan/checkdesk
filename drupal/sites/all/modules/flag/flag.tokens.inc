@@ -62,11 +62,11 @@ function flag_token_info() {
   foreach (flag_get_types() as $flag_type) {
     $flags = flag_get_flags($flag_type);
     foreach ($flags as $flag) {
-      $tokens[$flag_type]['flag-'. str_replace('_', '-', $flag->name) .'-count'] = array(
+      $tokens[$flag_type]['flag-' . str_replace('_', '-', $flag->name) . '-count'] = array(
         'name' => t('@flag flag count', array('@flag' => $flag->get_title())),
         'description' => t('Total flag count for flag @flag', array('@flag' => $flag->get_title())),
       );
-      $tokens[$flag_type]['flag-'. str_replace('_', '-', $flag->name) .'-link'] = array(
+      $tokens[$flag_type]['flag-' . str_replace('_', '-', $flag->name) . '-link'] = array(
         'name' => t('@flag flag link', array('@flag' => $flag->get_title())),
         'description' => t('Flag/unflag link for @flag', array('@flag' => $flag->get_title())),
       );
@@ -130,8 +130,8 @@ function flag_tokens($type, $tokens, array $data = array(), array $options = arr
     $object = $data[$type];
     foreach ($flags as $flag) {
       foreach ($tokens as $name => $original) {
-        $flag_count_token = 'flag-'. str_replace('_', '-', $flag->name) .'-count';
-        $flag_link_token = 'flag-'. str_replace('_', '-', $flag->name) .'-link';
+        $flag_count_token = 'flag-' . str_replace('_', '-', $flag->name) . '-count';
+        $flag_link_token = 'flag-' . str_replace('_', '-', $flag->name) . '-link';
         if ($name == $flag_count_token) {
           $replacements[$original] = $flag->get_count($flag->get_content_id($object));
         }
