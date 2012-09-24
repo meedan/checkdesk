@@ -1,4 +1,6 @@
-name = Meedan sensitive content
-description = Handle sensitive content.
+name = Meedan Sensitive Content
+description = Display content marked as sensitive with special theme.
 package = Meedan
 core = 7.x
+configure = admin/config/content/sensitive
+dependencies[] = flag
