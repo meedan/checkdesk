@@ -75,7 +75,6 @@ function meedan_oembed_data($url, $attributes = array()) {
     $provider['name'] = 'meedan_oembed_theme_generic'; 
   }
   $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
-  dsm($embed);
   if (!$embed) {
     $embed = (object)array(
       'url' => $url,
@@ -204,7 +203,6 @@ function meedan_oembed_theme() {
  */
 function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars) {
   $embed = $vars['embed'];
-  dsm($embed);
   $vars['author_img'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->author_url, array('html' => TRUE));
   $vars['author_name'] = l($embed->author_name, $embed->author_url);
   $vars['content'] = $embed->description;
