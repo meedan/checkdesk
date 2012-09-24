@@ -56,7 +56,7 @@ function token_page_output_tree() {
   // a dialog.
   $options['dialog'] = FALSE;
 
-  $output = theme('token_tree', array($options));
+  $output = theme('token_tree', $options);
   print '<html><head><title></title>' . drupal_get_css() . drupal_get_js() . '</head>';
   print '<body class="token-tree">' . $output . '</body></html>';
   drupal_exit();
