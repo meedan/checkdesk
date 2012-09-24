@@ -29,16 +29,16 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'formblock-post' => array(
+          'module' => 'formblock',
+          'delta' => 'post',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
         'views-desk_reports-block' => array(
           'module' => 'views',
           'delta' => 'desk_reports-block',
           'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-        'formblock-post' => array(
-          'module' => 'formblock',
-          'delta' => 'post',
-          'region' => 'sidebar_second',
           'weight' => '-10',
         ),
       ),

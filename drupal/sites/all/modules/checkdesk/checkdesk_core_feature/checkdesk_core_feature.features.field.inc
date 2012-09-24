@@ -368,9 +368,12 @@ function checkdesk_core_feature_field_default_fields() {
         ),
         'meedan_oembed' => array(
           'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '3',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -443,14 +446,14 @@ function checkdesk_core_feature_field_default_fields() {
           'weight' => '1',
         ),
         'meedan_oembed' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'oembedfield',
           'settings' => array(
             'maxheight' => '',
             'maxwidth' => '',
           ),
           'type' => 'oembed_default',
-          'weight' => '1',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -492,72 +495,6 @@ function checkdesk_core_feature_field_default_fields() {
         'settings' => array(),
         'type' => 'link_field',
         'weight' => '1',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-media-field_location'.
-  $fields['node-media-field_location'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_location',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'geofield',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'geofield',
-    ),
-    'field_instance' => array(
-      'bundle' => 'media',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'geofield',
-          'settings' => array(
-            'data' => 'full',
-          ),
-          'type' => 'geofield_wkt',
-          'weight' => 4,
-        ),
-        'meedan_oembed' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '2',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_location',
-      'label' => 'Location',
-      'required' => 0,
-      'settings' => array(
-        'local_solr' => array(
-          'enabled' => FALSE,
-          'lat_field' => 'lat',
-          'lng_field' => 'lng',
-        ),
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'geofield',
-        'settings' => array(),
-        'type' => 'geofield_wkt',
-        'weight' => '4',
       ),
     ),
   );
@@ -615,9 +552,10 @@ function checkdesk_core_feature_field_default_fields() {
         ),
         'meedan_oembed' => array(
           'label' => 'above',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '4',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -843,7 +781,6 @@ function checkdesk_core_feature_field_default_fields() {
   t('Body');
   t('Comment');
   t('Description');
-  t('Location');
   t('Media');
   t('Status');
   t('Story');

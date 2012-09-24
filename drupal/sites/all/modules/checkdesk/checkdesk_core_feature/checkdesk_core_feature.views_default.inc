@@ -10,7 +10,7 @@
 function checkdesk_core_feature_views_default_views() {
   $export = array();
 
-  $view = new view;
+  $view = new view();
   $view->name = 'desk_reports';
   $view->description = '';
   $view->tag = 'default';
@@ -23,46 +23,27 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Desk Reports';
+  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['hide_empty'] = 0;
-  $handler->display->display_options['row_options']['default_field_elements'] = 1;
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
   $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['label'] = '';
-  $handler->display->display_options['fields']['field_link']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_link']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_link']['alter']['text'] = '<div class="draggable">[field_link]</div>';
-  $handler->display->display_options['fields']['field_link']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_link']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_link']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_link']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_link']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_link']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_link']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['type'] = 'oembed_thumbnail';
   $handler->display->display_options['fields']['field_link']['settings'] = array(
     'imagestyle' => 'medium',
   );
-  $handler->display->display_options['fields']['field_link']['field_api_classes'] = 0;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -74,12 +55,9 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['arguments']['field_desk_target_id']['field'] = 'field_desk_target_id';
   $handler->display->display_options['arguments']['field_desk_target_id']['default_action'] = 'default';
   $handler->display->display_options['arguments']['field_desk_target_id']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['field_desk_target_id']['default_argument_skip_url'] = 0;
   $handler->display->display_options['arguments']['field_desk_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_desk_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_desk_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_desk_target_id']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['field_desk_target_id']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -97,9 +75,10 @@ function checkdesk_core_feature_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $export['desk_reports'] = $view;
 
-  $view = new view;
+  $view = new view();
   $view->name = 'desks';
   $view->description = '';
   $view->tag = 'checkdesk';
@@ -112,6 +91,7 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Stories';
+  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -121,24 +101,14 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '9';
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['columns'] = '3';
-  $handler->display->display_options['style_options']['fill_single_line'] = 1;
   $handler->display->display_options['row_plugin'] = 'node';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   /* Sort criterion: Content: Sticky */
   $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
   $handler->display->display_options['sorts']['sticky']['table'] = 'node';
@@ -171,6 +141,7 @@ function checkdesk_core_feature_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'stories';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Stories';
@@ -179,7 +150,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $export['desks'] = $view;
 
-  $view = new view;
+  $view = new view();
   $view->name = 'liveblog';
   $view->description = '';
   $view->tag = 'checkdesk';
@@ -193,6 +164,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Liveblog';
   $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -203,8 +175,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['view_mode'] = 'full';
-  $handler->display->display_options['row_options']['links'] = 0;
-  $handler->display->display_options['row_options']['comments'] = 0;
+  $handler->display->display_options['row_options']['links'] = FALSE;
   /* Header: Global: Text area */
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
@@ -223,23 +194,13 @@ print theme(\'views_autorefresh\', array(
 ));
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
-  $handler->display->display_options['header']['area']['tokenize'] = 0;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -262,6 +223,7 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'liveblog';
   $handler->display->display_options['menu']['title'] = 'Liveblog';
   $handler->display->display_options['menu']['weight'] = '2';
@@ -270,6 +232,7 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Feed */
   $handler = $view->new_display('feed', 'Feed', 'feed');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'rss';
   $handler->display->display_options['row_plugin'] = 'node_rss';
@@ -281,6 +244,7 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Autorefresh Page */
   $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
@@ -288,30 +252,29 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['arguments']['created_operator']['field'] = 'created_operator';
   $handler->display->display_options['arguments']['created_operator']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['created_operator']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['created_operator']['default_argument_skip_url'] = 0;
   $handler->display->display_options['arguments']['created_operator']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['created_operator']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['created_operator']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['path'] = 'liveblog/autorefresh/%';
   $export['liveblog'] = $view;
 
-  $view = new view;
-  $view->name = 'unclassified_reports';
+  $view = new view();
+  $view->name = 'reports';
   $view->description = '';
   $view->tag = 'checkdesk';
   $view->base_table = 'node';
-  $view->human_name = 'Unclassified Reports';
+  $view->human_name = 'Reports';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Unclassified Reports';
+  $handler->display->display_options['title'] = 'Reports';
+  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -326,17 +289,8 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -356,21 +310,17 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['filters']['type']['value'] = array(
     'media' => 'media',
   );
-  /* Filter criterion: Content: Story (field_desk) */
-  $handler->display->display_options['filters']['field_desk_target_id']['id'] = 'field_desk_target_id';
-  $handler->display->display_options['filters']['field_desk_target_id']['table'] = 'field_data_field_desk';
-  $handler->display->display_options['filters']['field_desk_target_id']['field'] = 'field_desk_target_id';
-  $handler->display->display_options['filters']['field_desk_target_id']['operator'] = 'empty';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'unclassified-reports';
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['path'] = 'reports';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Unclassified Reports';
+  $handler->display->display_options['menu']['title'] = 'Reports';
   $handler->display->display_options['menu']['weight'] = '50';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
-  $export['unclassified_reports'] = $view;
+  $export['reports'] = $view;
 
   return $export;
 }
