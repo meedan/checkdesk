@@ -61,11 +61,11 @@ function checkdesk_core_feature_flag_default_flags() {
     'show_on_teaser' => 0,
     'show_contextual_link' => 1,
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   // Exported flag: "Graphic content".
   $flags['graphic'] = array(
@@ -98,11 +98,11 @@ function checkdesk_core_feature_flag_default_flags() {
     'show_on_teaser' => 0,
     'show_contextual_link' => 1,
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   // Exported flag: "Spam".
   $flags['spam'] = array(
@@ -135,11 +135,11 @@ function checkdesk_core_feature_flag_default_flags() {
     'show_on_teaser' => 0,
     'show_contextual_link' => 1,
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   return $flags;
 

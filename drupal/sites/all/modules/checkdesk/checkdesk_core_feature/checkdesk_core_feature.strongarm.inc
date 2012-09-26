@@ -235,6 +235,9 @@ function checkdesk_core_feature_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'meedan_oembed' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -242,7 +245,7 @@ function checkdesk_core_feature_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '6',
+          'weight' => '5',
         ),
       ),
       'display' => array(),
