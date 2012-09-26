@@ -23,6 +23,7 @@ function meedan_sensitive_content_menu() {
 
   $items['admin/config/content/sensitive'] = array(
     'title' => 'Sensitive content',
+    'description' => 'Manage how sensitive content should be displayed to users.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('meedan_sensitive_content_settings'),
     'access callback' => 'user_access',

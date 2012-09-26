@@ -236,11 +236,12 @@ function meedan_oembed_entity_info_alter(&$entity_info) {
  */
 function meedan_oembed_filter_info() {
   $filters['filter_meedan_oembed'] = array(
-    'title' => t('Meedan oEmbed Filter'),
+    'title' => t('Meedan oEmbed filter'),
     'description' => t('Every instance of [nid:$nid] will be replaced with the corresponding Meedan oEmbed node view.'),
     'prepare callback' => '_meedan_oembed_filter_prepare',
     'process callback' => '_meedan_oembed_filter_process',
     'tips callback' => '_meedan_oembed_filter_tips',
+    'cache' => FALSE,
   );
   return $filters;
 }
@@ -263,13 +264,13 @@ function _meedan_oembed_filter_process($text, $filter) {
   preg_match_all('@\[nid:([0-9]+)\]@', $text, $matches);
   if (count($matches[1])) {
     $output = array();
-    foreach($matches[1] as $key => $nid) {
+    foreach ($matches[1] as $key => $nid) {
       if (is_numeric($nid)) {
         $node = node_load($nid);
-        if(is_object($node)) {
-          //render node using custom Meedan Oembed view
+        if (is_object($node)) {
+          // Render node using custom Meedan oEmbed view.
           $node_view = drupal_render(node_view($node, 'meedan_oembed'));
-          //replace [nid:$nid] with meedan oembed node view
+          // Replace [nid:$nid] with node view.
           $text = str_replace($matches[0][$key], $node_view, $text);
         }
       }
