@@ -1,6 +1,166 @@
 <?php
 
 /**
+ * Implements hook_menu(). 
+ */
+function checkdesk_core_menu() {
+  $items = array();
+
+  $items['node/%checkdesk_report/checkdesk/suggest'] = array(
+    'title' => 'Suggest a story',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_checkdesk_core_report_suggest', 1),
+    'access arguments' => array('edit any media content'),
+  );
+  $items['node/%checkdesk_report/checkdesk/publish'] = array(
+    'title' => 'Publish a report',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_checkdesk_core_report_publish', 1),
+    'access arguments' => array('create post content'),
+  );
+
+  return $items;
+}
+
+/**
+ * Load function for reports.
+ */
+function checkdesk_report_load($nid) {
+  $report = node_load($nid);
+  if ($report && $report->type == 'media') {
+    return $report;
+  }
+  return FALSE;
+}
+
+/**
+ * Form function for `_checkdesk_core_report_suggest`.
+ * Allow user to choose from all stories not already associated with this report.
+ */
+function _checkdesk_core_report_suggest($form, $form_state, $report) {
+  $stories = db_query("
+SELECT nid, title 
+FROM {node} 
+WHERE type='discussion' 
+AND nid NOT IN (
+  SELECT field_stories_target_id 
+  FROM {field_data_field_stories}
+  WHERE entity_id = :report
+)
+  ", array(':report' => $report->nid))->fetchAllKeyed();
+  $form['story'] = array(
+    '#type' => 'select',
+    '#title' => t('Story'),
+    '#options' => $stories,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  $form['#report'] = $report;
+  return $form;
+}
+
+/**
+ * Submit function for `_checkdesk_core_report_suggest`.
+ */
+function _checkdesk_core_report_suggest_submit($form, &$form_state) {
+  // Add the story to the report.
+  $report = $form['#report'];
+  $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
+  node_save($report);
+
+  // Redirect to story. 
+  $form_state['redirect'] = 'node/' . $form_state['values']['story'];
+}
+
+/**
+ * Form function for `_checkdesk_core_report_publish`.
+ */
+function _checkdesk_core_report_publish($form, $form_state, $report) {
+  $stories = db_query("
+SELECT nid, title 
+FROM {node} 
+WHERE type='discussion' 
+  ")->fetchAllKeyed();
+  $form['story'] = array(
+    '#type' => 'select',
+    '#title' => t('Story'),
+    '#options' => $stories,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  $form['#report'] = $report;
+  return $form;
+}
+
+/**
+ * Submit function for `_checkdesk_core_report_publish`.
+ */
+function _checkdesk_core_report_publish_submit($form, &$form_state) {
+  // Add the story to the report.
+  // TODO Don't add the story to the report if it's already there.
+  $report = $form['#report'];
+  $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
+  node_save($report);
+
+  // Redirect to story. 
+  $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
+}
+
+/**
+ * Retrieve action links on given node.
+ */
+function _checkdesk_core_node_links($node, $account = NULL) {
+  if (!$account) {
+    global $user;
+    $account = $user;
+  }
+  $links = array();
+
+  // Links for reports.
+  if ($node->type == 'media') {
+    $links['checkdesk-suggest'] = array(
+      'title' => t('Suggest a story'),
+      'href' => 'node/' . $node->nid . '/checkdesk/suggest',
+    );
+    $links['checkdesk-publish'] = array(
+      'title' => t('Publish a report'),
+      'href' => 'node/' . $node->nid . '/checkdesk/publish',
+    );
+  }
+
+  return $links;
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function checkdesk_core_node_view($node, $view_mode, $langcode) {
+  $links = _checkdesk_core_node_links($node); 
+  if (!empty($links)) {
+    $node->content['links']['checkdesk'] = array(
+      '#theme' => 'links',
+      '#links' => $links,
+      '#attributes' => array('class' => array('links', 'inline')),
+    );
+  }
+}
+
+/*
+ * Implements hook_contextual_links_view_alter().
+ */
+function checkdesk_core_contextual_links_view_alter(&$element, $items) {
+  if (!isset($element['#element']['#node']->nid)) return;
+  $links = _checkdesk_core_node_links($element['#element']['#node']);
+  if (!empty($links)) {
+    $element['#links'] += $links;
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for `post_node_form`.
  */
 function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
@@ -14,6 +174,16 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     $form['body']['#prefix'] = '<div class="droppable">';
     $form['body']['#suffix'] = '</div>';
   }
+  // Set default parameters if any.
+  if (isset($_GET['story'])) {
+    // Hard-code desk reference to given desk.
+    $form['field_desk'][LANGUAGE_NONE]['#default_value'] = $_GET['story'];
+    $form['field_desk']['#access'] = false;
+  }
+  if (isset($_GET['report'])) {
+    // Add given report to body.
+    $form['body'][LANGUAGE_NONE][0]['#default_value'] = '[nid:' . $_GET['report'] . ']';
+  }
 }
 
 /**
@@ -26,6 +196,7 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
 
 /**
  * API function to return report node title given its embedded media title.
+ * TODO: Move this to meedan_oembed.
  */
 function checkdesk_core_oembed_title($node) {
   $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
