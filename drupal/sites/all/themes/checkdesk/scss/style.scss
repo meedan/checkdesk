@@ -1,0 +1,28 @@
+/* ============= */
+/* = STEP ONE  = */
+/* ============= */
+
+@import 'susy';
+
+// compass gem
+@import 'compass'; // creates mixins — read it!
+
+// compass css3 cross browser support lib
+@import 'compass/css3'; // creates mixins — read it!
+
+/* ============= */
+/* = STEP TWO = */
+/* ============= */
+// some of the above mixins are used in a direction-aware layout
+
+// this import must come after all the others
+@import "layout";
+
+/* ============= */
+/* = STEP THREE = */
+/* ============= */
+/* This section actually renders direction-specific markup. 
+We use the layout in two language contexts, and set the $direction variable */
+body { @include cd_layout(left); }
+body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
+body.i18n-ar { @include cd_layout(right); }

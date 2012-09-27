@@ -1,0 +1,29 @@
+@import "compass/css3";
+@import "compass/layout.scss";
+@import "compass/support";
+@import "grid";
+
+/* ============================  */
+/* =   The Skeleton           =  */
+/* Called below in yallah layout */
+/* Then overridden on some pages */
+/* $direction = ltr or rlt --sets the susy $from-direction */
+/* $sidebar_alpha = number of columns for the alpha sidebar */
+/* $sidebar_omega = number of columns for the omega sidebar */
+/* $content_width = number of columns for the main div (i.e.) main page content */
+/* ============================  */
+
+@mixin layout_skeleton($direction, $sidebar_alpha: 1, $content_width: 9) {
+	div#main {
+      @include span-columns($content_width,12);
+    }
+  div#sidebar-first {
+    @include span-columns($sidebar_alpha,12);
+    float: $direction;
+  }
+}
+
+
+@mixin cd_layout($direction) {
+	@include layout_skeleton($direction);
+}

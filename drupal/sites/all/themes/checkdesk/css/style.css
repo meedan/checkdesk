@@ -1,0 +1,67 @@
+/* ============= */
+/* = STEP ONE  = */
+/* ============= */
+/* ============= */
+/* = STEP TWO = */
+/* ============= */
+/* ============================  */
+/* =   The Skeleton           =  */
+/* Called below in yallah layout */
+/* Then overridden on some pages */
+/* $direction = ltr or rlt --sets the susy $from-direction */
+/* $sidebar_alpha = number of columns for the alpha sidebar */
+/* $sidebar_omega = number of columns for the omega sidebar */
+/* $content_width = number of columns for the main div (i.e.) main page content */
+/* ============================  */
+/* ============= */
+/* = STEP THREE = */
+/* ============= */
+/* This section actually renders direction-specific markup. 
+We use the layout in two language contexts, and set the $direction variable */
+/* line 17, ../scss/_layout.scss */
+body div#main {
+  width: 74.57627%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+/* line 20, ../scss/_layout.scss */
+body div#sidebar-first {
+  width: 6.77966%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  float: left;
+}
+
+/* line 17, ../scss/_layout.scss */
+body.i18n-en div#main, body.i18n-pt-br div#main {
+  width: 74.57627%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+/* line 20, ../scss/_layout.scss */
+body.i18n-en div#sidebar-first, body.i18n-pt-br div#sidebar-first {
+  width: 6.77966%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  float: left;
+}
+
+/* line 17, ../scss/_layout.scss */
+body.i18n-ar div#main {
+  width: 74.57627%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+/* line 20, ../scss/_layout.scss */
+body.i18n-ar div#sidebar-first {
+  width: 6.77966%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  float: right;
+}
