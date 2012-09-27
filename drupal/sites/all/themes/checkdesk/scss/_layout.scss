@@ -1,7 +1,9 @@
+@import "reset";
 @import "compass/css3";
 @import "compass/layout.scss";
 @import "compass/support";
 @import "grid";
+@import "navigation";
 
 /* ============================  */
 /* =   The Skeleton           =  */
@@ -13,13 +15,13 @@
 /* $content_width = number of columns for the main div (i.e.) main page content */
 /* ============================  */
 
-@mixin layout_skeleton($direction, $sidebar_alpha: 1, $content_width: 9) {
-	div#main {
-      @include span-columns($content_width,12);
+@mixin layout_skeleton($direction, $sidebar_alpha: 3, $content_width: 9) {
+	div#content {
+      @include span-columns($content_width omega,12);
     }
   div#sidebar-first {
     @include span-columns($sidebar_alpha,12);
-    float: $direction;
+    // float: $direction;
   }
 }
 

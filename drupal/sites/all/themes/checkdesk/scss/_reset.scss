@@ -1,0 +1,10 @@
+// =========================================
+// = custom resets overriding drupal
+// NOTE: these are on top of other resets eg compass resets
+// =========================================
+
+@mixin yallah_resets() {
+  ul li {
+    list-style:none;
+  }
+}

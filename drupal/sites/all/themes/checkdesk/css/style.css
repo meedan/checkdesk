@@ -4,6 +4,43 @@
 /* ============= */
 /* = STEP TWO = */
 /* ============= */
+/* line 1, ../scss/_navigation.scss */
+#navigation {
+  width: 100%;
+  float: left;
+  background: #000;
+}
+/* line 5, ../scss/_navigation.scss */
+#navigation ul {
+  list-style-type: none;
+}
+/* line 8, ../scss/_navigation.scss */
+#navigation li {
+  display: inline-block;
+}
+
+/* line 13, ../scss/_navigation.scss */
+#primary {
+  color: #fff;
+  float: left;
+}
+/* line 16, ../scss/_navigation.scss */
+#primary a {
+  color: #fff;
+}
+
+/* line 21, ../scss/_navigation.scss */
+#secondary {
+  background: #000;
+  color: #fff;
+  float: right;
+  clear: right;
+}
+/* line 26, ../scss/_navigation.scss */
+#secondary a {
+  color: #fff;
+}
+
 /* ============================  */
 /* =   The Skeleton           =  */
 /* Called below in yallah layout */
@@ -18,50 +55,50 @@
 /* ============= */
 /* This section actually renders direction-specific markup. 
 We use the layout in two language contexts, and set the $direction variable */
-/* line 17, ../scss/_layout.scss */
-body div#main {
+/* line 19, ../scss/_layout.scss */
+body div#content {
   width: 74.57627%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-/* line 20, ../scss/_layout.scss */
-body div#sidebar-first {
-  width: 6.77966%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-  float: left;
-}
-
-/* line 17, ../scss/_layout.scss */
-body.i18n-en div#main, body.i18n-pt-br div#main {
-  width: 74.57627%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-/* line 20, ../scss/_layout.scss */
-body.i18n-en div#sidebar-first, body.i18n-pt-br div#sidebar-first {
-  width: 6.77966%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-  float: left;
-}
-
-/* line 17, ../scss/_layout.scss */
-body.i18n-ar div#main {
-  width: 74.57627%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-/* line 20, ../scss/_layout.scss */
-body.i18n-ar div#sidebar-first {
-  width: 6.77966%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
   float: right;
+  margin-right: 0;
+  #margin-left: -16px;
+  display: inline;
+}
+/* line 22, ../scss/_layout.scss */
+body div#sidebar-first {
+  width: 23.72881%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 19, ../scss/_layout.scss */
+body.i18n-en div#content, body.i18n-pt-br div#content {
+  width: 74.57627%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -16px;
+  display: inline;
+}
+/* line 22, ../scss/_layout.scss */
+body.i18n-en div#sidebar-first, body.i18n-pt-br div#sidebar-first {
+  width: 23.72881%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 19, ../scss/_layout.scss */
+body.i18n-ar div#content {
+  width: 74.57627%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -16px;
+  display: inline;
+}
+/* line 22, ../scss/_layout.scss */
+body.i18n-ar div#sidebar-first {
+  width: 23.72881%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
 }
