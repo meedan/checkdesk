@@ -4,43 +4,6 @@
 /* ============= */
 /* = STEP TWO = */
 /* ============= */
-/* line 1, ../scss/_navigation.scss */
-#navigation {
-  width: 100%;
-  float: left;
-  background: #000;
-}
-/* line 5, ../scss/_navigation.scss */
-#navigation ul {
-  list-style-type: none;
-}
-/* line 8, ../scss/_navigation.scss */
-#navigation li {
-  display: inline-block;
-}
-
-/* line 13, ../scss/_navigation.scss */
-#primary {
-  color: #fff;
-  float: left;
-}
-/* line 16, ../scss/_navigation.scss */
-#primary a {
-  color: #fff;
-}
-
-/* line 21, ../scss/_navigation.scss */
-#secondary {
-  background: #000;
-  color: #fff;
-  float: right;
-  clear: right;
-}
-/* line 26, ../scss/_navigation.scss */
-#secondary a {
-  color: #fff;
-}
-
 /* ============================  */
 /* =   The Skeleton           =  */
 /* Called below in yallah layout */
@@ -70,6 +33,50 @@ body div#sidebar-first {
   margin-right: 1.69492%;
   display: inline;
 }
+/* line 11, ../scss/_navigation.scss */
+body #navigation {
+  font-family: Helvetica, Arial, sans-serif;
+  width: 100%;
+  float: left;
+  background: #333333;
+  line-height: 20px;
+  padding: 5px 50px 5px 10px;
+  position: relative;
+}
+/* line 19, ../scss/_navigation.scss */
+body #navigation ul {
+  list-style-type: none;
+}
+/* line 22, ../scss/_navigation.scss */
+body #navigation li {
+  display: inline-block;
+}
+/* line 27, ../scss/_navigation.scss */
+body #primary {
+  color: #fff;
+  float: left;
+}
+/* line 3, ../scss/_navigation.scss */
+body #primary a {
+  color: #cccccc;
+  padding: 0 10px;
+  text-decoration: none;
+}
+/* line 30, ../scss/_navigation.scss */
+body #primary .first {
+  background: url(../images/icons/glyphicons/glyphicons_020_home.png) no-repeat;
+}
+/* line 35, ../scss/_navigation.scss */
+body #secondary {
+  color: #fff;
+  float: right;
+}
+/* line 3, ../scss/_navigation.scss */
+body #secondary a {
+  color: #cccccc;
+  padding: 0 10px;
+  text-decoration: none;
+}
 
 /* line 19, ../scss/_layout.scss */
 body.i18n-en div#content, body.i18n-pt-br div#content {
@@ -86,6 +93,50 @@ body.i18n-en div#sidebar-first, body.i18n-pt-br div#sidebar-first {
   margin-right: 1.69492%;
   display: inline;
 }
+/* line 11, ../scss/_navigation.scss */
+body.i18n-en #navigation, body.i18n-pt-br #navigation {
+  font-family: Helvetica, Arial, sans-serif;
+  width: 100%;
+  float: left;
+  background: #333333;
+  line-height: 20px;
+  padding: 5px 50px 5px 10px;
+  position: relative;
+}
+/* line 19, ../scss/_navigation.scss */
+body.i18n-en #navigation ul, body.i18n-pt-br #navigation ul {
+  list-style-type: none;
+}
+/* line 22, ../scss/_navigation.scss */
+body.i18n-en #navigation li, body.i18n-pt-br #navigation li {
+  display: inline-block;
+}
+/* line 27, ../scss/_navigation.scss */
+body.i18n-en #primary, body.i18n-pt-br #primary {
+  color: #fff;
+  float: left;
+}
+/* line 3, ../scss/_navigation.scss */
+body.i18n-en #primary a, body.i18n-pt-br #primary a {
+  color: #cccccc;
+  padding: 0 10px;
+  text-decoration: none;
+}
+/* line 30, ../scss/_navigation.scss */
+body.i18n-en #primary .first, body.i18n-pt-br #primary .first {
+  background: url(../images/icons/glyphicons/glyphicons_020_home.png) no-repeat;
+}
+/* line 35, ../scss/_navigation.scss */
+body.i18n-en #secondary, body.i18n-pt-br #secondary {
+  color: #fff;
+  float: right;
+}
+/* line 3, ../scss/_navigation.scss */
+body.i18n-en #secondary a, body.i18n-pt-br #secondary a {
+  color: #cccccc;
+  padding: 0 10px;
+  text-decoration: none;
+}
 
 /* line 19, ../scss/_layout.scss */
 body.i18n-ar div#content {
@@ -101,4 +152,48 @@ body.i18n-ar div#sidebar-first {
   float: left;
   margin-right: 1.69492%;
   display: inline;
+}
+/* line 11, ../scss/_navigation.scss */
+body.i18n-ar #navigation {
+  font-family: Helvetica, Arial, sans-serif;
+  width: 100%;
+  float: right;
+  background: #333333;
+  line-height: 20px;
+  padding: 5px 50px 5px 10px;
+  position: relative;
+}
+/* line 19, ../scss/_navigation.scss */
+body.i18n-ar #navigation ul {
+  list-style-type: none;
+}
+/* line 22, ../scss/_navigation.scss */
+body.i18n-ar #navigation li {
+  display: inline-block;
+}
+/* line 27, ../scss/_navigation.scss */
+body.i18n-ar #primary {
+  color: #fff;
+  float: right;
+}
+/* line 3, ../scss/_navigation.scss */
+body.i18n-ar #primary a {
+  color: #cccccc;
+  padding: 0 10px;
+  text-decoration: none;
+}
+/* line 30, ../scss/_navigation.scss */
+body.i18n-ar #primary .first {
+  background: url(../images/icons/glyphicons/glyphicons_020_home.png) no-repeat;
+}
+/* line 35, ../scss/_navigation.scss */
+body.i18n-ar #secondary {
+  color: #fff;
+  float: left;
+}
+/* line 3, ../scss/_navigation.scss */
+body.i18n-ar #secondary a {
+  color: #cccccc;
+  padding: 0 10px;
+  text-decoration: none;
 }

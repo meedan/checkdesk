@@ -28,4 +28,5 @@
 
 @mixin cd_layout($direction) {
 	@include layout_skeleton($direction);
+	@include mainNavigation($direction);
 }

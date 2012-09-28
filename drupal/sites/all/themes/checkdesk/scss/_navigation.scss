@@ -1,29 +1,39 @@
-#navigation {
-	width: 100%;
-	float: left;
-	background: #000;
-	ul{
-		list-style-type: none;
-	}
-	li {
-		display: inline-block;
+@mixin navigationButtons {
+	color: #fff;
+	a {
+		color: darken(#fff, 20);
+		padding: 0 10px;
+		text-decoration: none;
 	}
 }
 
-#primary {
-	color: #fff;
-	float: left;
-	a {
-		color: #fff;
+@mixin mainNavigation($direction) {
+	#navigation {
+		font-family: Helvetica, Arial, sans-serif;
+		width: 100%;
+		float: $direction;
+		background: lighten(#000, 20);
+		line-height: 20px;
+		padding: 5px 50px 5px 10px;
+		position: relative;
+		ul{
+			list-style-type: none;
+		}
+		li {
+			display: inline-block;
+		}
 	}
-}
 
-#secondary {
-	background: #000;
-	color: #fff;
-	float: right;
-	clear: right;
-	a {
-		color: #fff;
+	#primary {
+		@include navigationButtons;
+		float: $direction;
+		.first {
+			background: url(../images/icons/glyphicons/glyphicons_020_home.png) no-repeat;
+		}
+	}
+
+	#secondary {
+		@include navigationButtons;
+		float: opposite-position($direction);
 	}
 }
