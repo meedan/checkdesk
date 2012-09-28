@@ -18,7 +18,7 @@
 /* ============= */
 /* This section actually renders direction-specific markup. 
 We use the layout in two language contexts, and set the $direction variable */
-/* line 19, ../scss/_layout.scss */
+/* line 20, ../scss/_layout.scss */
 body div#content {
   width: 74.57627%;
   float: right;
@@ -26,59 +26,65 @@ body div#content {
   #margin-left: -16px;
   display: inline;
 }
-/* line 22, ../scss/_layout.scss */
+/* line 23, ../scss/_layout.scss */
 body div#sidebar-first {
   width: 23.72881%;
   float: left;
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 11, ../scss/_navigation.scss */
+/* line 11, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body #navigation {
   font-family: Helvetica, Arial, sans-serif;
+  font-weight: 200;
   width: 100%;
   float: left;
   background: #333333;
-  line-height: 20px;
+  height: 20px;
   padding: 5px 50px 5px 10px;
   position: relative;
 }
-/* line 19, ../scss/_navigation.scss */
+/* line 20, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body #navigation ul {
   list-style-type: none;
+  margin: 2px;
 }
-/* line 22, ../scss/_navigation.scss */
+/* line 24, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body #navigation li {
   display: inline-block;
 }
-/* line 27, ../scss/_navigation.scss */
+/* line 29, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body #primary {
   color: #fff;
   float: left;
 }
-/* line 3, ../scss/_navigation.scss */
+/* line 3, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body #primary a {
   color: #cccccc;
   padding: 0 10px;
   text-decoration: none;
 }
-/* line 30, ../scss/_navigation.scss */
+/* line 32, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
+body #primary li {
+  border-right: 1px solid #cccccc;
+}
+/* line 35, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body #primary .first {
   background: url(../images/icons/glyphicons/glyphicons_020_home.png) no-repeat;
 }
-/* line 35, ../scss/_navigation.scss */
+/* line 40, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body #secondary {
   color: #fff;
   float: right;
 }
-/* line 3, ../scss/_navigation.scss */
+/* line 3, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body #secondary a {
   color: #cccccc;
   padding: 0 10px;
   text-decoration: none;
 }
 
-/* line 19, ../scss/_layout.scss */
+/* line 20, ../scss/_layout.scss */
 body.i18n-en div#content, body.i18n-pt-br div#content {
   width: 74.57627%;
   float: right;
@@ -86,59 +92,65 @@ body.i18n-en div#content, body.i18n-pt-br div#content {
   #margin-left: -16px;
   display: inline;
 }
-/* line 22, ../scss/_layout.scss */
+/* line 23, ../scss/_layout.scss */
 body.i18n-en div#sidebar-first, body.i18n-pt-br div#sidebar-first {
   width: 23.72881%;
   float: left;
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 11, ../scss/_navigation.scss */
+/* line 11, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-en #navigation, body.i18n-pt-br #navigation {
   font-family: Helvetica, Arial, sans-serif;
+  font-weight: 200;
   width: 100%;
   float: left;
   background: #333333;
-  line-height: 20px;
+  height: 20px;
   padding: 5px 50px 5px 10px;
   position: relative;
 }
-/* line 19, ../scss/_navigation.scss */
+/* line 20, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-en #navigation ul, body.i18n-pt-br #navigation ul {
   list-style-type: none;
+  margin: 2px;
 }
-/* line 22, ../scss/_navigation.scss */
+/* line 24, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-en #navigation li, body.i18n-pt-br #navigation li {
   display: inline-block;
 }
-/* line 27, ../scss/_navigation.scss */
+/* line 29, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-en #primary, body.i18n-pt-br #primary {
   color: #fff;
   float: left;
 }
-/* line 3, ../scss/_navigation.scss */
+/* line 3, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-en #primary a, body.i18n-pt-br #primary a {
   color: #cccccc;
   padding: 0 10px;
   text-decoration: none;
 }
-/* line 30, ../scss/_navigation.scss */
+/* line 32, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
+body.i18n-en #primary li, body.i18n-pt-br #primary li {
+  border-right: 1px solid #cccccc;
+}
+/* line 35, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-en #primary .first, body.i18n-pt-br #primary .first {
   background: url(../images/icons/glyphicons/glyphicons_020_home.png) no-repeat;
 }
-/* line 35, ../scss/_navigation.scss */
+/* line 40, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-en #secondary, body.i18n-pt-br #secondary {
   color: #fff;
   float: right;
 }
-/* line 3, ../scss/_navigation.scss */
+/* line 3, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-en #secondary a, body.i18n-pt-br #secondary a {
   color: #cccccc;
   padding: 0 10px;
   text-decoration: none;
 }
 
-/* line 19, ../scss/_layout.scss */
+/* line 20, ../scss/_layout.scss */
 body.i18n-ar div#content {
   width: 74.57627%;
   float: right;
@@ -146,52 +158,58 @@ body.i18n-ar div#content {
   #margin-left: -16px;
   display: inline;
 }
-/* line 22, ../scss/_layout.scss */
+/* line 23, ../scss/_layout.scss */
 body.i18n-ar div#sidebar-first {
   width: 23.72881%;
   float: left;
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 11, ../scss/_navigation.scss */
+/* line 11, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-ar #navigation {
   font-family: Helvetica, Arial, sans-serif;
+  font-weight: 200;
   width: 100%;
   float: right;
   background: #333333;
-  line-height: 20px;
+  height: 20px;
   padding: 5px 50px 5px 10px;
   position: relative;
 }
-/* line 19, ../scss/_navigation.scss */
+/* line 20, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-ar #navigation ul {
   list-style-type: none;
+  margin: 2px;
 }
-/* line 22, ../scss/_navigation.scss */
+/* line 24, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-ar #navigation li {
   display: inline-block;
 }
-/* line 27, ../scss/_navigation.scss */
+/* line 29, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-ar #primary {
   color: #fff;
   float: right;
 }
-/* line 3, ../scss/_navigation.scss */
+/* line 3, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-ar #primary a {
   color: #cccccc;
   padding: 0 10px;
   text-decoration: none;
 }
-/* line 30, ../scss/_navigation.scss */
+/* line 32, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
+body.i18n-ar #primary li {
+  border-left: 1px solid #cccccc;
+}
+/* line 35, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-ar #primary .first {
   background: url(../images/icons/glyphicons/glyphicons_020_home.png) no-repeat;
 }
-/* line 35, ../scss/_navigation.scss */
+/* line 40, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-ar #secondary {
   color: #fff;
   float: left;
 }
-/* line 3, ../scss/_navigation.scss */
+/* line 3, /Users/Andy/Documents/Code/meedan/meedan-checkdesk/drupal/sites/all/themes/checkdesk/scss/_navigation.scss */
 body.i18n-ar #secondary a {
   color: #cccccc;
   padding: 0 10px;

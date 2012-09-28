@@ -1,7 +1,7 @@
 @mixin navigationButtons {
 	color: #fff;
 	a {
-		color: darken(#fff, 20);
+		color: $gray;
 		padding: 0 10px;
 		text-decoration: none;
 	}
@@ -10,14 +10,16 @@
 @mixin mainNavigation($direction) {
 	#navigation {
 		font-family: Helvetica, Arial, sans-serif;
+		font-weight: 200;
 		width: 100%;
 		float: $direction;
 		background: lighten(#000, 20);
-		line-height: 20px;
+		height: 20px;
 		padding: 5px 50px 5px 10px;
 		position: relative;
 		ul{
 			list-style-type: none;
+			margin: 2px;
 		}
 		li {
 			display: inline-block;
@@ -27,6 +29,9 @@
 	#primary {
 		@include navigationButtons;
 		float: $direction;
+		li {
+			border-#{opposite-position($direction)}: 1px solid $gray;
+		}
 		.first {
 			background: url(../images/icons/glyphicons/glyphicons_020_home.png) no-repeat;
 		}
