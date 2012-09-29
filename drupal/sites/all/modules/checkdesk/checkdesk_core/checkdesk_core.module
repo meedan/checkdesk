@@ -223,3 +223,41 @@ function checkdesk_core_views_pre_render(&$view) {
   }
 }
 
+/**
+ * Implements hook_entity_property_info().
+ */
+function checkdesk_core_entity_property_info() {
+  $info = array();
+  $properties = &$info['node']['bundles']['post']['properties'];
+
+  $properties['reports'] = array(
+    'label' => t('Reports'),
+    'type' => 'list<node>',
+    'description' => t("List of reports in this post."),
+    'getter callback' => 'checkdesk_core_entity_property_get_reports',
+  );
+  return $info;
+}
+
+/**
+ * Getter function for `reports` property.
+ */ 
+function checkdesk_core_entity_property_get_reports($node, array $options, $name, $entity_type) {
+  $reports = array();
+  $text = $node->body[LANGUAGE_NONE][0]['value'];
+  $matches = array();
+  preg_match_all('@\[nid:([0-9]+)\]@', $text, $matches);
+  if (count($matches[1])) {
+    $output = array();
+    foreach ($matches[1] as $key => $nid) {
+      if (is_numeric($nid)) {
+        $node = node_load($nid);
+        if (is_object($node)) {
+          $reports[] = $node;
+        }
+      }
+    }
+  }
+  return $reports;
+}
+

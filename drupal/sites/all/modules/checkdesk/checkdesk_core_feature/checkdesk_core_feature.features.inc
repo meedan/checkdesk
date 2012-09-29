@@ -13,6 +13,10 @@ function checkdesk_core_feature_ctools_plugin_api() {
     return array("version" => "3");
   }
   list($module, $api) = func_get_args();
+  if ($module == "heartbeat" && $api == "heartbeat") {
+    return array("version" => "1");
+  }
+  list($module, $api) = func_get_args();
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -153,7 +157,7 @@ function checkdesk_core_feature_node_info() {
     'discussion' => array(
       'name' => t('Story'),
       'base' => 'node_content',
-      'description' => t('Where a story is discussed and media are verified.'),
+      'description' => t('Where reports are verified and blog posts created.'),
       'has_title' => '1',
       'title_label' => t('Headline'),
       'help' => '',
