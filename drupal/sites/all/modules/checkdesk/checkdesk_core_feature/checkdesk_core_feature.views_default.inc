@@ -78,6 +78,7 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Desk Reports';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -86,6 +87,24 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['label'] = 'Auto-Refresh';
+  $handler->display->display_options['header']['area']['empty'] = TRUE;
+  $handler->display->display_options['header']['area']['content'] = '<?php
+print theme(\'views_autorefresh\', array(
+  \'interval\' => 5000, 
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media\'),
+  \'incremental\' => array(
+    \'view_base_path\' => \'desk-reports/autorefresh\',
+    \'view_display_id\' => \'page_1\',
+    \'view_name\' => \'desk_reports\',
+  ),
+));
+?>';
+  $handler->display->display_options['header']['area']['format'] = 'php_code';
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
@@ -131,6 +150,30 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+
+  /* Display: Autorefresh Page */
+  $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Stories (field_stories) */
+  $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
+  $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
+  $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
+  $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Content: Post date (with operator) */
+  $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
+  $handler->display->display_options['arguments']['created_operator']['table'] = 'node';
+  $handler->display->display_options['arguments']['created_operator']['field'] = 'created_operator';
+  $handler->display->display_options['arguments']['created_operator']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['created_operator']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['created_operator']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['created_operator']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['created_operator']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['path'] = 'desk-reports/autorefresh/%';
   $export['desk_reports'] = $view;
 
   $view = new view();
