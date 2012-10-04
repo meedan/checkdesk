@@ -4,7 +4,7 @@
  * Template preprocessor for `checkdesk_core_story_blogger`.
  */
 function checkdesk_core_preprocess_checkdesk_core_story_blogger(&$variables) {
-  $story = $variables['object'];
+  $story = $variables['story'];
   $author = user_load($story->uid);
   $variables['blogger_picture'] = theme('user_picture', array('account' => $author));
   $variables['blogger_name'] = theme('username', array('account' => $author));
@@ -20,7 +20,7 @@ function checkdesk_core_preprocess_checkdesk_core_story_blogger(&$variables) {
  * Template preprocessor for `checkdesk_core_story_status`.
  */
 function checkdesk_core_preprocess_checkdesk_core_story_status(&$variables) {
-  $story = $variables['object'];
+  $story = $variables['story'];
   $site_owner = variable_get('checkdesk_site_owner', '');
   $site_owner_url = variable_get('checkdesk_site_owner_url', '');
   if (checkdesk_core_fact_checking($story)) {
@@ -44,5 +44,15 @@ function checkdesk_core_preprocess_checkdesk_core_story_status(&$variables) {
     '!city' => $city,
     '!country' => $country,
   ));
+}
+
+/**
+ * Template preprocessor for `checkdesk_core_report_source`.
+ */
+function checkdesk_core_preprocess_checkdesk_core_report_source(&$variables) {
+  $report = $variables['report'];
+  $embed = meedan_oembed_data($report->field_link[LANGUAGE_NONE][0]['display_url']);
+  $variables['source_url'] = l($embed->original_url, $embed->original_url, array('external' => TRUE));
+  $variables['source_author'] = empty($embed->author_url) ? t('Author unknown') : t('Added by !link.', array('!link' => l($embed->author_name, $embed->author_url, array('external' => TRUE))));
 }
 

@@ -35,18 +35,6 @@ function checkdesk_core_feature_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-10',
         ),
-        'checkdesk_core-story_blogger' => array(
-          'module' => 'checkdesk_core',
-          'delta' => 'story_blogger',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
-        'checkdesk_core-story_status' => array(
-          'module' => 'checkdesk_core',
-          'delta' => 'story_status',
-          'region' => 'content',
-          'weight' => '-9',
-        ),
         'formblock-post' => array(
           'module' => 'formblock',
           'delta' => 'post',

@@ -181,12 +181,33 @@ function _checkdesk_core_node_links($node, $account = NULL) {
  * Implements hook_node_view().
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
+  // Get node links.
   $links = _checkdesk_core_node_links($node); 
   if (!empty($links)) {
     $node->content['links']['checkdesk'] = array(
       '#theme' => 'links',
       '#links' => $links,
       '#attributes' => array('class' => array('links', 'inline')),
+    );
+  }
+
+  // Add decorations to story nodes.
+  if ($node->type == 'discussion') {
+    $node->content['story_blogger'] = array(
+      '#theme' => 'checkdesk_core_story_blogger',
+      '#story' => $node,
+    );
+    $node->content['story_status'] = array(
+      '#theme' => 'checkdesk_core_story_status',
+      '#story' => $node,
+    );
+  }
+
+  // Add decorations to report nodes.
+  if ($node->type == 'media') {
+    $node->content['report_source'] = array(
+      '#theme' => 'checkdesk_core_report_source',
+      '#report' => $node,
     );
   }
 }
@@ -304,34 +325,6 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
 }
 
 /**
- * Implements hook_block_info().
- */
-function checkdesk_core_block_info() {
-  $blocks = array();
-
-  $blocks['story_blogger'] = array(
-    'info' => t('Checkdesk story blogger info'),
-  );
-
-  $blocks['story_status'] = array(
-    'info' => t('Checkdesk story status'),
-  );
-
-  return $blocks;
-}
-
-/**
- * Implements hook_block_view().
- */
-function checkdesk_core_block_view($delta) {
-  $object = menu_get_object();
-  return array(
-    'subject' => NULL,
-    'content' => theme('checkdesk_core_' . $delta, array('object' => $object)),
-  );
-}
-
-/**
  * Implements hook_theme().
  */
 function checkdesk_core_theme() {
@@ -344,14 +337,21 @@ function checkdesk_core_theme() {
   $themes['checkdesk_core_story_blogger'] = array(
     'template' => 'story_blogger',
     'variables' => array(
-      'object' => NULL,
+      'story' => NULL,
     ),
   ) + $base;
 
   $themes['checkdesk_core_story_status'] = array(
     'template' => 'story_status',
     'variables' => array(
-      'object' => NULL,
+      'story' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_report_source'] = array(
+    'template' => 'report_source',
+    'variables' => array(
+      'report' => NULL,
     ),
   ) + $base;
 
