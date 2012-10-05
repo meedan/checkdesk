@@ -55,14 +55,13 @@ function meedan_oembed_pre_render_fetch($element) {
  *   an object representing the embeddable data of the URL.
  */
 function meedan_oembed_data($url, $attributes = array()) {
+  // Ask oEmbed core to render for us.
   $embed = oembedcore_oembed_data($url, $attributes);
   if ($embed) {
     return $embed;
   }
 
-  $matches = array();
-  $attributes = array_filter($attributes);
-  $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
+  // Look in the oEmbed cache.
   $provider = array();
   $provider['endpoint'] = 'http://api.embed.ly/1/oembed'; 
   // Set provider name specific to domain name to use it on #theme function
@@ -74,6 +73,20 @@ function meedan_oembed_data($url, $attributes = array()) {
   else {
     $provider['name'] = 'meedan_oembed_theme_generic'; 
   }
+  $attributes = array_filter($attributes);
+  $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
+  $element = oembedcore_render_cache('oembed_request', $url, $attributes);
+  $cache_key = implode(':', $element['#cache']['keys']);
+  $cache = cache_get($cache_key, $element['#cache']['bin']);
+  if ($cache && isset($cache->data)) {
+    $embed = $cache->data;
+    $embed->original_url = $url;
+    $embed->provider = $provider;
+    return $embed;
+  }
+
+  // Call Embedly first, then scrape the page ourselves.
+  $matches = array();
   $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
   if (!$embed) {
     $embed = (object)array(
