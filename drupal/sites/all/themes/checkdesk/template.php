@@ -29,8 +29,6 @@ function checkdesk_preprocess_page(&$variables) {
     // Build links
     $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
-
-    dsm($variables['main_menu']);
     
     // Build list
     $variables['primary_nav'] = theme('checkdesk_links', array(

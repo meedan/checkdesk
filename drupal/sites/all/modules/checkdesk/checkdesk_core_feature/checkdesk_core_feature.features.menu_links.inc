@@ -24,6 +24,44 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-50',
   );
+  // Exported menu link: main-menu:node/72
+  $menu_links['main-menu:node/72'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'node/72',
+    'router_path' => 'node/%',
+    'link_title' => 'Link 3',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-49',
+    'parent_path' => '<front>',
+  );
+  // Exported menu link: main-menu:node/73
+  $menu_links['main-menu:node/73'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'node/73',
+    'router_path' => 'node/%',
+    'link_title' => 'Link 2',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-50',
+    'parent_path' => '<front>',
+  );
   // Exported menu link: main-menu:node/add/discussion
   $menu_links['main-menu:node/add/discussion'] = array(
     'menu_name' => 'main-menu',
@@ -83,6 +121,8 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Compose update');
   t('Create story');
   t('Home');
+  t('Link 2');
+  t('Link 3');
   t('Submit report');
 
 
