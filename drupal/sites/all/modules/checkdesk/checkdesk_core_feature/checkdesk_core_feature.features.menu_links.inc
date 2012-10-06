@@ -24,12 +24,31 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-50',
   );
-  // Exported menu link: main-menu:node/72
-  $menu_links['main-menu:node/72'] = array(
+  // Exported menu link: main-menu:admin/config/system/checkdesk
+  $menu_links['main-menu:admin/config/system/checkdesk'] = array(
     'menu_name' => 'main-menu',
-    'link_path' => 'node/72',
-    'router_path' => 'node/%',
-    'link_title' => 'Link 3',
+    'link_path' => 'admin/config/system/checkdesk',
+    'router_path' => 'admin/config/system/checkdesk',
+    'link_title' => 'Edit fact-checking statement',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-48',
+    'parent_path' => '<front>',
+  );
+  // Exported menu link: main-menu:admin/people
+  $menu_links['main-menu:admin/people'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'admin/people',
+    'router_path' => 'admin/people',
+    'link_title' => 'Administer users',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -41,25 +60,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
-    'parent_path' => '<front>',
-  );
-  // Exported menu link: main-menu:node/73
-  $menu_links['main-menu:node/73'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'node/73',
-    'router_path' => 'node/%',
-    'link_title' => 'Link 2',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-50',
     'parent_path' => '<front>',
   );
   // Exported menu link: main-menu:node/add/discussion
@@ -116,13 +116,28 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-48',
   );
+  // Exported menu link: main-menu:reports
+  $menu_links['main-menu:reports'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'reports',
+    'router_path' => 'reports',
+    'link_title' => 'Reports',
+    'options' => array(),
+    'module' => 'system',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-46',
+  );
   // Translatables
   // Included for use with string extractors like potx.
+  t('Administer users');
   t('Compose update');
   t('Create story');
+  t('Edit fact-checking statement');
   t('Home');
-  t('Link 2');
-  t('Link 3');
+  t('Reports');
   t('Submit report');
 
 
