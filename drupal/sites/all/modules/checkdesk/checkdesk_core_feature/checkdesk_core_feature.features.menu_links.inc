@@ -24,6 +24,24 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-50',
   );
+  // Exported menu link: main-menu:<sub>
+  $menu_links['main-menu:<sub>'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => '<sub>',
+    'router_path' => '<sub>',
+    'link_title' => '...',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '1',
+    'expanded' => '1',
+    'weight' => '-45',
+  );
   // Exported menu link: main-menu:admin/config/system/checkdesk
   $menu_links['main-menu:admin/config/system/checkdesk'] = array(
     'menu_name' => 'main-menu',
@@ -41,7 +59,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
-    'parent_path' => '<front>',
+    'parent_path' => '<sub>',
   );
   // Exported menu link: main-menu:admin/people
   $menu_links['main-menu:admin/people'] = array(
@@ -60,7 +78,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
-    'parent_path' => '<front>',
+    'parent_path' => '<sub>',
   );
   // Exported menu link: main-menu:node/add/discussion
   $menu_links['main-menu:node/add/discussion'] = array(
@@ -132,6 +150,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
+  t('...');
   t('Administer users');
   t('Compose update');
   t('Create story');
