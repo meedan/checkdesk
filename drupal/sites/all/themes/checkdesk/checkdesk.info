@@ -1,7 +1,13 @@
+; BASIC SETTINGS
 name = Checkdesk
 description = Checkdesk theme based on the Bowerbird theme.
 core = 7.x
 engine = phptemplate
 base theme = bowerbird
 
-stylesheets[all][] = css/style.css
+
+; CSS
+stylesheets[all][] = assets/css/style.css
+
+; JAVASCRIPT
+scripts[] = assets/js/libs/bootstrap-dropdown.js

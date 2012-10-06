@@ -1,0 +1,433 @@
+/* ============= */
+/* = STEP ONE  = */
+/* ============= */
+/* ============= */
+/* = STEP TWO = */
+/* ============= */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+html {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+q, blockquote {
+  quotes: none; }
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
+
+a img {
+  border: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+/* ============================  */
+/* =   The Skeleton           =  */
+/* Called below in yallah layout */
+/* Then overridden on some pages */
+/* $direction = ltr or rlt --sets the susy $from-direction */
+/* $sidebar_alpha = number of columns for the alpha sidebar */
+/* $sidebar_omega = number of columns for the omega sidebar */
+/* $content_width = number of columns for the main div (i.e.) main page content */
+/* ============================  */
+.dropup,
+.dropdown {
+  position: relative; }
+
+.dropdown-toggle {
+  *margin-bottom: -3px; }
+
+.dropdown-toggle:active,
+.open .dropdown-toggle {
+  outline: 0; }
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid black;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: ""; }
+
+.dropdown .caret {
+  margin-top: 8px;
+  margin-left: 2px; }
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box; }
+  .dropdown-menu.pull-right {
+    right: 0;
+    left: auto; }
+  .dropdown-menu a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 20px;
+    color: #333333;
+    white-space: nowrap; }
+
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a {
+  text-decoration: none;
+  color: white;
+  background-color: #0088cc; }
+
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
+  color: white;
+  text-decoration: none;
+  outline: 0;
+  background-color: #0088cc; }
+
+.dropdown-menu .disabled > a,
+.dropdown-menu .disabled > a:hover {
+  color: #999999; }
+
+.dropdown-menu .disabled > a:hover {
+  text-decoration: none;
+  background-color: transparent;
+  cursor: default; }
+
+.open {
+  *z-index: 1000; }
+  .open > .dropdown-menu {
+    display: block; }
+
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto; }
+
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
+  border-top: 0;
+  border-bottom: 4px solid black;
+  content: "\2191"; }
+.dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px; }
+
+.dropdown-submenu {
+  position: relative; }
+
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px 6px;
+  border-radius: 0 6px 6px 6px; }
+
+.dropdown-submenu:hover .dropdown-menu {
+  display: block; }
+
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px; }
+
+.dropdown-submenu:hover > a:after {
+  border-left-color: white; }
+
+.dropdown .dropdown-menu .nav-header {
+  padding-left: 20px;
+  padding-right: 20px; }
+
+.typeahead {
+  margin-top: 2px; }
+
+.navbar {
+  overflow: visible;
+  margin-bottom: 20px;
+  color: #eeeeee;
+  *position: relative;
+  *z-index: 2; }
+
+.navbar-inner {
+  min-height: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #555555;
+  border: 1px solid #030303; }
+
+.navbar .container {
+  width: auto; }
+
+.navbar-text {
+  margin-bottom: 0;
+  line-height: 40px; }
+
+.navbar-link {
+  color: #eeeeee; }
+  .navbar-link:hover {
+    color: white; }
+
+.navbar .divider-vertical {
+  height: 40px;
+  margin: 0 9px;
+  border-left: 1px solid #222222;
+  border-right: 1px solid #555555; }
+
+.navbar-static-top {
+  position: static;
+  width: 100%;
+  margin-bottom: 0; }
+
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  margin-bottom: 0; }
+
+.navbar-fixed-top .navbar-inner,
+.navbar-fixed-bottom .navbar-inner,
+.navbar-static-top .navbar-inner {
+  border: 0; }
+
+.navbar-fixed-top .navbar-inner,
+.navbar-fixed-bottom .navbar-inner {
+  padding-left: 0;
+  padding-right: 0; }
+
+.navbar-fixed-top {
+  top: 0; }
+
+.navbar-fixed-bottom {
+  bottom: 0; }
+
+.toolbar .navbar-fixed-top {
+  top: 66px; }
+
+.navbar .nav {
+  position: relative;
+  left: 0;
+  display: block;
+  float: left;
+  margin: 0 10px 0 0; }
+
+.navbar .nav.pull-right {
+  float: right; }
+
+.navbar .nav > li {
+  float: left; }
+
+.navbar .nav > li > a {
+  float: none;
+  padding: 10px 15px 10px;
+  color: #eeeeee;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #555555; }
+
+.navbar .nav .dropdown-toggle .caret {
+  margin-top: 8px; }
+
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+  background-color: transparent;
+  color: white;
+  text-decoration: none; }
+
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus {
+  color: white;
+  text-decoration: none;
+  background-color: #151515;
+  -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125); }
+
+.navbar .btn-navbar {
+  display: none;
+  float: right;
+  padding: 7px 10px;
+  margin-left: 5px;
+  margin-right: 5px; }
+
+.navbar .btn-navbar .icon-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: #f5f5f5; }
+
+.btn-navbar .icon-bar + .icon-bar {
+  margin-top: 3px; }
+
+.navbar .nav > li > .dropdown-menu:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: -7px;
+  left: 9px; }
+.navbar .nav > li > .dropdown-menu:after {
+  content: '';
+  display: inline-block;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid white;
+  position: absolute;
+  top: -6px;
+  left: 10px; }
+
+.navbar-fixed-bottom .nav > li > .dropdown-menu:before {
+  border-top: 7px solid #ccc;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  border-bottom: 0;
+  bottom: -7px;
+  top: auto; }
+.navbar-fixed-bottom .nav > li > .dropdown-menu:after {
+  border-top: 6px solid white;
+  border-bottom: 0;
+  bottom: -6px;
+  top: auto; }
+
+.navbar .nav li.dropdown.open > .dropdown-toggle,
+.navbar .nav li.dropdown.active > .dropdown-toggle,
+.navbar .nav li.dropdown.open.active > .dropdown-toggle {
+  background-color: #151515;
+  color: white; }
+
+.navbar .nav li.dropdown > .dropdown-toggle .caret {
+  border-top-color: #eeeeee;
+  border-bottom-color: #eeeeee; }
+
+.navbar .nav li.dropdown.open > .dropdown-toggle .caret,
+.navbar .nav li.dropdown.active > .dropdown-toggle .caret,
+.navbar .nav li.dropdown.open.active > .dropdown-toggle .caret {
+  border-top-color: white;
+  border-bottom-color: white; }
+
+.navbar .pull-right > li > .dropdown-menu,
+.navbar .nav > li > .dropdown-menu.pull-right {
+  left: auto;
+  right: 0; }
+  .navbar .pull-right > li > .dropdown-menu:before,
+  .navbar .nav > li > .dropdown-menu.pull-right:before {
+    left: auto;
+    right: 12px; }
+  .navbar .pull-right > li > .dropdown-menu:after,
+  .navbar .nav > li > .dropdown-menu.pull-right:after {
+    left: auto;
+    right: 13px; }
+  .navbar .pull-right > li > .dropdown-menu .dropdown-menu,
+  .navbar .nav > li > .dropdown-menu.pull-right .dropdown-menu {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: -1px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    -ms-border-radius: 6px 0 6px 6px;
+    -o-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px; }
+
+/* ============= */
+/* = STEP THREE = */
+/* ============= */
+/* This section actually renders direction-specific markup. 
+We use the layout in two language contexts, and set the $direction variable */
+body div#content {
+  width: 74.57627%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -16px;
+  display: inline; }
+body div#sidebar-first {
+  width: 23.72881%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline; }
+
+body.i18n-en div#content, body.i18n-pt-br div#content {
+  width: 74.57627%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -16px;
+  display: inline; }
+body.i18n-en div#sidebar-first, body.i18n-pt-br div#sidebar-first {
+  width: 23.72881%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline; }
+
+body.i18n-ar div#content {
+  width: 74.57627%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -16px;
+  display: inline; }
+body.i18n-ar div#sidebar-first {
+  width: 23.72881%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline; }
+
+#main {
+  padding-top: 50px; }

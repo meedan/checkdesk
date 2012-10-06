@@ -5,18 +5,36 @@
 @import 'susy';
 
 // compass gem
-@import 'compass'; // creates mixins — read it!
+@import 'compass';
 
 // compass css3 cross browser support lib
-@import 'compass/css3'; // creates mixins — read it!
+@import 'compass/css3';
 
 /* ============= */
 /* = STEP TWO = */
 /* ============= */
 // some of the above mixins are used in a direction-aware layout
 
-// this import must come after all the others
+// Core variables and mixins
+@import "variables";
+
+// CSS Reset
+@import "compass/reset";
+
+// Grid system and page structure
+@import "compass/layout.scss";
+@import "grid";
 @import "layout";
+
+// Base CSS
+
+// Components: common
+@import "dropdowns";
+
+// Components: Buttons & Alerts
+
+// Components: Nav
+@import "navigation";
 
 /* ============= */
 /* = STEP THREE = */
@@ -26,3 +44,10 @@ We use the layout in two language contexts, and set the $direction variable */
 body { @include cd_layout(left); }
 body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
 body.i18n-ar { @include cd_layout(right); }
+
+
+// STRUCTURE
+// ------------------------------------------------
+#main {
+	padding-top: 50px;
+}

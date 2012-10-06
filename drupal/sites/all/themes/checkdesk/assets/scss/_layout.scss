@@ -1,11 +1,3 @@
-@import "reset";
-@import "compass/css3";
-@import "compass/layout.scss";
-@import "compass/support";
-@import "grid";
-@import "navigation";
-@import "colors";
-
 /* ============================  */
 /* =   The Skeleton           =  */
 /* Called below in yallah layout */
@@ -29,5 +21,5 @@
 
 @mixin cd_layout($direction) {
 	@include layout_skeleton($direction);
-	@include mainNavigation($direction);
+	// @include mainNavigation($direction);
 }
