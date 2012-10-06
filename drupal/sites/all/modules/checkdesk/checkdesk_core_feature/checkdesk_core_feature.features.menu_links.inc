@@ -139,14 +139,19 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'main-menu',
     'link_path' => 'reports',
     'router_path' => 'reports',
-    'link_title' => 'Reports',
-    'options' => array(),
-    'module' => 'system',
+    'link_title' => 'VIew all incoming reports',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-46',
+    'weight' => '-50',
+    'parent_path' => '<sub>',
   );
   // Translatables
   // Included for use with string extractors like potx.
@@ -156,8 +161,8 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Create story');
   t('Edit fact-checking statement');
   t('Home');
-  t('Reports');
   t('Submit report');
+  t('VIew all incoming reports');
 
 
   return $menu_links;
