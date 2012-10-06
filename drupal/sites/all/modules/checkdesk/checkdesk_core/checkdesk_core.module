@@ -6,6 +6,12 @@
 function checkdesk_core_menu() {
   $items = array();
 
+  $items['<sub>'] => array(
+    'page callback' => 'drupal_not_found',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
   $items['node/%checkdesk_report/checkdesk/suggest'] = array(
     'title' => 'Suggest a story',
     'page callback' => 'drupal_get_form',
