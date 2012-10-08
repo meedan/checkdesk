@@ -17,9 +17,11 @@
 
 // Core variables and mixins
 @import "variables";
+@import "mixins";
 
 // CSS Reset
-@import "compass/reset";
+// @import "reset";
+
 
 // Grid system and page structure
 @import "compass/layout.scss";
@@ -27,14 +29,21 @@
 @import "layout";
 
 // Base CSS
+@import "type";
 
 // Components: common
 @import "dropdowns";
 
 // Components: Buttons & Alerts
+@import "buttons";
+@import "button-groups";
+
 
 // Components: Nav
 @import "navigation";
+
+// Utility classes
+@import "utilities"; // Has to be last to override when necessary
 
 /* ============= */
 /* = STEP THREE = */
@@ -46,8 +55,23 @@ body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
 body.i18n-ar { @include cd_layout(right); }
 
 
-// STRUCTURE
+// GLOBAL STYLES
 // ------------------------------------------------
+
+body {
+	margin: 0;
+	font-family: $baseFontFamily;
+	font-size: $baseFontSize;
+	line-height: $baseLineHeight;
+}
+
+// Links
+a {
+	color: $linkColor;
+	text-decoration: none;
+	&:hover { color: $linkColorHover; }
+}
+
 #main {
 	padding-top: 50px;
 }

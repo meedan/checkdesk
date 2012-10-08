@@ -9,6 +9,10 @@
             <?php if ($primary_nav): ?>
               <?php print $primary_nav; ?>
             <?php endif; ?>
+
+            <?php if ($secondary_nav): ?>
+              <?php print $secondary_nav; ?>
+            <?php endif; ?>
           </nav>
       </div>
     </div>

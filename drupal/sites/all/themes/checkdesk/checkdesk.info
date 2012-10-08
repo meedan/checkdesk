@@ -3,11 +3,16 @@ name = Checkdesk
 description = Checkdesk theme based on the Bowerbird theme.
 core = 7.x
 engine = phptemplate
-base theme = bowerbird
+;base theme = bowerbird
 
 
 ; CSS
+; HTML 5 Boilerplate
+scripts[] = assets/css/libs/normalize.css
+scripts[] = assets/css/libs/main.css
+; Checkdesk styles
 stylesheets[all][] = assets/css/style.css
 
 ; JAVASCRIPT
+scripts[] = assets/js/libs/modernizr-2.6.1.min.js
 scripts[] = assets/js/libs/bootstrap-dropdown.js

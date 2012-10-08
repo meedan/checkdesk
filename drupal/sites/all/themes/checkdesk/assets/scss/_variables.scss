@@ -130,19 +130,17 @@ $zindexModal:             1050 !default;
 // -------------------------
 $navbarCollapseWidth:             979px !default;
 
-$navbarHeight:                    40px !default;
-$navbarBackgroundHighlight:       $gray !default;
+$navbarHeight:                    33px !default;
+$navbarBackgroundHighlight:       $grayDarker !default;
 $navbarBackground:                $grayDarker;
 $navbarBorder:                    darken($navbarBackground, 12%) !default;
 
-$navbarText:                      $grayLighter !default;
-$navbarLinkColor:                 $grayLighter !default;
+$navbarText:                      $grayLight !default;
+$navbarLinkColor:                 $grayLight !default;
 $navbarLinkColorHover:            $white !default;
 $navbarLinkColorActive:           $white !default;
 $navbarLinkBackgroundHover:       transparent !default;
 $navbarLinkBackgroundActive:      darken($navbarBackground, 5%) !default;
-
-$navbarBrandColor:                $navbarLinkColor !default;
 
 
 
