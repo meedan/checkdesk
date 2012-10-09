@@ -57,17 +57,14 @@ function checkdesk_checkdesk_btn_dropdown($variables) {
   // Start markup
   $output = '<div'. drupal_attributes($variables['attributes']) .'>';
 
-  // Add as string if its not a link
-  if(is_array($variables['label'])) {
-	 $output .= l($variables['label']['title'], $variables['label']['href'], $variables['label']);
+  // Show user 
+  global $user;
+  $output .= '<a class="btn btn-account'. $type_class .' dropdown-toggle" data-toggle="dropdown" href="#">';
+  if(!empty($user->picture)) {
+    $user_avatar = theme('image_style', array('path' => file_load($user->picture)->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar'));
+    $output .= '<i class="avatar">' . $user_avatar . '</i> ';
   }
-  
-  $output .= '<a class="btn btn-small'. $type_class .' dropdown-toggle" data-toggle="dropdown" href="#">';
-  
-  // Its a link so create one
-  if(is_string($variables['label'])) {
-	 $output .= check_plain($variables['label']);
-  }
+  $output .= check_plain($user->name);
   
   // Finish markup 	
   $output .= '

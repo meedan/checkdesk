@@ -63,7 +63,7 @@ function checkdesk_preprocess_page(&$variables) {
       'type' => 'btnBackground',
       'attributes' => array(
         'id' => 'user-menu',
-        'class' => array('pull-right'),
+        'class' => array('nav', 'pull-right'),
       ),
       'heading' => array(
         'text' => t('Secondary menu'),
@@ -71,7 +71,7 @@ function checkdesk_preprocess_page(&$variables) {
         'class' => array('element-invisible'),
       ),
     ));
-    
+
   } else {
     // display sign in link
     $secondary_menu = menu_load('menu-utility-menu');

@@ -115,6 +115,29 @@
   margin: 0; // then undo the margin here so we don't accidentally double it
 }
 
+// account button
+.navbar .btn-group .btn-account {
+  background: darken($grayLighter, 10%);
+  padding: 2px 9px;
+  font-size: $baseFontSize - 2px;
+  line-height: $baseLineHeight - 2px;
+  margin-top: 5px;
+  .avatar {
+    display: inline-block;
+    @include ie7-restore-right-whitespace();
+    height: 20px;
+    vertical-align: text-top;
+    margin-top: -5px;
+    margin-left: -10px;
+    img {
+      @include reset();
+      @include border-radius(4px); 
+      margin-right: $gridGutterWidth/2;
+    }
+  }
+}
+
+
 
 // Static navbar
 // -------------------------
@@ -228,6 +251,12 @@
   text-decoration: none;
   text-shadow: 0 1px 0 $navbarBackgroundHighlight;
 }
+
+.navbar .nav > li.home a {
+  // @include hide-text();
+  padding: (($navbarHeight - $baseLineHeight) / 2) 15px (($navbarHeight - $baseLineHeight) / 2);
+}
+
 .navbar .nav .dropdown-toggle .caret {
   margin-top: 8px;
 }
@@ -274,7 +303,6 @@
 .btn-navbar .icon-bar + .icon-bar {
   margin-top: 3px;
 }
-
 
 
 // Dropdown menus

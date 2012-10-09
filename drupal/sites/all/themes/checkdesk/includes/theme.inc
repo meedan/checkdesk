@@ -59,6 +59,10 @@ function checkdesk_checkdesk_links($variables) {
         $attributes['class'][] = 'active';
       }
 
+      if($link['href'] == '<front>') {
+        $attributes['class'][] = 'home';
+      }
+
       if(count($children) > 0) {
         $attributes['class'][] = 'dropdown';
         $link['attributes']['data-toggle'] = 'dropdown';
@@ -68,8 +72,8 @@ function checkdesk_checkdesk_links($variables) {
       if(!isset($link['attributes']))
         $link['attributes'] = array();
 
-      $class = (count($children) > 0) ? 'dropdown' : NULL;
-      $output .= '<li' . drupal_attributes(array('class' => array($class))) . '>';
+      $attributes['class'][] = (count($children) > 0) ? 'dropdown' : NULL;
+      $output .= '<li' . drupal_attributes(array('class' => $attributes['class'])) . '>';
 
       if (isset($link['href'])) {
         if(count($children) > 0) { 
@@ -78,7 +82,11 @@ function checkdesk_checkdesk_links($variables) {
           $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
         } else {
           // Pass in $link as $options, they share the same keys.
-          $output .= l($link['title'], $link['href'], $link);
+          if($link['href'] == '<front>') {
+            $output .= '<a href="' . $link['href'] . '"><i class="icon-home"></i></a>';
+          } else {
+            $output .= l($link['title'], $link['href'], $link);  
+          }
         }
       }
       elseif (!empty($link['title'])) {
