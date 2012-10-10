@@ -41,6 +41,12 @@ function checkdesk_core_feature_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
+        'views-desk_updates-block' => array(
+          'module' => 'views',
+          'delta' => 'desk_updates-block',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
       ),
     ),
   );
