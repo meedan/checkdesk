@@ -390,3 +390,61 @@ function checkdesk_core_fact_checking($node) {
   return $flag->is_flagged($node->nid);
 }
 
+/**
+ * Implements hook_block_info().
+ */
+function checkdesk_core_block_info() {
+  $blocks = array();
+
+  $blocks['post'] = array(
+    'info' => 'Report form block',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function checkdesk_core_block_view($delta = '') {
+  switch ($delta) {
+    case 'post':
+      return checkdesk_core_report_form_block();
+  }
+}
+
+/**
+ * Generate report form.
+ */
+function checkdesk_core_report_form_block() {
+  // Include page handler for node_add()
+  module_load_include('inc', 'node', 'node.pages');
+  $title = drupal_get_title();
+
+  // If we're on a story page and there's already a draft, show it.
+  $desk_nid = 0;
+  if (($node = menu_get_object()) && $node->type == 'discussion') {
+    $desk_nid = $node->nid;
+  }
+  $draft_nid = db_query("
+SELECT n.nid 
+FROM {node} n INNER JOIN {field_data_field_desk} d ON n.nid = d.entity_id 
+WHERE n.type = 'post' 
+AND n.status = 0
+AND d.field_desk_target_id = :desk_nid
+  ", array(':desk_nid' => $desk_nid))->fetchCol();
+  if ($draft_nid) {
+    $draft = node_load($draft_nid);
+    $content = node_page_edit($draft);
+    $subject = t('Edit draft update');
+  }
+  else {
+    $content = node_add('post');
+    $subject = t('Compose new update');
+  }
+
+  drupal_set_title($title);
+  return array('subject' => $subject, 'content' => $content);
+}
+

@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * Main file for the Save Draft module, which adds a 'Save as draft' button to content types.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function save_draft_permission() {
+  return array(
+    'save draft' => array(
+      'title' => t('Save content as draft'),
+      'description' => t('Allows a user to save a draft of their content.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function save_draft_form_node_form_alter(&$form, &$form_state) {
+  if (user_access('save draft')) {
+    $form['options']['#title'] = t('Promotion settings');
+    $form['options']['#attributes']['class'] = array('node-promotion-options');
+    $form['options']['#attached'] = array(
+      'js' => array(
+        'vertical-tabs' => drupal_get_path('module', 'save_draft') . '/save_draft.js',
+      ),
+    );
+    $form['options']['status'] = false;
+    if (empty($form['#validate'])) {
+      $form['#validate'] = array();
+    }
+    array_unshift($form['#validate'], 'save_draft_validate');
+    if (isset($form['nid']['#value'])) {
+      if ($form['#node']->status == 1) {
+        $form['actions']['draft'] = array(
+          '#type' => 'submit',
+          '#class' => 'form-submit',
+          '#value' => t('Unpublish'),
+          '#weight' => '9',
+          '#submit' => array('save_draft_submit')
+        );
+        $form['actions']['submit']['#value'] = t('Save');
+      }
+      else {
+        $form['actions']['draft'] = array(
+          '#type' => 'submit',
+          '#class' => 'form-submit',
+          '#value' => t('Save'),
+          '#weight' => '0',
+          '#submit' => array('save_draft_submit')
+        );
+        $form['actions']['submit']['#value'] = t('Publish');
+      }
+    }
+    else {
+      $form['actions']['draft'] = array(
+        '#type' => 'submit',
+        '#class' => 'form-submit',
+        '#value' => t('Save as draft'),
+        '#weight' => '9',
+        '#submit' => array('save_draft_submit')
+      );
+      $form['actions']['submit']['#value'] = t('Publish');
+    }
+  }
+}
+
+/**
+ * Handles save draft form validation
+ */
+function save_draft_validate($form, &$form_state) {
+  // Set the node to be published or unpublished depending on which button was
+  // clicked.
+  if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
+    $form_state['values']['status'] = 0;
+  }
+  elseif ($form_state['triggering_element']['#value'] == $form['actions']['submit']['#value']) {
+    $form_state['values']['status'] = 1;
+  }
+}
+
+/**
+ * Handles save draft form submission
+ */
+function save_draft_submit($form, &$form_state) {
+  node_form_submit($form, $form_state);
+}

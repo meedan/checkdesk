@@ -35,11 +35,11 @@ function checkdesk_core_feature_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-10',
         ),
-        'formblock-post' => array(
-          'module' => 'formblock',
+        'checkdesk_core-post' => array(
+          'module' => 'checkdesk_core',
           'delta' => 'post',
           'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-10',
         ),
       ),
     ),
