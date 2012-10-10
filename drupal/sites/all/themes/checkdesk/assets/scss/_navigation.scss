@@ -132,6 +132,7 @@
     img {
       @include reset();
       @include border-radius(4px); 
+      @include square(24px);
       margin-right: $gridGutterWidth/2;
     }
   }

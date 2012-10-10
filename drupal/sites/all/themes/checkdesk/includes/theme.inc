@@ -81,9 +81,8 @@ function checkdesk_checkdesk_links($variables) {
           $link['title'] .= '<b class="caret"></b>';
           $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
         } else {
-          // Pass in $link as $options, they share the same keys.
           if($link['href'] == '<front>') {
-            $output .= '<a href="' . $link['href'] . '"><i class="icon-home"></i></a>';
+            $output .= '<a href="' . url('<front>') . '"><i class="icon-home"></i></a>';
           } else {
             $output .= l($link['title'], $link['href'], $link);  
           }
