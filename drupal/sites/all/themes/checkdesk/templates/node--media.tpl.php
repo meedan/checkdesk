@@ -102,9 +102,9 @@
         <?php print render($content['comments']); ?>
       </div>
 
-      <footer>
+<!--       <footer>
         Something in small 
-      </footer>
+      </footer> -->
     </section>
 
   </article>
