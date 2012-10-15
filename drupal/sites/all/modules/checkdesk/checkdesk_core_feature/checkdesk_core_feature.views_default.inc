@@ -141,6 +141,11 @@ print theme(\'views_autorefresh\', array(
 ));
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
+  /* Relationship: Media sources: Media sources of the node */
+  $handler->display->display_options['relationships']['ms_id']['id'] = 'ms_id';
+  $handler->display->display_options['relationships']['ms_id']['table'] = 'node';
+  $handler->display->display_options['relationships']['ms_id']['field'] = 'ms_id';
+  $handler->display->display_options['relationships']['ms_id']['required'] = TRUE;
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
@@ -264,6 +269,24 @@ print theme(\'views_autorefresh\', array(
   );
   $handler->display->display_options['filters']['field_rating_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_rating_tid']['vocabulary'] = 'media_rating';
+  /* Filter criterion: Media sources: Source name */
+  $handler->display->display_options['filters']['source']['id'] = 'source';
+  $handler->display->display_options['filters']['source']['table'] = 'meedan_sources';
+  $handler->display->display_options['filters']['source']['field'] = 'source';
+  $handler->display->display_options['filters']['source']['relationship'] = 'ms_id';
+  $handler->display->display_options['filters']['source']['operator'] = 'word';
+  $handler->display->display_options['filters']['source']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['source']['expose']['operator_id'] = 'source_op';
+  $handler->display->display_options['filters']['source']['expose']['label'] = 'By source';
+  $handler->display->display_options['filters']['source']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['source']['expose']['operator'] = 'source_op';
+  $handler->display->display_options['filters']['source']['expose']['identifier'] = 'source';
+  $handler->display->display_options['filters']['source']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
 
   /* Display: Autorefresh Page */
   $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
