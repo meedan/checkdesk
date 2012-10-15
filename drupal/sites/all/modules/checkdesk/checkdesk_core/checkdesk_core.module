@@ -337,10 +337,10 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   if ($form['#id'] == 'views-exposed-form-desk-reports-block') {
     $options = array('word' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
-    $form['title_op']['#options'] = $options;
-    $form['title_op']['#process'] = array('form_process_radios');
-    $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));
-    $form['title_op']['#theme'] = 'select_as_radios';
+    $form['source_op']['#options'] = $form['title_op']['#options'] = $options;
+    $form['source_op']['#process'] = $form['title_op']['#process'] = array('form_process_radios');
+    $form['source_op']['#attributes'] = $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));
+    $form['source_op']['#theme'] = $form['title_op']['#theme'] = 'select_as_radios';
   }
 }
 
@@ -349,13 +349,12 @@ function checkdesk_core_preprocess_views_exposed_form(&$variables) {
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-jvert-tabs-1.1.4.js');
     drupal_add_css(drupal_get_path('module', 'checkdesk_core') . '/css/jquery-jvert-tabs-1.1.4.css');
     drupal_add_js('jQuery(document).ready(function () {
-      jQuery("#vtabs1").hide();
-      jQuery("#meedan-custom-filter").click(function() {
-        jQuery("#vtabs1").show();
         jQuery("#vtabs1").jVertTabs({
-          equalHeights: true
+         select: function(index) {
+           jQuery(".views-submit-button, .views-reset-button").show();
+        }
         });
-      });
+        jQuery(".views-submit-button, .views-reset-button").show();
      });', 'inline');
     $vtabs_items = array();
     foreach ($variables['widgets'] as $id => $widget) {

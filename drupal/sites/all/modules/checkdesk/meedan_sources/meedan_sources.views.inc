@@ -45,6 +45,10 @@ function meedan_sources_views_data() {
     'sort' => array(
       'handler' => 'views_handler_sort',
     ),
+    'filter' => array(
+      //'handler' => 'views_handler_filter_string',
+      'handler' => 'meedan_source_filter_handler',
+    ),
   );
 
   $data['meedan_sources']['source_url'] = array(
@@ -118,6 +122,22 @@ function meedan_sources_views_data_alter(&$data) {
       'base field' => 'nid',
       'relationship field' => 'nid',
       'handler' => 'views_handler_relationship',
+    ),
+  );
+}
+
+/**
+ * Implements of hook_views_handlers().
+*/
+function meedan_sources_views_handlers() {
+  return array(
+    'info' => array(
+      'path' => drupal_get_path('module', 'meedan_sources') . '/handlers',
+    ),
+    'handlers' => array(
+      'meedan_source_filter_handler' => array(
+        'parent' => 'views_handler_filter_string',
+      )
     ),
   );
 }

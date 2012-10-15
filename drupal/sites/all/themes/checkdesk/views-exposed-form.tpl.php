@@ -27,10 +27,6 @@
   ?>
 <?php endif; ?>
 
-  <?php if(!empty($expose_vtabs)): ?>
-    <div  id="meedan-custom-filter" style="cursor: pointer;"> <?php print t('Filter'); ?> </div>
-  <?php endif;  ?>
-
 <div class="views-exposed-form" <?php if(!empty($expose_vtabs)) : ?> id="vtabs1" <?php endif; ?>>
   <?php if(!empty($expose_vtabs)):
       print $expose_vtabs; 
