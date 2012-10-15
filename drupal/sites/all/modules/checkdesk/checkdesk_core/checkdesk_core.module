@@ -313,6 +313,7 @@ function checkdesk_core_entity_property_info() {
  */ 
 function checkdesk_core_entity_property_get_reports($node, array $options, $name, $entity_type) {
   $reports = array();
+  if (!isset($node->body[LANGUAGE_NONE][0])) return $reports;
   $text = $node->body[LANGUAGE_NONE][0]['value'];
   $matches = array();
   preg_match_all('@\[nid:([0-9]+)\]@', $text, $matches);

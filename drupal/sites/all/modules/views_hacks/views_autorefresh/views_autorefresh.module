@@ -53,9 +53,8 @@ function theme_views_autorefresh($variables) {
     'incremental' => $incremental,
     'timestamp' => __views_autorefresh_get_timestamp($view),
   ))), 'setting');
-  $query_string = drupal_http_build_query(drupal_get_query_parameters($_REQUEST, array_merge(array('q', 'pass'), array_keys($_COOKIE))));
-  $query[] = $query_string;
-  $link = l('', $_GET['q'], array('query' => count($query) ? $query : NULL));
+  $query = drupal_get_query_parameters($_REQUEST, array_merge(array('q', 'pass'), array_keys($_COOKIE)));
+  $link = l('', $_GET['q'], array('query' => $query));
 
   // Signal modules to add their own plugins.
   module_invoke_all('views_autorefresh_plugins', $view);
