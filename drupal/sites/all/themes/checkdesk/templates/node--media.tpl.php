@@ -98,13 +98,13 @@
         <?php print $view_output; ?>
       <?php endif; ?>
 
-<!--       <div class="comment-form">
-        
+      <div class="comment-form">
+        <?php print render($content['comments']); ?>
       </div>
 
       <footer>
         Something in small 
-      </footer> -->
+      </footer>
     </section>
 
   </article>
