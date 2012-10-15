@@ -3,7 +3,6 @@
 
 include_once(drupal_get_path('theme', 'checkdesk') . '/includes/checkdesk.inc');
 include_once(drupal_get_path('theme', 'checkdesk') . '/includes/theme.inc');
-
 include_once(drupal_get_path('theme', 'checkdesk') . '/includes/menu.inc');
 
 /**
@@ -16,6 +15,9 @@ function checkdesk_theme() {
     ),
     'checkdesk_btn_dropdown' => array(
       'variables' => array('links' => array(), 'attributes' => array(), 'type' => NULL),
+    ),
+    'checkdesk_heartbeat_content' => array(
+      'variables' => array('message' => array(), 'node' => array()),
     ), 
   );
 }
@@ -91,4 +93,33 @@ function checkdesk_preprocess_page(&$variables) {
       ),
     ));
   }
+}
+
+
+/**
+ * Override or insert variables into the node template.
+ */
+function checkdesk_preprocess_node(&$variables) {
+
+}
+
+/**
+ * Adjust report source markup
+ */
+function checkdesk_checkdesk_core_report_source(&$variables) {
+  $output = '';
+
+  $output .= '<span class="source-url">' . $variables['source_url'] . '</span> ';
+  $output .= $variables['source_author'];
+
+  return $output;
+}
+
+
+function checkdesk_field__field_rating(&$variables) {
+  $output = '';
+  foreach($variables['items'] as $key => $tag) {
+      $output = $tag['#title']; 
+  }
+  return $output;
 }

@@ -1,0 +1,175 @@
+// Report 
+// -------------------------
+
+.report {
+	& > header {
+		@include clearfix();
+		background-color: darken($grayLighter, 5%);
+		padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+		color: $gray;
+
+
+		h3 {
+			float: left;
+			@include reset();
+			@include font-shorthand(12px, normal);
+		}
+
+		.source-url {
+			font-weight: bold;
+		}
+
+
+		.report-actions {
+			float: right;
+			@include reset-list();
+			@include font-shorthand(12px, normal);
+			& > li {
+				display: inline;
+				margin-right: $gridGutterWidth/2;
+			}
+		}
+	}
+
+	.report-content {
+		background-color: darken($grayLighter, 5%);
+		color: $gray;
+		@include clearfix();
+		.report-media {
+			background-color: $black;
+			margin: 0 auto;
+			
+			.container {
+				
+				.oembed-title {
+					display: none;
+				}
+			}
+		}
+
+		& > p {
+			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+			border-bottom: 1px solid $white;
+			@include font-shorthand(12px, normal);
+		}
+
+		.gravatar {
+			img {
+				vertical-align: text-bottom;
+				@include square(20px);
+				margin-right: $gridGutterWidth/3;
+			}	
+		}
+
+		.description {
+			@include font-shorthand(14px, normal);
+			padding: 0 $gridGutterWidth/2 0 40px;
+			background-repeat: no-repeat;
+			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
+			background-position: 10px 0;
+		}
+
+	}
+
+	.report-activity {
+		background-color: lighten($grayLighter, 5%);
+		& > header {
+			@include clearfix();
+			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+			text-shadow: 0 1px 0 rgba(255,255,255,.3);
+			cursor: pointer;
+			h3 {
+				float: left;
+				@include reset();
+				@include font-shorthand(14px, normal);
+			}
+			.report-status {
+				float: right;
+			}
+			&:hover {
+				background-color: darken($grayLighter, 10%);
+			}
+		}
+		// header status
+		& > .undetermined {
+			background-color: lighten($orange, 40%);
+			a { color: darken($orange, 10%); }
+			&:hover {
+				background-color: lighten($orange, 30%);
+				a {	color: darken($orange, 20%); }
+			}
+		}
+		& > .verified {
+			background-color: lighten($green, 50%);
+			a { color: $green; }
+			&:hover {
+				background-color: lighten($green, 40%);
+				a {	color: darken($green, 10%); }
+			}
+		}	
+		& > .false {
+			background-color: lighten($red, 50%);
+			a { color: $red; }
+			&:hover {
+				background-color: lighten($red, 40%);
+				a {	color: darken($red, 10%); }
+			}
+		}
+
+		.activity-list {
+			display: none;
+			@include reset-list();
+			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+			li {
+				border-left: 2px solid $white;
+				color: $gray;
+				margin-left: $gridGutterWidth/2;
+				padding-bottom: $baseLineHeight/2;
+				padding-left: $gridGutterWidth;
+				header {
+					i {
+						font-size: 18px;
+						margin-left: -$gridGutterWidth*1.6;
+						margin-right: $gridGutterWidth/2;
+					}
+					.time {
+						color: $grayLight;
+						margin-right: $gridGutterWidth/2;
+					}
+					a {
+						font-weight: bold;
+					}
+				}
+				.message {
+					padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+					background-color: $white;
+					@include border-radius(4px);
+					& > p {
+						@include reset();
+					}
+				}
+			}
+			// based on status
+			.icon-ok-sign { color: $green; }
+			.icon-question-sign { color: $orange; }
+			.icon-remove-sign { color: $red; }
+		}
+
+		& > footer {
+			color: $grayLight;
+			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+			font-size: 11px;
+		}
+	}
+	// toggle states
+	.open > .false {
+		background-color: lighten($red, 40%);
+	}
+	.open > .undetermined {
+		background-color: lighten($orange, 30%);
+		a {	color: darken($orange, 20%); }
+	}
+	.open > .verified {
+		background-color: lighten($green, 40%);
+	}
+}

@@ -117,3 +117,79 @@ function checkdesk_checkdesk_links($variables) {
 
   return $output;
 }
+
+
+/**
+ * Implements hook_css_alter().
+ */
+function checkdesk_css_alter(&$css) {  
+  $excludes = _checkdesk_alter(checkdesk_theme_get_info('exclude'), 'css');
+  $css = array_diff_key($css, $excludes);
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function checkdesk_js_alter(&$js) {
+  $excludes = _checkdesk_alter(checkdesk_theme_get_info('exclude'), 'js');
+  $js = array_diff_key($js, $excludes);
+}
+
+function _checkdesk_alter($files, $type) {
+  $output = array();
+  
+  foreach($files as $key => $value) {
+    if(isset($files[$key][$type])) {
+    foreach($files[$key][$type] as $file => $name) {
+      $output[$name] = FALSE;
+    }
+    }
+  }
+  return $output;
+}
+
+
+function checkdesk_checkdesk_heartbeat_content($variables) {
+
+  $message = $variables['message'];
+  $node = $variables['node'];
+
+  // status report
+  if($message->message_id == 'status_report') {
+    if($status = $message->variables['!status']) {
+      if($status == 'Verified') {
+        $icon = '<i class="icon-ok-sign"></i> ';
+        $status_class = 'verified';
+        $title = 'Status set to '. $message->variables['!status'] . ' by ' . $message->variables['!editor'];
+      }
+    }
+  }
+
+  // comment 
+  if($message->message_id == 'new_comment_report') {
+    $title = $message->variables['!username'] . ' said:';
+  }
+
+  // new_report 
+  if($message->message_id == 'new_report') {
+    $title = $message->variables['!title'] . ' added by ' . $message->variables['!username'];
+  }
+
+
+  $output = '';
+
+  $user = user_load($message->uid);
+  $output .= '<header>';
+  if(isset($status_class)) {
+    $output .= $icon;
+  }
+  $output .= '<span class="time">' . format_interval(time()-$message->timestamp) . ' ago</span>';
+  $output .= '<span class="title">' . $title . '</span>';
+  $output .= '</header>';
+  if(isset($message->variables['!comment'])) {
+    $output .= '<div class="message">' . $message->variables['!comment'] . '</div>';
+  }
+
+  return $output;
+}
+

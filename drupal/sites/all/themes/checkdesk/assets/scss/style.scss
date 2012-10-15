@@ -22,26 +22,23 @@
 // CSS Reset
 // @import "reset";
 
+// Base CSS
+@import "type";
+
+// Components
+@import "buttons";
+@import "button-groups";
+@import "font-awesome";
+@import "dropdowns";
+
+// Components: Nav
+@import "navigation";
 
 // Grid system and page structure
 @import "compass/layout.scss";
 @import "grid";
 @import "layout";
-
-// Base CSS
-@import "type";
-
-// Components: common
-@import "font-awesome";
-@import "dropdowns";
-
-// Components: Buttons & Alerts
-@import "buttons";
-@import "button-groups";
-
-
-// Components: Nav
-@import "navigation";
+@import "report";
 
 // Utility classes
 @import "utilities"; // Has to be last to override when necessary

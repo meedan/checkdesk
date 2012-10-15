@@ -13,9 +13,9 @@ function checkdesk_core_feature_views_default_views() {
   $view = new view();
   $view->name = 'activity_report';
   $view->description = 'Report activity stream';
-  $view->tag = 'checkdesk';
+  $view->tag = 'default';
   $view->base_table = 'heartbeat_activity';
-  $view->human_name = 'Report Activity';
+  $view->human_name = 'activity_report';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -30,8 +30,10 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['row_plugin'] = 'heartbeat_activity';
+  $handler->display->display_options['row_options']['links'] = 0;
+  $handler->display->display_options['row_options']['comments'] = 1;
   /* Field: Heartbeat activity: Creation date */
   $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
   $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
@@ -45,6 +47,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['fields']['message']['field'] = 'message';
   $handler->display->display_options['fields']['message']['label'] = '';
   $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['message']['element_default_classes'] = FALSE;
   /* Sort criterion: Heartbeat activity: Creation date */
   $handler->display->display_options['sorts']['created_at']['id'] = 'created_at';
   $handler->display->display_options['sorts']['created_at']['table'] = 'heartbeat_activity';

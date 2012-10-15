@@ -16,3 +16,8 @@ stylesheets[all][] = assets/css/style.css
 ; JAVASCRIPT
 scripts[] = assets/js/libs/modernizr-2.6.1.min.js
 scripts[] = assets/js/libs/bootstrap-dropdown.js
+scripts[] = assets/js/report.js
+
+
+; EXCLUDE CSS
+exclude[css][] = 'sites/all/modules/oembed/oembed.theme.css'

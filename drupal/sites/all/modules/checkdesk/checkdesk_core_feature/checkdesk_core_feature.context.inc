@@ -81,7 +81,7 @@ function checkdesk_core_feature_context_default_contexts() {
           'module' => 'views',
           'delta' => 'activity_report-block',
           'region' => 'content',
-          'weight' => '-10',
+          'weight' => '5',
         ),
       ),
     ),

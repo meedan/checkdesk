@@ -78,6 +78,15 @@
   @include size($size, $size);
 }
 
+// Text overflow
+// -------------------------
+// Requires inline-block or block for proper styling
+@mixin text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 // CSS image replacement
 // -------------------------
 // Source: https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
@@ -261,9 +270,6 @@
 @mixin navbarVerticalAlign($elementHeight) {
   margin-top: ($navbarHeight - $elementHeight) / 2;
 }
-
-
-
 
 // Grid System
 // -----------

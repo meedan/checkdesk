@@ -56,3 +56,7 @@ function checkdesk_core_preprocess_checkdesk_core_report_source(&$variables) {
   $variables['source_author'] = empty($embed->author_url) ? t('author unknown') : t('added by !link', array('!link' => l($embed->author_name, $embed->author_url, array('external' => TRUE))));
 }
 
+
+
+
+
