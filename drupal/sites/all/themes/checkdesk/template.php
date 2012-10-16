@@ -100,7 +100,7 @@ function checkdesk_preprocess_page(&$variables) {
  * Override or insert variables into the node template.
  */
 function checkdesk_preprocess_node(&$variables) {
-
+  $variables['icon'] = '';
 }
 
 /**

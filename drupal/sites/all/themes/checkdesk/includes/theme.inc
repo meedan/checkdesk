@@ -153,6 +153,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
 
   $message = $variables['message'];
   $node = $variables['node'];
+  $title = '';
 
   // status report
   if($message->message_id == 'status_report') {
