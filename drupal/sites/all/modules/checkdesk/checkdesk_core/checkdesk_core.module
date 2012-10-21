@@ -251,7 +251,8 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   }
   if (isset($_GET['report'])) {
     // Add given report to body.
-    $form['body'][LANGUAGE_NONE][0]['#default_value'] = '[nid:' . $_GET['report'] . ']';
+    $node = node_load($_GET['report']);
+    $form['body'][LANGUAGE_NONE][0]['#default_value'] = checkdesk_core_droppable_reference($node);
   }
 }
 
@@ -287,9 +288,43 @@ function checkdesk_core_views_pre_render(&$view) {
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/checkdesk_core.js');
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 
+    $data = $view->result;
+    foreach ($data as &$datum) {
+      $node = (object) array(
+        'nid'   => $datum->nid,
+        'title' => $datum->node_title,
+        'type'  => 'media',
+      );
+
+      $datum->droppable_ref = checkdesk_core_droppable_reference($node);
+    }
+
     // Send view results to client.
-    drupal_add_js(array('checkdesk' => array('reports' => $view->result)), 'setting');
+    drupal_add_js(array('checkdesk' => array('reports' => $data)), 'setting');
   }
+}
+
+/**
+ * (Ab)use pathauto to create the drag and drop media reference.
+ *
+ * @param $node
+ *  A node object, needs at least 'nid' and 'title' attributes.
+ */
+function checkdesk_core_droppable_reference($node) {
+  module_load_include('inc', 'pathauto');
+  $pathauto_pattern = '[node:title]';
+
+  // Replace any tokens in the pattern. Uses callback option to clean replacements. No sanitization.
+  $alias = token_replace($pathauto_pattern, array('node' => $node), array(
+    'sanitize' => FALSE,
+    'clear' => TRUE,
+    'callback' => 'pathauto_clean_token_values',
+    'language' => (object) array('language' => LANGUAGE_NONE),
+    'pathauto' => TRUE,
+  ));
+  $alias = pathauto_clean_alias($alias);
+
+  return '[' . $alias . ':' . $node->nid . ']';
 }
 
 /**
@@ -316,7 +351,7 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
   if (!isset($node->body[LANGUAGE_NONE][0])) return $reports;
   $text = $node->body[LANGUAGE_NONE][0]['value'];
   $matches = array();
-  preg_match_all('@\[nid:([0-9]+)\]@', $text, $matches);
+  preg_match_all('@\[[a-z0-9-_]+:([0-9]+)\]@', $text, $matches);
   if (count($matches[1])) {
     $output = array();
     foreach ($matches[1] as $key => $nid) {
