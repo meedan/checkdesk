@@ -186,14 +186,6 @@ function checkdesk_core_feature_image_default_styles() {
  */
 function checkdesk_core_feature_node_info() {
   $items = array(
-    'media' => array(
-      'name' => t('Report'),
-      'base' => 'node_content',
-      'description' => t('A report containing a media item.'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
     'post' => array(
       'name' => t('Liveblog Post'),
       'base' => 'node_content',
