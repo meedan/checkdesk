@@ -87,15 +87,15 @@ function checkdesk_report_load($nid) {
  */
 function _checkdesk_core_report_suggest($form, $form_state, $report) {
   $stories = db_query("
-SELECT nid, title 
-FROM {node} 
-WHERE type='discussion' 
-AND nid NOT IN (
-  SELECT field_stories_target_id 
-  FROM {field_data_field_stories}
-  WHERE entity_id = :report
-)
-  ", array(':report' => $report->nid))->fetchAllKeyed();
+    SELECT nid, title 
+    FROM {node} 
+    WHERE type='discussion' 
+    AND nid NOT IN (
+      SELECT field_stories_target_id 
+      FROM {field_data_field_stories}
+      WHERE entity_id = :report
+    )
+    ", array(':report' => $report->nid))->fetchAllKeyed();
   $form['story'] = array(
     '#type' => 'select',
     '#title' => t('Story'),
@@ -127,10 +127,10 @@ function _checkdesk_core_report_suggest_submit($form, &$form_state) {
  */
 function _checkdesk_core_report_publish($form, $form_state, $report) {
   $stories = db_query("
-SELECT nid, title 
-FROM {node} 
-WHERE type='discussion' 
-  ")->fetchAllKeyed();
+    SELECT nid, title 
+    FROM {node} 
+    WHERE type='discussion' 
+    ")->fetchAllKeyed();
   $form['story'] = array(
     '#type' => 'select',
     '#title' => t('Story'),
@@ -331,120 +331,37 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
 }
 
 /**
- * Implements hook_theme().
+ * Implements of hook_form_views_exposed_form_alter().
  */
-function checkdesk_core_theme() {
-  $themes = array();
-  $base = array(
-    'file' => 'theme.inc',
-    'path' => drupal_get_path('module', 'checkdesk_core') . '/theme',
-  );
-
-  $themes['checkdesk_core_story_blogger'] = array(
-    'template' => 'story_blogger',
-    'variables' => array(
-      'story' => NULL,
-    ),
-  ) + $base;
-
-  $themes['checkdesk_core_story_status'] = array(
-    'template' => 'story_status',
-    'variables' => array(
-      'story' => NULL,
-    ),
-  ) + $base;
-
-  $themes['checkdesk_core_report_source'] = array(
-    'template' => 'report_source',
-    'variables' => array(
-      'report' => NULL,
-    ),
-  ) + $base;
-
-  return $themes;
-}
-
-/**
- * API function to find whether user is online or offline.
- */
-function checkdesk_core_user_online($account = NULL) {
-  if (!$account) {
-    global $user;
-    $account = $user;
-  }
-  $interval = REQUEST_TIME - variable_get('user_block_seconds_online', 900);
-  $count = db_query("SELECT COUNT(DISTINCT s.uid) FROM {sessions} s WHERE s.timestamp >= :timestamp AND s.uid = :uid", array(':timestamp' => $interval, ':uid' => $account->uid))->fetchField();
-  return $count > 0;
-}
-
-/**
- * API function to find whether a node is flagged for fact-checking.
- */
-function checkdesk_core_fact_checking($node) {
-  $flag_name = 'factcheck';
-  $flag = flag_get_flag($flag_name);
-  if (!$flag) {
-    watchdog('checkdesk', 'Flag "@flag" not found for fact-checking.', array('@flag' => $flag_name), WATCHDOG_ERROR);
-    return FALSE;
-  }
-  return $flag->is_flagged($node->nid);
-}
-
-/**
- * Implements hook_block_info().
- */
-function checkdesk_core_block_info() {
-  $blocks = array();
-
-  $blocks['post'] = array(
-    'info' => 'Report form block',
-    'cache' => DRUPAL_NO_CACHE,
-  );
-
-  return $blocks;
-}
-
-/**
- * Implements hook_block_view().
- */
-function checkdesk_core_block_view($delta = '') {
-  switch ($delta) {
-    case 'post':
-      return checkdesk_core_report_form_block();
+function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
+  if ($form['#id'] == 'views-exposed-form-desk-reports-block') {
+    $options = array('word' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
+    $form['title_op']['#options'] = $options;
+    $form['title_op']['#process'] = array('form_process_radios');
+    $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));
+    $form['title_op']['#theme'] = 'select_as_radios';
   }
 }
 
-/**
- * Generate report form.
- */
-function checkdesk_core_report_form_block() {
-  // Include page handler for node_add()
-  module_load_include('inc', 'node', 'node.pages');
-  $title = drupal_get_title();
+function checkdesk_core_preprocess_views_exposed_form(&$variables) {
+  if ($variables['form']['#id'] == 'views-exposed-form-desk-reports-block') {
+    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-jvert-tabs-1.1.4.js');
+    drupal_add_css(drupal_get_path('module', 'checkdesk_core') . '/css/jquery-jvert-tabs-1.1.4.css');
+    drupal_add_js('jQuery(document).ready(function () {
+      jQuery("#vtabs1").hide();
+      jQuery("#meedan-custom-filter").click(function() {
+        jQuery("#vtabs1").show();
+        jQuery("#vtabs1").jVertTabs({
+          equalHeights: true
+        });
+      });
+     });', 'inline');
+    $vtabs_items = array();
+    foreach ($variables['widgets'] as $id => $widget) {
+      $vtabs_items[] = l(t($widget->label), '',  array('fragment' => $widget->id .'-wrapper', 'external' => TRUE));
+    }
 
-  // If we're on a story page and there's already a draft, show it.
-  $desk_nid = 0;
-  if (($node = menu_get_object()) && $node->type == 'discussion') {
-    $desk_nid = $node->nid;
+    $variables['expose_vtabs'] = theme('item_list', array('items' => $vtabs_items, 'type' => 'ul'));
   }
-  $draft_nid = db_query("
-SELECT n.nid 
-FROM {node} n INNER JOIN {field_data_field_desk} d ON n.nid = d.entity_id 
-WHERE n.type = 'post' 
-AND n.status = 0
-AND d.field_desk_target_id = :desk_nid
-  ", array(':desk_nid' => $desk_nid))->fetchCol();
-  if ($draft_nid) {
-    $draft = node_load($draft_nid);
-    $content = node_page_edit($draft);
-    $subject = t('Edit draft update');
-  }
-  else {
-    $content = node_add('post');
-    $subject = t('Compose new update');
-  }
-
-  drupal_set_title($title);
-  return array('subject' => $subject, 'content' => $content);
 }
 
