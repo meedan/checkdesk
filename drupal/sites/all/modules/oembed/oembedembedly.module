@@ -1,0 +1,123 @@
+<?php
+
+/**
+ * @file
+ * Embed.ly support for oEmbed.module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function oembedembedly_menu() {
+  $items = array();
+
+  $items['admin/config/media/oembed/provider/embedly'] = array(
+    'title'            => 'Embed.ly',
+    'description'      => 'Settings for the Embed.ly provider.',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('oembedembedly_admin'),
+    'type'             => MENU_LOCAL_TASK,
+    'access arguments' => array('administer oembed'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_default_oembedcore_provider().
+ */
+function oembedembedly_default_oembedcore_provider() {
+  $providers = array();
+
+  $cache = cache_get('oembedly');
+
+  if ($cache && isset($cache->data)) {
+    $json = $cache->data;
+  }
+  else {
+    $json = drupal_http_request('http://api.embed.ly/1/services');
+
+    if ($json->code == 200) {
+      $json = json_decode($json->data);
+    }
+    else {
+      $json = FALSE;
+    }
+
+    cache_set('oembedly', $json, 'cache', REQUEST_TIME + 3600 * ($json ? 24 : 6));
+
+    if (variable_get('oembedembedly_default', TRUE)) {
+      cache_clear_all('oembedcore:providers', 'cache');
+    }
+  }
+
+  if (is_array($json)) {
+    foreach ($json as $embedly_provider) {
+      $provider = new stdClass;
+      $provider->disabled = !variable_get('oembedembedly_default', TRUE);
+      $provider->name = 'oembedembedly_' . $embedly_provider->name;
+      $provider->title = $embedly_provider->displayname . ' (Embed.ly)';
+      $provider->endpoint = 'http://api.embed.ly/1/oembed';
+      $provider->scheme = implode("\n", $embedly_provider->regex);
+      $providers['oembedembedly_' . $embedly_provider->name] = $provider;
+    }
+  }
+
+  return $providers;
+}
+
+function oembedembedly_admin() {
+  $form['oembedembedly_default'] = array(
+    '#type'          => 'radios',
+    '#title'         => t('Providers enabled by default'),
+    '#default_value' => variable_get('oembedembedly_default', TRUE),
+    '#options'       => array(
+      FALSE => t('Disabled'),
+      TRUE  => t('Enabled'),
+    ),
+    '#description'   => t('This option defines whether providers should be enabled by default or not.'),
+  );
+  $form['oembedembedly_api_key'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Embed.ly API Key'),
+    '#default_value' => variable_get('oembedembedly_api_key', NULL),
+    '#description'   => t('Embed.ly requires developers to authenticate their requests to all endpoints. You must <a href="@pricing">sign up for any of the plans</a> to receive a key.', array('@pricing' => 'http://embed.ly/pricing')),
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Implement hook_oembedprovider_alter().
+ *
+ * This is to workaround embed.ly's nonstandard oembed descriptions.
+ *
+ * @todo Support wildcards in TLDs.
+ */
+function oembedembedly_oembedprovider_alter(&$providers) {
+
+  // oEmbed standard dictates that wildcards can only be used for subdomains in
+  // URL schemes. embed.ly breaks this rule, which causes unmatchable domains.
+  foreach ($providers as $host => $patterns) {
+
+    // When the first character is * such as *youtube.com.
+    if (strpos($host, '*') === 0) {
+      $new_host = drupal_substr($host, 1);
+      if (!empty($providers[$new_host])) {
+        $providers[$new_host] = array_merge($providers[$new_host], $patterns);
+      }
+      else {
+        $providers[$new_host] = $patterns;
+      }
+      unset($providers[$host]);
+    }
+  }
+}
+
+/**
+ * Implement hook_oembed_request_alter().
+ */
+function oembedembedly_oembed_request_alter(&$attributes, &$provider, $url) {
+  if (strpos($provider['name'], 'oembedembedly_') === 0) {
+    $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
+  }
+}

@@ -1,0 +1,849 @@
+<?php
+
+/**
+ * @file
+ * Core functionality for oEmbed
+ */
+
+/**
+ * Implements hook_help().
+ */
+function oembedcore_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#oembedcore':
+      $output = '<p>'. t('oEmbed module will allow your Drupal site to embed content from <a href="@oembed">oEmbed</a>-providers as well as for the site to become an oEmbed-provider itself so that other oEmbed-enabled websites can easily embed your content.', array('@oembed' => 'http://www.oembed.com/')) .'</p>';
+      $output .= '<p>'. t('Add or enable <a href="@provider">providers</a> to embed content from other sites.', array('@provider' => url('admin/build/oembed/provider'))) .'</p>';
+      return $output;
+    case 'admin/build/oembed':
+    case 'admin/build/oembed/provider':
+      $output = '<p>'. t('Providers are other web sites with oEmbed endpoints whose content you can embed on your site.') .'</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function oembedcore_permission() {
+  return array(
+    'administer oembed' => array(
+      'title' => t('Administer oEmbed'),
+      'description' => t('Define providers for oEmbed.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_flush_caches().
+ */
+function oembedcore_flush_caches() {
+  // Because some oEmbed providers (e.g., http://embed.ly) charge per request,
+  // allow cache_oembed to opt out of drupal_flush_all_caches() clearing.
+  if (variable_get('oembed_cache_flush', TRUE)) {
+    return array('cache_oembed');
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function oembedcore_cron() {
+  // If cache_oembed opts out of oembedcore_flush_caches(), then system_cron()
+  // doesn't clear its expired records, so do so here.
+  if (!variable_get('oembed_cache_flush', TRUE)) {
+    cache_clear_all(NULL, 'cache_oembed');
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function oembedcore_menu() {
+  $items = array();
+
+  $items['admin/config/media/oembed/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'Settings for oEmbed',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('oembedcore_settings'),
+    'file' => 'oembedcore.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'access arguments' => array('administer site configuration'),
+  );
+  $items['admin/config/media/oembed/test'] = array(
+    'title' => 'Test',
+    'description' => 'Test URLs for oEmbed',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('oembedcore_test'),
+    'file' => 'oembedcore.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'access arguments' => array('administer site configuration'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * Instead of rewriting ctools export UI's hook_menu implementations, alter
+ * the callback items to have a common menu item.
+ */
+function oembedcore_menu_alter(&$items) {
+
+  // Create a new menu item where all oembed export UIs will be local tasks by
+  // copying the export UI's menu item that will become the default local task.
+  $items['admin/config/media/oembed'] = $items['admin/config/media/oembed/provider'];
+  $items['admin/config/media/oembed']['title'] = 'oEmbed';
+  $items['admin/config/media/oembed']['description'] = 'Admin overview of oEmbed.';
+
+  $items['admin/config/media/oembed/provider']['type'] = MENU_DEFAULT_LOCAL_TASK;
+}
+
+/**
+ * Implements of hook_theme().
+ */
+function oembedcore_theme() {
+  $path = drupal_get_path('module', 'oembedcore') . '/theme';
+  return array(
+    'oembed' => array(
+      'template' => 'oembed',
+      'file' => 'oembedcore_theme.inc',
+      'path' => $path,
+      'variables' => array('embed' => NULL, 'title' => '', 'content' => ''),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_default_oembedcore_provider()
+ */
+function oembedcore_default_oembedcore_provider() {
+  $providers = array();
+
+  $provider = new stdClass;
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->name = 'flickr';
+  $provider->title = 'Flickr';
+  $provider->endpoint = 'http://www.flickr.com/services/oembed/';
+  $provider->scheme = 'http://*.flickr.com/*
+http://flickr.com/*
+http://flic.kr/*';
+  $providers['flickr'] = $provider;
+
+  $provider = new stdClass;
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->name = 'qik';
+  $provider->title = 'Qik';
+  $provider->endpoint = 'http://qik.com/api/oembed.json';
+  $provider->scheme = 'http://qik.com/video/*
+http://qik.com/*
+http://qik.ly/*';
+  $providers['qik'] = $provider;
+
+  $provider = new stdClass;
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->name = 'revision3';
+  $provider->title = 'Revision3';
+  $provider->endpoint = 'http://revision3.com/api/oembed/';
+  $provider->scheme = 'http://*.revision3.com/*
+http://revision3.com/*';
+  $providers['revision3'] = $provider;
+
+  $provider = new stdClass;
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->name = 'soundcloud';
+  $provider->title = 'SoundCloud';
+  $provider->endpoint = 'http://soundcloud.com/oembed';
+  $provider->scheme = 'http://soundcloud.com/*
+http://soundcloud.com/*/*
+http://soundcloud.com/*/sets/*
+http://soundcloud.com/groups/*
+http://snd.sc/*';
+  $providers['soundcloud'] = $provider;
+
+  $provider = new stdClass;
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->name = 'twitter';
+  $provider->title = 'Twitter';
+  $provider->endpoint = 'https://api.twitter.com/1/statuses/oembed.json';
+  $provider->scheme = 'http://twitter.com/*/status/*
+http://twitter.com/*/statuses/*
+http://www.twitter.com/*/status/*
+http://www.twitter.com/*/statuses/*
+http://mobile.twitter.com/*/status/*
+http://mobile.twitter.com/*/statuses/*
+https://twitter.com/*/status/*
+https://twitter.com/*/statuses/*
+https://www.twitter.com/*/status/*
+https://www.twitter.com/*/statuses/*
+https://mobile.twitter.com/*/status/*
+https://mobile.twitter.com/*/statuses/*';
+  $providers['twitter'] = $provider;
+
+  $provider = new stdClass;
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->name = 'viddler';
+  $provider->title = 'Viddler';
+  $provider->endpoint = 'http://lab.viddler.com/services/oembed/';
+  $provider->scheme = 'http://*.viddler.com/*';
+  $providers['viddler'] = $provider;
+
+  $provider = new stdClass;
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->name = 'vimeo';
+  $provider->title = 'Vimeo';
+  $provider->endpoint = 'http://vimeo.com/api/oembed.json';
+  $provider->scheme = 'http://www.vimeo.com/groups/*/videos/*
+http://www.vimeo.com/*
+http://vimeo.com/groups/*/videos/*
+http://vimeo.com/*
+http://vimeo.com/m/#/*';
+  $providers['vimeo'] = $provider;
+
+  $provider = new stdClass;
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->name = 'youtube';
+  $provider->title = 'YouTube';
+  $provider->endpoint = 'http://www.youtube.com/oembed';
+  $provider->scheme = 'http://*.youtube.com/watch*
+http://*.youtube.com/v/*
+https://*.youtube.com/watch*
+https://*.youtube.com/v/*
+http://youtu.be/*
+http://*.youtube.com/user/*
+http://*.youtube.com/*#*/*
+http://m.youtube.com/watch*
+http://m.youtube.com/index*
+http://*.youtube.com/profile*
+http://*.youtube.com/view_play_list*
+http://*.youtube.com/playlist*';
+  $providers['youtube'] = $provider;
+
+  return $providers;
+}
+
+/**
+ * Returns the provider for a url.
+ *
+ * @param string $url
+ *  Teh url to get the provider for.
+ * @return mixed
+ *  A valid callback or FALSE
+ */
+function oembedcore_get_provider($url, &$matches) {
+  $host = _oembedcore_get_host($url);
+  if ($host) {
+    $providers = oembedcore_providers($host);
+    foreach ($providers as $regex => $info) {
+      if (preg_match($regex, $url, $matches)) {
+        return $info;
+      }
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * A utility function to get the base domain from a url.
+ *
+ * @param string $uri
+ *  The uri to get the domain form
+ * @return string
+ *  The domain or NULL
+ */
+function _oembedcore_get_host($uri) {
+  $matches = array();
+  if (preg_match('/^https?\:\/\/([^\/]+)/', $uri, $matches)) {
+    $matches = explode('.', $matches[1]);
+    $match_count = count($matches);
+    if ($match_count > 1) {
+      return $matches[$match_count - 2] . '.' . $matches[$match_count - 1];
+    }
+    else {
+      return $matches[0];
+    }
+  }
+  return NULL;
+}
+
+/**
+ * Returns all the registered providers, or the providers for a specific host.
+ *
+ * @param string $host
+ *  Optional. Supply a hostname if you only want the provider patterns for a specific host.
+ * @return array
+ *
+ * @todo Make this more like drupal_match_path()
+ */
+function oembedcore_providers($url_host = NULL) {
+  $providers = &drupal_static(__FUNCTION__, array());
+
+  if (!$providers) {
+    $cache_key = 'oembedcore:providers';
+
+    if (($cache = cache_get($cache_key)) && isset($cache->data)) {
+      $providers = $cache->data;
+    }
+    else {
+      $providers = array();
+
+      // oEmbed providers are local services that return content over callback
+      // function.
+      $modules = module_implements('oembedprovider');
+      foreach ($modules as $module) {
+        $ps = call_user_func($module . '_oembedprovider');
+        foreach ($ps as $pattern => $info) {
+          $host = _oembedcore_get_host($pattern);
+          $regex_pattern = '/' . str_replace('\*', '(.*)', preg_quote($pattern, '/')) . '/i';
+          $providers[$host][$regex_pattern] = $info;
+        }
+      }
+
+      // oEmbed provider definitions are remote web services.
+      $provider_definitions = oembedcore_provider_load_all();
+      foreach ($provider_definitions as $provider_definition) {
+        if (empty($provider_definition->disabled)) {
+          $schemes = preg_split("/(\r\n?|\n)/", $provider_definition->scheme);
+          foreach ($schemes as $scheme) {
+            $host = _oembedcore_get_host($scheme);
+            $regex_pattern = '/' . str_replace('\*', '.*', preg_quote($scheme, '/')) . '/i';
+            $providers[$host][$regex_pattern] = (array) $provider_definition;
+          }
+        }
+      }
+      drupal_alter('oembedprovider', $providers);
+      foreach ($providers as $host => &$patterns) {
+        uksort($patterns, '_oembedcore_specificity_compare');
+      }
+      cache_set($cache_key, $providers);
+    }
+  }
+
+  if ($url_host) {
+    return isset($providers[$url_host]) ? $providers[$url_host] : array();
+  }
+  return $providers;
+}
+
+/**
+ * Helper function that compares the length of match expressions.
+ */
+function _oembedcore_specificity_compare($a, $b) {
+  return strlen($b) - strlen($a);
+}
+
+/**
+ * Fetch data for an embeddable URL.
+ *
+ * @param string $url
+ *   An external URL for the content to embed.
+ * @param array $attributes
+ *   An associative array of attributes, with the following keys:
+ *   - 'maxwidth'
+ *       The maximum width of the embed, in pixels.
+ *   - 'maxheight'
+ *       The maximum height of the embed, in pixels.
+ * @return
+ *   False or an object representing the embeddable data of the URL.
+ */
+function oembedcore_oembed_data($url, $attributes = array()) {
+  $matches = array();
+  $attributes = array_filter($attributes);
+  if ($provider = oembedcore_get_provider($url, $matches)) {
+    drupal_alter('oembed_request', $attributes, $provider, $url);
+    return oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+  }
+  return FALSE;
+}
+
+/**
+ * oEmbed fetcher and parser.
+ *
+ * This handles fetching from remote providers and local registered callbacks.
+ * It does not cache the responses because they are cached when rendered.
+ */
+function oembedcore_oembed_fetch($provider, $url, $matches, $attributes = array()) {
+  $embed = FALSE;
+
+  // Mock a render element for cache keys and expiration. This element will
+  // not be rendered.
+  $element = oembedcore_render_cache('oembed_request', $url, $attributes);
+  $cache_key = implode(':', $element['#cache']['keys']);
+  $cache = cache_get($cache_key, $element['#cache']['bin']);
+
+  // Cache hit.
+  if ($cache && isset($cache->data)) {
+    $embed = $cache->data;
+  }
+  else {
+    // Cache miss.
+
+    // Drupal oEmbed provider uses function callbacks for internal requests.
+    if (!empty($provider['callback'])) {
+      $embed = call_user_func($provider['callback'], $provider, $url, $matches, $attributes);
+      if ($embed) {
+        $embed = (object) $embed;
+      }
+    }
+    else {
+
+      // Remote oEmbed endpoint request.
+      $attributes['url'] = $url;
+      $query = http_build_query($attributes, NULL, '&');
+      $fetch_url = $provider['endpoint'] . '?' . $query;
+
+      //TODO: Add alternative ways of fetching the content - like http client?
+      $response = drupal_http_request($fetch_url);
+      if (!isset($response->error)) {
+        $embed = json_decode($response->data);
+        if (!is_object($embed)) {
+          try {
+            $embed = @new SimpleXMLElement($response->data);
+
+            // This is a simple way to convert the SimpleXMLElement into a stdClass which
+            // can be serialized and cached.
+            $embed = json_decode(json_encode($embed));
+
+            if (!is_string($embed->title)) {
+              $embed->title = '';
+            }
+          }
+          catch (Exception $e) {
+            watchdog('oembed', 'Could not parse response from %url.', array('%url' => $fetch_url), WATCHDOG_ERROR);
+          }
+        }
+
+        if (empty($embed->version) || empty($embed->type) || intval($embed->version) != 1) {
+          $embed = FALSE;
+          watchdog('oembed', 'Response from %url not a valid oEmbed response.', array('%url' => $fetch_url), WATCHDOG_ERROR);
+        }
+      }
+      else {
+        watchdog('oembed', 'Error fetching data from %url.', array('%url' => $fetch_url), WATCHDOG_ERROR);
+      }
+    }
+
+    if ($embed) {
+      cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
+    }
+  }
+
+  // Decorate the oEmbed response object with additional properties that are
+  // handy when theming the output.
+  if ($embed) {
+    $embed->original_url = $url;
+    $embed->provider = $provider;
+  }
+
+  return $embed;
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function oembedcore_element_info() {
+
+  // Standard oEmbed that changes its theme based on response.
+  $types['oembed'] = array(
+    '#theme' => 'oembed',
+    '#embed' => NULL,
+    '#attributes' => array(),
+    '#pre_render' => array(
+      'oembedcore_pre_render_fetch',
+      'oembedcore_pre_render_retheme',
+      'oembedcore_pre_render_content',
+    ),
+  );
+
+  // Does not theme the output.
+  $types['oembed_bare'] = array(
+    '#embed' => NULL,
+    '#attributes' => array(),
+    '#pre_render' => array(
+      'oembedcore_pre_render_fetch',
+      'oembedcore_pre_render_children',
+    ),
+  );
+
+  // Retrieves an image (photo or thumbnail) or nothing.
+  $types['oembed_thumbnail'] = array(
+    '#theme' => 'image',
+    '#embed' => NULL,
+    '#attributes' => array(),
+    '#pre_render' => array(
+      'oembedcore_pre_render_pre_fetch',
+      'oembedcore_pre_render_fetch',
+      'oembedcore_pre_render_content',
+      'oembedcore_pre_render_thumbnail',
+    ),
+  );
+  return $types;
+}
+
+/**
+ * Do not let options be used in request.
+ */
+function oembedcore_pre_render_pre_fetch($element) {
+  $element['#display_options'] = $element['#options'];
+  $element['#options'] = array();
+  return $element;
+}
+
+/**
+ * Change oEmbed request into a thumbnail.
+ *
+ * This is here for Media module WYSIWYG support. When a video or image is added
+ * to a text area, this step makes sure the WYSIWYG receives an image to stand
+ * in for the real media. It must be an actual img element.
+ */
+function oembedcore_pre_render_thumbnail($element) {
+
+  // Only act when the oEmbed response is true.
+  if (!empty($element['#printed'])) {
+    return $element;
+  }
+
+  $embed = $element['#embed'];
+
+  // Check if the oEmbed response provides a thumbnail image.
+  if (!empty($embed->thumbnail_url)) {
+    $url = $embed->thumbnail_url;
+  }
+  // Otherwise, for photos use the original image.
+  elseif ($embed->type == 'photo') {
+    $url = $embed->url;
+  }
+
+  // If there's no URL for an image, don't render anything.
+  if (empty($url)) {
+    $element['#printed'] = TRUE;
+    return $element;
+  }
+
+  $element['#path'] = check_url($url);
+
+  return $element;
+}
+
+/**
+ * Populate variables expected in oEmbed theme function.
+ */
+function oembedcore_pre_render_content($element) {
+
+  // Only act when the oEmbed response is true.
+  if (!empty($element['#printed'])) {
+    return $element;
+  }
+
+  $embed = $element['#embed'];
+
+  if (!empty($embed->title)) {
+    $element['#title'] = array(
+      '#markup' => $embed->title,
+    );
+  }
+
+  switch ($embed->type) {
+    case 'photo':
+      $element['#content'] = array(
+        '#theme' => 'image',
+        '#path' => $embed->url,
+        '#alt' => oembedcore_alt_attr($embed),
+        '#attributes' => $element['#attributes'],
+      );
+      break;
+
+    case 'link':
+      // There's nothing to be done with links outside the theme.
+      break;
+
+    case 'video':
+    case 'rich':
+      // This would be the place to filter embedded HTML.
+      $element['#content'] = array(
+        '#markup' => $embed->html,
+      );
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * To be used for HTML in cases where the HTML is cached independent of the
+ * theme - like in the case of input filters.
+ *
+ * This returns valid HTML snippets that are reliable for inserting into
+ * filtered text areas.
+ */
+function oembedcore_pre_render_children($element) {
+
+  // Only act when the oEmbed response is true.
+  if (!empty($element['#printed'])) {
+    return $element;
+  }
+
+  $embed = $element['#embed'];
+
+  if (!empty($embed->title)) {
+    $element['title'] = array(
+      '#type' => 'link',
+      '#title' => $embed->title,
+      '#href' => $element['#url'],
+      '#options' => array(
+        'absolute' => TRUE,
+        'attributes' => array(
+          'class' => 'oembed-title'
+        )
+      ),
+    );
+  }
+
+  switch ($embed->type) {
+
+    // oEmbed photos are constructed entirely with HTML phrase elements.
+    case 'photo':
+      $element['#prefix'] = '<span class="oembed oembed-photo">';
+      $element['#suffix'] = '</span>';
+
+      $attributes = array(
+        'src' => check_url($embed->url),
+        'alt' => oembedcore_alt_attr($embed),
+      );
+
+      $element['content'] = array(
+        '#type' => 'link',
+        '#title' => '<img'. drupal_attributes($attributes) .' />',
+        '#href' => $element['#url'],
+        '#options' => array(
+          'html' => TRUE,
+          'absolute' => TRUE,
+          'attributes' => array(
+            'class' => 'oembed-content'
+          )
+        ),
+      );
+      break;
+
+    // Link content is rendered just as a link with the title that was received.
+    // To support link oEmbed resources that do not have titles, write a new
+    // pre-render function and add it to a new element or to this one with
+    // hook_element_info_alter().
+    case 'link':
+      if (!empty($embed->title)) {
+        $element['title']['#options']['attributes']['class'] .= ' oembed-link';
+      }
+      break;
+
+    // Rich and video media may contain block elements, so phrase elements
+    // cannot be used.
+    case 'rich':
+    case 'video':
+      $element['#prefix'] = '<div class="oembed oembed-'. $embed->type . '">';
+      $element['#suffix'] = '</div>';
+
+      $element['content'] = array(
+        '#prefix' => '<div class="oembed-content">',
+        '#markup' => $embed->html,
+        '#suffix' => '</div>',
+      );
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Rewrite the theme parameter based on the response.
+ */
+function oembedcore_pre_render_retheme($element) {
+
+  // Only act when the oEmbed response is true.
+  if (!empty($element['#printed'])) {
+    return $element;
+  }
+
+  $embed = $element['#embed'];
+  $element['#theme'] = 'oembed__'. $embed->type .'__'. $embed->provider['name'];
+  return $element;
+}
+
+/**
+ * Pre render fetches the oEmbed data.
+ */
+function oembedcore_pre_render_fetch($element) {
+  $embed = oembedcore_oembed_data($element['#url'], $element['#options']);
+
+  // Prevent rendering if the response is bad.
+  if (!$embed) {
+    $element['#printed'] = TRUE;
+    return $element;
+  }
+
+  $element['#embed'] = $embed;
+
+  // Recalculate cache expire time based on response.
+  if (isset($embed->cache_age) && $element['#cache']['expire'] != CACHE_PERMANENT) {
+    $expire = REQUEST_TIME + intval($embed->cache_age);
+    if ($expire > $element['#cache']['expire']) {
+      $element['#cache']['expire'] = $expire;
+    }
+  }
+
+  return $element;
+}
+
+/**
+ * Prepare an element for caching based on a oEmbed request.
+ *
+ * @param $type
+ *   Element type.
+ * @param $url
+ *   URL to embed.
+ * @param $options
+ *   oEmbed options.
+ * @param $expire
+ *   The cache expire time, passed eventually to cache_set().
+ * @param $granularity
+ *   One or more granularity constants passed to drupal_render_cid_parts().
+ *
+ * @return
+ *   A renderable array with the following keys and values:
+ *   - #type: The passed-in element $type.
+ *   - #url: The passed-in $url.
+ *   - #options: The passed-in $options.
+ *   - #cache: An associative array prepared for drupal_render_cache_set().
+ *
+ * @see drupal_render_cache_by_query().
+ */
+function oembedcore_render_cache($type, $url, $options = array(), $expire = NULL, $granularity = NULL) {
+  $cache_keys = array();
+  $cache_keys[] = $type;
+  $cache_keys[] = hash('sha256', $url);
+  if (!empty($options)) {
+    $cache_keys[] = hash('sha256', serialize($options));
+  }
+
+  // If expire is not set, use default value and adjust for request time.
+  if (!isset($expire)) {
+    $expire = variable_get('oembed_cache_lifetime', 3600);
+    if ($expire) {
+      $expire += REQUEST_TIME;
+    }
+  }
+
+  return array(
+    '#type' => $type,
+    '#url' => $url,
+    '#options' => $options,
+    '#cache' => array(
+      'keys' => $cache_keys,
+      'granularity' => $granularity,
+      'expire' => $expire,
+      'bin' => 'cache_oembed',
+    ),
+  );
+}
+
+/**
+ * Generate a string for use as ALT attribute.
+ */
+function oembedcore_alt_attr($embed) {
+
+  // alt attribute using hopefully available title and provider name.
+  if ($embed->title) {
+    $string = '@title';
+  } else {
+    $string = 'Embedded image';
+  }
+  if ($embed->provider_name) {
+    $string .= ' on @provider_name';
+  }
+
+  return t($string, array('@title' => $embed->title, '@provider_name' => $embed->provider_name));
+}
+
+/**
+ * Implement hook_ctools_plugin_directory().
+ */
+function oembedcore_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && $plugin == 'export_ui') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+// --------------------------------------------------------------------------
+// Preset database info.
+
+/**
+ * Create a new provider with defaults appropriately set from schema.
+ */
+function oembedcore_provider_new() {
+  ctools_include('export');
+  return ctools_export_new_object('oembedcore_provider');
+}
+
+/**
+ * Load a single provider.
+ */
+function oembedcore_provider_load($name) {
+  ctools_include('export');
+  $result = ctools_export_load_object('oembedcore_provider', 'names', array($name));
+  if (isset($result[$name])) {
+    return $result[$name];
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Load all providers.
+ */
+function oembedcore_provider_load_all() {
+  ctools_include('export');
+  return ctools_export_load_object('oembedcore_provider');
+}
+
+/**
+ * Write a provider to the database.
+ */
+function oembedcore_provider_save(&$provider) {
+  $update = (isset($provider->pid)) ? array('pid') : array();
+  drupal_write_record('oembedcore_provider', $provider, $update);
+  cache_clear_all('oembedcore:providers', 'cache');
+  return $preset;
+}
+
+/**
+ * Remove a provider.
+ */
+function oembedcore_provider_delete($provider) {
+  db_delete('oembedcore_provider')
+    ->condition('name', $provider->name)
+    ->condition('pid', $provider->pid)
+    ->execute();
+  cache_clear_all('oembedcore:providers', 'cache');
+}
+
+/**
+ * Export a provider.
+ */
+function oembedcore_provider_export($provider, $indent = '') {
+  ctools_include('export');
+  $output = ctools_export_object('oembedcore_provider', $provider, $indent);
+  return $output;
+}
+
+/**
+ * Lists all available providers.
+ */
+function oembedcore_provider_list() {
+  $return = array();
+  $providers = oembedcore_provider_load_all();
+  foreach ($providers as $provider) {
+    $return[$provider->name] = $provider->name;
+  }
+  return $return;
+}

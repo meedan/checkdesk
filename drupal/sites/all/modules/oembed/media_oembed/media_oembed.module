@@ -1,0 +1,277 @@
+<?php
+
+/**
+ *  @file media_oembed/media_oembed.module
+ *
+ *  Media: oEmbed provides a stream wrapper and formatters for videos provided
+ *  by oEmbed, format documented at http://oembed.com/.
+ */
+
+/**
+ *  Create stream wrapper for oEmbed videos.
+ */
+function media_oembed_stream_wrappers() {
+  return array(
+    'oembed' => array(
+      'name' => t('oEmbed resources'),
+      'class' => 'MediaOEmbedStreamWrapper',
+      'description' => t('Resources provided by oEmbed.'),
+      'type' => STREAM_WRAPPERS_READ_VISIBLE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_file_formatter_info().
+ */
+function media_oembed_file_formatter_info() {
+  $formatters['media_oembed'] = array(
+    'label' => t('oEmbed'),
+    'default settings' => array('width' => '560', 'height' => '340', 'wmode' => 'opaque'),
+    'view callback' => 'media_oembed_file_formatter_media_oembed_view',
+    'settings callback' => 'media_oembed_file_formatter_media_oembed_settings',
+  );
+  $formatters['media_oembed_thumbnail'] = array(
+    'label' => t('oEmbed Thumbnail'),
+    'default settings' => array('width' => '560', 'height' => '340'),
+    'view callback' => 'media_oembed_file_formatter_media_oembed_thumbnail_view',
+    'settings callback' => 'media_oembed_file_formatter_media_oembed_thumbnail_settings',
+  );
+  return $formatters;
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function media_oembed_element_info_alter(&$types) {
+  $types['oembed_thumbnail']['#pre_render'][] = 'media_oembed_pre_render_thumbnail';
+}
+
+/**
+ * #pre_render callback for 'oembed_thumbnail' elements.
+ *
+ * For oEmbed responses with no thumbnail image, fall back to Media module's
+ * generic icon rather than rendering nothing, so that there's something to
+ * select within the Media browser or WYSIWYG editor.
+ */
+function media_oembed_pre_render_thumbnail($element) {
+  // oembedcore_pre_render_thumbnail() sets #printed to TRUE when there's no
+  // thumbnail to render.
+  if (!empty($element['#printed']) && !isset($element['#path']) && isset($element['#file'])) {
+    $element['#theme'] = 'media_formatter_large_icon';
+    $element['#printed'] = FALSE;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_file_default_displays().
+ *
+ * Provides default display configurations for media types.
+ *
+ * @see file_entity_schema()
+ */
+function media_oembed_file_default_displays() {
+  $default_displays = array();
+
+  $default_styles = array();
+  foreach(media_type_get_types() as $name => $type) {
+    // For default and Large view modes, use the default width and height from
+    // hook_file_formatter_info().
+    $default_styles[$name . '__default__media_oembed'] = array();
+    $default_styles[$name . '__default__media_oembed_thumbnail'] = array();
+    $default_styles[$name . '__media_large__media_oembed'] = array();
+    $default_styles[$name . '__media_large__media_oembed_thumbnail'] = array();
+
+    // For the Preview view mode, match the width and height of the square
+    // thumbnail in media_image_default_styles().
+    $default_styles[$name . '__media_preview__media_oembed_thumbnail'] = array('width' => '180', 'height' => '180');
+
+    // For the Original view mode, set width and height to empty, so that they
+    // use what's returned by the oEmbed response.
+    $default_styles[$name . '__media_original__media_oembed'] = array('width' => '', 'height' => '');
+    $default_styles[$name . '__media_original__media_oembed_thumbnail'] = array('width' => '', 'height' => '');
+  }
+
+  foreach ($default_styles as $display_name => $settings) {
+    $default_displays[$display_name] = (object) array(
+      'api_version' => 1,
+      'name' => $display_name,
+      'status' => 1,
+      'weight' => 0,
+      'settings' => $settings,
+    );
+  }
+
+  return $default_displays;
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function media_oembed_ctools_plugin_api($owner, $api) {
+  static $api_versions = array(
+    'file_entity' => array(
+      'file_default_displays' => 1,
+    ),
+  );
+  if (isset($api_versions[$owner][$api])) {
+    return array('version' => $api_versions[$owner][$api]);
+  }
+}
+
+/**
+ * Implements hook_file_formatter_FORMATTER_view().
+ */
+function media_oembed_file_formatter_media_oembed_view($file, $display, $langcode) {
+  $scheme = file_uri_scheme($file->uri);
+  if ($scheme == 'oembed') {
+    $url = rawurldecode(substr($file->uri, 9));
+
+    // Strict sizing doesn't work reliably.
+    $options = array(
+      'width' => isset($file->override['width']) ? $file->override['width'] : $display['settings']['width'],
+      'height' => isset($file->override['height']) ? $file->override['height'] : $display['settings']['height'],
+      'wmode' => isset($file->override['wmode']) ? $file->override['wmode'] : $display['settings']['wmode'],
+    );
+    if (empty($options['wmode'])) {
+      unset($options['wmode']);
+    }
+
+    // Not a WYSIWYG editor instance.
+    if (empty($file->override['wysiwyg'])) {
+      $element = oembedcore_render_cache('oembed', $url, $options);
+    }
+
+    // WYSIWYG does not yet support video inside a running editor instance, send
+    // thumbnails.
+    else {
+      $element = oembedcore_render_cache('oembed_thumbnail', $url, $options);
+      if (!empty($file->override['attributes'])) {
+        $element['#options']['attributes'] = $file->override['attributes'];
+      }
+    }
+    return $element;
+  }
+}
+
+/**
+ * Implements hook_file_formatter_FORMATTER_settings().
+ */
+function media_oembed_file_formatter_media_oembed_settings($form, &$form_state, $settings) {
+  $element = array();
+  $element['width'] = array(
+    '#title' => t('Width'),
+    '#type' => 'textfield',
+    '#default_value' => $settings['width'],
+  );
+  $element['height'] = array(
+    '#title' => t('Height'),
+    '#type' => 'textfield',
+    '#default_value' => $settings['height'],
+  );
+  $element['wmode'] = array(
+    '#title' => t('Flash window mode (wmode)'),
+    '#type' => 'select',
+    '#empty_option' => t('None (do not request a specific wmode from the provider)'),
+    '#options' => drupal_map_assoc(array('window', 'transparent', 'opaque', 'direct', 'gpu')),
+    '#description' => t('Controls layering, transparency, and playback performance of content rendered by the Flash player. For more information, view <a href="http://kb2.adobe.com/cps/127/tn_12701.html#main_Using_Window_Mode__wmode__values_">Adobe\'s documentation</a>.'),
+    '#default_value' => $settings['wmode'],
+  );
+  return $element;
+}
+
+/**
+ * Implements hook_file_formatter_FORMATTER_view().
+ */
+function media_oembed_file_formatter_media_oembed_thumbnail_view($file, $display, $langcode) {
+  $scheme = file_uri_scheme($file->uri);
+  if ($scheme == 'oembed') {
+    $wrapper = file_stream_wrapper_get_instance_by_uri($file->uri);
+    $element = oembedcore_render_cache('oembed_thumbnail', $wrapper->interpolateUrl(), $display['settings']);
+    $element['#attributes'] = $display['settings'];
+    return $element;
+  }
+}
+
+/**
+ * Implements hook_file_formatter_FORMATTER_settings().
+ */
+function media_oembed_file_formatter_media_oembed_thumbnail_settings($form, &$form_state, $settings) {
+  $element = array();
+  $element['width'] = array(
+    '#title' => t('Width'),
+    '#type' => 'textfield',
+    '#default_value' => $settings['width'],
+  );
+  $element['height'] = array(
+    '#title' => t('Height'),
+    '#type' => 'textfield',
+    '#default_value' => $settings['height'],
+  );
+  return $element;
+}
+
+/**
+ *  Implements hook_media_parse().
+ *
+ *  @todo: this might be deprecated now that we have media_internet,
+ *  but the hook is still being called in a couple places in media.
+ */
+function media_oembed_media_parse($url, $options = array()) {
+  $scheme = 'oembed://';
+  $matches = array();
+  if ($provider = oembedcore_get_provider($url, $matches)) {
+    return file_stream_wrapper_uri_normalize($scheme . drupal_encode_path($url));
+  }
+  // @TODO: Validate for malformed oembed urls.
+}
+
+/**
+ * Implements hook_media_internet_providers();
+ */
+function media_oembed_media_internet_providers() {
+  $info['MediaInternetOEmbedHandler'] = array(
+    'title' => t('oEmbed'),
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_media_operations().
+ */
+function media_oembed_media_operations() {
+  $operations = array(
+    'refresh' => array(
+      'label' => t('Refresh from source'),
+      'callback' => 'media_oembed_cache_clear',
+    ),
+  );
+  return $operations;
+}
+
+/**
+ * Clear the cached oEmbed content for the selected files.
+ */
+function media_oembed_cache_clear($fids) {
+  $fids = array_keys($fids);
+
+  $query = new EntityFieldQuery();
+  $results = $query
+    ->entityCondition('entity_type', 'file')
+    ->propertyCondition('uri', 'oembed:', 'STARTS_WITH')
+    ->propertyCondition('fid', $fids)
+    ->execute();
+
+  $files = file_load_multiple(array_keys($results['file']));
+  foreach ($files as $file) {
+    $wrapper = file_stream_wrapper_get_instance_by_uri($file->uri);
+    $url = $wrapper->interpolateUrl();
+    $hashed_url = hash('sha256', $url);
+    foreach (array('oembed', 'oembed_thumbnail', 'oembed_bare', 'oembed_request') as $type) {
+      $cid = $type . ':' . $hashed_url . ':';
+      cache_clear_all($cid, 'cache_oembed', TRUE);
+    }
+  }
+}

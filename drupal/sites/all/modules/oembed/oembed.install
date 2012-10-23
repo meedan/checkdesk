@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Rename extant oembed filters to oembed_legacy.
+ */
+function oembed_update_7000(&$sandbox) {
+  db_update('filter')
+    ->fields(array('name' => 'oembed_legacy'))
+    ->condition('name', 'oembed')
+    ->execute();
+}

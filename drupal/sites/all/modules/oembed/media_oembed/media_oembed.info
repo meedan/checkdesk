@@ -1,0 +1,18 @@
+name = Media: oEmbed
+description = Provides oEmbed support to the Media module.
+package = "Media"
+core = 7.x
+files[] = media_oembed.module
+files[] = MediaOEmbedStreamWrapper.inc
+files[] = media_oembed.admin.inc
+files[] = includes/media_oembed.styles.inc
+files[] = MediaInternetOEmbedHandler.inc
+dependencies[] = media_internet
+dependencies[] = oembedcore
+
+; Information added by drupal.org packaging script on 2012-04-11
+version = "7.x-0.1-beta2+20-dev"
+core = "7.x"
+project = "oembed"
+datestamp = "1334104660"
+

@@ -1,0 +1,15 @@
+package = oEmbed
+name = oEmbed Filter
+description = Replaces oEmbed-enabled URL:s with embedded content
+dependencies[] = oembedcore
+dependencies[] = filter
+core = 7.x
+files[] = oembed.module
+files[] = oembed.inc
+
+; Information added by drupal.org packaging script on 2012-04-11
+version = "7.x-0.1-beta2+20-dev"
+core = "7.x"
+project = "oembed"
+datestamp = "1334104660"
+

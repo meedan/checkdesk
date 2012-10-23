@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Module for providing content as defined in the oEmbed specification
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function oembedprovider_menu() {
+  $menu = array();
+
+  $handler = array(
+    'type' => MENU_CALLBACK,
+    'file' => 'oembedprovider.inc',
+    'page callback' => '_oembedprovider_handle_request',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+  );
+
+  $menu['oembed/endpoint'] = $menu['oembed/endpoint/%'] = $handler;
+
+  return $menu;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function oembedprovider_theme() {
+  $themes = array();
+  $themes['oembed_node'] = array(
+    'arguments' => array(
+      'node' => NULL,
+    ),
+  );
+  return $themes;
+}
+
+/**
+ * The default provider to handle nodes
+ *
+ * @param string $url
+ * @param array $matches
+ */
+function oembedprovider_node_provider($provider, $url, $matches) {
+  module_load_include('inc', 'oembedprovider');
+  return _oembedprovider_node_provider($provider, $url, $matches);
+}
+
+/**
+ * Default theme implementation for oembed_node. We just mirror the node_view function
+ * and pass everything on to the node template.
+ *
+ * @param object $node
+ * @return string
+ *  The html representation of the node
+ */
+function theme_oembed_node($vars) {
+  $node = $vars['node'];
+  $build = node_view($node);
+  return drupal_render($build);
+}
+
+/**
+ * Implements hook_oembedprovider().
+ *
+ * @return array
+ */
+function oembedprovider_oembedprovider() {
+  $base_url = url('', array('absolute' => TRUE)) . 'node/*';
+  return array(
+    $base_url => array(
+      'callback' => 'oembedprovider_node_provider',
+    ),
+  );
+}
+
+/**
+ * Returns all the registered response formats
+ *
+ * @return array
+ */
+function oembedprovider_formats($reset = FALSE) {
+  $formats = &drupal_static(__FUNCTION__, array());
+
+  if (!$formats) {
+    $cache_key = 'oembedprovider:formats';
+
+    if (!$reset && ($cache = cache_get($cache_key)) && isset($cache->data)) {
+      $formats = $cache->data;
+    }
+    else {
+      $formats = array(
+        'json' => array(
+          'mime' => 'text/javascript',
+          'callback' => '_oembedprovider_formats_json',
+        ),
+        'xml' => array(
+          'mime' => 'text/xml',
+          'callback' => '_oembedprovider_formats_xml',
+        ),
+      );
+      drupal_alter('oembedprovider_formats', $formats);
+
+      cache_set($cache_key, $formats);
+    }
+  }
+
+  return $formats;
+}
+
+/**
+ * Implements hook_oembedprovider_formats_alter().
+ */
+function oembedprovider_oembedprovider_formats_alter(&$formats) {
+  $formats['jsonp'] = array(
+    'mime' => 'text/javascript',
+    'callback' => '_oembedprovider_formats_jsonp',
+  );
+}

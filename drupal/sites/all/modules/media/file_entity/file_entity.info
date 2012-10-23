@@ -1,0 +1,15 @@
+name = File entity
+description = "Extends Drupal file entities to be fieldable and viewable."
+package = Media
+core = 7.x
+dependencies[] = field
+dependencies[] = ctools
+files[] = file_entity.field.inc
+configure = admin/config/media/file-types
+
+; Information added by drupal.org packaging script on 2012-06-30
+version = "7.x-1.2"
+core = "7.x"
+project = "media"
+datestamp = "1341095504"
+
