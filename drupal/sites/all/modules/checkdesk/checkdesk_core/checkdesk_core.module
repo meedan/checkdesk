@@ -19,7 +19,49 @@ function checkdesk_core_menu() {
     'access arguments' => array('create post content'),
   );
 
+/*
+  $items['admin/config/checkdesk'] = array(
+    'title' => 'Checkdesk',
+    'description' => 'Checkdesk administration.',
+    'position' => 'left',
+    'weight' => -20,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );*/
+  $items['admin/config/system/checkdesk'] = array(
+    'title' => 'Checkdesk',
+    'description' => 'Manage general Checkdesk configuration.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_checkdesk_core_settings'),
+    'access arguments' => array('administer site configuration'),
+  );
+
   return $items;
+}
+
+/**
+ * Form function for `_checkdesk_core_settings`.
+ */
+function _checkdesk_core_settings($form, $form_state) {
+  $form['checkdesk_site_owner'] = array(
+    '#title' => t('Site owner'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('checkdesk_site_owner', ''),
+  );
+  $form['checkdesk_site_owner_url'] = array(
+    '#title' => t('Site owner URL'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('checkdesk_site_owner_url', ''),
+  );
+  $form['checkdesk_factchecking_statement'] = array(
+    '#title' => t('A "verified" status means'),
+    '#type' => 'textarea',
+    '#default_value' => variable_get('checkdesk_factchecking_statement', ''),
+  );
+
+  return system_settings_form($form);
 }
 
 /**
@@ -259,5 +301,86 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
     }
   }
   return $reports;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function checkdesk_core_block_info() {
+  $blocks = array();
+
+  $blocks['story_blogger'] = array(
+    'info' => t('Checkdesk story blogger info'),
+  );
+
+  $blocks['story_status'] = array(
+    'info' => t('Checkdesk story status'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function checkdesk_core_block_view($delta) {
+  $object = menu_get_object();
+  return array(
+    'subject' => NULL,
+    'content' => theme('checkdesk_core_' . $delta, array('object' => $object)),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function checkdesk_core_theme() {
+  $themes = array();
+  $base = array(
+    'file' => 'theme.inc',
+    'path' => drupal_get_path('module', 'checkdesk_core') . '/theme',
+  );
+
+  $themes['checkdesk_core_story_blogger'] = array(
+    'template' => 'story_blogger',
+    'variables' => array(
+      'object' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_story_status'] = array(
+    'template' => 'story_status',
+    'variables' => array(
+      'object' => NULL,
+    ),
+  ) + $base;
+
+  return $themes;
+}
+
+/**
+ * API function to find whether user is online or offline.
+ */
+function checkdesk_core_user_online($account = NULL) {
+  if (!$account) {
+    global $user;
+    $account = $user;
+  }
+  $interval = REQUEST_TIME - variable_get('user_block_seconds_online', 900);
+  $count = db_query("SELECT COUNT(DISTINCT s.uid) FROM {sessions} s WHERE s.timestamp >= :timestamp AND s.uid = :uid", array(':timestamp' => $interval, ':uid' => $account->uid))->fetchField();
+  return $count > 0;
+}
+
+/**
+ * API function to find whether a node is flagged for fact-checking.
+ */
+function checkdesk_core_fact_checking($node) {
+  $flag_name = 'factcheck';
+  $flag = flag_get_flag($flag_name);
+  if (!$flag) {
+    watchdog('checkdesk', 'Flag "@flag" not found for fact-checking.', array('@flag' => $flag_name), WATCHDOG_ERROR);
+    return FALSE;
+  }
+  return $flag->is_flagged($node->nid);
 }
 

@@ -34,6 +34,27 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'checkdesk_factchecking_statement';
+  $strongarm->value = 'That I love you!';
+  $export['checkdesk_factchecking_statement'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'checkdesk_site_owner';
+  $strongarm->value = 'Al-Masry Al-Youm';
+  $export['checkdesk_site_owner'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'checkdesk_site_owner_url';
+  $strongarm->value = 'http://almasryalyoum.com';
+  $export['checkdesk_site_owner_url'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_discussion';
   $strongarm->value = 0;
   $export['comment_anonymous_discussion'] = $strongarm;

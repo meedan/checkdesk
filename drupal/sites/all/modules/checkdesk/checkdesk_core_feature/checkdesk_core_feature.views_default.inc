@@ -241,7 +241,6 @@ print theme(\'views_autorefresh\', array(
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'stories';
-  $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Stories';
   $handler->display->display_options['menu']['weight'] = '1';
   $handler->display->display_options['menu']['name'] = 'main-menu';
@@ -413,7 +412,6 @@ print theme(\'views_autorefresh\', array(
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'reports';
-  $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Reports';
   $handler->display->display_options['menu']['weight'] = '50';
   $handler->display->display_options['menu']['name'] = 'main-menu';

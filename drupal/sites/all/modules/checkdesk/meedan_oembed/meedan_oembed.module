@@ -79,6 +79,7 @@ function meedan_oembed_data($url, $attributes = array()) {
     $embed = (object)array(
       'url' => $url,
       'provider_url' => 'http://' . parse_url($url, PHP_URL_HOST),
+      'thumbnail_url' => url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE)),
     );
   }
   meedan_oembed_scrape_generic($embed, $domain);
@@ -109,22 +110,29 @@ function meedan_oembed_scrape_generic(&$embed, $domain) {
     $html = file_get_html($url, FALSE, $context);
     if (is_object($html)) {
       // Get favicon.
-      $favicons = $html->find('link[rel=shortcut icon]', NULL, TRUE);
-      if (count($favicons)) {
-        $favicon = $favicons[0]->href;
-        //check if favicon is relative url as parse_url did not work with relatvie URL
-        $favicon_url = preg_match('/^(http|https):\/\//', $favicon); 
-        $favicon = (!$favicon_url) ? $embed->provider_url . '/' . $favicon : $favicon; 
-        $host = parse_url($favicon, PHP_URL_HOST);
-        if (empty($host)) {
-          $favicon = NULL;
+      if (empty($embed->favicon_link)) {
+        $favicons = $html->find('link[rel=shortcut icon]', NULL, TRUE);
+        if (count($favicons)) {
+          $favicon = $favicons[0]->href;
+          $favicon_url = preg_match('/^(http|https):\/\//', $favicon); 
+          $favicon = (!$favicon_url) ? $embed->provider_url . '/' . $favicon : $favicon; 
+          $host = parse_url($favicon, PHP_URL_HOST);
+          if (empty($host)) {
+            $favicon = NULL;
+          }
         }
+        if (empty($favicon)) {
+          $host = parse_url($url, PHP_URL_HOST);
+          $favicon = url('http://www.google.com/s2/favicons', array('query' => array('domain' => $host), 'absolute' => TRUE));
+        }
+        $embed->favicon_link = $favicon;
       }
-      if (empty($favicon)) {
-        $host = parse_url($url, PHP_URL_HOST);
-        $favicon = url('http://www.google.com/s2/favicons', array('query' => array('domain' => $host), 'absolute' => TRUE));
+
+      // TODO Get thumbnail.
+      if (empty($embed->thumbnail_url)) {
+        $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
       }
-      $embed->favicon_link = $favicon;
+
       // Call domain-specific scraping function if it exists.
       $callback = 'meedan_oembed_scrape_' . $domain;
       if (function_exists($callback)) {

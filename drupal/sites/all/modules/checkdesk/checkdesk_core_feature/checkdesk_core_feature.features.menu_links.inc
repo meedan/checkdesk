@@ -22,28 +22,14 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '1',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-49',
+    'weight' => '-50',
   );
-  // Exported menu link: main-menu:liveblog
-  $menu_links['main-menu:liveblog'] = array(
+  // Exported menu link: main-menu:node/add/discussion
+  $menu_links['main-menu:node/add/discussion'] = array(
     'menu_name' => 'main-menu',
-    'link_path' => 'liveblog',
-    'router_path' => 'liveblog',
-    'link_title' => 'Liveblog',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '1',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-48',
-  );
-  // Exported menu link: main-menu:node/add/media
-  $menu_links['main-menu:node/add/media'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'node/add/media',
-    'router_path' => 'node/add/media',
-    'link_title' => 'Add report',
+    'link_path' => 'node/add/discussion',
+    'router_path' => 'node/add/discussion',
+    'link_title' => 'Create story',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -54,43 +40,50 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-50',
-  );
-  // Exported menu link: main-menu:reports
-  $menu_links['main-menu:reports'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'reports',
-    'router_path' => 'reports',
-    'link_title' => 'Reports',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-46',
-  );
-  // Exported menu link: main-menu:stories
-  $menu_links['main-menu:stories'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'stories',
-    'router_path' => 'stories',
-    'link_title' => 'Stories',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
     'weight' => '-47',
+  );
+  // Exported menu link: main-menu:node/add/media
+  $menu_links['main-menu:node/add/media'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'node/add/media',
+    'router_path' => 'node/add/media',
+    'link_title' => 'Submit report',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-49',
+  );
+  // Exported menu link: main-menu:node/add/post
+  $menu_links['main-menu:node/add/post'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'node/add/post',
+    'router_path' => 'node/add/post',
+    'link_title' => 'Compose update',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-48',
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Add report');
+  t('Compose update');
+  t('Create story');
   t('Home');
-  t('Liveblog');
-  t('Reports');
-  t('Stories');
+  t('Submit report');
 
 
   return $menu_links;

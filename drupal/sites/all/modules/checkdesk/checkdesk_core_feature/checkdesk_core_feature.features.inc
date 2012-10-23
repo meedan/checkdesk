@@ -41,6 +41,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'global' => '1',
     'types' => array(
       0 => 'media',
+      1 => 'discussion',
     ),
     'flag_short' => 'Flag for fact-checking',
     'flag_long' => '',
