@@ -1980,8 +1980,17 @@ ul.icons {
     .report > header .report-actions li {
       list-style: none; }
     .report > header .report-actions > li {
+      *zoom: 1;
       display: inline;
-      margin-right: 10px; }
+      margin-left: 10px; }
+      .report > header .report-actions > li:before, .report > header .report-actions > li:after {
+        display: table;
+        content: "";
+        line-height: 0; }
+      .report > header .report-actions > li:after {
+        clear: both; }
+      .report > header .report-actions > li:first-child {
+        margin-left: 0; }
 .report .report-content {
   background-color: #e1e1e1;
   color: #555555;
@@ -2065,6 +2074,7 @@ ul.icons {
       .report .report-activity > .false:hover a {
         color: #721c15; }
   .report .report-activity .activity-list {
+    display: none;
     margin: 0;
     padding: 0;
     padding: 7.14286px 10px; }
