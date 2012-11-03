@@ -59,7 +59,6 @@ Drupal.behaviors.views_autorefresh = {
                   settings
                 );
                 Drupal.settings.views_autorefresh[settings.view_name].view_args = viewData.view_args;
-
                 // Setup the click response with Drupal.ajax.
                 var element_settings = {};
                 element_settings.url = ajax_path;
@@ -96,6 +95,7 @@ Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
       viewData.view_base_path = Drupal.settings.views_autorefresh[view_name].incremental.view_base_path;
       viewData.view_display_id = Drupal.settings.views_autorefresh[view_name].incremental.view_display_id;
       viewData.view_name = Drupal.settings.views_autorefresh[view_name].incremental.view_name;
+      viewData.autorefreshRequest = 'autorefreshRequest';
     }
     Drupal.settings.views_autorefresh[view_name].ajax.submit = viewData;
 
