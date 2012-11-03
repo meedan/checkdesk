@@ -103,6 +103,69 @@ function checkdesk_preprocess_node(&$variables) {
   $variables['icon'] = '';
 }
 
+function checkdesk_links__node($variables) {
+  $links = $variables['links'];
+  $attributes = $variables['attributes'];
+  $heading = $variables['heading'];
+  //$dropdown = $variables['dropdown'];
+  $class[] = 'report-actions';
+
+  global $language_url;
+  $output = '';
+
+  global $base_url;
+  if ($node = menu_get_object()) {
+    $nid = $node->nid;
+    $node_title = check_plain($node->title);
+    $node_url = $base_url .'/'. drupal_lookup_path('alias',"node/".$node->nid);
+    $tweet = $node_title;
+
+  }
+
+  if (count($links) > 0) {
+    $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
+    if (user_access('administer nodes')) {
+      $output .= '<li class=""><a href="' . url('<front>') . 'node/' . $nid . '/edit"><i class="icon-edit"></i> Edit</a></li>';
+    }
+  
+    if (user_is_logged_in()) {
+      // Flag as
+      $output .= '<li class="flag-as dropdown">';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-flag"></i> Flag as</a>';
+      $output .= '<ul class="dropdown-menu">';
+      $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
+      $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
+      $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
+      $output .= '</ul></li>'; 
+    }
+
+    // Share on
+    $output .= '<li class="share-on dropdown">';
+    $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-share"></i> Share on</a>';
+    $output .= '<ul class="dropdown-menu">';
+    $output .= '<li><a href="https://www.facebook.com/sharer.php?u=' . $node_url . '&t=' . $node_title . '">Share on Facebook</a></li>';
+    $output .= '<li><a href="http://twitter.com/intent/tweet?source=checkdesk&text=' . $tweet . '&url=' . $node_url . '">Share on Twitter</a></li>';
+    $output .= '<li><a href="https://plus.google.com/share?url=' . $node_url . '">Share on Google+</a></li>';
+    $output .= '</ul></li>'; 
+
+    if (user_access('administer nodes')) {
+      // Add to
+      $output .= '<li class="add-to dropdown">';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-plus-sign"></i> Add to</a>';
+      $output .= '<ul class="dropdown-menu">';
+      $output .= '<li>' . l($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href']) .'</li>';
+      $output .= '<li>' . l($links['checkdesk-publish']['title'], $links['checkdesk-publish']['href']) .'</li>';
+      $output .= '</ul></li>';
+    }
+
+
+    $output .= '</ul>';
+  }
+
+  return $output;
+}
+
+
 /**
  * Adjust report source markup
  */

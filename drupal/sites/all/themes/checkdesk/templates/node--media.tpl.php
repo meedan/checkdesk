@@ -5,33 +5,7 @@
       <h3>
         <?php print render($content['report_source']); ?>
       </h3>
-      <ul class="report-actions">
-        <li class=""><a href="<?php print url('<front>') . 'node/' . $node->nid ?>/edit"><i class="icon-edit"></i> Edit</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-flag"></i> Flag as</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Flag spam</a></li>
-            <li><a href="#">Flag graphic content</a></li>
-            <li><a href="#">Flag for fact-checking</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-share"></i> Share on</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Share on Facebook</a></li>
-            <li><a href="#">Share on Twitter</a></li>
-            <li><a href="#">Share on Google+</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-plus-sign"></i> Add to</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Share on Facebook</a></li>
-            <li><a href="#">Share on Twitter</a></li>
-            <li><a href="#">Share on Google+</a></li>
-          </ul>
-        </li>
-      </ul>
+      <?php print render($content['links']); ?>
     </header>
 
     <section class="report-content">
@@ -87,7 +61,7 @@
         ?>
 
         <header class="<?php print $status_class; ?>">
-          <a href="#">
+          <a class="report-activity-header" href="#">
             <h3><?php print $total_rows; ?> fact-checking comments</h3>
             <div class="report-status">
                 <?php print $icon . $status->name; ?>
@@ -96,6 +70,7 @@
         </header>
 
         <?php print $view_output; ?>
+
       <?php endif; ?>
 
       <div class="comment-form">

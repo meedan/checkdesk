@@ -25,8 +25,12 @@
 			@include reset-list();
 			@include font-shorthand(12px, normal);
 			& > li {
+				@include clearfix();
 				display: inline;
-				margin-right: $gridGutterWidth/2;
+				margin-left: $gridGutterWidth/2;
+        &:first-child {
+          margin-left: 0;
+        }
 			}
 		}
 	}
@@ -40,7 +44,6 @@
 			margin: 0 auto;
 			
 			.container {
-				
 				.oembed-title {
 					display: none;
 				}
@@ -117,7 +120,7 @@
 		}
 
 		.activity-list {
-			// display: none;
+			display: none;
 			@include reset-list();
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 			li {
