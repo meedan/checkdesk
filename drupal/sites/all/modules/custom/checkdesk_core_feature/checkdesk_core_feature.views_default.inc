@@ -164,6 +164,8 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['created']['expose']['label'] = 'Date';
   /* Contextual filter: Content: Stories (field_stories) */
   $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
   $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';

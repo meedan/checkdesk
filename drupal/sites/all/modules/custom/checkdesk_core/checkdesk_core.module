@@ -379,26 +379,6 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   }
 }
 
-function checkdesk_core_preprocess_views_exposed_form(&$variables) {
-  if ($variables['form']['#id'] == 'views-exposed-form-desk-reports-block') {
-    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-jvert-tabs-1.1.4.js');
-    drupal_add_css(drupal_get_path('module', 'checkdesk_core') . '/css/jquery-jvert-tabs-1.1.4.css');
-    drupal_add_js('jQuery(document).ready(function () {
-        jQuery("#vtabs1").jVertTabs({
-         select: function(index) {
-           jQuery(".views-submit-button, .views-reset-button").show();
-        }
-        });
-        jQuery(".views-submit-button, .views-reset-button").show();
-     });', 'inline');
-    $vtabs_items = array();
-    foreach ($variables['widgets'] as $id => $widget) {
-      $vtabs_items[] = l(t($widget->label), '',  array('fragment' => $widget->id .'-wrapper', 'external' => TRUE));
-    }
-
-    $variables['expose_vtabs'] = theme('item_list', array('items' => $vtabs_items, 'type' => 'ul'));
-  }
-}
 
 /**
  * Implements hook_theme().
