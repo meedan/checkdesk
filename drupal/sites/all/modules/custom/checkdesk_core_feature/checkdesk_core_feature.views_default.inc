@@ -10,7 +10,7 @@
 function checkdesk_core_feature_views_default_views() {
   $export = array();
 
-  $view = new view();
+  $view = new view;
   $view->name = 'activity_report';
   $view->description = 'Report activity stream';
   $view->tag = 'default';
@@ -23,10 +23,10 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Fact-checking activity';
-  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
@@ -65,10 +65,9 @@ function checkdesk_core_feature_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $export['activity_report'] = $view;
 
-  $view = new view();
+  $view = new view;
   $view->name = 'desk_reports';
   $view->description = '';
   $view->tag = 'checkdesk';
@@ -82,10 +81,10 @@ function checkdesk_core_feature_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Desk Reports';
   $handler->display->display_options['use_ajax'] = TRUE;
-  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = FALSE;
@@ -193,7 +192,6 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
@@ -213,7 +211,6 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['exclude'] = TRUE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -241,12 +238,6 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['filters']['title']['expose']['use_operator'] = TRUE;
   $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
   $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
   $handler->display->display_options['filters']['title']['expose']['autocomplete_filter'] = 1;
   $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
   $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
@@ -263,12 +254,6 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['filters']['field_rating_tid']['expose']['operator'] = 'field_rating_tid_op';
   $handler->display->display_options['filters']['field_rating_tid']['expose']['identifier'] = 'field_rating_tid';
   $handler->display->display_options['filters']['field_rating_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_rating_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
   $handler->display->display_options['filters']['field_rating_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_rating_tid']['vocabulary'] = 'media_rating';
   /* Filter criterion: Media sources: Source name */
@@ -283,16 +268,9 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['filters']['source']['expose']['use_operator'] = TRUE;
   $handler->display->display_options['filters']['source']['expose']['operator'] = 'source_op';
   $handler->display->display_options['filters']['source']['expose']['identifier'] = 'source';
-  $handler->display->display_options['filters']['source']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
 
   /* Display: Autorefresh Page */
   $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Stories (field_stories) */
   $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
@@ -315,7 +293,7 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['path'] = 'desk-reports/autorefresh/%';
   $export['desk_reports'] = $view;
 
-  $view = new view();
+  $view = new view;
   $view->name = 'desk_updates';
   $view->description = '';
   $view->tag = 'default';
@@ -328,10 +306,10 @@ print theme(\'views_autorefresh\', array(
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Published updates';
-  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -367,10 +345,9 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $export['desk_updates'] = $view;
 
-  $view = new view();
+  $view = new view;
   $view->name = 'desks';
   $view->description = '';
   $view->tag = 'checkdesk';
@@ -383,7 +360,6 @@ print theme(\'views_autorefresh\', array(
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Stories';
-  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -433,7 +409,6 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'stories';
   $handler->display->display_options['menu']['title'] = 'Stories';
   $handler->display->display_options['menu']['weight'] = '1';
@@ -441,7 +416,7 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['menu']['context'] = 0;
   $export['desks'] = $view;
 
-  $view = new view();
+  $view = new view;
   $view->name = 'liveblog';
   $view->description = '';
   $view->tag = 'checkdesk';
@@ -455,7 +430,6 @@ print theme(\'views_autorefresh\', array(
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Liveblog';
   $handler->display->display_options['use_ajax'] = TRUE;
-  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -514,7 +488,6 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'liveblog';
   $handler->display->display_options['menu']['title'] = 'Liveblog';
   $handler->display->display_options['menu']['weight'] = '2';
@@ -523,7 +496,6 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Feed */
   $handler = $view->new_display('feed', 'Feed', 'feed');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'rss';
   $handler->display->display_options['row_plugin'] = 'node_rss';
@@ -535,7 +507,6 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Autorefresh Page */
   $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
@@ -549,7 +520,7 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['path'] = 'liveblog/autorefresh/%';
   $export['liveblog'] = $view;
 
-  $view = new view();
+  $view = new view;
   $view->name = 'reports';
   $view->description = '';
   $view->tag = 'checkdesk';
@@ -562,10 +533,10 @@ print theme(\'views_autorefresh\', array(
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Reports';
-  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -604,7 +575,6 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'reports';
   $handler->display->display_options['menu']['title'] = 'Reports';
   $handler->display->display_options['menu']['weight'] = '50';
