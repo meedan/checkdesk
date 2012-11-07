@@ -53,7 +53,7 @@ function sharethis_configuration_form($form, &$form_state) {
   $my_path = drupal_get_path('module', 'sharethis');
   // Load the css and js for our module's configuration.
   drupal_add_css($my_path . '/ShareThisForm.css');
-  drupal_add_js('http://w.sharethis.com/share5x/js/stcommon.js', 'external');  //This is ShareThis's common library - has a serviceList of all the objects that are currently supported.
+  drupal_add_js('https://ws.sharethis.com/share5x/js/stcommon.js', 'external');  //This is ShareThis's common library - has a serviceList of all the objects that are currently supported.
   drupal_add_js($my_path . '/ShareThisForm.js');
   drupal_add_js($my_path . '/stlib_picker.js');
   drupal_add_css($my_path . '/stlib_picker.css');
@@ -131,7 +131,8 @@ function sharethis_configuration_form($form, &$form_state) {
     '#prefix' => '<div>',
     '#suffix' => '</div><div id="myPicker"></div><script type="text/javascript">stlib_picker.setupPicker(jQuery("#myPicker"), [' . $service_string_markup . '], drupal_st.serviceCallback);</script>',
     '#title' => t("Choose Your Services."),
-    '#default_value' => t($service_string)
+    '#default_value' => t($service_string),
+    '#maxlength' => 1024,
   );
   $form['options']['sharethis_option_extras'] = array(
     '#title' => t('Extra services'),
@@ -166,6 +167,13 @@ function sharethis_configuration_form($form, &$form_state) {
     '#default_value' => $teaser ? 1 : 0,
     '#description' => t('When checked, will not show the widget on node teasers.'),
   );
+  $form['context']['sharethis_comments'] = array(
+    '#title' => t('Comments'),
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('sharethis_comments', FALSE),
+    '#description' => t('Display ShareThis on comments.'),
+    '#access' => module_exists('comment'),
+  );
   $form['context']['sharethis_location'] = array(
     '#title' => t('Location'),
     '#type' => 'radios',
@@ -197,11 +205,23 @@ function sharethis_configuration_form($form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => $publisher
   );
+  $form['advanced']['sharethis_late_load'] = array(
+    '#title' => t('Late Load'),
+    '#description' => t("You can change the order in which ShareThis widget loads on the user's browser. By default the ShareThis widget loader loads as soon as the browser encounters the JavaScript tag; typically in the tag of your page. ShareThis assets are generally loaded from a CDN closest to the user. However, if you wish to change the default setting so that the widget loads after your web-page has completed loading then you simply tick this option."),
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('sharethis_late_load', FALSE),
+  );
   $form['advanced']['sharethis_twitter_suffix'] = array(
     '#title' => t("Twitter Suffix"),
     '#description' => t("Optionally append a Twitter handle, or text, so that you get pinged when someone shares an article. Example: <em>via @YourNameHere</em>"),
     '#type' => 'textfield',
     '#default_value' => variable_get('sharethis_twitter_suffix', ''),
+  );
+  $form['advanced']['sharethis_twitter_handle'] = array(
+    '#title' => t('Twitter Handle'),
+    '#description' => t('Twitter handle to use when sharing.'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('sharethis_twitter_handle', ''),
   );
   return system_settings_form($form);
 }
@@ -229,6 +249,9 @@ function sharethis_configuration_form_validate($form, &$form_state) {
 
   // Ensure default value for twitter suffix
   $form_state['values']['sharethis_twitter_suffix'] = (isset($form_state['values']['sharethis_twitter_suffix'])) ? $form_state['values']['sharethis_twitter_suffix'] : '';
+
+  // Ensure default value for twitter handle
+  $form_state['values']['sharethis_twitter_handle'] = (isset($form_state['values']['sharethis_twitter_handle'])) ? $form_state['values']['sharethis_twitter_handle'] : '';
 }
  
  /**
@@ -261,9 +284,12 @@ function sharethis_menu() {
  *   Information about the language
  */
 function sharethis_node_view($node, $view_mode, $langcode) {
-  // Don't display if searched
-  if ($view_mode == 'search_result' || $view_mode == 'search_index') {
-    return;
+  // Don't display if the user is currently searching, or in the RSS feed.
+  switch ($view_mode) {
+    case 'search_result':
+    case 'search_index':
+    case 'rss':
+      return;
   }
   // First get all of the options for the sharethis widget from the database:
   $data_options = sharethis_get_options_array();
@@ -350,6 +376,8 @@ function sharethis_get_options_array() {
     'viewMode' => variable_get('sharethis_teaser_option', 0),
     'widget' => variable_get('sharethis_widget_option', 'st_multi'),
     'twitter_suffix' => variable_get('sharethis_twitter_suffix', ''),
+    'twitter_handle' => variable_get('sharethis_twitter_handle', ''),
+    'late_load' => variable_get('sharethis_late_load', FALSE),
   );
 }
 
@@ -398,6 +426,11 @@ function sharethis_get_button_HTML($data_options, $mPath, $mTitle) {
       'st_title' => $title,
       'class' => 'st_' . $display . $type,
     );
+    if ($serviceCodeName == 'twitter') {
+      if (!empty($data_options['twitter_handle'])) {
+        $attributes['st_via'] = $data_options['twitter_handle'];
+      }
+    }
     // Only show the display text if the type is set.
     if (!empty($type)) {
       $attributes['displaytext'] = check_plain($display);
@@ -413,10 +446,15 @@ function sharethis_get_button_HTML($data_options, $mPath, $mTitle) {
   }
 
   // These are the ShareThis scripts:
-  // If switchTo5x is set to false, then the "classic" widget will be selected.
-  $is_five = $data_options['widget'] == 'st_multi' ? 'true' : 'false';
-  $publisher_id = $data_options['publisherID'];
-  $st_js = "<script type='text/javascript'>var switchTo5x=$is_five;</script>";
+  $st_js_options['switchTo5x'] = $data_options['widget'] == 'st_multi' ? TRUE : FALSE;
+  if ($data_options['late_load']) {
+    $st_js_options['__st_loadLate'] = TRUE;
+  }
+  $st_js = "<script type='text/javascript'>";
+  foreach ($st_js_options as $name => $value) {
+    $st_js .= 'var ' . $name . ' = ' . drupal_json_encode($value) . ';';
+  }
+  $st_js .= '</script>';
 
   // Check if we're using SSL or not.
   if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
@@ -427,7 +465,10 @@ function sharethis_get_button_HTML($data_options, $mPath, $mTitle) {
   }
 
   // Provide the publisher ID.
-  $st_js .= "<script type='text/javascript'>stLight.options({publisher:'$publisher_id'});</script>";
+  $stlight = drupal_json_encode(array(
+    'publisher' => $data_options['publisherID'],
+  ));
+  $st_js .= "<script type='text/javascript'>stLight.options($stlight);</script>";
   return '<div class="sharethis-wrapper">' . $st_spans . $st_js . '</div>';
 }
 
@@ -466,6 +507,29 @@ function sharethis_block_contents() {
     $mPath = url($_GET['q'], array('absolute' => TRUE));
     $mTitle = drupal_get_title();
     return sharethis_get_button_HTML($data_options, $mPath, $mTitle);
+  }
+}
+
+/**
+ * Implements hook_comment_view.
+ */
+function sharethis_comment_view($comment, $view_mode, $langcode) {
+  if (variable_get('sharethis_comments', FALSE)) {
+    $data_options = sharethis_get_options_array();
+    $path = isset($_GET['q']) ? $_GET['q'] : '<front>';
+    $mPath = url($_GET['q'], array(
+      'absolute' => TRUE,
+      'fragment' => 'comment-' . $comment->cid,
+    ));
+    $mTitle = drupal_get_title();
+    $html = sharethis_get_button_HTML($data_options, $mPath, $mTitle);
+    $comment->content['sharethis'] = array(
+      '#type' => 'html_tag',
+      '#value' => $html,
+      '#tag' => 'div',
+      '#attributes' => array('class' => 'sharethis-comment'),
+      '#weight' => intval(variable_get('sharethis_weight', 10)),
+    );
   }
 }
 
