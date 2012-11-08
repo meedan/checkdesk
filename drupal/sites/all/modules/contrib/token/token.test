@@ -1069,11 +1069,17 @@ class TokenBlockTestCase extends TokenTestHelper {
   }
 
   public function testBlockTitleTokens() {
-    $edit['title'] = '[current-page:title] block title';
+    $edit['title'] = '[user:name]';
     $edit['info'] = 'Test token title block';
     $edit['body[value]'] = 'This is the test token title block.';
-    $edit['regions[bartik]'] = 'sidebar_first';
     $this->drupalPost('admin/structure/block/add', $edit, 'Save block');
+    // Ensure token validation is working on the block.
+    $this->assertText('The Block title is using the following invalid tokens: [user:name].');
+
+    // Create the block for real now with a valid title.
+    $edit['title'] = '[current-page:title] block title';
+    $edit['regions[bartik]'] = 'sidebar_first';
+    $this->drupalPost(NULL, $edit, 'Save block');
 
     $this->drupalGet('node');
     $this->assertText('Welcome to ' . variable_get('site_name', 'Drupal') . ' block title');

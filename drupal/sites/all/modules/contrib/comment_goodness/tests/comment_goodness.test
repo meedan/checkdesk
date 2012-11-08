@@ -1,0 +1,180 @@
+<?php
+
+/**
+ * Test comment settings form.
+ */
+class CommentGoodnessSettingsFormTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Load comment settings forms',
+      'description' => 'Test the loading of the comment settings form.',
+      'group' => 'Comment Goodness',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('node', 'comment', 'comment_goodness');
+
+    $admin_user = $this->drupalCreateUser(array(
+      'administer content types',
+      'administer comments',
+    ));
+    $this->drupalLogin($admin_user);
+  }
+
+  /**
+   * Test if the comment settings form got altered correctly.
+   */
+  function testCommentForm() {
+    $this->drupalGet('/admin/structure/types/manage/page');
+    $this->assertField('comment_created_date_format', t('Comment created date field displayed.'));
+    $this->assertField('comment_changed_date_format', t('Comment changed date field displayed.'));
+    $this->assertField('comment_default_sorting', t('Sort order field displayed.'));
+    $this->assertField('comment_form_placement', t('Comment form placement field displayed.'));
+    $this->assertField('comment_section_label', t('Comment section label field displayed.'));
+    $this->assertField('comment_form_label', t('Comment form label field displayed.'));
+    $this->assertField('comment_expose_fields', t('Expose comment properties as pseudo-fields field displayed.'));
+  }
+}
+
+/**
+ * Test the deletion of own comments.
+ */
+class CommentGoodnessDeleteOwnTestCase extends CommentHelperCase {
+
+  protected $web_user;
+  protected $admin_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Delete own comment',
+      'description' => 'Test the deletion of own comments.',
+      'group' => 'Comment Goodness',
+    );
+  }
+
+  function setUp() {
+    DrupalWebTestCase::setUp('node', 'comment', 'comment_goodness');
+
+    $this->admin_user = $this->drupalCreateUser(array(
+      'administer content types',
+      'administer comments',
+      'bypass node access',
+      'administer nodes',
+    ));
+
+    $this->web_user = $this->drupalCreateUser(array(
+      'edit own page content',
+      'create page content',
+      'post comments',
+      'delete own comments',
+    ));
+  }
+
+  /**
+   * Test if the user can delete her own content.
+   */
+  function testCommentDeleteOwn() {
+    $this->drupalLogin($this->admin_user);
+
+    $langcode = LANGUAGE_NONE;
+    $title_key = "title";
+    $body_key = "body[$langcode][0][value]";
+
+    // Create node to comment on with admin user.
+    $edit = array();
+    $edit[$title_key] = $this->randomName(8);
+    $edit[$body_key] = $this->randomName(16);
+    $this->drupalPost('node/add/article', $edit, t('Save'));
+
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->web_user);
+
+    // Post comment on previously created node with an authenticated
+    // (non-admin) user.
+    $node = $this->drupalGetNodeByTitle($edit[$title_key]);
+    $comment_text = $this->randomName();
+    $comment = $this->postComment($node, $comment_text);
+    $this->assertTrue($this->commentExists($comment), t('Comment found.'));
+
+    // Delete own comment.
+    $this->drupalPost("comment/{$comment->id}/delete-own", NULL, t('Delete'));
+    // Confirm own comment got deleted.
+    $this->assertFalse(comment_load($comment->id), t('Own comment deleted.'));
+
+    $this->drupalLogout();
+  }
+}
+
+/**
+ * Test if comment date (created/changed) format is configurable.
+ */
+class CommentGoodnessCommentDateTestCase extends CommentHelperCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Change comment date format',
+      'description' => 'Test the comment created/changed date formats.',
+      'group' => 'Comment Goodness',
+    );
+  }
+
+  function setUp() {
+    DrupalWebTestCase::setUp('node', 'comment', 'comment_goodness');
+
+    $admin_user = $this->drupalCreateUser(array(
+      'administer content types',
+      'administer comments',
+      'bypass node access',
+      'administer nodes',
+    ));
+
+    theme_enable(array('stark'));
+    variable_set('theme_default', 'stark');
+    variable_set('date_format_long', 'l, j. F Y - G:i');
+    variable_set('date_format_medium', 'j. F Y - G:i');
+    variable_set('date_format_short', 'Y M j - g:ia');
+    // Enable pseudo-field exposing for articles.
+    variable_set('comment_expose_fields_article', 1);
+
+    $this->drupalLogin($admin_user);
+  }
+
+  /**
+   * Change comment created date to short, changed to long and confirm the
+   * that the change is effective.
+   *
+   * @todo Incomplete, finish implementation: check in the rendered node if the
+   *   dates are formatted correctly. The testability depends on a patch. Once
+   *   that is finished, make the function public again, so that it can run.
+   */
+  private function testCommentDateFormat() {
+    $langcode = LANGUAGE_NONE;
+    $title_key = "title";
+    $body_key = "body[$langcode][0][value]";
+
+    $edit = array();
+    $edit[$title_key] = $this->randomName(8);
+    $edit[$body_key] = $this->randomName(16);
+    $this->drupalPost('node/add/article', $edit, t('Save'));
+
+    $node = $this->drupalGetNodeByTitle($edit[$title_key]);
+    $comment_text = $this->randomName();
+    $comment = $this->postComment($node, $comment_text);
+
+    // Change comment date format for articles.
+    $edit = array(
+      'comment_created_date_format' => 'short',
+      'comment_changed_date_format' => 'long',
+    );
+    $this->drupalPost('/admin/structure/types/manage/article', $edit, t('Save content type'));
+
+    $this->drupalGet("node/{$node->nid}");
+    $xpath = '//title';
+    $this->assertEqual(current($this->xpath($xpath)), $node->title . ' | Drupal', 'Page title is equal to node title.', 'Node');
+
+    $this->drupalLogout();
+  }
+}

@@ -14,6 +14,9 @@
  */
 define('comment_goodness_OLDER_FIRST', 1); // default
 define('comment_goodness_NEWER_FIRST', 2);
+define('comment_goodness_FORM_PLACEMENT_SORT', 1);
+define('comment_goodness_FORM_PLACEMENT_TOP', 2);
+define('comment_goodness_FORM_PLACEMENT_BOTTOM', 3);
 define('comment_goodness_COMMENT_SECTION_LABEL', t('Comments'));
 define('comment_goodness_COMMENT_FORM_LABEL', t('Post new comment'));
 
@@ -23,12 +26,34 @@ define('comment_goodness_COMMENT_FORM_LABEL', t('Post new comment'));
  * Provide additional comment configurations on the content type edit form.
  */
 function comment_goodness_form_node_type_form_alter(&$form, $form_state) {
+  $form['comment']['comment_created_date_format'] = array(
+    '#title' => t('Post date format'),
+    '#type' => 'select',
+    '#options' => comment_goodness_date_format_type_options(),
+    '#default_value' => variable_get('comment_created_date_format_' . $form['#node_type']->type, 'medium'),
+  );
+  $form['comment']['comment_changed_date_format'] = array(
+    '#title' => t('Update date format'),
+    '#type' => 'select',
+    '#options' => comment_goodness_date_format_type_options(),
+    '#default_value' => variable_get('comment_changed_date_format_' . $form['#node_type']->type, 'medium'),
+  );
   $form['comment']['comment_default_sorting'] = array(
     '#title' => t('Sort order'),
     '#type' => 'select',
     '#options' => array(1 => t('Older first'),
                        2 => t('Newer first')),
     '#default_value' => variable_get('comment_default_sorting_' . $form['#node_type']->type, comment_goodness_OLDER_FIRST),
+  );
+  $form['comment']['comment_form_placement'] = array(
+    '#title' => t('Comment form location'),
+    '#type' => 'select',
+    '#options' => array(
+      1 => t('Depending on sort order'),
+      2 => t('Above existing comments'),
+      3 => t('Below existing comments'),
+    ),
+    '#default_value' => variable_get('comment_form_placement_' . $form['#node_type']->type, comment_goodness_FORM_PLACEMENT_BOTTOM),
   );
   $form['comment']['comment_section_label'] = array(
     '#title' => t('Comment section label'),
@@ -40,7 +65,33 @@ function comment_goodness_form_node_type_form_alter(&$form, $form_state) {
     '#type' => 'textfield',
     '#default_value' => variable_get('comment_form_label_' . $form['#node_type']->type, comment_goodness_COMMENT_FORM_LABEL),
   );
+
+  // Set "Comments per page" setting to textfield so it allows more gradual
+  // control over the number of comments to show.
+  $form['comment']['comment_default_per_page']['#type'] = 'textfield';
+  $form['comment']['comment_default_per_page']['#element_validate'] = array('element_validate_integer_positive');
+  unset($form['comment']['comment_default_per_page']['#options']);
+
+  $comment_expose_fields_value = variable_get('comment_expose_fields_' . $form['#node_type']->type, 0);
+  $form['comment']['comment_expose_fields'] = array(
+    '#title' => t('Expose comment properties as pseudo-fields'),
+    '#description' => t('Allow comment properties to be managed on the "Comment display" form.'),
+    '#type' => 'checkbox',
+    '#default_value' => $comment_expose_fields_value,
+  );
+
+  $form['#submit'][] = 'comment_goodness_node_type_form_submit';
 }
+
+/**
+ * Custom submit handler for node_type_form: clears fields cache if needed.
+ */
+function comment_goodness_node_type_form_submit($form, &$form_state) {
+  if ($form['comment']['comment_expose_fields']['#default_value'] != $form_state['values']['comment_expose_fields']) {
+    cache_clear_all('field_info_fields', 'cache_field');
+  }
+}
+
 /**
  * Implements hook_query_TAG_alter().
  *
@@ -103,6 +154,23 @@ function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $qu
 }
 
 /**
+ * Options callback: get available date types with human readable labels.
+ *
+ * @return array
+ *   date type => date type title (example date)
+ */
+function comment_goodness_date_format_type_options() {
+  $options = array();
+  $format_types = system_get_date_types();
+  if (!empty($format_types)) {
+    foreach ($format_types as $type => $type_info) {
+      $options[$type] = $type_info['title'] . ' (' . format_date(REQUEST_TIME, $type) . ')';
+    }
+  }
+  return $options;
+}
+
+/**
  * Implements hook_menu().
  */
 function comment_goodness_menu() {
@@ -134,7 +202,8 @@ function comment_goodness_menu_alter(&$items) {
 /**
  * Implements hook_theme_registry_alter().
  *
- * Override the core comment-wrapper template with the template in this module.
+ * Override the core comment-wrapper and comment template with the template in
+ * this module.
  */
 function comment_goodness_theme_registry_alter(&$theme_registry) {
   if(isset($theme_registry['comment_wrapper'])) {
@@ -143,6 +212,14 @@ function comment_goodness_theme_registry_alter(&$theme_registry) {
     if (isset($comment_wrapper['template']) && $comment_wrapper['template'] === 'modules/comment/comment-wrapper') {
       $path = drupal_get_path('module', 'comment_goodness');
       $theme_registry['comment_wrapper']['template'] = $path . '/templates/comment-wrapper';
+    }
+  }
+  if(isset($theme_registry['comment'])) {
+    $comment = $theme_registry['comment'];
+    // If the current template belongs to the core comment module, replace it.
+    if (isset($comment['template']) && $comment['template'] === 'modules/comment/comment') {
+      $path = drupal_get_path('module', 'comment_goodness');
+      $theme_registry['comment']['template'] = $path . '/templates/comment';
     }
   }
 }
@@ -181,6 +258,91 @@ function comment_goodness_comment_view($comment, $view_mode, $langcode) {
       'href' => "comment/$comment->cid/delete-own",
       'html' => TRUE,
     );
+  }
+
+  $node = node_load($comment->nid);
+
+  if (variable_get('comment_expose_fields_' . $node->type, FALSE)) {
+    $account = user_load($comment->uid);
+
+    $uri = entity_uri('comment', $comment);
+    $uri['options'] += array('attributes' => array('class' => 'permalink', 'rel' => 'bookmark'));
+
+    if (variable_get('comment_subject_field_' . $node->type, 1) == 1) {
+      if (!isset($comment->content['subject'])) {
+        $comment->content['subject'] = array(
+          '#type' => 'link',
+          '#title' => $comment->subject,
+          '#href' => $uri['path'],
+          '#options' => $uri['options'],
+        );
+      }
+    }
+
+    if (!isset($comment->content['author'])) {
+      $comment->content['author'] = array(
+        '#type' => 'item',
+        '#theme' => 'username',
+        '#account' => $account,
+      );
+    }
+
+    if (variable_get('user_signatures', 1) == 1 && !isset($comment->content['signature'])) {
+      $comment->content['signature'] = array(
+        '#type' => 'item',
+        '#markup' => !empty($comment->signature_format) ? check_markup($comment->signature, $comment->signature_format, $langcode) : check_plain($comment->signature),
+      );
+    }
+
+    if (theme_get_setting('toggle_comment_user_picture') && !isset($comment->content['picture'])) {
+      $comment->content['picture'] = array(
+        '#type' => 'item',
+        '#theme' => 'user_picture',
+        '#account' => $account,
+      );
+    }
+
+    if (!isset($comment->content['created'])) {
+      $comment->content['created'] = array(
+        '#type' => 'item',
+        '#markup' => format_date($comment->created, variable_get('comment_created_date_format_' . $node->type, 'medium')),
+      );
+    }
+
+    if (!isset($comment->content['changed'])) {
+      $comment->content['changed'] = array(
+        '#type' => 'item',
+        '#markup' => format_date($comment->created, variable_get('comment_changed_date_format_' . $node->type, 'medium')),
+      );
+    }
+
+    if (!isset($comment->content['new'])) {
+      $comment->content['new'] = array(
+        '#type' => 'item',
+        '#markup' => !empty($comment->new) ? t('new') : '',
+      );
+    }
+
+    if (!isset($comment->content['permalink'])) {
+      $comment->content['permalink'] = array(
+        '#type' => 'link',
+        '#title' => t('Permalink'),
+        '#href' => $uri['path'],
+        '#options' => $uri['options'],
+      );
+    }
+
+    if (!isset($comment->content['submitted'])) {
+      $date_type = variable_get('comment_created_date_format_' . $node->type, 'medium');
+      $submitted_string = _comment_goodness_get_submitted_string($date_type);
+      $comment->content['submitted'] = array(
+        '#type' => 'item',
+        '#markup' => t($submitted_string, array(
+          '!username' => theme('username', array('account' => $account)),
+          '!datetime' => format_date($comment->created, $date_type),
+        )),
+      );
+    }
   }
 }
 
@@ -240,9 +402,40 @@ function comment_goodness_confirm_delete_submit($form, &$form_state) {
  *
  * The overriding starts with adding an additional new comment form submit
  * handler.
+ *
+ * Disabling the submit actions while the comment body is empty also happens
+ * here.
  */
 function comment_goodness_form_comment_form_alter(&$form, &$form_state, $form_id) {
   $form['#submit'][] = 'comment_goodness_form_submit';
+
+  // Disable preview button.
+  _comment_goodness_disable_actions($form);
+}
+
+/**
+ * Helper function to disable the form submit actions while the comment body is
+ * empty.
+ */
+function _comment_goodness_disable_actions(&$form) {
+  $node_language = $form['#node']->language;
+  $disable_button_state = array(
+    'disabled' => array(
+      "textarea[name=\"comment_body[{$node_language}][0][value]\"]" => array('empty' => TRUE),
+    ),
+  );
+
+  foreach (array('submit', 'preview') as $button) {
+    if (!isset($form['actions']['preview']['#states'])) {
+      $form['actions'][$button]['#states'] = array();
+    }
+    $form['actions'][$button]['#states'] += $disable_button_state;
+  }
+
+  // Add css to indicate that the buttons are disabled.
+  $module_path = drupal_get_path('module', 'comment_goodness');
+  drupal_add_css("$module_path/css/disabled_actions.css");
+  drupal_add_js("$module_path/comment_goodness.js");
 }
 
 /**
@@ -268,6 +461,26 @@ function comment_goodness_form_submit($form, &$form_state) {
 /**
  * Implements hook_preprocess_HOOK().
  *
+ * Provide template variables to change the comment created, changed and
+ * submitted by dates.
+ */
+function comment_goodness_preprocess_comment(&$variables) {
+  $comment = $variables['elements']['#comment'];
+  $variables['created'] = format_date($comment->created, variable_get('comment_created_date_format_' . $variables['node']->type, 'medium'));
+  $variables['changed'] = format_date($comment->changed, variable_get('comment_changed_date_format_' . $variables['node']->type, 'medium'));
+
+  $date_type = variable_get('comment_created_date_format_' . $variables['node']->type, 'medium');
+  $submitted_string = _comment_goodness_get_submitted_string($date_type);
+
+  $variables['submitted'] = t($submitted_string, array(
+    '!username' => theme('username', array('account' => $variables['author'])),
+    '!datetime' => $variables['created'],
+  ));
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
  * Provide a template variable to vary the placement of the comment form; either
  * above or below the comments dependent on the sort order. For ASC sorted
  * comments, the comment form is placed at the bottom of the list, near the
@@ -275,18 +488,38 @@ function comment_goodness_form_submit($form, &$form_state) {
  * the comments, again, near the newest comment.
  */
 function comment_goodness_preprocess_comment_wrapper(&$variables) {
-  // Bottom placement of the comment form is the Drupal default.
-  $variables['comment_form_placement'] = 'bottom';
-  // Get the configured default sort ordering for this node type.
-  $sort = variable_get('comment_default_sorting_' . $variables['node']->type, comment_goodness_OLDER_FIRST);
-  // Indicate that the comment form should be rendered above the comments
-  // if the sort order is newest to oldest (ASC).
-  if ($sort == comment_goodness_NEWER_FIRST) {
-    $variables['comment_form_placement'] = 'top';
+  // Get the configured form placement for this node type.
+  $form_placement = variable_get('comment_form_placement_' . $variables['node']->type, comment_goodness_FORM_PLACEMENT_BOTTOM);
+
+  switch ($form_placement) {
+    case comment_goodness_FORM_PLACEMENT_TOP:
+      $variables['comment_form_placement'] = 'top';
+      break;
+
+    case comment_goodness_FORM_PLACEMENT_BOTTOM:
+      $variables['comment_form_placement'] = 'bottom';
+      break;
+
+    case comment_goodness_FORM_PLACEMENT_SORT:
+    default:
+      // Bottom placement of the comment form is the Drupal default.
+      $variables['comment_form_placement'] = 'bottom';
+
+      // Get the configured default sort ordering for this node type.
+      $sort = variable_get('comment_default_sorting_' . $variables['node']->type, comment_goodness_OLDER_FIRST);
+
+      // Indicate that the comment form should be rendered above the comments
+      // if the sort order is newest to oldest (ASC).
+      if ($sort == comment_goodness_NEWER_FIRST) {
+        $variables['comment_form_placement'] = 'top';
+      }
+      break;
   }
+
   // Get the section labels
   $comment_section_label = variable_get('comment_section_label_' . $variables['node']->type, comment_goodness_COMMENT_SECTION_LABEL);
   $comment_form_label = variable_get('comment_form_label_' . $variables['node']->type, comment_goodness_COMMENT_FORM_LABEL);
+
   // Add the labels to the page variables
   $variables['labels'] = array(
     'section_label' => check_plain($comment_section_label),
@@ -404,3 +637,135 @@ function comment_goodness_get_display_ordinal($cid, $node_type) {
   return $query->execute()->fetchField();
 }
 
+/**
+ * Implements hook_field_extra_fields().
+ */
+function comment_goodness_field_extra_fields() {
+  $return = array();
+
+  foreach (node_type_get_types() as $type) {
+    $comment_bundle = 'comment_node_' . $type->type;
+
+    if (variable_get('comment_expose_fields_' . $type->type, FALSE)) {
+      $return['comment'][$comment_bundle]['display']['author'] = array(
+        'label' => t('Author'),
+        'description' => t('Author of comment'),
+        'weight' => -10,
+      );
+
+      if (variable_get('comment_subject_field_' . $type->type, 1) == 1) {
+        $return['comment'][$comment_bundle]['display']['subject'] = array(
+          'label' => t('Subject'),
+          'description' => t('Subject of comment'),
+          'weight' => -9,
+        );
+      }
+
+      if (variable_get('user_signatures', 1) == 1) {
+        $return['comment'][$comment_bundle]['display']['signature'] = array(
+          'label' => t('Signature'),
+          'description' => t('Signature of author'),
+          'weight' => -8,
+        );
+      }
+
+      if (theme_get_setting('toggle_comment_user_picture')) {
+        $return['comment'][$comment_bundle]['display']['picture'] = array(
+          'label' => t('Picture'),
+          'description' => t('Avatar image of author'),
+          'weight' => -7,
+        );
+      }
+
+      $return['comment'][$comment_bundle]['display']['created'] = array(
+        'label' => t('Created'),
+        'description' => t('Comment creation date'),
+        'weight' => -6,
+      );
+
+      $return['comment'][$comment_bundle]['display']['changed'] = array(
+        'label' => t('Changed'),
+        'description' => t('Comment update date'),
+        'weight' => -5,
+      );
+
+      $return['comment'][$comment_bundle]['display']['new'] = array(
+        'label' => t('New'),
+        'description' => t('String showing if comment is new'),
+        'weight' => -4,
+      );
+
+      $return['comment'][$comment_bundle]['display']['permalink'] = array(
+        'label' => t('Permalink'),
+        'description' => t('Permalink to comment'),
+        'weight' => -3,
+      );
+
+      $return['comment'][$comment_bundle]['display']['submitted'] = array(
+        'label' => t('Submitted by'),
+        'description' => t('Information about who and when submitted the comment'),
+        'weight' => -2,
+      );
+
+      $return['comment'][$comment_bundle]['display']['links'] = array(
+        'label' => t('Links'),
+        'description' => t('Comment action links'),
+        'weight' => -1,
+      );
+    }
+  }
+
+  return $return;
+}
+
+/**
+ * Checks if $date_type uses a Timeago date format.
+ *
+ * @param string $date_type
+ *   The name of an existing date type.
+ *
+ * @return bool
+ *   If $date_type uses a Timeago date format.
+ */
+function _comment_goodness_uses_timeago_format($date_type) {
+  if (module_exists('timeago')) {
+    $date_type_format = variable_get('date_format_' . $date_type);
+    $timeago_formats = array(
+      TIMEAGO_FORMAT_SHORT_US,
+      TIMEAGO_FORMAT_SHORT,
+      TIMEAGO_FORMAT_MEDIUM_US,
+      TIMEAGO_FORMAT_MEDIUM,
+      TIMEAGO_FORMAT_LONG_US,
+      TIMEAGO_FORMAT_LONG,
+    );
+
+    return in_array($date_type_format, $timeago_formats);
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Returns the proper format of the 'Submitted' string.
+ *
+ * Checks if Timeago is used by $date_type and returns the correct 'Submitted'
+ * string.
+ *
+ * @param $date_type
+ *   Date type to check.
+ *
+ * @return string
+ *   'Submitted' string.
+ *
+ * @see _comment_goodness_uses_timeago_format()
+ */
+function _comment_goodness_get_submitted_string($date_type) {
+  if (_comment_goodness_uses_timeago_format($date_type)) {
+    $submitted_string = 'Submitted by !username !datetime';
+  }
+  else {
+    $submitted_string = 'Submitted by !username on !datetime';
+  }
+  return $submitted_string;
+}
