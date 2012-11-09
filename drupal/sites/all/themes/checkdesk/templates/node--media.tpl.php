@@ -70,14 +70,14 @@
           </a>
         </header>
 
-        <?php print $view_output; ?>
+        <div class="activity-wrapper">
+          <?php
+            print $view_output;
+            print render($content['comments']); 
+          ?>
+        </div>
 
       <?php endif; ?>
-
-      <div class="comment-form">
-        <?php print render($content['comments']); ?>
-      </div>
-
 <!--       <footer>
         Something in small 
       </footer> -->

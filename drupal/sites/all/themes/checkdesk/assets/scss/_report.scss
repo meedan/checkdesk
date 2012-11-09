@@ -40,10 +40,19 @@
 		color: $gray;
 		@include clearfix();
 		.report-media {
-			background-color: $black;
-			margin: 0 auto;
-			
+			background-color: $white;
+			text-align: center;
+			/* The ghost, nudged to maintain perfect centering */
+			.report-media:before {
+				content: '';
+				display: inline-block;
+				height: 100%;
+				vertical-align: middle;
+				margin-right: -0.25em; /* Adjusts for spacing */
+			}
 			.container {
+				display: inline-block;
+  				vertical-align: middle;
 				.oembed-title {
 					display: none;
 				}
@@ -75,7 +84,7 @@
 	}
 
 	.report-activity {
-		background-color: lighten($grayLighter, 5%);
+		
 		& > header {
 			@include clearfix();
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
@@ -119,10 +128,14 @@
 			}
 		}
 
-		.activity-list {
+		.activity-wrapper {
 			display: none;
+		}
+
+		.activity-list {
 			@include reset-list();
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+			background-color: lighten($grayLighter, 5%);
 			li {
 				border-left: 2px solid $white;
 				color: $gray;
@@ -156,6 +169,15 @@
 			.icon-ok-sign { color: $green; }
 			.icon-question-sign { color: $orange; }
 			.icon-remove-sign { color: $red; }
+		}
+
+		#comment-form {
+			@include clearfix();
+			padding: 0 $gridGutterWidth;
+			background-color: $grayLighter;
+			label {
+				display: none;
+			}
 		}
 
 		& > footer {

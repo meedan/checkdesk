@@ -178,20 +178,15 @@ function checkdesk_checkdesk_core_report_source(&$variables) {
 }
 
 
-// /**
-//  * Adjust comment form
-//  */
-// function checkdesk_form_comment_form_alter(&$form, &$form_state, $form_id){
-//   // remove format tips
-//   $form['comment_body']['#after_build'][] = 'remove_tips';
-// }
-// /**
-//  * Helper function to unset format guidelines
-//  */
-// function remove_tips(&$form){
-//   unset($form['und'][0]['format']);
-//   return $form;
-// }
+/**
+ * Adjust node comments form
+ */
+function checkdesk_form_comment_form_alter(&$form, &$form_state) {
+  $form['author']['homepage'] = NULL;
+  $form['author']['mail'] = NULL;
+  $form['actions']['submit']['#attributes']['class'] = array('btn');
+  $form['actions']['submit']['#value'] = t('Add comment');
+}
 
 function checkdesk_field__field_rating(&$variables) {
   $output = '';
