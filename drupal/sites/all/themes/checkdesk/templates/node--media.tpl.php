@@ -1,3 +1,4 @@
+<?php print render($content['meedan_sensitive_content']); ?>
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   
   <article class="report">
