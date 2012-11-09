@@ -1,6 +1,5 @@
-<?php print render($content['meedan_sensitive_content']); ?>
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  
+  <?php print render($content['meedan_sensitive_content']); ?>  
   <article class="report">
     <header>
       <h3>
@@ -8,6 +7,7 @@
       </h3>
       <?php print render($content['links']); ?>
     </header>
+
 
     <section class="report-content">
       <div class="report-media">

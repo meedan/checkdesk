@@ -28,9 +28,13 @@
 				@include clearfix();
 				display: inline;
 				margin-left: $gridGutterWidth/2;
-        &:first-child {
-          margin-left: 0;
-        }
+		        &:first-child {
+		          margin-left: 0;
+		        }
+		        // remove ajax throbber inside dropdown menus
+		        .flag-throbber {
+		        	// display: none;
+		        }
 			}
 		}
 	}
@@ -173,7 +177,7 @@
 
 		#comment-form {
 			@include clearfix();
-			padding: 0 $gridGutterWidth;
+			padding: 0 $gridGutterWidth/2;
 			background-color: $grayLighter;
 			label {
 				display: none;

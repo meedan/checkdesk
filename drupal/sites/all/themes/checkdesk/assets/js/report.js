@@ -10,6 +10,7 @@
 				$('#'+ element).toggleClass('open');
 				return false;
 			});
+			
 		}
 	};
 

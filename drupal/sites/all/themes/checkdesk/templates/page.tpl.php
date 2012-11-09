@@ -2,7 +2,7 @@
 
   <!-- ______________________ HEADER _______________________ -->
 
-  <header id="navbar" role="banner" class="navbar navbar-fixed-top">
+<!--   <header id="navbar" role="banner" class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
           <nav role="navigation">
@@ -16,7 +16,7 @@
           </nav>
       </div>
     </div>
-  </header>
+  </header> -->
 
   <!-- ______________________ MAIN _______________________ -->
 
