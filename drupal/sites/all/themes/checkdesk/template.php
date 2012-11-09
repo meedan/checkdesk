@@ -165,7 +165,6 @@ function checkdesk_links__node($variables) {
   return $output;
 }
 
-
 /**
  * Adjust report source markup
  */
@@ -178,6 +177,21 @@ function checkdesk_checkdesk_core_report_source(&$variables) {
   return $output;
 }
 
+
+// /**
+//  * Adjust comment form
+//  */
+// function checkdesk_form_comment_form_alter(&$form, &$form_state, $form_id){
+//   // remove format tips
+//   $form['comment_body']['#after_build'][] = 'remove_tips';
+// }
+// /**
+//  * Helper function to unset format guidelines
+//  */
+// function remove_tips(&$form){
+//   unset($form['und'][0]['format']);
+//   return $form;
+// }
 
 function checkdesk_field__field_rating(&$variables) {
   $output = '';
