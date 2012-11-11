@@ -1,0 +1,244 @@
+<?php
+
+/**
+ * Implements hook_heartbeat_activity_view().
+ * Change some data on heartbeat activity display 
+ */
+function checkdesk_notifications_heartbeat_activity_view(HeartbeatActivity $heartbeatActivity, $view_mode = 'full', $language = NULL) {
+  unset($heartbeatActivity->content['username']);
+  unset($heartbeatActivity->content['buttons']);
+  $actor = user_load($heartbeatActivity->actor->uid);
+  $path = ($actor && $actor->picture ? $actor->picture->uri : '');
+  $heartbeatActivity->content['avatar'] = array(
+    '#markup' => theme('image_style', array('style_name' => 'notifications_avatar', 'path' => $path, 'attributes' => array('class' => 'avatar'))),
+  );
+}
+
+/**
+ * Gets number of new notifications.
+ */
+function checkdesk_notifications_number_of_new_items($user) {
+
+  // Execute view query
+  $view = views_get_view('my_notifications');
+  $view->set_display('block');
+  $view->build();
+
+  // Prepare placeholders
+  $params = meedan_notifications_placeholders_for_views($user);
+  unset($params[':nids']);
+
+  // Add a last condition - only activities after last login
+  $last = meedan_notifications_get_last_time_menu_opened($user);
+  $view->build_info['query'] = str_replace('GROUP', 'AND heartbeat_activity.timestamp > ' . $last . ' GROUP', $view->build_info['query']);
+
+  return db_query($view->build_info['query'], $params)->rowCount();
+}
+
+/**
+ * Implements hook_block_view_alter().
+ * Change notifications block footer
+ */
+function checkdesk_notifications_block_view_alter(&$data, $block) {
+  global $user;
+  if ($block && $block->delta == 'my_notifications-block') {
+    if (!isset($data)) $data = array();
+    if (!array_key_exists('content', $data)) $data['content'] = array('#markup' => '');
+    $count = checkdesk_notifications_number_of_new_items($user);
+    $counter = '';
+    if ($count > 0) $counter = '<span>' . $count . '</span>';
+    $data['subject'] = '<span class="notifications-count">' . $counter . '</span> <span class="notifications-label">' . format_plural($count, t('Notification'), t('Notifications')) . '</span>';
+    $data['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/notifications', array('absolute' => TRUE))) . '</p><div class="notifications-footer"></div>';
+    $data['content']['#markup'] = '<span>&nbsp;</span>' . $data['content']['#markup'];
+    drupal_add_js(drupal_get_path('module', 'checkdesk_notifications') . '/js/notifications_menu.js');
+  }
+}
+
+/**
+ * Implements hook_image_default_styles().
+ * Add dimensions for avatars in notifications list
+ */
+function checkdesk_notifications_image_default_styles() {
+  $styles = array();
+
+  $styles['notifications_avatar'] = array(
+      'effects' => array(
+        array(
+          'name' => 'image_scale',
+          'data' => array('width' => 20, 'height' => 20, 'upscale' => 1),
+          'weight' => 0,
+          ),   
+        )    
+      );
+
+  return $styles;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function checkdesk_notifications_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'checkdesk_notifications'),
+  );
+}
+
+/**
+ * Implements hook_meedan_notifications_events_alter().
+ */
+function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
+  global $user;
+  $events = array();
+  // We need events for both site and e-mail notifications
+  foreach (array('site' => t('On site: '), 'email' => t('By e-mail: ')) as $context => $label) {
+    if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
+      $events[$context . '_report_flagged'] = array(
+        'label' => $label . t('Report flagged'),
+        'token type' => 'node',
+      );
+      $events[$context . '_report_suggested'] = array(
+        'label' => $label . t('Report suggested to story'),
+        'token type' => 'node',
+      );
+      $events[$context . '_comment_on_update'] = array(
+        'label' => $label . t('Comment on update'),
+        'token type' => 'node',
+      );
+    }
+    if (!in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
+      $events[$context . '_update_on_story_i_commented_on_update'] = array(
+        'label' => $label . t('New update on a story I commented on an update before'),
+        'token type' => 'node',
+      );
+      $events[$context . '_report_published_in_update'] = array(
+        'label' => $label . t('Report I submitted is published in an update'),
+        'token type' => 'node',
+      );
+    }
+    $events[$context . '_comment_on_report'] = array(
+      'label' => $label . t('Comment on report'),
+      'token type' => 'node',
+    );
+    $events[$context . '_reply_to_comment'] = array(
+      'label' => $label . t('Replies to my comments'),
+      'token type' => 'node',
+    );
+    $events[$context . '_fact_checking_on'] = array(
+      'label' => $label . t('Fact-checking turned on on a report I submitted'),
+      'token type' => 'node',
+    );
+    $events[$context . '_fact_checking_set'] = array(
+      'label' => $label . t('Fact-checking set on a report I submitted'),
+      'token type' => 'node',
+    );
+  }
+}
+
+/**
+ * Returns events
+ */
+function checkdesk_notifications_get_events() {
+  $events = array();
+  checkdesk_notifications_meedan_notifications_events_alter($events);
+  return $events;
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function checkdesk_notifications_views_query_alter(&$view, &$query) {
+
+  if ($view->name == 'my_notifications') {
+
+    // Add relationships to query
+    global $user;
+    $events = array_keys(checkdesk_notifications_get_events());
+    $subscriptions = isset($user->data['meedan_notifications']) ? $user->data['meedan_notifications'] : array_combine($events, $events);
+    $params = meedan_notifications_placeholders_for_views($user);
+    unset($params[':nids']);
+    $join = new views_join;
+    $join->construct('node', 'heartbeat_activity', 'nid', 'nid');
+    $query->add_relationship('n', $join, 'node');
+    $join = new views_join;
+    $join->construct('comment', 'heartbeat_activity', 'nid', 'cid');
+    $query->add_relationship('c', $join, 'comment');
+    $join = new views_join;
+    $join->construct('comment', 'n', 'nid', 'nid');
+    $query->add_relationship('c2', $join, 'comment');
+    $query->set_where_group('OR', 1);
+
+    // Activities for journalists only
+    if (in_array('journalist', $user->roles)) {
+      if ($subscriptions['site_report_flagged']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_flag_report'");
+      if ($subscriptions['site_report_suggested']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_suggested_to_story'");
+      if ($subscriptions['site_comment_on_report']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report'");
+      if ($subscriptions['site_comment_on_update']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_update' AND n.uid = :uid", array(':uid' => $params[':uid']));
+    }
+
+    // Activities for a normal user
+    else {
+      if ($subscriptions['site_update_on_story_i_commented_on_update']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND heartbeat_activity.nid_target IN (SELECT field_desk_target_id FROM field_data_field_desk f INNER JOIN comment c ON c.nid = f.entity_id WHERE entity_type = 'node' AND bundle = 'post' AND c.uid = :uid)", array(':uid' => $params[':uid']));
+      if ($subscriptions['site_report_published_in_update']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_published_in_update' AND heartbeat_activity.uid_target = :uid", array(':uid' => $params[':uid']));
+      if ($subscriptions['site_comment_on_report']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report' AND c2.uid = :uid", array(':uid' => $params[':uid']));
+    }
+
+    // Activities for any user
+    if ($subscriptions['site_reply_to_comment']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_reply_to_comment' AND c.uid = :uid", array(':uid' => $params[':uid']));
+    if ($subscriptions['site_fact_checking_on']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on' AND n.uid = :uid", array(':uid' => $params[':uid']));
+    if ($subscriptions['site_fact_checking_set']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_set' AND (n.uid = :uid OR c2.uid = :uid)", array(':uid' => $params[':uid']));
+    $query->add_where_expression(1, "FALSE");
+
+    // Ignore activities from this user
+    $query->add_where_expression(0, "heartbeat_activity.uid != :uid", array(':uid' => $params[':uid']));
+
+    // Remove duplicates
+    $query->add_field('heartbeat_activity', 'uaid', 'uaid', array('function' => 'groupby'));
+    $query->add_groupby('heartbeat_activity.uaid');
+  } 
+}
+
+/**
+ * Implements hook_meedan_notifications_recipients().
+ * Used to populate recipient list.
+ */
+function checkdesk_notifications_meedan_notifications_recipients($object, $context) {
+  $uids = array();
+  $roles = array_flip(user_roles(TRUE));
+  $journalist_role_id = $roles['journalist'];
+  switch ($context['event']) {
+    case 'email_report_flagged':
+    case 'email_report_suggested':
+      $uids = db_query("SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id")->fetchCol(); // all journalists
+      break;
+    case 'email_comment_on_update':
+      $uids = db_query("SELECT DISTINCT(n.uid) FROM {comment} c INNER JOIN {node} n ON n.nid = c.nid INNER JOIN {users_roles} ur ON ur.uid = n.uid WHERE c.cid = $object->cid AND rid = $journalist_role_id")->fetchCol();
+      break;
+    case 'email_reply_to_comment':
+      $uids = db_query("SELECT DISTINCT(c2.uid) FROM {comment} c1 INNER JOIN {comment} c2 ON c1.pid = c2.cid WHERE c1.cid = $object->cid")->fetchCol();
+      break;
+    case 'email_fact_checking_on':
+      $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
+      break;
+    case 'email_fact_checking_set':
+      $uids = db_query("(SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid) UNION (SELECT uid FROM {node} WHERE nid = $object->nid)")->fetchCol();
+      break;
+    case 'email_update_on_story_i_commented_on_update':
+      $uids = db_query("SELECT DISTINCT(c.uid) FROM {field_data_field_desk} f INNER JOIN {comment} c ON c.nid = f.entity_id LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE f.entity_type = 'node' AND f.bundle = 'post' AND f.field_desk_target_id = $object->nid AND ur.rid IS NULL")->fetchCol(); 
+      break;
+    case 'email_report_published_in_update':
+      $uids = db_query("SELECT uid FROM {node} n LEFT JOIN {users_roles} ur ON ur.uid = n.uid WHERE nid = $object->nid AND ur.rid IS NULL")->fetchCol();
+      break;
+    case 'email_comment_on_report':
+      $uids = db_query("(SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id) UNION (SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE ur.rid IS NULL AND c.nid = $object->nid)")->fetchCol();
+      break;
+  }
+  return $uids;
+}
+
+/**
+  * Process variables for heartbeat-activity.tpl.php.
+  */
+function checkdesk_notifications_preprocess_heartbeat_activity(&$variables) {
+  $variables['classes_array'][] = 'activity-content';
+}

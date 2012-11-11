@@ -21,6 +21,7 @@
 
 @mixin cd_layout($direction) {
 	@include layout_skeleton($direction);
+  @include notificationsBlock($direction);
 	// @include mainNavigation($direction);
 }
 
@@ -36,3 +37,5 @@
   padding-left: $gridGutterWidth;
   @include clearfix();
 }
+
+@import "notifications"

@@ -4,6 +4,7 @@
  * Implements hook_menu().
  */
 function meedan_notifications_menu() {
+  $items = array();
   $items['user/%user/notifications'] = array(
     'type' => MENU_LOCAL_TASK,
     'access callback' => 'meedan_notifications_access',
@@ -19,6 +20,12 @@ function meedan_notifications_menu() {
     'page arguments' => array('meedan_notifications_admin_settings'),
     'access arguments' => array('administer site configuration'), 
   );
+  $items['user/update-last-time'] = array(
+    'type' => MENU_CALLBACK,
+    'page callback' => 'meedan_notifications_set_last_time_menu_opened',
+    'access arguments' => array('access content'),
+    'access callback' => TRUE,
+  );
   return $items;
 }
 
@@ -31,6 +38,18 @@ function meedan_notifications_admin_settings() {
     '#title' => t('Notification email sender'),
     '#default_value' => variable_get('meedan_notifications_sender', ''),
     '#description' => t('The FROM value that will appear on the notification email. Defaults to "site-name <site-mail>".'),
+  );
+  $form['meedan_notifications_list_limit'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of items on notifications list'),
+    '#default_value' => variable_get('meedan_notifications_list_limit', ''),
+    '#description' => t('How many items to return on notifications list. Please note that if this value is not set or equals 0, all objects will be returned.'),
+  );
+  $form['meedan_notifications_since'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of days since when notifications should be got'),
+    '#default_value' => variable_get('meedan_notifications_since', ''),
+    '#description' => t('How many days should be considered to return items on notifications list. Please note that if this value is not set or equals 0, all items will be shown (not recommended).'),
   );
   return system_settings_form($form);
 }
@@ -94,7 +113,7 @@ function meedan_notifications_user_page($form, $form_state, $account) {
   $subscriptions = isset($account->data['meedan_notifications']) ? $account->data['meedan_notifications'] : array_keys($options);
   $form['subscriptions'] = array(
     '#type' => 'checkboxes',
-    '#title' => t('Please select the events for which you wish to be notified by email'),
+    '#title' => t('Please select the events for which you wish to be notified'),
     '#options' => $options,
     '#default_value' => $subscriptions,
   );  
@@ -191,7 +210,7 @@ function meedan_notifications_action($object, $context) {
       $context['event'] = $object->type; // sane default in case of human error
     }
     $uids = module_invoke_all('meedan_notifications_recipients', $object, $context);
-    $uids = array_combine($uids, $uids); // turn into [uid=>uid]
+    if (count($uids) > 0) $uids = array_combine($uids, $uids); // turn into [uid=>uid]
     drupal_alter('meedan_notifications_recipients', $uids, $object, $context);
   }
 
@@ -323,3 +342,94 @@ function meedan_notifications_mail_alter(&$message) {
   }
 }
 
+/**
+ * Gets the last time the user opened the notifications menu.
+ */
+function meedan_notifications_get_last_time_menu_opened($user) {
+  $last = db_query('SELECT timestamp FROM {meedan_notifications_last_opened_menu} WHERE uid = ' . $user->uid)->fetchField();
+  if (!$last) $last = $user->login;
+  return $last;
+}
+
+/*
+ * Just an alias for `meedan_notifications_action`
+ */
+function meedan_notifications_get_recipients_for_object($object, $context) {
+  return meedan_notifications_action($object, $context);
+}
+
+/*
+ * Given a user, return a list of objects that are related to him
+ */
+function meedan_notifications_get_objects_for_recipient($user, $context) {
+  $nids = NULL;
+  $nids = module_invoke_all('meedan_notifications_objects', $user, $context);
+  $nids = array_combine($nids, $nids); // turn into [nid=>nid]
+  drupal_alter('meedan_notifications_objects', $nids, $user, $context);
+}
+
+/**
+ * Implements hook_meedan_notifications_objects().
+ * Now this list contains nodes created by the user or nodes on which the user commented.
+ */
+function meedan_notifications_meedan_notifications_objects($user, $context) {
+  $nids = array();
+  $query = 'SELECT DISTINCT(n.nid) FROM {node} n
+            LEFT JOIN {comment} c
+            ON c.nid = n.nid
+            WHERE (n.uid = ' . $user->uid . '
+            OR c.uid = ' . $user->uid . ')';
+  if ($context['since']) $query .= ' AND n.created > ' . $context['since'];
+  if ($context['limit']) $query .= ' LIMIT ' . $context['limit'];
+  $result = db_query($query);
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+  if (!count($nids)) return array(0);
+  return $nids;
+}
+
+/**
+ * Implements hook_meedan_notifications_objects_alter().
+ * Used for nothing for the time being.
+ */
+function meedan_notifications_meedan_notifications_objects_alter(&$nids, $user, $context) {
+  // Does nothing
+}
+
+/**
+ * Get context
+ */
+function meedan_notifications_context() {
+  $since = variable_get('meedan_notifications_since', 0) * 86400;
+  if ($since) $since = time() - $since;
+  $limit = variable_get('meedan_notifications_list_limit', 0);
+  return array('limit' => $limit, 'since' => $since);
+}
+
+/**
+ * Placeholders to be used on views queries
+ */
+function meedan_notifications_placeholders_for_views($user) {
+  $context = meedan_notifications_context();
+  $nids = meedan_notifications_meedan_notifications_objects($user, $context);
+  return array(
+    ':nids' => implode(',', $nids),
+    ':uid' => $user->uid,
+  );
+}
+
+/**
+ * Callback function to update the last time the user saw the notifications.
+ */
+function meedan_notifications_set_last_time_menu_opened() {
+  global $user;
+  $uid = intval($user->uid);
+  $table = 'meedan_notifications_last_opened_menu';
+  $exists = db_query("SELECT uid FROM {$table} WHERE uid = $uid")->fetchField();
+  if ($exists == $uid) db_update($table)->fields(array('uid' => $uid, 'timestamp' => time()))->condition('uid', $uid, '=')->execute();
+  else db_insert($table)->fields(array('uid' => $uid, 'timestamp' => time()))->execute();
+  $timestamp = db_query("SELECT timestamp FROM {$table} WHERE uid = $uid")->fetchField();
+  return drupal_json_output(array('timestamp' => $timestamp));
+  exit;
+}

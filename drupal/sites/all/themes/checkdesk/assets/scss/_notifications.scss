@@ -1,0 +1,153 @@
+@mixin notificationsBlock($direction) {
+  #block-views-my-notifications-block {
+    width: 360px;
+    font-family: Arial, sans-serif;
+    text-align: opposite-position($direction);
+    margin: 0 10px;
+    position: relative;
+    float: opposite-position($direction);
+    .auto-refresh {
+      display: none;
+    }
+    h2 {
+      margin: 0;
+      padding: 0 3px;
+      color: #fff;
+      font-size: 14px;
+      display: inline-block;
+      font-weight: normal;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      line-height: 30px;
+      .notifications-count {
+        display: inline;
+        color: #2F58B4;
+        span {
+          padding: 1px;
+          background: #fff;
+  	      @include border-radius(5px);
+        }
+      }
+    }
+    .content {
+      text-align: $direction;
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      #{opposite-position($direction)}: 0;
+      top: 29px;
+      width: 360px;
+      border: 1px solid #ccc;
+      .view-content {
+        height: 200px;
+        overflow: auto;
+      }
+      .item-list {
+        display: none;
+      }
+      .notifications-settings-link, .more-link {
+        margin: 0;
+        padding: 12px 18px;
+        display: block;
+        a, a:visited, a:link {
+          font-family: Arial, sans-serif;
+          font-size: 13px;
+          color: #6a6a6a;
+          text-decoration: none;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+      }
+      .notifications-settings-link {
+        float: $direction;
+      }
+      .more-link {
+        float: opposite-position($direction);
+      }
+      .notifications-footer {
+        clear: both;
+      }
+      .heartbeat-activity {
+        color: #6a6a6a;
+        border-bottom: 1px solid #c9c9c9;
+        margin: 0;
+        padding: 12px 18px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        a, a:visited, a:link {
+          text-decoration: none;
+          font-weight: bold;
+          color: #6a6a6a;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+        p, img {
+          float: $direction;
+        }
+        p {
+          margin: 0;
+          width: 270px;
+        }
+        img {
+          margin-#{opposite-position($direction)}: 9px;
+          margin-bottom: 6px;
+        }
+        .heartbeat-time-ago {
+          clear: both;
+          display: block;
+          margin: 0 0 0 9px;
+          height: 12px;
+          line-height: 12px;
+          padding-#{$direction}: 19px;
+          background-repeat: no-repeat;
+          background-color: transparent;
+          background-position: $direction bottom;
+          a {
+            font-weight: normal;
+            color: #a9a9a9;
+          }
+        }
+      }
+      /* Icons for each activity type */
+      .checkdesk_add_story, .checkdesk_comment_on_update, .checkdesk_new_update_on_story_i_commented_on_update, .checkdesk_reply_to_comment {
+        .heartbeat-time-ago { background-image: url(../imgs/icons/notification-star.png); }
+      }
+      .checkdesk_fact_checking_on, .checkdesk_fact_checking_set, .checkdesk_flag_report {
+        .heartbeat-time-ago { background-image: url(../imgs/icons/notification-flag.png); }
+      }
+      .checkdesk_comment_on_report, .checkdesk_report_published_in_update, .checkdesk_report_suggested_to_story {
+        .heartbeat-time-ago { background-image: url(../imgs/icons/notification-report.png); }
+      }
+    }
+  }
+  #block-views-my-notifications-block.notifications-block-expanded {
+    .content, h2 {
+      background: #fff;
+    }
+    h2 {
+      color: #626262;
+  	  @include border-radius(5px 5px 0 0);
+    }
+    .content {
+      @include box-shadow(1px 1px 10px #333);
+  	  @include border-radius(5px);
+      @if $direction == left {
+        @include border-top-right-radius(0);
+      } @else {
+        @include border-top-left-radius(0);
+      } 
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #fefefe;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #eee;
+  }
+}

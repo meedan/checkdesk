@@ -8,8 +8,8 @@ engine = phptemplate
 
 ; CSS
 ; HTML 5 Boilerplate
-scripts[] = assets/css/libs/normalize.css
-scripts[] = assets/css/libs/main.css
+stylesheets[all][] = assets/css/libs/normalize.css
+stylesheets[all][] = assets/css/libs/main.css
 ; Checkdesk styles
 stylesheets[all][] = assets/css/style.css
 
@@ -22,3 +22,16 @@ scripts[] = assets/js/report.js
 ; EXCLUDE CSS
 exclude[css][] = 'sites/all/modules/contrib/oembed/oembed.theme.css'
 exclude[css][] = 'sites/all/modules/contrib/absolute_messages/absolute_messages.css'
+
+
+; REGIONS
+regions[page_top] = Page top
+regions[header] = Header
+regions[highlight] = Highlight
+regions[help] = Help
+regions[content] = Content
+regions[sidebar_first] = First sidebar
+regions[sidebar_second] = Second sidebar
+regions[footer] = Footer
+regions[page_bottom] = Page bottom
+regions[navigation] = Navigation bar
