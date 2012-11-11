@@ -95,8 +95,8 @@ Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
       viewData.view_base_path = Drupal.settings.views_autorefresh[view_name].incremental.view_base_path;
       viewData.view_display_id = Drupal.settings.views_autorefresh[view_name].incremental.view_display_id;
       viewData.view_name = Drupal.settings.views_autorefresh[view_name].incremental.view_name;
-      viewData.autorefreshRequest = 'autorefreshRequest';
     }
+    viewData.autorefreshRequest = 'autorefreshRequest';
     Drupal.settings.views_autorefresh[view_name].ajax.submit = viewData;
 
     // If there's a ping URL, hit it first.
