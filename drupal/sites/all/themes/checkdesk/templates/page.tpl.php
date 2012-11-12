@@ -13,6 +13,12 @@
             <?php if ($secondary_nav): ?>
               <?php print $secondary_nav; ?>
             <?php endif; ?>
+
+            <?php if ($page['navigation']): ?>
+              <div id="navigation-region">
+                <?php print render($page['navigation']); ?>
+              </div>
+            <?php endif; ?>
           </nav>
       </div>
     </div>

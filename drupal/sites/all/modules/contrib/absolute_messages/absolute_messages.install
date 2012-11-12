@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Absolute Messages module (un)installation functions.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function absolute_messages_uninstall() {
+  $query = "DELETE FROM {variable} WHERE name LIKE 'absolute_messages_%'";
+  db_query($query);
+}

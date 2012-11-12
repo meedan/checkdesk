@@ -1,0 +1,122 @@
+#absolute-messages-messages {
+  width: 100%;
+  position: relative;
+}
+.absolute-messages-message {
+  display: none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  color: #735005;
+  font-size: 1.4em;
+  text-align: center;
+  line-height: 1.4em;
+  zoom: 1;
+}
+.absolute-messages-message.collapsible:hover {
+  cursor: pointer;
+}
+.absolute-messages-message .content {
+  margin: 0;
+  padding: .5em 1.5em 0 1.5em;
+  border-bottom: .5em solid transparent;
+  overflow: hidden;
+}
+.absolute-messages-message .content a {
+  text-decoration: underline;
+}
+.absolute-messages-status {
+  background-color: #A4C639;
+  border-bottom: 1px solid #849b3a;
+  color: #546b0a;
+}
+.absolute-messages-status a:link,
+.absolute-messages-status a:visited {
+  color: #546b0a;
+}
+.absolute-messages-warning {
+  background-color: #F4A83D;
+  border-bottom: 1px solid #D6800C;
+  color: #735005;
+}
+.absolute-messages-warning a:link,
+.absolute-messages-warning a:visited {
+  color: #735005;
+}
+.absolute-messages-error {
+  background-color: #EF393C;
+  border-bottom: 1px solid #A30000;
+  color: #770000;
+}
+.absolute-messages-error a:link,
+.absolute-messages-error a:visited {
+  color: #770000;
+}
+.absolute-messages-actions {
+  float: right;
+}
+a.absolute-messages-dismiss,
+a.absolute-messages-dismiss-all,
+a.absolute-messages-dismiss:hover,
+a.absolute-messages-dismiss-all:hover {
+  display: block;
+  position: absolute;
+  top: .8em;
+  right: .5em;
+  z-index: 10;
+  margin: 0;
+  padding: 1px 3px;
+  font: bold .8em "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  line-height: 1em;
+  text-decoration: none;
+  cursor: pointer;
+}
+.absolute-messages-status .absolute-messages-dismiss {
+  border: 2px solid #546b0a;
+  background-color: #c2dd68;
+  color: #546b0a;
+}
+.absolute-messages-warning .absolute-messages-dismiss {
+  border: 2px solid #735005;
+  background-color: #FAD163;
+  color: #735005;
+}
+.absolute-messages-error .absolute-messages-dismiss {
+  border: 2px solid #AA0000;
+  background-color: #ff5e5e;
+  color: #AA0000;
+}
+a.absolute-messages-dismiss-all,
+a.absolute-messages-dismiss-all:hover {
+  border: 2px solid #222;
+  background-color: #222;
+  color: #ccc;
+}
+#absolute-messages-show {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-width: 0 16px 16px 0;
+  border-style: solid;
+  border-color: transparent #fff;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.absolute-messages-show {
+  display: block;
+  width: 16px;
+  height: 16px;
+  /* Ugly hack for IE, as it does not support Box Shadow. */
+  border-left: 1px solid #666\9;
+  border-bottom: 1px solid #666\9;
+}
+/* And for Opera too. Ugh. */
+noindex:-o-prefocus, .absolute-messages-show {
+  border-left: 1px solid #666;
+  border-bottom: 1px solid #666;
+}

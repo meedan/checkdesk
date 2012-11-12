@@ -504,7 +504,8 @@ AND d.field_desk_target_id = :desk_nid
  * Implementation of hook_heartbeat_messages_alter()
 */
 function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heartbeatStream) {
-  
+  $view = views_get_current_view();
+  if (isset($view) && $view->name == 'my_notifications') return;
   foreach ($messages as $key => $message) {
     if ($message->nid > 0) {
       $node = node_load($message->nid);
@@ -516,7 +517,6 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
       }
     }
   }
-
 }
 
 /**

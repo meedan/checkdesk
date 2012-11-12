@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Implementation of hook_install().
+ */
+function meedan_notifications_install() {
+  drupal_install_schema('meedan_notifications_last_opened_menu');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function meedan_notifications_uninstall() {
+  drupal_uninstall_schema('meedan_notifications_last_opened_menu');
+}
+
+/**
+ * Implements hook_schema().
+ */
+function meedan_notifications_schema() {
+  $schema['meedan_notifications_last_opened_menu'] = array(
+    'description' => 'Maps each user to the last time he opened the notifications menu.',
+    'fields' => array(
+      'uid' => array('type' => 'int', 'not null' => TRUE),
+      'timestamp' => array('type' => 'int', 'not null' => TRUE),
+    ),
+    'primary key' => array('uid'),
+  );
+  return $schema;
+}
+
+/**
+ * Implementation of hook_update_N().
+ *
+ * Creates database.
+ */
+function meedan_notifications_update_1001() {
+  $schema = meedan_notifications_schema();
+  db_create_table('meedan_notifications_last_opened_menu', $schema['meedan_notifications_last_opened_menu']);
+}

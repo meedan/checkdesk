@@ -30,6 +30,7 @@
 @import "button-groups";
 @import "font-awesome";
 @import "dropdowns";
+@import "alerts";
 
 // Components: Nav
 @import "navigation";
@@ -72,4 +73,7 @@ a {
 
 #main {
 	padding-top: 50px;
+	#content {
+		padding: 0 $gridColumnWidth*2 $baseLineHeight*2 $gridColumnWidth*2;
+	}
 }

@@ -39,38 +39,63 @@
     // If removing content from the wrapper, detach behaviors first.
     var settings = response.settings || ajax.settings || Drupal.settings;
     Drupal.detachBehaviors(wrapper, settings);
+    if ($.waypoints != undefined) {
+      $.waypoints('refresh');
+    }
+
+    // Set up our default query options. This is for advance users that might
+    // change there views layout classes. This allows them to write there own
+    // jquery selector to replace the content with.
+    var content_query = response.options.content || '.view-content';
+
+    // If we're using any effects. Hide the new content before adding it to the DOM.
+    if (effect.showEffect != 'show') {
+      new_content.find(content_query).children().hide();
+    }
 
     // Add the new content to the page.
     wrapper.find('.pager a').remove();
-    wrapper.find('.pager').html(new_content.find('.pager'));
-    wrapper.find('.view-content')[method](new_content.find('.views-row'));
+    wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
+    wrapper.find(content_query)[method](new_content.find(content_query).children());
+    if (effect.showEffect != 'show') {
+      wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
+    }
 
     // Attach all JavaScript behaviors to the new content
-    wrapper.removeClass('views-processed');
+    // Remove the Jquery once Class, TODO: There needs to be a better
+    // way of doing this, look at .removeOnce() :-/
+    var classes = wrapper.attr('class');
+    var onceClass = classes.match(/jquery-once-[0-9]*-[a-z]*/);
+    wrapper.removeClass(onceClass[0]);
     var settings = response.settings || ajax.settings || Drupal.settings;
     Drupal.attachBehaviors(wrapper, settings);
-
-    if (new_content.parents('html').length > 0) {
-      // Apply any settings from the returned JSON if available.
-    }
   }
 
   /**
    * Attaches the AJAX behavior to Views Load More waypoint support.
    */
-  Drupal.behaviors.ViewsLoadMore = {};
-  Drupal.behaviors.ViewsLoadMore.attach = function() {
-    if (Drupal.settings && Drupal.settings.viewsLoadMore && Drupal.settings.views.ajaxViews) {
-      opts = {
-        offset: '100%'
-      };
-      $.each(Drupal.settings.viewsLoadMore, function(i, settings) {
-        var view = '.view-' + settings.view_name + '.view-display-id-' + settings.view_display_id + ' .pager-next a';
-        $(view).bind('waypoint.reached', function(event, direction) {
-           $(view).click();
+  Drupal.behaviors.ViewsLoadMore = {
+    attach: function (context, settings) {
+      if (settings && settings.viewsLoadMore && settings.views.ajaxViews) {
+        opts = {
+          offset: '100%'
+        };
+        $.each(settings.viewsLoadMore, function(i, setting) {
+          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a';
+          $(view).waypoint(function(event, direction) {
+            $(view).waypoint('remove');
+            $(view).click();
+          }, opts);
         });
-        $(view).waypoint(opts);
-      });
+      }
+    },
+    detach: function (context, settings, trigger) {
+      if (settings && Drupal.settings.viewsLoadMore && settings.views.ajaxViews) {
+        $.each(settings.viewsLoadMore, function(i, setting) {
+          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a';
+          $(view, context).waypoint('destroy');
+        });
+      }
     }
-  };
+     };
 })(jQuery);
