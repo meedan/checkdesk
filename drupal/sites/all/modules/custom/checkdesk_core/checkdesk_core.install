@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Enable remember me and change checkdesk_core weight
+ */
+function checkdesk_core_update_7001() {
+  module_enable(array('remember_me', 'fboauth', 'twitter_signin'));
+  //change module weight to get twitter_signin alteration
+  db_update('system')
+    ->fields(array(
+      'weight' => 5,
+    ))
+    ->condition('name', 'checkdesk_core')
+    ->execute();
+}
+

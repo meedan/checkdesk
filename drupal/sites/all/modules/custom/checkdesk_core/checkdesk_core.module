@@ -519,3 +519,32 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
 
 }
 
+/**
+ * Implements of hook_form_alter().
+ */
+function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+    $items = array();
+    $fb_block = module_invoke('fboauth', 'block_view', 'login');
+    $items[] = twitter_signin_button();;
+    $items[] = $fb_block['content'];
+    $form['social_media_signin'] = array(
+      '#type' => 'item',
+      '#title' => t('Sign in with :'),
+      '#markup' => theme('item_list', array('items' => $items)),
+      '#weight' => '-99',
+    );
+    $form['name']['#weight'] = -9;
+    $form['pass']['#weight'] = -5;
+    $items = array();
+    $items[] = l(t('(forgot?)'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+    $form['pass_link'] = array('#markup' => theme('item_list', array('items' => $items)), '#weight' => -7);
+    $items = array();
+    if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
+      $items[] = l(t('Create new account'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
+    }
+    $form['links'] = array('#markup' => theme('item_list', array('items' => $items)));
+    $form['actions']['submit']['#value'] = t('Sign in');
+    unset($form['twitter_signin']);
+  }
+}
