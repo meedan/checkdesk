@@ -189,6 +189,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     if ($subscriptions['site_fact_checking_set']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_set' AND (n.uid = :uid OR c2.uid = :uid)", array(':uid' => $params[':uid']));
     $query->add_where_expression(1, "FALSE");
 
+    // Just show activities that happened after the user has been created
+    $query->add_where_expression(0, "heartbeat_activity.timestamp > $user->created");
+
     // Ignore activities from this user
     $query->add_where_expression(0, "heartbeat_activity.uid != :uid", array(':uid' => $params[':uid']));
 
