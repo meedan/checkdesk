@@ -35,7 +35,7 @@ if ($is_journalist) {
   if (should_notify($data, 'site_reply_to_comment')) $query .= "(ha.message_id = 'checkdesk_reply_to_comment' AND c.uid = $uid) OR ";
 } else {
   if (should_notify($data, 'site_reply_to_comment')) $query .= "(ha.message_id = 'checkdesk_reply_to_comment' AND c.uid = $uid) OR ";
-  if (should_notify($data, 'site_comment_on_report_i_commented')) $query .= "(ha.message_id = 'checkdesk_comment_on_report' AND c2.uid = $uid) OR ";
+  if (should_notify($data, 'site_comment_on_report')) $query .= "(ha.message_id = 'checkdesk_comment_on_report' AND c2.uid = $uid) OR ";
   if (should_notify($data, 'site_fact_checking_on')) $query .= "(ha.message_id = 'checkdesk_fact_checking_on' AND n.uid = $uid) OR ";
   if (should_notify($data, 'site_fact_checking_set')) $query .= "(ha.message_id = 'checkdesk_fact_checking_set' AND (n.uid = $uid OR c2.uid = $uid)) OR ";
   if (should_notify($data, 'site_update_on_story_i_commented_on_update')) $query .= "(ha.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND ha.nid_target IN (SELECT field_desk_target_id FROM field_data_field_desk f INNER JOIN comment c ON c.nid = f.entity_id WHERE entity_type = 'node' AND bundle = 'post' AND c.uid = $uid)) OR ";
