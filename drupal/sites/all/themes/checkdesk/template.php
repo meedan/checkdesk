@@ -124,7 +124,7 @@ function checkdesk_links__node($variables) {
 
   if (count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
-    if (user_access('administer nodes')) {
+    if (isset($node) && user_access('administer nodes')) {
       $output .= '<li class=""><a href="' . url('<front>') . 'node/' . $nid . '/edit"><i class="icon-edit"></i> Edit</a></li>';
     }
   
@@ -138,16 +138,17 @@ function checkdesk_links__node($variables) {
       $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
       $output .= '</ul></li>'; 
     }
-
-    // Share on
-    $output .= '<li class="share-on dropdown">';
-    $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-share"></i> Share on</a>';
-    $output .= '<ul class="dropdown-menu">';
-    $output .= '<li><a href="https://www.facebook.com/sharer.php?u=' . $node_url . '&t=' . $node_title . '">Share on Facebook</a></li>';
-    $output .= '<li><a href="http://twitter.com/intent/tweet?source=checkdesk&text=' . $tweet . '&url=' . $node_url . '">Share on Twitter</a></li>';
-    $output .= '<li><a href="https://plus.google.com/share?url=' . $node_url . '">Share on Google+</a></li>';
-    $output .= '</ul></li>'; 
-
+    
+    if (isset($node)) {
+      // Share on
+      $output .= '<li class="share-on dropdown">';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-share"></i> Share on</a>';
+      $output .= '<ul class="dropdown-menu">';
+      $output .= '<li><a href="https://www.facebook.com/sharer.php?u=' . $node_url . '&t=' . $node_title . '">Share on Facebook</a></li>';
+      $output .= '<li><a href="http://twitter.com/intent/tweet?source=checkdesk&text=' . $tweet . '&url=' . $node_url . '">Share on Twitter</a></li>';
+      $output .= '<li><a href="https://plus.google.com/share?url=' . $node_url . '">Share on Google+</a></li>';
+      $output .= '</ul></li>'; 
+    }
     if (user_access('administer nodes')) {
       // Add to
       $output .= '<li class="add-to dropdown">';

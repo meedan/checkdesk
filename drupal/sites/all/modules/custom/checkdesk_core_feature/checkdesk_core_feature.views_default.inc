@@ -96,6 +96,18 @@ function checkdesk_core_feature_views_default_views() {
       'allow_secondary' => 0,
       'secondary_label' => 'Advanced options',
     ),
+    'sort' => array(
+      'bef_format' => 'default',
+      'advanced' => array(
+        'collapsible' => 0,
+        'collapsible_label' => 'Sort options',
+        'combine' => 1,
+        'combine_rewrite' => '',
+        'reset' => 0,
+        'reset_label' => '',
+        'is_secondary' => 0,
+      ),
+    ),
     'title' => array(
       'more_options' => array(
         'is_secondary' => 0,
@@ -110,8 +122,19 @@ function checkdesk_core_feature_views_default_views() {
     'field_rating_tid' => array(
       'bef_format' => 'bef',
       'more_options' => array(
-        'bef_select_all_none' => 1,
+        'bef_select_all_none' => 0,
         'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+    'source' => array(
+      'more_options' => array(
         'is_secondary' => 0,
         'bef_filter_description' => '',
         'tokens' => array(

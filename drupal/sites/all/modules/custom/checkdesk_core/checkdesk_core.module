@@ -376,6 +376,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['source_op']['#process'] = $form['title_op']['#process'] = array('form_process_radios');
     $form['source_op']['#attributes'] = $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));
     $form['source_op']['#theme'] = $form['title_op']['#theme'] = 'select_as_radios';
+    $form['#action'] = '/' . $_GET['q'];
   }
 }
 
