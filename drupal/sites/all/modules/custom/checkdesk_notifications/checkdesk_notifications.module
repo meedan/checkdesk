@@ -245,3 +245,34 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
 function checkdesk_notifications_preprocess_heartbeat_activity(&$variables) {
   $variables['classes_array'][] = 'activity-content';
 }
+
+/**
+ * Theme function for the timestamp of a message.
+ */
+function checkdesk_notifications_theme_heartbeat_time_ago($variables) {
+
+  $message = $variables['heartbeat_activity'];
+
+  $time_info = '';
+
+  if ($message->show_message_times) {
+    $message_date = _theme_time_ago($message->timestamp);
+    if ($message->target_count <= 1 || $message->show_message_times_grouped) {
+
+      $time_info .= '<span class="heartbeat-time-ago">';
+      $time_info .= $message_date;
+      $time_info .= '</span>';
+
+    }
+  }
+
+  return $time_info;
+}
+
+/**
+ * Implements hook_theme_registry_alter
+ */
+function checkdesk_notifications_theme_registry_alter(&$theme_registry) {
+  $theme_registry['heartbeat_time_ago']['theme path'] = drupal_get_path('module', 'checkdesk_notifications');
+  $theme_registry['heartbeat_time_ago']['function'] = 'checkdesk_notifications_theme_heartbeat_time_ago';
+}
