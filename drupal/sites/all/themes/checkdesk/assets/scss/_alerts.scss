@@ -66,7 +66,9 @@
 #absolute-messages-messages {
   width: 100%;
   position: relative;
-  margin-top: $navbarHeight;
+  top: $navbarHeight;
+  left: 0;
+  z-index: 10;
 }
 
 .absolute-messages-message {
@@ -91,31 +93,31 @@
   text-decoration: underline;
 }
 .absolute-messages-status {
-  background-color: #A4C639;
-  border-bottom: 1px solid #849b3a;
-  color: #546b0a;
+  background-color: $infoBackground;
+  border-bottom: 1px solid $infoBorder;
+  color: $infoText;
 }
 .absolute-messages-status a:link,
 .absolute-messages-status a:visited {
-  color: #546b0a;
+  color: $infoText;
 }
 .absolute-messages-warning {
-  background-color: #F4A83D;
-  border-bottom: 1px solid #D6800C;
-  color: #735005;
+  background-color: $warningBackground;
+  border-bottom: 1px solid $warningBorder;
+  color: $warningText;
 }
 .absolute-messages-warning a:link,
 .absolute-messages-warning a:visited {
-  color: #735005;
+  color: $warningText;
 }
 .absolute-messages-error {
-  background-color: #EF393C;
-  border-bottom: 1px solid #A30000;
-  color: #770000;
+  background-color: $errorBackground;
+  border-bottom: 1px solid $errorBorder;
+  color: $errorText;
 }
 .absolute-messages-error a:link,
 .absolute-messages-error a:visited {
-  color: #770000;
+  color: $errorText;
 }
 .absolute-messages-actions {
   float: right;
@@ -131,25 +133,19 @@ a.absolute-messages-dismiss-all:hover {
   z-index: 10;
   margin: 0;
   padding: 1px 3px;
-  font: bold .8em "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  
   line-height: 1em;
   text-decoration: none;
   cursor: pointer;
 }
 .absolute-messages-status .absolute-messages-dismiss {
-  border: 2px solid #546b0a;
-  background-color: #c2dd68;
-  color: #546b0a;
+  color: $infoText;
 }
 .absolute-messages-warning .absolute-messages-dismiss {
-  border: 2px solid #735005;
-  background-color: #FAD163;
-  color: #735005;
+  color: $warningText;
 }
 .absolute-messages-error .absolute-messages-dismiss {
-  border: 2px solid #AA0000;
-  background-color: #ff5e5e;
-  color: #AA0000;
+  color: $errorText;
 }
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss-all:hover {

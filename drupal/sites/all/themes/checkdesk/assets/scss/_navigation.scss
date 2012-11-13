@@ -208,11 +208,11 @@
 
 // For Drupal Admin Toolbar
 .toolbar .navbar-fixed-top {
-  top: 30px;
+  top: $toolbarHeight;
 }
 
 .toolbar-drawer .navbar-fixed-top {
-	top: 65px;
+	top: $toolbarHeight + $drawerHeight;
 }
 
 
