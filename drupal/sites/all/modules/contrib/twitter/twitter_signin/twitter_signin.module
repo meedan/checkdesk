@@ -161,12 +161,13 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
         $password = user_password();
         $account->name = $response['screen_name'];
         $account->pass = $password;
+        $edit['pass'] = $password;
         $account->init = $response['screen_name'];
         $account->status = 1;
         $account->authname_twitter = $response['user_id'];
         $account->access = REQUEST_TIME;
         $account->is_new = TRUE;
-        $account = user_save($account);
+        $account = user_save($account, $edit);
         if (variable_get('twitter_signin_import_picture', 0)) {
           twitter_signin_get_picture($account, $response);
         }
