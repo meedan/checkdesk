@@ -112,18 +112,7 @@ function checkdesk_core_feature_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'views-activity_report-block' => array(
-          'module' => 'views',
-          'delta' => 'activity_report-block',
-          'region' => 'content',
-          'weight' => '5',
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 1;
 
   // Translatables
