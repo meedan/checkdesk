@@ -1,0 +1,7 @@
+guard 'compass' do
+  watch(%r{^sites/.+\.(scss)$})
+end
+
+guard 'livereload' do
+  watch(%r{sites/.+\.(scss|php|js)$})
+end 
