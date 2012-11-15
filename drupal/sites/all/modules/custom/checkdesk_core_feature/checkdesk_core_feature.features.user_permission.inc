@@ -148,60 +148,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'twitter',
   );
 
-  // Exported permission: admin heartbeat configure.
-  $permissions['admin heartbeat configure'] = array(
-    'name' => 'admin heartbeat configure',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'heartbeat_ui',
-  );
-
-  // Exported permission: admin heartbeat delete all.
-  $permissions['admin heartbeat delete all'] = array(
-    'name' => 'admin heartbeat delete all',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'heartbeat',
-  );
-
-  // Exported permission: admin heartbeat delete own.
-  $permissions['admin heartbeat delete own'] = array(
-    'name' => 'admin heartbeat delete own',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'heartbeat',
-  );
-
-  // Exported permission: admin heartbeat plugins.
-  $permissions['admin heartbeat plugins'] = array(
-    'name' => 'admin heartbeat plugins',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'heartbeat_plugins',
-  );
-
-  // Exported permission: admin heartbeat streams.
-  $permissions['admin heartbeat streams'] = array(
-    'name' => 'admin heartbeat streams',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'heartbeat_ui',
-  );
-
-  // Exported permission: admin heartbeat templates.
-  $permissions['admin heartbeat templates'] = array(
-    'name' => 'admin heartbeat templates',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'heartbeat',
-  );
-
   // Exported permission: administer actions.
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
