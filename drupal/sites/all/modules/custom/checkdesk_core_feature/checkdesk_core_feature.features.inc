@@ -41,7 +41,6 @@ function checkdesk_core_feature_flag_default_flags() {
     'global' => '1',
     'types' => array(
       0 => 'media',
-      1 => 'discussion',
     ),
     'flag_short' => 'Flag for fact-checking',
     'flag_long' => '',
@@ -53,10 +52,12 @@ function checkdesk_core_feature_flag_default_flags() {
     'link_type' => 'toggle',
     'roles' => array(
       'flag' => array(
-        0 => '2',
+        0 => '3',
+        1 => '4',
       ),
       'unflag' => array(
-        0 => '2',
+        0 => '3',
+        1 => '4',
       ),
     ),
     'weight' => 0,
@@ -79,7 +80,6 @@ function checkdesk_core_feature_flag_default_flags() {
     'global' => '1',
     'types' => array(
       0 => 'media',
-      1 => 'discussion',
     ),
     'flag_short' => 'Turn on fact-checking',
     'flag_long' => '',
@@ -91,10 +91,12 @@ function checkdesk_core_feature_flag_default_flags() {
     'link_type' => 'toggle',
     'roles' => array(
       'flag' => array(
-        0 => '4',
+        0 => '3',
+        1 => '4',
       ),
       'unflag' => array(
-        0 => '4',
+        0 => '3',
+        1 => '4',
       ),
     ),
     'weight' => 0,
@@ -124,14 +126,17 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Unflag graphic content',
     'unflag_long' => '',
     'unflag_message' => 'This report was unflagged as containing graphic content.',
-    'unflag_denied_text' => '',
+    'unflag_denied_text' => 'Once flagged, a report can only be unflagged by a journalist.',
     'link_type' => 'toggle',
     'roles' => array(
       'flag' => array(
-        0 => '2',
+        0 => '3',
+        1 => '4',
+        2 => '5',
       ),
       'unflag' => array(
-        0 => '2',
+        0 => '3',
+        1 => '4',
       ),
     ),
     'weight' => 0,
@@ -161,14 +166,17 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Unflag spam',
     'unflag_long' => '',
     'unflag_message' => 'This report was unflagged as spam.',
-    'unflag_denied_text' => '',
+    'unflag_denied_text' => 'Once flagged, a report can only be unflagged by a journalist.',
     'link_type' => 'toggle',
     'roles' => array(
       'flag' => array(
-        0 => '2',
+        0 => '3',
+        1 => '4',
+        2 => '5',
       ),
       'unflag' => array(
-        0 => '2',
+        0 => '3',
+        1 => '4',
       ),
     ),
     'weight' => 0,
