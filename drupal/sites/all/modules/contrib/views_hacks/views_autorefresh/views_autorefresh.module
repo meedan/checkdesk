@@ -66,7 +66,7 @@ function theme_views_autorefresh($variables) {
  * Implementation of hook_views_ajax_data_alter().
  */
 function views_autorefresh_views_ajax_data_alter(&$commands, $view) {
-  $replace = isset($_REQUEST['autorefreshRequest']) ? TRUE : FALSE; 
+  $replace = isset($_REQUEST['autorefreshRequest']);
   if ($replace && !empty($view->autorefresh['incremental'])) {
     foreach ($commands as &$command) {
       if ($command['command'] == 'insert' && $command['selector'] == ('.view-dom-id-' . $view->dom_id)) {
