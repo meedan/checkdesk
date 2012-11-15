@@ -805,15 +805,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'pathauto',
   );
 
-  // Exported permission: post activity statuses.
-  $permissions['post activity statuses'] = array(
-    'name' => 'post activity statuses',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'heartbeat_plugins',
-  );
-
   // Exported permission: post comments.
   $permissions['post comments'] = array(
     'name' => 'post comments',
