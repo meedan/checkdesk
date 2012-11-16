@@ -282,7 +282,7 @@ function _meedan_oembed_filter_prepare($text, $filter) {
  */
 function _meedan_oembed_filter_process($text, $filter) {
   $matches = array();
-  preg_match_all('@\[[a-z0-0-_]+:([0-9]+)\]@', $text, $matches);
+  preg_match_all('/\[\S+:(\d+)\]/u', $text, $matches);
   if (count($matches[1])) {
     $output = array();
     foreach ($matches[1] as $key => $nid) {
@@ -290,7 +290,8 @@ function _meedan_oembed_filter_process($text, $filter) {
         $node = node_load($nid);
         if (is_object($node)) {
           // Render node using custom Meedan oEmbed view.
-          $node_view = drupal_render(node_view($node, 'meedan_oembed'));
+          $element = node_view($node, 'meedan_oembed');
+          $node_view = drupal_render($element);
           // Replace [report-title:$nid] with node view.
           $text = str_replace($matches[0][$key], $node_view, $text);
         }
