@@ -107,58 +107,62 @@ function checkdesk_links__node($variables) {
   $links = $variables['links'];
   $attributes = $variables['attributes'];
   $heading = $variables['heading'];
-  //$dropdown = $variables['dropdown'];
+
   $class[] = 'report-actions';
-
-  global $language_url;
   $output = '';
-
-  global $base_url;
-  if ($node = menu_get_object()) {
-    $nid = $node->nid;
-    $node_title = check_plain($node->title);
-    $node_url = $base_url .'/'. drupal_lookup_path('alias',"node/".$node->nid);
-    $tweet = $node_title;
-
-  }
 
   if (count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
-    if (isset($node) && user_access('administer nodes')) {
-      $output .= '<li class=""><a href="' . url('<front>') . 'node/' . $nid . '/edit"><i class="icon-edit"></i> Edit</a></li>';
+    if (isset($links['checkdesk-edit'])) {
+      $output .= '<li class="edit"><a href="' . $links['checkdesk-edit']['href'] . '"><i class="icon-edit"></i> ' . $links['checkdesk-edit']['title'] . '</a></li>';
     }
   
-    if (user_is_logged_in()) {
+    if (isset($links['flag-spam']) || isset($links['flag-graphic']) || isset($links['flag-factcheck'])) {
       // Flag as
       $output .= '<li class="flag-as dropdown">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-flag"></i> Flag as</a>';
       $output .= '<ul class="dropdown-menu">';
-      $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
-      $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
-      $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
+      if (isset($links['flag-spam'])) {
+        $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
+      }
+      if (isset($links['flag-graphic'])) {
+        $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
+      }
+      if (isset($links['flag-factcheck'])) {
+        $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
+      }
       $output .= '</ul></li>'; 
     }
     
-    if (isset($node)) {
+    if (isset($links['checkdesk-share-facebook']) || isset($links['checkdesk-share-twitter']) || isset($links['checkdesk-share-google'])) {
       // Share on
       $output .= '<li class="share-on dropdown">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-share"></i> Share on</a>';
       $output .= '<ul class="dropdown-menu">';
-      $output .= '<li><a href="https://www.facebook.com/sharer.php?u=' . $node_url . '&t=' . $node_title . '">Share on Facebook</a></li>';
-      $output .= '<li><a href="http://twitter.com/intent/tweet?source=checkdesk&text=' . $tweet . '&url=' . $node_url . '">Share on Twitter</a></li>';
-      $output .= '<li><a href="https://plus.google.com/share?url=' . $node_url . '">Share on Google+</a></li>';
+      if (isset($links['checkdesk-share-facebook'])) {
+        $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
+      }
+      if (isset($links['checkdesk-share-twitter'])) {
+        $output .= '<li>' . l($links['checkdesk-share-twitter']['title'], $links['checkdesk-share-twitter']['href'], $links['checkdesk-share-twitter']) . '</li>';
+      }
+      if (isset($links['checkdesk-share-google'])) {
+        $output .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
+      }
       $output .= '</ul></li>'; 
     }
-    if (user_access('administer nodes')) {
+    if (isset($links['checkdesk-suggest']) || isset($links['checkdesk-publish'])) {
       // Add to
       $output .= '<li class="add-to dropdown">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-plus-sign"></i> Add to</a>';
       $output .= '<ul class="dropdown-menu">';
-      $output .= '<li>' . l($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href']) .'</li>';
-      $output .= '<li>' . l($links['checkdesk-publish']['title'], $links['checkdesk-publish']['href']) .'</li>';
+      if (isset($links['checkdesk-suggest'])) {
+        $output .= '<li>' . l($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']) .'</li>';
+      }
+      if (isset($links['checkdesk-publish'])) {
+        $output .= '<li>' . l($links['checkdesk-publish']['title'], $links['checkdesk-publish']['href'], $links['checkdesk-publish']) .'</li>';
+      }
       $output .= '</ul></li>';
     }
-
 
     $output .= '</ul>';
   }
