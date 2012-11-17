@@ -43,8 +43,32 @@ function checkdesk_core_menu() {
     'page arguments' => array('_checkdesk_core_settings'),
     'access arguments' => array('administer site configuration'),
   );
+  $items['report-view-modal/%ctools_js'] = array(
+    'title' => t('Report view(modal)'),
+    'page callback' => '_checkdesk_modal_report_view',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    //'modal' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
 
   return $items;
+}
+
+function _checkdesk_modal_report_view($js = FALSE) {
+  ctools_include('modal');
+  $nid = arg(2);
+  $node = node_load($nid);
+  $title = $node->title;
+  $output = drupal_render(node_view($node));
+  if ($js) {
+    ctools_modal_render($title, $output);
+  }
+  else {
+    drupal_set_title($title);
+    print $output . ' no ctools';
+  }
 }
 
 /**
