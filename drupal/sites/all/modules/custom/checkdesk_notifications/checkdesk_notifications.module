@@ -132,6 +132,10 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
       'label' => $label . t('Fact-checking set on a report I submitted'),
       'token type' => 'node',
     );
+    $events[$context . '_fact_status_changed_for_commenter'] = array(
+      'label' => $label . t('Fact-checking set on a report I added footnote to'),
+      'token type' => 'node',
+    );
   }
 }
 
@@ -186,7 +190,8 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     // Activities for any user
     if ($subscriptions['site_reply_to_comment']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_reply_to_comment' AND c.uid = :uid", array(':uid' => $params[':uid']));
     if ($subscriptions['site_fact_checking_on']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on' AND n.uid = :uid", array(':uid' => $params[':uid']));
-    if ($subscriptions['site_fact_checking_set']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_set' AND (n.uid = :uid OR c2.uid = :uid)", array(':uid' => $params[':uid']));
+    if ($subscriptions['site_fact_checking_set']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_set' AND n.uid = :uid", array(':uid' => $params[':uid']));
+    if ($subscriptions['site_fact_status_changed_for_commenter']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_status_changed_for_commenter' AND c2.uid = :uid", array(':uid' => $params[':uid']));
     $query->add_where_expression(1, "FALSE");
 
     // Just show activities that happened after the user has been created
@@ -224,7 +229,10 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
       break;
     case 'email_fact_checking_set':
-      $uids = db_query("(SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid) UNION (SELECT uid FROM {node} WHERE nid = $object->nid)")->fetchCol();
+      $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
+      break;
+    case 'email_fact_status_changed_for_commenter':
+      $uids = db_query("SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid")->fetchCol();
       break;
     case 'email_update_on_story_i_commented_on_update':
       $uids = db_query("SELECT DISTINCT(c.uid) FROM {field_data_field_desk} f INNER JOIN {comment} c ON c.nid = f.entity_id LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE f.entity_type = 'node' AND f.bundle = 'post' AND f.field_desk_target_id = $object->nid AND ur.rid IS NULL")->fetchCol(); 

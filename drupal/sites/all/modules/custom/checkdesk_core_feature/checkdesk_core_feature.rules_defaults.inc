@@ -176,6 +176,25 @@ function checkdesk_core_feature_default_rules_configuration() {
             "subject" : "Fact-checking status changed",
             "message" : "Hello [recipient:name],\\r\\n\\r\\n[site:current-user:name] has changed the fact-checking status for a \\u003Ca href=\\u0022[node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E you submitted to [node:field-rating].\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
           }
+        },
+        { "heartbeat_activity_checkdesk_fact_status_changed_for_commenter" : {
+            "nid" : [ "node:nid" ],
+            "uid" : [ "site:current-user:uid" ],
+            "nid_target" : "0",
+            "uid_target" : "0",
+            "message_id" : { "value" : { "checkdesk_fact_status_changed_for_commenter" : "checkdesk_fact_status_changed_for_commenter" } },
+            "!user_url" : [ "site:current-user:uid" ],
+            "!username" : [ "site:current-user:name" ],
+            "!report_url" : [ "node:url" ],
+            "!fact_checking_status" : [ "node:field-rating:name" ]
+          }
+        },
+        { "notify_subscribers" : {
+            "object" : [ "node" ],
+            "event" : "email_fact_status_changed_for_commenter",
+            "subject" : "Fact-checking status changed",
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[site:current-user:name] has changed the fact-checking status for a \\u003Ca href=\\u0022[node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E you added footnote to to [node:field-rating].\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
+          }
         }
       ]
     }

@@ -299,6 +299,65 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
   $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */
   $heartbeatmessagetemplate->api_version = 1;
+  $heartbeatmessagetemplate->message_id = 'checkdesk_fact_status_changed_for_commenter';
+  $heartbeatmessagetemplate->description = 'Fact status changed on a report commented';
+  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has changed the fact-checking status for a <strong><a href="!report_url">report</a></strong> you added footnote to to <strong>!fact_checking_status</strong></p>';
+  $heartbeatmessagetemplate->message_concat = '';
+  $heartbeatmessagetemplate->perms = 4;
+  $heartbeatmessagetemplate->group_type = 'single';
+  $heartbeatmessagetemplate->concat_args = array(
+    'group_by' => 'none',
+    'group_target' => '',
+    'group_by_target' => '',
+    'group_num_max' => '',
+    'merge_separator' => '',
+    'merge_end_separator' => '',
+    'roles' => array(
+      1 => 0,
+      2 => 0,
+      3 => 0,
+      4 => 0,
+      5 => 0,
+    ),
+  );
+  $heartbeatmessagetemplate->variables = array(
+    '!user_url' => '',
+    '!username' => '',
+    '!report_url' => '',
+    '!fact_checking_status' => '',
+  );
+  $heartbeatmessagetemplate->attachments = array(
+    'buttons' => array(
+      'weight' => array(
+        'flagattachment:like' => '0',
+        'activitycomments' => '2',
+      ),
+      'settings' => array(
+        'activitycomments' => array(
+          'activitycomments_node' => 0,
+        ),
+      ),
+      'enabled' => array(
+        'flagattachment:like' => 0,
+        'activitycomments' => 0,
+      ),
+    ),
+    'content' => array(
+      'weight' => array(
+        'flagattachment:like' => '0',
+        'activitycomments' => '2',
+      ),
+      'enabled' => array(
+        'flagattachment:like' => 0,
+        'activitycomments' => 0,
+      ),
+    ),
+  );
+  $export['checkdesk_fact_status_changed_for_commenter'] = $heartbeatmessagetemplate;
+
+  $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
+  $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */
+  $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_flag_report';
   $heartbeatmessagetemplate->description = 'Report was flagged';
   $heartbeatmessagetemplate->message = '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> as !flag_type</p>';
