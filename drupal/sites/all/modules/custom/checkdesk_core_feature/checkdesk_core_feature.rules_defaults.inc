@@ -457,7 +457,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report flagged",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" },

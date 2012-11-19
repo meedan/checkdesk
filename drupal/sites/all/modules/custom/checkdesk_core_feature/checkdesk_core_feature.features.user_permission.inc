@@ -567,7 +567,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
     ),
-    'module' => 'comment_goodness',
+    'module' => 'heartbeat_comments',
   );
 
   // Exported permission: delete own discussion content.
