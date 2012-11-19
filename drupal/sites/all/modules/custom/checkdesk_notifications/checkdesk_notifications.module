@@ -92,7 +92,7 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
   $events = array();
   // We need events for both site and e-mail notifications
   foreach (array('site' => t('On site: '), 'email' => t('By e-mail: ')) as $context => $label) {
-    if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
+    if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles) || $user->uid == 0) {
       $events[$context . '_report_flagged'] = array(
         'label' => $label . t('Report flagged'),
         'token type' => 'node',
@@ -106,7 +106,7 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
         'token type' => 'node',
       );
     }
-    if (!in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
+    if (!in_array('journalist', $user->roles) || in_array('administrator', $user->roles) || $user->uid == 0) {
       $events[$context . '_update_on_story_i_commented_on_update'] = array(
         'label' => $label . t('New update on a story I commented on an update before'),
         'token type' => 'node',
@@ -283,20 +283,4 @@ function checkdesk_notifications_theme_heartbeat_time_ago($variables) {
 function checkdesk_notifications_theme_registry_alter(&$theme_registry) {
   $theme_registry['heartbeat_time_ago']['theme path'] = drupal_get_path('module', 'checkdesk_notifications');
   $theme_registry['heartbeat_time_ago']['function'] = 'checkdesk_notifications_theme_heartbeat_time_ago';
-}
-
-/**
- * Implements hook_meedan_notifications_recipients_alter().
- * Used to restrict recipient list.
- */
-function checkdesk_notifications_meedan_notifications_recipients_alter(&$uids, $object, $context) {
-  // Look on remaining recipients to remove unwanted ones.
-  $events = array_keys(checkdesk_notifications_get_events());
-  foreach (user_load_multiple($uids) as $uid => $account) {
-    $subscriptions = isset($account->data['meedan_notifications']) ? $account->data['meedan_notifications'] : array_combine($events, $events);
-    // Remove users who have opted out.
-    if (!in_array($context['event'], array_keys($subscriptions))) {
-      unset($uids[$uid]);
-    }
-  }
 }
