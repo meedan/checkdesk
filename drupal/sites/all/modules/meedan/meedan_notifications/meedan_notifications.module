@@ -270,7 +270,7 @@ function meedan_notifications_meedan_notifications_recipients_alter(&$uids, $obj
   $events = meedan_notifications_get_events();
   foreach (user_load_multiple($uids) as $uid => $account) {
     // Remove users who have opted out.
-    $subscriptions = isset($account->data['meedan_notifications']) ? $account->data['meedan_notifications'] : array_keys($events);
+    $subscriptions = ($account->data && isset($account->data['meedan_notifications'])) ? $account->data['meedan_notifications'] : array_keys($events);
     if (!in_array($context['event'], array_filter($subscriptions))) {
       unset($uids[$uid]);
     }
