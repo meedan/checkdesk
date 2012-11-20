@@ -139,6 +139,16 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: add report to story.
+  $permissions['add report to story'] = array(
+    'name' => 'add report to story',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
+  );
+
   // Exported permission: add twitter accounts.
   $permissions['add twitter accounts'] = array(
     'name' => 'add twitter accounts',
