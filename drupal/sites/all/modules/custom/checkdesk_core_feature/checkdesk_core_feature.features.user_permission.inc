@@ -311,15 +311,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'search',
   );
 
-  // Exported permission: administer sharethis.
-  $permissions['administer sharethis'] = array(
-    'name' => 'administer sharethis',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'sharethis',
-  );
-
   // Exported permission: administer shortcuts.
   $permissions['administer shortcuts'] = array(
     'name' => 'administer shortcuts',
