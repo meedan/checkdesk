@@ -19,6 +19,10 @@
                 <?php print render($page['navigation']); ?>
               </div>
             <?php endif; ?>
+
+            <?php if ($info_nav): ?>
+              <?php print $info_nav; ?>
+            <?php endif; ?>
           </nav>
       </div>
     </div>

@@ -50,6 +50,33 @@ function checkdesk_preprocess_page(&$variables) {
     ));
   }
 
+  // Information menu
+  $info_menu = menu_load('menu-information');
+  $tree = menu_tree_page_data($info_menu['menu_name']);
+
+  // Add modal class for first-level children
+  foreach ($tree as $pid => $parent) {
+    foreach ($parent['below'] as $cid => $item) {
+      $tree[$pid]['below'][$cid]['link']['class'] = array('ctools-use-modal');
+    }
+  }
+  // Load the modal library and add the modal javascript.
+  ctools_include('modal');
+  ctools_modal_add_js();
+  $variables['info_menu'] = checkdesk_menu_navigation_links($tree);
+  $variables['info_nav'] = theme('checkdesk_links', array(
+    'links' => $variables['info_menu'],
+    'attributes' => array(
+      'id' => 'info-menu',
+      'class' => array('nav', 'pull-right'),
+    ),
+    'heading' => array(
+      'text' => t('Information menu'),
+      'level' => 'h2',
+      'class' => array('element-invisible'),
+    ),
+  ));
+
   // Secondary nav
   $variables['secondary_nav'] = FALSE;
   if($variables['secondary_menu']) {

@@ -51,9 +51,30 @@ function checkdesk_core_menu() {
     //'modal' => TRUE,
     'type' => MENU_CALLBACK,
   );
-
+  $items['modal/%ctools_js'] = array(
+    'page callback' => '_checkdesk_core_modal_callback',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+  );
 
   return $items;
+}
+
+function _checkdesk_core_modal_callback($js = FALSE) {
+  $alias = preg_replace('/modal\/[^\/]+\//', '', request_path());
+  $path = drupal_lookup_path('source', $alias);
+  $node = menu_get_object('node', 1, $path);
+  $output = drupal_render(node_view($node));
+  $title = '';//$node->title;
+  if ($js) {
+    ctools_include('ajax');
+    ctools_include('modal');
+    ctools_modal_render($title, $output);
+  }
+  else {
+    drupal_set_title($title);
+    return $output;
+  }
 }
 
 function _checkdesk_modal_report_view($js = FALSE) {
