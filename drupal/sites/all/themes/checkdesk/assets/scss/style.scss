@@ -1,33 +1,18 @@
-/* ============= */
-/* = STEP ONE  = */
-/* ============= */
-
-@import 'susy';
+// susy layout support
+@import "susy";
 
 // compass gem
-@import 'compass';
+@import "compass";
 
 // compass css3 cross browser support lib
-@import 'compass/css3';
+@import "compass/css3";
 
-/* ============= */
-/* = STEP TWO = */
-/* ============= */
-// some of the above mixins are used in a direction-aware layout
-
-// Core variables and mixins
-@import "variables";
-@import "mixins";
-
-// CSS Reset
-// @import "reset";
-
-// Base CSS
-@import "type";
+// our fork of compass_twitter_bootstrap sass files
+@import "compass_twitter_bootstrap/variables";
+@import "compass_twitter_bootstrap/alerts";
 
 // Components
 @import "buttons";
-@import "button-groups";
 @import "font-awesome";
 @import "dropdowns";
 @import "alerts";
@@ -52,28 +37,3 @@ We use the layout in two language contexts, and set the $direction variable */
 body { @include cd_layout(left); }
 body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
 body.i18n-ar { @include cd_layout(right); }
-
-
-// GLOBAL STYLES
-// ------------------------------------------------
-
-body {
-	margin: 0;
-	font-family: $baseFontFamily;
-	font-size: $baseFontSize;
-	line-height: $baseLineHeight;
-}
-
-// Links
-a {
-	color: $linkColor;
-	text-decoration: none;
-	&:hover { color: $linkColorHover; }
-}
-
-#main {
-	padding-top: 50px;
-	#content {
-		padding: 0 $gridColumnWidth*2 $baseLineHeight*2 $gridColumnWidth*2;
-	}
-}
