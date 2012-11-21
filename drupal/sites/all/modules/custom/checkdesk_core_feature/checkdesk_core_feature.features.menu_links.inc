@@ -135,6 +135,43 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'weight' => '-50',
     'parent_path' => '<sub>',
   );
+  // Exported menu link: menu-information:<sub>
+  $menu_links['menu-information:<sub>'] = array(
+    'menu_name' => 'menu-information',
+    'link_path' => '<sub>',
+    'router_path' => '<sub>',
+    'link_title' => 'Info',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '1',
+    'expanded' => '1',
+    'weight' => '0',
+  );
+  // Exported menu link: menu-information:modal/nojs/content/install-bookmarklet
+  $menu_links['menu-information:modal/nojs/content/install-bookmarklet'] = array(
+    'menu_name' => 'menu-information',
+    'link_path' => 'modal/nojs/content/install-bookmarklet',
+    'router_path' => 'modal/%',
+    'link_title' => 'Install bookmarklet',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '0',
+    'parent_path' => '<sub>',
+  );
   // Exported menu link: menu-utility-menu:user
   $menu_links['menu-utility-menu:user'] = array(
     'menu_name' => 'menu-utility-menu',
@@ -160,6 +197,8 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Create story');
   t('Edit fact-checking statement');
   t('Home');
+  t('Info');
+  t('Install bookmarklet');
   t('Sign in');
   t('Submit report');
   t('VIew all incoming reports');

@@ -24,11 +24,11 @@ function checkdesk_core_feature_node_export_features_default() {
       \'type\' => \'page\',
       \'language\' => \'und\',
       \'created\' => \'1353376399\',
-      \'changed\' => \'1353466854\',
+      \'changed\' => \'1353469450\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'1244c020-f663-b564-b94c-2cf29b12afa4\',
-      \'revision_timestamp\' => \'1353466854\',
+      \'revision_timestamp\' => \'1353469450\',
       \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
@@ -104,7 +104,7 @@ function checkdesk_core_feature_node_export_features_default() {
       \'path\' => array(
         \'pid\' => \'208\',
         \'source\' => \'node/208\',
-        \'alias\' => \'content/info/install-bookmarklet\',
+        \'alias\' => \'content/install-bookmarklet\',
         \'language\' => \'und\',
       ),
       \'menu\' => NULL,
