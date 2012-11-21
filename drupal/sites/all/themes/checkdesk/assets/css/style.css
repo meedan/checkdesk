@@ -1,14 +1,14 @@
 /*
-Syntax error: Undefined mixin 'container-fixed'.
-        on line 30 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss, in `container-fixed'
-        from line 30 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss
+Syntax error: Undefined variable: "$gridGutterWidth".
+        on line 36 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss
         from line 25 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss
 
 Backtrace:
-/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss:30:in `container-fixed'
-/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss:30
+/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss:36
 /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss:25
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:251:in `visit_mixin'
+/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/script/variable.rb:49:in `_perform'
+/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/script/node.rb:40:in `perform'
+/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:296:in `visit_prop'
 /Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `visit'
 /Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:98:in `visit'
 /Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
@@ -86,4 +86,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'container-fixed'.\A         on line 30 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss, in `container-fixed'\A         from line 30 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss\A         from line 25 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss"; }
+  content: "Syntax error: Undefined variable: \"$gridGutterWidth\".\A         on line 36 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_layout.scss\A         from line 25 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss"; }

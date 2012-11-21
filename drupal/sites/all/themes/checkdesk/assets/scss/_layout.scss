@@ -27,7 +27,8 @@
 
 // Container (centered, fixed-width layouts)
 .container {
-  @include container-fixed();
+  // @include container-fixed();
+  @include container;
 }
 
 // Fluid layouts (left aligned, with sidebar, min- & max-width content)
