@@ -697,7 +697,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
-      "ON" : [ "flag_flagged_factcheckon" ],
+      "ON" : [ "flag_flagged_factcheck_journalist" ],
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "flagged-node" ],

@@ -139,6 +139,16 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: add report to story.
+  $permissions['add report to story'] = array(
+    'name' => 'add report to story',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'checkdesk_core',
+  );
+
   // Exported permission: add twitter accounts.
   $permissions['add twitter accounts'] = array(
     'name' => 'add twitter accounts',
@@ -299,15 +309,6 @@ function checkdesk_core_feature_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'search',
-  );
-
-  // Exported permission: administer sharethis.
-  $permissions['administer sharethis'] = array(
-    'name' => 'administer sharethis',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'sharethis',
   );
 
   // Exported permission: administer shortcuts.
@@ -567,7 +568,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
     ),
-    'module' => 'comment_goodness',
+    'module' => 'heartbeat_comments',
   );
 
   // Exported permission: delete own discussion content.

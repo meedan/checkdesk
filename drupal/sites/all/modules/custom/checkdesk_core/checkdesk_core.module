@@ -1,6 +1,18 @@
 <?php
 
 /**
+ * Implements hook_permission().
+ */
+function checkdesk_core_permission() {
+  return array(
+    'add report to story' => array(
+      'title' => t('Add report to story'),
+      'description' => t('User can add a report to a story. Otherwise, only allowed to suggest the addition.'),
+    ),
+  );
+}
+
+/**
  * Implements hook_menu(). 
  */
 function checkdesk_core_menu() {
@@ -11,31 +23,23 @@ function checkdesk_core_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-
   $items['node/%checkdesk_report/checkdesk/suggest'] = array(
-    'title' => 'Suggest a story',
+    'title' => 'Add report to story',
+    'title callback' => '_checkdesk_core_report_suggest_title',
+    'title arguments' => array(1),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_core_report_suggest', 1),
-    'access arguments' => array('edit any media content'),
+    'access callback' => 'node_access',
+    'access arguments' => array('update', 1),
   );
+  /*
   $items['node/%checkdesk_report/checkdesk/publish'] = array(
     'title' => 'Publish a report',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_core_report_publish', 1),
     'access arguments' => array('create post content'),
   );
-
-/*
-  $items['admin/config/checkdesk'] = array(
-    'title' => 'Checkdesk',
-    'description' => 'Checkdesk administration.',
-    'position' => 'left',
-    'weight' => -20,
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('access administration pages'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-  );*/
+  */
   $items['admin/config/system/checkdesk'] = array(
     'title' => 'Checkdesk',
     'description' => 'Manage general Checkdesk configuration.',
@@ -44,7 +48,7 @@ function checkdesk_core_menu() {
     'access arguments' => array('administer site configuration'),
   );
   $items['report-view-modal/%ctools_js'] = array(
-    'title' => t('Report view(modal)'),
+    'title' => 'Report view (modal)',
     'page callback' => '_checkdesk_modal_report_view',
     'page arguments' => array(1),
     'access callback' => TRUE,
@@ -52,10 +56,21 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
   );
 
-
   return $items;
 }
 
+/**
+ * Title callback for `_checkdesk_core_report_suggest`.
+ */ 
+function _checkdesk_core_report_suggest_title($report) {
+  return user_access('add report to story') ? 
+    t('Add report "!title" to story', array('!title' => $report->title)) : 
+    t('Suggest report "!title" to story', array('!title' => $report->title));
+}
+
+/**
+ * Menu function for `report-view-modal/%ctools_js`.
+ */
 function _checkdesk_modal_report_view($js = FALSE) {
   ctools_include('modal');
   $nid = arg(2);
@@ -195,18 +210,29 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   // Links for reports.
   if ($node->type == 'media') {
     $url = url('node/' . $node->nid, array('absolute' => TRUE));
-    $links['checkdesk-suggest'] = array(
-      'title' => t('Suggest a story'),
-      'href' => 'node/' . $node->nid . '/checkdesk/suggest',
-    );
-    $links['checkdesk-publish'] = array(
-      'title' => t('Publish a report'),
-      'href' => 'node/' . $node->nid . '/checkdesk/publish',
-    );
     if (node_access('update', $node)) {
+      $links['checkdesk-suggest'] = array(
+        'title' => user_access('add report to story') ? t('Add to Story') : t('Suggest to Story'),
+        'href' => 'node/' . $node->nid . '/checkdesk/suggest',
+        'query' => array(
+          'destination' => $_GET['q'],
+        ),
+      );
       $links['checkdesk-edit'] = array(
         'title' => t('Edit'),
         'href' => 'node/' . $node->nid . '/edit',
+        'query' => array(
+          'destination' => $_GET['q'],
+        ),
+      );
+    }
+    if (node_access('delete', $node)) {
+      $links['checkdesk-delete'] = array(
+        'title' => t('Delete'),
+        'href' => 'node/' . $node->nid . '/delete',
+        'query' => array(
+          'destination' => $_GET['q'],
+        ),
       );
     }
     $links['checkdesk-share-facebook'] = array(

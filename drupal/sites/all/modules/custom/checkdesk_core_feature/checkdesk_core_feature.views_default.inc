@@ -13,9 +13,9 @@ function checkdesk_core_feature_views_default_views() {
   $view = new view();
   $view->name = 'activity_report';
   $view->description = 'Report activity stream';
-  $view->tag = 'default';
+  $view->tag = 'checkdesk';
   $view->base_table = 'heartbeat_activity';
-  $view->human_name = 'activity_report';
+  $view->human_name = 'Report Activity';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -349,7 +349,7 @@ print theme(\'views_autorefresh\', array(
   $view = new view();
   $view->name = 'desk_updates';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'checkdesk';
   $view->base_table = 'node';
   $view->human_name = 'Desk Updates';
   $view->core = 7;
@@ -584,7 +584,7 @@ print theme(\'views_autorefresh\', array(
   $view = new view();
   $view->name = 'my_notifications';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'checkdesk';
   $view->base_table = 'heartbeat_activity';
   $view->human_name = 'My Notifications';
   $view->core = 7;
