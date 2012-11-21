@@ -1,3 +1,14 @@
+// The basic grid for susy
+
+// $total-columns: <number>;
+$total-columns: 12;
+// $column-width: <length>;
+$column-width: 64px;
+// $gutter-width: <length>;
+$gutter-width: 16px;
+// $grid-padding: <length>;
+$grid-padding: $gutter-width;  // 1em
+
 // susy layout support
 @import "susy";
 
@@ -7,33 +18,28 @@
 // compass css3 cross browser support lib
 @import "compass/css3";
 
-// our fork of compass_twitter_bootstrap sass files
+// font-icon support
+@import "font-awesome";
+
+// Basic layout
+@import "layout";
+
+// This directory contiains only compass_twitter_bootstrap
+// Our fork of compass_twitter_bootstrap sass files
+// If you want the original file import compass_twitter_bootstrap/variables
+// We only import some of the compass_twitter_bootstrap sass files
+// Read bowerbird parent drupal theme base.scss to see which ones!
+
 @import "compass_twitter_bootstrap/variables";
 @import "compass_twitter_bootstrap/alerts";
+@import "compass_twitter_bootstrap/type";
 
-// Components
-@import "buttons";
-@import "font-awesome";
-@import "dropdowns";
-@import "alerts";
-
-// Components: Nav
+// This is a merge of compass_twitter_bootstrap/navbar and /navs
 @import "navigation";
 
-// Grid system and page structure
-@import "compass/layout.scss";
-@import "grid";
-@import "layout";
+// Checkdesk reports
 @import "report";
 
-// Utility classes
-@import "utilities"; // Has to be last to override when necessary
-
-/* ============= */
-/* = STEP THREE = */
-/* ============= */
-/* This section actually renders direction-specific markup. 
-We use the layout in two language contexts, and set the $direction variable */
 body { @include cd_layout(left); }
 body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
 body.i18n-ar { @include cd_layout(right); }
