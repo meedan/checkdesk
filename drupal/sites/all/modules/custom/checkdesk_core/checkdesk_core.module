@@ -64,12 +64,15 @@ function checkdesk_core_menu() {
   return $items;
 }
 
+/**
+ * Menu function for `modal/%ctools_js`.
+ */
 function _checkdesk_core_modal_callback($js = FALSE) {
   $alias = preg_replace('/modal\/[^\/]+\//', '', request_path());
   $path = drupal_lookup_path('source', $alias);
   $node = menu_get_object('node', 1, $path);
   $output = drupal_render(node_view($node));
-  $title = '';//$node->title;
+  $title = $node->title;
   if ($js) {
     ctools_include('ajax');
     ctools_include('modal');
