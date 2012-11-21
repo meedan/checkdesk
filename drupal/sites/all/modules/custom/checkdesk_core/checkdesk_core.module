@@ -468,7 +468,7 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
  */
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   if ($form['#id'] == 'views-exposed-form-desk-reports-block') {
-    $options = array('word' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
+    $options = array('contains' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
     $form['source_op']['#options'] = $form['title_op']['#options'] = $options;
     $form['source_op']['#process'] = $form['title_op']['#process'] = array('form_process_radios');
     $form['source_op']['#attributes'] = $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));
