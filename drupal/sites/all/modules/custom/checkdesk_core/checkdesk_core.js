@@ -22,6 +22,8 @@
       $('.view-desk-reports .view-content', context).children().each(function() {
         $(this).data('views', settings.checkdesk.reports[i++]);
       });
+      // Restrict thumbnail width to 220
+      jQuery('.view-desk-reports .view-content').find('.thumbnail img').width(220);
     }
   };
 
