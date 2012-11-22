@@ -25,6 +25,4 @@ function meedan_sources_schema() {
   return $schema;
 }
 
-function meedan_sources_update_7001() {
-  module_enable(array('oauthconnector', 'oauth_common_providerui'));
-}
+
