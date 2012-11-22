@@ -37,12 +37,10 @@ $grid-padding: $gutter-width;  // 1em
 
 // =============================== Compass Twitter Bootstrap: Untouched mixins
 
-// basics minus layout and variables
+// Basics minus layout and variables
 @import "compass_twitter_bootstrap/reset";
 @import "compass_twitter_bootstrap/mixins";
 @import "compass_twitter_bootstrap/scaffolding";
-
-// Base CSS
 @import "compass_twitter_bootstrap/type";
 @import "compass_twitter_bootstrap/code";
 @import "compass_twitter_bootstrap/forms";

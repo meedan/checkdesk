@@ -7,6 +7,8 @@
 
 $fontAwesomePath: "fontawesome-webfont";
 
+// load with compass font-face mixin
+// font path is in config.rb
 @include font-face(
     'FontAwesome',
     font-files(
