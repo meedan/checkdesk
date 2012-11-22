@@ -13,11 +13,13 @@
 /**
  * Define one or more flag types.
  *
+ * This hook may be placed in a $module.flag.inc file.
+ *
  * @return
  *  An array whose keys are flag type names and whose values are properties of
  *  the flag type.
- *  Flag type names must match the content type (in the rest of Drupal: entity
- *  type) a flag type works with.
+ *  When a flag type is for an entity, the flag type name must match the entity
+ *  type.
  *  Properties for flag types are as follows:
  *  - 'title': The main label of the flag type.
  *  - 'description': A longer description shown in the UI when creating a new
@@ -26,7 +28,7 @@
  *
  * @see flag_fetch_definition()
  */
-function hook_flag_definitions() {
+function hook_flag_type_info() {
   return array(
     'node' => array(
       'title' => t('Nodes'),
@@ -39,10 +41,12 @@ function hook_flag_definitions() {
 /**
  * Alter flag type definitions provided by other modules.
  *
+ * This hook may be placed in a $module.flag.inc file.
+ *
  * @param $definitions
- *  An array of flag definitions returned by hook_flag_definitions().
+ *  An array of flag definitions returned by hook_flag_type_info().
  */
-function hook_flag_definitions_alter(&$definitions) {
+function hook_flag_type_info_alter(&$definitions) {
 
 }
 
@@ -82,20 +86,37 @@ function hook_flag_options_alter(&$options, $flag) {
 }
 
 /**
- * Act on a flagging.
+ * Act on an object being flagged.
  *
- * @param $op
- *  The operation being performed: one of 'flag' or 'unflag'.
  * @param $flag
  *  The flag object.
- * @param $content_id
- *  The id of the content (aka entity) the flag is on.
+ * @param $entity_id
+ *  The id of the entity the flag is on.
  * @param $account
  *  The user account performing the action.
- * @param $fcid
- *  The id of the flagging in the {flag_content} table.
+ * @param $flagging_id
+ *  The flagging entity.
  */
-function hook_flag($op, $flag, $content_id, $account, $fcid) {
+function hook_flag_flag($flag, $entity_id, $account, $flagging) {
+
+}
+
+/**
+ * Act on an object being unflagged.
+ *
+ * This is invoked after the flag count has been decreased, but before the
+ * flagging entity has been deleted.
+ *
+ * @param $flag
+ *  The flag object.
+ * @param $entity_id
+ *  The id of the entity the flag is on.
+ * @param $account
+ *  The user account performing the action.
+ * @param $flagging
+ *  The flagging entity.
+ */
+function hook_flag_unflag($flag, $entity_id, $account, $flagging) {
 
 }
 
@@ -104,7 +125,7 @@ function hook_flag($op, $flag, $content_id, $account, $fcid) {
  *
  * @param $flag
  *  The flag object.
- * @param $content_id
+ * @param $entity_id
  *  The id of the entity in question.
  * @param $action
  *  The action to test. Either 'flag' or 'unflag'.
@@ -112,12 +133,12 @@ function hook_flag($op, $flag, $content_id, $account, $fcid) {
  *  The user on whose behalf to test the flagging action.
  *
  * @return
- *   Boolean TRUE if the user is allowed to flag/unflag the given content.
+ *   Boolean TRUE if the user is allowed to flag/unflag the given entity.
  *   FALSE otherwise.
  *
  * @see flag_flag:access()
  */
-function hook_flag_access($flag, $content_id, $action, $account) {
+function hook_flag_access($flag, $entity_id, $action, $account) {
 
 }
 
@@ -126,7 +147,7 @@ function hook_flag_access($flag, $content_id, $action, $account) {
  *
  * @param $flag
  *  The flag object.
- * @param $content_ids
+ * @param $entity_ids
  *  An array of object ids to check access.
  * @param $account
  *  The user on whose behalf to test the flagging action.
@@ -138,7 +159,7 @@ function hook_flag_access($flag, $content_id, $action, $account) {
  * @see hook_flag_access()
  * @see flag_flag:access_multiple()
  */
-function hook_flag_access_multiple($flag, $content_ids, $account) {
+function hook_flag_access_multiple($flag, $entity_ids, $account) {
 
 }
 
@@ -146,6 +167,8 @@ function hook_flag_access_multiple($flag, $content_ids, $account) {
  * Define one or more flag link types.
  *
  * Link types defined here must be returned by this module's hook_flag_link().
+ *
+ * This hook may be placed in a $module.flag.inc file.
  *
  * @return
  *  An array of one or more types, keyed by the machine name of the type, and
@@ -158,24 +181,30 @@ function hook_flag_access_multiple($flag, $content_ids, $account) {
  *    module's own JS file for links.
  *  - 'uses standard css': Boolean, indicates whether the link requires Flag
  *    module's own CSS file for links.
+ *  - 'provides form': (optional) Boolean indicating that this link type shows
+ *    the user a flagging entity form. This property is used in the UI, eg to
+ *    warn the admin user of link types that are not compatible with other
+ *    flag options. Defaults to FALSE.
  *
  * @see flag_get_link_types()
- * @see hook_flag_link_types_alter()
+ * @see hook_flag_link_type_info_alter()
  */
-function hook_flag_link_types() {
+function hook_flag_link_type_info() {
 
 }
 
 /**
  * Alter other modules' definitions of flag link types.
  *
+ * This hook may be placed in a $module.flag.inc file.
+ *
  * @param $link_types
  *  An array of the link types defined by all modules.
  *
  * @see flag_get_link_types()
- * @see hook_flag_link_types()
+ * @see hook_flag_link_type_info()
  */
-function hook_flag_link_types_alter(&$link_types) {
+function hook_flag_link_type_info_alter(&$link_types) {
 
 }
 
@@ -193,14 +222,14 @@ function hook_flag_link_types_alter(&$link_types) {
  *   The full flag object for the flag link being generated.
  * @param $action
  *   The action this link should perform. Either 'flag' or 'unflag'.
- * @param $content_id
+ * @param $entity_id
  *   The ID of the node, comment, user, or other object being flagged. The type
  *   of the object can be deduced from the flag type.
  *
  * @return
  *   An array defining properties of the link.
  *
- * @see hook_flag_link_types()
+ * @see hook_flag_link_type_info()
  * @see template_preprocess_flag()
  */
 function hook_flag_link() {
@@ -242,7 +271,7 @@ function hook_flag_reset($flag, $entity_id, $rows) {
  *
  * @param $flag
  *   The full flag object.
- * @param $content_id
+ * @param $entity_id
  *   The ID of the node, comment, user or other object being flagged.
  *
  * @see flag_build_javascript_info()

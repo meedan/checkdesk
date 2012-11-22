@@ -35,10 +35,16 @@ function flag_views_plugins() {
 function flag_views_data() {
   $data = array();
 
-  $data['flag_content']['table']['group'] = t('Flags');
+  $data['flagging']['table']['group'] = t('Flags');
   $data['flag_counts']['table']['group'] = t('Flags');
 
-  $data['flag_content']['uid'] = array(
+  // Notify views from flag 2.x of our changes to views data.
+  // @see flag_update_7301().
+  $data['flag_content']['moved to'] = 'flagging';
+  // @see flag_update_7303().
+  $data['flag_content']['content_id']['moved to'] = array('flagging', 'entity_id');
+
+  $data['flagging']['uid'] = array(
     'title' => t('User uid'),
     'help' => t('The user that flagged an item. If you need more fields than the uid add the "Flags: User" relationship.'),
     'relationship' => array(
@@ -59,7 +65,7 @@ function flag_views_data() {
     ),
   );
 
-  $data['flag_content']['timestamp'] = array(
+  $data['flagging']['timestamp'] = array(
     'title' => t('Flagged time'),
     'help' => t('Display the time the content was flagged by a user.'),
     'field' => array(
@@ -78,27 +84,37 @@ function flag_views_data() {
   );
 
   // Argument for content ID, used for "Who's flagged this" views.
-  $data['flag_content']['content_id'] = array(
+  $data['flagging']['entity_id'] = array(
     'title' => t('Content ID'),
     'help' => t('The unique ID of the object that has been flagged.'),
     'argument' => array(
-      'handler' => 'flag_handler_argument_content_id',
+      'handler' => 'flag_handler_argument_entity_id',
     ),
   );
 
   // Specialized is null/is not null filter.
-  $data['flag_content']['flagged'] = array(
+  $data['flagging']['flagged'] = array(
     'title' => t('Flagged'),
-    'help' => t('Filter to ensure content has or has not been flagged.'),
     'real field' => 'uid',
+    'field' => array(
+      'handler' => 'flag_handler_field_flagged',
+      'label' => t('Flagged'),
+      'help' => t('A boolean field to show whether the flag is set or not.'),
+    ),
     'filter' => array(
       'handler' => 'flag_handler_filter_flagged',
       'label' => t('Flagged'),
+      'help' => t('Filter to ensure content has or has not been flagged.'),
+    ),
+    'sort' => array(
+      'handler' => 'flag_handler_sort_flagged',
+      'label' => t('Flagged'),
+      'help' => t('Sort by whether entities have or have not been flagged.'),
     ),
   );
 
   // Flag content links.
-  $data['flag_content']['ops'] = array(
+  $data['flagging']['ops'] = array(
     'title' => t('Flag link'),
     'help' => t('Display flag/unflag link.'),
     'field' => array(
@@ -151,7 +167,7 @@ function flag_views_data() {
 function flag_views_data_alter(&$data) {
 
   foreach (array_keys(flag_fetch_definition()) as $flag_type) {
-    $flag = flag_flag::factory_by_content_type($flag_type);
+    $flag = flag_flag::factory_by_entity_type($flag_type);
     $info = $flag->get_views_info();
 
     if (!empty($info['join field'])) {
@@ -164,8 +180,8 @@ function flag_views_data_alter(&$data) {
           'flag type' => $flag_type,
           'handler' => 'flag_handler_relationship_content',
           'label' => t('flag'),
-          'base' => 'flag_content',
-          'base field' => 'content_id',
+          'base' => 'flagging',
+          'base field' => 'entity_id',
           'relationship field' => $info['join field'],
         ),
       );
@@ -180,7 +196,7 @@ function flag_views_data_alter(&$data) {
           'handler' => 'flag_handler_relationship_counts',
           'label' => t('counter'),
           'base' => 'flag_counts',
-          'base field' => 'content_id',
+          'base field' => 'entity_id',
           'relationship field' => $info['join field'],
         ),
       );
@@ -190,10 +206,10 @@ function flag_views_data_alter(&$data) {
   // Add a relationship for the user that flagged any type of content.
   $data['users']['flag_user_content_rel'] = array(
     'group' => t('Flags'),
-    'title' => t("User's flagged content"),
-    'help' => t('Limit results to users that have flagged certain content.'),
+    'title' => t("User's flaggings"),
+    'help' => t('Relate users to the flaggings they have made on objects, using a particular flag.'),
     'relationship' => array(
-      'base' => 'flag_content',
+      'base' => 'flagging',
       'base field' => 'uid',
       'relationship field' => 'uid',
       'handler' => 'flag_handler_relationship_user_content',
@@ -218,8 +234,8 @@ function flag_views_query_substitutions() {
  * This function is used to select the desired flag when setting up flag
  * relationships and fields.
  */
-function flag_views_flag_config_form($form_type, $content_type, $current_flag) {
-  $flags = flag_get_flags($content_type);
+function flag_views_flag_config_form($form_type, $entity_type, $current_flag) {
+  $flags = flag_get_flags($entity_type);
 
   $options = array();
   foreach ($flags as $flag) {
@@ -240,13 +256,13 @@ function flag_views_flag_config_form($form_type, $content_type, $current_flag) {
 /**
  * Helper function that gets the first defined flag and returns its name.
  */
-function flag_views_flag_default($content_type) {
+function flag_views_flag_default($entity_type) {
   $default_flag = &drupal_static(__FUNCTION__, array());
 
-  if (!array_key_exists($content_type, $default_flag)) {
-    $flag = array_shift(flag_get_flags($content_type));
-    $default_flag[$content_type] = $flag ? $flag->name : NULL;
+  if (!array_key_exists($entity_type, $default_flag)) {
+    $flag = array_shift(flag_get_flags($entity_type));
+    $default_flag[$entity_type] = $flag ? $flag->name : NULL;
   }
 
-  return $default_flag[$content_type];
+  return $default_flag[$entity_type];
 }

@@ -57,6 +57,9 @@ function flag_export_flags($flags = array(), $module = '', $indent = '') {
       unset($new_flag['entity_info']);
     }
 
+    // Remove roles.
+    unset($new_flag['roles']);
+
     $output .= $indent . '// Exported flag: "' . check_plain($flag->get_title()) . '"' . ".\n";
     $output .= $indent . '$flags[\'' . $flag->name . '\'] = ' . (function_exists('features_var_export') ? features_var_export($new_flag, $indent) : var_export($new_flag, TRUE)) . ";\n";
   }
@@ -237,14 +240,70 @@ function flag_update_page($flag) {
  *   The flag object passed by reference.
  */
 function flag_update_export(&$flag) {
-  // Update differences.
-  if (empty($flag->api_version) || $flag->api_version == 1) {
+  // Set the API version to 1 by default.
+  if (empty($flag->api_version)) {
+    $flag->api_version = 1;
+  }
+
+  // Loop through the classes until the API version is up to date.
+  while ($flag->api_version != FLAG_API_VERSION) {
+    // Get the class for the update.
+    $update_class = 'FlagUpdate_' . $flag->api_version;
+
+    // Run the update and change the API version on the flag.
+    // @todo: change this to work with the static class when we drop support for
+    // PHP 5.2: see commit d5b517.
+    $update_handler = new $update_class;
+    $update_handler->update($flag);
+    $flag->api_version = $update_handler->new_api_version;
+  }
+}
+
+/**
+ * Flag update class for API 1 flags.
+ */
+class FlagUpdate_1 {
+  /**
+   * The API version this class updates a flag to.
+   *
+   * @todo: Change this to a class constant when we drop support for PHP 5.2.
+   */
+  public $new_api_version = 2;
+
+  /**
+   * The update function for the flag.
+   */
+  static function update(&$flag) {
     if (isset($flag->roles) && !isset($flag->roles['flag'])) {
       $flag->roles = array(
         'flag' => $flag->roles,
         'unflag' => $flag->roles,
       );
     }
-    $flag->api_version = FLAG_API_VERSION;
+  }
+}
+
+/**
+ * Flag update class for API 2 flags.
+ */
+class FlagUpdate_2 {
+  public $new_api_version = 3;
+
+  static function update(&$flag) {
+    // Change the content_type property to entity_type.
+    if (isset($flag->content_type)) {
+      $flag->entity_type = $flag->content_type;
+      unset($flag->content_type);
+    }
+
+    // We can't convert the flag roles data to user permissions at this point
+    // because the flag is disabled and hence hook_permission() doesn't see it
+    // to define its permissions.
+    // Instead, we copy it to import_roles, which the flag add form will handle
+    // on new flags (which this flag will behave as when it is re-enabled).
+    // @see flag_form()
+    if (isset($flag->roles)) {
+      $flag->import_roles = $flag->roles;
+    }
   }
 }

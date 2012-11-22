@@ -10,7 +10,7 @@
  *
  * @ingroup views
  */
-class flag_handler_argument_content_id extends views_handler_argument_numeric {
+class flag_handler_argument_entity_id extends views_handler_argument_numeric {
 
   /**
    * Returns the flag object associated with our argument.

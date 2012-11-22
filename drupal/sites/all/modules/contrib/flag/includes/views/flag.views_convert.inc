@@ -50,7 +50,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
           $new_field = array(
             'label' => $field['label'],
             'id' => 'ops',
-            'table' => 'flag_content',
+            'table' => 'flagging',
             'field' => 'ops',
             'relationship' => 'flag_content_rel',
           );
@@ -85,7 +85,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
     case 'exposed_filter':
       switch ($id) {
         case 'uid':
-          // The flag_content uid filter means "Include content only flagged by
+          // The flagging uid filter means "Include content only flagged by
           // the current user". In D6, this is no longer a filter, but instead
           // part of the relationship. Make the relationship join on the uid.
           if ($field['value'] == '***CURRENT_USER***') {
@@ -101,7 +101,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
             'value' => flag_views_convert_timestamp_value($field['value']),
             'group' => 0,
             'id' => 'timestamp',
-            'table' => 'flag_content',
+            'table' => 'flagging',
             'field' => 'timestamp',
             'relationship' => 'flag_content_rel',
             'exposed' => $type == 'exposed_filter' ? 1 : 0,
@@ -155,7 +155,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
           $new_field = array(
             'order' => $field['sortorder'],
             'id' => 'timestamp',
-            'table' => 'flag_content',
+            'table' => 'flagging',
             'field' => 'timestamp',
             'relationship' => 'flag_content_rel',
           );
@@ -203,7 +203,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
         'label' => isset($flag_name) ? $flag_name . ' user' : 'user',
         'required' => 0,
         'id' => 'uid',
-        'table' => 'flag_content',
+        'table' => 'flagging',
         'field' => 'uid',
         'relationship' => 'flag_content_rel',
       );
