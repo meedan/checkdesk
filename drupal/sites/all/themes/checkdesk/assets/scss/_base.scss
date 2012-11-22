@@ -1,0 +1,19 @@
+
+// Fontawesome icons :before
+//
+// use shorthand from the icon set in icons.scss
+//
+// li { @include icon(bookmark-empty) { background: 'black'; }  }
+
+@mixin icon(icon) {
+  @extend ".icon-#{icon}";
+  &:before {
+    width: 20px;
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    @content;
+  }
+}

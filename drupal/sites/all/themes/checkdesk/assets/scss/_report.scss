@@ -1,5 +1,8 @@
 // Report 
-// -------------------------
+//
+// When a link is received we convert it into an embedded media "report"
+//
+// Compatibility: untested
 
 .report {
 	& > header {
@@ -8,11 +11,10 @@
 		padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 		color: $gray;
 
-
 		h3 {
 			float: left;
-			@include reset();
-			@include font-shorthand(12px, normal);
+			@include reset-box-model();
+			@include ctb-font-shorthand(12px, normal);
 		}
 
 		.source-url {
@@ -22,8 +24,9 @@
 
 		.report-actions {
 			float: right;
-			@include reset-list();
-			@include font-shorthand(12px, normal);
+			@include reset-list-style;
+			@include reset-box-model;
+			@include ctb-font-shorthand(12px, normal);
 			& > li {
 				@include clearfix();
 				display: inline;
@@ -66,19 +69,19 @@
 		& > p {
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 			border-bottom: 1px solid $white;
-			@include font-shorthand(12px, normal);
+			@include ctb-font-shorthand(12px, normal);
 		}
 
 		.gravatar {
 			img {
 				vertical-align: text-bottom;
-				@include square(20px);
+				@include ctb-square(20px);
 				margin-right: $gridGutterWidth/3;
 			}	
 		}
 
 		.description {
-			@include font-shorthand(14px, normal);
+			@include ctb-font-shorthand(14px, normal);
 			padding: 0 $gridGutterWidth/2 0 40px;
 			background-repeat: no-repeat;
 			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
@@ -96,8 +99,8 @@
 			cursor: pointer;
 			h3 {
 				float: left;
-				@include reset();
-				@include font-shorthand(14px, normal);
+				@include reset-box-model();
+				@include ctb-font-shorthand(14px, normal);
 			}
 			.report-status {
 				float: right;
@@ -137,7 +140,8 @@
 		}
 
 		.activity-list {
-			@include reset-list();
+			@include reset-list-style;
+			@include reset-box-model;
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 			background-color: lighten($grayLighter, 5%);
 			li {
@@ -165,7 +169,7 @@
 					background-color: $white;
 					@include border-radius(4px);
 					& > p {
-						@include reset();
+						@include reset-box-model;
 					}
 				}
 			}
@@ -176,7 +180,7 @@
 		}
 
 		#comment-form {
-			@include clearfix();
+			@include clearfix;
 			padding: 0 $gridGutterWidth/2;
 			background-color: $grayLighter;
 			label {

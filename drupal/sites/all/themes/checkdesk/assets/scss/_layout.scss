@@ -1,11 +1,11 @@
-/* ============================  */
-/* =   The Skeleton           =  */
-/*  overridden on some pages     */
-/* $direction = ltr or rlt --sets the susy $from-direction */
-/* $sidebar_alpha = number of columns for the alpha sidebar */
-/* $sidebar_omega = number of columns for the omega sidebar */
-/* $content_width = number of columns for the main div (i.e.) main page content */
-/* ============================  */
+// Core layout
+// 
+// $direction = ltr or rlt --sets the susy $from-direction
+// $sidebar_alpha = number of columns for the alpha sidebar
+// $sidebar_omega = number of columns for the omega sidebar
+// $content_width = number of columns for the main div (i.e.) main page content
+//
+// Compatibility: untested
 
 @mixin layout_skeleton($direction, $sidebar_alpha: 3, $content_width: 9) {
 	div#content {
@@ -37,5 +37,3 @@
   padding-left: $gridGutterWidth;
   @include clearfix();
 }
-
-@import "notifications"

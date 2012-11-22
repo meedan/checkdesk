@@ -1,5 +1,4 @@
 // The basic grid for susy
-
 // $total-columns: <number>;
 $total-columns: 12;
 // $column-width: <length>;
@@ -9,33 +8,86 @@ $gutter-width: 16px;
 // $grid-padding: <length>;
 $grid-padding: $gutter-width;  // 1em
 
-// susy layout support
-@import "susy";
-
-// compass gem
+// Compass gem
 @import "compass";
 
-// compass css3 cross browser support lib
+// Compass gem CSS3
 @import "compass/css3";
 
-// font-icon support
+// Susy layout gem
+@import "susy";
+
+// Font-icon support
 @import "font-awesome";
+
+// =============================== Our forks of CTB sass files
+
+// First
+@import "override_ctb/variables";
+// Second
+@import "override_ctb/mixins";
+// The Rest
+@import "override_ctb/navigation";
+@import "override_ctb/alerts";
+@import "override_ctb/type";
+
+// =============================== Compass Twitter Bootstrap: Untouched mixins
+
+// basics minus layout and variables
+@import "compass_twitter_bootstrap/reset";
+@import "compass_twitter_bootstrap/mixins";
+@import "compass_twitter_bootstrap/scaffolding";
+
+// Base CSS
+@import "compass_twitter_bootstrap/type";
+@import "compass_twitter_bootstrap/code";
+@import "compass_twitter_bootstrap/forms";
+@import "compass_twitter_bootstrap/tables";
+
+// Components: common
+// @import "compass_twitter_bootstrap/sprites";
+@import "compass_twitter_bootstrap/dropdowns";
+// @import "compass_twitter_bootstrap/wells";
+// @import "compass_twitter_bootstrap/component-animations";
+// @import "compass_twitter_bootstrap/close";
+
+// // Components: Buttons & Alerts
+@import "compass_twitter_bootstrap/buttons";
+@import "compass_twitter_bootstrap/button-groups";
+@import "compass_twitter_bootstrap/alerts";
+
+// Components: Nav
+// NOTE: 
+// in Checkdesk these are merged into navigation.scss
+// @import "compass_twitter_bootstrap/navs";
+// @import "compass_twitter_bootstrap/navbar";
+
+// Components: Pagination
+// @import "compass_twitter_bootstrap/breadcrumbs";
+// @import "compass_twitter_bootstrap/pagination";
+// @import "compass_twitter_bootstrap/pager";
+
+// Components: Popovers
+@import "compass_twitter_bootstrap/modals";
+@import "compass_twitter_bootstrap/tooltip";
+@import "compass_twitter_bootstrap/popovers";
+
+// Components: Misc
+// @import "compass_twitter_bootstrap/thumbnails";
+// @import "compass_twitter_bootstrap/labels-badges";
+// @import "compass_twitter_bootstrap/progress-bars";
+// @import "compass_twitter_bootstrap/accordion";
+// @import "compass_twitter_bootstrap/carousel";
+// @import "compass_twitter_bootstrap/hero-unit";
+
+// Utility classes
+@import "compass_twitter_bootstrap/utilities"; // Has to be last to override when necessary
 
 // Basic layout
 @import "layout";
 
-// This directory contiains only compass_twitter_bootstrap
-// Our fork of compass_twitter_bootstrap sass files
-// If you want the original file import compass_twitter_bootstrap/variables
-// We only import some of the compass_twitter_bootstrap sass files
-// Read bowerbird parent drupal theme base.scss to see which ones!
-
-@import "compass_twitter_bootstrap/variables";
-@import "compass_twitter_bootstrap/alerts";
-@import "compass_twitter_bootstrap/type";
-
-// This is a merge of compass_twitter_bootstrap/navbar and /navs
-@import "navigation";
+// Notifications
+@import "notifications";
 
 // Checkdesk reports
 @import "report";
