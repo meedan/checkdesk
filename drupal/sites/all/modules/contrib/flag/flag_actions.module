@@ -8,8 +8,8 @@
 /**
  * Implements hook_flag(). Trigger actions if any are available.
  */
-function flag_actions_flag($event, $flag, $content_id, $account) {
-  flag_actions_do($event, $flag, $content_id, $account);
+function flag_actions_flag($event, $flag, $entity_id, $account) {
+  flag_actions_do($event, $flag, $entity_id, $account);
 }
 
 /**
@@ -24,6 +24,7 @@ function flag_actions_menu() {
     'access callback' => 'user_access',
     'access arguments' => array('administer actions'),
     'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
   );
   $items[FLAG_ADMIN_PATH . '/actions/add'] = array(
     'title' => 'Add action',
@@ -86,7 +87,7 @@ function flag_actions_get_actions($flag_name = NULL, $reset = FALSE) {
   if (!isset($flag_actions) || $reset) {
     $flag_actions = array();
     $query = db_select('flag_actions', 'a');
-    $query->innerJoin('flags', 'f', 'a.fid = f.fid');
+    $query->innerJoin('flag', 'f', 'a.fid = f.fid');
     $query->addField('f', 'name', 'flag');
     $result = $query
       ->fields('a')
@@ -195,16 +196,16 @@ function flag_actions_delete_action($aid) {
 /**
  * Perform flag actions.
  */
-function flag_actions_do($event, $flag, $content_id, $account) {
+function flag_actions_do($event, $flag, $entity_id, $account) {
   $actions = flag_actions_get_actions($flag->name);
   if (!$actions) {
     return;
   }
 
-  $flag_action = $flag->get_flag_action($content_id);
+  $flag_action = $flag->get_flag_action($entity_id);
   $flag_action->action = $event;
-  $flag_action->count = $count = $flag->get_count($content_id);
-  $relevant_objects = $flag->get_relevant_action_objects($content_id);
+  $flag_action->count = $count = $flag->get_count($entity_id);
+  $relevant_objects = $flag->get_relevant_action_objects($entity_id);
   $object_changed = FALSE;
   foreach ($actions as $aid => $action) {
     if ($action->event == 'flag') {
@@ -241,7 +242,7 @@ function flag_actions_do($event, $flag, $content_id, $account) {
           $callback($relevant_objects['node'], $context);
         }
         else {
-          $callback($relevant_objects[$flag->content_type], $context);
+          $callback($relevant_objects[$flag->entity_type], $context);
         }
       }
 
@@ -659,7 +660,7 @@ function flag_actions_system_send_email_action_form(&$form, &$flag, $context) {
   }
 
   if (!isset($context['message'])) {
-    $form['message']['#default_value'] = t("The @flag_content_type [flag-action:content-title] has been flagged [flag-action:count] times with the @flag_title flag.\n\nView this @flag_content_type at [flag-action:content-url].", array('@flag_content_type' => $flag->content_type, '@flag_title' => $flag->get_title()));
+    $form['message']['#default_value'] = t("The @flag_entity_type [flag-action:content-title] has been flagged [flag-action:count] times with the @flag_title flag.\n\nView this @flag_entity_type at [flag-action:content-url].", array('@flag_entity_type' => $flag->entity_type, '@flag_title' => $flag->get_title()));
   }
 
   $form['help'] = array(

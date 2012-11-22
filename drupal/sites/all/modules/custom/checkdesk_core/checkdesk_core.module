@@ -55,8 +55,33 @@ function checkdesk_core_menu() {
     //'modal' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['modal/%ctools_js'] = array(
+    'page callback' => '_checkdesk_core_modal_callback',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+  );
 
   return $items;
+}
+
+/**
+ * Menu function for `modal/%ctools_js`.
+ */
+function _checkdesk_core_modal_callback($js = FALSE) {
+  $alias = preg_replace('/modal\/[^\/]+\//', '', request_path());
+  $path = drupal_lookup_path('source', $alias);
+  $node = menu_get_object('node', 1, $path);
+  $output = drupal_render(node_view($node));
+  $title = $node->title;
+  if ($js) {
+    ctools_include('ajax');
+    ctools_include('modal');
+    ctools_modal_render($title, $output);
+  }
+  else {
+    drupal_set_title($title);
+    return $output;
+  }
 }
 
 /**
@@ -443,7 +468,7 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
  */
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   if ($form['#id'] == 'views-exposed-form-desk-reports-block') {
-    $options = array('word' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
+    $options = array('contains' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
     $form['source_op']['#options'] = $form['title_op']['#options'] = $options;
     $form['source_op']['#process'] = $form['title_op']['#process'] = array('form_process_radios');
     $form['source_op']['#attributes'] = $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));

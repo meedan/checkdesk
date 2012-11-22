@@ -12,7 +12,7 @@
         drop: function(event, ui) {
           $(ui.draggable).hide();
           // Retrieve the Views information from the DOM.
-          var data = $(ui.draggable).parent().parent().parent().data('views');
+          var data = $(ui.draggable).data('views');
           // Insert the report URL into the textarea of the post body.
           $('textarea', this).insertAtCaret("\n" + data.droppable_ref + "\n");
         },
@@ -22,6 +22,8 @@
       $('.view-desk-reports .view-content', context).children().each(function() {
         $(this).data('views', settings.checkdesk.reports[i++]);
       });
+      // Restrict thumbnail width to 220
+      jQuery('.view-desk-reports .view-content').find('.thumbnail img').width(220);
     }
   };
 

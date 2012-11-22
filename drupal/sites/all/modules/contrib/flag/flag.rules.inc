@@ -17,6 +17,11 @@ function flag_rules_data_info() {
       'wrapper class' => 'FlagRulesDataWrapper',
       'wrap' => TRUE,
     ),
+    'flagging' => array(
+      'label' => t('flagging'),
+      'parent' => 'entity',
+      'group' => t('flag'),
+    ),
   );
 }
 
@@ -76,7 +81,7 @@ class FlagRulesUIClass extends RulesDataUI implements RulesDataDirectInputFormIn
       '#required' => empty($info['optional']),
       '#multiple' => FALSE,
       '#default_value' => $settings[$name],
-      '#emtpy' => t('There is no suiting flag available.')
+      '#empty' => t('There is no suiting flag available.')
     );
     return $form;
   }
@@ -99,10 +104,10 @@ function _flag_rules_flags_options($flag_type = NULL) {
   $flags = flag_get_flags();
   $options = array();
   foreach ($flags as $flag) {
-    if (!isset($flag_type) || $flag->content_type == $flag_type) {
+    if (!isset($flag_type) || $flag->entity_type == $flag_type) {
       $options[$flag->name] = array(
         'title' => $flag->get_title(),
-        'type' => $flag->content_type,
+        'type' => $flag->entity_type,
         'global' => $flag->global ? t('Yes') : t('No'),
       );
     }
@@ -119,33 +124,37 @@ function flag_rules_event_info() {
   $flags = flag_get_flags();
   foreach ($flags as $flag) {
     // We only support flags on entities.
-    if ($info = entity_get_info($flag->content_type)) {
+    if ($info = entity_get_info($flag->entity_type)) {
       $variables = array(
         'flag' => array(
           'type' => 'flag',
           'label' => t('flag'),
-          'flag_type' => $flag->content_type,
+          'flag_type' => $flag->entity_type,
         ),
-        'flagged_' . $flag->content_type => array(
-          'type' => $flag->content_type,
+        'flagged_' . $flag->entity_type => array(
+          'type' => $flag->entity_type,
           'label' => $info['label'],
         ),
         'flagging_user' => array(
           'type' => 'user',
           'label' => t('flagging user'),
         ),
+        'flagging' => array(
+          'type' => 'flagging',
+          'label' => t('flagging'),
+        ),
       );
 
       // For each flag we define two events.
       $items['flag_flagged_' . $flag->name] = array(
         'group' => t('Flag'),
-        'label' => t('A @flag-type has been flagged, under "@flag-title"', array('@flag-title' => $flag->get_title(), '@flag-type' => t($flag->content_type))),
+        'label' => t('A @flag-type has been flagged, under "@flag-title"', array('@flag-title' => $flag->get_title(), '@flag-type' => t($flag->entity_type))),
         'variables' => $variables,
         'access callback' => 'flag_rules_integration_access',
       );
       $items['flag_unflagged_' . $flag->name] = array(
         'group' => t('Flag'),
-        'label' => t('A @flag-type has been unflagged, under "@flag-title"', array('@flag-title' => $flag->get_title(), '@flag-type' => t($flag->content_type))),
+        'label' => t('A @flag-type has been unflagged, under "@flag-title"', array('@flag-title' => $flag->get_title(), '@flag-type' => t($flag->entity_type))),
         'variables' => $variables,
         'access callback' => 'flag_rules_integration_access',
       );
@@ -219,7 +228,6 @@ function flag_rules_action_info() {
     ),
   );
   foreach (flag_get_types() as $type) {
-    $flag = flag_create_handler($type);
     $entity_info = entity_get_info($type);
     $items += array(
       'flag_flag' . $type => array(
@@ -291,14 +299,14 @@ function flag_rules_action_info() {
  * Base action implementation: Flag.
  */
 function flag_rules_action_flag($flag, $entity, $flagging_user, $permissions_check) {
-  $flag->flag('flag', $flag->get_content_id($entity), $flagging_user, $permissions_check);
+  $flag->flag('flag', $flag->get_entity_id($entity), $flagging_user, $permissions_check);
 }
 
 /**
  * Base action implementation: Unflag.
  */
 function flag_rules_action_unflag($flag, $entity, $flagging_user, $permissions_check) {
-  $flag->flag('unflag', $flag->get_content_id($entity), $flagging_user, $permissions_check);
+  $flag->flag('unflag', $flag->get_entity_id($entity), $flagging_user, $permissions_check);
 }
 
 /**
@@ -312,10 +320,10 @@ function flag_rules_action_trim($flag, $flagging_user, $cutoff_size) {
  * Base action implementation: Fetch users who flagged an entity.
  */
 function flag_rules_action_fetch_users($flag, $entity) {
-  $result = db_select('flag_content', 'fc')
+  $result = db_select('flagging', 'fc')
     ->fields('fc', array('uid'))
-    ->condition('content_type', $flag->content_type)
-    ->condition('content_id', $flag->get_content_id($entity))
+    ->condition('entity_type', $flag->entity_type)
+    ->condition('entity_id', $flag->get_entity_id($entity))
     ->condition('fid', $flag->fid)
     ->execute();
   $uids = $result->fetchCol();
@@ -327,9 +335,9 @@ function flag_rules_action_fetch_users($flag, $entity) {
  * Base action implementation: Fetch entities who were flagged a user.
  */
 function flag_rules_action_fetch_entity_by_user($flag, $user) {
-  $result = db_select('flag_content', 'fc')
-    ->fields('fc', array('content_id'))
-    ->condition('content_type', $flag->content_type)
+  $result = db_select('flagging', 'fc')
+    ->fields('fc', array('entity_id'))
+    ->condition('entity_type', $flag->entity_type)
     ->condition('uid', $user->uid)
     ->condition('fid', $flag->fid)
     ->execute();
@@ -344,7 +352,6 @@ function flag_rules_action_fetch_entity_by_user($flag, $user) {
 function flag_rules_condition_info() {
   $items = array();
   foreach (flag_get_types() as $type) {
-    $flag = flag_create_handler($type);
     $entity_info = entity_get_info($type);
     $label = isset($entity_info[$type]['label']) ? $entity_info[$type]['label'] : $type;
     $items += array(
@@ -424,7 +431,7 @@ function flag_rules_condition_threshold_operator_options() {
  * Condition: Check flagging count.
  */
 function flag_rules_condition_threshold($flag, $entity, $number, $operator = '=') {
-  $count = $flag->get_count($flag->get_content_id($entity));
+  $count = $flag->get_count($flag->get_entity_id($entity));
 
   switch ($operator) {
     case '>' : return $count >  $number;
@@ -439,7 +446,7 @@ function flag_rules_condition_threshold($flag, $entity, $number, $operator = '='
  * Condition: Flag is flagged.
  */
 function flag_rules_condition_flagged($flag, $entity, $account) {
-  return $flag->is_flagged($flag->get_content_id($entity), $account->uid);
+  return $flag->is_flagged($flag->get_entity_id($entity), $account->uid);
 }
 
 /**

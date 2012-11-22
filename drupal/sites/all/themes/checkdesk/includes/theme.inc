@@ -77,6 +77,11 @@ function checkdesk_checkdesk_links($variables) {
       $attributes['class'][] = (count($children) > 0) ? 'dropdown' : NULL;
       $output .= '<li' . drupal_attributes(array('class' => $attributes['class'])) . '>';
 
+      if (isset($link['class'])) {
+        if (!isset($link['attributes']['class'])) $link['attributes']['class'] = array();
+        $link['attributes']['class'] = array_merge($link['attributes']['class'], $link['class']);
+      }
+
       if (isset($link['href'])) {
         if(count($children) > 0) { 
           $link['html'] = TRUE;

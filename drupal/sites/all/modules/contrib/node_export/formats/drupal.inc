@@ -19,9 +19,11 @@ function node_export_drupal_export($nodes, $format) {
  * Import callback.
  */
 function node_export_drupal_import($code_string) {
-  $nodes = eval('return ' . $code_string . ';');
-  if (is_array($nodes)) {
-    return node_export_drupal_decode_objects($nodes);
+  if (substr(ltrim($code_string), 0, 6) == "array(") {
+    $nodes = eval('return ' . $code_string . ';');
+    if (is_array($nodes)) {
+      return node_export_drupal_decode_objects($nodes);
+    }
   }
 }
 
