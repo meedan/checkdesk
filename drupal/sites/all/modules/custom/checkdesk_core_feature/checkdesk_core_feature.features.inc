@@ -36,7 +36,7 @@ function checkdesk_core_feature_flag_default_flags() {
   $flags = array();
   // Exported flag: "Fact-checking".
   $flags['factcheck'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Fact-checking',
     'global' => '0',
     'types' => array(
@@ -49,31 +49,25 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_long' => '',
     'unflag_message' => 'This report was unflagged for fact-checking.',
     'unflag_denied_text' => '',
-    'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => '5',
-      ),
-      'unflag' => array(
-        0 => '5',
-      ),
-    ),
+    'link_type' => 'confirm',
     'weight' => 0,
     'show_on_form' => 0,
     'access_author' => '',
+    'show_contextual_link' => 1,
     'show_on_page' => 1,
     'show_on_teaser' => 0,
-    'show_contextual_link' => 1,
     'i18n' => 0,
+    'flag_confirmation' => 'Are you sure you want to flag this report?',
+    'unflag_confirmation' => 'Are you sure you want to unflag this report?',
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   // Exported flag: "Fact-checking (journalist)".
   $flags['factcheck_journalist'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Fact-checking (journalist)',
     'global' => '1',
     'types' => array(
@@ -87,32 +81,22 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'Fact-checking has been disabled for this report.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => '3',
-        1 => '4',
-      ),
-      'unflag' => array(
-        0 => '3',
-        1 => '4',
-      ),
-    ),
     'weight' => 0,
     'show_on_form' => 0,
     'access_author' => '',
+    'show_contextual_link' => 1,
     'show_on_page' => 1,
     'show_on_teaser' => 0,
-    'show_contextual_link' => 1,
     'i18n' => 0,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   // Exported flag: "Graphic content".
   $flags['graphic'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Graphic content',
     'global' => '0',
     'types' => array(
@@ -125,31 +109,25 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_long' => '',
     'unflag_message' => 'This report was unflagged as containing graphic content.',
     'unflag_denied_text' => '',
-    'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => '5',
-      ),
-      'unflag' => array(
-        0 => '5',
-      ),
-    ),
+    'link_type' => 'confirm',
     'weight' => 0,
     'show_on_form' => 0,
     'access_author' => '',
+    'show_contextual_link' => 1,
     'show_on_page' => 1,
     'show_on_teaser' => 0,
-    'show_contextual_link' => 1,
     'i18n' => 0,
+    'flag_confirmation' => 'Are you sure you want to flag this report?',
+    'unflag_confirmation' => 'Are you sure you want to unflag this report?',
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   // Exported flag: "Graphic content (journalist)".
   $flags['graphic_journalist'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Graphic content (journalist)',
     'global' => '1',
     'types' => array(
@@ -163,32 +141,22 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged as containing graphic content.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => '3',
-        1 => '4',
-      ),
-      'unflag' => array(
-        0 => '3',
-        1 => '4',
-      ),
-    ),
     'weight' => 0,
     'show_on_form' => 0,
     'access_author' => '',
+    'show_contextual_link' => 1,
     'show_on_page' => 1,
     'show_on_teaser' => 0,
-    'show_contextual_link' => 1,
     'i18n' => 0,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   // Exported flag: "Spam".
   $flags['spam'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Spam',
     'global' => '0',
     'types' => array(
@@ -201,27 +169,21 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_long' => '',
     'unflag_message' => 'This report was unflagged as spam.',
     'unflag_denied_text' => '',
-    'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => '5',
-      ),
-      'unflag' => array(
-        0 => '5',
-      ),
-    ),
+    'link_type' => 'confirm',
     'weight' => 0,
     'show_on_form' => 0,
     'access_author' => '',
+    'show_contextual_link' => 1,
     'show_on_page' => 1,
     'show_on_teaser' => 0,
-    'show_contextual_link' => 1,
     'i18n' => 0,
+    'flag_confirmation' => 'Are you sure you want to flag this report?',
+    'unflag_confirmation' => 'Are you sure you want to unflag this report?',
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   return $flags;
 

@@ -194,10 +194,10 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-edit']) .'</li>';
       }
       if (isset($links['flag-factcheck_journalist'])) {
-        $output .= '<li>' . $links['flag-factcheck_journalist']['title'] .'</li>';
+        $output .= '<li>' . l($links['flag-factcheck_journalist']['title'], @$links['flag-factcheck_journalist']['href'], $links['flag-factcheck_journalist']) .'</li>';
       }
       if (isset($links['flag-graphic_journalist'])) {
-        $output .= '<li>' . $links['flag-graphic_journalist']['title'] .'</li>';
+        $output .= '<li>' . l($links['flag-graphic_journalist']['title'], @$links['flag-graphic_journalist']['href'], $links['flag-graphic_journalist']) .'</li>';
       }
       $output .= '</ul></li>';
     }
@@ -211,13 +211,13 @@ function checkdesk_links__node($variables) {
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-flag"></i> Flag</a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['flag-spam'])) {
-        $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
+        $output .= '<li>' . l($links['flag-spam']['title'], @$links['flag-spam']['href'], $links['flag-spam']) . '</li>';
       }
       if (isset($links['flag-graphic'])) {
-        $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
+        $output .= '<li>' . l($links['flag-graphic']['title'], @$links['flag-graphic']['href'], $links['flag-graphic']) . '</li>';
       }
       if (isset($links['flag-factcheck'])) {
-        $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
+        $output .= '<li>' . l($links['flag-factcheck']['title'], @$links['flag-factcheck']['href'], $links['flag-factcheck']) . '</li>';
       }
       $output .= '</ul></li>'; 
     }

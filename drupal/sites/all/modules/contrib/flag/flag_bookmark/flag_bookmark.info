@@ -1,12 +1,9 @@
-name = Flag actions
-description = Execute actions on Flag events.
+name = Flag Bookmark
+description = Provides an example bookmark flag and supporting views.
 core = 7.x
 dependencies[] = flag
 package = Flags
-configure = admin/structure/webform/flags
 
-files[] = flag.install
-files[] = flag_actions.module
 ; Information added by drupal.org packaging script on 2012-10-30
 version = "7.x-3.0-alpha3"
 core = "7.x"

@@ -770,6 +770,53 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'devel',
   );
 
+  // Exported permission: flag factcheck.
+  $permissions['flag factcheck'] = array(
+    'name' => 'flag factcheck',
+    'roles' => array(
+      0 => 'citizen journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: flag factcheck_journalist.
+  $permissions['flag factcheck_journalist'] = array(
+    'name' => 'flag factcheck_journalist',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: flag graphic.
+  $permissions['flag graphic'] = array(
+    'name' => 'flag graphic',
+    'roles' => array(
+      0 => 'citizen journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: flag graphic_journalist.
+  $permissions['flag graphic_journalist'] = array(
+    'name' => 'flag graphic_journalist',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: flag spam.
+  $permissions['flag spam'] = array(
+    'name' => 'flag spam',
+    'roles' => array(
+      0 => 'citizen journalist',
+    ),
+    'module' => 'flag',
+  );
+
   // Exported permission: import own tweets.
   $permissions['import own tweets'] = array(
     'name' => 'import own tweets',
@@ -951,6 +998,53 @@ function checkdesk_core_feature_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'devel',
+  );
+
+  // Exported permission: unflag factcheck.
+  $permissions['unflag factcheck'] = array(
+    'name' => 'unflag factcheck',
+    'roles' => array(
+      0 => 'citizen journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: unflag factcheck_journalist.
+  $permissions['unflag factcheck_journalist'] = array(
+    'name' => 'unflag factcheck_journalist',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: unflag graphic.
+  $permissions['unflag graphic'] = array(
+    'name' => 'unflag graphic',
+    'roles' => array(
+      0 => 'citizen journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: unflag graphic_journalist.
+  $permissions['unflag graphic_journalist'] = array(
+    'name' => 'unflag graphic_journalist',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: unflag spam.
+  $permissions['unflag spam'] = array(
+    'name' => 'unflag spam',
+    'roles' => array(
+      0 => 'citizen journalist',
+    ),
+    'module' => 'flag',
   );
 
   // Exported permission: use PHP for settings.

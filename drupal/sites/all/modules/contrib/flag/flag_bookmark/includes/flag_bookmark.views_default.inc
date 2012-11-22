@@ -8,7 +8,7 @@
 /**
  * Implements hook_views_default_views().
  */
-function flag_views_default_views() {
+function flag_bookmark_views_default_views() {
   // Only setup views for the "bookmarks" flag.
   // If it's been deleted, don't create any views.
   $flag = flag_get_flag('bookmarks');
@@ -109,9 +109,8 @@ function flag_views_default_views() {
   );
 
   $access = array(
-    'type' => 'role',
-    'role' => drupal_map_assoc($flag->roles['flag']),
-    'perm' => '',
+    'type' => 'perm',
+    'perm' => 'flag bookmarks',
   );
 
   // Additional fields and style options if comment exists.
@@ -157,7 +156,7 @@ function flag_views_default_views() {
       'label' => 'bookmarks_user',
       'required' => 1,
       'id' => 'uid',
-      'table' => 'flag_content',
+      'table' => 'flagging',
       'field' => 'uid',
       'relationship' => 'flag_content_rel',
     ),
@@ -239,7 +238,7 @@ function flag_views_default_views() {
     'ops' => array(
       'label' => 'Ops',
       'id' => 'ops',
-      'table' => 'flag_content',
+      'table' => 'flagging',
       'field' => 'ops',
       'relationship' => 'flag_content_rel',
     ),
