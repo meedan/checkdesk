@@ -91,9 +91,9 @@ class flag_handler_relationship_content extends flag_handler_relationship {
 
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
-    $content_type = $this->definition['flag type'];
+    $entity_type = $this->definition['flag type'];
     $form['label']['#description'] .= ' ' . t('The name of the selected flag makes a good label.');
-    $form['flag'] = flag_views_flag_config_form('radios', $content_type, $this->options['flag']);
+    $form['flag'] = flag_views_flag_config_form('radios', $entity_type, $this->options['flag']);
 
     $form['user_scope'] = array(
       '#type' => 'radios',
@@ -108,7 +108,7 @@ class flag_handler_relationship_content extends flag_handler_relationship {
     if (!$form['flag']['#options']) {
       $form = array(
         'error' => array(
-          '#markup' => '<p class="error form-item">' . t('No %type flags exist. You must first <a href="@create-url">create a %type flag</a> before being able to use this relationship type.', array('%type' => $content_type, '@create-url' => url(FLAG_ADMIN_PATH))) . '</p>',
+          '#markup' => '<p class="error form-item">' . t('No %type flags exist. You must first <a href="@create-url">create a %type flag</a> before being able to use this relationship type.', array('%type' => $entity_type, '@create-url' => url(FLAG_ADMIN_PATH))) . '</p>',
         ),
       );
       $form_state['no flags exist'] = TRUE;
@@ -154,7 +154,8 @@ class flag_handler_relationship_content extends flag_handler_relationship {
         'value' => '***CURRENT_USER***',
         'numeric' => TRUE,
       );
-      if (array_search(DRUPAL_ANONYMOUS_RID, $flag->roles['flag']) !== FALSE) {
+      $flag_roles = user_roles(FALSE, "flag $flag->name");
+      if (isset($flag_roles[DRUPAL_ANONYMOUS_RID])) {
         // Disable page caching for anonymous users.
         drupal_page_is_cacheable(FALSE);
 
@@ -179,8 +180,8 @@ class flag_handler_relationship_counts extends flag_handler_relationship {
 
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
-    $content_type = $this->definition['flag type'];
-    $form['flag'] = flag_views_flag_config_form('radios', $content_type, $this->options['flag']);
+    $entity_type = $this->definition['flag type'];
+    $form['flag'] = flag_views_flag_config_form('radios', $entity_type, $this->options['flag']);
 
     $form['required']['#title'] = t('Include only flagged content');
     $form['required']['#description'] = t('If checked, only content that is flagged will be included.');
