@@ -268,7 +268,7 @@ function checkdesk_form_comment_form_alter(&$form, &$form_state) {
   $form['author']['homepage'] = NULL;
   $form['author']['mail'] = NULL;
   $form['actions']['submit']['#attributes']['class'] = array('btn');
-  $form['actions']['submit']['#value'] = t('Add comment');
+  $form['actions']['submit']['#value'] = t('Add footnote');
 }
 
 function checkdesk_field__field_rating(&$variables) {

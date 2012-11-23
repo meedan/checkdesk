@@ -32,7 +32,7 @@
     <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity">
         <header class="<?php print $status_class; ?>">
           <a class="report-activity-header" href="#">
-            <h3><?php print $media_activity_report_count . t('fact-checking comments'); ?></h3>
+            <h3><?php print $media_activity_report_count . ' ' . t('fact-checking footnotes'); ?></h3>
             <?php if ($status_icon): ?>
               <div class="report-status">
                   <?php print $status_icon; ?>
