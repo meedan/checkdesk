@@ -38,6 +38,49 @@ function node_entity_uuid_presave(&$entity, $entity_type) {
 /**
  * Implements hook_entity_uuid_load().
  */
+function book_uuid_entities_features_export_entity_alter(&$entity, $entity_type) {
+  if ($entity_type == 'node') {
+    if (!empty($entity->book)) {
+      $entity->book['bid'] = current(entity_get_uuid_by_id($entity_type, array($entity->book['bid'])));
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_uuid_presave().
+ */
+function book_entity_uuid_presave(&$entity, $entity_type) {
+  if ($entity_type == 'node') {
+    if (!empty($entity->book)) {
+      $entity->book['bid'] = current(entity_get_id_by_uuid($entity_type, array($entity->book['bid'])));
+      if (!$entity->book['bid']) {
+        $entity->book['bid'] = 'new';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_uuid_presave().
+ */
+function user_entity_uuid_presave(&$entity, $entity_type) {
+  if ($entity_type == 'user') {
+    if (!empty($entity->picture)) {
+      $uuids = entity_get_id_by_uuid('file', array($entity->picture['uuid']));
+      $fid = current($uuids);
+      if (!$entity->is_new) {
+        $entity->picture = file_load($fid);
+      }
+      else {
+        $entity->picture = $fid;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_uuid_load().
+ */
 function comment_entity_uuid_load(&$entities, $entity_type) {
   switch ($entity_type) {
     case 'node':
@@ -82,6 +125,11 @@ function file_entity_uuid_load(&$entities, $entity_type) {
 function file_entity_uuid_presave(&$entity, $entity_type) {
   if ($entity_type == 'file') {
     entity_property_uuid_to_id($entity, 'user', 'uid');
+    if (isset($entity->file_contents)) {
+      $directory = drupal_dirname($entity->uri);
+      file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+      file_unmanaged_save_data(base64_decode($entity->file_contents), $entity->uri, FILE_EXISTS_REPLACE);
+    }
   }
 }
 
@@ -251,20 +299,50 @@ function user_reference_field_uuid_presave($entity_type, $entity, $field, $insta
  * Implements hook_field_uuid_load().
  */
 function entityreference_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $info = entity_get_info($item['target_type']);
-    entity_property_id_to_uuid($item, $item['target_type'], $info['entity keys']['id']);
-  }
+  // TODO: This is not really good, but as of now 'entity_property_id_to_uuid()'
+  // can't handle a single $item.
+  entity_property_id_to_uuid($items, $field['settings']['target_type'], 'target_id');
 }
 
 /**
  * Implements hook_field_uuid_presave().
  */
 function entityreference_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $info = entity_get_info($item['target_type']);
-    entity_property_uuid_to_id($item, $item['target_type'], $info['entity keys']['id']);
+  // TODO: This is not really good, but as of now 'entity_property_id_to_uuid()'
+  // can't handle a single $item.
+  entity_property_uuid_to_id($items, $field['settings']['target_type'], 'target_id');
+}
+
+/**
+ * Implements hook_entity_uuid_load().
+ */
+function field_collection_entity_uuid_load(&$entities, $entity_type) {
+  if ($entity_type == 'field_collection_item') {
+    entity_property_id_to_uuid($entities, 'field_collection_item', 'value');
   }
+}
+
+/**
+ * Implements hook_entity_uuid_presave().
+ */
+function field_collection_entity_uuid_presave(&$entity, $entity_type) {
+  if ($entity_type == 'field_collection_item') {
+    entity_property_uuid_to_id($entity, 'field_collection_item', 'value');
+  }
+}
+
+/**
+ * Implements hook_field_uuid_load().
+ */
+function field_collection_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  entity_property_id_to_uuid($items, 'field_collection_item', 'value');
+}
+
+/**
+ * Implements hook_field_uuid_presave().
+ */
+function field_collection_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  entity_property_uuid_to_id($items, 'field_collection_item', 'value');
 }
 
 /**
@@ -282,7 +360,7 @@ function entityreference_field_uuid_presave($entity_type, $entity, $field, $inst
 function node_uuid_entities_features_export_entity_alter(&$entity, $entity_type) {
   if ($entity_type == 'node') {
     foreach (array('data', 'name', 'picture', 'revision_uid', 'last_comment_timestamp') as $property) {
-      if (isset($entity->{$property})) {
+      if (property_exists($entity, $property)) {
         unset($entity->{$property});
       }
     }
@@ -295,7 +373,7 @@ function node_uuid_entities_features_export_entity_alter(&$entity, $entity_type)
 function user_uuid_entities_features_export_entity_alter(&$entity, $entity_type) {
   if ($entity_type == 'user') {
     foreach (array('data', 'access', 'login') as $property) {
-      if (isset($entity->{$property})) {
+      if (property_exists($entity, $property)) {
         unset($entity->{$property});
       }
     }

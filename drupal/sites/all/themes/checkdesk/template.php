@@ -128,6 +128,39 @@ function checkdesk_preprocess_page(&$variables) {
  */
 function checkdesk_preprocess_node(&$variables) {
   $variables['icon'] = '';
+  if ($variables['type'] == 'media') {
+    $user_picture = $variables['elements']['#node']->picture;
+    if (!empty($user_picture)) {
+      $variables['user_avatar'] = theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar'));
+    }
+    $view = views_get_view('activity_report');
+    $view->set_arguments(array($variables['nid']));
+    $view_output = $view->preview('block');
+    $total_rows = count($view->result);
+    $view->destroy();
+    if ($total_rows) {
+      $variables['media_activity_report_count'] = $total_rows;
+      $variables['media_activity_report'] = $view_output;
+      $status_name = $variables['field_rating'][0]['taxonomy_term']->name;
+      if ($status_name == 'Verified') {
+        $status_class = 'verified';
+        $icon = '<i class="icon-ok-sign"></i> ';
+      }
+      elseif ($status_name == 'Undetermined') {
+        $status_class = 'undetermined';
+        $icon = '<i class="icon-question-sign"></i> ';
+      }
+      elseif ($status_name == 'False') {
+        $status_class = 'false';
+        $icon = '<i class="icon-remove-sign"></i> ';
+      }
+      elseif($status_name == 'Not Applicable') {
+        $status_class = '';
+      }
+      $variables['status_class'] = $status_class;
+      $variables['status_icon'] = $icon . t($status_name);
+    }
+  }
 }
 
 function checkdesk_links__node($variables) {

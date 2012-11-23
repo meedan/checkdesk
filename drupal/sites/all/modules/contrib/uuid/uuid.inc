@@ -6,6 +6,11 @@
  */
 
 /**
+ * Pattern for detecting a valid UUID.
+ */
+define('UUID_PATTERN', '[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}');
+
+/**
  * Generates an universally unique identifier.
  *
  * This function first checks for the PECL alternative for generating
@@ -40,16 +45,106 @@ function uuid_sync_all() {
 }
 
 /**
- * Check that a string appears to be in the format of a UUID.
+ * Generates a UUID URI for an entity.
  *
- * @param $uuid
- *  The string to test.
+ * @param object $entity
+ *   The entity to use for generating the UUID URI.
+ * @param string $entity_type
+ *   The type of entity being used.
  *
- * @return
- *   TRUE if the string is well formed.
+ * @return string
+ *  The generated UUID URI or normal URI if entity doesn't support UUIDs.
  */
-function uuid_is_valid($uuid) {
-  return preg_match("/^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/", $uuid);
+function uuid_entity_uuid_uri($entity, $entity_type) {
+  $entity_info = entity_get_info($entity_type);
+
+  if (empty($entity_info['uuid'])) {
+    $uri = $entity_info['uri callback']($entity);
+    return $uri['path'];
+  }
+
+  if (isset($entity_info['uuid uri callback'])) {
+    return $entity_info['uuid uri callback']($entity);
+  }
+
+  return "uuid/{$entity_type}/" . $entity->{$entity_info['entity keys']['uuid']};
+}
+
+/**
+ * Converts an ID URI string to an entity data array.
+ *
+ * @see uuid_id_uri_array_to_data()
+ *
+ * @param string $uri
+ *  The URI to convert.
+ *
+ * @return array
+ *  The entity data.
+ */
+function uuid_id_uri_to_data($uri) {
+  $parts = explode('/', $uri);
+  return uuid_id_uri_array_to_data($parts);
+}
+
+/**
+ * Converts a URI array to entity data array.
+ *
+ * @param array $uri
+ *  The URI parts, often taken from arg().
+ *
+ * @return array
+ *  The entity data.
+ */
+function uuid_id_uri_array_to_data($uri) {
+  $data = array(
+    'request' => $uri,
+    'entity_type' => $uri[0],
+    'id' => $uri[1],
+  );
+
+  drupal_alter('uuid_id_uri_data', $data);
+
+  return $data;
+}
+
+/**
+ * Converts a UUID URI string to an entity data array.
+ *
+ * @see uuid_uri_array_to_data()
+ *
+ * @param string $uri
+ *  The URI to convert.
+ *
+ * @return array
+ *  The entity data.
+ */
+function uuid_uri_to_data($uri, $strip_uuid = TRUE) {
+  return uuid_uri_array_to_data(explode('/', $uri));
+}
+
+/**
+ * Converts a URI array to entity data array.
+ *
+ * @param array $uri
+ *  The URI parts, often taken from arg().
+ *
+ * @return array
+ *  The entity data.
+ */
+function uuid_uri_array_to_data($uri, $strip_uuid = TRUE) {
+  if ($strip_uuid) {
+    array_shift($uri);
+  }
+
+  $data = array(
+    'request' => $uri,
+    'entity_type' => $uri[0],
+    'uuid' => $uri[1],
+  );
+
+  drupal_alter('uuid_uri_data', $data);
+
+  return $data;
 }
 
 /**
@@ -71,22 +166,39 @@ function _uuid_generate_pecl() {
 
 /**
  * Generates a UUID v4 using PHP code.
- *
- * @see http://php.net/uniqid#65879
+ * 
+ * Based on code from @see http://php.net/uniqid#65879 , but corrected.
  */
 function _uuid_generate_php() {
   // The field names refer to RFC 4122 section 4.1.2.
-  return sprintf('%04x%04x-%04x-%03x4-%04x-%04x%04x%04x',
+  return sprintf('%04x%04x-%04x-4%03x-%04x-%04x%04x%04x',
     // 32 bits for "time_low".
     mt_rand(0, 65535), mt_rand(0, 65535),
     // 16 bits for "time_mid".
     mt_rand(0, 65535),
-    // 12 bits before the 0100 of (version) 4 for "time_hi_and_version".
+    // 12 bits after the 0100 of (version) 4 for "time_hi_and_version".
     mt_rand(0, 4095),
-    bindec(substr_replace(sprintf('%016b', mt_rand(0, 65535)), '01', 6, 2)),
+    bindec(substr_replace(sprintf('%016b', mt_rand(0, 65535)), '10', 0, 2)),
     // 8 bits, the last two of which (positions 6 and 7) are 01, for "clk_seq_hi_res"
     // (hence, the 2nd hex digit after the 3rd hyphen can only be 1, 5, 9 or d)
     // 8 bits for "clk_seq_low" 48 bits for "node".
     mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535)
   );
+}
+
+
+// This is wrapped in an if block to avoid conflicts with PECL's uuid_is_valid().
+/**
+ * Check that a string appears to be in the format of a UUID.
+ *
+ * @param $uuid
+ *  The string to test.
+ *
+ * @return
+ *   TRUE if the string is well formed.
+ */
+if (!function_exists('uuid_is_valid')) {
+  function uuid_is_valid($uuid) {
+    return preg_match('/^' . UUID_PATTERN . '$/', $uuid);
+  }
 }
