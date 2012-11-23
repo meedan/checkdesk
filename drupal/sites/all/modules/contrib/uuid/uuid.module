@@ -29,6 +29,15 @@ module_load_include('inc', 'uuid', 'uuid.core');
  */
 function uuid_menu() {
   $items = array();
+
+  $items['uuid'] = array(
+    'title' => 'UUID redirector',
+    'description' => 'Redirects requests for UUID URIs to the referenced entity.',
+    'page callback' => 'uuid_redirector',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
   $items['admin/config/system/uuid'] = array(
     'title' => 'Universally unique identifiers',
     'description' => 'Configure universally unique identifiers.',
@@ -84,20 +93,34 @@ function uuid_permission() {
 }
 
 /**
- * Helper function that returns a schema field definition for UUID fields.
- *
- * @see uuid_schema_alter()
- * @see uuid_install()
+ * Implements hook_hook_info().
  */
-function uuid_schema_field_definition() {
-  return array(
-    'type' => 'char',
-    'length' => 36,
-    'not null' => TRUE,
-    'default' => '',
-    'description' => 'The Universally Unique Identifier.',
+function uuid_hook_info() {
+  $hook_names = array(
+    'uuid_info',
+    'uuid_sync',
+    'entity_uuid_load',
+    'field_uuid_load',
+    'entity_uuid_presave',
+    'entity_uuid_save',
+    'entity_uuid_delete',
+    'field_uuid_presave',
+    'uuid_menu_path_to_uri_alter',
+    'uuid_menu_uri_to_path_alter',
+    'uuid_default_entities',
+    'uuid_entities_pre_rebuild',
+    'uuid_entities_pre_revert',
+    'uuid_entities_post_rebuild',
+    'uuid_entities_post_revert',
+    'uuid_entities_features_export_entity_alter',
+    'uuid_entities_features_export_field_alter',
+    'uuid_uri_data',
+    'uuid_id_uri_data',
   );
+
+  return array_fill_keys($hook_names, array('group' => 'uuid'));
 }
+
 
 /**
  * Implementation of hook_views_api().
@@ -171,16 +194,34 @@ function _uuid_sync_table($table, $id_field, $uuid_field) {
  * identify all dependencies for all entities.
  */
 function uuid_features_api() {
-  if (module_exists('deploy')) {
-    return array(
-      'uuid_entities' => array(
-        'name' => t('UUID entities'),
-        'default_hook' => 'uuid_default_entities',
-        'default_file' => FEATURES_DEFAULTS_INCLUDED,
-        'features_source' => TRUE,
-        'file' => drupal_get_path('module', 'uuid') .'/uuid.features.inc',
-      ),
-    );
-  }
-  return array();
+  return array(
+    'uuid_entities' => array(
+      'name' => t('UUID entities'),
+      'default_hook' => 'uuid_default_entities',
+      'default_file' => FEATURES_DEFAULTS_INCLUDED,
+      'feature_source' => TRUE,
+      'file' => drupal_get_path('module', 'uuid') .'/uuid.features.inc',
+    ),
+  );
 }
+
+/**
+ * Redirects all UUID URI requests to the appropriate entity page.
+ */
+function uuid_redirector() {
+  $entity_data = uuid_uri_array_to_data(arg());
+  
+  $entity_info = entity_get_info($entity_data['entity_type']);
+  if (empty($entity_info['uuid'])) {
+    return drupal_not_found();
+  }
+
+  $entities = entity_uuid_load($entity_data['entity_type'], array($entity_data['uuid']));
+  if (!count($entities)) {
+    return drupal_not_found();
+  }
+
+  $uri = entity_uri($entity_data['entity_type'], current($entities));
+  drupal_goto($uri['path'], array(), 301);
+}
+
