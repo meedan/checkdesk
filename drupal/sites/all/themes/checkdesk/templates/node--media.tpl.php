@@ -16,13 +16,11 @@
         </div>
       </div>
       <p>
-     <?php if ($user_avatar) : ?>
-        <a class="gravatar" href="<?php print url('<front>') . 'user/' . $node->uid ?>">
+     <?php if (isset($user_avatar)) : ?>
           <?php print $user_avatar; ?>
-        </a> 
      <?php endif; ?>
-        <a href="<?php print url('<front>') . 'user/' . $node->uid ?>"><?php print $node->name; ?></a> added this <time class="time-ago" pubdate datetime="<?php print format_date($created, 'custom', 'Y-m-d\TH:i:sP'); ?>"><?php print format_interval(time()-$created); ?> ago</time>
-      </p>
+     <?php print $media_creation_info; ?>
+    </p>
       <div class="description"><?php print render($content['body']); ?></div>
     </section>
 
