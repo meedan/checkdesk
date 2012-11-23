@@ -7,6 +7,25 @@
 
 $fontAwesomePath: "fontawesome-webfont";
 
+
+// Fontawesome icons helper
+//
+// use shorthand from the icon set in icons.scss
+//
+// li { @include icon(bookmark-empty) { background: 'black'; }  }
+@mixin icon($icon) {
+  @extend ".icon-#{icon}";
+  &:before {
+    width: 20px;
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    @content;
+  }
+}
+
 // load with compass font-face mixin
 // font path is in config.rb
 @include font-face(

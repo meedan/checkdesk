@@ -1,39 +1,21 @@
 // Core layout
 // 
-// $direction = ltr or rlt --sets the susy $from-direction
+// $from-direction = ltr or rlt --sets the susy $from-direction
 // $sidebar_alpha = number of columns for the alpha sidebar
 // $sidebar_omega = number of columns for the omega sidebar
 // $content_width = number of columns for the main div (i.e.) main page content
 //
 // Compatibility: untested
 
-@mixin layout_skeleton($direction, $sidebar_alpha: 3, $content_width: 9) {
-	div#content {
-      @include span-columns($content_width omega,12);
+@mixin layout_skeleton($sidebar_alpha: 3, $content_width: 9) {
+	div#main {
+      @include container;
     }
   div#sidebar-first {
     @include span-columns($sidebar_alpha,12);
-    // float: $direction;
   }
 }
 
-
-@mixin cd_layout($direction) {
-	@include layout_skeleton($direction);
-  @include notificationsBlock($direction);
-	// @include mainNavigation($direction);
-}
-
-
-// Container (centered, fixed-width layouts)
-.container {
-  // @include container-fixed();
-  @include container;
-}
-
-// Fluid layouts (left aligned, with sidebar, min- & max-width content)
-.container-fluid {
-  padding-right: $gridGutterWidth;
-  padding-left: $gridGutterWidth;
-  @include clearfix();
+@mixin cd_layout {
+	@include layout_skeleton;
 }

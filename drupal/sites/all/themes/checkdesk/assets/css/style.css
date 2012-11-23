@@ -8,7 +8,7 @@
 
 /*  Font Awesome styles
     ------------------------------------------------------- */
-/* line 25, ../scss/_font-awesome.scss */
+/* line 44, ../scss/_font-awesome.scss */
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
   font-family: FontAwesome;
@@ -18,7 +18,7 @@
   text-decoration: inherit;
 }
 
-/* line 34, ../scss/_font-awesome.scss */
+/* line 53, ../scss/_font-awesome.scss */
 a [class^="icon-"],
 a [class*=" icon-"] {
   display: inline-block;
@@ -26,13 +26,13 @@ a [class*=" icon-"] {
 }
 
 /* makes the font 33% larger relative to the icon container */
-/* line 40, ../scss/_font-awesome.scss */
+/* line 59, ../scss/_font-awesome.scss */
 .icon-large:before {
   vertical-align: middle;
   font-size: 4/3em;
 }
 
-/* line 47, ../scss/_font-awesome.scss */
+/* line 66, ../scss/_font-awesome.scss */
 .btn [class^="icon-"],
 .btn [class*=" icon-"], .nav-tabs [class^="icon-"],
 .nav-tabs [class*=" icon-"] {
@@ -40,32 +40,32 @@ a [class*=" icon-"] {
   line-height: .9em;
 }
 
-/* line 55, ../scss/_font-awesome.scss */
+/* line 74, ../scss/_font-awesome.scss */
 li [class^="icon-"],
 li [class*=" icon-"] {
   display: inline-block;
   width: 1.25em;
   text-align: center;
 }
-/* line 61, ../scss/_font-awesome.scss */
+/* line 80, ../scss/_font-awesome.scss */
 li .icon-large:before,
 li .icon-large:before {
   /* 1.5 increased font size for icon-large * 1.25 width */
   width: 1.875em;
 }
 
-/* line 67, ../scss/_font-awesome.scss */
+/* line 86, ../scss/_font-awesome.scss */
 ul.icons {
   list-style-type: none;
   margin-left: 2em;
   text-indent: -0.8em;
 }
-/* line 74, ../scss/_font-awesome.scss */
+/* line 93, ../scss/_font-awesome.scss */
 ul.icons li [class^="icon-"],
 ul.icons li [class*=" icon-"] {
   width: .8em;
 }
-/* line 78, ../scss/_font-awesome.scss */
+/* line 97, ../scss/_font-awesome.scss */
 ul.icons li .icon-large:before,
 ul.icons li .icon-large:before {
   /* 1.5 increased font size for icon-large * 1.25 width */
@@ -74,1053 +74,1053 @@ ul.icons li .icon-large:before {
 
 /*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
     readers do not read off random characters that represent icons */
-/* line 88, ../scss/_font-awesome.scss */
+/* line 107, ../scss/_font-awesome.scss */
 .icon-glass:before {
   content: "\f000";
 }
 
-/* line 89, ../scss/_font-awesome.scss */
+/* line 108, ../scss/_font-awesome.scss */
 .icon-music:before {
   content: "\f001";
 }
 
-/* line 90, ../scss/_font-awesome.scss */
+/* line 109, ../scss/_font-awesome.scss */
 .icon-search:before {
   content: "\f002";
 }
 
-/* line 91, ../scss/_font-awesome.scss */
+/* line 110, ../scss/_font-awesome.scss */
 .icon-envelope:before {
   content: "\f003";
 }
 
-/* line 92, ../scss/_font-awesome.scss */
+/* line 111, ../scss/_font-awesome.scss */
 .icon-heart:before {
   content: "\f004";
 }
 
-/* line 93, ../scss/_font-awesome.scss */
+/* line 112, ../scss/_font-awesome.scss */
 .icon-star:before {
   content: "\f005";
 }
 
-/* line 94, ../scss/_font-awesome.scss */
+/* line 113, ../scss/_font-awesome.scss */
 .icon-star-empty:before {
   content: "\f006";
 }
 
-/* line 95, ../scss/_font-awesome.scss */
+/* line 114, ../scss/_font-awesome.scss */
 .icon-user:before {
   content: "\f007";
 }
 
-/* line 96, ../scss/_font-awesome.scss */
+/* line 115, ../scss/_font-awesome.scss */
 .icon-film:before {
   content: "\f008";
 }
 
-/* line 97, ../scss/_font-awesome.scss */
+/* line 116, ../scss/_font-awesome.scss */
 .icon-th-large:before {
   content: "\f009";
 }
 
-/* line 98, ../scss/_font-awesome.scss */
+/* line 117, ../scss/_font-awesome.scss */
 .icon-th:before {
   content: "\f00a";
 }
 
-/* line 99, ../scss/_font-awesome.scss */
+/* line 118, ../scss/_font-awesome.scss */
 .icon-th-list:before {
   content: "\f00b";
 }
 
-/* line 100, ../scss/_font-awesome.scss */
+/* line 119, ../scss/_font-awesome.scss */
 .icon-ok:before {
   content: "\f00c";
 }
 
-/* line 101, ../scss/_font-awesome.scss */
+/* line 120, ../scss/_font-awesome.scss */
 .icon-remove:before {
   content: "\f00d";
 }
 
-/* line 102, ../scss/_font-awesome.scss */
+/* line 121, ../scss/_font-awesome.scss */
 .icon-zoom-in:before {
   content: "\f00e";
 }
 
-/* line 104, ../scss/_font-awesome.scss */
+/* line 123, ../scss/_font-awesome.scss */
 .icon-zoom-out:before {
   content: "\f010";
 }
 
-/* line 105, ../scss/_font-awesome.scss */
+/* line 124, ../scss/_font-awesome.scss */
 .icon-off:before {
   content: "\f011";
 }
 
-/* line 106, ../scss/_font-awesome.scss */
+/* line 125, ../scss/_font-awesome.scss */
 .icon-signal:before {
   content: "\f012";
 }
 
-/* line 107, ../scss/_font-awesome.scss */
+/* line 126, ../scss/_font-awesome.scss */
 .icon-cog:before {
   content: "\f013";
 }
 
-/* line 108, ../scss/_font-awesome.scss */
+/* line 127, ../scss/_font-awesome.scss */
 .icon-trash:before {
   content: "\f014";
 }
 
-/* line 109, ../scss/_font-awesome.scss */
+/* line 128, ../scss/_font-awesome.scss */
 .icon-home:before {
   content: "\f015";
 }
 
-/* line 110, ../scss/_font-awesome.scss */
+/* line 129, ../scss/_font-awesome.scss */
 .icon-file:before {
   content: "\f016";
 }
 
-/* line 111, ../scss/_font-awesome.scss */
+/* line 130, ../scss/_font-awesome.scss */
 .icon-time:before {
   content: "\f017";
 }
 
-/* line 112, ../scss/_font-awesome.scss */
+/* line 131, ../scss/_font-awesome.scss */
 .icon-road:before {
   content: "\f018";
 }
 
-/* line 113, ../scss/_font-awesome.scss */
+/* line 132, ../scss/_font-awesome.scss */
 .icon-download-alt:before {
   content: "\f019";
 }
 
-/* line 114, ../scss/_font-awesome.scss */
+/* line 133, ../scss/_font-awesome.scss */
 .icon-download:before {
   content: "\f01a";
 }
 
-/* line 115, ../scss/_font-awesome.scss */
+/* line 134, ../scss/_font-awesome.scss */
 .icon-upload:before {
   content: "\f01b";
 }
 
-/* line 116, ../scss/_font-awesome.scss */
+/* line 135, ../scss/_font-awesome.scss */
 .icon-inbox:before {
   content: "\f01c";
 }
 
-/* line 117, ../scss/_font-awesome.scss */
+/* line 136, ../scss/_font-awesome.scss */
 .icon-play-circle:before {
   content: "\f01d";
 }
 
-/* line 118, ../scss/_font-awesome.scss */
+/* line 137, ../scss/_font-awesome.scss */
 .icon-repeat:before {
   content: "\f01e";
 }
 
 /* \f020 doesn't work in Safari. all shifted one down */
-/* line 121, ../scss/_font-awesome.scss */
+/* line 140, ../scss/_font-awesome.scss */
 .icon-refresh:before {
   content: "\f021";
 }
 
-/* line 122, ../scss/_font-awesome.scss */
+/* line 141, ../scss/_font-awesome.scss */
 .icon-list-alt:before {
   content: "\f022";
 }
 
-/* line 123, ../scss/_font-awesome.scss */
+/* line 142, ../scss/_font-awesome.scss */
 .icon-lock:before {
   content: "\f023";
 }
 
-/* line 124, ../scss/_font-awesome.scss */
+/* line 143, ../scss/_font-awesome.scss */
 .icon-flag:before {
   content: "\f024";
 }
 
-/* line 125, ../scss/_font-awesome.scss */
+/* line 144, ../scss/_font-awesome.scss */
 .icon-headphones:before {
   content: "\f025";
 }
 
-/* line 126, ../scss/_font-awesome.scss */
+/* line 145, ../scss/_font-awesome.scss */
 .icon-volume-off:before {
   content: "\f026";
 }
 
-/* line 127, ../scss/_font-awesome.scss */
+/* line 146, ../scss/_font-awesome.scss */
 .icon-volume-down:before {
   content: "\f027";
 }
 
-/* line 128, ../scss/_font-awesome.scss */
+/* line 147, ../scss/_font-awesome.scss */
 .icon-volume-up:before {
   content: "\f028";
 }
 
-/* line 129, ../scss/_font-awesome.scss */
+/* line 148, ../scss/_font-awesome.scss */
 .icon-qrcode:before {
   content: "\f029";
 }
 
-/* line 130, ../scss/_font-awesome.scss */
+/* line 149, ../scss/_font-awesome.scss */
 .icon-barcode:before {
   content: "\f02a";
 }
 
-/* line 131, ../scss/_font-awesome.scss */
+/* line 150, ../scss/_font-awesome.scss */
 .icon-tag:before {
   content: "\f02b";
 }
 
-/* line 132, ../scss/_font-awesome.scss */
+/* line 151, ../scss/_font-awesome.scss */
 .icon-tags:before {
   content: "\f02c";
 }
 
-/* line 133, ../scss/_font-awesome.scss */
+/* line 152, ../scss/_font-awesome.scss */
 .icon-book:before {
   content: "\f02d";
 }
 
-/* line 134, ../scss/_font-awesome.scss */
+/* line 153, ../scss/_font-awesome.scss */
 .icon-bookmark:before {
   content: "\f02e";
 }
 
-/* line 135, ../scss/_font-awesome.scss */
+/* line 154, ../scss/_font-awesome.scss */
 .icon-print:before {
   content: "\f02f";
 }
 
-/* line 137, ../scss/_font-awesome.scss */
+/* line 156, ../scss/_font-awesome.scss */
 .icon-camera:before {
   content: "\f030";
 }
 
-/* line 138, ../scss/_font-awesome.scss */
+/* line 157, ../scss/_font-awesome.scss */
 .icon-font:before {
   content: "\f031";
 }
 
-/* line 139, ../scss/_font-awesome.scss */
+/* line 158, ../scss/_font-awesome.scss */
 .icon-bold:before {
   content: "\f032";
 }
 
-/* line 140, ../scss/_font-awesome.scss */
+/* line 159, ../scss/_font-awesome.scss */
 .icon-italic:before {
   content: "\f033";
 }
 
-/* line 141, ../scss/_font-awesome.scss */
+/* line 160, ../scss/_font-awesome.scss */
 .icon-text-height:before {
   content: "\f034";
 }
 
-/* line 142, ../scss/_font-awesome.scss */
+/* line 161, ../scss/_font-awesome.scss */
 .icon-text-width:before {
   content: "\f035";
 }
 
-/* line 143, ../scss/_font-awesome.scss */
+/* line 162, ../scss/_font-awesome.scss */
 .icon-align-left:before {
   content: "\f036";
 }
 
-/* line 144, ../scss/_font-awesome.scss */
+/* line 163, ../scss/_font-awesome.scss */
 .icon-align-center:before {
   content: "\f037";
 }
 
-/* line 145, ../scss/_font-awesome.scss */
+/* line 164, ../scss/_font-awesome.scss */
 .icon-align-right:before {
   content: "\f038";
 }
 
-/* line 146, ../scss/_font-awesome.scss */
+/* line 165, ../scss/_font-awesome.scss */
 .icon-align-justify:before {
   content: "\f039";
 }
 
-/* line 147, ../scss/_font-awesome.scss */
+/* line 166, ../scss/_font-awesome.scss */
 .icon-list:before {
   content: "\f03a";
 }
 
-/* line 148, ../scss/_font-awesome.scss */
+/* line 167, ../scss/_font-awesome.scss */
 .icon-indent-left:before {
   content: "\f03b";
 }
 
-/* line 149, ../scss/_font-awesome.scss */
+/* line 168, ../scss/_font-awesome.scss */
 .icon-indent-right:before {
   content: "\f03c";
 }
 
-/* line 150, ../scss/_font-awesome.scss */
+/* line 169, ../scss/_font-awesome.scss */
 .icon-facetime-video:before {
   content: "\f03d";
 }
 
-/* line 151, ../scss/_font-awesome.scss */
+/* line 170, ../scss/_font-awesome.scss */
 .icon-picture:before {
   content: "\f03e";
 }
 
-/* line 153, ../scss/_font-awesome.scss */
+/* line 172, ../scss/_font-awesome.scss */
 .icon-pencil:before {
   content: "\f040";
 }
 
-/* line 154, ../scss/_font-awesome.scss */
+/* line 173, ../scss/_font-awesome.scss */
 .icon-map-marker:before {
   content: "\f041";
 }
 
-/* line 155, ../scss/_font-awesome.scss */
+/* line 174, ../scss/_font-awesome.scss */
 .icon-adjust:before {
   content: "\f042";
 }
 
-/* line 156, ../scss/_font-awesome.scss */
+/* line 175, ../scss/_font-awesome.scss */
 .icon-tint:before {
   content: "\f043";
 }
 
-/* line 157, ../scss/_font-awesome.scss */
+/* line 176, ../scss/_font-awesome.scss */
 .icon-edit:before {
   content: "\f044";
 }
 
-/* line 158, ../scss/_font-awesome.scss */
+/* line 177, ../scss/_font-awesome.scss */
 .icon-share:before {
   content: "\f045";
 }
 
-/* line 159, ../scss/_font-awesome.scss */
+/* line 178, ../scss/_font-awesome.scss */
 .icon-check:before {
   content: "\f046";
 }
 
-/* line 160, ../scss/_font-awesome.scss */
+/* line 179, ../scss/_font-awesome.scss */
 .icon-move:before {
   content: "\f047";
 }
 
-/* line 161, ../scss/_font-awesome.scss */
+/* line 180, ../scss/_font-awesome.scss */
 .icon-step-backward:before {
   content: "\f048";
 }
 
-/* line 162, ../scss/_font-awesome.scss */
+/* line 181, ../scss/_font-awesome.scss */
 .icon-fast-backward:before {
   content: "\f049";
 }
 
-/* line 163, ../scss/_font-awesome.scss */
+/* line 182, ../scss/_font-awesome.scss */
 .icon-backward:before {
   content: "\f04a";
 }
 
-/* line 164, ../scss/_font-awesome.scss */
+/* line 183, ../scss/_font-awesome.scss */
 .icon-play:before {
   content: "\f04b";
 }
 
-/* line 165, ../scss/_font-awesome.scss */
+/* line 184, ../scss/_font-awesome.scss */
 .icon-pause:before {
   content: "\f04c";
 }
 
-/* line 166, ../scss/_font-awesome.scss */
+/* line 185, ../scss/_font-awesome.scss */
 .icon-stop:before {
   content: "\f04d";
 }
 
-/* line 167, ../scss/_font-awesome.scss */
+/* line 186, ../scss/_font-awesome.scss */
 .icon-forward:before {
   content: "\f04e";
 }
 
-/* line 169, ../scss/_font-awesome.scss */
+/* line 188, ../scss/_font-awesome.scss */
 .icon-fast-forward:before {
   content: "\f050";
 }
 
-/* line 170, ../scss/_font-awesome.scss */
+/* line 189, ../scss/_font-awesome.scss */
 .icon-step-forward:before {
   content: "\f051";
 }
 
-/* line 171, ../scss/_font-awesome.scss */
+/* line 190, ../scss/_font-awesome.scss */
 .icon-eject:before {
   content: "\f052";
 }
 
-/* line 172, ../scss/_font-awesome.scss */
+/* line 191, ../scss/_font-awesome.scss */
 .icon-chevron-left:before {
   content: "\f053";
 }
 
-/* line 173, ../scss/_font-awesome.scss */
+/* line 192, ../scss/_font-awesome.scss */
 .icon-chevron-right:before {
   content: "\f054";
 }
 
-/* line 174, ../scss/_font-awesome.scss */
+/* line 193, ../scss/_font-awesome.scss */
 .icon-plus-sign:before {
   content: "\f055";
 }
 
-/* line 175, ../scss/_font-awesome.scss */
+/* line 194, ../scss/_font-awesome.scss */
 .icon-minus-sign:before {
   content: "\f056";
 }
 
-/* line 176, ../scss/_font-awesome.scss */
+/* line 195, ../scss/_font-awesome.scss */
 .icon-remove-sign:before {
   content: "\f057";
 }
 
-/* line 177, ../scss/_font-awesome.scss */
+/* line 196, ../scss/_font-awesome.scss */
 .icon-ok-sign:before {
   content: "\f058";
 }
 
-/* line 178, ../scss/_font-awesome.scss */
+/* line 197, ../scss/_font-awesome.scss */
 .icon-question-sign:before {
   content: "\f059";
 }
 
-/* line 179, ../scss/_font-awesome.scss */
+/* line 198, ../scss/_font-awesome.scss */
 .icon-info-sign:before {
   content: "\f05a";
 }
 
-/* line 180, ../scss/_font-awesome.scss */
+/* line 199, ../scss/_font-awesome.scss */
 .icon-screenshot:before {
   content: "\f05b";
 }
 
-/* line 181, ../scss/_font-awesome.scss */
+/* line 200, ../scss/_font-awesome.scss */
 .icon-remove-circle:before {
   content: "\f05c";
 }
 
-/* line 182, ../scss/_font-awesome.scss */
+/* line 201, ../scss/_font-awesome.scss */
 .icon-ok-circle:before {
   content: "\f05d";
 }
 
-/* line 183, ../scss/_font-awesome.scss */
+/* line 202, ../scss/_font-awesome.scss */
 .icon-ban-circle:before {
   content: "\f05e";
 }
 
-/* line 185, ../scss/_font-awesome.scss */
+/* line 204, ../scss/_font-awesome.scss */
 .icon-arrow-left:before {
   content: "\f060";
 }
 
-/* line 186, ../scss/_font-awesome.scss */
+/* line 205, ../scss/_font-awesome.scss */
 .icon-arrow-right:before {
   content: "\f061";
 }
 
-/* line 187, ../scss/_font-awesome.scss */
+/* line 206, ../scss/_font-awesome.scss */
 .icon-arrow-up:before {
   content: "\f062";
 }
 
-/* line 188, ../scss/_font-awesome.scss */
+/* line 207, ../scss/_font-awesome.scss */
 .icon-arrow-down:before {
   content: "\f063";
 }
 
-/* line 189, ../scss/_font-awesome.scss */
+/* line 208, ../scss/_font-awesome.scss */
 .icon-share-alt:before {
   content: "\f064";
 }
 
-/* line 190, ../scss/_font-awesome.scss */
+/* line 209, ../scss/_font-awesome.scss */
 .icon-resize-full:before {
   content: "\f065";
 }
 
-/* line 191, ../scss/_font-awesome.scss */
+/* line 210, ../scss/_font-awesome.scss */
 .icon-resize-small:before {
   content: "\f066";
 }
 
-/* line 192, ../scss/_font-awesome.scss */
+/* line 211, ../scss/_font-awesome.scss */
 .icon-plus:before {
   content: "\f067";
 }
 
-/* line 193, ../scss/_font-awesome.scss */
+/* line 212, ../scss/_font-awesome.scss */
 .icon-minus:before {
   content: "\f068";
 }
 
-/* line 194, ../scss/_font-awesome.scss */
+/* line 213, ../scss/_font-awesome.scss */
 .icon-asterisk:before {
   content: "\f069";
 }
 
-/* line 195, ../scss/_font-awesome.scss */
+/* line 214, ../scss/_font-awesome.scss */
 .icon-exclamation-sign:before {
   content: "\f06a";
 }
 
-/* line 196, ../scss/_font-awesome.scss */
+/* line 215, ../scss/_font-awesome.scss */
 .icon-gift:before {
   content: "\f06b";
 }
 
-/* line 197, ../scss/_font-awesome.scss */
+/* line 216, ../scss/_font-awesome.scss */
 .icon-leaf:before {
   content: "\f06c";
 }
 
-/* line 198, ../scss/_font-awesome.scss */
+/* line 217, ../scss/_font-awesome.scss */
 .icon-fire:before {
   content: "\f06d";
 }
 
-/* line 199, ../scss/_font-awesome.scss */
+/* line 218, ../scss/_font-awesome.scss */
 .icon-eye-open:before {
   content: "\f06e";
 }
 
-/* line 201, ../scss/_font-awesome.scss */
+/* line 220, ../scss/_font-awesome.scss */
 .icon-eye-close:before {
   content: "\f070";
 }
 
-/* line 202, ../scss/_font-awesome.scss */
+/* line 221, ../scss/_font-awesome.scss */
 .icon-warning-sign:before {
   content: "\f071";
 }
 
-/* line 203, ../scss/_font-awesome.scss */
+/* line 222, ../scss/_font-awesome.scss */
 .icon-plane:before {
   content: "\f072";
 }
 
-/* line 204, ../scss/_font-awesome.scss */
+/* line 223, ../scss/_font-awesome.scss */
 .icon-calendar:before {
   content: "\f073";
 }
 
-/* line 205, ../scss/_font-awesome.scss */
+/* line 224, ../scss/_font-awesome.scss */
 .icon-random:before {
   content: "\f074";
 }
 
-/* line 206, ../scss/_font-awesome.scss */
+/* line 225, ../scss/_font-awesome.scss */
 .icon-comment:before {
   content: "\f075";
 }
 
-/* line 207, ../scss/_font-awesome.scss */
+/* line 226, ../scss/_font-awesome.scss */
 .icon-magnet:before {
   content: "\f076";
 }
 
-/* line 208, ../scss/_font-awesome.scss */
+/* line 227, ../scss/_font-awesome.scss */
 .icon-chevron-up:before {
   content: "\f077";
 }
 
-/* line 209, ../scss/_font-awesome.scss */
+/* line 228, ../scss/_font-awesome.scss */
 .icon-chevron-down:before {
   content: "\f078";
 }
 
-/* line 210, ../scss/_font-awesome.scss */
+/* line 229, ../scss/_font-awesome.scss */
 .icon-retweet:before {
   content: "\f079";
 }
 
-/* line 211, ../scss/_font-awesome.scss */
+/* line 230, ../scss/_font-awesome.scss */
 .icon-shopping-cart:before {
   content: "\f07a";
 }
 
-/* line 212, ../scss/_font-awesome.scss */
+/* line 231, ../scss/_font-awesome.scss */
 .icon-folder-close:before {
   content: "\f07b";
 }
 
-/* line 213, ../scss/_font-awesome.scss */
+/* line 232, ../scss/_font-awesome.scss */
 .icon-folder-open:before {
   content: "\f07c";
 }
 
-/* line 214, ../scss/_font-awesome.scss */
+/* line 233, ../scss/_font-awesome.scss */
 .icon-resize-vertical:before {
   content: "\f07d";
 }
 
-/* line 215, ../scss/_font-awesome.scss */
+/* line 234, ../scss/_font-awesome.scss */
 .icon-resize-horizontal:before {
   content: "\f07e";
 }
 
-/* line 217, ../scss/_font-awesome.scss */
+/* line 236, ../scss/_font-awesome.scss */
 .icon-bar-chart:before {
   content: "\f080";
 }
 
-/* line 218, ../scss/_font-awesome.scss */
+/* line 237, ../scss/_font-awesome.scss */
 .icon-twitter-sign:before {
   content: "\f081";
 }
 
-/* line 219, ../scss/_font-awesome.scss */
+/* line 238, ../scss/_font-awesome.scss */
 .icon-facebook-sign:before {
   content: "\f082";
 }
 
-/* line 220, ../scss/_font-awesome.scss */
+/* line 239, ../scss/_font-awesome.scss */
 .icon-camera-retro:before {
   content: "\f083";
 }
 
-/* line 221, ../scss/_font-awesome.scss */
+/* line 240, ../scss/_font-awesome.scss */
 .icon-key:before {
   content: "\f084";
 }
 
-/* line 222, ../scss/_font-awesome.scss */
+/* line 241, ../scss/_font-awesome.scss */
 .icon-cogs:before {
   content: "\f085";
 }
 
-/* line 223, ../scss/_font-awesome.scss */
+/* line 242, ../scss/_font-awesome.scss */
 .icon-comments:before {
   content: "\f086";
 }
 
-/* line 224, ../scss/_font-awesome.scss */
+/* line 243, ../scss/_font-awesome.scss */
 .icon-thumbs-up:before {
   content: "\f087";
 }
 
-/* line 225, ../scss/_font-awesome.scss */
+/* line 244, ../scss/_font-awesome.scss */
 .icon-thumbs-down:before {
   content: "\f088";
 }
 
-/* line 226, ../scss/_font-awesome.scss */
+/* line 245, ../scss/_font-awesome.scss */
 .icon-star-half:before {
   content: "\f089";
 }
 
-/* line 227, ../scss/_font-awesome.scss */
+/* line 246, ../scss/_font-awesome.scss */
 .icon-heart-empty:before {
   content: "\f08a";
 }
 
-/* line 228, ../scss/_font-awesome.scss */
+/* line 247, ../scss/_font-awesome.scss */
 .icon-signout:before {
   content: "\f08b";
 }
 
-/* line 229, ../scss/_font-awesome.scss */
+/* line 248, ../scss/_font-awesome.scss */
 .icon-linkedin-sign:before {
   content: "\f08c";
 }
 
-/* line 230, ../scss/_font-awesome.scss */
+/* line 249, ../scss/_font-awesome.scss */
 .icon-pushpin:before {
   content: "\f08d";
 }
 
-/* line 231, ../scss/_font-awesome.scss */
+/* line 250, ../scss/_font-awesome.scss */
 .icon-external-link:before {
   content: "\f08e";
 }
 
-/* line 233, ../scss/_font-awesome.scss */
+/* line 252, ../scss/_font-awesome.scss */
 .icon-signin:before {
   content: "\f090";
 }
 
-/* line 234, ../scss/_font-awesome.scss */
+/* line 253, ../scss/_font-awesome.scss */
 .icon-trophy:before {
   content: "\f091";
 }
 
-/* line 235, ../scss/_font-awesome.scss */
+/* line 254, ../scss/_font-awesome.scss */
 .icon-github-sign:before {
   content: "\f092";
 }
 
-/* line 236, ../scss/_font-awesome.scss */
+/* line 255, ../scss/_font-awesome.scss */
 .icon-upload-alt:before {
   content: "\f093";
 }
 
-/* line 237, ../scss/_font-awesome.scss */
+/* line 256, ../scss/_font-awesome.scss */
 .icon-lemon:before {
   content: "\f094";
 }
 
-/* line 238, ../scss/_font-awesome.scss */
+/* line 257, ../scss/_font-awesome.scss */
 .icon-phone:before {
   content: "\f095";
 }
 
-/* line 239, ../scss/_font-awesome.scss */
+/* line 258, ../scss/_font-awesome.scss */
 .icon-check-empty:before {
   content: "\f096";
 }
 
-/* line 240, ../scss/_font-awesome.scss */
+/* line 259, ../scss/_font-awesome.scss */
 .icon-bookmark-empty:before {
   content: "\f097";
 }
 
-/* line 241, ../scss/_font-awesome.scss */
+/* line 260, ../scss/_font-awesome.scss */
 .icon-phone-sign:before {
   content: "\f098";
 }
 
-/* line 242, ../scss/_font-awesome.scss */
+/* line 261, ../scss/_font-awesome.scss */
 .icon-twitter:before {
   content: "\f099";
 }
 
-/* line 243, ../scss/_font-awesome.scss */
+/* line 262, ../scss/_font-awesome.scss */
 .icon-facebook:before {
   content: "\f09a";
 }
 
-/* line 244, ../scss/_font-awesome.scss */
+/* line 263, ../scss/_font-awesome.scss */
 .icon-github:before {
   content: "\f09b";
 }
 
-/* line 245, ../scss/_font-awesome.scss */
+/* line 264, ../scss/_font-awesome.scss */
 .icon-unlock:before {
   content: "\f09c";
 }
 
-/* line 246, ../scss/_font-awesome.scss */
+/* line 265, ../scss/_font-awesome.scss */
 .icon-credit-card:before {
   content: "\f09d";
 }
 
-/* line 247, ../scss/_font-awesome.scss */
+/* line 266, ../scss/_font-awesome.scss */
 .icon-rss:before {
   content: "\f09e";
 }
 
-/* line 249, ../scss/_font-awesome.scss */
+/* line 268, ../scss/_font-awesome.scss */
 .icon-hdd:before {
   content: "\f0a0";
 }
 
-/* line 250, ../scss/_font-awesome.scss */
+/* line 269, ../scss/_font-awesome.scss */
 .icon-bullhorn:before {
   content: "\f0a1";
 }
 
-/* line 251, ../scss/_font-awesome.scss */
+/* line 270, ../scss/_font-awesome.scss */
 .icon-bell:before {
   content: "\f0a2";
 }
 
-/* line 252, ../scss/_font-awesome.scss */
+/* line 271, ../scss/_font-awesome.scss */
 .icon-certificate:before {
   content: "\f0a3";
 }
 
-/* line 253, ../scss/_font-awesome.scss */
+/* line 272, ../scss/_font-awesome.scss */
 .icon-hand-right:before {
   content: "\f0a4";
 }
 
-/* line 254, ../scss/_font-awesome.scss */
+/* line 273, ../scss/_font-awesome.scss */
 .icon-hand-left:before {
   content: "\f0a5";
 }
 
-/* line 255, ../scss/_font-awesome.scss */
+/* line 274, ../scss/_font-awesome.scss */
 .icon-hand-up:before {
   content: "\f0a6";
 }
 
-/* line 256, ../scss/_font-awesome.scss */
+/* line 275, ../scss/_font-awesome.scss */
 .icon-hand-down:before {
   content: "\f0a7";
 }
 
-/* line 257, ../scss/_font-awesome.scss */
+/* line 276, ../scss/_font-awesome.scss */
 .icon-circle-arrow-left:before {
   content: "\f0a8";
 }
 
-/* line 258, ../scss/_font-awesome.scss */
+/* line 277, ../scss/_font-awesome.scss */
 .icon-circle-arrow-right:before {
   content: "\f0a9";
 }
 
-/* line 259, ../scss/_font-awesome.scss */
+/* line 278, ../scss/_font-awesome.scss */
 .icon-circle-arrow-up:before {
   content: "\f0aa";
 }
 
-/* line 260, ../scss/_font-awesome.scss */
+/* line 279, ../scss/_font-awesome.scss */
 .icon-circle-arrow-down:before {
   content: "\f0ab";
 }
 
-/* line 261, ../scss/_font-awesome.scss */
+/* line 280, ../scss/_font-awesome.scss */
 .icon-globe:before {
   content: "\f0ac";
 }
 
-/* line 262, ../scss/_font-awesome.scss */
+/* line 281, ../scss/_font-awesome.scss */
 .icon-wrench:before {
   content: "\f0ad";
 }
 
-/* line 263, ../scss/_font-awesome.scss */
+/* line 282, ../scss/_font-awesome.scss */
 .icon-tasks:before {
   content: "\f0ae";
 }
 
-/* line 265, ../scss/_font-awesome.scss */
+/* line 284, ../scss/_font-awesome.scss */
 .icon-filter:before {
   content: "\f0b0";
 }
 
-/* line 266, ../scss/_font-awesome.scss */
+/* line 285, ../scss/_font-awesome.scss */
 .icon-briefcase:before {
   content: "\f0b1";
 }
 
-/* line 267, ../scss/_font-awesome.scss */
+/* line 286, ../scss/_font-awesome.scss */
 .icon-fullscreen:before {
   content: "\f0b2";
 }
 
-/* line 269, ../scss/_font-awesome.scss */
+/* line 288, ../scss/_font-awesome.scss */
 .icon-group:before {
   content: "\f0c0";
 }
 
-/* line 270, ../scss/_font-awesome.scss */
+/* line 289, ../scss/_font-awesome.scss */
 .icon-link:before {
   content: "\f0c1";
 }
 
-/* line 271, ../scss/_font-awesome.scss */
+/* line 290, ../scss/_font-awesome.scss */
 .icon-cloud:before {
   content: "\f0c2";
 }
 
-/* line 272, ../scss/_font-awesome.scss */
+/* line 291, ../scss/_font-awesome.scss */
 .icon-beaker:before {
   content: "\f0c3";
 }
 
-/* line 273, ../scss/_font-awesome.scss */
+/* line 292, ../scss/_font-awesome.scss */
 .icon-cut:before {
   content: "\f0c4";
 }
 
-/* line 274, ../scss/_font-awesome.scss */
+/* line 293, ../scss/_font-awesome.scss */
 .icon-copy:before {
   content: "\f0c5";
 }
 
-/* line 275, ../scss/_font-awesome.scss */
+/* line 294, ../scss/_font-awesome.scss */
 .icon-paper-clip:before {
   content: "\f0c6";
 }
 
-/* line 276, ../scss/_font-awesome.scss */
+/* line 295, ../scss/_font-awesome.scss */
 .icon-save:before {
   content: "\f0c7";
 }
 
-/* line 277, ../scss/_font-awesome.scss */
+/* line 296, ../scss/_font-awesome.scss */
 .icon-sign-blank:before {
   content: "\f0c8";
 }
 
-/* line 278, ../scss/_font-awesome.scss */
+/* line 297, ../scss/_font-awesome.scss */
 .icon-reorder:before {
   content: "\f0c9";
 }
 
-/* line 279, ../scss/_font-awesome.scss */
+/* line 298, ../scss/_font-awesome.scss */
 .icon-list-ul:before {
   content: "\f0ca";
 }
 
-/* line 280, ../scss/_font-awesome.scss */
+/* line 299, ../scss/_font-awesome.scss */
 .icon-list-ol:before {
   content: "\f0cb";
 }
 
-/* line 281, ../scss/_font-awesome.scss */
+/* line 300, ../scss/_font-awesome.scss */
 .icon-strikethrough:before {
   content: "\f0cc";
 }
 
-/* line 282, ../scss/_font-awesome.scss */
+/* line 301, ../scss/_font-awesome.scss */
 .icon-underline:before {
   content: "\f0cd";
 }
 
-/* line 283, ../scss/_font-awesome.scss */
+/* line 302, ../scss/_font-awesome.scss */
 .icon-table:before {
   content: "\f0ce";
 }
 
-/* line 285, ../scss/_font-awesome.scss */
+/* line 304, ../scss/_font-awesome.scss */
 .icon-magic:before {
   content: "\f0d0";
 }
 
-/* line 286, ../scss/_font-awesome.scss */
+/* line 305, ../scss/_font-awesome.scss */
 .icon-truck:before {
   content: "\f0d1";
 }
 
-/* line 287, ../scss/_font-awesome.scss */
+/* line 306, ../scss/_font-awesome.scss */
 .icon-pinterest:before {
   content: "\f0d2";
 }
 
-/* line 288, ../scss/_font-awesome.scss */
+/* line 307, ../scss/_font-awesome.scss */
 .icon-pinterest-sign:before {
   content: "\f0d3";
 }
 
-/* line 289, ../scss/_font-awesome.scss */
+/* line 308, ../scss/_font-awesome.scss */
 .icon-google-plus-sign:before {
   content: "\f0d4";
 }
 
-/* line 290, ../scss/_font-awesome.scss */
+/* line 309, ../scss/_font-awesome.scss */
 .icon-google-plus:before {
   content: "\f0d5";
 }
 
-/* line 291, ../scss/_font-awesome.scss */
+/* line 310, ../scss/_font-awesome.scss */
 .icon-money:before {
   content: "\f0d6";
 }
 
-/* line 292, ../scss/_font-awesome.scss */
+/* line 311, ../scss/_font-awesome.scss */
 .icon-caret-down:before {
   content: "\f0d7";
 }
 
-/* line 293, ../scss/_font-awesome.scss */
+/* line 312, ../scss/_font-awesome.scss */
 .icon-caret-up:before {
   content: "\f0d8";
 }
 
-/* line 294, ../scss/_font-awesome.scss */
+/* line 313, ../scss/_font-awesome.scss */
 .icon-caret-left:before {
   content: "\f0d9";
 }
 
-/* line 295, ../scss/_font-awesome.scss */
+/* line 314, ../scss/_font-awesome.scss */
 .icon-caret-right:before {
   content: "\f0da";
 }
 
-/* line 296, ../scss/_font-awesome.scss */
+/* line 315, ../scss/_font-awesome.scss */
 .icon-columns:before {
   content: "\f0db";
 }
 
-/* line 297, ../scss/_font-awesome.scss */
+/* line 316, ../scss/_font-awesome.scss */
 .icon-sort:before {
   content: "\f0dc";
 }
 
-/* line 298, ../scss/_font-awesome.scss */
+/* line 317, ../scss/_font-awesome.scss */
 .icon-sort-down:before {
   content: "\f0dd";
 }
 
-/* line 299, ../scss/_font-awesome.scss */
+/* line 318, ../scss/_font-awesome.scss */
 .icon-sort-up:before {
   content: "\f0de";
 }
 
-/* line 301, ../scss/_font-awesome.scss */
+/* line 320, ../scss/_font-awesome.scss */
 .icon-envelope-alt:before {
   content: "\f0e0";
 }
 
-/* line 302, ../scss/_font-awesome.scss */
+/* line 321, ../scss/_font-awesome.scss */
 .icon-linkedin:before {
   content: "\f0e1";
 }
 
-/* line 303, ../scss/_font-awesome.scss */
+/* line 322, ../scss/_font-awesome.scss */
 .icon-undo:before {
   content: "\f0e2";
 }
 
-/* line 304, ../scss/_font-awesome.scss */
+/* line 323, ../scss/_font-awesome.scss */
 .icon-legal:before {
   content: "\f0e3";
 }
 
-/* line 305, ../scss/_font-awesome.scss */
+/* line 324, ../scss/_font-awesome.scss */
 .icon-dashboard:before {
   content: "\f0e4";
 }
 
-/* line 306, ../scss/_font-awesome.scss */
+/* line 325, ../scss/_font-awesome.scss */
 .icon-comment-alt:before {
   content: "\f0e5";
 }
 
-/* line 307, ../scss/_font-awesome.scss */
+/* line 326, ../scss/_font-awesome.scss */
 .icon-comments-alt:before {
   content: "\f0e6";
 }
 
-/* line 308, ../scss/_font-awesome.scss */
+/* line 327, ../scss/_font-awesome.scss */
 .icon-bolt:before {
   content: "\f0e7";
 }
 
-/* line 309, ../scss/_font-awesome.scss */
+/* line 328, ../scss/_font-awesome.scss */
 .icon-sitemap:before {
   content: "\f0e8";
 }
 
-/* line 310, ../scss/_font-awesome.scss */
+/* line 329, ../scss/_font-awesome.scss */
 .icon-umbrella:before {
   content: "\f0e9";
 }
 
-/* line 311, ../scss/_font-awesome.scss */
+/* line 330, ../scss/_font-awesome.scss */
 .icon-paste:before {
   content: "\f0ea";
 }
 
-/* line 313, ../scss/_font-awesome.scss */
+/* line 332, ../scss/_font-awesome.scss */
 .icon-user-md:before {
   content: "\f200";
 }
@@ -5260,31 +5260,6 @@ input[type="submit"].btn.btn-mini {
   position: fixed;
 }
 
-/* line 29, ../scss/_layout.scss */
-.container {
-  *zoom: 1;
-  max-width: 944px;
-  _width: 944px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-/* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
-.container:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* line 35, ../scss/_layout.scss */
-.container-fluid {
-  padding-right: 20px;
-  padding-left: 20px;
-  overflow: hidden;
-  *zoom: 1;
-}
-
 /* line 8, ../scss/_report.scss */
 .report > header {
   overflow: hidden;
@@ -5558,12 +5533,20 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* line 11, ../scss/_layout.scss */
-body div#content {
-  width: 74.57627%;
-  float: right;
-  margin-right: 0;
-  #margin-left: -16px;
-  display: inline;
+body div#main {
+  *zoom: 1;
+  max-width: 944px;
+  _width: 944px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+/* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+body div#main:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 /* line 14, ../scss/_layout.scss */
 body div#sidebar-first {
@@ -5571,603 +5554,4 @@ body div#sidebar-first {
   float: left;
   margin-right: 1.69492%;
   display: inline;
-}
-/* line 8, ../scss/_notifications.scss */
-body #block-views-my-notifications-block {
-  width: 360px;
-  font-family: Arial, sans-serif;
-  text-align: right;
-  margin: 0 10px;
-  position: relative;
-  float: right;
-}
-/* line 15, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .auto-refresh {
-  display: none;
-}
-/* line 18, ../scss/_notifications.scss */
-body #block-views-my-notifications-block h2 {
-  margin: 0;
-  padding: 0 3px;
-  color: #fff;
-  font-size: 14px;
-  display: inline-block;
-  font-weight: normal;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
-  line-height: 30px;
-}
-/* line 29, ../scss/_notifications.scss */
-body #block-views-my-notifications-block h2 .notifications-count {
-  display: inline;
-  color: #2F58B4;
-}
-/* line 32, ../scss/_notifications.scss */
-body #block-views-my-notifications-block h2 .notifications-count span {
-  padding: 1px;
-  background: #fff;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-}
-/* line 39, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content {
-  text-align: left;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  right: 0;
-  top: 29px;
-  width: 360px;
-  border: 1px solid #ccc;
-  /* Icons for each activity type */
-}
-/* line 48, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .view-content {
-  height: 200px;
-  overflow: auto;
-}
-/* line 52, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .item-list {
-  display: none;
-}
-/* line 55, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .notifications-settings-link, body #block-views-my-notifications-block .content .more-link {
-  margin: 0;
-  padding: 12px 18px;
-  display: block;
-}
-/* line 59, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .notifications-settings-link a, body #block-views-my-notifications-block .content .notifications-settings-link a:visited, body #block-views-my-notifications-block .content .notifications-settings-link a:link, body #block-views-my-notifications-block .content .more-link a, body #block-views-my-notifications-block .content .more-link a:visited, body #block-views-my-notifications-block .content .more-link a:link {
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  color: #6a6a6a;
-  text-decoration: none;
-}
-/* line 65, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .notifications-settings-link a:hover, body #block-views-my-notifications-block .content .more-link a:hover {
-  text-decoration: underline;
-}
-/* line 69, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .notifications-settings-link {
-  float: left;
-}
-/* line 72, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .more-link {
-  float: right;
-}
-/* line 75, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .notifications-footer {
-  clear: both;
-}
-/* line 78, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .heartbeat-activity {
-  color: #6a6a6a;
-  border-bottom: 1px solid #c9c9c9;
-  margin: 0;
-  padding: 12px 18px;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-}
-/* line 85, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .heartbeat-activity a, body #block-views-my-notifications-block .content .heartbeat-activity a:visited, body #block-views-my-notifications-block .content .heartbeat-activity a:link {
-  text-decoration: none;
-  font-weight: bold;
-  color: #6a6a6a;
-}
-/* line 90, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .heartbeat-activity a:hover {
-  text-decoration: underline;
-}
-/* line 93, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .heartbeat-activity p, body #block-views-my-notifications-block .content .heartbeat-activity img {
-  float: left;
-}
-/* line 96, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .heartbeat-activity p {
-  margin: 0;
-  width: 270px;
-}
-/* line 100, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .heartbeat-activity img {
-  margin-right: 9px;
-  margin-bottom: 6px;
-}
-/* line 104, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .heartbeat-activity .heartbeat-time-ago {
-  clear: both;
-  display: block;
-  margin: 0 0 0 9px;
-  height: 12px;
-  line-height: 12px;
-  padding-left: 19px;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  background-position: left bottom;
-  font-weight: normal;
-  color: #a9a9a9;
-}
-/* line 120, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .checkdesk_add_story .heartbeat-time-ago, body #block-views-my-notifications-block .content .checkdesk_comment_on_update .heartbeat-time-ago, body #block-views-my-notifications-block .content .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago, body #block-views-my-notifications-block .content .checkdesk_reply_to_comment .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-star.png);
-}
-/* line 123, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .checkdesk_fact_checking_on .heartbeat-time-ago, body #block-views-my-notifications-block .content .checkdesk_fact_checking_set .heartbeat-time-ago, body #block-views-my-notifications-block .content .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago, body #block-views-my-notifications-block .content .checkdesk_flag_report .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-flag.png);
-}
-/* line 126, ../scss/_notifications.scss */
-body #block-views-my-notifications-block .content .checkdesk_comment_on_report .heartbeat-time-ago, body #block-views-my-notifications-block .content .checkdesk_report_published_in_update .heartbeat-time-ago, body #block-views-my-notifications-block .content .checkdesk_report_suggested_to_story .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-report.png);
-}
-/* line 131, ../scss/_notifications.scss */
-body #block-views-my-notifications-block.notifications-block-expanded .content, body #block-views-my-notifications-block.notifications-block-expanded h2 {
-  background: #fff;
-}
-/* line 134, ../scss/_notifications.scss */
-body #block-views-my-notifications-block.notifications-block-expanded h2 {
-  color: #626262;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  -ms-border-radius: 5px 5px 0 0;
-  -o-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0;
-}
-/* line 138, ../scss/_notifications.scss */
-body #block-views-my-notifications-block.notifications-block-expanded .content {
-  -webkit-box-shadow: 1px 1px 10px #333333;
-  -moz-box-shadow: 1px 1px 10px #333333;
-  box-shadow: 1px 1px 10px #333333;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  -moz-border-radius-topright: 0;
-  -webkit-border-top-right-radius: 0;
-  border-top-right-radius: 0;
-}
-/* line 148, ../scss/_notifications.scss */
-body ::-webkit-scrollbar {
-  width: 9px;
-}
-/* line 151, ../scss/_notifications.scss */
-body ::-webkit-scrollbar-track {
-  background: #fefefe;
-}
-/* line 154, ../scss/_notifications.scss */
-body ::-webkit-scrollbar-thumb {
-  background: #eee;
-}
-
-/* line 11, ../scss/_layout.scss */
-body.i18n-en div#content, body.i18n-pt-br div#content {
-  width: 74.57627%;
-  float: right;
-  margin-right: 0;
-  #margin-left: -16px;
-  display: inline;
-}
-/* line 14, ../scss/_layout.scss */
-body.i18n-en div#sidebar-first, body.i18n-pt-br div#sidebar-first {
-  width: 23.72881%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-/* line 8, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block, body.i18n-pt-br #block-views-my-notifications-block {
-  width: 360px;
-  font-family: Arial, sans-serif;
-  text-align: right;
-  margin: 0 10px;
-  position: relative;
-  float: right;
-}
-/* line 15, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .auto-refresh, body.i18n-pt-br #block-views-my-notifications-block .auto-refresh {
-  display: none;
-}
-/* line 18, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block h2, body.i18n-pt-br #block-views-my-notifications-block h2 {
-  margin: 0;
-  padding: 0 3px;
-  color: #fff;
-  font-size: 14px;
-  display: inline-block;
-  font-weight: normal;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
-  line-height: 30px;
-}
-/* line 29, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block h2 .notifications-count, body.i18n-pt-br #block-views-my-notifications-block h2 .notifications-count {
-  display: inline;
-  color: #2F58B4;
-}
-/* line 32, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block h2 .notifications-count span, body.i18n-pt-br #block-views-my-notifications-block h2 .notifications-count span {
-  padding: 1px;
-  background: #fff;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-}
-/* line 39, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content, body.i18n-pt-br #block-views-my-notifications-block .content {
-  text-align: left;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  right: 0;
-  top: 29px;
-  width: 360px;
-  border: 1px solid #ccc;
-  /* Icons for each activity type */
-}
-/* line 48, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .view-content, body.i18n-pt-br #block-views-my-notifications-block .content .view-content {
-  height: 200px;
-  overflow: auto;
-}
-/* line 52, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .item-list, body.i18n-pt-br #block-views-my-notifications-block .content .item-list {
-  display: none;
-}
-/* line 55, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .notifications-settings-link, body.i18n-en #block-views-my-notifications-block .content .more-link, body.i18n-pt-br #block-views-my-notifications-block .content .notifications-settings-link, body.i18n-pt-br #block-views-my-notifications-block .content .more-link {
-  margin: 0;
-  padding: 12px 18px;
-  display: block;
-}
-/* line 59, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .notifications-settings-link a, body.i18n-en #block-views-my-notifications-block .content .notifications-settings-link a:visited, body.i18n-en #block-views-my-notifications-block .content .notifications-settings-link a:link, body.i18n-en #block-views-my-notifications-block .content .more-link a, body.i18n-en #block-views-my-notifications-block .content .more-link a:visited, body.i18n-en #block-views-my-notifications-block .content .more-link a:link, body.i18n-pt-br #block-views-my-notifications-block .content .notifications-settings-link a, body.i18n-pt-br #block-views-my-notifications-block .content .notifications-settings-link a:visited, body.i18n-pt-br #block-views-my-notifications-block .content .notifications-settings-link a:link, body.i18n-pt-br #block-views-my-notifications-block .content .more-link a, body.i18n-pt-br #block-views-my-notifications-block .content .more-link a:visited, body.i18n-pt-br #block-views-my-notifications-block .content .more-link a:link {
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  color: #6a6a6a;
-  text-decoration: none;
-}
-/* line 65, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .notifications-settings-link a:hover, body.i18n-en #block-views-my-notifications-block .content .more-link a:hover, body.i18n-pt-br #block-views-my-notifications-block .content .notifications-settings-link a:hover, body.i18n-pt-br #block-views-my-notifications-block .content .more-link a:hover {
-  text-decoration: underline;
-}
-/* line 69, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .notifications-settings-link, body.i18n-pt-br #block-views-my-notifications-block .content .notifications-settings-link {
-  float: left;
-}
-/* line 72, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .more-link, body.i18n-pt-br #block-views-my-notifications-block .content .more-link {
-  float: right;
-}
-/* line 75, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .notifications-footer, body.i18n-pt-br #block-views-my-notifications-block .content .notifications-footer {
-  clear: both;
-}
-/* line 78, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity {
-  color: #6a6a6a;
-  border-bottom: 1px solid #c9c9c9;
-  margin: 0;
-  padding: 12px 18px;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-}
-/* line 85, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity a, body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity a:visited, body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity a:link, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity a, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity a:visited, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity a:link {
-  text-decoration: none;
-  font-weight: bold;
-  color: #6a6a6a;
-}
-/* line 90, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity a:hover, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity a:hover {
-  text-decoration: underline;
-}
-/* line 93, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity p, body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity img, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity p, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity img {
-  float: left;
-}
-/* line 96, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity p, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity p {
-  margin: 0;
-  width: 270px;
-}
-/* line 100, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity img, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity img {
-  margin-right: 9px;
-  margin-bottom: 6px;
-}
-/* line 104, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .heartbeat-activity .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .heartbeat-activity .heartbeat-time-ago {
-  clear: both;
-  display: block;
-  margin: 0 0 0 9px;
-  height: 12px;
-  line-height: 12px;
-  padding-left: 19px;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  background-position: left bottom;
-  font-weight: normal;
-  color: #a9a9a9;
-}
-/* line 120, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .checkdesk_add_story .heartbeat-time-ago, body.i18n-en #block-views-my-notifications-block .content .checkdesk_comment_on_update .heartbeat-time-ago, body.i18n-en #block-views-my-notifications-block .content .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago, body.i18n-en #block-views-my-notifications-block .content .checkdesk_reply_to_comment .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_add_story .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_comment_on_update .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_reply_to_comment .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-star.png);
-}
-/* line 123, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .checkdesk_fact_checking_on .heartbeat-time-ago, body.i18n-en #block-views-my-notifications-block .content .checkdesk_fact_checking_set .heartbeat-time-ago, body.i18n-en #block-views-my-notifications-block .content .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago, body.i18n-en #block-views-my-notifications-block .content .checkdesk_flag_report .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_fact_checking_on .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_fact_checking_set .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_flag_report .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-flag.png);
-}
-/* line 126, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block .content .checkdesk_comment_on_report .heartbeat-time-ago, body.i18n-en #block-views-my-notifications-block .content .checkdesk_report_published_in_update .heartbeat-time-ago, body.i18n-en #block-views-my-notifications-block .content .checkdesk_report_suggested_to_story .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_comment_on_report .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_report_published_in_update .heartbeat-time-ago, body.i18n-pt-br #block-views-my-notifications-block .content .checkdesk_report_suggested_to_story .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-report.png);
-}
-/* line 131, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block.notifications-block-expanded .content, body.i18n-en #block-views-my-notifications-block.notifications-block-expanded h2, body.i18n-pt-br #block-views-my-notifications-block.notifications-block-expanded .content, body.i18n-pt-br #block-views-my-notifications-block.notifications-block-expanded h2 {
-  background: #fff;
-}
-/* line 134, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block.notifications-block-expanded h2, body.i18n-pt-br #block-views-my-notifications-block.notifications-block-expanded h2 {
-  color: #626262;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  -ms-border-radius: 5px 5px 0 0;
-  -o-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0;
-}
-/* line 138, ../scss/_notifications.scss */
-body.i18n-en #block-views-my-notifications-block.notifications-block-expanded .content, body.i18n-pt-br #block-views-my-notifications-block.notifications-block-expanded .content {
-  -webkit-box-shadow: 1px 1px 10px #333333;
-  -moz-box-shadow: 1px 1px 10px #333333;
-  box-shadow: 1px 1px 10px #333333;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  -moz-border-radius-topright: 0;
-  -webkit-border-top-right-radius: 0;
-  border-top-right-radius: 0;
-}
-/* line 148, ../scss/_notifications.scss */
-body.i18n-en ::-webkit-scrollbar, body.i18n-pt-br ::-webkit-scrollbar {
-  width: 9px;
-}
-/* line 151, ../scss/_notifications.scss */
-body.i18n-en ::-webkit-scrollbar-track, body.i18n-pt-br ::-webkit-scrollbar-track {
-  background: #fefefe;
-}
-/* line 154, ../scss/_notifications.scss */
-body.i18n-en ::-webkit-scrollbar-thumb, body.i18n-pt-br ::-webkit-scrollbar-thumb {
-  background: #eee;
-}
-
-/* line 11, ../scss/_layout.scss */
-body.i18n-ar div#content {
-  width: 74.57627%;
-  float: right;
-  margin-right: 0;
-  #margin-left: -16px;
-  display: inline;
-}
-/* line 14, ../scss/_layout.scss */
-body.i18n-ar div#sidebar-first {
-  width: 23.72881%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-/* line 8, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block {
-  width: 360px;
-  font-family: Arial, sans-serif;
-  text-align: left;
-  margin: 0 10px;
-  position: relative;
-  float: left;
-}
-/* line 15, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .auto-refresh {
-  display: none;
-}
-/* line 18, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block h2 {
-  margin: 0;
-  padding: 0 3px;
-  color: #fff;
-  font-size: 14px;
-  display: inline-block;
-  font-weight: normal;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
-  line-height: 30px;
-}
-/* line 29, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block h2 .notifications-count {
-  display: inline;
-  color: #2F58B4;
-}
-/* line 32, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block h2 .notifications-count span {
-  padding: 1px;
-  background: #fff;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-}
-/* line 39, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content {
-  text-align: right;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  left: 0;
-  top: 29px;
-  width: 360px;
-  border: 1px solid #ccc;
-  /* Icons for each activity type */
-}
-/* line 48, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .view-content {
-  height: 200px;
-  overflow: auto;
-}
-/* line 52, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .item-list {
-  display: none;
-}
-/* line 55, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .notifications-settings-link, body.i18n-ar #block-views-my-notifications-block .content .more-link {
-  margin: 0;
-  padding: 12px 18px;
-  display: block;
-}
-/* line 59, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .notifications-settings-link a, body.i18n-ar #block-views-my-notifications-block .content .notifications-settings-link a:visited, body.i18n-ar #block-views-my-notifications-block .content .notifications-settings-link a:link, body.i18n-ar #block-views-my-notifications-block .content .more-link a, body.i18n-ar #block-views-my-notifications-block .content .more-link a:visited, body.i18n-ar #block-views-my-notifications-block .content .more-link a:link {
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  color: #6a6a6a;
-  text-decoration: none;
-}
-/* line 65, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .notifications-settings-link a:hover, body.i18n-ar #block-views-my-notifications-block .content .more-link a:hover {
-  text-decoration: underline;
-}
-/* line 69, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .notifications-settings-link {
-  float: right;
-}
-/* line 72, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .more-link {
-  float: left;
-}
-/* line 75, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .notifications-footer {
-  clear: both;
-}
-/* line 78, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity {
-  color: #6a6a6a;
-  border-bottom: 1px solid #c9c9c9;
-  margin: 0;
-  padding: 12px 18px;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-}
-/* line 85, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity a, body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity a:visited, body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity a:link {
-  text-decoration: none;
-  font-weight: bold;
-  color: #6a6a6a;
-}
-/* line 90, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity a:hover {
-  text-decoration: underline;
-}
-/* line 93, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity p, body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity img {
-  float: right;
-}
-/* line 96, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity p {
-  margin: 0;
-  width: 270px;
-}
-/* line 100, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity img {
-  margin-left: 9px;
-  margin-bottom: 6px;
-}
-/* line 104, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .heartbeat-activity .heartbeat-time-ago {
-  clear: both;
-  display: block;
-  margin: 0 0 0 9px;
-  height: 12px;
-  line-height: 12px;
-  padding-right: 19px;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  background-position: right bottom;
-  font-weight: normal;
-  color: #a9a9a9;
-}
-/* line 120, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .checkdesk_add_story .heartbeat-time-ago, body.i18n-ar #block-views-my-notifications-block .content .checkdesk_comment_on_update .heartbeat-time-ago, body.i18n-ar #block-views-my-notifications-block .content .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago, body.i18n-ar #block-views-my-notifications-block .content .checkdesk_reply_to_comment .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-star.png);
-}
-/* line 123, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .checkdesk_fact_checking_on .heartbeat-time-ago, body.i18n-ar #block-views-my-notifications-block .content .checkdesk_fact_checking_set .heartbeat-time-ago, body.i18n-ar #block-views-my-notifications-block .content .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago, body.i18n-ar #block-views-my-notifications-block .content .checkdesk_flag_report .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-flag.png);
-}
-/* line 126, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block .content .checkdesk_comment_on_report .heartbeat-time-ago, body.i18n-ar #block-views-my-notifications-block .content .checkdesk_report_published_in_update .heartbeat-time-ago, body.i18n-ar #block-views-my-notifications-block .content .checkdesk_report_suggested_to_story .heartbeat-time-ago {
-  background-image: url(../imgs/icons/notification-report.png);
-}
-/* line 131, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block.notifications-block-expanded .content, body.i18n-ar #block-views-my-notifications-block.notifications-block-expanded h2 {
-  background: #fff;
-}
-/* line 134, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block.notifications-block-expanded h2 {
-  color: #626262;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  -ms-border-radius: 5px 5px 0 0;
-  -o-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0;
-}
-/* line 138, ../scss/_notifications.scss */
-body.i18n-ar #block-views-my-notifications-block.notifications-block-expanded .content {
-  -webkit-box-shadow: 1px 1px 10px #333333;
-  -moz-box-shadow: 1px 1px 10px #333333;
-  box-shadow: 1px 1px 10px #333333;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  -moz-border-radius-topleft: 0;
-  -webkit-border-top-left-radius: 0;
-  border-top-left-radius: 0;
-}
-/* line 148, ../scss/_notifications.scss */
-body.i18n-ar ::-webkit-scrollbar {
-  width: 9px;
-}
-/* line 151, ../scss/_notifications.scss */
-body.i18n-ar ::-webkit-scrollbar-track {
-  background: #fefefe;
-}
-/* line 154, ../scss/_notifications.scss */
-body.i18n-ar ::-webkit-scrollbar-thumb {
-  background: #eee;
 }

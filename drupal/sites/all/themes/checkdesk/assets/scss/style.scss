@@ -95,6 +95,6 @@ $grid-padding: $gutter-width;  // 1em
 // Checkdesk reports
 @import "report";
 
-body { @include cd_layout(left); }
-body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
-body.i18n-ar { @include cd_layout(right); }
+body { @include cd_layout; }
+// body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
+// body.i18n-ar { @include cd_layout(right); }

@@ -4,14 +4,14 @@
 //
 // Compatibility: untested
 
-@mixin notificationsBlock($direction) {
+@mixin notificationsBlock {
   #block-views-my-notifications-block {
     width: 360px;
     font-family: Arial, sans-serif;
-    text-align: opposite-position($direction);
+    text-align: opposite-position($from-direction);
     margin: 0 10px;
     position: relative;
-    float: opposite-position($direction);
+    float: opposite-position($from-direction);
     .auto-refresh {
       display: none;
     }
@@ -37,11 +37,11 @@
       }
     }
     .content {
-      text-align: $direction;
+      text-align: $from-direction;
       padding: 0;
       margin: 0;
       position: absolute;
-      #{opposite-position($direction)}: 0;
+      #{opposite-position($from-direction)}: 0;
       top: 29px;
       width: 360px;
       border: 1px solid #ccc;
@@ -67,10 +67,10 @@
         }
       }
       .notifications-settings-link {
-        float: $direction;
+        float: $from-direction;
       }
       .more-link {
-        float: opposite-position($direction);
+        float: opposite-position($from-direction);
       }
       .notifications-footer {
         clear: both;
@@ -91,14 +91,14 @@
           text-decoration: underline;
         }
         p, img {
-          float: $direction;
+          float: $from-direction;
         }
         p {
           margin: 0;
           width: 270px;
         }
         img {
-          margin-#{opposite-position($direction)}: 9px;
+          margin-#{opposite-position($from-direction)}: 9px;
           margin-bottom: 6px;
         }
         .heartbeat-time-ago {
@@ -107,10 +107,10 @@
           margin: 0 0 0 9px;
           height: 12px;
           line-height: 12px;
-          padding-#{$direction}: 19px;
+          padding-#{$from-direction}: 19px;
           background-repeat: no-repeat;
           background-color: transparent;
-          background-position: $direction bottom;
+          background-position: $from-direction bottom;
           font-weight: normal;
           color: #a9a9a9;
         }
@@ -138,7 +138,7 @@
     .content {
       @include box-shadow(1px 1px 10px #333);
   	  @include border-radius(5px);
-      @if $direction == left {
+      @if $from-direction == left {
         @include border-top-right-radius(0);
       } @else {
         @include border-top-left-radius(0);
