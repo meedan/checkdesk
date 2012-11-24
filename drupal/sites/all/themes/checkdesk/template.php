@@ -129,10 +129,22 @@ function checkdesk_preprocess_page(&$variables) {
 function checkdesk_preprocess_node(&$variables) {
   $variables['icon'] = '';
   if ($variables['type'] == 'media') {
+    //Add author info to variables
     $user_picture = $variables['elements']['#node']->picture;
     if (!empty($user_picture)) {
-      $variables['user_avatar'] = theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar'));
+      $options = array(
+        'html' => TRUE,
+        'attributes' => array(
+          'class' => 'gravatar'
+        )    
+      );
+      $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
+    //Add node creation info(author name plus creation time)
+    $variables['media_creation_info'] = l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . t(' added this ') .
+      '<time class="time-ago" pubdate datetime="'. format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP') .'">' .
+      format_interval(time()-$variables['created']) . t('ago') .'</time>';
+    //Add activity report with status
     $view = views_get_view('activity_report');
     $view->set_arguments(array($variables['nid']));
     $view_output = $view->preview('block');
@@ -268,7 +280,7 @@ function checkdesk_form_comment_form_alter(&$form, &$form_state) {
   $form['author']['homepage'] = NULL;
   $form['author']['mail'] = NULL;
   $form['actions']['submit']['#attributes']['class'] = array('btn');
-  $form['actions']['submit']['#value'] = t('Add comment');
+  $form['actions']['submit']['#value'] = t('Add footnote');
 }
 
 function checkdesk_field__field_rating(&$variables) {
