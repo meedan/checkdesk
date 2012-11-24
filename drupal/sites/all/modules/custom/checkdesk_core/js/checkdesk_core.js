@@ -25,4 +25,22 @@
     }
   };
 
+  Drupal.theme.prototype.checkdesk_modal = function () {
+    var html = ''
+    html += '  <div id="ctools-modalllllllllllll">'
+    html += '    <div class="ctools-modalllllllllllll-content">' // panels-modalllllllllllll-content
+    html += '      <div class="modalllllllllllll-header">';
+    html += '        <a class="close" href="#">';
+    html +=            Drupal.CTools.modalllllllllllll.currentSettings.closeText + Drupal.CTools.modal.currentSettings.closeImage;
+    html += '        </a>';
+    html += '        <span id="modalllllllllllll-title" class="modalllllllllllll-title"> </span>';
+    html += '      </div>';
+    html += '      <div id="modalllllllllllll-content" class="modalllllllllllll-content">';
+    html += '      </div>';
+    html += '    </div>';
+    html += '  </div>';
+
+    return html;
+  }
+
 })(jQuery);

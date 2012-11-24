@@ -392,7 +392,7 @@ function checkdesk_core_views_pre_render(&$view) {
     // Setup drag & drop.
     drupal_add_library('system', 'ui.draggable');
     drupal_add_library('system', 'ui.droppable');
-    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/checkdesk_core.js');
+    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 
     $data = $view->result;
@@ -835,6 +835,7 @@ function _checkdesk_core_include_modal() {
           'background-color' => '#' . variable_get('ajax_register_modal_background_color', '000000'),
         ),
         'closeText' => '',
+        'modalTheme' => 'checkdesk_modal',
         'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'ajax_register'))),
         'animation' => 'fadeIn',
         'animationSpeed' => 'fast',
@@ -844,6 +845,6 @@ function _checkdesk_core_include_modal() {
 
     // // Add module css and js.
     // ctools_add_css('ajax-register', 'ajax_register');
-    // ctools_add_js('ajax-register', 'ajax_register');
+    ctools_add_js('checkdesk_core', 'checkdesk_core');
   }
 }
