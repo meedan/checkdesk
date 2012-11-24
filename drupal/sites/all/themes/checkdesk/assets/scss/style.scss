@@ -24,72 +24,145 @@ $grid-padding: $gutter-width;  // 1em
 // Font-icon support
 @import "font-awesome";
 
+// Bowerbird base theme styles
+@import "bowerbird";
+
+// =============================== Our Drupal sections, pages, mixins
+
+@import "tabs";
+@import "login";
+
 // =============================== Our forks of CTB sass files
 
-// First
+// Checkdesk configuration variables
+//
+// Replaces: variables.scss
 @import "override_ctb/variables";
-// Second
+
+// Checkdesk mixins
+//
+// Replaces: 
+// mixins.scss
+//
+// Requires: 
+// variables.scss
 @import "override_ctb/mixins";
-// The Rest
+
+// Unmodified TB Bootstrap Reset
+//
+// Requires: 
+// variables.scss
+// mixins.scss
+@import "bowerbird/compass_twitter_bootstrap/reset";
+
+// Checkdesk TB navigation
+//
+// Replaces:
+// navs.scss
+// navbar.scss
 @import "override_ctb/navigation";
+
+// Checkdesk TB alerts
+//
+// Replaces: 
+// alerts.scss
 @import "override_ctb/alerts";
+
+// Checkdesk typography
+// 
+// Replaces: type.scss
 @import "override_ctb/type";
 
-// =============================== Compass Twitter Bootstrap: Untouched mixins
+// Unmodified TB Bootstrap scaffolding
+//
+// Setup typography and image classes
+//
+// Deprecated: these should be in more appropriate files or mixins
+@import "bowerbird/compass_twitter_bootstrap/scaffolding";
 
-// Basics minus layout and variables
-@import "compass_twitter_bootstrap/reset";
-@import "compass_twitter_bootstrap/mixins";
-@import "compass_twitter_bootstrap/scaffolding";
-@import "compass_twitter_bootstrap/type";
-@import "compass_twitter_bootstrap/code";
-@import "compass_twitter_bootstrap/forms";
-@import "compass_twitter_bootstrap/tables";
+// Unmodified TB Bootstrap code
+//
+// Basics for <code> and <pre> elements.
+@import "bowerbird/compass_twitter_bootstrap/code";
 
-// Components: common
-// @import "compass_twitter_bootstrap/sprites";
-@import "compass_twitter_bootstrap/dropdowns";
-// @import "compass_twitter_bootstrap/wells";
-// @import "compass_twitter_bootstrap/component-animations";
-// @import "compass_twitter_bootstrap/close";
+// Unmodified TB Bootstrap form elements
+//
+// Basics for <form> elements
+@import "bowerbird/compass_twitter_bootstrap/forms";
 
-// // Components: Buttons & Alerts
-@import "compass_twitter_bootstrap/buttons";
-@import "compass_twitter_bootstrap/button-groups";
-@import "compass_twitter_bootstrap/alerts";
+// Unmodified TB Bootstrap dropdown elements
+//
+// Basics for <table> elements
+@import "bowerbird/compass_twitter_bootstrap/tables";
 
-// Components: Nav
-// NOTE: 
-// in Checkdesk these are merged into navigation.scss
-// @import "compass_twitter_bootstrap/navs";
-// @import "compass_twitter_bootstrap/navbar";
+// Unmodified TB Bootstrap dropdown elements
+//
+// Basics for <form> elements
+@import "bowerbird/compass_twitter_bootstrap/dropdowns";
 
-// Components: Pagination
-// @import "compass_twitter_bootstrap/breadcrumbs";
-// @import "compass_twitter_bootstrap/pagination";
-// @import "compass_twitter_bootstrap/pager";
 
-// Components: Popovers
-@import "compass_twitter_bootstrap/modals";
-@import "compass_twitter_bootstrap/tooltip";
-@import "compass_twitter_bootstrap/popovers";
+// Unused TB modules
+//
+// These are not in use but are readily available via bowerbird's copy of the compass_twitter_bootstrap library. 
+// @import "bowerbird/compass_twitter_bootstrap/sprites";
+// @import "bowerbird/compass_twitter_bootstrap/wells";
+// @import "bowerbird/compass_twitter_bootstrap/component-animations";
+// @import "bowerbird/compass_twitter_bootstrap/close";
+// @import "bowerbird/compass_twitter_bootstrap/breadcrumbs";
+// @import "bowerbird/compass_twitter_bootstrap/pagination";
+// @import "bowerbird/compass_twitter_bootstrap/pager";
+// @import "bowerbird/compass_twitter_bootstrap/thumbnails";
+// @import "bowerbird/compass_twitter_bootstrap/labels-badges";
+// @import "bowerbird/compass_twitter_bootstrap/progress-bars";
+// @import "bowerbird/compass_twitter_bootstrap/accordion";
+// @import "bowerbird/compass_twitter_bootstrap/carousel";
+// @import "bowerbird/compass_twitter_bootstrap/hero-unit";
 
-// Components: Misc
-// @import "compass_twitter_bootstrap/thumbnails";
-// @import "compass_twitter_bootstrap/labels-badges";
-// @import "compass_twitter_bootstrap/progress-bars";
-// @import "compass_twitter_bootstrap/accordion";
-// @import "compass_twitter_bootstrap/carousel";
-// @import "compass_twitter_bootstrap/hero-unit";
+// Unmodified TB Bootstrap buttons and button groups
+//
+// Basics for <.btn>
+//
+// .btn - Base button
+// .btn-large - Large variation
+// .btn-small - Small variation
+// .btn-primary - Primary form button
+// .btn-warning - Something is wrong button
+// .btn-danger - be *very* careful button
+// .btn-success - Great work! button
+// .btn-info - Informative button
+// .btn-inverse - Inverted button
+@import "bowerbird/compass_twitter_bootstrap/buttons";
+@import "bowerbird/compass_twitter_bootstrap/button-groups";
 
-// Utility classes
-@import "compass_twitter_bootstrap/utilities"; 
-// Has to be last to override when necessary
+// Unmodified TB Bootstrap modals
+//
+// .modal - the main modal frame which will have .modal_backdrop behind it
+@import "bowerbird/compass_twitter_bootstrap/modals";
 
-// Basic layout
+// Unmodified TB Bootstrap
+//
+// A tooltip.
+//
+// .tooltip - the thing that appears which contains content.
+//
+// @import "bowerbird/compass_twitter_bootstrap/tooltip";
+
+// Unmodified TB Bootstrap
+//
+// .popover - a thing that pops over
+// @import "bowerbird/compass_twitter_bootstrap/popovers";
+
+// Unmodified TB Bootstrap Utility classes
+//
+// Has to be last of the CTB includes, to override when necessary. 
+//
+// Deprecated: These are just a few directional mixins that can easily be refactored away. But they might be required for some other modules.
+// @import "bowerbird/compass_twitter_bootstrap/utilities"; 
+
+// Checkdesk layout
 @import "layout";
 
-// Notifications
+// Checkdesk notifications
 @import "notifications";
 
 // Checkdesk reports
