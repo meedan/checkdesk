@@ -7,11 +7,17 @@
 @import "bowerbird/tabs";
 
 .tabs {
+  @include span-columns(8, $total-width);
+  @include pad(2, 2, $total-width);
+  background-color: white;
+
   ul.primary {
-    font-size: 20px;  
+    font-size: 16px;
+    @include reset-box-model;
+
     li {
       margin-#{opposite-position($from-direction)}: 20px;
-      padding: 10px;
+      padding: 20px;
       &.active {
         background: #c3c3c3;
       }
