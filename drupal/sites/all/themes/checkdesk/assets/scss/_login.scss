@@ -7,8 +7,24 @@
 body.not-front.not-logged-in.page-user {
   #main {
     form#user-login {
-      @include span-columns(8);
-      background: black;
+      @include span-columns($total-width, $total-width);
+      @include pad(1,1, $total-width);
+      background: white;
+
+      @include at-breakpoint($break-small) {
+        // green
+        @include span-columns(8, $total-width);
+        @include pad(1, 1, $total-width);
+        @include squish(1,1,$total-width);
+        clear: both;
+        background: yellow;
+      }
+
+      @include at-breakpoint($break-medium) {
+        // pink
+        @include span-columns(6, $total-width);
+        @include squish(2,2,$total-width);
+      }
     }
   }
 }

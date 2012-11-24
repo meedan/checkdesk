@@ -1,9 +1,18 @@
+
 // The basic grid for Susy. Note that these also feed bootstrap variables; see variables.scss
-// $total-columns: <number>;
-$total-width: 7;
+// $total-width: <number>;
+$total-width: 12;
+$total-columns: $total-width;
 // $column-width: <length>;
-$column-width: 4em;
+$column-width: 70px;
 // $gutter-width: <length>;
-$gutter-width: 1em;
+$gutter-width: 10px;
 // $grid-padding: <length>;
 $grid-padding: $gutter-width; 
+
+$break-medium: 9;
+
+$container-style: fluid;
+
+$break-small: 6;
+$break-medium: 10;

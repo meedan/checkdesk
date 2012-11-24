@@ -24,25 +24,29 @@
 
 // Media query breakpoints for Susy at-breakpoint
 //
-// Please read: http://susy.oddbird.net/guides/reference/#ref-responsive
-
-$break-medium: 12;
-$break-large: 18;
+// Please see: http://susy.oddbird.net/guides/reference/#ref-responsive
 
 @mixin layout_skeleton {
 
   // defaults at all breakpoints 
   #main {
-    @include container($total-columns, $break-medium, $break-large);
-    @include susy-grid-background;
+    @include container($break-small, $break-medium);
     margin-top: 1em;
+    @include susy-grid-background;
+    background-color: yellow;
   }
-    
+  
+  // breakpoint: small
+  @include at-breakpoint($break-small) {
+    #main {
+      background-color: green;
+    }
+  }
+
   // breakpoint: medium
   @include at-breakpoint($break-medium) {
     #main {
-      @include set-container-width;
-      @include prefix(2, $break-medium)
+      background-color: pink;
     }
   }
 }
