@@ -180,6 +180,9 @@
 // Checkdesk reports
 @import "report";
 
+// Checkdesk commenting plugin for posts only
+@import "livefyre";
+
 body { @include cd_layout; }
 // body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
 // body.i18n-ar { @include cd_layout(right); }
