@@ -2448,7 +2448,7 @@ button.close {
 }
 
 /* line 6, ../scss/_modals.scss */
-#modalBackdrop {
+.modal-backdrop {
   position: fixed;
   top: 0;
   right: 0;
@@ -2458,19 +2458,19 @@ button.close {
   background-color: black;
 }
 /* line 15, ../scss/_modals.scss */
-#modalBackdrop.fade {
+.modal-backdrop.fade {
   opacity: 0;
 }
 
 /* line 19, ../scss/_modals.scss */
-#modalBackdrop,
-#modalBackdrop.fade.in {
+.modal-backdrop,
+.modal-backdrop.fade.in {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=8000);
   opacity: 80;
 }
 
 /* line 24, ../scss/_modals.scss */
-.ctools-modal-content {
+.modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -2497,7 +2497,7 @@ button.close {
   outline: none;
 }
 /* line 42, ../scss/_modals.scss */
-.ctools-modal-content.fade {
+.modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
@@ -2505,7 +2505,7 @@ button.close {
   top: -25%;
 }
 /* line 46, ../scss/_modals.scss */
-.ctools-modal-content.fade.in {
+.modal.fade.in {
   top: 50%;
 }
 

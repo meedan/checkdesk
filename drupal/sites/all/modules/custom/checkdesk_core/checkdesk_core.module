@@ -822,7 +822,7 @@ function _checkdesk_core_include_modal() {
     ctools_modal_add_js();
 
     $modal_style = array(
-      'face-style' => array(
+      'checkdesk-modal-style' => array(
         'modalSize' => array(
           'type' => 'scale',
           'width' => .2,
@@ -835,7 +835,7 @@ function _checkdesk_core_include_modal() {
           'background-color' => '#000000',
         ),
         'animation' => 'fadeIn',
-        'modalTheme' => 'CtoolsFaceStyle',
+        'modalTheme' => 'checkdesk_modal_style',
         // Customize the AJAX throbber like so:
         // This function assumes the images are inside the module directory's "images"
         // directory:

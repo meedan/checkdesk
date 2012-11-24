@@ -164,7 +164,7 @@ function checkdesk_links__node($variables) {
         // http://api.drupalize.me/api/drupal/function/ctools_modal_text_button/7
         // IMPORTANT: Include ctools-modal-[your declared style name] as a class so 
         // Ctools knows what Javascript settings to use in generating the modal:
-        $suggest_link = ctools_modal_text_button($name, $href, t('View node content for @name', array('@name' => $name)), 'ctools-modal-face-style');
+        $suggest_link = ctools_modal_text_button($name, $href, t('View node content for @name', array('@name' => $name)), 'ctools-modal-checkdesk-modal-style');
         // $output .= '<li>' . l($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']) .'</li>';
         $output .= '<li>' . $suggest_link .'</li>';
       }

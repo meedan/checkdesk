@@ -25,16 +25,40 @@
     }
   };
 
-  Drupal.theme.prototype.CtoolsFaceStyle = function () {
-    
+  Drupal.behaviors.checkdeskModal = {
+  attach: function (context){
+
+    // Make modal window height scaled automatically.
+    $('.ctools-modal-content, #modal-content', context).height('auto');
+
+    // Position code lifted from http://www.quirksmode.org/viewport/compatibility.html
+    if (self.pageYOffset) { // all except Explorer
+      var wt = self.pageYOffset;
+    }
+    else if (document.documentElement && document.documentElement.scrollTop) { // Explorer 6 Strict
+      var wt = document.documentElement.scrollTop;
+    }
+    else if (document.body) { // all other Explorers
+      var wt = document.body.scrollTop;
+    }
+
+    // Fix CTools bug: calculate correct 'top' value.
+    var mdcTop = wt + ( $(window).height() / 2 ) - ($('#modalContent', context).outerHeight() / 2);
+    $('#modalContent', context).css({top: mdcTop + 'px'});
+  }
+}
+
+  Drupal.theme.prototype.checkdesk_modal_style = {
+    attach: function (context){ 
     var html = '';
     html += '<div id="ctools-modal-checkdesk" class="popups-box">';
     html += '  <div class="ctools-modal-content ctools-modal-happy-modal-content">';
-    html += '    <span class="popups-close"><a class="close" href="#">' + Drupal.CTools.Modal.currentSettings.closeImage + '</a></span>';
+    html += '    <span class="popups-close"><a class="close" href="#"></a></span>';
     html += '    <div class="modal-scroll"><div id="modal-content" class="modal-content popups-body"></div></div>';
     html += '  </div>';
     html += '</div>';
     return html;
   }
+}
 
 })(jQuery);
