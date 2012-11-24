@@ -1125,14 +1125,6 @@ ul.icons li .icon-large:before {
   content: "\f200";
 }
 
-/* line 1, ../scss/_login.scss */
-form#user-login {
-  width: 66.10169%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-
 /* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 article,
 aside,
@@ -4627,6 +4619,343 @@ input[type="submit"].btn.btn-mini {
 /* line 91, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
+}
+
+/* line 7, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+div.tabs {
+  margin: 0 0 5px 0;
+}
+
+/* line 11, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary, ul.secondary {
+  width: 99%;
+}
+
+/* line 14, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary {
+  margin: 0;
+  padding: 0 0 0 10px;
+  border-width: 0;
+  list-style: none;
+  white-space: nowrap;
+  line-height: normal;
+  background: url(../images/tabs/tab-bar.png) repeat-x left bottom;
+}
+/* line 22, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+/* line 27, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li.active a, ul.primary li.active a:hover {
+  border-width: 0;
+  color: black;
+  background-color: transparent;
+  background: url(../images/tabs/tab-left.png) no-repeat left 0;
+}
+/* line 32, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li.active a .tab, ul.primary li.active a:hover .tab {
+  background: url(../images/tabs/tab-right.png) no-repeat right 0;
+}
+/* line 34, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li a {
+  display: block;
+  height: 24px;
+  margin: 0;
+  padding: 0 0 0 5px;
+  border-width: 0;
+  font-weight: bold;
+  text-decoration: none;
+  color: #777777;
+  background-color: transparent;
+  background: url(../images/tabs/tab-left.png) no-repeat left -38px;
+}
+/* line 45, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li a:hover {
+  border-width: 0;
+  background-color: transparent;
+  background: url(../images/tabs/tab-left.png) no-repeat left -76px;
+}
+/* line 49, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li a:hover .tab {
+  background: url(../images/tabs/tab-right.png) no-repeat right -76px;
+}
+/* line 51, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li a .tab {
+  display: block;
+  height: 20px;
+  margin: 0;
+  padding: 4px 13px 0 6px;
+  border-width: 0;
+  line-height: 20px;
+  background: url(../images/tabs/tab-right.png) no-repeat right -38px;
+}
+
+/* line 60, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary {
+  margin: 0;
+  padding: 0 0 0 5px;
+  border-bottom: 1px solid silver;
+  list-style: none;
+  white-space: nowrap;
+  background: url(../images/tabs/tab-secondary-bg.png) repeat-x left bottom;
+}
+/* line 67, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary li {
+  float: left;
+  margin: 0 5px 0 0;
+  padding: 5px 0;
+  border-right: none;
+}
+/* line 72, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary a {
+  display: block;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid silver;
+  text-decoration: none;
+  color: #777777;
+  background: url(../images/tabs/tab-secondary.png) repeat-x left -56px;
+}
+/* line 81, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary a .active, ul.secondary a .active:hover {
+  border: 1px solid silver;
+  color: black;
+  background: url(../images/tabs/tab-secondary.png) repeat-x left top;
+}
+/* line 85, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary a:hover {
+  background: url(../images/tabs/tab-secondary.png) repeat-x left bottom;
+}
+/* line 87, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary a .tab {
+  display: block;
+  height: 18px;
+  margin: 0;
+  padding: 3px 8px;
+  line-height: 18px;
+}
+
+/* line 10, ../scss/_tabs.scss */
+.tabs ul.primary {
+  font-size: 20px;
+}
+/* line 12, ../scss/_tabs.scss */
+.tabs ul.primary li {
+  margin-right: 20px;
+  padding: 10px;
+}
+/* line 15, ../scss/_tabs.scss */
+.tabs ul.primary li.active {
+  background: #c3c3c3;
+}
+/* line 18, ../scss/_tabs.scss */
+.tabs ul.primary li a {
+  padding: 0;
+}
+
+/* line 1, ../scss/_login.scss */
+form#user-login {
+  width: 66.10169%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 7, ../scss/_notifications.scss */
+#block-views-my-notifications-block {
+  width: 360px;
+  font-family: Arial, sans-serif;
+  text-align: right;
+  margin: 0 10px;
+  position: relative;
+  float: right;
+}
+/* line 14, ../scss/_notifications.scss */
+#block-views-my-notifications-block .auto-refresh {
+  display: none;
+}
+/* line 17, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2 {
+  margin: 0;
+  padding: 0 3px;
+  color: #fff;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: normal;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  line-height: 30px;
+}
+/* line 28, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2 .notifications-count {
+  display: inline;
+  color: #2F58B4;
+}
+/* line 31, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2 .notifications-count span {
+  padding: 1px;
+  background: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 38, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  top: 29px;
+  width: 360px;
+  border: 1px solid #ccc;
+  /* Icons for each activity type */
+}
+/* line 47, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .view-content {
+  height: 200px;
+  overflow: auto;
+}
+/* line 51, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .item-list {
+  display: none;
+}
+/* line 54, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-settings-link, #block-views-my-notifications-block .content .more-link {
+  margin: 0;
+  padding: 12px 18px;
+  display: block;
+}
+/* line 58, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-settings-link a, #block-views-my-notifications-block .content .notifications-settings-link a:visited, #block-views-my-notifications-block .content .notifications-settings-link a:link, #block-views-my-notifications-block .content .more-link a, #block-views-my-notifications-block .content .more-link a:visited, #block-views-my-notifications-block .content .more-link a:link {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #6a6a6a;
+  text-decoration: none;
+}
+/* line 64, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-settings-link a:hover, #block-views-my-notifications-block .content .more-link a:hover {
+  text-decoration: underline;
+}
+/* line 68, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-settings-link {
+  float: left;
+}
+/* line 71, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .more-link {
+  float: right;
+}
+/* line 74, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-footer {
+  clear: both;
+}
+/* line 77, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity {
+  color: #6a6a6a;
+  border-bottom: 1px solid #c9c9c9;
+  margin: 0;
+  padding: 12px 18px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+/* line 84, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity a, #block-views-my-notifications-block .content .heartbeat-activity a:visited, #block-views-my-notifications-block .content .heartbeat-activity a:link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #6a6a6a;
+}
+/* line 89, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity a:hover {
+  text-decoration: underline;
+}
+/* line 92, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity p, #block-views-my-notifications-block .content .heartbeat-activity img {
+  float: left;
+}
+/* line 95, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity p {
+  margin: 0;
+  width: 270px;
+}
+/* line 99, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity img {
+  margin-right: 9px;
+  margin-bottom: 6px;
+}
+/* line 103, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity .heartbeat-time-ago {
+  clear: both;
+  display: block;
+  margin: 0 0 0 9px;
+  height: 12px;
+  line-height: 12px;
+  padding-left: 19px;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: left bottom;
+  font-weight: normal;
+  color: #a9a9a9;
+}
+/* line 119, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .checkdesk_add_story .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_comment_on_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_reply_to_comment .heartbeat-time-ago {
+  background-image: url(../imgs/icons/notification-star.png);
+}
+/* line 122, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .checkdesk_fact_checking_on .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_fact_checking_set .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_flag_report .heartbeat-time-ago {
+  background-image: url(../imgs/icons/notification-flag.png);
+}
+/* line 125, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .checkdesk_comment_on_report .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_report_published_in_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_report_suggested_to_story .heartbeat-time-ago {
+  background-image: url(../imgs/icons/notification-report.png);
+}
+
+/* line 130, ../scss/_notifications.scss */
+#block-views-my-notifications-block.notifications-block-expanded .content, #block-views-my-notifications-block.notifications-block-expanded h2 {
+  background: #fff;
+}
+/* line 133, ../scss/_notifications.scss */
+#block-views-my-notifications-block.notifications-block-expanded h2 {
+  color: #626262;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -ms-border-radius: 5px 5px 0 0;
+  -o-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+/* line 137, ../scss/_notifications.scss */
+#block-views-my-notifications-block.notifications-block-expanded .content {
+  -webkit-box-shadow: 1px 1px 10px #333333;
+  -moz-box-shadow: 1px 1px 10px #333333;
+  box-shadow: 1px 1px 10px #333333;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* line 147, ../scss/_notifications.scss */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+/* line 150, ../scss/_notifications.scss */
+::-webkit-scrollbar-track {
+  background: #fefefe;
+}
+
+/* line 153, ../scss/_notifications.scss */
+::-webkit-scrollbar-thumb {
+  background: #eee;
 }
 
 /* line 8, ../scss/_report.scss */

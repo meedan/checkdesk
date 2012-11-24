@@ -1,5 +1,23 @@
-// ul.tabs {
-//   @extend .nav;
-//   @extend .nav-tabs;
-//   background: red;
-// }
+// Checkdesk Tabs
+//
+// .tabs - the main tab container with ul.primary and ul.secondary inside
+//
+// Adds styles for the primary and secondary tabs. Compare this with default CSS found in the system module's stylesheet.
+
+@import "bowerbird/tabs";
+
+.tabs {
+  ul.primary {
+    font-size: 20px;  
+    li {
+      margin-#{opposite-position($from-direction)}: 20px;
+      padding: 10px;
+      &.active {
+        background: #c3c3c3;
+      }
+      a {
+        padding: 0;
+      }
+    }
+  }
+}

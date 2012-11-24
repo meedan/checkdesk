@@ -1,4 +1,3 @@
-
 // The basic grid for susy
 // $total-columns: <number>;
 $total-columns: 12;
@@ -10,27 +9,27 @@ $gutter-width: 16px;
 $grid-padding: $gutter-width;  // 1em
 
 // Compass gem
+// 
+// To learn more `gem unpack compass`
 @import "compass";
-
-// Compass gem CSS3
 @import "compass/css3";
-
-// Compass utilities like clearfix
 @import "compass/utilities";
 
 // Susy layout gem
+// 
+// to learn more `gem unpack susy`
 @import "susy";
 
 // Font-icon support
+//
+//[class^="icon-"]:before - inserts matching "icon-something" names to injected custom unicode glyph character
 @import "font-awesome";
 
 // Bowerbird base theme styles
+//
+// Contains resets for some drupal elements and some common mixins and libraries used at Meedan.
+// Bowerbird gives us some defaults in defaults.scss and some included libraries like compass_twitter_bootstrap
 @import "bowerbird";
-
-// =============================== Our Drupal sections, pages, mixins
-
-@import "tabs";
-@import "login";
 
 // =============================== Our forks of CTB sass files
 
@@ -118,9 +117,10 @@ $grid-padding: $gutter-width;  // 1em
 // @import "bowerbird/compass_twitter_bootstrap/carousel";
 // @import "bowerbird/compass_twitter_bootstrap/hero-unit";
 
+
 // Unmodified TB Bootstrap buttons and button groups
 //
-// Basics for <.btn>
+// Basics for buttons with several variations.
 //
 // .btn - Base button
 // .btn-large - Large variation
@@ -143,7 +143,7 @@ $grid-padding: $gutter-width;  // 1em
 //
 // A tooltip.
 //
-// .tooltip - the thing that appears which contains content.
+// .tooltip - the element that appears which contains content.
 //
 // @import "bowerbird/compass_twitter_bootstrap/tooltip";
 
@@ -159,10 +159,30 @@ $grid-padding: $gutter-width;  // 1em
 // Deprecated: These are just a few directional mixins that can easily be refactored away. But they might be required for some other modules.
 // @import "bowerbird/compass_twitter_bootstrap/utilities"; 
 
+// =============================== Our Drupal sections, pages, mixins
+
+// Checkdesk tabs
+//
+// We expect some resets in bowerbird. Additionally we have styles here.
+// 
+// .tabs - the containing element which has a ul.primary and ul.secondary
+@import "tabs";
+
+// Checkdesk Login page
+// 
+// we implement a smaller width on the content frame, handle the social login process, and use TB to draw most the form elements.
+//
+// form#user-login - the main form in the page 
+@import "login";
+
 // Checkdesk layout
+//
+// Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
 @import "layout";
 
 // Checkdesk notifications
+// 
+// #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
 // Checkdesk reports
@@ -171,3 +191,4 @@ $grid-padding: $gutter-width;  // 1em
 body { @include cd_layout; }
 // body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
 // body.i18n-ar { @include cd_layout(right); }
+
