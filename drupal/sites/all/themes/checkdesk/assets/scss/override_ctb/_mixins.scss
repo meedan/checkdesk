@@ -630,25 +630,25 @@
 }
 
 @mixin ctb-grid-input($columnWidth: $gridColumnWidth, $gutterWidth: $gridGutterWidth) {
-  input,
-  textarea,
-  .uneditable-input {
-    margin-left: 0; // override margin-left from core grid system
-  }
+  // input,
+  // textarea,
+  // .uneditable-input {
+  //   margin-left: 0; // override margin-left from core grid system
+  // }
 
-  // Space grid-sized controls properly if multiple per line
-  .controls-row [class*="span"] + [class*="span"] {
-    margin-left: $gutterWidth;
-  }
+  // // Space grid-sized controls properly if multiple per line
+  // .controls-row [class*="span"] + [class*="span"] {
+  //   margin-left: $gutterWidth;
+  // }
 
-  // generate .spanX
-  $i: $gridColumns;
-  @while $i > 0 {
-    input.span#{$i},
-    textarea.span#{$i},
-    .uneditable-input.span#{$i} {
-      @include ctb-input-span($i, $columnWidth, $gutterWidth);
-    }
-    $i: $i - 1;
-  }
+  // // generate .spanX
+  // $i: $gridColumns;
+  // @while $i > 0 {
+  //   input.span#{$i},
+  //   textarea.span#{$i},
+  //   .uneditable-input.span#{$i} {
+  //     @include ctb-input-span($i, $columnWidth, $gutterWidth);
+  //   }
+  //   $i: $i - 1;
+  // }
 }
