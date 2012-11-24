@@ -6,7 +6,7 @@
 // Base styles
 // -------------------------
 
-.messages {
+.alert {
   padding: 8px 35px 8px 14px;
   margin-bottom: $baseLineHeight;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
@@ -15,12 +15,12 @@
   @include border-radius($baseBorderRadius);
   color: $warningText;
 }
-.messages h4 {
+.alert h4 {
   margin: 0;
 }
 
 // Adjust close link position
-.messages .close {
+.alert .close {
   position: relative;
   top: -2px;
   right: -21px;
@@ -31,33 +31,71 @@
 // Alternate styles
 // -------------------------
 
-.success {
+.alert-success {
   background-color: $successBackground;
-  border-color: $successBorder;  
-}
-.success,
-.success .messages-heading {
+  border-color: $successBorder;
   color: $successText;
 }
-.danger,
-.error {
+.alert-danger,
+.alert-error {
   background-color: $errorBackground;
   border-color: $errorBorder;
-}
-.danger,
-.error,
-.danger .messages-heading,
-.error .messages-heading {
   color: $errorText;
 }
-.status {
+.alert-info {
   background-color: $infoBackground;
   border-color: $infoBorder;
-}
-.status,
-.status .messages-heading {
   color: $infoText;
 }
+
+
+// Block alerts
+// -------------------------
+
+.alert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.alert-block > p,
+.alert-block > ul {
+  margin-bottom: 0;
+}
+.alert-block p + p {
+  margin-top: 5px;
+}
+
+//
+// Close icons
+// --------------------------------------------------
+
+
+.close {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: $baseLineHeight;
+  color: $black;
+  text-shadow: 0 1px 0 rgba(255,255,255,1);
+  @include opacity(0.2);
+  &:hover {
+    color: $black;
+    text-decoration: none;
+    cursor: pointer;
+    @include opacity(0.4);
+  }
+}
+
+// Additional properties for button version
+// iOS requires the button element instead of an anchor tag.
+// If you want the anchor version, it requires `href="#"`.
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
 
 
 // Top bar alerts

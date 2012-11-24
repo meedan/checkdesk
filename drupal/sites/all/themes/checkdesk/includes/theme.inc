@@ -77,11 +77,6 @@ function checkdesk_checkdesk_links($variables) {
       $attributes['class'][] = (count($children) > 0) ? 'dropdown' : NULL;
       $output .= '<li' . drupal_attributes(array('class' => $attributes['class'])) . '>';
 
-      if (isset($link['class'])) {
-        if (!isset($link['attributes']['class'])) $link['attributes']['class'] = array();
-        $link['attributes']['class'] = array_merge($link['attributes']['class'], $link['class']);
-      }
-
       if (isset($link['href'])) {
         if(count($children) > 0) { 
           $link['html'] = TRUE;
@@ -151,6 +146,45 @@ function _checkdesk_alter($files, $type) {
       $output[$name] = FALSE;
     }
     }
+  }
+  return $output;
+}
+
+
+/**
+ * Returns HTML for status and/or error messages, grouped by type.
+ *
+ */
+function checkdesk_status_messages($variables) {
+  $display = $variables['display'];
+  $output = '';
+
+  $status_heading = array(
+    'status' => t('Status message'),
+    'error' => t('Error message'),
+    'warning' => t('Warning message'),
+  );
+
+  foreach (drupal_get_messages($display) as $type => $messages) {
+    $output .= "<div class=\"alert alert-block alert-$type\">\n";
+    $output .= "  <a class=\"close\" data-dismiss=\"alert\" href=\"#\">x</a>\n";
+
+    if (!empty($status_heading[$type])) {
+      $output .= '<h4 class="alert-heading">' . $status_heading[$type] . "</h4>\n";
+    }
+
+    if (count($messages) > 1) {
+      $output .= " <ul>\n";
+      foreach ($messages as $message) {
+        $output .= '  <li>' . $message . "</li>\n";
+      }
+      $output .= " </ul>\n";
+    }
+    else {
+      $output .= $messages[0];
+    }
+
+    $output .= "</div>\n";
   }
   return $output;
 }
