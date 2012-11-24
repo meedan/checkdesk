@@ -25,21 +25,15 @@
     }
   };
 
-  Drupal.theme.prototype.checkdesk_modal = function () {
-    var html = ''
-    html += '  <div id="ctools-modalllllllllllll">'
-    html += '    <div class="ctools-modalllllllllllll-content">' // panels-modalllllllllllll-content
-    html += '      <div class="modalllllllllllll-header">';
-    html += '        <a class="close" href="#">';
-    html +=            Drupal.CTools.modalllllllllllll.currentSettings.closeText + Drupal.CTools.modal.currentSettings.closeImage;
-    html += '        </a>';
-    html += '        <span id="modalllllllllllll-title" class="modalllllllllllll-title"> </span>';
-    html += '      </div>';
-    html += '      <div id="modalllllllllllll-content" class="modalllllllllllll-content">';
-    html += '      </div>';
-    html += '    </div>';
+  Drupal.theme.prototype.CtoolsFaceStyle = function () {
+    
+    var html = '';
+    html += '<div id="ctools-modal-checkdesk" class="popups-box">';
+    html += '  <div class="ctools-modal-content ctools-modal-happy-modal-content">';
+    html += '    <span class="popups-close"><a class="close" href="#">' + Drupal.CTools.Modal.currentSettings.closeImage + '</a></span>';
+    html += '    <div class="modal-scroll"><div id="modal-content" class="modal-content popups-body"></div></div>';
     html += '  </div>';
-
+    html += '</div>';
     return html;
   }
 

@@ -687,7 +687,7 @@ function _checkdesk_core_add_ajax(&$form, $type) {
   );
 
   // Add ctools modal style.
-  $form['actions']['submit']['#attributes']['class'][] = 'ctools-modal-ctools-checkdesk-core-style';
+  $form['actions']['submit']['#attributes']['class'][] = 'ctools-modal-checkdesk-modal-style';
 }
 
 
@@ -785,7 +785,6 @@ function _checkdesk_core_page_callback($form_type, $js) {
     $commands = array();
 
     if ($form_type == 'suggest') {
-      dd('Yes fucknuts.');
       // Show Report Suggest form
       $form_state['title'] = t('Add to Story');
       $commands = ctools_modal_form_wrapper('_checkdesk_core_report_suggest', $form_state);
@@ -809,6 +808,8 @@ function _checkdesk_core_page_callback($form_type, $js) {
  */
 function _checkdesk_core_include_modal() {
 
+
+
   static $added = FALSE;
   if ($added == FALSE) {
 
@@ -820,31 +821,38 @@ function _checkdesk_core_include_modal() {
     ctools_include('ajax');
     ctools_modal_add_js();
 
-    // Create our own javascript that will be used to theme a modal.
-    $checkdesk_core_modal_style = array(
-      'ctools-checkdesk-core-style' => array(
+    $modal_style = array(
+      'face-style' => array(
         'modalSize' => array(
-          'type' => 'fixed',
-          'width' => (int) trim(variable_get('ajax_register_modal_width', 550)),
-          'height' => 140,
-          'contentRight' => 30,
-          'contentBottom' => 0,
+          'type' => 'scale',
+          'width' => .2,
+          'height' => .2,
+          'addWidth' => 20,
+          'addHeight' => 15,
         ),
         'modalOptions' => array(
-          'opacity' => (float) variable_get('ajax_register_modal_background_opacity', '0.8'),
-          'background-color' => '#' . variable_get('ajax_register_modal_background_color', '000000'),
+          'opacity' => .2,
+          'background-color' => '#000000',
         ),
-        'closeText' => '',
-        'modalTheme' => 'checkdesk_modal',
-        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'ajax_register'))),
         'animation' => 'fadeIn',
-        'animationSpeed' => 'fast',
+        'modalTheme' => 'CtoolsFaceStyle',
+        // Customize the AJAX throbber like so:
+        // This function assumes the images are inside the module directory's "images"
+        // directory:
+        // ctools_image_path($image, $module = 'ctools', $dir = 'images')
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'happy'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+        'closeImage' => theme('image', array('path' => ctools_image_path('modal-close.png', 'happy'), 'alt' => t('Close window'), 'title' => t('Close window'))),
       ),
     );
-    drupal_add_js($checkdesk_core_modal_style, 'setting');
-
-    // // Add module css and js.
-    // ctools_add_css('ajax-register', 'ajax_register');
+  
+    // Add the settings array defined above to Drupal 7's JS settings:
+    drupal_add_js($modal_style, 'setting');
+    // The function below assumes the happy.js file resides in [module_dir]/js
     ctools_add_js('checkdesk_core', 'checkdesk_core');
+    // The function below assumes the happy.css file resides in [module_dir]/css
+    ctools_add_css('checkdesk_core', 'checkdesk_core');
+
+
+
   }
 }

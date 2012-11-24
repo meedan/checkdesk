@@ -155,7 +155,16 @@ function checkdesk_links__node($variables) {
         ctools_include('modal');
         ctools_include('ajax');
         ctools_modal_add_js();
-        $suggest_link = ctools_modal_text_button(t('Add to story'), 'modal/suggest/nojs', t('Add to story'), 'ctools-modal-ctools-checkdesk-core-style');
+
+        $name = t('Add to story');
+        // Create a path for the url that is like our hook_menu() declaration above.
+        $href = 'modal/suggest/nojs/';
+        // Here's the ctools function that generates the trigger inside the link
+        // ctools_modal_text_button($text, $dest, $alt, $class = '')
+        // http://api.drupalize.me/api/drupal/function/ctools_modal_text_button/7
+        // IMPORTANT: Include ctools-modal-[your declared style name] as a class so 
+        // Ctools knows what Javascript settings to use in generating the modal:
+        $suggest_link = ctools_modal_text_button($name, $href, t('View node content for @name', array('@name' => $name)), 'ctools-modal-face-style');
         // $output .= '<li>' . l($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']) .'</li>';
         $output .= '<li>' . $suggest_link .'</li>';
       }
