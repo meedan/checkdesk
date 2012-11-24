@@ -1,3 +1,16 @@
-form#user-login {
-  @include span-columns(8);
+// Login page
+//
+// .not-front.not-logged-in.page-user - main container selector on body
+// 
+//
+
+body.not-front.not-logged-in.page-user {
+  #main {
+    form#user-login {
+      @include span-columns(8);
+      background: black;
+    }
+  }
 }
+
+

@@ -7,12 +7,43 @@
 //
 // Compatibility: untested
 
-@mixin layout_skeleton($sidebar_alpha: 3, $content_width: 9) {
-	div#main {
-      @include container;
+// Page structure:
+//
+// #page 
+//   header#navbar
+//   #main
+//     #content
+//       #content-inner
+//         #content-header
+//         #content-area
+
+// Questions:
+//
+// Where will the sidebar go? 
+// media query breakpoints
+
+// Media query breakpoints for Susy at-breakpoint
+//
+// Please read: http://susy.oddbird.net/guides/reference/#ref-responsive
+
+$break-medium: 12;
+$break-medium: 18;
+
+@mixin layout_skeleton {
+
+  // defaults at all breakpoints 
+  #main {
+    @include container($total-columns, $break-medium, $break-large);
+    @include susy-grid-background;
+    margin-top: 1em;
+  }
+    
+  // breakpoint: medium
+  @include at-breakpoint($break-medium) {
+    #main {
+      @include set-container-width;
+      @include prefix(2, $break-medium)
     }
-  div#sidebar-first {
-    @include span-columns($sidebar_alpha,12);
   }
 }
 

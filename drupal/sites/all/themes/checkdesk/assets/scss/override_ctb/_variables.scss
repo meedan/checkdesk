@@ -1,12 +1,9 @@
 // Variables forked from compass-twitter-bootstrap variables.scss
 // To reset to defaults delete this file and do
 // @import compass_twitter_bootstrap/variables;
-// --------------------------------------------------
-
-
-// Global values
-// --------------------------------------------------
-
+//
+// for info on compass configuration see
+// http://compass-style.org/help/tutorials/configurable-variables/
 
 // Grays
 // -------------------------
@@ -197,10 +194,10 @@ $infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;
 
 
 // Default 940px grid
-// -------------------------
-$gridColumns:             12 !default;
-$gridColumnWidth:         60px !default;
-$gridGutterWidth:         20px !default;
+// // -------------------------
+$gridColumns:             $total-width !default;
+$gridColumnWidth:         $column-width !default;
+$gridGutterWidth:         $gutter-width !default;
 $gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
 
 // Horizontal forms & lists

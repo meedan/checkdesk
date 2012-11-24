@@ -1,12 +1,4 @@
-// The basic grid for susy
-// $total-columns: <number>;
-$total-columns: 12;
-// $column-width: <length>;
-$column-width: 64px;
-// $gutter-width: <length>;
-$gutter-width: 16px;
-// $grid-padding: <length>;
-$grid-padding: $gutter-width;  // 1em
+@import "base";
 
 // Compass gem
 // 
@@ -191,4 +183,3 @@ $grid-padding: $gutter-width;  // 1em
 body { @include cd_layout; }
 // body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
 // body.i18n-ar { @include cd_layout(right); }
-
