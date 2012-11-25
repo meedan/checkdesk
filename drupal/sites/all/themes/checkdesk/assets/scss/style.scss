@@ -3,25 +3,46 @@
 // For configuration that needs to come before everything else.
 @import "base";
 
-// Bowerbird Sass Framework
+// Bowerbird Compass Framework (BCF)
 //
-// Bowerbird Sass Framework (BSF) is included with Bowerbird Drupal Theme (BDT). 
-// BSF Utilizes: Susy, Compass, Sass, Ruby, Twitter Bootstrap
-// Compass and Susy are included in BSF. They are ruby gems you must install before you can run "compass watch". You are encouraged to `gem unpack compass susy` and read the source code for both of these libraries which implement the BSF.
-// Also BSF contains vendored libraries (which would usually be used as gems): compass_twitter_bootstrap and. To use them: @import "bowerbird/drupal" -- some @imports will @import Sass directly and some will @import mixins you can then @include with parameters.
+// Bowerbird Compass Framework (BCF) is included with Bowerbird Drupal Theme (BDT). 
+// BCF Utilizes: Susy, Compass, Sass, Ruby, Twitter Bootstrap
+// Compass and Susy are included in the framework. They are ruby gems you must install before you can run "compass watch". You are encouraged to `gem unpack compass susy` and read the source code for both of these libraries which implement the framwork.
+// Also BCF contains vendored libraries (which would usually be used as gems): compass_twitter_bootstrap and. To use them: @import "bowerbird/drupal" -- some @imports will @import Sass directly and some will @import mixins you can then @include with parameters.
 
-// Bowerbird: Compass and Susy 
+// Bowerbird Compass Framework: Compass and Susy and perhaps some basic configuration
 @import "bowerbird"; 
+
+// Bowerbird Drupal touchups
 @import "bowerbird/drupal";
+
+// Bowerbird fork of fancy-buttons 
+//
+// Example usage:
+// button { @include button($tupperware-blue, 26px, 1em, 4px); }
 @import "bowerbird/buttons";
+
+// Bowerbird fork of fancy-gradients
+//
+// Example usage:
+// div { @include gradient($dark-blue, $midnight-blue); }
 @import "bowerbird/gradients";
+
+// Various colors by name
+//
+// Example usage
+// div { color: $tupperware-blue; }
 @import "bowerbird/colors";
 
 // Font-icon support from the fontawesome project which uses font-based icons. 
 //
 // Make sure your font paths are set correctly in config.rb
+// 
+// Imports: Fontawesome
+// contains "icon-something" names to injected custom unicode glyph character
 //
-//[class^="icon-"]:before - inserts matching "icon-something" names to injected custom unicode glyph character
+//[class^="icon-"]:before - 
+// 
 @import "bowerbird/icons/icons";
 
 // ============================================================== 

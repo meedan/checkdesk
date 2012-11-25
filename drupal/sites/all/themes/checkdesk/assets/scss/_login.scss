@@ -19,9 +19,12 @@ body.not-front.not-logged-in.page-user {
       @include pad(1,1, $total-width);
       background: white;
 
+      .form-item {
+        background-color: $midnight-blue;
+      }
+
       .form-item-name, 
       .form-item-pass {
-        background-color: yellow;
         @include span-columns($login-form-width, $total-width);
       }
 
