@@ -457,7 +457,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report flagged",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" },
@@ -732,7 +732,12 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
-      "ON" : [ "flag_flagged_graphic", "flag_flagged_factcheck", "flag_flagged_spam" ],
+      "ON" : [
+        "flag_flagged_factcheck",
+        "flag_flagged_graphic_journalist",
+        "flag_flagged_spam",
+        "flag_flagged_graphic"
+      ],
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "flagged-node" ],
