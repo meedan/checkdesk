@@ -1,4 +1,18 @@
+// Typography
+//
+// Apparently imports need to stay up top near the start of compilation.
+// As per https://github.com/chriseppstein/compass/issues/639
+// - CGB Nov 2012
 
+// "Open Sans"
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
+
+// Default font for the buttons mixin
+$button-font-family: "Open Sans", 'Helvetica Neue', Helvetica, Arial !default; 
+$fb-font-weight: 300;
+
+// Grid
+//
 // The basic grid for Susy. Note that these also feed bootstrap variables; see variables.scss
 // $total-width: <number>;
 $total-width: 12;
@@ -10,11 +24,15 @@ $gutter-width: 10px;
 // $grid-padding: <length>;
 $grid-padding: $gutter-width; 
 
+// Susy container style
 $container-style: fluid;
 
+// Media query breakpoints
+//
 $break-small: 6;
 $break-medium: 10;
 
+// Pages and sections
+//
+// Login form
 $login-form-width: $total-width - 2;
-
-$lightgray: #f2f2f2;

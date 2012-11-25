@@ -29,7 +29,7 @@ body.not-front.not-logged-in.page-user {
         @include clearfix;
         ul { @include reset-list-style; }
         li { float: $from-direction; }
-        background-color: $lightgray;
+        background-color: $light-grey;
       }
 
       .form-actions {
@@ -39,10 +39,10 @@ body.not-front.not-logged-in.page-user {
       }
 
       input.form-submit {
-        @extend .btn;
-        @extend .btn-large;
-        @extend .btn-primary;
-        
+        @include button(darken($frenchpass-blue, 30%));
+        // @extend .btn;
+        // @extend .btn-large;
+        // @extend .btn-primary;
       }
 
       // The social media sign-in boxes
