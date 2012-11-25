@@ -1,9 +1,6 @@
 // Core layout
 // 
-// $from-direction = "left" or "right" defaults to left. Set by susy.
-// $sidebar_alpha = number of columns for the alpha sidebar
-// $sidebar_omega = number of columns for the omega sidebar
-// $content_width = number of columns for the main div (i.e.) main page content
+// This is the basic "Skeleton" that drives the "core" layout. 
 //
 // Compatibility: untested
 
@@ -22,18 +19,17 @@
 // Where will the sidebar go? 
 // media query breakpoints
 
-// Media query breakpoints for Susy at-breakpoint
+// Regarding media query breakpoints for Susy at-breakpoint
 //
 // Please see: http://susy.oddbird.net/guides/reference/#ref-responsive
 
-@mixin layout_skeleton {
-
+body {
   // defaults at all breakpoints 
   #main {
     @include container($break-small, $break-medium);
     margin-top: 1em;
     @include susy-grid-background;
-    background-color: yellow;
+    // @include gradient(green, yellow);
   }
   
   // breakpoint: small
@@ -49,8 +45,4 @@
       background-color: pink;
     }
   }
-}
-
-@mixin cd_layout {
-	@include layout_skeleton;
 }

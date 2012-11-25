@@ -1,29 +1,33 @@
+// Checkdesk Base
+// 
+// For configuration that needs to come before everything else.
 @import "base";
 
-// Compass gem
-// 
-// To learn more `gem unpack compass`
-@import "compass";
-@import "compass/css3";
-@import "compass/utilities";
+// Bowerbird Sass Framework
+//
+// Bowerbird Sass Framework (BSF) is included with Bowerbird Drupal Theme (BDT). 
+// BSF Utilizes: Susy, Compass, Sass, Ruby, Twitter Bootstrap
+// Compass and Susy are included in BSF. They are ruby gems you must install before you can run "compass watch". You are encouraged to `gem unpack compass susy` and read the source code for both of these libraries which implement the BSF.
+// Also BSF contains vendored libraries (which would usually be used as gems): compass_twitter_bootstrap and. To use them: @import "bowerbird/drupal" -- some @imports will @import Sass directly and some will @import mixins you can then @include with parameters.
 
-// Susy layout gem
-// 
-// to learn more `gem unpack susy`
-@import "susy";
+// Bowerbird: Compass and Susy 
+@import "bowerbird"; 
+@import "bowerbird/drupal";
+@import "bowerbird/buttons";
+@import "bowerbird/gradients";
+@import "bowerbird/colors";
 
-// Font-icon support
+// Font-icon support from the fontawesome project which uses font-based icons. 
+//
+// Make sure your font paths are set correctly in config.rb
 //
 //[class^="icon-"]:before - inserts matching "icon-something" names to injected custom unicode glyph character
-@import "font-awesome";
+@import "bowerbird/icons/icons";
 
-// Bowerbird base theme styles
-//
-// Contains resets for some drupal elements and some common mixins and libraries used at Meedan.
-// Bowerbird gives us some defaults in defaults.scss and some included libraries like compass_twitter_bootstrap
-@import "bowerbird";
-
-// =============================== Our forks of CTB sass files
+// ============================================================== 
+// Checkdesk (forked) versions of Twitter Bootstrap libraries.
+// These are customized versions of existing modules.
+// ============================================================== 
 
 // Checkdesk configuration variables
 //
@@ -32,28 +36,21 @@
 
 // Checkdesk mixins
 //
-// Replaces: 
-// mixins.scss
-//
-// Requires: 
-// variables.scss
+// Replaces: mixins.scss
+// Requires: variables.scss
 @import "override_ctb/mixins";
 
-// Unmodified TB Bootstrap Reset
+// Unmodified Twitter Bootstrap Reset
 //
-// Requires: 
-// variables.scss
-// mixins.scss
+// Requires: variables.scss, mixins.scss
 @import "bowerbird/compass_twitter_bootstrap/reset";
 
-// Checkdesk TB navigation
+// Checkdesk Twitter Bootstrap navigation
 //
-// Replaces:
-// navs.scss
-// navbar.scss
+// Replaces: navs.scss, navbar.scss
 @import "override_ctb/navigation";
 
-// Checkdesk TB alerts
+// Checkdesk Twitter Bootstrap alerts
 //
 // Replaces: 
 // alerts.scss
@@ -64,37 +61,37 @@
 // Replaces: type.scss
 @import "override_ctb/type";
 
-// Unmodified TB Bootstrap scaffolding
+// Unmodified Twitter Bootstrap scaffolding
 //
 // Setup typography and image classes
-//
 // Deprecated: these should be in more appropriate files or mixins
 @import "bowerbird/compass_twitter_bootstrap/scaffolding";
 
-// Unmodified TB Bootstrap code
+// Unmodified Twitter Bootstrap code
 //
 // Basics for <code> and <pre> elements.
 @import "bowerbird/compass_twitter_bootstrap/code";
 
-// Unmodified TB Bootstrap form elements
+// Unmodified Twitter Bootstrap form elements
 //
 // Basics for <form> elements
 @import "bowerbird/compass_twitter_bootstrap/forms";
 
-// Unmodified TB Bootstrap dropdown elements
+// Unmodified Twitter Bootstrap dropdown elements
 //
 // Basics for <table> elements
 @import "bowerbird/compass_twitter_bootstrap/tables";
 
-// Unmodified TB Bootstrap dropdown elements
+// Unmodified Twitter Bootstrap dropdown elements
 //
 // Basics for <form> elements
 @import "bowerbird/compass_twitter_bootstrap/dropdowns";
 
-
-// Unused TB modules
+// ========================================================================
+// Unused Twitter Bootstrap modules
 //
 // These are not in use but are readily available via bowerbird's copy of the compass_twitter_bootstrap library. 
+
 // @import "bowerbird/compass_twitter_bootstrap/sprites";
 // @import "bowerbird/compass_twitter_bootstrap/wells";
 // @import "bowerbird/compass_twitter_bootstrap/component-animations";
@@ -109,8 +106,10 @@
 // @import "bowerbird/compass_twitter_bootstrap/carousel";
 // @import "bowerbird/compass_twitter_bootstrap/hero-unit";
 
+// ========================================================================
+// Unmodified Twitter Bootstrap
 
-// Unmodified TB Bootstrap buttons and button groups
+// ===== Unmodified Twitter Bootstrap buttons and button groups
 //
 // Basics for buttons with several variations.
 //
@@ -126,61 +125,54 @@
 @import "bowerbird/compass_twitter_bootstrap/buttons";
 @import "bowerbird/compass_twitter_bootstrap/button-groups";
 
-// Unmodified TB Bootstrap modals
-//
+// ===== Unmodified Twitter Bootstrap modals
 // .modal - the main modal frame which will have .modal_backdrop behind it
 @import "bowerbird/compass_twitter_bootstrap/modals";
 
-// Unmodified TB Bootstrap
-//
+// ===== Unmodified Twitter Bootstrap tooltips
 // A tooltip.
-//
 // .tooltip - the element that appears which contains content.
-//
 // @import "bowerbird/compass_twitter_bootstrap/tooltip";
 
-// Unmodified TB Bootstrap
-//
+// ===== Unmodified Twitter Bootstrap popovers
 // .popover - a thing that pops over
 // @import "bowerbird/compass_twitter_bootstrap/popovers";
 
-// Unmodified TB Bootstrap Utility classes
+
+// ===== Unmodified Twitter Bootstrap Utility classes
 //
 // Has to be last of the CTB includes, to override when necessary. 
 //
 // Deprecated: These are just a few directional mixins that can easily be refactored away. But they might be required for some other modules.
 // @import "bowerbird/compass_twitter_bootstrap/utilities"; 
 
-// =============================== Our Drupal sections, pages, mixins
+// ========================================================================
+// Our Drupal sections, pages, mixins
 
-// Checkdesk tabs
+// ====== Checkdesk Drupal tabs
 // 
 // .tabs - the containing element which has a ul.primary and ul.secondary
 @import "tabs";
 
-// Checkdesk Login page
+// ====== Checkdesk login page
 // 
 // we implement a smaller width on the content frame, handle the social login process, and use TB to draw most the form elements.
 //
 // form#user-login - the main form in the page 
 @import "login";
 
-// Checkdesk layout
+// ====== Checkdesk layout
 //
 // Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
 @import "layout";
 
-// Checkdesk notifications
+// ====== Checkdesk notifications
 // 
 // #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
-// Checkdesk reports
+// ====== Checkdesk reports
 @import "report";
 
-// Checkdesk commenting plugin for posts only
+// ====== Checkdesk commenting plugin
 @import "livefyre";
-
-body { @include cd_layout; }
-// body.i18n-en, body.i18n-pt-br { @include cd_layout(left); }
-// body.i18n-ar { @include cd_layout(right); }

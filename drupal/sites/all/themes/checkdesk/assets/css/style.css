@@ -1,3 +1,83 @@
+/* line 3, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+#skip a:link, #skip a:hover, #skip a:visited {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+/* line 11, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+#skip a:active, #skip a:focus {
+  position: static;
+  width: auto;
+  height: auto;
+}
+
+/* bug fix with views 2 edit links. */
+/* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.view div.views-admin-links {
+  width: auto;
+}
+
+/* Rollover edit links for blocks. */
+/* line 24, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.block {
+  position: relative;
+}
+/* line 26, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.block .edit {
+  display: none;
+  position: absolute;
+  right: -20px;
+  top: -5px;
+  z-index: 40;
+  padding: 3px 8px 0;
+  font-size: 10px;
+  line-height: 16px;
+  background-color: white;
+  border: 1px solid #cccccc;
+  /*let's get fancy! */
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-box-shadow: 0 1px 3px #888888;
+  -webkit-box-shadow: -1px 1px 2px #666666;
+}
+/* line 42, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.block .edit a {
+  display: block;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+/* line 49, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.block:hover .edit {
+  display: block;
+}
+
+/* line 237, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class {
+  font-family: "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: bold;
+}
+/* line 221, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+/* line 225, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class:focus {
+  outline: none;
+}
+
+/* incase an inverted custom gradient isn't specified */
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont.eot');
@@ -8,7 +88,7 @@
 
 /*  Font Awesome styles
     ------------------------------------------------------- */
-/* line 43, ../scss/_font-awesome.scss */
+/* line 25, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
   font-family: FontAwesome;
@@ -18,7 +98,7 @@
   text-decoration: inherit;
 }
 
-/* line 52, ../scss/_font-awesome.scss */
+/* line 34, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 a [class^="icon-"],
 a [class*=" icon-"] {
   display: inline-block;
@@ -26,47 +106,47 @@ a [class*=" icon-"] {
 }
 
 /* makes the font 33% larger relative to the icon container */
-/* line 58, ../scss/_font-awesome.scss */
+/* line 40, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-large:before {
   vertical-align: middle;
   font-size: 4/3em;
 }
 
-/* line 65, ../scss/_font-awesome.scss */
-.btn [class^="icon-"], body.not-front.not-logged-in.page-user #main form#user-login input.form-submit [class^="icon-"],
+/* line 47, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.btn [class^="icon-"], body.not-front.not-logged-in.page-user #main form input.form-submit [class^="icon-"],
 .btn [class*=" icon-"],
-body.not-front.not-logged-in.page-user #main form#user-login input.form-submit [class*=" icon-"], .nav-tabs [class^="icon-"],
+body.not-front.not-logged-in.page-user #main form input.form-submit [class*=" icon-"], .nav-tabs [class^="icon-"],
 .nav-tabs [class*=" icon-"] {
   /* keeps button heights with and without icons the same */
   line-height: .9em;
 }
 
-/* line 73, ../scss/_font-awesome.scss */
+/* line 55, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 li [class^="icon-"],
 li [class*=" icon-"] {
   display: inline-block;
   width: 1.25em;
   text-align: center;
 }
-/* line 79, ../scss/_font-awesome.scss */
+/* line 61, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 li .icon-large:before,
 li .icon-large:before {
   /* 1.5 increased font size for icon-large * 1.25 width */
   width: 1.875em;
 }
 
-/* line 85, ../scss/_font-awesome.scss */
+/* line 67, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 ul.icons {
   list-style-type: none;
   margin-left: 2em;
   text-indent: -0.8em;
 }
-/* line 92, ../scss/_font-awesome.scss */
+/* line 74, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 ul.icons li [class^="icon-"],
 ul.icons li [class*=" icon-"] {
   width: .8em;
 }
-/* line 96, ../scss/_font-awesome.scss */
+/* line 78, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 ul.icons li .icon-large:before,
 ul.icons li .icon-large:before {
   /* 1.5 increased font size for icon-large * 1.25 width */
@@ -75,1053 +155,1053 @@ ul.icons li .icon-large:before {
 
 /*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
     readers do not read off random characters that represent icons */
-/* line 106, ../scss/_font-awesome.scss */
+/* line 88, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-glass:before {
   content: "\f000";
 }
 
-/* line 107, ../scss/_font-awesome.scss */
+/* line 89, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-music:before {
   content: "\f001";
 }
 
-/* line 108, ../scss/_font-awesome.scss */
+/* line 90, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-search:before {
   content: "\f002";
 }
 
-/* line 109, ../scss/_font-awesome.scss */
+/* line 91, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-envelope:before {
   content: "\f003";
 }
 
-/* line 110, ../scss/_font-awesome.scss */
+/* line 92, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-heart:before {
   content: "\f004";
 }
 
-/* line 111, ../scss/_font-awesome.scss */
+/* line 93, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-star:before {
   content: "\f005";
 }
 
-/* line 112, ../scss/_font-awesome.scss */
+/* line 94, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-star-empty:before {
   content: "\f006";
 }
 
-/* line 113, ../scss/_font-awesome.scss */
+/* line 95, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-user:before {
   content: "\f007";
 }
 
-/* line 114, ../scss/_font-awesome.scss */
+/* line 96, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-film:before {
   content: "\f008";
 }
 
-/* line 115, ../scss/_font-awesome.scss */
+/* line 97, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-th-large:before {
   content: "\f009";
 }
 
-/* line 116, ../scss/_font-awesome.scss */
+/* line 98, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-th:before {
   content: "\f00a";
 }
 
-/* line 117, ../scss/_font-awesome.scss */
+/* line 99, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-th-list:before {
   content: "\f00b";
 }
 
-/* line 118, ../scss/_font-awesome.scss */
+/* line 100, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-ok:before {
   content: "\f00c";
 }
 
-/* line 119, ../scss/_font-awesome.scss */
+/* line 101, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-remove:before {
   content: "\f00d";
 }
 
-/* line 120, ../scss/_font-awesome.scss */
+/* line 102, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-zoom-in:before {
   content: "\f00e";
 }
 
-/* line 122, ../scss/_font-awesome.scss */
+/* line 104, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-zoom-out:before {
   content: "\f010";
 }
 
-/* line 123, ../scss/_font-awesome.scss */
+/* line 105, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-off:before {
   content: "\f011";
 }
 
-/* line 124, ../scss/_font-awesome.scss */
+/* line 106, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-signal:before {
   content: "\f012";
 }
 
-/* line 125, ../scss/_font-awesome.scss */
+/* line 107, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-cog:before {
   content: "\f013";
 }
 
-/* line 126, ../scss/_font-awesome.scss */
+/* line 108, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-trash:before {
   content: "\f014";
 }
 
-/* line 127, ../scss/_font-awesome.scss */
+/* line 109, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-home:before {
   content: "\f015";
 }
 
-/* line 128, ../scss/_font-awesome.scss */
+/* line 110, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-file:before {
   content: "\f016";
 }
 
-/* line 129, ../scss/_font-awesome.scss */
+/* line 111, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-time:before {
   content: "\f017";
 }
 
-/* line 130, ../scss/_font-awesome.scss */
+/* line 112, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-road:before {
   content: "\f018";
 }
 
-/* line 131, ../scss/_font-awesome.scss */
+/* line 113, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-download-alt:before {
   content: "\f019";
 }
 
-/* line 132, ../scss/_font-awesome.scss */
+/* line 114, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-download:before {
   content: "\f01a";
 }
 
-/* line 133, ../scss/_font-awesome.scss */
+/* line 115, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-upload:before {
   content: "\f01b";
 }
 
-/* line 134, ../scss/_font-awesome.scss */
+/* line 116, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-inbox:before {
   content: "\f01c";
 }
 
-/* line 135, ../scss/_font-awesome.scss */
+/* line 117, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-play-circle:before {
   content: "\f01d";
 }
 
-/* line 136, ../scss/_font-awesome.scss */
+/* line 118, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-repeat:before {
   content: "\f01e";
 }
 
 /* \f020 doesn't work in Safari. all shifted one down */
-/* line 139, ../scss/_font-awesome.scss */
+/* line 121, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-refresh:before {
   content: "\f021";
 }
 
-/* line 140, ../scss/_font-awesome.scss */
+/* line 122, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-list-alt:before {
   content: "\f022";
 }
 
-/* line 141, ../scss/_font-awesome.scss */
+/* line 123, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-lock:before {
   content: "\f023";
 }
 
-/* line 142, ../scss/_font-awesome.scss */
+/* line 124, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-flag:before {
   content: "\f024";
 }
 
-/* line 143, ../scss/_font-awesome.scss */
+/* line 125, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-headphones:before {
   content: "\f025";
 }
 
-/* line 144, ../scss/_font-awesome.scss */
+/* line 126, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-volume-off:before {
   content: "\f026";
 }
 
-/* line 145, ../scss/_font-awesome.scss */
+/* line 127, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-volume-down:before {
   content: "\f027";
 }
 
-/* line 146, ../scss/_font-awesome.scss */
+/* line 128, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-volume-up:before {
   content: "\f028";
 }
 
-/* line 147, ../scss/_font-awesome.scss */
+/* line 129, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-qrcode:before {
   content: "\f029";
 }
 
-/* line 148, ../scss/_font-awesome.scss */
+/* line 130, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-barcode:before {
   content: "\f02a";
 }
 
-/* line 149, ../scss/_font-awesome.scss */
+/* line 131, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-tag:before {
   content: "\f02b";
 }
 
-/* line 150, ../scss/_font-awesome.scss */
+/* line 132, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-tags:before {
   content: "\f02c";
 }
 
-/* line 151, ../scss/_font-awesome.scss */
+/* line 133, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-book:before {
   content: "\f02d";
 }
 
-/* line 152, ../scss/_font-awesome.scss */
+/* line 134, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-bookmark:before {
   content: "\f02e";
 }
 
-/* line 153, ../scss/_font-awesome.scss */
+/* line 135, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-print:before {
   content: "\f02f";
 }
 
-/* line 155, ../scss/_font-awesome.scss */
+/* line 137, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-camera:before {
   content: "\f030";
 }
 
-/* line 156, ../scss/_font-awesome.scss */
+/* line 138, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-font:before {
   content: "\f031";
 }
 
-/* line 157, ../scss/_font-awesome.scss */
+/* line 139, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-bold:before {
   content: "\f032";
 }
 
-/* line 158, ../scss/_font-awesome.scss */
+/* line 140, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-italic:before {
   content: "\f033";
 }
 
-/* line 159, ../scss/_font-awesome.scss */
+/* line 141, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-text-height:before {
   content: "\f034";
 }
 
-/* line 160, ../scss/_font-awesome.scss */
+/* line 142, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-text-width:before {
   content: "\f035";
 }
 
-/* line 161, ../scss/_font-awesome.scss */
+/* line 143, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-align-left:before {
   content: "\f036";
 }
 
-/* line 162, ../scss/_font-awesome.scss */
+/* line 144, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-align-center:before {
   content: "\f037";
 }
 
-/* line 163, ../scss/_font-awesome.scss */
+/* line 145, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-align-right:before {
   content: "\f038";
 }
 
-/* line 164, ../scss/_font-awesome.scss */
+/* line 146, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-align-justify:before {
   content: "\f039";
 }
 
-/* line 165, ../scss/_font-awesome.scss */
+/* line 147, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-list:before {
   content: "\f03a";
 }
 
-/* line 166, ../scss/_font-awesome.scss */
+/* line 148, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-indent-left:before {
   content: "\f03b";
 }
 
-/* line 167, ../scss/_font-awesome.scss */
+/* line 149, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-indent-right:before {
   content: "\f03c";
 }
 
-/* line 168, ../scss/_font-awesome.scss */
+/* line 150, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-facetime-video:before {
   content: "\f03d";
 }
 
-/* line 169, ../scss/_font-awesome.scss */
+/* line 151, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-picture:before {
   content: "\f03e";
 }
 
-/* line 171, ../scss/_font-awesome.scss */
+/* line 153, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-pencil:before {
   content: "\f040";
 }
 
-/* line 172, ../scss/_font-awesome.scss */
+/* line 154, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-map-marker:before {
   content: "\f041";
 }
 
-/* line 173, ../scss/_font-awesome.scss */
+/* line 155, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-adjust:before {
   content: "\f042";
 }
 
-/* line 174, ../scss/_font-awesome.scss */
+/* line 156, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-tint:before {
   content: "\f043";
 }
 
-/* line 175, ../scss/_font-awesome.scss */
+/* line 157, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-edit:before {
   content: "\f044";
 }
 
-/* line 176, ../scss/_font-awesome.scss */
+/* line 158, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-share:before {
   content: "\f045";
 }
 
-/* line 177, ../scss/_font-awesome.scss */
+/* line 159, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-check:before {
   content: "\f046";
 }
 
-/* line 178, ../scss/_font-awesome.scss */
+/* line 160, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-move:before {
   content: "\f047";
 }
 
-/* line 179, ../scss/_font-awesome.scss */
+/* line 161, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-step-backward:before {
   content: "\f048";
 }
 
-/* line 180, ../scss/_font-awesome.scss */
+/* line 162, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-fast-backward:before {
   content: "\f049";
 }
 
-/* line 181, ../scss/_font-awesome.scss */
+/* line 163, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-backward:before {
   content: "\f04a";
 }
 
-/* line 182, ../scss/_font-awesome.scss */
+/* line 164, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-play:before {
   content: "\f04b";
 }
 
-/* line 183, ../scss/_font-awesome.scss */
+/* line 165, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-pause:before {
   content: "\f04c";
 }
 
-/* line 184, ../scss/_font-awesome.scss */
+/* line 166, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-stop:before {
   content: "\f04d";
 }
 
-/* line 185, ../scss/_font-awesome.scss */
+/* line 167, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-forward:before {
   content: "\f04e";
 }
 
-/* line 187, ../scss/_font-awesome.scss */
+/* line 169, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-fast-forward:before {
   content: "\f050";
 }
 
-/* line 188, ../scss/_font-awesome.scss */
+/* line 170, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-step-forward:before {
   content: "\f051";
 }
 
-/* line 189, ../scss/_font-awesome.scss */
+/* line 171, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-eject:before {
   content: "\f052";
 }
 
-/* line 190, ../scss/_font-awesome.scss */
+/* line 172, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-chevron-left:before {
   content: "\f053";
 }
 
-/* line 191, ../scss/_font-awesome.scss */
+/* line 173, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-chevron-right:before {
   content: "\f054";
 }
 
-/* line 192, ../scss/_font-awesome.scss */
+/* line 174, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-plus-sign:before {
   content: "\f055";
 }
 
-/* line 193, ../scss/_font-awesome.scss */
+/* line 175, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-minus-sign:before {
   content: "\f056";
 }
 
-/* line 194, ../scss/_font-awesome.scss */
+/* line 176, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-remove-sign:before {
   content: "\f057";
 }
 
-/* line 195, ../scss/_font-awesome.scss */
+/* line 177, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-ok-sign:before {
   content: "\f058";
 }
 
-/* line 196, ../scss/_font-awesome.scss */
+/* line 178, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-question-sign:before {
   content: "\f059";
 }
 
-/* line 197, ../scss/_font-awesome.scss */
+/* line 179, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-info-sign:before {
   content: "\f05a";
 }
 
-/* line 198, ../scss/_font-awesome.scss */
+/* line 180, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-screenshot:before {
   content: "\f05b";
 }
 
-/* line 199, ../scss/_font-awesome.scss */
+/* line 181, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-remove-circle:before {
   content: "\f05c";
 }
 
-/* line 200, ../scss/_font-awesome.scss */
+/* line 182, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-ok-circle:before {
   content: "\f05d";
 }
 
-/* line 201, ../scss/_font-awesome.scss */
+/* line 183, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-ban-circle:before {
   content: "\f05e";
 }
 
-/* line 203, ../scss/_font-awesome.scss */
+/* line 185, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-arrow-left:before {
   content: "\f060";
 }
 
-/* line 204, ../scss/_font-awesome.scss */
+/* line 186, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-arrow-right:before {
   content: "\f061";
 }
 
-/* line 205, ../scss/_font-awesome.scss */
+/* line 187, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-arrow-up:before {
   content: "\f062";
 }
 
-/* line 206, ../scss/_font-awesome.scss */
+/* line 188, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-arrow-down:before {
   content: "\f063";
 }
 
-/* line 207, ../scss/_font-awesome.scss */
+/* line 189, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-share-alt:before {
   content: "\f064";
 }
 
-/* line 208, ../scss/_font-awesome.scss */
+/* line 190, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-resize-full:before {
   content: "\f065";
 }
 
-/* line 209, ../scss/_font-awesome.scss */
+/* line 191, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-resize-small:before {
   content: "\f066";
 }
 
-/* line 210, ../scss/_font-awesome.scss */
+/* line 192, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-plus:before {
   content: "\f067";
 }
 
-/* line 211, ../scss/_font-awesome.scss */
+/* line 193, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-minus:before {
   content: "\f068";
 }
 
-/* line 212, ../scss/_font-awesome.scss */
+/* line 194, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-asterisk:before {
   content: "\f069";
 }
 
-/* line 213, ../scss/_font-awesome.scss */
+/* line 195, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-exclamation-sign:before {
   content: "\f06a";
 }
 
-/* line 214, ../scss/_font-awesome.scss */
+/* line 196, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-gift:before {
   content: "\f06b";
 }
 
-/* line 215, ../scss/_font-awesome.scss */
+/* line 197, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-leaf:before {
   content: "\f06c";
 }
 
-/* line 216, ../scss/_font-awesome.scss */
+/* line 198, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-fire:before {
   content: "\f06d";
 }
 
-/* line 217, ../scss/_font-awesome.scss */
+/* line 199, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-eye-open:before {
   content: "\f06e";
 }
 
-/* line 219, ../scss/_font-awesome.scss */
+/* line 201, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-eye-close:before {
   content: "\f070";
 }
 
-/* line 220, ../scss/_font-awesome.scss */
+/* line 202, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-warning-sign:before {
   content: "\f071";
 }
 
-/* line 221, ../scss/_font-awesome.scss */
+/* line 203, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-plane:before {
   content: "\f072";
 }
 
-/* line 222, ../scss/_font-awesome.scss */
+/* line 204, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-calendar:before {
   content: "\f073";
 }
 
-/* line 223, ../scss/_font-awesome.scss */
+/* line 205, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-random:before {
   content: "\f074";
 }
 
-/* line 224, ../scss/_font-awesome.scss */
+/* line 206, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-comment:before {
   content: "\f075";
 }
 
-/* line 225, ../scss/_font-awesome.scss */
+/* line 207, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-magnet:before {
   content: "\f076";
 }
 
-/* line 226, ../scss/_font-awesome.scss */
+/* line 208, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-chevron-up:before {
   content: "\f077";
 }
 
-/* line 227, ../scss/_font-awesome.scss */
+/* line 209, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-chevron-down:before {
   content: "\f078";
 }
 
-/* line 228, ../scss/_font-awesome.scss */
+/* line 210, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-retweet:before {
   content: "\f079";
 }
 
-/* line 229, ../scss/_font-awesome.scss */
+/* line 211, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-shopping-cart:before {
   content: "\f07a";
 }
 
-/* line 230, ../scss/_font-awesome.scss */
+/* line 212, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-folder-close:before {
   content: "\f07b";
 }
 
-/* line 231, ../scss/_font-awesome.scss */
+/* line 213, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-folder-open:before {
   content: "\f07c";
 }
 
-/* line 232, ../scss/_font-awesome.scss */
+/* line 214, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-resize-vertical:before {
   content: "\f07d";
 }
 
-/* line 233, ../scss/_font-awesome.scss */
+/* line 215, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-resize-horizontal:before {
   content: "\f07e";
 }
 
-/* line 235, ../scss/_font-awesome.scss */
+/* line 217, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-bar-chart:before {
   content: "\f080";
 }
 
-/* line 236, ../scss/_font-awesome.scss */
+/* line 218, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-twitter-sign:before {
   content: "\f081";
 }
 
-/* line 237, ../scss/_font-awesome.scss */
+/* line 219, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-facebook-sign:before {
   content: "\f082";
 }
 
-/* line 238, ../scss/_font-awesome.scss */
+/* line 220, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-camera-retro:before {
   content: "\f083";
 }
 
-/* line 239, ../scss/_font-awesome.scss */
+/* line 221, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-key:before {
   content: "\f084";
 }
 
-/* line 240, ../scss/_font-awesome.scss */
+/* line 222, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-cogs:before {
   content: "\f085";
 }
 
-/* line 241, ../scss/_font-awesome.scss */
+/* line 223, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-comments:before {
   content: "\f086";
 }
 
-/* line 242, ../scss/_font-awesome.scss */
+/* line 224, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-thumbs-up:before {
   content: "\f087";
 }
 
-/* line 243, ../scss/_font-awesome.scss */
+/* line 225, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-thumbs-down:before {
   content: "\f088";
 }
 
-/* line 244, ../scss/_font-awesome.scss */
+/* line 226, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-star-half:before {
   content: "\f089";
 }
 
-/* line 245, ../scss/_font-awesome.scss */
+/* line 227, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-heart-empty:before {
   content: "\f08a";
 }
 
-/* line 246, ../scss/_font-awesome.scss */
+/* line 228, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-signout:before {
   content: "\f08b";
 }
 
-/* line 247, ../scss/_font-awesome.scss */
+/* line 229, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-linkedin-sign:before {
   content: "\f08c";
 }
 
-/* line 248, ../scss/_font-awesome.scss */
+/* line 230, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-pushpin:before {
   content: "\f08d";
 }
 
-/* line 249, ../scss/_font-awesome.scss */
+/* line 231, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-external-link:before {
   content: "\f08e";
 }
 
-/* line 251, ../scss/_font-awesome.scss */
+/* line 233, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-signin:before {
   content: "\f090";
 }
 
-/* line 252, ../scss/_font-awesome.scss */
+/* line 234, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-trophy:before {
   content: "\f091";
 }
 
-/* line 253, ../scss/_font-awesome.scss */
+/* line 235, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-github-sign:before {
   content: "\f092";
 }
 
-/* line 254, ../scss/_font-awesome.scss */
+/* line 236, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-upload-alt:before {
   content: "\f093";
 }
 
-/* line 255, ../scss/_font-awesome.scss */
+/* line 237, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-lemon:before {
   content: "\f094";
 }
 
-/* line 256, ../scss/_font-awesome.scss */
+/* line 238, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-phone:before {
   content: "\f095";
 }
 
-/* line 257, ../scss/_font-awesome.scss */
+/* line 239, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-check-empty:before {
   content: "\f096";
 }
 
-/* line 258, ../scss/_font-awesome.scss */
+/* line 240, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-bookmark-empty:before {
   content: "\f097";
 }
 
-/* line 259, ../scss/_font-awesome.scss */
+/* line 241, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-phone-sign:before {
   content: "\f098";
 }
 
-/* line 260, ../scss/_font-awesome.scss */
+/* line 242, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-twitter:before {
   content: "\f099";
 }
 
-/* line 261, ../scss/_font-awesome.scss */
+/* line 243, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-facebook:before {
   content: "\f09a";
 }
 
-/* line 262, ../scss/_font-awesome.scss */
+/* line 244, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-github:before {
   content: "\f09b";
 }
 
-/* line 263, ../scss/_font-awesome.scss */
+/* line 245, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-unlock:before {
   content: "\f09c";
 }
 
-/* line 264, ../scss/_font-awesome.scss */
+/* line 246, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-credit-card:before {
   content: "\f09d";
 }
 
-/* line 265, ../scss/_font-awesome.scss */
+/* line 247, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-rss:before {
   content: "\f09e";
 }
 
-/* line 267, ../scss/_font-awesome.scss */
+/* line 249, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-hdd:before {
   content: "\f0a0";
 }
 
-/* line 268, ../scss/_font-awesome.scss */
+/* line 250, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-bullhorn:before {
   content: "\f0a1";
 }
 
-/* line 269, ../scss/_font-awesome.scss */
+/* line 251, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-bell:before {
   content: "\f0a2";
 }
 
-/* line 270, ../scss/_font-awesome.scss */
+/* line 252, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-certificate:before {
   content: "\f0a3";
 }
 
-/* line 271, ../scss/_font-awesome.scss */
+/* line 253, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-hand-right:before {
   content: "\f0a4";
 }
 
-/* line 272, ../scss/_font-awesome.scss */
+/* line 254, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-hand-left:before {
   content: "\f0a5";
 }
 
-/* line 273, ../scss/_font-awesome.scss */
+/* line 255, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-hand-up:before {
   content: "\f0a6";
 }
 
-/* line 274, ../scss/_font-awesome.scss */
+/* line 256, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-hand-down:before {
   content: "\f0a7";
 }
 
-/* line 275, ../scss/_font-awesome.scss */
+/* line 257, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-circle-arrow-left:before {
   content: "\f0a8";
 }
 
-/* line 276, ../scss/_font-awesome.scss */
+/* line 258, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-circle-arrow-right:before {
   content: "\f0a9";
 }
 
-/* line 277, ../scss/_font-awesome.scss */
+/* line 259, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-circle-arrow-up:before {
   content: "\f0aa";
 }
 
-/* line 278, ../scss/_font-awesome.scss */
+/* line 260, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-circle-arrow-down:before {
   content: "\f0ab";
 }
 
-/* line 279, ../scss/_font-awesome.scss */
+/* line 261, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-globe:before {
   content: "\f0ac";
 }
 
-/* line 280, ../scss/_font-awesome.scss */
+/* line 262, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-wrench:before {
   content: "\f0ad";
 }
 
-/* line 281, ../scss/_font-awesome.scss */
+/* line 263, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-tasks:before {
   content: "\f0ae";
 }
 
-/* line 283, ../scss/_font-awesome.scss */
+/* line 265, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-filter:before {
   content: "\f0b0";
 }
 
-/* line 284, ../scss/_font-awesome.scss */
+/* line 266, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-briefcase:before {
   content: "\f0b1";
 }
 
-/* line 285, ../scss/_font-awesome.scss */
+/* line 267, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-fullscreen:before {
   content: "\f0b2";
 }
 
-/* line 287, ../scss/_font-awesome.scss */
+/* line 269, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-group:before {
   content: "\f0c0";
 }
 
-/* line 288, ../scss/_font-awesome.scss */
+/* line 270, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-link:before {
   content: "\f0c1";
 }
 
-/* line 289, ../scss/_font-awesome.scss */
+/* line 271, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-cloud:before {
   content: "\f0c2";
 }
 
-/* line 290, ../scss/_font-awesome.scss */
+/* line 272, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-beaker:before {
   content: "\f0c3";
 }
 
-/* line 291, ../scss/_font-awesome.scss */
+/* line 273, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-cut:before {
   content: "\f0c4";
 }
 
-/* line 292, ../scss/_font-awesome.scss */
+/* line 274, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-copy:before {
   content: "\f0c5";
 }
 
-/* line 293, ../scss/_font-awesome.scss */
+/* line 275, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-paper-clip:before {
   content: "\f0c6";
 }
 
-/* line 294, ../scss/_font-awesome.scss */
+/* line 276, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-save:before {
   content: "\f0c7";
 }
 
-/* line 295, ../scss/_font-awesome.scss */
+/* line 277, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-sign-blank:before {
   content: "\f0c8";
 }
 
-/* line 296, ../scss/_font-awesome.scss */
+/* line 278, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-reorder:before {
   content: "\f0c9";
 }
 
-/* line 297, ../scss/_font-awesome.scss */
+/* line 279, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-list-ul:before {
   content: "\f0ca";
 }
 
-/* line 298, ../scss/_font-awesome.scss */
+/* line 280, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-list-ol:before {
   content: "\f0cb";
 }
 
-/* line 299, ../scss/_font-awesome.scss */
+/* line 281, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-strikethrough:before {
   content: "\f0cc";
 }
 
-/* line 300, ../scss/_font-awesome.scss */
+/* line 282, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-underline:before {
   content: "\f0cd";
 }
 
-/* line 301, ../scss/_font-awesome.scss */
+/* line 283, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-table:before {
   content: "\f0ce";
 }
 
-/* line 303, ../scss/_font-awesome.scss */
+/* line 285, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-magic:before {
   content: "\f0d0";
 }
 
-/* line 304, ../scss/_font-awesome.scss */
+/* line 286, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-truck:before {
   content: "\f0d1";
 }
 
-/* line 305, ../scss/_font-awesome.scss */
+/* line 287, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-pinterest:before {
   content: "\f0d2";
 }
 
-/* line 306, ../scss/_font-awesome.scss */
+/* line 288, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-pinterest-sign:before {
   content: "\f0d3";
 }
 
-/* line 307, ../scss/_font-awesome.scss */
+/* line 289, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-google-plus-sign:before {
   content: "\f0d4";
 }
 
-/* line 308, ../scss/_font-awesome.scss */
+/* line 290, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-google-plus:before {
   content: "\f0d5";
 }
 
-/* line 309, ../scss/_font-awesome.scss */
+/* line 291, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-money:before {
   content: "\f0d6";
 }
 
-/* line 310, ../scss/_font-awesome.scss */
+/* line 292, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-caret-down:before {
   content: "\f0d7";
 }
 
-/* line 311, ../scss/_font-awesome.scss */
+/* line 293, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-caret-up:before {
   content: "\f0d8";
 }
 
-/* line 312, ../scss/_font-awesome.scss */
+/* line 294, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-caret-left:before {
   content: "\f0d9";
 }
 
-/* line 313, ../scss/_font-awesome.scss */
+/* line 295, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-caret-right:before {
   content: "\f0da";
 }
 
-/* line 314, ../scss/_font-awesome.scss */
+/* line 296, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-columns:before {
   content: "\f0db";
 }
 
-/* line 315, ../scss/_font-awesome.scss */
+/* line 297, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-sort:before {
   content: "\f0dc";
 }
 
-/* line 316, ../scss/_font-awesome.scss */
+/* line 298, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-sort-down:before {
   content: "\f0dd";
 }
 
-/* line 317, ../scss/_font-awesome.scss */
+/* line 299, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-sort-up:before {
   content: "\f0de";
 }
 
-/* line 319, ../scss/_font-awesome.scss */
+/* line 301, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-envelope-alt:before {
   content: "\f0e0";
 }
 
-/* line 320, ../scss/_font-awesome.scss */
+/* line 302, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-linkedin:before {
   content: "\f0e1";
 }
 
-/* line 321, ../scss/_font-awesome.scss */
+/* line 303, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-undo:before {
   content: "\f0e2";
 }
 
-/* line 322, ../scss/_font-awesome.scss */
+/* line 304, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-legal:before {
   content: "\f0e3";
 }
 
-/* line 323, ../scss/_font-awesome.scss */
+/* line 305, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-dashboard:before {
   content: "\f0e4";
 }
 
-/* line 324, ../scss/_font-awesome.scss */
+/* line 306, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-comment-alt:before {
   content: "\f0e5";
 }
 
-/* line 325, ../scss/_font-awesome.scss */
+/* line 307, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-comments-alt:before {
   content: "\f0e6";
 }
 
-/* line 326, ../scss/_font-awesome.scss */
+/* line 308, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-bolt:before {
   content: "\f0e7";
 }
 
-/* line 327, ../scss/_font-awesome.scss */
+/* line 309, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-sitemap:before {
   content: "\f0e8";
 }
 
-/* line 328, ../scss/_font-awesome.scss */
+/* line 310, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-umbrella:before {
   content: "\f0e9";
 }
 
-/* line 329, ../scss/_font-awesome.scss */
+/* line 311, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-paste:before {
   content: "\f0ea";
 }
 
-/* line 331, ../scss/_font-awesome.scss */
+/* line 313, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
 .icon-user-md:before {
   content: "\f200";
 }
@@ -1356,13 +1436,13 @@ textarea {
 }
 
 /* line 108, ../scss/override_ctb/_navigation.scss */
-.navbar .btn, .navbar body.not-front.not-logged-in.page-user #main form#user-login input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .navbar input.form-submit,
+.navbar .btn, .navbar body.not-front.not-logged-in.page-user #main form input.form-submit, body.not-front.not-logged-in.page-user #main form .navbar input.form-submit,
 .navbar .btn-group {
   margin-top: 2.5px;
 }
 
 /* line 111, ../scss/override_ctb/_navigation.scss */
-.navbar .btn-group .btn, .navbar .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .navbar .btn-group input.form-submit {
+.navbar .btn-group .btn, .navbar .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit, body.not-front.not-logged-in.page-user #main form .navbar .btn-group input.form-submit {
   margin: 0;
 }
 
@@ -2921,12 +3001,12 @@ select:focus:required:invalid:focus {
 /* line 466, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
 .input-append .add-on,
 .input-append .btn,
-.input-append body.not-front.not-logged-in.page-user #main form#user-login input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .input-append input.form-submit,
+.input-append body.not-front.not-logged-in.page-user #main form input.form-submit,
+body.not-front.not-logged-in.page-user #main form .input-append input.form-submit,
 .input-prepend .add-on,
 .input-prepend .btn,
-.input-prepend body.not-front.not-logged-in.page-user #main form#user-login input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .input-prepend input.form-submit {
+.input-prepend body.not-front.not-logged-in.page-user #main form input.form-submit,
+body.not-front.not-logged-in.page-user #main form .input-prepend input.form-submit {
   vertical-align: top;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -2942,15 +3022,15 @@ body.not-front.not-logged-in.page-user #main form#user-login .input-prepend inpu
 /* line 478, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
 .input-prepend .add-on,
 .input-prepend .btn,
-.input-prepend body.not-front.not-logged-in.page-user #main form#user-login input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .input-prepend input.form-submit {
+.input-prepend body.not-front.not-logged-in.page-user #main form input.form-submit,
+body.not-front.not-logged-in.page-user #main form .input-prepend input.form-submit {
   margin-right: -1px;
 }
 /* line 482, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
 .input-prepend .add-on:first-child,
 .input-prepend .btn:first-child,
-.input-prepend body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:first-child,
-body.not-front.not-logged-in.page-user #main form#user-login .input-prepend input.form-submit:first-child {
+.input-prepend body.not-front.not-logged-in.page-user #main form input.form-submit:first-child,
+body.not-front.not-logged-in.page-user #main form .input-prepend input.form-submit:first-child {
   -webkit-border-radius: 4px 0 0 4px;
   -moz-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px;
@@ -2965,13 +3045,13 @@ body.not-front.not-logged-in.page-user #main form#user-login .input-prepend inpu
   border-radius: 4px 0 0 4px;
 }
 /* line 493, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
-.input-append input + .btn-group .btn, .input-append input + .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .input-append input + .btn-group input.form-submit,
+.input-append input + .btn-group .btn, .input-append input + .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit, body.not-front.not-logged-in.page-user #main form .input-append input + .btn-group input.form-submit,
 .input-append select + .btn-group .btn,
-.input-append select + .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .input-append select + .btn-group input.form-submit,
+.input-append select + .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit,
+body.not-front.not-logged-in.page-user #main form .input-append select + .btn-group input.form-submit,
 .input-append .uneditable-input + .btn-group .btn,
-.input-append .uneditable-input + .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .input-append .uneditable-input + .btn-group input.form-submit {
+.input-append .uneditable-input + .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit,
+body.not-front.not-logged-in.page-user #main form .input-append .uneditable-input + .btn-group input.form-submit {
   -webkit-border-radius: 0 4px 4px 0;
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
@@ -2979,16 +3059,16 @@ body.not-front.not-logged-in.page-user #main form#user-login .input-append .uned
 /* line 499, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
 .input-append .add-on,
 .input-append .btn,
-.input-append body.not-front.not-logged-in.page-user #main form#user-login input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .input-append input.form-submit,
+.input-append body.not-front.not-logged-in.page-user #main form input.form-submit,
+body.not-front.not-logged-in.page-user #main form .input-append input.form-submit,
 .input-append .btn-group {
   margin-left: -1px;
 }
 /* line 503, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
 .input-append .add-on:last-child,
 .input-append .btn:last-child,
-.input-append body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:last-child,
-body.not-front.not-logged-in.page-user #main form#user-login .input-append input.form-submit:last-child {
+.input-append body.not-front.not-logged-in.page-user #main form input.form-submit:last-child,
+body.not-front.not-logged-in.page-user #main form .input-append input.form-submit:last-child {
   -webkit-border-radius: 0 4px 4px 0;
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
@@ -3003,13 +3083,13 @@ body.not-front.not-logged-in.page-user #main form#user-login .input-append input
   border-radius: 0;
 }
 /* line 514, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
-.input-prepend.input-append input + .btn-group .btn, .input-prepend.input-append input + .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .input-prepend.input-append input + .btn-group input.form-submit,
+.input-prepend.input-append input + .btn-group .btn, .input-prepend.input-append input + .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit, body.not-front.not-logged-in.page-user #main form .input-prepend.input-append input + .btn-group input.form-submit,
 .input-prepend.input-append select + .btn-group .btn,
-.input-prepend.input-append select + .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .input-prepend.input-append select + .btn-group input.form-submit,
+.input-prepend.input-append select + .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit,
+body.not-front.not-logged-in.page-user #main form .input-prepend.input-append select + .btn-group input.form-submit,
 .input-prepend.input-append .uneditable-input + .btn-group .btn,
-.input-prepend.input-append .uneditable-input + .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .input-prepend.input-append .uneditable-input + .btn-group input.form-submit {
+.input-prepend.input-append .uneditable-input + .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit,
+body.not-front.not-logged-in.page-user #main form .input-prepend.input-append .uneditable-input + .btn-group input.form-submit {
   -webkit-border-radius: 0 4px 4px 0;
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
@@ -3017,8 +3097,8 @@ body.not-front.not-logged-in.page-user #main form#user-login .input-prepend.inpu
 /* line 519, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
 .input-prepend.input-append .add-on:first-child,
 .input-prepend.input-append .btn:first-child,
-.input-prepend.input-append body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:first-child,
-body.not-front.not-logged-in.page-user #main form#user-login .input-prepend.input-append input.form-submit:first-child {
+.input-prepend.input-append body.not-front.not-logged-in.page-user #main form input.form-submit:first-child,
+body.not-front.not-logged-in.page-user #main form .input-prepend.input-append input.form-submit:first-child {
   margin-right: -1px;
   -webkit-border-radius: 4px 0 0 4px;
   -moz-border-radius: 4px 0 0 4px;
@@ -3027,8 +3107,8 @@ body.not-front.not-logged-in.page-user #main form#user-login .input-prepend.inpu
 /* line 524, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
 .input-prepend.input-append .add-on:last-child,
 .input-prepend.input-append .btn:last-child,
-.input-prepend.input-append body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:last-child,
-body.not-front.not-logged-in.page-user #main form#user-login .input-prepend.input-append input.form-submit:last-child {
+.input-prepend.input-append body.not-front.not-logged-in.page-user #main form input.form-submit:last-child,
+body.not-front.not-logged-in.page-user #main form .input-prepend.input-append input.form-submit:last-child {
   margin-left: -1px;
   -webkit-border-radius: 0 4px 4px 0;
   -moz-border-radius: 0 4px 4px 0;
@@ -3069,7 +3149,7 @@ input.search-query {
 }
 
 /* line 556, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
-.form-search .input-append .btn, .form-search .input-append body.not-front.not-logged-in.page-user #main form#user-login input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .form-search .input-append input.form-submit {
+.form-search .input-append .btn, .form-search .input-append body.not-front.not-logged-in.page-user #main form input.form-submit, body.not-front.not-logged-in.page-user #main form .form-search .input-append input.form-submit {
   -webkit-border-radius: 0 14px 14px 0;
   -moz-border-radius: 0 14px 14px 0;
   border-radius: 0 14px 14px 0;
@@ -3083,7 +3163,7 @@ input.search-query {
 }
 
 /* line 562, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_forms.scss */
-.form-search .input-prepend .btn, .form-search .input-prepend body.not-front.not-logged-in.page-user #main form#user-login input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .form-search .input-prepend input.form-submit {
+.form-search .input-prepend .btn, .form-search .input-prepend body.not-front.not-logged-in.page-user #main form input.form-submit, body.not-front.not-logged-in.page-user #main form .form-search .input-prepend input.form-submit {
   -webkit-border-radius: 14px 0 0 14px;
   -moz-border-radius: 14px 0 0 14px;
   border-radius: 14px 0 0 14px;
@@ -3733,7 +3813,7 @@ table th[class*="span"],
 }
 
 /* line 10, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit {
+.btn, body.not-front.not-logged-in.page-user #main form input.form-submit {
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -3772,21 +3852,21 @@ table th[class*="span"],
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 /* line 489, ../scss/override_ctb/_mixins.scss */
-.btn:hover, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:hover, .btn:active, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:active, .btn.active, body.not-front.not-logged-in.page-user #main form#user-login input.active.form-submit, .btn.disabled, body.not-front.not-logged-in.page-user #main form#user-login input.disabled.form-submit, .btn[disabled], body.not-front.not-logged-in.page-user #main form#user-login input[disabled].form-submit {
+.btn:hover, body.not-front.not-logged-in.page-user #main form input.form-submit:hover, .btn:active, body.not-front.not-logged-in.page-user #main form input.form-submit:active, .btn.active, body.not-front.not-logged-in.page-user #main form input.active.form-submit, .btn.disabled, body.not-front.not-logged-in.page-user #main form input.disabled.form-submit, .btn[disabled], body.not-front.not-logged-in.page-user #main form input[disabled].form-submit {
   color: #333333;
   background-color: #e6e6e6;
   *background-color: #d9d9d9;
 }
 /* line 497, ../scss/override_ctb/_mixins.scss */
-.btn:active, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:active, .btn.active, body.not-front.not-logged-in.page-user #main form#user-login input.active.form-submit {
+.btn:active, body.not-front.not-logged-in.page-user #main form input.form-submit:active, .btn.active, body.not-front.not-logged-in.page-user #main form input.active.form-submit {
   background-color: #cccccc \9;
 }
 /* line 61, ../scss/override_ctb/_mixins.scss */
-.btn:first-child, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:first-child {
+.btn:first-child, body.not-front.not-logged-in.page-user #main form input.form-submit:first-child {
   *margin-left: 0;
 }
 /* line 30, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn:hover, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:hover {
+.btn:hover, body.not-front.not-logged-in.page-user #main form input.form-submit:hover {
   color: #333333;
   text-decoration: none;
   background-color: #e6e6e6;
@@ -3799,13 +3879,13 @@ table th[class*="span"],
   transition: background-position 0.1s linear;
 }
 /* line 43, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn:focus, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:focus {
+.btn:focus, body.not-front.not-logged-in.page-user #main form input.form-submit:focus {
   outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 /* line 49, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn.active, body.not-front.not-logged-in.page-user #main form#user-login input.active.form-submit, .btn:active, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:active {
+.btn.active, body.not-front.not-logged-in.page-user #main form input.active.form-submit, .btn:active, body.not-front.not-logged-in.page-user #main form input.form-submit:active {
   background-color: #e6e6e6;
   background-color: #d9d9d9 \9;
   background-image: none;
@@ -3815,7 +3895,7 @@ table th[class*="span"],
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 /* line 59, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn.disabled, body.not-front.not-logged-in.page-user #main form#user-login input.disabled.form-submit, .btn[disabled], body.not-front.not-logged-in.page-user #main form#user-login input[disabled].form-submit {
+.btn.disabled, body.not-front.not-logged-in.page-user #main form input.disabled.form-submit, .btn[disabled], body.not-front.not-logged-in.page-user #main form input[disabled].form-submit {
   cursor: default;
   background-color: #e6e6e6;
   background-image: none;
@@ -3827,7 +3907,7 @@ table th[class*="span"],
 }
 
 /* line 75, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn-large, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit {
+.btn-large, body.not-front.not-logged-in.page-user #main form input.form-submit {
   padding: 11px 19px;
   font-size: 17.5px;
   -webkit-border-radius: 6px;
@@ -3836,9 +3916,9 @@ table th[class*="span"],
 }
 
 /* line 81, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn-large [class^="icon-"], body.not-front.not-logged-in.page-user #main form#user-login input.form-submit [class^="icon-"],
+.btn-large [class^="icon-"], body.not-front.not-logged-in.page-user #main form input.form-submit [class^="icon-"],
 .btn-large [class*=" icon-"],
-body.not-front.not-logged-in.page-user #main form#user-login input.form-submit [class*=" icon-"] {
+body.not-front.not-logged-in.page-user #main form input.form-submit [class*=" icon-"] {
   margin-top: 2px;
 }
 
@@ -3890,7 +3970,7 @@ input[type="button"].btn-block {
 }
 
 /* line 140, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn-primary.active, body.not-front.not-logged-in.page-user #main form#user-login input.active.form-submit,
+.btn-primary.active, body.not-front.not-logged-in.page-user #main form input.active.form-submit,
 .btn-warning.active,
 .btn-danger.active,
 .btn-success.active,
@@ -3900,13 +3980,13 @@ input[type="button"].btn-block {
 }
 
 /* line 146, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit {
+.btn, body.not-front.not-logged-in.page-user #main form input.form-submit {
   border-color: #c5c5c5;
   border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
 }
 
 /* line 151, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
-.btn-primary, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit {
+.btn-primary, body.not-front.not-logged-in.page-user #main form input.form-submit {
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #006ecc;
@@ -3924,13 +4004,13 @@ input[type="button"].btn-block {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 /* line 489, ../scss/override_ctb/_mixins.scss */
-.btn-primary:hover, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:hover, .btn-primary:active, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:active, .btn-primary.active, body.not-front.not-logged-in.page-user #main form#user-login input.active.form-submit, .btn-primary.disabled, body.not-front.not-logged-in.page-user #main form#user-login input.disabled.form-submit, .btn-primary[disabled], body.not-front.not-logged-in.page-user #main form#user-login input[disabled].form-submit {
+.btn-primary:hover, body.not-front.not-logged-in.page-user #main form input.form-submit:hover, .btn-primary:active, body.not-front.not-logged-in.page-user #main form input.form-submit:active, .btn-primary.active, body.not-front.not-logged-in.page-user #main form input.active.form-submit, .btn-primary.disabled, body.not-front.not-logged-in.page-user #main form input.disabled.form-submit, .btn-primary[disabled], body.not-front.not-logged-in.page-user #main form input[disabled].form-submit {
   color: white;
   background-color: #0044cc;
   *background-color: #003bb3;
 }
 /* line 497, ../scss/override_ctb/_mixins.scss */
-.btn-primary:active, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:active, .btn-primary.active, body.not-front.not-logged-in.page-user #main form#user-login input.active.form-submit {
+.btn-primary:active, body.not-front.not-logged-in.page-user #main form input.form-submit:active, .btn-primary.active, body.not-front.not-logged-in.page-user #main form input.active.form-submit {
   background-color: #003399 \9;
 }
 
@@ -4082,35 +4162,35 @@ input[type="button"].btn-block {
 /* line 180, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
 button.btn,
 input[type="submit"].btn,
-body.not-front.not-logged-in.page-user #main form#user-login input[type="submit"].form-submit {
+body.not-front.not-logged-in.page-user #main form input[type="submit"].form-submit {
   *padding-top: 3px;
   *padding-bottom: 3px;
 }
 /* line 183, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
 button.btn::-moz-focus-inner,
 input[type="submit"].btn::-moz-focus-inner,
-body.not-front.not-logged-in.page-user #main form#user-login input[type="submit"].form-submit::-moz-focus-inner {
+body.not-front.not-logged-in.page-user #main form input[type="submit"].form-submit::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
 /* line 192, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
 button.btn.btn-large,
 input[type="submit"].btn.btn-large,
-body.not-front.not-logged-in.page-user #main form#user-login input[type="submit"].form-submit {
+body.not-front.not-logged-in.page-user #main form input[type="submit"].form-submit {
   *padding-top: 7px;
   *padding-bottom: 7px;
 }
 /* line 196, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
 button.btn.btn-small,
 input[type="submit"].btn.btn-small,
-body.not-front.not-logged-in.page-user #main form#user-login input[type="submit"].btn-small.form-submit {
+body.not-front.not-logged-in.page-user #main form input[type="submit"].btn-small.form-submit {
   *padding-top: 3px;
   *padding-bottom: 3px;
 }
 /* line 200, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
 button.btn.btn-mini,
 input[type="submit"].btn.btn-mini,
-body.not-front.not-logged-in.page-user #main form#user-login input[type="submit"].btn-mini.form-submit {
+body.not-front.not-logged-in.page-user #main form input[type="submit"].btn-mini.form-submit {
   *padding-top: 1px;
   *padding-bottom: 1px;
 }
@@ -4177,18 +4257,18 @@ body.not-front.not-logged-in.page-user #main form#user-login input[type="submit"
   margin-bottom: 10px;
 }
 /* line 29, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-toolbar .btn + .btn, .btn-toolbar body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.form-submit + .btn, .btn-toolbar body.not-front.not-logged-in.page-user #main form#user-login .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar .btn + input.form-submit, .btn-toolbar body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.form-submit + input.form-submit,
+.btn-toolbar .btn + .btn, .btn-toolbar body.not-front.not-logged-in.page-user #main form input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form .btn-toolbar input.form-submit + .btn, .btn-toolbar body.not-front.not-logged-in.page-user #main form .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form .btn-toolbar .btn + input.form-submit, .btn-toolbar body.not-front.not-logged-in.page-user #main form input.form-submit + input.form-submit, body.not-front.not-logged-in.page-user #main form .btn-toolbar input.form-submit + input.form-submit,
 .btn-toolbar .btn-group + .btn,
-.btn-toolbar body.not-front.not-logged-in.page-user #main form#user-login .btn-group + input.form-submit,
-body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar .btn-group + input.form-submit,
+.btn-toolbar body.not-front.not-logged-in.page-user #main form .btn-group + input.form-submit,
+body.not-front.not-logged-in.page-user #main form .btn-toolbar .btn-group + input.form-submit,
 .btn-toolbar .btn + .btn-group,
-.btn-toolbar body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + .btn-group,
-body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.form-submit + .btn-group {
+.btn-toolbar body.not-front.not-logged-in.page-user #main form input.form-submit + .btn-group,
+body.not-front.not-logged-in.page-user #main form .btn-toolbar input.form-submit + .btn-group {
   margin-left: 5px;
 }
 
 /* line 35, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit {
+.btn-group > .btn, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit {
   position: relative;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -4196,12 +4276,12 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.
 }
 
 /* line 39, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn + .btn, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit + input.form-submit {
+.btn-group > .btn + .btn, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form .btn-group > .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit + input.form-submit {
   margin-left: -1px;
 }
 
 /* line 43, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit,
+.btn-group > .btn, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit,
 .btn-group > .dropdown-menu {
   font-size: 14px;
 }
@@ -4217,12 +4297,12 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.
 }
 
 /* line 54, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn-large, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit {
+.btn-group > .btn-large, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit {
   font-size: 16px;
 }
 
 /* line 59, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit:first-child {
+.btn-group > .btn:first-child, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit:first-child {
   margin-left: 0;
   -webkit-border-top-left-radius: 4px;
   -moz-border-radius-topleft: 4px;
@@ -4233,7 +4313,7 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.
 }
 
 /* line 70, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn:last-child, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit:last-child,
+.btn-group > .btn:last-child, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit:last-child,
 .btn-group > .dropdown-toggle {
   -webkit-border-top-right-radius: 4px;
   -moz-border-radius-topright: 4px;
@@ -4244,7 +4324,7 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.
 }
 
 /* line 79, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn.large:first-child, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.large.form-submit:first-child {
+.btn-group > .btn.large:first-child, body.not-front.not-logged-in.page-user #main form .btn-group > input.large.form-submit:first-child {
   margin-left: 0;
   -webkit-border-top-left-radius: 6px;
   -moz-border-radius-topleft: 6px;
@@ -4255,7 +4335,7 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.
 }
 
 /* line 89, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn.large:last-child, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.large.form-submit:last-child,
+.btn-group > .btn.large:last-child, body.not-front.not-logged-in.page-user #main form .btn-group > input.large.form-submit:last-child,
 .btn-group > .large.dropdown-toggle {
   -webkit-border-top-right-radius: 6px;
   -moz-border-radius-topright: 6px;
@@ -4266,13 +4346,13 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-toolbar input.
 }
 
 /* line 102, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn:hover, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit:hover,
+.btn-group > .btn:hover, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit:hover,
 .btn-group > .btn:focus,
-body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit:focus,
+body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit:focus,
 .btn-group > .btn:active,
-body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit:active,
+body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit:active,
 .btn-group > .btn.active,
-body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.active.form-submit {
+body.not-front.not-logged-in.page-user #main form .btn-group > input.active.form-submit {
   z-index: 2;
 }
 
@@ -4283,7 +4363,7 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.
 }
 
 /* line 118, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn + .dropdown-toggle, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
   -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -4308,7 +4388,7 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.
 }
 
 /* line 135, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group > .btn-large + .dropdown-toggle, body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.form-submit + .dropdown-toggle {
+.btn-group > .btn-large + .dropdown-toggle, body.not-front.not-logged-in.page-user #main form .btn-group > input.form-submit + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
   *padding-top: 7px;
@@ -4323,11 +4403,11 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 /* line 152, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group.open .btn.dropdown-toggle, .btn-group.open body.not-front.not-logged-in.page-user #main form#user-login input.dropdown-toggle.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .btn-group.open input.dropdown-toggle.form-submit {
+.btn-group.open .btn.dropdown-toggle, .btn-group.open body.not-front.not-logged-in.page-user #main form input.dropdown-toggle.form-submit, body.not-front.not-logged-in.page-user #main form .btn-group.open input.dropdown-toggle.form-submit {
   background-color: #e6e6e6;
 }
 /* line 155, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group.open .btn-primary.dropdown-toggle, .btn-group.open body.not-front.not-logged-in.page-user #main form#user-login input.dropdown-toggle.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .btn-group.open input.dropdown-toggle.form-submit {
+.btn-group.open .btn-primary.dropdown-toggle, .btn-group.open body.not-front.not-logged-in.page-user #main form input.dropdown-toggle.form-submit, body.not-front.not-logged-in.page-user #main form .btn-group.open input.dropdown-toggle.form-submit {
   background-color: #0044cc;
 }
 /* line 158, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
@@ -4352,7 +4432,7 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.
 }
 
 /* line 177, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn .caret, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit .caret {
+.btn .caret, body.not-front.not-logged-in.page-user #main form input.form-submit .caret {
   margin-top: 8px;
   margin-left: 0;
 }
@@ -4361,24 +4441,24 @@ body.not-front.not-logged-in.page-user #main form#user-login .btn-group > input.
 .btn-mini .caret,
 .btn-small .caret,
 .btn-large .caret,
-body.not-front.not-logged-in.page-user #main form#user-login input.form-submit .caret {
+body.not-front.not-logged-in.page-user #main form input.form-submit .caret {
   margin-top: 6px;
 }
 
 /* line 187, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-large .caret, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit .caret {
+.btn-large .caret, body.not-front.not-logged-in.page-user #main form input.form-submit .caret {
   border-left-width: 5px;
   border-right-width: 5px;
   border-top-width: 5px;
 }
 
 /* line 193, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.dropup .btn-large .caret, .dropup body.not-front.not-logged-in.page-user #main form#user-login input.form-submit .caret, body.not-front.not-logged-in.page-user #main form#user-login .dropup input.form-submit .caret {
+.dropup .btn-large .caret, .dropup body.not-front.not-logged-in.page-user #main form input.form-submit .caret, body.not-front.not-logged-in.page-user #main form .dropup input.form-submit .caret {
   border-bottom-width: 5px;
 }
 
 /* line 206, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-primary .caret, body.not-front.not-logged-in.page-user #main form#user-login input.form-submit .caret,
+.btn-primary .caret, body.not-front.not-logged-in.page-user #main form input.form-submit .caret,
 .btn-warning .caret,
 .btn-danger .caret,
 .btn-info .caret,
@@ -4396,7 +4476,7 @@ body.not-front.not-logged-in.page-user #main form#user-login input.form-submit .
 }
 
 /* line 221, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group-vertical .btn, .btn-group-vertical body.not-front.not-logged-in.page-user #main form#user-login input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .btn-group-vertical input.form-submit {
+.btn-group-vertical .btn, .btn-group-vertical body.not-front.not-logged-in.page-user #main form input.form-submit, body.not-front.not-logged-in.page-user #main form .btn-group-vertical input.form-submit {
   display: block;
   float: none;
   width: 100%;
@@ -4406,34 +4486,34 @@ body.not-front.not-logged-in.page-user #main form#user-login input.form-submit .
 }
 
 /* line 227, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group-vertical .btn + .btn, .btn-group-vertical body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form#user-login .btn-group-vertical input.form-submit + .btn, .btn-group-vertical body.not-front.not-logged-in.page-user #main form#user-login .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .btn-group-vertical .btn + input.form-submit, .btn-group-vertical body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .btn-group-vertical input.form-submit + input.form-submit {
+.btn-group-vertical .btn + .btn, .btn-group-vertical body.not-front.not-logged-in.page-user #main form input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form .btn-group-vertical input.form-submit + .btn, .btn-group-vertical body.not-front.not-logged-in.page-user #main form .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form .btn-group-vertical .btn + input.form-submit, .btn-group-vertical body.not-front.not-logged-in.page-user #main form input.form-submit + input.form-submit, body.not-front.not-logged-in.page-user #main form .btn-group-vertical input.form-submit + input.form-submit {
   margin-left: 0;
   margin-top: -1px;
 }
 
 /* line 231, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group-vertical .btn:first-child, .btn-group-vertical body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:first-child, body.not-front.not-logged-in.page-user #main form#user-login .btn-group-vertical input.form-submit:first-child {
+.btn-group-vertical .btn:first-child, .btn-group-vertical body.not-front.not-logged-in.page-user #main form input.form-submit:first-child, body.not-front.not-logged-in.page-user #main form .btn-group-vertical input.form-submit:first-child {
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
 
 /* line 234, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group-vertical .btn:last-child, .btn-group-vertical body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:last-child, body.not-front.not-logged-in.page-user #main form#user-login .btn-group-vertical input.form-submit:last-child {
+.btn-group-vertical .btn:last-child, .btn-group-vertical body.not-front.not-logged-in.page-user #main form input.form-submit:last-child, body.not-front.not-logged-in.page-user #main form .btn-group-vertical input.form-submit:last-child {
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
 
 /* line 237, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group-vertical .btn-large:first-child, .btn-group-vertical body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:first-child, body.not-front.not-logged-in.page-user #main form#user-login .btn-group-vertical input.form-submit:first-child {
+.btn-group-vertical .btn-large:first-child, .btn-group-vertical body.not-front.not-logged-in.page-user #main form input.form-submit:first-child, body.not-front.not-logged-in.page-user #main form .btn-group-vertical input.form-submit:first-child {
   -webkit-border-radius: 6px 6px 0 0;
   -moz-border-radius: 6px 6px 0 0;
   border-radius: 6px 6px 0 0;
 }
 
 /* line 240, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
-.btn-group-vertical .btn-large:last-child, .btn-group-vertical body.not-front.not-logged-in.page-user #main form#user-login input.form-submit:last-child, body.not-front.not-logged-in.page-user #main form#user-login .btn-group-vertical input.form-submit:last-child {
+.btn-group-vertical .btn-large:last-child, .btn-group-vertical body.not-front.not-logged-in.page-user #main form input.form-submit:last-child, body.not-front.not-logged-in.page-user #main form .btn-group-vertical input.form-submit:last-child {
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
@@ -4551,12 +4631,12 @@ body.not-front.not-logged-in.page-user #main form#user-login input.form-submit .
   clear: both;
 }
 /* line 82, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
-.modal-footer .btn + .btn, .modal-footer body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form#user-login .modal-footer input.form-submit + .btn, .modal-footer body.not-front.not-logged-in.page-user #main form#user-login .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .modal-footer .btn + input.form-submit, .modal-footer body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .modal-footer input.form-submit + input.form-submit {
+.modal-footer .btn + .btn, .modal-footer body.not-front.not-logged-in.page-user #main form input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form .modal-footer input.form-submit + .btn, .modal-footer body.not-front.not-logged-in.page-user #main form .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form .modal-footer .btn + input.form-submit, .modal-footer body.not-front.not-logged-in.page-user #main form input.form-submit + input.form-submit, body.not-front.not-logged-in.page-user #main form .modal-footer input.form-submit + input.form-submit {
   margin-left: 5px;
   margin-bottom: 0;
 }
 /* line 87, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
-.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form#user-login .modal-footer .btn-group input.form-submit + .btn, .modal-footer .btn-group body.not-front.not-logged-in.page-user #main form#user-login .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .modal-footer .btn-group .btn + input.form-submit, .modal-footer .btn-group body.not-front.not-logged-in.page-user #main form#user-login input.form-submit + input.form-submit, body.not-front.not-logged-in.page-user #main form#user-login .modal-footer .btn-group input.form-submit + input.form-submit {
+.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit + .btn, body.not-front.not-logged-in.page-user #main form .modal-footer .btn-group input.form-submit + .btn, .modal-footer .btn-group body.not-front.not-logged-in.page-user #main form .btn + input.form-submit, body.not-front.not-logged-in.page-user #main form .modal-footer .btn-group .btn + input.form-submit, .modal-footer .btn-group body.not-front.not-logged-in.page-user #main form input.form-submit + input.form-submit, body.not-front.not-logged-in.page-user #main form .modal-footer .btn-group input.form-submit + input.form-submit {
   margin-left: -1px;
 }
 /* line 91, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
@@ -4714,7 +4794,7 @@ ul.secondary a .tab {
 
 /* line 10, ../scss/_login.scss */
 body.not-front.not-logged-in.page-user #main h1.title {
-  width: 66.31579%;
+  width: 83.15789%;
   float: left;
   margin-right: 1.05263%;
   display: inline;
@@ -4722,10 +4802,16 @@ body.not-front.not-logged-in.page-user #main h1.title {
   padding-right: 8.42105%;
   margin-left: 8.42105%;
   margin-right: 8.42105%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(10%, #fff9e6), color-stop(50%, #ffffff), color-stop(50%, #ffffff), color-stop(100%, #ffffff));
+  background-image: -webkit-linear-gradient(#ffffff, #fff9e6 10%, #ffffff 50%, #ffffff 50%, #ffffff);
+  background-image: -moz-linear-gradient(#ffffff, #fff9e6 10%, #ffffff 50%, #ffffff 50%, #ffffff);
+  background-image: -o-linear-gradient(#ffffff, #fff9e6 10%, #ffffff 50%, #ffffff 50%, #ffffff);
+  background-image: -ms-linear-gradient(#ffffff, #fff9e6 10%, #ffffff 50%, #ffffff 50%, #ffffff);
+  background-image: linear-gradient(#ffffff, #fff9e6 10%, #ffffff 50%, #ffffff 50%, #ffffff);
 }
-/* line 16, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form#user-login {
-  width: 100%;
+/* line 17, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user #main form {
+  width: 83.15789%;
   float: left;
   margin-right: 1.05263%;
   display: inline;
@@ -4733,77 +4819,100 @@ body.not-front.not-logged-in.page-user #main form#user-login {
   padding-right: 8.42105%;
   background: white;
 }
-@media (min-width: 470px) {
-  /* line 16, ../scss/_login.scss */
-  body.not-front.not-logged-in.page-user #main form#user-login {
-    width: 66.31579%;
-    float: left;
-    margin-right: 1.05263%;
-    padding-left: 8.42105%;
-    padding-right: 8.42105%;
-    margin-left: 8.42105%;
-    margin-right: 8.42105%;
-    clear: both;
-  }
-}
-@media (min-width: 790px) {
-  /* line 16, ../scss/_login.scss */
-  body.not-front.not-logged-in.page-user #main form#user-login {
-    width: 49.47368%;
-    float: left;
-    margin-right: 1.05263%;
-    margin-left: 16.84211%;
-    margin-right: 16.84211%;
-  }
-}
-/* line 32, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form#user-login .form-item-name, body.not-front.not-logged-in.page-user #main form#user-login .form-item-pass {
-  background-color: pink;
-}
-@media (min-width: 470px) {
-  /* line 32, ../scss/_login.scss */
-  body.not-front.not-logged-in.page-user #main form#user-login .form-item-name, body.not-front.not-logged-in.page-user #main form#user-login .form-item-pass {
-    width: 48.93617%;
-    float: left;
-    margin-right: 2.12766%;
-  }
-}
-@media (min-width: 790px) {
-  /* line 32, ../scss/_login.scss */
-  body.not-front.not-logged-in.page-user #main form#user-login .form-item-name, body.not-front.not-logged-in.page-user #main form#user-login .form-item-pass {
-    width: 48.93617%;
-    float: left;
-    margin-right: 2.12766%;
-  }
-}
-/* line 44, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form#user-login div.item-list {
-  overflow: hidden;
-  *zoom: 1;
-  list-style: none;
-}
-/* line 49, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form#user-login .form-actions {
-  clear: both;
-}
-/* line 59, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form#user-login #edit-social-media-signin {
-  width: 100%;
+/* line 23, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user #main form .form-item-name,
+body.not-front.not-logged-in.page-user #main form .form-item-pass {
+  background-color: yellow;
+  width: 83.15789%;
   float: left;
   margin-right: 1.05263%;
   display: inline;
 }
-/* line 61, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form#user-login #edit-social-media-signin label {
-  float: left;
+/* line 28, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user #main form div.item-list {
+  overflow: hidden;
+  *zoom: 1;
+  background-color: #f2f2f2;
 }
-/* line 64, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form#user-login #edit-social-media-signin ul {
+/* line 30, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user #main form div.item-list ul {
   list-style: none;
 }
-/* line 66, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form#user-login #edit-social-media-signin ul li {
+/* line 31, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user #main form div.item-list li {
   float: left;
+}
+/* line 35, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user #main form .form-actions {
+  clear: both;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* line 51, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user #main form #edit-social-media-signin {
+  width: 100%;
+  float: left;
+  margin-right: 1.26582%;
+  display: inline;
+}
+/* line 53, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user #main form #edit-social-media-signin label {
+  float: left;
+}
+
+/* line 28, ../scss/_layout.scss */
+body #main {
+  margin-top: 1em;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #fff9e6), color-stop(0%, #ffffff), color-stop(7.36842%, #ffffff), color-stop(7.36842%, #fff9e6), color-stop(8.42105%, #fff9e6), color-stop(8.42105%, #ffffff), color-stop(15.78947%, #ffffff), color-stop(15.78947%, #fff9e6), color-stop(16.84211%, #fff9e6), color-stop(16.84211%, #ffffff), color-stop(24.21053%, #ffffff), color-stop(24.21053%, #fff9e6), color-stop(25.26316%, #fff9e6), color-stop(25.26316%, #ffffff), color-stop(32.63158%, #ffffff), color-stop(32.63158%, #fff9e6), color-stop(33.68421%, #fff9e6), color-stop(33.68421%, #ffffff), color-stop(41.05263%, #ffffff), color-stop(41.05263%, #fff9e6), color-stop(42.10526%, #fff9e6), color-stop(42.10526%, #ffffff), color-stop(49.47368%, #ffffff), color-stop(49.47368%, #fff9e6), color-stop(50.52632%, #fff9e6), color-stop(50.52632%, #ffffff), color-stop(57.89474%, #ffffff), color-stop(57.89474%, #fff9e6), color-stop(58.94737%, #fff9e6), color-stop(58.94737%, #ffffff), color-stop(66.31579%, #ffffff), color-stop(66.31579%, #fff9e6), color-stop(67.36842%, #fff9e6), color-stop(67.36842%, #ffffff), color-stop(74.73684%, #ffffff), color-stop(74.73684%, #fff9e6), color-stop(75.78947%, #fff9e6), color-stop(75.78947%, #ffffff), color-stop(83.15789%, #ffffff), color-stop(83.15789%, #fff9e6), color-stop(84.21053%, #fff9e6), color-stop(84.21053%, #ffffff), color-stop(91.57895%, #ffffff), color-stop(91.57895%, #fff9e6), color-stop(92.63158%, #fff9e6), color-stop(92.63158%, #ffffff), color-stop(100.0%, #ffffff), color-stop(100.0%, #fff9e6), color-stop(100%, #fff9e6));
+  background-image: -webkit-linear-gradient(left, #fff9e6 0%, #ffffff 0%, #ffffff 7.36842%, #fff9e6 7.36842%, #fff9e6 8.42105%, #ffffff 8.42105%, #ffffff 15.78947%, #fff9e6 15.78947%, #fff9e6 16.84211%, #ffffff 16.84211%, #ffffff 24.21053%, #fff9e6 24.21053%, #fff9e6 25.26316%, #ffffff 25.26316%, #ffffff 32.63158%, #fff9e6 32.63158%, #fff9e6 33.68421%, #ffffff 33.68421%, #ffffff 41.05263%, #fff9e6 41.05263%, #fff9e6 42.10526%, #ffffff 42.10526%, #ffffff 49.47368%, #fff9e6 49.47368%, #fff9e6 50.52632%, #ffffff 50.52632%, #ffffff 57.89474%, #fff9e6 57.89474%, #fff9e6 58.94737%, #ffffff 58.94737%, #ffffff 66.31579%, #fff9e6 66.31579%, #fff9e6 67.36842%, #ffffff 67.36842%, #ffffff 74.73684%, #fff9e6 74.73684%, #fff9e6 75.78947%, #ffffff 75.78947%, #ffffff 83.15789%, #fff9e6 83.15789%, #fff9e6 84.21053%, #ffffff 84.21053%, #ffffff 91.57895%, #fff9e6 91.57895%, #fff9e6 92.63158%, #ffffff 92.63158%, #ffffff 100.0%, #fff9e6 100.0%, #fff9e6 100%);
+  background-image: -moz-linear-gradient(left, #fff9e6 0%, #ffffff 0%, #ffffff 7.36842%, #fff9e6 7.36842%, #fff9e6 8.42105%, #ffffff 8.42105%, #ffffff 15.78947%, #fff9e6 15.78947%, #fff9e6 16.84211%, #ffffff 16.84211%, #ffffff 24.21053%, #fff9e6 24.21053%, #fff9e6 25.26316%, #ffffff 25.26316%, #ffffff 32.63158%, #fff9e6 32.63158%, #fff9e6 33.68421%, #ffffff 33.68421%, #ffffff 41.05263%, #fff9e6 41.05263%, #fff9e6 42.10526%, #ffffff 42.10526%, #ffffff 49.47368%, #fff9e6 49.47368%, #fff9e6 50.52632%, #ffffff 50.52632%, #ffffff 57.89474%, #fff9e6 57.89474%, #fff9e6 58.94737%, #ffffff 58.94737%, #ffffff 66.31579%, #fff9e6 66.31579%, #fff9e6 67.36842%, #ffffff 67.36842%, #ffffff 74.73684%, #fff9e6 74.73684%, #fff9e6 75.78947%, #ffffff 75.78947%, #ffffff 83.15789%, #fff9e6 83.15789%, #fff9e6 84.21053%, #ffffff 84.21053%, #ffffff 91.57895%, #fff9e6 91.57895%, #fff9e6 92.63158%, #ffffff 92.63158%, #ffffff 100.0%, #fff9e6 100.0%, #fff9e6 100%);
+  background-image: -o-linear-gradient(left, #fff9e6 0%, #ffffff 0%, #ffffff 7.36842%, #fff9e6 7.36842%, #fff9e6 8.42105%, #ffffff 8.42105%, #ffffff 15.78947%, #fff9e6 15.78947%, #fff9e6 16.84211%, #ffffff 16.84211%, #ffffff 24.21053%, #fff9e6 24.21053%, #fff9e6 25.26316%, #ffffff 25.26316%, #ffffff 32.63158%, #fff9e6 32.63158%, #fff9e6 33.68421%, #ffffff 33.68421%, #ffffff 41.05263%, #fff9e6 41.05263%, #fff9e6 42.10526%, #ffffff 42.10526%, #ffffff 49.47368%, #fff9e6 49.47368%, #fff9e6 50.52632%, #ffffff 50.52632%, #ffffff 57.89474%, #fff9e6 57.89474%, #fff9e6 58.94737%, #ffffff 58.94737%, #ffffff 66.31579%, #fff9e6 66.31579%, #fff9e6 67.36842%, #ffffff 67.36842%, #ffffff 74.73684%, #fff9e6 74.73684%, #fff9e6 75.78947%, #ffffff 75.78947%, #ffffff 83.15789%, #fff9e6 83.15789%, #fff9e6 84.21053%, #ffffff 84.21053%, #ffffff 91.57895%, #fff9e6 91.57895%, #fff9e6 92.63158%, #ffffff 92.63158%, #ffffff 100.0%, #fff9e6 100.0%, #fff9e6 100%);
+  background-image: -ms-linear-gradient(left, #fff9e6 0%, #ffffff 0%, #ffffff 7.36842%, #fff9e6 7.36842%, #fff9e6 8.42105%, #ffffff 8.42105%, #ffffff 15.78947%, #fff9e6 15.78947%, #fff9e6 16.84211%, #ffffff 16.84211%, #ffffff 24.21053%, #fff9e6 24.21053%, #fff9e6 25.26316%, #ffffff 25.26316%, #ffffff 32.63158%, #fff9e6 32.63158%, #fff9e6 33.68421%, #ffffff 33.68421%, #ffffff 41.05263%, #fff9e6 41.05263%, #fff9e6 42.10526%, #ffffff 42.10526%, #ffffff 49.47368%, #fff9e6 49.47368%, #fff9e6 50.52632%, #ffffff 50.52632%, #ffffff 57.89474%, #fff9e6 57.89474%, #fff9e6 58.94737%, #ffffff 58.94737%, #ffffff 66.31579%, #fff9e6 66.31579%, #fff9e6 67.36842%, #ffffff 67.36842%, #ffffff 74.73684%, #fff9e6 74.73684%, #fff9e6 75.78947%, #ffffff 75.78947%, #ffffff 83.15789%, #fff9e6 83.15789%, #fff9e6 84.21053%, #ffffff 84.21053%, #ffffff 91.57895%, #fff9e6 91.57895%, #fff9e6 92.63158%, #ffffff 92.63158%, #ffffff 100.0%, #fff9e6 100.0%, #fff9e6 100%);
+  background-image: linear-gradient(left, #fff9e6 0%, #ffffff 0%, #ffffff 7.36842%, #fff9e6 7.36842%, #fff9e6 8.42105%, #ffffff 8.42105%, #ffffff 15.78947%, #fff9e6 15.78947%, #fff9e6 16.84211%, #ffffff 16.84211%, #ffffff 24.21053%, #fff9e6 24.21053%, #fff9e6 25.26316%, #ffffff 25.26316%, #ffffff 32.63158%, #fff9e6 32.63158%, #fff9e6 33.68421%, #ffffff 33.68421%, #ffffff 41.05263%, #fff9e6 41.05263%, #fff9e6 42.10526%, #ffffff 42.10526%, #ffffff 49.47368%, #fff9e6 49.47368%, #fff9e6 50.52632%, #ffffff 50.52632%, #ffffff 57.89474%, #fff9e6 57.89474%, #fff9e6 58.94737%, #ffffff 58.94737%, #ffffff 66.31579%, #fff9e6 66.31579%, #fff9e6 67.36842%, #ffffff 67.36842%, #ffffff 74.73684%, #fff9e6 74.73684%, #fff9e6 75.78947%, #ffffff 75.78947%, #ffffff 83.15789%, #fff9e6 83.15789%, #fff9e6 84.21053%, #ffffff 84.21053%, #ffffff 91.57895%, #fff9e6 91.57895%, #fff9e6 92.63158%, #ffffff 92.63158%, #ffffff 100.0%, #fff9e6 100.0%, #fff9e6 100%);
+  background-position: left top;
+  -webkit-background-origin: content;
+  -moz-background-origin: content;
+  -ms-background-origin: content-box;
+  -o-background-origin: content-box;
+  background-origin: content-box;
+  -webkit-background-clip: content-box;
+  -moz-background-clip: content-box;
+  background-clip: content-box;
+}
+@media (min-width: 470px) {
+  /* line 28, ../scss/_layout.scss */
+  body #main {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  /* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+  body #main:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+@media (min-width: 790px) {
+  /* line 28, ../scss/_layout.scss */
+  body #main {
+    width: auto;
+  }
+}
+@media (min-width: 470px) {
+  /* line 37, ../scss/_layout.scss */
+  body #main {
+    background-color: green;
+  }
+}
+@media (min-width: 790px) {
+  /* line 44, ../scss/_layout.scss */
+  body #main {
+    background-color: pink;
+  }
 }
 
 /* line 7, ../scss/_notifications.scss */
@@ -5275,59 +5384,4 @@ body.not-front.not-logged-in.page-user #main form#user-login #edit-social-media-
 /* line 1, ../scss/_livefyre.scss */
 .fyre-stream-stats {
   display: none;
-}
-
-/* line 32, ../scss/_layout.scss */
-body #main {
-  margin-top: 1em;
-  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(0%, rgba(100, 100, 225, 0.25)), color-stop(7.36842%, rgba(100, 100, 225, 0.25)), color-stop(7.36842%, rgba(0, 0, 0, 0)), color-stop(8.42105%, rgba(0, 0, 0, 0)), color-stop(8.42105%, rgba(100, 100, 225, 0.25)), color-stop(15.78947%, rgba(100, 100, 225, 0.25)), color-stop(15.78947%, rgba(0, 0, 0, 0)), color-stop(16.84211%, rgba(0, 0, 0, 0)), color-stop(16.84211%, rgba(100, 100, 225, 0.25)), color-stop(24.21053%, rgba(100, 100, 225, 0.25)), color-stop(24.21053%, rgba(0, 0, 0, 0)), color-stop(25.26316%, rgba(0, 0, 0, 0)), color-stop(25.26316%, rgba(100, 100, 225, 0.25)), color-stop(32.63158%, rgba(100, 100, 225, 0.25)), color-stop(32.63158%, rgba(0, 0, 0, 0)), color-stop(33.68421%, rgba(0, 0, 0, 0)), color-stop(33.68421%, rgba(100, 100, 225, 0.25)), color-stop(41.05263%, rgba(100, 100, 225, 0.25)), color-stop(41.05263%, rgba(0, 0, 0, 0)), color-stop(42.10526%, rgba(0, 0, 0, 0)), color-stop(42.10526%, rgba(100, 100, 225, 0.25)), color-stop(49.47368%, rgba(100, 100, 225, 0.25)), color-stop(49.47368%, rgba(0, 0, 0, 0)), color-stop(50.52632%, rgba(0, 0, 0, 0)), color-stop(50.52632%, rgba(100, 100, 225, 0.25)), color-stop(57.89474%, rgba(100, 100, 225, 0.25)), color-stop(57.89474%, rgba(0, 0, 0, 0)), color-stop(58.94737%, rgba(0, 0, 0, 0)), color-stop(58.94737%, rgba(100, 100, 225, 0.25)), color-stop(66.31579%, rgba(100, 100, 225, 0.25)), color-stop(66.31579%, rgba(0, 0, 0, 0)), color-stop(67.36842%, rgba(0, 0, 0, 0)), color-stop(67.36842%, rgba(100, 100, 225, 0.25)), color-stop(74.73684%, rgba(100, 100, 225, 0.25)), color-stop(74.73684%, rgba(0, 0, 0, 0)), color-stop(75.78947%, rgba(0, 0, 0, 0)), color-stop(75.78947%, rgba(100, 100, 225, 0.25)), color-stop(83.15789%, rgba(100, 100, 225, 0.25)), color-stop(83.15789%, rgba(0, 0, 0, 0)), color-stop(84.21053%, rgba(0, 0, 0, 0)), color-stop(84.21053%, rgba(100, 100, 225, 0.25)), color-stop(91.57895%, rgba(100, 100, 225, 0.25)), color-stop(91.57895%, rgba(0, 0, 0, 0)), color-stop(92.63158%, rgba(0, 0, 0, 0)), color-stop(92.63158%, rgba(100, 100, 225, 0.25)), color-stop(100.0%, rgba(100, 100, 225, 0.25)), color-stop(100.0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 7.36842%, rgba(0, 0, 0, 0) 7.36842%, rgba(0, 0, 0, 0) 8.42105%, rgba(100, 100, 225, 0.25) 8.42105%, rgba(100, 100, 225, 0.25) 15.78947%, rgba(0, 0, 0, 0) 15.78947%, rgba(0, 0, 0, 0) 16.84211%, rgba(100, 100, 225, 0.25) 16.84211%, rgba(100, 100, 225, 0.25) 24.21053%, rgba(0, 0, 0, 0) 24.21053%, rgba(0, 0, 0, 0) 25.26316%, rgba(100, 100, 225, 0.25) 25.26316%, rgba(100, 100, 225, 0.25) 32.63158%, rgba(0, 0, 0, 0) 32.63158%, rgba(0, 0, 0, 0) 33.68421%, rgba(100, 100, 225, 0.25) 33.68421%, rgba(100, 100, 225, 0.25) 41.05263%, rgba(0, 0, 0, 0) 41.05263%, rgba(0, 0, 0, 0) 42.10526%, rgba(100, 100, 225, 0.25) 42.10526%, rgba(100, 100, 225, 0.25) 49.47368%, rgba(0, 0, 0, 0) 49.47368%, rgba(0, 0, 0, 0) 50.52632%, rgba(100, 100, 225, 0.25) 50.52632%, rgba(100, 100, 225, 0.25) 57.89474%, rgba(0, 0, 0, 0) 57.89474%, rgba(0, 0, 0, 0) 58.94737%, rgba(100, 100, 225, 0.25) 58.94737%, rgba(100, 100, 225, 0.25) 66.31579%, rgba(0, 0, 0, 0) 66.31579%, rgba(0, 0, 0, 0) 67.36842%, rgba(100, 100, 225, 0.25) 67.36842%, rgba(100, 100, 225, 0.25) 74.73684%, rgba(0, 0, 0, 0) 74.73684%, rgba(0, 0, 0, 0) 75.78947%, rgba(100, 100, 225, 0.25) 75.78947%, rgba(100, 100, 225, 0.25) 83.15789%, rgba(0, 0, 0, 0) 83.15789%, rgba(0, 0, 0, 0) 84.21053%, rgba(100, 100, 225, 0.25) 84.21053%, rgba(100, 100, 225, 0.25) 91.57895%, rgba(0, 0, 0, 0) 91.57895%, rgba(0, 0, 0, 0) 92.63158%, rgba(100, 100, 225, 0.25) 92.63158%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 7.36842%, rgba(0, 0, 0, 0) 7.36842%, rgba(0, 0, 0, 0) 8.42105%, rgba(100, 100, 225, 0.25) 8.42105%, rgba(100, 100, 225, 0.25) 15.78947%, rgba(0, 0, 0, 0) 15.78947%, rgba(0, 0, 0, 0) 16.84211%, rgba(100, 100, 225, 0.25) 16.84211%, rgba(100, 100, 225, 0.25) 24.21053%, rgba(0, 0, 0, 0) 24.21053%, rgba(0, 0, 0, 0) 25.26316%, rgba(100, 100, 225, 0.25) 25.26316%, rgba(100, 100, 225, 0.25) 32.63158%, rgba(0, 0, 0, 0) 32.63158%, rgba(0, 0, 0, 0) 33.68421%, rgba(100, 100, 225, 0.25) 33.68421%, rgba(100, 100, 225, 0.25) 41.05263%, rgba(0, 0, 0, 0) 41.05263%, rgba(0, 0, 0, 0) 42.10526%, rgba(100, 100, 225, 0.25) 42.10526%, rgba(100, 100, 225, 0.25) 49.47368%, rgba(0, 0, 0, 0) 49.47368%, rgba(0, 0, 0, 0) 50.52632%, rgba(100, 100, 225, 0.25) 50.52632%, rgba(100, 100, 225, 0.25) 57.89474%, rgba(0, 0, 0, 0) 57.89474%, rgba(0, 0, 0, 0) 58.94737%, rgba(100, 100, 225, 0.25) 58.94737%, rgba(100, 100, 225, 0.25) 66.31579%, rgba(0, 0, 0, 0) 66.31579%, rgba(0, 0, 0, 0) 67.36842%, rgba(100, 100, 225, 0.25) 67.36842%, rgba(100, 100, 225, 0.25) 74.73684%, rgba(0, 0, 0, 0) 74.73684%, rgba(0, 0, 0, 0) 75.78947%, rgba(100, 100, 225, 0.25) 75.78947%, rgba(100, 100, 225, 0.25) 83.15789%, rgba(0, 0, 0, 0) 83.15789%, rgba(0, 0, 0, 0) 84.21053%, rgba(100, 100, 225, 0.25) 84.21053%, rgba(100, 100, 225, 0.25) 91.57895%, rgba(0, 0, 0, 0) 91.57895%, rgba(0, 0, 0, 0) 92.63158%, rgba(100, 100, 225, 0.25) 92.63158%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 7.36842%, rgba(0, 0, 0, 0) 7.36842%, rgba(0, 0, 0, 0) 8.42105%, rgba(100, 100, 225, 0.25) 8.42105%, rgba(100, 100, 225, 0.25) 15.78947%, rgba(0, 0, 0, 0) 15.78947%, rgba(0, 0, 0, 0) 16.84211%, rgba(100, 100, 225, 0.25) 16.84211%, rgba(100, 100, 225, 0.25) 24.21053%, rgba(0, 0, 0, 0) 24.21053%, rgba(0, 0, 0, 0) 25.26316%, rgba(100, 100, 225, 0.25) 25.26316%, rgba(100, 100, 225, 0.25) 32.63158%, rgba(0, 0, 0, 0) 32.63158%, rgba(0, 0, 0, 0) 33.68421%, rgba(100, 100, 225, 0.25) 33.68421%, rgba(100, 100, 225, 0.25) 41.05263%, rgba(0, 0, 0, 0) 41.05263%, rgba(0, 0, 0, 0) 42.10526%, rgba(100, 100, 225, 0.25) 42.10526%, rgba(100, 100, 225, 0.25) 49.47368%, rgba(0, 0, 0, 0) 49.47368%, rgba(0, 0, 0, 0) 50.52632%, rgba(100, 100, 225, 0.25) 50.52632%, rgba(100, 100, 225, 0.25) 57.89474%, rgba(0, 0, 0, 0) 57.89474%, rgba(0, 0, 0, 0) 58.94737%, rgba(100, 100, 225, 0.25) 58.94737%, rgba(100, 100, 225, 0.25) 66.31579%, rgba(0, 0, 0, 0) 66.31579%, rgba(0, 0, 0, 0) 67.36842%, rgba(100, 100, 225, 0.25) 67.36842%, rgba(100, 100, 225, 0.25) 74.73684%, rgba(0, 0, 0, 0) 74.73684%, rgba(0, 0, 0, 0) 75.78947%, rgba(100, 100, 225, 0.25) 75.78947%, rgba(100, 100, 225, 0.25) 83.15789%, rgba(0, 0, 0, 0) 83.15789%, rgba(0, 0, 0, 0) 84.21053%, rgba(100, 100, 225, 0.25) 84.21053%, rgba(100, 100, 225, 0.25) 91.57895%, rgba(0, 0, 0, 0) 91.57895%, rgba(0, 0, 0, 0) 92.63158%, rgba(100, 100, 225, 0.25) 92.63158%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
-  background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 7.36842%, rgba(0, 0, 0, 0) 7.36842%, rgba(0, 0, 0, 0) 8.42105%, rgba(100, 100, 225, 0.25) 8.42105%, rgba(100, 100, 225, 0.25) 15.78947%, rgba(0, 0, 0, 0) 15.78947%, rgba(0, 0, 0, 0) 16.84211%, rgba(100, 100, 225, 0.25) 16.84211%, rgba(100, 100, 225, 0.25) 24.21053%, rgba(0, 0, 0, 0) 24.21053%, rgba(0, 0, 0, 0) 25.26316%, rgba(100, 100, 225, 0.25) 25.26316%, rgba(100, 100, 225, 0.25) 32.63158%, rgba(0, 0, 0, 0) 32.63158%, rgba(0, 0, 0, 0) 33.68421%, rgba(100, 100, 225, 0.25) 33.68421%, rgba(100, 100, 225, 0.25) 41.05263%, rgba(0, 0, 0, 0) 41.05263%, rgba(0, 0, 0, 0) 42.10526%, rgba(100, 100, 225, 0.25) 42.10526%, rgba(100, 100, 225, 0.25) 49.47368%, rgba(0, 0, 0, 0) 49.47368%, rgba(0, 0, 0, 0) 50.52632%, rgba(100, 100, 225, 0.25) 50.52632%, rgba(100, 100, 225, 0.25) 57.89474%, rgba(0, 0, 0, 0) 57.89474%, rgba(0, 0, 0, 0) 58.94737%, rgba(100, 100, 225, 0.25) 58.94737%, rgba(100, 100, 225, 0.25) 66.31579%, rgba(0, 0, 0, 0) 66.31579%, rgba(0, 0, 0, 0) 67.36842%, rgba(100, 100, 225, 0.25) 67.36842%, rgba(100, 100, 225, 0.25) 74.73684%, rgba(0, 0, 0, 0) 74.73684%, rgba(0, 0, 0, 0) 75.78947%, rgba(100, 100, 225, 0.25) 75.78947%, rgba(100, 100, 225, 0.25) 83.15789%, rgba(0, 0, 0, 0) 83.15789%, rgba(0, 0, 0, 0) 84.21053%, rgba(100, 100, 225, 0.25) 84.21053%, rgba(100, 100, 225, 0.25) 91.57895%, rgba(0, 0, 0, 0) 91.57895%, rgba(0, 0, 0, 0) 92.63158%, rgba(100, 100, 225, 0.25) 92.63158%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
-  background-image: linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 7.36842%, rgba(0, 0, 0, 0) 7.36842%, rgba(0, 0, 0, 0) 8.42105%, rgba(100, 100, 225, 0.25) 8.42105%, rgba(100, 100, 225, 0.25) 15.78947%, rgba(0, 0, 0, 0) 15.78947%, rgba(0, 0, 0, 0) 16.84211%, rgba(100, 100, 225, 0.25) 16.84211%, rgba(100, 100, 225, 0.25) 24.21053%, rgba(0, 0, 0, 0) 24.21053%, rgba(0, 0, 0, 0) 25.26316%, rgba(100, 100, 225, 0.25) 25.26316%, rgba(100, 100, 225, 0.25) 32.63158%, rgba(0, 0, 0, 0) 32.63158%, rgba(0, 0, 0, 0) 33.68421%, rgba(100, 100, 225, 0.25) 33.68421%, rgba(100, 100, 225, 0.25) 41.05263%, rgba(0, 0, 0, 0) 41.05263%, rgba(0, 0, 0, 0) 42.10526%, rgba(100, 100, 225, 0.25) 42.10526%, rgba(100, 100, 225, 0.25) 49.47368%, rgba(0, 0, 0, 0) 49.47368%, rgba(0, 0, 0, 0) 50.52632%, rgba(100, 100, 225, 0.25) 50.52632%, rgba(100, 100, 225, 0.25) 57.89474%, rgba(0, 0, 0, 0) 57.89474%, rgba(0, 0, 0, 0) 58.94737%, rgba(100, 100, 225, 0.25) 58.94737%, rgba(100, 100, 225, 0.25) 66.31579%, rgba(0, 0, 0, 0) 66.31579%, rgba(0, 0, 0, 0) 67.36842%, rgba(100, 100, 225, 0.25) 67.36842%, rgba(100, 100, 225, 0.25) 74.73684%, rgba(0, 0, 0, 0) 74.73684%, rgba(0, 0, 0, 0) 75.78947%, rgba(100, 100, 225, 0.25) 75.78947%, rgba(100, 100, 225, 0.25) 83.15789%, rgba(0, 0, 0, 0) 83.15789%, rgba(0, 0, 0, 0) 84.21053%, rgba(100, 100, 225, 0.25) 84.21053%, rgba(100, 100, 225, 0.25) 91.57895%, rgba(0, 0, 0, 0) 91.57895%, rgba(0, 0, 0, 0) 92.63158%, rgba(100, 100, 225, 0.25) 92.63158%, rgba(100, 100, 225, 0.25) 100.0%, rgba(0, 0, 0, 0) 100.0%, rgba(0, 0, 0, 0) 100%);
-  background-position: left top;
-  -webkit-background-origin: content;
-  -moz-background-origin: content;
-  -ms-background-origin: content-box;
-  -o-background-origin: content-box;
-  background-origin: content-box;
-  -webkit-background-clip: content-box;
-  -moz-background-clip: content-box;
-  background-clip: content-box;
-  background-color: yellow;
-}
-@media (min-width: 470px) {
-  /* line 32, ../scss/_layout.scss */
-  body #main {
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  /* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
-  body #main:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-@media (min-width: 790px) {
-  /* line 32, ../scss/_layout.scss */
-  body #main {
-    width: auto;
-  }
-}
-@media (min-width: 470px) {
-  /* line 41, ../scss/_layout.scss */
-  body #main {
-    background-color: green;
-  }
-}
-@media (min-width: 790px) {
-  /* line 48, ../scss/_layout.scss */
-  body #main {
-    background-color: pink;
-  }
 }
