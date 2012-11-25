@@ -2,71 +2,59 @@
 //
 // .not-front.not-logged-in.page-user - main container selector on body
 // 
-//
+// The log in page has a small form in the middle which also appears as an even smaller form in the navigation section. 
 
 body.not-front.not-logged-in.page-user {
   #main {
 
     h1.title {
-      @include span-columns($total-width - 4, $total-width);
+      @include span-columns($login-form-width, $total-width);
       @include pad(1, 1, $total-width);
       @include squish(1,1,$total-width);
+      @include gradient($postit-yellow, white);
     }
 
-    form#user-login {
-      @include span-columns($total-width, $total-width);
+    form {
+      @include span-columns($login-form-width, $total-width);
       @include pad(1,1, $total-width);
       background: white;
 
-      @include at-breakpoint($break-small) {
-        @include span-columns($break-small + 2, $total-width);
-        @include pad(1, 1, $total-width);
-        @include squish(1,1,$total-width);
-        clear: both;
-      }
-      @include at-breakpoint($break-medium) {
-        @include span-columns($break-medium - 4, $total-width);
-        @include squish(2,2,$total-width);
-      }
-
-      .form-item-name, .form-item-pass {
-        background-color: pink;
-        
-        @include at-breakpoint($break-small) {
-          @include span-columns(($break-small / 2), $break-small)
-        }
-
-        @include at-breakpoint($break-medium) {
-          @include span-columns(($break-small / 2), $break-small)
-        }
+      .form-item-name, 
+      .form-item-pass {
+        background-color: yellow;
+        @include span-columns($login-form-width, $total-width);
       }
 
       div.item-list {
         @include clearfix;
-        @include reset-list-style;
+        ul { @include reset-list-style; }
+        li { float: $from-direction; }
+        background-color: $lightgray;
       }
 
       .form-actions {
         clear: both;
+        @include reset-box-model;
+
       }
 
       input.form-submit {
         @extend .btn;
         @extend .btn-large;
         @extend .btn-primary;
+        
       }
 
+      // The social media sign-in boxes
+      //
+      // $login-form-width - defaults to $total-width - 2
       #edit-social-media-signin {
-        @include span-columns($total-width, $total-width);
+        @include span-columns($login-form-width, $login-form-width);
         label {
           float: $from-direction;
         }
-        ul {
-          @include reset-list-style;
-          li {
-            float: $from-direction;
-          } 
-        }
+
+
       }
     }
   }
