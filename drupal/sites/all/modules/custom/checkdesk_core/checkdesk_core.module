@@ -25,7 +25,7 @@ function checkdesk_core_menu() {
   );
   $items['node/%checkdesk_report/checkdesk/suggest'] = array(
     'title' => 'Add report to story',
-    'title callback' => '_checkdesk_core_report_suggest_title',
+    'title callback' => 'checkdesk_core_report_suggest_title',
     'title arguments' => array(1),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_core_report_suggest', 1),
@@ -56,19 +56,18 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['modal/%ctools_js'] = array(
-    'page callback' => '_checkdesk_core_modal_callback',
+    'page callback' => 'checkdesk_core_modal_callback',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
   );
   $items['modal/%/%ctools_js'] = array(
-    'page callback' => '_checkdesk_core_page_callback',
+    'page callback' => 'checkdesk_core_page_callback',
     'page arguments' => array(1, 2),
     'access callback' => 'node_access',
     'access arguments' => array('update', 1),
     'delivery callback' => 'ajax_deliver',
     'theme callback' => 'ajax_base_page_theme',
     'type' => MENU_CALLBACK,
-    //'file' => 'ajax_register.pages.inc',
   );
 
   return $items;
@@ -77,7 +76,7 @@ function checkdesk_core_menu() {
 /**
  * Menu function for `modal/%ctools_js`.
  */
-function _checkdesk_core_modal_callback($js = FALSE) {
+function checkdesk_core_modal_callback($js = FALSE) {
   $alias = preg_replace('/modal\/[^\/]+\//', '', request_path());
   $path = drupal_lookup_path('source', $alias);
   $node = menu_get_object('node', 1, $path);
@@ -97,7 +96,7 @@ function _checkdesk_core_modal_callback($js = FALSE) {
 /**
  * Title callback for `_checkdesk_core_report_suggest`.
  */ 
-function _checkdesk_core_report_suggest_title($report) {
+function checkdesk_core_report_suggest_title($report) {
   return user_access('add report to story') ? 
     t('Add report "!title" to story', array('!title' => $report->title)) : 
     t('Suggest report "!title" to story', array('!title' => $report->title));
@@ -657,14 +656,14 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
   if($form_id == '_checkdesk_core_report_suggest') {
     // Include css and js for modal dialog.
-    _checkdesk_core_include_modal();
+    checkdesk_core_include_modal();
     // Do not process form with AJAX that should be processed with CTools.
     if (isset($form_state['ajax']) && $form_state['ajax'] == TRUE) {
       
     }
     else {
       // Add html wrapper to form and #ajax to form submit.
-      _checkdesk_core_add_ajax($form, $form_id);
+      checkdesk_core_add_ajax($form, $form_id);
     }
   }
 }
@@ -673,7 +672,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 /**
  * Add form wrapper and #ajax attribute to forms.
  */
-function _checkdesk_core_add_ajax(&$form, $type) {
+function checkdesk_core_add_ajax(&$form, $type) {
 
   // Add ajax wrapper to form.
   $html_id = str_replace('_', '-', $type);
@@ -697,7 +696,7 @@ function _checkdesk_core_add_ajax(&$form, $type) {
 function checkdesk_core__checkdesk_core_report_suggest_ajax_callback($form, $form_state) {
 
   if (!form_get_errors()) {
-    $commands = _checkdesk_core_execute_form('suggest', $form_state);
+    $commands = checkdesk_core_execute_form('suggest', $form_state);
     return array('#type' => 'ajax', '#commands' => $commands);
   }
 
@@ -709,7 +708,7 @@ function checkdesk_core__checkdesk_core_report_suggest_ajax_callback($form, $for
 /**
  * Executes form.
  */
-function _checkdesk_core_execute_form($form_type, $form_state) {
+function checkdesk_core_execute_form($form_type, $form_state) {
   // Include additinal ajax commands.
   ctools_include('ajax');
   ctools_include('modal');
@@ -771,7 +770,7 @@ function _checkdesk_core_execute_form($form_type, $form_state) {
   return $commands;
 }
 
-function _checkdesk_core_page_callback($form_type, $js) {
+function checkdesk_core_page_callback($form_type, $js) {
 
   // Check whether js is enabled.
   if ($js) {
@@ -806,53 +805,40 @@ function _checkdesk_core_page_callback($form_type, $js) {
 /**
  * Add css and javascript for modal dialog.
  */
-function _checkdesk_core_include_modal() {
-
-
-
-  static $added = FALSE;
-  if ($added == FALSE) {
-
-    // Do not add css and scripts again.
-    $added = TRUE;
-
-    // Include the CTools tools that we need.
-    ctools_include('modal');
-    ctools_include('ajax');
-    ctools_modal_add_js();
-
-    $modal_style = array(
-      'checkdesk-modal-style' => array(
-        'modalSize' => array(
-          'type' => 'scale',
-          'width' => .2,
-          'height' => .2,
-          'addWidth' => 20,
-          'addHeight' => 15,
-        ),
-        'modalOptions' => array(
-          'opacity' => .2,
-          'background-color' => '#000000',
-        ),
-        'animation' => 'fadeIn',
-        'modalTheme' => 'checkdesk_modal_style',
-        // Customize the AJAX throbber like so:
-        // This function assumes the images are inside the module directory's "images"
-        // directory:
-        // ctools_image_path($image, $module = 'ctools', $dir = 'images')
-        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'happy'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
-        'closeImage' => theme('image', array('path' => ctools_image_path('modal-close.png', 'happy'), 'alt' => t('Close window'), 'title' => t('Close window'))),
-      ),
-    );
+function checkdesk_core_include_modal() {
   
-    // Add the settings array defined above to Drupal 7's JS settings:
-    drupal_add_js($modal_style, 'setting');
-    // The function below assumes the happy.js file resides in [module_dir]/js
-    ctools_add_js('checkdesk_core', 'checkdesk_core');
-    // The function below assumes the happy.css file resides in [module_dir]/css
-    ctools_add_css('checkdesk_core', 'checkdesk_core');
+  // Include the CTools tools that we need.
+  ctools_include('ajax');
+  ctools_include('modal');
 
+  // Add CTools' javascript to the page.
+  ctools_modal_add_js();
 
+  // Create our own javascript that will be used to theme a modal.
+  $modal_style = array(
+    'cd-style' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 500,
+        'height' => 300,
+        'addWidth' => 20,
+        'addHeight' => 15,
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'fadeIn',
+      'modalTheme' => 'CToolsSampleModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+    ),
+  );
 
-  }
+  drupal_add_js($modal_style, 'setting');
+
+  // Since we have our js, css and images in well-known named directories,
+  // CTools makes it easy for us to just use them without worrying about
+  // using drupal_get_path() and all that ugliness.
+  ctools_add_js('checkdesk_core', 'checkdesk_core');
+  
 }
