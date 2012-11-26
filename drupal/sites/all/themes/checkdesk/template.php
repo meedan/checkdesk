@@ -135,6 +135,10 @@ function checkdesk_links__node($variables) {
   $attributes = $variables['attributes'];
   $heading = $variables['heading'];
 
+  ctools_include('modal');
+  ctools_include('ajax');
+  ctools_modal_add_js();
+
   $class[] = 'report-actions';
   $output = '';
 
@@ -152,10 +156,6 @@ function checkdesk_links__node($variables) {
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-edit"></i></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
-        ctools_include('modal');
-        ctools_include('ajax');
-        ctools_modal_add_js();
-
         $name = t('Add to story');
         // Create a path for the url that is like our hook_menu() declaration above.
         $href = 'modal/suggest/nojs/';

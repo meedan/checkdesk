@@ -819,8 +819,8 @@ function checkdesk_core_include_modal() {
     'cd-style' => array(
       'modalSize' => array(
         'type' => 'fixed',
-        'width' => 500,
-        'height' => 300,
+        'width' => 200,
+        'height' => 400,
         'addWidth' => 20,
         'addHeight' => 15,
       ),
@@ -828,8 +828,8 @@ function checkdesk_core_include_modal() {
         'opacity' => .5,
         'background-color' => '#000',
       ),
-      'animation' => 'fadeIn',
-      'modalTheme' => 'CToolsSampleModal',
+      'animation' => 'slideDown',
+      'modalTheme' => 'CheckDeskModal',
       'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
     ),
   );
