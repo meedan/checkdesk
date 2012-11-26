@@ -7,22 +7,12 @@
 $default-form-width: $total-width - 2;
 $default-label-width: 1;
 
-@mixin login_form($mode: "page", $form-width: $default-form-width, $context: $total-width) {  
-
-  font-family: "Open Sans", sans;
-  ul { 
-    @include reset-box-model;
-    @include reset-list-style;
-  }
-  li { 
-    @include reset-box-model;
-    float: $from-direction; 
-  }  
+@mixin login_form($mode: "page", $form-width: $default-form-width) {  
 
   form {
     @include clearfix;
-    @include span-columns($form-width, $context);
-    @include squish(1, 1, $context);
+    @include span-columns($form-width, $total-width);
+    @include squish(1, 1, $total-width);
     margin-top: 20px;
 
     .form-item {
@@ -30,7 +20,6 @@ $default-label-width: 1;
       padding-top: $gutter-width;
 
       input {
-        float: opposite-position($from-direction);
         @include span-columns(6 omega, $form-width, $gutter-width);
       }
 
@@ -60,6 +49,10 @@ $default-label-width: 1;
       li a { 
         @include span-columns(3 omega, $form-width);
       }       
+    }
+    
+    .password-strength {
+      @include span-columns($form-width, $form-width);
     }
 
     .form-type-checkbox,
@@ -131,12 +124,13 @@ $default-label-width: 1;
 
 // Emit main login form CSS
 body.not-front.not-logged-in.page-user {
+  font-family: "Open Sans", sans;
 
   #main {
     margin-top: 3em;
   }
 
-  // @include debug_drupal;
+  @include debug_drupal;
 
   @include login_form("page", $default-form-width);
   // @include login_form("overlay", $default-form-width);

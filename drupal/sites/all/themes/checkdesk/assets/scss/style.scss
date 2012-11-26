@@ -234,3 +234,14 @@ body.not-front.not-logged-in.page-user {
     }
   }
 }
+
+
+// Global styles
+ul { 
+  @include reset-box-model;
+  @include reset-list-style;
+}
+li { 
+  @include reset-box-model;
+  float: $from-direction; 
+}  
