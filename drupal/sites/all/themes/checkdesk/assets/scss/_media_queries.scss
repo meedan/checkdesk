@@ -1,0 +1,15 @@
+// Hide descriptions above breakpoint 6 
+//
+// where "breakpoint 6" means: "at the equivalent of 6 default columns"
+// ... eg as calculated at a "full browser width" 
+// ... based on $total-width $column-width $gutter-width in _base.scss.
+// 
+// Todo: try some experiments with changing the configuration settings
+
+// Descriptions are hidden at smaller sizes (by default)
+.description { display: none; }
+@include at-breakpoint(6) { 
+  .description { 
+    display: block;
+  } 
+}

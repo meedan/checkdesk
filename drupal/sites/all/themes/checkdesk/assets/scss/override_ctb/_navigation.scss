@@ -1,6 +1,6 @@
-//
 // Checkdesk Navigation
-// This file is a merge and replacement for CTB navs and navbars
+//
+// This file is a merge and replacement for Twitter Bootstrap navs and navbars
 
 // Base class
 .nav {
@@ -250,8 +250,9 @@
   text-shadow: 0 1px 0 $navbarBackgroundHighlight;
 }
 
-.navbar .nav > li.home a {
+.navbar li.home a {
   // @include hide-text();
+  @include icon("home");
   padding: (($navbarHeight - $baseLineHeight) / 2) 15px (($navbarHeight - $baseLineHeight) / 2);
 }
 
@@ -301,7 +302,6 @@
 .btn-navbar .icon-bar + .icon-bar {
   margin-top: 3px;
 }
-
 
 // Dropdown menus
 // --------------

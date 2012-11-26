@@ -1,66 +1,92 @@
-// Login page
+// Checkdesk Login page
 //
 // .not-front.not-logged-in.page-user - main container selector on body
 // 
 // The log in page has a small form in the middle which also appears as an even smaller form in the navigation section. 
 
-body.not-front.not-logged-in.page-user {
-  #main {
+$default-label-width: 1;
 
-    h1.title {
-      @include span-columns($login-form-width, $total-width);
-      @include pad(1, 1, $total-width);
-      @include squish(1,1,$total-width);
-      @include gradient($postit-yellow, white);
+@mixin login_form($mode: "page", $form-width: $login-form-width, $context: $total-width) {
+
+  @include debug_drupal_form;
+
+  ul { 
+    @include reset-box-model;
+    @include reset-list-style;
+  }
+  li { 
+    @include reset-box-model;
+    float: $from-direction; 
+  }  
+
+  form {
+    @include clearfix;
+    @include span-columns($form-width, $context);
+    @include pad(1,1, $context);
+
+    .form-item {
+      // background-color: $midnight-blue;
+      @include span-columns($form-width / 2, $form-width);
     }
 
-    form {
-      @include span-columns($login-form-width, $total-width);
-      @include pad(1,1, $total-width);
-      background: white;
+    // All item-lists
+    // 
+    // Forgot password, 
+    div.item-list {
+      @include span-columns(($form-width / 2), $form-width);  
+    }
 
-      .form-item {
-        background-color: $midnight-blue;
+    .form-type-checkbox,
+    .form-item-textfield, 
+    .form-item-password {
+      @include span-columns($form-width / 2, $form-width);
+    }
+
+    .form-actions {
+      clear: both;
+      @include reset-box-model;
+    }
+
+    input.form-submit {
+      // Bowerbird button mixin, Checkdesk style
+      @include checkdesk-button($twitter-blue);
+
+      // Deprecated: the twitter bootsrap button classes.
+      // but we can still extend them as necessary — CGB Nov 2012
+      // @extend .btn;
+      // @extend .btn-large;
+      // @extend .btn-primary;
+    }
+
+    // The social media sign-in boxes
+    #edit-social-media-signin {
+      $label-width: 1 !default;
+      @include span-columns($form-width, $form-width);
+      label {
+        @include span-columns($label-width, $form-width);  
       }
-
-      .form-item-name, 
-      .form-item-pass {
-        @include span-columns($login-form-width, $total-width);
-      }
-
       div.item-list {
-        @include clearfix;
-        ul { @include reset-list-style; }
-        li { float: $from-direction; }
-        background-color: $light-grey;
-      }
+        @include span-columns(($form-width - $label-width) omega, $form-width);  
+        clear: none;
 
-      .form-actions {
-        clear: both;
-        @include reset-box-model;
-
-      }
-
-      input.form-submit {
-        @include button(darken($frenchpass-blue, 30%));
-        // @extend .btn;
-        // @extend .btn-large;
-        // @extend .btn-primary;
-      }
-
-      // The social media sign-in boxes
-      //
-      // $login-form-width - defaults to $total-width - 2
-      #edit-social-media-signin {
-        @include span-columns($login-form-width, $login-form-width);
-        label {
-          float: $from-direction;
+        // equal heights for social media logos
+        img {
+          height: 20px;
+          padding-#{opposite-position($from-direction)}: $gutter-width;
         }
-
-
       }
     }
   }
 }
 
+body.not-front.not-logged-in.page-user {
+  #main {
+    margin-top: 3em;
 
+    // Main user login form
+    // 
+    // This drives two versions, page and overlay
+    @include login_form("page");
+    
+  }
+}

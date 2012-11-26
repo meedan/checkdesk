@@ -12,6 +12,7 @@
 
 // Bowerbird Compass Framework: Compass and Susy and perhaps some basic configuration
 @import "bowerbird"; 
+@import "bowerbird/debug";
 
 // Bowerbird Drupal touchups
 @import "bowerbird/drupal";
@@ -21,6 +22,15 @@
 // Example usage:
 // button { @include button($tupperware-blue, 26px, 1em, 4px); }
 @import "bowerbird/buttons";
+
+// Default checkdeks button using bowerbird/buttons instead of twitter bootstrap
+@mixin checkdesk-button(
+  $color: $button-color,
+  $font-size: $button-font-size,
+  $radius: $button-radius, 
+  $border-width: $button-border-width) {
+  @include button; 
+}
 
 // Bowerbird fork of fancy-gradients
 //
@@ -34,16 +44,26 @@
 // div { color: $tupperware-blue; }
 @import "bowerbird/colors";
 
-// Font-icon support from the fontawesome project which uses font-based icons. 
+// Font-icon support
 //
 // Make sure your font paths are set correctly in config.rb
 // 
 // Imports: Fontawesome
 // contains "icon-something" names to injected custom unicode glyph character
 //
-//[class^="icon-"]:before - 
-// 
+//[class^="icon-"]:before - generates selectors prefixed with "icon-".
 @import "bowerbird/icons/icons";
+
+// Load icon fonts and all selectors
+//
+// Warning: this should be refined for production, it's a lot of unnecessary classes
+// 
+// These includes need to remain un-neseted so they can be extended. — CGB Nov 2012
+@include enable_font_icons("fontawesome");
+
+// Problem: these styles conflict, not sure what to do about this yet. CGB Nov 2012
+//
+// @include enable_font_icons("foundicons");
 
 // ============================================================== 
 // Checkdesk (forked) versions of Twitter Bootstrap libraries.
@@ -132,7 +152,7 @@
 
 // ===== Unmodified Twitter Bootstrap buttons and button groups
 //
-// Basics for buttons with several variations.
+// Basics for buttons with several variations. Replaced by bowerbird/buttons.
 //
 // .btn - Base button
 // .btn-large - Large variation
@@ -143,8 +163,8 @@
 // .btn-success - Great work! button
 // .btn-info - Informative button
 // .btn-inverse - Inverted button
-@import "bowerbird/compass_twitter_bootstrap/buttons";
-@import "bowerbird/compass_twitter_bootstrap/button-groups";
+// @import "bowerbird/compass_twitter_bootstrap/buttons";
+// @import "bowerbird/compass_twitter_bootstrap/button-groups";
 
 // ===== Unmodified Twitter Bootstrap modals
 // .modal - the main modal frame which will have .modal_backdrop behind it
@@ -197,3 +217,18 @@
 
 // ====== Checkdesk commenting plugin
 @import "livefyre";
+
+// ====== Temporary 
+// ====== Hidden things
+
+// We are not using this style of icon, and it is generating an extra class
+i {display: none;}
+
+body.not-front.not-logged-in.page-user {
+  #main {
+    div.breadcrumb, 
+    h1.title {
+      display: none;
+    }
+  }
+}
