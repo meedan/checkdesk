@@ -6,20 +6,29 @@
 
 @import "bowerbird/tabs";
 
-.tabs {
-  @include span-columns(8, $total-width);
-  @include pad(2, 2, $total-width);
-  background-color: white;
+$tabs-width: $total-width - 2;
 
+#content div.tabs {
+  @include span-columns($tabs-width, $total-width);
+  @include squish(1, 1, $total-width);
+  
   ul.primary {
-    font-size: 16px;
-    @include reset-box-model;
+    @include span-columns($tabs-width, $tabs-width);
+    display: block;
+    @include clearfix;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+    margin-top: 20px;
+    padding { top: 20px; bottom: 20px; }
+    font-family: "Open Sans", sans-serif;
+    font-size: $large-font-size;
+    
 
     li {
       margin-#{opposite-position($from-direction)}: 20px;
-      padding: 20px;
+      padding { top: 20px; bottom: 20px; }
       &.active {
-        background: #c3c3c3;
       }
       a {
         padding: 0;

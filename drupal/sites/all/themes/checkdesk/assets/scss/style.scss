@@ -11,7 +11,9 @@
 // Also BCF contains vendored libraries (which would usually be used as gems): compass_twitter_bootstrap and. To use them: @import "bowerbird/drupal" -- some @imports will @import Sass directly and some will @import mixins you can then @include with parameters.
 
 // Bowerbird Compass Framework: Compass and Susy and perhaps some basic configuration
-@import "bowerbird"; 
+@import "bowerbird";
+
+// Debug mixins
 @import "bowerbird/debug";
 
 // Bowerbird Drupal touchups

@@ -57,7 +57,7 @@ div.block:hover .edit {
 }
 
 /* line 271, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
-.button-reset-base-class, body.not-front.not-logged-in.page-user #main form input.form-submit {
+.button-reset-base-class, body.not-front.not-logged-in.page-user form input.form-submit {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
@@ -69,12 +69,12 @@ div.block:hover .edit {
   font-weight: 300;
 }
 /* line 255, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
-.button-reset-base-class::-moz-focus-inner, body.not-front.not-logged-in.page-user #main form input.form-submit::-moz-focus-inner {
+.button-reset-base-class::-moz-focus-inner, body.not-front.not-logged-in.page-user form input.form-submit::-moz-focus-inner {
   border: none;
   padding: 0;
 }
 /* line 259, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
-.button-reset-base-class:focus, body.not-front.not-logged-in.page-user #main form input.form-submit:focus {
+.button-reset-base-class:focus, body.not-front.not-logged-in.page-user form input.form-submit:focus {
   outline: none;
 }
 
@@ -3864,275 +3864,241 @@ table th[class*="span"],
 
 /* line 7, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
 div.tabs {
-  margin: 0 0 5px 0;
-}
-
-/* line 11, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary, ul.secondary {
-  width: 99%;
-}
-
-/* line 14, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary {
-  margin: 0;
-  padding: 0 0 0 10px;
-  border-width: 0;
-  list-style: none;
-  white-space: nowrap;
-  line-height: normal;
-  background: url(../images/tabs/tab-bar.png) repeat-x left bottom;
-}
-/* line 22, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary li {
-  float: left;
-  margin: 0;
-  padding: 0;
-}
-/* line 27, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary li.active a, ul.primary li.active a:hover {
-  border-width: 0;
-  color: black;
-  background-color: transparent;
-  background: url(../images/tabs/tab-left.png) no-repeat left 0;
-}
-/* line 32, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary li.active a .tab, ul.primary li.active a:hover .tab {
-  background: url(../images/tabs/tab-right.png) no-repeat right 0;
-}
-/* line 34, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary li a {
-  display: block;
-  height: 24px;
-  margin: 0;
-  padding: 0 0 0 5px;
-  border-width: 0;
-  font-weight: bold;
-  text-decoration: none;
-  color: #777777;
-  background-color: transparent;
-  background: url(../images/tabs/tab-left.png) no-repeat left -38px;
-}
-/* line 45, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary li a:hover {
-  border-width: 0;
-  background-color: transparent;
-  background: url(../images/tabs/tab-left.png) no-repeat left -76px;
-}
-/* line 49, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary li a:hover .tab {
-  background: url(../images/tabs/tab-right.png) no-repeat right -76px;
-}
-/* line 51, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.primary li a .tab {
-  display: block;
-  height: 20px;
-  margin: 0;
-  padding: 4px 13px 0 6px;
-  border-width: 0;
-  line-height: 20px;
-  background: url(../images/tabs/tab-right.png) no-repeat right -38px;
-}
-
-/* line 60, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.secondary {
-  margin: 0;
-  padding: 0 0 0 5px;
-  border-bottom: 1px solid silver;
-  list-style: none;
-  white-space: nowrap;
-  background: url(../images/tabs/tab-secondary-bg.png) repeat-x left bottom;
-}
-/* line 67, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.secondary li {
-  float: left;
-  margin: 0 5px 0 0;
-  padding: 5px 0;
-  border-right: none;
-}
-/* line 72, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.secondary a {
-  display: block;
-  height: 24px;
-  margin: 0;
-  padding: 0;
-  border: 1px solid silver;
-  text-decoration: none;
-  color: #777777;
-  background: url(../images/tabs/tab-secondary.png) repeat-x left -56px;
-}
-/* line 81, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.secondary a .active, ul.secondary a .active:hover {
-  border: 1px solid silver;
-  color: black;
-  background: url(../images/tabs/tab-secondary.png) repeat-x left top;
-}
-/* line 85, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.secondary a:hover {
-  background: url(../images/tabs/tab-secondary.png) repeat-x left bottom;
-}
-/* line 87, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
-ul.secondary a .tab {
-  display: block;
-  height: 18px;
-  margin: 0;
-  padding: 3px 8px;
-  line-height: 18px;
-}
-
-/* line 9, ../scss/_tabs.scss */
-.tabs {
-  width: 66.31579%;
-  float: left;
-  margin-right: 1.05263%;
-  display: inline;
-  padding-left: 16.84211%;
-  padding-right: 16.84211%;
-  background-color: white;
-}
-/* line 14, ../scss/_tabs.scss */
-.tabs ul.primary {
-  font-size: 16px;
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 18, ../scss/_tabs.scss */
-.tabs ul.primary li {
+
+/* line 11, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  white-space: nowrap;
+  overflow: visible!important;
+}
+/* line 16, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li.active a, ul.primary li.active a:hover {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* line 23, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li a {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-decoration: none;
+  background-color: transparent;
+}
+/* line 28, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.primary li a:hover {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* line 37, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  white-space: nowrap li;
+  white-space-float: left;
+  white-space-margin: 0;
+  white-space-padding: 0;
+  white-space-border: 0;
+}
+/* line 45, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary a {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-decoration: none;
+  color: #777777;
+}
+/* line 52, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary a .active,
+ul.secondary a .active:hover {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: black;
+}
+/* line 56, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.secondary a .tab {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* line 11, ../scss/_tabs.scss */
+#content div.tabs {
+  width: 83.15789%;
+  float: left;
+  margin-right: 1.05263%;
+  display: inline;
+  margin-left: 8.42105%;
+  margin-right: 8.42105%;
+}
+/* line 15, ../scss/_tabs.scss */
+#content div.tabs ul.primary {
+  width: 100%;
+  float: left;
+  margin-right: 1.26582%;
+  display: inline;
+  display: block;
+  overflow: hidden;
+  *zoom: 1;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: white;
+  margin-top: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+}
+/* line 23, ../scss/_tabs.scss */
+#content div.tabs ul.primary padding {
+  top: 20px;
+  bottom: 20px;
+}
+/* line 28, ../scss/_tabs.scss */
+#content div.tabs ul.primary li {
   margin-right: 20px;
-  padding: 20px;
 }
-/* line 21, ../scss/_tabs.scss */
-.tabs ul.primary li.active {
-  background: #c3c3c3;
+/* line 30, ../scss/_tabs.scss */
+#content div.tabs ul.primary li padding {
+  top: 20px;
+  bottom: 20px;
 }
-/* line 24, ../scss/_tabs.scss */
-.tabs ul.primary li a {
+/* line 33, ../scss/_tabs.scss */
+#content div.tabs ul.primary li a {
   padding: 0;
 }
 
-/* line 83, ../scss/_login.scss */
+/* line 133, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user {
+  font-family: "Open Sans", sans;
+}
+/* line 135, ../scss/_login.scss */
 body.not-front.not-logged-in.page-user #main {
   margin-top: 3em;
 }
-/* line 51, ../../../bowerbird/framework/stylesheets/bowerbird/_debug.scss */
-body.not-front.not-logged-in.page-user #main form {
-  border-top: 3px solid #1c6ac5;
-  background-color: #b8d4f5;
-}
-/* line 22, ../../../bowerbird/framework/stylesheets/bowerbird/_debug.scss */
-body.not-front.not-logged-in.page-user #main form .item-list {
-  border-top: 3px solid #ff628c;
-  background-color: white;
-  position: relative;
-}
-/* line 27, ../../../bowerbird/framework/stylesheets/bowerbird/_debug.scss */
-body.not-front.not-logged-in.page-user #main form .item-list:before {
-  content: ".item-list";
-  background-color: #ff628c;
-  margin-top: -12px;
-  margin-right: 0px;
-  line-height: 12px;
-  font-size: 8px;
-  color: #000000;
-  font-family: monaco, monospace;
-  display: inline-block;
-  position: absolute;
-}
-/* line 22, ../../../bowerbird/framework/stylesheets/bowerbird/_debug.scss */
-body.not-front.not-logged-in.page-user #main form .form-item {
-  border-top: 3px solid #3ad900;
-  background-color: #beffa6;
-  position: relative;
-}
-/* line 27, ../../../bowerbird/framework/stylesheets/bowerbird/_debug.scss */
-body.not-front.not-logged-in.page-user #main form .form-item:before {
-  content: ".form-item";
-  background-color: #3ad900;
-  margin-top: -12px;
-  margin-right: 0px;
-  line-height: 12px;
-  font-size: 8px;
-  color: #000000;
-  font-family: monaco, monospace;
-  display: inline-block;
-  position: absolute;
-}
-/* line 22, ../../../bowerbird/framework/stylesheets/bowerbird/_debug.scss */
-body.not-front.not-logged-in.page-user #main form .form-actions {
-  border-top: 3px solid #0088ff;
-  background-color: #cce7ff;
-  position: relative;
-}
-/* line 27, ../../../bowerbird/framework/stylesheets/bowerbird/_debug.scss */
-body.not-front.not-logged-in.page-user #main form .form-actions:before {
-  content: ".form-actions";
-  background-color: #0088ff;
-  margin-top: -12px;
-  margin-right: 0px;
-  line-height: 12px;
-  font-size: 8px;
-  color: #000000;
-  font-family: monaco, monospace;
-  display: inline-block;
-  position: absolute;
-}
 /* line 13, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main ul {
+body.not-front.not-logged-in.page-user ul {
   margin: 0;
   padding: 0;
   border: 0;
   list-style: none;
 }
 /* line 17, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main li {
+body.not-front.not-logged-in.page-user li {
   margin: 0;
   padding: 0;
   border: 0;
   float: left;
 }
 /* line 22, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form {
+body.not-front.not-logged-in.page-user form {
   overflow: hidden;
   *zoom: 1;
-  width: 49.47368%;
+  width: 83.15789%;
   float: left;
   margin-right: 1.05263%;
   display: inline;
-  padding-left: 8.42105%;
-  padding-right: 8.42105%;
+  margin-left: 8.42105%;
+  margin-right: 8.42105%;
+  margin-top: 20px;
 }
-/* line 27, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form .form-item {
-  width: 48.93617%;
+/* line 28, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-item {
+  padding-left: 1.26582%;
+  padding-right: 1.26582%;
+  width: 97.46835%;
   float: left;
-  margin-right: 2.12766%;
+  margin-right: 1.26582%;
+  display: inline;
+  padding-top: 10px;
+}
+/* line 32, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-item input {
+  float: right;
+  padding-left: 1.26582%;
+  padding-right: 1.26582%;
+  width: 56.96203%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -10px;
   display: inline;
 }
-/* line 35, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form div.item-list {
-  width: 48.93617%;
+/* line 37, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-item label {
+  font-size: 20px;
   float: left;
-  margin-right: 2.12766%;
-  display: inline;
 }
-/* line 41, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form .form-type-checkbox,
-body.not-front.not-logged-in.page-user #main form .form-item-textfield,
-body.not-front.not-logged-in.page-user #main form .form-item-password {
-  width: 48.93617%;
-  float: left;
-  margin-right: 2.12766%;
-  display: inline;
-}
-/* line 45, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form .form-actions {
+/* line 42, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-item .description {
   clear: both;
-  margin: 0;
-  padding: 0;
-  border: 0;
+  margin-top: 0;
+  float: left;
+  font-size: 12px;
 }
-/* line 50, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form input.form-submit {
+/* line 54, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-item-name ~ .item-list {
+  padding-left: 1.26582%;
+  padding-right: 1.26582%;
+  width: 97.46835%;
+  float: left;
+  margin-right: 1.26582%;
+  display: inline;
+}
+/* line 56, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-item-name ~ .item-list ul, body.not-front.not-logged-in.page-user form .form-item-name ~ .item-list li {
+  width: 100%;
+  float: left;
+  margin-right: 1.26582%;
+  display: inline;
+}
+/* line 60, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-item-name ~ .item-list li a {
+  width: 29.11392%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -10px;
+  display: inline;
+}
+/* line 67, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-type-checkbox,
+body.not-front.not-logged-in.page-user form .form-item-textfield,
+body.not-front.not-logged-in.page-user form .form-item-password {
+  padding-left: 1.26582%;
+  padding-right: 1.26582%;
+  width: 97.46835%;
+  float: left;
+  margin-right: 1.26582%;
+  display: inline;
+}
+/* line 71, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form .form-actions {
+  padding-left: 1.26582%;
+  padding-right: 1.26582%;
+  width: 97.46835%;
+  float: left;
+  margin-right: 1.26582%;
+  display: inline;
+}
+/* line 75, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form input.form-submit {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -4159,11 +4125,11 @@ body.not-front.not-logged-in.page-user #main form input.form-submit {
   background-clip: padding-box;
 }
 /* line 188, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
-body.not-front.not-logged-in.page-user #main form input.form-submit, body.not-front.not-logged-in.page-user #main form input.form-submit:visited {
+body.not-front.not-logged-in.page-user form input.form-submit, body.not-front.not-logged-in.page-user form input.form-submit:visited {
   color: white;
 }
 /* line 74, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
-body.not-front.not-logged-in.page-user #main form input.form-submit:hover, body.not-front.not-logged-in.page-user #main form input.form-submit:focus {
+body.not-front.not-logged-in.page-user form input.form-submit:hover, body.not-front.not-logged-in.page-user form input.form-submit:focus {
   background-color: #3c3c3c;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #474747), color-stop(100%, #282828));
   background-image: -webkit-linear-gradient(#474747, #282828);
@@ -4175,11 +4141,11 @@ body.not-front.not-logged-in.page-user #main form input.form-submit:hover, body.
   text-shadow: black 0px 1px 1px;
 }
 /* line 188, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
-body.not-front.not-logged-in.page-user #main form input.form-submit:hover, body.not-front.not-logged-in.page-user #main form input.form-submit:hover:visited, body.not-front.not-logged-in.page-user #main form input.form-submit:focus, body.not-front.not-logged-in.page-user #main form input.form-submit:focus:visited {
+body.not-front.not-logged-in.page-user form input.form-submit:hover, body.not-front.not-logged-in.page-user form input.form-submit:hover:visited, body.not-front.not-logged-in.page-user form input.form-submit:focus, body.not-front.not-logged-in.page-user form input.form-submit:focus:visited {
   color: white;
 }
 /* line 82, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
-body.not-front.not-logged-in.page-user #main form input.form-submit:active {
+body.not-front.not-logged-in.page-user form input.form-submit:active {
   background-color: #353535;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2d2d2d), color-stop(40%, #353535), color-stop(85%, #353535), color-stop(100%, #474747));
   background-image: -webkit-linear-gradient(#2d2d2d, #353535 40%, #353535 85%, #474747);
@@ -4194,34 +4160,36 @@ body.not-front.not-logged-in.page-user #main form input.form-submit:active {
   box-shadow: #1e1e1e 0 0.08em 0.2em 1px inset;
 }
 /* line 188, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
-body.not-front.not-logged-in.page-user #main form input.form-submit:active, body.not-front.not-logged-in.page-user #main form input.form-submit:active:visited {
+body.not-front.not-logged-in.page-user form input.form-submit:active, body.not-front.not-logged-in.page-user form input.form-submit:active:visited {
   color: white;
 }
-/* line 62, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form #edit-social-media-signin {
-  width: 100%;
+/* line 87, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form #edit-social-media-signin {
+  padding-left: 1.26582%;
+  padding-right: 1.26582%;
+  width: 97.46835%;
   float: left;
-  margin-right: 2.12766%;
+  margin-right: 1.26582%;
   display: inline;
 }
-/* line 65, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form #edit-social-media-signin label {
-  width: 14.89362%;
+/* line 91, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form #edit-social-media-signin label {
+  width: 29.11392%;
   float: left;
-  margin-right: 2.12766%;
+  margin-right: 1.26582%;
   display: inline;
 }
-/* line 68, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form #edit-social-media-signin div.item-list {
-  width: 82.97872%;
+/* line 95, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form #edit-social-media-signin div.item-list {
+  width: 59.49367%;
   float: right;
   margin-right: 0;
   #margin-left: -10px;
   display: inline;
-  clear: none;
 }
-/* line 73, ../scss/_login.scss */
-body.not-front.not-logged-in.page-user #main form #edit-social-media-signin div.item-list img {
+/* line 100, ../scss/_login.scss */
+body.not-front.not-logged-in.page-user form #edit-social-media-signin img {
+  margin-top: 10px;
   height: 20px;
   padding-right: 10px;
 }
@@ -4751,12 +4719,12 @@ body #main {
   display: none;
 }
 
-/* line 225, ../scss/style.scss */
+/* line 227, ../scss/style.scss */
 i {
   display: none;
 }
 
-/* line 230, ../scss/style.scss */
+/* line 232, ../scss/style.scss */
 body.not-front.not-logged-in.page-user #main div.breadcrumb,
 body.not-front.not-logged-in.page-user #main h1.title {
   display: none;
