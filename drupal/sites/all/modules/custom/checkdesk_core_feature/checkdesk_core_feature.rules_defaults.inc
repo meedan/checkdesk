@@ -216,7 +216,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "node" ],
             "event" : "discussion",
             "subject" : "New story \\u0022[node:title]\\u0022",
-            "message" : "Hi [recipient:name],\\r\\n\\r\\n[node:author:name] has created a new story entitled \\u0022[node:title]\\u0022. Join the discussion at [node:url]!\\r\\n\\r\\nBest,\\r\\nCheckdesk Team"
+            "message" : "Hi [recipient:name],\\r\\n\\r\\n[node:author:name] has created a new story entitled \\u0022[node:title]\\u0022. Join the discussion at [node:url]!\\r\\n\\r\\nBest,\\r\\nCheckdesk Team",
+            "actor" : "[node:author:uid]"
           }
         }
       ]
@@ -315,7 +316,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "flagged-node" ],
             "event" : "email_fact_checking_on",
             "subject" : "Fact-checking turned on",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[flagging-user:name] has turned on fact-checking for a \\u003Ca href=\\u0022[flagged-node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E you submitted.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[flagging-user:name] has turned on fact-checking for a \\u003Ca href=\\u0022[flagged-node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E you submitted.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email.",
+            "actor" : "[flagging-user:uid]"
           }
         }
       ]
@@ -332,7 +334,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "comment" ],
             "event" : "email_comment_on_update",
             "subject" : "Comment on an update",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[comment:author:name] has \\u003Ca href=\\u0022[comment:url]\\u0022\\u003Ecommented\\u003C\\/a\\u003E on \\u003Ca href=\\u0022[comment:node:url]\\u0022\\u003E[comment:node:title]\\u003C\\/a\\u003E:\\r\\n[comment:body]\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[comment:author:name] has \\u003Ca href=\\u0022[comment:url]\\u0022\\u003Ecommented\\u003C\\/a\\u003E on \\u003Ca href=\\u0022[comment:node:url]\\u0022\\u003E[comment:node:title]\\u003C\\/a\\u003E:\\r\\n[comment:body]\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email.",
+            "actor" : "[comment:author:uid]"
           }
         }
       ]
@@ -353,7 +356,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "node" ],
             "event" : "email_report_suggested",
             "subject" : "Report suggested to story",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[current-user:name] has suggested this report \\u0022[node:title]\\u0022 to this story \\u0022[list-item:title]\\u0022.\\r\\n\\r\\n\\u003Ca href=\\u0022[list-item:url]\\u0022\\u003EClick here\\u003C\\/a\\u003E to compose a new update to the story using that report.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[current-user:name] has suggested this report \\u0022[node:title]\\u0022 to this story \\u0022[list-item:title]\\u0022.\\r\\n\\r\\n\\u003Ca href=\\u0022[list-item:url]\\u0022\\u003EClick here\\u003C\\/a\\u003E to compose a new update to the story using that report.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email.",
+            "actor" : "[current-user:uid]"
           }
         }
       ]
@@ -373,7 +377,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "node" ],
             "event" : "email_fact_status_changed_for_commenter",
             "subject" : "Fact-checking status changed",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[current-user:name] has changed the fact-checking status for a \\u003Ca href=\\u0022[node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E you added footnote to to [node:field-rating].\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[current-user:name] has changed the fact-checking status for a \\u003Ca href=\\u0022[node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E you added footnote to to [node:field-rating].\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email.",
+            "actor" : "[current-user:uid]"
           }
         }
       ]
@@ -393,7 +398,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "node" ],
             "event" : "email_fact_checking_set",
             "subject" : "Fact-checking status changed",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[current-user:name] has changed the fact-checking status for a \\u003Ca href=\\u0022[node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E you submitted to [node:field-rating].\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[current-user:name] has changed the fact-checking status for a \\u003Ca href=\\u0022[node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E you submitted to [node:field-rating].\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email.",
+            "actor" : "[current-user:uid]"
           }
         }
       ]
@@ -410,7 +416,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "comment:node" ],
             "event" : "email_comment_on_report",
             "subject" : "New footnote",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[comment:author:name] has added footnote to the following report \\u0022[comment:node:title]\\u0022:\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n\\u003Ca href=\\u0022[comment:node:url]\\u0022\\u003EClick here\\u003C\\/a\\u003E to respond or change the status of the report.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[comment:author:name] has added footnote to the following report \\u0022[comment:node:title]\\u0022:\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n\\u003Ca href=\\u0022[comment:node:url]\\u0022\\u003EClick here\\u003C\\/a\\u003E to respond or change the status of the report.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email.",
+            "actor" : "[comment:author:uid]"
           }
         }
       ]
@@ -430,7 +437,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "story" ],
             "event" : "email_update_on_story_i_commented_on_update",
             "subject" : "New update",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\nStory \\u0022[story:title]\\u0022 which you commented on has a \\u003Ca href=\\u0022[node:url]\\u0022\\u003Enew update\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\nStory \\u0022[story:title]\\u0022 which you commented on has a \\u003Ca href=\\u0022[node:url]\\u0022\\u003Enew update\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email.",
+            "actor" : "[node:author:uid]"
           }
         }
       ]
@@ -447,7 +455,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "comment" ],
             "event" : "email_reply_to_comment",
             "subject" : "Comment replied",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[comment:author:name] has replied to your comment:\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n\\u003Ca href=\\u0022[comment:url]\\u0022\\u003EClick here\\u003C\\/a\\u003E OR reply to this email to respond. This was an auto-generated email from [site:name]."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[comment:author:name] has replied to your comment:\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n\\u003Ca href=\\u0022[comment:url]\\u0022\\u003EClick here\\u003C\\/a\\u003E OR reply to this email to respond. This was an auto-generated email from [site:name].",
+            "actor" : "[comment:author:uid]"
           }
         }
       ]
@@ -467,7 +476,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "report" ],
             "event" : "email_report_published_in_update",
             "subject" : "Report published",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\nA \\u003Ca href=\\u0022[report:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E which you have submitted has been published in an \\u003Ca href=\\u0022[node:url]\\u0022\\u003Eupdate\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\nA \\u003Ca href=\\u0022[report:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E which you have submitted has been published in an \\u003Ca href=\\u0022[node:url]\\u0022\\u003Eupdate\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name]; please do not respond directly to this email.",
+            "actor" : "[node:author:uid]"
           }
         }
       ]
@@ -487,7 +497,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "node" ],
             "event" : "email_report_suggested",
             "subject" : "Report suggested to story",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[node:author:name] has suggested this report \\u0022[node:title]\\u0022 to this story \\u0022[list-item:title]\\u0022.\\r\\n\\r\\nGo to [list-item:url] to compose a new update to the story using that report.\\r\\n\\r\\nYou can edit your notification settings from [recipient:edit-url].\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[node:author:name] has suggested this report \\u0022[node:title]\\u0022 to this story \\u0022[list-item:title]\\u0022.\\r\\n\\r\\nGo to [list-item:url] to compose a new update to the story using that report.\\r\\n\\r\\nYou can edit your notification settings from [recipient:edit-url].\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email.",
+            "actor" : "[node:author:uid]"
           }
         }
       ]
@@ -497,7 +508,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report was flagged",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" },
@@ -509,7 +520,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "object" : [ "flagged-node" ],
             "event" : "email_report_flagged",
             "subject" : "Report flagged",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[flagging-user:name] has flagged the following \\u003Ca href=\\u0022[flagged-node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E as \\u003C?php echo $flag; ?\\u003E:\\r\\n\\r\\n[flagged-node:title]\\r\\n[flagged-node:summary]\\r\\n\\r\\nThey provided the following explanation for flagging:\\r\\n\\u0022\\u003C?php echo $reason; ?\\u003E\\u0022\\r\\n\\r\\n\\u003Ca href=\\u0022[flagged-node:edit-url]\\u0022\\u003EClick here\\u003C\\/a\\u003E to moderate.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email."
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[flagging-user:name] has flagged the following \\u003Ca href=\\u0022[flagged-node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E as \\u003C?php echo $flag; ?\\u003E:\\r\\n\\r\\n[flagged-node:title]\\r\\n[flagged-node:summary]\\r\\n\\r\\nThey provided the following explanation for flagging:\\r\\n\\u0022\\u003C?php echo $reason; ?\\u003E\\u0022\\r\\n\\r\\n\\u003Ca href=\\u0022[flagged-node:edit-url]\\u0022\\u003EClick here\\u003C\\/a\\u003E to moderate.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email.",
+            "actor" : "[flagging-user:uid]"
           }
         }
       ]
