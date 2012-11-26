@@ -453,27 +453,6 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
-  $items['rules_notify_subscribed_users_report_flagged'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_report_flagged" : {
-      "LABEL" : "Notify subscribed users: report flagged",
-      "PLUGIN" : "action set",
-      "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
-      "USES VARIABLES" : {
-        "flagged_node" : { "label" : "Flagged node", "type" : "node" },
-        "flagging_user" : { "label" : "Flagging user", "type" : "user" },
-        "flag" : { "label" : "Flag", "type" : "text" }
-      },
-      "ACTION SET" : [
-        { "notify_subscribers" : {
-            "object" : [ "flagged-node" ],
-            "event" : "email_report_flagged",
-            "subject" : "Report flagged",
-            "message" : "Hello [recipient:name],\\r\\n\\r\\n[flagging-user:name] has flagged the following \\u003Ca href=\\u0022[flagged-node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E as \\u003C?php echo $flag; ?\\u003E:\\r\\n\\r\\n[flagged-node:title]\\r\\n[flagged-node:summary]\\r\\n\\r\\nThey provided the following explanation for flagging:\\r\\n\\r\\n\\u003Ca href=\\u0022[flagged-node:edit-url]\\u0022\\u003EClick here\\u003C\\/a\\u003E to moderate.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email."
-          }
-        }
-      ]
-    }
-  }');
   $items['rules_notify_subscribed_users_report_published'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_report_published" : {
       "LABEL" : "Notify subscribed users: report published",
       "PLUGIN" : "action set",
@@ -509,6 +488,28 @@ function checkdesk_core_feature_default_rules_configuration() {
             "event" : "email_report_suggested",
             "subject" : "Report suggested to story",
             "message" : "Hello [recipient:name],\\r\\n\\r\\n[node:author:name] has suggested this report \\u0022[node:title]\\u0022 to this story \\u0022[list-item:title]\\u0022.\\r\\n\\r\\nGo to [list-item:url] to compose a new update to the story using that report.\\r\\n\\r\\nYou can edit your notification settings from [recipient:edit-url].\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email."
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_notify_subscribed_users_report_was_flagged'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_report_was_flagged" : {
+      "LABEL" : "Notify subscribed users: report was flagged",
+      "PLUGIN" : "action set",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "USES VARIABLES" : {
+        "flagged_node" : { "label" : "Flagged node", "type" : "node" },
+        "flagging_user" : { "label" : "Flagging user", "type" : "user" },
+        "flag" : { "label" : "Flag", "type" : "text" },
+        "reason" : { "label" : "Reason", "type" : "text" }
+      },
+      "ACTION SET" : [
+        { "notify_subscribers" : {
+            "object" : [ "flagged-node" ],
+            "event" : "email_report_flagged",
+            "subject" : "Report flagged",
+            "message" : "Hello [recipient:name],\\r\\n\\r\\n[flagging-user:name] has flagged the following \\u003Ca href=\\u0022[flagged-node:url]\\u0022\\u003Ereport\\u003C\\/a\\u003E as \\u003C?php echo $flag; ?\\u003E:\\r\\n\\r\\n[flagged-node:title]\\r\\n[flagged-node:summary]\\r\\n\\r\\nThey provided the following explanation for flagging:\\r\\n\\u0022\\u003C?php echo $reason; ?\\u003E\\u0022\\r\\n\\r\\n\\u003Ca href=\\u0022[flagged-node:edit-url]\\u0022\\u003EClick here\\u003C\\/a\\u003E to moderate.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022[recipient:edit-url]\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from [site:name], please do not respond directly to this email."
           }
         }
       ]
@@ -759,11 +760,12 @@ function checkdesk_core_feature_default_rules_configuration() {
           }
         },
         { "schedule" : {
-            "component" : "rules_notify_subscribed_users_report_flagged",
+            "component" : "rules_notify_subscribed_users_report_was_flagged",
             "date" : "now",
             "param_flagged_node" : [ "flagged-node" ],
             "param_flagging_user" : [ "flagging-user" ],
-            "param_flag" : "[flag:title]"
+            "param_flag" : "[flag:title]",
+            "param_reason" : "[flagging:field_reason]"
           }
         }
       ]
