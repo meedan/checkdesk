@@ -42,11 +42,11 @@
     html += '   <h3><span id="modal-title" class="modal-title"></span></h3>';
     html += '  </div>';
     html += ' <div class="modal-body">';
-    html += '   <p><div id="modal-content" class="modal-content"></div></p>';
+    html += '   <div id="modal-content" class="modal-content"></div>';
     html += ' </div>';
     html += ' <div class="modal-footer">';
-    html += '   <a href="#" class="btn">Close</a>';
-    html += '   <a href="#" class="btn btn-primary">Save changes</a>';
+    html += '   <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
+    html += '   <button class="btn btn-primary">Save changes</button>';
     html += ' </div>';
     html += '</div>';
     html += '</div>';

@@ -55,18 +55,16 @@ function checkdesk_core_menu() {
     //'modal' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  $items['modal/%ctools_js'] = array(
-    'page callback' => 'checkdesk_core_modal_callback',
-    'page arguments' => array(1),
-    'access arguments' => array('access content'),
-  );
+  // $items['modal/%ctools_js'] = array(
+  //   'page callback' => 'checkdesk_core_modal_callback',
+  //   'page arguments' => array(1),
+  //   'access arguments' => array('access content'),
+  // );
   $items['modal/%/%ctools_js'] = array(
     'page callback' => 'checkdesk_core_page_callback',
     'page arguments' => array(1, 2),
     'access callback' => 'node_access',
     'access arguments' => array('update', 1),
-    'delivery callback' => 'ajax_deliver',
-    'theme callback' => 'ajax_base_page_theme',
     'type' => MENU_CALLBACK,
   );
 
@@ -654,190 +652,74 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['actions']['submit']['#value'] = t('Sign in');
     unset($form['twitter_signin']);
   }
-  if($form_id == '_checkdesk_core_report_suggest') {
-    // Include css and js for modal dialog.
-    checkdesk_core_include_modal();
-    // Do not process form with AJAX that should be processed with CTools.
-    if (isset($form_state['ajax']) && $form_state['ajax'] == TRUE) {
-      
-    }
-    else {
-      // Add html wrapper to form and #ajax to form submit.
-      checkdesk_core_add_ajax($form, $form_id);
-    }
-  }
 }
 
 function checkdesk_core_page_callback($form_type, $js) {
-
   // Check whether js is enabled.
   if ($js) {
-    // Include ctools modal plugin.
-    ctools_include('modal');
 
-    $form_state = array('ajax' => TRUE);
+    static $added = FALSE;
+    if ($added == FALSE) {
+      // Do not add css and scripts again.
+      $added = TRUE;
+      // Javascript is on, prepare ctools modals.
+      ctools_include('modal');
+      ctools_include('ajax');
+      ctools_modal_add_js();
 
-    // Array with ajax response.
-    $commands = array();
+      // Create our own javascript that will be used to theme a modal.
+      $modal_style = array(
+        'cd-style' => array(
+          'modalSize' => array(
+            'type' => 'fixed',
+            'width' => 200,
+            'height' => 200,
+            'addWidth' => 0,
+            'addHeight' => 0,
+          ),
+          'modalOptions' => array(
+            'opacity' => .5,
+            'background-color' => '#000',
+          ),
+          'animation' => 'slideDown',
+          'modalTheme' => 'CheckDeskModal',
+          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+        ),
+      );
+      // pass theme setting to JS
+      drupal_add_js($modal_style, 'setting');
+      // add JS file
+      ctools_add_js('checkdesk_core', 'checkdesk_core');
 
+    }
+
+    $form_state = array(
+      'ajax' => TRUE,
+    );
+    
     if ($form_type == 'suggest') {
       // Show Report Suggest form
       $form_state['title'] = t('Add to Story');
       $commands = ctools_modal_form_wrapper('_checkdesk_core_report_suggest', $form_state);
+
     }
 
-    // If form was submited.
     if (!empty($form_state['executed'])) {
-      $commands = _checkdesk_core_execute_form($form_type, $form_state);
+      // Add the responder javascript, required by ctools
+      ctools_add_js('ajax-responder');
+
+      // Array with ajax response.
+      $commands = array();
+      // Create ajax command array, dismiss the modal window.
+      $commands[] = ctools_modal_command_dismiss();
     }
-    return array('#type' => 'ajax', '#commands' => $commands);
+
+    print ajax_render($commands);
+    exit;
   }
+
   else {
     // TODO: If user has no js support redirect him to standard drupal forms.
     drupal_goto('user/' . $form_type);
   }
-}
-
-
-/**
- * Add form wrapper and #ajax attribute to forms.
- */
-function checkdesk_core_add_ajax(&$form, $type) {
-
-  // Add ajax wrapper to form.
-  $html_id = str_replace('_', '-', $type);
-  $form['#prefix'] = '<div id="checkdesk-core-' . $html_id . '-wrapper">';
-  $form['#suffix'] = '</div>';
-
-  // Add ajax functionality to form submit button.
-  $form['actions']['submit']['#ajax'] = array(
-    'callback' => 'checkdesk_core_' . $type . '_ajax_callback',
-    'wrapper' => 'checkdesk-core-' . $html_id . '-wrapper',
-  );
-
-  // Add ctools modal style.
-  $form['actions']['submit']['#attributes']['class'][] = 'ctools-modal-cd-style';
-}
-
-
-/**
- * Ajax callback for report suggest form
- */
-function checkdesk_core__checkdesk_core_report_suggest_ajax_callback($form, $form_state) {
-
-  if (!form_get_errors()) {
-    $commands = checkdesk_core_execute_form('suggest', $form_state);
-    return array('#type' => 'ajax', '#commands' => $commands);
-  }
-
-  // Reload form if it didn't pass validation.
-  return $form;
-}
-
-
-/**
- * Executes form.
- */
-function checkdesk_core_execute_form($form_type, $form_state) {
-  // Include additional ajax commands.
-  ctools_include('ajax');
-  ctools_include('modal');
-  $redirect_behavior = 'default';
-  $redirect_url = '';
-  // Use the form state's redirect url for default behavior.
-  if ($redirect_behavior == 'default' && !empty($form_state['redirect'])) {
-    if (is_array($form_state['redirect'])) {
-      $redirect_url = call_user_func_array('url', $form_state['redirect']);
-      // Remove leading slash from the url.
-      $redirect_url = drupal_substr($redirect_url, 1);
-    }
-    else {
-      $redirect_url = $form_state['redirect'];
-    }
-  }
-  elseif (($redirect_behavior == 'custom' && !empty($redirect_url)) || $redirect_behavior == 'none') {
-    // Do nothing other than preventing the fallback.
-  }
-  // Refresh the page as a fallback redirect behavior.
-  // This can happen if the form state does not have a redirect.
-  else {
-    $redirect_behavior = 'refresh';
-  }
-
-  // Provide additional logic and titles for different form types.
-  switch ($form_type) {
-    case 'suggest':
-      $title = t('Successful login');
-      $message = 'Login was successful. ';
-      if ($redirect_behavior == 'refresh') {
-        $message .= 'Page will now be reloaded.';
-      }
-      elseif ($redirect_behavior == 'default' || $redirect_behavior == 'custom') {
-        $message .= 'Page will now be redirected.';
-      }
-      drupal_set_message(check_plain(t($message)));
-      $commands[] = ctools_modal_command_display($title, theme('status_messages'));
-      break;
-  }
-
-  // Send ajax command to modal based on redirect behavior.
-  switch ($redirect_behavior) {
-
-    case 'none':
-      $commands[] = ctools_modal_command_display($title, theme('status_messages'));
-      break;
-
-    case 'refresh':
-      $commands[] = ctools_ajax_command_reload();
-      break;
-
-    default:
-      // Redirect to URL supplied from default or custom redirect behavior.
-      $commands[] = ctools_ajax_command_redirect($redirect_url);
-      break;
-  }
-
-  return $commands;
-}
-
-
-/**
- * Add css and javascript for modal dialog.
- */
-function checkdesk_core_include_modal() {
-  
-  // Include the CTools tools that we need.
-  ctools_include('ajax');
-  ctools_include('modal');
-
-  // Add CTools' javascript to the page.
-  // ctools_modal_add_js();
-
-  // Create our own javascript that will be used to theme a modal.
-  $modal_style = array(
-    'cd-style' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 200,
-        'height' => 400,
-        'addWidth' => 20,
-        'addHeight' => 15,
-      ),
-      'modalOptions' => array(
-        'opacity' => .5,
-        'background-color' => '#000',
-      ),
-      'animation' => 'slideDown',
-      'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
-    ),
-  );
-
-  drupal_add_js($modal_style, 'setting');
-
-  // Since we have our js, css and images in well-known named directories,
-  // CTools makes it easy for us to just use them without worrying about
-  // using drupal_get_path() and all that ugliness.
-  ctools_add_js('checkdesk_core', 'checkdesk_core');
-  
 }
