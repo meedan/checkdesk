@@ -379,10 +379,10 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'meedan_livefyre_types';
   $strongarm->value = array(
     'post' => 'post',
+    'page' => 0,
     'discussion' => 0,
     'media' => 0,
     'article' => 0,
-    'page' => 0,
   );
   $export['meedan_livefyre_types'] = $strongarm;
 

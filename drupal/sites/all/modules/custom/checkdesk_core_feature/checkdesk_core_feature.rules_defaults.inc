@@ -198,6 +198,24 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_fact_checking_turned_off_for_report'] = entity_import('rules_config', '{ "rules_fact_checking_turned_off_for_report" : {
+      "LABEL" : "Fact-checking turned off for report",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "flag" ],
+      "ON" : [ "flag_unflagged_factcheck_journalist" ],
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "flagged-node" ],
+            "type" : { "value" : { "media" : "media" } }
+          }
+        }
+      ],
+      "DO" : [
+        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "5" } }
+      ]
+    }
+  }');
   $items['rules_new_discussion'] = entity_import('rules_config', '{ "rules_new_discussion" : {
       "LABEL" : "New story",
       "PLUGIN" : "reaction rule",
@@ -508,7 +526,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report was flagged",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" },
@@ -736,7 +754,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_flagged_node" : [ "flagged-node" ],
             "param_flagging_user" : [ "flagging-user" ]
           }
-        }
+        },
+        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "6" } }
       ]
     }
   }');
