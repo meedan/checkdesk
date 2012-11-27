@@ -168,6 +168,7 @@ function checkdesk_preprocess_node(&$variables) {
       }
       elseif($status_name == 'Not Applicable') {
         $status_class = '';
+        $icon = '';
       }
       $variables['status_class'] = $status_class;
       $variables['status_icon'] = $icon . t($status_name);
