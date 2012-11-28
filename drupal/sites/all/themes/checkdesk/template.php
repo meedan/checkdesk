@@ -231,7 +231,7 @@ function checkdesk_links__node($variables) {
 
     if (isset($links['flag-spam']) || 
         isset($links['flag-graphic']) || 
-        isset($links['flag-factcheck'] || 
+        isset($links['flag-factcheck']) || 
         isset($links['flag-delete'])
     ) {
       // Flag as
