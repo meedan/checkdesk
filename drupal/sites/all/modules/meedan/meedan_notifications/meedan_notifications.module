@@ -172,6 +172,12 @@ function meedan_notifications_action_form($context) {
     '#description' => t('You can use the tokens below in your message.'),
     '#default_value' => @$context['message'],
   );
+  $form['actor'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Actor UID'),
+    '#description' => t('You can use one of the tokens below.'),
+    '#default_value' => @$context['actor'],
+  );
   if (module_exists('token')) {
     $form['token_tree'] = array(
       '#theme' => 'token_tree', 
@@ -194,6 +200,7 @@ function meedan_notifications_action_submit($form, $form_state) {
   $params['event'] = $form_state['values']['event'];
   $params['subject'] = $form_state['values']['subject'];
   $params['message'] = $form_state['values']['message'];
+  $params['actor'] = $form_state['values']['actor'];
   return $params;
 }
 
@@ -265,6 +272,12 @@ function meedan_notifications_meedan_notifications_recipients_alter(&$uids, $obj
 
   // Remove anonymous.
   unset($uids[0]);
+
+  // Remove actor, if set
+  if ($context['actor']) {
+    $uid = intval(token_replace($context['actor']));
+    unset($uids[$uid]);
+  }
 
   // Look on remaining recipients to remove unwanted ones.
   $events = meedan_notifications_get_events();
