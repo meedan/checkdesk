@@ -768,7 +768,8 @@ function checkdesk_core_feature_default_rules_configuration() {
         "flag_flagged_factcheck",
         "flag_flagged_graphic_journalist",
         "flag_flagged_spam",
-        "flag_flagged_graphic"
+        "flag_flagged_graphic",
+        "flag_flagged_delete"
       ],
       "IF" : [
         { "node_is_of_type" : {

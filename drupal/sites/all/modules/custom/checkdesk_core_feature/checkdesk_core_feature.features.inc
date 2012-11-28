@@ -34,6 +34,37 @@ function checkdesk_core_feature_views_api() {
  */
 function checkdesk_core_feature_flag_default_flags() {
   $flags = array();
+  // Exported flag: "Delete".
+  $flags['delete'] = array(
+    'entity_type' => 'node',
+    'title' => 'Delete',
+    'global' => '0',
+    'types' => array(
+      0 => 'media',
+    ),
+    'flag_short' => 'Request deletion',
+    'flag_long' => '',
+    'flag_message' => 'This report was flagged for deletion.',
+    'unflag_short' => 'Cancel deletion request',
+    'unflag_long' => '',
+    'unflag_message' => 'This report was unflagged for deletion.',
+    'unflag_denied_text' => '',
+    'link_type' => 'confirm',
+    'weight' => '-6',
+    'show_on_form' => 0,
+    'access_author' => 'own',
+    'show_contextual_link' => 1,
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
+    'i18n' => 0,
+    'flag_confirmation' => 'Are you sure you want to flag this report?',
+    'unflag_confirmation' => 'Are you sure you want to unflag this report?',
+    'api_version' => 3,
+    'module' => 'checkdesk_core_feature',
+    'locked' => array(
+      0 => 'name',
+    ),
+  );
   // Exported flag: "Fact-checking".
   $flags['factcheck'] = array(
     'entity_type' => 'node',
@@ -50,7 +81,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged for fact-checking.',
     'unflag_denied_text' => '',
     'link_type' => 'confirm',
-    'weight' => 0,
+    'weight' => '-7',
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
@@ -81,7 +112,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'Fact-checking has been disabled for this report.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'weight' => 0,
+    'weight' => '-10',
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
@@ -110,7 +141,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged as containing graphic content.',
     'unflag_denied_text' => '',
     'link_type' => 'confirm',
-    'weight' => 0,
+    'weight' => '-8',
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
@@ -141,7 +172,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged as containing graphic content.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'weight' => 0,
+    'weight' => '-11',
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
@@ -170,7 +201,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged as spam.',
     'unflag_denied_text' => '',
     'link_type' => 'confirm',
-    'weight' => 0,
+    'weight' => '-9',
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,

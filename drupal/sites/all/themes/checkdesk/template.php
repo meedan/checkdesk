@@ -231,7 +231,8 @@ function checkdesk_links__node($variables) {
 
     if (isset($links['flag-spam']) || 
         isset($links['flag-graphic']) || 
-        isset($links['flag-factcheck'])
+        isset($links['flag-factcheck'] || 
+        isset($links['flag-delete'])
     ) {
       // Flag as
       $output .= '<li class="flag-as dropdown">';
@@ -245,6 +246,9 @@ function checkdesk_links__node($variables) {
       }
       if (isset($links['flag-factcheck'])) {
         $output .= '<li>' . l($links['flag-factcheck']['title'], @$links['flag-factcheck']['href'], $links['flag-factcheck']) . '</li>';
+      }
+      if (isset($links['flag-delete'])) {
+        $output .= '<li>' . l($links['flag-delete']['title'], @$links['flag-delete']['href'], $links['flag-delete']) . '</li>';
       }
       $output .= '</ul></li>'; 
     }
