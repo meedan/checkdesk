@@ -1,35 +1,27 @@
 // Core layout
 // 
 // This is the basic "Skeleton" that drives the "core" layout. 
+// All layout is expressed as a ratio using span-columns() + container().
+// This allows us to more easily redefine the layout in different context. 
+// Example: create a new login form by changing $form_width when @including the login form mixin.
+// We also combine this technique with media queries to resize based on browser width.
 //
 // Compatibility: untested
 
-// Page structure:
-//
-// #page 
-//   header#navbar
-//   #main
-//     #content
-//       #content-inner
-//         #content-header
-//         #content-area
-
 // Questions:
 //
-// Where will the sidebar go? 
-// media query breakpoints
+// Where will the sidebar go? - probably will only be active for some views of the liveblog, so on that page we will adjust the primary content to be ($total-cols - $sidebar-width)
+// Which approach to breakpoints will we us? - Probably should be small calls to Susy's at-breakpoint. Need to keep the layout abstract so we can use it relculate.
 
-// Regarding media query breakpoints for Susy at-breakpoint
-//
-// Please see: http://susy.oddbird.net/guides/reference/#ref-responsive
+// Further Reading: 
+// http://susy.oddbird.net/guides/reference/#ref-responsive
 
 body {
   // defaults at all breakpoints 
   #main {
-    @include container($break-small, $break-medium);
+    @include container($tw);
     margin-top: 1em;
     @include susy-grid-background;
-    // @include gradient(green, yellow);
   }
   
   // breakpoint: small

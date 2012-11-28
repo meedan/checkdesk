@@ -1,14 +1,17 @@
-// Checkdesk Base
-// 
-// For configuration that needs to come before everything else.
+// ============================================================================
+// Checkdesk Sass Theme 2.x
+// Previously "Crane"
+// ============================================================================
+
+// First, configuration.
 @import "base";
 
 // Bowerbird Compass Framework (BCF)
 //
 // Bowerbird Compass Framework (BCF) is included with Bowerbird Drupal Theme (BDT). 
-// BCF Utilizes: Susy, Compass, Sass, Ruby, Twitter Bootstrap
-// Compass and Susy are included in the framework. They are ruby gems you must install before you can run "compass watch". You are encouraged to `gem unpack compass susy` and read the source code for both of these libraries which implement the framwork.
-// Also BCF contains vendored libraries (which would usually be used as gems): compass_twitter_bootstrap and. To use them: @import "bowerbird/drupal" -- some @imports will @import Sass directly and some will @import mixins you can then @include with parameters.
+// Note that the Drupal theme is not implemented and there are no dependencies on Drupal. 
+// The Sass library utilizes: Susy, Compass, Twitter Bootstrap, Fancy Buttons, and others.
+// See: README.md and ../bowerbird/README.md
 
 // Bowerbird Compass Framework: Compass and Susy and perhaps some basic configuration
 @import "bowerbird";
@@ -34,8 +37,10 @@
   @include button; 
 }
 
+// ============================================================================
 // Bowerbird fork of fancy-gradients
-//
+// ============================================================================
+
 // Example usage:
 // div { @include gradient($dark-blue, $midnight-blue); }
 @import "bowerbird/gradients";
@@ -67,10 +72,11 @@
 //
 // @include enable_font_icons("foundicons");
 
-// ============================================================== 
+// ====================================================================
 // Checkdesk (forked) versions of Twitter Bootstrap libraries.
 // These are customized versions of existing modules.
-// ============================================================== 
+// The order of the includes is important: variables, mixin, then reset
+// ==================================================================== 
 
 // Checkdesk configuration variables
 //
@@ -87,6 +93,13 @@
 //
 // Requires: variables.scss, mixins.scss
 @import "bowerbird/compass_twitter_bootstrap/reset";
+
+// Checkdesk Twitter Bootstrap form elements
+//
+// Basics for <form> elements
+@import "override_ctb/forms";
+
+// @import "bowerbird/compass_twitter_bootstrap/forms";
 
 // Checkdesk Twitter Bootstrap navigation
 //
@@ -115,11 +128,6 @@
 // Basics for <code> and <pre> elements.
 @import "bowerbird/compass_twitter_bootstrap/code";
 
-// Unmodified Twitter Bootstrap form elements
-//
-// Basics for <form> elements
-@import "bowerbird/compass_twitter_bootstrap/forms";
-
 // Unmodified Twitter Bootstrap dropdown elements
 //
 // Basics for <table> elements
@@ -130,9 +138,10 @@
 // Basics for <form> elements
 @import "bowerbird/compass_twitter_bootstrap/dropdowns";
 
-// ========================================================================
+// ============================================================================
 // Unused Twitter Bootstrap modules
-//
+// ============================================================================
+
 // These are not in use but are readily available via bowerbird's copy of the compass_twitter_bootstrap library. 
 
 // @import "bowerbird/compass_twitter_bootstrap/sprites";
@@ -165,7 +174,11 @@
 // .btn-success - Great work! button
 // .btn-info - Informative button
 // .btn-inverse - Inverted button
+//
+//  You can use any of these classes by importing the buttons files:
 // @import "bowerbird/compass_twitter_bootstrap/buttons";
+
+
 // @import "bowerbird/compass_twitter_bootstrap/button-groups";
 
 // ===== Unmodified Twitter Bootstrap modals
@@ -197,12 +210,12 @@
 // .tabs - the containing element which has a ul.primary and ul.secondary
 @import "tabs";
 
-// ====== Checkdesk login page
+// ====== Checkdesk user section and login page
 // 
 // we implement a smaller width on the content frame, handle the social login process, and use TB to draw most the form elements.
 //
 // form#user-login - the main form in the page 
-@import "login";
+@import "user";
 
 // ====== Checkdesk layout
 //
@@ -227,6 +240,10 @@
 i {display: none;}
 
 body.not-front.not-logged-in.page-user {
+
+  // http://compass-style.org/reference/compass/reset/utilities/#mixin-reset-html5
+  @include reset-html5;
+
   #main {
     div.breadcrumb, 
     h1.title {
@@ -234,7 +251,6 @@ body.not-front.not-logged-in.page-user {
     }
   }
 }
-
 
 // Global styles
 ul { 
@@ -245,3 +261,4 @@ li {
   @include reset-box-model;
   float: $from-direction; 
 }  
+// @include debug_drupal;

@@ -41,14 +41,16 @@ $linkColorHover:        darken($linkColor, 15%) !default;
 
 
 // Typography
+//
+// Overriden where appropriate with values from checkdesk. - Nov 2012 CGB
 // -------------------------
-$sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$serifFontFamily:       Georgia, "Times New Roman", Times, serif !default;
-$monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace !default;
+$sansFontFamily: $sans-font-family;
+$serifFontFamily: $serif-font-family;
+$monoFontFamily: $mono-font-family;
 
-$baseFontSize:          14px !default;
+$baseFontSize:          $base-font-size !default;
 $baseFontFamily:        $sansFontFamily !default;
-$baseLineHeight:        20px !default;
+$baseLineHeight:        19.2px !default; // 1 font : 1.2 line
 $altFontFamily:         $serifFontFamily !default;
 
 $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily

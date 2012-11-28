@@ -1,39 +1,48 @@
-// Typography
+// Typography: webfonts
 //
-// Apparently imports need to stay up top near the start of compilation.
+// Apparently these webfont @imports are best served first.
 // As per https://github.com/chriseppstein/compass/issues/639
 // - CGB Nov 2012
 //
 // "Open Sans"
-@import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
+// @import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
+
+// Typography configuration 
 //
+$sans-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$serif-font-family: Georgia, "Times New Roman", Times, serif !default;
+$mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace !default;
+
 // Default font for the buttons mixin
-$button-font-family: "Open Sans", 'Helvetica Neue', Helvetica, Arial !default; 
-$button-font-weight: 300;
 //
+$button-font-family: $sans-font-family;
+$button-font-weight: 300;
+
+// Typography settings
+//
+// These are also passed in to override_ctb/variables
 $smallest-font-size: 8px;
 $small-font-size: 12px;
 $base-font-size: 16px;
 $large-font-size: 20px;
 $x-large-font-size: 36px;
+$xx-large-font-size: 48px;
 
-// Grid
+// Grid configuration
 //
-// The basic grid for Susy. Note that these also feed bootstrap variables; see variables.scss
-// $total-width: <number>;
-$total-width: 12;
-$total-columns: $total-width;
-// $column-width: <length>;
-$column-width: 70px;
-// $gutter-width: <length>;
-$gutter-width: 10px;
-// $grid-padding: <length>;
-$grid-padding: $gutter-width; 
+// The basic grid for Checkdesk, using Susy.
+// Note that these also feed bootstrap variables; see variables.scss.
+// These can be overridden in media breakpoints and used to recalculate the grid sizes.
+// Further reading: http://susy.oddbird.net
+$total-width: 24; // total column count
+$tw: $total-width; // Alias
+$total-columns: $tw; // Alias
 
-// Susy container style
-$container-style: fluid;
+$gutter-width: 5px; // distance between grid columns
+$gw: $gutter-width; // Alias
 
-// Media query breakpoints
-//
-$break-small: 6;
-$break-medium: 10;
+$column-width: $gw; // width of columns
+$grid-padding: $gw; // padding on the side of the container
+$container-style: fluid; // fullscreen fluid width
+$break-small: 20; // column breakpoint - at the equivalent of fullsize grid units
+$break-medium: 30; // column breakpoint - at the equivalent of fullsize grid units

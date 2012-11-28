@@ -1,0 +1,178 @@
+// Checkdesk User Section Forms
+//
+// .not-front.not-logged-in.page-user - main container selector on body
+//
+// The log in page has a small form in the middle which also appears as an even smaller form in the navigation section.
+
+// Top and bottom padding
+// 
+// $pad - Amount to pad defaults to gutter width.
+@mixin top-and-bottom-padding($pad: $gw) {
+  margin-top: $pad;
+  padding-top: $pad;
+}
+
+// Main mixin for all of the user section
+// 
+// $fw - the form width
+@mixin user_section_forms($fw) {  
+  // Basics of the form layout
+  //
+  // the main <form> element
+  //
+  // $fw - form width
+  // $tw - total width (context)
+  @include checkdesk-form-basics($fw, $tw); 
+
+  // Main form layout
+  //
+  // Including <.form-item> and <input> and <label>
+  //
+  // $fw - form width
+  @include checkdesk-form-item($fw);
+
+  // All <.item-list>s after the <.form-item-name> field 
+  //
+  // Selector Goal: exclude the social media item-list
+  // 
+  // Sections: forgot password & create new account
+  .form-item-name ~ .item-list {
+    @include span-columns($fw, $fw, $gw);
+    ul, li {
+      @include span-columns($fw, $fw);
+    }
+  }
+  
+  // Password section
+  .form-item-pass {
+    @include span-columns($fw, $fw, $gw);
+    .description {
+        @include reset-box-model;
+        @include span-columns(half-of($fw), $fw, $gw);
+      }
+    .password-strength {
+      @include reset-box-model;
+      @include span-columns($input-width omega, $fw, $gw);
+      margin: { top: $gw/2; bottom: $gw/2; }
+      
+      .password-strength-title {
+        @include span-columns(third-of($tw), $tw);
+        font-size: $form-helper-text-size;
+      }
+      .password-indicator {
+        @include span-columns(half-of($tw), $tw);
+        margin-top: $gw;
+      }
+      .password-strength-text {
+        @include span-columns(sixth-of($tw), $tw);
+      }
+    }
+
+    // "Passwords match" box
+    div.password-confirm {
+      @include reset-box-model;
+      @include span-columns($input-width omega, $fw);
+      font-size: $form-helper-text-size;
+      span {
+        padding: 0 $gw/2;
+        &.error {
+          background: $firetruck-red;
+          color: white; 
+          @include border-radius(15%);
+          font-family: monaco, courier, monospace;
+        }
+        &.ok {
+          background: darken(#47c965, 5%);
+          @extend .error;
+        }
+      }
+    }
+
+    // Suggestions box (hidden by default)
+    .password-suggestions {
+      @include reset-box-model;
+      @include top-and-bottom-padding;
+      @include span-columns(half-of($fw) omega, $fw);
+      li {
+        padding-#{opposite-position($from-direction)}: $gw;
+      }
+    }
+  }
+
+  .form-type-checkbox,
+  .form-item-textfield {
+    @include span-columns($fw, $fw, $gw);
+  }
+
+  .form-actions {
+    @include span-columns($fw, $fw, $gw);
+  }
+
+  input.form-submit {
+    // Bowerbird button mixin, Checkdesk style
+    @include checkdesk-button($twitter-blue);
+  }
+
+  // The social media sign-in boxes
+  #edit-social-media-signin {
+    @include span-columns($fw, $fw, $gw);
+
+    label { 
+      @include span-columns($label-width, $fw);
+    }
+
+    div.item-list {
+      @include span-columns($label-width omega, $fw);  
+      padding: $gw;
+
+      li.first a {
+        @include icon(twitter, fontawesome, 30px, white, $grey, $twitter-blue);
+      }
+
+      li a.facebook-action-connect {
+        @include icon(facebook, fontawesome, 30px, white, $grey, $facebook-blue);
+      }
+    }
+
+    // the icons with the social media 
+    img {
+      display: none;
+    }
+
+    // @include at-breakpoint(6) {
+    //   $label-width: 3;
+    //   label { 
+    //     @include span-columns($label-width, $fw); 
+    //   }
+    //   div.item-list {
+    //     @include span-columns(($fw - $label-width) omega, $fw);  
+    //     clear: none;
+    //   }  
+    // }
+    
+    // @include at-breakpoint(12) {
+    //   $label-width: 2;
+    //   label { 
+    //     @include span-columns($label-width, $fw); 
+    //   }
+    //   div.item-list {
+    //     @include span-columns(($fw - $label-width) omega, $fw);  
+    //     clear: none;
+    //   }  
+    // }
+  }
+}
+
+// Checkdesk user section
+// 
+// Emit main login form CSS
+body.not-front.not-logged-in.page-user {
+  font-family: "Open Sans", sans;
+
+  #main {
+    margin-top: 3em;
+  }
+
+  @include user_section_forms($tw);
+
+}
