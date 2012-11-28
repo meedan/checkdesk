@@ -379,10 +379,10 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'meedan_livefyre_types';
   $strongarm->value = array(
     'post' => 'post',
+    'page' => 0,
     'discussion' => 0,
     'media' => 0,
     'article' => 0,
-    'page' => 0,
   );
   $export['meedan_livefyre_types'] = $strongarm;
 
@@ -482,6 +482,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'menu_parent_report';
   $strongarm->value = 'main-menu:0';
   $export['menu_parent_report'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_existing';
+  $strongarm->value = 'revision';
+  $export['node_export_existing'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

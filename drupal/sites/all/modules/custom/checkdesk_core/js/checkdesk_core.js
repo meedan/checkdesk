@@ -27,4 +27,33 @@
     }
   };
 
+  /**
+   * Provide the HTML to create the modal dialog.
+  */
+  Drupal.theme.prototype.CheckDeskModal = function () {
+    var html = '';
+
+
+    html += '<div id="ctools-modal">';
+    html += '<div class="ctools-modal-content">';
+    html += '<div class="modal">';
+    html += '  <div class="modal-header">';
+    html += '   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+    html += '   <h3><span id="modal-title" class="modal-title"></span></h3>';
+    html += '  </div>';
+    html += ' <div class="modal-body">';
+    html += '   <div id="modal-content" class="modal-content"></div>';
+    html += ' </div>';
+    html += ' <div class="modal-footer">';
+    html += '   <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
+    html += '   <button class="btn btn-primary">Save changes</button>';
+    html += ' </div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+
+    return html;
+
+  }
+
 })(jQuery);

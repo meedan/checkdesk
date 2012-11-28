@@ -30,6 +30,12 @@ function meedan_notifications_rules_action_info() {
           'restriction' => 'input',
           'description' => t('The notification email body. In addition to the tokens listed below, you can also use [recipient] which will be filled with the account information of each recipient.'),
         ),
+        'actor' => array(
+          'type' => 'text',
+          'label' => t('Actor UID'),
+          'restriction' => 'input',
+          'description' => t('The identifier of the actor (the one which executed the notified action).'),
+        ),
       ),
       'group' => 'System',
       'base' => 'meedan_notifications_rules_action',
@@ -47,7 +53,7 @@ function meedan_notifications_rules_get_events() {
 /**
  * Action function for Rules action `notify_subscribers`.
  */
-function meedan_notifications_rules_action($object, $event, $subject, $message) {
-  meedan_notifications_action($object, array('event' => $event, 'subject' => $subject, 'message' => $message));
+function meedan_notifications_rules_action($object, $event, $subject, $message, $actor) {
+  meedan_notifications_action($object, array('event' => $event, 'subject' => $subject, 'message' => $message, 'actor' => $actor));
 }
 

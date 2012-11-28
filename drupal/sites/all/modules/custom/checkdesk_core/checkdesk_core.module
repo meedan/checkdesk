@@ -25,7 +25,7 @@ function checkdesk_core_menu() {
   );
   $items['node/%checkdesk_report/checkdesk/suggest'] = array(
     'title' => 'Add report to story',
-    'title callback' => '_checkdesk_core_report_suggest_title',
+    'title callback' => 'checkdesk_core_report_suggest_title',
     'title arguments' => array(1),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_core_report_suggest', 1),
@@ -55,10 +55,17 @@ function checkdesk_core_menu() {
     //'modal' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  $items['modal/%ctools_js'] = array(
-    'page callback' => '_checkdesk_core_modal_callback',
-    'page arguments' => array(1),
-    'access arguments' => array('access content'),
+  // $items['modal/%ctools_js'] = array(
+  //   'page callback' => 'checkdesk_core_modal_callback',
+  //   'page arguments' => array(1),
+  //   'access arguments' => array('access content'),
+  // );
+  $items['modal/%/%ctools_js'] = array(
+    'page callback' => 'checkdesk_core_page_callback',
+    'page arguments' => array(1, 2),
+    'access callback' => 'node_access',
+    'access arguments' => array('update', 1),
+    'type' => MENU_CALLBACK,
   );
 
   return $items;
@@ -67,7 +74,7 @@ function checkdesk_core_menu() {
 /**
  * Menu function for `modal/%ctools_js`.
  */
-function _checkdesk_core_modal_callback($js = FALSE) {
+function checkdesk_core_modal_callback($js = FALSE) {
   $alias = preg_replace('/modal\/[^\/]+\//', '', request_path());
   $path = drupal_lookup_path('source', $alias);
   $node = menu_get_object('node', 1, $path);
@@ -87,7 +94,7 @@ function _checkdesk_core_modal_callback($js = FALSE) {
 /**
  * Title callback for `_checkdesk_core_report_suggest`.
  */ 
-function _checkdesk_core_report_suggest_title($report) {
+function checkdesk_core_report_suggest_title($report) {
   return user_access('add report to story') ? 
     t('Add report "!title" to story', array('!title' => $report->title)) : 
     t('Suggest report "!title" to story', array('!title' => $report->title));
@@ -382,7 +389,7 @@ function checkdesk_core_views_pre_render(&$view) {
     // Setup drag & drop.
     drupal_add_library('system', 'ui.draggable');
     drupal_add_library('system', 'ui.droppable');
-    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/checkdesk_core.js');
+    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 
     $data = $view->result;
@@ -644,5 +651,75 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['links'] = array('#markup' => theme('item_list', array('items' => $items)));
     $form['actions']['submit']['#value'] = t('Sign in');
     unset($form['twitter_signin']);
+  }
+}
+
+function checkdesk_core_page_callback($form_type, $js) {
+  // Check whether js is enabled.
+  if ($js) {
+
+    static $added = FALSE;
+    if ($added == FALSE) {
+      // Do not add css and scripts again.
+      $added = TRUE;
+      // Javascript is on, prepare ctools modals.
+      ctools_include('modal');
+      ctools_include('ajax');
+      ctools_modal_add_js();
+
+      // Create our own javascript that will be used to theme a modal.
+      $modal_style = array(
+        'cd-style' => array(
+          'modalSize' => array(
+            'type' => 'fixed',
+            'width' => 200,
+            'height' => 200,
+            'addWidth' => 0,
+            'addHeight' => 0,
+          ),
+          'modalOptions' => array(
+            'opacity' => .5,
+            'background-color' => '#000',
+          ),
+          'animation' => 'slideDown',
+          'modalTheme' => 'CheckDeskModal',
+          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+        ),
+      );
+      // pass theme setting to JS
+      drupal_add_js($modal_style, 'setting');
+      // add JS file
+      ctools_add_js('checkdesk_core', 'checkdesk_core');
+
+    }
+
+    $form_state = array(
+      'ajax' => TRUE,
+    );
+    
+    if ($form_type == 'suggest') {
+      // Show Report Suggest form
+      $form_state['title'] = t('Add to Story');
+      $commands = ctools_modal_form_wrapper('_checkdesk_core_report_suggest', $form_state);
+
+    }
+
+    if (!empty($form_state['executed'])) {
+      // Add the responder javascript, required by ctools
+      ctools_add_js('ajax-responder');
+
+      // Array with ajax response.
+      $commands = array();
+      // Create ajax command array, dismiss the modal window.
+      $commands[] = ctools_modal_command_dismiss();
+    }
+
+    print ajax_render($commands);
+    exit;
+  }
+
+  else {
+    // TODO: If user has no js support redirect him to standard drupal forms.
+    drupal_goto('user/' . $form_type);
   }
 }
