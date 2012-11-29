@@ -28,7 +28,7 @@ body {
     // 
     //$cw - the width of the outer width in columns, usually 12 or 24
     @include container($cw);
-    @include susy-grid-background;
+    // @include susy-grid-background;
     margin-top: $gw * 6;
   }
 
@@ -37,22 +37,15 @@ body {
     @include squish(2,2,$cw);
   }
 
-  // Drupal alerts and errors at the top of the page
-  .alert {
-    @include reset-box-model;
-    @include span-columns($cw -2, $cw, $gw);
-    @include squish(1,1, $cw);
-  }
-
   // Debugger
   // @include debug_breakpoints;
 
   // =====
-  // breakpoint: 0
+  // breakpoint: 1
   // Applies to everything
   @include at-breakpoint(1) {
     #main {
-      border-top: 1px solid yellow;
+      // border-top: 1px solid yellow;
     }
   }
   
@@ -61,7 +54,7 @@ body {
   // Applies to everything larger than a <min-width:> value
   @include at-breakpoint($break-small) {
     #main {
-      border-top: 1px solid green;
+      // border-top: 1px solid green;
     }
   }
 
@@ -70,7 +63,7 @@ body {
   // Applies to everything larger than an even larger <min-width:> value
   @include at-breakpoint($break-medium) {
     #main {
-      border-top: 1px solid pink;
+      // border-top: 1px solid pink;
     }
   }
 }
