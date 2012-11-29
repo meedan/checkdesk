@@ -33,8 +33,11 @@ body {
   }
 
   #content-inner {
+    // The use of squish is accounted for in $center-column-width
     @include span-columns($center-column-width, $cw, $gw);
-    @include squish(2,2,$cw);
+
+    // $center-column-width has a twelveth-of $container-width on either side
+    @include squish(twelveth-of($cw),twelveth-of($cw),$cw);
   }
 
   // Debugger
@@ -44,8 +47,9 @@ body {
   // breakpoint: 1
   // Applies to everything
   @include at-breakpoint(1) {
-    #main {
-      // border-top: 1px solid yellow;
+    div.column.center {
+      // @include checkdesk-form-basics($fw, $center-column-width);
+      // @include checkdesk-form-item($fw, $center-column-width);
     }
   }
   
@@ -53,17 +57,11 @@ body {
   // breakpoint: small
   // Applies to everything larger than a <min-width:> value
   @include at-breakpoint($break-small) {
-    #main {
-      // border-top: 1px solid green;
-    }
   }
 
   // =====
   // breakpoint: medium
   // Applies to everything larger than an even larger <min-width:> value
   @include at-breakpoint($break-medium) {
-    #main {
-      // border-top: 1px solid pink;
-    }
   }
 }

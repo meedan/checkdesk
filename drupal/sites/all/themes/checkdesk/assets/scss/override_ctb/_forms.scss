@@ -1,12 +1,17 @@
 // Basics used on user login
+//
+// $fw - form width
+// $context - size of containing element
+//
+// Compatibility: untested
 @mixin checkdesk-form-basics($fw, $context) {
   form {
     background: white;
     @include reset-box-model;
     @include clearfix;
     @include span-columns($fw, $context);
-    // @include span-columns(($fw - sixth-of($cw)), $cw);
-    // @include squish(twelveth-of($cw), twelveth-of($cw), $cw);
+    // @include debugger("div.item-list, div.form-item, label, .description");
+
     margin-top: $gw;
     padding-top: space(1, $fw);
     .form-actions {
@@ -23,10 +28,16 @@
 }
 
 // Form items used in user login
+//
+// $fw - form width
+// $context - size of containing element
+//
+// Compatibility: untested
 @mixin checkdesk-form-item($fw, $context: $fw) {
   .form-item {
     @include reset-box-model;
     @include span-columns($fw, $fw, $gw);
+    border-top: 1px solid $light-grey;
     padding-top: $gw;
     margin-top: $gw;
     

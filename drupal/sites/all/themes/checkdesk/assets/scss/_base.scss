@@ -1,3 +1,6 @@
+// The spec for the site
+@import "spec";
+
 // Typography: webfonts
 //
 // Apparently these webfont @imports are best served first.
@@ -21,6 +24,21 @@ $large-font-size: 20px;
 $x-large-font-size: 36px;
 $xx-large-font-size: 48px;
 
+// Proportions
+//
+// Natural language shortcuts that help document the grid.
+// We round down to avoid errors.
+@function twelveth-of($width) { @return floor($width / 12); }
+// @debug twelveth-of($cw);
+@function sixth-of($width) { @return floor($width / 6); }
+// @debug sixth-of($cw);
+@function fourth-of($width) { @return floor($width / 4); }
+// @debug fourth-of($cw);
+@function third-of($width) { @return floor($width / 3); }
+// @debug third-of($cw);
+@function half-of($width) { @return floor($width / 2); }
+// @debug half-of($cw);
+
 // Grid configuration
 //
 // The basic grid for Checkdesk, using Susy.
@@ -33,10 +51,11 @@ $total-width: 24; // total column count
 $cw: $total-width; // Alias - "cw" is for "<container> width", look in layout.scss
 
 // Default width of the main center column
-$center-column-width: $cw - 4;
+$center-column-width: ($cw - sixth-of($cw));
 
-// Deprecated
-$total-columns: $cw; // This alias $total-columns will be dropped in the next release
+// $total-columns alias
+// older susy style
+$total-columns: $cw;
 
 // Tabs on the login page
 $tabs-width: $center-column-width;
@@ -56,28 +75,13 @@ $container-style: fluid; // fullscreen fluid width
 $break-small: $cw/2; // column breakpoint - at the equivalent of fullsize grid units
 $break-medium: $cw + ($cw/1); // column breakpoint - at the equivalent of fullsize grid units
 
-// Proportional <form> configuration
-//
-// Natural language shortcuts that help document the grid.
-// We round down to avoid errors.
-@function twelveth-of($width) { @return floor($width / 12); }
-// @debug twelveth-of($cw);
-@function sixth-of($width) { @return floor($width / 6); }
-// @debug sixth-of($cw);
-@function fourth-of($width) { @return floor($width / 4); }
-// @debug fourth-of($cw);
-@function third-of($width) { @return floor($width / 3); }
-// @debug third-of($cw);
-@function half-of($width) { @return floor($width / 2); }
-// @debug half-of($cw);
-
 // The main <form> width is 
 $form-width: $center-column-width;
 $fw: $form-width; //Alias
 
 // Width: the main <label>s in the <form>
 $label-width: third-of($fw);
-// @debug $label-width;     <------------ use the debugger to check your calculations! CGB 
+@debug $label-width;
 $lw: $label-width; // Alias
 
 $input-width: ($fw - $label-width);
@@ -86,3 +90,6 @@ $iw: $input-width; // Alias
 // Typography for <form> elements
 //
 $form-helper-text-size: $small-font-size;
+
+// WIP
+// @include base_spec();

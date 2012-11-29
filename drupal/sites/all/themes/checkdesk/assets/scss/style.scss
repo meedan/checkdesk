@@ -8,7 +8,7 @@
 @import "bowerbird";
 
 // Debugging mixins
-// @import "bowerbird/debug";
+@import "bowerbird/debug";
 
 // Bowerbird Drupal touchups
 @import "bowerbird/drupal";
@@ -16,12 +16,11 @@
 // Bowerbird font-icon support mixins: apply-font-face() and icon()
 @import "bowerbird/icons/icons";
 
-// Load the icon webfonts, which are stored locally.
+// Icon webfonts stored locally
 // (Note that our typographic webfonts served remotely from google etc.)
 @include apply-font-face("FontAwesome", "fontawesome-webfont");
 
 // Load .icon- classnames
-//
 // Import the classnames as a mixin
 @import "bowerbird/icons/fontawesome";
 // Now use the mixin
@@ -147,3 +146,4 @@ body {
   // }
 }
 // @include debug_drupal;
+@import "spec";

@@ -27,13 +27,12 @@
 			@include reset-list-style;
 			@include reset-box-model;
 			@include ctb-font-shorthand(12px, normal);
-			min-width: 200px;
 			display: block;
 			padding: 0 $gw/2;
 			
 			& > li {
 				display: block;
-				float: right;
+				float: opposite-position($from-direction);
 				border-#{$from-direction}: 1px solid $dark-grey;
 				& > a {
 					@include reset-box-model;

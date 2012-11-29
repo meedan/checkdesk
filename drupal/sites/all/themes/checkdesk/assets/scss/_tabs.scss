@@ -30,10 +30,10 @@
         padding: $gw;
         &.active {
           padding: $gw;
-          background-color: $light-grey;
           a {
             padding: $gw;
             display: block;
+            background-color: $light-grey;
           }
         }
         a {
@@ -41,6 +41,13 @@
         }
         a:hover {
           padding: $gw;
+          // If there is an extra color, transition to it on hover
+          @include transition-property(background-color);
+          @include transition-duration(0.5s);
+          &:hover {
+            background-color: random_color();
+            @debug random-color();
+          }
         }
       }
     }

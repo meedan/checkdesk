@@ -20,7 +20,7 @@
   // Basics of the form layout
   // $fw - form width
   // $cw - total width (context)
-  @include checkdesk-form-basics($fw, $fw); 
+  @include checkdesk-form-basics($fw, $context); 
 
   // Main form layout
   // $fw - form width
@@ -29,9 +29,13 @@
   // All <.item-list>s after the <.form-item-name> field 
   // Sections: forgot password & create new account
   .form-item-name ~ .item-list {
-    @include span-columns($fw, $fw, $gw);
-    ul, li {
-      @include span-columns($fw, $fw);
+    font-size: $small-font-size;
+    @include span-columns(5 omega, $fw);
+    ul {
+      li {
+        @include reset-box-model;
+        @include reset-list-style;
+      }
     }
   }
   
