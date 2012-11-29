@@ -59,11 +59,11 @@ function checkdesk_core_feature_flag_default_flags() {
     'i18n' => 0,
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
-    'api_version' => 3,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 3,
   );
   // Exported flag: "Fact-checking".
   $flags['factcheck'] = array(
