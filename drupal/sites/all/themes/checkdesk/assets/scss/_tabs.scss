@@ -6,32 +6,42 @@
 
 @import "bowerbird/tabs";
 
-$tabs-width: $total-width - 2;
+@mixin tabs($tw, $context) {
 
-#content div.tabs {
-  @include span-columns($tabs-width, $total-width);
-  @include squish(1, 1, $total-width);
-  
-  ul.primary {
-    @include span-columns($tabs-width, $tabs-width);
-    display: block;
-    @include clearfix;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: white;
-    margin-top: 20px;
-    padding { top: 20px; bottom: 20px; }
-    font-family: "Open Sans", sans-serif;
-    font-size: $large-font-size;
-    
+  div.tabs {
+    @include span-columns($tw, $context);
+    ul.primary {
+      @include reset-box-model;
+      border-top: 1px solid orange;
+      @include span-columns($tw, $tw);
+      display: block;
+      @include clearfix;
+      padding: { top: $gw; bottom: $gw; }
+      margin: { top: $gw;}
+      background-color: white;
+      font-family: "Open Sans", sans-serif;
+      font-size: $large-font-size;
 
-    li {
-      margin-#{opposite-position($from-direction)}: 20px;
-      padding { top: 20px; bottom: 20px; }
-      &.active {
-      }
-      a {
-        padding: 0;
+      li {
+        @include reset-box-model;
+        display: block;
+        float: left;
+        margin-#{opposite-position($from-direction)}: $gw;
+        padding: $gw;
+        &.active {
+          padding: $gw;
+          background-color: $light-grey;
+          a {
+            padding: $gw;
+            display: block;
+          }
+        }
+        a {
+          padding: $gw;
+        }
+        a:hover {
+          padding: $gw;
+        }
       }
     }
   }

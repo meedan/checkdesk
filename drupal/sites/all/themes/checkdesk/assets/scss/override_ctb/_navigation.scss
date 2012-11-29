@@ -252,7 +252,7 @@
 
 .navbar li.home a {
   // @include hide-text();
-  @include icon("home");
+  @include icon(home, fontawesome, 15px, white, transparent);
   padding: (($navbarHeight - $baseLineHeight) / 2) 15px (($navbarHeight - $baseLineHeight) / 2);
 }
 

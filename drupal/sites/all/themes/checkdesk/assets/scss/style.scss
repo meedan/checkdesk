@@ -1,149 +1,79 @@
-// ============================================================================
 // Checkdesk Sass Theme 2.x
-// Previously "Crane"
-// ============================================================================
 
-// First, configuration.
+// First, Checkdesk configuration.
 @import "base";
 
 // Bowerbird Compass Framework (BCF)
-//
-// Bowerbird Compass Framework (BCF) is included with Bowerbird Drupal Theme (BDT). 
-// Note that the Drupal theme is not implemented and there are no dependencies on Drupal. 
-// The Sass library utilizes: Susy, Compass, Twitter Bootstrap, Fancy Buttons, and others.
 // See: README.md and ../bowerbird/README.md
-
-// Bowerbird Compass Framework: Compass and Susy and perhaps some basic configuration
 @import "bowerbird";
 
-// Debug mixins
-@import "bowerbird/debug";
+// Debugging mixins
+// @import "bowerbird/debug";
 
 // Bowerbird Drupal touchups
 @import "bowerbird/drupal";
 
-// Bowerbird fork of fancy-buttons 
-//
-// Example usage:
-// button { @include button($tupperware-blue, 26px, 1em, 4px); }
-@import "bowerbird/buttons";
-
-// Default checkdeks button using bowerbird/buttons instead of twitter bootstrap
-@mixin checkdesk-button(
-  $color: $button-color,
-  $font-size: $button-font-size,
-  $radius: $button-radius, 
-  $border-width: $button-border-width) {
-  @include button; 
-}
-
-// ============================================================================
-// Bowerbird fork of fancy-gradients
-// ============================================================================
-
-// Example usage:
-// div { @include gradient($dark-blue, $midnight-blue); }
-@import "bowerbird/gradients";
-
-// Various colors by name
-//
-// Example usage
-// div { color: $tupperware-blue; }
-@import "bowerbird/colors";
-
-// Font-icon support
-//
-// Make sure your font paths are set correctly in config.rb
-// 
-// Imports: Fontawesome
-// contains "icon-something" names to injected custom unicode glyph character
-//
-//[class^="icon-"]:before - generates selectors prefixed with "icon-".
+// Bowerbird font-icon support mixins: apply-font-face() and icon()
 @import "bowerbird/icons/icons";
 
-// Load icon fonts and all selectors
-//
-// Warning: this should be refined for production, it's a lot of unnecessary classes
-// 
-// These includes need to remain un-neseted so they can be extended. — CGB Nov 2012
-@include enable_font_icons("fontawesome");
+// Load the icon webfonts, which are stored locally.
+// (Note that our typographic webfonts served remotely from google etc.)
+@include apply-font-face("FontAwesome", "fontawesome-webfont");
 
-// Problem: these styles conflict, not sure what to do about this yet. CGB Nov 2012
+// Load .icon- classnames
 //
-// @include enable_font_icons("foundicons");
+// Import the classnames as a mixin
+@import "bowerbird/icons/fontawesome";
+// Now use the mixin
+@include all-fontawesome-classnames;
 
-// ====================================================================
+// Bowerbird fork of fancy-buttons 
+// Example usage: button { @include button($tupperware-blue, 26px, 1em, 4px); }
+@import "bowerbird/buttons";
+
+// Bowerbird fork of fancy-gradients
+// Example usage: div { @include gradient($dark-blue, $midnight-blue); }
+@import "bowerbird/gradients";
+
+// Bowerbird colors by name
+// Example usage: div { color: $tupperware-blue; }
+// We always want to use colors by name, to facilitate readbility + discussion.
+@import "bowerbird/colors";
+
+// ====================================================================== 
 // Checkdesk (forked) versions of Twitter Bootstrap libraries.
-// These are customized versions of existing modules.
+//
+// These are customized versions of existing modules (files).
 // The order of the includes is important: variables, mixin, then reset
-// ==================================================================== 
-
-// Checkdesk configuration variables
-//
-// Replaces: variables.scss
 @import "override_ctb/variables";
-
-// Checkdesk mixins
-//
-// Replaces: mixins.scss
-// Requires: variables.scss
 @import "override_ctb/mixins";
-
-// Unmodified Twitter Bootstrap Reset
-//
-// Requires: variables.scss, mixins.scss
 @import "bowerbird/compass_twitter_bootstrap/reset";
-
-// Checkdesk Twitter Bootstrap form elements
-//
-// Basics for <form> elements
 @import "override_ctb/forms";
-
 // @import "bowerbird/compass_twitter_bootstrap/forms";
-
-// Checkdesk Twitter Bootstrap navigation
-//
-// Replaces: navs.scss, navbar.scss
 @import "override_ctb/navigation";
-
-// Checkdesk Twitter Bootstrap alerts
-//
-// Replaces: 
-// alerts.scss
 @import "override_ctb/alerts";
-
-// Checkdesk typography
-// 
-// Replaces: type.scss
 @import "override_ctb/type";
 
-// Unmodified Twitter Bootstrap scaffolding
+// ====================================================================== 
+// Imported but unmodified Twitter Bootstrap scaffolding
 //
 // Setup typography and image classes
 // Deprecated: these should be in more appropriate files or mixins
 @import "bowerbird/compass_twitter_bootstrap/scaffolding";
-
-// Unmodified Twitter Bootstrap code
-//
-// Basics for <code> and <pre> elements.
 @import "bowerbird/compass_twitter_bootstrap/code";
-
-// Unmodified Twitter Bootstrap dropdown elements
-//
-// Basics for <table> elements
 @import "bowerbird/compass_twitter_bootstrap/tables";
-
-// Unmodified Twitter Bootstrap dropdown elements
-//
-// Basics for <form> elements
 @import "bowerbird/compass_twitter_bootstrap/dropdowns";
+@import "bowerbird/compass_twitter_bootstrap/modals";
+@import "bowerbird/compass_twitter_bootstrap/buttons";
+@import "bowerbird/compass_twitter_bootstrap/button-groups";
+@import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
-// ============================================================================
-// Unused Twitter Bootstrap modules
-// ============================================================================
-
-// These are not in use but are readily available via bowerbird's copy of the compass_twitter_bootstrap library. 
-
+// ====================================================================== 
+// Unused and unmodified Twitter Bootstrap
+//
+// Files not in use.
+// They are available via bowerbird's copy of the compass_twitter_bootstrap library.
+// 
 // @import "bowerbird/compass_twitter_bootstrap/sprites";
 // @import "bowerbird/compass_twitter_bootstrap/wells";
 // @import "bowerbird/compass_twitter_bootstrap/component-animations";
@@ -157,108 +87,63 @@
 // @import "bowerbird/compass_twitter_bootstrap/accordion";
 // @import "bowerbird/compass_twitter_bootstrap/carousel";
 // @import "bowerbird/compass_twitter_bootstrap/hero-unit";
-
-// ========================================================================
-// Unmodified Twitter Bootstrap
-
-// ===== Unmodified Twitter Bootstrap buttons and button groups
-//
-// Basics for buttons with several variations. Replaced by bowerbird/buttons.
-//
-// .btn - Base button
-// .btn-large - Large variation
-// .btn-small - Small variation
-// .btn-primary - Primary form button
-// .btn-warning - Something is wrong button
-// .btn-danger - be *very* careful button
-// .btn-success - Great work! button
-// .btn-info - Informative button
-// .btn-inverse - Inverted button
-//
-//  You can use any of these classes by importing the buttons files:
-// @import "bowerbird/compass_twitter_bootstrap/buttons";
-
-
-// @import "bowerbird/compass_twitter_bootstrap/button-groups";
-
-// ===== Unmodified Twitter Bootstrap modals
-// .modal - the main modal frame which will have .modal_backdrop behind it
-@import "bowerbird/compass_twitter_bootstrap/modals";
-
-// ===== Unmodified Twitter Bootstrap tooltips
-// A tooltip.
-// .tooltip - the element that appears which contains content.
 // @import "bowerbird/compass_twitter_bootstrap/tooltip";
-
-// ===== Unmodified Twitter Bootstrap popovers
-// .popover - a thing that pops over
 // @import "bowerbird/compass_twitter_bootstrap/popovers";
 
 
-// ===== Unmodified Twitter Bootstrap Utility classes
-//
-// Has to be last of the CTB includes, to override when necessary. 
-//
-// Deprecated: These are just a few directional mixins that can easily be refactored away. But they might be required for some other modules.
-// @import "bowerbird/compass_twitter_bootstrap/utilities"; 
-
-// ========================================================================
+// ====================================================================== 
 // Our Drupal sections, pages, mixins
 
-// ====== Checkdesk Drupal tabs
+//  Checkdesk typography
+//
+// Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
+// See also: override_ctb/type.scss
+@import "typography";
+
+// Checkdesk Drupal tabs
 // 
 // .tabs - the containing element which has a ul.primary and ul.secondary
 @import "tabs";
+// this is a mixin because we might reapply it inside different contexts
+@include tabs($tw, $center-column-width);
 
-// ====== Checkdesk user section and login page
+// Checkdesk user section and login page
 // 
 // we implement a smaller width on the content frame, handle the social login process, and use TB to draw most the form elements.
 //
 // form#user-login - the main form in the page 
 @import "user";
 
-// ====== Checkdesk layout
+//  Checkdesk layout
 //
 // Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
 @import "layout";
 
-// ====== Checkdesk notifications
+// Checkdesk notifications
 // 
 // #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
-// ====== Checkdesk reports
+// Checkdesk reports
 @import "report";
 
-// ====== Checkdesk commenting plugin
+// Checkdesk commenting plugin
 @import "livefyre";
 
-// ====== Temporary 
-// ====== Hidden things
+// Temporary 
+// Hidden things
 
-// We are not using this style of icon, and it is generating an extra class
-i {display: none;}
+body {
+  font-family: "Open Sans", sans-serif;
 
-body.not-front.not-logged-in.page-user {
-
-  // http://compass-style.org/reference/compass/reset/utilities/#mixin-reset-html5
-  @include reset-html5;
-
-  #main {
-    div.breadcrumb, 
-    h1.title {
-      display: none;
-    }
-  }
+ #main {  
+ }
+  // .node-media {
+  //   @include span-columns(10, 10);
+  // }
+  // .view-liveblog  {
+  //   @include span-columns(10, 12);
+  //   margin: 0 auto;
+  // }
 }
-
-// Global styles
-ul { 
-  @include reset-box-model;
-  @include reset-list-style;
-}
-li { 
-  @include reset-box-model;
-  float: $from-direction; 
-}  
 // @include debug_drupal;
