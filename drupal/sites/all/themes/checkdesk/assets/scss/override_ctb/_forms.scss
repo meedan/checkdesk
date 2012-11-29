@@ -1,49 +1,31 @@
-// Proportional <form> configuration
-//
-// Natural language shortcuts that help document the grid.
-// We round down to avoid errors.
-@function twelveth-of($width) { @return floor($width / 12); } // 2
-@debug twelveth-of($tw);
-@function sixth-of($width) { @return floor($width / 6); } // 4
-@debug sixth-of($tw);
-@function fourth-of($width) { @return floor($width / 4); } // 6
-@debug fourth-of($tw);
-@function third-of($width) { @return floor($width / 3); } // 8
-@debug third-of($tw);
-@function half-of($width) { @return floor($width / 2); } // 12
-@debug half-of($tw);
-// The main <form> width is 
-$form-width: ($tw - sixth-of($tw)); // 40
-$fw: $form-width; //Alias
-
-// Width: the main <label>s in the <form>
-$label-width: (half-of($fw) - sixth-of($tw)); // 16
-$lw: $label-width; // Alias
-
-$input-width: ($fw - $label-width); // 24
-$iw: $input-width; // Alias
-
-// Typography for <form> elements
-//
-$form-helper-text-size: $small-font-size;
-
 // Basics used on user login
-@mixin checkdesk-form-basics($fw, $tw) {
+@mixin checkdesk-form-basics($fw, $context) {
   form {
     background: white;
     @include reset-box-model;
     @include clearfix;
-    @include span-columns(($fw - sixth-of($tw)), $tw);
-    @include squish(twelveth-of($tw), twelveth-of($tw), $tw);
-    margin-top: 20px;
+    @include span-columns($fw, $context);
+    // @include span-columns(($fw - sixth-of($cw)), $cw);
+    // @include squish(twelveth-of($cw), twelveth-of($cw), $cw);
+    margin-top: $gw;
+    padding-top: space(1, $fw);
+    .form-actions {
+      @include reset-box-model;
+      @include span-columns($fw, $fw, $gw);
+      padding: { top: space(1, $fw); bottom: space(1, $fw); }
+      margin-top: $gw;
+      clear: both;
+      input {
+        margin: $gw;
+      }
+    }
   }
 }
 
 // Form items used in user login
-@mixin checkdesk-form-item($fw) {
+@mixin checkdesk-form-item($fw, $context: $fw) {
   .form-item {
     @include reset-box-model;
-    border-width: 1px;
     @include span-columns($fw, $fw, $gw);
     padding-top: $gw;
     margin-top: $gw;
@@ -56,18 +38,33 @@ $form-helper-text-size: $small-font-size;
 
     input {
       @include reset-box-model;
+      @include single-box-shadow($light-grey, 0px, 2px, 2px, 2px, inset);
+      @include span-columns($input-width omega, $fw, $gw/2);
+
+      // Set border carfully to avoid cascade interefence from Twitter Bootstrap
       border: 1px solid $grey;
-      @include span-columns($input-width omega, $fw, $gw);
+      border: 1px solid $grey;
+      border-left-width: 0;
+      border-right-width: 0;
+
       clear: opposite-position($from-direction);
-      padding: { top: half-of($gw); bottom: $gw/2; }
-      margin: { top: half-of($gw); bottom: $gw/2; }
+      padding: { top: $gw; bottom: $gw; }
+      margin: { top: $gw; bottom: $gw; }
+
+      @include border-radius(3px);
+      @include transition-property(border);
+      @include transition-duration(0.2s);
+      &:focus {
+        border-top: 1px solid $darker-grey;
+        border-bottom: 1px solid $darker-grey;
+      }
     }
 
     label {
       @include reset-box-model;
       font-size: $large-font-size;
       @include span-columns($label-width, $fw, $gw);
-      padding: { top: $gw/2; bottom: $gw/2; }
+      padding: { top: $gw; bottom: $gw; }
     }
 
     .description {

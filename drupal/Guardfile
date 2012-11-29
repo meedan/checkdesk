@@ -1,3 +1,5 @@
+notification :growl
+
 guard 'compass' do
   watch(%r{^sites/.+\.(scss)$})
 end

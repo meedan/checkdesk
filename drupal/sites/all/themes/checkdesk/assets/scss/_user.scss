@@ -15,26 +15,18 @@
 // Main mixin for all of the user section
 // 
 // $fw - the form width
-@mixin user_section_forms($fw) {  
+@mixin user_section_forms($fw, $context) {  
+
   // Basics of the form layout
-  //
-  // the main <form> element
-  //
   // $fw - form width
-  // $tw - total width (context)
-  @include checkdesk-form-basics($fw, $tw); 
+  // $cw - total width (context)
+  @include checkdesk-form-basics($fw, $fw); 
 
   // Main form layout
-  //
-  // Including <.form-item> and <input> and <label>
-  //
   // $fw - form width
   @include checkdesk-form-item($fw);
 
   // All <.item-list>s after the <.form-item-name> field 
-  //
-  // Selector Goal: exclude the social media item-list
-  // 
   // Sections: forgot password & create new account
   .form-item-name ~ .item-list {
     @include span-columns($fw, $fw, $gw);
@@ -53,18 +45,18 @@
     .password-strength {
       @include reset-box-model;
       @include span-columns($input-width omega, $fw, $gw);
-      margin: { top: $gw/2; bottom: $gw/2; }
+      margin: { top: $gw; bottom: $gw; }
       
       .password-strength-title {
-        @include span-columns(third-of($tw), $tw);
+        @include span-columns(third-of($fw), $fw);
         font-size: $form-helper-text-size;
       }
       .password-indicator {
-        @include span-columns(half-of($tw), $tw);
+        @include span-columns(half-of($fw), $fw);
         margin-top: $gw;
       }
       .password-strength-text {
-        @include span-columns(sixth-of($tw), $tw);
+        @include span-columns(sixth-of($fw), $fw);
       }
     }
 
@@ -74,7 +66,7 @@
       @include span-columns($input-width omega, $fw);
       font-size: $form-helper-text-size;
       span {
-        padding: 0 $gw/2;
+        padding: 0 $gw;
         &.error {
           background: $firetruck-red;
           color: white; 
@@ -116,14 +108,17 @@
   // The social media sign-in boxes
   #edit-social-media-signin {
     @include span-columns($fw, $fw, $gw);
-
-    label { 
-      @include span-columns($label-width, $fw);
-    }
-
     div.item-list {
-      @include span-columns($label-width omega, $fw);  
-      padding: $gw;
+      @include span-columns($input-width omega, $fw);  
+      ul {
+        @include reset-list-style;
+      }
+      
+      li a {
+        display: block;
+        margin: $gw;
+        float: $from-direction;
+      }
 
       li.first a {
         @include icon(twitter, fontawesome, 30px, white, $grey, $twitter-blue);
@@ -167,12 +162,17 @@
 // 
 // Emit main login form CSS
 body.not-front.not-logged-in.page-user {
-  font-family: "Open Sans", sans;
 
-  #main {
-    margin-top: 3em;
+  // Hide breadcrumbs and titles
+  div.breadcrumb, 
+  h1.title {
+   display: none;
   }
 
-  @include user_section_forms($tw);
 
+  @include user_section_forms($center-column-width, $center-column-width);
+
+  form {
+    border-top: 1px solid aqua;
+  }
 }

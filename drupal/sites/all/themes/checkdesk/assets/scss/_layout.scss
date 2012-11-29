@@ -17,24 +17,60 @@
 // http://susy.oddbird.net/guides/reference/#ref-responsive
 
 body {
-  // defaults at all breakpoints 
-  #main {
-    @include container($tw);
-    margin-top: 1em;
+
+  #page {
+    // The all-powerful container() mixin
+    // 
+    // The container sets the ratio for all other calculations.
+    // You should not need to set $container again, but you can.
+    // Nested grids are usually more trouble than they are worth.
+    // Requires a mathematically sensible $container-width aka $cw.
+    // 
+    //$cw - the width of the outer width in columns, usually 12 or 24
+    @include container($cw);
     @include susy-grid-background;
+    margin-top: $gw * 6;
+  }
+
+  #content-inner {
+    @include span-columns($center-column-width, $cw, $gw);
+    @include squish(2,2,$cw);
+  }
+
+  // Drupal alerts and errors at the top of the page
+  .alert {
+    @include reset-box-model;
+    @include span-columns($cw -2, $cw, $gw);
+    @include squish(1,1, $cw);
+  }
+
+  // Debugger
+  // @include debug_breakpoints;
+
+  // =====
+  // breakpoint: 0
+  // Applies to everything
+  @include at-breakpoint(1) {
+    #main {
+      border-top: 1px solid yellow;
+    }
   }
   
+  // =====
   // breakpoint: small
+  // Applies to everything larger than a <min-width:> value
   @include at-breakpoint($break-small) {
     #main {
-      background-color: green;
+      border-top: 1px solid green;
     }
   }
 
+  // =====
   // breakpoint: medium
+  // Applies to everything larger than an even larger <min-width:> value
   @include at-breakpoint($break-medium) {
     #main {
-      background-color: pink;
+      border-top: 1px solid pink;
     }
   }
 }

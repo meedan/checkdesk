@@ -6,44 +6,69 @@
 
 .report {
 	& > header {
-		@include clearfix();
+		@include ctb-clearfix();
 		background-color: darken($grayLighter, 5%);
-		padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 		color: $gray;
 
 		h3 {
-			float: left;
+			float: $from-direction;
 			@include reset-box-model();
 			@include ctb-font-shorthand(12px, normal);
+			padding: $gw;
+			display: block;
 		}
 
 		.source-url {
 			font-weight: bold;
 		}
 
-
 		.report-actions {
-			float: right;
+			float: opposite-position($from-direction);
 			@include reset-list-style;
 			@include reset-box-model;
 			@include ctb-font-shorthand(12px, normal);
+			min-width: 200px;
+			display: block;
+			padding: 0 $gw/2;
+			
 			& > li {
-				@include clearfix();
-				display: inline;
-				margin-left: $gridGutterWidth/2;
-		        &:first-child {
-		          margin-left: 0;
-		        }
-		        // remove ajax throbber inside dropdown menus
-		        .flag-throbber {
-		        	// display: none;
-		        }
+				display: block;
+				float: right;
+				border-#{$from-direction}: 1px solid $dark-grey;
+				& > a {
+					@include reset-box-model;
+					display: block;
+					padding: 10px;
+					
+					@include transition-property(color);
+			    @include transition-duration(0.2s);
+			    &:hover { 
+			    	color: black;
+			    	text-decoration: none;
+			    }
+
+					i {
+						float: $from-direction;
+						@include reset-box-model;
+
+						&.icon-flag {
+							@include icon(flag, fontawesome, 16px, $darker-grey, transparent);
+						}
+						&.icon-share {
+							@include icon(share, fontawesome, 16px, $darker-grey, transparent);
+						}
+					}
+				}
+        // remove ajax throbber inside dropdown menus
+        .flag-throbber {
+        	// display: none;
+        }
 			}
 		}
 	}
 
+
 	.report-content {
-		background-color: darken($grayLighter, 5%);
 		color: $gray;
 		@include clearfix();
 		.report-media {
@@ -59,7 +84,7 @@
 			}
 			.container {
 				display: inline-block;
-  				vertical-align: middle;
+  			vertical-align: middle;
 				.oembed-title {
 					display: none;
 				}
