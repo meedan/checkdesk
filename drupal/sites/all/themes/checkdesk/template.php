@@ -154,6 +154,8 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['media_activity_report_count'] = $total_rows;
       $variables['media_activity_report'] = $view_output;
       $status_name = $variables['field_rating'][0]['taxonomy_term']->name;
+      $status_class = '';
+      $icon = '';
       if ($status_name == 'Verified') {
         $status_class = 'verified';
         $icon = '<i class="icon-ok-sign"></i> ';
@@ -166,10 +168,6 @@ function checkdesk_preprocess_node(&$variables) {
         $status_class = 'false';
         $icon = '<i class="icon-remove-sign"></i> ';
       }
-      elseif($status_name == 'Not Applicable') {
-        $status_class = '';
-        $icon = '';
-      }
       $variables['status_class'] = $status_class;
       $variables['status_icon'] = $icon . t($status_name);
     }
@@ -181,12 +179,33 @@ function checkdesk_links__node($variables) {
   $attributes = $variables['attributes'];
   $heading = $variables['heading'];
 
+  $class[] = 'report-actions';
+  $output = '';
+
+  // Prepare for modal dialogs.
   ctools_include('modal');
   ctools_include('ajax');
   ctools_modal_add_js();
-
-  $class[] = 'report-actions';
-  $output = '';
+  $modal_style = array(
+    'checkdesk-style' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 200,
+        'height' => 200,
+        'addWidth' => 0,
+        'addHeight' => 0,
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'slideDown',
+      'modalTheme' => 'CheckDeskModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+    ),
+  );
+  drupal_add_js($modal_style, 'setting');
+  ctools_add_js('checkdesk_core', 'checkdesk_core');
 
   if (count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
@@ -202,17 +221,7 @@ function checkdesk_links__node($variables) {
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-edit"></i></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
-        $name = t('Add to story');
-        // Create a path for the url that is like our hook_menu() declaration above.
-        $href = 'modal/suggest/nojs/';
-        // Here's the ctools function that generates the trigger inside the link
-        // ctools_modal_text_button($text, $dest, $alt, $class = '')
-        // http://api.drupalize.me/api/drupal/function/ctools_modal_text_button/7
-        // IMPORTANT: Include ctools-modal-[your declared style name] as a class so 
-        // Ctools knows what Javascript settings to use in generating the modal:
-        $suggest_link = ctools_modal_text_button($name, $href, t('Add to story'),  'ctools-modal-cd-style');
-        // $output .= '<li>' . l($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']) .'</li>';
-        $output .= '<li>' . $suggest_link .'</li>';
+        $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-checkdesk-style') .'</li>';
       }
       if (isset($links['checkdesk-edit'])) {
         $output .= '<li>' . l($links['checkdesk-edit']['title'], $links['checkdesk-edit']['href'], $links['checkdesk-edit']) .'</li>';
