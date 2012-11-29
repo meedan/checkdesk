@@ -43,10 +43,8 @@
     <div id="content">
       <div id="content-inner" class="inner column center">
 
-        <?php if ($breadcrumb || $title|| $messages || $tabs || $action_links): ?>
+        <?php if ($title|| $messages || $tabs || $action_links): ?>
           <div id="content-header">
-
-            <?php print $breadcrumb; ?>
 
             <?php if ($title): ?>
               <h1 class="title"><?php print $title; ?></h1>
