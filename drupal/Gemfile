@@ -5,7 +5,8 @@ bundle :development do
   gem 'compass'
   gem 'guard'
   gem 'guard-livereload'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
 end
 
-# gem "compass_twitter_bootstrap", "2.2.1" # does not exist yet at this version but you can build it yourself from commit 36624333ed on compass_twitter_bootstrap project on github.
+# gem "compass_twitter_bootstrap", "2.2.1" # does not exist yet at this version but you can build it yourself from commit 36624333ed on compass_twitter_bootstrap project on github. Later we will just use the gem but for now there is a copy in Bowerbird.
 # https://github.com/vwall/compass-twitter-bootstrap

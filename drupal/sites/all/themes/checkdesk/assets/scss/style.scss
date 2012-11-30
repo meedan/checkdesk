@@ -7,6 +7,10 @@
 // See: README.md and ../bowerbird/README.md
 @import "bowerbird";
 
+// Checkdesk override susy functions very selectively
+// (for extra debugging support only at this point) — CGB Nov 2012
+@import "override_susy/grid";
+
 // Debugging mixins
 @import "bowerbird/debug";
 
@@ -15,6 +19,9 @@
 
 // Bowerbird font-icon support mixins: apply-font-face() and icon()
 @import "bowerbird/icons/icons";
+
+// background image helper for development
+@import "bowerbird/backgrounds";
 
 // Icon webfonts stored locally
 // (Note that our typographic webfonts served remotely from google etc.)
@@ -129,14 +136,11 @@
 // Checkdesk commenting plugin
 @import "livefyre";
 
-// Temporary 
-// Hidden things
 
 body {
   font-family: "Open Sans", sans-serif;
-
- #main {  
- }
+  @include bowerbird-backgrounds();
+  @include all-backgrounds();
   // .node-media {
   //   @include span-columns(10, 10);
   // }
@@ -147,3 +151,4 @@ body {
 }
 // @include debug_drupal;
 @import "spec";
+@include base_spec;

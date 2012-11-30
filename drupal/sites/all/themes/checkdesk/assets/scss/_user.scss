@@ -30,7 +30,7 @@
   // Sections: forgot password & create new account
   .form-item-name ~ .item-list {
     font-size: $small-font-size;
-    @include span-columns(5 omega, $fw);
+    @include span-columns(half-of($fw) omega, $fw);
     ul {
       li {
         @include reset-box-model;
@@ -52,7 +52,7 @@
       margin: { top: $gw; bottom: $gw; }
       
       .password-strength-title {
-        @include span-columns(third-of($fw), $fw);
+        @include span-columns(fourth-of($fw), $fw);
         font-size: $form-helper-text-size;
       }
       .password-indicator {
@@ -60,7 +60,7 @@
         margin-top: $gw;
       }
       .password-strength-text {
-        @include span-columns(sixth-of($fw), $fw);
+        @include span-columns(fifth-of($fw), $fw);
       }
     }
 
@@ -97,6 +97,7 @@
 
   .form-type-checkbox,
   .form-item-textfield {
+    @include reset-box-model;
     @include span-columns($fw, $fw, $gw);
   }
 
@@ -115,6 +116,7 @@
     div.item-list {
       @include span-columns($input-width omega, $fw);  
       ul {
+        @include reset-box-model;
         @include reset-list-style;
       }
       

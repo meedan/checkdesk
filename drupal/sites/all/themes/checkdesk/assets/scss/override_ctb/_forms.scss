@@ -10,9 +10,6 @@
     @include reset-box-model;
     @include clearfix;
     @include span-columns($fw, $context);
-    // @include debugger("div.item-list, div.form-item, label, .description");
-
-    margin-top: $gw;
     padding-top: space(1, $fw);
     .form-actions {
       @include reset-box-model;
@@ -51,7 +48,7 @@
       @include reset-box-model;
       @include single-box-shadow($light-grey, 0px, 2px, 2px, 2px, inset);
       @include span-columns($input-width omega, $fw, $gw/2);
-
+      @include border-radius(2px);
       // Set border carfully to avoid cascade interefence from Twitter Bootstrap
       border: 1px solid $grey;
       border: 1px solid $grey;
@@ -62,7 +59,7 @@
       padding: { top: $gw; bottom: $gw; }
       margin: { top: $gw; bottom: $gw; }
 
-      @include border-radius(3px);
+      @include border-radius(2px);
       @include transition-property(border);
       @include transition-duration(0.2s);
       &:focus {

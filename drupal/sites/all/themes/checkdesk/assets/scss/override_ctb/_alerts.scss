@@ -7,14 +7,22 @@
 // -------------------------
 
 .alert {
-  padding: 8px 35px 8px 14px;
-  margin-bottom: $baseLineHeight;
-  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  padding: $gw;
+  margin-bottom: $gw;
+  text-shadow: 0 1px 0 rgba(255,255,255,.4);
   background-color: $warningBackground;
-  border: 1px solid $warningBorder;
-  @include ctb-border-radius($baseBorderRadius);
-  color: $warningText;
-}
+  border: { top: 1px solid $grey; bottom: 1px solid $grey; }
+  color: $grey;
+  font-size: $smallest-font-size;
+  background-color: $light-grey;
+  @include transition-property(height);
+  @include transition-duration(2s);
+  @include transition-timing-function(ease-in);
+  &:hover {
+    height: auto; 
+  }
+} 
+// ------------- end of customizations, this is mostly bootstrap stil - CGB 
 
 .messages h4 {
   margin: 0;
@@ -99,124 +107,124 @@ button.close {
 
 
 
-// // Top bar alerts
-// // -------------------------
+// Top bar alerts
+// -------------------------
 
-// #absolute-messages-messages {
-//   width: 100%;
-//   position: relative;
-//   top: $navbarHeight;
-//   left: 0;
-//   z-index: 10;
-// }
+#absolute-messages-messages {
+  width: 100%;
+  position: relative;
+  top: $navbarHeight;
+  left: 0;
+  z-index: 10;
+}
 
-// .absolute-messages-message {
-//   display: none;
-//   position: relative;
-//   margin: 0;
-//   padding: 0;
-//   color: #735005;
-//   zoom: 1;
-// }
+.absolute-messages-message {
+  display: none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  color: #735005;
+  zoom: 1;
+}
 
-// .absolute-messages-message.collapsible:hover {
-//   cursor: pointer;
-// }
-// .absolute-messages-message .content {
-//   margin: 0;
-//   padding: .5em 1.5em 0 1.5em;
-//   border-bottom: .5em solid transparent;
-//   overflow: hidden;
-// }
-// .absolute-messages-message .content a {
-//   text-decoration: underline;
-// }
-// .absolute-messages-status {
-//   background-color: $infoBackground;
-//   border-bottom: 1px solid $infoBorder;
-//   color: $infoText;
-// }
-// .absolute-messages-status a:link,
-// .absolute-messages-status a:visited {
-//   color: $infoText;
-// }
-// .absolute-messages-warning {
-//   background-color: $warningBackground;
-//   border-bottom: 1px solid $warningBorder;
-//   color: $warningText;
-// }
-// .absolute-messages-warning a:link,
-// .absolute-messages-warning a:visited {
-//   color: $warningText;
-// }
-// .absolute-messages-error {
-//   background-color: $errorBackground;
-//   border-bottom: 1px solid $errorBorder;
-//   color: $errorText;
-// }
-// .absolute-messages-error a:link,
-// .absolute-messages-error a:visited {
-//   color: $errorText;
-// }
-// .absolute-messages-actions {
-//   float: right;
-// }
-// a.absolute-messages-dismiss,
-// a.absolute-messages-dismiss-all,
-// a.absolute-messages-dismiss:hover,
-// a.absolute-messages-dismiss-all:hover {
-//   display: block;
-//   position: absolute;
-//   top: .8em;
-//   right: .5em;
-//   z-index: 10;
-//   margin: 0;
-//   padding: 1px 3px;
+.absolute-messages-message.collapsible:hover {
+  cursor: pointer;
+}
+.absolute-messages-message .content {
+  margin: 0;
+  padding: .5em 1.5em 0 1.5em;
+  border-bottom: .5em solid transparent;
+  overflow: hidden;
+}
+.absolute-messages-message .content a {
+  text-decoration: underline;
+}
+.absolute-messages-status {
+  background-color: $infoBackground;
+  border-bottom: 1px solid $infoBorder;
+  color: $infoText;
+}
+.absolute-messages-status a:link,
+.absolute-messages-status a:visited {
+  color: $infoText;
+}
+.absolute-messages-warning {
+  background-color: $warningBackground;
+  border-bottom: 1px solid $warningBorder;
+  color: $warningText;
+}
+.absolute-messages-warning a:link,
+.absolute-messages-warning a:visited {
+  color: $warningText;
+}
+.absolute-messages-error {
+  background-color: $errorBackground;
+  border-bottom: 1px solid $errorBorder;
+  color: $errorText;
+}
+.absolute-messages-error a:link,
+.absolute-messages-error a:visited {
+  color: $errorText;
+}
+.absolute-messages-actions {
+  float: right;
+}
+a.absolute-messages-dismiss,
+a.absolute-messages-dismiss-all,
+a.absolute-messages-dismiss:hover,
+a.absolute-messages-dismiss-all:hover {
+  display: block;
+  position: absolute;
+  top: .8em;
+  right: .5em;
+  z-index: 10;
+  margin: 0;
+  padding: 1px 3px;
   
-//   line-height: 1em;
-//   text-decoration: none;
-//   cursor: pointer;
-// }
-// .absolute-messages-status .absolute-messages-dismiss {
-//   color: $infoText;
-// }
-// .absolute-messages-warning .absolute-messages-dismiss {
-//   color: $warningText;
-// }
-// .absolute-messages-error .absolute-messages-dismiss {
-//   color: $errorText;
-// }
-// a.absolute-messages-dismiss-all,
-// a.absolute-messages-dismiss-all:hover {
-//   border: 2px solid #222;
-//   background-color: #222;
-//   color: #ccc;
-// }
-// #absolute-messages-show {
-//   display: none;
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   width: 0;
-//   height: 0;
-//   border-width: 0 16px 16px 0;
-//   border-style: solid;
-//   border-color: transparent #fff;
-//   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
-//   -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
-//   box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
-//   z-index: 1;
-// }
-// .absolute-messages-show {
-//   display: block;
-//   width: 16px;
-//   height: 16px;
-//   /* Ugly hack for IE, as it does not support Box Shadow. */
-//   border-left: 1px solid #666\9;
-//   border-bottom: 1px solid #666\9;
-// }
-// /* And for Opera too. Ugh. */
-// noindex:-o-prefocus, .absolute-messages-show {
-//   border-left: 1px solid #666;
-//   border-bottom: 1px solid #666;
-// }
+  line-height: 1em;
+  text-decoration: none;
+  cursor: pointer;
+}
+.absolute-messages-status .absolute-messages-dismiss {
+  color: $infoText;
+}
+.absolute-messages-warning .absolute-messages-dismiss {
+  color: $warningText;
+}
+.absolute-messages-error .absolute-messages-dismiss {
+  color: $errorText;
+}
+a.absolute-messages-dismiss-all,
+a.absolute-messages-dismiss-all:hover {
+  border: 2px solid #222;
+  background-color: #222;
+  color: #ccc;
+}
+#absolute-messages-show {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-width: 0 16px 16px 0;
+  border-style: solid;
+  border-color: transparent #fff;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.absolute-messages-show {
+  display: block;
+  width: 16px;
+  height: 16px;
+  /* Ugly hack for IE, as it does not support Box Shadow. */
+  border-left: 1px solid #666\9;
+  border-bottom: 1px solid #666\9;
+}
+/* And for Opera too. Ugh. */
+noindex:-o-prefocus, .absolute-messages-show {
+  border-left: 1px solid #666;
+  border-bottom: 1px solid #666;
+}

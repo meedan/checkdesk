@@ -1,32 +1,27 @@
-// // Sass Spec
-// // WIP
-// // Basic validation of the sanity of the app layout
+// Sass Spec
+// WIP
+// Basic validation of the sanity of the app layout
 
-// $errors: false;
+@mixin should_be_whole_units($width)  {
+  @if round($width) != $width {
+    @warn "✖ #{$width}";
+  } 
+  // @else {
+  //   @debug "☮ #{$width}";
+  // }
+}
 
-// @mixin should_be_whole_units($width)  {
-//   @debug $width;
-//   @if round($width) != $width {
-//     @warn "should be whole but is: #{$width}";
-//     $errors: $width;
-//   }
-// }
+@mixin base_spec {
+  @include should_be_whole_units($input-width);
+  @include should_be_whole_units($label-width);
+  @include should_be_whole_units($tabs-width);
+  @include should_be_whole_units($center-column-width);
+  @include should_be_whole_units($form-width);
+}
 
-// @mixin base_spec {
-//   @include should_be_whole_units($input-width);
-//   @include should_be_whole_units($label-width);
-//   @include should_be_whole_units($tabs-width);
-//   @include should_be_whole_units($center-column-width);
-//   @include should_be_whole_units($form-width);
-//   @if $errors {
-//     @warn "✖ #{$errors}";
-//   } @else {
-//     @warn "☮ #{$errors}";
-//   }
-// }
-// @mixin functions_spec {
-//   // Tests of custom Sass functions
-//   @if type_of(random_color) != string {
-//     @warn "the random_color returned something that wasn't a string";
-//   }  
-// }
+@mixin functions_spec {
+  // Tests of custom Sass functions
+  @if type_of(random_color) != string {
+    @warn "the random_color returned something that wasn't a string";
+  }  
+}

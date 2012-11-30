@@ -46,7 +46,6 @@
           @include transition-duration(0.5s);
           &:hover {
             background-color: random_color();
-            @debug random-color();
           }
         }
       }

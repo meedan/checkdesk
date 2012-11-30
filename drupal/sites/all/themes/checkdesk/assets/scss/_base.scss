@@ -1,4 +1,6 @@
 // The spec for the site
+//
+// Experimental
 @import "spec";
 
 // Typography: webfonts
@@ -28,16 +30,12 @@ $xx-large-font-size: 48px;
 //
 // Natural language shortcuts that help document the grid.
 // We round down to avoid errors.
-@function twelveth-of($width) { @return floor($width / 12); }
-// @debug twelveth-of($cw);
-@function sixth-of($width) { @return floor($width / 6); }
-// @debug sixth-of($cw);
-@function fourth-of($width) { @return floor($width / 4); }
-// @debug fourth-of($cw);
-@function third-of($width) { @return floor($width / 3); }
-// @debug third-of($cw);
-@function half-of($width) { @return floor($width / 2); }
-// @debug half-of($cw);
+@function twelveth-of($width) { @return $width / 12; }
+@function sixth-of($width) { @return $width / 6; }
+@function fifth-of($width) { @return $width / 5; }
+@function fourth-of($width) { @return $width / 4; }
+@function third-of($width) { @return $width / 3; }
+@function half-of($width) { @return $width / 2; }
 
 // Grid configuration
 //
@@ -49,13 +47,11 @@ $xx-large-font-size: 48px;
 // The key variable: how man columns in the outer width?
 $total-width: 24; // total column count
 $cw: $total-width; // Alias - "cw" is for "<container> width", look in layout.scss
+$total-columns: $cw; // Alias
 
 // Default width of the main center column
+// We have to account for two ($cw/12) columns on each side ($cw/12 * 2 = $cw/6)
 $center-column-width: ($cw - sixth-of($cw));
-
-// $total-columns alias
-// older susy style
-$total-columns: $cw;
 
 // Tabs on the login page
 $tabs-width: $center-column-width;
@@ -80,8 +76,7 @@ $form-width: $center-column-width;
 $fw: $form-width; //Alias
 
 // Width: the main <label>s in the <form>
-$label-width: third-of($fw);
-@debug $label-width;
+$label-width: half-of($fw);
 $lw: $label-width; // Alias
 
 $input-width: ($fw - $label-width);
