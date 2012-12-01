@@ -1,7 +1,23 @@
-// The spec for the site
+// ## Checkdesk Theme 
 //
-// Experimental
+// If 1170px is the target width from our photoshop files, we don't use pixels, we want to express the layout in percentages. Each unit should be expressed as some fraction of other units. This gives mathematically compliant layouts. We convert 1170px into 24 columns, with a gutter of 10px. 
+//
+//     1170 / 24 = 48.75px per column
+//
+// now we want to know the ratio of that column to the whole thing: if 48.75 is the $column-width and 1170 is the $total-width then each column is 48.75 / 1170 or about 4.166666666667 percent and (4.166666666667 * 24), is 1 (and actually because of the conversion, it's off a little bit, it's actually 1.00000000000008, so we have to make sure that it is rounded down at some step in the rendering process or we can overflow the grid).
+//
+// Once we have done this calculation, we know how wide a column should be, and we can derive simlar measurements for standard padding or other reusable units. Ideally elements should be driven by variables that have a relationship to the overall scheme of ratios. Direct use of pixels is rare. The most common examples of this is the use of span-columns and the gutter width (shorthand):
+//
+// @include span-columns(columns, context) - We set each major layout unit into a div with the "span-columns" mixin.
+// $gw - we use a standardized unit for $gutter-width padding
+//
+// At this point we communicate only in units of the grid. That's why we chose 24: it works well with 2 and 3 and 4 and 6 and 12 and many other numbers.
+
+// The Sass "spec" for the site
+//
+// Experimental: This will warn us if any of the grid measurements are funky.
 @import "spec";
+@include base_spec();
 
 // Typography: webfonts
 //
@@ -43,6 +59,7 @@ $xx-large-font-size: 48px;
 // Note that these also feed bootstrap variables; see variables.scss.
 // These can be overridden in media breakpoints and used to recalculate the grid sizes.
 // Further reading: http://susy.oddbird.net
+//
 
 // The key variable: how man columns in the outer width?
 $total-width: 24; // total column count
@@ -85,6 +102,3 @@ $iw: $input-width; // Alias
 // Typography for <form> elements
 //
 $form-helper-text-size: $small-font-size;
-
-// WIP
-// @include base_spec();

@@ -24,7 +24,6 @@
 @import "bowerbird/backgrounds";
 
 // Icon webfonts stored locally
-// (Note that our typographic webfonts served remotely from google etc.)
 @include apply-font-face("FontAwesome", "fontawesome-webfont");
 
 // Load .icon- classnames
@@ -110,8 +109,6 @@
 // 
 // .tabs - the containing element which has a ul.primary and ul.secondary
 @import "tabs";
-// this is a mixin because we might reapply it inside different contexts
-@include tabs($tw, $center-column-width);
 
 // Checkdesk user section and login page
 // 
@@ -136,15 +133,22 @@
 // Checkdesk commenting plugin
 @import "livefyre";
 
+// Final centralized render of CSS
+//
 body {
   font-family: "Open Sans", sans-serif;
   @include bowerbird-backgrounds("cream_dust");
   .column.center {
     background-color: white;
     @include single-box-shadow(darken($light-grey, 5%));
+    // Small tabs eg in user section - not the nav
+    @include tabs($tw, $center-column-width);
   }
 }
 
+// The End
+//
+// Debuggers and specs go last
 // @include debug_drupal;
-// @import "spec";
+@import "spec";
 // @include base_spec;

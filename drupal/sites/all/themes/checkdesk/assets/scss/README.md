@@ -69,7 +69,6 @@ The overall pattern is to compile stylesheets dynamically using a terminal proce
 This is a list of the most frequent directives, rules, configs, and everything, with brief explanations. When in doubt, consult the mixin definition. 
 
 ##### Sass Directives
-- functions
     @function twelveth-of($width) { @return $width / 12; } 
       #=> function defined and will be executed when called by client Sass at compile time
     @include twelveth-of(12) 
@@ -79,11 +78,12 @@ This is a list of the most frequent directives, rules, configs, and everything, 
     @warn "#{fifth-of(12)} columns breaks a #{$cw}-part grid." 
       #=> path/to/current/file/_name.scss WARN: 2.4 columns breaks a 24-part grid.
 
-- Compass utility includes
+##### Compass utility includes
     @include single-box-shadow(darken($light-grey, 40%)); 
       #=> "#333333"
+      # there are lots [more]("http://compass-style.org/index/functions/") 
 
-- Susy includes
+##### Susy includes
     @include span-columns(12, $cw); 
       #=> span 50% of the total, if $cw is 24. Eg: "it's 12 in 24"
     @include span-columns($center-column-width, $cw, $gw); 
@@ -93,18 +93,10 @@ This is a list of the most frequent directives, rules, configs, and everything, 
     @include squish(twelveth-of($cw),twelveth-of($cw),$cw); 
       #=> add padding on each side. Be sure to compensate for the children's new $context width.
 
-- namespaced includes
+##### Checkdesk and Bowerbird mixins
+- with namespaced includes
     @include bowerbird-backgrounds("cream_dust"); 
     # This is also an example of custom SassScript helper (in config.rb)
-
-- general mixins
-    @mixin footer($color) { border: 1px solid $color; }
-      #=> mixin defined and will be executed when called by client Sass at compile time
-    @include footer(pink); 
-      #=> border: 1px solid pink;
-
-- variables in a function
-    $label-width: half-of($fw);
 
 ##### Sass (.scss dialect using braces and semicolons)
 

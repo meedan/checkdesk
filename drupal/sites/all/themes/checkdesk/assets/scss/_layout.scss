@@ -3,15 +3,9 @@
 // This is the basic "Skeleton" that drives the "core" layout. 
 // All layout is expressed as a ratio using span-columns() + container().
 // This allows us to more easily redefine the layout in different context. 
-// Example: create a new login form by changing $form_width when @including the login form mixin.
 // We also combine this technique with media queries to resize based on browser width.
 //
 // Compatibility: untested
-
-// Questions:
-//
-// Where will the sidebar go? - probably will only be active for some views of the liveblog, so on that page we will adjust the primary content to be ($total-cols - $sidebar-width)
-// Which approach to breakpoints will we us? - Probably should be small calls to Susy's at-breakpoint. Need to keep the layout abstract so we can use it relculate.
 
 // Further Reading: 
 // http://susy.oddbird.net/guides/reference/#ref-responsive
@@ -23,8 +17,7 @@ body {
     // 
     // The container sets the ratio for all other calculations.
     // You should not need to set $container again, but you can.
-    // Nested grids are usually more trouble than they are worth.
-    // Requires a mathematically sensible $container-width aka $cw.
+    // Requires a mathematically sensible $container-width aka $cw (whole integers, usually even).
     // 
     //$cw - the width of the outer width in columns, usually 12 or 24
     @include container($cw);

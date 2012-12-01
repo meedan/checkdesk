@@ -1,30 +1,24 @@
 // Sass Spec
-// This is kind of insane
 // WIP
-// Basic validation of the sanity of the app layout
 // We're using Sass to test Sass!
 // With custom test helper in config.rb
+// Included at the bottom of style.scss
 
 @mixin should_be_whole_units($width)  {
   @if round($width) != $width {
     @warn "✖ #{$width}";
-  } 
-  // @else {
-  //   @debug "☮ #{$width}";
-  // }
+  } @else {
+
+  }
 }
 
-@mixin base_spec {
-  @include should_be_whole_units($input-width);
-  @include should_be_whole_units($label-width);
-  @include should_be_whole_units($tabs-width);
-  @include should_be_whole_units($center-column-width);
-  @include should_be_whole_units($form-width);
-}
+@include should_be_whole_units($input-width);
+@include should_be_whole_units($label-width);
+@include should_be_whole_units($tabs-width);
+@include should_be_whole_units($center-column-width);
+@include should_be_whole_units($form-width);
 
-@mixin functions_spec {
-  // Tests of custom Sass functions
-  @if type_of(random_color) != string {
-    @warn "woah there, the random_color returned something that wasn't a string";
-  }  
+// Tests of custom Sass functions
+@if type_of(random_color) != string {
+  @warn "woah there, the random_color returned something that wasn't a string";
 }
