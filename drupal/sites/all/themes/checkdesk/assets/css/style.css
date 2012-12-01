@@ -1,89 +1,5840 @@
-/*
-Syntax error: Undefined variable: "$input-width".
-        on line 15 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_spec.scss, in `should_be_whole_units'
-        from line 15 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_spec.scss
-        from line 19 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_base.scss
-        from line 4 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
+/* line 3, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+#skip a:link, #skip a:hover, #skip a:visited {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+/* line 11, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+#skip a:active, #skip a:focus {
+  position: static;
+  width: auto;
+  height: auto;
+}
 
-Backtrace:
-/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_spec.scss:15:in `should_be_whole_units'
-/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_spec.scss:15
-/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_base.scss:19
-/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss:4
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/script/variable.rb:49:in `_perform'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/script/node.rb:40:in `perform'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:257:in `block in visit_mixin'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:257:in `map'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:257:in `visit_mixin'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:98:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:225:in `block in visit_import'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:225:in `map'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:225:in `visit_import'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:98:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:225:in `block in visit_import'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:225:in `map'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:225:in `visit_import'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:98:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `map'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:107:in `block in visit_children'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:119:in `with_environment'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:106:in `visit_children'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `block in visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:126:in `visit_root'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:98:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:7:in `visit'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/tree/root_node.rb:20:in `render'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/engine.rb:315:in `_render'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/sass-3.2.3/lib/sass/engine.rb:262:in `render'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:140:in `block (2 levels) in compile'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:126:in `timed'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:139:in `block in compile'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/logger.rb:45:in `red'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:138:in `compile'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:118:in `compile_if_required'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:103:in `block (2 levels) in run'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:101:in `each'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:101:in `block in run'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:126:in `timed'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:100:in `run'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/commands/watch_project.rb:147:in `recompile'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/path.rb:73:in `call'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/path.rb:73:in `run_callback'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/path.rb:55:in `callback_action'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/path.rb:35:in `update'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/state/directory.rb:39:in `block in modified'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/state/directory.rb:37:in `each'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/state/directory.rb:37:in `modified'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/state/directory.rb:18:in `refresh'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/backends/rbfsevent.rb:30:in `block in temporary_multipath_handler'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/backends/rbfsevent.rb:27:in `each'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/backends/rbfsevent.rb:27:in `temporary_multipath_handler'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/backends/rbfsevent.rb:17:in `block (2 levels) in run'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/backends/rbfsevent.rb:16:in `each'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/backends/rbfsevent.rb:16:in `block in run'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/rb-fsevent-0.9.2/lib/rb-fsevent/fsevent.rb:43:in `call'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/rb-fsevent-0.9.2/lib/rb-fsevent/fsevent.rb:43:in `run'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/backends/rbfsevent.rb:20:in `run'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm/monitor.rb:26:in `run'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/fssm-0.2.9/lib/fssm.rb:70:in `monitor'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/commands/watch_project.rb:87:in `perform'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/commands/base.rb:18:in `execute'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/commands/project_base.rb:19:in `execute'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/lib/compass/exec/sub_command_ui.rb:15:in `run!'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/bin/compass:29:in `block in <top (required)>'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/bin/compass:43:in `call'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/bin/compass:43:in `<top (required)>'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/bin/compass:19:in `load'
-/Users/chris/.rvm/gems/ruby-1.9.3-p286/bin/compass:19:in `<main>'
-*/
-body:before {
+/* bug fix with views 2 edit links. */
+/* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.view div.views-admin-links {
+  width: auto;
+}
+
+/* Rollover edit links for blocks. */
+/* line 24, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.block {
+  position: relative;
+}
+/* line 26, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.block .edit {
+  display: none;
+  position: absolute;
+  right: -20px;
+  top: -5px;
+  z-index: 40;
+  padding: 3px 8px 0;
+  font-size: 10px;
+  line-height: 16px;
+  background-color: white;
+  border: 1px solid #cccccc;
+  /*let's get fancy! */
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-box-shadow: 0 1px 3px #888888;
+  -webkit-box-shadow: -1px 1px 2px #666666;
+}
+/* line 42, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.block .edit a {
+  display: block;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+/* line 49, ../../../bowerbird/framework/stylesheets/bowerbird/_drupal.scss */
+div.block:hover .edit {
+  display: block;
+}
+
+@font-face {
+  font-family: "FontAwesome";
+  src: url('/sites/all/themes/bowerbird/framework/fonts/fontawesome/fontawesome-webfont.eot');
+  src: url('/sites/all/themes/bowerbird/framework/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('/sites/all/themes/bowerbird/framework/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('/sites/all/themes/bowerbird/framework/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('/sites/all/themes/bowerbird/framework/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 10, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-glass:before {
+  content: "\f000";
+}
+
+/* line 11, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-music:before {
+  content: "\f001";
+}
+
+/* line 12, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-search:before {
+  content: "\f002";
+}
+
+/* line 13, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-envelope:before {
+  content: "\f003";
+}
+
+/* line 14, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-heart:before {
+  content: "\f004";
+}
+
+/* line 15, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-star:before {
+  content: "\f005";
+}
+
+/* line 16, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-star-empty:before {
+  content: "\f006";
+}
+
+/* line 17, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-user:before {
+  content: "\f007";
+}
+
+/* line 18, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-film:before {
+  content: "\f008";
+}
+
+/* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-th-large:before {
+  content: "\f009";
+}
+
+/* line 20, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-th:before {
+  content: "\f00a";
+}
+
+/* line 21, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-th-list:before {
+  content: "\f00b";
+}
+
+/* line 22, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-ok:before {
+  content: "\f00c";
+}
+
+/* line 23, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-remove:before {
+  content: "\f00d";
+}
+
+/* line 24, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-zoom-in:before {
+  content: "\f00e";
+}
+
+/* line 26, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-zoom-out:before {
+  content: "\f010";
+}
+
+/* line 27, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-off:before {
+  content: "\f011";
+}
+
+/* line 28, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-signal:before {
+  content: "\f012";
+}
+
+/* line 29, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-cog:before {
+  content: "\f013";
+}
+
+/* line 30, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-trash:before {
+  content: "\f014";
+}
+
+/* line 31, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-home:before, .navbar li.home a:before {
+  content: "\f015";
+}
+
+/* line 32, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-file:before {
+  content: "\f016";
+}
+
+/* line 33, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-time:before {
+  content: "\f017";
+}
+
+/* line 34, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-road:before {
+  content: "\f018";
+}
+
+/* line 35, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-download-alt:before {
+  content: "\f019";
+}
+
+/* line 36, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-download:before {
+  content: "\f01a";
+}
+
+/* line 37, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-upload:before {
+  content: "\f01b";
+}
+
+/* line 38, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-inbox:before {
+  content: "\f01c";
+}
+
+/* line 39, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-play-circle:before {
+  content: "\f01d";
+}
+
+/* line 40, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-repeat:before {
+  content: "\f01e";
+}
+
+/* \f020 doesn't work in Safari. all shifted one down */
+/* line 43, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-refresh:before {
+  content: "\f021";
+}
+
+/* line 44, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-list-alt:before {
+  content: "\f022";
+}
+
+/* line 45, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-lock:before {
+  content: "\f023";
+}
+
+/* line 46, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-flag:before, .report > header .report-actions > li > a i.icon-flag:before {
+  content: "\f024";
+}
+
+/* line 47, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-headphones:before {
+  content: "\f025";
+}
+
+/* line 48, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-volume-off:before {
+  content: "\f026";
+}
+
+/* line 49, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-volume-down:before {
+  content: "\f027";
+}
+
+/* line 50, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-volume-up:before {
+  content: "\f028";
+}
+
+/* line 51, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-qrcode:before {
+  content: "\f029";
+}
+
+/* line 52, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-barcode:before {
+  content: "\f02a";
+}
+
+/* line 53, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-tag:before {
+  content: "\f02b";
+}
+
+/* line 54, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-tags:before {
+  content: "\f02c";
+}
+
+/* line 55, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-book:before {
+  content: "\f02d";
+}
+
+/* line 56, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-bookmark:before {
+  content: "\f02e";
+}
+
+/* line 57, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-print:before {
+  content: "\f02f";
+}
+
+/* line 59, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-camera:before {
+  content: "\f030";
+}
+
+/* line 60, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-font:before {
+  content: "\f031";
+}
+
+/* line 61, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-bold:before {
+  content: "\f032";
+}
+
+/* line 62, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-italic:before {
+  content: "\f033";
+}
+
+/* line 63, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-text-height:before {
+  content: "\f034";
+}
+
+/* line 64, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-text-width:before {
+  content: "\f035";
+}
+
+/* line 65, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-align-left:before {
+  content: "\f036";
+}
+
+/* line 66, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-align-center:before {
+  content: "\f037";
+}
+
+/* line 67, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-align-right:before {
+  content: "\f038";
+}
+
+/* line 68, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-align-justify:before {
+  content: "\f039";
+}
+
+/* line 69, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-list:before {
+  content: "\f03a";
+}
+
+/* line 70, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-indent-left:before {
+  content: "\f03b";
+}
+
+/* line 71, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-indent-right:before {
+  content: "\f03c";
+}
+
+/* line 72, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-facetime-video:before {
+  content: "\f03d";
+}
+
+/* line 73, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-picture:before {
+  content: "\f03e";
+}
+
+/* line 75, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-pencil:before {
+  content: "\f040";
+}
+
+/* line 76, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-map-marker:before {
+  content: "\f041";
+}
+
+/* line 77, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-adjust:before {
+  content: "\f042";
+}
+
+/* line 78, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-tint:before {
+  content: "\f043";
+}
+
+/* line 79, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-edit:before {
+  content: "\f044";
+}
+
+/* line 80, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-share:before, .report > header .report-actions > li > a i.icon-share:before {
+  content: "\f045";
+}
+
+/* line 81, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-check:before {
+  content: "\f046";
+}
+
+/* line 82, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-move:before {
+  content: "\f047";
+}
+
+/* line 83, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-step-backward:before {
+  content: "\f048";
+}
+
+/* line 84, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-fast-backward:before {
+  content: "\f049";
+}
+
+/* line 85, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-backward:before {
+  content: "\f04a";
+}
+
+/* line 86, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-play:before {
+  content: "\f04b";
+}
+
+/* line 87, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-pause:before {
+  content: "\f04c";
+}
+
+/* line 88, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-stop:before {
+  content: "\f04d";
+}
+
+/* line 89, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-forward:before {
+  content: "\f04e";
+}
+
+/* line 91, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-fast-forward:before {
+  content: "\f050";
+}
+
+/* line 92, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-step-forward:before {
+  content: "\f051";
+}
+
+/* line 93, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-eject:before {
+  content: "\f052";
+}
+
+/* line 94, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-chevron-left:before {
+  content: "\f053";
+}
+
+/* line 95, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-chevron-right:before {
+  content: "\f054";
+}
+
+/* line 96, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-plus-sign:before {
+  content: "\f055";
+}
+
+/* line 97, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-minus-sign:before {
+  content: "\f056";
+}
+
+/* line 98, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-remove-sign:before {
+  content: "\f057";
+}
+
+/* line 99, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-ok-sign:before {
+  content: "\f058";
+}
+
+/* line 100, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-question-sign:before {
+  content: "\f059";
+}
+
+/* line 101, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-info-sign:before {
+  content: "\f05a";
+}
+
+/* line 102, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-screenshot:before {
+  content: "\f05b";
+}
+
+/* line 103, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-remove-circle:before {
+  content: "\f05c";
+}
+
+/* line 104, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-ok-circle:before {
+  content: "\f05d";
+}
+
+/* line 105, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-ban-circle:before {
+  content: "\f05e";
+}
+
+/* line 107, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-arrow-left:before {
+  content: "\f060";
+}
+
+/* line 108, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-arrow-right:before {
+  content: "\f061";
+}
+
+/* line 109, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-arrow-up:before {
+  content: "\f062";
+}
+
+/* line 110, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-arrow-down:before {
+  content: "\f063";
+}
+
+/* line 111, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-share-alt:before {
+  content: "\f064";
+}
+
+/* line 112, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-resize-full:before {
+  content: "\f065";
+}
+
+/* line 113, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-resize-small:before {
+  content: "\f066";
+}
+
+/* line 114, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-plus:before {
+  content: "\f067";
+}
+
+/* line 115, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-minus:before {
+  content: "\f068";
+}
+
+/* line 116, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-asterisk:before {
+  content: "\f069";
+}
+
+/* line 117, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-exclamation-sign:before {
+  content: "\f06a";
+}
+
+/* line 118, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-gift:before {
+  content: "\f06b";
+}
+
+/* line 119, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-leaf:before {
+  content: "\f06c";
+}
+
+/* line 120, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-fire:before {
+  content: "\f06d";
+}
+
+/* line 121, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-eye-open:before {
+  content: "\f06e";
+}
+
+/* line 123, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-eye-close:before {
+  content: "\f070";
+}
+
+/* line 124, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-warning-sign:before {
+  content: "\f071";
+}
+
+/* line 125, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-plane:before {
+  content: "\f072";
+}
+
+/* line 126, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-calendar:before {
+  content: "\f073";
+}
+
+/* line 127, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-random:before {
+  content: "\f074";
+}
+
+/* line 128, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-comment:before {
+  content: "\f075";
+}
+
+/* line 129, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-magnet:before {
+  content: "\f076";
+}
+
+/* line 130, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-chevron-up:before {
+  content: "\f077";
+}
+
+/* line 131, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-chevron-down:before {
+  content: "\f078";
+}
+
+/* line 132, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-retweet:before {
+  content: "\f079";
+}
+
+/* line 133, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-shopping-cart:before {
+  content: "\f07a";
+}
+
+/* line 134, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-folder-close:before {
+  content: "\f07b";
+}
+
+/* line 135, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-folder-open:before {
+  content: "\f07c";
+}
+
+/* line 136, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-resize-vertical:before {
+  content: "\f07d";
+}
+
+/* line 137, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-resize-horizontal:before {
+  content: "\f07e";
+}
+
+/* line 139, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-bar-chart:before {
+  content: "\f080";
+}
+
+/* line 140, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-twitter-sign:before {
+  content: "\f081";
+}
+
+/* line 141, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-facebook-sign:before {
+  content: "\f082";
+}
+
+/* line 142, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-camera-retro:before {
+  content: "\f083";
+}
+
+/* line 143, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-key:before {
+  content: "\f084";
+}
+
+/* line 144, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-cogs:before {
+  content: "\f085";
+}
+
+/* line 145, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-comments:before {
+  content: "\f086";
+}
+
+/* line 146, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-thumbs-up:before {
+  content: "\f087";
+}
+
+/* line 147, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-thumbs-down:before {
+  content: "\f088";
+}
+
+/* line 148, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-star-half:before {
+  content: "\f089";
+}
+
+/* line 149, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-heart-empty:before {
+  content: "\f08a";
+}
+
+/* line 150, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-signout:before {
+  content: "\f08b";
+}
+
+/* line 151, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-linkedin-sign:before {
+  content: "\f08c";
+}
+
+/* line 152, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-pushpin:before {
+  content: "\f08d";
+}
+
+/* line 153, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-external-link:before {
+  content: "\f08e";
+}
+
+/* line 155, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-signin:before {
+  content: "\f090";
+}
+
+/* line 156, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-trophy:before {
+  content: "\f091";
+}
+
+/* line 157, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-github-sign:before {
+  content: "\f092";
+}
+
+/* line 158, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-upload-alt:before {
+  content: "\f093";
+}
+
+/* line 159, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-lemon:before {
+  content: "\f094";
+}
+
+/* line 160, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-phone:before {
+  content: "\f095";
+}
+
+/* line 161, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-check-empty:before {
+  content: "\f096";
+}
+
+/* line 162, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-bookmark-empty:before {
+  content: "\f097";
+}
+
+/* line 163, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-phone-sign:before {
+  content: "\f098";
+}
+
+/* line 164, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-twitter:before, body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li.first a:before {
+  content: "\f099";
+}
+
+/* line 165, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-facebook:before, body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li a.facebook-action-connect:before {
+  content: "\f09a";
+}
+
+/* line 166, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-github:before {
+  content: "\f09b";
+}
+
+/* line 167, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-unlock:before {
+  content: "\f09c";
+}
+
+/* line 168, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-credit-card:before {
+  content: "\f09d";
+}
+
+/* line 169, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-rss:before {
+  content: "\f09e";
+}
+
+/* line 171, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-hdd:before {
+  content: "\f0a0";
+}
+
+/* line 172, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-bullhorn:before {
+  content: "\f0a1";
+}
+
+/* line 173, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-bell:before {
+  content: "\f0a2";
+}
+
+/* line 174, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-certificate:before {
+  content: "\f0a3";
+}
+
+/* line 175, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-hand-right:before {
+  content: "\f0a4";
+}
+
+/* line 176, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-hand-left:before {
+  content: "\f0a5";
+}
+
+/* line 177, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-hand-up:before {
+  content: "\f0a6";
+}
+
+/* line 178, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-hand-down:before {
+  content: "\f0a7";
+}
+
+/* line 179, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-circle-arrow-left:before {
+  content: "\f0a8";
+}
+
+/* line 180, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-circle-arrow-right:before {
+  content: "\f0a9";
+}
+
+/* line 181, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-circle-arrow-up:before {
+  content: "\f0aa";
+}
+
+/* line 182, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-circle-arrow-down:before {
+  content: "\f0ab";
+}
+
+/* line 183, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-globe:before {
+  content: "\f0ac";
+}
+
+/* line 184, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-wrench:before {
+  content: "\f0ad";
+}
+
+/* line 185, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-tasks:before {
+  content: "\f0ae";
+}
+
+/* line 187, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-filter:before {
+  content: "\f0b0";
+}
+
+/* line 188, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-briefcase:before {
+  content: "\f0b1";
+}
+
+/* line 189, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-fullscreen:before {
+  content: "\f0b2";
+}
+
+/* line 191, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-group:before {
+  content: "\f0c0";
+}
+
+/* line 192, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-link:before {
+  content: "\f0c1";
+}
+
+/* line 193, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-cloud:before {
+  content: "\f0c2";
+}
+
+/* line 194, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-beaker:before {
+  content: "\f0c3";
+}
+
+/* line 195, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-cut:before {
+  content: "\f0c4";
+}
+
+/* line 196, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-copy:before {
+  content: "\f0c5";
+}
+
+/* line 197, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-paper-clip:before {
+  content: "\f0c6";
+}
+
+/* line 198, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-save:before {
+  content: "\f0c7";
+}
+
+/* line 199, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-sign-blank:before {
+  content: "\f0c8";
+}
+
+/* line 200, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-reorder:before {
+  content: "\f0c9";
+}
+
+/* line 201, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-list-ul:before {
+  content: "\f0ca";
+}
+
+/* line 202, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-list-ol:before {
+  content: "\f0cb";
+}
+
+/* line 203, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-strikethrough:before {
+  content: "\f0cc";
+}
+
+/* line 204, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-underline:before {
+  content: "\f0cd";
+}
+
+/* line 205, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-table:before {
+  content: "\f0ce";
+}
+
+/* line 207, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-magic:before {
+  content: "\f0d0";
+}
+
+/* line 208, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-truck:before {
+  content: "\f0d1";
+}
+
+/* line 209, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-pinterest:before {
+  content: "\f0d2";
+}
+
+/* line 210, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-pinterest-sign:before {
+  content: "\f0d3";
+}
+
+/* line 211, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-google-plus-sign:before {
+  content: "\f0d4";
+}
+
+/* line 212, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-google-plus:before {
+  content: "\f0d5";
+}
+
+/* line 213, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-money:before {
+  content: "\f0d6";
+}
+
+/* line 214, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-caret-down:before {
+  content: "\f0d7";
+}
+
+/* line 215, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-caret-up:before {
+  content: "\f0d8";
+}
+
+/* line 216, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-caret-left:before {
+  content: "\f0d9";
+}
+
+/* line 217, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-caret-right:before {
+  content: "\f0da";
+}
+
+/* line 218, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-columns:before {
+  content: "\f0db";
+}
+
+/* line 219, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-sort:before {
+  content: "\f0dc";
+}
+
+/* line 220, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-sort-down:before {
+  content: "\f0dd";
+}
+
+/* line 221, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-sort-up:before {
+  content: "\f0de";
+}
+
+/* line 223, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-envelope-alt:before {
+  content: "\f0e0";
+}
+
+/* line 224, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-linkedin:before {
+  content: "\f0e1";
+}
+
+/* line 225, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-undo:before {
+  content: "\f0e2";
+}
+
+/* line 226, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-legal:before {
+  content: "\f0e3";
+}
+
+/* line 227, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-dashboard:before {
+  content: "\f0e4";
+}
+
+/* line 228, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-comment-alt:before {
+  content: "\f0e5";
+}
+
+/* line 229, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-comments-alt:before {
+  content: "\f0e6";
+}
+
+/* line 230, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-bolt:before {
+  content: "\f0e7";
+}
+
+/* line 231, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-sitemap:before {
+  content: "\f0e8";
+}
+
+/* line 232, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-umbrella:before {
+  content: "\f0e9";
+}
+
+/* line 233, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-paste:before {
+  content: "\f0ea";
+}
+
+/* line 235, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_fontawesome.scss */
+.icon-user-md:before {
+  content: "\f200";
+}
+
+/* line 284, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class, body.not-front.not-logged-in.page-user input.form-submit {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 300;
+}
+/* line 268, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class::-moz-focus-inner, body.not-front.not-logged-in.page-user input.form-submit::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+/* line 272, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class:focus, body.not-front.not-logged-in.page-user input.form-submit:focus {
+  outline: none;
+}
+
+/* incase an inverted custom gradient isn't specified */
+/* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+
+/* line 28, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* line 37, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+audio:not([controls]) {
+  display: none;
+}
+
+/* line 44, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* line 50, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* line 55, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+a:hover,
+a:active {
+  outline: 0;
+}
+
+/* line 63, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+/* line 69, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 72, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 79, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+img {
+  /* Responsive images (ensure images don't scale beyond their parents) */
+  max-width: 100%;
+  /* Part 1: Set a maxium relative to the parent */
+  width: auto\9;
+  /* IE7-8 need help adjusting responsive images */
+  height: auto;
+  /* Part 2: Scale the height according to the width, otherwise you get stretching */
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+
+/* line 92, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+#map_canvas img,
+.google-maps img {
+  max-width: none;
+}
+
+/* line 103, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle;
+}
+
+/* line 109, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+button,
+input {
+  *overflow: visible;
+  line-height: normal;
+}
+
+/* line 114, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* line 121, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+/* line 125, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+/* line 132, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* line 135, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+/* line 91, ../scss/override_ctb/_forms.scss */
+form {
+  margin: 0 0 19.2px;
+}
+
+/* line 95, ../scss/override_ctb/_forms.scss */
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+/* line 102, ../scss/override_ctb/_forms.scss */
+legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 19.2px;
+  font-size: 24px;
+  line-height: 38.4px;
+  color: #333333;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* line 114, ../scss/override_ctb/_forms.scss */
+legend small {
+  font-size: 14.4px;
+  color: #999999;
+}
+
+/* line 125, ../scss/override_ctb/_forms.scss */
+label,
+input,
+button,
+select,
+textarea {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 19.2px;
+}
+
+/* line 131, ../scss/override_ctb/_forms.scss */
+input,
+button,
+select,
+textarea {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* line 136, ../scss/override_ctb/_forms.scss */
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* line 161, ../scss/override_ctb/_forms.scss */
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  display: inline-block;
+  height: 19.2px;
+  margin-bottom: 9.6px;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #555555;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+/* line 176, ../scss/override_ctb/_forms.scss */
+input,
+textarea,
+.uneditable-input {
+  width: 206px;
+}
+
+/* line 180, ../scss/override_ctb/_forms.scss */
+textarea {
+  height: auto;
+}
+
+/* line 199, ../scss/override_ctb/_forms.scss */
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  background-color: white;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+/* line 206, ../scss/override_ctb/_forms.scss */
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/* line 216, ../scss/override_ctb/_forms.scss */
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 4px 0 0;
+  *margin-top: 0;
+  /* IE7 */
+  margin-top: 1px \9;
+  /* IE8-9 */
+  line-height: normal;
+  cursor: pointer;
+}
+
+/* line 231, ../scss/override_ctb/_forms.scss */
+input[type="file"],
+input[type="image"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+}
+
+/* line 237, ../scss/override_ctb/_forms.scss */
+select,
+input[type="file"] {
+  height: 29.2px;
+  /* In IE7, the height of the select element cannot be changed by height, only font-size */
+  *margin-top: 4px;
+  /* For IE7, add top margin to align select with labels */
+  line-height: 29.2px;
+}
+
+/* line 244, ../scss/override_ctb/_forms.scss */
+select {
+  width: 220px;
+  border: 1px solid #cccccc;
+  background-color: white;
+}
+
+/* line 252, ../scss/override_ctb/_forms.scss */
+select[multiple],
+select[size] {
+  height: auto;
+}
+
+/* line 260, ../scss/override_ctb/_forms.scss */
+select:focus,
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* line 270, ../scss/override_ctb/_forms.scss */
+.uneditable-input,
+.uneditable-textarea {
+  color: #999999;
+  background-color: #fcfcfc;
+  border-color: #cccccc;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+  cursor: not-allowed;
+}
+
+/* line 279, ../scss/override_ctb/_forms.scss */
+.uneditable-input {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* line 285, ../scss/override_ctb/_forms.scss */
+.uneditable-textarea {
+  width: auto;
+  height: auto;
+}
+
+/* line 83, ../scss/override_ctb/_mixins.scss */
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #999999;
+}
+/* line 86, ../scss/override_ctb/_mixins.scss */
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #999999;
+}
+/* line 89, ../scss/override_ctb/_mixins.scss */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #999999;
+}
+
+/* line 306, ../scss/override_ctb/_forms.scss */
+.radio,
+.checkbox {
+  min-height: 19.2px;
+  padding-left: 20px;
+}
+
+/* line 311, ../scss/override_ctb/_forms.scss */
+.radio input[type="radio"],
+.checkbox input[type="checkbox"] {
+  float: left;
+  margin-left: -20px;
+}
+
+/* line 318, ../scss/override_ctb/_forms.scss */
+.controls > .radio:first-child,
+.controls > .checkbox:first-child {
+  padding-top: 5px;
+}
+
+/* line 325, ../scss/override_ctb/_forms.scss */
+.radio.inline,
+.checkbox.inline {
+  display: inline-block;
+  padding-top: 5px;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+/* line 332, ../scss/override_ctb/_forms.scss */
+.radio.inline + .radio.inline,
+.checkbox.inline + .checkbox.inline {
+  margin-left: 10px;
+}
+
+/* line 342, ../scss/override_ctb/_forms.scss */
+.input-mini {
+  width: 60px;
+}
+
+/* line 343, ../scss/override_ctb/_forms.scss */
+.input-small {
+  width: 90px;
+}
+
+/* line 344, ../scss/override_ctb/_forms.scss */
+.input-medium {
+  width: 150px;
+}
+
+/* line 345, ../scss/override_ctb/_forms.scss */
+.input-large {
+  width: 210px;
+}
+
+/* line 346, ../scss/override_ctb/_forms.scss */
+.input-xlarge {
+  width: 270px;
+}
+
+/* line 347, ../scss/override_ctb/_forms.scss */
+.input-xxlarge {
+  width: 530px;
+}
+
+/* line 358, ../scss/override_ctb/_forms.scss */
+input[class*="span"],
+select[class*="span"],
+textarea[class*="span"],
+.uneditable-input[class*="span"],
+.row-fluid input[class*="span"],
+.row-fluid select[class*="span"],
+.row-fluid textarea[class*="span"],
+.row-fluid .uneditable-input[class*="span"] {
+  float: none;
+  margin-left: 0;
+}
+
+/* line 372, ../scss/override_ctb/_forms.scss */
+.input-append input[class*="span"],
+.input-append .uneditable-input[class*="span"],
+.input-prepend input[class*="span"],
+.input-prepend .uneditable-input[class*="span"],
+.row-fluid input[class*="span"],
+.row-fluid select[class*="span"],
+.row-fluid textarea[class*="span"],
+.row-fluid .uneditable-input[class*="span"],
+.row-fluid .input-prepend [class*="span"],
+.row-fluid .input-append [class*="span"] {
+  display: inline-block;
+}
+
+/* line 385, ../scss/override_ctb/_forms.scss */
+.controls-row {
+  *zoom: 1;
+}
+/* line 15, ../scss/override_ctb/_mixins.scss */
+.controls-row:before, .controls-row:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+/* line 22, ../scss/override_ctb/_mixins.scss */
+.controls-row:after {
+  clear: both;
+}
+
+/* line 392, ../scss/override_ctb/_forms.scss */
+.controls-row [class*="span"],
+.row-fluid .controls-row [class*="span"] {
+  float: left;
+}
+
+/* line 397, ../scss/override_ctb/_forms.scss */
+.controls-row .checkbox[class*="span"],
+.controls-row .radio[class*="span"] {
+  padding-top: 5px;
+}
+
+/* line 413, ../scss/override_ctb/_forms.scss */
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+}
+
+/* line 421, ../scss/override_ctb/_forms.scss */
+input[type="radio"][disabled],
+input[type="checkbox"][disabled],
+input[type="radio"][readonly],
+input[type="checkbox"][readonly] {
+  background-color: transparent;
+}
+
+/* line 163, ../scss/override_ctb/_mixins.scss */
+.control-group.warning > label,
+.control-group.warning .help-block,
+.control-group.warning .help-inline {
+  color: #c09853;
+}
+/* line 171, ../scss/override_ctb/_mixins.scss */
+.control-group.warning .checkbox,
+.control-group.warning .radio,
+.control-group.warning input,
+.control-group.warning select,
+.control-group.warning textarea {
+  color: #c09853;
+  border-color: #c09853;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+/* line 175, ../scss/override_ctb/_mixins.scss */
+.control-group.warning .checkbox:focus,
+.control-group.warning .radio:focus,
+.control-group.warning input:focus,
+.control-group.warning select:focus,
+.control-group.warning textarea:focus {
+  border-color: #a47e3c;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+}
+/* line 185, ../scss/override_ctb/_mixins.scss */
+.control-group.warning .input-prepend .add-on,
+.control-group.warning .input-append .add-on {
+  color: #c09853;
+  background-color: #fcf8e3;
+  border-color: #c09853;
+}
+
+/* line 163, ../scss/override_ctb/_mixins.scss */
+.control-group.error > label, body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok > label,
+.control-group.error .help-block,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok .help-block,
+.control-group.error .help-inline,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok .help-inline {
+  color: #b94a48;
+}
+/* line 171, ../scss/override_ctb/_mixins.scss */
+.control-group.error .checkbox, body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok .checkbox,
+.control-group.error .radio,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok .radio,
+.control-group.error input,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok input,
+.control-group.error select,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok select,
+.control-group.error textarea,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok textarea {
+  color: #b94a48;
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+/* line 175, ../scss/override_ctb/_mixins.scss */
+.control-group.error .checkbox:focus, body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok .checkbox:focus,
+.control-group.error .radio:focus,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok .radio:focus,
+.control-group.error input:focus,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok input:focus,
+.control-group.error select:focus,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok select:focus,
+.control-group.error textarea:focus,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok textarea:focus {
+  border-color: #953b39;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+/* line 185, ../scss/override_ctb/_mixins.scss */
+.control-group.error .input-prepend .add-on, body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok .input-prepend .add-on,
+.control-group.error .input-append .add-on,
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.control-group.ok .input-append .add-on {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #b94a48;
+}
+
+/* line 163, ../scss/override_ctb/_mixins.scss */
+.control-group.success > label,
+.control-group.success .help-block,
+.control-group.success .help-inline {
+  color: #468847;
+}
+/* line 171, ../scss/override_ctb/_mixins.scss */
+.control-group.success .checkbox,
+.control-group.success .radio,
+.control-group.success input,
+.control-group.success select,
+.control-group.success textarea {
+  color: #468847;
+  border-color: #468847;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+/* line 175, ../scss/override_ctb/_mixins.scss */
+.control-group.success .checkbox:focus,
+.control-group.success .radio:focus,
+.control-group.success input:focus,
+.control-group.success select:focus,
+.control-group.success textarea:focus {
+  border-color: #356635;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+}
+/* line 185, ../scss/override_ctb/_mixins.scss */
+.control-group.success .input-prepend .add-on,
+.control-group.success .input-append .add-on {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #468847;
+}
+
+/* line 163, ../scss/override_ctb/_mixins.scss */
+.control-group.info > label,
+.control-group.info .help-block,
+.control-group.info .help-inline {
+  color: #3a87ad;
+}
+/* line 171, ../scss/override_ctb/_mixins.scss */
+.control-group.info .checkbox,
+.control-group.info .radio,
+.control-group.info input,
+.control-group.info select,
+.control-group.info textarea {
+  color: #3a87ad;
+  border-color: #3a87ad;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+/* line 175, ../scss/override_ctb/_mixins.scss */
+.control-group.info .checkbox:focus,
+.control-group.info .radio:focus,
+.control-group.info input:focus,
+.control-group.info select:focus,
+.control-group.info textarea:focus {
+  border-color: #2d6987;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+}
+/* line 185, ../scss/override_ctb/_mixins.scss */
+.control-group.info .input-prepend .add-on,
+.control-group.info .input-append .add-on {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #3a87ad;
+}
+
+/* line 452, ../scss/override_ctb/_forms.scss */
+input:focus:required:invalid,
+textarea:focus:required:invalid,
+select:focus:required:invalid {
+  color: #b94a48;
+  border-color: #ee5f5b;
+}
+/* line 455, ../scss/override_ctb/_forms.scss */
+input:focus:required:invalid:focus,
+textarea:focus:required:invalid:focus,
+select:focus:required:invalid:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
+
+/* line 467, ../scss/override_ctb/_forms.scss */
+.form-actions {
+  padding: 18.2px 20px 19.2px;
+  margin-top: 19.2px;
+  margin-bottom: 19.2px;
+  background-color: whitesmoke;
+  border-top: 1px solid #e5e5e5;
+  *zoom: 1;
+}
+/* line 15, ../scss/override_ctb/_mixins.scss */
+.form-actions:before, .form-actions:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+/* line 22, ../scss/override_ctb/_mixins.scss */
+.form-actions:after {
+  clear: both;
+}
+
+/* line 482, ../scss/override_ctb/_forms.scss */
+.help-block,
+.help-inline {
+  color: #595959;
+}
+
+/* line 486, ../scss/override_ctb/_forms.scss */
+.help-block {
+  display: block;
+  margin-bottom: 9.6px;
+}
+
+/* line 491, ../scss/override_ctb/_forms.scss */
+.help-inline {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  padding-left: 5px;
+}
+
+/* line 505, ../scss/override_ctb/_forms.scss */
+.input-append,
+.input-prepend {
+  margin-bottom: 5px;
+  font-size: 0;
+  white-space: nowrap;
+}
+/* line 514, ../scss/override_ctb/_forms.scss */
+.input-append input,
+.input-append select,
+.input-append .uneditable-input,
+.input-append .dropdown-menu,
+.input-prepend input,
+.input-prepend select,
+.input-prepend .uneditable-input,
+.input-prepend .dropdown-menu {
+  font-size: 16px;
+}
+/* line 520, ../scss/override_ctb/_forms.scss */
+.input-append input,
+.input-append select,
+.input-append .uneditable-input,
+.input-prepend input,
+.input-prepend select,
+.input-prepend .uneditable-input {
+  position: relative;
+  margin-bottom: 0;
+  *margin-left: 0;
+  vertical-align: top;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+/* line 527, ../scss/override_ctb/_forms.scss */
+.input-append input:focus,
+.input-append select:focus,
+.input-append .uneditable-input:focus,
+.input-prepend input:focus,
+.input-prepend select:focus,
+.input-prepend .uneditable-input:focus {
+  z-index: 2;
+}
+/* line 531, ../scss/override_ctb/_forms.scss */
+.input-append .add-on,
+.input-prepend .add-on {
+  display: inline-block;
+  width: auto;
+  height: 19.2px;
+  min-width: 16px;
+  padding: 4px 5px;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 19.2px;
+  text-align: center;
+  text-shadow: 0 1px 0 white;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+}
+/* line 546, ../scss/override_ctb/_forms.scss */
+.input-append .add-on,
+.input-append .btn,
+.input-prepend .add-on,
+.input-prepend .btn {
+  vertical-align: top;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+/* line 550, ../scss/override_ctb/_forms.scss */
+.input-append .active,
+.input-prepend .active {
+  background-color: #a9dba9;
+  border-color: #46a546;
+}
+
+/* line 558, ../scss/override_ctb/_forms.scss */
+.input-prepend .add-on,
+.input-prepend .btn {
+  margin-right: -1px;
+}
+/* line 562, ../scss/override_ctb/_forms.scss */
+.input-prepend .add-on:first-child,
+.input-prepend .btn:first-child {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+/* line 571, ../scss/override_ctb/_forms.scss */
+.input-append input,
+.input-append select,
+.input-append .uneditable-input {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+/* line 573, ../scss/override_ctb/_forms.scss */
+.input-append input + .btn-group .btn,
+.input-append select + .btn-group .btn,
+.input-append .uneditable-input + .btn-group .btn {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+/* line 579, ../scss/override_ctb/_forms.scss */
+.input-append .add-on,
+.input-append .btn,
+.input-append .btn-group {
+  margin-left: -1px;
+}
+/* line 583, ../scss/override_ctb/_forms.scss */
+.input-append .add-on:last-child,
+.input-append .btn:last-child {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+/* line 592, ../scss/override_ctb/_forms.scss */
+.input-prepend.input-append input,
+.input-prepend.input-append select,
+.input-prepend.input-append .uneditable-input {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+/* line 594, ../scss/override_ctb/_forms.scss */
+.input-prepend.input-append input + .btn-group .btn,
+.input-prepend.input-append select + .btn-group .btn,
+.input-prepend.input-append .uneditable-input + .btn-group .btn {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+/* line 599, ../scss/override_ctb/_forms.scss */
+.input-prepend.input-append .add-on:first-child,
+.input-prepend.input-append .btn:first-child {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+/* line 604, ../scss/override_ctb/_forms.scss */
+.input-prepend.input-append .add-on:last-child,
+.input-prepend.input-append .btn:last-child {
+  margin-left: -1px;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+/* line 608, ../scss/override_ctb/_forms.scss */
+.input-prepend.input-append .btn-group:first-child {
+  margin-left: 0;
+}
+
+/* line 619, ../scss/override_ctb/_forms.scss */
+input.search-query {
+  padding-right: 14px;
+  padding-right: 4px \9;
+  padding-left: 14px;
+  padding-left: 4px \9;
+  /* IE7-8 doesn't have border-radius, so don't indent the padding */
+  margin-bottom: 0;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+/* Allow for input prepend/append in search forms */
+/* line 630, ../scss/override_ctb/_forms.scss */
+.form-search .input-append .search-query,
+.form-search .input-prepend .search-query {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 633, ../scss/override_ctb/_forms.scss */
+.form-search .input-append .search-query {
+  -webkit-border-radius: 14px 0 0 14px;
+  -moz-border-radius: 14px 0 0 14px;
+  border-radius: 14px 0 0 14px;
+}
+
+/* line 636, ../scss/override_ctb/_forms.scss */
+.form-search .input-append .btn {
+  -webkit-border-radius: 0 14px 14px 0;
+  -moz-border-radius: 0 14px 14px 0;
+  border-radius: 0 14px 14px 0;
+}
+
+/* line 639, ../scss/override_ctb/_forms.scss */
+.form-search .input-prepend .search-query {
+  -webkit-border-radius: 0 14px 14px 0;
+  -moz-border-radius: 0 14px 14px 0;
+  border-radius: 0 14px 14px 0;
+}
+
+/* line 642, ../scss/override_ctb/_forms.scss */
+.form-search .input-prepend .btn {
+  -webkit-border-radius: 14px 0 0 14px;
+  -moz-border-radius: 14px 0 0 14px;
+  border-radius: 14px 0 0 14px;
+}
+
+/* line 664, ../scss/override_ctb/_forms.scss */
+.form-search input,
+.form-search textarea,
+.form-search select,
+.form-search .help-inline,
+.form-search .uneditable-input,
+.form-search .input-prepend,
+.form-search .input-append,
+.form-inline input,
+.form-inline textarea,
+.form-inline select,
+.form-inline .help-inline,
+.form-inline .uneditable-input,
+.form-inline .input-prepend,
+.form-inline .input-append,
+.form-horizontal input,
+.form-horizontal textarea,
+.form-horizontal select,
+.form-horizontal .help-inline,
+.form-horizontal .uneditable-input,
+.form-horizontal .input-prepend,
+.form-horizontal .input-append {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+/* line 671, ../scss/override_ctb/_forms.scss */
+.form-search .hide,
+.form-inline .hide,
+.form-horizontal .hide {
+  display: none;
+}
+
+/* line 678, ../scss/override_ctb/_forms.scss */
+.form-search label,
+.form-inline label,
+.form-search .btn-group,
+.form-inline .btn-group {
+  display: inline-block;
+}
+
+/* line 685, ../scss/override_ctb/_forms.scss */
+.form-search .input-append,
+.form-inline .input-append,
+.form-search .input-prepend,
+.form-inline .input-prepend {
+  margin-bottom: 0;
+}
+
+/* line 692, ../scss/override_ctb/_forms.scss */
+.form-search .radio,
+.form-search .checkbox,
+.form-inline .radio,
+.form-inline .checkbox {
+  padding-left: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+/* line 701, ../scss/override_ctb/_forms.scss */
+.form-search .radio input[type="radio"],
+.form-search .checkbox input[type="checkbox"],
+.form-inline .radio input[type="radio"],
+.form-inline .checkbox input[type="checkbox"] {
+  float: left;
+  margin-right: 3px;
+  margin-left: 0;
+}
+
+/* line 709, ../scss/override_ctb/_forms.scss */
+.control-group {
+  margin-bottom: 9.6px;
+}
+
+/* line 714, ../scss/override_ctb/_forms.scss */
+legend + .control-group {
+  margin-top: 19.2px;
+  -webkit-margin-top-collapse: separate;
+}
+
+/* line 724, ../scss/override_ctb/_forms.scss */
+.form-horizontal .control-group {
+  margin-bottom: 19.2px;
+  *zoom: 1;
+}
+/* line 15, ../scss/override_ctb/_mixins.scss */
+.form-horizontal .control-group:before, .form-horizontal .control-group:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+/* line 22, ../scss/override_ctb/_mixins.scss */
+.form-horizontal .control-group:after {
+  clear: both;
+}
+/* line 729, ../scss/override_ctb/_forms.scss */
+.form-horizontal .control-label {
+  float: left;
+  width: 160px;
+  padding-top: 5px;
+  text-align: right;
+}
+/* line 736, ../scss/override_ctb/_forms.scss */
+.form-horizontal .controls {
+  *display: inline-block;
+  *padding-left: 20px;
+  margin-left: 180px;
+  *margin-left: 0;
+}
+/* line 743, ../scss/override_ctb/_forms.scss */
+.form-horizontal .controls:first-child {
+  *padding-left: 180px;
+}
+/* line 748, ../scss/override_ctb/_forms.scss */
+.form-horizontal .help-block {
+  margin-bottom: 0;
+}
+/* line 755, ../scss/override_ctb/_forms.scss */
+.form-horizontal input + .help-block,
+.form-horizontal select + .help-block,
+.form-horizontal textarea + .help-block {
+  margin-top: 9.6px;
+}
+/* line 760, ../scss/override_ctb/_forms.scss */
+.form-horizontal .form-actions {
+  padding-left: 180px;
+}
+
+/* line 6, ../scss/override_ctb/_navigation.scss */
+.nav {
+  margin-left: 0;
+  margin-bottom: 19.2px;
+  list-style: none;
+}
+
+/* line 13, ../scss/override_ctb/_navigation.scss */
+.nav > li > a {
+  display: block;
+}
+
+/* line 16, ../scss/override_ctb/_navigation.scss */
+.nav > li > a:hover {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+
+/* line 22, ../scss/override_ctb/_navigation.scss */
+.nav > .pull-right {
+  float: right;
+}
+
+/* line 27, ../scss/override_ctb/_navigation.scss */
+.nav-header {
+  display: block;
+  padding: 3px 15px;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 19.2px;
+  color: #999999;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+/* line 38, ../scss/override_ctb/_navigation.scss */
+.nav li + .nav-header {
+  margin-top: 9px;
+}
+
+/* line 52, ../scss/override_ctb/_navigation.scss */
+.navbar {
+  overflow: visible;
+  margin-bottom: 19.2px;
+  color: #999999;
+  *position: relative;
+  *z-index: 2;
+}
+
+/* line 64, ../scss/override_ctb/_navigation.scss */
+.navbar-inner {
+  min-height: 33px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #222222;
+  border: 1px solid #030303;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+}
+
+/* line 75, ../scss/override_ctb/_navigation.scss */
+.navbar .container {
+  width: auto;
+}
+
+/* line 82, ../scss/override_ctb/_navigation.scss */
+.navbar-text {
+  margin-bottom: 0;
+  line-height: 33px;
+}
+
+/* line 89, ../scss/override_ctb/_navigation.scss */
+.navbar-link {
+  color: #999999;
+}
+/* line 91, ../scss/override_ctb/_navigation.scss */
+.navbar-link:hover {
+  color: white;
+}
+
+/* line 98, ../scss/override_ctb/_navigation.scss */
+.navbar .divider-vertical {
+  height: 33px;
+  margin: 0 9px;
+  border-left: 1px solid #222222;
+  border-right: 1px solid #222222;
+}
+
+/* line 108, ../scss/override_ctb/_navigation.scss */
+.navbar .btn,
+.navbar .btn-group {
+  margin-top: 2.5px;
+}
+
+/* line 111, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-group .btn {
+  margin: 0;
+}
+
+/* line 116, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-group .btn-account {
+  background: #d4d4d4;
+  padding: 2px 9px;
+  font-size: 14px;
+  line-height: 17.2px;
+  margin-top: 5px;
+}
+/* line 122, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-group .btn-account .avatar {
+  display: inline-block;
+  *margin-right: .3em;
+  height: 20px;
+  vertical-align: text-top;
+  margin-top: -5px;
+  margin-left: -10px;
+}
+/* line 129, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-group .btn-account .avatar img {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+/* line 143, ../scss/override_ctb/_navigation.scss */
+.navbar-static-top {
+  position: static;
+  width: 100%;
+  margin-bottom: 0;
+}
+/* line 147, ../scss/override_ctb/_navigation.scss */
+.navbar-static-top .navbar-inner {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 158, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  margin-bottom: 0;
+}
+
+/* line 168, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-top .navbar-inner,
+.navbar-fixed-bottom .navbar-inner,
+.navbar-static-top .navbar-inner {
+  border: 0;
+}
+
+/* line 173, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-top .navbar-inner,
+.navbar-fixed-bottom .navbar-inner {
+  padding-left: 0;
+  padding-right: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 188, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-top {
+  top: 0;
+}
+
+/* line 193, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-top .navbar-inner,
+.navbar-static-top .navbar-inner {
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* line 199, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-bottom {
+  bottom: 0;
+}
+/* line 201, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-bottom .navbar-inner {
+  -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 10px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* line 207, ../scss/override_ctb/_navigation.scss */
+.toolbar .navbar-fixed-top {
+  top: 30px;
+}
+
+/* line 211, ../scss/override_ctb/_navigation.scss */
+.toolbar-drawer .navbar-fixed-top {
+  top: 65px;
+}
+
+/* line 221, ../scss/override_ctb/_navigation.scss */
+.navbar .nav {
+  position: relative;
+  left: 0;
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+/* line 228, ../scss/override_ctb/_navigation.scss */
+.navbar .nav.pull-right {
+  float: right;
+}
+
+/* line 231, ../scss/override_ctb/_navigation.scss */
+.navbar .nav > li {
+  display: block;
+  float: left;
+  line-height: 19.2px;
+  margin: 0;
+}
+
+/* line 240, ../scss/override_ctb/_navigation.scss */
+.nav > li > a {
+  display: block;
+}
+
+/* line 244, ../scss/override_ctb/_navigation.scss */
+.navbar .nav > li > a {
+  float: none;
+  padding: 6.9px 15px 6.9px;
+  color: #999999;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #222222;
+}
+
+/* line 253, ../scss/override_ctb/_navigation.scss */
+.navbar li.home a {
+  font-size: 15px;
+  display: block!important;
+  background-color: transparent;
+  width: 15px !important;
+  height: 15px;
+  padding: 3px;
+  text-decoration: none;
+  padding: 6.9px 15px 6.9px;
+}
+/* line 85, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_icons.scss */
+.navbar li.home a:before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 15px;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: white;
+  font-family: 'FontAwesome';
+}
+
+/* line 259, ../scss/override_ctb/_navigation.scss */
+.navbar .nav .dropdown-toggle .caret {
+  margin-top: 8px;
+}
+
+/* line 265, ../scss/override_ctb/_navigation.scss */
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+}
+
+/* line 274, ../scss/override_ctb/_navigation.scss */
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus {
+  color: white;
+  text-decoration: none;
+  background-color: #151515;
+  -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+}
+
+/* line 285, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-navbar {
+  display: none;
+  float: right;
+  padding: 7px 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #151515;
+  background-image: -moz-linear-gradient(top, #151515, #151515);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#151515), to(#151515));
+  background-image: -webkit-linear-gradient(top, #151515, #151515);
+  background-image: -o-linear-gradient(top, #151515, #151515);
+  background-image: linear-gradient(to bottom, #151515, #151515);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#131313', endColorstr='#131313', GradientType=0);
+  border-color: #151515 #151515 black;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #151515;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.navbar .btn-navbar:hover, .navbar .btn-navbar:active, .navbar .btn-navbar.active, .navbar .btn-navbar.disabled, .navbar .btn-navbar[disabled] {
+  color: white;
+  background-color: #151515;
+  *background-color: #090909;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.navbar .btn-navbar:active, .navbar .btn-navbar.active {
+  background-color: black \9;
+}
+
+/* line 294, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-navbar .icon-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: #f5f5f5;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* line 302, ../scss/override_ctb/_navigation.scss */
+.btn-navbar .icon-bar + .icon-bar {
+  margin-top: 3px;
+}
+
+/* line 311, ../scss/override_ctb/_navigation.scss */
+.navbar .nav > li > .dropdown-menu:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: -7px;
+  left: 9px;
+}
+/* line 322, ../scss/override_ctb/_navigation.scss */
+.navbar .nav > li > .dropdown-menu:after {
+  content: '';
+  display: inline-block;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid white;
+  position: absolute;
+  top: -6px;
+  left: 10px;
+}
+
+/* line 335, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-bottom .nav > li > .dropdown-menu:before {
+  border-top: 7px solid #ccc;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  border-bottom: 0;
+  bottom: -7px;
+  top: auto;
+}
+/* line 342, ../scss/override_ctb/_navigation.scss */
+.navbar-fixed-bottom .nav > li > .dropdown-menu:after {
+  border-top: 6px solid white;
+  border-bottom: 0;
+  bottom: -6px;
+  top: auto;
+}
+
+/* line 353, ../scss/override_ctb/_navigation.scss */
+.navbar .nav li.dropdown.open > .dropdown-toggle,
+.navbar .nav li.dropdown.active > .dropdown-toggle,
+.navbar .nav li.dropdown.open.active > .dropdown-toggle {
+  background-color: #151515;
+  color: white;
+}
+
+/* line 357, ../scss/override_ctb/_navigation.scss */
+.navbar .nav li.dropdown > .dropdown-toggle .caret {
+  border-top-color: #999999;
+  border-bottom-color: #999999;
+}
+
+/* line 363, ../scss/override_ctb/_navigation.scss */
+.navbar .nav li.dropdown.open > .dropdown-toggle .caret,
+.navbar .nav li.dropdown.active > .dropdown-toggle .caret,
+.navbar .nav li.dropdown.open.active > .dropdown-toggle .caret {
+  border-top-color: white;
+  border-bottom-color: white;
+}
+
+/* line 370, ../scss/override_ctb/_navigation.scss */
+.navbar .pull-right > li > .dropdown-menu,
+.navbar .nav > li > .dropdown-menu.pull-right {
+  left: auto;
+  right: 0;
+}
+/* line 373, ../scss/override_ctb/_navigation.scss */
+.navbar .pull-right > li > .dropdown-menu:before,
+.navbar .nav > li > .dropdown-menu.pull-right:before {
+  left: auto;
+  right: 12px;
+}
+/* line 377, ../scss/override_ctb/_navigation.scss */
+.navbar .pull-right > li > .dropdown-menu:after,
+.navbar .nav > li > .dropdown-menu.pull-right:after {
+  left: auto;
+  right: 13px;
+}
+/* line 381, ../scss/override_ctb/_navigation.scss */
+.navbar .pull-right > li > .dropdown-menu .dropdown-menu,
+.navbar .nav > li > .dropdown-menu.pull-right .dropdown-menu {
+  left: auto;
+  right: 100%;
+  margin-left: 0;
+  margin-right: -1px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}
+
+/* line 9, ../scss/override_ctb/_alerts.scss */
+.alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  background-color: #fcf8e3;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  color: #cccccc;
+  font-size: 10px;
+  background-color: #eeeeee;
+  -webkit-transition-property: height;
+  -moz-transition-property: height;
+  -ms-transition-property: height;
+  -o-transition-property: height;
+  transition-property: height;
+  -webkit-transition-duration: 2s;
+  -moz-transition-duration: 2s;
+  -ms-transition-duration: 2s;
+  -o-transition-duration: 2s;
+  transition-duration: 2s;
+  -webkit-transition-timing-function: ease-in;
+  -moz-transition-timing-function: ease-in;
+  -ms-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+/* line 21, ../scss/override_ctb/_alerts.scss */
+.alert:hover {
+  height: auto;
+}
+
+/* line 26, ../scss/override_ctb/_alerts.scss */
+.alert .close {
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 19.2px;
+  color: black;
+  text-shadow: 0 1px 0 white;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+  opacity: 0.2;
+}
+/* line 34, ../scss/override_ctb/_alerts.scss */
+.alert .close:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+}
+
+/* line 44, ../scss/override_ctb/_alerts.scss */
+.messages h4 {
+  margin: 0;
+}
+
+/* line 62, ../scss/override_ctb/_alerts.scss */
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+
+/* line 68, ../scss/override_ctb/_alerts.scss */
+.alert-danger,
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+
+/* line 73, ../scss/override_ctb/_alerts.scss */
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+}
+
+/* line 83, ../scss/override_ctb/_alerts.scss */
+.alert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* line 88, ../scss/override_ctb/_alerts.scss */
+.alert-block > p,
+.alert-block > ul {
+  margin-bottom: 0;
+}
+
+/* line 91, ../scss/override_ctb/_alerts.scss */
+.alert-block p + p {
+  margin-top: 5px;
+}
+
+/* line 119, ../scss/override_ctb/_alerts.scss */
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
+/* line 132, ../scss/override_ctb/_alerts.scss */
+#absolute-messages-messages {
+  width: 100%;
+  position: relative;
+  top: 33px;
+  left: 0;
+  z-index: 10;
+}
+
+/* line 140, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-message {
+  display: none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  color: #735005;
+  zoom: 1;
+}
+
+/* line 149, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-message.collapsible:hover {
+  cursor: pointer;
+}
+
+/* line 152, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-message .content {
+  margin: 0;
+  padding: .5em 1.5em 0 1.5em;
+  border-bottom: .5em solid transparent;
+  overflow: hidden;
+}
+
+/* line 158, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-message .content a {
+  text-decoration: underline;
+}
+
+/* line 161, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-status {
+  background-color: #d9edf7;
+  border-bottom: 1px solid #bce8f1;
+  color: #3a87ad;
+}
+
+/* line 167, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-status a:link,
+.absolute-messages-status a:visited {
+  color: #3a87ad;
+}
+
+/* line 170, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-warning {
+  background-color: #fcf8e3;
+  border-bottom: 1px solid #fbeed5;
+  color: #c09853;
+}
+
+/* line 176, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-warning a:link,
+.absolute-messages-warning a:visited {
+  color: #c09853;
+}
+
+/* line 179, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-error {
+  background-color: #f2dede;
+  border-bottom: 1px solid #eed3d7;
+  color: #b94a48;
+}
+
+/* line 185, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-error a:link,
+.absolute-messages-error a:visited {
+  color: #b94a48;
+}
+
+/* line 188, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-actions {
+  float: right;
+}
+
+/* line 194, ../scss/override_ctb/_alerts.scss */
+a.absolute-messages-dismiss,
+a.absolute-messages-dismiss-all,
+a.absolute-messages-dismiss:hover,
+a.absolute-messages-dismiss-all:hover {
+  display: block;
+  position: absolute;
+  top: .8em;
+  right: .5em;
+  z-index: 10;
+  margin: 0;
+  padding: 1px 3px;
+  line-height: 1em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* line 207, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-status .absolute-messages-dismiss {
+  color: #3a87ad;
+}
+
+/* line 210, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-warning .absolute-messages-dismiss {
+  color: #c09853;
+}
+
+/* line 213, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-error .absolute-messages-dismiss {
+  color: #b94a48;
+}
+
+/* line 217, ../scss/override_ctb/_alerts.scss */
+a.absolute-messages-dismiss-all,
+a.absolute-messages-dismiss-all:hover {
+  border: 2px solid #222;
+  background-color: #222;
+  color: #ccc;
+}
+
+/* line 222, ../scss/override_ctb/_alerts.scss */
+#absolute-messages-show {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-width: 0 16px 16px 0;
+  border-style: solid;
+  border-color: transparent #fff;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* line 237, ../scss/override_ctb/_alerts.scss */
+.absolute-messages-show {
+  display: block;
+  width: 16px;
+  height: 16px;
+  /* Ugly hack for IE, as it does not support Box Shadow. */
+  border-left: 1px solid #666\9;
+  border-bottom: 1px solid #666\9;
+}
+
+/* And for Opera too. Ugh. */
+/* line 246, ../scss/override_ctb/_alerts.scss */
+noindex:-o-prefocus, .absolute-messages-show {
+  border-left: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+
+/* line 10, ../scss/override_ctb/_type.scss */
+p {
+  margin: 0 0 9.6px;
+}
+
+/* line 13, ../scss/override_ctb/_type.scss */
+.lead {
+  margin-bottom: 19.2px;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 28.8px;
+}
+
+/* line 23, ../scss/override_ctb/_type.scss */
+small {
+  font-size: 85%;
+}
+
+/* line 26, ../scss/override_ctb/_type.scss */
+strong {
+  font-weight: bold;
+}
+
+/* line 29, ../scss/override_ctb/_type.scss */
+em {
+  font-style: italic;
+}
+
+/* line 32, ../scss/override_ctb/_type.scss */
+cite {
+  font-style: normal;
+}
+
+/* line 35, ../scss/override_ctb/_type.scss */
+.muted {
+  color: #999999;
+}
+
+/* line 43, ../scss/override_ctb/_type.scss */
+h1, h2, h3, h4, h5, h6 {
+  margin: 9.6px 0;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1;
+  color: inherit;
+  text-rendering: optimizelegibility;
+}
+/* line 50, ../scss/override_ctb/_type.scss */
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+
+/* line 56, ../scss/override_ctb/_type.scss */
+h1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+/* line 57, ../scss/override_ctb/_type.scss */
+h2 {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+/* line 58, ../scss/override_ctb/_type.scss */
+h3 {
+  font-size: 24px;
+  line-height: 40px;
+}
+
+/* line 59, ../scss/override_ctb/_type.scss */
+h4 {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+/* line 60, ../scss/override_ctb/_type.scss */
+h5 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* line 61, ../scss/override_ctb/_type.scss */
+h6 {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+/* line 63, ../scss/override_ctb/_type.scss */
+h1 small {
+  font-size: 24px;
+}
+
+/* line 64, ../scss/override_ctb/_type.scss */
+h2 small {
+  font-size: 18px;
+}
+
+/* line 65, ../scss/override_ctb/_type.scss */
+h3 small {
+  font-size: 14px;
+}
+
+/* line 66, ../scss/override_ctb/_type.scss */
+h4 small {
+  font-size: 14px;
+}
+
+/* line 72, ../scss/override_ctb/_type.scss */
+.page-header {
+  padding-bottom: 8.6px;
+  margin: 19.2px 0 28.8px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* line 84, ../scss/override_ctb/_type.scss */
+ul, ol {
+  padding: 0;
+  margin: 0 0 9.6px 25px;
+}
+
+/* line 91, ../scss/override_ctb/_type.scss */
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-bottom: 0;
+}
+
+/* line 94, ../scss/override_ctb/_type.scss */
+li {
+  line-height: 19.2px;
+}
+
+/* line 98, ../scss/override_ctb/_type.scss */
+ul.unstyled,
+ol.unstyled {
+  margin-left: 0;
+  list-style: none;
+}
+
+/* line 104, ../scss/override_ctb/_type.scss */
+dl {
+  margin-bottom: 19.2px;
+}
+
+/* line 108, ../scss/override_ctb/_type.scss */
+dt,
+dd {
+  line-height: 19.2px;
+}
+
+/* line 111, ../scss/override_ctb/_type.scss */
+dt {
+  font-weight: bold;
+}
+
+/* line 114, ../scss/override_ctb/_type.scss */
+dd {
+  margin-left: 9.6px;
+}
+
+/* line 119, ../scss/override_ctb/_type.scss */
+.dl-horizontal dt {
+  float: left;
+  width: 120px;
+  clear: left;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* line 126, ../scss/override_ctb/_type.scss */
+.dl-horizontal dd {
+  margin-left: 130px;
+}
+
+/* line 135, ../scss/override_ctb/_type.scss */
+hr {
+  margin: 19.2px 0;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid white;
+}
+
+/* line 143, ../scss/override_ctb/_type.scss */
+abbr[title] {
+  cursor: help;
+  border-bottom: 1px dotted #999999;
+}
+
+/* line 147, ../scss/override_ctb/_type.scss */
+abbr.initialism {
+  font-size: 90%;
+  text-transform: uppercase;
+}
+
+/* line 153, ../scss/override_ctb/_type.scss */
+blockquote {
+  padding: 0 0 0 15px;
+  margin: 0 0 19.2px;
+  border-left: 5px solid #eeeeee;
+}
+/* line 157, ../scss/override_ctb/_type.scss */
+blockquote p {
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+}
+/* line 161, ../scss/override_ctb/_type.scss */
+blockquote small {
+  display: block;
+  line-height: 19.2px;
+  color: #999999;
+}
+/* line 165, ../scss/override_ctb/_type.scss */
+blockquote small:before {
+  content: '\2014 \00A0';
+}
+/* line 171, ../scss/override_ctb/_type.scss */
+blockquote.pull-right {
+  float: right;
+  padding-right: 15px;
+  padding-left: 0;
+  border-right: 5px solid #eeeeee;
+  border-left: 0;
+}
+/* line 178, ../scss/override_ctb/_type.scss */
+blockquote.pull-right p,
+blockquote.pull-right small {
+  text-align: right;
+}
+/* line 182, ../scss/override_ctb/_type.scss */
+blockquote.pull-right small:before {
+  content: '';
+}
+/* line 185, ../scss/override_ctb/_type.scss */
+blockquote.pull-right small:after {
+  content: '\00A0 \2014';
+}
+
+/* line 196, ../scss/override_ctb/_type.scss */
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+}
+
+/* line 201, ../scss/override_ctb/_type.scss */
+address {
+  display: block;
+  margin-bottom: 19.2px;
+  font-style: normal;
+  line-height: 19.2px;
+}
+
+/* line 9, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_scaffolding.scss */
+body {
+  margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #333333;
+  background-color: white;
+}
+
+/* line 22, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_scaffolding.scss */
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+
+/* line 26, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_scaffolding.scss */
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+
+/* line 36, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_scaffolding.scss */
+.img-rounded {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+/* line 41, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_scaffolding.scss */
+.img-polaroid {
+  padding: 4px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* line 50, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_scaffolding.scss */
+.img-circle {
+  -webkit-border-radius: 500px;
+  -moz-border-radius: 500px;
+  border-radius: 500px;
+}
+
+/* line 8, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+code,
+pre {
+  padding: 0 3px 2px;
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-size: 14px;
+  color: #333333;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 17, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+code {
+  padding: 2px 4px;
+  color: #d14;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+
+/* line 25, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+pre {
+  display: block;
+  padding: 9.1px;
+  margin: 0 0 9.6px;
+  font-size: 15px;
+  line-height: 19.2px;
+  word-break: break-all;
+  word-wrap: break-word;
   white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$input-width\".\A         on line 15 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_spec.scss, in `should_be_whole_units'\A         from line 15 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_spec.scss\A         from line 19 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_base.scss\A         from line 4 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss"; }
+  white-space: pre-wrap;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 41, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+pre.prettyprint {
+  margin-bottom: 19.2px;
+}
+/* line 46, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+pre code {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+}
+
+/* line 55, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+.pre-scrollable {
+  max-height: 340px;
+  overflow-y: scroll;
+}
+
+/* line 9, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+table {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table {
+  width: 100%;
+  margin-bottom: 19.2px;
+}
+/* line 24, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table th,
+.table td {
+  padding: 8px;
+  line-height: 19.2px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+/* line 31, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table th {
+  font-weight: bold;
+}
+/* line 35, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table thead th {
+  vertical-align: bottom;
+}
+/* line 44, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table caption + thead tr:first-child th,
+.table caption + thead tr:first-child td,
+.table colgroup + thead tr:first-child th,
+.table colgroup + thead tr:first-child td,
+.table thead:first-child tr:first-child th,
+.table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+/* line 48, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+
+/* line 60, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-condensed th,
+.table-condensed td {
+  padding: 4px 5px;
+}
+
+/* line 69, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered {
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  border-left: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 76, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered th,
+.table-bordered td {
+  border-left: 1px solid #dddddd;
+}
+/* line 88, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered caption + thead tr:first-child th,
+.table-bordered caption + tbody tr:first-child th,
+.table-bordered caption + tbody tr:first-child td,
+.table-bordered colgroup + thead tr:first-child th,
+.table-bordered colgroup + tbody tr:first-child th,
+.table-bordered colgroup + tbody tr:first-child td,
+.table-bordered thead:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+/* line 93, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered thead:first-child tr:first-child th:first-child,
+.table-bordered tbody:first-child tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+/* line 99, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered thead:first-child tr:first-child th:last-child,
+.table-bordered tbody:first-child tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+/* line 107, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered thead:last-child tr:last-child th:first-child,
+.table-bordered tbody:last-child tr:last-child td:first-child,
+.table-bordered tfoot:last-child tr:last-child td:first-child {
+  -webkit-border-radius: 0 0 0 4px;
+  -moz-border-radius: 0 0 0 4px;
+  border-radius: 0 0 0 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+}
+/* line 115, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered thead:last-child tr:last-child th:last-child,
+.table-bordered tbody:last-child tr:last-child td:last-child,
+.table-bordered tfoot:last-child tr:last-child td:last-child {
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+}
+/* line 125, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered caption + thead tr:first-child th:first-child,
+.table-bordered caption + tbody tr:first-child td:first-child,
+.table-bordered colgroup + thead tr:first-child th:first-child,
+.table-bordered colgroup + tbody tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+/* line 133, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered caption + thead tr:first-child th:last-child,
+.table-bordered caption + tbody tr:first-child td:last-child,
+.table-bordered colgroup + thead tr:first-child th:last-child,
+.table-bordered colgroup + tbody tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+
+/* line 151, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-striped tbody tr:nth-child(odd) td,
+.table-striped tbody tr:nth-child(odd) th {
+  background-color: #f9f9f9;
+}
+
+/* line 164, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+  background-color: whitesmoke;
+}
+
+/* line 178, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+table td[class*="span"],
+table th[class*="span"],
+.row-fluid table td[class*="span"],
+.row-fluid table th[class*="span"] {
+  display: table-cell;
+  float: none;
+  margin-left: 0;
+}
+
+/* line 187, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span1,
+.table th.span1 {
+  float: none;
+  width: -6px;
+  margin-left: 0;
+}
+/* line 188, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span2,
+.table th.span2 {
+  float: none;
+  width: 14px;
+  margin-left: 0;
+}
+/* line 189, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span3,
+.table th.span3 {
+  float: none;
+  width: 34px;
+  margin-left: 0;
+}
+/* line 190, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span4,
+.table th.span4 {
+  float: none;
+  width: 54px;
+  margin-left: 0;
+}
+/* line 191, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span5,
+.table th.span5 {
+  float: none;
+  width: 74px;
+  margin-left: 0;
+}
+/* line 192, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span6,
+.table th.span6 {
+  float: none;
+  width: 94px;
+  margin-left: 0;
+}
+/* line 193, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span7,
+.table th.span7 {
+  float: none;
+  width: 114px;
+  margin-left: 0;
+}
+/* line 194, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span8,
+.table th.span8 {
+  float: none;
+  width: 134px;
+  margin-left: 0;
+}
+/* line 195, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span9,
+.table th.span9 {
+  float: none;
+  width: 154px;
+  margin-left: 0;
+}
+/* line 196, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span10,
+.table th.span10 {
+  float: none;
+  width: 174px;
+  margin-left: 0;
+}
+/* line 197, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span11,
+.table th.span11 {
+  float: none;
+  width: 194px;
+  margin-left: 0;
+}
+/* line 198, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span12,
+.table th.span12 {
+  float: none;
+  width: 214px;
+  margin-left: 0;
+}
+
+/* line 208, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody tr.success td {
+  background-color: #dff0d8;
+}
+/* line 211, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody tr.error td {
+  background-color: #f2dede;
+}
+/* line 214, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody tr.warning td {
+  background-color: #fcf8e3;
+}
+/* line 217, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody tr.info td {
+  background-color: #d9edf7;
+}
+
+/* line 224, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr.success:hover td {
+  background-color: #d0e9c6;
+}
+/* line 227, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr.error:hover td {
+  background-color: #ebcccc;
+}
+/* line 230, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr.warning:hover td {
+  background-color: #faf2cc;
+}
+/* line 233, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr.info:hover td {
+  background-color: #c4e3f3;
+}
+
+/* line 7, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropup,
+.dropdown {
+  position: relative;
+}
+
+/* line 10, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-toggle {
+  *margin-bottom: -3px;
+}
+
+/* line 15, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-toggle:active,
+.open .dropdown-toggle {
+  outline: 0;
+}
+
+/* line 21, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid black;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+}
+
+/* line 33, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown .caret {
+  margin-top: 8px;
+  margin-left: 2px;
+}
+
+/* line 40, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 63, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+/* line 69, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu .divider {
+  *width: 100%;
+  height: 1px;
+  margin: 8.6px 1px;
+  *margin: -5px 0 5px;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  border-bottom: 1px solid white;
+}
+/* line 74, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 19.2px;
+  color: #333333;
+  white-space: nowrap;
+}
+
+/* line 89, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a {
+  text-decoration: none;
+  color: white;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0085c7', endColorstr='#0074ad', GradientType=0);
+}
+
+/* line 98, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
+  color: #333333;
+  text-decoration: none;
+  outline: 0;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0085c7', endColorstr='#0074ad', GradientType=0);
+}
+
+/* line 109, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu .disabled > a,
+.dropdown-menu .disabled > a:hover {
+  color: #999999;
+}
+
+/* line 113, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu .disabled > a:hover {
+  text-decoration: none;
+  background-color: transparent;
+  background-image: none;
+  cursor: default;
+}
+
+/* line 122, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.open {
+  *z-index: 1000;
+}
+/* line 127, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.open > .dropdown-menu {
+  display: block;
+}
+
+/* line 134, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+/* line 146, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
+  border-top: 0;
+  border-bottom: 4px solid black;
+  content: "";
+}
+/* line 152, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+
+/* line 161, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-submenu {
+  position: relative;
+}
+
+/* line 165, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px 6px;
+  border-radius: 0 6px 6px 6px;
+}
+
+/* line 174, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
+/* line 179, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropup .dropdown-submenu > .dropdown-menu {
+  top: auto;
+  bottom: 0;
+  margin-top: 0;
+  margin-bottom: -2px;
+  -webkit-border-radius: 5px 5px 5px 0;
+  -moz-border-radius: 5px 5px 5px 0;
+  border-radius: 5px 5px 5px 0;
+}
+
+/* line 190, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+/* line 203, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-submenu:hover > a:after {
+  border-left-color: white;
+}
+
+/* line 208, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-submenu.pull-left {
+  float: none;
+}
+/* line 214, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}
+
+/* line 226, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown .dropdown-menu .nav-header {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* line 233, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.typeahead {
+  margin-top: 2px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 6, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: black;
+}
+/* line 15, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-backdrop.fade {
+  opacity: 0;
+}
+
+/* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+/* line 24, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  width: 560px;
+  margin: -250px 0 0 -280px;
+  background-color: white;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  /* IE6-7 */
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  outline: none;
+}
+/* line 41, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: -25%;
+}
+/* line 45, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal.fade.in {
+  top: 50%;
+}
+
+/* line 47, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-header {
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
+}
+/* line 51, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-header .close {
+  margin-top: 2px;
+}
+/* line 53, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-header h3 {
+  margin: 0;
+  line-height: 30px;
+}
+
+/* line 60, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-body {
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 15px;
+}
+
+/* line 66, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-form {
+  margin-bottom: 0;
+}
+
+/* line 71, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-footer {
+  padding: 14px 15px 15px;
+  margin-bottom: 0;
+  text-align: right;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: inset 0 1px 0 white;
+  -moz-box-shadow: inset 0 1px 0 white;
+  box-shadow: inset 0 1px 0 white;
+  *zoom: 1;
+}
+/* line 15, ../scss/override_ctb/_mixins.scss */
+.modal-footer:before, .modal-footer:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+/* line 22, ../scss/override_ctb/_mixins.scss */
+.modal-footer:after {
+  clear: both;
+}
+/* line 82, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-footer .btn + .btn {
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+/* line 87, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+/* line 91, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_modals.scss */
+.modal-footer .btn-block + .btn-block {
+  margin-left: 0;
+}
+
+/* line 10, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 19.2px;
+  *line-height: 19.2px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: whitesmoke;
+  background-image: -moz-linear-gradient(top, white, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, white, #e6e6e6);
+  background-image: -o-linear-gradient(top, white, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#e3e3e3', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  border: 1px solid #bbbbbb;
+  *border: 0;
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn:active, .btn.active {
+  background-color: #cccccc \9;
+}
+/* line 61, ../scss/override_ctb/_mixins.scss */
+.btn:first-child {
+  *margin-left: 0;
+}
+/* line 30, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+  /* Buttons in IE7 don't get borders, so darken on hover */
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+/* line 43, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+/* line 49, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn.active, .btn:active {
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* line 59, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn.disabled, .btn[disabled] {
+  cursor: default;
+  background-color: #e6e6e6;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 75, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-large {
+  padding: 11px 19px;
+  font-size: 20px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+/* line 81, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-large [class^="icon-"],
+.btn-large [class*=" icon-"] {
+  margin-top: 2px;
+}
+
+/* line 86, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-small {
+  padding: 2px 10px;
+  font-size: 13.6px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 92, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-small [class^="icon-"],
+.btn-small [class*=" icon-"] {
+  margin-top: 0;
+}
+
+/* line 97, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-mini {
+  padding: 1px 6px;
+  font-size: 12px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 107, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 116, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+
+/* line 124, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+input[type="submit"].btn-block,
+input[type="reset"].btn-block,
+input[type="button"].btn-block {
+  width: 100%;
+}
+
+/* line 140, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-primary.active,
+.btn-warning.active,
+.btn-danger.active,
+.btn-success.active,
+.btn-info.active,
+.btn-inverse.active {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* line 146, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn {
+  border-color: #c5c5c5;
+  border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+
+/* line 151, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-primary {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #006ecc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0085c7', endColorstr='#0042c7', GradientType=0);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #0044cc;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+  color: white;
+  background-color: #0044cc;
+  *background-color: #003bb3;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-primary:active, .btn-primary.active {
+  background-color: #003399 \9;
+}
+
+/* line 155, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-warning {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #f9a834;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbb24b', endColorstr='#f39106', GradientType=0);
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #f89406;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-warning:hover, .btn-warning:active, .btn-warning.active, .btn-warning.disabled, .btn-warning[disabled] {
+  color: white;
+  background-color: #f89406;
+  *background-color: #df8505;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-warning:active, .btn-warning.active {
+  background-color: #c67605 \9;
+}
+
+/* line 159, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-danger {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #db4f4a;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee5a56', endColorstr='#b9352e', GradientType=0);
+  border-color: #bd362f #bd362f #802420;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bd362f;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-danger:hover, .btn-danger:active, .btn-danger.active, .btn-danger.disabled, .btn-danger[disabled] {
+  color: white;
+  background-color: #bd362f;
+  *background-color: #a9302a;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-danger:active, .btn-danger.active {
+  background-color: #942a25 \9;
+}
+
+/* line 163, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-success {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #5bb75b;
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(to bottom, #62c462, #51a351);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5ec35e', endColorstr='#4fa04f', GradientType=0);
+  border-color: #51a351 #51a351 #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #51a351;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-success:hover, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {
+  color: white;
+  background-color: #51a351;
+  *background-color: #499249;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-success:active, .btn-success.active {
+  background-color: #408140 \9;
+}
+
+/* line 167, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-info {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #4ab0ce;
+  background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#57bedd', endColorstr='#2e93b0', GradientType=0);
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #2f96b4;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] {
+  color: white;
+  background-color: #2f96b4;
+  *background-color: #2a85a0;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-info:active, .btn-info.active {
+  background-color: #24748c \9;
+}
+
+/* line 171, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-inverse {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #373737;
+  background-image: -moz-linear-gradient(top, #444444, #222222);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444444), to(#222222));
+  background-image: -webkit-linear-gradient(top, #444444, #222222);
+  background-image: -o-linear-gradient(top, #444444, #222222);
+  background-image: linear-gradient(to bottom, #444444, #222222);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#414141', endColorstr='#1f1f1f', GradientType=0);
+  border-color: #222222 #222222 black;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #222222;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-inverse:hover, .btn-inverse:active, .btn-inverse.active, .btn-inverse.disabled, .btn-inverse[disabled] {
+  color: white;
+  background-color: #222222;
+  *background-color: #151515;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-inverse:active, .btn-inverse.active {
+  background-color: #090909 \9;
+}
+
+/* line 180, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn,
+input[type="submit"].btn {
+  *padding-top: 3px;
+  *padding-bottom: 3px;
+}
+/* line 183, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn::-moz-focus-inner,
+input[type="submit"].btn::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+/* line 192, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn.btn-large,
+input[type="submit"].btn.btn-large {
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+/* line 196, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn.btn-small,
+input[type="submit"].btn.btn-small {
+  *padding-top: 3px;
+  *padding-bottom: 3px;
+}
+/* line 200, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn.btn-mini,
+input[type="submit"].btn.btn-mini {
+  *padding-top: 1px;
+  *padding-bottom: 1px;
+}
+
+/* line 213, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-link,
+.btn-link:active,
+.btn-link[disabled] {
+  background-color: transparent;
+  background-image: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 218, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-link {
+  border-color: transparent;
+  cursor: pointer;
+  color: #0088cc;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 224, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-link:hover {
+  color: #005580;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+/* line 229, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-link[disabled]:hover {
+  color: #333333;
+  text-decoration: none;
+}
+
+/* line 7, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group {
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  font-size: 0;
+  vertical-align: middle;
+  white-space: nowrap;
+  *margin-left: .3em;
+}
+/* line 61, ../scss/override_ctb/_mixins.scss */
+.btn-group:first-child {
+  *margin-left: 0;
+}
+
+/* line 18, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group + .btn-group {
+  margin-left: 5px;
+}
+
+/* line 23, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-toolbar {
+  font-size: 0;
+  margin-top: 9.6px;
+  margin-bottom: 9.6px;
+}
+/* line 29, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-toolbar .btn + .btn,
+.btn-toolbar .btn-group + .btn,
+.btn-toolbar .btn + .btn-group {
+  margin-left: 5px;
+}
+
+/* line 35, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn {
+  position: relative;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 39, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn + .btn {
+  margin-left: -1px;
+}
+
+/* line 43, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn,
+.btn-group > .dropdown-menu {
+  font-size: 16px;
+}
+
+/* line 48, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-mini {
+  font-size: 11px;
+}
+
+/* line 51, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-small {
+  font-size: 12px;
+}
+
+/* line 54, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-large {
+  font-size: 16px;
+}
+
+/* line 59, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* line 70, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn:last-child,
+.btn-group > .dropdown-toggle {
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* line 79, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn.large:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+/* line 89, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn.large:last-child,
+.btn-group > .large.dropdown-toggle {
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* line 102, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn:hover,
+.btn-group > .btn:focus,
+.btn-group > .btn:active,
+.btn-group > .btn.active {
+  z-index: 2;
+}
+
+/* line 108, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle {
+  outline: 0;
+}
+
+/* line 118, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn + .dropdown-toggle {
+  padding-left: 8px;
+  padding-right: 8px;
+  -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  *padding-top: 5px;
+  *padding-bottom: 5px;
+}
+
+/* line 125, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-mini + .dropdown-toggle {
+  padding-left: 5px;
+  padding-right: 5px;
+  *padding-top: 2px;
+  *padding-bottom: 2px;
+}
+
+/* line 131, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-small + .dropdown-toggle {
+  *padding-top: 5px;
+  *padding-bottom: 4px;
+}
+
+/* line 135, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-large + .dropdown-toggle {
+  padding-left: 12px;
+  padding-right: 12px;
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+
+/* line 146, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .dropdown-toggle {
+  background-image: none;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* line 152, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn.dropdown-toggle {
+  background-color: #e6e6e6;
+}
+/* line 155, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-primary.dropdown-toggle {
+  background-color: #0044cc;
+}
+/* line 158, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-warning.dropdown-toggle {
+  background-color: #f89406;
+}
+/* line 161, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-danger.dropdown-toggle {
+  background-color: #bd362f;
+}
+/* line 164, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-success.dropdown-toggle {
+  background-color: #51a351;
+}
+/* line 167, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-info.dropdown-toggle {
+  background-color: #2f96b4;
+}
+/* line 170, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-inverse.dropdown-toggle {
+  background-color: #222222;
+}
+
+/* line 177, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn .caret {
+  margin-top: 8px;
+  margin-left: 0;
+}
+
+/* line 184, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-mini .caret,
+.btn-small .caret,
+.btn-large .caret {
+  margin-top: 6px;
+}
+
+/* line 187, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-large .caret {
+  border-left-width: 5px;
+  border-right-width: 5px;
+  border-top-width: 5px;
+}
+
+/* line 193, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.dropup .btn-large .caret {
+  border-bottom-width: 5px;
+}
+
+/* line 206, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-primary .caret,
+.btn-warning .caret,
+.btn-danger .caret,
+.btn-info .caret,
+.btn-success .caret,
+.btn-inverse .caret {
+  border-top-color: white;
+  border-bottom-color: white;
+}
+
+/* line 217, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* line 221, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn {
+  display: block;
+  float: none;
+  width: 100%;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 227, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn + .btn {
+  margin-left: 0;
+  margin-top: -1px;
+}
+
+/* line 231, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn:first-child {
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+
+/* line 234, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn:last-child {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+
+/* line 237, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn-large:first-child {
+  -webkit-border-radius: 6px 6px 0 0;
+  -moz-border-radius: 6px 6px 0 0;
+  border-radius: 6px 6px 0 0;
+}
+
+/* line 240, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn-large:last-child {
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+}
+
+/* line 7, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.pull-right {
+  float: right;
+}
+
+/* line 10, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.pull-left {
+  float: left;
+}
+
+/* line 15, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.hide {
+  display: none;
+}
+
+/* line 18, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.show {
+  display: block;
+}
+
+/* line 23, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.invisible {
+  visibility: hidden;
+}
+
+/* line 28, ../../../bowerbird/framework/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.affix {
+  position: fixed;
+}
+
+/* line 11, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+div.tabs {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* line 15, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.tabs.primary {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+}
+/* line 19, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.tabs.primary li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* line 21, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.tabs.primary li a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  text-decoration: none;
+  background-color: transparent;
+  padding: 10px;
+}
+/* line 27, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.tabs.primary li a:hover {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* line 32, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.tabs.primary li a i {
+  display: none;
+}
+/* line 36, ../../../bowerbird/framework/stylesheets/bowerbird/tabs.scss */
+ul.tabs.primary li a.active {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* line 174, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user div.breadcrumb,
+body.not-front.not-logged-in.page-user h1.title {
+  display: none;
+}
+/* line 8, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user form {
+  background: white;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  *zoom: 1;
+  width: 100%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+  padding-top: 5.12821%;
+}
+/* line 14, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user form .form-actions {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 94.87179%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+  padding-top: 5.12821%;
+  padding-bottom: 5.12821%;
+  margin-top: 10px;
+  clear: both;
+}
+/* line 20, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user form .form-actions input {
+  margin: 10px;
+}
+/* line 34, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user .form-item {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 94.87179%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+  border-top: 1px solid #eeeeee;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+/* line 42, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user .form-item .form-item {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+}
+/* line 47, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user .form-item input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-box-shadow: inset 0px 2px 2px 2px #eeeeee;
+  -moz-box-shadow: inset 0px 2px 2px 2px #eeeeee;
+  box-shadow: inset 0px 2px 2px 2px #eeeeee;
+  padding-left: 1.28205%;
+  padding-right: 1.28205%;
+  width: 46.15385%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -10px;
+  display: inline;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+  border: 1px solid #cccccc;
+  border-left-width: 0;
+  border-right-width: 0;
+  clear: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-transition-property: border;
+  -moz-transition-property: border;
+  -ms-transition-property: border;
+  -o-transition-property: border;
+  transition-property: border;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+/* line 65, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user .form-item input:focus {
+  border-top: 1px solid #848484;
+  border-bottom: 1px solid #848484;
+}
+/* line 71, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user .form-item label {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 20px;
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 43.58974%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/* line 78, ../scss/override_ctb/_forms.scss */
+body.not-front.not-logged-in.page-user .form-item .description {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  clear: left;
+  font-size: 12px;
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 94.87179%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+/* line 31, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-name ~ .item-list {
+  font-size: 12px;
+  width: 48.71795%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -10px;
+  display: inline;
+}
+/* line 35, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-name ~ .item-list ul li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+}
+/* line 43, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass {
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 94.87179%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+/* line 45, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass .description {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 43.58974%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+/* line 49, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass .password-strength {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 43.58974%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -10px;
+  display: inline;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/* line 54, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass .password-strength .password-strength-title {
+  width: 23.07692%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+  font-size: 12px;
+}
+/* line 58, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass .password-strength .password-indicator {
+  width: 48.71795%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+  margin-top: 10px;
+}
+/* line 62, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass .password-strength .password-strength-text {
+  width: 17.94872%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+/* line 68, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 48.71795%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -10px;
+  display: inline;
+  font-size: 12px;
+}
+/* line 72, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span {
+  padding: 0 10px;
+}
+/* line 74, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.error, body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.ok {
+  background: #b60800;
+  color: white;
+  -webkit-border-radius: 15%;
+  -moz-border-radius: 15%;
+  -ms-border-radius: 15%;
+  -o-border-radius: 15%;
+  border-radius: 15%;
+  font-family: monaco, courier, monospace;
+}
+/* line 80, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass div.password-confirm span.ok {
+  background: #38bf57;
+}
+/* line 88, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass .password-suggestions {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  margin-top: 10px;
+  padding-top: 10px;
+  width: 48.71795%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -10px;
+  display: inline;
+}
+/* line 92, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-item-pass .password-suggestions li {
+  padding-right: 10px;
+}
+/* line 99, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-type-checkbox,
+body.not-front.not-logged-in.page-user .form-item-textfield {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 94.87179%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+/* line 104, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user .form-actions {
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 94.87179%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+/* line 108, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user input.form-submit {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #444444;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4e4e4e), color-stop(100%, #303030));
+  background-image: -webkit-linear-gradient(#4e4e4e, #303030);
+  background-image: -moz-linear-gradient(#4e4e4e, #303030);
+  background-image: -o-linear-gradient(#4e4e4e, #303030);
+  background-image: -ms-linear-gradient(#4e4e4e, #303030);
+  background-image: linear-gradient(#4e4e4e, #303030);
+  border-color: #1e1e1e;
+  text-shadow: #040404 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.26667) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.26667) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.26667) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 205, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+body.not-front.not-logged-in.page-user input.form-submit, body.not-front.not-logged-in.page-user input.form-submit:visited {
+  color: white;
+}
+/* line 93, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+body.not-front.not-logged-in.page-user input.form-submit:hover, body.not-front.not-logged-in.page-user input.form-submit:focus {
+  background-color: #3c3c3c;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #474747), color-stop(100%, #282828));
+  background-image: -webkit-linear-gradient(#474747, #282828);
+  background-image: -moz-linear-gradient(#474747, #282828);
+  background-image: -o-linear-gradient(#474747, #282828);
+  background-image: -ms-linear-gradient(#474747, #282828);
+  background-image: linear-gradient(#474747, #282828);
+  border-color: #161616;
+  text-shadow: black 0px 1px 1px;
+}
+/* line 205, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+body.not-front.not-logged-in.page-user input.form-submit:hover, body.not-front.not-logged-in.page-user input.form-submit:hover:visited, body.not-front.not-logged-in.page-user input.form-submit:focus, body.not-front.not-logged-in.page-user input.form-submit:focus:visited {
+  color: white;
+}
+/* line 101, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+body.not-front.not-logged-in.page-user input.form-submit:active {
+  background-color: #353535;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2d2d2d), color-stop(40%, #353535), color-stop(85%, #353535), color-stop(100%, #474747));
+  background-image: -webkit-linear-gradient(#2d2d2d, #353535 40%, #353535 85%, #474747);
+  background-image: -moz-linear-gradient(#2d2d2d, #353535 40%, #353535 85%, #474747);
+  background-image: -o-linear-gradient(#2d2d2d, #353535 40%, #353535 85%, #474747);
+  background-image: -ms-linear-gradient(#2d2d2d, #353535 40%, #353535 85%, #474747);
+  background-image: linear-gradient(#2d2d2d, #353535 40%, #353535 85%, #474747);
+  border-color: #0e0e0e;
+  text-shadow: black 0px -1px -1px;
+  -webkit-box-shadow: #1e1e1e 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #1e1e1e 0 0.08em 0.2em 1px inset;
+  box-shadow: #1e1e1e 0 0.08em 0.2em 1px inset;
+}
+/* line 205, ../../../bowerbird/framework/stylesheets/bowerbird/_buttons.scss */
+body.not-front.not-logged-in.page-user input.form-submit:active, body.not-front.not-logged-in.page-user input.form-submit:active:visited {
+  color: white;
+}
+/* line 114, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin {
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  width: 94.87179%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+/* line 116, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list {
+  width: 48.71795%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -10px;
+  display: inline;
+}
+/* line 118, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+}
+/* line 123, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li a {
+  display: block;
+  margin: 10px;
+  float: left;
+}
+/* line 129, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li.first a {
+  font-size: 30px;
+  display: block!important;
+  background-color: #cccccc;
+  width: 30px !important;
+  height: 30px;
+  padding: 3px;
+  text-decoration: none;
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
+  -o-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+/* line 80, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_icons.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li.first a:hover {
+  background-color: #1d88c9;
+}
+/* line 85, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_icons.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li.first a:before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 30px;
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: white;
+  font-family: 'FontAwesome';
+}
+/* line 133, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li a.facebook-action-connect {
+  font-size: 30px;
+  display: block!important;
+  background-color: #cccccc;
+  width: 30px !important;
+  height: 30px;
+  padding: 3px;
+  text-decoration: none;
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
+  -o-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+/* line 80, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_icons.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li a.facebook-action-connect:hover {
+  background-color: #264887;
+}
+/* line 85, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_icons.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li a.facebook-action-connect:before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 30px;
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: white;
+  font-family: 'FontAwesome';
+}
+/* line 139, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user #edit-social-media-signin img {
+  display: none;
+}
+/* line 180, ../scss/_user.scss */
+body.not-front.not-logged-in.page-user form {
+  border-top: 1px solid aqua;
+}
+
+/* line 15, ../scss/_layout.scss */
+body #page {
+  *zoom: 1;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 60px;
+}
+/* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+body #page:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 28, ../scss/_layout.scss */
+body #content-inner {
+  padding-left: 2.12766%;
+  padding-right: 2.12766%;
+  width: 78.7234%;
+  float: left;
+  margin-right: 2.12766%;
+  display: inline;
+  margin-left: 8.51064%;
+  margin-right: 8.51064%;
+}
+
+/* line 7, ../scss/_notifications.scss */
+#block-views-my-notifications-block {
+  width: 360px;
+  font-family: Arial, sans-serif;
+  text-align: right;
+  margin: 0 10px;
+  position: relative;
+  float: right;
+}
+/* line 14, ../scss/_notifications.scss */
+#block-views-my-notifications-block .auto-refresh {
+  display: none;
+}
+/* line 17, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2 {
+  margin: 0;
+  padding: 0 3px;
+  color: #fff;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: normal;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  line-height: 30px;
+}
+/* line 28, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2 .notifications-count {
+  display: inline;
+  color: #2F58B4;
+}
+/* line 31, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2 .notifications-count span {
+  padding: 1px;
+  background: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 38, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  top: 29px;
+  width: 360px;
+  border: 1px solid #ccc;
+  /* Icons for each activity type */
+}
+/* line 47, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .view-content {
+  height: 200px;
+  overflow: auto;
+}
+/* line 51, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .item-list {
+  display: none;
+}
+/* line 54, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-settings-link, #block-views-my-notifications-block .content .more-link {
+  margin: 0;
+  padding: 12px 18px;
+  display: block;
+}
+/* line 58, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-settings-link a, #block-views-my-notifications-block .content .notifications-settings-link a:visited, #block-views-my-notifications-block .content .notifications-settings-link a:link, #block-views-my-notifications-block .content .more-link a, #block-views-my-notifications-block .content .more-link a:visited, #block-views-my-notifications-block .content .more-link a:link {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #6a6a6a;
+  text-decoration: none;
+}
+/* line 64, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-settings-link a:hover, #block-views-my-notifications-block .content .more-link a:hover {
+  text-decoration: underline;
+}
+/* line 68, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-settings-link {
+  float: left;
+}
+/* line 71, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .more-link {
+  float: right;
+}
+/* line 74, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .notifications-footer {
+  clear: both;
+}
+/* line 77, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity {
+  color: #6a6a6a;
+  border-bottom: 1px solid #c9c9c9;
+  margin: 0;
+  padding: 12px 18px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+/* line 84, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity a, #block-views-my-notifications-block .content .heartbeat-activity a:visited, #block-views-my-notifications-block .content .heartbeat-activity a:link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #6a6a6a;
+}
+/* line 89, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity a:hover {
+  text-decoration: underline;
+}
+/* line 92, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity p, #block-views-my-notifications-block .content .heartbeat-activity img {
+  float: left;
+}
+/* line 95, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity p {
+  margin: 0;
+  width: 270px;
+}
+/* line 99, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity img {
+  margin-right: 9px;
+  margin-bottom: 6px;
+}
+/* line 103, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .heartbeat-activity .heartbeat-time-ago {
+  clear: both;
+  display: block;
+  margin: 0 0 0 9px;
+  height: 12px;
+  line-height: 12px;
+  padding-left: 19px;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: left bottom;
+  font-weight: normal;
+  color: #a9a9a9;
+}
+/* line 119, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .checkdesk_add_story .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_comment_on_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_reply_to_comment .heartbeat-time-ago {
+  background-image: url(../imgs/icons/notification-star.png);
+}
+/* line 122, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .checkdesk_fact_checking_on .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_fact_checking_set .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_flag_report .heartbeat-time-ago {
+  background-image: url(../imgs/icons/notification-flag.png);
+}
+/* line 125, ../scss/_notifications.scss */
+#block-views-my-notifications-block .content .checkdesk_comment_on_report .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_report_published_in_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_report_suggested_to_story .heartbeat-time-ago {
+  background-image: url(../imgs/icons/notification-report.png);
+}
+
+/* line 130, ../scss/_notifications.scss */
+#block-views-my-notifications-block.notifications-block-expanded .content, #block-views-my-notifications-block.notifications-block-expanded h2 {
+  background: #fff;
+}
+/* line 133, ../scss/_notifications.scss */
+#block-views-my-notifications-block.notifications-block-expanded h2 {
+  color: #626262;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -ms-border-radius: 5px 5px 0 0;
+  -o-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+/* line 137, ../scss/_notifications.scss */
+#block-views-my-notifications-block.notifications-block-expanded .content {
+  -webkit-box-shadow: 1px 1px 10px #333333;
+  -moz-box-shadow: 1px 1px 10px #333333;
+  box-shadow: 1px 1px 10px #333333;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* line 147, ../scss/_notifications.scss */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+/* line 150, ../scss/_notifications.scss */
+::-webkit-scrollbar-track {
+  background: #fefefe;
+}
+
+/* line 153, ../scss/_notifications.scss */
+::-webkit-scrollbar-thumb {
+  background: #eee;
+}
+
+/* line 8, ../scss/_report.scss */
+.report > header {
+  *zoom: 1;
+  background-color: #e1e1e1;
+  color: #555555;
+}
+/* line 15, ../scss/override_ctb/_mixins.scss */
+.report > header:before, .report > header:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+/* line 22, ../scss/override_ctb/_mixins.scss */
+.report > header:after {
+  clear: both;
+}
+/* line 13, ../scss/_report.scss */
+.report > header h3 {
+  float: left;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 19.2px;
+  padding: 10px;
+  display: block;
+}
+/* line 21, ../scss/_report.scss */
+.report > header .source-url {
+  font-weight: bold;
+}
+/* line 25, ../scss/_report.scss */
+.report > header .report-actions {
+  float: right;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 19.2px;
+  display: block;
+  padding: 0 5px;
+}
+/* line 33, ../scss/_report.scss */
+.report > header .report-actions > li {
+  display: block;
+  float: right;
+  border-left: 1px solid #d0d0d0;
+}
+/* line 37, ../scss/_report.scss */
+.report > header .report-actions > li > a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  padding: 10px;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -ms-transition-property: color;
+  -o-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+/* line 44, ../scss/_report.scss */
+.report > header .report-actions > li > a:hover {
+  color: black;
+  text-decoration: none;
+}
+/* line 49, ../scss/_report.scss */
+.report > header .report-actions > li > a i {
+  float: left;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* line 53, ../scss/_report.scss */
+.report > header .report-actions > li > a i.icon-flag, .report > header .report-actions > li > a i.icon-flag {
+  font-size: 16px;
+  display: block!important;
+  background-color: transparent;
+  width: 16px !important;
+  height: 16px;
+  padding: 3px;
+  text-decoration: none;
+}
+/* line 85, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_icons.scss */
+.report > header .report-actions > li > a i.icon-flag:before, .report > header .report-actions > li > a i.icon-flag:before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 16px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #848484;
+  font-family: 'FontAwesome';
+}
+/* line 56, ../scss/_report.scss */
+.report > header .report-actions > li > a i.icon-share, .report > header .report-actions > li > a i.icon-share {
+  font-size: 16px;
+  display: block!important;
+  background-color: transparent;
+  width: 16px !important;
+  height: 16px;
+  padding: 3px;
+  text-decoration: none;
+}
+/* line 85, ../../../bowerbird/framework/stylesheets/bowerbird/icons/_icons.scss */
+.report > header .report-actions > li > a i.icon-share:before, .report > header .report-actions > li > a i.icon-share:before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 16px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #848484;
+  font-family: 'FontAwesome';
+}
+/* line 70, ../scss/_report.scss */
+.report .report-content {
+  color: #555555;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 73, ../scss/_report.scss */
+.report .report-content .report-media {
+  background-color: white;
+  text-align: center;
+  /* The ghost, nudged to maintain perfect centering */
+}
+/* line 77, ../scss/_report.scss */
+.report .report-content .report-media .report-media:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em;
+  /* Adjusts for spacing */
+}
+/* line 84, ../scss/_report.scss */
+.report .report-content .report-media .container {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 87, ../scss/_report.scss */
+.report .report-content .report-media .container .oembed-title {
+  display: none;
+}
+/* line 93, ../scss/_report.scss */
+.report .report-content > p {
+  padding: 6.85714px 5px;
+  border-bottom: 1px solid white;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 19.2px;
+}
+/* line 100, ../scss/_report.scss */
+.report .report-content .gravatar img {
+  vertical-align: text-bottom;
+  width: 20px;
+  height: 20px;
+  margin-right: 3.33333px;
+}
+/* line 107, ../scss/_report.scss */
+.report .report-content .description {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 19.2px;
+  padding: 0 5px 0 40px;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
+  background-position: 10px 0;
+}
+/* line 119, ../scss/_report.scss */
+.report .report-activity > header {
+  overflow: hidden;
+  *zoom: 1;
+  padding: 6.85714px 5px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+/* line 124, ../scss/_report.scss */
+.report .report-activity > header h3 {
+  float: left;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 19.2px;
+}
+/* line 129, ../scss/_report.scss */
+.report .report-activity > header .report-status {
+  float: right;
+}
+/* line 132, ../scss/_report.scss */
+.report .report-activity > header:hover {
+  background-color: #d4d4d4;
+}
+/* line 137, ../scss/_report.scss */
+.report .report-activity > .undetermined {
+  background-color: #fee9cc;
+}
+/* line 139, ../scss/_report.scss */
+.report .report-activity > .undetermined a {
+  color: #c67605;
+}
+/* line 140, ../scss/_report.scss */
+.report .report-activity > .undetermined:hover {
+  background-color: #fdd49a;
+}
+/* line 142, ../scss/_report.scss */
+.report .report-activity > .undetermined:hover a {
+  color: #945904;
+}
+/* line 145, ../scss/_report.scss */
+.report .report-activity > .verified {
+  background-color: #f1f9f1;
+}
+/* line 147, ../scss/_report.scss */
+.report .report-activity > .verified a {
+  color: #46a546;
+}
+/* line 148, ../scss/_report.scss */
+.report .report-activity > .verified:hover {
+  background-color: #cdeacd;
+}
+/* line 150, ../scss/_report.scss */
+.report .report-activity > .verified:hover a {
+  color: #378137;
+}
+/* line 153, ../scss/_report.scss */
+.report .report-activity > .false {
+  background-color: #f4c8c5;
+}
+/* line 155, ../scss/_report.scss */
+.report .report-activity > .false a {
+  color: #9d261d;
+}
+/* line 156, ../scss/_report.scss */
+.report .report-activity > .false:hover {
+  background-color: #eca09a;
+}
+/* line 158, ../scss/_report.scss */
+.report .report-activity > .false:hover a {
+  color: #721c15;
+}
+/* line 162, ../scss/_report.scss */
+.report .report-activity .activity-wrapper {
+  display: none;
+}
+/* line 166, ../scss/_report.scss */
+.report .report-activity .activity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  padding: 6.85714px 5px;
+  background-color: #fbfbfb;
+}
+/* line 171, ../scss/_report.scss */
+.report .report-activity .activity-list li {
+  border-left: 2px solid white;
+  color: #555555;
+  margin-left: 5px;
+  padding-bottom: 9.6px;
+  padding-left: 10px;
+}
+/* line 178, ../scss/_report.scss */
+.report .report-activity .activity-list li header i {
+  font-size: 18px;
+  margin-left: -16px;
+  margin-right: 5px;
+}
+/* line 183, ../scss/_report.scss */
+.report .report-activity .activity-list li header .time {
+  color: #999999;
+  margin-right: 5px;
+}
+/* line 187, ../scss/_report.scss */
+.report .report-activity .activity-list li header a {
+  font-weight: bold;
+}
+/* line 191, ../scss/_report.scss */
+.report .report-activity .activity-list li .message {
+  padding: 6.85714px 5px;
+  background-color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 195, ../scss/_report.scss */
+.report .report-activity .activity-list li .message > p {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* line 201, ../scss/_report.scss */
+.report .report-activity .activity-list .icon-ok-sign {
+  color: #46a546;
+}
+/* line 202, ../scss/_report.scss */
+.report .report-activity .activity-list .icon-question-sign {
+  color: #f89406;
+}
+/* line 203, ../scss/_report.scss */
+.report .report-activity .activity-list .icon-remove-sign {
+  color: #9d261d;
+}
+/* line 206, ../scss/_report.scss */
+.report .report-activity #comment-form {
+  overflow: hidden;
+  *zoom: 1;
+  padding: 0 5px;
+  background-color: #eeeeee;
+}
+/* line 210, ../scss/_report.scss */
+.report .report-activity #comment-form label {
+  display: none;
+}
+/* line 215, ../scss/_report.scss */
+.report .report-activity > footer {
+  color: #999999;
+  padding: 6.85714px 5px;
+  font-size: 11px;
+}
+/* line 222, ../scss/_report.scss */
+.report .open > .false {
+  background-color: #eca09a;
+}
+/* line 225, ../scss/_report.scss */
+.report .open > .undetermined {
+  background-color: #fdd49a;
+}
+/* line 227, ../scss/_report.scss */
+.report .open > .undetermined a {
+  color: #945904;
+}
+/* line 229, ../scss/_report.scss */
+.report .open > .verified {
+  background-color: #cdeacd;
+}
+
+/* line 1, ../scss/_livefyre.scss */
+.fyre-stream-stats {
+  display: none;
+}
+
+/* line 5, ../scss/_livefyre.scss */
+.fyre-widget {
+  height: 40px;
+  -webkit-transition-property: height;
+  -moz-transition-property: height;
+  -ms-transition-property: height;
+  -o-transition-property: height;
+  transition-property: height;
+  -webkit-transition-duration: 2s;
+  -moz-transition-duration: 2s;
+  -ms-transition-duration: 2s;
+  -o-transition-duration: 2s;
+  transition-duration: 2s;
+  -webkit-transition-timing-function: ease-in;
+  -moz-transition-timing-function: ease-in;
+  -ms-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+/* line 10, ../scss/_livefyre.scss */
+.fyre-widget:hover {
+  height: auto;
+}
+
+/* line 138, ../scss/style.scss */
+body {
+  font-family: "Open Sans", sans-serif;
+  background-image: url("/sites/all/themes/checkdesk/assets/imgs/bkgs/cream_dust.png");
+  background-repeat: repeat;
+  background-position: 0 0;
+  background-attachment: fixed;
+}
+/* line 141, ../scss/style.scss */
+body .column.center {
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 5px #e1e1e1;
+  -moz-box-shadow: 0px 0px 5px #e1e1e1;
+  box-shadow: 0px 0px 5px #e1e1e1;
+}
+/* line 11, ../scss/_tabs.scss */
+body .column.center div.tabs {
+  width: 100%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+/* line 13, ../scss/_tabs.scss */
+body .column.center div.tabs ul.primary {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid orange;
+  width: 100%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+  display: block;
+  overflow: hidden;
+  *zoom: 1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  background-color: white;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+}
+/* line 25, ../scss/_tabs.scss */
+body .column.center div.tabs ul.primary li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  padding: 10px;
+}
+/* line 31, ../scss/_tabs.scss */
+body .column.center div.tabs ul.primary li.active {
+  padding: 10px;
+}
+/* line 33, ../scss/_tabs.scss */
+body .column.center div.tabs ul.primary li.active a {
+  padding: 10px;
+  display: block;
+  background-color: #eeeeee;
+}
+/* line 39, ../scss/_tabs.scss */
+body .column.center div.tabs ul.primary li a {
+  padding: 10px;
+}
+/* line 42, ../scss/_tabs.scss */
+body .column.center div.tabs ul.primary li a:hover {
+  padding: 10px;
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
+  -o-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+/* line 47, ../scss/_tabs.scss */
+body .column.center div.tabs ul.primary li a:hover:hover {
+  background-color: #0088FF;
+}

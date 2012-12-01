@@ -22,19 +22,38 @@
     height: auto; 
   }
 } 
+
+.alert .close {
+  float: opposite-position($from-direction);
+  font-size: $base-font-size;
+  font-weight: bold;
+  line-height: $base-line-height;
+  color: $black;
+  text-shadow: 0 1px 0 rgba(255,255,255,1);
+  @include opacity(0.2);
+  &:hover {
+    color: $black;
+    text-decoration: none;
+    cursor: pointer;
+    @include opacity(0.4);
+  }
+}
+
 // ------------- end of customizations, this is mostly bootstrap stil - CGB 
 
 .messages h4 {
   margin: 0;
 }
 
+// Unnecessary in our layout. 
+//
 // Adjust close link position
-.alert .close {
-  position: relative;
-  top: -2px;
-  right: -21px;
-  line-height: $baseLineHeight;
-}
+// .alert .close {
+//   position: relative;
+//   top: -2px;
+//   right: -21px;
+//   line-height: $baseLineHeight;
+// }
 
 
 // Alternate styles
@@ -78,21 +97,21 @@
 // --------------------------------------------------
 
 
-.close {
-  float: right;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: $baseLineHeight;
-  color: $black;
-  text-shadow: 0 1px 0 rgba(255,255,255,1);
-  @include opacity(0.2);
-  &:hover {
-    color: $black;
-    text-decoration: none;
-    cursor: pointer;
-    @include opacity(0.4);
-  }
-}
+// .close {
+//   float: right;
+//   font-size: 20px;
+//   font-weight: bold;
+//   line-height: $baseLineHeight;
+//   color: $black;
+//   text-shadow: 0 1px 0 rgba(255,255,255,1);
+//   @include opacity(0.2);
+//   &:hover {
+//     color: $black;
+//     text-decoration: none;
+//     cursor: pointer;
+//     @include opacity(0.4);
+//   }
+// }
 
 // Additional properties for button version
 // iOS requires the button element instead of an anchor tag.

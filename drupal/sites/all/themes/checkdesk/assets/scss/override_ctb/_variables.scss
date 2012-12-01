@@ -49,8 +49,8 @@ $serifFontFamily: $serif-font-family;
 $monoFontFamily: $mono-font-family;
 
 $baseFontSize:          $base-font-size !default;
-$baseFontFamily:        $sansFontFamily !default;
-$baseLineHeight:        19.2px !default; // 1 font : 1.2 line
+$baseFontFamily:        $sans-font-family !default;
+$baseLineHeight:        $base-line-height !default;
 $altFontFamily:         $serifFontFamily !default;
 
 $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily
