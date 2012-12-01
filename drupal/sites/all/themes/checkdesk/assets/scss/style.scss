@@ -136,19 +136,15 @@
 // Checkdesk commenting plugin
 @import "livefyre";
 
-
 body {
   font-family: "Open Sans", sans-serif;
-  @include bowerbird-backgrounds();
-  @include all-backgrounds();
-  // .node-media {
-  //   @include span-columns(10, 10);
-  // }
-  // .view-liveblog  {
-  //   @include span-columns(10, 12);
-  //   margin: 0 auto;
-  // }
+  @include bowerbird-backgrounds("cream_dust");
+  .column.center {
+    background-color: white;
+    @include single-box-shadow(darken($light-grey, 5%));
+  }
 }
+
 // @include debug_drupal;
-@import "spec";
-@include base_spec;
+// @import "spec";
+// @include base_spec;

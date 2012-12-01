@@ -1,10 +1,11 @@
-### Checkdesk theme implementing Bowerbird the Compass Framework (BCF)
+### Checkdesk theme 
+#### implementing Bowerbird the Compass Framework
 
 Hello! You have arrived at the Checkdesk theme by Meedan.
 
 This is a client theme of Bowerbird, a parent theme which provides the framework for several helper libraries we're written or customized to create a stock HTML theme that is responsive, fluid and bidirectional.
 
-### Get the Compass framwework loaded 
+### Get the Bowerbird Compass Framwework source code
     
     git submodule update --init
 
@@ -27,65 +28,107 @@ or if you use [Bundler]("http://gembundler.com/") you can just do:
 
 Once you get compass and susy gems installed, you can ...
 
-### Read the libraries we are utilizing
+### Use the source, Luke
 
-You are really super-duper really seriously encouraged to `gem unpack compass susy` and `gem unpack compass susy` and read the source code — especially for these two libraries which implement the framwork we're working in. Read the frameworks/compass and the Susy _grid.scss.
+Theme developers really super-duper really seriously encouraged to `gem unpack compass susy` and `gem unpack compass susy` and read the source code — especially for these two libraries which implement the framwork we're working in. Read the frameworks/compass and the Susy _grid.scss.
 
-You do unpack them both at once:
+You can unpack them both at once and keep them handy.
 
      gem unpack susy compass
 
-### Bowerbird packages Twitter Bootstrap and other libraries
+### Start compiling
 
-- We use the compass_twitter_bootstrap gem to provide access to Compass-compatible Twitter Bootstrap modules which are packaged in a way that is designed to be overridden and selectively included. This allows us to mix in other libraries and maintain velocity without regression bugs. Various snapshots of our themes will have various configurations of which Bootstrap modules are supported, and we will be forking/modifying them rapidly. 
-- Susy layout integration: We make responsive, fluid, bidirectional grids and Susy handles all the math.
-- Bidirectional layouts: all mixins are bidirectional using $from-direction and opposite-position($from-direction);
-- A unfied Sass method for multiple icon libraries like Fontawesome.
-- Customized fork of fancy-buttons plugin .
-- Guard preconfigured with Livereload (so you don't have to refresh the page).
+Find your config.rb file which contains:
 
-#### Differences from Twitter Bootstrap
-- the main difference is that we don't require the use of nonsemantic class names in the markup. That is, you don't have to create classes like ".span-12" or ".icon-thumb." All of those classes are still supported but their use is deprecated in favor of [@extend]("http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#extend") or repackaging as native Compass or Sass functions. (You can still use nonsemantic classes if you want.)
-- There is some delay in the port from the original .less. 
-- Compass-ported mixins are all indicated with a "ctb-" prefix.
-- TB grid variables are all overridden or replaces by Susy fluid grid.
-- Improved button support as a mixin.
-- Improved icon handling with helper mixins.
+    load "../bowerbird/framework"
 
-### Strong cross-browser support and documentation
-- *WIP* We want to have module-level validation of our CSS for each browser.
+And in that directory run:
 
-### Standardized CSS syntax with KSS
-- *WIP* https://github.com/kneath/kss/blob/master/SPEC.md
+    compass watch 
 
-### Proportion-based grid
-- Checkdesk uses a proportion-based grid which adapts to many sizes and configurations. We use Susy for the Math.
+(Or use the `guard` command which should be installed if you used the `bundle install` command to get setup.)
 
-### Responsive
-- Checkdesk uses Susy's at-breakpoint(); mixin, which we use to configure layouts and typography for a given viewport width.
 
-### Usage notes
+### General usage notes
 
-- The Compass configuration file is in config.rb, which is in sites/all/themes/checkdesk
+The overall pattern is to compile stylesheets dynamically using a terminal process (or some other long-running compiler with debugging output) which is triggered by a file save. 
+
 - First compile the stylesheets: `cd sites/all/themes/checkdesk && compass watch`
 - /assets/scss/ renders into /assets/css/.
-- The primary stylesheet is style.scss, think from there.
-- The order of the import statements is very important.
+- The Compass configuration file is in config.rb, which is in sites/all/themes/checkdesk
+- The primary stylesheet is style.scss.
+- Like all CSS the order of the import statements is important for managing which libraries overrule others.
 - use _base.scss for core configuration.
 - Everything is commented, please annotate and cleanup comments constantly.
 - All stylesheets that start with an underscore are partials, they might contain mixins or complete modules, but they will *not be rendered as .css files* and can not be used to emit styles to the application.
 - Try to avoid dupilcation with mixins and configuration variables, but try to reduce complication.
+- Best served with Guard and Livereload
 
-#### Special points about the layout 
+### Checkdesk theme cheat sheet
 
-- The Susy way is: every CSS width is a percentage, but every Sass width is a column (or a ratio of columns). 
-- `gem unpack susy` and keep the source code at hand while working, especially layout.scss.
-- learn to love display: inline.
-- There should only be one container element.
-- At least once, do the layout math by hand to verify it.
-- Make good use of the @debug and @warn function on sensitive layout configuration
+This is a list of the most frequent directives, rules, configs, and everything, with brief explanations. When in doubt, consult the mixin definition. 
+
+##### Sass Directives
+- functions
+    @function twelveth-of($width) { @return $width / 12; } 
+      #=> function defined and will be executed when called by client Sass at compile time
+    @include twelveth-of(12) 
+      #=> "1"
+    @debug sixth-of(12) #=> path/to/current/file/_name.scss 
+      #=> DEBUG: 2
+    @warn "#{fifth-of(12)} columns breaks a #{$cw}-part grid." 
+      #=> path/to/current/file/_name.scss WARN: 2.4 columns breaks a 24-part grid.
+
+- Compass utility includes
+    @include single-box-shadow(darken($light-grey, 40%)); 
+      #=> "#333333"
+
+- Susy includes
+    @include span-columns(12, $cw); 
+      #=> span 50% of the total, if $cw is 24. Eg: "it's 12 in 24"
+    @include span-columns($center-column-width, $cw, $gw); 
+      #=> 12 in 24 but each has gutter width padding
+    @include at-breakpoint(12) { div.green {border: 1px soild red;}} 
+      #=> Eg. "above the 12 (default) columns breakpoint"
+    @include squish(twelveth-of($cw),twelveth-of($cw),$cw); 
+      #=> add padding on each side. Be sure to compensate for the children's new $context width.
+
+- namespaced includes
+    @include bowerbird-backgrounds("cream_dust"); 
+    # This is also an example of custom SassScript helper (in config.rb)
+
+- general mixins
+    @mixin footer($color) { border: 1px solid $color; }
+      #=> mixin defined and will be executed when called by client Sass at compile time
+    @include footer(pink); 
+      #=> border: 1px solid pink;
+
+- variables in a function
+    $label-width: half-of($fw);
+
+##### Sass (.scss dialect using braces and semicolons)
+
+- nested selectors are the basic feature of sass
+    .grandpa { .pa { .child { border: 1px solid $shocking-purple; } } }
+
+- we use :before content from CSS with no modifications because Sass is CSS compatible.
+    .pa &:before { content: "Hello!" }
+
+- basic variables
+    padding: { top: 17px; bottom: $gw; }
+
+- dynamic-ish variables
+    margin-top: $gw * 6;
+
+##### CSS (which is often identical to .scss)
+
+- webfonts from google 
+  @import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
+  # (actually a typical CSS import, not a Sass @ directive, and is not Sass-script at all.)
 
 ## Four types of Sass libraries used in Checkdesk
+
+A large part of the rationale for the design of this project is to juggle different kinds of Sass.
 
 - First, custom Sass files created by Meedan. These live in ./scss/. For example: 
       

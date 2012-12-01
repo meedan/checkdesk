@@ -24,7 +24,7 @@
   $pad-from : relative-width(0 * $gutter-width, $context);
   $pad-to   : relative-width(0 * $gutter-width, $context);
   
-  // this @if was added by checkdesk 
+  // so far, only this @if statement was added by checkdesk - CGB Nov 2012
   @if round($cols) != $cols {
     @warn "======> #{$cols} is not a good input because it is not round";
   }

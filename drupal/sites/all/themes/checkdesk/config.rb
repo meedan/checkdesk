@@ -30,15 +30,7 @@ module Sass::Script::Functions
   def show_available_backgrounds(path)
     Dir.glob(path);
   end
-
-  # def 
-  #   Sass::Script::String.new()
-  # end
-
-  # def variable_as_string(var)
-  #   # binding.pry
-  #   return Sass::Script::String.new("#{var.to_s}")
-  # end
+  
   @bkgpath = "assets/imgs/bkgs/"
   def all_backgrounds(bkgpath = @bkgpath, size = "default")
     @list = Array.new
