@@ -11,8 +11,3 @@ notifications:
   email:
     recipients:
       - cblow@meedan.net
-
-before_script: 
-  - bundle install --binstubs
-
-script: ./test/run_build.rb
