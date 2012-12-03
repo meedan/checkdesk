@@ -1,6 +1,7 @@
 notification :growl
 
-guard 'compass' do
+guard 'compass', :test => "test" do
+  ENV["CHECKDESK_ENV"] = "test"
   watch(%r{^assets/scss.+\.(scss)$})
   watch(%r{^stylesheets/bowerbird/.+\.(scss)$})
 end

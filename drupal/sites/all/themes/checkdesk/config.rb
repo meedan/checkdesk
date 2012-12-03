@@ -3,20 +3,23 @@ require "logger" # custom logger with pass/fail
 require "pry"
 require "rake" # for filelist
 
-load "../bowerbird/framework" # is this the right way to do this?
+# seems like not an ideal way to load a compass extension
+Sass.load_paths << '../bowerbird/extensions/bowerbird/stylesheets'
 
 # Set this to the root of your project when deployed:
-http_path = "/"
+http_path       = "/"
 css_dir 				= "assets/css"
 sass_dir 				= "assets/scss"
 images_dir 			= "assets/img"
 javascripts_dir = "assets/js"
 
-# icon webfonts from bowerbird (by contrast typography fonts are from google)
-font_dir 				= ".../bowerbird/framework/fonts"
-http_fonts_path = "/sites/all/themes/bowerbird/framework/fonts"
-relative_assets = false
+# environment = :development
+# firesass = true
 
+# icon webfonts from bowerbird (by contrast typography fonts are from google)
+# font_dir 				= extensions_dir + "fonts"
+http_fonts_path = "/sites/all/themes/bowerbird/bowerbird/fonts"
+relative_assets = false
 
 # For more about Sass functions: 
 # http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html
@@ -47,4 +50,20 @@ module Sass::Script::Functions
     # binding.pry
     Sass::Script::Number.new(all_backgrounds(@bkgpath).value.length.to_i)
   end
+
+  # based on http://www.seancolombo.com/2010/07/28/how-to-make-and-use-a-custom-sass-function/
+  # def config_from_cli(c, d="")
+  #   o = d.to_s
+  #   ARGV.each do |a|
+  #     if a =~ /.=./
+  #       p = a.split('=')
+  #       o = p[1] || d
+  #     end
+  #   end
+  #   begin
+  #     Sass::Script::Parser.parse(o, 0, 0)
+  #   rescue
+  #     Sass::Script::String.new(o)
+  #   end
+  # end
 end
