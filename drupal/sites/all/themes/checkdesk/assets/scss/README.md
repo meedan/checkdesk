@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/meedan/meedan-checkdesk.png)](https://travis-ci.org/meedan/meedan-checkdesk)
+
+
 ### Checkdesk theme 
 #### implementing Bowerbird the Compass Framework
 
