@@ -58,8 +58,8 @@ div.block:hover .edit {
 
 @font-face {
   font-family: "FontAwesome";
-  src: url('/sites/all/themes/bowerbird/bowerbird/fonts/fontawesome/fontawesome-webfont.eot');
-  src: url('/sites/all/themes/bowerbird/bowerbird/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('/sites/all/themes/bowerbird/bowerbird/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('/sites/all/themes/bowerbird/bowerbird/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('/sites/all/themes/bowerbird/bowerbird/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
+  src: url('drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot');
+  src: url('drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -5729,30 +5729,6 @@ body #content-inner {
   display: none;
 }
 
-/* line 5, ../scss/_livefyre.scss */
-.fyre-widget {
-  height: 40px;
-  -webkit-transition-property: height;
-  -moz-transition-property: height;
-  -ms-transition-property: height;
-  -o-transition-property: height;
-  transition-property: height;
-  -webkit-transition-duration: 2s;
-  -moz-transition-duration: 2s;
-  -ms-transition-duration: 2s;
-  -o-transition-duration: 2s;
-  transition-duration: 2s;
-  -webkit-transition-timing-function: ease-in;
-  -moz-transition-timing-function: ease-in;
-  -ms-transition-timing-function: ease-in;
-  -o-transition-timing-function: ease-in;
-  transition-timing-function: ease-in;
-}
-/* line 10, ../scss/_livefyre.scss */
-.fyre-widget:hover {
-  height: auto;
-}
-
 /* line 138, ../scss/style.scss */
 body {
   font-family: "Open Sans", sans-serif;
@@ -5835,5 +5811,5 @@ body .column.center div.tabs ul.primary li a:hover {
 }
 /* line 47, ../scss/_tabs.scss */
 body .column.center div.tabs ul.primary li a:hover:hover {
-  background-color: #3AD900;
+  background-color: #FFDD00;
 }

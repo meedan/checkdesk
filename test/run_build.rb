@@ -1,3 +1,8 @@
-#!/usr/bin/env ruby
+# #!/usr/bin/env ruby
 
-system 'cd "drupal/sites/all/themes/checkdesk" && compass compile'
+# require 'pry'
+# require 'compass'
+
+# system 'cd "../drupal/sites/all/themes/checkdesk" && compass clear && compass compile'
+
+# system 'compass validate'
