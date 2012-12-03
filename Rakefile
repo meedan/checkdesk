@@ -3,5 +3,5 @@ task :default => [:compile]
 
 desc "Compile stylesheets"
 task :compile do
-  system 'cd "drupal/sites/all/themes/checkdesk" && compass compile'
+  system "compass compile 2>&1"
 end
