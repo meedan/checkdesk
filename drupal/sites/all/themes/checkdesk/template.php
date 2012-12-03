@@ -158,18 +158,18 @@ function checkdesk_preprocess_node(&$variables) {
       $icon = '';
       if ($status_name == 'Verified') {
         $status_class = 'verified';
-        $icon = '<i class="icon-ok-sign"></i> ';
+        $icon = '<span class="icon-ok-sign"></span> ';
       }
       elseif ($status_name == 'Undetermined') {
         $status_class = 'undetermined';
-        $icon = '<i class="icon-question-sign"></i> ';
+        $icon = '<span class="icon-question-sign"></span> ';
       }
       elseif ($status_name == 'False') {
         $status_class = 'false';
-        $icon = '<i class="icon-remove-sign"></i> ';
+        $icon = '<span class="icon-remove-sign"></span> ';
       }
       $variables['status_class'] = $status_class;
-      $variables['status_icon'] = $icon . t($status_name);
+      $variables['status_icon'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
     }
   }
 }
@@ -218,7 +218,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-edit"></i></a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-checkdesk-style') .'</li>';
@@ -245,7 +245,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Flag as
       $output .= '<li class="flag-as dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-flag"></i> Flag</a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span> Flag</a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['flag-spam'])) {
         $output .= '<li>' . l($links['flag-spam']['title'], @$links['flag-spam']['href'], $links['flag-spam']) . '</li>';
@@ -268,7 +268,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Share on
       $output .= '<li class="share-on dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-share"></i> Share</a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span> Share</a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-share-facebook'])) {
         $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';

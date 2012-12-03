@@ -4,23 +4,25 @@ require "pry"
 require "rake" # for filelist
 
 drupal_dir = "drupal"
-themes_dir = File.join(drupal_dir,"sites/all/themes/")
-extensions_dir = File.join(themes_dir, "bowerbird/extensions/")
-bowerbird_extension_dir = File.join(extensions_dir,"bowerbird/")
-assets_dir = File.join(themes_dir, "checkdesk/assets")
+themes_dir = "sites/all/themes/"
+extensions_dir = "bowerbird/extensions/"
+bowerbird_extension_dir = "bowerbird/"
+full_bowerbird_extension_dir = File.join(drupal_dir, themes_dir, extensions_dir, bowerbird_extension_dir)
 
+assets_dir = "checkdesk/assets"
+full_assets_dir = File.join(drupal_dir, themes_dir, assets_dir)
 http_path       = "/"
-css_dir         = File.join(assets_dir, "css")
-sass_dir        = File.join(assets_dir, "scss")
-images_dir      = File.join(assets_dir, "img")
-javascripts_dir = File.join(assets_dir, "js")
+css_dir         = File.join(full_assets_dir, "css")
+sass_dir        = File.join(full_assets_dir, "scss")
+images_dir      = File.join(full_assets_dir, "imgs")
+javascripts_dir = File.join(full_assets_dir, "js")
 
 # icon webfonts from bowerbird
-http_fonts_path = File.join(bowerbird_extension_dir, "fonts")
+http_fonts_path = File.join("/", themes_dir, extensions_dir, bowerbird_extension_dir, "fonts")
 relative_assets = false
 
 #load bowerbird
-Sass.load_paths << File.join(themes_dir, bowerbird_extension_dir)
+Sass.load_paths << File.join(full_bowerbird_extension_dir, "stylesheets")
 
 # For more about Sass functions: 
 # http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html

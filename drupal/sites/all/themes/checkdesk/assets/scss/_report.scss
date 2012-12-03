@@ -46,10 +46,11 @@
 			    	text-decoration: none;
 			    }
 
-					i {
+					span {
 						float: $from-direction;
 						@include reset-box-model;
 
+						// Flag and share on the top of the report
 						&.icon-flag {
 							@include icon(flag, fontawesome, 16px, $darker-grey, transparent);
 						}
@@ -122,12 +123,25 @@
 			text-shadow: 0 1px 0 rgba(255,255,255,.3);
 			cursor: pointer;
 			h3 {
-				float: left;
+				float: $from-direction;
 				@include reset-box-model();
 				@include ctb-font-shorthand(14px, normal);
 			}
 			.report-status {
-				float: right;
+				width: 200px;
+				float: opposite-position($from-direction);
+				text-align: opposite-position($from-direction);
+				// icon in the status
+				span[class^="icon-"], span[class*="icon-"] {
+					width: 20px;
+					float: opposite-position($from-direction);
+				}
+				span.status-name {
+					// temporary use of pixels until the report is converted to columns
+					width: 150px; 
+					text-align: opposite-position($from-direction);
+					float: opposite-position($from-direction);
+				}
 			}
 			&:hover {
 				background-color: darken($grayLighter, 10%);
@@ -175,11 +189,6 @@
 				padding-bottom: $baseLineHeight/2;
 				padding-left: $gridGutterWidth;
 				header {
-					i {
-						font-size: 18px;
-						margin-left: -$gridGutterWidth*1.6;
-						margin-right: $gridGutterWidth/2;
-					}
 					.time {
 						color: $grayLight;
 						margin-right: $gridGutterWidth/2;
@@ -197,10 +206,6 @@
 					}
 				}
 			}
-			// based on status
-			.icon-ok-sign { color: $green; }
-			.icon-question-sign { color: $orange; }
-			.icon-remove-sign { color: $red; }
 		}
 
 		#comment-form {
@@ -228,5 +233,19 @@
 	}
 	.open > .verified {
 		background-color: lighten($green, 40%);
+	}
+
+	// based on status
+	.icon-ok-sign { 
+		color: $green;
+		@include icon(ok-sign, fontawesome, 16px, darken($green, 15%), transparent); 
+	}
+	.icon-question-sign { 
+		color: $orange; 
+		@include icon(remove-sign, fontawesome, 16px, darken($orange, 15%), transparent);
+	}
+	.icon-remove-sign { 
+		color: $red; 
+		@include icon(question-sign, fontawesome, 16px, darken($red, 15%), transparent);
 	}
 }

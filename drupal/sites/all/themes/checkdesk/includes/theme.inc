@@ -84,7 +84,7 @@ function checkdesk_checkdesk_links($variables) {
           $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
         } else {
           if($link['href'] == '<front>') {
-            $output .= '<a href="' . url('<front>') . '"><i class="icon-home"></i></a>';
+            $output .= '<a href="' . url('<front>') . '"><span class="icon-home"></span></a>';
           } else {
             $output .= l($link['title'], $link['href'], $link);  
           }
@@ -200,7 +200,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   if($message->message_id == 'status_report') {
     if($status = $message->variables['!status']) {
       if($status == 'Verified') {
-        $icon = '<i class="icon-ok-sign"></i> ';
+        $icon = '<span class="icon-ok-sign"></span>';
         $status_class = 'verified';
         $title = 'Status set to '. $message->variables['!status'] . ' by ' . $message->variables['!editor'];
       }
