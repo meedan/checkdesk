@@ -1,5 +1,12 @@
 language: ruby
 
+gemfile: drupal/sites/all/themes/checkdesk/Gemfile
+
+bundler_args: --without development
+
+env:
+  - CI=true
+
 rvm:
   - 1.9.3
 
@@ -11,5 +18,3 @@ notifications:
   email:
     recipients:
       - cblow@meedan.net
-
-gemfile: ./sites/all/themes/checkdesk/Gemfile
