@@ -1,8 +1,18 @@
+language: ruby
+
 rvm:
   - 1.9.3
 
 branches:
   only:
     - develop
+
+notifications:
+  email:
+    recipients:
+      - cblow@meedan.net
+
+before_script: 
+  - bundle install --binstubs
 
 script: ./test/run_build.rb
