@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * Implements hook_init().
+ */
+function checkdesk_core_init() {
+  drupal_add_library('system', 'ui.draggable');
+  drupal_add_library('system', 'ui.droppable');
+}
+
+/**
  * Implements hook_permission().
  */
 function checkdesk_core_permission() {
@@ -429,8 +437,6 @@ function checkdesk_core_oembed_title($node) {
 function checkdesk_core_views_pre_render(&$view) {
   if ($view->name == 'desk_reports') {
     // Setup drag & drop.
-    drupal_add_library('system', 'ui.draggable');
-    drupal_add_library('system', 'ui.droppable');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 

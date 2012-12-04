@@ -158,27 +158,20 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
       // Check for a nickname collision.
       $account = array_shift(user_load_multiple(array(), array('name' => $response['screen_name'])));
       if (empty($account->uid)) {
-        $password = user_password();
-        $account->name = $response['screen_name'];
-        $account->pass = $password;
-        $edit['pass'] = $password;
-        $account->init = $response['screen_name'];
-        $account->status = 1;
-        $account->authname_twitter = $response['user_id'];
-        $account->access = REQUEST_TIME;
-        $account->is_new = TRUE;
-        $account = user_save($account, $edit);
+        $edit = array(
+          'name' => $response['screen_name'],
+          'init' => $response['screen_name'],
+          'status' => 1,
+          'authname_twitter' => $response['user_id'],
+          'access' => REQUEST_TIME,
+        );
+        $account = user_save(NULL, $edit);
         if (variable_get('twitter_signin_import_picture', 0)) {
           twitter_signin_get_picture($account, $response);
         }
         $user = $account;
         $form_state['twitter_oauth']['account'] = $account;
-        drupal_set_message(t('You have been automatically registered with the password !password. ' .
-          'Copy it to !link.', array(
-            '!password' => $password,
-            '!link' => l('set your account settings', 'user/' . $account->uid . '/edit'),
-          )
-        ));
+        drupal_set_message(t('You have been automatically registered with your twitter account.'));
         $success = TRUE;
       }
       else {
