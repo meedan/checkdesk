@@ -27,24 +27,34 @@ Sass.load_paths << File.join(full_bowerbird_extension_dir, "stylesheets")
 # For more about Sass functions: 
 # http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html
 module Sass::Script::Functions
-  def random_color
+  
+  def pry
+    binding.pry
+  end
+  
+  # this needs to be available in our sass as well
+  # we try to push most of the logic to sass
+  def bb_background_path
+    Sass::Script::String.new("/sites/all/themes/bowerbird/images/bkgs/")
+  end
+
+  def bb_random_color
     colors = ["#FF628C", "#3AD900", "#0088FF", "#80FFC2", "#FFDD00", "#FF9D00"]
     arr = colors.dup    
     Sass::Script::String.new(colors.collect { arr.slice!(rand(arr.length)) }.first);
   end
 
-  @bkgpath = File.join(File.dirname(__FILE__), 'drupal/sites/all/themes/', 'checkdesk/assets/bkgs')
-  def all_backgrounds(bkgpath = @bkgpath, size = "default")
+  def all_bb_backgrounds(path = bb_background_path.value, size = "default")
+    puts "================= Using #{bb_background_path.value}"
     @list = Array.new
-    FileList["#{bkgpath}**/*.png"].exclude(/.*2X.*/).each { |pathname| 
+    FileList[File.join(path @bkgpath, '**', '*.png')].exclude(/.*2X.*/).each { |pathname| 
       @list << Sass::Script::String.new((File.basename(pathname)).gsub(".png", ""))
     }
     Sass::Script::List.new(@list, :comma)
   end
 
-  def all_backgrounds_count
-    # binding.pry
-    Sass::Script::Number.new(all_backgrounds(@bkgpath).value.length.to_i)
+  def all_bb_backgrounds_count(path = @bkgpath)
+    Sass::Script::Number.new(all_bb_backgrounds(path).length.to_i)
   end
 
   # based on http://www.seancolombo.com/2010/07/28/how-to-make-and-use-a-custom-sass-function/

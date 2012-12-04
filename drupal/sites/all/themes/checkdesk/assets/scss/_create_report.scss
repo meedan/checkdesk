@@ -1,0 +1,48 @@
+body.page-node-add {
+  
+  h1.title,
+  .filter-guidelines,
+  .filter-help  {
+    display: none;
+  }
+
+  .node-form  {
+    
+    // reset the label width to smaller for this form
+    $label-width: 4;
+
+    // This works on the first fields of the report/update/story fields
+    .form-type-link-field, 
+    .form-item-title {
+      // 1. First standardize the form
+      @include checkdesk-form($fw, $center-column-width); 
+
+      // 2. now, customizations on top of the default checkdesk forms.
+      label {
+        margin-top: $gw*4;
+        @extend .icon-link;
+        &:before {
+          font-family: FontAwesome;
+          margin-#{opposite-position($from-direction)}: 10px;
+        }
+        @include span-columns($label-width, $center-column-width);
+        font-size: $large-font-size;
+        font-weight: bold;
+      }
+
+      .form-item {
+        @include span-columns(($center-column-width - $label-width) omega, $center-column-width);
+        
+        input {
+          @include span-columns($center-column-width - $label-width, $center-column-width - $label-width, $gw/2);
+
+          // why isn't this showing up?
+          background: pink;
+        }
+      }
+    }
+    textarea {
+      height: 100px;
+    }
+  }
+}

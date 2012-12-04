@@ -4,33 +4,22 @@
 //
 // The log in page has a small form in the middle which also appears as an even smaller form in the navigation section.
 
-// Top and bottom padding
-// 
-// $pad - Amount to pad defaults to gutter width.
-@mixin top-and-bottom-padding($pad: $gw) {
-  margin-top: $pad;
-  padding-top: $pad;
-}
-
 // Main mixin for all of the user section
 // 
 // $fw - the form width
-@mixin user_section_forms($fw, $context) {  
-
-  // Basics of the form layout
-  // $fw - form width
-  // $cw - total width (context)
-  @include checkdesk-form-basics($fw, $context); 
-
-  // Main form layout
-  // $fw - form width
-  @include checkdesk-form-item($fw);
-
-  // All <.item-list>s after the <.form-item-name> field 
-  // Sections: forgot password & create new account
+@mixin user_section_forms($fw: $cw, $context: $cw) {
+  
+  @include checkdesk-form($fw, $context);
+  
+  // Forgot password and create new account <.item-list>s
   .form-item-name ~ .item-list {
     font-size: $small-font-size;
-    @include span-columns(half-of($fw) omega, $fw);
+    a { 
+      color: $dark-grey; 
+    }
+    // @include span-columns(half-of($fw), $fw);
+    display: block;
+
     ul {
       li {
         @include reset-box-model;
@@ -39,66 +28,24 @@
     }
   }
   
-  // Password section
-  .form-item-pass {
-    @include span-columns($fw, $fw, $gw);
-    .description {
-        @include reset-box-model;
-        @include span-columns(half-of($fw), $fw, $gw);
-      }
-    .password-strength {
-      @include reset-box-model;
-      @include span-columns($input-width omega, $fw, $gw);
-      margin: { top: $gw; bottom: $gw; }
-      
-      .password-strength-title {
-        @include span-columns(fourth-of($fw), $fw);
-        font-size: $form-helper-text-size;
-      }
-      .password-indicator {
-        @include span-columns(half-of($fw), $fw);
-        margin-top: $gw;
-      }
-      .password-strength-text {
-        @include span-columns(fifth-of($fw), $fw);
-      }
-    }
-
-    // "Passwords match" box
-    div.password-confirm {
-      @include reset-box-model;
-      @include span-columns($input-width omega, $fw);
-      font-size: $form-helper-text-size;
-      span {
-        padding: 0 $gw;
-        &.error {
-          background: $firetruck-red;
-          color: white; 
-          @include border-radius(15%);
-          font-family: monaco, courier, monospace;
-        }
-        &.ok {
-          background: darken(#47c965, 5%);
-          @extend .error;
-        }
-      }
-    }
-
-    // Suggestions box (hidden by default)
-    .password-suggestions {
-      @include reset-box-model;
-      @include top-and-bottom-padding;
-      @include span-columns(half-of($fw) omega, $fw);
-      li {
-        padding-#{opposite-position($from-direction)}: $gw;
-      }
-    }
-  }
-
   .form-type-checkbox,
   .form-item-textfield {
     @include reset-box-model;
     @include span-columns($fw, $fw, $gw);
+
+    input.form-checkbox {
+      display: block;
+      float: $from-direction;
+      padding: $gw;
+      width: $gw*2;
+    }
+
+    label.option {
+      @include reset-box-model;
+      @include span-columns($fw - 3, $fw);
+      clear: none;
+      padding-top: $gw;
+    }
   }
 
   .form-actions {
@@ -112,26 +59,38 @@
 
   // The social media sign-in boxes
   #edit-social-media-signin {
-    @include span-columns($fw, $fw, $gw);
+    // @include debugger("label, .item-list, li, a");
+    @include span-columns($fw, $fw);
+    padding-bottom: $gw;
+    label {
+      @include span-columns(half-of($fw), $fw);
+      font-weight: 700;
+    }
+
     div.item-list {
       @include span-columns($input-width omega, $fw);  
       ul {
-        @include reset-box-model;
         @include reset-list-style;
+        @include reset-box-model;
       }
       
       li a {
         display: block;
-        margin: $gw;
+        margin: { left: $gw; right: $gw; }
         float: $from-direction;
       }
 
       li.first a {
         @include icon(twitter, fontawesome, 30px, white, $grey, $twitter-blue);
+        display: block;
+        width: 30px;
       }
 
       li a.facebook-action-connect {
-        @include icon(facebook, fontawesome, 30px, white, $grey, $facebook-blue);
+        @include icon(facebook, fontawesome, 30px, white, $grey, $facebook-blue) {
+          display: block;
+          width: 30px;
+        }
       }
     }
 
@@ -176,8 +135,4 @@ body.not-front.not-logged-in.page-user {
   }
 
   @include user_section_forms($center-column-width, $center-column-width);
-
-  form {
-    border-top: 1px solid aqua;
-  }
 }

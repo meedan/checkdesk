@@ -77,7 +77,7 @@ $grid-padding: $gw; // The padding on the sides of the out <container>
 // but we additionally want the outer container to be fluid with the width of the browser.
 $container-style: fluid; // fullscreen fluid width
 $break-small: $cw/2; // column breakpoint - at the equivalent of fullsize grid units
-$break-medium: $cw + ($cw/1); // column breakpoint - at the equivalent of fullsize grid units
+$break-medium: $cw; // column breakpoint - at the equivalent of fullsize grid units
 
 // The main <form> width is 
 $form-width: $center-column-width;

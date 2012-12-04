@@ -1,58 +1,34 @@
-// Basics for checkdesk forms
-//
-// $fw - form width
-// $context - size of containing element
-//
-// Compatibility: untested
-@mixin checkdesk-form-basics($fw, $context) {
-  form {
-    background: white;
-    @include reset-box-model;
-    @include clearfix;
-    @include span-columns($fw, $context);
-    padding-top: space(1, $fw);
-    .form-actions {
-      @include reset-box-model;
-      @include span-columns($fw, $fw);
-      padding: { top: space(1, $fw); bottom: space(1, $fw); }
-      margin-top: $gw;
-      clear: both;
-    }
-  }
-}
-
 // Form items in a form
 //
 // $fw - form width
 // $context - size of containing element
 //
 // Compatibility: untested
-@mixin checkdesk-form-item($fw, $context: $fw) {
+@mixin checkdesk-form-item($fw, $context: $fw, $gw: $gw) {
 
   .form-item {
     @include reset-box-model;
-    @include span-columns($fw, $fw);
+    display: block;
     border-top: 1px solid $light-grey;
     padding-top: $gw;
-    margin-top: $gw;
 
     // nested .form-item .form-item
     .form-item {
-      @include reset-box-model;
-      display: block;
-      background-color: red;
+      @include reset-box-model; 
+      display: block; // full width
     }
 
     input {
       @include reset-box-model;
       @include single-box-shadow($light-grey, 0px, 2px, 2px, 2px, inset);
-      @include span-columns($input-width omega, $fw, $gw/2);
+      display: block;
+      // @include span-columns($fw, $fw, $gw);
+      // @include span-columns($input-width omega, $fw, $gw/2);
       @include border-radius(2px);
       // Set border carfully to avoid cascade interefence from Twitter Bootstrap
       border: 1px solid $grey;
       border: 1px solid $grey;
-      border-left-width: 0;
-      border-right-width: 0;
+      border: { left-width: 0; right-width: 0; }
 
       clear: opposite-position($from-direction);
       padding: { top: $gw; bottom: $gw; }
@@ -70,7 +46,8 @@
     label {
       @include reset-box-model;
       font-size: $large-font-size;
-      @include span-columns($label-width, $fw);
+      display: block;
+      // @include span-columns($label-width, $fw);
       padding: { top: $gw; bottom: $gw; }
     }
 
@@ -78,7 +55,34 @@
       @include reset-box-model;
       clear: $from-direction;
       font-size: $form-helper-text-size;
-      @include span-columns($fw, $fw, $gw);
+      // display: block;
+      // hidden by default, displayed at larger breakpoints
+      display: none;
+    }
+  }
+}
+
+// Basics for all checkdesk forms
+//
+// $fw - form width
+// $context - size of containing element
+//
+// Compatibility: untested
+@mixin checkdesk-form($fw: $cw, $context: $cw, $gw: $gw) {
+
+  form {
+    @include checkdesk-form-item($fw, $context);
+    @include clearfix;
+
+    .form-actions {
+      @include reset-box-model;
+      @include clearfix;
+      @include span-columns($fw, $context, $gw);
+      padding: { top: space(1, $fw); bottom: space(1, $fw); }
+      margin-top: $gw;
+      display: block;
+      clear: both;
+      @include bb-background('diagmonds', 'large', 'scroll');
     }
   }
 }

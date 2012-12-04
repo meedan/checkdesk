@@ -1,20 +1,19 @@
 //
 // Alerts
-// --------------------------------------------------
-
-
-// Base styles
-// -------------------------
-
+//
+// Alerts appear for many kinds of notifications and errors
+// We establish the basic alert and then alternates.
 .alert {
   padding: $gw;
   margin-bottom: $gw;
   text-shadow: 0 1px 0 rgba(255,255,255,.4);
   background-color: $warningBackground;
   border: { top: 1px solid $grey; bottom: 1px solid $grey; }
-  color: $grey;
+  color: $dark-grey;
   font-size: $smallest-font-size;
   background-color: $light-grey;
+
+  // sometimes errors are extremeley large, thus:
   @include transition-property(height);
   @include transition-duration(2s);
   @include transition-timing-function(ease-in);
@@ -38,8 +37,6 @@
     @include opacity(0.4);
   }
 }
-
-// ------------- end of customizations, this is mostly bootstrap stil - CGB 
 
 .messages h4 {
   margin: 0;
@@ -66,15 +63,18 @@
 }
 .alert-danger,
 .alert-error {
-  background-color: $errorBackground;
-  border-color: $errorBorder;
-  color: $errorText;
+  background-color: black;
+  border-color: transparent;
+  color: white;
 }
 .alert-info {
   background-color: $infoBackground;
   border-color: $infoBorder;
   color: $infoText;
 }
+
+
+// ------------- end of customizations, this is mostly bootstrap stil - CGB 
 
 
 // Block alerts
@@ -124,11 +124,8 @@ button.close {
   -webkit-appearance: none;
 }
 
-
-
+// Is this in use? - CGB NOV 2012
 // Top bar alerts
-// -------------------------
-
 #absolute-messages-messages {
   width: 100%;
   position: relative;

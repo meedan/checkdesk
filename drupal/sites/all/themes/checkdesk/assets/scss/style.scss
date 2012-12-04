@@ -11,11 +11,11 @@
 // (for extra debugging support only at this point) — CGB Nov 2012
 @import "override_susy/grid";
 
-// Debugging mixins
-@import "bowerbird/debug";
-
 // Bowerbird Drupal touchups
 @import "bowerbird/drupal";
+
+// Debugger mixins
+@import "bowerbird/debug";
 
 // Bowerbird font-icon support mixins: apply-font-face() and icon()
 @import "bowerbird/icons/icons";
@@ -52,6 +52,7 @@
 // The order of the includes is important: variables, mixin, then reset
 @import "override_ctb/variables";
 @import "override_ctb/mixins";
+
 @import "bowerbird/compass_twitter_bootstrap/reset";
 @import "override_ctb/forms";
 // @import "bowerbird/compass_twitter_bootstrap/forms";
@@ -95,7 +96,6 @@
 // @import "bowerbird/compass_twitter_bootstrap/tooltip";
 // @import "bowerbird/compass_twitter_bootstrap/popovers";
 
-
 // ====================================================================== 
 // Our Drupal sections, pages, mixins
 
@@ -110,18 +110,6 @@
 // .tabs - the containing element which has a ul.primary and ul.secondary
 @import "tabs";
 
-// Checkdesk user section and login page
-// 
-// we implement a smaller width on the content frame, handle the social login process, and use TB to draw most the form elements.
-//
-// form#user-login - the main form in the page 
-@import "user";
-
-//  Checkdesk layout
-//
-// Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
-@import "layout";
-
 // Checkdesk notifications
 // 
 // #block-views-my-notifications-block - the main notification list in the top bar
@@ -133,22 +121,60 @@
 // Checkdesk commenting plugin
 @import "livefyre";
 
+// ====================================================================== 
+// Forms
+//
+// Mixins for forms
+@import "forms";
+// password strength section
+@import "form_password";
+// Form implementations
+@import "user";
+@import "create_report";
+@import "create_update";
+@import "create_story";
+
+// ====================================================================== 
+//  Checkdesk layout
+//
+// Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
+@import "layout";
+
+// ====================================================================== 
+// Deprecated, disabled, or hidden things 
+
+// We don't use the i element for icons
+// And they should not display
+i {
+  display: none;
+  &:hover {
+    display: none
+  }
+}
+
+// ====================================================================== 
 // Final centralized render of CSS
 //
 body {
   font-family: "Open Sans", sans-serif;
-  @include bowerbird-backgrounds("cream_dust");
+  @include bb-background();
   .column.center {
     background-color: white;
-    @include single-box-shadow(darken($light-grey, 5%));
-    // Small tabs eg in user section - not the nav
-    @include tabs($tw, $center-column-width);
+    // @include single-box-shadow(darken($light-grey, 5%));
+  }
+  ul.tabs.primary {
+    // Tabs: to be overridden with breakpoints
+    @include bb-tabs($cw, $gw);
   }
 }
 
+// ====================================================================== 
 // The End
 //
 // Debuggers and specs go last
+
+// Debugging mixins
 // @include debug_drupal;
+
+// Pseudo-spec
 @import "spec";
-// @include base_spec;
