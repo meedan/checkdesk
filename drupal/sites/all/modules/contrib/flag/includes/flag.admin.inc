@@ -514,10 +514,12 @@ function flag_form($form, &$form_state, $flag) {
     '#weight' => 999,
   );
 
-  $flag->options_form($form);
-
   // Add our process handler to disable access to locked properties.
   $form['#process'][] = 'flag_form_locked_process';
+
+  // Allow the flag handler to make additions and changes to the form.
+  // Note that the flag_broken handler will completely empty the form array!
+  $flag->options_form($form);
 
   return $form;
 }

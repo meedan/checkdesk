@@ -96,9 +96,8 @@ function meedan_livefyre_menu() {
 function meedan_livefyre_admin_settings() {
   $form['meedan_livefyre_disable'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Disable'),
+    '#title' => t('Disable Livefyre embedding.'),
     '#default_value' => variable_get('meedan_livefyre_disable', FALSE),
-    '#description' => t('Disable Livefyre integration.'),
   );
   $form['meedan_livefyre_siteid'] = array(
     '#type' => 'textfield',

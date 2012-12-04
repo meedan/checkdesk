@@ -16,16 +16,11 @@
  */
 function flag_flag_type_info() {
   // Entity types we specifically cater for.
-  $flags = array(
+  $definitions = array(
     'node' => array(
       'title' => t('Nodes'),
       'description' => t("Nodes are a Drupal site's primary content."),
       'handler' => 'flag_node',
-    ),
-    'comment' => array(
-      'title' => t('Comments'),
-      'description' => t('Comments are responses to node content.'),
-      'handler' => 'flag_comment',
     ),
     'user' => array(
       'title' => t('Users'),
@@ -34,7 +29,15 @@ function flag_flag_type_info() {
     ),
   );
 
-  return $flags;
+  if (module_exists('comment')) {
+    $definitions['comment'] = array(
+      'title' => t('Comments'),
+      'description' => t('Comments are responses to node content.'),
+      'handler' => 'flag_comment',
+    );
+  }
+
+  return $definitions;
 }
 
 /**
