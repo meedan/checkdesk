@@ -87,8 +87,22 @@
 			.container {
 				display: inline-block;
   				vertical-align: middle;
+  				text-align: $from-direction;
 				.oembed-title {
 					display: none;
+				}
+				.title {
+					padding: $baseLineHeight 0;
+				}
+				.content {
+					padding: $baseLineHeight 0;
+				}
+				.favicon {
+					float: $from-direction;
+					padding: 0 $gw/2;
+				}
+				.domain {
+					margin-bottom: $baseLineHeight;
 				}
 			}
 		}

@@ -1,5 +1,5 @@
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <?php print render($content['meedan_sensitive_content']); ?>  
+  <?php dsm($node); ?>
   <article class="report">
     <header>
       <h3>
@@ -9,24 +9,26 @@
     </header>
 
 
+
     <section class="report-content">
+      <?php print render($content['meedan_sensitive_content']); ?>
       <div class="report-media">
         <div class="container">
           <?php print render($content['field_link']); ?>
         </div>
       </div>
       <p>
-     <?php if (isset($user_avatar)) : ?>
-          <?php print $user_avatar; ?>
-     <?php endif; ?>
-     <?php print $media_creation_info; ?>
-    </p>
+        <?php if (isset($user_avatar)) : ?>
+            <?php print $user_avatar; ?>
+        <?php endif; ?>
+        <?php print $media_creation_info; ?>
+      </p>
       <div class="description"><?php print render($content['body']); ?></div>
     </section>
 
 
 
-  <?php if ($media_activity_report_count) : ?>
+  <?php if (isset($media_activity_report_count)) : ?>
     <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity">
         <header class="<?php print $status_class; ?>">
           <a class="report-activity-header" href="#">
