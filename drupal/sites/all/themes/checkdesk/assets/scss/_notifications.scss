@@ -5,10 +5,9 @@
 // Compatibility: untested
 
 #block-views-my-notifications-block {
-  width: 360px;
+  @include span-columns($cw/4 omega, $cw, $gw);
   font-family: Arial, sans-serif;
   text-align: opposite-position($from-direction);
-  margin: 0 10px;
   position: relative;
   float: opposite-position($from-direction);
   .auto-refresh {

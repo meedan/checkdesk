@@ -6,5 +6,5 @@ guard 'compass' do
 end
 
 guard 'livereload', :host => '127.0.0.1', :api_version => '2.0.8', :port => '35729' do
-  watch(%r{drupal/sites/all/themes/checkdesk/assets/scss.+\.(scss|php|js)$})
+  watch(%r{.(scss|php|js)$})
 end 
