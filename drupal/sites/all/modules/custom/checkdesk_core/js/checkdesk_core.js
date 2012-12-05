@@ -30,8 +30,7 @@
       $('#close').click(function() {
         Drupal.CTools.Modal.dismiss();
         return false;
-      });
-      
+      });      
     }
   };
 

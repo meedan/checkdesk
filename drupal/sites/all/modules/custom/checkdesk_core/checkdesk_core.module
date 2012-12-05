@@ -320,18 +320,18 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     }
     $links['checkdesk-share-facebook'] = array(
       'title' => t('Share on Facebook'),
-      'href' => 'https://www.facebook.com/sharer.php',
-      'query'=> array('u' => $url, 't' => $node->title),
+      'href' => $url,
+      'attributes' => array('title' => $node->title, 'class' => array('facebook')),
     );
     $links['checkdesk-share-twitter'] = array(
       'title' => t('Share on Twitter'),
-      'href' => 'http://twitter.com/intent/tweet',
-      'query' => array('source' => 'checkdesk', 'text' => $node->title, 'url' => $url),
+      'href' => $url,
+      'attributes' => array('title' => $node->title, 'class' => array('twitter')),
     );
     $links['checkdesk-share-google'] = array(
       'title' => t('Share on Google+'),
-      'href' => 'https://plus.google.com/share',
-      'query' => array('url' => $url),
+      'href' => $url,
+      'attributes' => array('title' => $node->title, 'class' => array('google')),
     );
   }
 
