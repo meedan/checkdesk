@@ -170,7 +170,7 @@ div.block:hover .edit {
 }
 
 /* line 32, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
-.icon-file:before {
+.icon-file:before, li a[href*='discussion']:before {
   content: "\f016";
 }
 
@@ -281,7 +281,7 @@ div.block:hover .edit {
 }
 
 /* line 56, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
-.icon-bookmark:before {
+.icon-bookmark:before, a[href*='media']:before {
   content: "\f02e";
 }
 
@@ -366,7 +366,7 @@ div.block:hover .edit {
 }
 
 /* line 75, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
-.icon-pencil:before {
+.icon-pencil:before, a[href*='post']:before {
   content: "\f040";
 }
 
@@ -1228,61 +1228,58 @@ body.page-node-add .node-form .form-item-title label:before {
   border-right: 1px solid #222222;
 }
 
-/* line 107, ../scss/override_ctb/_navigation.scss */
+/* line 110, ../scss/override_ctb/_navigation.scss */
 .navbar .btn,
 .navbar .btn-group {
-  margin-top: 2.5px;
+  height: 26px;
+  padding: 0;
 }
 
-/* line 110, ../scss/override_ctb/_navigation.scss */
-.navbar .btn-group .btn {
-  margin: 0;
-}
-
-/* line 115, ../scss/override_ctb/_navigation.scss */
-.navbar .btn-group .btn-account {
+/* line 116, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-group a.btn-account {
   background: #d4d4d4;
-  padding: 2px 9px;
-  font-size: 0.8em;
-  line-height: 1.2;
-  margin-top: 5px;
+  font-size: 1em;
+  height: 22px;
+  padding-right: 5px;
+  margin-top: 4px;
 }
-/* line 121, ../scss/override_ctb/_navigation.scss */
-.navbar .btn-group .btn-account .avatar {
+/* line 122, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-group a.btn-account .avatar {
   display: inline-block;
   *margin-right: .3em;
-  height: 20px;
   vertical-align: text-top;
-  margin-top: -5px;
-  margin-right: -10px;
+  margin-right: 10px;
+  height: 22px;
+  -webkit-border-radius: 8px 4px;
+  -moz-border-radius: 8px 0px / 4px 4px;
+  border-radius: 8px 0px / 4px 4px;
+  overflow: hidden;
 }
-/* line 128, ../scss/override_ctb/_navigation.scss */
-.navbar .btn-group .btn-account .avatar img {
+/* line 130, ../scss/override_ctb/_navigation.scss */
+.navbar .btn-group a.btn-account .avatar img {
   margin: 0;
   padding: 0;
   border: 0;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  width: 24px;
-  height: 24px;
-  margin-right: 0.5em;
+  -webkit-border-radius: 0px 4px;
+  -moz-border-radius: 0px 0px / 4px 4px;
+  border-radius: 0px 0px / 4px 4px;
+  height: 22px;
 }
 
-/* line 140, ../scss/override_ctb/_navigation.scss */
+/* line 143, ../scss/override_ctb/_navigation.scss */
 .navbar-static-top {
   position: static;
   width: 100%;
   margin-bottom: 0;
 }
-/* line 144, ../scss/override_ctb/_navigation.scss */
+/* line 147, ../scss/override_ctb/_navigation.scss */
 .navbar-static-top .navbar-inner {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
 
-/* line 154, ../scss/override_ctb/_navigation.scss */
+/* line 157, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-top,
 .navbar-fixed-bottom {
   position: fixed;
@@ -1292,14 +1289,14 @@ body.page-node-add .node-form .form-item-title label:before {
   margin-bottom: 0;
 }
 
-/* line 165, ../scss/override_ctb/_navigation.scss */
+/* line 168, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-top .navbar-inner,
 .navbar-fixed-bottom .navbar-inner,
 .navbar-static-top .navbar-inner {
   border: 0;
 }
 
-/* line 170, ../scss/override_ctb/_navigation.scss */
+/* line 173, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-top .navbar-inner,
 .navbar-fixed-bottom .navbar-inner {
   padding-left: 0;
@@ -1311,12 +1308,12 @@ body.page-node-add .node-form .form-item-title label:before {
   border-radius: 0;
 }
 
-/* line 185, ../scss/override_ctb/_navigation.scss */
+/* line 188, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-top {
   top: 0;
 }
 
-/* line 190, ../scss/override_ctb/_navigation.scss */
+/* line 193, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-top .navbar-inner,
 .navbar-static-top .navbar-inner {
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
@@ -1324,28 +1321,28 @@ body.page-node-add .node-form .form-item-title label:before {
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* line 196, ../scss/override_ctb/_navigation.scss */
+/* line 199, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-bottom {
   bottom: 0;
 }
-/* line 198, ../scss/override_ctb/_navigation.scss */
+/* line 201, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-bottom .navbar-inner {
   -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 10px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 10px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* line 204, ../scss/override_ctb/_navigation.scss */
+/* line 207, ../scss/override_ctb/_navigation.scss */
 .toolbar .navbar-fixed-top {
   top: 30px;
 }
 
-/* line 208, ../scss/override_ctb/_navigation.scss */
+/* line 211, ../scss/override_ctb/_navigation.scss */
 .toolbar-drawer .navbar-fixed-top {
   top: 65px;
 }
 
-/* line 215, ../scss/override_ctb/_navigation.scss */
+/* line 218, ../scss/override_ctb/_navigation.scss */
 .navbar .nav {
   position: relative;
   left: 0;
@@ -1355,12 +1352,12 @@ body.page-node-add .node-form .form-item-title label:before {
   margin-right: 10px;
 }
 
-/* line 223, ../scss/override_ctb/_navigation.scss */
+/* line 226, ../scss/override_ctb/_navigation.scss */
 .navbar .nav.pull-right {
   float: right;
 }
 
-/* line 226, ../scss/override_ctb/_navigation.scss */
+/* line 229, ../scss/override_ctb/_navigation.scss */
 .navbar .nav > li {
   display: block;
   float: left;
@@ -1368,12 +1365,12 @@ body.page-node-add .node-form .form-item-title label:before {
   margin: 0;
 }
 
-/* line 235, ../scss/override_ctb/_navigation.scss */
+/* line 238, ../scss/override_ctb/_navigation.scss */
 .nav > li > a {
   display: block;
 }
 
-/* line 239, ../scss/override_ctb/_navigation.scss */
+/* line 242, ../scss/override_ctb/_navigation.scss */
 .navbar .nav > li > a {
   float: none;
   padding: 5px 15px 5px;
@@ -1382,7 +1379,7 @@ body.page-node-add .node-form .form-item-title label:before {
   text-shadow: 0 1px 0 #222222;
 }
 
-/* line 248, ../scss/override_ctb/_navigation.scss */
+/* line 251, ../scss/override_ctb/_navigation.scss */
 .navbar li.home a span.icon-home {
   display: block;
   background-color: transparent;
@@ -1404,12 +1401,12 @@ body.page-node-add .node-form .form-item-title label:before {
   font-family: 'FontAwesome';
 }
 
-/* line 253, ../scss/override_ctb/_navigation.scss */
+/* line 256, ../scss/override_ctb/_navigation.scss */
 .navbar .nav .dropdown-toggle .caret {
   margin-top: 8px;
 }
 
-/* line 259, ../scss/override_ctb/_navigation.scss */
+/* line 262, ../scss/override_ctb/_navigation.scss */
 .navbar .nav > li > a:focus,
 .navbar .nav > li > a:hover {
   background-color: transparent;
@@ -1417,7 +1414,7 @@ body.page-node-add .node-form .form-item-title label:before {
   text-decoration: none;
 }
 
-/* line 268, ../scss/override_ctb/_navigation.scss */
+/* line 271, ../scss/override_ctb/_navigation.scss */
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
 .navbar .nav > .active > a:focus {
@@ -1429,7 +1426,7 @@ body.page-node-add .node-form .form-item-title label:before {
   box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
 }
 
-/* line 279, ../scss/override_ctb/_navigation.scss */
+/* line 282, ../scss/override_ctb/_navigation.scss */
 .navbar .btn-navbar {
   display: none;
   float: right;
@@ -1466,7 +1463,7 @@ body.page-node-add .node-form .form-item-title label:before {
   background-color: black \9;
 }
 
-/* line 288, ../scss/override_ctb/_navigation.scss */
+/* line 291, ../scss/override_ctb/_navigation.scss */
 .navbar .btn-navbar .icon-bar {
   display: block;
   width: 18px;
@@ -1480,12 +1477,12 @@ body.page-node-add .node-form .form-item-title label:before {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
-/* line 297, ../scss/override_ctb/_navigation.scss */
+/* line 300, ../scss/override_ctb/_navigation.scss */
 .btn-navbar .icon-bar + .icon-bar {
   margin-top: 3px;
 }
 
-/* line 306, ../scss/override_ctb/_navigation.scss */
+/* line 309, ../scss/override_ctb/_navigation.scss */
 .navbar .nav > li > .dropdown-menu:before {
   content: '';
   display: inline-block;
@@ -1497,7 +1494,7 @@ body.page-node-add .node-form .form-item-title label:before {
   top: -7px;
   left: 9px;
 }
-/* line 317, ../scss/override_ctb/_navigation.scss */
+/* line 320, ../scss/override_ctb/_navigation.scss */
 .navbar .nav > li > .dropdown-menu:after {
   content: '';
   display: inline-block;
@@ -1509,7 +1506,7 @@ body.page-node-add .node-form .form-item-title label:before {
   left: 10px;
 }
 
-/* line 330, ../scss/override_ctb/_navigation.scss */
+/* line 333, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-bottom .nav > li > .dropdown-menu:before {
   border-top: 7px solid #ccc;
   border-top-color: rgba(0, 0, 0, 0.2);
@@ -1517,7 +1514,7 @@ body.page-node-add .node-form .form-item-title label:before {
   bottom: -7px;
   top: auto;
 }
-/* line 337, ../scss/override_ctb/_navigation.scss */
+/* line 340, ../scss/override_ctb/_navigation.scss */
 .navbar-fixed-bottom .nav > li > .dropdown-menu:after {
   border-top: 6px solid white;
   border-bottom: 0;
@@ -1525,7 +1522,7 @@ body.page-node-add .node-form .form-item-title label:before {
   top: auto;
 }
 
-/* line 348, ../scss/override_ctb/_navigation.scss */
+/* line 351, ../scss/override_ctb/_navigation.scss */
 .navbar .nav li.dropdown.open > .dropdown-toggle,
 .navbar .nav li.dropdown.active > .dropdown-toggle,
 .navbar .nav li.dropdown.open.active > .dropdown-toggle {
@@ -1533,13 +1530,13 @@ body.page-node-add .node-form .form-item-title label:before {
   color: white;
 }
 
-/* line 352, ../scss/override_ctb/_navigation.scss */
+/* line 355, ../scss/override_ctb/_navigation.scss */
 .navbar .nav li.dropdown > .dropdown-toggle .caret {
   border-top-color: #999999;
   border-bottom-color: #999999;
 }
 
-/* line 358, ../scss/override_ctb/_navigation.scss */
+/* line 361, ../scss/override_ctb/_navigation.scss */
 .navbar .nav li.dropdown.open > .dropdown-toggle .caret,
 .navbar .nav li.dropdown.active > .dropdown-toggle .caret,
 .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret {
@@ -1547,25 +1544,25 @@ body.page-node-add .node-form .form-item-title label:before {
   border-bottom-color: white;
 }
 
-/* line 365, ../scss/override_ctb/_navigation.scss */
+/* line 368, ../scss/override_ctb/_navigation.scss */
 .navbar .pull-right > li > .dropdown-menu,
 .navbar .nav > li > .dropdown-menu.pull-right {
   left: auto;
   right: 0;
 }
-/* line 369, ../scss/override_ctb/_navigation.scss */
+/* line 372, ../scss/override_ctb/_navigation.scss */
 .navbar .pull-right > li > .dropdown-menu:before,
 .navbar .nav > li > .dropdown-menu.pull-right:before {
   left: auto;
   right: 12px;
 }
-/* line 373, ../scss/override_ctb/_navigation.scss */
+/* line 376, ../scss/override_ctb/_navigation.scss */
 .navbar .pull-right > li > .dropdown-menu:after,
 .navbar .nav > li > .dropdown-menu.pull-right:after {
   left: auto;
   right: 13px;
 }
-/* line 377, ../scss/override_ctb/_navigation.scss */
+/* line 380, ../scss/override_ctb/_navigation.scss */
 .navbar .pull-right > li > .dropdown-menu .dropdown-menu,
 .navbar .nav > li > .dropdown-menu.pull-right .dropdown-menu {
   left: auto;
@@ -2095,6 +2092,24 @@ address {
   margin-bottom: 1.2em;
   font-style: normal;
   line-height: 1.2em;
+}
+
+/* line 93, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+li a[href*='discussion']:before {
+  font-family: 'FontAwesome';
+  margin-right: 0.5em;
+}
+
+/* line 93, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+a[href*='post']:before {
+  font-family: 'FontAwesome';
+  margin-right: 0.5em;
+}
+
+/* line 93, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+a[href*='media']:before {
+  font-family: 'FontAwesome';
+  margin-right: 0.5em;
 }
 
 /* line 9, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_scaffolding.scss */
@@ -2838,6 +2853,704 @@ table th[class*="span"],
   margin-left: 0;
 }
 
+/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  font-size: 1em;
+  line-height: 1.2em;
+  *line-height: 1.2em;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: whitesmoke;
+  background-image: -moz-linear-gradient(top, white, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, white, #e6e6e6);
+  background-image: -o-linear-gradient(top, white, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#e3e3e3', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  border: 1px solid #bbbbbb;
+  *border: 0;
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn:active, .btn.active {
+  background-color: #cccccc \9;
+}
+/* line 61, ../scss/override_ctb/_mixins.scss */
+.btn:first-child {
+  *margin-left: 0;
+}
+/* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+  /* Buttons in IE7 don't get borders, so darken on hover */
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+/* line 43, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+/* line 49, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn.active, .btn:active {
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* line 59, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn.disabled, .btn[disabled] {
+  cursor: default;
+  background-color: #e6e6e6;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 75, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-large {
+  padding: 11px 19px;
+  font-size: 1.25em;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+/* line 81, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-large [class^="icon-"],
+.btn-large [class*=" icon-"] {
+  margin-top: 2px;
+}
+
+/* line 86, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-small {
+  padding: 2px 10px;
+  font-size: 0.85em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 92, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-small [class^="icon-"],
+.btn-small [class*=" icon-"] {
+  margin-top: 0;
+}
+
+/* line 97, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-mini {
+  padding: 1px 6px;
+  font-size: 0.75em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 107, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 116, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+
+/* line 124, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+input[type="submit"].btn-block,
+input[type="reset"].btn-block,
+input[type="button"].btn-block {
+  width: 100%;
+}
+
+/* line 140, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-primary.active,
+.btn-warning.active,
+.btn-danger.active,
+.btn-success.active,
+.btn-info.active,
+.btn-inverse.active {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* line 146, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn {
+  border-color: #c5c5c5;
+  border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+
+/* line 151, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-primary {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #006ecc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0085c7', endColorstr='#0042c7', GradientType=0);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #0044cc;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+  color: white;
+  background-color: #0044cc;
+  *background-color: #003bb3;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-primary:active, .btn-primary.active {
+  background-color: #003399 \9;
+}
+
+/* line 155, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-warning {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #f9a834;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbb24b', endColorstr='#f39106', GradientType=0);
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #f89406;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-warning:hover, .btn-warning:active, .btn-warning.active, .btn-warning.disabled, .btn-warning[disabled] {
+  color: white;
+  background-color: #f89406;
+  *background-color: #df8505;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-warning:active, .btn-warning.active {
+  background-color: #c67605 \9;
+}
+
+/* line 159, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-danger {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #db4f4a;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee5a56', endColorstr='#b9352e', GradientType=0);
+  border-color: #bd362f #bd362f #802420;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bd362f;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-danger:hover, .btn-danger:active, .btn-danger.active, .btn-danger.disabled, .btn-danger[disabled] {
+  color: white;
+  background-color: #bd362f;
+  *background-color: #a9302a;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-danger:active, .btn-danger.active {
+  background-color: #942a25 \9;
+}
+
+/* line 163, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-success {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #5bb75b;
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(to bottom, #62c462, #51a351);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5ec35e', endColorstr='#4fa04f', GradientType=0);
+  border-color: #51a351 #51a351 #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #51a351;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-success:hover, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {
+  color: white;
+  background-color: #51a351;
+  *background-color: #499249;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-success:active, .btn-success.active {
+  background-color: #408140 \9;
+}
+
+/* line 167, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-info {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #4ab0ce;
+  background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#57bedd', endColorstr='#2e93b0', GradientType=0);
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #2f96b4;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] {
+  color: white;
+  background-color: #2f96b4;
+  *background-color: #2a85a0;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-info:active, .btn-info.active {
+  background-color: #24748c \9;
+}
+
+/* line 171, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-inverse {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #373737;
+  background-image: -moz-linear-gradient(top, #444444, #222222);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444444), to(#222222));
+  background-image: -webkit-linear-gradient(top, #444444, #222222);
+  background-image: -o-linear-gradient(top, #444444, #222222);
+  background-image: linear-gradient(to bottom, #444444, #222222);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#414141', endColorstr='#1f1f1f', GradientType=0);
+  border-color: #222222 #222222 black;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #222222;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+/* line 489, ../scss/override_ctb/_mixins.scss */
+.btn-inverse:hover, .btn-inverse:active, .btn-inverse.active, .btn-inverse.disabled, .btn-inverse[disabled] {
+  color: white;
+  background-color: #222222;
+  *background-color: #151515;
+}
+/* line 497, ../scss/override_ctb/_mixins.scss */
+.btn-inverse:active, .btn-inverse.active {
+  background-color: #090909 \9;
+}
+
+/* line 180, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn,
+input[type="submit"].btn {
+  *padding-top: 3px;
+  *padding-bottom: 3px;
+}
+/* line 183, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn::-moz-focus-inner,
+input[type="submit"].btn::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+/* line 192, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn.btn-large,
+input[type="submit"].btn.btn-large {
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+/* line 196, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn.btn-small,
+input[type="submit"].btn.btn-small {
+  *padding-top: 3px;
+  *padding-bottom: 3px;
+}
+/* line 200, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+button.btn.btn-mini,
+input[type="submit"].btn.btn-mini {
+  *padding-top: 1px;
+  *padding-bottom: 1px;
+}
+
+/* line 213, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-link,
+.btn-link:active,
+.btn-link[disabled] {
+  background-color: transparent;
+  background-image: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 218, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-link {
+  border-color: transparent;
+  cursor: pointer;
+  color: #0088cc;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 224, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-link:hover {
+  color: #005580;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+/* line 229, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_buttons.scss */
+.btn-link[disabled]:hover {
+  color: #333333;
+  text-decoration: none;
+}
+
+/* line 7, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group {
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  font-size: 0;
+  vertical-align: middle;
+  white-space: nowrap;
+  *margin-left: .3em;
+}
+/* line 61, ../scss/override_ctb/_mixins.scss */
+.btn-group:first-child {
+  *margin-left: 0;
+}
+
+/* line 18, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group + .btn-group {
+  margin-left: 5px;
+}
+
+/* line 23, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-toolbar {
+  font-size: 0;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+/* line 29, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-toolbar .btn + .btn,
+.btn-toolbar .btn-group + .btn,
+.btn-toolbar .btn + .btn-group {
+  margin-left: 5px;
+}
+
+/* line 35, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn {
+  position: relative;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 39, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn + .btn {
+  margin-left: -1px;
+}
+
+/* line 43, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn,
+.btn-group > .dropdown-menu {
+  font-size: 1em;
+}
+
+/* line 48, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-mini {
+  font-size: 11px;
+}
+
+/* line 51, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-small {
+  font-size: 12px;
+}
+
+/* line 54, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-large {
+  font-size: 16px;
+}
+
+/* line 59, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* line 70, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn:last-child,
+.btn-group > .dropdown-toggle {
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* line 79, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn.large:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+/* line 89, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn.large:last-child,
+.btn-group > .large.dropdown-toggle {
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* line 102, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn:hover,
+.btn-group > .btn:focus,
+.btn-group > .btn:active,
+.btn-group > .btn.active {
+  z-index: 2;
+}
+
+/* line 108, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle {
+  outline: 0;
+}
+
+/* line 118, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn + .dropdown-toggle {
+  padding-left: 8px;
+  padding-right: 8px;
+  -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  *padding-top: 5px;
+  *padding-bottom: 5px;
+}
+
+/* line 125, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-mini + .dropdown-toggle {
+  padding-left: 5px;
+  padding-right: 5px;
+  *padding-top: 2px;
+  *padding-bottom: 2px;
+}
+
+/* line 131, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-small + .dropdown-toggle {
+  *padding-top: 5px;
+  *padding-bottom: 4px;
+}
+
+/* line 135, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group > .btn-large + .dropdown-toggle {
+  padding-left: 12px;
+  padding-right: 12px;
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+
+/* line 146, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .dropdown-toggle {
+  background-image: none;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* line 152, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn.dropdown-toggle {
+  background-color: #e6e6e6;
+}
+/* line 155, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-primary.dropdown-toggle {
+  background-color: #0044cc;
+}
+/* line 158, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-warning.dropdown-toggle {
+  background-color: #f89406;
+}
+/* line 161, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-danger.dropdown-toggle {
+  background-color: #bd362f;
+}
+/* line 164, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-success.dropdown-toggle {
+  background-color: #51a351;
+}
+/* line 167, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-info.dropdown-toggle {
+  background-color: #2f96b4;
+}
+/* line 170, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group.open .btn-inverse.dropdown-toggle {
+  background-color: #222222;
+}
+
+/* line 177, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn .caret {
+  margin-top: 8px;
+  margin-left: 0;
+}
+
+/* line 184, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-mini .caret,
+.btn-small .caret,
+.btn-large .caret {
+  margin-top: 6px;
+}
+
+/* line 187, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-large .caret {
+  border-left-width: 5px;
+  border-right-width: 5px;
+  border-top-width: 5px;
+}
+
+/* line 193, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.dropup .btn-large .caret {
+  border-bottom-width: 5px;
+}
+
+/* line 206, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-primary .caret,
+.btn-warning .caret,
+.btn-danger .caret,
+.btn-info .caret,
+.btn-success .caret,
+.btn-inverse .caret {
+  border-top-color: white;
+  border-bottom-color: white;
+}
+
+/* line 217, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* line 221, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn {
+  display: block;
+  float: none;
+  width: 100%;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 227, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn + .btn {
+  margin-left: 0;
+  margin-top: -1px;
+}
+
+/* line 231, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn:first-child {
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+
+/* line 234, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn:last-child {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+
+/* line 237, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn-large:first-child {
+  -webkit-border-radius: 6px 6px 0 0;
+  -moz-border-radius: 6px 6px 0 0;
+  border-radius: 6px 6px 0 0;
+}
+
+/* line 240, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_button-groups.scss */
+.btn-group-vertical .btn-large:last-child {
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+}
+
+/* line 81, ../scss/style.scss */
+.btn-group {
+  font-size: 1em;
+}
+
 /* line 7, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
 .pull-right {
   float: right;
@@ -2883,18 +3596,23 @@ div.tabs {
 
 /* line 7, ../scss/_notifications.scss */
 #block-views-my-notifications-block {
-  width: 360px;
+  padding-left: 3.44828%;
+  padding-right: 3.44828%;
+  width: 17.24138%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -1em;
+  display: inline;
   font-family: Arial, sans-serif;
   text-align: right;
-  margin: 0 10px;
   position: relative;
   float: right;
 }
-/* line 14, ../scss/_notifications.scss */
+/* line 13, ../scss/_notifications.scss */
 #block-views-my-notifications-block .auto-refresh {
   display: none;
 }
-/* line 17, ../scss/_notifications.scss */
+/* line 16, ../scss/_notifications.scss */
 #block-views-my-notifications-block h2 {
   margin: 0;
   padding: 0 3px;
@@ -2907,12 +3625,12 @@ div.tabs {
   z-index: 2;
   line-height: 30px;
 }
-/* line 28, ../scss/_notifications.scss */
+/* line 27, ../scss/_notifications.scss */
 #block-views-my-notifications-block h2 .notifications-count {
   display: inline;
   color: #2F58B4;
 }
-/* line 31, ../scss/_notifications.scss */
+/* line 30, ../scss/_notifications.scss */
 #block-views-my-notifications-block h2 .notifications-count span {
   padding: 1px;
   background: #fff;
@@ -2922,7 +3640,7 @@ div.tabs {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 38, ../scss/_notifications.scss */
+/* line 37, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content {
   text-align: left;
   padding: 0;
@@ -2934,45 +3652,45 @@ div.tabs {
   border: 1px solid #ccc;
   /* Icons for each activity type */
 }
-/* line 47, ../scss/_notifications.scss */
+/* line 46, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .view-content {
   height: 200px;
   overflow: auto;
 }
-/* line 51, ../scss/_notifications.scss */
+/* line 50, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .item-list {
   display: none;
 }
-/* line 54, ../scss/_notifications.scss */
+/* line 53, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-settings-link, #block-views-my-notifications-block .content .more-link {
   margin: 0;
   padding: 12px 18px;
   display: block;
 }
-/* line 58, ../scss/_notifications.scss */
+/* line 57, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-settings-link a, #block-views-my-notifications-block .content .notifications-settings-link a:visited, #block-views-my-notifications-block .content .notifications-settings-link a:link, #block-views-my-notifications-block .content .more-link a, #block-views-my-notifications-block .content .more-link a:visited, #block-views-my-notifications-block .content .more-link a:link {
   font-family: Arial, sans-serif;
   font-size: 13px;
   color: #6a6a6a;
   text-decoration: none;
 }
-/* line 64, ../scss/_notifications.scss */
+/* line 63, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-settings-link a:hover, #block-views-my-notifications-block .content .more-link a:hover {
   text-decoration: underline;
 }
-/* line 68, ../scss/_notifications.scss */
+/* line 67, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-settings-link {
   float: left;
 }
-/* line 71, ../scss/_notifications.scss */
+/* line 70, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .more-link {
   float: right;
 }
-/* line 74, ../scss/_notifications.scss */
+/* line 73, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-footer {
   clear: both;
 }
-/* line 77, ../scss/_notifications.scss */
+/* line 76, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity {
   color: #6a6a6a;
   border-bottom: 1px solid #c9c9c9;
@@ -2981,31 +3699,31 @@ div.tabs {
   font-family: Arial, sans-serif;
   font-size: 12px;
 }
-/* line 84, ../scss/_notifications.scss */
+/* line 83, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity a, #block-views-my-notifications-block .content .heartbeat-activity a:visited, #block-views-my-notifications-block .content .heartbeat-activity a:link {
   text-decoration: none;
   font-weight: bold;
   color: #6a6a6a;
 }
-/* line 89, ../scss/_notifications.scss */
+/* line 88, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity a:hover {
   text-decoration: underline;
 }
-/* line 92, ../scss/_notifications.scss */
+/* line 91, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity p, #block-views-my-notifications-block .content .heartbeat-activity img {
   float: left;
 }
-/* line 95, ../scss/_notifications.scss */
+/* line 94, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity p {
   margin: 0;
   width: 270px;
 }
-/* line 99, ../scss/_notifications.scss */
+/* line 98, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity img {
   margin-right: 9px;
   margin-bottom: 6px;
 }
-/* line 103, ../scss/_notifications.scss */
+/* line 102, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity .heartbeat-time-ago {
   clear: both;
   display: block;
@@ -3019,24 +3737,24 @@ div.tabs {
   font-weight: normal;
   color: #a9a9a9;
 }
-/* line 119, ../scss/_notifications.scss */
+/* line 118, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .checkdesk_add_story .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_comment_on_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_reply_to_comment .heartbeat-time-ago {
   background-image: url(../imgs/icons/notification-star.png);
 }
-/* line 122, ../scss/_notifications.scss */
+/* line 121, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .checkdesk_fact_checking_on .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_fact_checking_set .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_flag_report .heartbeat-time-ago {
   background-image: url(../imgs/icons/notification-flag.png);
 }
-/* line 125, ../scss/_notifications.scss */
+/* line 124, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .checkdesk_comment_on_report .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_report_published_in_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_report_suggested_to_story .heartbeat-time-ago {
   background-image: url(../imgs/icons/notification-report.png);
 }
 
-/* line 130, ../scss/_notifications.scss */
+/* line 129, ../scss/_notifications.scss */
 #block-views-my-notifications-block.notifications-block-expanded .content, #block-views-my-notifications-block.notifications-block-expanded h2 {
   background: #fff;
 }
-/* line 133, ../scss/_notifications.scss */
+/* line 132, ../scss/_notifications.scss */
 #block-views-my-notifications-block.notifications-block-expanded h2 {
   color: #626262;
   -webkit-border-radius: 5px 5px 0 0;
@@ -3045,7 +3763,7 @@ div.tabs {
   -o-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
 }
-/* line 137, ../scss/_notifications.scss */
+/* line 136, ../scss/_notifications.scss */
 #block-views-my-notifications-block.notifications-block-expanded .content {
   -webkit-box-shadow: 1px 1px 10px #333333;
   -moz-box-shadow: 1px 1px 10px #333333;
@@ -3060,17 +3778,17 @@ div.tabs {
   border-top-right-radius: 0;
 }
 
-/* line 147, ../scss/_notifications.scss */
+/* line 146, ../scss/_notifications.scss */
 ::-webkit-scrollbar {
   width: 9px;
 }
 
-/* line 150, ../scss/_notifications.scss */
+/* line 149, ../scss/_notifications.scss */
 ::-webkit-scrollbar-track {
   background: #fefefe;
 }
 
-/* line 153, ../scss/_notifications.scss */
+/* line 152, ../scss/_notifications.scss */
 ::-webkit-scrollbar-thumb {
   background: #eee;
 }
@@ -3755,7 +4473,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
 body.not-front.not-logged-in.page-user form .form-actions input.form-submit:hover {
   color: white;
 }
-/* line 110, ../scss/_base.scss */
+/* line 111, ../scss/_base.scss */
 body.not-front.not-logged-in.page-user form .form-actions input.form-submit:hover {
   color: rgba(0, 0, 0, 0.5);
 }
@@ -3914,7 +4632,7 @@ body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list l
 body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li a:hover {
   color: white;
 }
-/* line 110, ../scss/_base.scss */
+/* line 111, ../scss/_base.scss */
 body.not-front.not-logged-in.page-user #edit-social-media-signin div.item-list li a:hover {
   color: rgba(0, 0, 0, 0.5);
 }
@@ -4195,7 +4913,7 @@ body.page-node-add .node-form .form-type-link-field form .form-actions input.for
 body.page-node-add .node-form .form-item-title form .form-actions input.form-submit:hover {
   color: white;
 }
-/* line 110, ../scss/_base.scss */
+/* line 111, ../scss/_base.scss */
 body.page-node-add .node-form .form-type-link-field form .form-actions input.form-submit:hover,
 body.page-node-add .node-form .form-item-title form .form-actions input.form-submit:hover {
   color: rgba(0, 0, 0, 0.5);
@@ -4404,13 +5122,13 @@ body ul.tabs.primary li a {
 body ul.tabs.primary li a:hover {
   color: white;
 }
-/* line 110, ../scss/_base.scss */
+/* line 111, ../scss/_base.scss */
 body ul.tabs.primary li a:hover {
   color: rgba(0, 0, 0, 0.5);
 }
 /* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 body ul.tabs.primary li a.active {
-  background-color: #FF628C;
+  background-color: #0088FF;
   color: rgba(0, 0, 0, 0.8);
 }
 /* line 33, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
@@ -4420,12 +5138,12 @@ body ul.tabs.primary li a.active:hover {
 @media (min-width: 59em) {
   /* line 46, ../scss/_layout.scss */
   body #page {
-    border-top: 5px solid #FF628C;
+    border-top: 5px solid #80FFC2;
   }
   /* line 49, ../scss/_layout.scss */
   body #page #content-inner {
     margin-top: 3px;
-    border-top: 5px solid #0088FF;
+    border-top: 5px solid #FF628C;
     padding-left: 0.84746%;
     padding-right: 0.84746%;
     width: 98.30508%;
@@ -4588,7 +5306,7 @@ body ul.tabs.primary li a.active:hover {
   body #page #content-inner form .form-actions input.form-submit:hover {
     color: white;
   }
-  /* line 110, ../scss/_base.scss */
+  /* line 111, ../scss/_base.scss */
   body #page #content-inner form .form-actions input.form-submit:hover {
     color: rgba(0, 0, 0, 0.5);
   }
@@ -4662,16 +5380,16 @@ body ul.tabs.primary li a.active:hover {
   }
 }
 
-/* line 154, ../scss/style.scss */
+/* line 158, ../scss/style.scss */
 i {
   display: none;
 }
-/* line 156, ../scss/style.scss */
+/* line 160, ../scss/style.scss */
 i:hover {
   display: none;
 }
 
-/* line 164, ../scss/style.scss */
+/* line 168, ../scss/style.scss */
 body {
   background-image: url(bb_background_path()arches.png);
   background-repeat: repeat;

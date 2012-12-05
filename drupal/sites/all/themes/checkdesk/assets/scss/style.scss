@@ -63,6 +63,9 @@
 @import "override_ctb/alerts";
 @import "override_ctb/type";
 
+// Checkdesk navigation
+@import "navigation";
+
 // ====================================================================== 
 // Imported but unmodified Twitter Bootstrap scaffolding
 //
@@ -73,8 +76,9 @@
 @import "bowerbird/compass_twitter_bootstrap/tables";
 @import "bowerbird/compass_twitter_bootstrap/dropdowns";
 @import "bowerbird/compass_twitter_bootstrap/modals";
-// @import "bowerbird/compass_twitter_bootstrap/buttons";
-// @import "bowerbird/compass_twitter_bootstrap/button-groups";
+@import "bowerbird/compass_twitter_bootstrap/buttons";
+@import "bowerbird/compass_twitter_bootstrap/button-groups";
+.btn-group { font-size: $base-font-size; } // not sure why this is necessary. CGB Dec 2012
 @import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
 // ====================================================================== 

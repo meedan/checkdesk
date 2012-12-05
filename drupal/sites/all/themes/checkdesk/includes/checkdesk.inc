@@ -62,7 +62,7 @@ function checkdesk_checkdesk_btn_dropdown($variables) {
   $output .= '<a class="btn btn-account'. $type_class .' dropdown-toggle" data-toggle="dropdown" href="#">';
   if(!empty($user->picture)) {
     $user_avatar = theme('image_style', array('path' => file_load($user->picture)->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar'));
-    $output .= '<i class="avatar">' . $user_avatar . '</i> ';
+    $output .= '<span class="avatar">' . $user_avatar . '</span> ';
   }
   $output .= check_plain($user->name);
   
