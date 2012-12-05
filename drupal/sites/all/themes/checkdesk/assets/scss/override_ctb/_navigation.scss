@@ -115,8 +115,8 @@
 .navbar .btn-group .btn-account {
   background: darken($grayLighter, 10%);
   padding: 2px 9px;
-  font-size: $baseFontSize - 2px;
-  line-height: $baseLineHeight - 2px;
+  font-size: $small-font-size;
+  line-height: 1.2;
   margin-top: 5px;
   .avatar {
     display: inline-block;
@@ -239,7 +239,7 @@
 .navbar .nav > li > a {
   float: none;
   // Vertically center the text given $navbarHeight
-  padding: (($navbarHeight - $baseLineHeight) / 2) 15px (($navbarHeight - $baseLineHeight) / 2);
+  padding: 5px 15px 5px;
   color: $navbarLinkColor;
   text-decoration: none;
   text-shadow: 0 1px 0 $navbarBackgroundHighlight;

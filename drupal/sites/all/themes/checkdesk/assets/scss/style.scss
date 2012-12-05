@@ -17,6 +17,9 @@
 // Debugger mixins
 @import "bowerbird/debug";
 
+// Transition helper 
+@import "bowerbird/transition";
+
 // Bowerbird font-icon support mixins: apply-font-face() and icon()
 @import "bowerbird/icons/icons";
 
@@ -53,8 +56,8 @@
 @import "override_ctb/variables";
 @import "override_ctb/mixins";
 
-@import "bowerbird/compass_twitter_bootstrap/reset";
-@import "override_ctb/forms";
+// @import "bowerbird/compass_twitter_bootstrap/reset";
+// @import "override_ctb/forms";
 // @import "bowerbird/compass_twitter_bootstrap/forms";
 @import "override_ctb/navigation";
 @import "override_ctb/alerts";
@@ -70,8 +73,8 @@
 @import "bowerbird/compass_twitter_bootstrap/tables";
 @import "bowerbird/compass_twitter_bootstrap/dropdowns";
 @import "bowerbird/compass_twitter_bootstrap/modals";
-@import "bowerbird/compass_twitter_bootstrap/buttons";
-@import "bowerbird/compass_twitter_bootstrap/button-groups";
+// @import "bowerbird/compass_twitter_bootstrap/buttons";
+// @import "bowerbird/compass_twitter_bootstrap/button-groups";
 @import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
 // ====================================================================== 
@@ -121,6 +124,9 @@
 // Checkdesk commenting plugin
 @import "livefyre";
 
+// Stylesheet switcher
+// @import "switcher";
+
 // ====================================================================== 
 // Forms
 //
@@ -156,15 +162,11 @@ i {
 // Final centralized render of CSS
 //
 body {
-  font-family: "Open Sans", sans-serif;
   @include bb-background();
+  background-color: $light-grey;
   .column.center {
-    background-color: white;
+    // background-color: white;
     // @include single-box-shadow(darken($light-grey, 5%));
-  }
-  ul.tabs.primary {
-    // Tabs: to be overridden with breakpoints
-    @include bb-tabs($cw, $gw);
   }
 }
 

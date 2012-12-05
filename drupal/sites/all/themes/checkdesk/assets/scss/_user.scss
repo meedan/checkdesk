@@ -7,120 +7,98 @@
 // Main mixin for all of the user section
 // 
 // $fw - the form width
-@mixin user_section_forms($fw: $cw, $context: $cw) {
+@mixin user_section_forms($fw: 6, $context: $cw) {  
+  @debug $fw;
+  @debug $context;
   
-  @include checkdesk-form($fw, $context);
-  
-  // Forgot password and create new account <.item-list>s
-  .form-item-name ~ .item-list {
-    font-size: $small-font-size;
-    a { 
-      color: $dark-grey; 
-    }
-    // @include span-columns(half-of($fw), $fw);
-    display: block;
-
-    ul {
-      li {
-        @include reset-box-model;
-        @include reset-list-style;
-      }
-    }
-  }
-  
-  .form-type-checkbox,
-  .form-item-textfield {
-    @include reset-box-model;
-    @include span-columns($fw, $fw, $gw);
-
-    input.form-checkbox {
-      display: block;
-      float: $from-direction;
-      padding: $gw;
-      width: $gw*2;
-    }
-
-    label.option {
-      @include reset-box-model;
-      @include span-columns($fw - 3, $fw);
-      clear: none;
-      padding-top: $gw;
-    }
-  }
-
-  .form-actions {
-    @include span-columns($fw, $fw, $gw);
-  }
-
-  input.form-submit {
-    // Bowerbird button mixin, Checkdesk style
-    @include checkdesk-button($twitter-blue);
-  }
+  // Default form settings shared in checkdesk
+  @include checkdesk-form;
 
   // The social media sign-in boxes
   #edit-social-media-signin {
-    // @include debugger("label, .item-list, li, a");
-    @include span-columns($fw, $fw);
-    padding-bottom: $gw;
+    @include full;
+
+    // Generate an "or" divider
+    // 
+    // Deprecated: can't be localized properly
+    position: relative;
+    &:after {
+      position: absolute;
+      content: "or";
+      font-family: $serif-font-family;
+      font-style: italic;
+      @include border-radius(50%);
+      padding: $gw/3 $gw/2;
+      bottom: -$gw;
+      #{$from-direction}: 0;
+      left: 43%;
+      background: $light-grey;
+      font-size: $base-font-size;
+    }
+    
+    // hide "Sign in with:"
     label {
-      @include span-columns(half-of($fw), $fw);
-      font-weight: 700;
+      // @include full;
+      // font-weight: 700;
+      // margin-top: $gw;
+      display: none!important;
     }
 
+    // The list of social media providers
     div.item-list {
-      @include span-columns($input-width omega, $fw);  
-      ul {
-        @include reset-list-style;
-        @include reset-box-model;
-      }
-      
-      li a {
-        display: block;
-        margin: { left: $gw; right: $gw; }
-        float: $from-direction;
-      }
+      // reset item-list
+      @include checkdesk-form-item-list();
 
-      li.first a {
-        @include icon(twitter, fontawesome, 30px, white, $grey, $twitter-blue);
-        display: block;
-        width: 30px;
-      }
+      margin-bottom: $gw*2;
+      ul { margin-top: $gw; }
 
-      li a.facebook-action-connect {
-        @include icon(facebook, fontawesome, 30px, white, $grey, $facebook-blue) {
-          display: block;
-          width: 30px;
+      li {
+        text-align: center;
+        display: inline-block;
+        a {
+          @include chunky-block;
+          margin-#{$omega-float}: $gw/2;
+          display: inline-block;
+          line-height: 2.4;
+          padding: $gw;
+          width: 7em;          
+
+          // The word "Twitter"
+          &:after {
+            color: white;
+            font-size: $base-font-size;
+          }
         }
       }
-    }
 
-    // the icons with the social media 
-    img {
-      display: none;
-    }
+      // Add the icons with a transition
+      $sign-in-icon-size: 20px;
+      li.first a {
+        @include bb-transition($light-grey, $twitter-blue) {
+          @include icon(twitter, fontawesome, $sign-in-icon-size, white, $grey);
+          &:after { content: " Twitter"; }
+        }
+      }
 
-    // @include at-breakpoint(6) {
-    //   $label-width: 3;
-    //   label { 
-    //     @include span-columns($label-width, $fw); 
-    //   }
-    //   div.item-list {
-    //     @include span-columns(($fw - $label-width) omega, $fw);  
-    //     clear: none;
-    //   }  
-    // }
-    
-    // @include at-breakpoint(12) {
-    //   $label-width: 2;
-    //   label { 
-    //     @include span-columns($label-width, $fw); 
-    //   }
-    //   div.item-list {
-    //     @include span-columns(($fw - $label-width) omega, $fw);  
-    //     clear: none;
-    //   }  
-    // }
+      li a[class^='facebook'] {
+        @include bb-transition($light-grey, $facebook-blue) {
+          @include icon(facebook, fontawesome, $sign-in-icon-size, white, $grey);
+          &:after { content: " Facebook"; }
+        }
+      }
+
+      // the icons with the social media 
+      img {
+        display: none;
+      }
+    }    
   }
+  .form-item.form-item-name {
+    clear: both;
+    display: block;
+    border-top: 1px solid $light-grey!important;
+    padding-top: $gw*2!important;
+  }    
 }
 
 // Checkdesk user section
@@ -134,5 +112,5 @@ body.not-front.not-logged-in.page-user {
    display: none;
   }
 
-  @include user_section_forms($center-column-width, $center-column-width);
+  @include user_section_forms;
 }

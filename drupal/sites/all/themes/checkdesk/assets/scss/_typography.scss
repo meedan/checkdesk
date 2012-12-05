@@ -1,2 +1,7 @@
 // Configutation variables are in base.scss
 // Typography configuration needs to come very early in the load sequence, but we want this file to emit CSS which comes later in the stylesheet.
+
+body {
+  font-family: "Open Sans", sans-serif;
+  text-align: $from-direction;  
+}
