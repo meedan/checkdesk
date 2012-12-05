@@ -189,17 +189,17 @@
 				color: $gray;
 				margin-left: $gridGutterWidth/2;
 				padding-bottom: $baseLineHeight/2;
-				padding-left: $gridGutterWidth;
+				padding-left: $gridGutterWidth*2;
 				header {
 					[class^="icon-"],
 					[class*=" icon-"] {
 						float: left;
-						margin-left: -$gridGutterWidth*1.6;
+						margin-left: -$gridGutterWidth*2.8;
 						margin-right: $gridGutterWidth/2;
 					}
 					.time {
 						color: $grayLight;
-						margin-right: $gridGutterWidth/2;
+						margin-right: $gridGutterWidth;
 					}
 					a {
 						font-weight: bold;
