@@ -227,6 +227,7 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
     'title' => _checkdesk_core_report_suggest_title($report),
     'report' => $report,
   );
+  
   $commands = ctools_modal_form_wrapper('_checkdesk_core_report_suggest', $form_state);
 
   if (!empty($form_state['executed'])) {
@@ -699,6 +700,14 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['links'] = array('#markup' => theme('item_list', array('items' => $items)));
     $form['actions']['submit']['#value'] = t('Sign in');
     unset($form['twitter_signin']);
+  }
+
+  if ($form_id == '_checkdesk_core_report_suggest') {
+    $form['story']['#prefix'] = '<div class="modal-content-wrapper">';
+    $form['story']['#suffix'] = '</div>';
+    $form['submit']['#prefix'] = '<div class="modal-footer"><button id="close" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
+    $form['submit']['#suffix'] = '</div>';
+    $form['submit']['#attributes']['class'] = array('checkout-continue', 'btn', 'btn-primary');
   }
 }
 

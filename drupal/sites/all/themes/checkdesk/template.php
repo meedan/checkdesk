@@ -18,7 +18,7 @@ function checkdesk_theme() {
     ),
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
-    ), 
+    ),
   );
 }
 
@@ -190,10 +190,10 @@ function checkdesk_links__node($variables) {
     'checkdesk-style' => array(
       'modalSize' => array(
         'type' => 'fixed',
-        'width' => 200,
-        'height' => 200,
+        'width' => 150,
+        'height' => 205,
         'addWidth' => 0,
-        'addHeight' => 0,
+        'addHeight' => 0
       ),
       'modalOptions' => array(
         'opacity' => .5,
