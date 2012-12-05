@@ -1,5 +1,4 @@
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <?php dsm($node); ?>
   <article class="report">
     <header>
       <h3>
