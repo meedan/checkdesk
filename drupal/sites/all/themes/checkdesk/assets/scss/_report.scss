@@ -12,7 +12,7 @@
 
 		h3 {
 			float: $from-direction;
-			@include reset-box-model();
+			@include reset-box-model;
 			@include ctb-font-shorthand(12px, normal);
 			padding: $gw;
 			display: block;
@@ -40,11 +40,11 @@
 					padding: 10px;
 					
 					@include transition-property(color);
-			    @include transition-duration(0.2s);
-			    &:hover { 
-			    	color: black;
-			    	text-decoration: none;
-			    }
+			    	@include transition-duration(0.2s);
+				    &:hover { 
+				    	color: black;
+				    	text-decoration: none;
+				    }
 
 					span {
 						float: $from-direction;
@@ -70,6 +70,7 @@
 
 	.report-content {
 		color: $gray;
+		background-color: darken($grayLighter, 5%);
 		@include clearfix();
 		.report-media {
 			background-color: $white;
@@ -84,7 +85,7 @@
 			}
 			.container {
 				display: inline-block;
-  			vertical-align: middle;
+  				vertical-align: middle;
 				.oembed-title {
 					display: none;
 				}

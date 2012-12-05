@@ -145,6 +145,9 @@ body {
     // Small tabs eg in user section - not the nav
     @include tabs($tw, $center-column-width);
   }
+  #content-header {
+	@include ctb-clearfix();
+  }
 }
 
 // The End
