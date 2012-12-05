@@ -143,7 +143,7 @@ function checkdesk_preprocess_node(&$variables) {
     //Add node creation info(author name plus creation time)
     $variables['media_creation_info'] = l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . t(' added this ') .
       '<time class="time-ago" pubdate datetime="'. format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP') .'">' .
-      format_interval(time()-$variables['created']) . t('ago') .'</time>';
+      format_interval(time()-$variables['created']) . t(' ago') .'</time>';
     //Add activity report with status
     $view = views_get_view('activity_report');
     $view->set_arguments(array($variables['nid']));
