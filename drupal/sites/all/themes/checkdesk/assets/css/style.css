@@ -5279,8 +5279,9 @@ body #content-inner {
   display: block;
   float: right;
   border-left: 1px solid #d0d0d0;
+  min-height: 39px;
 }
-/* line 37, ../scss/_report.scss */
+/* line 38, ../scss/_report.scss */
 .report > header .report-actions > li > a {
   margin: 0;
   padding: 0;
@@ -5296,19 +5297,19 @@ body #content-inner {
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-/* line 44, ../scss/_report.scss */
+/* line 45, ../scss/_report.scss */
 .report > header .report-actions > li > a:hover {
   color: black;
   text-decoration: none;
 }
-/* line 49, ../scss/_report.scss */
+/* line 50, ../scss/_report.scss */
 .report > header .report-actions > li > a span {
   float: left;
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 54, ../scss/_report.scss */
+/* line 55, ../scss/_report.scss */
 .report > header .report-actions > li > a span.icon-flag, .report > header .report-actions > li > a span.icon-flag {
   font-size: 16px;
   display: block!important;
@@ -5331,7 +5332,7 @@ body #content-inner {
   color: #848484;
   font-family: 'FontAwesome';
 }
-/* line 57, ../scss/_report.scss */
+/* line 58, ../scss/_report.scss */
 .report > header .report-actions > li > a span.icon-share, .report > header .report-actions > li > a span.icon-share {
   font-size: 16px;
   display: block!important;
@@ -5354,24 +5355,24 @@ body #content-inner {
   color: #848484;
   font-family: 'FontAwesome';
 }
-/* line 63, ../scss/_report.scss */
+/* line 64, ../scss/_report.scss */
 .report > header .report-actions > li .ajax-progress-throbber {
   display: none;
 }
-/* line 71, ../scss/_report.scss */
+/* line 72, ../scss/_report.scss */
 .report .report-content {
   color: #555555;
   background-color: #e1e1e1;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 75, ../scss/_report.scss */
+/* line 76, ../scss/_report.scss */
 .report .report-content .report-media {
   background-color: white;
   text-align: center;
   /* The ghost, nudged to maintain perfect centering */
 }
-/* line 79, ../scss/_report.scss */
+/* line 80, ../scss/_report.scss */
 .report .report-content .report-media .report-media:before {
   content: '';
   display: inline-block;
@@ -5380,16 +5381,16 @@ body #content-inner {
   margin-right: -0.25em;
   /* Adjusts for spacing */
 }
-/* line 86, ../scss/_report.scss */
+/* line 87, ../scss/_report.scss */
 .report .report-content .report-media .container {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 89, ../scss/_report.scss */
+/* line 90, ../scss/_report.scss */
 .report .report-content .report-media .container .oembed-title {
   display: none;
 }
-/* line 95, ../scss/_report.scss */
+/* line 96, ../scss/_report.scss */
 .report .report-content > p {
   padding: 6.85714px 5px;
   border-bottom: 1px solid white;
@@ -5397,14 +5398,14 @@ body #content-inner {
   font-weight: normal;
   line-height: 19.2px;
 }
-/* line 102, ../scss/_report.scss */
+/* line 103, ../scss/_report.scss */
 .report .report-content .gravatar img {
   vertical-align: text-bottom;
   width: 20px;
   height: 20px;
   margin-right: 3.33333px;
 }
-/* line 109, ../scss/_report.scss */
+/* line 110, ../scss/_report.scss */
 .report .report-content .description {
   font-size: 14px;
   font-weight: normal;
@@ -5414,7 +5415,7 @@ body #content-inner {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
   background-position: 10px 0;
 }
-/* line 121, ../scss/_report.scss */
+/* line 122, ../scss/_report.scss */
 .report .report-activity > header {
   overflow: hidden;
   *zoom: 1;
@@ -5422,7 +5423,7 @@ body #content-inner {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
   cursor: pointer;
 }
-/* line 126, ../scss/_report.scss */
+/* line 127, ../scss/_report.scss */
 .report .report-activity > header h3 {
   float: left;
   margin: 0;
@@ -5432,80 +5433,80 @@ body #content-inner {
   font-weight: normal;
   line-height: 19.2px;
 }
-/* line 131, ../scss/_report.scss */
+/* line 132, ../scss/_report.scss */
 .report .report-activity > header .report-status {
   width: 200px;
   float: right;
   text-align: right;
 }
-/* line 136, ../scss/_report.scss */
+/* line 137, ../scss/_report.scss */
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
   width: 20px;
   float: right;
 }
-/* line 140, ../scss/_report.scss */
+/* line 141, ../scss/_report.scss */
 .report .report-activity > header .report-status span.status-name {
   width: 150px;
   text-align: right;
   float: right;
 }
-/* line 147, ../scss/_report.scss */
+/* line 148, ../scss/_report.scss */
 .report .report-activity > header:hover {
   background-color: #d4d4d4;
 }
-/* line 152, ../scss/_report.scss */
+/* line 153, ../scss/_report.scss */
 .report .report-activity > .undetermined {
   background-color: #fee9cc;
 }
-/* line 154, ../scss/_report.scss */
+/* line 155, ../scss/_report.scss */
 .report .report-activity > .undetermined a {
   color: #c67605;
 }
-/* line 155, ../scss/_report.scss */
+/* line 156, ../scss/_report.scss */
 .report .report-activity > .undetermined:hover {
   background-color: #fdd49a;
 }
-/* line 157, ../scss/_report.scss */
+/* line 158, ../scss/_report.scss */
 .report .report-activity > .undetermined:hover a {
   color: #945904;
 }
-/* line 160, ../scss/_report.scss */
+/* line 161, ../scss/_report.scss */
 .report .report-activity > .verified {
   background-color: #f1f9f1;
 }
-/* line 162, ../scss/_report.scss */
+/* line 163, ../scss/_report.scss */
 .report .report-activity > .verified a {
   color: #46a546;
 }
-/* line 163, ../scss/_report.scss */
+/* line 164, ../scss/_report.scss */
 .report .report-activity > .verified:hover {
   background-color: #cdeacd;
 }
-/* line 165, ../scss/_report.scss */
+/* line 166, ../scss/_report.scss */
 .report .report-activity > .verified:hover a {
   color: #378137;
 }
-/* line 168, ../scss/_report.scss */
+/* line 169, ../scss/_report.scss */
 .report .report-activity > .false {
   background-color: #f4c8c5;
 }
-/* line 170, ../scss/_report.scss */
+/* line 171, ../scss/_report.scss */
 .report .report-activity > .false a {
   color: #9d261d;
 }
-/* line 171, ../scss/_report.scss */
+/* line 172, ../scss/_report.scss */
 .report .report-activity > .false:hover {
   background-color: #eca09a;
 }
-/* line 173, ../scss/_report.scss */
+/* line 174, ../scss/_report.scss */
 .report .report-activity > .false:hover a {
   color: #721c15;
 }
-/* line 177, ../scss/_report.scss */
+/* line 178, ../scss/_report.scss */
 .report .report-activity .activity-wrapper {
   display: none;
 }
-/* line 181, ../scss/_report.scss */
+/* line 182, ../scss/_report.scss */
 .report .report-activity .activity-list {
   list-style: none;
   margin: 0;
@@ -5514,7 +5515,7 @@ body #content-inner {
   padding: 6.85714px 5px;
   background-color: #fbfbfb;
 }
-/* line 186, ../scss/_report.scss */
+/* line 187, ../scss/_report.scss */
 .report .report-activity .activity-list li {
   overflow: hidden;
   *zoom: 1;
@@ -5524,23 +5525,23 @@ body #content-inner {
   padding-bottom: 9.6px;
   padding-left: 20px;
 }
-/* line 195, ../scss/_report.scss */
+/* line 196, ../scss/_report.scss */
 .report .report-activity .activity-list li header [class^="icon-"],
 .report .report-activity .activity-list li header [class*=" icon-"] {
   float: left;
   margin-left: -28px;
   margin-right: 5px;
 }
-/* line 200, ../scss/_report.scss */
+/* line 201, ../scss/_report.scss */
 .report .report-activity .activity-list li header .time {
   color: #999999;
   margin-right: 10px;
 }
-/* line 204, ../scss/_report.scss */
+/* line 205, ../scss/_report.scss */
 .report .report-activity .activity-list li header a {
   font-weight: bold;
 }
-/* line 208, ../scss/_report.scss */
+/* line 209, ../scss/_report.scss */
 .report .report-activity .activity-list li .message {
   margin-top: 6.85714px;
   padding: 6.85714px 5px;
@@ -5551,46 +5552,46 @@ body #content-inner {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 213, ../scss/_report.scss */
+/* line 214, ../scss/_report.scss */
 .report .report-activity .activity-list li .message > p {
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 220, ../scss/_report.scss */
+/* line 221, ../scss/_report.scss */
 .report .report-activity #comment-form {
   overflow: hidden;
   *zoom: 1;
   padding: 0 5px;
   background-color: #eeeeee;
 }
-/* line 224, ../scss/_report.scss */
+/* line 225, ../scss/_report.scss */
 .report .report-activity #comment-form label {
   display: none;
 }
-/* line 229, ../scss/_report.scss */
+/* line 230, ../scss/_report.scss */
 .report .report-activity > footer {
   color: #999999;
   padding: 6.85714px 5px;
   font-size: 11px;
 }
-/* line 236, ../scss/_report.scss */
+/* line 237, ../scss/_report.scss */
 .report .open > .false {
   background-color: #eca09a;
 }
-/* line 239, ../scss/_report.scss */
+/* line 240, ../scss/_report.scss */
 .report .open > .undetermined {
   background-color: #fdd49a;
 }
-/* line 241, ../scss/_report.scss */
+/* line 242, ../scss/_report.scss */
 .report .open > .undetermined a {
   color: #945904;
 }
-/* line 243, ../scss/_report.scss */
+/* line 244, ../scss/_report.scss */
 .report .open > .verified {
   background-color: #cdeacd;
 }
-/* line 248, ../scss/_report.scss */
+/* line 249, ../scss/_report.scss */
 .report .icon-ok-sign, .report .icon-ok-sign {
   color: #46a546;
   font-size: 16px;
@@ -5614,7 +5615,7 @@ body #content-inner {
   color: #2f6f2f;
   font-family: 'FontAwesome';
 }
-/* line 252, ../scss/_report.scss */
+/* line 253, ../scss/_report.scss */
 .report .icon-question-sign, .report .icon-remove-sign, .report .icon-question-sign {
   color: #f89406;
   font-size: 16px;
@@ -5638,7 +5639,7 @@ body #content-inner {
   color: #ad6704;
   font-family: 'FontAwesome';
 }
-/* line 256, ../scss/_report.scss */
+/* line 257, ../scss/_report.scss */
 .report .icon-remove-sign, .report .icon-question-sign, .report .icon-remove-sign {
   color: #9d261d;
   font-size: 16px;
@@ -5748,7 +5749,7 @@ body .column.center div.tabs ul.primary li a:hover {
 }
 /* line 47, ../scss/_tabs.scss */
 body .column.center div.tabs ul.primary li a:hover:hover {
-  background-color: #FFDD00;
+  background-color: #FF628C;
 }
 /* line 148, ../scss/style.scss */
 body #content-header {

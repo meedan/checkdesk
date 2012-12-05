@@ -34,6 +34,7 @@
 				display: block;
 				float: opposite-position($from-direction);
 				border-#{$from-direction}: 1px solid $dark-grey;
+				min-height: 39px;
 				& > a {
 					@include reset-box-model;
 					display: block;
