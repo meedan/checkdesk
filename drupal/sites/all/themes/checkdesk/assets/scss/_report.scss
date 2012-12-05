@@ -183,12 +183,19 @@
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 			background-color: lighten($grayLighter, 5%);
 			li {
+				@include clearfix;
 				border-left: 2px solid $white;
 				color: $gray;
 				margin-left: $gridGutterWidth/2;
 				padding-bottom: $baseLineHeight/2;
 				padding-left: $gridGutterWidth;
 				header {
+					[class^="icon-"],
+					[class*=" icon-"] {
+						float: left;
+						margin-left: -$gridGutterWidth*1.6;
+						margin-right: $gridGutterWidth/2;
+					}
 					.time {
 						color: $grayLight;
 						margin-right: $gridGutterWidth/2;
@@ -198,6 +205,7 @@
 					}
 				}
 				.message {
+					margin-top: $baseLineHeight/2.8;
 					padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 					background-color: $white;
 					@include border-radius(4px);
