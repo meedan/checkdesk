@@ -40,21 +40,21 @@ body {
 
   // =====
   // breakpoint: 1
-  @include at-breakpoint($break-small) {
-    $fw: 4;
-    $gw: 0.5em;
-    #page {
-      border-top: 5px solid bb_random_color();
+  // @include at-breakpoint($break-small) {
+  //   $fw: 4;
+  //   $gw: 0.5em;
+  //   #page {
+  //     border-top: 5px solid bb_random_color();
       
-      #content-inner {
-        margin-top: 3px;
-        border-top: 5px solid bb_random_color();
-        @include span-columns($break-small, $break-small, $gw);
-        clear: both;
-        @include checkdesk-form($fw, $break-small);
-      }
-    }
-  }
+  //     #content-inner {
+  //       margin-top: 3px;
+  //       border-top: 5px solid bb_random_color();
+  //       @include span-columns($break-small, $break-small, $gw);
+  //       clear: both;
+  //       @include checkdesk-form($fw, $break-small);
+  //     }
+  //   }
+  // }
 
 
   // =====

@@ -5,7 +5,7 @@
 // Compatibility: untested
 
 #block-views-my-notifications-block {
-  @include span-columns($cw/4 omega, $cw, $gw);
+  @include span-columns(2 omega, $cw, $gw);
   font-family: Arial, sans-serif;
   text-align: opposite-position($from-direction);
   position: relative;

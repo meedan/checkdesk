@@ -8,8 +8,8 @@
 // 
 // $fw - the form width
 @mixin user_section_forms($fw: 6, $context: $cw) {  
-  @debug $fw;
-  @debug $context;
+  // @debug $fw;
+  // @debug $context;
   
   // Default form settings shared in checkdesk
   @include checkdesk-form;
