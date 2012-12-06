@@ -20,41 +20,58 @@ body {
     // Requires a mathematically sensible $container-width aka $cw (whole integers, usually even).
     // 
     //$cw - the width of the outer width in columns, usually 12 or 24
-    @include container($cw);
+    @include container($cw, $break-small);
     // @include susy-grid-background;
     margin-top: $gw * 6;
   }
 
   #content-inner {
-    // The use of squish is accounted for in $center-column-width
-    @include span-columns($center-column-width, $cw, $gw);
-
+    // The use of squish adds to the overall width and must be accounted for: 
+    // account-for-squish()
+    @include span-columns($cw, $cw);
     // $center-column-width has a twelveth-of $container-width on either side
-    @include squish(twelveth-of($cw),twelveth-of($cw),$cw);
+    // @include squish(twelveth-of($cw),twelveth-of($cw),$cw);
   }
 
-  // Debugger
-  // @include debug_breakpoints;
+  ul.tabs.primary {
+    @include bb-tabs($break-small, $break-small);
+    padding-top: 3px;
+  }
 
   // =====
   // breakpoint: 1
-  // Applies to everything
-  @include at-breakpoint(1) {
-    div.column.center {
-      // @include checkdesk-form-basics($fw, $center-column-width);
-      // @include checkdesk-form-item($fw, $center-column-width);
+  @include at-breakpoint($break-small) {
+    $fw: 4;
+    $gw: 0.5em;
+    #page {
+      border-top: 5px solid bb_random_color();
+      
+      #content-inner {
+        margin-top: 3px;
+        border-top: 5px solid bb_random_color();
+        @include span-columns($break-small, $break-small, $gw);
+        clear: both;
+        @include checkdesk-form($fw, $break-small);
+      }
     }
   }
-  
-  // =====
-  // breakpoint: small
-  // Applies to everything larger than a <min-width:> value
-  @include at-breakpoint($break-small) {
-  }
+
 
   // =====
   // breakpoint: medium
-  // Applies to everything larger than an even larger <min-width:> value
-  @include at-breakpoint($break-medium) {
-  }
+  // @include at-breakpoint($break-medium) {
+  //   border-top: 5px solid green;
+  //   #page {
+  //     border-top: 5px solid green;
+  //     @include container;
+  //     #content-inner {
+  //       border-top: 5px solid pink;
+  //     // @include reset-box-model;
+  //     // background-color: red;
+  //     @include span-columns($break-medium, $break-medium);
+  //     @include squish(half-of($break-medium), half-of($break-medium), $break-medium);
+  //     @include checkdesk-form($break-medium/2, $break-medium);
+  //     }
+  //   }
+  // }
 }

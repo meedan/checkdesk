@@ -31,7 +31,6 @@
   <!-- ______________________ MAIN _______________________ -->
 
   <div id="main" class="clearfix">
-
     <?php if ($page['sidebar_first']): ?>
       <div id="sidebar-first" class="column sidebar first">
         <div id="sidebar-first-inner" class="inner">
@@ -42,7 +41,6 @@
 
     <div id="content">
       <div id="content-inner" class="inner column center">
-
         <?php if ($title|| $messages || $tabs || $action_links): ?>
           <div id="content-header">
 

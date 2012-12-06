@@ -5,21 +5,54 @@
 // With custom test helper in config.rb
 // Included at the bottom of style.scss
 
-@mixin should_be_whole_units($width)  {
-  @if round($width) != $width {
-    @warn "✖ #{$width}";
-  } @else {
+// @function should_be_whole_units($width)  {
+//   @if round($width) != $width {
+//     @warn "✖ #{$width}";
+//   }
+// }
 
-  }
-}
 
-@include should_be_whole_units($input-width);
-@include should_be_whole_units($label-width);
-@include should_be_whole_units($tabs-width);
-@include should_be_whole_units($center-column-width);
-@include should_be_whole_units($form-width);
+// should_be_whole_units($input-width);
+// should_be_whole_units($label-width);
+// should_be_whole_units($tabs-width);
+// should_be_whole_units($center-column-width);
+// should_be_whole_units($form-width);
 
-// Tests of custom Sass functions
-@if type_of(random_color) != string {
-  @warn "woah there, the random_color returned something that wasn't a string";
-}
+// // Tests of custom Sass functions
+// @if type_of(random_color) != string {
+//   @debug "woah there, the random_color returned something wrong";
+// }
+
+// // Tests of custom Sass functions
+// @if type_of(bowerbird-background("cartographer")) != string {
+//   @debug "bowerbird-background returned something wrong";
+//   "=========================================================";
+//   @debug bowerbird-background("cartographer");
+// }
+// @function output-red(text) {
+//   "e[31m" + text + "e[0m"
+// }
+
+// @function output-blue(text) {
+//   "e[34m" + text + "e[0m"
+// }
+
+// @function output-blue-bkg(text) {
+//   "e[44m e[37m " + text + "e[0m"
+// }
+
+// @function output-green(text) {
+//   "e[32m" + text + "e[0m"
+// }
+
+// output-blue-bkg("test");
+
+// @debug bowerbird-background("cartographer");
+
+// @if type_of(all_bowerbird_backgrounds()) {
+//   @debug output-blue("Woah there, the all_backgrounds returned something wrong or was missing:");
+//   @debug output-green("Expected:");
+//   @debug output-blue-bkg(type_of(all_bowerbird_backgrounds()));
+//   @debug "All background =========================================================";
+//   @debug all_backgrounds();
+// }

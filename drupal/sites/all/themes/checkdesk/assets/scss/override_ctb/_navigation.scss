@@ -76,7 +76,6 @@
   width: auto;
 }
 
-
 // Plain text in topbar
 // -------------------------
 .navbar-text {
@@ -102,40 +101,41 @@
   border-#{opposite-position($from-direction)}: 1px solid $navbarBackgroundHighlight;
 }
 
+$avatar-height: 22px;
+$avatar-padding: 2px;
+
 // Buttons in navbar
 // -------------------------
 .navbar .btn,
 .navbar .btn-group {
-  @include ctb-navbarVerticalAlign(28px); // Vertically center in navbar
-}
-.navbar .btn-group .btn {
-  margin: 0; // then undo the margin here so we don't accidentally double it
+  height: $avatar-height + $avatar-padding*2;
+  padding: 0;
 }
 
 // account button
-.navbar .btn-group .btn-account {
+.navbar .btn-group a.btn-account {
   background: darken($grayLighter, 10%);
-  padding: 2px 9px;
-  font-size: $baseFontSize - 2px;
-  line-height: $baseLineHeight - 2px;
-  margin-top: 5px;
+  font-size: $base-font-size;
+  height: $avatar-height;
+  padding-#{opposite-position($from-direction)}: 5px;
+  margin-top: 4px;
   .avatar {
     display: inline-block;
     @include ctb-ie7-restore-right-whitespace();
-    height: 20px;
     vertical-align: text-top;
-    margin-top: -5px;
-    margin-#{opposite-position($from-direction)}: -10px;
+    margin-#{opposite-position($from-direction)}: 10px;
+    height: $avatar-height;
+    @include border-radius(8px 0px, 4px 4px);
+    overflow: hidden;
     img {
       @include reset-box-model();
-      @include ctb-border-radius(4px); 
-      @include ctb-square(24px);
-      margin-#{opposite-position($from-direction)}: $gridGutterWidth/2;
+      @include border-radius(0px 0px, 4px 4px);
+      height: $avatar-height;
+    //   @include ctb-square(24px);
+    //   margin-#{opposite-position($from-direction)}: $gridGutterWidth/2;
     }
   }
 }
-
-
 
 // Static navbar
 // -------------------------
@@ -149,19 +149,19 @@
   }
 }
 
-
 // Fixed navbar
 // -------------------------
 
 // Shared (top/bottom) styles
 .navbar-fixed-top,
 .navbar-fixed-bottom {
-
   position: fixed;
   right: 0;
   left: 0;
   z-index: $zindexFixedNavbar;
   margin-bottom: 0; // remove 18px margin for default navbar
+}
+
 .navbar-fixed-top,
 .navbar-fixed-bottom,
 .navbar-static-top {
@@ -212,9 +212,6 @@
 	top: $toolbarHeight + $drawerHeight;
 }
 
-
-
-
 // NAVIGATION
 // ----------
 
@@ -245,7 +242,7 @@
 .navbar .nav > li > a {
   float: none;
   // Vertically center the text given $navbarHeight
-  padding: (($navbarHeight - $baseLineHeight) / 2) 15px (($navbarHeight - $baseLineHeight) / 2);
+  padding: 5px 15px 5px;
   color: $navbarLinkColor;
   text-decoration: none;
   text-shadow: 0 1px 0 $navbarBackgroundHighlight;
@@ -253,6 +250,7 @@
 
 .navbar li.home a span.icon-home {
   @include icon(home, fontawesome, 15px, white, transparent);
+  padding: 0;
 }
 
 .navbar .nav .dropdown-toggle .caret {
@@ -298,8 +296,10 @@
   @include ctb-border-radius(1px);
   @include ctb-box-shadow(0 1px 0 rgba(0,0,0,.25));
 }
+
 .btn-navbar .icon-bar + .icon-bar {
-  margin-top: 3px{opposite-position($from-direction);
+  margin-top: 3px;
+}
 
 // Dropdown menus
 // --------------
@@ -309,24 +309,23 @@
   &:before {
     content: '';
     display: inline-block;
-    border-#{$from-direction}:   7px solid transparent;
-    border-#{opposite-position($from-direction)}:  7px solid transparent;
+    border-#{$from-direction}: 7px solid transparent;
+    border-#{opposite-position($from-direction)}: 7px solid transparent;
     border-bottom: 7px solid #ccc;
     border-bottom-color: $dropdownBorder;
-
     position: absolute;
     top: -7px;
     #{$from-direction}: 9px;
   }
   &:after {
-content: '';
+    content: '';
     display: inline-block;
     border-#{$from-direction}:   6px solid transparent;
     border-#{opposite-position($from-direction)}:  6px solid transparent;
     border-bottom: 6px solid $dropdownBackground;
     position: absolute;
     top: -6px;
-    $from-direction: 10px;
+    #{$from-direction}: 10px;
   }
 }
 // Menu position and menu caret support for dropups via extra dropup class
@@ -377,11 +376,11 @@ content: '';
   &:after {
     #{$from-direction}: auto;
     #{opposite-position($from-direction)}: 13px;
-
+  }
   .dropdown-menu {
     #{$from-direction}: auto;
     #{opposite-position($from-direction)}: 100%;
-    margin-#{oppositeopposite-position($from-direction)}osition($from-direction)}: 0;
+    margin-#{$from-direction}: 0;
     margin-#{opposite-position($from-direction)}: -1px;
     @include ctb-border-radius(6px 0 6px 6px);
   }

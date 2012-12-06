@@ -17,6 +17,8 @@ sass_dir        = File.join(full_assets_dir, "scss")
 images_dir      = File.join(full_assets_dir, "imgs")
 javascripts_dir = File.join(full_assets_dir, "js")
 
+bb_background_path = "sites/all/themes/bowerbird/images/bkgs/"
+
 # icon webfonts from bowerbird
 http_fonts_path = File.join("/", themes_dir, extensions_dir, bowerbird_extension_dir, "fonts")
 relative_assets = false
@@ -27,25 +29,29 @@ Sass.load_paths << File.join(full_bowerbird_extension_dir, "stylesheets")
 # For more about Sass functions: 
 # http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html
 module Sass::Script::Functions
-  def random_color
+  
+  def pry
+    binding.pry
+  end
+
+  def bb_random_color
     colors = ["#FF628C", "#3AD900", "#0088FF", "#80FFC2", "#FFDD00", "#FF9D00"]
     arr = colors.dup    
     Sass::Script::String.new(colors.collect { arr.slice!(rand(arr.length)) }.first);
   end
 
-  @bkgpath = File.join(File.dirname(__FILE__), 'drupal/sites/all/themes/', 'checkdesk/assets/bkgs')
-  def all_backgrounds(bkgpath = @bkgpath, size = "default")
-    @list = Array.new
-    FileList["#{bkgpath}**/*.png"].exclude(/.*2X.*/).each { |pathname| 
-      @list << Sass::Script::String.new((File.basename(pathname)).gsub(".png", ""))
-    }
-    Sass::Script::List.new(@list, :comma)
-  end
+  # def all_bb_backgrounds(path = bb_background_path, size = "default")
+  #   puts "================= Using #{path}"
+  #   @list = Array.new
+  #   FileList[File.join(path, '**', '*.png')].exclude(/.*2X.*/).each { |pathname| 
+  #     @list << Sass::Script::String.new((File.basename(pathname)).gsub(".png", ""))
+  #   }
+  #   Sass::Script::List.new(@list, :comma)
+  # end
 
-  def all_backgrounds_count
-    # binding.pry
-    Sass::Script::Number.new(all_backgrounds(@bkgpath).value.length.to_i)
-  end
+  # def all_bb_backgrounds_count(path = bb_background_path)
+  #   Sass::Script::Number.new(all_bb_backgrounds(path).length.to_i)
+  # end
 
   # based on http://www.seancolombo.com/2010/07/28/how-to-make-and-use-a-custom-sass-function/
   # def config_from_cli(c, d="")

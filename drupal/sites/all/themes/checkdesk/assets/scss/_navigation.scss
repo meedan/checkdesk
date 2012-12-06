@@ -1,4 +1,18 @@
+
 // Navigation at the very top.
 // Not to be confused with tabs.
 //
 // See override_ctb/_navigation.scss
+
+li a[href*='discussion'] {
+  @include icon-on-a-word('file');
+}
+
+a[href*='post'] {
+  @include icon-on-a-word('pencil');
+} 
+
+a[href*='media'] {
+  @include icon-on-a-word('bookmark');
+}
+
