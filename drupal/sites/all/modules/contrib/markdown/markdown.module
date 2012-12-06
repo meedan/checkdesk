@@ -1,26 +1,39 @@
 <?php
 
-// == Core hooks ===============================================================
+/**
+ * @file
+ * Provides a Markdown input filter.
+ */
 
-function markdown_help($path = 'admin/help#markdown', $arg) {
+/**
+ * Implements hook_help().
+ */
+function markdown_help($path, $arg) {
   switch ($path) {
     case 'admin/help#markdown':
       return t('<p>The Markdown filter allows you to enter content using <a href="http://daringfireball.net/projects/markdown">Markdown</a>, a simple plain-text syntax that is transformed into valid XHTML.</p>');
-      break;
   }
 }
 
+/**
+ * Implements hook_filter_info().
+ */
 function markdown_filter_info() {
   $filters['filter_markdown'] = array(
     'title' => t('Markdown'),
     'description' => t('Allows content to be submitted using Markdown, a simple plain-text syntax that is filtered into valid XHTML.'),
     'process callback' => '_filter_markdown',
     'settings callback' => '_filter_markdown_settings',
-    'tips callback'  => '_filter_markdown_tips'
+    'tips callback'  => '_filter_markdown_tips',
   );
+
   return $filters;
 }
 
+/**
+ * Returns the markdown input filter tips.
+ * @TODO: make it easier for translators.
+ */
 function _filter_markdown_tips($format, $long = FALSE) {
   if ($long) {
     return t('Quick Tips:<ul>
@@ -37,8 +50,8 @@ function _filter_markdown_tips($format, $long = FALSE) {
 }
 
 /**
-* Implements hook_block_view().
-*/
+ * Implements hook_block_view().
+ */
 function markdown_block_view($delta = '') {
   $block = array();
   switch ($delta) {
@@ -47,27 +60,27 @@ function markdown_block_view($delta = '') {
       $block['content'] = _markdown_help_block();
       break;
   }
+
   return $block;
 }
 
 /**
-* Implements hook_block_info().
-*/
+ * Implements hook_block_info().
+ */
 function markdown_block_info() {
   $blocks = array();
   $blocks['markdown_help'] = array(
     'info' => t('Markdown filter tips'),
   );
+
   return $blocks;
 }
-
-// == Internal functions =======================================================
 
 /**
  * Provides content for the markdown help block.
  */
-function _markdown_help_block(){
-  return '<pre>'. t("
+function _markdown_help_block() {
+  return '<pre>' . t("
 ## Header 2 ##
 ### Header 3 ###
 #### Header 4 ####
@@ -92,7 +105,7 @@ Inline markup like _italics_,
 
 And now some code:
     // Code is indented text
-    is_easy() to_remember();") .'</pre>';
+    is_easy() to_remember();") . '</pre>';
 }
 
 /**
@@ -100,9 +113,10 @@ And now some code:
  */
 function _filter_markdown($text, $format) {
   if (!empty($text)) {
-    include_once drupal_get_path('module', 'markdown') .'/markdown.php';
+    module_load_include('php', 'markdown', 'markdown');
     $text = Markdown($text);
   }
+
   return $text;
 }
 
@@ -110,19 +124,21 @@ function _filter_markdown($text, $format) {
  * Filter settings callback. Just provides a version overview.
  */
 function _filter_markdown_settings($form, &$form_state, $filter, $format, $defaults) {
-  include_once drupal_get_path('module', 'markdown') .'/markdown.php';
+  module_load_include('php', 'markdown', 'markdown');
+
   $settings['markdown_wrapper'] = array(
     '#type' => 'fieldset',
     '#title' => t('Markdown'),
   );
   $links = array(
-    'Markdown PHP Version: <a href="http://www.michelf.com/projects/php-markdown/">'. MARKDOWN_VERSION .'</a>',
-    'Markdown Extra Version: <a href="http://www.michelf.com/projects/php-markdown/">'. MARKDOWNEXTRA_VERSION .'</a>',
+    'Markdown PHP Version: <a href="http://michelf.com/projects/php-markdown/">' . MARKDOWN_VERSION . '</a>',
+    'Markdown Extra Version: <a href="http://michelf.com/projects/php-markdown/">' . MARKDOWNEXTRA_VERSION . '</a>',
   );
   $settings['markdown_wrapper']['markdown_status'] = array(
     '#title' => t('Versions'),
     '#type' => 'item',
     '#markup' => theme('item_list', array('items' => $links)),
   );
+
   return $settings;
 }

@@ -12,7 +12,7 @@
 
 		h3 {
 			float: $from-direction;
-			@include reset-box-model();
+			@include reset-box-model;
 			@include ctb-font-shorthand(12px, normal);
 			padding: $gw;
 			display: block;
@@ -34,17 +34,18 @@
 				display: block;
 				float: opposite-position($from-direction);
 				border-#{$from-direction}: 1px solid $dark-grey;
+				min-height: 39px;
 				& > a {
 					@include reset-box-model;
 					display: block;
 					padding: 10px;
 					
 					@include transition-property(color);
-			    @include transition-duration(0.2s);
-			    &:hover { 
-			    	color: black;
-			    	text-decoration: none;
-			    }
+			    	@include transition-duration(0.2s);
+				    &:hover { 
+				    	color: black;
+				    	text-decoration: none;
+				    }
 
 					span {
 						float: $from-direction;
@@ -59,10 +60,10 @@
 						}
 					}
 				}
-        // remove ajax throbber inside dropdown menus
-        .flag-throbber {
-        	// display: none;
-        }
+				// hide ajax throbber in dropdown
+			    .ajax-progress-throbber {
+			    	display: none;
+			  	}
 			}
 		}
 	}
@@ -70,6 +71,7 @@
 
 	.report-content {
 		color: $gray;
+		background-color: darken($grayLighter, 5%);
 		@include clearfix();
 		.report-media {
 			background-color: $white;
@@ -84,9 +86,23 @@
 			}
 			.container {
 				display: inline-block;
-  			vertical-align: middle;
+  				vertical-align: middle;
+  				text-align: $from-direction;
 				.oembed-title {
 					display: none;
+				}
+				.title {
+					padding: $baseLineHeight 0;
+				}
+				.content {
+					padding: $baseLineHeight 0;
+				}
+				.favicon {
+					float: $from-direction;
+					padding: 0 $gw/2;
+				}
+				.domain {
+					margin-bottom: $baseLineHeight;
 				}
 			}
 		}
@@ -183,21 +199,29 @@
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 			background-color: lighten($grayLighter, 5%);
 			li {
+				@include clearfix;
 				border-left: 2px solid $white;
 				color: $gray;
 				margin-left: $gridGutterWidth/2;
 				padding-bottom: $baseLineHeight/2;
-				padding-left: $gridGutterWidth;
+				padding-left: $gridGutterWidth*2;
 				header {
+					[class^="icon-"],
+					[class*=" icon-"] {
+						float: left;
+						margin-left: -$gridGutterWidth*2.8;
+						margin-right: $gridGutterWidth/2;
+					}
 					.time {
 						color: $grayLight;
-						margin-right: $gridGutterWidth/2;
+						margin-right: $gridGutterWidth;
 					}
 					a {
 						font-weight: bold;
 					}
 				}
 				.message {
+					margin-top: $baseLineHeight/2.8;
 					padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 					background-color: $white;
 					@include border-radius(4px);

@@ -1,35 +1,74 @@
 <?php
 
 define('MEEDAN_LIVEFYRE_SCRIPT', 'http://zor.livefyre.com/wjs/v3.0/javascripts/livefyre.js');
+define('MEEDAN_LIVEFYRE_COMMENTCOUNT', 'http://zor.livefyre.com/wjs/v1.0/javascripts/CommentCount.js');
+
+/**
+ * Implements hook_theme().
+ */
+function meedan_livefyre_theme() {
+  return array(
+    'livefyre_commentcount' => array(
+      'variables' => array('node' => NULL),
+    ),
+    'livefyre_comments' => array(
+      'variables' => array('node' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements `livefyre_commentcount` theme.
+ */
+function theme_livefyre_commentcount($variables) {
+  // @see https://github.com/Livefyre/livefyre-docs/wiki/Comments-3-Comment-Counts
+  $node = $variables['node'];
+  drupal_add_js(MEEDAN_LIVEFYRE_COMMENTCOUNT, 'external');
+  drupal_add_js(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre_commentcount.js');
+  $output  = '<span class="livefyre-commentcount" data-lf-site-id="' . variable_get('meedan_livefyre_siteid', '') . '" data-lf-article-id="' . $node->nid . '">';
+  $output .= t('@count comments', array('@count' => 0));
+  $output .= '</span>';
+  return $output;
+}
+
+/**
+ * Implements `livefyre_comments` theme.
+ */
+function theme_livefyre_comments($variables) {
+  $node = $variables['node'];
+  $collectionMeta = array(
+    'articleId' => $node->nid,
+    'url' => url('node/' . $node->nid, array('absolute' => TRUE)),
+  );
+  $streamConfig = array(
+    'collectionMeta' => $collectionMeta,
+    'signed' => false,
+    'articleId' => $collectionMeta['articleId'],
+    'siteId' => variable_get('meedan_livefyre_siteid', ''),
+    'el' => 'livefyre-' . $node->nid,
+  );
+  drupal_add_js(MEEDAN_LIVEFYRE_SCRIPT, 'external');
+  drupal_add_js(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.js');
+  drupal_add_css(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.css');
+  drupal_add_js(array('livefyre' => array($node->nid => array(
+    'nid' => $node->nid,
+    'streamConfig' => $streamConfig,
+  ))), 'setting');
+  $output  = '<div class="livefyre-wrapper">';
+  $output .= '<div class="livefyre-header">' . theme('livefyre_commentcount', array('node' => $node)) . '</div>';
+  $output .= '<div class="livefyre-comments" id="livefyre-' . $node->nid . '"></div>';
+  $output .= '</div>';
+  return $output;
+}
 
 /**
  * Implements hook_node_view().
  */
 function meedan_livefyre_node_view($node, $view_mode, $langcode) {
   if (!variable_get('meedan_livefyre_disable', FALSE) && in_array($node->type, array_filter(variable_get('meedan_livefyre_types', array())))) {
-    $collectionMeta = array(
-      'articleId' => $node->nid,
-      'url' => url('node/' . $node->nid, array('absolute' => TRUE)),
-    );
-    $streamConfig = array(
-      'collectionMeta' => $collectionMeta,
-      'signed' => false,
-      'articleId' => $collectionMeta['articleId'],
-      'siteId' => variable_get('meedan_livefyre_siteid', ''),
-      'el' => 'livefyre-' . $node->nid,
-    );
     $node->content['livefyre'] = array(
-      '#markup' => '<div id="livefyre-' . $node->nid . '"></div>',
-      '#attached' => array(
-        'js' => array(
-          array('data' => MEEDAN_LIVEFYRE_SCRIPT, 'type' => 'external'),
-          array('data' => array('livefyre' => array($node->nid => array(
-            'nid' => $node->nid,
-            'streamConfig' => $streamConfig,
-          ))), 'type' => 'setting'),
-          array('data' => drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.js', 'type' => 'file'),
-        ),
-      ),
+      '#theme' => 'livefyre_comments',
+      '#node' => $node,
     );
   }
 }
@@ -57,9 +96,8 @@ function meedan_livefyre_menu() {
 function meedan_livefyre_admin_settings() {
   $form['meedan_livefyre_disable'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Disable'),
+    '#title' => t('Disable Livefyre embedding.'),
     '#default_value' => variable_get('meedan_livefyre_disable', FALSE),
-    '#description' => t('Disable Livefyre integration.'),
   );
   $form['meedan_livefyre_siteid'] = array(
     '#type' => 'textfield',

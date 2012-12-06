@@ -16,7 +16,10 @@ Drupal.behaviors.livefyre = {
       {},
       streams,
       Drupal.livefyre.callback 
-    )
+    );
+    $('.livefyre-header', context).click(function() {
+      $('.livefyre-comments', $(this).parent()).toggle();
+    });
   }
 }
 

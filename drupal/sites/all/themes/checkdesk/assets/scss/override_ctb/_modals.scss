@@ -62,15 +62,19 @@
 .modal-body {
   overflow-y: auto;
   max-height: 400px;
-  padding: 15px;
 }
 // Remove bottom margin if need be
 .modal-form {
   margin-bottom: 0;
 }
+// Additional wrapper
+.modal-content-wrapper {
+  padding: 15px;
+}
 
 // Footer (for actions)
 .modal-footer {
+  width: 530px;
   padding: 14px 15px 15px;
   margin-bottom: 0;
   text-align: right; // right align buttons
@@ -92,5 +96,9 @@
   // and override it for block buttons as well
   .btn-block + .btn-block {
     margin-left: 0;
+  }
+
+  .ajax-progress-throbber {
+    display: none;
   }
 }

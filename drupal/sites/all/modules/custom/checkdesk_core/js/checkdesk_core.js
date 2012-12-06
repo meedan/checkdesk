@@ -24,6 +24,13 @@
       });
       // Restrict thumbnail width to 220
       jQuery('.view-desk-reports .view-content').find('.thumbnail img').width(220);
+
+
+      // close modal
+      $('#close').click(function() {
+        Drupal.CTools.Modal.dismiss();
+        return false;
+      });      
     }
   };
 
@@ -39,14 +46,10 @@
     html += '<div class="modal">';
     html += '  <div class="modal-header">';
     html += '   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-    html += '   <h3><span id="modal-title" class="modal-title"></span></h3>';
+    html += '   <h4><span id="modal-title" class="modal-title"></span></h4>';
     html += '  </div>';
     html += ' <div class="modal-body">';
     html += '   <div id="modal-content" class="modal-content"></div>';
-    html += ' </div>';
-    html += ' <div class="modal-footer">';
-    html += '   <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
-    html += '   <button class="btn btn-primary">Save changes</button>';
     html += ' </div>';
     html += '</div>';
     html += '</div>';

@@ -1665,8 +1665,13 @@ function template_preprocess_flag(&$variables) {
 
   $variables['flag_classes_array'] = array();
   $variables['flag_classes_array'][] = 'flag';
-  $variables['flag_classes_array'][] = $variables['action'] . '-action';
-  $variables['flag_classes_array'][] = 'flag-link-' . $flag->link_type;
+  if (isset($link['href'])) {
+    $variables['flag_classes_array'][] = $variables['action'] . '-action';
+    $variables['flag_classes_array'][] = 'flag-link-' . $flag->link_type;
+  }
+  else {
+    $variables['flag_classes_array'][] = $variables['action'] . '-disabled';
+  }
   if (isset($link['attributes']['class'])) {
     $link['attributes']['class'] = is_string($link['attributes']['class']) ? array_filter(explode(' ', $link['attributes']['class'])) : $link['attributes']['class'];
     $variables['flag_classes_array'] = array_merge($variables['flag_classes_array'], $link['attributes']['class']);
@@ -2157,7 +2162,10 @@ function flag_get_entity_flags($entity_type, $entity_id, $flag_name = NULL) {
     return array();
   }
   if (isset($flag_name)) {
-    return $entity_flags[$entity_type][$entity_id]['flags'][$flag_name];
+    if (isset($entity_flags[$entity_type][$entity_id]['flags'][$flag_name])) {
+      return $entity_flags[$entity_type][$entity_id]['flags'][$flag_name];
+    }
+    return array();
   }
   return $entity_flags[$entity_type][$entity_id]['users'];
 }
@@ -2285,4 +2293,13 @@ function flag_set_sid($uid = NULL, $create = TRUE) {
  */
 function flag_get_sid($uid = NULL, $create = FALSE) {
   return flag_set_sid($uid, $create);
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function flag_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && !empty($plugin)) {
+    return "plugins/$plugin";
+  }
 }
