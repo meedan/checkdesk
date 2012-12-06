@@ -88,6 +88,7 @@
 				display: inline-block;
   				vertical-align: middle;
   				text-align: $from-direction;
+  				padding: $baseLineHeight/2 $gw;
 				.oembed-title {
 					display: none;
 				}
@@ -129,12 +130,12 @@
 			background-position: 10px 0;
 		}
 
-	}
+	} // .report-content
 
 	.report-activity {
 		
 		& > header {
-			@include clearfix();
+			@include ctb-clearfix();
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 			text-shadow: 0 1px 0 rgba(255,255,255,.3);
 			cursor: pointer;

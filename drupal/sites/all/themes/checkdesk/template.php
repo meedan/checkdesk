@@ -191,7 +191,7 @@ function checkdesk_links__node($variables) {
       'modalSize' => array(
         'type' => 'fixed',
         'width' => 150,
-        'height' => 205,
+        'height' => 188,
         'addWidth' => 0,
         'addHeight' => 0
       ),
