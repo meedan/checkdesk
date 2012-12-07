@@ -74,11 +74,11 @@ function checkdesk_core_menu() {
     //'modal' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  // $items['modal/%ctools_js'] = array(
-  //   'page callback' => 'checkdesk_core_modal_callback',
-  //   'page arguments' => array(1),
-  //   'access arguments' => array('access content'),
-  // );
+  $items['modal/%ctools_js'] = array(
+    'page callback' => 'checkdesk_core_modal_callback',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+  );
   return $items;
 }
 
