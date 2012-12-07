@@ -6,6 +6,7 @@
 function checkdesk_core_init() {
   drupal_add_library('system', 'ui.draggable');
   drupal_add_library('system', 'ui.droppable');
+  drupal_add_library('system', 'drupal.ajax');
 }
 
 /**
@@ -50,6 +51,13 @@ function checkdesk_core_menu() {
     'access arguments' => array('update', 1),
     'type' => MENU_CALLBACK,
   );
+  $items['core/messages'] = array(
+    'title' => 'Invoke message',
+    'page callback' => '_checkdesk_core_invoke_messages',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
   /*
   $items['node/%checkdesk_report/checkdesk/publish'] = array(
@@ -74,11 +82,12 @@ function checkdesk_core_menu() {
     //'modal' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  $items['modal/%ctools_js'] = array(
-    'page callback' => 'checkdesk_core_modal_callback',
-    'page arguments' => array(1),
-    'access arguments' => array('access content'),
-  );
+
+  // $items['modal/%ctools_js'] = array(
+  //   'page callback' => 'checkdesk_core_modal_callback',
+  //   'page arguments' => array(1),
+  //   'access arguments' => array('access content'),
+  // );
   return $items;
 }
 
@@ -242,6 +251,23 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
 
   print ajax_render($commands);
   exit;
+}
+
+/**
+ * Ajax callback for invoking messages
+ */
+function _checkdesk_core_invoke_messages($action, $type) {
+
+  if ($type != 'ajax') {
+    // This is js only.
+    return 'Oh well';
+  }
+ 
+  $commands = array();
+  drupal_set_message(t('What the fuck.'));
+  $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
+  $page = array('#type' => 'ajax', '#commands' => $commands);
+  ajax_deliver($page);
 }
 
 /**

@@ -88,7 +88,12 @@
 				display: inline-block;
   				vertical-align: middle;
   				text-align: $from-direction;
-  				padding: $baseLineHeight/2 $gw;
+  				.title,
+  				.content, 
+  				.favicon, 
+  				.domain {
+  					margin: 0 $gw;	
+  				}
 				.oembed-title {
 					display: none;
 				}
@@ -108,7 +113,8 @@
 				img,
 				embed,
 				object,
-				video {
+				video,
+				iframe {
 					max-width: 100%;
 				}
 			}

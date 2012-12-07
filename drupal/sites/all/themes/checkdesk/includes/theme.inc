@@ -5,8 +5,6 @@
  */
 function checkdesk_checkdesk_links($variables) {
 
-
-
   $links = $variables['links'];
   $attributes = $variables['attributes'];
   $heading = $variables['heading'];
