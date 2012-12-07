@@ -50,6 +50,9 @@
 					span {
 						float: $from-direction;
 						@include reset-box-model;
+						&.icon-edit {
+							@include icon(edit, fontawesome, 16px, $darker-grey, transparent);
+						}
 
 						// Flag and share on the top of the report
 						&.icon-flag {
@@ -121,7 +124,8 @@
 		}
 
 		& > p {
-			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+			@include ctb-clearfix;
+			padding: $baseLineHeight/2.8 $gridGutterWidth/2 $baseLineHeight/2 $gridGutterWidth/2;
 			border-bottom: 1px solid $white;
 			@include ctb-font-shorthand(12px, normal);
 		}

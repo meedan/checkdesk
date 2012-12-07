@@ -21,7 +21,9 @@
         <?php endif; ?>
         <?php print $media_creation_info; ?>
       </p>
-      <div class="description"><?php print render($content['body']); ?></div>
+      <?php if (isset($content['body'])) : ?>
+        <div class="description"><?php print render($content['body']); ?></div>
+      <?php endif; ?>
     </section>
 
     <?php if (isset($media_activity_report_count)) : ?>

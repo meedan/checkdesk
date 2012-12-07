@@ -37,7 +37,8 @@
 <?php endif; ?>
 <?php if ($after_flagging): ?>
   <?php 
-  	drupal_set_message($message_text, 'warning'); 
+  	// set message
+  	drupal_set_message($message_text, 'warning');
   	drupal_add_js('(function($){ Drupal.ajax["checkdesk_core_message_settings"].setMessages(); })(jQuery);', array('type' => 'inline'));
   ?>
 <?php endif; ?>
