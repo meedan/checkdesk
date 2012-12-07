@@ -11,7 +11,7 @@ function checkdesk_core_feature_node_export_features_default() {
   $node_export = array(
   'code_string' => 'array(
   (object) array(
-      \'vid\' => \'109\',
+      \'vid\' => \'123\',
       \'uid\' => \'0\',
       \'title\' => \'Install Bookmarklet\',
       \'log\' => \'\',
@@ -23,12 +23,12 @@ function checkdesk_core_feature_node_export_features_default() {
       \'nid\' => \'109\',
       \'type\' => \'page\',
       \'language\' => \'und\',
-      \'created\' => \'1353472501\',
-      \'changed\' => \'1353472501\',
+      \'created\' => \'1354848593\',
+      \'changed\' => \'1354848593\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'1244c020-f663-b564-b94c-2cf29b12afa4\',
-      \'revision_timestamp\' => \'1353472501\',
+      \'revision_timestamp\' => \'1354848593\',
       \'revision_uid\' => \'0\',
       \'body\' => array(
         \'und\' => array(
@@ -101,13 +101,13 @@ function checkdesk_core_feature_node_export_features_default() {
       \'name\' => \'\',
       \'picture\' => \'0\',
       \'data\' => NULL,
-      \'menu\' => NULL,
       \'path\' => array(
         \'pid\' => \'133\',
         \'source\' => \'node/109\',
         \'alias\' => \'content/install-bookmarklet\',
         \'language\' => \'und\',
       ),
+      \'menu\' => NULL,
       \'node_export_drupal_version\' => \'7\',
     ),
 )',

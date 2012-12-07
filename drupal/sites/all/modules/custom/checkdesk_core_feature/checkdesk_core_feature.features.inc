@@ -256,6 +256,22 @@ function checkdesk_core_feature_image_default_styles() {
  */
 function checkdesk_core_feature_node_info() {
   $items = array(
+    'discussion' => array(
+      'name' => t('Story'),
+      'base' => 'node_content',
+      'description' => t('Where reports are verified and blog posts created.'),
+      'has_title' => '1',
+      'title_label' => t('Headline'),
+      'help' => '',
+    ),
+    'media' => array(
+      'name' => t('Report'),
+      'base' => 'node_content',
+      'description' => t('A report containing a media item.'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'page' => array(
       'name' => t('Basic page'),
       'base' => 'node_content',

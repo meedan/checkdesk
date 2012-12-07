@@ -116,25 +116,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-48',
   );
-  // Exported menu link: main-menu:reports
-  $menu_links['main-menu:reports'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'reports',
-    'router_path' => 'reports',
-    'link_title' => 'VIew all incoming reports',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-50',
-    'parent_path' => '<sub>',
-  );
   // Exported menu link: menu-information:<sub>
   $menu_links['menu-information:<sub>'] = array(
     'menu_name' => 'menu-information',
@@ -201,7 +182,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Install bookmarklet');
   t('Sign in');
   t('Submit report');
-  t('VIew all incoming reports');
 
 
   return $menu_links;
