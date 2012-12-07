@@ -650,6 +650,20 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'save_draft_enabled_discussion';
+  $strongarm->value = 0;
+  $export['save_draft_enabled_discussion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'save_draft_enabled_media';
+  $strongarm->value = 0;
+  $export['save_draft_enabled_media'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'site_frontpage';
   $strongarm->value = 'liveblog';
   $export['site_frontpage'] = $strongarm;
