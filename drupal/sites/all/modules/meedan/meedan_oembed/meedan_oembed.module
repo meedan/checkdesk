@@ -85,9 +85,16 @@ function meedan_oembed_data($url, $attributes = array()) {
     return $embed;
   }
 
-  // Call Embedly first, then scrape the page ourselves.
-  $matches = array();
-  $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+  // call scrape function first if exist.
+  if (function_exists($callback)) {
+    $embed = $callback($provider, $url);
+  }
+  else {
+    // Call Embedly.
+    $matches = array();
+    $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+  }
+
   if (!$embed) {
     $embed = (object)array(
       'url' => $url,
@@ -145,45 +152,48 @@ function meedan_oembed_scrape_generic(&$embed, $domain) {
       if (empty($embed->thumbnail_url)) {
         $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
       }
-
-      // Call domain-specific scraping function if it exists.
-      $callback = 'meedan_oembed_scrape_' . $domain;
-      if (function_exists($callback)) {
-        $callback($embed, $html);
-      }
     }
   }
 }
 
 /**
- * Scrape Facebook page.
+ * Scrape Facebook post.
  */
-/*
-function meedan_oembed_scrape_facebook(&$embed, $html) {
-  // If login page, bail now.
-  if ($html->find('body[class=login_page]')) {
-    $embed = NULL;
-    return;
-  }
+function meedan_oembed_scrape_facebook($provider, $url) {
+  include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
+  $provider_url = 'http://' . parse_url($url, PHP_URL_HOST);
+  $post_url = explode('/', str_replace($provider_url, '', $url));
+  $facebook = new Facebook(array(
+    'appId'  => variable_get('fboauth_id', ''),
+    'secret' => variable_get('fboauth_secret', ''),
+  ));
+  $embed = NULL;
+  try {
+    $embed = new stdclass();
+    $embed->url = $url;
+    $embed->provider = $provider;
+    $embed->provider_url = $provider_url;
+    $embed->provider_name = 'Facebook';
+    $embed->type = 'link';
+    // Get User ID
+    $user = $facebook->getUser();
+    $post_data = $facebook->api('/' . $post_url[3]);
+    $embed->title = $post_data['message'];
+    $embed->description = $post_data['message'];
+    $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
+    $embed->picture = isset($post_data['picture']) ? $post_data['picture'] : '';
+    $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
+    $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
+    $embed->author_name = $post_data['from']['name'];
+    $embed->author_url = $embed->provider_url . '/'. $post_url[1];
+    $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
 
-  // Extract message.
-  foreach ($html->find('div[class=mts]') as $todelete) {
-    $todelete->outertext = '';
+  } catch (FacebookApiException $e) {
+    watchdog('FacebookApi', t('Unable to fetch data from facebook post @url', array('@url' => $url)));
   }
-  $embed->description = $html->find('span[class=messageBody]', 0)->innertext;
-
-  // Extract author info.
-  $author_block = $html->find('div[class=fbStreamPermalinkHeader]', 0);
-  if ($author_block) {
-    $embed->thumbnail_url = $author_block->find('img[class=profilePic]', 0)->src;
-    $author_link = $author_block->find('div[class=UIImageBlock_Content] div a', 0);
-    if ($author_link) {
-      $embed->author_name = $author_link->innertext;
-      $embed->author_url = $author_link->href;
-    }
-  }
+  return $embed;
 }
-*/
+
 /**
  * Get domain name from url.
  * Get site name.
@@ -229,9 +239,18 @@ function meedan_oembed_theme() {
  */
 function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars) {
   $embed = $vars['embed'];
-  $vars['author_img'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->author_url, array('html' => TRUE));
+  $vars['author_img'] = l(theme('image', array('path' => $embed->author_img)), $embed->author_url, array('html' => TRUE));
   $vars['author_name'] = l($embed->author_name, $embed->author_url);
   $vars['content'] = $embed->description;
+  if (isset($embed->picture)) {
+   $vars['fb_picture']  = theme('image', array('path' => $embed->picture));
+  }
+  if (isset($embed->link_name)) {
+    $vars['fb_link_title'] = $embed->link_name;
+  }
+  if (isset($embed->link_description)) {
+   $vars['fb_link_desc'] = $embed->link_description;
+  }
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
@@ -318,3 +337,22 @@ function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
   return t('<em>[media-title:$nid]</em> is replaced with the Meedan oEmbed node view for <em>$nid</em>.');
 }
 
+/**
+ * Implements of hook_form_FORM_ID_form().
+ */
+function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id) {
+  include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
+  $facebook = new Facebook(array(
+    'appId'  => variable_get('fboauth_id', ''),
+    'secret' => variable_get('fboauth_secret', ''),
+  ));
+  // Get User ID
+  $user = $facebook->getUser();
+  if (!$user) {
+    $loginUrl = $facebook->getLoginUrl();
+    $form['facebook_login'] = array(
+      '#markup' => '<a href="'. $loginUrl .'">Login with Facebook</a>',
+      '#weight' => -99,
+    );
+  }
+}

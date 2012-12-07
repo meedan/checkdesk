@@ -7,6 +7,15 @@
 <?php if ($content) : ?>
   <div class="content"><?php print $content ?></div>
 <?php endif ?>
+<?php if ($fb_picture) : ?>
+  <div class="fb-picture"><?php print $fb_picture ?></div>
+<?php endif ?>
+<?php if ($fb_link_title) : ?>
+  <div class="fb-link-title"><?php print $fb_link_title ?></div>
+<?php endif ?>
+<?php if ($fb_link_desc) : ?>
+  <div class="fb-link-desc"><?php print $fb_link_desc ?></div>
+<?php endif ?>
 <?php if ($favicon_link) : ?>
   <div class="favicon"><?php print $favicon_link ?></div>
 <?php endif ?>
