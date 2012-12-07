@@ -105,6 +105,12 @@
 				.domain {
 					margin-bottom: $baseLineHeight;
 				}
+				img,
+				embed,
+				object,
+				video {
+					max-width: 100%;
+				}
 			}
 		}
 
