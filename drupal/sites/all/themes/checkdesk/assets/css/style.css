@@ -1832,16 +1832,26 @@ button.close {
   -webkit-appearance: none;
 }
 
-/* line 129, ../scss/override_ctb/_alerts.scss */
+/* line 130, ../scss/override_ctb/_alerts.scss */
 #absolute-messages-messages {
   width: 100%;
-  position: relative;
-  top: 33px;
+  position: absolute;
+  top: 0;
   left: 0;
   z-index: 10;
 }
 
-/* line 137, ../scss/override_ctb/_alerts.scss */
+/* line 139, ../scss/override_ctb/_alerts.scss */
+.toolbar #absolute-messages-messages {
+  top: 65px;
+}
+
+/* line 143, ../scss/override_ctb/_alerts.scss */
+.toolbar-drawer #absolute-messages-messages {
+  top: 98px;
+}
+
+/* line 147, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message {
   display: none;
   position: relative;
@@ -1851,12 +1861,12 @@ button.close {
   zoom: 1;
 }
 
-/* line 146, ../scss/override_ctb/_alerts.scss */
+/* line 156, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message.collapsible:hover {
   cursor: pointer;
 }
 
-/* line 149, ../scss/override_ctb/_alerts.scss */
+/* line 159, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message .content {
   margin: 0;
   padding: .5em 1.5em 0 1.5em;
@@ -1864,88 +1874,88 @@ button.close {
   overflow: hidden;
 }
 
-/* line 155, ../scss/override_ctb/_alerts.scss */
+/* line 165, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message .content a {
   text-decoration: underline;
 }
 
-/* line 158, ../scss/override_ctb/_alerts.scss */
+/* line 168, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status {
   background-color: #d9edf7;
   border-bottom: 1px solid #bce8f1;
   color: #3a87ad;
 }
 
-/* line 164, ../scss/override_ctb/_alerts.scss */
+/* line 174, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status a:link,
 .absolute-messages-status a:visited {
   color: #3a87ad;
 }
 
-/* line 167, ../scss/override_ctb/_alerts.scss */
+/* line 177, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning {
   background-color: #fcf8e3;
   border-bottom: 1px solid #fbeed5;
   color: #c09853;
 }
 
-/* line 173, ../scss/override_ctb/_alerts.scss */
+/* line 183, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning a:link,
 .absolute-messages-warning a:visited {
   color: #c09853;
 }
 
-/* line 176, ../scss/override_ctb/_alerts.scss */
+/* line 186, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error {
   background-color: #f2dede;
   border-bottom: 1px solid #eed3d7;
   color: #b94a48;
 }
 
-/* line 182, ../scss/override_ctb/_alerts.scss */
+/* line 192, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error a:link,
 .absolute-messages-error a:visited {
   color: #b94a48;
 }
 
-/* line 185, ../scss/override_ctb/_alerts.scss */
+/* line 195, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-actions {
   float: right;
 }
 
-/* line 191, ../scss/override_ctb/_alerts.scss */
+/* line 201, ../scss/override_ctb/_alerts.scss */
 a.absolute-messages-dismiss,
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss:hover,
 a.absolute-messages-dismiss-all:hover {
   display: block;
   position: absolute;
-  top: .8em;
-  right: .5em;
+  top: .3em;
+  right: 1em;
   z-index: 10;
   margin: 0;
   padding: 1px 3px;
-  line-height: 1em;
   text-decoration: none;
+  line-height: 1.2em;
   cursor: pointer;
 }
 
-/* line 204, ../scss/override_ctb/_alerts.scss */
+/* line 213, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status .absolute-messages-dismiss {
   color: #3a87ad;
 }
 
-/* line 207, ../scss/override_ctb/_alerts.scss */
+/* line 216, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning .absolute-messages-dismiss {
   color: #c09853;
 }
 
-/* line 210, ../scss/override_ctb/_alerts.scss */
+/* line 219, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error .absolute-messages-dismiss {
   color: #b94a48;
 }
 
-/* line 214, ../scss/override_ctb/_alerts.scss */
+/* line 223, ../scss/override_ctb/_alerts.scss */
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss-all:hover {
   border: 2px solid #222;
@@ -1953,7 +1963,7 @@ a.absolute-messages-dismiss-all:hover {
   color: #ccc;
 }
 
-/* line 219, ../scss/override_ctb/_alerts.scss */
+/* line 228, ../scss/override_ctb/_alerts.scss */
 #absolute-messages-show {
   display: none;
   position: absolute;
@@ -1970,7 +1980,7 @@ a.absolute-messages-dismiss-all:hover {
   z-index: 1;
 }
 
-/* line 234, ../scss/override_ctb/_alerts.scss */
+/* line 243, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-show {
   display: block;
   width: 16px;
@@ -1981,7 +1991,7 @@ a.absolute-messages-dismiss-all:hover {
 }
 
 /* And for Opera too. Ugh. */
-/* line 243, ../scss/override_ctb/_alerts.scss */
+/* line 252, ../scss/override_ctb/_alerts.scss */
 noindex:-o-prefocus, .absolute-messages-show {
   border-left: 1px solid #666;
   border-bottom: 1px solid #666;
@@ -3972,37 +3982,44 @@ div.tabs {
   display: inline-block;
   vertical-align: middle;
   text-align: left;
-  padding: 0.6em 1em;
 }
-/* line 92, ../scss/_report.scss */
+/* line 94, ../scss/_report.scss */
+.report .report-content .report-media .container .title,
+.report .report-content .report-media .container .content,
+.report .report-content .report-media .container .favicon,
+.report .report-content .report-media .container .domain {
+  margin: 0 1em;
+}
+/* line 97, ../scss/_report.scss */
 .report .report-content .report-media .container .oembed-title {
   display: none;
 }
-/* line 95, ../scss/_report.scss */
+/* line 100, ../scss/_report.scss */
 .report .report-content .report-media .container .title {
   padding: 1.2em 0;
 }
-/* line 98, ../scss/_report.scss */
+/* line 103, ../scss/_report.scss */
 .report .report-content .report-media .container .content {
   padding: 1.2em 0;
 }
-/* line 101, ../scss/_report.scss */
+/* line 106, ../scss/_report.scss */
 .report .report-content .report-media .container .favicon {
   float: left;
   padding: 0 0.5em;
 }
-/* line 105, ../scss/_report.scss */
+/* line 110, ../scss/_report.scss */
 .report .report-content .report-media .container .domain {
   margin-bottom: 1.2em;
 }
-/* line 111, ../scss/_report.scss */
+/* line 117, ../scss/_report.scss */
 .report .report-content .report-media .container img,
 .report .report-content .report-media .container embed,
 .report .report-content .report-media .container object,
-.report .report-content .report-media .container video {
+.report .report-content .report-media .container video,
+.report .report-content .report-media .container iframe {
   max-width: 100%;
 }
-/* line 117, ../scss/_report.scss */
+/* line 123, ../scss/_report.scss */
 .report .report-content > p {
   padding: 0.42857em 0.5em;
   border-bottom: 1px solid white;
@@ -4010,14 +4027,14 @@ div.tabs {
   font-weight: normal;
   line-height: 1.2em;
 }
-/* line 124, ../scss/_report.scss */
+/* line 130, ../scss/_report.scss */
 .report .report-content .gravatar img {
   vertical-align: text-bottom;
   width: 20px;
   height: 20px;
   margin-right: 0.33333em;
 }
-/* line 131, ../scss/_report.scss */
+/* line 137, ../scss/_report.scss */
 .report .report-content .description {
   font-size: 14px;
   font-weight: normal;
@@ -4027,7 +4044,7 @@ div.tabs {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
   background-position: 10px 0;
 }
-/* line 143, ../scss/_report.scss */
+/* line 149, ../scss/_report.scss */
 .report .report-activity > header {
   *zoom: 1;
   padding: 0.42857em 0.5em;
@@ -4044,7 +4061,7 @@ div.tabs {
 .report .report-activity > header:after {
   clear: both;
 }
-/* line 148, ../scss/_report.scss */
+/* line 154, ../scss/_report.scss */
 .report .report-activity > header h3 {
   float: left;
   margin: 0;
@@ -4054,80 +4071,80 @@ div.tabs {
   font-weight: normal;
   line-height: 1.2em;
 }
-/* line 153, ../scss/_report.scss */
+/* line 159, ../scss/_report.scss */
 .report .report-activity > header .report-status {
   width: 200px;
   float: right;
   text-align: right;
 }
-/* line 158, ../scss/_report.scss */
+/* line 164, ../scss/_report.scss */
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
   width: 20px;
   float: right;
 }
-/* line 162, ../scss/_report.scss */
+/* line 168, ../scss/_report.scss */
 .report .report-activity > header .report-status span.status-name {
   width: 150px;
   text-align: right;
   float: right;
 }
-/* line 169, ../scss/_report.scss */
+/* line 175, ../scss/_report.scss */
 .report .report-activity > header:hover {
   background-color: #d4d4d4;
 }
-/* line 174, ../scss/_report.scss */
+/* line 180, ../scss/_report.scss */
 .report .report-activity > .undetermined {
   background-color: #fee9cc;
 }
-/* line 176, ../scss/_report.scss */
+/* line 182, ../scss/_report.scss */
 .report .report-activity > .undetermined a {
   color: #c67605;
 }
-/* line 177, ../scss/_report.scss */
+/* line 183, ../scss/_report.scss */
 .report .report-activity > .undetermined:hover {
   background-color: #fdd49a;
 }
-/* line 179, ../scss/_report.scss */
+/* line 185, ../scss/_report.scss */
 .report .report-activity > .undetermined:hover a {
   color: #945904;
 }
-/* line 182, ../scss/_report.scss */
+/* line 188, ../scss/_report.scss */
 .report .report-activity > .verified {
   background-color: #f1f9f1;
 }
-/* line 184, ../scss/_report.scss */
+/* line 190, ../scss/_report.scss */
 .report .report-activity > .verified a {
   color: #46a546;
 }
-/* line 185, ../scss/_report.scss */
+/* line 191, ../scss/_report.scss */
 .report .report-activity > .verified:hover {
   background-color: #cdeacd;
 }
-/* line 187, ../scss/_report.scss */
+/* line 193, ../scss/_report.scss */
 .report .report-activity > .verified:hover a {
   color: #378137;
 }
-/* line 190, ../scss/_report.scss */
+/* line 196, ../scss/_report.scss */
 .report .report-activity > .false {
   background-color: #f4c8c5;
 }
-/* line 192, ../scss/_report.scss */
+/* line 198, ../scss/_report.scss */
 .report .report-activity > .false a {
   color: #9d261d;
 }
-/* line 193, ../scss/_report.scss */
+/* line 199, ../scss/_report.scss */
 .report .report-activity > .false:hover {
   background-color: #eca09a;
 }
-/* line 195, ../scss/_report.scss */
+/* line 201, ../scss/_report.scss */
 .report .report-activity > .false:hover a {
   color: #721c15;
 }
-/* line 199, ../scss/_report.scss */
+/* line 205, ../scss/_report.scss */
 .report .report-activity .activity-wrapper {
   display: none;
 }
-/* line 203, ../scss/_report.scss */
+/* line 209, ../scss/_report.scss */
 .report .report-activity .activity-list {
   list-style: none;
   margin: 0;
@@ -4136,7 +4153,7 @@ div.tabs {
   padding: 0.42857em 0.5em;
   background-color: #fbfbfb;
 }
-/* line 208, ../scss/_report.scss */
+/* line 214, ../scss/_report.scss */
 .report .report-activity .activity-list li {
   overflow: hidden;
   *zoom: 1;
@@ -4146,23 +4163,23 @@ div.tabs {
   padding-bottom: 0.6em;
   padding-left: 2em;
 }
-/* line 217, ../scss/_report.scss */
+/* line 223, ../scss/_report.scss */
 .report .report-activity .activity-list li header [class^="icon-"],
 .report .report-activity .activity-list li header [class*=" icon-"] {
   float: left;
   margin-left: -2.8em;
   margin-right: 0.5em;
 }
-/* line 222, ../scss/_report.scss */
+/* line 228, ../scss/_report.scss */
 .report .report-activity .activity-list li header .time {
   color: #999999;
   margin-right: 1em;
 }
-/* line 226, ../scss/_report.scss */
+/* line 232, ../scss/_report.scss */
 .report .report-activity .activity-list li header a {
   font-weight: bold;
 }
-/* line 230, ../scss/_report.scss */
+/* line 236, ../scss/_report.scss */
 .report .report-activity .activity-list li .message {
   margin-top: 0.42857em;
   padding: 0.42857em 0.5em;
@@ -4173,46 +4190,46 @@ div.tabs {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 235, ../scss/_report.scss */
+/* line 241, ../scss/_report.scss */
 .report .report-activity .activity-list li .message > p {
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 242, ../scss/_report.scss */
+/* line 248, ../scss/_report.scss */
 .report .report-activity #comment-form {
   overflow: hidden;
   *zoom: 1;
   padding: 0 0.5em;
   background-color: #eeeeee;
 }
-/* line 246, ../scss/_report.scss */
+/* line 252, ../scss/_report.scss */
 .report .report-activity #comment-form label {
   display: none;
 }
-/* line 251, ../scss/_report.scss */
+/* line 257, ../scss/_report.scss */
 .report .report-activity > footer {
   color: #999999;
   padding: 0.42857em 0.5em;
   font-size: 11px;
 }
-/* line 258, ../scss/_report.scss */
+/* line 264, ../scss/_report.scss */
 .report .open > .false {
   background-color: #eca09a;
 }
-/* line 261, ../scss/_report.scss */
+/* line 267, ../scss/_report.scss */
 .report .open > .undetermined {
   background-color: #fdd49a;
 }
-/* line 263, ../scss/_report.scss */
+/* line 269, ../scss/_report.scss */
 .report .open > .undetermined a {
   color: #945904;
 }
-/* line 265, ../scss/_report.scss */
+/* line 271, ../scss/_report.scss */
 .report .open > .verified {
   background-color: #cdeacd;
 }
-/* line 270, ../scss/_report.scss */
+/* line 276, ../scss/_report.scss */
 .report .icon-ok-sign, .report .icon-ok-sign {
   color: #46a546;
   display: block;
@@ -4233,7 +4250,7 @@ div.tabs {
   color: #2f6f2f;
   font-family: 'FontAwesome';
 }
-/* line 274, ../scss/_report.scss */
+/* line 280, ../scss/_report.scss */
 .report .icon-question-sign, .report .icon-remove-sign, .report .icon-question-sign {
   color: #f89406;
   display: block;
@@ -4254,7 +4271,7 @@ div.tabs {
   color: #ad6704;
   font-family: 'FontAwesome';
 }
-/* line 278, ../scss/_report.scss */
+/* line 284, ../scss/_report.scss */
 .report .icon-remove-sign, .report .icon-question-sign, .report .icon-remove-sign {
   color: #9d261d;
   display: block;
@@ -4962,7 +4979,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #0088FF;
+  background-color: #3AD900;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
