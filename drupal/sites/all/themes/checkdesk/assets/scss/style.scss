@@ -162,6 +162,12 @@ i {
   }
 }
 
+// Hide the summary link from text fields.
+// FIXME This is a hack because the fields are of type "Long text and summary" while they should really be of type "Long text".
+.field-edit-link {
+  display: none
+}
+
 // ====================================================================== 
 // Final centralized render of CSS
 //
