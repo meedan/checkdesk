@@ -5,73 +5,9 @@
 // This allows us to more easily redefine the layout in different context. 
 // We also combine this technique with media queries to resize based on browser width.
 //
-// Compatibility: untested
-
 // Further Reading: 
 // http://susy.oddbird.net/guides/reference/#ref-responsive
+//
+// Compatibility: untested
 
-body {
-
-  #page {
-    // The all-powerful container() mixin
-    // 
-    // The container sets the ratio for all other calculations.
-    // You should not need to set $container again, but you can.
-    // Requires a mathematically sensible $container-width aka $cw (whole integers, usually even).
-    // 
-    //$cw - the width of the outer width in columns, usually 12 or 24
-    @include container($cw, $break-small);
-    // @include susy-grid-background;
-    margin-top: $gw * 6;
-  }
-
-  #content-inner {
-    // The use of squish adds to the overall width and must be accounted for: 
-    // account-for-squish()
-    @include span-columns($cw, $cw);
-    // $center-column-width has a twelveth-of $container-width on either side
-    // @include squish(twelveth-of($cw),twelveth-of($cw),$cw);
-  }
-
-  ul.tabs.primary {
-    @include bb-tabs($break-small, $break-small);
-    padding-top: 3px;
-  }
-
-  // =====
-  // breakpoint: 1
-  // @include at-breakpoint($break-small) {
-  //   $fw: 4;
-  //   $gw: 0.5em;
-  //   #page {
-  //     border-top: 5px solid bb_random_color();
-      
-  //     #content-inner {
-  //       margin-top: 3px;
-  //       border-top: 5px solid bb_random_color();
-  //       @include span-columns($break-small, $break-small, $gw);
-  //       clear: both;
-  //       @include checkdesk-form($fw, $break-small);
-  //     }
-  //   }
-  // }
-
-
-  // =====
-  // breakpoint: medium
-  // @include at-breakpoint($break-medium) {
-  //   border-top: 5px solid green;
-  //   #page {
-  //     border-top: 5px solid green;
-  //     @include container;
-  //     #content-inner {
-  //       border-top: 5px solid pink;
-  //     // @include reset-box-model;
-  //     // background-color: red;
-  //     @include span-columns($break-medium, $break-medium);
-  //     @include squish(half-of($break-medium), half-of($break-medium), $break-medium);
-  //     @include checkdesk-form($break-medium/2, $break-medium);
-  //     }
-  //   }
-  // }
-}
+// Working centrally in style.scss for now, will refactor lator, - CGB Dec 6 2012

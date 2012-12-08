@@ -1,5 +1,9 @@
 @charset "UTF-8";
+
 // Checkdesk Sass Theme 2.x
+
+// Modular scale via gem
+@import "modular-scale";
 
 // First, Checkdesk configuration.
 @import "base";
@@ -33,6 +37,7 @@
 // Import the classnames as a mixin
 @import "bowerbird/icons/fontawesome";
 // Now use the mixin
+
 @include all-fontawesome-classnames;
 
 // Bowerbird fork of fancy-buttons 
@@ -162,18 +167,32 @@ i {
   }
 }
 
+// Disable views configuration popup
+body .contextual-links-wrapper {
+  display: none!important;
+}
+
 // ====================================================================== 
 // Final centralized render of CSS
 //
+
 body {
-  @include bb-background();
-  background-color: $light-grey;
-  .column.center {
-    // background-color: white;
-    // @include single-box-shadow(darken($light-grey, 5%));
-  }
-  #content-header {
-	@include ctb-clearfix();
+  #page {
+    @include container($cw);
+    @include bb-background();
+    @include checkdesk-form;
+    // @include debug-vertical-alignment();
+    // background-color: $light-grey;
+    // @include susy-grid-background;
+    #content-inner {
+      @include span-columns($cw, $cw, $gw);
+      // @include susy-grid-background;
+      @include bb-tabs;
+    }
+    #content-header {
+      // @include debug-colors;
+    	@include clearfix;
+    }
   }
 }
 

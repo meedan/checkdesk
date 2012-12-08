@@ -1,51 +1,46 @@
 // Notifications block
 //
 // When the user gets a notification they can preview it in the navigation.
+// http://wf.meedan.net/project/checkdesk/notifications
+// Contained by: Navigation
 //
 // Compatibility: untested
-
 #block-views-my-notifications-block {
-  @include span-columns(2 omega, $cw, $gw);
-  font-family: Arial, sans-serif;
-  text-align: opposite-position($from-direction);
   position: relative;
+  @include clearfix;
+  overflow: visible;
   float: opposite-position($from-direction);
   .auto-refresh {
     display: none;
   }
   h2 {
-    margin: 0;
-    padding: 0 3px;
-    color: #fff;
-    font-size: 14px;
-    display: inline-block;
+    span { @include reset-box-model; }
+    @include reset-box-model;
+    @include chunky_block($firetruck-red, blue, green, white);
     font-weight: normal;
     cursor: pointer;
     position: relative;
     z-index: 2;
-    line-height: 30px;
     .notifications-count {
-      display: inline;
-      color: #2F58B4;
+      color: $notification-count-color;
       span {
         padding: 1px;
-        background: #fff;
-	      @include border-radius(5px);
+        background: transparentize(#ffffff, 0.9);
       }
     }
   }
   .content {
-    text-align: $from-direction;
-    padding: 0;
-    margin: 0;
+    @include reset-box-model;
+    border: 5px solid $syntax-four;
     position: absolute;
-    #{opposite-position($from-direction)}: 0;
-    top: 29px;
-    width: 360px;
-    border: 1px solid #ccc;
+    #{$from-direction}: 0;
+    top: $base-line-height;
+    background: $light-grey;
+    @include span-columns($cw omega, $cw/2);
     .view-content {
-      height: 200px;
+      height: 250px;
       overflow: auto;
+      background: white;
     }
     .item-list {
       display: none;
@@ -55,8 +50,7 @@
       padding: 12px 18px;
       display: block;
       a, a:visited, a:link {
-        font-family: Arial, sans-serif;
-        font-size: 13px;
+        font-size: $small-font-size;
         color: #6a6a6a;
         text-decoration: none;
       }
@@ -74,12 +68,11 @@
       clear: both;
     }
     .heartbeat-activity {
-      color: #6a6a6a;
-      border-bottom: 1px solid #c9c9c9;
-      margin: 0;
-      padding: 12px 18px;
-      font-family: Arial, sans-serif;
-      font-size: 12px;
+      color: $dark-grey;
+      border-bottom: 1px solid $light-grey;
+      padding: { top: $gw; bottom: $gw; } 
+      @include span-columns($cw, $cw);
+      font-size: $small-font-size;
       a, a:visited, a:link {
         text-decoration: none;
         font-weight: bold;
@@ -93,7 +86,7 @@
       }
       p {
         margin: 0;
-        width: 270px;
+        @include span-columns($cw - 2, $cw);
       }
       img {
         margin-#{opposite-position($from-direction)}: 9px;
@@ -125,17 +118,21 @@
     }
   }
 }
+
 #block-views-my-notifications-block.notifications-block-expanded {
   .content, h2 {
     background: #fff;
   }
   h2 {
     color: #626262;
-	  @include border-radius(5px 5px 0 0);
+    z-index: 6;
+    font-size: $base-font-size;
+	  // @include border-radius(5px 5px 0 0);
   }
   .content {
-    @include box-shadow(1px 1px 10px #333);
-	  @include border-radius(5px);
+    // @include box-shadow(1px 1px 10px #333);
+	  // @include border-radius(5px);
+    z-index: 5;
     @if $from-direction == left {
       @include border-top-right-radius(0);
     } @else {

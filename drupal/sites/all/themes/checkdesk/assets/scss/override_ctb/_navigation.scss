@@ -1,387 +1,458 @@
-// Checkdesk Navigation
+// Disable Drupal dropshadow
+#toolbar {
+  @include single-box-shadow(transparent); 
+}
+
+// hack for empty div need to remove this in markup. CGB Dec 2012
+li.menu-449 {
+  display: none!important;
+}
+
+// Checkdesk Navigation 
 //
-// This file is a merge and replacement for Twitter Bootstrap navs and navbars
-
-// Base class
-.nav {
-  margin-#{opposite-position($from-direction)}: 0;
-  margin-bottom: $baseLineHeight;
-  list-style: none;
-}
-
-// Make links block level
-.nav > li > a {
-  display: block;
-}
-
-.nav > li > a:hover {
-  text-decoration: none;
-  background-color: $grayLighter;
-}
-
-// Redeclare pull classes because of specifity
-.nav > .pull-right {
-  float: opposite-position($from-direction);
-}
-
-// Nav headers (for dropdowns and lists)
-.nav-header {
-  display: block;
-  padding: 3px 15px;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: $baseLineHeight;
-  color: $grayLight;
-  text-shadow: 0 1px 0 rgba(255,255,255,.5);
-  text-transform: uppercase;
-}
-
-// Space them out when they follow another list item (link)
-.nav li + .nav-header {
-  margin-top: 9px;
-}
-
+// http://wf.meedan.net/project/checkdesk/navigation
 //
-// Navbars (Redux)
-// --------------------------------------------------
-
-// COMMON STYLES
-// -------------
-
-// Base class and wrapper
+// Integrated with our copy of Twitter Bootstrap nav and navbars in navigation.scss
 .navbar {
-  overflow: visible;
-  margin-bottom: $baseLineHeight;
-  color: $navbarText;
-
-  // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
-  *position: relative;
-  *z-index: 2;
-}
-
-// Inner for background effects
-// Gradient is applied to its own element because overflow visible is not honored by IE when filter is present
-.navbar-inner {
-  min-height: $navbarHeight;
-  padding-#{$from-direction}:  20px;
-  padding-#{opposite-position($from-direction)}: 20px;
-  background: $navbarBackground;
-  border: 1px solid $navbarBorder;
-  @include box-shadow(0 1px 4px rgba(0,0,0,.065));
-}
-
-// Set width to auto for default container
-// We then reset it for fixed navbars in the #gridSystem mixin
-.navbar .container {
-  width: auto;
-}
-
-// Plain text in topbar
-// -------------------------
-.navbar-text {
-  margin-bottom: 0;
-  line-height: $navbarHeight;
-}
-
-// Janky solution for now to account for links outside the .nav
-// -------------------------
-.navbar-link {
-  color: $navbarLinkColor;
-  &:hover {
-    color: $navbarLinkColorHover;
-  }
-}
-
-// Dividers in navbar
-// -------------------------
-.navbar .divider-vertical {
-  height: $navbarHeight;
-  margin: 0 9px;
-  border-#{$from-direction}: 1px solid $navbarBackground;
-  border-#{opposite-position($from-direction)}: 1px solid $navbarBackgroundHighlight;
-}
-
-$avatar-height: 22px;
-$avatar-padding: 2px;
-
-// Buttons in navbar
-// -------------------------
-.navbar .btn,
-.navbar .btn-group {
-  height: $avatar-height + $avatar-padding*2;
-  padding: 0;
-}
-
-// account button
-.navbar .btn-group a.btn-account {
-  background: darken($grayLighter, 10%);
+  @include reset-box-model;
+  background-color: $syntax-three;
   font-size: $base-font-size;
-  height: $avatar-height;
-  padding-#{opposite-position($from-direction)}: 5px;
-  margin-top: 4px;
-  .avatar {
-    display: inline-block;
-    @include ctb-ie7-restore-right-whitespace();
-    vertical-align: text-top;
-    margin-#{opposite-position($from-direction)}: 10px;
-    height: $avatar-height;
-    @include border-radius(8px 0px, 4px 4px);
-    overflow: hidden;
-    img {
-      @include reset-box-model();
-      @include border-radius(0px 0px, 4px 4px);
-      height: $avatar-height;
-    //   @include ctb-square(24px);
-    //   margin-#{opposite-position($from-direction)}: $gridGutterWidth/2;
+  line-height: $base-line-height;
+  display: block;
+
+  .nav {
+    @include reset-box-model;
+    & > li {
+      @include chunky_block($syntax-one);
+      display: block;
+      & .icon-home {
+        @include icon("home", fontawesome, $base-font-size, #ffffff);
+      }
+      & > a {
+        color: white;
+        text-decoration: none;
+      }
     }
   }
 }
 
-// Static navbar
-// -------------------------
-
-.navbar-static-top {
-  position: static;
-  width: 100%;
-  margin-bottom: 0; // remove 18px margin for default navbar
-  .navbar-inner {
-    @include ctb-border-radius(0);
+#info-menu {
+  li {
+    a {
+      @include icon('info-sign');
+      &:before {
+        margin-#{opposite-position($from-direction)}: $gw;
+      }
+    }
   }
 }
 
-// Fixed navbar
-// -------------------------
-
-// Shared (top/bottom) styles
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: $zindexFixedNavbar;
-  margin-bottom: 0; // remove 18px margin for default navbar
-}
-
-.navbar-fixed-top,
-.navbar-fixed-bottom,
-.navbar-static-top {
-  .navbar-inner {
-    border: 0;
-  }
-}
-.navbar-fixed-top .navbar-inner,
-.navbar-fixed-bottom .navbar-inner {
-  padding-#{$from-direction}:  0;
-  padding-#{opposite-position($from-direction)}: 0;
-  @include border-radius(0);
-}
-
-// Reset container width
-// Required here as we reset the width earlier on and the grid mixins don't override early enough
-.navbar-static-top .container,
-.navbar-fixed-top .container,
-.navbar-fixed-bottom .container {
-  // @include grid-core-span($gridColumns, $gridColumnWidth, $gridGutterWidth);
-}
-
-// Fixed to top
-.navbar-fixed-top {
-  top: 0;
-}
-.navbar-fixed-top,
-.navbar-static-top {
-  .navbar-inner {
-    @include ctb-box-shadow(#{inset 0 -1px 0 rgba(0,0,0,.1), 0 1px 10px rgba(0,0,0,.1)});
+// Section 
+#user-menu {
+  @include reset-box-model;
+  a.btn {
+    @include reset-box-model;
+    @include chunky_block($light-grey, $syntax-one);
+    img {
+      width: $base-font-size;
+      height: $base-font-size;
+    }
   }
 }
 
-// Fixed to bottom
-.navbar-fixed-bottom {
-  bottom: 0;
-  .navbar-inner {
-    @include box-shadow(#{inset 0 1px 0 rgba(0,0,0,.1), 0 -1px 10px rgba(0,0,0,.1)});
-  }
-}
-
-// For Drupal Admin Toolbar
-.toolbar .navbar-fixed-top {
-  top: $toolbarHeight;
-}
-
-.toolbar-drawer .navbar-fixed-top {
-	top: $toolbarHeight + $drawerHeight;
-}
-
-// NAVIGATION
-// ----------
-
-.navbar .nav {
-  position: relative;
-  #{$from-direction}: 0;
-  display: block;
-  float: $from-direction;
-  margin: 0;
-  margin-#{opposite-position($from-direction)}: 10px;
-}
-.navbar .nav.pull-right {
-  float: #{opposite-position($from-direction)}; // redeclare due to specificity
-}
-.navbar .nav > li {
-  display: block;
-  float: $from-direction;
-  line-height: $baseLineHeight;
-  margin: 0;
-}
-
-// Links
-
-.nav > li > a {
+#navigation-region {
   display: block;
 }
 
-.navbar .nav > li > a {
-  float: none;
-  // Vertically center the text given $navbarHeight
-  padding: 5px 15px 5px;
-  color: $navbarLinkColor;
-  text-decoration: none;
-  text-shadow: 0 1px 0 $navbarBackgroundHighlight;
+#info-menu {
+  // @include reset-box-model;
+  // display: block;
 }
 
-.navbar li.home a span.icon-home {
-  @include icon(home, fontawesome, 15px, white, transparent);
-  padding: 0;
-}
+// // Checkdesk Navigation
+// //
+// // This file is a merge and replacement for Twitter Bootstrap navs and navbars
 
-.navbar .nav .dropdown-toggle .caret {
-  margin-top: 8px;
-}
+// // Base class
+// .nav {
+//   margin-#{opposite-position($from-direction)}: 0;
+//   margin-bottom: $baseLineHeight;
+//   list-style: none;
+// }
 
-// Hover
-.navbar .nav > li > a:focus,
-.navbar .nav > li > a:hover {
-  background-color: $navbarLinkBackgroundHover; // "transparent" is default to differentiate :hover from .active
-  color: $navbarLinkColorHover;
-  text-decoration: none;
-}
+// // Make links block level
+// .nav > li > a {
+//   display: block;
+// }
 
-// Active nav items
-.navbar .nav > .active > a,
-.navbar .nav > .active > a:hover,
-.navbar .nav > .active > a:focus {
-  color: $navbarLinkColorActive;
-  text-decoration: none;
-  background-color: $navbarLinkBackgroundActive;
-  -webkit-box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
-     -moz-box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
-          box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
-}
+// .nav > li > a:hover {
+//   text-decoration: none;
+//   background-color: $grayLighter;
+// }
 
-// Navbar button for toggling navbar items in responsive layouts
-// These definitions need to come after '.navbar .btn'
-.navbar .btn-navbar {
-  display: none;
-  float: #{opposite-position($from-direction)};
-  padding: 7px 10px;
-  margin-#{opposite-position($from-direction)}: 5px;
-  margin-#{opposite-position($from-direction)}: 5px;
-  @include ctb-buttonBackground(darken($navbarBackgroundHighlight, 5%), darken($navbarBackground, 5%));
-  @include ctb-box-shadow(#{inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.075)});
-}
-.navbar .btn-navbar .icon-bar {
-  display: block;
-  width: 18px;
-  height: 2px;
-  background-color: #f5f5f5;
-  @include ctb-border-radius(1px);
-  @include ctb-box-shadow(0 1px 0 rgba(0,0,0,.25));
-}
+// // Redeclare pull classes because of specifity
+// .nav > .pull-right {
+//   float: opposite-position($from-direction);
+// }
 
-.btn-navbar .icon-bar + .icon-bar {
-  margin-top: 3px;
-}
+// // Nav headers (for dropdowns and lists)
+// .nav-header {
+//   display: block;
+//   padding: 3px 15px;
+//   font-size: 11px;
+//   font-weight: bold;
+//   line-height: $baseLineHeight;
+//   color: $grayLight;
+//   text-shadow: 0 1px 0 rgba(255,255,255,.5);
+//   text-transform: uppercase;
+// }
 
-// Dropdown menus
-// --------------
+// // Space them out when they follow another list item (link)
+// .nav li + .nav-header {
+//   margin-top: 9px;
+// }
 
-// Menu position and menu carets
-.navbar .nav > li > .dropdown-menu {
-  &:before {
-    content: '';
-    display: inline-block;
-    border-#{$from-direction}: 7px solid transparent;
-    border-#{opposite-position($from-direction)}: 7px solid transparent;
-    border-bottom: 7px solid #ccc;
-    border-bottom-color: $dropdownBorder;
-    position: absolute;
-    top: -7px;
-    #{$from-direction}: 9px;
-  }
-  &:after {
-    content: '';
-    display: inline-block;
-    border-#{$from-direction}:   6px solid transparent;
-    border-#{opposite-position($from-direction)}:  6px solid transparent;
-    border-bottom: 6px solid $dropdownBackground;
-    position: absolute;
-    top: -6px;
-    #{$from-direction}: 10px;
-  }
-}
-// Menu position and menu caret support for dropups via extra dropup class
-.navbar-fixed-bottom .nav > li > .dropdown-menu {
-  &:before {
-    border-top: 7px solid #ccc;
-    border-top-color: $dropdownBorder;
-    border-bottom: 0;
-    bottom: -7px;
-    top: auto;
-  }
-  &:after {
-    border-top: 6px solid $dropdownBackground;
-    border-bottom: 0;
-    bottom: -6px;
-    top: auto;
-  }
-}
+// //
+// // Navbars (Redux)
+// // --------------------------------------------------
 
-// Remove background color from open dropdown
-.navbar .nav li.dropdown.open > .dropdown-toggle,
-.navbar .nav li.dropdown.active > .dropdown-toggle,
-.navbar .nav li.dropdown.open.active > .dropdown-toggle {
-  background-color: $navbarLinkBackgroundActive;
-  color: $navbarLinkColorActive;
-}
-.navbar .nav li.dropdown > .dropdown-toggle .caret {
-  border-top-color: $navbarLinkColor;
-  border-bottom-color: $navbarLinkColor;
-}
-.navbar .nav li.dropdown.open > .dropdown-toggle .caret,
-.navbar .nav li.dropdown.active > .dropdown-toggle .caret,
-.navbar .nav li.dropdown.open.active > .dropdown-toggle .caret {
-  border-top-color: $navbarLinkColorActive;
-  border-bottom-color: $navbarLinkColorActive;
-}
+// // COMMON STYLES
+// // -------------
 
-// Right aligned menus need alt position
-.navbar .pull-right > li > .dropdown-menu,
-.navbar .nav > li > .dropdown-menu.pull-right {
-  #{$from-direction}: auto;
-  #{opposite-position($from-direction)}: 0;
+// // Base class and wrapper
+// .navbar {
+//   overflow: visible;
+//   margin-bottom: $baseLineHeight;
+//   color: $navbarText;
+
+//   // Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar
+//   *position: relative;
+//   *z-index: 2;
+// }
+
+// // Inner for background effects
+// // Gradient is applied to its own element because overflow visible is not honored by IE when filter is present
+// .navbar-inner {
+//   min-height: $navbarHeight;
+//   padding-#{$from-direction}:  20px;
+//   padding-#{opposite-position($from-direction)}: 20px;
+//   background: $navbarBackground;
+//   border: 1px solid $navbarBorder;
+//   @include box-shadow(0 1px 4px rgba(0,0,0,.065));
+// }
+
+// // Set width to auto for default container
+// // We then reset it for fixed navbars in the #gridSystem mixin
+// .navbar .container {
+//   width: auto;
+// }
+
+// // Plain text in topbar
+// // -------------------------
+// .navbar-text {
+//   margin-bottom: 0;
+//   line-height: $navbarHeight;
+// }
+
+// // Janky solution for now to account for links outside the .nav
+// // -------------------------
+// .navbar-link {
+//   color: $navbarLinkColor;
+//   &:hover {
+//     color: $navbarLinkColorHover;
+//   }
+// }
+
+// // Dividers in navbar
+// // -------------------------
+// .navbar .divider-vertical {
+//   height: $navbarHeight;
+//   margin: 0 9px;
+//   border-#{$from-direction}: 1px solid $navbarBackground;
+//   border-#{opposite-position($from-direction)}: 1px solid $navbarBackgroundHighlight;
+// }
+
+// $avatar-height: 22px;
+// $avatar-padding: 2px;
+
+// // Buttons in navbar
+// // -------------------------
+// .navbar .btn,
+// .navbar .btn-group {
+//   height: $avatar-height + $avatar-padding*2;
+//   padding: 0;
+// }
+
+// // account button
+// .navbar .btn-group a.btn-account {
+//   background: darken($grayLighter, 10%);
+//   font-size: $base-font-size;
+//   height: $avatar-height;
+//   padding-#{opposite-position($from-direction)}: 5px;
+//   margin-top: 4px;
+//   .avatar {
+//     display: inline-block;
+//     @include ctb-ie7-restore-right-whitespace();
+//     vertical-align: text-top;
+//     margin-#{opposite-position($from-direction)}: 10px;
+//     height: $avatar-height;
+//     @include border-radius(8px 0px, 4px 4px);
+//     overflow: hidden;
+//     img {
+//       @include reset-box-model();
+//       @include border-radius(0px 0px, 4px 4px);
+//       height: $avatar-height;
+//     //   @include ctb-square(24px);
+//     //   margin-#{opposite-position($from-direction)}: $gridGutterWidth/2;
+//     }
+//   }
+// }
+
+// // Static navbar
+// // -------------------------
+
+// .navbar-static-top {
+//   position: static;
+//   width: 100%;
+//   margin-bottom: 0; // remove 18px margin for default navbar
+//   .navbar-inner {
+//     @include ctb-border-radius(0);
+//   }
+// }
+
+// // Fixed navbar
+// // -------------------------
+
+// // Shared (top/bottom) styles
+// .navbar-fixed-top,
+// .navbar-fixed-bottom {
+//   position: fixed;
+//   right: 0;
+//   left: 0;
+//   z-index: $zindexFixedNavbar;
+//   margin-bottom: 0; // remove 18px margin for default navbar
+// }
+
+// .navbar-fixed-top,
+// .navbar-fixed-bottom,
+// .navbar-static-top {
+//   .navbar-inner {
+//     border: 0;
+//   }
+// }
+// .navbar-fixed-top .navbar-inner,
+// .navbar-fixed-bottom .navbar-inner {
+//   padding-#{$from-direction}:  0;
+//   padding-#{opposite-position($from-direction)}: 0;
+//   @include border-radius(0);
+// }
+
+// // Reset container width
+// // Required here as we reset the width earlier on and the grid mixins don't override early enough
+// .navbar-static-top .container,
+// .navbar-fixed-top .container,
+// .navbar-fixed-bottom .container {
+//   // @include grid-core-span($gridColumns, $gridColumnWidth, $gridGutterWidth);
+// }
+
+// // Fixed to top
+// .navbar-fixed-top {
+//   top: 0;
+// }
+// .navbar-fixed-top,
+// .navbar-static-top {
+//   .navbar-inner {
+//     @include ctb-box-shadow(#{inset 0 -1px 0 rgba(0,0,0,.1), 0 1px 10px rgba(0,0,0,.1)});
+//   }
+// }
+
+// // Fixed to bottom
+// .navbar-fixed-bottom {
+//   bottom: 0;
+//   .navbar-inner {
+//     @include box-shadow(#{inset 0 1px 0 rgba(0,0,0,.1), 0 -1px 10px rgba(0,0,0,.1)});
+//   }
+// }
+
+// // For Drupal Admin Toolbar
+// .toolbar .navbar-fixed-top {
+//   top: $toolbarHeight;
+// }
+
+// .toolbar-drawer .navbar-fixed-top {
+// 	top: $toolbarHeight + $drawerHeight;
+// }
+
+// // NAVIGATION
+// // ----------
+
+// .navbar .nav {
+//   position: relative;
+//   #{$from-direction}: 0;
+//   display: block;
+//   float: $from-direction;
+//   margin: 0;
+//   margin-#{opposite-position($from-direction)}: 10px;
+// }
+// .navbar .nav.pull-right {
+//   float: #{opposite-position($from-direction)}; // redeclare due to specificity
+// }
+// .navbar .nav > li {
+//   display: block;
+//   float: $from-direction;
+//   line-height: $baseLineHeight;
+//   margin: 0;
+// }
+
+// // Links
+
+// .nav > li > a {
+//   display: block;
+// }
+
+// .navbar .nav > li > a {
+//   float: none;
+//   // Vertically center the text given $navbarHeight
+//   padding: 5px 15px 5px;
+//   color: $navbarLinkColor;
+//   text-decoration: none;
+//   text-shadow: 0 1px 0 $navbarBackgroundHighlight;
+// }
+
+// .navbar li.home a span.icon-home {
+//   @include icon(home, fontawesome, 15px, white, transparent);
+//   padding: 0;
+// }
+
+// .navbar .nav .dropdown-toggle .caret {
+//   margin-top: 8px;
+// }
+
+// // Hover
+// .navbar .nav > li > a:focus,
+// .navbar .nav > li > a:hover {
+//   background-color: $navbarLinkBackgroundHover; // "transparent" is default to differentiate :hover from .active
+//   color: $navbarLinkColorHover;
+//   text-decoration: none;
+// }
+
+// // Active nav items
+// .navbar .nav > .active > a,
+// .navbar .nav > .active > a:hover,
+// .navbar .nav > .active > a:focus {
+//   color: $navbarLinkColorActive;
+//   text-decoration: none;
+//   background-color: $navbarLinkBackgroundActive;
+//   -webkit-box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
+//      -moz-box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
+//           box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
+// }
+
+// // Navbar button for toggling navbar items in responsive layouts
+// // These definitions need to come after '.navbar .btn'
+// .navbar .btn-navbar {
+//   display: none;
+//   float: #{opposite-position($from-direction)};
+//   padding: 7px 10px;
+//   margin-#{opposite-position($from-direction)}: 5px;
+//   margin-#{opposite-position($from-direction)}: 5px;
+//   @include ctb-buttonBackground(darken($navbarBackgroundHighlight, 5%), darken($navbarBackground, 5%));
+//   @include ctb-box-shadow(#{inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.075)});
+// }
+// .navbar .btn-navbar .icon-bar {
+//   display: block;
+//   width: 18px;
+//   height: 2px;
+//   background-color: #f5f5f5;
+//   @include ctb-border-radius(1px);
+//   @include ctb-box-shadow(0 1px 0 rgba(0,0,0,.25));
+// }
+
+// .btn-navbar .icon-bar + .icon-bar {
+//   margin-top: 3px;
+// }
+
+// // Dropdown menus
+// // --------------
+
+// // Menu position and menu carets
+// .navbar .nav > li > .dropdown-menu {
+//   &:before {
+//     content: '';
+//     display: inline-block;
+//     border-#{$from-direction}: 7px solid transparent;
+//     border-#{opposite-position($from-direction)}: 7px solid transparent;
+//     border-bottom: 7px solid #ccc;
+//     border-bottom-color: $dropdownBorder;
+//     position: absolute;
+//     top: -7px;
+//     #{$from-direction}: 9px;
+//   }
+//   &:after {
+//     content: '';
+//     display: inline-block;
+//     border-#{$from-direction}:   6px solid transparent;
+//     border-#{opposite-position($from-direction)}:  6px solid transparent;
+//     border-bottom: 6px solid $dropdownBackground;
+//     position: absolute;
+//     top: -6px;
+//     #{$from-direction}: 10px;
+//   }
+// }
+// // Menu position and menu caret support for dropups via extra dropup class
+// .navbar-fixed-bottom .nav > li > .dropdown-menu {
+//   &:before {
+//     border-top: 7px solid #ccc;
+//     border-top-color: $dropdownBorder;
+//     border-bottom: 0;
+//     bottom: -7px;
+//     top: auto;
+//   }
+//   &:after {
+//     border-top: 6px solid $dropdownBackground;
+//     border-bottom: 0;
+//     bottom: -6px;
+//     top: auto;
+//   }
+// }
+
+// // Remove background color from open dropdown
+// .navbar .nav li.dropdown.open > .dropdown-toggle,
+// .navbar .nav li.dropdown.active > .dropdown-toggle,
+// .navbar .nav li.dropdown.open.active > .dropdown-toggle {
+//   background-color: $navbarLinkBackgroundActive;
+//   color: $navbarLinkColorActive;
+// }
+// .navbar .nav li.dropdown > .dropdown-toggle .caret {
+//   border-top-color: $navbarLinkColor;
+//   border-bottom-color: $navbarLinkColor;
+// }
+// .navbar .nav li.dropdown.open > .dropdown-toggle .caret,
+// .navbar .nav li.dropdown.active > .dropdown-toggle .caret,
+// .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret {
+//   border-top-color: $navbarLinkColorActive;
+//   border-bottom-color: $navbarLinkColorActive;
+// }
+
+// // Right aligned menus need alt position
+// .navbar .pull-right > li > .dropdown-menu,
+// .navbar .nav > li > .dropdown-menu.pull-right {
+//   #{$from-direction}: auto;
+//   #{opposite-position($from-direction)}: 0;
   
-  &:before {
-    #{$from-direction}: auto;
-    #{opposite-position($from-direction)}: 12px;
-  }
-  &:after {
-    #{$from-direction}: auto;
-    #{opposite-position($from-direction)}: 13px;
-  }
-  .dropdown-menu {
-    #{$from-direction}: auto;
-    #{opposite-position($from-direction)}: 100%;
-    margin-#{$from-direction}: 0;
-    margin-#{opposite-position($from-direction)}: -1px;
-    @include ctb-border-radius(6px 0 6px 6px);
-  }
-}
+//   &:before {
+//     #{$from-direction}: auto;
+//     #{opposite-position($from-direction)}: 12px;
+//   }
+//   &:after {
+//     #{$from-direction}: auto;
+//     #{opposite-position($from-direction)}: 13px;
+//   }
+//   .dropdown-menu {
+//     #{$from-direction}: auto;
+//     #{opposite-position($from-direction)}: 100%;
+//     margin-#{$from-direction}: 0;
+//     margin-#{opposite-position($from-direction)}: -1px;
+//     @include ctb-border-radius(6px 0 6px 6px);
+//   }
+// }

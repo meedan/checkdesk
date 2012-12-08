@@ -12,6 +12,15 @@
   }
 }
 
+.vertical-tabs-list {
+  li {
+    float: opposite-position($from-direction);
+    text-align: opposite-position($from-direction);
+    background-color: $light-grey;
+  }
+}
+
+
 // Form items in a form
 //
 // $fw - form width
@@ -39,7 +48,7 @@
 
     input {
       @include reset-box-model;
-      @include span-columns($fw, $fw, $gw/2);
+      @include span-columns($fw, $fw);
       
       &:hover {
         // @include single-box-shadow($grey, 2px, 2px, 2px, 2px, inset);
@@ -98,22 +107,20 @@
     margin-top: $gw;
     @include span-columns($fw, $context, $gw);
     @include checkdesk-form-item($fw, $context);
-    background-color: white;
+    // background-color: white;
 
     // Actions at the bottom
     .form-actions {
       @include reset-box-model;
       @include clearfix;
       @include full;
-      // padding: { top: $gw; bottom: $gw; }
-      // margin-top: $gw;
-      // @include bb-background('diagmonds', 'large', 'scroll');
-      // Bowerbird button mixin, Checkdesk style
-      input.form-submit {
+      @include bb-background('diagmonds', 'large', 'scroll');
+
+      input[type="submit"] {
         // @include checkdesk-button($twitter-blue);
         margin-top: $gw;
         @include chunky-block;
-        background-color: bb_random_color();
+        background-color: $identity-color;
         margin-bottom: $gw;
       }
     }

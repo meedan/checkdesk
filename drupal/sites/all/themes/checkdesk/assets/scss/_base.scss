@@ -10,6 +10,11 @@
 //
 // Once we have done this calculation, we know how wide a column should be, and we can derive simlar measurements for standard padding or other reusable units. Ideally elements should be driven by variables that have a relationship to the overall scheme of ratios. // This way we can express ourselves continously in units of the grid. 
 
+
+// Alternatively we can consider nested grids. If the outer width is 48 guid units across, the sidebar in maya's design is 13grid units and the main blog area is 35 grid units. 
+
+// This is 0.37142857142857
+
 // Typography: webfonts
 //
 // Apparently these webfont @imports are best served first.
@@ -26,12 +31,17 @@
 $sans-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $serif-font-family: Georgia, "Times New Roman", Times, serif;
 $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-$smallest-font-size: 0.6em;
-$small-font-size: 0.8em;
-$base-font-size: 1em;
-$large-font-size: 1.3em;
-$x-large-font-size: 2.5em;
-$xx-large-font-size: 4em;
+
+// Modular scale setup
+$base-size: 16px;
+
+$base-font-size: $base-size;
+$smallest-font-size: 12px;
+$small-font-size: 14px;
+$large-font-size: 20px;
+$x-large-font-size: 36px;
+$xx-large-font-size: 48px;
+
 $base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
 
 // Proportions
@@ -55,7 +65,6 @@ $base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
 
 // For testing
 // $from-direction: right;
-
 @mixin full {
   @include span-columns($fw, $fw);
 }
@@ -70,11 +79,11 @@ $tabs-width: $cw;
 $tw: $tabs-width; // Alias
 
 // Use ratios of $gutter-width whenever you need a small amount of padding
-$gutter-width: 1em; // The distance between grid columns
+$gutter-width: 10px; // The distance between grid columns
 $gw: $gutter-width; // Alias
 
 // We set the column width equal to the gutter, and equal to the grid padding
-$column-width: 4em; // The width of columns
+$column-width: 100px; // The width of columns
 $grid-padding: $gw; // The padding on the sides of the out <container>
 
 // Note that Susy is always "fluid" for inner elements, the Susy Sass "API" emits percents
@@ -99,16 +108,3 @@ $iw: $input-width; // Alias
 $form-helper-text-size: $small-font-size;
 
 $notification-width: 5;
-
-// random mixins used sitewide 
-
-@mixin chunky-block() {
-  @include reset-box-model;
-  font-size: $large-font-size;
-  padding: $gw;
-  color: black(0.80);
-  @include bb-transition($grey, white, '0.2s', 'color', ':hover');
-  &:hover {
-    color: black(0.50);
-  }
-}

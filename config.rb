@@ -2,6 +2,7 @@ require "susy" # how to require this in bowerbird?
 require "logger" # custom logger with pass/fail
 require "pry"
 require "rake" # for filelist
+require "modular-scale" #for ratios
 
 drupal_dir = "drupal"
 themes_dir = "sites/all/themes/"
@@ -25,6 +26,9 @@ relative_assets = false
 
 #load bowerbird
 Sass.load_paths << File.join(full_bowerbird_extension_dir, "stylesheets")
+
+# enable debugger output for firesass
+sass_options = {:debug_info => true}
 
 # For more about Sass functions: 
 # http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html
@@ -51,21 +55,5 @@ module Sass::Script::Functions
 
   # def all_bb_backgrounds_count(path = bb_background_path)
   #   Sass::Script::Number.new(all_bb_backgrounds(path).length.to_i)
-  # end
-
-  # based on http://www.seancolombo.com/2010/07/28/how-to-make-and-use-a-custom-sass-function/
-  # def config_from_cli(c, d="")
-  #   o = d.to_s
-  #   ARGV.each do |a|
-  #     if a =~ /.=./
-  #       p = a.split('=')
-  #       o = p[1] || d
-  #     end
-  #   end
-  #   begin
-  #     Sass::Script::Parser.parse(o, 0, 0)
-  #   rescue
-  #     Sass::Script::String.new(o)
-  #   end
   # end
 end
