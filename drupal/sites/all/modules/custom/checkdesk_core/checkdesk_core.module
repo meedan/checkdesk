@@ -83,11 +83,11 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  // $items['modal/%ctools_js'] = array(
-  //   'page callback' => 'checkdesk_core_modal_callback',
-  //   'page arguments' => array(1),
-  //   'access arguments' => array('access content'),
-  // );
+  $items['modal/%ctools_js'] = array(
+    'page callback' => 'checkdesk_core_modal_callback',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+  );
   return $items;
 }
 
@@ -648,6 +648,10 @@ function checkdesk_core_block_view($delta = '') {
  * Generate report form.
  */
 function checkdesk_core_report_form_block() {
+  if (!user_access('create post content')) {
+    return array('subject' => NULL, 'content' => NULL);
+  }
+
   // Include page handler for node_add()
   module_load_include('inc', 'node', 'node.pages');
   $title = drupal_get_title();
