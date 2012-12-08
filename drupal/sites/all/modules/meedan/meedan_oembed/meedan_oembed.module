@@ -346,13 +346,34 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
     'appId'  => variable_get('fboauth_id', ''),
     'secret' => variable_get('fboauth_secret', ''),
   ));
-  // Get User ID
-  $user = $facebook->getUser();
-  if (!$user) {
-    $loginUrl = $facebook->getLoginUrl();
+  // Get facebook User ID
+  $fb_user = $facebook->getUser();
+  if (!$fb_user) {
+    $loginUrl = t('You should click <strong> !url </strong>if you want to add facebook media', array('!url' => l('here', $facebook->getLoginUrl())));
     $form['facebook_login'] = array(
-      '#markup' => '<a href="'. $loginUrl .'">Login with Facebook</a>',
+      '#markup' => $loginUrl,
       '#weight' => -99,
     );
+    $form['fb_loginurl'] = array(
+      '#type' => 'hidden', 
+      '#value' => $loginUrl,
+    );
+  }
+  $form['fb_userid'] = array(
+    '#type' => 'hidden', 
+    '#value' => $fb_user,
+  );
+  $form['#validate'][] = '_meedan_oembed_facebook_post';
+}
+
+/**
+ * Validate embed from facebook 
+ * make sure that user login through facebook if he adds media from facebook
+ */
+function _meedan_oembed_facebook_post($form, &$form_state) {
+  $lang = $form_state['values']['language'];
+  $host = parse_url($form_state['values']['field_link'][$lang][0]['url'], PHP_URL_HOST);
+  if (strpos($host, 'facebook') && !$form_state['values']['fb_userid']) {
+    form_set_error('field_link', $form_state['values']['fb_loginurl']);
   }
 }
