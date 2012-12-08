@@ -38,8 +38,7 @@ function checkdesk_core_menu() {
     'title arguments' => array(1),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_core_report_suggest', 1),
-    'access callback' => 'node_access',
-    'access arguments' => array('update', 1),
+    'access callback' => TRUE,
   );
   $items['node/%checkdesk_report/checkdesk/modal/suggest/%ctools_js'] = array(
     'title' => 'Add report to story',
@@ -47,8 +46,7 @@ function checkdesk_core_menu() {
     'title arguments' => array(1),
     'page callback' => '_checkdesk_core_report_suggest_modal',
     'page arguments' => array(1, 5),
-    'access callback' => 'node_access',
-    'access arguments' => array('update', 1),
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
   $items['core/messages'] = array(
@@ -319,7 +317,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   // Links for reports.
   if ($node->type == 'media') {
     $url = url('node/' . $node->nid, array('absolute' => TRUE));
-    if (node_access('update', $node)) {
+    if ($account->uid > 0) {
       $links['checkdesk-suggest'] = array(
         'title' => user_access('add report to story') ? t('Add to Story') : t('Suggest to Story'),
         'href' => 'node/' . $node->nid . '/checkdesk/modal/suggest/nojs',
@@ -327,6 +325,8 @@ function _checkdesk_core_node_links($node, $account = NULL) {
           'destination' => $_GET['q'],
         ),
       );
+    }
+    if (node_access('update', $node)) {
       $links['checkdesk-edit'] = array(
         'title' => t('Edit'),
         'href' => 'node/' . $node->nid . '/edit',

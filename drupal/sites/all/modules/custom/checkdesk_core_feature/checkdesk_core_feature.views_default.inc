@@ -695,7 +695,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['style_options']['box_shadow'] = '0';
   $handler->display->display_options['style_options']['border_radius'] = '0';
   $handler->display->display_options['row_plugin'] = 'node';
-  $handler->display->display_options['row_options']['links'] = FALSE;
   $handler->display->display_options['row_options']['comments'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';

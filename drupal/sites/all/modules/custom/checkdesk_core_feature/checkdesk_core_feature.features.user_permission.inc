@@ -81,6 +81,8 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'access devel information',
     'roles' => array(
       0 => 'administrator',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
     ),
     'module' => 'devel',
   );
