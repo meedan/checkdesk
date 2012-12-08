@@ -262,7 +262,6 @@ function _checkdesk_core_invoke_messages($action, $type) {
   }
  
   $commands = array();
-  drupal_set_message(t('What the fuck.'));
   $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
   $page = array('#type' => 'ajax', '#commands' => $commands);
   ajax_deliver($page);
@@ -707,6 +706,7 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
  * Implements of hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
+
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $items = array();
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
@@ -735,9 +735,21 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == '_checkdesk_core_report_suggest') {
     $form['story']['#prefix'] = '<div class="modal-content-wrapper">';
     $form['story']['#suffix'] = '</div>';
+
     $form['submit']['#prefix'] = '<div class="modal-footer"><button id="close" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
     $form['submit']['#suffix'] = '</div>';
-    $form['submit']['#attributes']['class'] = array('checkout-continue', 'btn', 'btn-primary');
+    $form['submit']['#attributes']['class'] = array('btn', 'btn-primary');
   }
+
+  if ($form_id == 'flag_confirm') {
+    $form['actions']['#prefix'] = '<div class="modal-footer">';
+    $form['actions']['#suffix'] = '</div>';
+
+    $form['actions']['submit']['#attributes']['class'] = array('btn', 'btn-primary');
+    $form['actions']['cancel']['#attributes']['class'] = array('btn');
+    $form['actions']['cancel']['#weight'] = -1;
+  }
+
+
 }
 
