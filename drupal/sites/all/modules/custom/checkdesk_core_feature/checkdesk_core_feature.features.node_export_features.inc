@@ -11,8 +11,8 @@ function checkdesk_core_feature_node_export_features_default() {
   $node_export = array(
   'code_string' => 'array(
   (object) array(
-      \'vid\' => \'123\',
-      \'uid\' => \'0\',
+      \'vid\' => \'125\',
+      \'uid\' => \'1\',
       \'title\' => \'Install Bookmarklet\',
       \'log\' => \'\',
       \'status\' => \'1\',
@@ -23,13 +23,13 @@ function checkdesk_core_feature_node_export_features_default() {
       \'nid\' => \'109\',
       \'type\' => \'page\',
       \'language\' => \'und\',
-      \'created\' => \'1354848593\',
-      \'changed\' => \'1354848593\',
+      \'created\' => \'1354938302\',
+      \'changed\' => \'1354938302\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'1244c020-f663-b564-b94c-2cf29b12afa4\',
-      \'revision_timestamp\' => \'1354848593\',
-      \'revision_uid\' => \'0\',
+      \'revision_timestamp\' => \'1354938302\',
+      \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
           array(
@@ -98,9 +98,9 @@ function checkdesk_core_feature_node_export_features_default() {
       \'last_comment_name\' => NULL,
       \'last_comment_uid\' => \'0\',
       \'comment_count\' => \'0\',
-      \'name\' => \'\',
-      \'picture\' => \'0\',
-      \'data\' => NULL,
+      \'name\' => \'admin\',
+      \'picture\' => \'18\',
+      \'data\' => \'a:2:{s:17:"sensitive_content";i:0;s:11:"remember_me";b:1;}\',
       \'path\' => array(
         \'pid\' => \'133\',
         \'source\' => \'node/109\',

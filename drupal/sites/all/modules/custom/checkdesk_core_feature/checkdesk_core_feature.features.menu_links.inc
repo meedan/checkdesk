@@ -24,6 +24,24 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-50',
   );
+  // Exported menu link: main-menu:<sub>
+  $menu_links['main-menu:<sub>'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => '<sub>',
+    'router_path' => '<sub>',
+    'link_title' => '...',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '1',
+    'expanded' => '1',
+    'weight' => '-45',
+  );
   // Exported menu link: main-menu:admin/config/system/checkdesk
   $menu_links['main-menu:admin/config/system/checkdesk'] = array(
     'menu_name' => 'main-menu',
@@ -116,6 +134,21 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-48',
   );
+  // Exported menu link: main-menu:reports
+  $menu_links['main-menu:reports'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'reports',
+    'router_path' => 'reports',
+    'link_title' => 'View incoming citizen reports',
+    'options' => array(),
+    'module' => 'system',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-50',
+    'parent_path' => '<sub>',
+  );
   // Exported menu link: menu-information:<sub>
   $menu_links['menu-information:<sub>'] = array(
     'menu_name' => 'menu-information',
@@ -173,6 +206,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
+  t('...');
   t('Administer users');
   t('Compose update');
   t('Create story');
@@ -182,6 +216,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Install bookmarklet');
   t('Sign in');
   t('Submit report');
+  t('View incoming citizen reports');
 
 
   return $menu_links;
