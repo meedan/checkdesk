@@ -1657,22 +1657,26 @@ body.page-node-add .node-form .form-item-title label:before {
   overflow-y: auto;
   max-height: 400px;
 }
-/* line 66, ../scss/override_ctb/_modals.scss */
+/* line 65, ../scss/override_ctb/_modals.scss */
+.modal-body .modal-content {
+  width: 530px !important;
+}
+/* line 68, ../scss/override_ctb/_modals.scss */
 .modal-body .modal-footer {
   width: 530px;
 }
 
-/* line 71, ../scss/override_ctb/_modals.scss */
+/* line 73, ../scss/override_ctb/_modals.scss */
 .modal-form {
   margin-bottom: 0;
 }
 
-/* line 75, ../scss/override_ctb/_modals.scss */
+/* line 77, ../scss/override_ctb/_modals.scss */
 .modal-content-wrapper {
   padding: 15px;
 }
 
-/* line 80, ../scss/override_ctb/_modals.scss */
+/* line 82, ../scss/override_ctb/_modals.scss */
 .modal-footer {
   padding: 14px 15px 15px;
   margin-bottom: 0;
@@ -1690,20 +1694,20 @@ body.page-node-add .node-form .form-item-title label:before {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 91, ../scss/override_ctb/_modals.scss */
+/* line 93, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn + .btn {
   margin-left: 5px;
   margin-bottom: 0;
 }
-/* line 96, ../scss/override_ctb/_modals.scss */
+/* line 98, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn-group .btn + .btn {
   margin-left: -1px;
 }
-/* line 100, ../scss/override_ctb/_modals.scss */
+/* line 102, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
 }
-/* line 104, ../scss/override_ctb/_modals.scss */
+/* line 106, ../scss/override_ctb/_modals.scss */
 .modal-footer .ajax-progress-throbber {
   display: none;
 }
@@ -4590,7 +4594,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #FF628C;
+  background-color: #3AD900;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5013,7 +5017,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #0088FF;
+  background-color: #80FFC2;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5221,7 +5225,7 @@ body ul.tabs.primary li a:hover {
 }
 /* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 body ul.tabs.primary li a.active {
-  background-color: #0088FF;
+  background-color: #FFDD00;
   color: rgba(0, 0, 0, 0.8);
 }
 /* line 33, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */

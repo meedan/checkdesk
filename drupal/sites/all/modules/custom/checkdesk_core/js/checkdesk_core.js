@@ -58,7 +58,12 @@
       $('#close').click(function() {
         Drupal.CTools.Modal.dismiss();
         return false;
-      });      
+      });
+
+      // $(".flag-link-confirm", context).once('init-modal-forms-contact', function () {
+      //   console.log(this);
+      //   this.href = this.href.replace(/flag\/confirm\/flag\/graphic/,'node/nojs/confirm/graphic');
+      // }).addClass('ctools-use-modal ctools-modal-checkdesk-style');
 
       // Trigger 
       // $('.some-class').click(function() {

@@ -62,7 +62,9 @@
 .modal-body {
   overflow-y: auto;
   max-height: 400px;
-
+  .modal-content {
+    width: 530px !important; 
+  }
   .modal-footer {
     width: 530px; // TEMP fix
   }

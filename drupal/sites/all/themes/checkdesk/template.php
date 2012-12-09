@@ -230,10 +230,10 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-edit']) .'</li>';
       }
       if (isset($links['flag-factcheck_journalist'])) {
-        $output .= '<li>' . l($links['flag-factcheck_journalist']['title'], @$links['flag-factcheck_journalist']['href'], $links['flag-factcheck_journalist']) .'</li>';
+        $output .= '<li>' . $links['flag-factcheck_journalist']['title'] .'</li>';
       }
       if (isset($links['flag-graphic_journalist'])) {
-        $output .= '<li>' . l($links['flag-graphic_journalist']['title'], @$links['flag-graphic_journalist']['href'], $links['flag-graphic_journalist']) .'</li>';
+        $output .= '<li>' . $links['flag-graphic_journalist']['title'] .'</li>';
       }
       $output .= '</ul></li>';
     }
@@ -247,17 +247,19 @@ function checkdesk_links__node($variables) {
       $output .= '<li class="flag-as dropdown">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span> Flag</a>';
       $output .= '<ul class="dropdown-menu">';
+
       if (isset($links['flag-spam'])) {
-        $output .= '<li>' . l($links['flag-spam']['title'], @$links['flag-spam']['href'], $links['flag-spam']) . '</li>';
+        $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
       }
       if (isset($links['flag-graphic'])) {
-        $output .= '<li>' . l($links['flag-graphic']['title'], @$links['flag-graphic']['href'], $links['flag-graphic']) . '</li>';
+        $output .= '<li>' . ctools_modal_text_button('Custom title', 'node/nojs/confirm/graphic/74', 'Another title',  'ctools-modal-checkdesk-style') .'</li>';
+        // $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
       }
       if (isset($links['flag-factcheck'])) {
-        $output .= '<li>' . l($links['flag-factcheck']['title'], @$links['flag-factcheck']['href'], $links['flag-factcheck']) . '</li>';
+        $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
       }
       if (isset($links['flag-delete'])) {
-        $output .= '<li>' . l($links['flag-delete']['title'], @$links['flag-delete']['href'], $links['flag-delete']) . '</li>';
+        $output .= '<li>' . $links['flag-delete']['title'] . '</li>';
       }
       $output .= '</ul></li>'; 
     }
