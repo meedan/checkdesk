@@ -103,6 +103,8 @@ function meedan_oembed_data($url, $attributes = array()) {
     );
   }
   meedan_oembed_scrape_generic($embed, $domain);
+  //cache embed
+  cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
   return $embed;
 }
 
@@ -173,6 +175,7 @@ function meedan_oembed_scrape_facebook($provider, $url) {
   try {
     $embed = new stdclass();
     $embed->url = $url;
+    $embed->original_url = $url;
     $embed->provider = $provider;
     $embed->provider_url = $provider_url;
     $embed->provider_name = 'Facebook';
