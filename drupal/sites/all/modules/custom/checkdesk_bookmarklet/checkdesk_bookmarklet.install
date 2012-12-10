@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Change checkdesk_bookmarklet weight
+ */
+function checkdesk_bookmarklet_update_7005() {
+  db_update('system')
+    ->fields(array(
+      'weight' => 99,
+    ))
+    ->condition('name', 'checkdesk_bookmarklet')
+    ->execute();
+}

@@ -1,0 +1,281 @@
+<?php
+
+/**
+ * Implementation of hook_init().
+ */
+function meedan_bookmarklet_init() {
+  if (isset($_REQUEST['meedan_bookmarklet'])) {
+    // The header below is necessary for Internet Explorer
+    // http://stackoverflow.com/questions/98127/accessing-domain-cookies-within-an-iframe-on-internet-explorer
+    header("p3p:CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
+    $GLOBALS['meedan_bookmarklet_page_template'] = TRUE;
+    drupal_add_css(drupal_get_path('module', 'meedan_bookmarklet') . '/css/meedan_bookmarklet_inside.css');
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function meedan_bookmarklet_menu() {
+  $items = array();
+  $items['admin/config/content/meedan_bookmarklet'] = array(
+    'title' => 'Bookmarklet',
+    'description' => 'Administer bookmarklet settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('meedan_bookmarklet_admin_settings'),
+    'access arguments' => array('administer site configuration'), 
+  );
+  $items['meedan_bookmarklet/js'] = array(
+    'title' => 'Bookmarklet',
+    'page callback' => 'meedan_bookmarklet_js',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  $items['meedan_bookmarklet/message'] = array(
+    'title' => 'Meedan Bookmarklet',
+    'page callback' => 'theme',
+    'page arguments' => array('meedan_bookmarklet_message'),
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Which informations can be used to prepopulate fields
+ */
+function _meedan_bookmarklet_prepopulate() {
+  return array(
+    'url' => t('URL of the page'),
+    'title' => t('Page title'),
+    'selected' => t('Text selected by the user'),
+  );
+}
+
+/**
+ * Provide bookmarklet settings for the JavaScript
+ */
+function meedan_bookmarklet_js() {
+  global $base_url;
+
+  drupal_add_http_header('Content-Type', 'application/json');
+  
+  $node_type = variable_get('meedan_bookmarklet_content_type', 'page');
+
+  $settings = array(
+    'authenticated' => user_is_logged_in(),
+    'stylesheet' => url(variable_get('meedan_bookmarklet_css', ''), array('absolute' => TRUE)),
+    'javascript' => url(variable_get('meedan_bookmarklet_js', ''), array('absolute' => TRUE)),
+    'default_stylesheet' => $base_url . '/' . drupal_get_path('module', 'meedan_bookmarklet') . '/css/meedan_bookmarklet_outside.css',
+    'strings' => array(),
+    'prepopulate' => array(),
+    'url' => $base_url . '/node/add/' . $node_type . '?meedan_bookmarklet=1',
+  );
+  
+  $hidden_fields = variable_get('meedan_bookmarklet_hidden_fields', array());
+  foreach(field_info_instances('node', $node_type) as $key => $field) {
+    if (!in_array($key, array_values($hidden_fields), TRUE)) {
+      $value = variable_get('meedan_bookmarklet_prepopulate_' . $key, '');
+      if (!empty($value)) $settings['prepopulate'][$key] = $value;
+    }
+  }
+
+  if (!empty($_GET['callback'])) {
+    echo $_GET['callback'] .'('. drupal_json_encode($settings) .');';
+  }
+  else {
+    echo drupal_json_encode($settings);
+  }
+}
+
+/**
+ * Form function for item `admin/config/content/meedan_bookmarklet`.
+ */
+function meedan_bookmarklet_admin_settings() {
+  $node_types = array();
+  foreach(node_type_get_types() as $type) {
+    $node_types[$type->type] = $type->name;
+  }
+  $node_type = variable_get('meedan_bookmarklet_content_type', 'page');
+  $form['meedan_bookmarklet_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#description' => t('Title will appear on the bookmarklet window.'),
+    '#default_value' => variable_get('meedan_bookmarklet_title', ''),
+  );
+  $form['meedan_bookmarklet_css'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Stylesheet'),
+    '#description' => t('An additional stylesheet file to be applied to the bookmarklet container. Relative paths will be translated into absolute ones based on this host.'),
+    '#default_value' => variable_get('meedan_bookmarklet_css', ''),
+  );
+  $form['meedan_bookmarklet_js'] = array(
+    '#type' => 'textfield',
+    '#title' => t('JavaScript file'),
+    '#description' => t('An additional JavaScript file to be applied to the bookmarklet container. Relative paths will be translated into absolute ones based on this host.'),
+    '#default_value' => variable_get('meedan_bookmarklet_js', ''),
+  );
+  $form['meedan_bookmarklet_content_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Content Type'),
+    '#description' => t('Which content type should be created by this bookmarklet. Press <em>Submit</em> button after setting this field in order to update the options below.'),
+    '#options' => $node_types,
+    '#default_value' => $node_type,
+  );
+  $fields = array();
+  foreach(field_info_instances('node', $node_type) as $key => $field) {
+    $fields[$key] = $field['label'];
+  }
+  $hidden_fields = variable_get('meedan_bookmarklet_hidden_fields', array());
+  $form['meedan_bookmarklet_hidden_fields'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Exclude fields'),
+    '#description' => t('Which fields from the chosen content type should not be displayed in the bookmarklet form.'),
+    '#options' => $fields,
+    '#default_value' => $hidden_fields,
+  );
+  foreach ($fields as $name => $label) {
+    if (!in_array($name, array_values($hidden_fields), TRUE)) {
+      $form['meedan_bookmarklet_prepopulate_' . $name] = array(
+        '#type' => 'select',
+        '#title' => t('Pre-populate %field with...', array('%field' => $label)),
+        '#options' => _meedan_bookmarklet_prepopulate(),
+        '#default_value' => variable_get('meedan_bookmarklet_prepopulate_' . $name, ''),
+        '#empty_option' => t('None')
+      );
+    }
+  }
+  $code = variable_get('meedan_bookmarklet_code', '');
+  $form['meedan_bookmarklet_code'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Bookmarklet Code'),
+    '#description' => t('You need to let this field empty before submitting this form in order to automatically regenerate the code. You can show this content anywhere by printing variable <em>meedan_bookmarklet_code</em>. You can also set or customize this code on your own.'),
+    '#default_value' => $code,
+  );
+  $preview = (empty($code) ? t('After you have the bookmarklet code, the link for drag and drop will appear here.') : l(t('Drag and drop this link to your bookmarks bar'), $code, array('external' => TRUE, 'absolute' => TRUE)));
+  $form['meedan_bookmarklet_code_preview'] = array(
+    '#markup' => $preview, 
+  );
+  $form = system_settings_form($form);
+  array_unshift($form['#submit'], '_meedan_bookmarklet_settings_form_submit');
+  return $form;
+}
+
+/**
+ * Settings form submit handler.
+ *
+ * Regenerate bookmarklet code if necessary. 
+ */
+function _meedan_bookmarklet_settings_form_submit($form, &$form_state) {
+  global $base_url;
+  if (empty($form_state['values']['meedan_bookmarklet_code'])) {
+    $js = $base_url . '/' . drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet.js';
+    $timestamp = time(); // Avoids cache
+    $form_state['values']['meedan_bookmarklet_code'] = "javascript:(function(){window.meedanBookmarkletHost='$base_url';if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{document.body.appendChild(document.createElement('script')).src='$js?$timestamp';}})();";
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function meedan_bookmarklet_theme() {
+  return array(
+    'meedan_bookmarklet_html' => array(
+      'template' => 'meedan-bookmarklet-html',
+      'render element' => 'html'
+    ),
+    'meedan_bookmarklet_page' => array(
+      'template' => 'meedan-bookmarklet-page',
+      'render element' => 'page'
+    ),
+    'meedan_bookmarklet_message' => array(
+      'template' => 'meedan-bookmarklet-message',
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function meedan_bookmarklet_preprocess_html(&$variables, $hook) {
+  if (!empty($GLOBALS['meedan_bookmarklet_page_template'])) {
+    $variables['theme_hook_suggestions'][] = 'meedan_bookmarklet_html';
+    $variables['meedan_bookmarklet_title'] = variable_get('meedan_bookmarklet_title', '');
+  } 
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function meedan_bookmarklet_preprocess_page(&$variables, $hook) {
+  if (!empty($GLOBALS['meedan_bookmarklet_page_template'])) {
+    $variables['theme_hook_suggestions'][] = 'meedan_bookmarklet_page';
+  } 
+}
+
+/**
+ * Implements hook_form_alter().
+ * 
+ * Hide chosen fields from display and prepopulate some fields.
+ */
+function meedan_bookmarklet_form_alter(&$form, $form_state, $form_id) {
+  if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
+
+    // Prepopulate fields
+    // FIXME Not sure if all cases are handled here, or if it is the best approach... maybe use entityreference_prepopulate? Or prepopulate? Functions from Field API? From Entity API? From both?
+    if (isset($_REQUEST['meedan_bookmarklet_prepopulate'])) {
+      foreach ($_REQUEST['meedan_bookmarklet_prepopulate'] as $field => $value) {
+        if (array_key_exists('#default_value', $form[$field])) $form[$field]['#default_value'] = $value;
+        else {
+          $lang = $form[$field]['#language'];
+          foreach ($form[$field][$lang] as $index => $settings) {
+            if (is_numeric($index) && is_array($settings) && array_key_exists('#default_value', $settings)) {
+              if ($settings['#type'] == 'link_field') $form[$field][$lang][$index]['#default_value']['url'] = $value;
+              else $form[$field][$lang][$index]['#default_value'] = $value;
+            }
+            else if ($index == '#default_value') {
+              if (is_array($form[$field][$lang][$index])) $form[$field][$lang][$index] = explode(',', $value);
+              else $form[$field][$lang][$index] = $value;
+            }
+          }
+        }
+      }
+    }
+
+    // Hide fields
+    foreach (variable_get('meedan_bookmarklet_hidden_fields', array()) as $field) {
+      $form[$field]['#access'] = FALSE;
+    }
+  }
+}
+
+/*
+ * Implements hook_page_alter().
+ *
+ * Redirect to login form if not logged in.
+ */
+function meedan_bookmarklet_page_alter(&$page) {
+  if (drupal_get_http_header('Status') == '403 Forbidden' && isset($_GET['meedan_bookmarklet'])) {
+    // Using drupal_goto() with destination set causes a recursive redirect loop
+    // Need to decode URL to prevent double-encoding UTF-8 characters https://drupal.org/node/1403616
+    $bookmarklet_options = array('meedan_bookmarklet' => 1, 'meedan_bookmarklet_prepopulate' => $_GET['meedan_bookmarklet_prepopulate']);
+    $origin = drupal_get_destination();
+    $destination = urldecode($origin['destination']) . '?' . drupal_http_build_query($bookmarklet_options);
+    header('Location: ' . url('user/login', array('query' => array_merge(array('destination' => $destination), $bookmarklet_options), 'absolute' => TRUE)), TRUE, 302);
+    drupal_exit();
+  }
+}
+
+/*
+ * Implements hook_node_insert().
+ *
+ * Redirect to a blank page with message and link.
+ */
+function meedan_bookmarklet_node_insert($node) {
+  if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $node->type == variable_get('meedan_bookmarklet_content_type', 'page')) {
+    drupal_get_messages();
+    drupal_set_message(t('<a href="!url" target="_blank">Content</a> created successfully.', array('!url' => url('node/' . $node->nid, array('absolute' => TRUE)))));
+    // Hack to avoid other hooks from not being called: http://drupal.org/node/130734#comment-3835244
+    $_GET['destination'] = 'meedan_bookmarklet/message?meedan_bookmarklet=1';
+  }
+}

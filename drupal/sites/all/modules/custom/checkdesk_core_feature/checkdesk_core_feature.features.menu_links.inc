@@ -167,10 +167,10 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '1',
     'weight' => '0',
   );
-  // Exported menu link: menu-information:modal/nojs/content/install-bookmarklet
-  $menu_links['menu-information:modal/nojs/content/install-bookmarklet'] = array(
+  // Exported menu link: menu-information:modal/ajax/content/install-bookmarklet
+  $menu_links['menu-information:modal/ajax/content/install-bookmarklet'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/nojs/content/install-bookmarklet',
+    'link_path' => 'modal/ajax/content/install-bookmarklet',
     'router_path' => 'modal/%',
     'link_title' => 'Install bookmarklet',
     'options' => array(

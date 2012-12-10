@@ -397,6 +397,81 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_code';
+  $strongarm->value = 'javascript:(function(){window.meedanBookmarkletHost=\'http://localhost/meedan/meedan-checkdesk/drupal\';if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{document.body.appendChild(document.createElement(\'script\')).src=\'http://localhost/meedan/meedan-checkdesk/drupal/sites/all/modules/meedan/meedan_bookmarklet/js/meedan_bookmarklet.js?1355106404\';}})();';
+  $export['meedan_bookmarklet_code'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_content_type';
+  $strongarm->value = 'media';
+  $export['meedan_bookmarklet_content_type'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_css';
+  $strongarm->value = 'sites/all/modules/custom/checkdesk_bookmarklet/css/checkdesk_bookmarklet.css';
+  $export['meedan_bookmarklet_css'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_hidden_fields';
+  $strongarm->value = array(
+    'field_rating' => 'field_rating',
+    'field_stories' => 'field_stories',
+    'body' => 0,
+    'field_link' => 0,
+  );
+  $export['meedan_bookmarklet_hidden_fields'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_js';
+  $strongarm->value = 'sites/all/modules/custom/checkdesk_bookmarklet/js/checkdesk_bookmarklet.js';
+  $export['meedan_bookmarklet_js'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_prepopulate_body';
+  $strongarm->value = 'selected';
+  $export['meedan_bookmarklet_prepopulate_body'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_prepopulate_field_link';
+  $strongarm->value = 'url';
+  $export['meedan_bookmarklet_prepopulate_field_link'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_prepopulate_field_rating';
+  $strongarm->value = 'selected';
+  $export['meedan_bookmarklet_prepopulate_field_rating'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_prepopulate_field_stories';
+  $strongarm->value = 'title';
+  $export['meedan_bookmarklet_prepopulate_field_stories'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_title';
+  $strongarm->value = 'Submit a report to our team';
+  $export['meedan_bookmarklet_title'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'meedan_discussion_description';
   $strongarm->value = 'Where reports are verified and blog posts created.';
   $export['meedan_discussion_description'] = $strongarm;
@@ -547,6 +622,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'menu_parent_report';
   $strongarm->value = 'main-menu:0';
   $export['menu_parent_report'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_admin_theme';
+  $strongarm->value = 0;
+  $export['node_admin_theme'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

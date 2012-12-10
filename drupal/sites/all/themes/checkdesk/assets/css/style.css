@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
 /* line 3, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 #skip a:link, #skip a:hover, #skip a:visited {
@@ -1116,7 +1117,7 @@ body.page-node-add .node-form .form-item-title label:before {
   content: "\f200";
 }
 
-/* line 286, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 284, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
@@ -1128,12 +1129,12 @@ body.page-node-add .node-form .form-item-title label:before {
   border-style: solid;
   font-weight: 300;
 }
-/* line 270, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 268, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 274, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 272, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class:focus {
   outline: none;
 }
@@ -3637,17 +3638,11 @@ div.tabs {
 
 /* line 7, ../scss/_notifications.scss */
 #block-views-my-notifications-block {
-  padding-left: 3.44828%;
-  padding-right: 3.44828%;
-  width: 24.13793%;
-  float: right;
-  margin-right: 0;
-  #margin-left: -1em;
-  display: inline;
-  font-family: Arial, sans-serif;
   text-align: right;
   position: relative;
   float: right;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 /* line 13, ../scss/_notifications.scss */
 #block-views-my-notifications-block .auto-refresh {
@@ -3657,8 +3652,8 @@ div.tabs {
 #block-views-my-notifications-block h2 {
   margin: 0;
   padding: 0 3px;
-  color: #fff;
-  font-size: 14px;
+  color: #999;
+  font-size: 1em;
   display: inline-block;
   font-weight: normal;
   cursor: pointer;
@@ -3669,12 +3664,12 @@ div.tabs {
 /* line 27, ../scss/_notifications.scss */
 #block-views-my-notifications-block h2 .notifications-count {
   display: inline;
-  color: #2F58B4;
+  color: #999;
 }
 /* line 30, ../scss/_notifications.scss */
 #block-views-my-notifications-block h2 .notifications-count span {
-  padding: 1px;
-  background: #fff;
+  padding: 1px 5px;
+  background: #296182;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -3682,6 +3677,18 @@ div.tabs {
   border-radius: 5px;
 }
 /* line 37, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2:hover {
+  color: #fff;
+}
+/* line 39, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2:hover .notifications-count {
+  color: #fff;
+}
+/* line 41, ../scss/_notifications.scss */
+#block-views-my-notifications-block h2:hover .notifications-count span {
+  background: #2DA3EB;
+}
+/* line 46, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content {
   text-align: left;
   padding: 0;
@@ -3693,78 +3700,76 @@ div.tabs {
   border: 1px solid #ccc;
   /* Icons for each activity type */
 }
-/* line 46, ../scss/_notifications.scss */
+/* line 55, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .view-content {
   height: 200px;
   overflow: auto;
 }
-/* line 50, ../scss/_notifications.scss */
+/* line 59, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .item-list {
   display: none;
 }
-/* line 53, ../scss/_notifications.scss */
+/* line 62, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-settings-link, #block-views-my-notifications-block .content .more-link {
   margin: 0;
   padding: 12px 18px;
   display: block;
 }
-/* line 57, ../scss/_notifications.scss */
+/* line 66, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-settings-link a, #block-views-my-notifications-block .content .notifications-settings-link a:visited, #block-views-my-notifications-block .content .notifications-settings-link a:link, #block-views-my-notifications-block .content .more-link a, #block-views-my-notifications-block .content .more-link a:visited, #block-views-my-notifications-block .content .more-link a:link {
-  font-family: Arial, sans-serif;
   font-size: 13px;
   color: #6a6a6a;
   text-decoration: none;
 }
-/* line 63, ../scss/_notifications.scss */
+/* line 71, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-settings-link a:hover, #block-views-my-notifications-block .content .more-link a:hover {
   text-decoration: underline;
 }
-/* line 67, ../scss/_notifications.scss */
+/* line 75, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-settings-link {
   float: left;
 }
-/* line 70, ../scss/_notifications.scss */
+/* line 78, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .more-link {
   float: right;
 }
-/* line 73, ../scss/_notifications.scss */
+/* line 81, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .notifications-footer {
   clear: both;
 }
-/* line 76, ../scss/_notifications.scss */
+/* line 84, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity {
   color: #6a6a6a;
   border-bottom: 1px solid #c9c9c9;
   margin: 0;
   padding: 12px 18px;
-  font-family: Arial, sans-serif;
   font-size: 12px;
 }
-/* line 83, ../scss/_notifications.scss */
+/* line 90, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity a, #block-views-my-notifications-block .content .heartbeat-activity a:visited, #block-views-my-notifications-block .content .heartbeat-activity a:link {
   text-decoration: none;
   font-weight: bold;
   color: #6a6a6a;
 }
-/* line 88, ../scss/_notifications.scss */
+/* line 95, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity a:hover {
   text-decoration: underline;
 }
-/* line 91, ../scss/_notifications.scss */
+/* line 98, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity p, #block-views-my-notifications-block .content .heartbeat-activity img {
   float: left;
 }
-/* line 94, ../scss/_notifications.scss */
+/* line 101, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity p {
   margin: 0;
-  width: 270px;
+  width: 280px;
 }
-/* line 98, ../scss/_notifications.scss */
+/* line 105, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity img {
   margin-right: 9px;
   margin-bottom: 6px;
 }
-/* line 102, ../scss/_notifications.scss */
+/* line 109, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .heartbeat-activity .heartbeat-time-ago {
   clear: both;
   display: block;
@@ -3778,37 +3783,37 @@ div.tabs {
   font-weight: normal;
   color: #a9a9a9;
 }
-/* line 118, ../scss/_notifications.scss */
+/* line 125, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .checkdesk_add_story .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_comment_on_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_reply_to_comment .heartbeat-time-ago {
   background-image: url(../imgs/icons/notification-star.png);
 }
-/* line 121, ../scss/_notifications.scss */
+/* line 128, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .checkdesk_fact_checking_on .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_fact_checking_set .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_flag_report .heartbeat-time-ago {
   background-image: url(../imgs/icons/notification-flag.png);
 }
-/* line 124, ../scss/_notifications.scss */
+/* line 131, ../scss/_notifications.scss */
 #block-views-my-notifications-block .content .checkdesk_comment_on_report .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_report_published_in_update .heartbeat-time-ago, #block-views-my-notifications-block .content .checkdesk_report_suggested_to_story .heartbeat-time-ago {
   background-image: url(../imgs/icons/notification-report.png);
 }
 
-/* line 129, ../scss/_notifications.scss */
+/* line 136, ../scss/_notifications.scss */
 #block-views-my-notifications-block.notifications-block-expanded .content, #block-views-my-notifications-block.notifications-block-expanded h2 {
   background: #fff;
 }
-/* line 132, ../scss/_notifications.scss */
+/* line 139, ../scss/_notifications.scss */
 #block-views-my-notifications-block.notifications-block-expanded h2 {
-  color: #626262;
+  color: #323232;
   -webkit-border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   -ms-border-radius: 5px 5px 0 0;
   -o-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
 }
-/* line 136, ../scss/_notifications.scss */
+/* line 143, ../scss/_notifications.scss */
 #block-views-my-notifications-block.notifications-block-expanded .content {
-  -webkit-box-shadow: 1px 1px 10px #333333;
-  -moz-box-shadow: 1px 1px 10px #333333;
-  box-shadow: 1px 1px 10px #333333;
+  -webkit-box-shadow: 1px 5px 10px #333333;
+  -moz-box-shadow: 1px 5px 10px #333333;
+  box-shadow: 1px 5px 10px #333333;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -3819,17 +3824,17 @@ div.tabs {
   border-top-right-radius: 0;
 }
 
-/* line 146, ../scss/_notifications.scss */
+/* line 153, ../scss/_notifications.scss */
 ::-webkit-scrollbar {
   width: 9px;
 }
 
-/* line 149, ../scss/_notifications.scss */
+/* line 156, ../scss/_notifications.scss */
 ::-webkit-scrollbar-track {
   background: #fefefe;
 }
 
-/* line 152, ../scss/_notifications.scss */
+/* line 159, ../scss/_notifications.scss */
 ::-webkit-scrollbar-thumb {
   background: #eee;
 }
@@ -4332,6 +4337,450 @@ div.tabs {
   display: none;
 }
 
+/* line 6, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet {
+  font-size: 15px;
+  overflow: hidden;
+}
+/* line 10, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet h2 {
+  color: #bbb;
+  font-size: 15px;
+  margin: 5px 0;
+  margin-top: 0;
+  float: left;
+}
+/* line 18, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_help {
+  float: left;
+}
+/* line 20, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_help span {
+  display: block;
+  width: 30px;
+  height: 40px;
+  text-indent: -5000em;
+  background: transparent url(../imgs/icons/bookmarklet-help.png) center center no-repeat;
+  cursor: help;
+  float: left;
+}
+/* line 28, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_help span p {
+  display: none;
+}
+/* line 32, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_help span:hover p {
+  display: block;
+  width: 220px;
+  height: 60px;
+  background: #fff;
+  border: 1px solid #bbb;
+  font-size: 11px;
+  color: #7c7c7c;
+  text-indent: 0;
+  padding: 8px;
+  position: absolute;
+  right: 1px;
+}
+/* line 47, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_preview {
+  color: #bbb;
+  margin: 10px 0;
+}
+/* line 52, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet input[type=text], #meedan_bookmarklet input[type=password], #meedan_bookmarklet textarea {
+  height: 32px;
+  padding: 0 5px;
+  border: 1px solid #bbb;
+  color: #838383;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 60, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet input[type=text] {
+  width: 290px;
+  padding-right: 35px;
+}
+/* line 65, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet textarea {
+  width: 332px;
+  height: 60px;
+  padding: 5px;
+}
+/* line 71, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet label, #meedan_bookmarklet textarea {
+  color: #848484;
+  font-size: 13px;
+  font-weight: normal;
+}
+/* line 77, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .meedan-bookmarklet-loading {
+  background: white url(../imgs/icons/bookmarklet-loading.gif) 305px center no-repeat;
+}
+/* line 81, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .field-type-link-field {
+  clear: both;
+}
+/* line 83, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .field-type-link-field label {
+  display: none;
+}
+/* line 88, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .form-item {
+  margin: 0;
+}
+/* line 92, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .field-edit-link {
+  display: none;
+}
+/* line 98, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_preview_content,
+#meedan_bookmarklet #meedan_bookmarklet_preview_content img,
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc {
+  width: 332px;
+  height: 230px;
+}
+/* line 103, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_preview_content {
+  overflow: hidden;
+}
+/* line 107, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc {
+  background: #000;
+  color: #fff;
+  padding-top: 85px;
+  height: 145px;
+}
+/* line 112, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc span, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+/* line 117, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc span {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+/* line 121, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #meedan_bookmarklet_preview_gc a, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:visited, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:link, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:hover {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+/* line 128, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #edit-graphic-content {
+  float: right;
+  clear: both;
+}
+/* line 131, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #edit-graphic-content input[type=checkbox] {
+  border: 1px solid #bbb;
+  background: #fff;
+  margin: 0;
+}
+/* line 138, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .form-actions {
+  margin: 0;
+  margin-top: 10px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+/* line 144, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .form-actions input.form-submit {
+  display: block;
+  width: 80px;
+  padding: 8px 0 12px 0;
+  margin: 8px;
+  margin-left: 0;
+  border: 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  float: left;
+  -webkit-appearance: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 159, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .form-actions #edit-submit {
+  background: #2da3eb;
+}
+/* line 162, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .form-actions #meedan_bookmarklet_cancel_button {
+  background: #929292;
+}
+/* line 167, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .alert {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+}
+/* line 172, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .alert h4, #meedan_bookmarklet .alert .close, #meedan_bookmarklet .alert li + li + li {
+  display: none;
+}
+/* line 175, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .alert ul {
+  clear: both;
+  padding: 0;
+  margin: 0;
+}
+/* line 180, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .alert li {
+  display: block;
+  list-style: none;
+}
+/* line 184, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .alert a, #meedan_bookmarklet .alert a:link, #meedan_bookmarklet .alert a:visited, #meedan_bookmarklet .alert a:hover {
+  text-decoration: none;
+  color: #848484;
+  font-size: 15px;
+  line-height: 40px;
+}
+/* line 190, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .alert a::before {
+  margin-right: 0;
+}
+/* line 196, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #user-login label, #meedan_bookmarklet #user-login input[type=text], #meedan_bookmarklet #user-login input[type=password], #meedan_bookmarklet #user-login a {
+  font-size: 13px;
+  clear: both;
+}
+/* line 200, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #user-login ul {
+  margin: 0;
+}
+/* line 203, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #user-login li {
+  list-style: none;
+  display: block;
+  margin: 0;
+}
+/* line 209, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #user-login #edit-social-media-signin label, #meedan_bookmarklet #user-login #edit-social-media-signin li, #meedan_bookmarklet #user-login #edit-social-media-signin a {
+  float: left;
+}
+/* line 212, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet #user-login #edit-social-media-signin li {
+  margin-left: 5px;
+}
+
+/* line 222, ../scss/_bookmarklet.scss */
+#info-menu {
+  border-right: 1px solid #999;
+}
+/* line 224, ../scss/_bookmarklet.scss */
+#info-menu .caret {
+  display: none;
+}
+/* line 228, ../scss/_bookmarklet.scss */
+#info-menu li a.dropdown-toggle {
+  margin-right: 10px;
+}
+/* line 233, ../scss/_bookmarklet.scss */
+#info-menu li.open a.dropdown-toggle {
+  color: #323232;
+  background: #fff;
+  text-shadow: none;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -ms-border-radius: 5px 5px 0 0;
+  -o-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+/* line 240, ../scss/_bookmarklet.scss */
+#info-menu .dropdown-menu {
+  border: 0;
+  background: #fff;
+  margin: -5px 10px 0 0;
+  -webkit-box-shadow: 1px 5px 10px #333333;
+  -moz-box-shadow: 1px 5px 10px #333333;
+  box-shadow: 1px 5px 10px #333333;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 246, ../scss/_bookmarklet.scss */
+#info-menu .dropdown-menu .ajax-progress-throbber, #info-menu .dropdown-menu:after, #info-menu .dropdown-menu:before {
+  display: none;
+}
+/* line 249, ../scss/_bookmarklet.scss */
+#info-menu .dropdown-menu a {
+  color: #08C;
+}
+/* line 252, ../scss/_bookmarklet.scss */
+#info-menu .dropdown-menu a:hover {
+  background: transparent;
+}
+
+/* line 260, ../scss/_bookmarklet.scss */
+#modalContent {
+  width: 930px !important;
+  height: 355px !important;
+  background: #fff;
+  border: 1px solid #C0C0C0;
+  top: 80px !important;
+  left: 50% !important;
+  margin-left: -465px;
+  z-index: 1050 !important;
+  overflow: visible;
+}
+/* line 271, ../scss/_bookmarklet.scss */
+#modalContent .ctools-modal-content {
+  width: 930px !important;
+}
+/* line 275, ../scss/_bookmarklet.scss */
+#modalContent .modal-header {
+  border-bottom: 0;
+}
+/* line 278, ../scss/_bookmarklet.scss */
+#modalContent .modal-header .close {
+  display: block;
+  text-indent: -5000em;
+  width: 19px;
+  height: 19px;
+  background: transparent url(../imgs/icons/modal-close.png) center center no-repeat;
+  opacity: 1;
+}
+/* line 287, ../scss/_bookmarklet.scss */
+#modalContent .modal-header .modal-title {
+  display: none;
+}
+/* line 292, ../scss/_bookmarklet.scss */
+#modalContent #install-bookmarklet-button {
+  background: transparent url(../imgs/icons/bookmarklet-drag.png) left center no-repeat;
+  display: block;
+  height: 84px;
+  width: 50%;
+  padding-left: 66px;
+  position: absolute;
+  left: 35px;
+  top: -9px;
+  z-index: 1051;
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+}
+/* line 306, ../scss/_bookmarklet.scss */
+#modalContent #install-bookmarklet-button span {
+  position: absolute;
+  top: 50px;
+  padding: 10px;
+  background: #2DA3EB;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 315, ../scss/_bookmarklet.scss */
+#modalContent .install-bookmarklet-col {
+  width: 420px;
+  float: left;
+  margin: 0 22px;
+}
+/* line 320, ../scss/_bookmarklet.scss */
+#modalContent .install-bookmarklet-col h3 {
+  color: #C0C0C0;
+  font-size: 28px;
+  text-align: center;
+  margin: 80px auto 20px auto;
+  font-weight: normal;
+  padding-right: 76px;
+}
+/* line 329, ../scss/_bookmarklet.scss */
+#modalContent .install-bookmarklet-col ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 334, ../scss/_bookmarklet.scss */
+#modalContent .install-bookmarklet-col li {
+  margin-top: 5px;
+  list-style: none;
+}
+/* line 339, ../scss/_bookmarklet.scss */
+#modalContent .install-bookmarklet-col a, #modalContent .install-bookmarklet-col p {
+  font-size: 13px;
+}
+/* line 343, ../scss/_bookmarklet.scss */
+#modalContent .install-bookmarklet-col p {
+  color: #616161;
+}
+/* line 349, ../scss/_bookmarklet.scss */
+#modalContent .install-bookmarklet-col + .install-bookmarklet-col h2 {
+  color: #C0C0C0;
+  font-weight: normal;
+  font-size: 34px;
+}
+/* line 355, ../scss/_bookmarklet.scss */
+#modalContent .install-bookmarklet-col + .install-bookmarklet-col p {
+  font-size: 16px;
+  margin: 25px 0;
+}
+
+/* line 362, ../scss/_bookmarklet.scss */
+#modalBackdrop {
+  background: url(../imgs/alpha.png) !important;
+  z-index: 1049 !important;
+}
+
+/* line 369, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet_cont {
+  display: none;
+  position: fixed !important;
+  left: 30px !important;
+  border: 0 !important;
+  -moz-box-shadow: 1px 5px 10px #333 !important;
+  -webkit-box-shadow: 1px 5px 10px #333 !important;
+  box-shadow: 1px 1px 10px #333 !important;
+  border-top-left-radius: 0 !important;
+  -moz-border-radius-topleft: 0 !important;
+  -webkit-border-radius-topleft: 0 !important;
+}
+
+/* line 383, ../scss/_bookmarklet.scss */
+.meedan-bookmarklet-internal #meedan_bookmarklet_preview, .meedan-bookmarklet-internal #edit-body, .meedan-bookmarklet-internal #edit-graphic-content, .meedan-bookmarklet-internal #edit-actions #edit-submit {
+  display: none;
+}
+
+/* line 390, ../scss/_bookmarklet.scss */
+#menu-submit-report {
+  padding: 5px 5px 5px 25px;
+  background: transparent url(../imgs/icons/menu-submit-report.png) 5px center no-repeat;
+}
+
+/* line 395, ../scss/_bookmarklet.scss */
+#menu-submit-report:hover {
+  background: transparent url(../imgs/icons/menu-submit-report-over.png) 5px center no-repeat;
+}
+
+/* line 400, ../scss/_bookmarklet.scss */
+#menu-submit-report.open:hover,
+#menu-submit-report.open {
+  color: #323232;
+  background: #fff;
+  text-shadow: none;
+  background: white url(../imgs/icons/menu-submit-report-opened.png) 5px center no-repeat;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
 /* line 2, ../scss/_form_password.scss */
 .form-item-pass {
   width: 100%;
@@ -4590,7 +5039,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #FF628C;
+  background-color: #0088FF;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5013,7 +5462,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #0088FF;
+  background-color: #3AD900;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5150,7 +5599,7 @@ body #page {
     margin-left: auto;
     margin-right: auto;
   }
-  /* line 38, ../../../../../../../../../../usr/local/rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+  /* line 38, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
   body #page:after {
     content: "";
     display: table;
@@ -5221,7 +5670,7 @@ body ul.tabs.primary li a:hover {
 }
 /* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 body ul.tabs.primary li a.active {
-  background-color: #0088FF;
+  background-color: #FFDD00;
   color: rgba(0, 0, 0, 0.8);
 }
 /* line 33, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
@@ -5229,21 +5678,21 @@ body ul.tabs.primary li a.active:hover {
   color: white;
 }
 
-/* line 158, ../scss/style.scss */
+/* line 161, ../scss/style.scss */
 i {
   display: none;
 }
-/* line 160, ../scss/style.scss */
+/* line 163, ../scss/style.scss */
 i:hover {
   display: none;
 }
 
-/* line 167, ../scss/style.scss */
+/* line 170, ../scss/style.scss */
 .field-edit-link {
   display: none;
 }
 
-/* line 174, ../scss/style.scss */
+/* line 177, ../scss/style.scss */
 body {
   background-image: url(bb_background_path()arches.png);
   background-repeat: repeat;
@@ -5251,7 +5700,7 @@ body {
   background-attachment: fixed;
   background-color: #eeeeee;
 }
-/* line 181, ../scss/style.scss */
+/* line 184, ../scss/style.scss */
 body #content-header {
   *zoom: 1;
 }
