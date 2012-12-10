@@ -63,28 +63,20 @@ $base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
 // Further reading: http://susy.oddbird.net
 //
 
-// For testing
-// $from-direction: right;
-@mixin full {
-  @include span-columns($fw, $fw);
-}
-
 // The key variable: columns count for a grid
-// used as a context
-$cw: 6;
-$total-width: $cw;
+$container-width: 6;
+$total-width: $container-width;
+$total-columns: $container-width; // Alias for Susy
 
 // Tabs on the login page
-$tabs-width: $cw;
-$tw: $tabs-width; // Alias
+$tabs-width: $container-width;
 
 // Use ratios of $gutter-width whenever you need a small amount of padding
 $gutter-width: 10px; // The distance between grid columns
-$gw: $gutter-width; // Alias
 
 // We set the column width equal to the gutter, and equal to the grid padding
 $column-width: 100px; // The width of columns
-$grid-padding: $gw; // The padding on the sides of the out <container>
+$grid-padding: $gutter-width; // The padding on the sides of the out <container>
 
 // Note that Susy is always "fluid" for inner elements, the Susy Sass "API" emits percents
 // but we additionally want the outer container to be fluid with the width of the browser.
@@ -93,18 +85,30 @@ $break-small: 12; // column breakpoint - at the equivalent of fullsize grid unit
 $break-medium: 24; // column breakpoint - at the equivalent of fullsize grid units
 
 // The main <form> width is 
-$form-width: $cw;
-$fw: $form-width; //Alias
+$form-width: $container-width; // in relation to the container width
 
-// Width: the main <label>s in the <form>
-$label-width: half-of($fw);
-$lw: $label-width; // Alias
+// Labels
+$label-width: half-of($form-width); // a fraction of the form width.
+$input-width: ($form-width - $label-width); // The remaining fraction of the form width.
 
-$input-width: ($fw - $label-width);
-$iw: $input-width; // Alias
+// Aliases
+$cw: $container-width;
+$fw: $form-width; 
+$tw: $tabs-width; 
+$gw: $gutter-width; 
+$iw: $input-width; 
+$lw: $label-width; 
 
 // Typography for <form> elements
 //
 $form-helper-text-size: $small-font-size;
 
 $notification-width: 5;
+$notification-icon-size: $base-font-size;
+$notification-image-width: 5%;
+$icon-selector: '.heartbeat-time-ago';
+$i-s: $icon-selector;
+$icon-word-padding: 2.5%;
+
+$nav-width: $cw;
+$nw: $nav-width; // Alias

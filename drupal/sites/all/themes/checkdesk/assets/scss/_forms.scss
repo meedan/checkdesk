@@ -1,3 +1,9 @@
+// For testing
+// $from-direction: right;
+@mixin full {
+  @include span-columns($fw, $fw);
+}
+
 // Item lists
 // Reset password
 @mixin checkdesk-form-item-list() {

@@ -60,6 +60,7 @@
 // The order of the includes is important: variables, mixin, then reset
 @import "override_ctb/variables";
 @import "override_ctb/mixins";
+@import "override_ctb/dropdowns";
 
 // @import "bowerbird/compass_twitter_bootstrap/reset";
 // @import "override_ctb/forms";
@@ -80,11 +81,11 @@
 @import "bowerbird/compass_twitter_bootstrap/scaffolding";
 @import "bowerbird/compass_twitter_bootstrap/code";
 @import "bowerbird/compass_twitter_bootstrap/tables";
-@import "bowerbird/compass_twitter_bootstrap/dropdowns";
+
 // @import "bowerbird/compass_twitter_bootstrap/modals";
-@import "bowerbird/compass_twitter_bootstrap/buttons";
-@import "bowerbird/compass_twitter_bootstrap/button-groups";
-.btn-group { font-size: $base-font-size; } // not sure why this is necessary. CGB Dec 2012
+// @import "bowerbird/compass_twitter_bootstrap/buttons";
+// @import "bowerbird/compass_twitter_bootstrap/button-groups";
+// .btn-group { font-size: $base-font-size; } // not sure why this is necessary. CGB Dec 2012
 
 @import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
@@ -146,6 +147,7 @@
 // password strength section
 @import "form_password";
 // Form implementations
+
 @import "user";
 @import "create_node";
 
@@ -154,6 +156,45 @@
 //
 // Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
 @import "layout";
+
+// ====================================================================== 
+// Final centralized render of CSS
+//
+
+body {
+  #page {
+
+    @include container($cw);
+    @include susy-grid-background;
+
+    @include at-breakpoint($cw/2) {
+      background-color: blue;
+    }
+
+    @include at-breakpoint($cw) {
+      background-color: red;
+    }
+
+    @include at-breakpoint($cw) {
+      background-color: green;
+    }
+
+    @include at-breakpoint($cw*2) {
+      background-color: pink;
+    }
+
+    // Forms
+    @include checkdesk-form;
+
+    #content-inner {
+      @include span-columns($cw, $cw, $gw);
+      @include bb-tabs;
+    }
+    #content-header {
+    	@include clearfix;
+    }
+  }
+}
 
 // ====================================================================== 
 // Deprecated, disabled, or hidden things 
@@ -172,28 +213,23 @@ body .contextual-links-wrapper {
   display: none!important;
 }
 
-// ====================================================================== 
-// Final centralized render of CSS
-//
+// Disable Drupal dropshadow on the main top toolbar
+#toolbar {
+  @include single-box-shadow(transparent);
+  // Not doing any other overrides to the Drupal menus at this point.
+  // .toolbar-menu {
+  //   ul#toolbar-home {
+  //   }
+  //   ul#toolbar-user {
+  //   }
+  // }
+  // .toolbar-drawer {
+  // }
+}
 
-body {
-  #page {
-    @include container($cw);
-    @include bb-background();
-    @include checkdesk-form;
-    // @include debug-vertical-alignment();
-    // background-color: $light-grey;
-    // @include susy-grid-background;
-    #content-inner {
-      @include span-columns($cw, $cw, $gw);
-      // @include susy-grid-background;
-      @include bb-tabs;
-    }
-    #content-header {
-      // @include debug-colors;
-    	@include clearfix;
-    }
-  }
+// hack for empty div need to remove this in markup. CGB Dec 2012
+li.menu-449 {
+  display: none!important;
 }
 
 // ====================================================================== 

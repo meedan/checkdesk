@@ -1,3 +1,5 @@
+
+
 // Notifications block
 //
 // When the user gets a notification they can preview it in the navigation.
@@ -10,35 +12,22 @@
   @include clearfix;
   overflow: visible;
   float: opposite-position($from-direction);
+  
   .auto-refresh {
     display: none;
   }
-  h2 {
-    span { @include reset-box-model; }
-    @include reset-box-model;
-    @include chunky_block($firetruck-red, blue, green, white);
-    font-weight: normal;
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    .notifications-count {
-      color: $notification-count-color;
-      span {
-        padding: 1px;
-        background: transparentize(#ffffff, 0.9);
-      }
-    }
-  }
+
   .content {
     @include reset-box-model;
-    border: 5px solid $syntax-four;
+    @include span-columns($cw, $cw/2, $gw);
+    border: 1px solid $grey;
     position: absolute;
-    #{$from-direction}: 0;
-    top: $base-line-height;
+    #{opposite-position($from-direction)}: $gw;
+    top: 0;
     background: $light-grey;
-    @include span-columns($cw omega, $cw/2);
+    z-index: 3;
     .view-content {
-      height: 250px;
+      height: 300px;
       overflow: auto;
       background: white;
     }
@@ -46,16 +35,15 @@
       display: none;
     }
     .notifications-settings-link, .more-link {
-      margin: 0;
-      padding: 12px 18px;
-      display: block;
+      @include chunky_block;
+      padding: { top: 0.5em; bottom: 0.5em;} 
       a, a:visited, a:link {
-        font-size: $small-font-size;
-        color: #6a6a6a;
+        font-size: $small-font-size;        
         text-decoration: none;
+        color: white;
       }
       a:hover {
-        text-decoration: underline;
+        color: $light-grey;
       }
     }
     .notifications-settings-link {
@@ -67,64 +55,105 @@
     .notifications-footer {
       clear: both;
     }
-    .heartbeat-activity {
-      color: $dark-grey;
-      border-bottom: 1px solid $light-grey;
-      padding: { top: $gw; bottom: $gw; } 
-      @include span-columns($cw, $cw);
-      font-size: $small-font-size;
-      a, a:visited, a:link {
-        text-decoration: none;
-        font-weight: bold;
-        color: #6a6a6a;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      p, img {
-        float: $from-direction;
-      }
-      p {
-        margin: 0;
-        @include span-columns($cw - 2, $cw);
-      }
-      img {
-        margin-#{opposite-position($from-direction)}: 9px;
-        margin-bottom: 6px;
-      }
-      .heartbeat-time-ago {
-        clear: both;
-        display: block;
-        margin: 0 0 0 9px;
-        height: 12px;
-        line-height: 12px;
-        padding-#{$from-direction}: 19px;
-        background-repeat: no-repeat;
-        background-color: transparent;
-        background-position: $from-direction bottom;
-        font-weight: normal;
-        color: #a9a9a9;
-      }
-    }
-    /* Icons for each activity type */
-    .checkdesk_add_story, .checkdesk_comment_on_update, .checkdesk_new_update_on_story_i_commented_on_update, .checkdesk_reply_to_comment {
-      .heartbeat-time-ago { background-image: url(../imgs/icons/notification-star.png); }
-    }
-    .checkdesk_fact_checking_on, .checkdesk_fact_checking_set, .checkdesk_fact_status_changed_for_commenter, .checkdesk_flag_report {
-      .heartbeat-time-ago { background-image: url(../imgs/icons/notification-flag.png); }
-    }
-    .checkdesk_comment_on_report, .checkdesk_report_published_in_update, .checkdesk_report_suggested_to_story {
-      .heartbeat-time-ago { background-image: url(../imgs/icons/notification-report.png); }
+  }
+}
+
+// Heartbeat
+//
+// W/ icon on the background of an element.
+.heartbeat-activity {
+  color: $dark-grey;
+  border-bottom: 1px solid $light-grey;
+  padding: { top: 1em; bottom: 1em; } 
+  @include span-columns($cw, $cw, $gw);
+  font-size: $base-font-size;
+  a, a:visited, a:link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #6a6a6a;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  p {
+    @include reset-box-model;
+    width: 75%;
+    float: $from-direction;
+  }
+
+  img {
+    @include reset-box-model;
+    width: $notification-icon-size;
+    @include inline-block;
+    float: $from-direction;
+    width: $gw + 5px;
+    margin-right: $gw;
+    margin-top: 3px;
+    background: $light-grey;
+  }
+  
+  &:hover {
+    #{$i-s}:before {
+      @include opacity(1);
+    }    
+  }
+
+  #{$i-s} {
+    @include reset-box-model;
+    display: block;
+    float: $from-direction;
+    clear: both;
+    width: 100% - $notification-image-width;
+    line-height: $base-font-size;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: $from-direction bottom;
+    font-weight: normal;
+    color: $grey;
+  }
+}
+
+// Activity icons
+@mixin activity-icon(
+  $name: "add_story", 
+  $symbol: "warning-sign", 
+  $color: $grey, 
+  $size: $notification-icon-size) 
+  {
+  .checkdesk_#{$name} #{$i-s} {
+    @include icon-on-a-word($symbol, $size, $color) {
+      // apply the width directly to the :before content
+      width: $notification-image-width;
     }
   }
 }
 
+// Comment icons
+@include activity-icon("comment_on_update", "comment", $grey);
+@include activity-icon("new_update_on_story_i_commented_on_update", "comment", $dark-blue);
+@include activity-icon("reply_to_comment", "comment-alt", $dark-blue);
+@include activity-icon("comment_on_report", "comment", $dark-blue);
+
+// Fact-checking icons
+@include activity-icon("fact_checking_on", "wrench", $grey);
+@include activity-icon("fact_checking_set", "star", $twitter-blue);
+@include activity-icon("report_suggested_to_story", "link", $facebook-blue);
+@include activity-icon("fact_status_changed_for_commenter", "warning-sign", $black);
+
+// Flags on report icons
+@include activity-icon("flag_report", "flag", $youtube-red);
+
+// Publishing event icons
+@include activity-icon("report_published_in_update", "star", $grey);
+
+// Expanded block
 #block-views-my-notifications-block.notifications-block-expanded {
-  .content, h2 {
+  .content, 
+  h2 {
     background: #fff;
   }
   h2 {
-    color: #626262;
+    color: $nav-color;
     z-index: 6;
     font-size: $base-font-size;
 	  // @include border-radius(5px 5px 0 0);

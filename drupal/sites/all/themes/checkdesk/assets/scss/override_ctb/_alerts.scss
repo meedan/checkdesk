@@ -7,16 +7,12 @@
   padding: $baseLineHeight/2 $gw $baseLineHeight $gw;
   margin-bottom: $gw;
   text-shadow: 0 1px 0 rgba(255,255,255,.4);
-  background-color: $warningBackground;
   border: { top: 1px solid $grey; bottom: 1px solid $grey; }
+  background-color: $warningBackground;
   color: $dark-grey;
-  font-size: $smallest-font-size;
+  font-size: $small-font-size;
   background-color: $light-grey;
   @include border-radius($baseBorderRadius);
-  // sometimes errors are extremeley large, thus:
-  @include transition-property(height);
-  @include transition-duration(2s);
-  @include transition-timing-function(ease-in);
   &:hover {
     height: auto; 
   }
