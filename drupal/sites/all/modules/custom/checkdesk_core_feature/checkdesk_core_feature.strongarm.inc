@@ -397,13 +397,6 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'meedan_bookmarklet_code';
-  $strongarm->value = 'javascript:(function(){window.meedanBookmarkletHost=\'http://localhost/meedan/meedan-checkdesk/drupal\';if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{document.body.appendChild(document.createElement(\'script\')).src=\'http://localhost/meedan/meedan-checkdesk/drupal/sites/all/modules/meedan/meedan_bookmarklet/js/meedan_bookmarklet.js?1355106404\';}})();';
-  $export['meedan_bookmarklet_code'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'meedan_bookmarklet_content_type';
   $strongarm->value = 'media';
   $export['meedan_bookmarklet_content_type'] = $strongarm;
