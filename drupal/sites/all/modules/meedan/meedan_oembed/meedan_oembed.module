@@ -161,8 +161,10 @@ function meedan_oembed_scrape_generic(&$embed, $domain) {
  */
 function meedan_oembed_scrape_facebook($provider, $url) {
   include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
-  $provider_url = 'http://' . parse_url($url, PHP_URL_HOST);
-  $post_url = explode('/', str_replace($provider_url, '', $url));
+  $host = parse_url($url, PHP_URL_HOST);
+  $provider_url = 'http://' . $host;
+  $host_search = array('http://' . $host, 'https://' . $host);
+  $post_url = explode('/', str_replace($host_search, '', $url));
   $facebook = new Facebook(array(
     'appId'  => variable_get('fboauth_id', ''),
     'secret' => variable_get('fboauth_secret', ''),
@@ -175,11 +177,21 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     $embed->provider_url = $provider_url;
     $embed->provider_name = 'Facebook';
     $embed->type = 'link';
-    // Get User ID
-    $user = $facebook->getUser();
     $post_data = $facebook->api('/' . $post_url[3]);
-    $embed->title = $post_data['message'];
-    $embed->description = $post_data['message'];
+    //Get post message either from user message, link title or link description
+    if (isset($post_data['message'])) {
+      $embed->description = $post_data['message'];
+    }
+    elseif (isset($post_data['name'])) {
+      $embed->description = $post_data['name'];
+    }
+    elseif (isset($post_data['description'])) {
+      $embed->description = $post_data['description'];
+    }
+    else {
+      $embed->description = t('No message avilable for this post');
+    }
+    $embed->title = $embed->description;
     $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
     $embed->picture = isset($post_data['picture']) ? $post_data['picture'] : '';
     $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
@@ -363,17 +375,40 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
     '#type' => 'hidden', 
     '#value' => $fb_user,
   );
-  $form['#validate'][] = '_meedan_oembed_facebook_post';
+  $form['#validate'][] = '_meedan_oembed_facebook_post_validate';
 }
 
 /**
  * Validate embed from facebook 
  * make sure that user login through facebook if he adds media from facebook
  */
-function _meedan_oembed_facebook_post($form, &$form_state) {
+function _meedan_oembed_facebook_post_validate($form, &$form_state) {
   $lang = $form_state['values']['language'];
   $host = parse_url($form_state['values']['field_link'][$lang][0]['url'], PHP_URL_HOST);
-  if (strpos($host, 'facebook') && !$form_state['values']['fb_userid']) {
-    form_set_error('field_link', $form_state['values']['fb_loginurl']);
+  if (strpos($host, 'facebook')) {
+    if (!$form_state['values']['fb_userid']) {
+      //Ask user to login through facebook first
+      form_set_error('field_link', $form_state['values']['fb_loginurl']);
+    }
+    else {
+      //Check if user has a permission to embed this post
+      include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
+      $facebook = new Facebook(array(
+        'appId'  => variable_get('fboauth_id', ''),
+        'secret' => variable_get('fboauth_secret', ''),
+      ));
+      $post_data = NULL;
+      try {
+        $url = $form_state['values']['field_link'][$lang][0]['url'];
+        $host_search = array('http://' . $host, 'https://' . $host);
+        $post_url = explode('/', str_replace($host_search, '', $url));
+        $post_data = $facebook->api('/' . $post_url[3]);
+      } catch (FacebookApiException $e) {
+        watchdog('FacebookApi', t('Unable to fetch data from facebook post @url', array('@url' => $url)));
+      }
+      if(!$post_data) {
+        form_set_error('field_link', t('You have not enough permission to embed this post'));
+      }
+    }
   }
 }
