@@ -141,7 +141,7 @@
 	  @include border-radius(5px 5px 0 0);
   }
   .content {
-    @include box-shadow(1px 5px 10px #333);
+    @include box-shadow(1px 10px 10px #333);
 	  @include border-radius(5px);
     @if $from-direction == left {
       @include border-top-right-radius(0);

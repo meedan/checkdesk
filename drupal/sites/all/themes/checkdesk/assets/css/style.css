@@ -3811,9 +3811,9 @@ div.tabs {
 }
 /* line 143, ../scss/_notifications.scss */
 #block-views-my-notifications-block.notifications-block-expanded .content {
-  -webkit-box-shadow: 1px 5px 10px #333333;
-  -moz-box-shadow: 1px 5px 10px #333333;
-  box-shadow: 1px 5px 10px #333333;
+  -webkit-box-shadow: 1px 10px 10px #333333;
+  -moz-box-shadow: 1px 10px 10px #333333;
+  box-shadow: 1px 10px 10px #333333;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -4603,9 +4603,9 @@ div.tabs {
   border: 0;
   background: #fff;
   margin: -5px 10px 0 0;
-  -webkit-box-shadow: 1px 5px 10px #333333;
-  -moz-box-shadow: 1px 5px 10px #333333;
-  box-shadow: 1px 5px 10px #333333;
+  -webkit-box-shadow: 1px 10px 10px #333333;
+  -moz-box-shadow: 1px 10px 10px #333333;
+  box-shadow: 1px 10px 10px #333333;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -4621,7 +4621,7 @@ div.tabs {
   color: #08C;
 }
 /* line 252, ../scss/_bookmarklet.scss */
-#info-menu .dropdown-menu a:hover {
+#info-menu .dropdown-menu a:hover, #info-menu .dropdown-menu a:link, #info-menu .dropdown-menu a:active {
   background: transparent;
 }
 
@@ -4740,11 +4740,11 @@ div.tabs {
 #meedan_bookmarklet_cont {
   display: none;
   position: fixed !important;
-  left: 30px !important;
+  left: 44px !important;
   border: 0 !important;
-  -moz-box-shadow: 1px 5px 10px #333 !important;
-  -webkit-box-shadow: 1px 5px 10px #333 !important;
-  box-shadow: 1px 1px 10px #333 !important;
+  -moz-box-shadow: 1px 10px 10px #333 !important;
+  -webkit-box-shadow: 1px 10px 10px #333 !important;
+  box-shadow: 1px 10px 10px #333 !important;
   border-top-left-radius: 0 !important;
   -moz-border-radius-topleft: 0 !important;
   -webkit-border-radius-topleft: 0 !important;
@@ -5039,7 +5039,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #0088FF;
+  background-color: #FF628C;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5462,7 +5462,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #3AD900;
+  background-color: #80FFC2;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */

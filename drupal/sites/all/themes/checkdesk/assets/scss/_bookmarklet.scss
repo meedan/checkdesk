@@ -241,7 +241,7 @@
     border: 0;
     background: #fff;
     margin: -5px 10px 0 0;
-    @include box-shadow(1px 5px 10px #333);
+    @include box-shadow(1px 10px 10px #333);
 	  @include border-radius(5px);
     .ajax-progress-throbber, &:after, &:before {
       display: none;
@@ -249,7 +249,7 @@
     a {
       color: #08C;
     }
-    a:hover {
+    a:hover, a:link, a:active {
       background: transparent;
     }
   }
@@ -369,11 +369,11 @@
 #meedan_bookmarklet_cont {
   display: none;
   position: fixed !important;
-  left: 30px !important;
+  left: 44px !important;
   border: 0 !important;
-  -moz-box-shadow: 1px 5px 10px #333 !important;
-  -webkit-box-shadow: 1px 5px 10px #333 !important;
-  box-shadow: 1px 1px 10px #333 !important;
+  -moz-box-shadow: 1px 10px 10px #333 !important;
+  -webkit-box-shadow: 1px 10px 10px #333 !important;
+  box-shadow: 1px 10px 10px #333 !important;
   border-top-left-radius: 0 !important;
   -moz-border-radius-topleft: 0 !important;
   -webkit-border-radius-topleft: 0 !important;
