@@ -75,14 +75,14 @@
       $sign-in-icon-size: 20px;
       li.first a {
         @include bb-transition($light-grey, $twitter-blue) {
-          @include icon(twitter, fontawesome, $sign-in-icon-size, white, $grey);
+          @include icon(twitter, $sign-in-icon-size, white);
           &:after { content: " Twitter"; }
         }
       }
 
       li a[class^='facebook'] {
         @include bb-transition($light-grey, $facebook-blue) {
-          @include icon(facebook, fontawesome, $sign-in-icon-size, white, $grey);
+          @include icon(facebook, $sign-in-icon-size, white);
           &:after { content: " Facebook"; }
         }
       }

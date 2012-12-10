@@ -121,7 +121,7 @@
   $size: $notification-icon-size) 
   {
   .checkdesk_#{$name} #{$i-s} {
-    @include icon-on-a-word($symbol, $size, $color) {
+    @include icon($symbol, $size, $color) {
       // apply the width directly to the :before content
       width: $notification-image-width;
     }

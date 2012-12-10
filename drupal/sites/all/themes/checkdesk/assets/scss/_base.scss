@@ -53,6 +53,7 @@ $base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
 @function fifth-of($width)    { @return $width / 5; }
 @function fourth-of($width)   { @return $width / 4; }
 @function third-of($width)    { @return $width / 3; }
+@function two-thirds-of($width) { @return (third-of($width) * 2) }
 @function half-of($width)     { @return $width / 2; }
 
 // Grid configuration

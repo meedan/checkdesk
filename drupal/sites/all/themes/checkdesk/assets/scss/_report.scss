@@ -4,48 +4,72 @@
 //
 // Compatibility: untested
 
+$report-width: $cw;
+$rw: $report-width;
+
+
+img {
+	width: 100%;
+}
+
 .report {
+	border: solid $gw $grey;
+
 	& > header {
-		@include ctb-clearfix();
+		@include clearfix;
 		background-color: darken($grayLighter, 5%);
+		background: top $from-direction repeat url("/sites/all/themes/bowerbird/images/bkgs/arches.png");
 		color: $gray;
-
+		@include span-columns($rw, $rw);
+		
 		h3 {
-			float: $from-direction;
-			@include reset-box-model;
-			@include ctb-font-shorthand(12px, normal);
-			padding: $gw;
-			display: block;
-		}
+				@include span-columns($rw, $rw);	
+				@include at-breakpoint($rw) {
+				@include span-columns(two-thirds-of($rw), $rw);
+			}
 
-		.source-url {
-			font-weight: bold;
+			font-size: $small-font-size;
+			line-height: $base-line-height;
+			background-color: green;
+			.source-url {
+				font-weight: normal;
+				font-size: $small-font-size;
+				line-height: $base-line-height;
+				overflow: hidden;
+				padding-left: $gw;
+				padding-right: $gw;
+			}
 		}
 
 		.report-actions {
-			float: opposite-position($from-direction);
-			@include reset-list-style;
 			@include reset-box-model;
-			@include ctb-font-shorthand(12px, normal);
-			display: block;
-			padding: 0 $gw/2;
+			@include reset-list-style;
+			
+			@include span-columns($rw, $rw);	
+			@include at-breakpoint($rw) {
+				@include span-columns(third-of($rw) omega, $rw);	
+			}
+
+			
+			font-size: $small-font-size;
+			background-color: red;
 			
 			& > li {
 				display: block;
 				float: opposite-position($from-direction);
-				border-#{$from-direction}: 1px solid $dark-grey;
+				border-#{$from-direction}: 1px solid $light-grey;
 				min-height: 39px;
 				& > a {
 					@include reset-box-model;
 					display: block;
-					padding: 10px;
+					padding: $gw;
 					
 					@include transition-property(color);
-			    	@include transition-duration(0.2s);
-				    &:hover { 
-				    	color: black;
-				    	text-decoration: none;
-				    }
+			    @include transition-duration(0.2s);
+				  &:hover { 
+			    	color: black;
+			    	text-decoration: none;
+			    }
 
 					span {
 						float: $from-direction;
@@ -53,17 +77,20 @@
 
 						// Flag and share on the top of the report
 						&.icon-flag {
-							@include icon(flag, fontawesome, 16px, $darker-grey, transparent);
+							@include icon(flag, 16px, $darker-grey);
 						}
 						&.icon-share {
-							@include icon(share, fontawesome, 16px, $darker-grey, transparent);
+							@include icon(share, 16px, $darker-grey);
+						}
+						&.icon-edit {
+							@include icon(edit, 16px, $darker-grey);
 						}
 					}
 				}
 				// hide ajax throbber in dropdown
-			    .ajax-progress-throbber {
-			    	display: none;
-			  	}
+		    .ajax-progress-throbber {
+		    	display: none;
+		  	}
 			}
 		}
 	}
@@ -72,7 +99,7 @@
 	.report-content {
 		color: $gray;
 		background-color: darken($grayLighter, 5%);
-		@include clearfix();
+		@include span-columns($rw, $rw);
 		.report-media {
 			background-color: $white;
 			text-align: center;
@@ -263,14 +290,14 @@
 	// based on status
 	.icon-ok-sign { 
 		color: $green;
-		@include icon(ok-sign, fontawesome, 16px, darken($green, 15%), transparent); 
+		@include icon(ok-sign, 16px, darken($green, 15%)); 
 	}
 	.icon-question-sign { 
 		color: $orange; 
-		@include icon(remove-sign, fontawesome, 16px, darken($orange, 15%), transparent);
+		@include icon(remove-sign, 16px, darken($orange, 15%));
 	}
 	.icon-remove-sign { 
 		color: $red; 
-		@include icon(question-sign, fontawesome, 16px, darken($red, 15%), transparent);
+		@include icon(question-sign, 16px, darken($red, 15%));
 	}
 }

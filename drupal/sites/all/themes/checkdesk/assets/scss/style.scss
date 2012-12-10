@@ -60,15 +60,14 @@
 // The order of the includes is important: variables, mixin, then reset
 @import "override_ctb/variables";
 @import "override_ctb/mixins";
-@import "override_ctb/dropdowns";
 
 // @import "bowerbird/compass_twitter_bootstrap/reset";
 // @import "override_ctb/forms";
 // @import "bowerbird/compass_twitter_bootstrap/forms";
-@import "override_ctb/navigation";
 @import "override_ctb/modals";
 @import "override_ctb/alerts";
 @import "override_ctb/type";
+@import "override_ctb/dropdowns";
 
 // Checkdesk navigation
 @import "navigation";
@@ -142,53 +141,50 @@
 // ====================================================================== 
 // Forms
 //
+
 // Mixins for forms
 @import "forms";
+
 // password strength section
 @import "form_password";
-// Form implementations
 
+// Form implementations
 @import "user";
+
+// Create nodes
 @import "create_node";
 
 // ====================================================================== 
 //  Checkdesk layout
 //
 // Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
-@import "layout";
+// @import "layout";
+
+@import "navigation";
 
 // ====================================================================== 
 // Final centralized render of CSS
 //
 
+body.toolbar.toolbar-drawer {
+  padding-top: 0!important;
+}
+
+#toolbar {
+  position: static;
+}
+
 body {
   #page {
-
-    @include container($cw);
-    @include susy-grid-background;
-
-    @include at-breakpoint($cw/2) {
-      background-color: blue;
-    }
-
-    @include at-breakpoint($cw) {
-      background-color: red;
-    }
-
-    @include at-breakpoint($cw) {
-      background-color: green;
-    }
-
-    @include at-breakpoint($cw*2) {
-      background-color: pink;
-    }
-
+    @include container($cw/2, $cw, $cw*2);
+  
     // Forms
     @include checkdesk-form;
 
     #content-inner {
       @include span-columns($cw, $cw, $gw);
       @include bb-tabs;
+      @include susy-grid-background;
     }
     #content-header {
     	@include clearfix;
@@ -198,6 +194,13 @@ body {
 
 // ====================================================================== 
 // Deprecated, disabled, or hidden things 
+
+// Disable duplicate link in drupal nav
+div.toolbar-menu {
+  #toolbar-home, #toolbar-user {
+    display: none;
+  }  
+}
 
 // We don't use the i element for icons
 // And they should not display

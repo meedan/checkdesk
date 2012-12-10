@@ -1,5 +1,87 @@
-
 // Navigation at the very top.
 // Not to be confused with tabs.
+
+// This makes any element behave properly with 1 or more <.nav-item> children
+@mixin nav-item-container() {
+  @include reset-box-model;
+  display: inline-block;
+  clear: none;
+  position: relative;
+  z-index: 1;
+}
+
+// A single item in the nav
+// Could be a dropdown, header, anchor or div
+@mixin nav-item { 
+  @include chunky_block; // floated boxy elements 
+  img { // images in nav items
+    @include reset-box-model;
+    width: $base-font-size;
+    height: $base-font-size;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+// Apply the icons
+// This will have to be refined with improved markup. href-based selector is fragile. - CGB
+@mixin nav-icons($size: $base-font-size) {
+  a[href="/"] .icon-home { @include icon("home", $size) { @include reset-box-model; } }
+  a[href*="discussion"] { @include icon("file", $size); }
+  a[href*="post"] { @include icon("pencil", $size); }
+  a[href*="media"] { @include icon("bookmark", $size); }
+  a[href*="sub"] { @include icon("info-sign", $size); }
+}
+
+// Checkdesk main navigation 
 //
-// See override_ctb/_navigation.scss
+// 
+nav[role="navigation"] {
+  @include span-columns($cw, $cw);
+  z-index: 0;
+  background: $nav-container-bkg-color;
+
+  li { @include nav-icons($base-font-size); }
+  
+  // Nav item containers
+  .nav {
+    @include nav-item-container;
+
+    // The nav items
+    & > a, // the user menu a
+    & > li {
+      @include nav-item; // floated, with bkg color, and padding
+    }
+  }
+
+  // The lower menu items float
+  #info-menu, 
+  #user-menu, 
+  #navigation-region {
+    float: $from-direction;
+    display: block;
+  }
+
+  // Notifications has a different structure ...
+  #navigation-region {
+    #block-views-my-notifications-block {
+      h2 {
+        @include nav-item-container;
+        .notifications-label {
+          @include nav-item;
+          @include caret; // ideally this should be on a separate .caret span
+          padding-#{$from-direction}: $gw; // this should not be necessary
+        }
+
+        .notifications-count { // Notification count section, usually hidden
+          color: $notification-count-color;
+          span {
+            padding: 1px;
+            background: transparentize(#ffffff, 0.9);
+          }
+        }
+      }
+    }
+  }
+}
