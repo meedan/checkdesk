@@ -4621,11 +4621,13 @@ div.tabs {
   color: #08C;
 }
 /* line 252, ../scss/_bookmarklet.scss */
-#info-menu .dropdown-menu a:hover, #info-menu .dropdown-menu a:link, #info-menu .dropdown-menu a:active {
-  background: #fff;
+#info-menu .dropdown-menu li > a:hover, #info-menu .dropdown-menu li > a:focus {
+  background-color: transparent;
+  background-image: none;
+  filter: none;
 }
 
-/* line 260, ../scss/_bookmarklet.scss */
+/* line 262, ../scss/_bookmarklet.scss */
 #modalContent {
   width: 930px !important;
   height: 355px !important;
@@ -4637,15 +4639,19 @@ div.tabs {
   z-index: 1050 !important;
   overflow: visible;
 }
-/* line 271, ../scss/_bookmarklet.scss */
+/* line 273, ../scss/_bookmarklet.scss */
 #modalContent .ctools-modal-content {
   width: 930px !important;
 }
 /* line 275, ../scss/_bookmarklet.scss */
+#modalContent .ctools-modal-content .modal-content {
+  width: 930px !important;
+}
+/* line 280, ../scss/_bookmarklet.scss */
 #modalContent .modal-header {
   border-bottom: 0;
 }
-/* line 278, ../scss/_bookmarklet.scss */
+/* line 283, ../scss/_bookmarklet.scss */
 #modalContent .modal-header .close {
   display: block;
   text-indent: -5000em;
@@ -4654,11 +4660,11 @@ div.tabs {
   background: transparent url(../imgs/icons/modal-close.png) center center no-repeat;
   opacity: 1;
 }
-/* line 287, ../scss/_bookmarklet.scss */
+/* line 292, ../scss/_bookmarklet.scss */
 #modalContent .modal-header .modal-title {
   display: none;
 }
-/* line 292, ../scss/_bookmarklet.scss */
+/* line 297, ../scss/_bookmarklet.scss */
 #modalContent #install-bookmarklet-button {
   background: transparent url(../imgs/icons/bookmarklet-drag.png) left center no-repeat;
   display: block;
@@ -4673,7 +4679,7 @@ div.tabs {
   color: #fff;
   font-size: 18px;
 }
-/* line 306, ../scss/_bookmarklet.scss */
+/* line 311, ../scss/_bookmarklet.scss */
 #modalContent #install-bookmarklet-button span {
   position: absolute;
   top: 50px;
@@ -4685,13 +4691,13 @@ div.tabs {
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 315, ../scss/_bookmarklet.scss */
+/* line 320, ../scss/_bookmarklet.scss */
 #modalContent .install-bookmarklet-col {
   width: 410px;
   float: left;
   margin: 0 22px;
 }
-/* line 320, ../scss/_bookmarklet.scss */
+/* line 325, ../scss/_bookmarklet.scss */
 #modalContent .install-bookmarklet-col h3 {
   color: #C0C0C0;
   font-size: 28px;
@@ -4700,43 +4706,43 @@ div.tabs {
   font-weight: normal;
   padding-right: 76px;
 }
-/* line 329, ../scss/_bookmarklet.scss */
+/* line 334, ../scss/_bookmarklet.scss */
 #modalContent .install-bookmarklet-col ul {
   margin: 0;
   padding: 0;
 }
-/* line 334, ../scss/_bookmarklet.scss */
+/* line 339, ../scss/_bookmarklet.scss */
 #modalContent .install-bookmarklet-col li {
   margin-top: 5px;
   list-style: none;
 }
-/* line 339, ../scss/_bookmarklet.scss */
+/* line 344, ../scss/_bookmarklet.scss */
 #modalContent .install-bookmarklet-col a, #modalContent .install-bookmarklet-col p {
   font-size: 13px;
 }
-/* line 343, ../scss/_bookmarklet.scss */
+/* line 348, ../scss/_bookmarklet.scss */
 #modalContent .install-bookmarklet-col p {
   color: #616161;
 }
-/* line 349, ../scss/_bookmarklet.scss */
+/* line 354, ../scss/_bookmarklet.scss */
 #modalContent .install-bookmarklet-col + .install-bookmarklet-col h2 {
   color: #C0C0C0;
   font-weight: normal;
   font-size: 34px;
 }
-/* line 355, ../scss/_bookmarklet.scss */
+/* line 360, ../scss/_bookmarklet.scss */
 #modalContent .install-bookmarklet-col + .install-bookmarklet-col p {
   font-size: 16px;
   margin: 25px 0;
 }
 
-/* line 362, ../scss/_bookmarklet.scss */
+/* line 367, ../scss/_bookmarklet.scss */
 #modalBackdrop {
   background: url(../imgs/alpha.png) !important;
   z-index: 1049 !important;
 }
 
-/* line 369, ../scss/_bookmarklet.scss */
+/* line 374, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet_cont {
   display: none;
   position: fixed !important;
@@ -4750,23 +4756,23 @@ div.tabs {
   -webkit-border-radius-topleft: 0 !important;
 }
 
-/* line 383, ../scss/_bookmarklet.scss */
+/* line 388, ../scss/_bookmarklet.scss */
 .meedan-bookmarklet-internal #meedan_bookmarklet_preview, .meedan-bookmarklet-internal #edit-body, .meedan-bookmarklet-internal #edit-graphic-content, .meedan-bookmarklet-internal #edit-actions #edit-submit {
   display: none;
 }
 
-/* line 390, ../scss/_bookmarklet.scss */
+/* line 395, ../scss/_bookmarklet.scss */
 #menu-submit-report {
   padding: 5px 5px 5px 25px;
   background: transparent url(../imgs/icons/menu-submit-report.png) 5px center no-repeat;
 }
 
-/* line 395, ../scss/_bookmarklet.scss */
+/* line 400, ../scss/_bookmarklet.scss */
 #menu-submit-report:hover {
   background: transparent url(../imgs/icons/menu-submit-report-over.png) 5px center no-repeat;
 }
 
-/* line 400, ../scss/_bookmarklet.scss */
+/* line 405, ../scss/_bookmarklet.scss */
 #menu-submit-report.open:hover,
 #menu-submit-report.open {
   color: #323232;
@@ -5039,7 +5045,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #FF9D00;
+  background-color: #80FFC2;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5462,7 +5468,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #FF9D00;
+  background-color: #FFDD00;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */

@@ -249,8 +249,10 @@
     a {
       color: #08C;
     }
-    a:hover, a:link, a:active {
-      background: #fff;
+    li > a:hover, li > a:focus {
+      background-color: transparent;
+      background-image: none;
+      filter: none;
     }
   }
 }
@@ -270,6 +272,9 @@
 
   .ctools-modal-content {
     width: 930px !important;
+    .modal-content {
+      width: 930px !important;
+    }
   }
 
   .modal-header {
