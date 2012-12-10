@@ -5,19 +5,19 @@
 // Compatibility: untested
 
 #block-views-my-notifications-block {
-  @include span-columns(2 omega, $cw, $gw);
-  font-family: Arial, sans-serif;
   text-align: opposite-position($from-direction);
   position: relative;
   float: opposite-position($from-direction);
+  margin-#{opposite-position($from-direction)}: 5px;
+  margin-#{$from-direction}: 5px;
   .auto-refresh {
     display: none;
   }
   h2 {
     margin: 0;
     padding: 0 3px;
-    color: #fff;
-    font-size: 14px;
+    color: #999;
+    font-size: 1em;
     display: inline-block;
     font-weight: normal;
     cursor: pointer;
@@ -26,11 +26,20 @@
     line-height: 30px;
     .notifications-count {
       display: inline;
-      color: #2F58B4;
+      color: #999;
       span {
-        padding: 1px;
-        background: #fff;
+        padding: 1px 5px;
+        background: #296182;
 	      @include border-radius(5px);
+      }
+    }
+  }
+  h2:hover {
+    color: #fff;
+    .notifications-count {
+      color: #fff;
+      span {
+        background: #2DA3EB;
       }
     }
   }
@@ -55,7 +64,6 @@
       padding: 12px 18px;
       display: block;
       a, a:visited, a:link {
-        font-family: Arial, sans-serif;
         font-size: 13px;
         color: #6a6a6a;
         text-decoration: none;
@@ -78,7 +86,6 @@
       border-bottom: 1px solid #c9c9c9;
       margin: 0;
       padding: 12px 18px;
-      font-family: Arial, sans-serif;
       font-size: 12px;
       a, a:visited, a:link {
         text-decoration: none;
@@ -93,7 +100,7 @@
       }
       p {
         margin: 0;
-        width: 270px;
+        width: 280px;
       }
       img {
         margin-#{opposite-position($from-direction)}: 9px;
@@ -130,11 +137,11 @@
     background: #fff;
   }
   h2 {
-    color: #626262;
+    color: #323232;
 	  @include border-radius(5px 5px 0 0);
   }
   .content {
-    @include box-shadow(1px 1px 10px #333);
+    @include box-shadow(1px 5px 10px #333);
 	  @include border-radius(5px);
     @if $from-direction == left {
       @include border-top-right-radius(0);
