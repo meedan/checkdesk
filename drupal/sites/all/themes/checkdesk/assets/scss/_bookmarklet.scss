@@ -188,7 +188,7 @@
       line-height: 40px;
     }
     a::before {
-      margin-right: 0;
+      display: none;
     }
   }
 
@@ -250,7 +250,7 @@
       color: #08C;
     }
     a:hover, a:link, a:active {
-      background: transparent;
+      background: #fff;
     }
   }
 }
@@ -313,7 +313,7 @@
   }
 
   .install-bookmarklet-col {
-    width: 420px;
+    width: 410px;
     float: left;
     margin: 0 22px;
 
