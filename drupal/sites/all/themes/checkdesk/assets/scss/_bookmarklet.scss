@@ -195,6 +195,17 @@
     }
   }
 
+  .alert-error {
+    color: #a00;
+    font-size: 12px;
+    position: absolute;
+    top: 150px;
+    a, a:link, a:visited, a:hover {
+      font-size: 12px;
+      color: #a00;
+    }
+  }
+
   #user-login {
     label, input[type=text], input[type=password], a {
       font-size: 13px;

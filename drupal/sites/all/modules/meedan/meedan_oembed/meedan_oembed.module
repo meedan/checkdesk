@@ -364,7 +364,7 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
   // Get facebook User ID
   $fb_user = $facebook->getUser();
   if (!$fb_user) {
-    $loginUrl = t('You should click <strong> !url </strong>if you want to add facebook media', array('!url' => l('here', $facebook->getLoginUrl())));
+    $loginUrl = t('You should click <strong> !url </strong>if you want to add facebook media', array('!url' => l('here', $facebook->getLoginUrl(), array('attributes' => array('target' => '_blank')))));
     $form['facebook_login'] = array(
       '#markup' => $loginUrl,
       '#weight' => -99,
