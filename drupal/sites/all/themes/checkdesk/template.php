@@ -252,8 +252,8 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
       }
       if (isset($links['flag-graphic'])) {
-        $output .= '<li>' . ctools_modal_text_button('Custom title', 'node/nojs/confirm/graphic/74', 'Another title',  'ctools-modal-checkdesk-style') .'</li>';
-        // $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
+        // $output .= '<li>' . ctools_modal_text_button('Custom title', 'node/nojs/flag/confirm/flag/graphic/74', 'Another title',  'ctools-modal-checkdesk-style') .'</li>';
+        $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
       }
       if (isset($links['flag-factcheck'])) {
         $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';

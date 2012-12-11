@@ -1665,18 +1665,22 @@ body.page-node-add .node-form .form-item-title label:before {
 .modal-body .modal-footer {
   width: 530px;
 }
+/* line 71, ../scss/override_ctb/_modals.scss */
+.modal-body #modal-throbber {
+  padding: 0.6em 0.5em;
+}
 
-/* line 73, ../scss/override_ctb/_modals.scss */
+/* line 76, ../scss/override_ctb/_modals.scss */
 .modal-form {
   margin-bottom: 0;
 }
 
-/* line 77, ../scss/override_ctb/_modals.scss */
+/* line 80, ../scss/override_ctb/_modals.scss */
 .modal-content-wrapper {
   padding: 15px;
 }
 
-/* line 82, ../scss/override_ctb/_modals.scss */
+/* line 85, ../scss/override_ctb/_modals.scss */
 .modal-footer {
   padding: 14px 15px 15px;
   margin-bottom: 0;
@@ -1694,20 +1698,20 @@ body.page-node-add .node-form .form-item-title label:before {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 93, ../scss/override_ctb/_modals.scss */
+/* line 96, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn + .btn {
   margin-left: 5px;
   margin-bottom: 0;
 }
-/* line 98, ../scss/override_ctb/_modals.scss */
+/* line 101, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn-group .btn + .btn {
   margin-left: -1px;
 }
-/* line 102, ../scss/override_ctb/_modals.scss */
+/* line 105, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
 }
-/* line 106, ../scss/override_ctb/_modals.scss */
+/* line 109, ../scss/override_ctb/_modals.scss */
 .modal-footer .ajax-progress-throbber {
   display: none;
 }
@@ -5017,7 +5021,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #80FFC2;
+  background-color: #FFDD00;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
