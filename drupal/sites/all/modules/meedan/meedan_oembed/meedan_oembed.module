@@ -165,8 +165,7 @@ function meedan_oembed_scrape_facebook($provider, $url) {
   include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
   $host = parse_url($url, PHP_URL_HOST);
   $provider_url = 'http://' . $host;
-  $host_search = array('http://' . $host, 'https://' . $host);
-  $post_url = explode('/', str_replace($host_search, '', $url));
+  $post_id = _meedan_oembed_getFacebookId($url);
   $facebook = new Facebook(array(
     'appId'  => variable_get('fboauth_id', ''),
     'secret' => variable_get('fboauth_secret', ''),
@@ -180,7 +179,7 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     $embed->provider_url = $provider_url;
     $embed->provider_name = 'Facebook';
     $embed->type = 'link';
-    $post_data = $facebook->api('/' . $post_url[3]);
+    $post_data = $facebook->api('/' . $post_id);
     //Get post message either from user message, link title or link description
     if (isset($post_data['message'])) {
       $embed->description = $post_data['message'];
@@ -200,11 +199,11 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
     $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
     $embed->author_name = $post_data['from']['name'];
-    $embed->author_url = $embed->provider_url . '/'. $post_url[1];
+    $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
     $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
 
   } catch (FacebookApiException $e) {
-    watchdog('FacebookApi', t('Unable to fetch data from facebook post @url', array('@url' => $url)));
+    watchdog('FacebookApi', t('Unable to fetch data from facebook post - Unsupported get request @url', array('@url' => $url)));
   }
   return $embed;
 }
@@ -387,7 +386,8 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
  */
 function _meedan_oembed_facebook_post_validate($form, &$form_state) {
   $lang = $form_state['values']['language'];
-  $host = parse_url($form_state['values']['field_link'][$lang][0]['url'], PHP_URL_HOST);
+  $url = $form_state['values']['field_link'][$lang][0]['url'];
+  $host = parse_url($url, PHP_URL_HOST);
   if (strpos($host, 'facebook')) {
     if (!$form_state['values']['fb_userid']) {
       //Ask user to login through facebook first
@@ -402,16 +402,27 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
       ));
       $post_data = NULL;
       try {
-        $url = $form_state['values']['field_link'][$lang][0]['url'];
-        $host_search = array('http://' . $host, 'https://' . $host);
-        $post_url = explode('/', str_replace($host_search, '', $url));
-        $post_data = $facebook->api('/' . $post_url[3]);
+        $id = _meedan_oembed_getFacebookId($url);
+        $post_data = $facebook->api('/' . $id);
       } catch (FacebookApiException $e) {
-        watchdog('FacebookApi', t('Unable to fetch data from facebook post @url', array('@url' => $url)));
+        watchdog('FacebookApi', t('Unable to fetch data from facebook post - Unsupported get request @url', array('@url' => $url)));
       }
       if(!$post_data) {
         form_set_error('field_link', t('You have not enough permission to embed this post'));
       }
     }
   }
+}
+
+/**
+ * Extract post id from URL
+ */
+function _meedan_oembed_getFacebookId($url) {
+  //Check if this post is Timeline Photos
+  $query = parse_url($url, PHP_URL_QUERY);
+  parse_str(urldecode($query), $query);
+  if (isset($query['fbid'])) {
+    return $query['fbid'];
+  }
+  return substr(strrchr($url,'/'),1);
 }
