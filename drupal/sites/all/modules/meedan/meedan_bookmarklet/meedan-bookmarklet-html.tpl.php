@@ -14,5 +14,8 @@
   <div class="clear-block">
     <?php print $page; ?>
   </div>
+  <div class="footer">
+    <?php if (isset($footer)) print $footer; ?>
+  </div>
 </body>
 </html>
