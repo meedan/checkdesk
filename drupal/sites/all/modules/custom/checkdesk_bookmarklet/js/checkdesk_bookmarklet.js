@@ -28,8 +28,8 @@
           if (jQuery('#menu-submit-report').length > 0) {
             var offset = jQuery('#menu-submit-report').offset();
             jQuery('#meedan_bookmarklet_cont').css('top', (parseInt(offset.top) + 26) + 'px');
-            jQuery('#meedan_bookmarklet_cont').show();
           }
+          jQuery('#meedan_bookmarklet_cont').show();
           break;
       
       }
