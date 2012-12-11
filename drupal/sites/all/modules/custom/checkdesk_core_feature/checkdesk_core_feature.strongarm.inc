@@ -20,37 +20,16 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_php_post';
-  $strongarm->value = 0;
-  $export['ant_php_post'] = $strongarm;
+  $strongarm->name = 'ant_php_media';
+  $strongarm->value = 1;
+  $export['ant_php_media'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_post';
-  $strongarm->value = '0';
-  $export['ant_post'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'checkdesk_factchecking_statement';
-  $strongarm->value = 'That I love you!';
-  $export['checkdesk_factchecking_statement'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'checkdesk_site_owner';
-  $strongarm->value = 'Al-Masry Al-Youm';
-  $export['checkdesk_site_owner'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'checkdesk_site_owner_url';
-  $strongarm->value = 'http://almasryalyoum.com';
-  $export['checkdesk_site_owner_url'] = $strongarm;
+  $strongarm->name = 'ant_media';
+  $strongarm->value = '1';
+  $export['ant_media'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

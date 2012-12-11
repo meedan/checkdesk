@@ -76,17 +76,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'dashboard',
   );
 
-  // Exported permission: access devel information.
-  $permissions['access devel information'] = array(
-    'name' => 'access devel information',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
-    ),
-    'module' => 'devel',
-  );
-
   // Exported permission: access heartbeat activity profiles.
   $permissions['access heartbeat activity profiles'] = array(
     'name' => 'access heartbeat activity profiles',
@@ -763,15 +752,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: execute php code.
-  $permissions['execute php code'] = array(
-    'name' => 'execute php code',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'devel',
-  );
-
   // Exported permission: flag factcheck.
   $permissions['flag factcheck'] = array(
     'name' => 'flag factcheck',
@@ -991,15 +971,6 @@ function checkdesk_core_feature_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'shortcut',
-  );
-
-  // Exported permission: switch users.
-  $permissions['switch users'] = array(
-    'name' => 'switch users',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'devel',
   );
 
   // Exported permission: unflag factcheck.
