@@ -96,13 +96,14 @@ function meedan_oembed_data($url, $attributes = array()) {
   }
 
   if (!$embed) {
+    $url_info = parse_url($url);
     $embed = (object)array(
       'url' => $url,
-      'provider_url' => 'http://' . parse_url($url, PHP_URL_HOST),
+      'provider_url' => $url_info['scheme'] . '://' . $url_info['host'],
       'thumbnail_url' => url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE)),
     );
   }
-  meedan_oembed_scrape_generic($embed, $domain);
+  meedan_oembed_scrape_generic($embed);
   //cache embed
   cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
   return $embed;
@@ -111,50 +112,12 @@ function meedan_oembed_data($url, $attributes = array()) {
 /**
  * Scrape page to extract oEmbed-relevent information.
  */
-function meedan_oembed_scrape_generic(&$embed, $domain) {
-  $url = $embed->url;
-  $stream_options = array(
-    'http' => array(
-      'timeout' => 5,      // Timeout in seconds
-      'max_redirects' => 2,
-      'user_agent' => 'Drupal (+http://drupal.org/)',
-    )
-  );
-  stream_context_set_default($stream_options);
-  $check_url = preg_match('/^(http|https):\/\//', $url);
-  $check_url = (!$check_url) ? 'http://' . $url : $url;
-  // disable get_headers until fix invalid url warning 
-  //$header = get_headers($url, 1);
-  //$url_type = (is_array($header['Content-Type'])) ? $header['Content-Type'][0] : $header['Content-Type'];
-  if (TRUE/*preg_match('/text\/html/', $url_type)*/) {
-    require_once(libraries_get_path('simplehtmldom') . '/simple_html_dom.php');
-    $context = stream_context_create($stream_options);
-    $html = file_get_html($url, FALSE, $context);
-    if (is_object($html)) {
-      // Get favicon.
-      if (empty($embed->favicon_link)) {
-        $favicons = $html->find('link[rel=shortcut icon]', NULL, TRUE);
-        if (count($favicons)) {
-          $favicon = $favicons[0]->href;
-          $favicon_url = preg_match('/^(http|https):\/\//', $favicon); 
-          $favicon = (!$favicon_url) ? $embed->provider_url . '/' . $favicon : $favicon; 
-          $host = parse_url($favicon, PHP_URL_HOST);
-          if (empty($host)) {
-            $favicon = NULL;
-          }
-        }
-        if (empty($favicon)) {
-          $host = parse_url($url, PHP_URL_HOST);
-          $favicon = url('http://www.google.com/s2/favicons', array('query' => array('domain' => $host), 'absolute' => TRUE));
-        }
-        $embed->favicon_link = $favicon;
-      }
-
-      // TODO Get thumbnail.
-      if (empty($embed->thumbnail_url)) {
-        $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
-      }
-    }
+function meedan_oembed_scrape_generic(&$embed) {
+  //Use google getFavicon service http://getfavicon.appspot.com/
+  $embed->favicon_link = url('http://g.etfv.co/'. $embed->url, array('absolute' => TRUE));
+  // TODO Get thumbnail.
+  if (empty($embed->thumbnail_url)) {
+    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
   }
 }
 
@@ -163,8 +126,8 @@ function meedan_oembed_scrape_generic(&$embed, $domain) {
  */
 function meedan_oembed_scrape_facebook($provider, $url) {
   include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
-  $host = parse_url($url, PHP_URL_HOST);
-  $provider_url = 'http://' . $host;
+  $url_info = parse_url($url);
+  $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
   $post_id = _meedan_oembed_getFacebookId($url);
   $facebook = new Facebook(array(
     'appId'  => variable_get('fboauth_id', ''),
@@ -266,6 +229,7 @@ function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars)
    $vars['fb_link_desc'] = $embed->link_description;
   }
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
+  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
 }
 
 /**
