@@ -1,13 +1,13 @@
 // For testing
 // $from-direction: right;
-@mixin full {
-  @include span-columns($fw, $fw);
+@mixin full($width) {
+  @include span-columns($width, $width);
 }
 
 // Item lists
 // Reset password
-@mixin checkdesk-form-item-list() {
-  @include full;
+@mixin checkdesk-form-item-list($width) {
+  @include full($width);
   a {  color: $dark-grey;  }
   
   ul {
@@ -18,43 +18,39 @@
   }
 }
 
-.vertical-tabs-list {
-  li {
-    float: opposite-position($from-direction);
-    text-align: opposite-position($from-direction);
-    background-color: $light-grey;
-  }
-}
-
 
 // Form items in a form
 //
-// $fw - form width
+// $width- form width
 // $context - size of containing element
 //
 // Compatibility: untested
-@mixin checkdesk-form-item($fw: $fw, $context: $cw, $gw: $gw) {
+@mixin checkdesk-form-item($width: $form-width, $context: $cw, $gw: $gw) {
 
   .form-item-name ~ .item-list {
     // Forgot password and create new account <.item-list>s
-    @include checkdesk-form-item-list;
+    @include checkdesk-form-item-list($width);
+  }
+
+  textarea {
+    height: 100px;
   }
 
   // All form items
   .form-item {
-    margin: 0;
-    padding: 0;
-    @include full;
-
-    // nested .form-item .form-item
-    .form-item {
+    @include reset-box-model;
+    @include span-columns($width, $width);
+    clear: both;
+    display: block;
+    
+    .form-item { // Nested <.form-item>s
       @include reset-box-model;
-      @include full;
+      @include full($width);
     }
 
     input {
       @include reset-box-model;
-      @include span-columns($fw, $fw);
+      @include span-columns($width, $width, $gw);
       
       &:hover {
         // @include single-box-shadow($grey, 2px, 2px, 2px, 2px, inset);
@@ -64,9 +60,9 @@
       padding: { top: $gw/2; bottom: $gw/2; }
       margin: { top: $gw/2; bottom: $gw/2; }
 
-  
       @include border-radius(3px);
 
+      // Border transition on inputs
       border: 1px solid $grey;
       @include bb-transition($grey, $black, '0.2s', 'border-color', ':hover');
       &:hover {
@@ -83,51 +79,72 @@
       font-size: $large-font-size;
       display: block;
       font-weight: normal;
+      padding-top: 1em;
+      padding-bottom: 1em;
     }
 
     .description {
       @include reset-box-model;
       clear: $from-direction;
       font-size: $form-helper-text-size;
-      // display: block;
       // hidden by default, displayed at larger breakpoints
+      // display: block;
       display: none;
     }
   }
 }
 
+
 // Basics for all checkdesk forms
 //
-// $fw - form width
+// $width - form width
 // $context - size of containing element
 //
 // Compatibility: untested
-@mixin checkdesk-form($fw: $fw, $context: $cw) {
-  // @debug $fw;
-  // @debug $context;
+@mixin checkdesk-form($width: $form-width, $context: $cw, $radios-width: $width - 2) {
+
+  @debug $radios-width;
   
-  // The form
+  // The forms 
   //
   form {
-    font-size: $small-font-size;
-    margin-top: $gw;
-    @include span-columns($fw, $context, $gw);
-    @include checkdesk-form-item($fw, $context);
+    border-top: 1px solid $identity;
     // background-color: white;
+    margin-top: $gw;
+    @include span-columns($width, $context);
+    @include checkdesk-form-item($width, $context);
+
+    // Form Radios
+    // http://checkdesk:8888/node/add/media
+    .form-type-radios {
+      .form-item {
+        background: rgba($light-grey, 0.5);
+        margin-bottom: 2px;
+        @include span-columns($radios-width, $width);
+
+        input.form-radio {
+          @include reset-box-model;
+          @include span-columns(1, $radios-width);
+          background-color: red;
+        }
+        label.option {
+          @include span-columns($radios-width - 1 omega, $radios-width);
+          font-size: $base-font-size;
+          @include reset-box-model;
+        }
+      }
+    }
 
     // Actions at the bottom
     .form-actions {
       @include reset-box-model;
       @include clearfix;
-      @include full;
-      @include bb-background('diagmonds', 'large', 'scroll');
+      @include full($width);
 
       input[type="submit"] {
         // @include checkdesk-button($twitter-blue);
-        margin-top: $gw;
         @include chunky-block;
         background-color: $identity-color;
-        margin-bottom: $gw;
       }
     }
     
@@ -139,7 +156,7 @@
     // checkboxes
     .form-type-checkbox {
       @include reset-box-model;
-      @include full;
+      @include full($width);
 
       // the checkbox itself
       input.form-checkbox {
@@ -172,5 +189,6 @@
         @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($donjuan, .6)});
       }
     }
+    @content; // last thing in the form
   }
 }

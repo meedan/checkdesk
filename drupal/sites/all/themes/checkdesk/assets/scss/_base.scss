@@ -1,19 +1,13 @@
 @charset "UTF-8";
 // ## Checkdesk Theme 
-//
-// If 1170px is the target width from our photoshop files, we don't want to use pixels to express that for all clients. That size will remain the (desktop) frame of reference, but a more mobile-friendly approach is to express the layout in percentages. Additionally, each unit should ideally be expressed as some fraction of other units. This gives mathematically compliant layouts which are easier to customize with media queries. 
-// So we convert 1170px into 24 columns, with a gutter of 10px:
-//
-//     1170 / 24 = 48.75
-//
-// Now we want to know the ratio of that column to the whole thing: if 48.75px is the $column-width and 1170px is the $total-width then each column is 48.75 / 1170 or about 4.166666666667 percent and (4.166666666667 * 24), is 1.
-//
-// Once we have done this calculation, we know how wide a column should be, and we can derive simlar measurements for standard padding or other reusable units. Ideally elements should be driven by variables that have a relationship to the overall scheme of ratios. // This way we can express ourselves continously in units of the grid. 
 
-
-// Alternatively we can consider nested grids. If the outer width is 48 guid units across, the sidebar in maya's design is 13grid units and the main blog area is 35 grid units. 
-
-// This is 0.37142857142857
+// Typography configuration 
+//
+// See also: typography.scss - sitewide typography styles
+// See also: override_ctb/type.css - slight fork of twitter bootstrap type.less
+$sans-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serif-font-family: Merriweather Georgia, "Times New Roman", Times, serif;
+$mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 
 // Typography: webfonts
 //
@@ -22,25 +16,24 @@
 // - CGB Nov 2012
 //
 // "Open Sans"
-@import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
+// @import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
 
-// Typography configuration 
-//
-// See also: typography.scss - sitewide typography styles
-// See also: override_ctb/type.css - slight fork of twitter bootstrap type.less
-$sans-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$serif-font-family: Georgia, "Times New Roman", Times, serif;
-$mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+// "Merriweather"
+@import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
 
 // Modular scale setup
-$base-size: 16px;
-
-$base-font-size: $base-size;
-$smallest-font-size: 12px;
-$small-font-size: 14px;
-$large-font-size: 20px;
-$x-large-font-size: 36px;
-$xx-large-font-size: 48px;
+// Two scales at 1:1.61803
+// http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
+$base-size: 18px;
+$ratio: golden();
+// Fonts are scaled ems, 1em = 18px
+// See: http://snook.ca/archives/html_and_css/font-size-with-rem
+$smallest-font-size: 11px;
+$small-font-size: 15px;
+$base-font-size: 18px;
+$large-font-size: 25px;
+$x-large-font-size: 29px;
+$xx-large-font-size: 40px;
 
 $base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
 
@@ -48,13 +41,14 @@ $base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
 //
 // Natural language shortcuts that help document the grid.
 // We round down to avoid errors.
-@function twelveth-of($width) { @return $width / 12; }
-@function sixth-of($width)    { @return $width / 6; }
-@function fifth-of($width)    { @return $width / 5; }
-@function fourth-of($width)   { @return $width / 4; }
-@function third-of($width)    { @return $width / 3; }
-@function two-thirds-of($width) { @return (third-of($width) * 2) }
-@function half-of($width)     { @return $width / 2; }
+@function twelveth-of($width)       { @return $width / 12; }
+@function sixth-of($width)          { @return $width / 6; }
+@function fifth-of($width)          { @return $width / 5; }
+@function fourth-of($width)         { @return $width / 4; }
+@function three-fourths-of($width)  { @return (fourth-of($width) * 3); }
+@function third-of($width)          { @return $width / 3; }
+@function two-thirds-of($width)     { @return (third-of($width) * 2); }
+@function half-of($width)           { @return $width / 2; }
 
 // Grid configuration
 //
@@ -65,32 +59,34 @@ $base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
 //
 
 // The key variable: columns count for a grid
-$container-width: 6;
-$total-width: $container-width;
-$total-columns: $container-width; // Alias for Susy
+$container-width: 4; // Small initial container
+$break-small: 12; // column breakpoint - at the equivalent of fullsize grid units
+$break-medium: 24; // column breakpoint - at the equivalent of fullsize grid units
 
-// Tabs on the login page
-$tabs-width: $container-width;
+// Checkdesk layout sections
+$total-width: $container-width; // Alias for Chris
+$total-columns: $container-width; // Alias for Susy
+$tabs-width: $container-width; // Tabs inside forms and nodes
+$form-width: $container-width; // in relation to the container width
+$label-width: half-of($form-width); // a fraction of the form width.
+$input-width: ($form-width - $label-width); // The remaining fraction of the form width.
 
 // Use ratios of $gutter-width whenever you need a small amount of padding
 $gutter-width: 10px; // The distance between grid columns
 
 // We set the column width equal to the gutter, and equal to the grid padding
-$column-width: 100px; // The width of columns
-$grid-padding: $gutter-width; // The padding on the sides of the out <container>
+$column-width: 60px; // The width of columns
+$grid-padding: 10px; // The padding on the sides of the out <container>
+$pad: 1; // Number of columns we want to use 2x, for padding on each side. Larger breakpoints have larger padding, to keep the element centered. The smallest breakpoints should rely only on the padding on the outer element, since a column is so large.
 
-// Note that Susy is always "fluid" for inner elements, the Susy Sass "API" emits percents
-// but we additionally want the outer container to be fluid with the width of the browser.
-$container-style: magic; // shrinks down but doesn't expand
-$break-small: 12; // column breakpoint - at the equivalent of fullsize grid units
-$break-medium: 24; // column breakpoint - at the equivalent of fullsize grid units
+// Susy container style, For more information: `gem unpack susy`
+$container-style: magic;
 
-// The main <form> width is 
-$form-width: $container-width; // in relation to the container width
+// Navigation
+$nav-width: $container-width;
 
-// Labels
-$label-width: half-of($form-width); // a fraction of the form width.
-$input-width: ($form-width - $label-width); // The remaining fraction of the form width.
+// A single Report
+$report-width: $container-width - 2;
 
 // Aliases
 $cw: $container-width;
@@ -99,11 +95,11 @@ $tw: $tabs-width;
 $gw: $gutter-width; 
 $iw: $input-width; 
 $lw: $label-width; 
+$rw: $report-width;
+$nw: $nav-width;
 
 // Typography for <form> elements
-//
 $form-helper-text-size: $small-font-size;
-
 $notification-width: 5;
 $notification-icon-size: $base-font-size;
 $notification-image-width: 5%;
@@ -111,5 +107,4 @@ $icon-selector: '.heartbeat-time-ago';
 $i-s: $icon-selector;
 $icon-word-padding: 2.5%;
 
-$nav-width: $cw;
-$nw: $nav-width; // Alias
+$radios-widths: $fw - 2;

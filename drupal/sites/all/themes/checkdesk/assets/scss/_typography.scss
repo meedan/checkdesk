@@ -1,9 +1,21 @@
 // Configutation variables are in base.scss
 // Typography configuration needs to come very early in the load sequence, but we want this file to emit CSS which comes later in the stylesheet.
+$base-size: 1px;
+$ratio: golden();
+$total_width: 18px;
 
+// Compass baseline mixin
 @include establish-baseline;
 
 body {
-  font-family: "Open Sans", sans-serif;
-  text-align: $from-direction;
+  font-family: "Merriweather", Georgia, sans-serif;
+  text-align: $from-direction;  
+}
+
+.view-liveblog p {
+  line-height: $base-line-height;
+}
+
+.alert {
+  font-family: $sans-font-family;
 }

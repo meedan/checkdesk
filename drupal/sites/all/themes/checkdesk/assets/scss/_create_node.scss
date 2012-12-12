@@ -7,30 +7,31 @@ body.page-node-add {
   }
 
   .node-form  {
+    // 1. First standardize the form
+    // @include checkdesk-form($fw, $cw); 
 
     // This works on the first fields of the report/update/story fields
     .form-type-link-field, 
     .form-item-title {
-      // 1. First standardize the form
-      @include checkdesk-form($fw, $cw); 
+      
 
       // 2. now, customizations on top of the default checkdesk forms.
-      label {
-        @include icon('sign-blank');
-        @include span-columns($label-width, $cw);
-        font-size: $large-font-size;
-        font-weight: bold;
-      }
+      // label {
+      //   @include icon('sign-blank');
+      //   @include span-columns($label-width, $cw);
+      //   font-size: $large-font-size;
+      //   font-weight: bold;
+      // }
 
-      .form-item {
-        @include span-columns(($cw - $label-width) omega, $cw);
-        input {
-          @include span-columns($cw - $label-width, $cw - $label-width, $gw/2);
-        }
+      // .form-item {
+      //   @include span-columns(($cw - $label-width) omega, $cw);
+      //   input {
+      //     @include span-columns($cw - $label-width, $cw - $label-width, $gw/2);
+      //   }
       }
     }
-    textarea {
-      height: 100px;
-    }
-  }
+    // textarea {
+    //   height: 100px;
+    // }
+  // }
 }

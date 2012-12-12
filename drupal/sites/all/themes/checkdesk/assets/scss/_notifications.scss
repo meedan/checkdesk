@@ -22,7 +22,7 @@
     @include span-columns($cw, $cw/2, $gw);
     border: 1px solid $grey;
     position: absolute;
-    #{opposite-position($from-direction)}: $gw;
+    #{$from-direction}: $gw;
     top: 0;
     background: $light-grey;
     z-index: 3;
@@ -128,22 +128,16 @@
   }
 }
 
-// Comment icons
+// icons icons
 @include activity-icon("comment_on_update", "comment", $grey);
 @include activity-icon("new_update_on_story_i_commented_on_update", "comment", $dark-blue);
 @include activity-icon("reply_to_comment", "comment-alt", $dark-blue);
 @include activity-icon("comment_on_report", "comment", $dark-blue);
-
-// Fact-checking icons
 @include activity-icon("fact_checking_on", "wrench", $grey);
 @include activity-icon("fact_checking_set", "star", $twitter-blue);
 @include activity-icon("report_suggested_to_story", "link", $facebook-blue);
 @include activity-icon("fact_status_changed_for_commenter", "warning-sign", $black);
-
-// Flags on report icons
 @include activity-icon("flag_report", "flag", $youtube-red);
-
-// Publishing event icons
 @include activity-icon("report_published_in_update", "star", $grey);
 
 // Expanded block

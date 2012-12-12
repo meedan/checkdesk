@@ -5,3 +5,10 @@
 .fyre-widget {
 
 }
+
+div.livefyre-header {
+  padding: 1em;
+  .livefyre-commentcount {
+    @include icon('comment');
+  }
+}

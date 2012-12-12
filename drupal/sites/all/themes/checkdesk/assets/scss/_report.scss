@@ -4,14 +4,11 @@
 //
 // Compatibility: untested
 
-$report-width: $cw;
-$rw: $report-width;
-
-
 img {
-	width: 100%;
+  width: 100%;
 }
 
+// Checkdesk report
 .report {
 	border: solid $gw $grey;
 
@@ -21,48 +18,36 @@ img {
 		background: top $from-direction repeat url("/sites/all/themes/bowerbird/images/bkgs/arches.png");
 		color: $gray;
 		@include span-columns($rw, $rw);
-		
-		h3 {
-				@include span-columns($rw, $rw);	
-				@include at-breakpoint($rw) {
-				@include span-columns(two-thirds-of($rw), $rw);
-			}
 
+		h3 {
 			font-size: $small-font-size;
 			line-height: $base-line-height;
-			background-color: green;
+			overflow: hidden;
+			background-color: white;
+			padding: $base-font-size $gw;
+			margin: 0;
+			display: block;
 			.source-url {
 				font-weight: normal;
 				font-size: $small-font-size;
 				line-height: $base-line-height;
 				overflow: hidden;
-				padding-left: $gw;
-				padding-right: $gw;
+				padding-#{opposite-position($from-direction)}: $gw;
 			}
 		}
 
 		.report-actions {
 			@include reset-box-model;
 			@include reset-list-style;
-			
-			@include span-columns($rw, $rw);	
-			@include at-breakpoint($rw) {
-				@include span-columns(third-of($rw) omega, $rw);	
-			}
+			font-size: $base-font-size;
 
-			
-			font-size: $small-font-size;
-			background-color: red;
-			
 			& > li {
 				display: block;
-				float: opposite-position($from-direction);
-				border-#{$from-direction}: 1px solid $light-grey;
-				min-height: 39px;
+				float: $from-direction;
 				& > a {
 					@include reset-box-model;
 					display: block;
-					padding: $gw;
+					padding: 1em $gw;
 					
 					@include transition-property(color);
 			    @include transition-duration(0.2s);
@@ -95,14 +80,59 @@ img {
 		}
 	}
 
+	// Hmmm...	
+	// .node-media.node-promoted {
+	// 	@include icon("star");
+	// }
+
+	// Need more icons!
+	// h3 a[href*="flickr.com"] {
+	// 	@include icon('flickr');
+	// }
+
+	// Twitter reports icon in header
+	h3 a[href*="twitter.com"]:first-of-type { 
+		@include icon('twitter');
+		&:before {
+			display: inline-block;
+			@include transform(rotate(-19deg));
+		}
+	}
+
+	// Twitter profile images
+	a[href*="twitter.com"]	{
+		img {
+			width: 50px; // profile of user
+		}
+	}
+
+	div.sensitive-notification {
+	  background: rgba($grey, 0.8);
+	  text-align: center;
+	  color: $dark-grey;
+	  min-height: 250px;
+	  margin: 0;
+	  display: block;
+	  .sensitive-notification-text {
+		  padding-top: 30px;
+		  width: 100%;
+		  float: $from-direction;
+	  }
+	}
+
+	div.sensitive-hide {
+	  display: hidden;
+	}
 
 	.report-content {
 		color: $gray;
 		background-color: darken($grayLighter, 5%);
 		@include span-columns($rw, $rw);
 		.report-media {
-			background-color: $white;
+			
 			text-align: center;
+			
+			// What is this for? 
 			/* The ghost, nudged to maintain perfect centering */
 			.report-media:before {
 				content: '';
@@ -111,6 +141,7 @@ img {
 				vertical-align: middle;
 				margin-right: -0.25em; /* Adjusts for spacing */
 			}
+
 			.container {
 				display: inline-block;
   				vertical-align: middle;
@@ -157,10 +188,10 @@ img {
 			background-position: 10px 0;
 		}
 
-	} // .report-content
+	}
 
 	.report-activity {
-		
+
 		& > header {
 			@include ctb-clearfix();
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
@@ -169,7 +200,7 @@ img {
 			h3 {
 				float: $from-direction;
 				@include reset-box-model();
-				@include ctb-font-shorthand(14px, normal);
+				font-size: $small-font-size;
 			}
 			.report-status {
 				width: 200px;
@@ -177,7 +208,7 @@ img {
 				text-align: opposite-position($from-direction);
 				// icon in the status
 				span[class^="icon-"], span[class*="icon-"] {
-					width: 20px;
+					// width: 20px;
 					float: opposite-position($from-direction);
 				}
 				span.status-name {
@@ -185,6 +216,7 @@ img {
 					width: 150px; 
 					text-align: opposite-position($from-direction);
 					float: opposite-position($from-direction);
+					margin-#{opposite-position($from-direction)}:5px; 
 				}
 			}
 			&:hover {
@@ -224,25 +256,20 @@ img {
 		.activity-list {
 			@include reset-list-style;
 			@include reset-box-model;
-			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
 			background-color: lighten($grayLighter, 5%);
 			li {
 				@include clearfix;
 				border-left: 2px solid $white;
 				color: $gray;
-				margin-left: $gridGutterWidth/2;
-				padding-bottom: $baseLineHeight/2;
-				padding-left: $gridGutterWidth*2;
-				header {
-					[class^="icon-"],
-					[class*=" icon-"] {
-						float: left;
-						margin-left: -$gridGutterWidth*2.8;
-						margin-right: $gridGutterWidth/2;
-					}
+				padding-bottom: $base-font-size;
+				header {	
+					line-height: $base-line-height;
 					.time {
 						color: $grayLight;
-						margin-right: $gridGutterWidth;
+					}
+					.title {
+						float: $from-direction;
+						clear: both;
 					}
 					a {
 						font-weight: bold;
@@ -289,8 +316,8 @@ img {
 
 	// based on status
 	.icon-ok-sign { 
-		color: $green;
-		@include icon(ok-sign, 16px, darken($green, 15%)); 
+		color: red;
+		@include icon(ok-sign, 16px, darken($green, 15%));
 	}
 	.icon-question-sign { 
 		color: $orange; 
@@ -300,4 +327,26 @@ img {
 		color: $red; 
 		@include icon(question-sign, 16px, darken($red, 15%));
 	}
+}
+
+
+// ========================================================================
+// Responsive layouts 
+//
+.report header {
+  .report-actions {
+    @include span-columns($rw, $rw);
+
+    @include at-breakpoint($break-medium) {
+      @include span-columns(half-of($rw) omega, $rw); 
+    }
+  }
+
+  h3 {
+    @include span-columns($rw, $rw);
+
+    @include at-breakpoint($break-medium) {
+      @include span-columns(half-of($rw), $rw);
+    }
+  }
 }

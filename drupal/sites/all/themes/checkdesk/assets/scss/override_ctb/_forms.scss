@@ -1,9 +1,8 @@
 // GENERAL STYLES
 // --------------
 
-// Make all forms have space below them
 form {
-  margin: 0 0 $baseLineHeight;
+  margin: 0 0 $base-line-height;
 }
 
 fieldset {
@@ -35,7 +34,7 @@ input,
 button,
 select,
 textarea {
-  @include ctb-font-shorthand($baseFontSize,normal,$baseLineHeight); // Set size, weight, line-height here
+  font-size: $base-font-size;
 }
 input,
 button,
