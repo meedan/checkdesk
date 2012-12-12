@@ -96,63 +96,28 @@ function meedan_oembed_data($url, $attributes = array()) {
   }
 
   if (!$embed) {
+    $url_info = parse_url($url);
     $embed = (object)array(
       'url' => $url,
-      'provider_url' => 'http://' . parse_url($url, PHP_URL_HOST),
+      'provider_url' => $url_info['scheme'] . '://' . $url_info['host'],
       'thumbnail_url' => url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE)),
     );
   }
-  meedan_oembed_scrape_generic($embed, $domain);
+  meedan_oembed_scrape_generic($embed);
+  //cache embed
+  cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
   return $embed;
 }
 
 /**
  * Scrape page to extract oEmbed-relevent information.
  */
-function meedan_oembed_scrape_generic(&$embed, $domain) {
-  $url = $embed->url;
-  $stream_options = array(
-    'http' => array(
-      'timeout' => 5,      // Timeout in seconds
-      'max_redirects' => 2,
-      'user_agent' => 'Drupal (+http://drupal.org/)',
-    )
-  );
-  stream_context_set_default($stream_options);
-  $check_url = preg_match('/^(http|https):\/\//', $url);
-  $check_url = (!$check_url) ? 'http://' . $url : $url;
-  // disable get_headers until fix invalid url warning 
-  //$header = get_headers($url, 1);
-  //$url_type = (is_array($header['Content-Type'])) ? $header['Content-Type'][0] : $header['Content-Type'];
-  if (TRUE/*preg_match('/text\/html/', $url_type)*/) {
-    require_once(libraries_get_path('simplehtmldom') . '/simple_html_dom.php');
-    $context = stream_context_create($stream_options);
-    $html = file_get_html($url, FALSE, $context);
-    if (is_object($html)) {
-      // Get favicon.
-      if (empty($embed->favicon_link)) {
-        $favicons = $html->find('link[rel=shortcut icon]', NULL, TRUE);
-        if (count($favicons)) {
-          $favicon = $favicons[0]->href;
-          $favicon_url = preg_match('/^(http|https):\/\//', $favicon); 
-          $favicon = (!$favicon_url) ? $embed->provider_url . '/' . $favicon : $favicon; 
-          $host = parse_url($favicon, PHP_URL_HOST);
-          if (empty($host)) {
-            $favicon = NULL;
-          }
-        }
-        if (empty($favicon)) {
-          $host = parse_url($url, PHP_URL_HOST);
-          $favicon = url('http://www.google.com/s2/favicons', array('query' => array('domain' => $host), 'absolute' => TRUE));
-        }
-        $embed->favicon_link = $favicon;
-      }
-
-      // TODO Get thumbnail.
-      if (empty($embed->thumbnail_url)) {
-        $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
-      }
-    }
+function meedan_oembed_scrape_generic(&$embed) {
+  //Use google getFavicon service http://getfavicon.appspot.com/
+  $embed->favicon_link = url('http://g.etfv.co/'. $embed->url, array('absolute' => TRUE));
+  // TODO Get thumbnail.
+  if (empty($embed->thumbnail_url)) {
+    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
   }
 }
 
@@ -161,8 +126,9 @@ function meedan_oembed_scrape_generic(&$embed, $domain) {
  */
 function meedan_oembed_scrape_facebook($provider, $url) {
   include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
-  $provider_url = 'http://' . parse_url($url, PHP_URL_HOST);
-  $post_url = explode('/', str_replace($provider_url, '', $url));
+  $url_info = parse_url($url);
+  $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
+  $post_id = _meedan_oembed_getFacebookId($url);
   $facebook = new Facebook(array(
     'appId'  => variable_get('fboauth_id', ''),
     'secret' => variable_get('fboauth_secret', ''),
@@ -171,25 +137,36 @@ function meedan_oembed_scrape_facebook($provider, $url) {
   try {
     $embed = new stdclass();
     $embed->url = $url;
+    $embed->original_url = $url;
     $embed->provider = $provider;
     $embed->provider_url = $provider_url;
     $embed->provider_name = 'Facebook';
     $embed->type = 'link';
-    // Get User ID
-    $user = $facebook->getUser();
-    $post_data = $facebook->api('/' . $post_url[3]);
-    $embed->title = $post_data['message'];
-    $embed->description = $post_data['message'];
+    $post_data = $facebook->api('/' . $post_id);
+    //Get post message either from user message, link title or link description
+    if (isset($post_data['message'])) {
+      $embed->description = $post_data['message'];
+    }
+    elseif (isset($post_data['name'])) {
+      $embed->description = $post_data['name'];
+    }
+    elseif (isset($post_data['description'])) {
+      $embed->description = $post_data['description'];
+    }
+    else {
+      $embed->description = t('No message avilable for this post');
+    }
+    $embed->title = $embed->description;
     $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
     $embed->picture = isset($post_data['picture']) ? $post_data['picture'] : '';
     $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
     $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
     $embed->author_name = $post_data['from']['name'];
-    $embed->author_url = $embed->provider_url . '/'. $post_url[1];
+    $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
     $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
 
   } catch (FacebookApiException $e) {
-    watchdog('FacebookApi', t('Unable to fetch data from facebook post @url', array('@url' => $url)));
+    watchdog('FacebookApi', t('Unable to fetch data from facebook post - Unsupported get request @url', array('@url' => $url)));
   }
   return $embed;
 }
@@ -252,6 +229,7 @@ function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars)
    $vars['fb_link_desc'] = $embed->link_description;
   }
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
+  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
 }
 
 /**
@@ -346,13 +324,69 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
     'appId'  => variable_get('fboauth_id', ''),
     'secret' => variable_get('fboauth_secret', ''),
   ));
-  // Get User ID
-  $user = $facebook->getUser();
-  if (!$user) {
-    $loginUrl = $facebook->getLoginUrl();
+  // Get facebook User ID
+  $fb_user = $facebook->getUser();
+  if (!$fb_user) {
+    $loginUrl = t('You should click <strong> !url </strong>if you want to add facebook media', array('!url' => l('here', $facebook->getLoginUrl(), array('attributes' => array('target' => '_blank')))));
     $form['facebook_login'] = array(
-      '#markup' => '<a href="'. $loginUrl .'">Login with Facebook</a>',
+      '#markup' => $loginUrl,
       '#weight' => -99,
     );
+    $form['fb_loginurl'] = array(
+      '#type' => 'hidden', 
+      '#value' => $loginUrl,
+    );
   }
+  $form['fb_userid'] = array(
+    '#type' => 'hidden', 
+    '#value' => $fb_user,
+  );
+  $form['#validate'][] = '_meedan_oembed_facebook_post_validate';
+}
+
+/**
+ * Validate embed from facebook 
+ * make sure that user login through facebook if he adds media from facebook
+ */
+function _meedan_oembed_facebook_post_validate($form, &$form_state) {
+  $lang = $form_state['values']['language'];
+  $url = $form_state['values']['field_link'][$lang][0]['url'];
+  $host = parse_url($url, PHP_URL_HOST);
+  if (strpos($host, 'facebook')) {
+    if (!$form_state['values']['fb_userid']) {
+      //Ask user to login through facebook first
+      form_set_error('field_link', $form_state['values']['fb_loginurl']);
+    }
+    else {
+      //Check if user has a permission to embed this post
+      include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
+      $facebook = new Facebook(array(
+        'appId'  => variable_get('fboauth_id', ''),
+        'secret' => variable_get('fboauth_secret', ''),
+      ));
+      $post_data = NULL;
+      try {
+        $id = _meedan_oembed_getFacebookId($url);
+        $post_data = $facebook->api('/' . $id);
+      } catch (FacebookApiException $e) {
+        watchdog('FacebookApi', t('Unable to fetch data from facebook post - Unsupported get request @url', array('@url' => $url)));
+      }
+      if(!$post_data) {
+        form_set_error('field_link', t('You have not enough permission to embed this post'));
+      }
+    }
+  }
+}
+
+/**
+ * Extract post id from URL
+ */
+function _meedan_oembed_getFacebookId($url) {
+  //Check if this post is Timeline Photos
+  $query = parse_url($url, PHP_URL_QUERY);
+  parse_str(urldecode($query), $query);
+  if (isset($query['fbid'])) {
+    return $query['fbid'];
+  }
+  return substr(strrchr($url,'/'),1);
 }

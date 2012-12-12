@@ -35,6 +35,16 @@ function checkdesk_preprocess_page(&$variables) {
     $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
     
+    // Change "Submit Report" link
+    foreach ($variables['main_menu'] as $id => $item) {
+      if ($item['link_path'] == 'node/add/media') {
+        $variables['main_menu'][$id]['href'] = variable_get('meedan_bookmarklet_code', _meedan_bookmarklet_default_code());
+        $variables['main_menu'][$id]['external'] = TRUE;
+        $variables['main_menu'][$id]['absolute'] = TRUE;
+        $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
+      }
+    }
+
     // Build list
     $variables['primary_nav'] = theme('checkdesk_links', array(
       'links' => $variables['main_menu'],
@@ -57,7 +67,7 @@ function checkdesk_preprocess_page(&$variables) {
   // Add modal class for first-level children
   foreach ($tree as $pid => $parent) {
     foreach ($parent['below'] as $cid => $item) {
-      $tree[$pid]['below'][$cid]['link']['class'] = array('ctools-use-modal');
+      $tree[$pid]['below'][$cid]['link']['class'] = array('use-ajax');
     }
   }
   // Load the modal library and add the modal javascript.

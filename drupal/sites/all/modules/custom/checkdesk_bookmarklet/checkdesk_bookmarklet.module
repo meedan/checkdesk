@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * Implements hook_init().
+ *
+ * Add a JavaScript file after form was submitted.
+ */
+function checkdesk_bookmarklet_init() {
+  if (isset($_GET['meedan_bookmarklet_submitted'])) {
+    drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_bookmarklet_submitted.js');
+  }
+}
+
+/**
+ * Implements hook_menu(). 
+ */
+function checkdesk_bookmarklet_menu() {
+  $items = array();
+  $items['checkdesk/media-preview'] = array(
+    'page callback' => '_checkdesk_bookmarklet_media_preview_callback',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements of hook_form_alter().
+ */
+function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
+  
+  // Custom report form for bookmarklet
+  if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
+    global $user;
+   
+    // Just show explanation about the bookmarklet
+    $form['help'] = array(
+      '#markup' => '<div id="meedan_bookmarklet_help"><span>' . t('Help') . '<p>' . t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team') . '</p></span></div>',
+      '#weight' => -1,
+    );
+
+    // Check for graphic content
+    $flag = (in_array('journalist', $user->roles) ? 'graphic_journalist' : 'graphic');
+    $form['graphic_content'] = array(
+      '#type' => 'checkboxes',
+      '#options' => array($flag => t('Graphic content')),
+      '#weight' => 99,
+    );
+
+    // Show media preview just after the link field
+    $path = ((isset($_GET['meedan_bookmarklet_prepopulate']) && isset($_GET['meedan_bookmarklet_prepopulate']['field_link'])) ? $_GET['meedan_bookmarklet_prepopulate']['field_link'] : FALSE);
+    $preview = _checkdesk_bookmarklet_media_preview($path);
+    $form['report_preview'] = array(
+      '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . $preview . '</div></div>',
+      '#weight' => 1, 
+    );
+    $form['field_link']['#weight'] = 0;
+   
+    // Change field label
+    $form['body']['und'][0]['#title'] = t('Edit description');
+
+    // Description textarea should not be resizable
+    $form['body']['und'][0]['#resizable'] = FALSE;
+
+    // Load JavaScript for the form
+    $form['#after_build'] = array('_checkdesk_bookmarklet_load_javascript_for_bookmarklet_form');
+
+    // Two buttons: submit and cancel
+    $form['actions']['submit']['#value'] = t('Done');
+    $form['actions']['draft']['#access'] = FALSE;
+    $form['actions']['cancel'] = array(
+      '#markup' => '<input type="reset" onclick="window.parent.postMessage(\'close\', \'*\'); return false;" class="form-submit" value="' . t('Cancel') . '" id="meedan_bookmarklet_cancel_button" />',
+      '#weight' => 100,
+    );
+
+    // Hide Facebook login link
+    unset($form['facebook_login']);
+
+    // Additional processing for internal bookmarklet
+    global $base_url;
+    if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {
+      $form['field_link']['und'][0]['#default_value'] = '';
+      $form['body']['und'][0]['#default_value'] = '';
+      $form['#after_build'][] = '_checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet';
+    }
+
+  }
+}
+
+/*
+ * Load JavaScript file for bookmarklet form.
+ */
+function _checkdesk_bookmarklet_load_javascript_for_bookmarklet_form($form, &$form_state) {
+  drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_bookmarklet_form.js');
+  return $form;
+}
+
+/*
+ * Load JavaScript file for internal bookmarklet.
+ */
+function _checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet($form, &$form_state) {
+  drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_internal_bookmarklet.js');
+  return $form;
+}
+
+/*
+ * Function to show media preview.
+ */
+function _checkdesk_bookmarklet_media_preview($path) {
+  $preview = t('Preview not available.');
+  if (!$path) return $preview;
+  $oembed = oembedcore_oembed_data($path);
+  if (isset($oembed) && isset($oembed->thumbnail_url)) $preview = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
+  return $preview;
+}
+
+/*
+ * Menu callback for checkdesk/media-preview.
+ */
+function _checkdesk_bookmarklet_media_preview_callback() {
+  $path = (isset($_GET['url']) ? $_GET['url'] : FALSE);
+  echo _checkdesk_bookmarklet_media_preview($path);
+}
+
+/*
+ * Implements hook_node_insert().
+ *
+ * Set flag for report from bookmarklet.
+ * Define custom success messages.
+ */
+function checkdesk_bookmarklet_node_insert($node) {
+  if (isset($node->graphic_content) && is_array($node->graphic_content)) {
+    foreach($node->graphic_content as $flag_name => $checked) {
+      if ($checked) {
+        $flag = flag_get_flag($flag_name);
+        $flag->flag('flag', $node->nid);
+      }
+    }
+  }
+
+  if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $node->type == variable_get('meedan_bookmarklet_content_type', 'page')) {
+    drupal_get_messages();
+    drupal_set_message(l(t('See the new report'), url('node/' . $node->nid, array('absolute' => TRUE)), array('attributes' => array('target' => '_blank'))));
+    drupal_set_message(l(t('Submit a new report'), url('node/add/media', array('absolute' => TRUE, 'query' => array('meedan_bookmarklet' => 1))), array('attributes' => array('onclick' => "window.parent.postMessage('reset', '*')"))));
+    // Hack to avoid other hooks from not being called: http://drupal.org/node/130734#comment-3835244
+    $_GET['destination'] = 'meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1';
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Change title after report was submitted.
+ * Add a Close button after report was submitted.
+ * Adds an id when bookmarklet is opened from inside the site.
+ */
+function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
+  if (isset($_GET['meedan_bookmarklet_submitted'])) {
+    $variables['meedan_bookmarklet_title'] = t('Report submitted, thanks!');
+    $variables['footer'] = '<input type="reset" onclick="window.parent.postMessage(\'close\', \'*\'); return false;" value="' . t('Close') . '" class="form-submit" id="meedan_bookmarklet_cancel_button" />';
+  } 
+
+  global $base_url;
+  if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {
+    $variables['body_class'] = 'meedan-bookmarklet-internal';
+  }
+}

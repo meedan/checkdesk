@@ -1,0 +1,41 @@
+#meedan_bookmarklet_cont,
+#meedan_bookmarklet_cont iframe {
+  width: 365px;
+  height: 500px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+
+#meedan_bookmarklet_cont.meedan-bookmarklet-collapsed,
+#meedan_bookmarklet_cont.meedan-bookmarklet-collapsed iframe {
+  /* width: 250px; */
+  height: 200px;
+} 
+
+#meedan_bookmarklet_cont {
+  margin-left: 0;
+  top: 10px;
+  left: 70px;
+  border: 1px solid #ccc;
+  display: none;
+  -moz-box-shadow: 0px 0px 15px 1px #333;
+  -webkit-box-shadow: 0px 0px 15px 1px #333;
+  box-shadow: 0px 0px 15px 1px #333;
+}
+
+#meedan_bookmarklet_cont * {
+  font-family: Arial, sans-serif;
+}
+
+#meedan_bookmarklet_mask {
+  display: none !important;
+}
+
+#meedan_bookmarklet_cont iframe {
+  border: 0;
+}
+
+#meedan_bookmarklet_close {
+  display: none;
+}
