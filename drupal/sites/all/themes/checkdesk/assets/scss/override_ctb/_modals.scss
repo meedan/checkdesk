@@ -27,7 +27,7 @@
   left: 50%;
   z-index: $zindexModal;
   overflow: auto;
-  width: 560px;
+  width: 456px;
   margin: -250px 0 0 -280px;
   background-color: $white;
   border: 1px solid #999;
@@ -46,11 +46,11 @@
   &.fade.in { top: 50%; }
 }
 .modal-header {
-  padding: 9px 15px;
+  padding: 4px $gw 0 $gw;
   border-bottom: 1px solid #eee;
   background-color: $white;
   // Close icon
-  .close { margin-top: 2px; }
+  .close { margin-top: 7px; }
   // Heading
   h3 {
     margin: 0;
@@ -60,16 +60,25 @@
 
 // Body (where all modal content resides)
 .modal-body {
+
   overflow-y: auto;
   max-height: 400px;
   .modal-content {
-    width: 530px !important; 
+    position: relative;
+    width: 420px !important;
+    padding: 0 $gw;
   }
   .modal-footer {
-    width: 530px; // TEMP fix
+    position: absolute;
+    bottom: 0;
+    left: -$gw;
+    width: 456px; // TEMP fix
   }
   #modal-throbber {
-    padding: $baseLineHeight/2 $gw/2;
+    padding: $baseLineHeight/2 -$gw/2;
+  }
+  .form-actions {
+    margin: 0; padding: 0;
   }
 }
 // Remove bottom margin if need be
@@ -83,7 +92,7 @@
 
 // Footer (for actions)
 .modal-footer {
-  padding: 14px 15px 15px;
+  padding: $baseLineHeight/2 $gw/2;
   margin-bottom: 0;
   text-align: right; // right align buttons
   background-color: #f5f5f5;

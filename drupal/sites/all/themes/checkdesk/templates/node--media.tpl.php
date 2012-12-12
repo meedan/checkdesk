@@ -5,7 +5,8 @@
       <h3>
         <?php print render($content['report_source']); ?>
       </h3>
-      <?php print render($content['links']); ?>
+      <div id="report-actions">
+      <?php print render($content['links']); ?></div>
     </header>
     
     <section class="report-content">

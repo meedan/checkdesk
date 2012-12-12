@@ -187,11 +187,27 @@ function checkdesk_links__node($variables) {
   ctools_include('ajax');
   ctools_modal_add_js();
   $modal_style = array(
-    'checkdesk-style' => array(
+    'modal-popup-small' => array(
       'modalSize' => array(
         'type' => 'fixed',
         'width' => 150,
-        'height' => 188,
+        'height' => 240,
+        'addWidth' => 0,
+        'addHeight' => 0
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'slideDown',
+      'modalTheme' => 'CheckDeskModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+    ),
+    'modal-popup-large' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 150,
+        'height' => 250,
         'addWidth' => 0,
         'addHeight' => 0
       ),
@@ -221,7 +237,7 @@ function checkdesk_links__node($variables) {
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
-        $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-checkdesk-style') .'</li>';
+        $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-large') .'</li>';
       }
       if (isset($links['checkdesk-edit'])) {
         $output .= '<li>' . l($links['checkdesk-edit']['title'], $links['checkdesk-edit']['href'], $links['checkdesk-edit']) .'</li>';

@@ -1,7 +1,7 @@
 (function ($) {
 
 	Drupal.behaviors.reports = {
-		attach: function () {
+		attach: function (context, settings) {
 			// show report activity
 			$('.report-activity > header').click(function(event) {
 				var target = $(this);

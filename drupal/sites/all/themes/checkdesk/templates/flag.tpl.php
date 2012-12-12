@@ -30,21 +30,18 @@
  * advanced theming you may have to remove all the whitespace.
  */
 
-  ctools_include('modal');
-  ctools_include('ajax');
-  ctools_modal_add_js();
 ?>
 
 <?php if ($link_href): ?>
   <?php
-    // dd($link_href);
   	$url = parse_url($link_href);
   	$path = 'node/' . str_replace("/checkdesk/drupal/", "", $url['path']) . '/nojs';
-
-    //dd($path);
   ?>
-  <!-- <a href="<?php print $path; ?>" title="<?php print $link_title; ?>" class="<?php print $flag_classes ?> ctools-modal-checkdesk-style" rel="nofollow"><?php print $link_text; ?></a> -->
-  <?php print ctools_modal_text_button($link_text, $path, $link_title, $flag_classes . ' ctools-modal-checkdesk-style'); ?>
+  <?php if(isset($modal_link)) : ?>
+      <?php print $modal_link; ?>
+  <?php else : ?>
+      <a href="<?php print $link_href; ?>" title="<?php print $link_title; ?>" class="<?php print $flag_classes ?>" rel="nofollow"><?php print $link_text; ?></a>
+  <?php endif; ?>
 <?php else: ?>
   <?php print $link_text; ?>
 <?php endif; ?>
@@ -52,6 +49,6 @@
   <?php 
   	// set message
   	drupal_set_message($message_text, 'warning');
-  	drupal_add_js('(function($){ Drupal.ajax["checkdesk_core_message_settings"].setMessages(); })(jQuery);', array('type' => 'inline'));
+  	// drupal_add_js('(function($){ Drupal.ajax["checkdesk_core_message_settings"].setMessages(); })(jQuery);', array('type' => 'inline'));
   ?>
 <?php endif; ?>

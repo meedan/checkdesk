@@ -1603,7 +1603,7 @@ body.page-node-add .node-form .form-item-title label:before {
   left: 50%;
   z-index: 1050;
   overflow: auto;
-  width: 560px;
+  width: 456px;
   margin: -250px 0 0 -280px;
   background-color: white;
   border: 1px solid #999;
@@ -1638,13 +1638,13 @@ body.page-node-add .node-form .form-item-title label:before {
 
 /* line 48, ../scss/override_ctb/_modals.scss */
 .modal-header {
-  padding: 9px 15px;
+  padding: 4px 1em 0 1em;
   border-bottom: 1px solid #eee;
   background-color: white;
 }
 /* line 53, ../scss/override_ctb/_modals.scss */
 .modal-header .close {
-  margin-top: 2px;
+  margin-top: 7px;
 }
 /* line 55, ../scss/override_ctb/_modals.scss */
 .modal-header h3 {
@@ -1657,32 +1657,42 @@ body.page-node-add .node-form .form-item-title label:before {
   overflow-y: auto;
   max-height: 400px;
 }
-/* line 65, ../scss/override_ctb/_modals.scss */
+/* line 66, ../scss/override_ctb/_modals.scss */
 .modal-body .modal-content {
-  width: 530px !important;
-}
-/* line 68, ../scss/override_ctb/_modals.scss */
-.modal-body .modal-footer {
-  width: 530px;
+  position: relative;
+  width: 420px !important;
+  padding: 0 1em;
 }
 /* line 71, ../scss/override_ctb/_modals.scss */
+.modal-body .modal-footer {
+  position: absolute;
+  bottom: 0;
+  left: -1em;
+  width: 456px;
+}
+/* line 77, ../scss/override_ctb/_modals.scss */
 .modal-body #modal-throbber {
-  padding: 0.6em 0.5em;
+  padding: 0.1em;
+}
+/* line 80, ../scss/override_ctb/_modals.scss */
+.modal-body .form-actions {
+  margin: 0;
+  padding: 0;
 }
 
-/* line 76, ../scss/override_ctb/_modals.scss */
+/* line 85, ../scss/override_ctb/_modals.scss */
 .modal-form {
   margin-bottom: 0;
 }
 
-/* line 80, ../scss/override_ctb/_modals.scss */
+/* line 89, ../scss/override_ctb/_modals.scss */
 .modal-content-wrapper {
   padding: 15px;
 }
 
-/* line 85, ../scss/override_ctb/_modals.scss */
+/* line 94, ../scss/override_ctb/_modals.scss */
 .modal-footer {
-  padding: 14px 15px 15px;
+  padding: 0.6em 0.5em;
   margin-bottom: 0;
   text-align: right;
   background-color: #f5f5f5;
@@ -1698,20 +1708,20 @@ body.page-node-add .node-form .form-item-title label:before {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 96, ../scss/override_ctb/_modals.scss */
+/* line 105, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn + .btn {
   margin-left: 5px;
   margin-bottom: 0;
 }
-/* line 101, ../scss/override_ctb/_modals.scss */
+/* line 110, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn-group .btn + .btn {
   margin-left: -1px;
 }
-/* line 105, ../scss/override_ctb/_modals.scss */
+/* line 114, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
 }
-/* line 109, ../scss/override_ctb/_modals.scss */
+/* line 118, ../scss/override_ctb/_modals.scss */
 .modal-footer .ajax-progress-throbber {
   display: none;
 }
@@ -4598,7 +4608,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #3AD900;
+  background-color: #FF9D00;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5021,7 +5031,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #FFDD00;
+  background-color: #3AD900;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5229,7 +5239,7 @@ body ul.tabs.primary li a:hover {
 }
 /* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 body ul.tabs.primary li a.active {
-  background-color: #FFDD00;
+  background-color: #FF9D00;
   color: rgba(0, 0, 0, 0.8);
 }
 /* line 33, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
