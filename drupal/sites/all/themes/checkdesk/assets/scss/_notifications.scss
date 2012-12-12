@@ -1,5 +1,3 @@
-
-
 // Notifications block
 //
 // When the user gets a notification they can preview it in the navigation.
@@ -12,48 +10,38 @@
   @include clearfix;
   overflow: visible;
   float: opposite-position($from-direction);
-  
-  .auto-refresh {
-    display: none;
-  }
+  margin-#{opposite-position($from-direction)}: 5px;
+  margin-#{$from-direction}: 5px;
 
-  .content {
-    @include reset-box-model;
-    @include span-columns($cw, $cw/2, $gw);
-    border: 1px solid $grey;
-    position: absolute;
-    #{$from-direction}: $gw;
-    top: 0;
-    background: $light-grey;
-    z-index: 3;
-    .view-content {
-      height: 300px;
-      overflow: auto;
-      background: white;
-    }
-    .item-list {
-      display: none;
-    }
-    .notifications-settings-link, .more-link {
-      @include chunky_block;
-      padding: { top: 0.5em; bottom: 0.5em;} 
-      a, a:visited, a:link {
-        font-size: $small-font-size;        
-        text-decoration: none;
-        color: white;
-      }
-      a:hover {
-        color: $light-grey;
+  h2 {
+    margin: 0;
+    padding: 0 3px;
+    color: #999;
+    font-size: 1em;
+    display: inline-block;
+    font-weight: normal;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    line-height: 30px;
+
+    .notifications-count {
+      display: inline;
+      color: #999;
+      span {
+        padding: 1px 5px;
+        background: #296182;
+	      @include border-radius(5px);
       }
     }
-    .notifications-settings-link {
-      float: $from-direction;
-    }
-    .more-link {
-      float: opposite-position($from-direction);
-    }
-    .notifications-footer {
-      clear: both;
+  }
+  h2:hover {
+    color: #fff;
+    .notifications-count {
+      color: #fff;
+      span {
+        background: #2DA3EB;
+      }
     }
   }
 }
@@ -128,7 +116,7 @@
   }
 }
 
-// icons icons
+// .icon-iconname
 @include activity-icon("comment_on_update", "comment", $grey);
 @include activity-icon("new_update_on_story_i_commented_on_update", "comment", $dark-blue);
 @include activity-icon("reply_to_comment", "comment-alt", $dark-blue);
@@ -142,26 +130,65 @@
 
 // Expanded block
 #block-views-my-notifications-block.notifications-block-expanded {
-  .content, 
-  h2 {
-    background: #fff;
-  }
   h2 {
     color: $nav-color;
     z-index: 6;
     font-size: $base-font-size;
-	  // @include border-radius(5px 5px 0 0);
+	  @include border-radius(5px 5px 0 0);
+    background-color: white;
   }
+
   .content {
-    // @include box-shadow(1px 1px 10px #333);
-	  // @include border-radius(5px);
-    z-index: 5;
+    @include box-shadow(1px 10px 10px #333);
+	  @include border-radius(5px);
     @if $from-direction == left {
       @include border-top-right-radius(0);
     } @else {
       @include border-top-left-radius(0);
     } 
   }
+
+// WIP
+// Chunkier notifications style for smaller breakpoints
+//
+//   .content {
+//     @include reset-box-model;
+//     @include span-columns($cw, $cw/2, $gw);
+//     border: 1px solid $grey;
+//     position: absolute;
+//     #{$from-direction}: $gw;
+//     top: 0;
+//     background: $light-grey;
+//     z-index: 3;
+//     .view-content {
+//       height: 300px;
+//       overflow: auto;
+//       background: white;
+//     }
+//     .item-list {
+//       display: none;
+//     }
+//     .notifications-settings-link, .more-link {
+//       @include chunky_block;
+//       padding: { top: 0.5em; bottom: 0.5em;} 
+//       a, a:visited, a:link {
+//         font-size: $small-font-size;        
+//         text-decoration: none;
+//         color: white;
+//       }
+//       a:hover {
+//         color: $light-grey;
+//       }
+//     }
+//     .notifications-settings-link {
+//       float: $from-direction;
+//     }
+//     .more-link {
+//       float: opposite-position($from-direction);
+//     }
+//     .notifications-footer {
+//       clear: both;
+//     }
 }
 ::-webkit-scrollbar {
   width: 9px;

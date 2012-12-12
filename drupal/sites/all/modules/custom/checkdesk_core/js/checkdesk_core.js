@@ -1,7 +1,35 @@
 (function ($) {
 
+  Drupal.ajax.prototype.setMessages = function() {
+    var ajax = this;
+ 
+    // Do not perform another ajax command if one is already in progress.
+    if (ajax.ajaxing) {
+      return false;
+    }
+ 
+    try {
+      $.ajax(ajax.options);
+    }
+    catch (err) {
+      alert('An error occurred while attempting to process ' + ajax.options.url);
+      return false;
+    }
+ 
+    return false;
+  };
+ 
+  // Ajax action settings for messages
+  var message_settings = {};
+  message_settings.url = '/checkdesk/drupal/core/messages/ajax/';
+  message_settings.event = 'onload';
+  message_settings.keypress = false;
+  message_settings.prevent = false;
+  Drupal.ajax['checkdesk_core_message_settings'] = new Drupal.ajax(null, $(document.body), message_settings);
+
   Drupal.behaviors.checkdesk = {
     attach: function (context, settings) {
+
       $('.draggable', context).draggable({
         revert: 'invalid',
         zIndex: 3000,
@@ -30,9 +58,22 @@
       $('#close').click(function() {
         Drupal.CTools.Modal.dismiss();
         return false;
-      });      
+      });
+
+      // $(".flag-link-confirm", context).once('checkdesk-modal', function () {
+      //   this.href = this.href.replace(/flag\/confirm\/flag\/graphic/,'node/flag/nojs/confirm/flag/graphic');
+      // }).addClass('ctools-use-modal ctools-modal-checkdesk-style');
+
+      // Trigger 
+      // $('.some-class').click(function() {
+      //   Drupal.ajax['checkdesk_core_message_settings'].setMessages();
+      // });
+
     }
   };
+
+
+  
 
   /**
    * Provide the HTML to create the modal dialog.

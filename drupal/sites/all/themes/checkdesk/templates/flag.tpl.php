@@ -29,12 +29,26 @@
  * NOTE: This template spaces out the <span> tags for clarity only. When doing some
  * advanced theming you may have to remove all the whitespace.
  */
+
 ?>
+
 <?php if ($link_href): ?>
-  <a href="<?php print $link_href; ?>" title="<?php print $link_title; ?>" class="<?php print $flag_classes ?>" rel="nofollow"><?php print $link_text; ?></a>
+  <?php
+  	$url = parse_url($link_href);
+  	$path = 'node/' . str_replace("/checkdesk/drupal/", "", $url['path']) . '/nojs';
+  ?>
+  <?php if(isset($modal_link)) : ?>
+      <?php print $modal_link; ?>
+  <?php else : ?>
+      <a href="<?php print $link_href; ?>" title="<?php print $link_title; ?>" class="<?php print $flag_classes ?>" rel="nofollow"><?php print $link_text; ?></a>
+  <?php endif; ?>
 <?php else: ?>
   <?php print $link_text; ?>
 <?php endif; ?>
 <?php if ($after_flagging): ?>
-  <?php drupal_set_message($message_text, 'warning'); ?>
+  <?php 
+  	// set message
+  	drupal_set_message($message_text, 'warning');
+  	// drupal_add_js('(function($){ Drupal.ajax["checkdesk_core_message_settings"].setMessages(); })(jQuery);', array('type' => 'inline'));
+  ?>
 <?php endif; ?>

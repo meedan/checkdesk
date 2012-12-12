@@ -59,6 +59,9 @@ img {
 					span {
 						float: $from-direction;
 						@include reset-box-model;
+						&.icon-edit {
+							@include icon(edit, fontawesome, 16px, $darker-grey, transparent);
+						}
 
 						// Flag and share on the top of the report
 						&.icon-flag {
@@ -146,7 +149,12 @@ img {
 				display: inline-block;
   				vertical-align: middle;
   				text-align: $from-direction;
-  				padding: $baseLineHeight/2 $gw;
+  				.title,
+  				.content, 
+  				.favicon, 
+  				.domain {
+  					margin: 0 $gw;	
+  				}
 				.oembed-title {
 					display: none;
 				}
@@ -163,11 +171,19 @@ img {
 				.domain {
 					margin-bottom: $baseLineHeight;
 				}
+				img,
+				embed,
+				object,
+				video,
+				iframe {
+					max-width: 100%;
+				}
 			}
 		}
 
 		& > p {
-			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+			@include ctb-clearfix;
+			padding: $baseLineHeight/2.8 $gridGutterWidth/2 $baseLineHeight/2 $gridGutterWidth/2;
 			border-bottom: 1px solid $white;
 			@include ctb-font-shorthand(12px, normal);
 		}

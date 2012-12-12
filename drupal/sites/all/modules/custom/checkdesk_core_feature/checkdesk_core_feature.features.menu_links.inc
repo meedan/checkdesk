@@ -24,6 +24,24 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-50',
   );
+  // Exported menu link: main-menu:<sub>
+  $menu_links['main-menu:<sub>'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => '<sub>',
+    'router_path' => '<sub>',
+    'link_title' => '...',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '1',
+    'expanded' => '1',
+    'weight' => '-45',
+  );
   // Exported menu link: main-menu:admin/config/system/checkdesk
   $menu_links['main-menu:admin/config/system/checkdesk'] = array(
     'menu_name' => 'main-menu',
@@ -121,18 +139,14 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'main-menu',
     'link_path' => 'reports',
     'router_path' => 'reports',
-    'link_title' => 'VIew all incoming reports',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
+    'link_title' => 'View incoming citizen reports',
+    'options' => array(),
+    'module' => 'system',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-50',
+    'weight' => '50',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-information:<sub>
@@ -153,10 +167,10 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '1',
     'weight' => '0',
   );
-  // Exported menu link: menu-information:modal/nojs/content/install-bookmarklet
-  $menu_links['menu-information:modal/nojs/content/install-bookmarklet'] = array(
+  // Exported menu link: menu-information:modal/ajax/content/install-bookmarklet
+  $menu_links['menu-information:modal/ajax/content/install-bookmarklet'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/nojs/content/install-bookmarklet',
+    'link_path' => 'modal/ajax/content/install-bookmarklet',
     'router_path' => 'modal/%',
     'link_title' => 'Install bookmarklet',
     'options' => array(
@@ -192,6 +206,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
+  t('...');
   t('Administer users');
   t('Compose update');
   t('Create story');
@@ -201,7 +216,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Install bookmarklet');
   t('Sign in');
   t('Submit report');
-  t('VIew all incoming reports');
+  t('View incoming citizen reports');
 
 
   return $menu_links;

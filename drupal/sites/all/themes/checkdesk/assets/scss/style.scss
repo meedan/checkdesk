@@ -150,6 +150,9 @@ $inputHeight: $base-font-size + 4;
 // Checkdesk commenting plugin
 @import "livefyre";
 
+// Checkdesk bookmarklet stuff
+@import "bookmarklet";
+
 // ====================================================================== 
 // Forms
 //
@@ -210,19 +213,27 @@ $inputHeight: $base-font-size + 4;
   @include container($cw);
   #content-inner {
 
-    // 2. Default layout with no padding
-    @include cd-layout($cw, 0);
+    // 2. Default layout 
+    @include cd-layout($cw, 0); // 0 padding
 
     // 3. Breakpoint: Larger than a smartphone
     @include at-breakpoint($break-small) {
+      $padding-on-each-side: 1;
       @include container($break-small);
       @include cd-layout($break-small, 1);
     }
 
     // 4. Breakpoint: Larger than a tablet
     @include at-breakpoint($break-medium) {
-      @include container($break-medium);
-      @include cd-layout($break-medium, 2);
+      $current-breakpoint: $break-medium;
+      $current-padding: 2;
+      $current-layout-width: $current-breakpoint - $current-padding*2;
+      @include container($current-breakpoint);
+      @include cd-layout($current-layout-width, $current-padding);
+      // @debug "Now at $current-breakpoint (#{$current-breakpoint}) using $current-layout-width: #{$current-layout-width} with $current-padding: #{$current-padding} on each side.";
+      // @if (($current-layout-width + $current-padding) > $current-breakpoint) {
+      //   @warn "This configuration of cd-layout will exceed $break (#{$current-breakpoint}).";
+      // }
     }
   }
 
@@ -281,6 +292,12 @@ li.menu-449 {
   display: none!important;
 }
 
+// Hide the summary link from text fields.
+// FIXME This is a hack because the fields are of type "Long text and summary" while they should really be of type "Long text".
+.field-edit-link {
+  display: none
+}
+
 // ====================================================================== 
 // The End
 //
@@ -290,4 +307,4 @@ li.menu-449 {
 // @include debug_drupal;
 
 // Pseudo-spec
-@import "spec";
+// @import "spec";

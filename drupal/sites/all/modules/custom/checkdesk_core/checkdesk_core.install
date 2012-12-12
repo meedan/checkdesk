@@ -14,3 +14,10 @@ function checkdesk_core_update_7001() {
     ->execute();
 }
 
+/**
+ * Disable unneeded modules.
+ */
+function checkdesk_core_update_7002() {
+  module_disable(array('meedan_media', 'meedan_discussion'), FALSE);
+}
+

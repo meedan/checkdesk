@@ -1,0 +1,426 @@
+// Bookmarklet
+
+
+// The bookmarklet itself
+
+#meedan_bookmarklet {
+  font-size: 15px;
+  overflow: hidden;
+
+  h2 {
+    color: #bbb;
+    font-size: 15px;
+    margin: 5px 0;
+    margin-top: 0;
+    float: left;
+  }
+
+  #meedan_bookmarklet_help {
+    float: left;
+    span {
+      display: block;
+      width: 30px;
+      height: 40px;
+      text-indent: -5000em;
+      background: transparent url(../imgs/icons/bookmarklet-help.png) center center no-repeat;
+      cursor: help;
+      float: left;
+      p {
+        display: none;
+      }
+    }
+    span:hover p {
+      display: block;
+      width: 220px;
+      height: 60px;
+      background: #fff;
+      border: 1px solid #bbb;
+      font-size: 11px;
+      color: #7c7c7c;
+      text-indent: 0;
+      padding: 8px;
+      position: absolute;
+      right: 1px;
+    }
+  }
+
+  #meedan_bookmarklet_preview {
+    color: #bbb;
+    margin: 10px 0;
+  }
+
+  input[type=text], input[type=password], textarea {
+    height: 32px;
+    padding: 0 5px;
+    border: 1px solid #bbb;
+    color: #838383;
+	  @include border-radius(3px);
+  }
+
+  input[type=text] {
+    width: 290px;
+    padding-right: 35px;
+  }
+
+  textarea {
+    width: 332px;
+    height: 60px;
+    padding: 5px;
+  }
+
+  label, textarea {
+    color: #848484;
+    font-size: 13px;
+    font-weight: normal;
+  }
+
+  .meedan-bookmarklet-loading {
+    background: #fff url(../imgs/icons/bookmarklet-loading.gif) 305px center no-repeat;
+  }
+
+  .field-type-link-field {
+    clear: both;
+    label {
+      display: none;
+    }
+  }
+
+  .form-item {
+    margin: 0;
+  }
+
+  .field-edit-link {
+    display: none;
+  }
+
+  #meedan_bookmarklet_preview_content,
+  #meedan_bookmarklet_preview_content img,
+  #meedan_bookmarklet_preview_gc {
+    width: 332px;
+    height: 230px;
+  }
+
+  #meedan_bookmarklet_preview_content {
+    overflow: hidden;
+  }
+  
+  #meedan_bookmarklet_preview_gc {
+    background: #000;
+    color: #fff;
+    padding-top: 85px;
+    height: 145px;
+    span, a {
+      text-align: center;
+      display: block;
+      width: 100%;
+    }
+    span {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+    a, a:visited, a:link, a:hover {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+
+  #edit-graphic-content {
+    float: right;
+    clear: both;
+    input[type=checkbox] {
+      border: 1px solid #bbb;
+      background: #fff;
+      margin: 0;
+    }
+  }
+
+  .form-actions {
+    margin: 0;
+    margin-top: 10px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  input.form-submit {
+    display: block;
+    width: 80px;
+    padding: 8px 0 12px 0;
+    margin: 8px;
+    margin-left: 0;
+    border: 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    float: left;
+    -webkit-appearance: none;
+	  @include border-radius(3px);
+  }
+
+  #edit-submit {
+    background: #2da3eb;
+  }
+
+  #meedan_bookmarklet_cancel_button {
+    background: #929292;
+  }
+
+  .alert {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    h4, .close, li + li + li {
+      display: none;
+    }
+    ul {
+      clear: both;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      display: block;
+      list-style: none;
+    }
+    a, a:link, a:visited, a:hover {
+      text-decoration: none;
+      color: #848484;
+      font-size: 15px;
+      line-height: 40px;
+    }
+    a::before {
+      display: none;
+    }
+  }
+
+  .alert-error {
+    color: #a00;
+    font-size: 12px;
+    position: absolute;
+    top: 150px;
+    a, a:link, a:visited, a:hover {
+      font-size: 12px;
+      color: #a00;
+    }
+  }
+
+  #user-login {
+    label, input[type=text], input[type=password], a {
+      font-size: 13px;
+      clear: both;
+    }
+    ul {
+      margin: 0;
+    }
+    li {
+      list-style: none;
+      display: block;
+      margin: 0;
+    }
+    #edit-social-media-signin {
+      label, li, a {
+        float: left;
+      }
+      li {
+        margin-left: 5px;
+      }
+    }
+  }
+
+}
+
+// The installation page link
+
+#info-menu {
+  border-right: 1px solid #999;
+  .caret {
+    display: none;
+  }
+  li {
+    a.dropdown-toggle {
+      margin-right: 10px;
+    }
+  }
+  li.open {
+    a.dropdown-toggle {
+      color: #323232;
+      background: #fff;
+      text-shadow: none;
+	    @include border-radius(5px 5px 0 0);
+    }
+  }
+  .dropdown-menu {
+    border: 0;
+    background: #fff;
+    margin: -5px 10px 0 0;
+    @include box-shadow(1px 10px 10px #333);
+	  @include border-radius(5px);
+    .ajax-progress-throbber, &:after, &:before {
+      display: none;
+    }
+    a {
+      color: #08C;
+    }
+    li > a:hover, li > a:focus {
+      background-color: transparent;
+      background-image: none;
+      filter: none;
+    }
+  }
+}
+
+// The installation page
+
+#modalContent {
+  width: 930px !important;
+  height: 355px !important;
+  background: #fff;
+  border: 1px solid #C0C0C0;
+  top: 80px !important;
+  left: 50% !important;
+  margin-left: -465px;
+  z-index: 1050 !important;
+  overflow: visible;
+
+  .ctools-modal-content {
+    width: 930px !important;
+    .modal-content {
+      width: 930px !important;
+    }
+  }
+
+  .modal-header {
+    border-bottom: 0;
+
+    .close {
+      display: block;
+      text-indent: -5000em;
+      width: 19px;
+      height: 19px;
+      background: transparent url(../imgs/icons/modal-close.png) center center no-repeat;
+      opacity: 1;
+    }
+
+    .modal-title {
+      display: none;
+    }
+  }
+
+  #install-bookmarklet-button {
+    background: transparent url(../imgs/icons/bookmarklet-drag.png) left center no-repeat;
+    display: block;
+    height: 84px;
+    width: 50%;
+    padding-left: 66px;
+    position: absolute;
+    left: 35px;
+    top: -9px;
+    z-index: 1051;
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+
+    span {
+      position: absolute;
+      top: 50px;
+      padding: 10px;
+      background: #2DA3EB;
+	    @include border-radius(3px);
+    }
+  }
+
+  .install-bookmarklet-col {
+    width: 410px;
+    float: left;
+    margin: 0 22px;
+
+    h3 {
+      color: #C0C0C0;
+      font-size: 28px;
+      text-align: center;
+      margin: 80px auto 20px auto;
+      font-weight: normal;
+      padding-right: 76px;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      margin-top: 5px;
+      list-style: none;
+    }
+
+    a, p {
+      font-size: 13px;
+    }
+
+    p {
+      color: #616161;
+    }
+  }
+
+  .install-bookmarklet-col + .install-bookmarklet-col {
+    h2 {
+      color: #C0C0C0;
+      font-weight: normal;
+      font-size: 34px;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 25px 0;
+    }
+  }
+}
+
+#modalBackdrop {
+  background: url(../imgs/alpha.png) !important;
+  z-index: 1049 !important;
+}
+
+// Internal bookmarklet (Submit Report link)
+
+#meedan_bookmarklet_cont {
+  display: none;
+  position: fixed !important;
+  left: 44px !important;
+  border: 0 !important;
+  -moz-box-shadow: 1px 10px 10px #333 !important;
+  -webkit-box-shadow: 1px 10px 10px #333 !important;
+  box-shadow: 1px 10px 10px #333 !important;
+  border-top-left-radius: 0 !important;
+  -moz-border-radius-topleft: 0 !important;
+  -webkit-border-radius-topleft: 0 !important;
+}
+
+.meedan-bookmarklet-internal {
+  #meedan_bookmarklet_preview, #edit-body, #edit-graphic-content, #edit-actions #edit-submit {
+    display: none;
+  }
+}
+
+// Submit Report link
+
+#menu-submit-report {
+  padding: 5px 5px 5px 25px;
+  background: transparent url(../imgs/icons/menu-submit-report.png) 5px center no-repeat;
+}
+
+#menu-submit-report:hover {
+  background: transparent url(../imgs/icons/menu-submit-report-over.png) 5px center no-repeat;
+}
+
+#menu-submit-report.open:hover,
+#menu-submit-report.open {
+  color: #323232;
+  background: #fff;
+  text-shadow: none;
+  background: #fff url(../imgs/icons/menu-submit-report-opened.png) 5px center no-repeat;
+	@include border-top-left-radius(5px);
+	@include border-top-right-radius(5px);
+}

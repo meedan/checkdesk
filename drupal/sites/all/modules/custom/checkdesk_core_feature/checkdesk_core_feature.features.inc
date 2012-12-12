@@ -86,7 +86,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'access_author' => '',
     'show_contextual_link' => 1,
     'show_on_page' => 1,
-    'show_on_teaser' => 0,
+    'show_on_teaser' => 1,
     'i18n' => 0,
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
@@ -117,7 +117,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'access_author' => '',
     'show_contextual_link' => 1,
     'show_on_page' => 1,
-    'show_on_teaser' => 0,
+    'show_on_teaser' => 1,
     'i18n' => 0,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
@@ -146,7 +146,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'access_author' => '',
     'show_contextual_link' => 1,
     'show_on_page' => 1,
-    'show_on_teaser' => 0,
+    'show_on_teaser' => 1,
     'i18n' => 0,
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
@@ -177,7 +177,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'access_author' => '',
     'show_contextual_link' => 1,
     'show_on_page' => 1,
-    'show_on_teaser' => 0,
+    'show_on_teaser' => 1,
     'i18n' => 0,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
@@ -206,7 +206,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'access_author' => '',
     'show_contextual_link' => 1,
     'show_on_page' => 1,
-    'show_on_teaser' => 0,
+    'show_on_teaser' => 1,
     'i18n' => 0,
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
@@ -256,6 +256,22 @@ function checkdesk_core_feature_image_default_styles() {
  */
 function checkdesk_core_feature_node_info() {
   $items = array(
+    'discussion' => array(
+      'name' => t('Story'),
+      'base' => 'node_content',
+      'description' => t('Where reports are verified and blog posts created.'),
+      'has_title' => '1',
+      'title_label' => t('Headline'),
+      'help' => '',
+    ),
+    'media' => array(
+      'name' => t('Report'),
+      'base' => 'node_content',
+      'description' => t('A report containing a media item.'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'page' => array(
       'name' => t('Basic page'),
       'base' => 'node_content',

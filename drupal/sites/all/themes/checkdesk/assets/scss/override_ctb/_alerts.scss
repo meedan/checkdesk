@@ -120,14 +120,24 @@ button.close {
   -webkit-appearance: none;
 }
 
-// Is this in use? - CGB NOV 2012
 // Top bar alerts
+// -------------------------
+
 #absolute-messages-messages {
   width: 100%;
-  position: relative;
-  top: $navbarHeight;
+  position: absolute;
+  top: 0;
   left: 0;
   z-index: 10;
+}
+
+// For Drupal Admin Toolbar
+.toolbar #absolute-messages-messages {
+  top: $toolbarHeight + $drawerHeight;
+}
+
+.toolbar-drawer #absolute-messages-messages {
+  top: $toolbarHeight + $drawerHeight + $navbarHeight;
 }
 
 .absolute-messages-message {
@@ -187,14 +197,13 @@ a.absolute-messages-dismiss:hover,
 a.absolute-messages-dismiss-all:hover {
   display: block;
   position: absolute;
-  top: .8em;
-  right: .5em;
+  top: .3em;
+  right: $gw;
   z-index: 10;
   margin: 0;
   padding: 1px 3px;
-  
-  line-height: 1em;
   text-decoration: none;
+  line-height: $baseLineHeight;
   cursor: pointer;
 }
 .absolute-messages-status .absolute-messages-dismiss {
@@ -240,3 +249,6 @@ noindex:-o-prefocus, .absolute-messages-show {
   border-left: 1px solid #666;
   border-bottom: 1px solid #666;
 }
+
+
+

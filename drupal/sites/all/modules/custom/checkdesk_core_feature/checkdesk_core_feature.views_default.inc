@@ -172,6 +172,15 @@ print theme(\'views_autorefresh\', array(
 ));
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '<?php
+print t(\'No content available\');
+?>';
+  $handler->display->display_options['empty']['area']['format'] = 'php_code';
   /* Relationship: Media sources: Media sources of the node */
   $handler->display->display_options['relationships']['ms_id']['id'] = 'ms_id';
   $handler->display->display_options['relationships']['ms_id']['table'] = 'node';
@@ -695,7 +704,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['style_options']['box_shadow'] = '0';
   $handler->display->display_options['style_options']['border_radius'] = '0';
   $handler->display->display_options['row_plugin'] = 'node';
-  $handler->display->display_options['row_options']['links'] = FALSE;
+  $handler->display->display_options['row_options']['comments'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -727,7 +736,8 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['path'] = 'reports';
-  $handler->display->display_options['menu']['title'] = 'Reports';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'View incoming citizen reports';
   $handler->display->display_options['menu']['weight'] = '50';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;

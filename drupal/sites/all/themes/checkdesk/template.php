@@ -35,6 +35,16 @@ function checkdesk_preprocess_page(&$variables) {
     $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
     
+    // Change "Submit Report" link
+    foreach ($variables['main_menu'] as $id => $item) {
+      if ($item['link_path'] == 'node/add/media') {
+        $variables['main_menu'][$id]['href'] = variable_get('meedan_bookmarklet_code', _meedan_bookmarklet_default_code());
+        $variables['main_menu'][$id]['external'] = TRUE;
+        $variables['main_menu'][$id]['absolute'] = TRUE;
+        $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
+      }
+    }
+
     // Build list
     $variables['primary_nav'] = theme('checkdesk_links', array(
       'links' => $variables['main_menu'],
@@ -57,7 +67,7 @@ function checkdesk_preprocess_page(&$variables) {
   // Add modal class for first-level children
   foreach ($tree as $pid => $parent) {
     foreach ($parent['below'] as $cid => $item) {
-      $tree[$pid]['below'][$cid]['link']['class'] = array('ctools-use-modal');
+      $tree[$pid]['below'][$cid]['link']['class'] = array('use-ajax');
     }
   }
   // Load the modal library and add the modal javascript.
@@ -187,11 +197,27 @@ function checkdesk_links__node($variables) {
   ctools_include('ajax');
   ctools_modal_add_js();
   $modal_style = array(
-    'checkdesk-style' => array(
+    'modal-popup-small' => array(
       'modalSize' => array(
         'type' => 'fixed',
         'width' => 150,
-        'height' => 188,
+        'height' => 240,
+        'addWidth' => 0,
+        'addHeight' => 0
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'slideDown',
+      'modalTheme' => 'CheckDeskModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+    ),
+    'modal-popup-large' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 150,
+        'height' => 250,
         'addWidth' => 0,
         'addHeight' => 0
       ),
@@ -221,7 +247,7 @@ function checkdesk_links__node($variables) {
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
-        $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-checkdesk-style') .'</li>';
+        $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-large') .'</li>';
       }
       if (isset($links['checkdesk-edit'])) {
         $output .= '<li>' . l($links['checkdesk-edit']['title'], $links['checkdesk-edit']['href'], $links['checkdesk-edit']) .'</li>';
@@ -230,10 +256,10 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-edit']) .'</li>';
       }
       if (isset($links['flag-factcheck_journalist'])) {
-        $output .= '<li>' . l($links['flag-factcheck_journalist']['title'], @$links['flag-factcheck_journalist']['href'], $links['flag-factcheck_journalist']) .'</li>';
+        $output .= '<li>' . $links['flag-factcheck_journalist']['title'] .'</li>';
       }
       if (isset($links['flag-graphic_journalist'])) {
-        $output .= '<li>' . l($links['flag-graphic_journalist']['title'], @$links['flag-graphic_journalist']['href'], $links['flag-graphic_journalist']) .'</li>';
+        $output .= '<li>' . $links['flag-graphic_journalist']['title'] .'</li>';
       }
       $output .= '</ul></li>';
     }
@@ -247,17 +273,19 @@ function checkdesk_links__node($variables) {
       $output .= '<li class="flag-as dropdown">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span> Flag</a>';
       $output .= '<ul class="dropdown-menu">';
+
       if (isset($links['flag-spam'])) {
-        $output .= '<li>' . l($links['flag-spam']['title'], @$links['flag-spam']['href'], $links['flag-spam']) . '</li>';
+        $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
       }
       if (isset($links['flag-graphic'])) {
-        $output .= '<li>' . l($links['flag-graphic']['title'], @$links['flag-graphic']['href'], $links['flag-graphic']) . '</li>';
+        // $output .= '<li>' . ctools_modal_text_button('Custom title', 'node/nojs/flag/confirm/flag/graphic/74', 'Another title',  'ctools-modal-checkdesk-style') .'</li>';
+        $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
       }
       if (isset($links['flag-factcheck'])) {
-        $output .= '<li>' . l($links['flag-factcheck']['title'], @$links['flag-factcheck']['href'], $links['flag-factcheck']) . '</li>';
+        $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
       }
       if (isset($links['flag-delete'])) {
-        $output .= '<li>' . l($links['flag-delete']['title'], @$links['flag-delete']['href'], $links['flag-delete']) . '</li>';
+        $output .= '<li>' . $links['flag-delete']['title'] . '</li>';
       }
       $output .= '</ul></li>'; 
     }
