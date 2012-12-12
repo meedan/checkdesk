@@ -1145,6 +1145,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view own unpublished content',
     'roles' => array(
       0 => 'administrator',
+      1 => 'journalist',
     ),
     'module' => 'node',
   );
