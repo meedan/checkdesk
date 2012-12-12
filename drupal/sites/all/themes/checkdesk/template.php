@@ -38,7 +38,7 @@ function checkdesk_preprocess_page(&$variables) {
     // Change "Submit Report" link
     foreach ($variables['main_menu'] as $id => $item) {
       if ($item['link_path'] == 'node/add/media') {
-        $variables['main_menu'][$id]['href'] = variable_get('meedan_bookmarklet_code', '#');
+        $variables['main_menu'][$id]['href'] = variable_get('meedan_bookmarklet_code', _meedan_bookmarklet_default_code());
         $variables['main_menu'][$id]['external'] = TRUE;
         $variables['main_menu'][$id]['absolute'] = TRUE;
         $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
