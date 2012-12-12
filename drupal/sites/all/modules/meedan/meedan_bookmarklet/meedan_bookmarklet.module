@@ -145,7 +145,7 @@ function meedan_bookmarklet_admin_settings() {
       );
     }
   }
-  $code = variable_get('meedan_bookmarklet_code', '');
+  $code = variable_get('meedan_bookmarklet_code', _meedan_bookmarklet_default_code());
   $form['meedan_bookmarklet_code'] = array(
     '#type' => 'textarea',
     '#title' => t('Bookmarklet Code'),
@@ -167,12 +167,19 @@ function meedan_bookmarklet_admin_settings() {
  * Regenerate bookmarklet code if necessary. 
  */
 function _meedan_bookmarklet_settings_form_submit($form, &$form_state) {
-  global $base_url;
   if (empty($form_state['values']['meedan_bookmarklet_code'])) {
-    $js = $base_url . '/' . drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet.js';
-    $timestamp = time(); // Avoids cache
-    $form_state['values']['meedan_bookmarklet_code'] = "javascript:(function(){window.meedanBookmarkletHost='$base_url';if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{document.body.appendChild(document.createElement('script')).src='$js?$timestamp';}})();";
+    $form_state['values']['meedan_bookmarklet_code'] = _meedan_bookmarklet_default_code();
   }
+}
+
+/*
+ * Default code for the bookmarklet.
+ */
+function _meedan_bookmarklet_default_code() {
+  global $base_url;
+  $js = $base_url . '/' . drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet.js';
+  $timestamp = time(); // Avoids cache
+  return "javascript:(function(){window.meedanBookmarkletHost='$base_url';if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{document.body.appendChild(document.createElement('script')).src='$js?$timestamp';}})();";
 }
 
 /**
