@@ -1,6 +1,19 @@
 <?php
 
 /**
+ * Implementation of hook_install().
+ */
+function checkdesk_bookmarklet_install() {
+  // Should run after meedan_oembed and meedan_bookmarklet
+  db_update('system')
+    ->fields(array(
+      'weight' => 99,
+    ))
+    ->condition('name', 'checkdesk_bookmarklet')
+    ->execute();
+}
+
+/**
  * Change checkdesk_bookmarklet weight
  */
 function checkdesk_bookmarklet_update_7005() {
