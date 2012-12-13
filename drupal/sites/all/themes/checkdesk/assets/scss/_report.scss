@@ -1,9 +1,10 @@
-// Report page 
-
+// Reports page 
+//
+// We use the views fluid grid plugin
 li.views-fluid-grid-item  {
-	width: 300px;
+	width: $rw;
 	article.report {
-		width: 100%;
+		width: auto;
 	}
 }
 

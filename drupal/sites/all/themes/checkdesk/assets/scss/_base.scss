@@ -1,5 +1,19 @@
 @charset "UTF-8";
+
 // ## Checkdesk Theme 
+// Typography: webfonts
+//
+// Apparently these webfont @imports are best served first.
+// As per https://github.com/chriseppstein/compass/issues/639
+// - CGB Nov 2012
+//
+// "Open Sans"
+// A light 300 and balanced 600: 2 excellent weights for use at very small sizes — cgb
+// see: http://www.google.com/webfonts/Collection:Open+Sans
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:300,600");
+
+// "Merriweather"
+@import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
 
 // Typography configuration 
 //
@@ -9,38 +23,29 @@ $sans-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $serif-font-family: Merriweather Georgia, "Times New Roman", Times, serif;
 $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 
-// Typography: webfonts
-//
-// Apparently these webfont @imports are best served first.
-// As per https://github.com/chriseppstein/compass/issues/639
-// - CGB Nov 2012
-//
-// "Open Sans"
-// @import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
-
-// "Merriweather"
-@import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
-
 // Modular scale setup
 // Two scales at 1:1.61803
 // http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
-$base-size: 18px;
+// All of these numbers are based on 18 base font size and 1168 outer container
+$base-size: 18px 1168px;
 $ratio: golden();
-// Fonts are scaled ems, 1em = 18px
-// See: http://snook.ca/archives/html_and_css/font-size-with-rem
-$smallest-font-size: 11px;
-$small-font-size: 15px;
-$base-font-size: 18px;
-$large-font-size: 25px;
-$x-large-font-size: 29px;
-$xx-large-font-size: 40px;
+$round_pixels: true;
 
-$base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
+// Typography
+$smallest-font-size: ms(-2);
+$small-font-size: ms(-1);
+$base-font-size: ms(0);
+$large-font-size: ms(1);
+$x-large-font-size: ms(2);
+$xx-large-font-size: ms(3);
 
+// Set initial baseline configuration
+$base-line-height: 1.2;
+  
 // Proportions
 //
 // Natural language shortcuts that help document the grid.
-// We round down to avoid errors.
+// Will complain loudly if accidentally divide columns!
 @function twelveth-of($width)       { @return $width / 12; }
 @function sixth-of($width)          { @return $width / 6; }
 @function fifth-of($width)          { @return $width / 5; }
@@ -59,7 +64,7 @@ $base-line-height: 1.2 * $base-font-size; // (1.2 * 16 = 19.2px, same as TB)
 //
 
 // The key variable: columns count for a grid
-$container-width: 4; // Small initial container
+$container-width: 12; // Small initial container
 $break-small: 12; // column breakpoint - at the equivalent of fullsize grid units
 $break-medium: 24; // column breakpoint - at the equivalent of fullsize grid units
 
@@ -72,11 +77,10 @@ $label-width: half-of($form-width); // a fraction of the form width.
 $input-width: ($form-width - $label-width); // The remaining fraction of the form width.
 
 // Use ratios of $gutter-width whenever you need a small amount of padding
-$gutter-width: 10px; // The distance between grid columns
-
+$gutter-width: ms(-1); // The distance between grid columns
 // We set the column width equal to the gutter, and equal to the grid padding
-$column-width: 60px; // The width of columns
-$grid-padding: 10px; // The padding on the sides of the out <container>
+$column-width: ms(3); // The width of columns
+$grid-padding: ms(-1); // The padding on the sides of the out <container>
 $pad: 1; // Number of columns we want to use 2x, for padding on each side. Larger breakpoints have larger padding, to keep the element centered. The smallest breakpoints should rely only on the padding on the outer element, since a column is so large.
 
 // Susy container style, For more information: `gem unpack susy`
@@ -108,3 +112,41 @@ $i-s: $icon-selector;
 $icon-word-padding: 2.5%;
 
 $radios-widths: $fw - 2;
+
+// Based on the following scale of units: 
+// When possible units should appear exactly as they apper
+// Usually they can be rounded 
+// The key values are 18 and 1168
+// 0.86
+// 1.0 
+// 1.62 The golden mean 
+// 1.39
+// 2.24
+// 2.63
+// 3.63
+// 4.25
+// 5.87
+// 6.88 
+// 9.5
+// 11.12 - small-font-size and $gutter-width or $gw
+// 15.36 - navigation font size
+// 18 - based font size *** 1 : 0.61803
+// 24.86
+// 29.12
+// 40.23
+// 47.12
+// 65.09 width of space between primary and secondary columns
+// 76.25
+// 105.32
+// 123.37
+// 170.4
+// 199.62
+// 275.72 - dropdown login form width
+// 322.99 - sidebar width
+// 446.13
+// 522.61
+// 721.86
+// 845.6 - main column width
+// 1168 - total width
+// 1368.21
+// 2213.8

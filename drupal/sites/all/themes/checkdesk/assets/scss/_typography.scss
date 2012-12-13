@@ -1,11 +1,9 @@
 // Configutation variables are in base.scss
 // Typography configuration needs to come very early in the load sequence, but we want this file to emit CSS which comes later in the stylesheet.
-$base-size: 1px;
-$ratio: golden();
-$total_width: 18px;
 
 // Compass baseline mixin
-@include establish-baseline;
+// Not using this currently, it's a pain to get vertical alignment 100% correct.
+// @include establish-baseline;
 
 body {
   font-family: "Merriweather", Georgia, sans-serif;
