@@ -830,13 +830,15 @@ function checkdesk_core_report_form_block() {
   if (($node = menu_get_object()) && $node->type == 'discussion') {
     $desk_nid = $node->nid;
   }
+  global $user;
   $draft_nid = db_query("
 SELECT n.nid 
 FROM {node} n INNER JOIN {field_data_field_desk} d ON n.nid = d.entity_id 
 WHERE n.type = 'post' 
 AND n.status = 0
 AND d.field_desk_target_id = :desk_nid
-  ", array(':desk_nid' => $desk_nid))->fetchCol();
+AND n.uid = :uid
+  ", array(':desk_nid' => $desk_nid, ':uid' => $user->uid))->fetchCol();
   if ($draft_nid) {
     $draft = node_load($draft_nid);
     $content = node_page_edit($draft);
