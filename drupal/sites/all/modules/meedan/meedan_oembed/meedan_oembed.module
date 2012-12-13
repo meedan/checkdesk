@@ -107,9 +107,11 @@ function meedan_oembed_data($url, $attributes = array()) {
       'thumbnail_url' => url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE)),
     );
   }
-  meedan_oembed_scrape_generic($embed);
-  //cache embed
-  cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
+  else {
+    meedan_oembed_scrape_generic($embed);
+    //cache embed
+    cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
+  }
   return $embed;
 }
 
