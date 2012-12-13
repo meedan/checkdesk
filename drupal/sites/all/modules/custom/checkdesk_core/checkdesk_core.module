@@ -932,11 +932,21 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
   }
 }
 
+define('RATING_IN_PROGRESS', 'In Progress');
+
+/**
+ * Implements of hook_form_FORM_ID_alter() for `comment_node_media_form`.
+ */
+function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, $form_id) {
+  if ($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']->name !== RATING_IN_PROGRESS) {
+    $form['#access'] = FALSE;
+  }
+}
+
 /**
  * Implements of hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
-
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $items = array();
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
@@ -980,7 +990,5 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['actions']['cancel']['#attributes']['id'] = array('close');
     $form['actions']['cancel']['#weight'] = -1;
   }
-
-
 }
 
