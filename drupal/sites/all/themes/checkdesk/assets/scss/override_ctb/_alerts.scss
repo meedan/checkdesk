@@ -4,15 +4,14 @@
 // Alerts appear for many kinds of notifications and errors
 // We establish the basic alert and then alternates.
 .alert {
-  padding: $baseLineHeight/2 $gw $baseLineHeight $gw;
+  padding: $gw;
   margin-bottom: $gw;
   margin-top: $gw;
   text-shadow: 0 1px 0 rgba(255,255,255,.4);
   border: { top: 1px solid $grey; bottom: 1px solid $grey; }
-  background-color: $warningBackground;
+  background-color: rgba(black, 0.5);
   color: $dark-grey;
   font-size: $small-font-size;
-  background-color: $light-grey;
   @include border-radius($baseBorderRadius);
   &:hover {
     height: auto; 

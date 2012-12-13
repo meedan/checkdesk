@@ -47,24 +47,33 @@
       @include span-columns($width, $width);
     }
 
-    input {
+    input, 
+    textarea {
       @include reset-box-model;
       @include span-columns($width, $width, $gw);
-      clear: opposite-position($from-direction);
-      padding: { top: $gw/2; bottom: $gw/2; }
-      margin: { top: $gw/2; bottom: $gw/2; }
       @include border-radius(3px);
+
+
+      @debug ms(-1);
+      @debug ms(-2);
+      @debug ms(-3);
+      @debug ms(-4);
+      @debug ms(-5);
+      @debug ms(-6);
+      @debug ms(-7);
+      @debug ms(-8);
+
+      padding-top: ms(1);
 
       // Border transition on inputs
       border: 1px solid $grey;
-      @include bb-transition($grey, $black, '0.2s', 'border-color', ':hover');
+      @include bb-transition($grey, $dark-grey, '0.2s', 'border-color');
 
       &:hover {
-        @include single-box-shadow(rgba($dark-blue, 0.8), 2px, 2px, 2px, 2px, inset);
-        border: 1px solid $darker-grey;
+        border: 1px solid $grey;
       }
 
-      @include bb-transition($grey, $black, '0.2s', 'border-color', ':focus') {
+      @include bb-transition($grey, $black, '0.2s', 'border-color') {
         &:focus { border: 1px solid $darker-grey; }
       }
     }
@@ -74,8 +83,8 @@
       font-size: $large-font-size;
       display: block;
       font-weight: normal;
-      padding-top: 1em;
-      padding-bottom: 1em;
+      padding-top: ms(1);
+      padding-bottom: ms(-5);
     }
 
     .description {
@@ -89,25 +98,31 @@
   }
 }
 
-
 // Basics for all checkdesk forms
 //
 // $width - form width
 // $context - size of containing element
 //
 // Compatibility: untested
-@mixin checkdesk-form($width: $form-width, $context: $cw, $radios-width: $width - 2) {
+@mixin checkdesk-form(
+  $width: $form-width, 
+  $context: $container-width, 
+  $radios-width: $width) {
     
   // The forms 
   //
   form {
-    border-top: 1px solid $identity;
-    background-color: rgba(white, 0.5);
+    // background-color: rgba(white, 0.9);
     margin-top: $gw;
     padding-top: $gw;
 
     // Use content blocks to set the width
     @content;
+
+    // The first form item
+    & > div > .form-item:first-of-type {
+      @include border-top-radius(5px);
+    }
 
     // Form Radios
     // http://checkdesk:8888/node/add/media
@@ -135,21 +150,25 @@
     .form-actions {
       @include reset-box-model;
       @include clearfix;
-      @include full($width);
-      margin-top: $base-font-size;
-      padding: $gw/2 0;
-
-      // Form actions: all buttons
+      @include span-columns($width, $context, $gw/2);
+      // Form actions: buttons and anchors
       input, a {
         @include reset-box-model;
         @include checkdesk-button;
-        margin-#{opposite-position($from-direction)}: $base-font-size;
+        margin-#{opposite-position($from-direction)}: $base-font-size!important;
         margin-#{$from-direction}: $base-font-size;
       }
 
       // Form actions: Submit buttons
       input[type="submit"] {
         @include checkdesk-button($twitter-blue);
+        margin: ms(-2);
+        &#edit-draft {
+          @include checkdesk-button($grey);
+        }
+      }
+      input[type="text"] {
+        @include span-columns(1, $width);
       }
     }
 
@@ -160,10 +179,14 @@
       }
     }
 
-    // Form "remember me" section
-    .form-item-remember-me {
+    // Form items
+    .form-item {
       font-size: $small-font-size;
       color: $dark-grey;
+      background: rgba($light-grey, 0.5);
+      margin-bottom: 2px;
+      @include span-columns($width, $width, $gw);
+      padding-bottom: $gw;
     }
 
     // Form checkboxes
@@ -192,8 +215,8 @@
     textarea, input {
       background-color: $inputBackground;
       border: 1px solid $inputBorder;
-      @include ctb-box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
-      @include ctb-transition(#{border linear .2s, box-shadow linear .2s});
+      // @include ctb-box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+      // @include ctb-transition(#{border linear .2s, box-shadow linear .2s});
 
       // Focus state
       &:focus {

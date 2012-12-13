@@ -64,7 +64,7 @@ $base-line-height: 1.2;
 //
 
 // The key variable: columns count for a grid
-$container-width: 10; // Small initial container
+$container-width: 8; // Small initial container
 $break-small: 12; // column breakpoint - at the equivalent of fullsize grid units
 $break-medium: 24; // column breakpoint - at the equivalent of fullsize grid units
 
@@ -79,9 +79,8 @@ $input-width: ($form-width - $label-width); // The remaining fraction of the for
 // Use ratios of $gutter-width whenever you need a small amount of padding
 $gutter-width: ms(-1); // The distance between grid columns
 // We set the column width equal to the gutter, and equal to the grid padding
-$column-width: ms(3); // The width of columns
+$column-width: ms(2); // The width of columns
 $grid-padding: ms(-1); // The padding on the sides of the out <container>
-$pad: 1; // Number of columns we want to use 2x, for padding on each side. Larger breakpoints have larger padding, to keep the element centered. The smallest breakpoints should rely only on the padding on the outer element, since a column is so large.
 
 // Susy container style, For more information: `gem unpack susy`
 $container-style: magic;
@@ -101,6 +100,8 @@ $iw: $input-width;
 $lw: $label-width; 
 $rw: $report-width;
 $nw: $nav-width;
+
+@debug "$gw is #{$gw}";
 
 // Typography for <form> elements
 $form-helper-text-size: $small-font-size;

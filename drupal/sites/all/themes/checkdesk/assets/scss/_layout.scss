@@ -61,11 +61,11 @@
   // @include tabs($width, $context) {
   //   @include span-padded-columns($width, $container-width, $pad, $pad);
   // }
-  // @include checkdesk-form($width, $context) {
-  //   @include span-padded-columns($width, $context, $pad, $pad);
-  //   // ... include other configurable sub-mixins
-  //   @include checkdesk-form-item($width, $context);
-  // }
+  @include checkdesk-form($width, $context) {
+    @include span-padded-columns($width, $context, $pad, $pad);
+    // ... include other configurable sub-mixins
+    @include checkdesk-form-item($width, $context);
+  }
   // @include profile($width, $context) { 
   //   @include span-padded-columns($width, $context, $pad, $pad);
   // }
@@ -78,13 +78,14 @@
   // reports
 
   // Insert banner at the bottom
-  @include debug-grid($width);
+  // @include debug-grid($width);
 }
 
 // Top-level layout selectors
 // Apply breakpoints
 // Then render the checkdesk layouts
 #main {
+
   // 1. Setup first container
   // This has padding based on $grid-padding
   background: $bkg-color;  
@@ -92,17 +93,17 @@
 
   #content-inner {
 
-    // 2. Breakpoint: Default layout  "Breakpoint 0"
+    // 2. First breakpoint: Default layout  "Breakpoint 0" $break-small, about 8
     @include checkdesk-layouts;
 
-    // 3. Breakpoint: Larger than a smartphone
+    // 3. Breakpoint: Larger than a smartphone, about 24 columns
     @include at-breakpoint($break-small) {
       @include checkdesk-layouts($break-small, $break-small, 1); 
     }
 
     // 4. Breakpoint: Larger than a tablet
     @include at-breakpoint($break-medium) {
-      @include checkdesk-layouts($break-medium, $break-medium, 1);
+      @include checkdesk-layouts($break-medium, $break-medium, 15);
       // @debug "Now at $current-breakpoint (#{$current-breakpoint}) using $current-layout-width: #{$current-layout-width} with $current-padding: #{$current-padding} on each side.";
       // @if (($current-layout-width + $current-padding) > $current-breakpoint) {
       //   @warn "This configuration of checkdesk-layouts will exceed $break (#{$current-breakpoint}).";

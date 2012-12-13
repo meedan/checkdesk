@@ -1,35 +1,31 @@
 
 // Building block
-// Layout helper / button alternative
+// Layout helper
 // 
 // Useful for standardizing link or navigation item. 
-// There should be no margin or width specified on this, 
-// at least at the default breakpoint ... CGB
+// There should be no margin or width specified on this.
+// Typography, resets, transitions, floated, block level, padded
+// with base font size and colors defined in colors.scss
+//
 @mixin building-block(
   $nav-bkg-color: $nav-bkg-color,
   $nav-active-bkg-color: $nav-active-bkg-color,
   $nav-color: $nav-color,
   $nav-active-color: $nav-active-color,
-  $base-font-size: $base-font-size,
+  $base-font-size: $small-font-size,
   $radius: 0) 
   {
   @include reset-box-model;
-  padding: $base-font-size;
   display: block;
   float: $from-direction;
-  clear: none;
   line-height: $base-line-height;
   font-size: $base-font-size;
   background-color: $nav-bkg-color;
   color: $nav-color;
-  cursor: pointer;
   font-weight: normal;
   position: relative;
-  
-  &:hover > a {
-    color: $nav-active-color;
-  }
-
+  font-size: $base-font-size;
+  padding: ms(-1);
   & > a {
     text-decoration: none; 
     color: $nav-color;
@@ -39,12 +35,13 @@
     @include border-radius($radius);
     &:hover {
       color: $nav-active-color;
+      font-weight: normal;
     }
   }
 
   @include border-radius($radius);
-  @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color', ':hover');
-  @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.3s', 'background-color', ':hover');
+  @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
+  @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.2s', 'background-color');
   
   // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
   &:hover, 
@@ -59,4 +56,5 @@
     color: $nav-active-color;
   }
 
+  @content
 }

@@ -1,48 +1,52 @@
 // 1. Drupal Navigation at the very top.
 // 2. Checkdesk #main-menu navigation
-// Not to be confused with tabs. That's in tabs.scss.
-
 
 // Nav icons
 // This will have to be refined with improved markup. href-based selector is fragile. - CGB
 @mixin nav-icons($size: $xsmall-font-size) {
-  li a[href="/"] .icon-home { @include icon("home", $size) { @include reset-box-model; } }
+  // home
+  li.menu-477 .icon-home { @include icon("home", $size) { @include reset-box-model; } }
+  // add a story 
   li a[href*="discussion"] { @include icon("file", $size); }
+  // add a post
   li a[href*="post"] { @include icon("pencil", $size); }
-  li a[href*="media"] { @include icon("bookmark", $size); }
+  // add a report
+  li.menu-472 a { @include icon("bookmark", $size); }
+  // info menu
   li a[href*="sub"] { @include icon("info-sign", $size); }
+}
+
+// Special shine for the home link
+li.menu-477 {
+  @include gradient(rgba(white, 0.2), rgba(white, 0.1));
+  a {
+    color: rgba(white, 0.2);
+  }
 }
 
 // Nav item container
 // This makes any element behave properly with 1 or more <.nav-item> children
+// It is used on both the outer parent and some children.
+// This helps standardize the implementation of the contained nav-items
+// This is necessary because some nav-items are h2s, a, or divs.
 @mixin nav-item-container() {
   @include reset-box-model;
-  display: inline-block;
+  float: $from-direction;
+  display: block;
   clear: none;
   position: relative;
   z-index: 1;
+  background: $nav-container-bkg-color;
 }
 
 // Nav item
-// Could be a dropdown, header, anchor or div
+// Could be a dropdown, header, anchor or div, and can contain an img.
 @mixin nav-item { 
-  @include building-block; // floated boxy elements 
-  font-size: $small-font-size;
-  @include reset-box-model; // override chunky block
-
+  @include building-block;
   img { // images in nav items
     @include reset-box-model;
     width: $base-font-size;
     height: $base-font-size;
-  }
-  a {
-    text-decoration: none;
-    font-size: $small-font-size;
-    padding: 4px;
-    &:hover {
-      font-weight: bold;
-      text-decoration: none;
-    }
   }
 }
 
