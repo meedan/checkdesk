@@ -552,6 +552,21 @@ function _checkdesk_core_node_links($node, $account = NULL) {
 }
 
 /**
+ * Implements hook_flag_access().
+ */ 
+function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
+  // Prevent "flag as graphic" from appearing if report already flagged as graphic by journalist.
+  if ($flag->name == 'graphic') {
+    $flag_journalist = flag_get_flag('graphic_journalist');
+    if ($flag_journalist->is_flagged($entity_id)) {
+      return FALSE;
+    }
+  }
+
+  return TRUE;
+}
+
+/**
  * Implements hook_node_view().
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
