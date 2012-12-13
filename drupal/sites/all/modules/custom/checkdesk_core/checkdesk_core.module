@@ -289,7 +289,7 @@ function checkdesk_core_flag_link($flag, $action, $content_id) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter() for `flag_form`.
  */
 function checkdesk_core_form_flag_form_alter(&$form, &$form_state, $form_id) {
   $flag = $form['#flag'];
@@ -603,6 +603,33 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     // Add given report to body.
     $node = node_load($_GET['report']);
     $form['body'][LANGUAGE_NONE][0]['#default_value'] = checkdesk_core_droppable_reference($node);
+  }
+  $form['#validate'][] = '_checkdesk_core_post_node_form_validate';
+}
+
+/**
+ * Validation function for `post_node_form`.
+ */
+function _checkdesk_core_post_node_form_validate($form, &$form_state) {
+  // Prevent user from saving a new draft if another one exists already.
+  if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
+    $desk_nid = $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id'];
+    global $user;
+    $draft_nid = db_query("
+  SELECT n.nid 
+  FROM {node} n INNER JOIN {field_data_field_desk} d ON n.nid = d.entity_id 
+  WHERE n.type = 'post' 
+  AND n.status = 0
+  AND d.field_desk_target_id = :desk_nid
+  AND n.uid = :uid
+    ", array(':desk_nid' => $desk_nid, ':uid' => $user->uid))->fetchCol();
+    if ($draft_nid) {
+      form_set_error('field_desk', 
+        t('This story already has a draft that you created. You cannot save more than one draft for each story. You can <a href="@url">edit that draft now</a>.',
+          array('@url' => url('node/' . $desk_nid))
+        )
+      );
+    }
   }
 }
 
