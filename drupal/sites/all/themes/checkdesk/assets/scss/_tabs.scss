@@ -3,50 +3,43 @@
 // .tabs - the main tab container with ul.primary and ul.secondary inside
 //
 // Adds styles for the primary and secondary tabs. Compare this with default CSS found in the system module's stylesheet.
-
 @import "bowerbird/tabs";
 
 @mixin tabs($tw, $context) {
-
+  
+  @include bb-tabs; // bowerbird tab reset and basics
+  
   div.tabs {
-    @include span-columns($tw, $context);
+    @content; // pass in the grid configuration here
     ul.primary {
       @include reset-box-model;
-      border-top: 1px solid orange;
-      @include span-columns($tw, $tw);
+      @include span-columns($tw, $context);
       display: block;
       @include clearfix;
       padding: { top: $gw; bottom: $gw; }
-      margin: { top: $gw;}
-      background-color: white;
-      font-family: "Open Sans", sans-serif;
+      margin: { top: $gw; bottom: $gw; }
+      background-color: rgba(white, 0.8);
+      font-family: $sans-font-family;
       font-size: $large-font-size;
 
       li {
         @include reset-box-model;
         display: block;
-        float: left;
+        float: $from-direction;
         margin-#{opposite-position($from-direction)}: $gw;
-        padding: $gw;
         &.active {
-          padding: $gw;
           a {
             padding: $gw;
             display: block;
-            background-color: $light-grey;
+            background-color: $nav-active-color;
           }
         }
         a {
           padding: $gw;
+          @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color', ':hover');
         }
         a:hover {
           padding: $gw;
-          // If there is an extra color, transition to it on hover
-          @include transition-property(background-color);
-          @include transition-duration(0.5s);
-          &:hover {
-            background-color: random_color();
-          }
         }
       }
     }

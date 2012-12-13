@@ -52,16 +52,20 @@
 // Bowerbird colors by name
 // Example usage: div { color: $tupperware-blue; }
 // We always want to use colors by name, to facilitate readbility + discussion.
+// hsl() values preferred for readability
 @import "bowerbird/colors";
 
 // ====================================================================== 
-// Checkdesk (forked) versions of Twitter Bootstrap libraries.
+// Checkdesk (lightly forked) versions of Twitter Bootstrap libraries.
 //
 // These are customized versions of existing modules (files).
 // The order of the includes is important: variables, mixin, then reset
+// Gradually Deprecated: use our own mixins wherever possible.
+// Use unmodified versions straight from bowerbird whenever possible.
 @import "override_ctb/variables";
 
 // Our overrides and replacement for TB mixins
+// All of them are namespaced ctb-mixinname
 @import "override_ctb/mixins";
 
 // Our version of TB forms
@@ -70,19 +74,21 @@ $inputHeight: $base-font-size * 1.4;
 
 // our version of bootstrap forms
 // @import "override_ctb/forms";
+
+// Default version of TB forms
 @import "bowerbird/compass_twitter_bootstrap/forms";
 
-// Bootstrap modals
+// our bootstrap modals
 @import "override_ctb/modals";
 // @import "bowerbird/compass_twitter_bootstrap/modals";
 
-// Bootstrap alerts
+// our bootstrap alerts
 @import "override_ctb/alerts";
 
-// Bootstrap typography
+// our bootstrap typography
 @import "override_ctb/type";
 
-// Bootstrap dropdowns
+// our bootstrap dropdowns
 @import "override_ctb/dropdowns";
 
 // ====================================================================== 
@@ -98,12 +104,11 @@ $inputHeight: $base-font-size * 1.4;
 // TB Tabular data
 @import "bowerbird/compass_twitter_bootstrap/tables";
 
-// .btn-group { font-size: $base-font-size; } // not sure why this is necessary. CGB Dec 2012
-
 @import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
 // ====================================================================== 
 // The Rest of Twitter Bootstrap
+// Ready to wear
 //
 // These bootstrap files not in use.
 // They are available via bowerbird's copy of the compass_twitter_bootstrap library.
@@ -124,12 +129,15 @@ $inputHeight: $base-font-size * 1.4;
 // @import "bowerbird/compass_twitter_bootstrap/tooltip";
 // @import "bowerbird/compass_twitter_bootstrap/popovers";
 
+// Some shared helpers
+@import "shared";
+
 // ====================================================================== 
-// Our Drupal sections, pages, mixins
+// Main Checkdesk Sass files
+// Drupal sections, pages, mixins
 
 //  Checkdesk typography
 //
-// Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
 // See also: override_ctb/type.scss
 @import "typography";
 
@@ -143,133 +151,47 @@ $inputHeight: $base-font-size * 1.4;
 // #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
-// Pagination
-@import "pagination";
-
 // Checkdesk reports
+//
 @import "report";
 
 // Checkdesk commenting plugin
+//
 @import "livefyre";
 
 // Checkdesk bookmarklet stuff
+//
 @import "bookmarklet";
+
+// Checkdesk Pagination
+//
+@import "pagination";
 
 // ====================================================================== 
 // Forms
 //
-// Mixins for forms
 @import "forms";
 
-// password strength section
+// Form: password strength section
+//
 @import "form_password";
 
-// Form implementations
+// Form: major implementations of the forms mixins
 @import "user";
 @import "create_node";
-
-// ====================================================================== 
-//  Checkdesk layout
-//
-// Core layout mixin which we will re-apply it in certain contexts as needed, such as the login page or in our media query breakpoints.
-// @import "layout";
 
 // Primary Navigation and Drupal nav at very top
 @import "navigation";
 
-// Layout Helper: Ensure padding is accounted for
-@mixin span-columns-with-padding(
-  $width: $cw, 
-  $context: $cw, 
-  $from-pad: 0, 
-  $to-pad: 0) {
-  $total-pad: $from-pad + $to-pad;
-  $adjusted-width: ($width - $total-pad);
-
-  // Apply the adjusted width ...
-  @include span-columns($adjusted-width, $context);
-  // And add the padding
-  @include pad($from-pad, $to-pad, $width);
-}
+// ====================================================================== 
+//  Checkdesk layout
+//
+@import "layout";
 
 // ====================================================================== 
-// Final centralized render of CSS
+// New Styles
 //
-
-// Main layout structure
-// Accounts for columns of padding at various widths
-
-// Checkdesk Layout
-//
-// $break: the desired width, in columns
-// $pad: the "padding" column units on each side
-// $tw: the tabs width (must account for $pad)
-// $fw: the forms width (must account for $pad)
-@mixin cd-layout(
-  $break: $cw, 
-  $pad: 0, 
-  $tw: $break, 
-  $fw: $break) {
-  
-  // 1. setup this container width
-  @include span-columns-with-padding($break, $cw, $pad, $pad);
-
-  // 2. Include all of our layout-aware mixins
-  // Specify padding in the include content block
-  @include bb-tabs($break, $break) {
-    @include span-columns-with-padding($break, $cw, $pad, $pad);
-  }
-  @include checkdesk-form($break, $break) {
-    @include span-columns-with-padding($break, $cw, $pad, $pad);
-  }
-  @include profile($break, $break) { 
-    @include span-columns-with-padding($break, $cw, $pad, $pad);
-  }
-  // pagination
-  // forms
-  // bookmarklet
-  // create node
-  // navigation
-  // notifications
-  // reports
-
-  // Insert banner at the bottom
-  @include debug-grid($break);
-}
-
-#main {
-  
-  // 1. Setup first container
-  // This has padding based on $grid-padding
-  @include container($cw);
-  background: $bkg-color;
-
-  #content-inner {
-
-    // 2. Breakpoint: Default layout 
-    @include cd-layout;
-
-    // 3. Breakpoint: Larger than a smartphone
-    @include at-breakpoint($break-small) {
-      $current-padding: 1;
-      @include container($break-small);
-      // @include cd-layout($break-small - $current-padding*2, $current-padding);
-    }
-
-    // 4. Breakpoint: Larger than a tablet
-    @include at-breakpoint($break-medium) {
-      $current-breakpoint: $break-medium;
-      $current-padding: 2;
-      $current-layout-width: $current-breakpoint - $current-padding*2;
-      @include container($current-breakpoint);
-      @include cd-layout($current-layout-width, $current-padding);
-      // @debug "Now at $current-breakpoint (#{$current-breakpoint}) using $current-layout-width: #{$current-layout-width} with $current-padding: #{$current-padding} on each side.";
-      // @if (($current-layout-width + $current-padding) > $current-breakpoint) {
-      //   @warn "This configuration of cd-layout will exceed $break (#{$current-breakpoint}).";
-      // }
-    }
-  }
-
+body {
   // links on the main liveblog page that are I think supposed ot be headlines
   .views-row {
     & > a {
@@ -290,21 +212,21 @@ $inputHeight: $base-font-size * 1.4;
   #content-header {
     @include clearfix;
   }
-
 }
 
 // ====================================================================== 
-// Deprecated, disabled, or hidden things 
+// Dungeon of deprecated techniques and hidden divs
 
-// Menu items that have to go away
-// A test story added to the menu, and 'extra view incoming citizen reports'
+// Menu items that have to go away ...
+// We need to remove these from the markup before we accidentally hide a good menu item.
 .menu-671,
 .menu-674, 
   {
   display: none!important;
 }
 
-// RSS icon
+// RSS icon is not in the spec but is appearing. 
+// RSS *should* be enabled but no icon.
 a.feed-icon {
   display: none;
 }
@@ -315,7 +237,7 @@ div.vertical-tabs {
   display: none!important;  
 }
 
-// We don't use the i element for icons
+// We don't use the i element for icons from TB
 // And they should not display
 i {
   display: none;

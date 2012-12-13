@@ -19,15 +19,15 @@
 
 // Main mixin for all of the user section
 // 
-// $fw - the form width
-@mixin user_section_forms($fw: $cw, $context: $cw) {  
+// $width - the form width
+@mixin user_section_forms($width: $cw, $context: $cw) {  
   
   // Default form settings shared in checkdesk
   @include checkdesk-form;
 
   // The social media sign-in boxes
   #edit-social-media-signin {
-    @include full($fw);
+    @include full($width);
 
     // Generate an "or" divider
     // 
@@ -57,7 +57,7 @@
     // The list of social media providers
     div.item-list {
       // reset item-list
-      @include checkdesk-form-item-list($fw);
+      @include checkdesk-form-item-list($width, $context);
 
       margin-bottom: $gw*2;
       ul { margin-top: $gw; }
@@ -66,7 +66,7 @@
         text-align: center;
         display: inline-block;
         a {
-          @include chunky-block;
+          @include building-block;
           margin-#{$omega-float}: $gw/2;
           display: inline-block;
           line-height: 2.4;

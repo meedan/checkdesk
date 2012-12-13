@@ -1,7 +1,7 @@
-// Core layout
+// Checkdesk Layout
 // 
-// This is the basic "Skeleton" that drives the "core" layout. 
-// All layout is expressed as a ratio using span-columns() + container().
+// All layout is expressed as a ratios via span-columns() + container().
+// See also: Layout configuration in _base.scss.
 // This allows us to more easily redefine the layout in different context. 
 // We also combine this technique with media queries to resize based on browser width.
 //
@@ -10,4 +10,104 @@
 //
 // Compatibility: untested
 
-// Working centrally in style.scss for now, will refactor lator, - CGB Dec 6 2012
+// Layout Helper: Ensure padding is accounted for
+@mixin span-padded-columns(
+  $width: $container-width, 
+  $context: $container-width, 
+  $from-pad: 0, 
+  $to-pad: 0) {
+
+  $total-pad: $from-pad + $to-pad;
+  $adjusted-width: $width - $total-pad; // will prune the 'omega' shorthand ...
+
+  // Apply the adjusted width ...
+  @include span-columns($adjusted-width, $context);
+
+  // And add the padding
+  @include pad($from-pad, $to-pad, $context);
+
+  // optionally call with omega
+  @content;
+}
+
+// ====================================================================== 
+// Final centralized render of CSS
+//
+
+// Main layout structure
+// Accounts for columns of padding at various widths
+
+// Checkdesk Layout
+//
+// $break: the desired width, in columns
+// $pad: the "padding" column units on each side
+// $tw: the tabs width (must account for $pad)
+// $fw: the forms width (must account for $pad)
+@mixin checkdesk-layouts(
+  $width: $container-width,
+  $context: $container-width,
+  $pad: 1, 
+  $tw: $width, 
+  $fw: $width) {
+
+  // 1. setup this container width
+  @include span-padded-columns($width, $context, $pad, $pad) {
+    @include omega;
+  }
+
+  // 2. Include all of our layout-aware mixins
+  // Configure grid then 
+  // Specify padding in the include content block
+  // @include tabs($width, $context) {
+  //   @include span-padded-columns($width, $container-width, $pad, $pad);
+  // }
+  // @include checkdesk-form($width, $context) {
+  //   @include span-padded-columns($width, $context, $pad, $pad);
+  //   // ... include other configurable sub-mixins
+  //   @include checkdesk-form-item($width, $context);
+  // }
+  // @include profile($width, $context) { 
+  //   @include span-padded-columns($width, $context, $pad, $pad);
+  // }
+  // pagination
+  // forms
+  // bookmarklet
+  // create node
+  // navigation
+  // notifications
+  // reports
+
+  // Insert banner at the bottom
+  @include debug-grid($width);
+}
+
+// Top-level layout selectors
+// Apply breakpoints
+// Then render the checkdesk layouts
+#main {
+  // 1. Setup first container
+  // This has padding based on $grid-padding
+  background: $bkg-color;  
+  @include container($container-width $break-small $break-medium);
+
+  #content-inner {
+
+    // 2. Breakpoint: Default layout  "Breakpoint 0"
+    @include checkdesk-layouts;
+
+    // 3. Breakpoint: Larger than a smartphone
+    @include at-breakpoint($break-small) {
+      @include checkdesk-layouts($break-small, $break-small, 1); 
+    }
+
+    // 4. Breakpoint: Larger than a tablet
+    @include at-breakpoint($break-medium) {
+      @include checkdesk-layouts($break-medium, $break-medium, 1);
+      // @debug "Now at $current-breakpoint (#{$current-breakpoint}) using $current-layout-width: #{$current-layout-width} with $current-padding: #{$current-padding} on each side.";
+      // @if (($current-layout-width + $current-padding) > $current-breakpoint) {
+      //   @warn "This configuration of checkdesk-layouts will exceed $break (#{$current-breakpoint}).";
+      // }
+    }
+  }
+}
+

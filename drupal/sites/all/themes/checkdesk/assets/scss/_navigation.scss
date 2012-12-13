@@ -26,7 +26,7 @@
 // Nav item
 // Could be a dropdown, header, anchor or div
 @mixin nav-item { 
-  @include chunky_block; // floated boxy elements 
+  @include building-block; // floated boxy elements 
   font-size: $small-font-size;
   @include reset-box-model; // override chunky block
 

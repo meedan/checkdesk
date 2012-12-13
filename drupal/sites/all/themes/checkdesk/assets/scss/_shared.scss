@@ -1,0 +1,62 @@
+
+// Building block
+// Layout helper / button alternative
+// 
+// Useful for standardizing link or navigation item. 
+// There should be no margin or width specified on this, 
+// at least at the default breakpoint ... CGB
+@mixin building-block(
+  $nav-bkg-color: $nav-bkg-color,
+  $nav-active-bkg-color: $nav-active-bkg-color,
+  $nav-color: $nav-color,
+  $nav-active-color: $nav-active-color,
+  $base-font-size: $base-font-size,
+  $radius: 0) 
+  {
+  @include reset-box-model;
+  padding: $base-font-size;
+  display: block;
+  float: $from-direction;
+  clear: none;
+  line-height: $base-line-height;
+  font-size: $base-font-size;
+  background-color: $nav-bkg-color;
+  color: $nav-color;
+  cursor: pointer;
+  font-weight: normal;
+  position: relative;
+  
+  &:hover > a {
+    color: $nav-active-color;
+  }
+
+  & > a {
+    text-decoration: none; 
+    color: $nav-color;
+    line-height: $base-line-height;
+    font-size: $base-font-size;
+    display: block;
+    @include border-radius($radius);
+    &:hover {
+      color: $nav-active-color;
+    }
+  }
+
+  @include border-radius($radius);
+  @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color', ':hover');
+  @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.3s', 'background-color', ':hover');
+  
+  // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
+  &:hover, 
+  &.active {
+    background-color: $nav-active-bkg-color;
+    color: $nav-active-color;
+  }
+
+  // An anchor inside the chunky block, (without the bkg color duplicated)
+  &.active a, 
+  a.active {
+    color: $nav-active-color;
+  }
+
+}

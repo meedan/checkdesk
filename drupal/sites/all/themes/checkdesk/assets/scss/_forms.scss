@@ -1,20 +1,19 @@
 // For testing
 // $from-direction: right;
+//
+// This is deprecated, just use span($width, $width)
 @mixin full($width) {
   @include span-columns($width, $width);
 }
 
 // Item lists
 // Reset password
-@mixin checkdesk-form-item-list($width) {
-  @include full($width);
+@mixin checkdesk-form-item-list($width, $context) {
+  @include span-columns($width, $context);
   a {  color: $dark-grey;  }
-  
-  ul {
-    li {
-      @include reset-box-model;
-      @include reset-list-style;
-    }
+  li {
+    @include reset-box-model;
+    @include reset-list-style;
   }
 }
 
@@ -29,7 +28,7 @@
 
   .form-item-name ~ .item-list {
     // Forgot password and create new account <.item-list>s
-    @include checkdesk-form-item-list($width);
+    @include checkdesk-form-item-list($width, $context);
   }
 
   textarea {
@@ -45,32 +44,28 @@
     
     .form-item { // Nested <.form-item>s
       @include reset-box-model;
-      @include full($width);
+      @include span-columns($width, $width);
     }
 
     input {
       @include reset-box-model;
       @include span-columns($width, $width, $gw);
-      
-      &:hover {
-        // @include single-box-shadow($grey, 2px, 2px, 2px, 2px, inset);
-      }
-
       clear: opposite-position($from-direction);
       padding: { top: $gw/2; bottom: $gw/2; }
       margin: { top: $gw/2; bottom: $gw/2; }
-
       @include border-radius(3px);
 
       // Border transition on inputs
       border: 1px solid $grey;
       @include bb-transition($grey, $black, '0.2s', 'border-color', ':hover');
+
       &:hover {
+        @include single-box-shadow(rgba($dark-blue, 0.8), 2px, 2px, 2px, 2px, inset);
         border: 1px solid $darker-grey;
       }
-      @include bb-transition($grey, $black, '0.2s', 'border-color', ':focus');
-      &:focus {
-        border: 1px solid $darker-grey;
+
+      @include bb-transition($grey, $black, '0.2s', 'border-color', ':focus') {
+        &:focus { border: 1px solid $darker-grey; }
       }
     }
 
@@ -102,9 +97,7 @@
 //
 // Compatibility: untested
 @mixin checkdesk-form($width: $form-width, $context: $cw, $radios-width: $width - 2) {
-
-  // @debug $radios-width;
-  
+    
   // The forms 
   //
   form {
@@ -112,8 +105,9 @@
     background-color: rgba(white, 0.5);
     margin-top: $gw;
     padding-top: $gw;
-    @include span-columns($width, $context);
-    @include checkdesk-form-item($width, $context);
+
+    // Use content blocks to set the width
+    @content;
 
     // Form Radios
     // http://checkdesk:8888/node/add/media
@@ -143,13 +137,14 @@
       @include clearfix;
       @include full($width);
       margin-top: $base-font-size;
-      padding: $gw/2;
+      padding: $gw/2 0;
 
       // Form actions: all buttons
       input, a {
         @include reset-box-model;
-        @include checkdesk-button($grey);
+        @include checkdesk-button;
         margin-#{opposite-position($from-direction)}: $base-font-size;
+        margin-#{$from-direction}: $base-font-size;
       }
 
       // Form actions: Submit buttons
@@ -208,6 +203,5 @@
         @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($donjuan, .6)});
       }
     }
-    @content;
   }
 }
