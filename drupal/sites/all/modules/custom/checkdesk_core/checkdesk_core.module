@@ -938,7 +938,10 @@ define('RATING_IN_PROGRESS', 'In Progress');
  * Implements of hook_form_FORM_ID_alter() for `comment_node_media_form`.
  */
 function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, $form_id) {
-  if ($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']->name !== RATING_IN_PROGRESS) {
+  $term = isset($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
+    $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+    taxonomy_term_load($form['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
+  if ($term->name !== RATING_IN_PROGRESS) {
     $form['#access'] = FALSE;
   }
 }
