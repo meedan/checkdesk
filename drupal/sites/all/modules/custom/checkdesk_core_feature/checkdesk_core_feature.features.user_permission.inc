@@ -834,7 +834,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['flag delete'] = array(
     'name' => 'flag delete',
     'roles' => array(
-      0 => 'administrator',
+      0 => 'citizen journalist',
     ),
     'module' => 'flag',
   );
@@ -1073,7 +1073,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['unflag delete'] = array(
     'name' => 'unflag delete',
     'roles' => array(
-      0 => 'administrator',
+      0 => 'citizen journalist',
     ),
     'module' => 'flag',
   );
