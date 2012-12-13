@@ -756,6 +756,9 @@ function checkdesk_core_feature_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_rating',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -838,6 +841,9 @@ function checkdesk_core_feature_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_stories',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
