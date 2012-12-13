@@ -47,7 +47,8 @@ function checkdesk_core_menu() {
     'title arguments' => array(1),
     'page callback' => '_checkdesk_core_report_suggest_modal',
     'page arguments' => array(1, 5),
-    'access callback' => TRUE,
+    'access callback' => '_checkdesk_core_report_can_suggest',
+    'access arguments' => array(1),
     'type' => MENU_CALLBACK,
   );
   $items['node/flag/confirm/%/%flag/%/%ctools_js'] = array(
@@ -207,6 +208,8 @@ function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
       FROM {field_data_field_stories}
       WHERE entity_id = :report
     )
+    ORDER BY created DESC 
+    LIMIT 10
     ", array(':report' => $report->nid))->fetchAllKeyed();
   $form['story'] = array(
     '#type' => 'select',
