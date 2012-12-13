@@ -27,6 +27,9 @@
 // Could be a dropdown, header, anchor or div
 @mixin nav-item { 
   @include chunky_block; // floated boxy elements 
+  font-size: $small-font-size;
+  @include reset-box-model; // override chunky block
+
   img { // images in nav items
     @include reset-box-model;
     width: $base-font-size;
@@ -34,9 +37,35 @@
   }
   a {
     text-decoration: none;
+    font-size: $small-font-size;
+    padding: 4px;
+    &:hover {
+      font-weight: bold;
+      text-decoration: none;
+    }
   }
 }
 
+// // Submit Report link
+
+// #menu-submit-report {
+//   padding: 5px 5px 5px 25px;
+//   background: transparent url(../imgs/icons/menu-submit-report.png) 5px center no-repeat;
+// }
+
+// #menu-submit-report:hover {
+//   background: transparent url(../imgs/icons/menu-submit-report-over.png) 5px center no-repeat;
+// }
+
+#menu-submit-report.open:hover,
+#menu-submit-report.open {
+  color: #323232;
+  background: #fff;
+  text-shadow: none;
+  background: #fff url(../imgs/icons/menu-submit-report-opened.png) 5px center no-repeat;
+  @include border-top-left-radius(5px);
+  @include border-top-right-radius(5px);
+}
 
 // Checkdesk main navigation 
 //
@@ -67,8 +96,7 @@ nav[role="navigation"] {
   #info-menu, 
   #user-menu, 
   #navigation-region {
-    float: $from-direction;
-    display: block;
+    float: opposite-position($from-direction);
   }
 
   // Notifications 

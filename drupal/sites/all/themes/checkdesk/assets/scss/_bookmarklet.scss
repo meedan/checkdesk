@@ -403,24 +403,3 @@
     display: none;
   }
 }
-
-// Submit Report link
-
-#menu-submit-report {
-  padding: 5px 5px 5px 25px;
-  background: transparent url(../imgs/icons/menu-submit-report.png) 5px center no-repeat;
-}
-
-#menu-submit-report:hover {
-  background: transparent url(../imgs/icons/menu-submit-report-over.png) 5px center no-repeat;
-}
-
-#menu-submit-report.open:hover,
-#menu-submit-report.open {
-  color: #323232;
-  background: #fff;
-  text-shadow: none;
-  background: #fff url(../imgs/icons/menu-submit-report-opened.png) 5px center no-repeat;
-	@include border-top-left-radius(5px);
-	@include border-top-right-radius(5px);
-}

@@ -109,8 +109,9 @@
   //
   form {
     border-top: 1px solid $identity;
-    // background-color: white;
+    background-color: rgba(white, 0.5);
     margin-top: $gw;
+    padding-top: $gw;
     @include span-columns($width, $context);
     @include checkdesk-form-item($width, $context);
 
@@ -125,8 +126,8 @@
         input.form-radio {
           @include reset-box-model;
           @include span-columns(1, $radios-width);
-          background-color: red;
         }
+
         label.option {
           @include span-columns($radios-width - 1 omega, $radios-width);
           font-size: $base-font-size;
@@ -135,37 +136,54 @@
       }
     }
 
-    // Actions at the bottom
+    // Form Actions
+    // Main submit button
     .form-actions {
       @include reset-box-model;
       @include clearfix;
       @include full($width);
+      margin-top: $base-font-size;
+      padding: $gw/2;
 
+      // Form actions: all buttons
+      input, a {
+        @include reset-box-model;
+        @include checkdesk-button($grey);
+        margin-#{opposite-position($from-direction)}: $base-font-size;
+      }
+
+      // Form actions: Submit buttons
       input[type="submit"] {
-        // @include checkdesk-button($twitter-blue);
-        @include chunky-block;
-        background-color: $identity-color;
+        @include checkdesk-button($twitter-blue);
       }
     }
-    
+
+    // Confirmation Form Actions: Confirm delete node
+    &.confirmation {
+      .form-actions input {
+          @include checkdesk-button($firetruck-red); // Red delete button
+      }
+    }
+
+    // Form "remember me" section
     .form-item-remember-me {
       font-size: $small-font-size;
       color: $dark-grey;
     }
 
-    // checkboxes
+    // Form checkboxes
     .form-type-checkbox {
       @include reset-box-model;
       @include full($width);
 
-      // the checkbox itself
+      // The checkbox
       input.form-checkbox {
         @include inline-block;
         padding: $gw;
         width: $gw;
       } 
 
-      // checkbox label
+      // Checkbox label
       label.option {
         line-height: 1.3;
         @include reset-box-model;
@@ -175,6 +193,7 @@
       }
     }
 
+    // Form textareas, basic inputs
     textarea, input {
       background-color: $inputBackground;
       border: 1px solid $inputBorder;
@@ -189,6 +208,6 @@
         @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($donjuan, .6)});
       }
     }
-    @content; // last thing in the form
+    @content;
   }
 }

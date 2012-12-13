@@ -2,7 +2,6 @@
 // Checkdesk Sass Theme 2.x
 
 // Modular scale via gem
-
 @import "modular-scale";
 
 // First, Checkdesk configuration.
@@ -144,6 +143,9 @@ $inputHeight: $base-font-size + 4;
 // #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
+// Pagination
+@import "pagination";
+
 // Checkdesk reports
 @import "report";
 
@@ -201,12 +203,13 @@ $inputHeight: $base-font-size + 4;
   @include pad($pad, $pad, $break); // then add the padding in $break context
   
   // 2. Include all of our layout-aware mixins
-  @include bb-tabs($fw - $pad*2, $break);
+  @include bb-tabs($fw - $pad*2, $break) { @include pad(1,1, $break) }
   @include checkdesk-form($fw - $pad*2, $break) { @include pad(1,1, $break) }
+  @include profile($fw - $pad*2, $break) { @include pad(1,1, $break) }
 }
 
 
-#page {
+#main {
   background: white;
   // 1. Setup first container
   // This has padding based on $grid-padding
@@ -257,6 +260,7 @@ $inputHeight: $base-font-size + 4;
   #content-header {
     @include clearfix;
   }
+
 }
 
 // ====================================================================== 

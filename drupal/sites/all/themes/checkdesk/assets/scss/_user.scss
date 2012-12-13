@@ -1,3 +1,16 @@
+// User section profile
+// http://checkdesk:8888/user
+@mixin profile($width: $fw, $context: $cw) {
+  div.profile {
+    @include span-columns($width, $context);
+    .user-picture {
+      float: opposite-position($from-direction);
+      @include span-columns(1 omega, $context);
+    }
+    @content;
+  }
+}
+
 // Checkdesk User Section Forms
 //
 // .not-front.not-logged-in.page-user - main container selector on body
@@ -28,8 +41,7 @@
       @include border-radius(50%);
       padding: $gw/3 $gw/2;
       bottom: -$gw;
-      #{$from-direction}: 0;
-      left: 43%;
+      #{$from-direction}: 50% - 2%; // ugh
       background: $light-grey;
       font-size: $base-font-size;
     }
