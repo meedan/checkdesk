@@ -21,6 +21,7 @@
       background-color: rgba(white, 0.8);
       font-family: $sans-font-family;
       font-size: $large-font-size;
+      font-weight: 300;
 
       li {
         @include reset-box-model;
@@ -29,17 +30,17 @@
         margin-#{opposite-position($from-direction)}: $gw;
         &.active {
           a {
-            padding: $gw;
-            display: block;
-            background-color: $nav-active-color;
+            background-color: $nav-active-bkg-color;
+            color: white;
           }
         }
         a {
           padding: $gw;
-          @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color', ':hover');
+          @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color');
         }
         a:hover {
           padding: $gw;
+          color: black;
         }
       }
     }

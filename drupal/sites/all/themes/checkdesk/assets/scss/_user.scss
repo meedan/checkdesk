@@ -1,11 +1,13 @@
 // User section profile
 // http://checkdesk:8888/user
-@mixin profile($width: $fw, $context: $cw) {
+@mixin user-profile($width: $fw, $context: $cw) {
   div.profile {
     @include span-columns($width, $context);
     .user-picture {
       float: opposite-position($from-direction);
       @include span-columns(1 omega, $context);
+      background: white;
+      border: $gw solid white;
     }
     @content;
   }
@@ -31,7 +33,7 @@
 
     // Generate an "or" divider
     // 
-    // Deprecated: can't be localized properly
+    // Deprecated: this can't be localized properly
     position: relative;
     &:after {
       position: absolute;

@@ -7,7 +7,7 @@
 // Compatibility: untested
 #block-views-my-notifications-block {
   position: relative;
-
+  z-index: $zindexPopover;
   h2 {
     // this is a nav-item-container with a nav-item in navigation.scss
     // it must remain consistent with the rest of the buttons ...
@@ -107,34 +107,24 @@
 
 // Expanded block
 #block-views-my-notifications-block.notifications-block-expanded {
-  h2 {
-    color: $nav-color;
-    z-index: 6;
-    font-size: $base-font-size;
-	  @include border-radius(5px 5px 0 0);
-    background-color: white;
-  }
-
   .content {
+    @include reset-box-model;
+    position: absolute;
+    z-index: $zindexPopover;
+    width: $notification-dropdown-width;
     @include box-shadow(1px 10px 10px #333);
-	  @include border-radius(5px);
+    @include border-radius(5px);
+    border: 1px solid $grey;
+    #{$from-direction}: - ($notification-dropdown-width - $notification-button-width);
+    top: - $base-line-height;
+    background: $light-grey;
+    
     @if $from-direction == left {
       @include border-top-right-radius(0);
     } @else {
       @include border-top-left-radius(0);
     } 
-  }
 
-
-  .content {
-    position: absolute;
-    @include reset-box-model;
-    width: $notification-dropdown-width;
-    border: 1px solid $grey;
-    #{$from-direction}: - ($notification-dropdown-width - $notification-button-width);
-    top: - $base-line-height;
-    background: $light-grey;
-    z-index: $zindexPopover; // see TB variables.scss
     .view-content {
       width: 100%;
       overflow: auto;

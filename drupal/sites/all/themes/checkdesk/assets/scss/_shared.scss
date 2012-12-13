@@ -16,7 +16,7 @@
   $radius: 0) 
   {
   @include reset-box-model;
-  display: block;
+  display: inline-block;
   float: $from-direction;
   line-height: $base-line-height;
   font-size: $base-font-size;
@@ -24,6 +24,7 @@
   color: $nav-color;
   font-weight: normal;
   position: relative;
+  z-index: $zindexDropdown; 
   font-size: $base-font-size;
   padding: ms(-1);
   & > a {
@@ -31,7 +32,7 @@
     color: $nav-color;
     line-height: $base-line-height;
     font-size: $base-font-size;
-    display: block;
+    display: inline-block;
     @include border-radius($radius);
     &:hover {
       color: $nav-active-color;

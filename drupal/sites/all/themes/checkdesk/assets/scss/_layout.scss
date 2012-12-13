@@ -58,17 +58,17 @@
   // 2. Include all of our layout-aware mixins
   // Configure grid then 
   // Specify padding in the include content block
-  // @include tabs($width, $context) {
-  //   @include span-padded-columns($width, $container-width, $pad, $pad);
-  // }
+  @include tabs($width, $context) {
+    @include span-padded-columns($width, $container-width, $pad, $pad);
+  }
   @include checkdesk-form($width, $context) {
     @include span-padded-columns($width, $context, $pad, $pad);
     // ... include other configurable sub-mixins
     @include checkdesk-form-item($width, $context);
   }
-  // @include profile($width, $context) { 
-  //   @include span-padded-columns($width, $context, $pad, $pad);
-  // }
+  @include user-profile($width, $context) { 
+    @include span-padded-columns($width, $context, $pad, $pad);
+  }
   // pagination
   // forms
   // bookmarklet

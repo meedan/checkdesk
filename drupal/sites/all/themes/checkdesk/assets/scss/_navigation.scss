@@ -16,7 +16,8 @@
   li a[href*="sub"] { @include icon("info-sign", $size); }
 }
 
-// Special shine for the home link
+// Home link
+// Special shine
 li.menu-477 {
   @include gradient(rgba(white, 0.2), rgba(white, 0.1));
   a {
@@ -31,11 +32,12 @@ li.menu-477 {
 // This is necessary because some nav-items are h2s, a, or divs.
 @mixin nav-item-container() {
   @include reset-box-model;
+  line-height: $base-line-height!important;
   float: $from-direction;
-  display: block;
+  display: inline-block;
   clear: none;
   position: relative;
-  z-index: 1;
+  z-index: $zindexPopover;
   background: $nav-container-bkg-color;
 }
 
@@ -43,33 +45,12 @@ li.menu-477 {
 // Could be a dropdown, header, anchor or div, and can contain an img.
 @mixin nav-item { 
   @include building-block;
+
   img { // images in nav items
     @include reset-box-model;
     width: $base-font-size;
     height: $base-font-size;
   }
-}
-
-// // Submit Report link
-
-// #menu-submit-report {
-//   padding: 5px 5px 5px 25px;
-//   background: transparent url(../imgs/icons/menu-submit-report.png) 5px center no-repeat;
-// }
-
-// #menu-submit-report:hover {
-//   background: transparent url(../imgs/icons/menu-submit-report-over.png) 5px center no-repeat;
-// }
-
-#menu-submit-report.open:hover,
-#menu-submit-report.open {
-  color: #323232;
-  background: #fff;
-  text-shadow: none;
-  background: #fff url(../imgs/icons/menu-submit-report-opened.png) 5px center no-repeat;
-  @include border-top-left-radius(5px);
-  @include border-top-right-radius(5px);
-  overflow: visible;
 }
 
 // Checkdesk main navigation 
@@ -102,6 +83,13 @@ nav[role="navigation"] {
   #user-menu, 
   #navigation-region {
     float: opposite-position($from-direction);
+  }
+
+  #user-menu {
+    .dropdown-menu {
+      #{opposite-position($from-direction)}: 0;
+      #{$from-direction}: auto;
+    }
   }
 
   // Notifications 
