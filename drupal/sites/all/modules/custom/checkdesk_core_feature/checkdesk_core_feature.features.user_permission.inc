@@ -1109,6 +1109,8 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view Single activity stream',
     'roles' => array(
       0 => 'administrator',
+      1 => 'citizen journalist',
+      2 => 'journalist',
     ),
     'module' => 'heartbeat',
   );
@@ -1118,6 +1120,8 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view Views activity stream',
     'roles' => array(
       0 => 'administrator',
+      1 => 'citizen journalist',
+      2 => 'journalist',
     ),
     'module' => 'heartbeat',
   );
@@ -1127,6 +1131,8 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view heartbeat messages',
     'roles' => array(
       0 => 'administrator',
+      1 => 'citizen journalist',
+      2 => 'journalist',
     ),
     'module' => 'heartbeat',
   );

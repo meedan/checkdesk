@@ -851,16 +851,14 @@ AND d.field_desk_target_id = :desk_nid
   return array('subject' => $subject, 'content' => $content);
 } 
 
-
-
 /**
- * Implementation of hook_heartbeat_messages_alter()
-*/
+ * Implementation of hook_heartbeat_theme_alter()
+ */
 function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heartbeatStream) {
   $view = views_get_current_view();
   if (isset($view) && $view->name == 'my_notifications') return;
   foreach ($messages as $key => $message) {
-    if ($message->nid > 0) {
+    if ($message->nid > 0 && in_array($message->message_id, array('status_report', 'new_comment_report', 'new_report'))) {
       $node = node_load($message->nid);
       if ($node->type == 'media') {
         $messages[$key]->message = theme('checkdesk_heartbeat_content',  array(

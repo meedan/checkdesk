@@ -50,7 +50,7 @@ function checkdesk_core_feature_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'comment',
@@ -67,7 +67,7 @@ function checkdesk_core_feature_field_default_fields() {
           'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => 0,
+        'weight' => '0',
       ),
     ),
   );
