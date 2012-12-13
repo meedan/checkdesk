@@ -7,33 +7,10 @@
 // Compatibility: untested
 #block-views-my-notifications-block {
   position: relative;
-  @include clearfix;
-  overflow: visible;
-  float: opposite-position($from-direction);
-  margin-#{opposite-position($from-direction)}: 5px;
-  margin-#{$from-direction}: 5px;
 
   h2 {
-    margin: 0;
-    padding: 0 3px;
-    color: #999;
-    font-size: 1em;
-    display: inline-block;
-    font-weight: normal;
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    line-height: 30px;
-
-    .notifications-count {
-      display: inline;
-      color: #999;
-      span {
-        padding: 1px 5px;
-        background: #296182;
-	      @include border-radius(5px);
-      }
-    }
+    // this is a nav-item-container with a nav-item in navigation.scss
+    // it must remain consistent with the rest of the buttons ...
   }
   h2:hover {
     color: #fff;
@@ -52,7 +29,7 @@
 .heartbeat-activity {
   color: $dark-grey;
   border-bottom: 1px solid $light-grey;
-  padding: { top: 1em; bottom: 1em; } 
+  padding: { top: $gw; bottom: $gw; } 
   @include span-columns($cw, $cw, $gw);
   font-size: $base-font-size;
   a, a:visited, a:link {
@@ -148,47 +125,48 @@
     } 
   }
 
-// WIP
-// Chunkier notifications style for smaller breakpoints
-//
-//   .content {
-//     @include reset-box-model;
-//     @include span-columns($cw, $cw/2, $gw);
-//     border: 1px solid $grey;
-//     position: absolute;
-//     #{$from-direction}: $gw;
-//     top: 0;
-//     background: $light-grey;
-//     z-index: 3;
-//     .view-content {
-//       height: 300px;
-//       overflow: auto;
-//       background: white;
-//     }
-//     .item-list {
-//       display: none;
-//     }
-//     .notifications-settings-link, .more-link {
-//       @include chunky_block;
-//       padding: { top: 0.5em; bottom: 0.5em;} 
-//       a, a:visited, a:link {
-//         font-size: $small-font-size;        
-//         text-decoration: none;
-//         color: white;
-//       }
-//       a:hover {
-//         color: $light-grey;
-//       }
-//     }
-//     .notifications-settings-link {
-//       float: $from-direction;
-//     }
-//     .more-link {
-//       float: opposite-position($from-direction);
-//     }
-//     .notifications-footer {
-//       clear: both;
-//     }
+
+  .content {
+    position: absolute;
+    @include reset-box-model;
+    width: $notification-dropdown-width;
+    border: 1px solid $grey;
+    #{$from-direction}: - ($notification-dropdown-width - $notification-button-width);
+    top: - $base-line-height;
+    background: $light-grey;
+    z-index: $zindexPopover; // see TB variables.scss
+    .view-content {
+      width: 100%;
+      overflow: auto;
+      background: white;
+    }
+    .item-list {
+      display: none;
+    }
+    .notifications-settings-link, 
+    .more-link {
+      @include building_block;
+      background-color: $grey;
+      padding: { top: 0.5em; bottom: 0.5em;} 
+      a, a:visited, a:link {
+        font-size: $small-font-size;        
+        text-decoration: none;
+        color: white;
+      }
+      a:hover {
+        color: $light-grey;
+      }
+    }
+    .notifications-settings-link {
+      float: $from-direction;
+    }
+    .more-link {
+      float: opposite-position($from-direction);
+    }
+    .notifications-footer {
+      clear: both;
+    }
+  }
 }
 ::-webkit-scrollbar {
   width: 9px;

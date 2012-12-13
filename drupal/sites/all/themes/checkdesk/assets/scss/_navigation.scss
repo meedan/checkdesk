@@ -69,6 +69,7 @@ li.menu-477 {
   background: #fff url(../imgs/icons/menu-submit-report-opened.png) 5px center no-repeat;
   @include border-top-left-radius(5px);
   @include border-top-right-radius(5px);
+  overflow: visible;
 }
 
 // Checkdesk main navigation 
@@ -109,17 +110,19 @@ nav[role="navigation"] {
     #block-views-my-notifications-block {
       h2 {
         @include nav-item-container;
+        width: $notification-button-width;
         .notifications-label {
           @include nav-item;
           @include caret; // ideally this should be on a separate .caret span
           padding-#{$from-direction}: $gw; // this should not be necessary
         }
-
-        .notifications-count { // Notification count section, usually hidden
+        .notifications-count {
+          display: inline;
           color: $notification-count-color;
           span {
-            padding: 1px;
-            background: transparentize(#ffffff, 0.9);
+            padding: 1px 5px;
+            background: #296182;
+            @include border-radius(5px);
           }
         }
       }
