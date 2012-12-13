@@ -109,7 +109,7 @@ function _checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet($form, 
 function _checkdesk_bookmarklet_media_preview($path) {
   $preview = t('Preview not available.');
   if (!$path) return $preview;
-  $oembed = oembedcore_oembed_data($path);
+  $oembed = meedan_oembed_data($path);
   if (isset($oembed) && isset($oembed->thumbnail_url)) $preview = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
   return $preview;
 }

@@ -273,7 +273,7 @@
 
 // The installation page
 
-#modalContent {
+#modalContent.modal-install-bookmarklet {
   width: 930px !important;
   height: 355px !important;
   background: #fff;
@@ -283,6 +283,7 @@
   margin-left: -465px;
   z-index: 1050 !important;
   overflow: visible;
+  position: fixed !important;
 
   .ctools-modal-content {
     width: 930px !important;
@@ -378,7 +379,7 @@
   }
 }
 
-#modalBackdrop {
+#modalBackdrop.modal-install-bookmarklet {
   background: url(../imgs/alpha.png) !important;
   z-index: 1049 !important;
 }

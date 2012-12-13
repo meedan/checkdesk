@@ -63,6 +63,15 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  /* Filter criterion: Heartbeat activity: Heartbeat template */
+  $handler->display->display_options['filters']['message_id']['id'] = 'message_id';
+  $handler->display->display_options['filters']['message_id']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['filters']['message_id']['field'] = 'message_id';
+  $handler->display->display_options['filters']['message_id']['value'] = array(
+    'status_report' => 'status_report',
+    'new_comment_report' => 'new_comment_report',
+    'new_report' => 'new_report',
+  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
