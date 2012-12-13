@@ -11,7 +11,7 @@ function checkdesk_core_feature_node_export_features_default() {
   $node_export = array(
   'code_string' => 'array(
   (object) array(
-      \'vid\' => \'5\',
+      \'vid\' => \'209\',
       \'uid\' => \'0\',
       \'title\' => \'Install Bookmarklet\',
       \'log\' => \'\',
@@ -20,20 +20,20 @@ function checkdesk_core_feature_node_export_features_default() {
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
       \'vuuid\' => \'dbc22e67-cc5a-acf4-a504-6c5e9b04fb6b\',
-      \'nid\' => \'1\',
+      \'nid\' => \'119\',
       \'type\' => \'page\',
       \'language\' => \'und\',
-      \'created\' => \'1355343252\',
-      \'changed\' => \'1355343252\',
+      \'created\' => \'1355361174\',
+      \'changed\' => \'1355374149\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'1244c020-f663-b564-b94c-2cf29b12afa4\',
-      \'revision_timestamp\' => \'1355343252\',
-      \'revision_uid\' => \'0\',
+      \'revision_timestamp\' => \'1355374149\',
+      \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
           array(
-            \'value\' => "<div id=\\"info-page-install-bookmarklet\\" class=\\"info-page\\">\\r\\n<div class=\\"install-bookmarklet-col\\">\\r\\n<p><a id=\\"install-bookmarklet-button\\" href=\\"<?php print variable_get(\'meedan_bookmarklet_code\', _meedan_bookmarklet_default_code()); ?>\\"><span>Send to <?php print variable_get(\'site_name\', \'this site\'); ?></span></a></p>\\r\\n<h3>Drag this button <br /> to your bookmarks bar.</h3>\\r\\n<p>Show extra instructions for:</p>\\r\\n<ul>\\r\\n<li><a href=\\"#\\">Internet Explorer</a></li>\\r\\n<li><a href=\\"#\\">Firefox</a></li>\\r\\n<li><a href=\\"#\\">Safari</a></li>\\r\\n<li><a href=\\"#\\">Chrome</a></li>\\r\\n</ul>\\r\\n</div>\\r\\n<div class=\\"install-bookmarklet-col\\">\\r\\n<h2>Install Bookmarklet</h2>\\r\\n<p>The browser bookmarklet allows you to send us reports from any page.</p>\\r\\n<p>Once you install it, you can click it, preview how the report will appear, and send it to one of our stories.</p>\\r\\n<p>To install the bookmarklet, drag the button into your browser\'s bookmarks toolbar.</p>\\r\\n</div>\\r\\n</div>",
+            \'value\' => "<div id=\\"info-page-install-bookmarklet\\" class=\\"info-page\\">\\r\\n<div class=\\"install-bookmarklet-col\\">\\r\\n<p><a id=\\"install-bookmarklet-button\\" href=\\"<?php print variable_get(\'meedan_bookmarklet_code\', _meedan_bookmarklet_default_code()); ?>\\"><span>Send to <?php print variable_get(\'site_name\', \'this site\'); ?></span></a></p>\\r\\n<h3>Drag this button <br /> to your bookmarks bar.</h3>\\r\\n<p>Show extra instructions for:</p>\\r\\n<ul>\\r\\n<li><a href=\\"#\\">Internet Explorer</a></li>\\r\\n<li><a href=\\"#\\">Firefox</a></li>\\r\\n<li><a href=\\"#\\">Safari</a></li>\\r\\n<li><a href=\\"#\\">Chrome</a></li>\\r\\n</ul>\\r\\n</div>\\r\\n<div class=\\"install-bookmarklet-col\\">\\r\\n<h2>Install Bookmarklet</h2>\\r\\n<p>The browser bookmarklet allows you to send us reports from any page.</p>\\r\\n<p>Once you install it, you can click it, preview how the report will appear, and send it to one of our stories.</p>\\r\\n<p>To install the bookmarklet, drag the button into your browser\'s bookmarks toolbar.</p>\\r\\n</div>\\r\\n</div>\\r\\n<script type=\\"text/javascript\\">\\r\\njQuery(\\"#modalContent, #modalBackdrop\\").addClass(\\"modal-install-bookmarklet\\");\\r\\n</script>",
             \'summary\' => \'\',
             \'format\' => \'php_code\',
           ),
@@ -41,7 +41,6 @@ function checkdesk_core_feature_node_export_features_default() {
       ),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
-          \'sioc:Item\',
           \'foaf:Document\',
         ),
         \'title\' => array(
@@ -95,7 +94,7 @@ function checkdesk_core_feature_node_export_features_default() {
         ),
       ),
       \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1355255347\',
+      \'last_comment_timestamp\' => \'1353704011\',
       \'last_comment_name\' => NULL,
       \'last_comment_uid\' => \'0\',
       \'comment_count\' => \'0\',
@@ -104,8 +103,8 @@ function checkdesk_core_feature_node_export_features_default() {
       \'data\' => NULL,
       \'menu\' => NULL,
       \'path\' => array(
-        \'pid\' => \'1\',
-        \'source\' => \'node/1\',
+        \'pid\' => \'144\',
+        \'source\' => \'node/119\',
         \'alias\' => \'content/install-bookmarklet\',
         \'language\' => \'und\',
       ),

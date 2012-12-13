@@ -205,8 +205,8 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
       if($status == 'Verified') {
         $icon = '<span class="icon-ok-sign"></span>';
         $status_class = 'verified';
-        $title = 'Status set to '. $message->variables['!status'] . ' by ' . $message->variables['!editor'];
       }
+      $title = 'Status set to '. $message->variables['!status'] . ' by ' . $message->variables['!editor'];
     }
   }
 
