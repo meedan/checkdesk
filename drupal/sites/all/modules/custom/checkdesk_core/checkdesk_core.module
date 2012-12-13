@@ -233,7 +233,9 @@ function _checkdesk_core_report_suggest_submit($form, &$form_state) {
   node_save($report);
 
   // Redirect to story. 
-  $form_state['redirect'] = 'node/' . $form_state['values']['story'];
+  if (user_access('add report to story')) {
+    $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
+  }
 }
 
 /**
@@ -264,6 +266,11 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
     $commands = array();
     // Create ajax command array, dismiss the modal window.
     $commands[] = ctools_modal_command_dismiss();
+
+    // Redirect to story. 
+    if (user_access('add report to story')) {
+      $commands[] = ctools_ajax_command_redirect('node/add/post', 0, array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
+    }
   }
 
   print ajax_render($commands);
@@ -360,7 +367,6 @@ function checkdesk_core_preprocess_flag(&$variables) {
 /**
  * Modal function for `flag_confirm`.
  */
-
 function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js){
 
   if (!$js) {
