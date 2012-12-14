@@ -820,10 +820,10 @@ function checkdesk_core_feature_default_rules_configuration() {
       "DO" : [
         { "heartbeat_activity_status_report" : {
             "nid" : [ "node:nid" ],
-            "uid" : [ "node:author:uid" ],
+            "uid" : [ "site:current-user:uid" ],
             "message_id" : { "value" : { "status_report" : "status_report" } },
             "!status" : [ "node:field-rating:name" ],
-            "!editor" : [ "node:author:name" ]
+            "!editor" : [ "site:current-user:name" ]
           }
         }
       ]
