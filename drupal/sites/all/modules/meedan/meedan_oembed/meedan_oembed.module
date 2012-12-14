@@ -103,6 +103,7 @@ function meedan_oembed_data($url, $attributes = array()) {
     $url_info = parse_url($url);
     $embed = (object)array(
       'url' => $url,
+      'original_url' => $url,
       'provider_url' => $url_info['scheme'] . '://' . $url_info['host'],
       'thumbnail_url' => url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE)),
     );
@@ -120,7 +121,7 @@ function meedan_oembed_data($url, $attributes = array()) {
  */
 function meedan_oembed_scrape_generic(&$embed) {
   //Use google getFavicon service http://getfavicon.appspot.com/
-  $embed->favicon_link = url('http://g.etfv.co/'. $embed->url, array('absolute' => TRUE));
+  $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
   // TODO Get thumbnail.
   if (empty($embed->thumbnail_url)) {
     $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
