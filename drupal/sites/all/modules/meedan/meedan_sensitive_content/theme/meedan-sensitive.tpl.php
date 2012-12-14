@@ -6,4 +6,3 @@
 <?php print $meedan_sensitive_link; ?>
 </div>
 </div>
-</div>

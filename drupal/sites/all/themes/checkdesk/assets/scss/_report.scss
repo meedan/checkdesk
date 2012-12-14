@@ -120,6 +120,24 @@
 				iframe {
 					max-width: 100%;
 				}
+				.sensitive-notification {
+					display: table-cell;
+					width: 400px;
+				    height: 200px;
+				    text-align: center;
+				    vertical-align: middle;
+				    background: none !important;
+				    .sensitive-notification-text {
+				    	color: $grayDark;
+				    	padding: $baseLineHeight/2 $gw/2;
+				    }
+				    .sensitive-notification-link {
+				    	padding: $baseLineHeight/2 $gw/2;
+				    	a {
+				    		@include button($grayLight, 18px);
+				    	}
+				    }
+				}
 			}
 		}
 

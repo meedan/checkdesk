@@ -1117,7 +1117,7 @@ body.page-node-add .node-form .form-item-title label:before {
 }
 
 /* line 286, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
-.button-reset-base-class {
+.button-reset-base-class, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
@@ -1129,12 +1129,12 @@ body.page-node-add .node-form .form-item-title label:before {
   font-weight: 300;
 }
 /* line 270, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
-.button-reset-base-class::-moz-focus-inner {
+.button-reset-base-class::-moz-focus-inner, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a::-moz-focus-inner {
   border: none;
   padding: 0;
 }
 /* line 274, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
-.button-reset-base-class:focus {
+.button-reset-base-class:focus, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus {
   outline: none;
 }
 
@@ -4059,7 +4059,88 @@ div.tabs {
 .report .report-content .report-media .container iframe {
   max-width: 100%;
 }
-/* line 126, ../scss/_report.scss */
+/* line 123, ../scss/_report.scss */
+.report .report-content .report-media .container .sensitive-notification {
+  display: table-cell;
+  width: 400px;
+  height: 200px;
+  text-align: center;
+  vertical-align: middle;
+  background: none !important;
+}
+/* line 130, ../scss/_report.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-text {
+  color: #333333;
+  padding: 0.6em 0.5em;
+}
+/* line 134, ../scss/_report.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link {
+  padding: 0.6em 0.5em;
+}
+/* line 136, ../scss/_report.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #999999;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3a3a3), color-stop(100%, #858585));
+  background-image: -webkit-linear-gradient(#a3a3a3, #858585);
+  background-image: -moz-linear-gradient(#a3a3a3, #858585);
+  background-image: -o-linear-gradient(#a3a3a3, #858585);
+  background-image: linear-gradient(#a3a3a3, #858585);
+  border-color: #737373;
+  text-shadow: #595959 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.6) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.6) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.6) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 207, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:visited {
+  color: white;
+}
+/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus {
+  background-color: #919191;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9c9c9c), color-stop(100%, #7d7d7d));
+  background-image: -webkit-linear-gradient(#9c9c9c, #7d7d7d);
+  background-image: -moz-linear-gradient(#9c9c9c, #7d7d7d);
+  background-image: -o-linear-gradient(#9c9c9c, #7d7d7d);
+  background-image: linear-gradient(#9c9c9c, #7d7d7d);
+  border-color: #6b6b6b;
+  text-shadow: #525252 0px 1px 1px;
+}
+/* line 207, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover:visited, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus:visited {
+  color: white;
+}
+/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active {
+  background-color: #8a8a8a;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #828282), color-stop(40%, #8a8a8a), color-stop(85%, #8a8a8a), color-stop(100%, #9c9c9c));
+  background-image: -webkit-linear-gradient(#828282, #8a8a8a 40%, #8a8a8a 85%, #9c9c9c);
+  background-image: -moz-linear-gradient(#828282, #8a8a8a 40%, #8a8a8a 85%, #9c9c9c);
+  background-image: -o-linear-gradient(#828282, #8a8a8a 40%, #8a8a8a 85%, #9c9c9c);
+  background-image: linear-gradient(#828282, #8a8a8a 40%, #8a8a8a 85%, #9c9c9c);
+  border-color: #636363;
+  text-shadow: #4a4a4a 0px -1px -1px;
+  -webkit-box-shadow: #737373 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #737373 0 0.08em 0.2em 1px inset;
+  box-shadow: #737373 0 0.08em 0.2em 1px inset;
+}
+/* line 207, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active:visited {
+  color: white;
+}
+/* line 144, ../scss/_report.scss */
 .report .report-content > p {
   *zoom: 1;
   padding: 0.42857em 0.5em 0.6em 0.5em;
@@ -4078,14 +4159,14 @@ div.tabs {
 .report .report-content > p:after {
   clear: both;
 }
-/* line 134, ../scss/_report.scss */
+/* line 152, ../scss/_report.scss */
 .report .report-content .gravatar img {
   vertical-align: text-bottom;
   width: 20px;
   height: 20px;
   margin-right: 0.33333em;
 }
-/* line 141, ../scss/_report.scss */
+/* line 159, ../scss/_report.scss */
 .report .report-content .description {
   font-size: 14px;
   font-weight: normal;
@@ -4095,7 +4176,7 @@ div.tabs {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
   background-position: 10px 0;
 }
-/* line 153, ../scss/_report.scss */
+/* line 171, ../scss/_report.scss */
 .report .report-activity > header {
   *zoom: 1;
   padding: 0.42857em 0.5em;
@@ -4112,7 +4193,7 @@ div.tabs {
 .report .report-activity > header:after {
   clear: both;
 }
-/* line 158, ../scss/_report.scss */
+/* line 176, ../scss/_report.scss */
 .report .report-activity > header h3 {
   float: left;
   margin: 0;
@@ -4122,80 +4203,80 @@ div.tabs {
   font-weight: normal;
   line-height: 1.2em;
 }
-/* line 163, ../scss/_report.scss */
+/* line 181, ../scss/_report.scss */
 .report .report-activity > header .report-status {
   width: 200px;
   float: right;
   text-align: right;
 }
-/* line 168, ../scss/_report.scss */
+/* line 186, ../scss/_report.scss */
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
   width: 20px;
   float: right;
 }
-/* line 172, ../scss/_report.scss */
+/* line 190, ../scss/_report.scss */
 .report .report-activity > header .report-status span.status-name {
   width: 150px;
   text-align: right;
   float: right;
 }
-/* line 179, ../scss/_report.scss */
+/* line 197, ../scss/_report.scss */
 .report .report-activity > header:hover {
   background-color: #d4d4d4;
 }
-/* line 184, ../scss/_report.scss */
+/* line 202, ../scss/_report.scss */
 .report .report-activity > .undetermined {
   background-color: #fee9cc;
 }
-/* line 186, ../scss/_report.scss */
+/* line 204, ../scss/_report.scss */
 .report .report-activity > .undetermined a {
   color: #c67605;
 }
-/* line 187, ../scss/_report.scss */
+/* line 205, ../scss/_report.scss */
 .report .report-activity > .undetermined:hover {
   background-color: #fdd49a;
 }
-/* line 189, ../scss/_report.scss */
+/* line 207, ../scss/_report.scss */
 .report .report-activity > .undetermined:hover a {
   color: #945904;
 }
-/* line 192, ../scss/_report.scss */
+/* line 210, ../scss/_report.scss */
 .report .report-activity > .verified {
   background-color: #f1f9f1;
 }
-/* line 194, ../scss/_report.scss */
+/* line 212, ../scss/_report.scss */
 .report .report-activity > .verified a {
   color: #46a546;
 }
-/* line 195, ../scss/_report.scss */
+/* line 213, ../scss/_report.scss */
 .report .report-activity > .verified:hover {
   background-color: #cdeacd;
 }
-/* line 197, ../scss/_report.scss */
+/* line 215, ../scss/_report.scss */
 .report .report-activity > .verified:hover a {
   color: #378137;
 }
-/* line 200, ../scss/_report.scss */
+/* line 218, ../scss/_report.scss */
 .report .report-activity > .false {
   background-color: #f4c8c5;
 }
-/* line 202, ../scss/_report.scss */
+/* line 220, ../scss/_report.scss */
 .report .report-activity > .false a {
   color: #9d261d;
 }
-/* line 203, ../scss/_report.scss */
+/* line 221, ../scss/_report.scss */
 .report .report-activity > .false:hover {
   background-color: #eca09a;
 }
-/* line 205, ../scss/_report.scss */
+/* line 223, ../scss/_report.scss */
 .report .report-activity > .false:hover a {
   color: #721c15;
 }
-/* line 209, ../scss/_report.scss */
+/* line 227, ../scss/_report.scss */
 .report .report-activity .activity-wrapper {
   display: none;
 }
-/* line 213, ../scss/_report.scss */
+/* line 231, ../scss/_report.scss */
 .report .report-activity .activity-list {
   list-style: none;
   margin: 0;
@@ -4204,7 +4285,7 @@ div.tabs {
   padding: 0.42857em 0.5em;
   background-color: #fbfbfb;
 }
-/* line 218, ../scss/_report.scss */
+/* line 236, ../scss/_report.scss */
 .report .report-activity .activity-list li {
   overflow: hidden;
   *zoom: 1;
@@ -4214,23 +4295,23 @@ div.tabs {
   padding-bottom: 0.6em;
   padding-left: 2em;
 }
-/* line 227, ../scss/_report.scss */
+/* line 245, ../scss/_report.scss */
 .report .report-activity .activity-list li header [class^="icon-"],
 .report .report-activity .activity-list li header [class*=" icon-"] {
   float: left;
   margin-left: -2.8em;
   margin-right: 0.5em;
 }
-/* line 232, ../scss/_report.scss */
+/* line 250, ../scss/_report.scss */
 .report .report-activity .activity-list li header .time {
   color: #999999;
   margin-right: 1em;
 }
-/* line 236, ../scss/_report.scss */
+/* line 254, ../scss/_report.scss */
 .report .report-activity .activity-list li header a {
   font-weight: bold;
 }
-/* line 240, ../scss/_report.scss */
+/* line 258, ../scss/_report.scss */
 .report .report-activity .activity-list li .message {
   margin-top: 0.42857em;
   padding: 0.42857em 0.5em;
@@ -4241,46 +4322,46 @@ div.tabs {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 245, ../scss/_report.scss */
+/* line 263, ../scss/_report.scss */
 .report .report-activity .activity-list li .message > p {
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 252, ../scss/_report.scss */
+/* line 270, ../scss/_report.scss */
 .report .report-activity #comment-form {
   overflow: hidden;
   *zoom: 1;
   padding: 0 0.5em;
   background-color: #eeeeee;
 }
-/* line 256, ../scss/_report.scss */
+/* line 274, ../scss/_report.scss */
 .report .report-activity #comment-form label {
   display: none;
 }
-/* line 261, ../scss/_report.scss */
+/* line 279, ../scss/_report.scss */
 .report .report-activity > footer {
   color: #999999;
   padding: 0.42857em 0.5em;
   font-size: 11px;
 }
-/* line 268, ../scss/_report.scss */
+/* line 286, ../scss/_report.scss */
 .report .open > .false {
   background-color: #eca09a;
 }
-/* line 271, ../scss/_report.scss */
+/* line 289, ../scss/_report.scss */
 .report .open > .undetermined {
   background-color: #fdd49a;
 }
-/* line 273, ../scss/_report.scss */
+/* line 291, ../scss/_report.scss */
 .report .open > .undetermined a {
   color: #945904;
 }
-/* line 275, ../scss/_report.scss */
+/* line 293, ../scss/_report.scss */
 .report .open > .verified {
   background-color: #cdeacd;
 }
-/* line 280, ../scss/_report.scss */
+/* line 298, ../scss/_report.scss */
 .report .icon-ok-sign, .report .icon-ok-sign {
   color: #46a546;
   display: block;
@@ -4301,7 +4382,7 @@ div.tabs {
   color: #2f6f2f;
   font-family: 'FontAwesome';
 }
-/* line 284, ../scss/_report.scss */
+/* line 302, ../scss/_report.scss */
 .report .icon-question-sign, .report .icon-remove-sign, .report .icon-question-sign {
   color: #f89406;
   display: block;
@@ -4322,7 +4403,7 @@ div.tabs {
   color: #ad6704;
   font-family: 'FontAwesome';
 }
-/* line 288, ../scss/_report.scss */
+/* line 306, ../scss/_report.scss */
 .report .icon-remove-sign, .report .icon-question-sign, .report .icon-remove-sign {
   color: #9d261d;
   display: block;
@@ -5070,7 +5151,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #3AD900;
+  background-color: #0088FF;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5493,7 +5574,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #FF9D00;
+  background-color: #80FFC2;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
