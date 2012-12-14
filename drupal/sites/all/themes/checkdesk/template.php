@@ -163,7 +163,10 @@ function checkdesk_preprocess_node(&$variables) {
     if ($total_rows) {
       $variables['media_activity_report_count'] = $total_rows;
       $variables['media_activity_report'] = $view_output;
-      $status_name = $variables['field_rating'][0]['taxonomy_term']->name;
+      $term = isset($variables['field_rating'][LANGUAGE_NONE][0]['taxonomy_term']) ? 
+        $variables['field_rating'][LANGUAGE_NONE][0]['taxonomy_term'] : 
+        taxonomy_term_load($variables['field_rating'][LANGUAGE_NONE][0]['tid']);
+      $status_name = $term->name;
       $status_class = '';
       $icon = '';
       if ($status_name == 'Verified') {
