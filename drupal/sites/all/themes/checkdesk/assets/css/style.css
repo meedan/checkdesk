@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
 /* line 3, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 #skip a:link, #skip a:hover, #skip a:visited {
@@ -1117,7 +1116,7 @@ body.page-node-add .node-form .form-item-title label:before {
   content: "\f200";
 }
 
-/* line 284, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 286, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
@@ -1129,12 +1128,12 @@ body.page-node-add .node-form .form-item-title label:before {
   border-style: solid;
   font-weight: 300;
 }
-/* line 268, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 270, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 272, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 274, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class:focus {
   outline: none;
 }
@@ -1686,12 +1685,7 @@ body.page-node-add .node-form .form-item-title label:before {
   margin-bottom: 0;
 }
 
-/* line 89, ../scss/override_ctb/_modals.scss */
-.modal-content-wrapper {
-  padding: 15px;
-}
-
-/* line 94, ../scss/override_ctb/_modals.scss */
+/* line 90, ../scss/override_ctb/_modals.scss */
 .modal-footer {
   padding: 0.6em 0.5em;
   margin-bottom: 0;
@@ -1709,20 +1703,20 @@ body.page-node-add .node-form .form-item-title label:before {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 105, ../scss/override_ctb/_modals.scss */
+/* line 101, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn + .btn {
   margin-left: 5px;
   margin-bottom: 0;
 }
-/* line 110, ../scss/override_ctb/_modals.scss */
+/* line 106, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn-group .btn + .btn {
   margin-left: -1px;
 }
-/* line 114, ../scss/override_ctb/_modals.scss */
+/* line 110, ../scss/override_ctb/_modals.scss */
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
 }
-/* line 118, ../scss/override_ctb/_modals.scss */
+/* line 114, ../scss/override_ctb/_modals.scss */
 .modal-footer .ajax-progress-throbber {
   display: none;
 }
@@ -5076,7 +5070,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #FF628C;
+  background-color: #3AD900;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5499,7 +5493,7 @@ body.page-node-add .node-form .form-item-title form .form-actions input.form-sub
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #FFDD00;
+  background-color: #FF9D00;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5636,7 +5630,7 @@ body #page {
     margin-left: auto;
     margin-right: auto;
   }
-  /* line 38, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+  /* line 38, ../../../../../../../../../../usr/local/rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
   body #page:after {
     content: "";
     display: table;
