@@ -638,7 +638,7 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     $form['body'][LANGUAGE_NONE][0]['#default_value'] = checkdesk_core_droppable_reference($node);
   }
   $form['#validate'][] = '_checkdesk_core_post_node_form_validate';
-  $form['actions']['submit']['#submit'][] = '_checkdesk_core_post_node_form_submit';
+  $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
 }
 
 /**
