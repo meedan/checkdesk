@@ -163,9 +163,9 @@ function checkdesk_preprocess_node(&$variables) {
     if ($total_rows) {
       $variables['media_activity_report_count'] = $total_rows;
       $variables['media_activity_report'] = $view_output;
-      $term = isset($variables['field_rating'][LANGUAGE_NONE][0]['taxonomy_term']) ? 
-        $variables['field_rating'][LANGUAGE_NONE][0]['taxonomy_term'] : 
-        taxonomy_term_load($variables['field_rating'][LANGUAGE_NONE][0]['tid']);
+      $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
+        $variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 
+        taxonomy_term_load($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
       $status_name = $term->name;
       $status_class = '';
       $icon = '';
