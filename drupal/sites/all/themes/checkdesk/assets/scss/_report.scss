@@ -91,10 +91,7 @@
 				display: inline-block;
   				vertical-align: middle;
   				text-align: $from-direction;
-  				.title,
-  				.content, 
-  				.favicon, 
-  				.domain {
+  				& > div {
   					margin: 0 $gw;	
   				}
 				.oembed-title {
@@ -106,7 +103,8 @@
 				.content {
 					padding: $baseLineHeight 0;
 				}
-				.favicon {
+				.favicon, 
+				.author-img {
 					float: $from-direction;
 					padding: 0 $gw/2;
 				}
