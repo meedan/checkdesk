@@ -75,7 +75,8 @@
     width: 456px; // TEMP fix
   }
   #modal-throbber {
-    padding: $baseLineHeight/2 -$gw/2;
+    padding: $baseLineHeight/2 0;
+    margin-left: -$gw/2;
   }
   .form-actions {
     margin: 0; padding: 0;
