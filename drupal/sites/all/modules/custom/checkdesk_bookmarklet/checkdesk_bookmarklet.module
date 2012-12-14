@@ -157,7 +157,7 @@ function checkdesk_bookmarklet_node_insert($node) {
 function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
   if (isset($_GET['meedan_bookmarklet_submitted'])) {
     $variables['meedan_bookmarklet_title'] = t('Report submitted, thanks!');
-    $variables['footer'] = '<input type="reset" onclick="window.parent.postMessage(\'close\', \'*\'); return false;" value="' . t('Close') . '" class="form-submit" id="meedan_bookmarklet_cancel_button" />';
+    $variables['footer'] = '<input type="reset" onclick="window.parent.postMessage(\'destroy\', \'*\'); return false;" value="' . t('Close') . '" class="form-submit" id="meedan_bookmarklet_cancel_button" />';
   } 
 
   global $base_url;
