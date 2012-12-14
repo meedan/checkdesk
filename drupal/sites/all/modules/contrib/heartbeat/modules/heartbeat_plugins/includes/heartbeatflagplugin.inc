@@ -10,7 +10,7 @@
 function heartbeat_plugins_modal_flagging_users($js, $heartbeatActivity) {
 
   $uaid = $heartbeatActivity->uaid;
-  $result = db_query("SELECT u.name, files.uri, f.uid FROM {file_managed} files INNER JOIN {users} u ON u.picture = files.fid INNER JOIN {flag_content} f ON f.uid = u.uid WHERE content_id = :uaid AND content_type = 'heartbeat_activity' ", array(':uaid' => $uaid));
+  $result = db_query("SELECT u.name, files.uri, f.uid FROM {file_managed} files INNER JOIN {users} u ON u.picture = files.fid INNER JOIN {flagging} f ON f.uid = u.uid WHERE entity_id = :uaid AND entity_type = 'heartbeat_activity' ", array(':uaid' => $uaid));
 
   $output = '';
   $list = array();
@@ -84,9 +84,9 @@ class HeartbeatFlagPlugin extends HeartbeatBasePlugin {
    * removeFlagContent().
    */
   public function removeFlagContent($activityId) {
-    db_delete('flag_content')
-      ->condition('content_type', 'heartbeat_activity')
-      ->condition('content_id', $activityId)
+    db_delete('flagging')
+      ->condition('entity_type', 'heartbeat_activity')
+      ->condition('entity_id', $activityId)
       ->execute();
   }
 
@@ -95,12 +95,12 @@ class HeartbeatFlagPlugin extends HeartbeatBasePlugin {
    */
   public function activityRemoved($uaids, $all) {
 
-    foreach (array('flag_content', 'flag_counts') as $table) {
+    foreach (array('flagging', 'flag_counts') as $table) {
       $query = db_delete($table);
-      $query->condition('content_type', 'heartbeat_activity');
+      $query->condition('entity_type', 'heartbeat_activity');
 
       if (!empty($uaids) && $all == FALSE) {
-        $query->condition('content_id', $uaids, 'IN');
+        $query->condition('entity_id', $uaids, 'IN');
       }
 
       $query->execute();
