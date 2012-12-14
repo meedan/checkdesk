@@ -256,6 +256,7 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-edit']) .'</li>';
       }
       if (isset($links['flag-factcheck_journalist'])) {
+        $output .= '<li class="divider"></li>';
         $output .= '<li>' . $links['flag-factcheck_journalist']['title'] .'</li>';
       }
       if (isset($links['flag-graphic_journalist'])) {
@@ -284,7 +285,9 @@ function checkdesk_links__node($variables) {
       if (isset($links['flag-factcheck'])) {
         $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
       }
+
       if (isset($links['flag-delete'])) {
+        $output .= '<li class="divider"></li>';
         $output .= '<li>' . $links['flag-delete']['title'] . '</li>';
       }
       $output .= '</ul></li>'; 
