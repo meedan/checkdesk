@@ -1,0 +1,84 @@
+
+// ====================================================================== 
+// Dungeon of deprecated techniques and hidden divs
+// This is a todo list of things to fix in the markup ...
+// NOT a permanent selector ghetto! ... CGB Dec 2012
+
+// Don't display so much stuff on the forms {
+.filter-wrapper {
+  display: none;
+}
+
+// We need to remove these from the markup before we accidentally hide a good menu item.
+.menu-671,
+.menu-674, 
+  {
+  display: none!important;
+}
+
+// RSS icon is not in the spec but is appearing. 
+// RSS *should* be enabled but no icon.
+a.feed-icon {
+  display: none;
+}
+
+// Disable vertical tabs in forms
+div.vertical-tabs {
+  // we need to verride this by disabling CSS in drupal before proceeding.
+  display: none!important;  
+}
+
+// We don't use the i element for icons from TB
+// And they should not display
+i {
+  display: none;
+  &:hover {
+    display: none
+  }
+}
+
+// Disable views configuration popup
+.contextual-links-wrapper {
+  display: none!important;
+}
+
+// hack for empty div need to remove this in markup. CGB Dec 2012
+li.menu-449 {
+  display: none!important;
+}
+
+// Hide the summary link from text fields.
+// FIXME This is a hack because the fields are of type "Long text and summary" while they should really be of type "Long text".
+.field-edit-link {
+  display: none
+}
+
+// No tabs in the sidebar pages ...
+body.sidebar-first .tabs {
+  display: none!important;
+}
+
+// Hide stuff on the user section
+body.not-front.not-logged-in.page-user {
+  // Hide breadcrumbs and titles
+  div.breadcrumb, 
+  h1.title {
+   display: none;
+  }
+}
+
+// ====================================================================== 
+// The End
+//
+// Debuggers and specs go last
+
+// Debugging mixins
+// @include debug_drupal;
+
+// Pseudo-spec
+// @import "spec";
+
+// Debugger for responsive grids, shows colored stripes
+// 
+$display-banner: true;
+@include visualize-grid($display-banner);

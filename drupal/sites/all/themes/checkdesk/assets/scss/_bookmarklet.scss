@@ -4,19 +4,19 @@
 // The bookmarklet itself
 
 #meedan_bookmarklet {
-  font-size: 15px;
+  font-size: $small-font-size;
   overflow: hidden;
 
   h2 {
-    color: #bbb;
-    font-size: 15px;
-    margin: 5px 0;
-    margin-top: 0;
-    float: left;
+    @include reset-box-model;
+    color: $grey;
+    font-size: $base-font-size;
+    margin-bottom: 0;
+    float: $from-direction;
   }
 
   #meedan_bookmarklet_help {
-    float: left;
+    float: $from-direction;
     span {
       display: block;
       width: 30px;
@@ -24,7 +24,7 @@
       text-indent: -5000em;
       background: transparent url(../imgs/icons/bookmarklet-help.png) center center no-repeat;
       cursor: help;
-      float: left;
+      float: $from-direction;
       p {
         display: none;
       }
@@ -40,7 +40,7 @@
       text-indent: 0;
       padding: 8px;
       position: absolute;
-      right: 1px;
+      #{opposite-position($from-direction)}: 1px;
     }
   }
 
@@ -59,7 +59,7 @@
 
   input[type=text] {
     width: 290px;
-    padding-right: 35px;
+    padding-#{opposite-position($from-direction)}: 35px;
   }
 
   textarea {
@@ -102,6 +102,13 @@
 
   #meedan_bookmarklet_preview_content {
     overflow: hidden;
+    display: block;
+    img {
+      display: block;
+      width: auto;
+      margin: 0 auto;
+      @include opacity(0.1);
+    }
   }
   
   #meedan_bookmarklet_preview_gc {
@@ -126,8 +133,9 @@
   }
 
   #edit-graphic-content {
-    float: right;
+    float: opposite-position($from-direction);
     clear: both;
+    margin-top: 10px;
     input[type=checkbox] {
       border: 1px solid #bbb;
       background: #fff;
@@ -144,19 +152,7 @@
   }
 
   input.form-submit {
-    display: block;
-    width: 80px;
-    padding: 8px 0 12px 0;
-    margin: 8px;
-    margin-left: 0;
-    border: 0;
-    font-size: 15px;
-    font-weight: bold;
-    color: #fff;
-    text-align: center;
-    float: left;
-    -webkit-appearance: none;
-	  @include border-radius(3px);
+    @include checkdesk-button();
   }
 
   #edit-submit {
@@ -221,10 +217,10 @@
     }
     #edit-social-media-signin {
       label, li, a {
-        float: left;
+        float: $from-direction;
       }
       li {
-        margin-left: 5px;
+        margin-#{$from-direction}: 5px;
       }
     }
   }
@@ -234,39 +230,14 @@
 // The installation page link
 
 #info-menu {
-  border-right: 1px solid #999;
-  .caret {
-    display: none;
-  }
   li {
     a.dropdown-toggle {
-      margin-right: 10px;
+      margin-#{opposite-position($from-direction)}: 10px;
     }
   }
   li.open {
     a.dropdown-toggle {
-      color: #323232;
-      background: #fff;
       text-shadow: none;
-	    @include border-radius(5px 5px 0 0);
-    }
-  }
-  .dropdown-menu {
-    border: 0;
-    background: #fff;
-    margin: -5px 10px 0 0;
-    @include box-shadow(1px 10px 10px #333);
-	  @include border-radius(5px);
-    .ajax-progress-throbber, &:after, &:before {
-      display: none;
-    }
-    a {
-      color: #08C;
-    }
-    li > a:hover, li > a:focus {
-      background-color: transparent;
-      background-image: none;
-      filter: none;
     }
   }
 }
@@ -278,9 +249,9 @@
   height: 355px !important;
   background: #fff;
   border: 1px solid #C0C0C0;
-  top: 80px !important;
-  left: 50% !important;
-  margin-left: -465px;
+  top: 80px !important; 
+  #{$from-direction}: 50% !important;
+  margin-#{$from-direction}: -465px;
   z-index: 1050 !important;
   overflow: visible;
   position: fixed !important;
@@ -310,13 +281,13 @@
   }
 
   #install-bookmarklet-button {
-    background: transparent url(../imgs/icons/bookmarklet-drag.png) left center no-repeat;
+    background: transparent url(../imgs/icons/bookmarklet-drag.png) $from-direction center no-repeat;
     display: block;
     height: 84px;
     width: 50%;
-    padding-left: 66px;
+    padding-#{$from-direction}: 66px;
     position: absolute;
-    left: 35px;
+    #{$from-direction}: 35px;
     top: -9px;
     z-index: 1051;
     text-decoration: none;
@@ -334,7 +305,7 @@
 
   .install-bookmarklet-col {
     width: 410px;
-    float: left;
+    float: $from-direction;
     margin: 0 22px;
 
     h3 {
@@ -343,7 +314,7 @@
       text-align: center;
       margin: 80px auto 20px auto;
       font-weight: normal;
-      padding-right: 76px;
+      padding-#{opposite-position($from-direction)}: 76px;
     }
 
     ul {
@@ -357,7 +328,7 @@
     }
 
     a, p {
-      font-size: 13px;
+      font-size: $small-font-size;
     }
 
     p {
@@ -369,11 +340,11 @@
     h2 {
       color: #C0C0C0;
       font-weight: normal;
-      font-size: 34px;
+      font-size: $large-font-size;
     }
 
     p {
-      font-size: 16px;
+      font-size: $base-font-size;
       margin: 25px 0;
     }
   }
@@ -388,8 +359,8 @@
 
 #meedan_bookmarklet_cont {
   display: none;
-  position: fixed !important;
-  left: 44px !important;
+  position: fixed !important; 
+  #{$from-direction}: 44px !important;
   border: 0 !important;
 }
 

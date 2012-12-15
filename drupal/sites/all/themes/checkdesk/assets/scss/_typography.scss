@@ -5,24 +5,233 @@
 // Not using this currently, it's a pain to get vertical alignment 100% correct.
 // @include establish-baseline;
 
-body {
-  font-family: "Merriweather", Georgia, sans-serif;
-  text-align: $from-direction;  
-}
-
-.view-liveblog p {
+@mixin bb-typography-defaults {
   line-height: $base-line-height;
-}
-
-.alert {
-  font-family: $sans-font-family;
-}
-
-h1.title {
-  margin-top: $gw;
-}
-
-nav {
-  font-family: $sans-font-family;
   font-size: $base-font-size;
+  color: $text-color;
+  font-family: $serif-font-family;
+  text-align: $from-direction;
+
+  h1, h2, h3, h4 {
+    @include reset-box-model;
+    margin-top: $gw; 
+    margin-bottom: $gw;
+    padding-bottom: ms(-4);
+    padding-top: ms(-4);
+  }
+
+  a {
+    color: $linkColor;
+    text-decoration: none;
+  }
+  a:hover {
+    color: $linkColorHover;
+    text-decoration: underline;
+  }
+
+  p {
+    margin: 0 0 $base-line-height / 2;
+  }
+
+  small {
+    font-size: 85%; // Ex: 14px base font * 85% = about 12px
+  }
+  strong {
+    font-weight: bold;
+  }
+  em {
+    font-style: italic;
+  }
+  cite {
+    font-style: normal;
+  }
+  .muted {
+    color: $grayLight;
+  }
+
+  ul, ol {
+    padding: 0;
+    margin: 0 0 $base-line-height / 2 25px;
+  }
+  ul ul,
+  ul ol,
+  ol ol,
+  ol ul {
+    margin-bottom: 0;
+  }
+  li {
+    line-height: $base-line-height;
+  }
+  ul.unstyled,
+  ol.unstyled {
+    margin-#{$from-direction}: 0;
+    list-style: none;
+  }
+
+  dl {
+    margin-bottom: $base-line-height;
+  }
+
+  dt,
+  dd {
+    line-height: $base-line-height;
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: $base-line-height / 2;
+  }
+
+  hr {
+    margin: $base-line-height 0;
+    border: 0;
+    border-top: 1px solid $hrBorder;
+    border-bottom: 1px solid $white;
+  }
+
+  abbr[title] {
+    cursor: help;
+    border-bottom: 1px dotted $grayLight;
+  }
+  abbr.initialism {
+    font-size: 90%;
+    text-transform: uppercase;
+  }
+
+  blockquote {
+    @include reset-box-model;
+    border-left: 5px solid $grayLighter;
+    font-size: $base-font-size;
+    p {
+      margin-bottom: 0;
+    }
+    small {
+      display: block;
+      line-height: $base-line-height;
+      color: $grayLight;
+      &:before {
+        content: '\2014 \00A0';
+      }
+    }
+
+    // Float right with text-align: right
+    // Deprecated for poor i18n
+    &.pull-#{opposite-position($from-direction)} {
+      float: opposite-position($from-direction);
+      padding-#{$from-direction}: 0;
+      border-#{$from-direction}: 0;
+      padding-#{opposite-position($from-direction)}: 15px;
+      border-#{opposite-position($from-direction)}: 5px solid red; // should not be showing CGB
+      
+      p,
+      small {
+        text-align: opposite-position($from-direction);
+      }
+      small {
+        &:before {
+          content: '';
+        }
+        &:after {
+          content: '\00A0 \2014';
+        }
+      }
+    }
+  }
+
+  // Quotes
+  q:before,
+  q:after,
+  blockquote:before,
+  blockquote:after {
+    content: "";
+  }
+
+  // Addresses
+  address {
+    display: block;
+    margin-bottom: $base-line-height;
+    font-style: normal;
+    line-height: $base-line-height;
+  }
+}
+
+// Checkdesk specific
+// Global styles
+//
+@mixin cd-typography {
+  
+  // Main header
+  h1.title {
+    margin-top: ms(4);
+    width: auto;
+    font-size:  ms(4);
+    line-height: ms(5) * 1.3; 
+  }
+
+  // Navigation 
+  nav {
+    font-family: $sans-font-family;
+    font-size: $nav-font-size;
+  }
+
+  // The sidebar
+  #sidebar-first {
+    font-family: $sans-font-family;
+  }
+}
+
+
+// =========================================================================
+// Default applcation of the above ...
+// 
+
+body {
+  @include bb-typography-defaults;
+  @include cd-typography;
+}
+
+// =========================================================================
+// Breakpoint: Small
+// 
+@include at-breakpoint($break-small) {
+  body {
+    font-size:  ms(1); // increased
+    line-height: ms(2) * 0.8; 
+  }
+
+  nav {
+    font-size: $nav-font-size + ms(-2);
+  }
+
+  h1.title {
+    margin-top: ms(2); // reduced
+    padding: {left: $large-font-size; right: $large-font-size; }
+    font-size:  $large-font-size; // increased
+    line-height: ms(2) * 1.2; 
+  }
+}
+
+// =========================================================================
+// Breakpoint: Medium
+// 
+@include at-breakpoint($break-medium) {
+  body {
+    font-size:  ms(2); // increased
+    line-height: ms(2) * 1.2; 
+  }
+  h1.title {
+    padding: {left: $x-large-font-size; right: $x-large-font-size; } // increased
+    font-size:  ms(6); // increased
+    line-height: ms(3) * 1.2; 
+  }
+}
+
+// =========================================================================
+// Breakpoint: Large
+// 
+@include at-breakpoint($break-large) {
+  // This is a really huge min-width ...
 }

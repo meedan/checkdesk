@@ -2,7 +2,7 @@
 // http://checkdesk:8888/user
 @mixin user-profile($width: $fw, $context: $cw) {
   div.profile {
-    @include span-columns($width, $context);
+    @include span-columns($width - 2, $context);
     .user-picture {
       float: opposite-position($from-direction);
       @include span-columns(1 omega, $context);
@@ -22,14 +22,17 @@
 // Main mixin for all of the user section
 // 
 // $width - the form width
-@mixin user_section_forms($width: $cw, $context: $cw) {  
-  
-  // Default form settings shared in checkdesk
-  @include checkdesk-form;
+@mixin cd-user-section($width: $cw, $context: $cw) {  
 
+  // Forgot password and create new account <.item-list>s
+  .form-item-name ~ .item-list {
+    @include span-columns($width, $context);
+    a {  color: $dark-grey;  }
+  }
+  
   // The social media sign-in boxes
   #edit-social-media-signin {
-    @include full($width);
+    @include span-columns($width, $context);
 
     // Generate an "or" divider
     // 
@@ -50,7 +53,7 @@
     
     // hide "Sign in with:"
     label {
-      // @include full;
+      // @include span-columns($width, $context);
       // font-weight: 700;
       // margin-top: $gw;
       display: none!important;
@@ -58,9 +61,6 @@
 
     // The list of social media providers
     div.item-list {
-      // reset item-list
-      @include checkdesk-form-item-list($width, $context);
-
       margin-bottom: $gw*2;
       ul { margin-top: $gw; }
 
@@ -111,18 +111,4 @@
     border-top: 1px solid $light-grey!important;
     padding-top: $gw*2!important;
   }    
-}
-
-// Checkdesk user section
-// 
-// Emit main login form CSS
-body.not-front.not-logged-in.page-user {
-
-  // Hide breadcrumbs and titles
-  div.breadcrumb, 
-  h1.title {
-   display: none;
-  }
-
-  @include user_section_forms;
 }

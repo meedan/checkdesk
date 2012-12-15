@@ -3,46 +3,66 @@
 // .tabs - the main tab container with ul.primary and ul.secondary inside
 //
 // Adds styles for the primary and secondary tabs. Compare this with default CSS found in the system module's stylesheet.
+
+// resuable resets and basic styles
 @import "bowerbird/tabs";
+@include bb-tabs; 
 
-@mixin tabs($tw, $context) {
-  
-  @include bb-tabs; // bowerbird tab reset and basics
-  
-  div.tabs {
-    @content; // pass in the grid configuration here
-    ul.primary {
+div.tabs {
+  ul.primary {
+    @include reset-box-model;
+    display: block;
+    @include clearfix;
+    padding: { top: $gw; bottom: $gw; }
+    margin: { top: $gw; bottom: $gw; }
+    background-color: rgba(white, 0.8);
+    font-family: $sans-font-family;
+    font-size: $small-font-size;
+    font-weight: 300;
+    
+    li {
       @include reset-box-model;
-      @include span-columns($tw, $context);
       display: block;
-      @include clearfix;
-      padding: { top: $gw; bottom: $gw; }
-      margin: { top: $gw; bottom: $gw; }
-      background-color: rgba(white, 0.8);
-      font-family: $sans-font-family;
-      font-size: $large-font-size;
-      font-weight: 300;
-
-      li {
-        @include reset-box-model;
-        display: block;
-        float: $from-direction;
-        margin-#{opposite-position($from-direction)}: $gw;
-        &.active {
-          a {
-            background-color: $nav-active-bkg-color;
-            color: white;
-          }
-        }
+      float: $from-direction;
+      margin-#{opposite-position($from-direction)}: $gw;
+      &.active {
         a {
-          padding: $gw;
-          @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color');
-        }
-        a:hover {
-          padding: $gw;
-          color: black;
+          background-color: $nav-active-bkg-color;
+          color: white;
         }
       }
+      a {
+        line-height: $gw*3;
+        padding: $gw;
+        @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color');
+      }
+      a:hover {
+        padding: $gw;
+        color: black;
+      }
     }
+  }
+}
+
+// =================================================================================
+// Breakpoints for tabs
+@include at-breakpoint($break-small) {
+  .tabs ul.primary {
+    @include span-columns($cw, $cw);
+    background-color: pink;
+  }
+}
+
+@include at-breakpoint($break-medium) {
+  .tabs ul.primary {
+    @include span-columns($break-medium, $break-medium);
+    background-color: green;
+  }
+}
+
+@include at-breakpoint($break-large) {
+  .tabs ul.primary {
+    @include span-columns($break-large, $break-large);
+    background-color: blue;
   }
 }

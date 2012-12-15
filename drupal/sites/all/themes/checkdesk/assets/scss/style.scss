@@ -4,7 +4,13 @@
 // Modular scale via gem
 @import "modular-scale";
 
-// First, Checkdesk configuration.
+// Bowerbird colors by name
+// Example usage: div { color: $tupperware-blue; }
+// We always want to use colors by name, to facilitate readbility + discussion.
+// hsl() values preferred for readability
+@import "bowerbird/colors";
+
+// Checkdesk configuration (relies on colors and modular scale)
 @import "base";
 
 // Bowerbird Compass Extension
@@ -49,12 +55,6 @@
 // Example usage: div { @include gradient($dark-blue, $midnight-blue); }
 @import "bowerbird/gradients";
 
-// Bowerbird colors by name
-// Example usage: div { color: $tupperware-blue; }
-// We always want to use colors by name, to facilitate readbility + discussion.
-// hsl() values preferred for readability
-@import "bowerbird/colors";
-
 // ====================================================================== 
 // Checkdesk (lightly forked) versions of Twitter Bootstrap libraries.
 //
@@ -68,15 +68,12 @@
 // All of them are namespaced ctb-mixinname
 @import "override_ctb/mixins";
 
-// Our version of TB forms
-$inputHeight: $base-font-size * 1.4;
+// Our version of TB reset
+$inputHeight: $base-line-height;
 @import "bowerbird/compass_twitter_bootstrap/reset";
 
 // our version of bootstrap forms
 // @import "override_ctb/forms";
-
-// Default version of TB forms
-@import "bowerbird/compass_twitter_bootstrap/forms";
 
 // our bootstrap modals
 @import "override_ctb/modals";
@@ -84,9 +81,6 @@ $inputHeight: $base-font-size * 1.4;
 
 // our bootstrap alerts
 @import "override_ctb/alerts";
-
-// our bootstrap typography
-@import "override_ctb/type";
 
 // our bootstrap dropdowns
 @import "override_ctb/dropdowns";
@@ -104,6 +98,7 @@ $inputHeight: $base-font-size * 1.4;
 // TB Tabular data
 @import "bowerbird/compass_twitter_bootstrap/tables";
 
+// TB utilities
 @import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
 // ====================================================================== 
@@ -129,147 +124,99 @@ $inputHeight: $base-font-size * 1.4;
 // @import "bowerbird/compass_twitter_bootstrap/tooltip";
 // @import "bowerbird/compass_twitter_bootstrap/popovers";
 
-// Some shared helpers
-@import "shared";
-
 // ====================================================================== 
 // Main Checkdesk Sass files
 // Drupal sections, pages, mixins
 
+// Some shared helpers
+@import "shared";
+
 //  Checkdesk typography
-//
-// See also: override_ctb/type.scss
+//  And a reponsive typography mixin which is applied in layout.
 @import "typography";
 
 // Checkdesk Drupal tabs
-// 
 // .tabs - the containing element which has a ul.primary and ul.secondary
 @import "tabs";
 
 // Checkdesk notifications
-// 
 // #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
 // Checkdesk reports
-//
 @import "report";
 
 // Checkdesk commenting plugin
-//
 @import "livefyre";
 
 // Checkdesk bookmarklet stuff
-//
 @import "bookmarklet";
 
 // Checkdesk Pagination
-//
 @import "pagination";
 
-// ====================================================================== 
-// Forms
-//
+// Main form styles
 @import "forms";
 
 // Form: password strength section
-//
 @import "form_password";
 
-// Form: major implementations of the forms mixins
+// User section and form
 @import "user";
+
+// Create node page and form
 @import "create_node";
 
 // Primary Navigation and Drupal nav at very top
 @import "navigation";
 
+// Reports filters on sidebar
+@import "reports_filter";
+
+// Sidebar layout with main and secondary cols
+@import "sidebar";
+
+// Tabs
+@import "tabs"; 
+
+// Forms
+@import "forms"; 
+
 // ====================================================================== 
 //  Checkdesk layout
 //
-@import "layout";
+body {
+  @include container($cw $break-small $break-medium);
+  #main {
+    @include span-columns($cw, $cw);
+  }
+}
 
 // ====================================================================== 
-// New Styles
+// Styles in progress that have not been refactored into imports
 //
 body {
-  background-color: white;
-  // links on the main liveblog page that are I think supposed to be headlines
-  .views-row {
-    & > a {
-    padding: 1em 0;
-    display: block;
-    font-weight: bold;
-    }
-    
-    & > h1.title {
-      padding: 1em 0;
-    }
-    
-    & > p {
-      padding: 1em 0;
-    }
-  }
-
-  #content-header {
-    @include clearfix;
+  background-color: $light-grey;  
+  
+  // Drupal blocks
+  .block {
+    float: $from-direction;
+    clear: both;
+    background-color: yellow!important;
   }
 }
 
 // ====================================================================== 
-// Dungeon of deprecated techniques and hidden divs
-
-// Menu items that have to go away ...
-// We need to remove these from the markup before we accidentally hide a good menu item.
-.menu-671,
-.menu-674, 
-  {
-  display: none!important;
-}
-
-// RSS icon is not in the spec but is appearing. 
-// RSS *should* be enabled but no icon.
-a.feed-icon {
-  display: none;
-}
-
-// Disable vertical tabs in forms
-div.vertical-tabs {
-  // we need to verride this by disabling CSS in drupal before proceeding.
-  display: none!important;  
-}
-
-// We don't use the i element for icons from TB
-// And they should not display
-i {
-  display: none;
-  &:hover {
-    display: none
-  }
-}
-
-// Disable views configuration popup
-.contextual-links-wrapper {
-  display: none!important;
-}
-
-// hack for empty div need to remove this in markup. CGB Dec 2012
-li.menu-449 {
-  display: none!important;
-}
-
-// Hide the summary link from text fields.
-// FIXME This is a hack because the fields are of type "Long text and summary" while they should really be of type "Long text".
-.field-edit-link {
-  display: none
-}
-
-// ====================================================================== 
-// The End
+// Specific pages (for now, w/ unique body selectors)
 //
-// Debuggers and specs go last
 
-// Debugging mixins
-// @include debug_drupal;
+// User section
+body.not-front.not-logged-in.page-user { @include cd-user-section; }
 
-// Pseudo-spec
-// @import "spec";
+// Sidebar page
+@import "sidebar";
+
+// ====================================================================== 
+// Lastly: hacks to be removed
+//
+@import "evil_hacks";

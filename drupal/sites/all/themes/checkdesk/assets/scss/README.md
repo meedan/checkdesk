@@ -148,3 +148,53 @@ A large part of the rationale for the design of this project is to juggle differ
       `gem install susy`
 
 Therefore Some @imports will @import Sass directly and some will @import mixins you can then @include with parameters.
+
+
+### This project uses as modular scale for some measurments
+
+use the `ms()` function to get steps (in px) along the scale from -4 to about 18.
+
+To see the list of ms scales ... 
+
+    @for $i from -4 through 10 {
+    @debug "available as ms(#{$i}) -> #{ms($i)}";
+    }
+
+    Based on the following scale of units: 
+    When possible units should appear exactly as they apper
+    Usually they can be rounded 
+    The key values are 18 and 1168
+    0.86 -> "harmonic" but missing from ms
+    1.0 -> "harmonic" but missing from ms
+    1.61803 The golden mean -> "harmonic" but missing from ms
+    1.39 -> "harmonic" but missing from ms
+    2.24 -> "harmonic" but missing from ms
+    2.63 -> available as ms(-)4) -> 3px
+    3.63 -> available as ms(-)3) -> 4px
+    4.25 -> "harmonic" but missing from ms
+    5.87 -> "harmonic" but missing from ms
+    6.88 -> available as ms(-)2) -> 7px
+    9.5 -> "harmonic" but missing from ms
+    11.12 -> available as ms(-)1) -> 11px -> used in $small->font->size and $gutter->width or $gw
+    15.36 -> navigation font size
+    18 -> available as ms(0) -> 18px -> $based font size 1 : 0.61803
+    24.86 -> available as ms(1) -> 25px
+    29.12 -> available as ms(2) ->. 29px
+    40.23 -> available as ms(3) -> 40px
+    47.12 -> available as ms(4) -> 47px
+    65.09 -> available as ms(5) -> 65px -> width of space between primary and secondary columns
+    76.25 -> available as ms(6) -> 76px
+    105.32 -> available as ms(7) -> 105px
+    123.37 -> available as ms(8) -> 123px
+    170.4 -> available as ms(9) -> 170px
+    199.62 -> available as ms(10) -> 200px
+    275.72 -> available as ms(11) -> dropdown login form width
+    322.99 -> available as ms(12) -> sidebar width
+    446.13 -> available as ms(13)
+    522.61-> available as ms(14)
+    721.86-> available as ms(15)
+    845.6 -> available as ms(16) -> main column width
+    1168 -> available as ms(17) -> total width
+    1368.21- available as ms(18)
+    2213.8- available as ms(19)
+

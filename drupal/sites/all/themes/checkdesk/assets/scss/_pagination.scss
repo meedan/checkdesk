@@ -1,4 +1,23 @@
 
-ul.pager li {
-  @include building-block($grey);
-}
+ul.pager { 
+  @include border-radius(3px);
+  
+  li:last-child {
+    border-#{$from-direction}-width: 0;
+  }
+  li {
+    font-family: $sans-font-family;
+    font-size: $large-font-size;
+    border-#{$from-direction}: 1px solid $grey;
+    a { 
+      @include building-block($black);
+      padding: $base-font-size; 
+      color: $identity;
+    }
+    &.pager-current {
+      @include building-block($identity);
+      color: black;
+      padding: $base-font-size; // hack ... the markup is uneven
+    }
+  }
+}  

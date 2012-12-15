@@ -1,0 +1,50 @@
+// The report filters
+// Views filter
+// .views-filters form .views-exposed-form .views-exposed-widgets #edit-title-wrapper
+@mixin reports-filter($w) {
+  // 1. Rerender form layout
+  form {
+    @include span-columns($w omega, $w);
+    // All of the filters in the reports sidebar
+    
+    // Default views settings are in views.scss
+    .views-exposed-widget {
+      @include span-columns($w, $w);
+      border-bottom: 1px solid gold;
+
+      & > #edit-title-wrapper {
+        input.form-autocomplete {
+          background-image: none; // Remove the drupal autocomplete image
+          border-color: 1px solid $syntax-three;
+        }
+      }
+
+      & > #edit-field-rating-tid-wrapper {
+
+      }
+
+      & > #edit-source-wrapper {
+
+      }
+    }
+
+    .form-item {
+      padding-top: ms(-4);
+      padding-bottom: ms(-4);
+      margin-bottom: ms(-3);
+      @include span-columns($w, $w, $gw);
+      & > label { 
+        font-size: 10px;
+        padding-bottom: ms(-5);
+        font-weight: 700;
+      }
+      &:hover {
+        background-color: rgba(black, 0.075);
+      }
+    }
+  }
+
+  .view-desk-reports {
+    @include span-columns($w, $w);
+  }
+}

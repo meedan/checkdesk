@@ -1,0 +1,95 @@
+// Page with a sidebar
+// Implementations: The create update page
+//
+// By default, there is only one column.
+// In larger breakpoints the $w and $sw diverge for two columns.
+
+$w: $cw !default; // main column width
+$sw: $cw !default; // sidebar width
+
+body.sidebar-first {
+  #main {
+    // 2. The sidebar column
+    #sidebar-first.column {
+      @include clearfix;
+      position: relative;
+      z-index: 0;
+      @include box-shadow($grey 2px -1px 4px);
+      @include span-columns($sw, $cw);
+      #sidebar-first-inner {
+        @include span-columns($sw, $sw);
+        .views-filters { 
+          @include reports-filter($sw); 
+        }
+      }
+    }
+
+    // 3. The primary content column
+    div#content .inner {
+      @include span-columns($sw, $cw);
+      @include omega;
+
+      h1.title {
+        font-size: ms(5);
+        line-height: ms(5);
+        display: inline-block;
+        @include span-columns($w, $cw);
+        padding-bottom: ms(0);
+      }
+      
+      // The main post form
+      #block-checkdesk-core-post {
+        background: white;
+        border-top: 1px solid rgba(black, 0.2);
+        border-#{$from-direction}: 1px solid rgba(black, 0.1);
+        margin-#{$from-direction}: gutter($w) * -1; // counteract gutter
+        position: realtive;
+        z-index: -1;
+
+        @include span-columns($w, $cw);
+        form {
+          @include span-columns($w, $cw);
+          padding-#{$from-direction}: ms(5);
+        }
+      }
+
+      // "Published" updates
+      #block-views-desk-updates-block {
+        margin-top: $base-font-size;
+        background: white;
+        padding: $gw; // children are no longer aligned to grid ...
+      }
+    }
+  }
+}
+
+// ==========================================================================
+// Breakpoint: small
+@include at-breakpoint($break-small) {
+  $break-small-sidebar: 4;
+  // Sidebar
+  body.sidebar-first {
+    #sidebar-first.column {
+      @include span-columns($break-small-sidebar, $cw);
+      margin-top: ms(5);
+      #sidebar-first-inner {
+        // add padding
+        @include span-columns($break-small-sidebar, $break-small-sidebar);
+        form {
+          @include span-columns($break-small-sidebar, $break-small-sidebar);
+        }
+      }
+    }
+
+    // Main column
+    div#content .inner {
+      @include span-columns($break-small, $break-small);
+      #block-checkdesk-core-post {
+        padding-#{$from-direction}: ms(5); // add special padding
+        form {
+          @include span-columns($break-small, $break-small);
+        }
+      }
+    }
+  }
+}

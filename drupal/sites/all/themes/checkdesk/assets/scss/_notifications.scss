@@ -107,16 +107,17 @@
 
 // Expanded block
 #block-views-my-notifications-block.notifications-block-expanded {
+  position: relative;
   .content {
     @include reset-box-model;
     position: absolute;
     z-index: $zindexPopover;
     width: $notification-dropdown-width;
-    @include box-shadow(1px 10px 10px #333);
+    @include box-shadow(1px 10px 10px $light-grey);
     @include border-radius(5px);
     border: 1px solid $grey;
-    #{$from-direction}: - ($notification-dropdown-width - $notification-button-width);
-    top: - $base-line-height;
+    #{opposite-position($from-direction)}: $notification-button-width;
+    top: 0;
     background: $light-grey;
     
     @if $from-direction == left {
@@ -157,13 +158,14 @@
       clear: both;
     }
   }
-}
-::-webkit-scrollbar {
-  width: 9px;
-}
-::-webkit-scrollbar-track {
-  background: #fefefe;
-}
-::-webkit-scrollbar-thumb {
-  background: #eee;
+
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #fefefe;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #eee;
+  }
 }

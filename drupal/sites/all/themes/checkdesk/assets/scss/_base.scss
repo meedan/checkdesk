@@ -18,26 +18,27 @@
 // Typography configuration 
 //
 // See also: typography.scss - sitewide typography styles
-// See also: override_ctb/type.css - slight fork of twitter bootstrap type.less
 $sans-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$serif-font-family: Merriweather Georgia, "Times New Roman", Times, serif;
+$serif-font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
 $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 
 // Modular scale setup
 // Two scales at 1:1.61803
 // http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
 // All of these numbers are based on 18 base font size and 1168 outer container
+// Now you can do this to see the scale values (px)
+// @for $i from -2 through 3 {  @debug ms($i); }
 $base-size: 18px 1168px;
 $ratio: golden();
 $round_pixels: true;
 
 // Typography
-$smallest-font-size: ms(-2);
-$small-font-size: ms(-1);
-$base-font-size: ms(0);
-$large-font-size: ms(1);
-$x-large-font-size: ms(2);
-$xx-large-font-size: ms(3);
+$smallest-font-size: ms(-2); // 7px
+$small-font-size: ms(-1); // 11px
+$base-font-size: ms(0); // 18px  <-- this is the most important value
+$large-font-size: ms(1); // 25px
+$x-large-font-size: ms(2); // 29px
+$xx-large-font-size: ms(3); // 40px
 
 // Set initial baseline configuration
 $base-line-height: 1.2;
@@ -63,10 +64,11 @@ $base-line-height: 1.2;
 // Further reading: http://susy.oddbird.net
 //
 
-// The key variable: columns count for a grid
-$container-width: 8; // Small initial container
-$break-small: 12; // column breakpoint - at the equivalent of fullsize grid units
-$break-medium: 24; // column breakpoint - at the equivalent of fullsize grid units
+// Columns count and breakpoints
+$container-width: 8;
+$break-small: $container-width + 4; 
+$break-medium: $break-small + 4;
+$break-large: $break-medium + 4;
 
 // Checkdesk layout sections
 $total-width: $container-width; // Alias for Chris
@@ -80,13 +82,18 @@ $input-width: ($form-width - $label-width); // The remaining fraction of the for
 $gutter-width: ms(-1); // The distance between grid columns
 // We set the column width equal to the gutter, and equal to the grid padding
 $column-width: ms(2); // The width of columns
-$grid-padding: ms(-1); // The padding on the sides of the out <container>
+$grid-padding: 0; // The padding on the sides of the out <container>
 
 // Susy container style, For more information: `gem unpack susy`
 $container-style: magic;
 
 // Navigation
 $nav-width: $container-width;
+
+$nav-font-size: 15px;
+$nav-icon-height: 15px;
+$nav-line-height: $nav-icon-height;
+$nav-height: $nav-icon-height + 7*2;
 
 // A single Report
 $report-width: $container-width - 2;
@@ -101,58 +108,25 @@ $lw: $label-width;
 $rw: $report-width;
 $nw: $nav-width;
 
-@debug "$gw is #{$gw}";
-
 // Typography for <form> elements
 $form-helper-text-size: $small-font-size;
 $notification-width: 5;
 $notification-icon-size: $base-font-size;
 $notification-image-width: 5%;
+$radios-widths: $fw - 2;
+
+// heartbeat icon integration
 $icon-selector: '.heartbeat-time-ago';
 $i-s: $icon-selector;
-$icon-word-padding: 2.5%;
 
-$radios-widths: $fw - 2;
+// in icon()
+$icon-word-padding: 2.5%;
 
 // Notifications
 $notification-dropdown-width: ms(11);
 $notification-button-width: ms(9);
 
-// Based on the following scale of units: 
-// When possible units should appear exactly as they apper
-// Usually they can be rounded 
-// The key values are 18 and 1168
-// 0.86
-// 1.0 
-// 1.62 The golden mean 
-// 1.39
-// 2.24
-// 2.63
-// 3.63
-// 4.25
-// 5.87
-// 6.88 
-// 9.5
-// 11.12 - small-font-size and $gutter-width or $gw
-// 15.36 - navigation font size
-// 18 - based font size *** 1 : 0.61803
-// 24.86
-// 29.12
-// 40.23
-// 47.12
-// 65.09 width of space between primary and secondary columns
-// 76.25
-// 105.32
-// 123.37
-// 170.4
-// 199.62
-// 275.72 - dropdown login form width
-// 322.99 - sidebar width
-// 446.13
-// 522.61
-// 721.86
-// 845.6 - main column width
-// 1168 - total width
-// 1368.21
-// 2213.8
+// default sidebar width
+$sidebar-width: 4;
 
+$text-color: black;

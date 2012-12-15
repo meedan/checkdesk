@@ -12,19 +12,19 @@
   $nav-active-bkg-color: $nav-active-bkg-color,
   $nav-color: $nav-color,
   $nav-active-color: $nav-active-color,
-  $base-font-size: $small-font-size,
+  $base-font-size: $nav-font-size,
   $radius: 0) 
   {
   @include reset-box-model;
   display: inline-block;
   float: $from-direction;
-  line-height: $base-line-height;
-  font-size: $base-font-size;
+  line-height: $nav-height;
+  font-size: $nav-icon-height;
   background-color: $nav-bkg-color;
   color: $nav-color;
   font-weight: normal;
   position: relative;
-  z-index: $zindexDropdown; 
+  z-index: $zindexDropdown - 1; 
   font-size: $base-font-size;
   padding: ms(-1);
   & > a {
@@ -58,4 +58,25 @@
   }
 
   @content
+}
+
+
+// Layout Helper: Ensure padding is accounted for.
+@mixin span-padded-columns(
+  $width: $container-width, 
+  $context: $container-width, 
+  $from-pad: 0, 
+  $to-pad: 0) {
+
+  $total-pad: $from-pad + $to-pad;
+  $adjusted-width: $width - $total-pad; // will prune the 'omega' shorthand ...
+
+  // Apply the adjusted width ...
+  @include span-columns($adjusted-width, $context);
+
+  // And add the padding
+  @include pad($from-pad, $to-pad, $context);
+
+  // optionally call with omega
+  @content;
 }

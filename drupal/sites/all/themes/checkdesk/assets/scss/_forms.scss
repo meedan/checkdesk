@@ -1,230 +1,232 @@
-// For testing
-// $from-direction: right;
-//
-// This is deprecated, just use span($width, $width)
-@mixin full($width) {
-  @include span-columns($width, $width);
-}
 
-// Item lists
-// Reset password
-@mixin checkdesk-form-item-list($width, $context) {
-  @include span-columns($width, $context);
-  a {  color: $dark-grey;  }
-  li {
-    @include reset-box-model;
-    @include reset-list-style;
+// Form Actions
+//
+@mixin form-actions {
+  // Form Actions
+  // Main submit button
+  .form-actions {
+    @include clearfix;
+    @include span-columns($cw, $cw, $gw/2); // end of grid
+
+    // Form actions: buttons and anchors
+    input, a {
+      @include checkdesk-button;
+      margin-#{opposite-position($from-direction)}: $base-font-size!important;
+      margin-#{$from-direction}: $base-font-size;
+    }
+  }
+
+  // All Submit buttons, seven if they arent in form-actions ...
+  input[type="submit"] {
+    @include checkdesk-button($twitter-blue);
+    margin: ms(-2);
+  }
+
+  input#edit-reset, 
+  input#edit-draft {
+    @include checkdesk-button(lighten($dark-grey, 15%));
+    margin: ms(-2);
   }
 }
 
 
-// Form items in a form
+// In addition to our use of normalize, and other resets, 
+// This standardizes form elements
 //
-// $width- form width
-// $context - size of containing element
-//
-// Compatibility: untested
-@mixin checkdesk-form-item($width: $form-width, $context: $cw, $gw: $gw) {
-
-  .form-item-name ~ .item-list {
-    // Forgot password and create new account <.item-list>s
-    @include checkdesk-form-item-list($width, $context);
+@mixin form-reset {
+  
+  label, input, button, select, textarea {
+    font-size: $base-font-size;
   }
 
-  textarea {
-    height: 100px;
+  input, button, select, textarea {
+    font-family: $sans-font-family;
   }
 
-  // All form items
-  .form-item {
-    @include reset-box-model;
-    @include span-columns($width, $width);
-    clear: both;
+  label {
     display: block;
-    
-    .form-item { // Nested <.form-item>s
-      @include reset-box-model;
-      @include span-columns($width, $width);
+    margin-bottom: ms(-2);
+  }
+
+  select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    display: inline-block;
+    height: $baseLineHeight;
+    margin-bottom: ms(-2);
+    font-size: $base-font-size;
+    line-height: $base-line-height;
+    color: $gray;
+    @include border-radius(4px);
+    vertical-align: middle;
+  }
+
+  input, textarea, .uneditable-input { 
+    width: ms(8); // legacy default width overridden in post-1996 selectors below
+  }
+
+  textarea { 
+    height: auto; 
+  }
+
+  // Everything else
+  textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    background-color: $input-background;
+    border: 1px solid $inputBorder;
+    @include box-shadow(rgba($black, .075) 0 1px 1px inset);
+    @include ctb-transition(#{border linear .2s, box-shadow linear .2s});
+
+    // Focus state
+    &:focus {
+      border-color: rgba($facebook-blue,.8);
+      outline: 0;
+      outline: thin dotted \9; /* IE6-9 */
+      // @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)});
     }
+  }
 
-    input, 
-    textarea {
-      @include reset-box-model;
-      @include span-columns($width, $width, $gw);
-      @include border-radius(3px);
+  // Position radios and checkboxes better
+  input[type="radio"], input[type="checkbox"] {
+    margin: ms(-2) 0 0;
+    *margin-top: 0; /* IE7 */
+    margin-top: 1px \9; /* IE8-9 */
+    line-height: normal;
+    cursor: pointer;
+  }
 
+  // Reset width of input images, buttons, radios, checkboxes
+  input[type="file"], input[type="image"], input[type="submit"], input[type="reset"], input[type="button"], input[type="radio"], input[type="checkbox"] {
+    width: auto; // Override of generic input selector
+  }
 
-      @debug ms(-1);
-      @debug ms(-2);
-      @debug ms(-3);
-      @debug ms(-4);
-      @debug ms(-5);
-      @debug ms(-6);
-      @debug ms(-7);
-      @debug ms(-8);
+  // Make select elements obey height by applying a border
+  select {
+    width: 220px; // default input width + 10px of padding that doesn't get applied
+    border: 1px solid $inputBorder;
+    background-color: $input-background; // Chrome on Linux and Mobile Safari need background-color
+  }
 
-      padding-top: ms(1);
+  // Make multiple select elements height not fixed
+  select[multiple], select[size] {height: auto; }
 
-      // Border transition on inputs
-      border: 1px solid $grey;
-      @include bb-transition($grey, $dark-grey, '0.2s', 'border-color');
-
-      &:hover {
-        border: 1px solid $grey;
-      }
-
-      @include bb-transition($grey, $black, '0.2s', 'border-color') {
-        &:focus { border: 1px solid $darker-grey; }
-      }
-    }
-
-    label {
-      @include reset-box-model;
-      font-size: $large-font-size;
-      display: block;
-      font-weight: normal;
-      padding-top: ms(1);
-      padding-bottom: ms(-5);
-    }
-
-    .description {
-      @include reset-box-model;
-      clear: $from-direction;
-      font-size: $form-helper-text-size;
-      // hidden by default, displayed at larger breakpoints
-      // display: block;
-      display: none;
-    }
+  // Focus for select, file, radio, and checkbox
+  select:focus, input[type="file"]:focus, input[type="radio"]:focus, input[type="checkbox"]:focus {
+    @include ctb-tab-focus();
   }
 }
 
-// Basics for all checkdesk forms
+// ============================================================================
+// The forms 
 //
-// $width - form width
-// $context - size of containing element
-//
-// Compatibility: untested
-@mixin checkdesk-form(
-  $width: $form-width, 
-  $context: $container-width, 
-  $radios-width: $width) {
-    
-  // The forms 
-  //
-  form {
-    // background-color: rgba(white, 0.9);
-    margin-top: $gw;
-    padding-top: $gw;
+form {
+  @include form-reset;
+  @include form-actions;
+  @include span-columns($cw, $cw);
 
-    // Use content blocks to set the width
-    @content;
+  & > .form-item {
+    @include span-columns($cw, $cw);
+    font-size: $small-font-size;
+    color: $dark-grey;
+    background: rgba($light-grey, 0.5);
+    margin-bottom: 2px;
+    display: block;
+    padding-bottom: $gw;
+    float: $from-direction;
+    padding-top: ms(0);
 
-    // The first form item
-    & > div > .form-item:first-of-type {
-      @include border-top-radius(5px);
+    // Nested <.form-item>s
+    .form-item { 
+      @include span-columns($cw, $cw);  
     }
+  } 
 
-    // Form Radios
-    // http://checkdesk:8888/node/add/media
-    .form-type-radios {
-      .form-item {
-        background: rgba($light-grey, 0.5);
-        margin-bottom: 2px;
-        @include span-columns($radios-width, $width);
+  // Default inputs and textareas
+  input,
+  textarea {
+    @include span-columns($cw, $cw);
+    @include border-radius(3px);
+    padding: ms(-3);
+    margin-bottom: ms(-3);
+    background-color: $input-background;
+  }
 
-        input.form-radio {
-          @include reset-box-model;
-          @include span-columns(1, $radios-width);
-        }
+  // Default labels
+  label {
+    font-size: $large-font-size;
+    display: block;
+    font-weight: normal;
+    padding-top: ms(1);
+    padding-bottom: ms(-5);
+  }
 
-        label.option {
-          @include span-columns($radios-width - 1 omega, $radios-width);
-          font-size: $base-font-size;
-          @include reset-box-model;
-        }
-      }
-    }
+  // Default descriptions
+  .description {
+    clear: $from-direction;
+    font-size: $form-helper-text-size;
+    display: none; // displayed at larger breakpoints
+  }
 
-    // Form Actions
-    // Main submit button
-    .form-actions {
-      @include reset-box-model;
-      @include clearfix;
-      @include span-columns($width, $context, $gw/2);
-      // Form actions: buttons and anchors
-      input, a {
-        @include reset-box-model;
-        @include checkdesk-button;
-        margin-#{opposite-position($from-direction)}: $base-font-size!important;
-        margin-#{$from-direction}: $base-font-size;
-      }
+  // Form textareas, basic inputs
+  textarea, 
+  input {
+    background-color: $input-background;
+    border: 1px solid $grey;
 
-      // Form actions: Submit buttons
-      input[type="submit"] {
-        @include checkdesk-button($twitter-blue);
-        margin: ms(-2);
-        &#edit-draft {
-          @include checkdesk-button($grey);
-        }
-      }
-      input[type="text"] {
-        @include span-columns(1, $width);
-      }
-    }
-
-    // Confirmation Form Actions: Confirm delete node
-    &.confirmation {
-      .form-actions input {
-          @include checkdesk-button($firetruck-red); // Red delete button
-      }
-    }
-
-    // Form items
-    .form-item {
-      font-size: $small-font-size;
-      color: $dark-grey;
-      background: rgba($light-grey, 0.5);
-      margin-bottom: 2px;
-      @include span-columns($width, $width, $gw);
-      padding-bottom: $gw;
-    }
-
-    // Form checkboxes
-    .form-type-checkbox {
-      @include reset-box-model;
-      @include full($width);
-
-      // The checkbox
-      input.form-checkbox {
-        @include inline-block;
-        padding: $gw;
-        width: $gw;
-      } 
-
-      // Checkbox label
-      label.option {
-        line-height: 1.3;
-        @include reset-box-model;
-        @include inline-block;
-        clear: none;
-        float: left;
-      }
-    }
-
-    // Form textareas, basic inputs
-    textarea, input {
-      background-color: $inputBackground;
-      border: 1px solid $inputBorder;
-      // @include ctb-box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
-      // @include ctb-transition(#{border linear .2s, box-shadow linear .2s});
-
-      // Focus state
-      &:focus {
-        border-color: rgba($donjuan, .8);
-        outline: 0;
-        outline: thin dotted \9; /* IE6-9 */
-        @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($donjuan, .6)});
-      }
+    // Focus state
+    &:focus {
+      border-color: rgba($donjuan, .8);
+      outline: 0;
+      outline: thin dotted \9; /* IE6-9 */
+      @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($donjuan, .6)});
     }
   }
+
+  // Radios and Checkboxes
+  input[type="radio"], 
+  input[type="checkbox"] {
+    width: ms(3);
+    height: ms(3);
+    margin: 0;
+    display: block;
+    float: $from-direction;
+  }
+
+  input[type="radio"] + label,
+  input[type="checkbox"] + label, {
+    display: inline-block;
+    padding: 0;
+    line-height: ms(3);
+    background-color: pink;
+  }
+
+  // Confirmation Form Actions: Confirm delete node
+  &.confirmation {
+    .form-actions input {
+        @include checkdesk-button($firetruck-red); // Red delete button
+    }
+  }
+
+  // Form checkboxes
+  .form-type-checkbox {
+    @include reset-box-model;
+    @include span-columns($cw, $cw);
+
+    // The checkbox
+    input.form-checkbox {
+      @include inline-block;
+      padding: $gw;
+      width: $gw;
+    } 
+
+    // Checkbox label
+    label.option {
+      line-height: 1.3;
+      @include reset-box-model;
+      @include inline-block;
+      clear: none;
+      float: $from-direction;
+    }
+  }
+
+  @include at-breakpoint($break-small) {}
+  @include at-breakpoint($break-medium) {}
+  @include at-breakpoint($break-large) {}
 }
