@@ -4,14 +4,12 @@
 // Alerts appear for many kinds of notifications and errors
 // We establish the basic alert and then alternates.
 .alert {
-  padding: $baseLineHeight/2 $gw $baseLineHeight $gw;
-  margin-bottom: $gw;
-  text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  padding: $baseLineHeight/3 $gw $baseLineHeight/2 $gw;
+  margin-bottom: $baseLineHeight;
   background-color: $warningBackground;
-  border: { top: 1px solid $grey; bottom: 1px solid $grey; }
-  color: $dark-grey;
-  font-size: $smallest-font-size;
-  background-color: $light-grey;
+  border: 1px solid $warningBorder;
+  color: $warningText;
+  font-size: $base-font-size;
   @include border-radius($baseBorderRadius);
   // sometimes errors are extremeley large, thus:
   @include transition-property(height);
@@ -38,8 +36,8 @@
   }
 }
 
-.messages h4 {
-  margin: 0;
+.alert h4 {
+  margin: 0 0 $baseLineHeight/3 0;
 }
 
 // Unnecessary in our layout. 
@@ -67,7 +65,7 @@
   border-color: transparent;
   color: white;
 }
-.alert-status {
+.alert-status, .alert-info {
   background-color: $infoBackground;
   border-color: $infoBorder;
   color: $infoText;
@@ -81,8 +79,8 @@
 // -------------------------
 
 .alert-block {
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: $baseLineHeight/2;
+  padding-top: $baseLineHeight/2;
 }
 .alert-block > p,
 .alert-block > ul {

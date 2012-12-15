@@ -1724,15 +1724,12 @@ body.page-node-add .node-form .form-item-title label:before {
 
 /* line 6, ../scss/override_ctb/_alerts.scss */
 .alert {
-  padding: 0.6em 1em 1.2em 1em;
-  margin-bottom: 1em;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  padding: 0.4em 1em 0.6em 1em;
+  margin-bottom: 1.2em;
   background-color: #fcf8e3;
-  border-top: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
-  color: #d0d0d0;
-  font-size: 0.6em;
-  background-color: #eeeeee;
+  border: 1px solid #fbeed5;
+  color: #c09853;
+  font-size: 1em;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -1751,12 +1748,12 @@ body.page-node-add .node-form .form-item-title label:before {
   -o-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
 }
-/* line 20, ../scss/override_ctb/_alerts.scss */
+/* line 18, ../scss/override_ctb/_alerts.scss */
 .alert:hover {
   height: auto;
 }
 
-/* line 25, ../scss/override_ctb/_alerts.scss */
+/* line 23, ../scss/override_ctb/_alerts.scss */
 .alert .close {
   float: right;
   font-size: 1em;
@@ -1767,7 +1764,7 @@ body.page-node-add .node-form .form-item-title label:before {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
   opacity: 0.2;
 }
-/* line 33, ../scss/override_ctb/_alerts.scss */
+/* line 31, ../scss/override_ctb/_alerts.scss */
 .alert .close:hover {
   color: black;
   text-decoration: none;
@@ -1776,19 +1773,19 @@ body.page-node-add .node-form .form-item-title label:before {
   opacity: 0.4;
 }
 
-/* line 41, ../scss/override_ctb/_alerts.scss */
-.messages h4 {
-  margin: 0;
+/* line 39, ../scss/override_ctb/_alerts.scss */
+.alert h4 {
+  margin: 0 0 0.4em 0;
 }
 
-/* line 59, ../scss/override_ctb/_alerts.scss */
+/* line 57, ../scss/override_ctb/_alerts.scss */
 .alert-success {
   background-color: #dff0d8;
   border-color: #d6e9c6;
   color: #468847;
 }
 
-/* line 65, ../scss/override_ctb/_alerts.scss */
+/* line 63, ../scss/override_ctb/_alerts.scss */
 .alert-danger,
 .alert-error {
   background-color: black;
@@ -1796,31 +1793,31 @@ body.page-node-add .node-form .form-item-title label:before {
   color: white;
 }
 
-/* line 70, ../scss/override_ctb/_alerts.scss */
-.alert-status {
+/* line 68, ../scss/override_ctb/_alerts.scss */
+.alert-status, .alert-info {
   background-color: #d9edf7;
   border-color: #bce8f1;
   color: #3a87ad;
 }
 
-/* line 83, ../scss/override_ctb/_alerts.scss */
+/* line 81, ../scss/override_ctb/_alerts.scss */
 .alert-block {
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 0.6em;
+  padding-top: 0.6em;
 }
 
-/* line 88, ../scss/override_ctb/_alerts.scss */
+/* line 86, ../scss/override_ctb/_alerts.scss */
 .alert-block > p,
 .alert-block > ul {
   margin-bottom: 0;
 }
 
-/* line 91, ../scss/override_ctb/_alerts.scss */
+/* line 89, ../scss/override_ctb/_alerts.scss */
 .alert-block p + p {
   margin-top: 5px;
 }
 
-/* line 100, ../scss/override_ctb/_alerts.scss */
+/* line 98, ../scss/override_ctb/_alerts.scss */
 .close {
   float: right;
   font-size: 20px;
@@ -1831,7 +1828,7 @@ body.page-node-add .node-form .form-item-title label:before {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
   opacity: 0.2;
 }
-/* line 108, ../scss/override_ctb/_alerts.scss */
+/* line 106, ../scss/override_ctb/_alerts.scss */
 .close:hover {
   color: black;
   text-decoration: none;
@@ -1840,7 +1837,7 @@ body.page-node-add .node-form .form-item-title label:before {
   opacity: 0.4;
 }
 
-/* line 119, ../scss/override_ctb/_alerts.scss */
+/* line 117, ../scss/override_ctb/_alerts.scss */
 button.close {
   padding: 0;
   cursor: pointer;
@@ -1849,7 +1846,7 @@ button.close {
   -webkit-appearance: none;
 }
 
-/* line 130, ../scss/override_ctb/_alerts.scss */
+/* line 128, ../scss/override_ctb/_alerts.scss */
 #absolute-messages-messages {
   width: 100%;
   position: absolute;
@@ -1858,17 +1855,17 @@ button.close {
   z-index: 10;
 }
 
-/* line 139, ../scss/override_ctb/_alerts.scss */
+/* line 137, ../scss/override_ctb/_alerts.scss */
 .toolbar #absolute-messages-messages {
   top: 65px;
 }
 
-/* line 143, ../scss/override_ctb/_alerts.scss */
+/* line 141, ../scss/override_ctb/_alerts.scss */
 .toolbar-drawer #absolute-messages-messages {
   top: 98px;
 }
 
-/* line 147, ../scss/override_ctb/_alerts.scss */
+/* line 145, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message {
   display: none;
   position: relative;
@@ -1878,12 +1875,12 @@ button.close {
   zoom: 1;
 }
 
-/* line 156, ../scss/override_ctb/_alerts.scss */
+/* line 154, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message.collapsible:hover {
   cursor: pointer;
 }
 
-/* line 159, ../scss/override_ctb/_alerts.scss */
+/* line 157, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message .content {
   margin: 0;
   padding: .5em 1.5em 0 1.5em;
@@ -1891,56 +1888,56 @@ button.close {
   overflow: hidden;
 }
 
-/* line 165, ../scss/override_ctb/_alerts.scss */
+/* line 163, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message .content a {
   text-decoration: underline;
 }
 
-/* line 168, ../scss/override_ctb/_alerts.scss */
+/* line 166, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status {
   background-color: #d9edf7;
   border-bottom: 1px solid #bce8f1;
   color: #3a87ad;
 }
 
-/* line 174, ../scss/override_ctb/_alerts.scss */
+/* line 172, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status a:link,
 .absolute-messages-status a:visited {
   color: #3a87ad;
 }
 
-/* line 177, ../scss/override_ctb/_alerts.scss */
+/* line 175, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning {
   background-color: #fcf8e3;
   border-bottom: 1px solid #fbeed5;
   color: #c09853;
 }
 
-/* line 183, ../scss/override_ctb/_alerts.scss */
+/* line 181, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning a:link,
 .absolute-messages-warning a:visited {
   color: #c09853;
 }
 
-/* line 186, ../scss/override_ctb/_alerts.scss */
+/* line 184, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error {
   background-color: #f2dede;
   border-bottom: 1px solid #eed3d7;
   color: #b94a48;
 }
 
-/* line 192, ../scss/override_ctb/_alerts.scss */
+/* line 190, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error a:link,
 .absolute-messages-error a:visited {
   color: #b94a48;
 }
 
-/* line 195, ../scss/override_ctb/_alerts.scss */
+/* line 193, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-actions {
   float: right;
 }
 
-/* line 201, ../scss/override_ctb/_alerts.scss */
+/* line 199, ../scss/override_ctb/_alerts.scss */
 a.absolute-messages-dismiss,
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss:hover,
@@ -1957,22 +1954,22 @@ a.absolute-messages-dismiss-all:hover {
   cursor: pointer;
 }
 
-/* line 213, ../scss/override_ctb/_alerts.scss */
+/* line 211, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status .absolute-messages-dismiss {
   color: #3a87ad;
 }
 
-/* line 216, ../scss/override_ctb/_alerts.scss */
+/* line 214, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning .absolute-messages-dismiss {
   color: #c09853;
 }
 
-/* line 219, ../scss/override_ctb/_alerts.scss */
+/* line 217, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error .absolute-messages-dismiss {
   color: #b94a48;
 }
 
-/* line 223, ../scss/override_ctb/_alerts.scss */
+/* line 221, ../scss/override_ctb/_alerts.scss */
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss-all:hover {
   border: 2px solid #222;
@@ -1980,7 +1977,7 @@ a.absolute-messages-dismiss-all:hover {
   color: #ccc;
 }
 
-/* line 228, ../scss/override_ctb/_alerts.scss */
+/* line 226, ../scss/override_ctb/_alerts.scss */
 #absolute-messages-show {
   display: none;
   position: absolute;
@@ -1997,7 +1994,7 @@ a.absolute-messages-dismiss-all:hover {
   z-index: 1;
 }
 
-/* line 243, ../scss/override_ctb/_alerts.scss */
+/* line 241, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-show {
   display: block;
   width: 16px;
@@ -2008,7 +2005,7 @@ a.absolute-messages-dismiss-all:hover {
 }
 
 /* And for Opera too. Ugh. */
-/* line 252, ../scss/override_ctb/_alerts.scss */
+/* line 250, ../scss/override_ctb/_alerts.scss */
 noindex:-o-prefocus, .absolute-messages-show {
   border-left: 1px solid #666;
   border-bottom: 1px solid #666;
@@ -5781,7 +5778,7 @@ body ul.tabs.primary li a:hover {
 }
 /* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 body ul.tabs.primary li a.active {
-  background-color: #FF9D00;
+  background-color: #0088FF;
   color: rgba(0, 0, 0, 0.8);
 }
 /* line 33, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
