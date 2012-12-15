@@ -127,7 +127,11 @@ class context_reaction_menu extends context_reaction {
     }
 
     // Build the links requested
-    $links = menu_navigation_links($menu_name, $level);
+    if (module_exists('i18n_menu')) {
+      $links = i18n_menu_navigation_links($menu_name, $level);
+    } else {
+      $links = menu_navigation_links($menu_name, $level);
+    }
 
     // Repair and get out
     menu_set_active_item($original_path);

@@ -294,12 +294,17 @@ function date_field_widget_info() {
       'field types' => array('date', 'datestamp', 'datetime'),
      ) + $settings,
   );
+
   if (module_exists('date_popup')) {
     $info['date_popup'] = array(
       'label' =>  t('Pop-up calendar'),
       'field types' => array('date', 'datestamp', 'datetime'),
     ) + $settings;
   }
+
+  // The date text widget should use an increment of 1.
+  $info['date_text']['increment'] = 1;
+
   return $info;
 }
 

@@ -117,6 +117,7 @@ class context_reaction_block extends context_reaction {
     drupal_add_library('system', 'ui.droppable');
     drupal_add_library('system', 'ui.sortable');
     drupal_add_js(drupal_get_path('module', 'context_ui') . '/json2.js');
+    drupal_add_js(drupal_get_path('module', 'context_ui') . '/theme/filter.js');
     drupal_add_js(drupal_get_path('module', 'context') . '/plugins/context_reaction_block.js');
     drupal_add_css(drupal_get_path('module', 'context') . '/plugins/context_reaction_block.css');
 
@@ -124,7 +125,7 @@ class context_reaction_block extends context_reaction {
     static $once;
     if (!isset($once)) {
       $settings = array(
-        'path' => url($_GET['q']),
+        'path' => drupal_is_front_page() ? base_path() : url($_GET['q']),
         'params' => (object) array_diff_key($_GET, array('q' => '')),
         'scriptPlaceholder' => theme('context_block_script_placeholder', array('text' => '')),
       );
@@ -297,7 +298,7 @@ class context_reaction_block extends context_reaction {
    * Add markup for making a block editable.
    */
   protected function editable_block($block) {
-    if (!empty($block->content['#markup']) || element_children($block->content)) {
+    if (!empty($block->content)) {
       $block->content = array(
         'content' => $block->content,
         'context' => array('#markup' => "<a id='context-block-{$block->module}-{$block->delta}' class='context-block editable edit-{$block->context}'></a>"),
@@ -307,6 +308,12 @@ class context_reaction_block extends context_reaction {
         $block->content['#contextual_links'] = $block->content['content']['#contextual_links'];
         unset($block->content['content']['#contextual_links']);
       }
+    }
+    else {
+      // the block alter in context.module should ensure that blocks are never
+      // empty if the inline editor is present but in the case that they are,
+      // warn that editing the context is likely to cause this block to be dropped
+      drupal_set_message(t('The block with delta @delta from module @module is not compatible with the inline editor and will be dropped from the context containing it if you edit contexts here', array('@delta' => $block->delta, '@module' => $block->module)), 'warning');
     }
     return $block;
   }
@@ -323,8 +330,17 @@ class context_reaction_block extends context_reaction {
       global $theme;
       $regions = system_region_list($theme);
       $name = isset($regions[$region]) ? $regions[$region] : $region;
-      $build['context']['#markup'] = "<a class='context-block-region' id='context-block-region-{$region}'>{$name}</a>";
+      // The negative weight + sorted will push our region marker to the top of the region
+      $build['context'] = array(
+        '#prefix' => "<div class='context-block-region' id='context-block-region-{$region}'>",
+        '#markup' => "<span class='region-name'>{$name}</span>" .
+                     "<a class='context-ui-add-link'>" . t('Add a block here.') . '</a>',
+        '#suffix' => '</div>',
+        '#weight' => -100,
+      );
+      $build['#sorted'] = FALSE;
     }
+
     return $build;
   }
 
@@ -496,14 +512,15 @@ class context_reaction_block extends context_reaction {
       // Gather only region info from the database.
       if (module_exists('block')) {
         $result = db_select('block')
-          ->fields('block', array('module', 'weight', 'delta', 'region', 'title'))
+          ->fields('block')
           ->condition('theme', $theme_key)
           ->execute();
         foreach ($result as $row) {
           if (isset($block_info["{$row->module}-{$row->delta}"])) {
-            $block_info["{$row->module}-{$row->delta}"]->weight = $row->weight;
-            $block_info["{$row->module}-{$row->delta}"]->region = $row->region;
-            $block_info["{$row->module}-{$row->delta}"]->title = $row->title;
+            $block_info["{$row->module}-{$row->delta}"] = (object) array_merge((array) $row, (array) $block_info["{$row->module}-{$row->delta}"]);
+            unset($block_info["{$row->module}-{$row->delta}"]->status);
+            unset($block_info["{$row->module}-{$row->delta}"]->visibility);
+            unset($block_info["{$row->module}-{$row->delta}"]->cache);
           }
         }
       }
