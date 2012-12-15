@@ -155,34 +155,36 @@ function checkdesk_preprocess_node(&$variables) {
       '<time class="time-ago" pubdate datetime="'. format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP') .'">' .
       format_interval(time()-$variables['created']) . t(' ago') .'</time>';
     //Add activity report with status
-    $view = views_get_view('activity_report');
-    $view->set_arguments(array($variables['nid']));
-    $view_output = $view->preview('block');
-    $total_rows = count($view->result);
-    $view->destroy();
-    if ($total_rows) {
-      $variables['media_activity_report_count'] = $total_rows;
-      $variables['media_activity_report'] = $view_output;
-      $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
-        $variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 
-        taxonomy_term_load($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
-      $status_name = $term->name;
-      $status_class = '';
-      $icon = '';
-      if ($status_name == 'Verified') {
-        $status_class = 'verified';
-        $icon = '<span class="icon-ok-sign"></span> ';
+    $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
+      $variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 
+      taxonomy_term_load($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
+    $status_name = $term->name;
+    if ($status_name !== 'Not Applicable') {
+      $view = views_get_view('activity_report');
+      $view->set_arguments(array($variables['nid']));
+      $view_output = $view->preview('block');
+      $total_rows = count($view->result);
+      $view->destroy();
+      if ($total_rows) {
+        $variables['media_activity_report_count'] = $total_rows;
+        $variables['media_activity_report'] = $view_output;
+        $status_class = '';
+        $icon = '';
+        if ($status_name == 'Verified') {
+          $status_class = 'verified';
+          $icon = '<span class="icon-ok-sign"></span> ';
+        }
+        elseif ($status_name == 'Undetermined') {
+          $status_class = 'undetermined';
+          $icon = '<span class="icon-question-sign"></span> ';
+        }
+        elseif ($status_name == 'False') {
+          $status_class = 'false';
+          $icon = '<span class="icon-remove-sign"></span> ';
+        }
+        $variables['status_class'] = $status_class;
+        $variables['status_icon'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
       }
-      elseif ($status_name == 'Undetermined') {
-        $status_class = 'undetermined';
-        $icon = '<span class="icon-question-sign"></span> ';
-      }
-      elseif ($status_name == 'False') {
-        $status_class = 'false';
-        $icon = '<span class="icon-remove-sign"></span> ';
-      }
-      $variables['status_class'] = $status_class;
-      $variables['status_icon'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
     }
   }
 }
