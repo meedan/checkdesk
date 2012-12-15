@@ -72,7 +72,13 @@ function context_theme_registry_alter(&$theme_registry) {
   if ($position !== FALSE) {
     unset($theme_registry['page']['preprocess functions'][$position]);
   }
-  $position = array_search('template_preprocess_page', $theme_registry['page']['preprocess functions']);
+  // Prevent conflict with i18n_menu.
+  if (module_exists('i18n_menu')) {
+    $position = array_search('i18n_menu_preprocess_page', $theme_registry['page']['preprocess functions']);
+  }
+  else {
+    $position = array_search('template_preprocess_page', $theme_registry['page']['preprocess functions']);
+  }
   $position = $position ? $position + 1 : 2;
   array_splice($theme_registry['page']['preprocess functions'], $position, 0, 'context_preprocess_page');
 }

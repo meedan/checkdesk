@@ -281,7 +281,7 @@ function checkdesk_core_feature_node_info() {
       'help' => '',
     ),
     'post' => array(
-      'name' => t('Liveblog Post'),
+      'name' => t('Update'),
       'base' => 'node_content',
       'description' => t('A liveblog post.'),
       'has_title' => '1',

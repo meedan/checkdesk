@@ -11,7 +11,7 @@ function checkdesk_core_feature_node_export_features_default() {
   $node_export = array(
   'code_string' => 'array(
   (object) array(
-      \'vid\' => \'209\',
+      \'vid\' => \'1\',
       \'uid\' => \'0\',
       \'title\' => \'Install Bookmarklet\',
       \'log\' => \'\',
@@ -20,16 +20,16 @@ function checkdesk_core_feature_node_export_features_default() {
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
       \'vuuid\' => \'dbc22e67-cc5a-acf4-a504-6c5e9b04fb6b\',
-      \'nid\' => \'119\',
+      \'nid\' => \'1\',
       \'type\' => \'page\',
       \'language\' => \'und\',
-      \'created\' => \'1355361174\',
-      \'changed\' => \'1355374149\',
+      \'created\' => \'1355519439\',
+      \'changed\' => \'1355519439\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'1244c020-f663-b564-b94c-2cf29b12afa4\',
-      \'revision_timestamp\' => \'1355374149\',
-      \'revision_uid\' => \'1\',
+      \'revision_timestamp\' => \'1355519439\',
+      \'revision_uid\' => \'0\',
       \'body\' => array(
         \'und\' => array(
           array(
@@ -41,6 +41,7 @@ function checkdesk_core_feature_node_export_features_default() {
       ),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
+          \'sioc:Item\',
           \'foaf:Document\',
         ),
         \'title\' => array(
@@ -94,7 +95,7 @@ function checkdesk_core_feature_node_export_features_default() {
         ),
       ),
       \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1353704011\',
+      \'last_comment_timestamp\' => \'1355519439\',
       \'last_comment_name\' => NULL,
       \'last_comment_uid\' => \'0\',
       \'comment_count\' => \'0\',
@@ -103,8 +104,8 @@ function checkdesk_core_feature_node_export_features_default() {
       \'data\' => NULL,
       \'menu\' => NULL,
       \'path\' => array(
-        \'pid\' => \'144\',
-        \'source\' => \'node/119\',
+        \'pid\' => \'6\',
+        \'source\' => \'node/1\',
         \'alias\' => \'content/install-bookmarklet\',
         \'language\' => \'und\',
       ),

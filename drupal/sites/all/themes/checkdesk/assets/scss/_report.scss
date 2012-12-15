@@ -157,10 +157,7 @@ li.views-fluid-grid-item  {
 				display: inline-block;
   				vertical-align: middle;
   				text-align: $from-direction;
-  				.title,
-  				.content, 
-  				.favicon, 
-  				.domain {
+  				& > div {
   					margin: 0 $gw;	
   				}
 				.oembed-title {
@@ -172,7 +169,8 @@ li.views-fluid-grid-item  {
 				.content {
 					padding: $baseLineHeight 0;
 				}
-				.favicon {
+				.favicon, 
+				.author-img {
 					float: $from-direction;
 					padding: 0 $gw/2;
 				}
@@ -185,6 +183,24 @@ li.views-fluid-grid-item  {
 				video,
 				iframe {
 					max-width: 100%;
+				}
+				.sensitive-notification {
+					display: table-cell;
+					width: 400px;
+				    height: 200px;
+				    text-align: center;
+				    vertical-align: middle;
+				    background: none !important;
+				    .sensitive-notification-text {
+				    	color: $grayDark;
+				    	padding: $baseLineHeight/2 $gw/2;
+				    }
+				    .sensitive-notification-link {
+				    	padding: $baseLineHeight/2 $gw/2;
+				    	a {
+				    		@include button($grayLight, 18px);
+				    	}
+				    }
 				}
 			}
 		}

@@ -50,7 +50,7 @@ function checkdesk_core_feature_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '0',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'comment',
@@ -67,7 +67,7 @@ function checkdesk_core_feature_field_default_fields() {
           'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -756,6 +756,9 @@ function checkdesk_core_feature_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_rating',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -786,7 +789,7 @@ function checkdesk_core_feature_field_default_fields() {
       'bundle' => 'media',
       'default_value' => array(
         0 => array(
-          'tid' => '5',
+          'tid' => '4',
         ),
       ),
       'deleted' => '0',
@@ -838,6 +841,9 @@ function checkdesk_core_feature_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_stories',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
@@ -1115,7 +1121,14 @@ function checkdesk_core_feature_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_desk',
-      'foreign keys' => array(),
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
       'indexes' => array(
         'target_id' => array(
           0 => 'target_id',

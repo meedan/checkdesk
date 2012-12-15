@@ -264,7 +264,7 @@ function date_tools_wizard_build($form_values) {
 
   $field = field_create_field($field);
   $instance = field_create_instance($instance);
-  $view_name = 'calendar_' . $field_name;
+  $view_name = 'calendar_node_' . $field_name;
 
   field_info_cache_clear(TRUE);
   field_cache_clear(TRUE);

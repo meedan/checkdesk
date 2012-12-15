@@ -75,7 +75,8 @@
     width: 456px; // TEMP fix
   }
   #modal-throbber {
-    padding: $baseLineHeight/2 -$gw/2;
+    padding: $baseLineHeight/2 0;
+    margin-left: -$gw/2;
   }
   .form-actions {
     margin: 0; padding: 0;
@@ -84,10 +85,6 @@
 // Remove bottom margin if need be
 .modal-form {
   margin-bottom: 0;
-}
-// Additional wrapper
-.modal-content-wrapper {
-  padding: 15px;
 }
 
 // Footer (for actions)

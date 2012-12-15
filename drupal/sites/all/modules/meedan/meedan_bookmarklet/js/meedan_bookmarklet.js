@@ -68,7 +68,7 @@
           $('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').fadeOut(500);
         });
         $('body').scrollTop(0);
-        $('#meedan_bookmarklet_cont').show();
+        $('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').show();
       }
 
       // First time, create bookmarklet window

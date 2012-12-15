@@ -38,7 +38,8 @@ function checkdesk_core_menu() {
     'title arguments' => array(1),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_core_report_suggest', 1),
-    'access callback' => TRUE,
+    'access callback' => '_checkdesk_core_report_can_suggest',
+    'access arguments' => array(1),
   );
   $items['node/%checkdesk_report/checkdesk/modal/suggest/%ctools_js'] = array(
     'title' => 'Add report to story',
@@ -46,7 +47,8 @@ function checkdesk_core_menu() {
     'title arguments' => array(1),
     'page callback' => '_checkdesk_core_report_suggest_modal',
     'page arguments' => array(1, 5),
-    'access callback' => TRUE,
+    'access callback' => '_checkdesk_core_report_can_suggest',
+    'access arguments' => array(1),
     'type' => MENU_CALLBACK,
   );
   $items['node/flag/confirm/%/%flag/%/%ctools_js'] = array(
@@ -114,6 +116,14 @@ function checkdesk_core_modal_callback($js = FALSE) {
     drupal_set_title($title);
     return $output;
   }
+}
+
+/**
+ * Access function for 
+ */
+function _checkdesk_core_report_can_suggest($report) {
+  global $user;
+  return user_access('add report to story') || ($report->uid === $user->uid);
 }
 
 /**
@@ -198,6 +208,8 @@ function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
       FROM {field_data_field_stories}
       WHERE entity_id = :report
     )
+    ORDER BY created DESC 
+    LIMIT 10
     ", array(':report' => $report->nid))->fetchAllKeyed();
   $form['story'] = array(
     '#type' => 'select',
@@ -221,7 +233,9 @@ function _checkdesk_core_report_suggest_submit($form, &$form_state) {
   node_save($report);
 
   // Redirect to story. 
-  $form_state['redirect'] = 'node/' . $form_state['values']['story'];
+  if (user_access('add report to story')) {
+    $form_state['redirect'] = array('node/add/post', array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
+  }
 }
 
 /**
@@ -252,6 +266,11 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
     $commands = array();
     // Create ajax command array, dismiss the modal window.
     $commands[] = ctools_modal_command_dismiss();
+
+    // Redirect to story. 
+    if (user_access('add report to story')) {
+      $commands[] = ctools_ajax_command_redirect('node/add/post', 0, array('query' => array('report' => $report->nid, 'story' => $form_state['values']['story'])));
+    }
   }
 
   print ajax_render($commands);
@@ -289,7 +308,7 @@ function checkdesk_core_flag_link($flag, $action, $content_id) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter() for `flag_form`.
  */
 function checkdesk_core_form_flag_form_alter(&$form, &$form_state, $form_id) {
   $flag = $form['#flag'];
@@ -348,7 +367,6 @@ function checkdesk_core_preprocess_flag(&$variables) {
 /**
  * Modal function for `flag_confirm`.
  */
-
 function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js){
 
   if (!$js) {
@@ -486,7 +504,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   // Links for reports.
   if ($node->type == 'media') {
     $url = url('node/' . $node->nid, array('absolute' => TRUE));
-    if ($account->uid > 0) {
+    if (_checkdesk_core_report_can_suggest($node)) {
       $links['checkdesk-suggest'] = array(
         'title' => user_access('add report to story') ? t('Add to Story') : t('Suggest to Story'),
         'href' => 'node/' . $node->nid . '/checkdesk/modal/suggest/nojs',
@@ -531,6 +549,19 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   }
 
   return $links;
+}
+
+/**
+ * Implements hook_flag_access().
+ */ 
+function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
+  // Prevent "flag as graphic" from appearing if report already flagged as graphic by journalist.
+  if ($flag->name == 'graphic') {
+    $flag_journalist = flag_get_flag('graphic_journalist');
+    if ($flag_journalist->is_flagged($entity_id)) {
+      return FALSE;
+    }
+  }
 }
 
 /**
@@ -603,6 +634,44 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     // Add given report to body.
     $node = node_load($_GET['report']);
     $form['body'][LANGUAGE_NONE][0]['#default_value'] = checkdesk_core_droppable_reference($node);
+  }
+  $form['#validate'][] = '_checkdesk_core_post_node_form_validate';
+  $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
+}
+
+/**
+ * Submit function for `post_node_form`.
+ */
+function _checkdesk_core_post_node_form_submit($form, &$form_state) {
+  // Add wording for saving draft.
+  if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
+    drupal_set_message(t('@type %title saved as draft.', array('@type' => t('Update'), '%title' => $form_state['values']['title'])));
+  }
+}
+
+/**
+ * Validation function for `post_node_form`.
+ */
+function _checkdesk_core_post_node_form_validate($form, &$form_state) {
+  // Prevent user from saving a new draft if another one exists already.
+  if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
+    $desk_nid = $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id'];
+    global $user;
+    $draft_nid = db_query("
+  SELECT n.nid 
+  FROM {node} n INNER JOIN {field_data_field_desk} d ON n.nid = d.entity_id 
+  WHERE n.type = 'post' 
+  AND n.status = 0
+  AND d.field_desk_target_id = :desk_nid
+  AND n.uid = :uid
+    ", array(':desk_nid' => $desk_nid, ':uid' => $user->uid))->fetchCol();
+    if ($draft_nid) {
+      form_set_error('field_desk', 
+        t('This story already has a draft that you created. You cannot save more than one draft for each story. You can <a href="@url">edit that draft now</a>.',
+          array('@url' => url('node/' . $desk_nid))
+        )
+      );
+    }
   }
 }
 
@@ -830,13 +899,15 @@ function checkdesk_core_report_form_block() {
   if (($node = menu_get_object()) && $node->type == 'discussion') {
     $desk_nid = $node->nid;
   }
+  global $user;
   $draft_nid = db_query("
 SELECT n.nid 
 FROM {node} n INNER JOIN {field_data_field_desk} d ON n.nid = d.entity_id 
 WHERE n.type = 'post' 
 AND n.status = 0
 AND d.field_desk_target_id = :desk_nid
-  ", array(':desk_nid' => $desk_nid))->fetchCol();
+AND n.uid = :uid
+  ", array(':desk_nid' => $desk_nid, ':uid' => $user->uid))->fetchCol();
   if ($draft_nid) {
     $draft = node_load($draft_nid);
     $content = node_page_edit($draft);
@@ -870,11 +941,24 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
   }
 }
 
+define('RATING_IN_PROGRESS', 'In Progress');
+
+/**
+ * Implements of hook_form_FORM_ID_alter() for `comment_node_media_form`.
+ */
+function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, $form_id) {
+  $term = isset($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
+    $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+    taxonomy_term_load($form['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
+  if ($term->name !== RATING_IN_PROGRESS) {
+    $form['#access'] = FALSE;
+  }
+}
+
 /**
  * Implements of hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
-
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $items = array();
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
@@ -918,7 +1002,5 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['actions']['cancel']['#attributes']['id'] = array('close');
     $form['actions']['cancel']['#weight'] = -1;
   }
-
-
 }
 
