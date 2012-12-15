@@ -85,6 +85,15 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'heartbeat',
   );
 
+  // Exported permission: access private fields.
+  $permissions['access private fields'] = array(
+    'name' => 'access private fields',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: access rules debug.
   $permissions['access rules debug'] = array(
     'name' => 'access rules debug',
@@ -192,6 +201,15 @@ function checkdesk_core_feature_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'features',
+  );
+
+  // Exported permission: administer field permissions.
+  $permissions['administer field permissions'] = array(
+    'name' => 'administer field permissions',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'field_permissions',
   );
 
   // Exported permission: administer filters.
@@ -439,6 +457,26 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: create field_rating.
+  $permissions['create field_rating'] = array(
+    'name' => 'create field_rating',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: create field_stories.
+  $permissions['create field_stories'] = array(
+    'name' => 'create field_stories',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: create media content.
   $permissions['create media content'] = array(
     'name' => 'create media content',
@@ -676,6 +714,26 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: edit field_rating.
+  $permissions['edit field_rating'] = array(
+    'name' => 'edit field_rating',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: edit field_stories.
+  $permissions['edit field_stories'] = array(
+    'name' => 'edit field_stories',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: edit own article content.
   $permissions['edit own article content'] = array(
     'name' => 'edit own article content',
@@ -702,6 +760,26 @@ function checkdesk_core_feature_user_default_permissions() {
       1 => 'journalist',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: edit own field_rating.
+  $permissions['edit own field_rating'] = array(
+    'name' => 'edit own field_rating',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: edit own field_stories.
+  $permissions['edit own field_stories'] = array(
+    'name' => 'edit own field_stories',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
   );
 
   // Exported permission: edit own media content.
@@ -750,6 +828,15 @@ function checkdesk_core_feature_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'taxonomy',
+  );
+
+  // Exported permission: flag delete.
+  $permissions['flag delete'] = array(
+    'name' => 'flag delete',
+    'roles' => array(
+      0 => 'citizen journalist',
+    ),
+    'module' => 'flag',
   );
 
   // Exported permission: flag factcheck.
@@ -891,6 +978,15 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'better_formats',
   );
 
+  // Exported permission: show format selection for flagging.
+  $permissions['show format selection for flagging'] = array(
+    'name' => 'show format selection for flagging',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
   // Exported permission: show format selection for heartbeat_activity.
   $permissions['show format selection for heartbeat_activity'] = array(
     'name' => 'show format selection for heartbeat_activity',
@@ -971,6 +1067,15 @@ function checkdesk_core_feature_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'shortcut',
+  );
+
+  // Exported permission: unflag delete.
+  $permissions['unflag delete'] = array(
+    'name' => 'unflag delete',
+    'roles' => array(
+      0 => 'citizen journalist',
+    ),
+    'module' => 'flag',
   );
 
   // Exported permission: unflag factcheck.
@@ -1109,8 +1214,10 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view Single activity stream',
     'roles' => array(
       0 => 'administrator',
-      1 => 'citizen journalist',
-      2 => 'journalist',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+      3 => 'citizen journalist',
+      4 => 'journalist',
     ),
     'module' => 'heartbeat',
   );
@@ -1120,10 +1227,32 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view Views activity stream',
     'roles' => array(
       0 => 'administrator',
-      1 => 'citizen journalist',
-      2 => 'journalist',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+      3 => 'citizen journalist',
+      4 => 'journalist',
     ),
     'module' => 'heartbeat',
+  );
+
+  // Exported permission: view field_rating.
+  $permissions['view field_rating'] = array(
+    'name' => 'view field_rating',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: view field_stories.
+  $permissions['view field_stories'] = array(
+    'name' => 'view field_stories',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
   );
 
   // Exported permission: view heartbeat messages.
@@ -1131,8 +1260,10 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'view heartbeat messages',
     'roles' => array(
       0 => 'administrator',
-      1 => 'citizen journalist',
-      2 => 'journalist',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+      3 => 'citizen journalist',
+      4 => 'journalist',
     ),
     'module' => 'heartbeat',
   );
@@ -1144,6 +1275,26 @@ function checkdesk_core_feature_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'maillog',
+  );
+
+  // Exported permission: view own field_rating.
+  $permissions['view own field_rating'] = array(
+    'name' => 'view own field_rating',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: view own field_stories.
+  $permissions['view own field_stories'] = array(
+    'name' => 'view own field_stories',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'journalist',
+    ),
+    'module' => 'field_permissions',
   );
 
   // Exported permission: view own unpublished content.

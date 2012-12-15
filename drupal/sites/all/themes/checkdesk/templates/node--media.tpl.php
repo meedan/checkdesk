@@ -1,5 +1,5 @@
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <?php print render($content['meedan_sensitive_content']); ?>
+  
   <article class="report">
     <header>
       <h3>
@@ -13,7 +13,8 @@
       
       <div class="report-media">
         <div class="container">
-          <?php print render($content['field_link']); ?>
+          <?php if(isset($content['meedan_sensitive_content'])) { print render($content['meedan_sensitive_content']); }  ?>
+          <?php if(isset($content['field_link'])) { print render($content['field_link']); } ?>
         </div>
       </div>
       <p>

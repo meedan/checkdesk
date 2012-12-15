@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300,600");
 @import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_drupal\.scss}line{font-family:\000032}}
@@ -9,6 +10,8 @@
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_drupal\.scss}line{font-family:\000038}}
 =======
 @charset "UTF-8";
+=======
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300");
 /* line 3, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 >>>>>>> c226755d66efe15e28dbc14a67e94d7800d827a8
@@ -1128,12 +1131,18 @@ div.block:hover .edit {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003349}}
 =======
 /* line 284, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 >>>>>>> c226755d66efe15e28dbc14a67e94d7800d827a8
 .button-reset-base-class {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+=======
+/* line 286, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
   margin: 0;
   width: auto;
   overflow: visible;
@@ -1143,6 +1152,7 @@ div.block:hover .edit {
   border-style: solid;
   font-weight: 300;
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003333}}
 =======
@@ -1158,6 +1168,15 @@ div.block:hover .edit {
 /* line 272, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 >>>>>>> c226755d66efe15e28dbc14a67e94d7800d827a8
 .button-reset-base-class:focus {
+=======
+/* line 270, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class::-moz-focus-inner, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+/* line 274, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.button-reset-base-class:focus, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus {
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
   outline: none;
 }
 
@@ -1493,10 +1512,19 @@ select {
   background-color: white;
 }
 
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/compass_twitter_bootstrap\/_forms\.scss}line{font-family:\00003172}}
 select[multiple],
 select[size] {
   height: auto;
+=======
+/* line 229, ../scss/override_ctb/_navigation.scss */
+.navbar .nav > li {
+  display: block;
+  float: left;
+  line-height: 1.4em;
+  margin: 0;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/compass_twitter_bootstrap\/_forms\.scss}line{font-family:\00003180}}
@@ -2338,25 +2366,40 @@ legend + .control-group {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_modals\.scss}line{font-family:\0000377}}
 .modal-body #modal-throbber {
+<<<<<<< HEAD
   padding: -4.9px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_modals\.scss}line{font-family:\0000380}}
+=======
+  padding: 0.6em 0;
+  margin-left: -0.5em;
+}
+/* line 81, ../scss/override_ctb/_modals.scss */
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 .modal-body .form-actions {
   margin: 0;
   padding: 0;
 }
 
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_modals\.scss}line{font-family:\0000385}}
+=======
+/* line 86, ../scss/override_ctb/_modals.scss */
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 .modal-form {
   margin-bottom: 0;
 }
 
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_modals\.scss}line{font-family:\0000389}}
 .modal-content-wrapper {
   padding: 15px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_modals\.scss}line{font-family:\0000394}}
+=======
+/* line 91, ../scss/override_ctb/_modals.scss */
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 .modal-footer {
   padding: 0.6 5.5px;
   margin-bottom: 0;
@@ -2374,11 +2417,16 @@ legend + .control-group {
   overflow: hidden;
   *zoom: 1;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_modals\.scss}line{font-family:\00003105}}
+=======
+/* line 102, ../scss/override_ctb/_modals.scss */
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 .modal-footer .btn + .btn {
   margin-left: 5px;
   margin-bottom: 0;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_modals\.scss}line{font-family:\00003110}}
 .modal-footer .btn-group .btn + .btn {
   margin-left: -1px;
@@ -2388,6 +2436,17 @@ legend + .control-group {
   margin-left: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_modals\.scss}line{font-family:\00003118}}
+=======
+/* line 107, ../scss/override_ctb/_modals.scss */
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+/* line 111, ../scss/override_ctb/_modals.scss */
+.modal-footer .btn-block + .btn-block {
+  margin-left: 0;
+}
+/* line 115, ../scss/override_ctb/_modals.scss */
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 .modal-footer .ajax-progress-throbber {
   display: none;
 }
@@ -3547,6 +3606,7 @@ table th[class*="span"],
   visibility: hidden;
 }
 
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/compass_twitter_bootstrap\/_utilities\.scss}line{font-family:\0000328}}
 .affix {
   position: fixed;
@@ -3556,6 +3616,59 @@ table th[class*="span"],
 body {
   font-family: "Merriweather", Georgia, sans-serif;
   text-align: left;
+=======
+/* line 40, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 63, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+/* line 69, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu .divider {
+  *width: 100%;
+  height: 1px;
+  margin: 0.6em 1px;
+  *margin: -5px 0 5px;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  border-bottom: 1px solid white;
+}
+/* line 74, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_dropdowns.scss */
+.dropdown-menu li > a {
+  display: block;
+  padding: 4px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.2em;
+  color: #333333;
+  white-space: nowrap;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_typography\.scss}line{font-family:\0000313}}
@@ -4588,6 +4701,7 @@ div.livefyre-header .livefyre-commentcount:before {
   display: block;
   width: 100%;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003117}}
 #meedan_bookmarklet #meedan_bookmarklet_preview_gc span {
   font-size: 15px;
@@ -4645,6 +4759,131 @@ div.livefyre-header .livefyre-commentcount:before {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003166}}
 #meedan_bookmarklet #meedan_bookmarklet_cancel_button {
   background: #929292;
+=======
+/* line 94, ../scss/_report.scss */
+.report .report-content .report-media .container > div {
+  margin: 0 1em;
+}
+/* line 97, ../scss/_report.scss */
+.report .report-content .report-media .container .oembed-title {
+  display: none;
+}
+/* line 100, ../scss/_report.scss */
+.report .report-content .report-media .container .title {
+  padding: 1.2em 0;
+}
+/* line 103, ../scss/_report.scss */
+.report .report-content .report-media .container .content {
+  padding: 1.2em 0;
+}
+/* line 107, ../scss/_report.scss */
+.report .report-content .report-media .container .favicon,
+.report .report-content .report-media .container .author-img {
+  float: left;
+  padding: 0 0.5em;
+}
+/* line 111, ../scss/_report.scss */
+.report .report-content .report-media .container .domain {
+  margin-bottom: 1.2em;
+}
+/* line 118, ../scss/_report.scss */
+.report .report-content .report-media .container img,
+.report .report-content .report-media .container embed,
+.report .report-content .report-media .container object,
+.report .report-content .report-media .container video,
+.report .report-content .report-media .container iframe {
+  max-width: 100%;
+}
+/* line 121, ../scss/_report.scss */
+.report .report-content .report-media .container .sensitive-notification {
+  display: table-cell;
+  width: 400px;
+  height: 200px;
+  text-align: center;
+  vertical-align: middle;
+  background: none !important;
+}
+/* line 128, ../scss/_report.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-text {
+  color: #333333;
+  padding: 0.6em 0.5em;
+}
+/* line 132, ../scss/_report.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link {
+  padding: 0.6em 0.5em;
+}
+/* line 134, ../scss/_report.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #999999;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3a3a3), color-stop(100%, #858585));
+  background-image: -webkit-linear-gradient(#a3a3a3, #858585);
+  background-image: -moz-linear-gradient(#a3a3a3, #858585);
+  background-image: -o-linear-gradient(#a3a3a3, #858585);
+  background-image: linear-gradient(#a3a3a3, #858585);
+  border-color: #737373;
+  text-shadow: #595959 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.6) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.6) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.6) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 207, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:visited {
+  color: white;
+}
+/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus {
+  background-color: #919191;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9c9c9c), color-stop(100%, #7d7d7d));
+  background-image: -webkit-linear-gradient(#9c9c9c, #7d7d7d);
+  background-image: -moz-linear-gradient(#9c9c9c, #7d7d7d);
+  background-image: -o-linear-gradient(#9c9c9c, #7d7d7d);
+  background-image: linear-gradient(#9c9c9c, #7d7d7d);
+  border-color: #6b6b6b;
+  text-shadow: #525252 0px 1px 1px;
+}
+/* line 207, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover:visited, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus:visited {
+  color: white;
+}
+/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active {
+  background-color: #8a8a8a;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #828282), color-stop(40%, #8a8a8a), color-stop(85%, #8a8a8a), color-stop(100%, #9c9c9c));
+  background-image: -webkit-linear-gradient(#828282, #8a8a8a 40%, #8a8a8a 85%, #9c9c9c);
+  background-image: -moz-linear-gradient(#828282, #8a8a8a 40%, #8a8a8a 85%, #9c9c9c);
+  background-image: -o-linear-gradient(#828282, #8a8a8a 40%, #8a8a8a 85%, #9c9c9c);
+  background-image: linear-gradient(#828282, #8a8a8a 40%, #8a8a8a 85%, #9c9c9c);
+  border-color: #636363;
+  text-shadow: #4a4a4a 0px -1px -1px;
+  -webkit-box-shadow: #737373 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #737373 0 0.08em 0.2em 1px inset;
+  box-shadow: #737373 0 0.08em 0.2em 1px inset;
+}
+/* line 207, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active:visited {
+  color: white;
+}
+/* line 142, ../scss/_report.scss */
+.report .report-content > p {
+  *zoom: 1;
+  padding: 0.42857em 0.5em 0.6em 0.5em;
+  border-bottom: 1px solid white;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.2em;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003170}}
 #meedan_bookmarklet .alert {
@@ -4663,6 +4902,7 @@ div.livefyre-header .livefyre-commentcount:before {
   padding: 0;
   margin: 0;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003183}}
 #meedan_bookmarklet .alert li {
   display: block;
@@ -4678,6 +4918,31 @@ div.livefyre-header .livefyre-commentcount:before {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003193}}
 #meedan_bookmarklet .alert a::before {
   display: none;
+=======
+/* line 150, ../scss/_report.scss */
+.report .report-content .gravatar img {
+  vertical-align: text-bottom;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.33333em;
+}
+/* line 157, ../scss/_report.scss */
+.report .report-content .description {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2em;
+  padding: 0 0.5em 0 40px;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
+  background-position: 10px 0;
+}
+/* line 169, ../scss/_report.scss */
+.report .report-activity > header {
+  *zoom: 1;
+  padding: 0.42857em 0.5em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003198}}
 #meedan_bookmarklet .alert-error {
@@ -4696,10 +4961,17 @@ div.livefyre-header .livefyre-commentcount:before {
   font-size: 13px;
   clear: both;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003214}}
 #meedan_bookmarklet #user-login ul {
+=======
+/* line 174, ../scss/_report.scss */
+.report .report-activity > header h3 {
+  float: left;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
   margin: 0;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003217}}
 #meedan_bookmarklet #user-login li {
   list-style: none;
@@ -4848,9 +5120,133 @@ div.livefyre-header .livefyre-commentcount:before {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003348}}
 #modalContent .install-bookmarklet-col ul {
+=======
+/* line 179, ../scss/_report.scss */
+.report .report-activity > header .report-status {
+  width: 200px;
+  float: right;
+  text-align: right;
+}
+/* line 184, ../scss/_report.scss */
+.report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
+  width: 20px;
+  float: right;
+}
+/* line 188, ../scss/_report.scss */
+.report .report-activity > header .report-status span.status-name {
+  width: 150px;
+  text-align: right;
+  float: right;
+}
+/* line 195, ../scss/_report.scss */
+.report .report-activity > header:hover {
+  background-color: #d4d4d4;
+}
+/* line 200, ../scss/_report.scss */
+.report .report-activity > .undetermined {
+  background-color: #fee9cc;
+}
+/* line 202, ../scss/_report.scss */
+.report .report-activity > .undetermined a {
+  color: #c67605;
+}
+/* line 203, ../scss/_report.scss */
+.report .report-activity > .undetermined:hover {
+  background-color: #fdd49a;
+}
+/* line 205, ../scss/_report.scss */
+.report .report-activity > .undetermined:hover a {
+  color: #945904;
+}
+/* line 208, ../scss/_report.scss */
+.report .report-activity > .verified {
+  background-color: #f1f9f1;
+}
+/* line 210, ../scss/_report.scss */
+.report .report-activity > .verified a {
+  color: #46a546;
+}
+/* line 211, ../scss/_report.scss */
+.report .report-activity > .verified:hover {
+  background-color: #cdeacd;
+}
+/* line 213, ../scss/_report.scss */
+.report .report-activity > .verified:hover a {
+  color: #378137;
+}
+/* line 216, ../scss/_report.scss */
+.report .report-activity > .false {
+  background-color: #f4c8c5;
+}
+/* line 218, ../scss/_report.scss */
+.report .report-activity > .false a {
+  color: #9d261d;
+}
+/* line 219, ../scss/_report.scss */
+.report .report-activity > .false:hover {
+  background-color: #eca09a;
+}
+/* line 221, ../scss/_report.scss */
+.report .report-activity > .false:hover a {
+  color: #721c15;
+}
+/* line 225, ../scss/_report.scss */
+.report .report-activity .activity-wrapper {
+  display: none;
+}
+/* line 229, ../scss/_report.scss */
+.report .report-activity .activity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  padding: 0.42857em 0.5em;
+  background-color: #fbfbfb;
+}
+/* line 234, ../scss/_report.scss */
+.report .report-activity .activity-list li {
+  overflow: hidden;
+  *zoom: 1;
+  border-left: 2px solid white;
+  color: #555555;
+  margin-left: 0.5em;
+  padding-bottom: 0.6em;
+  padding-left: 2em;
+}
+/* line 243, ../scss/_report.scss */
+.report .report-activity .activity-list li header [class^="icon-"],
+.report .report-activity .activity-list li header [class*=" icon-"] {
+  float: left;
+  margin-left: -2.8em;
+  margin-right: 0.5em;
+}
+/* line 248, ../scss/_report.scss */
+.report .report-activity .activity-list li header .time {
+  color: #999999;
+  margin-right: 1em;
+}
+/* line 252, ../scss/_report.scss */
+.report .report-activity .activity-list li header a {
+  font-weight: bold;
+}
+/* line 256, ../scss/_report.scss */
+.report .report-activity .activity-list li .message {
+  margin-top: 0.42857em;
+  padding: 0.42857em 0.5em;
+  background-color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 261, ../scss/_report.scss */
+.report .report-activity .activity-list li .message > p {
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
   margin: 0;
   padding: 0;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003353}}
 #modalContent .install-bookmarklet-col li {
   margin-top: 5px;
@@ -4899,6 +5295,48 @@ div.livefyre-header .livefyre-commentcount:before {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_bookmarklet\.scss}line{font-family:\00003402}}
 .meedan-bookmarklet-internal #meedan_bookmarklet_preview, .meedan-bookmarklet-internal #edit-body, .meedan-bookmarklet-internal #edit-graphic-content, .meedan-bookmarklet-internal #edit-actions #edit-submit {
   display: none;
+=======
+/* line 268, ../scss/_report.scss */
+.report .report-activity #comment-form {
+  overflow: hidden;
+  *zoom: 1;
+  padding: 0 0.5em;
+  background-color: #eeeeee;
+}
+/* line 272, ../scss/_report.scss */
+.report .report-activity #comment-form label {
+  display: none;
+}
+/* line 277, ../scss/_report.scss */
+.report .report-activity > footer {
+  color: #999999;
+  padding: 0.42857em 0.5em;
+  font-size: 11px;
+}
+/* line 284, ../scss/_report.scss */
+.report .open > .false {
+  background-color: #eca09a;
+}
+/* line 287, ../scss/_report.scss */
+.report .open > .undetermined {
+  background-color: #fdd49a;
+}
+/* line 289, ../scss/_report.scss */
+.report .open > .undetermined a {
+  color: #945904;
+}
+/* line 291, ../scss/_report.scss */
+.report .open > .verified {
+  background-color: #cdeacd;
+}
+/* line 296, ../scss/_report.scss */
+.report .icon-ok-sign, .report .icon-ok-sign {
+  color: #46a546;
+  display: block;
+  background-color: transparent;
+  padding: 3px;
+  text-decoration: none;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_form_password\.scss}line{font-family:\000032}}
@@ -4918,6 +5356,7 @@ div.livefyre-header .livefyre-commentcount:before {
   margin-right: 1.83028%;
   display: inline;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_form_password\.scss}line{font-family:\0000310}}
 .form-item-pass .password-strength {
   margin: 0;
@@ -4929,6 +5368,15 @@ div.livefyre-header .livefyre-commentcount:before {
   display: inline;
   margin-top: 11px;
   margin-bottom: 11px;
+=======
+/* line 300, ../scss/_report.scss */
+.report .icon-question-sign, .report .icon-remove-sign, .report .icon-question-sign {
+  color: #f89406;
+  display: block;
+  background-color: transparent;
+  padding: 3px;
+  text-decoration: none;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_form_password\.scss}line{font-family:\0000316}}
 .form-item-pass .password-strength .password-strength-title {
@@ -4966,9 +5414,19 @@ div.livefyre-header .livefyre-commentcount:before {
   display: inline;
   font-size: 11px;
 }
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_form_password\.scss}line{font-family:\0000334}}
 .form-item-pass div.password-confirm span {
   padding: 0 11px;
+=======
+/* line 304, ../scss/_report.scss */
+.report .icon-remove-sign, .report .icon-question-sign, .report .icon-remove-sign {
+  color: #9d261d;
+  display: block;
+  background-color: transparent;
+  padding: 3px;
+  text-decoration: none;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_form_password\.scss}line{font-family:\0000336}}
 .form-item-pass div.password-confirm span.error, .form-item-pass div.password-confirm span.ok {
@@ -6221,6 +6679,23 @@ div.region-page-top #toolbar {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003160}}
 div.region-page-top div.toolbar-menu {
   padding: 0;
+<<<<<<< HEAD
+=======
+  border: 0;
+  font-size: 1.3em;
+  padding: 1em;
+  color: rgba(0, 0, 0, 0.8);
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -o-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  background-color: #3AD900;
+  margin-bottom: 1em;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003163}}
 div.region-page-top div.toolbar-menu #toolbar-home, div.region-page-top div.toolbar-menu #toolbar-user {
@@ -6903,6 +7378,11 @@ body.not-front.not-logged-in.page-user form .form-item-remember-me {
   -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
+<<<<<<< HEAD
+=======
+  background-color: #80FFC2;
+  margin-bottom: 1em;
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003333}}
 #main #content-inner form.confirmation .form-actions input::-moz-focus-inner {
@@ -7075,10 +7555,14 @@ body.not-front.not-logged-in.page-user form .form-item-remember-me {
     margin-right: auto;
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/\.rvm\/gems\/ruby-1\.9\.3-p286\/gems\/compass-0\.13\.alpha\.0\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
   #main #content-inner:after {
 =======
   /* line 38, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+=======
+  /* line 38, ../../../../../../../../../../usr/local/rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
   body #page:after {
 >>>>>>> c226755d66efe15e28dbc14a67e94d7800d827a8
     content: "";
@@ -7820,10 +8304,17 @@ body.not-front.not-logged-in.page-user form .form-item-remember-me {
 .menu-674 {
   display: none!important;
 }
+<<<<<<< HEAD
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003308}}
 a.feed-icon {
   display: none;
+=======
+/* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+body ul.tabs.primary li a.active {
+  background-color: #FF9D00;
+  color: rgba(0, 0, 0, 0.8);
+>>>>>>> 54738496106e8b349980d99d209f5d310e99b46d
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003313}}

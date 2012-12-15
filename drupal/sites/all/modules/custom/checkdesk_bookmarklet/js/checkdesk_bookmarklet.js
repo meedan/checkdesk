@@ -31,6 +31,12 @@
           }
           jQuery('#meedan_bookmarklet_cont').show();
           break;
+
+        // Destroy bookmarklet
+        case 'destroy':
+          jQuery('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').remove();
+          jQuery('#menu-submit-report').removeClass('open');
+          break;
       
       }
     },

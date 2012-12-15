@@ -6,6 +6,30 @@ Version 7.x-2.x-dev
 ===================
 
 ======================
+Version 7.x-2.6
+======================
+
+- Issue #1423364 by catmat, Add file and path to hook_context_plugins().
+- Issue #1713248, Remove incorrect use of date_popup() function in previous commit.
+- Issue #1143680 by kristiaanvandeneynde, Make Date Popup widget able to accept custom settings.
+- Issue #1596546 by applicity_sam, Make sure incorrect month name creates validation error.
+- Issue #1432702, Fix some miscellaneous problems with date example dates and formats.
+- Issue #1512464 by Liam Moreland, Allow for undefined formatter in Date upgrade handling.
+- Issue #1659638 by bojanz, Hide install message if Drupal is not installed (i.e. in install profiles).
+- Issue #1605158 by covenantd, Be sure value2 is initiated in Date Context handler.
+- Issue #1355256 by barraponto develCuy and KarenS, set default value for date text widget increment to 1, and update existing fields.
+- Issue #1561306 by Cyberwolf, Date pager replacement was not working correctly when used with multiple dates.
+- Issue #1541740 by hass, Make Date requirements more easily translatable.
+- Issue #1543524 by iamEAP, Add update hook to remove the D6 date_timezone field from users.
+- Issue #1603640 by bevan, Don't return anything for empty date interval.
+- Issue #1235508, Make sure that ISO strings with '00' in the month and/or day don't create dates for the previous month and day.
+- Issue #1289270 by pdrake: Fixed date arguments and filters do not work with relationships.
+- Issue #895760 by Reinette: Added RFC2447 option 'STATUS' to date_api_ical().inc.
+- Issue #606658 by johnmunro and KarenS, Make sure ical import processes multi-day all-day events correctly.
+- Issue #1408216 follow up, Need to be sure that NULL is the default state for the sql functions.
+- Issue #1540410, Update the Date Tools calendar creation wizard to use the new calendar path.
+
+======================
 Version 7.x-2.5
 ======================
 
