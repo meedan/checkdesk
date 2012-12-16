@@ -361,8 +361,11 @@ function checkdesk_core_preprocess_flag(&$variables) {
     ctools_include('modal');
     ctools_include('ajax');
     ctools_modal_add_js();
+
+    $flag_css_name = 'flag-' . str_replace('_', '-', $variables['flag']->name);
     $variables['flag_classes'] .= ' ctools-modal-' . $variables['flag']->confirm_modal_style;
-    // $variables['flag_classes'] .= ' ctools-modal-checkdesk-large-style';
+    $variables['flag_classes'] .= ' '. $flag_css_name;
+
     $path = str_replace("/checkdesk/drupal/", "", $variables['link']['href']);
     $variables['modal_link'] = ctools_modal_text_button($variables['link_text'], $path, $variables['link_title'], $variables['flag_classes']);
   }
