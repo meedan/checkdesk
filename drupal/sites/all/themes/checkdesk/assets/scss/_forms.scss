@@ -5,29 +5,24 @@
   // Form Actions
   // Main submit button
   .form-actions {
-    @include clearfix;
-    @include span-columns($cw, $cw, $gw/2); // end of grid
+    @include span-columns($cw, $cw); // end of grid
 
     // Form actions: buttons and anchors
     input, a {
       @include checkdesk-button;
-      margin-#{opposite-position($from-direction)}: $base-font-size!important;
-      margin-#{$from-direction}: $base-font-size;
+    }
+
+    input#edit-reset, 
+    input#edit-draft {
+      @include checkdesk-button($dark-grey);
+    }
+    // Override main submit buttons
+    input#edit-submit {
+      @include checkdesk-button($twitter-blue);
     }
   }
-
-  // All Submit buttons, seven if they arent in form-actions ...
-  input[type="submit"] {
-    @include checkdesk-button($twitter-blue);
-    margin: ms(-2);
-  }
-
-  input#edit-reset, 
-  input#edit-draft {
-    @include checkdesk-button(lighten($dark-grey, 15%));
-    margin: ms(-2);
-  }
 }
+
 
 
 // In addition to our use of normalize, and other resets, 
