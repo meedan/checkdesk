@@ -9,12 +9,12 @@
 @include bb-tabs; 
 
 div.tabs {
+  width: 100%;
   ul.primary {
-    @include reset-box-model;
-    display: block;
+    @include span-columns($cw, $cw, $gw);
     @include clearfix;
     padding: { top: $gw; bottom: $gw; }
-    margin: { top: $gw; bottom: $gw; }
+    margin: { top: $gw; right: auto; bottom: $gw; left: auto; }
     background-color: rgba(white, 0.8);
     font-family: $sans-font-family;
     font-size: $small-font-size;
@@ -28,17 +28,17 @@ div.tabs {
       &.active {
         a {
           background-color: $nav-active-bkg-color;
-          color: white;
+          color: white;          
         }
       }
       a {
-        line-height: $gw*3;
-        padding: $gw;
         @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color');
-      }
-      a:hover {
+        line-height: $base-line-height;
+        display: inline-block;
         padding: $gw;
-        color: black;
+        &:hover {
+          color: black;
+        }
       }
     }
   }
@@ -47,10 +47,7 @@ div.tabs {
 // =================================================================================
 // Breakpoints for tabs
 @include at-breakpoint($break-small) {
-  .tabs ul.primary {
-    @include span-columns($cw, $cw);
-    background-color: pink;
-  }
+  //same
 }
 
 @include at-breakpoint($break-medium) {

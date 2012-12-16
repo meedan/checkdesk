@@ -165,17 +165,15 @@ To see the list of ms scales ...
     Usually they can be rounded 
     The key values are 18 and 1168
     0.86 -> "harmonic" but missing from ms
-    1.0 -> "harmonic" but missing from ms
-    1.61803 The golden mean -> "harmonic" but missing from ms
     1.39 -> "harmonic" but missing from ms
     2.24 -> "harmonic" but missing from ms
-    2.63 -> available as ms(-)4) -> 3px
-    3.63 -> available as ms(-)3) -> 4px
+    2.63 -> available as ms(-4) -> 3px
+    3.63 -> available as ms(-3) -> 4px
     4.25 -> "harmonic" but missing from ms
     5.87 -> "harmonic" but missing from ms
-    6.88 -> available as ms(-)2) -> 7px
+    6.88 -> available as ms(-2) -> 7px
     9.5 -> "harmonic" but missing from ms
-    11.12 -> available as ms(-)1) -> 11px -> used in $small->font->size and $gutter->width or $gw
+    11.12 -> available as ms(-1) -> 11px -> used in $small->font->size and $gutter->width or $gw
     15.36 -> navigation font size
     18 -> available as ms(0) -> 18px -> $based font size 1 : 0.61803
     24.86 -> available as ms(1) -> 25px

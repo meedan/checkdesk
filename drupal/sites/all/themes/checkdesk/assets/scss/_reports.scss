@@ -1,0 +1,87 @@
+// Reports page 
+//
+// We use the views fluid grid plugin
+// See also report.scss
+body.page-reports {
+
+  background-color: $grey;
+  h1.title {
+
+  }
+  #main {
+    @include pad(0, 0); // default reports page overriding default checkdesk page
+    @include span-columns($cw, $cw, $gw);
+  }
+  li.views-fluid-grid-item  {
+    @include reset-box-model; // remove default border
+    @include span-columns($cw, $cw); // default is full width
+  } 
+
+
+  // ===============================================================================  
+  // Drupal Fluid Grid module overrides
+  //
+  div.views-fluid-grid h3 {
+    text-align: $from-direction; // override views fluid grid default css
+    background-color: transparent; // override default h3 treatment on reports
+  }
+
+  ul.views-fluid-grid-list {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Default item style. */
+  li.views-fluid-grid-item {
+    /* width and height properties are defined at views_fluid_grid.size.css. */
+    padding: 0; // override
+    overflow: hidden; /* needed to clip content when explicit width/height is specified. */
+    list-style-type: none; //default
+    background-image: none; //default
+    color: $grey; // override
+    background-color: transparent; // override
+    border-width: 0; // override
+  }
+}
+
+@include at-breakpoint($break-small) { // 12 
+  body.page-reports {
+    li.views-fluid-grid-item {
+      @include span-columns(6, $break-small);
+      margin: 0;
+      // width: $report-width-px;
+      article.report {
+        margin: $gw;
+      }
+    }
+  }  
+}
+
+@include at-breakpoint($break-medium) { // 18
+  body.page-reports {
+    li.views-fluid-grid-item {
+      @include span-columns(9, $break-medium);
+      margin: 0;
+      // width: $report-width-px;
+      article.report {
+        margin: $gw;
+      }
+    }
+  }  
+}
+
+
+@include at-breakpoint($break-large) { // 24
+  body.page-reports {
+    li.views-fluid-grid-item {
+      @include span-columns(5, $break-large);
+      margin: 0;
+      // width: $report-width-px;
+      article.report {
+        margin: $gw;
+      }
+    }
+  }  
+}
+
+

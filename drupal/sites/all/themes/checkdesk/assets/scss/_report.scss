@@ -1,13 +1,3 @@
-// Reports page 
-//
-// We use the views fluid grid plugin
-li.views-fluid-grid-item  {
-	width: $rw;
-	article.report {
-		width: auto;
-	}
-}
-
 // Report 
 //
 // When a link is received we convert it into an embedded media "report"
@@ -16,38 +6,48 @@ li.views-fluid-grid-item  {
 
 // Checkdesk report
 .report {
-	@include span-columns($rw, $rw, $gw);
-	border: 1px solid $grey;
+	// @include span-columns($cw, $cw); // default is full width
+	// width: 100%; //default
+	font-family: $sans-font-family;
 	background-color: lighten($grayLighter, 5%);
-	margin: {top: $gw; bottom: $gw; }
-	padding: {top: $gw; bottom: $gw; }
+	margin: { top: $gw; bottom: $gw; }
+	min-width: 240px;
+
+	a {
+		color: black;
+		&:hover {
+			color: $twitter-blue;
+		}
+	}
+
 	& > header {
 		@include clearfix;
 		// background: top $from-direction repeat url("/sites/all/themes/bowerbird/images/bkgs/arches.png");
 		color: $gray;
-		@include span-columns($rw, $rw);
+		// @include span-columns($rw, $rw, $gw);
+		padding: 5px;
 
 		h3 {
 			font-size: $small-font-size;
-			line-height: $base-line-height;
+			line-height: $small-font-size * 1.2;
 			overflow: hidden;
-			background-color: white;
-			padding: $base-font-size;
+			// padding: $base-font-size 0;
 			margin: 0;
-			display: block;
+			display: inline-block;
 			.source-url {
 				font-weight: normal;
-				font-size: $small-font-size;
-				line-height: $base-line-height;
-				overflow: hidden;
-				padding-#{opposite-position($from-direction)}: $gw;
+				font-size: inherit;
+				line-height: inherit;
+				overflow: inherit;
+				// padding-#{opposite-position($from-direction)}: $gw;
+				display: inherit;
 			}
 		}
 
 		.report-actions {
 			@include reset-box-model;
 			@include reset-list-style;
-			font-size: $base-font-size;
+			font-size: $small-font-size;
 
 			& > li {
 				display: block;
@@ -55,7 +55,7 @@ li.views-fluid-grid-item  {
 				& > a {
 					@include reset-box-model;
 					display: block;
-					padding: 1em $gw;
+					padding: 1em 0;
 					
 					@include transition-property(color);
 			    @include transition-duration(0.2s);
@@ -72,15 +72,9 @@ li.views-fluid-grid-item  {
 						}
 
 						// Flag and share on the top of the report
-						&.icon-flag {
-							@include icon(flag, 16px, $darker-grey);
-						}
-						&.icon-share {
-							@include icon(share, 16px, $darker-grey);
-						}
-						&.icon-edit {
-							@include icon(edit, 16px, $darker-grey);
-						}
+						&.icon-flag {@include icon(flag, 16px, $darker-grey); } 
+						&.icon-share {@include icon(share, 16px, $darker-grey); }
+						&.icon-edit {@include icon(edit, 16px, $darker-grey); }
 					}
 				}
 				// hide ajax throbber in dropdown
@@ -102,34 +96,26 @@ li.views-fluid-grid-item  {
 	// }
 
 	// Twitter reports icon in header
-	h3 a[href*="twitter.com"]:first-of-type { 
+	h3 > a[href*="twitter.com"] { 
 		@include icon('twitter');
 		&:before {
 			display: inline-block;
-			@include transform(rotate(-19deg));
+			@include transform(rotate(-19deg)); // new twitter logo :)
 		}
 	}
+
+	// Twitter reports icon in header
+	h3 > a[href*="youtube.com"] { 
+		@include icon('youtube');
+	}
+
 
 	// Twitter profile images
-	a[href*="twitter.com"]	{
-		img {
-			width: 50px; // profile of user
-		}
-	}
-
-	div.sensitive-notification {
-	  background: rgba($grey, 0.8);
-	  text-align: center;
-	  color: $dark-grey;
-	  min-height: 250px;
-	  margin: 0;
-	  display: block;
-	  .sensitive-notification-text {
-		  padding-top: 30px;
-		  width: 100%;
-		  float: $from-direction;
-	  }
-	}
+	// a[href*="twitter.com"]	{
+	// 	img {
+	// 		width: 50px; // profile of user
+	// 	}
+	// }
 
 	div.sensitive-hide {
 	  display: hidden;
@@ -137,12 +123,11 @@ li.views-fluid-grid-item  {
 
 	.report-content {
 		color: $gray;
-		background-color: darken($grayLighter, 5%);
-		@include span-columns($rw, $rw);
+		// background-color: darken($grayLighter, 5%);
+		// @include span-columns($rw, $rw);
+		padding: $gw;
 		.report-media {
-			text-align: center;
-			padding: 1em;
-			// What is this for? 
+			// What is this for?  - CGB
 			/* The ghost, nudged to maintain perfect centering */
 			.report-media:before {
 				content: '';
@@ -150,33 +135,51 @@ li.views-fluid-grid-item  {
 				height: 100%;
 				vertical-align: middle;
 				margin-right: -0.25em; /* Adjusts for spacing */
-
 			}
 
 			.container {
 				display: inline-block;
-  				vertical-align: middle;
-  				text-align: $from-direction;
-  				& > div {
-  					margin: 0 $gw;	
-  				}
+				vertical-align: middle;
+				text-align: $from-direction;
+				font-size: $small-font-size;
+
+				// & > div {
+				// 	margin: 0;
+				// }
+				
+				.oembed-content img {
+					width: $report-width-px; // enlarge photos to fit ...
+				}
+
+				.thumbnail img {
+					width: auto;
+					padding: $gw;
+				}
+
 				.oembed-title {
 					display: none;
 				}
+				
 				.title {
-					padding: $baseLineHeight 0;
+					padding: 0;
+					font-size: $small-font-size;
 				}
+				
 				.content {
-					padding: $baseLineHeight 0;
+					padding: 0;
 				}
+				
 				.favicon, 
 				.author-img {
 					float: $from-direction;
 					padding: 0 $gw/2;
+					width: auto;
 				}
+				
 				.domain {
 					margin-bottom: $baseLineHeight;
 				}
+
 				img,
 				embed,
 				object,
@@ -184,23 +187,24 @@ li.views-fluid-grid-item  {
 				iframe {
 					max-width: 100%;
 				}
+
 				.sensitive-notification {
 					display: table-cell;
 					width: 400px;
-				    height: 200px;
-				    text-align: center;
-				    vertical-align: middle;
-				    background: none !important;
-				    .sensitive-notification-text {
-				    	color: $grayDark;
-				    	padding: $baseLineHeight/2 $gw/2;
-				    }
-				    .sensitive-notification-link {
-				    	padding: $baseLineHeight/2 $gw/2;
-				    	a {
-				    		@include button($grayLight, 18px);
-				    	}
-				    }
+			    height: 200px;
+			    text-align: center;
+			    vertical-align: middle;
+			    background: none !important;
+			    .sensitive-notification-text {
+			    	color: $grayDark;
+			    	padding: $baseLineHeight/2 $gw/2;
+			    }
+			    .sensitive-notification-link {
+			    	padding: $baseLineHeight/2 $gw/2;
+			    	a {
+			    		@include button($grayLight, 18px);
+			    	}
+			    }
 				}
 			}
 		}
@@ -208,8 +212,8 @@ li.views-fluid-grid-item  {
 		& > p {
 			@include ctb-clearfix;
 			padding: $baseLineHeight/2.8 $gridGutterWidth/2 $baseLineHeight/2 $gridGutterWidth/2;
-			border-bottom: 1px solid $white;
-			@include ctb-font-shorthand(12px, normal);
+			border-bottom: 1px solid rgba($white, 0.7);
+			font-size: $small-font-size;
 		}
 
 		.gravatar {
@@ -233,18 +237,22 @@ li.views-fluid-grid-item  {
 	.report-activity {
 
 		& > header {
-			@include ctb-clearfix();
-			padding: $baseLineHeight/2.8 $gridGutterWidth/2;
-			text-shadow: 0 1px 0 rgba(255,255,255,.3);
+			@include clearfix();
+			padding: $gw;
+			// text-shadow: 0 1px 0 rgba(255,255,255,.3);
 			cursor: pointer;
+			font-size: $small-font-size;
 			h3 {
 				float: $from-direction;
 				@include reset-box-model();
 				font-size: $small-font-size;
-				width: 50%;
+				display: inline-block;
+				font-family: $sans-font-family;
+				font-weight: normal;
+				color: rgba(black, 0.8);
+				padding: 0;
 			}
 			.report-status {
-				width: 200px;
 				float: opposite-position($from-direction);
 				text-align: opposite-position($from-direction);
 				// icon in the status
@@ -253,10 +261,8 @@ li.views-fluid-grid-item  {
 					float: opposite-position($from-direction);
 				}
 				span.status-name {
-					// temporary use of pixels until the report is converted to columns
-					width: 150px; 
 					text-align: opposite-position($from-direction);
-					float: opposite-position($from-direction);
+					overflow: visible;
 					margin-#{opposite-position($from-direction)}:5px; 
 				}
 			}
@@ -300,7 +306,7 @@ li.views-fluid-grid-item  {
 			background-color: lighten($grayLighter, 5%);
 			li {
 				@include clearfix;
-				border-left: 2px solid $white;
+				border-#{$from-direction}: 2px solid $white;
 				color: $gray;
 				padding-bottom: $base-font-size;
 				header {	
@@ -339,7 +345,7 @@ li.views-fluid-grid-item  {
 
 		& > footer {
 			color: $grayLight;
-			padding: $baseLineHeight/2.8 $gw;
+			// padding: $gw;
 			font-size: $small-font-size;
 		}
 	}
@@ -374,12 +380,12 @@ li.views-fluid-grid-item  {
 // ========================================================================
 // Responsive layouts 
 //
-.report header {
-  .report-actions {
-    @include span-columns($rw, $rw); 
-  }
+// .report header {
+//   .report-actions {
+//     @include span-columns($rw, $rw); 
+//   }
 
-  h3 {
-    @include span-columns($rw, $rw);
-  }
-}
+//   h3 {
+//     @include span-columns($rw, $rw);
+//   }
+// }

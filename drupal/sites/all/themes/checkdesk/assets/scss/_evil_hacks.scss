@@ -67,18 +67,4 @@ body.not-front.not-logged-in.page-user {
   }
 }
 
-// ====================================================================== 
-// The End
-//
-// Debuggers and specs go last
-
-// Debugging mixins
-// @include debug_drupal;
-
-// Pseudo-spec
-// @import "spec";
-
-// Debugger for responsive grids, shows colored stripes
-// 
-$display-banner: true;
-@include visualize-grid($display-banner);
+p br { display: none; } // hack to remove br's from content

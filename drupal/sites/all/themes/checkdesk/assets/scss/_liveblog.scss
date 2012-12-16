@@ -1,0 +1,45 @@
+// Liveblog homepage 
+body.page-liveblog {
+
+  // Default liveblog layout overrides global default layout
+  #main {
+    @include span-columns($cw - 2, $cw);
+    @include pad(1, 1, $cw);
+    
+    background-color: white;
+
+    .view-liveblog {
+        .views-row {
+        
+        padding-bottom: 1em;
+        border-bottom: 5px solid $grey;
+
+        // Story headlines
+        // Why are these not headers? 
+        a[href*="story"] {
+          padding-top: 1em;
+          display: block;
+          font-weight: bold;
+        }
+      }  
+    }
+  }
+
+  // =======================================================
+  // Breakpoint: small
+  @include at-breakpoint($break-small) {
+    #main {
+      @include span-columns($break-small - 2, $break-small);
+      @include pad(1, 1, $break-small);
+    }
+  }
+    // =======================================================
+  // Breakpoint: medium
+  @include at-breakpoint($break-medium) {
+    #main {
+      @include span-columns($break-medium - 4, $break-medium);
+      @include pad(2, 2, $break-medium);
+    }
+  }
+
+}

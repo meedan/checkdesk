@@ -1,0 +1,32 @@
+// Story page 
+// aka Discussion Node 
+//
+body.node-type-discussion {
+
+  // This page is identical to the meta-liveblog page. 
+
+  // =======================================================
+  // Breakpoint: small (8)
+  @include at-breakpoint($break-small) {
+    #main {
+      @include span-columns($break-small - 2, $break-small);
+      @include pad(1, 1, $break-small);
+    }
+  }
+  // =======================================================
+  // Breakpoint: medium (12)
+  @include at-breakpoint($break-medium) {
+    #main {
+      @include span-columns($break-medium - 4, $break-medium);
+      @include pad(2, 2, $break-medium);
+    }
+  }
+  // =======================================================
+  // Breakpoint: medium (16)
+  @include at-breakpoint($break-large) {
+    #main {
+      @include span-columns($break-large - 8, $break-large);
+      @include pad(4, 4, $break-large);
+    }
+  }
+}

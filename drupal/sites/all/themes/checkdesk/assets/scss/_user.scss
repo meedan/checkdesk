@@ -1,54 +1,56 @@
 // User section profile
 // http://checkdesk:8888/user
-@mixin user-profile($width: $fw, $context: $cw) {
-  div.profile {
-    @include span-columns($width - 2, $context);
-    .user-picture {
-      float: opposite-position($from-direction);
-      @include span-columns(1 omega, $context);
-      background: white;
-      border: $gw solid white;
-    }
-    @content;
-  }
-}
+// @mixin user-profile($width: $fw, $context: $cw) {
+//   div.profile {
+//     @include span-columns($width - 2, $context);
+//     .user-picture {
+//       float: opposite-position($from-direction);
+//       @include span-columns(1 omega, $context);
+//       background: white;
+//       border: $gw solid white;
+//     }
+//     @content;
+//   }
+// }
 
 // Checkdesk User Section Forms
 //
 // .not-front.not-logged-in.page-user - main container selector on body
 //
 // The log in page has a small form in the middle which also appears as an even smaller form in the navigation section.
+//
+// Forgot password and create new account <.item-list>s
 
-// Main mixin for all of the user section
-// 
-// $width - the form width
-@mixin cd-user-section($width: $cw, $context: $cw) {  
-
-  // Forgot password and create new account <.item-list>s
-  .form-item-name ~ .item-list {
-    @include span-columns($width, $context);
-    a {  color: $dark-grey;  }
+body.not-front.not-logged-in.page-user {
+  
+  .item-list ul li {
+    @include reset-list-style;
+    @include reset-box-model;
   }
   
   // The social media sign-in boxes
   #edit-social-media-signin {
-    @include span-columns($width, $context);
-
     // Generate an "or" divider
     // 
     // Deprecated: this can't be localized properly
     position: relative;
+
+    .item-list ul {
+      text-align: center;
+      li {
+        display: inline;
+      }
+    }
     &:after {
-      position: absolute;
       content: "or";
       font-family: $serif-font-family;
       font-style: italic;
-      @include border-radius(50%);
-      padding: $gw/3 $gw/2;
-      bottom: -$gw;
-      #{$from-direction}: 50% - 2%; // ugh
-      background: $light-grey;
+      width: 100%;
+      display: block;
       font-size: $base-font-size;
+      text-align: center;
+      padding-top: 1em;
+      padding-bottom: 1em;
     }
     
     // hide "Sign in with:"
@@ -73,12 +75,15 @@
           display: inline-block;
           line-height: 2.4;
           padding: $gw;
-          width: 7em;          
 
           // The word "Twitter"
           &:after {
             color: white;
             font-size: $base-font-size;
+          }
+
+          &:hover {
+            text-decoration: none;
           }
         }
       }
@@ -88,14 +93,14 @@
       li.first a {
         @include bb-transition($light-grey, $twitter-blue) {
           @include icon(twitter, $sign-in-icon-size, white);
-          &:after { content: " Twitter"; }
+          &:after { content: " Twitter"; display: none; } // exposed at larger sizes
         }
       }
 
       li a[class^='facebook'] {
         @include bb-transition($light-grey, $facebook-blue) {
           @include icon(facebook, $sign-in-icon-size, white);
-          &:after { content: " Facebook"; }
+          &:after { content: " Facebook"; display: none; }
         }
       }
 
@@ -105,10 +110,28 @@
       }
     }    
   }
+  
   .form-item.form-item-name {
     clear: both;
     display: block;
     border-top: 1px solid $light-grey!important;
     padding-top: $gw*2!important;
-  }    
+  }      
+
+  @include at-breakpoint($break-small) {
+    form {
+      @include span-columns($break-small - 2, $break-small);
+      @include pad(1, 1, $break-small);
+      #edit-social-media-signin a {
+        font-size: $large-font-size!important;
+        &:after { display: inline-block!important; }
+      }
+    }
+  }
+  @include at-breakpoint($break-medium) {
+    form {
+      @include span-columns($break-medium - 4, $break-medium);
+      @include pad(2, 2, $break-medium);
+    }
+  }
 }

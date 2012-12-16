@@ -125,6 +125,16 @@ $inputHeight: $base-line-height;
 // @import "bowerbird/compass_twitter_bootstrap/popovers";
 
 // ====================================================================== 
+//  Default checkdesk layout
+//
+body {
+  @include container($cw $break-small $break-medium);
+  #main {
+    @include span-columns($cw, $cw, $gw);
+  }
+}
+
+// ====================================================================== 
 // Main Checkdesk Sass files
 // Drupal sections, pages, mixins
 
@@ -161,62 +171,67 @@ $inputHeight: $base-line-height;
 // Form: password strength section
 @import "form_password";
 
-// User section and form
-@import "user";
-
-// Create node page and form
-@import "create_node";
-
 // Primary Navigation and Drupal nav at very top
 @import "navigation";
-
-// Reports filters on sidebar
-@import "reports_filter";
-
-// Sidebar layout with main and secondary cols
-@import "sidebar";
 
 // Tabs
 @import "tabs"; 
 
 // Forms
-@import "forms"; 
+@import "forms";
 
 // ====================================================================== 
-//  Checkdesk layout
+// Checkdesk pages 
 //
-body {
-  @include container($cw $break-small $break-medium);
-  #main {
-    @include span-columns($cw, $cw);
-  }
-}
+
+// Liveblog page
+@import "liveblog";
+
+// Create update page
+// Sidebar layout with main and secondary cols
+@import "sidebar";
+
+// Reports filters only on sidebar page
+@import "reports_filter";
+
+// User section
+@import "user";
+
+// Create node page and form
+@import "create_node";
+
+// Story blog page with discussion
+@import "story";
+
+// Reports page
+@import "reports";
 
 // ====================================================================== 
-// Styles in progress that have not been refactored into imports
+// Styles in progress
 //
 body {
-  background-color: $light-grey;  
+  background-color: $bkg-color;  
   
   // Drupal blocks
   .block {
-    float: $from-direction;
-    clear: both;
-    background-color: yellow!important;
+    // float: $from-direction;
+    // clear: both;
+    // background-color: yellow!important;
   }
 }
 
-// ====================================================================== 
-// Specific pages (for now, w/ unique body selectors)
-//
-
-// User section
-body.not-front.not-logged-in.page-user { @include cd-user-section; }
-
-// Sidebar page
-@import "sidebar";
 
 // ====================================================================== 
 // Lastly: hacks to be removed
 //
 @import "evil_hacks";
+
+// ====================================================================== 
+// No really, The End
+//
+// Debuggers get the final word
+// @include debug_drupal;
+// @import "spec";
+
+// $display-banner: true;
+// @include visualize-grid($display-banner);

@@ -18,9 +18,7 @@ body.sidebar-first {
       @include span-columns($sw, $cw);
       #sidebar-first-inner {
         @include span-columns($sw, $sw);
-        .views-filters { 
-          @include reports-filter($sw); 
-        }
+        // reports filter is here, is included in style.scss
       }
     }
 
@@ -41,8 +39,8 @@ body.sidebar-first {
       #block-checkdesk-core-post {
         background: white;
         border-top: 1px solid rgba(black, 0.2);
-        border-#{$from-direction}: 1px solid rgba(black, 0.1);
-        margin-#{$from-direction}: gutter($w) * -1; // counteract gutter
+        // border-#{$from-direction}: 1px solid rgba(black, 0.1);
+        // margin-#{$from-direction}: gutter($w) * -1; // counteract gutter
         position: realtive;
         z-index: -1;
 

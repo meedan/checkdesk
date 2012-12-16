@@ -23,22 +23,38 @@ $serif-font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
 $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 
 // Modular scale setup
-// Two scales at 1:1.61803
 // http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
 // All of these numbers are based on 18 base font size and 1168 outer container
 // Now you can do this to see the scale values (px)
-// @for $i from -2 through 3 {  @debug ms($i); }
-$base-size: 18px 1168px;
+$base-size: 18px 1168px; // Two scales at 1:1.61803
 $ratio: golden();
 $round_pixels: true;
 
+// @debug the calculated scale
+// @for $i from -2 through 3 {  @debug ms($i); }
+
+// Small values, expressed in our scale.
+$_1px: ms(-6);
+$_2px: ms(-5);
+$_3px: ms(-4);
+$_4px: ms(-3);
+
 // Typography
 $smallest-font-size: ms(-2); // 7px
-$small-font-size: ms(-1); // 11px
-$base-font-size: ms(0); // 18px  <-- this is the most important value
-$large-font-size: ms(1); // 25px
+$smaller-font-size: ms(-1); // 11px
+$small-font-size: ms(0) - ms(-5); // 16px
+$base-font-size: ms(0); // 18px 
+$large-font-size: ms(0) + ms(-5); // 20px 
+$larger-font-size: ms(1); // 25px
 $x-large-font-size: ms(2); // 29px
 $xx-large-font-size: ms(3); // 40px
+
+$debug: false;
+@if $debug == true {
+  @each $size in $smallest-font-size $smaller-font-size $small-font-size $base-font-size $large-font-size $larger-font-size $x-large-font-size $xx-large-font-size {
+    @debug "#{$size}";
+  }
+}
 
 // Set initial baseline configuration
 $base-line-height: 1.2;
@@ -66,9 +82,9 @@ $base-line-height: 1.2;
 
 // Columns count and breakpoints
 $container-width: 8;
-$break-small: $container-width + 4; 
-$break-medium: $break-small + 4;
-$break-large: $break-medium + 4;
+$break-small: 12; 
+$break-medium: 18;
+$break-large: 24;
 
 // Checkdesk layout sections
 $total-width: $container-width; // Alias for Chris
@@ -96,7 +112,7 @@ $nav-line-height: $nav-icon-height;
 $nav-height: $nav-icon-height + 7*2;
 
 // A single Report
-$report-width: $container-width - 2;
+$report-width: $container-width;
 
 // Aliases
 $cw: $container-width;
@@ -130,3 +146,6 @@ $notification-button-width: ms(9);
 $sidebar-width: 4;
 
 $text-color: black;
+
+// We need this in px because the columns can't reliably remove the margins yet ...
+$report-width-px: 400px;
