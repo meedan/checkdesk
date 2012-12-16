@@ -1,0 +1,108 @@
+//
+// Checkdesk Dropdown menus
+
+// Dropdown arrow/caret
+.caret { @include caret; }
+
+.dropdown {
+  position: relative;
+}
+
+// The dropdown menu (ul)
+.dropdown-menu {
+  position: absolute;
+  top: 75%;
+  left: 0;
+  z-index: $zindexDropdown;
+  display: none; // none by default, but block on "open" of the menu
+  float: $from-direction;
+  min-width: 160px;
+  padding: $gw 0;
+  margin: $gw 0 0; // override default ul
+  list-style: none;
+  background-color: white;
+  @include border-radius($radius);
+  @include cd-box-shadow;
+  @include background-clip(padding-box);
+
+  // Aligns the dropdown menu to right
+  &.pull-#{$omega-float} {
+    #{opposite-position($from-direction)}: 0;
+    #{$from-direction}: auto;
+  }
+
+  // Dividers (basically an hr) within the dropdown
+  .divider {
+    @include ctb-nav-divider($dropdownDividerTop, $dropdownDividerBottom);
+  }
+
+  // Links within the dropdown menu
+  li > a {
+    display: block;
+    padding: ms(-2) ms(0);
+    clear: both;
+    font-weight: normal;
+    line-height: $base-line-height;
+    white-space: nowrap;
+  }
+}
+
+// Hover state
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a {
+  text-decoration: none;
+  color: $dropdownLinkColorHover;
+  background-color: $identity;
+}
+
+// Active state
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
+  color: $dropdownLinkColorActive;
+  text-decoration: none;
+  outline: 0;
+  background-color: $identity;
+}
+
+// Disabled state
+.dropdown-menu .disabled > a,
+.dropdown-menu .disabled > a:hover {
+  color: $light-grey;
+}
+
+// Nuke hover effects
+.dropdown-menu .disabled > a:hover {
+  text-decoration: none;
+  background-color: transparent;
+  background-image: none; // Remove CSS gradient
+  cursor: default;
+}
+
+// Open state for the dropdown
+.open {
+  // IE7's z-index only goes to the nearest positioned ancestor, which would
+  // make the menu appear below buttons that appeared later on the page
+  *z-index: $zindexDropdown;
+
+  & > .dropdown-menu {
+    display: block;
+  }
+}
+
+// Sub menus
+.dropdown-submenu {
+  position: relative;
+}
+
+// Default dropdowns
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  #{$from-direction}: 100%;
+  #{$omega-float}: auto;
+  @include border-radius($radius);
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}

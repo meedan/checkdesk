@@ -1,18 +1,19 @@
 // Drupal views
 // 
-// Defaults for all views lists: liveblog list of posts, list of
+// Defaults for all views lists: liveblog list of posts, list of reports
 
 .view-content,
 .views-field, 
 .views-row { 
-  @include clearfix; 
+  @include clearfix;
 } 
 
 .views-row {
+  
   & > a {
-  padding: $base-font-size 0;
-  display: block;
-  font-weight: bold;
+    padding: $base-font-size 0;
+    display: block;
+    font-weight: bold;
   }
   
   // Views main title

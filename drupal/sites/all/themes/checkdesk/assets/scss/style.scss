@@ -23,6 +23,9 @@
 // Bowerbird Drupal touchups
 @import "bowerbird/drupal";
 
+// Some views stuff we extracted from cd
+@import "views";
+
 //  Debugger mixins for the grid, breakpoints, etc.
 @import "bowerbird/debug";
 
@@ -72,18 +75,18 @@
 $inputHeight: $base-line-height;
 @import "bowerbird/compass_twitter_bootstrap/reset";
 
-// our version of bootstrap forms
-// @import "override_ctb/forms";
-
-// our bootstrap modals
-@import "override_ctb/modals";
-// @import "bowerbird/compass_twitter_bootstrap/modals";
-
 // our bootstrap alerts
 @import "override_ctb/alerts";
 
-// our bootstrap dropdowns
-@import "override_ctb/dropdowns";
+// Some shared helpers used in ctb dropdowns and checkdesk
+@import "shared";
+
+// our dropdowns originally based on TB
+@import "dropdowns";
+
+// our modals originally TB
+@import "modals";
+
 
 // ====================================================================== 
 // Imported but unmodified Twitter Bootstrap scaffolding
@@ -138,9 +141,6 @@ body {
 // Main Checkdesk Sass files
 // Drupal sections, pages, mixins
 
-// Some shared helpers
-@import "shared";
-
 //  Checkdesk typography
 //  And a reponsive typography mixin which is applied in layout.
 @import "typography";
@@ -165,17 +165,14 @@ body {
 // Checkdesk Pagination
 @import "pagination";
 
-// Main form styles
-@import "forms";
-
-// Form: password strength section
-@import "form_password";
-
 // Primary Navigation and Drupal nav at very top
 @import "navigation";
 
 // Tabs
 @import "tabs"; 
+
+// Form: password strength section
+@import "form_password";
 
 // Forms
 @import "forms";
@@ -187,21 +184,19 @@ body {
 // Liveblog page
 @import "liveblog";
 
+// Story blog page with discussion
+@import "story";
+
 // Create update page
 // Sidebar layout with main and secondary cols
-@import "sidebar";
-
-// Reports filters only on sidebar page
 @import "reports_filter";
+@import "sidebar";
 
 // User section
 @import "user";
 
 // Create node page and form
 @import "create_node";
-
-// Story blog page with discussion
-@import "story";
 
 // Reports page
 @import "reports";
@@ -218,6 +213,7 @@ body {
     // clear: both;
     // background-color: yellow!important;
   }
+
 }
 
 
@@ -233,5 +229,5 @@ body {
 // @include debug_drupal;
 // @import "spec";
 
-$display-banner: true;
-@include visualize-grid($display-banner);
+// $display-banner: true;
+// @include visualize-grid($display-banner);

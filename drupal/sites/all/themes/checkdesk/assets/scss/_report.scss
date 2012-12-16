@@ -8,10 +8,12 @@
 .report {
 	// @include span-columns($cw, $cw); // default is full width
 	// width: 100%; //default
+	border-top: 2px solid $identity;
 	font-family: $sans-font-family;
 	background-color: lighten($grayLighter, 5%);
 	margin: { top: $gw; bottom: $gw; }
 	min-width: 240px;
+	max-width: 380px;
 
 	a {
 		color: black;
@@ -21,26 +23,33 @@
 	}
 
 	& > header {
-		@include clearfix;
 		// background: top $from-direction repeat url("/sites/all/themes/bowerbird/images/bkgs/arches.png");
 		color: $gray;
 		// @include span-columns($rw, $rw, $gw);
 		padding: 5px;
 
 		h3 {
-			font-size: $small-font-size;
-			line-height: $small-font-size * 1.2;
+			font-size: $smaller-font-size;
+			line-height: $smaller-font-size * 1.2;
 			overflow: hidden;
 			// padding: $base-font-size 0;
 			margin: 0;
 			display: inline-block;
-			.source-url {
+			width: 100%;
+			
+			.source-url { // this is not the best markup CGB
+				padding-top: 2px;
 				font-weight: normal;
 				font-size: inherit;
 				line-height: inherit;
 				overflow: inherit;
-				// padding-#{opposite-position($from-direction)}: $gw;
-				display: inherit;
+				font-size: inherit;
+				display: inline-block;
+				width: 100%;
+				color: $grey;
+				@include icon(link, $smaller-font-size, $darker-grey) {
+					margin: 1px;
+				}
 			}
 		}
 
@@ -48,6 +57,14 @@
 			@include reset-box-model;
 			@include reset-list-style;
 			font-size: $small-font-size;
+			display: block;
+			float: $from-direction;
+			// The last dropdown needs to not stick out at smaller sizes
+			
+			// li.share-on .dropdown-menu {
+			// 	#{$omega-float}: auto;
+			// 	#{$from-direction}: -75px;
+			// }
 
 			& > li {
 				display: block;
@@ -102,10 +119,13 @@
 
 	// Twitter reports icon in header
 	h3 > a[href*="twitter.com"] { 
-		@include icon('twitter');
+		@include icon('twitter') {
+			margin: 1px;
+		}
 		&:before {
 			display: inline-block;
 			@include transform(rotate(-19deg)); // new twitter logo :)
+			font-size: inherit;
 		}
 	}
 
@@ -124,7 +144,7 @@
 	// }
 
 	div.sensitive-hide {
-	  display: hidden;
+	  display: none;
 	}
 
 	.report-content {

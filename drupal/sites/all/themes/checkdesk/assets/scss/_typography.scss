@@ -181,6 +181,7 @@
   nav {
     font-family: $sans-font-family;
     font-size: $nav-font-size;
+    font-weight: 300px;
   }
 
   // The sidebar
@@ -192,7 +193,6 @@
     display: none; // hidden at this size;
   }
 }
-
 
 // =========================================================================
 // Pre-breakpoint defaults
@@ -229,7 +229,7 @@ body {
 @include at-breakpoint($break-medium) {
   body {
     // font-size:  $larger-font-size; // increased
-    line-height: ms(2) * 1.2;
+    line-height: ms(2);
   }
   h1.title {
     // font-size:  $larger-font-size; // increased

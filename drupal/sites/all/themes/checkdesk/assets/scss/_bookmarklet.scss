@@ -11,7 +11,6 @@
     @include reset-box-model;
     color: $grey;
     font-size: $base-font-size;
-    margin-bottom: 0;
     float: $from-direction;
   }
 
@@ -28,24 +27,25 @@
       p {
         display: none;
       }
-    }
-    span:hover p {
-      display: block;
-      width: 220px;
-      height: 60px;
-      background: #fff;
-      border: 1px solid #bbb;
-      font-size: 11px;
-      color: #7c7c7c;
-      text-indent: 0;
-      padding: 8px;
-      position: absolute;
-      #{opposite-position($from-direction)}: 1px;
+
+      &:hover p {
+        display: block;
+        width: 220px;
+        height: 60px;
+        background: #fff;
+        border: 1px solid #bbb;
+        font-size: 11px;
+        color: #7c7c7c;
+        text-indent: 0;
+        padding: 8px;
+        position: absolute;
+        #{opposite-position($from-direction)}: 1px;
+      }
     }
   }
 
   #meedan_bookmarklet_preview {
-    color: #bbb;
+    color: $dark-grey;
     margin: 10px 0;
   }
 
@@ -93,22 +93,18 @@
     display: none;
   }
 
+  #meedan_bookmarklet_preview_content img {
+    width: auto;
+  }
+
   #meedan_bookmarklet_preview_content,
-  #meedan_bookmarklet_preview_content img,
   #meedan_bookmarklet_preview_gc {
     width: 332px;
     height: 230px;
   }
 
   #meedan_bookmarklet_preview_content {
-    overflow: hidden;
-    display: block;
-    img {
-      display: block;
-      width: auto;
-      margin: 0 auto;
-      @include opacity(0.1);
-    }
+    
   }
   
   #meedan_bookmarklet_preview_gc {
@@ -224,7 +220,6 @@
       }
     }
   }
-
 }
 
 // The installation page link
@@ -296,7 +291,7 @@
 
     span {
       position: absolute;
-      top: 50px;
+      top: 35px;
       padding: 10px;
       background: #2DA3EB;
 	    @include border-radius(3px);
@@ -310,7 +305,7 @@
 
     h3 {
       color: #C0C0C0;
-      font-size: 28px;
+      font-size: ms(1);
       text-align: center;
       margin: 80px auto 20px auto;
       font-weight: normal;
@@ -344,8 +339,7 @@
     }
 
     p {
-      font-size: $base-font-size;
-      margin: 25px 0;
+      margin: ms(0) 0;
     }
   }
 }
@@ -361,7 +355,7 @@
   display: none;
   position: fixed !important; 
   #{$from-direction}: 44px !important;
-  border: 0 !important;
+  border-width: 0 !important;
 }
 
 .meedan-bookmarklet-internal {

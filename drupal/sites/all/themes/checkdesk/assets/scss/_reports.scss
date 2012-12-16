@@ -15,6 +15,7 @@ body.page-reports {
   li.views-fluid-grid-item  {
     @include reset-box-model; // remove default border
     @include span-columns($cw, $cw); // default is full width
+    overflow: visible;
   } 
 
 
@@ -74,7 +75,7 @@ body.page-reports {
 @include at-breakpoint($break-large) { // 24
   body.page-reports {
     li.views-fluid-grid-item {
-      @include span-columns(6, $break-large);
+      @include span-columns(7, $break-large);
       margin: 0;
       // width: $report-width-px;
       article.report {

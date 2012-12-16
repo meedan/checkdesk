@@ -4,12 +4,17 @@
 
 .fyre-widget {
   .img {
-    width: auto; // there is a bug with with:100%
+    width: auto!important; // there is a bug with with:100%
   }
 }
 
 div.livefyre-header {
+  width: auto;
+}
+  
+div.livefyre-header {
   padding: 1em;
+  display: block;
   .livefyre-commentcount {
     @include icon('comment');
   }

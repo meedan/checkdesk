@@ -7,7 +7,7 @@
 // Compatibility: untested
 #block-views-my-notifications-block {
   position: relative;
-  z-index: $zindexPopover;
+  z-index: $zindexPopover; // resusing z-index system from twitter bootstrap
   h2 {
     // this is a nav-item-container with a nav-item in navigation.scss
     // it must remain consistent with the rest of the buttons ...
@@ -23,23 +23,27 @@
   }
 }
 
-// Heartbeat
+// Notification stream
+// Using heartbeat module
 //
 // W/ icon on the background of an element.
 .heartbeat-activity {
+  @include span-columns($cw, $cw, $gw); // full span, with $gw padding
   color: $dark-grey;
   border-bottom: 1px solid $light-grey;
   padding: { top: $gw; bottom: $gw; } 
-  @include span-columns($cw, $cw, $gw);
-  font-size: $base-font-size;
+  font-size: $small-font-size;
+  
+  // Links
   a, a:visited, a:link {
     text-decoration: none;
-    font-weight: bold;
-    color: #6a6a6a;
+    color: $identity;
   }
+
   a:hover {
     text-decoration: underline;
   }
+
   p {
     @include reset-box-model;
     width: 75%;
@@ -57,20 +61,14 @@
     margin-top: 3px;
     background: $light-grey;
   }
-  
-  &:hover {
-    #{$i-s}:before {
-      @include opacity(1);
-    }    
-  }
 
-  #{$i-s} {
+  #{$notifications-icon-selector} {
     @include reset-box-model;
     display: block;
     float: $from-direction;
     clear: both;
     width: 100% - $notification-image-width;
-    line-height: $base-font-size;
+    line-height: $base-line-height;
     background-repeat: no-repeat;
     background-color: transparent;
     background-position: $from-direction bottom;
@@ -86,7 +84,7 @@
   $color: $grey, 
   $size: $notification-icon-size) 
   {
-  .checkdesk_#{$name} #{$i-s} {
+  .checkdesk_#{$name} #{$notifications-icon-selector} {
     @include icon($symbol, $size, $color) {
       // apply the width directly to the :before content
       width: $notification-image-width;
@@ -115,33 +113,36 @@
     z-index: $zindexPopover;
     width: $notification-dropdown-width;
     @include cd-box-shadow;
-    @include border-radius(5px 0 0 0);
+    @include border-radius(5px);
     border: 1px solid $grey;
-    // To make it appear on the side ...
-    // #{opposite-position($from-direction)}: $notification-button-width;
-    #{$omega-float}: $notification-button-width;
+    #{opposite-position($from-direction)}: 0;
+    // #{$omega-float}: 0;
     top: 0;
     background: $light-grey;
-    
-    @if $from-direction == left {
-      @include border-top-right-radius(0);
-    } @else {
-      @include border-top-left-radius(0);
-    } 
+
+    & > span {
+      display: none; // HACK I'm not sure why this span exists ... CGB
+    }
+
+    @include border-top-radius($radius);
 
     .view-content {
       width: 100%;
       overflow: auto;
       background: white;
     }
-    .item-list {
-      display: none;
+    
+    // HACK
+    .item-list ul.pager {
+      display: none;  // Hide the pager button
     }
+
+    // Both links 
     .notifications-settings-link, 
     .more-link {
       @include building_block;
       background-color: $grey;
-      padding: { top: 0.5em; bottom: 0.5em;} 
+      // padding: { top: 0.5em; bottom: 0.5em;} 
       a, a:visited, a:link {
         font-size: $small-font-size;        
         text-decoration: none;
@@ -151,12 +152,21 @@
         color: $light-grey;
       }
     }
+
+    // The left link
     .notifications-settings-link {
       float: $from-direction;
+      border-bottom-#{$from-direction}-radius: $radius;
+      border-bottom-#{$omega-float}-radius: 0;
     }
+
+    // The right link
     .more-link {
       float: opposite-position($from-direction);
+      border-bottom-#{$from-direction}-radius: 0;
+      border-bottom-#{$omega-float}-radius: $radius;
     }
+
     .notifications-footer {
       clear: both;
     }

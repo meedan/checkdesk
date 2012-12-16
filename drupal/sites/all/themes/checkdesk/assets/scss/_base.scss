@@ -83,10 +83,10 @@ $base-line-height: 1.2;
 //
 
 // Columns count and breakpoints
-$container-width: 8;
+$container-width: 6;
 $break-small: 12; 
-$break-medium: 18;
-$break-large: 24;
+$break-medium: 24;
+$break-large: 48;
 
 // Checkdesk layout sections
 $total-width: $container-width; // Alias for Chris
@@ -134,15 +134,13 @@ $notification-image-width: 5%;
 $radios-widths: $fw - 2;
 
 // heartbeat icon integration
-$icon-selector: '.heartbeat-time-ago';
-$i-s: $icon-selector;
+$notifications-icon-selector: '.heartbeat-time-ago';
 
 // in icon()
 $icon-word-padding: 2.5%;
 
 // Notifications
 $notification-dropdown-width: ms(11);
-$notification-button-width: ms(9);
 
 // default sidebar width
 $sidebar-width: 4;
@@ -151,3 +149,5 @@ $text-color: black;
 
 // We need this in px because the columns can't reliably remove the margins yet ...
 $report-width-px: 400px;
+
+$radius: 4px;

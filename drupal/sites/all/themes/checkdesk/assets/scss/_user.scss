@@ -4,6 +4,7 @@
   div.profile {
     @include span-columns($width - 2, $context);
     background-color: $input-background;
+    @content;
     
     .user-picture {
       float: opposite-position($from-direction);
@@ -30,9 +31,6 @@
        font-weight: 200px;
       }
     }
-
-
-    @content;
   }
 }
 
@@ -44,15 +42,16 @@
 //
 // Forgot password and create new account <.item-list>s
 
-
-body.page-user- { // both logged in and not logged ins states
+//  this first selector is jacked ... -CGB
+body.page-user-, 
+body.page-user { // both logged in and not logged ins states
 
   #main {
     padding: 0;
     @include span-columns($cw, $cw);  // default width
   }
 
-
+  // The page with your picture
   @include user-profile;
 
   // The user forms
@@ -153,20 +152,18 @@ body.page-user- { // both logged in and not logged ins states
     padding-top: $gw*2!important;
   }      
 
+  // ================================================================================
+  // Breakpoints
+  //
+
+  // Break small
   @include at-breakpoint($break-small) {
     form {
-      @include span-columns($break-small - 2, $break-small);
-      @include pad(1, 1, $break-small);
       #edit-social-media-signin a {
         font-size: $large-font-size!important;
-        &:after { display: inline-block!important; }
+        &:after { display: inline-block!important; } // make more text appear
       }
     }
   }
-  @include at-breakpoint($break-medium) {
-    form {
-      @include span-columns($break-medium - 4, $break-medium);
-      @include pad(2, 2, $break-medium);
-    }
-  }
+
 }

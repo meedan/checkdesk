@@ -1,11 +1,8 @@
-
 // Form Actions
 //
-@mixin form-actions {
-  // Form Actions
-  // Main submit button
+@mixin form-actions($w) {
   .form-actions {
-    @include span-columns($cw, $cw); // end of grid
+    @include span-columns($w, $w); // end of grid
 
     // Form actions: buttons and anchors
     input, a {
@@ -23,12 +20,10 @@
   }
 }
 
-
-
 // In addition to our use of normalize, and other resets, 
 // This standardizes form elements
 //
-@mixin form-reset {
+@mixin form-standardize {
   
   label, input, button, select, textarea {
     font-size: $base-font-size;
@@ -40,22 +35,20 @@
 
   label {
     display: block;
-    margin-bottom: ms(-2);
   }
 
   select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     display: inline-block;
-    height: $baseLineHeight;
-    margin-bottom: ms(-2);
-    font-size: $base-font-size;
     line-height: $base-line-height;
+    height: $base-line-height * $base-font-size;
+    margin-bottom: ms(-2);
     color: $gray;
     @include border-radius(4px);
     vertical-align: middle;
   }
 
   input, textarea, .uneditable-input { 
-    width: ms(8); // legacy default width overridden in post-1996 selectors below
+    width: 300px; // legacy default width overridden in post-1996 selectors below
   }
 
   textarea { 
@@ -100,7 +93,7 @@
   }
 
   // Make multiple select elements height not fixed
-  select[multiple], select[size] {height: auto; }
+  select[multiple], select[size] { height: auto; }
 
   // Focus for select, file, radio, and checkbox
   select:focus, input[type="file"]:focus, input[type="radio"]:focus, input[type="checkbox"]:focus {
@@ -111,117 +104,144 @@
 // ============================================================================
 // The forms 
 //
-form {
-  @include form-reset;
-  @include form-actions;
-  @include span-columns($cw, $cw);
+@mixin cd-form($w, $context, $gw: 0px) {
+  form {
+    @include form-standardize;
+    @include form-actions($w);
+    @include form-pass($w, $context);
+    @include span-columns($w, $context, $gw);
+    @content;
 
-  & > .form-item {
-    @include span-columns($cw, $cw);
-    font-size: $small-font-size;
-    color: $dark-grey;
-    background: rgba($light-grey, 0.5);
-    margin-bottom: 2px;
-    display: block;
-    padding-bottom: $gw;
-    float: $from-direction;
-    padding-top: ms(0);
-
-    // Nested <.form-item>s
-    .form-item { 
-      @include span-columns($cw, $cw);  
-    }
-  } 
-
-  // Default inputs and textareas
-  input,
-  textarea {
-    @include span-columns($cw, $cw);
-    @include border-radius(3px);
-    padding: ms(-3);
-    margin-bottom: ms(-3);
-    background-color: $input-background;
-  }
-
-  // Default labels
-  label {
-    font-size: $large-font-size;
-    display: block;
-    font-weight: normal;
-    padding-top: ms(1);
-    padding-bottom: ms(-5);
-  }
-
-  // Default descriptions
-  .description {
-    clear: $from-direction;
-    font-size: $form-helper-text-size;
-    display: none; // displayed at larger breakpoints
-  }
-
-  // Form textareas, basic inputs
-  textarea, 
-  input {
-    background-color: $input-background;
-    border: 1px solid $grey;
-
-    // Focus state
-    &:focus {
-      border-color: rgba($donjuan, .8);
-      outline: 0;
-      outline: thin dotted \9; /* IE6-9 */
-      @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($donjuan, .6)});
-    }
-  }
-
-  // Radios and Checkboxes
-  input[type="radio"], 
-  input[type="checkbox"] {
-    width: ms(3);
-    height: ms(3);
-    margin: 0;
-    display: block;
-    float: $from-direction;
-  }
-
-  input[type="radio"] + label,
-  input[type="checkbox"] + label, {
-    display: inline-block;
-    padding: $gw;
-    margin-#{$from-direction}: $gw;
-    font-size: $small-font-size;
-  }
-
-  // Confirmation Form Actions: Confirm delete node
-  &.confirmation {
-    .form-actions input {
-        @include checkdesk-button($firetruck-red); // Red delete button
-    }
-  }
-
-  // Form checkboxes
-  .form-type-checkbox {
-    @include reset-box-model;
-    @include span-columns($cw, $cw);
-
-    // The checkbox
-    input.form-checkbox {
-      @include inline-block;
-      padding: $gw;
-      width: $gw;
+    & > .form-item {
+      @include span-columns($w, $w, $gw);
+      font-size: $small-font-size;
+      color: $dark-grey;
+      background: rgba($light-grey, 0.5);
+      @include reset-box-model;
+      display: block;
+      float: $from-direction;
+      // Nested <.form-item>s
+      .form-item { 
+        width: 100%;  
+      }
     } 
 
-    // Checkbox label
-    label.option {
+    // Default inputs and textareas
+    input,
+    textarea {
+      @include span-columns($w, $w);
+      @include border-radius(3px);
+      display: block;
+      padding: ms(-3);
+      padding-#{opposite-position($from-direction)}: 0;
+      line-height: $base-line-height;
+      background-color: $input-background;
+      max-height: 100px;
+    }
+
+    // When we start writing make it bright
+    input:focus, 
+    textarea:focus { 
+      background-color: white; 
+    }
+
+    // Default labels
+    label {
+      font-size: $large-font-size;
+      display: block;
+      font-weight: normal;
+      padding-top: ms(1);
+      padding-bottom: ms(-5);
+    }
+
+    // Default descriptions
+    .description {
+      clear: $from-direction;
+      font-size: $form-helper-text-size;
+      display: none; // displayed at larger breakpoints
+    }
+
+    // Form textareas, basic inputs
+    textarea, 
+    input {
+      background-color: $input-background;
+      border: 1px solid $grey;
+
+      // Focus state
+      &:focus {
+        border-color: rgba($donjuan, .8);
+        outline: 0;
+        outline: thin dotted \9; /* IE6-9 */
+        @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($donjuan, .6)});
+      }
+    }
+
+    // little links: create new account, forgot password 
+    // BAD selector here
+    .item-list .first.last {
+      font-size: $small-font-size;
+    }
+
+    // Confirmation Form Actions: Confirm delete node
+    &.confirmation {
+      .form-actions input {
+          @include checkdesk-button($firetruck-red); // Red delete button
+      }
+    }
+
+    // Form checkboxes
+    .form-type-checkbox {
       @include reset-box-model;
-      @include inline-block;
-      clear: none;
-      float: $from-direction;
-      padding: $gw;
+      @include span-columns($w, $w);
+
+      // The checkbox
+      input.form-checkbox {
+        @include inline-block;
+        padding: $gw;
+        width: $gw;
+      } 
+
+      // Checkbox label
+      label.option {
+        @include reset-box-model;
+        @include inline-block;
+        clear: none;
+        float: $from-direction;
+        padding: $gw;
+      }
+    }
+
+
+    div.form-wrapper {
+      @include span-columns($w, $w);
     }
   }
+}
 
-  @include at-breakpoint($break-small) {}
-  @include at-breakpoint($break-medium) {}
-  @include at-breakpoint($break-large) {}
+
+// Forms Breakpoints
+//
+// For now we just automatically rerender each of our responsive mixins
+// Later we will optimize and extract only the layout elements into these breakpoints
+
+// Default render of the forms
+@include cd-form($cw, $cw, $gw);
+
+// Breakpoint: small
+@include at-breakpoint($break-small) {
+  $break: $break-small;
+  @include cd-form($break - 6, $break) {
+    @include pad(3, 3, $break);
+  }
+}
+
+// Breakpoint: medium
+@include at-breakpoint($break-medium) {
+  $break: $break-medium;
+  
+}
+
+// Breakpoint: large
+@include at-breakpoint($break-large) {
+  $break: $break-large;
 }

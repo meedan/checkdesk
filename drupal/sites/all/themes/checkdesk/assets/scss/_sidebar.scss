@@ -1,93 +1,115 @@
 // Page with a sidebar
-// Implementations: The create update page
+// Implementations: The story page as seen by a journalist (create update)
 //
 // By default, there is only one column.
-// In larger breakpoints the $w and $sw diverge for two columns.
+// In larger breakpoints the primary width $pw and secondary $sw diverge to create two columns.
+@mixin sidebar($sw, $pw, $break: $cw) {
 
-$w: $cw !default; // main column width
-$sw: $cw !default; // sidebar width
+  body.sidebar-first {
+    #main {
+      background-color: $light-grey;
+      @include span-columns($break, $break); //outermost container
+      @include pad(0,0, $break); // override story.scss
 
-body.sidebar-first {
-  #main {
-    // 2. The sidebar column
-    #sidebar-first.column {
-      @include clearfix;
-      position: relative;
-      z-index: 0;
-      @include box-shadow($grey 2px -1px 4px);
-      @include span-columns($sw, $cw);
-      #sidebar-first-inner {
-        @include span-columns($sw, $sw);
-        // reports filter is here, is included in style.scss
+      // 2. The sidebar column
+      #sidebar-first.column {
+        background-color: white;
+        margin-top: 100px;
+        @include span-columns($sw + 1, $break, $gw); // sidebar width
+        margin-#{opposite-position($from-direction)}: 0;
+        @include clearfix;
+        position: relative;
+        z-index: 0;
+        @include box-shadow($grey 2px -1px 4px);
+        @include reports-filter($sw);
       }
-    }
 
-    // 3. The primary content column
-    div#content .inner {
-      @include span-columns($sw, $cw);
-      @include omega;
+      // 3. The primary content column
+      div#content .inner {
+        @include span-columns($pw - 1 omega, $break);
+        @include pad(0,0, $break);
+        margin-#{$from-direction}: 0;
+        background-color: white;
 
-      h1.title {
-        font-size: ms(5);
-        line-height: ms(5);
-        display: inline-block;
-        @include span-columns($w, $cw);
-        padding-bottom: ms(0);
-      }
-      
-      // The main post form
-      #block-checkdesk-core-post {
-        background: white;
-        border-top: 1px solid rgba(black, 0.2);
-        // border-#{$from-direction}: 1px solid rgba(black, 0.1);
-        // margin-#{$from-direction}: gutter($w) * -1; // counteract gutter
-        position: realtive;
-        z-index: -1;
-
-        @include span-columns($w, $cw);
-        form {
-          @include span-columns($w, $cw);
-          padding-#{$from-direction}: ms(5);
+        // this needs to move to typography.scss
+        h1.title {
+          margin-top: 0;
+          padding-top: 2em;
+          font-size: $xxx-large-font-size;
         }
-      }
 
-      // "Published" updates
-      #block-views-desk-updates-block {
-        margin-top: $base-font-size;
-        background: white;
-        padding: $gw; // children are no longer aligned to grid ...
+        p {
+          @include span-columns($pw, $pw);
+          clear: both;
+        }
+        
+        // The current status and blogger information
+        .story-status, .story-blogger {
+          @include span-columns($pw, $pw);
+          @include clearfix;
+        }
+
+        // The main post form
+        #block-checkdesk-core-post {
+          @include span-columns($pw, $pw);
+          position: relative;
+          clear: both;
+
+          form {
+            @include span-columns($pw, $pw, $gw);
+          }
+        }
+
+        // "Published" updates
+        #block-views-desk-updates-block {
+          @include span-columns($pw, $pw);
+          // margin-top: $base-font-size;
+          // background: white;
+          // padding: $gw; // children are no longer aligned to grid ...
+        }
       }
     }
   }
 }
 
 // ==========================================================================
+// Default: up to break-small
+@include sidebar($cw, $cw); // full width for secondary and primary cols
+
+// ==========================================================================
 // Breakpoint: small
 @include at-breakpoint($break-small) {
-  $break-small-sidebar: 4;
-  // Sidebar
-  body.sidebar-first {
-    #sidebar-first.column {
-      @include span-columns($break-small-sidebar, $cw);
-      margin-top: ms(5);
-      #sidebar-first-inner {
-        // add padding
-        @include span-columns($break-small-sidebar, $break-small-sidebar);
-        form {
-          @include span-columns($break-small-sidebar, $break-small-sidebar);
-        }
-      }
-    }
+  $break: $break-small;
+  $sw: 4;
+  $pw: $break-small - $sw;
 
-    // Main column
-    div#content .inner {
-      @include span-columns($break-small, $break-small);
-      #block-checkdesk-core-post {
-        padding-#{$from-direction}: ms(5); // add special padding
-        form {
-          @include span-columns($break-small, $break-small);
-        }
-      }
-    }
+  body.sidebar-first #main {
+    @include span-columns($break, $break); //reset
+    @include pad(0, 0, $break); 
   }
+
+  @include sidebar($sw, $pw, $break); // reapply sidebar
+}
+
+
+@include at-breakpoint($break-medium) {
+  $break: $break-medium;
+  $sw: 6;
+  $pw: $break-medium - $sw;
+  body.sidebar-first #main {
+    @include span-columns($break, $break); // reset outer
+    @include pad(0,0, $break); // reset
+  }
+  @include sidebar($sw, $pw, $break); // reapply sidebar
+}  
+
+@include at-breakpoint($break-large) {
+  $break: $break-large;
+  $sw: 7;
+  $pw: $break-large - $sw;
+  body.sidebar-first #main {
+    @include span-columns($break, $break); // reset
+    @include pad(0, 0, $break); // reset
+  }
+  @include sidebar($sw, $pw, $break); // reapply sidebar
 }

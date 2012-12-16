@@ -1,6 +1,5 @@
 //
-// Modals
-// --------------------------------------------------
+// Checkdesk Modals
 
 // Background
 .modal-backdrop {
@@ -20,6 +19,8 @@
   @include opacity(80);
 }
 
+$modal-width: 456px;
+
 // Base modal
 .modal {
   position: fixed;
@@ -27,13 +28,13 @@
   left: 50%;
   z-index: $zindexModal;
   overflow: auto;
-  width: 456px;
+  width: $modal-width;
   margin: -250px 0 0 -280px;
   background-color: $white;
   border: 1px solid #999;
   border: 1px solid rgba(0,0,0,.3);
   *border: 1px solid #999; /* IE6-7 */
-  @include border-radius(6px);
+  // @include border-radius($radius);
   @include box-shadow(0 3px 7px rgba(0,0,0,0.3));
   @include background-clip(padding-box);
   // Remove focus outline from opened modal
@@ -60,24 +61,24 @@
 
 // Body (where all modal content resides)
 .modal-body {
-
   overflow-y: auto;
   max-height: 400px;
+
   .modal-content {
     position: relative;
-    width: 420px !important;
     padding: 0 $gw;
+    font-size: $large-font-size;
+    line-height: $base-line-height;
+    form {
+      z-index: $zindexModal + 1;
+    }
   }
-  .modal-footer {
-    position: absolute;
-    bottom: 0;
-    left: -$gw;
-    width: 456px; // TEMP fix
-  }
+
   #modal-throbber {
     padding: $baseLineHeight/2 0;
     margin-left: -$gw/2;
   }
+
   .form-actions {
     margin: 0; padding: 0;
   }
@@ -89,6 +90,12 @@
 
 // Footer (for actions)
 .modal-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1%;
+  width: $modal-width;
+  display: block;
   padding: $baseLineHeight/2 $gw/2;
   margin-bottom: 0;
   text-align: right; // right align buttons
@@ -98,20 +105,20 @@
   @include box-shadow(inset 0 1px 0 $white);
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
 
-  // Properly space out buttons
-  .btn + .btn {
-    margin-left: 5px;
-    margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+  .btn {
+    @include building_block;
+    background-color: $grey;
+    // padding: { top: 0.5em; bottom: 0.5em;} 
+    a, a:visited, a:link {
+      font-size: $small-font-size;        
+      text-decoration: none;
+      color: white;
+    }
+    a:hover {
+      color: $light-grey;
+    }  
   }
-  // but override that for button groups
-  .btn-group .btn + .btn {
-    margin-left: -1px;
-  }
-  // and override it for block buttons as well
-  .btn-block + .btn-block {
-    margin-left: 0;
-  }
-
+  
   .ajax-progress-throbber {
     display: none;
   }

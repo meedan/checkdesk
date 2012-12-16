@@ -1,16 +1,20 @@
 // The report filters
 // Views filter
+//
+// $w - the width
+//
 // .views-filters form .views-exposed-form .views-exposed-widgets #edit-title-wrapper
 @mixin reports-filter($w) {
   // 1. Rerender form layout
-  form {
+  @include cd-form($w, $w);
+
+  form#views-exposed-form-desk-reports-block {
+
     @include span-columns($w omega, $w);
-    // All of the filters in the reports sidebar
     
     // Default views settings are in views.scss
     .views-exposed-widget {
       @include span-columns($w, $w);
-      border-bottom: 1px solid gold;
 
       & > #edit-title-wrapper {
         input.form-autocomplete {
@@ -32,7 +36,7 @@
       padding-top: ms(-4);
       padding-bottom: ms(-4);
       margin-bottom: ms(-3);
-      @include span-columns($w, $w, $gw);
+      @include span-columns($w, $w);
       & > label { 
         font-size: 10px;
         padding-bottom: ms(-5);
@@ -44,7 +48,10 @@
     }
   }
 
-  .view-desk-reports {
-    @include span-columns($w, $w);
-  }
+  // The actual reports
+  // .view-desk-reports {
+  //   @include span-columns($w, $w);
+  //   @include clearfix;
+  //   @include d;
+  // }
 }
