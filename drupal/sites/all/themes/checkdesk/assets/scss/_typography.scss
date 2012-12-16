@@ -209,7 +209,7 @@ body {
 @include at-breakpoint($break-small) {
   body {
     font-size:  ms(1); // increased
-    line-height: ms(2) * 0.8; 
+    line-height: ms(2) * 0.8; // increased
   }
 
   nav {
@@ -218,8 +218,7 @@ body {
 
   h1.title {
     margin-top: ms(4); // reduced
-    padding: {left: $large-font-size; right: $large-font-size; }
-    font-size:  $large-font-size; // increased
+    font-size:  $x-large-font-size; // increased
     line-height: ms(2) * 1.2; 
   }
 }

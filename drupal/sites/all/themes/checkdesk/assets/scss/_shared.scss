@@ -62,6 +62,7 @@
 
 
 // Layout Helper: Ensure padding is accounted for.
+// Deprecated
 @mixin span-padded-columns(
   $width: $container-width, 
   $context: $container-width, 
@@ -81,10 +82,17 @@
   @content;
 }
 
-
+// embossed "well" treatment
 @mixin box-emboss($opacity, $opacity2){
     @include box-shadow(white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0);
 }
+
+// text-shadow
 @mixin letterpress($opacity){
     @include text-shadow(white($opacity) 0 1px 0);
+}
+
+// Dropshadow
+@mixin cd-box-shadow() {
+  @include box-shadow(0px 12px 40px rgba($black, 0.4));
 }

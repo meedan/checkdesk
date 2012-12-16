@@ -74,7 +74,7 @@ body.page-reports {
 @include at-breakpoint($break-large) { // 24
   body.page-reports {
     li.views-fluid-grid-item {
-      @include span-columns(5, $break-large);
+      @include span-columns(6, $break-large);
       margin: 0;
       // width: $report-width-px;
       article.report {

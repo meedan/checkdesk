@@ -45,7 +45,6 @@ li.menu-477 {
 // Could be a dropdown, header, anchor or div, and can contain an img.
 @mixin nav-item { 
   @include building-block;
-  
 
   img { // images in nav items
     @include reset-box-model;
@@ -68,17 +67,15 @@ li.menu-477 {
 // This nav contains two rows of nav-items with icons.
 nav[role="navigation"] {
   @include reset-box-model;
-  margin: 0 auto;
-  @include container($cw);
+  @include container($cw); // reset container
 
   // Apply nav icons
-  // Warning: if you accidentally increase the line-height with these icons and break the nav since not all items have icons appended to their line-box. The line height must remain more than the icons' generated height.
+  // Warning: The line height must remain more than the icons' generated height.
   @include nav-icons(15px);
     
-  // HACK something is wrong here with the position and z-index of the nav items ...
-  // Generally bootstrap handles all of dropdowns ...
-  .dropdown-menu {
-    top: $nav-line-height*2 + 5;
+  .dropdown-menu, 
+  #block-views-my-notifications-block .content {
+    top: $nav-line-height*2 + 10;
   }
 
   .nav {
@@ -153,7 +150,7 @@ div.region-page-top {
   width: 100%;
 
   #toolbar {
-    @include box-shadow(0 0 0 0);
+    @include box-shadow(0 0 0 0); // disable box shadow
     padding: 0;
     margin: 0;
     @include clearfix;
@@ -171,7 +168,6 @@ div.region-page-top {
       display: none;
     }  
   }
-
 }
 
 // These need to be disabled before we can do meaningful work on them ...

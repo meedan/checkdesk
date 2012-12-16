@@ -44,7 +44,7 @@
 			}
 		}
 
-		.report-actions {
+		ul.report-actions {
 			@include reset-box-model;
 			@include reset-list-style;
 			font-size: $small-font-size;
@@ -52,6 +52,7 @@
 			& > li {
 				display: block;
 				float: $from-direction;
+
 				& > a {
 					@include reset-box-model;
 					display: block;
@@ -63,18 +64,22 @@
 			    	color: black;
 			    	text-decoration: none;
 			    }
-
 					span {
-						float: $from-direction;
 						@include reset-box-model;
-						&.icon-edit {
-							@include icon(edit, fontawesome, 16px, $darker-grey, transparent);
+						float: $from-direction;
+						display: inline-block;
+						margin-#{$from-direction}: $gw;
+
+						&:hover {
+							color: $identity;
 						}
 
 						// Flag and share on the top of the report
-						&.icon-flag {@include icon(flag, 16px, $darker-grey); } 
-						&.icon-share {@include icon(share, 16px, $darker-grey); }
-						&.icon-edit {@include icon(edit, 16px, $darker-grey); }
+						&.icon-edit  { @include icon(edit, 16px, $darker-grey); 
+							&:after {content: "Add";} // HACK Should be in markup
+						}
+						&.icon-flag  { @include icon(flag, 16px, $darker-grey); } 
+						&.icon-share { @include icon(share, 16px, $darker-grey); }
 					}
 				}
 				// hide ajax throbber in dropdown

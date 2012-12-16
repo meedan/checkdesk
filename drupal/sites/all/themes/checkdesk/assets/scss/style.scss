@@ -233,5 +233,5 @@ body {
 // @include debug_drupal;
 // @import "spec";
 
-// $display-banner: true;
-// @include visualize-grid($display-banner);
+$display-banner: true;
+@include visualize-grid($display-banner);

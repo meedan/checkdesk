@@ -44,6 +44,7 @@
     @include reset-box-model;
     width: 75%;
     float: $from-direction;
+    line-height: $base-line-height;
   }
 
   img {
@@ -113,10 +114,12 @@
     position: absolute;
     z-index: $zindexPopover;
     width: $notification-dropdown-width;
-    @include box-shadow(1px 10px 10px $light-grey);
-    @include border-radius(5px);
+    @include cd-box-shadow;
+    @include border-radius(5px 0 0 0);
     border: 1px solid $grey;
-    #{opposite-position($from-direction)}: $notification-button-width;
+    // To make it appear on the side ...
+    // #{opposite-position($from-direction)}: $notification-button-width;
+    #{$omega-float}: $notification-button-width;
     top: 0;
     background: $light-grey;
     
