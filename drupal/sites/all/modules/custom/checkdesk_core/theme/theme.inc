@@ -53,7 +53,7 @@ function checkdesk_core_preprocess_checkdesk_core_report_source(&$variables) {
   $report = $variables['report'];
   $embed = meedan_oembed_data($report->field_link[LANGUAGE_NONE][0]['display_url']);
   $variables['source_url'] = l($embed->original_url, $embed->original_url, array('external' => TRUE));
-  $variables['source_author'] = empty($embed->author_url) ? t('author unknown') : t('added by !link', array('!link' => l($embed->author_name, $embed->author_url, array('external' => TRUE))));
+  $variables['source_author'] = empty($embed->author_url) ? '' : t('added by !link', array('!link' => l($embed->author_name, $embed->author_url, array('external' => TRUE))));
 }
 
 

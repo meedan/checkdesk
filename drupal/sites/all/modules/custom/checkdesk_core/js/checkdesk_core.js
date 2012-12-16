@@ -21,7 +21,7 @@
  
   // Ajax action settings for messages
   var message_settings = {};
-  message_settings.url = '/checkdesk/drupal/core/messages/ajax/';
+  message_settings.url = '/core/messages/ajax/';
   message_settings.event = 'onload';
   message_settings.keypress = false;
   message_settings.prevent = false;
@@ -68,6 +68,11 @@
       // $('.some-class').click(function() {
       //   Drupal.ajax['checkdesk_core_message_settings'].setMessages();
       // });
+
+      // Show messages when an item is flagged/unflagged
+      $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
+        Drupal.ajax['checkdesk_core_message_settings'].setMessages();
+      });
 
     }
   };

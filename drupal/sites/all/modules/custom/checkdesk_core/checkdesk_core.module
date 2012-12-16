@@ -230,6 +230,8 @@ function _checkdesk_core_report_suggest_submit($form, &$form_state) {
   // Add the story to the report.
   $report = $form['#report'];
   $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
+  $story = node_load($form_state['values']['story']);
+  $form_state['values']['story_title'] = $story->title;
   node_save($report);
 
   // Redirect to story. 
@@ -264,7 +266,10 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
 
     // Array with ajax response.
     $commands = array();
-    // Create ajax command array, dismiss the modal window.
+    // Create ajax command array, set the message and dismiss the modal window.
+    $message = t('<b>' . views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title) . '</b> added to <b>' . $form_state['values']['story_title'] . '</b>');
+    drupal_set_message(t($message));
+    $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
     $commands[] = ctools_modal_command_dismiss();
 
     // Redirect to story. 
@@ -356,8 +361,11 @@ function checkdesk_core_preprocess_flag(&$variables) {
     ctools_include('modal');
     ctools_include('ajax');
     ctools_modal_add_js();
+
+    $flag_css_name = 'flag-' . str_replace('_', '-', $variables['flag']->name);
     $variables['flag_classes'] .= ' ctools-modal-' . $variables['flag']->confirm_modal_style;
-    // $variables['flag_classes'] .= ' ctools-modal-checkdesk-large-style';
+    $variables['flag_classes'] .= ' '. $flag_css_name;
+
     $path = str_replace("/checkdesk/drupal/", "", $variables['link']['href']);
     $variables['modal_link'] = ctools_modal_text_button($variables['link_text'], $path, $variables['link_title'], $variables['flag_classes']);
   }
@@ -990,6 +998,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 
     $form['submit']['#prefix'] = '<div class="modal-footer"><button id="close" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
     $form['submit']['#suffix'] = '</div>';
+    $form['submit']['#value'] = t('Continue');
     $form['submit']['#attributes']['class'] = array('btn', 'btn-primary');
   }
 

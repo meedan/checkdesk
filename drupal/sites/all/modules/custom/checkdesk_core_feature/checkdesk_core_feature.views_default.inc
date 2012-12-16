@@ -157,7 +157,11 @@ function checkdesk_core_feature_views_default_views() {
       ),
     ),
   );
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['row_class'] = 'draggable';
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -215,15 +219,6 @@ print t(\'No content available\');
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'Date';
-  /* Contextual filter: Content: Stories (field_stories) */
-  $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
-  $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';

@@ -34,8 +34,8 @@
 
 <?php if ($link_href): ?>
   <?php
-  	$url = parse_url($link_href);
-  	$path = 'node/' . str_replace("/checkdesk/drupal/", "", $url['path']) . '/nojs';
+  	// $url = parse_url($link_href);
+  	// $path = 'node/' . str_replace("/checkdesk/drupal/", "", $url['path']) . '/nojs';
   ?>
   <?php if(isset($modal_link)) : ?>
       <?php print $modal_link; ?>
@@ -49,6 +49,5 @@
   <?php 
   	// set message
   	drupal_set_message($message_text, 'warning');
-  	// drupal_add_js('(function($){ Drupal.ajax["checkdesk_core_message_settings"].setMessages(); })(jQuery);', array('type' => 'inline'));
   ?>
 <?php endif; ?>

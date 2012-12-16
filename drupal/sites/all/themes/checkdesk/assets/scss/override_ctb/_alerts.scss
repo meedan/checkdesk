@@ -4,14 +4,12 @@
 // Alerts appear for many kinds of notifications and errors
 // We establish the basic alert and then alternates.
 .alert {
-  padding: $gw;
-  margin-bottom: $gw;
-  margin-top: $gw;
-  text-shadow: 0 1px 0 rgba(255,255,255,.4);
-  border: { top: 1px solid $grey; bottom: 1px solid $grey; }
-  background-color: rgba(black, 0.5);
-  color: $dark-grey;
-  font-size: $small-font-size;
+  padding: $baseLineHeight/3 $gw $baseLineHeight/2 $gw;
+  margin-bottom: $baseLineHeight;
+  background-color: $warningBackground;
+  border: 1px solid $warningBorder;
+  color: $warningText;
+  font-size: $base-font-size;
   @include border-radius($baseBorderRadius);
   &:hover {
     height: auto; 
@@ -34,8 +32,8 @@
   }
 }
 
-.messages h4 {
-  margin: 0;
+.alert h4 {
+  margin: 0 0 $baseLineHeight/3 0;
 }
 
 // Unnecessary in our layout. 
@@ -63,7 +61,7 @@
   border-color: transparent;
   color: white;
 }
-.alert-status {
+.alert-status, .alert-info {
   background-color: $infoBackground;
   border-color: $infoBorder;
   color: $infoText;
@@ -77,8 +75,8 @@
 // -------------------------
 
 .alert-block {
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: $baseLineHeight/2;
+  padding-top: $baseLineHeight/2;
 }
 .alert-block > p,
 .alert-block > ul {
@@ -141,9 +139,14 @@ button.close {
 
 .absolute-messages-message {
   display: none;
-  position: relative;
   margin: 0;
   padding: 0;
+  // Make messages appear fixed at the top
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: $zindexFixedNavbar;
+  margin-bottom: 0; // remove 18px margin for default navbar
   color: #735005;
   zoom: 1;
 }
