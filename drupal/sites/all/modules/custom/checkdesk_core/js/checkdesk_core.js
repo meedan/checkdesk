@@ -71,7 +71,6 @@
 
       // Show messages when an item is flagged/unflagged
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
-        console.log(data);
         Drupal.ajax['checkdesk_core_message_settings'].setMessages();
       });
 

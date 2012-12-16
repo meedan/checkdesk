@@ -1868,19 +1868,23 @@ button.close {
 /* line 145, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message {
   display: none;
-  position: relative;
   margin: 0;
   padding: 0;
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  margin-bottom: 0;
   color: #735005;
   zoom: 1;
 }
 
-/* line 154, ../scss/override_ctb/_alerts.scss */
+/* line 159, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message.collapsible:hover {
   cursor: pointer;
 }
 
-/* line 157, ../scss/override_ctb/_alerts.scss */
+/* line 162, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message .content {
   margin: 0;
   padding: .5em 1.5em 0 1.5em;
@@ -1888,56 +1892,56 @@ button.close {
   overflow: hidden;
 }
 
-/* line 163, ../scss/override_ctb/_alerts.scss */
+/* line 168, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-message .content a {
   text-decoration: underline;
 }
 
-/* line 166, ../scss/override_ctb/_alerts.scss */
+/* line 171, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status {
   background-color: #d9edf7;
   border-bottom: 1px solid #bce8f1;
   color: #3a87ad;
 }
 
-/* line 172, ../scss/override_ctb/_alerts.scss */
+/* line 177, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status a:link,
 .absolute-messages-status a:visited {
   color: #3a87ad;
 }
 
-/* line 175, ../scss/override_ctb/_alerts.scss */
+/* line 180, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning {
   background-color: #fcf8e3;
   border-bottom: 1px solid #fbeed5;
   color: #c09853;
 }
 
-/* line 181, ../scss/override_ctb/_alerts.scss */
+/* line 186, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning a:link,
 .absolute-messages-warning a:visited {
   color: #c09853;
 }
 
-/* line 184, ../scss/override_ctb/_alerts.scss */
+/* line 189, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error {
   background-color: #f2dede;
   border-bottom: 1px solid #eed3d7;
   color: #b94a48;
 }
 
-/* line 190, ../scss/override_ctb/_alerts.scss */
+/* line 195, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error a:link,
 .absolute-messages-error a:visited {
   color: #b94a48;
 }
 
-/* line 193, ../scss/override_ctb/_alerts.scss */
+/* line 198, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-actions {
   float: right;
 }
 
-/* line 199, ../scss/override_ctb/_alerts.scss */
+/* line 204, ../scss/override_ctb/_alerts.scss */
 a.absolute-messages-dismiss,
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss:hover,
@@ -1954,22 +1958,22 @@ a.absolute-messages-dismiss-all:hover {
   cursor: pointer;
 }
 
-/* line 211, ../scss/override_ctb/_alerts.scss */
+/* line 216, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-status .absolute-messages-dismiss {
   color: #3a87ad;
 }
 
-/* line 214, ../scss/override_ctb/_alerts.scss */
+/* line 219, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-warning .absolute-messages-dismiss {
   color: #c09853;
 }
 
-/* line 217, ../scss/override_ctb/_alerts.scss */
+/* line 222, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-error .absolute-messages-dismiss {
   color: #b94a48;
 }
 
-/* line 221, ../scss/override_ctb/_alerts.scss */
+/* line 226, ../scss/override_ctb/_alerts.scss */
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss-all:hover {
   border: 2px solid #222;
@@ -1977,7 +1981,7 @@ a.absolute-messages-dismiss-all:hover {
   color: #ccc;
 }
 
-/* line 226, ../scss/override_ctb/_alerts.scss */
+/* line 231, ../scss/override_ctb/_alerts.scss */
 #absolute-messages-show {
   display: none;
   position: absolute;
@@ -1994,7 +1998,7 @@ a.absolute-messages-dismiss-all:hover {
   z-index: 1;
 }
 
-/* line 241, ../scss/override_ctb/_alerts.scss */
+/* line 246, ../scss/override_ctb/_alerts.scss */
 .absolute-messages-show {
   display: block;
   width: 16px;
@@ -2005,7 +2009,7 @@ a.absolute-messages-dismiss-all:hover {
 }
 
 /* And for Opera too. Ugh. */
-/* line 250, ../scss/override_ctb/_alerts.scss */
+/* line 255, ../scss/override_ctb/_alerts.scss */
 noindex:-o-prefocus, .absolute-messages-show {
   border-left: 1px solid #666;
   border-bottom: 1px solid #666;
@@ -4421,6 +4425,11 @@ div.tabs {
   font-family: 'FontAwesome';
 }
 
+/* line 314, ../scss/_report.scss */
+li.views-fluid-grid-item {
+  overflow: visible;
+}
+
 /* line 1, ../scss/_livefyre.scss */
 .fyre-stream-stats {
   display: none;
@@ -5147,7 +5156,7 @@ body.not-front.not-logged-in.page-user form .form-actions input.form-submit {
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #3AD900;
+  background-color: #80FFC2;
   margin-bottom: 1em;
 }
 /* line 11, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
@@ -5778,7 +5787,7 @@ body ul.tabs.primary li a:hover {
 }
 /* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 body ul.tabs.primary li a.active {
-  background-color: #0088FF;
+  background-color: #3AD900;
   color: rgba(0, 0, 0, 0.8);
 }
 /* line 33, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */

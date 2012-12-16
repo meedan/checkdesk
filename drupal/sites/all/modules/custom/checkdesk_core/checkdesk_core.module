@@ -418,6 +418,7 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js){
     // Array with ajax response.
     $commands = array();
     // Create ajax command array, refresh messagess and dismiss the modal window.
+    // $commands[] = ctools_modal_command_display($title, theme('status_messages'));
     $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
     $commands[] = ctools_modal_command_dismiss();
     $commands[] = ctools_ajax_command_reload();

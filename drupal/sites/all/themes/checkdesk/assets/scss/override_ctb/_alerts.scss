@@ -144,9 +144,14 @@ button.close {
 
 .absolute-messages-message {
   display: none;
-  position: relative;
   margin: 0;
   padding: 0;
+  // Make messages appear fixed at the top
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: $zindexFixedNavbar;
+  margin-bottom: 0; // remove 18px margin for default navbar
   color: #735005;
   zoom: 1;
 }

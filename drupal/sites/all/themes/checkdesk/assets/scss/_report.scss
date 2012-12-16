@@ -306,3 +306,12 @@
 		@include icon(question-sign, fontawesome, 16px, darken($red, 15%), transparent);
 	}
 }
+
+// Reports view page
+// -------------------------------------------------------------------
+
+// Temporary addition to display the dropdowns inside the reports view page.
+li.views-fluid-grid-item {
+	overflow: visible;
+}
+
