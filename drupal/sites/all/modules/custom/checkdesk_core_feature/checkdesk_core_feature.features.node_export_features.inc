@@ -11,7 +11,7 @@ function checkdesk_core_feature_node_export_features_default() {
   $node_export = array(
   'code_string' => 'array(
   (object) array(
-      \'vid\' => \'1\',
+      \'vid\' => \'3\',
       \'uid\' => \'0\',
       \'title\' => \'Install Bookmarklet\',
       \'log\' => \'\',
@@ -23,12 +23,12 @@ function checkdesk_core_feature_node_export_features_default() {
       \'nid\' => \'1\',
       \'type\' => \'page\',
       \'language\' => \'und\',
-      \'created\' => \'1355519439\',
-      \'changed\' => \'1355519439\',
+      \'created\' => \'1355632980\',
+      \'changed\' => \'1355632980\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'1244c020-f663-b564-b94c-2cf29b12afa4\',
-      \'revision_timestamp\' => \'1355519439\',
+      \'revision_timestamp\' => \'1355632980\',
       \'revision_uid\' => \'0\',
       \'body\' => array(
         \'und\' => array(
@@ -95,7 +95,7 @@ function checkdesk_core_feature_node_export_features_default() {
         ),
       ),
       \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1355519439\',
+      \'last_comment_timestamp\' => \'1355545607\',
       \'last_comment_name\' => NULL,
       \'last_comment_uid\' => \'0\',
       \'comment_count\' => \'0\',
