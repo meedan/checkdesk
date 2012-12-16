@@ -21,7 +21,7 @@
  
   // Ajax action settings for messages
   var message_settings = {};
-  message_settings.url = '/checkdesk/drupal/core/messages/ajax/';
+  message_settings.url = 'core/messages/ajax/';
   message_settings.event = 'onload';
   message_settings.keypress = false;
   message_settings.prevent = false;
