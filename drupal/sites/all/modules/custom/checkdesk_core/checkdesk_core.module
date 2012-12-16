@@ -219,6 +219,8 @@ function _checkdesk_core_report_suggest_submit($form, &$form_state) {
   // Add the story to the report.
   $report = $form['#report'];
   $report->field_stories[LANGUAGE_NONE][]['target_id'] = $form_state['values']['story'];
+  $story = node_load($form_state['values']['story']);
+  $form_state['values']['story_title'] = $story->title;
   node_save($report);
 
   // Redirect to story. 
@@ -251,7 +253,10 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
 
     // Array with ajax response.
     $commands = array();
-    // Create ajax command array, dismiss the modal window.
+    // Create ajax command array, set the message and dismiss the modal window.
+    $message = t('<b>' . views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title) . '</b> added to <b>' . $form_state['values']['story_title'] . '</b>');
+    drupal_set_message(t($message));
+    $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
     $commands[] = ctools_modal_command_dismiss();
   }
 
