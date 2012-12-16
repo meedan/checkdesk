@@ -10,11 +10,12 @@
 
 div.tabs {
   width: 100%;
+  @include clearfix;
+  padding-top: $gw;
+  padding-bottom: $gw;
   ul.primary {
-    @include span-columns($cw, $cw, $gw);
+    @include span-columns($cw, $cw); // default width
     @include clearfix;
-    padding: { top: $gw; bottom: $gw; }
-    margin: { top: $gw; right: auto; bottom: $gw; left: auto; }
     background-color: rgba(white, 0.8);
     font-family: $sans-font-family;
     font-size: $small-font-size;
@@ -22,6 +23,7 @@ div.tabs {
     
     li {
       @include reset-box-model;
+      @include span-columns($cw, $cw); // default full width
       display: block;
       float: $from-direction;
       margin-#{opposite-position($from-direction)}: $gw;
@@ -32,6 +34,7 @@ div.tabs {
         }
       }
       a {
+        @include span-columns($cw, $cw); // default full width
         @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color');
         line-height: $base-line-height;
         display: inline-block;
@@ -52,8 +55,12 @@ div.tabs {
 
 @include at-breakpoint($break-medium) {
   .tabs ul.primary {
-    @include span-columns($break-medium, $break-medium);
+    @include span-columns($break-medium, $break-medium, $gw); // add padding
     background-color: green;
+    li, li a { // constrain
+      width: auto!important;
+      display: inline-block;
+    }
   }
 }
 

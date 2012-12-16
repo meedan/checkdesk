@@ -1,17 +1,40 @@
 // User section profile
 // http://checkdesk:8888/user
-// @mixin user-profile($width: $fw, $context: $cw) {
-//   div.profile {
-//     @include span-columns($width - 2, $context);
-//     .user-picture {
-//       float: opposite-position($from-direction);
-//       @include span-columns(1 omega, $context);
-//       background: white;
-//       border: $gw solid white;
-//     }
-//     @content;
-//   }
-// }
+@mixin user-profile($width: $fw, $context: $cw) {
+  div.profile {
+    @include span-columns($width - 2, $context);
+    background-color: $input-background;
+    
+    .user-picture {
+      float: opposite-position($from-direction);
+      @include span-columns(1 omega, $context, $gw);
+    }
+
+    h3 {
+      display: block;
+      width: auto;
+      padding: $gw;
+    }
+
+    dl {
+      @include clearfix;
+      padding: $gw;
+      font-size: $base-font-size;
+      font-family: $sans-font-family;
+      border-bottom: 1px solid $light-grey;
+      dt {
+        float: $from-direction;
+      }
+      dd {
+       float: opposite-position($from-direction); 
+       font-weight: 200px;
+      }
+    }
+
+
+    @content;
+  }
+}
 
 // Checkdesk User Section Forms
 //
@@ -21,8 +44,20 @@
 //
 // Forgot password and create new account <.item-list>s
 
-body.not-front.not-logged-in.page-user {
-  
+
+body.page-user- { // both logged in and not logged ins states
+
+  #main {
+    padding: 0;
+    @include span-columns($cw, $cw);  // default width
+  }
+
+
+  @include user-profile;
+
+  // The user forms
+  // An implementation of the main cd form mixin
+  // With many customizations for this user section context only
   .item-list ul li {
     @include reset-list-style;
     @include reset-box-model;

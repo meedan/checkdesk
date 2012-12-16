@@ -80,3 +80,11 @@
   // optionally call with omega
   @content;
 }
+
+
+@mixin box-emboss($opacity, $opacity2){
+    @include box-shadow(white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0);
+}
+@mixin letterpress($opacity){
+    @include text-shadow(white($opacity) 0 1px 0);
+}
