@@ -212,7 +212,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         }
       ],
       "DO" : [
-        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "5" } }
+        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "4" } }
       ]
     }
   }');
@@ -526,7 +526,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report was flagged",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" },
@@ -755,7 +755,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_flagging_user" : [ "flagging-user" ]
           }
         },
-        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "6" } }
+        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "2" } }
       ]
     }
   }');
