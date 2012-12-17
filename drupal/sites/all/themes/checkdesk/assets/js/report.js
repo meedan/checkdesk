@@ -3,11 +3,17 @@
 	Drupal.behaviors.reports = {
 		attach: function (context, settings) {
 			// show report activity
-			$('.report-activity > header').click(function(event) {
+			$('.report-activity > header').unbind('click').click(function(event) {
 				var target = $(this);
 				var element = target.parent().attr('id');
-				$('#'+ element + ' .activity-wrapper').slideToggle('fast');
-				$('#'+ element).toggleClass('open');
+        if ($('#'+ element + ' .activity-wrapper').is(':visible')) {
+				  $('#'+ element + ' .activity-wrapper').slideUp('fast');
+				  $('#'+ element).removeClass('open');
+        }
+        else {
+				  $('#'+ element + ' .activity-wrapper').slideDown('fast');
+				  $('#'+ element).addClass('open');
+        }
 				return false;
 			});
 
