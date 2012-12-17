@@ -54,8 +54,13 @@
     }
 
     // Add the new content to the page.
-    wrapper.find('.pager a').remove();
-    wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
+    if (settings.viewsLoadMoreAllLoaded) {
+      wrapper.find('.pager').remove();
+    }
+    else {
+      wrapper.find('.pager a').remove();
+      wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
+    }
     wrapper.find(content_query)[method](new_content.find(content_query).children());
     if (effect.showEffect != 'show') {
       wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);

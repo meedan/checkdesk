@@ -1,0 +1,101 @@
+From 0311caa71aeab25230c11cfe5cd00dbbc41d3cbc Mon Sep 17 00:00:00 2001
+From: Caio SBA <caiosba@gmail.com>
+Date: Mon, 17 Dec 2012 19:48:43 -0200
+Subject: [PATCH] Adding an option to load all remaining content from a view
+
+---
+ views_load_more.js               |    9 +++++++--
+ views_load_more.module           |   20 ++++++++++++++++++++
+ views_plugin_pager_load_more.inc |   14 ++++++++++++++
+ 3 files changed, 41 insertions(+), 2 deletions(-)
+
+diff --git a/views_load_more.js b/views_load_more.js
+index 0914e05..768022d 100644
+--- a/views_load_more.js
++++ b/views_load_more.js
+@@ -54,8 +54,13 @@
+     }
+ 
+     // Add the new content to the page.
+-    wrapper.find('.pager a').remove();
+-    wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
++    if (settings.viewsLoadMoreAllLoaded) {
++      wrapper.find('.pager').remove();
++    }
++    else {
++      wrapper.find('.pager a').remove();
++      wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
++    }
+     wrapper.find(content_query)[method](new_content.find(content_query).children());
+     if (effect.showEffect != 'show') {
+       wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
+diff --git a/views_load_more.module b/views_load_more.module
+index 4205e55..1aab953 100644
+--- a/views_load_more.module
++++ b/views_load_more.module
+@@ -99,3 +99,23 @@ function theme_views_load_more_pager($vars) {
+     );
+   }
+ }
++
++/**
++ * Implements hook_views_pre_execute().
++ */
++function views_load_more_views_pre_execute(&$view) {
++  global $pager_page_array;
++  $page = (isset($view->query->pager->options['id']) ? $pager_page_array[$view->query->pager->options['id']] : 0);
++  if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all'] && $page > 0) {
++    $view->query->limit = NULL;
++  }
++}
++
++/**
++ * Implements hook_views_pre_render().
++ */
++function views_load_more_views_pre_render(&$view) {
++  if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all']) {
++    $view->query->pager->options['more_button_text'] = sprintf($view->query->pager->options['more_button_text'], $view->total_rows);
++  }
++}
+diff --git a/views_plugin_pager_load_more.inc b/views_plugin_pager_load_more.inc
+index 936bba4..70b2ec1 100644
+--- a/views_plugin_pager_load_more.inc
++++ b/views_plugin_pager_load_more.inc
+@@ -40,6 +40,9 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
+         'content_class' => array('default' => ''),
+       ),
+     );
++    $options['load_all'] = array(
++      'default' => FALSE,
++    );
+     return $options;
+   }
+ 
+@@ -126,6 +129,13 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
+       '#title' => t('Effect Speed'),
+       '#default_value' => $this->options['effects']['speed'],
+     );
++    $form['load_all'] = array(
++      '#type' => 'checkbox',
++      '#title' => t('Load all'),
++      '#description' => t('Load all items when Load More is clicked (ignores number of items per page). In order to work, Ajax must be enabled for this view.'),
++      '#default_value' => $this->options['load_all'],
++      '#weight' => 0,
++    );
+   }
+ 
+   /**
+@@ -143,6 +153,10 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
+       drupal_add_js(array('viewsLoadMore' => $viewsLoadMore),'setting');
+     }
+ 
++    if ($this->options['load_all']) {
++      drupal_add_js(array('viewsLoadMoreAllLoaded' => (($this->options['load_all'] && $this->view->get_current_page() > 0) ? TRUE : FALSE)), 'setting');
++    }
++
+     $pager_theme = views_theme_functions('views_load_more_pager', $this->view, $this->display);
+ 
+     $vars = array(
+-- 
+1.7.2.5
+

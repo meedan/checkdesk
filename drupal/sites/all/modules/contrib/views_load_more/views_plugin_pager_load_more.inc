@@ -40,6 +40,9 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
         'content_class' => array('default' => ''),
       ),
     );
+    $options['load_all'] = array(
+      'default' => FALSE,
+    );
     return $options;
   }
 
@@ -126,6 +129,13 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       '#title' => t('Effect Speed'),
       '#default_value' => $this->options['effects']['speed'],
     );
+    $form['load_all'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Load all'),
+      '#description' => t('Load all items when Load More is clicked (ignores number of items per page). In order to work, Ajax must be enabled for this view.'),
+      '#default_value' => $this->options['load_all'],
+      '#weight' => 0,
+    );
   }
 
   /**
@@ -141,6 +151,10 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       );
       drupal_add_library('waypoints', 'waypoints');
       drupal_add_js(array('viewsLoadMore' => $viewsLoadMore),'setting');
+    }
+
+    if ($this->options['load_all']) {
+      drupal_add_js(array('viewsLoadMoreAllLoaded' => (($this->options['load_all'] && $this->view->get_current_page() > 0) ? TRUE : FALSE)), 'setting');
     }
 
     $pager_theme = views_theme_functions('views_load_more_pager', $this->view, $this->display);

@@ -163,7 +163,7 @@ function checkdesk_preprocess_node(&$variables) {
       $view = views_get_view('activity_report');
       $view->set_arguments(array($variables['nid']));
       $view_output = $view->preview('block');
-      $total_rows = count($view->result);
+      $total_rows = $view->total_rows;
       $view->destroy();
       if ($total_rows) {
         $variables['media_activity_report_count'] = $total_rows;
