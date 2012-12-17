@@ -1081,9 +1081,7 @@ function checkdesk_core_feature_user_default_permissions() {
   // Exported permission: unflag factcheck.
   $permissions['unflag factcheck'] = array(
     'name' => 'unflag factcheck',
-    'roles' => array(
-      0 => 'citizen journalist',
-    ),
+    'roles' => array(),
     'module' => 'flag',
   );
 
@@ -1119,9 +1117,7 @@ function checkdesk_core_feature_user_default_permissions() {
   // Exported permission: unflag spam.
   $permissions['unflag spam'] = array(
     'name' => 'unflag spam',
-    'roles' => array(
-      0 => 'citizen journalist',
-    ),
+    'roles' => array(),
     'module' => 'flag',
   );
 
