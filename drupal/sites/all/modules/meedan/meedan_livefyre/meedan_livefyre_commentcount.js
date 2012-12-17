@@ -5,7 +5,7 @@ Drupal.behaviors.livefyre = {
   attach: function(context, settings) {
     LF.CommentCount({
       replacer: function(element, count) {
-        element.innerHTML = Drupal.t([ '@count comment', '@count comments' ], { '@count': count });
+        element.innerHTML = Drupal.formatPlural(count, '1 comment', '@count comments');
       }
     });
   }
