@@ -55,7 +55,7 @@ function checkdesk_core_menu() {
     'title' => 'Confirm',
     'page callback' => '_checkdesk_core_flags_confirm_modal',
     'page arguments' => array(3, 4, 5, 6),
-    'access arguments' => TRUE,
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
   $items['core/messages'] = array(
