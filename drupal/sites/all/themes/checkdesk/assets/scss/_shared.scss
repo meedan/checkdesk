@@ -82,15 +82,17 @@
   @content;
 }
 
-// embossed "well" treatment
-@mixin box-emboss($opacity, $opacity2){
-    @include box-shadow(white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0);
+// text-shadow
+// see http://compass-style.org/reference/compass/css3/text-shadow/
+
+@mixin cd-dark-text-shadow($opacity: 0.5) { // use $white for dark backgrounds
+  @include text-shadow(rgba(black, 0.8) 0 1px 0);
 }
 
-// text-shadow
-@mixin letterpress($opacity){
-    @include text-shadow(white($opacity) 0 1px 0);
+@mixin cd-light-text-shadow($opacity: 0.5) { // use $white for dark backgrounds
+  @include text-shadow(rgba(white, 0.8) 0 1px 0);
 }
+
 
 // Dropshadow
 @mixin cd-box-shadow() {

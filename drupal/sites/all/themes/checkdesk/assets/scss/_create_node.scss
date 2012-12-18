@@ -10,11 +10,10 @@ body.page-node-add {
     // 1. First standardize the form
     @include cd-form($cw, $cw); 
 
-    // This operates on the first fields of the report/update/story fields
+     // 2. now, customizations on top of the default checkdesk forms.
+     // This operates on the first fields of the report/update/story fields
     .form-type-link-field, 
     .form-item-title {
-
-      // 2. now, customizations on top of the default checkdesk forms.
       label {
         @include icon('bolt');
         @include span-columns($label-width, $cw);

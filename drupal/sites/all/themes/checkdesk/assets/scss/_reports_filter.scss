@@ -4,54 +4,35 @@
 // $w - the width
 //
 // .views-filters form .views-exposed-form .views-exposed-widgets #edit-title-wrapper
-@mixin reports-filter($w) {
-  // 1. Rerender form layout
-  @include cd-form($w, $w);
+@mixin reports-filter-and-results($w) {
+  @content; // implement the form layout in the parent scss
 
-  form#views-exposed-form-desk-reports-block {
-
-    @include span-columns($w omega, $w);
-    
-    // Default views settings are in views.scss
-    .views-exposed-widget {
-      @include span-columns($w, $w);
-
-      & > #edit-title-wrapper {
-        input.form-autocomplete {
-          background-image: none; // Remove the drupal autocomplete image
-          border-color: 1px solid $syntax-three;
-        }
-      }
-
-      & > #edit-field-rating-tid-wrapper {
-
-      }
-
-      & > #edit-source-wrapper {
-
-      }
-    }
-
-    .form-item {
-      padding-top: ms(-4);
-      padding-bottom: ms(-4);
-      margin-bottom: ms(-3);
-      @include span-columns($w, $w);
-      & > label { 
-        font-size: 10px;
-        padding-bottom: ms(-5);
-        font-weight: 700;
-      }
-      &:hover {
-        background-color: rgba(black, 0.075);
-      }
+  // Default views settings are in views.scss
+  form {    
+    .views-exposed-widget > label {
+      font-weight: bold;
+      font-size: $small-font-size;
     }
   }
 
-  // The actual reports
-  // .view-desk-reports {
-  //   @include span-columns($w, $w);
-  //   @include clearfix;
-  //   @include d;
-  // }
+  // All of these really necessary? 
+  .view-content,
+  .views-field, 
+  .field-content {
+    @include span-columns($w, $w); // ensure everything clears
+  }
+
+  .views-row {
+    @include span-columns($w, $w, $gw);
+  }
+
+  // When dragging
+  // or about to drag
+  .views-row.ui-draggable-dragging, 
+  .views-row.ui-draggable:hover {
+    background-color: $postit-yellow;
+    cursor: move;
+    // z-index: 1000000;
+    // position: relative;
+  }
 }

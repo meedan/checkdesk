@@ -4,13 +4,12 @@
 // Alerts appear for many kinds of notifications and errors
 // We establish the basic alert and then alternates.
 .alert {
-  padding: $baseLineHeight/3 $gw $baseLineHeight/2 $gw;
+  padding: $gw;
   margin-bottom: $baseLineHeight;
-  background-color: $warningBackground;
-  border: 1px solid $warningBorder;
-  color: $warningText;
-  font-size: $base-font-size;
+  border: { top: 1px solid $warningBorder; bottom: 1px solid $warningBorder; }
+  font-size: $smaller-font-size!important;
   @include border-radius($baseBorderRadius);
+  display: block;
   &:hover {
     height: auto; 
   }
@@ -22,7 +21,7 @@
   font-weight: bold;
   line-height: $base-line-height;
   color: $black;
-  text-shadow: 0 1px 0 rgba(255,255,255,1);
+  @include cd-dark-text-shadow;
   @include opacity(0.2);
   &:hover {
     color: $black;
@@ -42,7 +41,7 @@
 // .alert .close {
 //   position: relative;
 //   top: -2px;
-//   right: -21px;
+//   #{$omega-float} -21px;
 //   line-height: $baseLineHeight;
 // }
 
@@ -57,9 +56,8 @@
 }
 .alert-danger,
 .alert-error {
-  background-color: black;
+  background-color: $warningBackground;
   border-color: transparent;
-  color: white;
 }
 .alert-status, .alert-info {
   background-color: $infoBackground;
@@ -67,13 +65,7 @@
   color: $infoText;
 }
 
-
-// ------------- end of customizations, this is mostly bootstrap stil - CGB 
-
-
 // Block alerts
-// -------------------------
-
 .alert-block {
   padding-top: $baseLineHeight/2;
   padding-top: $baseLineHeight/2;
@@ -88,10 +80,8 @@
 
 //
 // Close icons
-// --------------------------------------------------
-
 .close {
-  float: right;
+  float: #{$omega-float};
   font-size: 20px;
   font-weight: bold;
   line-height: $baseLineHeight;
@@ -118,13 +108,11 @@ button.close {
 }
 
 // Top bar alerts
-// -------------------------
-
 #absolute-messages-messages {
   width: 100%;
   position: absolute;
   top: 0;
-  left: 0;
+  #{$from-direction}: 0;
   z-index: 10;
 }
 
@@ -141,10 +129,10 @@ button.close {
   display: none;
   margin: 0;
   padding: 0;
-  // Make messages appear fixed at the top
   position: fixed;
-  right: 0;
+  #{$omega-float}: 0;
   left: 0;
+  bottom: 0; // put them at the bottom for now, they are breaking CGB
   z-index: $zindexFixedNavbar;
   margin-bottom: 0; // remove 18px margin for default navbar
   color: #735005;
@@ -191,7 +179,7 @@ button.close {
   color: $errorText;
 }
 .absolute-messages-actions {
-  float: right;
+  float: #{$omega-float}
 }
 a.absolute-messages-dismiss,
 a.absolute-messages-dismiss-all,
@@ -200,7 +188,7 @@ a.absolute-messages-dismiss-all:hover {
   display: block;
   position: absolute;
   top: .3em;
-  right: $gw;
+  #{$omega-float}: $gw;
   z-index: 10;
   margin: 0;
   padding: 1px 3px;
@@ -225,17 +213,15 @@ a.absolute-messages-dismiss-all:hover {
 }
 #absolute-messages-show {
   display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: fixed;
+  bottom: 0;
+  #{$omega-float}: 0;
   width: 0;
   height: 0;
   border-width: 0 16px 16px 0;
   border-style: solid;
-  border-color: transparent #fff;
-  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
-  box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+  border-color: transparent $link-color;
+  @include box-shadow(0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2));
   z-index: 1;
 }
 .absolute-messages-show {
@@ -243,14 +229,26 @@ a.absolute-messages-dismiss-all:hover {
   width: 16px;
   height: 16px;
   /* Ugly hack for IE, as it does not support Box Shadow. */
-  border-left: 1px solid #666\9;
+  border-#{$from-direction}: 1px solid #666\9;
   border-bottom: 1px solid #666\9;
 }
 /* And for Opera too. Ugh. */
 noindex:-o-prefocus, .absolute-messages-show {
-  border-left: 1px solid #666;
+  border-#{$from-direction}: 1px solid #666;
   border-bottom: 1px solid #666;
 }
 
+// ===========================================================================
+// Breakpoints 
 
+@include at-breakpoint($break-small) {
+  // same as previous breakpoint
+}
 
+@include at-breakpoint($break-medium) {
+  // same as previous breakpoint
+}
+
+@include at-breakpoint($break-large) {
+  // same as previous breakpoint
+}

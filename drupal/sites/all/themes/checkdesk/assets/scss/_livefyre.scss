@@ -19,3 +19,9 @@ div.livefyre-header {
     @include icon('comment');
   }
 }
+
+.livefyre-wrapper {
+  float: $from-direction;
+  clear: both;
+  @include span-columns(1,1);
+}

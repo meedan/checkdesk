@@ -3,43 +3,58 @@
 //
 // By default, there is only one column.
 // In larger breakpoints the primary width $pw and secondary $sw diverge to create two columns.
-@mixin sidebar($sw, $pw, $break: $cw) {
+@mixin cd-sidebar($sw, $pw, $break: $cw) {
 
   body.sidebar-first {
+
+    form {
+      border-bottom: 5px solid $bkg-color;
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+    }
+
     #main {
-      background-color: $light-grey;
       @include span-columns($break, $break); //outermost container
       @include pad(0,0, $break); // override story.scss
+      @content;
 
       // 2. The sidebar column
       #sidebar-first.column {
+        margin-top: $base-font-size;
+        @include span-columns($sw, $break); // sidebar width
         background-color: white;
-        margin-top: 100px;
-        @include span-columns($sw + 1, $break, $gw); // sidebar width
         margin-#{opposite-position($from-direction)}: 0;
-        @include clearfix;
-        position: relative;
-        z-index: 0;
-        @include box-shadow($grey 2px -1px 4px);
-        @include reports-filter($sw);
+
+        // Desk reports
+        @include reports-filter-and-results($sw) { // The reports filter form 
+          @include cd-form($sw, $sw, $gw); // form layout @ 100%
+          .form-type-bef-checkbox input, 
+          .form-type-radio input {
+            margin: 3px; 
+          }
+        }
       }
 
-      // 3. The primary content column
+      // 3. The primary content column with compser form
       div#content .inner {
-        @include span-columns($pw - 1 omega, $break);
+        @include span-columns($pw omega, $break);
         @include pad(0,0, $break);
-        margin-#{$from-direction}: 0;
         background-color: white;
+        margin-top: $base-font-size;
 
-        // this needs to move to typography.scss
         h1.title {
-          margin-top: 0;
-          padding-top: 2em;
-          font-size: $xxx-large-font-size;
+          padding: $gw;
+          margin: 0;
         }
 
         p {
-          @include span-columns($pw, $pw);
+          @include span-columns($pw, $pw, $gw);
+          clear: both;
+          font-size: $small-font-size;
+        }
+
+        a.active {
+          @include span-columns($pw, $pw, $gw);
           clear: both;
         }
         
@@ -47,17 +62,16 @@
         .story-status, .story-blogger {
           @include span-columns($pw, $pw);
           @include clearfix;
+          background: $postit-yellow;
+          padding: 1em;
+          margin-top: 1em;
+          font-size: $smaller-font-size;
+          width: 45%;
+          float: $from-direction;
         }
 
-        // The main post form
-        #block-checkdesk-core-post {
-          @include span-columns($pw, $pw);
-          position: relative;
-          clear: both;
-
-          form {
-            @include span-columns($pw, $pw, $gw);
-          }
+        form {
+          @include span-columns($pw, $pw, $gw);
         }
 
         // "Published" updates
@@ -74,7 +88,7 @@
 
 // ==========================================================================
 // Default: up to break-small
-@include sidebar($cw, $cw); // full width for secondary and primary cols
+@include cd-sidebar($cw, $cw); // full width for secondary and primary cols
 
 // ==========================================================================
 // Breakpoint: small
@@ -84,32 +98,70 @@
   $pw: $break-small - $sw;
 
   body.sidebar-first #main {
-    @include span-columns($break, $break); //reset
-    @include pad(0, 0, $break); 
+    @include span-columns($break, $break); //reset to full
+    @include pad(0, 0); //reset to no pad 
   }
 
-  @include sidebar($sw, $pw, $break); // reapply sidebar
+  @include cd-sidebar($sw, $pw, $break); // reapply cd-sidebar
 }
-
+// ======================================================================
+// Breakpoint: med
+//
+// The sidebar doubles in width and the primary form widens
 
 @include at-breakpoint($break-medium) {
   $break: $break-medium;
-  $sw: 6;
-  $pw: $break-medium - $sw;
-  body.sidebar-first #main {
-    @include span-columns($break, $break); // reset outer
-    @include pad(0,0, $break); // reset
-  }
-  @include sidebar($sw, $pw, $break); // reapply sidebar
-}  
+  $sw: 10; // double the sidebar width
+  $pw: $break-medium - $sw; 
 
+  @include cd-sidebar($sw, $pw, $break) {
+    @include span-columns($break, $break); //reset container to full
+    @include pad(0, 0); //reset container padding
+    
+    @include cd-form($sw, $break, $gw) {
+      form { padding: 0!important; } // reset form padding
+    }
+
+    // The reports list under the filters
+    .content .view-desk-reports {
+      @include reports-filter-and-results($sw) { // The reports filter form 
+        @include cd-form($break, $break) {
+          @include pad(0,0);
+        }
+        .views-row {
+          // background-color: red!important;
+          @include span-columns($sw/2, $sw); // why doesn't this work? ...
+          width: 40%!important; // force it to shrink the reports HACK
+          clear: $from-direction;
+          &:nth-of-type(even) {
+            @include omega; // float the second ones
+            clear: $omega-float;
+          }
+        }
+      }
+
+      // Float one of the filters to the right
+      #edit-field-rating-tid-wrapper {
+        @include omega;
+      }
+
+      // clear the buttons in two col model
+      [class*="button"] {
+        clear: both;
+        float: $from-direction;
+        input { font-size: $small-font-size; } // smaller buttons in sidebar
+      }
+    }
+  }
+}  
+// Breakpoint: large
 @include at-breakpoint($break-large) {
   $break: $break-large;
   $sw: 7;
   $pw: $break-large - $sw;
   body.sidebar-first #main {
-    @include span-columns($break, $break); // reset
-    @include pad(0, 0, $break); // reset
+    @include span-columns($break, $break); // reset to full
+    @include pad(0, 0, $break); // reset to zero
   }
-  @include sidebar($sw, $pw, $break); // reapply sidebar
+  @include cd-sidebar($sw, $pw, $break); // reapply cd-sidebar with new break
 }

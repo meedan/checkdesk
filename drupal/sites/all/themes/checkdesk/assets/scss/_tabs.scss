@@ -1,12 +1,12 @@
 // Checkdesk Tabs
 //
-// .tabs - the main tab container with ul.primary and ul.secondary inside
+// div.tabs - the main tab container with ul.primary and ul.secondary inside
 //
 // Adds styles for the primary and secondary tabs. Compare this with default CSS found in the system module's stylesheet.
 
 // resuable resets and basic styles
-@import "bowerbird/tabs";
-@include bb-tabs; 
+
+@include bb-tabs-reset; 
 
 div.tabs {
   width: 100%;
@@ -32,7 +32,8 @@ div.tabs {
       &.active {
         a {
           background-color: $nav-active-bkg-color;
-          color: white;          
+          color: white; 
+          display: inline-block;         
         }
       }
 
@@ -53,10 +54,6 @@ div.tabs {
 // =================================================================================
 // Breakpoints for tabs
 @include at-breakpoint($break-small) {
-  //same
-}
-
-@include at-breakpoint($break-medium) {
   .tabs ul.primary {
     @include span-columns($break-medium, $break-medium, $gw); // add padding
     li, li a { // constrain
@@ -66,5 +63,10 @@ div.tabs {
   }
 }
 
+@include at-breakpoint($break-medium) {
+  // same as previous breakpoint
+}
+
 @include at-breakpoint($break-large) {
+  // same as previous breakpoint
 }

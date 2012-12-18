@@ -75,11 +75,12 @@
 $inputHeight: $base-line-height;
 @import "bowerbird/compass_twitter_bootstrap/reset";
 
-// our bootstrap alerts
-@import "override_ctb/alerts";
-
-// Some shared helpers used in ctb dropdowns and checkdesk
+// Some shared helpers used in ctb dropdowns and checkdesk and alerts
 @import "shared";
+
+// our bootstrap alerts
+// @import "override_ctb/alerts";
+@import "alerts";
 
 // our dropdowns originally based on TB
 @import "dropdowns";
@@ -143,10 +144,12 @@ body {
 
 //  Checkdesk typography
 //  And a reponsive typography mixin which is applied in layout.
-@import "typography";
+@import "bowerbird/typography"; //defaults
+@import "typography"; //checkdesk specific
 
 // Checkdesk Drupal tabs
 // .tabs - the containing element which has a ul.primary and ul.secondary
+@import "bowerbird/tabs";  // defaults
 @import "tabs";
 
 // Checkdesk notifications
@@ -169,7 +172,8 @@ body {
 @import "navigation";
 
 // Tabs
-@import "tabs"; 
+@import "bowerbird/tabs"; // reset
+@import "tabs";  // checkdesk styles
 
 // Form: password strength section
 @import "form_password";
@@ -213,9 +217,26 @@ body {
     // clear: both;
     // background-color: yellow!important;
   }
-
 }
 
+//version banner 
+
+@mixin version-banner {
+  html body:before {
+    position: fixed;
+    content: "v0.1 'Alpha Alpaca'";
+    background-color: rgba(yellow, 0.5);
+    padding: 3px;
+    border: {top: 1px solid yellow; bottom: 1px solid yellow; }
+    bottom: 0;
+    #{opposite-position($from-direction)}: 0;
+    font-size: $smaller-font-size;
+  }
+}
+
+.favicon img {
+  width: auto!important;
+}
 
 // ====================================================================== 
 // Lastly: hacks to be removed

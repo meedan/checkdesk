@@ -50,7 +50,7 @@ $monoFontFamily: $mono-font-family;
 
 $baseFontSize:          $base-font-size !default;
 $baseFontFamily:        $sans-font-family !default;
-$baseLineHeight:        $base-line-height !default;
+$baseLineHeight:        $base-font-size * $base-line-height !default; // TB expects pixels
 $altFontFamily:         $serifFontFamily !default;
 
 $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily

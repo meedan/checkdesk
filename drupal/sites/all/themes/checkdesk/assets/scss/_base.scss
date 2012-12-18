@@ -22,7 +22,42 @@ $sans-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $serif-font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
 $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 
-// Modular scale setup
+// Sass libraries
+// ===========================================================================
+
+// Compass
+//
+// vertical baseline support
+// http://compass-style.org/reference/compass/typography/vertical_rhythm/
+$round-to-nearest-half-line: true;
+$relative-font-sizing: false;
+$base-line-height: 1.2;
+
+// Susy
+//
+// For more information: `gem unpack susy`
+// Note that these also feed Twitter Bootstrap variables; see variables.scss.
+// Further reading: http://susy.oddbird.net
+//
+$container-style: magic;
+
+// Columns count and breakpoints
+$container-width: 6;
+$total-columns: $container-width; // Alias for Susy
+$break-small: 12; 
+$break-medium: 24;
+$break-large: 48;
+
+// Checkdesk layout sections
+$total-width: $container-width; // Alias for Chris
+$sidebar-width: 4; // default sidebar width
+$tabs-width: $container-width; // Tabs inside forms and nodes
+$gutter-width: ms(-1); // The distance between grid columns
+$column-width: ms(2); // The width of columns
+$grid-padding: 0; // The padding on the sides of the outer <container>
+
+// Modular scale
+//
 // http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
 // All of these numbers are based on 18 base font size and 1168 outer container
 // Now you can do this to see the scale values (px)
@@ -30,16 +65,8 @@ $base-size: 18px 1168px; // Two scales at 1:1.61803
 $ratio: golden();
 $round_pixels: true;
 
-// @debug the calculated scale
-// @for $i from -2 through 3 {  @debug ms($i); }
-
-// Small values, expressed in our scale.
-$_1px: ms(-6);
-$_2px: ms(-5);
-$_3px: ms(-4);
-$_4px: ms(-3);
-
 // Typography
+//
 $smallest-font-size: ms(-2); // 7px
 $smaller-font-size: ms(-1); // 11px
 $small-font-size: ms(0) - ms(-5); // 16px
@@ -51,6 +78,7 @@ $xx-large-font-size: ms(3); // 40px
 $xxx-large-font-size: ms(4); // 47px
 $largest-font-size: ms(5); // 65px
 
+// View typography settings in CLI
 $debug: false;
 @if $debug == true {
   @each $size in $smallest-font-size $smaller-font-size $small-font-size $base-font-size $large-font-size $larger-font-size $x-large-font-size $xx-large-font-size {
@@ -58,96 +86,44 @@ $debug: false;
   }
 }
 
-// Set initial baseline configuration
-$base-line-height: 1.2;
-  
-// Proportions
-//
-// Natural language shortcuts that help document the grid.
-// Will complain loudly if accidentally divide columns!
-@function twelveth-of($width)       { @return $width / 12; }
-@function sixth-of($width)          { @return $width / 6; }
-@function fifth-of($width)          { @return $width / 5; }
-@function fourth-of($width)         { @return $width / 4; }
-@function three-fourths-of($width)  { @return (fourth-of($width) * 3); }
-@function third-of($width)          { @return $width / 3; }
-@function two-thirds-of($width)     { @return (third-of($width) * 2); }
-@function half-of($width)           { @return $width / 2; }
-
-// Grid configuration
-//
-// The basic grid for Checkdesk, using Susy.
-// Note that these also feed bootstrap variables; see variables.scss.
-// These can be overridden in media breakpoints and used to recalculate the grid sizes.
-// Further reading: http://susy.oddbird.net
-//
-
-// Columns count and breakpoints
-$container-width: 6;
-$break-small: 12; 
-$break-medium: 24;
-$break-large: 48;
-
-// Checkdesk layout sections
-$total-width: $container-width; // Alias for Chris
-$total-columns: $container-width; // Alias for Susy
-$tabs-width: $container-width; // Tabs inside forms and nodes
-$form-width: $container-width; // in relation to the container width
-$label-width: half-of($form-width); // a fraction of the form width.
-$input-width: ($form-width - $label-width); // The remaining fraction of the form width.
-
-// Use ratios of $gutter-width whenever you need a small amount of padding
-$gutter-width: ms(-1); // The distance between grid columns
-// We set the column width equal to the gutter, and equal to the grid padding
-$column-width: ms(2); // The width of columns
-$grid-padding: 0; // The padding on the sides of the out <container>
-
-// Susy container style, For more information: `gem unpack susy`
-$container-style: magic;
+// Main sections
+// =============================================================================
 
 // Navigation
 $nav-width: $container-width;
-
 $nav-font-size: 15px;
 $nav-icon-height: 15px;
 $nav-line-height: $nav-icon-height;
 $nav-height: $nav-icon-height + 7*2;
 
-// A single Report
-$report-width: $container-width;
-
-// Aliases
-$cw: $container-width;
-$fw: $form-width; 
-$tw: $tabs-width; 
-$gw: $gutter-width; 
-$iw: $input-width; 
-$lw: $label-width; 
-$rw: $report-width;
-$nw: $nav-width;
-
-// Typography for <form> elements
-$form-helper-text-size: $small-font-size;
+// Notifications
+$notification-dropdown-width: ms(11);
 $notification-width: 5;
 $notification-icon-size: $base-font-size;
 $notification-image-width: 5%;
-$radios-widths: $fw - 2;
-
-// heartbeat icon integration
 $notifications-icon-selector: '.heartbeat-time-ago';
 
-// in icon()
-$icon-word-padding: 2.5%;
+// Reports
+$report-width-px: 400px; // for grid view, don't use columns or percents for now
+$report-width: $container-width;
 
-// Notifications
-$notification-dropdown-width: ms(11);
+// Aliases
+// =============================================================================
+$cw: $container-width;
+$tw: $tabs-width; 
+$gw: $gutter-width; 
+$rw: $report-width;
+$nw: $nav-width;
 
-// default sidebar width
-$sidebar-width: 4;
+// Misc Values
+// =============================================================================
 
-$text-color: black;
-
-// We need this in px because the columns can't reliably remove the margins yet ...
-$report-width-px: 400px;
-
+// Standardize our box-radius
 $radius: 4px;
+
+// Form label width 
+$label-width: $cw/2;
+
+// Colors
+// =============================================================================
+// ... live in colors.css

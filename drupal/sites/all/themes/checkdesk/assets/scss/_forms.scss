@@ -1,6 +1,7 @@
 // Form Actions
 //
 @mixin form-actions($w) {
+
   .form-actions {
     @include span-columns($w, $w); // end of grid
 
@@ -8,15 +9,16 @@
     input, a {
       @include checkdesk-button;
     }
+  }
 
-    input#edit-reset, 
-    input#edit-draft {
-      @include checkdesk-button($dark-grey);
-    }
-    // Override main submit buttons
-    input#edit-submit {
-      @include checkdesk-button($twitter-blue);
-    }
+  input#edit-reset, 
+  input#edit-draft {
+    @include checkdesk-button($dark-grey);
+  }
+
+  // Override main submit buttons
+  input#edit-submit, .form-submit {
+    @include checkdesk-button($twitter-blueish);
   }
 }
 
@@ -90,6 +92,7 @@
     width: 220px; // default input width + 10px of padding that doesn't get applied
     border: 1px solid $inputBorder;
     background-color: $input-background; // Chrome on Linux and Mobile Safari need background-color
+    font-size: $small-font-size;
   }
 
   // Make multiple select elements height not fixed
@@ -113,16 +116,18 @@
     @content;
 
     & > .form-item {
-      @include span-columns($w, $w, $gw);
+      @include reset-box-model;
+      @include span-columns($w, $w);
+      clear: both;
       font-size: $small-font-size;
       color: $dark-grey;
       background: rgba($light-grey, 0.5);
-      @include reset-box-model;
-      display: block;
-      float: $from-direction;
+      border: 1px solid pink;
+
       // Nested <.form-item>s
       .form-item { 
-        width: 100%;  
+        @include span-columns($w, $w);
+        border: 1px solid red;
       }
     } 
 
@@ -150,14 +155,18 @@
       font-size: $large-font-size;
       display: block;
       font-weight: normal;
-      padding-top: ms(1);
-      padding-bottom: ms(-5);
+      padding { top: $gw; bottom: $gw; }
+    }
+
+    // Default buttons
+    input.submit {
+      @include button($identity);
     }
 
     // Default descriptions
     .description {
       clear: $from-direction;
-      font-size: $form-helper-text-size;
+      font-size: ms(-1);
       display: none; // displayed at larger breakpoints
     }
 
@@ -166,13 +175,12 @@
     input {
       background-color: $input-background;
       border: 1px solid $grey;
+      margin-top: $gw;
 
       // Focus state
       &:focus {
-        border-color: rgba($donjuan, .8);
-        outline: 0;
-        outline: thin dotted \9; /* IE6-9 */
-        @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($donjuan, .6)});
+        border-color: rgba(black, .5);
+        outline: thin dotted $light-grey;
       }
     }
 
@@ -189,28 +197,26 @@
       }
     }
 
-    // Form checkboxes
-    .form-type-checkbox {
-      @include reset-box-model;
-      @include span-columns($w, $w);
+    $checkbox-width: 25px;
+    
+    // checkboxes and radios
+    input[type="checkbox"], 
+    input[type="radio"] {
+      width: $checkbox-width;
+      display: inline-block;
+      clear: both;
+      float: $from-direction;
+    } 
 
-      // The checkbox
-      input.form-checkbox {
-        @include inline-block;
-        padding: $gw;
-        width: $gw;
-      } 
-
-      // Checkbox label
-      label.option {
-        @include reset-box-model;
-        @include inline-block;
-        clear: none;
-        float: $from-direction;
-        padding: $gw;
-      }
+    // Checkbox labels for checkboxes and radios, aka ".options"
+    label.option {
+      @include reset-box-model; // reset default label styles
+      display: inline-block;
+      font-size: $smaller-font-size;
+      cursor: pointer;
+      float: $from-direction;
+      clear: none;
     }
-
 
     div.form-wrapper {
       @include span-columns($w, $w);
@@ -231,7 +237,11 @@
 @include at-breakpoint($break-small) {
   $break: $break-small;
   @include cd-form($break - 6, $break) {
-    @include pad(3, 3, $break);
+    @include pad(3, 3, $break); // more padding
+    .description {
+      display: inline-block; // appears
+      padding: $base-font-size;
+    }
   }
 }
 

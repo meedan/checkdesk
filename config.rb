@@ -27,9 +27,6 @@ relative_assets = false
 #load bowerbird
 Sass.load_paths << File.join(full_bowerbird_extension_dir, "stylesheets")
 
-# enable debugger output for firesass
-sass_options = {:debug_info => true}
-
 # For more about Sass functions: 
 # http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html
 module Sass::Script::Functions
@@ -43,17 +40,7 @@ module Sass::Script::Functions
     arr = colors.dup    
     Sass::Script::String.new(colors.collect { arr.slice!(rand(arr.length)) }.first);
   end
-
-  # def all_bb_backgrounds(path = bb_background_path, size = "default")
-  #   puts "================= Using #{path}"
-  #   @list = Array.new
-  #   FileList[File.join(path, '**', '*.png')].exclude(/.*2X.*/).each { |pathname| 
-  #     @list << Sass::Script::String.new((File.basename(pathname)).gsub(".png", ""))
-  #   }
-  #   Sass::Script::List.new(@list, :comma)
-  # end
-
-  # def all_bb_backgrounds_count(path = bb_background_path)
-  #   Sass::Script::Number.new(all_bb_backgrounds(path).length.to_i)
-  # end
 end
+
+output_style = (environment == :production) ? :compressed : :expanded
+sass_options = (environment == :production) ? { :debug_info => false } : { :debug_info => true } 
