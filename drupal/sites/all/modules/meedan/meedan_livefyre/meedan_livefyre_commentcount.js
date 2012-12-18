@@ -1,7 +1,7 @@
 (function ($) {
 // START jQuery
 
-Drupal.behaviors.livefyre = {
+Drupal.behaviors.livefyreCommentCount = {
   attach: function(context, settings) {
     LF.CommentCount({
       replacer: function(element, count) {
