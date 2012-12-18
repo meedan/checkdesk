@@ -265,6 +265,24 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'fboauth_user_connections';
+  $strongarm->value = array(
+    0 => 'posts',
+  );
+  $export['fboauth_user_connections'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'fboauth_user_properties';
+  $strongarm->value = array(
+    0 => 'email',
+  );
+  $export['fboauth_user_properties'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__discussion';
   $strongarm->value = array(
     'view_modes' => array(
