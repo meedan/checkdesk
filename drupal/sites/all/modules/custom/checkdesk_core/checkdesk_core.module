@@ -627,11 +627,12 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     // Hard-code desk reference to current desk.
     $form['field_desk'][LANGUAGE_NONE]['#default_value'] = $node->nid;
     $form['field_desk']['#access'] = false;
-
-    // Make the body field a drop target for reports.
-    $form['body']['#prefix'] = '<div class="droppable">';
-    $form['body']['#suffix'] = '</div>';
   }
+
+  // Make the body field a drop target for reports.
+  $form['body']['#prefix'] = '<div class="droppable">';
+  $form['body']['#suffix'] = '</div>';
+
   // Set default parameters if any.
   if (isset($_GET['story'])) {
     // Hard-code desk reference to given desk.
