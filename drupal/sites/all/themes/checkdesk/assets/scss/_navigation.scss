@@ -113,6 +113,21 @@ nav[role="navigation"] {
     }
   }
 
+  // The installation page link
+  // ==============================================================
+  #info-menu {
+    li {
+      a.dropdown-toggle {
+        margin-#{opposite-position($from-direction)}: 10px;
+      }
+    }
+    li.open {
+      a.dropdown-toggle {
+        text-shadow: none;
+      }
+    }
+  }
+
   // Notifications 
   // has a different structure than the other <ul>'s...
   #navigation-region {

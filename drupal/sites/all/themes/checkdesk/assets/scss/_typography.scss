@@ -60,18 +60,17 @@ body {
 // 
 @include at-breakpoint($break-small) {
   body {
-    font-size:  ms(1); // increased
-    line-height: ms(2) * 0.8; // increased
+    // font-size:  $large-font-size; // increased
   }
 
   nav {
-    font-size: $nav-font-size + ms(-2);
+    // font-size: $nav-font-size + ms(-2);
   }
 
   h1.title {
-    margin-top: ms(4); // reduced
-    font-size:  $x-large-font-size; // increased
-    line-height: ms(2) * 1.2; 
+    // margin-top: ms(4); // reduced
+    // font-size:  $x-large-font-size; // increased
+    // line-height: ms(2) * 1.2; 
   }
 }
 

@@ -164,6 +164,7 @@ body {
 
 // Checkdesk bookmarklet stuff
 @import "bookmarklet";
+@import "install_bookmarklet";
 
 // Checkdesk Pagination
 @import "pagination";
@@ -210,7 +211,7 @@ body {
 //
 body {
   background-color: $bkg-color;  
-  
+  background-image: url("/sites/all/themes/bowerbird/images/bkgs/arches.png");
   // Drupal blocks
   .block {
     // float: $from-direction;
@@ -250,5 +251,5 @@ body {
 // @include debug_drupal;
 // @import "spec";
 
-// $display-banner: true;
-// @include visualize-grid($display-banner);
+$display-banner: true;
+@include visualize-grid($display-banner);

@@ -11,13 +11,17 @@
     }
   }
 
+  // Grey buttons
   input#edit-reset, 
-  input#edit-draft {
-    @include checkdesk-button($dark-grey);
+  input#edit-draft, 
+  input[type="reset"] {
+    @include checkdesk-button();
+    border: 1px solid $grey;
   }
 
-  // Override main submit buttons
-  input#edit-submit, .form-submit {
+  // Blue buttons
+  input#edit-submit, 
+  .form-submit {
     @include checkdesk-button($twitter-blueish);
   }
 }

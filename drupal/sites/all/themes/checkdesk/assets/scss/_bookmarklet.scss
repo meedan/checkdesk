@@ -1,21 +1,76 @@
-// Bookmarklet
+// Bookmarklet forms
+@mixin bookmarklet-forms() {
 
+  form {
+    @include reset-box-model;
+  }
 
-// The bookmarklet itself
+  .form-item {
+    @include reset-box-model;
+    padding-top: $gw;
+    float: $from-direction;
+    clear: both;
+  }
 
-#meedan_bookmarklet {
-  font-size: $small-font-size;
-  overflow: hidden;
+  .field-type-link-field {
+    clear: both;
+    label {
+      display: none; // HACK hidden labels
+    }
+  }
 
+  .field-edit-link {
+    display: none; // HACK hidden
+  }
+
+  input[type=text], 
+  input[type=password], 
+  textarea {
+    @include border-radius($radius);
+  }
+
+  input[type=text] {
+    width: 290px;
+    padding-#{opposite-position($from-direction)}: 35px; //accomodate spinner
+  }
+
+  textarea {
+    width: 332px;
+    height: 60px;
+    padding: 5px;
+  }
+
+  label, textarea {
+    color: $grey;
+    font-size: $small-font-size;
+    font-weight: normal;
+  }
+
+  .form-actions {
+    @include reset-box-model;
+    background: transparent;
+    margin-top: $gw;
+  }
+}
+
+@mixin bookmarklet-step-one() {
+  // Step one  ...
   h2 {
     @include reset-box-model;
     color: $grey;
     font-size: $base-font-size;
     float: $from-direction;
+    padding-top: $gw*2;
+    margin-bottom: 0;
+    background-color: red;
   }
 
   #meedan_bookmarklet_help {
-    float: $from-direction;
+    background-color: red;
+    position: absolute;
+    top: $gw;
+    #{$omega-float}: $gw;
+
     span {
       display: block;
       width: 30px;
@@ -44,57 +99,23 @@
     }
   }
 
+  // Loading ..
+  .meedan-bookmarklet-loading {
+    background: #fff url(../imgs/icons/bookmarklet-loading.gif) 305px center no-repeat;
+  }
+}
+
+// Step two  ...
+@mixin bookmarklet-step-two() {
   #meedan_bookmarklet_preview {
     color: $dark-grey;
     margin: 10px 0;
   }
 
-  input[type=text], input[type=password], textarea {
-    height: 32px;
-    padding: 0 5px;
-    border: 1px solid #bbb;
-    color: #838383;
-	  @include border-radius(3px);
-  }
-
-  input[type=text] {
-    width: 290px;
-    padding-#{opposite-position($from-direction)}: 35px;
-  }
-
-  textarea {
-    width: 332px;
-    height: 60px;
-    padding: 5px;
-  }
-
-  label, textarea {
-    color: #848484;
-    font-size: 13px;
-    font-weight: normal;
-  }
-
-  .meedan-bookmarklet-loading {
-    background: #fff url(../imgs/icons/bookmarklet-loading.gif) 305px center no-repeat;
-  }
-
-  .field-type-link-field {
-    clear: both;
-    label {
-      display: none;
-    }
-  }
-
-  .form-item {
-    margin: 0;
-  }
-
-  .field-edit-link {
-    display: none;
-  }
-
   #meedan_bookmarklet_preview_content img {
     width: auto;
+    float: $from-direction;
+    clear: both;
   }
 
   #meedan_bookmarklet_preview_content,
@@ -103,13 +124,9 @@
     height: 230px;
   }
 
-  #meedan_bookmarklet_preview_content {
-    
-  }
-  
   #meedan_bookmarklet_preview_gc {
-    background: #000;
-    color: #fff;
+    background: black;
+    color: white;
     padding-top: 85px;
     height: 145px;
     span, a {
@@ -131,40 +148,30 @@
   #edit-graphic-content {
     float: opposite-position($from-direction);
     clear: both;
-    margin-top: 10px;
+    margin-top: $gw;
     input[type=checkbox] {
       border: 1px solid #bbb;
       background: #fff;
       margin: 0;
     }
   }
+}
 
-  .form-actions {
-    margin: 0;
-    margin-top: 10px;
-    background: transparent;
-    border: 0;
-    padding: 0;
-  }
-
-  input.form-submit {
-    @include checkdesk-button();
-  }
-
-  #edit-submit {
-    background: #2da3eb;
-  }
-
-  #meedan_bookmarklet_cancel_button {
-    background: #929292;
-  }
-
-  .alert {
+// Alerts in bookmarklet
+//
+// This is a bit awkward, there is not a lot of room, some errors appear, but we need to see
+// the confirmation notice at the end ...
+@mixin bookmarklet-alerts() {
+  .absolute-messages-message {
     padding: 0;
     margin: 0;
-    background: transparent;
     border: 0;
-    h4, .close, li + li + li {
+    display: none;
+    background: white;
+    font-size: $small-font-size;
+    h4, 
+    .close, 
+    li + li + li {
       display: none;
     }
     ul {
@@ -182,7 +189,7 @@
       font-size: 15px;
       line-height: 40px;
     }
-    a::before {
+    a:before {
       display: none;
     }
   }
@@ -197,7 +204,10 @@
       color: #a00;
     }
   }
+}
 
+// Login
+@mixin bookmarklet-login() {
   #user-login {
     label, input[type=text], input[type=password], a {
       font-size: 13px;
@@ -222,135 +232,25 @@
   }
 }
 
-// The installation page link
 
-#info-menu {
-  li {
-    a.dropdown-toggle {
-      margin-#{opposite-position($from-direction)}: 10px;
-    }
-  }
-  li.open {
-    a.dropdown-toggle {
-      text-shadow: none;
-    }
-  }
-}
 
-// The installation page
+// Bookmarklet
+// ==============================================================
 
-#modalContent.modal-install-bookmarklet {
-  width: 930px !important;
-  height: 355px !important;
-  background: #fff;
-  border: 1px solid #C0C0C0;
-  top: 80px !important; 
-  #{$from-direction}: 50% !important;
-  margin-#{$from-direction}: -465px;
-  z-index: 1050 !important;
-  overflow: visible;
-  position: fixed !important;
-
-  .ctools-modal-content {
-    width: 930px !important;
-    .modal-content {
-      width: 930px !important;
-    }
-  }
-
-  .modal-header {
-    border-bottom: 0;
-
-    .close {
-      display: block;
-      text-indent: -5000em;
-      width: 19px;
-      height: 19px;
-      background: transparent url(../imgs/icons/modal-close.png) center center no-repeat;
-      opacity: 1;
-    }
-
-    .modal-title {
-      display: none;
-    }
-  }
-
-  #install-bookmarklet-button {
-    background: transparent url(../imgs/icons/bookmarklet-drag.png) $from-direction center no-repeat;
-    display: block;
-    height: 84px;
-    width: 50%;
-    padding-#{$from-direction}: 66px;
-    position: absolute;
-    #{$from-direction}: 35px;
-    top: -9px;
-    z-index: 1051;
-    text-decoration: none;
-    color: #fff;
-    font-size: 18px;
-
-    span {
-      position: absolute;
-      top: 35px;
-      padding: 10px;
-      background: #2DA3EB;
-	    @include border-radius(3px);
-    }
-  }
-
-  .install-bookmarklet-col {
-    width: 410px;
-    float: $from-direction;
-    margin: 0 22px;
-
-    h3 {
-      color: #C0C0C0;
-      font-size: ms(1);
-      text-align: center;
-      margin: 80px auto 20px auto;
-      font-weight: normal;
-      padding-#{opposite-position($from-direction)}: 76px;
-    }
-
-    ul {
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      margin-top: 5px;
-      list-style: none;
-    }
-
-    a, p {
-      font-size: $small-font-size;
-    }
-
-    p {
-      color: #616161;
-    }
-  }
-
-  .install-bookmarklet-col + .install-bookmarklet-col {
-    h2 {
-      color: #C0C0C0;
-      font-weight: normal;
-      font-size: $large-font-size;
-    }
-
-    p {
-      margin: ms(0) 0;
-    }
-  }
-}
-
-#modalBackdrop.modal-install-bookmarklet {
-  background: url(../imgs/alpha.png) !important;
-  z-index: zindexModal - 1 !important;
+// The bookmarklet itself
+#meedan_bookmarklet {
+  font-size: $small-font-size;
+  overflow: hidden;
+  position: relative;
+  @include bookmarklet-step-one;
+  @include bookmarklet-step-two;
+  @include bookmarklet-forms;
+  @include bookmarklet-login;
+  @include bookmarklet-alerts;
 }
 
 // Internal bookmarklet (Submit Report link)
-
+// ==============================================================
 #meedan_bookmarklet_cont {
   display: none;
   position: fixed !important; 
@@ -359,7 +259,10 @@
 }
 
 .meedan-bookmarklet-internal {
-  #meedan_bookmarklet_preview, #edit-body, #edit-graphic-content, #edit-actions #edit-submit {
+  #meedan_bookmarklet_preview, 
+  #edit-body, 
+  #edit-graphic-content, 
+  #edit-actions #edit-submit {
     display: none;
   }
 }
