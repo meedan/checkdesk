@@ -1014,3 +1014,11 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 }
 
+/**
+ * Implements of hook_user_insert().
+ */
+function checkdesk_core_user_insert(&$edit, $account, $category) {
+  //Add new citizen journalist role to all registered users
+  $user_roles = array_flip(user_roles(TRUE));
+  $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
+}
