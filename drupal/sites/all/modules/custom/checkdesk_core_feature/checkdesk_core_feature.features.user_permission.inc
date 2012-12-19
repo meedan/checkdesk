@@ -1130,15 +1130,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'php',
   );
 
-  // Exported permission: use PHP for title patterns.
-  $permissions['use PHP for title patterns'] = array(
-    'name' => 'use PHP for title patterns',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'auto_nodetitle',
-  );
-
   // Exported permission: use advanced search.
   $permissions['use advanced search'] = array(
     'name' => 'use advanced search',

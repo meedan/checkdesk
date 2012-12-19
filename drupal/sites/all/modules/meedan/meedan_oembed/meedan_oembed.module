@@ -317,9 +317,28 @@ function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
 }
 
 /**
+ * Implements of hook_node_presave();
+ */
+function meedan_oembed_node_presave($node) {
+  if ($node->type == 'media') {
+    //Set report type
+    $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+    if (isset($embed->title)) {
+      $node->title = substr($embed->title, 0, 255);
+    }
+    else {
+      $node->title = t('report-!user-!datetime', array('!user' => $node->name, '!datetime' => date('U', $node->created)));
+    }
+  }
+}
+
+/**
  * Implements of hook_form_FORM_ID_form().
  */
 function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id) {
+  //Hide title field
+  $form['title']['#type'] = 'value';
+  $form['title']['#required'] = FALSE;
   include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
   $facebook = new Facebook(array(
     'appId'  => variable_get('fboauth_id', ''),

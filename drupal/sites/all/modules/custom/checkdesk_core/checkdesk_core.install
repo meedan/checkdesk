@@ -21,3 +21,18 @@ function checkdesk_core_update_7002() {
   module_disable(array('meedan_media', 'meedan_discussion'), FALSE);
 }
 
+/**
+ * Disable unneeded modules.
+ */
+function checkdesk_core_update_7003() {
+  module_disable(array('auto_nodetitle'), FALSE);
+  drupal_uninstall_modules(array('auto_nodetitle'), FALSE);
+  //change module weight to get twitter_signin alteration
+  db_update('system')
+    ->fields(array(
+      'weight' => 5,
+    ))
+    ->condition('name', 'checkdesk_core')
+    ->execute();
+}
+

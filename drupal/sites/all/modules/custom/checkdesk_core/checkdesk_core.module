@@ -693,19 +693,6 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
 }
 
 /**
- * API function to return report node title given its embedded media title.
- * TODO: Move this to meedan_oembed.
- */
-function checkdesk_core_oembed_title($node) {
-  $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
-  if ($embed) {
-    return $embed->title;    
-  }
-  // TODO: Revert to auto_nodetitle instead of doing this manually.
-  return t('report-!user-!datetime', array('!user' => $node->name, '!datetime' => date('U', $node->created)));
-}
-
-/**
  * Implements hook_views_pre_render().
  */
 function checkdesk_core_views_pre_render(&$view) {
