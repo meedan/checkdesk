@@ -61,11 +61,11 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'weight' => '-48',
     'parent_path' => '<sub>',
   );
-  // Exported menu link: main-menu:admin/people
-  $menu_links['main-menu:admin/people'] = array(
+  // Exported menu link: main-menu:administer-users
+  $menu_links['main-menu:administer-users'] = array(
     'menu_name' => 'main-menu',
-    'link_path' => 'admin/people',
-    'router_path' => 'admin/people',
+    'link_path' => 'administer-users',
+    'router_path' => 'administer-users',
     'link_title' => 'Administer users',
     'options' => array(
       'attributes' => array(
