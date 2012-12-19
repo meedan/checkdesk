@@ -15,6 +15,20 @@
     }
   }
 
+  // Checkboxes and radios
+  // Can we move this to forms.scss?
+  .form-type-bef-checkbox input, 
+  .form-type-radio input {
+    margin: 3px; 
+  }
+
+  .edit-field-rating-tid-wrapper {
+    .form-item {
+      float: $from-direction;
+      padding: 5px;
+    }
+  }
+
   // All of these really necessary? 
   .view-content,
   .views-field, 

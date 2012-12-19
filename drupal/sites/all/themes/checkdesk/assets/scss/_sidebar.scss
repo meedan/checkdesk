@@ -29,10 +29,6 @@
         // Desk reports
         @include reports-filter-and-results($sw) { // The reports filter form 
           @include cd-form($sw, $sw, $gw); // form layout @ 100%
-          .form-type-bef-checkbox input, 
-          .form-type-radio input {
-            margin: 3px; 
-          }
         }
       }
 
@@ -61,7 +57,8 @@
         }
         
         // The current status and blogger information
-        .story-status, .story-blogger {
+        .story-status, 
+        .story-blogger {
           @include span-columns($pw, $pw);
           @include clearfix;
           background: $postit-yellow;
@@ -70,6 +67,12 @@
           font-size: $smaller-font-size;
           width: 45%;
           float: $from-direction;
+          .user-picture {
+            float: $omega-float;
+            img {
+              width: 50px;
+            }
+          }
         }
 
         form {

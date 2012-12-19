@@ -76,3 +76,8 @@ li.menu-680 {
   display: none!important;
   @include at-breakpoint($break-medium) {display: block!important;}
 }
+
+// duplicate appearing
+.views-field-title {
+  display: none!important;
+}

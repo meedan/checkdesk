@@ -15,7 +15,6 @@ body.page-node-add {
     .form-type-link-field, 
     .form-item-title {
       label {
-        @include icon('bolt');
         @include span-columns($label-width, $cw);
         font-size: $large-font-size;
         font-weight: bold;
