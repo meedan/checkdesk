@@ -72,7 +72,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
         'title' => '',
       ),
     ),
-    'module' => 'menu',
+    'module' => 'system',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
