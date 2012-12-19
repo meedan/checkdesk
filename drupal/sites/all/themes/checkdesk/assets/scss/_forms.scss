@@ -84,6 +84,9 @@
     margin-top: 1px \9; /* IE8-9 */
     line-height: normal;
     cursor: pointer;
+    & + label {
+      margin: ms(-2) 0 0;
+    }
   }
 
   // Reset width of input images, buttons, radios, checkboxes

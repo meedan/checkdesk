@@ -1,13 +1,17 @@
+$spinner-width: 45px; 
+$bookmarklet-width: 345px;
+$bookmarklet-preview-max-height: 345px;
+
 // Bookmarklet forms
 @mixin bookmarklet-forms() {
-
+  
   form {
     @include reset-box-model;
+    width: $bookmarklet-width;
   }
 
   .form-item {
     @include reset-box-model;
-    padding-top: $gw;
     float: $from-direction;
     clear: both;
   }
@@ -30,26 +34,35 @@
   }
 
   input[type=text] {
-    width: 290px;
-    padding-#{opposite-position($from-direction)}: 35px; //accomodate spinner
+    width: $bookmarklet-width - ($spinner-width + $gw*2);
+    padding-#{opposite-position($from-direction)}: $spinner-width; //accomodate spinner
+  }
+
+  .form-type-textarea {
+    padding-top: $gw;
   }
 
   textarea {
-    width: 332px;
+    width: $bookmarklet-width - 10px; // account for padding
     height: 60px;
     padding: 5px;
-  }
-
-  label, textarea {
-    color: $grey;
-    font-size: $small-font-size;
-    font-weight: normal;
   }
 
   .form-actions {
     @include reset-box-model;
     background: transparent;
+    float: $from-direction;
+    width: auto;
     margin-top: $gw;
+  }
+
+  .footer {
+    float: $from-direction;
+    clear: both;
+    margin-top: $gw;
+    input {
+      @include checkdesk-button();
+    }
   }
 }
 
@@ -60,39 +73,39 @@
     color: $grey;
     font-size: $base-font-size;
     float: $from-direction;
-    padding-top: $gw*2;
     margin-bottom: 0;
-    background-color: red;
+    padding-top: $gw;
+    line-height: $base-line-height;
   }
 
   #meedan_bookmarklet_help {
-    background-color: red;
     position: absolute;
-    top: $gw;
+    top: 0;
+    padding-top: $gw;
+    line-height: $base-line-height;
     #{$omega-float}: $gw;
 
     span {
       display: block;
+      float: $from-direction;
       width: 30px;
-      height: 40px;
       text-indent: -5000em;
       background: transparent url(../imgs/icons/bookmarklet-help.png) center center no-repeat;
       cursor: help;
-      float: $from-direction;
       p {
         display: none;
       }
 
       &:hover p {
         display: block;
-        width: 220px;
-        height: 60px;
+        width: $bookmarklet-width;
+        height: auto;
         background: #fff;
-        border: 1px solid #bbb;
-        font-size: 11px;
+        border: 1px solid $dark-grey;
+        font-size: $small-font-size;
         color: #7c7c7c;
         text-indent: 0;
-        padding: 8px;
+        padding: $gw;
         position: absolute;
         #{opposite-position($from-direction)}: 1px;
       }
@@ -109,7 +122,7 @@
 @mixin bookmarklet-step-two() {
   #meedan_bookmarklet_preview {
     color: $dark-grey;
-    margin: 10px 0;
+    margin: $gw 0;
   }
 
   #meedan_bookmarklet_preview_content img {
@@ -121,14 +134,18 @@
   #meedan_bookmarklet_preview_content,
   #meedan_bookmarklet_preview_gc {
     width: 332px;
-    height: 230px;
+    height: auto;
+    max-height: $bookmarklet-preview-max-height;
+    display: inline-block;
+    float: $from-direction;
   }
 
   #meedan_bookmarklet_preview_gc {
-    background: black;
-    color: white;
+    background: $grey;
+    color: $dark-grey;
     padding-top: 85px;
-    height: 145px;
+    height: $bookmarklet-preview-max-height;
+    max-height: 145px;
     span, a {
       text-align: center;
       display: block;
@@ -148,11 +165,13 @@
   #edit-graphic-content {
     float: opposite-position($from-direction);
     clear: both;
-    margin-top: $gw;
-    input[type=checkbox] {
-      border: 1px solid #bbb;
-      background: #fff;
-      margin: 0;
+    margin-top: $gw; // align with the button
+    .form-item label, 
+    .form-item input[type="checkbox"] {
+      padding: $gw 2px; // pad for the hover
+      &:hover {
+        color: $identity;
+      }
     }
   }
 }
@@ -186,8 +205,7 @@
     a, a:link, a:visited, a:hover {
       text-decoration: none;
       color: #848484;
-      font-size: 15px;
-      line-height: 40px;
+      line-height: $base-font-size;
     }
     a:before {
       display: none;
@@ -196,9 +214,6 @@
 
   .alert-error {
     color: #a00;
-    font-size: 12px;
-    position: absolute;
-    top: 150px;
     a, a:link, a:visited, a:hover {
       font-size: 12px;
       color: #a00;
@@ -209,8 +224,10 @@
 // Login
 @mixin bookmarklet-login() {
   #user-login {
-    label, input[type=text], input[type=password], a {
-      font-size: 13px;
+    label, 
+    input[type=text], 
+    input[type=password], 
+    a {
       clear: both;
     }
     ul {
@@ -221,6 +238,7 @@
       display: block;
       margin: 0;
     }
+
     #edit-social-media-signin {
       label, li, a {
         float: $from-direction;
@@ -233,22 +251,6 @@
 }
 
 
-
-// Bookmarklet
-// ==============================================================
-
-// The bookmarklet itself
-#meedan_bookmarklet {
-  font-size: $small-font-size;
-  overflow: hidden;
-  position: relative;
-  @include bookmarklet-step-one;
-  @include bookmarklet-step-two;
-  @include bookmarklet-forms;
-  @include bookmarklet-login;
-  @include bookmarklet-alerts;
-}
-
 // Internal bookmarklet (Submit Report link)
 // ==============================================================
 #meedan_bookmarklet_cont {
@@ -258,6 +260,7 @@
   border-width: 0 !important;
 }
 
+// NOTE applied to body 
 .meedan-bookmarklet-internal {
   #meedan_bookmarklet_preview, 
   #edit-body, 
@@ -265,4 +268,23 @@
   #edit-actions #edit-submit {
     display: none;
   }
+
+}
+
+
+// Bookmarklet
+// ==============================================================
+
+// The bookmarklet itself
+// NOTE: applied to body
+#meedan_bookmarklet {
+  font-size: $small-font-size;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  @include bookmarklet-forms;
+  @include bookmarklet-login;
+  @include bookmarklet-alerts;
+  @include bookmarklet-step-one;
+  @include bookmarklet-step-two;
 }

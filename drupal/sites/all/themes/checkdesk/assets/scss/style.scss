@@ -220,12 +220,13 @@ body {
   }
 }
 
-//version banner 
-
+// Version banner 
+// 
+// For Dev and Testing sites, so we know what version we are looking at.
 @mixin version-banner {
   html body:before {
     position: fixed;
-    content: "v0.1 'Alpha Alpaca'";
+    content: "";
     background-color: rgba(yellow, 0.5);
     padding: 3px;
     border: {top: 1px solid yellow; bottom: 1px solid yellow; }
@@ -251,5 +252,7 @@ body {
 // @include debug_drupal;
 // @import "spec";
 
-$display-banner: true;
-@include visualize-grid($display-banner);
+@include version-banner;
+
+// $display-banner: true;
+// @include visualize-grid($display-banner);
