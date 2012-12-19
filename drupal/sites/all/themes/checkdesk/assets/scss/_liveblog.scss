@@ -3,49 +3,51 @@ body.page-liveblog {
 
   // Default liveblog layout overrides global default layout
   #main {
-    @include span-columns($cw - 2, $cw);
-    @include pad(1, 1, $cw);
-    
-    background-color: white;
-
+    @include span-columns($cw - 2, $cw); // subtract
+    @include pad(1, 1, $cw); // add
+  
     .view-liveblog {
-        .views-row {
-          float: $from-direction;
-          clear: both;
-          padding-bottom: 1em;
-          border-bottom: 5px solid $grey;
-          width: 100%; // WARNING
+      float: $from-direction;
+      background-color: white;
+      @include cd-box-shadow;
+      padding: 1em;
+      .views-row {
+        width: 100%; // WARNING
+        float: $from-direction;
+        clear: both;
+        padding-bottom: 1em;
+        border-bottom: 5px solid $grey;
 
-          // Story headlines
-          // Why are these not headers? 
-          & > a[href*="story"] { // WARNING weak selector based on href
-            &:before {
-              content: "— " // HACK -- this is not well designed in the markup
-            }
-            padding-top: 1em;
-            display: block;
-            font-weight: bold;
-            float: opposite-position($from-direction);
-            clear: both;
+        // Story headlines
+        // Why are these not headers? 
+        & > a[href*="story"] { // WARNING weak selector based on href
+          &:before {
+            content: "— " // HACK -- this is not well designed in the markup
           }
-        }  
+          padding-top: 1em;
+          display: block;
+          font-weight: bold;
+          float: opposite-position($from-direction);
+          clear: both;
+        }
+      }  
+    }
+    // =======================================================
+    // Breakpoint: small
+    
+    @include at-breakpoint($break-small) {
+      & {
+        @include span-columns($break-small - 4, $break-small, $gw);
+        @include pad(2, 2, $break-small);
       }
     }
-  // =======================================================
-  // Breakpoint: small
-  
-  @include at-breakpoint($break-small) {
-    & {
-      @include span-columns($break-small - 2, $break-small);
-      @include pad(1, 1, $break-small);
-    }
-  }
-    // =======================================================
-  // Breakpoint: medium
-  @include at-breakpoint($break-medium) {
-    & {
-      @include span-columns($break-medium - 4, $break-medium);
-      @include pad(2, 2, $break-medium);
+      // =======================================================
+    // Breakpoint: medium
+    @include at-breakpoint($break-medium) {
+      & {
+        @include span-columns($break-medium - 2, $break-medium, $gw);
+        @include pad(1, 1, $break-medium);
+      }
     }
   }
 }

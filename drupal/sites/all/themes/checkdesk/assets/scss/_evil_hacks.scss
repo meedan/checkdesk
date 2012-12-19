@@ -70,3 +70,9 @@ p br { display: none; } // hack to remove br's from content
 input.form-autocomplete {
   background-image: none!important; // Remove the drupal autocomplete image
 }
+
+// HACK to hide this until there is room
+li.menu-680 {
+  display: none!important;
+  @include at-breakpoint($break-medium) {display: block!important;}
+}

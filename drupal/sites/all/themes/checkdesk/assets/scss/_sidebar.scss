@@ -8,7 +8,7 @@
   body.sidebar-first {
 
     form {
-      border-bottom: 5px solid $bkg-color;
+      border-bottom: 1px solid $bkg-color;
       padding-bottom: 1em;
       margin-bottom: 1em;
     }
@@ -20,10 +20,11 @@
 
       // 2. The sidebar column
       #sidebar-first.column {
-        margin-top: $base-font-size;
         @include span-columns($sw, $break); // sidebar width
-        background-color: white;
         margin-#{opposite-position($from-direction)}: 0;
+        margin-top: $base-font-size;
+        @include cd-box-shadow();
+        background-color: white;
 
         // Desk reports
         @include reports-filter-and-results($sw) { // The reports filter form 
@@ -39,12 +40,13 @@
       div#content .inner {
         @include span-columns($pw omega, $break);
         @include pad(0,0, $break);
-        background-color: white;
         margin-top: $base-font-size;
 
         h1.title {
+          @include cd-background;
           padding: $gw;
           margin: 0;
+          line-height: $base-line-height;
         }
 
         p {
@@ -72,11 +74,20 @@
 
         form {
           @include span-columns($pw, $pw, $gw);
+          background: white;
+          label {
+            color: $dark-grey;
+            font-family: $sans-font-family;
+          }
         }
 
         // "Published" updates
         #block-views-desk-updates-block {
           @include span-columns($pw, $pw);
+          margin-top: 1em;
+          padding-top: 1em;
+          background-color: white;
+          border-top: 1px solid $grey;
           // margin-top: $base-font-size;
           // background: white;
           // padding: $gw; // children are no longer aligned to grid ...

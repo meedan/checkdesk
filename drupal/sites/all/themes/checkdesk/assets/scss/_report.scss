@@ -5,15 +5,20 @@
 // Compatibility: untested
 
 // Checkdesk report
+//
+// Our main problem is: how do we keep the report big enough to showcase the content, to be uniformly fullscreen with the other content without stretching it.
+// how should the report display at fullscreen? 
+// How should the report display minimal width? 
+
 .report {
 	// @include span-columns($cw, $cw); // default is full width
 	// width: 100%; //default
+	min-width: 240px;
+	max-width: 380px;
 	border-top: 2px solid $identity;
 	font-family: $sans-font-family;
 	background-color: lighten($grayLighter, 5%);
 	margin: { top: $gw; bottom: $gw; }
-	min-width: 240px;
-	max-width: 380px;
 
 	a {
 		color: black;
@@ -92,11 +97,11 @@
 						}
 
 						// Flag and share on the top of the report
-						&.icon-edit  { @include icon(edit, 16px, $darker-grey); 
-							&:after {content: "Add";} // HACK Should be in markup
+						&.icon-edit  { @include icon(edit, $small-font-size, $darker-grey); 
+							&:after {content: "Add to";} // HACK Should be in markup #i18n
 						}
-						&.icon-flag  { @include icon(flag, 16px, $darker-grey); } 
-						&.icon-share { @include icon(share, 16px, $darker-grey); }
+						&.icon-flag  { @include icon(flag, $small-font-size, $darker-grey); } 
+						&.icon-share { @include icon(share, $small-font-size, $darker-grey); }
 					}
 				}
 				// hide ajax throbber in dropdown
@@ -114,10 +119,12 @@
 
 	// Need more icons!
 	// h3 a[href*="flickr.com"] {
-	// 	@include icon('flickr');
+	// 	@include icon('flickr'); // not available via icon() yet
 	// }
 
 	// Twitter reports icon in header
+	//
+	// Kind of useless fancyness to put the icon on the link ... not in the spec
 	h3 > a[href*="twitter.com"] { 
 		@include icon('twitter') {
 			margin: 1px;
@@ -129,39 +136,27 @@
 		}
 	}
 
-	// Twitter reports icon in header  
-	// Icon missing ...
-	// h3 > a[href*="youtube.com"] { 
-	// 	@include icon('youtube');
-	// }
-
-
-	// Twitter profile images
-	// a[href*="twitter.com"]	{
-	// 	img {
-	// 		width: 50px; // profile of user
-	// 	}
-	// }
-
 	div.sensitive-hide {
 	  display: none;
 	}
 
 	.report-content {
+		background-color: black;
 		color: $gray;
 		// background-color: darken($grayLighter, 5%);
 		// @include span-columns($rw, $rw);
 		padding: $gw;
 		.report-media {
+			
 			// What is this for?  - CGB
 			/* The ghost, nudged to maintain perfect centering */
-			.report-media:before {
-				content: '';
-				display: inline-block;
-				height: 100%;
-				vertical-align: middle;
-				margin-right: -0.25em; /* Adjusts for spacing */
-			}
+			// .report-media:before {
+			// 	content: '';
+			// 	display: inline-block;
+			// 	height: 100%;
+			// 	vertical-align: middle;
+			// 	margin-right: -0.25em; /* Adjusts for spacing */
+			// }
 
 			.container {
 				display: inline-block;

@@ -206,18 +206,12 @@ body {
 // Reports page
 @import "reports";
 
+
 // ====================================================================== 
 // Styles in progress
 //
 body {
-  background-color: $bkg-color;  
-  background-image: url("/sites/all/themes/bowerbird/images/bkgs/arches.png");
-  // Drupal blocks
-  .block {
-    // float: $from-direction;
-    // clear: both;
-    // background-color: yellow!important;
-  }
+  @include cd-background;
 }
 
 // Version banner 
@@ -226,7 +220,7 @@ body {
 @mixin version-banner {
   html body:before {
     position: fixed;
-    content: "";
+    content: "v0.1 Alpha Alpaca";
     background-color: rgba(yellow, 0.5);
     padding: 3px;
     border: {top: 1px solid yellow; bottom: 1px solid yellow; }
