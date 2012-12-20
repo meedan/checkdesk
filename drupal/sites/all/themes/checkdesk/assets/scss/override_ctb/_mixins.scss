@@ -27,11 +27,14 @@
 // Webkit-style focus
 // ------------------
 @mixin ctb-tab-focus() {
-  // Default
-  outline: thin dotted #333;
-  // Webkit
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+
+  // Not happy with how this look/works, need to revisit CGB
+
+  // // Default
+  // outline: thin dotted $grey;
+  // // Webkit
+  // outline: 1px auto -webkit-focus-ring-color;
+  // outline-offset: 0px;
 }
 
 // Center-align a block level element

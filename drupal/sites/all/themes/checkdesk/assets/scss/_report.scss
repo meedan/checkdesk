@@ -4,56 +4,47 @@
 //
 // Compatibility: untested
 
-// Checkdesk report
-//
-// Our main problem is: how do we keep the report big enough to showcase the content, to be uniformly fullscreen with the other content without stretching it.
-// how should the report display at fullscreen? 
-// How should the report display minimal width? 
+
+$report-background-color: $light-grey;
+$report-description-background-color: $light-grey;
+$report-footnotes-background-color: darken($light-grey, 10%);
+$report-text-color: $dark-grey;
 
 .report {
 	// @include span-columns($cw, $cw); // default is full width
 	// width: 100%; //default
 	min-width: 240px;
-	max-width: 380px;
-	border-top: 2px solid $identity;
+	max-width: 600px;
 	font-family: $sans-font-family;
 	background-color: lighten($grayLighter, 5%);
 	margin: { top: $gw; bottom: $gw; }
 
 	a {
-		color: black;
+		color: $report-text-color;
 		&:hover {
-			color: $twitter-blue;
+			color: $identity;
 		}
 	}
 
 	& > header {
-		// background: top $from-direction repeat url("/sites/all/themes/bowerbird/images/bkgs/arches.png");
-		color: $gray;
-		// @include span-columns($rw, $rw, $gw);
-		padding: 5px;
+		color: $report-text-color;
+		padding: $gw/2;
+		font-size: $small-font-size;
 
 		h3 {
-			font-size: $smaller-font-size;
-			line-height: $smaller-font-size * 1.2;
+			@include reset-box-model;
+			width: 100%; // WARNING
 			overflow: hidden;
-			// padding: $base-font-size 0;
-			margin: 0;
 			display: inline-block;
-			width: 100%;
 			
 			.source-url { // this is not the best markup CGB
-				padding-top: 2px;
 				font-weight: normal;
 				font-size: inherit;
 				line-height: inherit;
 				overflow: inherit;
-				font-size: inherit;
-				display: inline-block;
-				width: 100%;
-				color: $grey;
-				@include icon(link, $smaller-font-size, $darker-grey) {
-					margin: 1px;
+				display: block;
+				@include icon(link, $small-font-size, $darker-grey) {
+					// margin: 1px;
 				}
 			}
 		}
@@ -61,37 +52,35 @@
 		ul.report-actions {
 			@include reset-box-model;
 			@include reset-list-style;
-			font-size: $small-font-size;
-			display: block;
+			// display: inline-block;
 			float: $from-direction;
 			// The last dropdown needs to not stick out at smaller sizes
-			
 			// li.share-on .dropdown-menu {
 			// 	#{$omega-float}: auto;
 			// 	#{$from-direction}: -75px;
 			// }
 
 			& > li {
-				display: block;
+				// display: inline-block;
 				float: $from-direction;
 
 				& > a {
 					@include reset-box-model;
 					display: block;
-					padding: 1em 0;
+					padding: $base-font-size/2 0;
 					
-					@include transition-property(color);
+					@include transition-property(all);
 			    @include transition-duration(0.2s);
 				  &:hover { 
 			    	color: black;
 			    	text-decoration: none;
 			    }
+
 					span {
 						@include reset-box-model;
 						float: $from-direction;
 						display: inline-block;
 						margin-#{$from-direction}: $gw;
-
 						&:hover {
 							color: $identity;
 						}
@@ -141,8 +130,8 @@
 	}
 
 	.report-content {
-		background-color: black;
-		color: $gray;
+		background-color: $report-background-color;
+		color: $report-text-color;
 		// background-color: darken($grayLighter, 5%);
 		// @include span-columns($rw, $rw);
 		padding: $gw;
