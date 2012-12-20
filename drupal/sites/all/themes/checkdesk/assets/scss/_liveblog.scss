@@ -3,9 +3,7 @@ body.page-liveblog {
 
   // Default liveblog layout overrides global default layout
   #main {
-    @include span-columns($cw - 2, $cw); // subtract
-    @include pad(1, 1, $cw); // add
-  
+    @include span-columns($cw, $cw, $gw);
     .view-liveblog {
       float: $from-direction;
       background-color: white;
@@ -45,8 +43,8 @@ body.page-liveblog {
     // Breakpoint: medium
     @include at-breakpoint($break-medium) {
       & {
-        @include span-columns($break-medium - 2, $break-medium, $gw);
-        @include pad(1, 1, $break-medium);
+        // @include span-columns($break-medium - 2, $break-medium, $gw);
+        // @include pad(1, 1, $break-medium);
       }
     }
   }

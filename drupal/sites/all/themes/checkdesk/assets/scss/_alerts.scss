@@ -1,22 +1,24 @@
 //
 // Alerts
 //
-// Alerts appear for many kinds of notifications and errors
+// Alerts and "messages" appear for many kinds of notifications and errors
 // We establish the basic alert and then alternates.
-.alert {
+
+// There are two kinds: .alerts and .messages? CGB
+.alert, 
+.messages {
   padding: $gw;
-  margin-bottom: $baseLineHeight;
+  margin-bottom: $base-line-height;
   border: { top: 1px solid $warningBorder; bottom: 1px solid $warningBorder; }
-  font-size: $smaller-font-size!important;
-  @include border-radius($baseBorderRadius);
+  border: {left-width: 0; right-width: 0; }
+  font-size: $smaller-font-size;
   display: block;
-  &:hover {
-    height: auto; 
-  }
+  overflow: hidden; // prevent horizontal scrolling with big errors
+  max-height: 150px; // HACK ... but yeah that's enough errors
 } 
 
 .alert .close {
-  float: opposite-position($from-direction);
+  float: $omega-float;
   font-size: $base-font-size;
   font-weight: bold;
   line-height: $base-line-height;
@@ -32,7 +34,7 @@
 }
 
 .alert h4 {
-  margin: 0 0 $baseLineHeight/3 0;
+  margin: 0 0 $base-line-height/2 0;
 }
 
 // Unnecessary in our layout. 

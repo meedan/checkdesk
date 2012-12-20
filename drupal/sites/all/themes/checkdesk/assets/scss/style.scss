@@ -214,22 +214,6 @@ body {
   @include cd-background;
 }
 
-// Version banner 
-// 
-// For Dev and Testing sites, so we know what version we are looking at.
-@mixin version-banner {
-  html body:before {
-    position: fixed;
-    content: "v0.1 Alpha Alpaca";
-    background-color: rgba(yellow, 0.5);
-    padding: 3px;
-    border: {top: 1px solid yellow; bottom: 1px solid yellow; }
-    bottom: 0;
-    #{opposite-position($from-direction)}: 0;
-    font-size: $smaller-font-size;
-  }
-}
-
 .favicon img {
   width: auto!important;
 }
