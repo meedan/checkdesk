@@ -1,51 +1,58 @@
-// Liveblog homepage 
-body.page-liveblog {
+@mixin vertical-margin($width) {
+  margin: { top: $width; bottom: $width; } 
+}
 
-  // Default liveblog layout overrides global default layout
+@mixin liveblog-layout($width, $context) {
+  body.page-liveblog #main {
+    @include span-columns($width, $context, $gw);
+    @content; // pass in padding if needed
+    .views-row { 
+      @include vertical-margin($base-font-size); 
+      @include span-columns($width, $width, $gw);
+      display: block;
+
+      .livefyre-wrapper {
+        @include span-columns($width, $width, $gw);
+        @include vertical-margin($base-font-size);
+      }
+    }
+  }
+}
+
+// Liveblog homepage
+// 
+// Default liveblog layout overrides global default layout 
+body.page-liveblog {
   #main {
-    @include span-columns($cw, $cw, $gw);
     .view-liveblog {
-      float: $from-direction;
       background-color: white;
-      @include cd-box-shadow;
-      padding: 1em;
+      border-top: 2px solid black;
       .views-row {
-        width: 100%; // WARNING
-        float: $from-direction;
-        clear: both;
-        padding-bottom: 1em;
-        border-bottom: 5px solid $grey;
+        border-bottom: 2px solid $grey;
+
+        p {
+          line-height: $base-line-height;
+        }
 
         // Story headlines
-        // Why are these not headers? 
-        & > a[href*="story"] { // WARNING weak selector based on href
+        & > a[href*="story"] { // HACK Fragile / bad selector / Edit templates
           &:before {
-            content: "— " // HACK -- this is not well designed in the markup
+            content: "— our story: "
           }
-          padding-top: 1em;
-          display: block;
-          font-weight: bold;
-          float: opposite-position($from-direction);
-          clear: both;
         }
       }  
     }
-    // =======================================================
-    // Breakpoint: small
-    
-    @include at-breakpoint($break-small) {
-      & {
-        @include span-columns($break-small - 4, $break-small, $gw);
-        @include pad(2, 2, $break-small);
-      }
-    }
-      // =======================================================
-    // Breakpoint: medium
-    @include at-breakpoint($break-medium) {
-      & {
-        // @include span-columns($break-medium - 2, $break-medium, $gw);
-        // @include pad(1, 1, $break-medium);
-      }
-    }
+  }
+}
+
+@include at-breakpoint($break-small) {
+  @include liveblog-layout($break-small - 2, $break-small) {
+    @include pad(1, 1, $break-small);
+  }
+}
+
+@include at-breakpoint($break-medium) {
+  @include liveblog-layout($break-medium/2, $break-medium) {
+    @include pad($break-medium/4, $break-medium/4, $break-medium);
   }
 }

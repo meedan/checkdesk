@@ -66,14 +66,6 @@
     vertical-align: middle;
   }
 
-  input, textarea, .uneditable-input { 
-    width: 300px; // DEFAULT For legacy browser that don't understand more complex selectors
-  }
-
-  textarea { 
-    // height: auto; 
-  }
-
   // Everything else
   textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     background-color: $input-background;
@@ -136,19 +128,19 @@
     @include span-columns($w, $context, $gw);
     @content;
 
-    // & > .form-item {
-    //   @include reset-box-model;
-    //   @include span-columns($w, $w);
-    //   clear: both;
-    //   font-size: $small-font-size;
-    //   color: $dark-grey;
-    //   background: rgba($light-grey, 0.5);
+    & > .form-item {
+      @include reset-box-model;
+      @include span-columns($w, $w);
+      clear: both;
+      font-size: $small-font-size;
+      color: $dark-grey;
+      background: rgba($light-grey, 0.5);
 
-    //   // Nested <.form-item>s
-    //   .form-item { 
-    //     @include span-columns($w, $w);
-    //   }
-    // } 
+      // Nested <.form-item>s
+      .form-item { 
+        @include span-columns($w, $w);
+      }
+    } 
 
     // Default inputs and textareas
     input,
@@ -159,6 +151,14 @@
       display: block;
       line-height: $base-line-height;
       background-color: $input-background;
+      border: 1px solid $grey;
+      margin-top: $gw;
+
+      // Focus state
+      &:focus {
+        border-color: rgba(black, .5);
+        outline: thin dotted $light-grey;
+      }
     }
 
     textarea {
@@ -186,20 +186,6 @@
       display: none; // displayed at larger breakpoints
     }
 
-    // Form textareas, basic inputs
-    textarea, 
-    input {
-      background-color: $input-background;
-      border: 1px solid $grey;
-      margin-top: $gw;
-
-      // Focus state
-      &:focus {
-        border-color: rgba(black, .5);
-        outline: thin dotted $light-grey;
-      }
-    }
-
     // little links: create new account, forgot password 
     // BAD selector here
     .item-list .first.last {
@@ -212,8 +198,6 @@
           @include checkdesk-button($firetruck-red); // Red delete button
       }
     }
-
-    $checkbox-width: 25px;
     
     // checkboxes and radios
     input[type="checkbox"], 

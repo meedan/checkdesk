@@ -3,6 +3,7 @@
 // }
 
 body {
+
   .fyre-widget {
     padding: 1em;
     .img {
@@ -30,9 +31,10 @@ body {
     // }
   }
 
+  // Appers on liveblog homepage and others 
+  // Do not set columnar layout here. 
   .livefyre-wrapper {
     float: $from-direction;
     clear: both;
-    @include span-columns(12,12, $gw); // HACK full width with a 12thish gutter on each side
   }  
 }
