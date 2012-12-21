@@ -3,6 +3,7 @@ require "logger" # custom logger with pass/fail
 require "pry"
 require "rake" # for filelist
 require "modular-scale" #for ratios
+require "animate" # experimental https://github.com/ericam/compass-animate
 
 drupal_dir = "drupal"
 themes_dir = "sites/all/themes/"
