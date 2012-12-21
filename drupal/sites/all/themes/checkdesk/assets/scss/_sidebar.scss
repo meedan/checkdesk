@@ -133,14 +133,14 @@
     @include pad(0, 0); //reset container padding
     
     @include cd-form($sw, $break, $gw) {
-      form { padding: 0!important; } // reset form padding
+      // form { padding: 0!important; } // reset form padding
     }
 
     // The reports list under the filters
     .content .view-desk-reports {
       @include reports-filter-and-results($sw) { // The reports filter form 
         @include cd-form($break, $break) {
-          @include pad(0,0);
+          // @include pad(0,0);
         }
         .views-row {
           // background-color: red!important;

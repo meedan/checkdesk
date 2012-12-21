@@ -55,10 +55,10 @@ $report-text-color: $dark-grey;
 			// display: inline-block;
 			float: $from-direction;
 			// The last dropdown needs to not stick out at smaller sizes
-			// li.share-on .dropdown-menu {
-			// 	#{$omega-float}: auto;
-			// 	#{$from-direction}: -75px;
-			// }
+			li.share-on .dropdown-menu {
+				#{$omega-float}: auto;
+				#{$from-direction}: -75px;
+			}
 
 			& > li {
 				// display: inline-block;
@@ -187,7 +187,7 @@ $report-text-color: $dark-grey;
 				}
 				
 				.domain {
-					margin-bottom: $baseLineHeight;
+					margin-bottom: $base-line-height;
 				}
 
 				img,
@@ -207,10 +207,10 @@ $report-text-color: $dark-grey;
 			    background: none !important;
 			    .sensitive-notification-text {
 			    	color: $grayDark;
-			    	padding: $baseLineHeight/2 $gw/2;
+			    	padding: $base-line-height/2 $gw/2;
 			    }
 			    .sensitive-notification-link {
-			    	padding: $baseLineHeight/2 $gw/2;
+			    	padding: $base-line-height/2 $gw/2;
 			    	a {
 			    		@include button($grayLight, 18px);
 			    	}
@@ -221,7 +221,7 @@ $report-text-color: $dark-grey;
 
 		& > p {
 			@include ctb-clearfix;
-			padding: $baseLineHeight/2.8 $gridGutterWidth/2 $baseLineHeight/2 $gridGutterWidth/2;
+			padding: $base-line-height/2.8 $gridGutterWidth/2 $base-line-height/2 $gridGutterWidth/2;
 			border-bottom: 1px solid rgba($white, 0.7);
 			font-size: $small-font-size;
 		}
@@ -333,8 +333,8 @@ $report-text-color: $dark-grey;
 					}
 				}
 				.message {
-					margin-top: $baseLineHeight/2.8;
-					padding: $baseLineHeight/2.8 $gridGutterWidth/2;
+					margin-top: $base-line-height/2.8;
+					padding: $base-line-height/2.8 $gridGutterWidth/2;
 					background-color: $white;
 					@include border-radius(4px);
 					& > p {

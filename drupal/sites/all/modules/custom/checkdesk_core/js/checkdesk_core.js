@@ -36,7 +36,8 @@
       });
       $('.droppable', context).droppable({
         hoverClass: 'drop-hover',
-        accept: '.draggable',  
+        accept: '.draggable',
+        tolerance: 'touch',
         drop: function(event, ui) {
           $(ui.draggable).hide();
           // Retrieve the Views information from the DOM.

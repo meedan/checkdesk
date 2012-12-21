@@ -81,3 +81,10 @@ li.menu-680 {
 .views-field-title {
   display: none!important;
 }
+
+// hide unnecessary elements in forms
+.filter-guidelines,
+.filter-help   // the extremeley verbose lessons in how to use the editor
+{
+  display: none;
+}

@@ -1,4 +1,17 @@
-// Form Actions
+@mixin form-drag-and-drop() {
+  .ui-droppable { 
+    float: $from-direction; // it must be floated to contain droppable form elements.
+    width: 100%; // ... thus this must be set since it must be floated. 
+    padding: 0; //  ... thus we can have no padding
+  }
+
+  .ui-droppable.drop-hover textarea {
+    background-color: rgba(green, 0.1);
+    border-color: rgba(green, 0.3);
+  }
+}
+
+// Form Actions (eg submit button)
 //
 @mixin form-actions($w) {
 
@@ -54,11 +67,11 @@
   }
 
   input, textarea, .uneditable-input { 
-    width: 300px; // legacy default width overridden in post-1996 selectors below
+    width: 300px; // DEFAULT For legacy browser that don't understand more complex selectors
   }
 
   textarea { 
-    height: auto; 
+    // height: auto; 
   }
 
   // Everything else
@@ -119,36 +132,37 @@
     @include form-standardize;
     @include form-actions($w);
     @include form-pass($w, $context);
+    @include form-drag-and-drop;
     @include span-columns($w, $context, $gw);
     @content;
 
-    & > .form-item {
-      @include reset-box-model;
-      @include span-columns($w, $w);
-      clear: both;
-      font-size: $small-font-size;
-      color: $dark-grey;
-      background: rgba($light-grey, 0.5);
-      border: 1px solid pink;
+    // & > .form-item {
+    //   @include reset-box-model;
+    //   @include span-columns($w, $w);
+    //   clear: both;
+    //   font-size: $small-font-size;
+    //   color: $dark-grey;
+    //   background: rgba($light-grey, 0.5);
 
-      // Nested <.form-item>s
-      .form-item { 
-        @include span-columns($w, $w);
-        border: 1px solid red;
-      }
-    } 
+    //   // Nested <.form-item>s
+    //   .form-item { 
+    //     @include span-columns($w, $w);
+    //   }
+    // } 
 
     // Default inputs and textareas
     input,
     textarea {
-      @include span-columns($w, $w);
+      @include span-columns($w, $w, $gw/2); // small padding with grid accounting
+      padding: { top: $gw/2; bottom: $gw/2; } // match the padding on top and bottom
       @include border-radius(3px);
       display: block;
-      padding: ms(-3);
-      padding-#{opposite-position($from-direction)}: 0;
       line-height: $base-line-height;
       background-color: $input-background;
-      max-height: 100px;
+    }
+
+    textarea {
+      height: 100px; // starting height
     }
 
     // When we start writing make it bright
@@ -163,11 +177,6 @@
       display: block;
       font-weight: normal;
       padding { top: $gw; bottom: $gw; }
-    }
-
-    // Default buttons
-    input.submit {
-      @include button($identity);
     }
 
     // Default descriptions
