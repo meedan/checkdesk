@@ -179,6 +179,91 @@ function meedan_oembed_scrape_facebook($provider, $url) {
 }
 
 /**
+ * Scrape a tweet.
+ */
+function meedan_oembed_scrape_twitter($provider, $url) {
+  preg_match('/^https?:\/\/(www\.)?twitter\.com\/([^\/]*)\/status\/([0-9]*)\/?$/', $url, $twitter_url);
+  $profile = $twitter_url[2];
+  $status = $twitter_url[3];
+  $url_info = parse_url($url);
+  $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
+  $embed = NULL;
+  if (empty($profile) || empty($status)) {
+    watchdog('TwitterAPI', t('No profile or status.'));
+    return NULL;
+  } else {
+    $embed = new stdclass();
+    $embed->url = $url;
+    $embed->original_url = $url;
+    $embed->provider = $provider;
+    $embed->provider_url = $provider_url;
+    $embed->provider_name = 'Twitter';
+    $embed->type = 'link';
+    $key = variable_get('twitter_consumer_key', '');
+    $secret = variable_get('twitter_consumer_secret', '');
+    $token = variable_get('twitter_token', '');
+    $token_secret = variable_get('twitter_token_secret', '');
+    if ($key == '' || $secret == '' || $token == '' || $token_secret == '') {
+      watchdog('TwitterAPI', t('Please configure your Twitter OAuth settings.'));
+    } else {
+      $api_url = 'https://api.twitter.com/1.1/statuses/show/' . $status . '.json';
+      $oauth_hash = 'oauth_consumer_key=' . $key . '&oauth_nonce=' . (time() + 5 * 3600) . '&oauth_signature_method=HMAC-SHA1&oauth_timestamp=' . (time() + 5 * 3600) . '&oauth_token=' . $token . '&oauth_version=1.0';
+      $base = 'GET&' . rawurlencode($api_url) . '&' . rawurlencode($oauth_hash);
+      $sigkey = rawurlencode($secret) . '&' . rawurlencode($token_secret);
+      $signature = base64_encode(hash_hmac('sha1', $base, $sigkey, true));
+      $signature = rawurlencode($signature);
+      $oauth_header = 'oauth_consumer_key="' . $key . '", oauth_nonce="' . (time() + 5 * 3600) . '", oauth_signature="' . $signature . '", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' . (time() + 5 * 3600) . '", oauth_token="' . $token . '", oauth_version="1.0", ';
+      $curl_header = array("Authorization: Oauth {$oauth_header}", 'Expect:');
+      $curl_request = curl_init();
+      curl_setopt($curl_request, CURLOPT_HTTPHEADER, $curl_header);
+      curl_setopt($curl_request, CURLOPT_HEADER, false);
+      curl_setopt($curl_request, CURLOPT_URL, $api_url);
+      curl_setopt($curl_request, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($curl_request, CURLOPT_SSL_VERIFYPEER, false);
+      $json = curl_exec($curl_request);
+      curl_close($curl_request);
+      $data = json_decode($json);
+      if (isset($data->errors)) {
+        watchdog('TwitterAPI', t('Error from Twitter: ') . $data->errors[0]->message);
+      } else {
+        $text = $data->text;
+        $embed->title = $text;
+        $embed->description = $text;
+        $embed->link = $url;
+        $embed->link_description = $text;
+        $embed->author_name = $data->user->name;
+        $embed->author_url = 'http://twitter.com/' . $data->user->screen_name;
+        $embed->author_img = $data->user->profile_image_url;
+        $embed->thumbnail_url = $embed->author_img;
+        $embed->picture = $embed->author_img;
+        return $embed;
+      }
+    }
+  }
+  // If we got here, something went wrong with the API, let's try to parse the tweet manually
+  try {
+    include_once('lib/simplehtmldom_1_5/simple_html_dom.php');
+    $html = file_get_html($url);
+    $text = preg_replace('/&[^;]+;/i', '', trim(strip_tags($html->find('.tweet-text', 0)->innertext)));
+    $embed->title = $text;
+    $embed->description = $text;
+    $embed->link = $url;
+    $embed->link_description = $text;
+    $embed->author_name = $html->find('strong.fullname', 0)->innertext;
+    $embed->author_url = 'http://twitter.com/' . $html->find('span.js-action-profile-name b', 0)->innertext;
+    $embed->author_img = $html->find('.js-action-profile-avatar', 0)->src;
+    $embed->thumbnail_url = $embed->author_img;
+    $embed->picture = $embed->author_img;
+    $f = fopen('/tmp/bli', 'w+'); fwrite($f, print_r($embed, TRUE)); fclose($f);
+    return $embed;
+  } catch (Exception $e) {
+    watchdog('TwitterAPI', t('Could not parse tweet manually: ') . $e->getMessage());
+  }
+  // Ok, give up!
+  return NULL;
+}
+
+/**
  * Get domain name from url.
  * Get site name.
  * Choose largest token of the host.
@@ -214,6 +299,9 @@ function meedan_oembed_theme() {
       'variables' => array('media' => NULL),
       'template' => 'oembed-missing',
       'path' => $path,
+    ),
+    'meedan_oembed_tweet' => array(
+      'variables' => array('tweet' => NULL),
     ),
   );
 }
@@ -475,4 +563,28 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
     $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `twitter_admin_form`.
+ */
+function meedan_oembed_form_twitter_admin_form_alter(&$form, &$form_state, $form_id) {
+  $form['oauth']['twitter_token'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Access token'),
+    '#description' => t('Used by meedan_oembed.'),
+    '#default_value' => variable_get('twitter_token', NULL),
+  );
+  $form['oauth']['twitter_token_secret'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Access token secret'),
+    '#description' => t('Used by meedan_oembed.'),
+    '#default_value' => variable_get('twitter_token_secret', NULL),
+  );
+}
+
+function theme_meedan_oembed_tweet($variables) {
+  $text = $variables['tweet'];
+  $dir = ((preg_match('/\p{Arabic}/u', $text)) ? 'rtl' : 'ltr');
+  return '<div class="tweet-preview tweet-preview-' . $dir . '">' . $text . '</div>';
 }
