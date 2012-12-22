@@ -1,9 +1,9 @@
 require "susy" # how to require this in bowerbird?
 require "logger" # custom logger with pass/fail
-require "pry"
+require "pry" # ruby REPL debugger mode
 require "rake" # for filelist
 require "modular-scale" #for ratios
-require "animate" # experimental https://github.com/ericam/compass-animate
+# require "animation" # experimental https://github.com/ericam/compass-animate
 
 drupal_dir = "drupal"
 themes_dir = "sites/all/themes/"
