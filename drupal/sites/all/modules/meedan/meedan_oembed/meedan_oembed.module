@@ -255,7 +255,6 @@ function meedan_oembed_scrape_twitter($provider, $url) {
       $embed->author_img = $html->find('.js-action-profile-avatar', 0)->src;
       $embed->thumbnail_url = $embed->author_img;
       $embed->picture = $embed->author_img;
-      $f = fopen('/tmp/bli', 'w+'); fwrite($f, print_r($embed, TRUE)); fclose($f);
       return $embed;
     }
   } catch (Exception $e) {
