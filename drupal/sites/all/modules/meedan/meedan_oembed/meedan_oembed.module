@@ -244,18 +244,20 @@ function meedan_oembed_scrape_twitter($provider, $url) {
   try {
     include_once('lib/simplehtmldom_1_5/simple_html_dom.php');
     $html = file_get_html($url);
-    $text = preg_replace('/&[^;]+;/i', '', trim(strip_tags($html->find('.tweet-text', 0)->innertext)));
-    $embed->title = $text;
-    $embed->description = $text;
-    $embed->link = $url;
-    $embed->link_description = $text;
-    $embed->author_name = $html->find('strong.fullname', 0)->innertext;
-    $embed->author_url = 'http://twitter.com/' . $html->find('span.js-action-profile-name b', 0)->innertext;
-    $embed->author_img = $html->find('.js-action-profile-avatar', 0)->src;
-    $embed->thumbnail_url = $embed->author_img;
-    $embed->picture = $embed->author_img;
-    $f = fopen('/tmp/bli', 'w+'); fwrite($f, print_r($embed, TRUE)); fclose($f);
-    return $embed;
+    if (is_object($html)) {
+      $text = preg_replace('/&[^;]+;/i', '', trim(strip_tags($html->find('.tweet-text', 0)->innertext)));
+      $embed->title = $text;
+      $embed->description = $text;
+      $embed->link = $url;
+      $embed->link_description = $text;
+      $embed->author_name = $html->find('strong.fullname', 0)->innertext;
+      $embed->author_url = 'http://twitter.com/' . $html->find('span.js-action-profile-name b', 0)->innertext;
+      $embed->author_img = $html->find('.js-action-profile-avatar', 0)->src;
+      $embed->thumbnail_url = $embed->author_img;
+      $embed->picture = $embed->author_img;
+      $f = fopen('/tmp/bli', 'w+'); fwrite($f, print_r($embed, TRUE)); fclose($f);
+      return $embed;
+    }
   } catch (Exception $e) {
     watchdog('TwitterAPI', t('Could not parse tweet manually: ') . $e->getMessage());
   }
