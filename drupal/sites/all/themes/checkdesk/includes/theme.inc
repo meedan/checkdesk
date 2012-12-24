@@ -228,7 +228,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   if(isset($status_class)) {
     $output .= $icon;
   }
-  $output .= '<span class="time">' . format_interval(time()-$message->timestamp) . ' ago</span>';
+  $output .= '<span class="time" title="' . strftime("%d %b %Y, %H:%M:%S", $message->timestamp) . '">' . format_interval(time()-$message->timestamp) . ' ' . t('ago') . '</span>';
   $output .= '<span class="title">' . $title . '</span>';
   $output .= '</header>';
   if(isset($message->variables['!comment'])) {
