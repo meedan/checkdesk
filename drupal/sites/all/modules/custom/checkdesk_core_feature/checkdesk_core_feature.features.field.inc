@@ -1194,7 +1194,7 @@ function checkdesk_core_feature_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_desk',
       'label' => 'Story',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),

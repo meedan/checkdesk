@@ -21,6 +21,18 @@ function meedan_sources_node_delete($node) {
       ->condition('nid', $node->nid)
       ->execute();
   }
+  elseif ($node->type == 'discussion') {
+    //Delete all related update
+    $query = db_select('field_data_field_desk', 'fd');
+    $query->fields('fd', array('entity_id'));
+    $query->condition('fd.field_desk_target_id', $node->nid);
+    $query->join('node', 'n', 'n.nid = fd.entity_id');
+    $query->condition('n.type', 'post');
+    $updates = $query->execute()->fetchCol();
+    foreach($updates as $row) {
+      node_delete($row);
+    }
+  }
 }
 
 /**
