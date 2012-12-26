@@ -62,7 +62,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     // Description textarea should not be resizable
     $form['body']['und'][0]['#resizable'] = FALSE;
 
-    // Load JavaScript for the form
+    // Load JavaScript for the form and hide format options
     $form['#after_build'] = array('_checkdesk_bookmarklet_load_javascript_for_bookmarklet_form');
 
     // Two buttons: submit and cancel
@@ -88,10 +88,11 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
 }
 
 /*
- * Load JavaScript file for bookmarklet form.
+ * Load JavaScript file for bookmarklet form and hide format options.
  */
 function _checkdesk_bookmarklet_load_javascript_for_bookmarklet_form($form, &$form_state) {
   drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_bookmarklet_form.js');
+  $form['body']['und'][0]['format']['#access'] = FALSE;
   return $form;
 }
 
