@@ -85,7 +85,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     }
   
     // Default input format
-    $form['body']['und'][0]['format']['#default_value'] = 'full_html';
+    $form['body']['und'][0]['format']['#default_value'] = 'filtered_html';
 
   }
 }
