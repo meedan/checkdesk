@@ -266,7 +266,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // ==============================================================
 #meedan_bookmarklet_cont {
   display: none;
-  position: fixed !important; 
+  position: absolute !important; 
   #{$from-direction}: 44px !important;
   border-width: 0 !important;
 }
@@ -290,7 +290,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // NOTE: applied to body
 #meedan_bookmarklet {
   font-size: $small-font-size;
-  overflow: hidden;
+  overflow: auto;
   position: relative;
   padding: 0;
   @include bookmarklet-forms;
