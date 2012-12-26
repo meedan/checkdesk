@@ -208,6 +208,7 @@ function meedan_bookmarklet_preprocess_html(&$variables, $hook) {
   if (!empty($GLOBALS['meedan_bookmarklet_page_template'])) {
     $variables['theme_hook_suggestions'][] = 'meedan_bookmarklet_html';
     $variables['meedan_bookmarklet_title'] = variable_get('meedan_bookmarklet_title', '');
+    $variables['meedan_bookmarklet_messages'] = array();
   } 
 }
 

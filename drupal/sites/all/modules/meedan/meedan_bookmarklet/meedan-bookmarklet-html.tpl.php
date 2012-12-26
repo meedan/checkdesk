@@ -11,6 +11,13 @@
   <?php if (!empty($meedan_bookmarklet_title)) { ?>
     <h2><?php print $meedan_bookmarklet_title; ?></h2>
   <?php } ?>
+  <?php if (!empty($meedan_bookmarklet_messages) && is_array($meedan_bookmarklet_messages)) { ?>
+    <ul id="meedan_bookmarklet_messages">
+      <?php foreach ($meedan_bookmarklet_messages as $message) { ?>
+        <li><?php print $message; ?></li>
+      <?php } ?>
+    </ul>
+  <?php } ?>
   <div class="clear-block">
     <?php print $page; ?>
   </div>

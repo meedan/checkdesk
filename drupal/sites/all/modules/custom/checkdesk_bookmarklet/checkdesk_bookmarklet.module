@@ -147,12 +147,6 @@ function checkdesk_bookmarklet_node_insert($node) {
   }
 
   if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $node->type == variable_get('meedan_bookmarklet_content_type', 'page')) {
-    global $base_url;
-    drupal_get_messages();
-    $attributes = array('target' => '_blank');
-    if (isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) $attributes = array();
-    drupal_set_message(l(t('See the new report'), url('node/' . $node->nid, array('absolute' => TRUE)), array('attributes' => $attributes)));
-    drupal_set_message(l(t('Submit a new report'), url('node/add/media', array('absolute' => TRUE, 'query' => array('meedan_bookmarklet' => 1))), array('attributes' => array('onclick' => "window.parent.postMessage('reset', '*')"))));
     // Hack to avoid other hooks from not being called: http://drupal.org/node/130734#comment-3835244
     $_GET['destination'] = 'meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1';
   }
@@ -166,12 +160,17 @@ function checkdesk_bookmarklet_node_insert($node) {
  * Adds an id when bookmarklet is opened from inside the site.
  */
 function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
+  global $base_url;
   if (isset($_GET['meedan_bookmarklet_submitted'])) {
     $variables['meedan_bookmarklet_title'] = t('Report submitted, thanks!');
+    $attributes = array('target' => '_blank', 'onclick' => 'if (window.parent.location.host == window.location.host) { window.parent.location.href = this.href; return false; }');
+    $variables['meedan_bookmarklet_messages'] = array(
+      l(t('See the new report'), url('node/' . $node->nid, array('absolute' => TRUE)), array('attributes' => $attributes)),
+      l(t('Submit a new report'), url('node/add/media', array('absolute' => TRUE, 'query' => array('meedan_bookmarklet' => 1))), array('attributes' => array('onclick' => "window.parent.postMessage('reset', '*')"))),
+    );
     $variables['footer'] = '<input type="reset" onclick="window.parent.postMessage(\'destroy\', \'*\'); return false;" value="' . t('Close') . '" class="form-submit" id="meedan_bookmarklet_cancel_button" />';
   } 
 
-  global $base_url;
   if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {
     $variables['body_class'] = 'meedan-bookmarklet-internal';
   }
