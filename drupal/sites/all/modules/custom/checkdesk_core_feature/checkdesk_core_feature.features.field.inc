@@ -50,7 +50,7 @@ function checkdesk_core_feature_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'comment',
@@ -67,7 +67,7 @@ function checkdesk_core_feature_field_default_fields() {
           'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => 0,
+        'weight' => '0',
       ),
     ),
   );
@@ -1121,6 +1121,9 @@ function checkdesk_core_feature_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_desk',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
@@ -1183,11 +1186,8 @@ function checkdesk_core_feature_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => '1',
         ),
       ),
