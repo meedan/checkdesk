@@ -59,8 +59,9 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     // Change field label
     $form['body']['und'][0]['#title'] = t('Edit description');
 
-    // Description textarea should not be resizable
+    // Description textarea should not be resizable and text format should not be mandatory
     $form['body']['und'][0]['#resizable'] = FALSE;
+    $form['body']['und'][0]['format']['#required'] = FALSE;
 
     // Load JavaScript for the form and hide format options
     $form['#after_build'] = array('_checkdesk_bookmarklet_load_javascript_for_bookmarklet_form');
