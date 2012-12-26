@@ -85,7 +85,6 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     }
   
     // Default input format
-    $form['body']['und'][0]['format']['#default_value'] = 'filtered_html';
 
   }
 }
@@ -95,6 +94,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
  */
 function _checkdesk_bookmarklet_load_javascript_for_bookmarklet_form($form, &$form_state) {
   drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_bookmarklet_form.js');
+  $form['body']['und'][0]['format']['#default_value'] = 'filtered_html';
   return $form;
 }
 
