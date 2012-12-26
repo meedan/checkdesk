@@ -30,15 +30,13 @@ body.page-liveblog {
       .views-row {
         border-bottom: 2px solid $grey;
 
-        p {
-          line-height: $base-line-height;
+        .views-field-title {
+          font-weight: 700;
+          font-size: $large-font-size;
         }
 
-        // Story headlines
-        & > a[href*="story"] { // HACK Fragile / bad selector / Edit templates
-          &:before {
-            content: "— our story: "
-          }
+        p {
+          line-height: $base-line-height;
         }
       }  
     }
