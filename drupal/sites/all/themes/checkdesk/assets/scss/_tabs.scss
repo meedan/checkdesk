@@ -5,17 +5,15 @@
 // Adds styles for the primary and secondary tabs. Compare this with default CSS found in the system module's stylesheet.
 
 // resuable resets and basic styles
-
-@include bb-tabs-reset; 
+@include bb-tabs-reset;
 
 div.tabs {
-  width: 100%;
+  @include reset-box-model;
   @include clearfix;
-  padding-top: $gw;
-  padding-bottom: $gw;
+  padding: {top: $gw; bottom: $gw;}
   
   ul.primary {
-    @include span-columns($cw, $cw); // default width
+    @include reset-box-model;
     @include clearfix;
     background-color: rgba(white, 0.8);
     font-family: $sans-font-family;
@@ -27,24 +25,25 @@ div.tabs {
       @include span-columns($cw, $cw); // default full width
       display: inline-block;
       float: $from-direction;
-      margin-#{opposite-position($from-direction)}: $gw;
       
       &.active {
         a {
+          @include span-columns($cw, $cw, $gw); // default full width
           background-color: $nav-active-bkg-color;
           color: white; 
-          display: inline-block;         
+          display: inline-block;
         }
       }
 
       a {
-        @include span-columns($cw, $cw); // default full width
-        @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color');
+        @include span-columns($cw, $cw, $gw); // default full width
+        @include bb-transition($grey, $nav-active-bkg-color, '0.2s', 'background-color');
         line-height: $base-line-height;
         display: inline-block;
-        padding: $gw;
+        padding: {top: $gw; bottom: $gw;}
+
         &:hover {
-          color: black;
+          color: $nav-active-color;
         }
       }
     }
@@ -53,11 +52,20 @@ div.tabs {
 
 // =================================================================================
 // Breakpoints for tabs
-@include at-breakpoint($break-small) {
-  .tabs ul.primary {
-    @include span-columns($break-medium, $break-medium, $gw); // add padding
-    li, li a { // constrain
-      width: auto!important;
+@include at-breakpoint($break-small) { 
+  $break: $break-small;
+
+  div.tabs ul.primary {
+    display: block;
+    margin: 0 auto;
+    float: none;
+    text-align: center;
+
+    li, li a, li.active a {
+      @include reset-box-model;
+      width: auto; // constrain full width
+      padding: $gw; // WARNING important should not be necessary — CGB
+      margin: $gw/2;
       display: inline-block;
     }
   }
