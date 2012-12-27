@@ -16,7 +16,7 @@ function checkdesk_core_feature_filter_default_formats() {
     'name' => 'Filtered HTML + Markdown',
     'cache' => '1',
     'status' => '1',
-    'weight' => '0',
+    'weight' => '-99',
     'filters' => array(
       'filter_markdown' => array(
         'weight' => '-47',
@@ -58,7 +58,7 @@ function checkdesk_core_feature_filter_default_formats() {
     'name' => 'Liveblog',
     'cache' => '0',
     'status' => '1',
-    'weight' => '0',
+    'weight' => '-98',
     'filters' => array(
       'filter_autop' => array(
         'weight' => '0',
@@ -89,7 +89,7 @@ function checkdesk_core_feature_filter_default_formats() {
     'name' => 'PHP code',
     'cache' => '0',
     'status' => '1',
-    'weight' => '11',
+    'weight' => '10',
     'filters' => array(
       'php_code' => array(
         'weight' => '0',
