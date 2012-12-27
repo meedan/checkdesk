@@ -266,6 +266,51 @@ function meedan_oembed_scrape_twitter($provider, $url) {
 }
 
 /**
+ * Scrape some post from almasryalyoum.
+ */
+function meedan_oembed_scrape_almasryalyoum($provider, $url) {
+  $url_info = parse_url($url);
+  $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
+  $embed = new stdclass();
+  $embed->url = $url;
+  $embed->original_url = $url;
+  $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
+  $embed->provider = $provider;
+  $embed->provider_url = $provider_url;
+  $embed->provider_name = 'Al-Masry Al-Youm';
+  $embed->type = 'link';
+  try {
+    include_once('lib/simplehtmldom_1_5/simple_html_dom.php');
+    $html = file_get_html($url);
+    if (is_object($html)) {
+      $embed->title = $html->find('h1.custom-article-title', 0)->innertext;
+      $embed->description = $html->find('input#embed_code', 0)->value; 
+      if (empty($embed->description)) $html->find('.body-pane p', 0)->innertext;
+      $embed->link = $url;
+      $embed->link_description = $embed->title;
+      $embed->author_name = $html->find('.field-field-reporter a', 0)->innertext;
+      $embed->author_url = 'http://www.almasryalyoum.com' . $html->find('.field-field-reporter a', 0)->href;
+      $profile = file_get_html($embed->author_url);
+      if (is_object($profile)) $embed->author_img = $profile->find('.field-field-staff-photo img', 0)->src;
+      $video_params = $html->find('#video-player param[name=FlashVars]', 0)->value;
+      if (!empty($video_params)) {
+        $params = preg_split("/(?:&(?:amp;)?|^)([^=]+)=/", $video_params, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
+        $index = array_search('image', $params);
+        if (is_numeric($index)) {
+          $embed->thumbnail_url = $params[$index + 1];
+          $embed->picture = $embed->thumbnail_url;
+        }
+      }
+      return $embed;
+    }
+  } catch (Exception $e) {
+    watchdog('MeedanOEmbed', t('Could not parse Al-Masry Al-Youm: ') . $e->getMessage());
+  }
+  // Ok, give up!
+  return NULL;
+}
+
+/**
  * Get domain name from url.
  * Get site name.
  * Choose largest token of the host.
@@ -310,6 +355,11 @@ function meedan_oembed_theme() {
       'template' => 'oembed-twitter',
       'path' => $path,
     ),
+    'oembed__link__meedan_oembed_theme_almasryalyoum' => array(
+      'variables' => array('embed' => NULL), 
+      'template' => 'oembed-almasryalyoum',
+      'path' => $path,
+    ),
   );
 }
 
@@ -347,6 +397,18 @@ function template_preprocess_oembed__link__meedan_oembed_theme_twitter(&$vars) {
   $embed = $vars['embed'];
   $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
   $vars['content'] = $embed->description;
+  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
+}
+
+/**
+ * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_theme_almasryalyoum'.
+ */
+function template_preprocess_oembed__link__meedan_oembed_theme_almasryalyoum(&$vars) {
+  $embed = $vars['embed'];
+  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
+  $vars['title_link'] = l($embed->title, $embed->url);
+  $vars['content'] = $embed->description;
+  $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
