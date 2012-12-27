@@ -37,13 +37,13 @@ div.tabs {
 
       a {
         @include span-columns($cw, $cw, $gw); // default full width
-        @include bb-transition($grey, $nav-active-color, '0.2s', 'background-color');
+        @include bb-transition($grey, $nav-active-bkg-color, '0.2s', 'background-color');
         line-height: $base-line-height;
         display: inline-block;
         padding: {top: $gw; bottom: $gw;}
 
         &:hover {
-          color: black;
+          color: $nav-active-color;
         }
       }
     }
