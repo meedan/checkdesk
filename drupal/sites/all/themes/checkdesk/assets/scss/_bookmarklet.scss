@@ -190,10 +190,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // Alerts in bookmarklet
 @mixin bookmarklet-alerts() {
   
-  #absolute-messages-messages, .messages {
-    display: none !important; // HACK hide error messages in bookmarklet
-  }
-  
   #meedan_bookmarklet_messages {
     padding: 0;
     margin: 0;
