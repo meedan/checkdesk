@@ -195,6 +195,7 @@ function meedan_oembed_scrape_twitter($provider, $url) {
     $embed = new stdclass();
     $embed->url = $url;
     $embed->original_url = $url;
+    $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
     $embed->provider = $provider;
     $embed->provider_url = $provider_url;
     $embed->provider_name = 'Twitter';
@@ -304,6 +305,11 @@ function meedan_oembed_theme() {
     'meedan_oembed_tweet' => array(
       'variables' => array('tweet' => NULL),
     ),
+    'oembed__link__meedan_oembed_theme_twitter' => array(
+      'variables' => array('embed' => NULL), 
+      'template' => 'oembed-twitter',
+      'path' => $path,
+    ),
   );
 }
 
@@ -331,6 +337,16 @@ function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
   $vars['title_link'] = l($embed->title, $embed->url);
   $vars['content'] = $embed->description;
   $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
+  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
+}
+
+/**
+ * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_theme_twitter'.
+ */
+function template_preprocess_oembed__link__meedan_oembed_theme_twitter(&$vars) {
+  $embed = $vars['embed'];
+  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
+  $vars['content'] = $embed->description;
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
