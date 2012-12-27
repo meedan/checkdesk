@@ -61,6 +61,14 @@ body.page-user { // both logged in and not logged ins states
     @include reset-list-style;
     @include reset-box-model;
   }
+
+  // "create new account" and social media login items
+  // WARNING needs better selector
+  .item-list {
+    float: $from-direction;
+    clear: both;
+    margin: {bottom: $gw*2; top: $gw*2;}
+  }
   
   // The social media sign-in boxes
   #edit-social-media-signin {
@@ -97,7 +105,8 @@ body.page-user { // both logged in and not logged ins states
 
     // The list of social media providers
     div.item-list {
-      margin-bottom: $gw*2;
+      float: none; // undo default float
+      
       ul { margin-top: $gw; }
 
       li {
@@ -127,14 +136,14 @@ body.page-user { // both logged in and not logged ins states
       li.first a {
         @include bb-transition($light-grey, $twitter-blue) {
           @include icon(twitter, $sign-in-icon-size, white);
-          &:after { content: " Twitter"; display: none; } // exposed at larger sizes
+          &:after { content: " Twitter"; }
         }
       }
 
       li a[class^='facebook'] {
         @include bb-transition($light-grey, $facebook-blue) {
           @include icon(facebook, $sign-in-icon-size, white);
-          &:after { content: " Facebook"; display: none; }
+          &:after { content: " Facebook"; }
         }
       }
 
@@ -161,9 +170,7 @@ body.page-user { // both logged in and not logged ins states
     form {
       #edit-social-media-signin a {
         font-size: $large-font-size!important;
-        &:after { display: inline-block!important; } // make more text appear
       }
     }
   }
-
 }
