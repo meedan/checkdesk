@@ -788,6 +788,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "!flag_author_url" : [ "flagging-user:url" ],
             "!flag_author_name" : [ "flagging-user:name" ],
             "!report_url" : [ "flagged-node:url" ],
+            "!preposition" : "\\u003C?php\\r\\n$preposition = ($flag-\\u003Etitle == \\u0027Fact-checking\\u0027 ? \\u0027for\\u0027 : \\u0027as\\u0027);\\r\\necho t($preposition);\\r\\n?\\u003E",
             "!flag_type" : "[flag:title]"
           }
         },
