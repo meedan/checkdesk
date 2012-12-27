@@ -58,20 +58,12 @@ li.menu-477 {
 
 // Outer nav wrapper 
 #navbar {
-  width: 100%;
-  clear: both;
-  float: $from-direction;
   background: $nav-container-bkg-color;
-}
-
-@mixin one-row-nav {
-
 }
 
 // This nav contains two rows of nav-items with icons.
 nav[role="navigation"] {
-  @include reset-box-model;
-  @include container($cw); // reset container
+  @include clearfix;
 
   // Apply nav icons
   // Warning: The line height must remain more than the icons' generated height.
