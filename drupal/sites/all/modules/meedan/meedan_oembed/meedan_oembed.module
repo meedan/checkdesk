@@ -171,7 +171,7 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     $embed->author_name = $post_data['from']['name'];
     $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
     $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
-
+    $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
   } catch (FacebookApiException $e) {
     watchdog('FacebookApi', t('Unable to fetch data from facebook post - Unsupported get request @url', array('@url' => $url)));
   }
