@@ -999,7 +999,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'node_delete_confirm') {
     if (isset($form['#node'])) {
       if ($form['#node']->type == 'discussion') {
-        $form['description']['#markup'] = t('All related updates will be delete');
+        $form['description']['#markup'] = t('All related updates will be deleted. Are you sure you want to proceed?');
       }
     }
   }
