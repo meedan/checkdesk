@@ -1,7 +1,7 @@
-From 0311caa71aeab25230c11cfe5cd00dbbc41d3cbc Mon Sep 17 00:00:00 2001
+From cc2b7957f27c7e6055eb50b9b526bcf6946e11ef Mon Sep 17 00:00:00 2001
 From: Caio SBA <caiosba@gmail.com>
-Date: Mon, 17 Dec 2012 19:48:43 -0200
-Subject: [PATCH] Adding an option to load all remaining content from a view
+Date: Mon, 31 Dec 2012 00:06:51 -0200
+Subject: [PATCH] Load all
 
 ---
  views_load_more.js               |    9 +++++++--
@@ -10,7 +10,7 @@ Subject: [PATCH] Adding an option to load all remaining content from a view
  3 files changed, 41 insertions(+), 2 deletions(-)
 
 diff --git a/views_load_more.js b/views_load_more.js
-index 0914e05..768022d 100644
+index 0914e05..48c70d3 100644
 --- a/views_load_more.js
 +++ b/views_load_more.js
 @@ -54,8 +54,13 @@
@@ -19,7 +19,7 @@ index 0914e05..768022d 100644
      // Add the new content to the page.
 -    wrapper.find('.pager a').remove();
 -    wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
-+    if (settings.viewsLoadMoreAllLoaded) {
++    if (settings.viewsLoadMoreAllLoaded && settings.viewsLoadMoreAllLoaded[wrapper.selector.replace('.view-dom-id-', '')]) {
 +      wrapper.find('.pager').remove();
 +    }
 +    else {
