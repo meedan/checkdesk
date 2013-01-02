@@ -450,6 +450,18 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'mail_system';
+  $strongarm->value = array(
+    'default-system' => 'HTMLMailSystem',
+    'maillog' => 'MaillogMailSystem',
+    'htmlmail' => 'HTMLMailSystem',
+    'checkdesk_notifications_HTMLMail' => 'HTMLMailSystem',
+  );
+  $export['mail_system'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'meedan_bookmarklet_content_type';
   $strongarm->value = 'media';
   $export['meedan_bookmarklet_content_type'] = $strongarm;
