@@ -4,6 +4,8 @@
 // Alerts and "messages" appear for many kinds of notifications and errors
 // We establish the basic alert and then alternates.
 
+// The alert container
+//
 // There are two kinds: .alerts and .messages? CGB
 .alert, 
 .messages {
@@ -17,6 +19,7 @@
   max-height: 150px; // HACK ... but yeah that's enough errors
 } 
 
+// Dismiss alert
 .alert .close {
   float: $omega-float;
   font-size: $base-font-size;
@@ -33,51 +36,30 @@
   }
 }
 
+// Alert titles
 .alert h4 {
   margin: 0 0 $base-line-height/2 0;
 }
 
-// Unnecessary in our layout. 
-//
-// Adjust close link position
-// .alert .close {
-//   position: relative;
-//   top: -2px;
-//   #{$omega-float} -21px;
-//   line-height: $baseLineHeight;
-// }
-
-
-// Alternate styles
-// -------------------------
-
+// Alert success state
 .alert-success {
   background-color: $successBackground;
   border-color: $successBorder;
   color: $successText;
 }
+
+// Danger and error states
 .alert-danger,
 .alert-error {
   background-color: $warningBackground;
   border-color: transparent;
 }
+
+// Status and info states
 .alert-status, .alert-info {
   background-color: $infoBackground;
   border-color: $infoBorder;
   color: $infoText;
-}
-
-// Block alerts
-.alert-block {
-  padding-top: $baseLineHeight/2;
-  padding-top: $baseLineHeight/2;
-}
-.alert-block > p,
-.alert-block > ul {
-  margin-bottom: 0;
-}
-.alert-block p + p {
-  margin-top: 5px;
 }
 
 //
@@ -98,17 +80,6 @@
   }
 }
 
-// Additional properties for button version
-// iOS requires the button element instead of an anchor tag.
-// If you want the anchor version, it requires `href="#"`.
-button.close {
-  padding: 0;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  -webkit-appearance: none;
-}
-
 // Top bar alerts
 #absolute-messages-messages {
   width: 100%;
@@ -116,15 +87,6 @@ button.close {
   top: 0;
   #{$from-direction}: 0;
   z-index: 10;
-}
-
-// For Drupal Admin Toolbar
-.toolbar #absolute-messages-messages {
-  top: $toolbarHeight + $drawerHeight;
-}
-
-.toolbar-drawer #absolute-messages-messages {
-  top: $toolbarHeight + $drawerHeight + $navbarHeight;
 }
 
 .absolute-messages-message {

@@ -26,6 +26,7 @@ li.menu-477 {
 }
 
 // Nav item container
+//
 // This makes any element behave properly with 1 or more <.nav-item> children
 // It is used on both the outer parent and some children.
 // This helps standardize the implementation of the contained nav-items
@@ -58,7 +59,7 @@ li.menu-477 {
 
 // Outer nav wrapper 
 #navbar {
-  
+  @include d();
 }
 
 // This nav contains two rows of nav-items with icons.
@@ -67,7 +68,6 @@ nav[role="navigation"] {
   float: $from-direction;
 
   li:last-of-type:after {
-    content: "last";
     float: $from-direction;
     clear: both;
     display: block;
@@ -84,18 +84,26 @@ nav[role="navigation"] {
   }
 
   .nav {
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
+    background: red;
+
     @include nav-item-container; // A container for some nav items
     & > div  {
-      @include nav-item-container;
+      @include nav-item-container; // reapply container reset
       h2 {
-        @include nav-item;
+        @include nav-item; // Why is this nav item an h2? CGB
       }
     }
-    & > a.btn, // the user menu 
-    & > li { // the rest of the li's
-      @include nav-item; // floated, with bkg color, and padding
+    & > a.btn, // the user menu button
+    & > li { // default: the rest of the li's in the navigation
+      @include nav-item;
     }
+  }
+
+  // the last 
+  .menu-567 {
+
   }
 
   #navigation-region,
@@ -107,9 +115,10 @@ nav[role="navigation"] {
       height: $nav-icon-height;
     }
 
+    // Position the dropdown menu
     .dropdown-menu {
-      #{opposite-position($from-direction)}: 0;
-      #{$from-direction}: auto;
+      // #{opposite-position($from-direction)}: 0;
+      // #{$from-direction}: auto;
     }
   }
 
@@ -129,7 +138,7 @@ nav[role="navigation"] {
   }
 
   // Notifications 
-  // has a different structure than the other <ul>'s...
+  // FIXME has a different structure than the other <ul>'s...
   #navigation-region {
     #block-views-my-notifications-block {
       h2 {
@@ -137,7 +146,7 @@ nav[role="navigation"] {
         .notifications-label {
           @include nav-item;  
           @include caret; // ideally this should be on a separate .caret span
-          padding-#{$from-direction}: $gw; // this should not be necessary
+          padding-#{$from-direction}: $gw; // hmm this padding should not be necessary I think CGB
           cursor: pointer;
         }
         .notifications-count {
@@ -164,43 +173,33 @@ body.toolbar-drawer {
 
 div.region-page-top {
   // Disable Drupal toolbar padding
-
   width: 100%;
+
 
   #toolbar {
     @include box-shadow(0 0 0 0); // disable box shadow
     padding: 0;
     margin: 0;
-    @include clearfix;
-    position: static;
-  }
+    overflow: auto;
+    position: static; // override drupal fixed positioning
+    background: $nav-container-bkg-color;
+    li {
+      @include reset-box-model;
 
-  div.toolbar-drawer {
-  }
+      a { 
+        color: $nav-color; 
+        padding: $gw;
+      } 
+    }
 
-  // Disable duplicate link from Drupal
-  div.toolbar-menu {
-    // width: 98%;
-    padding: 0;
-    #toolbar-home, #toolbar-user {
-      display: none;
-    }  
-  }
-}
+    div.toolbar-menu {
+      // width: 98%;
+      padding: 0;
+      background-color: $nav-container-bkg-color;
 
-// Two row navigation style
-// Applied in two breakpoints
-@mixin one-row-nav {
-  nav[role="navigation"] {
-    #navigation-region,
-    #info-menu,
-    #user-menu {
-      float: $from-direction; // flipped
+      #toolbar-home, #toolbar-user {
+        display: none; // Disable duplicate link from Drupal
+      }  
     }
   }
-}
-
-// Only the largest size is currenly large enough for these to align on one row
-@include at-breakpoint($break-large) {
-  @include one-row-nav;
 }

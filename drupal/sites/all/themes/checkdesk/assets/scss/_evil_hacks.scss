@@ -10,19 +10,17 @@
 }
 
 // RSS icon is not in the spec but is appearing. 
-// RSS *should* be enabled but no icon.
+// RSS *should* be enabled but with no icon.
 a.feed-icon {
   display: none;
 }
 
 // Disable vertical tabs in forms
-div.vertical-tabs, .vertical-tabs-panes {
-  // we need to verride this by disabling CSS in drupal before proceeding.
+div.vertical-tabs, div.vertical-tabs-panes {
   display: none!important;  
 }
 
 // We don't use the i element for icons from TB
-// And they should not display
 i {
   display: none;
   &:hover {
@@ -35,20 +33,20 @@ i {
   display: none!important;
 }
 
-// hack for empty div need to remove this in markup. CGB Dec 2012
-li.menu-449 {
-  display: none!important;
-}
+// hack for an empty div
+// li.menu-449 {
+//   display: none!important;
+// }
 
 // Hide the summary link from text fields.
 // FIXME This is a hack because the fields are of type "Long text and summary" while they should really be of type "Long text".
-.field-edit-link {
-  display: none
-}
+// .field-edit-link {
+//   display: none
+// }
 
-body {
-  padding-top: 0!important; // override toolbar padding  
-}
+// body {
+//   padding-top: 0!important; // override toolbar padding  
+// }
 
 // No tabs in the sidebar pages ...
 body.sidebar-first .tabs {
@@ -73,8 +71,8 @@ input.form-autocomplete {
 
 // HACK to hide this until there is room
 li.menu-680 {
-  display: none!important;
-  @include at-breakpoint($break-medium) {display: block!important;}
+  // display: none!important;
+  // @include at-breakpoint($break-medium) {display: block!important;}
 }
 
 // hide unnecessary elements in forms

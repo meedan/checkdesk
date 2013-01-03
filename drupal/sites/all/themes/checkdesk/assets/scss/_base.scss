@@ -12,7 +12,7 @@
 // see: http://www.google.com/webfonts/Collection:Open+Sans
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300,600");
 
-// "Merriweather"
+// "Merriweather" — our big heavyweight headline font
 @import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
 
 // Typography configuration 
@@ -25,7 +25,7 @@ $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 // Sass libraries
 // ===========================================================================
 
-// Compass
+// Compass utility configuration
 //
 // vertical baseline support
 // http://compass-style.org/reference/compass/typography/vertical_rhythm/
@@ -33,7 +33,7 @@ $round-to-nearest-half-line: true;
 $relative-font-sizing: false;
 $base-line-height: 1.5;
 
-// Susy
+// Susy configuration
 //
 // For more information: `gem unpack susy`
 // Note that these also feed Twitter Bootstrap variables; see variables.scss.
@@ -54,7 +54,7 @@ $sidebar-width: 4; // default sidebar width
 $tabs-width: $container-width; // Tabs inside forms and nodes
 $gutter-width: ms(-1); // The distance between grid columns
 $column-width: ms(2); // The width of columns
-$grid-padding: 0; // The padding on the sides of the outer <container>
+$grid-padding: 10px; // The padding on the sides of the outer <container>
 
 // Modular scale
 //
@@ -79,7 +79,7 @@ $xxx-large-font-size: ms(4); // 47px
 $largest-font-size: ms(5); // 65px
 
 // View typography settings in CLI
-$debug: false;
+$debug: false !default;
 @if $debug == true {
   @each $size in $smallest-font-size $smaller-font-size $small-font-size $base-font-size $large-font-size $larger-font-size $x-large-font-size $xx-large-font-size {
     @debug "#{$size}";

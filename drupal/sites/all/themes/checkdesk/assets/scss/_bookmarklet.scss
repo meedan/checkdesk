@@ -194,6 +194,17 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     display: none !important; // HACK hide status messages in bookmarklet
   }
 
+  // Error messages
+  .messages.error {
+    clear: both;
+    background: transparent;
+    padding: 0;
+    border: 0;
+    position: absolute;
+    top: 150px;
+    color: #a00;
+  }
+
   #meedan_bookmarklet_messages {
     padding: 0;
     margin: 0;

@@ -50,7 +50,7 @@ function theme_livefyre_comments($variables) {
   drupal_add_js(MEEDAN_LIVEFYRE_SCRIPT, 'external');
   drupal_add_js(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.js');
   drupal_add_css(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.css');
-  drupal_add_js(array('livefyre' => array($node->nid => array(
+  drupal_add_js(array('livefyre' => array("nid-$node->nid" => array(
     'nid' => $node->nid,
     'streamConfig' => $streamConfig,
   ))), 'setting');

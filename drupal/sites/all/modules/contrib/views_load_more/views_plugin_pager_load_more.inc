@@ -154,7 +154,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
     }
 
     if ($this->options['load_all']) {
-      drupal_add_js(array('viewsLoadMoreAllLoaded' => (($this->options['load_all'] && $this->view->get_current_page() > 0) ? TRUE : FALSE)), 'setting');
+      drupal_add_js(array('viewsLoadMoreAllLoaded' => array($this->view->dom_id => (($this->options['load_all'] && $this->view->get_current_page() > 0) ? TRUE : FALSE))), 'setting');
     }
 
     $pager_theme = views_theme_functions('views_load_more_pager', $this->view, $this->display);

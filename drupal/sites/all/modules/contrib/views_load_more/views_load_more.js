@@ -54,7 +54,7 @@
     }
 
     // Add the new content to the page.
-    if (settings.viewsLoadMoreAllLoaded) {
+    if (settings.viewsLoadMoreAllLoaded && settings.viewsLoadMoreAllLoaded[wrapper.selector.replace('.view-dom-id-', '')]) {
       wrapper.find('.pager').remove();
     }
     else {
