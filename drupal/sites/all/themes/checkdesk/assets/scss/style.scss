@@ -1,29 +1,35 @@
 @charset "UTF-8";
-// Checkdesk Sass Theme 2.x
+// Checkdesk Sass Theme
 
-// Modular scale via gem
+// Modular scale 
+// via: gem
 @import "modular-scale";
 
-// Bowerbird colors by name
-// Example usage: div { color: $tupperware-blue; }
-// We always want to use colors by name, to facilitate readbility + discussion.
-// hsl() values preferred for readability
+// Colors
+// via: bowerbird sass extension
+// note: We always want to use colors by name, to facilitate readbility + discussion.
+// note: hsl() values preferred for readability
 @import "bowerbird/colors";
 
-// Checkdesk configuration (relies on colors and modular scale)
+// Checkdesk configuration 
+// Requires colors, modular-scale
 @import "base";
 
 // Bowerbird Compass Extension
-// See: README.md and ../bowerbird/README.md
+// See also README.md and ../bowerbird/README.md
+// Requires: base
 @import "bowerbird";
 
 // Checkdesk override susy functions very selectively
+// Requires: base
 @import "override_susy/grid";
 
 // Bowerbird Drupal touchups
+// via: bowerbird
 @import "bowerbird/drupal";
 
 // Some views stuff we extracted from cd
+// 
 @import "views";
 
 //  Debugger mixins for the grid, breakpoints, etc.

@@ -19,7 +19,7 @@
 // Home link
 // Special shine
 li.menu-477 {
-  @include gradient(rgba(white, 0.2), rgba(white, 0.1));
+  @include gradient(rgba(white, 0.1), rgba(white, 0.2));
   a {
     color: rgba(white, 0.2);
   }
@@ -65,8 +65,13 @@ li.menu-477 {
 nav[role="navigation"] {
   background: $nav-container-bkg-color;
   float: $from-direction;
-  width: 90%; // TEMPORARY
 
+  li:last-of-type:after {
+    content: "last";
+    float: $from-direction;
+    clear: both;
+    display: block;
+  }
 
   // Apply nav icons
   // Warning: The line height must remain more than the icons' generated height.

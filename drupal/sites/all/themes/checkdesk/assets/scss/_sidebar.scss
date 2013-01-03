@@ -28,7 +28,7 @@
 
         // Desk reports
         @include reports-filter-and-results($sw) { // The reports filter form 
-          @include cd-form($sw, $sw, $gw); // form layout @ 100%
+          @include cd-form($sw, $sw, $gw); // apply form layout @ 100%
         }
       }
 
@@ -61,12 +61,12 @@
         .story-blogger {
           @include span-columns($pw, $pw);
           @include clearfix;
-          background: $postit-yellow;
           padding: 1em;
           margin-top: 1em;
           font-size: $smaller-font-size;
           width: 45%;
           float: $from-direction;
+          color:  $dark-grey;
           .user-picture {
             float: $omega-float;
             img {
