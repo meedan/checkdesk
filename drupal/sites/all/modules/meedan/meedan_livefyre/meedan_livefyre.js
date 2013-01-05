@@ -55,8 +55,10 @@ Drupal.behaviors.livefyre = {
         }
         else {
           $('.livefyre-comments').hide();
-          $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
-          Drupal.livefyre.widget.changeCollection(Drupal.livefyre.streams[$('.livefyre-comments').index(comments)]);
+          if (!comments.find('.fyre-widget').length) {
+            $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
+            Drupal.livefyre.widget.changeCollection(Drupal.livefyre.streams[$('.livefyre-comments').index(comments)]);
+          }
           comments.show();
         }
       });
