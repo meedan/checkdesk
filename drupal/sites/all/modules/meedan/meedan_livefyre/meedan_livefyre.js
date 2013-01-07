@@ -65,10 +65,40 @@ Drupal.behaviors.livefyre = {
 
     // Catch exceptions
     } catch(error) {
-      console.log('Error while attaching Livefyre: ' + error.toString());
+      console.log('Error while attaching Livefyre');
+      if (error) console.log(error.toString());
     }
   }
 }
+
+// Overwrite method from Livefyre
+var i = window.setInterval(function() { waitForGoogEditor(); }, 1000);
+var waitForGoogEditor = function() {
+  if (window.goog.editor) {
+    window.clearInterval(i);
+
+    // This method was causing an unrecoverable error on Firefox and Opera, so it is overwritten here
+    window.goog.editor.Field.prototype.makeUneditable = function(a) {
+      if (this.isUneditable()) throw Error("makeUneditable: Field is already uneditable");
+      this.clearDelayedChange();
+      if (this.selectionChangeTimer_) this.selectionChangeTimer_.fireIfActive(); // Just added a condition on this line
+      this.execCommand(goog.editor.Command.CLEAR_LOREM);
+      var b = null;
+      !a && this.getElement() && (b = ''); // Changed b value here
+      this.clearFieldLoadListener_();
+      a = this.getOriginalElement();
+      goog.editor.Field.getActiveFieldId() == a.id && goog.editor.Field.setActiveFieldId(null);
+      this.clearListeners_();
+      goog.isString(b) && (a.innerHTML = b, this.resetOriginalElemProperties());
+      this.restoreDom();
+      this.tearDownFieldObject_();
+      goog.userAgent.WEBKIT && a.blur();
+      this.execCommand(goog.editor.Command.UPDATE_LOREM);
+      this.dispatchEvent(goog.editor.Field.EventType.UNLOAD)
+    };
+
+  }
+};
 
 // END jQuery
 })(jQuery);
