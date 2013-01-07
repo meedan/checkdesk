@@ -10,7 +10,7 @@
     border-color: rgba(green, 0.3);
   }
 }
-
+`
 // Form Actions (eg submit button)
 //
 @mixin form-actions($w) {
@@ -224,11 +224,8 @@
   }
 }
 
-
+// ======================================================================
 // Forms Breakpoints
-//
-// For now we just automatically rerender each of our responsive mixins
-// Later we will optimize and extract only the layout elements into these breakpoints
 
 // Default render of the forms
 @include cd-form($cw, $cw, $gw);

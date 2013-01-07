@@ -1,22 +1,24 @@
-
-// The installation page
 // ==============================================================
+// The installation page
+
 #modalContent.modal-install-bookmarklet {
-  width: 930px !important;
-  height: 355px !important;
+  @include span-columns($cw, $cw, 100px); // lots of padding
+
   background: #fff;
   border: 1px solid #C0C0C0;
   top: 80px !important; 
   #{$from-direction}: 50% !important;
-  margin-#{$from-direction}: -465px;
-  z-index: 1050 !important;
+  // margin-#{$from-direction}: -465px;
+  
+  z-index: 1050 !important; 
   overflow: visible;
+
   position: fixed !important;
 
-  .ctools-modal-content {
-    width: 930px !important;
+  .ctools-modal-content {// Why are these inner widths necessary? CGB
+    @include span-columns($cw, $cw);
     .modal-content {
-      width: 930px !important;
+      @include span-columns($cw, $cw);
     }
   }
 

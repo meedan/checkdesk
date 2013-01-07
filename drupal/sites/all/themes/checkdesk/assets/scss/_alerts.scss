@@ -79,8 +79,10 @@
     @include opacity(0.4);
   }
 }
-
-// Top bar alerts
+// ====================================================================
+// Absolute messages
+//
+// Container
 #absolute-messages-messages {
   width: 100%;
   position: absolute;
@@ -89,6 +91,7 @@
   z-index: 10;
 }
 
+// Single message
 .absolute-messages-message {
   display: none;
   margin: 0;
@@ -103,9 +106,12 @@
   zoom: 1;
 }
 
+// js controlled close
 .absolute-messages-message.collapsible:hover {
   cursor: pointer;
 }
+
+// message typography 
 .absolute-messages-message .content {
   margin: 0;
   padding: .5em 1.5em 0 1.5em;
@@ -119,20 +125,26 @@
   background-color: $infoBackground;
   border-bottom: 1px solid $infoBorder;
   color: $infoText;
+  & {
+    a:link,
+    a:visited {
+      color: $infoText;
+    }
+  }
 }
-.absolute-messages-status a:link,
-.absolute-messages-status a:visited {
-  color: $infoText;
-}
+
 .absolute-messages-warning {
   background-color: $warningBackground;
   border-bottom: 1px solid $warningBorder;
   color: $warningText;
+  & {
+    a:link,
+    a:visited {
+      color: $warningText;
+    }
+  }
 }
-.absolute-messages-warning a:link,
-.absolute-messages-warning a:visited {
-  color: $warningText;
-}
+
 .absolute-messages-error {
   background-color: $errorBackground;
   border-bottom: 1px solid $errorBorder;
@@ -160,21 +172,18 @@ a.absolute-messages-dismiss-all:hover {
   line-height: $baseLineHeight;
   cursor: pointer;
 }
-.absolute-messages-status .absolute-messages-dismiss {
-  color: $infoText;
-}
-.absolute-messages-warning .absolute-messages-dismiss {
-  color: $warningText;
-}
-.absolute-messages-error .absolute-messages-dismiss {
-  color: $errorText;
-}
+
+.absolute-messages-status .absolute-messages-dismiss { color: $infoText; }
+.absolute-messages-warning .absolute-messages-dismiss { color: $warningText; }
+.absolute-messages-error .absolute-messages-dismiss { color: $errorText; }
+
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss-all:hover {
   border: 2px solid #222;
   background-color: #222;
   color: #ccc;
 }
+
 #absolute-messages-show {
   display: none;
   position: fixed;
@@ -185,21 +194,13 @@ a.absolute-messages-dismiss-all:hover {
   border-width: 16px 16px 0 0;
   border-style: solid;
   border-color: transparent $link-color;
-  @include box-shadow(0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2));
   z-index: 1;
 }
+
 .absolute-messages-show {
   display: block;
   width: 16px;
   height: 16px;
-  /* Ugly hack for IE, as it does not support Box Shadow. */
-  border-#{$from-direction}: 1px solid #666\9;
-  border-bottom: 1px solid #666\9;
-}
-/* And for Opera too. Ugh. */
-noindex:-o-prefocus, .absolute-messages-show {
-  border-#{$from-direction}: 1px solid #666;
-  border-bottom: 1px solid #666;
 }
 
 // ===========================================================================
