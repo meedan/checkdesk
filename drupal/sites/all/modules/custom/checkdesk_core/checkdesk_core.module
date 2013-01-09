@@ -786,12 +786,28 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   if ($form['#id'] == 'views-exposed-form-desk-reports-block') {
     $title_options = array('contains' => t('Show reports with this keyword'), 'not'=> t('Exclude report with this keyword'));
-    $source_options = array('contains' => t('Show reports with this source'), 'not'=> t('Exclude report with this source'));
+    $source_options = array('contains' => t('Show reports from this source'), 'not'=> t('Exclude report from this source'));
     $form['title_op']['#options'] = $title_options;
     $form['source_op']['#options'] = $source_options;
     $form['source_op']['#process'] = $form['title_op']['#process'] = array('form_process_radios');
     $form['source_op']['#attributes'] = $form['title_op']['#attributes'] = array('class' => array('bef-select-as-radios'));
     $form['source_op']['#theme'] = $form['title_op']['#theme'] = 'select_as_radios';
+    $form['field_stories_target_id']['#options'] = array_reverse($form['field_stories_target_id']['#options'], TRUE);
+    if (is_numeric(arg(1)) && $_REQUEST['q'] != 'views/ajax') {
+      $form_state['input']['field_stories_target_id'] = $form['field_stories_target_id']['#default_value'] = array(arg(1)=> arg(1));
+    }
+    if (!empty($_REQUEST['title'])) {
+      $form['title']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports with', 'Excluding reports with'), $form['title']['#description']);
+    }
+    else {
+      $form['title']['#description'] = NULL;
+    }
+    if (isset($_REQUEST['source'])) {
+      $form['source']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports from', 'Excluding reports from'), $form['source']['#description']);
+    }
+    else {
+      $form['source']['#description'] = NULL;
+    }
     $form['#action'] = '/' . $_GET['q'];
   }
 }
@@ -1003,6 +1019,13 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       if ($form['#node']->type == 'discussion') {
         $form['description']['#markup'] = t('All related updates will be deleted. Are you sure you want to proceed?');
       }
+    }
+  }
+  if ($form_id == 'user_register_form') {
+    global $user;
+    //Hide administer role so journalist can not give his account a higher role.
+    if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
+      $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
     }
   }
 }

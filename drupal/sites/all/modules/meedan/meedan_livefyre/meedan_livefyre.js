@@ -9,6 +9,7 @@ Drupal.livefyre = {
     Drupal.livefyre.widget = widget;
     widget.on('initialRenderComplete', function(data) {
       $('.livefyre-loading').remove();
+      if ($('.livefyre-comments:visible').length) $('html, body').animate({ scrollTop : $('.livefyre-comments:visible').prev('.livefyre-header').offset().top }, 1000);
     });
     widget.on('commentCountUpdated', function(data) {
       $('.livefyre-comments:visible').prev('.livefyre-header').find('.livefyre-commentcount').html(Drupal.formatPlural(data, '1 comment', '@count comments'));
@@ -55,18 +56,51 @@ Drupal.behaviors.livefyre = {
         }
         else {
           $('.livefyre-comments').hide();
-          $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
-          Drupal.livefyre.widget.changeCollection(Drupal.livefyre.streams[$('.livefyre-comments').index(comments)]);
           comments.show();
+          if (!comments.find('.fyre-widget').length) {
+            $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
+            Drupal.livefyre.widget.changeCollection(Drupal.livefyre.streams[$('.livefyre-comments').index(comments)]);
+          }
+          else $('html, body').animate({ scrollTop : comments.prev('.livefyre-header').offset().top }, 1000);
         }
       });
 
     // Catch exceptions
     } catch(error) {
-      console.log('Error while attaching Livefyre: ' + error.toString());
+      console.log('Error while attaching Livefyre');
+      if (error) console.log(error.toString());
     }
   }
 }
+
+// Overwrite method from Livefyre
+var i = window.setInterval(function() { waitForGoogEditor(); }, 1000);
+var waitForGoogEditor = function() {
+  if (window.goog.editor) {
+    window.clearInterval(i);
+
+    // This method was causing an unrecoverable error on Firefox and Opera, so it is overwritten here
+    window.goog.editor.Field.prototype.makeUneditable = function(a) {
+      if (this.isUneditable()) throw Error("makeUneditable: Field is already uneditable");
+      this.clearDelayedChange();
+      if (this.selectionChangeTimer_) this.selectionChangeTimer_.fireIfActive(); // Just added a condition on this line
+      this.execCommand(goog.editor.Command.CLEAR_LOREM);
+      var b = null;
+      !a && this.getElement() && (b = ''); // Changed b value here
+      this.clearFieldLoadListener_();
+      a = this.getOriginalElement();
+      goog.editor.Field.getActiveFieldId() == a.id && goog.editor.Field.setActiveFieldId(null);
+      this.clearListeners_();
+      goog.isString(b) && (a.innerHTML = b, this.resetOriginalElemProperties());
+      this.restoreDom();
+      this.tearDownFieldObject_();
+      goog.userAgent.WEBKIT && a.blur();
+      this.execCommand(goog.editor.Command.UPDATE_LOREM);
+      this.dispatchEvent(goog.editor.Field.EventType.UNLOAD)
+    };
+
+  }
+};
 
 // END jQuery
 })(jQuery);

@@ -163,6 +163,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'views_bulk_operations' => 'views_bulk_operations',
     'picture' => 'picture',
     'name' => 'name',
     'status' => 'status',
@@ -170,8 +171,13 @@ function checkdesk_core_feature_views_default_views() {
     'mail' => 'mail',
     'access' => 'access',
   );
-  $handler->display->display_options['style_options']['default'] = 'access';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'picture' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
@@ -485,7 +491,9 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
     'title' => array(
       'more_options' => array(
         'is_secondary' => 0,
-        'bef_filter_description' => '',
+        'bef_filter_description' => '<span class="report-stream-filter-desc">Existing keyword filters: </span> 
+<br>
+<span class="report-stream-filter-label">{key:[current-page:query:title_op]}</span><span class="report-stream-filter-val">"[current-page:query:title]"</span>',
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
@@ -509,6 +517,22 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
     ),
     'source' => array(
       'more_options' => array(
+        'is_secondary' => 0,
+        'bef_filter_description' => '<span class="report-stream-filter-desc">Existing domian filters: </span> 
+<br>
+<span class="report-stream-filter-label">{key:[current-page:query:source_op]}</span><span class="report-stream-filter-val">"[current-page:query:source]"</span>',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+    'field_stories_target_id' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 0,
         'is_secondary' => 0,
         'bef_filter_description' => '',
         'tokens' => array(
@@ -703,6 +727,23 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['source']['expose']['operator'] = 'source_op';
   $handler->display->display_options['filters']['source']['expose']['identifier'] = 'source';
   $handler->display->display_options['filters']['source']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Content: Stories (field_stories) */
+  $handler->display->display_options['filters']['field_stories_target_id']['id'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['table'] = 'field_data_field_stories';
+  $handler->display->display_options['filters']['field_stories_target_id']['field'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator_id'] = 'field_stories_target_id_op';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['label'] = 'By story';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator'] = 'field_stories_target_id_op';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['identifier'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,

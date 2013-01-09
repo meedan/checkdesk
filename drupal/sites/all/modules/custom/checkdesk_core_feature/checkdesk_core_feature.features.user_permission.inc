@@ -298,6 +298,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'administer permissions',
     'roles' => array(
       0 => 'administrator',
+      1 => 'journalist',
     ),
     'module' => 'user',
   );

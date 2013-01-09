@@ -36,3 +36,14 @@ function checkdesk_core_update_7003() {
     ->execute();
 }
 
+/**
+ * Remove duplicate "administer links" show in dropdown (issue #924)
+ */
+function checkdesk_core_update_7004() {
+  $query = db_select('menu_links', 'ml');
+  $query->condition('ml.link_path', 'admin/people');
+  $query->condition('ml.link_title', 'administer users');
+  $query->fields('ml', array('mlid'));
+  $mlid = $query->execute()->fetchField();
+  menu_link_delete($mlid);
+}
