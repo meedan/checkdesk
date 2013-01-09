@@ -491,7 +491,9 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
     'title' => array(
       'more_options' => array(
         'is_secondary' => 0,
-        'bef_filter_description' => '',
+        'bef_filter_description' => '<span class="report-stream-filter-desc">Existing keyword filters: </span> 
+<br>
+<span class="report-stream-filter-label">{key:[current-page:query:title_op]}</span><span class="report-stream-filter-val">"[current-page:query:title]"</span>',
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
@@ -516,7 +518,9 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
     'source' => array(
       'more_options' => array(
         'is_secondary' => 0,
-        'bef_filter_description' => '',
+        'bef_filter_description' => '<span class="report-stream-filter-desc">Existing domian filters: </span> 
+<br>
+<span class="report-stream-filter-label">{key:[current-page:query:source_op]}</span><span class="report-stream-filter-val">"[current-page:query:source]"</span>',
         'tokens' => array(
           'available' => array(
             0 => 'global_types',

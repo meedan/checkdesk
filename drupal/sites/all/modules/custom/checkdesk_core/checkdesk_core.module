@@ -796,6 +796,18 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     if (is_numeric(arg(1)) && $_REQUEST['q'] != 'views/ajax') {
       $form_state['input']['field_stories_target_id'] = $form['field_stories_target_id']['#default_value'] = array(arg(1)=> arg(1));
     }
+    if (!empty($_REQUEST['title'])) {
+      $form['title']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports with', 'Excluding reports with'), $form['title']['#description']);
+    }
+    else {
+      $form['title']['#description'] = NULL;
+    }
+    if (isset($_REQUEST['source'])) {
+      $form['source']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports from', 'Excluding reports from'), $form['source']['#description']);
+    }
+    else {
+      $form['source']['#description'] = NULL;
+    }
     $form['#action'] = '/' . $_GET['q'];
   }
 }
