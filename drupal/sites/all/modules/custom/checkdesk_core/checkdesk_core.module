@@ -1009,6 +1009,13 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       }
     }
   }
+  if ($form_id == 'user_register_form') {
+    global $user;
+    //Hide administer role so journalist can not give his account a higher role.
+    if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
+      $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
+    }
+  }
 }
 
 /**
