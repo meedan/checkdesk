@@ -518,6 +518,20 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
         ),
       ),
     ),
+    'field_stories_target_id' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
   );
   $handler->display->display_options['pager']['type'] = 'mini';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -703,6 +717,23 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['source']['expose']['operator'] = 'source_op';
   $handler->display->display_options['filters']['source']['expose']['identifier'] = 'source';
   $handler->display->display_options['filters']['source']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Content: Stories (field_stories) */
+  $handler->display->display_options['filters']['field_stories_target_id']['id'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['table'] = 'field_data_field_stories';
+  $handler->display->display_options['filters']['field_stories_target_id']['field'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator_id'] = 'field_stories_target_id_op';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['label'] = 'By story';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator'] = 'field_stories_target_id_op';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['identifier'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
