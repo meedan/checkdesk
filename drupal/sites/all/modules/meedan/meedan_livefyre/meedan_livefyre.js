@@ -9,6 +9,7 @@ Drupal.livefyre = {
     Drupal.livefyre.widget = widget;
     widget.on('initialRenderComplete', function(data) {
       $('.livefyre-loading').remove();
+      if ($('.livefyre-comments:visible').length) $('html, body').animate({ scrollTop : $('.livefyre-comments:visible').prev('.livefyre-header').offset().top }, 1000);
     });
     widget.on('commentCountUpdated', function(data) {
       $('.livefyre-comments:visible').prev('.livefyre-header').find('.livefyre-commentcount').html(Drupal.formatPlural(data, '1 comment', '@count comments'));
@@ -55,11 +56,12 @@ Drupal.behaviors.livefyre = {
         }
         else {
           $('.livefyre-comments').hide();
+          comments.show();
           if (!comments.find('.fyre-widget').length) {
             $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
             Drupal.livefyre.widget.changeCollection(Drupal.livefyre.streams[$('.livefyre-comments').index(comments)]);
           }
-          comments.show();
+          else $('html, body').animate({ scrollTop : comments.prev('.livefyre-header').offset().top }, 1000);
         }
       });
 
