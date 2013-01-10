@@ -81,10 +81,14 @@ function fboauth_action_connect($app_id, $access_token) {
   // If the Facebook e-mail address matches an existing account, bind them
   // together and log in as that account.
   elseif (!empty($fbuser->email) && ($account = user_load_by_mail($fbuser->email))) {
-    fboauth_save($account->uid, $fbuser->id);
-
+    // If the user is already logged in, associate the two accounts.
+    if ($user->uid) {
+      fboauth_save($user->uid, $fbuser->id);
+      drupal_set_message(t('You\'ve connected your account with Facebook.'));
+    }
     // Logins will be denied if the user's account is blocked.
-    if (fboauth_login_user($account)) {
+    elseif (fboauth_login_user($account)) {
+      fboauth_save($account->uid, $fbuser->id);
       drupal_set_message(t('You\'ve connected your account with Facebook.'));
     }
   }
@@ -114,7 +118,7 @@ function fboauth_action_connect($app_id, $access_token) {
     }
     // Since user's can't create new accounts on their own, show an error.
     else {
-      drupal_set_message('Your Facebook e-mail address does not match any existing accounts. If you have an account, you must first log in before you can connect your account to Facebook. Creation of new accounts on this site is disabled.');
+      drupal_set_message(t('Your Facebook e-mail address does not match any existing accounts. If you have an account, you must first log in before you can connect your account to Facebook. Creation of new accounts on this site is disabled.'));
     }
   }
 }
@@ -130,7 +134,12 @@ function fboauth_action_deauth($app_id, $access_token) {
 
   // If successful, also remove the uid-fbid pairing.
   if (!is_array($result) && $result) {
+    $fbid = fboauth_fbid_load($user->uid);
     fboauth_save($user->uid, NULL);
+
+    // Allow other modules to hook into a deauth event.
+    module_invoke_all('fboauth_deauthorize', $user->uid, $fbid);
+
     drupal_set_message(t('Your account has been disconnected from Facebook.'));
   }
   else {
@@ -297,7 +306,9 @@ function fboauth_access_token($code, $action_name, $app_id = NULL, $app_secret =
   $authentication_result = drupal_http_request($token_url);
 
   if ($authentication_result->code != 200) {
-    watchdog('fboauth', 'Facebook OAuth could not acquire an access token from Facebook. We queried the following URL: <code><pre>@url</pre></code>. Facebook\'s servers returned an error @error: <code><pre>@return</pre></code>', array('@url' => $token_url, '@error' => $authentication_result->code, '@return' => check_plain(print_r($authentication_result->data, TRUE))));
+    $error = !empty($authentication_result->error) ? $authentication_result->error : t('(no error returned)');
+    $data = !empty($authentication_result->data) ? print_r($authentication_result->data, TRUE) : t('(no data returned)');
+    watchdog('fboauth', 'Facebook OAuth could not acquire an access token from Facebook. We queried the following URL: <code><pre>@url</pre></code>. Facebook\'s servers returned an error @error: <code><pre>@return</pre></code>', array('@url' => $token_url, '@error' => $error, '@return' => $data));
   }
   else {
     // The result from Facebook comes back in a query-string-like format,
@@ -683,9 +694,9 @@ function fboauth_graph_query($id, $access_token = NULL, $parameters = array(), $
     $parameters['access_token'] = $access_token;
   }
 
-  if ($method == 'GET') {
+  if ($method == 'GET' || $method == 'DELETE') {
     $graph_url = url('https://graph.facebook.com/' . $id, array('absolute' => TRUE, 'query' => $parameters));
-    $graph_result = drupal_http_request($graph_url);
+    $graph_result = drupal_http_request($graph_url, array('headers' => array(), 'method' => $method));
   }
   elseif ($method == 'POST') {
     $graph_url = 'https://graph.facebook.com/' . $id;
@@ -693,7 +704,7 @@ function fboauth_graph_query($id, $access_token = NULL, $parameters = array(), $
     $graph_result = drupal_http_request($graph_url, array('headers' => array(), 'method' => $method, 'data' => $post_data));
   }
   else {
-    drupal_set_message(t('Invalid request type "@type" for Facebook graphy query. Must be either @get or @post.', array('@type' => $method, '@get' => 'GET', '@post' => 'POST')), 'error');
+    drupal_set_message(t('Invalid request type "@type" for Facebook graphy query. Must be either @get, @post, or @delete.', array('@type' => $method, '@get' => 'GET', '@post' => 'POST', '@delete' => 'DELETE')), 'error');
   }
 
   // If the response contains a redirect (such as to an image), return the

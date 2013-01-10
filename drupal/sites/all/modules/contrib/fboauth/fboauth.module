@@ -77,7 +77,9 @@ function fboauth_block_info() {
 function fboauth_block_view($delta) {
   $block = array();
   if (variable_get('fboauth_id', '') && !fboauth_fbid_load()) {
-    $block['content'] = fboauth_action_display('connect');
+    // Set the redirect to the current page (unless we're on the login page).
+    $redirect = (arg(0) === 'user' && (arg(1) === 'login' || arg(1) == '')) ? NULL : $_GET['q'];
+    $block['content'] = fboauth_action_display('connect', $redirect);
   }
   return $block;
 }
@@ -237,7 +239,7 @@ function fboauth_fbid_load($uid = NULL) {
   $uid = isset($uid) ? $uid : $GLOBALS['user']->uid;
   $result = db_query("SELECT fbid FROM {fboauth_users} WHERE uid = :uid", array(':uid' => $uid));
   $fbid = $result->fetchField();
-  return $fbid ? (int) $fbid : FALSE;
+  return $fbid ? $fbid : FALSE;
 }
 
 /**
@@ -338,6 +340,11 @@ function fboauth_action_link_properties($action_name, $redirect = NULL, $app_id 
     $query['destination'] = $_GET['destination'];
   }
 
+  // Remove the destination path if it's pointing to the front page.
+  if (isset($query['destination']) && $query['destination'] === variable_get('site_frontpage', 'node')) {
+    unset($query['destination']);
+  }
+
   $return = array(
     'query' => array(
       'client_id' => $app_id,
@@ -414,6 +421,7 @@ function theme_fboauth_action__connect($variables) {
   $link = $variables['properties'];
   $url = url($link['href'], array('query' => $link['query']));
   $link['attributes']['class'] = isset($link['attributes']['class']) ? $link['attributes']['class'] : 'facebook-action-connect';
+  $link['attributes']['rel'] = 'nofollow';
   $attributes = isset($link['attributes']) ? drupal_attributes($link['attributes']) : '';
   $title = isset($link['title']) ? check_plain($link['title']) : '';
   $src = ($GLOBALS['is_https'] ? 'https' : 'http') . '://www.facebook.com/images/fbconnect/login-buttons/connect_light_medium_short.gif';
@@ -427,10 +435,10 @@ function theme_fboauth_user_form_connect($variables) {
   $uid = $variables['uid'];
   $fbid = $variables['fbid'];
   if ($fbid) {
-    $output = t('Your account is connected with Facebook. (<a href="!url">More info</a>)', array('!url' => url('user/' . $uid . '/fboauth')));
+    $output = t('Your account is connected with Facebook. (<a href="!url">More info</a>)', array('!url' => url('user/' . $uid . '/fboauth', array('query' => drupal_get_destination()))));
   }
   else {
-    $output = fboauth_action_display('connect');
+    $output = fboauth_action_display('connect', $_GET['q']);
     $output .= '<div class="description">' . t('Connect with Facebook to login with your Facebook account instead of a password.') . '</div>';
   }
   return $output;

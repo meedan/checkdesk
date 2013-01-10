@@ -17,6 +17,7 @@ function views_bulk_operations_modify_action_info() {
     // "Create an advanced action" dropdown on admin/config/system/actions.
     'configurable' => FALSE,
     'vbo_configurable' => TRUE,
+    'triggers' => array('any'),
   ));
 }
 

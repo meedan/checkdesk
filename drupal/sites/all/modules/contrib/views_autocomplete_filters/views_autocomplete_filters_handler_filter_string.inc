@@ -26,9 +26,18 @@ class views_autocomplete_filters_handler_filter_string extends views_handler_fil
   function expose_form(&$form, &$form_state) {
     parent::expose_form($form, $form_state);
 
-    $field_options = $this->view->display_handler->get_field_labels();
+    $field_options_all = $this->view->display_handler->get_field_labels();
+    // limit options to fields with the same name
+    foreach ($this->view->display_handler->get_handlers('field') as $id => $handler) {
+      if ($handler->real_field == $this->real_field) {
+        $field_options[$id] = $field_options_all[$id];
+      }
+    }
     if (empty($field_options)) {
       $field_options[''] = t('<Add some fields to view>');
+    }
+    elseif (empty($this->options['expose']['autocomplete_field']) && !empty($field_options[$this->options['id']])) {
+      $this->options['expose']['autocomplete_field'] = $this->options['id'];
     }
 
     // Build form elements for the right side of the exposed filter form
@@ -92,7 +101,7 @@ class views_autocomplete_filters_handler_filter_string extends views_handler_fil
     }
     
     // Add autocomplete path to the exposed textfield.
-    $form['value']['#autocomplete_path'] = 'autocomplete_filter/' . $this->field . '/' . $this->view->name . '/' . $this->view->current_display;
+    $form['value']['#autocomplete_path'] = 'autocomplete_filter/' . $this->options['id'] . '/' . $this->view->name . '/' . $this->view->current_display;
     
     // Add JS script with core autocomplete overrides to the end of JS files
     // list to be sure it is added after the "misc/autocomplete.js" file. Also
@@ -112,7 +121,7 @@ class views_autocomplete_filters_handler_filter_string extends views_handler_fil
 
     if (!empty($this->options['exposed']) && !empty($this->options['expose']['autocomplete_filter'])) {
       $fields = $this->view->display_handler->get_handlers('field');
-      $field_name = $this->options['expose']['autocomplete_field'];
+      $field_name = !empty($this->options['expose']['autocomplete_field']) ? $this->options['expose']['autocomplete_field'] : $this->options['id'];
       if (empty($field_name) || empty($fields[$field_name])) {
         $errors[] = t('Field with autocomplete results is not selected for %label filter.', array(
           '%label' => $this->ui_name(TRUE),

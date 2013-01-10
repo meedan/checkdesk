@@ -74,6 +74,11 @@
  *   - status: (optional) The name of the entity property used by the entity
  *     CRUD API to save the exportable entity status using defined bit flags.
  *     Defaults to 'status'. See entity_has_status().
+ *   - default revision: (optional) The name of the entity property used by
+ *     the entity CRUD API to determine if a newly-created revision should be
+ *     set as the default revision. Defaults to 'default_revision'.
+ *     Note that on entity insert the created revision will be always default
+ *     regardless of the value of this entity property.
  * - export: (optional) An array of information used for exporting. For ctools
  *   exportables compatibility any export-keys supported by ctools may be added
  *   to this array too.
@@ -198,6 +203,8 @@ function entity_crud_hook_entity_info() {
  *   this type.
  * - deletion callback: (optional) A callback that permanently deletes an
  *   entity of this type.
+ * - revision deletion callback: (optional) A callback that deletes a revision
+ *   of the entity.
  * - view callback: (optional) A callback to render a list of entities.
  *   See entity_metadata_view_node() as example.
  * - form callback: (optional) A callback that returns a fully built edit form
