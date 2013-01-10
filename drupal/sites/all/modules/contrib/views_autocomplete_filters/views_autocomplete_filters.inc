@@ -34,13 +34,21 @@ function views_autocomplete_filter($filter_name, $view_name, $display_name, $str
 
   // Determine field which will be used for output.
   if (empty($expose_options['autocomplete_field'])) {
-    // Field is not set, report about it to watchdog and return empty array.
-    watchdog('views_autocomplete_filters', 'Field for autocomplete filter %label is not set in view %view, display %display', array(
-      '%label' => $expose_options['label'],
-      '%view' => $view->name,
-      '%display' => $display->id,
-    ), WATCHDOG_ERROR);
-    return drupal_json_output(array());
+    if ($view->get_item($display_name, 'field', $filters[$filter_name]['id'])) {
+      $field_name = $filters[$filter_name]['id'];
+      // force raw data for no autocomplete field defined.
+      $expose_options['autocomplete_raw_suggestion'] = 1;
+      $expose_options['autocomplete_raw_dropdown'] = 1;
+    }
+    else {
+      // Field is not set, report about it to watchdog and return empty array.
+      watchdog('views_autocomplete_filters', 'Field for autocomplete filter %label is not set in view %view, display %display', array(
+        '%label' => $expose_options['label'],
+        '%view' => $view->name,
+        '%display' => $display->id,
+      ), WATCHDOG_ERROR);
+      return drupal_json_output(array());
+    }
   }
   else {
     $field_name = $expose_options['autocomplete_field'];
@@ -58,9 +66,6 @@ function views_autocomplete_filter($filter_name, $view_name, $display_name, $str
     return drupal_json_output(array());
   }
 
-  // Overwrite the fields for the view with only one field we need.
-  $display_handler->set_option('fields', array($field_name => $field_options));
-  
   // Collect exposed filter values and set them to the view.
   if (!empty($expose_options['autocomplete_dependent'])) {
     $exposed_input = $_GET;
@@ -99,23 +104,34 @@ function views_autocomplete_filter($filter_name, $view_name, $display_name, $str
   // Render field on each row and fill matches array.
   $use_raw_suggestion = !empty($expose_options['autocomplete_raw_suggestion']);
   $use_raw_dropdown = !empty($expose_options['autocomplete_raw_dropdown']);
-  $field = $view->field[$field_name];
-  $field_alias = $field->field_alias;
   
   $matches = array();
   $view->row_index = 0;
-  foreach ($view->result as $count => $row) {
-    $view->row_index = $count;
+  foreach ($view->result as $index => $row) {
+    $view->row_index = $index;
     $rendered_field = $raw_field = '';
 
     // Render field only if suggestion or dropdown item not in RAW format.
     if (!$use_raw_suggestion || !$use_raw_dropdown) {
-      $rendered_field = $field->theme($row);
+      $rendered_field = $view->style_plugin->get_field($index, $field_name);
+    }
+    // Get the raw field value only if suggestion or dropdown item is in RAW format.
+    if ($use_raw_suggestion || $use_raw_dropdown) {
+      $raw_field = $view->style_plugin->get_field_value($index, $field_name);
+      if (is_array($raw_field)) {
+        $values = array();
+        foreach ($raw_field as $delta => $item) {
+          if (isset($item['value'])) {
+            $values[] = $item['value'];
+          }
+        }
+        $raw_field = implode(', ', $values);
+      }
     }
     
-    $dropdown = $use_raw_dropdown ? check_plain($row->{$field_alias}) : $rendered_field;
+    $dropdown = $use_raw_dropdown ? check_plain($raw_field) : $rendered_field;
     if ($dropdown != '') {
-      $suggestion = $use_raw_suggestion ? $row->{$field_alias} : decode_entities($rendered_field);
+      $suggestion = $use_raw_suggestion ? check_plain($raw_field) : decode_entities($rendered_field);
 
       // Add a class wrapper for a few required CSS overrides.
       $matches[$suggestion] = '<div class="reference-autocomplete">' . $dropdown . '</div>';

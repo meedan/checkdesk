@@ -728,6 +728,15 @@ class EntityDrupalWrapper extends EntityStructureWrapper {
   }
 
   /**
+   * Returns the entity prepared for rendering.
+   *
+   * @see entity_view()
+   */
+  public function view($view_mode = 'full', $langcode = NULL, $page = NULL) {
+    return entity_view($this->type(), array($this->value()), $view_mode, $langcode, $page);
+  }
+
+  /**
    * Overridden to support setting the entity by either the object or the id.
    */
   public function set($value) {

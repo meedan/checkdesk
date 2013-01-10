@@ -54,7 +54,11 @@ define('ENTITY_FIXED', 0x04 | 0x02);
  * @param $entity_type
  *   The type of the entity.
  * @param $op
- *   One of 'create', 'view', 'save', 'delete', 'access' or 'form'.
+ *   One of 'create', 'view', 'save', 'delete', 'revision delete', 'access' or
+ *   'form'.
+ *
+ * @return boolean
+ *   Whether the entity type supports the given operation.
  */
 function entity_type_supports($entity_type, $op) {
   $info = entity_get_info($entity_type);
@@ -62,6 +66,7 @@ function entity_type_supports($entity_type, $op) {
     'view' => 'view callback',
     'create' => 'creation callback',
     'delete' => 'deletion callback',
+    'revision delete' => 'revision deletion callback',
     'save' => 'save callback',
     'access' => 'access callback',
     'form' => 'form callback'
@@ -69,12 +74,16 @@ function entity_type_supports($entity_type, $op) {
   if (isset($info[$keys[$op]])) {
     return TRUE;
   }
-  if ($op != 'access' && in_array('EntityAPIControllerInterface', class_implements($info['controller class']))) {
-    return TRUE;
+  if ($op == 'revision delete') {
+    return in_array('EntityAPIControllerInterface', class_implements($info['controller class']));
   }
-  if ($op == 'form' && entity_ui_controller($entity_type)) {
-    return TRUE;
+  if ($op == 'form') {
+    return (bool) entity_ui_controller($entity_type);
   }
+  if ($op != 'access') {
+    return in_array('EntityAPIControllerInterface', class_implements($info['controller class']));
+  }
+  return FALSE;
 }
 
 /**
@@ -230,6 +239,109 @@ function entity_delete_multiple($entity_type, $ids) {
   }
   else {
     return FALSE;
+  }
+}
+
+/**
+ * Loads an entity revision.
+ *
+ * @param $entity_type
+ *   The type of the entity.
+ * @param $revision_id
+ *   The id of the revision to load.
+ *
+ * @return
+ *   The entity object, or FALSE if there is no entity with the given revision
+ *   id.
+ */
+function entity_revision_load($entity_type, $revision_id) {
+  $info = entity_get_info($entity_type);
+  if (!empty($info['entity keys']['revision'])) {
+    $entity_revisions = entity_load($entity_type, FALSE, array($info['entity keys']['revision'] => $revision_id));
+    return reset($entity_revisions);
+  }
+  return FALSE;
+}
+
+/**
+ * Deletes an entity revision.
+ *
+ * @param $entity_type
+ *   The type of the entity.
+ * @param $revision_id
+ *   The revision ID to delete.
+ *
+ * @return
+ *   TRUE if the entity revision could be deleted, FALSE otherwise.
+ */
+function entity_revision_delete($entity_type, $revision_id) {
+  $info = entity_get_info($entity_type);
+  if (isset($info['revision deletion callback'])) {
+    return $info['revision deletion callback']($revision_id, $entity_type);
+  }
+  elseif (in_array('EntityAPIControllerRevisionableInterface', class_implements($info['controller class']))) {
+    return entity_get_controller($entity_type)->deleteRevision($revision_id);
+  }
+  return FALSE;
+}
+
+/**
+ * Checks whether the given entity is the default revision.
+ *
+ * Note that newly created entities will always be created in default revision,
+ * thus TRUE is returned for not yet saved entities.
+ *
+ * @param $entity_type
+ *   The type of the entity.
+ * @param $entity
+ *   The entity object to check.
+ *
+ * @return boolean
+ *   A boolean indicating whether the entity is in default revision is returned.
+ *   If the entity is not revisionable or is new, TRUE is returned.
+ *
+ * @see entity_revision_set_default()
+ */
+function entity_revision_is_default($entity_type, $entity) {
+  $info = entity_get_info($entity_type);
+  if (empty($info['entity keys']['revision'])) {
+    return TRUE;
+  }
+  // Newly created entities will always be created in default revision.
+  if (!empty($entity->is_new) || empty($entity->{$info['entity keys']['id']})) {
+    return TRUE;
+  }
+  if (in_array('EntityAPIControllerRevisionableInterface', class_implements($info['controller class']))) {
+    $key = !empty($info['entity keys']['default revision']) ? $info['entity keys']['default revision'] : 'default_revision';
+    return !empty($entity->$key);
+  }
+  else {
+    // Else, just load the default entity and compare the ID. Usually, the
+    // entity should be already statically cached anyway.
+    $default = entity_load_single($entity_type, $entity->{$info['entity keys']['id']});
+    return $default->{$info['entity keys']['revision']} == $entity->{$info['entity keys']['revision']};
+  }
+}
+
+/**
+ * Sets a given entity revision as default revision.
+ *
+ * Note that the default revision flag will only be supported by entity types
+ * based upon the EntityAPIController, i.e. implementing the
+ * EntityAPIControllerRevisionableInterface.
+ *
+ * @param $entity_type
+ *   The type of the entity.
+ * @param $entity
+ *   The entity revision to update.
+ *
+ * @see entity_revision_is_default()
+ */
+function entity_revision_set_default($entity_type, $entity) {
+  $info = entity_get_info($entity_type);
+  if (!empty($info['entity keys']['revision'])) {
+    $key = !empty($info['entity keys']['default revision']) ? $info['entity keys']['default revision'] : 'default_revision';
+    $entity->$key = TRUE;
   }
 }
 
@@ -903,14 +1015,16 @@ function template_preprocess_entity(&$variables) {
   $info = entity_get_info($entity_type);
 
   $variables['title'] = check_plain(entity_label($entity_type, $entity));
+
+  $uri = entity_uri($entity_type, $entity);
+  $variables['url'] = $uri ? url($uri['path'], $uri['options']) : FALSE;
+
   if (isset($variables['elements']['#page'])) {
     // If set by the caller, respect the page property.
     $variables['page'] = $variables['elements']['#page'];
   }
   else {
     // Else, try to automatically detect it.
-    $uri = entity_uri($entity_type, $entity);
-    $variables['url'] = $uri ? url($uri['path'], $uri['options']) : FALSE;
     $variables['page'] = $uri && $uri['path'] == $_GET['q'];
   }
 
@@ -1219,15 +1333,6 @@ function entity_module_implements_alter(&$implementations, $hook) {
 function entity_entity_info_alter(&$entity_info) {
   _entity_info_add_metadata($entity_info);
 
-  // Modules are using entity_load() in hook_entity_info_alter() to add
-  // their bundle-info. This might trigger the field API cache to be built,
-  // which makes use of the bundle-info. In that case the field-info cache would
-  // have been built with in-complete bundle-info, thus we clear it so it is
-  // rebuilt with complete bundle-info the next time field-info is requested.
-  _field_info_collate_fields(TRUE);
-  // To be sure, also clear the property info cache as it depends on field info.
-  entity_property_info_cache_clear();
-
   // Populate a default value for the 'configuration' key of all entity types.
   foreach ($entity_info as $type => $info) {
     if (!isset($info['configuration'])) {
@@ -1253,11 +1358,13 @@ function _entity_info_add_metadata(&$entity_info) {
   // Set access callbacks.
   $entity_info['node']['access callback'] = 'entity_metadata_no_hook_node_access';
   $entity_info['user']['access callback'] = 'entity_metadata_user_access';
+  $entity_info['file']['access callback'] = 'entity_metadata_file_access';
 
   // CRUD function callbacks.
   $entity_info['node']['creation callback'] = 'entity_metadata_create_node';
   $entity_info['node']['save callback'] = 'node_save';
   $entity_info['node']['deletion callback'] = 'node_delete';
+  $entity_info['node']['revision deletion callback'] = 'node_revision_delete';
   $entity_info['user']['creation callback'] = 'entity_metadata_create_object';
   $entity_info['user']['save callback'] = 'entity_metadata_user_save';
   $entity_info['user']['deletion callback'] = 'user_delete';

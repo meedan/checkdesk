@@ -268,6 +268,21 @@ class Entity {
   }
 
   /**
+   * Checks whether the entity is the default revision.
+   *
+   * @return Boolean
+   *
+   * @see entity_revision_is_default()
+   */
+  public function isDefaultRevision() {
+    if (!empty($this->entityInfo['entity keys']['revision'])) {
+      $key = !empty($this->entityInfo['entity keys']['default revision']) ? $this->entityInfo['entity keys']['default revision'] : 'default_revision';
+      return !empty($this->$key);
+    }
+    return TRUE;
+  }
+
+  /**
    * Magic method to only serialize what's necessary.
    */
   public function __sleep() {

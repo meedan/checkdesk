@@ -69,7 +69,9 @@ function fboauth_profile_form_alter(&$form, &$form_state) {
  * Submit handler for the Facebook OAuth settings form.
  */
 function fboauth_profile_form_submit(&$form, &$form_state) {
-  variable_set('fboauth_user_profile', array_filter($form_state['values']['fboauth_user_profile']));
+  if (isset($form_state['values']['fboauth_user_profile'])) {
+    variable_set('fboauth_user_profile', array_filter($form_state['values']['fboauth_user_profile']));
+  }
 }
 
 /**
@@ -126,11 +128,18 @@ function fboauth_profile_create_user(&$edit, $fbuser) {
         case 'url':
         default:
           // We can't import anything other than strings into textfields.
-          if (!is_string($fbuser->$facebook_property_name)) {
-            break;
+          if (is_string($fbuser->$facebook_property_name)) {
+            $edit[$profile_field_name] = $fbuser->$facebook_property_name;
           }
-
-          $edit[$profile_field_name] = $fbuser->$facebook_property_name;
+          // If the property is an object, try common keys that are strings.
+          elseif (is_object($fbuser->$facebook_property_name)) {
+            $object = $fbuser->$facebook_property_name;
+            // Locations, Signficant Other, Hometown, and other properties use "name"
+            // as the human-readable value in the object.
+            if (isset($object->name)) {
+              $edit[$profile_field_name] = $object->name;
+            }
+          }
           break;
       }
     }

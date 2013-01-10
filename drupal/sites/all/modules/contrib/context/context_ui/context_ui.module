@@ -204,7 +204,7 @@ function context_ui_editor($form, &$form_state, $contexts) {
 
   $form['stop'] = array(
     '#markup' => l(t('Stop Editing Layout'), 'context-ui/deactivate', array(
-        'query' => array('destination' => request_path()),
+        'query' => array('destination' => current_path()),
         'attributes' => array('class' => array('context_ui_dialog-stop')),
       )
     ),
