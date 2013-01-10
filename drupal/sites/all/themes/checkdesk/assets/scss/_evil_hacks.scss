@@ -34,9 +34,10 @@ i {
 }
 
 // hack for an empty div
-// li.menu-449 {
-//   display: none!important;
-// }
+nav li.menu-449 {
+  display: none!important;
+  border: 1px solid red!important;
+}
 
 // Hide the summary link from text fields.
 // FIXME This is a hack because the fields are of type "Long text and summary" while they should really be of type "Long text".
@@ -67,12 +68,6 @@ p br { display: none; } // hack to remove br's from content
 // Drupal autocomplete indicator is appearing broken
 input.form-autocomplete {
   background-image: none!important; // Remove the drupal autocomplete image
-}
-
-// HACK to hide this until there is room
-li.menu-680 {
-  // display: none!important;
-  // @include at-breakpoint($break-medium) {display: block!important;}
 }
 
 // hide unnecessary elements in forms

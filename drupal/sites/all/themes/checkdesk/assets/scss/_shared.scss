@@ -7,58 +7,6 @@
 // Typography, resets, transitions, floated, block level, padded
 // with base font size and colors defined in colors.scss
 //
-@mixin building-block(
-  $nav-bkg-color: $nav-bkg-color,
-  $nav-active-bkg-color: $nav-active-bkg-color,
-  $nav-color: $nav-color,
-  $nav-active-color: $nav-active-color,
-  $base-font-size: $nav-font-size,
-  $radius: 0) 
-  {
-  @include reset-box-model;
-  display: inline-block;
-  float: $from-direction;
-  line-height: $nav-height;
-  font-size: $nav-icon-height;
-  background-color: $nav-bkg-color;
-  color: $nav-color;
-  font-weight: normal;
-  position: relative;
-  z-index: $zindexDropdown - 1; 
-  font-size: $base-font-size;
-  padding: ms(-1);
-  & > a {
-    text-decoration: none; 
-    color: $nav-color;
-    line-height: $base-line-height;
-    font-size: $base-font-size;
-    display: inline-block;
-    @include border-radius($radius);
-    &:hover {
-      color: $nav-active-color;
-      font-weight: normal;
-    }
-  }
-
-  @include border-radius($radius);
-  @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
-  @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.2s', 'background-color');
-  
-  // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
-  &:hover, 
-  &.active {
-    background-color: $nav-active-bkg-color;
-    color: $nav-active-color;
-  }
-
-  // An anchor inside the chunky block, (without the bkg color duplicated)
-  &.active > a, 
-  a.active {
-    color: $nav-active-color;
-  }
-
-  @content
-}
 
 
 // Layout Helper: Ensure padding is accounted for.

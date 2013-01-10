@@ -106,7 +106,7 @@ $modal-width: 456px;
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
 
   .btn {
-    @include building_block;
+    // @include nav-building-block;
     background-color: $grey;
     // padding: { top: 0.5em; bottom: 0.5em;} 
     a, a:visited, a:link {

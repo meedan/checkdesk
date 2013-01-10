@@ -10,7 +10,7 @@
     border-color: rgba(green, 0.3);
   }
 }
-`
+
 // Form Actions (eg submit button)
 //
 @mixin form-actions($w) {
@@ -32,11 +32,13 @@
     border: 1px solid $grey;
   }
 
-  // Blue buttons
+  // buttons
   input#edit-submit, 
   .form-submit {
     @include checkdesk-button($twitter-blueish);
   }
+  
+
 }
 
 // In addition to our use of normalize, and other resets, 
@@ -119,14 +121,14 @@
 // ============================================================================
 // The forms 
 //
-@mixin cd-form($w, $context, $gw: 0px) {
+@mixin cd-form($w, $context, $gw: $gw) {
   form {
     @include form-standardize;
     @include form-actions($w);
     @include form-pass($w, $context);
     @include form-drag-and-drop;
     @include span-columns($w, $context, $gw);
-    @content;
+    @content; // if you want to pass in padding via breakpoints
 
     & > .form-item {
       @include reset-box-model;
@@ -177,13 +179,25 @@
       display: block;
       font-weight: normal;
       padding { top: $gw; bottom: $gw; }
+
+      &[for="edit-pass"] {
+        a  {
+          padding: $gw;
+          font-size: $small-font-size;
+          color: $grey;
+          font-weight: normal;
+        }
+      }
     }
+
 
     // Default descriptions
     .description {
       clear: $from-direction;
       font-size: ms(-1);
       display: none; // displayed at larger breakpoints
+      padding: 0.5em 0;
+      color: rgba(black, 0.75);
     }
 
     // little links: create new account, forgot password 
@@ -245,7 +259,6 @@
 // Breakpoint: medium
 @include at-breakpoint($break-medium) {
   $break: $break-medium;
-  
 }
 
 // Breakpoint: large
