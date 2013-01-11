@@ -68,7 +68,6 @@ li.menu-477 {
     }
   }
 
-  @include border-radius($radius);
   @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
   @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.2s', 'background-color');
   

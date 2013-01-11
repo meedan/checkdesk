@@ -5,6 +5,7 @@
     padding: 0; //  ... thus we can have no padding
   }
 
+  // This is not the same as the design.
   .ui-droppable.drop-hover textarea {
     background-color: rgba(green, 0.1);
     border-color: rgba(green, 0.3);
@@ -24,7 +25,7 @@
     }
   }
 
-  // Grey buttons
+  // De-emphasized buttons
   input#edit-reset, 
   input#edit-draft, 
   input[type="reset"] {
@@ -37,8 +38,6 @@
   .form-submit {
     @include checkdesk-button($twitter-blueish);
   }
-  
-
 }
 
 // In addition to our use of normalize, and other resets, 

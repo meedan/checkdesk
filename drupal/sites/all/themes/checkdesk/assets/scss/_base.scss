@@ -3,7 +3,7 @@
 // ## Checkdesk Theme 
 // Typography: webfonts
 //
-// Apparently these webfont @imports are best served first.
+// Webfont @imports are best served first.
 // As per https://github.com/chriseppstein/compass/issues/639
 // - CGB Nov 2012
 //
@@ -42,7 +42,7 @@ $base-line-height: 1.5;
 $container-style: magic;
 
 // Columns count and breakpoints
-$container-width: 6;
+$container-width: 6; // Mobile first
 $total-columns: $container-width; // Alias for Susy
 $break-small: 12; 
 $break-medium: 24;
@@ -116,6 +116,7 @@ $rw: $report-width;
 $nw: $nav-width;
 
 // Forms
+// =============================================================================
 $label-width: $cw/2;
 $checkbox-width: 25px;
 

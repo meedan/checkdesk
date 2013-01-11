@@ -76,8 +76,9 @@
         }
 
         form {
+          // see _forms.scss
           @include span-columns($pw, $pw, $gw);
-          background: white;
+          background: rgb(244, 244, 244);
           label {
             color: $dark-grey;
             font-family: $sans-font-family;
@@ -91,9 +92,6 @@
           padding-top: 1em;
           background-color: white;
           border-top: 1px solid $grey;
-          // margin-top: $base-font-size;
-          // background: white;
-          // padding: $gw; // children are no longer aligned to grid ...
         }
       }
     }
@@ -133,6 +131,7 @@
     @include pad(0, 0); //reset container padding
     
     @include cd-form($sw, $break, $gw) {
+      border: 1px solid $light-grey;
       // form { padding: 0!important; } // reset form padding
     }
 
