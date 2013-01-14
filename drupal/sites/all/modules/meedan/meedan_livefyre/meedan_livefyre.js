@@ -2,11 +2,10 @@
 // START jQuery
 
 Drupal.livefyre = {
-  streams: [],  // Current streams
-  widgets: [],  // Elements where LiveFyre content is loaded in
+  el: 'livefyre-current', // Reference to the container in which LiveFyre comments are loaded
   widget: null, // Reference to the object created by LiveFyre
   callback: function(widget) {
-    Drupal.livefyre.widget = widget;
+    if (!Drupal.livefyre.widget) Drupal.livefyre.widget = widget;
     widget.on('initialRenderComplete', function(data) {
       $('.livefyre-loading').remove();
       if ($('.livefyre-comments:visible').length) $('html, body').animate({ scrollTop : $('.livefyre-comments:visible').prev('.livefyre-header').offset().top }, 1000);
@@ -21,33 +20,6 @@ Drupal.behaviors.livefyre = {
   attach: function(context, settings) {
     try {
 
-      // Prepare streams
-      var streams = [];
-      var index = 0;
-      $.each(settings.livefyre, function(nid, setting) {
-        // Keep the same ids as the first page load
-        if (window.FyreLoader) {
-          setting.streamConfig.el = Drupal.livefyre.widgets[index];
-          $('.livefyre-comments:eq(' + index + ')').attr('id', setting.streamConfig.el);
-          index++;
-        }
-        streams.push(setting.streamConfig);
-      });
-      delete Drupal.settings.livefyre;
-      Drupal.livefyre.streams = streams;
-
-      // First time, when the page loads
-      if (!window.FyreLoader) {
-        $.each(streams, function(index, stream) {
-          Drupal.livefyre.widgets.push(stream.el);
-        });
-        fyre.conv.load(
-          {},
-          streams,
-          Drupal.livefyre.callback 
-        );
-      }
-
       // Show or hide comments
       $('.livefyre-header', context).unbind('click').click(function() {
         var comments = $('.livefyre-comments', $(this).parent());
@@ -56,12 +28,26 @@ Drupal.behaviors.livefyre = {
         }
         else {
           $('.livefyre-comments').hide();
-          comments.show();
-          if (!comments.find('.fyre-widget').length) {
-            $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
-            Drupal.livefyre.widget.changeCollection(Drupal.livefyre.streams[$('.livefyre-comments').index(comments)]);
+          $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
+          var key = 'livefyre-' + comments.attr('data-nid');
+          var stream = Drupal.settings.livefyre[key].streamConfig;
+          stream.el = Drupal.livefyre.el;
+          $('#' + stream.el).attr('id', 'livefyre-' + $('#' + stream.el).attr('data-nid'));
+          comments.attr('id', stream.el);
+
+          if (window.FyreLoader) {
+            Drupal.livefyre.widget.changeCollection(stream);
           }
-          else $('html, body').animate({ scrollTop : comments.prev('.livefyre-header').offset().top }, 1000);
+          
+          else {
+            fyre.conv.load(
+              {},
+              [stream],
+              Drupal.livefyre.callback 
+            );
+          }
+
+          comments.show();
         }
       });
 

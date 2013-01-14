@@ -68,6 +68,7 @@ Drupal.behaviors.views_autorefresh = {
                 Drupal.settings.views_autorefresh[settings.view_name].ajax = new Drupal.ajax(view, this, element_settings);
 
                 // Activate refresh timer.
+                clearTimeout(Drupal.settings.views_autorefresh[settings.view_name].timer);
                 Drupal.views_autorefresh.timer(settings.view_name, anchor, target);
               }); // .each function () {
         }); // $view.filter().each

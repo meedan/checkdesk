@@ -957,7 +957,11 @@ print t(\'No content available\');
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
-  \'incremental\' => FALSE,
+  \'incremental\' => array(
+    \'view_base_path\' => \'liveblog/autorefresh\',
+    \'view_display_id\' => \'page_1\',
+    \'view_name\' => \'liveblog\',
+  ),
 ));
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
