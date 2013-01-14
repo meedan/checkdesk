@@ -50,13 +50,13 @@ function theme_livefyre_comments($variables) {
   drupal_add_js(MEEDAN_LIVEFYRE_SCRIPT, 'external');
   drupal_add_js(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.js');
   drupal_add_css(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.css');
-  drupal_add_js(array('livefyre' => array("nid-$node->nid" => array(
+  drupal_add_js(array('livefyre' => array("livefyre-$node->nid" => array(
     'nid' => $node->nid,
     'streamConfig' => $streamConfig,
   ))), 'setting');
   $output  = '<div class="livefyre-wrapper">';
   $output .= '<div class="livefyre-header">' . theme('livefyre_commentcount', array('node' => $node)) . '</div>';
-  $output .= '<div class="livefyre-comments" id="livefyre-' . $node->nid . '"></div>';
+  $output .= '<div class="livefyre-comments" data-nid="' . $node->nid . '" id="livefyre-' . $node->nid . '"></div>';
   $output .= '</div>';
   return $output;
 }
