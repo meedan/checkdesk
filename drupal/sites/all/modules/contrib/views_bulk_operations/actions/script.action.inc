@@ -6,6 +6,7 @@ function views_bulk_operations_script_action_info() {
     'type' => 'entity',
     'label' => t('Execute arbitrary PHP script'),
     'configurable' => TRUE,
+    'triggers' => array('any'),
   );
   // Provide a strict default permission if actions_permissions is disabled.
   if (!module_exists('actions_permissions')) {

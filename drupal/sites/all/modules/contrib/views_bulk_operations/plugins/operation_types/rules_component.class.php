@@ -9,6 +9,15 @@
 class ViewsBulkOperationsRulesComponent extends ViewsBulkOperationsBaseOperation {
 
   /**
+   * Returns the access bitmask for the operation, used for entity access checks.
+   *
+   * Rules has its own permission system, so the lowest bitmask is enough.
+   */
+  public function getAccessMask() {
+    return VBO_ACCESS_OP_VIEW;
+  }
+
+  /**
    * Returns whether the provided account has access to execute the operation.
    *
    * @param $account

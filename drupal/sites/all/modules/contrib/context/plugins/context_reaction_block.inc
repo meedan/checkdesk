@@ -640,6 +640,11 @@ class context_reaction_block extends context_reaction {
     if (strpos($param, ',') !== FALSE) {
       list($bid, $context) = explode(',', $param);
       list($module, $delta) = explode('-', $bid, 2);
+      // Check token to make sure user has access to block.
+      if (empty($_GET['context_token']) || $_GET['context_token'] != drupal_get_token($bid)) {
+        echo drupal_json_encode(array('status' => 0));
+        exit;
+      }
 
       // Ensure $bid is valid.
       $info = $this->get_blocks();

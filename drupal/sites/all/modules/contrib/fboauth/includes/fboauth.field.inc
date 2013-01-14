@@ -154,7 +154,7 @@ function fboauth_field_convert_location($facebook_property_name, $fbuser, $field
  */
 function fboauth_field_convert_list($facebook_property_name, $fbuser, $field, $instance) {
   // We can't import anything other than strings into selects.
-  if (!is_string($fbuser->$facebook_property_name)) {
+  if (empty($facebook_property_name) || !is_string($fbuser->$facebook_property_name)) {
     return;
   }
 
