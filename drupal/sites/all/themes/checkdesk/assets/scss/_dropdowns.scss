@@ -52,14 +52,14 @@
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover > a {
   text-decoration: none;
-  color: $dropdown-link-color-hover;
+  color: $dropdownLinkColorHover;
   background-color: $identity;
 }
 
 // Active state
 .dropdown-menu .active > a,
 .dropdown-menu .active > a:hover {
-  color: $dropdown-link-color-active;
+  color: $dropdownLinkColorActive;
   text-decoration: none;
   outline: 0;
   background-color: $identity;
@@ -68,7 +68,7 @@
 // Disabled state
 .dropdown-menu .disabled > a,
 .dropdown-menu .disabled > a:hover {
-  color: $dropdown-link-color;
+  color: $dropdownLinkColor;
 }
 
 // Nuke hover effects
