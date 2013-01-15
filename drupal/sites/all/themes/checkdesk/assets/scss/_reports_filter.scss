@@ -39,6 +39,7 @@
     .views-reset-button {
       display: none; // TEMPORARY — CGB
     }
+    
 
     .views-exposed-widget.views-submit-button {
       label {
@@ -63,13 +64,48 @@
   .view-content,
   .views-field, 
   .field-content {
-    border-top: 1px solid $light-grey;
-    @include span-columns($w, $w); // ensure everything clears
+    // @include span-columns($w, $w); // ensure everything clears
+  }
+
+  .views-field-title { 
+    line-height: 1.0;
+    a {
+      font-size: $smaller-font-size;
+      color: $grey;
+    }
+  }
+
+  .views-field-field-link {
+    a {
+      font-weight: 500;
+      color: black;
+    }
+  }
+
+  div.domain {
+    float: $alpha;
+    margin-#{$omega}: $gw/2;
+  }
+
+  div.favicon {
+    float: $alpha;
+    margin-#{$omega}: $gw/2;
+    img {
+      max-width: 16px;
+      max-height: 16px;
+    }
+  }
+
+   // This needs improvement in the markup to capture the right status colors
+  .views-field-field-rating {
+    color: $grey;
   }
 
   .views-row {
-    border-top: 1px solid $grey;
     @include span-columns($w, $w, $gw);
+    padding: { top: $gw; bottom: $gw; }
+    border-top: 1px solid $light-grey;
+    background: white; // for drag and drop
   }
 
 }

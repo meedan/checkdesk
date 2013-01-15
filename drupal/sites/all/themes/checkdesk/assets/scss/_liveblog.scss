@@ -19,7 +19,8 @@
 // Liveblog homepage
 // 
 // Default liveblog layout overrides global default layout 
-body.page-liveblog {
+body.page-liveblog, 
+body.node-type-discussion {
   #main {
     @include liveblog-layout($cw, $cw);
     .view-liveblog {

@@ -4,13 +4,11 @@
 // On create update page
 //
 @mixin form-drag-and-drop() {
-
-  // The Drag
-  // ... or about to drag
-  .views-row.ui-draggable-dragging, 
-  .views-row.ui-draggable:hover {
+  .views-row.ui-draggable-dragging .views-row, 
+  .views-row.ui-draggable:hover .views-row {
     background-color: $postit-yellow;
     cursor: move;
+    @include cd-box-shadow;
     // z-index: 1000000;
     // position: relative;
   }
@@ -60,17 +58,8 @@
 //
 @mixin form-standardize {
   
-  label, input, button, select, textarea {
-    font-size: $base-font-size;
-  }
-
-  input, button, select, textarea {
-    font-family: $sans-font-family;
-  }
-
-  label {
-    display: block;
-  }
+  label, input, button, select, textarea { font-size: $base-font-size; }
+  input, button, select, textarea { font-family: $sans-font-family; }
 
   select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     display: inline-block;
@@ -156,43 +145,54 @@ form textarea {
   height: 200px; // starting height
 }
 
-// When we start writing make it bright
-input:focus, 
-textarea:focus { 
-  background-color: white; 
-}
+form {
+  // checkboxes and radios
+  input[type="checkbox"], 
+  input[type="radio"] {
+    width: $checkbox-width;
+    display: inline-block;
+    clear: both;
+    float: $from-direction;
+  } 
 
-// Default labels
-label {
-  font-size: $large-font-size;
-  display: block;
-  font-weight: normal;
-  padding { top: $gw; bottom: $gw; }
+  // When we start writing make it bright
+  input:focus, 
+  textarea:focus { 
+    background-color: white; 
+  }
 
-  &[for="edit-pass"] {
-    a  {
-      padding: $gw;
-      font-size: $small-font-size;
-      color: $grey;
-      font-weight: normal;
+  // Default labels
+  label {
+    font-size: $large-font-size;
+    display: block;
+    font-weight: normal;
+    padding { top: $gw; bottom: $gw; }
+
+    &[for="edit-pass"] {
+      a  {
+        padding: $gw;
+        font-size: $small-font-size;
+        color: $grey;
+        font-weight: normal;
+      }
     }
   }
-}
 
 
-// Default descriptions
-.description {
-  clear: $from-direction;
-  font-size: ms(-1);
-  display: none; // displayed at larger breakpoints
-  padding: 0.5em 0;
-  color: rgba(black, 0.75);
-}
+  // Default descriptions
+  .description {
+    clear: $from-direction;
+    font-size: ms(-1);
+    display: none; // displayed at larger breakpoints
+    padding: 0.5em 0;
+    color: rgba(black, 0.75);
+  }
 
-// little links: create new account, forgot password 
-// BAD selector here
-.item-list .first.last {
-  font-size: $small-font-size;
+  // little links: create new account, forgot password 
+  // BAD selector here
+  .item-list .first.last {
+    font-size: $small-font-size;
+  }
 }
 
 // Confirmation Form Actions: Confirm delete node
@@ -202,14 +202,6 @@ form.confirmation {
   }
 }
 
-// checkboxes and radios
-input[type="checkbox"], 
-input[type="radio"] {
-  width: $checkbox-width;
-  display: inline-block;
-  clear: both;
-  float: $from-direction;
-} 
 
 // Checkbox labels for checkboxes and radios, aka ".options"
 label.option {
@@ -221,15 +213,13 @@ label.option {
   clear: none;
 }
 
-form {
-  @include form-actions;
-  @include form-drag-and-drop;
-  & > .form-item {
-    clear: both;
-    font-size: $small-font-size;
-    color: $dark-grey;
-    background: rgba($light-grey, 0.5);
-  }
+@include form-actions;
+@include form-drag-and-drop;
+form > .form-item {
+  clear: both;
+  font-size: $small-font-size;
+  color: $dark-grey;
+  background: rgba($light-grey, 0.5);
 }
 
 // ============================================================================

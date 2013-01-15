@@ -6,6 +6,15 @@
 @mixin cd-sidebar($sw, $pw, $break: $cw) {
 
   body.sidebar-first {
+    
+    // no reports
+    .view-empty {
+      clear: both;
+      float: $alpha;
+      font-style: italic;
+      padding: $gw;
+      color: $grey;
+    }
 
     #main {
       @include span-columns($break, $break); //outermost container
@@ -15,7 +24,7 @@
       // 2. The sidebar column
       #sidebar-first.column {
         @include span-columns($sw, $break); // sidebar width
-        margin-#{opposite-position($from-direction)}: 0;
+        margin-#{$omega}: 0;
         margin-top: $base-font-size;
         @include cd-box-shadow();
         background-color: white;
@@ -106,6 +115,10 @@
 // ==========================================================================
 // Default: up to break-small
 @include cd-sidebar($cw, $cw); // full width for secondary and primary cols
+
+.views-row {
+  @extend .report;
+}
 
 // ==========================================================================
 // Breakpoint: small

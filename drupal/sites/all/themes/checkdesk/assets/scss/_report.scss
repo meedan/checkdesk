@@ -4,7 +4,6 @@
 //
 // Compatibility: untested
 
-
 $report-background-color: $light-grey;
 $report-description-background-color: $light-grey;
 $report-footnotes-background-color: darken($light-grey, 10%);
@@ -48,340 +47,317 @@ $report-text-color: $dark-grey;
 				}
 			}
 		}
-
-		ul.report-actions {
-			@include reset-box-model;
-			@include reset-list-style;
-			// display: inline-block;
-			float: $from-direction;
-			// The last dropdown needs to not stick out at smaller sizes
-			li.share-on .dropdown-menu {
-				#{$omega-float}: auto;
-				#{$from-direction}: -75px;
-			}
-
-			& > li {
-				// display: inline-block;
-				float: $from-direction;
-
-				& > a {
-					@include reset-box-model;
-					display: block;
-					padding: $base-font-size/2 0;
-					
-					@include transition-property(all);
-			    @include transition-duration(0.2s);
-				  &:hover { 
-			    	color: black;
-			    	text-decoration: none;
-			    }
-
-					span {
-						@include reset-box-model;
-						float: $from-direction;
-						display: inline-block;
-						margin-#{$from-direction}: $gw;
-						&:hover {
-							color: $identity;
-						}
-
-						// Flag and share on the top of the report
-						&.icon-edit  { @include icon(edit, $small-font-size, $darker-grey); 
-							&:after {content: "Add to";} // HACK Should be in markup #i18n
-						}
-						&.icon-flag  { @include icon(flag, $small-font-size, $darker-grey); } 
-						&.icon-share { @include icon(share, $small-font-size, $darker-grey); }
-					}
-				}
-				// hide ajax throbber in dropdown
-		    .ajax-progress-throbber {
-		    	display: none;
-		  	}
-			}
-		}
 	}
+}
 
-	// Hmmm...	
-	// .node-media.node-promoted {
-	// 	@include icon("star");
-	// }
+// Sensitive content handling
+div.sensitive-hide {
+  display: none;
+}
 
-	// Need more icons!
-	// h3 a[href*="flickr.com"] {
-	// 	@include icon('flickr'); // not available via icon() yet
-	// }
+// Main report content
+.report-content {
+	background-color: $report-background-color;
+	color: $report-text-color;
+	padding: $gw;
 
-	// Twitter reports icon in header
-	//
-	// Kind of useless fancyness to put the icon on the link ... not in the spec
-	h3 > a[href*="twitter.com"] { 
-		@include icon('twitter') {
-			margin: 1px;
-		}
-		&:before {
+	.report-media {
+
+		.container {
 			display: inline-block;
-			@include transform(rotate(-19deg)); // new twitter logo :)
-			font-size: inherit;
-		}
-	}
-
-	div.sensitive-hide {
-	  display: none;
-	}
-
-	.report-content {
-		background-color: $report-background-color;
-		color: $report-text-color;
-		// background-color: darken($grayLighter, 5%);
-		// @include span-columns($rw, $rw);
-		padding: $gw;
-		.report-media {
+			vertical-align: middle;
+			text-align: $from-direction;
+			font-size: $small-font-size;
 			
-			// What is this for?  - CGB
-			/* The ghost, nudged to maintain perfect centering */
-			// .report-media:before {
-			// 	content: '';
-			// 	display: inline-block;
-			// 	height: 100%;
-			// 	vertical-align: middle;
-			// 	margin-right: -0.25em; /* Adjusts for spacing */
-			// }
-
-			.container {
-				display: inline-block;
-				vertical-align: middle;
-				text-align: $from-direction;
-				font-size: $small-font-size;
-
-				// & > div {
-				// 	margin: 0;
-				// }
-				
-				.oembed-content img {
-					width: $report-width-px; // enlarge photos to fit ...
-				}
-
-				.thumbnail img {
-					width: auto;
-					padding: $gw;
-				}
-
-				.oembed-title {
-					display: none;
-				}
-				
-				.title {
-					padding: 0;
-					font-size: $small-font-size;
-				}
-				
-				.content {
-					padding: 0;
-				}
-				
-				.favicon, 
-				.author-img {
-					float: $from-direction;
-					padding: 0 $gw/2;
-					width: auto;
-				}
-				
-				.domain {
-					margin-bottom: $base-line-height;
-				}
-
-				img,
-				embed,
-				object,
-				video,
-				iframe {
-					max-width: 100%;
-				}
-
-				.sensitive-notification {
-					display: table-cell;
-					width: 400px;
-			    height: 200px;
-			    text-align: center;
-			    vertical-align: middle;
-			    background: none !important;
-			    .sensitive-notification-text {
-			    	color: $grayDark;
-			    	padding: $base-line-height/2 $gw/2;
-			    }
-			    .sensitive-notification-link {
-			    	padding: $base-line-height/2 $gw/2;
-			    	a {
-			    		@include button($grayLight, 18px);
-			    	}
-			    }
-				}
+			.oembed-content img {
+				width: $report-width-px; // enlarge photos to fit ...
 			}
-		}
 
-		& > p {
-			@include ctb-clearfix;
-			padding: $base-line-height/2.8 $gridGutterWidth/2 $base-line-height/2 $gridGutterWidth/2;
-			border-bottom: 1px solid rgba($white, 0.7);
-			font-size: $small-font-size;
-		}
-
-		.gravatar {
-			img {
-				vertical-align: text-bottom;
-				@include ctb-square(20px);
-				margin-right: $gridGutterWidth/3;
-			}	
-		}
-
-		.description {
-			@include ctb-font-shorthand(14px, normal);
-			padding: 0 $gridGutterWidth/2 0 40px;
-			background-repeat: no-repeat;
-			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
-			background-position: 10px 0;
-		}
-
-	}
-
-	.report-activity {
-
-		& > header {
-			@include clearfix();
-			padding: $gw;
-			// text-shadow: 0 1px 0 rgba(255,255,255,.3);
-			cursor: pointer;
-			font-size: $small-font-size;
-			h3 {
-				float: $from-direction;
-				@include reset-box-model();
-				font-size: $small-font-size;
-				display: inline-block;
-				font-family: $sans-font-family;
-				font-weight: normal;
-				color: rgba(black, 0.8);
-				padding: 0;
+			.thumbnail img {
+				width: auto;
+				padding: $gw;
 			}
-			.report-status {
-				float: opposite-position($from-direction);
-				text-align: opposite-position($from-direction);
-				// icon in the status
-				span[class^="icon-"], span[class*="icon-"] {
-					// width: 20px;
-					float: opposite-position($from-direction);
-				}
-				span.status-name {
-					text-align: opposite-position($from-direction);
-					overflow: visible;
-					margin-#{opposite-position($from-direction)}:5px; 
-				}
-			}
-			&:hover {
-				background-color: darken($grayLighter, 10%);
-			}
-		}
-		// header status
-		& > .undetermined {
-			background-color: lighten($orange, 40%);
-			a { color: darken($orange, 10%); }
-			&:hover {
-				background-color: lighten($orange, 30%);
-				a {	color: darken($orange, 20%); }
-			}
-		}
-		& > .verified {
-			background-color: lighten($green, 50%);
-			a { color: $green; }
-			&:hover {
-				background-color: lighten($green, 40%);
-				a {	color: darken($green, 10%); }
-			}
-		}	
-		& > .false {
-			background-color: lighten($red, 50%);
-			a { color: $red; }
-			&:hover {
-				background-color: lighten($red, 40%);
-				a {	color: darken($red, 10%); }
-			}
-		}
 
-		.activity-wrapper {
-			display: none;
-		}
-
-		.activity-list {
-			@include reset-list-style;
-			@include reset-box-model;
-			background-color: lighten($grayLighter, 5%);
-			li {
-				@include clearfix;
-				border-#{$from-direction}: 2px solid $white;
-				color: $gray;
-				padding-bottom: $base-font-size;
-				header {	
-					line-height: $base-line-height;
-					.time {
-						color: $grayLight;
-					}
-					.title {
-						float: $from-direction;
-						clear: both;
-					}
-					a {
-						font-weight: bold;
-					}
-				}
-				.message {
-					margin-top: $base-line-height/2.8;
-					padding: $base-line-height/2.8 $gridGutterWidth/2;
-					background-color: $white;
-					@include border-radius(4px);
-					& > p {
-						@include reset-box-model;
-					}
-				}
-			}
-		}
-
-		#comment-form {
-			@include clearfix;
-			padding: 0 $gridGutterWidth/2;
-			background-color: $grayLighter;
-			label {
+			.oembed-title {
 				display: none;
 			}
-		}
+			
+			.title {
+				padding: 0;
+				font-size: $small-font-size;
+			}
+			
+			.content {
+				padding: 0;
+			}
+			
+			.favicon, 
+			.author-img {
+				float: $from-direction;
+				padding: 0 $gw/2;
+				width: auto;
+			}
+			
+			.domain {
+				margin-bottom: $base-line-height;
+			}
 
-		& > footer {
-			color: $grayLight;
-			// padding: $gw;
+			img,
+			embed,
+			object,
+			video,
+			iframe {
+				max-width: 100%;
+			}
+
+			.sensitive-notification {
+				display: table-cell;
+				width: 400px;
+		    height: 200px;
+		    text-align: center;
+		    vertical-align: middle;
+		    background: none !important;
+		    .sensitive-notification-text {
+		    	color: $grayDark;
+		    	padding: $base-line-height/2 $gw/2;
+		    }
+		    .sensitive-notification-link {
+		    	padding: $base-line-height/2 $gw/2;
+		    	a {
+		    		@include button($grayLight, 18px);
+		    	}
+		    }
+			}
+		}
+	}
+
+	& > p {
+		@include ctb-clearfix;
+		padding: $base-line-height/2.8 $gridGutterWidth/2 $base-line-height/2 $gridGutterWidth/2;
+		font-size: $small-font-size;
+	}
+
+	.gravatar {
+		img {
+			vertical-align: text-bottom;
+			@include ctb-square(20px);
+			margin-right: $gridGutterWidth/3;
+		}	
+	}
+
+	.description {
+		@include ctb-font-shorthand(14px, normal);
+		padding: 0 $gridGutterWidth/2 0 40px;
+		background-repeat: no-repeat;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
+		background-position: 10px 0;
+	}
+}
+
+// Twitter customizations
+h3 > a[href*="twitter.com"] { 
+	@include icon('twitter') {
+		margin: 1px;
+	}
+	&:before {
+		display: inline-block;
+		@include transform(rotate(-19deg)); // new twitter logo :)
+		font-size: inherit;
+	}
+}
+
+
+
+// Report activity 
+.report-activity {
+	& > header {
+		@include clearfix();
+		padding: $gw;
+		// text-shadow: 0 1px 0 rgba(255,255,255,.3);
+		cursor: pointer;
+		font-size: $small-font-size;
+		h3 {
+			float: $from-direction;
+			@include reset-box-model();
 			font-size: $small-font-size;
+			display: inline-block;
+			font-family: $sans-font-family;
+			font-weight: normal;
+			color: rgba(black, 0.8);
+			padding: 0;
+		}
+		.report-status {
+			float: opposite-position($from-direction);
+			text-align: opposite-position($from-direction);
+			// icon in the status
+			span[class^="icon-"], span[class*="icon-"] {
+				// width: 20px;
+				float: opposite-position($from-direction);
+			}
+			span.status-name {
+				text-align: opposite-position($from-direction);
+				overflow: visible;
+				margin-#{opposite-position($from-direction)}:5px; 
+			}
+		}
+		&:hover {
+			background-color: darken($grayLighter, 10%);
 		}
 	}
-	// toggle states
-	.open > .false {
-		background-color: lighten($red, 40%);
+	// header status
+	& > .undetermined {
+		background-color: lighten($orange, 40%);
+		a { color: darken($orange, 10%); }
+		&:hover {
+			background-color: lighten($orange, 30%);
+			a {	color: darken($orange, 20%); }
+		}
 	}
-	.open > .undetermined {
-		background-color: lighten($orange, 30%);
-		a {	color: darken($orange, 20%); }
-	}
-	.open > .verified {
-		background-color: lighten($green, 40%);
+	& > .verified {
+		background-color: lighten($green, 50%);
+		a { color: $green; }
+		&:hover {
+			background-color: lighten($green, 40%);
+			a {	color: darken($green, 10%); }
+		}
+	}	
+	& > .false {
+		background-color: lighten($red, 50%);
+		a { color: $red; }
+		&:hover {
+			background-color: lighten($red, 40%);
+			a {	color: darken($red, 10%); }
+		}
 	}
 
-	// based on status
-	.icon-ok-sign { 
-		color: red;
-		@include icon(ok-sign, 16px, darken($green, 15%));
+	.activity-wrapper {
+		display: none;
 	}
-	.icon-question-sign { 
-		color: $orange; 
-		@include icon(remove-sign, 16px, darken($orange, 15%));
+
+	.activity-list {
+		@include reset-list-style;
+		@include reset-box-model;
+		background-color: lighten($grayLighter, 5%);
+		li {
+			@include clearfix;
+			border-#{$from-direction}: 2px solid $white;
+			color: $gray;
+			padding-bottom: $base-font-size;
+			header {	
+				line-height: $base-line-height;
+				.time {
+					color: $grayLight;
+				}
+				.title {
+					float: $from-direction;
+					clear: both;
+				}
+				a {
+					font-weight: bold;
+				}
+			}
+			.message {
+				margin-top: $base-line-height/2.8;
+				padding: $base-line-height/2.8 $gridGutterWidth/2;
+				background-color: $white;
+				@include border-radius(4px);
+				& > p {
+					@include reset-box-model;
+				}
+			}
+		}
 	}
-	.icon-remove-sign { 
-		color: $red; 
-		@include icon(question-sign, 16px, darken($red, 15%));
+
+	#comment-form {
+		@include clearfix;
+		padding: 0 $gridGutterWidth/2;
+		background-color: $grayLighter;
+		label {
+			display: none;
+		}
+	}
+
+	& > footer {
+		color: $grayLight;
+		// padding: $gw;
+		font-size: $small-font-size;
+	}
+}
+
+// toggle states in dropdown
+.open > .false {
+	background-color: lighten($red, 40%);
+}
+.open > .undetermined {
+	background-color: lighten($orange, 30%);
+	a {	color: darken($orange, 20%); }
+}
+.open > .verified {
+	background-color: lighten($green, 40%);
+}
+
+// report icon based on status
+.icon-ok-sign { 
+	color: red;
+	@include icon(ok-sign, 16px, darken($green, 15%));
+}
+.icon-question-sign { 
+	color: $orange; 
+	@include icon(remove-sign, 16px, darken($orange, 15%));
+}
+.icon-remove-sign { 
+	color: $red; 
+	@include icon(question-sign, 16px, darken($red, 15%));
+}
+
+// Report actions 
+ul.report-actions {
+	@include reset-box-model;
+	@include reset-list-style;
+	// display: inline-block;
+	float: $from-direction;
+	// The last dropdown needs to not stick out at smaller sizes
+	li.share-on .dropdown-menu {
+		#{$omega-float}: auto;
+		#{$from-direction}: -75px;
+	}
+
+	& > li {
+		// display: inline-block;
+		float: $from-direction;
+
+		& > a {
+			@include reset-box-model;
+			display: block;
+			padding: $base-font-size/2 0;
+			
+			@include transition-property(all);
+	    @include transition-duration(0.2s);
+		  &:hover { 
+	    	color: black;
+	    	text-decoration: none;
+	    }
+
+			span {
+				@include reset-box-model;
+				float: $from-direction;
+				display: inline-block;
+				margin-#{$from-direction}: $gw;
+				&:hover {
+					color: $identity;
+				}
+
+				// Flag and share on the top of the report
+				&.icon-edit  { @include icon(edit, $small-font-size, $darker-grey); 
+					&:after {content: "Add to";} // HACK Should be in markup #i18n
+				}
+				&.icon-flag  { @include icon(flag, $small-font-size, $darker-grey); } 
+				&.icon-share { @include icon(share, $small-font-size, $darker-grey); }
+			}
+		}
+		// hide ajax throbber in dropdown
+    .ajax-progress-throbber {
+    	display: none;
+  	}
 	}
 }
