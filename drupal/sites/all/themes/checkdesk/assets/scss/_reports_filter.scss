@@ -6,22 +6,38 @@
 @mixin reports-filter-and-results($w) {
   @content;
 
-  // Default views settings are in views.scss
-  form {    
-    .views-exposed-widget > label { // the label on the report filter sidebar
+  // The form
+  // in the sidebar of the create update page
+  form {
+    margin-top: $gw;
+
+    // the label 
+    // on the report filter sidebar
+    //
+    .views-exposed-widget > label { 
       font-weight: bold; 
-      font-size: $small-font-size;
+      font-size: $smaller-font-size;
       display: block;
+
+      &:last-of-type {
+        @include omega;
+      }
     }
 
     .views-exposed-widget {
-      display: block;
-      @include span-columns(2, $w); // ensure everything clears
+      display: inline-block;
+      width: auto;
+      padding: 2px;
       text-align: center;
       background-color: $light-grey;
+      border: 1px solid $grey;
       @include border-radius($radius);
-      font-size: $smallest-font-size;
       font-weight: 300;
+    }
+
+    .views-submit-button,
+    .views-reset-button {
+      display: none; // TEMPORARY — CGB
     }
 
     .views-exposed-widget.views-submit-button {

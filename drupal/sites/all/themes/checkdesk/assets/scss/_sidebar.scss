@@ -10,7 +10,7 @@
     #main {
       @include span-columns($break, $break); //outermost container
       @include pad(0,0, $break); // override story.scss
-      @content; // go crazy, be careful
+      @content;
 
       // 2. The sidebar column
       #sidebar-first.column {
@@ -24,7 +24,7 @@
         @include reports-filter-and-results($sw) { // The reports filter form
 
           // reapply form defaults with this layout
-          @include cd-form($sw, $sw, $gw); // apply form layout @ 100%          
+          @include cd-form-layout($sw, $sw, $gw); // apply form layout @ 100%          
 
           // Further customizations to only this sidebar form
           form {
@@ -135,17 +135,23 @@
     @include span-columns($break, $break); //reset container to full
     @include pad(0, 0); //reset container padding
     
-    @include cd-form($sw, $break, $gw) {
+    // Reset the form
+    @include cd-form-layout($sw, $break, $gw) {
       border: 1px solid $light-grey;
       // form { padding: 0!important; } // reset form padding
     }
 
-    // The reports list under the filters
+    // Reports list under the filters
     .content .view-desk-reports {
-      @include reports-filter-and-results($sw) { // The reports filter form 
-        @include cd-form($break, $break) {
+
+      // Sidebar reports mixin
+      // reports-filter-and-results
+      //
+      @include reports-filter-and-results($sw) { 
+        @include cd-form-layout($break, $break) {
           // @include pad(0,0);
         }
+
         .views-row {
           @include span-columns($sw/2, $sw); // why doesn't this work? ...
           width: 40%!important; // force it to shrink the reports HACK

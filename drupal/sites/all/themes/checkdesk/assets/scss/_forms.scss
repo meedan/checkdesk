@@ -1,3 +1,8 @@
+
+// ===================================================================
+// Form drag and drop
+// On create update page
+//
 @mixin form-drag-and-drop() {
 
   // The Drag
@@ -17,23 +22,21 @@
     padding: 0; //  ... thus we can have no padding
   }
 
-  // This is not the same as the design.
   .ui-droppable.drop-hover textarea {
     background-color: rgba($twitter-blueish, 0.02);
     border-color: rgba($twitter-blueish, 0.9);
   }
 }
 
-// Form Actions (eg submit button)
+// ===================================================================
+// Form actions
 //
-@mixin form-actions($w) {
 
+@mixin form-actions {
   .form-actions {
-    @include span-columns($w, $w); // end of grid
-
-    // Form actions: buttons and anchors
+    margin-top: $gw;
     input, a {
-      @include checkdesk-button;
+      @include checkdesk-button; 
     }
   }
 
@@ -45,7 +48,7 @@
     border: 1px solid $grey;
   }
 
-  // buttons
+  // Buttons
   input#edit-submit, 
   .form-submit {
     @include checkdesk-button($twitter-blueish);
@@ -129,25 +132,120 @@
   }
 }
 
+// Misc form stuff
+form {
+
+  input[type="text"], 
+  textarea {
+    @include border-radius(3px);
+    display: block;
+    line-height: $base-line-height;
+    background-color: $input-background;
+    border: 1px solid $grey;
+    margin-top: $gw;
+
+    // Focus state
+    &:focus {
+      border-color: rgba(black, .5);
+      outline: thin dotted $light-grey;
+    }
+  }
+}
+
+form textarea {
+  height: 200px; // starting height
+}
+
+// When we start writing make it bright
+input:focus, 
+textarea:focus { 
+  background-color: white; 
+}
+
+// Default labels
+label {
+  font-size: $large-font-size;
+  display: block;
+  font-weight: normal;
+  padding { top: $gw; bottom: $gw; }
+
+  &[for="edit-pass"] {
+    a  {
+      padding: $gw;
+      font-size: $small-font-size;
+      color: $grey;
+      font-weight: normal;
+    }
+  }
+}
+
+
+// Default descriptions
+.description {
+  clear: $from-direction;
+  font-size: ms(-1);
+  display: none; // displayed at larger breakpoints
+  padding: 0.5em 0;
+  color: rgba(black, 0.75);
+}
+
+// little links: create new account, forgot password 
+// BAD selector here
+.item-list .first.last {
+  font-size: $small-font-size;
+}
+
+// Confirmation Form Actions: Confirm delete node
+form.confirmation {
+  .form-actions input {
+      @include checkdesk-button($firetruck-red); // Red delete button
+  }
+}
+
+// checkboxes and radios
+input[type="checkbox"], 
+input[type="radio"] {
+  width: $checkbox-width;
+  display: inline-block;
+  clear: both;
+  float: $from-direction;
+} 
+
+// Checkbox labels for checkboxes and radios, aka ".options"
+label.option {
+  @include reset-box-model; // reset default label styles
+  display: inline-block;
+  font-size: $smaller-font-size;
+  cursor: pointer;
+  float: $from-direction;
+  clear: none;
+}
+
+form {
+  @include form-actions;
+  @include form-drag-and-drop;
+  & > .form-item {
+    clear: both;
+    font-size: $small-font-size;
+    color: $dark-grey;
+    background: rgba($light-grey, 0.5);
+  }
+}
+
 // ============================================================================
-// The forms 
+// The reusable form layout mixin 
 //
-@mixin cd-form($w, $context, $gw: $gw) {
+@mixin cd-form-layout($w, $context, $gw: $gw) {
   form {
-    @include form-standardize;
-    @include form-actions($w);
-    @include form-pass($w, $context);
-    @include form-drag-and-drop;
+    @include form-pass-layout($w, $context);
     @include span-columns($w, $context, $gw);
     @content; // if you want to pass in padding via breakpoints
 
+    // Form actions
+    .form-actions { @include span-columns($w, $w); }
+
     & > .form-item {
-      @include reset-box-model;
       @include span-columns($w, $w);
-      clear: both;
-      font-size: $small-font-size;
-      color: $dark-grey;
-      background: rgba($light-grey, 0.5);
 
       // Nested <.form-item>s
       .form-item { 
@@ -156,91 +254,10 @@
     } 
 
     // Default inputs and textareas
-    input,
+    input[type="text"],
     textarea {
       @include span-columns($w, $w, $gw/2); // small padding with grid accounting
       padding: { top: $gw/2; bottom: $gw/2; } // match the padding on top and bottom
-      @include border-radius(3px);
-      display: block;
-      line-height: $base-line-height;
-      background-color: $input-background;
-      border: 1px solid $grey;
-      margin-top: $gw;
-
-      // Focus state
-      &:focus {
-        border-color: rgba(black, .5);
-        outline: thin dotted $light-grey;
-      }
-    }
-
-    textarea {
-      height: 100px; // starting height
-    }
-
-    // When we start writing make it bright
-    input:focus, 
-    textarea:focus { 
-      background-color: white; 
-    }
-
-    // Default labels
-    label {
-      font-size: $large-font-size;
-      display: block;
-      font-weight: normal;
-      padding { top: $gw; bottom: $gw; }
-
-      &[for="edit-pass"] {
-        a  {
-          padding: $gw;
-          font-size: $small-font-size;
-          color: $grey;
-          font-weight: normal;
-        }
-      }
-    }
-
-
-    // Default descriptions
-    .description {
-      clear: $from-direction;
-      font-size: ms(-1);
-      display: none; // displayed at larger breakpoints
-      padding: 0.5em 0;
-      color: rgba(black, 0.75);
-    }
-
-    // little links: create new account, forgot password 
-    // BAD selector here
-    .item-list .first.last {
-      font-size: $small-font-size;
-    }
-
-    // Confirmation Form Actions: Confirm delete node
-    &.confirmation {
-      .form-actions input {
-          @include checkdesk-button($firetruck-red); // Red delete button
-      }
-    }
-    
-    // checkboxes and radios
-    input[type="checkbox"], 
-    input[type="radio"] {
-      width: $checkbox-width;
-      display: inline-block;
-      clear: both;
-      float: $from-direction;
-    } 
-
-    // Checkbox labels for checkboxes and radios, aka ".options"
-    label.option {
-      @include reset-box-model; // reset default label styles
-      display: inline-block;
-      font-size: $smaller-font-size;
-      cursor: pointer;
-      float: $from-direction;
-      clear: none;
     }
 
     div.form-wrapper {
@@ -252,13 +269,15 @@
 // ======================================================================
 // Forms Breakpoints
 
-// Default render of the forms
-@include cd-form($cw, $cw, $gw);
+@include form-standardize;
+
+// Default render of the form layout
+@include cd-form-layout($cw, $cw, $gw);
 
 // Breakpoint: small
 @include at-breakpoint($break-small) {
   $break: $break-small;
-  @include cd-form($break - 6, $break) {
+  @include cd-form-layout($break - 6, $break) {
     @include pad(3, 3, $break); // more padding
     .description {
       display: inline-block; // appears
