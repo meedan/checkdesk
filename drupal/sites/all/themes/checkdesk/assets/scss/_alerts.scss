@@ -194,6 +194,7 @@ a.absolute-messages-dismiss-all:hover {
   border-width: 16px 16px 0 0;
   border-style: solid;
   border-color: transparent $link-color;
+  @include box-shadow(0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2));
   z-index: 1;
 }
 

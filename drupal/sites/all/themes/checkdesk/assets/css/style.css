@@ -1,5 +1,2170 @@
+@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300,600");
 @import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
+/**
+ * @file
+ * Generic theme-independent base styles.
+ */
+/**
+ * Autocomplete.
+ *
+ * @see autocomplete.js
+ */
+/* Suggestion list */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000313}}
+#autocomplete {
+  border: 1px solid;
+  overflow: hidden;
+  position: absolute;
+  z-index: 100;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000319}}
+#autocomplete ul {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000325}}
+#autocomplete li {
+  background: #fff;
+  color: #000;
+  cursor: default;
+  white-space: pre;
+  zoom: 1;
+  /* IE7 */
+}
+
+/* Animated throbber */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000333}}
+html.js input.form-autocomplete {
+  background-image: url(../../misc/throbber.gif);
+  background-position: 100% 2px;
+  /* LTR */
+  background-repeat: no-repeat;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000338}}
+html.js input.throbbing {
+  background-position: 100% -18px;
+  /* LTR */
+}
+
+/**
+ * Collapsible fieldsets.
+ *
+ * @see collapse.js
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000347}}
+html.js fieldset.collapsed {
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  height: 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000353}}
+html.js fieldset.collapsed .fieldset-wrapper {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000356}}
+fieldset.collapsible {
+  position: relative;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000359}}
+fieldset.collapsible .fieldset-legend {
+  display: block;
+}
+
+/**
+ * Resizable textareas.
+ *
+ * @see textarea.js
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000368}}
+.form-textarea-wrapper textarea {
+  display: block;
+  margin: 0;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000376}}
+.resizable-textarea .grippie {
+  background: #eeeeee url(../../misc/grippie.png) no-repeat center 2px;
+  border: 1px solid #ddd;
+  border-top-width: 0;
+  cursor: s-resize;
+  height: 9px;
+  overflow: hidden;
+}
+
+/**
+ * TableDrag behavior.
+ *
+ * @see tabledrag.js
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000390}}
+body.drag {
+  cursor: move;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\0000393}}
+.draggable a.tabledrag-handle {
+  cursor: move;
+  float: left;
+  /* LTR */
+  height: 1.7em;
+  margin-left: -1em;
+  /* LTR */
+  overflow: hidden;
+  text-decoration: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003101}}
+a.tabledrag-handle:hover {
+  text-decoration: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003104}}
+a.tabledrag-handle .handle {
+  background: url(../../misc/draggable.png) no-repeat 6px 9px;
+  height: 13px;
+  margin: -0.4em 0.5em;
+  /* LTR */
+  padding: 0.42em 0.5em;
+  /* LTR */
+  width: 13px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003111}}
+a.tabledrag-handle-hover .handle {
+  background-position: 6px -11px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003114}}
+div.indentation {
+  float: left;
+  /* LTR */
+  height: 1.7em;
+  margin: -0.4em 0.2em -0.4em -0.4em;
+  /* LTR */
+  padding: 0.42em 0 0.42em 0.6em;
+  /* LTR */
+  width: 20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003121}}
+div.tree-child {
+  background: url(../../misc/tree.png) no-repeat 11px center;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003124}}
+div.tree-child-last {
+  background: url(../../misc/tree-bottom.png) no-repeat 11px center;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003127}}
+div.tree-child-horizontal {
+  background: url(../../misc/tree.png) no-repeat -11px center;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003130}}
+.tabledrag-toggle-weight-wrapper {
+  text-align: right;
+  /* LTR */
+}
+
+/**
+ * TableHeader behavior.
+ *
+ * @see tableheader.js
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003139}}
+table.sticky-header {
+  background-color: #fff;
+  margin-top: 0;
+}
+
+/**
+ * Progress behavior.
+ *
+ * @see progress.js
+ */
+/* Bar */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003150}}
+.progress .bar {
+  background-color: #fff;
+  border: 1px solid;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003154}}
+.progress .filled {
+  background-color: #000;
+  height: 1.5em;
+  width: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003159}}
+.progress .percentage {
+  float: right;
+  /* LTR */
+}
+
+/* Throbber */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003163}}
+.ajax-progress {
+  display: inline-block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003166}}
+.ajax-progress .throbber {
+  background: transparent url(../../misc/throbber.gif) no-repeat 0px -18px;
+  float: left;
+  /* LTR */
+  height: 15px;
+  margin: 2px;
+  width: 15px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003173}}
+.ajax-progress .message {
+  padding-left: 20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003176}}
+tr .ajax-progress .throbber {
+  margin: 0 2px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003179}}
+.ajax-progress-bar {
+  width: 16em;
+}
+
+/**
+ * Inline items.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003187}}
+.container-inline div,
+.container-inline label {
+  display: inline;
+}
+
+/* Fieldset contents always need to be rendered as block. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003191}}
+.container-inline .fieldset-wrapper {
+  display: block;
+}
+
+/**
+ * Prevent text wrapping.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003198}}
+.nowrap {
+  white-space: nowrap;
+}
+
+/**
+ * For anything you want to hide on page load when JS is enabled, so
+ * that you can use the JS to control visibility and avoid flicker.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003206}}
+html.js .js-hide {
+  display: none;
+}
+
+/**
+ * Hide elements from all users.
+ *
+ * Used for elements which should not be immediately displayed to any user. An
+ * example would be a collapsible fieldset that will be expanded with a click
+ * from a user. The effect of this class can be toggled with the jQuery show()
+ * and hide() functions.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003218}}
+.element-hidden {
+  display: none;
+}
+
+/**
+ * Hide elements visually, but keep them available for screen-readers.
+ *
+ * Used for information required for screen-reader users to understand and use
+ * the site where visual display is undesirable. Information provided in this
+ * manner should be kept concise, to avoid unnecessary burden on the user.
+ * "!important" is used to prevent unintentional overrides.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003230}}
+.element-invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+}
+
+/**
+ * The .element-focusable class extends the .element-invisible class to allow
+ * the element to be focusable when navigated to via the keyboard.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003243}}
+.element-invisible.element-focusable:active,
+.element-invisible.element-focusable:focus {
+  position: static !important;
+  clip: auto;
+  overflow: visible;
+  height: auto;
+}
+
+/**
+ * Markup free clearing.
+ *
+ * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003255}}
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* IE6 */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003263}}
+* html .clearfix {
+  height: 1%;
+}
+
+/* IE7 */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_base\.scss}line{font-family:\00003267}}
+*:first-child + html .clearfix {
+  min-height: 1%;
+}
+
+/**
+ * @file
+ * Styles for menus and navigation markup.
+ */
+/**
+ * Markup generated by theme_menu_tree().
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000310}}
+ul.menu {
+  border: none;
+  list-style: none;
+  text-align: left;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000315}}
+ul.menu li {
+  margin: 0 0 0 0.5em;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000318}}
+ul li.expanded {
+  list-style-image: url(../../misc/menu-expanded.png);
+  list-style-type: circle;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000322}}
+ul li.collapsed {
+  list-style-image: url(../../misc/menu-collapsed.png);
+  /* LTR */
+  list-style-type: disc;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000326}}
+ul li.leaf {
+  list-style-image: url(../../misc/menu-leaf.png);
+  list-style-type: square;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000332}}
+li.expanded,
+li.collapsed,
+li.leaf {
+  padding: 0.2em 0.5em 0 0;
+  /* LTR */
+  margin: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000336}}
+li a.active {
+  color: #000;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000339}}
+td.menu-disabled {
+  background: #ccc;
+}
+
+/**
+ * Markup generated by theme_links().
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000347}}
+ul.inline,
+ul.links.inline {
+  display: inline;
+  padding-left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000351}}
+ul.inline li {
+  display: inline;
+  list-style-type: none;
+  padding: 0 0.5em;
+}
+
+/**
+ * Markup generated by theme_breadcrumb().
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000360}}
+.breadcrumb {
+  padding-bottom: 0.5em;
+}
+
+/**
+ * Markup generated by theme_menu_local_tasks().
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000367}}
+ul.primary {
+  border-bottom: 1px solid #bbb;
+  border-collapse: collapse;
+  height: auto;
+  line-height: normal;
+  list-style: none;
+  margin: 5px;
+  padding: 0 0 0 1em;
+  /* LTR */
+  white-space: nowrap;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000377}}
+ul.primary li {
+  display: inline;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000380}}
+ul.primary li a {
+  background-color: #ddd;
+  border-color: #bbb;
+  border-style: solid solid none solid;
+  border-width: 1px;
+  height: auto;
+  margin-right: 0.5em;
+  /* LTR */
+  padding: 0 1em;
+  text-decoration: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000390}}
+ul.primary li.active a {
+  background-color: #fff;
+  border: 1px solid #bbb;
+  border-bottom: 1px solid #fff;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\0000395}}
+ul.primary li a:hover {
+  background-color: #eee;
+  border-color: #ccc;
+  border-bottom-color: #eee;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\00003100}}
+ul.secondary {
+  border-bottom: 1px solid #bbb;
+  padding: 0.5em 1em;
+  margin: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\00003105}}
+ul.secondary li {
+  border-right: 1px solid #ccc;
+  /* LTR */
+  display: inline;
+  padding: 0 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\00003110}}
+ul.secondary a {
+  padding: 0;
+  text-decoration: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_menus\.scss}line{font-family:\00003114}}
+ul.secondary a.active {
+  border-bottom: 4px solid #999;
+}
+
+/**
+ * @file
+ * Styles for system messages.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\000037}}
+div.messages {
+  background-position: 8px 8px;
+  /* LTR */
+  background-repeat: no-repeat;
+  border: 1px solid;
+  margin: 6px 0;
+  padding: 10px 10px 10px 50px;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000315}}
+div.status {
+  background-image: url(../../misc/message-24-ok.png);
+  border-color: #be7;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000320}}
+div.status,
+.ok {
+  color: #234600;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000324}}
+div.status,
+table tr.ok {
+  background-color: #f8fff0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000328}}
+div.warning {
+  background-image: url(../../misc/message-24-warning.png);
+  border-color: #ed5;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000333}}
+div.warning,
+.warning {
+  color: #840;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000337}}
+div.warning,
+table tr.warning {
+  background-color: #fffce5;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000341}}
+div.error {
+  background-image: url(../../misc/message-24-error.png);
+  border-color: #ed541d;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000346}}
+div.error,
+.error {
+  color: #8c2e0b;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000350}}
+div.error,
+table tr.error {
+  background-color: #fef5f1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000353}}
+div.error p.error {
+  color: #333;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000357}}
+div.messages ul {
+  margin: 0 0 0 1em;
+  /* LTR */
+  padding: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_system_messages\.scss}line{font-family:\0000361}}
+div.messages ul li {
+  list-style-image: none;
+}
+
+/*
+ * jQuery UI CSS Framework 1.8.7
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ */
+/* Layout helpers
+----------------------------------*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000314}}
+.ui-helper-hidden {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000315}}
+.ui-helper-hidden-accessible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000316}}
+.ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000317}}
+.ui-helper-clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000318}}
+.ui-helper-clearfix {
+  display: inline-block;
+}
+
+/* required comment for clearfix to work in Opera \*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000320}}
+* html .ui-helper-clearfix {
+  height: 1%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000321}}
+.ui-helper-clearfix {
+  display: block;
+}
+
+/* end clearfix */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000323}}
+.ui-helper-zfix {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  filter: Alpha(Opacity=0);
+}
+
+/* Interaction Cues
+----------------------------------*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000328}}
+.ui-state-disabled {
+  cursor: default !important;
+}
+
+/* Icons
+----------------------------------*/
+/* states and images */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000335}}
+.ui-icon {
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+/* Misc visuals
+----------------------------------*/
+/* Overlays */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_jquery_ui_core\.scss}line{font-family:\0000342}}
+.ui-widget-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_comment\.scss}line{font-family:\000032}}
+#comments {
+  margin-top: 15px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_comment\.scss}line{font-family:\000035}}
+.indented {
+  margin-left: 25px;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_comment\.scss}line{font-family:\000038}}
+.comment-unpublished {
+  background-color: #fff4f4;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_comment\.scss}line{font-family:\0000311}}
+.comment-preview {
+  background-color: #ffffea;
+}
+
+/* Field display */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_field\.scss}line{font-family:\000033}}
+.field .field-label {
+  font-weight: bold;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_field\.scss}line{font-family:\000037}}
+.field-label-inline .field-label,
+.field-label-inline .field-items {
+  float: left;
+  /*LTR*/
+}
+
+/* Form display */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_field\.scss}line{font-family:\0000312}}
+form .field-multiple-table {
+  margin: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_field\.scss}line{font-family:\0000315}}
+form .field-multiple-table th.field-label {
+  padding-left: 0;
+  /*LTR*/
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_field\.scss}line{font-family:\0000318}}
+form .field-multiple-table td.field-multiple-drag {
+  width: 30px;
+  padding-right: 0;
+  /*LTR*/
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_field\.scss}line{font-family:\0000322}}
+form .field-multiple-table td.field-multiple-drag a.tabledrag-handle {
+  padding-right: .5em;
+  /*LTR*/
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_field\.scss}line{font-family:\0000326}}
+form .field-add-more-submit {
+  margin: .5em 0 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_node\.scss}line{font-family:\000032}}
+.node-unpublished {
+  background-color: #fff4f4;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_node\.scss}line{font-family:\000035}}
+.preview .node {
+  background-color: #ffffea;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_node\.scss}line{font-family:\000038}}
+td.revision-current {
+  background: #ffc;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\000032}}
+.search-form {
+  margin-bottom: 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\000035}}
+.search-form input {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\000039}}
+.search-results {
+  list-style: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\0000312}}
+.search-results p {
+  margin-top: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\0000315}}
+.search-results .title {
+  font-size: 1.2em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\0000318}}
+.search-results li {
+  margin-bottom: 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\0000321}}
+.search-results .search-snippet-info {
+  padding-left: 1em;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\0000324}}
+.search-results .search-info {
+  font-size: 0.85em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\0000327}}
+.search-advanced .criterion {
+  float: left;
+  /* LTR */
+  margin-right: 2em;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_search\.scss}line{font-family:\0000331}}
+.search-advanced .action {
+  float: left;
+  /* LTR */
+  clear: left;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\000032}}
+#permissions td.module {
+  font-weight: bold;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\000035}}
+#permissions td.permission {
+  padding-left: 1.5em;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\000039}}
+#permissions tr.odd .form-item,
+#permissions tr.even .form-item {
+  white-space: normal;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000312}}
+#user-admin-settings fieldset .fieldset-description {
+  font-size: 0.85em;
+  padding-bottom: .5em;
+}
+
+/**
+ * Override default textfield float to put the "Add role" button next to
+ * the input textfield.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000321}}
+#user-admin-roles td.edit-name {
+  clear: both;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000324}}
+#user-admin-roles .form-item-name {
+  float: left;
+  /* LTR */
+  margin-right: 1em;
+  /* LTR */
+}
+
+/**
+ * Password strength indicator.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000332}}
+.password-strength {
+  width: 17em;
+  float: right;
+  /* LTR */
+  margin-top: 1.4em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000337}}
+.password-strength-title {
+  display: inline;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000340}}
+.password-strength-text {
+  float: right;
+  /* LTR */
+  font-weight: bold;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000344}}
+.password-indicator {
+  background-color: #C4C4C4;
+  height: 0.3em;
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000349}}
+.password-indicator div {
+  height: 100%;
+  width: 0%;
+  background-color: #47C965;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000355}}
+input.password-confirm,
+input.password-field {
+  width: 16em;
+  margin-bottom: 0.4em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000359}}
+div.password-confirm {
+  float: right;
+  /* LTR */
+  margin-top: 1.5em;
+  visibility: hidden;
+  width: 17em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000365}}
+div.form-item div.password-suggestions {
+  padding: 0.2em 0.5em;
+  margin: 0.7em 0;
+  width: 38.5em;
+  border: 1px solid #B4B4B4;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000371}}
+div.password-suggestions ul {
+  margin-bottom: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000375}}
+.confirm-parent,
+.password-parent {
+  clear: left;
+  /* LTR */
+  margin: 0;
+  width: 36.3em;
+}
+
+/* Generated by user.module but used by profile.module: */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000382}}
+.profile {
+  clear: both;
+  margin: 1em 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000386}}
+.profile .user-picture {
+  float: right;
+  /* LTR */
+  margin: 0 1em 1em 0;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000390}}
+.profile h3 {
+  border-bottom: 1px solid #ccc;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000393}}
+.profile dl {
+  margin: 0 0 1.5em 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\0000396}}
+.profile dt {
+  margin: 0 0 0.2em 0;
+  font-weight: bold;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_user\.scss}line{font-family:\00003100}}
+.profile dd {
+  margin: 0 0 1em 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\000031}}
+.views-exposed-form .views-exposed-widget {
+  float: left;
+  /* LTR */
+  padding: .5em 1em 0 0;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\000036}}
+.views-exposed-form .views-exposed-widget .form-submit {
+  margin-top: 1.6em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\0000311}}
+.views-exposed-form .form-item,
+.views-exposed-form .form-submit {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\0000316}}
+.views-exposed-form label {
+  font-weight: bold;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\0000320}}
+.views-exposed-widgets {
+  margin-bottom: .5em;
+}
+
+/* table style column align */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\0000325}}
+.views-align-left {
+  text-align: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\0000328}}
+.views-align-right {
+  text-align: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\0000331}}
+.views-align-center {
+  text-align: center;
+}
+
+/* Remove the border on tbody that system puts in */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\0000336}}
+.views-view-grid tbody {
+  border-top: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_views\.scss}line{font-family:\0000340}}
+.view .progress-disabled {
+  float: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_ctools\.scss}line{font-family:\000031}}
+.ctools-locked {
+  color: red;
+  border: 1px solid red;
+  padding: 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_ctools\.scss}line{font-family:\000037}}
+.ctools-owns-lock {
+  background: #FFFFDD none repeat scroll 0 0;
+  border: 1px solid #F0C020;
+  padding: 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_ctools\.scss}line{font-family:\0000316}}
+a.ctools-ajaxing,
+input.ctools-ajaxing,
+button.ctools-ajaxing,
+select.ctools-ajaxing {
+  padding-right: 18px !important;
+  background: url(../images/status-active.gif) right center no-repeat;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_ctools\.scss}line{font-family:\0000321}}
+div.ctools-ajaxing {
+  float: left;
+  width: 18px;
+  background: url(../images/status-active.gif) center center no-repeat;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_oembed\.scss}line{font-family:\000033}}
+.oembed .oembed-title {
+  display: block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_oembed\.scss}line{font-family:\000036}}
+.oembed .oembed-content {
+  display: block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_oembed\.scss}line{font-family:\000039}}
+.oembed .oembed-content .node {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_oembed\.scss}line{font-family:\0000317}}
+.oembed {
+  clear: right;
+  display: inline;
+  float: right;
+  margin: 5px 0 10px 5px;
+  padding: 5px;
+  border-top: 1px solid #a3a3a3;
+  border-right: 1px solid #888;
+  border-bottom: 1px solid #747474;
+  border-left: 1px solid #888;
+  background: #c9c9c9;
+  color: #494949;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_oembed\.scss}line{font-family:\0000336}}
+.oembed .oembed-title {
+  text-align: center;
+  margin: -5px -5px 5px;
+  border-top: 1px solid #dedede;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  line-height: normal;
+  padding: 5px 8px 3px;
+  color: #000;
+  text-shadow: 1px 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10px;
+  font-family: Verdana;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_oembed\.scss}line{font-family:\0000354}}
+.oembed .oembed-center, .oembed .oembed-photo img, .oembed .oembed-content object, .oembed .oembed-content embed {
+  display: block;
+  margin: 0 auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_oembed\.scss}line{font-family:\0000358}}
+.oembed .oembed-content {
+  border-top: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_oembed\.scss}line{font-family:\0000361}}
+.oembed .oembed-content .node {
+  max-width: 300px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\000032}}
+body.toolbar {
+  padding-top: 2.2em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\000035}}
+body.toolbar-drawer {
+  padding-top: 5.3em;
+}
+
+/**
+ * Aggressive resets so we can achieve a consistent look in hostile CSS
+ * environments.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000314}}
+#toolbar,
+#toolbar * {
+  border: 0;
+  font-size: 100%;
+  line-height: inherit;
+  list-style: none;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  /* LTR */
+  vertical-align: baseline;
+}
+
+/**
+ * Base styles.
+ *
+ * We use a keyword for the toolbar font size to make it display consistently
+ * across different themes, while still allowing browsers to resize the text.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000332}}
+#toolbar {
+  background: #666;
+  color: #ccc;
+  font: normal small "Lucida Grande", Verdana, sans-serif;
+  left: 0;
+  margin: 0 -20px;
+  padding: 0 20px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -moz-box-shadow: 0 3px 20px #000;
+  -webkit-box-shadow: 0 3px 20px #000;
+  box-shadow: 0 3px 20px #000;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
+  z-index: 600;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000349}}
+#toolbar div.collapsed {
+  display: none;
+  visibility: hidden;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000353}}
+#toolbar a {
+  color: #fff;
+  font-size: .846em;
+  text-decoration: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000359}}
+#toolbar ul li,
+#toolbar ul li a {
+  float: left;
+  /* LTR */
+}
+
+/**
+ * Administration menu.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000366}}
+#toolbar div.toolbar-menu {
+  background: #000;
+  line-height: 20px;
+  padding: 5px 50px 5px 10px;
+  /* LTR */
+  position: relative;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000372}}
+#toolbar-home a span {
+  background: url(toolbar.png) no-repeat 0 -45px;
+  display: block;
+  height: 14px;
+  margin: 3px 0px;
+  text-indent: -9999px;
+  vertical-align: text-bottom;
+  width: 11px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000381}}
+#toolbar-user {
+  float: right;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000384}}
+#toolbar-menu {
+  float: left;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000387}}
+#toolbar div.toolbar-menu a.toggle {
+  background: url(toolbar.png) 0 -20px no-repeat;
+  bottom: 0;
+  cursor: pointer;
+  height: 25px;
+  overflow: hidden;
+  position: absolute;
+  right: 10px;
+  /* LTR */
+  text-indent: -9999px;
+  width: 25px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\0000399}}
+#toolbar div.toolbar-menu a.toggle:focus,
+#toolbar div.toolbar-menu a.toggle:hover {
+  background-position: -50px -20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\00003102}}
+#toolbar div.toolbar-menu a.toggle-active {
+  background-position: -25px -20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\00003106}}
+#toolbar div.toolbar-menu a.toggle-active.toggle:focus,
+#toolbar div.toolbar-menu a.toggle-active.toggle:hover {
+  background-position: -75px -20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\00003109}}
+#toolbar div.toolbar-menu ul li a {
+  padding: 0 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\00003118}}
+#toolbar div.toolbar-menu ul li a:focus,
+#toolbar div.toolbar-menu ul li a:hover,
+#toolbar div.toolbar-menu ul li a:active,
+#toolbar div.toolbar-menu ul li a.active:focus {
+  background: #444;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\00003124}}
+#toolbar div.toolbar-menu ul li a.active:hover,
+#toolbar div.toolbar-menu ul li a.active:active,
+#toolbar div.toolbar-menu ul li a.active,
+#toolbar div.toolbar-menu ul li.active-trail a {
+  background: url(toolbar.png) 0 0 repeat-x;
+  text-shadow: #333 0 1px 0;
+}
+
+/**
+ * Collapsed drawer of additional toolbar content.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\00003132}}
+#toolbar div.toolbar-drawer {
+  position: relative;
+  padding: 0 10px;
+}
+
+/**
+ * IE 6 Fix.
+ *
+ * IE 6 shows elements with position:fixed as position:static so we replace
+ * it with position:absolute; toolbar needs its z-index to stay above overlay.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_toolbar\.scss}line{font-family:\00003143}}
+* html #toolbar {
+  left: -20px;
+  margin: 0;
+  padding-right: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\000031}}
+div#toolbar a#edit-shortcuts {
+  float: right;
+  padding: 5px 10px 5px 5px;
+  line-height: 24px;
+  color: #fefefe;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\000039}}
+div#toolbar a#edit-shortcuts:focus,
+div#toolbar a#edit-shortcuts:hover,
+div#toolbar a#edit-shortcuts.active {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000314}}
+div#toolbar div.toolbar-shortcuts ul {
+  padding: 5px 0 2px 0;
+  height: 28px;
+  line-height: 24px;
+  float: left;
+  /* LTR */
+  margin-left: 5px;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000322}}
+div#toolbar div.toolbar-shortcuts ul li a {
+  padding: 0 5px 0 5px;
+  margin-right: 5px;
+  /* LTR */
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000332}}
+div#toolbar div.toolbar-shortcuts ul li a:focus,
+div#toolbar div.toolbar-shortcuts ul li a:hover,
+div#toolbar div.toolbar-shortcuts ul li a.active:focus {
+  background: #555;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000337}}
+div#toolbar div.toolbar-shortcuts ul li a.active:hover,
+div#toolbar div.toolbar-shortcuts ul li a.active {
+  background: #000;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000341}}
+div#toolbar div.toolbar-shortcuts span.icon {
+  float: left;
+  /* LTR */
+  background: #444;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  /* LTR */
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000352}}
+div.add-or-remove-shortcuts {
+  padding-top: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000356}}
+div.add-or-remove-shortcuts a span.icon {
+  display: block;
+  width: 12px;
+  background: transparent url(shortcut.png) no-repeat scroll 0 0;
+  height: 12px;
+  float: left;
+  margin-left: 8px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000366}}
+div.add-shortcut a:focus span.icon,
+div.add-shortcut a:hover span.icon {
+  background-position: 0 -12px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000369}}
+div.remove-shortcut a span.icon {
+  background-position: -12px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000373}}
+div.remove-shortcut a:focus span.icon,
+div.remove-shortcut a:hover span.icon {
+  background-position: -12px -12px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000377}}
+div.add-or-remove-shortcuts a span.text {
+  float: left;
+  padding-left: 10px;
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000384}}
+div.add-or-remove-shortcuts a:focus span.text,
+div.add-or-remove-shortcuts a:hover span.text {
+  font-size: 10px;
+  line-height: 12px;
+  color: #fff;
+  background-color: #5f605b;
+  display: block;
+  padding-right: 6px;
+  /* LTR */
+  cursor: pointer;
+  -moz-border-radius: 0 5px 5px 0;
+  /* LTR */
+  -webkit-border-top-right-radius: 5px;
+  /* LTR */
+  -webkit-border-bottom-right-radius: 5px;
+  /* LTR */
+  border-radius: 0 5px 5px 0;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\0000398}}
+#shortcut-set-switch .form-type-radios {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_shortcut\.scss}line{font-family:\00003103}}
+#shortcut-set-switch .form-item-new {
+  padding-top: 0;
+  padding-left: 17px;
+  /* LTR */
+}
+
+/**
+ * @file
+ * Stylesheet for the Contextual module.
+ */
+/**
+ * Contextual links regions.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\000039}}
+.contextual-links-region {
+  outline: none;
+  position: relative;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000313}}
+.contextual-links-region-active {
+  outline: #999 dashed 1px;
+}
+
+/**
+ * Contextual links.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000320}}
+div.contextual-links-wrapper {
+  display: none;
+  font-size: 90%;
+  position: absolute;
+  right: 5px;
+  /* LTR */
+  top: 2px;
+  z-index: 999;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000328}}
+html.js div.contextual-links-wrapper {
+  display: block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000331}}
+a.contextual-links-trigger {
+  background: transparent url(images/gear-select.png) no-repeat 2px 0;
+  border: 1px solid transparent;
+  display: none;
+  height: 18px;
+  margin: 0;
+  padding: 0 2px;
+  outline: none;
+  text-indent: 34px;
+  /* LTR */
+  width: 28px;
+  overflow: hidden;
+  -khtml-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000348}}
+a.contextual-links-trigger:hover,
+div.contextual-links-active a.contextual-links-trigger {
+  background-position: 2px -18px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000351}}
+div.contextual-links-active a.contextual-links-trigger {
+  background-color: #fff;
+  border-color: #ccc;
+  border-bottom: none;
+  position: relative;
+  z-index: 1;
+  -moz-border-radius: 4px 4px 0 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000362}}
+div.contextual-links-wrapper ul.contextual-links {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  display: none;
+  margin: 0;
+  padding: 0.25em 0;
+  position: absolute;
+  right: 0;
+  text-align: left;
+  top: 18px;
+  white-space: nowrap;
+  -moz-border-radius: 4px 0 4px 4px;
+  /* LTR */
+  -webkit-border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-top-right-radius: 0;
+  /* LTR */
+  -webkit-border-top-left-radius: 4px;
+  /* LTR */
+  border-radius: 4px 0 4px 4px;
+  /* LTR */
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000382}}
+.contextual-links-region:hover a.contextual-links-trigger,
+div.contextual-links-active a.contextual-links-trigger,
+div.contextual-links-active ul.contextual-links {
+  display: block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000385}}
+ul.contextual-links li {
+  line-height: 100%;
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000392}}
+div.contextual-links-wrapper a {
+  text-decoration: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\0000395}}
+ul.contextual-links li a {
+  color: #333 !important;
+  display: block;
+  margin: 0.25em 0;
+  padding: 0.25em 1em 0.25em 0.5em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_contextual\.scss}line{font-family:\00003101}}
+ul.contextual-links li a:hover {
+  background-color: #bfdcee;
+}
+
+@CHARSET "UTF-8";
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\000033}}
+.rules-show-js, html.js .rules-hide-js {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\000037}}
+.rules-hide-js, html.js .rules-show-js {
+  display: block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000311}}
+.rules-elements-table ul.action-links {
+  margin: 0px;
+  padding: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000316}}
+.rules-elements-table ul.rules-operations li {
+  list-style: none;
+  float: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000321}}
+.rules-elements-table ul.rules-operations a {
+  background: none;
+  padding-left: 0px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000326}}
+table tr.rules-elements-add {
+  background-color: #e5eff4;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000330}}
+.rules-elements-table ul.rules-operations-add a {
+  line-height: 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000335}}
+tr.rules-elements-add td {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000340}}
+ul.rules-operations-add li {
+  float: left;
+  list-style-position: inside;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000345}}
+.rules-elements-table {
+  margin-bottom: 3em;
+}
+
+/* We cannot set a positive margin-top for rules tables as the table drag link
+   should be positioned directly on top of the table. Thus we use a large bottom
+   margin and fix the upper most margin: */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000351}}
+#rules-form-wrapper:first-child {
+  margin-top: 1.5em;
+}
+
+/* Fix table drag weights to don't take extra space */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000356}}
+.rules-elements-table .tabledrag-toggle-weight-wrapper {
+  position: absolute;
+  right: 0px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000361}}
+.rules-elements-table caption, .rules-overview-table caption {
+  font-size: 110%;
+  font-weight: bold;
+  padding-bottom: 0.5em;
+  text-align: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000368}}
+.rules-overview-table {
+  margin: 1em 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000372}}
+.rules-content-group-integrity-error {
+  color: #df0101;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000376}}
+.rules-debug-log {
+  font: 81.3% "Lucida Grande","Lucida Sans Unicode",sans-serif;
+  background-color: #eeeeee;
+  border: 1px solid #cccccc;
+  color: #333333;
+  padding: 5px;
+  margin: 1.5em 0em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000385}}
+.rules-debug-collapsible-link {
+  position: relative;
+  cursor: pointer;
+  /* The span element with the icon which opens the log, has a whitepsace.
+     Since we don't want the user to mark this white space, we prevent this
+     using the this code.*/
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\0000399}}
+.rules-debug-log-head {
+  font-weight: bold;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003103}}
+div.rules-debug-log-head {
+  margin: 0.5em 0em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003107}}
+.rules-debug-icon-open {
+  position: relative;
+  float: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003112}}
+.rules-debug-open-all {
+  position: relative;
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003117}}
+.rules-debug-log ul {
+  padding-left: 2em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003121}}
+.rules-debug-log .rules-debug-warn {
+  color: #df0101;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003125}}
+.rules-debug-log .rules-debug-error {
+  font-weight: bold;
+  color: #df0101;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003130}}
+#rules-filter-form {
+  margin-bottom: 1.5em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003134}}
+.rules-parameter-label {
+  font-style: italic;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003138}}
+#rules-plugin-add-help {
+  margin-bottom: 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003142}}
+.rules-element-content {
+  float: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003146}}
+form input.rules-switch-button {
+  -moz-border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: normal;
+  margin-bottom: 1em;
+  padding: 2px;
+  text-align: center;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003156}}
+.rules-form-heading {
+  margin-top: 3em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003160}}
+.rules-autocomplete-button {
+  top: 3px;
+  height: 22px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003165}}
+ul.rules-autocomplete {
+  max-height: 23em;
+  overflow-y: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003170}}
+ul.rules-autocomplete div {
+  padding-left: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003174}}
+ul.rules-autocomplete a.ui-corner-all {
+  padding: 0px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003178}}
+ul.rules-autocomplete .rules-dsac-group {
+  background-color: #eee;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003182}}
+ul.rules-autocomplete .ui-corner-all {
+  -moz-border-radius: 0px;
+}
+
+/**
+ * Do not display the hide/show descriptions link above the permissions matrix.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003189}}
+#rules-form-wrapper #edit-settings-access-permissions .compact-link {
+  display: none;
+}
+
+/* IE 6 hack for max-height. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_rules\.scss}line{font-family:\00003194}}
+* html ul.rule-autocomplete {
+  height: 23em;
+}
+
+/**
+ * Script placeholder markup.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\000034}}
+.script-placeholder {
+  padding: 100px 0px;
+  text-align: center;
+}
+
+/**
+ * Browser
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000312}}
+.context-block-browser {
+  width: 600px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000316}}
+.context-block-browser .blocks {
+  height: 98%;
+  overflow: auto;
+  float: left;
+  width: 320px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000323}}
+.context-block-browser .block-browser-sidebar {
+  float: left;
+  width: 250px;
+  padding: 0 0 0 15px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000331}}
+.context-block-item,
+.context-block-browser .draggable-placeholder,
+#admin-toolbar .context-block-browser .context-block-item {
+  font-size: 11px;
+  line-height: 20px;
+  height: 20px;
+  color: #333;
+  padding: 3px 3px 3px 3px;
+  margin: 0px 1px 1px 0px;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  background: #efefef;
+  border: 1px solid #ddd;
+  position: relative;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000355}}
+.context-block-addable {
+  cursor: pointer;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000357}}
+.context-block-item span.icon {
+  background: url(context_reaction_block.png) 0px -80px no-repeat;
+  display: block;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-right: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000366}}
+.context-block-loading {
+  max-width: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000368}}
+.context-block-loading span.icon {
+  background-position: -20px -80px;
+  float: none;
+  margin: 0px auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000374}}
+.context-block-browser .draggable-placeholder {
+  padding: 2px 1px 1px 2px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000377}}
+#admin-toolbar.horizontal .context-block-browser .draggable-placeholder,
+#admin-toolbar.horizontal .context-block-browser .context-block-item {
+  width: 180px;
+  margin-right: 1px;
+  padding-right: 9px;
+  float: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000385}}
+.context-block-added {
+  display: none !important;
+}
+
+/**
+ * Inline editing elements ============================================
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000390}}
+div.context-block-region {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000391}}
+a.context-block {
+  display: none !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\0000393}}
+body.context-editing div.context-block-region {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #666;
+  color: #fff;
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  filter: alpha(opacity=50);
+  display: block;
+  height: 40px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003111}}
+.context-block-region .region-name {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  white-space: nowrap;
+  display: block;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003122}}
+body.context-editing .ui-sortable .block {
+  opacity: .25;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003124}}
+body.context-editing .ui-sortable .draggable {
+  position: relative;
+  opacity: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003129}}
+body.context-editing .draggable-placeholder {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #fff;
+  border: 3px dashed #666;
+  opacity: .2;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003139}}
+body.context-editing .draggable:hover a.context-block-remove,
+body.context-editing .draggable:hover a.context-block-handle {
+  background: url(context_reaction_block.png) no-repeat;
+  cursor: move;
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 35px;
+  top: -5px;
+  z-index: 100;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003151}}
+body.context-editing .draggable:hover a.context-block-remove {
+  background-position: -40px 0px;
+  cursor: pointer;
+  right: -5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003157}}
+.context-block-hidden {
+  display: none !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003159}}
+.block .context-block-empty-content {
+  text-align: center;
+  padding: 10px;
+  opacity: .5;
+  background: #fff;
+  color: #666;
+}
+
+/**
+ * Block visibility ===================================================
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003170}}
+#context-blockform .context-blockform-selector {
+  height: 20em;
+  overflow: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003175}}
+#context-blockform span.system-blocks {
+  color: #999;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003178}}
+#context-blockform td.blocks,
+#context-blockform td.selector {
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 50%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003186}}
+#context-blockform td.blocks .label,
+#context-blockform td.blocks td,
+#context-blockform td.blocks th {
+  background: #fff;
+  padding: 5px 5px 4px;
+  border: 0px;
+  border-bottom: 1px solid #ddd;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003193}}
+#context-blockform td.blocks .label {
+  background: #eee;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003194}}
+#context-blockform td.blocks .label a {
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003196}}
+#context-ui-items #context-blockform {
+  font-size: 11px;
+  line-height: 15px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003201}}
+#context-ui-items #context-blockform .form-checkboxes {
+  height: auto;
+  overflow: visible;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003209}}
+#context-ui-items #context-blockform .form-item {
+  padding: 0px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003211}}
+#context-ui-items #context-blockform label {
+  background: #eee;
+  display: block;
+  padding: 5px;
+  line-height: 15px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003218}}
+#context-ui-items #context-blockform label.option {
+  background: #fff;
+  display: block;
+  border: 0px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003224}}
+#context-blockform .tabledrag-toggle-weight-wrapper {
+  margin-bottom: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003228}}
+a.context-ui-add-link, a:link.context-ui-add-link, a:visited.context-ui-add-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+  line-height: 14px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003238}}
+.editing-context-label {
+  position: fixed;
+  top: 70px;
+  background: #fff;
+  color: #222;
+  padding: 10px;
+  font-weight: bold;
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  filter: alpha(opacity=50);
+  border: 1px solid #ddd;
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003253}}
+.context-help {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003258}}
+.context-editor-title {
+  font-size: 24px;
+  margin: 10px 0px;
+  padding: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_drupal\/_context_reaction_block\.scss}line{font-family:\00003264}}
+.ui-sortable-helper {
+  max-width: 300px;
+  max-height: 300px;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_drupal\.scss}line{font-family:\000032}}
 .feed-icon a {
   display: none;
@@ -1503,10 +3668,13 @@ a.absolute-messages-dismiss-all:hover {
   border-width: 16px 16px 0 0;
   border-style: solid;
   border-color: transparent #0088ff;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_alerts\.scss}line{font-family:\00003200}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_alerts\.scss}line{font-family:\00003201}}
 .absolute-messages-show {
   display: block;
   width: 16px;
@@ -1573,13 +3741,14 @@ a.absolute-messages-dismiss-all:hover {
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover > a {
   text-decoration: none;
+  color: white;
   background-color: #0088ff;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_dropdowns\.scss}line{font-family:\0000362}}
 .dropdown-menu .active > a,
 .dropdown-menu .active > a:hover {
-  color: white;
+  color: #333333;
   text-decoration: none;
   outline: 0;
   background-color: #0088ff;
@@ -1588,7 +3757,7 @@ a.absolute-messages-dismiss-all:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_dropdowns\.scss}line{font-family:\0000371}}
 .dropdown-menu .disabled > a,
 .dropdown-menu .disabled > a:hover {
-  color: white;
+  color: #333333;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_dropdowns\.scss}line{font-family:\0000376}}
@@ -1659,7 +3828,7 @@ a.absolute-messages-dismiss-all:hover {
   left: 50%;
   z-index: 1050;
   overflow: auto;
-  width: 456px;
+  width: 426px;
   margin: -250px 0 0 -280px;
   background-color: white;
   border: 1px solid #999;
@@ -1698,9 +3867,9 @@ a.absolute-messages-dismiss-all:hover {
   margin-top: 7px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000356}}
-.modal-header h3 {
+.modal-header h4 {
   margin: 0;
-  line-height: 30px;
+  padding: 13.5px 0;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000363}}
@@ -1717,35 +3886,37 @@ a.absolute-messages-dismiss-all:hover {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000372}}
 .modal-body .modal-content form {
+  padding: 0;
+  margin: 0;
   z-index: 1051;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000379}}
 .modal-body #modal-throbber {
   padding: 13.5px 0;
   margin-left: -5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000384}}
 .modal-body .form-actions {
   margin: 0;
   padding: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000389}}
 .modal-form {
   margin-bottom: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000394}}
 .modal-footer {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 1%;
-  width: 456px;
+  padding: 0;
+  width: 406px;
   display: block;
-  padding: 13.5px 5px;
+  padding: 13.5px 10px;
   margin-bottom: 0;
-  text-align: right;
+  text-align: left;
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;
   -webkit-border-radius: 0 0 6px 6px;
@@ -1759,21 +3930,65 @@ a.absolute-messages-dismiss-all:hover {
   overflow: hidden;
   *zoom: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003108}}
-.modal-footer .btn {
-  background-color: #cccccc;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003109}}
+.modal-footer input#edit-submit {
+  margin-right: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003112}}
-.modal-footer .btn a, .modal-footer .btn a:visited, .modal-footer .btn a:link {
-  font-size: 16px;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003113}}
+.modal-footer .btn {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
   text-decoration: none;
+  border-style: solid;
+  font-weight: 200;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.2;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #999999;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003285}}
+.modal-footer .btn::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003289}}
+.modal-footer .btn:focus {
+  outline: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
+.modal-footer .btn, .modal-footer .btn:visited {
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\0000395}}
+.modal-footer .btn:hover, .modal-footer .btn:focus {
+  background-color: #919191;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
+.modal-footer .btn:hover, .modal-footer .btn:hover:visited, .modal-footer .btn:focus, .modal-footer .btn:focus:visited {
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003103}}
+.modal-footer .btn:active {
+  background-color: #8a8a8a;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
+.modal-footer .btn:active, .modal-footer .btn:active:visited {
   color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003117}}
-.modal-footer .btn a:hover {
-  color: #ededed;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003122}}
 .modal-footer .ajax-progress-throbber {
   display: none;
 }
@@ -2135,7 +4350,7 @@ table th[class*="span"],
 }
 
 @media (min-width: 1238px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003146}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003150}}
   body {
     max-width: -14px;
     padding-left: 10px;
@@ -2150,7 +4365,7 @@ table th[class*="span"],
     clear: both;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003148}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003152}}
 body #main {
   padding-left: 3.31126%;
   padding-right: 3.31126%;
@@ -2476,7 +4691,7 @@ ul.tabs li a {
   border: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000311}}
 div.tabs {
   margin: 0;
   padding: 0;
@@ -2486,7 +4701,7 @@ div.tabs {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000316}}
 div.tabs ul.primary {
   margin: 0;
   padding: 0;
@@ -2498,7 +4713,7 @@ div.tabs ul.primary {
   font-size: 16px;
   font-weight: 300;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000324}}
 div.tabs ul.primary li {
   margin: 0;
   padding: 0;
@@ -2510,7 +4725,7 @@ div.tabs ul.primary li {
   display: inline-block;
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000331}}
 div.tabs ul.primary li.active a {
   padding-left: 3.31126%;
   padding-right: 3.31126%;
@@ -2522,7 +4737,7 @@ div.tabs ul.primary li.active a {
   color: white;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000339}}
 div.tabs ul.primary li a {
   padding-left: 3.31126%;
   padding-right: 3.31126%;
@@ -2547,20 +4762,20 @@ div.tabs ul.primary li a {
 div.tabs ul.primary li a:hover {
   background-color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000346}}
 div.tabs ul.primary li a:hover {
   color: #262626;
 }
 
 @media (min-width: 614px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000359}}
   div.tabs ul.primary {
     display: block;
     margin: 0 auto;
     float: none;
     text-align: center;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000365}}
   div.tabs ul.primary li, div.tabs ul.primary li a, div.tabs ul.primary li.active a {
     margin: 0;
     padding: 0;
@@ -3380,22 +5595,43 @@ div.tabs ul.primary li a:hover {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\000037}}
+.livefyre-header {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000312}}
+.livefyre-header:hover {
+  background-color: #d6d6d6;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000316}}
+.livefyre-comments {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000320}}
+img.fyre-logo-drop {
+  width: auto!important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000328}}
 body .fyre-widget {
   padding: 1em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000330}}
 body .fyre-widget .img {
   width: 83px!important;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000335}}
 body .fyre-box-wrapper {
   display: none!important;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000339}}
 body div.livefyre-header {
   width: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000343}}
 body div.livefyre-header {
   padding: 0.5em 1em;
   display: block;
@@ -3404,7 +5640,7 @@ body div.livefyre-header {
   font-weight: 200;
   text-transform: capitalize;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_livefyre\.scss}line{font-family:\0000357}}
 body .livefyre-wrapper {
   float: left;
   clear: both;
@@ -3862,20 +6098,82 @@ body .livefyre-wrapper {
   z-index: zindexModal-1 !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\000032}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\000033}}
 ul.pager {
   margin-top: 1em;
   float: left;
   clear: both;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003103}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\0000336}}
+.pager {
+  margin: 27px 0;
+  list-style: none;
+  text-align: center;
+  *zoom: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_mixins\.scss}line{font-family:\0000315}}
+.pager:before, .pager:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_mixins\.scss}line{font-family:\0000322}}
+.pager:after {
+  clear: both;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\0000342}}
+.pager li {
+  display: inline;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\0000346}}
+.pager li > a,
+.pager li > span {
+  display: inline-block;
+  padding: 5px 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\0000353}}
+.pager li > a:hover {
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\0000358}}
+.pager .next > a,
+.pager .next > span {
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\0000362}}
+.pager .previous > a,
+.pager .previous > span {
+  float: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\0000367}}
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > span {
+  color: #999999;
+  background-color: #fff;
+  cursor: default;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003106}}
 nav[role="navigation"] {
   float: left;
   background-color: #262626;
   width: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003108}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003111}}
 nav[role="navigation"] li:last-of-type:after {
   float: left;
   clear: both;
@@ -3899,6 +6197,10 @@ nav[role="navigation"] li a[href*="discussion"]:before {
   font-size: 15px;
   line-height: 15px;
   color: "black";
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000312}}
+nav[role="navigation"] li.menu-567 {
+  before-content: "■■■";
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/icons\/_icons\.scss}line{font-family:\0000370}}
 nav[role="navigation"] li.menu-567:before {
@@ -3932,12 +6234,12 @@ nav[role="navigation"] li a[href*="sub"]:before {
   line-height: 15px;
   color: "black";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003120}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003123}}
 nav[role="navigation"] .dropdown-menu,
 nav[role="navigation"] #block-views-my-notifications-block .content {
   top: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003127}}
 nav[role="navigation"] .nav {
   margin: 0;
   padding: 0;
@@ -3952,7 +6254,7 @@ nav[role="navigation"] .nav {
   z-index: 1;
   background: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003129}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003132}}
 nav[role="navigation"] .nav > div {
   margin: 0;
   padding: 0;
@@ -3965,7 +6267,7 @@ nav[role="navigation"] .nav > div {
   z-index: 1;
   background: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003134}}
 nav[role="navigation"] .nav > div h2 {
   margin: 0;
   padding: 0;
@@ -3992,7 +6294,7 @@ nav[role="navigation"] .nav > div h2 {
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000359}}
 nav[role="navigation"] .nav > div h2 a {
   font-weight: 100;
   padding: 0 7px;
@@ -4002,7 +6304,7 @@ nav[role="navigation"] .nav > div h2 a {
   color: rgba(255, 255, 255, 0.75);
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000367}}
 nav[role="navigation"] .nav > div h2 a:hover {
   color: #262626;
 }
@@ -4014,17 +6316,17 @@ nav[role="navigation"] .nav > div h2:hover {
 nav[role="navigation"] .nav > div h2:hover {
   background-color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000377}}
 nav[role="navigation"] .nav > div h2:hover {
   background-color: white;
   color: black;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000382}}
 nav[role="navigation"] .nav > div h2 .active {
   background-color: white;
   color: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000389}}
 nav[role="navigation"] .nav > div h2.active > a,
 nav[role="navigation"] .nav > div h2 a.active {
   color: #262626;
@@ -4035,7 +6337,7 @@ nav[role="navigation"] .nav > div h2 a.active {
   border-radius: 4px 4px 0 0;
   font-weight: 500;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000395}}
 nav[role="navigation"] .nav > div h2 span.avatar img {
   margin: 0;
   padding: 0;
@@ -4043,7 +6345,7 @@ nav[role="navigation"] .nav > div h2 span.avatar img {
   width: 18px;
   height: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003136}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003139}}
 nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   margin: 0;
   padding: 0;
@@ -4070,7 +6372,7 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000359}}
 nav[role="navigation"] .nav > a.btn a, nav[role="navigation"] .nav > li a {
   font-weight: 100;
   padding: 0 7px;
@@ -4080,7 +6382,7 @@ nav[role="navigation"] .nav > a.btn a, nav[role="navigation"] .nav > li a {
   color: rgba(255, 255, 255, 0.75);
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000367}}
 nav[role="navigation"] .nav > a.btn a:hover, nav[role="navigation"] .nav > li a:hover {
   color: #262626;
 }
@@ -4092,17 +6394,17 @@ nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hove
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
   background-color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000377}}
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
   background-color: white;
   color: black;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000382}}
 nav[role="navigation"] .nav > a.btn .active, nav[role="navigation"] .nav > li .active {
   background-color: white;
   color: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000389}}
 nav[role="navigation"] .nav > a.btn.active > a,
 nav[role="navigation"] .nav > a.btn a.active, nav[role="navigation"] .nav > li.active > a,
 nav[role="navigation"] .nav > li a.active {
@@ -4114,7 +6416,7 @@ nav[role="navigation"] .nav > li a.active {
   border-radius: 4px 4px 0 0;
   font-weight: 500;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000395}}
 nav[role="navigation"] .nav > a.btn span.avatar img, nav[role="navigation"] .nav > li span.avatar img {
   margin: 0;
   padding: 0;
@@ -4122,13 +6424,17 @@ nav[role="navigation"] .nav > a.btn span.avatar img, nav[role="navigation"] .nav
   width: 18px;
   height: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003144}}
+nav[role="navigation"] #user-menu {
+  margin-right: 7px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003150}}
 nav[role="navigation"] #navigation-region,
 nav[role="navigation"] #info-menu,
 nav[role="navigation"] #user-menu {
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003146}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003153}}
 nav[role="navigation"] #navigation-region img,
 nav[role="navigation"] #info-menu img,
 nav[role="navigation"] #user-menu img {
@@ -4136,19 +6442,19 @@ nav[role="navigation"] #user-menu img {
   height: 15px;
   margin-left: 7px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003163}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003170}}
 nav[role="navigation"] #info-menu li a.dropdown-toggle {
   margin-right: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003168}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003175}}
 nav[role="navigation"] #info-menu li.open a.dropdown-toggle {
   text-shadow: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003176}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003183}}
 nav[role="navigation"] #navigation-region {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003178}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003185}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block {
   margin: 0;
   padding: 0;
@@ -4161,7 +6467,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block {
   z-index: 1;
   background: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003187}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 {
   margin: 0;
   padding: 0;
@@ -4188,7 +6494,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000359}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 a {
   font-weight: 100;
   padding: 0 7px;
@@ -4198,7 +6504,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   color: rgba(255, 255, 255, 0.75);
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000367}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 a:hover {
   color: #262626;
 }
@@ -4210,17 +6516,17 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:hover {
   background-color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000377}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:hover {
   background-color: white;
   color: black;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000382}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .active {
   background-color: white;
   color: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000389}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2.active > a,
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 a.active {
   color: #262626;
@@ -4231,7 +6537,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   border-radius: 4px 4px 0 0;
   font-weight: 500;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000395}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 span.avatar img {
   margin: 0;
   padding: 0;
@@ -4239,16 +6545,16 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   width: 18px;
   height: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003182}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003189}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-label {
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003185}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003192}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-count {
   display: inline-block;
   color: #2f58b6;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003188}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003195}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-count span {
   padding: 1px 5px;
   background: #296182;
@@ -4259,7 +6565,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   border-radius: 5px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003203}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003210}}
 div.region-page-top #toolbar {
   -webkit-box-shadow: 0 0 0 0;
   -moz-box-shadow: 0 0 0 0;
@@ -4270,18 +6576,18 @@ div.region-page-top #toolbar {
   position: static;
   background: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003211}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003218}}
 div.region-page-top #toolbar li {
   margin: 0;
   padding: 0;
   border: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003214}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003221}}
 div.region-page-top #toolbar li a {
   color: rgba(255, 255, 255, 0.75);
   padding: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003220}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003227}}
 div.region-page-top #toolbar div.toolbar-menu {
   padding: 0;
   background-color: #262626;
@@ -4314,7 +6620,7 @@ ul.tabs li a {
   border: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000311}}
 div.tabs {
   margin: 0;
   padding: 0;
@@ -4324,7 +6630,7 @@ div.tabs {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000316}}
 div.tabs ul.primary {
   margin: 0;
   padding: 0;
@@ -4336,7 +6642,7 @@ div.tabs ul.primary {
   font-size: 16px;
   font-weight: 300;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000324}}
 div.tabs ul.primary li {
   margin: 0;
   padding: 0;
@@ -4348,7 +6654,7 @@ div.tabs ul.primary li {
   display: inline-block;
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000331}}
 div.tabs ul.primary li.active a {
   padding-left: 3.31126%;
   padding-right: 3.31126%;
@@ -4360,7 +6666,7 @@ div.tabs ul.primary li.active a {
   color: white;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000339}}
 div.tabs ul.primary li a {
   padding-left: 3.31126%;
   padding-right: 3.31126%;
@@ -4385,20 +6691,20 @@ div.tabs ul.primary li a {
 div.tabs ul.primary li a:hover {
   background-color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000346}}
 div.tabs ul.primary li a:hover {
   color: #262626;
 }
 
 @media (min-width: 614px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000359}}
   div.tabs ul.primary {
     display: block;
     margin: 0 auto;
     float: none;
     text-align: center;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000365}}
   div.tabs ul.primary li, div.tabs ul.primary li a, div.tabs ul.primary li.active a {
     margin: 0;
     padding: 0;
@@ -10751,7 +13057,7 @@ html body:before {
   font-size: 11px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003227}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/chris\/git\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003231}}
 body {
   background-color: #f0f0f0;
   background-image: url("/sites/all/themes/bowerbird/images/bkgs/cream_dust.png");

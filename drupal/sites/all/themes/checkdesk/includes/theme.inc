@@ -126,10 +126,15 @@ function checkdesk_checkdesk_links($variables) {
 
 /**
  * Implements hook_css_alter().
+ *
+ * Removes some CSS files.
  */
-function checkdesk_css_alter(&$css) {  
+function checkdesk_css_alter(&$css) {
   $excludes = _checkdesk_alter(checkdesk_theme_get_info('exclude'), 'css');
-  $css = array_diff_key($css, $excludes);
+  $pattern = str_replace('/', '\/', implode('|', array_keys($excludes)));
+  foreach ($css as $path => $data) {
+    if (preg_match("/^($pattern)/", $path)) unset($css[$path]);
+  }
 }
 
 /**

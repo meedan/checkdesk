@@ -29,6 +29,10 @@
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
+// Add base Drupal styles
+// Drupal itself should not emit *any* CSS. 
+@import "override_drupal/all";
+
 // Bowerbird Drupal touchups
 // via: bowerbird
 @import "bowerbird/drupal";
@@ -156,7 +160,7 @@ body {
 
 //  Checkdesk typography
 //  And a reponsive typography mixin which is applied in layout.
-@import "bowerbird/typography"; //defaults
+@import "bowerbird/_typography"; //defaults
 @import "typography"; //checkdesk specific
 
 // Checkdesk Drupal tabs

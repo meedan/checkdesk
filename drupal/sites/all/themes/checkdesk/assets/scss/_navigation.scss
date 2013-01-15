@@ -9,7 +9,10 @@
   // add a story 
   li a[href*="discussion"] { @include icon("file", $size); }
   
-  li.menu-567 { @include icon("file", $size); }
+  li.menu-567 { 
+    before: { content: "■■■" };
+    @include icon("file", $size); 
+  }
 
   // add a post
   li a[href*="post"] { @include icon("pencil", $size); }
@@ -136,6 +139,10 @@ nav[role="navigation"] {
     & > li { // default: the rest of the li's in the navigation
       @include nav-item;
     }
+  }
+
+  #user-menu {
+    margin-#{$omega}: $nav-gutter;
   }
 
   #navigation-region,
