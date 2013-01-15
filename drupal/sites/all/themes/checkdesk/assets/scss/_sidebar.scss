@@ -147,14 +147,10 @@
           // @include pad(0,0);
         }
         .views-row {
-          // background-color: red!important;
           @include span-columns($sw/2, $sw); // why doesn't this work? ...
           width: 40%!important; // force it to shrink the reports HACK
-          clear: $from-direction;
-          &:nth-of-type(even) {
-            @include omega; // float the second ones
-            clear: $omega-float;
-          }
+          clear: none;
+          display: inline-block;
         }
       }
 

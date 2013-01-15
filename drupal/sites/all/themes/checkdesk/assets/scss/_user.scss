@@ -1,8 +1,14 @@
 // User section profile
 // http://checkdesk:8888/user
 @mixin user-profile($width: $cw, $context: $cw) {
+
+  // Temporary, this should go in a layout not on the header ...
+  #content-header > h1 {
+    padding-#{$alpha}: $gw;
+  }
+
   div.profile {
-    @include span-columns($width - 2, $context);
+    @include span-columns($width - 2, $context, $gw);
     background-color: $input-background;
     @content;
     
