@@ -33,6 +33,7 @@ regions[page_bottom] = Page bottom
 regions[navigation] = Navigation bar
 
 ; EXCLUDE CSS
-exclude[css][] = 'sites/all/modules/contrib/*'
-exclude[css][] = 'misc/*'
-exclude[css][] = 'modules/*'
+exclude[css][] = 'sites/all/modules/contrib/oembed/oembed.theme.css'
+exclude[css][] = 'sites/all/modules/contrib/absolute_messages/absolute_messages.css'
+exclude[css][] = 'sites/all/modules/contrib/absolute_messages/absolute_messages_fixed.css'
+exclude[css][] = 'sites/all/modules/contrib/ctools/css/modal.css'
