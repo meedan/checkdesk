@@ -76,3 +76,19 @@ input.form-autocomplete {
 {
   display: none;
 }
+
+// Navigation hacks
+#toolbar-home, 
+#toolbar-user {
+  display: none; // Disable duplicate link from Drupal
+}  
+
+body.toolbar-drawer {
+  padding-top: 0!important; // override drupal
+}
+
+// there is no reset, on the filter on the reports stream 
+// on the create update page
+.views-exposed-widget .views-reset-button {
+  display: none;
+}

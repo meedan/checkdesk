@@ -7,16 +7,10 @@
 
   body.sidebar-first {
 
-    form {
-      border-bottom: 1px solid $bkg-color;
-      padding-bottom: 1em;
-      margin-bottom: 1em;
-    }
-
     #main {
       @include span-columns($break, $break); //outermost container
       @include pad(0,0, $break); // override story.scss
-      @content;
+      @content; // go crazy, be careful
 
       // 2. The sidebar column
       #sidebar-first.column {
@@ -25,10 +19,19 @@
         margin-top: $base-font-size;
         @include cd-box-shadow();
         background-color: white;
+        
+        // Desk reports sidebar via reports.scss
+        @include reports-filter-and-results($sw) { // The reports filter form
 
-        // Desk reports
-        @include reports-filter-and-results($sw) { // The reports filter form 
-          @include cd-form($sw, $sw, $gw); // apply form layout @ 100%
+          // reapply form defaults with this layout
+          @include cd-form($sw, $sw, $gw); // apply form layout @ 100%          
+
+          // Further customizations to only this sidebar form
+          form {
+            border-bottom: 1px solid $bkg-color;
+            padding-bottom: 1em;
+            margin-bottom: 1em;
+          }
         }
       }
 
@@ -43,6 +46,8 @@
           padding: $gw;
           margin: 0;
           line-height: $base-line-height;
+          font-size: $small-font-size;
+          font-weight: 700;
         }
 
         p {

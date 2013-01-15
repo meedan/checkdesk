@@ -2,7 +2,8 @@
 // Checkdesk Dropdown menus
 
 // Dropdown arrow/caret
-.caret { @include caret; }
+// ... is not in the current spec.
+// .caret { @include caret; }
 
 .dropdown {
   position: relative;
@@ -52,7 +53,7 @@
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover > a {
   text-decoration: none;
-  color: $dropdown-link-color-hover;
+  // color: $dropdown-link-color-hover;
   background-color: $identity;
 }
 

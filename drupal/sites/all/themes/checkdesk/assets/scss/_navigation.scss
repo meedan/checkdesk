@@ -8,6 +8,9 @@
   li.menu-477 .icon-home { @include icon("home", $size) { @include reset-box-model; } }
   // add a story 
   li a[href*="discussion"] { @include icon("file", $size); }
+  
+  li.menu-567 { @include icon("file", $size); }
+
   // add a post
   li a[href*="post"] { @include icon("pencil", $size); }
   // add a report
@@ -18,14 +21,15 @@
 
 // Home link
 // Special shine
-li.menu-477 {
-  @include gradient(rgba(white, 0.1), rgba(white, 0.2));
-}
+// ... not in the spec
+// li.menu-477 {
+  // @include gradient(rgba(white, 0.1), rgba(white, 0.2));
+// }
 
 // Nav item container
 //
-// This makes any element behave properly with 1 or more <.nav-item> children
-// It is used on both the outer parent and some children.
+// This makes any element behave properly with 1 or more <.nav-item> children.
+// It is used on both the outer parent and *some* children (where it is necessary to override).
 // This helps standardize the implementation of the contained nav-items
 // This is necessary because some nav-items are h2s, a, or divs.
 @mixin nav-item-container() {
@@ -45,43 +49,44 @@ li.menu-477 {
 @mixin nav-item { 
   @include reset-box-model;
   display: inline-block;
-  float: $from-direction;
-  line-height: $nav-height;
-  font-size: $nav-icon-height;
-  background-color: $nav-bkg-color;
-  color: $nav-color;
-  font-weight: normal;
+  float: $from-direction;  
   position: relative;
   z-index: $zindexDropdown - 1; 
-  font-size: $base-font-size;
-  padding: ms(-1);
-  & > a {
-    text-decoration: none; 
+  border-#{$from-direction}: 1px solid rgba(white, 0.29);
+  a {
+    font-weight: 100;
+    padding: 0 $nav-gutter;
+    letter-spacing: 1px;
+    text-decoration: none;
+    line-height: $nav-height - 4;
     color: $nav-color;
-    line-height: $base-line-height;
-    font-size: $base-font-size;
     display: inline-block;
-    @include border-radius($radius);
     &:hover {
       color: $nav-active-color;
-      font-weight: normal;
     }
   }
 
+  // Transitions
   @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
   @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.2s', 'background-color');
   
   // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
-  &:hover, 
-  &.active {
+  &:hover {
+    background-color: $nav-hover-bkg-color;
+    color: $nav-hover-color;
+  }
+
+  .active {
     background-color: $nav-active-bkg-color;
     color: $nav-active-color;
   }
 
-  // An anchor inside the chunky block, (without the bkg color duplicated)
+  // An anchor inside the chunky block
   &.active > a, 
   a.active {
     color: $nav-active-color;
+    @include border-radius($radius $radius 0 0);
+    font-weight: 500;
   }
 
   span.avatar img { // images in nav items
@@ -97,6 +102,8 @@ li.menu-477 {
 // This nav contains two rows of nav-items with icons.
 nav[role="navigation"] {
   float: $from-direction;
+  background-color: $nav-container-bkg-color;
+  width: 100%;
 
   li:last-of-type:after {
     float: $from-direction;
@@ -111,7 +118,7 @@ nav[role="navigation"] {
   // set the distance from the bottom of the button top of the dropdown
   .dropdown-menu, 
   #block-views-my-notifications-block .content {
-    top: $nav-line-height*2 + 10;
+    top: $nav-line-height*2;
   }
 
   .nav {
@@ -134,10 +141,12 @@ nav[role="navigation"] {
   #navigation-region,
   #info-menu,
   #user-menu {
-    float: $omega-float; // at a larger breakpoint these fall in line
+    float: $omega; // at a larger breakpoint these fall in line
+    // clear: $alpha;
     img {
       width: $nav-icon-height;
       height: $nav-icon-height;
+      margin-#{$alpha}: $nav-gutter;
     }
 
     // Position the dropdown menu
@@ -165,17 +174,16 @@ nav[role="navigation"] {
   // Notifications 
   // FIXME has a different structure than the other <ul>'s...
   #navigation-region {
+    display: none; // TEMP
     #block-views-my-notifications-block {
+      @include nav-item-container;
       h2 {
-        @include nav-item-container;
+        @include nav-item;
         .notifications-label {
-          @include nav-item;  
-          @include caret; // ideally this should be on a separate .caret span
-          padding-#{$from-direction}: $gw; // hmm this padding should not be necessary I think CGB
           cursor: pointer;
         }
         .notifications-count {
-          display: inline;
+          display: inline-block;
           color: $notification-count-color;
           span {
             padding: 1px 5px;
@@ -191,18 +199,9 @@ nav[role="navigation"] {
 // =======================================================================
 // Drupal toolbars at the very top
 //
-
-body.toolbar-drawer {
-  padding-top: 0!important;
-}
-
 div.region-page-top {
-  // Disable Drupal toolbar padding
-  width: 100%;
-  background: pink;
-
-
   #toolbar {
+    // This can be cleaned up with toolbar css is removed.
     @include box-shadow(0 0 0 0); // disable box shadow
     padding: 0;
     margin: 0;
@@ -219,13 +218,8 @@ div.region-page-top {
     }
 
     div.toolbar-menu {
-      // width: 98%;
       padding: 0;
       background-color: $nav-container-bkg-color;
-
-      #toolbar-home, #toolbar-user {
-        display: none; // Disable duplicate link from Drupal
-      }  
     }
   }
 }

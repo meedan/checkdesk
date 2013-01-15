@@ -24,6 +24,11 @@
 // Requires: base
 @import "override_susy/grid";
 
+// Aliases for bidirectional stuff
+// Todo load susy earlier and move this file to base CGB Jan 2013
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
 // Bowerbird Drupal touchups
 // via: bowerbird
 @import "bowerbird/drupal";
@@ -213,17 +218,14 @@ body {
 // Reports pages
 @import "reports";
 
-// Animations
-//
-// Experimental 
-// @import "animation";
-
 // ====================================================================== 
 // Styles in progress
 //
+
+@include version-banner;
+
 body {
   @include cd-background;
-  // @include d;
 }
 
 // ====================================================================== 
@@ -235,10 +237,6 @@ body {
 // No really, The End
 //
 // Debuggers get the final word
-// @include debug_drupal;
-// @import "spec";
 
-@include version-banner;
-
-// $display-layout-debugger: true; // shows current breakpoint and columns
-// @include visualize-grid($display-layout-debugger);
+$display-layout-debugger: true; // shows current breakpoint and columns
+@include visualize-grid($display-layout-debugger);

@@ -1,4 +1,16 @@
 @mixin form-drag-and-drop() {
+
+  // The Drag
+  // ... or about to drag
+  .views-row.ui-draggable-dragging, 
+  .views-row.ui-draggable:hover {
+    background-color: $postit-yellow;
+    cursor: move;
+    // z-index: 1000000;
+    // position: relative;
+  }
+
+  // The drop indicator
   .ui-droppable { 
     float: $from-direction; // it must be floated to contain droppable form elements.
     width: 100%; // ... thus this must be set since it must be floated. 
@@ -7,8 +19,8 @@
 
   // This is not the same as the design.
   .ui-droppable.drop-hover textarea {
-    background-color: rgba(green, 0.1);
-    border-color: rgba(green, 0.3);
+    background-color: rgba($twitter-blueish, 0.02);
+    border-color: rgba($twitter-blueish, 0.9);
   }
 }
 

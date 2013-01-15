@@ -4,48 +4,56 @@
 // $w - the width
 //
 @mixin reports-filter-and-results($w) {
-  @content; // implement the form layout in the parent scss
+  @content;
 
   // Default views settings are in views.scss
   form {    
-    .views-exposed-widget > label {
-      font-weight: bold;
+    .views-exposed-widget > label { // the label on the report filter sidebar
+      font-weight: bold; 
       font-size: $small-font-size;
+      display: block;
+    }
+
+    .views-exposed-widget {
+      display: block;
+      @include span-columns(2, $w); // ensure everything clears
+      text-align: center;
+      background-color: $light-grey;
+      @include border-radius($radius);
+      font-size: $smallest-font-size;
+      font-weight: 300;
+    }
+
+    .views-exposed-widget.views-submit-button {
+      label {
+        text-align: $from-direction;
+        float: $from-direction;
+        width: 45%;
+        border-top:1px solid red;
+      }
+      input {
+        float: $from-direction;
+        background-color: $dark-grey;
+        clear: none;
+      }
+    }
+
+    .views-operator, // show/exclude buttons
+    .views-widget {  // and the actual filter input elements
+      display: none; // are toggled with jascript 
     }
   }
 
-  // Checkboxes and radios
-  // Can we move this to forms.scss?
-  .form-type-bef-checkbox input, 
-  .form-type-radio input {
-    margin: 3px; 
-  }
-
-  .edit-field-rating-tid-wrapper {
-    .form-item {
-      float: $from-direction;
-      padding: 5px;
-    }
-  }
-
-  // All of these really necessary? 
   .view-content,
   .views-field, 
   .field-content {
+    border-top: 1px solid $light-grey;
     @include span-columns($w, $w); // ensure everything clears
   }
 
   .views-row {
+    border-top: 1px solid $grey;
     @include span-columns($w, $w, $gw);
   }
 
-  // When dragging
-  // or about to drag
-  .views-row.ui-draggable-dragging, 
-  .views-row.ui-draggable:hover {
-    background-color: $postit-yellow;
-    cursor: move;
-    // z-index: 1000000;
-    // position: relative;
-  }
 }
