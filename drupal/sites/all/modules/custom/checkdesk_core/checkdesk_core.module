@@ -814,8 +814,8 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     //Add filters greyed out promp
     drupal_add_js(drupal_get_path('module', 'checkdesk_core'). '/js/jquery.watermark/jquery.watermark.min.js');
     drupal_add_js('jQuery(document).ready(function () {
-      jQuery("#edit-source").watermark(Drupal.t("Youtube.com"), {className: "filter-greyed-text"});
-      jQuery("#edit-title").watermark(Drupal.t("Enter keywords"), {className: "filter-greyed-text"});
+      jQuery("#edit-source").watermark(Drupal.t("Youtube"), {className: "filter-greyed-text"});
+      jQuery("#edit-title").watermark(Drupal.t("Keyword"), {className: "filter-greyed-text"});
     });', 'inline');
   }
 }
