@@ -121,109 +121,108 @@
   }
 }
 
-// Misc form stuff
-form {
+@mixin cd-form-styles-except-layout {
+  form {
+    input[type="password"],
+    input[type="text"], 
+    textarea {
+      @include border-radius(3px);
+      display: block;
+      line-height: $base-line-height;
+      background-color: $input-background;
+      border: 1px solid $grey;
+      margin-top: $gw;
 
-  input[type="text"], 
-  textarea {
-    @include border-radius(3px);
-    display: block;
-    line-height: $base-line-height;
-    background-color: $input-background;
-    border: 1px solid $grey;
-    margin-top: $gw;
-
-    // Focus state
-    &:focus {
-      border-color: rgba(black, .5);
-      outline: thin dotted $light-grey;
-    }
-  }
-}
-
-form textarea {
-  height: 200px; // starting height
-}
-
-form {
-  // checkboxes and radios
-  input[type="checkbox"], 
-  input[type="radio"] {
-    width: $checkbox-width;
-    display: inline-block;
-    clear: both;
-    float: $from-direction;
-  } 
-
-  // When we start writing make it bright
-  input:focus, 
-  textarea:focus { 
-    background-color: white; 
-  }
-
-  // Default labels
-  label {
-    font-size: $large-font-size;
-    display: block;
-    font-weight: normal;
-    padding { top: $gw; bottom: $gw; }
-
-    &[for="edit-pass"] {
-      a  {
-        padding: $gw;
-        font-size: $small-font-size;
-        color: $grey;
-        font-weight: normal;
+      // focus state
+      &:focus {
+        border-color: rgba(black, .5);
+        outline: thin dotted $light-grey;
       }
     }
+
+    textarea { height: 200px; } // starting height
+
+    // checkboxes and radios
+    input[type="checkbox"], 
+    input[type="radio"] {
+      width: $checkbox-width;
+      display: inline-block;
+      clear: both;
+      float: $from-direction;
+    } 
+
+    // When we start writing make it bright
+    input:focus, 
+    textarea:focus { 
+      background-color: white; 
+    }
+
+    // Default labels
+    label {
+      font-size: $large-font-size;
+      display: block;
+      font-weight: normal;
+      padding { top: $gw; bottom: $gw; }
+
+      &[for="edit-pass"] {
+        a  {
+          padding: $gw;
+          font-size: $small-font-size;
+          color: $grey;
+          font-weight: normal;
+        }
+      }
+    }
+
+    // Default descriptions
+    .description {
+      clear: $from-direction;
+      font-size: ms(-1);
+      display: none; // displayed at larger breakpoints
+      padding: 0.5em 0;
+      color: rgba(black, 0.75);
+      margin: 0;
+    }
+
+    // little links: create new account, forgot password 
+    // wow BAD selector here haha - CGB
+    .item-list .first.last {
+      font-size: $small-font-size;
+    }
+
+    // Confirmation Form Actions: Confirm delete node
+    &.confirmation {
+      .form-actions input {
+          @include checkdesk-button($firetruck-red); // Red delete button
+      }
+    }
+
+    // Checkbox labels for checkboxes and radios, aka ".options"
+    label.option {
+      @include reset-box-model; // reset default label styles
+      display: inline-block;
+      font-size: $smaller-font-size;
+      cursor: pointer;
+      float: $from-direction;
+      clear: none;
+    }
+
+    @include form-actions;
+    @include form-drag-and-drop;
+
+    & > .form-item {
+      clear: both;
+      font-size: $small-font-size;
+      color: $dark-grey;
+      background: rgba($light-grey, 0.5);
+    }
   }
-
-
-  // Default descriptions
-  .description {
-    clear: $from-direction;
-    font-size: ms(-1);
-    display: none; // displayed at larger breakpoints
-    padding: 0.5em 0;
-    color: rgba(black, 0.75);
-  }
-
-  // little links: create new account, forgot password 
-  // BAD selector here
-  .item-list .first.last {
-    font-size: $small-font-size;
-  }
-}
-
-// Confirmation Form Actions: Confirm delete node
-form.confirmation {
-  .form-actions input {
-      @include checkdesk-button($firetruck-red); // Red delete button
-  }
-}
-
-
-// Checkbox labels for checkboxes and radios, aka ".options"
-label.option {
-  @include reset-box-model; // reset default label styles
-  display: inline-block;
-  font-size: $smaller-font-size;
-  cursor: pointer;
-  float: $from-direction;
-  clear: none;
-}
-
-@include form-actions;
-@include form-drag-and-drop;
-form > .form-item {
-  clear: both;
-  font-size: $small-font-size;
-  color: $dark-grey;
-  background: rgba($light-grey, 0.5);
 }
 
 // ============================================================================
 // The reusable form layout mixin 
+// ONLY LAYOUT in this section
+// It is reused many times at various breakpoints
 //
 @mixin cd-form-layout($w, $context, $gw: $gw) {
   form {
@@ -243,7 +242,8 @@ form > .form-item {
       }
     } 
 
-    // Default inputs and textareas
+    // Default main inputs and textareas
+    input[type="password"],
     input[type="text"],
     textarea {
       @include span-columns($w, $w, $gw/2); // small padding with grid accounting
@@ -260,9 +260,8 @@ form > .form-item {
 // Forms Breakpoints
 
 @include form-standardize;
-
-// Default render of the form layout
-@include cd-form-layout($cw, $cw, $gw);
+@include cd-form-styles-except-layout;
+@include cd-form-layout($cw, $cw, $gw); // Default render of the form layout
 
 // Breakpoint: small
 @include at-breakpoint($break-small) {

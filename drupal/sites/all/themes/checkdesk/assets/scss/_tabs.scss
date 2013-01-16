@@ -38,7 +38,7 @@ div.tabs {
 
       a {
         @include span-columns($cw, $cw, $gw); // default full width
-        @include bb-transition($tabs-color, $tabs-active-bkg-color, '0.2s', 'background-color');
+        @include bb-transition($tabs-bkg-color, $tabs-active-bkg-color, '0.2s', 'background-color');
         line-height: $base-line-height;
         display: inline-block;
         padding: {top: $gw; bottom: $gw;}
