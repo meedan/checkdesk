@@ -141,16 +141,14 @@
     // Both links 
     .notifications-settings-link, 
     .more-link {
-      // @include building_block;
-      background-color: $grey;
-      // padding: { top: 0.5em; bottom: 0.5em;} 
+      padding: { top: 0.5em; bottom: 0.5em;} 
       a, a:visited, a:link {
         font-size: $small-font-size;        
         text-decoration: none;
-        color: white;
+        color: $link-color;
       }
       a:hover {
-        color: $light-grey;
+        color: $links-active-color;
       }
     }
 

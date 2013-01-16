@@ -101,6 +101,7 @@
   @content
 }
 
+
 // This nav contains two rows of nav-items with icons.
 nav[role="navigation"] {
   float: $from-direction;
@@ -142,6 +143,9 @@ nav[role="navigation"] {
 
   #user-menu {
     margin-#{$omega}: $nav-gutter;
+    a {
+      font-weight: 100; // should not be necessary
+    }
   }
 
   #navigation-region,
@@ -180,11 +184,13 @@ nav[role="navigation"] {
   // Notifications 
   // FIXME has a different structure than the other <ul>'s...
   #navigation-region {
-    display: none; // TEMP
     #block-views-my-notifications-block {
       @include nav-item-container;
       h2 {
         @include nav-item;
+        font-size: $nav-font-size; // these should not be necessary once this is an <a>
+        font-weight: 100;
+        padding: 2px;
         .notifications-label {
           cursor: pointer;
         }

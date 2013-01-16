@@ -38,7 +38,7 @@ $report-text-color: $dark-grey;
 			
 			.source-url { // this is not the best markup CGB
 				font-weight: normal;
-				font-size: inherit;
+				font-size: $smaller-font-size;
 				line-height: inherit;
 				overflow: inherit;
 				display: block;
@@ -62,7 +62,9 @@ div.sensitive-hide {
 	padding: $gw;
 
 	.report-media {
-
+		width: auto;
+		clear: both;
+		float: $alpha;
 		.container {
 			display: inline-block;
 			vertical-align: middle;
@@ -132,8 +134,6 @@ div.sensitive-hide {
 	}
 
 	& > p {
-		@include ctb-clearfix;
-		padding: $base-line-height/2.8 $gridGutterWidth/2 $base-line-height/2 $gridGutterWidth/2;
 		font-size: $small-font-size;
 	}
 
