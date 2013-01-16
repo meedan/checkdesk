@@ -1,30 +1,71 @@
 @charset "UTF-8";
-// Checkdesk Sass Theme 2.x
+// Checkdesk Sass Theme
 
-// Modular scale via gem
+// Modular scale 
+// via: gem
 @import "modular-scale";
 
-// Bowerbird colors by name
-// Example usage: div { color: $tupperware-blue; }
-// We always want to use colors by name, to facilitate readbility + discussion.
-// hsl() values preferred for readability
+// Colors
+// via: bowerbird sass extension
+// note: We always want to use colors by name, to facilitate readbility + discussion.
+// note: hsl() values preferred for readability
 @import "bowerbird/colors";
 
-// Checkdesk configuration (relies on colors and modular scale)
+// Checkdesk configuration 
+// Requires colors, modular-scale
 @import "base";
 
 // Bowerbird Compass Extension
-// See: README.md and ../bowerbird/README.md
+// See also README.md and ../bowerbird/README.md
+// Requires: base
 @import "bowerbird";
 
 // Checkdesk override susy functions very selectively
+// Requires: base
 @import "override_susy/grid";
 
+// Aliases for bidirectional stuff
+// Todo load susy earlier and move this file to base CGB Jan 2013
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Drupal styles
+// Drupal itself should not emit *any* CSS. 
+//
+// These are all of the files that were ultimately being included in the markup.
+// Now all of them can be controlled here and inspected more easily.
+// Ideally these will all be *completely refactored away* CGB Jan 2013
+
+@import "override_drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
+@import "override_drupal/system_base";
+@import "override_drupal/system_menus";
+@import "override_drupal/system_messages";
+// @import "system_theme"; // hoping i can remove this huge one ....
+@import "override_drupal/jquery_ui_core";
+// @import "jquery_ui_theme"; // this is pretty big do we really need it?
+@import "override_drupal/comment";
+@import "override_drupal/field";
+@import "override_drupal/node";
+// @import "override_drupal/search";
+// @import "override_drupal/user";
+// @import "override_drupal/views";
+@import "override_drupal/ctools";
+@import "override_drupal/ctools_modal";
+// @import "override_drupal/oembed";
+@import "override_drupal/toolbar";
+// @import "override_drupal/shortcut";
+@import "override_drupal/contextual";
+@import "override_drupal/rules";
+@import "override_drupal/context_reaction_block";
+
 // Bowerbird Drupal touchups
+// via: bowerbird
 @import "bowerbird/drupal";
 
 // Some views stuff we extracted from cd
-@import "views";
+// 
+// Deprecated
+// @import "views";
 
 //  Debugger mixins for the grid, breakpoints, etc.
 @import "bowerbird/debug";
@@ -179,12 +220,16 @@ body {
 // Form: password strength section
 @import "form_password";
 
-// Forms
+// Forms, Tables
 @import "forms";
+@import "tables";
 
 // ====================================================================== 
 // Checkdesk pages 
 //
+
+// Checkdesk reports
+@import "administer_users";
 
 // Liveblog page
 @import "liveblog";
@@ -203,20 +248,17 @@ body {
 // Create node page and form
 @import "create_node";
 
-// Reports page
+// Reports pages
 @import "reports";
-
-// Animations
-//
-// Experimental 
-// @import "animation";
 
 // ====================================================================== 
 // Styles in progress
 //
+
+@include version-banner;
+
 body {
   @include cd-background;
-  // @include d;
 }
 
 // ====================================================================== 
@@ -228,10 +270,6 @@ body {
 // No really, The End
 //
 // Debuggers get the final word
-// @include debug_drupal;
-// @import "spec";
-
-@include version-banner;
 
 // $display-layout-debugger: true; // shows current breakpoint and columns
 // @include visualize-grid($display-layout-debugger);

@@ -1,22 +1,22 @@
-
-// The installation page
 // ==============================================================
+// The installation page
+
 #modalContent.modal-install-bookmarklet {
-  width: 930px !important;
-  height: 355px !important;
-  background: #fff;
   border: 1px solid #C0C0C0;
   top: 80px !important; 
-  #{$from-direction}: 50% !important;
-  margin-#{$from-direction}: -465px;
-  z-index: 1050 !important;
-  overflow: visible;
-  position: fixed !important;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  z-index: $zindexModal; 
+  position: fixed ;
 
   .ctools-modal-content {
-    width: 930px !important;
+    border: 1px solid $light-grey;
+    width: 300px;
     .modal-content {
-      width: 930px !important;
+      width: 300px;
+      overflow: visible;
     }
   }
 
@@ -30,6 +30,7 @@
       height: 19px;
       background: transparent url(../imgs/icons/modal-close.png) center center no-repeat;
       opacity: 1;
+      z-index: $zindexModal + 10000;
     }
 
     .modal-title {
@@ -41,7 +42,7 @@
     background: transparent url(../imgs/icons/bookmarklet-drag.png) $from-direction center no-repeat;
     display: block;
     height: 84px;
-    width: 50%;
+    width: 250px;
     padding-#{$from-direction}: 66px;
     position: absolute;
     #{$from-direction}: 35px;
@@ -50,6 +51,7 @@
     text-decoration: none;
     color: #fff;
     font-size: 18px;
+    overflow: visible;
 
     span {
       position: absolute;
@@ -61,9 +63,8 @@
   }
 
   .install-bookmarklet-col {
-    width: 410px;
-    float: $from-direction;
-    margin: 0 22px;
+    width: 300px/2;
+    float: $alpha;
 
     h3 {
       color: #C0C0C0;
@@ -71,7 +72,10 @@
       text-align: center;
       margin: 80px auto 20px auto;
       font-weight: normal;
-      padding-#{opposite-position($from-direction)}: 76px;
+      padding-#{$omega}: 76px;
+      float: $alpha;
+      clear: both;
+      width: 300px/3;
     }
 
     ul {
@@ -94,10 +98,12 @@
   }
 
   .install-bookmarklet-col + .install-bookmarklet-col {
+    float: $omega;
+    width: 350px;
     h2 {
       color: #C0C0C0;
       font-weight: normal;
-      font-size: $large-font-size;
+      font-size: $x-large-font-size;
     }
 
     p {

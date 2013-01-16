@@ -1,4 +1,19 @@
+
+// ===================================================================
+// Form drag and drop
+// On create update page
+//
 @mixin form-drag-and-drop() {
+  .views-row.ui-draggable-dragging .views-row, 
+  .views-row.ui-draggable:hover .views-row {
+    background-color: $postit-yellow;
+    cursor: move;
+    @include cd-box-shadow;
+    // z-index: 1000000;
+    // position: relative;
+  }
+
+  // The drop indicator
   .ui-droppable { 
     float: $from-direction; // it must be floated to contain droppable form elements.
     width: 100%; // ... thus this must be set since it must be floated. 
@@ -6,25 +21,24 @@
   }
 
   .ui-droppable.drop-hover textarea {
-    background-color: rgba(green, 0.1);
-    border-color: rgba(green, 0.3);
+    background-color: rgba($twitter-blueish, 0.02);
+    border-color: rgba($twitter-blueish, 0.9);
   }
 }
 
-// Form Actions (eg submit button)
+// ===================================================================
+// Form actions
 //
-@mixin form-actions($w) {
 
+@mixin form-actions {
   .form-actions {
-    @include span-columns($w, $w); // end of grid
-
-    // Form actions: buttons and anchors
+    margin-top: $gw;
     input, a {
-      @include checkdesk-button;
+      @include checkdesk-button; 
     }
   }
 
-  // Grey buttons
+  // De-emphasized buttons
   input#edit-reset, 
   input#edit-draft, 
   input[type="reset"] {
@@ -32,7 +46,7 @@
     border: 1px solid $grey;
   }
 
-  // Blue buttons
+  // Buttons
   input#edit-submit, 
   .form-submit {
     @include checkdesk-button($twitter-blueish);
@@ -44,17 +58,8 @@
 //
 @mixin form-standardize {
   
-  label, input, button, select, textarea {
-    font-size: $base-font-size;
-  }
-
-  input, button, select, textarea {
-    font-family: $sans-font-family;
-  }
-
-  label {
-    display: block;
-  }
+  label, input, button, select, textarea { font-size: $base-font-size; }
+  input, button, select, textarea { font-family: $sans-font-family; }
 
   select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     display: inline-block;
@@ -116,37 +121,11 @@
   }
 }
 
-// ============================================================================
-// The forms 
-//
-@mixin cd-form($w, $context, $gw: 0px) {
+@mixin cd-form-styles-except-layout {
   form {
-    @include form-standardize;
-    @include form-actions($w);
-    @include form-pass($w, $context);
-    @include form-drag-and-drop;
-    @include span-columns($w, $context, $gw);
-    @content;
-
-    & > .form-item {
-      @include reset-box-model;
-      @include span-columns($w, $w);
-      clear: both;
-      font-size: $small-font-size;
-      color: $dark-grey;
-      background: rgba($light-grey, 0.5);
-
-      // Nested <.form-item>s
-      .form-item { 
-        @include span-columns($w, $w);
-      }
-    } 
-
-    // Default inputs and textareas
-    input,
+    input[type="password"],
+    input[type="text"], 
     textarea {
-      @include span-columns($w, $w, $gw/2); // small padding with grid accounting
-      padding: { top: $gw/2; bottom: $gw/2; } // match the padding on top and bottom
       @include border-radius(3px);
       display: block;
       line-height: $base-line-height;
@@ -154,16 +133,23 @@
       border: 1px solid $grey;
       margin-top: $gw;
 
-      // Focus state
+      // focus state
       &:focus {
         border-color: rgba(black, .5);
         outline: thin dotted $light-grey;
       }
     }
 
-    textarea {
-      height: 100px; // starting height
-    }
+    textarea { height: 200px; } // starting height
+
+    // checkboxes and radios
+    input[type="checkbox"], 
+    input[type="radio"] {
+      width: $checkbox-width;
+      display: inline-block;
+      clear: both;
+      float: $from-direction;
+    } 
 
     // When we start writing make it bright
     input:focus, 
@@ -177,6 +163,15 @@
       display: block;
       font-weight: normal;
       padding { top: $gw; bottom: $gw; }
+
+      &[for="edit-pass"] {
+        a  {
+          padding: $gw;
+          font-size: $small-font-size;
+          color: $grey;
+          font-weight: normal;
+        }
+      }
     }
 
     // Default descriptions
@@ -184,10 +179,13 @@
       clear: $from-direction;
       font-size: ms(-1);
       display: none; // displayed at larger breakpoints
+      padding: 0.5em 0;
+      color: rgba(black, 0.75);
+      margin: 0;
     }
 
     // little links: create new account, forgot password 
-    // BAD selector here
+    // wow BAD selector here haha - CGB
     .item-list .first.last {
       font-size: $small-font-size;
     }
@@ -198,15 +196,6 @@
           @include checkdesk-button($firetruck-red); // Red delete button
       }
     }
-    
-    // checkboxes and radios
-    input[type="checkbox"], 
-    input[type="radio"] {
-      width: $checkbox-width;
-      display: inline-block;
-      clear: both;
-      float: $from-direction;
-    } 
 
     // Checkbox labels for checkboxes and radios, aka ".options"
     label.option {
@@ -218,25 +207,66 @@
       clear: none;
     }
 
+    @include form-actions;
+    @include form-drag-and-drop;
+
+    & > .form-item {
+      clear: both;
+      font-size: $small-font-size;
+      color: $dark-grey;
+      background: rgba($light-grey, 0.5);
+    }
+  }
+}
+
+// ============================================================================
+// The reusable form layout mixin 
+// ONLY LAYOUT in this section
+// It is reused many times at various breakpoints
+//
+@mixin cd-form-layout($w, $context, $gw: $gw) {
+  form {
+    @include form-pass-layout($w, $context);
+    @include span-columns($w, $context, $gw);
+    @content; // if you want to pass in padding via breakpoints
+
+    // Form actions
+    .form-actions { @include span-columns($w, $w); }
+
+    & > .form-item {
+      @include span-columns($w, $w);
+
+      // Nested <.form-item>s
+      .form-item { 
+        @include span-columns($w, $w);
+      }
+    } 
+
+    // Default main inputs and textareas
+    input[type="password"],
+    input[type="text"],
+    textarea {
+      @include span-columns($w, $w, $gw/2); // small padding with grid accounting
+      padding: { top: $gw/2; bottom: $gw/2; } // match the padding on top and bottom
+    }
+
     div.form-wrapper {
       @include span-columns($w, $w);
     }
   }
 }
 
-
+// ======================================================================
 // Forms Breakpoints
-//
-// For now we just automatically rerender each of our responsive mixins
-// Later we will optimize and extract only the layout elements into these breakpoints
 
-// Default render of the forms
-@include cd-form($cw, $cw, $gw);
+@include form-standardize;
+@include cd-form-styles-except-layout;
+@include cd-form-layout($cw, $cw, $gw); // Default render of the form layout
 
 // Breakpoint: small
 @include at-breakpoint($break-small) {
   $break: $break-small;
-  @include cd-form($break - 6, $break) {
+  @include cd-form-layout($break - 6, $break) {
     @include pad(3, 3, $break); // more padding
     .description {
       display: inline-block; // appears
@@ -248,7 +278,6 @@
 // Breakpoint: medium
 @include at-breakpoint($break-medium) {
   $break: $break-medium;
-  
 }
 
 // Breakpoint: large

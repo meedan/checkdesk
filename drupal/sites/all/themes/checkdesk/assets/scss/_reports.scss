@@ -4,6 +4,11 @@
 // See also report.scss
 body.page-reports {
 
+  h1.title {
+    text-align: center;
+    @include cd-background;
+  }
+
   background-color: $grey;
 
   #main {

@@ -2,8 +2,29 @@
 //   display: none;
 // }
 
-body {
+// rules from the module: 
+// TODO: integrate these into the mainstyles. CGB Jan 2013
+.livefyre-header {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
 
+.livefyre-header:hover {
+  background-color: #d6d6d6;
+}
+
+.livefyre-comments {
+  display: none;
+}
+
+img.fyre-logo-drop {
+  width: auto!important;
+}
+
+
+
+// Checkdesk original styles
+body {
   .fyre-widget {
     padding: 1em;
     .img {

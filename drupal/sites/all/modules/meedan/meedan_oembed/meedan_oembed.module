@@ -589,7 +589,7 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
  * make sure that user login through facebook if he adds media from facebook
  */
 function _meedan_oembed_facebook_post_validate($form, &$form_state) {
-  $lang = $form_state['values']['language'];
+  $lang = $form_state['node']->language;
   $url = $form_state['values']['field_link'][$lang][0]['url'];
   $host = parse_url($url, PHP_URL_HOST);
   if (strpos($host, 'facebook.com')) {
@@ -609,10 +609,11 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
         $id = _meedan_oembed_getFacebookId($url);
         $post_data = $facebook->api('/' . $id);
       } catch (FacebookApiException $e) {
-        watchdog('FacebookApi', t('Unable to fetch data from facebook post - Unsupported get request @url', array('@url' => $url)));
+        $error_msg = $e->getMessage();
+        watchdog('FacebookApi', t('Unable to fetch data from facebook post - @msg @url', array('@msg' => $error_msg, '@url' => $url)));
       }
       if(!$post_data) {
-        form_set_error('field_link', t('You have not enough permission to embed this post'));
+        form_set_error('field_link', t('You have not enough permission to embed this post - @msg', array('@msg' => $error_msg)));
       }
     }
   }

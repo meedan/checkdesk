@@ -3,18 +3,15 @@
 }
 
 @mixin liveblog-layout($width, $context) {
-  body.page-liveblog #main {
-    @include span-columns($width, $context, $gw);
-    @content; // pass in padding if needed
-    .views-row { 
-      @include vertical-margin($base-font-size); 
+  @include span-columns($width, $context, $gw);
+  @content; // pass in padding if needed
+  .views-row { 
+    @include vertical-margin($base-font-size); 
+    @include span-columns($width, $width, $gw);
+    
+    .livefyre-wrapper {
       @include span-columns($width, $width, $gw);
-      display: block;
-
-      .livefyre-wrapper {
-        @include span-columns($width, $width, $gw);
-        @include vertical-margin($base-font-size);
-      }
+      @include vertical-margin($base-font-size);
     }
   }
 }
@@ -22,13 +19,16 @@
 // Liveblog homepage
 // 
 // Default liveblog layout overrides global default layout 
-body.page-liveblog {
+body.page-liveblog, 
+body.node-type-discussion {
   #main {
+    @include liveblog-layout($cw, $cw);
     .view-liveblog {
       background-color: white;
       border-top: 2px solid black;
       .views-row {
-        border-bottom: 2px solid $grey;
+        border-bottom: 1px solid $grey;
+        padding-bottom: 1em;
 
         .views-field-title {
           font-weight: 700;
@@ -43,18 +43,19 @@ body.page-liveblog {
   }
 }
 
-//Default layout 
-@include liveblog-layout($cw, $cw);
-
 // Small breakpoint 
 @include at-breakpoint($break-small) {
-  @include liveblog-layout($break-small - 2, $break-small) {
+  body.page-liveblog #main {
+    @include liveblog-layout($break-small - 2, $break-small) {
     @include pad(1, 1, $break-small);
+    }  
   }
 }
 // Medium breakpoint
 @include at-breakpoint($break-medium) {
-  @include liveblog-layout($break-medium/2, $break-medium) {
-    @include pad($break-medium/4, $break-medium/4, $break-medium);
+  body.page-liveblog #main {
+    @include liveblog-layout($break-medium/2, $break-medium) {
+      @include pad($break-medium/4, $break-medium/4, $break-medium);
+    }
   }
 }

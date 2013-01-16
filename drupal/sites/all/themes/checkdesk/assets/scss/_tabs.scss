@@ -26,25 +26,25 @@ div.tabs {
       @include span-columns($cw, $cw); // default full width
       display: inline-block;
       float: $from-direction;
-      
+
       &.active {
         a {
           @include span-columns($cw, $cw, $gw); // default full width
-          background-color: $nav-active-bkg-color;
-          color: white; 
+          background-color: $tabs-active-bkg-color;
+          color: $tabs-active-color; 
           display: inline-block;
         }
       }
 
       a {
         @include span-columns($cw, $cw, $gw); // default full width
-        @include bb-transition($grey, $nav-active-bkg-color, '0.2s', 'background-color');
+        @include bb-transition($tabs-bkg-color, $tabs-active-bkg-color, '0.2s', 'background-color');
         line-height: $base-line-height;
         display: inline-block;
         padding: {top: $gw; bottom: $gw;}
 
         &:hover {
-          color: $nav-active-color;
+          color: $tabs-active-color;
         }
       }
     }
