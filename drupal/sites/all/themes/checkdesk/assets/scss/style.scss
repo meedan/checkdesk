@@ -261,6 +261,23 @@ body {
   @include cd-background;
 }
 
+// Translation client
+#l10n-client {
+	display: block !important;
+	visibility: visible !important;
+	@include ctb-font-sans-serif($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight);
+	form {
+		width: 100%;
+		.form-item {
+			textarea {
+				clear: both;
+				float: none;
+			}
+			
+		}
+	}
+}
+
 // ====================================================================== 
 // Lastly: hacks to be removed
 //
