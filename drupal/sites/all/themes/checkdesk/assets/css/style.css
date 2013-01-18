@@ -3677,7 +3677,7 @@ a.absolute-messages-dismiss-all:hover {
   margin: 13.5px 1px;
   *margin: -5px 0 5px;
   overflow: hidden;
-  background-color: #ededed;
+  background-color: #e5e5e5;
   border-bottom: 1px solid white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_dropdowns\.scss}line{font-family:\0000341}}
@@ -3694,7 +3694,7 @@ a.absolute-messages-dismiss-all:hover {
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0;
-  color: #595959;
+  color: #333333;
   background-color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_dropdowns\.scss}line{font-family:\0000352}}
@@ -3714,7 +3714,7 @@ a.absolute-messages-dismiss-all:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_dropdowns\.scss}line{font-family:\0000369}}
 .dropdown-menu .active > a,
 .dropdown-menu .active > a:hover {
-  color: #ededed;
+  color: #e5e5e5;
   text-decoration: none;
   outline: 0;
   background-color: #0088ff;
@@ -4701,8 +4701,8 @@ div.tabs ul.primary li.active a {
   float: left;
   margin-right: 3.31126%;
   display: inline;
-  background-color: #ededed;
-  color: black;
+  background-color: #0088cc;
+  color: #333333;
   display: inline-block;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000339}}
@@ -4723,7 +4723,7 @@ div.tabs ul.primary li a {
   -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #f7f7f7;
+  background-color: white;
   line-height: 1.5;
   display: inline-block;
   padding-top: 10px;
@@ -4731,11 +4731,11 @@ div.tabs ul.primary li a {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
 div.tabs ul.primary li a:hover {
-  background-color: #ededed;
+  background-color: #0088cc;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000346}}
 div.tabs ul.primary li a:hover {
-  color: black;
+  color: #333333;
 }
 
 @media (min-width: 634px) {
@@ -6144,13 +6144,13 @@ ul.pager {
   cursor: default;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003108}}
 nav[role="navigation"] {
   float: left;
   background-color: #262626;
   width: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003113}}
 nav[role="navigation"] li:last-of-type:after {
   float: left;
   clear: both;
@@ -6175,7 +6175,7 @@ nav[role="navigation"] li a[href*="discussion"]:before {
   line-height: 15px;
   color: "black";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000314}}
 nav[role="navigation"] li.menu-567 > a {
   before-content: "■■■";
 }
@@ -6203,12 +6203,12 @@ nav[role="navigation"] li a[href*="sub"]:before {
   line-height: 15px;
   color: "black";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003123}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003125}}
 nav[role="navigation"] .dropdown-menu,
 nav[role="navigation"] #block-views-my-notifications-block .content {
   top: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003129}}
 nav[role="navigation"] .nav {
   margin: 0;
   padding: 0;
@@ -6223,7 +6223,7 @@ nav[role="navigation"] .nav {
   z-index: 1;
   background: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003132}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003134}}
 nav[role="navigation"] .nav > div {
   margin: 0;
   padding: 0;
@@ -6236,7 +6236,7 @@ nav[role="navigation"] .nav > div {
   z-index: 1;
   background: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003134}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003136}}
 nav[role="navigation"] .nav > div h2 {
   margin: 0;
   padding: 0;
@@ -6256,7 +6256,7 @@ nav[role="navigation"] .nav > div h2 {
   -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  color: rgba(255, 255, 255, 0.75);
+  color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -ms-transition-property: background-color;
@@ -6269,41 +6269,41 @@ nav[role="navigation"] .nav > div h2 {
   transition-duration: 0.2s;
   background-color: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000360}}
 nav[role="navigation"] .nav > div h2 > a {
   font-weight: 100;
   padding: 0 7px;
   letter-spacing: 1px;
   text-decoration: none;
   line-height: 25px;
-  color: rgba(255, 255, 255, 0.75);
+  color: #999999;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000368}}
 nav[role="navigation"] .nav > div h2 > a:hover {
-  color: #262626;
+  color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
 nav[role="navigation"] .nav > div h2:hover {
-  color: #262626;
+  color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
 nav[role="navigation"] .nav > div h2:hover {
-  background-color: white;
+  background-color: #151515;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000378}}
 nav[role="navigation"] .nav > div h2:hover {
-  background-color: white;
-  color: black;
+  background-color: transparent;
+  color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000383}}
 nav[role="navigation"] .nav > div h2.active {
-  background-color: white;
-  color: #262626;
+  background-color: #151515;
+  color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000390}}
 nav[role="navigation"] .nav > div h2.active > a, nav[role="navigation"] .nav > div h2 > a.active {
-  color: #262626;
+  color: white;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;
@@ -6311,7 +6311,7 @@ nav[role="navigation"] .nav > div h2.active > a, nav[role="navigation"] .nav > d
   border-radius: 4px 4px 0 0;
   font-weight: 500;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000396}}
 nav[role="navigation"] .nav > div h2 span.avatar img {
   margin: 0;
   padding: 0;
@@ -6319,7 +6319,7 @@ nav[role="navigation"] .nav > div h2 span.avatar img {
   width: 18px;
   height: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003139}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003141}}
 nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   margin: 0;
   padding: 0;
@@ -6339,7 +6339,7 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  color: rgba(255, 255, 255, 0.75);
+  color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -ms-transition-property: background-color;
@@ -6352,41 +6352,41 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   transition-duration: 0.2s;
   background-color: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000360}}
 nav[role="navigation"] .nav > a.btn > a, nav[role="navigation"] .nav > li > a {
   font-weight: 100;
   padding: 0 7px;
   letter-spacing: 1px;
   text-decoration: none;
   line-height: 25px;
-  color: rgba(255, 255, 255, 0.75);
+  color: #999999;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000368}}
 nav[role="navigation"] .nav > a.btn > a:hover, nav[role="navigation"] .nav > li > a:hover {
-  color: #262626;
+  color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
-  color: #262626;
+  color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
-  background-color: white;
+  background-color: #151515;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000378}}
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
-  background-color: white;
-  color: black;
+  background-color: transparent;
+  color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000383}}
 nav[role="navigation"] .nav > a.btn.active, nav[role="navigation"] .nav > li.active {
-  background-color: white;
-  color: #262626;
+  background-color: #151515;
+  color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000390}}
 nav[role="navigation"] .nav > a.btn.active > a, nav[role="navigation"] .nav > a.btn > a.active, nav[role="navigation"] .nav > li.active > a, nav[role="navigation"] .nav > li > a.active {
-  color: #262626;
+  color: white;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;
@@ -6394,7 +6394,7 @@ nav[role="navigation"] .nav > a.btn.active > a, nav[role="navigation"] .nav > a.
   border-radius: 4px 4px 0 0;
   font-weight: 500;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000396}}
 nav[role="navigation"] .nav > a.btn span.avatar img, nav[role="navigation"] .nav > li span.avatar img {
   margin: 0;
   padding: 0;
@@ -6402,21 +6402,21 @@ nav[role="navigation"] .nav > a.btn span.avatar img, nav[role="navigation"] .nav
   width: 18px;
   height: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003144}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003146}}
 nav[role="navigation"] #user-menu {
   margin-right: 7px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003146}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003148}}
 nav[role="navigation"] #user-menu a {
   font-weight: 100;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003155}}
 nav[role="navigation"] #navigation-region,
 nav[role="navigation"] #info-menu,
 nav[role="navigation"] #user-menu {
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003158}}
 nav[role="navigation"] #navigation-region img,
 nav[role="navigation"] #info-menu img,
 nav[role="navigation"] #user-menu img {
@@ -6424,15 +6424,15 @@ nav[role="navigation"] #user-menu img {
   height: 15px;
   margin-left: 7px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003173}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003175}}
 nav[role="navigation"] #info-menu li a.dropdown-toggle {
   margin-right: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003178}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003180}}
 nav[role="navigation"] #info-menu li.open a.dropdown-toggle {
   text-shadow: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003187}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003189}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block {
   margin: 0;
   padding: 0;
@@ -6445,7 +6445,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block {
   z-index: 1;
   background: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003189}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003191}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 {
   margin: 0;
   padding: 0;
@@ -6465,7 +6465,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  color: rgba(255, 255, 255, 0.75);
+  color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -ms-transition-property: background-color;
@@ -6481,41 +6481,41 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   font-weight: 100;
   padding: 2px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000360}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 > a {
   font-weight: 100;
   padding: 0 7px;
   letter-spacing: 1px;
   text-decoration: none;
   line-height: 25px;
-  color: rgba(255, 255, 255, 0.75);
+  color: #999999;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000368}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 > a:hover {
-  color: #262626;
+  color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:hover {
-  color: #262626;
+  color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:hover {
-  background-color: white;
+  background-color: #151515;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000378}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:hover {
-  background-color: white;
-  color: black;
+  background-color: transparent;
+  color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000383}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2.active {
-  background-color: white;
-  color: #262626;
+  background-color: #151515;
+  color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000390}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2.active > a, nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 > a.active {
-  color: #262626;
+  color: white;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;
@@ -6523,7 +6523,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   border-radius: 4px 4px 0 0;
   font-weight: 500;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000396}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 span.avatar img {
   margin: 0;
   padding: 0;
@@ -6531,16 +6531,16 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   width: 18px;
   height: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003194}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003196}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-label {
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003197}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003199}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-count {
   display: inline-block;
   color: #2f58b6;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003200}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003202}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-count span {
   padding: 1px 5px;
   background: #296182;
@@ -6551,7 +6551,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   border-radius: 5px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003215}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003217}}
 div.region-page-top #toolbar {
   -webkit-box-shadow: 0 0 0 0;
   -moz-box-shadow: 0 0 0 0;
@@ -6562,18 +6562,18 @@ div.region-page-top #toolbar {
   position: static;
   background: #262626;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003223}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003225}}
 div.region-page-top #toolbar li {
   margin: 0;
   padding: 0;
   border: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003226}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003228}}
 div.region-page-top #toolbar li a {
-  color: rgba(255, 255, 255, 0.75);
+  color: #999999;
   padding: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003232}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003234}}
 div.region-page-top #toolbar div.toolbar-menu {
   padding: 0;
   background-color: #262626;
@@ -6648,8 +6648,8 @@ div.tabs ul.primary li.active a {
   float: left;
   margin-right: 3.31126%;
   display: inline;
-  background-color: #ededed;
-  color: black;
+  background-color: #0088cc;
+  color: #333333;
   display: inline-block;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000339}}
@@ -6670,7 +6670,7 @@ div.tabs ul.primary li a {
   -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  background-color: #f7f7f7;
+  background-color: white;
   line-height: 1.5;
   display: inline-block;
   padding-top: 10px;
@@ -6678,11 +6678,11 @@ div.tabs ul.primary li a {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
 div.tabs ul.primary li a:hover {
-  background-color: #ededed;
+  background-color: #0088cc;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tabs\.scss}line{font-family:\0000346}}
 div.tabs ul.primary li a:hover {
-  color: black;
+  color: #333333;
 }
 
 @media (min-width: 634px) {
@@ -7895,7 +7895,7 @@ body.node-type-discussion #main .view-liveblog .views-row p {
     margin-bottom: 18px;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\0000334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\0000335}}
 .node-type-discussion #block-views-desk-updates-block {
   z-index: 1;
 }
@@ -8056,24 +8056,24 @@ body.sidebar-first #main #sidebar-first.column form {
   padding-bottom: 1em;
   margin-bottom: 1em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000313}}
 body.sidebar-first #main #sidebar-first.column form {
   margin-top: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000319}}
 body.sidebar-first #main #sidebar-first.column form .views-exposed-widget > label {
   font-weight: bold;
   font-size: 11px;
   display: block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000324}}
 body.sidebar-first #main #sidebar-first.column form .views-exposed-widget > label:last-of-type {
   float: right;
   margin-right: 0;
   #margin-left: -10px;
   display: inline;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000329}}
 body.sidebar-first #main #sidebar-first.column form .views-exposed-widget {
   display: inline-block;
   width: auto;
@@ -8088,63 +8088,63 @@ body.sidebar-first #main #sidebar-first.column form .views-exposed-widget {
   border-radius: 4px;
   font-weight: 300;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000341}}
 body.sidebar-first #main #sidebar-first.column form .views-submit-button,
 body.sidebar-first #main #sidebar-first.column form .views-reset-button {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000347}}
 body.sidebar-first #main #sidebar-first.column form .views-exposed-widget.views-submit-button label {
   text-align: left;
   float: left;
   width: 45%;
   border-top: 1px solid red;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000353}}
 body.sidebar-first #main #sidebar-first.column form .views-exposed-widget.views-submit-button input {
   float: left;
   background-color: #595959;
   clear: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000361}}
 body.sidebar-first #main #sidebar-first.column form .views-operator,
 body.sidebar-first #main #sidebar-first.column form .views-widget {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
 body.sidebar-first #main #sidebar-first.column .views-field-title {
   line-height: 1.0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000374}}
 body.sidebar-first #main #sidebar-first.column .views-field-title a {
   font-size: 11px;
   color: #cccccc;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000381}}
 body.sidebar-first #main #sidebar-first.column .views-field-field-link a {
   font-weight: 500;
   color: black;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000387}}
 body.sidebar-first #main #sidebar-first.column div.domain {
   float: left;
   margin-right: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000392}}
 body.sidebar-first #main #sidebar-first.column div.favicon {
   float: left;
   margin-right: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000395}}
 body.sidebar-first #main #sidebar-first.column div.favicon img {
   max-width: 16px;
   max-height: 16px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003102}}
 body.sidebar-first #main #sidebar-first.column .views-field-field-rating {
   color: #cccccc;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003106}}
 body.sidebar-first #main #sidebar-first.column .views-row {
   padding-left: 3.31126%;
   padding-right: 3.31126%;
@@ -8404,22 +8404,22 @@ body.sidebar-first #main div#content .inner #block-views-desk-updates-block {
     padding-bottom: 1em;
     margin-bottom: 1em;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000313}}
   body.sidebar-first #main #sidebar-first.column form {
     margin-top: 10px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000319}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget > label {
     font-weight: bold;
     font-size: 11px;
     display: block;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000324}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget > label:last-of-type {
     float: right;
     margin-right: 0;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000329}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget {
     display: inline-block;
     width: auto;
@@ -8434,63 +8434,63 @@ body.sidebar-first #main div#content .inner #block-views-desk-updates-block {
     border-radius: 4px;
     font-weight: 300;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000341}}
   body.sidebar-first #main #sidebar-first.column form .views-submit-button,
   body.sidebar-first #main #sidebar-first.column form .views-reset-button {
     display: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000347}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget.views-submit-button label {
     text-align: left;
     float: left;
     width: 45%;
     border-top: 1px solid red;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000353}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget.views-submit-button input {
     float: left;
     background-color: #595959;
     clear: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000361}}
   body.sidebar-first #main #sidebar-first.column form .views-operator,
   body.sidebar-first #main #sidebar-first.column form .views-widget {
     display: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
   body.sidebar-first #main #sidebar-first.column .views-field-title {
     line-height: 1.0;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000374}}
   body.sidebar-first #main #sidebar-first.column .views-field-title a {
     font-size: 11px;
     color: #cccccc;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000381}}
   body.sidebar-first #main #sidebar-first.column .views-field-field-link a {
     font-weight: 500;
     color: black;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000387}}
   body.sidebar-first #main #sidebar-first.column div.domain {
     float: left;
     margin-right: 5px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000392}}
   body.sidebar-first #main #sidebar-first.column div.favicon {
     float: left;
     margin-right: 5px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000395}}
   body.sidebar-first #main #sidebar-first.column div.favicon img {
     max-width: 16px;
     max-height: 16px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003102}}
   body.sidebar-first #main #sidebar-first.column .views-field-field-rating {
     color: #cccccc;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003106}}
   body.sidebar-first #main #sidebar-first.column .views-row {
     padding-left: 5.05051%;
     padding-right: 5.05051%;
@@ -8837,22 +8837,22 @@ body.sidebar-first #main div#content .inner #block-views-desk-updates-block {
     clear: none;
     display: inline-block;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000313}}
   body.sidebar-first #main .content .view-desk-reports form {
     margin-top: 10px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000319}}
   body.sidebar-first #main .content .view-desk-reports form .views-exposed-widget > label {
     font-weight: bold;
     font-size: 11px;
     display: block;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000324}}
   body.sidebar-first #main .content .view-desk-reports form .views-exposed-widget > label:last-of-type {
     float: right;
     margin-right: 0;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000329}}
   body.sidebar-first #main .content .view-desk-reports form .views-exposed-widget {
     display: inline-block;
     width: auto;
@@ -8867,63 +8867,63 @@ body.sidebar-first #main div#content .inner #block-views-desk-updates-block {
     border-radius: 4px;
     font-weight: 300;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000341}}
   body.sidebar-first #main .content .view-desk-reports form .views-submit-button,
   body.sidebar-first #main .content .view-desk-reports form .views-reset-button {
     display: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000347}}
   body.sidebar-first #main .content .view-desk-reports form .views-exposed-widget.views-submit-button label {
     text-align: left;
     float: left;
     width: 45%;
     border-top: 1px solid red;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000353}}
   body.sidebar-first #main .content .view-desk-reports form .views-exposed-widget.views-submit-button input {
     float: left;
     background-color: #595959;
     clear: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000361}}
   body.sidebar-first #main .content .view-desk-reports form .views-operator,
   body.sidebar-first #main .content .view-desk-reports form .views-widget {
     display: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
   body.sidebar-first #main .content .view-desk-reports .views-field-title {
     line-height: 1.0;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000374}}
   body.sidebar-first #main .content .view-desk-reports .views-field-title a {
     font-size: 11px;
     color: #cccccc;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000381}}
   body.sidebar-first #main .content .view-desk-reports .views-field-field-link a {
     font-weight: 500;
     color: black;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000387}}
   body.sidebar-first #main .content .view-desk-reports div.domain {
     float: left;
     margin-right: 5px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000392}}
   body.sidebar-first #main .content .view-desk-reports div.favicon {
     float: left;
     margin-right: 5px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000395}}
   body.sidebar-first #main .content .view-desk-reports div.favicon img {
     max-width: 16px;
     max-height: 16px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003102}}
   body.sidebar-first #main .content .view-desk-reports .views-field-field-rating {
     color: #cccccc;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003106}}
   body.sidebar-first #main .content .view-desk-reports .views-row {
     padding-left: 1.96078%;
     padding-right: 1.96078%;
@@ -9075,22 +9075,22 @@ body.sidebar-first #main div#content .inner #block-views-desk-updates-block {
     padding-bottom: 1em;
     margin-bottom: 1em;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000313}}
   body.sidebar-first #main #sidebar-first.column form {
     margin-top: 10px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000319}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget > label {
     font-weight: bold;
     font-size: 11px;
     display: block;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000324}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget > label:last-of-type {
     float: right;
     margin-right: 0;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000329}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget {
     display: inline-block;
     width: auto;
@@ -9105,63 +9105,63 @@ body.sidebar-first #main div#content .inner #block-views-desk-updates-block {
     border-radius: 4px;
     font-weight: 300;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000341}}
   body.sidebar-first #main #sidebar-first.column form .views-submit-button,
   body.sidebar-first #main #sidebar-first.column form .views-reset-button {
     display: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000347}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget.views-submit-button label {
     text-align: left;
     float: left;
     width: 45%;
     border-top: 1px solid red;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000353}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget.views-submit-button input {
     float: left;
     background-color: #595959;
     clear: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000361}}
   body.sidebar-first #main #sidebar-first.column form .views-operator,
   body.sidebar-first #main #sidebar-first.column form .views-widget {
     display: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
   body.sidebar-first #main #sidebar-first.column .views-field-title {
     line-height: 1.0;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000374}}
   body.sidebar-first #main #sidebar-first.column .views-field-title a {
     font-size: 11px;
     color: #cccccc;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000381}}
   body.sidebar-first #main #sidebar-first.column .views-field-field-link a {
     font-weight: 500;
     color: black;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000387}}
   body.sidebar-first #main #sidebar-first.column div.domain {
     float: left;
     margin-right: 5px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000392}}
   body.sidebar-first #main #sidebar-first.column div.favicon {
     float: left;
     margin-right: 5px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000395}}
   body.sidebar-first #main #sidebar-first.column div.favicon img {
     max-width: 16px;
     max-height: 16px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003102}}
   body.sidebar-first #main #sidebar-first.column .views-field-field-rating {
     color: #cccccc;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003106}}
   body.sidebar-first #main #sidebar-first.column .views-row {
     padding-left: 1.96078%;
     padding-right: 1.96078%;
@@ -9412,22 +9412,22 @@ body.sidebar-first #main div#content .inner #block-views-desk-updates-block {
     padding-bottom: 1em;
     margin-bottom: 1em;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000313}}
   body.sidebar-first #main #sidebar-first.column form {
     margin-top: 10px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000319}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget > label {
     font-weight: bold;
     font-size: 11px;
     display: block;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000324}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget > label:last-of-type {
     float: right;
     margin-right: 0;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000329}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget {
     display: inline-block;
     width: auto;
@@ -9442,63 +9442,63 @@ body.sidebar-first #main div#content .inner #block-views-desk-updates-block {
     border-radius: 4px;
     font-weight: 300;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000341}}
   body.sidebar-first #main #sidebar-first.column form .views-submit-button,
   body.sidebar-first #main #sidebar-first.column form .views-reset-button {
     display: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000347}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget.views-submit-button label {
     text-align: left;
     float: left;
     width: 45%;
     border-top: 1px solid red;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000353}}
   body.sidebar-first #main #sidebar-first.column form .views-exposed-widget.views-submit-button input {
     float: left;
     background-color: #595959;
     clear: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000361}}
   body.sidebar-first #main #sidebar-first.column form .views-operator,
   body.sidebar-first #main #sidebar-first.column form .views-widget {
     display: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
   body.sidebar-first #main #sidebar-first.column .views-field-title {
     line-height: 1.0;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000374}}
   body.sidebar-first #main #sidebar-first.column .views-field-title a {
     font-size: 11px;
     color: #cccccc;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000381}}
   body.sidebar-first #main #sidebar-first.column .views-field-field-link a {
     font-weight: 500;
     color: black;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000387}}
   body.sidebar-first #main #sidebar-first.column div.domain {
     float: left;
     margin-right: 5px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000392}}
   body.sidebar-first #main #sidebar-first.column div.favicon {
     float: left;
     margin-right: 5px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\0000395}}
   body.sidebar-first #main #sidebar-first.column div.favicon img {
     max-width: 16px;
     max-height: 16px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003102}}
   body.sidebar-first #main #sidebar-first.column .views-field-field-rating {
     color: #cccccc;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_reports_filter\.scss}line{font-family:\00003106}}
   body.sidebar-first #main #sidebar-first.column .views-row {
     padding-left: 2.82486%;
     padding-right: 2.82486%;
@@ -9948,6 +9948,25 @@ html body:before {
 body {
   background-color: #f0f0f0;
   background-image: url("/sites/all/themes/bowerbird/images/bkgs/cream_dust.png");
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003265}}
+#l10n-client {
+  display: block !important;
+  visibility: visible !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 27px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003269}}
+#l10n-client form {
+  width: 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style\.scss}line{font-family:\00003272}}
+#l10n-client form .form-item textarea {
+  clear: both;
+  float: none;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/caiosba\/Trabalhos\/Meedan\/meedan-checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_evil_hacks\.scss}line{font-family:\000038}}

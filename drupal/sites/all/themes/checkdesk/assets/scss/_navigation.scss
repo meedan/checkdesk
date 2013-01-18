@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 // 1. Drupal Navigation at the very top.
 // 2. Checkdesk #main-menu navigation
 
@@ -61,32 +63,32 @@
     letter-spacing: 1px;
     text-decoration: none;
     line-height: $nav-height - 4;
-    color: $nav-color;
+    color: $navbarLinkColor;
     display: inline-block;
     &:hover {
-      color: $nav-active-color;
+      color: $navbarLinkColorActive;
     }
   }
 
   // Transitions
-  @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
-  @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.2s', 'background-color');
+  @include bb-transition($navbarLinkColor, $navbarLinkColorActive, '0.2s', 'color');
+  @include bb-transition($nav-bkg-color, $navbarLinkBackgroundActive, '0.2s', 'background-color');
   
   // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
   &:hover {
-    background-color: $nav-hover-bkg-color;
-    color: $nav-hover-color;
+    background-color: $navbarLinkBackgroundHover;
+    color: $navbarLinkColorHover;
   }
 
   &.active {
-    background-color: $nav-active-bkg-color;
-    color: $nav-active-color;
+    background-color: $navbarLinkBackgroundActive;
+    color: $navbarLinkColorActive;
   }
 
   // An anchor inside the chunky block
   &.active > a, 
   & > a.active {
-    color: $nav-active-color;
+    color: $navbarLinkColorActive;
     @include border-radius($radius $radius 0 0);
     font-weight: 500;
   }
@@ -224,7 +226,7 @@ div.region-page-top {
       @include reset-box-model;
 
       a { 
-        color: $nav-color; 
+        color: $navbarLinkColor; 
         padding: $gw;
       } 
     }

@@ -34,7 +34,7 @@
 
   // Dividers (basically an hr) within the dropdown
   .divider {
-    @include ctb-nav-divider($dropdown-divider-top, $dropdown-divider-bottom);
+    @include ctb-nav-divider($dropdownDividerTop, $dropdownDividerBottom);
   }
 
   // Links within the dropdown menu
@@ -47,10 +47,10 @@
     line-height: $base-line-height;
     white-space: nowrap;
     @include border-radius(0);
-    color: $dropdown-link-color;
-    background-color: $dropdown-bkg;
+    color: $dropdownLinkColor;
+    background-color: $dropdownBackground;
     &:hover {
-      color: $dropdown-link-color-hover;
+      color: $dropdownLinkColorHover;
     }
   }
 }
@@ -60,14 +60,14 @@
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover > a {
   text-decoration: none;
-  color: $dropdown-link-color-hover;
+  color: $dropdownLinkColorHover;
   background-color: $identity;
 }
 
 // Active state
 .dropdown-menu .active > a,
 .dropdown-menu .active > a:hover {
-  color: $dropdown-divider-top;
+  color: $dropdownDividerTop;
   text-decoration: none;
   outline: 0;
   background-color: $identity;

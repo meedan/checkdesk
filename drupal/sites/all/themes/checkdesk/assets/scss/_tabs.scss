@@ -30,21 +30,21 @@ div.tabs {
       &.active {
         a {
           @include span-columns($cw, $cw, $gw); // default full width
-          background-color: $tabs-active-bkg-color;
-          color: $tabs-active-color; 
+          background-color: $tabLinkBackgroundActive;
+          color: $tabLinkColorActive; 
           display: inline-block;
         }
       }
 
       a {
         @include span-columns($cw, $cw, $gw); // default full width
-        @include bb-transition($tabs-bkg-color, $tabs-active-bkg-color, '0.2s', 'background-color');
+        @include bb-transition($tabBackground, $tabLinkBackgroundActive, '0.2s', 'background-color');
         line-height: $base-line-height;
         display: inline-block;
         padding: {top: $gw; bottom: $gw;}
 
         &:hover {
-          color: $tabs-active-color;
+          color: $tabLinkColorActive;
         }
       }
     }
