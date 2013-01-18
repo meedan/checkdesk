@@ -47,10 +47,10 @@ function checkdesk_checkdesk_links($variables) {
       $attributes = array('class' => array($key));
 
       // Add first, last and active classes to the list of links to help out themers.
-      if ($i == 1) {
+      if ($i == 1 && $num_links > 1) {
         $attributes['class'][] = 'first';
       }
-      if ($i == $num_links) {
+      if ($i == $num_links && $i > 1) {
         $attributes['class'][] = 'last';
       }
 
@@ -72,7 +72,6 @@ function checkdesk_checkdesk_links($variables) {
       if(!isset($link['attributes']))
         $link['attributes'] = array();
 
-      $attributes['class'][] = (count($children) > 0) ? 'dropdown' : NULL;
       $output .= '<li' . drupal_attributes(array('class' => $attributes['class'])) . '>';
 
       if (isset($link['class'])) {
