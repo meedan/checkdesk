@@ -1,0 +1,14 @@
+name = "Redis"
+description = "Provide a module placeholder, for using as dependency for module that needs Redis."
+package = Performance
+version = VERSION
+core = 7.x
+configure = admin/config/development/performance/redis
+files[] = tests/admin_variables.test
+files[] = tests/lock.test
+; Information added by drupal.org packaging script on 2013-01-16
+version = "7.x-2.0-beta4"
+core = "7.x"
+project = "redis"
+datestamp = "1358339303"
+

@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Redis install related functions.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function redis_requirements($phase) {
+
+  // This module is configured via settings.php file. Using any other phase
+  // than runtime to proceed to some consistency checks is useless.
+  if ('runtime' !== $phase) {
+    return array();
+  }
+
+  $requirements = array();
+
+  if (Redis_Client::hasClient()) {
+    $requirements['redis'] = array(
+      'title'       => "Redis",
+      'value'       => t("Connected, using the <em>@name</em> client.", array('@name' => Redis_Client::getClientName())),
+      'severity'    => REQUIREMENT_OK,
+    );
+  }
+  else {
+    $requirements['redis'] = array(
+      'title'       => "Redis",
+      'value'       => t("Not connected."),
+      'severity'    => REQUIREMENT_WARNING,
+      'description' => t("No Redis client connected, this module is useless thereof. Ensure that you enabled module using it or disable it."),
+    );
+  }
+
+  return $requirements;
+}
