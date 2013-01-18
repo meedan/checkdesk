@@ -14,6 +14,7 @@ group :development do
   gem 'guard-livereload'
   gem 'guard-compass'
   gem 'pry'
+  gem 'rb-fsevent'
 end
 
 

@@ -290,3 +290,19 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   @include bookmarklet-step-one;
   @include bookmarklet-step-two;
 }
+
+
+// ===========================================================================
+// Breakpoints 
+
+@include at-breakpoint($break-small) {
+  // same as previous breakpoint
+}
+
+@include at-breakpoint($break-medium) {
+  // same as previous breakpoint
+}
+
+@include at-breakpoint($break-large) {
+  // same as previous breakpoint
+}

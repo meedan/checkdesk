@@ -4,6 +4,7 @@ version = 7.x-1.0
 core = 7.x
 
 ; Core modules
+dependencies[] = locale
 dependencies[] = block
 dependencies[] = color
 dependencies[] = comment
@@ -31,6 +32,7 @@ dependencies[] = features
 dependencies[] = strongarm
 dependencies[] = node_export
 dependencies[] = uuid
+dependencies[] = features_translations
 
 ; Important contrib modules
 dependencies[] = ctools
@@ -40,15 +42,15 @@ dependencies[] = date
 dependencies[] = link
 dependencies[] = field_group
 dependencies[] = pathauto
-
+dependencies[] = l10n_update
+dependencies[] = l10n_client
 
 ;;; ADD MEEDAN MODULES HERE
 ; dependencies[] = meedan_general
 
-
 ;;; ADD FEATURE MODULES HERE
 dependencies[] = checkdesk_core_feature
 
-
 ;;; ADD CUSTOM MODULES HERE
 ; dependencies[] = mysite_example_module
+

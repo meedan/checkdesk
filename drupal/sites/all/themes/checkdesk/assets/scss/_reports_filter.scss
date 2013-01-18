@@ -1,51 +1,113 @@
+@charset "UTF-8";
+
 // The report filters
 // Views filter
 //
 // $w - the width
 //
 @mixin reports-filter-and-results($w) {
-  @content; // implement the form layout in the parent scss
+  @content;
 
-  // Default views settings are in views.scss
-  form {    
-    .views-exposed-widget > label {
-      font-weight: bold;
-      font-size: $small-font-size;
+  // The form
+  // in the sidebar of the create update page
+  form {
+    margin-top: $gw;
+
+    // the label 
+    // on the report filter sidebar
+    //
+    .views-exposed-widget > label { 
+      font-weight: bold; 
+      font-size: $smaller-font-size;
+      display: block;
+
+      &:last-of-type {
+        @include omega;
+      }
+    }
+
+    .views-exposed-widget {
+      display: inline-block;
+      width: auto;
+      padding: 2px;
+      text-align: center;
+      background-color: $light-grey;
+      border: 1px solid $grey;
+      @include border-radius($radius);
+      font-weight: 300;
+    }
+
+    .views-submit-button,
+    .views-reset-button {
+      display: none; // TEMPORARY — CGB
+    }
+    
+
+    .views-exposed-widget.views-submit-button {
+      label {
+        text-align: $from-direction;
+        float: $from-direction;
+        width: 45%;
+        border-top:1px solid red;
+      }
+      input {
+        float: $from-direction;
+        background-color: $dark-grey;
+        clear: none;
+      }
+    }
+
+    .views-operator, // show/exclude buttons
+    .views-widget {  // and the actual filter input elements
+      display: none; // are toggled with jascript 
     }
   }
 
-  // Checkboxes and radios
-  // Can we move this to forms.scss?
-  .form-type-bef-checkbox input, 
-  .form-type-radio input {
-    margin: 3px; 
-  }
-
-  .edit-field-rating-tid-wrapper {
-    .form-item {
-      float: $from-direction;
-      padding: 5px;
-    }
-  }
-
-  // All of these really necessary? 
   .view-content,
   .views-field, 
   .field-content {
-    @include span-columns($w, $w); // ensure everything clears
+    // @include span-columns($w, $w); // ensure everything clears
+  }
+
+  .views-field-title { 
+    line-height: 1.0;
+    a {
+      font-size: $smaller-font-size;
+      color: $grey;
+    }
+  }
+
+  .views-field-field-link {
+    a {
+      font-weight: 500;
+      color: black;
+    }
+  }
+
+  div.domain {
+    float: $alpha;
+    margin-#{$omega}: $gw/2;
+  }
+
+  div.favicon {
+    float: $alpha;
+    margin-#{$omega}: $gw/2;
+    img {
+      max-width: 16px;
+      max-height: 16px;
+    }
+  }
+
+   // This needs improvement in the markup to capture the right status colors
+  .views-field-field-rating {
+    color: $grey;
   }
 
   .views-row {
     @include span-columns($w, $w, $gw);
+    padding: { top: $gw; bottom: $gw; }
+    border-top: 1px solid $light-grey;
+    background: white; // for drag and drop
   }
 
-  // When dragging
-  // or about to drag
-  .views-row.ui-draggable-dragging, 
-  .views-row.ui-draggable:hover {
-    background-color: $postit-yellow;
-    cursor: move;
-    // z-index: 1000000;
-    // position: relative;
-  }
 }

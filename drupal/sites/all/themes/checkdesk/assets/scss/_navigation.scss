@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 // 1. Drupal Navigation at the very top.
 // 2. Checkdesk #main-menu navigation
 
@@ -8,6 +10,11 @@
   li.menu-477 .icon-home { @include icon("home", $size) { @include reset-box-model; } }
   // add a story 
   li a[href*="discussion"] { @include icon("file", $size); }
+  
+  li.menu-567 > a { 
+    before: { content: "■■■"; }
+  }
+
   // add a post
   li a[href*="post"] { @include icon("pencil", $size); }
   // add a report
@@ -18,16 +25,15 @@
 
 // Home link
 // Special shine
-li.menu-477 {
-  @include gradient(rgba(white, 0.2), rgba(white, 0.1));
-  a {
-    color: rgba(white, 0.2);
-  }
-}
+// ... not in the spec
+// li.menu-477 {
+  // @include gradient(rgba(white, 0.1), rgba(white, 0.2));
+// }
 
 // Nav item container
-// This makes any element behave properly with 1 or more <.nav-item> children
-// It is used on both the outer parent and some children.
+//
+// This makes any element behave properly with 1 or more <.nav-item> children.
+// It is used on both the outer parent and *some* children (where it is necessary to override).
 // This helps standardize the implementation of the contained nav-items
 // This is necessary because some nav-items are h2s, a, or divs.
 @mixin nav-item-container() {
@@ -41,32 +47,74 @@ li.menu-477 {
   background: $nav-container-bkg-color;
 }
 
-// Nav item
-// Could be a dropdown, header, anchor or div, and can contain an img.
+// "Nav item" — single nav unit in the navigation
+//
+// Could be a dropdown, header, anchor or div; and can contain an img.
 @mixin nav-item { 
-  @include building-block;
+  @include reset-box-model;
+  display: inline-block;
+  float: $from-direction;  
+  position: relative;
+  z-index: $zindexDropdown - 1; 
+  border-#{$from-direction}: 1px solid rgba(white, 0.29);
+  & > a {
+    font-weight: 100;
+    padding: 0 $nav-gutter;
+    letter-spacing: 1px;
+    text-decoration: none;
+    line-height: $nav-height - 4;
+    color: $navbarLinkColor;
+    display: inline-block;
+    &:hover {
+      color: $navbarLinkColorActive;
+    }
+  }
 
-  img { // images in nav items
+  // Transitions
+  @include bb-transition($navbarLinkColor, $navbarLinkColorActive, '0.2s', 'color');
+  @include bb-transition($nav-bkg-color, $navbarLinkBackgroundActive, '0.2s', 'background-color');
+  
+  // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
+  &:hover {
+    background-color: $navbarLinkBackgroundHover;
+    color: $navbarLinkColorHover;
+  }
+
+  &.active {
+    background-color: $navbarLinkBackgroundActive;
+    color: $navbarLinkColorActive;
+  }
+
+  // An anchor inside the chunky block
+  &.active > a, 
+  & > a.active {
+    color: $navbarLinkColorActive;
+    @include border-radius($radius $radius 0 0);
+    font-weight: 500;
+  }
+
+  span.avatar img { // images in nav items
     @include reset-box-model;
     width: $base-font-size;
     height: $base-font-size;
+    // border: 1px solid red;
   }
+
+  @content
 }
 
-// Checkdesk main navigation 
-//
-
-// Outer nav wrapper 
-#navbar {
-  
-}
 
 // This nav contains two rows of nav-items with icons.
 nav[role="navigation"] {
-  background: $nav-container-bkg-color;
   float: $from-direction;
-  width: 90%; // TEMPORARY
+  background-color: $nav-container-bkg-color;
+  width: 100%;
 
+  li:last-of-type:after {
+    float: $from-direction;
+    clear: both;
+    display: block;
+  }
 
   // Apply nav icons
   // Warning: The line height must remain more than the icons' generated height.
@@ -75,36 +123,48 @@ nav[role="navigation"] {
   // set the distance from the bottom of the button top of the dropdown
   .dropdown-menu, 
   #block-views-my-notifications-block .content {
-    top: $nav-line-height*2 + 10;
+    top: $nav-line-height*2;
   }
 
   .nav {
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
+
     @include nav-item-container; // A container for some nav items
     & > div  {
-      @include nav-item-container;
+      @include nav-item-container; // reapply container reset
       h2 {
-        @include nav-item;
+        @include nav-item; // Why is this nav item an h2? CGB
       }
     }
-    & > a.btn, // the user menu 
-    & > li { // the rest of the li's
-      @include nav-item; // floated, with bkg color, and padding
+    & > a.btn, // the user menu button
+    & > li { // default: the rest of the li's in the navigation
+      @include nav-item;
+    }
+  }
+
+  #user-menu {
+    margin-#{$omega}: $nav-gutter;
+    a {
+      font-weight: 100; // should not be necessary
     }
   }
 
   #navigation-region,
   #info-menu,
   #user-menu {
-    float: $omega-float; // at a larger breakpoint these fall in line
+    float: $omega; // at a larger breakpoint these fall in line
+    // clear: $alpha;
     img {
       width: $nav-icon-height;
       height: $nav-icon-height;
+      margin-#{$alpha}: $nav-gutter;
     }
 
+    // Position the dropdown menu
     .dropdown-menu {
-      #{opposite-position($from-direction)}: 0;
-      #{$from-direction}: auto;
+      // #{opposite-position($from-direction)}: 0;
+      // #{$from-direction}: auto;
     }
   }
 
@@ -124,19 +184,20 @@ nav[role="navigation"] {
   }
 
   // Notifications 
-  // has a different structure than the other <ul>'s...
+  // FIXME has a different structure than the other <ul>'s...
   #navigation-region {
     #block-views-my-notifications-block {
+      @include nav-item-container;
       h2 {
-        @include nav-item-container;
+        @include nav-item;
+        font-size: $nav-font-size; // these should not be necessary once this is an <a>
+        font-weight: 100;
+        padding: 2px;
         .notifications-label {
-          @include nav-item;  
-          @include caret; // ideally this should be on a separate .caret span
-          padding-#{$from-direction}: $gw; // this should not be necessary
           cursor: pointer;
         }
         .notifications-count {
-          display: inline;
+          display: inline-block;
           color: $notification-count-color;
           span {
             padding: 1px 5px;
@@ -152,50 +213,27 @@ nav[role="navigation"] {
 // =======================================================================
 // Drupal toolbars at the very top
 //
-
-body.toolbar-drawer {
-  padding-top: 0!important;
-}
-
 div.region-page-top {
-  // Disable Drupal toolbar padding
-
-  width: 100%;
-
   #toolbar {
+    // This can be cleaned up with toolbar css is removed.
     @include box-shadow(0 0 0 0); // disable box shadow
     padding: 0;
     margin: 0;
-    @include clearfix;
-    position: static;
-  }
+    overflow: auto;
+    position: static; // override drupal fixed positioning
+    background: $nav-container-bkg-color;
+    li {
+      @include reset-box-model;
 
-  div.toolbar-drawer {
-  }
+      a { 
+        color: $navbarLinkColor; 
+        padding: $gw;
+      } 
+    }
 
-  // Disable duplicate link from Drupal
-  div.toolbar-menu {
-    // width: 98%;
-    padding: 0;
-    #toolbar-home, #toolbar-user {
-      display: none;
-    }  
-  }
-}
-
-// Two row navigation style
-// Applied in two breakpoints
-@mixin one-row-nav {
-  nav[role="navigation"] {
-    #navigation-region,
-    #info-menu,
-    #user-menu {
-      float: $from-direction; // flipped
+    div.toolbar-menu {
+      padding: 0;
+      background-color: $nav-container-bkg-color;
     }
   }
-}
-
-// Only the largest size is currenly large enough for these to align on one row
-@include at-breakpoint($break-large) {
-  @include one-row-nav;
 }

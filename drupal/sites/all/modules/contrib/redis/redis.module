@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Redis module.
+ * 
+ * This file is a placeholder for other modules that need the Redis client for
+ * something else than lock and cache.
+ */
+
+// Include our own autoloader to ensure classes to be there.
+// We cannot rely on core in case of early bootstrap phases.
+require_once dirname(__FILE__) . '/redis.autoload.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function redis_menu() {
+  $items = array();
+  $items['admin/config/development/performance/cache'] = array(
+    'title' => "Cache",
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  $items['admin/config/development/performance/redis'] = array(
+    'title' => "Redis",
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('redis_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'redis.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_help().
+ */
+function redis_help($path, $arg) {
+  switch ($path) {
+    case 'admin/config/development/performance/redis':
+      $messages = 
+        '<p>' . t("Redis module is optional if you are using only a cache, lock or session backend. The full API will be automatically loaded and its configuration will live into the <em>settings.php</em> file. If you access to this screen, it's probably because another contrib module needs it as a dependency for using the Redis client. If you didn't enabled such module, you are strongly advised to disable the Redis module on the module page.") . '</p>' . 
+        '<p>' . t("While Redis client configuration can be changed through the web, if you are using a cache, lock or session backend they must be set in the <em>settings.php</em> file. Once this done, any modification done using this form will be ignored, and real settings in use will be get at early bootstrap phase, before the configuration system is bootstrapped.") . '</p>';
+      if (Redis_Client::hasClient()) {
+        $messages .= '<p><strong>' . t("Current connected client uses the <em>@name</em> library.", array('@name' => Redis_Client::getClientName())) . '</strong></p>';
+      }
+      return $messages;
+  }
+}

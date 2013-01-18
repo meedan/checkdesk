@@ -52,11 +52,7 @@ function checkdesk_preprocess_page(&$variables) {
         'id' => 'main-menu',
         'class' => array('nav'),
       ),
-      'heading' => array(
-        'text' => t('Main menu'),
-        'level' => 'h2',
-        'class' => array('element-invisible'),
-      ),
+      'heading' => NULL,
     ));
   }
 
@@ -80,11 +76,7 @@ function checkdesk_preprocess_page(&$variables) {
       'id' => 'info-menu',
       'class' => array('nav', 'pull-right'),
     ),
-    'heading' => array(
-      'text' => t('Information menu'),
-      'level' => 'h2',
-      'class' => array('element-invisible'),
-    ),
+    'heading' => NULL,
   ));
 
   // Secondary nav
@@ -104,11 +96,7 @@ function checkdesk_preprocess_page(&$variables) {
         'id' => 'user-menu',
         'class' => array('nav', 'pull-right'),
       ),
-      'heading' => array(
-        'text' => t('Secondary menu'),
-        'level' => 'h2',
-        'class' => array('element-invisible'),
-      ),
+      'heading' => NULL,
     ));
 
   } else {
@@ -123,11 +111,7 @@ function checkdesk_preprocess_page(&$variables) {
         'id' => 'utility-menu',
         'class' => array('nav', 'pull-right'),
       ),
-      'heading' => array(
-        'text' => t('Secondary menu'),
-        'level' => 'h2',
-        'class' => array('element-invisible'),
-      ),
+      'heading' => NULL,
     ));
   }
 }

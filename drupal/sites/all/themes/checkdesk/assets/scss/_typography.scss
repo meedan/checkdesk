@@ -14,7 +14,7 @@
 @mixin cd-typography {
 
   $h-pad: $base-font-size;
-  
+
   h1, h2, h3, h4 {
     @include reset-box-model;
     margin:  { bottom: $h-pad; top: $h-pad; }
