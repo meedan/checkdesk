@@ -198,7 +198,6 @@ function checkdesk_status_messages($variables) {
 
 
 function checkdesk_checkdesk_heartbeat_content($variables) {
-
   $message = $variables['message'];
   $node = $variables['node'];
   $title = '';

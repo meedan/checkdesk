@@ -4,12 +4,13 @@
       <h3>
         <?php print render($content['report_source']); ?>
       </h3>
-      <div id="report-actions">
-      <?php print render($content['links']); ?></div>
     </header>
+
+    <div id="report-actions">
+      <?php print render($content['links']); ?>
+    </div>
     
     <section class="report-content">
-      
       <div class="report-media">
         <div class="container">
           <?php if(isset($content['meedan_sensitive_content'])) { print render($content['meedan_sensitive_content']); }  ?>
@@ -49,7 +50,6 @@
 <!--       <footer>
         Something in small 
       </footer> -->
-
   </article>
 
 </section>

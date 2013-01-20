@@ -314,7 +314,7 @@ function checkdesk_links__node($variables) {
 function checkdesk_checkdesk_core_report_source(&$variables) {
   $output = '';
 
-  $output .= '<span class="source-url">' . $variables['source_url'] . '</span> ';
+  $output .= '<span class="source-url">' . $variables['source_url_short'] . '</span> ';
   $output .= $variables['source_author'];
 
   return $output;

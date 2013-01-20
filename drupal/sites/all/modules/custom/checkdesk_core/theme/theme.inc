@@ -52,7 +52,13 @@ function checkdesk_core_preprocess_checkdesk_core_story_status(&$variables) {
 function checkdesk_core_preprocess_checkdesk_core_report_source(&$variables) {
   $report = $variables['report'];
   $embed = meedan_oembed_data($report->field_link[LANGUAGE_NONE][0]['display_url']);
+
+  $parsed_url = parse_url($embed->original_url);
+  $stripped_url = preg_replace('#^www\.(.+\.)#i', '$1', $parsed_url['host']) . $parsed_url['path'];
+  $display_url = substr($stripped_url, 0, 35) . '...';
+
   $variables['source_url'] = l($embed->original_url, $embed->original_url, array('external' => TRUE));
+  $variables['source_url_short'] = l($display_url, $embed->original_url, array('external' => TRUE, 'attributes' => array('title' => $embed->original_url),));
   $variables['source_author'] = empty($embed->author_url) ? '' : t('added by !link', array('!link' => l($embed->author_name, $embed->author_url, array('external' => TRUE))));
 }
 

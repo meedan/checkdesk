@@ -21,163 +21,166 @@
       }
     }
   }
-}
 
-// Notification stream
-// Using heartbeat module
-//
-// W/ icon on the background of an element.
-.heartbeat-activity {
-  @include span-columns($cw, $cw, $gw); // full span, with $gw padding
-  color: $dark-grey;
-  border-bottom: 1px solid $light-grey;
-  padding: { top: $gw; bottom: $gw; } 
-  font-size: $small-font-size;
-  
-  // Links
-  a, a:visited, a:link {
-    text-decoration: none;
-    color: $identity;
+  // Notification stream
+  // Using heartbeat module
+  //
+  // W/ icon on the background of an element.
+  .heartbeat-activity {
+    @include span-columns($cw, $cw, $gw); // full span, with $gw padding
+    color: $dark-grey;
+    border-bottom: 1px solid $light-grey;
+    padding: { top: $gw; bottom: $gw; } 
+    font-size: $small-font-size;
+    
+    // Links
+    a, a:visited, a:link {
+      text-decoration: none;
+      color: $identity;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    p {
+      @include reset-box-model;
+      width: 75%;
+      float: $from-direction;
+      line-height: $base-line-height;
+    }
+
+    img {
+      @include reset-box-model;
+      width: $notification-icon-size;
+      @include inline-block;
+      float: $from-direction;
+      width: $gw + 5px;
+      margin-right: $gw;
+      margin-top: 3px;
+      background: $light-grey;
+    }
+
+    #{$notifications-icon-selector} {
+      @include reset-box-model;
+      display: block;
+      float: $from-direction;
+      clear: both;
+      width: 100% - $notification-image-width;
+      line-height: $base-line-height;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      background-position: $from-direction bottom;
+      font-weight: normal;
+      color: $grey;
+    }
   }
 
-  a:hover {
-    text-decoration: underline;
-  }
-
-  p {
-    @include reset-box-model;
-    width: 75%;
-    float: $from-direction;
-    line-height: $base-line-height;
-  }
-
-  img {
-    @include reset-box-model;
-    width: $notification-icon-size;
-    @include inline-block;
-    float: $from-direction;
-    width: $gw + 5px;
-    margin-right: $gw;
-    margin-top: 3px;
-    background: $light-grey;
-  }
-
-  #{$notifications-icon-selector} {
-    @include reset-box-model;
-    display: block;
-    float: $from-direction;
-    clear: both;
-    width: 100% - $notification-image-width;
-    line-height: $base-line-height;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    background-position: $from-direction bottom;
-    font-weight: normal;
-    color: $grey;
-  }
 }
 
 // Activity icons
-@mixin activity-icon(
-  $name: "add_story", 
-  $symbol: "warning-sign", 
-  $color: $grey, 
-  $size: $notification-icon-size) 
-  {
-  .checkdesk_#{$name} #{$notifications-icon-selector} {
-    @include icon($symbol, $size, $color) {
-      // apply the width directly to the :before content
-      width: $notification-image-width;
-    }
-  }
-}
-
-// .icon-iconname
-@include activity-icon("comment_on_update", "comment", $grey);
-@include activity-icon("new_update_on_story_i_commented_on_update", "comment", $dark-blue);
-@include activity-icon("reply_to_comment", "comment-alt", $dark-blue);
-@include activity-icon("comment_on_report", "comment", $dark-blue);
-@include activity-icon("fact_checking_on", "wrench", $grey);
-@include activity-icon("fact_checking_set", "star", $twitter-blueish);
-@include activity-icon("report_suggested_to_story", "link", $facebook-blue);
-@include activity-icon("fact_status_changed_for_commenter", "warning-sign", $black);
-@include activity-icon("flag_report", "flag", $youtube-red);
-@include activity-icon("report_published_in_update", "star", $grey);
-
-// Expanded block
-#block-views-my-notifications-block.notifications-block-expanded {
-  position: relative;
-  .content {
-    @include reset-box-model;
-    position: absolute;
-    z-index: $zindexPopover;
-    width: $notification-dropdown-width;
-    @include cd-box-shadow;
-    @include border-radius(5px);
-    border: 1px solid $grey;
-    #{opposite-position($from-direction)}: 0;
-    // #{$omega-float}: 0;
-    top: 0;
-    background: $light-grey;
-
-    & > span {
-      display: none; // HACK I'm not sure why this span exists ... CGB
-    }
-
-    @include border-top-radius($radius);
-
-    .view-content {
-      width: 100%;
-      overflow: auto;
-      background: white;
-      height: ms(11);
-    }
-    
-    // HACK
-    .item-list ul.pager {
-      display: none;  // Hide the pager button
-    }
-
-    // Both links 
-    .notifications-settings-link, 
-    .more-link {
-      padding: { top: 0.5em; bottom: 0.5em;} 
-      a, a:visited, a:link {
-        font-size: $small-font-size;        
-        text-decoration: none;
-        color: $link-color;
-      }
-      a:hover {
-        color: $links-active-color;
+  @mixin activity-icon(
+    $name: "add_story", 
+    $symbol: "warning-sign", 
+    $color: $grey, 
+    $size: $notification-icon-size) 
+    {
+    .checkdesk_#{$name} #{$notifications-icon-selector} {
+      @include icon($symbol, $size, $color) {
+        // apply the width directly to the :before content
+        width: $notification-image-width;
       }
     }
+  }
 
-    // The left link
-    .notifications-settings-link {
-      float: $from-direction;
-      border-bottom-#{$from-direction}-radius: $radius;
-      border-bottom-#{$omega-float}-radius: 0;
+  // .icon-iconname
+  @include activity-icon("comment_on_update", "comment", $grey);
+  @include activity-icon("new_update_on_story_i_commented_on_update", "comment", $dark-blue);
+  @include activity-icon("reply_to_comment", "comment-alt", $dark-blue);
+  @include activity-icon("comment_on_report", "comment", $dark-blue);
+  @include activity-icon("fact_checking_on", "wrench", $grey);
+  @include activity-icon("fact_checking_set", "star", $twitter-blueish);
+  @include activity-icon("report_suggested_to_story", "link", $facebook-blue);
+  @include activity-icon("fact_status_changed_for_commenter", "warning-sign", $black);
+  @include activity-icon("flag_report", "flag", $youtube-red);
+  @include activity-icon("report_published_in_update", "star", $grey);
+
+  // Expanded block
+  #block-views-my-notifications-block.notifications-block-expanded {
+    position: relative;
+    .content {
+      @include reset-box-model;
+      position: absolute;
+      z-index: $zindexPopover;
+      width: $notification-dropdown-width;
+      @include cd-box-shadow;
+      @include border-radius(5px);
+      border: 1px solid $grey;
+      #{opposite-position($from-direction)}: 0;
+      // #{$omega-float}: 0;
+      top: 0;
+      background: $light-grey;
+
+      & > span {
+        display: none; // HACK I'm not sure why this span exists ... CGB
+      }
+
+      @include border-top-radius($radius);
+
+      .view-content {
+        width: 100%;
+        overflow: auto;
+        background: white;
+        height: ms(11);
+      }
+      
+      // HACK
+      .item-list ul.pager {
+        display: none;  // Hide the pager button
+      }
+
+      // Both links 
+      .notifications-settings-link, 
+      .more-link {
+        padding: { top: 0.5em; bottom: 0.5em;} 
+        a, a:visited, a:link {
+          font-size: $small-font-size;        
+          text-decoration: none;
+          color: $link-color;
+        }
+        a:hover {
+          color: $links-active-color;
+        }
+      }
+
+      // The left link
+      .notifications-settings-link {
+        float: $from-direction;
+        border-bottom-#{$from-direction}-radius: $radius;
+        border-bottom-#{$omega-float}-radius: 0;
+      }
+
+      // The right link
+      .more-link {
+        float: opposite-position($from-direction);
+        border-bottom-#{$from-direction}-radius: 0;
+        border-bottom-#{$omega-float}-radius: $radius;
+      }
+
+      .notifications-footer {
+        clear: both;
+      }
     }
 
-    // The right link
-    .more-link {
-      float: opposite-position($from-direction);
-      border-bottom-#{$from-direction}-radius: 0;
-      border-bottom-#{$omega-float}-radius: $radius;
+    ::-webkit-scrollbar {
+      width: 9px;
     }
-
-    .notifications-footer {
-      clear: both;
+    ::-webkit-scrollbar-track {
+      background: #fefefe;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #eee;
     }
   }
 
-  ::-webkit-scrollbar {
-    width: 9px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #fefefe;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #eee;
-  }
-}
+

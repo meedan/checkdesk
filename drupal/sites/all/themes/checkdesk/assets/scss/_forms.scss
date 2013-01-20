@@ -51,6 +51,12 @@
   .form-submit {
     @include checkdesk-button($twitter-blueish);
   }
+
+  // Disabled buttons
+  input:disabled {
+    @include disable-button();
+  }
+
 }
 
 // In addition to our use of normalize, and other resets, 
@@ -251,7 +257,7 @@
     }
 
     div.form-wrapper {
-      @include span-columns($w, $w);
+      // @include span-columns($w, $w);
     }
   }
 }
