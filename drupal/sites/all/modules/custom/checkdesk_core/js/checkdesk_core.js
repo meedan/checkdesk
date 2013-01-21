@@ -52,8 +52,13 @@
         $(this).data('views', settings.checkdesk.reports[i++]);
       });
       // Restrict thumbnail width to 220
-      jQuery('.view-desk-reports .view-content').find('.thumbnail img').width(220);
-
+      $('.view-desk-reports .view-content').find('.thumbnail img').width(220);
+      // Toggle filters when button is clicked (reports filters on "create update" sidebar)
+      $('.view-desk-reports .views-exposed-widget label', context).each(function() {
+        $(this).unbind('click').click(function() {
+          $(this).siblings('.views-widget, .views-operator').slideToggle();
+        });
+      });
 
       // close modal
       $('#close').click(function() {
