@@ -564,6 +564,7 @@ function checkdesk_core_feature_default_rules_configuration() {
                   "uid" : [ "site:current-user:uid" ],
                   "message_id" : { "value" : { "publish_report" : "publish_report" } },
                   "!publisher" : [ "site:current-user:name" ],
+                  "!story_url" : [ "node:field_desk:url" ],
                   "!story" : {
                     "select" : "node:field_desk:title",
                     "php" : { "code" : "$limit = 25;\\r\\nif (strlen($value) \\u003E $limit) {\\r\\n  return substr($value, 0, $limit) . \\u0027...\\u0027; \\r\\n} else {\\r\\n  return $value;\\r\\n}" }

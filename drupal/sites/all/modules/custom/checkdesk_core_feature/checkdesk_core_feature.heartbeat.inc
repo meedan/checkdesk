@@ -748,7 +748,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'publish_report';
   $heartbeatmessagetemplate->description = 'Report has been published to liveblog';
-  $heartbeatmessagetemplate->message = 'Published to liveblog by !publisher to !story';
+  $heartbeatmessagetemplate->message = 'Published to liveblog by !publisher to <a href="!story_url">!story</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -769,6 +769,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   );
   $heartbeatmessagetemplate->variables = array(
     '!publisher' => '',
+    '!story_url' => '',
     '!story' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
