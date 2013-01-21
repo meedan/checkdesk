@@ -223,6 +223,10 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     $title = $message->variables['!title'] . ' added by ' . $message->variables['!username'];
   }
 
+  // report published in a story through an update
+  if ($message->message_id == 'publish_report') {
+    $title = $message->message;
+  }
 
   $output = '';
 
