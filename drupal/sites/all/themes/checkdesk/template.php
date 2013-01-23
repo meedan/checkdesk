@@ -190,8 +190,8 @@ function checkdesk_links__node($variables) {
     'modal-popup-small' => array(
       'modalSize' => array(
         'type' => 'fixed',
-        'width' => 150,
-        'height' => 240,
+        'width' => 420,
+        'height' => 300,
         'addWidth' => 0,
         'addHeight' => 0
       ),
@@ -207,7 +207,7 @@ function checkdesk_links__node($variables) {
     'modal-popup-medium' => array(
       'modalSize' => array(
         'type' => 'fixed',
-        'width' => 150,
+        'width' => 420,
         'height' => 350,
         'addWidth' => 0,
         'addHeight' => 0
@@ -224,8 +224,8 @@ function checkdesk_links__node($variables) {
     'modal-popup-large' => array(
       'modalSize' => array(
         'type' => 'fixed',
-        'width' => 150,
-        'height' => 350,
+        'width' => 420,
+        'height' => 380,
         'addWidth' => 0,
         'addHeight' => 0
       ),

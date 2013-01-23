@@ -65,11 +65,12 @@ $modal-width: 426px;
 
 // Body (where all modal content resides)
 .modal-body {
+  position: relative;
   overflow-y: auto;
 
   .modal-content {
     position: relative;
-    // padding: 0 $gw;
+    padding: $baseLineHeight/2 $gw;
     font-size: $large-font-size;
     line-height: $base-line-height;
 
@@ -81,11 +82,6 @@ $modal-width: 426px;
 
       font-size: $fontSizeSmall;
     }
-
-    .modal-content-wrapper {
-      padding: $baseLineHeight/2 $gw;
-    }
-
   }
 
   #modal-throbber {
