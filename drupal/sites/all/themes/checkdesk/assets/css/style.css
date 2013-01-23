@@ -4007,7 +4007,7 @@ a.absolute-messages-dismiss-all:hover {
   display: block;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\000037}}
 .modal-backdrop {
   position: relative;
   top: 0;
@@ -4017,12 +4017,12 @@ a.absolute-messages-dismiss-all:hover {
   z-index: 1040;
   background-color: black;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000316}}
 .modal-backdrop.fade {
   opacity: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000320}}
 .modal-backdrop,
 .modal-backdrop.fade.in {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=8000);
@@ -5744,7 +5744,7 @@ div.tabs ul.primary li a:hover {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003355}}
 .report .report-activity .activity-list .activity header .title {
-  float: opposite(left);
+  float: right;
   margin-left: 10px;
   clear: both;
 }
@@ -6221,123 +6221,118 @@ body .livefyre-wrapper {
   color: #0088ff;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\000037}}
 #modalContent.modal-install-bookmarklet {
-  border: 1px solid silver;
-  top: 80px !important;
-  background-color: white;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
+  top: 350px !important;
   z-index: 1050;
   position: fixed;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000314}}
-#modalContent.modal-install-bookmarklet .ctools-modal-content {
-  border: 1px solid #ededed;
-  width: 300px;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000316}}
 #modalContent.modal-install-bookmarklet .ctools-modal-content .modal-content {
-  width: 300px;
   overflow: visible;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000323}}
+#modalContent.modal-install-bookmarklet .modal {
+  width: 700px;
+  height: 350px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000326}}
+#modalContent.modal-install-bookmarklet .modal .modal-body {
+  overflow: visible;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000331}}
 #modalContent.modal-install-bookmarklet .modal-header {
   border-bottom: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000333}}
 #modalContent.modal-install-bookmarklet .modal-header .modal-title {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000341}}
-#modalContent.modal-install-bookmarklet .modal {
-  width: 800px;
-  height: 300px;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000338}}
 #modalContent.modal-install-bookmarklet #install-bookmarklet-button {
   background: transparent url(../imgs/icons/bookmarklet-drag.png) left center no-repeat;
   display: block;
   height: 84px;
-  width: 250px;
+  width: 233.33333px;
   padding-left: 66px;
   position: absolute;
-  left: 35px;
-  top: -9px;
-  z-index: 1051;
+  left: 15px;
+  top: -52px;
+  z-index: 1056;
   text-decoration: none;
-  color: #fff;
+  color: white;
   font-size: 18px;
   overflow: visible;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000353}}
 #modalContent.modal-install-bookmarklet #install-bookmarklet-button span {
   position: absolute;
   top: 35px;
   padding: 10px;
-  background: #2DA3EB;
+  background: #0088ff;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000362}}
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col {
-  width: 300px/2;
   float: left;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000366}}
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col h3 {
-  color: #C0C0C0;
-  font-size: 25px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  margin: 40px auto 25px auto;
+  padding-left: 50px;
   text-align: center;
-  margin: 80px auto 20px auto;
+  font-size: 15.3px;
   font-weight: normal;
-  padding-right: 76px;
-  float: left;
-  clear: both;
-  width: 300px/3;
+  color: #999999;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000378}}
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col ul {
   margin: 0;
   padding: 0;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000393}}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col li {
-  margin-top: 5px;
+  border: 0;
   list-style: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000398}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000383}}
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col a, #modalContent.modal-install-bookmarklet .install-bookmarklet-col p {
   font-size: 16px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000387}}
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col p {
-  color: #616161;
+  color: #555555;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\00003107}}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col {
-  float: right;
-  width: 350px;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\00003110}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000393}}
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col h2 {
-  color: #C0C0C0;
+  margin: 0;
+  padding: 0;
+  border: 0;
   font-weight: normal;
   font-size: 29px;
+  color: #555555;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\00003116}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\0000399}}
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col p {
   margin: 18px 0;
 }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\00003122}}
-#modalBackdrop.modal-install-bookmarklet {
-  background: url(../imgs/alpha.png) !important;
-  z-index: zindexModal-1 !important;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\00003107}}
+#modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:first-child {
+  float: left;
+  margin-right: 10px;
+  padding-left: 20px;
+  clear: both;
+  width: 250px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_install_bookmarklet\.scss}line{font-family:\00003115}}
+#modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:last-child {
+  float: right;
+  width: 350px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_pagination\.scss}line{font-family:\000033}}
@@ -6685,7 +6680,11 @@ nav[role="navigation"] #info-menu li a.dropdown-toggle {
 nav[role="navigation"] #info-menu li.open a.dropdown-toggle {
   text-shadow: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003189}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003185}}
+nav[role="navigation"] #info-menu .ajax-progress-throbber {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003193}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block {
   margin: 0;
   padding: 0;
@@ -6698,7 +6697,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block {
   z-index: 1;
   background: black;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003191}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003195}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 {
   margin: 0;
   padding: 0;
@@ -6778,16 +6777,16 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   width: 18px;
   height: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003196}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003200}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-label {
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003199}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003203}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-count {
   display: inline-block;
   color: #2f58b6;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003202}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003206}}
 nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-count span {
   padding: 1px 5px;
   background: #296182;
@@ -6798,7 +6797,7 @@ nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2
   border-radius: 5px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003217}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003221}}
 div.region-page-top #toolbar {
   -webkit-box-shadow: 0 0 0 0;
   -moz-box-shadow: 0 0 0 0;
@@ -6809,18 +6808,18 @@ div.region-page-top #toolbar {
   position: static;
   background: black;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003225}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003229}}
 div.region-page-top #toolbar li {
   margin: 0;
   padding: 0;
   border: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003228}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003232}}
 div.region-page-top #toolbar li a {
   color: #999999;
   padding: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003234}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003238}}
 div.region-page-top #toolbar div.toolbar-menu {
   padding: 0;
   background-color: black;

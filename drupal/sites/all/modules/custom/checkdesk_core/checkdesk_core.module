@@ -110,7 +110,30 @@ function checkdesk_core_modal_callback($js = FALSE) {
   if ($js) {
     ctools_include('ajax');
     ctools_include('modal');
+    // custom settings array for bookmarlet modal
+    $modal_style = array(
+      'modal-popup-bookmarklet' => array(
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 700,
+          'height' => 350,
+          'addWidth' => 0,
+          'addHeight' => 0
+        ),
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CToolsModalDialog',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      ),
+    );
+    
+    drupal_add_js($modal_style, 'setting');
     ctools_modal_render($title, $output);
+  
   }
   else {
     drupal_set_title($title);

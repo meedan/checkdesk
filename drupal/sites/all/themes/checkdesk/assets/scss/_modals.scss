@@ -1,9 +1,11 @@
 //
 // Checkdesk Modals
 
+$modal-width: 426px;
+
 // Background
 .modal-backdrop {
-  position: fixed;
+  position: relative;
   top: 0;
   right: 0;
   bottom: 0;
@@ -19,15 +21,12 @@
   @include opacity(80);
 }
 
-$modal-width: 426px;
-
 // Base modal
 .modal {
-  position: fixed;
-  top: 50%;
+  position: relative;
+  top: 0;
   left: 50%;
   z-index: $zindexModal;
-  overflow: auto;
   width: $modal-width;
   margin: -250px 0 0 -280px;
   background-color: $white;
@@ -47,34 +46,46 @@ $modal-width: 426px;
   &.fade.in { top: 50%; }
 }
 .modal-header {
-  padding: 4px $gw 0 $gw;
+  // padding: 4px $gw 0 $gw;
   border-bottom: 1px solid #eee;
   background-color: $white;
   overflow: hidden;
   // Close icon
-  .close { margin-top: 7px; }
+  .close { 
+    margin-top: 7px; 
+    $direction: opposite-position($from-direction);
+    margin-#{$direction}: $gw;
+  }
   // Heading
   h4 {
     margin: 0;
-    padding: $baseLineHeight/2 0;
+    padding: $baseLineHeight/2 $gw;
   }
 }
 
 // Body (where all modal content resides)
 .modal-body {
   overflow-y: auto;
-  max-height: 400px;
 
   .modal-content {
     position: relative;
-    padding: 0 $gw;
+    // padding: 0 $gw;
     font-size: $large-font-size;
     line-height: $base-line-height;
+
     form {
       padding: 0;
       margin: 0;
       z-index: $zindexModal + 1;
+      width: ($modal-width - ($gw*2 + 2)) ;
+
+      font-size: $fontSizeSmall;
     }
+
+    .modal-content-wrapper {
+      padding: $baseLineHeight/2 $gw;
+    }
+
   }
 
   #modal-throbber {
@@ -95,9 +106,9 @@ $modal-width: 426px;
 .modal-footer {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 1px;
   padding: 0;
-  width: ($modal-width - ($gw*2));
+  width: ($modal-width - ($gw*2 + 2)) ;
   display: block;
   padding: $baseLineHeight/2 $gw;
   margin-bottom: 0;
@@ -109,6 +120,7 @@ $modal-width: 426px;
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
   input#edit-submit {
     margin-right: $gw;
+    float: $from-direction;
   }
 
   .btn {
@@ -119,3 +131,138 @@ $modal-width: 426px;
     display: none;
   }
 }
+
+
+// // Overriding ctools modal
+
+// #modalBackdrop {
+//   @extend .modal-backdrop;
+// }
+
+// #modalContent {
+//   div.ctools-modal-content {
+//     background: $white;
+//     color: $black;
+//     border: 1px solid #999;
+//     border: 1px solid rgba(0,0,0,.3);
+//     *border: 1px solid #999; /* IE6-7 */
+//     text-align: $from-direction;
+    
+//     .modal-title {
+//       color: $black;
+//     }
+
+//     .modal-header {
+//       @extend .modal-header;
+//       padding: $baseLineHeight/2 $gw $baseLineHeight/4 $gw;
+
+//     }
+
+//   }
+
+//   div.ctools-modal-content 
+
+//   div.ctools-modal-content .modal-header a {
+//     color: white;
+//   }
+
+//   div.ctools-modal-content .modal-content {
+//     padding: 1em 1em 0 1em;
+//     overflow: auto;
+//     position: relative; /* Keeps IE7 from flowing outside the modal. */
+//   }
+
+//   div.ctools-modal-content .modal-form {
+//   }
+
+//   div.ctools-modal-content a.close {
+//     color: white;
+//     float: right;
+//   }
+
+//   div.ctools-modal-content a.close:hover {
+//     text-decoration: none;
+//   }
+
+//   div.ctools-modal-content a.close img {
+//     position: relative;
+//     top: 1px;
+//   }
+
+//   div.ctools-modal-content .modal-content .modal-throbber-wrapper {
+//     text-align: center;
+//   }
+
+//   div.ctools-modal-content .modal-content .modal-throbber-wrapper img {
+//     margin-top: 160px;
+//   }
+
+//   /** modal forms CSS **/
+//   div.ctools-modal-content .form-item label {
+//     width: 15em;
+//     float: left;
+//   }
+
+//   div.ctools-modal-content .form-item label.option {
+//     width: auto;
+//     float: none;
+//   }
+
+//   div.ctools-modal-content .form-item .description {
+//     clear: left;
+//   }
+
+//   div.ctools-modal-content .form-item .description .tips {
+//     margin-left: 2em;
+//   }
+
+//   div.ctools-modal-content .no-float .form-item * {
+//     float: none;
+//   }
+
+//   div.ctools-modal-content .modal-form .no-float label  {
+//     width: auto;
+//   }
+
+//   div.ctools-modal-content fieldset,
+//   div.ctools-modal-content .form-radios,
+//   div.ctools-modal-content .form-checkboxes {
+//     clear: left;
+//   }
+
+//   div.ctools-modal-content .resizable-textarea {
+//     width: auto;
+//     margin-left: 15em;
+//     margin-right: 5em;
+//   }
+
+//   div.ctools-modal-content .container-inline .form-item {
+//     margin-right: 2em;
+//   }
+
+//   #views-exposed-pane-wrapper .form-item {
+//     margin-top: 0;
+//     margin-bottom: 0;
+//   }
+
+//   div.ctools-modal-content label.hidden-options {
+//     background: transparent url(../images/arrow-active.png) no-repeat right;
+//     height: 12px;
+//     padding-right: 12px;
+//   }
+
+//   div.ctools-modal-content label.expanded-options {
+//     background: transparent url(../images/expanded-options.png) no-repeat right;
+//     height: 12px;
+//     padding-right: 16px;
+//   }
+
+//   div.ctools-modal-content .option-text-aligner label.expanded-options,
+//   div.ctools-modal-content .option-text-aligner label.hidden-options {
+//     background: none;
+//   }
+
+//   div.ctools-modal-content .dependent-options {
+//     padding-left: 30px;
+//   }
+// }

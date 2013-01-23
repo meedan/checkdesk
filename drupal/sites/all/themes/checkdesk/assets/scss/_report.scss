@@ -17,6 +17,13 @@ $bh: $baseLineHeight/4;
 	// width: 100%; //default
 	min-width: 240px;
 	max-width: 600px;
+	
+	// when inside a modal
+	.modal & { 
+		max-width: 380px; 
+		margin-#{$from-direction}: $gw*2;
+	}
+
 	font-family: $sans-font-family;
 	font-size: $fontSizeSmall;
 	margin: { top: $gw; bottom: $gw; }
@@ -75,7 +82,7 @@ $bh: $baseLineHeight/4;
 				& > a {
 					@include reset-box-model;
 					display: block;
-					padding: $bh 0;
+					// padding: $bh/2 0;
 					
 					@include transition-property(all);
 			    	@include transition-duration(0.2s);
@@ -346,7 +353,7 @@ $bh: $baseLineHeight/4;
 						color: $grayLight;
 					}
 					.title {
-						float: opposite($from-direction);
+						float: opposite-position($from-direction);
 						margin-#{$from-direction}: $gw;
 						clear: both;
 					}

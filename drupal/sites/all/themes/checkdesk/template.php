@@ -63,7 +63,7 @@ function checkdesk_preprocess_page(&$variables) {
   // Add modal class for first-level children
   foreach ($tree as $pid => $parent) {
     foreach ($parent['below'] as $cid => $item) {
-      $tree[$pid]['below'][$cid]['link']['class'] = array('use-ajax');
+      $tree[$pid]['below'][$cid]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
     }
   }
   // Load the modal library and add the modal javascript.
@@ -185,6 +185,7 @@ function checkdesk_links__node($variables) {
   ctools_include('modal');
   ctools_include('ajax');
   ctools_modal_add_js();
+  // custom modal settings arrays
   $modal_style = array(
     'modal-popup-small' => array(
       'modalSize' => array(
@@ -198,15 +199,16 @@ function checkdesk_links__node($variables) {
         'opacity' => .5,
         'background-color' => '#000',
       ),
-      'animation' => 'slideDown',
+      'animation' => 'show',
+      'animationSpeed' => 40,
       'modalTheme' => 'CheckDeskModal',
       'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
     ),
-    'modal-popup-large' => array(
+    'modal-popup-medium' => array(
       'modalSize' => array(
         'type' => 'fixed',
         'width' => 150,
-        'height' => 250,
+        'height' => 350,
         'addWidth' => 0,
         'addHeight' => 0
       ),
@@ -214,7 +216,25 @@ function checkdesk_links__node($variables) {
         'opacity' => .5,
         'background-color' => '#000',
       ),
-      'animation' => 'slideDown',
+      'animation' => 'show',
+      'animationSpeed' => 40,
+      'modalTheme' => 'CheckDeskModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+    ),
+    'modal-popup-large' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 150,
+        'height' => 350,
+        'addWidth' => 0,
+        'addHeight' => 0
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'show',
+      'animationSpeed' => 40,
       'modalTheme' => 'CheckDeskModal',
       'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
     ),
@@ -236,7 +256,7 @@ function checkdesk_links__node($variables) {
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
-        $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-large') .'</li>';
+        $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
       }
       if (isset($links['checkdesk-edit'])) {
         $output .= '<li>' . l($links['checkdesk-edit']['title'], $links['checkdesk-edit']['href'], $links['checkdesk-edit']) .'</li>';
