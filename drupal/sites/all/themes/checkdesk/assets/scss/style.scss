@@ -49,14 +49,15 @@ $omega: opposite-position($from-direction);
 // @import "override_drupal/search";
 // @import "override_drupal/user";
 // @import "override_drupal/views";
-@import "override_drupal/ctools";
-@import "override_drupal/ctools_modal";
+// @import "override_drupal/ctools"; 
+// @import "override_drupal/ctools_modal"; // using styles based on TB for all windows
 // @import "override_drupal/oembed";
 @import "override_drupal/toolbar";
-// @import "override_drupal/shortcut";
+@import "override_drupal/shortcut";
 @import "override_drupal/contextual";
 @import "override_drupal/rules";
 @import "override_drupal/context_reaction_block";
+@import "override_drupal/l10n_client";
 
 // Bowerbird Drupal touchups
 // via: bowerbird
