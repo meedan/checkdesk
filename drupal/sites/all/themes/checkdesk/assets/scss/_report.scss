@@ -331,7 +331,6 @@ $bh: $baseLineHeight/4;
 		}
 
 		.activity-list {
-			margin-bottom: $bh*2;
 			.activity {
 				@include clearfix;
 				border-#{$from-direction}: 2px solid $white;
@@ -343,6 +342,7 @@ $bh: $baseLineHeight/4;
 				padding-left: $gw*2;
 
 				header {
+					@include clearfix;
 					[class^="icon-"],
 					[class*=" icon-"] {
 						float: left;
@@ -350,12 +350,12 @@ $bh: $baseLineHeight/4;
 						margin-right: $gw/2;
 					}
 					.time {
+						float: $from-direction;
 						color: $grayLight;
 					}
 					.title {
-						float: opposite-position($from-direction);
+						float: $from-direction;
 						margin-#{$from-direction}: $gw;
-						clear: both;
 					}
 					a {
 						font-weight: bold;
@@ -376,6 +376,7 @@ $bh: $baseLineHeight/4;
 		#comment-form {
 			@include clearfix;
 			padding: 0;
+			margin-top: $bh*2;
 			background-color: $grayLighter;
 			label {
 				display: none;
