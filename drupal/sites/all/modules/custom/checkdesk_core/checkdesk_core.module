@@ -1069,3 +1069,31 @@ function checkdesk_core_user_insert(&$edit, $account, $category) {
   $user_roles = array_flip(user_roles(TRUE));
   $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
 }
+
+/**
+ * Import twitter profile picture
+ **/
+function _twitter_signin_get_picture($account, $twitter_account) {
+  if ($account->uid) {
+    $picture_directory =  file_default_scheme() . '://' . variable_get('user_picture_path', 'pictures');
+    if(file_prepare_directory($picture_directory, FILE_CREATE_DIRECTORY)) {
+      $source_url = $twitter_account->profile_image_url; 
+      $picture_path = file_stream_wrapper_uri_normalize($picture_directory . '/twitter-picture-' . $account->uid . '-' . REQUEST_TIME . substr($source_url, -4));
+      $picture_file = file_save_data(file_get_contents($source_url), $picture_path, FILE_EXISTS_REPLACE);
+
+      // Check to make sure the picture isn't too large for the site settings.
+      $max_dimensions = variable_get('user_picture_dimensions', '85x85');
+      file_validate_image_resolution($picture_file, $max_dimensions);
+      // Update the user record.
+      $picture_file->uid = $account->uid;
+      $picture_file = file_save($picture_file);
+      file_usage_add($picture_file, 'user', 'user', $account->uid);
+      db_update('users')
+        ->fields(array(
+          'picture' => $picture_file->fid,
+        ))
+        ->condition('uid', $account->uid)
+        ->execute();
+    }
+  }
+}

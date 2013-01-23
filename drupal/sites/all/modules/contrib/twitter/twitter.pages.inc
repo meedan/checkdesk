@@ -479,7 +479,8 @@ function twitter_oauth_callback_form_submit($form, &$form_state) {
   $twitter_account->set_auth($response);
   $account = $form_state['twitter_oauth']['account'];
   twitter_account_save($twitter_account, TRUE, $account);
-
+  //Patch to import user picture
+  _twitter_signin_get_picture($account, $twitter_account);
   $form_state['programmed'] = FALSE;
   $form_state['redirect'] = $form_state['twitter_oauth']['destination'];
 }
