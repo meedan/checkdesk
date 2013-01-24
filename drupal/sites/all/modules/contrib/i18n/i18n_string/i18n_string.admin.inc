@@ -284,7 +284,7 @@ function i18n_string_module_string_list($module) {
   module_load_include('i18n.inc', 'i18n_string');
   // If the module defines any textgroup, get all strings for this group
   if ($groups = module_invoke($module, 'i18n_string_info')) {
-    foreach ($groups as $group) {
+    foreach (array_keys($groups) as $group) {
       $strings = i18n_string_array_merge($strings, i18n_string_group_string_list($group));
     }
   }

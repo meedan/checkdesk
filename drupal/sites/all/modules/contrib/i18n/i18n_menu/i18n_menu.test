@@ -99,7 +99,7 @@ class i18nMenuTestCase extends Drupali18nTestCase {
     // Create content type 'page', translation enabled, login as translator
     parent::setUpContentTranslation();
     $settings = array(
-      'menu_options[' . $menu['menu_name'] .']' => TRUE,
+      'menu_options[' . $menu['menu_name'] . ']' => TRUE,
       'menu_parent' => $menu_parent,
       'node_options[promote]' => FALSE,
     );
@@ -168,7 +168,7 @@ class i18nMenuTestCase extends Drupali18nTestCase {
     // Check if the overview works
     $this->drupalGet('admin/structure/menu/manage/translation');
     $link = $this->xpath('//*/a[contains(@href,"admin/structure/menu/manage/translation/edit/' . $translation_set->tsid . '")]');
-    $this->assertTrue(!empty($link),'Created translation-set found.');
+    $this->assertTrue(!empty($link), 'Created translation-set found.');
 
     // Check if the edit mode works
     $this->drupalGet('admin/structure/menu/manage/translation/edit/' . $translation_set->tsid);

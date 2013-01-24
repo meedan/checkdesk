@@ -1,9 +1,15 @@
 <?php
 /**
+ * @file
+ * i18n Object Class
+ */
+
+/**
  * Object wrapper
  */
 class i18n_object_wrapper {
   protected $type;
+  protected $key;
   protected $object;
   // Object translations, static cache.
   protected $translations;
@@ -11,9 +17,10 @@ class i18n_object_wrapper {
   /**
    * Class constructor
    */
-  public function __construct($type, $object) {
+  public function __construct($type, $key, $object) {
     $this->type = $type;
-    $this->object = is_scalar($object) ? $this->load_object($object) : $object;
+    $this->key = $key;
+    $this->object = $object ? $object : $this->load_object($key);
   }
 
   /**
@@ -40,9 +47,9 @@ class i18n_object_wrapper {
     elseif (is_array($this->object)) {
       $this->object[$field] = $value;
     }
-    return $this;   
+    return $this;
   }
-  
+
   /**
    * Get string numeric key for indexing.
    */
@@ -104,7 +111,7 @@ class i18n_object_wrapper {
     }
     return $placeholders;
   }
-  
+
   /**
    * Get link for item
    */
@@ -146,7 +153,7 @@ class i18n_object_wrapper {
    */
   function get_translate_mode() {
     return I18N_MODE_NONE;
-  }  
+  }
 
   /**
    * Get translation set id if any
@@ -185,7 +192,7 @@ class i18n_object_wrapper {
       return $this->object;
     }
   }
- 
+
   /**
    * Translate access (translation sets)
    */
@@ -202,7 +209,7 @@ class i18n_object_wrapper {
 
   /**
    * Replace path with placeholders
-   * 
+   *
    * @param $path
    *   Path to replace
    * @param $replacements

@@ -16,18 +16,18 @@ include_once drupal_get_path('module', 'locale') . '/locale.admin.inc';
  */
 function i18n_string_translate_page_object($object_type, $object_value, $language = NULL) {
   // For backwards compatibility, ensure parameter is a language object
-  $language = $language ? i18n_language($language) : NULL;
+  $language = i18n_language_object($language);
   $langcode = $language ? $language->language : NULL;
   // Get base keys for all these strings. Object key may be multiple like for blocks (module, delta)
   $object = i18n_object($object_type, $object_value);
   $strings = $object->get_strings(array('empty' => TRUE));
 
   if (empty($langcode)) {
-    drupal_set_title(t('Translate @name', array('@name' => i18n_object_info($object_type, 'title'))));
+    drupal_set_title(t('Translate !name', array('!name' => i18n_object_info($object_type, 'title'))));
     return i18n_string_translate_page_overview($object, $strings);
   }
   else {
-    drupal_set_title(t('Translate to @language', array('@language' => i18n_language_name($langcode))));
+    drupal_set_title(t('Translate to !language', array('!language' => i18n_language_name($langcode))));
     return drupal_get_form('i18n_string_translate_page_form', $strings, $langcode);
   }
 }

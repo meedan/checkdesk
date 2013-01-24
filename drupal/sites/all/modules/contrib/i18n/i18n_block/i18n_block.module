@@ -105,7 +105,8 @@ function i18n_block_block_list_alter(&$blocks) {
 function i18n_block_block_view_alter(&$data, $block) {
   if (!empty($block->i18n_mode)) {
     if (!empty($block->title) && $block->title != '<none>') {
-      $block->title = i18n_string(array('blocks', $block->module, $block->delta, 'title'), $block->title);
+      // Unfiltered, as $block->subject will be created later from the title.
+      $data['title'] = i18n_string(array('blocks', $block->module, $block->delta, 'title'), $block->title, array('sanitize' => FALSE));
     }
     if ($block->module == 'block' && isset($data['content'])) {
       $data['content'] = i18n_string(array('blocks', $block->module, $block->delta, 'body'), $data['content']);

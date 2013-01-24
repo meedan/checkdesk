@@ -53,3 +53,12 @@ function i18n_node_update_7000() {
   i18n_string_install_update_context('nodetype:type:*:*', 'node:type:*:*');
   i18n_string_install_update_context('node:type:*:title', 'node:type:*:title_label');
 }
+
+/**
+ * Delete obsoleted variable for switch interface for translating.
+ */
+/*
+function i18n_node_update_7001() {
+  variable_del('i18n_node_translation_switch');
+}
+*/

@@ -17,14 +17,18 @@ function i18n_variable_install() {
     i18n_variable_update_7001();
     i18n_variable_update_7002();
   }
+  // Set some minimum variables to be translated.
+  variable_set('variable_realm_list_language', array('site_name', 'site_slogan'));
 }
 
 /**
  * Implements hook_install().
  */
 function i18n_variable_uninstall() {
-  // Delete all our variables from store.
-  variable_store_delete_all('language', NULL);
+  if (drupal_load('module', 'variable_store')) {
+    // Delete all our variables from store.
+    variable_store_delete_all('language', NULL);
+  }
 }
 
 /**
@@ -40,6 +44,7 @@ function i18n_variable_update_7000() {
  * Move variables from old storage to new table
  */
 function i18n_variable_update_7001() {
+  drupal_load('module', 'variable_store');
   foreach (db_select('i18n_variable', 'v')->fields('v')->execute()->fetchAll() as $variable) {
     variable_store_set('language', $variable->language, $variable->name, unserialize($variable->value));
   }
@@ -53,3 +58,26 @@ function i18n_variable_update_7002() {
     db_drop_table('i18n_variable');
   }
 }
+
+/**
+ * Update list of realm variables.
+ */
+function i18n_variable_update_7003() {
+  drupal_load('module', 'variable_store');
+  $variable_list = variable_get('i18n_variable_conf', array());
+  variable_set('variable_realm_list_language', $variable_list);
+  // Delete old variables from store that are not in the list.
+  $old_variables = array_diff(variable_store_list_all('language'), variable_children($variable_list));
+  foreach ($old_variables as $name) {
+    variable_store_delete_all('language', NULL, $name);
+  }
+}
+
+/**
+ * Delete obsoleted variable realm variables.
+ */
+function i18n_variable_update_7004() {
+  variable_del('i18n_variable_conf');
+  variable_del('i18n_variable_list');
+}
+

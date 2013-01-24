@@ -83,12 +83,12 @@ function testTaxonomyTermLocalize() {
     $this->assertText($term_translation['name'][$this->secondary_language], 'Field values are displayed correctly in non-default languages.');
 
     // Term name and term description should be localized
-    $this->drupalGet('taxonomy/term/' . $term->tid, array('language' => i18n_language($this->default_language)));
+    $this->drupalGet('taxonomy/term/' . $term->tid, array('language' => i18n_language_object($this->default_language)));
     $this->assertText($term->name, 'Term title is displayed correctly in default language.');
     $this->assertText($term->description, 'Term description is displayed correctly in default language.');
 
     // Term name and term description should be localized
-    $this->drupalGet('taxonomy/term/' . $term->tid, array('language' => i18n_language($this->secondary_language)));
+    $this->drupalGet('taxonomy/term/' . $term->tid, array('language' => i18n_language_object($this->secondary_language)));
     $this->assertText($term_translation['name'][$this->secondary_language], 'Term title is displayed correctly in non-default language.');
     $this->assertText($term_translation['description'][$this->secondary_language], 'Term description is displayed correctly in non-default language.');
 
