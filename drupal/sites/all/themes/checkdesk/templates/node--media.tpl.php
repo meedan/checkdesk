@@ -2,7 +2,7 @@
   <article class="report">
     <header>
       <h3>
-        <?php print render($content['report_source']); ?>
+        <span class="icon-link"></span> <?php print render($content['report_source']); ?>
       </h3>
     </header>
 

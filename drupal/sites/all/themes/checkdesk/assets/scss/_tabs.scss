@@ -10,12 +10,12 @@
 
 div.tabs {
   @include reset-box-model;
-  @include clearfix;
+  @include ctb-clearfix;
   padding: {top: $gw; bottom: $gw;}
   
   ul.primary {
     @include reset-box-model;
-    @include clearfix;
+    @include ctb-clearfix;
     background-color: rgba(white, 0.8);
     font-family: $sans-font-family;
     font-size: $small-font-size;

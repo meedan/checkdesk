@@ -23,11 +23,27 @@ function checkdesk_theme() {
 }
 
 /**
+ * Preprocess variables for html.tpl.php
+ *
+ * @see html.tpl.php
+ */
+function checkdesk_preprocess_html(&$variables) {
+  // set body class for language
+  if ($variables['language']) {
+    $class = 'body-' . $variables['language']->language;
+  }
+  $variables['classes_array'][] = $class;
+}
+
+/**
  * Preprocess variables for page.tpl.php
  *
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
+
+  
+
   // Primary nav
   $variables['primary_nav'] = FALSE;
   if($variables['main_menu']) {
@@ -253,7 +269,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span></a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span> Add to</a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
