@@ -80,3 +80,11 @@ function checkdesk_core_update_7007() {
   module_enable(array('i18n_taxonomy', 'i18n_menu'));
 }
 
+/**
+ * Implements hook_update_N().
+ * Enable needed modules.
+ */
+function checkdesk_core_update_7008() {
+  module_enable(array('varnish'));
+}
+
