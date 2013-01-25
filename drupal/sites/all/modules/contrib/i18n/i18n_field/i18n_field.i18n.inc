@@ -14,7 +14,7 @@ function i18n_field_i18n_object_info() {
     'key' => 'field_name',
     'load callback' => 'field_info_field',
     'placeholders' => array(
-    	'%field_ui_menu' => 'field_name',
+      '%field_ui_menu' => 'field_name',
       '%field_type' => 'type',
     ),
     'edit path' => 'admin/structure/types/manage/%bundle/fields/%field_ui_menu/field-settings',
@@ -35,7 +35,7 @@ function i18n_field_i18n_object_info() {
     'class' => 'i18n_field_instance',
     'key' => array('field_name', 'bundle'),
     'placeholders' => array(
-    	'%bundle' => 'bundle',
+      '%bundle' => 'bundle',
       '%field_ui_menu' => 'field_name',
     ),
     'edit path' => 'admin/structure/types/manage/%bundle/fields/%field_ui_menu',
@@ -83,7 +83,7 @@ function i18n_field_i18n_field_info() {
   $info['text'] = $info['text_long'] = $info['text_with_summary'] = array(
     'translate_default' => 'i18n_field_translate_default',
   );
-  $info['list_text'] = $info['list_boolean'] = $info['list_integer'] = $info['list_integer'] = array(
+  $info['list_text'] = $info['list_boolean'] = $info['list_integer'] = array(
     'translate_options' => 'i18n_field_translate_allowed_values',
   );
   return $info;

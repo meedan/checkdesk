@@ -135,7 +135,7 @@ function i18n_select_page() {
  * Rewrite node queries so language selection options are enforced.
  */
 function i18n_select_query_node_access_alter(QueryAlterableInterface $query) {
-  if (i18n_select_mode('nodes') && i18n_select_check_query($query) &&
+  if (i18n_select_mode('nodes') && i18n_select_check_query($query, 'nid') &&
     ($table_alias = i18n_select_check_table($query, 'node', 'nid'))) {
     $query->condition($table_alias . '.language', i18n_select_langcodes());
     // Mark query as altered
@@ -149,7 +149,7 @@ function i18n_select_query_node_access_alter(QueryAlterableInterface $query) {
  * Rewrite taxonomy term queries so language selection options are enforced.
  */
 function i18n_select_query_term_access_alter(QueryAlterableInterface $query) {
-  if (module_exists('i18n_taxonomy') && i18n_select_mode('taxonomy') && i18n_select_check_query($query) &&
+  if (module_exists('i18n_taxonomy') && i18n_select_mode('taxonomy') && i18n_select_check_query($query, 'tid') &&
     ($table_alias = i18n_select_check_table($query, 'taxonomy_term_data', 'tid'))) {
     $query->condition($table_alias . '.language', i18n_select_langcodes());
     // Mark query as altered
@@ -244,8 +244,14 @@ function i18n_select_check_conditions($query, $table_alias = NULL) {
  * - The query has not been tagged with 'i18n_select'
  * - The query doesn't have already a language condition
  * - All the conditions have a table alias or there's only one table.
+ * - We are not loading specific objects (no condition for index field).
+ *
+ * @param $query
+ *   Query object.
+ * @param $index_field
+ *   Object index field to check we don't have 'IN' conditions for it.
  */
-function i18n_select_check_query($query) {
+function i18n_select_check_query($query, $index_field = NULL) {
   static $tags;
   // Skip queries with certain tags
   if (!isset($tags)) {
@@ -276,10 +282,14 @@ function i18n_select_check_query($query) {
         if ($field == 'language') {
           return FALSE;
         }
+        // Check 'IN' conditions for index field, usually entity loading for specific objects.
+        if ($field == $index_field && $condition['operator'] == 'IN') {
+          return FALSE;
+        }
       }
     }
   }
-  // if the language field is present we don't want to do any filtering.
+  // If the language field is present we don't want to do any filtering.
   $fields = $query->getFields();
   if (isset($fields['language'])) {
     return FALSE;
@@ -289,15 +299,16 @@ function i18n_select_check_query($query) {
 }
 
 /**
- * Get main language code for content selection
+ * Get main language for content selection
  */
 function i18n_select_language() {
-  return $GLOBALS['language_content']->language;
+  return $GLOBALS[LANGUAGE_TYPE_CONTENT];
 }
 
 /**
  * Get language codes for content selection to use in query conditions
  */
 function i18n_select_langcodes() {
-  return array(i18n_select_language(), LANGUAGE_NONE);
+  return array(i18n_select_language()->language, LANGUAGE_NONE);
 }
+

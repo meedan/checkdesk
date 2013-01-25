@@ -74,7 +74,7 @@
         .story-status, 
         .story-blogger {
           @include span-columns($pw, $pw);
-          @include clearfix;
+          @include ctb-clearfix;
           padding: 1em;
           margin-top: 1em;
           font-size: $smaller-font-size;

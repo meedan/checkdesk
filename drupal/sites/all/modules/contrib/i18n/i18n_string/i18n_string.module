@@ -391,7 +391,7 @@ function i18n_string_context($name, $replace = NULL) {
  * Mark form element as localizable
  */
 function i18n_string_element_mark(&$element) {
-  $description = '<strong>'. t('This string will be localizable. You can translate it using the <a href="@translate-interface">translate interface</a> pages.', array('@translate-interface' => url('admin/config/regional/translate/translate'))) .'</strong>';
+  $description = '<strong>' . t('This string will be localizable. You can translate it using the <a href="@translate-interface">translate interface</a> pages.', array('@translate-interface' => url('admin/config/regional/translate/translate'))) . '</strong>';
   if (empty($element['#description'])) {
     $element['#description'] = $description;
   }
@@ -453,7 +453,12 @@ function i18n_string_load_multiple($conditions) {
     $alias = in_array($field, array('source', 'version', 'location')) ? 's' : 'i';
     $query->condition($alias . '.' . $field, $value);
   }
-  return $query->execute()->fetchAll(PDO::FETCH_CLASS, 'i18n_string_object');
+  // this patch  is a workaround for core file bug in file
+  // include/database/prefetch.inc (see: http://drupal.org/node/1567216)
+  // return $query->execute()->fetchAll(PDO::FETCH_CLASS, 'i18n_string_object');
+  $stmt = $query->execute();
+  $stmt->setFetchMode(PDO::FETCH_CLASS, 'i18n_string_object');
+  return $stmt->fetchAll();
 }
 
 /**
@@ -784,6 +789,19 @@ function i18n_string_object_info($type = NULL, $property = NULL) {
       }
     }
     return $list;
+  }
+}
+
+/**
+ * Implements hook_i18n_object_info_alter().
+ *
+ * Set a different default object wrapper for objects that have string translation.
+ */
+function i18n_string_i18n_object_info_alter(&$object_info) {
+  foreach ($object_info as $type => &$info) {
+    if (!empty($info['string translation']) && (empty($info['class']) || $info['class'] == 'i18n_object_wrapper')) {
+      $info['class'] = 'i18n_string_object_wrapper';
+    }
   }
 }
 

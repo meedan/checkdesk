@@ -46,3 +46,26 @@ function i18n_menu_schema_alter(&$schema) {
 function i18n_menu_update_7000() {
   // @todo
 }
+
+/**
+ * Set alter property for menu items with language.
+ */
+function i18n_menu_update_7001() {
+  // Compile a list of menus with i18n options.
+  $i18n_menus = array_filter(menu_get_names(), 'i18n_menu_mode');
+  if ($i18n_menus) {
+    $query = db_select('menu_links', 'm')
+      ->fields('m')
+      ->condition('menu_name', $i18n_menus);
+    foreach ($query->execute()->fetchAllAssoc('mlid', PDO::FETCH_ASSOC) as $mlid => $item) {
+      $options = unserialize($item['options']);
+      if (_i18n_menu_link_check_alter($item) && empty($options['alter'])) {
+        $options['alter'] = TRUE;
+        db_update('menu_links')
+          ->condition('mlid', $mlid)
+          ->fields(array('options' => serialize($options)))
+          ->execute();
+      }
+    }
+  }
+}

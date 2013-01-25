@@ -165,7 +165,7 @@ function i18n_taxonomy_translation_term_form_submit($form, &$form_state) {
  */
 function i18n_taxonomy_translation_sets_overview($vocabulary) {
   module_load_include('admin.inc', 'i18n_translation');
-  drupal_set_title(check_plain($vocabulary->name));
+  drupal_set_title($vocabulary->name);
   $query = db_select('i18n_translation_set', 't')
     ->condition('t.bundle', $vocabulary->machine_name);
   return i18n_translation_admin_overview('taxonomy_term', $query);

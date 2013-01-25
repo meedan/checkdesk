@@ -278,7 +278,7 @@ class Drupali18nTestCase extends DrupalWebTestCase {
    */
   public function switchLanguage($newlang = NULL) {
     $newlang = $newlang ? $newlang : $this->install_locale;
-    $GLOBALS['language'] = $this->getLanguage($newlang);
+    $GLOBALS[LANGUAGE_TYPE_INTERFACE] = $this->getLanguage($newlang);
   }
 
   /**

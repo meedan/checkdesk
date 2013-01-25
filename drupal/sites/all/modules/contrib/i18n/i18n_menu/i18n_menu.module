@@ -56,16 +56,18 @@ function i18n_menu_menu_alter(&$items) {
 }
 
 /**
- * Implements hook_block_view()
+ * Implements hook_block_view().
  */
 function i18n_menu_block_view_alter(&$data, $block) {
   if (($block->module == 'menu' || $block->module == 'system') && (i18n_menu_mode($block->delta) & I18N_MODE_MULTIPLE)) {
     $menus = menu_get_menus();
     if (isset($menus[$block->delta])) {
       if (empty($block->title)) {
-        $data['subject'] = i18n_string_plain(array('menu', 'menu', $block->delta, 'title'), $menus[$block->delta]);
+        $data['subject'] = i18n_string_plain(
+          array('menu', 'menu', $block->delta, 'title'),
+          $menus[$block->delta]
+        );
       }
-      $data['content'] = i18n_menu_translated_tree($block->delta);
       // Add contextual links for this block.
       if (!empty($data['content'])) {
         $data['content']['#contextual_links']['menu'] = array('admin/structure/menu/manage', array($block->delta));
@@ -73,8 +75,6 @@ function i18n_menu_block_view_alter(&$data, $block) {
     }
   }
 }
-
-
 
 /**
  * Implements hook_i18n_translate_path()
@@ -92,31 +92,6 @@ function i18n_menu_i18n_translate_path($path) {
       );
     }
     return $links;
-  }
-}
-
-/**
- * Implements hook_menu_link_alter().
- *
- * Catch changed links, update language and set alter option.
- */
-function i18n_menu_menu_link_alter(&$item) {
-  // If we set option to language it causes an error with the link system
-  // This should handle language only as the links are being manually updated
-  if (i18n_object_langcode($item)) {
-    $item['options']['langcode'] = $item['language'];
-  }
-  elseif (isset($item['language'])) {
-    unset($item['options']['langcode']);
-  }
-  // If we are handling custom menu items of menu module and no language is set,
-  // invoke translation via i18n_string module.
-  if (isset($item['language']) && empty($item['language']) && $item['module'] == 'menu') {
-    // Set title_callback to FALSE to avoid calling t().
-    $item['title_callback'] = FALSE;
-    // Setting the alter option to true ensures that
-    // hook_translated_menu_link_alter() will be called.
-    $item['options']['alter'] = TRUE;
   }
 }
 
@@ -162,7 +137,7 @@ function i18n_menu_menu_update($menu) {
       ->execute()
       ->fetchCol(0);
     if (!empty($tsids)) {
-      foreach($tsids as $tsid) {
+      foreach ($tsids as $tsid) {
         if ($translation_set = i18n_translation_set_load($tsid)) {
           $translation_set->delete();
         }
@@ -196,6 +171,19 @@ function i18n_menu_menu_delete($menu) {
 }
 
 /**
+ * Implements hook_menu_link_alter().
+ *
+ * This function is invoked from menu_link_save() before default
+ * menu link options (menu_name, module, etc.. have been set)
+ */
+function i18n_menu_menu_link_alter(&$item) {
+  // We just make sure every link has a valid language property.
+  if (!i18n_object_langcode($item)) {
+    $item['language'] = LANGUAGE_NONE;
+  }
+}
+
+/**
  * Implements hook_menu_link_insert()
  */
 function i18n_menu_menu_link_insert($link) {
@@ -203,17 +191,20 @@ function i18n_menu_menu_link_insert($link) {
 }
 
 /**
- * Implements hook_menu_update()
+ * Implements hook_menu_link_update().
  */
 function i18n_menu_menu_link_update($link) {
   // Stores the fields to update.
   $fields = array();
+  $menu_mode = i18n_menu_mode($link['menu_name']);
 
-  // Multilingual menu links, translatable, it may be part of a translation set.
-  if (i18n_menu_mode($link['menu_name'], I18N_MODE_TRANSLATE) && isset($link['language'])) {
+  if ($menu_mode & I18N_MODE_TRANSLATE && isset($link['language'])) {
+    // Multilingual menu links, translatable, it may be part of a
+    // translation set.
     if (i18n_object_langcode($link)) {
       if (!empty($link['translation_set'])) {
-        // Translation set comes as parameter, we may be creating a translation, add link to the set
+        // Translation set comes as parameter, we may be creating a translation,
+        // add link to the set.
         $translation_set = $link['translation_set'];
         $translation_set
           ->add_item($link)
@@ -230,20 +221,42 @@ function i18n_menu_menu_link_update($link) {
       $fields['i18n_tsid'] = 0;
     }
   }
-
+  // For multilingual menu items, always set a language and mark them for
+  // 'alter' so they can be processed later by
+  // hook_translated_link_menu_alter().
+  if ($menu_mode) {
+    if (!isset($link['language'])) {
+      $link['language'] = LANGUAGE_NONE;
+    }
+    if (_i18n_menu_link_check_alter($link) && empty($link['options']['alter'])) {
+      $fields['options'] = $link['options'];
+      $fields['options']['alter'] = TRUE;
+    }
+    // We cannot unmark links for altering because we don't know what other
+    // modules use it for.
+  }
+  // Update language field if the link has a language value.
   if (isset($link['language'])) {
     $fields['language'] = $link['language'];
   }
 
   if (!empty($fields)) {
+    // If link options are to be updated, they need to be serialized.
+    if (isset($fields['options'])) {
+      $fields['options'] = serialize($fields['options']);
+    }
     db_update('menu_links')
       ->fields($fields)
       ->condition('mlid', $link['mlid'])
       ->execute();
   }
-  // Update translatable strings if any
-  if (!empty($link['customized']) && i18n_menu_mode($link['menu_name'], I18N_MODE_LOCALIZE) && !i18n_object_langcode($link)) {
+  // Update translatable strings if any for customized links that belong to a
+  // localizable menu.
+  if (_i18n_menu_link_is_localizable($link)) {
     i18n_string_object_update('menu_link', $link);
+  }
+  else {
+    i18n_string_object_remove('menu_link', $link);
   }
 }
 
@@ -283,18 +296,21 @@ function i18n_menu_mode($name, $mode = NULL) {
 /**
  * Implements hook_translated_menu_link_alter().
  *
- * Translate menu links on the fly.
+ * Translate localizable menu links on the fly.
+ * Filter out items that have a different language from current interface.
  *
  * @see i18n_menu_menu_link_alter()
  */
-function i18n_menu_translated_menu_link_alter(&$item, $map) {
-  if (!empty($item['customized']) && empty($item['language']) && !empty($item['access']) && empty($item['hidden']) && empty($item['i18n_menu'])) {
-    $item['link_title'] = _i18n_menu_link_title($item);
-    if ($description = _i18n_menu_link_description($item)) {
-      $item['localized_options']['attributes']['title'] = $description;
+function i18n_menu_translated_menu_link_alter(&$item) {
+  // Only process links to be displayed not processed before by i18n_menu.
+  if (_i18n_menu_link_process($item)) {
+    if (!_i18n_menu_link_is_visible($item)) {
+      $item['hidden'] = TRUE;
     }
-    // Mark to skip localizing twice
-    $item['i18n_menu'] = TRUE;
+    elseif (_i18n_menu_link_is_localizable($item)) {
+      // Item has undefined language, it is a candidate for localization.
+      _i18n_menu_link_localize($item);
+    }
   }
 }
 
@@ -315,7 +331,7 @@ function i18n_menu_help($path, $arg) {
       return $output;
 
     case 'admin/config/regional/i18n':
-      $output = '<p>'. t('Menus and menu items can be translated on the <a href="@configure_menus">Menu administration page</a>.', array('@configure_menus' => url('admin/structure/menu'))) .'</p>';
+      $output = '<p>' . t('Menus and menu items can be translated on the <a href="@configure_menus">Menu administration page</a>.', array('@configure_menus' => url('admin/structure/menu'))) . '</p>';
       return $output;
   }
 }
@@ -331,17 +347,17 @@ function i18n_menu_variable_info_alter(&$variables, $options) {
 
 /**
  * Get localized menu tree.
- * @param $menu_name
- *   The menu the translated tree has to be fetched from.
- * @param $langcode
- * 	 Optional language code to get the menu in, defaults to request language.
- * @param $reset
- *   Whether to reset the internal i18n_menu_translated_tree cache.
  *
+ * @param string $menu_name
+ *   The menu the translated tree has to be fetched from.
+ * @param string $langcode
+ *   Optional language code to get the menu in, defaults to request language.
+ * @param bool $reset
+ *   Whether to reset the internal i18n_menu_translated_tree cache.
  */
 function i18n_menu_translated_tree($menu_name, $langcode = NULL, $reset = FALSE) {
   $menu_output = &drupal_static(__FUNCTION__);
-  $langcode = i18n_langcode($langcode);
+  $langcode = $langcode ? $langcode : i18n_language_interface()->language;
   if (!isset($menu_output[$langcode][$menu_name]) || $reset) {
     $tree = menu_tree_page_data($menu_name);
     $tree = i18n_menu_localize_tree($tree, $langcode);
@@ -354,26 +370,22 @@ function i18n_menu_translated_tree($menu_name, $langcode = NULL, $reset = FALSE)
  * Localize menu tree.
  */
 function i18n_menu_localize_tree($tree, $langcode = NULL) {
-  $langcode = i18n_langcode($langcode);
+  $langcode = $langcode ? $langcode : i18n_language_interface()->language;
   foreach ($tree as $index => &$item) {
     $link = $item['link'];
-    if ($link['customized'] && !empty($link['access']) && empty($link['hidden']) && empty($link['i18n_menu'])) {
-      // Remove links for other languages than current.
-      // Links with language wont be localized.
-      if ($menulang = i18n_object_langcode($link)) {
-        if ($menulang != $langcode) {
-          unset($tree[$index]);
-        }
+    // We only process links that are visible and not processed before.
+    if (_i18n_menu_link_process($item['link'])) {
+      if (!_i18n_menu_link_is_visible($item['link'], $langcode)) {
+        // Remove links for other languages than current.
+        // Links with language wont be localized.
+        unset($tree[$index]);
+        // @todo Research whether the above has any advantage over:
+        // $item['hidden'] = TRUE;
       }
       else {
-        // There may be injected menu items here so we check it actually has router path
-        $router = isset($link['router_path']) ? i18n_menu_get_router($link['router_path']) : NULL;
-        // If the title is the same it will be localized by the menu system.
-        if (!$router || $link['link_title'] != $router['title']) {
-          $item['link']['title'] = _i18n_menu_link_title($link, $langcode);
-        }
-        if ($description = _i18n_menu_link_description($link, $langcode)) {
-          $item['link']['localized_options']['attributes']['title'] = $description;
+        if (_i18n_menu_link_is_localizable($item['link'])) {
+          // Item has undefined language, it is a candidate for localization.
+          _i18n_menu_link_localize($item['link'], $langcode);
         }
         // Localize subtree.
         if (!empty($item['below'])) {
@@ -453,41 +465,33 @@ function i18n_menu_navigation_links($menu_name, $level = 0) {
 }
 
 /**
- * Replace standard primary and secondary links.
- */
-function i18n_menu_preprocess_page(&$vars) {
-  if (!empty($vars['main_menu']) && theme_get_setting('toggle_main_menu')) {
-    $vars['main_menu'] = i18n_menu_navigation_links(variable_get('menu_main_links_source', 'main-menu'));;
-  }
-  if (!empty($vars['secondary_menu']) && theme_get_setting('toggle_secondary_menu')) {
-    // If the secondary menu source is set as the primary menu, we display the
-    // second level of the primary menu.
-    if (variable_get('menu_secondary_links_source', 'user-menu') == variable_get('menu_main_links_source', 'main-menu')) {
-      $vars['secondary_menu'] = i18n_menu_navigation_links(variable_get('menu_main_links_source', 'main-menu'), 1);
-    }
-    else {
-      $vars['secondary_menu'] = i18n_menu_navigation_links(variable_get('menu_secondary_links_source', 'user-menu'), 0);
-    }
-  }
-}
-
-/**
  * Get localized menu title
  */
 function _i18n_menu_link_title($link, $langcode = NULL) {
-  return i18n_string_translate(array('menu', 'item', $link['mlid'], 'title'), $link['link_title'], array('langcode' => $langcode));
+  return i18n_string_translate(array('menu', 'item', $link['mlid'], 'title'), $link['link_title'], array('langcode' => $langcode, 'sanitize' => FALSE));
 }
 
 /**
- * Localize menu item title and description
+ * Localize menu item title and description.
+ *
+ * This will be invoked always after _menu_item_localize()
+ *
+ * Link properties to manage:
+ * - title, menu router title
+ * - link_title, menu link title
+ * - options.attributes.title, menu link description.
+ * - localized_options.attributes.title,
+ *
+ * @see _menu_item_localize()
+ * @see _menu_link_translate()
  */
 function _i18n_menu_link_localize(&$link, $langcode = NULL) {
-  $link['link_title'] = _i18n_menu_link_title($link, $langcode);
-  if ($description = _i18n_menu_link_description($link, $langcode)) {
-    $link['options']['attributes']['title'] = $description;
+  // Only translate title if it has no special callback.
+  if (empty($link['title callback']) || $link['title callback'] === 't') {
+    $link['title'] = _i18n_menu_link_title($link, $langcode);
   }
-  if (!empty($link['options']['attributes']['title'])) {
-
+  if ($description = _i18n_menu_link_description($link, $langcode)) {
+    $link['localized_options']['attributes']['title'] = $description;
   }
 }
 
@@ -504,19 +508,108 @@ function _i18n_menu_link_description($link, $langcode = NULL) {
 }
 
 /**
+ * Check whether this link is to be processed by i18n_menu and start processing.
+ */
+function _i18n_menu_link_process(&$link) {
+  // Only visible links that have a language property and haven't been processed
+  // before. We also check that they belong to a menu with language options.
+  if (empty($link['i18n_menu']) && !empty($link['language']) && !empty($link['access']) && empty($link['hidden']) && i18n_menu_mode($link['menu_name'])) {
+    // Mark so it won't be processed twice.
+    $link['i18n_menu'] = TRUE;
+    // Skip if administering this menu or this menu item.
+    if (arg(0) == 'admin' && arg(1) == 'structure' && arg(2) == 'menu') {
+      if (arg(3) == 'manage' && $link['menu_name'] == arg(4)) {
+        return FALSE;
+      }
+      elseif (arg(3) == 'item' && arg(4) == $link['mlid']) {
+        return FALSE;
+      }
+    }
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Check whether this menu item should be marked for altering.
+ *
+ * Menu items that have a language or that have any localizable strings
+ * will be marked to be run through hook_translated_menu_link_alter().
+ *
+ * @see i18n_menu_translated_menu_link_alter()
+ */
+function _i18n_menu_link_check_alter($link) {
+  return i18n_menu_mode($link['menu_name']) && (i18n_object_langcode($link) || _i18n_menu_link_is_localizable($link, TRUE));
+}
+
+/**
+ * Check whether this link should be localized by i18n_menu.
+ *
+ * @param array $link
+ *   Menu link array.
+ * @param bool $check_strings
+ *   Whether to check if the link has actually localizable strings. Since this
+ *   is a more expensive operation, it will be just checked when editing menu
+ *   items.
+ *
+ * @return boolean
+ *   Returns TRUE if link is localizable.
+ */
+function _i18n_menu_link_is_localizable($link, $check_strings = FALSE) {
+  return !empty($link['customized']) && !i18n_object_langcode($link) && i18n_menu_mode($link['menu_name'], I18N_MODE_LOCALIZE) &&
+  (!$check_strings || _i18n_menu_link_localizable_properties($link));
+}
+
+/**
+ * Check whether this menu link is visible for current/given language.
+ */
+function _i18n_menu_link_is_visible($link, $langcode = NULL) {
+  $langcode = $langcode ? $langcode : i18n_language_interface()->language;
+  return $link['language'] == LANGUAGE_NONE || $link['language'] == $langcode;
+}
+
+/**
+ * Get localizable properties for menu link checking agains the router item.
+ */
+function _i18n_menu_link_localizable_properties($link) {
+  $props = array();
+  $router = !empty($link['router_path']) ? _i18n_menu_get_router($link['router_path']) : NULL;
+  if (!empty($link['link_title'])) {
+    // If the title callback is 't' and the link title matches the router title
+    // it will be localized by core, not by i18n_menu.
+    if (!$router ||
+        (empty($router['title_callback']) || $router['title_callback'] != 't') ||
+        (empty($router['title']) || $router['title'] != $link['link_title'])
+    ) {
+      $props[] = 'title';
+    }
+  }
+  if (!empty($link['options']['attributes']['title'])) {
+    // If the description matches the router description, it will be localized
+    // by core.
+    if (!$router || empty($router['description']) || $router['description'] != $link['options']['attributes']['title']) {
+      $props[] = 'description';
+    }
+  }
+  return $props;
+}
+
+/**
  * Get the menu router for this router path.
  *
  * We need the untranslated title to compare, and this will be fast.
  * There's no api function to do this?
  *
- * @param $path
+ * @param string $path
  *   The path to fetch from the router.
  */
-function i18n_menu_get_router($path) {
-  $cache = &drupal_static(__FUNCTION__ , array());
+function _i18n_menu_get_router($path) {
+  $cache = &drupal_static(__FUNCTION__, array());
   if (!array_key_exists($path, $cache)) {
     $cache[$path] = db_select('menu_router', 'mr')
-      ->fields('mr', array('title'))
+      ->fields('mr', array('title', 'title_callback', 'description'))
       ->condition('path', $path)
       ->execute()
       ->fetchAssoc();
@@ -738,6 +831,7 @@ function i18n_menu_edit_item_form_submit($form, &$form_state) {
   return 'admin/build/menu';
 }
 */
+
 /**
  * Load translation set. Menu loading callback.
  */
@@ -818,11 +912,10 @@ function i18n_menu_init() {
   // Weight must be taken from {menu_links}, not {menu_router}.
   $query->addField('ml', 'weight', 'link_weight');
   $query->fields('m');
-  $query->condition('ml.menu_name', $menu_names, 'IN');
   $query->condition('ml.link_path', $path_candidates, 'IN');
 
   // Only look menu links with none or the current language.
-  $query->condition('ml.language', array(LANGUAGE_NONE, $GLOBALS['language']->language), 'IN');
+  $query->condition('ml.language', array(LANGUAGE_NONE, i18n_language_interface()->language), 'IN');
 
   // Sort candidates by link path and menu name.
   $candidates = array();

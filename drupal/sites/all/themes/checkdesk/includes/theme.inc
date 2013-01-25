@@ -129,7 +129,14 @@ function checkdesk_checkdesk_links($variables) {
  * Removes some CSS files.
  */
 function checkdesk_css_alter(&$css) {
+  // Remove style.css if style-rtl.css is included.
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    unset($css['sites/all/themes/checkdesk/assets/css/style.css']);
+  }
+  // Excludes from .info
   $excludes = _checkdesk_alter(checkdesk_theme_get_info('exclude'), 'css');
+
   $pattern = str_replace('/', '\/', implode('|', array_keys($excludes)));
   foreach ($css as $path => $data) {
     if (preg_match("/^($pattern)/", $path)) unset($css[$path]);
