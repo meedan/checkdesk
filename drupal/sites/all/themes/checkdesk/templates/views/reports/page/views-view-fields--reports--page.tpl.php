@@ -1,0 +1,1 @@
+<?php print $fields['field_link']->content; ?>

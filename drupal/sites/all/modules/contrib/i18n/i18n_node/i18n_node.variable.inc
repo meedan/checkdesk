@@ -28,13 +28,6 @@ function i18n_node_variable_info($options = array()) {
     'default' => 0,
     'group' => 'i18n_node',
   );
-  $variables['i18n_node_translation_switch'] = array(
-    'type' => 'boolean',
-    'title' => t('Switch interface for translating', array(), $options),
-    'default' => 1,
-    'group' => 'i18n_node',
-    'description' => t('Switch interface language to fit node language when creating or editing a translation. If not checked the interface language will be independent from node language. This may have some unintended effects like references not matching the node language.', array(), $options),
-  );
   $variables['i18n_node_default_language_none'] = array(
     'title' => t('Default language for content types with Multilingual support disabled.', array(), $options),
     'description' => t('Determines which language will be set for newly created content of types that don\'t have Multilingual support enabled.', array(), $options),

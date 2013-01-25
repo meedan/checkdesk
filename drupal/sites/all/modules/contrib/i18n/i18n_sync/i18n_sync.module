@@ -35,17 +35,17 @@ function i18n_sync($status = NULL) {
 function i18n_sync_help($path, $arg) {
   switch ($path) {
     case 'admin/help#i18n_sync' :
-      $output = '<p>'. t('This module synchronizes content taxonomy and fields accross translations:') .'</p>';
-      $output .= '<p>'. t('First you need to select which fields should be synchronized. Then, after a node has been updated, all enabled vocabularies and fields will be synchronized as follows:') .'</p>';
+      $output = '<p>' . t('This module synchronizes content taxonomy and fields accross translations:') . '</p>';
+      $output .= '<p>' . t('First you need to select which fields should be synchronized. Then, after a node has been updated, all enabled vocabularies and fields will be synchronized as follows:') . '</p>';
       $output .= '<ul>';
-      $output .= '<li>'. t('All the node fields selected for synchronization will be set to the same value for all translations.') .'</li>';
-      $output .= '<li>'. t('For multilingual vocabularies, the terms for all translations will be replaced by the translations of the original node terms.') .'</li>';
-      $output .= '<li>'. t('For other vocabularies, the terms will be just copied over to all the translations.') .'</li>';
+      $output .= '<li>' . t('All the node fields selected for synchronization will be set to the same value for all translations.') . '</li>';
+      $output .= '<li>' . t('For multilingual vocabularies, the terms for all translations will be replaced by the translations of the original node terms.') . '</li>';
+      $output .= '<li>' . t('For other vocabularies, the terms will be just copied over to all the translations.') . '</li>';
       $output .= '</ul>';
-      $output .= '<p><strong>'. t('Note that permissions are not checked for each node. So if someone can edit a node and it is set to synchronize, all the translations will be synchronized anyway.') .'</strong></p>';
-      $output .= '<p>'. t('To enable synchronization check content type options to select which fields to synchronize for each node type.') .'</p>';
-      $output .= '<p>'. t('The list of available fields for synchronization will include some standard node fields and all CCK fields. You can add more fields to the list in a configuration variable. See README.txt for how to do it.') .'</p>';
-      $output .= '<p>'. t('For more information, see the online handbook entry for <a href="@i18n">Internationalization module</a>.', array('@i18n' => 'http://drupal.org/node/133977')) .'</p>';
+      $output .= '<p><strong>' . t('Note that permissions are not checked for each node. So if someone can edit a node and it is set to synchronize, all the translations will be synchronized anyway.') . '</strong></p>';
+      $output .= '<p>' . t('To enable synchronization check content type options to select which fields to synchronize for each node type.') . '</p>';
+      $output .= '<p>' . t('The list of available fields for synchronization will include some standard node fields and all CCK fields. You can add more fields to the list in a configuration variable. See README.txt for how to do it.') . '</p>';
+      $output .= '<p>' . t('For more information, see the online handbook entry for <a href="@i18n">Internationalization module</a>.', array('@i18n' => 'http://drupal.org/node/133977')) . '</p>';
       return $output;
   }
 }
@@ -264,7 +264,7 @@ function i18n_sync_node_prepare($node) {
  *   Optional field name to check whether it is in the list
  */
 function i18n_sync_node_fields($type, $field = NULL) {
-  $fields = variable_get('i18n_sync_node_type_'. $type, array());
+  $fields = variable_get('i18n_sync_node_type_' . $type, array());
   return $field ? in_array($field, $fields) : $fields;
 }
 

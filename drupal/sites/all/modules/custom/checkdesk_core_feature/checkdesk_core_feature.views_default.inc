@@ -78,6 +78,7 @@ function checkdesk_core_feature_views_default_views() {
     'status_report' => 'status_report',
     'new_comment_report' => 'new_comment_report',
     'new_report' => 'new_report',
+    'publish_report' => 'publish_report',
   );
 
   /* Display: Block */
@@ -241,54 +242,52 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::system_block_ip_action' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::user_block_user_action' => array(
       'selected' => 1,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::views_bulk_operations_delete_item' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::system_message_action' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::views_bulk_operations_script_action' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::flag_user_action' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::views_bulk_operations_modify_action' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
@@ -298,20 +297,21 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
           '_all_' => '_all_',
         ),
       ),
+      'postpone_processing' => 0,
     ),
     'action::views_bulk_operations_user_roles_action' => array(
       'selected' => 1,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::meedan_notifications_action' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::views_bulk_operations_argument_selector_action' => array(
       'selected' => 0,
@@ -324,24 +324,24 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
     ),
     'action::system_goto_action' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::system_send_email_action' => array(
       'selected' => 0,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
     'action::pathauto_user_update_action' => array(
       'selected' => 1,
-      'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+      'postpone_processing' => 0,
     ),
   );
   /* Field: User: Picture */
@@ -470,7 +470,7 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = FALSE;
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
@@ -546,7 +546,7 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['pager']['type'] = 'mini';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '5';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['row_class'] = 'draggable';
@@ -560,6 +560,26 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['header']['area']['content'] = '<?php
 ctools_include(\'modal\');
 ctools_modal_add_js();
+$modal_style = array(
+ \'modal-popup-report\' => array(
+      \'modalSize\' => array(
+        \'type\' => \'fixed\',
+        \'width\' => 415,
+        \'height\' => 500,
+        \'addWidth\' => 0,
+        \'addHeight\' => 0
+      ),
+      \'modalOptions\' => array(
+        \'opacity\' => .5,
+        \'background-color\' => \'#000\',
+      ),
+      \'animation\' => \'show\',
+ \'animationSpeed\' => 40,
+      \'modalTheme\' => \'CToolsModalDialog\',
+      \'throbber\' => theme(\'image\', array(\'path\' => ctools_image_path(\'ajax-loader.gif\', \'checkdesk_core\'), \'alt\' => t(\'Loading...\'), \'title\' => t(\'Loading\'))),
+    ),
+  );
+  drupal_add_js($modal_style, \'setting\');
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media\'),
@@ -696,7 +716,6 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_filter'] = 1;
   $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
   $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
   $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
@@ -751,19 +770,47 @@ print t(\'No content available\');
     5 => 0,
   );
 
-  /* Display: Autorefresh Page */
-  $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
+  /* Display: Autorefresh */
+  $handler = $view->new_display('page', 'Autorefresh', 'page_1');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: Content: Media */
+  $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
+  $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
+  $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
+  $handler->display->display_options['fields']['field_link']['label'] = '';
+  $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_default';
+  $handler->display->display_options['fields']['field_link']['settings'] = array(
+    'maxwidth' => '220',
+    'maxheight' => '',
+  );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = 'Details';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'report-view-modal/nojs/[nid]';
+  $handler->display->display_options['fields']['nid']['alter']['link_class'] = 'ctools-use-modal';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Fact-checking status */
+  $handler->display->display_options['fields']['field_rating']['id'] = 'field_rating';
+  $handler->display->display_options['fields']['field_rating']['table'] = 'field_data_field_rating';
+  $handler->display->display_options['fields']['field_rating']['field'] = 'field_rating';
+  $handler->display->display_options['fields']['field_rating']['label'] = '';
+  $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Stories (field_stories) */
-  $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
-  $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
   $handler->display->display_options['arguments']['created_operator']['table'] = 'node';
@@ -773,6 +820,94 @@ print t(\'No content available\');
   $handler->display->display_options['arguments']['created_operator']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['created_operator']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['created_operator']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'media' => 'media',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'By keyword';
+  $handler->display->display_options['filters']['title']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
+  /* Filter criterion: Content: Fact-checking status (field_rating) */
+  $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
+  $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';
+  $handler->display->display_options['filters']['field_rating_tid']['field'] = 'field_rating_tid';
+  $handler->display->display_options['filters']['field_rating_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['operator_id'] = 'field_rating_tid_op';
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['label'] = 'By status';
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['operator'] = 'field_rating_tid_op';
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['identifier'] = 'field_rating_tid';
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_rating_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_rating_tid']['vocabulary'] = 'media_rating';
+  /* Filter criterion: Media sources: Source name */
+  $handler->display->display_options['filters']['source']['id'] = 'source';
+  $handler->display->display_options['filters']['source']['table'] = 'meedan_sources';
+  $handler->display->display_options['filters']['source']['field'] = 'source';
+  $handler->display->display_options['filters']['source']['relationship'] = 'ms_id';
+  $handler->display->display_options['filters']['source']['operator'] = 'contains';
+  $handler->display->display_options['filters']['source']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['source']['expose']['operator_id'] = 'source_op';
+  $handler->display->display_options['filters']['source']['expose']['label'] = 'By source';
+  $handler->display->display_options['filters']['source']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['source']['expose']['operator'] = 'source_op';
+  $handler->display->display_options['filters']['source']['expose']['identifier'] = 'source';
+  $handler->display->display_options['filters']['source']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
+  /* Filter criterion: Content: Stories (field_stories) */
+  $handler->display->display_options['filters']['field_stories_target_id']['id'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['table'] = 'field_data_field_stories';
+  $handler->display->display_options['filters']['field_stories_target_id']['field'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator_id'] = 'field_stories_target_id_op';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['label'] = 'By story';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator'] = 'field_stories_target_id_op';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['identifier'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_stories_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
   $handler->display->display_options['path'] = 'desk-reports/autorefresh/%';
   $export['desk_reports'] = $view;
 

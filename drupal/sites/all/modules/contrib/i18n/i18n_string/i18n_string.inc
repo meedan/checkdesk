@@ -510,7 +510,7 @@ class i18n_string_textgroup_default {
    *   SAVED_UPDATED | SAVED_NEW | SAVED_DELETED | FALSE (If the string is to be removed but has no source)
    */
   public function string_update($i18nstring, $options = array()) {
-    $options += array('watchdog' => TRUE, 'messages' => FALSE, 'check' => TRUE);
+    $options += array('watchdog' => TRUE, 'messages' => $this->debug, 'check' => TRUE);
     if ((!$options['check'] || $this->string_check($i18nstring, $options)) && $i18nstring->get_string()) {
       // String is ok, has a value so we store it into the database.
       $status = $this->string_add($i18nstring, $options);

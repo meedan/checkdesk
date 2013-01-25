@@ -1,38 +1,35 @@
 // ==============================================================
 // The installation page
 
+$bookmarklet-modal-width: 700px;
+$bookmarklet-modal-height: 350px;
+
 #modalContent.modal-install-bookmarklet {
-  border: 1px solid #C0C0C0;
-  top: 80px !important; 
-  background-color: white;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
+  top: 350px !important; 
+  // margin-top: -20px;
   z-index: $zindexModal; 
-  position: fixed ;
+  position: fixed;
 
   .ctools-modal-content {
-    border: 1px solid $light-grey;
-    width: 300px;
+  //   border: 1px solid $light-grey;
+  //   width: 300px;
     .modal-content {
-      width: 300px;
+  //     width: 300px;
+      overflow: visible;
+    }
+  }
+
+
+  .modal {
+    width: $bookmarklet-modal-width;
+    height: $bookmarklet-modal-height;
+    .modal-body {
       overflow: visible;
     }
   }
 
   .modal-header {
     border-bottom: 0;
-
-    .close {
-      display: block;
-      text-indent: -5000em;
-      width: 19px;
-      height: 19px;
-      background: transparent url(../imgs/icons/modal-close.png) center center no-repeat;
-      opacity: 1;
-      z-index: $zindexModal + 10000;
-    }
-
     .modal-title {
       display: none;
     }
@@ -42,14 +39,14 @@
     background: transparent url(../imgs/icons/bookmarklet-drag.png) $from-direction center no-repeat;
     display: block;
     height: 84px;
-    width: 250px;
+    width: $bookmarklet-modal-width/3;
     padding-#{$from-direction}: 66px;
     position: absolute;
-    #{$from-direction}: 35px;
-    top: -9px;
-    z-index: 1051;
+    #{$from-direction}: 15px;
+    top: -52px;
+    z-index: 1056;
     text-decoration: none;
-    color: #fff;
+    color: $white;
     font-size: 18px;
     overflow: visible;
 
@@ -57,35 +54,30 @@
       position: absolute;
       top: 35px;
       padding: 10px;
-      background: #2DA3EB;
+      background: $identity;
       @include border-radius(3px);
     }
   }
 
   .install-bookmarklet-col {
-    width: 300px/2;
     float: $alpha;
+    font-family: $sans-font-family;
 
     h3 {
-      color: #C0C0C0;
-      font-size: ms(1);
+      @include reset-box-model;
+      margin: 40px auto 25px auto;
+      padding-#{$from-direction}: 50px;
       text-align: center;
-      margin: 80px auto 20px auto;
+      
+      font-size: $fontSizeSmall;
       font-weight: normal;
-      padding-#{$omega}: 76px;
-      float: $alpha;
-      clear: both;
-      width: 300px/3;
+      color: $grayLight;
+      
     }
 
     ul {
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      margin-top: 5px;
-      list-style: none;
+      @include reset-box-model;
+      @include reset-list-style;
     }
 
     a, p {
@@ -93,26 +85,38 @@
     }
 
     p {
-      color: #616161;
+      color: $gray;
     }
   }
 
   .install-bookmarklet-col + .install-bookmarklet-col {
-    float: $omega;
-    width: 350px;
     h2 {
-      color: #C0C0C0;
+      @include reset-box-model;
       font-weight: normal;
       font-size: $x-large-font-size;
+      color: $gray;
     }
-
     p {
       margin: ms(0) 0;
     }
   }
-}
 
-#modalBackdrop.modal-install-bookmarklet {
-  background: url(../imgs/alpha.png) !important;
-  z-index: zindexModal - 1 !important;
+
+  #info-page-install-bookmarklet {
+    $opposite-direction: opposite-position($from-direction);
+    .install-bookmarklet-col:first-child {
+      float: $from-direction;
+      margin-#{$opposite-direction}: $gw;
+      padding-#{$from-direction}: $gw*2;
+      clear: both;
+      
+      width: 250px;
+    }
+    .install-bookmarklet-col:last-child {
+      float: $opposite-direction;
+      width: 350px;
+    }
+  }
+
+
 }

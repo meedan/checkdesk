@@ -1,7 +1,7 @@
-<ul class="activity-list">
+<div class="activity-list">
 	<?php foreach ($rows as $id => $row): ?>
-		<li class="activity <?php print $classes_array[$id]; ?>">
+		<div class="activity <?php print $classes_array[$id]; ?>">
 	    	<?php print $row; ?>
-	    </li>
+	    </div>
 	<?php endforeach; ?>
-</ul>
+</div>

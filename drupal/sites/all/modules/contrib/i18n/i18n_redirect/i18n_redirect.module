@@ -14,7 +14,7 @@ function i18n_redirect_help($path, $arg) {
   switch ($path) {
     case 'admin/config/regional/i18n':
       if (!module_exists('i18n_node')) {
-        $output = '<p>'. t('To have <em>Translation redirect</em> working with your content you should <a href="@admin_modules">enable the <em>Multilingual content</em> module</a>.', array('@admin_modules' => url('admin/modules'))) .'</p>';
+        $output = '<p>' . t('To have <em>Translation redirect</em> working with your content you should <a href="@admin_modules">enable the <em>Multilingual content</em> module</a>.', array('@admin_modules' => url('admin/modules'))) . '</p>';
         return $output;
       }
   }
@@ -25,7 +25,7 @@ function i18n_redirect_help($path, $arg) {
  */
 function i18n_redirect_init() {
   $path = $_GET['q'];
-  $language = i18n_language();
+  $language = i18n_language_interface();
   // Not for logged in users nor for home page
   if (!$path || drupal_is_front_page() || !empty($GLOBALS['user']->uid)) {
     return;

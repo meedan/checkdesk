@@ -24,7 +24,7 @@ class i18n_field_base extends i18n_string_object_wrapper {
         return $admin['path'] . '/fields/' . $this->object['field_name'];
       }
     }
-  }  
+  }
 }
 
 /**
@@ -36,8 +36,8 @@ class i18n_field extends i18n_field_base {
    *
    * For convenience field objects can be built from field info and from field instance.
    */
-  public function __construct($type, $object) {
-    parent::__construct($type, $object);
+  public function __construct($type, $key, $object) {
+    parent::__construct($type, $key, $object);
 
     // If this is a field instance, get field info but add instance data too.
     // This instance data will be used to get the paths to get the edit/translate path.
@@ -58,7 +58,7 @@ class i18n_field extends i18n_field_base {
    */
   public function get_translate_path($langcode = NULL) {
     return $this->get_base_path() . '/translate/field' . ($langcode ? '/' . $langcode : '');
-  }  
+  }
   /**
    * Get string context
    */
@@ -83,7 +83,7 @@ class i18n_field extends i18n_field_base {
     }
     return $properties;
   }
- 
+
   /**
    * Context to be pre-loaded before translation.
    */
@@ -91,15 +91,15 @@ class i18n_field extends i18n_field_base {
     return array(
       $this->object['field_name'],
       array('#field', '#allowed_values'),
-    	'*'
+      '*'
     );
   }
 
   /**
    * Set field translation for object.
-   * 
+   *
    * Mot often, this is a direct field set, but sometimes fields may have different formats.
-   * 
+   *
    * @param $object
    *   A clone of the object or array. Field instance.
    */
@@ -122,13 +122,13 @@ class i18n_field_instance extends i18n_field_base {
    */
   public function get_edit_path() {
     return $this->get_base_path();
-  }  
+  }
   /**
    * Get translate path for object
    */
   public function get_translate_path($langcode = NULL) {
     return $this->get_base_path() . '/translate' . ($langcode ? '/' . $langcode : '');
-  }  
+  }
   /**
    * Get string context
    */
@@ -143,19 +143,19 @@ class i18n_field_instance extends i18n_field_base {
     $object = $this->object;
     $field = field_info_field($object['field_name']);
     // Only for text field types
-    if (isset($object['default_value']) && i18n_field_type_info($field['type'], 'translate_default')) {
+    if (!empty($object['default_value']) && i18n_field_type_info($field['type'], 'translate_default')) {
       $format = isset($object['default_value'][0]['format']) ? $object['default_value'][0]['format'] : NULL;
       $properties[$this->get_textgroup()][$object['field_name']][$object['bundle']]['default_value']['string'] = $object['default_value'][0]['value'];
       $properties[$this->get_textgroup()][$object['field_name']][$object['bundle']]['default_value']['format'] = $format;
     }
     return $properties;
   }
-  
+
   /**
    * Set field translation for object.
-   * 
+   *
    * Mot often, this is a direct field set, but sometimes fields may have different formats.
-   * 
+   *
    * @param $object
    *   A clone of the object or array. Field instance.
    */
@@ -168,7 +168,7 @@ class i18n_field_instance extends i18n_field_base {
       parent::translate_field($object, $i18nstring, $langcode, $options);
     }
   }
-  
+
   /**
    * Context to be pre-loaded before translation.
    */
@@ -176,7 +176,7 @@ class i18n_field_instance extends i18n_field_base {
     return array(
       $this->object['field_name'],
       array('#field', '#allowed_values', $this->object['bundle']),
-    	'*'
-    );   
+      '*'
+    );
   }
 }

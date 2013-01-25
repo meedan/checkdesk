@@ -47,7 +47,7 @@ function i18n_menu_i18n_object_info() {
     // Auto-generate translate tab
     'translate tab' => 'admin/structure/menu/item/%menu_link/translate',
     'placeholders' => array(
-    	'%menu_link' => 'mlid',
+      '%menu_link' => 'mlid',
       '%menu' => 'menu_name',
     ),
     'string translation' => array(

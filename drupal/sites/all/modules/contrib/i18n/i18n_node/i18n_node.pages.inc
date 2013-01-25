@@ -18,10 +18,10 @@ function i18n_node_add_page() {
     drupal_goto($item['href']);
   }
   foreach ($content as &$item) {
-    // Type machine name will be the third part of the path
-    $parts = explode('/', $item['path']);
+    // Type machine name will be the first page argument
+    $page_arguments = unserialize($item['page_arguments']);
     // Check whether this has a node type, other items may be here too, see #1264662
-    $type = isset($parts[2]) ? $parts[2] : NULL;
+    $type = isset($page_arguments[0]) ? $page_arguments[0] : NULL;
     if ($type) {
       // We just need to translate the description, the title is translated by the menu system
       // The string will be filtered (xss_admin) on the theme layer
@@ -110,18 +110,15 @@ function i18n_node_translation_overview($node) {
  * Create link for node translation. This may be a 'edit' or a 'add translation' link.
  */
 function i18n_node_translation_link($text, $path, $langcode, $options = array()) {
-  // We may want to switch interface for translation (core default) or not
-  if (variable_get_value('i18n_node_translation_switch')) {
-    $type = variable_get('translation_language_type', LANGUAGE_TYPE_INTERFACE);
-    $links = language_negotiation_get_switch_links($type, $path);
-    // When node not published, links don't have href so we use path instead
-    // Note: this is a bug in Core translation module, see http://drupal.org/node/1137074
-    if (!empty($links->links[$langcode]) && !empty($links->links[$langcode]['href'])) {
-      $options += array('attributes' => array(), 'html' => FALSE);
-      $options['attributes'] += $links->links[$langcode]['attributes'];
-      $options += $links->links[$langcode];
-      $path = $links->links[$langcode]['href'];
-    }
+  $type = variable_get('translation_language_type', LANGUAGE_TYPE_INTERFACE);
+  $links = language_negotiation_get_switch_links($type, $path);
+  // When node not published, links don't have href so we use path instead
+  // Note: this is a bug in Core translation module, see http://drupal.org/node/1137074
+  if (!empty($links->links[$langcode]) && !empty($links->links[$langcode]['href'])) {
+    $options += array('attributes' => array(), 'html' => FALSE);
+    $options['attributes'] += $links->links[$langcode]['attributes'];
+    $options += $links->links[$langcode];
+    $path = $links->links[$langcode]['href'];
   }
   return l($text, $path, $options);
 }

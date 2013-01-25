@@ -14,7 +14,7 @@ function i18n_node_i18n_object_info() {
     'key' => 'type',
     'load callback' => 'node_type_get_type',
     'placeholders' => array(
-    	'%node_type' => 'type',
+      '%node_type' => 'type',
     ),
     'edit path' => 'admin/structure/types/manage/%node_type',
     'translate tab' => 'admin/structure/types/manage/%node_type/translate',

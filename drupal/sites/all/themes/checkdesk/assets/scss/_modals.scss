@@ -1,9 +1,11 @@
 //
 // Checkdesk Modals
 
+$modal-width: 426px;
+
 // Background
 .modal-backdrop {
-  position: fixed;
+  position: relative;
   top: 0;
   right: 0;
   bottom: 0;
@@ -19,15 +21,12 @@
   @include opacity(80);
 }
 
-$modal-width: 426px;
-
 // Base modal
 .modal {
-  position: fixed;
-  top: 50%;
+  position: relative;
+  top: 0;
   left: 50%;
   z-index: $zindexModal;
-  overflow: auto;
   width: $modal-width;
   margin: -250px 0 0 -280px;
   background-color: $white;
@@ -47,33 +46,41 @@ $modal-width: 426px;
   &.fade.in { top: 50%; }
 }
 .modal-header {
-  padding: 4px $gw 0 $gw;
+  // padding: 4px $gw 0 $gw;
   border-bottom: 1px solid #eee;
   background-color: $white;
   overflow: hidden;
   // Close icon
-  .close { margin-top: 7px; }
+  .close { 
+    margin-top: 7px; 
+    $direction: opposite-position($from-direction);
+    margin-#{$direction}: $gw;
+  }
   // Heading
   h4 {
     margin: 0;
-    padding: $baseLineHeight/2 0;
+    padding: $baseLineHeight/2 $gw;
   }
 }
 
 // Body (where all modal content resides)
 .modal-body {
+  position: relative;
   overflow-y: auto;
-  max-height: 400px;
 
   .modal-content {
     position: relative;
-    padding: 0 $gw;
+    padding: $baseLineHeight/2 $gw;
     font-size: $large-font-size;
     line-height: $base-line-height;
+
     form {
       padding: 0;
       margin: 0;
       z-index: $zindexModal + 1;
+      width: ($modal-width - ($gw*2 + 2)) ;
+
+      font-size: $fontSizeSmall;
     }
   }
 
@@ -83,7 +90,7 @@ $modal-width: 426px;
   }
 
   .form-actions {
-    margin: 0; padding: 0;
+    @include reset-box-model;
   }
 }
 // Remove bottom margin if need be
@@ -95,9 +102,9 @@ $modal-width: 426px;
 .modal-footer {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 1px;
   padding: 0;
-  width: ($modal-width - ($gw*2));
+  width: ($modal-width - ($gw*2 + 2)) ;
   display: block;
   padding: $baseLineHeight/2 $gw;
   margin-bottom: 0;
@@ -107,11 +114,13 @@ $modal-width: 426px;
   @include border-radius(0 0 6px 6px);
   @include box-shadow(inset 0 1px 0 $white);
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
-  input#edit-submit {
-    margin-right: $gw;
+  input.btn {
+    float: $from-direction;
+    @include button($identity, 18px);
+    margin-right: 1em !important;
   }
 
-  .btn {
+  a.btn {
     @include button($grayLight, 18px);
   }
   

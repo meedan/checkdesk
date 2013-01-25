@@ -110,7 +110,30 @@ function checkdesk_core_modal_callback($js = FALSE) {
   if ($js) {
     ctools_include('ajax');
     ctools_include('modal');
+    // custom settings array for bookmarlet modal
+    $modal_style = array(
+      'modal-popup-bookmarklet' => array(
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 700,
+          'height' => 350,
+          'addWidth' => 0,
+          'addHeight' => 0
+        ),
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CToolsModalDialog',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      ),
+    );
+    
+    drupal_add_js($modal_style, 'setting');
     ctools_modal_render($title, $output);
+  
   }
   else {
     drupal_set_title($title);
@@ -952,7 +975,7 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
   $view = views_get_current_view();
   if (isset($view) && $view->name == 'my_notifications') return;
   foreach ($messages as $key => $message) {
-    if ($message->nid > 0 && in_array($message->message_id, array('status_report', 'new_comment_report', 'new_report'))) {
+    if ($message->nid > 0 && in_array($message->message_id, array('status_report', 'new_comment_report', 'new_report', 'publish_report'))) {
       $node = node_load($message->nid);
       if ($node->type == 'media') {
         $messages[$key]->message = theme('checkdesk_heartbeat_content',  array(
@@ -1007,8 +1030,8 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['story']['#prefix'] = '<div class="modal-content-wrapper">';
     $form['story']['#suffix'] = '</div>';
 
-    $form['submit']['#prefix'] = '<div class="modal-footer"><button id="close" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
-    $form['submit']['#suffix'] = '</div>';
+    $form['submit']['#prefix'] = '<div class="modal-footer"><div class="form-actions form-wrapper"><a id="close" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>';
+    $form['submit']['#suffix'] = '</div></div>';
     $form['submit']['#value'] = t('Continue');
     $form['submit']['#attributes']['class'] = array('btn', 'btn-primary');
   }
@@ -1045,4 +1068,32 @@ function checkdesk_core_user_insert(&$edit, $account, $category) {
   //Add new citizen journalist role to all registered users
   $user_roles = array_flip(user_roles(TRUE));
   $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
+}
+
+/**
+ * Import twitter profile picture
+ **/
+function _twitter_signin_get_picture($account, $twitter_account) {
+  if ($account->uid) {
+    $picture_directory =  file_default_scheme() . '://' . variable_get('user_picture_path', 'pictures');
+    if(file_prepare_directory($picture_directory, FILE_CREATE_DIRECTORY)) {
+      $source_url = $twitter_account->profile_image_url; 
+      $picture_path = file_stream_wrapper_uri_normalize($picture_directory . '/twitter-picture-' . $account->uid . '-' . REQUEST_TIME . substr($source_url, -4));
+      $picture_file = file_save_data(file_get_contents($source_url), $picture_path, FILE_EXISTS_REPLACE);
+
+      // Check to make sure the picture isn't too large for the site settings.
+      $max_dimensions = variable_get('user_picture_dimensions', '85x85');
+      file_validate_image_resolution($picture_file, $max_dimensions);
+      // Update the user record.
+      $picture_file->uid = $account->uid;
+      $picture_file = file_save($picture_file);
+      file_usage_add($picture_file, 'user', 'user', $account->uid);
+      db_update('users')
+        ->fields(array(
+          'picture' => $picture_file->fid,
+        ))
+        ->condition('uid', $account->uid)
+        ->execute();
+    }
+  }
 }

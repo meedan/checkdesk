@@ -30,3 +30,9 @@
   //   }
   // }
 // }
+// Updates must stay above story information, otherwise you can't click to see the comments
+.node-type-discussion {
+  #block-views-desk-updates-block {
+    z-index: 1;
+  }
+}

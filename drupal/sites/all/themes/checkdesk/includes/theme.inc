@@ -125,10 +125,22 @@ function checkdesk_checkdesk_links($variables) {
 
 /**
  * Implements hook_css_alter().
+ *
+ * Removes some CSS files.
  */
-function checkdesk_css_alter(&$css) {  
+function checkdesk_css_alter(&$css) {
+  // Remove style.css if style-rtl.css is included.
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    unset($css['sites/all/themes/checkdesk/assets/css/style.css']);
+  }
+  // Excludes from .info
   $excludes = _checkdesk_alter(checkdesk_theme_get_info('exclude'), 'css');
-  $css = array_diff_key($css, $excludes);
+
+  $pattern = str_replace('/', '\/', implode('|', array_keys($excludes)));
+  foreach ($css as $path => $data) {
+    if (preg_match("/^($pattern)/", $path)) unset($css[$path]);
+  }
 }
 
 /**
@@ -193,7 +205,6 @@ function checkdesk_status_messages($variables) {
 
 
 function checkdesk_checkdesk_heartbeat_content($variables) {
-
   $message = $variables['message'];
   $node = $variables['node'];
   $title = '';
@@ -219,6 +230,10 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     $title = $message->variables['!title'] . ' added by ' . $message->variables['!username'];
   }
 
+  // report published in a story through an update
+  if ($message->message_id == 'publish_report') {
+    $title = $message->message;
+  }
 
   $output = '';
 

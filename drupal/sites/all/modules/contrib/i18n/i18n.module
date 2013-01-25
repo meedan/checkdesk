@@ -35,6 +35,11 @@ define('I18N_MODE_TRANSLATE', 4);
 define('I18N_MODE_MULTIPLE', I18N_MODE_LOCALIZE | I18N_MODE_TRANSLATE);
 
 /**
+ * Global variable for i18n context language.
+ */
+define('I18N_LANGUAGE_TYPE_CONTEXT', 'i18n_language_context');
+
+/**
  * Implements hook_boot().
  */
 function i18n_boot() {
@@ -52,28 +57,93 @@ function i18n_hook_info() {
 }
 
 /**
+ * WARNING: Obsolete function, use other i18n_language_* instead.
+ *
  * Get global language object, make sure it is initialized
  *
  * @param $language
  *   Language code or language object to convert to valid language object
  */
 function i18n_language($language = NULL) {
-  if ($language) {
-    if (is_object($language)) {
-      return $language;
-    }
-    else {
-      $list = language_list();
-      return isset($list[$language]) ? $list[$language] : i18n_language();
-    }
+  if ($language && ($language_object = i18n_language_object($language))) {
+    return $language_object;
   }
   else {
-    if (empty($GLOBALS['language'])) {
-      // We don't have language yet, initialize the language system and retry
-      drupal_bootstrap(DRUPAL_BOOTSTRAP_LANGUAGE);
-    }
-    return $GLOBALS['language'];
+    return i18n_language_interface();
   }
+}
+
+/**
+ * Get language object from language code or object.
+ *
+ * @param $language
+ *   Language code or language object to convert to valid language object.
+ * @return
+ *   Language object if this is an object or a valid language code.
+ */
+function i18n_language_object($language) {
+  if (is_object($language)) {
+    return $language;
+  }
+  else {
+    $list = language_list();
+    return isset($list[$language]) ? $list[$language] : NULL;
+  }
+}
+
+/**
+ * Get interface language, make sure it is initialized.
+ */
+function i18n_language_interface() {
+  if (empty($GLOBALS[LANGUAGE_TYPE_INTERFACE])) {
+    // We don't have language yet, initialize the language system and retry
+    drupal_bootstrap(DRUPAL_BOOTSTRAP_LANGUAGE);
+  }
+  return $GLOBALS[LANGUAGE_TYPE_INTERFACE];
+}
+
+/**
+ * Get content language, make sure it is initialized.
+ */
+function i18n_language_content() {
+  if (empty($GLOBALS[LANGUAGE_TYPE_CONTENT])) {
+    // We don't have language yet, initialize the language system and retry
+    drupal_bootstrap(DRUPAL_BOOTSTRAP_LANGUAGE);
+  }
+  return $GLOBALS[LANGUAGE_TYPE_CONTENT];
+}
+
+/**
+ * Get / set language from current context / content.
+ *
+ * Depending on the page content we may need to use a different language for some operations.
+ *
+ * This should be the language of the specific page content. I.e. node language for node pages
+ * or term language for taxonomy term page.
+ *
+ * @param $language
+ *   Optional language object to set for context.
+ * @return
+ *   Context language object, which defaults to content language.
+ *
+ * @see hook_i18n_context_language().
+ */
+function i18n_language_context($language = NULL) {
+  if ($language) {
+    $GLOBALS[I18N_LANGUAGE_TYPE_CONTEXT] = $language;
+  }
+  elseif (!isset($GLOBALS[I18N_LANGUAGE_TYPE_CONTEXT])) {
+    // It will default to content language.
+    $GLOBALS[I18N_LANGUAGE_TYPE_CONTEXT] = i18n_language_content();
+    // Get language from the first module that provides it.
+    foreach (module_implements('i18n_context_language') as $module) {
+      if ($language = module_invoke($module, 'i18n_context_language')) {
+        $GLOBALS[I18N_LANGUAGE_TYPE_CONTEXT] = $language;
+        break;
+      }
+    }
+  }
+  return $GLOBALS[I18N_LANGUAGE_TYPE_CONTEXT];
 }
 
 /**
@@ -300,35 +370,42 @@ function i18n_string($name, $string, $options = array()) {
 }
 
 /**
- * Get language from context.
+ * Get object wrapper.
  *
- * Depending on the page content we may need to use a different language for some operations.
+ * Create an object wrapper or retrieve it from the static cache if
+ * a wrapper for the same object was created before.
+ *
+ * @see i18n_object_info()
+ *
+ * @param $type
+ *   The object type.
  */
-function i18n_context_language() {
-  // Get language from the first module that provides it
-  foreach (module_implements('i18n_context_language') as $module) {
-    if ($language = module_invoke($module, 'i18n_context_language')) {
-      return $language;
-    }
-  }
-  return i18n_language();
+function i18n_object($type, $object) {
+  $key = i18n_object_key($type, $object);
+  return i18n_get_object($type, $key, $object);
 }
 
 /**
- * Create object wrapper
+ * Get object wrapper by object key.
+ *
+ * @param $type
+ *   The object type to load e.g. node_type, menu, taxonomy_term.
+ * @param $key
+ *   The object key, can be an scalar or an array.
+ * @param $object
+ *   Optional Drupal object or array. It will be autoloaded using the key if not present.
+ *
+ * @return
+ *   A fully-populated object wrapper.
  */
-function i18n_object($type, $object) {
-  $i18n_object = &drupal_static(__FUNCTION__);
-  $key = i18n_object_key($type, $object);
-  $key = is_array($key) ? implode(':', $key) : $key;
-  if (!isset($i18n_object[$type][$key])) {
-    $class = i18n_object_info($type, 'class');
-    if (!$class) {
-      $class = module_exists('i18n_string') ? 'i18n_string_object_wrapper' : 'i18n_object_wrapper';
-    }
-    $i18n_object[$type][$key] = new $class($type, $object);
+function i18n_get_object($type, $key, $object = NULL) {
+  $cache = &drupal_static(__FUNCTION__);
+  $index = is_array($key) ? implode(':', $key) : $key;
+  if (!isset($cache[$type][$index])) {
+    $class = i18n_object_info($type, 'class', 'i18n_object_wrapper');
+    $cache[$type][$index] = new $class($type, $key, $object);
   }
-  return $i18n_object[$type][$key];
+  return $cache[$type][$index];
 }
 
 /**
@@ -462,7 +539,7 @@ function i18n_language_switch_links_alter(array &$links, $type, $path) {
  * Build translation link
  */
 function i18n_translation_link($path, $langcode, $link = array()) {
-  $language = i18n_language($langcode);
+  $language = i18n_language_object($langcode);
   $link += array(
     'href' => $path,
     'title' => $language->native,
@@ -522,4 +599,11 @@ function i18n_entity_translation_enabled($entity_type) {
     $cache[$entity_type] = module_exists('entity_translation') && entity_translation_enabled($entity_type);
   }
   return $cache[$entity_type];
+}
+
+/**
+ * Implements hook_modules_enabled().
+ */
+function i18n_modules_enabled($modules) {
+  drupal_static_reset('i18n_object_info');
 }

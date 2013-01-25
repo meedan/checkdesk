@@ -7,10 +7,6 @@
  * Block object
  */
 class i18n_block_object extends i18n_string_object_wrapper {
-  public function __construct($type, $object) {
-    $this->type = $type;
-    $this->object = !is_object($object) ? $this->load_object($object) : $object;
-  }
 
   /**
    * Load a block object.
