@@ -29,7 +29,6 @@
 
   Drupal.behaviors.checkdesk = {
     attach: function (context, settings) {
-
       $('.draggable', context).draggable({
         revert: 'invalid',
         zIndex: 3000,
@@ -54,7 +53,7 @@
       // Restrict thumbnail width to 220
       $('.view-desk-reports .view-content').find('.thumbnail img').width(220);
       // Toggle filters when button is clicked (reports filters on "create update" sidebar)
-      $('.view-desk-reports .views-exposed-widget label', context).each(function() {
+      $('.view-desk-reports .views-exposed-widget label').each(function() {
         $(this).unbind('click').click(function() {
           $(this).siblings('.views-widget, .views-operator').slideToggle();
         });

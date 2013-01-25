@@ -1,0 +1,44 @@
+From e051694ca39299b4c3d9e99a0e50e3a8859db627 Mon Sep 17 00:00:00 2001
+From: Caio SBA <caiosba@gmail.com>
+Date: Fri, 25 Jan 2013 00:18:15 -0200
+Subject: [PATCH] Reset view_display_id
+
+---
+ views_autorefresh/views_autorefresh.js     |    1 +
+ views_autorefresh/views_autorefresh.module |   11 +++++++++++
+ 2 files changed, 12 insertions(+), 0 deletions(-)
+
+diff --git a/views_autorefresh/views_autorefresh.js b/views_autorefresh/views_autorefresh.js
+index d969756..3bc6afe 100644
+--- a/views_autorefresh/views_autorefresh.js
++++ b/views_autorefresh/views_autorefresh.js
+@@ -91,6 +91,7 @@ Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
+     var viewData = Drupal.settings.views_autorefresh[view_name].ajax.submit;
+     var viewArgs = Drupal.settings.views_autorefresh[view_name].view_args;
+     if (Drupal.settings.views_autorefresh[view_name].incremental) {
++      if (!viewData.original_view_data) viewData.original_view_data = $.extend(true, {}, viewData);
+       viewData.view_args = viewArgs + (viewArgs.length ? '/' : '') + Drupal.settings.views_autorefresh[view_name].timestamp;
+       viewData.view_base_path = Drupal.settings.views_autorefresh[view_name].incremental.view_base_path;
+       viewData.view_display_id = Drupal.settings.views_autorefresh[view_name].incremental.view_display_id;
+diff --git a/views_autorefresh/views_autorefresh.module b/views_autorefresh/views_autorefresh.module
+index 6d2eca8..b1d8ec6 100644
+--- a/views_autorefresh/views_autorefresh.module
++++ b/views_autorefresh/views_autorefresh.module
+@@ -101,3 +101,14 @@ function __views_autorefresh_get_timestamp($view) {
+   return $max;
+ }
+ 
++/**
++ * Implements hook_views_pre_render().
++ *
++ * Reset information about first display instead of the second display (incremental approach only)
++ * FIXME: Check if it's necessary to reset any further information
++ */
++function views_autorefresh_views_pre_render(&$view) {
++  if (isset($_REQUEST['original_view_data']) && !empty($_REQUEST['original_view_data']['view_display_id'])) {
++    $view->current_display = $_REQUEST['original_view_data']['view_display_id'];
++  }
++}
+-- 
+1.7.2.5
+
