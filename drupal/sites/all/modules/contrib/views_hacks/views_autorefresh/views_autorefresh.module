@@ -101,3 +101,14 @@ function __views_autorefresh_get_timestamp($view) {
   return $max;
 }
 
+/**
+ * Implements hook_views_pre_render().
+ *
+ * Reset information about first display instead of the second display (incremental approach only)
+ * FIXME: Check if it's necessary to reset any further information
+ */
+function views_autorefresh_views_pre_render(&$view) {
+  if (isset($_REQUEST['original_view_data']) && !empty($_REQUEST['original_view_data']['view_display_id'])) {
+    $view->current_display = $_REQUEST['original_view_data']['view_display_id'];
+  }
+}

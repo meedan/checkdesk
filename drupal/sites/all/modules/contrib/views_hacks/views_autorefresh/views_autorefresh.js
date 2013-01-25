@@ -92,6 +92,7 @@ Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
     var viewData = Drupal.settings.views_autorefresh[view_name].ajax.submit;
     var viewArgs = Drupal.settings.views_autorefresh[view_name].view_args;
     if (Drupal.settings.views_autorefresh[view_name].incremental) {
+      if (!viewData.original_view_data) viewData.original_view_data = $.extend(true, {}, viewData);
       viewData.view_args = viewArgs + (viewArgs.length ? '/' : '') + Drupal.settings.views_autorefresh[view_name].timestamp;
       viewData.view_base_path = Drupal.settings.views_autorefresh[view_name].incremental.view_base_path;
       viewData.view_display_id = Drupal.settings.views_autorefresh[view_name].incremental.view_display_id;
