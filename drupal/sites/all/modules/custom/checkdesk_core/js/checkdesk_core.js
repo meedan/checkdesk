@@ -47,11 +47,20 @@
       });
       // Attach the Views results to each correspoknding row in the DOM.
       var i=0;
-      $('.view-desk-reports .view-content', context).children().each(function() {
+      $('.view-desk-reports .view-content').children().each(function() {
         $(this).data('views', settings.checkdesk.reports[i++]);
       });
       // Restrict thumbnail width to 220
       $('.view-desk-reports .view-content').find('.thumbnail img').width(220);
+      // Avoid clicking the videos by applying a mask over it
+      $('.view-desk-reports .view-content .oembed-video .oembed-content').each(function() {
+        var video = $(this).find('iframe');
+        $(this).css({ position : 'relative', display : 'block', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
+        video.attr('src', video.attr('src') + '&wmode=transparent');
+        video.wrap('<div class="oembed-wrapper" />');
+        $(this).find('.oembed-wrapper').after('<div class="oembed-mask" />');
+        $(this).find('.oembed-mask, .oembed-wrapper').css({ position : 'absolute', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
+      });
       // Toggle filters when button is clicked (reports filters on "create update" sidebar)
       $('.view-desk-reports .views-exposed-widget label').each(function() {
         $(this).unbind('click').click(function() {
