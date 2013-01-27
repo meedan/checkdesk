@@ -139,11 +139,11 @@ function checkdesk_preprocess_node(&$variables) {
   // set $alpha and $omega for language directions
   global $language;
   if ($language->direction == LANGUAGE_RTL) {
-    $variables['alpha'] = right;
-    $variables['omega'] = left;
+    $variables['alpha'] = 'right';
+    $variables['omega'] = 'left';
   } else {
-    $variables['alpha'] = left;
-    $variables['omega'] = right;
+    $variables['alpha'] = 'left';
+    $variables['omega'] = 'right';
   }
 
   if ($variables['type'] == 'post') {
