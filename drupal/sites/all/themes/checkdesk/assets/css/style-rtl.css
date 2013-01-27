@@ -2435,8 +2435,8 @@ div.block:hover .edit {
 
 @font-face {
   font-family: "FontAwesome";
-  src: url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot');
-  src: url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
+  src: url('/checkdesk/drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot');
+  src: url('/checkdesk/drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('/checkdesk/drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('/checkdesk/drupal/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -5553,7 +5553,7 @@ div.tabs ul.primary li a:hover {
 .report .report-content .report-media .container .favicon,
 .report .report-content .report-media .container .author-img {
   float: right;
-  padding: 0 5px 0 0;
+  padding-left: 5px;
   width: auto;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003195}}
@@ -5650,7 +5650,7 @@ div.tabs ul.primary li a:hover {
   vertical-align: text-bottom;
   width: 20px;
   height: 20px;
-  margin-right: 3.33333px;
+  margin-left: 3.33333px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003236}}
 .report .report-content .description {
@@ -8455,6 +8455,10 @@ body.node-type-discussion #main .view-liveblog {
 .story .story-body:after {
   clear: both;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003161}}
+.story .story-body p {
+  margin: 6.75px 0;
+}
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_sidebar\.scss}line{font-family:\0000311}}
 body.sidebar-first .view-empty {
@@ -10345,4 +10349,10 @@ body.toolbar-drawer {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_evil_hacks\.scss}line{font-family:\0000392}}
 .views-exposed-widget .views-reset-button {
   display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/style-rtl\.scss}line{font-family:\000035}}
+body.body-ar {
+  text-align: right;
+  direction: rtl;
 }

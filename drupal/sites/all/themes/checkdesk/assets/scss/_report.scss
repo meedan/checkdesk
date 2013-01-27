@@ -179,8 +179,8 @@ $bh: $baseLineHeight/4;
 				
 				.favicon, 
 				.author-img {
-					float: $from-direction;
-					padding: 0 $gw/2 0 0;
+					float: $alpha;
+					padding-#{$omega}: $gw/2;
 					width: auto;
 				}
 				
@@ -229,7 +229,7 @@ $bh: $baseLineHeight/4;
 			img {
 				vertical-align: text-bottom;
 				@include ctb-square(20px);
-				margin-right: $gw/3;
+				margin-#{$omega}: $gw/3;
 			}	
 		}
 
