@@ -30,9 +30,136 @@
   //   }
   // }
 // }
-// Updates must stay above story information, otherwise you can't click to see the comments
+
+
+@mixin vertical-margin($width) {
+  margin: { top: $width; bottom: $width; } 
+}
+
+@mixin story-layout($width, $context) {
+  @include span-columns($width, $context, $gw);
+  @content; // pass in padding if needed
+  .update { 
+    @include vertical-margin($base-font-size); 
+    @include span-columns($width, $width, $gw);
+    
+    .livefyre-wrapper {
+      @include span-columns($width, $width, $gw);
+      @include vertical-margin($base-font-size);
+    }
+  }
+}
+
+
 .node-type-discussion {
+
+  // Updates must stay above story information, 
+  // otherwise you can't click to see the comments
   #block-views-desk-updates-block {
     z-index: 1;
   }
+
+  
+  #main {
+    @include story-layout($cw, $cw);
+    #block-views-desk-updates-block {
+      // @include span-columns($pw, $pw);
+      @include ctb-clearfix;
+      margin-top: 1em;
+      padding-top: 1em;
+      background-color: white;
+      border-top: 1px solid $grey;
+
+      // "Published" updates
+      .view-desk-updates {
+        .update {
+          border-bottom: 1px solid $grayLighter;
+          &:last-child { border-bottom: 0 none; }
+          margin-bottom: $bh*2;
+        }
+      }
+
+
+    }
+  }
+}
+
+
+
+// ark_20130126: Currently set on base font size of 18px which is too big
+$bh: $baseLineHeight/4;
+// ark_20130126: Omega not set, not sure why?
+$omega: opposite-position($alpha);
+
+.story {
+  @include ctb-clearfix;
+  color: $grayLight;
+
+  .story-by {
+    @include ctb-font-sans-serif(26px);
+    margin-bottom: $bh*2;
+    a { @include ctb-linkColor($grayLight); }
+  }
+
+  .story-context {
+    @include ctb-font-sans-serif(14px);
+  }
+
+  
+  // The current blogger information
+  .story-blogger {
+    @include ctb-clearfix;
+    margin: $bh*2 0;
+
+    .avatar {
+      display: inline-block;
+      padding: $bh/2 0;
+      .user-picture {
+        display: inline-block;
+        margin-#{$omega}: $gw;
+        img {
+          display: inline-block;
+          vertical-align: text-bottom;
+          @include ctb-square(20px);
+          margin-#{omega}: $gw/3;
+        }
+      }
+      a { @include ctb-linkColor($grayLight); }
+    }
+
+    .blogger-status {
+      display: inline-block;
+      margin-#{$alpha}: $gw;
+
+      .blogger-status-indicator {
+        @include ctb-square(10px);
+        @include border-radius(10px);
+        display: inline-block;
+        background-color: $grayLight;
+      }
+
+      .blogger-status-text {
+        @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
+        @include border-radius(4px);
+        display: inline-block;
+        padding: $bh/2 $gw;
+        margin-#{$alpha}: $gw;
+      }
+      
+    }
+    // status indicator colors
+    .story-blogger-status-offline .blogger-status-indicator { background-color: $grayLight; }
+    .story-blogger-status-online .blogger-status-indicator { background-color: $green; }
+
+  }
+
+  .story-body {  
+    @include ctb-clearfix;
+    margin: $bh 0;
+    text-shadow: 0 1px 1px rgba(255,255,255,.75);
+  }
+
+
+
+
 }

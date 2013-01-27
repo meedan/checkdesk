@@ -80,6 +80,14 @@
   @include ctb-size($size, $size);
 }
 
+// Set anchor color
+@mixin ctb-linkColor($color, $opacity:40) {
+  color: $color;
+  &:hover { 
+    color: darken($color, $opacity); 
+  }
+}
+
 // Placeholder text
 // -------------------------
 @mixin ctb-placeholder($color: $placeholderText) {
@@ -377,6 +385,12 @@
 
 // BACKGROUNDS
 // --------------------------------------------------
+
+// Background color with alpha
+@mixin ctb-bg($hex: #333, $rgba: rgba(0, 0, 0, 0.8)) {
+  background-color: $hex; 
+  background-color: $rgba;
+}
 
 // Add an alphatransparency value to any background or border color (via Elyse Holladay)
 @mixin ctb-translucent-background($color: $white, $alpha: 1) {

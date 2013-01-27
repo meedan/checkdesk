@@ -29,7 +29,7 @@ $bh: $baseLineHeight/4;
 	font-family: $sans-font-family;
 	font-size: $fontSizeSmall;
 	margin: { top: $gw; bottom: $gw; }
-	background-color: $white;
+	background-color: darken($grayLighter, 5%);
 	a {
 		color: $report-text-color;
 		&:hover {
@@ -286,7 +286,7 @@ $bh: $baseLineHeight/4;
 				// icon in the status
 				span[class^="icon-"], span[class*="icon-"] {
 					// width: 20px;
-					float: opposite-position($from-direction);
+					float: $alpha;
 				}
 				span.status-name {
 					text-align: opposite-position($from-direction);

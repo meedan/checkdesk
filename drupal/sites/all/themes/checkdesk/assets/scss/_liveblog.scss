@@ -6,8 +6,8 @@
   @include span-columns($width, $context, $gw);
   @content; // pass in padding if needed
   .views-row { 
-    @include vertical-margin($base-font-size); 
-    @include span-columns($width, $width, $gw);
+    // @include vertical-margin($base-font-size); 
+    // @include span-columns($width, $width, $gw);
     
     .livefyre-wrapper {
       @include span-columns($width, $width, $gw);
@@ -26,19 +26,19 @@ body.node-type-discussion {
     .view-liveblog {
       background-color: white;
       border-top: 2px solid black;
-      .views-row {
-        border-bottom: 1px solid $grey;
-        padding-bottom: 1em;
+      // .views-row {
+      //   border-bottom: 1px solid $grey;
+      //   padding-bottom: 1em;
 
-        .views-field-title {
-          font-weight: 700;
-          font-size: $large-font-size;
-        }
+      //   .views-field-title {
+      //     font-weight: 700;
+      //     font-size: $large-font-size;
+      //   }
 
-        p {
-          line-height: $base-line-height;
-        }
-      }  
+      //   p {
+      //     line-height: $base-line-height;
+      //   }
+      // }  
     }
   }
 }

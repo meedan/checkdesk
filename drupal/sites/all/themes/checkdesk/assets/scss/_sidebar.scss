@@ -54,39 +54,9 @@
           @include cd-background;
           padding: $gw;
           margin: 0;
-          line-height: $base-line-height;
-          font-size: $small-font-size;
+          // line-height: $base-line-height;
+          // font-size: $small-font-size;
           font-weight: 700;
-        }
-
-        p {
-          @include span-columns($pw, $pw, $gw);
-          clear: both;
-          font-size: $small-font-size;
-        }
-
-        a.active {
-          @include span-columns($pw, $pw, $gw);
-          clear: both;
-        }
-        
-        // The current status and blogger information
-        .story-status, 
-        .story-blogger {
-          @include span-columns($pw, $pw);
-          @include ctb-clearfix;
-          padding: 1em;
-          margin-top: 1em;
-          font-size: $smaller-font-size;
-          width: 45%;
-          float: $from-direction;
-          color:  $dark-grey;
-          .user-picture {
-            float: $omega-float;
-            img {
-              width: 50px;
-            }
-          }
         }
 
         form {
@@ -99,14 +69,7 @@
           }
         }
 
-        // "Published" updates
-        #block-views-desk-updates-block {
-          @include span-columns($pw, $pw);
-          margin-top: 1em;
-          padding-top: 1em;
-          background-color: white;
-          border-top: 1px solid $grey;
-        }
+        
       }
     }
   }
