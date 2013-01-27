@@ -39,7 +39,7 @@
 @mixin story-layout($width, $context) {
   @include span-columns($width, $context, $gw);
   @content; // pass in padding if needed
-  .update { 
+  .update-row { 
     @include vertical-margin($base-font-size); 
     @include span-columns($width, $width, $gw);
     
@@ -52,7 +52,6 @@
 
 
 .node-type-discussion {
-
   // Updates must stay above story information, 
   // otherwise you can't click to see the comments
   #block-views-desk-updates-block {
@@ -69,18 +68,23 @@
       padding-top: 1em;
       background-color: white;
       border-top: 1px solid $grey;
-
-      // "Published" updates
-      .view-desk-updates {
-        .update {
-          border-bottom: 1px solid $grayLighter;
-          &:last-child { border-bottom: 0 none; }
-          margin-bottom: $bh*2;
-        }
-      }
-
-
     }
+  }
+}
+
+// "Published" updates
+#updates {
+  .update-row {
+    border-bottom: 1px solid $grayLighter;
+    &:last-child { border-bottom: 0 none; }
+    margin-bottom: $bh*2;
+
+    h2 {
+      display: inline-block;
+      @include reset-box-model;
+      a { @include ctb-linkColor($grayDark); }
+    }
+
   }
 }
 

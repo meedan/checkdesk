@@ -136,16 +136,24 @@ function checkdesk_preprocess_page(&$variables) {
  */
 function checkdesk_preprocess_node(&$variables) {
 
+  // set $alpha and $omega for language directions
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    $variables['alpha'] = right;
+    $variables['omega'] = left;
+  } else {
+    $variables['alpha'] = left;
+    $variables['omega'] = right;
+  }
+
   if ($variables['type'] == 'post') {
-    // dsm($variables);
-    // Add node creation info(author name plus creation time)
-    $variables['post_creation_info'] = t('Update by ') . l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . ' ' .
+    // Add update creation info
+    $variables['update_creation_info'] = t('Update by ') . l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . ' ' .
       '<time class="" pubdate datetime="'. format_date($variables['created'], 'custom', 'Y-m-d') .'">' .
       format_date($variables['created'], 'custom', 'M d, Y \a\t g:ia ') .'</time>';
   }
 
   if ($variables['type'] == 'discussion') {
-    // dsm($variables);
     
   }
 
