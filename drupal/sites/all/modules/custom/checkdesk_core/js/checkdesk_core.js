@@ -53,10 +53,12 @@
       // Restrict thumbnail width to 220
       $('.view-desk-reports .view-content').find('.thumbnail img').width(220);
       // Avoid clicking the videos by applying a mask over it
-      $('.view-desk-reports .view-content .oembed-video .oembed-content').each(function() {
-        var video = $(this).find('iframe');
+      $('.view-desk-reports .view-content').find('.oembed-video .oembed-content, .content').each(function() {
+        var video = $(this).find('iframe, object');
+        video.css('position', 'absolute');
+        video.find('embed').attr('wmode', 'transparent');
         $(this).css({ position : 'relative', display : 'block', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
-        video.attr('src', video.attr('src') + '&wmode=transparent');
+        if (video.attr('src')) video.attr('src', video.attr('src') + '&wmode=transparent');
         video.wrap('<div class="oembed-wrapper" />');
         $(this).find('.oembed-wrapper').after('<div class="oembed-mask" />');
         $(this).find('.oembed-mask, .oembed-wrapper').css({ position : 'absolute', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
