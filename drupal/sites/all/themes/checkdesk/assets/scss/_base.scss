@@ -28,10 +28,7 @@ $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 // Set direction
 // 
 @mixin ctb-layout($direction) {
-  $from-direction: $direction;
   text-align: $direction;
-  $alpha: $direction;
-  $omega: opposite-position($direction);
 
   @if $direction == right {
     direction: rtl;

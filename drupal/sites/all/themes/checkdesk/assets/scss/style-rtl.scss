@@ -2,3 +2,6 @@
 //
 $from-direction: right;
 @import "style";
+body.body-ar {
+	@include ctb-layout(right);
+}

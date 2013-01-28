@@ -29,7 +29,7 @@ $bh: $baseLineHeight/4;
 	font-family: $sans-font-family;
 	font-size: $fontSizeSmall;
 	margin: { top: $gw; bottom: $gw; }
-	background-color: $white;
+	background-color: darken($grayLighter, 5%);
 	a {
 		color: $report-text-color;
 		&:hover {
@@ -76,7 +76,7 @@ $bh: $baseLineHeight/4;
 			@if $from-direction == left {
 				li.share-on .dropdown-menu {
 				// #{$omega-float}: auto;
-				#{$from-direction}: -75px;
+				// #{$from-direction}: -75px;
 				}
 			}
 			@if $from-direction == right {
@@ -179,8 +179,8 @@ $bh: $baseLineHeight/4;
 				
 				.favicon, 
 				.author-img {
-					float: $from-direction;
-					padding: 0 $gw/2 0 0;
+					float: $alpha;
+					padding-#{$omega}: $gw/2;
 					width: auto;
 				}
 				
@@ -229,20 +229,22 @@ $bh: $baseLineHeight/4;
 			img {
 				vertical-align: text-bottom;
 				@include ctb-square(20px);
-				margin-right: $gw/3;
+				margin-#{$omega}: $gw/3;
 			}	
 		}
 
 		.description {
+			@include ctb-clearfix;
 			border-top: 1px solid $white;
 			padding-top: $gw;
-			padding-#{$omega}: $gw/4;
-			padding-#{$alpha}: 26px;
 			@include ctb-font-sans-serif(15px, normal, 19px);
-			background-repeat: no-repeat;
-			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAATBAMAAABvvEDBAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTAvMTMvMTIKtzHNAAAAb0lEQVQIma2MwQ2CUBBE3+cgkViBFyzFDrQDKkBKgA6gEznSxW+BaAEeOCBexoEamGQnb7OzAyQDVul5fG1nwUGmEE2FZsgkwkcN1Hpz1I91vZLrBakWqNTBSRM8dceHEaIucFMPfl8jG7m5te9DfyQZZNhMbKspAAAAAElFTkSuQmCC);
-			background-position: #{$alpha} 10px;
 
+			span {
+				color: $white;
+				float: $alpha;
+				padding-#{$omega}: $gw;
+				font-size: 120%;
+			}
 		}
 	}
 
@@ -280,12 +282,13 @@ $bh: $baseLineHeight/4;
 				padding: 0;
 			}
 			.report-status {
+				font-weight: bold;
 				float: opposite-position($from-direction);
 				text-align: opposite-position($from-direction);
 				// icon in the status
 				span[class^="icon-"], span[class*="icon-"] {
 					// width: 20px;
-					float: opposite-position($from-direction);
+					float: $alpha;
 				}
 				span.status-name {
 					text-align: opposite-position($from-direction);

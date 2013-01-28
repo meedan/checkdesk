@@ -5,7 +5,7 @@
 @mixin liveblog-layout($width, $context) {
   @include span-columns($width, $context, $gw);
   @content; // pass in padding if needed
-  .views-row { 
+  .post-row { 
     @include vertical-margin($base-font-size); 
     @include span-columns($width, $width, $gw);
     
@@ -19,27 +19,27 @@
 // Liveblog homepage
 // 
 // Default liveblog layout overrides global default layout 
-body.page-liveblog, 
-body.node-type-discussion {
+body.page-liveblog {
   #main {
     @include liveblog-layout($cw, $cw);
+
+    // Live blog view
     .view-liveblog {
+      @include ctb-clearfix;
       background-color: white;
       border-top: 2px solid black;
-      .views-row {
+      .post-row {
         border-bottom: 1px solid $grey;
         padding-bottom: 1em;
-
-        .views-field-title {
-          font-weight: 700;
-          font-size: $large-font-size;
+        h2 {
+          display: inline-block;
+          @include reset-box-model;
+          a { @include ctb-linkColor($grayDark); }
         }
-
-        p {
-          line-height: $base-line-height;
-        }
-      }  
+      }
     }
+
+    
   }
 }
 

@@ -42,8 +42,6 @@ function checkdesk_preprocess_html(&$variables) {
  */
 function checkdesk_preprocess_page(&$variables) {
 
-  
-
   // Primary nav
   $variables['primary_nav'] = FALSE;
   if($variables['main_menu']) {
@@ -137,7 +135,30 @@ function checkdesk_preprocess_page(&$variables) {
  * Override or insert variables into the node template.
  */
 function checkdesk_preprocess_node(&$variables) {
+
+  // set $alpha and $omega for language directions
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    $variables['alpha'] = 'right';
+    $variables['omega'] = 'left';
+  } else {
+    $variables['alpha'] = 'left';
+    $variables['omega'] = 'right';
+  }
+
+  if ($variables['type'] == 'post') {
+    // Add update creation info
+    $variables['update_creation_info'] = t('Update by ') . l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . ' ' .
+      '<time class="" pubdate datetime="'. format_date($variables['created'], 'custom', 'Y-m-d') .'">' .
+      format_date($variables['created'], 'custom', 'M d, Y \a\t g:ia ') .'</time>';
+  }
+
+  if ($variables['type'] == 'discussion') {
+    
+  }
+
   $variables['icon'] = '';
+  
   if ($variables['type'] == 'media') {
     //Add author info to variables
     $user_picture = $variables['elements']['#node']->picture;
@@ -340,6 +361,32 @@ function checkdesk_links__node($variables) {
 
     $output .= '</ul>';
   }
+
+  return $output;
+}
+
+/**
+ * Adjust story blogger markup
+ */
+function checkdesk_checkdesk_core_story_blogger(&$variables) {
+  $output = '';
+
+  $output .= '<div class="story-blogger '. $variables['classes'] .'">';
+  $output .= '<div class="avatar">' . $variables['blogger_picture'] . $variables['blogger_name'] . '</div>';
+  $output .= '<div class="blogger-status '. $variables['blogger_status_class'] .'"><span class="blogger-status-indicator"></span><span class="blogger-status-text">' . $variables['blogger_status_text'] . '</span></div>';
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Adjust story status (blog by and it is currently)
+ */
+function checkdesk_checkdesk_core_story_status(&$variables) {
+  $output = '';
+
+  $output .= '<div class="story-by">' . $variables['story_status'] . '</div>';
+  $output .= '<div class="story-context">' . $variables['story_context'] . '</div>';
 
   return $output;
 }
