@@ -579,6 +579,28 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     );
   }
 
+  // Links for stories.
+  else if ($node->type == 'discussion') {
+    if (node_access('update', $node)) {
+      $links['checkdesk-edit'] = array(
+        'title' => t('Edit'),
+        'href' => 'node/' . $node->nid . '/edit',
+        'query' => array(
+          'destination' => $_GET['q'],
+        ),
+      );
+    }
+    if (node_access('delete', $node)) {
+      $links['checkdesk-delete'] = array(
+        'title' => t('Delete'),
+        'href' => 'node/' . $node->nid . '/delete',
+        'query' => array(
+          'destination' => $_GET['q'],
+        ),
+      );
+    }
+  }
+
   return $links;
 }
 
