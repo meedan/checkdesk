@@ -257,6 +257,12 @@
       // padding: { top: $gw/2; bottom: $gw/2; } // match the padding on top and bottom
     }
 
+    select {
+      @include span-columns($w, $w, $gw/2); // small padding with grid accounting
+      @include ctb-clearfix;
+      float: none;
+    }
+
     div.form-wrapper {
       // @include span-columns($w, $w);
     }

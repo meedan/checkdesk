@@ -8240,6 +8240,27 @@ form textarea {
   margin-left: 3.31126%;
   display: inline;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_forms\.scss}line{font-family:\00003260}}
+form select {
+  padding-right: 1.65563%;
+  padding-left: 1.65563%;
+  width: 96.68874%;
+  float: right;
+  margin-left: 3.31126%;
+  display: inline;
+  *zoom: 1;
+  float: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_mixins\.scss}line{font-family:\0000315}}
+form select:before, form select:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_mixins\.scss}line{font-family:\0000322}}
+form select:after {
+  clear: both;
+}
 
 @media (min-width: 614px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_forms\.scss}line{font-family:\00003235}}
@@ -8247,7 +8268,7 @@ form textarea {
     padding-right: 0%;
     padding-left: 0%;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_forms\.scss}line{font-family:\00003278}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_forms\.scss}line{font-family:\00003284}}
   form .description {
     display: inline-block;
   }
@@ -8272,6 +8293,26 @@ form textarea {
     width: 96.68874%;
     float: right;
     margin-left: 3.31126%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_forms\.scss}line{font-family:\00003260}}
+  form select {
+    padding-right: 1.65563%;
+    padding-left: 1.65563%;
+    width: 96.68874%;
+    float: right;
+    margin-left: 3.31126%;
+    *zoom: 1;
+    float: none;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_mixins\.scss}line{font-family:\0000315}}
+  form select:before, form select:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_mixins\.scss}line{font-family:\0000322}}
+  form select:after {
+    clear: both;
   }
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_tables\.scss}line{font-family:\000032}}
