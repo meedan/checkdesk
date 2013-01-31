@@ -149,12 +149,30 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'weight' => '50',
     'parent_path' => '<sub>',
   );
+  // Exported menu link: menu-common:<front>
+  $menu_links['menu-common:<front>'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => '<front>',
+    'router_path' => '',
+    'link_title' => 'Info',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '1',
+    'has_children' => '1',
+    'expanded' => '1',
+    'weight' => '-46',
+  );
   // Exported menu link: menu-common:<sub>
   $menu_links['menu-common:<sub>'] = array(
     'menu_name' => 'menu-common',
     'link_path' => '<sub>',
     'router_path' => '<sub>',
-    'link_title' => 'Info',
+    'link_title' => 'User',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -165,7 +183,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '1',
     'expanded' => '1',
-    'weight' => '-46',
+    'weight' => '-49',
   );
   // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
   $menu_links['menu-common:modal/ajax/content/install-bookmarklet'] = array(
@@ -184,7 +202,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '0',
-    'parent_path' => '<sub>',
+    'parent_path' => '<front>',
   );
   // Exported menu link: menu-common:my-notifications
   $menu_links['menu-common:my-notifications'] = array(
@@ -276,6 +294,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Notifications');
   t('Sign in');
   t('Submit report');
+  t('User');
   t('User account');
   t('View incoming citizen reports');
 
