@@ -32,6 +32,11 @@ function checkdesk_core_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['<nolink>'] = array(
+    'page callback' => 'drupal_not_found',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   $items['node/%checkdesk_report/checkdesk/suggest'] = array(
     'title' => 'Add report to story',
     'title callback' => '_checkdesk_core_report_suggest_title',

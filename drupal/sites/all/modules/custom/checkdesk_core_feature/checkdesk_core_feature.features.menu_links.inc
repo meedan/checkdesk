@@ -149,11 +149,11 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'weight' => '50',
     'parent_path' => '<sub>',
   );
-  // Exported menu link: menu-common:<front>
-  $menu_links['menu-common:<front>'] = array(
+  // Exported menu link: menu-common:<nolink>
+  $menu_links['menu-common:<nolink>'] = array(
     'menu_name' => 'menu-common',
-    'link_path' => '<front>',
-    'router_path' => '',
+    'link_path' => '<nolink>',
+    'router_path' => '<nolink>',
     'link_title' => 'Info',
     'options' => array(
       'attributes' => array(
@@ -162,7 +162,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'module' => 'menu',
     'hidden' => '0',
-    'external' => '1',
+    'external' => '0',
     'has_children' => '1',
     'expanded' => '1',
     'weight' => '-46',
@@ -202,7 +202,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '0',
-    'parent_path' => '<front>',
+    'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:my-notifications
   $menu_links['menu-common:my-notifications'] = array(
@@ -227,14 +227,13 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'menu-common',
     'link_path' => 'user',
     'router_path' => 'user',
-    'link_title' => 'User account',
+    'link_title' => 'My account',
     'options' => array(
-      'alter' => TRUE,
       'attributes' => array(
         'title' => '',
       ),
     ),
-    'module' => 'system',
+    'module' => 'menu',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
@@ -258,7 +257,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '0',
+    'weight' => '-48',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-common:user/logout
@@ -266,13 +265,13 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'menu-common',
     'link_path' => 'user/logout',
     'router_path' => 'user/logout',
-    'link_title' => 'Log out',
+    'link_title' => 'Logout',
     'options' => array(
       'attributes' => array(
         'title' => '',
       ),
     ),
-    'module' => 'system',
+    'module' => 'menu',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
@@ -290,12 +289,12 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Home');
   t('Info');
   t('Install bookmarklet');
-  t('Log out');
+  t('Logout');
+  t('My account');
   t('Notifications');
   t('Sign in');
   t('Submit report');
   t('User');
-  t('User account');
   t('View incoming citizen reports');
 
 
