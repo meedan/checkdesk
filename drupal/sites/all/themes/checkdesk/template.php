@@ -361,6 +361,19 @@ function checkdesk_links__node($variables) {
       $output .= '</ul></li>'; 
     }
 
+    
+    if (isset($links['checkdesk-edit-flat']) || 
+        isset($links['checkdesk-delete-flat'])
+    ) {
+      // Edit or delete, but not as a dropdown menu
+      if (isset($links['checkdesk-edit-flat'])) {
+        $output .= '<li>' . l($links['checkdesk-edit-flat']['title'], $links['checkdesk-edit-flat']['href'], $links['checkdesk-edit-flat']) .'</li>';
+      }
+      if (isset($links['checkdesk-delete-flat'])) {
+        $output .= '<li>' . l($links['checkdesk-delete-flat']['title'], $links['checkdesk-delete-flat']['href'], $links['checkdesk-delete-flat']) .'</li>';
+      }
+    }
+
     $output .= '</ul>';
   }
 

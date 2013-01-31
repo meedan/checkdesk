@@ -584,10 +584,10 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     );
   }
 
-  // Links for stories.
+  // Links for stories, not as a dropdown menu.
   else if ($node->type == 'discussion') {
     if (node_access('update', $node)) {
-      $links['checkdesk-edit'] = array(
+      $links['checkdesk-edit-flat'] = array(
         'title' => t('Edit'),
         'href' => 'node/' . $node->nid . '/edit',
         'query' => array(
@@ -596,7 +596,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       );
     }
     if (node_access('delete', $node)) {
-      $links['checkdesk-delete'] = array(
+      $links['checkdesk-delete-flat'] = array(
         'title' => t('Delete'),
         'href' => 'node/' . $node->nid . '/delete',
         'query' => array(
