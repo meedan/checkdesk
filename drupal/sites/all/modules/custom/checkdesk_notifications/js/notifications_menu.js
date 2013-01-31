@@ -3,7 +3,7 @@
 Drupal.behaviors.meedan_notifications_menu_visibility = {
   attach: function (context, settings) {
     var block = $('#block-views-my-notifications-block', context);
-    var title = $('#my-notifications-menu-link');
+    var title = $('#my-notifications-menu-link', context);
     block.find('.content, h2').hide();
     title.unbind('click');
     title.click(function() {
