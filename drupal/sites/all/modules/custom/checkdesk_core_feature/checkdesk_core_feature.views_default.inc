@@ -100,6 +100,27 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['path'] = 'report_activity/%';
+  $translatables['activity_report'] = array(
+    t('Master'),
+    t('Fact-checking activity'),
+    t('View all'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('All'),
+    t('Block'),
+    t('more'),
+    t('Page'),
+  );
   $export['activity_report'] = $view;
 
   $view = new view();
@@ -444,6 +465,36 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
+  $translatables['administer_users'] = array(
+    t('Master'),
+    t('Administer Users'),
+    t('more'),
+    t('Search'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Add new user'),
+    t('<?php
+$view = views_get_current_view();
+print $view->total_rows . t(\' Users\');
+print "<br>" ;
+print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_get_destination()));
+?>'),
+    t('Username'),
+    t('Status'),
+    t('Roles'),
+    t('E-mail'),
+    t('Last access'),
+    t('Page'),
+  );
   $export['administer_users'] = $view;
 
   $view = new view();
@@ -529,7 +580,7 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
       ),
     ),
     'field_stories_target_id' => array(
-      'bef_format' => 'bef',
+      'bef_format' => 'default',
       'more_options' => array(
         'bef_select_all_none' => 0,
         'bef_collapsible' => 0,
@@ -909,6 +960,71 @@ print t(\'No content available\');
     5 => 0,
   );
   $handler->display->display_options['path'] = 'desk-reports/autorefresh/%';
+  $translatables['desk_reports'] = array(
+    t('Master'),
+    t('Desk Reports'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Auto-Refresh'),
+    t('<?php
+ctools_include(\'modal\');
+ctools_modal_add_js();
+$modal_style = array(
+ \'modal-popup-report\' => array(
+      \'modalSize\' => array(
+        \'type\' => \'fixed\',
+        \'width\' => 415,
+        \'height\' => 500,
+        \'addWidth\' => 0,
+        \'addHeight\' => 0
+      ),
+      \'modalOptions\' => array(
+        \'opacity\' => .5,
+        \'background-color\' => \'#000\',
+      ),
+      \'animation\' => \'show\',
+ \'animationSpeed\' => 40,
+      \'modalTheme\' => \'CToolsModalDialog\',
+      \'throbber\' => theme(\'image\', array(\'path\' => ctools_image_path(\'ajax-loader.gif\', \'checkdesk_core\'), \'alt\' => t(\'Loading...\'), \'title\' => t(\'Loading\'))),
+    ),
+  );
+  drupal_add_js($modal_style, \'setting\');
+print theme(\'views_autorefresh\', array(
+  \'interval\' => 5000, 
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media\'),
+  \'incremental\' => array(
+    \'view_base_path\' => \'desk-reports/autorefresh\',
+    \'view_display_id\' => \'page_1\',
+    \'view_name\' => \'desk_reports\',
+  ),
+));
+?>'),
+    t('<?php
+print t(\'No content available\');
+?>'),
+    t('Media sources'),
+    t('<div class="draggable">[field_link]</div>'),
+    t('Date'),
+    t('Block'),
+    t('Details'),
+    t('By keyword'),
+    t('By status'),
+    t('By source'),
+    t('By story'),
+    t('Autorefresh'),
+    t('All'),
+  );
   $export['desk_reports'] = $view;
 
   $view = new view();
@@ -982,6 +1098,18 @@ print t(\'No content available\');
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $translatables['desk_updates'] = array(
+    t('Master'),
+    t('Published updates'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('All'),
+    t('Block'),
+  );
   $export['desk_updates'] = $view;
 
   $view = new view();
@@ -1053,6 +1181,17 @@ print t(\'No content available\');
   $handler->display->display_options['menu']['weight'] = '1';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
+  $translatables['desks'] = array(
+    t('Master'),
+    t('Stories'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Page'),
+  );
   $export['desks'] = $view;
 
   $view = new view();
@@ -1171,6 +1310,39 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['arguments']['created_operator']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['created_operator']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['path'] = 'liveblog/autorefresh/%';
+  $translatables['liveblog'] = array(
+    t('Master'),
+    t('Liveblog'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Autorefresh'),
+    t('<?php
+print theme(\'views_autorefresh\', array(
+  \'interval\' => 5000, 
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
+  \'incremental\' => array(
+    \'view_base_path\' => \'liveblog/autorefresh\',
+    \'view_display_id\' => \'page_1\',
+    \'view_name\' => \'liveblog\',
+  ),
+));
+?>'),
+    t('Page'),
+    t('Feed'),
+    t('Autorefresh Page'),
+    t('All'),
+  );
   $export['liveblog'] = $view;
 
   $view = new view();
@@ -1243,6 +1415,35 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
   $handler->display->display_options['defaults']['footer'] = FALSE;
+  $translatables['my_notifications'] = array(
+    t('Master'),
+    t('My Notifications'),
+    t('View all'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Activity message'),
+    t('Page'),
+    t('more'),
+    t('Block'),
+    t('Notifications'),
+    t('Auto Refresh'),
+    t('<?php
+global $user;
+$interval = 5000;
+$path = drupal_get_path(\'module\', \'checkdesk_notifications\') . \'/ping.php?user=\' . $user->uid;
+print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_field\' => TRUE, \'incremental\' => FALSE, \'ping\' => array(\'ping_base_path\' =>  $path)));
+?>'),
+  );
   $export['my_notifications'] = $view;
 
   $view = new view();
@@ -1312,6 +1513,24 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['menu']['weight'] = '50';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
+  $translatables['reports'] = array(
+    t('Master'),
+    t('Reports'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Page'),
+  );
   $export['reports'] = $view;
 
   return $export;

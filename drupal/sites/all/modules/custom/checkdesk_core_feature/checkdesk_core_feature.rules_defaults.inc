@@ -526,7 +526,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report was flagged",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" },
@@ -549,7 +549,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Publish report",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "php", "heartbeat_rules" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules" ],
       "ON" : [ "node_insert" ],
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } }
@@ -565,10 +565,7 @@ function checkdesk_core_feature_default_rules_configuration() {
                   "message_id" : { "value" : { "publish_report" : "publish_report" } },
                   "!publisher" : [ "site:current-user:name" ],
                   "!story_url" : [ "node:field_desk:url" ],
-                  "!story" : {
-                    "select" : "node:field_desk:title",
-                    "php" : { "code" : "$limit = 25;\\r\\nif (strlen($value) \\u003E $limit) {\\r\\n  return substr($value, 0, $limit) . \\u0027...\\u0027; \\r\\n} else {\\r\\n  return $value;\\r\\n}" }
-                  }
+                  "!story" : { "select" : "node:field_desk:title" }
                 }
               }
             ]
@@ -767,7 +764,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Report was flagged",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "flag" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
       "ON" : [
         "flag_flagged_factcheck",
         "flag_flagged_graphic_journalist",
