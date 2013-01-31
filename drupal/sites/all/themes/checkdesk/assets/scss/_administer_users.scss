@@ -1,6 +1,6 @@
 .page-administer-users {
   // Default render of the form layout
-  @include cd-form-layout($cw, $cw, $gw);
+  // @include cd-form-layout($cw, $cw, $gw);
 
   .views-submit-button {
     float: $alpha;
@@ -31,8 +31,8 @@
   // Breakpoint: small
   @include at-breakpoint($break-small) {
     $break: $break-small;
-    @include cd-form-layout($break, $break) {
-      @include pad(0,0,$break);
-    }
+    // @include cd-form-layout($break, $break) {
+    //   @include pad(0,0,$break);
+    // }
   }
 }

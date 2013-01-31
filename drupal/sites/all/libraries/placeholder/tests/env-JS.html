@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script src="../jquery.placeholder.js"></script>
+    <title>jQuery-Placeholder</title>
+    <style>
+    body {font-family: arial, sans-serif;}
+    input {padding:4px; width:255px; font-family: arial, sans-serif; font-size: 12px;}
+    .placeholder {color: #aaa;}
+    </style>
+</head>
+<body>
+    <h1>jQuery-Placeholder</h1>
+    <p>Env-JS test. Try setting the values with javascript and then submitting the form.</p>
+    <form action="">
+        <p>
+            <input id="test-field" type="text" placeholder="test field" name="test-field">
+        </p>
+        <p>
+            <button type="submit">Go</button>
+        </p>
+    </form>
+<script>
+    $('input[placeholder]').placeholder();
+    $("#test-field").val("this was set with JavaScript");
+</script>
+</body>
+</html>

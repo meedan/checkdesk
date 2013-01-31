@@ -33,7 +33,7 @@
         @include reports-filter-and-results($sw) { // The reports filter form
 
           // reapply form defaults with this layout
-          @include cd-form-layout($sw, $sw, $gw); // apply form layout @ 100%          
+          // @include cd-form-layout($sw, $sw, $gw); // apply form layout @ 100%          
 
           // Further customizations to only this sidebar form
           form {
@@ -51,22 +51,22 @@
         margin-top: $base-font-size;
 
         h1.title {
-          @include cd-background;
-          padding: $gw;
-          margin: 0;
-          // line-height: $base-line-height;
-          // font-size: $small-font-size;
-          font-weight: 700;
+          // @include cd-background;
+          // padding: $gw;
+          // margin: 0;
+          // // line-height: $base-line-height;
+          // // font-size: $small-font-size;
+          // font-weight: 700;
         }
 
         form {
           // see _forms.scss
-          @include span-columns($pw, $pw, $gw);
-          background: rgb(244, 244, 244);
-          label {
-            color: $dark-grey;
-            font-family: $sans-font-family;
-          }
+          // @include span-columns($pw, $pw, $gw);
+          // background: rgb(244, 244, 244);
+          // label {
+          //   color: $dark-grey;
+          //   font-family: $sans-font-family;
+          // }
         }
 
         
@@ -111,11 +111,11 @@
     @include span-columns($break, $break); //reset container to full
     @include pad(0, 0); //reset container padding
     
-    // Reset the form
-    @include cd-form-layout($sw, $break, $gw) {
-      border: 1px solid $light-grey;
-      // form { padding: 0!important; } // reset form padding
-    }
+    // // Reset the form
+    // @include cd-form-layout($sw, $break, $gw) {
+    //   border: 1px solid $light-grey;
+    //   // form { padding: 0!important; } // reset form padding
+    // }
 
     // Reports list under the filters
     .content .view-desk-reports {
@@ -124,9 +124,9 @@
       // reports-filter-and-results
       //
       @include reports-filter-and-results($sw) { 
-        @include cd-form-layout($break, $break) {
-          // @include pad(0,0);
-        }
+        // @include cd-form-layout($break, $break) {
+        //   // @include pad(0,0);
+        // }
 
         .views-row {
           @include span-columns($sw/2, $sw); // why doesn't this work? ...

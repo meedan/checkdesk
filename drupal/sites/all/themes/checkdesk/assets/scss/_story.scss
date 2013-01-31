@@ -55,10 +55,12 @@
   // Updates must stay above story information, 
   // otherwise you can't click to see the comments
   #block-views-desk-updates-block {
-    z-index: 1;
+    @include ctb-clearfix;
+    form {
+      clear: both;
+    }
   }
 
-  
   #main {
     @include story-layout($cw, $cw);
     #block-views-desk-updates-block {
@@ -98,6 +100,17 @@ $omega: opposite-position($alpha);
 .story {
   @include ctb-clearfix;
   color: $grayLight;
+
+  #story-actions {
+    font-family: $sans-font-family;
+    font-size: $fontSizeSmall;
+    
+    ul.content-actions {
+      @include reset-box-model;
+      @include reset-list-style;
+      display: inline-block;
+    }
+  }
 
   .story-by {
     @include ctb-font-sans-serif(26px);

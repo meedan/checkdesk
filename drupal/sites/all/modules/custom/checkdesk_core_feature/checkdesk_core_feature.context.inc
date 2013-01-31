@@ -77,7 +77,7 @@ function checkdesk_core_feature_context_default_contexts() {
           'module' => 'checkdesk_core',
           'delta' => 'post',
           'region' => 'content',
-          'weight' => '19',
+          'weight' => '17',
         ),
         'views-desk_reports-block' => array(
           'module' => 'views',

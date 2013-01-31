@@ -215,7 +215,7 @@ function checkdesk_links__node($variables) {
   $attributes = $variables['attributes'];
   $heading = $variables['heading'];
 
-  $class[] = 'report-actions';
+  $class[] = 'content-actions';
   $output = '';
 
   // Prepare for modal dialogs.
@@ -290,7 +290,9 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span> ...</a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span> ';
+      $output .=  t('...');
+      $output .= '</a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
@@ -318,7 +320,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Flag as
       $output .= '<li class="flag-as dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span> Flag</a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span>' . t('Flag') . '</a>';
       $output .= '<ul class="dropdown-menu">';
 
       if (isset($links['flag-spam'])) {
@@ -345,7 +347,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Share on
       $output .= '<li class="share-on dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span> Share</a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span>' . t('Share') . '</a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-share-facebook'])) {
         $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
@@ -421,3 +423,19 @@ function checkdesk_field__field_rating(&$variables) {
   }
   return $output;
 }
+
+
+/**
+ * Adjust compose update form
+ */
+function checkdesk_form_post_node_form_alter(&$form, &$form_state) {
+
+  $form['title']['#title'] = NULL;
+  $form['title']['#attributes']['placeholder'] = t('Add headline');
+
+  $form['body']['und'][0]['#title'] = NULL;
+  $form['body']['und'][0]['#attributes']['placeholder'] = 'Compose update here...';
+
+  // dsm($form);
+}
+

@@ -1,4 +1,3 @@
-
 // ===================================================================
 // Form drag and drop
 // On create update page
@@ -146,7 +145,9 @@
       }
     }
 
-    textarea { height: 200px; } // starting height
+    textarea { 
+      // height: 200px; 
+    } // starting height
 
     // checkboxes and radios
     input[type="checkbox"], 
@@ -182,7 +183,7 @@
 
     // Default descriptions
     .description {
-      clear: $from-direction;
+      // clear: $from-direction;
       font-size: ms(-1);
       display: none; // displayed at larger breakpoints
       padding: 0.5em 0;
@@ -192,9 +193,9 @@
 
     // little links: create new account, forgot password 
     // wow BAD selector here haha - CGB
-    .item-list .first.last {
-      font-size: $small-font-size;
-    }
+    // .item-list .first.last {
+    //   font-size: $small-font-size;
+    // }
 
     // Confirmation Form Actions: Confirm delete node
     &.confirmation {
@@ -232,12 +233,12 @@
 //
 @mixin cd-form-layout($w, $context, $gw: $gw) {
   form {
-    @include form-pass-layout($w, $context);
-    @include span-columns($w, $context, $gw);
+    // @include form-pass-layout($w, $context);
+    // @include span-columns($w, $context, $gw);
     @content; // if you want to pass in padding via breakpoints
 
     // Form actions
-    .form-actions { @include span-columns($w, $w); }
+    // .form-actions { @include span-columns($w, $w); }
 
     & > .form-item {
       @include span-columns($w, $w);
@@ -253,7 +254,7 @@
     input[type="text"],
     textarea {
       @include span-columns($w, $w, $gw/2); // small padding with grid accounting
-      padding: { top: $gw/2; bottom: $gw/2; } // match the padding on top and bottom
+      // padding: { top: $gw/2; bottom: $gw/2; } // match the padding on top and bottom
     }
 
     div.form-wrapper {
@@ -265,18 +266,17 @@
 // ======================================================================
 // Forms Breakpoints
 
-@include form-standardize;
-@include cd-form-styles-except-layout;
+// @include form-standardize;
+// @include cd-form-styles-except-layout;
 @include cd-form-layout($cw, $cw, $gw); // Default render of the form layout
 
 // Breakpoint: small
 @include at-breakpoint($break-small) {
   $break: $break-small;
   @include cd-form-layout($break - 6, $break) {
-    @include pad(3, 3, $break); // more padding
+    @include pad(0, 0, $break);
     .description {
       display: inline-block; // appears
-      padding: $base-font-size;
     }
   }
 }

@@ -14,9 +14,9 @@ $bh: $baseLineHeight/4;
 
 .report {
 	// @include span-columns($cw, $cw); // default is full width
-	// width: 100%; //default
-	min-width: 240px;
-	max-width: 600px;
+	width: 100%; //default
+	// min-width: 240px;
+	// max-width: 600px;
 	float: $from-direction;
 	@include ctb-clearfix;
 	
@@ -66,7 +66,7 @@ $bh: $baseLineHeight/4;
 	// Report actions
 	#report-actions {
 
-		ul.report-actions {
+		ul.content-actions {
 
 			@include reset-box-model;
 			@include reset-list-style;
@@ -149,7 +149,7 @@ $bh: $baseLineHeight/4;
 			text-align: center;
 			margin-bottom: $gw;
 			.container {
-				max-width: (600px - ($gw*2)); // Firefox width confusion
+				// max-width: (600px - ($gw*2)); // Firefox width confusion
 				 
 				display: inline-block;
 				vertical-align: middle;
@@ -157,7 +157,7 @@ $bh: $baseLineHeight/4;
 				font-size: $fontSizeSmall;
 				
 				.oembed-content img {
-					width: $report-width-px; // enlarge photos to fit ...
+					// width: $report-width-px; // enlarge photos to fit ...
 				}
 
 				.thumbnail img {
@@ -226,6 +226,7 @@ $bh: $baseLineHeight/4;
 		}
 
 		.gravatar {
+			margin-#{$alpha}: $gw;
 			img {
 				vertical-align: text-bottom;
 				@include ctb-square(20px);
@@ -376,7 +377,7 @@ $bh: $baseLineHeight/4;
 						color: $grayLight;
 					}
 					.title {
-						float: $from-direction;
+						// float: $from-direction;
 						margin-#{$from-direction}: $gw;
 					}
 					a {

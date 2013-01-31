@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>IE Text Cursor Test - jQuery-Placeholder</title>
+</head>
+<body> 
+    <h1>IE Text Cursor Test</h1>
+    <p><a href="https://github.com/danielstocks/jQuery-Placeholder/issues/closed#issue/8">Related Ticket</a></p>
+    <form action="#">
+        <h2>With Placeholders</h2>
+            <p><input type="text" placeholder="qwe" name="a"></p>
+            <p><input type="text" placeholder="jkl" name="b"></p>
+            <p><input type="text" placeholder="jkl" name="c"></p>
+            <p><input type="text" placeholder="jkl" name="d"></p>
+        <h2>No placeholders</h2>
+            <p><input type="text" name="e"></p>
+            <p><input type="text" name="f"></p>
+            <p><input type="text" name="g"></p>
+            <p><input type="text" name="h"></p>
+        </form>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script src="../jquery.placeholder.js"></script>
+    <script>$("input[placeholder]").placeholder();</script>
+</body>
+</html>

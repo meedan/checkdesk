@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Placeholder install file.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function placeholder_requirements($phase) {
+  $requirements = array();
+
+  switch ($phase) {
+    case 'install':
+      $libraries = libraries_get_libraries();
+      if (!isset($libraries['placeholder'])) {
+        $requirements['placeholder'] = array(
+          'title' => t('Placeholder'),
+          'description' => t('jQuery-Placeholder library not found in libraries folder.'),
+          'severity' => REQUIREMENT_ERROR,
+        );
+      }
+    break;
+    case 'runtime':
+      if (($library = libraries_detect('placeholder')) && empty($library['installed'])) {
+        $requirements['placeholder'] = array(
+          'title' => t('Placeholder'),
+          'value' => $library['error'],
+          'description' => $library['error message'],
+          'severity' => REQUIREMENT_ERROR,
+        );
+      }
+    break;
+  }
+
+  return $requirements;
+}
