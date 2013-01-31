@@ -149,7 +149,7 @@ function checkdesk_preprocess_node(&$variables) {
   if ($variables['type'] == 'post') {
     // Add update creation info
     $variables['update_creation_info'] = t('Update by ') . l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . ' ' .
-      '<time class="" pubdate datetime="'. format_date($variables['created'], 'custom', 'Y-m-d') .'">' .
+      '<time datetime="'. format_date($variables['created'], 'custom', 'Y-m-d') .'">' .
       format_date($variables['created'], 'custom', 'M d, Y \a\t g:ia ') .'</time>';
   }
 
@@ -173,7 +173,7 @@ function checkdesk_preprocess_node(&$variables) {
     }
     //Add node creation info(author name plus creation time)
     $variables['media_creation_info'] = l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . t(' added this ') .
-      '<time class="time-ago" pubdate datetime="'. format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP') .'">' .
+      '<time class="time-ago" datetime="'. format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP') .'">' .
       format_interval(time()-$variables['created']) . t(' ago') .'</time>';
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
