@@ -3,8 +3,8 @@
 Drupal.behaviors.meedan_notifications_menu_visibility = {
   attach: function (context, settings) {
     var block = $('#block-views-my-notifications-block', context);
-    var title = block.find('h2');
-    block.find('.content').hide();
+    var title = $('#my-notifications-menu-link');
+    block.find('.content, h2').hide();
     title.unbind('click');
     title.click(function() {
       var that = $(this);
@@ -26,6 +26,7 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
           }
         });
       }
+      return false;
     });
     $('html').click(function() {
       block.find('.content').slideUp('slow', function() {
@@ -60,8 +61,8 @@ Drupal.behaviors.alert_new_notifications = {
     });
     block.unbind('autorefresh.ping');
     block.bind('autorefresh.ping', function(e, count) {
-      var counter = $(this).find('.notifications-count');
-      var title = $(this).find('.notifications-label');
+      var counter = $('#my-notifications-menu-link').find('.notifications-count');
+      var title = $('#my-notifications-menu-link').find('.notifications-label');
       if (counter.html() == '') {
         counter.html('<span>' + count + '</span>');
         if (parseInt(count) == 1) title.html(Drupal.t('Notification'));

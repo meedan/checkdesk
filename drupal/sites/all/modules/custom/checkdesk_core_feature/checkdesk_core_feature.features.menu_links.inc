@@ -149,9 +149,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'weight' => '50',
     'parent_path' => '<sub>',
   );
-  // Exported menu link: menu-information:<sub>
-  $menu_links['menu-information:<sub>'] = array(
-    'menu_name' => 'menu-information',
+  // Exported menu link: menu-common:<sub>
+  $menu_links['menu-common:<sub>'] = array(
+    'menu_name' => 'menu-common',
     'link_path' => '<sub>',
     'router_path' => '<sub>',
     'link_title' => 'Info',
@@ -165,11 +165,11 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '1',
     'expanded' => '1',
-    'weight' => '0',
+    'weight' => '-46',
   );
-  // Exported menu link: menu-information:modal/ajax/content/install-bookmarklet
-  $menu_links['menu-information:modal/ajax/content/install-bookmarklet'] = array(
-    'menu_name' => 'menu-information',
+  // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
+  $menu_links['menu-common:modal/ajax/content/install-bookmarklet'] = array(
+    'menu_name' => 'menu-common',
     'link_path' => 'modal/ajax/content/install-bookmarklet',
     'router_path' => 'modal/%',
     'link_title' => 'Install bookmarklet',
@@ -186,11 +186,49 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'weight' => '0',
     'parent_path' => '<sub>',
   );
-  // Exported menu link: menu-utility-menu:user
-  $menu_links['menu-utility-menu:user'] = array(
-    'menu_name' => 'menu-utility-menu',
+  // Exported menu link: menu-common:my-notifications
+  $menu_links['menu-common:my-notifications'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'my-notifications',
+    'router_path' => 'my-notifications',
+    'link_title' => 'Notifications',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-47',
+  );
+  // Exported menu link: menu-common:user
+  $menu_links['menu-common:user'] = array(
+    'menu_name' => 'menu-common',
     'link_path' => 'user',
     'router_path' => 'user',
+    'link_title' => 'User account',
+    'options' => array(
+      'alter' => TRUE,
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'system',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-50',
+    'parent_path' => '<sub>',
+  );
+  // Exported menu link: menu-common:user/login
+  $menu_links['menu-common:user/login'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'user/login',
+    'router_path' => 'user/login',
     'link_title' => 'Sign in',
     'options' => array(
       'attributes' => array(
@@ -203,6 +241,26 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '0',
+    'parent_path' => '<sub>',
+  );
+  // Exported menu link: menu-common:user/logout
+  $menu_links['menu-common:user/logout'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'user/logout',
+    'router_path' => 'user/logout',
+    'link_title' => 'Log out',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'system',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-49',
+    'parent_path' => '<sub>',
   );
   // Translatables
   // Included for use with string extractors like potx.
@@ -214,8 +272,11 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Home');
   t('Info');
   t('Install bookmarklet');
+  t('Log out');
+  t('Notifications');
   t('Sign in');
   t('Submit report');
+  t('User account');
   t('View incoming citizen reports');
 
 

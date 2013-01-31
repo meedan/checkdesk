@@ -13,8 +13,8 @@ function checkdesk_theme() {
     'checkdesk_links' => array(
       'variables' => array('links' => array(), 'attributes' => array(), 'heading' => NULL),
     ),
-    'checkdesk_btn_dropdown' => array(
-      'variables' => array('links' => array(), 'attributes' => array(), 'type' => NULL),
+    'checkdesk_user_menu_item' => array(
+      'variables' => array('attributes' => array(), 'type' => NULL),
     ),
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
@@ -41,10 +41,11 @@ function checkdesk_preprocess_html(&$variables) {
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
+  global $user;
 
   // Primary nav
   $variables['primary_nav'] = FALSE;
-  if($variables['main_menu']) {
+  if ($variables['main_menu']) {
     // Build links
     $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
@@ -70,64 +71,63 @@ function checkdesk_preprocess_page(&$variables) {
     ));
   }
 
-  // Information menu
-  $info_menu = menu_load('menu-information');
-  $tree = menu_tree_page_data($info_menu['menu_name']);
+  // Secondary nav
+  $variables['secondary_nav'] = FALSE;
+  $menu = menu_load('menu-common');
+  $tree = menu_tree_page_data($menu['menu_name']);
 
-  // Add modal class for first-level children
-  foreach ($tree as $pid => $parent) {
-    foreach ($parent['below'] as $cid => $item) {
-      $tree[$pid]['below'][$cid]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
+  // Add classes for modal
+  foreach ($tree as $id => $item) {
+    if ($item['link']['link_title'] == t('Info') || $item['link']['link_title'] == 'Info') {
+      foreach ($item['below'] as $subid => $subitem) {
+        $tree[$id]['below'][$subid]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
+      }
     }
   }
-  // Load the modal library and add the modal javascript.
+
+  $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
   ctools_include('modal');
   ctools_modal_add_js();
-  $variables['info_menu'] = checkdesk_menu_navigation_links($tree);
-  $variables['info_nav'] = theme('checkdesk_links', array(
-    'links' => $variables['info_menu'],
+
+  // Change links
+  foreach ($variables['secondary_menu'] as $id => $item) {
+
+    if ($item['title'] == t('User') || $item['title'] == 'User') { // FIXME Is this condition reliable?
+      if (user_is_logged_in()) $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
+      foreach ($item['below'] as $subid => $subitem) {
+        if ($subitem['link_path'] == 'user/login') {
+          if (user_is_logged_in()) unset($variables['secondary_menu'][$id]['below'][$subid]);
+          else $variables['secondary_menu'][$id] = $subitem;
+        }
+      }
+    }
+
+    else if ($item['link_path'] == 'my-notifications') {
+      if (user_is_logged_in()) {
+        $count = checkdesk_notifications_number_of_new_items($user);
+        $counter = '';
+        if ($count > 0) $counter = '<span>' . $count . '</span>';
+        $variables['secondary_menu'][$id]['attributes'] = array('id' => 'my-notifications-menu-link');
+        $variables['secondary_menu'][$id]['html'] = TRUE;
+        $variables['secondary_menu'][$id]['title'] = '<span class="notifications-count">' . $counter . '</span> <span class="notifications-label">' . format_plural($count, t('Notification'), t('Notifications')) . '</span>';
+      }
+      else {
+        unset($variables['secondary_menu'][$id]);
+      }
+    }
+
+  }
+
+  // Build list
+  $variables['secondary_nav'] = theme('checkdesk_links', array(
+    'links' => $variables['secondary_menu'],
     'attributes' => array(
-      'id' => 'info-menu',
-      'class' => array('nav', 'pull-right'),
+      'id' => 'user-menu',
+      'class' => array('nav'),
     ),
     'heading' => NULL,
   ));
 
-  // Secondary nav
-  $variables['secondary_nav'] = FALSE;
-  if($variables['secondary_menu']) {
-    $secondary_menu = menu_load(variable_get('menu_secondary_links_source', 'user-menu'));
-    // Build links
-    $tree = menu_tree_page_data($secondary_menu['menu_name']);
-    $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
-  
-    // Build list
-    $variables['secondary_nav'] = theme('checkdesk_btn_dropdown', array(
-      'links' => $variables['secondary_menu'],
-      'label' => $secondary_menu['title'],
-      'type' => 'btnBackground',
-      'attributes' => array(
-        'id' => 'user-menu',
-        'class' => array('nav', 'pull-right'),
-      ),
-      'heading' => NULL,
-    ));
-
-  } else {
-    // display sign in link
-    $secondary_menu = menu_load('menu-utility-menu');
-    $tree = menu_tree_page_data($secondary_menu['menu_name']);
-    $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
-    // Build list
-    $variables['secondary_nav'] = theme('checkdesk_links', array(
-      'links' => $variables['secondary_menu'],
-      'attributes' => array(
-        'id' => 'utility-menu',
-        'class' => array('nav', 'pull-right'),
-      ),
-      'heading' => NULL,
-    ));
-  }
 }
 
 
