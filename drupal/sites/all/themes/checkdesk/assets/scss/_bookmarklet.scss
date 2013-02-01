@@ -149,6 +149,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     max-height: $bookmarklet-preview-max-height;
     display: inline-block;
     float: $from-direction;
+    overflow: hidden;
   }
 
   #meedan_bookmarklet_preview_gc {
