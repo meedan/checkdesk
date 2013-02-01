@@ -107,7 +107,7 @@ function checkdesk_core_menu() {
  * Menu function for `modal/%ctools_js`.
  */
 function checkdesk_core_modal_callback($js = FALSE) {
-  $alias = preg_replace('/modal\/[^\/]+\//', '', request_path());
+  $alias = preg_replace('/([a-z]{2}\/)?modal\/[^\/]+\//', '', request_path());
   $path = drupal_lookup_path('source', $alias);
   $node = menu_get_object('node', 1, $path);
   $output = drupal_render(node_view($node));
