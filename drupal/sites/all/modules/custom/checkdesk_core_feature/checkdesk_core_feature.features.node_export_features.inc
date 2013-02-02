@@ -11,7 +11,7 @@ function checkdesk_core_feature_node_export_features_default() {
   $node_export = array(
   'code_string' => 'array(
   (object) array(
-      \'vid\' => \'241\',
+      \'vid\' => \'243\',
       \'uid\' => \'0\',
       \'title\' => \'Install Bookmarklet\',
       \'log\' => \'\',
@@ -23,12 +23,12 @@ function checkdesk_core_feature_node_export_features_default() {
       \'nid\' => \'1\',
       \'type\' => \'page\',
       \'language\' => \'und\',
-      \'created\' => \'1359655619\',
-      \'changed\' => \'1359655619\',
+      \'created\' => \'1359749960\',
+      \'changed\' => \'1359749960\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'1244c020-f663-b564-b94c-2cf29b12afa4\',
-      \'revision_timestamp\' => \'1359655619\',
+      \'revision_timestamp\' => \'1359749960\',
       \'revision_uid\' => \'0\',
       \'body\' => array(
         \'und\' => array(

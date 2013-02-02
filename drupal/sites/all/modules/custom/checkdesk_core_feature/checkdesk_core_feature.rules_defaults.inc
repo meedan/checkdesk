@@ -565,7 +565,7 @@ function checkdesk_core_feature_default_rules_configuration() {
                   "message_id" : { "value" : { "publish_report" : "publish_report" } },
                   "!publisher" : [ "site:current-user:name" ],
                   "!story_url" : [ "node:field_desk:url" ],
-                  "!story" : { "select" : "node:field_desk:title" }
+                  "!story" : [ "node:field_desk:title" ]
                 }
               }
             ]
