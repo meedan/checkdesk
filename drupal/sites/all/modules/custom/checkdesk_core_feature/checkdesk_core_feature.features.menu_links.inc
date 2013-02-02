@@ -16,7 +16,12 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'link_path' => '<front>',
     'router_path' => '',
     'link_title' => 'Home',
-    'options' => array(),
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
     'module' => 'menu',
     'hidden' => '0',
     'external' => '1',
@@ -34,6 +39,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -52,6 +58,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -71,6 +78,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'system',
     'hidden' => '0',
@@ -90,6 +98,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -108,6 +117,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -126,6 +136,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -140,7 +151,11 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'link_path' => 'reports',
     'router_path' => 'reports',
     'link_title' => 'View incoming citizen reports',
-    'options' => array(),
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
     'module' => 'system',
     'hidden' => '0',
     'external' => '0',
@@ -154,11 +169,12 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'menu-common',
     'link_path' => '<nolink>',
     'router_path' => '<nolink>',
-    'link_title' => 'Info',
+    'link_title' => 'Information',
     'options' => array(
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -177,6 +193,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -195,6 +212,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -214,6 +232,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -232,6 +251,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -251,6 +271,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -270,6 +291,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'attributes' => array(
         'title' => '',
       ),
+      'alter' => TRUE,
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -287,7 +309,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Create story');
   t('Edit fact-checking statement');
   t('Home');
-  t('Info');
+  t('Information');
   t('Install bookmarklet');
   t('Logout');
   t('My account');

@@ -88,3 +88,11 @@ function checkdesk_core_update_7008() {
   module_enable(array('varnish'));
 }
 
+/**
+ * Implements hook_update_N().
+ * Enable needed modules.
+ */
+function checkdesk_core_update_7009() {
+  module_enable(array('i18n_field'));
+}
+
