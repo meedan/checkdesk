@@ -999,8 +999,27 @@ AND n.uid = :uid
  * Implementation of hook_heartbeat_theme_alter()
  */
 function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heartbeatStream) {
+  global $base_path, $base_root;
+  // Localize some variables
+  foreach ($messages as $key => $message) {
+    foreach ($message->variables as $variable => $value) {
+      // Translate strings
+      if (in_array($variable, array('!flag_type', '!fact_checking_status', '!status'))) {
+        $messages[$key]->variables[$variable] = t($value);
+      }
+      // Localize URLs
+      else if (in_array($variable, array('!user_url', '!story_url', '!report_url', '!update_url', '!flag_author_url'))) {
+        $path = preg_replace('/^[a-z]{2}\//', '', str_replace($base_root . $base_path, '', $value));
+        $messages[$key]->variables[$variable] = url($path);
+      }
+    }
+    $messages[$key]->message = t($message->template->message, $message->variables);
+  }
+
+  // Additional processing is not necessary for notifications
   $view = views_get_current_view();
-  if (isset($view) && $view->name == 'my_notifications') return;
+  if (isset($view) && $view->name == 'my_notifications') return; 
+
   foreach ($messages as $key => $message) {
     if ($message->nid > 0 && in_array($message->message_id, array('status_report', 'new_comment_report', 'new_report', 'publish_report'))) {
       $node = node_load($message->nid);
