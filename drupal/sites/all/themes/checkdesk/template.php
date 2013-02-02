@@ -78,7 +78,7 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
-    if ($item['link']['link_title'] == t('Info') || $item['link']['link_title'] == 'Info') {
+    if ($item['link']['link_title'] == t('Information') || $item['link']['link_title'] == 'Information') {
       foreach ($item['below'] as $subid => $subitem) {
         $tree[$id]['below'][$subid]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
       }
