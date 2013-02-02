@@ -51,10 +51,12 @@ function meedan_oembed_pre_render_fetch($element) {
  *       The maximum width of the embed, in pixels.
  *   - 'maxheight'
  *       The maximum height of the embed, in pixels.
+ * @param boolean $retry_if_error
+ *   Whether the media should be reparsed if an error happened. Defaults to FALSE.
  * @return
  *   an object representing the embeddable data of the URL.
  */
-function meedan_oembed_data($url, $attributes = array()) {
+function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE) {
   //Oembed sequence
   //1- Hit cache
   //2- Call custom scrape function if exist.
@@ -78,13 +80,12 @@ function meedan_oembed_data($url, $attributes = array()) {
   $element = oembedcore_render_cache('oembed_request', $url, $attributes);
   $cache_key = implode(':', $element['#cache']['keys']);
   $cache = cache_get($cache_key, $element['#cache']['bin']);
-  if ($cache && isset($cache->data)) {
+  if ($cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
     return $embed;
   }
-
   //2- call scrape function first if exist.
   if (function_exists($callback)) {
     $embed = $callback($provider, $url);
@@ -103,16 +104,21 @@ function meedan_oembed_data($url, $attributes = array()) {
     $url_info = parse_url($url);
     $embed = (object)array(
       'url' => $url,
+      'error' => TRUE,
       'original_url' => $url,
+      'provider_name' => '',
       'provider_url' => $url_info['scheme'] . '://' . $url_info['host'],
       'thumbnail_url' => url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE)),
     );
   }
   else {
     meedan_oembed_scrape_generic($embed);
-    //cache embed
-    cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
+    $embed->error = FALSE;
   }
+  // Clear cached markup as well
+  $template = oembedcore_render_cache('oembed', $url);
+  cache_clear_all(implode(':', $template['#cache']['keys']), $template['#cache']['bin'], TRUE);
+  cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
   return $embed;
 }
 
@@ -162,7 +168,7 @@ function meedan_oembed_scrape_facebook($provider, $url) {
       $embed->description = $post_data['description'];
     }
     else {
-      $embed->description = t('No message avilable for this post');
+      $embed->description = t('No message available for this post');
     }
     $embed->title = $embed->description;
     $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
@@ -173,7 +179,7 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
     $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
   } catch (FacebookApiException $e) {
-    watchdog('FacebookApi', t('Unable to fetch data from facebook post - Unsupported get request @url', array('@url' => $url)));
+    watchdog('FacebookApi', t('Unable to fetch data from Facebook: @error', array('@error' => $e->getMessage())));
   }
   return $embed;
 }
@@ -256,6 +262,7 @@ function meedan_oembed_scrape_twitter($provider, $url) {
       $embed->author_img = $html->find('.js-action-profile-avatar', 0)->src;
       $embed->thumbnail_url = $embed->author_img;
       $embed->picture = $embed->author_img;
+      $html->clear(); // Free memory
       return $embed;
     }
   } catch (Exception $e) {
@@ -310,17 +317,23 @@ function meedan_oembed_scrape_almasryalyoum($provider, $url) {
 
       // Generic for all kind of content
       $embed->title = $html->find('h1.custom-article-title', 0)->innertext;
-      if (empty($embed->description)) $embed->description = $html->find('.body-pane p', 0)->innertext;
+      if (empty($embed->description) && is_object($html->find('.body-pane p', 0))) $embed->description = $html->find('.body-pane p', 0)->innertext;
       $embed->link = $url;
       $embed->link_description = $embed->title;
       if (!$embed->author) $embed->author = $html->find('.field-field-reporter a', 0);
-      $embed->author_name = $embed->author->innertext;
-      $embed->author_url = 'http://www.almasryalyoum.com' . $embed->author->href;
-      $profile = file_get_html($embed->author_url);
-      if (is_object($profile)) $embed->author_img = $profile->find('.field-field-staff-photo img', 0)->src;
-      if (empty($embed->thumbnail_url)) $embed->thumbnail_url = $html->find('img', 0)->src;
-      if (empty($embed->picture)) $embed->picture = $embed->thumbnail_url;
+      if (is_object($embed->author)) {
+        $embed->author_name = $embed->author->innertext;
+        $embed->author_url = 'http://www.almasryalyoum.com' . $embed->author->href;
+        $profile = file_get_html($embed->author_url);
+        if (is_object($profile)) {
+          $embed->author_img = $profile->find('.field-field-staff-photo img', 0)->src;
+          $profile->clear(); // Free memory
+        }
+      }
+      if (empty($embed->thumbnail_url) && is_object($html->find('img', 0))) $embed->thumbnail_url = $html->find('img', 0)->src;
+      if (empty($embed->picture) && isset($embed->thumbnail_url)) $embed->picture = $embed->thumbnail_url;
 
+      $html->clear(); // Free memory
       return $embed;
     }
   } catch (Exception $e) {
@@ -509,7 +522,8 @@ function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
 function meedan_oembed_node_presave($node) {
   if ($node->type == 'media') {
     //Set report type
-    $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+    $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), TRUE);
+    $node->status = ((isset($embed->error) && $embed->error) ? 0 : 1);
     if (isset($embed->title)) {
       $node->title = substr($embed->title, 0, 255);
     }
@@ -662,6 +676,7 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     }
     $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
     $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
+    if ($embed->error) $vars['embed_error'] = t('It was not possible to parse this report.');
   }
 }
 

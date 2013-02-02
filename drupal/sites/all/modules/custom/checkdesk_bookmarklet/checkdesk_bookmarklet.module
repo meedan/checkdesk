@@ -112,6 +112,9 @@ function _checkdesk_bookmarklet_media_preview($path) {
   $preview = t('Preview not available.');
   if (!$path) return $preview;
   $oembed = meedan_oembed_data($path);
+  if (isset($oembed) && $oembed->error) {
+    return t('It was not able to parse this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it later.');
+  }
   if (isset($oembed) && isset($oembed->thumbnail_url)) {
     // If it is a tweeet, show the text instead of the image
     if (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter') {
