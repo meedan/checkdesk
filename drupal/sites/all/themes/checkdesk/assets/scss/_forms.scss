@@ -66,15 +66,15 @@
   label, input, button, select, textarea { font-size: $base-font-size; }
   input, button, select, textarea { font-family: $sans-font-family; }
 
-  select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-    display: inline-block;
-    line-height: $base-line-height;
-    height: $base-line-height * $base-font-size;
-    margin-bottom: ms(-2);
-    color: $gray;
-    @include border-radius(4px);
-    vertical-align: middle;
-  }
+  // select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  //   display: inline-block;
+  //   line-height: $base-line-height;
+  //   height: $base-line-height * $base-font-size;
+  //   margin-bottom: ms(-2);
+  //   color: $gray;
+  //   @include border-radius(4px);
+  //   vertical-align: middle;
+  // }
 
   // Everything else
   textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
@@ -92,29 +92,29 @@
     }
   }
 
-  // Position radios and checkboxes better
-  input[type="radio"], input[type="checkbox"] {
-    margin: ms(-2) 0 0;
-    *margin-top: 0; /* IE7 */
-    margin-top: 1px \9; /* IE8-9 */
-    line-height: normal;
-    cursor: pointer;
-    & + label {
-      margin: ms(-2) 0 0;
-    }
-  }
+  // // Position radios and checkboxes better
+  // input[type="radio"], input[type="checkbox"] {
+  //   margin: ms(-2) 0 0;
+  //   *margin-top: 0; /* IE7 */
+  //   margin-top: 1px \9; /* IE8-9 */
+  //   line-height: normal;
+  //   cursor: pointer;
+  //   & + label {
+  //     margin: ms(-2) 0 0;
+  //   }
+  // }
 
-  // Reset width of input images, buttons, radios, checkboxes
-  input[type="file"], input[type="image"], input[type="submit"], input[type="reset"], input[type="button"], input[type="radio"], input[type="checkbox"] {
-    width: auto; // Override of generic input selector
-  }
+  // // Reset width of input images, buttons, radios, checkboxes
+  // input[type="file"], input[type="image"], input[type="submit"], input[type="reset"], input[type="button"], input[type="radio"], input[type="checkbox"] {
+  //   width: auto; // Override of generic input selector
+  // }
 
   // Make select elements obey height by applying a border
   select {
     width: 220px; // default input width + 10px of padding that doesn't get applied
     border: 1px solid $inputBorder;
     background-color: $input-background; // Chrome on Linux and Mobile Safari need background-color
-    font-size: $small-font-size;
+    // font-size: $small-font-size;
   }
 
   // Make multiple select elements height not fixed
@@ -146,6 +146,7 @@
     }
 
     textarea { 
+
       // height: 200px; 
     } // starting height
 
@@ -181,15 +182,15 @@
       }
     }
 
-    // Default descriptions
-    .description {
-      // clear: $from-direction;
-      font-size: ms(-1);
-      display: none; // displayed at larger breakpoints
-      padding: 0.5em 0;
-      color: rgba(black, 0.75);
-      margin: 0;
-    }
+    // // Default descriptions
+    // .description {
+    //   // clear: $from-direction;
+    //   font-size: ms(-1);
+    //   display: none; // displayed at larger breakpoints
+    //   padding: 0.5em 0;
+    //   color: rgba(black, 0.75);
+    //   margin: 0;
+    // }
 
     // little links: create new account, forgot password 
     // wow BAD selector here haha - CGB
@@ -204,25 +205,25 @@
       }
     }
 
-    // Checkbox labels for checkboxes and radios, aka ".options"
-    label.option {
-      @include reset-box-model; // reset default label styles
-      display: inline-block;
-      font-size: $smaller-font-size;
-      cursor: pointer;
-      float: $from-direction;
-      clear: none;
-    }
+    // // Checkbox labels for checkboxes and radios, aka ".options"
+    // label.option {
+    //   @include reset-box-model; // reset default label styles
+    //   display: inline-block;
+    //   font-size: $smaller-font-size;
+    //   cursor: pointer;
+    //   float: $from-direction;
+    //   clear: none;
+    // }
 
     @include form-actions;
     @include form-drag-and-drop;
 
-    & > .form-item {
-      clear: both;
-      font-size: $small-font-size;
-      color: $dark-grey;
-      background: rgba($light-grey, 0.5);
-    }
+    // & > .form-item {
+    //   clear: both;
+    //   font-size: $small-font-size;
+    //   color: $dark-grey;
+    //   background: rgba($light-grey, 0.5);
+    // }
   }
 }
 
@@ -272,8 +273,8 @@
 // ======================================================================
 // Forms Breakpoints
 
-// @include form-standardize;
-// @include cd-form-styles-except-layout;
+@include form-standardize;
+@include cd-form-styles-except-layout;
 @include cd-form-layout($cw, $cw, $gw); // Default render of the form layout
 
 // Breakpoint: small

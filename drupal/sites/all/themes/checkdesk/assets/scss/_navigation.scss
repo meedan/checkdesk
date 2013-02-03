@@ -223,7 +223,7 @@ div.region-page-top {
     @include box-shadow(0 0 0 0); // disable box shadow
     padding: 0;
     margin: 0;
-    overflow: auto;
+    overflow: hidden; // removes scroll?
     position: static; // override drupal fixed positioning
     background: $nav-container-bkg-color;
     li {
