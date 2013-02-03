@@ -5616,7 +5616,7 @@ div.tabs ul.primary li a:hover {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_notifications\.scss}line{font-family:\0000316}}
 #my-notifications {
-  left: -175px;
+  left: -200px;
   width: 360px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13.5px;
@@ -7318,11 +7318,6 @@ nav[role="navigation"] #user-menu span.avatar img {
   height: 15px;
   margin-left: 7px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003153}}
-nav[role="navigation"] #navigation-region li a.dropdown-toggle,
-nav[role="navigation"] #user-menu li a.dropdown-toggle {
-  margin-right: 10px;
-}
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003159}}
 nav[role="navigation"] #navigation-region li.open a.dropdown-toggle,
 nav[role="navigation"] #user-menu li.open a.dropdown-toggle {
@@ -7336,123 +7331,6 @@ nav[role="navigation"] #user-menu .ajax-progress-throbber {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003174}}
 nav[role="navigation"] #user-menu li.last .dropdown-menu {
   left: -75px;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003195}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  line-height: 1.5;
-  float: left;
-  display: inline-block;
-  clear: none;
-  position: relative;
-  z-index: 1;
-  background: #262626;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003197}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  display: inline-block;
-  float: left;
-  position: relative;
-  z-index: 999;
-  border-left: 1px solid rgba(255, 255, 255, 0.29);
-  -webkit-transition-property: color;
-  -moz-transition-property: color;
-  -o-transition-property: color;
-  transition-property: color;
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  color: #999999;
-  -webkit-transition-property: background-color;
-  -moz-transition-property: background-color;
-  -o-transition-property: background-color;
-  transition-property: background-color;
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  background-color: #262626;
-  font-size: 15px;
-  font-weight: 100;
-  padding: 2px;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000347}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 > a {
-  padding: 0 7px;
-  letter-spacing: 1px;
-  text-decoration: none;
-  line-height: 25px;
-  color: #999999;
-  display: inline-block;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000355}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 > a:hover {
-  color: white;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000361}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:first-child {
-  border-left: 0 none;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:hover {
-  color: white;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_transition\.scss}line{font-family:\0000310}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:hover {
-  background-color: #151515;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000370}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2:hover {
-  background-color: transparent;
-  color: white;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000375}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2.active {
-  background-color: #151515;
-  color: white;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000382}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2.active > a, nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 > a.active {
-  color: white;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
-  border-radius: 4px 4px 0 0;
-  font-weight: 500;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\0000388}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 span.avatar img {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  width: 18px;
-  height: 18px;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003202}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-label {
-  cursor: pointer;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003205}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-count {
-  display: inline-block;
-  color: #2f58b6;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003208}}
-nav[role="navigation"] #navigation-region #block-views-my-notifications-block h2 .notifications-count span {
-  padding: 1px 5px;
-  background: #296182;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_navigation\.scss}line{font-family:\00003223}}

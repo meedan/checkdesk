@@ -151,7 +151,7 @@ nav[role="navigation"] {
 
     li {
       a.dropdown-toggle {
-        margin-#{opposite-position($from-direction)}: $gw;
+        // margin-#{opposite-position($from-direction)}: $gw;
       }
     }
 
@@ -191,29 +191,29 @@ nav[role="navigation"] {
 
   // Notifications 
   // FIXME has a different structure than the other <ul>'s...
-  #navigation-region {
-    #block-views-my-notifications-block {
-      @include nav-item-container;
-      h2 {
-        @include nav-item;
-        font-size: $nav-font-size; // these should not be necessary once this is an <a>
-        font-weight: 100;
-        padding: 2px;
-        .notifications-label {
-          cursor: pointer;
-        }
-        .notifications-count {
-          display: inline-block;
-          color: $notification-count-color;
-          span {
-            padding: 1px 5px;
-            background: #296182;
-            @include border-radius(5px);
-          }
-        }
-      }
-    }
-  }
+  // #navigation-region {
+  //   #block-views-my-notifications-block {
+  //     @include nav-item-container;
+  //     h2 {
+  //       @include nav-item;
+  //       font-size: $nav-font-size; // these should not be necessary once this is an <a>
+  //       font-weight: 100;
+  //       padding: 2px;
+  //       .notifications-label {
+  //         cursor: pointer;
+  //       }
+  //       .notifications-count {
+  //         display: inline-block;
+  //         color: $notification-count-color;
+  //         span {
+  //           padding: 1px 5px;
+  //           background: #296182;
+  //           @include border-radius(5px);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 // =======================================================================
