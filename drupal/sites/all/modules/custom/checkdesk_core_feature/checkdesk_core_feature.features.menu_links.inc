@@ -28,6 +28,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-50',
+    'language' => 'und',
   );
   // Exported menu link: main-menu:<sub>
   $menu_links['main-menu:<sub>'] = array(
@@ -47,6 +48,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '1',
     'expanded' => '1',
     'weight' => '-45',
+    'language' => 'und',
   );
   // Exported menu link: main-menu:admin/config/system/checkdesk
   $menu_links['main-menu:admin/config/system/checkdesk'] = array(
@@ -66,6 +68,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
+    'language' => 'und',
     'parent_path' => '<sub>',
   );
   // Exported menu link: main-menu:administer-users
@@ -86,6 +89,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
+    'language' => 'und',
     'parent_path' => '<sub>',
   );
   // Exported menu link: main-menu:node/add/discussion
@@ -106,6 +110,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-47',
+    'language' => 'und',
   );
   // Exported menu link: main-menu:node/add/media
   $menu_links['main-menu:node/add/media'] = array(
@@ -125,6 +130,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
+    'language' => 'und',
   );
   // Exported menu link: main-menu:node/add/post
   $menu_links['main-menu:node/add/post'] = array(
@@ -144,6 +150,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
+    'language' => 'und',
   );
   // Exported menu link: main-menu:reports
   $menu_links['main-menu:reports'] = array(
@@ -158,6 +165,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '50',
+    'language' => 'und',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-common:<nolink>
@@ -178,6 +186,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '1',
     'expanded' => '1',
     'weight' => '-50',
+    'language' => 'und',
   );
   // Exported menu link: menu-common:<sub>
   $menu_links['menu-common:<sub>'] = array(
@@ -197,6 +206,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '1',
     'expanded' => '1',
     'weight' => '-48',
+    'language' => 'und',
   );
   // Exported menu link: menu-common:modal/ajax/content/about
   $menu_links['menu-common:modal/ajax/content/about'] = array(
@@ -216,6 +226,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
+    'language' => 'en',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/fact-checking-statement
@@ -236,6 +247,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-47',
+    'language' => 'en',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
@@ -256,6 +268,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
+    'language' => 'en',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/terms-use
@@ -276,6 +289,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-46',
+    'language' => 'en',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
@@ -296,6 +310,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
+    'language' => 'ar',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:my-notifications
@@ -316,6 +331,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
+    'language' => 'und',
   );
   // Exported menu link: menu-common:user
   $menu_links['menu-common:user'] = array(
@@ -335,6 +351,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-50',
+    'language' => 'und',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-common:user/login
@@ -355,6 +372,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
+    'language' => 'und',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-common:user/logout
@@ -375,6 +393,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
+    'language' => 'und',
     'parent_path' => '<sub>',
   );
   // Translatables

@@ -62,7 +62,7 @@ class i18n_menu_link extends i18n_string_object_wrapper {
     if ($this->get_langcode()) {
       return $mode & I18N_MODE_TRANSLATE;
     }
-    elseif (!empty($this->object['customized'])) {
+    elseif (true/*!empty($this->object['customized'])*/) {
       return $mode & I18N_MODE_LOCALIZE;
     }
     else {
