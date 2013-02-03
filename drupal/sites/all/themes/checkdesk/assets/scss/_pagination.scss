@@ -51,6 +51,7 @@ ul.pager {
   @include ctb-border-radius(15px);
 }
 .pager li > a:hover {
+  color: $gray;
   text-decoration: none;
   background-color: #f5f5f5;
 }

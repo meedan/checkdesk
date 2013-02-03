@@ -16,6 +16,9 @@ function checkdesk_theme() {
     'checkdesk_user_menu_item' => array(
       'variables' => array('attributes' => array(), 'type' => NULL),
     ),
+    // 'checkdesk_notification_menu_item' => array(
+    //   'variables' => array('attributes' => array(), 'type' => NULL),
+    // ),
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),
@@ -78,7 +81,7 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
-    if ($item['link']['link_title'] == t('Information') || $item['link']['link_title'] == 'Information') {
+    if ($item['link']['link_title'] == t('Info') || $item['link']['link_title'] == 'Info') {
       foreach ($item['below'] as $subid => $subitem) {
         $tree[$id]['below'][$subid]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
       }
@@ -92,7 +95,7 @@ function checkdesk_preprocess_page(&$variables) {
   // Change links
   foreach ($variables['secondary_menu'] as $id => $item) {
 
-    if ($item['title'] == t('User') || $item['title'] == 'User') { // FIXME Is this condition reliable?
+    if ($item['title'] == t('User')) {
       if (user_is_logged_in()) $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
       foreach ($item['below'] as $subid => $subitem) {
         if ($subitem['link_path'] == 'user/login') {
@@ -109,7 +112,7 @@ function checkdesk_preprocess_page(&$variables) {
         if ($count > 0) $counter = '<span>' . $count . '</span>';
         $variables['secondary_menu'][$id]['attributes'] = array('id' => 'my-notifications-menu-link');
         $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = '<span class="notifications-count">' . $counter . '</span> <span class="notifications-label">' . format_plural($count, t('Notification'), t('Notifications')) . '</span>';
+        $variables['secondary_menu'][$id]['html'] = '<span class="notifications-count">' . $counter . '</span> <span class="notifications-label">' . format_plural($count, t('Notification'), t('Notifications')) . '</span>';
       }
       else {
         unset($variables['secondary_menu'][$id]);

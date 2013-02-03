@@ -85,8 +85,18 @@ function checkdesk_checkdesk_links($variables) {
           $link['title'] .= '<b class="caret"></b>';
           $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
         } else {
+          // add home icon for homepage menu item link
           if($link['href'] == '<front>') {
             $output .= '<a href="' . url('<front>') . '"><span class="icon-home"></span></a>';
+          } 
+          // add notifications panel as drop down
+          elseif($link['href'] == 'my-notifications') {
+            $output .= '<a href="' . url('<front>') . 'my-notifications" class="dropdown-toggle" data-toggle="dropdown">Notifications</a>';
+            $output .= '<div id="my-notifications" class="dropdown-menu">';
+            $view = views_get_view('my_notifications');
+            $output .= $view->preview('block');
+            $view->destroy();
+            $output .= '</div>';
           } else {
             $output .= l($link['title'], $link['href'], $link);  
           }

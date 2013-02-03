@@ -1,34 +1,21 @@
 @charset "UTF-8";
 
+// setting omega
+$omega: opposite-position($from-direction);
+
 // 1. Drupal Navigation at the very top.
 // 2. Checkdesk #main-menu navigation
 
 // Nav icons
 // This will have to be refined with improved markup. href-based selector is fragile. - CGB
 @mixin nav-icons($size: $xsmall-font-size) {
-  // home
-  li.menu-477 .icon-home { @include icon("home", $size) { @include reset-box-model; } }
-  // add a story 
-  li a[href*="discussion"] { @include icon("file", $size); }
-  
-  li.menu-567 > a { 
-    before: { content: "■■■"; }
-  }
-
   // add a post
-  li a[href*="post"] { @include icon("pencil", $size); }
+  li.menu-318 a { @include icon("pencil", $size); }
   // add a report
-  li.menu-472 a { @include icon("bookmark", $size); }
-  // info menu
-  li a[href*="sub"] { @include icon("info-sign", $size); }
+  li.menu-321 a { @include icon("bookmark", $size); }
+  // add a story 
+  li.menu-322 a { @include icon("file", $size); }
 }
-
-// Home link
-// Special shine
-// ... not in the spec
-// li.menu-477 {
-  // @include gradient(rgba(white, 0.1), rgba(white, 0.2));
-// }
 
 // Nav item container
 //
@@ -58,7 +45,7 @@
   z-index: $zindexDropdown - 1; 
   border-#{$from-direction}: 1px solid rgba(white, 0.29);
   & > a {
-    font-weight: 100;
+    // font-weight: 100;
     padding: 0 $nav-gutter;
     letter-spacing: 1px;
     text-decoration: none;
@@ -68,6 +55,11 @@
     &:hover {
       color: $navbarLinkColorActive;
     }
+  }
+
+  // remove border for first items
+  &:first-child {
+    border-#{$from-direction}: 0 none;
   }
 
   // Transitions
@@ -100,7 +92,7 @@
     // border: 1px solid red;
   }
 
-  @content
+  @content;
 }
 
 
@@ -143,49 +135,59 @@ nav[role="navigation"] {
     }
   }
 
-  #user-menu {
-    margin-#{$omega}: $nav-gutter;
-    a {
-      font-weight: 100; // should not be necessary
-    }
+  // padding for the home icon
+  #main-menu {
+    padding-#{$alpha}: $gw;
   }
 
   #navigation-region,
-  #info-menu,
   #user-menu {
     float: $omega; // at a larger breakpoint these fall in line
-    // clear: $alpha;
-    img {
+    span.avatar img {
       width: $nav-icon-height;
       height: $nav-icon-height;
       margin-#{$alpha}: $nav-gutter;
     }
 
-    // Position the dropdown menu
-    .dropdown-menu {
-      // #{opposite-position($from-direction)}: 0;
-      // #{$from-direction}: auto;
-    }
-  }
-
-  // The installation page link
-  // ==============================================================
-  #info-menu {
     li {
       a.dropdown-toggle {
-        margin-#{opposite-position($from-direction)}: 10px;
+        margin-#{opposite-position($from-direction)}: $gw;
       }
     }
+
     li.open {
       a.dropdown-toggle {
         text-shadow: none;
       }
     }
+    
     // hide ajax throbber in dropdown
     .ajax-progress-throbber {
       display: none;
     }
   }
+
+  // Position dropdown menu
+  @if $from-direction == left {
+    // avoid cropping on the last item
+    #user-menu {
+      li.last .dropdown-menu {
+        #{$from-direction}: -75px;
+      }  
+    }
+  }
+  @if $from-direction == right {
+    li.last .dropdown-menu {
+      #{$omega}: 10px;
+    }
+    // more link's dropdown
+    li.menu-323 .dropdown-menu {
+      #{$omega}: -190px; 
+    }
+  }
+
+  // Notification
+  // ==============================================================
 
   // Notifications 
   // FIXME has a different structure than the other <ul>'s...
