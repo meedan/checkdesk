@@ -4,7 +4,6 @@ version = 7.x-1.0
 core = 7.x
 
 ; Core modules
-dependencies[] = locale
 dependencies[] = block
 dependencies[] = color
 dependencies[] = comment
@@ -26,6 +25,8 @@ dependencies[] = overlay
 dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = rdf
+dependencies[] = locale
+dependencies[] = translation
 
 ; Feature handling
 dependencies[] = features
