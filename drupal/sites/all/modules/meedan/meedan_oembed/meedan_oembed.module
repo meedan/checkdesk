@@ -580,16 +580,14 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
   // Get facebook User ID
   $fb_user = $facebook->getUser();
   if (!$fb_user) {
-    $loginUrl = t('You should click <strong> !url </strong>if you want to add facebook media', array('!url' => l('here', $facebook->getLoginUrl(), array('attributes' => array('target' => '_blank', 'onclick' => 'window.open(this.href, "checkdesk", "height=400, width=500, modal=yes, scrollbars=yes, left=" + ((screen.width/2)-250) + ", top=" + ((screen.height/2)-200)); return false;')))));
-    $form['facebook_login'] = array(
-      '#markup' => $loginUrl,
-      //'#markup' => '<fb:login-button></fb:login-button><div id="fb-root"></div>',
-      '#weight' => -99,
-    );
+    $loginUrl = t('If you want to submit a Facebook link, you need to <strong>!url</strong>.', array('!url' => l('login to Facebook first', $facebook->getLoginUrl(), array('attributes' => array('target' => '_blank', 'onclick' => 'window.open(this.href, "checkdesk", "height=400, width=500, modal=yes, scrollbars=yes, left=" + ((screen.width/2)-250) + ", top=" + ((screen.height/2)-200)); return false;')))));
+    $form['field_link']['und'][0]['#description'] = $loginUrl;
     $form['fb_loginurl'] = array(
       '#type' => 'hidden', 
       '#value' => $loginUrl,
     );
+  } else {
+    $form['field_link']['und'][0]['#description'] = t('You are logged in to Facebook. You can submit a Facebook link above.');
   }
   $form['fb_userid'] = array(
     '#type' => 'hidden', 
