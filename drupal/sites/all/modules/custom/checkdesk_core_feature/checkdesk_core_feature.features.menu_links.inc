@@ -278,6 +278,26 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'weight' => '-46',
     'parent_path' => '<nolink>',
   );
+  // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
+  $menu_links['menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'modal/ajax/content/تنصيب-إضافة-المتصفح',
+    'router_path' => 'modal/%',
+    'link_title' => 'تنصيب إضافة المتصفح',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-49',
+    'parent_path' => '<nolink>',
+  );
   // Exported menu link: menu-common:my-notifications
   $menu_links['menu-common:my-notifications'] = array(
     'menu_name' => 'menu-common',
@@ -377,6 +397,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Terms of Use');
   t('User');
   t('View incoming citizen reports');
+  t('تنصيب إضافة المتصفح');
 
 
   return $menu_links;
