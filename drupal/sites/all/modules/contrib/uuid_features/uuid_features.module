@@ -14,13 +14,15 @@ function uuid_features_features_api() {
     'file' => drupal_get_path('module', 'uuid_features') . '/includes/uuid_node.features.inc',
   );
 
-  $components['uuid_term'] = array(
-    'name' => t('Taxonomy Term'),
-    'feature_source' => TRUE,
-    'default_hook' => 'uuid_features_default_terms',
-    'default_file' => FEATURES_DEFAULTS_INCLUDED,
-    'file' => drupal_get_path('module', 'uuid_features') . '/includes/uuid_term.features.inc',
-  );
+  if (module_exists('taxonomy')) {
+    $components['uuid_term'] = array(
+      'name' => t('Taxonomy Term'),
+      'feature_source' => TRUE,
+      'default_hook' => 'uuid_features_default_terms',
+      'default_file' => FEATURES_DEFAULTS_INCLUDED,
+      'file' => drupal_get_path('module', 'uuid_features') . '/includes/uuid_term.features.inc',
+    );
+  }
 
   // Depends on http://drupal.org/node/808690
   if (function_exists('uuid_file_insert')) {
@@ -51,5 +53,19 @@ function uuid_features_load_module_includes() {
       }
     }
     $loaded = TRUE;
+  }
+}
+
+/**
+ * Implements hook_features_pipe_COMPONENT_alter().
+ *
+ * When exporting a vocabulary, include its terms.
+ */
+function uuid_features_features_pipe_taxonomy_alter($pipe, $data, $export) {
+  if ($vocab = taxonomy_vocabulary_machine_name_load($data)) {
+    foreach (taxonomy_get_tree($vocab->vid) as $term) {
+      uuid_term_features_get_dependencies($export, $term->uuid);
+    }
+    $pipe['uuid_term'] = $export['features']['uuid_term'];
   }
 }

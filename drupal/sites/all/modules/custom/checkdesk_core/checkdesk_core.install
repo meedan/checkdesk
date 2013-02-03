@@ -96,3 +96,11 @@ function checkdesk_core_update_7009() {
   module_enable(array('i18n_field'));
 }
 
+/**
+ * Implements hook_update_N().
+ * Enable needed modules.
+ */
+function checkdesk_core_update_7010() {
+  module_enable(array('translation'));
+}
+
