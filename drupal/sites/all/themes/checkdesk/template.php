@@ -44,7 +44,7 @@ function checkdesk_preprocess_html(&$variables) {
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
-  global $user;
+  global $user, $language;
 
   // Primary nav
   $variables['primary_nav'] = FALSE;
@@ -78,6 +78,14 @@ function checkdesk_preprocess_page(&$variables) {
   $variables['secondary_nav'] = FALSE;
   $menu = menu_load('menu-common');
   $tree = menu_tree_page_data($menu['menu_name']);
+
+  // Remove items that are not from this language
+  foreach ($tree as $id => $item) {
+    if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
+    foreach ($item['below'] as $subid => $subitem) {
+      if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+    }
+  }
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
