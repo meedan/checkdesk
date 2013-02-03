@@ -20,21 +20,23 @@ function uuid_services_example_default_services_endpoint() {
     'services' => 'services',
   );
   $endpoint->server_settings = array(
-    'formatters' => array(
-      'json' => TRUE,
-      'bencode' => FALSE,
-      'jsonp' => FALSE,
-      'php' => FALSE,
-      'rss' => FALSE,
-      'xml' => FALSE,
-      'yaml' => FALSE,
-    ),
-    'parsers' => array(
-      'application/json' => TRUE,
-      'application/x-www-form-urlencoded' => TRUE,
-      'multipart/form-data' => TRUE,
-      'application/vnd.php.serialized' => FALSE,
-      'application/x-yaml' => FALSE,
+    'rest_server' => array(
+      'formatters' => array(
+        'json' => TRUE,
+        'bencode' => FALSE,
+        'jsonp' => FALSE,
+        'php' => FALSE,
+        'rss' => FALSE,
+        'xml' => FALSE,
+        'yaml' => FALSE,
+      ),
+      'parsers' => array(
+        'application/json' => TRUE,
+        'application/x-www-form-urlencoded' => TRUE,
+        'multipart/form-data' => TRUE,
+        'application/vnd.php.serialized' => FALSE,
+        'application/x-yaml' => FALSE,
+      ),
     ),
   );
   $endpoint->resources = array(

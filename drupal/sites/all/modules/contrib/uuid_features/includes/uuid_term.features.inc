@@ -88,6 +88,16 @@ function uuid_term_features_export_render($module = 'foo', $data) {
     if (!count($terms)) {
       continue;
     }
+
+    // Export the parent uuids.
+    foreach ($terms as $term) {
+      if($parents = taxonomy_get_parents($term->tid)) {
+        foreach ($parents as $parent) {
+          $term->parent[] = $parent->uuid;
+        }
+      }
+    }
+
     $export = reset($terms);
 
     // Do not export ids.

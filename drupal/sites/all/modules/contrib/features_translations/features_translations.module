@@ -20,9 +20,8 @@ function features_translations_features_api() {
 function translations_features_export_options() {
   $options = array();
   $textgroups = module_invoke_all('locale', 'groups');
-  $default = language_default();
   foreach (language_list() as $langcode => $language) {
-    if ($langcode == $default->language) continue;
+    if ($langcode == 'en') continue;
     foreach ($textgroups as $textgroup => $label) {
       $options[$langcode . ':' . $textgroup] = $language->name . ': ' . $label;
     }
