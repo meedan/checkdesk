@@ -151,11 +151,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'link_path' => 'reports',
     'router_path' => 'reports',
     'link_title' => 'View incoming citizen reports',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
+    'options' => array(),
     'module' => 'system',
     'hidden' => '0',
     'external' => '0',
@@ -181,7 +177,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '1',
     'expanded' => '1',
-    'weight' => '-46',
+    'weight' => '-50',
   );
   // Exported menu link: menu-common:<sub>
   $menu_links['menu-common:<sub>'] = array(
@@ -200,7 +196,47 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '1',
     'expanded' => '1',
-    'weight' => '-49',
+    'weight' => '-48',
+  );
+  // Exported menu link: menu-common:modal/ajax/content/about
+  $menu_links['menu-common:modal/ajax/content/about'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'modal/ajax/content/about',
+    'router_path' => 'modal/%',
+    'link_title' => 'About',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'About this site',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-48',
+    'parent_path' => '<nolink>',
+  );
+  // Exported menu link: menu-common:modal/ajax/content/fact-checking-statement
+  $menu_links['menu-common:modal/ajax/content/fact-checking-statement'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'modal/ajax/content/fact-checking-statement',
+    'router_path' => 'modal/%',
+    'link_title' => 'Fact-checking statement',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'Fact-checking statement',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-47',
+    'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
   $menu_links['menu-common:modal/ajax/content/install-bookmarklet'] = array(
@@ -219,7 +255,27 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '0',
+    'weight' => '-49',
+    'parent_path' => '<nolink>',
+  );
+  // Exported menu link: menu-common:modal/ajax/content/terms-use
+  $menu_links['menu-common:modal/ajax/content/terms-use'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'modal/ajax/content/terms-use',
+    'router_path' => 'modal/%',
+    'link_title' => 'Terms of Use',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'Terms of Use',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-46',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:my-notifications
@@ -239,7 +295,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-47',
+    'weight' => '-49',
   );
   // Exported menu link: menu-common:user
   $menu_links['menu-common:user'] = array(
@@ -304,10 +360,12 @@ function checkdesk_core_feature_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('...');
+  t('About');
   t('Administer users');
   t('Compose update');
   t('Create story');
   t('Edit fact-checking statement');
+  t('Fact-checking statement');
   t('Home');
   t('Information');
   t('Install bookmarklet');
@@ -316,6 +374,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Notifications');
   t('Sign in');
   t('Submit report');
+  t('Terms of Use');
   t('User');
   t('View incoming citizen reports');
 
