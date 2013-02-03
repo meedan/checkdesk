@@ -69,7 +69,13 @@
           $(this).siblings('.views-widget, .views-operator').slideToggle();
         });
       });
-
+      // Avoid videos over content
+      $('.oembed-video iframe').attr('src', function(index, value) {
+        var wmode_set = /wmode=transparent/g;
+        if (wmode_set.test(value)) return value;
+        else return value + '&wmode=transparent';
+      });
+      $('.oembed-video embed').attr('wmode', 'transparent');
       // close modal
       $('#close').click(function() {
         Drupal.CTools.Modal.dismiss();
