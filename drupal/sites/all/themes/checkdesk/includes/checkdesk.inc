@@ -56,41 +56,41 @@ function checkdesk_checkdesk_user_menu_item($variables) {
   return $output;
 } 
 
-/**
- * Override theme_button to add custom classes
- */
-function checkdesk_button(&$vars) {
-  $element = $vars['element'];
-  // Set attributes
-  element_set_attributes($element, array('id', 'name', 'value'));
-  // Add default class
-  $element['#attributes']['class'][] = 'form-' . $element['#button_type'];
+// /**
+//  * Override theme_button to add custom classes
+//  */
+// function checkdesk_button(&$vars) {
+//   $element = $vars['element'];
+//   // Set attributes
+//   element_set_attributes($element, array('id', 'name', 'value'));
+//   // Add default class
+//   $element['#attributes']['class'][] = 'form-' . $element['#button_type'];
   
-  // Add custom classes
+//   // Add custom classes
   
-  // Default Submit button
-  if($element['#id'] == 'edit-submit') {
-    $element['#attributes']['class'] = array('btn', 'btn-primary');
-  }
-  // Preview button
-  if(($element['#id'] == 'edit-preview-changes') || ($element['#id'] == 'edit-draft'))  {
-    $element['#attributes']['class'] = array('btn', 'btn-warning');
-  }
-  // Delete button
-  if($element['#id'] == 'edit-delete') {
-    $element['#attributes']['class'] = array('btn', 'btn-danger', 'pull-right');
-  }
+//   // Default Submit button
+//   if($element['#id'] == 'edit-submit') {
+//     $element['#attributes']['class'] = array('btn', 'btn-primary');
+//   }
+//   // Preview button
+//   if(($element['#id'] == 'edit-preview-changes') || ($element['#id'] == 'edit-draft'))  {
+//     $element['#attributes']['class'] = array('btn', 'btn-warning');
+//   }
+//   // Delete button
+//   if($element['#id'] == 'edit-delete') {
+//     $element['#attributes']['class'] = array('btn', 'btn-danger', 'pull-right');
+//   }
   
-  // disabled state
-  if (!empty($element['#attributes']['disabled'])) {
-    $element['#attributes']['class'][] = 'form-button-disabled';
-  }
+//   // disabled state
+//   if (!empty($element['#attributes']['disabled'])) {
+//     $element['#attributes']['class'][] = 'form-button-disabled';
+//   }
   
-  // dpm($element);
+//   // dpm($element);
   
-  // Wrap the final button with a few extra elements
-  return '<input type="submit" '. (empty($element['#name']) ? '' : 'name="'. $element['#name'] .'" ')  .'id="'. $element['#id'].'" value="'. $element['#value'] .'" '. drupal_attributes($element['#attributes']) ." />";
-}
+//   // Wrap the final button with a few extra elements
+//   return '<input type="submit" '. (empty($element['#name']) ? '' : 'name="'. $element['#name'] .'" ')  .'id="'. $element['#id'].'" value="'. $element['#value'] .'" '. drupal_attributes($element['#attributes']) ." />";
+// }
 
 
 function checkdesk_theme_get_info($setting_name, $theme = NULL) {

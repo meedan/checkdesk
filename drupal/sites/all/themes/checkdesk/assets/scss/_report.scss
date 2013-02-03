@@ -406,6 +406,10 @@ $bh: $baseLineHeight/4;
 			}
 			form { 
 				width: 100%;
+				textarea {
+					float: none;
+					@include ctb-clearfix;
+				}
 			}
 		}
 
