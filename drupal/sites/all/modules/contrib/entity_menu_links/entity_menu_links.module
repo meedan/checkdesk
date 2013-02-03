@@ -1,0 +1,164 @@
+<?php
+/**
+ * @file
+ *  Entity menu link module
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function entity_menu_links_entity_info() {
+  $info['menu_link'] = array(
+    'label' => t('Menu link'),
+    'controller class' => 'EntityMenuLinkController',
+    'base table' => 'menu_links',
+    'revision table' => 'menu_links_revision',
+    'uri callback' => 'entity_menu_links_uri',
+    'label callback' => 'entity_menu_links_label',
+    'fieldable' => FALSE,
+    'entity keys' => array(
+      'id' => 'mlid',
+      'revision' => 'vid',
+      'bundle' => 'menu_name',
+      'label' => 'title',
+      'uuid' => 'uuid',
+      'revision uuid' => 'vuuid',
+    ),
+    'bundles' => array(),
+    'view modes' => array(
+    ),
+    'load hook' => NULL,
+    'uuid' => TRUE,
+  );
+  $schema = drupal_get_schema('menu_links');
+  if (isset($schema['fields']['language'])) {
+    $info['menu_link']['entity keys']['language'] = 'language';
+  }
+
+  foreach (menu_get_menus() as $type => $name) {
+    $info['menu_link']['bundles'][$type] = array(
+      'label' => t('@menu-name menu', array('@menu-name' => $name)),
+      'admin' => array(
+        'path' => 'admin/structure/menu/manage/%menu/edit',
+        'bundle argument' => 4,
+        'real path' => 'admin/structure/menu/manage/' . $type . '/edit',
+        'access arguments' => array('administer menus'),
+      ),
+    );
+  }
+
+  return $info;
+}
+
+/**
+ * Entity uri callback.
+ */
+function entity_menu_links_uri($menu_link) {
+  return array(
+    'path' => $menu_link->link_path,
+  );
+}
+
+/**
+ * Entity label callback.
+ */
+function entity_menu_links_label($menu_link) {
+  return $menu_link['title'];
+}
+
+/**
+ * Implements hook_menu_link_alter().
+ */
+function entity_menu_links_menu_link_alter(&$menu_link) {
+  if ($menu_link['module'] == 'menu') {
+    $entity = (object) $menu_link;
+    module_invoke_all('entity_presave', $entity, 'menu_link');
+  }
+}
+
+/**
+ * Implements hook_menu_link_insert().
+ */
+function entity_menu_links_menu_link_insert($menu_link) {
+  if ($menu_link['module'] == 'menu') {
+    $menu_link['uuid'] = uuid_generate();
+    $menu_link['vid'] = entity_menu_links_insert_revision($menu_link);
+
+    db_update('menu_links')
+      ->fields(array('uuid' => $menu_link['uuid'], 'vid' => $menu_link['vid']))
+      ->condition('mlid', $menu_link['mlid'])
+      ->execute();
+
+    $entity = (object) $menu_link;
+    module_invoke_all('entity_insert', $entity, 'menu_link');
+  }
+}
+
+/**
+ * Implements hook_menu_link_update().
+ */
+function entity_menu_links_menu_link_update($menu_link) {
+  if ($menu_link['module'] == 'menu') {
+    $original = isset($menu_link['original_item']) ? $menu_link['original_item'] : (array) entity_load_unchanged('menu_link', $menu_link['mlid']);
+    $menu_link['uuid'] = empty($original['uuid']) ? uuid_generate() : $original['uuid'];
+    $menu_link['vid'] = entity_menu_links_insert_revision($menu_link);
+
+    db_update('menu_links')
+      ->fields(array('uuid' => $menu_link['uuid'], 'vid' => $menu_link['vid']))
+      ->condition('mlid', $menu_link['mlid'])
+      ->execute();
+
+    $entity = (object) $menu_link;
+    module_invoke_all('entity_update', $entity, 'menu_link');
+  }
+}
+
+/**
+ * Implements hook_menu_link_delete().
+ */
+function entity_menu_links_menu_link_delete($menu_link) {
+  if ($menu_link['module'] == 'menu') {
+    db_delete('menu_links_revision')
+      ->condition('mlid', $menu_link['mlid'])
+      ->execute();
+    $entity = (object) $menu_link;
+    module_invoke_all('entity_delete', $entity, 'menu_link');
+  }
+}
+
+/**
+ * Inserts a new revision for the given menu_link.
+ */
+function entity_menu_links_insert_revision($menu_link) {
+  $revision = entity_menu_links_create_revision($menu_link);
+  $revision['vuuid'] = uuid_generate();
+
+  $vid = db_insert('menu_links_revision')
+    ->fields($revision)
+    ->execute();
+
+  return $vid;
+}
+
+/**
+ * Creates a new revision row, ready for insertion into the database.
+ */
+function entity_menu_links_create_revision($menu_link) {
+  $fields = (array) $menu_link;
+
+  $revisions = drupal_get_schema('menu_links_revision');
+  $rev_fields = $revisions['fields'];
+
+  foreach ($fields as $name => $value) {
+    if (!isset($rev_fields[$name])) {
+      unset($fields[$name]);
+    }
+    elseif (!is_scalar($fields[$name])) {
+      $fields[$name] = serialize($value);
+    }
+  }
+
+  unset($fields['vid']);
+  $fields['timestamp'] = time();
+  return $fields;
+}

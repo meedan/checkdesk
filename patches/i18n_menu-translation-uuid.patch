@@ -1,0 +1,33 @@
+diff --git a/drupal/sites/all/modules/contrib/i18n/i18n_menu/i18n_menu.module b/drupal/sites/all/modules/contrib/i18n/i18n_menu/i18n_menu.module
+index df670e5..7c46944 100644
+--- a/drupal/sites/all/modules/contrib/i18n/i18n_menu/i18n_menu.module
++++ b/drupal/sites/all/modules/contrib/i18n/i18n_menu/i18n_menu.module
+@@ -468,7 +468,8 @@ function i18n_menu_navigation_links($menu_name, $level = 0) {
+  * Get localized menu title
+  */
+ function _i18n_menu_link_title($link, $langcode = NULL) {
+-  return i18n_string_translate(array('menu', 'item', $link['mlid'], 'title'), $link['link_title'], array('langcode' => $langcode, 'sanitize' => FALSE));
++  $key = i18n_object_info('menu_link', 'key');
++  return i18n_string_translate(array('menu', 'item', $link[$key], 'title'), $link['link_title'], array('langcode' => $langcode, 'sanitize' => FALSE));
+ }
+ 
+ /**
+@@ -500,7 +501,8 @@ function _i18n_menu_link_localize(&$link, $langcode = NULL) {
+  */
+ function _i18n_menu_link_description($link, $langcode = NULL) {
+   if (!empty($link['options']['attributes']['title'])) {
+-    return i18n_string_translate(array('menu', 'item', $link['mlid'], 'description'), $link['options']['attributes']['title'], array('langcode' => $langcode));
++    $key = i18n_object_info('menu_link', 'key');
++    return i18n_string_translate(array('menu', 'item', $link[$key], 'description'), $link['options']['attributes']['title'], array('langcode' => $langcode));
+   }
+   else {
+     return NULL;
+@@ -558,7 +560,7 @@ function _i18n_menu_link_check_alter($link) {
+  *   Returns TRUE if link is localizable.
+  */
+ function _i18n_menu_link_is_localizable($link, $check_strings = FALSE) {
+-  return !empty($link['customized']) && !i18n_object_langcode($link) && i18n_menu_mode($link['menu_name'], I18N_MODE_LOCALIZE) &&
++  return /*!empty($link['customized']) && */!i18n_object_langcode($link) && i18n_menu_mode($link['menu_name'], I18N_MODE_LOCALIZE) &&
+   (!$check_strings || _i18n_menu_link_localizable_properties($link));
+ }
+ 

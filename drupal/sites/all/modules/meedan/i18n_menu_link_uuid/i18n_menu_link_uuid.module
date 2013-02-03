@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Implements hook_i18n_object_info_alter().
+ */
+function i18n_menu_link_uuid_i18n_object_info_alter(&$info) {
+  // Use UUID field to identify menu_link.
+  $info['menu_link']['key'] = 'uuid';
+  $info['menu_link']['load callback'] = 'i18n_menu_link_uuid_load';
+}
+
+/**
+ * Callback to load menu_link by UUID.
+ */
+function i18n_menu_link_uuid_load($uuid) {
+ if (!empty($uuid)) {
+    $query = db_select('menu_links', 'ml');
+    $query->leftJoin('menu_router', 'm', 'm.path = ml.router_path');
+    $query->fields('ml');
+    // Weight should be taken from {menu_links}, not {menu_router}.
+    $query->addField('ml', 'weight', 'link_weight');
+    $query->fields('m');
+    $query->condition('ml.uuid', $uuid);
+    if ($item = $query->execute()->fetchAssoc()) {
+      $item['weight'] = $item['link_weight'];
+      _menu_link_translate($item);
+      return $item;
+    }
+  }
+  return FALSE;
+}
+
