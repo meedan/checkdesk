@@ -1,13 +1,22 @@
 diff --git a/drupal/sites/all/modules/contrib/features/includes/features.menu.inc b/drupal/sites/all/modules/contrib/features/includes/features.menu.inc
-index e8f5c38..cb54e40 100644
+index e8f5c38..8eb315a 100644
 --- a/drupal/sites/all/modules/contrib/features/includes/features.menu.inc
 +++ b/drupal/sites/all/modules/contrib/features/includes/features.menu.inc
-@@ -297,7 +297,7 @@ function menu_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
+@@ -296,8 +296,16 @@ function menu_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
+  */
  function features_menu_link_load($identifier) {
    list($menu_name, $link_path) = explode(':', $identifier, 2);
++  $fields = array('menu_name', 'mlid', 'plid', 'link_path', 'router_path', 'link_title', 'options', 'module', 'hidden', 'external', 'has_children', 'expanded', 'weight');
++  $schema = drupal_get_schema('menu_links');
++  if (!empty($schema['fields']['language'])) {
++    $fields[] = 'language';
++  }
++  if (!empty($schema['fields']['uuid'])) {
++    $fields[] = 'uuid';
++  }
    $link = db_select('menu_links')
 -    ->fields('menu_links', array('menu_name', 'mlid', 'plid', 'link_path', 'router_path', 'link_title', 'options', 'module', 'hidden', 'external', 'has_children', 'expanded', 'weight'))
-+    ->fields('menu_links', array('menu_name', 'mlid', 'plid', 'link_path', 'router_path', 'link_title', 'options', 'module', 'hidden', 'external', 'has_children', 'expanded', 'weight', 'language'))
++    ->fields('menu_links', $fields)
      ->condition('menu_name', $menu_name)
      ->condition('link_path', $link_path)
      ->execute()
