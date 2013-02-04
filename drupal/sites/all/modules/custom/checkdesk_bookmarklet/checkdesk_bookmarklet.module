@@ -74,7 +74,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     );
 
     // Hide Facebook login link
-    unset($form['facebook_login']);
+    $form['field_link']['und'][0]['#description'] = '';
 
     // Additional processing for internal bookmarklet
     global $base_url;
