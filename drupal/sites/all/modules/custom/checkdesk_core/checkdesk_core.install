@@ -112,3 +112,11 @@ function checkdesk_core_update_7011() {
   module_enable(array('i18n_menu_link_uuid'));
 }
 
+/**
+ * Implements hook_update_N().
+ * Enable needed modules.
+ */
+function checkdesk_core_update_7012() {
+  module_enable(array('translation_helpers'));
+}
+
