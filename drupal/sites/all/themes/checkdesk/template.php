@@ -103,7 +103,7 @@ function checkdesk_preprocess_page(&$variables) {
   // Change links
   foreach ($variables['secondary_menu'] as $id => $item) {
 
-    if ($item['title'] == t('User')) {
+    if ($item['title'] === '<user>') {
       if (user_is_logged_in()) $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
       foreach ($item['below'] as $subid => $subitem) {
         if ($subitem['link_path'] == 'user/login') {

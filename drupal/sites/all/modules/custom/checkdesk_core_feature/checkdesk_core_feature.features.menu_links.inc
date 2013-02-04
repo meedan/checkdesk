@@ -202,7 +202,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'menu-common',
     'link_path' => '<sub>',
     'router_path' => '<sub>',
-    'link_title' => 'User',
+    'link_title' => '<user>',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -418,6 +418,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('...');
+  t('<user>');
   t('About');
   t('Administer users');
   t('Compose update');
@@ -433,7 +434,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Sign in');
   t('Submit report');
   t('Terms of Use');
-  t('User');
   t('View incoming citizen reports');
   t('تنصيب إضافة المتصفح');
 
