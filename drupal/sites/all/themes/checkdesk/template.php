@@ -417,6 +417,17 @@ function checkdesk_checkdesk_core_story_status(&$variables) {
 }
 
 /**
+ * Inform if story has drafts
+ */
+function checkdesk_checkdesk_core_story_drafts(&$variables) {
+  $output = '';
+
+  if (isset($variables['story_drafts']) && !empty($variables['story_drafts'])) $output .= '<div class="story-drafts">' . $variables['story_drafts'] . '</div>';
+
+  return $output;
+}
+
+/**
  * Adjust report source markup
  */
 function checkdesk_checkdesk_core_report_source(&$variables) {

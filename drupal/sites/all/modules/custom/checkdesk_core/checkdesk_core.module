@@ -646,6 +646,10 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       '#theme' => 'checkdesk_core_story_status',
       '#story' => $node,
     );
+    $node->content['story_drafts'] = array(
+      '#theme' => 'checkdesk_core_story_drafts',
+      '#story' => $node,
+    );
   }
 
   // Add decorations to report nodes.
@@ -895,6 +899,13 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_story_drafts'] = array(
+    'template' => 'story_drafts',
+    'variables' => array(
+      'story' => NULL,
+    ),
+  ) + $base;
+
   $themes['checkdesk_core_report_source'] = array(
     'template' => 'report_source',
     'variables' => array(
@@ -929,6 +940,14 @@ function checkdesk_core_fact_checking($node) {
     return FALSE;
   }
   return $flag->is_flagged($node->nid);
+}
+
+/**
+ * API function to return number of drafted updates of a story.
+ */
+function checkdesk_core_story_drafted_updates_count($node) {
+  $count = db_query("SELECT COUNT(*) FROM {node} n INNER JOIN {field_data_field_desk} f ON f.entity_id = n.nid WHERE n.type = 'post' AND n.status = 0 AND f.bundle = 'post' AND field_desk_target_id = " . $node->nid)->fetchField();
+  return intval($count);
 }
 
 /**

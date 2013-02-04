@@ -5,6 +5,7 @@
     </div>
 
   	<?php print render($content['story_status']); ?>
+  	<?php print render($content['story_drafts']); ?>
   	<?php print render($content['story_blogger']); ?>
 
   	<div class="story-body">

@@ -47,6 +47,15 @@ function checkdesk_core_preprocess_checkdesk_core_story_status(&$variables) {
 }
 
 /**
+ * Template preprocessor for `checkdesk_core_story_drafts`.
+ */
+function checkdesk_core_preprocess_checkdesk_core_story_drafts(&$variables) {
+  $story = $variables['story'];
+  $count = checkdesk_core_story_drafted_updates_count($story);
+  if ($count > 0) $variables['story_drafts'] = t('(Has one or more drafted updates)');
+}
+
+/**
  * Template preprocessor for `checkdesk_core_report_source`.
  */
 function checkdesk_core_preprocess_checkdesk_core_report_source(&$variables) {

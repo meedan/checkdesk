@@ -122,6 +122,12 @@ $omega: opposite-position($alpha);
     @include ctb-font-sans-serif(14px);
   }
 
+  // Message displayed when a story has drafted updates
+  .story-drafts {
+    color: $red;
+    font-size: $small-font-size;
+    font-style: italic;
+  }
   
   // The current blogger information
   .story-blogger {
