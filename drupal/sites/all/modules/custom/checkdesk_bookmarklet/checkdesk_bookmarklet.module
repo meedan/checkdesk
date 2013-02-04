@@ -73,9 +73,6 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
       '#weight' => 100,
     );
 
-    // Hide Facebook login link
-    $form['field_link']['und'][0]['#description'] = '';
-
     // Additional processing for internal bookmarklet
     global $base_url;
     if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {
@@ -93,7 +90,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
 function _checkdesk_bookmarklet_load_javascript_for_bookmarklet_form($form, &$form_state) {
   drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_bookmarklet_form.js');
   // Coming from Facebook login? (Facebook removes referer, so we need to use the parameters)
-  if (isset($_REQUEST['state']) && isset($_REQUEST['code'])) drupal_add_js("window.opener.jQuery('#edit-submit').click(); window.close();", "inline");
+  if (isset($_REQUEST['state']) && isset($_REQUEST['code'])) drupal_add_js("window.opener.location.reload(); window.close();", "inline");
   return $form;
 }
 
