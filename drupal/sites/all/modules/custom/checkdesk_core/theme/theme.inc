@@ -40,7 +40,7 @@ function checkdesk_core_preprocess_checkdesk_core_story_status(&$variables) {
   $country = $country_list[ variable_get('site_default_country', '') ];
   list($continent, $city) = explode('/', variable_get('date_default_timezone'), 2);
   $variables['story_context'] = t('Currently @date in !city, !country.', array(
-    '@date' => format_date(time(), 'custom', 'g:ia'),
+    '@date' => format_date(time(), 'custom', t('g:ia')),
     '!city' => $city,
     '!country' => $country,
   ));
