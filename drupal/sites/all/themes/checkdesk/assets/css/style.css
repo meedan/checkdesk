@@ -8445,9 +8445,87 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   padding: 0;
   border: 0;
   list-style: none;
+  display: block;
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.6);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  padding: 6.75px 10px;
+  margin-bottom: 27px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003116}}
+.story #story-actions ul.content-actions li {
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003115}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003118}}
+.story #story-actions ul.content-actions li a {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 200;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.2;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #999999;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 200;
+  margin-right: 1em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.2;
+  padding: 0.3em 1em;
+  border-width: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003285}}
+.story #story-actions ul.content-actions li a::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003289}}
+.story #story-actions ul.content-actions li a:focus {
+  outline: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
+.story #story-actions ul.content-actions li a, .story #story-actions ul.content-actions li a:visited {
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\0000395}}
+.story #story-actions ul.content-actions li a:hover, .story #story-actions ul.content-actions li a:focus {
+  background-color: #919191;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
+.story #story-actions ul.content-actions li a:hover, .story #story-actions ul.content-actions li a:hover:visited, .story #story-actions ul.content-actions li a:focus, .story #story-actions ul.content-actions li a:focus:visited {
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003103}}
+.story #story-actions ul.content-actions li a:active {
+  background-color: #8a8a8a;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
+.story #story-actions ul.content-actions li a:active, .story #story-actions ul.content-actions li a:active:visited {
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003126}}
 .story .story-by {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 26px;
@@ -8455,7 +8533,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   line-height: 27px;
   margin-bottom: 13.5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003129}}
 .story .story-by a {
   color: #999999;
 }
@@ -8463,20 +8541,20 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 .story .story-by a:hover {
   color: #333333;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003132}}
 .story .story-context {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: normal;
   line-height: 27px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003137}}
 .story .story-drafts {
   color: #9d261d;
   font-size: 16px;
   font-style: italic;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003144}}
 .story .story-blogger {
   *zoom: 1;
   margin: 13.5px 0;
@@ -8491,17 +8569,17 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 .story .story-blogger:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003148}}
 .story .story-blogger .avatar {
   display: inline-block;
   padding: 3.375px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003151}}
 .story .story-blogger .avatar .user-picture {
   display: inline-block;
   margin-right: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003154}}
 .story .story-blogger .avatar .user-picture img {
   display: inline-block;
   vertical-align: text-bottom;
@@ -8509,7 +8587,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   height: 20px;
   margin-omega: 3.33333px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003150}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003161}}
 .story .story-blogger .avatar a {
   color: #999999;
 }
@@ -8517,12 +8595,12 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 .story .story-blogger .avatar a:hover {
   color: #333333;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003164}}
 .story .story-blogger .blogger-status {
   display: inline-block;
   margin-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003157}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003168}}
 .story .story-blogger .blogger-status .blogger-status-indicator {
   width: 10px;
   height: 10px;
@@ -8534,7 +8612,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   display: inline-block;
   background-color: #999999;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003164}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003175}}
 .story .story-blogger .blogger-status .blogger-status-text {
   background-color: white;
   background-color: rgba(255, 255, 255, 0.6);
@@ -8547,15 +8625,15 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   padding: 3.375px 10px;
   margin-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003174}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003185}}
 .story .story-blogger .story-blogger-status-offline .blogger-status-indicator {
   background-color: #999999;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003175}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003186}}
 .story .story-blogger .story-blogger-status-online .blogger-status-indicator {
   background-color: #46a546;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003179}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003190}}
 .story .story-body {
   *zoom: 1;
   margin: 6.75px 0;
@@ -8571,7 +8649,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 .story .story-body:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_story\.scss}line{font-family:\00003195}}
 .story .story-body p {
   margin: 6.75px 0;
 }

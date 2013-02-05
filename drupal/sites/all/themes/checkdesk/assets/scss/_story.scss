@@ -108,7 +108,18 @@ $omega: opposite-position($alpha);
     ul.content-actions {
       @include reset-box-model;
       @include reset-list-style;
-      display: inline-block;
+      display: block;
+      @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
+      @include border-radius(4px);
+      padding: $bh $gw;
+      margin-bottom: $bh*4;
+      li {
+        display: inline-block;
+        a {
+          @include checkdesk-button($grayLight);
+          @include button-size(13px);
+        }
+      }
     }
   }
 
