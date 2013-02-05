@@ -7,6 +7,6 @@
     <div class="update-body">
       <?php print render($content['body']); ?>
     </div>
-
+    <p><?php print render($content['field_desk']); ?></p>
   </article>
 </section>
