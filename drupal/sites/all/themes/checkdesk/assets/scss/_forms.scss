@@ -128,7 +128,7 @@
 
 @mixin cd-form-styles-except-layout {
   form {
-    input[type="password"],
+    // input[type="password"],
     input[type="text"], 
     textarea {
       @include border-radius(3px);
@@ -251,7 +251,7 @@
     } 
 
     // Default main inputs and textareas
-    input[type="password"],
+    // input[type="password"],
     input[type="text"],
     textarea {
       @include span-columns($w, $w, $gw/2); // small padding with grid accounting
