@@ -16,7 +16,6 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
         block.addClass('notifications-block-expanded');
         block.find('.content').slideDown('slow');
       }
-      that.find('.notifications-label').html(Drupal.t('Notifications'));
       if (that.find('.notifications-count').html() != '') {
         $.ajax({
           type: 'GET',
@@ -26,7 +25,6 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
           }
         });
       }
-      return false;
     });
     $('html').click(function() {
       block.find('.content').slideUp('slow', function() {
@@ -62,15 +60,11 @@ Drupal.behaviors.alert_new_notifications = {
     block.unbind('autorefresh.ping');
     block.bind('autorefresh.ping', function(e, count) {
       var counter = $('#my-notifications-menu-link').find('.notifications-count');
-      var title = $('#my-notifications-menu-link').find('.notifications-label');
       if (counter.html() == '') {
         counter.html('<span>' + count + '</span>');
-        if (parseInt(count) == 1) title.html(Drupal.t('Notification'));
-        else title.html(Drupal.t('Notifications'));
       }
       else {
         counter.html('<span>' + (parseInt(counter.find('span').html()) + parseInt(count)) + '</span>');
-        title.html(Drupal.t('Notifications'));
       }
     });
   }

@@ -118,9 +118,9 @@ function checkdesk_preprocess_page(&$variables) {
         $count = checkdesk_notifications_number_of_new_items($user);
         $counter = '';
         if ($count > 0) $counter = '<span>' . $count . '</span>';
-        $variables['secondary_menu'][$id]['attributes'] = array('id' => 'my-notifications-menu-link');
+        $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['html'] = '<span class="notifications-count">' . $counter . '</span> <span class="notifications-label">' . format_plural($count, t('Notification'), t('Notifications')) . '</span>';
+        $variables['secondary_menu'][$id]['title'] = '<span class="notifications-count">' . $counter . '</span> <span class="notifications-label">' . $item['title'] . '</span>';
       }
       else {
         unset($variables['secondary_menu'][$id]);
