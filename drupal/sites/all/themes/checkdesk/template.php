@@ -159,9 +159,12 @@ function checkdesk_preprocess_node(&$variables) {
 
   if ($variables['type'] == 'post') {
     // Add update creation info
-    $variables['update_creation_info'] = t('Update by ') . l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . ' ' .
-      '<time datetime="'. format_date($variables['created'], 'custom', 'Y-m-d') .'">' .
-      format_date($variables['created'], 'custom', 'M d, Y \a\t g:ia ') .'</time>';
+    $variables['update_creation_info'] = t('Update by <a href="@user">!user</a> <time datetime="!date">!datetime</time>', array(
+      '@user' => 'user/'. $variables['uid'],
+      '!user' => $variables['elements']['#node']->name,
+      '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+    ));
   }
 
   if ($variables['type'] == 'discussion') {
@@ -183,9 +186,12 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time)
-    $variables['media_creation_info'] = l($variables['elements']['#node']->name, 'user/'. $variables['uid']) . t(' added this ') .
-      '<time class="time-ago" datetime="'. format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP') .'">' .
-      format_interval(time()-$variables['created']) . t(' ago') .'</time>';
+    $variables['media_creation_info'] = t('<a href="@user">!user</a> added this <time class="time-ago" datetime="!timestamp">!interval ago</time>', array(
+      '@user' => 'user/'. $variables['uid'],
+      '!user' => $variables['elements']['#node']->name,
+      '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+      '!interval' => format_interval(time()-$variables['created']),
+    ));
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
       $variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 
@@ -250,7 +256,7 @@ function checkdesk_links__node($variables) {
       'animation' => 'show',
       'animationSpeed' => 40,
       'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
     ),
     'modal-popup-medium' => array(
       'modalSize' => array(
@@ -267,7 +273,7 @@ function checkdesk_links__node($variables) {
       'animation' => 'show',
       'animationSpeed' => 40,
       'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
     ),
     'modal-popup-large' => array(
       'modalSize' => array(
@@ -284,7 +290,7 @@ function checkdesk_links__node($variables) {
       'animation' => 'show',
       'animationSpeed' => 40,
       'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
     ),
   );
   drupal_add_js($modal_style, 'setting');
