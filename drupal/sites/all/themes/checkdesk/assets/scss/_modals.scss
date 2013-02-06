@@ -25,10 +25,9 @@ $modal-width: 426px;
 .modal {
   position: relative;
   top: 0;
-  left: 50%;
   z-index: $zindexModal;
   width: $modal-width;
-  margin: -250px 0 0 -280px;
+  margin-top: -250px;
   background-color: $white;
   border: 1px solid #999;
   border: 1px solid rgba(0,0,0,.3);

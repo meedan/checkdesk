@@ -4579,10 +4579,9 @@ a.absolute-messages-dismiss-all:hover {
 .modal {
   position: relative;
   top: 0;
-  left: 50%;
   z-index: 1050;
   width: 426px;
-  margin: -250px 0 0 -280px;
+  margin-top: -250px;
   background-color: white;
   border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -4596,7 +4595,7 @@ a.absolute-messages-dismiss-all:hover {
   background-clip: padding-box;
   outline: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000341}}
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
@@ -4604,41 +4603,41 @@ a.absolute-messages-dismiss-all:hover {
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000345}}
 .modal.fade.in {
   top: 50%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000347}}
 .modal-header {
   border-bottom: 1px solid #eeeeee;
   background-color: white;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000353}}
 .modal-header .close {
   margin-top: 7px;
   margin-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000359}}
 .modal-header h4 {
   margin: 0;
   padding: 13.5px 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000366}}
 .modal-body {
   position: relative;
   overflow-y: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000370}}
 .modal-body .modal-content {
   position: relative;
   padding: 13.5px 10px;
   font-size: 20px;
   line-height: 1.5;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000376}}
 .modal-body .modal-content form {
   padding: 0;
   margin: 0;
@@ -4646,24 +4645,24 @@ a.absolute-messages-dismiss-all:hover {
   width: 404px;
   font-size: 15.3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000386}}
 .modal-body #modal-throbber {
   padding: 13.5px 0;
   margin-left: -5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000391}}
 .modal-body .form-actions {
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000396}}
 .modal-form {
   margin-bottom: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003101}}
 .modal-footer {
   position: absolute;
   bottom: 0;
@@ -4687,7 +4686,7 @@ a.absolute-messages-dismiss-all:hover {
   overflow: hidden;
   *zoom: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003116}}
 .modal-footer input.btn {
   float: right;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
@@ -4743,7 +4742,7 @@ a.absolute-messages-dismiss-all:hover {
 .modal-footer input.btn:active, .modal-footer input.btn:active:visited {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003123}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003122}}
 .modal-footer a.btn {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
@@ -4797,7 +4796,7 @@ a.absolute-messages-dismiss-all:hover {
 .modal-footer a.btn:active, .modal-footer a.btn:active:visited {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003126}}
 .modal-footer .ajax-progress-throbber {
   display: none;
 }
@@ -5817,6 +5816,7 @@ div.tabs ul.primary li a:hover {
 .report {
   width: 100%;
   float: right;
+  text-align: right;
   *zoom: 1;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15.3px;
@@ -5834,25 +5834,25 @@ div.tabs ul.primary li a:hover {
 .report:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000325}}
 .modal .report {
   max-width: 380px;
   margin-right: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000334}}
 .report a {
   color: #595959;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000336}}
 .report a:hover {
   color: #0088ff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000341}}
 .report > header {
   color: #595959;
   padding: 5px 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000344}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000345}}
 .report > header h3 {
   margin: 0;
   padding: 0;
@@ -5864,17 +5864,17 @@ div.tabs ul.primary li a:hover {
   line-height: inherit;
   font-weight: normal;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000355}}
 .report > header h3 .icon-link {
   float: right;
   margin-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000360}}
 .report > header h3 .source-url {
   font-weight: bold;
   overflow: inherit;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000369}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000370}}
 .report #report-actions ul.content-actions {
   margin: 0;
   padding: 0;
@@ -5882,24 +5882,24 @@ div.tabs ul.primary li a:hover {
   list-style: none;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000384}}
 .report #report-actions ul.content-actions li.add-to .dropdown-menu {
   left: -100px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000387}}
 .report #report-actions ul.content-actions li.flag-as .dropdown-menu {
   left: -140px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000390}}
 .report #report-actions ul.content-actions li.share-on .dropdown-menu {
   left: -90px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000395}}
 .report #report-actions ul.content-actions > li {
   float: right;
   font-size: 15.3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003100}}
 .report #report-actions ul.content-actions > li > a {
   margin: 0;
   padding: 0;
@@ -5914,12 +5914,12 @@ div.tabs ul.primary li a:hover {
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003107}}
 .report #report-actions ul.content-actions > li > a:hover {
   color: black;
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003112}}
 .report #report-actions ul.content-actions > li > a span {
   margin: 0;
   padding: 0;
@@ -5928,7 +5928,7 @@ div.tabs ul.primary li a:hover {
   display: inline-block;
   margin-right: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003116}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003117}}
 .report #report-actions ul.content-actions > li > a span:hover {
   color: #0088ff;
 }
@@ -5956,15 +5956,15 @@ div.tabs ul.primary li a:hover {
   line-height: 15.3px;
   color: black;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003128}}
 .report #report-actions ul.content-actions > li .ajax-progress-throbber {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003136}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003137}}
 .report div.sensitive-hide {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003142}}
 .report .report-content {
   *zoom: 1;
   background-color: #ededed;
@@ -5981,43 +5981,43 @@ div.tabs ul.primary li a:hover {
 .report .report-content:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003148}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003149}}
 .report .report-content .report-media {
   text-align: center;
   margin-bottom: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003151}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003152}}
 .report .report-content .report-media .container {
   display: inline-block;
   vertical-align: middle;
   text-align: right;
   font-size: 15.3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003163}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003164}}
 .report .report-content .report-media .container .thumbnail img {
   padding: 10px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003167}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003168}}
 .report .report-content .report-media .container .oembed-title {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003171}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003172}}
 .report .report-content .report-media .container .title {
   padding: 0;
   font-size: 15.3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003176}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003177}}
 .report .report-content .report-media .container .content {
   padding: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003181}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003182}}
 .report .report-content .report-media .container .favicon,
 .report .report-content .report-media .container .author-img {
   float: right;
   padding-left: 5px;
   width: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003195}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003196}}
 .report .report-content .report-media .container img,
 .report .report-content .report-media .container embed,
 .report .report-content .report-media .container object,
@@ -6025,7 +6025,7 @@ div.tabs ul.primary li a:hover {
 .report .report-content .report-media .container iframe {
   max-width: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003199}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003200}}
 .report .report-content .report-media .container .sensitive-notification {
   display: table-cell;
   width: 400px;
@@ -6034,16 +6034,16 @@ div.tabs ul.primary li a:hover {
   vertical-align: middle;
   background: none !important;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003206}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003207}}
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-text {
   color: #333333;
   padding: 6.75px 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003210}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003211}}
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link {
   padding: 6.75px 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003212}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003213}}
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
@@ -6097,27 +6097,27 @@ div.tabs ul.primary li a:hover {
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active:visited {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003220}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003221}}
 .report .report-content > p {
   color: #999999;
   margin: 6.75px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003223}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003224}}
 .report .report-content > p a {
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003228}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003229}}
 .report .report-content .gravatar {
   margin-right: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003230}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003231}}
 .report .report-content .gravatar img {
   vertical-align: text-bottom;
   width: 20px;
   height: 20px;
   margin-left: 3.33333px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003237}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003238}}
 .report .report-content .description {
   *zoom: 1;
   border-top: 1px solid white;
@@ -6137,7 +6137,7 @@ div.tabs ul.primary li a:hover {
 .report .report-content .description:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003243}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003244}}
 .report .report-content .description span {
   color: white;
   float: right;
@@ -6153,7 +6153,7 @@ div.tabs ul.primary li a:hover {
   color: "black";
   margin: 1px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003257}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003258}}
 .report h3 > a[href*="twitter.com"]:before {
   display: inline-block;
   -webkit-transform: rotate(-19deg);
@@ -6163,11 +6163,11 @@ div.tabs ul.primary li a:hover {
   transform: rotate(-19deg);
   font-size: inherit;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003265}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003266}}
 .report .report-activity {
   background-color: #eeeeee;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003268}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003269}}
 .report .report-activity > header {
   overflow: hidden;
   *zoom: 1;
@@ -6176,7 +6176,7 @@ div.tabs ul.primary li a:hover {
   font-size: 15.3px;
   background-color: #e1e1e1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003275}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003276}}
 .report .report-activity > header h3 {
   float: right;
   margin: 0;
@@ -6189,75 +6189,75 @@ div.tabs ul.primary li a:hover {
   color: rgba(0, 0, 0, 0.8);
   padding: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003285}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003286}}
 .report .report-activity > header .report-status {
   font-weight: bold;
   float: left;
   text-align: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003290}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003291}}
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003294}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003295}}
 .report .report-activity > header .report-status span.status-name {
   text-align: left;
   overflow: visible;
   margin-left: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003300}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003301}}
 .report .report-activity > header:hover {
   background-color: #d4d4d4;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003305}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003306}}
 .report .report-activity > .undetermined {
   background-color: #fee9cc;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003307}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003308}}
 .report .report-activity > .undetermined a {
   color: #c67605;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003308}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003309}}
 .report .report-activity > .undetermined:hover {
   background-color: #fdd49a;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003311}}
 .report .report-activity > .undetermined:hover a {
   color: #945904;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003314}}
 .report .report-activity > .verified {
   background-color: #f1f9f1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003316}}
 .report .report-activity > .verified a {
   color: #46a546;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003317}}
 .report .report-activity > .verified:hover {
   background-color: #cdeacd;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003319}}
 .report .report-activity > .verified:hover a {
   color: #378137;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003322}}
 .report .report-activity > .false {
   background-color: #f4c8c5;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003324}}
 .report .report-activity > .false a {
   color: #9d261d;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003325}}
 .report .report-activity > .false:hover {
   background-color: #eca09a;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003326}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003327}}
 .report .report-activity > .false:hover a {
   color: #721c15;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003331}}
 .report .report-activity .activity-wrapper {
   display: none;
   *zoom: 1;
@@ -6273,7 +6273,7 @@ div.tabs ul.primary li a:hover {
 .report .report-activity .activity-wrapper:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003336}}
 .report .report-activity .activity-wrapper ul.pager-load-more {
   float: right;
   clear: both;
@@ -6281,22 +6281,22 @@ div.tabs ul.primary li a:hover {
   margin: 6.75px 0 13.5px 0;
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003342}}
 .report .report-activity .activity-wrapper ul.pager-load-more a {
   text-align: center;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003346}}
 .report .report-activity .activity-wrapper ul.pager-load-more .ajax-progress-throbber {
   position: absolute;
   top: 6px;
   left: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003349}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003350}}
 .report .report-activity .activity-wrapper ul.pager-load-more .ajax-progress-throbber .throbber {
   background: url("../imgs/icons/loader_white.gif");
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003358}}
 .report .report-activity .activity-list .activity {
   *zoom: 1;
   border-right: 2px solid white;
@@ -6316,7 +6316,7 @@ div.tabs ul.primary li a:hover {
 .report .report-activity .activity-list .activity:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003368}}
 .report .report-activity .activity-list .activity header {
   *zoom: 1;
 }
@@ -6330,27 +6330,27 @@ div.tabs ul.primary li a:hover {
 .report .report-activity .activity-list .activity header:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003371}}
 .report .report-activity .activity-list .activity header [class^="icon-"],
 .report .report-activity .activity-list .activity header [class*=" icon-"] {
   float: right;
   margin-right: -28px;
   margin-left: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003376}}
 .report .report-activity .activity-list .activity header .time {
   float: right;
   color: #999999;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003380}}
 .report .report-activity .activity-list .activity header .title {
   margin-right: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003384}}
 .report .report-activity .activity-list .activity header a {
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003388}}
 .report .report-activity .activity-list .activity .message {
   margin-top: 6.75px;
   padding: 6.75px 5px;
@@ -6361,13 +6361,13 @@ div.tabs ul.primary li a:hover {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003393}}
 .report .report-activity .activity-list .activity .message > p {
   margin: 0;
   padding: 0;
   border: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003400}}
 .report .report-activity #comment-form {
   *zoom: 1;
   padding: 0;
@@ -6384,15 +6384,15 @@ div.tabs ul.primary li a:hover {
 .report .report-activity #comment-form:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003404}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003405}}
 .report .report-activity #comment-form label {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003407}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003408}}
 .report .report-activity #comment-form form {
   width: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003409}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003410}}
 .report .report-activity #comment-form form textarea {
   float: none;
   *zoom: 1;
@@ -6407,28 +6407,28 @@ div.tabs ul.primary li a:hover {
 .report .report-activity #comment-form form textarea:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003416}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003417}}
 .report .report-activity > footer {
   color: #999999;
   font-size: 15.3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003424}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003425}}
 .report .open > .false {
   background-color: #eca09a;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003427}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003428}}
 .report .open > .undetermined {
   background-color: #fdd49a;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003429}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003430}}
 .report .open > .undetermined a {
   color: #945904;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003431}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003432}}
 .report .open > .verified {
   background-color: #cdeacd;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003436}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003437}}
 .report .icon-ok-sign {
   color: red;
 }
@@ -6440,7 +6440,7 @@ div.tabs ul.primary li a:hover {
   line-height: 16px;
   color: #2f6f2f;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003440}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003441}}
 .report .icon-question-sign {
   color: #f89406;
 }
@@ -6452,7 +6452,7 @@ div.tabs ul.primary li a:hover {
   line-height: 16px;
   color: #ad6704;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003444}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_report\.scss}line{font-family:\00003445}}
 .report .icon-remove-sign {
   color: #9d261d;
 }
