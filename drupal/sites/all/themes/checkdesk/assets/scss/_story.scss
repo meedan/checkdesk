@@ -100,6 +100,7 @@ $omega: opposite-position($alpha);
 .story {
   @include ctb-clearfix;
   color: $grayLight;
+  text-align: $alpha;
 
   #story-actions {
     font-family: $sans-font-family;
@@ -112,7 +113,7 @@ $omega: opposite-position($alpha);
       @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
       @include border-radius(4px);
       padding: $bh $gw;
-      margin-bottom: $bh*4;
+      margin-bottom: $bh*2;
       li {
         display: inline-block;
         a {
@@ -125,6 +126,7 @@ $omega: opposite-position($alpha);
 
   .story-by {
     @include ctb-font-sans-serif(26px);
+    margin-top: $bh;
     margin-bottom: $bh*2;
     a { @include ctb-linkColor($grayLight); }
   }
