@@ -1,6 +1,6 @@
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
-    <?php if($content['links']['checkdesk']['#links']) { ?>
+    <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
       <div id="story-actions">
         <?php print render($content['links']); ?>
       </div>
