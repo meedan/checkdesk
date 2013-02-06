@@ -94,7 +94,19 @@ $omega: opposite-position($from-direction);
   // We need a scrollbar here
   .view-content {
     height: ms(11);
-    overflow: auto;
+    overflow-y: auto;
+    margin-bottom: $bh;
+  }
+
+  .more-link {
+    float: $alpha;
+    a { @include ctb-linkColor($gray); }
+  }
+
+  .notifications-settings-link {
+    @include reset-box-model;
+    float: $omega;
+    a { @include ctb-linkColor($gray); }
   }
 
 }
