@@ -95,9 +95,9 @@ function checkdesk_checkdesk_links($variables) {
             $link['attributes']['data-toggle'] = 'dropdown';
             $output .= l($link['title'], $link['href'], $link);
             $output .= '<div id="my-notifications" class="dropdown-menu">';
-            $view = views_get_view('my_notifications');
-            $output .= $view->preview('block');
-            $view->destroy();
+            $block = module_invoke('views', 'block_view', 'my_notifications-block');
+            checkdesk_notifications_list_footer(&$block);
+            $output .= render($block['content']);
             $output .= '</div>';
           } else {
             $output .= l($link['title'], $link['href'], $link);  
