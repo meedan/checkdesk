@@ -28,18 +28,7 @@ function checkdesk_core_feature_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'views-my_notifications-block' => array(
-          'module' => 'views',
-          'delta' => 'my_notifications-block',
-          'region' => 'navigation',
-          'weight' => '-10',
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 1;
 
   // Translatables
