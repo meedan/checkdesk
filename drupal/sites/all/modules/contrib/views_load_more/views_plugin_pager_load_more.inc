@@ -163,6 +163,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       'parameters' => $input,
       'element' => $this->options['id'],
       'more_button_text' => $this->options['more_button_text'],
+      'total' => $this->view->total_rows,
     );
 
     return theme($pager_theme, $vars);

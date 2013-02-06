@@ -22,7 +22,7 @@ function views_load_more_views_api() {
 function views_load_more_theme() {
   return array(
     'views_load_more_pager' => array(
-      'variables' => array('tags' => array(), 'quantity' => 10, 'element' => 0, 'parameters' => array()),
+      'variables' => array('tags' => array(), 'quantity' => 10, 'element' => 0, 'parameters' => array(), 'total' => 0),
       'pattern' => 'views_load_more_pager__',
     ),
   );
@@ -71,10 +71,11 @@ function theme_views_load_more_pager($vars) {
   $tags = $vars['tags'];
   $element = $vars['element'];
   $parameters = $vars['parameters'];
+  $total = $vars['total'];
 
   $li_next = theme('pager_next',
     array(
-      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'])),
+      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'], array('@total' => $total))),
       'element' => $element,
       'interval' => 1,
       'parameters' => $parameters,
@@ -116,6 +117,5 @@ function views_load_more_views_pre_execute(&$view) {
  */
 function views_load_more_views_pre_render(&$view) {
   if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all']) {
-    $view->query->pager->options['more_button_text'] = sprintf($view->query->pager->options['more_button_text'], $view->total_rows);
   }
 }

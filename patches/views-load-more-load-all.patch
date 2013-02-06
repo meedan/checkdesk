@@ -1,13 +1,13 @@
-From cc2b7957f27c7e6055eb50b9b526bcf6946e11ef Mon Sep 17 00:00:00 2001
+From c14894f0c32852e953ce240b6c9dcac86f779d36 Mon Sep 17 00:00:00 2001
 From: Caio SBA <caiosba@gmail.com>
-Date: Mon, 31 Dec 2012 00:06:51 -0200
+Date: Tue, 5 Feb 2013 23:55:33 -0200
 Subject: [PATCH] Load all
 
 ---
  views_load_more.js               |    9 +++++++--
- views_load_more.module           |   20 ++++++++++++++++++++
- views_plugin_pager_load_more.inc |   14 ++++++++++++++
- 3 files changed, 41 insertions(+), 2 deletions(-)
+ views_load_more.module           |   24 ++++++++++++++++++++++--
+ views_plugin_pager_load_more.inc |   15 +++++++++++++++
+ 3 files changed, 44 insertions(+), 4 deletions(-)
 
 diff --git a/views_load_more.js b/views_load_more.js
 index 0914e05..48c70d3 100644
@@ -30,10 +30,32 @@ index 0914e05..48c70d3 100644
      if (effect.showEffect != 'show') {
        wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
 diff --git a/views_load_more.module b/views_load_more.module
-index 4205e55..1aab953 100644
+index 4205e55..e1f7c92 100644
 --- a/views_load_more.module
 +++ b/views_load_more.module
-@@ -99,3 +99,23 @@ function theme_views_load_more_pager($vars) {
+@@ -22,7 +22,7 @@ function views_load_more_views_api() {
+ function views_load_more_theme() {
+   return array(
+     'views_load_more_pager' => array(
+-      'variables' => array('tags' => array(), 'quantity' => 10, 'element' => 0, 'parameters' => array()),
++      'variables' => array('tags' => array(), 'quantity' => 10, 'element' => 0, 'parameters' => array(), 'total' => 0),
+       'pattern' => 'views_load_more_pager__',
+     ),
+   );
+@@ -71,10 +71,11 @@ function theme_views_load_more_pager($vars) {
+   $tags = $vars['tags'];
+   $element = $vars['element'];
+   $parameters = $vars['parameters'];
++  $total = $vars['total'];
+ 
+   $li_next = theme('pager_next',
+     array(
+-      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'])),
++      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'], array('@total' => $total))),
+       'element' => $element,
+       'interval' => 1,
+       'parameters' => $parameters,
+@@ -99,3 +100,22 @@ function theme_views_load_more_pager($vars) {
      );
    }
  }
@@ -54,11 +76,10 @@ index 4205e55..1aab953 100644
 + */
 +function views_load_more_views_pre_render(&$view) {
 +  if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all']) {
-+    $view->query->pager->options['more_button_text'] = sprintf($view->query->pager->options['more_button_text'], $view->total_rows);
 +  }
 +}
 diff --git a/views_plugin_pager_load_more.inc b/views_plugin_pager_load_more.inc
-index 936bba4..70b2ec1 100644
+index 936bba4..7172313 100644
 --- a/views_plugin_pager_load_more.inc
 +++ b/views_plugin_pager_load_more.inc
 @@ -40,6 +40,9 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
@@ -85,17 +106,24 @@ index 936bba4..70b2ec1 100644
    }
  
    /**
-@@ -143,6 +153,10 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
+@@ -143,12 +153,17 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
        drupal_add_js(array('viewsLoadMore' => $viewsLoadMore),'setting');
      }
  
 +    if ($this->options['load_all']) {
-+      drupal_add_js(array('viewsLoadMoreAllLoaded' => (($this->options['load_all'] && $this->view->get_current_page() > 0) ? TRUE : FALSE)), 'setting');
++      drupal_add_js(array('viewsLoadMoreAllLoaded' => array($this->view->dom_id => (($this->options['load_all'] && $this->view->get_current_page() > 0) ? TRUE : FALSE))), 'setting');
 +    }
 +
      $pager_theme = views_theme_functions('views_load_more_pager', $this->view, $this->display);
  
      $vars = array(
+       'parameters' => $input,
+       'element' => $this->options['id'],
+       'more_button_text' => $this->options['more_button_text'],
++      'total' => $this->view->total_rows,
+     );
+ 
+     return theme($pager_theme, $vars);
 -- 
 1.7.2.5
 
