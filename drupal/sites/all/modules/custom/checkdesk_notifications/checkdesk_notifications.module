@@ -36,14 +36,9 @@ function checkdesk_notifications_number_of_new_items($user) {
 }
 
 /**
- * Change notifications block footer
+ * Load JavaScript file for notifications list 
  */
-function checkdesk_notifications_list_footer(&$data) {
-  global $user;
-  if (!isset($data)) $data = array();
-  if (!array_key_exists('content', $data)) $data['content'] = array('#markup' => '');
-  $data['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/notifications', array('absolute' => TRUE))) . '</p><div class="notifications-footer"></div>';
-  $data['content']['#markup'] = '<span>&nbsp;</span>' . $data['content']['#markup'];
+function checkdesk_notifications_load_js() {
   drupal_add_js(drupal_get_path('module', 'checkdesk_notifications') . '/js/notifications_menu.js');
 }
 

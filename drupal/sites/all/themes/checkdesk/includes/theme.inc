@@ -10,7 +10,7 @@ function checkdesk_checkdesk_links($variables) {
   $heading = $variables['heading'];
   //$dropdown = $variables['dropdown'];
 
-  global $language_url;
+  global $language_url, $user;
   $output = '';
 
   if (count($links) > 0) {
@@ -95,8 +95,9 @@ function checkdesk_checkdesk_links($variables) {
             $link['attributes']['data-toggle'] = 'dropdown';
             $output .= l($link['title'], $link['href'], $link);
             $output .= '<div id="my-notifications" class="dropdown-menu">';
+            checkdesk_notifications_load_js();
             $block = module_invoke('views', 'block_view', 'my_notifications-block');
-            checkdesk_notifications_list_footer(&$block);
+            $block['content']['#markup'] .= '<p class="notifications-settings-link">' . l(t('Settings'), url('user/' . $user->uid . '/notifications', array('absolute' => TRUE))) . '</p><div class="notifications-footer"></div>';
             $output .= render($block['content']);
             $output .= '</div>';
           } else {
