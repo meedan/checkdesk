@@ -46,3 +46,29 @@ index 2a4012f..c108d05 100644
 -- 
 1.7.2.5
 
+From 3b70f34d4d8956fbc88b1756d908e04c7ceec418 Mon Sep 17 00:00:00 2001
+From: James Andres <james.andres@gmail.com>
+Date: Thu, 7 Feb 2013 16:11:06 -0500
+Subject: [PATCH] Correcting ajax_view.js patch, the jQuery.is() function does
+ not accept object arguments until jQuery version 1.6.
+
+---
+ drupal/sites/all/modules/contrib/views/js/ajax_view.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drupal/sites/all/modules/contrib/views/js/ajax_view.js b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
+index c108d05..9cd3248 100644
+--- a/drupal/sites/all/modules/contrib/views/js/ajax_view.js
++++ b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
+@@ -86,7 +86,7 @@ Drupal.views.ajaxView.prototype.attachPagerAjax = function() {
+ Drupal.views.ajaxView.prototype.attachPagerLinkAjax = function(id, link) {
+   var $link = $(link);
+   // Don't attach to pagers inside nested views.
+-  if (!$link.closest('.view').is(this.$view)) return;
++  if ($link.closest('.view')[0] != this.$view[0]) return;
+   var viewData = {};
+   var href = $link.attr('href');
+   // Construct an object using the settings defaults and then overriding
+-- 
+1.7.11.3
+
