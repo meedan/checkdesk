@@ -346,7 +346,7 @@ $bh: $baseLineHeight/4;
 				.ajax-progress-throbber {
 					position: absolute;
 					top: 6px;
-					#{$omega}: 0;
+					#{$omega}: -$gw*3;
 					.throbber {
 						background: url("../imgs/icons/loader_white.gif");
 					}
