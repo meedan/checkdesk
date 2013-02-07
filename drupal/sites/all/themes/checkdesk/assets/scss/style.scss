@@ -117,7 +117,8 @@ $omega: opposite-position($from-direction);
 
 
 // Our version of TB reset
-$inputHeight: $base-line-height;
+// @debug $base-line-height;
+// $inputHeight: $base-line-height;
 @import "bowerbird/compass_twitter_bootstrap/reset";
 
 // Some shared helpers used in ctb dropdowns and checkdesk and alerts
