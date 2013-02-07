@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * Implements hook_oembedprovider().
+ */
+function checkdesk_oembed_oembedprovider() {
+  $base_url = url('embed', array('absolute' => TRUE, 'language' => FALSE)) . '/*';
+  return array(
+    $base_url => array(
+      'callback' => 'checkdesk_oembed_provider',
+    ),
+  );
+}
+
+/**
+ * OEmbed provider callback for embed/*
+ *
+ * Example:
+ *   http://www.checkdesk.org/oembed/endpoint?url=http%3A//www.checkdesk.org/embed/123&format=json
+ */
+function checkdesk_oembed_provider($provider, $url, $matches) {
+  $node = node_load($matches[1]);
+
+  if (!$node || !checkdesk_oembed_embed_access($node)) {
+    return FALSE;
+  }
+
+  $author = user_load($node->uid);
+
+  $languages = language_list();
+  $language = $languages[$node->language];
+
+  $src = url('embed/' . $node->nid, array('absolute' => TRUE));
+
+  $result = _oembedprovider_result('rich', array(
+    'html' => '<iframe src="' . $src . '"></iframe>',
+    'width' => 0,
+    'height' => 0,
+    'title' => $node->title,
+    'author_name' => $author->name,
+    'author_url' => url('user/' . $author->uid, array('absolute' => TRUE)),
+    'version' => CHECKDESK_OEMBED_VERSION,
+    'provider_url' => url('', array('absolute' => TRUE)),
+  ));
+
+  return $result;
+}
