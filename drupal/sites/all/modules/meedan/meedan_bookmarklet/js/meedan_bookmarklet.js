@@ -73,14 +73,11 @@
 
       // First time, create bookmarklet window
 			if ($("#meedan_bookmarklet_cont").length == 0) {
-
         // Load settings
-        var url = window.meedanBookmarkletHost + '/?' + $.param({ q: 'meedan_bookmarklet/js' }) + '&callback=?';
-        $.getJSON(url, function(json) {
+        $.getJSON(window.meedanBookmarkletURL, function(json) {
           MeedanBookmarklet.settings = json;
           createBookmarklet();
         });
-
       // After the first time, just show and hide the bookmarklet  
 			} else {
 				$("#meedan_bookmarklet_cont, #meedan_bookmarklet_mask").fadeIn(500);
