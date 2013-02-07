@@ -4577,7 +4577,6 @@ a.absolute-messages-dismiss-all:hover {
   position: relative;
   top: 0;
   z-index: 1050;
-  width: 426px;
   margin-top: -250px;
   background-color: white;
   border: 1px solid #999999;
@@ -4626,46 +4625,46 @@ a.absolute-messages-dismiss-all:hover {
 .modal-body {
   position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000371}}
 .modal-body .modal-content {
   position: relative;
   padding: 13.5px 10px;
   font-size: 20px;
   line-height: 1.5;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000377}}
 .modal-body .modal-content form {
   padding: 0;
   margin: 0;
   z-index: 1051;
-  width: 404px;
   font-size: 15.3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000385}}
 .modal-body #modal-throbber {
   padding: 13.5px 0;
   margin-left: -5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000391}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000390}}
 .modal-body .form-actions {
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\0000395}}
 .modal-form {
   margin-bottom: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003100}}
 .modal-footer {
   position: absolute;
   bottom: 0;
-  left: 1px;
+  left: -10px;
   padding: 0;
-  width: 404px;
+  width: 100%;
   display: block;
   padding: 13.5px 10px;
   margin-bottom: 0;
@@ -4680,11 +4679,28 @@ a.absolute-messages-dismiss-all:hover {
   -webkit-box-shadow: inset 0 1px 0 white;
   -moz-box-shadow: inset 0 1px 0 white;
   box-shadow: inset 0 1px 0 white;
-  overflow: hidden;
   *zoom: 1;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_mixins\.scss}line{font-family:\0000315}}
+.modal-footer:before, .modal-footer:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/override_ctb\/_mixins\.scss}line{font-family:\0000322}}
+.modal-footer:after {
+  clear: both;
+}
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003116}}
-.modal-footer input.btn {
+.modal-footer .form-actions {
+  padding-left: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003120}}
+.modal-footer .form-actions .btn {
+  margin-right: 10px !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003124}}
+.modal-footer .form-actions input.btn {
   float: left;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
@@ -4708,39 +4724,38 @@ a.absolute-messages-dismiss-all:hover {
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  margin-right: 1em !important;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003285}}
-.modal-footer input.btn::-moz-focus-inner {
+.modal-footer .form-actions input.btn::-moz-focus-inner {
   border: none;
   padding: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003289}}
-.modal-footer input.btn:focus {
+.modal-footer .form-actions input.btn:focus {
   outline: none;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
-.modal-footer input.btn, .modal-footer input.btn:visited {
+.modal-footer .form-actions input.btn, .modal-footer .form-actions input.btn:visited {
   color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\0000395}}
-.modal-footer input.btn:hover, .modal-footer input.btn:focus {
+.modal-footer .form-actions input.btn:hover, .modal-footer .form-actions input.btn:focus {
   background-color: #0080f0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
-.modal-footer input.btn:hover, .modal-footer input.btn:hover:visited, .modal-footer input.btn:focus, .modal-footer input.btn:focus:visited {
+.modal-footer .form-actions input.btn:hover, .modal-footer .form-actions input.btn:hover:visited, .modal-footer .form-actions input.btn:focus, .modal-footer .form-actions input.btn:focus:visited {
   color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003103}}
-.modal-footer input.btn:active {
+.modal-footer .form-actions input.btn:active {
   background-color: #0078e0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
-.modal-footer input.btn:active, .modal-footer input.btn:active:visited {
+.modal-footer .form-actions input.btn:active, .modal-footer .form-actions input.btn:active:visited {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003122}}
-.modal-footer a.btn {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003129}}
+.modal-footer .form-actions a.btn {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
@@ -4765,36 +4780,36 @@ a.absolute-messages-dismiss-all:hover {
   background-clip: padding-box;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003285}}
-.modal-footer a.btn::-moz-focus-inner {
+.modal-footer .form-actions a.btn::-moz-focus-inner {
   border: none;
   padding: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003289}}
-.modal-footer a.btn:focus {
+.modal-footer .form-actions a.btn:focus {
   outline: none;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
-.modal-footer a.btn, .modal-footer a.btn:visited {
+.modal-footer .form-actions a.btn, .modal-footer .form-actions a.btn:visited {
   color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\0000395}}
-.modal-footer a.btn:hover, .modal-footer a.btn:focus {
+.modal-footer .form-actions a.btn:hover, .modal-footer .form-actions a.btn:focus {
   background-color: #919191;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
-.modal-footer a.btn:hover, .modal-footer a.btn:hover:visited, .modal-footer a.btn:focus, .modal-footer a.btn:focus:visited {
+.modal-footer .form-actions a.btn:hover, .modal-footer .form-actions a.btn:hover:visited, .modal-footer .form-actions a.btn:focus, .modal-footer .form-actions a.btn:focus:visited {
   color: white;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003103}}
-.modal-footer a.btn:active {
+.modal-footer .form-actions a.btn:active {
   background-color: #8a8a8a;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/bowerbird\/extensions\/bowerbird\/stylesheets\/bowerbird\/_buttons\.scss}line{font-family:\00003220}}
-.modal-footer a.btn:active, .modal-footer a.btn:active:visited {
+.modal-footer .form-actions a.btn:active, .modal-footer .form-actions a.btn:active:visited {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003126}}
-.modal-footer .ajax-progress-throbber {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/www\/checkdesk\/drupal\/sites\/all\/themes\/checkdesk\/assets\/scss\/_modals\.scss}line{font-family:\00003133}}
+.modal-footer .form-actions .ajax-progress-throbber {
   display: none;
 }
 
