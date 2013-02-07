@@ -228,7 +228,7 @@ function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
     $report = $form_state['report'];
   }
   $stories = db_query("
-    SELECT nid, title 
+    SELECT nid, concat(substring(title, 1, 48), '...') as title
     FROM {node} 
     WHERE type='discussion' 
     AND nid NOT IN (
