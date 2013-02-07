@@ -35,7 +35,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
    
     // Just show explanation about the bookmarklet
     $form['help'] = array(
-      '#markup' => '<div id="meedan_bookmarklet_help"><span>' . t('Help') . '<p>' . t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team') . '</p></span></div>',
+      '#markup' => '<div id="meedan_bookmarklet_help"><span>' . t('Help') . '<p>' . t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team.') . '</p></span></div>',
       '#weight' => -1,
     );
 
@@ -110,7 +110,7 @@ function _checkdesk_bookmarklet_media_preview($path) {
   if (!$path) return $preview;
   $oembed = meedan_oembed_data($path);
   if (isset($oembed) && $oembed->error) {
-    return t('It was not able to parse this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it later.');
+    return t('There was a problem parsing this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it again later.');
   }
   if (isset($oembed) && isset($oembed->thumbnail_url)) {
     // If it is a tweeet, show the text instead of the image

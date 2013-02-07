@@ -26,7 +26,7 @@ $modal-width: 426px;
   position: relative;
   top: 0;
   z-index: $zindexModal;
-  width: $modal-width;
+  // width: $modal-width;
   margin-top: -250px;
   background-color: $white;
   border: 1px solid #999;
@@ -66,6 +66,7 @@ $modal-width: 426px;
 .modal-body {
   position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
 
   .modal-content {
     position: relative;
@@ -77,8 +78,6 @@ $modal-width: 426px;
       padding: 0;
       margin: 0;
       z-index: $zindexModal + 1;
-      width: ($modal-width - ($gw*2 + 2)) ;
-
       font-size: $fontSizeSmall;
     }
   }
@@ -101,9 +100,9 @@ $modal-width: 426px;
 .modal-footer {
   position: absolute;
   bottom: 0;
-  left: 1px;
+  left: -$gw;
   padding: 0;
-  width: ($modal-width - ($gw*2 + 2)) ;
+  width: 100%;
   display: block;
   padding: $baseLineHeight/2 $gw;
   margin-bottom: 0;
@@ -112,18 +111,27 @@ $modal-width: 426px;
   border-top: 1px solid #ddd;
   @include border-radius(0 0 6px 6px);
   @include box-shadow(inset 0 1px 0 $white);
-  @include clearfix(); // clear it in case folks use .pull-* classes on buttons
-  input.btn {
-    float: $from-direction;
-    @include button($identity, 18px);
-    margin-right: 1em !important;
-  }
+  @include ctb-clearfix(); // clear it in case folks use .pull-* classes on buttons
 
-  a.btn {
-    @include button($grayLight, 18px);
-  }
-  
-  .ajax-progress-throbber {
-    display: none;
+  .form-actions {
+    
+    padding-#{$alpha}: $gw;
+    // space between buttons
+    .btn {
+      margin-#{$omega}: $gw !important;
+    }
+    // sometimes the button is an input
+    input.btn {
+      float: $from-direction;
+      @include button($identity, 18px);
+    }
+    // sometimes it is an anchor element
+    a.btn {
+      @include button($grayLight, 18px);
+    }
+
+    .ajax-progress-throbber {
+      display: none;
+    }
   }
 }

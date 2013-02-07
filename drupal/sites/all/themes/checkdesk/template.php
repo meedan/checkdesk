@@ -59,7 +59,7 @@ function checkdesk_preprocess_page(&$variables) {
     // Change "Submit Report" link
     foreach ($variables['main_menu'] as $id => $item) {
       if ($item['link_path'] == 'node/add/media') {
-        $variables['main_menu'][$id]['href'] = variable_get('meedan_bookmarklet_code', _meedan_bookmarklet_default_code());
+        $variables['main_menu'][$id]['href'] = meedan_bookmarklet_get_code();
         $variables['main_menu'][$id]['external'] = TRUE;
         $variables['main_menu'][$id]['absolute'] = TRUE;
         $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
@@ -264,7 +264,7 @@ function checkdesk_links__node($variables) {
     'modal-popup-medium' => array(
       'modalSize' => array(
         'type' => 'fixed',
-        'width' => 420,
+        'width' => 520,
         'height' => 350,
         'addWidth' => 0,
         'addHeight' => 0
@@ -477,5 +477,55 @@ function checkdesk_form_post_node_form_alter(&$form, &$form_state) {
 
   $form['body']['und'][0]['#title'] = NULL;
   $form['body']['und'][0]['#attributes']['placeholder'] = t('Compose update here...');
+}
+
+/**
+ * Theme views
+ */
+function checkdesk_preprocess_views_view(&$vars) {
+  global $base_path;
+  $vars['base_path'] = $base_path;
+  // set template functions for individual views
+  if (isset($vars['view']->name)) {
+    $function = 'checkdesk_preprocess_views_view__'.$vars['view']->name; 
+    if (function_exists($function)) {
+      $function($vars);
+    }
+  }
+}
+
+/* Desk Reports */
+function checkdesk_preprocess_views_view__desk_reports(&$vars) {
+  if($vars['display_id'] == 'block') {
+
+    ctools_include('modal');
+    ctools_modal_add_js();
+    $modal_style = array(
+     'modal-popup-report' => array(
+          'modalSize' => array(
+            'type' => 'fixed',
+            'width' => 300,
+            'height' => 300,
+            'addWidth' => 0,
+            'addHeight' => 0
+          ),
+          'modalOptions' => array(
+            'opacity' => .5,
+            'background-color' => '#000',
+          ),
+          'animation' => 'show',
+     'animationSpeed' => 40,
+          'modalTheme' => 'CToolsModalDialog',
+          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+        ),
+      );
+      drupal_add_js($modal_style, 'setting');
+
+
+
+    foreach($vars['view']->result as $delta => $item) {
+      
+    }
+  }
 }
 
