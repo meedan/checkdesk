@@ -46,6 +46,9 @@ function checkdesk_preprocess_html(&$variables) {
 function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
+  $vars['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'));
+  drupal_add_js(array('basePathCheckdeskTheme' => $vars['basePathCheckdeskTheme']), 'setting');
+
   // Primary nav
   $variables['primary_nav'] = FALSE;
   if ($variables['main_menu']) {

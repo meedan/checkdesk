@@ -26,7 +26,7 @@ Drupal.behaviors.meedan_notifications_load_more = {
     var block = $('#my-notifications', context);
     var container =  block.find('.view-content');
     container.unbind('scroll');
-    container.on('scroll', function() {
+    container.scroll(function() {
       if ($(this)[0].scrollHeight - $(this).scrollTop() === $(this).outerHeight()) {
         block.find('.pager a').click();
       }
