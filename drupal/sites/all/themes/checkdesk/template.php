@@ -46,7 +46,8 @@ function checkdesk_preprocess_html(&$variables) {
 function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
-  $vars['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'));
+  // Add a path to the theme so checkdesk_inject_bootrap.js can load libraries
+  $vars['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => FALSE));
   drupal_add_js(array('basePathCheckdeskTheme' => $vars['basePathCheckdeskTheme']), 'setting');
 
   // Primary nav
