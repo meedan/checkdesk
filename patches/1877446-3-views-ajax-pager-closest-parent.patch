@@ -53,13 +53,13 @@ Subject: [PATCH] Correcting ajax_view.js patch, the jQuery.is() function does
  not accept object arguments until jQuery version 1.6.
 
 ---
- drupal/sites/all/modules/contrib/views/js/ajax_view.js | 2 +-
+ js/ajax_view.js | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drupal/sites/all/modules/contrib/views/js/ajax_view.js b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
+diff --git a/js/ajax_view.js b/js/ajax_view.js
 index c108d05..9cd3248 100644
---- a/drupal/sites/all/modules/contrib/views/js/ajax_view.js
-+++ b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
+--- a/js/ajax_view.js
++++ b/js/ajax_view.js
 @@ -86,7 +86,7 @@ Drupal.views.ajaxView.prototype.attachPagerAjax = function() {
  Drupal.views.ajaxView.prototype.attachPagerLinkAjax = function(id, link) {
    var $link = $(link);
