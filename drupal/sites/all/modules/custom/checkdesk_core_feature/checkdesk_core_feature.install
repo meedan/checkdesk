@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function checkdesk_core_feature_install() {
+  db_query("UPDATE {system} SET status = 1 WHERE type = 'theme' AND name = 'checkdesk'");
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function checkdesk_core_feature_uninstall() {
+  db_query("UPDATE {system} SET status = 0 WHERE type = 'theme' AND name = 'checkdesk'");
+}
+
+/**
+ * Ensures the Checkdesk theme is enabled.
+ */
+function checkdesk_core_feature_update_7000() {
+  checkdesk_core_feature_install();
+}
