@@ -120,3 +120,11 @@ function checkdesk_core_update_7012() {
   module_enable(array('translation_helpers'));
 }
 
+/**
+ * Implements hook_update_N().
+ * Enable needed modules.
+ */
+function checkdesk_core_update_7013() {
+  module_enable(array('features_translations'));
+}
+
