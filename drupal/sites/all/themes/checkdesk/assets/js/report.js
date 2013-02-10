@@ -31,14 +31,14 @@
 			$('.report-activity > header').unbind('click').click(function(event) {
 				var target = $(this);
 				var element = target.parent().attr('id');
-        if ($('#'+ element + ' .activity-wrapper').is(':visible')) {
+        		if ($('#'+ element + ' .activity-wrapper').is(':visible')) {
 				  $('#'+ element + ' .activity-wrapper').slideUp('fast');
 				  $('#'+ element).removeClass('open');
-        }
-        else {
+		        }
+		        else {
 				  $('#'+ element + ' .activity-wrapper').slideDown('fast');
 				  $('#'+ element).addClass('open');
-        }
+        		}
 				return false;
 			});
 
@@ -84,6 +84,32 @@
 				}
 			}
 			
+		}
+	};
+
+
+	// filters for reports inside sidebar
+	Drupal.behaviors.reportFilters = {
+		attach: function (context, settings) {
+			$('.panel-toggle').unbind('click').click(function(event) {
+				var target = $(this);
+				var element = target.parent().attr('id');
+				if ($('#'+ element + ' .panel-content').is(':visible')) {
+					$('#'+ element + ' .panel-content').fadeOut('fast');
+					$('#'+ element).removeClass('open');
+				} else {
+					$('#'+ element + ' .panel-content').fadeIn('fast');
+				  	$('#'+ element).addClass('open');
+				}
+
+			});
+			// hide when clicked outside
+			$(document).mouseup(function(event){
+				var container = $('.panel-content');
+				if (container.has(event.target).length === 0) {
+					container.hide();
+				}
+			});
 		}
 	};
 

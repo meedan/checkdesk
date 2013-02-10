@@ -1,113 +1,77 @@
-@charset "UTF-8";
+#incoming-reports-filters {
+  @include ctb-clearfix;
+  font-family: $sans-font-family;
+  font-size: $fontSizeSmall;
+  padding: 0 $gw*2;
+  color: $gray;
 
-// The report filters
-// Views filter
-//
-// $w - the width
-//
-@mixin reports-filter-and-results($w) {
-  @content;
-
-  // The form
-  // in the sidebar of the create update page
-  form {
-    margin-top: $gw;
-
-    // the label 
-    // on the report filter sidebar
-    //
-    .views-exposed-widget > label { 
-      font-weight: bold; 
-      font-size: $smaller-font-size;
-      display: block;
-
-      &:last-of-type {
-        @include omega;
-      }
-    }
-
-    .views-exposed-widget {
-      display: inline-block;
-      width: auto;
-      padding: 2px;
-      text-align: center;
-      background-color: $light-grey;
-      border: 1px solid $grey;
-      @include border-radius($radius);
-      font-weight: 300;
-    }
-
-    .views-submit-button,
-    .views-reset-button {
-      display: none; // TEMPORARY — CGB
-    }
-    
-
-    .views-exposed-widget.views-submit-button {
-      label {
-        text-align: $from-direction;
-        float: $from-direction;
-        width: 45%;
-        border-top:1px solid red;
-      }
-      input {
-        float: $from-direction;
-        background-color: $dark-grey;
-        clear: none;
-      }
-    }
-
-    .views-operator, // show/exclude buttons
-    .views-widget {  // and the actual filter input elements
-      display: none; // are toggled with jascript 
-    }
+  header {
+  	padding-top: $baseLineHeight;
+  	h2 {
+  		display: inline-block;
+  		@include reset-box-model;
+  	}
   }
 
-  .view-content,
-  .views-field, 
-  .field-content {
-    // @include span-columns($w, $w); // ensure everything clears
+  .panels {
+  	@include reset-list-style;
+	display: inline-block;
+	margin-top: $baseLineHeight/2;
+	.panel {
+		display: inline-block;
+		position: relative;
+		.panel-toggle {
+			display: inline-block;
+			padding: 4px 12px;
+			margin-#{$omega}: $gw;
+			text-align: center;
+		  	vertical-align: middle;
+		  	cursor: pointer;
+		  	background-color: $grayLighter;
+		  	font-size: $baseFontSize;
+      		@include border-radius(6px);
+      		@include ctb-linkColor($gray);
+      		&:hover {
+      			background-color: darken($grayLighter, 10%);
+      			text-decoration: none;
+      		}
+		}
+
+		.panel-content {
+			display: none;
+			position: absolute;
+			background-color: $grayLighter;
+			padding: $baseLineHeight/2 $gw;
+			margin-top: $baseLineHeight/4;
+			z-index: $zindexDropdown;
+			width: 410px;
+
+			background-color: $dropdownBackground;
+			border: 1px solid #ccc; // Fallback for IE7-8
+			border: 1px solid $dropdownBorder;
+			*border-right-width: 2px;
+			*border-bottom-width: 2px;
+			@include border-radius(6px);
+			@include box-shadow(0 5px 10px rgba(0,0,0,.2));
+			-webkit-background-clip: padding-box;
+			   -moz-background-clip: padding;
+			        background-clip: padding-box;
+
+			input[type="text"] {
+				float: none;
+				width: 260px;
+			}
+
+			label {
+				font-size: 14px !important;
+			}
+		}
+
+	}
+
+	#sort-by .panel-content {
+		width: 200px;
+	}
   }
 
-  .views-field-title { 
-    line-height: 1.0;
-    a {
-      font-size: $smaller-font-size;
-      color: $grey;
-    }
-  }
-
-  .views-field-field-link {
-    a {
-      font-weight: 500;
-      color: black;
-    }
-  }
-
-  div.domain {
-    float: $alpha;
-    margin-#{$omega}: $gw/2;
-  }
-
-  div.favicon {
-    float: $alpha;
-    margin-#{$omega}: $gw/2;
-    img {
-      max-width: 16px;
-      max-height: 16px;
-    }
-  }
-
-   // This needs improvement in the markup to capture the right status colors
-  .views-field-field-rating {
-    color: $grey;
-  }
-
-  .report-row {
-    // @include span-columns($w, $w, $gw);
-    // padding: { top: $gw; bottom: $gw; }
-    // border-top: 1px solid $light-grey;
-    // background: white; // for drag and drop
-  }
-
-}
+} // filters

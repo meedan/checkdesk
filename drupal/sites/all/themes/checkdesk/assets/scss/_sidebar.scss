@@ -28,25 +28,27 @@
         margin-top: $base-font-size;
         @include cd-box-shadow();
         background-color: white;
-        
-        // Desk reports sidebar via reports.scss
-        @include reports-filter-and-results($sw) { // The reports filter form
-
-          // reapply form defaults with this layout
-          // @include cd-form-layout($sw, $sw, $gw); // apply form layout @ 100%          
-
-          // Further customizations to only this sidebar form
-          form {
-            border-bottom: 1px solid $bkg-color;
-            padding-bottom: 1em;
-            margin-bottom: 1em;
-          }
-        }
 
         .view-desk-reports .item-list {
           @include ctb-clearfix;
           padding: 0 $gw*2;
         }
+        
+        // // Desk reports sidebar via reports.scss
+        // @include reports-filter-and-results($sw) { // The reports filter form
+
+        //   // reapply form defaults with this layout
+        //   // @include cd-form-layout($sw, $sw, $gw); // apply form layout @ 100%          
+
+        //   // Further customizations to only this sidebar form
+        //   form {
+        //     border-bottom: 1px solid $bkg-color;
+        //     padding-bottom: 1em;
+        //     margin-bottom: 1em;
+        //   }
+        // }
+
+        
 
       }
 
@@ -129,18 +131,18 @@
       // Sidebar reports mixin
       // reports-filter-and-results
       //
-      @include reports-filter-and-results($sw) { 
-        // @include cd-form-layout($break, $break) {
-        //   // @include pad(0,0);
-        // }
+      // @include reports-filter-and-results($sw) { 
+      //   // @include cd-form-layout($break, $break) {
+      //   //   // @include pad(0,0);
+      //   // }
 
-        .report-row {
-          @include span-columns($sw/2, $sw); // why doesn't this work? ...
-          // width: 40% !important; // force it to shrink the reports HACK
-          // clear: none;
-          // display: inline-block;
-        }
-      }
+      //   .report-row {
+      //     @include span-columns($sw/2, $sw); // why doesn't this work? ...
+      //     // width: 40% !important; // force it to shrink the reports HACK
+      //     // clear: none;
+      //     // display: inline-block;
+      //   }
+      // }
 
       // Float one of the filters to the right
       #edit-field-rating-tid-wrapper {
