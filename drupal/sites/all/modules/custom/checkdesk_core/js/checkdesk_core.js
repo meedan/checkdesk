@@ -47,7 +47,7 @@
       });
       // Attach the Views results to each correspoknding row in the DOM.
       var i=0;
-      $('.view-desk-reports .view-content').children().each(function() {
+      $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
         $(this).data('views', settings.checkdesk.reports[i++]);
       });
       // Restrict thumbnail width to 220

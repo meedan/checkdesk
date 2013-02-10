@@ -103,11 +103,11 @@
     color: $grey;
   }
 
-  .views-row {
-    @include span-columns($w, $w, $gw);
-    padding: { top: $gw; bottom: $gw; }
-    border-top: 1px solid $light-grey;
-    background: white; // for drag and drop
+  .report-row {
+    // @include span-columns($w, $w, $gw);
+    // padding: { top: $gw; bottom: $gw; }
+    // border-top: 1px solid $light-grey;
+    // background: white; // for drag and drop
   }
 
 }

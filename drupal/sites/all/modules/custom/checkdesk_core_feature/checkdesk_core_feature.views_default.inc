@@ -701,37 +701,67 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_type'] = '0';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
   $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['label'] = '';
+  $handler->display->display_options['fields']['field_link']['element_type'] = '0';
   $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_link']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_default';
+  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_thumbnail';
   $handler->display->display_options['fields']['field_link']['settings'] = array(
-    'maxwidth' => '220',
-    'maxheight' => '',
+    'imagestyle' => 'report_thumbnail',
   );
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['label'] = '';
-  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['nid']['alter']['text'] = 'Details';
-  $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nid']['alter']['path'] = 'report-view-modal/nojs/[nid]';
   $handler->display->display_options['fields']['nid']['alter']['link_class'] = 'ctools-use-modal';
+  $handler->display->display_options['fields']['nid']['element_type'] = '0';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nid']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['nid']['hide_alter_empty'] = FALSE;
   /* Field: Content: Fact-checking status */
   $handler->display->display_options['fields']['field_rating']['id'] = 'field_rating';
   $handler->display->display_options['fields']['field_rating']['table'] = 'field_data_field_rating';
   $handler->display->display_options['fields']['field_rating']['field'] = 'field_rating';
   $handler->display->display_options['fields']['field_rating']['label'] = '';
+  $handler->display->display_options['fields']['field_rating']['element_type'] = '0';
   $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_rating']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Media */
+  $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
+  $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
+  $handler->display->display_options['fields']['field_link_1']['field'] = 'field_link';
+  $handler->display->display_options['fields']['field_link_1']['label'] = '';
+  $handler->display->display_options['fields']['field_link_1']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_link_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_link_1']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_link_1']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link_1']['type'] = 'oembed_default';
+  $handler->display->display_options['fields']['field_link_1']['settings'] = array(
+    'maxwidth' => '270',
+    'maxheight' => '',
+  );
+  /* Field: Media sources: Source URL */
+  $handler->display->display_options['fields']['source_url']['id'] = 'source_url';
+  $handler->display->display_options['fields']['source_url']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source_url']['field'] = 'source_url';
+  $handler->display->display_options['fields']['source_url']['relationship'] = 'ms_id';
+  $handler->display->display_options['fields']['source_url']['label'] = '';
+  $handler->display->display_options['fields']['source_url']['element_type'] = '0';
+  $handler->display->display_options['fields']['source_url']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['source_url']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */

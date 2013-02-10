@@ -42,6 +42,12 @@
             margin-bottom: 1em;
           }
         }
+
+        .view-desk-reports .item-list {
+          @include ctb-clearfix;
+          padding: 0 $gw*2;
+        }
+
       }
 
       // 3. The primary content column with compser form
@@ -128,11 +134,11 @@
         //   // @include pad(0,0);
         // }
 
-        .views-row {
+        .report-row {
           @include span-columns($sw/2, $sw); // why doesn't this work? ...
-          width: 40%!important; // force it to shrink the reports HACK
-          clear: none;
-          display: inline-block;
+          // width: 40% !important; // force it to shrink the reports HACK
+          // clear: none;
+          // display: inline-block;
         }
       }
 
@@ -161,3 +167,94 @@
   }
   @include cd-sidebar($sw, $pw, $break); // reapply cd-sidebar with new break
 }
+
+
+
+
+
+// incoming reports 
+// inside the sidebar
+#incoming-reports {
+  @include ctb-clearfix;
+  font-family: $sans-font-family;
+  font-size: $fontSizeSmall;
+  padding: 0 $gw*2;
+  color: $gray;
+
+  .report-row {
+    @include ctb-clearfix;
+    position: relative;
+
+    .report-row-container {
+      cursor: pointer;
+      padding: $baseLineHeight/2 $gw;
+      border-top: 1px solid $white;
+      border-right: 1px solid $white;
+      border-left: 1px solid $white;
+      border-bottom: 1px solid $grayLighter;
+      @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
+      @include ctb-transition(opacity 0.3s linear);
+    }
+
+    // for tweets
+    .twitter_com {
+      @include ctb-bg($grayLighter, rgba(238, 238, 238, 0.9));
+    }
+
+
+    .report-content {
+      @include ctb-clearfix;
+      // thumbnail type
+      .report-type-thumbnail {
+        max-width: 270px;
+        .report-thumbnail img {
+          @include ctb-opacity(.9);
+        }
+        .report-title {
+          font-size: $fontSizeSmall;
+        }
+      } // thumbnail type
+
+      .report-type-twitter {
+        
+      } // twitter
+    } // report content
+
+    .report-status {
+
+    }
+
+    .report-detail-link {
+      a {
+        @include checkdesk-button($grayLight);
+        @include button-size(13px);
+      }
+    }
+
+    // hover
+    &:hover {
+      color: $grayDark;
+      .report-row-container {
+        position: static;
+        $bw: 4px;
+        border: $bw solid $warningBorder;
+        background-color: $warningBackground;
+        margin-top: -$bw;
+        margin-#{$alpha}: -$bw;
+      } 
+
+      .report-content .report-thumbnail img {
+        @include ctb-opacity(1);
+      }
+
+    } // hover
+  } // report row
+
+  // while dragging
+  .ui-draggable-dragging {
+    .report-row-container {
+      
+    }
+  }
+} // incoming reports
+
