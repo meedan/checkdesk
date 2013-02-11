@@ -477,7 +477,7 @@ function checkdesk_form_post_node_form_alter(&$form, &$form_state) {
   $form['title']['#attributes']['placeholder'] = t('Add headline');
 
   $form['body']['und'][0]['#title'] = NULL;
-  $form['body']['und'][0]['#attributes']['placeholder'] = t('Compose update here...');
+  $form['body']['und'][0]['#attributes']['placeholder'] = t('Drag and drop reports here to compose your update');
 }
 
 /**
