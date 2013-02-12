@@ -22,7 +22,7 @@ javascripts_dir = File.join(full_assets_dir, "js")
 bb_background_path = "sites/all/themes/bowerbird/images/bkgs/"
 
 # icon webfonts from bowerbird
-http_fonts_path = File.join("/", themes_dir, extensions_dir, bowerbird_extension_dir, "fonts")
+http_fonts_path = File.join(http_path, themes_dir, extensions_dir, bowerbird_extension_dir, "fonts")
 relative_assets = false
 
 #load bowerbird
@@ -44,4 +44,4 @@ module Sass::Script::Functions
 end
 
 output_style = (environment == :production) ? :compressed : :expanded
-sass_options = (environment == :production) ? { :debug_info => false } : { :debug_info => true } 
+# sass_options = (environment == :production) ? { :debug_info => false } : { :debug_info => true } 

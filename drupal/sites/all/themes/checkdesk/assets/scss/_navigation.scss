@@ -6,15 +6,17 @@ $omega: opposite-position($from-direction);
 // 1. Drupal Navigation at the very top.
 // 2. Checkdesk #main-menu navigation
 
-// Nav icons
-// This will have to be refined with improved markup. href-based selector is fragile. - CGB
+// Icons in the navigation
 @mixin nav-icons($size: $xsmall-font-size) {
+  
   // add a post
-  li.menu-318 a { @include icon("pencil", $size); }
+  a[href*="add/post"] { @include icon("pencil", $size); }
   // add a report
-  li.menu-321 a { @include icon("bookmark", $size); }
+  a#menu-submit-report { @include icon("bookmark", $size); }
   // add a story 
-  li.menu-322 a { @include icon("file", $size); }
+  a[href*="add/discussion"] { @include icon("file", $size); }
+  // home
+  li.home a { @include icon("home", $size); }
 }
 
 // Nav item container

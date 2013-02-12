@@ -74,11 +74,11 @@ $omega: opposite-position($from-direction);
 // Transition helper, for transitioning between two states
 @import "bowerbird/transition";
 
-// Bowerbird font-icon support mixins: apply-font-face() and icon()
-@import "bowerbird/icons/icons";
-
 // background image helper for development
 @import "bowerbird/backgrounds";
+
+// Bowerbird font-icon support mixins: apply-font-face() and icon()
+@import "bowerbird/icons/icons";
 
 // Icon webfonts stored locally
 // This loads many classnames that can be safely removed before production - CGB
@@ -87,8 +87,6 @@ $omega: opposite-position($from-direction);
 // Load .icon- classnames
 // Import the classnames as a mixin
 @import "bowerbird/icons/fontawesome";
-// Now use the mixin
-@include all-fontawesome-classnames;
 
 // Bowerbird fork of fancy-buttons 
 // Example usage: button { @include button($tupperware-blue, 26px, 1em, 4px); }
