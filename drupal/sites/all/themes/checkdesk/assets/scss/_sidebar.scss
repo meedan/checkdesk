@@ -13,11 +13,11 @@
 
       // 2. The sidebar column
       #sidebar-first.column {
-        @debug $sw;
         @include span-columns($sw, $break); // sidebar width
         @include cd-box-shadow();
         background-color: white;
         margin-#{$omega}: 0;
+        padding-top: $baseLineHeight*1.6;
 
         // padding for the pager
         .view-desk-reports .item-list {

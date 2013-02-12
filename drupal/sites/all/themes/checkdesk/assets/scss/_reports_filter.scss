@@ -6,7 +6,6 @@
   color: $gray;
 	
   header {
-  	padding-top: $baseLineHeight;
   	h2 {
   		display: inline-block;
   		@include reset-box-model;
@@ -47,7 +46,7 @@
 			z-index: $zindexDropdown;
 			width: 410px;
 
-			background-color: $dropdownBackground;
+			background-color: lighten($grayLighter, 3%);
 			border: 1px solid #ccc; // Fallback for IE7-8
 			border: 1px solid $dropdownBorder;
 			*border-right-width: 2px;
@@ -67,8 +66,13 @@
 				font-size: 14px !important;
 			}
 
-			label#edit-reset{
-				
+			.views-reset-button input#edit-reset {
+				@include reset-box-model;
+				background: none;
+				border: 0 none;
+				color: $gray;
+				font-size: $fontSizeSmall;
+				&:hover { color: $grayDark; }
 			}
 		}
 
