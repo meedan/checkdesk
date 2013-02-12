@@ -16,9 +16,6 @@ function checkdesk_theme() {
     'checkdesk_user_menu_item' => array(
       'variables' => array('attributes' => array(), 'type' => NULL),
     ),
-    // 'checkdesk_notification_menu_item' => array(
-    //   'variables' => array('attributes' => array(), 'type' => NULL),
-    // ),
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),

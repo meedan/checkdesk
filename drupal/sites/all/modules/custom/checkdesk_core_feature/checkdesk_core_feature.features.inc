@@ -266,7 +266,7 @@ function checkdesk_core_feature_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale',
         'data' => array(
-          'width' => '300',
+          'width' => '350',
           'height' => '',
           'upscale' => 0,
         ),
@@ -282,8 +282,8 @@ function checkdesk_core_feature_image_default_styles() {
         'module' => 'image',
         'name' => 'image_crop',
         'data' => array(
-          'width' => '270',
-          'height' => '134',
+          'width' => '320',
+          'height' => '144',
           'anchor' => 'center-center',
         ),
         'weight' => '2',

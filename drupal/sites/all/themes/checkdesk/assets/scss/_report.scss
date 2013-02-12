@@ -435,16 +435,16 @@ $bh: $baseLineHeight/4;
 
 	// report icon based on status
 	.icon-ok-sign { 
-		color: red;
+		color: $green;
 		@include icon(ok-sign, 16px, darken($green, 15%));
 	}
 	.icon-question-sign { 
 		color: $orange; 
-		@include icon(remove-sign, 16px, darken($orange, 15%));
+		@include icon(question-sign, 16px, darken($orange, 15%));
 	}
 	.icon-remove-sign { 
 		color: $red; 
-		@include icon(question-sign, 16px, darken($red, 15%));
+		@include icon(remove-sign, 16px, darken($red, 15%));
 	}
 
 } // report

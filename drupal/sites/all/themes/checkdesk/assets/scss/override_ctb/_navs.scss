@@ -275,7 +275,7 @@
 
 // Clear any floats
 .tabbable {
-  @include clearfix();
+  @include ctb-clearfix();
 }
 .tab-content {
   overflow: auto; // prevent content from running below tabs

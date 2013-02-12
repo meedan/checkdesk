@@ -25,8 +25,11 @@
 		<?php } ?>
 	</div>
 	<?php if($fields['field_rating']->content != 'Not Applicable') { ?>
-		<div class="report-status">
-			<?php print $fields['field_rating']->content; ?>
+		<?php
+			$status_class = str_replace(' ', '_', strtolower($fields['field_rating']->content));
+		?>
+		<div class="report-status <?php print $status_class; ?>">
+			<span><?php print $fields['field_rating']->content; ?></span>
 		</div>
 	<?php } ?>
 	<div class="report-detail-link">

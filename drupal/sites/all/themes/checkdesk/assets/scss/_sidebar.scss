@@ -13,10 +13,17 @@
 
       // 2. The sidebar column
       #sidebar-first.column {
+        @debug $sw;
         @include span-columns($sw, $break); // sidebar width
         @include cd-box-shadow();
         background-color: white;
         margin-#{$omega}: 0;
+
+        // padding for the pager
+        .view-desk-reports .item-list {
+          padding: 0 $gw*2;
+        }
+
       }
 
       // 3. The primary content column with compser form
@@ -109,7 +116,7 @@
       @include ctb-clearfix;
       // thumbnail type
       .report-type-thumbnail {
-        max-width: 270px;
+        max-width: 100%;
         .report-thumbnail img {
           @include ctb-opacity(.9);
         }
@@ -124,7 +131,25 @@
     } // report content
 
     .report-status {
+      float: $omega;
+    }
 
+    // status icons
+    .verified span {
+      color: $green;
+      @include icon(ok-sign, 16px, darken($green, 15%)); 
+    }
+    .failed span {
+      color: $red;
+      @include icon(remove-sign, 16px, darken($red, 15%)); 
+    }
+    .undetermined span {
+      color: $orange;
+      @include icon(question-sign, 16px, darken($orange, 15%)); 
+    }
+    .in_progress span {
+      color: $yellow;
+      @include icon(refresh, 16px, darken($yellow, 15%)); 
     }
 
     .report-detail-link {
@@ -155,7 +180,6 @@
 
   // while dragging
   .ui-draggable-dragging {
-    // z-index: 1;
     .report-row-container {
       
     }
