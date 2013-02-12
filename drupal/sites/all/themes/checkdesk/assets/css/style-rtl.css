@@ -6392,13 +6392,13 @@ ul.pager {
   cursor: default;
 }
 
-/* line 102, ../scss/_navigation.scss */
+/* line 103, ../scss/_navigation.scss */
 nav[role="navigation"] {
   float: right;
   background-color: #262626;
   width: 100%;
 }
-/* line 107, ../scss/_navigation.scss */
+/* line 108, ../scss/_navigation.scss */
 nav[role="navigation"] li:last-of-type:after {
   float: right;
   clear: both;
@@ -6436,12 +6436,12 @@ nav[role="navigation"] li.home a:before {
   line-height: 15px;
   color: "black";
 }
-/* line 119, ../scss/_navigation.scss */
+/* line 120, ../scss/_navigation.scss */
 nav[role="navigation"] .dropdown-menu,
 nav[role="navigation"] #block-views-my-notifications-block .content {
   top: 30px;
 }
-/* line 123, ../scss/_navigation.scss */
+/* line 124, ../scss/_navigation.scss */
 nav[role="navigation"] .nav {
   margin: 0;
   padding: 0;
@@ -6456,7 +6456,7 @@ nav[role="navigation"] .nav {
   z-index: 1;
   background: #262626;
 }
-/* line 128, ../scss/_navigation.scss */
+/* line 129, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > div {
   margin: 0;
   padding: 0;
@@ -6469,7 +6469,7 @@ nav[role="navigation"] .nav > div {
   z-index: 1;
   background: #262626;
 }
-/* line 130, ../scss/_navigation.scss */
+/* line 131, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > div h2 {
   margin: 0;
   padding: 0;
@@ -6510,8 +6510,9 @@ nav[role="navigation"] .nav > div h2 > a {
 /* line 57, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > div h2 > a:hover {
   color: white;
+  background-color: transparent;
 }
-/* line 63, ../scss/_navigation.scss */
+/* line 64, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > div h2:first-child {
   border-right: 0 none;
 }
@@ -6523,17 +6524,17 @@ nav[role="navigation"] .nav > div h2:hover {
 nav[role="navigation"] .nav > div h2:hover {
   background-color: #151515;
 }
-/* line 72, ../scss/_navigation.scss */
+/* line 73, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > div h2:hover {
   background-color: transparent;
   color: white;
 }
-/* line 77, ../scss/_navigation.scss */
+/* line 78, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > div h2.active {
   background-color: #151515;
   color: white;
 }
-/* line 84, ../scss/_navigation.scss */
+/* line 85, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > div h2.active > a, nav[role="navigation"] .nav > div h2 > a.active {
   color: white;
   -webkit-border-radius: 4px 4px 0 0;
@@ -6543,7 +6544,7 @@ nav[role="navigation"] .nav > div h2.active > a, nav[role="navigation"] .nav > d
   border-radius: 4px 4px 0 0;
   font-weight: 500;
 }
-/* line 90, ../scss/_navigation.scss */
+/* line 91, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > div h2 span.avatar img {
   margin: 0;
   padding: 0;
@@ -6551,7 +6552,7 @@ nav[role="navigation"] .nav > div h2 span.avatar img {
   width: 18px;
   height: 18px;
 }
-/* line 135, ../scss/_navigation.scss */
+/* line 136, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   margin: 0;
   padding: 0;
@@ -6592,8 +6593,9 @@ nav[role="navigation"] .nav > a.btn > a, nav[role="navigation"] .nav > li > a {
 /* line 57, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > a.btn > a:hover, nav[role="navigation"] .nav > li > a:hover {
   color: white;
+  background-color: transparent;
 }
-/* line 63, ../scss/_navigation.scss */
+/* line 64, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > a.btn:first-child, nav[role="navigation"] .nav > li:first-child {
   border-right: 0 none;
 }
@@ -6605,17 +6607,17 @@ nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hove
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
   background-color: #151515;
 }
-/* line 72, ../scss/_navigation.scss */
+/* line 73, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
   background-color: transparent;
   color: white;
 }
-/* line 77, ../scss/_navigation.scss */
+/* line 78, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > a.btn.active, nav[role="navigation"] .nav > li.active {
   background-color: #151515;
   color: white;
 }
-/* line 84, ../scss/_navigation.scss */
+/* line 85, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > a.btn.active > a, nav[role="navigation"] .nav > a.btn > a.active, nav[role="navigation"] .nav > li.active > a, nav[role="navigation"] .nav > li > a.active {
   color: white;
   -webkit-border-radius: 4px 4px 0 0;
@@ -6625,7 +6627,7 @@ nav[role="navigation"] .nav > a.btn.active > a, nav[role="navigation"] .nav > a.
   border-radius: 4px 4px 0 0;
   font-weight: 500;
 }
-/* line 90, ../scss/_navigation.scss */
+/* line 91, ../scss/_navigation.scss */
 nav[role="navigation"] .nav > a.btn span.avatar img, nav[role="navigation"] .nav > li span.avatar img {
   margin: 0;
   padding: 0;
@@ -6633,42 +6635,42 @@ nav[role="navigation"] .nav > a.btn span.avatar img, nav[role="navigation"] .nav
   width: 18px;
   height: 18px;
 }
-/* line 141, ../scss/_navigation.scss */
+/* line 142, ../scss/_navigation.scss */
 nav[role="navigation"] #main-menu {
   padding-right: 10px;
 }
-/* line 146, ../scss/_navigation.scss */
+/* line 147, ../scss/_navigation.scss */
 nav[role="navigation"] #navigation-region,
 nav[role="navigation"] #user-menu {
   float: left;
 }
-/* line 148, ../scss/_navigation.scss */
+/* line 149, ../scss/_navigation.scss */
 nav[role="navigation"] #navigation-region span.avatar img,
 nav[role="navigation"] #user-menu span.avatar img {
   width: 15px;
   height: 15px;
   margin-right: 7px;
 }
-/* line 161, ../scss/_navigation.scss */
+/* line 162, ../scss/_navigation.scss */
 nav[role="navigation"] #navigation-region li.open a.dropdown-toggle,
 nav[role="navigation"] #user-menu li.open a.dropdown-toggle {
   text-shadow: none;
 }
-/* line 167, ../scss/_navigation.scss */
+/* line 168, ../scss/_navigation.scss */
 nav[role="navigation"] #navigation-region .ajax-progress-throbber,
 nav[role="navigation"] #user-menu .ajax-progress-throbber {
   display: none;
 }
-/* line 182, ../scss/_navigation.scss */
+/* line 183, ../scss/_navigation.scss */
 nav[role="navigation"] li.last .dropdown-menu {
   left: 10px;
 }
-/* line 186, ../scss/_navigation.scss */
+/* line 187, ../scss/_navigation.scss */
 nav[role="navigation"] li.menu-323 .dropdown-menu {
   left: -190px;
 }
 
-/* line 199, ../scss/_navigation.scss */
+/* line 200, ../scss/_navigation.scss */
 div.region-page-top #toolbar {
   position: fixed;
   z-index: 1030;
@@ -6680,24 +6682,24 @@ div.region-page-top #toolbar {
   overflow: hidden;
   background: #262626;
 }
-/* line 208, ../scss/_navigation.scss */
+/* line 209, ../scss/_navigation.scss */
 div.region-page-top #toolbar li {
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 211, ../scss/_navigation.scss */
+/* line 212, ../scss/_navigation.scss */
 div.region-page-top #toolbar li a {
   color: #999999;
   padding: 10px;
 }
-/* line 217, ../scss/_navigation.scss */
+/* line 218, ../scss/_navigation.scss */
 div.region-page-top #toolbar div.toolbar-menu {
   padding: 0;
   background-color: #262626;
 }
 
-/* line 225, ../scss/_navigation.scss */
+/* line 226, ../scss/_navigation.scss */
 .navbar-fixed-top {
   position: fixed;
   right: 0;
@@ -6705,17 +6707,17 @@ div.region-page-top #toolbar div.toolbar-menu {
   z-index: 1030;
 }
 
-/* line 233, ../scss/_navigation.scss */
+/* line 234, ../scss/_navigation.scss */
 .toolbar .navbar-fixed-top {
   top: 55px;
 }
 
-/* line 238, ../scss/_navigation.scss */
+/* line 239, ../scss/_navigation.scss */
 #main {
   margin-top: 24px;
 }
 
-/* line 242, ../scss/_navigation.scss */
+/* line 243, ../scss/_navigation.scss */
 .toolbar #main {
   margin-top: 79px;
 }
@@ -8033,29 +8035,25 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 #incoming-reports-filters:after {
   clear: both;
 }
-/* line 8, ../scss/_reports_filter.scss */
-#incoming-reports-filters header {
-  padding-top: 27px;
-}
-/* line 10, ../scss/_reports_filter.scss */
+/* line 9, ../scss/_reports_filter.scss */
 #incoming-reports-filters header h2 {
   display: inline-block;
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 16, ../scss/_reports_filter.scss */
+/* line 15, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels {
   list-style: none;
   display: inline-block;
   margin-top: 13.5px;
 }
-/* line 20, ../scss/_reports_filter.scss */
+/* line 19, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel {
   display: inline-block;
   position: relative;
 }
-/* line 24, ../scss/_reports_filter.scss */
+/* line 23, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-toggle {
   display: inline-block;
   padding: 4px 12px;
@@ -8076,12 +8074,12 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 #incoming-reports-filters .panels .panel .panel-toggle:hover {
   color: black;
 }
-/* line 35, ../scss/_reports_filter.scss */
+/* line 34, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-toggle:hover {
   background-color: #d4d4d4;
   text-decoration: none;
 }
-/* line 41, ../scss/_reports_filter.scss */
+/* line 40, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-content {
   display: none;
   position: absolute;
@@ -8090,7 +8088,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   margin-top: 6.75px;
   z-index: 1000;
   width: 410px;
-  background-color: white;
+  background-color: #f6f6f6;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
@@ -8107,16 +8105,30 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-/* line 61, ../scss/_reports_filter.scss */
+/* line 60, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-content input[type="text"] {
   float: none;
   width: 260px;
 }
-/* line 66, ../scss/_reports_filter.scss */
+/* line 65, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-content label {
   font-size: 14px !important;
 }
-/* line 77, ../scss/_reports_filter.scss */
+/* line 69, ../scss/_reports_filter.scss */
+#incoming-reports-filters .panels .panel .panel-content .views-reset-button input#edit-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  border: 0 none;
+  color: #555555;
+  font-size: 15.3px;
+}
+/* line 75, ../scss/_reports_filter.scss */
+#incoming-reports-filters .panels .panel .panel-content .views-reset-button input#edit-reset:hover {
+  color: #333333;
+}
+/* line 81, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #sort-by .panel-content {
   width: 200px;
 }
@@ -8141,6 +8153,7 @@ body.sidebar-first #main #sidebar-first.column {
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
   background-color: white;
   margin-left: 0;
+  padding-top: 43.2px;
 }
 /* line 23, ../scss/_sidebar.scss */
 body.sidebar-first #main #sidebar-first.column .view-desk-reports .item-list {
@@ -8186,6 +8199,7 @@ body.sidebar-first #main div#content .inner {
     box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
     background-color: white;
     margin-left: 0;
+    padding-top: 43.2px;
   }
   /* line 23, ../scss/_sidebar.scss */
   body.sidebar-first #main #sidebar-first.column .view-desk-reports .item-list {
@@ -8225,6 +8239,7 @@ body.sidebar-first #main div#content .inner {
     box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
     background-color: white;
     margin-left: 0;
+    padding-top: 43.2px;
   }
   /* line 23, ../scss/_sidebar.scss */
   body.sidebar-first #main #sidebar-first.column .view-desk-reports .item-list {
@@ -8268,6 +8283,7 @@ body.sidebar-first #main div#content .inner {
     box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
     background-color: white;
     margin-left: 0;
+    padding-top: 43.2px;
   }
   /* line 23, ../scss/_sidebar.scss */
   body.sidebar-first #main #sidebar-first.column .view-desk-reports .item-list {
