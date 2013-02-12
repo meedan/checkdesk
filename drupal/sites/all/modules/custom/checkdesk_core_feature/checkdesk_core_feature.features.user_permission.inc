@@ -617,8 +617,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'delete own media content',
     'roles' => array(
       0 => 'administrator',
-      1 => 'citizen journalist',
-      2 => 'journalist',
+      1 => 'journalist',
     ),
     'module' => 'node',
   );
