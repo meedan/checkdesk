@@ -1,0 +1,123 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+#1844638 by DamienMcKenna: Updated help messages around update 7004, when ran
+  via Drush it will no longer used Batch API.
+#1844764 by Devin Carlson, DamienMcKenna: Fix arg placeholders in t() calls.
+#1846516 by Staratel: Incorrect arguments for watchdog().
+#1846516 by DamienMcKenna: Further incorrect arguments for watchdog().
+#1844638 by DamienMcKenna: Correctly used drupal_is_cli() instead of just
+  php_sapi_name().
+#1846978 by edulterado: Corrected the theme function name used with the
+  Twitter Cards submodule.
+#1307804 by juampy: Support for Select_or_Other for use with the OpenGraph
+  'type' field.
+#1854522 by DamienMcKenna: Redundant return statements in the MetaTag classes.
+#1852600 by DamienMcKenna: Only use the first page argument in the Views and
+  Panels preprocessors if it is numerical.
+#1850014 by plopesc: Not all contexts that may be shown on the admin page will
+  have a path condition defined.
+#1846080 by DamienMcKenna: Only support entities that have the 'metatags'
+  option specifically enabled.
+#1857116 by DamienMcKenna: Purge {metatag} records for a few known unsupported
+  entities that old versions would have saved.
+#1857116 by DamienMcKenna: Don't purge 'file' {metatag} records until #1857334
+  is decided.
+#1857360 by DamienMcKenna: Purge {metatag} records for nodes, taxonomy terms
+  and users that were purged but where the APIs of older versions failed to
+  remove them.
+#1857116 by DamienMcKenna: Purge {metatag} records for Profile2.
+#1852600 by helmo: Typo in Views integration function.
+#1852022 by DamienMcKenna: Don't export the {metatag_config}.cid field.
+#1862570 by DamienMcKenna: Purge any empty values that may have been added by
+  very early releases.
+#1862570 by DamienMcKenna: Follow-up to correctly handle the serialized empty
+  array.
+#1864340 by cdoyle, DamienMcKenna: Incorrect output for certain Twitter Card
+  tags.
+#1865170 by DamienMcKenna: Fix metatag_requirements() return array when the
+  Page Title module is also installed.
+#1722564 by DamienMcKenna: Provide a hook_requirements() message and README.txt
+  note about a possible conflict with the Exclude Node Title module.
+#1284756 by damiankloip, sylus, alanburke, lancee: Migrate module integration.
+#1865228 by greggles, DamienMcKenna: Added the rel=author link meta tag.
+#1866122 by DamienMcKenna: Added the twitter:site:id and twitter:creator:id
+  meta tags.
+#1866980 by makangus: Corrected metatag_features_revert().
+#1862818 by DYdave, DamienMcKenna: Added documentation for
+  hook_metatag_config_default().
+#1778534 by DamienMcKenna: Added the original-source meta tag.
+#1886170 by DamienMcKenna: Typo in the API docs regarding enabling metatag
+  support in custom entities.
+#1871020 by DamienMcKenna: Compatibility problem with Workbench_Moderation.
+
+
+Metatag 7.x-1.0-beta4, 2012-11-17
+---------------------------------
+#1842764 by DamienMcKenna: Work around problems in metatag_entity_load()
+  stemming from an outdated database schema, leave a message suggesting the
+  site admin run the database updates.
+#1842868 by DamienMcKenna: Changed metatag_update_7003 to automatically assign
+  the correct language per entity, added update_7004 to fix records updated in
+  beta3, fixed the language selection for loading meta tags so sites without
+  translation functionality continue to work correctly.
+#1842868 by DamienMcKenna: Changed update 7003 again so it *only* adds the new
+  field, changed update 7004 so it will update all records using Batch API.
+#1843676 by DamienMcKenna: Changed the hook_requirements message to an INFO
+  message if Page_Title is also installed, will freak people out less.
+
+
+Metatag 7.x-1.0-beta3, 2012-11-16
+---------------------------------
+#1688286 by colan, DamienMcKenna: Support for Entity Translation.
+#1835030 by DamienMcKenna: Documentation and hook_requirements note re Drupal
+  core v7.17.
+#1840402 by DamienMcKenna, paperdhc: Corrected use of array_pop().
+#1841404 by mh86: Don't attempt to load meta tags for unsupported entities, and
+  don't support configuration-only entities.
+#1841564 by peximo: Correctly identify the content language being used on the
+  homepage.
+#1841774 by DamienMcKenna: Provide a warning via hook_requirements if the Page
+  Title module is also enabled, due to the possibilities of complications and
+  unexpected results.
+#1363476 by DamienMcKenna: Workaround to trigger metatag_entity_view() if the
+  current CTools (Panels, Panelizer, etc) page is an entity display page.
+#1842052 by DamienMcKenna: Don't process unsupported entities being displayed
+  via Views.
+#1664322 by nico059, kerasai, miechiel, idflood, DamienMcKenna, alexweber:
+  Twitter Cards meta tags.
+#1842198 by DamienMcKenna: Move the 'advanced' fieldset under the others.
+#1840236 by weri, Marty2081: Only revert the requested feature, not all
+  features.
+
+
+Metatag 7.x-1.0-beta2, 2012-10-30
+---------------------------------
+#1817580 by DamienMcKenna: Removed code that was enabling debug mode on all
+  Contexts.
+#1818240 by DamienMcKenna: Added $instance value to the drupal_alter() call in
+  metatag_metatags_view().
+#1817984 by DamienMcKenna, alexweber: Documented
+  hook_metatag_metatags_view_alter().
+#1818252 by DamienMcKenna: There was no caching on the front page's meta tags.
+#1818516 by DamienMcKenna: Incorrect variable check in metatag_page_build().
+#1818762 by DamienMcKenna: Updated hook_hook_info().
+#1466292 by DamienMcKenna: Listed hooks in metatag.api.php and everywhere the
+  hooks are triggered there's a comment to say what the hook is.
+#1818984 by DamienMcKenna: Add the $instance value to metatag_context's
+  triggering of hook_metatag_metatags_view.
+#1819000 by DamienMcKenna: Don't load default meta tags if no active contexts
+  define meta tags.
+#1819448 by DamienMcKenna: Error on admin page if any meta tags were disabled.
+#1818958 by DamienMcKenna: The $cid_parts array should contain all relevant
+  entity variables.
+#1820362 by DamienMcKenna: $cid_parts should use base_path() instead of '/'.
+#1820374 by DamienMcKenna: Front page $cid_parts did not include the full URL.
+#1822726 by DamienMcKenna: Ensure the CTools exportables system is loaded.
+#1818300 by eugene.ilyin, DamienMcKenna: Improved Features integration.
+#1151936 by DamienMcKenna, maximpodorov: Workaround to trigger
+  metatag_entity_view() if the current Views page is an entity display page.
+
+
+Metatag 7.x-1.0-beta1, 2012-10-19
+---------------------------------
+First mostly-stable release.

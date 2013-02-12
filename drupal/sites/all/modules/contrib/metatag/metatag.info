@@ -1,0 +1,18 @@
+name = Meta tags
+description = "Adds support and an API to implement meta tags."
+package = Meta tags
+core = 7.x
+dependencies[] = token
+dependencies[] = ctools
+configure = admin/config/search/metatags
+
+files[] = metatag.inc
+files[] = metatag.migrate.inc
+files[] = metatag.test
+
+; Information added by drupal.org packaging script on 2013-01-22
+version = "7.x-1.0-beta4+37-dev"
+core = "7.x"
+project = "metatag"
+datestamp = "1358860473"
+
