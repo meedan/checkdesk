@@ -186,47 +186,22 @@ nav[role="navigation"] {
     }
   }
 
-  // Notification
-  // ==============================================================
-
-  // Notifications 
-  // FIXME has a different structure than the other <ul>'s...
-  // #navigation-region {
-  //   #block-views-my-notifications-block {
-  //     @include nav-item-container;
-  //     h2 {
-  //       @include nav-item;
-  //       font-size: $nav-font-size; // these should not be necessary once this is an <a>
-  //       font-weight: 100;
-  //       padding: 2px;
-  //       .notifications-label {
-  //         cursor: pointer;
-  //       }
-  //       .notifications-count {
-  //         display: inline-block;
-  //         color: $notification-count-color;
-  //         span {
-  //           padding: 1px 5px;
-  //           background: #296182;
-  //           @include border-radius(5px);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 }
 
 // =======================================================================
 // Drupal toolbars at the very top
 //
 div.region-page-top {
+  
+
   #toolbar {
+    position: fixed;
+    z-index: $zindexFixedNavbar;
     // This can be cleaned up with toolbar css is removed.
     @include box-shadow(0 0 0 0); // disable box shadow
     padding: 0;
     margin: 0;
     overflow: hidden; // removes scroll?
-    position: static; // override drupal fixed positioning
     background: $nav-container-bkg-color;
     li {
       @include reset-box-model;
@@ -242,4 +217,26 @@ div.region-page-top {
       background-color: $nav-container-bkg-color;
     }
   }
+}
+
+// make navbar fixed at the top
+.navbar-fixed-top {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: $zindexFixedNavbar;
+}
+
+// when toolbar is present
+.toolbar .navbar-fixed-top {
+  top: $toolbarHeight;
+}
+
+// push content down
+#main {
+  margin-top: $navbarHeight;
+}
+
+.toolbar #main {
+  margin-top: $toolbarHeight+$navbarHeight;
 }

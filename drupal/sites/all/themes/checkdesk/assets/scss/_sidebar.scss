@@ -6,16 +6,6 @@
 @mixin cd-sidebar($sw, $pw, $break: $cw) {
 
   body.sidebar-first {
-    
-    // no reports
-    .view-empty {
-      clear: both;
-      float: $alpha;
-      font-style: italic;
-      padding: $gw;
-      color: $grey;
-    }
-
     #main {
       @include span-columns($break, $break); //outermost container
       @include pad(0,0, $break); // override story.scss
@@ -24,32 +14,9 @@
       // 2. The sidebar column
       #sidebar-first.column {
         @include span-columns($sw, $break); // sidebar width
-        margin-#{$omega}: 0;
-        margin-top: $base-font-size;
         @include cd-box-shadow();
         background-color: white;
-
-        .view-desk-reports .item-list {
-          @include ctb-clearfix;
-          padding: 0 $gw*2;
-        }
-        
-        // // Desk reports sidebar via reports.scss
-        // @include reports-filter-and-results($sw) { // The reports filter form
-
-        //   // reapply form defaults with this layout
-        //   // @include cd-form-layout($sw, $sw, $gw); // apply form layout @ 100%          
-
-        //   // Further customizations to only this sidebar form
-        //   form {
-        //     border-bottom: 1px solid $bkg-color;
-        //     padding-bottom: 1em;
-        //     margin-bottom: 1em;
-        //   }
-        // }
-
-        
-
+        margin-#{$omega}: 0;
       }
 
       // 3. The primary content column with compser form
@@ -57,27 +24,6 @@
         @include span-columns($pw omega, $break);
         @include pad(0,0, $break);
         margin-top: $base-font-size;
-
-        h1.title {
-          // @include cd-background;
-          // padding: $gw;
-          // margin: 0;
-          // // line-height: $base-line-height;
-          // // font-size: $small-font-size;
-          // font-weight: 700;
-        }
-
-        form {
-          // see _forms.scss
-          // @include span-columns($pw, $pw, $gw);
-          // background: rgb(244, 244, 244);
-          // label {
-          //   color: $dark-grey;
-          //   font-family: $sans-font-family;
-          // }
-        }
-
-        
       }
     }
   }
@@ -86,10 +32,6 @@
 // ==========================================================================
 // Default: up to break-small
 @include cd-sidebar($cw, $cw); // full width for secondary and primary cols
-
-.views-row {
-  // @extend .report;
-}
 
 // ==========================================================================
 // Breakpoint: small
@@ -118,44 +60,6 @@
   @include cd-sidebar($sw, $pw, $break) {
     @include span-columns($break, $break); //reset container to full
     @include pad(0, 0); //reset container padding
-    
-    // // Reset the form
-    // @include cd-form-layout($sw, $break, $gw) {
-    //   border: 1px solid $light-grey;
-    //   // form { padding: 0!important; } // reset form padding
-    // }
-
-    // Reports list under the filters
-    .content .view-desk-reports {
-
-      // Sidebar reports mixin
-      // reports-filter-and-results
-      //
-      // @include reports-filter-and-results($sw) { 
-      //   // @include cd-form-layout($break, $break) {
-      //   //   // @include pad(0,0);
-      //   // }
-
-      //   .report-row {
-      //     @include span-columns($sw/2, $sw); // why doesn't this work? ...
-      //     // width: 40% !important; // force it to shrink the reports HACK
-      //     // clear: none;
-      //     // display: inline-block;
-      //   }
-      // }
-
-      // Float one of the filters to the right
-      #edit-field-rating-tid-wrapper {
-        @include omega;
-      }
-
-      // clear the buttons in two col model
-      [class*="button"] {
-        clear: both;
-        float: $from-direction;
-        input { font-size: $small-font-size; } // smaller buttons in sidebar
-      }
-    }
   }
 }  
 // Breakpoint: large
@@ -169,9 +73,6 @@
   }
   @include cd-sidebar($sw, $pw, $break); // reapply cd-sidebar with new break
 }
-
-
-
 
 
 // incoming reports 
@@ -254,9 +155,19 @@
 
   // while dragging
   .ui-draggable-dragging {
+    // z-index: 1;
     .report-row-container {
       
     }
+  }
+
+  // no reports
+  .view-empty {
+    clear: both;
+    float: $alpha;
+    font-style: italic;
+    padding: $gw;
+    color: $grey;
   }
 } // incoming reports
 

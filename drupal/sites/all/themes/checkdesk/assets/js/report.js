@@ -110,6 +110,19 @@
 					container.hide();
 				}
 			});
+			// set the height of the sidebar
+			// var bodyHeight = $(window).height();
+			// 	buffer = 300;
+			// var bodyHeight = bodyHeight - buffer;
+			// $('#incoming-reports').height(bodyHeight);
+			
+			// $(window).resize(function(){
+			// 	var bodyHeight = $(window).height();
+			// 	var bodyHeight = bodyHeight - buffer;
+			// 	console.log(bodyHeight);
+			// 	$('#incoming-reports').height(bodyHeight);
+			// });
+
 		}
 	};
 

@@ -169,7 +169,7 @@ $zindexModal:             1050 !default;
 // -------------------------
 $navbarCollapseWidth:             979px !default;
 
-$navbarHeight:                    33px !default;
+$navbarHeight:                    24px !default;
 $navbarBackgroundHighlight:       $grayDarker !default;
 $navbarBackground:                $grayDarker;
 $navbarBorder:                    darken($navbarBackground, 12%) !default;
@@ -182,8 +182,10 @@ $navbarLinkBackgroundHover:       transparent !default;
 $navbarLinkBackgroundActive:      darken($navbarBackground, 5%) !default;
 
 // Drupal admin toolbar and drawer
-$toolbarHeight:					  30px;
-$drawerHeight:					  35px;
+$toolbarMenuHeight:				  20px;
+$drawerMenuHeight:				  35px;
+$toolbarHeight:					  $toolbarMenuHeight + $drawerMenuHeight;
+
 
 
 // Form states and alerts
