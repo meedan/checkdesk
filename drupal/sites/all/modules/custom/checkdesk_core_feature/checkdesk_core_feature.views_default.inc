@@ -521,6 +521,7 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Remove all filters';
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
@@ -995,7 +996,7 @@ print t(\'No content available\');
     t('Desk Reports'),
     t('more'),
     t('Apply'),
-    t('Reset'),
+    t('Remove all filters'),
     t('Sort by'),
     t('Asc'),
     t('Desc'),
