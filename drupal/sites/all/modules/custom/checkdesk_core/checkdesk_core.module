@@ -854,20 +854,16 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     else {
       $form['title']['#description'] = NULL;
     }
+    $form['title']['#attributes']['placeholder'] = t('Keyword');
     if (isset($_REQUEST['source'])) {
       $form['source']['#description'] = str_replace(array('{key:contains}', '{key:not}'), array('Showing reports from', 'Excluding reports from'), $form['source']['#description']);
     }
     else {
       $form['source']['#description'] = NULL;
     }
+    $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
     //Fix reset button
-    $form['#action'] = '/' . $_GET['q'];
-    //Add filters greyed out promp
-    drupal_add_js(drupal_get_path('module', 'checkdesk_core'). '/js/jquery.watermark/jquery.watermark.min.js');
-    drupal_add_js('jQuery(document).ready(function () {
-      jQuery(".view-desk-reports #edit-source").watermark(Drupal.t("Youtube"), {className: "filter-greyed-text"});
-      jQuery(".view-desk-reports #edit-title--2").watermark(Drupal.t("Keyword"), {className: "filter-greyed-text"});
-    });', 'inline');
+    $form['#action'] = url($_GET['q']);
   }
 }
 

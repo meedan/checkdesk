@@ -29,7 +29,6 @@
   <?php endif; ?>
   <header>
     <h2><?php print t('Incoming Reports'); ?></h2>
-    <p><?php print t('Sorted by time and filtered by current story'); ?></p>
   </header>
   <ul class="panels">
     <li id="sort-by" class="panel">
