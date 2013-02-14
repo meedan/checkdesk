@@ -1,0 +1,94 @@
+// This is the core file which is included by default when you use bowerbird sass
+//
+// configure which libraries and config is handled in the Bowerbird framework.
+//
+// in your config.rb now you need:
+// require "susy"
+// load "sites/all/themes/bowerbird/framework"
+// Then you can @import "bowerbird" and "bowerbird/drupal" or "bowerbird/tabs" as necessary.
+
+// Compass basics 
+//
+// to learn more `gem upack compass`
+@import "compass";
+@import "compass/css3";
+@import "compass/utilities";
+
+// Susy grid library
+//
+// to learn more `gem unpack susy`
+// Contains at-breakpoint, span-columns
+@import "susy";
+
+// Normalize
+// @import "bowerbird/normalize"; // we're not quite ready for vertical-rhythm - CGB Jan 2013
+
+// Configure the layout settings for the Susy library which comes with Bowerbird framework.
+// You will need these configuration values to get started:
+
+// $total-width: 20 !default;
+// $column-width: 64px !default;
+// $gutter-width: 16px !default;
+// $grid-padding: $gutter-width !default;
+
+// patches for CSS inherited from Drupal
+// note that we do NOT do a complete reset of all Drupal styles and there may be interference from core drupal CSS. This file mitigates some of the problems by patching specific bugs.
+// @import "bowerbird/drupal";
+
+// Mixins using Compass Twitter Bootstrap Gem
+//
+// In bowerbird child themes, use these when you just want the default twitter bootstrap behavior. Then if you need to customize them you can fork them such as '@import  checkdesk_compass_twitter_bootstrap/nav;' or you can create a new mixin that is unrelated like 'cd-layout' which is not dependent on Twiter Bootstrap. 
+//
+// Compatibility: IE7+
+
+// basics minus layout
+// @import "bowerbird/compass_twitter_bootstrap/variables";
+// @import "bowerbird/compass_twitter_bootstrap/mixins";
+// @import "bowerbird/compass_twitter_bootstrap/reset";
+// @import "bowerbird/compass_twitter_bootstrap/scaffolding";
+
+// Base CSS
+// @import "bowerbird/compass_twitter_bootstrap/type";
+// @import "bowerbird/compass_twitter_bootstrap/code";
+// @import "bowerbird/compass_twitter_bootstrap/forms";
+// @import "bowerbird/compass_twitter_bootstrap/tables";
+
+// Components: common
+// @import "compass_twitter_bootstrap/sprites";
+// @import "bowerbird/compass_twitter_bootstrap/dropdowns";
+// @import "compass_twitter_bootstrap/wells";
+// @import "compass_twitter_bootstrap/component-animations";
+// @import "compass_twitter_bootstrap/close";
+
+// // Components: Buttons & Alerts
+// @import "bowerbird/compass_twitter_bootstrap/buttons";
+// @import "bowerbird/compass_twitter_bootstrap/button-groups";
+// @import "bowerbird/compass_twitter_bootstrap/alerts";
+
+// Other CTB modules could be included here 
+// If you want them to appear by default in bowerbird child themes
+
+// Components: Nav
+// NOTE: in Checkdesk these are merged into navigation.scss
+// @import "compass_twitter_bootstrap/navs";
+// @import "compass_twitter_bootstrap/navbar";
+
+// @import "compass_twitter_bootstrap/breadcrumbs";
+// @import "compass_twitter_bootstrap/pagination";
+// @import "compass_twitter_bootstrap/pager";
+
+// Components: Popovers
+// @import "compass_twitter_bootstrap/modals";
+// @import "compass_twitter_bootstrap/tooltip";
+// @import "compass_twitter_bootstrap/popovers";
+
+// Components: Misc
+// @import "compass_twitter_bootstrap/thumbnails";
+// @import "compass_twitter_bootstrap/labels-badges";
+// @import "compass_twitter_bootstrap/progress-bars";
+// @import "compass_twitter_bootstrap/accordion";
+// @import "compass_twitter_bootstrap/carousel";
+// @import "compass_twitter_bootstrap/hero-unit";
+
+// Utility classes
+// @import "bowerbird/compass_twitter_bootstrap/utilities"; // Has to be last to override when necessary

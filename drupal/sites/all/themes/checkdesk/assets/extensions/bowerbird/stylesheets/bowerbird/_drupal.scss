@@ -1,0 +1,52 @@
+// Drupal feed icon
+.feed-icon a {
+  display: none;
+}
+
+// Drupal skiplinks 
+#skip a {
+  &:link, &:hover, &:visited {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  &:active, &:focus {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+}
+
+// Drupal bug fix with views 2 edit links.
+div.views-admin-links {
+  width: auto;
+}
+
+// Drupal improve edit links on blocks
+div.block {
+  position: relative;
+  .edit {
+    display: none;
+    position: absolute;
+    right: -20px;
+    top: -5px;
+    z-index: 40;
+    padding: 3px 8px 0;
+    font-size: 10px;
+    line-height: 16px;
+    background-color: white;
+    border: 1px solid #cccccc;
+    a {
+      display: block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  &:hover .edit {
+    display: block;
+  }
+}

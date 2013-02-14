@@ -7,7 +7,7 @@ require "modular-scale" #for ratios
 
 drupal_dir = "drupal"
 themes_dir = "sites/all/themes/"
-extensions_dir = "bowerbird/extensions/"
+extensions_dir = "checkdesk/assets/extensions/"
 bowerbird_extension_dir = "bowerbird/"
 full_bowerbird_extension_dir = File.join(drupal_dir, themes_dir, extensions_dir, bowerbird_extension_dir)
 

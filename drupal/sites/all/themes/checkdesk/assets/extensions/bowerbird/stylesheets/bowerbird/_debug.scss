@@ -1,0 +1,159 @@
+// Debugging colors
+// 
+// Applies features common to all types of debugging
+@mixin debug-colors($color: $default_debug_color) {
+  border-top: 1px solid $color!important;
+  background-color: rgba($color, 0.8);
+  // Can't get this to work CGB
+  // @if lightness(unquote($color)) < 50 {
+  //   background-color: lighten($color, 40%);
+  // }
+}
+
+// Label
+// Useful for debugging
+@mixin label($color: #FF628C, $selector: div, $label_text: false) {
+  position: relative;
+  display: block;
+  &:before {
+    display: inline-block;
+    background-color: $color;
+    position: absolute;
+    top: 0px;
+    #{opposite-position($from-direction)}: 0;
+    line-height: $small-font-size;
+    font-size: $smallest-font-size;
+    color: #000000;
+    content: $selector;
+    @if $label_text {
+      content: "#{$label_text}: #{$selector}";  
+    }
+  }
+}
+
+// Debug by selector
+//
+// $selectors - a list of selectors: ".first, .second, .third"
+// $want_labels - boolean option to enable lables in addition to colors.
+// For use on a container element such as a <form>.
+// Limitations: it only handles up to six colors right now.
+// TODO: refactor binding between debug_by_selector and debug_drupal_form
+//
+// Examples: 
+//   @include debug('.self, li, .form-actions, span, .form-item, a');
+//   @include debug('.self, *');
+
+@mixin debug($selectors, $want_labels: true) {
+  $color: bb_random_color();
+  @each $s in $selectors {
+    @if $s == '.self' {
+      @include debug-colors($color);
+    } @else {
+      #{$s} {
+        @include debug-colors($color);
+        @if $want_labels == true {
+          @include label($color, $s);
+        }
+      }
+    }
+  }
+}
+
+// Debugging grid
+//
+// Adds a breakpoint debugging banner the grid background image
+// $break: the number of columns you're working with
+//
+@mixin debug-grid($break: $cw) {
+  // Add a banner with debugging info
+  body:after {
+    font-family: $sans-font-family;
+    font-size: $smaller-font-size;
+    content: "At #{$break} cols. Breakpoints at #{$break-small}, #{$break-medium} and #{$break-large}.";
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: inline-block;
+    width: auto;
+    background-color: black;
+    color: yellow;
+    padding: 0.5em;
+  }
+}
+// ========================================================================
+// Drupal specific debugging
+
+// Common Drupal 7 form classnames
+$drupal_layout_selectors: ".content", "div.tabs", "#foo", "#content-footer", ".something";
+$drupal_report_selectors: ".report", ".oembed", ".report-description", ".report .container", ".report-activity", ".report-content p";
+$drupal_fyre_selectors: ".fyre-editor", ".fyre-comment-stream", ".fyre-stream-sort", "#foo", "#foo";
+$drupal_form_selectors: ".item-list", ".form-item", ".form-actions", ".something", ".content form" ;
+
+// Mixin for all Drupal debugs
+@mixin debug_drupal($reports: true, $forms: true, $layout: true, $livefyre: true) {
+  @if $forms { @include debug_drupal_forms; }
+  @if $reports { @include debug_drupal_reports; } 
+  @if $layout { @include debug_drupal_layout; }
+  @if $livefyre { @include debug_livefyre; }
+}
+
+// ========================================================================
+// Third party debugs 
+
+// Livefyre debug
+// @mixin debug_livefyre { @include debug_by_selector($drupal_fyre_selectors); }
+
+// ========================================================================
+// Breakpoint-corrected grid viz
+@mixin visualize-grid($banner: true) {
+
+  // Default
+  html {
+    @include column-grid-background($cw, column(), gutter(), 0%);
+    @if $banner == true { @include debug-grid($cw); }
+  }
+
+  // Small
+  @include at-breakpoint($break-small) {
+    html {
+      @include column-grid-background($break-small, column(), gutter(), 0%);
+      @if $banner == true { @include debug-grid($break-small); }
+    }
+  }
+
+  // Medium
+  @include at-breakpoint($break-medium) {
+    html {
+      @include column-grid-background($break-medium, column(), gutter(), 0%);
+      @if $banner == true { @include debug-grid($break-medium); }
+    }
+  }
+  
+  // Large
+  @include at-breakpoint($break-large) {
+    html {
+      @include column-grid-background($break-large, column(), gutter(), 0%);
+      @if $banner == true { @include debug-grid($break-large); }
+    }
+  }
+}
+
+// Quick debugger
+@mixin d() {
+
+  @debug "Debugging"; 
+  
+  & { 
+    background-color: rgba(aqua, 0.2); 
+  }
+  & > div {
+    background-color: red; 
+  }
+  & > span {
+    background-color: pink; 
+  }
+  * {
+    border-top: 1px solid rgba(aqua, 0.5);
+  }
+}
+

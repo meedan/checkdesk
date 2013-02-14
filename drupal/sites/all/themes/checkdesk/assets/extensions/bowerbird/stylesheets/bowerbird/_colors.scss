@@ -1,0 +1,129 @@
+// Color definitions
+// =================================================
+
+// Greys 
+$lightest-grey: hsl(0, 0%, 97%);
+$light-grey: hsl(0, 0%, 93%);
+$grey: hsl(0, 0%, 80%);
+$dark-grey: darken($grey, 45%);
+$darker-grey: darken($dark-grey, 35%);
+$darkest-grey: darken($darker-grey, 25%);
+
+// A syntax highlighting pallete
+$syntax-bkg: hsl(212, 75%, 14%);
+$syntax-one: hsl(344, 100%, 69%);
+$syntax-two: hsl(104, 100%, 43%);
+$syntax-three: hsl(208, 100%, 50%);
+$syntax-four: hsl(151, 100%, 75%);
+$syntax-five: hsl(52, 100%, 50%);
+$syntax-six: hsl(37, 100%, 50%);
+
+// Misc Colors
+$dark-blue: hsl(204, 100%, 33%);
+$calm-blue: rgba($dark-blue, 0.5);
+$midnight-blue: hsl(210, 100%, 20%);
+$cinnamon-brown: hsl(30, 100%, 27%);
+$frenchpass-blue: hsl(210, 100%, 87%);
+$cornflower-blue: hsl(210, 67%, 80%);
+$sulu-green: hsl(86, 78%, 70%);
+$terminal-green: hsl(90, 96%, 36%);
+$confetti-yellow: hsl(53, 82%, 63%);
+$cinnamon-orange: hsl(25, 100%, 38%);
+$reef-green: hsl(86, 100%, 77%);
+$dark-brown: hsl(22, 9%, 56%);
+$donjuan: hsl(0, 11%, 34%);
+$thrush-brown: hsl(26, 63%, 40%);
+$buttermilk-yellow: hsl(48, 100%, 77%);
+$firetruck-red: hsl(3, 100%, 36%);
+$postit-yellow: hsl(46, 100%, 95%);
+$bright-blue: hsl(204, 100%, 45%);
+$verdun-green: hsl(90, 100%, 20%);
+$yellow-orange: hsl(32, 100%, 79%);
+$paris-daisy-yellow: hsl(53, 100%, 70%);
+$flamingo-orange: hsl(16, 85%, 57%);
+$hot-cinnamon-orange: hsl(16, 73%, 50%);
+$default-box-shadow-color: hsl(0, 0%, 76%);
+
+// Social network colors
+$twitter-blue: hsl(203, 75%, 45%);  // exact Twitter brand color
+$google-blue: hsl(217, 99%, 65%); // bright blue eg in google groups
+$twitter-blueish: $syntax-three; // same hue neighborhood, but not exact
+$facebook-blue: hsl(219, 56%, 34%);
+$youtube-red: hsl(1, 90%, 55%);
+
+// Color configuration
+// ================================================
+
+// Identity
+$identity: $twitter-blueish;
+
+// Basics
+$bkg-color: hsl(0, 0%, 94%); // extremely light grey
+$input-background: lighten($light-grey, 15%);
+$hr-color: $grey;
+$text-color: black;
+$link-color: $identity;
+
+// susy grid colors
+$grid-background-gutter-color : $postit-yellow;
+$grid-background-column-color : white;
+
+// links colors for compass links helper
+$links-color: $twitter-blue;
+$links-active-color: $darkest-grey;
+$links-visited-color: $twitter-blue;
+
+// form colors for forms.scss
+$form-primary-accent: $bright-blue;
+$form-validation-error: $firetruck-red;
+$form-validation-success: $verdun-green;
+$form-valifation-warning: $yellow-orange;
+
+// A debugging theme
+$debug-bkg: lighten(hsl(212, 75%, 14%), 30%);
+$debug-one: hsl(344, 100%, 69%);
+$debug-two: hsl(104, 100%, 43%);
+$debug-three: hsl(208, 100%, 50%);
+$debug-four: hsl(151, 100%, 75%);
+$debug-five: hsl(52, 100%, 50%);
+$debug-six: hsl(37, 100%, 50%);
+$default_debug_color: $debug-six;
+
+// Notifications theme
+$notification-count-color: hsl(222, 59%, 45%);
+$notification-count-bkg-color: rgba($identity, 0.5);
+
+// Navigation theme
+// Used in chunky_block in buttons.scss
+
+$nav-color: rgba(white, 0.65);
+$nav-bkg-color: rgb(38, 38, 38); // from maya's design
+$nav-active-color: $nav-bkg-color; // active text
+$nav-active-bkg-color: $nav-color;
+$nav-container-bkg-color: $nav-bkg-color; //wrapper on nav
+$nav-hover-bkg-color: white;
+$nav-hover-color: black;
+
+// Tabs
+// on nodes ... note this is not in the spec! But we need it?
+
+$tabs-color: rgba(black, 0.75);
+$tabs-bkg-color: $lightest-grey;
+$tabs-active-color: black; // active text
+$tabs-active-bkg-color: $light-grey;
+
+// Dropdowns
+$dropdown-bkg: white;
+$dropdown-border: rgba(0,0,0,.2);
+$dropdown-divider-top: $light-grey;
+$dropdown-divider-bottom: white;
+$dropdown-link-color: $dark-grey;
+$dropdown-link-color-hover: white;
+$dropdown-link-color-active: $dropdown-link-color;
+$dropdown-link-bkg-active: darken($link-color, 5%);
+$dropdown-link-bkg-hover: darken($dropdown-link-bkg-active, 10%);
+
+
+// Buttons
+$button-color: darken($grey, 20%);
+$active-button-color: $identity;
