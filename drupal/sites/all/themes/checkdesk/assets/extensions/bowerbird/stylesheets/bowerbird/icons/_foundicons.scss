@@ -1,0 +1,121 @@
+// Foundicons
+//
+// names for "general" and "enclosed" icon subsets
+// 
+// See: http://www.zurb.com/playground/foundation-icons 
+
+@mixin i-class($name,$pua) {
+  .#{$classPrefix}#{$name}:before { 
+    content: "\f#{$pua}";
+  }
+}
+@mixin all-foundicons-classnames {
+  @include i-class(settings,"000");
+  @include i-class(heart,"001");
+  @include i-class(star,"002");
+  @include i-class(plus,"003");
+  @include i-class(minus,"004");
+  @include i-class(checkmark,"005");
+  @include i-class(remove,"006");
+  @include i-class(mail,"007");
+  @include i-class(calendar,"008");
+  @include i-class(page,"009");
+  @include i-class(tools,"00a");
+  @include i-class(globe,"00b");
+  @include i-class(home,"00c");
+  @include i-class(quote,"00d");
+  @include i-class(people,"00e");
+  @include i-class(monitor,"00f");
+  @include i-class(laptop,"010");
+  @include i-class(phone,"011");
+  @include i-class(cloud,"012");
+  @include i-class(error,"013");
+  @include i-class(right-arrow,"014");
+  @include i-class(left-arrow,"015");
+  @include i-class(up-arrow,"016");
+  @include i-class(down-arrow,"017");
+  @include i-class(trash,"018");
+  @include i-class(add-doc,"019");
+  @include i-class(edit,"01a");
+  @include i-class(lock,"01b");
+  @include i-class(unlock,"01c");
+  @include i-class(refresh,"01d");
+  @include i-class(paper-clip,"01e");
+  @include i-class(video,"01f");
+  @include i-class(photo,"020");
+  @include i-class(graph,"021");
+  @include i-class(idea,"022");
+  @include i-class(mic,"023");
+  @include i-class(cart,"024");
+  @include i-class(address-book,"025");
+  @include i-class(compass,"026");
+  @include i-class(flag,"027");
+  @include i-class(location,"028");
+  @include i-class(clock,"029");
+  @include i-class(folder,"02a");
+  @include i-class(inbox,"02b");
+  @include i-class(website,"02c");
+  @include i-class(smiley,"02d");
+  @include i-class(search,"02e");
+
+
+  /* social icons */
+  @include i-class(thumb-up,"000");
+  @include i-class(thumb-down,"001");
+  @include i-class(rss,"002");
+  @include i-class(facebook,"003");
+  @include i-class(twitter,"004");
+  @include i-class(pinterest,"005");
+  @include i-class(github,"006");
+  @include i-class(path,"007");
+  @include i-class(linkedin,"008");
+  @include i-class(dribbble,"009");
+  @include i-class(stumble-upon,"00a");
+  @include i-class(behance,"00b");
+  @include i-class(reddit,"00c");
+  @include i-class(google-plus,"00d");
+  @include i-class(youtube,"00e");
+  @include i-class(vimeo,"00f");
+  @include i-class(flickr,"010");
+  @include i-class(slideshare,"011");
+  @include i-class(picassa,"012");
+  @include i-class(skype,"013");
+  @include i-class(steam,"014");
+  @include i-class(instagram,"015");
+  @include i-class(foursquare,"016");
+  @include i-class(delicious,"017");
+  @include i-class(chat,"018");
+  @include i-class(torso,"019");
+  @include i-class(tumblr,"01a");
+  @include i-class(video-chat,"01b");
+  @include i-class(digg,"01c");
+  @include i-class(wordpress,"01d");
+
+  /* accessibility icon subset */
+  @include i-class(wheelchair,"000");
+  @include i-class(speaker,"001");
+  @include i-class(fontsize,"002");
+  @include i-class(eject,"003");
+  @include i-class(view-mode,"004");
+  @include i-class(eyeball,"005");
+  @include i-class(asl,"006");
+  @include i-class(person,"007");
+  @include i-class(question,"008");
+  @include i-class(adult,"009");
+  @include i-class(child,"00a");
+  @include i-class(glasses,"00b");
+  @include i-class(cc,"00c");
+  @include i-class(blind,"00d");
+  @include i-class(braille,"00e");
+  @include i-class(iphone-home,"00f");
+  @include i-class(w3c,"010");
+  @include i-class(css,"011");
+  @include i-class(key,"012");
+  @include i-class(hearing-impaired,"013");
+  @include i-class(male,"014");
+  @include i-class(female,"015");
+  @include i-class(network,"016");
+  @include i-class(guidedog,"017");
+  @include i-class(universal-access,"018");
+  @include i-class(elevator,"019");  
+}

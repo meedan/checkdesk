@@ -1,0 +1,14 @@
+// Transition between values for a property as triggered by a pseudo-state.
+@mixin bb-transition(
+  $from-value: $light-grey, 
+  $to-value: $twitter-blue, 
+  $duration: '0.2s',
+  $property: 'background-color') {
+  @include transition-property($property);
+  @include transition-duration($duration);
+  #{$property}: $from-value;
+  &:hover {  // hardcoded to hover for now but you can use content
+    #{$property}: $to-value; 
+  }
+  @content;
+}

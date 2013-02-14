@@ -1,0 +1,34 @@
+// Language specific quotes and fonts
+// Use lang="en" on <html> 
+// or child elements if mixing languages
+:lang(af){quotes:'\201E' '\201D' '\201A' '\2019';}
+:lang(ak){font-family:Lucida,"DejaVu Sans",inherit;}
+:lang(ar){font-family:Tahoma 12,Nazli,KacstOne,"DejaVu Sans",inherit;}
+:lang(bg){quotes:'\201E' '\201C' '\201A' '\2018';}
+:lang(bn){font-family:FreeSans,MuktiNarrow,Vrinda,inherit;font-size:1.1em;line-height:1.4em;}
+:lang(cs){quotes:'\201E' '\201C' '\201A' '\2018';}
+:lang(da){quotes:'\00BB' '\00AB' '\203A' '\2039';}
+:lang(de){quotes:'\201E' '\201C' '\201A' '\2018';}
+:lang(el){font-family:"DejaVu Sans",inherit;quotes:'\00AB' '\00BB' '\2039' '\203A';}
+:lang(en-GB){quotes:'\2018' '\2019' '\201C' '\201D';}
+:lang(es){quotes:'\00AB' '\00BB' '\2039' '\203A';}
+:lang(fa){font-family:Terafik,Traffic,Roya,Nazli,Nazanin,sans;font-size:1.5em;}
+:lang(fi){quotes:'\201D' '\201D' '\2019' '\2019';}
+:lang(fr){quotes:'\ab\2005' '\2005\bb' '\2039\2005' '\2005\203a';}
+:lang(hr){quotes:'\00BB' '\00AB' '\203A' '\2039';}
+:lang(is){quotes:'\201E' '\201C' '\201A' '\2018';}
+:lang(ja){font-size:1.1em;}
+:lang(km){font-family:"Khmer OS System","Khmer OS","Khmer Kampongtrach","CDT Khmer",inherit;line-height:2em;}
+:lang(ko){font-size:1.1em;}
+:lang(lt){quotes:'\201E' '\201C' '\201A' '\2018';}
+:lang(nl){quotes:'\201E' '\201D' '\201A' '\2019';}
+:lang(pl){quotes:'\201E' '\201D' '\201A' '\2019';}
+:lang(ro){quotes:'\201E' '\201C' '\201A' '\2018';}
+:lang(sk){quotes:'\201E' '\201C' '\201A' '\2018';}
+:lang(sq){quotes:'\00AB' '\00BB' '\2039' '\203A';}
+:lang(sr){quotes:'\201E' '\201C' '\201A' '\2018';}
+:lang(sv){quotes:'\201D' '\201D' '\2019' '\2019';}
+:lang(tr){quotes:'\00AB' '\00BB' '\2039' '\203A';}
+:lang(vi){font-family:"Lucida Grande","Vu Phu Tho","DejaVu Sans",inherit;}
+       :lang(vi) a:hover,:lang(vi) a:active{text-decoration:none;color:#606047;}
+:lang(zh){font-size:1.5em;}
