@@ -50,7 +50,7 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid #ccc;
   margin: 1em 0;
   padding: 0;
 }
@@ -218,7 +218,7 @@ textarea {
   /* line 234, ../scss/override_drupal/_html5bp_defaults.scss */
   * {
     background: transparent !important;
-    color: black !important;
+    color: #000 !important;
     /* Black prints faster: h5bp.com/s */
     box-shadow: none !important;
     text-shadow: none !important;
@@ -253,7 +253,7 @@ textarea {
   /* line 265, ../scss/override_drupal/_html5bp_defaults.scss */
   pre,
   blockquote {
-    border: 1px solid #999999;
+    border: 1px solid #999;
     page-break-inside: avoid;
   }
 
@@ -389,7 +389,7 @@ fieldset.collapsible .fieldset-legend {
 /* line 76, ../scss/override_drupal/_system_base.scss */
 .resizable-textarea .grippie {
   background: #eeeeee url(../../misc/grippie.png) no-repeat center 2px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   border-top-width: 0;
   cursor: s-resize;
   height: 9px;
@@ -732,7 +732,7 @@ ul.inline li {
  */
 /* line 67, ../scss/override_drupal/_system_menus.scss */
 ul.primary {
-  border-bottom: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbb;
   border-collapse: collapse;
   height: auto;
   line-height: normal;
@@ -764,8 +764,8 @@ ul.primary li a {
 /* line 90, ../scss/override_drupal/_system_menus.scss */
 ul.primary li.active a {
   background-color: #fff;
-  border: 1px solid #bbbbbb;
-  border-bottom: 1px solid white;
+  border: 1px solid #bbb;
+  border-bottom: 1px solid #fff;
 }
 
 /* line 95, ../scss/override_drupal/_system_menus.scss */
@@ -777,14 +777,14 @@ ul.primary li a:hover {
 
 /* line 100, ../scss/override_drupal/_system_menus.scss */
 ul.secondary {
-  border-bottom: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbb;
   padding: 0.5em 1em;
   margin: 5px;
 }
 
 /* line 105, ../scss/override_drupal/_system_menus.scss */
 ul.secondary li {
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #ccc;
   /* LTR */
   display: inline;
   padding: 0 1em;
@@ -798,7 +798,7 @@ ul.secondary a {
 
 /* line 114, ../scss/override_drupal/_system_menus.scss */
 ul.secondary a.active {
-  border-bottom: 4px solid #999999;
+  border-bottom: 4px solid #999;
 }
 
 /**
@@ -1050,7 +1050,7 @@ form .field-multiple-table td.field-multiple-drag a.tabledrag-handle {
 
 /* line 26, ../scss/override_drupal/_field.scss */
 form .field-add-more-submit {
-  margin: 0.5em 0 0;
+  margin: .5em 0 0;
 }
 
 /* line 2, ../scss/override_drupal/_node.scss */
@@ -1119,9 +1119,9 @@ body.toolbar-drawer {
   position: fixed;
   right: 0;
   top: 0;
-  -moz-box-shadow: 0 3px 20px black;
-  -webkit-box-shadow: 0 3px 20px black;
-  box-shadow: 0 3px 20px black;
+  -moz-box-shadow: 0 3px 20px #000;
+  -webkit-box-shadow: 0 3px 20px #000;
+  box-shadow: 0 3px 20px #000;
   filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
   -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
   z-index: 600;
@@ -1232,7 +1232,7 @@ body.toolbar-drawer {
 #toolbar div.toolbar-menu ul li a.active:active,
 #toolbar div.toolbar-menu ul li a.active,
 #toolbar div.toolbar-menu ul li.active-trail a {
-  text-shadow: #333333 0 1px 0;
+  text-shadow: #333 0 1px 0;
 }
 
 /**
@@ -1412,7 +1412,7 @@ div.add-or-remove-shortcuts a:hover span.text {
 
 /* line 13, ../scss/override_drupal/_contextual.scss */
 .contextual-links-region-active {
-  outline: #999999 dashed 1px;
+  outline: #999 dashed 1px;
 }
 
 /**
@@ -1475,7 +1475,7 @@ div.contextual-links-active a.contextual-links-trigger {
 /* line 62, ../scss/override_drupal/_contextual.scss */
 div.contextual-links-wrapper ul.contextual-links {
   background-color: #fff;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   display: none;
   margin: 0;
   padding: 0.25em 0;
@@ -1519,7 +1519,7 @@ div.contextual-links-wrapper a {
 
 /* line 95, ../scss/override_drupal/_contextual.scss */
 ul.contextual-links li a {
-  color: #333333 !important;
+  color: #333 !important;
   display: block;
   margin: 0.25em 0;
   padding: 0.25em 1em 0.25em 0.5em;
@@ -1621,7 +1621,7 @@ ul.rules-operations-add li {
 
 /* line 76, ../scss/override_drupal/_rules.scss */
 .rules-debug-log {
-  font: 81.3% "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  font: 81.3% "Lucida Grande","Lucida Sans Unicode",sans-serif;
   background-color: #eeeeee;
   border: 1px solid #cccccc;
   color: #333333;
@@ -1809,7 +1809,7 @@ ul.rules-autocomplete .ui-corner-all {
   white-space: nowrap;
   overflow: hidden;
   background: #efefef;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   position: relative;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1921,7 +1921,7 @@ body.context-editing .draggable-placeholder {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   background: #fff;
-  border: 3px dashed #666666;
+  border: 3px dashed #666;
   opacity: .2;
 }
 
@@ -1977,7 +1977,7 @@ body.context-editing .draggable:hover a.context-block-remove {
 /* line 178, ../scss/override_drupal/_context_reaction_block.scss */
 #context-blockform td.blocks,
 #context-blockform td.selector {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   padding: 10px;
   width: 50%;
 }
@@ -1989,7 +1989,7 @@ body.context-editing .draggable:hover a.context-block-remove {
   background: #fff;
   padding: 5px 5px 4px;
   border: 0px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 
 /* line 193, ../scss/override_drupal/_context_reaction_block.scss */
@@ -2064,7 +2064,7 @@ a.context-ui-add-link, a:link.context-ui-add-link, a:visited.context-ui-add-link
   opacity: 0.5;
   -moz-opacity: 0.5;
   filter: alpha(opacity=50);
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   border-left: 0;
   border-radius: 0 6px 6px 0;
 }
@@ -2140,7 +2140,7 @@ how it wants to round. */
   display: block;
   position: absolute;
   right: 0em;
-  padding: 0em 0.75em;
+  padding: 0em .75em;
   height: 2em;
   line-height: 2em;
   text-transform: uppercase;
@@ -2151,7 +2151,7 @@ how it wants to round. */
 /* Panel labels */
 /* line 45, ../scss/override_drupal/_l10n_client.scss */
 #l10n-client h2 {
-  border-left: 1px solid white;
+  border-left: 1px solid #fff;
   height: 1em;
   line-height: 1em;
   padding: .5em;
@@ -2210,8 +2210,8 @@ how it wants to round. */
   background: transparent;
   list-style: none;
   list-style-image: none;
-  border-bottom: 1px solid #dddddd;
-  padding: 0.25em 0.5em;
+  border-bottom: 1px solid #ddd;
+  padding: .25em .5em;
   margin: 0em;
 }
 
@@ -2262,7 +2262,7 @@ how it wants to round. */
   height: 2em;
   line-height: 2em;
   margin: 0em;
-  padding: 0.5em 0.5em;
+  padding: .5em .5em;
 }
 
 /* line 124, ../scss/override_drupal/_l10n_client.scss */
@@ -2374,12 +2374,12 @@ how it wants to round. */
   color: #fff;
 }
 
-/* line 2, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
+/* line 2, ../extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 .feed-icon a {
   display: none;
 }
 
-/* line 8, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
+/* line 8, ../extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 #skip a:link, #skip a:hover, #skip a:visited {
   position: absolute;
   left: -10000px;
@@ -2388,23 +2388,23 @@ how it wants to round. */
   height: 1px;
   overflow: hidden;
 }
-/* line 16, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
+/* line 16, ../extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 #skip a:active, #skip a:focus {
   position: static;
   width: auto;
   height: auto;
 }
 
-/* line 24, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
+/* line 24, ../extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 div.views-admin-links {
   width: auto;
 }
 
-/* line 29, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
+/* line 29, ../extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 div.block {
   position: relative;
 }
-/* line 31, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
+/* line 31, ../extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 div.block .edit {
   display: none;
   position: absolute;
@@ -2417,125 +2417,125 @@ div.block .edit {
   background-color: white;
   border: 1px solid #cccccc;
 }
-/* line 42, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
+/* line 42, ../extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 div.block .edit a {
   display: block;
   border: 0;
   padding: 0;
   margin: 0;
 }
-/* line 49, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
+/* line 49, ../extensions/bowerbird/stylesheets/bowerbird/_drupal.scss */
 div.block:hover .edit {
   display: block;
 }
 
 @font-face {
   font-family: "FontAwesome";
-  src: url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot');
-  src: url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('/sites/all/themes/bowerbird/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-/* line 13, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 13, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 #my-notifications .checkdesk_fact_checking_set .heartbeat-time-ago:before, #my-notifications .checkdesk_report_published_in_update .heartbeat-time-ago:before {
   content: "\f005";
 }
 
-/* line 29, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 29, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 nav[role="navigation"] li.home a:before {
   content: "\f015";
 }
 
-/* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 30, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 nav[role="navigation"] a[href*="add/discussion"]:before {
   content: "\f016";
 }
 
 /* \f020 doesn't work in Safari. all shifted one down */
-/* line 41, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 41, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 #incoming-reports .report-row .in_progress span:before {
   content: "\f021";
 }
 
-/* line 44, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 44, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 #my-notifications .checkdesk_flag_report .heartbeat-time-ago:before, .report #report-actions ul.content-actions > li > a span.icon-flag:before {
   content: "\f024";
 }
 
-/* line 54, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 54, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 nav[role="navigation"] a#menu-submit-report:before {
   content: "\f02e";
 }
 
-/* line 73, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 73, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f040";
 }
 
-/* line 77, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 77, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 .report #report-actions ul.content-actions > li > a span.icon-edit:before {
   content: "\f044";
 }
 
-/* line 78, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 78, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 .report #report-actions ul.content-actions > li > a span.icon-share:before {
   content: "\f045";
 }
 
-/* line 96, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 96, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 .report .icon-remove-sign:before, #incoming-reports .report-row .failed span:before {
   content: "\f057";
 }
 
-/* line 97, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 97, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 .report .icon-ok-sign:before, #incoming-reports .report-row .verified span:before {
   content: "\f058";
 }
 
-/* line 98, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 98, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 .report .icon-question-sign:before, #incoming-reports .report-row .undetermined span:before {
   content: "\f059";
 }
 
-/* line 122, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 122, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 #my-notifications .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago:before {
   content: "\f071";
 }
 
-/* line 126, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 126, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 #my-notifications .checkdesk_comment_on_update .heartbeat-time-ago:before, #my-notifications .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago:before, #my-notifications .checkdesk_comment_on_report .heartbeat-time-ago:before {
   content: "\f075";
 }
 
-/* line 162, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 162, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 .report h3 > a[href*="twitter.com"]:before, body.page-user- #edit-social-media-signin div.item-list li.first a:before,
 body.page-user #edit-social-media-signin div.item-list li.first a:before {
   content: "\f099";
 }
 
-/* line 163, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 163, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook']:before,
 body.page-user #edit-social-media-signin div.item-list li a[class^='facebook']:before {
   content: "\f09a";
 }
 
-/* line 182, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 182, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 #my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before {
   content: "\f0ad";
 }
 
-/* line 190, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 190, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 #my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before {
   content: "\f0c1";
 }
 
-/* line 226, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
+/* line 226, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
 #my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
   content: "\f0e5";
 }
 
-/* line 301, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 301, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
@@ -2547,12 +2547,12 @@ body.page-user #edit-social-media-signin div.item-list li a[class^='facebook']:b
   border-style: solid;
   font-weight: 200;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .button-reset-base-class:focus {
   outline: none;
 }
@@ -3024,7 +3024,7 @@ input[type="checkbox"][readonly] {
 
 /* line 111, ../scss/override_ctb/_navs.scss */
 .nav-tabs {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 
 /* line 115, ../scss/override_ctb/_navs.scss */
@@ -3054,7 +3054,7 @@ input[type="checkbox"][readonly] {
 .nav-tabs > .active > a:hover {
   color: #555555;
   background-color: white;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -3096,7 +3096,7 @@ input[type="checkbox"][readonly] {
 
 /* line 176, ../scss/override_ctb/_navs.scss */
 .nav-tabs.nav-stacked > li > a {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
@@ -3259,7 +3259,7 @@ input[type="checkbox"][readonly] {
 
 /* line 305, ../scss/override_ctb/_navs.scss */
 .tabs-below > .nav-tabs {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 
 /* line 308, ../scss/override_ctb/_navs.scss */
@@ -3285,7 +3285,7 @@ input[type="checkbox"][readonly] {
 /* line 320, ../scss/override_ctb/_navs.scss */
 .tabs-below > .nav-tabs > .active > a,
 .tabs-below > .nav-tabs > .active > a:hover {
-  border-color: transparent #dddddd #dddddd #dddddd;
+  border-color: transparent #ddd #ddd #ddd;
 }
 
 /* line 329, ../scss/override_ctb/_navs.scss */
@@ -3306,7 +3306,7 @@ input[type="checkbox"][readonly] {
 .tabs-left > .nav-tabs {
   float: left;
   margin-right: 19px;
-  border-right: 1px solid #dddddd;
+  border-right: 1px solid #ddd;
 }
 
 /* line 345, ../scss/override_ctb/_navs.scss */
@@ -3327,7 +3327,7 @@ input[type="checkbox"][readonly] {
 /* line 353, ../scss/override_ctb/_navs.scss */
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover {
-  border-color: #dddddd transparent #dddddd #dddddd;
+  border-color: #ddd transparent #ddd #ddd;
   *border-right-color: white;
 }
 
@@ -3335,7 +3335,7 @@ input[type="checkbox"][readonly] {
 .tabs-right > .nav-tabs {
   float: right;
   margin-left: 19px;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #ddd;
 }
 
 /* line 364, ../scss/override_ctb/_navs.scss */
@@ -3356,7 +3356,7 @@ input[type="checkbox"][readonly] {
 /* line 372, ../scss/override_ctb/_navs.scss */
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover {
-  border-color: #dddddd #dddddd #dddddd transparent;
+  border-color: #ddd #ddd #ddd transparent;
   *border-left-color: white;
 }
 
@@ -3372,7 +3372,7 @@ input[type="checkbox"][readonly] {
   cursor: default;
 }
 
-/* line 19, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 19, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 article,
 aside,
 details,
@@ -3386,7 +3386,7 @@ section {
   display: block;
 }
 
-/* line 28, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 28, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 audio,
 canvas,
 video {
@@ -3395,25 +3395,25 @@ video {
   *zoom: 1;
 }
 
-/* line 37, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 37, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 audio:not([controls]) {
   display: none;
 }
 
-/* line 44, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 44, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
 
-/* line 55, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 55, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 a:hover,
 a:active {
   outline: 0;
 }
 
-/* line 63, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 63, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 sub,
 sup {
   position: relative;
@@ -3422,17 +3422,17 @@ sup {
   vertical-align: baseline;
 }
 
-/* line 69, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 69, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 sup {
   top: -0.5em;
 }
 
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 sub {
   bottom: -0.25em;
 }
 
-/* line 79, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 79, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 img {
   /* Responsive images (ensure images don't scale beyond their parents) */
   max-width: 100%;
@@ -3446,13 +3446,13 @@ img {
   -ms-interpolation-mode: bicubic;
 }
 
-/* line 92, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 92, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 #map_canvas img,
 .google-maps img {
   max-width: none;
 }
 
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 button,
 input,
 select,
@@ -3462,21 +3462,21 @@ textarea {
   vertical-align: middle;
 }
 
-/* line 109, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 109, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 button,
 input {
   *overflow: visible;
   line-height: normal;
 }
 
-/* line 114, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 114, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 button::-moz-focus-inner,
 input::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
 
-/* line 121, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 121, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 button,
 html input[type="button"],
 input[type="reset"],
@@ -3485,7 +3485,7 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-/* line 125, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 125, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 input[type="search"] {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -3493,13 +3493,13 @@ input[type="search"] {
   -webkit-appearance: textfield;
 }
 
-/* line 132, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 132, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
 
-/* line 135, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
+/* line 135, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_reset.scss */
 textarea {
   overflow: auto;
   vertical-align: top;
@@ -3616,8 +3616,8 @@ textarea {
 /* line 115, ../scss/_alerts.scss */
 .absolute-messages-message .content {
   margin: 0;
-  padding: 0.5em 1.5em 0 1.5em;
-  border-bottom: 0.5em solid transparent;
+  padding: .5em 1.5em 0 1.5em;
+  border-bottom: .5em solid transparent;
   overflow: hidden;
 }
 
@@ -3703,7 +3703,7 @@ a.absolute-messages-dismiss-all:hover {
 /* line 181, ../scss/_alerts.scss */
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss-all:hover {
-  border: 2px solid #222222;
+  border: 2px solid #222;
   background-color: #222;
   color: #ccc;
 }
@@ -3891,9 +3891,9 @@ a.absolute-messages-dismiss-all:hover {
   z-index: 1050;
   margin-top: -250px;
   background-color: white;
-  border: 1px solid #999999;
+  border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999999;
+  *border: 1px solid #999;
   /* IE6-7 */
   -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
@@ -3918,7 +3918,7 @@ a.absolute-messages-dismiss-all:hover {
 
 /* line 47, ../scss/_modals.scss */
 .modal-header {
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
   background-color: white;
   overflow: hidden;
 }
@@ -3983,7 +3983,7 @@ a.absolute-messages-dismiss-all:hover {
   margin-bottom: 0;
   text-align: right;
   background-color: #f5f5f5;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   -ms-border-radius: 0 0 6px 6px;
@@ -4038,32 +4038,32 @@ a.absolute-messages-dismiss-all:hover {
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions input.btn::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions input.btn:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions input.btn, .modal-footer .form-actions input.btn:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions input.btn:hover, .modal-footer .form-actions input.btn:focus {
   background-color: #0080f0;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions input.btn:hover, .modal-footer .form-actions input.btn:hover:visited, .modal-footer .form-actions input.btn:focus, .modal-footer .form-actions input.btn:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions input.btn:active {
   background-color: #0078e0;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions input.btn:active, .modal-footer .form-actions input.btn:active:visited {
   color: white;
 }
@@ -4092,32 +4092,32 @@ a.absolute-messages-dismiss-all:hover {
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions a.btn::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions a.btn:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions a.btn, .modal-footer .form-actions a.btn:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions a.btn:hover, .modal-footer .form-actions a.btn:focus {
   background-color: #919191;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions a.btn:hover, .modal-footer .form-actions a.btn:hover:visited, .modal-footer .form-actions a.btn:focus, .modal-footer .form-actions a.btn:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions a.btn:active {
   background-color: #8a8a8a;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .modal-footer .form-actions a.btn:active, .modal-footer .form-actions a.btn:active:visited {
   color: white;
 }
@@ -4126,7 +4126,7 @@ a.absolute-messages-dismiss-all:hover {
   display: none;
 }
 
-/* line 8, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+/* line 8, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
 code,
 pre {
   padding: 0 3px 2px;
@@ -4138,7 +4138,7 @@ pre {
   border-radius: 3px;
 }
 
-/* line 17, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+/* line 17, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
 code {
   padding: 2px 4px;
   color: #d14;
@@ -4146,7 +4146,7 @@ code {
   border: 1px solid #e1e1e8;
 }
 
-/* line 25, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+/* line 25, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
 pre {
   display: block;
   padding: 13px;
@@ -4158,17 +4158,17 @@ pre {
   white-space: pre;
   white-space: pre-wrap;
   background-color: #f5f5f5;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 41, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+/* line 41, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
 pre.prettyprint {
   margin-bottom: 27px;
 }
-/* line 46, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+/* line 46, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
 pre code {
   padding: 0;
   color: inherit;
@@ -4176,13 +4176,13 @@ pre code {
   border: 0;
 }
 
-/* line 55, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+/* line 55, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
 .pre-scrollable {
   max-height: 340px;
   overflow-y: scroll;
 }
 
-/* line 9, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 9, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 table {
   max-width: 100%;
   background-color: transparent;
@@ -4190,12 +4190,12 @@ table {
   border-spacing: 0;
 }
 
-/* line 19, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 19, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table {
   width: 100%;
   margin-bottom: 27px;
 }
-/* line 24, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 24, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table th,
 .table td {
   padding: 8px;
@@ -4204,15 +4204,15 @@ table {
   vertical-align: top;
   border-top: 1px solid #dddddd;
 }
-/* line 31, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 31, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table th {
   font-weight: bold;
 }
-/* line 35, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 35, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table thead th {
   vertical-align: bottom;
 }
-/* line 44, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 44, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table caption + thead tr:first-child th,
 .table caption + thead tr:first-child td,
 .table colgroup + thead tr:first-child th,
@@ -4221,18 +4221,18 @@ table {
 .table thead:first-child tr:first-child td {
   border-top: 0;
 }
-/* line 48, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 48, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table tbody + tbody {
   border-top: 2px solid #dddddd;
 }
 
-/* line 60, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 60, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-condensed th,
 .table-condensed td {
   padding: 4px 5px;
 }
 
-/* line 69, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 69, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered {
   border: 1px solid #dddddd;
   border-collapse: separate;
@@ -4242,12 +4242,12 @@ table {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 76, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 76, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered th,
 .table-bordered td {
   border-left: 1px solid #dddddd;
 }
-/* line 88, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 88, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered caption + thead tr:first-child th,
 .table-bordered caption + tbody tr:first-child th,
 .table-bordered caption + tbody tr:first-child td,
@@ -4259,21 +4259,21 @@ table {
 .table-bordered tbody:first-child tr:first-child td {
   border-top: 0;
 }
-/* line 93, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 93, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered thead:first-child tr:first-child th:first-child,
 .table-bordered tbody:first-child tr:first-child td:first-child {
   -webkit-border-top-left-radius: 4px;
   border-top-left-radius: 4px;
   -moz-border-radius-topleft: 4px;
 }
-/* line 99, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 99, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered thead:first-child tr:first-child th:last-child,
 .table-bordered tbody:first-child tr:first-child td:last-child {
   -webkit-border-top-right-radius: 4px;
   border-top-right-radius: 4px;
   -moz-border-radius-topright: 4px;
 }
-/* line 107, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 107, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered thead:last-child tr:last-child th:first-child,
 .table-bordered tbody:last-child tr:last-child td:first-child,
 .table-bordered tfoot:last-child tr:last-child td:first-child {
@@ -4284,7 +4284,7 @@ table {
   border-bottom-left-radius: 4px;
   -moz-border-radius-bottomleft: 4px;
 }
-/* line 115, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 115, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered thead:last-child tr:last-child th:last-child,
 .table-bordered tbody:last-child tr:last-child td:last-child,
 .table-bordered tfoot:last-child tr:last-child td:last-child {
@@ -4292,7 +4292,7 @@ table {
   border-bottom-right-radius: 4px;
   -moz-border-radius-bottomright: 4px;
 }
-/* line 125, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 125, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered caption + thead tr:first-child th:first-child,
 .table-bordered caption + tbody tr:first-child td:first-child,
 .table-bordered colgroup + thead tr:first-child th:first-child,
@@ -4301,7 +4301,7 @@ table {
   border-top-left-radius: 4px;
   -moz-border-radius-topleft: 4px;
 }
-/* line 133, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 133, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-bordered caption + thead tr:first-child th:last-child,
 .table-bordered caption + tbody tr:first-child td:last-child,
 .table-bordered colgroup + thead tr:first-child th:last-child,
@@ -4311,19 +4311,19 @@ table {
   -moz-border-radius-topright: 4px;
 }
 
-/* line 151, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 151, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-striped tbody tr:nth-child(odd) td,
 .table-striped tbody tr:nth-child(odd) th {
   background-color: #f9f9f9;
 }
 
-/* line 164, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 164, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-hover tbody tr:hover td,
 .table-hover tbody tr:hover th {
   background-color: whitesmoke;
 }
 
-/* line 178, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 178, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 table td[class*="span"],
 table th[class*="span"],
 .row-fluid table td[class*="span"],
@@ -4333,84 +4333,84 @@ table th[class*="span"],
   margin-left: 0;
 }
 
-/* line 187, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 187, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span1,
 .table th.span1 {
   float: none;
   width: 26px;
   margin-left: 0;
 }
-/* line 188, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 188, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span2,
 .table th.span2 {
   float: none;
   width: 78px;
   margin-left: 0;
 }
-/* line 189, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 189, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span3,
 .table th.span3 {
   float: none;
   width: 130px;
   margin-left: 0;
 }
-/* line 190, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 190, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span4,
 .table th.span4 {
   float: none;
   width: 182px;
   margin-left: 0;
 }
-/* line 191, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 191, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span5,
 .table th.span5 {
   float: none;
   width: 234px;
   margin-left: 0;
 }
-/* line 192, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 192, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span6,
 .table th.span6 {
   float: none;
   width: 286px;
   margin-left: 0;
 }
-/* line 193, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 193, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span7,
 .table th.span7 {
   float: none;
   width: 338px;
   margin-left: 0;
 }
-/* line 194, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 194, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span8,
 .table th.span8 {
   float: none;
   width: 390px;
   margin-left: 0;
 }
-/* line 195, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 195, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span9,
 .table th.span9 {
   float: none;
   width: 442px;
   margin-left: 0;
 }
-/* line 196, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 196, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span10,
 .table th.span10 {
   float: none;
   width: 494px;
   margin-left: 0;
 }
-/* line 197, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 197, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span11,
 .table th.span11 {
   float: none;
   width: 546px;
   margin-left: 0;
 }
-/* line 198, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 198, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table td.span12,
 .table th.span12 {
   float: none;
@@ -4418,66 +4418,66 @@ table th[class*="span"],
   margin-left: 0;
 }
 
-/* line 208, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 208, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table tbody tr.success td {
   background-color: #dff0d8;
 }
-/* line 211, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 211, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table tbody tr.error td {
   background-color: #f2dede;
 }
-/* line 214, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 214, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table tbody tr.warning td {
   background-color: #fcf8e3;
 }
-/* line 217, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 217, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table tbody tr.info td {
   background-color: #d9edf7;
 }
 
-/* line 224, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 224, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-hover tbody tr.success:hover td {
   background-color: #d0e9c6;
 }
-/* line 227, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 227, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-hover tbody tr.error:hover td {
   background-color: #ebcccc;
 }
-/* line 230, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 230, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-hover tbody tr.warning:hover td {
   background-color: #faf2cc;
 }
-/* line 233, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+/* line 233, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
 .table-hover tbody tr.info:hover td {
   background-color: #c4e3f3;
 }
 
-/* line 7, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+/* line 7, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
 .pull-right {
   float: right;
 }
 
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
 .pull-left {
   float: left;
 }
 
-/* line 15, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+/* line 15, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
 .hide {
   display: none;
 }
 
-/* line 18, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+/* line 18, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
 .show {
   display: block;
 }
 
-/* line 23, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+/* line 23, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
 .invisible {
   visibility: hidden;
 }
 
-/* line 28, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+/* line 28, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
 .affix {
   position: fixed;
 }
@@ -4491,7 +4491,7 @@ table th[class*="span"],
     margin-left: auto;
     margin-right: auto;
   }
-  /* line 38, ../../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+  /* line 38, ../../../../../../../../../lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
   body:after {
     content: "";
     display: table;
@@ -4508,18 +4508,18 @@ body #main {
   display: inline;
 }
 
-/* line 61, ../../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+/* line 61, ../../../../../../../../../lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
 * html {
   font-size: 112.5%;
 }
 
-/* line 64, ../../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+/* line 64, ../../../../../../../../../lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
 html {
   font-size: 18px;
   line-height: 1.5;
 }
 
-/* line 5, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 5, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body {
   line-height: 1.5;
   font-size: 16px;
@@ -4528,62 +4528,62 @@ body {
   text-align: right;
 }
 
-/* line 13, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 13, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-/* line 17, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 17, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 a {
   color: #0088ff;
   text-decoration: none;
 }
 
-/* line 21, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 21, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 a:hover {
   color: #005580;
   text-decoration: underline;
 }
 
-/* line 26, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 26, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 p {
   margin: 0;
 }
 
-/* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 30, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 small {
   font-size: 85%;
 }
 
-/* line 34, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 34, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 strong {
   font-weight: bold;
 }
 
-/* line 38, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 38, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 em {
   font-style: italic;
 }
 
-/* line 42, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 42, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 cite {
   font-style: normal;
 }
 
-/* line 46, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 46, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 .muted {
   color: #ededed;
 }
 
-/* line 50, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 50, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 ul, ol {
   padding: 0;
   margin: 0;
 }
 
-/* line 58, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 58, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 ul ul,
 ul ol,
 ol ol,
@@ -4591,33 +4591,33 @@ ol ul {
   margin-bottom: 0;
 }
 
-/* line 62, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 62, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 li {
   line-height: 1.5;
 }
 
-/* line 66, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 66, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 dl {
   margin-bottom: 18px;
 }
 
-/* line 71, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 71, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 dt,
 dd {
   line-height: 1.5;
 }
 
-/* line 75, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 75, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 dt {
   font-weight: bold;
 }
 
-/* line 79, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 79, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 dd {
   margin-right: 18px;
 }
 
-/* line 83, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 83, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 hr {
   margin: 18px 0;
   border: 0;
@@ -4625,19 +4625,19 @@ hr {
   border-bottom: 1px solid white;
 }
 
-/* line 90, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 90, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 abbr[title] {
   cursor: help;
   border-bottom: 1px dotted #ededed;
 }
 
-/* line 94, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 94, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 abbr.initialism {
   font-size: 90%;
   text-transform: uppercase;
 }
 
-/* line 99, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 99, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 blockquote {
   margin: 0;
   padding: 0;
@@ -4646,7 +4646,7 @@ blockquote {
   font-size: 16px;
 }
 
-/* line 5, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 5, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body body {
   line-height: 1.5;
   font-size: 16px;
@@ -4654,97 +4654,97 @@ body body {
   font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
   text-align: right;
 }
-/* line 13, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 13, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body h1, body h2, body h3, body h4 {
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 17, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 17, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body a {
   color: #0088ff;
   text-decoration: none;
 }
-/* line 21, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 21, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body a:hover {
   color: #005580;
   text-decoration: underline;
 }
-/* line 26, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 26, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body p {
   margin: 0;
 }
-/* line 30, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 30, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body small {
   font-size: 85%;
 }
-/* line 34, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 34, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body strong {
   font-weight: bold;
 }
-/* line 38, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 38, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body em {
   font-style: italic;
 }
-/* line 42, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 42, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body cite {
   font-style: normal;
 }
-/* line 46, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 46, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body .muted {
   color: #ededed;
 }
-/* line 50, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 50, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body ul, body ol {
   padding: 0;
   margin: 0;
 }
-/* line 58, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 58, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body ul ul,
 body ul ol,
 body ol ol,
 body ol ul {
   margin-bottom: 0;
 }
-/* line 62, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 62, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body li {
   line-height: 1.5;
 }
-/* line 66, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 66, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body dl {
   margin-bottom: 18px;
 }
-/* line 71, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 71, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body dt,
 body dd {
   line-height: 1.5;
 }
-/* line 75, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 75, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body dt {
   font-weight: bold;
 }
-/* line 79, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 79, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body dd {
   margin-right: 18px;
 }
-/* line 83, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 83, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body hr {
   margin: 18px 0;
   border: 0;
   border-top: 1px solid #cccccc;
   border-bottom: 1px solid white;
 }
-/* line 90, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 90, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body abbr[title] {
   cursor: help;
   border-bottom: 1px dotted #ededed;
 }
-/* line 94, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 94, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body abbr.initialism {
   font-size: 90%;
   text-transform: uppercase;
 }
-/* line 99, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
+/* line 99, ../extensions/bowerbird/stylesheets/bowerbird/_typography.scss */
 body blockquote {
   margin: 0;
   padding: 0;
@@ -4796,27 +4796,27 @@ body #main h2 {
     display: block;
   }
 }
-/* line 12, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+/* line 12, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 div.tabs {
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-/* line 19, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+/* line 19, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 ul.tabs {
   list-style: none;
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 22, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+/* line 22, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 ul.tabs li {
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 24, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+/* line 24, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 ul.tabs li a {
   margin: 0;
   padding: 0;
@@ -4909,7 +4909,7 @@ div.tabs ul.primary li a {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
 div.tabs ul.primary li a:hover {
   background-color: #0088cc;
 }
@@ -5008,7 +5008,7 @@ div.tabs ul.primary li a:hover {
   margin-top: 3.375px;
   color: #999999;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_comment_on_update .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5017,7 +5017,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5026,7 +5026,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5035,7 +5035,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_comment_on_report .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5044,7 +5044,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5053,7 +5053,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_fact_checking_set .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5062,7 +5062,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5071,7 +5071,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5080,7 +5080,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_flag_report .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5089,7 +5089,7 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #my-notifications .checkdesk_report_published_in_update .heartbeat-time-ago:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5256,7 +5256,7 @@ div.tabs ul.primary li a:hover {
 .report #report-actions ul.content-actions > li > a span:hover {
   color: #0088ff;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 .report #report-actions ul.content-actions > li > a span.icon-edit:before {
   font-family: "FontAwesome";
   font-size: 15.3px;
@@ -5264,7 +5264,7 @@ div.tabs ul.primary li a:hover {
   color: black;
   margin-left: 10px;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 .report #report-actions ul.content-actions > li > a span.icon-flag:before {
   font-family: "FontAwesome";
   font-size: 15.3px;
@@ -5272,7 +5272,7 @@ div.tabs ul.primary li a:hover {
   color: black;
   margin-left: 10px;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 .report #report-actions ul.content-actions > li > a span.icon-share:before {
   font-family: "FontAwesome";
   font-size: 15.3px;
@@ -5392,32 +5392,32 @@ div.tabs ul.primary li a:hover {
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus {
   background-color: #919191;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover:visited, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active {
   background-color: #8a8a8a;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active:visited {
   color: white;
 }
@@ -5468,7 +5468,7 @@ div.tabs ul.primary li a:hover {
   padding-left: 10px;
   font-size: 120%;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 .report h3 > a[href*="twitter.com"]:before {
   font-family: "FontAwesome";
   font-size: 14px;
@@ -5756,7 +5756,7 @@ div.tabs ul.primary li a:hover {
 .report .icon-ok-sign {
   color: #46a546;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 .report .icon-ok-sign:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5768,7 +5768,7 @@ div.tabs ul.primary li a:hover {
 .report .icon-question-sign {
   color: #f89406;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 .report .icon-question-sign:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5780,7 +5780,7 @@ div.tabs ul.primary li a:hover {
 .report .icon-remove-sign {
   color: #9d261d;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 .report .icon-remove-sign:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -5997,32 +5997,32 @@ body .livefyre-wrapper {
   font-weight: 200;
   margin-left: 1em;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #meedan_bookmarklet .footer input::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #meedan_bookmarklet .footer input:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #meedan_bookmarklet .footer input, #meedan_bookmarklet .footer input:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #meedan_bookmarklet .footer input:hover, #meedan_bookmarklet .footer input:focus {
   background-color: #525252;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #meedan_bookmarklet .footer input:hover, #meedan_bookmarklet .footer input:hover:visited, #meedan_bookmarklet .footer input:focus, #meedan_bookmarklet .footer input:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #meedan_bookmarklet .footer input:active {
   background-color: #4a4a4a;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #meedan_bookmarklet .footer input:active, #meedan_bookmarklet .footer input:active:visited {
   color: white;
 }
@@ -6347,7 +6347,7 @@ ul.pager {
   display: inline-block;
   padding: 5px 14px;
   background-color: #fff;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
@@ -6393,7 +6393,7 @@ nav[role="navigation"] li:last-of-type:after {
   clear: both;
   display: block;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 nav[role="navigation"] a[href*="add/post"]:before {
   font-family: "FontAwesome";
   font-size: 15px;
@@ -6401,7 +6401,7 @@ nav[role="navigation"] a[href*="add/post"]:before {
   color: "black";
   margin-left: 10px;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 nav[role="navigation"] a#menu-submit-report:before {
   font-family: "FontAwesome";
   font-size: 15px;
@@ -6409,7 +6409,7 @@ nav[role="navigation"] a#menu-submit-report:before {
   color: "black";
   margin-left: 10px;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 nav[role="navigation"] a[href*="add/discussion"]:before {
   font-family: "FontAwesome";
   font-size: 15px;
@@ -6417,7 +6417,7 @@ nav[role="navigation"] a[href*="add/discussion"]:before {
   color: "black";
   margin-left: 10px;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 nav[role="navigation"] li.home a:before {
   font-family: "FontAwesome";
   font-size: 15px;
@@ -6505,11 +6505,11 @@ nav[role="navigation"] .nav > div h2 > a:hover {
 nav[role="navigation"] .nav > div h2:first-child {
   border-right: 0 none;
 }
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
 nav[role="navigation"] .nav > div h2:hover {
   color: white;
 }
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
 nav[role="navigation"] .nav > div h2:hover {
   background-color: #151515;
 }
@@ -6588,11 +6588,11 @@ nav[role="navigation"] .nav > a.btn > a:hover, nav[role="navigation"] .nav > li 
 nav[role="navigation"] .nav > a.btn:first-child, nav[role="navigation"] .nav > li:first-child {
   border-right: 0 none;
 }
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
   color: white;
 }
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
 nav[role="navigation"] .nav > a.btn:hover, nav[role="navigation"] .nav > li:hover {
   background-color: #151515;
 }
@@ -6711,27 +6711,27 @@ div.region-page-top #toolbar div.toolbar-menu {
   margin-top: 79px;
 }
 
-/* line 12, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+/* line 12, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 div.tabs {
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-/* line 19, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+/* line 19, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 ul.tabs {
   list-style: none;
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 22, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+/* line 22, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 ul.tabs li {
   margin: 0;
   padding: 0;
   border: 0;
 }
-/* line 24, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
+/* line 24, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
 ul.tabs li a {
   margin: 0;
   padding: 0;
@@ -6824,7 +6824,7 @@ div.tabs ul.primary li a {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
 div.tabs ul.primary li a:hover {
   background-color: #0088cc;
 }
@@ -7089,32 +7089,32 @@ form.confirmation .form-actions input {
   font-weight: 200;
   margin-left: 1em;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form.confirmation .form-actions input::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form.confirmation .form-actions input:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form.confirmation .form-actions input, form.confirmation .form-actions input:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form.confirmation .form-actions input:hover, form.confirmation .form-actions input:focus {
   background-color: #a80800;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form.confirmation .form-actions input:hover, form.confirmation .form-actions input:hover:visited, form.confirmation .form-actions input:focus, form.confirmation .form-actions input:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form.confirmation .form-actions input:active {
   background-color: #990800;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form.confirmation .form-actions input:active, form.confirmation .form-actions input:active:visited {
   color: white;
 }
@@ -7149,32 +7149,32 @@ form .form-actions input, form .form-actions a {
   font-weight: 200;
   margin-left: 1em;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form .form-actions input::-moz-focus-inner, form .form-actions a::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form .form-actions input:focus, form .form-actions a:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form .form-actions input, form .form-actions input:visited, form .form-actions a, form .form-actions a:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form .form-actions input:hover, form .form-actions input:focus, form .form-actions a:hover, form .form-actions a:focus {
   background-color: #525252;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form .form-actions input:hover, form .form-actions input:hover:visited, form .form-actions input:focus, form .form-actions input:focus:visited, form .form-actions a:hover, form .form-actions a:hover:visited, form .form-actions a:focus, form .form-actions a:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form .form-actions input:active, form .form-actions a:active {
   background-color: #4a4a4a;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form .form-actions input:active, form .form-actions input:active:visited, form .form-actions a:active, form .form-actions a:active:visited {
   color: white;
 }
@@ -7208,20 +7208,20 @@ form input[type="reset"] {
   margin-left: 1em;
   border: 1px solid #cccccc;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-reset::-moz-focus-inner,
 form input#edit-draft::-moz-focus-inner,
 form input[type="reset"]::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-reset:focus,
 form input#edit-draft:focus,
 form input[type="reset"]:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-reset, form input#edit-reset:visited,
 form input#edit-draft,
 form input#edit-draft:visited,
@@ -7229,7 +7229,7 @@ form input[type="reset"],
 form input[type="reset"]:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-reset:hover, form input#edit-reset:focus,
 form input#edit-draft:hover,
 form input#edit-draft:focus,
@@ -7237,7 +7237,7 @@ form input[type="reset"]:hover,
 form input[type="reset"]:focus {
   background-color: #525252;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-reset:hover, form input#edit-reset:hover:visited, form input#edit-reset:focus, form input#edit-reset:focus:visited,
 form input#edit-draft:hover,
 form input#edit-draft:hover:visited,
@@ -7249,13 +7249,13 @@ form input[type="reset"]:focus,
 form input[type="reset"]:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-reset:active,
 form input#edit-draft:active,
 form input[type="reset"]:active {
   background-color: #4a4a4a;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-reset:active, form input#edit-reset:active:visited,
 form input#edit-draft:active,
 form input#edit-draft:active:visited,
@@ -7291,30 +7291,30 @@ form .form-submit {
   font-weight: 200;
   margin-left: 1em;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-submit::-moz-focus-inner,
 form .form-submit::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-submit:focus,
 form .form-submit:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-submit, form input#edit-submit:visited,
 form .form-submit,
 form .form-submit:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-submit:hover, form input#edit-submit:focus,
 form .form-submit:hover,
 form .form-submit:focus {
   background-color: #0080f0;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-submit:hover, form input#edit-submit:hover:visited, form input#edit-submit:focus, form input#edit-submit:focus:visited,
 form .form-submit:hover,
 form .form-submit:hover:visited,
@@ -7322,12 +7322,12 @@ form .form-submit:focus,
 form .form-submit:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-submit:active,
 form .form-submit:active {
   background-color: #0078e0;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input#edit-submit:active, form input#edit-submit:active:visited,
 form .form-submit:active,
 form .form-submit:active:visited {
@@ -7343,7 +7343,7 @@ form input:disabled {
   box-shadow: none;
   cursor: default !important;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 form input:disabled, form input:disabled:visited {
   color: white;
 }
@@ -7847,32 +7847,32 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   padding: 0.3em 1em;
   border-width: 0px;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .story #story-actions ul.content-actions li a::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .story #story-actions ul.content-actions li a:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .story #story-actions ul.content-actions li a, .story #story-actions ul.content-actions li a:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .story #story-actions ul.content-actions li a:hover, .story #story-actions ul.content-actions li a:focus {
   background-color: #919191;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .story #story-actions ul.content-actions li a:hover, .story #story-actions ul.content-actions li a:hover:visited, .story #story-actions ul.content-actions li a:focus, .story #story-actions ul.content-actions li a:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .story #story-actions ul.content-actions li a:active {
   background-color: #8a8a8a;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 .story #story-actions ul.content-actions li a:active, .story #story-actions ul.content-actions li a:active:visited {
   color: white;
 }
@@ -8078,7 +8078,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   z-index: 1000;
   width: 410px;
   background-color: #f6f6f6;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -8376,7 +8376,7 @@ body.sidebar-first #main div#content .inner {
 #incoming-reports .report-row .verified span {
   color: #46a546;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #incoming-reports .report-row .verified span:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -8388,7 +8388,7 @@ body.sidebar-first #main div#content .inner {
 #incoming-reports .report-row .failed span {
   color: #9d261d;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #incoming-reports .report-row .failed span:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -8400,7 +8400,7 @@ body.sidebar-first #main div#content .inner {
 #incoming-reports .report-row .undetermined span {
   color: #f89406;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #incoming-reports .report-row .undetermined span:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -8412,7 +8412,7 @@ body.sidebar-first #main div#content .inner {
 #incoming-reports .report-row .in_progress span {
   color: #ffc40d;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 #incoming-reports .report-row .in_progress span:before {
   font-family: "FontAwesome";
   font-size: 16px;
@@ -8456,32 +8456,32 @@ body.sidebar-first #main div#content .inner {
   padding: 0.3em 1em;
   border-width: 0px;
 }
-/* line 285, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 285, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #incoming-reports .report-row .report-detail-link a::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 289, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 289, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #incoming-reports .report-row .report-detail-link a:focus {
   outline: none;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #incoming-reports .report-row .report-detail-link a, #incoming-reports .report-row .report-detail-link a:visited {
   color: white;
 }
-/* line 95, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 95, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #incoming-reports .report-row .report-detail-link a:hover, #incoming-reports .report-row .report-detail-link a:focus {
   background-color: #919191;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #incoming-reports .report-row .report-detail-link a:hover, #incoming-reports .report-row .report-detail-link a:hover:visited, #incoming-reports .report-row .report-detail-link a:focus, #incoming-reports .report-row .report-detail-link a:focus:visited {
   color: white;
 }
-/* line 103, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 103, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #incoming-reports .report-row .report-detail-link a:active {
   background-color: #8a8a8a;
 }
-/* line 220, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
+/* line 220, ../extensions/bowerbird/stylesheets/bowerbird/_buttons.scss */
 #incoming-reports .report-row .report-detail-link a:active, #incoming-reports .report-row .report-detail-link a:active:visited {
   color: white;
 }
@@ -8677,12 +8677,12 @@ body.page-user #edit-social-media-signin div.item-list li.first a {
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
 body.page-user- #edit-social-media-signin div.item-list li.first a:hover,
 body.page-user #edit-social-media-signin div.item-list li.first a:hover {
   background-color: #1d87c9;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 body.page-user- #edit-social-media-signin div.item-list li.first a:before,
 body.page-user #edit-social-media-signin div.item-list li.first a:before {
   font-family: "FontAwesome";
@@ -8709,12 +8709,12 @@ body.page-user #edit-social-media-signin div.item-list li a[class^='facebook'] {
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-/* line 10, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
 body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook']:hover,
 body.page-user #edit-social-media-signin div.item-list li a[class^='facebook']:hover {
   background-color: #264887;
 }
-/* line 72, ../../../bowerbird/extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
+/* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
 body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook']:before,
 body.page-user #edit-social-media-signin div.item-list li a[class^='facebook']:before {
   font-family: "FontAwesome";
@@ -8944,7 +8944,7 @@ i:hover {
 /* line 37, ../scss/_evil_hacks.scss */
 nav li.menu-449 {
   display: none!important;
-  border: 1px solid red !important;
+  border: 1px solid red!important;
 }
 
 /* line 53, ../scss/_evil_hacks.scss */
