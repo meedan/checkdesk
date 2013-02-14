@@ -383,6 +383,9 @@ function meedan_oembed_theme() {
     'meedan_oembed_tweet' => array(
       'variables' => array('tweet' => NULL),
     ),
+    'meedan_oembed_facebook_status' => array(
+      'variables' => array('status' => NULL),
+    ),
     'oembed__link__meedan_oembed_theme_twitter' => array(
       'variables' => array('embed' => NULL), 
       'template' => 'oembed-twitter',
@@ -592,7 +595,7 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
   if ($fb_logged_in) {
     $form['field_link']['und'][0]['#description'] = t('You can submit a Facebook link above.');
   } else {
-    $loginUrl = t('If you want to submit a Facebook link, you need to <a href="@url">connect to your Facebook account first</a>.', array('@url' => url($facebook->getLoginUrl(), array('attributes' => array('target' => '_blank', 'onclick' => 'window.open(this.href, "checkdesk", "height=400, width=500, modal=yes, scrollbars=yes, left=" + ((screen.width/2)-250) + ", top=" + ((screen.height/2)-200)); return false;')))));
+    $loginUrl = t('If you want to submit a Facebook link, you need to <a href="@url" target="_top">connect to your Facebook account first</a>.', array('@url' => url(_meedan_oembed_facebook_login_url($facebook), array('attributes' => array('target' => '_blank', 'onclick' => 'window.open(this.href, "checkdesk", "height=400, width=500, modal=yes, scrollbars=yes, left=" + ((screen.width/2)-250) + ", top=" + ((screen.height/2)-200)); return false;')))));
     $form['field_link']['und'][0]['#description'] = $loginUrl;
     $form['fb_loginurl'] = array(
       '#type' => 'hidden', 
@@ -630,6 +633,7 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
       try {
         $id = _meedan_oembed_getFacebookId($url);
         $post_data = $facebook->api('/' . $id);
+        watchdog('FacebookApi', 'DEBUG: <pre>' . var_export($post_data, 1) . '</pre>');
       } catch (FacebookApiException $e) {
         $error_msg = $e->getMessage();
         watchdog('FacebookApi', t('Unable to fetch data from facebook post - @msg @url', array('@msg' => $error_msg, '@url' => $url)));
@@ -639,6 +643,28 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
       }
     }
   }
+}
+
+/**
+ * Returns a permissioned Facebook login URL. This enables the Checkdesk website
+ * to drive which permissions are required for the report embedding to function
+ * correctly.
+ */
+function _meedan_oembed_facebook_login_url($facebook) {
+  // Everything in $_GET except $_GET['q']
+  $query = array_diff_key($_GET, array('q' => ''));
+
+  $permissions = variable_get('meedan_oembed_fb_permissions', array(
+    'user_photos',
+    'user_status',
+    'friends_photos',
+    'friends_status',
+  ));
+
+  return $facebook->getLoginUrl(array(
+    'redirect_uri' => url($_GET['q'], array('absolute' => TRUE, 'query' => $query)),
+    'scope' => implode(',', $permissions)
+  ));
 }
 
 /**
@@ -706,8 +732,25 @@ function meedan_oembed_form_twitter_admin_form_alter(&$form, &$form_state, $form
   );
 }
 
+/**
+ * Any string beginning with at least one Arabic character is deemed
+ * to be Arabic.
+ */
+function meedan_oembed_needs_rtl($text) {
+  return (boolean) preg_match('/^\p{Arabic}/u', $text);
+}
+
 function theme_meedan_oembed_tweet($variables) {
   $text = $variables['tweet'];
-  $dir = ((preg_match('/\p{Arabic}/u', $text)) ? 'rtl' : 'ltr');
-  return '<div class="tweet-preview tweet-preview-' . $dir . '">' . $text . '</div>';
+  $dir = meedan_oembed_needs_rtl($text) ? 'rtl' : 'ltr';
+  return '<div class="tweet-preview ' . $dir . '">' . check_plain($text) . '</div>';
+}
+
+/**
+ * Default theme implementation for embedded Facebook status message.
+ */
+function theme_meedan_oembed_facebook_status($variables) {
+  $text = $variables['status'];
+  $dir = meedan_oembed_needs_rtl($text) ? 'rtl' : 'ltr';
+  return '<div class="fb-status-preview ' . $dir . '"">' . check_plain($text) . '</div>';
 }
