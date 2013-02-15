@@ -43,6 +43,14 @@ function meedan_oembed_pre_render_fetch($element) {
 /**
  * Fetch data for an embeddable URL.
  *
+ * All request data is cached (even if error).
+ *
+ * Oembed sequence
+ *   1. Hit cache
+ *   2. Call custom scrape function if exist
+ *   3. Ask oEmbed core to render for us
+ *   4. Call Embedly
+ *
  * @param string $url
  *   An external URL for the content to embed.
  * @param array $attributes
@@ -57,45 +65,45 @@ function meedan_oembed_pre_render_fetch($element) {
  *   an object representing the embeddable data of the URL.
  */
 function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE) {
-  //Oembed sequence
-  //1- Hit cache
-  //2- Call custom scrape function if exist.
-  //3- Ask oEmbed core to render for us.
-  //4- Call Embedly. 
-
-  //1- Look in the oEmbed cache.
   $provider = array();
-  $provider['endpoint'] = 'http://api.embed.ly/1/oembed'; 
+  $provider['endpoint'] = 'http://api.embed.ly/1/oembed';
+
   // Set provider name specific to domain name to use it on #theme function
-  $domain = _meedan_oembed_get_domain_name($url);
+  $domain   = _meedan_oembed_get_domain_name($url);
   $callback = 'meedan_oembed_scrape_' . $domain;
+
   if (function_exists($callback)) {
     $provider['name'] = 'meedan_oembed_theme_' . $domain;
   }
   else {
-    $provider['name'] = 'meedan_oembed_theme_generic'; 
+    $provider['name'] = 'meedan_oembed_theme_generic';
   }
+
   $attributes = array_filter($attributes);
   $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
+
   $element = oembedcore_render_cache('oembed_request', $url, $attributes);
+
   $cache_key = implode(':', $element['#cache']['keys']);
-  $cache = cache_get($cache_key, $element['#cache']['bin']);
+  $cache     = cache_get($cache_key, $element['#cache']['bin']);
+
   if ($cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
     return $embed;
   }
-  //2- call scrape function first if exist.
+  // Call scrape function first if exist
   if (function_exists($callback)) {
     $embed = $callback($provider, $url);
+    watchdog('meedan_oembed_data B', '$embed: <pre>' . var_export($embed, 1) . '</pre>');
   }
-  //3- Ask oEmbed core to render for us.
+  // Ask oEmbed core to render for us
   elseif ($embed = oembedcore_oembed_data($url, $attributes)) {
-    //Nothing to do.
+    // Nothing to do
   }
+  // Call Embedly
   else {
-    //4- Call Embedly.
     $matches = array();
     $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
   }
@@ -115,10 +123,14 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     meedan_oembed_scrape_generic($embed);
     $embed->error = FALSE;
   }
+
   // Clear cached markup as well
   $template = oembedcore_render_cache('oembed', $url);
+
+  // Set the result to cache, even if error
   cache_clear_all(implode(':', $template['#cache']['keys']), $template['#cache']['bin'], TRUE);
   cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
+
   return $embed;
 }
 
@@ -146,7 +158,6 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     'appId'  => variable_get('fboauth_id', ''),
     'secret' => variable_get('fboauth_secret', ''),
   ));
-  $embed = NULL;
   try {
     $embed = new stdclass();
     $embed->url = $url;
@@ -179,6 +190,7 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
     $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
   } catch (FacebookApiException $e) {
+    $embed = NULL;
     watchdog('FacebookApi', t('Unable to fetch data from Facebook: @error', array('@error' => $e->getMessage())));
   }
   return $embed;
