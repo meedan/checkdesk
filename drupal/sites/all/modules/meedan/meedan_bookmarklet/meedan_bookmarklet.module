@@ -155,7 +155,7 @@ function meedan_bookmarklet_admin_settings() {
  */
 function meedan_bookmarklet_get_code() {
   $js_url = url( drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet.js', array('absolute' => TRUE, 'language' => FALSE));
-  $setting_url = url('meedan_bookmarklet/js', array('query' => array('callback' => 'meedanBookmarkletCallback'), 'absolute' => TRUE));
+  $setting_url = url('meedan_bookmarklet/js', array('query' => array('callback' => '?'), 'absolute' => TRUE));
   $timestamp = time(); // Avoids cache
   return "javascript:(function(){window.meedanBookmarkletURL='$setting_url';if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{document.body.appendChild(document.createElement('script')).src='$js_url?$timestamp';}})();";
 }
