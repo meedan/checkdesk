@@ -1418,6 +1418,19 @@ print theme(\'views_autorefresh\', array(
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['use_more'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_always'] = TRUE;
+  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'View all';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'load_more';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '6';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['path'] = 'my-notifications';
 
   /* Display: Block */
@@ -1461,9 +1474,9 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('last »'),
     t('Activity message'),
     t('Page'),
-    t('more'),
     t('Block'),
     t('Notifications'),
+    t('more'),
     t('Auto Refresh'),
     t('<?php
 global $user;
