@@ -108,16 +108,18 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
   }
 
-  if (!$embed) {
+  if (!$embed || (isset($embed->error) && $embed->error)) {
     $url_info = parse_url($url);
-    $embed = (object)array(
-      'url' => $url,
-      'error' => TRUE,
-      'original_url' => $url,
-      'provider_name' => '',
-      'provider_url' => $url_info['scheme'] . '://' . $url_info['host'],
-      'thumbnail_url' => url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE)),
-    );
+
+    // Ensure NULL and FALSE become (object) array()
+    $embed = (object) $embed;
+
+    $embed->url           = $url;
+    $embed->error         = TRUE;
+    $embed->original_url  = $url;
+    $embed->provider_name = '';
+    $embed->provider_url  = $url_info['scheme'] . '://' . $url_info['host'];
+    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
   }
   else {
     meedan_oembed_scrape_generic($embed);
@@ -190,7 +192,11 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
     $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
   } catch (FacebookApiException $e) {
-    $embed = NULL;
+    $embed = (object) array(
+      'error'         => TRUE,
+      'error_message' => t('You do not have access to circulate this post outside of Facebook. Try again using one of your own posts or a Public post.'),
+    );
+
     watchdog('FacebookApi', t('Unable to fetch data from Facebook: @error', array('@error' => $e->getMessage())));
   }
   return $embed;
