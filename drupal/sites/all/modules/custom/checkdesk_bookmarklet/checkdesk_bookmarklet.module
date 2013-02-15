@@ -108,14 +108,15 @@ function _checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet($form, 
 function _checkdesk_bookmarklet_media_preview($path) {
   $preview = t('Preview not available.');
   if (!$path) return $preview;
-  $oembed = meedan_oembed_data($path);
+  $oembed = meedan_oembed_data($path, array(), TRUE);
   if (isset($oembed) && $oembed->error) {
     if (isset($oembed->error_message) && $oembed->error_message) {
-      return $oembed->error_message;
+      $error = $oembed->error_message;
     }
     else {
-      return t('There was a problem parsing this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it again later.');
+      $error = t('There was a problem parsing this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it again later.');
     }
+    return '<div class="error">' . check_plain($error) . '</div>';
   }
   if (isset($oembed) && isset($oembed->thumbnail_url)) {
     // If it is a tweeet, show the text instead of the image
