@@ -595,7 +595,15 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
   if ($fb_logged_in) {
     $form['field_link']['und'][0]['#description'] = t('You can submit a Facebook link above.');
   } else {
-    $loginUrl = t('If you want to submit a Facebook link, you need to <a href="@url" target="_top">connect to your Facebook account first</a>.', array('@url' => url(_meedan_oembed_facebook_login_url($facebook), array('attributes' => array('target' => '_blank', 'onclick' => 'window.open(this.href, "checkdesk", "height=400, width=500, modal=yes, scrollbars=yes, left=" + ((screen.width/2)-250) + ", top=" + ((screen.height/2)-200)); return false;')))));
+    $onclick = implode('', array(
+      'window.open(',
+        'this.href,',
+        '\'checkdesk\',',
+        '\'toolbar=0,location=0,menubar=0,directories=0,status=0,scrollbars=1,width=1000,height=650,modal=1,left=\'+((screen.width/2)-500)+\',top=\'+((screen.height/2)-325)',
+      ');',
+      'return false;',
+    ));
+    $loginUrl = t('If you want to submit a Facebook link, you need to <a href="@url" onclick="!onclick" target="_blank">connect to your Facebook account first</a>.', array('@url' => _meedan_oembed_facebook_login_url($facebook), '!onclick' => $onclick));
     $form['field_link']['und'][0]['#description'] = $loginUrl;
     $form['fb_loginurl'] = array(
       '#type' => 'hidden', 
