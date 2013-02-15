@@ -50,8 +50,9 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     // Show media preview just after the link field
     $path = ((isset($_GET['meedan_bookmarklet_prepopulate']) && isset($_GET['meedan_bookmarklet_prepopulate']['field_link'])) ? $_GET['meedan_bookmarklet_prepopulate']['field_link'] : FALSE);
     $preview = _checkdesk_bookmarklet_media_preview($path);
+    $message = isset($preview['error']) ? $preview['error']['message'] : $preview['preview'];
     $form['report_preview'] = array(
-      '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . $preview . '</div></div>',
+      '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . $preview['preview'] . '</div></div>',
       '#weight' => 1, 
     );
     $form['field_link']['#weight'] = 0;
@@ -106,31 +107,44 @@ function _checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet($form, 
  * Function to show media preview.
  */
 function _checkdesk_bookmarklet_media_preview($path) {
-  $preview = t('Preview not available.');
-  if (!$path) return $preview;
+  $response = array('preview' => '');
+
+  if (!$path) {
+    return array(
+      'error' => array(
+        'message' => t('Preview not available.'),
+      ),
+    );
+  }
+
   $oembed = meedan_oembed_data($path, array(), TRUE);
-  if (isset($oembed) && $oembed->error) {
-    if (isset($oembed->error_message) && $oembed->error_message) {
-      $error = $oembed->error_message;
+
+  if ($oembed) {
+    if (isset($oembed->error)) {
+      $response['error'] = array();
+
+      if (isset($oembed->error_message) && $oembed->error_message) {
+        $response['error']['message'] = check_plain($oembed->error_message);
+      }
+      else {
+        $response['error']['message'] = check_plain(t('There was a problem parsing this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it again later.'));
+      }
     }
-    else {
-      $error = t('There was a problem parsing this report. You can create the report now (but it will remain unpublished) and try to parse it later, or give up and try to submit it again later.');
+    else if (isset($oembed->thumbnail_url)) {
+      // If it is a tweeet, show the text instead of the image
+      if (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter') {
+        $response['preview'] = theme('meedan_oembed_tweet', array('tweet' => $oembed->description));
+      }
+      else if (isset($oembed->provider_name) && $oembed->provider_name == 'Facebook' && empty($oembed->picture)) {
+        $response['preview'] = theme('meedan_oembed_facebook_status', array('status' => $oembed->description));
+      }
+      else {
+        $response['preview'] = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
+      }
     }
-    return '<div class="error">' . check_plain($error) . '</div>';
   }
-  if (isset($oembed) && isset($oembed->thumbnail_url)) {
-    // If it is a tweeet, show the text instead of the image
-    if (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter') {
-      $preview = theme('meedan_oembed_tweet', array('tweet' => $oembed->description));
-    }
-    else if (isset($oembed->provider_name) && $oembed->provider_name == 'Facebook' && empty($oembed->picture)) {
-      $preview = theme('meedan_oembed_facebook_status', array('status' => $oembed->description));
-    }
-    else {
-      $preview = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
-    }
-  }
-  return $preview;
+
+  return $response;
 }
 
 /*
@@ -138,7 +152,7 @@ function _checkdesk_bookmarklet_media_preview($path) {
  */
 function _checkdesk_bookmarklet_media_preview_callback() {
   $path = (isset($_GET['url']) ? $_GET['url'] : FALSE);
-  echo _checkdesk_bookmarklet_media_preview($path);
+  drupal_json_output(_checkdesk_bookmarklet_media_preview($path));
 }
 
 /*

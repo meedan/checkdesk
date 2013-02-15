@@ -99,7 +99,6 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
   // Call scrape function first if exist
   if (function_exists($callback)) {
     $embed = $callback($provider, $url);
-    watchdog('meedan_oembed_data B', '$embed: <pre>' . var_export($embed, 1) . '</pre>');
   }
   // Ask oEmbed core to render for us
   elseif ($embed = oembedcore_oembed_data($url, $attributes)) {
@@ -662,7 +661,6 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
       try {
         $id = _meedan_oembed_getFacebookId($url);
         $post_data = $facebook->api('/' . $id);
-        watchdog('FacebookApi', 'DEBUG: <pre>' . var_export($post_data, 1) . '</pre>');
       } catch (FacebookApiException $e) {
         $error_msg = $e->getMessage();
         watchdog('FacebookApi', t('Unable to fetch data from facebook post - @msg @url', array('@msg' => $error_msg, '@url' => $url)));
