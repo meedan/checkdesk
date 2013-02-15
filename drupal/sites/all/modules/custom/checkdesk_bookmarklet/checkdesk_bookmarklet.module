@@ -120,7 +120,7 @@ function _checkdesk_bookmarklet_media_preview($path) {
   $oembed = meedan_oembed_data($path, array(), TRUE);
 
   if ($oembed) {
-    if (isset($oembed->error)) {
+    if (isset($oembed->error) && $oembed->error) {
       $response['error'] = array();
 
       if (isset($oembed->error_message) && $oembed->error_message) {
@@ -136,7 +136,7 @@ function _checkdesk_bookmarklet_media_preview($path) {
         $response['preview'] = theme('meedan_oembed_tweet', array('tweet' => $oembed->description));
       }
       else if (isset($oembed->provider_name) && $oembed->provider_name == 'Facebook' && empty($oembed->picture)) {
-        $response['preview'] = theme('meedan_oembed_facebook_status', array('status' => $oembed->description));
+        $response['preview'] = theme('meedan_oembed_facebook_status', array('status' => $oembed->description, 'author' => array('name' => $oembed->author_name, 'url' => $oembed->author_url)));
       }
       else {
         $response['preview'] = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));

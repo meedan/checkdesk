@@ -404,7 +404,7 @@ function meedan_oembed_theme() {
       'variables' => array('tweet' => NULL),
     ),
     'meedan_oembed_facebook_status' => array(
-      'variables' => array('status' => NULL),
+      'variables' => array('status' => NULL, 'author' => NULL),
     ),
     'oembed__link__meedan_oembed_theme_twitter' => array(
       'variables' => array('embed' => NULL), 
@@ -777,7 +777,19 @@ function theme_meedan_oembed_tweet($variables) {
  * Default theme implementation for embedded Facebook status message.
  */
 function theme_meedan_oembed_facebook_status($variables) {
-  $text = $variables['status'];
+  $text   = $variables['status'];
+  $author = $variables['author'];
+
   $dir = meedan_oembed_needs_rtl($text) ? 'rtl' : 'ltr';
-  return '<div class="fb-status-preview ' . $dir . '"">' . check_plain($text) . '</div>';
+
+  $output  = '<div class="fb-status-preview ' . $dir . '"">';
+  $output .=   check_plain($text);
+
+  if ($author) {
+    $output .= '<div class="author">' . l($author['name'], $author['url'], array('attributes' => array('target' => '_blank'))) . '</div>';
+  }
+
+  $output .= '</div>';
+
+  return $output;
 }

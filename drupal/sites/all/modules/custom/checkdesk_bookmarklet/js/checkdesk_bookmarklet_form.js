@@ -19,10 +19,11 @@ jQuery(function($) {
           $preview.addClass('error').html(data.error.message);
           $controls.hide();
         } else {
-          window.parent.postMessage('reset', '*');
           $preview.removeClass('error').html(data.preview);
           $controls.show();
         }
+
+        window.parent.postMessage('reset', '*');
       },
       error: function (xhr, textStatus, error) {
         $preview.addClass('error').html(Drupal.t('An error occurred while communicating with Checkdesk. Please try again.'));
