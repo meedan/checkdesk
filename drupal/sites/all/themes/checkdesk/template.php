@@ -161,7 +161,7 @@ function checkdesk_preprocess_node(&$variables) {
   if ($variables['type'] == 'post') {
     // Add update creation info
     $variables['update_creation_info'] = t('Update by <a href="@user">!user</a> <time datetime="!date">!datetime</time>', array(
-      '@user' => 'user/'. $variables['uid'],
+      '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
@@ -176,7 +176,8 @@ function checkdesk_preprocess_node(&$variables) {
   
   if ($variables['type'] == 'media') {
     //Add author info to variables
-    $user_picture = $variables['elements']['#node']->picture;
+    $user = user_load($variables['elements']['#node']->uid);
+    $user_picture = $user->picture;
     if (!empty($user_picture)) {
       $options = array(
         'html' => TRUE,
@@ -188,7 +189,7 @@ function checkdesk_preprocess_node(&$variables) {
     }
     //Add node creation info(author name plus creation time)
     $variables['media_creation_info'] = t('<a href="@user">!user</a> added this <time class="time-ago" datetime="!timestamp">!interval ago</time>', array(
-      '@user' => 'user/'. $variables['uid'],
+      '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
       '!interval' => format_interval(time()-$variables['created']),
