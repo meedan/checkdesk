@@ -519,7 +519,6 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Remove all filters';
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
@@ -632,6 +631,11 @@ print t(\'No content available\');
   $handler->display->display_options['relationships']['ms_id']['table'] = 'node';
   $handler->display->display_options['relationships']['ms_id']['field'] = 'ms_id';
   $handler->display->display_options['relationships']['ms_id']['required'] = TRUE;
+  /* Relationship: Media sources: Parent */
+  $handler->display->display_options['relationships']['parent']['id'] = 'parent';
+  $handler->display->display_options['relationships']['parent']['table'] = 'meedan_sources';
+  $handler->display->display_options['relationships']['parent']['field'] = 'parent';
+  $handler->display->display_options['relationships']['parent']['relationship'] = 'ms_id';
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
@@ -738,6 +742,15 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['source_url']['element_type'] = '0';
   $handler->display->display_options['fields']['source_url']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['source_url']['element_default_classes'] = FALSE;
+  /* Field: Media sources: Parent */
+  $handler->display->display_options['fields']['parent']['id'] = 'parent';
+  $handler->display->display_options['fields']['parent']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['parent']['field'] = 'parent';
+  $handler->display->display_options['fields']['parent']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['parent']['label'] = '';
+  $handler->display->display_options['fields']['parent']['element_type'] = '0';
+  $handler->display->display_options['fields']['parent']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['parent']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -998,10 +1011,13 @@ print theme(\'views_autorefresh\', array(
 print t(\'No content available\');
 ?>'),
     t('Media sources'),
+    t('Parent'),
     t('<div class="draggable">[field_link]</div>'),
     t('Date'),
     t('Block'),
     t('Details'),
+    t('.'),
+    t(','),
     t('By keyword'),
     t('By status'),
     t('By source'),
