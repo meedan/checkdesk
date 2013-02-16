@@ -452,7 +452,7 @@ function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
 function template_preprocess_oembed__link__meedan_oembed_theme_twitter(&$vars) {
   $embed = $vars['embed'];
   $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
-  $vars['content'] = $embed->description;
+  $vars['content'] = meedan_oembed_check($embed->description);
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
@@ -767,10 +767,17 @@ function meedan_oembed_needs_rtl($text) {
   return (boolean) preg_match('/^\p{Arabic}/u', $text);
 }
 
+/**
+ * Encode special characters and turn URLs into clickable links.
+ */
+function meedan_oembed_check($text) {
+  return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank" class="meedan-oembed-link">$1</a>', check_plain($text));
+}
+
 function theme_meedan_oembed_tweet($variables) {
   $text = $variables['tweet'];
   $dir = meedan_oembed_needs_rtl($text) ? 'rtl' : 'ltr';
-  return '<div class="tweet-preview ' . $dir . '">' . check_plain($text) . '</div>';
+  return '<div class="tweet-preview ' . $dir . '">' . meedan_oembed_check($text) . '</div>';
 }
 
 /**
