@@ -4970,12 +4970,13 @@ div.tabs ul.primary li a:hover {
   border: 0;
   color: #555555;
   font-weight: bold;
+  white-space: normal;
 }
 /* line 86, ../scss/override_ctb/_mixins.scss */
 #my-notifications .heartbeat-activity a:hover {
   color: black;
 }
-/* line 39, ../scss/_notifications.scss */
+/* line 40, ../scss/_notifications.scss */
 #my-notifications .heartbeat-activity .activity-data {
   *zoom: 1;
 }
@@ -4989,7 +4990,7 @@ div.tabs ul.primary li a:hover {
 #my-notifications .heartbeat-activity .activity-data:after {
   clear: both;
 }
-/* line 41, ../scss/_notifications.scss */
+/* line 42, ../scss/_notifications.scss */
 #my-notifications .heartbeat-activity .activity-data .activity-data-image {
   float: right;
   margin-left: 10px;
@@ -4997,12 +4998,12 @@ div.tabs ul.primary li a:hover {
   width: 20px;
   height: 20px;
 }
-/* line 48, ../scss/_notifications.scss */
+/* line 49, ../scss/_notifications.scss */
 #my-notifications .heartbeat-activity .activity-data .activity-data-message {
   float: right;
   width: 80%;
 }
-/* line 55, ../scss/_notifications.scss */
+/* line 56, ../scss/_notifications.scss */
 #my-notifications .heartbeat-activity .activity-meta {
   margin-top: 3.375px;
   color: #999999;
@@ -5097,21 +5098,21 @@ div.tabs ul.primary li a:hover {
   margin-left: 10px;
   width: 5%;
 }
-/* line 90, ../scss/_notifications.scss */
+/* line 91, ../scss/_notifications.scss */
 #my-notifications ul.pager-load-more {
   display: none;
 }
-/* line 95, ../scss/_notifications.scss */
+/* line 96, ../scss/_notifications.scss */
 #my-notifications .view-content {
   height: 200px;
   overflow-y: auto;
   margin-bottom: 6.75px;
 }
-/* line 101, ../scss/_notifications.scss */
+/* line 102, ../scss/_notifications.scss */
 #my-notifications .more-link {
   float: right;
 }
-/* line 103, ../scss/_notifications.scss */
+/* line 104, ../scss/_notifications.scss */
 #my-notifications .more-link a {
   color: #555555;
 }
@@ -5119,14 +5120,14 @@ div.tabs ul.primary li a:hover {
 #my-notifications .more-link a:hover {
   color: black;
 }
-/* line 106, ../scss/_notifications.scss */
+/* line 107, ../scss/_notifications.scss */
 #my-notifications .notifications-settings-link {
   margin: 0;
   padding: 0;
   border: 0;
   float: left;
 }
-/* line 109, ../scss/_notifications.scss */
+/* line 110, ../scss/_notifications.scss */
 #my-notifications .notifications-settings-link a {
   color: #555555;
 }

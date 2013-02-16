@@ -31,6 +31,7 @@ $omega: opposite-position($from-direction);
       @include reset-box-model();
       @include ctb-linkColor($gray);
       font-weight: bold;
+      white-space: normal;
       &:hover {
         // text-decoration: none;
       }
