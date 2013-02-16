@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300,600");
 @import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
 /*
@@ -50,7 +51,7 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
   margin: 1em 0;
   padding: 0;
 }
@@ -218,7 +219,7 @@ textarea {
   /* line 234, ../scss/override_drupal/_html5bp_defaults.scss */
   * {
     background: transparent !important;
-    color: #000 !important;
+    color: black !important;
     /* Black prints faster: h5bp.com/s */
     box-shadow: none !important;
     text-shadow: none !important;
@@ -253,7 +254,7 @@ textarea {
   /* line 265, ../scss/override_drupal/_html5bp_defaults.scss */
   pre,
   blockquote {
-    border: 1px solid #999;
+    border: 1px solid #999999;
     page-break-inside: avoid;
   }
 
@@ -389,7 +390,7 @@ fieldset.collapsible .fieldset-legend {
 /* line 76, ../scss/override_drupal/_system_base.scss */
 .resizable-textarea .grippie {
   background: #eeeeee url(../../misc/grippie.png) no-repeat center 2px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-top-width: 0;
   cursor: s-resize;
   height: 9px;
@@ -732,7 +733,7 @@ ul.inline li {
  */
 /* line 67, ../scss/override_drupal/_system_menus.scss */
 ul.primary {
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid #bbbbbb;
   border-collapse: collapse;
   height: auto;
   line-height: normal;
@@ -764,8 +765,8 @@ ul.primary li a {
 /* line 90, ../scss/override_drupal/_system_menus.scss */
 ul.primary li.active a {
   background-color: #fff;
-  border: 1px solid #bbb;
-  border-bottom: 1px solid #fff;
+  border: 1px solid #bbbbbb;
+  border-bottom: 1px solid white;
 }
 
 /* line 95, ../scss/override_drupal/_system_menus.scss */
@@ -777,14 +778,14 @@ ul.primary li a:hover {
 
 /* line 100, ../scss/override_drupal/_system_menus.scss */
 ul.secondary {
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid #bbbbbb;
   padding: 0.5em 1em;
   margin: 5px;
 }
 
 /* line 105, ../scss/override_drupal/_system_menus.scss */
 ul.secondary li {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
   /* LTR */
   display: inline;
   padding: 0 1em;
@@ -798,7 +799,7 @@ ul.secondary a {
 
 /* line 114, ../scss/override_drupal/_system_menus.scss */
 ul.secondary a.active {
-  border-bottom: 4px solid #999;
+  border-bottom: 4px solid #999999;
 }
 
 /**
@@ -1050,7 +1051,7 @@ form .field-multiple-table td.field-multiple-drag a.tabledrag-handle {
 
 /* line 26, ../scss/override_drupal/_field.scss */
 form .field-add-more-submit {
-  margin: .5em 0 0;
+  margin: 0.5em 0 0;
 }
 
 /* line 2, ../scss/override_drupal/_node.scss */
@@ -1119,9 +1120,9 @@ body.toolbar-drawer {
   position: fixed;
   right: 0;
   top: 0;
-  -moz-box-shadow: 0 3px 20px #000;
-  -webkit-box-shadow: 0 3px 20px #000;
-  box-shadow: 0 3px 20px #000;
+  -moz-box-shadow: 0 3px 20px black;
+  -webkit-box-shadow: 0 3px 20px black;
+  box-shadow: 0 3px 20px black;
   filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
   -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
   z-index: 600;
@@ -1232,7 +1233,7 @@ body.toolbar-drawer {
 #toolbar div.toolbar-menu ul li a.active:active,
 #toolbar div.toolbar-menu ul li a.active,
 #toolbar div.toolbar-menu ul li.active-trail a {
-  text-shadow: #333 0 1px 0;
+  text-shadow: #333333 0 1px 0;
 }
 
 /**
@@ -1412,7 +1413,7 @@ div.add-or-remove-shortcuts a:hover span.text {
 
 /* line 13, ../scss/override_drupal/_contextual.scss */
 .contextual-links-region-active {
-  outline: #999 dashed 1px;
+  outline: #999999 dashed 1px;
 }
 
 /**
@@ -1475,7 +1476,7 @@ div.contextual-links-active a.contextual-links-trigger {
 /* line 62, ../scss/override_drupal/_contextual.scss */
 div.contextual-links-wrapper ul.contextual-links {
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   display: none;
   margin: 0;
   padding: 0.25em 0;
@@ -1519,7 +1520,7 @@ div.contextual-links-wrapper a {
 
 /* line 95, ../scss/override_drupal/_contextual.scss */
 ul.contextual-links li a {
-  color: #333 !important;
+  color: #333333 !important;
   display: block;
   margin: 0.25em 0;
   padding: 0.25em 1em 0.25em 0.5em;
@@ -1621,7 +1622,7 @@ ul.rules-operations-add li {
 
 /* line 76, ../scss/override_drupal/_rules.scss */
 .rules-debug-log {
-  font: 81.3% "Lucida Grande","Lucida Sans Unicode",sans-serif;
+  font: 81.3% "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   background-color: #eeeeee;
   border: 1px solid #cccccc;
   color: #333333;
@@ -1809,7 +1810,7 @@ ul.rules-autocomplete .ui-corner-all {
   white-space: nowrap;
   overflow: hidden;
   background: #efefef;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   position: relative;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1921,7 +1922,7 @@ body.context-editing .draggable-placeholder {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   background: #fff;
-  border: 3px dashed #666;
+  border: 3px dashed #666666;
   opacity: .2;
 }
 
@@ -1977,7 +1978,7 @@ body.context-editing .draggable:hover a.context-block-remove {
 /* line 178, ../scss/override_drupal/_context_reaction_block.scss */
 #context-blockform td.blocks,
 #context-blockform td.selector {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   padding: 10px;
   width: 50%;
 }
@@ -1989,7 +1990,7 @@ body.context-editing .draggable:hover a.context-block-remove {
   background: #fff;
   padding: 5px 5px 4px;
   border: 0px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* line 193, ../scss/override_drupal/_context_reaction_block.scss */
@@ -2064,7 +2065,7 @@ a.context-ui-add-link, a:link.context-ui-add-link, a:visited.context-ui-add-link
   opacity: 0.5;
   -moz-opacity: 0.5;
   filter: alpha(opacity=50);
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-left: 0;
   border-radius: 0 6px 6px 0;
 }
@@ -2140,7 +2141,7 @@ how it wants to round. */
   display: block;
   position: absolute;
   right: 0em;
-  padding: 0em .75em;
+  padding: 0em 0.75em;
   height: 2em;
   line-height: 2em;
   text-transform: uppercase;
@@ -2151,7 +2152,7 @@ how it wants to round. */
 /* Panel labels */
 /* line 45, ../scss/override_drupal/_l10n_client.scss */
 #l10n-client h2 {
-  border-left: 1px solid #fff;
+  border-left: 1px solid white;
   height: 1em;
   line-height: 1em;
   padding: .5em;
@@ -2210,8 +2211,8 @@ how it wants to round. */
   background: transparent;
   list-style: none;
   list-style-image: none;
-  border-bottom: 1px solid #ddd;
-  padding: .25em .5em;
+  border-bottom: 1px solid #dddddd;
+  padding: 0.25em 0.5em;
   margin: 0em;
 }
 
@@ -2262,7 +2263,7 @@ how it wants to round. */
   height: 2em;
   line-height: 2em;
   margin: 0em;
-  padding: .5em .5em;
+  padding: 0.5em 0.5em;
 }
 
 /* line 124, ../scss/override_drupal/_l10n_client.scss */
@@ -2681,9 +2682,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear, box-shadow linear;
-  -webkit-transition-delay: 0.2s, 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -3024,7 +3025,7 @@ input[type="checkbox"][readonly] {
 
 /* line 111, ../scss/override_ctb/_navs.scss */
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* line 115, ../scss/override_ctb/_navs.scss */
@@ -3054,7 +3055,7 @@ input[type="checkbox"][readonly] {
 .nav-tabs > .active > a:hover {
   color: #555555;
   background-color: white;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -3096,7 +3097,7 @@ input[type="checkbox"][readonly] {
 
 /* line 176, ../scss/override_ctb/_navs.scss */
 .nav-tabs.nav-stacked > li > a {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
@@ -3259,7 +3260,7 @@ input[type="checkbox"][readonly] {
 
 /* line 305, ../scss/override_ctb/_navs.scss */
 .tabs-below > .nav-tabs {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 
 /* line 308, ../scss/override_ctb/_navs.scss */
@@ -3285,7 +3286,7 @@ input[type="checkbox"][readonly] {
 /* line 320, ../scss/override_ctb/_navs.scss */
 .tabs-below > .nav-tabs > .active > a,
 .tabs-below > .nav-tabs > .active > a:hover {
-  border-color: transparent #ddd #ddd #ddd;
+  border-color: transparent #dddddd #dddddd #dddddd;
 }
 
 /* line 329, ../scss/override_ctb/_navs.scss */
@@ -3306,7 +3307,7 @@ input[type="checkbox"][readonly] {
 .tabs-left > .nav-tabs {
   float: left;
   margin-right: 19px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #dddddd;
 }
 
 /* line 345, ../scss/override_ctb/_navs.scss */
@@ -3327,7 +3328,7 @@ input[type="checkbox"][readonly] {
 /* line 353, ../scss/override_ctb/_navs.scss */
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover {
-  border-color: #ddd transparent #ddd #ddd;
+  border-color: #dddddd transparent #dddddd #dddddd;
   *border-right-color: white;
 }
 
@@ -3335,7 +3336,7 @@ input[type="checkbox"][readonly] {
 .tabs-right > .nav-tabs {
   float: right;
   margin-left: 19px;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #dddddd;
 }
 
 /* line 364, ../scss/override_ctb/_navs.scss */
@@ -3356,7 +3357,7 @@ input[type="checkbox"][readonly] {
 /* line 372, ../scss/override_ctb/_navs.scss */
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover {
-  border-color: #ddd #ddd #ddd transparent;
+  border-color: #dddddd #dddddd #dddddd transparent;
   *border-left-color: white;
 }
 
@@ -3616,8 +3617,8 @@ textarea {
 /* line 115, ../scss/_alerts.scss */
 .absolute-messages-message .content {
   margin: 0;
-  padding: .5em 1.5em 0 1.5em;
-  border-bottom: .5em solid transparent;
+  padding: 0.5em 1.5em 0 1.5em;
+  border-bottom: 0.5em solid transparent;
   overflow: hidden;
 }
 
@@ -3703,7 +3704,7 @@ a.absolute-messages-dismiss-all:hover {
 /* line 181, ../scss/_alerts.scss */
 a.absolute-messages-dismiss-all,
 a.absolute-messages-dismiss-all:hover {
-  border: 2px solid #222;
+  border: 2px solid #222222;
   background-color: #222;
   color: #ccc;
 }
@@ -3891,9 +3892,9 @@ a.absolute-messages-dismiss-all:hover {
   z-index: 1050;
   margin-top: -250px;
   background-color: white;
-  border: 1px solid #999;
+  border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
+  *border: 1px solid #999999;
   /* IE6-7 */
   -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
@@ -3907,6 +3908,7 @@ a.absolute-messages-dismiss-all:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -3918,7 +3920,7 @@ a.absolute-messages-dismiss-all:hover {
 
 /* line 47, ../scss/_modals.scss */
 .modal-header {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
   background-color: white;
   overflow: hidden;
 }
@@ -3983,7 +3985,7 @@ a.absolute-messages-dismiss-all:hover {
   margin-bottom: 0;
   text-align: right;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   -ms-border-radius: 0 0 6px 6px;
@@ -4158,7 +4160,7 @@ pre {
   white-space: pre;
   white-space: pre-wrap;
   background-color: #f5f5f5;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -4482,16 +4484,16 @@ table th[class*="span"],
   position: fixed;
 }
 
-@media (min-width: 1238px) {
+@media (min-width: 1258px) {
   /* line 179, ../scss/style.scss */
   body {
-    max-width: -14px;
-    padding-left: 10px;
-    padding-right: 10px;
+    max-width: 6;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
   }
-  /* line 38, ../../../../../../../../../lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+  /* line 38, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
   body:after {
     content: "";
     display: table;
@@ -4508,12 +4510,12 @@ body #main {
   display: inline;
 }
 
-/* line 61, ../../../../../../../../../lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+/* line 64, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
 * html {
   font-size: 112.5%;
 }
 
-/* line 64, ../../../../../../../../../lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+/* line 66, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
 html {
   font-size: 18px;
   line-height: 1.5;
@@ -4785,7 +4787,7 @@ body #main h2 {
   display: none;
 }
 
-@media (min-width: 1238px) {
+@media (min-width: 1258px) {
   /* line 81, ../scss/_typography.scss */
   body {
     line-height: 29px;
@@ -4897,10 +4899,12 @@ div.tabs ul.primary li a {
   display: inline;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: white;
@@ -4918,7 +4922,7 @@ div.tabs ul.primary li a:hover {
   color: #333333;
 }
 
-@media (min-width: 614px) {
+@media (min-width: 634px) {
   /* line 59, ../scss/_tabs.scss */
   div.tabs ul.primary {
     display: block;
@@ -5231,10 +5235,12 @@ div.tabs ul.primary li a:hover {
   display: block;
   -webkit-transition-property: all;
   -moz-transition-property: all;
+  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -6347,7 +6353,7 @@ ul.pager {
   display: inline-block;
   padding: 5px 14px;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
@@ -6470,19 +6476,23 @@ nav[role="navigation"] .nav > div h2 {
   border-right: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #262626;
@@ -6553,19 +6563,23 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   border-right: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #262626;
@@ -6812,10 +6826,12 @@ div.tabs ul.primary li a {
   display: inline;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: white;
@@ -6833,7 +6849,7 @@ div.tabs ul.primary li a:hover {
   color: #333333;
 }
 
-@media (min-width: 614px) {
+@media (min-width: 634px) {
   /* line 59, ../scss/_tabs.scss */
   div.tabs ul.primary {
     display: block;
@@ -7414,7 +7430,7 @@ form select:after {
   clear: both;
 }
 
-@media (min-width: 614px) {
+@media (min-width: 634px) {
   /* line 236, ../scss/_forms.scss */
   form {
     padding-right: 0%;
@@ -7612,7 +7628,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   color: black;
 }
 
-@media (min-width: 614px) {
+@media (min-width: 634px) {
   /* line 48, ../scss/_liveblog.scss */
   body.page-liveblog #main {
     padding-right: 1.62866%;
@@ -7644,7 +7660,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     margin-bottom: 18px;
   }
 }
-@media (min-width: 1238px) {
+@media (min-width: 1258px) {
   /* line 56, ../scss/_liveblog.scss */
   body.page-liveblog #main {
     padding-right: 0.80775%;
@@ -8078,7 +8094,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   z-index: 1000;
   width: 410px;
   background-color: #f6f6f6;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -8121,6 +8137,10 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 #incoming-reports-filters .panels #sort-by .panel-content {
   width: 200px;
 }
+/* line 86, ../scss/_reports_filter.scss */
+#incoming-reports-filters .form-type-radio input[type="radio"] {
+  margin: 0;
+}
 
 /* line 9, ../scss/_sidebar.scss */
 body.sidebar-first #main {
@@ -8160,7 +8180,7 @@ body.sidebar-first #main div#content .inner {
   margin-top: 18px;
 }
 
-@media (min-width: 614px) {
+@media (min-width: 634px) {
   /* line 50, ../scss/_sidebar.scss */
   body.sidebar-first #main {
     width: 100%;
@@ -8204,7 +8224,7 @@ body.sidebar-first #main div#content .inner {
     margin-top: 18px;
   }
 }
-@media (min-width: 1238px) {
+@media (min-width: 1258px) {
   /* line 9, ../scss/_sidebar.scss */
   body.sidebar-first #main {
     width: 100%;
@@ -8244,7 +8264,7 @@ body.sidebar-first #main div#content .inner {
     margin-top: 18px;
   }
 }
-@media (min-width: 2486px) {
+@media (min-width: 2506px) {
   /* line 77, ../scss/_sidebar.scss */
   body.sidebar-first #main {
     width: 100%;
@@ -8669,10 +8689,12 @@ body.page-user- #edit-social-media-signin div.item-list li.first a,
 body.page-user #edit-social-media-signin div.item-list li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -8701,10 +8723,12 @@ body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook'],
 body.page-user #edit-social-media-signin div.item-list li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -8741,7 +8765,7 @@ body.page-user .form-item.form-item-name {
   border-top: 1px solid #ededed !important;
   padding-top: 20px !important;
 }
-@media (min-width: 614px) {
+@media (min-width: 634px) {
   /* line 177, ../scss/_user.scss */
   body.page-user- form #edit-social-media-signin a,
   body.page-user form #edit-social-media-signin a {
@@ -8822,7 +8846,7 @@ body.page-reports li.views-fluid-grid-item {
   border-width: 0;
 }
 
-@media (min-width: 614px) {
+@media (min-width: 634px) {
   /* line 55, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 49.18567%;
@@ -8835,7 +8859,7 @@ body.page-reports li.views-fluid-grid-item {
     margin: 10px;
   }
 }
-@media (min-width: 1238px) {
+@media (min-width: 1258px) {
   /* line 68, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 36.99515%;
@@ -8848,7 +8872,7 @@ body.page-reports li.views-fluid-grid-item {
     margin: 10px;
   }
 }
-@media (min-width: 2486px) {
+@media (min-width: 2506px) {
   /* line 82, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 14.23974%;
@@ -8942,7 +8966,7 @@ i:hover {
 /* line 37, ../scss/_evil_hacks.scss */
 nav li.menu-449 {
   display: none!important;
-  border: 1px solid red!important;
+  border: 1px solid red !important;
 }
 
 /* line 53, ../scss/_evil_hacks.scss */
