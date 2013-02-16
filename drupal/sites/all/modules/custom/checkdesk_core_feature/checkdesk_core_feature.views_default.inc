@@ -607,28 +607,6 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['header']['area']['label'] = 'Auto-Refresh';
   $handler->display->display_options['header']['area']['empty'] = TRUE;
   $handler->display->display_options['header']['area']['content'] = '<?php
-ctools_include(\'modal\');
-ctools_modal_add_js();
-$modal_style = array(
- \'modal-popup-report\' => array(
-      \'modalSize\' => array(
-        \'type\' => \'fixed\',
-        \'width\' => 415,
-        \'height\' => 500,
-        \'addWidth\' => 0,
-        \'addHeight\' => 0
-      ),
-      \'modalOptions\' => array(
-        \'opacity\' => .5,
-        \'background-color\' => \'#000\',
-      ),
-      \'animation\' => \'show\',
- \'animationSpeed\' => 40,
-      \'modalTheme\' => \'CToolsModalDialog\',
-      \'throbber\' => theme(\'image\', array(\'path\' => ctools_image_path(\'ajax-loader.gif\', \'checkdesk_core\'), \'alt\' => t(\'Loading...\'), \'title\' => t(\'Loading\'))),
-    ),
-  );
-  drupal_add_js($modal_style, \'setting\');
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media\'),
@@ -1006,28 +984,6 @@ print t(\'No content available\');
     t('last »'),
     t('Auto-Refresh'),
     t('<?php
-ctools_include(\'modal\');
-ctools_modal_add_js();
-$modal_style = array(
- \'modal-popup-report\' => array(
-      \'modalSize\' => array(
-        \'type\' => \'fixed\',
-        \'width\' => 415,
-        \'height\' => 500,
-        \'addWidth\' => 0,
-        \'addHeight\' => 0
-      ),
-      \'modalOptions\' => array(
-        \'opacity\' => .5,
-        \'background-color\' => \'#000\',
-      ),
-      \'animation\' => \'show\',
- \'animationSpeed\' => 40,
-      \'modalTheme\' => \'CToolsModalDialog\',
-      \'throbber\' => theme(\'image\', array(\'path\' => ctools_image_path(\'ajax-loader.gif\', \'checkdesk_core\'), \'alt\' => t(\'Loading...\'), \'title\' => t(\'Loading\'))),
-    ),
-  );
-  drupal_add_js($modal_style, \'setting\');
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media\'),
