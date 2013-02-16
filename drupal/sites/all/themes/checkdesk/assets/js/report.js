@@ -123,6 +123,11 @@
 			// 	$('#incoming-reports').height(bodyHeight);
 			// });
 
+			// close panel
+			$('#close').click(function(event) {
+				$('.panel-content').hide();
+			});
+
 		}
 	};
 

@@ -82,6 +82,11 @@
             <?php print $offset; ?>
           </div>
         <?php endif; ?>
+
+        <div class="views-exposed-widget views-submit-button">
+          <?php print $button; ?>
+          <a id="close" class="btn" data-dismiss="dropdown" aria-hidden="true"><?php print t('Close'); ?></a>
+        </div>
         
         <?php if (!empty($reset_button)): ?>
           <div class="views-exposed-widget views-reset-button">

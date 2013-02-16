@@ -78,8 +78,33 @@
 
 	}
 
+	#filter-by .views-reset-button {
+		float: $alpha;
+	}
+
+	#filter-by .views-submit-button {
+		float: $omega;
+		// hide the duplicate sort select
+		.form-type-select {
+			display: none;
+		}
+		#close {
+			@include checkdesk-button($grayLight);
+          	margin-#{$omega}: 0;
+		}
+		input {
+			margin-top: -4px; // no idea why it needs this
+			margin-#{$omega}: $gw;
+		}
+
+	}
+
 	#sort-by .panel-content {
 		width: 200px;
+	}
+
+	#sort-by .views-submit-button input {
+		margin-top: $baseLineHeight/2;
 	}
   }
 
