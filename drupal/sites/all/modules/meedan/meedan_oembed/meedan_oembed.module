@@ -61,10 +61,13 @@ function meedan_oembed_pre_render_fetch($element) {
  *       The maximum height of the embed, in pixels.
  * @param boolean $retry_if_error
  *   Whether the media should be reparsed if an error happened. Defaults to FALSE.
+ * @param boolean $no_cache
+ *   Optional, when set to TRUE the cache will be ignored AND reset for this
+ *   oembed response.
  * @return
  *   an object representing the embeddable data of the URL.
  */
-function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE) {
+function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE, $no_cache = FALSE) {
   $provider = array();
   $provider['endpoint'] = 'http://api.embed.ly/1/oembed';
 
@@ -87,7 +90,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
   $cache_key = implode(':', $element['#cache']['keys']);
   $cache     = cache_get($cache_key, $element['#cache']['bin']);
 
-  if ($cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
+  if (!$no_cache && $cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
@@ -96,7 +99,6 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
   // Call scrape function first if exist
   if (function_exists($callback)) {
     $embed = $callback($provider, $url);
-    watchdog('meedan_oembed_data B', '$embed: <pre>' . var_export($embed, 1) . '</pre>');
   }
   // Ask oEmbed core to render for us
   elseif ($embed = oembedcore_oembed_data($url, $attributes)) {
@@ -194,7 +196,7 @@ function meedan_oembed_scrape_facebook($provider, $url) {
   } catch (FacebookApiException $e) {
     $embed = (object) array(
       'error'         => TRUE,
-      'error_message' => t('You do not have access to circulate this post outside of Facebook. Try again using one of your own posts or a Public post.'),
+      'error_message' => t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."),
     );
 
     watchdog('FacebookApi', t('Unable to fetch data from Facebook: @error', array('@error' => $e->getMessage())));
@@ -402,7 +404,7 @@ function meedan_oembed_theme() {
       'variables' => array('tweet' => NULL),
     ),
     'meedan_oembed_facebook_status' => array(
-      'variables' => array('status' => NULL),
+      'variables' => array('status' => NULL, 'author' => NULL),
     ),
     'oembed__link__meedan_oembed_theme_twitter' => array(
       'variables' => array('embed' => NULL), 
@@ -659,7 +661,6 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
       try {
         $id = _meedan_oembed_getFacebookId($url);
         $post_data = $facebook->api('/' . $id);
-        watchdog('FacebookApi', 'DEBUG: <pre>' . var_export($post_data, 1) . '</pre>');
       } catch (FacebookApiException $e) {
         $error_msg = $e->getMessage();
         watchdog('FacebookApi', t('Unable to fetch data from facebook post - @msg @url', array('@msg' => $error_msg, '@url' => $url)));
@@ -776,7 +777,19 @@ function theme_meedan_oembed_tweet($variables) {
  * Default theme implementation for embedded Facebook status message.
  */
 function theme_meedan_oembed_facebook_status($variables) {
-  $text = $variables['status'];
+  $text   = $variables['status'];
+  $author = $variables['author'];
+
   $dir = meedan_oembed_needs_rtl($text) ? 'rtl' : 'ltr';
-  return '<div class="fb-status-preview ' . $dir . '"">' . check_plain($text) . '</div>';
+
+  $output  = '<div class="fb-status-preview ' . $dir . '"">';
+  $output .=   check_plain($text);
+
+  if ($author) {
+    $output .= '<div class="author">' . l($author['name'], $author['url'], array('attributes' => array('target' => '_blank'))) . '</div>';
+  }
+
+  $output .= '</div>';
+
+  return $output;
 }
