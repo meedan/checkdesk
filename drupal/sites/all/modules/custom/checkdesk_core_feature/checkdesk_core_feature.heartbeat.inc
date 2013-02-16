@@ -645,7 +645,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'new_comment_report';
   $heartbeatmessagetemplate->description = 'New comment on a report';
-  $heartbeatmessagetemplate->message = '!username said: !comment';
+  $heartbeatmessagetemplate->message = '!username said: <div class="message">!comment</div>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
