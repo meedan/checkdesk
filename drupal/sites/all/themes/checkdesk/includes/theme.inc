@@ -216,52 +216,26 @@ function checkdesk_status_messages($variables) {
   return $output;
 }
 
-
 function checkdesk_checkdesk_heartbeat_content($variables) {
   $message = $variables['message'];
-  $node = $variables['node'];
-  $title = '';
 
   // status report
-  if($message->message_id == 'status_report') {
-    if($status = $message->variables['!status']) {
-      if($status == 'Verified') {
+  if ($message->message_id == 'status_report') {
+    if ($status = $message->variables['!status']) {
+      if ($status == 'Verified') {
         $icon = '<span class="icon-ok-sign"></span>';
-        $status_class = 'verified';
       }
-      $title = 'Status set to '. $message->variables['!status'] . ' by ' . $message->variables['!editor'];
     }
   }
 
-  // comment 
-  if($message->message_id == 'new_comment_report') {
-    $title = $message->variables['!username'] . ' said:';
-  }
-
-  // new_report 
-  if($message->message_id == 'new_report') {
-    $title = $message->variables['!title'] . ' added by ' . $message->variables['!username'];
-  }
-
-  // report published in a story through an update
-  if ($message->message_id == 'publish_report') {
-    $title = $message->message;
-  }
-
   $output = '';
-
-  $user = user_load($message->uid);
   $output .= '<header>';
-  if(isset($status_class)) {
+  if (isset($icon)) {
     $output .= $icon;
   }
-  $output .= '<span class="time" title="' . strftime("%d %b %Y, %H:%M:%S", $message->timestamp) . '">' . format_interval(time()-$message->timestamp) . ' ' . t('ago') . '</span>';
-  $output .= '<span class="title">' . $title . '</span>';
+  $output .= '<time class="time" title=' . format_date($message->timestamp, 'custom', 'Y-m-d')  .'>' . _theme_time_ago($message->timestamp) . '</time>';
+  $output .= '<span class="title">' . $message->message . '</span>';
   $output .= '</header>';
-  if(isset($message->variables['!comment'])) {
-    $output .= '<div class="message">' . $message->variables['!comment'] . '</div>';
-  }
-
   return $output;
 }
 
