@@ -4,11 +4,10 @@
       <h3>
         <span class="icon-flag"></span> <?php print render($content['report_source']); ?>
       </h3>
+      <div id="report-actions">
+        <?php print render($content['links']); ?>
+      </div>
     </header>
-
-    <div id="report-actions">
-      <?php print render($content['links']); ?>
-    </div>
     
     <section class="report-content">
       <div class="report-media">

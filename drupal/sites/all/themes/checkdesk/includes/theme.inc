@@ -225,6 +225,12 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
       if ($status == 'Verified') {
         $icon = '<span class="icon-ok-sign"></span>';
       }
+      if ($status == 'False') {
+        $icon = '<span class="icon-remove-sign"></span>'; 
+      }
+      if ($status == 'Undetermined') {
+        $icon = '<span class="icon-question-sign"></span>'; 
+      }
     }
   }
 

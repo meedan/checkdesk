@@ -30,7 +30,7 @@ $bh: $baseLineHeight/4;
 	font-family: $sans-font-family;
 	font-size: $fontSizeSmall;
 	margin: { top: $gw; bottom: $gw; }
-	background-color: darken($grayLighter, 5%);
+	
 	a {
 		color: $report-text-color;
 		&:hover {
@@ -41,21 +41,15 @@ $bh: $baseLineHeight/4;
 	& > header {
 		color: $report-text-color;
 		padding: $gw/2 $gw;
-
+		@include ctb-clearfix;
+		background-color: darken($grayLighter, 5%);
 		h3 {
 			@include reset-box-model;
-			width: 100%; // WARNING
 			overflow: hidden;
-			display: inline-block;
-
+			float: $alpha;
 			font-size: $fontSizeSmall;
 			line-height: inherit;
 			font-weight: normal;
-
-			.icon-link {
-				float: $alpha;
-				margin-#{$omega}: $gw;
-			}
 
 			.source-url { // this is not the best markup CGB
 				font-weight: bold;
@@ -71,13 +65,19 @@ $bh: $baseLineHeight/4;
 
 			@include reset-box-model;
 			@include reset-list-style;
-			display: inline-block;
-			// float: $from-direction;
+			// display: inline-block;
+			float: $omega;
+			padding-right: $gw;
 			// The last dropdown needs to not stick out at smaller sizes
 			@if $from-direction == left {
+				li.add-to .dropdown-menu {
+					#{$from-direction}: -125px;
+				}
+				li.flag-as .dropdown-menu {
+					#{$from-direction}: -120px;
+				}
 				li.share-on .dropdown-menu {
-				// #{$omega-float}: auto;
-				// #{$from-direction}: -75px;
+					#{$from-direction}: -100px;
 				}
 			}
 			@if $from-direction == right {
@@ -85,10 +85,10 @@ $bh: $baseLineHeight/4;
 					#{$omega}: -100px;
 				}
 				li.flag-as .dropdown-menu {
-					#{$omega}: -140px;
+					#{$omega}: -90px;
 				}
 				li.share-on .dropdown-menu {
-					#{$omega}: -90px;
+					#{$omega}: -100px;
 				}
 			}
 
@@ -156,6 +156,10 @@ $bh: $baseLineHeight/4;
 				vertical-align: middle;
 				text-align: $from-direction;
 				font-size: $fontSizeSmall;
+
+				.oembed-content {
+					@include ctb-clearfix;
+				}
 				
 				.oembed-content img {
 					// width: $report-width-px; // enlarge photos to fit ...
@@ -264,7 +268,9 @@ $bh: $baseLineHeight/4;
 
 	// Report activity 
 	.report-activity {
-		background-color: $grayLighter;
+		background-color: $white;
+		margin: 0 auto;
+		width: 95%;
 
 		& > header {
 			@include clearfix();
@@ -332,7 +338,8 @@ $bh: $baseLineHeight/4;
 			display: none;
 			@include ctb-clearfix;
 			padding: $bh $gw;
-
+			background-color: $grayLighter;
+			
 			ul.pager-load-more {
 				float: $alpha;
 				clear: both;
