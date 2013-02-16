@@ -771,7 +771,7 @@ function meedan_oembed_needs_rtl($text) {
  * Encode special characters and turn URLs into clickable links.
  */
 function meedan_oembed_check($text) {
-  return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank" class="meedan-oembed-link">$1</a>', check_plain($text));
+  return mb_ereg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank" class="meedan-oembed-link">$1</a>', check_plain($text));
 }
 
 function theme_meedan_oembed_tweet($variables) {
