@@ -54,6 +54,7 @@ $bookmarklet-modal-height: 350px;
       position: absolute;
       top: 35px;
       padding: 10px;
+      font-size: 16px;
       background: $identity;
       @include border-radius(3px);
     }
@@ -65,8 +66,8 @@ $bookmarklet-modal-height: 350px;
 
     h3 {
       @include reset-box-model;
-      margin: 40px auto 25px auto;
-      padding-#{$from-direction}: 50px;
+      margin: 20px auto 25px auto;
+      padding-#{$from-direction}: 60px;
       text-align: center;
       
       font-size: $fontSizeSmall;
@@ -95,6 +96,8 @@ $bookmarklet-modal-height: 350px;
       font-weight: normal;
       font-size: $x-large-font-size;
       color: $gray;
+      margin-top: -30px;
+      width: 90%;
     }
     p {
       margin: ms(0) 0;
