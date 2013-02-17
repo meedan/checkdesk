@@ -478,6 +478,16 @@ function checkdesk_field__field_rating(&$variables) {
 /**
  * Adjust compose update form
  */
+function checkdesk_form_alter(&$form, &$form_state) {
+  if($form['form_id']['#id'] == 'edit-user-login') {
+    unset($form['name']['#description']);
+    unset($form['pass']['#description']);
+  }
+}
+
+/**
+ * Adjust compose update form
+ */
 function checkdesk_form_post_node_form_alter(&$form, &$form_state) {
   $form['title']['#title'] = NULL;
   $form['title']['#attributes']['placeholder'] = t('Add headline');
