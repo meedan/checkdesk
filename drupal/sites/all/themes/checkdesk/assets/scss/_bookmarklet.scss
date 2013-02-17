@@ -99,12 +99,12 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
       &:hover p {
         display: block;
-        width: $bookmarklet-width;
+        width: 240px;
         height: auto;
         background: white;
-        border: 1px solid $dark-grey;
-        font-size: $small-font-size;
-        color: $dark-grey;
+        border: 1px solid $grayLighter;
+        font-size: 12px;
+        color: $grayLight;
         text-indent: 0;
         padding: $gw;
         position: absolute;
