@@ -7,16 +7,42 @@ $omega: opposite-position($from-direction);
 // 2. Checkdesk #main-menu navigation
 
 // Icons in the navigation
-@mixin nav-icons($size: $xsmall-font-size) {
-  
+@mixin nav-icons($size: $xsmall-font-size, $color: $navbarLinkColor, $position: "before") {
+  @if $from-direction == left {
+    $position: "before";
+  }
+  @if $from-direction == right {
+    $position: "after";
+  }
+
   // add a post
-  a[href*="add/post"] { @include icon("pencil", $size); }
+  a[href*="add/post"] { 
+    @include icon("pencil", $size, $color, $position); 
+    &:after {
+      margin-left: $gw; margin-right: 0;
+    }
+  }
   // add a report
-  a#menu-submit-report { @include icon("bookmark", $size); }
+  a#menu-submit-report { 
+      @include icon("bookmark", $size, $color, $position);
+      &:after {
+        margin-left: $gw; margin-right: 0;
+      }
+  }
   // add a story 
-  a[href*="add/discussion"] { @include icon("file", $size); }
+  a[href*="add/discussion"] { 
+    @include icon("file", $size, $color, $position); 
+    &:after {
+      margin-left: $gw; margin-right: 0;
+    }
+  }
   // home
-  li.home a { @include icon("home", $size); }
+  li.home a { 
+    @include icon("home", $size, $color, $position); 
+    &:after {
+      margin-left: $gw; margin-right: 0;
+    }
+  }
 }
 
 // Nav item container

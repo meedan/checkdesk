@@ -448,17 +448,24 @@ $bh: $baseLineHeight/4;
 	}
 
 	// report icon based on status
+	$position:  "before";
+	@if $from-direction == left {
+	    $position: "after";
+	  }
+	  @if $from-direction == right {
+	    $position: "before";
+	  }
 	.icon-ok-sign { 
 		color: $green;
-		@include icon(ok-sign, 16px, darken($green, 15%));
+		@include icon(ok-sign, 16px, darken($green, 15%), $position);
 	}
 	.icon-question-sign { 
 		color: $orange; 
-		@include icon(question-sign, 16px, darken($orange, 15%));
+		@include icon(question-sign, 16px, darken($orange, 15%), $position);
 	}
 	.icon-remove-sign { 
 		color: $red; 
-		@include icon(remove-sign, 16px, darken($red, 15%));
+		@include icon(remove-sign, 16px, darken($red, 15%), $position);
 	}
 
 } // report
