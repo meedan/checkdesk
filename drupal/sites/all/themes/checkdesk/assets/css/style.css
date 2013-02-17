@@ -3611,7 +3611,7 @@ textarea {
   right: 0;
   left: 0;
   bottom: 0;
-  z-index: 1030;
+  z-index: 930;
   margin-bottom: 0;
   color: #735005;
   zoom: 1;
@@ -3751,7 +3751,7 @@ a.absolute-messages-dismiss-all:hover {
   position: absolute;
   top: 75%;
   left: 0;
-  z-index: 1000;
+  z-index: 900;
   display: none;
   float: left;
   min-width: 160px;
@@ -3842,7 +3842,7 @@ a.absolute-messages-dismiss-all:hover {
 
 /* line 91, ../scss/_dropdowns.scss */
 .open {
-  *z-index: 1000;
+  *z-index: 900;
 }
 /* line 96, ../scss/_dropdowns.scss */
 .open > .dropdown-menu {
@@ -3878,7 +3878,7 @@ a.absolute-messages-dismiss-all:hover {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1040;
+  z-index: 940;
   background-color: black;
 }
 /* line 16, ../scss/_modals.scss */
@@ -3897,8 +3897,8 @@ a.absolute-messages-dismiss-all:hover {
 .modal {
   position: relative;
   top: 0;
-  z-index: 1050;
-  margin-top: -250px;
+  z-index: 950;
+  margin-top: -80px;
   background-color: white;
   border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -3960,7 +3960,7 @@ a.absolute-messages-dismiss-all:hover {
 .modal-body .modal-content form {
   padding: 0;
   margin: 0;
-  z-index: 1051;
+  z-index: 951;
   font-size: 15.3px;
 }
 /* line 86, ../scss/_modals.scss */
@@ -6249,32 +6249,32 @@ body .livefyre-wrapper {
 
 /* line 7, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet {
-  top: 350px !important;
-  z-index: 1050;
+  margin-top: -200px;
+  z-index: 950;
   position: fixed;
 }
-/* line 16, ../scss/_install_bookmarklet.scss */
+/* line 15, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .ctools-modal-content .modal-content {
   overflow: visible;
 }
-/* line 23, ../scss/_install_bookmarklet.scss */
+/* line 22, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .modal {
   width: 700px;
   height: 350px;
 }
-/* line 26, ../scss/_install_bookmarklet.scss */
+/* line 25, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .modal .modal-body {
   overflow: visible;
 }
-/* line 31, ../scss/_install_bookmarklet.scss */
+/* line 30, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .modal-header {
   border-bottom: 0;
 }
-/* line 33, ../scss/_install_bookmarklet.scss */
+/* line 32, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .modal-header .modal-title {
   display: none;
 }
-/* line 38, ../scss/_install_bookmarklet.scss */
+/* line 37, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet #install-bookmarklet-button {
   background: transparent url(../imgs/icons/bookmarklet-drag.png) left center no-repeat;
   display: block;
@@ -6290,7 +6290,7 @@ body .livefyre-wrapper {
   font-size: 18px;
   overflow: visible;
 }
-/* line 53, ../scss/_install_bookmarklet.scss */
+/* line 52, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet #install-bookmarklet-button span {
   position: absolute;
   top: 35px;
@@ -6303,12 +6303,12 @@ body .livefyre-wrapper {
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 63, ../scss/_install_bookmarklet.scss */
+/* line 62, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col {
   float: left;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 67, ../scss/_install_bookmarklet.scss */
+/* line 66, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col h3 {
   margin: 0;
   padding: 0;
@@ -6320,22 +6320,22 @@ body .livefyre-wrapper {
   font-weight: normal;
   color: #999999;
 }
-/* line 79, ../scss/_install_bookmarklet.scss */
+/* line 78, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col ul {
   margin: 0;
   padding: 0;
   border: 0;
   list-style: none;
 }
-/* line 84, ../scss/_install_bookmarklet.scss */
+/* line 83, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col a, #modalContent.modal-install-bookmarklet .install-bookmarklet-col p {
   font-size: 16px;
 }
-/* line 88, ../scss/_install_bookmarklet.scss */
+/* line 87, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col p {
   color: #555555;
 }
-/* line 94, ../scss/_install_bookmarklet.scss */
+/* line 93, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col h2 {
   margin: 0;
   padding: 0;
@@ -6346,11 +6346,11 @@ body .livefyre-wrapper {
   margin-top: -30px;
   width: 90%;
 }
-/* line 102, ../scss/_install_bookmarklet.scss */
+/* line 101, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col p {
   margin: 18px 0;
 }
-/* line 110, ../scss/_install_bookmarklet.scss */
+/* line 109, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:first-child {
   float: left;
   margin-right: 10px;
@@ -6358,7 +6358,7 @@ body .livefyre-wrapper {
   clear: both;
   width: 250px;
 }
-/* line 118, ../scss/_install_bookmarklet.scss */
+/* line 117, ../scss/_install_bookmarklet.scss */
 #modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:last-child {
   float: right;
   width: 350px;
@@ -6538,7 +6538,7 @@ nav[role="navigation"] .nav > div h2 {
   display: inline-block;
   float: left;
   position: relative;
-  z-index: 999;
+  z-index: 899;
   border-left: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
@@ -6621,7 +6621,7 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   display: inline-block;
   float: left;
   position: relative;
-  z-index: 999;
+  z-index: 899;
   border-left: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
@@ -6730,7 +6730,7 @@ nav[role="navigation"] #user-menu li.last .dropdown-menu {
 /* line 226, ../scss/_navigation.scss */
 div.region-page-top #toolbar {
   position: fixed;
-  z-index: 1030;
+  z-index: 930;
   -webkit-box-shadow: 0 0 0 0;
   -moz-box-shadow: 0 0 0 0;
   box-shadow: 0 0 0 0;
@@ -6761,7 +6761,7 @@ div.region-page-top #toolbar div.toolbar-menu {
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 930;
 }
 
 /* line 260, ../scss/_navigation.scss */
@@ -8143,7 +8143,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   background-color: #eeeeee;
   padding: 13.5px 10px;
   margin-top: 6.75px;
-  z-index: 1000;
+  z-index: 900;
   width: 410px;
   background-color: #f6f6f6;
   border: 1px solid #cccccc;
