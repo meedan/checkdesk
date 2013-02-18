@@ -257,7 +257,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-47',
+    'weight' => '-46',
     'language' => 'en',
     'uuid' => 'aaac935a-d8c3-c964-b1a5-11747d737824',
     'parent_path' => '<nolink>',
@@ -279,7 +279,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-49',
+    'weight' => '-50',
     'language' => 'en',
     'uuid' => 'd1606646-9485-5154-e504-9eabb5782cc6',
     'parent_path' => '<nolink>',
@@ -301,9 +301,31 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-46',
+    'weight' => '-44',
     'language' => 'en',
     'uuid' => 'a3f2b8b5-2d02-9934-79d7-246ff6231eaf',
+    'parent_path' => '<nolink>',
+  );
+  // Exported menu link: menu-common:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات
+  $menu_links['menu-common:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'modal/ajax/content/بيان-التحقق-من-صحة-المعلومات',
+    'router_path' => 'modal/%',
+    'link_title' => 'بيان التحقق من صحة المعلومات',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-45',
+    'language' => 'ar',
+    'uuid' => '3daae1f4-caac-41f1-b00c-7ada7412206e',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
@@ -326,6 +348,50 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'weight' => '-49',
     'language' => 'ar',
     'uuid' => '302da736-6f32-4024-695a-49ecde0f8091',
+    'parent_path' => '<nolink>',
+  );
+  // Exported menu link: menu-common:modal/ajax/content/حول
+  $menu_links['menu-common:modal/ajax/content/حول'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'modal/ajax/content/حول',
+    'router_path' => 'modal/%',
+    'link_title' => 'حول',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-47',
+    'language' => 'ar',
+    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
+    'parent_path' => '<nolink>',
+  );
+  // Exported menu link: menu-common:modal/ajax/content/شروط-الاستخدام
+  $menu_links['menu-common:modal/ajax/content/شروط-الاستخدام'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'modal/ajax/content/شروط-الاستخدام',
+    'router_path' => 'modal/%',
+    'link_title' => 'شروط الاستخدام',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-43',
+    'language' => 'ar',
+    'uuid' => '2caff8c7-f404-4de3-8c79-0fdf715f1b00',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:my-notifications
@@ -435,7 +501,10 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Submit report');
   t('Terms of Use');
   t('View incoming citizen reports');
+  t('بيان التحقق من صحة المعلومات');
   t('تنصيب إضافة المتصفح');
+  t('حول');
+  t('شروط الاستخدام');
 
 
   return $menu_links;
