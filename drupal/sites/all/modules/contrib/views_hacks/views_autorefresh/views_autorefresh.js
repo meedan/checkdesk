@@ -80,7 +80,6 @@ Drupal.behaviors.views_autorefresh = {
 Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
   Drupal.settings.views_autorefresh[view_name].timer = setTimeout(function() {
     clearTimeout(Drupal.settings.views_autorefresh[view_name].timer);
-
     // Handle ping path.
     var ping_base_path;
     if (Drupal.settings.views_autorefresh[view_name].ping) {
@@ -141,7 +140,7 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
     var $source = $(response.data).find(sourceSelector).not(sourceSelector + ' ' + sourceSelector).children();
     if ($source.size() > 0) {
       var targetSelector = Drupal.settings.views_autorefresh[response.view_name].incremental.targetSelector || '.view-content';
-      var $target = $view.find(targetSelector);
+      var $target = $view.find(targetSelector).not(targetSelector + ' ' + targetSelector);
 
       // If initial view was empty, remove the empty divs then add the target div.
       if ($target.size() == 0) {
@@ -154,14 +153,14 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
         }
         else if ($(afterSelector, $view).size() > 0) {
           // insert content after given div.
-          $(afterSelector, $view).after(targetStructure);
+          $view.find(afterSelector).not(targetSelector + ' ' + afterSelector).after(targetStructure);
         }
         else {
           // insert content as first child of view div.
           $view.prepend(targetStructure);
         }
         // Now that it's inserted, find it for manipulation.
-        $target = $view.find(targetSelector);
+        $target = $view.find(targetSelector).not(targetSelector + ' ' + targetSelector);
       }
 
       // Remove first, last row classes from items.
@@ -195,6 +194,9 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
 
     // Reactivate refresh timer.
     Drupal.views_autorefresh.timer(response.view_name, $('.auto-refresh a', $view), $view);
+    
+    // Attach behaviors
+    Drupal.attachBehaviors($view);
   }
 }
 

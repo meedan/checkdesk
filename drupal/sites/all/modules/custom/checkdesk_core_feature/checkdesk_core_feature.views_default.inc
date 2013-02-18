@@ -591,11 +591,12 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
       ),
     ),
   );
-  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['type'] = 'load_more';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '5';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['row_class'] = 'draggable';
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -849,18 +850,22 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_type'] = '0';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
   $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['label'] = '';
+  $handler->display->display_options['fields']['field_link']['element_type'] = '0';
   $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_link']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_default';
+  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_thumbnail';
   $handler->display->display_options['fields']['field_link']['settings'] = array(
-    'maxwidth' => '220',
-    'maxheight' => '',
+    'imagestyle' => 'report_thumbnail',
   );
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
@@ -872,14 +877,51 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nid']['alter']['path'] = 'report-view-modal/nojs/[nid]';
   $handler->display->display_options['fields']['nid']['alter']['link_class'] = 'ctools-use-modal';
+  $handler->display->display_options['fields']['nid']['element_type'] = '0';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nid']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['nid']['hide_alter_empty'] = FALSE;
   /* Field: Content: Fact-checking status */
   $handler->display->display_options['fields']['field_rating']['id'] = 'field_rating';
   $handler->display->display_options['fields']['field_rating']['table'] = 'field_data_field_rating';
   $handler->display->display_options['fields']['field_rating']['field'] = 'field_rating';
   $handler->display->display_options['fields']['field_rating']['label'] = '';
+  $handler->display->display_options['fields']['field_rating']['element_type'] = '0';
   $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_rating']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Media */
+  $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
+  $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
+  $handler->display->display_options['fields']['field_link_1']['field'] = 'field_link';
+  $handler->display->display_options['fields']['field_link_1']['label'] = '';
+  $handler->display->display_options['fields']['field_link_1']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_link_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_link_1']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_link_1']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link_1']['type'] = 'oembed_default';
+  $handler->display->display_options['fields']['field_link_1']['settings'] = array(
+    'maxwidth' => '270',
+    'maxheight' => '',
+  );
+  /* Field: Media sources: Source URL */
+  $handler->display->display_options['fields']['source_url']['id'] = 'source_url';
+  $handler->display->display_options['fields']['source_url']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source_url']['field'] = 'source_url';
+  $handler->display->display_options['fields']['source_url']['relationship'] = 'ms_id';
+  $handler->display->display_options['fields']['source_url']['label'] = '';
+  $handler->display->display_options['fields']['source_url']['element_type'] = '0';
+  $handler->display->display_options['fields']['source_url']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['source_url']['element_default_classes'] = FALSE;
+  /* Field: Media sources: Parent */
+  $handler->display->display_options['fields']['parent']['id'] = 'parent';
+  $handler->display->display_options['fields']['parent']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['parent']['field'] = 'parent';
+  $handler->display->display_options['fields']['parent']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['parent']['label'] = '';
+  $handler->display->display_options['fields']['parent']['element_type'] = '0';
+  $handler->display->display_options['fields']['parent']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['parent']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
@@ -1040,14 +1082,19 @@ print t(\'No content available\');
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Published updates';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'load_more';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '7';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Content: Title */
@@ -1107,6 +1154,13 @@ print t(\'No content available\');
     t('Sort by'),
     t('Asc'),
     t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
     t('All'),
     t('Block'),
   );
@@ -1214,11 +1268,12 @@ print t(\'No content available\');
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['type'] = 'load_more';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '2';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Header: Global: Text area */
@@ -1479,11 +1534,12 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['type'] = 'load_more';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '3';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'fluid_grid';
   $handler->display->display_options['style_options']['items_width'] = '400';
   $handler->display->display_options['style_options']['box_shadow'] = '0';
@@ -1520,6 +1576,13 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'load_more';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '3';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['path'] = 'reports';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'View incoming citizen reports';

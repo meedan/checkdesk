@@ -1,3 +1,4 @@
+var debug;
 (function ($) {
 
 	/**
@@ -27,20 +28,32 @@
 
 	Drupal.behaviors.reports = {
 		attach: function (context, settings) {
-			// show report activity
-			$('.report-activity > header').unbind('click').click(function(event) {
-				var target = $(this);
-				var element = target.parent().attr('id');
-        		if ($('#'+ element + ' .activity-wrapper').is(':visible')) {
-				  $('#'+ element + ' .activity-wrapper').slideUp('fast');
-				  $('#'+ element).removeClass('open');
-		        }
-		        else {
-				  $('#'+ element + ' .activity-wrapper').slideDown('fast');
-				  $('#'+ element).addClass('open');
-        		}
-				return false;
-			});
+		  // Show report activity
+      $('.report-activity > header').unbind('click').click(function(event) {
+        var target = $(this);
+        var element = target.parent();
+        if (element.find('.activity-wrapper').is(':visible')) {
+          element.find('.activity-wrapper').slideUp('fast');
+          element.removeClass('open');
+        }
+        else {
+          element.find('.activity-wrapper').slideDown('fast');
+          element.addClass('open');
+        }
+        return false;
+      });
+
+      // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
+      $('.view-liveblog').unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
+        $(content).find('section.node-post').each(function() {
+          $('.view-liveblog #' + $(this).attr('id')).eq(0).parents('.views-row').remove();
+        });
+      });
+      $('.view-desk-reports').unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
+        $(content).find('.report-row-container').each(function() {
+          $('.view-desk-reports #' + $(this).attr('id')).eq(0).parents('.views-row').remove();
+        });
+      });
 
 			$('a.twitter').click(function(event) {
 				event.preventDefault();

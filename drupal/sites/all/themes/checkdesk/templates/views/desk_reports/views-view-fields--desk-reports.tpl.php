@@ -5,7 +5,7 @@
 	$media_type = $url['host'];
 	$media_type_class = str_replace('.', '_', $media_type);
 ?>
-<div class="report-row-container <?php print $media_type_class; ?>">
+<div class="report-row-container <?php print $media_type_class; ?>" id="report-<?php print $fields['nid']->raw; ?>">
 	<div class="report-content">
 		<?php if($media_type != 'twitter.com') { ?>
 			<!-- display thumbnail -->

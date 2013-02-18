@@ -140,8 +140,62 @@ function checkdesk_preprocess_page(&$variables) {
     'heading' => NULL,
   ));
 
+  // Custom modal settings arrays
+  $modal_style = array(
+    'modal-popup-small' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 420,
+        'height' => 300,
+        'addWidth' => 0,
+        'addHeight' => 0
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'show',
+      'animationSpeed' => 40,
+      'modalTheme' => 'CheckDeskModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
+    ),
+    'modal-popup-medium' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 520,
+        'height' => 350,
+        'addWidth' => 0,
+        'addHeight' => 0
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'show',
+      'animationSpeed' => 40,
+      'modalTheme' => 'CheckDeskModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
+    ),
+    'modal-popup-large' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 420,
+        'height' => 380,
+        'addWidth' => 0,
+        'addHeight' => 0
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'show',
+      'animationSpeed' => 40,
+      'modalTheme' => 'CheckDeskModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
+    ),
+  );
+  drupal_add_js($modal_style, 'setting');
 }
-
 
 /**
  * Override or insert variables into the node template.
@@ -249,61 +303,6 @@ function checkdesk_links__node($variables) {
   ctools_include('modal');
   ctools_include('ajax');
   ctools_modal_add_js();
-  // custom modal settings arrays
-  $modal_style = array(
-    'modal-popup-small' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 420,
-        'height' => 300,
-        'addWidth' => 0,
-        'addHeight' => 0
-      ),
-      'modalOptions' => array(
-        'opacity' => .5,
-        'background-color' => '#000',
-      ),
-      'animation' => 'show',
-      'animationSpeed' => 40,
-      'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
-    ),
-    'modal-popup-medium' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 520,
-        'height' => 350,
-        'addWidth' => 0,
-        'addHeight' => 0
-      ),
-      'modalOptions' => array(
-        'opacity' => .5,
-        'background-color' => '#000',
-      ),
-      'animation' => 'show',
-      'animationSpeed' => 40,
-      'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
-    ),
-    'modal-popup-large' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 420,
-        'height' => 380,
-        'addWidth' => 0,
-        'addHeight' => 0
-      ),
-      'modalOptions' => array(
-        'opacity' => .5,
-        'background-color' => '#000',
-      ),
-      'animation' => 'show',
-      'animationSpeed' => 40,
-      'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
-    ),
-  );
-  drupal_add_js($modal_style, 'setting');
   ctools_add_js('checkdesk_core', 'checkdesk_core');
 
   if (count($links) > 0) {

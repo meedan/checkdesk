@@ -108,7 +108,7 @@ function __views_autorefresh_get_timestamp($view) {
  * FIXME: Check if it's necessary to reset any further information
  */
 function views_autorefresh_views_pre_render(&$view) {
-  if (isset($_REQUEST['original_view_data']) && !empty($_REQUEST['original_view_data']['view_display_id'])) {
+  if (isset($_REQUEST['original_view_data']) && !empty($_REQUEST['original_view_data']['view_display_id']) && isset($_REQUEST['original_view_data']['view_dom_id']) && $_REQUEST['original_view_data']['view_dom_id'] == $view->dom_id) {
     $view->current_display = $_REQUEST['original_view_data']['view_display_id'];
   }
 }

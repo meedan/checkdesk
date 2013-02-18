@@ -1,0 +1,41 @@
+From fd7575fa9d8c1c53b76291ec082305a95bd4d89e Mon Sep 17 00:00:00 2001
+From: Caio SBA <caiosba@gmail.com>
+Date: Sun, 17 Feb 2013 23:45:17 -0300
+Subject: [PATCH 1/2] Nested views support
+
+---
+ views_load_more.js |   11 +++++++++--
+ 1 files changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/views_load_more.js b/views_load_more.js
+index 0914e05..6d12f2a 100644
+--- a/views_load_more.js
++++ b/views_load_more.js
+@@ -47,6 +47,13 @@
+     // change there views layout classes. This allows them to write there own
+     // jquery selector to replace the content with.
+     var content_query = response.options.content || '.view-content';
++    var pager_query = '.pager';
++
++    // Ignore nested views
++    if (new_content.find(content_query + ' ' + content_query).length) {
++      pager_query = pager_query + ':not(' + content_query + ' ' + pager_query + ')';
++      content_query = content_query + ':not(' + content_query + ' ' + content_query + ')';
++    }
+ 
+     // If we're using any effects. Hide the new content before adding it to the DOM.
+     if (effect.showEffect != 'show') {
+@@ -54,8 +61,8 @@
+     }
+ 
+     // Add the new content to the page.
+-    wrapper.find('.pager a').remove();
+-    wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
++    wrapper.find(pager_query + ' a').remove();
++    wrapper.find(pager_query).parent('.item-list').html(new_content.find(pager_query));
+     wrapper.find(content_query)[method](new_content.find(content_query).children());
+     if (effect.showEffect != 'show') {
+       wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
+-- 
+1.7.2.5
+

@@ -47,6 +47,16 @@
     // change there views layout classes. This allows them to write there own
     // jquery selector to replace the content with.
     var content_query = response.options.content || '.view-content';
+    var pager_query = '.pager';
+
+    // Ignore nested views
+    if (new_content.find(content_query + ' ' + content_query).length) {
+      pager_query = pager_query + ':not(' + content_query + ' ' + pager_query + ')';
+      content_query = content_query + ':not(' + content_query + ' ' + content_query + ')';
+    }
+
+    // Additional processing over new content
+    wrapper.trigger('views_load_more.new_content', new_content.clone());
 
     // If we're using any effects. Hide the new content before adding it to the DOM.
     if (effect.showEffect != 'show') {
@@ -55,11 +65,11 @@
 
     // Add the new content to the page.
     if (settings.viewsLoadMoreAllLoaded && settings.viewsLoadMoreAllLoaded[wrapper.selector.replace('.view-dom-id-', '')]) {
-      wrapper.find('.pager').remove();
+      wrapper.find(pager_query).remove();
     }
     else {
-      wrapper.find('.pager a').remove();
-      wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
+      wrapper.find(pager_query + ' a').remove();
+      wrapper.find(pager_query).parent('.item-list').html(new_content.find(pager_query));
     }
     wrapper.find(content_query)[method](new_content.find(content_query).children());
     if (effect.showEffect != 'show') {
