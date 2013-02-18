@@ -86,7 +86,9 @@ Drupal.views.ajaxView.prototype.attachPagerAjax = function() {
 Drupal.views.ajaxView.prototype.attachPagerLinkAjax = function(id, link) {
   var $link = $(link);
   // Don't attach to pagers inside nested views.
-  if ($link.closest('.view')[0] != this.$view[0]) return;
+  if ($link.closest('.view')[0] != this.$view[0]) {
+    return;
+  }
   var viewData = {};
   var href = $link.attr('href');
   // Construct an object using the settings defaults and then overriding

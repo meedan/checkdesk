@@ -1,7 +1,7 @@
-From bcf1bb3187b6991987036a04637764f3b2229617 Mon Sep 17 00:00:00 2001
+From f0bd4c7c675adb95ab5ddc253d35ab311a59de4d Mon Sep 17 00:00:00 2001
 From: Caio SBA <caiosba@gmail.com>
 Date: Sun, 30 Dec 2012 23:57:02 -0200
-Subject: [PATCH] The Ajax pager handler must be attached by the closest parent, not for the outer most
+Subject: [PATCH 1/3] The Ajax pager handler must be attached by the closest parent, not for the outer most
 
 ---
  js/ajax_view.js |   11 ++---------
@@ -46,15 +46,14 @@ index 2a4012f..c108d05 100644
 -- 
 1.7.2.5
 
-From 3b70f34d4d8956fbc88b1756d908e04c7ceec418 Mon Sep 17 00:00:00 2001
+From ac8cff36816b2c444988a760f299344f611fd885 Mon Sep 17 00:00:00 2001
 From: James Andres <james.andres@gmail.com>
 Date: Thu, 7 Feb 2013 16:11:06 -0500
-Subject: [PATCH] Correcting ajax_view.js patch, the jQuery.is() function does
- not accept object arguments until jQuery version 1.6.
+Subject: [PATCH 2/3] Correcting ajax_view.js patch, the jQuery.is() function does not accept object arguments until jQuery version 1.6.
 
 ---
- js/ajax_view.js | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ js/ajax_view.js |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/js/ajax_view.js b/js/ajax_view.js
 index c108d05..9cd3248 100644
@@ -70,5 +69,32 @@ index c108d05..9cd3248 100644
    var href = $link.attr('href');
    // Construct an object using the settings defaults and then overriding
 -- 
-1.7.11.3
+1.7.2.5
+
+From 3fd62a8f373167b8c6d274aec118eedb1a8b56b3 Mon Sep 17 00:00:00 2001
+From: Caio SBA <caiosba@gmail.com>
+Date: Mon, 18 Feb 2013 00:30:57 -0300
+Subject: [PATCH 3/3] Fixing syntax
+
+---
+ js/ajax_view.js |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/js/ajax_view.js b/js/ajax_view.js
+index 9cd3248..6663521 100644
+--- a/js/ajax_view.js
++++ b/js/ajax_view.js
+@@ -86,7 +86,9 @@ Drupal.views.ajaxView.prototype.attachPagerAjax = function() {
+ Drupal.views.ajaxView.prototype.attachPagerLinkAjax = function(id, link) {
+   var $link = $(link);
+   // Don't attach to pagers inside nested views.
+-  if ($link.closest('.view')[0] != this.$view[0]) return;
++  if ($link.closest('.view')[0] != this.$view[0]) {
++    return;
++  }
+   var viewData = {};
+   var href = $link.attr('href');
+   // Construct an object using the settings defaults and then overriding
+-- 
+1.7.2.5
 
