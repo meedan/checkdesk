@@ -53,8 +53,8 @@ body.page-user-,
 body.page-user { // both logged in and not logged ins states
 
   #main {
-    padding: 0;
-    @include span-columns($cw, $cw);  // default width
+    @include span-columns(4, 6);  
+    @include pad(1, 1, 6);
   }
 
   // The page with your picture
@@ -181,6 +181,16 @@ body.page-user { // both logged in and not logged ins states
   }
 }
 
+
+// user admin page
+.view-administer-users {
+  fieldset {
+    margin-bottom: $baseLineHeight/2;
+  }
+  select {
+    margin-bottom: $baseLineHeight/2;
+  }
+}
 
 
 

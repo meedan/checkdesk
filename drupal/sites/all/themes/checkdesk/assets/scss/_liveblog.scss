@@ -54,8 +54,8 @@ body.page-liveblog {
 // Medium breakpoint
 @include at-breakpoint($break-medium) {
   body.page-liveblog #main {
-    @include liveblog-layout($break-medium/2, $break-medium) {
-      @include pad($break-medium/4, $break-medium/4, $break-medium);
+    @include liveblog-layout($break-medium - 4, $break-medium) {
+      @include pad(2, 2, $break-medium);
     }
   }
 }

@@ -150,8 +150,7 @@ $bh: $baseLineHeight/4;
 			text-align: center;
 			margin-bottom: $gw;
 			.container {
-				// max-width: (600px - ($gw*2)); // Firefox width confusion
-				 
+				max-width: 100%;
 				display: inline-block;
 				vertical-align: middle;
 				text-align: $from-direction;
@@ -239,6 +238,14 @@ $bh: $baseLineHeight/4;
 			}	
 		}
 
+		// description double quotes
+		.icon-quote-left {
+			@include icon(quote-left, 16px, $white);
+		}
+		.icon-quote-right {
+			@include icon(quote-right, 16px, $white);
+		}
+
 		.description {
 			@include ctb-clearfix;
 			border-top: 1px solid $white;
@@ -248,8 +255,8 @@ $bh: $baseLineHeight/4;
 			span {
 				color: $white;
 				float: $alpha;
-				padding-#{$omega}: $gw;
-				font-size: 120%;
+				padding: $bh $gw;
+				font-size: 140%;
 			}
 		}
 	}
@@ -441,17 +448,24 @@ $bh: $baseLineHeight/4;
 	}
 
 	// report icon based on status
+	$position:  "before";
+	@if $from-direction == left {
+	    $position: "after";
+	  }
+	  @if $from-direction == right {
+	    $position: "before";
+	  }
 	.icon-ok-sign { 
 		color: $green;
-		@include icon(ok-sign, 16px, darken($green, 15%));
+		@include icon(ok-sign, 16px, darken($green, 15%), $position);
 	}
 	.icon-question-sign { 
 		color: $orange; 
-		@include icon(question-sign, 16px, darken($orange, 15%));
+		@include icon(question-sign, 16px, darken($orange, 15%), $position);
 	}
 	.icon-remove-sign { 
 		color: $red; 
-		@include icon(remove-sign, 16px, darken($red, 15%));
+		@include icon(remove-sign, 16px, darken($red, 15%), $position);
 	}
 
 } // report
