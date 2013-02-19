@@ -674,11 +674,11 @@ function theme_meedan_oembed_facebook_status($variables) {
 
   $dir = meedan_oembed_needs_rtl($text) ? 'rtl' : 'ltr';
 
-  $output  = '<div class="fb-status-preview ' . $dir . '"">';
+  $output  = '<div class="fb-status-preview clearfix ' . $dir . '"">';
   $output .=   check_plain($text);
 
   if ($author) {
-    $output .= '<div class="author">' . l($author['name'], $author['url'], array('attributes' => array('target' => '_blank'))) . '</div>';
+    $output .= '<div class="author">&ndash; ' . l($author['name'], $author['url'], array('attributes' => array('target' => '_blank'))) . '</div>';
   }
 
   $output .= '</div>';

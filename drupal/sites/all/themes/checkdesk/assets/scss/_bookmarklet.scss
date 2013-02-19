@@ -122,6 +122,8 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // Step two  ...
 @mixin bookmarklet-step-two() {
   #meedan_bookmarklet_preview {
+    clear: both;
+    float: left;
     color: $dark-grey;
     margin: $gw 0;
   }
@@ -161,6 +163,17 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
       text-decoration: none;
       color: #fff;
       font-weight: bold;
+    }
+  }
+
+  .fb-status-preview {
+    background: $light-grey;
+    padding: $gw;
+    @include border-radius($radius);
+
+    .author {
+      float: right;
+      clear: both;
     }
   }
 

@@ -5929,7 +5929,7 @@ body .livefyre-wrapper {
   clear: both;
 }
 
-/* line 253, ../scss/_bookmarklet.scss */
+/* line 266, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet_cont {
   display: none;
   position: absolute !important;
@@ -5938,7 +5938,7 @@ body .livefyre-wrapper {
   border-width: 0 !important;
 }
 
-/* line 266, ../scss/_bookmarklet.scss */
+/* line 279, ../scss/_bookmarklet.scss */
 .meedan-bookmarklet-internal #meedan_bookmarklet_preview,
 .meedan-bookmarklet-internal #edit-body,
 .meedan-bookmarklet-internal #edit-graphic-content,
@@ -5946,7 +5946,7 @@ body .livefyre-wrapper {
   display: none;
 }
 
-/* line 278, ../scss/_bookmarklet.scss */
+/* line 291, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet {
   font-size: 16px;
   overflow: auto;
@@ -6077,36 +6077,36 @@ body .livefyre-wrapper {
 #meedan_bookmarklet .footer input:active, #meedan_bookmarklet .footer input:active:visited {
   color: white;
 }
-/* line 227, ../scss/_bookmarklet.scss */
+/* line 240, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login label,
 #meedan_bookmarklet #user-login input[type=text],
 #meedan_bookmarklet #user-login input[type=password],
 #meedan_bookmarklet #user-login a {
   clear: both;
 }
-/* line 230, ../scss/_bookmarklet.scss */
+/* line 243, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login ul {
   margin: 0;
 }
-/* line 233, ../scss/_bookmarklet.scss */
+/* line 246, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login li {
   list-style: none;
   display: block;
   margin: 0;
 }
-/* line 240, ../scss/_bookmarklet.scss */
+/* line 253, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login #edit-social-media-signin label, #meedan_bookmarklet #user-login #edit-social-media-signin li, #meedan_bookmarklet #user-login #edit-social-media-signin a {
   float: left;
 }
-/* line 243, ../scss/_bookmarklet.scss */
+/* line 256, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login #edit-social-media-signin li {
   margin-left: 5px;
 }
-/* line 188, ../scss/_bookmarklet.scss */
+/* line 201, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all {
   display: none !important;
 }
-/* line 193, ../scss/_bookmarklet.scss */
+/* line 206, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet .messages.error {
   clear: both;
   background: transparent;
@@ -6116,19 +6116,19 @@ body .livefyre-wrapper {
   top: 150px;
   color: #a00;
 }
-/* line 203, ../scss/_bookmarklet.scss */
+/* line 216, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_messages {
   padding: 0;
   margin: 0;
   font-size: 16px;
   clear: both;
 }
-/* line 208, ../scss/_bookmarklet.scss */
+/* line 221, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_messages li {
   display: block;
   list-style: none;
 }
-/* line 212, ../scss/_bookmarklet.scss */
+/* line 225, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_messages a, #meedan_bookmarklet #meedan_bookmarklet_messages a:link, #meedan_bookmarklet #meedan_bookmarklet_messages a:visited, #meedan_bookmarklet #meedan_bookmarklet_messages a:hover {
   text-decoration: none;
   color: #848484;
@@ -6187,16 +6187,18 @@ body .livefyre-wrapper {
 }
 /* line 124, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_preview {
+  clear: both;
+  float: left;
   color: #595959;
   margin: 10px 0;
 }
-/* line 129, ../scss/_bookmarklet.scss */
+/* line 131, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_preview_content img {
   width: auto;
   float: left;
   clear: both;
 }
-/* line 136, ../scss/_bookmarklet.scss */
+/* line 138, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_preview_content,
 #meedan_bookmarklet #meedan_bookmarklet_preview_gc {
   width: 332px;
@@ -6206,7 +6208,7 @@ body .livefyre-wrapper {
   float: left;
   overflow: hidden;
 }
-/* line 145, ../scss/_bookmarklet.scss */
+/* line 147, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_preview_gc {
   background: #cccccc;
   color: #595959;
@@ -6214,35 +6216,50 @@ body .livefyre-wrapper {
   height: 345px;
   max-height: 145px;
 }
-/* line 151, ../scss/_bookmarklet.scss */
+/* line 153, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_preview_gc span, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a {
   text-align: center;
   display: block;
   width: 100%;
 }
-/* line 156, ../scss/_bookmarklet.scss */
+/* line 158, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_preview_gc span {
   font-size: 15px;
   margin-bottom: 5px;
 }
-/* line 160, ../scss/_bookmarklet.scss */
+/* line 162, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_preview_gc a, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:visited, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:link, #meedan_bookmarklet #meedan_bookmarklet_preview_gc a:hover {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
 }
-/* line 167, ../scss/_bookmarklet.scss */
+/* line 169, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .fb-status-preview {
+  background: #ededed;
+  padding: 10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 174, ../scss/_bookmarklet.scss */
+#meedan_bookmarklet .fb-status-preview .author {
+  float: right;
+  clear: both;
+}
+/* line 180, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #edit-graphic-content {
   float: left;
   clear: both;
   margin: 10px 0 0 15px;
   width: 100%;
 }
-/* line 172, ../scss/_bookmarklet.scss */
+/* line 185, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #edit-graphic-content > .form-type-checkbox {
   width: 100%;
 }
-/* line 178, ../scss/_bookmarklet.scss */
+/* line 191, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #edit-graphic-content .form-item label:hover,
 #meedan_bookmarklet #edit-graphic-content .form-item input[type="checkbox"]:hover {
   color: #0088ff;
