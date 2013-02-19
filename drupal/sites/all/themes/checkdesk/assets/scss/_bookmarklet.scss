@@ -250,6 +250,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   display: none;
   position: absolute !important; 
   #{$from-direction}: 44px !important;
+  #{opposite-position($from-direction)}: auto !important;
   border-width: 0 !important;
 }
 
