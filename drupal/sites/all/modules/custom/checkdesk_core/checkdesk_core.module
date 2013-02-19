@@ -1048,7 +1048,7 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
 define('RATING_IN_PROGRESS', 'In Progress');
 
 /**
- * Implements of hook_form_FORM_ID_alter() for `comment_node_media_form`.
+ * Implements hook_form_FORM_ID_alter() for `comment_node_media_form`.
  */
 function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, $form_id) {
   $term = isset($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
@@ -1060,7 +1060,7 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
 }
 
 /**
- * Implements of hook_form_alter().
+ * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
@@ -1120,7 +1120,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 }
 
 /**
- * Implements of hook_user_insert().
+ * Implements hook_user_insert().
  */
 function checkdesk_core_user_insert(&$edit, $account, $category) {
   //Add new citizen journalist role to all registered users
@@ -1157,7 +1157,7 @@ function _twitter_signin_get_picture($account, $twitter_account) {
 }
 
 /**
- * Implementation of hook_views_query_alter
+ * Implements hook_views_query_alter
  * @param type $view
  * @param type $query 
  */
@@ -1177,3 +1177,14 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     }
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function checkdesk_core_views_api() {
+  return array(
+    'api' => '3.0',
+    'path' => drupal_get_path('module', 'checkdesk_core'),
+  );
+}
+

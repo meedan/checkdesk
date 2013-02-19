@@ -549,7 +549,7 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
         ),
       ),
     ),
-    'field_rating_tid' => array(
+    'field_rating_tid_i18n' => array(
       'bef_format' => 'bef',
       'more_options' => array(
         'bef_select_all_none' => 0,
@@ -774,6 +774,7 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['title']['table'] = 'node';
   $handler->display->display_options['filters']['title']['field'] = 'title';
   $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['group'] = 1;
   $handler->display->display_options['filters']['title']['exposed'] = TRUE;
   $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
   $handler->display->display_options['filters']['title']['expose']['label'] = 'By keyword';
@@ -792,24 +793,33 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
   $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
   $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
-  /* Filter criterion: Content: Fact-checking status (field_rating) */
-  $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
-  $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';
-  $handler->display->display_options['filters']['field_rating_tid']['field'] = 'field_rating_tid';
-  $handler->display->display_options['filters']['field_rating_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_rating_tid']['expose']['operator_id'] = 'field_rating_tid_op';
-  $handler->display->display_options['filters']['field_rating_tid']['expose']['label'] = 'By status';
-  $handler->display->display_options['filters']['field_rating_tid']['expose']['operator'] = 'field_rating_tid_op';
-  $handler->display->display_options['filters']['field_rating_tid']['expose']['identifier'] = 'field_rating_tid';
-  $handler->display->display_options['filters']['field_rating_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_rating_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_rating_tid']['vocabulary'] = 'media_rating';
+  /* Filter criterion: Content: Fact-checking status (field_rating) (translated) */
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['id'] = 'field_rating_tid_i18n';
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['table'] = 'field_data_field_rating';
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['field'] = 'field_rating_tid_i18n';
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['group'] = 1;
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['expose']['operator_id'] = 'field_rating_tid_i18n_op';
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['expose']['label'] = 'By status';
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['expose']['operator'] = 'field_rating_tid_i18n_op';
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['expose']['identifier'] = 'field_rating_tid';
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['type'] = 'select';
+  $handler->display->display_options['filters']['field_rating_tid_i18n']['vocabulary'] = 'media_rating';
   /* Filter criterion: Media sources: Source name */
   $handler->display->display_options['filters']['source']['id'] = 'source';
   $handler->display->display_options['filters']['source']['table'] = 'meedan_sources';
   $handler->display->display_options['filters']['source']['field'] = 'source';
   $handler->display->display_options['filters']['source']['relationship'] = 'ms_id';
   $handler->display->display_options['filters']['source']['operator'] = 'contains';
+  $handler->display->display_options['filters']['source']['group'] = 1;
   $handler->display->display_options['filters']['source']['exposed'] = TRUE;
   $handler->display->display_options['filters']['source']['expose']['operator_id'] = 'source_op';
   $handler->display->display_options['filters']['source']['expose']['label'] = 'By source';
@@ -827,6 +837,7 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['field_stories_target_id']['id'] = 'field_stories_target_id';
   $handler->display->display_options['filters']['field_stories_target_id']['table'] = 'field_data_field_stories';
   $handler->display->display_options['filters']['field_stories_target_id']['field'] = 'field_stories_target_id';
+  $handler->display->display_options['filters']['field_stories_target_id']['group'] = 1;
   $handler->display->display_options['filters']['field_stories_target_id']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['operator_id'] = 'field_stories_target_id_op';
   $handler->display->display_options['filters']['field_stories_target_id']['expose']['label'] = 'By story';
