@@ -111,11 +111,3 @@ function views_load_more_views_pre_execute(&$view) {
     $view->query->limit = NULL;
   }
 }
-
-/**
- * Implements hook_views_pre_render().
- */
-function views_load_more_views_pre_render(&$view) {
-  if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all']) {
-  }
-}

@@ -1,13 +1,13 @@
-From c14894f0c32852e953ce240b6c9dcac86f779d36 Mon Sep 17 00:00:00 2001
+From 21cc8069f86f5fc71298f54cd9dc5d7924af9ad0 Mon Sep 17 00:00:00 2001
 From: Caio SBA <caiosba@gmail.com>
-Date: Tue, 5 Feb 2013 23:55:33 -0200
+Date: Mon, 18 Feb 2013 23:59:55 -0300
 Subject: [PATCH] Load all
 
 ---
  views_load_more.js               |    9 +++++++--
- views_load_more.module           |   24 ++++++++++++++++++++++--
+ views_load_more.module           |   16 ++++++++++++++--
  views_plugin_pager_load_more.inc |   15 +++++++++++++++
- 3 files changed, 44 insertions(+), 4 deletions(-)
+ 3 files changed, 36 insertions(+), 4 deletions(-)
 
 diff --git a/views_load_more.js b/views_load_more.js
 index 0914e05..48c70d3 100644
@@ -30,7 +30,7 @@ index 0914e05..48c70d3 100644
      if (effect.showEffect != 'show') {
        wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
 diff --git a/views_load_more.module b/views_load_more.module
-index 4205e55..e1f7c92 100644
+index 4205e55..df7705e 100644
 --- a/views_load_more.module
 +++ b/views_load_more.module
 @@ -22,7 +22,7 @@ function views_load_more_views_api() {
@@ -55,7 +55,7 @@ index 4205e55..e1f7c92 100644
        'element' => $element,
        'interval' => 1,
        'parameters' => $parameters,
-@@ -99,3 +100,22 @@ function theme_views_load_more_pager($vars) {
+@@ -99,3 +100,14 @@ function theme_views_load_more_pager($vars) {
      );
    }
  }
@@ -68,14 +68,6 @@ index 4205e55..e1f7c92 100644
 +  $page = (isset($view->query->pager->options['id']) ? $pager_page_array[$view->query->pager->options['id']] : 0);
 +  if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all'] && $page > 0) {
 +    $view->query->limit = NULL;
-+  }
-+}
-+
-+/**
-+ * Implements hook_views_pre_render().
-+ */
-+function views_load_more_views_pre_render(&$view) {
-+  if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all']) {
 +  }
 +}
 diff --git a/views_plugin_pager_load_more.inc b/views_plugin_pager_load_more.inc
