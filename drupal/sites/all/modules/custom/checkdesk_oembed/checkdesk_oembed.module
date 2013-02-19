@@ -85,13 +85,13 @@ function checkdesk_oembed_node_view($node, $view_mode, $langcode) {
  */
 function checkdesk_oembed_url($nid, $attributes) {
   $defaults = array(
-    'url' => url('node/' . $nid, array('absolute' => TRUE, 'language' => FALSE, 'alias' => TRUE)),
+    'url' => url('node/' . $nid, array('absolute' => TRUE, 'language' => (object) array('language' => FALSE), 'alias' => TRUE)),
     'format' => 'json',
   );
   $options = array(
     'query' => array_merge($defaults, $attributes),
     'absolute' => TRUE,
-    'language' => FALSE
+    'language' => (object) array('language' => FALSE)
   );
   return url('oembed/endpoint', $options);
 }

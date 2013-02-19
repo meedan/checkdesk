@@ -7,14 +7,14 @@
  * provider support is replaced by that of this module.
  */
 function checkdesk_oembed_oembedprovider_alter(&$providers) {
-  $host = _oembedcore_get_host(url('', array('absolute' => TRUE, 'language' => FALSE)));
+  $host = _oembedcore_get_host(url('', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE))));
 
   foreach ($providers[$host] as $regex_pattern => $info) {
     if ($info['callback'] == 'oembedprovider_node_provider') {
       unset($providers[$host][$regex_pattern]);
     }
   }
-  $pattern = url('node', array('absolute' => TRUE, 'language' => FALSE)) . '/*';
+  $pattern = url('node', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE))) . '/*';
   $regex_pattern = '/' . str_replace('\*', '(.*)', preg_quote($pattern, '/')) . '/i';
 
   $providers[$host][$regex_pattern] = array(
