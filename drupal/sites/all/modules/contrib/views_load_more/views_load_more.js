@@ -50,7 +50,7 @@
     var pager_query = '.pager';
 
     // Ignore nested views
-    if (new_content.find(content_query + ' ' + content_query).length) {
+    if (wrapper.find(content_query + ' ' + content_query).length) {
       pager_query = pager_query + ':not(' + content_query + ' ' + pager_query + ')';
       content_query = content_query + ':not(' + content_query + ' ' + content_query + ')';
     }
