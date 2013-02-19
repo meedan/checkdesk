@@ -19,9 +19,15 @@
         margin-#{$omega}: 0;
         padding-top: $baseLineHeight*1.6;
 
-        // padding for the pager
-        .view-desk-reports .item-list {
-          padding: 0 $gw*2;
+        .view-desk-reports {
+          // padding for the pager
+          .item-list {
+            padding: 0 $gw*2;
+          }
+
+          // scrollbars
+          height: 725px;
+          overflow-y: auto;
         }
 
       }
