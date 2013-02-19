@@ -525,7 +525,7 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
     }
   } else $fb_logged_in = FALSE;
   if ($fb_logged_in) {
-    $form['field_link']['und'][0]['#description'] = t('You can submit a Facebook link above.');
+    $form['field_link']['und'][0]['#description'] = NULL;
   } else {
     $onclick = implode('', array(
       'window.open(',
