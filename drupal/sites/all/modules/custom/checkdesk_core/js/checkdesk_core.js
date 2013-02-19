@@ -46,9 +46,9 @@
         },
       });
       // Attach the Views results to each correspoknding row in the DOM.
-      var i=0;
       $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
-        $(this).data('views', settings.checkdesk.reports[i++]);
+        var i = $(this).find('.report-row-container').attr('id');
+        $(this).data('views', settings.checkdesk.reports[i]);
       });
       // Restrict thumbnail width to 220
       $('.view-desk-reports .view-content').find('.thumbnail img').width(220);

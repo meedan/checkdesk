@@ -756,8 +756,8 @@ function checkdesk_core_views_pre_render(&$view) {
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 
-    $data = $view->result;
-    foreach ($data as &$datum) {
+    $data = array();
+    foreach ($view->result as $datum) {
       $node = (object) array(
         'nid'   => $datum->nid,
         'title' => $datum->node_title,
@@ -765,6 +765,8 @@ function checkdesk_core_views_pre_render(&$view) {
       );
 
       $datum->droppable_ref = checkdesk_core_droppable_reference($node);
+
+      $data['report-' . $datum->nid] = $datum;
     }
 
     // Send view results to client.
