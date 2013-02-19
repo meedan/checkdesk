@@ -32,6 +32,8 @@
       $('.draggable', context).draggable({
         revert: 'invalid',
         zIndex: 3000,
+        scroll: false,
+        helper: 'clone'
       });
       $('.droppable', context).droppable({
         hoverClass: 'drop-hover',
