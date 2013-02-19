@@ -165,12 +165,16 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   }
 
   #edit-graphic-content {
-    float: opposite-position($from-direction);
+    float: $from-direction;
     clear: both;
-    margin-top: $gw; // align with the button
-    .form-item label, 
+    margin: $gw 0 0 ($gw + $checkbox-width - 20px); // align with the button
+    width: 100%;
+    & > .form-type-checkbox {
+      width: 100%;
+    }
+    .form-item label,
     .form-item input[type="checkbox"] {
-      padding: $gw 2px; // pad for the hover
+      // padding: $gw 2px; // pad for the hover
       &:hover {
         color: $identity;
       }

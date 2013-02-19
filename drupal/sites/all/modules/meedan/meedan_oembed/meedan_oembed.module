@@ -578,7 +578,7 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
         watchdog('FacebookApi', t('Unable to fetch data from facebook post - @msg @url', array('@msg' => $error_msg, '@url' => $url)));
       }
       if(!$post_data) {
-        form_set_error('field_link', t('You have not enough permission to embed this post - @msg', array('@msg' => $error_msg)));
+        form_set_error('field_link', t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."));
       }
     }
   }

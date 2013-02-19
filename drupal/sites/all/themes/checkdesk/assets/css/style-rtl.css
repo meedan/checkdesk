@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300,600");
 @import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
 /*
@@ -2691,9 +2690,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-transition: border linear, box-shadow linear;
+  -webkit-transition-delay: 0.2s, 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -3917,7 +3916,6 @@ a.absolute-messages-dismiss-all:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
-  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4493,16 +4491,16 @@ table th[class*="span"],
   position: fixed;
 }
 
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   /* line 179, ../scss/style.scss */
   body {
-    max-width: 6;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: -14px;
     padding-left: 10px;
     padding-right: 10px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  /* line 38, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+  /* line 38, ../../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
   body:after {
     content: "";
     display: table;
@@ -4519,12 +4517,12 @@ body #main {
   display: inline;
 }
 
-/* line 64, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+/* line 61, ../../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
 * html {
   font-size: 112.5%;
 }
 
-/* line 66, ../../../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+/* line 64, ../../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
 html {
   font-size: 18px;
   line-height: 1.5;
@@ -4796,7 +4794,7 @@ body #main h2 {
   display: none;
 }
 
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   /* line 81, ../scss/_typography.scss */
   body {
     line-height: 29px;
@@ -4908,12 +4906,10 @@ div.tabs ul.primary li a {
   display: inline;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: white;
@@ -4931,7 +4927,7 @@ div.tabs ul.primary li a:hover {
   color: #333333;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   /* line 59, ../scss/_tabs.scss */
   div.tabs ul.primary {
     display: block;
@@ -5251,12 +5247,10 @@ div.tabs ul.primary li a:hover {
   display: block;
   -webkit-transition-property: all;
   -moz-transition-property: all;
-  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -5935,7 +5929,7 @@ body .livefyre-wrapper {
   clear: both;
 }
 
-/* line 249, ../scss/_bookmarklet.scss */
+/* line 253, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet_cont {
   display: none;
   position: absolute !important;
@@ -5944,7 +5938,7 @@ body .livefyre-wrapper {
   border-width: 0 !important;
 }
 
-/* line 262, ../scss/_bookmarklet.scss */
+/* line 266, ../scss/_bookmarklet.scss */
 .meedan-bookmarklet-internal #meedan_bookmarklet_preview,
 .meedan-bookmarklet-internal #edit-body,
 .meedan-bookmarklet-internal #edit-graphic-content,
@@ -5952,7 +5946,7 @@ body .livefyre-wrapper {
   display: none;
 }
 
-/* line 274, ../scss/_bookmarklet.scss */
+/* line 278, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet {
   font-size: 16px;
   overflow: auto;
@@ -6083,36 +6077,36 @@ body .livefyre-wrapper {
 #meedan_bookmarklet .footer input:active, #meedan_bookmarklet .footer input:active:visited {
   color: white;
 }
-/* line 223, ../scss/_bookmarklet.scss */
+/* line 227, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login label,
 #meedan_bookmarklet #user-login input[type=text],
 #meedan_bookmarklet #user-login input[type=password],
 #meedan_bookmarklet #user-login a {
   clear: both;
 }
-/* line 226, ../scss/_bookmarklet.scss */
+/* line 230, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login ul {
   margin: 0;
 }
-/* line 229, ../scss/_bookmarklet.scss */
+/* line 233, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login li {
   list-style: none;
   display: block;
   margin: 0;
 }
-/* line 236, ../scss/_bookmarklet.scss */
+/* line 240, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login #edit-social-media-signin label, #meedan_bookmarklet #user-login #edit-social-media-signin li, #meedan_bookmarklet #user-login #edit-social-media-signin a {
   float: right;
 }
-/* line 239, ../scss/_bookmarklet.scss */
+/* line 243, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #user-login #edit-social-media-signin li {
   margin-right: 5px;
 }
-/* line 184, ../scss/_bookmarklet.scss */
+/* line 188, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all {
   display: none !important;
 }
-/* line 189, ../scss/_bookmarklet.scss */
+/* line 193, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet .messages.error {
   clear: both;
   background: transparent;
@@ -6122,19 +6116,19 @@ body .livefyre-wrapper {
   top: 150px;
   color: #a00;
 }
-/* line 199, ../scss/_bookmarklet.scss */
+/* line 203, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_messages {
   padding: 0;
   margin: 0;
   font-size: 16px;
   clear: both;
 }
-/* line 204, ../scss/_bookmarklet.scss */
+/* line 208, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_messages li {
   display: block;
   list-style: none;
 }
-/* line 208, ../scss/_bookmarklet.scss */
+/* line 212, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #meedan_bookmarklet_messages a, #meedan_bookmarklet #meedan_bookmarklet_messages a:link, #meedan_bookmarklet #meedan_bookmarklet_messages a:visited, #meedan_bookmarklet #meedan_bookmarklet_messages a:hover {
   text-decoration: none;
   color: #848484;
@@ -6239,16 +6233,16 @@ body .livefyre-wrapper {
 }
 /* line 167, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #edit-graphic-content {
-  float: left;
+  float: right;
   clear: both;
-  margin-top: 10px;
+  margin: 10px 0 0 15px;
+  width: 100%;
 }
 /* line 172, ../scss/_bookmarklet.scss */
-#meedan_bookmarklet #edit-graphic-content .form-item label,
-#meedan_bookmarklet #edit-graphic-content .form-item input[type="checkbox"] {
-  padding: 10px 2px;
+#meedan_bookmarklet #edit-graphic-content > .form-type-checkbox {
+  width: 100%;
 }
-/* line 174, ../scss/_bookmarklet.scss */
+/* line 178, ../scss/_bookmarklet.scss */
 #meedan_bookmarklet #edit-graphic-content .form-item label:hover,
 #meedan_bookmarklet #edit-graphic-content .form-item input[type="checkbox"]:hover {
   color: #0088ff;
@@ -6549,23 +6543,19 @@ nav[role="navigation"] .nav > div h2 {
   border-right: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #262626;
@@ -6636,23 +6626,19 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   border-right: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #262626;
@@ -6899,12 +6885,10 @@ div.tabs ul.primary li a {
   display: inline;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: white;
@@ -6922,7 +6906,7 @@ div.tabs ul.primary li a:hover {
   color: #333333;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   /* line 59, ../scss/_tabs.scss */
   div.tabs ul.primary {
     display: block;
@@ -7503,7 +7487,7 @@ form select:after {
   clear: both;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   /* line 236, ../scss/_forms.scss */
   form {
     padding-right: 0%;
@@ -7701,7 +7685,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   color: black;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   /* line 48, ../scss/_liveblog.scss */
   body.page-liveblog #main {
     padding-right: 1.62866%;
@@ -7733,7 +7717,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     margin-bottom: 18px;
   }
 }
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   /* line 56, ../scss/_liveblog.scss */
   body.page-liveblog #main {
     padding-right: 0.80775%;
@@ -8341,7 +8325,7 @@ body.sidebar-first #main div#content .inner {
   margin-top: 18px;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   /* line 57, ../scss/_sidebar.scss */
   body.sidebar-first #main {
     width: 100%;
@@ -8391,7 +8375,7 @@ body.sidebar-first #main div#content .inner {
     margin-top: 18px;
   }
 }
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   /* line 9, ../scss/_sidebar.scss */
   body.sidebar-first #main {
     width: 100%;
@@ -8437,7 +8421,7 @@ body.sidebar-first #main div#content .inner {
     margin-top: 18px;
   }
 }
-@media (min-width: 2506px) {
+@media (min-width: 2486px) {
   /* line 84, ../scss/_sidebar.scss */
   body.sidebar-first #main {
     width: 100%;
@@ -8869,12 +8853,10 @@ body.page-user- #edit-social-media-signin div.item-list li.first a,
 body.page-user #edit-social-media-signin div.item-list li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -8903,12 +8885,10 @@ body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook'],
 body.page-user #edit-social-media-signin div.item-list li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -8945,7 +8925,7 @@ body.page-user .form-item.form-item-name {
   border-top: 1px solid #ededed !important;
   padding-top: 20px !important;
 }
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   /* line 177, ../scss/_user.scss */
   body.page-user- form #edit-social-media-signin a,
   body.page-user form #edit-social-media-signin a {
@@ -9035,7 +9015,7 @@ body.page-reports li.views-fluid-grid-item {
   border-width: 0;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   /* line 55, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 49.18567%;
@@ -9048,7 +9028,7 @@ body.page-reports li.views-fluid-grid-item {
     margin: 10px;
   }
 }
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   /* line 68, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 36.99515%;
@@ -9061,7 +9041,7 @@ body.page-reports li.views-fluid-grid-item {
     margin: 10px;
   }
 }
-@media (min-width: 2506px) {
+@media (min-width: 2486px) {
   /* line 82, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 14.23974%;
