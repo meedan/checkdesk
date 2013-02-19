@@ -23,12 +23,6 @@ function checkdesk_oembed_oembedprovider_alter(&$providers) {
 }
 
 /**
- * Implements hook_oembedprovider().
- */
-function checkdesk_oembed_oembedprovider() {
-}
-
-/**
  * OEmbed provider callback for embed/*
  *
  * Example:
