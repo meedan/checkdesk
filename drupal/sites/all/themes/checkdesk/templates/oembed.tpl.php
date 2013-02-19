@@ -20,7 +20,7 @@
 <?php if ($domain_link) : ?>
   <div class="domain"><?php print $domain_link ?></div>
 <?php endif ?>
-<?php if ($embed_error) : ?>
+<?php if (isset($embed_error)) : ?>
   <div class="embederror"><?php print $embed_error ?></div>
 <?php endif ?>
 </div>

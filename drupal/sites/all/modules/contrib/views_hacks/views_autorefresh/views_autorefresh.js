@@ -136,6 +136,10 @@ jQuery.fn.reverse = [].reverse;
 Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, response, status) {
   var $view = $(response.selector);
   if (response.data) {
+    // jQuery removes script tags, so let's mask them now and later unmask.
+    // http://stackoverflow.com/questions/4430707/trying-to-select-script-tags-from-a-jquery-ajax-get-response/4432347#4432347
+    response.data = response.data.replace(/<(\/?)script([^>]*)>/gi, '<$1scripttag$2>');
+
     var sourceSelector = Drupal.settings.views_autorefresh[response.view_name].incremental.sourceSelector || '.view-content';
     var $source = $(response.data).find(sourceSelector).not(sourceSelector + ' ' + sourceSelector).children();
     if ($source.size() > 0) {
@@ -179,7 +183,10 @@ Drupal.ajax.prototype.commands.viewsAutoRefreshIncremental = function (ajax, res
       });
 
       // Add the new items to the view.
-      $target.prepend($source);
+      // Put scripts back first.
+      $source.each(function() {
+        $target.prepend($(this)[0].outerHTML.replace(/<(\/?)scripttag([^>]*)>/gi, '<$1script$2>'));
+      });
 
       // Adjust row number classes.
       var rowClassPrefix = Drupal.settings.views_autorefresh[response.view_name].incremental.rowClassPrefix || 'views-row-';
