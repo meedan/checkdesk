@@ -7499,6 +7499,10 @@ form select:before, form select:after {
 form select:after {
   clear: both;
 }
+/* line 267, ../scss/_forms.scss */
+form div.form-wrapper {
+  margin: 13.5px 0;
+}
 
 @media (min-width: 614px) {
   /* line 236, ../scss/_forms.scss */
@@ -7506,7 +7510,7 @@ form select:after {
     padding-left: 0%;
     padding-right: 0%;
   }
-  /* line 285, ../scss/_forms.scss */
+  /* line 286, ../scss/_forms.scss */
   form .description {
     display: inline-block;
   }
@@ -7550,6 +7554,10 @@ form select:after {
   /* line 22, ../scss/override_ctb/_mixins.scss */
   form select:after {
     clear: both;
+  }
+  /* line 267, ../scss/_forms.scss */
+  form div.form-wrapper {
+    margin: 13.5px 0;
   }
 }
 /* line 2, ../scss/_tables.scss */
@@ -9006,68 +9014,39 @@ body.page-reports li.views-fluid-grid-item {
   margin-right: 3.31126%;
   display: inline;
   max-width: 400px;
-  overflow: visible;
 }
-/* line 30, ../scss/_reports.scss */
+/* line 29, ../scss/_reports.scss */
 body.page-reports div.views-fluid-grid h3 {
   text-align: left;
   background-color: transparent;
 }
-/* line 35, ../scss/_reports.scss */
-body.page-reports ul.views-fluid-grid-list {
-  margin: 0;
-  padding: 0;
-}
-/* line 41, ../scss/_reports.scss */
+/* line 39, ../scss/_reports.scss */
 body.page-reports li.views-fluid-grid-item {
-  /* width and height properties are defined at views_fluid_grid.size.css. */
-  padding: 0;
-  overflow: hidden;
-  /* needed to clip content when explicit width/height is specified. */
-  list-style-type: none;
-  background-image: none;
-  color: #cccccc;
-  background-color: transparent;
-  border-width: 0;
+  margin-right: 10px;
 }
 
 @media (min-width: 614px) {
-  /* line 55, ../scss/_reports.scss */
+  /* line 46, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 49.18567%;
     float: left;
     margin-right: 1.62866%;
-    margin: 0;
-  }
-  /* line 59, ../scss/_reports.scss */
-  body.page-reports li.views-fluid-grid-item article.report {
-    margin: 10px;
   }
 }
 @media (min-width: 1238px) {
-  /* line 68, ../scss/_reports.scss */
+  /* line 54, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 36.99515%;
     float: left;
     margin-right: 0.80775%;
-    margin: 0;
-  }
-  /* line 72, ../scss/_reports.scss */
-  body.page-reports li.views-fluid-grid-item article.report {
-    margin: 10px;
   }
 }
 @media (min-width: 2486px) {
-  /* line 82, ../scss/_reports.scss */
+  /* line 63, ../scss/_reports.scss */
   body.page-reports li.views-fluid-grid-item {
     width: 14.23974%;
     float: left;
     margin-right: 0.40225%;
-    margin: 0;
-  }
-  /* line 86, ../scss/_reports.scss */
-  body.page-reports li.views-fluid-grid-item article.report {
-    margin: 10px;
   }
 }
 /* line 59, ../scss/_shared.scss */
