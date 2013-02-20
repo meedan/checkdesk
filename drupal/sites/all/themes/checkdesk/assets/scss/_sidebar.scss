@@ -26,9 +26,11 @@
           }
 
           // scrollbars
-          height: 725px;
-          overflow-y: auto;
-          overflow-x: hidden;
+  height: 725px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+          
         }
 
       }
@@ -92,7 +94,8 @@
 // incoming reports 
 // inside the sidebar
 #incoming-reports {
-  @include ctb-clearfix;
+
+  // @include ctb-clearfix;
   font-family: $sans-font-family;
   font-size: $fontSizeSmall;
   padding: 0 $gw*2;
@@ -188,7 +191,8 @@
   // while dragging
   .ui-draggable-dragging {
     .report-row-container {
-      
+      border: 4px solid $warningBorder;
+      background-color: $warningBackground;
     }
   }
 
