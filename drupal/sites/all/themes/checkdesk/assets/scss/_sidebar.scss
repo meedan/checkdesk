@@ -131,7 +131,9 @@
           @include ctb-opacity(.9);
         }
         .report-title {
+          margin: $baseLineHeight/4 0;
           font-size: $fontSizeSmall;
+          line-height: 1.2;
         }
       } // thumbnail type
 
