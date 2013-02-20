@@ -124,17 +124,17 @@ var debug;
 				}
 			});
 			// set the height of the sidebar
-			// var bodyHeight = $(window).height();
-			// 	buffer = 300;
-			// var bodyHeight = bodyHeight - buffer;
-			// $('#incoming-reports').height(bodyHeight);
+			var bodyHeight = $(window).height();
+				buffer = 100;
+			var bodyHeight = bodyHeight - buffer;
+			$('#sidebar-first.column .view-desk-reports').height(bodyHeight);
 			
-			// $(window).resize(function(){
-			// 	var bodyHeight = $(window).height();
-			// 	var bodyHeight = bodyHeight - buffer;
-			// 	console.log(bodyHeight);
-			// 	$('#incoming-reports').height(bodyHeight);
-			// });
+			$(window).resize(function(){
+				var bodyHeight = $(window).height();
+				var bodyHeight = bodyHeight - buffer;
+				console.log(bodyHeight);
+				$('#sidebar-first.column .view-desk-reports').height(bodyHeight);
+			});
 
 			// close panel
 			$('#close').click(function(event) {
