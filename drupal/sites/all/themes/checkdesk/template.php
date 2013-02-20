@@ -52,8 +52,16 @@ function checkdesk_preprocess_page(&$variables) {
   if ($variables['main_menu']) {
     // Build links
     $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
-    $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
+
+    // Remove empty expanded menus
+    foreach ($tree as $id => $item) {
+      if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+        unset($tree[$id]);
+      }
+    }
     
+    $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
+
     // Change "Submit Report" link
     foreach ($variables['main_menu'] as $id => $item) {
       if ($item['link_path'] == 'node/add/media') {
@@ -61,10 +69,6 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['main_menu'][$id]['external'] = TRUE;
         $variables['main_menu'][$id]['absolute'] = TRUE;
         $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
-      }
-
-      else if (preg_match('/^<[^>]*>$/', $item['link_path']) && count($item['below']) == 0) {
-        unset($variables['main_menu'][$id]);
       }
     }
 
@@ -86,7 +90,7 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Remove items that are not from this language or that does not have children
   foreach ($tree as $id => $item) {
-    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && count($item['below']) == 0) {
+    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
       unset($tree[$id]);
     }
 
