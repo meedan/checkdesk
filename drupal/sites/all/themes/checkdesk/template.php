@@ -62,6 +62,10 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['main_menu'][$id]['absolute'] = TRUE;
         $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
       }
+
+      else if (preg_match('/^<[^>]*>$/', $item['link_path']) && count($item['below']) == 0) {
+        unset($variables['main_menu'][$id]);
+      }
     }
 
     // Build list
@@ -80,8 +84,12 @@ function checkdesk_preprocess_page(&$variables) {
   $menu = menu_load('menu-common');
   $tree = menu_tree_page_data($menu['menu_name']);
 
-  // Remove items that are not from this language
+  // Remove items that are not from this language or that does not have children
   foreach ($tree as $id => $item) {
+    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && count($item['below']) == 0) {
+      unset($tree[$id]);
+    }
+
     if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
     foreach ($item['below'] as $subid => $subitem) {
       if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
@@ -98,14 +106,15 @@ function checkdesk_preprocess_page(&$variables) {
   }
 
   $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
-  ctools_include('modal');
-  ctools_modal_add_js();
 
   // Change links
   foreach ($variables['secondary_menu'] as $id => $item) {
 
     if ($item['title'] === '<user>') {
-      if (user_is_logged_in()) $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
+      if (user_is_logged_in()) {
+        $variables['secondary_menu'][$id]['html'] = TRUE;
+        $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
+      }
       foreach ($item['below'] as $subid => $subitem) {
         if ($subitem['link_path'] == 'user/login') {
           if (user_is_logged_in()) unset($variables['secondary_menu'][$id]['below'][$subid]);
@@ -139,6 +148,9 @@ function checkdesk_preprocess_page(&$variables) {
     ),
     'heading' => NULL,
   ));
+
+  ctools_include('modal');
+  ctools_modal_add_js();
 
   // Custom modal settings arrays
   $modal_style = array(
