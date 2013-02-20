@@ -75,7 +75,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
   $domain   = _meedan_oembed_get_domain_name($url);
   $callback = 'meedan_oembed_scrape_' . $domain;
 
-  if (function_exists('meedan_oembed_theme_' . $domain)) {
+  if (function_exists('template_preprocess_oembed__link__meedan_oembed_theme_' . $domain)) {
     $provider['name'] = 'meedan_oembed_theme_' . $domain;
   }
   else {
