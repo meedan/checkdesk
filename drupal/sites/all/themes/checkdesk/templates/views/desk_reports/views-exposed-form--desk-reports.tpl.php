@@ -36,7 +36,7 @@
       <div class="panel-content">
         <?php if (!empty($sort_by)): ?>
           <div class="views-exposed-widget views-widget-sort-by">
-            <?php print $sort_by; ?>
+            <?php /* There is just one option, better to hide it: print $sort_by; */ ?>
           </div>
           <div class="views-exposed-widget views-widget-sort-order">
             <?php print $sort_order; ?>

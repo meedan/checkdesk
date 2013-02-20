@@ -1168,7 +1168,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
   if ($view->name == 'desk_reports') {
     if (is_numeric(arg(1))) {
       $story_id = arg(1);
-      $sort_order = isset($_REQUEST['sort_bef_combine']) ? preg_replace('/[^ ]+ /', '', $_REQUEST['sort_bef_combine']) : 'DESC';
+      $sort_order = isset($_REQUEST['sort_order']) ? $_REQUEST['sort_order'] : 'DESC';
       // Another approach to do the same thing, but probably slower
       // $view->query->orderby[0]['field'] = "(SELECT COUNT(*) FROM {field_data_field_stories} WHERE entity_id = node.nid AND field_stories_target_id = $story_id)";
       $join = new views_join();
