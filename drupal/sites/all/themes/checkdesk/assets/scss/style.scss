@@ -14,6 +14,7 @@
 // Checkdesk configuration 
 // Requires colors, modular-scale
 @import "base";
+@import "mixins";
 
 // Bowerbird Compass Extension
 // See also README.md and ../bowerbird/README.md
@@ -88,90 +89,48 @@ $omega: opposite-position($from-direction);
 // Import the classnames as a mixin
 @import "bowerbird/icons/fontawesome";
 
-// Bowerbird fork of fancy-buttons 
+// Bowerbird fancy-buttons 
 // Example usage: button { @include button($tupperware-blue, 26px, 1em, 4px); }
 // Replaces: "bowerbird/compass_twitter_bootstrap/buttons";
 // Replaces: "bowerbird/compass_twitter_bootstrap/button-groups";
 @import "bowerbird/buttons";
 
-// Bowerbird fork of fancy-gradients
+// Bowerbird fancy-gradients
 // Example usage: div { @include gradient($dark-blue, $midnight-blue); }
 @import "bowerbird/gradients";
 
-// ====================================================================== 
+// ======================================================================
 // Checkdesk (lightly forked) versions of Twitter Bootstrap libraries.
 //
 // These are customized versions of existing modules (files).
 // The order of the includes is important: variables, mixin, then reset
-// Gradually Deprecated: use our own mixins wherever possible.
-// Use unmodified versions straight from bowerbird whenever possible.
+//
+// Deprecated: use our own mixins wherever possible. Also, use unmodified versions straight from bowerbird whenever possible.
+
+// Twitter Bootstrap Recognizable by their $camelCase variables
 @import "override_ctb/variables";
 
 // Our overrides and replacement for TB mixins
+//
 // All of them are namespaced ctb-mixinname
 @import "override_ctb/mixins";
-// @import "override_ctb/buttons";
 @import "override_ctb/forms";
 @import "override_ctb/navs";
-
-
-// Our version of TB reset
-// @debug $base-line-height;
-// $inputHeight: $base-line-height;
 @import "bowerbird/compass_twitter_bootstrap/reset";
-
-// Some shared helpers used in ctb dropdowns and checkdesk and alerts
-@import "shared";
-
-// our bootstrap alerts
-// @import "override_ctb/alerts";
-@import "alerts";
-
-// our dropdowns originally based on TB
-@import "dropdowns";
-
-// our modals originally TB
-@import "modals";
-
-
-// ====================================================================== 
-// Imported but unmodified Twitter Bootstrap scaffolding
-//
-// TB "scaffolding" - Setup typography and image classes
-// Deprecated: these should be in more appropriate files or mixins
-@import "bowerbird/compass_twitter_bootstrap/scaffolding";
-
-// TB Syntax highlighting
-@import "bowerbird/compass_twitter_bootstrap/code";
-
-// TB Tabular data
-@import "bowerbird/compass_twitter_bootstrap/tables";
+@import "bowerbird/compass_twitter_bootstrap/code"; // TB Syntax highlighting
+@import "bowerbird/compass_twitter_bootstrap/tables"; // TB Tabular data
 
 // TB utilities
 @import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
-// ====================================================================== 
-// The Rest of Twitter Bootstrap
-// Ready to wear
+@import "alerts";
+@import "dropdowns";
+@import "modals";
+
+// Checkdesk mixins
 //
-// These bootstrap files not in use.
-// They are available via bowerbird's copy of the compass_twitter_bootstrap library.
-// Uncomment these lines to use them:
-// @import "bowerbird/compass_twitter_bootstrap/sprites";
-// @import "bowerbird/compass_twitter_bootstrap/wells";
-// @import "bowerbird/compass_twitter_bootstrap/component-animations";
-// @import "bowerbird/compass_twitter_bootstrap/close";
-// @import "bowerbird/compass_twitter_bootstrap/breadcrumbs";
-// @import "bowerbird/compass_twitter_bootstrap/pagination";
-// @import "bowerbird/compass_twitter_bootstrap/pager";
-// @import "bowerbird/compass_twitter_bootstrap/thumbnails";
-// @import "bowerbird/compass_twitter_bootstrap/labels-badges";
-// @import "bowerbird/compass_twitter_bootstrap/progress-bars";
-// @import "bowerbird/compass_twitter_bootstrap/accordion";
-// @import "bowerbird/compass_twitter_bootstrap/carousel";
-// @import "bowerbird/compass_twitter_bootstrap/hero-unit";
-// @import "bowerbird/compass_twitter_bootstrap/tooltip";
-// @import "bowerbird/compass_twitter_bootstrap/popovers";
+// Completely unrelated to Twitter Bootstrap mixins file
+@import "mixins";
 
 // ====================================================================== 
 //  Default checkdesk layout
@@ -262,7 +221,7 @@ body {
 // Styles in progress
 //
 
-@include version-banner;
+// @include version-banner;
 
 body {
   @include cd-background;

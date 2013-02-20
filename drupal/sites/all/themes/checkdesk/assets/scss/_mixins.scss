@@ -8,9 +8,11 @@
 // with base font size and colors defined in colors.scss
 //
 
-
 // Layout Helper: Ensure padding is accounted for.
+//
 // Deprecated
+//
+// This is only necessary if you have not ste 
 @mixin span-padded-columns(
   $width: $container-width, 
   $context: $container-width, 
@@ -40,7 +42,6 @@
 @mixin cd-light-text-shadow($opacity: 0.5) { // use $white for dark backgrounds
   @include text-shadow(rgba(white, 0.8) 0 1px 0);
 }
-
 
 // Dropshadow
 @mixin cd-box-shadow() {
