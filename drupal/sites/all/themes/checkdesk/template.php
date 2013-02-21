@@ -534,7 +534,7 @@ function checkdesk_fboauth_action__connect(&$variables) {
   $link['attributes']['class'] .= " fb-button-$language";
   $attributes = isset($link['attributes']) ? drupal_attributes($link['attributes']) : '';
   $title = isset($link['title']) ? check_plain($link['title']) : '';
-  $text = '<span class="icon-facebook"></span> ' . t('Facebook');
+  $text = t('Facebook');
   return "<a $attributes href='$url' alt='$title'>$text</a>";
 }
 
@@ -542,11 +542,9 @@ function checkdesk_fboauth_action__connect(&$variables) {
  * Change Twitter login button from image to simple
  */
 function checkdesk_twitter_signin_button() {
-  $url = 'twitter/redirect';
-  $title = t('Sign In with Twitter');
-  $attributes = isset($link['attributes']) ? drupal_attributes($link['attributes']) : '';
-  $text = '<span class="icon-twitter"></span> ' . t('Twitter');
-  return "<a $attributes href='$url' alt='$title'>$text</a>";
+  $link['attributes']['class'][] = 'twitter-action-signin';
+  $link['attributes']['title'] = t('Sign In with Twitter');
+  return l(t('Twitter'), 'twitter/redirect', $link);
 }
 
 

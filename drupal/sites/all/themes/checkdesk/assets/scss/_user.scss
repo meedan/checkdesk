@@ -111,22 +111,15 @@ body.page-user-password { // both logged in and not logged ins states
       }
       // Add the icons with a transition
       $sign-in-icon-size: 20px;
-      .icon-facebook {
-        @include icon(facebook, $sign-in-icon-size, white); 
-      }
-      .icon-twitter {
-        @include icon(twitter, $sign-in-icon-size, white);
-      }
-      
       li.first a {
         @include bb-transition($grey, $twitter-blue) {
-          // @include icon(twitter, $sign-in-icon-size, white);
+          @include icon(twitter, $sign-in-icon-size, white);
         }
       }
 
       li a[class^='facebook'] {
         @include bb-transition($grey, $facebook-blue) {
-          // @include icon(facebook, $sign-in-icon-size, white);
+          @include icon(facebook, $sign-in-icon-size, white);
         }
       }
     }
