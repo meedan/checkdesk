@@ -1,31 +1,39 @@
-From fd7575fa9d8c1c53b76291ec082305a95bd4d89e Mon Sep 17 00:00:00 2001
+From b76e87062986cf9c29bc3d810efa925ed727b97a Mon Sep 17 00:00:00 2001
 From: Caio SBA <caiosba@gmail.com>
-Date: Sun, 17 Feb 2013 23:45:17 -0300
-Subject: [PATCH 1/2] Nested views support
+Date: Wed, 20 Feb 2013 21:18:25 -0300
+Subject: [PATCH] Nested views support
 
 ---
- views_load_more.js |   11 +++++++++--
- 1 files changed, 9 insertions(+), 2 deletions(-)
+ views_load_more.js |   12 +++++++++---
+ 1 files changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/views_load_more.js b/views_load_more.js
-index 0914e05..6d12f2a 100644
+index 0914e05..c986a18 100644
 --- a/views_load_more.js
 +++ b/views_load_more.js
-@@ -47,6 +47,13 @@
+@@ -11,7 +11,8 @@
+   Drupal.ajax.prototype.commands.viewsLoadMoreAppend = function (ajax, response, status) {
+     // Get information from the response. If it is not there, default to
+     // our presets.
+-    var wrapper = response.selector ? $(response.selector) : $(ajax.wrapper);
++    var wrapper_selector = response.selector || ajax.wrapper;
++    var wrapper = $(wrapper_selector);
+     var method = response.method || ajax.method;
+     var effect = ajax.getEffect(response);
+ 
+@@ -47,6 +48,11 @@
      // change there views layout classes. This allows them to write there own
      // jquery selector to replace the content with.
      var content_query = response.options.content || '.view-content';
 +    var pager_query = '.pager';
 +
 +    // Ignore nested views
-+    if (wrapper.find(content_query + ' ' + content_query).length) {
-+      pager_query = pager_query + ':not(' + content_query + ' ' + pager_query + ')';
-+      content_query = content_query + ':not(' + content_query + ' ' + content_query + ')';
-+    }
++    pager_query = pager_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + pager_query + ')';
++    content_query = content_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + content_query + ')';
  
      // If we're using any effects. Hide the new content before adding it to the DOM.
      if (effect.showEffect != 'show') {
-@@ -54,8 +61,8 @@
+@@ -54,8 +60,8 @@
      }
  
      // Add the new content to the page.

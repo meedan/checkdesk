@@ -867,6 +867,20 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'oembed_cache_flush';
+  $strongarm->value = 0;
+  $export['oembed_cache_flush'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'oembed_cache_lifetime';
+  $strongarm->value = '0';
+  $export['oembed_cache_lifetime'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_discussion_pattern';
   $strongarm->value = 'story/[node:title]';
   $export['pathauto_node_discussion_pattern'] = $strongarm;

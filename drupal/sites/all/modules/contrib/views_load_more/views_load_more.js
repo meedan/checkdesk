@@ -11,7 +11,8 @@
   Drupal.ajax.prototype.commands.viewsLoadMoreAppend = function (ajax, response, status) {
     // Get information from the response. If it is not there, default to
     // our presets.
-    var wrapper = response.selector ? $(response.selector) : $(ajax.wrapper);
+    var wrapper_selector = response.selector || ajax.wrapper;
+    var wrapper = $(wrapper_selector);
     var method = response.method || ajax.method;
     var effect = ajax.getEffect(response);
 
@@ -50,10 +51,8 @@
     var pager_query = '.pager';
 
     // Ignore nested views
-    if (wrapper.find(content_query + ' ' + content_query).length) {
-      pager_query = pager_query + ':not(' + content_query + ' ' + pager_query + ')';
-      content_query = content_query + ':not(' + content_query + ' ' + content_query + ')';
-    }
+    pager_query = pager_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + pager_query + ')';
+    content_query = content_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + content_query + ')';
 
     // Additional processing over new content
     wrapper.trigger('views_load_more.new_content', new_content.clone());
