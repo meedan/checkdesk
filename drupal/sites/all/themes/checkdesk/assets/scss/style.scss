@@ -21,7 +21,7 @@
 // Requires: base
 @import "bowerbird";
 
-// Checkdesk override susy functions very selectively
+// Checkdesk overrides a Susy function very selectively
 // Requires: base
 @import "override_susy/grid";
 
@@ -123,14 +123,14 @@ $omega: opposite-position($from-direction);
 // TB utilities
 @import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
-@import "alerts";
-@import "dropdowns";
-@import "modals";
 
 // Checkdesk mixins
 //
-// Completely unrelated to Twitter Bootstrap mixins file
-@import "mixins";
+@import "mixins"; // Completely unrelated to Twitter Bootstrap mixins file
+@import "alerts"; // Mix of Drupal alerts and Twitter Bootstrap alerts.
+@import "dropdowns"; // Based on Twitter Bootstrap dropdowns
+@import "modals"; // Based on Twitter Bootstrap modals
+
 
 // ====================================================================== 
 //  Default checkdesk layout
