@@ -519,6 +519,8 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Remove all filters';
+  $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'Date Asc';
+  $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'Date Desc';
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
@@ -529,7 +531,7 @@ print l(t(\'Add new user\'), \'admin/people/create\', array(\'query\' => drupal_
       'advanced' => array(
         'collapsible' => 0,
         'collapsible_label' => 'Sort options',
-        'combine' => 1,
+        'combine' => 0,
         'combine_rewrite' => '',
         'reset' => 0,
         'reset_label' => '',
@@ -1039,8 +1041,8 @@ print t(\'No content available\');
     t('Apply'),
     t('Remove all filters'),
     t('Sort by'),
-    t('Asc'),
-    t('Desc'),
+    t('Date Asc'),
+    t('Date Desc'),
     t('Items per page'),
     t('- All -'),
     t('Offset'),
@@ -1540,7 +1542,11 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['title'] = 'Reports';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    5 => '5',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;

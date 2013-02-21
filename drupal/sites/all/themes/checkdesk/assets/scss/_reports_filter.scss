@@ -18,7 +18,9 @@
 	margin-top: $baseLineHeight/2;
 	.panel {
 		display: inline-block;
-		position: relative;
+    // otherwise, panel will be hidden by sidebar
+		position: absolute;
+    top: 36px;
 
 		.panel-toggle {
 			display: inline-block;
@@ -78,6 +80,10 @@
 
 	}
 
+  #filter-by {
+    #{$from-direction}: 130px;
+  }
+
 	#filter-by .views-reset-button {
 		float: $alpha;
 	}
@@ -98,6 +104,10 @@
 		}
 
 	}
+
+  #sort-by label {
+    display: none;
+  }
 
 	#sort-by .panel-content {
 		width: 200px;

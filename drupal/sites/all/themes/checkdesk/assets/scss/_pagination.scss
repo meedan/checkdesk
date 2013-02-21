@@ -34,12 +34,12 @@ ul.pager {
 // --------------------------------------------------
 
 .pager {
-  margin: $baseLineHeight 0;
   @include reset-box-model;
   @include reset-list-style;
   @include ctb-clearfix;
+  margin: $baseLineHeight 0;
   font-family: $sans-font-family;
-  font-size: $large-font-size;
+  font-size: $fontSizeSmall;
 
   li {
     display: inline;
