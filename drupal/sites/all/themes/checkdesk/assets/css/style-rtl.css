@@ -2508,14 +2508,16 @@ nav[role="navigation"] a[href*="add/post"]:after {
 }
 
 /* line 162, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
-.report h3 > a[href*="twitter.com"]:before, body.page-user- #edit-social-media-signin div.item-list li.first a:before,
-body.page-user #edit-social-media-signin div.item-list li.first a:before {
+.report h3 > a[href*="twitter.com"]:before, body.page-user-login #user-login #edit-social-media-signin li.first a:before,
+body.page-user-register #user-login #edit-social-media-signin li.first a:before,
+body.page-user-password #user-login #edit-social-media-signin li.first a:before {
   content: "\f099";
 }
 
 /* line 163, ../extensions/bowerbird/stylesheets/bowerbird/icons/_fontawesome.scss */
-body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook']:before,
-body.page-user #edit-social-media-signin div.item-list li a[class^='facebook']:before {
+body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:before,
+body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:before,
+body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:before {
   content: "\f09a";
 }
 
@@ -6808,140 +6810,6 @@ div.tabs {
   border: 0;
 }
 
-/* line 19, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
-ul.tabs {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-/* line 22, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
-ul.tabs li {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-/* line 24, ../extensions/bowerbird/stylesheets/bowerbird/tabs.scss */
-ul.tabs li a {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-/* line 11, ../scss/_tabs.scss */
-div.tabs {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  *zoom: 1;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-/* line 15, ../scss/override_ctb/_mixins.scss */
-div.tabs:before, div.tabs:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-/* line 22, ../scss/override_ctb/_mixins.scss */
-div.tabs:after {
-  clear: both;
-}
-/* line 16, ../scss/_tabs.scss */
-div.tabs ul.primary {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  *zoom: 1;
-  background-color: rgba(255, 255, 255, 0.8);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-}
-/* line 15, ../scss/override_ctb/_mixins.scss */
-div.tabs ul.primary:before, div.tabs ul.primary:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-/* line 22, ../scss/override_ctb/_mixins.scss */
-div.tabs ul.primary:after {
-  clear: both;
-}
-/* line 24, ../scss/_tabs.scss */
-div.tabs ul.primary li {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  width: 100%;
-  float: right;
-  margin-left: 3.31126%;
-  display: inline;
-  display: inline-block;
-  float: right;
-}
-/* line 31, ../scss/_tabs.scss */
-div.tabs ul.primary li.active a {
-  padding-right: 3.31126%;
-  padding-left: 3.31126%;
-  width: 93.37748%;
-  float: right;
-  margin-left: 3.31126%;
-  display: inline;
-  background-color: #0088cc;
-  color: #333333;
-  display: inline-block;
-}
-/* line 39, ../scss/_tabs.scss */
-div.tabs ul.primary li a {
-  padding-right: 3.31126%;
-  padding-left: 3.31126%;
-  width: 93.37748%;
-  float: right;
-  margin-left: 3.31126%;
-  display: inline;
-  -webkit-transition-property: background-color;
-  -moz-transition-property: background-color;
-  -o-transition-property: background-color;
-  transition-property: background-color;
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  background-color: white;
-  line-height: 1.5;
-  display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
-div.tabs ul.primary li a:hover {
-  background-color: #0088cc;
-}
-/* line 46, ../scss/_tabs.scss */
-div.tabs ul.primary li a:hover {
-  color: #333333;
-}
-
-@media (min-width: 614px) {
-  /* line 59, ../scss/_tabs.scss */
-  div.tabs ul.primary {
-    display: block;
-    margin: 0 auto;
-    float: none;
-    text-align: center;
-  }
-  /* line 65, ../scss/_tabs.scss */
-  div.tabs ul.primary li, div.tabs ul.primary li a, div.tabs ul.primary li.active a {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    width: auto;
-    padding: 10px;
-    margin: 5px;
-    display: inline-block;
-  }
-}
 /**
  * Password strength indicator.
  */
@@ -6951,52 +6819,50 @@ div.tabs ul.primary li a:hover {
   font-size: 0.8em;
   width: 17em;
   float: left;
-  margin-top: 1.4em;
 }
 
-/* line 11, ../scss/_form_password.scss */
+/* line 10, ../scss/_form_password.scss */
 .password-strength-title {
   display: inline;
 }
 
-/* line 14, ../scss/_form_password.scss */
+/* line 13, ../scss/_form_password.scss */
 .password-strength-text {
   float: left;
   /* LTR */
   font-weight: bold;
 }
 
-/* line 18, ../scss/_form_password.scss */
+/* line 17, ../scss/_form_password.scss */
 .password-indicator {
   background-color: #eeeeee;
   height: 0.3em;
   width: 100%;
 }
 
-/* line 23, ../scss/_form_password.scss */
+/* line 22, ../scss/_form_password.scss */
 .password-indicator div {
   height: 100%;
   width: 0%;
   background-color: #468847;
 }
 
-/* line 29, ../scss/_form_password.scss */
+/* line 28, ../scss/_form_password.scss */
 input.password-confirm,
 input.password-field {
   width: 17em;
   margin-bottom: 0.4em;
 }
 
-/* line 33, ../scss/_form_password.scss */
+/* line 32, ../scss/_form_password.scss */
 div.password-confirm {
   float: left;
   /* LTR */
-  margin-top: 1.5em;
   visibility: hidden;
   width: 17em;
 }
 
-/* line 39, ../scss/_form_password.scss */
+/* line 37, ../scss/_form_password.scss */
 div.form-item div.password-suggestions {
   padding: 10px;
   margin: 0.7em 0;
@@ -7009,7 +6875,7 @@ div.form-item div.password-suggestions {
   border-radius: 5px;
   color: #555555;
 }
-/* line 46, ../scss/_form_password.scss */
+/* line 44, ../scss/_form_password.scss */
 div.form-item div.password-suggestions ul {
   margin: 0;
   padding: 0;
@@ -7018,45 +6884,54 @@ div.form-item div.password-suggestions ul {
   margin-top: 6.75px;
 }
 
-/* line 52, ../scss/_form_password.scss */
+/* line 50, ../scss/_form_password.scss */
 div.password-confirm {
   color: #555555;
   font-size: 0.8em;
   width: 17em;
   float: left;
   /* LTR */
-  margin-top: 1.4em;
+  margin-top: 0.2em;
 }
-/* line 58, ../scss/_form_password.scss */
+/* line 56, ../scss/_form_password.scss */
 div.password-confirm .ok {
   padding: 5px 10px;
   color: #468847;
   background-color: #dff0d8;
 }
-/* line 63, ../scss/_form_password.scss */
+/* line 61, ../scss/_form_password.scss */
 div.password-confirm .error {
   padding: 5px 10px;
   color: #b94a48;
   background-color: #f2dede;
 }
-/* line 68, ../scss/_form_password.scss */
+/* line 66, ../scss/_form_password.scss */
 div.password-confirm .description {
   display: block;
 }
 
-/* line 72, ../scss/_form_password.scss */
+/* line 70, ../scss/_form_password.scss */
 div.password-suggestions ul {
   margin-bottom: 0;
 }
 
-/* line 76, ../scss/_form_password.scss */
+/* line 74, ../scss/_form_password.scss */
 .confirm-parent,
 .password-parent {
-  overflow: hidden;
   *zoom: 1;
-  clear: right;
-  margin: 0;
-  width: 36.3em;
+}
+/* line 15, ../scss/override_ctb/_mixins.scss */
+.confirm-parent:before, .confirm-parent:after,
+.password-parent:before,
+.password-parent:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+/* line 22, ../scss/override_ctb/_mixins.scss */
+.confirm-parent:after,
+.password-parent:after {
+  clear: both;
 }
 
 /* line 66, ../scss/_forms.scss */
@@ -7473,6 +7348,7 @@ form > .form-item .form-item {
   display: inline;
 }
 /* line 256, ../scss/_forms.scss */
+form input[type="password"],
 form input[type="text"],
 form textarea {
   padding-right: 1.65563%;
@@ -7531,6 +7407,7 @@ form div.form-wrapper {
     margin-left: 3.31126%;
   }
   /* line 256, ../scss/_forms.scss */
+  form input[type="password"],
   form input[type="text"],
   form textarea {
     padding-right: 1.65563%;
@@ -8138,10 +8015,8 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 /* line 19, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel {
   display: inline-block;
-  position: absolute;
-  top: 36px;
 }
-/* line 25, ../scss/_reports_filter.scss */
+/* line 22, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-toggle {
   display: inline-block;
   padding: 4px 12px;
@@ -8162,12 +8037,12 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 #incoming-reports-filters .panels .panel .panel-toggle:hover {
   color: black;
 }
-/* line 36, ../scss/_reports_filter.scss */
+/* line 33, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-toggle:hover {
   background-color: #d4d4d4;
   text-decoration: none;
 }
-/* line 42, ../scss/_reports_filter.scss */
+/* line 39, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-content {
   display: none;
   position: absolute;
@@ -8193,16 +8068,16 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-/* line 62, ../scss/_reports_filter.scss */
+/* line 59, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-content input[type="text"] {
   float: none;
   width: 260px;
 }
-/* line 67, ../scss/_reports_filter.scss */
+/* line 64, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-content label {
   font-size: 14px !important;
 }
-/* line 71, ../scss/_reports_filter.scss */
+/* line 68, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-content .views-reset-button input#edit-reset {
   margin: 0;
   padding: 0;
@@ -8212,27 +8087,27 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   color: #555555;
   font-size: 15.3px;
 }
-/* line 77, ../scss/_reports_filter.scss */
+/* line 74, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels .panel .panel-content .views-reset-button input#edit-reset:hover {
   color: #333333;
 }
-/* line 83, ../scss/_reports_filter.scss */
+/* line 80, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #filter-by {
   right: 130px;
 }
-/* line 87, ../scss/_reports_filter.scss */
+/* line 84, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #filter-by .views-reset-button {
   float: right;
 }
-/* line 91, ../scss/_reports_filter.scss */
+/* line 88, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #filter-by .views-submit-button {
   float: left;
 }
-/* line 94, ../scss/_reports_filter.scss */
+/* line 91, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #filter-by .views-submit-button .form-type-select {
   display: none;
 }
-/* line 97, ../scss/_reports_filter.scss */
+/* line 94, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #filter-by .views-submit-button #close {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
@@ -8289,28 +8164,28 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 #incoming-reports-filters .panels #filter-by .views-submit-button #close:active, #incoming-reports-filters .panels #filter-by .views-submit-button #close:active:visited {
   color: white;
 }
-/* line 101, ../scss/_reports_filter.scss */
+/* line 98, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #filter-by .views-submit-button input {
   margin-top: -4px;
   margin-left: 10px;
 }
-/* line 108, ../scss/_reports_filter.scss */
+/* line 105, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #sort-by label {
   display: none;
 }
-/* line 112, ../scss/_reports_filter.scss */
+/* line 109, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #sort-by .panel-content {
   width: 200px;
 }
-/* line 116, ../scss/_reports_filter.scss */
+/* line 113, ../scss/_reports_filter.scss */
 #incoming-reports-filters .panels #sort-by .views-submit-button input {
   margin-top: 13.5px;
 }
-/* line 121, ../scss/_reports_filter.scss */
+/* line 118, ../scss/_reports_filter.scss */
 #incoming-reports-filters .form-type-radio input[type="radio"] {
   margin: 0;
 }
-/* line 125, ../scss/_reports_filter.scss */
+/* line 122, ../scss/_reports_filter.scss */
 #incoming-reports-filters .form-type-radio, #incoming-reports-filters .form-type-checkbox {
   padding: 0;
 }
@@ -8724,9 +8599,10 @@ body.sidebar-first #main div#content .inner {
   color: #cccccc;
 }
 
-/* line 55, ../scss/_user.scss */
-body.page-user- #main,
-body.page-user #main {
+/* line 56, ../scss/_user.scss */
+body.page-user-login #main,
+body.page-user-register #main,
+body.page-user-password #main {
   width: 65.56291%;
   float: right;
   margin-left: 3.31126%;
@@ -8734,14 +8610,22 @@ body.page-user #main {
   padding-right: 17.21854%;
   padding-left: 17.21854%;
 }
+/* line 60, ../scss/_user.scss */
+body.page-user-login #main h1.title,
+body.page-user-register #main h1.title,
+body.page-user-password #main h1.title {
+  text-align: center;
+}
 /* line 6, ../scss/_user.scss */
-body.page-user- #content-header > h1,
-body.page-user #content-header > h1 {
+body.page-user-login #content-header > h1,
+body.page-user-register #content-header > h1,
+body.page-user-password #content-header > h1 {
   padding-right: 10px;
 }
 /* line 10, ../scss/_user.scss */
-body.page-user- div.profile,
-body.page-user div.profile {
+body.page-user-login div.profile,
+body.page-user-register div.profile,
+body.page-user-password div.profile {
   padding-right: 3.31126%;
   padding-left: 3.31126%;
   width: 58.9404%;
@@ -8751,8 +8635,9 @@ body.page-user div.profile {
   background-color: white;
 }
 /* line 15, ../scss/_user.scss */
-body.page-user- div.profile .user-picture,
-body.page-user div.profile .user-picture {
+body.page-user-login div.profile .user-picture,
+body.page-user-register div.profile .user-picture,
+body.page-user-password div.profile .user-picture {
   float: left;
   padding-right: 3.31126%;
   padding-left: 3.31126%;
@@ -8763,15 +8648,17 @@ body.page-user div.profile .user-picture {
   display: inline;
 }
 /* line 20, ../scss/_user.scss */
-body.page-user- div.profile h3,
-body.page-user div.profile h3 {
+body.page-user-login div.profile h3,
+body.page-user-register div.profile h3,
+body.page-user-password div.profile h3 {
   display: block;
   width: auto;
   padding: 10px;
 }
 /* line 26, ../scss/_user.scss */
-body.page-user- div.profile dl,
-body.page-user div.profile dl {
+body.page-user-login div.profile dl,
+body.page-user-register div.profile dl,
+body.page-user-password div.profile dl {
   *zoom: 1;
   padding: 10px;
   font-size: 18px;
@@ -8779,108 +8666,99 @@ body.page-user div.profile dl {
   border-bottom: 1px solid #ededed;
 }
 /* line 15, ../scss/override_ctb/_mixins.scss */
-body.page-user- div.profile dl:before, body.page-user- div.profile dl:after,
-body.page-user div.profile dl:before,
-body.page-user div.profile dl:after {
+body.page-user-login div.profile dl:before, body.page-user-login div.profile dl:after,
+body.page-user-register div.profile dl:before,
+body.page-user-register div.profile dl:after,
+body.page-user-password div.profile dl:before,
+body.page-user-password div.profile dl:after {
   display: table;
   content: "";
   line-height: 0;
 }
 /* line 22, ../scss/override_ctb/_mixins.scss */
-body.page-user- div.profile dl:after,
-body.page-user div.profile dl:after {
+body.page-user-login div.profile dl:after,
+body.page-user-register div.profile dl:after,
+body.page-user-password div.profile dl:after {
   clear: both;
 }
 /* line 32, ../scss/_user.scss */
-body.page-user- div.profile dl dt,
-body.page-user div.profile dl dt {
+body.page-user-login div.profile dl dt,
+body.page-user-register div.profile dl dt,
+body.page-user-password div.profile dl dt {
   float: right;
 }
 /* line 35, ../scss/_user.scss */
-body.page-user- div.profile dl dd,
-body.page-user div.profile dl dd {
+body.page-user-login div.profile dl dd,
+body.page-user-register div.profile dl dd,
+body.page-user-password div.profile dl dd {
   float: left;
   font-weight: 200px;
 }
-/* line 66, ../scss/_user.scss */
-body.page-user- .item-list ul li,
-body.page-user .item-list ul li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
+/* line 71, ../scss/_user.scss */
+body.page-user-login .tabs,
+body.page-user-register .tabs,
+body.page-user-password .tabs {
+  display: none;
 }
-/* line 80, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin,
-body.page-user #edit-social-media-signin {
-  position: relative;
+/* line 75, ../scss/_user.scss */
+body.page-user-login #user-login,
+body.page-user-register #user-login,
+body.page-user-password #user-login {
+  width: 65.56291%;
+  float: right;
+  margin-left: 3.31126%;
+  display: inline;
+  padding-right: 17.21854%;
+  padding-left: 17.21854%;
+  margin-top: 27px;
+}
+/* line 81, ../scss/_user.scss */
+body.page-user-login #user-login .form-required,
+body.page-user-register #user-login .form-required,
+body.page-user-password #user-login .form-required {
+  display: none;
 }
 /* line 86, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin .item-list ul,
-body.page-user #edit-social-media-signin .item-list ul {
+body.page-user-login #user-login #edit-social-media-signin,
+body.page-user-register #user-login #edit-social-media-signin,
+body.page-user-password #user-login #edit-social-media-signin {
   text-align: center;
 }
 /* line 88, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin .item-list ul li,
-body.page-user #edit-social-media-signin .item-list ul li {
+body.page-user-login #user-login #edit-social-media-signin .item-list li,
+body.page-user-register #user-login #edit-social-media-signin .item-list li,
+body.page-user-password #user-login #edit-social-media-signin .item-list li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
   display: inline;
+  margin-left: 10px;
 }
-/* line 92, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin:after,
-body.page-user #edit-social-media-signin:after {
-  content: "or";
-  font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
-  font-style: italic;
-  width: 100%;
-  display: block;
-  font-size: 18px;
-  text-align: center;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-/* line 105, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin label,
-body.page-user #edit-social-media-signin label {
-  display: none!important;
-}
-/* line 113, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list,
-body.page-user #edit-social-media-signin div.item-list {
-  float: none;
-}
-/* line 116, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list ul,
-body.page-user #edit-social-media-signin div.item-list ul {
-  margin-top: 10px;
-}
-/* line 118, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list li,
-body.page-user #edit-social-media-signin div.item-list li {
-  text-align: center;
+/* line 94, ../scss/_user.scss */
+body.page-user-login #user-login #edit-social-media-signin .item-list li a,
+body.page-user-register #user-login #edit-social-media-signin .item-list li a,
+body.page-user-password #user-login #edit-social-media-signin .item-list li a {
   display: inline-block;
-}
-/* line 121, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list li a,
-body.page-user #edit-social-media-signin div.item-list li a {
-  margin-left: 5px;
-  display: inline-block;
-  line-height: 2.4;
-  padding: 10px;
-}
-/* line 129, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list li a:after,
-body.page-user #edit-social-media-signin div.item-list li a:after {
+  padding: 13.5px 40px;
+  margin-bottom: 13.5px;
   color: white;
-  font-size: 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
 }
-/* line 134, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list li a:hover,
-body.page-user #edit-social-media-signin div.item-list li a:hover {
+/* line 100, ../scss/_user.scss */
+body.page-user-login #user-login #edit-social-media-signin .item-list li a:hover,
+body.page-user-register #user-login #edit-social-media-signin .item-list li a:hover,
+body.page-user-password #user-login #edit-social-media-signin .item-list li a:hover {
   text-decoration: none;
 }
-/* line 142, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list li.first a,
-body.page-user #edit-social-media-signin div.item-list li.first a {
+/* line 109, ../scss/_user.scss */
+body.page-user-login #user-login #edit-social-media-signin li.first a,
+body.page-user-register #user-login #edit-social-media-signin li.first a,
+body.page-user-password #user-login #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -8892,27 +8770,25 @@ body.page-user #edit-social-media-signin div.item-list li.first a {
   background-color: #cccccc;
 }
 /* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
-body.page-user- #edit-social-media-signin div.item-list li.first a:hover,
-body.page-user #edit-social-media-signin div.item-list li.first a:hover {
+body.page-user-login #user-login #edit-social-media-signin li.first a:hover,
+body.page-user-register #user-login #edit-social-media-signin li.first a:hover,
+body.page-user-password #user-login #edit-social-media-signin li.first a:hover {
   background-color: #1d87c9;
 }
 /* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
-body.page-user- #edit-social-media-signin div.item-list li.first a:before,
-body.page-user #edit-social-media-signin div.item-list li.first a:before {
+body.page-user-login #user-login #edit-social-media-signin li.first a:before,
+body.page-user-register #user-login #edit-social-media-signin li.first a:before,
+body.page-user-password #user-login #edit-social-media-signin li.first a:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: 20px;
   color: white;
   margin-left: 10px;
 }
-/* line 145, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list li.first a:after,
-body.page-user #edit-social-media-signin div.item-list li.first a:after {
-  content: " Twitter";
-}
-/* line 149, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook'],
-body.page-user #edit-social-media-signin div.item-list li a[class^='facebook'] {
+/* line 115, ../scss/_user.scss */
+body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook'],
+body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook'],
+body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -8924,50 +8800,153 @@ body.page-user #edit-social-media-signin div.item-list li a[class^='facebook'] {
   background-color: #cccccc;
 }
 /* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
-body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook']:hover,
-body.page-user #edit-social-media-signin div.item-list li a[class^='facebook']:hover {
+body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:hover,
+body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:hover,
+body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:hover {
   background-color: #264887;
 }
 /* line 72, ../extensions/bowerbird/stylesheets/bowerbird/icons/_icons.scss */
-body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook']:before,
-body.page-user #edit-social-media-signin div.item-list li a[class^='facebook']:before {
+body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:before,
+body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:before,
+body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: 20px;
   color: white;
   margin-left: 10px;
 }
-/* line 152, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list li a[class^='facebook']:after,
-body.page-user #edit-social-media-signin div.item-list li a[class^='facebook']:after {
-  content: " Facebook";
+/* line 122, ../scss/_user.scss */
+body.page-user-login #user-login .or,
+body.page-user-register #user-login .or,
+body.page-user-password #user-login .or {
+  color: #999999;
+  text-align: center;
+  margin: 13.5px 0;
 }
-/* line 157, ../scss/_user.scss */
-body.page-user- #edit-social-media-signin div.item-list img,
-body.page-user #edit-social-media-signin div.item-list img {
-  display: none;
+/* line 126, ../scss/_user.scss */
+body.page-user-login #user-login .or span,
+body.page-user-register #user-login .or span,
+body.page-user-password #user-login .or span {
+  display: inline-block;
+  border: 1px solid #cccccc;
+  width: 40px;
+  font-size: 10px;
+  line-height: 40px;
+  text-transform: uppercase;
+  -webkit-border-radius: 1000px;
+  -moz-border-radius: 1000px;
+  -ms-border-radius: 1000px;
+  -o-border-radius: 1000px;
+  border-radius: 1000px;
+}
+/* line 137, ../scss/_user.scss */
+body.page-user-login #user-login .user-links,
+body.page-user-register #user-login .user-links,
+body.page-user-password #user-login .user-links {
+  *zoom: 1;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15.3px;
+  line-height: 1.5;
+}
+/* line 15, ../scss/override_ctb/_mixins.scss */
+body.page-user-login #user-login .user-links:before, body.page-user-login #user-login .user-links:after,
+body.page-user-register #user-login .user-links:before,
+body.page-user-register #user-login .user-links:after,
+body.page-user-password #user-login .user-links:before,
+body.page-user-password #user-login .user-links:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+/* line 22, ../scss/override_ctb/_mixins.scss */
+body.page-user-login #user-login .user-links:after,
+body.page-user-register #user-login .user-links:after,
+body.page-user-password #user-login .user-links:after {
+  clear: both;
+}
+/* line 144, ../scss/_user.scss */
+body.page-user-login #user-login .form-item-remember-me,
+body.page-user-register #user-login .form-item-remember-me,
+body.page-user-password #user-login .form-item-remember-me {
+  float: right;
+}
+/* line 146, ../scss/_user.scss */
+body.page-user-login #user-login .form-item-remember-me label,
+body.page-user-register #user-login .form-item-remember-me label,
+body.page-user-password #user-login .form-item-remember-me label {
+  color: #999999;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15.3px;
+  line-height: 1.5;
+}
+/* line 152, ../scss/_user.scss */
+body.page-user-login #user-login .form-item-remember-me input[type="checkbox"],
+body.page-user-register #user-login .form-item-remember-me input[type="checkbox"],
+body.page-user-password #user-login .form-item-remember-me input[type="checkbox"] {
+  float: right;
+  width: auto;
+}
+/* line 158, ../scss/_user.scss */
+body.page-user-login #user-login .user-forgot-pass-link,
+body.page-user-register #user-login .user-forgot-pass-link,
+body.page-user-password #user-login .user-forgot-pass-link {
+  float: left;
 }
 /* line 163, ../scss/_user.scss */
-body.page-user- .form-item.form-item-name,
-body.page-user .form-item.form-item-name {
-  clear: both;
-  display: block;
-  border-top: 1px solid #ededed !important;
-  padding-top: 20px !important;
+body.page-user-login #user-login .form-actions .form-submit,
+body.page-user-register #user-login .form-actions .form-submit,
+body.page-user-password #user-login .form-actions .form-submit {
+  float: right;
+}
+/* line 166, ../scss/_user.scss */
+body.page-user-login #user-login .form-actions .user-new-account-link,
+body.page-user-register #user-login .form-actions .user-new-account-link,
+body.page-user-password #user-login .form-actions .user-new-account-link {
+  float: left;
+  margin-top: 6.75px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15.3px;
+  color: #999999;
+}
+/* line 173, ../scss/_user.scss */
+body.page-user-login #user-login .form-actions .user-new-account-link span,
+body.page-user-register #user-login .form-actions .user-new-account-link span,
+body.page-user-password #user-login .form-actions .user-new-account-link span {
+  display: inline-block;
+}
+/* line 177, ../scss/_user.scss */
+body.page-user-login #user-login .form-actions .user-new-account-link .register,
+body.page-user-register #user-login .form-actions .user-new-account-link .register,
+body.page-user-password #user-login .form-actions .user-new-account-link .register {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15.3px;
+  font-weight: normal;
+  color: #0088cc;
+}
+/* line 86, ../scss/override_ctb/_mixins.scss */
+body.page-user-login #user-login .form-actions .user-new-account-link .register:hover,
+body.page-user-register #user-login .form-actions .user-new-account-link .register:hover,
+body.page-user-password #user-login .form-actions .user-new-account-link .register:hover {
+  color: black;
 }
 @media (min-width: 614px) {
-  /* line 177, ../scss/_user.scss */
-  body.page-user- form #edit-social-media-signin a,
-  body.page-user form #edit-social-media-signin a {
+  /* line 201, ../scss/_user.scss */
+  body.page-user-login form #edit-social-media-signin a,
+  body.page-user-register form #edit-social-media-signin a,
+  body.page-user-password form #edit-social-media-signin a {
     font-size: 20px !important;
   }
 }
 
-/* line 187, ../scss/_user.scss */
+/* line 211, ../scss/_user.scss */
 .view-administer-users fieldset {
   margin-bottom: 13.5px;
 }
-/* line 190, ../scss/_user.scss */
+/* line 214, ../scss/_user.scss */
 .view-administer-users select {
   margin-bottom: 13.5px;
 }
@@ -8976,12 +8955,12 @@ body.page-user .form-item.form-item-name {
  * Override default textfield float to put the "Add role" button next to
  * the input textfield.
  */
-/* line 201, ../scss/_user.scss */
+/* line 225, ../scss/_user.scss */
 #user-admin-roles td.edit-name {
   clear: both;
 }
 
-/* line 204, ../scss/_user.scss */
+/* line 228, ../scss/_user.scss */
 #user-admin-roles .form-item-name {
   float: left;
   /* LTR */
@@ -9139,40 +9118,34 @@ body.sidebar-first .tabs {
   display: none!important;
 }
 
-/* line 56, ../scss/_evil_hacks.scss */
-body.not-front.not-logged-in.page-user div.breadcrumb,
-body.not-front.not-logged-in.page-user h1.title {
-  display: none;
-}
-
-/* line 61, ../scss/_evil_hacks.scss */
+/* line 52, ../scss/_evil_hacks.scss */
 p br {
   display: none;
 }
 
-/* line 64, ../scss/_evil_hacks.scss */
+/* line 55, ../scss/_evil_hacks.scss */
 input.form-autocomplete {
   background-image: none!important;
 }
 
-/* line 71, ../scss/_evil_hacks.scss */
+/* line 62, ../scss/_evil_hacks.scss */
 .filter-guidelines,
 .filter-help {
   display: none;
 }
 
-/* line 77, ../scss/_evil_hacks.scss */
+/* line 68, ../scss/_evil_hacks.scss */
 #toolbar-home,
 #toolbar-user {
   display: none;
 }
 
-/* line 81, ../scss/_evil_hacks.scss */
+/* line 72, ../scss/_evil_hacks.scss */
 body.toolbar-drawer {
   padding-top: 0!important;
 }
 
-/* line 87, ../scss/_evil_hacks.scss */
+/* line 78, ../scss/_evil_hacks.scss */
 .views-exposed-widget .views-reset-button {
   display: none;
 }
