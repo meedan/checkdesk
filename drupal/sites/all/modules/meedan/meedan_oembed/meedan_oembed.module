@@ -429,6 +429,7 @@ function _meedan_oembed_filter_process($text, $filter) {
         if (is_object($node)) {
           // Render node using custom Meedan oEmbed view.
           $element = node_view($node, 'meedan_oembed');
+          $element['comments'] = comment_node_page_additions($node);
           $node_view = drupal_render($element);
           // Replace [media-title:$nid] with node view.
           $text = str_replace($matches[0][$key], $node_view, $text);
