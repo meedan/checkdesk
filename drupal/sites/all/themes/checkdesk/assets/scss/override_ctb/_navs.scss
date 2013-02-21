@@ -18,7 +18,7 @@
 }
 .nav > li > a:hover {
   text-decoration: none;
-  background-color: $grayLighter;
+  background-color: darken($grayLighter, 5%);
 }
 
 // Prevent IE8 from misplacing imgs
@@ -90,11 +90,11 @@
 // Common styles
 .nav-tabs,
 .nav-pills {
-  @include clearfix();
+  @include ctb-clearfix();
 }
 .nav-tabs > li,
 .nav-pills > li {
-  float: left;
+  float: $alpha;
 }
 .nav-tabs > li > a,
 .nav-pills > li > a {
@@ -130,7 +130,7 @@
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover {
   color: $gray;
-  background-color: $bodyBackground;
+  background-color: $grayLighter;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
