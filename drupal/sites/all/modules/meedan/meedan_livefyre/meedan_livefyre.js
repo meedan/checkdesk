@@ -21,7 +21,7 @@ Drupal.behaviors.livefyre = {
     try {
 
       // Show or hide comments
-      $('.livefyre-header', context).die('click').live('click', function() {
+      $('.livefyre-header').die('click').live('click', function() {
         var comments = $('.livefyre-comments', $(this).parent());
         if (comments.is(':visible')) {
           comments.hide();
