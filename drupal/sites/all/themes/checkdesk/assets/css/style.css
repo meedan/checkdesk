@@ -2936,7 +2936,7 @@ input[type="checkbox"][readonly] {
 /* line 19, ../scss/override_ctb/_navs.scss */
 .nav > li > a:hover {
   text-decoration: none;
-  background-color: #eeeeee;
+  background-color: #e1e1e1;
 }
 
 /* line 26, ../scss/override_ctb/_navs.scss */
@@ -3014,8 +3014,20 @@ input[type="checkbox"][readonly] {
 /* line 92, ../scss/override_ctb/_navs.scss */
 .nav-tabs,
 .nav-pills {
-  overflow: hidden;
   *zoom: 1;
+}
+/* line 15, ../scss/override_ctb/_mixins.scss */
+.nav-tabs:before, .nav-tabs:after,
+.nav-pills:before,
+.nav-pills:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+/* line 22, ../scss/override_ctb/_mixins.scss */
+.nav-tabs:after,
+.nav-pills:after {
+  clear: both;
 }
 
 /* line 96, ../scss/override_ctb/_navs.scss */
@@ -3064,7 +3076,7 @@ input[type="checkbox"][readonly] {
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover {
   color: #555555;
-  background-color: white;
+  background-color: #eeeeee;
   border: 1px solid #dddddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -8839,11 +8851,12 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 body.page-user-login #user-login .or,
 body.page-user-register #user-login .or,
 body.page-user-password #user-login .or {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #999999;
   text-align: center;
   margin: 13.5px 0;
 }
-/* line 131, ../scss/_user.scss */
+/* line 132, ../scss/_user.scss */
 body.page-user-login #user-login .or span,
 body.page-user-register #user-login .or span,
 body.page-user-password #user-login .or span {
@@ -8853,13 +8866,14 @@ body.page-user-password #user-login .or span {
   font-size: 10px;
   line-height: 40px;
   text-transform: uppercase;
+  letter-spacing: 1px;
   -webkit-border-radius: 1000px;
   -moz-border-radius: 1000px;
   -ms-border-radius: 1000px;
   -o-border-radius: 1000px;
   border-radius: 1000px;
 }
-/* line 142, ../scss/_user.scss */
+/* line 144, ../scss/_user.scss */
 body.page-user-login #user-login .user-links,
 body.page-user-register #user-login .user-links,
 body.page-user-password #user-login .user-links {
@@ -8884,13 +8898,13 @@ body.page-user-register #user-login .user-links:after,
 body.page-user-password #user-login .user-links:after {
   clear: both;
 }
-/* line 149, ../scss/_user.scss */
+/* line 151, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me,
 body.page-user-register #user-login .form-item-remember-me,
 body.page-user-password #user-login .form-item-remember-me {
   float: left;
 }
-/* line 151, ../scss/_user.scss */
+/* line 153, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me label,
 body.page-user-register #user-login .form-item-remember-me label,
 body.page-user-password #user-login .form-item-remember-me label {
@@ -8899,26 +8913,26 @@ body.page-user-password #user-login .form-item-remember-me label {
   font-size: 15.3px;
   line-height: 1.5;
 }
-/* line 157, ../scss/_user.scss */
+/* line 159, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me input[type="checkbox"],
 body.page-user-register #user-login .form-item-remember-me input[type="checkbox"],
 body.page-user-password #user-login .form-item-remember-me input[type="checkbox"] {
   float: left;
   width: auto;
 }
-/* line 163, ../scss/_user.scss */
+/* line 165, ../scss/_user.scss */
 body.page-user-login #user-login .user-forgot-pass-link,
 body.page-user-register #user-login .user-forgot-pass-link,
 body.page-user-password #user-login .user-forgot-pass-link {
   float: right;
 }
-/* line 168, ../scss/_user.scss */
+/* line 170, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .form-submit,
 body.page-user-register #user-login .form-actions .form-submit,
 body.page-user-password #user-login .form-actions .form-submit {
   float: left;
 }
-/* line 171, ../scss/_user.scss */
+/* line 173, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link,
 body.page-user-register #user-login .form-actions .user-new-account-link,
 body.page-user-password #user-login .form-actions .user-new-account-link {
@@ -8928,13 +8942,13 @@ body.page-user-password #user-login .form-actions .user-new-account-link {
   font-size: 15.3px;
   color: #999999;
 }
-/* line 178, ../scss/_user.scss */
+/* line 180, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link span,
 body.page-user-register #user-login .form-actions .user-new-account-link span,
 body.page-user-password #user-login .form-actions .user-new-account-link span {
   display: inline-block;
 }
-/* line 182, ../scss/_user.scss */
+/* line 184, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link .register,
 body.page-user-register #user-login .form-actions .user-new-account-link .register,
 body.page-user-password #user-login .form-actions .user-new-account-link .register {
@@ -8954,7 +8968,7 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   color: black;
 }
 @media (min-width: 614px) {
-  /* line 206, ../scss/_user.scss */
+  /* line 208, ../scss/_user.scss */
   body.page-user-login form #edit-social-media-signin a,
   body.page-user-register form #edit-social-media-signin a,
   body.page-user-password form #edit-social-media-signin a {
@@ -8962,11 +8976,11 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   }
 }
 
-/* line 216, ../scss/_user.scss */
+/* line 218, ../scss/_user.scss */
 .view-administer-users fieldset {
   margin-bottom: 13.5px;
 }
-/* line 219, ../scss/_user.scss */
+/* line 221, ../scss/_user.scss */
 .view-administer-users select {
   margin-bottom: 13.5px;
 }
@@ -8975,12 +8989,12 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
  * Override default textfield float to put the "Add role" button next to
  * the input textfield.
  */
-/* line 230, ../scss/_user.scss */
+/* line 232, ../scss/_user.scss */
 #user-admin-roles td.edit-name {
   clear: both;
 }
 
-/* line 233, ../scss/_user.scss */
+/* line 235, ../scss/_user.scss */
 #user-admin-roles .form-item-name {
   float: left;
   /* LTR */
