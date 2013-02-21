@@ -125,7 +125,7 @@ var debug;
 			});
 			// set the height of the sidebar
 			var bodyHeight = $(window).height();
-				buffer = 100;
+				buffer = 160;
 			var bodyHeight = bodyHeight - buffer;
 			$('#sidebar-first.column .view-desk-reports').height(bodyHeight);
 			
