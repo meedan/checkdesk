@@ -8719,12 +8719,18 @@ body.page-user-password #user-login .form-required {
   display: none;
 }
 /* line 86, ../scss/_user.scss */
+body.page-user-login #user-login > div > .item-list,
+body.page-user-register #user-login > div > .item-list,
+body.page-user-password #user-login > div > .item-list {
+  display: none;
+}
+/* line 91, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin,
 body.page-user-register #user-login #edit-social-media-signin,
 body.page-user-password #user-login #edit-social-media-signin {
   text-align: center;
 }
-/* line 88, ../scss/_user.scss */
+/* line 93, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin .item-list li,
 body.page-user-register #user-login #edit-social-media-signin .item-list li,
 body.page-user-password #user-login #edit-social-media-signin .item-list li {
@@ -8735,7 +8741,7 @@ body.page-user-password #user-login #edit-social-media-signin .item-list li {
   display: inline;
   margin-left: 10px;
 }
-/* line 94, ../scss/_user.scss */
+/* line 99, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin .item-list li a,
 body.page-user-register #user-login #edit-social-media-signin .item-list li a,
 body.page-user-password #user-login #edit-social-media-signin .item-list li a {
@@ -8749,13 +8755,13 @@ body.page-user-password #user-login #edit-social-media-signin .item-list li a {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 100, ../scss/_user.scss */
+/* line 105, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin .item-list li a:hover,
 body.page-user-register #user-login #edit-social-media-signin .item-list li a:hover,
 body.page-user-password #user-login #edit-social-media-signin .item-list li a:hover {
   text-decoration: none;
 }
-/* line 109, ../scss/_user.scss */
+/* line 114, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin li.first a,
 body.page-user-register #user-login #edit-social-media-signin li.first a,
 body.page-user-password #user-login #edit-social-media-signin li.first a {
@@ -8785,7 +8791,7 @@ body.page-user-password #user-login #edit-social-media-signin li.first a:before 
   color: white;
   margin-left: 10px;
 }
-/* line 115, ../scss/_user.scss */
+/* line 120, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook'],
 body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook'],
 body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook'] {
@@ -8815,7 +8821,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   color: white;
   margin-left: 10px;
 }
-/* line 122, ../scss/_user.scss */
+/* line 127, ../scss/_user.scss */
 body.page-user-login #user-login .or,
 body.page-user-register #user-login .or,
 body.page-user-password #user-login .or {
@@ -8823,7 +8829,7 @@ body.page-user-password #user-login .or {
   text-align: center;
   margin: 13.5px 0;
 }
-/* line 126, ../scss/_user.scss */
+/* line 131, ../scss/_user.scss */
 body.page-user-login #user-login .or span,
 body.page-user-register #user-login .or span,
 body.page-user-password #user-login .or span {
@@ -8839,7 +8845,7 @@ body.page-user-password #user-login .or span {
   -o-border-radius: 1000px;
   border-radius: 1000px;
 }
-/* line 137, ../scss/_user.scss */
+/* line 142, ../scss/_user.scss */
 body.page-user-login #user-login .user-links,
 body.page-user-register #user-login .user-links,
 body.page-user-password #user-login .user-links {
@@ -8864,13 +8870,13 @@ body.page-user-register #user-login .user-links:after,
 body.page-user-password #user-login .user-links:after {
   clear: both;
 }
-/* line 144, ../scss/_user.scss */
+/* line 149, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me,
 body.page-user-register #user-login .form-item-remember-me,
 body.page-user-password #user-login .form-item-remember-me {
   float: right;
 }
-/* line 146, ../scss/_user.scss */
+/* line 151, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me label,
 body.page-user-register #user-login .form-item-remember-me label,
 body.page-user-password #user-login .form-item-remember-me label {
@@ -8879,26 +8885,26 @@ body.page-user-password #user-login .form-item-remember-me label {
   font-size: 15.3px;
   line-height: 1.5;
 }
-/* line 152, ../scss/_user.scss */
+/* line 157, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me input[type="checkbox"],
 body.page-user-register #user-login .form-item-remember-me input[type="checkbox"],
 body.page-user-password #user-login .form-item-remember-me input[type="checkbox"] {
   float: right;
   width: auto;
 }
-/* line 158, ../scss/_user.scss */
+/* line 163, ../scss/_user.scss */
 body.page-user-login #user-login .user-forgot-pass-link,
 body.page-user-register #user-login .user-forgot-pass-link,
 body.page-user-password #user-login .user-forgot-pass-link {
   float: left;
 }
-/* line 163, ../scss/_user.scss */
+/* line 168, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .form-submit,
 body.page-user-register #user-login .form-actions .form-submit,
 body.page-user-password #user-login .form-actions .form-submit {
   float: right;
 }
-/* line 166, ../scss/_user.scss */
+/* line 171, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link,
 body.page-user-register #user-login .form-actions .user-new-account-link,
 body.page-user-password #user-login .form-actions .user-new-account-link {
@@ -8908,13 +8914,13 @@ body.page-user-password #user-login .form-actions .user-new-account-link {
   font-size: 15.3px;
   color: #999999;
 }
-/* line 173, ../scss/_user.scss */
+/* line 178, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link span,
 body.page-user-register #user-login .form-actions .user-new-account-link span,
 body.page-user-password #user-login .form-actions .user-new-account-link span {
   display: inline-block;
 }
-/* line 177, ../scss/_user.scss */
+/* line 182, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link .register,
 body.page-user-register #user-login .form-actions .user-new-account-link .register,
 body.page-user-password #user-login .form-actions .user-new-account-link .register {
@@ -8934,7 +8940,7 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   color: black;
 }
 @media (min-width: 614px) {
-  /* line 201, ../scss/_user.scss */
+  /* line 206, ../scss/_user.scss */
   body.page-user-login form #edit-social-media-signin a,
   body.page-user-register form #edit-social-media-signin a,
   body.page-user-password form #edit-social-media-signin a {
@@ -8942,11 +8948,11 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   }
 }
 
-/* line 211, ../scss/_user.scss */
+/* line 216, ../scss/_user.scss */
 .view-administer-users fieldset {
   margin-bottom: 13.5px;
 }
-/* line 214, ../scss/_user.scss */
+/* line 219, ../scss/_user.scss */
 .view-administer-users select {
   margin-bottom: 13.5px;
 }
@@ -8955,12 +8961,12 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
  * Override default textfield float to put the "Add role" button next to
  * the input textfield.
  */
-/* line 225, ../scss/_user.scss */
+/* line 230, ../scss/_user.scss */
 #user-admin-roles td.edit-name {
   clear: both;
 }
 
-/* line 228, ../scss/_user.scss */
+/* line 233, ../scss/_user.scss */
 #user-admin-roles .form-item-name {
   float: left;
   /* LTR */
