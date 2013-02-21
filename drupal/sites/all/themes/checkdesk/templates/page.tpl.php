@@ -41,7 +41,21 @@
           <div id="content-header">
 
             <?php if ($title): ?>
-              <h1 class="title"><?php print $title; ?></h1>
+              <h1 class="title">
+                <?php
+                  if (arg(0) == 'user' && arg(1) == 'register') {
+                    print t('Create an account');
+                  } elseif (arg(0) == 'user' && arg(1) == 'password') {
+                    print t('Retrieve lost password');
+                  } elseif (arg(0) == 'user' && arg(1) == 'login') {
+                    print t('Sign In');
+                  } elseif (arg(0) == 'user' && arg(1) == '') {
+                    print t('Sign In');
+                  } else {
+                    print $title;
+                  }
+                ?>
+              </h1>
             <?php endif; ?>
 
             <?php print render($title_suffix); ?>

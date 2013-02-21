@@ -132,7 +132,7 @@ var debug;
 			$(window).resize(function(){
 				var bodyHeight = $(window).height();
 				var bodyHeight = bodyHeight - buffer;
-				console.log(bodyHeight);
+				// console.log(bodyHeight);
 				$('#sidebar-first.column .view-desk-reports').height(bodyHeight);
 			});
 
