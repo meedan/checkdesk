@@ -82,6 +82,11 @@ body.page-user-password { // both logged in and not logged ins states
       display: none;
     }
 
+    // hide extra link to twitter sign in
+    & > div > .item-list {
+      display: none;
+    }
+
     // The social media sign-in boxes
     #edit-social-media-signin {
       text-align: center;

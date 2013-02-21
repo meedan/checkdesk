@@ -119,6 +119,9 @@
     // for tweets
     .twitter_com {
       @include ctb-bg($grayLighter, rgba(238, 238, 238, 0.9));
+      .favicon, .domain {
+        display: none;
+      }
     }
 
 
@@ -137,9 +140,10 @@
         }
       } // thumbnail type
 
-      .report-type-twitter {
-        
-      } // twitter
+      .report-type-tweet {
+        & > div > a { display: none;}
+      }
+
     } // report content
 
     .report-status {

@@ -8,19 +8,37 @@
 // resuable resets and basic styles
 @include bb-tabs-reset;
 
+// Tab colors
+%tab-colors {
+  background-color: $tabs-bkg-color;
+  li.active a {
+    background-color: $tabs-active-bkg-color;
+    color: $tabs-active-color;
+  }
+  li a {
+    @include bb-transition($tabs-bkg-color, $tabs-active-bkg-color, '0.2s', 'background-color');  
+    &:hover {
+      color: $tabs-active-color;
+    }
+  }
+}
+
+$tab-padding: $gw;
+
+// Tabs
 div.tabs {
   @include reset-box-model;
   @include ctb-clearfix;
-  padding: {top: $gw; bottom: $gw;}
+  padding: { top: $tab-padding; bottom: $tab-padding; }
   
   ul.primary {
     @include reset-box-model;
     @include ctb-clearfix;
-    background-color: rgba(white, 0.8);
     font-family: $sans-font-family;
     font-size: $small-font-size;
     font-weight: 300;
-    
+    @extend %tab-colors;
+
     li {
       @include reset-box-model;
       @include span-columns($cw, $cw); // default full width
@@ -29,23 +47,17 @@ div.tabs {
 
       &.active {
         a {
-          @include span-columns($cw, $cw, $gw); // default full width
-          background-color: $tabLinkBackgroundActive;
-          color: $tabLinkColorActive; 
+          @include span-columns($cw, $cw, $gw); // default full width at smallest breakpoint
           display: inline-block;
         }
       }
 
       a {
-        @include span-columns($cw, $cw, $gw); // default full width
-        @include bb-transition($tabBackground, $tabLinkBackgroundActive, '0.2s', 'background-color');
+        @include span-columns($cw, $cw, $gw); // default full width at smallest breakpoint
         line-height: $base-line-height;
         display: inline-block;
-        padding: {top: $gw; bottom: $gw;}
+        padding: { top: $gw; bottom: $gw; }
 
-        &:hover {
-          color: $tabLinkColorActive;
-        }
       }
     }
   }

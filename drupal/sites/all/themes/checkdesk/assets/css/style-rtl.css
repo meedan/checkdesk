@@ -2430,8 +2430,8 @@ div.block:hover .edit {
 
 @font-face {
   font-family: "FontAwesome";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot');
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.eot?#iefix') format('eot'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.ttf') format('truetype'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome/fontawesome-webfont.svg#font') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -3516,6 +3516,362 @@ textarea {
   vertical-align: top;
 }
 
+/* line 8, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+code,
+pre {
+  padding: 0 3px 2px;
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-size: 16px;
+  color: #333333;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 17, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+code {
+  padding: 2px 4px;
+  color: #d14;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+
+/* line 25, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+pre {
+  display: block;
+  padding: 13px;
+  margin: 0 0 13.5px;
+  font-size: 17px;
+  line-height: 27px;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: pre-wrap;
+  background-color: #f5f5f5;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 41, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+pre.prettyprint {
+  margin-bottom: 27px;
+}
+/* line 46, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+pre code {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+}
+
+/* line 55, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
+.pre-scrollable {
+  max-height: 340px;
+  overflow-y: scroll;
+}
+
+/* line 9, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+table {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 19, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table {
+  width: 100%;
+  margin-bottom: 27px;
+}
+/* line 24, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table th,
+.table td {
+  padding: 8px;
+  line-height: 27px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+/* line 31, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table th {
+  font-weight: bold;
+}
+/* line 35, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table thead th {
+  vertical-align: bottom;
+}
+/* line 44, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table caption + thead tr:first-child th,
+.table caption + thead tr:first-child td,
+.table colgroup + thead tr:first-child th,
+.table colgroup + thead tr:first-child td,
+.table thead:first-child tr:first-child th,
+.table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+/* line 48, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+
+/* line 60, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-condensed th,
+.table-condensed td {
+  padding: 4px 5px;
+}
+
+/* line 69, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered {
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  border-left: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 76, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered th,
+.table-bordered td {
+  border-left: 1px solid #dddddd;
+}
+/* line 88, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered caption + thead tr:first-child th,
+.table-bordered caption + tbody tr:first-child th,
+.table-bordered caption + tbody tr:first-child td,
+.table-bordered colgroup + thead tr:first-child th,
+.table-bordered colgroup + tbody tr:first-child th,
+.table-bordered colgroup + tbody tr:first-child td,
+.table-bordered thead:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+/* line 93, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered thead:first-child tr:first-child th:first-child,
+.table-bordered tbody:first-child tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+/* line 99, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered thead:first-child tr:first-child th:last-child,
+.table-bordered tbody:first-child tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+/* line 107, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered thead:last-child tr:last-child th:first-child,
+.table-bordered tbody:last-child tr:last-child td:first-child,
+.table-bordered tfoot:last-child tr:last-child td:first-child {
+  -webkit-border-radius: 0 0 0 4px;
+  -moz-border-radius: 0 0 0 4px;
+  border-radius: 0 0 0 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+}
+/* line 115, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered thead:last-child tr:last-child th:last-child,
+.table-bordered tbody:last-child tr:last-child td:last-child,
+.table-bordered tfoot:last-child tr:last-child td:last-child {
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+}
+/* line 125, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered caption + thead tr:first-child th:first-child,
+.table-bordered caption + tbody tr:first-child td:first-child,
+.table-bordered colgroup + thead tr:first-child th:first-child,
+.table-bordered colgroup + tbody tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+/* line 133, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-bordered caption + thead tr:first-child th:last-child,
+.table-bordered caption + tbody tr:first-child td:last-child,
+.table-bordered colgroup + thead tr:first-child th:last-child,
+.table-bordered colgroup + tbody tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+
+/* line 151, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-striped tbody tr:nth-child(odd) td,
+.table-striped tbody tr:nth-child(odd) th {
+  background-color: #f9f9f9;
+}
+
+/* line 164, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+  background-color: whitesmoke;
+}
+
+/* line 178, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+table td[class*="span"],
+table th[class*="span"],
+.row-fluid table td[class*="span"],
+.row-fluid table th[class*="span"] {
+  display: table-cell;
+  float: none;
+  margin-left: 0;
+}
+
+/* line 187, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span1,
+.table th.span1 {
+  float: none;
+  width: 26px;
+  margin-left: 0;
+}
+/* line 188, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span2,
+.table th.span2 {
+  float: none;
+  width: 78px;
+  margin-left: 0;
+}
+/* line 189, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span3,
+.table th.span3 {
+  float: none;
+  width: 130px;
+  margin-left: 0;
+}
+/* line 190, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span4,
+.table th.span4 {
+  float: none;
+  width: 182px;
+  margin-left: 0;
+}
+/* line 191, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span5,
+.table th.span5 {
+  float: none;
+  width: 234px;
+  margin-left: 0;
+}
+/* line 192, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span6,
+.table th.span6 {
+  float: none;
+  width: 286px;
+  margin-left: 0;
+}
+/* line 193, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span7,
+.table th.span7 {
+  float: none;
+  width: 338px;
+  margin-left: 0;
+}
+/* line 194, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span8,
+.table th.span8 {
+  float: none;
+  width: 390px;
+  margin-left: 0;
+}
+/* line 195, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span9,
+.table th.span9 {
+  float: none;
+  width: 442px;
+  margin-left: 0;
+}
+/* line 196, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span10,
+.table th.span10 {
+  float: none;
+  width: 494px;
+  margin-left: 0;
+}
+/* line 197, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span11,
+.table th.span11 {
+  float: none;
+  width: 546px;
+  margin-left: 0;
+}
+/* line 198, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table td.span12,
+.table th.span12 {
+  float: none;
+  width: 598px;
+  margin-left: 0;
+}
+
+/* line 208, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody tr.success td {
+  background-color: #dff0d8;
+}
+/* line 211, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody tr.error td {
+  background-color: #f2dede;
+}
+/* line 214, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody tr.warning td {
+  background-color: #fcf8e3;
+}
+/* line 217, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table tbody tr.info td {
+  background-color: #d9edf7;
+}
+
+/* line 224, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr.success:hover td {
+  background-color: #d0e9c6;
+}
+/* line 227, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr.error:hover td {
+  background-color: #ebcccc;
+}
+/* line 230, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr.warning:hover td {
+  background-color: #faf2cc;
+}
+/* line 233, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
+.table-hover tbody tr.info:hover td {
+  background-color: #c4e3f3;
+}
+
+/* line 7, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.pull-right {
+  float: right;
+}
+
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.pull-left {
+  float: left;
+}
+
+/* line 15, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.hide {
+  display: none;
+}
+
+/* line 18, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.show {
+  display: block;
+}
+
+/* line 23, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.invisible {
+  visibility: hidden;
+}
+
+/* line 28, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
+.affix {
+  position: fixed;
+}
+
 /* line 11, ../scss/_alerts.scss */
 .alert,
 .messages {
@@ -4137,364 +4493,8 @@ a.absolute-messages-dismiss-all:hover {
   display: none;
 }
 
-/* line 8, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
-code,
-pre {
-  padding: 0 3px 2px;
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-  font-size: 16px;
-  color: #333333;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-
-/* line 17, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
-code {
-  padding: 2px 4px;
-  color: #d14;
-  background-color: #f7f7f9;
-  border: 1px solid #e1e1e8;
-}
-
-/* line 25, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
-pre {
-  display: block;
-  padding: 13px;
-  margin: 0 0 13.5px;
-  font-size: 17px;
-  line-height: 27px;
-  word-break: break-all;
-  word-wrap: break-word;
-  white-space: pre;
-  white-space: pre-wrap;
-  background-color: #f5f5f5;
-  border: 1px solid #cccccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-/* line 41, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
-pre.prettyprint {
-  margin-bottom: 27px;
-}
-/* line 46, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
-pre code {
-  padding: 0;
-  color: inherit;
-  background-color: transparent;
-  border: 0;
-}
-
-/* line 55, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_code.scss */
-.pre-scrollable {
-  max-height: 340px;
-  overflow-y: scroll;
-}
-
-/* line 9, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-table {
-  max-width: 100%;
-  background-color: transparent;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* line 19, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table {
-  width: 100%;
-  margin-bottom: 27px;
-}
-/* line 24, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table th,
-.table td {
-  padding: 8px;
-  line-height: 27px;
-  text-align: left;
-  vertical-align: top;
-  border-top: 1px solid #dddddd;
-}
-/* line 31, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table th {
-  font-weight: bold;
-}
-/* line 35, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table thead th {
-  vertical-align: bottom;
-}
-/* line 44, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table caption + thead tr:first-child th,
-.table caption + thead tr:first-child td,
-.table colgroup + thead tr:first-child th,
-.table colgroup + thead tr:first-child td,
-.table thead:first-child tr:first-child th,
-.table thead:first-child tr:first-child td {
-  border-top: 0;
-}
-/* line 48, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table tbody + tbody {
-  border-top: 2px solid #dddddd;
-}
-
-/* line 60, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-condensed th,
-.table-condensed td {
-  padding: 4px 5px;
-}
-
-/* line 69, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered {
-  border: 1px solid #dddddd;
-  border-collapse: separate;
-  *border-collapse: collapse;
-  border-left: 0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-/* line 76, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered th,
-.table-bordered td {
-  border-left: 1px solid #dddddd;
-}
-/* line 88, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered caption + thead tr:first-child th,
-.table-bordered caption + tbody tr:first-child th,
-.table-bordered caption + tbody tr:first-child td,
-.table-bordered colgroup + thead tr:first-child th,
-.table-bordered colgroup + tbody tr:first-child th,
-.table-bordered colgroup + tbody tr:first-child td,
-.table-bordered thead:first-child tr:first-child th,
-.table-bordered tbody:first-child tr:first-child th,
-.table-bordered tbody:first-child tr:first-child td {
-  border-top: 0;
-}
-/* line 93, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered thead:first-child tr:first-child th:first-child,
-.table-bordered tbody:first-child tr:first-child td:first-child {
-  -webkit-border-top-left-radius: 4px;
-  border-top-left-radius: 4px;
-  -moz-border-radius-topleft: 4px;
-}
-/* line 99, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered thead:first-child tr:first-child th:last-child,
-.table-bordered tbody:first-child tr:first-child td:last-child {
-  -webkit-border-top-right-radius: 4px;
-  border-top-right-radius: 4px;
-  -moz-border-radius-topright: 4px;
-}
-/* line 107, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered thead:last-child tr:last-child th:first-child,
-.table-bordered tbody:last-child tr:last-child td:first-child,
-.table-bordered tfoot:last-child tr:last-child td:first-child {
-  -webkit-border-radius: 0 0 0 4px;
-  -moz-border-radius: 0 0 0 4px;
-  border-radius: 0 0 0 4px;
-  -webkit-border-bottom-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  -moz-border-radius-bottomleft: 4px;
-}
-/* line 115, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered thead:last-child tr:last-child th:last-child,
-.table-bordered tbody:last-child tr:last-child td:last-child,
-.table-bordered tfoot:last-child tr:last-child td:last-child {
-  -webkit-border-bottom-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  -moz-border-radius-bottomright: 4px;
-}
-/* line 125, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered caption + thead tr:first-child th:first-child,
-.table-bordered caption + tbody tr:first-child td:first-child,
-.table-bordered colgroup + thead tr:first-child th:first-child,
-.table-bordered colgroup + tbody tr:first-child td:first-child {
-  -webkit-border-top-left-radius: 4px;
-  border-top-left-radius: 4px;
-  -moz-border-radius-topleft: 4px;
-}
-/* line 133, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-bordered caption + thead tr:first-child th:last-child,
-.table-bordered caption + tbody tr:first-child td:last-child,
-.table-bordered colgroup + thead tr:first-child th:last-child,
-.table-bordered colgroup + tbody tr:first-child td:last-child {
-  -webkit-border-top-right-radius: 4px;
-  border-top-right-radius: 4px;
-  -moz-border-radius-topright: 4px;
-}
-
-/* line 151, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-striped tbody tr:nth-child(odd) td,
-.table-striped tbody tr:nth-child(odd) th {
-  background-color: #f9f9f9;
-}
-
-/* line 164, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-hover tbody tr:hover td,
-.table-hover tbody tr:hover th {
-  background-color: whitesmoke;
-}
-
-/* line 178, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-table td[class*="span"],
-table th[class*="span"],
-.row-fluid table td[class*="span"],
-.row-fluid table th[class*="span"] {
-  display: table-cell;
-  float: none;
-  margin-left: 0;
-}
-
-/* line 187, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span1,
-.table th.span1 {
-  float: none;
-  width: 26px;
-  margin-left: 0;
-}
-/* line 188, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span2,
-.table th.span2 {
-  float: none;
-  width: 78px;
-  margin-left: 0;
-}
-/* line 189, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span3,
-.table th.span3 {
-  float: none;
-  width: 130px;
-  margin-left: 0;
-}
-/* line 190, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span4,
-.table th.span4 {
-  float: none;
-  width: 182px;
-  margin-left: 0;
-}
-/* line 191, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span5,
-.table th.span5 {
-  float: none;
-  width: 234px;
-  margin-left: 0;
-}
-/* line 192, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span6,
-.table th.span6 {
-  float: none;
-  width: 286px;
-  margin-left: 0;
-}
-/* line 193, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span7,
-.table th.span7 {
-  float: none;
-  width: 338px;
-  margin-left: 0;
-}
-/* line 194, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span8,
-.table th.span8 {
-  float: none;
-  width: 390px;
-  margin-left: 0;
-}
-/* line 195, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span9,
-.table th.span9 {
-  float: none;
-  width: 442px;
-  margin-left: 0;
-}
-/* line 196, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span10,
-.table th.span10 {
-  float: none;
-  width: 494px;
-  margin-left: 0;
-}
-/* line 197, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span11,
-.table th.span11 {
-  float: none;
-  width: 546px;
-  margin-left: 0;
-}
-/* line 198, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table td.span12,
-.table th.span12 {
-  float: none;
-  width: 598px;
-  margin-left: 0;
-}
-
-/* line 208, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table tbody tr.success td {
-  background-color: #dff0d8;
-}
-/* line 211, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table tbody tr.error td {
-  background-color: #f2dede;
-}
-/* line 214, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table tbody tr.warning td {
-  background-color: #fcf8e3;
-}
-/* line 217, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table tbody tr.info td {
-  background-color: #d9edf7;
-}
-
-/* line 224, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-hover tbody tr.success:hover td {
-  background-color: #d0e9c6;
-}
-/* line 227, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-hover tbody tr.error:hover td {
-  background-color: #ebcccc;
-}
-/* line 230, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-hover tbody tr.warning:hover td {
-  background-color: #faf2cc;
-}
-/* line 233, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_tables.scss */
-.table-hover tbody tr.info:hover td {
-  background-color: #c4e3f3;
-}
-
-/* line 7, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
-.pull-right {
-  float: right;
-}
-
-/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
-.pull-left {
-  float: left;
-}
-
-/* line 15, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
-.hide {
-  display: none;
-}
-
-/* line 18, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
-.show {
-  display: block;
-}
-
-/* line 23, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
-.invisible {
-  visibility: hidden;
-}
-
-/* line 28, ../extensions/bowerbird/stylesheets/bowerbird/compass_twitter_bootstrap/_utilities.scss */
-.affix {
-  position: fixed;
-}
-
 @media (min-width: 1238px) {
-  /* line 179, ../scss/style.scss */
+  /* line 137, ../scss/style.scss */
   body {
     max-width: -14px;
     padding-left: 10px;
@@ -4509,7 +4509,7 @@ table th[class*="span"],
     clear: both;
   }
 }
-/* line 181, ../scss/style.scss */
+/* line 139, ../scss/style.scss */
 body #main {
   padding-right: 3.31126%;
   padding-left: 3.31126%;
@@ -4834,7 +4834,37 @@ ul.tabs li a {
   border: 0;
 }
 
-/* line 11, ../scss/_tabs.scss */
+/* line 12, ../scss/_tabs.scss */
+div.tabs ul.primary {
+  background-color: #f7f7f7;
+}
+/* line 14, ../scss/_tabs.scss */
+div.tabs ul.primary li.active a {
+  background-color: #ededed;
+  color: black;
+}
+/* line 18, ../scss/_tabs.scss */
+div.tabs ul.primary li a {
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  background-color: #f7f7f7;
+}
+/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
+div.tabs ul.primary li a:hover {
+  background-color: #ededed;
+}
+/* line 20, ../scss/_tabs.scss */
+div.tabs ul.primary li a:hover {
+  color: black;
+}
+
+/* line 29, ../scss/_tabs.scss */
 div.tabs {
   margin: 0;
   padding: 0;
@@ -4853,13 +4883,12 @@ div.tabs:before, div.tabs:after {
 div.tabs:after {
   clear: both;
 }
-/* line 16, ../scss/_tabs.scss */
+/* line 34, ../scss/_tabs.scss */
 div.tabs ul.primary {
   margin: 0;
   padding: 0;
   border: 0;
   *zoom: 1;
-  background-color: rgba(255, 255, 255, 0.8);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 300;
@@ -4874,7 +4903,7 @@ div.tabs ul.primary:before, div.tabs ul.primary:after {
 div.tabs ul.primary:after {
   clear: both;
 }
-/* line 24, ../scss/_tabs.scss */
+/* line 42, ../scss/_tabs.scss */
 div.tabs ul.primary li {
   margin: 0;
   padding: 0;
@@ -4886,7 +4915,7 @@ div.tabs ul.primary li {
   display: inline-block;
   float: right;
 }
-/* line 31, ../scss/_tabs.scss */
+/* line 49, ../scss/_tabs.scss */
 div.tabs ul.primary li.active a {
   padding-right: 3.31126%;
   padding-left: 3.31126%;
@@ -4894,11 +4923,9 @@ div.tabs ul.primary li.active a {
   float: right;
   margin-left: 3.31126%;
   display: inline;
-  background-color: #0088cc;
-  color: #333333;
   display: inline-block;
 }
-/* line 39, ../scss/_tabs.scss */
+/* line 55, ../scss/_tabs.scss */
 div.tabs ul.primary li a {
   padding-right: 3.31126%;
   padding-left: 3.31126%;
@@ -4906,38 +4933,21 @@ div.tabs ul.primary li a {
   float: right;
   margin-left: 3.31126%;
   display: inline;
-  -webkit-transition-property: background-color;
-  -moz-transition-property: background-color;
-  -o-transition-property: background-color;
-  transition-property: background-color;
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  background-color: white;
   line-height: 1.5;
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
 }
-/* line 10, ../extensions/bowerbird/stylesheets/bowerbird/_transition.scss */
-div.tabs ul.primary li a:hover {
-  background-color: #0088cc;
-}
-/* line 46, ../scss/_tabs.scss */
-div.tabs ul.primary li a:hover {
-  color: #333333;
-}
 
 @media (min-width: 614px) {
-  /* line 59, ../scss/_tabs.scss */
+  /* line 71, ../scss/_tabs.scss */
   div.tabs ul.primary {
     display: block;
     margin: 0 auto;
     float: none;
     text-align: center;
   }
-  /* line 65, ../scss/_tabs.scss */
+  /* line 77, ../scss/_tabs.scss */
   div.tabs ul.primary li, div.tabs ul.primary li a, div.tabs ul.primary li.active a {
     margin: 0;
     padding: 0;
@@ -8422,7 +8432,11 @@ body.sidebar-first #main div#content .inner {
   background-color: #eeeeee;
   background-color: rgba(238, 238, 238, 0.9);
 }
-/* line 125, ../scss/_sidebar.scss */
+/* line 122, ../scss/_sidebar.scss */
+#incoming-reports .report-row .twitter_com .favicon, #incoming-reports .report-row .twitter_com .domain {
+  display: none;
+}
+/* line 128, ../scss/_sidebar.scss */
 #incoming-reports .report-row .report-content {
   *zoom: 1;
 }
@@ -8436,26 +8450,30 @@ body.sidebar-first #main div#content .inner {
 #incoming-reports .report-row .report-content:after {
   clear: both;
 }
-/* line 128, ../scss/_sidebar.scss */
+/* line 131, ../scss/_sidebar.scss */
 #incoming-reports .report-row .report-content .report-type-thumbnail {
   max-width: 100%;
 }
-/* line 130, ../scss/_sidebar.scss */
+/* line 133, ../scss/_sidebar.scss */
 #incoming-reports .report-row .report-content .report-type-thumbnail .report-thumbnail img {
   opacity: 0.9;
   filter: alpha(opacity=90);
 }
-/* line 133, ../scss/_sidebar.scss */
+/* line 136, ../scss/_sidebar.scss */
 #incoming-reports .report-row .report-content .report-type-thumbnail .report-title {
   margin: 6.75px 0;
   font-size: 15.3px;
   line-height: 1.2;
 }
-/* line 145, ../scss/_sidebar.scss */
+/* line 144, ../scss/_sidebar.scss */
+#incoming-reports .report-row .report-content .report-type-tweet > div > a {
+  display: none;
+}
+/* line 149, ../scss/_sidebar.scss */
 #incoming-reports .report-row .report-status {
   float: left;
 }
-/* line 150, ../scss/_sidebar.scss */
+/* line 154, ../scss/_sidebar.scss */
 #incoming-reports .report-row .verified span {
   color: #46a546;
 }
@@ -8467,7 +8485,7 @@ body.sidebar-first #main div#content .inner {
   color: #2f6f2f;
   margin-left: 10px;
 }
-/* line 154, ../scss/_sidebar.scss */
+/* line 158, ../scss/_sidebar.scss */
 #incoming-reports .report-row .failed span {
   color: #9d261d;
 }
@@ -8479,7 +8497,7 @@ body.sidebar-first #main div#content .inner {
   color: #5c1611;
   margin-left: 10px;
 }
-/* line 158, ../scss/_sidebar.scss */
+/* line 162, ../scss/_sidebar.scss */
 #incoming-reports .report-row .undetermined span {
   color: #f89406;
 }
@@ -8491,7 +8509,7 @@ body.sidebar-first #main div#content .inner {
   color: #ad6704;
   margin-left: 10px;
 }
-/* line 162, ../scss/_sidebar.scss */
+/* line 166, ../scss/_sidebar.scss */
 #incoming-reports .report-row .in_progress span {
   color: #ffc40d;
 }
@@ -8503,7 +8521,7 @@ body.sidebar-first #main div#content .inner {
   color: #c09100;
   margin-left: 10px;
 }
-/* line 168, ../scss/_sidebar.scss */
+/* line 172, ../scss/_sidebar.scss */
 #incoming-reports .report-row .report-detail-link a {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
@@ -8568,11 +8586,11 @@ body.sidebar-first #main div#content .inner {
 #incoming-reports .report-row .report-detail-link a:active, #incoming-reports .report-row .report-detail-link a:active:visited {
   color: white;
 }
-/* line 175, ../scss/_sidebar.scss */
+/* line 179, ../scss/_sidebar.scss */
 #incoming-reports .report-row:hover {
   color: #333333;
 }
-/* line 177, ../scss/_sidebar.scss */
+/* line 181, ../scss/_sidebar.scss */
 #incoming-reports .report-row:hover .report-row-container {
   position: static;
   border: 4px solid #fbeed5;
@@ -8580,17 +8598,17 @@ body.sidebar-first #main div#content .inner {
   margin-top: -4px;
   margin-right: -4px;
 }
-/* line 186, ../scss/_sidebar.scss */
+/* line 190, ../scss/_sidebar.scss */
 #incoming-reports .report-row:hover .report-content .report-thumbnail img {
   opacity: 1;
   filter: alpha(opacity=100);
 }
-/* line 195, ../scss/_sidebar.scss */
+/* line 199, ../scss/_sidebar.scss */
 #incoming-reports .ui-draggable-dragging .report-row-container {
   border: 4px solid #fbeed5;
   background-color: #fcf8e3;
 }
-/* line 202, ../scss/_sidebar.scss */
+/* line 206, ../scss/_sidebar.scss */
 #incoming-reports .view-empty {
   clear: both;
   float: right;
@@ -8719,12 +8737,18 @@ body.page-user-password #user-login .form-required {
   display: none;
 }
 /* line 86, ../scss/_user.scss */
+body.page-user-login #user-login > div > .item-list,
+body.page-user-register #user-login > div > .item-list,
+body.page-user-password #user-login > div > .item-list {
+  display: none;
+}
+/* line 91, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin,
 body.page-user-register #user-login #edit-social-media-signin,
 body.page-user-password #user-login #edit-social-media-signin {
   text-align: center;
 }
-/* line 88, ../scss/_user.scss */
+/* line 93, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin .item-list li,
 body.page-user-register #user-login #edit-social-media-signin .item-list li,
 body.page-user-password #user-login #edit-social-media-signin .item-list li {
@@ -8735,7 +8759,7 @@ body.page-user-password #user-login #edit-social-media-signin .item-list li {
   display: inline;
   margin-left: 10px;
 }
-/* line 94, ../scss/_user.scss */
+/* line 99, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin .item-list li a,
 body.page-user-register #user-login #edit-social-media-signin .item-list li a,
 body.page-user-password #user-login #edit-social-media-signin .item-list li a {
@@ -8749,13 +8773,13 @@ body.page-user-password #user-login #edit-social-media-signin .item-list li a {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 100, ../scss/_user.scss */
+/* line 105, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin .item-list li a:hover,
 body.page-user-register #user-login #edit-social-media-signin .item-list li a:hover,
 body.page-user-password #user-login #edit-social-media-signin .item-list li a:hover {
   text-decoration: none;
 }
-/* line 109, ../scss/_user.scss */
+/* line 114, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin li.first a,
 body.page-user-register #user-login #edit-social-media-signin li.first a,
 body.page-user-password #user-login #edit-social-media-signin li.first a {
@@ -8785,7 +8809,7 @@ body.page-user-password #user-login #edit-social-media-signin li.first a:before 
   color: white;
   margin-left: 10px;
 }
-/* line 115, ../scss/_user.scss */
+/* line 120, ../scss/_user.scss */
 body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook'],
 body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook'],
 body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook'] {
@@ -8815,7 +8839,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   color: white;
   margin-left: 10px;
 }
-/* line 122, ../scss/_user.scss */
+/* line 127, ../scss/_user.scss */
 body.page-user-login #user-login .or,
 body.page-user-register #user-login .or,
 body.page-user-password #user-login .or {
@@ -8823,7 +8847,7 @@ body.page-user-password #user-login .or {
   text-align: center;
   margin: 13.5px 0;
 }
-/* line 126, ../scss/_user.scss */
+/* line 131, ../scss/_user.scss */
 body.page-user-login #user-login .or span,
 body.page-user-register #user-login .or span,
 body.page-user-password #user-login .or span {
@@ -8839,7 +8863,7 @@ body.page-user-password #user-login .or span {
   -o-border-radius: 1000px;
   border-radius: 1000px;
 }
-/* line 137, ../scss/_user.scss */
+/* line 142, ../scss/_user.scss */
 body.page-user-login #user-login .user-links,
 body.page-user-register #user-login .user-links,
 body.page-user-password #user-login .user-links {
@@ -8864,13 +8888,13 @@ body.page-user-register #user-login .user-links:after,
 body.page-user-password #user-login .user-links:after {
   clear: both;
 }
-/* line 144, ../scss/_user.scss */
+/* line 149, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me,
 body.page-user-register #user-login .form-item-remember-me,
 body.page-user-password #user-login .form-item-remember-me {
   float: right;
 }
-/* line 146, ../scss/_user.scss */
+/* line 151, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me label,
 body.page-user-register #user-login .form-item-remember-me label,
 body.page-user-password #user-login .form-item-remember-me label {
@@ -8879,26 +8903,26 @@ body.page-user-password #user-login .form-item-remember-me label {
   font-size: 15.3px;
   line-height: 1.5;
 }
-/* line 152, ../scss/_user.scss */
+/* line 157, ../scss/_user.scss */
 body.page-user-login #user-login .form-item-remember-me input[type="checkbox"],
 body.page-user-register #user-login .form-item-remember-me input[type="checkbox"],
 body.page-user-password #user-login .form-item-remember-me input[type="checkbox"] {
   float: right;
   width: auto;
 }
-/* line 158, ../scss/_user.scss */
+/* line 163, ../scss/_user.scss */
 body.page-user-login #user-login .user-forgot-pass-link,
 body.page-user-register #user-login .user-forgot-pass-link,
 body.page-user-password #user-login .user-forgot-pass-link {
   float: left;
 }
-/* line 163, ../scss/_user.scss */
+/* line 168, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .form-submit,
 body.page-user-register #user-login .form-actions .form-submit,
 body.page-user-password #user-login .form-actions .form-submit {
   float: right;
 }
-/* line 166, ../scss/_user.scss */
+/* line 171, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link,
 body.page-user-register #user-login .form-actions .user-new-account-link,
 body.page-user-password #user-login .form-actions .user-new-account-link {
@@ -8908,13 +8932,13 @@ body.page-user-password #user-login .form-actions .user-new-account-link {
   font-size: 15.3px;
   color: #999999;
 }
-/* line 173, ../scss/_user.scss */
+/* line 178, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link span,
 body.page-user-register #user-login .form-actions .user-new-account-link span,
 body.page-user-password #user-login .form-actions .user-new-account-link span {
   display: inline-block;
 }
-/* line 177, ../scss/_user.scss */
+/* line 182, ../scss/_user.scss */
 body.page-user-login #user-login .form-actions .user-new-account-link .register,
 body.page-user-register #user-login .form-actions .user-new-account-link .register,
 body.page-user-password #user-login .form-actions .user-new-account-link .register {
@@ -8934,7 +8958,7 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   color: black;
 }
 @media (min-width: 614px) {
-  /* line 201, ../scss/_user.scss */
+  /* line 206, ../scss/_user.scss */
   body.page-user-login form #edit-social-media-signin a,
   body.page-user-register form #edit-social-media-signin a,
   body.page-user-password form #edit-social-media-signin a {
@@ -8942,11 +8966,11 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   }
 }
 
-/* line 211, ../scss/_user.scss */
+/* line 216, ../scss/_user.scss */
 .view-administer-users fieldset {
   margin-bottom: 13.5px;
 }
-/* line 214, ../scss/_user.scss */
+/* line 219, ../scss/_user.scss */
 .view-administer-users select {
   margin-bottom: 13.5px;
 }
@@ -8955,12 +8979,12 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
  * Override default textfield float to put the "Add role" button next to
  * the input textfield.
  */
-/* line 225, ../scss/_user.scss */
+/* line 230, ../scss/_user.scss */
 #user-admin-roles td.edit-name {
   clear: both;
 }
 
-/* line 228, ../scss/_user.scss */
+/* line 233, ../scss/_user.scss */
 #user-admin-roles .form-item-name {
   float: left;
   /* LTR */
@@ -9034,25 +9058,12 @@ body.page-reports li.views-fluid-grid-item {
     margin-left: 0.40225%;
   }
 }
-/* line 59, ../scss/_shared.scss */
-html body:before {
-  position: fixed;
-  content: "v0.1 Alpha Alpaca";
-  background-color: rgba(255, 255, 0, 0.5);
-  padding: 3px;
-  border-top: 1px solid yellow;
-  border-bottom: 1px solid yellow;
-  bottom: 0;
-  left: 0;
-  font-size: 11px;
-}
-
-/* line 267, ../scss/style.scss */
+/* line 225, ../scss/style.scss */
 body {
   background-color: #f0f0f0;
 }
 
-/* line 272, ../scss/style.scss */
+/* line 230, ../scss/style.scss */
 #l10n-client {
   display: block !important;
   visibility: visible !important;
@@ -9061,23 +9072,23 @@ body {
   font-weight: normal;
   line-height: 27px;
 }
-/* line 276, ../scss/style.scss */
+/* line 234, ../scss/style.scss */
 #l10n-client form {
   width: 100%;
 }
-/* line 279, ../scss/style.scss */
+/* line 237, ../scss/style.scss */
 #l10n-client form .form-item textarea {
   clear: both;
   float: none;
 }
 
-/* line 289, ../scss/style.scss */
+/* line 247, ../scss/style.scss */
 .rtl {
   text-align: right;
   direction: rtl;
 }
 
-/* line 293, ../scss/style.scss */
+/* line 251, ../scss/style.scss */
 .ltr {
   text-align: left;
   direction: ltr;
