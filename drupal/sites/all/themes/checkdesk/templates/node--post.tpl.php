@@ -10,5 +10,8 @@
       <?php print render($content['body']); ?>
     </div>
     <p><?php print render($content['field_desk']); ?></p>
+    <div class="update-comments">
+     <?php print render($content['livefyre']); ?>
+    </div>
   </article>
 </section>
