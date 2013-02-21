@@ -28,11 +28,18 @@ function checkdesk_theme() {
  * @see html.tpl.php
  */
 function checkdesk_preprocess_html(&$variables) {
+  
+  if(arg(0) == 'user' && arg(1) == '') {
+   $class = 'page-user-login';
+   $variables['classes_array'][] = $class;
+  }
+
   // set body class for language
   if ($variables['language']) {
     $class = 'body-' . $variables['language']->language;
+    $variables['classes_array'][] = $class;
   }
-  $variables['classes_array'][] = $class;
+  
 }
 
 /**
@@ -491,14 +498,56 @@ function checkdesk_field__field_rating(&$variables) {
 
 
 /**
- * Adjust compose update form
+ * Adjust user login form
  */
 function checkdesk_form_alter(&$form, &$form_state) {
   if($form['form_id']['#id'] == 'edit-user-login') {
+    unset($form['social_media_signin']['#title']);
+    $form['social_media_signin']['#suffix'] = '<div class="or"><span>' . t('or') . '</span></div>';
     unset($form['name']['#description']);
+    unset($form['name']['#title']);
     unset($form['pass']['#description']);
+    unset($form['pass']['#title']);
+    $form['name']['#attributes']['placeholder'] = t('Username');
+    $form['pass']['#attributes']['placeholder'] = t('Password');
+    // Add forgot link and a wrapper around forgot pass and remember me
+    $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
+    $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
+    $form['remember_me']['#suffix'] = '</div>';
+    // add a wrapper around new account link
+    unset($form['links']);
+    $link['attributes']['class'][] = 'register';
+    $link['attributes']['title'] = t('Sign Up');
+    $new_account_link = l(t('Sign Up'), 'user/register', $link);
+    $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
+    ' . $new_account_link . '</div>';    
   }
 }
+
+function checkdesk_fboauth_action__connect(&$variables) {
+  $action = $variables['action'];
+  $link = $variables['properties'];
+  $url = url($link['href'], array('query' => $link['query']));
+  $link['attributes']['class'] = isset($link['attributes']['class']) ? $link['attributes']['class'] : 'facebook-action-connect';
+  // Button i18n.
+  $language = $GLOBALS['language']->language;
+  $link['attributes']['class'] .= " fb-button-$language";
+  $attributes = isset($link['attributes']) ? drupal_attributes($link['attributes']) : '';
+  $title = isset($link['title']) ? check_plain($link['title']) : '';
+  $text = t('Facebook');
+  return "<a $attributes href='$url' alt='$title'>$text</a>";
+}
+
+/**
+ * Change Twitter login button from image to simple
+ */
+function checkdesk_twitter_signin_button() {
+  $link['attributes']['class'][] = 'twitter-action-signin';
+  $link['attributes']['title'] = t('Sign In with Twitter');
+  return l(t('Twitter'), 'twitter/redirect', $link);
+}
+
+
 
 /**
  * Adjust compose update form

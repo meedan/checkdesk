@@ -123,7 +123,6 @@ $omega: opposite-position($from-direction);
 // TB utilities
 @import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
 
-
 // Checkdesk mixins
 //
 @import "mixins"; // Completely unrelated to Twitter Bootstrap mixins file
@@ -181,7 +180,7 @@ body {
 
 // Tabs
 @import "bowerbird/tabs"; // reset
-@import "tabs";  // checkdesk styles
+// @import "tabs";  // checkdesk styles
 
 // Form: password strength section
 @import "form_password";

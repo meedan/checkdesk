@@ -49,15 +49,6 @@ body.sidebar-first .tabs {
   display: none!important;
 }
 
-// Hide stuff on the user section
-body.not-front.not-logged-in.page-user {
-  // Hide breadcrumbs and titles
-  div.breadcrumb, 
-  h1.title {
-   display: none;
-  }
-}
-
 p br { display: none; } // hack to remove br's from content
 
 // Drupal autocomplete indicator is appearing broken
