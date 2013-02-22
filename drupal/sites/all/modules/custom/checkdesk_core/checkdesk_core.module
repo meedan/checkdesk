@@ -1198,12 +1198,5 @@ function checkdesk_core_views_api() {
  * Implements hook_form_FORM_ID_alter() for `user_cancel_confirm_form`.
  */
 function checkdesk_core_form_user_cancel_confirm_form_alter(&$form, $form_state) {
-  $form['actions']['submit']['#submit'][] = '_checkdesk_core_user_cancel_confirm_form_submit';
-}
-
-/**
- * Submit function for `_checkdesk_core_user_cancel_confirm_form_submit`.
- */
-function _checkdesk_core_user_cancel_confirm_form_submit($form, &$form_state) {
-  $form_state['redirect'] = array('administer-users');
+  $form['#action'] .= '?destination=administer-users';
 }
