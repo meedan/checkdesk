@@ -459,6 +459,16 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: create field_bio.
+  $permissions['create field_bio'] = array(
+    'name' => 'create field_bio',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'citizen journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: create field_rating.
   $permissions['create field_rating'] = array(
     'name' => 'create field_rating',
@@ -716,6 +726,15 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: edit field_bio.
+  $permissions['edit field_bio'] = array(
+    'name' => 'edit field_bio',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: edit field_rating.
   $permissions['edit field_rating'] = array(
     'name' => 'edit field_rating',
@@ -762,6 +781,16 @@ function checkdesk_core_feature_user_default_permissions() {
       1 => 'journalist',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: edit own field_bio.
+  $permissions['edit own field_bio'] = array(
+    'name' => 'edit own field_bio',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'citizen journalist',
+    ),
+    'module' => 'field_permissions',
   );
 
   // Exported permission: edit own field_rating.
@@ -1224,6 +1253,17 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'heartbeat',
   );
 
+  // Exported permission: view field_bio.
+  $permissions['view field_bio'] = array(
+    'name' => 'view field_bio',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'citizen journalist',
+      2 => 'journalist',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: view field_rating.
   $permissions['view field_rating'] = array(
     'name' => 'view field_rating',
@@ -1264,6 +1304,16 @@ function checkdesk_core_feature_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'maillog',
+  );
+
+  // Exported permission: view own field_bio.
+  $permissions['view own field_bio'] = array(
+    'name' => 'view own field_bio',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'citizen journalist',
+    ),
+    'module' => 'field_permissions',
   );
 
   // Exported permission: view own field_rating.
