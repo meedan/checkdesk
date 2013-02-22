@@ -683,6 +683,9 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     $form['field_desk']['#access'] = false;
   }
 
+  // Hide summary
+  unset($form['body'][LANGUAGE_NONE][0]['summary']);
+
   // Make the body field a drop target for reports.
   $form['body']['#prefix'] = '<div class="droppable">';
   $form['body']['#suffix'] = '</div>';
