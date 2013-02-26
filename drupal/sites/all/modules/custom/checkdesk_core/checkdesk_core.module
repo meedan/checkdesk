@@ -1131,6 +1131,23 @@ function checkdesk_core_user_insert(&$edit, $account, $category) {
   //Add new citizen journalist role to all registered users
   $user_roles = array_flip(user_roles(TRUE));
   $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
+
+  // Profile image for Twitter
+  if (isset($_SESSION['twitter']) && isset($_SESSION['twitter']['values'])) {
+    $key = variable_get('twitter_consumer_key', '');
+    $secret = variable_get('twitter_consumer_secret', '');
+    $response = $_SESSION['twitter']['values'];
+
+    $twitter = new TwitterOAuth($key, $secret, $response['oauth_token'], $response['oauth_token_secret']);
+    try {
+      $twitter_account = $twitter->users_show($response['screen_name']);
+    } catch (TwitterException $e) {
+      form_set_error('screen_name', t('Request failed: @message.', array('@message' => $e->getMessage())));
+      return;
+    }
+    $twitter_account->set_auth($response);
+    _twitter_signin_get_picture($account, $twitter_account);
+  }
 }
 
 /**
