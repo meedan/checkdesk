@@ -23,7 +23,7 @@ function should_notify($data, $option) {
 }
 
 // Is this user a journalist?
-$is_journalist = mysql_result(mysql_query("SELECT COUNT(*) FROM users_roles WHERE uid = $uid AND rid = 4", $mysql), 0);
+$is_journalist = mysql_result(mysql_query("SELECT COUNT(*) FROM users_roles ur INNER JOIN role r ON r.rid = ur.rid WHERE ur.uid = $uid AND r.name = 'journalist'", $mysql), 0);
 
 $query = "SELECT COUNT(DISTINCT(ha.uaid)) FROM heartbeat_activity ha LEFT JOIN node n ON n.nid = ha.nid LEFT JOIN comment c ON c.cid = ha.nid LEFT JOIN comment c2 ON c2.nid = n.nid WHERE (";
 if ($is_journalist) {
