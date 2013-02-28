@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * @file
+ * Install file
+ *
+ * @author Stijn De Meyere
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function ife_schema() {
+  $schema = array();
+
+  // Table for positions and types of the challenges.
+  $schema['ife'] = array(
+    'description' => 'This table describes which form should be used with field messages and which field types should be converted.',
+    'fields' => array(
+      'form_id' => array(
+        'description' => 'The form_id of the form to use with field messages.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+      ),
+      'field_types' => array(
+        'description' => 'Serialized array of the field types to convert.',
+        'type' => 'text',
+        'size' => 'big',
+        'serialize' => TRUE,
+      ),
+      'status' => array(
+        'description' => 'Enabled boolean. 1 (True), 0 (False)',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'display' => array(
+        'description' => 'Display type',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => -1,
+      ),
+    ),
+    'primary key' => array('form_id'),
+  );
+
+  return $schema;
+}
+
+
+/**
+ * Implements hook_install().
+ */
+function ife_install() {
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_install_schema('ife')
+  // TODO Please review the conversion of this statement to the D7 database API syntax.
+  /* db_query("UPDATE {system} SET weight = 1000 WHERE name = 'ife'") */
+  db_update('system')
+  ->fields(array(
+    'weight' => 1000,
+  ))
+  ->condition('name', 'ife')
+  ->execute();
+
+  // insert some defaults
+  $form_ids = array(
+    'comment_form',
+    'contact_mail_user',
+    'contact_mail_page',
+    'user_register_form',
+    'user_pass',
+    'user_login',
+    'user_login_block',
+    'forum_node_form',
+  );
+  foreach ($form_ids as $form_id) {
+    // TODO Please review the conversion of this statement to the D7 database API syntax.
+    /* db_query("INSERT INTO {ife} (form_id, field_types, status) VALUES ('%s', NULL, 0)", $form_id) */
+    $id = db_insert('ife')
+  ->fields(array(
+      'form_id' => $form_id,
+      'field_types' => NULL,
+      'status' => 0,
+    ))
+  ->execute();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ife_uninstall() {
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_uninstall_schema('ife')
+  variable_del('ife_show_form_ids');
+  variable_del('ife_display');
+  variable_del('ife_general_message');
+}
