@@ -13,7 +13,7 @@
   margin-bottom: $base-line-height;
   border: { top: 1px solid $warningBorder; bottom: 1px solid $warningBorder; }
   border: {left-width: 0; right-width: 0; }
-  font-size: $smaller-font-size;
+  // font-size: $smaller-font-size;
   display: block;
   // overflow: hidden; // prevent horizontal scrolling with big errors
   // max-height: 150px; // HACK ... but yeah that's enough errors
@@ -39,6 +39,7 @@
 // Alert titles
 .alert h4 {
   margin: 0 0 $base-line-height/2 0;
+  padding: 0;
 }
 
 // Alert success state

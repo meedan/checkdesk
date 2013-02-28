@@ -187,9 +187,9 @@ function checkdesk_status_messages($variables) {
   $output = '';
 
   $status_heading = array(
-    'status' => t('Status message'),
-    'error' => t('Error message'),
-    'warning' => t('Warning message'),
+    'status' => t('Status'),
+    'error' => t('Errors occurred'),
+    'warning' => t('Warning'),
   );
 
   foreach (drupal_get_messages($display) as $type => $messages) {

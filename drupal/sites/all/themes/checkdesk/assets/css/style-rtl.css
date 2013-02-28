@@ -3391,7 +3391,6 @@ table th[class*="span"],
   border-bottom: 1px solid #fbeed5;
   border-left-width: 0;
   border-right-width: 0;
-  font-size: 11px;
   display: block;
 }
 
@@ -3415,6 +3414,7 @@ table th[class*="span"],
 
 .alert h4 {
   margin: 0 0 0.75 0;
+  padding: 0;
 }
 
 .alert-success {
@@ -6338,6 +6338,37 @@ form .ui-droppable {
 form .ui-droppable.drop-hover textarea {
   background-color: rgba(0, 136, 255, 0.02);
   border-color: rgba(0, 136, 255, 0.9);
+}
+form .messages-inline {
+  position: relative;
+  background: white;
+  border: 1px solid #9d261d;
+  display: inline-block;
+  margin: 0 0 0 20px;
+  padding: 10px;
+}
+form .messages-inline:after, form .messages-inline:before {
+  right: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+form .messages-inline:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-right-color: white;
+  border-width: 10px;
+  top: 50%;
+  margin-top: -10px;
+}
+form .messages-inline:before {
+  border-color: rgba(157, 38, 29, 0);
+  border-right-color: #9d261d;
+  border-width: 11px;
+  top: 50%;
+  margin-top: -11px;
 }
 
 form > .form-item {
