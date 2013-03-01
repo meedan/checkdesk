@@ -59,7 +59,7 @@
   border: $border-width solid $border-color;
 
   &:after, &:before {
-    right: 100%;
+    #{opposite-position($from-direction)}: 100%;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -69,14 +69,14 @@
   }
   &:after {
     border-color: rgba($background-color, 0);
-    border-right-color: $background-color;
+    border-#{opposite-position($from-direction)}-color: $background-color;
     border-width: $arrow-size;
     top: 50%;
     margin-top: -$arrow-size;
   }
   &:before {
     border-color: rgba($border-color, 0);
-    border-right-color: $border-color;
+    border-#{opposite-position($from-direction)}-color: $border-color;
     border-width: ($arrow-size + $border-width);
     top: 50%;
     margin-top: -($arrow-size + $border-width);

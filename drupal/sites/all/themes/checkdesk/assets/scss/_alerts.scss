@@ -24,7 +24,7 @@
   float: $omega-float;
   font-size: $base-font-size;
   font-weight: bold;
-  line-height: $base-line-height;
+  line-height: 1;
   color: $black;
   @include cd-dark-text-shadow;
   @include opacity(0.2);
@@ -53,7 +53,7 @@
 .alert-danger,
 .alert-error {
   background-color: $warningBackground;
-  border-color: transparent;
+  border-color: $warningBorder;
 }
 
 // Status and info states
