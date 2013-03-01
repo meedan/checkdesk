@@ -13,7 +13,7 @@ function locale_features_api() {
     'language' => array(
       'name' => t('Languages'),
       'default_hook' => 'locale_default_languages',
-      'features_source' => TRUE,
+      'feature_source' => TRUE,
       'default_file' => FEATURES_DEFAULTS_INCLUDED,
     ),
   );

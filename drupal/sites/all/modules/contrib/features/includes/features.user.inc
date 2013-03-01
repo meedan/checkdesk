@@ -64,12 +64,12 @@ function user_permission_features_export_options() {
 /**
  * Implements hook_features_export_render().
  */
-function user_permission_features_export_render($module, $data) {  
+function user_permission_features_export_render($module, $data) {
   $perm_modules = &drupal_static(__FUNCTION__ . '_perm_modules');
   if (!isset($perm_modules)) {
     $perm_modules = user_permission_get_modules();
   }
-  
+
   $code = array();
   $code[] = '  $permissions = array();';
   $code[] = '';
@@ -79,9 +79,9 @@ function user_permission_features_export_render($module, $data) {
   foreach ($data as $perm_name) {
     $permission = array();
     $permission['name'] = $perm_name;
-    if (isset($permissions[$perm_name])) {
+    if (!empty($permissions[$perm_name])) {
       sort($permissions[$perm_name]);
-      $permission['roles'] = $permissions[$perm_name];
+      $permission['roles'] = drupal_map_assoc($permissions[$perm_name]);
     }
     else {
       $permission['roles'] = array();

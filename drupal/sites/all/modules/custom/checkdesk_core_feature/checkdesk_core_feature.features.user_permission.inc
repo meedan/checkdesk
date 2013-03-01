@@ -14,7 +14,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access administration pages'] = array(
     'name' => 'access administration pages',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -23,7 +23,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access all views'] = array(
     'name' => 'access all views',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'views',
   );
@@ -32,8 +32,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access comments'] = array(
     'name' => 'access comments',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'comment',
   );
@@ -42,9 +42,9 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access content'] = array(
     'name' => 'access content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'node',
   );
@@ -53,7 +53,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access content overview'] = array(
     'name' => 'access content overview',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -62,7 +62,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access contextual links'] = array(
     'name' => 'access contextual links',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'contextual',
   );
@@ -71,7 +71,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access dashboard'] = array(
     'name' => 'access dashboard',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'dashboard',
   );
@@ -80,7 +80,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access heartbeat activity profiles'] = array(
     'name' => 'access heartbeat activity profiles',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'heartbeat',
   );
@@ -89,7 +89,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access private fields'] = array(
     'name' => 'access private fields',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );
@@ -98,7 +98,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access rules debug'] = array(
     'name' => 'access rules debug',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'rules',
   );
@@ -107,7 +107,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access site in maintenance mode'] = array(
     'name' => 'access site in maintenance mode',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -116,7 +116,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access site reports'] = array(
     'name' => 'access site reports',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -125,7 +125,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access toolbar'] = array(
     'name' => 'access toolbar',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'toolbar',
   );
@@ -134,8 +134,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'user',
   );
@@ -144,8 +144,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['add report to story'] = array(
     'name' => 'add report to story',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'checkdesk_core',
   );
@@ -154,7 +154,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['add twitter accounts'] = array(
     'name' => 'add twitter accounts',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'twitter',
   );
@@ -163,7 +163,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -172,7 +172,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer blocks'] = array(
     'name' => 'administer blocks',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'block',
   );
@@ -181,7 +181,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer comments'] = array(
     'name' => 'administer comments',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'comment',
   );
@@ -190,7 +190,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer content types'] = array(
     'name' => 'administer content types',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -199,7 +199,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer features'] = array(
     'name' => 'administer features',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'features',
   );
@@ -208,7 +208,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer field permissions'] = array(
     'name' => 'administer field permissions',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );
@@ -217,7 +217,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer filters'] = array(
     'name' => 'administer filters',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'filter',
   );
@@ -226,7 +226,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer flags'] = array(
     'name' => 'administer flags',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'flag',
   );
@@ -235,7 +235,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer image styles'] = array(
     'name' => 'administer image styles',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'image',
   );
@@ -244,7 +244,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer maillog'] = array(
     'name' => 'administer maillog',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'maillog',
   );
@@ -253,7 +253,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer menu'] = array(
     'name' => 'administer menu',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'menu',
   );
@@ -262,7 +262,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer modules'] = array(
     'name' => 'administer modules',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -271,7 +271,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer nodes'] = array(
     'name' => 'administer nodes',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -280,7 +280,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer oembed'] = array(
     'name' => 'administer oembed',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'oembedcore',
   );
@@ -289,7 +289,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer pathauto'] = array(
     'name' => 'administer pathauto',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'pathauto',
   );
@@ -298,8 +298,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer permissions'] = array(
     'name' => 'administer permissions',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'user',
   );
@@ -308,7 +308,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer rules'] = array(
     'name' => 'administer rules',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'rules',
   );
@@ -317,7 +317,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer search'] = array(
     'name' => 'administer search',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'search',
   );
@@ -326,7 +326,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer shortcuts'] = array(
     'name' => 'administer shortcuts',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'shortcut',
   );
@@ -335,7 +335,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer site configuration'] = array(
     'name' => 'administer site configuration',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -344,7 +344,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer software updates'] = array(
     'name' => 'administer software updates',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -353,7 +353,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer taxonomy'] = array(
     'name' => 'administer taxonomy',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'taxonomy',
   );
@@ -362,7 +362,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer themes'] = array(
     'name' => 'administer themes',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -371,7 +371,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer url aliases'] = array(
     'name' => 'administer url aliases',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'path',
   );
@@ -380,8 +380,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer users'] = array(
     'name' => 'administer users',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'user',
   );
@@ -390,7 +390,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['administer views'] = array(
     'name' => 'administer views',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'views',
   );
@@ -399,7 +399,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['block IP addresses'] = array(
     'name' => 'block IP addresses',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );
@@ -408,7 +408,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['bypass node access'] = array(
     'name' => 'bypass node access',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -417,7 +417,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['bypass rules access'] = array(
     'name' => 'bypass rules access',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'rules',
   );
@@ -426,7 +426,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['cancel account'] = array(
     'name' => 'cancel account',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'user',
   );
@@ -435,7 +435,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['change own username'] = array(
     'name' => 'change own username',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'user',
   );
@@ -444,7 +444,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create article content'] = array(
     'name' => 'create article content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -453,8 +453,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create discussion content'] = array(
     'name' => 'create discussion content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -463,8 +463,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create field_bio'] = array(
     'name' => 'create field_bio',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'citizen journalist',
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -473,8 +473,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create field_rating'] = array(
     'name' => 'create field_rating',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -483,8 +483,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create field_stories'] = array(
     'name' => 'create field_stories',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -493,9 +493,9 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create media content'] = array(
     'name' => 'create media content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'citizen journalist',
-      2 => 'journalist',
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -504,7 +504,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create page content'] = array(
     'name' => 'create page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -513,8 +513,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create post content'] = array(
     'name' => 'create post content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -523,7 +523,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['create url aliases'] = array(
     'name' => 'create url aliases',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'path',
   );
@@ -532,7 +532,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['customize shortcut links'] = array(
     'name' => 'customize shortcut links',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'shortcut',
   );
@@ -541,7 +541,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete any article content'] = array(
     'name' => 'delete any article content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -550,8 +550,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete any discussion content'] = array(
     'name' => 'delete any discussion content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -560,8 +560,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete any media content'] = array(
     'name' => 'delete any media content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -570,7 +570,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete any page content'] = array(
     'name' => 'delete any page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -579,8 +579,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete any post content'] = array(
     'name' => 'delete any post content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -589,7 +589,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete maillog'] = array(
     'name' => 'delete maillog',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'maillog',
   );
@@ -598,7 +598,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete own article content'] = array(
     'name' => 'delete own article content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -607,7 +607,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete own comments'] = array(
     'name' => 'delete own comments',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'heartbeat_comments',
   );
@@ -616,8 +616,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete own discussion content'] = array(
     'name' => 'delete own discussion content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -626,8 +626,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete own media content'] = array(
     'name' => 'delete own media content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -636,7 +636,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete own page content'] = array(
     'name' => 'delete own page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -645,8 +645,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete own post content'] = array(
     'name' => 'delete own post content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -655,7 +655,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete revisions'] = array(
     'name' => 'delete revisions',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -664,7 +664,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete terms in 1'] = array(
     'name' => 'delete terms in 1',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'taxonomy',
   );
@@ -673,7 +673,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['delete terms in 2'] = array(
     'name' => 'delete terms in 2',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'taxonomy',
   );
@@ -682,7 +682,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit any article content'] = array(
     'name' => 'edit any article content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -691,8 +691,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit any discussion content'] = array(
     'name' => 'edit any discussion content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -701,8 +701,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit any media content'] = array(
     'name' => 'edit any media content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -711,7 +711,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit any page content'] = array(
     'name' => 'edit any page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -720,8 +720,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit any post content'] = array(
     'name' => 'edit any post content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -730,7 +730,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit field_bio'] = array(
     'name' => 'edit field_bio',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );
@@ -739,8 +739,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit field_rating'] = array(
     'name' => 'edit field_rating',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -749,8 +749,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit field_stories'] = array(
     'name' => 'edit field_stories',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -759,7 +759,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own article content'] = array(
     'name' => 'edit own article content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -768,7 +768,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own comments'] = array(
     'name' => 'edit own comments',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'comment',
   );
@@ -777,8 +777,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own discussion content'] = array(
     'name' => 'edit own discussion content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -787,8 +787,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own field_bio'] = array(
     'name' => 'edit own field_bio',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'citizen journalist',
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -797,8 +797,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own field_rating'] = array(
     'name' => 'edit own field_rating',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -807,8 +807,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own field_stories'] = array(
     'name' => 'edit own field_stories',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -817,9 +817,9 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own media content'] = array(
     'name' => 'edit own media content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'citizen journalist',
-      2 => 'journalist',
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -828,7 +828,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own page content'] = array(
     'name' => 'edit own page content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -837,8 +837,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit own post content'] = array(
     'name' => 'edit own post content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -847,7 +847,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit terms in 1'] = array(
     'name' => 'edit terms in 1',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'taxonomy',
   );
@@ -856,7 +856,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['edit terms in 2'] = array(
     'name' => 'edit terms in 2',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'taxonomy',
   );
@@ -865,7 +865,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['flag delete'] = array(
     'name' => 'flag delete',
     'roles' => array(
-      0 => 'citizen journalist',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'flag',
   );
@@ -874,7 +874,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['flag factcheck'] = array(
     'name' => 'flag factcheck',
     'roles' => array(
-      0 => 'citizen journalist',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'flag',
   );
@@ -883,8 +883,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['flag factcheck_journalist'] = array(
     'name' => 'flag factcheck_journalist',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'flag',
   );
@@ -893,7 +893,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['flag graphic'] = array(
     'name' => 'flag graphic',
     'roles' => array(
-      0 => 'citizen journalist',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'flag',
   );
@@ -902,8 +902,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['flag graphic_journalist'] = array(
     'name' => 'flag graphic_journalist',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'flag',
   );
@@ -912,7 +912,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['flag spam'] = array(
     'name' => 'flag spam',
     'roles' => array(
-      0 => 'citizen journalist',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'flag',
   );
@@ -921,7 +921,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['import own tweets'] = array(
     'name' => 'import own tweets',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'twitter',
   );
@@ -930,7 +930,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['make twitter accounts global'] = array(
     'name' => 'make twitter accounts global',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'twitter',
   );
@@ -939,7 +939,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['manage features'] = array(
     'name' => 'manage features',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'features',
   );
@@ -948,7 +948,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['notify of path changes'] = array(
     'name' => 'notify of path changes',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'pathauto',
   );
@@ -957,8 +957,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['post comments'] = array(
     'name' => 'post comments',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'comment',
   );
@@ -967,7 +967,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -976,8 +976,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['save draft'] = array(
     'name' => 'save draft',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'save_draft',
   );
@@ -986,7 +986,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['search content'] = array(
     'name' => 'search content',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'search',
   );
@@ -995,7 +995,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['select account cancellation method'] = array(
     'name' => 'select account cancellation method',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'user',
   );
@@ -1004,7 +1004,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show format selection for comment'] = array(
     'name' => 'show format selection for comment',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1013,7 +1013,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show format selection for flagging'] = array(
     'name' => 'show format selection for flagging',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1022,7 +1022,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show format selection for heartbeat_activity'] = array(
     'name' => 'show format selection for heartbeat_activity',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1031,7 +1031,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show format selection for node'] = array(
     'name' => 'show format selection for node',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1040,7 +1040,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show format selection for rules_config'] = array(
     'name' => 'show format selection for rules_config',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1049,7 +1049,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show format selection for taxonomy_term'] = array(
     'name' => 'show format selection for taxonomy_term',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1058,7 +1058,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show format selection for user'] = array(
     'name' => 'show format selection for user',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1067,7 +1067,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show format tips'] = array(
     'name' => 'show format tips',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1076,7 +1076,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['show more format tips link'] = array(
     'name' => 'show more format tips link',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'better_formats',
   );
@@ -1085,8 +1085,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['skip comment approval'] = array(
     'name' => 'skip comment approval',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'comment',
   );
@@ -1095,7 +1095,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['switch shortcut sets'] = array(
     'name' => 'switch shortcut sets',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'shortcut',
   );
@@ -1104,7 +1104,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['unflag delete'] = array(
     'name' => 'unflag delete',
     'roles' => array(
-      0 => 'citizen journalist',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'flag',
   );
@@ -1120,8 +1120,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['unflag factcheck_journalist'] = array(
     'name' => 'unflag factcheck_journalist',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'flag',
   );
@@ -1130,7 +1130,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['unflag graphic'] = array(
     'name' => 'unflag graphic',
     'roles' => array(
-      0 => 'citizen journalist',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'flag',
   );
@@ -1139,8 +1139,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['unflag graphic_journalist'] = array(
     'name' => 'unflag graphic_journalist',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'flag',
   );
@@ -1156,7 +1156,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['use PHP for settings'] = array(
     'name' => 'use PHP for settings',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'php',
   );
@@ -1165,7 +1165,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['use advanced search'] = array(
     'name' => 'use advanced search',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'search',
   );
@@ -1174,7 +1174,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['use flag import'] = array(
     'name' => 'use flag import',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'flag',
   );
@@ -1183,7 +1183,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['use global twitter account'] = array(
     'name' => 'use global twitter account',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'twitter',
   );
@@ -1192,9 +1192,9 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['use text format filtered_html'] = array(
     'name' => 'use text format filtered_html',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'citizen journalist',
-      2 => 'journalist',
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'filter',
   );
@@ -1203,7 +1203,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['use text format full_html'] = array(
     'name' => 'use text format full_html',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'filter',
   );
@@ -1212,8 +1212,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['use text format liveblog'] = array(
     'name' => 'use text format liveblog',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'filter',
   );
@@ -1222,7 +1222,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['use text format php_code'] = array(
     'name' => 'use text format php_code',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'filter',
   );
@@ -1231,11 +1231,11 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view Single activity stream'] = array(
     'name' => 'view Single activity stream',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
-      3 => 'citizen journalist',
-      4 => 'journalist',
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'heartbeat',
   );
@@ -1244,11 +1244,11 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view Views activity stream'] = array(
     'name' => 'view Views activity stream',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
-      3 => 'citizen journalist',
-      4 => 'journalist',
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'heartbeat',
   );
@@ -1257,9 +1257,9 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view field_bio'] = array(
     'name' => 'view field_bio',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'citizen journalist',
-      2 => 'journalist',
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -1268,8 +1268,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view field_rating'] = array(
     'name' => 'view field_rating',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -1278,8 +1278,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view field_stories'] = array(
     'name' => 'view field_stories',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -1288,11 +1288,11 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view heartbeat messages'] = array(
     'name' => 'view heartbeat messages',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
-      3 => 'citizen journalist',
-      4 => 'journalist',
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+      'citizen journalist' => 'citizen journalist',
+      'journalist' => 'journalist',
     ),
     'module' => 'heartbeat',
   );
@@ -1301,7 +1301,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view maillog'] = array(
     'name' => 'view maillog',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'maillog',
   );
@@ -1310,8 +1310,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view own field_bio'] = array(
     'name' => 'view own field_bio',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'citizen journalist',
+      'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -1320,8 +1320,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view own field_rating'] = array(
     'name' => 'view own field_rating',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -1330,8 +1330,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view own field_stories'] = array(
     'name' => 'view own field_stories',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'field_permissions',
   );
@@ -1340,8 +1340,8 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',
     'roles' => array(
-      0 => 'administrator',
-      1 => 'journalist',
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'node',
   );
@@ -1350,7 +1350,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view revisions'] = array(
     'name' => 'view revisions',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -1359,7 +1359,7 @@ function checkdesk_core_feature_user_default_permissions() {
   $permissions['view the administration theme'] = array(
     'name' => 'view the administration theme',
     'roles' => array(
-      0 => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'system',
   );

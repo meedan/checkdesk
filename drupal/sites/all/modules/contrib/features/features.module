@@ -167,6 +167,16 @@ function features_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'features.admin.inc',
   );
+  $items['features/ajaxcallback/%'] = array(
+    'title callback' => 'features_get_feature_components',
+    'description' => 'Return components of a feature.',
+    'page callback' => 'features_export_components_json',
+    'page arguments' => array(2),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer features'),
+    'type' => MENU_CALLBACK,
+    'file' => 'features.admin.inc',
+  );
   foreach ($items as $path => $item) {
     if (!isset($item['access callback'])) {
       $items[$path]['access callback'] = 'user_access';
@@ -284,7 +294,7 @@ function features_modules_disabled($modules) {
   // Go through all modules and gather features that can be disabled.
   $items = array();
   foreach ($modules as $module) {
-    if ($feature = feature_load($module)) {
+    if ($feature = features_load_feature($module)) {
       $items[$module] = array_keys($feature->info['features']);
     }
   }
@@ -303,7 +313,7 @@ function features_modules_enabled($modules) {
   // Go through all modules and gather features that can be enabled.
   $items = array();
   foreach ($modules as $module) {
-    if ($feature = feature_load($module)) {
+    if ($feature = features_load_feature($module)) {
       $items[$module] = array_keys($feature->info['features']);
     }
   }
@@ -360,7 +370,7 @@ function features_include_defaults($components = NULL, $reset = FALSE) {
   if (!isset($include_components) || $reset) {
     $include_components = features_get_components();
     foreach ($include_components as $component => $info) {
-      if ($component !== 'views' && !isset($info['api']) && (!isset($info['default_file']) || $info['default_file'] !== FEATURES_DEFAULTS_INCLUDED)) {
+      if (!isset($info['api']) && (!isset($info['default_file']) || $info['default_file'] !== FEATURES_DEFAULTS_INCLUDED)) {
         unset($include_components[$component]);
       }
     }
@@ -377,7 +387,7 @@ function features_include_defaults($components = NULL, $reset = FALSE) {
   foreach ($components as $component) {
     if (isset($include_components[$component]) && (!isset($included[$component]) || $reset)) {
       $info = $include_components[$component];
-      // Inclusion of defaults for Views.
+      // Inclusion of ctools components.
       if (isset($info['api'], $info['module'], $info['current_version'])) {
         ctools_include('plugins');
         ctools_plugin_api_include($info['module'], $info['api'], $info['current_version'], $info['current_version']);
@@ -386,7 +396,8 @@ function features_include_defaults($components = NULL, $reset = FALSE) {
       else {
         $features = isset($features) ? $features : features_get_features(NULL, $reset);
         foreach ($features as $feature) {
-          module_load_include('inc', $feature->name, "{$feature->name}.features.{$component}");
+          $filename = isset($info['default_file']) && $info['default_file'] == FEATURES_DEFAULTS_CUSTOM ? $info['default_filename'] : "features.{$component}";
+          module_load_include('inc', $feature->name, "{$feature->name}.$filename");
         }
       }
       $included[$component] = TRUE;
@@ -395,9 +406,16 @@ function features_include_defaults($components = NULL, $reset = FALSE) {
 }
 
 /**
- * Feature object loader.
+ * Feature object loader.  DEPRECATED but included for backwards compatibility
  */
 function feature_load($name, $reset = FALSE) {
+  return features_load_feature($name, $reset);
+}
+
+/**
+ * Feature object loader.
+ */
+function features_load_feature($name, $reset = FALSE) {
   // Use an alternative code path during installation, for better performance.
   if (variable_get('install_task') != 'done') {
     static $features;
@@ -593,10 +611,6 @@ function features_get_info($type = 'module', $name = NULL, $reset = FALSE) {
     );
     $ignored = variable_get('features_ignored_orphans', array());
     $files = system_rebuild_module_data();
-
-    // Filter out intentionally hidden features.
-    module_load_include('inc', 'features', 'features.admin');
-    $files = array_filter($files, 'features_filter_hidden');
 
     foreach ($files as $row) {
       // If module is no longer enabled, remove it from the ignored orphans list.
@@ -864,6 +878,10 @@ function _features_restore($op, $items = array()) {
 
   foreach ($items as $module_name => $components) {
     foreach ($components as $component) {
+      // Invoke pre hook
+      $pre_hook = 'pre_' . $restore_hook;
+      module_invoke($module_name, $pre_hook, $component);
+
       if (features_hook($component, $restore_hook)) {
         // Set a semaphore to prevent other instances of the same script from running concurrently.
         watchdog('features', '@actioning @module_name / @component.', array('@action' => $log_action, '@component' => $component, '@module_name' => $module_name));
@@ -875,6 +893,10 @@ function _features_restore($op, $items = array()) {
         features_set_signature($module_name, $component);
         watchdog('features', '@action completed for @module_name / @component.', array('@action' => $log_action, '@component' => $component, '@module_name' => $module_name));
       }
+
+      // Invoke post hook
+      $post_hook = 'post_' . $restore_hook;
+      module_invoke($module_name, $post_hook, $component);
     }
   }
 }
