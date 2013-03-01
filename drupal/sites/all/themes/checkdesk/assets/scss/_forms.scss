@@ -58,6 +58,20 @@
 
 }
 
+// ===================================================================
+// Inline form errors
+//
+@mixin form-inline-errors {
+  .messages-inline {
+    @include cd-arrow-box(lighten($red, 75%), $red, 10px, 1px);
+
+    display: inline-block;
+    margin: 0 0 0 20px;
+    padding: 10px;
+  }
+}
+
+
 // In addition to our use of normalize, and other resets, 
 // This standardizes form elements
 //
@@ -217,6 +231,7 @@
 
     @include form-actions;
     @include form-drag-and-drop;
+    @include form-inline-errors;
 
     // & > .form-item {
     //   clear: both;
