@@ -128,3 +128,9 @@ function checkdesk_core_update_7013() {
   module_enable(array('features_translations'));
 }
 
+/**
+ * Install the IFE module settings.
+ */
+function checkdesk_core_update_7014() {
+  checkdesk_core_ensure_ife_settings();
+}

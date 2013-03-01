@@ -1217,3 +1217,42 @@ function checkdesk_core_views_api() {
 function checkdesk_core_form_user_cancel_confirm_form_alter(&$form, $form_state) {
   $form['#action'] .= '?destination=administer-users';
 }
+
+/**
+ * Ensures that the IFE module settings are properly installed in the database.
+ */
+function checkdesk_core_ensure_ife_settings() {
+  $form_ids = array(
+    'article_node_form',
+    'discussion_node_form',
+    'forum_node_form',
+    'media_node_form',
+    'node_export_node_form',
+    'page_node_form',
+    'post_node_form',
+    'comment_form',
+    'contact_mail_page',
+    'contact_mail_user',
+    'user_login',
+    'user_login_block',
+    'user_pass',
+    'user_register_form',
+  );
+
+  foreach ($form_ids as $form_id) {
+    $row = array(
+      'form_id'     => $form_id,
+      'field_types' => NULL,
+      'status'      => '1',
+      'display'     => '-1'
+    );
+
+    db_delete('ife')
+      ->condition('form_id', $row['form_id'])
+      ->execute();
+
+    db_insert('ife')
+      ->fields($row)
+      ->execute();
+  }
+}
