@@ -1,23 +1,22 @@
 <?php
 
 /**
- * @param $items
+ * @param $info - feature info array
  * @param $module_name
- * @return
+ * @return fully populated export array
  */
-function features_populate($items, $dependencies, $module_name) {
+function features_populate($info, $module_name) {
   // Sanitize items.
-  $items = array_filter($items);
-  $items['dependencies'] = drupal_map_assoc(array_filter($dependencies));
+  $items = !empty($info['features']) ? array_filter($info['features']) : array();
+  $items['dependencies'] = !empty($info['dependencies']) ? drupal_map_assoc(array_filter($info['dependencies'])) : array();
 
   // Populate stub
-  $stub = array('features' => array(), 'dependencies' => array(), 'conflicts' => array());
-  $export = _features_populate($items, $stub, $module_name);
+  $stub = array('features' => array(), 'dependencies' => array(), 'conflicts' => array()) + $info + array('features_exclude' => array());
+  $export = _features_populate($items, $stub, $module_name, TRUE);
 
   // Add Features API version. Any module with this entry in the .info file
   // will be treated as a Feature and included in the admin/build/features UI.
   $export['features']['features_api']['api:' . FEATURES_API] = TRUE;
-
   // Allow other modules to alter the export.
   drupal_alter('features_export', $export, $module_name);
 
@@ -27,6 +26,7 @@ function features_populate($items, $dependencies, $module_name) {
   }
   ksort($export['features']);
   ksort($export['dependencies']);
+  ksort($export['features_exclude']);
 
   return $export;
 }
@@ -44,12 +44,22 @@ function features_populate($items, $dependencies, $module_name) {
  *
  * @return fully populated $export array.
  */
-function _features_populate($pipe, &$export, $module_name = '') {
+function _features_populate($pipe, &$export, $module_name = '', $reset = FALSE) {
+  static $processed = array();
   features_include();
+  if ($reset) {
+    $processed = array();
+  }
   foreach ($pipe as $component => $data) {
-    static $processed = array();
     // Convert already defined items to dependencies.
-    _features_resolve_dependencies($data, $export, $module_name, $component);
+//    _features_resolve_dependencies($data, $export, $module_name, $component);
+    // Remove any excluded items.
+    if (!empty($export['features_exclude'][$component])) {
+      $data = array_diff($data, $export['features_exclude'][$component]);
+      if ($component == 'dependencies' && !empty($export['dependencies'])) {
+        $export['dependencies'] = array_diff($export['dependencies'], $export['features_exclude'][$component]);
+      }
+    }
     if (!empty($data) && $function = features_hook($component, 'features_export')) {
       // Pass module-specific data and export array.
       // We don't use features_invoke() here since we need to pass $export by reference.
@@ -164,6 +174,14 @@ function _features_export_maximize_dependencies($dependencies, $module_name = ''
 function features_export_prepare($export, $module_name, $reset = FALSE) {
   $existing = features_get_modules($module_name, $reset);
 
+  // copy certain exports directly into info
+  $copy_list = array('scripts', 'stylesheets');
+  foreach ($copy_list as $item) {
+    if(isset($export[$item])) {
+      $existing->info[$item] = $export[$item];
+    }
+  }
+
   // Prepare info string -- if module exists, merge into its existing info file
   $defaults = $existing ? $existing->info : array('core' => '7.x', 'package' => 'Features');
   $export = array_merge($defaults, $export);
@@ -181,7 +199,7 @@ function features_export_prepare($export, $module_name, $reset = FALSE) {
 
   // Order info array.
   $standard_info = array();
-  foreach (array('name', 'description', 'core', 'package', 'php', 'version', 'project', 'dependencies') as $item) {
+  foreach (array_merge(array('name', 'description', 'core', 'package', 'php', 'version', 'project', 'dependencies'), $copy_list) as $item) {
     if (isset($export[$item])) {
       $standard_info[$item] = $export[$item];
     }
@@ -271,16 +289,27 @@ function features_export_render($export, $module_name, $reset = FALSE) {
   $export = features_export_prepare($export, $module_name, $reset);
   $code['info'] = features_export_info($export);
 
+  // Used to create or manipulate the generated .module for features.inc.
+  $modulefile_features_inc = "<?php\n/**\n * @file\n * Code for the {$export['name']} feature.\n */\n\ninclude_once '{$module_name}.features.inc';\n";
+  $modulefile_blank = "<?php\n/**\n * @file\n * Drupal needs this blank file.\n */\n";
+
   // Prepare the module
   // If module exists, let it be and include it in the files
   if ($existing = features_get_modules($module_name, TRUE)) {
     $code['module'] = file_get_contents($existing->filename);
 
     // If the current module file does not reference the features.inc include,
-    // set a warning message.
     // @TODO this way of checking does not account for the possibility of inclusion instruction being commented out.
     if (isset($code['features']) && strpos($code['module'], "{$module_name}.features.inc") === FALSE) {
-      features_log(t('@module does not appear to include the @include file.', array('@module' => "{$module_name}.module", '@include' => "{$module_name}.features.inc")), 'warning');
+      // If .module does not begin with <?php\n, just add a warning.
+      if (strpos($code['module'], "<?php\n") !== 0) {
+        features_log(t('@module does not appear to include the @include file.', array('@module' => "{$module_name}.module", '@include' => "{$module_name}.features.inc")), 'warning');
+      }
+      else {
+        // Remove the old message if it exists, else just remove the <?php
+        $length = strpos($code['module'], $modulefile_blank) === 0 ? strlen($modulefile_blank) : 6;
+        $code['module'] = $modulefile_features_inc . substr($code['module'], $length);
+      }
     }
 
     // Deprecated files. Display a message for any of these files letting the
@@ -295,16 +324,26 @@ function features_export_render($export, $module_name, $reset = FALSE) {
         features_log(t('The file @filename has been deprecated and can be removed.', array('@filename' => $file->filename)), 'status');
       }
       elseif ($file->name === "{$module_name}.features" && empty($code['features'])) {
-        $code['features'] = "<?php\n\n// This file is deprecated and can be removed.\n// Please remove include_once('{$module_name}.features.inc') in {$module_name}.module as well.\n";
+        // Try and remove features.inc include.
+        if (strpos($code['module'], "{$module_name}.features.inc")) {
+          $code['module'] = str_replace($modulefile_features_inc, $modulefile_blank, $code['module']);
+        }
+        // If unable to remove the include, add a message to remove.
+        if (strpos($code['module'], "{$module_name}.features.inc")) {
+          $code['features'] = "<?php\n\n// This file is deprecated and can be removed.\n// Please remove include_once('{$module_name}.features.inc') in {$module_name}.module as well.\n";
+        }
+        else {
+          $code['features'] = "<?php\n\n// This file is deprecated and can be removed.\n";
+        }
       }
     }
   }
   // Add a stub module to include the defaults
   else if (!empty($code['features'])) {
-    $code['module'] = "<?php\n/**\n * @file\n * Code for the {$export['name']} feature.\n */\n\ninclude_once '{$module_name}.features.inc';\n";
+    $code['module'] = $modulefile_features_inc;
   }
   else {
-    $code['module'] = "<?php\n/**\n * @file\n * Drupal needs this blank file.\n */\n";
+    $code['module'] = $modulefile_blank;
   }
   return $code;
 }
@@ -319,7 +358,7 @@ function features_detect_overrides($module) {
   }
   if (!isset($cache[$module->name])) {
     // Rebuild feature from .info file description and prepare an export from current DB state.
-    $export = features_populate($module->info['features'], $module->info['dependencies'], $module->name);
+    $export = features_populate($module->info, $module->name);
     $export = features_export_prepare($export, $module->name);
 
     $overridden = array();
@@ -427,31 +466,50 @@ function features_export_info($info, $parents = array()) {
  *   A string of the tar file contents.
  */
 function features_tar_create($name, $contents) {
+  /* http://www.mkssoftware.com/docs/man4/tar.4.asp */
+  /* http://www.phpclasses.org/browse/file/21200.html */
   $tar = '';
-  $binary_data_first = pack("a100a8a8a8a12A12",
-    $name,
-    '100644 ', // File permissions
-    '   765 ', // UID,
-    '   765 ', // GID,
+  $bigheader = $header = '';
+  if (strlen($name) > 100) {
+    $bigheader = pack("a100a8a8a8a12a12a8a1a100a6a2a32a32a8a8a155a12",
+        '././@LongLink', '0000000', '0000000', '0000000',
+        sprintf("%011o", strlen($name)), '00000000000',
+        '        ', 'L', '', 'ustar ', '0',
+        '', '', '', '', '', '');
+
+    $bigheader .= str_pad($name, floor((strlen($name) + 512 - 1) / 512) * 512, "\0");
+
+    $checksum = 0;
+    for ($i = 0; $i < 512; $i++) {
+      $checksum += ord(substr($bigheader, $i, 1));
+    }
+    $bigheader = substr_replace($bigheader, sprintf("%06o", $checksum)."\0 ", 148, 8);
+  }
+ $header = pack("a100a8a8a8a12a12a8a1a100a6a2a32a32a8a8a155a12", // book the memorie area
+    substr($name,0,100),  //  0     100     File name
+    '100644 ',            // File permissions
+    '   765 ',            // UID,
+    '   765 ',            // GID,
     sprintf("%11s ", decoct(strlen($contents))), // Filesize,
-    sprintf("%11s", decoct(REQUEST_TIME)) // Creation time
-  );
-  $binary_data_last = pack("a1a100a6a2a32a32a8a8a155a12", '', '', '', '', '', '', '', '', '', '');
+    sprintf("%11s", decoct(REQUEST_TIME)),       // Creation time
+    '        ',        // 148     8         Check sum for header block
+    '',                // 156     1         Link indicator / ustar Type flag
+    '',                // 157     100     Name of linked file
+    'ustar ',          // 257     6         USTAR indicator "ustar"
+    ' ',               // 263     2         USTAR version "00"
+    '',                // 265     32         Owner user name
+    '',                // 297     32         Owner group name
+    '',                // 329     8         Device major number
+    '',                // 337     8         Device minor number
+    '',                // 345     155     Filename prefix
+    '');               // 500     12         ??
 
   $checksum = 0;
-  for ($i = 0; $i < 148; $i++) {
-    $checksum += ord(substr($binary_data_first, $i, 1));
+  for ($i = 0; $i < 512; $i++) {
+    $checksum += ord(substr($header, $i, 1));
   }
-  for ($i = 148; $i < 156; $i++) {
-    $checksum += ord(' ');
-  }
-  for ($i = 156, $j = 0; $i < 512; $i++, $j++) {
-    $checksum += ord(substr($binary_data_last, $j, 1));
-  }
-
-  $tar .= $binary_data_first;
-  $tar .= pack("a8", sprintf("%6s ", decoct($checksum)));
-  $tar .= $binary_data_last;
+  $header = substr_replace($header, sprintf("%06o", $checksum)."\0 ", 148, 8);
+  $tar = $bigheader.$header;
 
   $buffer = str_split($contents, 512);
   foreach ($buffer as $item) {
@@ -636,6 +694,7 @@ function features_get_normal($component, $module_name, $reset = FALSE) {
  */
 function features_get_default($component, $module_name = NULL, $alter = TRUE, $reset = FALSE) {
   static $cache = array();
+  $alter = !empty($alter); // ensure $alter is a true/false boolean
   features_include();
   features_include_defaults($component);
   $default_hook = features_get_default_hooks($component);
@@ -660,26 +719,31 @@ function features_get_default($component, $module_name = NULL, $alter = TRUE, $r
 
   // Collect and cache information for each specified module.
   foreach ($modules as $m) {
-    if (!isset($cache[$component][$m]) || $reset) {
+    if (!isset($cache[$component][$alter][$m]) || $reset) {
       // Special handling for dependencies component.
       if ($component === 'dependencies') {
         $module = features_get_features($m);
-        $cache[$component][$m] = isset($module->info['dependencies']) ? $module->info['dependencies'] : array();
+        $cache[$component][$alter][$m] = isset($module->info['dependencies']) ? $module->info['dependencies'] : array();
         unset($module);
       }
       // All other components
       else {
         if ($default_hook && module_hook($m, $default_hook)) {
-          $cache[$component][$m] = call_user_func("{$m}_{$default_hook}");
-          $alter_type = features_get_components('alter_type', $component);
-          if ($alter && (!isset($alter_type) || $alter_type == FEATURES_ALTER_TYPE_NORMAL)) {
-            if ($alter_hook = features_get_default_alter_hook($component)) {
-              drupal_alter($alter_hook, $cache[$component][$m]);
+          $cache[$component][$alter][$m] = call_user_func("{$m}_{$default_hook}");
+          if (is_array($cache[$component][$alter][$m])) {
+            $alter_type = features_get_components('alter_type', $component);
+            if ($alter && (!isset($alter_type) || $alter_type == FEATURES_ALTER_TYPE_NORMAL)) {
+              if ($alter_hook = features_get_default_alter_hook($component)) {
+                drupal_alter($alter_hook, $cache[$component][$alter][$m]);
+              }
             }
+          }
+          else {
+            $cache[$component][$alter][$m] = FALSE;
           }
         }
         else {
-          $cache[$component][$m] = FALSE;
+          $cache[$component][$alter][$m] = FALSE;
         }
       }
     }
@@ -687,12 +751,12 @@ function features_get_default($component, $module_name = NULL, $alter = TRUE, $r
 
   // A specific module was specified. Retrieve only its components.
   if (isset($module_name)) {
-    return isset($cache[$component][$module_name]) ? $cache[$component][$module_name] : FALSE;
+    return isset($cache[$component][$alter][$module_name]) ? $cache[$component][$alter][$module_name] : FALSE;
   }
   // No module was specified. Retrieve all components.
   $all_defaults = array();
-  if (isset($cache[$component])) {
-    foreach (array_filter($cache[$component]) as $module_components) {
+  if (isset($cache[$component][$alter])) {
+    foreach (array_filter($cache[$component][$alter]) as $module_components) {
       $all_defaults = array_merge($all_defaults, $module_components);
     }
   }
@@ -704,6 +768,12 @@ function features_get_default($component, $module_name = NULL, $alter = TRUE, $r
  */
 function features_get_default_map($component, $attribute = NULL, $callback = NULL, $reset = FALSE) {
   static $map = array();
+
+  global $features_ignore_conflicts;
+  if ($features_ignore_conflicts) {
+    return FALSE;
+  }
+
   features_include();
   features_include_defaults($component);
   if ((!isset($map[$component]) || $reset) && $default_hook = features_get_default_hooks($component)) {
@@ -857,7 +927,7 @@ function _features_linetrim($code) {
 function _features_sanitize(&$array) {
   if (is_array($array)) {
     if (_features_is_assoc($array)) {
-      ksort($array);
+      ksort($array, SORT_STRING);
       $array = array_filter($array);
     }
     else {
