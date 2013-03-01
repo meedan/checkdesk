@@ -23,28 +23,32 @@ Drupal.behaviors.meedan_facebook_comments = {
       // Additional initialization code such as adding Event Listeners goes here
 
       // Comments count
-      var paths = [];
-      $('.fb-commentscount').each(function() {
-        if (!$(this).hasClass('fb-commentscount-processed')) {
-          var path = $(this).attr('data-url');
-          paths.push(path);
-        }
-      });
-      if (paths.length) {
-        FB.api('/', { ids : paths.join() }, function(response) {
-          if (response.error) {
-            console.log('Error while fetching number of Facebook comments: ' + response.error.message);
-          } else {
-            for (var path in response) {
-              // Why "shares" and not "comments"?
-              var value = response[path].shares;
-              if (value) {
-                Drupal.behaviors.meedan_facebook_comments.updateCommentsCount(path, value);
-              }
+      FB.Event.subscribe('xfbml.render',
+        function(response) {
+          var paths = [];
+          $('.fb-commentscount').each(function() {
+            if (!$(this).hasClass('fb-commentscount-processed')) {
+              var path = $(this).attr('data-url');
+              paths.push(path);
             }
+          });
+          if (paths.length) {
+            FB.api('/', { ids : paths.join() }, function(response) {
+              if (response.error) {
+                console.log('Error while fetching number of Facebook comments: ' + response.error.message);
+              } else {
+                for (var path in response) {
+                  // Why "shares" and not "comments"?
+                  var value = response[path].shares;
+                  if (value) {
+                    Drupal.behaviors.meedan_facebook_comments.updateCommentsCount(path, value);
+                  }
+                }
+              }
+            });
           }
-        });
-      }
+        }
+      );
 
       // Refresh comments count when comment is added or removed
       FB.Event.subscribe('comment.create',
