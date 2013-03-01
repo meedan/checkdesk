@@ -593,6 +593,19 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_facebook_comments_types';
+  $strongarm->value = array(
+    'post' => 'post',
+    'discussion' => 0,
+    'media' => 0,
+    'page' => 0,
+    'article' => 0,
+  );
+  $export['meedan_facebook_comments_types'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'meedan_livefyre_siteid';
   $strongarm->value = '315968';
   $export['meedan_livefyre_siteid'] = $strongarm;
