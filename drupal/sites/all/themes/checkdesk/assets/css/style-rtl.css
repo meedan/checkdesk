@@ -3398,7 +3398,7 @@ table th[class*="span"],
   float: left;
   font-size: 18px;
   font-weight: bold;
-  line-height: 1.5;
+  line-height: 1;
   color: black;
   text-shadow: rgba(0, 0, 0, 0.8) 0 1px 0;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
@@ -3426,7 +3426,7 @@ table th[class*="span"],
 .alert-danger,
 .alert-error {
   background-color: #fcf8e3;
-  border-color: transparent;
+  border-color: #fbeed5;
 }
 
 .alert-status, .alert-info {
@@ -6059,7 +6059,7 @@ form textarea:focus {
 }
 form label {
   font-size: 20px;
-  display: block;
+  display: inline-block;
   font-weight: normal;
 }
 form label padding {
@@ -6344,11 +6344,13 @@ form .messages-inline {
   background: white;
   border: 1px solid #9d261d;
   display: inline-block;
-  margin: 0 0 0 20px;
+  margin: 0 0 10px 0;
+  margin-right: 20px;
   padding: 10px;
+  line-height: 1;
 }
 form .messages-inline:after, form .messages-inline:before {
-  right: 100%;
+  left: 100%;
   border: solid transparent;
   content: " ";
   height: 0;
@@ -6358,14 +6360,14 @@ form .messages-inline:after, form .messages-inline:before {
 }
 form .messages-inline:after {
   border-color: rgba(255, 255, 255, 0);
-  border-right-color: white;
+  border-left-color: white;
   border-width: 10px;
   top: 50%;
   margin-top: -10px;
 }
 form .messages-inline:before {
   border-color: rgba(157, 38, 29, 0);
-  border-right-color: #9d261d;
+  border-left-color: #9d261d;
   border-width: 11px;
   top: 50%;
   margin-top: -11px;

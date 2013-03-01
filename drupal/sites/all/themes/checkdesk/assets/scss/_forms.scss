@@ -66,8 +66,10 @@
     @include cd-arrow-box(lighten($red, 75%), $red, 10px, 1px);
 
     display: inline-block;
-    margin: 0 0 0 20px;
+    margin: 0 0 10px 0;
+    margin-#{$from-direction}: 20px;
     padding: 10px;
+    line-height: 1;
   }
 }
 
@@ -182,7 +184,7 @@
     // Default labels
     label {
       font-size: $large-font-size;
-      display: block;
+      display: inline-block;
       font-weight: normal;
       padding { top: $gw; bottom: $gw; }
 
