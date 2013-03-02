@@ -71,7 +71,13 @@ body.page-user-password { // both logged in and not logged ins states
   .tabs {
     display: none;
   }
-  
+
+  // same size as the form
+  #content-header {
+    @include span-columns(4, 6);
+    @include pad(1, 1, 6);
+  }
+
   #user-login {
     @include span-columns(4, 6);
     @include pad(1, 1, 6);
@@ -151,6 +157,7 @@ body.page-user-password { // both logged in and not logged ins states
     .form-item-remember-me {
       float: $alpha;
       label {
+        display: block;
         color: $grayLight;
         font-family: $sans-font-family;
         font-size: $fontSizeSmall;

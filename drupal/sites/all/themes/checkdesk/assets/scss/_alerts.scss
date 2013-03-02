@@ -5,24 +5,30 @@
 // We establish the basic alert and then alternates.
 
 // The alert container
-//
-// There are two kinds: .alerts and .messages? CGB
-.alert, 
-.messages {
-  padding: $gw;
-  margin-bottom: $base-line-height;
-  border: { top: 1px solid $warningBorder; bottom: 1px solid $warningBorder; }
-  border: {left-width: 0; right-width: 0; }
-  // font-size: $smaller-font-size;
-  display: block;
-  // overflow: hidden; // prevent horizontal scrolling with big errors
-  // max-height: 150px; // HACK ... but yeah that's enough errors
-} 
+.alert {
+  padding: 8px 14px;
+  margin-bottom: $baseLineHeight;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  background-color: $warningBackground;
+  border: 1px solid $warningBorder;
+  @include border-radius($baseBorderRadius);
+  font-family: $sans-font-family;
+}
+
+.alert,
+.alert h4 {
+  // Specified for the h4 to prevent conflicts of changing $headingsColor
+  color: $warningText;
+}
+.alert h4 {
+  @include reset-box-model;
+  margin-bottom: $baseLineHeight/4;
+}
 
 // Dismiss alert
 .alert .close {
-  float: $omega-float;
-  font-size: $base-font-size;
+  float: $omega;
+  font-size: $fontSizeSmall;
   font-weight: bold;
   line-height: 1;
   color: $black;
@@ -36,37 +42,40 @@
   }
 }
 
-// Alert titles
-.alert h4 {
-  margin: 0 0 $base-line-height/2 0;
-  padding: 0;
-}
 
-// Alert success state
+// Alternate styles
+// -------------------------
+
 .alert-success {
   background-color: $successBackground;
   border-color: $successBorder;
   color: $successText;
 }
-
-// Danger and error states
+.alert-success h4 {
+  color: $successText;
+}
 .alert-danger,
 .alert-error {
-  background-color: $warningBackground;
-  border-color: $warningBorder;
+  background-color: $errorBackground;
+  border-color: $errorBorder;
+  color: $errorText;
 }
-
-// Status and info states
-.alert-status, .alert-info {
+.alert-danger h4,
+.alert-error h4 {
+  color: $errorText;
+}
+.alert-info {
   background-color: $infoBackground;
   border-color: $infoBorder;
   color: $infoText;
 }
+.alert-info h4 {
+  color: $infoText;
+}
 
-//
 // Close icons
 .close {
-  float: #{$omega-float};
+  float: $omega;
   font-size: 20px;
   font-weight: bold;
   line-height: $baseLineHeight;
@@ -79,128 +88,4 @@
     cursor: pointer;
     @include opacity(0.4);
   }
-}
-// ====================================================================
-// Absolute messages
-//
-// Container
-#absolute-messages-messages {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  #{$from-direction}: 0;
-  z-index: 10;
-}
-
-// Single message
-.absolute-messages-message {
-  display: none;
-  margin: 0;
-  padding: 0;
-  position: fixed;
-  #{$omega-float}: 0;
-  left: 0;
-  bottom: 0; // put them at the bottom for now, they are breaking CGB
-  z-index: $zindexFixedNavbar;
-  margin-bottom: 0; // remove 18px margin for default navbar
-  color: #735005;
-  zoom: 1;
-}
-
-// js controlled close
-.absolute-messages-message.collapsible:hover {
-  cursor: pointer;
-}
-
-// message typography 
-.absolute-messages-message .content {
-  margin: 0;
-  padding: .5em 1.5em 0 1.5em;
-  border-bottom: .5em solid transparent;
-  overflow: hidden;
-}
-.absolute-messages-message .content a {
-  text-decoration: underline;
-}
-.absolute-messages-status {
-  background-color: $infoBackground;
-  border-bottom: 1px solid $infoBorder;
-  color: $infoText;
-  & {
-    a:link,
-    a:visited {
-      color: $infoText;
-    }
-  }
-}
-
-.absolute-messages-warning {
-  background-color: $warningBackground;
-  border-bottom: 1px solid $warningBorder;
-  color: $warningText;
-  & {
-    a:link,
-    a:visited {
-      color: $warningText;
-    }
-  }
-}
-
-.absolute-messages-error {
-  background-color: $errorBackground;
-  border-bottom: 1px solid $errorBorder;
-  color: $errorText;
-}
-.absolute-messages-error a:link,
-.absolute-messages-error a:visited {
-  color: $errorText;
-}
-.absolute-messages-actions {
-  float: #{$omega-float}
-}
-a.absolute-messages-dismiss,
-a.absolute-messages-dismiss-all,
-a.absolute-messages-dismiss:hover,
-a.absolute-messages-dismiss-all:hover {
-  display: block;
-  position: absolute;
-  top: .3em;
-  #{$omega-float}: $gw;
-  z-index: 10;
-  margin: 0;
-  padding: 1px 3px;
-  text-decoration: none;
-  line-height: $baseLineHeight;
-  cursor: pointer;
-}
-
-.absolute-messages-status .absolute-messages-dismiss { color: $infoText; }
-.absolute-messages-warning .absolute-messages-dismiss { color: $warningText; }
-.absolute-messages-error .absolute-messages-dismiss { color: $errorText; }
-
-a.absolute-messages-dismiss-all,
-a.absolute-messages-dismiss-all:hover {
-  border: 2px solid #222;
-  background-color: #222;
-  color: #ccc;
-}
-
-#absolute-messages-show {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  #{$omega-float}: 0;
-  width: 0;
-  height: 0;
-  border-width: 16px 16px 0 0;
-  border-style: solid;
-  border-color: transparent $link-color;
-  @include box-shadow(0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2));
-  z-index: 1;
-}
-
-.absolute-messages-show {
-  display: block;
-  width: 16px;
-  height: 16px;
 }
