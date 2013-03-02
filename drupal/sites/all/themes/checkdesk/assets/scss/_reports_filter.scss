@@ -12,6 +12,11 @@
   	}
   }
 
+  // description double quotes
+  .icon-caret-down {
+  	@include icon(caret-down, 16px, $gray);
+  }
+
   .panels {
   	@include reset-list-style;
 	display: inline-block;
@@ -33,6 +38,11 @@
       		&:hover {
       			background-color: darken($grayLighter, 10%);
       			text-decoration: none;
+      		}
+      		// should not be necessary
+      		.icon-caret-down:before {
+      			margin-right: 0;
+      			margin-#{$alpha}: $gw;
       		}
 		}
 

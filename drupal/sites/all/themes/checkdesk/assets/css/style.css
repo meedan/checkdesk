@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300,600");
 @import url("http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
 /*
@@ -2213,6 +2212,10 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   content: "\f0c1";
 }
 
+#incoming-reports-filters .icon-caret-down:before {
+  content: "\f0d7";
+}
+
 #my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
   content: "\f0e5";
 }
@@ -2357,9 +2360,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-transition: border linear, box-shadow linear;
+  -webkit-transition-delay: 0.2s, 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -3738,7 +3741,6 @@ a.absolute-messages-dismiss-all:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
-  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -3926,13 +3928,13 @@ a.absolute-messages-dismiss-all:hover {
   display: none;
 }
 
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   body {
-    max-width: 6;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: -14px;
     padding-left: 10px;
     padding-right: 10px;
+    margin-left: auto;
+    margin-right: auto;
   }
   body:after {
     content: "";
@@ -4177,7 +4179,7 @@ body #main h2 {
   display: none;
 }
 
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   body {
     line-height: 29px;
   }
@@ -4219,12 +4221,10 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #f7f7f7;
@@ -4302,7 +4302,7 @@ div.tabs ul.primary li a {
   padding-bottom: 10px;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   div.tabs ul.primary {
     display: block;
     margin: 0 auto;
@@ -4573,12 +4573,10 @@ div.tabs ul.primary li a {
   display: block;
   -webkit-transition-property: all;
   -moz-transition-property: all;
-  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -5714,23 +5712,19 @@ nav[role="navigation"] .nav > div h2 {
   border-left: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #262626;
@@ -5791,23 +5785,19 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   border-left: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #999999;
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #262626;
@@ -6464,7 +6454,7 @@ form div.form-wrapper {
   margin: 13.5px 0;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   form {
     padding-left: 0%;
     padding-right: 0%;
@@ -6635,7 +6625,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   color: black;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   body.page-liveblog #main {
     padding-left: 1.62866%;
     padding-right: 1.62866%;
@@ -6664,7 +6654,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     margin-bottom: 18px;
   }
 }
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   body.page-liveblog #main {
     padding-left: 0.80775%;
     padding-right: 0.80775%;
@@ -6993,6 +6983,13 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
   padding: 0;
   border: 0;
 }
+#incoming-reports-filters .icon-caret-down:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  line-height: 16px;
+  color: #555555;
+  margin-right: 10px;
+}
 #incoming-reports-filters .panels {
   list-style: none;
   display: inline-block;
@@ -7023,6 +7020,10 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
 #incoming-reports-filters .panels .panel .panel-toggle:hover {
   background-color: #d4d4d4;
   text-decoration: none;
+}
+#incoming-reports-filters .panels .panel .panel-toggle .icon-caret-down:before {
+  margin-right: 0;
+  margin-left: 10px;
 }
 #incoming-reports-filters .panels .panel .panel-content {
   display: none;
@@ -7188,7 +7189,7 @@ body.sidebar-first #main div#content .inner {
   margin-top: 18px;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   body.sidebar-first #main {
     width: 100%;
     float: left;
@@ -7232,7 +7233,7 @@ body.sidebar-first #main div#content .inner {
     margin-top: 18px;
   }
 }
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   body.sidebar-first #main {
     width: 100%;
     float: left;
@@ -7273,7 +7274,7 @@ body.sidebar-first #main div#content .inner {
     margin-top: 18px;
   }
 }
-@media (min-width: 2506px) {
+@media (min-width: 2486px) {
   body.sidebar-first #main {
     width: 100%;
     float: left;
@@ -7656,12 +7657,10 @@ body.page-user-register #user-login #edit-social-media-signin li.first a,
 body.page-user-password #user-login #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -7685,12 +7684,10 @@ body.page-user-register #user-login #edit-social-media-signin li a[class^='faceb
 body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -7815,7 +7812,7 @@ body.page-user-register #user-login .form-actions .user-new-account-link .regist
 body.page-user-password #user-login .form-actions .user-new-account-link .register:hover {
   color: black;
 }
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   body.page-user-login form #edit-social-media-signin a,
   body.page-user-register form #edit-social-media-signin a,
   body.page-user-password form #edit-social-media-signin a {
@@ -7881,21 +7878,21 @@ body.page-reports li.views-fluid-grid-item {
   margin-right: 10px;
 }
 
-@media (min-width: 634px) {
+@media (min-width: 614px) {
   body.page-reports li.views-fluid-grid-item {
     width: 49.18567%;
     float: left;
     margin-right: 1.62866%;
   }
 }
-@media (min-width: 1258px) {
+@media (min-width: 1238px) {
   body.page-reports li.views-fluid-grid-item {
     width: 36.99515%;
     float: left;
     margin-right: 0.80775%;
   }
 }
-@media (min-width: 2506px) {
+@media (min-width: 2486px) {
   body.page-reports li.views-fluid-grid-item {
     width: 14.23974%;
     float: left;
