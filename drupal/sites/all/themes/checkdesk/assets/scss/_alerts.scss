@@ -7,12 +7,13 @@
 // The alert container
 .alert {
   padding: 8px 14px;
-  margin-bottom: $baseLineHeight;
+  margin-bottom: $baseLineHeight/2;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   background-color: $warningBackground;
   border: 1px solid $warningBorder;
   @include border-radius($baseBorderRadius);
   font-family: $sans-font-family;
+  font-size: $fontSizeSmall;
 }
 
 .alert,
@@ -22,7 +23,11 @@
 }
 .alert h4 {
   @include reset-box-model;
-  margin-bottom: $baseLineHeight/4;
+}
+
+.alert ul {
+  padding-left: $gw*2;
+  margin: $baseLineHeight/4 0;
 }
 
 // Dismiss alert

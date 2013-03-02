@@ -3389,7 +3389,7 @@ table th[class*="span"],
 
 .alert {
   padding: 8px 14px;
-  margin-bottom: 27px;
+  margin-bottom: 13.5px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
@@ -3399,6 +3399,7 @@ table th[class*="span"],
   -o-border-radius: 3px;
   border-radius: 3px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15.3px;
 }
 
 .alert,
@@ -3410,7 +3411,11 @@ table th[class*="span"],
   margin: 0;
   padding: 0;
   border: 0;
-  margin-bottom: 6.75px;
+}
+
+.alert ul {
+  padding-left: 20px;
+  margin: 6.75px 0;
 }
 
 .alert .close {
@@ -3666,18 +3671,23 @@ table th[class*="span"],
 }
 .modal-body .modal-content {
   position: relative;
-  padding: 13.5px 10px;
-  font-size: 20px;
+  padding: 6.75px 10px;
   line-height: 1.5;
 }
 .modal-body .modal-content form {
   padding: 0;
   margin: 0;
   z-index: 951;
+}
+.modal-body .modal-content form label {
   font-size: 15.3px;
 }
+.modal-body .modal-content form textarea {
+  font-size: 15.3px;
+  height: 80px;
+}
 .modal-body #modal-throbber {
-  padding: 13.5px 0;
+  padding: 6.75px 0;
   margin-left: -5px;
 }
 .modal-body .form-actions {
