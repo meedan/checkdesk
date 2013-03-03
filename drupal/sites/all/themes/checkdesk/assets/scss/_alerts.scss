@@ -5,7 +5,7 @@
 // We establish the basic alert and then alternates.
 
 // The alert container
-.alert {
+.messages {
   padding: 8px 14px;
   margin-bottom: $baseLineHeight/2;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
@@ -16,16 +16,46 @@
   font-size: $fontSizeSmall;
 }
 
-.alert,
-.alert h4 {
-  // Specified for the h4 to prevent conflicts of changing $headingsColor
+.messages,
+.messages-heading {
   color: $warningText;
 }
-.alert h4 {
-  @include reset-box-model;
+
+// Alternate styles
+// ----------------
+
+.success {
+  @include icon(ok-sign, $baseFontSize, $successText, $icon-position);
+  background-color: $successBackground;
+  border-color: $successBorder;  
+}
+.success,
+.success .messages-heading {
+  color: $successText;
+}
+.danger,
+.error {
+  @include icon(warning-sign, $baseFontSize, $errorText, $icon-position);
+  background-color: $errorBackground;
+  border-color: $errorBorder;
+}
+.danger,
+.error,
+.danger .messages-heading,
+.error .messages-heading {
+  color: $errorText;
+}
+.status {
+  @include icon(info-sign, $baseFontSize, $infoText, $icon-position);
+  background-color: $infoBackground;
+  border-color: $infoBorder;
+}
+.status,
+.status .messages-heading {
+  color: $infoText;
 }
 
-.alert ul {
+.messages ul {
   padding-left: $gw*2;
   margin: $baseLineHeight/4 0;
 }
@@ -45,37 +75,6 @@
     cursor: pointer;
     @include opacity(0.4);
   }
-}
-
-
-// Alternate styles
-// -------------------------
-
-.alert-success {
-  background-color: $successBackground;
-  border-color: $successBorder;
-  color: $successText;
-}
-.alert-success h4 {
-  color: $successText;
-}
-.alert-danger,
-.alert-error {
-  background-color: $errorBackground;
-  border-color: $errorBorder;
-  color: $errorText;
-}
-.alert-danger h4,
-.alert-error h4 {
-  color: $errorText;
-}
-.alert-info {
-  background-color: $infoBackground;
-  border-color: $infoBorder;
-  color: $infoText;
-}
-.alert-info h4 {
-  color: $infoText;
 }
 
 // Close icons

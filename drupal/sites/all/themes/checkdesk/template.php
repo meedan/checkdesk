@@ -50,7 +50,7 @@ function checkdesk_preprocess_html(&$variables) {
 function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
-  // Add a path to the theme so checkdesk_inject_bootrap.js can load libraries
+  // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
   $vars['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
   drupal_add_js(array('basePathCheckdeskTheme' => $vars['basePathCheckdeskTheme']), 'setting');
 
@@ -501,13 +501,15 @@ function checkdesk_field__field_rating(&$variables) {
  * Adjust user login form
  */
 function checkdesk_form_alter(&$form, &$form_state) {
+  // user login form
   if($form['form_id']['#id'] == 'edit-user-login') {
     unset($form['social_media_signin']['#title']);
     $form['social_media_signin']['#suffix'] = '<div class="or"><span>' . t('or') . '</span></div>';
     unset($form['name']['#description']);
-    unset($form['name']['#title']);
+    // unset($form['name']['#title']);
     unset($form['pass']['#description']);
-    unset($form['pass']['#title']);
+    $form['pass']['#title'] = t('Password');
+    // unset($form['pass']['#title']);
     $form['name']['#attributes']['placeholder'] = t('Username');
     $form['pass']['#attributes']['placeholder'] = t('Password');
     // Add forgot link and a wrapper around forgot pass and remember me
@@ -521,6 +523,18 @@ function checkdesk_form_alter(&$form, &$form_state) {
     $new_account_link = l(t('Sign Up'), 'user/register', $link);
     $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
     ' . $new_account_link . '</div>';    
+  }
+  // create new account form
+  if($form['form_id']['#id'] == 'edit-user-register-form') {  
+    $form['account']['name']['#attributes']['placeholder'] = t('Username');
+    unset($form['account']['name']['#description']);
+    $form['account']['mail']['#attributes']['placeholder'] = t('E-mail address');
+    unset($form['account']['mail']['#description']);
+    unset($form['account']['pass']['#description']);
+  }
+  // forgot password form
+  if($form['form_id']['#id'] == 'edit-user-pass') {
+    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
   }
 }
 
@@ -553,11 +567,22 @@ function checkdesk_twitter_signin_button() {
  * Adjust compose update form
  */
 function checkdesk_form_post_node_form_alter(&$form, &$form_state) {
-  $form['title']['#title'] = NULL;
+  // $form['title']['#title'] = NULL;
   $form['title']['#attributes']['placeholder'] = t('Add headline');
 
-  $form['body']['und'][0]['#title'] = NULL;
+  // $form['body']['und'][0]['#title'] = NULL;
   $form['body']['und'][0]['#attributes']['placeholder'] = t('Drag and drop reports here to compose your update');
+}
+
+/**
+ * Adjust create story form
+ */
+function checkdesk_form_discussion_node_form_alter(&$form, &$form_state) {
+  $form['title']['#title'] = t('Story title');
+  $form['title']['#attributes']['placeholder'] = t('Story title');
+
+  // $form['body']['und'][0]['#title'] = NULL;
+  $form['body']['und'][0]['#attributes']['placeholder'] = t('Introduction');
 }
 
 /**

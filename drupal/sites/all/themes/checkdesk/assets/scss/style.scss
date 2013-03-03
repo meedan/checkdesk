@@ -30,6 +30,12 @@
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
+// Set the position of icons
+$icon-position: 'before';
+@if $from-direction == 'right' {
+	$icon-position: 'after';
+}
+
 // Drupal styles
 // Drupal itself should not emit *any* CSS. 
 //
@@ -40,7 +46,7 @@ $omega: opposite-position($from-direction);
 @import "override_drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
 @import "override_drupal/system_base";
 @import "override_drupal/system_menus";
-@import "override_drupal/system_messages";
+// @import "override_drupal/system_messages";
 // @import "system_theme"; // hoping i can remove this huge one ....
 @import "override_drupal/jquery_ui_core";
 // @import "jquery_ui_theme"; // this is pretty big do we really need it?

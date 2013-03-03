@@ -62,14 +62,26 @@
 // Inline form errors
 //
 @mixin form-inline-errors {
-  .messages-inline {
-    @include cd-arrow-box(lighten($red, 75%), $red, 10px, 1px);
 
+  // hide labels for forms with ife
+  &.ife {
+    label {
+      display: none;
+    }
+  }
+  .messages-inline {
+    // @include cd-arrow-box($errorBackground, $errorBorder, $gw, 1px);
+    background: none;
+    border: 0 none;
     display: inline-block;
-    margin: 0 0 10px 0;
-    margin-#{$from-direction}: 20px;
-    padding: 10px;
-    line-height: 1;
+    // margin: $baseLineHeight/4 0 $baseLineHeight/4 0;
+    // margin-#{$from-direction}: $gw*2;
+    margin: 0;
+    padding: 0;
+    padding-bottom: $baseLineHeight/2;
+    font-family: $sans-font-family;
+    font-size: $fontSizeSmall;
+    line-height: 1.4;
   }
 }
 
@@ -282,6 +294,7 @@
     }
 
     div.form-wrapper {
+      clear: both;
       // @include span-columns($w, $w);
       margin: $baseLineHeight/2 0;
     }

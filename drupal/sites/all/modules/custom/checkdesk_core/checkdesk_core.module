@@ -297,7 +297,7 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
     // Create ajax command array, set the message and dismiss the modal window.
     $message = t('<b>' . views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title) . '</b> added to <b>' . $form_state['values']['story_title'] . '</b>');
     drupal_set_message(t($message));
-    $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
+    // $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
     $commands[] = ctools_modal_command_dismiss();
 
     // Redirect to story. 
@@ -1070,6 +1070,15 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
  * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
+
+  // Add a class to forms which should display inline errors
+  $form_ids = checkdesk_core_ife_form_ids();
+  foreach ($form_ids as $fid => $row) {
+    if($form_id == $fid) {
+      $form['#attributes']['class'][] = 'ife';
+    }
+  }
+  
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $items = array();
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
@@ -1224,26 +1233,8 @@ function checkdesk_core_form_user_cancel_confirm_form_alter(&$form, $form_state)
  * Ensures that the IFE module settings are properly installed in the database.
  */
 function checkdesk_core_ensure_ife_settings() {
-  $form_ids = array(
-    'article_node_form'     => array(),
-    'discussion_node_form'  => array(),
-    'forum_node_form'       => array(),
-    'media_node_form'       => array(),
-    'node_export_node_form' => array(),
-    'page_node_form'        => array(),
-    'post_node_form'        => array(),
 
-    'comment_form'          => array(),
-
-    'contact_mail_page'     => array(),
-    'contact_mail_user'     => array(),
-
-    'user_login'            => array(),
-    'user_login_block'      => array(),
-    'user_pass'             => array(),
-    'user_register_form'    => array(),
-    'user_profile_form'     => array(),
-  );
+  $form_ids = checkdesk_core_ife_form_ids();
 
   $defaults = array(
     'field_types' => NULL,
@@ -1262,4 +1253,34 @@ function checkdesk_core_ensure_ife_settings() {
       ->fields($row)
       ->execute();
   }
+}
+
+/**
+ * Forms that will use inline form errors
+ */
+
+function checkdesk_core_ife_form_ids() {
+  $form_ids = array(
+    'article_node_form'     => array(),
+    'discussion_node_form'  => array(),
+    'forum_node_form'       => array(),
+    'media_node_form'       => array(),
+    'node_export_node_form' => array(),
+    'page_node_form'        => array(),
+    'post_node_form'        => array(),
+    'flag_confirm'          => array(),
+
+    'comment_form'          => array(),
+
+    'contact_mail_page'     => array(),
+    'contact_mail_user'     => array(),
+
+    'user_login'            => array(),
+    'user_login_block'      => array(),
+    'user_pass'             => array(),
+    'user_register_form'    => array(),
+    'user_profile_form'     => array(),
+  );
+
+  return $form_ids;
 }

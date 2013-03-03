@@ -6,42 +6,29 @@ $omega: opposite-position($from-direction);
 // 1. Drupal Navigation at the very top.
 // 2. Checkdesk #main-menu navigation
 
+
+// Navigation icons are always set as before
+$icon-position: 'before';
+
 // Icons in the navigation
-@mixin nav-icons($size: $xsmall-font-size, $color: $navbarLinkColor, $position: "before") {
-  @if $from-direction == left {
-    $position: "before";
-  }
-  @if $from-direction == right {
-    $position: "after";
-  }
+@mixin nav-icons($size: $xsmall-font-size, $color: $navbarLinkColor) {
 
   // add a post
   a[href*="add/post"] { 
-    @include icon("pencil", $size, $color, $position); 
-    &:after {
-      margin-left: $gw; margin-right: 0;
-    }
+    @include icon("pencil", $size, $color, $icon-position); 
   }
   // add a report
   a#menu-submit-report { 
-      @include icon("bookmark", $size, $color, $position);
-      &:after {
-        margin-left: $gw; margin-right: 0;
-      }
+      @include icon("bookmark", $size, $color, $icon-position);
+
   }
   // add a story 
   a[href*="add/discussion"] { 
-    @include icon("file", $size, $color, $position); 
-    &:after {
-      margin-left: $gw; margin-right: 0;
-    }
+    @include icon("file", $size, $color, $icon-position); 
   }
   // home
   li.home a { 
-    @include icon("home", $size, $color, $position); 
-    &:after {
-      margin-left: $gw; margin-right: 0;
-    }
+    @include icon("home", $size, $color, $icon-position); 
   }
 }
 

@@ -711,79 +711,6 @@ ul.secondary a.active {
   border-bottom: 4px solid #999999;
 }
 
-/**
- * @file
- * Styles for system messages.
- */
-div.messages {
-  background-position: 8px 8px;
-  /* LTR */
-  background-repeat: no-repeat;
-  border: 1px solid;
-  margin: 6px 0;
-  padding: 10px 10px 10px 50px;
-  /* LTR */
-}
-
-div.status {
-  background-image: url(../../misc/message-24-ok.png);
-  border-color: #be7;
-}
-
-div.status,
-.ok {
-  color: #234600;
-}
-
-div.status,
-table tr.ok {
-  background-color: #f8fff0;
-}
-
-div.warning {
-  background-image: url(../../misc/message-24-warning.png);
-  border-color: #ed5;
-}
-
-div.warning,
-.warning {
-  color: #840;
-}
-
-div.warning,
-table tr.warning {
-  background-color: #fffce5;
-}
-
-div.error {
-  background-image: url(../../misc/message-24-error.png);
-  border-color: #ed541d;
-}
-
-div.error,
-.error {
-  color: #8c2e0b;
-}
-
-div.error,
-table tr.error {
-  background-color: #fef5f1;
-}
-
-div.error p.error {
-  color: #333;
-}
-
-div.messages ul {
-  margin: 0 0 0 1em;
-  /* LTR */
-  padding: 0;
-}
-
-div.messages ul li {
-  list-style-image: none;
-}
-
 /*
  * jQuery UI CSS Framework 1.8.7
  *
@@ -2176,7 +2103,7 @@ nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f057";
 }
 
-.report .icon-ok-sign:after, #incoming-reports .report-row .verified span:before {
+.success:before, .report .icon-ok-sign:after, #incoming-reports .report-row .verified span:before {
   content: "\f058";
 }
 
@@ -2184,7 +2111,12 @@ nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f059";
 }
 
-#my-notifications .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago:before {
+.status:before {
+  content: "\f05a";
+}
+
+.danger:before,
+.error:before, #my-notifications .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago:before {
   content: "\f071";
 }
 
@@ -2316,7 +2248,7 @@ input[type="color"],
   display: inline-block;
   height: 27px;
   padding: 8px 6px;
-  margin-bottom: 13.5px;
+  margin-bottom: 6.75px;
   font-size: 18px;
   font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
   line-height: 27px;
@@ -2507,12 +2439,12 @@ input[type="checkbox"][readonly] {
 .form-item textarea.error,
 .form-item select.error {
   color: #b94a48;
-  border-color: #dfaeb7;
+  border-color: #ebb3bd;
 }
 .form-item input.error:focus,
 .form-item textarea.error:focus,
 .form-item select.error:focus {
-  border-color: #c77070;
+  border-color: #d96f6f;
   -webkit-box-shadow: 0 0 6px white;
   -moz-box-shadow: 0 0 6px white;
   box-shadow: 0 0 6px white;
@@ -3341,7 +3273,7 @@ table th[class*="span"],
   background-color: #dff0d8;
 }
 .table tbody tr.error td {
-  background-color: #f2dede;
+  background-color: #f9e8e8;
 }
 .table tbody tr.warning td {
   background-color: #fcf8e3;
@@ -3354,7 +3286,7 @@ table th[class*="span"],
   background-color: #d0e9c6;
 }
 .table-hover tbody tr.error:hover td {
-  background-color: #ebcccc;
+  background-color: #f4d4d4;
 }
 .table-hover tbody tr.warning:hover td {
   background-color: #faf2cc;
@@ -3387,7 +3319,7 @@ table th[class*="span"],
   position: fixed;
 }
 
-.alert {
+.messages {
   padding: 8px 14px;
   margin-bottom: 13.5px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -3402,18 +3334,67 @@ table th[class*="span"],
   font-size: 15.3px;
 }
 
-.alert,
-.alert h4 {
+.messages,
+.messages-heading {
   color: #c09853;
 }
 
-.alert h4 {
-  margin: 0;
-  padding: 0;
-  border: 0;
+.success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.success:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: 18px;
+  color: #468847;
+  margin-right: 10px;
 }
 
-.alert ul {
+.success,
+.success .messages-heading {
+  color: #468847;
+}
+
+.danger,
+.error {
+  background-color: #f9e8e8;
+  border-color: #f6dce0;
+}
+.danger:before,
+.error:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: 18px;
+  color: #b94a48;
+  margin-right: 10px;
+}
+
+.danger,
+.error,
+.danger .messages-heading,
+.error .messages-heading {
+  color: #b94a48;
+}
+
+.status {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.status:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: 18px;
+  color: #3a87ad;
+  margin-right: 10px;
+}
+
+.status,
+.status .messages-heading {
+  color: #3a87ad;
+}
+
+.messages ul {
   padding-left: 20px;
   margin: 6.75px 0;
 }
@@ -3434,38 +3415,6 @@ table th[class*="span"],
   cursor: pointer;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
   opacity: 0.4;
-}
-
-.alert-success {
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: #468847;
-}
-
-.alert-success h4 {
-  color: #468847;
-}
-
-.alert-danger,
-.alert-error {
-  background-color: #f2dede;
-  border-color: #eed3d7;
-  color: #b94a48;
-}
-
-.alert-danger h4,
-.alert-error h4 {
-  color: #b94a48;
-}
-
-.alert-info {
-  background-color: #d9edf7;
-  border-color: #bce8f1;
-  color: #3a87ad;
-}
-
-.alert-info h4 {
-  color: #3a87ad;
 }
 
 .close {
@@ -5539,20 +5488,12 @@ nav[role="navigation"] a[href*="add/post"]:before {
   color: #999999;
   margin-right: 10px;
 }
-nav[role="navigation"] a[href*="add/post"]:after {
-  margin-left: 10px;
-  margin-right: 0;
-}
 nav[role="navigation"] a#menu-submit-report:before {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: 15px;
   color: #999999;
   margin-right: 10px;
-}
-nav[role="navigation"] a#menu-submit-report:after {
-  margin-left: 10px;
-  margin-right: 0;
 }
 nav[role="navigation"] a[href*="add/discussion"]:before {
   font-family: "FontAwesome";
@@ -5561,20 +5502,12 @@ nav[role="navigation"] a[href*="add/discussion"]:before {
   color: #999999;
   margin-right: 10px;
 }
-nav[role="navigation"] a[href*="add/discussion"]:after {
-  margin-left: 10px;
-  margin-right: 0;
-}
 nav[role="navigation"] li.home a:before {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: 15px;
   color: #999999;
   margin-right: 10px;
-}
-nav[role="navigation"] li.home a:after {
-  margin-left: 10px;
-  margin-right: 0;
 }
 nav[role="navigation"] .dropdown-menu,
 nav[role="navigation"] #block-views-my-notifications-block .content {
@@ -5908,7 +5841,7 @@ div.password-confirm .ok {
 div.password-confirm .error {
   padding: 5px 10px;
   color: #b94a48;
-  background-color: #f2dede;
+  background-color: #f9e8e8;
 }
 div.password-confirm .description {
   display: block;
@@ -6281,38 +6214,19 @@ form .ui-droppable.drop-hover textarea {
   background-color: rgba(0, 136, 255, 0.02);
   border-color: rgba(0, 136, 255, 0.9);
 }
+form.ife label {
+  display: none;
+}
 form .messages-inline {
-  position: relative;
-  background: white;
-  border: 1px solid #9d261d;
+  background: none;
+  border: 0 none;
   display: inline-block;
-  margin: 0 0 10px 0;
-  margin-left: 20px;
-  padding: 10px;
-  line-height: 1;
-}
-form .messages-inline:after, form .messages-inline:before {
-  right: 100%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-form .messages-inline:after {
-  border-color: rgba(255, 255, 255, 0);
-  border-right-color: white;
-  border-width: 10px;
-  top: 50%;
-  margin-top: -10px;
-}
-form .messages-inline:before {
-  border-color: rgba(157, 38, 29, 0);
-  border-right-color: #9d261d;
-  border-width: 11px;
-  top: 50%;
-  margin-top: -11px;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 13.5px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15.3px;
+  line-height: 1.4;
 }
 
 form > .form-item {
@@ -6356,6 +6270,7 @@ form select:after {
   clear: both;
 }
 form div.form-wrapper {
+  clear: both;
   margin: 13.5px 0;
 }
 
@@ -6404,6 +6319,7 @@ form div.form-wrapper {
     clear: both;
   }
   form div.form-wrapper {
+    clear: both;
     margin: 13.5px 0;
   }
 }
@@ -7428,6 +7344,11 @@ body.page-user-login #main h1.title,
 body.page-user-register #main h1.title,
 body.page-user-password #main h1.title {
   text-align: center;
+}
+body.page-user-login #main #content-area,
+body.page-user-register #main #content-area,
+body.page-user-password #main #content-area {
+  clear: both;
 }
 body.page-user-login #content-header > h1,
 body.page-user-register #content-header > h1,

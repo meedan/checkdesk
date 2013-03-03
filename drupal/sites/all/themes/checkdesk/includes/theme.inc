@@ -182,39 +182,39 @@ function _checkdesk_alter($files, $type) {
  * Returns HTML for status and/or error messages, grouped by type.
  *
  */
-function checkdesk_status_messages($variables) {
-  $display = $variables['display'];
-  $output = '';
+// function checkdesk_status_messages($variables) {
+//   $display = $variables['display'];
+//   $output = '';
 
-  $status_heading = array(
-    'status' => t('Status'),
-    'error' => t('Errors occurred'),
-    'warning' => t('Warning'),
-  );
+//   $status_heading = array(
+//     'status' => t('Status'),
+//     'error' => t('Errors occurred'),
+//     'warning' => t('Warning'),
+//   );
 
-  foreach (drupal_get_messages($display) as $type => $messages) {
-    $output .= "<div class=\"alert alert-block alert-$type\">\n";
-    $output .= "  <a class=\"close\" data-dismiss=\"alert\" href=\"#\">x</a>\n";
+//   foreach (drupal_get_messages($display) as $type => $messages) {
+//     $output .= "<div class=\"alert alert-block alert-$type\">\n";
+//     $output .= "  <a class=\"close\" data-dismiss=\"alert\" href=\"#\">x</a>\n";
 
-    if (!empty($status_heading[$type])) {
-      $output .= '<h4 class="alert-heading">' . $status_heading[$type] . "</h4>\n";
-    }
+//     if (!empty($status_heading[$type])) {
+//       $output .= '<h4 class="alert-heading">' . $status_heading[$type] . "</h4>\n";
+//     }
 
-    if (count($messages) > 1) {
-      $output .= " <ul>\n";
-      foreach ($messages as $message) {
-        $output .= '  <li>' . $message . "</li>\n";
-      }
-      $output .= " </ul>\n";
-    }
-    else {
-      $output .= $messages[0];
-    }
+//     if (count($messages) > 1) {
+//       $output .= " <ul>\n";
+//       foreach ($messages as $message) {
+//         $output .= '  <li>' . $message . "</li>\n";
+//       }
+//       $output .= " </ul>\n";
+//     }
+//     else {
+//       $output .= $messages[0];
+//     }
 
-    $output .= "</div>\n";
-  }
-  return $output;
-}
+//     $output .= "</div>\n";
+//   }
+//   return $output;
+// }
 
 function checkdesk_checkdesk_heartbeat_content($variables) {
   $message = $variables['message'];
