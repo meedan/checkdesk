@@ -1072,8 +1072,8 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 
   // Add a class to forms which should display inline errors
-  $form_ids = checkdesk_core_ife_form_ids();
-  foreach ($form_ids as $fid => $row) {
+  $ife_form_ids = checkdesk_core_ife_form_ids();
+  foreach ($ife_form_ids as $fid => $row) {
     if($form_id == $fid) {
       $form['#attributes']['class'][] = 'ife';
     }

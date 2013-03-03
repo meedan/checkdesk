@@ -6217,8 +6217,30 @@ form .ui-droppable.drop-hover textarea {
 form.ife label {
   display: none;
 }
+form.ife .form-type-select {
+  *zoom: 1;
+}
+form.ife .form-type-select:before, form.ife .form-type-select:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+form.ife .form-type-select:after {
+  clear: both;
+}
 form.ife .form-type-select label {
   display: inline-block;
+  float: left;
+  margin-right: 10px;
+  line-height: 27px;
+  padding-top: 9px;
+}
+form.ife .form-type-select select {
+  float: left;
+  width: 48.34437%;
+  float: left;
+  margin-right: 3.31126%;
+  display: inline;
 }
 form .messages-inline {
   background: none;

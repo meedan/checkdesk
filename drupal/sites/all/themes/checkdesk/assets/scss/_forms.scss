@@ -69,8 +69,19 @@
       display: none;
     }
     // unless it is a select field
-    .form-type-select label {
-      display: inline-block; 
+    .form-type-select {
+      @include ctb-clearfix;
+      label {
+        display: inline-block;
+        float: left;
+        margin-#{$omega}: $gw;
+        line-height: $baseLineHeight;
+        padding-top: $baseLineHeight/3;
+      }
+      select {
+        float: left;
+        @include span-columns($cw/2);
+      }
     }
   }
   .messages-inline {
