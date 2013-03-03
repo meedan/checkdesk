@@ -68,6 +68,10 @@
     label {
       display: none;
     }
+    // unless it is a select field
+    .form-type-select label {
+      display: inline-block; 
+    }
   }
   .messages-inline {
     // @include cd-arrow-box($errorBackground, $errorBorder, $gw, 1px);
