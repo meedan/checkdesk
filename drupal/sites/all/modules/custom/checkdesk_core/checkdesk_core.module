@@ -297,7 +297,7 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
     // Create ajax command array, set the message and dismiss the modal window.
     $message = t('<b>' . views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title) . '</b> added to <b>' . $form_state['values']['story_title'] . '</b>');
     drupal_set_message(t($message));
-    // $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
+    // $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
     $commands[] = ctools_modal_command_dismiss();
 
     // Redirect to story. 
@@ -468,7 +468,7 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js){
     // Create ajax command array, refresh messagess and dismiss the modal window.
     // Disabling ajax message refresh
     // switching to inline post refresh messages
-    // $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
+    $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
     $commands[] = ctools_modal_command_dismiss();
     $commands[] = ctools_ajax_command_reload();
   }
@@ -488,7 +488,7 @@ function _checkdesk_core_invoke_messages($action, $type) {
   }
  
   $commands = array();
-  $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
+  $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
   $page = array('#type' => 'ajax', '#commands' => $commands);
   ajax_deliver($page);
 }

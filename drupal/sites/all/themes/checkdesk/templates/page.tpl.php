@@ -59,7 +59,9 @@
             <?php endif; ?>
 
             <?php print render($title_suffix); ?>
-            <?php print $messages; ?>
+            <div id="messages-container">
+              <?php print $messages; ?>
+            </div>
             <?php print render($page['help']); ?>
 
             <?php if ($tabs): ?>
