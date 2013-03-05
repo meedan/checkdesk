@@ -9,12 +9,6 @@
   display: none;
 }
 
-// RSS icon is not in the spec but is appearing. 
-// RSS *should* be enabled but with no icon.
-a.feed-icon {
-  display: none;
-}
-
 // Disable vertical tabs in forms
 div.vertical-tabs, div.vertical-tabs-panes {
   display: none!important;  
@@ -46,7 +40,7 @@ nav li.menu-449 {
 
 // No tabs in the sidebar pages ...
 body.sidebar-first .tabs {
-  display: none!important;
+  // display: none!important;
 }
 
 p br { display: none; } // hack to remove br's from content

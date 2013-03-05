@@ -79,7 +79,7 @@
           <?php print render($page['content']); ?>
         </div>
 
-        <?php print $feed_icons; ?>
+        <?php // print $feed_icons; ?>
 
       </div>
     </div> <!-- /content-inner /content -->
