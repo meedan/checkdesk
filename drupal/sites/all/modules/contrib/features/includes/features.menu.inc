@@ -296,16 +296,8 @@ function menu_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
  */
 function features_menu_link_load($identifier) {
   list($menu_name, $link_path) = explode(':', $identifier, 2);
-  $fields = array('menu_name', 'mlid', 'plid', 'link_path', 'router_path', 'link_title', 'options', 'module', 'hidden', 'external', 'has_children', 'expanded', 'weight');
-  $schema = drupal_get_schema('menu_links');
-  if (!empty($schema['fields']['language'])) {
-    $fields[] = 'language';
-  }
-  if (!empty($schema['fields']['uuid'])) {
-    $fields[] = 'uuid';
-  }
   $link = db_select('menu_links')
-    ->fields('menu_links', $fields)
+    ->fields('menu_links', array('menu_name', 'mlid', 'plid', 'link_path', 'router_path', 'link_title', 'options', 'module', 'hidden', 'external', 'has_children', 'expanded', 'weight'))
     ->condition('menu_name', $menu_name)
     ->condition('link_path', $link_path)
     ->execute()

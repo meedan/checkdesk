@@ -1284,3 +1284,11 @@ function checkdesk_core_ife_form_ids() {
 
   return $form_ids;
 }
+
+/**
+ * Implements hook_query_TAG_alter() for features_menu_links.
+ */
+function checkdesk_core_query_features_menu_link_alter($query) {
+  $query->fields('menu_links', array('uuid', 'language', 'customized'));
+}
+
