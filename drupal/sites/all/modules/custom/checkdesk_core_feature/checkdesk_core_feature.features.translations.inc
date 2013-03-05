@@ -546,7 +546,7 @@ function checkdesk_core_feature_translations_defaults() {
     'source' => 'If you want to submit a Facebook link, you need to <a href="@url">connect to your Facebook account first</a>.',
     'context' => '',
     'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar',
-    'translation' => 'إن كنت تريد إضافة رابط من فيسبوك، عليك <a href="@url">ربط حسابك على فيسبوك أولاً</a>.',
+    'translation' => 'إن كنت تريد إضافة رابط من فيس بوك، عليك <a href="@url">ربط حسابك على فيس بوك أولاً</a>.',
     'plid' => '0',
     'plural' => '0',
   );
@@ -21572,7 +21572,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Facebook login',
     'context' => '',
     'location' => '',
-    'translation' => 'تسجيل الدخول عبر فيسبوك',
+    'translation' => 'تسجيل الدخول عبر فيس بوك',
     'plid' => '0',
     'plural' => '0',
   );
@@ -21941,7 +21941,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'If you want to submit a Facebook link, you need to <a href="@url" onclick="!onclick" target="_blank">connect to your Facebook account first</a>.',
     'context' => '',
     'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=Noha%20Journ%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar/users/noha-journ',
-    'translation' => 'إن كنت تريد إضافة رابط من فيسبوك، عليك <a href="@url" target="_blank">ربط حسابك على فيسبوك أولاً</a>.',
+    'translation' => 'إن كنت تريد إضافة رابط من فيس بوك، عليك <a href="@url" target="_blank">ربط حسابك على فيس بوك أولاً</a>.',
     'plid' => '0',
     'plural' => '0',
   );
@@ -31743,7 +31743,7 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'source' => 'You can submit a Facebook link above.',
     'context' => '',
     'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=%D8%A3%D9%86%D8%B4%D8%A6%20%D8%AE%D8%A8%D8%B1%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar/node/add/discussion',
-    'translation' => 'بإمكانك إرسال رابط من الفيسبوك هنا.',
+    'translation' => 'بإمكانك إرسال رابط من الفيس بوك هنا.',
     'plid' => '0',
     'plural' => '0',
   );
@@ -32508,7 +32508,7 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'source' => 'Facebook',
     'context' => '',
     'location' => '/ar/user/login',
-    'translation' => 'فيسبوك',
+    'translation' => 'فيس بوك',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43263,7 +43263,7 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'source' => 'Share on Facebook',
     'context' => '',
     'location' => '',
-    'translation' => 'شارك على فيسبوك',
+    'translation' => 'شارك على فيس بوك',
     'plid' => '0',
     'plural' => '0',
   );
