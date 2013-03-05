@@ -28,21 +28,6 @@ nav li.menu-449 {
   border: 1px solid red!important;
 }
 
-// Hide the summary link from text fields.
-// FIXME This is a hack because the fields are of type "Long text and summary" while they should really be of type "Long text".
-// .field-edit-link {
-//   display: none
-// }
-
-// body {
-//   padding-top: 0!important; // override toolbar padding  
-// }
-
-// No tabs in the sidebar pages ...
-body.sidebar-first .tabs {
-  // display: none!important;
-}
-
 p br { display: none; } // hack to remove br's from content
 
 // Drupal autocomplete indicator is appearing broken
