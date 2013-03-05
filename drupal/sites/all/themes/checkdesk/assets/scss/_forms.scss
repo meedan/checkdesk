@@ -73,13 +73,13 @@
       @include ctb-clearfix;
       label {
         display: inline-block;
-        float: left;
+        float: $alpha;
         margin-#{$omega}: $gw;
         line-height: $baseLineHeight;
         padding-top: $baseLineHeight/3;
       }
       select {
-        float: left;
+        float: $alpha;
         @include span-columns($cw/2);
       }
     }
@@ -189,7 +189,7 @@
     }
 
     textarea { 
-
+      
       // height: 200px; 
     } // starting height
 
@@ -313,6 +313,13 @@
       // @include span-columns($w, $w);
       margin: $baseLineHeight/2 0;
     }
+
+    .form-type-textarea {
+      @include ctb-clearfix;
+      margin-bottom: $baseLineHeight/2;
+    }
+
+
   }
 }
 

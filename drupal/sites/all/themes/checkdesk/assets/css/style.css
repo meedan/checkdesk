@@ -6297,6 +6297,18 @@ form div.form-wrapper {
   clear: both;
   margin: 13.5px 0;
 }
+form .form-type-textarea {
+  *zoom: 1;
+  margin-bottom: 13.5px;
+}
+form .form-type-textarea:before, form .form-type-textarea:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+form .form-type-textarea:after {
+  clear: both;
+}
 
 @media (min-width: 614px) {
   form {
@@ -6345,6 +6357,18 @@ form div.form-wrapper {
   form div.form-wrapper {
     clear: both;
     margin: 13.5px 0;
+  }
+  form .form-type-textarea {
+    *zoom: 1;
+    margin-bottom: 13.5px;
+  }
+  form .form-type-textarea:before, form .form-type-textarea:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  form .form-type-textarea:after {
+    clear: both;
   }
 }
 table {
