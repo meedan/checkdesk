@@ -14,14 +14,6 @@ div.vertical-tabs, div.vertical-tabs-panes {
   display: none!important;  
 }
 
-// We don't use the i element for icons from TB
-i {
-  display: none;
-  &:hover {
-    display: none
-  }
-}
-
 // hack for an empty div
 nav li.menu-449 {
   display: none!important;
