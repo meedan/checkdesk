@@ -11,7 +11,9 @@ function metatag_features_export($data, &$export, $module_name = '', $type = 'me
   $pipe = array();
 
   foreach ($data as $name) {
-    $export['features'][$type][$name] = metatag_config_load($name);
+    if (metatag_config_load($name)) {
+      $export['features'][$type][$name] = $name;
+    }
   }
 
   $export['dependencies']['metatag'] = 'metatag';
@@ -75,4 +77,11 @@ function metatag_features_export_options() {
     $options[$key] = $key;
   };
   return $options;
+}
+
+/**
+ * Implements hook_features_rebuild().
+ */
+function metatag_features_rebuild($module) {
+  metatag_features_revert($module);
 }

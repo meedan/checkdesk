@@ -93,7 +93,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-49',
     'language' => 'und',
-    'uuid' => 'dbb94a78-169f-6a54-f507-7701e610920a',
+    'uuid' => '90119a03-9ff0-9324-11f8-f501ab2a5135',
     'parent_path' => '<sub>',
   );
   // Exported menu link: main-menu:node/add/discussion
@@ -173,7 +173,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '50',
     'language' => 'und',
-    'uuid' => 'bbec8aa4-a7b7-ed54-c17d-68d00ba73ebb',
+    'uuid' => '50e68ce2-956c-6f64-1914-5e6a93778baf',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-common:<nolink>

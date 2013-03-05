@@ -10,19 +10,6 @@
 function checkdesk_core_feature_metatag_export_default() {
   $config = array();
 
-  // Exported Metatag config instance: node:media.
-  $config['node:media'] = array(
-    'instance' => 'node:media',
-    'config' => array(
-      'description' => array(
-        'value' => '[node:body]',
-      ),
-      'twitter:description' => array(
-        'value' => '[node:body]',
-      ),
-    ),
-  );
-
   // Exported Metatag config instance: global.
   $config['global'] = array(
     'instance' => 'global',
@@ -72,6 +59,19 @@ function checkdesk_core_feature_metatag_export_default() {
       ),
       'twitter:title' => array(
         'value' => '[node:title]',
+      ),
+    ),
+  );
+
+  // Exported Metatag config instance: node:media.
+  $config['node:media'] = array(
+    'instance' => 'node:media',
+    'config' => array(
+      'description' => array(
+        'value' => '[node:body]',
+      ),
+      'twitter:description' => array(
+        'value' => '[node:body]',
       ),
     ),
   );
