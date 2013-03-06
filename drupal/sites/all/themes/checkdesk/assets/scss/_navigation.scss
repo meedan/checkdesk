@@ -248,15 +248,6 @@ div.region-page-top {
   top: $toolbarHeight;
 }
 
-// push content down
-#main {
-  margin-top: $navbarHeight;
-}
-
-.toolbar #main {
-  margin-top: $toolbarHeight+$navbarHeight;
-}
-
 // partner header
 #partner-header {
   width: 100%;
@@ -264,4 +255,8 @@ div.region-page-top {
   padding-#{$from-direction}: $grid-padding;
   padding-#{$omega}: 2 * $grid-padding;
   margin-#{$from-direction}: -($grid-padding * 2);
+}
+
+.toolbar #partner-header {
+  margin-top: $toolbarHeight + $navbarHeight;
 }
