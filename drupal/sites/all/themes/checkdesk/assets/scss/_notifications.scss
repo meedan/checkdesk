@@ -12,7 +12,12 @@ $bh: $baseLineHeight/4;
 $omega: opposite-position($from-direction);
 
 #my-notifications {
-  #{$from-direction}: -230px;
+  @if $from-direction == left {
+    left: -255px;
+  }
+  @if $from-direction == right {
+    right: -308px;
+  }
   width: 360px;
   font-family: $sans-font-family;
   font-size: $fontSizeMini;
