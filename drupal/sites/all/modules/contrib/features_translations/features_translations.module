@@ -48,8 +48,8 @@ function translations_features_export_render($module_name, $data, $export = NULL
   foreach ($data as $component) {
     list($langcode, $textgroup) = explode(':', $component);
     $strings = _features_translations_locale_export_get_strings($languages[$langcode], $textgroup);
-    foreach ($strings as $lid => $string) {
-      $code[] = "  \$translations['{$langcode}:{$textgroup}'][{$lid}] = " . features_var_export($string, '  ') . ";";
+    foreach ($strings as $string) {
+      $code[] = "  \$translations['{$langcode}:{$textgroup}'][] = " . features_var_export($string, '  ') . ";";
     }
   }
   $code[] = '  return $translations;';
@@ -67,7 +67,7 @@ function translations_features_revert($module_name) {
     $report = array();
     foreach ($translations as $key => $strings) {
       list($langcode, $textgroup) = explode(':', $key);
-      foreach ($strings as $lid => $string) {
+      foreach ($strings as $string) {
         _locale_import_one_string_db($report, $langcode, $string['context'], $string['source'], $string['translation'], $textgroup, $string['location'], LOCALE_IMPORT_OVERWRITE, $string['plid'], $string['plural']);
       }
     }
@@ -94,7 +94,7 @@ function _features_translations_locale_export_get_strings($language = NULL, $gro
   }
   $strings = array();
   foreach ($result as $string) {
-    $strings[$string->lid] = $string;
+    $strings[] = $string;
   }
   return $strings;
 }
