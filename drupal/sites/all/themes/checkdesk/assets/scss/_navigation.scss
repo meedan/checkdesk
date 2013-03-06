@@ -253,8 +253,8 @@ div.region-page-top {
   width: 100%;
   padding-top: $navbarHeight;
   padding-#{$from-direction}: $grid-padding;
-  padding-#{$omega}: 2 * $grid-padding;
-  margin-#{$from-direction}: -($grid-padding * 2);
+  padding-#{$omega}: $grid-padding;
+  margin-#{$from-direction}: -$grid-padding;
 }
 
 .toolbar #partner-header {
