@@ -256,3 +256,12 @@ div.region-page-top {
 .toolbar #main {
   margin-top: $toolbarHeight+$navbarHeight;
 }
+
+// partner header
+#partner-header {
+  width: 100%;
+  padding-top: $navbarHeight;
+  padding-#{$from-direction}: $grid-padding;
+  padding-#{$omega}: 2 * $grid-padding;
+  margin-#{$from-direction}: -($grid-padding * 2);
+}
