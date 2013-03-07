@@ -1,5 +1,22 @@
 <?php
 
+// TODO: Use a hook_node_load() as a starting point to simplify how node pages / hooks interact with embeds.
+// /**
+//  * Implements hook_node_load().
+//  */
+// function meedan_oembed_node_load($nodes, $types) {
+//   foreach ($nodes as $nid => $node) {
+//     if ($node->type != 'media') {
+//       continue;
+//     }
+//     if (!isset($node->field_link) || !isset($node->field_link[LANGUAGE_NONE]) || !isset($node->field_link[LANGUAGE_NONE][0])) {
+//       continue;
+//     }
+//
+//     $nodes[$nid]->embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+//   }
+// }
+
 /**
  * Implements of hook_element_info_alter().
  */
@@ -170,20 +187,31 @@ function meedan_oembed_scrape_facebook($provider, $url) {
   $embed->provider_url = $provider_url;
   $embed->provider_name = 'Facebook';
   $embed->type = 'link';
-  //Get post message either from user message, link title or link description
+
+  // A status update, probably
   if (isset($post_data['message'])) {
     $embed->description = $post_data['message'];
     $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
   }
-  elseif (isset($post_data['name'])) {
+  // A user
+  else if (isset($post_data['name'])) {
     $embed->description = $post_data['name'];
   }
-  elseif (isset($post_data['description'])) {
+  // Something with a description
+  else if (isset($post_data['description'])) {
     $embed->description = $post_data['description'];
+  }
+  // A photo
+  else if (isset($post_data['picture']) && isset($post_data['images'])) {
+    $name = isset($post_data['from']) && isset($post_data['from']['name'])
+          ? $post_data['from']['name']
+          : t('unknown Facebook user');
+    $embed->description = t('Photo by @user', array('@user' => $name));
   }
   else {
     $embed->description = t('No message available for this post');
   }
+
   $embed->title = $embed->description;
   $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
   $embed->picture = isset($post_data['picture']) ? $post_data['picture'] : '';
