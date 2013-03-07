@@ -21,12 +21,22 @@ function translations_features_export_options() {
   $options = array();
   $textgroups = module_invoke_all('locale', 'groups');
   foreach (language_list() as $langcode => $language) {
-    if ($langcode == 'en') continue;
+    if ($langcode == translations_features_string_source_language()) continue;
     foreach ($textgroups as $textgroup => $label) {
       $options[$langcode . ':' . $textgroup] = $language->name . ': ' . $label;
     }
   }
   return $options;
+}
+
+/**
+ * Helper to return site's string source language.
+ */
+function translations_features_string_source_language() {
+  if (module_exists('i18n_string')) {
+    return i18n_string_source_language();
+  }
+  return language_default('language');
 }
 
 /**
