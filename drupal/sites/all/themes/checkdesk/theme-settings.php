@@ -66,6 +66,9 @@ function checkdesk_settings_submit($form, &$form_state) {
   file_prepare_directory($filepath, FILE_CREATE_DIRECTORY);
 
   if ($file = file_save_upload('header_image_upload', array('file_validate_is_image' => array()), $filepath, FILE_EXISTS_REPLACE)) {
+    // Make the file permanent
+    $file->status = 1;
+    file_save($file);
     $_POST['header_image_path'] = $form_state['values']['header_image_path'] = $file->destination;
   }
 }
