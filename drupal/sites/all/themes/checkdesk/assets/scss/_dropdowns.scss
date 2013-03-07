@@ -13,7 +13,12 @@
 .dropdown-menu {
   position: absolute;
   top: 75%;
-  left: 0;
+  @if $from-direction == left {
+    left: 0;
+  }
+  @if $from-direction == right {
+    right: 0;
+  }
   z-index: $zindexDropdown;
   display: none; // none by default, but block on "open" of the menu
   float: $from-direction;

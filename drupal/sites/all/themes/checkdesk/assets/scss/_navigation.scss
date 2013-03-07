@@ -187,18 +187,22 @@ nav[role="navigation"] {
   @if $from-direction == left {
     // avoid cropping on the last item
     #user-menu {
+      li.first .dropdown-menu {
+        left: -105px;
+      }
       li.last .dropdown-menu {
-        #{$from-direction}: -75px;
+        left: -75px;
       }  
     }
   }
   @if $from-direction == right {
-    li.last .dropdown-menu {
-      #{$omega}: 10px;
-    }
-    // more link's dropdown
-    li.menu-323 .dropdown-menu {
-      #{$omega}: -190px; 
+    #user-menu {
+      li.first .dropdown-menu {
+        right: -135px;
+      }
+      li.last .dropdown-menu {
+        right: -75px;
+      }
     }
   }
 
@@ -248,11 +252,16 @@ div.region-page-top {
   top: $toolbarHeight;
 }
 
-// push content down
-#main {
-  margin-top: $navbarHeight;
+// partner header
+#partner-header {
+  width: 100%;
+  padding-top: $navbarHeight;
+  padding-#{$from-direction}: $grid-padding;
+  padding-#{$omega}: $grid-padding;
+  margin-#{$from-direction}: -$grid-padding;
 }
 
-.toolbar #main {
-  margin-top: $toolbarHeight+$navbarHeight;
+.toolbar #partner-header {
+  margin-top: $toolbarHeight + $navbarHeight;
+  padding-top: 0;
 }

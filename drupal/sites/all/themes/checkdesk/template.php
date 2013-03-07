@@ -39,7 +39,7 @@ function checkdesk_preprocess_html(&$variables) {
     $class = 'body-' . $variables['language']->language;
     $variables['classes_array'][] = $class;
   }
-  
+
 }
 
 /**
@@ -218,6 +218,25 @@ function checkdesk_preprocess_page(&$variables) {
     ),
   );
   drupal_add_js($modal_style, 'setting');
+
+  // define custom header settings
+  $variables['header_image_path'] = '';
+  $variables['header_height'] = 0;
+  $image = theme_get_setting('header_image_path');
+  
+  if (!empty($image) && theme_get_setting('header_image_enabled')) {
+    $variables['header_image_path'] = file_create_url($image);
+    $info = image_get_info($image);
+    if ($info) {
+      $variables['header_height'] = $info['height'];
+    }
+
+    $position = theme_get_setting('header_image_position');
+    $variables['header_image_position'] = (empty($position) ? 'left' : $position);
+  }
+
+  $color = theme_get_setting('header_background_color');
+  $variables['header_background_color'] = (empty($color) ? 'transparent' : $color);
 }
 
 /**

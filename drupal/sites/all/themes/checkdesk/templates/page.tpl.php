@@ -2,7 +2,7 @@
 
   <!-- ______________________ HEADER _______________________ -->
 
-  <header id="navbar" role="banner" class="navbar navbar-fixed-top">
+  <div id="navbar" role="banner" class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
           <nav role="navigation">
@@ -22,7 +22,9 @@
           </nav>
       </div>
     </div>
-  </header>
+  </div>
+
+  <header id="partner-header" style="background: <?php print $header_background_color; ?> url(<?php print $header_image_path; ?>) <?php print $header_image_position; ?> bottom no-repeat; height: <?php print $header_height; ?>px;"></header>
 
   <!-- ______________________ MAIN _______________________ -->
 
