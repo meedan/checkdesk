@@ -68,6 +68,11 @@
     label {
       display: none;
     }
+    .form-type-checkbox, .form-type-radio {
+      label {
+        display: inline-block;
+      }
+    }
     // unless it is a select field
     .form-type-select {
       @include ctb-clearfix;

@@ -6228,6 +6228,9 @@ form .ui-droppable.drop-hover textarea {
 form.ife label {
   display: none;
 }
+form.ife .form-type-checkbox label, form.ife .form-type-radio label {
+  display: inline-block;
+}
 form.ife .form-type-select {
   *zoom: 1;
 }
