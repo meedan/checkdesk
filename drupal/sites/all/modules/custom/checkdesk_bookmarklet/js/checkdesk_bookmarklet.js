@@ -1,15 +1,28 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
+
 (function() {
+  'use strict';
 
-  // Communication between inner window and outer window happens using messages
+  /**
+   * Communication between inner window and outer window happens using messages.
+   *
+   * Example messages include:
+   *   - window.parent.postMessage('close', '*');
+   *   - window.parent.postMessage('reset', '*');
+   *   - window.parent.postMessage({ type: 'resize', width: 123, height: 456 }, '*');
+   */
   var messageCallback = function(e) {
-    switch(e.data) {
+    var offset,
+        newSize,
+        type = (e.data && e.data.type) ? e.data.type : e.data;
 
+    switch (type) {
       // Close iframe
       case 'close':
         jQuery('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').fadeOut(500);
         jQuery('#menu-submit-report').removeClass('open');
         break;
-      
+
       // Scale iframe after report was submitted or before link is provided
       case 'submit':
       case 'nolink':
@@ -21,12 +34,26 @@
         jQuery('#meedan_bookmarklet_cont').removeClass('meedan-bookmarklet-collapsed');
         break;
 
+      // Resize the container to match the iframe size
+      case 'resize':
+        newSize = {};
+        if (e.data.width) {
+          newSize.width = e.data.width;
+        }
+        if (e.data.height) {
+          newSize.height = e.data.height;
+        }
+        jQuery('#meedan_bookmarklet_cont iframe').css(newSize);
+        // newSize.height += 32; // A little extra to avoid chopping the box-shadow
+        jQuery('#meedan_bookmarklet_cont').css(newSize);
+        break;
+
       // Bookmarklet loaded
       case 'loaded':
         // Adjust bookmarklet modal position for internal bookmarklet
         if (jQuery('#menu-submit-report').length > 0) {
-          var offset = jQuery('#menu-submit-report').offset();
-          jQuery('#meedan_bookmarklet_cont').css('top', (parseInt(offset.top) + 26) + 'px');
+          offset = jQuery('#menu-submit-report').offset();
+          jQuery('#meedan_bookmarklet_cont').css('top', (parseInt(offset.top, 10) + 26) + 'px');
         }
         jQuery('#meedan_bookmarklet_cont').show();
         break;
@@ -36,7 +63,6 @@
         jQuery('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').remove();
         jQuery('#menu-submit-report').removeClass('open');
         break;
-    
     }
   };
 
@@ -47,4 +73,4 @@
     window.addEventListener('message', messageCallback, false);
   }
 
-})();
+}());

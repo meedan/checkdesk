@@ -1,6 +1,8 @@
-// Stuff here happens after bookmarklet form is rendered
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 
+// Stuff here happens after bookmarklet form is rendered
 jQuery(function($) {
+  'use strict';
 
   // Function to retrive a media preview from a URL
   function getMediaPreview() {
@@ -11,7 +13,7 @@ jQuery(function($) {
     $input.addClass('meedan-bookmarklet-loading');
 
     $.ajax({
-      url: Drupal.settings.basePath + 'checkdesk/media-preview?' + parseInt(Math.random() * 1000000000),
+      url: Drupal.settings.basePath + 'checkdesk/media-preview?' + parseInt(Math.random() * 1000000000, 10),
       data: { url : $input.val() },
       dataType: 'json',
       success: function (data) {
@@ -22,8 +24,6 @@ jQuery(function($) {
           $preview.removeClass('error').html(data.preview);
           $controls.show();
         }
-
-        window.parent.postMessage('reset', '*');
       },
       error: function (xhr, textStatus, error) {
         $preview.addClass('error').html(Drupal.t('An error occurred while communicating with Checkdesk. Please try again.'));
@@ -74,6 +74,22 @@ jQuery(function($) {
       return false;
     }
   });
+
+  // Watch the height of the iframe, inform the parent every time it changes
+  var htmlHeight = 0;
+
+  function checkHTMLHeight() {
+    if ($('html').height() != htmlHeight) {
+      htmlHeight = $('html').height();
+
+      window.parent.postMessage({ type: 'resize', height: htmlHeight + 32 }, '*');
+    }
+
+    setTimeout(checkHTMLHeight, 250);
+  }
+
+  // Start the checker
+  checkHTMLHeight();
 
   window.parent.postMessage('loaded', '*');
 });
