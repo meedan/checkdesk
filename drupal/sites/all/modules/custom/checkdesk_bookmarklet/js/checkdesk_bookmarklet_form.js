@@ -82,7 +82,7 @@ jQuery(function($) {
     if ($('html').height() != htmlHeight) {
       htmlHeight = $('html').height();
 
-      window.parent.postMessage({ type: 'resize', height: htmlHeight + 32 }, '*');
+      window.parent.postMessage('{"type":"resize","height":' + htmlHeight + '}', '*');
     }
 
     setTimeout(checkHTMLHeight, 250);

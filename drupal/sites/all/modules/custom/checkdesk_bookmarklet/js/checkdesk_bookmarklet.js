@@ -14,7 +14,8 @@
   var messageCallback = function(e) {
     var offset,
         newSize,
-        type = (e.data && e.data.type) ? e.data.type : e.data;
+        data = (e.data.substr(0, 1) === '{') ? jQuery.parseJSON(e.data) : e.data,
+        type = (data && data.type) ? data.type : data;
 
     switch (type) {
       // Close iframe
@@ -37,11 +38,11 @@
       // Resize the container to match the iframe size
       case 'resize':
         newSize = {};
-        if (e.data.width) {
-          newSize.width = e.data.width;
+        if (data.width) {
+          newSize.width = data.width;
         }
-        if (e.data.height) {
-          newSize.height = e.data.height;
+        if (data.height) {
+          newSize.height = data.height;
         }
         jQuery('#meedan_bookmarklet_cont iframe').css(newSize);
         // newSize.height += 32; // A little extra to avoid chopping the box-shadow
