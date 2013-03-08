@@ -230,10 +230,10 @@ function checkdesk_preprocess_page(&$variables) {
     if ($info) {
       $variables['header_height'] = $info['height'];
     }
-
-    $position = theme_get_setting('header_image_position');
-    $variables['header_image_position'] = (empty($position) ? 'left' : $position);
   }
+
+  $position = theme_get_setting('header_image_position');
+  $variables['header_image_position'] = (empty($position) ? 'left' : $position);
 
   $color = theme_get_setting('header_background_color');
   $variables['header_background_color'] = (empty($color) ? 'transparent' : $color);
