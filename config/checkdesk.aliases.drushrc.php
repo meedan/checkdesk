@@ -11,4 +11,10 @@ $aliases['qa'] = array(
   'remote-host' => 'qa.checkdesk.org',
   'ssh-options' => '-p43896',
 );
+$aliases['prod'] = array(
+  'uri' => 'http://meedan.checkdesk.org',
+  'root' => '/var/www/checkdesk.prod/current/drupal',
+  'remote-host' => 'checkdesk.live',
+  'ssh-options' => '-p43896',
+);
 

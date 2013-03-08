@@ -58,8 +58,8 @@ function translations_features_export_render($module_name, $data, $export = NULL
   foreach ($data as $component) {
     list($langcode, $textgroup) = explode(':', $component);
     $strings = _features_translations_locale_export_get_strings($languages[$langcode], $textgroup);
-    foreach ($strings as $string) {
-      $code[] = "  \$translations['{$langcode}:{$textgroup}'][] = " . features_var_export($string, '  ') . ";";
+    foreach ($strings as $md5 => $string) {
+      $code[] = "  \$translations['{$langcode}:{$textgroup}']['{$md5}'] = " . features_var_export($string, '  ') . ";";
     }
   }
   $code[] = '  return $translations;';
@@ -75,10 +75,31 @@ function translations_features_revert($module_name) {
   $translations = features_get_default('translations', $module_name);
   if (!empty($translations)) {
     $report = array();
+    $lids = array();
     foreach ($translations as $key => $strings) {
       list($langcode, $textgroup) = explode(':', $key);
-      foreach ($strings as $string) {
-        _locale_import_one_string_db($report, $langcode, $string['context'], $string['source'], $string['translation'], $textgroup, $string['location'], LOCALE_IMPORT_OVERWRITE, $string['plid'], $string['plural']);
+      foreach ($strings as $md5 => $string) {
+        if (!empty($string['plid'])) {
+          if (!isset($lids[$string['plid']])) {
+            watchdog('features', 'Translations: importing plid %plid not found for string %source.', array('%plid' => $string['plid'], '%source' => $string->source));
+            $string['plid'] = 0;
+          }
+          else {
+            $string['plid'] = $lids[$string['plid']];
+          }
+        }
+        $lids[$md5] = _locale_import_one_string_db(
+          $report, 
+          $langcode, 
+          $string['context'], 
+          $string['source'], 
+          $string['translation'], 
+          $textgroup, 
+          $string['location'], 
+          LOCALE_IMPORT_OVERWRITE, 
+          $string['plid'],
+          $string['plural']
+        );
       }
     }
   }
@@ -95,16 +116,30 @@ function translations_features_export_rebuild($module_name) {
 /**
  * Helper to return translated strings in given language and group.
  */
-function _features_translations_locale_export_get_strings($language = NULL, $group = 'default') {
-  if (isset($language)) {
-    $result = db_query("SELECT s.source, s.context, s.location, t.translation, t.plid, t.plural FROM {locales_source} s INNER JOIN {locales_target} t ON s.lid = t.lid AND t.language = :language WHERE s.textgroup = :textgroup ORDER BY s.source, t.plid, t.plural", array(':language' => $language->language, ':textgroup' => $group));
-  }
-  else {
-    $result = db_query("SELECT s.source, s.context, s.location, t.plid, t.plural FROM {locales_source} s INNER JOIN {locales_target} t ON s.lid = t.lid WHERE s.textgroup = :textgroup ORDER BY s.source, t.plid, t.plural", array(':textgroup' => $group));
-  }
+function _features_translations_locale_export_get_strings($language, $group) {
+  $result = db_query("
+    SELECT s.lid, s.source, s.context, s.location, t.translation, t.plid, t.plural 
+    FROM {locales_source} s 
+    INNER JOIN {locales_target} t ON s.lid = t.lid AND t.language = :language 
+    WHERE s.textgroup = :textgroup 
+    ORDER BY s.lid
+  ", array(':language' => $language->language, ':textgroup' => $group));
   $strings = array();
+  $lids = array();
   foreach ($result as $string) {
-    $strings[] = $string;
+    $md5 = md5(serialize(array($string->source, $string->context, $string->plural)));
+    $lids[$string->lid] = $md5;
+    if (!empty($string->plid)) {
+      if (!isset($lids[$string->plid])) {
+        watchdog('features', 'Translations: exporting plid %plid not found for string %source.', array('%plid' => $string->plid, '%source' => $string->source));
+        $string->plid = 0;
+      }
+      else {
+        $string->plid = $lids[$string->plid];
+      }
+    }
+    unset($string->lid); // don't want the lid in the export
+    $strings[$md5] = $string;
   }
   return $strings;
 }
