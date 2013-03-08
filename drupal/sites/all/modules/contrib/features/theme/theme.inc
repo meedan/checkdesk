@@ -228,7 +228,7 @@ function theme_features_form_export(&$vars) {
   $output = '';
   $output .= "<div class='clearfix features-components'>";
   $output .= "<div class='column'>" . drupal_render($vars['form']['components']) . drupal_render($vars['form']['sources']) . "</div>";
-  $output .= "<div class='column'>" . drupal_render($vars['form']['features']) . "</div>";
+  $output .= "<div class='column'>" . drupal_render($vars['form']['preview']) . drupal_render($vars['form']['features']) . "</div>";
   $output .= "</div>";
   $output .= drupal_render_children($vars['form']);
   return $output;

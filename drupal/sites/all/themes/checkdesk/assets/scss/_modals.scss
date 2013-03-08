@@ -71,20 +71,27 @@ $modal-width: 426px;
 
   .modal-content {
     position: relative;
-    padding: $baseLineHeight/2 $gw;
-    font-size: $large-font-size;
+    padding: $baseLineHeight/4 $gw;
     line-height: $base-line-height;
 
     form {
       padding: 0;
       margin: 0;
       z-index: $zindexModal + 1;
-      font-size: $fontSizeSmall;
+      
+      label { 
+        font-size: $fontSizeSmall;
+      }
+
+      textarea {
+        font-size: $fontSizeSmall;
+        height: 80px;
+      }
     }
   }
 
   #modal-throbber {
-    padding: $baseLineHeight/2 0;
+    padding: $baseLineHeight/4 0;
     margin-left: -$gw/2;
   }
 
@@ -115,7 +122,6 @@ $modal-width: 426px;
   @include ctb-clearfix(); // clear it in case folks use .pull-* classes on buttons
 
   .form-actions {
-    
     padding-#{$alpha}: $gw;
     // space between buttons
     .btn {

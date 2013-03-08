@@ -26,7 +26,7 @@ function checkdesk_core_feature_ctools_plugin_api() {
  * Implements hook_views_api().
  */
 function checkdesk_core_feature_views_api() {
-  return array("version" => "3.0");
+  return array("api" => "3.0");
 }
 
 /**

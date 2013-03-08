@@ -5,6 +5,8 @@ require "rake" # for filelist
 require "modular-scale" #for ratios
 # require "animation" # experimental https://github.com/ericam/compass-animate
 
+line_comments = false
+
 drupal_dir = "drupal"
 themes_dir = "sites/all/themes/"
 extensions_dir = "checkdesk/assets/extensions/"

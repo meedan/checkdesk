@@ -1,5 +1,22 @@
 <?php
 
+// TODO: Use a hook_node_load() as a starting point to simplify how node pages / hooks interact with embeds.
+// /**
+//  * Implements hook_node_load().
+//  */
+// function meedan_oembed_node_load($nodes, $types) {
+//   foreach ($nodes as $nid => $node) {
+//     if ($node->type != 'media') {
+//       continue;
+//     }
+//     if (!isset($node->field_link) || !isset($node->field_link[LANGUAGE_NONE]) || !isset($node->field_link[LANGUAGE_NONE][0])) {
+//       continue;
+//     }
+//
+//     $nodes[$nid]->embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+//   }
+// }
+
 /**
  * Implements of hook_element_info_alter().
  */
@@ -154,53 +171,56 @@ function meedan_oembed_scrape_generic(&$embed) {
  * Scrape Facebook post.
  */
 function meedan_oembed_scrape_facebook($provider, $url) {
-  include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
   $url_info = parse_url($url);
   $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
-  $post_id = _meedan_oembed_getFacebookId($url);
-  $facebook = new Facebook(array(
-    'appId'  => variable_get('fboauth_id', ''),
-    'secret' => variable_get('fboauth_secret', ''),
-  ));
-  try {
-    $embed = new stdclass();
-    $embed->url = $url;
-    $embed->original_url = $url;
-    $embed->provider = $provider;
-    $embed->provider_url = $provider_url;
-    $embed->provider_name = 'Facebook';
-    $embed->type = 'link';
-    $post_data = $facebook->api('/' . $post_id);
-    //Get post message either from user message, link title or link description
-    if (isset($post_data['message'])) {
-      $embed->description = $post_data['message'];
-      $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
-    }
-    elseif (isset($post_data['name'])) {
-      $embed->description = $post_data['name'];
-    }
-    elseif (isset($post_data['description'])) {
-      $embed->description = $post_data['description'];
-    }
-    else {
-      $embed->description = t('No message available for this post');
-    }
-    $embed->title = $embed->description;
-    $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
-    $embed->picture = isset($post_data['picture']) ? $post_data['picture'] : '';
-    $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
-    $embed->author_name = $post_data['from']['name'];
-    $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
-    $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
-    $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
-  } catch (FacebookApiException $e) {
-    $embed = (object) array(
-      'error'         => TRUE,
-      'error_message' => t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."),
-    );
 
-    watchdog('FacebookApi', t('Unable to fetch data from Facebook: @error', array('@error' => $e->getMessage())));
+  $post_data = _meedan_oembed_facebook_graph_api_data($url);
+
+  if (isset($post_data['error']) && $post_data['error']) {
+    return (object) $post_data;
   }
+
+  $embed = new stdclass();
+  $embed->url = $url;
+  $embed->original_url = $url;
+  $embed->provider = $provider;
+  $embed->provider_url = $provider_url;
+  $embed->provider_name = 'Facebook';
+  $embed->type = 'link';
+
+  // A status update, probably
+  if (isset($post_data['message'])) {
+    $embed->description = $post_data['message'];
+    $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
+  }
+  // A user
+  else if (isset($post_data['name'])) {
+    $embed->description = $post_data['name'];
+  }
+  // Something with a description
+  else if (isset($post_data['description'])) {
+    $embed->description = $post_data['description'];
+  }
+  // A photo
+  else if (isset($post_data['picture']) && isset($post_data['images'])) {
+    $name = isset($post_data['from']) && isset($post_data['from']['name'])
+          ? $post_data['from']['name']
+          : t('unknown Facebook user');
+    $embed->description = t('Photo by @user', array('@user' => $name));
+  }
+  else {
+    $embed->description = t('No message available for this post');
+  }
+
+  $embed->title = $embed->description;
+  $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
+  $embed->picture = isset($post_data['picture']) ? $post_data['picture'] : '';
+  $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
+  $embed->author_name = $post_data['from']['name'];
+  $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
+  $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
+  $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
+
   return $embed;
 }
 
@@ -273,6 +293,59 @@ function meedan_oembed_scrape_almasryalyoum($provider, $url) {
   }
   // Ok, give up!
   return NULL;
+}
+
+/**
+ * Returns Facebook Graph API data pertaining to a Facebook URL.
+ *
+ * Attempts to search through the Graph API until the original content is found.
+ *
+ * @param string $url
+ *  A URL on the www.faceboo.com domain.
+ * @param int $depth
+ *  Internal use only, prevents infinite recursion.
+ * @return mixed
+ *  One of a) a Facebook API post_data object array or b) an error object with
+ *  keys 'error' and 'message'
+ */
+function _meedan_oembed_facebook_graph_api_data($url, $depth = 0) {
+  include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
+
+  static $facebook = NULL;
+
+  if (is_null($facebook)) {
+    $facebook = new Facebook(array(
+      'appId'  => variable_get('fboauth_id', ''),
+      'secret' => variable_get('fboauth_secret', ''),
+    ));
+  }
+
+  try {
+    $post_id   = _meedan_oembed_getFacebookId($url);
+    $post_data = $facebook->api('/' . $post_id);
+
+    if (isset($post_data['link'])) {
+      $new_post_id = _meedan_oembed_getFacebookId($post_data['link']);
+
+      // Only dig deeper when both (a) AND (b) are TRUE.
+      //   a) This content links to another, different, content
+      //   b) Recursion has not gone too deeply
+      // Failing that, give up gracefully and return the data level that has
+      // been reached.
+      if ($new_post_id != $post_id && $depth < variable_get('meedan_oembed_facebook_max_graph_depth', 5)) {
+        return _meedan_oembed_facebook_graph_api_data($post_data['link'], $depth + 1);
+      }
+    }
+
+    return $post_data;
+  } catch (FacebookApiException $e) {
+    watchdog('FacebookApi', t('Unable to fetch data from Facebook: @error', array('@error' => $e->getMessage())));
+
+    return array(
+      'error'         => TRUE,
+      'error_message' => t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."),
+    );
+  }
 }
 
 /**
@@ -564,22 +637,11 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
       form_set_error('field_link', $form_state['values']['fb_loginurl']);
     }
     else {
-      //Check if user has a permission to embed this post
-      include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
-      $facebook = new Facebook(array(
-        'appId'  => variable_get('fboauth_id', ''),
-        'secret' => variable_get('fboauth_secret', ''),
-      ));
-      $post_data = NULL;
-      try {
-        $id = _meedan_oembed_getFacebookId($url);
-        $post_data = $facebook->api('/' . $id);
-      } catch (FacebookApiException $e) {
-        $error_msg = $e->getMessage();
-        watchdog('FacebookApi', t('Unable to fetch data from facebook post - @msg @url', array('@msg' => $error_msg, '@url' => $url)));
-      }
-      if(!$post_data) {
-        form_set_error('field_link', t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."));
+      // Check if user has a permission to embed this post
+      $post_data = _meedan_oembed_facebook_graph_api_data($url);
+
+      if (isset($post_data['error']) && $post_data['error']) {
+        form_set_error('field_link', $post_data['error_message']);
       }
     }
   }

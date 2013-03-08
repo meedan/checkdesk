@@ -71,24 +71,24 @@ $bh: $baseLineHeight/4;
 			// The last dropdown needs to not stick out at smaller sizes
 			@if $from-direction == left {
 				li.add-to .dropdown-menu {
-					#{$from-direction}: -125px;
+					left: -125px;
 				}
 				li.flag-as .dropdown-menu {
-					#{$from-direction}: -120px;
+					left: -120px;
 				}
 				li.share-on .dropdown-menu {
-					#{$from-direction}: -100px;
+					left: -90px;
 				}
 			}
 			@if $from-direction == right {
 				li.add-to .dropdown-menu {
-					#{$omega}: -100px;
+					right: -145px;
 				}
 				li.flag-as .dropdown-menu {
-					#{$omega}: -90px;
+					right: -115px;
 				}
 				li.share-on .dropdown-menu {
-					#{$omega}: -100px;
+					right: -100px;
 				}
 			}
 

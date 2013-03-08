@@ -11,7 +11,7 @@
     </div>
     <p><?php print render($content['field_desk']); ?></p>
     <div class="update-comments">
-     <?php print render($content['livefyre']); ?>
+     <?php print render($content['custom_comments']); ?>
     </div>
   </article>
 </section>

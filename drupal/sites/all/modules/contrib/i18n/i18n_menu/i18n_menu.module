@@ -560,7 +560,7 @@ function _i18n_menu_link_check_alter($link) {
  *   Returns TRUE if link is localizable.
  */
 function _i18n_menu_link_is_localizable($link, $check_strings = FALSE) {
-  return /*!empty($link['customized']) && */!i18n_object_langcode($link) && i18n_menu_mode($link['menu_name'], I18N_MODE_LOCALIZE) &&
+  return !empty($link['customized']) && !i18n_object_langcode($link) && i18n_menu_mode($link['menu_name'], I18N_MODE_LOCALIZE) &&
   (!$check_strings || _i18n_menu_link_localizable_properties($link));
 }
 

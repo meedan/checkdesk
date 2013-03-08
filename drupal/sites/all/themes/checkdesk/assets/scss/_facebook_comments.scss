@@ -1,0 +1,46 @@
+// TODO: integrate these into the mainstyles. CGB Jan 2013
+.fb-comments-header {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+
+.fb-comments-header:hover {
+  background-color: #d6d6d6;
+}
+
+.fb-comments, .fb_iframe_widget {
+  display: none !important;
+}
+
+.fb-comments.fb-comments-visible, .fb_iframe_widget.fb-comments-visible {
+  display: block !important;
+}
+
+// Checkdesk original styles
+body {
+
+  div.fb-comments-header {
+    width: auto;
+  }
+    
+  div.fb-comments-header {
+    padding: 0.5em 1em;
+    display: block;
+    font-family: $sans-font-family;
+    color: darken($grey, 15%); // trying to match spec exactly
+    font-weight: 200;
+    text-transform: capitalize; // HACK... also does this cause #i18n issue with ar?
+  }
+
+  // Appers on liveblog homepage and others 
+  // Do not set columnar layout here. 
+  .fb-comments-wrapper {
+    float: $from-direction;
+    clear: both;
+  }
+
+  // Full width
+  .fb-comments-wrapper, .fb-comments > span, .fb-comments, .fb-comments iframe[style] {
+    width: 100% !important;
+  }
+}

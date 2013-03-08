@@ -472,7 +472,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "notify_subscribers" : {
             "object" : [ "comment" ],
             "event" : "email_reply_to_comment",
-            "subject" : "Comment replied",
+            "subject" : "Comment reply",
             "message" : "Hello [recipient:name],\\r\\n\\r\\n[comment:author:name] has replied to your comment:\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n\\u003Ca href=\\u0022[comment:url]\\u0022\\u003EClick here\\u003C\\/a\\u003E OR reply to this email to respond. This was an auto-generated email from [site:name].",
             "actor" : "[comment:author:uid]"
           }

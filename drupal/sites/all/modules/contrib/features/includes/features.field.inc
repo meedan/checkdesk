@@ -58,7 +58,9 @@ function field_features_export($data, &$export, $module_name = '') {
       else {
         $export['features']['field'][$identifier] = $identifier;
         $export['dependencies'][$field['field_config']['module']] = $field['field_config']['module'];
-        $export['dependencies'][$field['field_config']['storage']['module']] = $field['field_config']['storage']['module'];
+        if ($field['field_config']['storage']['type'] != variable_get('field_storage_default', 'field_sql_storage')) {
+          $export['dependencies'][$field['field_config']['storage']['module']] = $field['field_config']['storage']['module'];
+        }
         $export['dependencies'][$field['field_instance']['widget']['module']] = $field['field_instance']['widget']['module'];
         foreach ($field['field_instance']['display'] as $key => $display) {
           if (isset($display['module'])) {

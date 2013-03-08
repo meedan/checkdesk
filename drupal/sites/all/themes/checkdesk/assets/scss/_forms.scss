@@ -58,6 +58,54 @@
 
 }
 
+// ===================================================================
+// Inline form errors
+//
+@mixin form-inline-errors {
+
+  // hide labels for forms with ife
+  &.ife {
+    label {
+      display: none;
+    }
+    .form-type-checkbox, .form-type-radio {
+      label {
+        display: inline-block;
+      }
+    }
+    // unless it is a select field
+    .form-type-select {
+      @include ctb-clearfix;
+      label {
+        display: inline-block;
+        float: $alpha;
+        margin-#{$omega}: $gw;
+        line-height: $baseLineHeight;
+        padding-top: $baseLineHeight/3;
+      }
+      select {
+        float: $alpha;
+        @include span-columns($cw/2);
+      }
+    }
+  }
+  .messages-inline {
+    // @include cd-arrow-box($errorBackground, $errorBorder, $gw, 1px);
+    background: none;
+    border: 0 none;
+    display: inline-block;
+    // margin: $baseLineHeight/4 0 $baseLineHeight/4 0;
+    // margin-#{$from-direction}: $gw*2;
+    margin: 0;
+    padding: 0;
+    padding-bottom: $baseLineHeight/2;
+    font-family: $sans-font-family;
+    font-size: $fontSizeSmall;
+    line-height: 1.4;
+  }
+}
+
+
 // In addition to our use of normalize, and other resets, 
 // This standardizes form elements
 //
@@ -146,7 +194,7 @@
     }
 
     textarea { 
-
+      
       // height: 200px; 
     } // starting height
 
@@ -168,7 +216,7 @@
     // Default labels
     label {
       font-size: $large-font-size;
-      display: block;
+      display: inline-block;
       font-weight: normal;
       padding { top: $gw; bottom: $gw; }
 
@@ -217,6 +265,7 @@
 
     @include form-actions;
     @include form-drag-and-drop;
+    @include form-inline-errors;
 
     // & > .form-item {
     //   clear: both;
@@ -265,9 +314,17 @@
     }
 
     div.form-wrapper {
+      clear: both;
       // @include span-columns($w, $w);
       margin: $baseLineHeight/2 0;
     }
+
+    .form-type-textarea {
+      @include ctb-clearfix;
+      margin-bottom: $baseLineHeight/2;
+    }
+
+
   }
 }
 

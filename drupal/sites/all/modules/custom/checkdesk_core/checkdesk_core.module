@@ -297,7 +297,7 @@ function _checkdesk_core_report_suggest_modal($report, $js) {
     // Create ajax command array, set the message and dismiss the modal window.
     $message = t('<b>' . views_trim_text(array('max_length' => 30, 'ellipsis' => TRUE), $report->title) . '</b> added to <b>' . $form_state['values']['story_title'] . '</b>');
     drupal_set_message(t($message));
-    $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
+    // $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
     $commands[] = ctools_modal_command_dismiss();
 
     // Redirect to story. 
@@ -466,7 +466,9 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js){
     // Array with ajax response.
     $commands = array();
     // Create ajax command array, refresh messagess and dismiss the modal window.
-    $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
+    // Disabling ajax message refresh
+    // switching to inline post refresh messages
+    $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
     $commands[] = ctools_modal_command_dismiss();
     $commands[] = ctools_ajax_command_reload();
   }
@@ -486,7 +488,7 @@ function _checkdesk_core_invoke_messages($action, $type) {
   }
  
   $commands = array();
-  $commands[] = ajax_command_prepend('#content-inner', theme('status_messages'));
+  $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
   $page = array('#type' => 'ajax', '#commands' => $commands);
   ajax_deliver($page);
 }
@@ -682,6 +684,9 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     $form['field_desk'][LANGUAGE_NONE]['#default_value'] = $node->nid;
     $form['field_desk']['#access'] = false;
   }
+
+  // Hide summary
+  unset($form['body'][LANGUAGE_NONE][0]['summary']);
 
   // Make the body field a drop target for reports.
   $form['body']['#prefix'] = '<div class="droppable">';
@@ -1065,6 +1070,15 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
  * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
+
+  // Add a class to forms which should display inline errors
+  $ife_form_ids = checkdesk_core_ife_form_ids();
+  foreach ($ife_form_ids as $fid => $row) {
+    if($form_id == $fid) {
+      $form['#attributes']['class'][] = 'ife';
+    }
+  }
+  
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $items = array();
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
@@ -1128,6 +1142,23 @@ function checkdesk_core_user_insert(&$edit, $account, $category) {
   //Add new citizen journalist role to all registered users
   $user_roles = array_flip(user_roles(TRUE));
   $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
+
+  // Profile image for Twitter
+  if (isset($_SESSION['twitter']) && isset($_SESSION['twitter']['values'])) {
+    $key = variable_get('twitter_consumer_key', '');
+    $secret = variable_get('twitter_consumer_secret', '');
+    $response = $_SESSION['twitter']['values'];
+
+    $twitter = new TwitterOAuth($key, $secret, $response['oauth_token'], $response['oauth_token_secret']);
+    try {
+      $twitter_account = $twitter->users_show($response['screen_name']);
+    } catch (TwitterException $e) {
+      form_set_error('screen_name', t('Request failed: @message.', array('@message' => $e->getMessage())));
+      return;
+    }
+    $twitter_account->set_auth($response);
+    _twitter_signin_get_picture($account, $twitter_account);
+  }
 }
 
 /**
@@ -1189,5 +1220,75 @@ function checkdesk_core_views_api() {
     'api' => '3.0',
     'path' => drupal_get_path('module', 'checkdesk_core'),
   );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `user_cancel_confirm_form`.
+ */
+function checkdesk_core_form_user_cancel_confirm_form_alter(&$form, $form_state) {
+  $form['#action'] .= '?destination=administer-users';
+}
+
+/**
+ * Ensures that the IFE module settings are properly installed in the database.
+ */
+function checkdesk_core_ensure_ife_settings() {
+
+  $form_ids = checkdesk_core_ife_form_ids();
+
+  $defaults = array(
+    'field_types' => NULL,
+    'status'      => '1',
+    'display'     => '-1'
+  );
+
+  db_query("TRUNCATE TABLE {ife}");
+
+  foreach ($form_ids as $form_id => $row) {
+    $row = array_merge($defaults, $row);
+
+    $row['form_id'] = $form_id;
+
+    db_insert('ife')
+      ->fields($row)
+      ->execute();
+  }
+}
+
+/**
+ * Forms that will use inline form errors
+ */
+
+function checkdesk_core_ife_form_ids() {
+  $form_ids = array(
+    'article_node_form'     => array(),
+    'discussion_node_form'  => array(),
+    'forum_node_form'       => array(),
+    'media_node_form'       => array(),
+    'node_export_node_form' => array(),
+    'page_node_form'        => array(),
+    'post_node_form'        => array(),
+    'flag_confirm'          => array(),
+
+    'comment_form'          => array(),
+
+    'contact_mail_page'     => array(),
+    'contact_mail_user'     => array(),
+
+    'user_login'            => array(),
+    'user_login_block'      => array(),
+    'user_pass'             => array(),
+    'user_register_form'    => array(),
+    'user_profile_form'     => array(),
+  );
+
+  return $form_ids;
+}
+
+/**
+ * Implements hook_query_TAG_alter() for features_menu_links.
+ */
+function checkdesk_core_query_features_menu_link_alter($query) {
+  $query->fields('menu_links', array('uuid', 'language', 'customized'));
 }
 

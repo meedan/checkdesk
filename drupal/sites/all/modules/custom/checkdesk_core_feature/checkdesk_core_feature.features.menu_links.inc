@@ -28,8 +28,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-50',
-    'language' => 'und',
     'uuid' => 'd5f3370f-db5f-d074-d189-cbac6703dd49',
+    'language' => 'und',
+    'customized' => '1',
   );
   // Exported menu link: main-menu:<sub>
   $menu_links['main-menu:<sub>'] = array(
@@ -49,8 +50,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '1',
     'expanded' => '1',
     'weight' => '-45',
-    'language' => 'und',
     'uuid' => 'b54b8beb-654c-c3b4-1938-db4fae8838fe',
+    'language' => 'und',
+    'customized' => '1',
   );
   // Exported menu link: main-menu:admin/config/system/checkdesk
   $menu_links['main-menu:admin/config/system/checkdesk'] = array(
@@ -70,8 +72,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
-    'language' => 'und',
     'uuid' => '2643d8bd-eb4d-16f4-1928-3013705c11af',
+    'language' => 'und',
+    'customized' => '1',
     'parent_path' => '<sub>',
   );
   // Exported menu link: main-menu:administer-users
@@ -92,8 +95,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
+    'uuid' => '90119a03-9ff0-9324-11f8-f501ab2a5135',
     'language' => 'und',
-    'uuid' => 'dbb94a78-169f-6a54-f507-7701e610920a',
+    'customized' => '1',
     'parent_path' => '<sub>',
   );
   // Exported menu link: main-menu:node/add/discussion
@@ -114,8 +118,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-47',
-    'language' => 'und',
     'uuid' => 'edc54df9-4aa8-bf84-dd89-ca0a351af23b',
+    'language' => 'und',
+    'customized' => '1',
   );
   // Exported menu link: main-menu:node/add/media
   $menu_links['main-menu:node/add/media'] = array(
@@ -135,8 +140,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
-    'language' => 'und',
     'uuid' => '0bc3af5d-28a8-c864-bd93-f17d8bea2366',
+    'language' => 'und',
+    'customized' => '1',
   );
   // Exported menu link: main-menu:node/add/post
   $menu_links['main-menu:node/add/post'] = array(
@@ -156,8 +162,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
-    'language' => 'und',
     'uuid' => 'd1a4a4e9-b0c3-8d94-11a4-34f35bda25c1',
+    'language' => 'und',
+    'customized' => '1',
   );
   // Exported menu link: main-menu:reports
   $menu_links['main-menu:reports'] = array(
@@ -172,8 +179,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '50',
+    'uuid' => '50e68ce2-956c-6f64-1914-5e6a93778baf',
     'language' => 'und',
-    'uuid' => 'bbec8aa4-a7b7-ed54-c17d-68d00ba73ebb',
+    'customized' => '1',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-common:<nolink>
@@ -194,8 +202,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '1',
     'expanded' => '1',
     'weight' => '-50',
-    'language' => 'und',
     'uuid' => '02e041f6-6c32-c594-8d35-79cb52a371d8',
+    'language' => 'und',
+    'customized' => '1',
   );
   // Exported menu link: menu-common:<sub>
   $menu_links['menu-common:<sub>'] = array(
@@ -215,8 +224,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '1',
     'expanded' => '1',
     'weight' => '-48',
-    'language' => 'und',
     'uuid' => '919ac829-ba90-aaa4-1546-5188241b9d5b',
+    'language' => 'und',
+    'customized' => '1',
   );
   // Exported menu link: menu-common:modal/ajax/content/about
   $menu_links['menu-common:modal/ajax/content/about'] = array(
@@ -236,8 +246,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
-    'language' => 'en',
     'uuid' => '567a9623-1ab2-3fd4-ddf8-ccaffafffa37',
+    'language' => 'en',
+    'customized' => '1',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/fact-checking-statement
@@ -258,8 +269,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-46',
-    'language' => 'en',
     'uuid' => 'aaac935a-d8c3-c964-b1a5-11747d737824',
+    'language' => 'en',
+    'customized' => '1',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
@@ -280,8 +292,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-50',
-    'language' => 'en',
     'uuid' => 'd1606646-9485-5154-e504-9eabb5782cc6',
+    'language' => 'en',
+    'customized' => '1',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/terms-use
@@ -302,8 +315,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-44',
-    'language' => 'en',
     'uuid' => 'a3f2b8b5-2d02-9934-79d7-246ff6231eaf',
+    'language' => 'en',
+    'customized' => '1',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات
@@ -324,8 +338,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-45',
-    'language' => 'ar',
     'uuid' => '3daae1f4-caac-41f1-b00c-7ada7412206e',
+    'language' => 'ar',
+    'customized' => '1',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
@@ -346,8 +361,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
-    'language' => 'ar',
     'uuid' => '302da736-6f32-4024-695a-49ecde0f8091',
+    'language' => 'ar',
+    'customized' => '1',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/حول
@@ -368,8 +384,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-47',
-    'language' => 'ar',
     'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
+    'language' => 'ar',
+    'customized' => '1',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/شروط-الاستخدام
@@ -390,8 +407,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-43',
-    'language' => 'ar',
     'uuid' => '2caff8c7-f404-4de3-8c79-0fdf715f1b00',
+    'language' => 'ar',
+    'customized' => '1',
     'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:my-notifications
@@ -412,8 +430,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
-    'language' => 'und',
     'uuid' => '5626ddfd-e3f6-7ba4-f9ff-f8c36ff9d636',
+    'language' => 'und',
+    'customized' => '1',
   );
   // Exported menu link: menu-common:user
   $menu_links['menu-common:user'] = array(
@@ -433,8 +452,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-50',
-    'language' => 'und',
     'uuid' => '42e9e86e-42ae-8d04-0d50-e42bde8cbbda',
+    'language' => 'und',
+    'customized' => '1',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-common:user/login
@@ -455,8 +475,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
-    'language' => 'und',
     'uuid' => '9a684326-a352-d454-517b-878bb9468e91',
+    'language' => 'und',
+    'customized' => '1',
     'parent_path' => '<sub>',
   );
   // Exported menu link: menu-common:user/logout
@@ -477,8 +498,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
-    'language' => 'und',
     'uuid' => '391be377-17db-a134-4d21-c6742d07ca4e',
+    'language' => 'und',
+    'customized' => '1',
     'parent_path' => '<sub>',
   );
   // Translatables

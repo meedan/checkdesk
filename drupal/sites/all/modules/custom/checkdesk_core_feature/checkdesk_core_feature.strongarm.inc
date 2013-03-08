@@ -471,6 +471,20 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'ife_display';
+  $strongarm->value = '2';
+  $export['ife_display'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'ife_general_message';
+  $strongarm->value = 'Please correct all highlighted errors and try again.';
+  $export['ife_general_message'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'language_content_type_page';
   $strongarm->value = '2';
   $export['language_content_type_page'] = $strongarm;
@@ -575,6 +589,19 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'meedan_discussion_title_label';
   $strongarm->value = 'Headline';
   $export['meedan_discussion_title_label'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_facebook_comments_types';
+  $strongarm->value = array(
+    'post' => 'post',
+    'discussion' => 0,
+    'media' => 0,
+    'page' => 0,
+    'article' => 0,
+  );
+  $export['meedan_facebook_comments_types'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -731,13 +758,6 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'node_admin_theme';
   $strongarm->value = 0;
   $export['node_admin_theme'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'node_export_existing';
-  $strongarm->value = 'revision';
-  $export['node_export_existing'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

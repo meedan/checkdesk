@@ -19,7 +19,7 @@
 //
 // See also: typography.scss - sitewide typography styles
 $sans-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$serif-font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
+$serif-font-family: Georgia, "Times New Roman", Times, serif;
 $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 
 // Sass libraries
@@ -29,13 +29,11 @@ $mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 // 
 @mixin ctb-layout($direction) {
   text-align: $direction;
-
-  @if $direction == right {
+  @if $direction == 'right' {
     direction: rtl;
   } @else {
     direction: ltr;
   }
-
 }
 
 // Compass utility configuration

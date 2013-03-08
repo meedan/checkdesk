@@ -1,0 +1,18 @@
+name = "Inline Form Errors"
+description = "Put form error messages inline with the form elements"
+package = User interface
+core = 7.x
+configure = admin/config/user-interface/ife
+
+files[] = ife.install
+files[] = ife.module
+files[] = ife.settings.inc
+files[] = ife.theme.inc
+files[] = ife.variable.inc
+
+; Information added by drupal.org packaging script on 2012-10-31
+version = "7.x-2.0-alpha2"
+core = "7.x"
+project = "ife"
+datestamp = "1351726918"
+

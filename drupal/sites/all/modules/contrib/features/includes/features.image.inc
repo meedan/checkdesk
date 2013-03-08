@@ -72,10 +72,12 @@ function image_features_export_render($module_name, $data, $export = NULL) {
  * Implements hook_features_revert().
  */
 function image_features_revert($module) {
-  if ($default_styles = features_get_default('image')) {
+  if ($default_styles = features_get_default('image', $module)) {
     foreach (array_keys($default_styles) as $default_style) {
       if ($style = image_style_load($default_style)) {
-        image_style_delete($style);
+        if ($style['storage'] != IMAGE_STORAGE_DEFAULT) {
+          image_default_style_revert($style);
+        }
       }
     }
   }

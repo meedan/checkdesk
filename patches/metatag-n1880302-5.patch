@@ -1,0 +1,39 @@
+diff --git a/drupal/sites/all/modules/contrib/metatag/metatag.features.inc b/drupal/sites/all/modules/contrib/metatag/metatag.features.inc
+index 15f5274..5f8ab54 100644
+--- a/drupal/sites/all/modules/contrib/metatag/metatag.features.inc
++++ b/drupal/sites/all/modules/contrib/metatag/metatag.features.inc
+@@ -11,7 +11,9 @@ function metatag_features_export($data, &$export, $module_name = '', $type = 'me
+   $pipe = array();
+ 
+   foreach ($data as $name) {
+-    $export['features'][$type][$name] = metatag_config_load($name);
++    if (metatag_config_load($name)) {
++      $export['features'][$type][$name] = $name;
++    }
+   }
+ 
+   $export['dependencies']['metatag'] = 'metatag';
+@@ -76,3 +78,10 @@ function metatag_features_export_options() {
+   };
+   return $options;
+ }
++
++/**
++ * Implements hook_features_rebuild().
++ */
++function metatag_features_rebuild($module) {
++  metatag_features_revert($module);
++}
+diff --git a/drupal/sites/all/modules/contrib/metatag/metatag.module b/drupal/sites/all/modules/contrib/metatag/metatag.module
+index 1dbb8b6..1675034 100644
+--- a/drupal/sites/all/modules/contrib/metatag/metatag.module
++++ b/drupal/sites/all/modules/contrib/metatag/metatag.module
+@@ -1542,7 +1542,7 @@ function metatag_features_api() {
+   $components = array(
+     'metatag' => array(
+       'name' => t('Meta tags'),
+-      'features_source' => TRUE,
++      'feature_source' => TRUE,
+       'default_hook' => 'metatag_export_default',
+       'default_file' => FEATURES_DEFAULTS_INCLUDED,
+       'file' => drupal_get_path('module', 'metatag') . '/metatag.features.inc',

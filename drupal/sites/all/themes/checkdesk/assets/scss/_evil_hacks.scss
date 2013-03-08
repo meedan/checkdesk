@@ -9,44 +9,15 @@
   display: none;
 }
 
-// RSS icon is not in the spec but is appearing. 
-// RSS *should* be enabled but with no icon.
-a.feed-icon {
-  display: none;
-}
-
 // Disable vertical tabs in forms
 div.vertical-tabs, div.vertical-tabs-panes {
   display: none!important;  
-}
-
-// We don't use the i element for icons from TB
-i {
-  display: none;
-  &:hover {
-    display: none
-  }
 }
 
 // hack for an empty div
 nav li.menu-449 {
   display: none!important;
   border: 1px solid red!important;
-}
-
-// Hide the summary link from text fields.
-// FIXME This is a hack because the fields are of type "Long text and summary" while they should really be of type "Long text".
-// .field-edit-link {
-//   display: none
-// }
-
-// body {
-//   padding-top: 0!important; // override toolbar padding  
-// }
-
-// No tabs in the sidebar pages ...
-body.sidebar-first .tabs {
-  display: none!important;
 }
 
 p br { display: none; } // hack to remove br's from content

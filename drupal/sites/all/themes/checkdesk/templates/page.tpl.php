@@ -2,7 +2,7 @@
 
   <!-- ______________________ HEADER _______________________ -->
 
-  <header id="navbar" role="banner" class="navbar navbar-fixed-top">
+  <div id="navbar" role="banner" class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
           <nav role="navigation">
@@ -22,7 +22,9 @@
           </nav>
       </div>
     </div>
-  </header>
+  </div>
+
+  <header id="partner-header" style="background: <?php print $header_background_color; ?> url(<?php print $header_image_path; ?>) <?php print $header_image_position; ?> bottom no-repeat; height: <?php print $header_height; ?>px;"></header>
 
   <!-- ______________________ MAIN _______________________ -->
 
@@ -59,7 +61,9 @@
             <?php endif; ?>
 
             <?php print render($title_suffix); ?>
-            <?php print $messages; ?>
+            <div id="messages-container">
+              <?php print $messages; ?>
+            </div>
             <?php print render($page['help']); ?>
 
             <?php if ($tabs): ?>
@@ -77,7 +81,7 @@
           <?php print render($page['content']); ?>
         </div>
 
-        <?php print $feed_icons; ?>
+        <?php // print $feed_icons; ?>
 
       </div>
     </div> <!-- /content-inner /content -->

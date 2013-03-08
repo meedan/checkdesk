@@ -177,6 +177,11 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     }
   }
 
+  #edit-body {
+    float: $from-direction;
+    clear: both;
+  }
+
   #edit-graphic-content {
     float: $from-direction;
     clear: both;

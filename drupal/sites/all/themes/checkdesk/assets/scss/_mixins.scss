@@ -53,6 +53,36 @@
   background-color: $bkg-color; 
 }
 
+@mixin cd-arrow-box($background-color: #eee, $border-color: #444, $arrow-size: 10px, $border-width: 1px) {
+  position: relative;
+  background: $background-color;
+  border: $border-width solid $border-color;
+
+  &:after, &:before {
+    #{opposite-position($from-direction)}: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  &:after {
+    border-color: rgba($background-color, 0);
+    border-#{opposite-position($from-direction)}-color: $background-color;
+    border-width: $arrow-size;
+    top: 50%;
+    margin-top: -$arrow-size;
+  }
+  &:before {
+    border-color: rgba($border-color, 0);
+    border-#{opposite-position($from-direction)}-color: $border-color;
+    border-width: ($arrow-size + $border-width);
+    top: 50%;
+    margin-top: -($arrow-size + $border-width);
+  }
+}
+
 // Version banner 
 // 
 // For Dev and Testing sites, so we know what version we are looking at.

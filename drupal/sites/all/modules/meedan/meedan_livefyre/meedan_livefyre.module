@@ -66,7 +66,7 @@ function theme_livefyre_comments($variables) {
  */
 function meedan_livefyre_node_view($node, $view_mode, $langcode) {
   if (!variable_get('meedan_livefyre_disable', FALSE) && in_array($node->type, array_filter(variable_get('meedan_livefyre_types', array())))) {
-    $node->content['livefyre'] = array(
+    $node->content['custom_comments'] = array(
       '#theme' => 'livefyre_comments',
       '#node' => $node,
     );
