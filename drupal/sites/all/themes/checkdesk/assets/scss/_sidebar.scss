@@ -3,9 +3,6 @@
 //
 // By default, there is only one column.
 // In larger breakpoints the primary width $pw and secondary $sw diverge to create two columns.
-
-@debug  $base-line-height;
-
 @mixin cd-sidebar($sw, $pw, $break: $cw) {
 
   body.sidebar-first {
