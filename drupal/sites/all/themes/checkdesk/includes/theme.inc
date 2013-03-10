@@ -82,7 +82,7 @@ function checkdesk_checkdesk_links($variables) {
       if (isset($link['href'])) {
         if(count($children) > 0) { 
           $link['html'] = TRUE;
-          $link['title'] .= '<b class="caret"></b>';
+          $link['title'] .= '<span class="caret"></span>';
           $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
         } else {
           // add home icon for homepage menu item link

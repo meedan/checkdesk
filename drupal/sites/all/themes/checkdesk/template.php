@@ -40,6 +40,25 @@ function checkdesk_preprocess_html(&$variables) {
     $variables['classes_array'][] = $class;
   }
 
+  // Add conditional stylesheets for IE8.
+  if ($variables['language'] == 'ar') {
+    $filename = 'ie8-rtl.css';
+  } else {
+    $filename = 'ie8.css';
+  }
+  drupal_add_css(
+    drupal_get_path('theme', 'checkdesk') . '/assets/css/' . $filename,
+    array(
+      'group' => CSS_THEME,
+      'browsers' => array(
+        'IE' => 'IE 8',
+        '!IE' => FALSE,
+      ),
+      'weight' => 999,
+      'every_page' => TRUE,
+    )
+  );
+
 }
 
 /**
