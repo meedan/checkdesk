@@ -542,13 +542,14 @@ function checkdesk_form_alter(&$form, &$form_state) {
   // user login form
   if($form['form_id']['#id'] == 'edit-user-login') {
     unset($form['social_media_signin']['#title']);
+    // $form['social_media_signin']['#prefix'] = '<div class="social-media-signin-label"><span>' . t('Sign in with:') . '</span></div>';
     $form['social_media_signin']['#suffix'] = '<div class="or"><span>' . t('or') . '</span></div>';
     unset($form['name']['#description']);
     // unset($form['name']['#title']);
     unset($form['pass']['#description']);
     $form['pass']['#title'] = t('Password');
     // unset($form['pass']['#title']);
-    $form['name']['#attributes']['placeholder'] = t('Username');
+    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
     $form['pass']['#attributes']['placeholder'] = t('Password');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
