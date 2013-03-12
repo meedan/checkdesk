@@ -1292,3 +1292,9 @@ function checkdesk_core_query_features_menu_link_alter($query) {
   $query->fields('menu_links', array('uuid', 'language', 'customized'));
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter() for `flag_confirm`.
+ */
+function checkdesk_core_form_flag_confirm_alter(&$form, $form_state, $form_id) {
+  $form['field_reason'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('Reason');
+}
