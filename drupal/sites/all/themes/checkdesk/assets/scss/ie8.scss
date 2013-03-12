@@ -1,8 +1,10 @@
 
-$gw: 10px;
-$alpha: left;
-$omega: right;
+@import "bowerbird";
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+$gw: 12px;
 
+// bad float issue
 BODY.sidebar-first #main .column#sidebar-first {
 	width: 20%;
 	float: $alpha;
@@ -13,9 +15,15 @@ BODY.sidebar-first #main DIV#content .inner {
 	width: 70%;
 	float: $alpha;
 }
-
+// username in single line
 nav[role='navigation'] #user-menu SPAN.avatar {
 	float: $alpha;
 	width: 20px;
 	margin-#{$omega}: $gw;
+}
+
+// remove extra space at the top
+.report > header {
+	padding: 0;
+	margin: 0;
 }
