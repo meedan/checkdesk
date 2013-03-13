@@ -62,40 +62,22 @@ Configuration
     the defaults be updated.
 
 
-Developers
-------------------------------------------------------------------------------
-Full API documentation is available in metatag.api.php.
-
-To enable Metatag support in custom entities, add 'metatag' => TRUE to either
-the entity or bundle definition in hook_entity_info(); see metatag.api.php for
-further details and example code.
-
-
 Known Issues
 ------------------------------------------------------------------------------
 * Versions of Drupal older than v7.17 were missing necessary functionality for
   taxonomy term pages to work correctly.
 * Using Metatag with values assigned for the page title and the Page Title
   module simultaneously can cause conflicts and unexpected results.
-* Using the Exclude Node Title module will cause the [node:title] token to be
-  empty on node pages, so using [current-page:title] will work around the
-  issue. Note: it isn't possible to "fix" this as it's a by-product of what
-  Exclude Node Title does - it removes the node title from display.
 
 
 Related modules
 ------------------------------------------------------------------------------
-Some modules are available that extend Metatag with additional functionality:
+Some modules are available that extend Nodewords with additional functionality:
 
 * Domain Meta Tags
   http://drupal.org/project/domain_meta
   Integrates with the Domain Access module, so each site of a multi-domain
   install can separately control their meta tags.
-
-* Select or Other
-  http://drupal.org/project/select_or_other
-  Enhances the user experience of the metatag_opengraph submodule by allowing
-  the creation of custom Open Graph types.
 
 
 Credits / Contact

@@ -65,6 +65,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     return array(
       '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
     );
+    return $element;
   }
 }
 
@@ -141,6 +142,7 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
     return array(
       '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
     );
+    return $element;
   }
 }
 

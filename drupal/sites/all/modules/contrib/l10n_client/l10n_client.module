@@ -138,13 +138,12 @@ function l10n_client_access($account = NULL) {
 function l10n_client_translate_page($display_translated = FALSE, $textgroup = 'default', $allow_translation = TRUE) {
   global $language;
 
-  $header = $table = array();
+  $table = array();
 
   $query = db_select('locales_source', 's')->extend('PagerDefault');
-  $query->join('locales_target', 't', 's.lid = t.lid');
+  $query->leftJoin('locales_target', 't', "s.lid = t.lid AND t.language = :lang", array(':lang' => $language->language));
   $query->fields('s', array('source'))
     ->fields('t', array('translation', 'language'))
-    ->condition('t.language', $language->language)
     ->orderBy('s.source');
 
   if ($display_translated) {
@@ -153,7 +152,7 @@ function l10n_client_translate_page($display_translated = FALSE, $textgroup = 'd
   }
   else {
     $header = array(t('Source string'));
-    $query->condition('t.translation', '');
+    $query->isNull('t.lid');
   }
   if (!empty($textgroup)) {
     $query->condition('s.textgroup', $textgroup);
@@ -163,7 +162,7 @@ function l10n_client_translate_page($display_translated = FALSE, $textgroup = 'd
   $allow_translation = (($textgroup == 'default') && ($language->language == 'en')) ? FALSE : $allow_translation;
 
   $result = $query
-    ->limit( L10N_CLIENT_STRINGS)
+    ->limit(L10N_CLIENT_STRINGS)
     ->execute();
 
   foreach ($result as $data) {
@@ -180,13 +179,8 @@ function l10n_client_translate_page($display_translated = FALSE, $textgroup = 'd
       }
     }
   }
-  if (!empty($table)) {
-    $pager = theme('pager');
-    $output = $pager . theme('table', $header, $table) . $pager;
-  } else {
-    $output = t('No strings found to translate.');
-  }
-  return $output;
+  $pager = theme('pager');
+  return $pager . theme('table', array('header' => $header, 'rows' => $table, 'empty' => t('No strings found to translate.'))) . $pager;
 }
 
 /**
@@ -228,7 +222,7 @@ function l10n_client_page_alter(&$page) {
     $toggle_label = t('Translate Text');
 
     $output = "
-      <div id='l10n-client' class='hidden'>
+      <div id='l10n-client' class='l10n-client-minimized'>
         <div class='labels'>
           <span class='toggle'>$toggle_label</span>
           <div class='label strings'>$string_label</div>
@@ -389,6 +383,8 @@ function l10n_client_form($form_id, $strings) {
   $form['#action'] = url('l10n_client/save');
 
   $form['target'] = array(
+    '#title' => t('Translation to %language', array('%language' => $language->native)),
+    '#title_display' => 'invisible',
     '#type' => 'textarea',
     '#resizable' => false,
     '#rows' => 6,
@@ -432,6 +428,8 @@ function l10n_client_search_form() {
   // Selector and editing form.
   $form = array();
   $form['search'] = array(
+    '#title' => t('Search'),
+    '#title_display' => 'invisible',
     '#type' => 'textfield',
     '#attributes' => array('class' => array('string-search')),
   );
@@ -460,6 +458,7 @@ function l10n_client_save_string() {
         _locale_import_one_string_db($report, $language->language, $_POST['context'], $_POST['source'], $_POST['target'], $_POST['textgroup'], NULL, LOCALE_IMPORT_OVERWRITE);
         cache_clear_all('locale:', 'cache', TRUE);
         _locale_invalidate_js($language->language);
+
         if (!empty($report['skips'])) {
           $message = theme('l10n_client_message', array('message' => t('Not saved locally due to invalid HTML content.')));
         }
@@ -474,7 +473,7 @@ function l10n_client_save_string() {
         }
 
         // Submit to remote server if enabled.
-        if (variable_get('l10n_client_use_server', FALSE) && user_access('submit translations to localization server') && ($_POST['textgroup'] == 'default')) {
+        if (empty($report['skips']) && variable_get('l10n_client_use_server', FALSE) && user_access('submit translations to localization server') && ($_POST['textgroup'] == 'default')) {
           if (!empty($user->data['l10n_client_key'])) {
             $remote_result = l10n_client_submit_translation($language->language, $_POST['source'], $_POST['target'], $user->data['l10n_client_key'], l10n_client_user_token($user));
             $message .= theme('l10n_client_message', array('message' => $remote_result[1], 'level' => $remote_result[0] ? WATCHDOG_INFO : WATCHDOG_ERROR));
@@ -636,7 +635,7 @@ function l10n_client_user_token($account = NULL) {
  * Submit translation to the server.
  */
 function l10n_client_submit_translation($langcode, $source, $translation, $user_key, $user_token) {
-  $server_uid = current(split(':', $user_key));
+  $server_uid = current(explode(':', $user_key));
   $signature = md5($user_key . $langcode . $source . $translation . $user_token);
   $server_url = variable_get('l10n_client_server', 'http://localize.drupal.org');
 
