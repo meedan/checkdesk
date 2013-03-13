@@ -7,6 +7,7 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
     block.find('.content, h2').hide();
     title.unbind('click');
     title.click(function() {
+      Drupal.behaviors.meedan_notifications_adjust_heights.attach();
       var that = $(this);
       if (that.find('.notifications-count').html() != '') {
         $.ajax({
