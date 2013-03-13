@@ -58,7 +58,8 @@ Drupal.behaviors.meedan_notifications_adjust_heights = {
   attach: function (context, settings) {
     // we need that each row has an integer height, otherwise loading more may not work
     $('#my-notifications .views-row').each(function() {
-      $(this).css('height', $(this).height());
+      var height = $(this).height();
+      if (height > 0) $(this).css('height', height);
     });
   }
 };
