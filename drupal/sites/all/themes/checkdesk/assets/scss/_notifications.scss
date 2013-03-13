@@ -102,12 +102,6 @@ $omega: opposite-position($from-direction);
     height: ms(10);
     overflow-y: auto;
     margin-bottom: $bh;
-
-    // Avoid float height of .view-content
-    .views-row {
-      height: ms(5);
-      overflow: hidden;
-    }
   }
 
   .more-link {
