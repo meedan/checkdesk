@@ -43,28 +43,28 @@ $icon-position: 'before';
 // Now all of them can be controlled here and inspected more easily.
 // Ideally these will all be *completely refactored away* CGB Jan 2013
 
-@import "override_drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
-@import "override_drupal/system_base";
-@import "override_drupal/system_menus";
-// @import "override_drupal/system_messages";
+@import "replace_drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
+@import "replace_drupal/system_base";
+@import "replace_drupal/system_menus";
+// @import "replace_drupal/system_messages";
 // @import "system_theme"; // hoping i can remove this huge one ....
-@import "override_drupal/jquery_ui_core";
+@import "replace_drupal/jquery_ui_core";
 // @import "jquery_ui_theme"; // this is pretty big do we really need it?
-@import "override_drupal/comment";
-@import "override_drupal/field";
-@import "override_drupal/node";
-// @import "override_drupal/search";
-// @import "override_drupal/user";
-// @import "override_drupal/views";
-// @import "override_drupal/ctools"; 
-// @import "override_drupal/ctools_modal"; // using styles based on TB for all windows
-// @import "override_drupal/oembed";
-@import "override_drupal/toolbar";
-@import "override_drupal/shortcut";
-@import "override_drupal/contextual";
-@import "override_drupal/rules";
-@import "override_drupal/context_reaction_block";
-@import "override_drupal/l10n_client";
+@import "replace_drupal/comment";
+@import "replace_drupal/field";
+@import "replace_drupal/node";
+// @import "replace_drupal/search";
+// @import "replace_drupal/user";
+// @import "replace_drupal/views";
+// @import "replace_drupal/ctools"; 
+// @import "replace_drupal/ctools_modal"; // using styles based on TB for all windows
+// @import "replace_drupal/oembed";
+@import "replace_drupal/toolbar";
+@import "replace_drupal/shortcut";
+@import "replace_drupal/contextual";
+@import "replace_drupal/rules";
+@import "replace_drupal/context_reaction_block";
+@import "replace_drupal/l10n_client";
 
 // Bowerbird Drupal touchups
 // via: bowerbird
@@ -114,14 +114,14 @@ $icon-position: 'before';
 // Deprecated: use our own mixins wherever possible. Also, use unmodified versions straight from bowerbird whenever possible.
 
 // Twitter Bootstrap Recognizable by their $camelCase variables
-@import "override_ctb/variables";
+@import "replace_ctb/variables";
 
 // Our overrides and replacement for TB mixins
 //
 // All of them are namespaced ctb-mixinname
-@import "override_ctb/mixins";
-@import "override_ctb/forms";
-@import "override_ctb/navs";
+@import "replace_ctb/mixins";
+@import "replace_ctb/forms";
+@import "replace_ctb/navs";
 @import "bowerbird/compass_twitter_bootstrap/reset";
 @import "bowerbird/compass_twitter_bootstrap/code"; // TB Syntax highlighting
 @import "bowerbird/compass_twitter_bootstrap/tables"; // TB Tabular data
