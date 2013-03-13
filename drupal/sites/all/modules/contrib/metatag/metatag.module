@@ -1507,7 +1507,7 @@ function metatag_features_api() {
   $components = array(
     'metatag' => array(
       'name' => t('Meta tags'),
-      'features_source' => TRUE,
+      'feature_source' => TRUE,
       'default_hook' => 'metatag_export_default',
       'default_file' => FEATURES_DEFAULTS_INCLUDED,
       'file' => drupal_get_path('module', 'metatag') . '/metatag.features.inc',
