@@ -56,15 +56,11 @@ Drupal.behaviors.alert_new_notifications = {
 
 Drupal.behaviors.meedan_notifications_adjust_heights = {
   attach: function (context, settings) {
-    var block = $('#my-notifications');
-    var hidden = !block.is(':visible');
-    if (hidden) block.show();
     // we need that each row has an integer height, otherwise loading more may not work
     $('#my-notifications .views-row').each(function() {
       var height = $(this).height();
       if (height > 0) $(this).css('height', height);
     });
-    if (hidden) block.hide();
   }
 };
 
