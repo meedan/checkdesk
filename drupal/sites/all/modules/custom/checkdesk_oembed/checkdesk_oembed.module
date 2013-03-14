@@ -42,8 +42,11 @@ function checkdesk_oembed_embed_access($node) {
 
 /**
  * Renders the embedded version of a report using the meedan_oembed view mode.
+ *
+ * This is what is INSIDE of the IFRAME.
  */
 function checkdesk_oembed_embed($node) {
+  drupal_add_js(drupal_get_path('module', 'checkdesk_oembed') . '/js/embed_iframe.js');
   return node_view_multiple(array($node->nid => $node), 'meedan_oembed');
 }
 

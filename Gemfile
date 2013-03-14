@@ -13,6 +13,7 @@ group :development do
   gem 'guard'
   gem 'guard-livereload'
   gem 'guard-compass'
+  gem 'guard-uglify', git: 'git://github.com/pferdefleisch/guard-uglify.git'
   gem 'pry'
   gem 'rb-fsevent'
 end
