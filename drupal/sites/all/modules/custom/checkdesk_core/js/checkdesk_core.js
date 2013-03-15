@@ -50,14 +50,14 @@
         }
       });
       // Attach the Views results to each correspoknding row in the DOM.
-      $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
+      $('.view-desk-reports .view-content #incoming-reports', context).children().each(function() {
         var i = $(this).find('.report-row-container').attr('id');
         $(this).data('views', settings.checkdesk.reports[i]);
       });
       // Restrict thumbnail width to 220
-      $('.view-desk-reports .view-content').find('.thumbnail img').width(220);
+      $('.view-desk-reports .view-content', context).find('.thumbnail img').width(220);
       // Avoid clicking the videos by applying a mask over it
-      $('.view-desk-reports .view-content').find('.oembed-video .oembed-content, .content').each(function() {
+      $('.view-desk-reports .view-content', context).find('.oembed-video .oembed-content, .content').each(function() {
         var video = $(this).find('iframe, object');
         video.css('position', 'absolute');
         video.find('embed').attr('wmode', 'transparent');
@@ -70,13 +70,13 @@
         $(this).find('.oembed-mask, .oembed-wrapper').css({ position : 'absolute', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
       });
       // Toggle filters when button is clicked (reports filters on "create update" sidebar)
-      $('.view-desk-reports .views-exposed-widget label').each(function() {
+      $('.view-desk-reports .views-exposed-widget label', context).each(function() {
         $(this).unbind('click').click(function() {
           $(this).siblings('.views-widget, .views-operator').slideToggle();
         });
       });
       // Avoid videos over content
-      $('.oembed-video iframe').attr('src', function(index, value) {
+      $('.oembed-video iframe', context).attr('src', function(index, value) {
         var wmode_set = /wmode=transparent/g;
 
         if (wmode_set.test(value)) {
@@ -85,9 +85,9 @@
 
         return value + '&wmode=transparent';
       });
-      $('.oembed-video embed').attr('wmode', 'transparent');
+      $('.oembed-video embed', context).attr('wmode', 'transparent');
       // close modal
-      $('#close').click(function() {
+      $('#close', context).click(function() {
         Drupal.CTools.Modal.dismiss();
         return false;
       });
@@ -101,6 +101,9 @@
       //   Drupal.ajax['checkdesk_core_message_settings'].setMessages();
       // });
 
+      // FIXME: This use of $(document) within a Drupal behavior will fail sometimes
+      //        Either the context variable or a static variable must be used
+      //        to avoid double attaching of events.
       // Show messages when an item is flagged/unflagged
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
         Drupal.ajax.checkdesk_core_message_settings.setMessages();
