@@ -31,13 +31,19 @@ function meedan_notifications_rules_action_info() {
           'description' => t('The notification email body. In addition to the tokens listed below, you can also use [recipient] which will be filled with the account information of each recipient.'),
         ),
         'actor' => array(
+          'type' => 'user',
+          'label' => t('Actor'),
+          'description' => t('The actor who executed the notified action.'),
+        ),
+        't_args' => array(
           'type' => 'text',
-          'label' => t('Actor UID'),
+          'label' => t('Arguments'),
           'restriction' => 'input',
-          'description' => t('The identifier of the actor (the one which executed the notified action).'),
+          'description' => t('A serialized PHP array of named arguments to pass to the t() function, for both subject and message texts. Each argument will itself be first passed through t(). For example: <code>return serialize(array("!type" => $node->type, "!title" => $node->title));</code>.'),
+          'default value' => '<?php return serialize(array()); ?>',
         ),
       ),
-      'group' => 'System',
+      'group' => 'User',
       'base' => 'meedan_notifications_rules_action',
     ),
   );
@@ -53,7 +59,7 @@ function meedan_notifications_rules_get_events() {
 /**
  * Action function for Rules action `notify_subscribers`.
  */
-function meedan_notifications_rules_action($object, $event, $subject, $message, $actor) {
-  meedan_notifications_action($object, array('event' => $event, 'subject' => $subject, 'message' => $message, 'actor' => $actor));
+function meedan_notifications_rules_action($object, $event, $subject, $message, $actor, $t_args) {
+  meedan_notifications_action($object, array('event' => $event, 'subject' => $subject, 'message' => $message, 'actor' => $actor->uid, 't_args' => (array)@unserialize($t_args)));
 }
 

@@ -30,7 +30,7 @@ function meedan_notifications_menu() {
 }
 
 /**
- * Form function for item `admin/settings/meedan/notifications`.
+ * Form function for item `admin/config/people/notifications`.
  */
 function meedan_notifications_admin_settings() {
   $form['meedan_notifications_sender'] = array(
@@ -163,20 +163,24 @@ function meedan_notifications_action_form($context) {
   $form['subject'] = array(
     '#type' => 'textfield',
     '#title' => t('Subject'),
-    '#description' => t('You can use the tokens below in your subject.'),
+    '#description' => t('The notification email subject. In addition to the tokens listed below, you can also use [recipient] which will be filled with the account information of each recipient.'),
     '#default_value' => @$context['subject'],
   );
   $form['message'] = array(
     '#type' => 'textarea',
     '#title' => t('Message'),
-    '#description' => t('You can use the tokens below in your message.'),
+    '#description' => t('The notification email body. In addition to the tokens listed below, you can also use [recipient] which will be filled with the account information of each recipient.'),
     '#default_value' => @$context['message'],
   );
   $form['actor'] = array(
     '#type' => 'textfield',
-    '#title' => t('Actor UID'),
-    '#description' => t('You can use one of the tokens below.'),
+    '#title' => t('Actor'),
+    '#description' => t('The uid of the actor who executed the notified action.'),
     '#default_value' => @$context['actor'],
+  );
+  $form['t_args'] = array(
+    '#type' => 'value',
+    '#value' => @$context['t_args'],
   );
   if (module_exists('token')) {
     $form['token_tree'] = array(
@@ -201,6 +205,7 @@ function meedan_notifications_action_submit($form, $form_state) {
   $params['subject'] = $form_state['values']['subject'];
   $params['message'] = $form_state['values']['message'];
   $params['actor'] = $form_state['values']['actor'];
+  $params['t_args'] = (array)$form_state['values']['t_args'];
   return $params;
 }
 
@@ -220,12 +225,13 @@ function meedan_notifications_action($object, $context) {
     if (count($uids) > 0) $uids = array_combine($uids, $uids); // turn into [uid=>uid]
     drupal_alter('meedan_notifications_recipients', $uids, $object, $context);
   }
+  
+  // Debug uids.
+  // @see http://dropbucket.org/node/211 to assign an array value to a variable using drush.
+  $uids = array_merge($uids, variable_get('meedan_notifications_debug_uids', array()));
 
   // Send email to each recipient.
-  $from = variable_get('meedan_notifications_sender', NULL);
-  if (empty($from)) {
-    $from = variable_get('site_mail', NULL);
-  }
+  $from = variable_get('meedan_notifications_sender', variable_get('site_mail', NULL));
   foreach (user_load_multiple($uids) as $uid => $account) {
     drupal_mail(
       'meedan_notifications',
@@ -274,9 +280,8 @@ function meedan_notifications_meedan_notifications_recipients_alter(&$uids, $obj
   unset($uids[0]);
 
   // Remove actor, if set
-  if ($context['actor']) {
-    $uid = intval(token_replace($context['actor']));
-    unset($uids[$uid]);
+  if (!empty($context['actor'])) {
+    unset($uids[$context['actor']]);
   }
 
   // Look on remaining recipients to remove unwanted ones.
@@ -299,6 +304,8 @@ function meedan_notifications_meedan_notifications_recipients_alter(&$uids, $obj
  * Implements hook_mail().
  */
 function meedan_notifications_mail($key, &$message, $params) {
+  global $base_path, $base_root;
+
   $account = $params['account'];
   $object = $params['object'];
   $context = $params['context'];
@@ -312,11 +319,28 @@ function meedan_notifications_mail($key, &$message, $params) {
     $options['language'] = $languages[$account->language];
   }
 
-  $subject = t($context['subject'], array(), array('langcode' => $account->language));
+  // translate t_args.
+  $t_args = array();
+  if (!empty($context['t_args'])) foreach ($context['t_args'] as $t_placeholder => $t_arg) {
+    // URLs must be localized
+    if (preg_match('/^https?:\/\//', $t_arg)) {
+      $url = parse_url($t_arg);
+      if ($url && $url['scheme'] . '://' . $url['host'] == $base_root) {
+        $path = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
+        if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) $path = preg_replace('/^[^\/]+\//', '', $path);
+        $t_args[$t_placeholder] = url($path, array('language' => $languages[$account->language], 'absolute' => TRUE, 'alias' => TRUE));
+      }
+    }
+    else {
+      $t_args[$t_placeholder] = t($t_arg, array(), array('langcode' => $account->language));
+    }
+  }
+  
+  $subject = t($context['subject'], $t_args, array('langcode' => $account->language));
   $subject = token_replace($subject, array('recipient' => $account, $events[$context['event']] => $object), $options);
   $message['subject'] = $subject;
 
-  $body = t($context['message'], array(), array('langcode' => $account->language));
+  $body = t($context['message'], $t_args, array('langcode' => $account->language));
   $body = token_replace($body, array('recipient' => $account, $events[$context['event']] => $object), $options);
   $message['body'][] = nl2br($body);
 }
@@ -446,3 +470,4 @@ function meedan_notifications_set_last_time_menu_opened() {
   return drupal_json_output(array('timestamp' => $timestamp));
   exit;
 }
+
