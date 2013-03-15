@@ -1,24 +1,24 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 
+var meedanSensitiveContent = {};
+
 (function ($) {
 'use strict';
 
-var meedanSensitiveContent = {
-      /**
-       * Show sensitive item. 
-       */
-      Update: function(nid, show) {
-        $('div.sensitive-notification-'+nid)[show ? 'hide' : 'show']();
-        $('div.sensitive-item-'+nid)[show ? 'show' : 'hide']();
-      }
-    };
+/**
+ * Show sensitive item.
+ */
+meedanSensitiveContent.Update = function(nid, show) {
+  $('div.sensitive-notification-'+nid)[show ? 'hide' : 'show']();
+  $('div.sensitive-item-'+nid)[show ? 'show' : 'hide']();
+};
 
 /**
  * Module initialization.
  */
 Drupal.behaviors.meedanSensitiveContent = {
   attach: function(context) {
-    // FIXME This section is not working. Events are not caught. 
+    // FIXME This section is not working. Events are not caught.
     //       One of the problems is that the sensitive wrapper is added by the backend
     //       only if the content is already marked as sensitive.
     // Listen to Flag update events to show/hide the content.
