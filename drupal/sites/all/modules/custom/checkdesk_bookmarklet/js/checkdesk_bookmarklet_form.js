@@ -38,12 +38,13 @@ jQuery(function($) {
 
   // Update preview if URL changes
   $('#edit-field-link-und-0-url').keyup(function() {
-    var url = $(this).val();
-    var done = $('#edit-submit');
+    var url = $(this).val(),
+        done = $('#edit-submit'),
+        wait;
     if (/https?:\/\/[^.]+\.[^.]+/.test(url)) {
       done.removeAttr('disabled');
       clearTimeout($.data(this, 'timer'));
-      var wait = setTimeout(getMediaPreview, 1500);
+      wait = setTimeout(getMediaPreview, 1500);
       $(this).data('timer', wait);
     } else {
       done.attr('disabled', 'disabled');
@@ -52,8 +53,8 @@ jQuery(function($) {
 
   // Hide preview if graphic content is checked
   $('#edit-graphic-content-graphic, #edit-graphic-content-graphic-journalist').click(function() {
-    var mask = $('#meedan_bookmarklet_preview_gc');
-    var content = $('#meedan_bookmarklet_preview_content');
+    var mask = $('#meedan_bookmarklet_preview_gc'),
+        content = $('#meedan_bookmarklet_preview_content');
     if ($(this).is(':checked')) {
       mask.show();
       content.hide();
@@ -70,7 +71,7 @@ jQuery(function($) {
 
   // Disable submit button if link field is empty
   $('#edit-submit').click(function() {
-    if ($('#edit-field-link-und-0-url').val() == '') {
+    if ($('#edit-field-link-und-0-url').val() === '') {
       return false;
     }
   });
@@ -79,7 +80,7 @@ jQuery(function($) {
   var htmlHeight = 0;
 
   function checkHTMLHeight() {
-    if ($('html').height() != htmlHeight) {
+    if ($('html').height() !== htmlHeight) {
       htmlHeight = $('html').height();
 
       window.parent.postMessage('{"type":"resize","height":' + htmlHeight + '}', '*');
