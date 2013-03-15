@@ -202,6 +202,7 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
   $uids = array();
   $roles = array_flip(user_roles(TRUE));
   $journalist_role_id = $roles['journalist'];
+  $citizen_role_id = $roles['citizen journalist'];
   switch ($context['event']) {
     case 'email_report_flagged':
     case 'email_report_suggested':
@@ -223,13 +224,13 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       $uids = db_query("SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid")->fetchCol();
       break;
     case 'email_update_on_story_i_commented_on_update':
-      $uids = db_query("SELECT DISTINCT(c.uid) FROM {field_data_field_desk} f INNER JOIN {comment} c ON c.nid = f.entity_id LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE f.entity_type = 'node' AND f.bundle = 'post' AND f.field_desk_target_id = $object->nid AND ur.rid IS NULL")->fetchCol(); 
+      $uids = db_query("SELECT DISTINCT(c.uid) FROM {field_data_field_desk} f INNER JOIN {comment} c ON c.nid = f.entity_id LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE f.entity_type = 'node' AND f.bundle = 'post' AND f.field_desk_target_id = $object->nid AND ur.rid = $citizen_role_id")->fetchCol(); 
       break;
     case 'email_report_published_in_update':
-      $uids = db_query("SELECT n.uid FROM {node} n LEFT JOIN {users_roles} ur ON ur.uid = n.uid WHERE n.nid = $object->nid AND ur.rid IS NULL")->fetchCol();
+      $uids = db_query("SELECT n.uid FROM {node} n LEFT JOIN {users_roles} ur ON ur.uid = n.uid WHERE n.nid = $object->nid AND ur.rid = $citizen_role_id")->fetchCol();
       break;
     case 'email_comment_on_report':
-      $uids = db_query("(SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id) UNION (SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE ur.rid IS NULL AND c.nid = $object->nid)")->fetchCol();
+      $uids = db_query("(SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id) UNION (SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE ur.rid = $citizen_role_id AND c.nid = $object->nid)")->fetchCol();
       break;
   }
   return $uids;
