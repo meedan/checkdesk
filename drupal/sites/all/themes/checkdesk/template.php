@@ -646,29 +646,25 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
     ctools_include('modal');
     ctools_modal_add_js();
     $modal_style = array(
-     'modal-popup-report' => array(
-          'modalSize' => array(
-            'type' => 'fixed',
-            'width' => 450,
-            'height' => 400,
-            'addWidth' => 0,
-            'addHeight' => 0
-          ),
-          'modalOptions' => array(
-            'opacity' => .5,
-            'background-color' => '#000',
-          ),
-          'animation' => 'show',
-          'animationSpeed' => 40,
-          'modalTheme' => 'CToolsModalDialog',
-          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      'modal-popup-report' => array(
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 450,
+          'height' => 400,
+          'addWidth' => 0,
+          'addHeight' => 0
         ),
-      );
-      drupal_add_js($modal_style, 'setting');
-
-    // foreach($vars['view']->result as $delta => $item) {
-            
-    // }
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CToolsModalDialog',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      ),
+    );
+    drupal_add_js($modal_style, 'setting');
   }
 }
 
