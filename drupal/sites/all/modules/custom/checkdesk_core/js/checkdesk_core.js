@@ -1,4 +1,6 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
+  'use strict';
 
   Drupal.ajax.prototype.setMessages = function() {
     var ajax = this;
@@ -25,7 +27,7 @@
   message_settings.event = 'onload';
   message_settings.keypress = false;
   message_settings.prevent = false;
-  Drupal.ajax['checkdesk_core_message_settings'] = new Drupal.ajax(null, $(document.body), message_settings);
+  Drupal.ajax.checkdesk_core_message_settings = new Drupal.ajax(null, $(document.body), message_settings);
 
   Drupal.behaviors.checkdesk = {
     attach: function (context, settings) {
@@ -45,7 +47,7 @@
           var data = $(ui.draggable).data('views');
           // Insert the report URL into the textarea of the post body.
           $('textarea', this).insertAtCaret("\n" + data.droppable_ref + "\n");
-        },
+        }
       });
       // Attach the Views results to each correspoknding row in the DOM.
       $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
@@ -60,7 +62,9 @@
         video.css('position', 'absolute');
         video.find('embed').attr('wmode', 'transparent');
         $(this).css({ position : 'relative', display : 'block', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
-        if (video.attr('src')) video.attr('src', video.attr('src') + '&wmode=transparent');
+        if (video.attr('src')) {
+          video.attr('src', video.attr('src') + '&wmode=transparent');
+        }
         video.wrap('<div class="oembed-wrapper" />');
         $(this).find('.oembed-wrapper').after('<div class="oembed-mask" />');
         $(this).find('.oembed-mask, .oembed-wrapper').css({ position : 'absolute', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
@@ -74,8 +78,12 @@
       // Avoid videos over content
       $('.oembed-video iframe').attr('src', function(index, value) {
         var wmode_set = /wmode=transparent/g;
-        if (wmode_set.test(value)) return value;
-        else return value + '&wmode=transparent';
+
+        if (wmode_set.test(value)) {
+          return value;
+        }
+
+        return value + '&wmode=transparent';
       });
       $('.oembed-video embed').attr('wmode', 'transparent');
       // close modal
@@ -95,21 +103,18 @@
 
       // Show messages when an item is flagged/unflagged
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
-        Drupal.ajax['checkdesk_core_message_settings'].setMessages();
+        Drupal.ajax.checkdesk_core_message_settings.setMessages();
       });
 
     }
   };
 
 
-  
-
   /**
    * Provide the HTML to create the modal dialog.
   */
   Drupal.theme.prototype.CheckDeskModal = function () {
     var html = '';
-
 
     html += '<div id="ctools-modal">';
     html += '<div class="ctools-modal-content">';
@@ -126,7 +131,6 @@
     html += '</div>';
 
     return html;
+  };
 
-  }
-
-})(jQuery);
+}(jQuery));
