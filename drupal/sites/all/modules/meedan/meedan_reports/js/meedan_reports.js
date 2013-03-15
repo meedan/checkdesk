@@ -1,7 +1,13 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
+
 function add_chart_view(params, title_chart) {
-  
+  'use strict';
+
   var chartData = params;
   AmCharts.ready(function () {
+    var chart, categoryAxis, valueAxis,
+        graph, legend, chartCursor, catAxis;
+
     // SERIAL CHART
     chart = new AmCharts.AmSerialChart();
     chart.pathToImages = "amcharts/samples/javascript/images/";
@@ -16,13 +22,13 @@ function add_chart_view(params, title_chart) {
 
     // AXES
     // Category
-    var categoryAxis = chart.categoryAxis;
+    categoryAxis = chart.categoryAxis;
     categoryAxis.gridAlpha = 0.07;
     categoryAxis.axisColor = "#DADADA";
     categoryAxis.startOnAxis = true;
 
     // Value
-    var valueAxis = new AmCharts.ValueAxis();
+    valueAxis = new AmCharts.ValueAxis();
     valueAxis.stackType = "regular"; // this line makes the chart "stacked"
     valueAxis.gridAlpha = 0.07;
     valueAxis.axisColor = "#DADADA";
@@ -34,7 +40,7 @@ function add_chart_view(params, title_chart) {
 
     // GRAPHS
     // first graph
-    var graph = new AmCharts.AmGraph();
+    graph = new AmCharts.AmGraph();
     graph.type = "column";
     graph.hidden = false;
     graph.title = "Count";
@@ -46,17 +52,17 @@ function add_chart_view(params, title_chart) {
 
 
     // LEGEND
-    var legend = new AmCharts.AmLegend();
+    legend = new AmCharts.AmLegend();
     legend.position = "top";
     chart.addLegend(legend);
 
     // CURSOR
-    var chartCursor = new AmCharts.ChartCursor();
+    chartCursor = new AmCharts.ChartCursor();
     chartCursor.zoomable = true; // as the chart displayes not too many values, we disabled zooming
     chartCursor.cursorAlpha = 0;
     chart.addChartCursor(chartCursor);
 
-    var catAxis = chart.categoryAxis;
+    catAxis = chart.categoryAxis;
     catAxis.gridCount = chartData.length;
     catAxis.labelRotation = 90;
 
@@ -65,8 +71,11 @@ function add_chart_view(params, title_chart) {
   });
 }
 
-jQuery(function() {
-  jQuery("#tabs").tabs({
+(function ($) {
+  'use strict';
+
+  $("#tabs").tabs({
     collapsible: true
   });
-});
+
+}(jQuery));
