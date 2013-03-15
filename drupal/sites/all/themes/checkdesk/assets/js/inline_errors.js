@@ -1,5 +1,6 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 jQuery(function ($) {
-  "use strict";
+  'use strict';
 
   // See: http://www.texotela.co.uk/code/jquery/reverse/
   $.fn.reverse = function() {
@@ -56,10 +57,10 @@ jQuery(function ($) {
       // ife user register form 
       // setting placeholder text for password fields
       // as it wasn't possible to do with hook_form_alter
-      $('.ife #edit-pass-pass1').attr('placeholder', Drupal.t('Password'));
-      $('.ife #edit-pass-pass2').attr('placeholder', Drupal.t('Confirm password'));
+      $('.ife #edit-pass-pass1', context).attr('placeholder', Drupal.t('Password'));
+      $('.ife #edit-pass-pass2', context).attr('placeholder', Drupal.t('Confirm password'));
     }
 
   };
 
-}(jQuery));
+});
