@@ -1,5 +1,5 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
-(function ($, fyre) {
+(function ($) {
 'use strict';
 
 Drupal.livefyre = {
@@ -51,7 +51,7 @@ Drupal.behaviors.livefyre = {
               Drupal.livefyre.widget.changeCollection(stream);
             }
             else {
-              fyre.conv.load(
+              window.fyre.conv.load(
                 {},
                 [stream],
                 Drupal.livefyre.callback 
@@ -104,4 +104,4 @@ waitForGoogEditor = function() {
   }
 };
 
-}(jQuery, fyre));
+}(jQuery));
