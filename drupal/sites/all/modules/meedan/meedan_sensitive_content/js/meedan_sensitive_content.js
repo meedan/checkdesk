@@ -1,4 +1,17 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
+
 (function ($) {
+'use strict';
+
+var meedanSensitiveContent = {
+      /**
+       * Show sensitive item. 
+       */
+      Update: function(nid, show) {
+        $('div.sensitive-notification-'+nid)[show ? 'hide' : 'show']();
+        $('div.sensitive-item-'+nid)[show ? 'show' : 'hide']();
+      }
+    };
 
 /**
  * Module initialization.
@@ -11,27 +24,18 @@ Drupal.behaviors.meedanSensitiveContent = {
     // Listen to Flag update events to show/hide the content.
     $('.flag-'+Drupal.settings.meedanSensitiveContent.flag+' a.flag-link-toggle', context)
     .bind('flagGlobalAfterLinkUpdate', function() {
-      var $wrapper = $(this).parents('.flag-wrapper');
-      var flagged = $(this).hasClass('flagged');
+      var $wrapper = $(this).parents('.flag-wrapper'),
+          flagged = $(this).hasClass('flagged'),
+          nid;
       $.each($wrapper.attr('class').split(/\s+/), function(n,i) {
         // http://james.padolsey.com/javascript/match-trick/
-        var nid = ( i.match(new RegExp('flag-'+Drupal.settings.meedanSensitiveContent.flag+'-(\\d+)')) || [,0] )[1];
+        nid = ( i.match(new RegExp('flag-'+Drupal.settings.meedanSensitiveContent.flag+'-(\\d+)')) || [undefined,0] )[1];
         if (nid > 0) { // found a match
           meedanSensitiveContent.Update(nid, !flagged);
         }
       });
     });
   }
-}
+};
 
-meedanSensitiveContent = {
-  /**
-   * Show sensitive item. 
-   */
-  Update: function(nid, show) {
-    $('div.sensitive-notification-'+nid)[show ? 'hide' : 'show']();
-    $('div.sensitive-item-'+nid)[show ? 'show' : 'hide']();
-  }
-}
-
-})(jQuery);
+}(jQuery));
