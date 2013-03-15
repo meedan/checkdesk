@@ -42573,11 +42573,43 @@ print theme(\'views_autorefresh\', array(
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['be5ad860ffaadc74d6e1e044051dc035'] = array(
+    'source' => 'Create an account',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'أنشئ حسابا جديدا',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['8f3cf81fcd3e008d5407fa3557ee1147'] = array(
     'source' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>',
     'context' => '',
     'location' => '',
     'translation' => '<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">لا تعليقات</span>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['03cf96c47ec120655ab3c729125ea4ff'] = array(
+    'source' => 'Retrieve lost password',
+    'context' => '',
+    'location' => '/ar/user/password',
+    'translation' => 'إسترجع كلمة السر',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['4fa548506256ae755ae53785f3de0215'] = array(
+    'source' => 'Story title',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => 'عنوان الخبر',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['55773016db7ec51f03d7c6cc6d578ab5'] = array(
+    'source' => 'Introduction',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => 'المقدمة',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42593,7 +42625,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-لقد قام !actor بتغيير حالة التحقق من صحة المعلومات <a href="!url">للتقرير</a> الذي أضفته إلى !rating.
+قام !actor بتغيير حالة التحقق من صحة المعلومات <a href="!url">للتقرير</a> الذي أضفته إلى !rating.
 
 بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
 
@@ -42614,7 +42646,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-لقد قام !actor بتغيير حالة التحقق من صحة المعلومات <a href="!url">للتقرير</a> الذي أضفت إليه ملاحظات إلى !rating.
+قام !actor بتغيير حالة التحقق من صحة المعلومات <a href="!url">للتقرير</a> الذي أضفت إليه ملاحظات إلى !rating.
 
 بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
 
@@ -42657,7 +42689,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-لقد قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الخبر "!story_title".
+قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الخبر "!story_title".
 
 <a href="!story_url">اضغط هنا</a> لكتابة تحديث جديد على ذلك الخبر باستخدام ذاك التقرير.
 
@@ -42711,7 +42743,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-لقد قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الخبر "!story_title".
+قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الخبر "!story_title".
 
 إذهب إلى !story_url لكتابة تحديث جديد على الخبر باستخدام ذاك التقرير.
 
@@ -42738,39 +42770,18 @@ You can edit your notification settings from your <a href="!recipient_url">profi
 This was an auto-generated email from !site, please do not respond directly to this email.',
     'context' => '',
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
-    'translation' => 'todo',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['be5ad860ffaadc74d6e1e044051dc035'] = array(
-    'source' => 'Create an account',
-    'context' => '',
-    'location' => '/ar/user/register',
-    'translation' => 'أنشئ حسابا جديدا',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['03cf96c47ec120655ab3c729125ea4ff'] = array(
-    'source' => 'Retrieve lost password',
-    'context' => '',
-    'location' => '/ar/user/password',
-    'translation' => 'إسترجع كلمة السر',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['4fa548506256ae755ae53785f3de0215'] = array(
-    'source' => 'Story title',
-    'context' => '',
-    'location' => '/ar/node/add/discussion',
-    'translation' => 'عنوان الخبر',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['55773016db7ec51f03d7c6cc6d578ab5'] = array(
-    'source' => 'Introduction',
-    'context' => '',
-    'location' => '/ar/node/add/discussion',
-    'translation' => 'المقدمة',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !flagging_user_name بتنبيه فريق العمل عن <a href="!flagged_node_url">التقرير الآتي</a> بأنه "!flag_title": !flagged_node_title
+
+وأعطى سبب التنبيه قائلاً:
+!reason
+
+<a href="!flagged_node_edit_url">انقر هنا</a> لمراجعة التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
     'plid' => '0',
     'plural' => '0',
   );
