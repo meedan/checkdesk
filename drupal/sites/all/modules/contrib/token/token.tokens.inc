@@ -80,7 +80,7 @@ function token_token_info_alter(&$info) {
   foreach ($date_format_types as $date_format_type => $date_format_type_info) {
     if (!isset($info['tokens']['date'][$date_format_type])) {
       $info['tokens']['date'][$date_format_type] = array(
-        'name' => $date_format_type_info['title'],
+        'name' => check_plain($date_format_type_info['title']),
         'description' => t("A date in '@type' format. (%date)", array('@type' => $date_format_type, '%date' => format_date(REQUEST_TIME, $date_format_type))),
         'module' => 'token',
       );

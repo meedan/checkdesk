@@ -22,32 +22,37 @@ Drupal.behaviors.livefyre = {
 
       // Show or hide comments
       $('.livefyre-header').die('click').live('click', function() {
-        var comments = $('.livefyre-comments', $(this).parent());
-        if (comments.is(':visible')) {
-          comments.hide();
+        if ($('.livefyre-loading').is(':visible')) {
+          // Avoid double click while requesting
         }
         else {
-          $('.livefyre-comments').hide();
-          $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
-          var key = 'livefyre-' + comments.attr('data-nid');
-          var stream = Drupal.settings.livefyre[key].streamConfig;
-          stream.el = Drupal.livefyre.el;
-          $('#' + stream.el).attr('id', 'livefyre-' + $('#' + stream.el).attr('data-nid'));
-          comments.attr('id', stream.el);
-
-          if (window.FyreLoader) {
-            Drupal.livefyre.widget.changeCollection(stream);
+          var comments = $('.livefyre-comments', $(this).parent());
+          if (comments.is(':visible')) {
+            comments.hide();
           }
-          
           else {
-            fyre.conv.load(
-              {},
-              [stream],
-              Drupal.livefyre.callback 
-            );
-          }
+            $('.livefyre-comments').hide();
+            $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
+            var key = 'livefyre-' + comments.attr('data-nid');
+            var stream = Drupal.settings.livefyre[key].streamConfig;
+            stream.el = Drupal.livefyre.el;
+            $('#' + stream.el).attr('id', 'livefyre-' + $('#' + stream.el).attr('data-nid'));
+            comments.attr('id', stream.el);
 
-          comments.show();
+            if (window.FyreLoader) {
+              Drupal.livefyre.widget.changeCollection(stream);
+            }
+            
+            else {
+              fyre.conv.load(
+                {},
+                [stream],
+                Drupal.livefyre.callback 
+              );
+            }
+
+            comments.show();
+          }
         }
       });
 

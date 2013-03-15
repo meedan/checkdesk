@@ -16,6 +16,18 @@ function checkdesk_core_views_data_alter(&$data) {
       'numeric' => TRUE,
     ),
   );
+
+  // Add Term name field (translated)
+  $data['taxonomy_term_data']['name_i18n'] = array(
+    'title' => t('Name (translated)'),
+    'help' => t('The translated taxonomy term name.'),
+    'field' => array(
+      'handler' => 'checkdesk_core_handler_field_taxonomy_term_name',
+      'click sortable' => TRUE,
+      // name_i18n is not a real field in the database but we could actually let's just add the name, that's we need too.
+      'real field' => 'name',
+    ),
+  );
 }
 
 /**

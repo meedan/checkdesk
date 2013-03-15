@@ -32,7 +32,6 @@ function metatag_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
         'description' => 'The primary identifier for a metatag configuration set.',
-        'no export' => TRUE,
       ),
       'instance' => array(
         'type' => 'varchar',
@@ -133,21 +132,11 @@ function metatag_requirements($phase) {
 
     // Add a note if Page Title is also installed.
     if (module_exists('page_title')) {
-      $requirements['metatag_page_title'] = array(
+      $requirements['metatag'] = array(
         'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
         'value' => $t('Possible conflicts with Page Title module'),
         'description' => $t('The Metatag module is able to customize page titles so running the Page Title module simultaneously can lead to complications.'),
-      );
-    }
-
-    // Add a note if Page Title is also installed.
-    if (module_exists('exclude_node_title')) {
-      $requirements['metatag_exclude_node_title'] = array(
-        'severity' => REQUIREMENT_INFO,
-        'title' => 'Metatag',
-        'value' => $t('Possible conflicts with Exclude Node Title module'),
-        'description' => $t('The Metatag module\'s default setitngs for content types (nodes) uses [node:title] for the page title. Unfortunately, Exclude Node Title hides this so the page title ends up blank. It is recommended to <a href="!config">change the "title" field\'s default value</a> to "[current-page:title]" instead of "[node:title]" for any content types affected by Exclude Node Title.', array('!config' => 'admin/config/search/metatags')),
       );
     }
   }
@@ -244,9 +233,8 @@ function metatag_update_7003() {
 }
 
 /**
- * Update all records in the metatag table and assign each the correct language
- * value, will also resolve problems created during the release of beta3. This
- * might take a while, depending on how much data needs to be converted.
+ * Update all language values in the metatag table, will also resolve problems
+ * created during the release of beta3.
  */
 function metatag_update_7004(&$sandbox) {
   // Use the sandbox at your convenience to store the information needed
@@ -273,9 +261,6 @@ function metatag_update_7004(&$sandbox) {
     // A place to store messages during the run.
     $sandbox['messages'] = array();
 
-    // An initial record of the number of records to be upgraded.
-    watchdog('metatag', 'Update 7004: !count records to upgrade.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
-
     // Last record processed.
     $sandbox['current_record'] = -1;
   }
@@ -287,21 +272,14 @@ function metatag_update_7004(&$sandbox) {
 
   // Proceed as normal.
   else {
-    // Process records by groups of 50 (arbitrary value).
+    // Process records by groups of 10 (arbitrary value).
     // When a group is processed, the batch update engine determines
     // whether it should continue processing in the same request or provide
     // progress feedback to the user and wait for the next request.
-    $limit = 50;
-
-    // The for loop will run as normal when ran via update.php, but when ran
-    // via Drush it'll just run 'til it's finished.
-    $increment = 1;
-    if (drupal_is_cli()) {
-      $increment = 0;
-    }
+    $limit = 10;
 
     // Set default values.
-    for ($x = 0; $x < $limit; $x += $increment) {
+    for ($x = 0; $x < $limit; $x++) {
       $sandbox['current_record']++;
       if (empty($sandbox['records'][$sandbox['current_record']])) {
         break;
@@ -374,11 +352,6 @@ function metatag_update_7004(&$sandbox) {
       $sandbox['progress']++;
     }
 
-    // A per-iterationl message, only record if not running via Drush.
-    if (!drupal_is_cli()) {
-      watchdog('metatag', 'Update 7004: !count records were updated.', array('!count' => $x), WATCHDOG_INFO);
-    }
-
     // Set the "finished" status, to tell batch engine whether this function
     // needs to run again. If you set a float, this will indicate the progress
     // of the batch so the progress bar will update.
@@ -388,102 +361,9 @@ function metatag_update_7004(&$sandbox) {
       // Clear all caches so the fixed data will be reloaded.
       cache_clear_all('*', 'cache_metatag', TRUE);
 
-      // A final log of the number of records that were converted.
-      watchdog('metatag', 'Update 7004: !count records were updated in total.', array('!count' => $sandbox['progress']), WATCHDOG_INFO);
-
       // hook_update_N() may optionally return a string which will be displayed
       // to the user.
-      return t('!count records were updated in total.', array('!count' => $sandbox['progress']));
+      return t('%count records were updated.', array('%count' => $sandbox['progress']));
     }
-  }
-}
-
-/**
- * Removing wrong metatag watchdog entries that break the admin/reports/dblog
- * page.
- */
-function metatag_update_7005() {
-  if (db_table_exists('watchdog')) {
-    db_delete('watchdog')
-      ->condition('type', 'metatag')
-      ->condition('variables', serialize('info'))
-      ->execute();
-  }
-}
-
-/**
- * Remove metatag records that were added by old versions of the module for
- * entities that don't actually support meta tags. A more complete version of
- * this will be added later on after it's (hopefully) guaranteed that all
- * modules have updated to the correct API usage.
- */
-function metatag_update_7006() {
-  $types = array(
-    // Core.
-    'comment',
-    'menu_link',
-    'taxonomy_vocabulary',
-    // Some contrib entities.
-    'mailchimp_list',
-    'profile2',
-    'profile2_type',
-    'redirect',
-    'rules_config',
-    'wysiwyg_profile',
-  );
-  foreach ($types as $type) {
-    $num_deleted = db_delete('metatag')
-      ->condition('entity_type', $type)
-      ->execute();
-    if ($num_deleted > 0) {
-      drupal_set_message(t('Removed @count meta tag record(s) for the @type entity type, it does not support meta tags.', array('@count' => $num_deleted, '@type' => $type)));
-    }
-  }
-}
-
-/**
- * Remove metatag records for objects that have been deleted; older versions of
- * Metatag may have failed to purge these.
- */
-function metatag_update_7007() {
-  $result = db_query("DELETE m
-    FROM {metatag} m
-    LEFT OUTER JOIN {node} n
-    	ON m.entity_id=n.nid
-    WHERE m.entity_type='node'
-    	AND n.nid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for nodes that had been purged.', array('@count' => $result->rowCount())));
-  }
-
-  $result = db_query("DELETE m
-    FROM {metatag} m
-    LEFT OUTER JOIN {users} u
-    	ON m.entity_id=u.uid
-    WHERE m.entity_type='user'
-    	AND u.uid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for users that had been purged.', array('@count' => $result->rowCount())));
-  }
-
-  $result = db_query("DELETE m
-    FROM {metatag} m
-    LEFT OUTER JOIN {taxonomy_term_data} t
-    	ON m.entity_id=t.tid
-    WHERE m.entity_type='taxonomy_term'
-    	AND t.tid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $result->rowCount())));
-  }
-}
-
-/**
- * Remove metatag any empty records that may be hanging around from old
- * releases.
- */
-function metatag_update_7008() {
-  $result = db_query("DELETE m FROM {metatag} m WHERE m.data IS NULL or m.data = '' OR m.data = :empty", array(':empty' => serialize(array())));
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Purged @count empty meta tag record(s).', array('@count' => $result->rowCount())));
   }
 }

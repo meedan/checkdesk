@@ -273,14 +273,7 @@ function metatag_config_edit_form($form, &$form_state, $config) {
   $contexts = explode(':', $config->instance);
   $options['context'] = $contexts[0];
   if ($contexts[0] != 'global') {
-    // The context part of the instance may not map to an entity type, so allow
-    // the token_get_entity_mapping() function to fallback to the provided type.
-    if ($token_type = token_get_entity_mapping('entity', $contexts[0], TRUE)) {
-      $options['token types'] = array($token_type);
-    }
-    else {
-      $options['token types'] = array($contexts[0]);
-    }
+    $options['token types'] = array(token_get_entity_mapping('entity', $contexts[0]));
   }
 
   // Ensure that this configuration is properly compared to its parent 'default'

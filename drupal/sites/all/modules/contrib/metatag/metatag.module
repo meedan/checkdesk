@@ -384,15 +384,6 @@ function metatag_metatags_save($type, $id, $metatags, $language) {
     return;
   }
 
-  // Certain modules, e.g. Workbench Moderation, will cause the data to be in
-  // an unsupported format; the problem needs to be resolved elsewhere so this
-  // can only be considered a temporary fix.
-  // TODO: Solve the core problem, which will probably entail something
-  // similar to http://drupal.org/node/1876034.
-  if (isset($metatags[$language])) {
-    $metatags = $metatags[$language];
-  }
-
   // Allow other modules to alter the meta tags prior to saving using
   // hook_metatag_presave().
   foreach (module_implements('metatag_presave') as $module) {
@@ -515,10 +506,10 @@ function metatag_entity_load($entities, $type) {
     }
   }
   catch (Exception $e) {
-    watchdog('metatag', 'Error loading meta tag data, do the <a href="@update">database updates</a> need to be run? The error occurred when loading record(s) %ids for the %type entity type. The error message was: %error', array('@update' => base_path() . 'update.php', '%ids' => implode(', ', array_keys($entities)), '%type' => $type, '%error' => $e->getMessage()), WATCHDOG_CRITICAL);
+    watchdog('metatag', 'Error loading meta tag data, do the database updates need to be ran? do the <a href=":url:">database updates</a> need to be ran? The error occurred when loading record(s) :ids for the :type entity type. The error message was: :error', array(':ids' => implode(', ', array_keys($entities)), ':type' => $type, ':error' => $e->getMessage()), WATCHDOG_CRITICAL);
     // Don't display the same message twice for Drush.
     if (php_sapi_name() != 'cli') {
-      drupal_set_message(t('Error loading meta tag data, do the <a href="@update">database updates</a> need to be run?', array('@update' => base_path() . 'update.php')), 'error');
+      drupal_set_message(t('Error loading meta tag data, do the <a href=":url">database updates</a> need to be ran?', array('url' => url('update.php'))), 'error');
     }
   }
 }
@@ -918,26 +909,30 @@ function metatag_entity_has_metatags($entity_type, $entity) {
   }
   $instance = "{$entity_type}:{$bundle}";
   if (!isset($config_exists[$instance])) {
-    // Check if the intstance or its parents (excluding global) are enabled.
-    $config_exists[$instance] = metatag_config_is_enabled($instance, TRUE, FALSE);
+    $config_exists[$instance] = NULL;
+    $instances = metatag_config_get_parent_instances($instance, FALSE);
+    $configs = metatag_config_load_multiple($instances);
+    foreach ($instances as $key) {
+      if (!empty($configs[$key]) && empty($configs[$key]->disabled)) {
+        $config_exists[$instance] = TRUE;
+      }
+    }
   }
 
   return isset($config_exists[$instance]);
 }
 
-/**
- * Check whether the requested entity type (and bundle) support metatag.
- *
- * By default this will be FALSE, support has to be specifically enabled by
- * assigning 'metatag' => TRUE within the hook_entity_info() definition for the
- * entity.
- */
 function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
   $types = &drupal_static(__FUNCTION__);
 
   if (!isset($types)) {
     $types = array();
     foreach (entity_get_info() as $entity_type_key => $entity_info) {
+      if (!isset($entity_info['metatags'])) {
+        // By default allow entities that have fields or have paths and are not
+        // configuration entities (Entity API setting).
+        $entity_info['metatags'] = (!empty($entity_info['uri callback']) || !empty($entity_info['fieldable'])) && empty($entity_info['configuration']);
+      }
       if (empty($entity_info['metatags'])) {
         $types[$entity_type_key] = FALSE;
         continue;
@@ -961,24 +956,22 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
 
 /**
  * Implements hook_entity_info_alter().
- *
- * Enables Metatag support for the core entities.
  */
 function metatag_entity_info_alter(&$info) {
   $defaults['node'] = array(
     'path' => 'node/%node',
-    'metatags' => TRUE,
   );
   $defaults['taxonomy_term'] = array(
     'path' => 'taxonomy/term/%taxonomy_term',
-    'metatags' => TRUE,
   );
   if (module_exists('forum') && ($vid = variable_get('forum_nav_vocabulary', 0)) && $vocabulary = taxonomy_vocabulary_load($vid)) {
     $defaults['taxonomy_term']['bundles'][$vocabulary->machine_name]['path'] = 'forum/%taxonomy_term';
   }
   $defaults['user'] = array(
     'path' => 'user/%user',
-    'metatags' => TRUE,
+  );
+  $defaults['comment'] = array(
+    'metatags' => FALSE,
   );
 
   foreach ($defaults as $key => $entity_defaults) {
@@ -1062,8 +1055,7 @@ function metatag_page_build(&$page) {
   }
 
   // The front page has special consideration.
-  $instance = 'global:frontpage';
-  if (drupal_is_front_page() && metatag_config_is_enabled($instance)) {
+  if (drupal_is_front_page()) {
     $instance = 'global:frontpage';
 
     // These two parts are sufficient given that the homepage is unique.
@@ -1082,7 +1074,7 @@ function metatag_page_build(&$page) {
     drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
 
     $cid = "output:{$instance}:" . hash('sha256', serialize($cid_parts));
-
+    
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $metatags = $cache->data;
     }
@@ -1090,7 +1082,7 @@ function metatag_page_build(&$page) {
       $metatags = metatag_metatags_view($instance, array());
       cache_set($cid, $metatags, 'cache_metatag');
     }
-
+    
     $page['content']['metatags'][$instance] = $metatags;
   }
 
@@ -1465,20 +1457,12 @@ function metatag_config_instance_label($instance) {
   $labels = &drupal_static(__FUNCTION__, array());
 
   if (!isset($labels[$instance])) {
-    $instance_parts = explode(':', $instance);
-    $instance_part = array_pop($instance_parts);
-    if ($context = metatag_config_instance_info($instance)) {
-      $labels[$instance] = $context['label'];
-    }
-    else {
-      $labels[$instance] = t('Unknown (@instance)', array('@instance' => $instance_part));
-    }
-    // Normally the following would use metatag_config_get_parent_instances()
-    // but since we already sliced the instance by separator and removed the
-    // last segment, putting the array back together gives us this instance's
-    // parent.
-    if (!empty($instance_parts)) {
-      $labels[$instance] = metatag_config_instance_label(implode(':', $instance_parts)) . ': ' . $labels[$instance];
+    $context = metatag_config_instance_info($instance);
+    $labels[$instance] = isset($context['label']) ? $context['label'] : t('Unknown');
+    $parents = metatag_config_get_parent_instances($instance, FALSE);
+    array_shift($parents);
+    if (!empty($parents)) {
+      $labels[$instance] = metatag_config_instance_label(implode(':', $parents)) . ': ' . $labels[$instance];
     }
   }
 
@@ -1517,25 +1501,6 @@ function metatag_config_access($op, $config = NULL) {
 }
 
 /**
- * Checks if a metatag configuration record is enabled.
- *
- * @param string $instance
- *   The configuration instance machine name.
- *
- * @return bool
- *   TRUE if the configuration is enabled, or FALSE otherwise.
- */
-function metatag_config_is_enabled($instance, $include_defaults = FALSE, $include_global = TRUE) {
-  if ($include_defaults) {
-    return (bool) metatag_config_load_with_defaults($instance, $include_global);
-  }
-  else {
-    $config = metatag_config_load($instance);
-    return !empty($config) && empty($config->disabled);
-  }
-}
-
-/**
  * Implements of hook_features_api().
  */
 function metatag_features_api() {
@@ -1569,14 +1534,9 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
       if (isset($entity_type['path']) && ($display->display_options['path'] . $entity_name) == $entity_type['path']) {
         // Only proceed if this entity type supports meta tags.
         if (metatag_entity_supports_metatags($entity_name)) {
-          // There must be at least one argument and the first argument must be
-          // numerical.
-          if (!empty($view->args) && is_numeric($view->args[0])) {
-            // Only the first argument is used.
-            $entities = entity_load($entity_name, array($view->args[0]));
-            $entity = array_pop($entities);
-            metatag_entity_view($entity, $entity_name, 'full', NULL);
-          }
+          $entities = entity_load($entity_name, $view->args);
+          $entity = array_pop($entities);
+          metatag_entity_view($entity, $entity_name, 'full', NULL);
         }
       }
     }
@@ -1601,14 +1561,9 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
       if (isset($entity_type['path']) && $context['task']['admin path'] == $entity_type['path']) {
         // Only proceed if this entity type supports meta tags.
         if (metatag_entity_supports_metatags($entity_name)) {
-          // There must be at least one argument and the first argument must be
-          // numerical.
-          if (!empty($context['args']) && is_numeric($context['args'][0])) {
-            // Only the first argument is used.
-            $entities = entity_load($entity_name, array($context['args'][0]));
-            $entity = array_pop($entities);
-            metatag_entity_view($entity, $entity_name, 'full', NULL);
-          }
+          $entities = entity_load($entity_name, $context['args']);
+          $entity = array_pop($entities);
+          metatag_entity_view($entity, $entity_name, 'full', NULL);
         }
       }
     }

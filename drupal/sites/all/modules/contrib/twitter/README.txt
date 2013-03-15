@@ -7,18 +7,14 @@ provides useful input filters to easily link Twitter accounts and searches withi
 Twitter's submodules allow posting to twitter, executing actions/rules when tweeting or login
 with a Twitter account.
 
-OAuth
-=====
-Except for just listing tweets, OAuth module is required to authenticate against Twitter. If you 
-just want to list tweets in a block, follow the steps at http://drupal.org/node/1253026.
+Installation
+============
+OAuth module is required for all requests to the Twitter REST API 1.1. When you download the OAuth module, get the latest stable release available at http://drupal.org/project/oauth
 
-When you download the OAuth module, get the latest stable release available at http://drupal.org/project/oauth
+Once OAuth and Twitter have been enabled, go to admin/config/services/twitter and follow instructions in order
+to provide your Twitter Application keys.
 
-Once OAuth has been enabled, go to admin/config/services/twitter and follow instructions.
-
-How to add a Twitter account to a Drupal user account
-=====================================================
-Read http://drupal.org/node/1253026 for details.
+You can find further installation instructions at http://drupal.org/node/1346824
 
 How to use the username and hashtag input filters
 =================================================
@@ -40,6 +36,8 @@ How to post to Twitter
    node types a user may post to Twitter and the default message.
 3. Verify permissions at admin/people/permissions.
 4. Add a Twitter account and try to edit or post content.
+
+Further information can be found at http://drupal.org/node/1016584.
 
 How to sign in with Twitter
 ===========================

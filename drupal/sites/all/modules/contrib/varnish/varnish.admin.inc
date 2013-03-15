@@ -84,6 +84,18 @@ function varnish_admin_settings_form() {
     $form['varnish_cache_clear']['#description'] .= ' ' . t('Installing the !link will enable "Selective" clearing.', array('!link' => '<a href="http://drupal.org/project/expire" target="_blank">' . t('Expire module') . '</a>'));
   }
 
+  // Allow users to select Varnish ban type to use.
+  $form['varnish_bantype'] = array(
+    '#type' => 'select',
+    '#title' => t('Varnish ban type'),
+    '#default_value' => variable_get('varnish_bantype', VARNISH_DEFAULT_BANTYPE),
+    '#description' => t('Select the type of varnish ban you wish to use. Ban lurker support requires you to add beresp.http.x-url and beresp.http.x-host entries to the response in vcl_fetch.'),
+    '#options' => array(
+      VARNISH_BANTYPE_NORMAL => 'Normal',
+      VARNISH_BANTYPE_BANLURKER => 'Ban Lurker',
+    ),
+  );
+
   // Check status
   $form['varnish_stats'] = array(
     '#type' => 'item',

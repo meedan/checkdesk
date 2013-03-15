@@ -46,7 +46,9 @@ INSTALLATION
     Language > Languages. For help with building a multilingual website please
     check the Drupal handbook page about the Locale module at
     http://drupal.org/handbook/modules/locale
- 3. Assign the appropriate permissions to the user roles under the section
+ 3. Join a language team on localize.drupal.org (required to be able to submit
+    translation updates)
+ 4. Assign the appropriate permissions to the user roles under the section
     "Localization client module" at Administer > People > Permissions
 
 ON-PAGE TRANSLATION
@@ -82,6 +84,8 @@ an API key from the localization server.
  1. Enable translation sharing at Administer > Configuration > Regional and
     Language > Languages > Sharing
  2. Enter a localization server, e.g. "http://localize.drupal.org"
+ 3. Join a language team on localize.drupal.org (required to be able to submit
+    translation updates)
  3. Enter your localization server API key at My account > Edit
     (The form field has a link to obtain the key from the set localization server)
  4. Start translating interface strings.
@@ -101,7 +105,7 @@ See also http://drupal.org/project/l10n_update.
 CONTRIBUTORS & SPONSORS
 --------------------------------------------------------------------------------
 
- * G‡bor Hojtsy http://drupal.org/user/4166 (original author)
+ * GÃ¡bor Hojtsy http://drupal.org/user/4166 (original author)
  * Young Hahn / Development Seed - http://developmentseed.org/ (friendly user interface)
 
 Initial development was sponsored by Google Summer of Code 2007,

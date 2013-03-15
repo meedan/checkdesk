@@ -23,9 +23,9 @@ function metatag_context_context_overview() {
         l('Delete', 'admin/config/search/metatags/context/' . $context->name . '/delete', array('query' => array('destination' => 'admin/config/search/metatags/context'))),
       );
       $rows[] = array(
-        $context->name,
-        isset($context->conditions['path']) ? implode(', ', $context->conditions['path']['values']) : t('No path condition.'),
-        implode(' | ', $ops),
+          $context->name,
+          implode(', ', $context->conditions['path']['values']),
+          implode(' | ', $ops),
       );
     }
   }

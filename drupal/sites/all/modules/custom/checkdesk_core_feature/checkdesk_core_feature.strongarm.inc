@@ -492,6 +492,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'logintoboggan_login_with_email';
+  $strongarm->value = '1';
+  $export['logintoboggan_login_with_email'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'mail_system';
   $strongarm->value = array(
     'default-system' => 'HTMLMailSystem',

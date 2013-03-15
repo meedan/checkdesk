@@ -40,6 +40,25 @@ function checkdesk_preprocess_html(&$variables) {
     $variables['classes_array'][] = $class;
   }
 
+  // Add conditional stylesheets for IE8.
+  if ($variables['language'] == 'ar') {
+    $filename = 'ie8-rtl.css';
+  } else {
+    $filename = 'ie8.css';
+  }
+  drupal_add_css(
+    drupal_get_path('theme', 'checkdesk') . '/assets/css/' . $filename,
+    array(
+      'group' => CSS_THEME,
+      'browsers' => array(
+        'IE' => 'IE 8',
+        '!IE' => FALSE,
+      ),
+      'weight' => 999,
+      'every_page' => TRUE,
+    )
+  );
+
 }
 
 /**
@@ -523,13 +542,14 @@ function checkdesk_form_alter(&$form, &$form_state) {
   // user login form
   if($form['form_id']['#id'] == 'edit-user-login') {
     unset($form['social_media_signin']['#title']);
+    // $form['social_media_signin']['#prefix'] = '<div class="social-media-signin-label"><span>' . t('Sign in with:') . '</span></div>';
     $form['social_media_signin']['#suffix'] = '<div class="or"><span>' . t('or') . '</span></div>';
     unset($form['name']['#description']);
     // unset($form['name']['#title']);
     unset($form['pass']['#description']);
     $form['pass']['#title'] = t('Password');
     // unset($form['pass']['#title']);
-    $form['name']['#attributes']['placeholder'] = t('Username');
+    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
     $form['pass']['#attributes']['placeholder'] = t('Password');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
@@ -626,29 +646,25 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
     ctools_include('modal');
     ctools_modal_add_js();
     $modal_style = array(
-     'modal-popup-report' => array(
-          'modalSize' => array(
-            'type' => 'fixed',
-            'width' => 450,
-            'height' => 400,
-            'addWidth' => 0,
-            'addHeight' => 0
-          ),
-          'modalOptions' => array(
-            'opacity' => .5,
-            'background-color' => '#000',
-          ),
-          'animation' => 'show',
-          'animationSpeed' => 40,
-          'modalTheme' => 'CToolsModalDialog',
-          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      'modal-popup-report' => array(
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 450,
+          'height' => 400,
+          'addWidth' => 0,
+          'addHeight' => 0
         ),
-      );
-      drupal_add_js($modal_style, 'setting');
-
-    // foreach($vars['view']->result as $delta => $item) {
-            
-    // }
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CToolsModalDialog',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      ),
+    );
+    drupal_add_js($modal_style, 'setting');
   }
 }
 
