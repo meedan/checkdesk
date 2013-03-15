@@ -41717,6 +41717,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['582b670316df8c6961492d217d12bff3'] = array(
+    'source' => 'Spam',
+    'context' => '',
+    'location' => '/ar/node/22/edit?destination=liveblog',
+    'translation' => 'سخام (سبام)',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['2bfb43e74f8fa115e1c8d94ab530da50'] = array(
     'source' => 'Graphic content',
     'context' => '',
