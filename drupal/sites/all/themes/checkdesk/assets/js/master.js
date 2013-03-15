@@ -1,11 +1,12 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
+	'use strict';
 
 	/**
 	 * Provide the HTML to create the modal dialog.
 	 */
 	Drupal.theme.prototype.CToolsModalDialog = function () {
 		var html = '';
-
 
 		html += '<div id="ctools-modal">';
 		html += '<div class="ctools-modal-content">';
@@ -22,25 +23,24 @@
 		html += '</div>';
 
 		return html;
-
-	}
+	};
 
 	// filters for reports inside sidebar
 	Drupal.behaviors.installBookmarklet = {
-		attach: function (context, settings) {
+		attach: function (context) {
 			// set the top margin of modal
-			var bodyHeight = $(window).height();
-				percentage = 20;
-			var modalPosition = ((percentage / 100) * bodyHeight);
-			$('div.modal-install-bookmarklet#modalContent').css('top', modalPosition);
-			
+			var bodyHeight = $(window).height(),
+			    percentage = 20,
+			    modalPosition = ((percentage / 100) * bodyHeight);
+			$('div.modal-install-bookmarklet#modalContent', context).css('top', modalPosition);
+
 			$(window).resize(function(){
-				var bodyHeight = $(window).height();
-				var modalPosition = ((percentage / 100) * bodyHeight);
-				$('div.modal-install-bookmarklet#modalContent').css('top', modalPosition);
+				var bodyHeight = $(window).height(),
+				    modalPosition = ((percentage / 100) * bodyHeight);
+				$('div.modal-install-bookmarklet#modalContent', context).css('top', modalPosition);
 			});
 
 		}
 	};
 
-})(jQuery);
+}(jQuery));
