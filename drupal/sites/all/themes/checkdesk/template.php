@@ -58,6 +58,18 @@ function checkdesk_preprocess_html(&$variables) {
       'every_page' => TRUE,
     )
   );
+  drupal_add_js(
+    drupal_get_path('theme', 'checkdesk') . '/assets/js/ie8.js',
+    array(
+      'group' => JS_THEME,
+      'browsers' => array(
+        'IE' => 'IE 8',
+        '!IE' => FALSE,
+      ),
+      'weight' => 999,
+      'every_page' => TRUE,
+    )
+  );
 
 }
 
