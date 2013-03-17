@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <!--[if IE 8]> <meta http-equiv="X-UA-Compatible" content="IE=8" />  <![endif]-->
+        <!--[if gt IE 8]><!--> <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> <!--<![endif]-->
         <title><?php print $head_title; ?></title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width" />

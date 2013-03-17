@@ -22,8 +22,18 @@ nav[role='navigation'] #user-menu SPAN.avatar {
 	margin-#{$omega}: $gw;
 }
 
+
+// REPORTS
+// ---------------------------------------
+
 // remove extra space at the top
 .report > header {
 	padding: 0;
 	margin: 0;
+}
+
+// stop container from collapsing
+// due to display: inline-block;
+.report .report-content .report-media .container {
+	display: inline;
 }
