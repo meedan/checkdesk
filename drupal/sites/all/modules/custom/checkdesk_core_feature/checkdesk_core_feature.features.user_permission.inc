@@ -299,7 +299,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'administer permissions',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'user',
   );
@@ -393,6 +392,16 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'views',
+  );
+
+  // Exported permission: assign roles.
+  $permissions['assign roles'] = array(
+    'name' => 'assign roles',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'roleassign',
   );
 
   // Exported permission: block IP addresses.
