@@ -1034,7 +1034,7 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
           if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
             list($langcode, $alias) = explode('/', $alias, 2);
           }
-          $path = drupal_lookup_path('source', $alias, $langcode);
+          $path = drupal_lookup_path('source', urldecode($alias), $langcode);
           if (empty($path)) $path = $alias;
           $messages[$key]->variables[$variable] = url($path, array('language' => $language, 'absolute' => TRUE, 'alias' => TRUE));
         }
