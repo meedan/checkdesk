@@ -16,8 +16,33 @@
 				var contentWidth = bodyWidth - sidebarWidth - buffer;
 				$('BODY.sidebar-first #main DIV#content .inner').width(contentWidth);
 			});
-
 		}
 	};
+
+  // Simulate placeholder
+  Drupal.behaviors.ie8placeholder = {
+    attach: function(context, settings) {
+      if ($.browser.msie) { 
+        $('input[placeholder], textarea[placeholder]', context).each(function() {
+
+          var input = $(this);
+          $(input).val(input.attr('placeholder'));
+
+          $(input).focus(function() {
+            if (input.val() == input.attr('placeholder')) {
+              input.val('');
+            }
+          });
+
+          $(input).blur(function() {
+            if (input.val() == '' || input.val() == input.attr('placeholder')) {
+              input.val(input.attr('placeholder'));
+            }
+          });
+
+        });
+      }
+    }
+  };
 
 })(jQuery);
