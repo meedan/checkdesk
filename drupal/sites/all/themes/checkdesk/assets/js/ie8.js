@@ -24,9 +24,8 @@
           if ($(this).children('.oembed-video').length != 0) {
             var embeddedMediaWidth = $('.report .report-content .report-media .container iframe').attr('width');
             $(this).width(embeddedMediaWidth);
-            console.log(embeddedMediaWidth);
           }
-          // if media like twitter
+          // if media like twitter set width explicitly
           if ($(this).children('.oembed-rich').length != 0) {
             $(this).css('width', '400');
           }
