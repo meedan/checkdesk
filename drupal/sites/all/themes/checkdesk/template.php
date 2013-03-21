@@ -62,6 +62,7 @@ function checkdesk_preprocess_html(&$variables) {
     drupal_get_path('theme', 'checkdesk') . '/assets/js/ie8.js',
     array(
       'group' => JS_THEME,
+      // Not supported yet: http://drupal.org/node/865536
       'browsers' => array(
         'IE' => 'IE 8',
         '!IE' => FALSE,
