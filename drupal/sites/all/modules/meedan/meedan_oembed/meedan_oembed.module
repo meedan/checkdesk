@@ -138,7 +138,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed->original_url  = $url;
     $embed->provider_name = '';
     $embed->provider_url  = $url_info['scheme'] . '://' . $url_info['host'];
-    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
+    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
   }
   else {
     meedan_oembed_scrape_generic($embed);
@@ -163,7 +163,7 @@ function meedan_oembed_scrape_generic(&$embed) {
   $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
   // TODO Get thumbnail.
   if (empty($embed->thumbnail_url)) {
-    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE));
+    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
   }
 }
 

@@ -56,7 +56,7 @@
           offset = jQuery('#menu-submit-report').offset();
           jQuery('#meedan_bookmarklet_cont').css('top', (parseInt(offset.top, 10) + 26) + 'px');
         }
-        jQuery('#meedan_bookmarklet_cont').show();
+        jQuery('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').show();
         break;
 
       // Destroy bookmarklet

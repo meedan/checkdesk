@@ -10,6 +10,7 @@ function meedan_bookmarklet_init() {
     header("p3p:CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
     $GLOBALS['meedan_bookmarklet_page_template'] = TRUE;
     drupal_add_css(drupal_get_path('module', 'meedan_bookmarklet') . '/css/meedan_bookmarklet_inside.css');
+    drupal_add_js(drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet_page.js');
   }
 }
 
@@ -146,6 +147,12 @@ function meedan_bookmarklet_admin_settings() {
   $form['meedan_bookmarklet_code_preview'] = array(
     '#markup' => l(t('Drag and drop this link to your bookmarks bar'), meedan_bookmarklet_get_code(), array('external' => TRUE, 'absolute' => TRUE)), 
   );
+  $form['meedan_bookmarklet_force_https'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Force HTTPS'),
+    '#default_value' => variable_get('meedan_bookmarklet_force_https', 0),
+    '#description' => 'Check this option to always load the bookmarklet as HTTPS. If not checked (the default), it will be loaded as HTTPS only if the visited page is under HTTPS.',
+  );
   $form = system_settings_form($form);
   return $form;
 }
@@ -154,10 +161,11 @@ function meedan_bookmarklet_admin_settings() {
  * Default code for the bookmarklet.
  */
 function meedan_bookmarklet_get_code() {
-  $js_url = url( drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet.js', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
+  $force_https = intval(variable_get('meedan_bookmarklet_force_https', 0));
+  $js_url = url(drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet.js', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
   $setting_url = url('meedan_bookmarklet/js', array('query' => array('callback' => '?'), 'absolute' => TRUE));
   $timestamp = time(); // Avoids cache
-  return "javascript:(function(){window.meedanBookmarkletURL='$setting_url';if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{document.body.appendChild(document.createElement('script')).src='$js_url?$timestamp';}})();";
+  return "javascript:(function(){window.meedanBookmarkletProtocol=(((document.location.protocol=='https:')||$force_https)?'https':'http');window.meedanBookmarkletURL='$setting_url'.replace(/^https?/, window.meedanBookmarkletProtocol);if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{var src='$js_url?$timestamp'.replace(/^https?/, window.meedanBookmarkletProtocol);document.body.appendChild(document.createElement('script')).src=src;}})();";
 }
 
 /**

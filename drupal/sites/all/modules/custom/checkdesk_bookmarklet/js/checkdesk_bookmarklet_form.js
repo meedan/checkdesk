@@ -75,21 +75,4 @@ jQuery(function($) {
     }
   });
 
-  // Watch the height of the iframe, inform the parent every time it changes
-  var htmlHeight = 0;
-
-  function checkHTMLHeight() {
-    if ($('html').height() != htmlHeight) {
-      htmlHeight = $('html').height();
-
-      window.parent.postMessage('{"type":"resize","height":' + htmlHeight + '}', '*');
-    }
-
-    setTimeout(checkHTMLHeight, 250);
-  }
-
-  // Start the checker
-  checkHTMLHeight();
-
-  window.parent.postMessage('loaded', '*');
 });
