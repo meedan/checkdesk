@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function meedan_custom_css_init() {
+  global $theme;
+  $enabled_themes = variable_get('meedan_custom_css_enabled_themes', array());
+  if (isset($enabled_themes[$theme]) && $enabled_themes[$theme]) {
+    drupal_add_css(theme_get_setting('custom_css', $theme), array('type' => 'inline', 'weight' => 9999));
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function meedan_custom_css_menu() {
+  $items = array();
+  $items['admin/config/user-interface/custom-css'] = array(
+    'title' => 'Custom CSS',
+    'description' => 'General settings for custom CSS per theme.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('meedan_custom_css_admin_settings'),
+    'access arguments' => array('administer site configuration'), 
+  );
+  return $items;
+}
+
+/**
+ * Form function for item `admin/config/user-interface/custom-css`.
+ */
+function meedan_custom_css_admin_settings() {
+  $themes = array();
+  foreach(list_themes(TRUE) as $name => $theme) {
+    if ($theme->status) {
+      $themes[$name] = $name;
+    }
+  }
+  $form['meedan_custom_css_enabled_themes'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Enabled themes'),
+    '#description' => t('Choose which themes can use the custom CSS feature.'),
+    '#options' => $themes,
+    '#default_value' => variable_get('meedan_custom_css_enabled_themes', array()),
+  );
+  $form = system_settings_form($form);
+  return $form;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `system_theme_settings`.
+ */
+function meedan_custom_css_form_system_theme_settings_alter(&$form, &$form_state, $form_id) {
+  $theme = arg(3);
+  $enabled_themes = variable_get('meedan_custom_css_enabled_themes', array());
+  if (isset($enabled_themes[$theme]) && $enabled_themes[$theme]) {
+    $form['custom_css'] = array(
+      '#title' => t('Custom CSS'),
+      '#type' => 'textarea',
+      '#prefix' => '<div id="meedan-custom-css-field">',
+      '#description' => t('Type custom CSS code for this theme, above. If enabled, preview is displayed below.'),
+      '#default_value' => theme_get_setting('custom_css', $theme),
+      '#attributes' => array('id' => 'meedan-custom-css-textarea'),
+      '#suffix' => '</div>',
+    );
+    $preview_url = url('<front>', array('absolute' => TRUE, 'query' => array('meedan_custom_theme' => $theme)));
+    $form['custom_css_preview'] = array(
+      '#markup' => '<iframe src="' . $preview_url . '" id="meedan-custom-css-preview">' . t('Frames are not supported.') . '</iframe>',
+    );
+    drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/lib/codemirror.js');
+    drupal_add_css(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/lib/codemirror.css');
+    drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/lib/codemirror-3.11/mode/css/css.js');
+    drupal_add_js(drupal_get_path('module', 'meedan_custom_css') . '/js/meedan_custom_css.js');
+    drupal_add_css(drupal_get_path('module', 'meedan_custom_css') . '/css/meedan_custom_css.css');
+    drupal_add_js(array('meedanCustomCSS' => array('frontPage' => $preview_url)), 'setting');
+  }
+}
+
+/**
+ * Implements hook_custom_theme().
+ */
+function meedan_custom_css_custom_theme() {
+  if (isset($_REQUEST['meedan_custom_theme']) &&
+      isset($_SERVER['HTTP_REFERER']) &&
+      $_SERVER['HTTP_REFERER'] == url('admin/appearance/settings/' . $_REQUEST['meedan_custom_theme'], array('absolute' => TRUE))) {
+    return $_REQUEST['meedan_custom_theme'];
+  }
+}
