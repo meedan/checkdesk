@@ -1,11 +1,11 @@
 BODY.sidebar-first #main .column#sidebar-first {
-  width: 20%;
+  width: 400px;
   float: left;
   margin-right: 12px;
 }
 
 BODY.sidebar-first #main DIV#content .inner {
-  width: 70%;
+  width: 800px;
   float: left;
 }
 
@@ -18,4 +18,9 @@ nav[role='navigation'] #user-menu SPAN.avatar {
 .report > header {
   padding: 0;
   margin: 0;
+}
+
+.dropdown-menu {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#DDDDDD')";
+  border: 1px solid #CCCCCC;
 }

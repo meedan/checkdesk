@@ -58,6 +58,19 @@ function checkdesk_preprocess_html(&$variables) {
       'every_page' => TRUE,
     )
   );
+  drupal_add_js(
+    drupal_get_path('theme', 'checkdesk') . '/assets/js/ie8.js',
+    array(
+      'group' => JS_THEME,
+      // Not supported yet: http://drupal.org/node/865536
+      'browsers' => array(
+        'IE' => 'IE 8',
+        '!IE' => FALSE,
+      ),
+      'weight' => 999,
+      'every_page' => TRUE,
+    )
+  );
 
 }
 
@@ -646,29 +659,25 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
     ctools_include('modal');
     ctools_modal_add_js();
     $modal_style = array(
-     'modal-popup-report' => array(
-          'modalSize' => array(
-            'type' => 'fixed',
-            'width' => 450,
-            'height' => 400,
-            'addWidth' => 0,
-            'addHeight' => 0
-          ),
-          'modalOptions' => array(
-            'opacity' => .5,
-            'background-color' => '#000',
-          ),
-          'animation' => 'show',
-          'animationSpeed' => 40,
-          'modalTheme' => 'CToolsModalDialog',
-          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      'modal-popup-report' => array(
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 450,
+          'height' => 400,
+          'addWidth' => 0,
+          'addHeight' => 0
         ),
-      );
-      drupal_add_js($modal_style, 'setting');
-
-    // foreach($vars['view']->result as $delta => $item) {
-            
-    // }
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CToolsModalDialog',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      ),
+    );
+    drupal_add_js($modal_style, 'setting');
   }
 }
 

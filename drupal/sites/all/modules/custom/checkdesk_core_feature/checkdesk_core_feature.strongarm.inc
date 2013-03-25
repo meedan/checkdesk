@@ -579,6 +579,18 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_custom_css_enabled_themes';
+  $strongarm->value = array(
+    'checkdesk' => 'checkdesk',
+    'bartik' => 0,
+    'checkdesk_embed' => 0,
+    'seven' => 0,
+  );
+  $export['meedan_custom_css_enabled_themes'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'meedan_discussion_description';
   $strongarm->value = 'Where reports are verified and blog posts created.';
   $export['meedan_discussion_description'] = $strongarm;
@@ -967,6 +979,17 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'pathauto_user_pattern';
   $strongarm->value = 'users/[user:name]';
   $export['pathauto_user_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'roleassign_roles';
+  $strongarm->value = array(
+    5 => '5',
+    4 => '4',
+    3 => 0,
+  );
+  $export['roleassign_roles'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

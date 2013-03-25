@@ -8,7 +8,7 @@
 	if (window.jQuery === undefined || window.jQuery.fn.jquery < v) {
 		done = false;
 		script = document.createElement("script");
-		script.src = "http://ajax.googleapis.com/ajax/libs/jquery/" + v + "/jquery.min.js";
+		script.src = window.meedanBookmarkletProtocol + "://ajax.googleapis.com/ajax/libs/jquery/" + v + "/jquery.min.js";
 		script.onload = script.onreadystatechange = function(){
 			if (!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
 				done = true;
@@ -69,11 +69,10 @@
         if (MeedanBookmarklet.settings.stylesheet !== '') $("head").append('<link type="text/css" rel="stylesheet" href="' + MeedanBookmarklet.settings.stylesheet + '?' + parseInt(Math.random()*10000000000, 10) + '" media="all" />');
         if (MeedanBookmarklet.settings.javascript !== '') $("body").append('<script type="text/javascript" src="' + MeedanBookmarklet.settings.javascript + '?' + parseInt(Math.random()*10000000000, 10) + '"></script>');
 				$("body").append("<div id='meedan_bookmarklet_cont'><a id='meedan_bookmarklet_close'><span>[X]</span></a><iframe src='" + url + "' id='meedan_bookmarklet_frame'></iframe></div><div id='meedan_bookmarklet_mask'></div>");
-        $('#meedan_bookmarklet_close').click(function() {
+        $('#meedan_bookmarklet_close').live('click', function() {
           $('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').fadeOut(500);
         });
         $('body').scrollTop(0);
-        $('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').show();
       }
 
       // First time, create bookmarklet window

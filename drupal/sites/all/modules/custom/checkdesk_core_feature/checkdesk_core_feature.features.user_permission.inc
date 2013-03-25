@@ -299,7 +299,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'administer permissions',
     'roles' => array(
       'administrator' => 'administrator',
-      'journalist' => 'journalist',
     ),
     'module' => 'user',
   );
@@ -393,6 +392,16 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'views',
+  );
+
+  // Exported permission: assign roles.
+  $permissions['assign roles'] = array(
+    'name' => 'assign roles',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'roleassign',
   );
 
   // Exported permission: block IP addresses.
@@ -917,24 +926,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'flag',
   );
 
-  // Exported permission: import own tweets.
-  $permissions['import own tweets'] = array(
-    'name' => 'import own tweets',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'twitter',
-  );
-
-  // Exported permission: make twitter accounts global.
-  $permissions['make twitter accounts global'] = array(
-    'name' => 'make twitter accounts global',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'twitter',
-  );
-
   // Exported permission: manage features.
   $permissions['manage features'] = array(
     'name' => 'manage features',
@@ -1177,15 +1168,6 @@ function checkdesk_core_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'flag',
-  );
-
-  // Exported permission: use global twitter account.
-  $permissions['use global twitter account'] = array(
-    'name' => 'use global twitter account',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'twitter',
   );
 
   // Exported permission: use text format filtered_html.

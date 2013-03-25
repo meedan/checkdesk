@@ -639,6 +639,14 @@ print t(\'No content available\');
   $handler->display->display_options['relationships']['parent']['table'] = 'meedan_sources';
   $handler->display->display_options['relationships']['parent']['field'] = 'parent';
   $handler->display->display_options['relationships']['parent']['relationship'] = 'ms_id';
+  /* Relationship: Content: Taxonomy terms on node */
+  $handler->display->display_options['relationships']['term_node_tid']['id'] = 'term_node_tid';
+  $handler->display->display_options['relationships']['term_node_tid']['table'] = 'node';
+  $handler->display->display_options['relationships']['term_node_tid']['field'] = 'term_node_tid';
+  $handler->display->display_options['relationships']['term_node_tid']['vocabularies'] = array(
+    'media_rating' => 'media_rating',
+    'tags' => 0,
+  );
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
@@ -722,6 +730,15 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Taxonomy term: Name (translated) */
+  $handler->display->display_options['fields']['name_i18n']['id'] = 'name_i18n';
+  $handler->display->display_options['fields']['name_i18n']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_i18n']['field'] = 'name_i18n';
+  $handler->display->display_options['fields']['name_i18n']['relationship'] = 'term_node_tid';
+  $handler->display->display_options['fields']['name_i18n']['label'] = '';
+  $handler->display->display_options['fields']['name_i18n']['element_type'] = '0';
+  $handler->display->display_options['fields']['name_i18n']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name_i18n']['element_default_classes'] = FALSE;
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
   $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
@@ -1067,6 +1084,7 @@ print t(\'No content available\');
 ?>'),
     t('Media sources'),
     t('Parent'),
+    t('term'),
     t('<div class="draggable">[field_link]</div>'),
     t('Date'),
     t('Block'),
