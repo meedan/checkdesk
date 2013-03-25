@@ -1,40 +1,48 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
-// START jQuery
+'use strict';
 
 Drupal.livefyre = {
   el: 'livefyre-current', // Reference to the container in which LiveFyre comments are loaded
   widget: null, // Reference to the object created by LiveFyre
   callback: function(widget) {
-    if (!Drupal.livefyre.widget) Drupal.livefyre.widget = widget;
+    if (!Drupal.livefyre.widget) {
+      Drupal.livefyre.widget = widget;
+    }
     widget.on('initialRenderComplete', function(data) {
       $('.livefyre-loading').remove();
-      if ($('.livefyre-comments:visible').length) $('html, body').animate({ scrollTop : $('.livefyre-comments:visible').prev('.livefyre-header').offset().top }, 1000);
+      if ($('.livefyre-comments:visible').length) {
+        $('html, body').animate({ scrollTop : $('.livefyre-comments:visible').prev('.livefyre-header').offset().top }, 1000);
+      }
     });
     widget.on('commentCountUpdated', function(data) {
       $('.livefyre-comments:visible').prev('.livefyre-header').find('.livefyre-commentcount').html(Drupal.formatPlural(data, '1 comment', '@count comments'));
     });
   }
-}
+};
 
 Drupal.behaviors.livefyre = {
-  attach: function(context, settings) {
+  attach: function(context) {
+    var comments,
+        key, stream;
+
     try {
 
       // Show or hide comments
-      $('.livefyre-header').die('click').live('click', function() {
-        if ($('.livefyre-loading').is(':visible')) {
+      $('.livefyre-header', context).die('click').live('click', function() {
+        if ($('.livefyre-loading', context).is(':visible')) {
           // Avoid double click while requesting
         }
         else {
-          var comments = $('.livefyre-comments', $(this).parent());
+          comments = $('.livefyre-comments', $(this).parent());
           if (comments.is(':visible')) {
             comments.hide();
           }
           else {
-            $('.livefyre-comments').hide();
+            $('.livefyre-comments', context).hide();
             $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
-            var key = 'livefyre-' + comments.attr('data-nid');
-            var stream = Drupal.settings.livefyre[key].streamConfig;
+            key = 'livefyre-' + comments.attr('data-nid');
+            stream = Drupal.settings.livefyre[key].streamConfig;
             stream.el = Drupal.livefyre.el;
             $('#' + stream.el).attr('id', 'livefyre-' + $('#' + stream.el).attr('data-nid'));
             comments.attr('id', stream.el);
@@ -42,9 +50,8 @@ Drupal.behaviors.livefyre = {
             if (window.FyreLoader) {
               Drupal.livefyre.widget.changeCollection(stream);
             }
-            
             else {
-              fyre.conv.load(
+              window.fyre.conv.load(
                 {},
                 [stream],
                 Drupal.livefyre.callback 
@@ -59,14 +66,18 @@ Drupal.behaviors.livefyre = {
     // Catch exceptions
     } catch(error) {
       console.log('Error while attaching Livefyre');
-      if (error) console.log(error.toString());
+      if (error) {
+        console.log(error.toString());
+      }
     }
   }
-}
+};
 
 // Overwrite method from Livefyre
-var i = window.setInterval(function() { waitForGoogEditor(); }, 1000);
-var waitForGoogEditor = function() {
+var i, waitForGoogEditor;
+
+i = window.setInterval(function() { waitForGoogEditor(); }, 1000);
+waitForGoogEditor = function() {
   if (window.goog.editor) {
     window.clearInterval(i);
 
@@ -93,5 +104,4 @@ var waitForGoogEditor = function() {
   }
 };
 
-// END jQuery
-})(jQuery);
+}(jQuery));
