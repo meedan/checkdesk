@@ -295,7 +295,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // NOTE: applied to body
 #meedan_bookmarklet {
   font-size: $small-font-size;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   padding: 0;
   @include bookmarklet-forms;
