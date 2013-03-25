@@ -65,6 +65,25 @@ function metatag_opengraph_metatag_info() {
     ),
   );
 
+  $info['tags']['fb:admins'] = array(
+    'label' => t('Facebook Admins'),
+    'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page. Most sites will only need to assign this on the global settings page.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['fb:app_id'] = array(
+    'label' => t('Facebook Application ID'),
+    'description' => t('A comma-separated list of Facebook Platform Application IDs applicable for this site. Most sites will only need to assign this on the global settings page.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+
   $info['tags']['og:site_name'] = array(
     'label' => t('Open Graph site name'),
     'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
@@ -89,8 +108,8 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:description'] = array(
     'label' => t('Open Graph description'),
     'description' => t('A one to two sentence description of your page.'),
-    'group' => 'open-graph',
     'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
@@ -101,15 +120,24 @@ function metatag_opengraph_metatag_info() {
     'description' => t('The type of your object, e.g., <em>movie</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
     'form' => array(
       '#type' => 'select',
       '#options' => _metatag_opengraph_type_options(),
       '#empty_option' => t('- None -'),
     ),
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
   );
+
+  if (module_exists('select_or_other')) {
+    // Enhance the og:type field to support custom types.
+    $info['tags']['og:type']['form']['#type'] = 'select_or_other';
+    $info['tags']['og:type']['form']['#other'] = t('Other (please type a value)');
+    $info['tags']['og:type']['form']['#other_unknown_defaults'] = 'other';
+    $info['tags']['og:type']['form']['#theme'] = 'select_or_other';
+    $info['tags']['og:type']['form']['#element_validate'] = array('select_or_other_element_validate');
+  }
 
   $info['tags']['og:image'] = array(
     'label' => t('Open Graph image'),
@@ -131,9 +159,18 @@ function metatag_opengraph_metatag_info() {
     ),
   );
 
-  $info['tags']['fb:admins'] = array(
-    'label' => t('Facebook Admins'),
-    'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page. Most sites will only need to assign this on the global settings page.'),
+  $info['tags']['og:latitude'] = array(
+    'label' => t('Open Graph Latitude'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:longitude'] = array(
+    'label' => t('Open Graph Longitude'),
+    'description' => '',
     'class' => 'DrupalTextMetaTag',
     'group' => 'open-graph',
     'element' => array(
@@ -141,13 +178,131 @@ function metatag_opengraph_metatag_info() {
     ),
   );
 
-  $info['tags']['fb:app_id'] = array(
-    'label' => t('Facebook Application ID'),
-    'description' => t('A comma-separated list of Facebook Platform Application IDs applicable for this site. Most sites will only need to assign this on the global settings page.'),
+  $info['tags']['og:street-address'] = array(
+    'label' => t('Open Graph Street Address'),
+    'description' => '',
     'class' => 'DrupalTextMetaTag',
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:locality'] = array(
+    'label' => t('Open Graph Locality'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:region'] = array(
+    'label' => t('Open Graph Region'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:postal-code'] = array(
+    'label' => t('Open Graph Postal Code'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:country-name'] = array(
+    'label' => t('Open Graph Country Name'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+
+  $info['tags']['og:email'] = array(
+    'label' => t('Open Graph Email'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:phone_number'] = array(
+    'label' => t('Open Graph Phone Number'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:fax_number'] = array(
+    'label' => t('Open Graph Fax Number'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+
+  $info['tags']['og:video'] = array(
+    'label' => t('Open Graph Video (URL)'),
+    'description' => t('A URL to a video file that complements this object.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:video:secure_url'] = array(
+    'label' => t('Open Graph Video Secure'),
+    'description' => t('A URL to a video file that complements this object using the HTTPS protocol.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:video:width'] = array(
+    'label' => t('Open Graph Video Width'),
+    'description' => t('The width of the video.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:video:height'] = array(
+    'label' => t('Open Graph Video Height'),
+    'description' => t('The height of the video.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+  $info['tags']['og:video:type'] = array(
+    'label' => t('Open Graph Video Type'),
+    'description' => t('The type of the video file.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+    'form' => array(
+      '#type' => 'select',
+      '#options' => array(
+        'application/x-shockwave-flash' => 'Flash - playable directly from the feed',
+        'text/html' => 'Separate HTML page',
+      ),
+      '#empty_option' => t('- None -'),
     ),
   );
 

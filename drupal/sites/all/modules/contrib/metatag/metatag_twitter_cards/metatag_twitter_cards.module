@@ -17,7 +17,7 @@ function metatag_twitter_cards_ctools_plugin_api($owner, $api) {
  * Implements hook_theme().
  */
 function metatag_twitter_cards_theme() {
-  $info['metatag_twittercard'] = array(
+  $info['metatag_twitter_cards'] = array(
     'render element' => 'element',
   );
 

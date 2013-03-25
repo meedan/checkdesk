@@ -273,7 +273,14 @@ function metatag_config_edit_form($form, &$form_state, $config) {
   $contexts = explode(':', $config->instance);
   $options['context'] = $contexts[0];
   if ($contexts[0] != 'global') {
-    $options['token types'] = array(token_get_entity_mapping('entity', $contexts[0]));
+    // The context part of the instance may not map to an entity type, so allow
+    // the token_get_entity_mapping() function to fallback to the provided type.
+    if ($token_type = token_get_entity_mapping('entity', $contexts[0], TRUE)) {
+      $options['token types'] = array($token_type);
+    }
+    else {
+      $options['token types'] = array($contexts[0]);
+    }
   }
 
   // Ensure that this configuration is properly compared to its parent 'default'
@@ -384,4 +391,142 @@ function metatag_config_delete_form_submit($form, &$form_state) {
 function metatag_config_export_form($config) {
   ctools_include('export');
   return drupal_get_form('ctools_export_form', ctools_export_crud_export('metatag_config', $config), t('Export'));
+}
+
+/**
+ * Form constructor to revert nodes to their default metatags.
+ *
+ * @see metatag_bulk_revert_form_submit()
+ * @ingroup forms
+ */
+function metatag_bulk_revert_form() {
+  // Get the list of entity:bundle options
+  $options = array();
+  foreach (entity_get_info() as $entity_type => $entity_info) {
+    foreach (array_keys($entity_info['bundles']) as $bundle) {
+      if (metatag_entity_supports_metatags($entity_type, $bundle)) {
+        $options[$entity_type . ':' . $bundle] =
+          $entity_info['label'] . ': ' . $entity_info['bundles'][$bundle]['label'];
+      }
+    }
+  }
+
+  $form['update'] = array(
+    '#type' => 'checkboxes',
+    '#required' => TRUE,
+    '#title' => t('Select the entities to revert'),
+    '#options' => $options,
+    '#default_value' => array(),
+    '#description' => t('All meta tags will be removed for all content of the selected entities.'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Revert'),
+  );
+
+  return $form;
+}
+
+/**
+ * Form submit handler for metatag reset bulk revert form.
+ *
+ * @see metatag_batch_revert_form()
+ * @see metatag_bulk_revert_batch_finished()
+ */
+function metatag_bulk_revert_form_submit($form, &$form_state) {
+  $batch = array(
+    'title' => t('Bulk updating metatags'),
+    'operations' => array(),
+    'finished' => 'metatag_bulk_revert_batch_finished',
+    'file' => drupal_get_path('module', 'metatag') . '/metatag.admin.inc',
+  );
+
+  // Set a batch operation per entity:bundle.
+  foreach (array_filter($form_state['values']['update']) as $option) {
+    list($entity_type, $bundle) = explode(':', $option);
+    $batch['operations'][] = array('metatag_bulk_revert_batch_operation', array($entity_type, $bundle));
+  }
+
+  batch_set($batch);
+}
+
+/**
+ * Batch callback: delete custom metatags for selected bundles.
+ */
+function metatag_bulk_revert_batch_operation($entity_type, $bundle, &$context) {
+  if (!isset($context['sandbox']['current'])) {
+    $context['sandbox']['count'] = 0;
+    $context['sandbox']['current'] = 0;
+  }
+
+  // Query the selected entity table.
+  $entity_info = entity_get_info($entity_type);
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', $entity_type)
+    ->propertyCondition($entity_info['entity keys']['id'], $context['sandbox']['current'], '>')
+    ->propertyOrderBy($entity_info['entity keys']['id']);
+  if ($entity_type != 'user') {
+    /**
+     * Entities which do not define a bundle such as User fail returning no results.
+     * @see http://drupal.org/node/1054168#comment-5266208
+     */
+    $query->entityCondition('bundle', $bundle);
+  }
+  // Get the total amount of entities to process.
+  if (!isset($context['sandbox']['total'])) {
+    $context['sandbox']['total'] = $query->count()->execute();
+    $query->count = FALSE;
+
+    // If there are no bundles to revert, stop immediately.
+    if (!$context['sandbox']['total']) {
+      $context['finished'] = 1;
+      return;
+    }
+  }
+
+  // Process 25 entities per iteration.
+  $query->range(0, 25);
+  $result = $query->execute();
+  $ids = !empty($result[$entity_type]) ? array_keys($result[$entity_type]) : array();
+  foreach ($ids as $id) {
+    $metatags = metatag_metatags_load($entity_type, $id);
+    if (!empty($metatags)) {
+      db_delete('metatag')->condition('entity_type', $entity_type)
+        ->condition('entity_id', $id)
+        ->execute();
+      metatag_metatags_cache_clear($entity_type, $id);
+      $context['results'][] = t('Reverted metatags for @bundle with id @id.', array(
+        '@bundle' => $entity_type . ': ' . $bundle,
+        '@id' => $id,
+      ));
+    }
+  }
+
+  $context['sandbox']['count'] += count($ids);
+  $context['sandbox']['current'] = max($ids);
+
+  if ($context['sandbox']['count'] != $context['sandbox']['total']) {
+    $context['finished'] = $context['sandbox']['count'] / $context['sandbox']['total'];
+  }
+}
+
+/**
+ * Batch finished callback.
+ */
+function metatag_bulk_revert_batch_finished($success, $results, $operations) {
+  if ($success) {
+    if (!count($results)) {
+      drupal_set_message(t('No metatags were reverted.'));
+    }
+    else {
+      $message = theme('item_list', array('items' => $results));
+      drupal_set_message($message);
+    }
+  }
+  else {
+    $error_operation = reset($operations);
+    drupal_set_message(t('An error occurred while processing @operation with arguments : @args',
+      array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))));
+  }
 }

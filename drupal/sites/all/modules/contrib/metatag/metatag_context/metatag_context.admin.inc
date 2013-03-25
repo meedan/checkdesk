@@ -23,9 +23,9 @@ function metatag_context_context_overview() {
         l('Delete', 'admin/config/search/metatags/context/' . $context->name . '/delete', array('query' => array('destination' => 'admin/config/search/metatags/context'))),
       );
       $rows[] = array(
-          $context->name,
-          implode(', ', $context->conditions['path']['values']),
-          implode(' | ', $ops),
+        $context->name,
+        isset($context->conditions['path']) ? implode(', ', $context->conditions['path']['values']) : t('No path condition.'),
+        implode(' | ', $ops),
       );
     }
   }
@@ -94,7 +94,7 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
 
   $form['paths'] = array(
     '#title' => 'Path',
-    '#description' => 'Set this metatag context when any of the paths above match the page path. Put each path on a separate line. You can use the <code>*</code> character (asterisk) as a wildcard and the <code>~</code> character (tilde) to exclude one or more paths. Use <code>&lt;front&gt;</code> for the site front page.',
+    '#description' => t('Set this metatag context when any of the paths above match the page path. Put each path on a separate line. You can use the <code>*</code> character (asterisk) as a wildcard and the <code>~</code> character (tilde) to exclude one or more paths. Use <code>&lt;front&gt;</code> for the site front page. Only local paths (e.g. "example/page") will work, do not use relative URLs ("/example/page") or absolute URLs ("http://example.com/example/page").'),
     '#type' => 'textarea',
     '#default_value' => isset($context->conditions['path']['values']) ? html_entity_decode(implode('&#13;&#10;', $context->conditions['path']['values'])) : '',
     '#required' => 1,
