@@ -42,7 +42,7 @@ Drupal.behaviors.meedan_notifications_load_more = {
 Drupal.behaviors.alert_new_notifications = {
   attach: function (context, settings) {
     var block, counter;
-    block = $('#my-notifications', context);
+    block = $('#my-notifications');
     block.unbind('autorefresh.update');
     block.bind('autorefresh.update', function(e, nid) {
       Drupal.behaviors.meedan_notifications_load_more.attach();
@@ -63,12 +63,12 @@ Drupal.behaviors.alert_new_notifications = {
 Drupal.behaviors.meedan_notifications_adjust_heights = {
   attach: function (context, settings) {
     // we need that each row has an integer height, otherwise loading more may not work
-    var li = $('#my-notifications', context).parents('li'),
+    var li = $('#my-notifications').parents('li'),
         hidden = !li.hasClass('open');
     if (hidden) {
       li.addClass('open');
     }
-    $('#my-notifications .views-row', context).each(function() {
+    $('#my-notifications .views-row').each(function() {
       var height = $(this).height();
       if (height > 0) {
         $(this).css('height', height);
