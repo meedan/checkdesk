@@ -1147,6 +1147,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
  * Implements hook_user_insert().
  */
 function checkdesk_core_user_insert(&$edit, $account, $category) {
+  module_load_include('lib.php', 'twitter');
   //Add new citizen journalist role to all registered users
   $user_roles = array_flip(user_roles(TRUE));
   $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
@@ -1157,7 +1158,7 @@ function checkdesk_core_user_insert(&$edit, $account, $category) {
     $secret = variable_get('twitter_consumer_secret', '');
     $response = $_SESSION['twitter']['values'];
 
-    $twitter = new TwitterOAuth($key, $secret, $response['oauth_token'], $response['oauth_token_secret']);
+    $twitter = new Twitter($key, $secret, $response['oauth_token'], $response['oauth_token_secret']);
     try {
       $twitter_account = $twitter->users_show($response['screen_name']);
     } catch (TwitterException $e) {
