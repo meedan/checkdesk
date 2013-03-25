@@ -22,15 +22,15 @@ Drupal.livefyre = {
 };
 
 Drupal.behaviors.livefyre = {
-  attach: function(context) {
+  attach: function(context, settings) {
     var comments,
         key, stream;
 
     try {
 
       // Show or hide comments
-      $('.livefyre-header', context).die('click').live('click', function() {
-        if ($('.livefyre-loading', context).is(':visible')) {
+      $('.livefyre-header').die('click').live('click', function() {
+        if ($('.livefyre-loading').is(':visible')) {
           // Avoid double click while requesting
         }
         else {
@@ -39,7 +39,7 @@ Drupal.behaviors.livefyre = {
             comments.hide();
           }
           else {
-            $('.livefyre-comments', context).hide();
+            $('.livefyre-comments').hide();
             $(this).append('<span class="livefyre-loading"><em> (' + Drupal.t('loading...') + ')</em></span>');
             key = 'livefyre-' + comments.attr('data-nid');
             stream = Drupal.settings.livefyre[key].streamConfig;
