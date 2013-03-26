@@ -1232,6 +1232,46 @@ function checkdesk_core_views_api() {
 }
 
 /**
+ * Register a directory containing Wysiwyg plugins.
+ *
+ * @param $type
+ *   The type of objects being collected: either 'plugins' or 'editors'.
+ * @return
+ *   A sub-directory of the implementing module that contains the corresponding
+ *   plugin files. This directory must only contain integration files for
+ *   Wysiwyg module.
+ */
+function checkdesk_core_wysiwyg_include_directory($type) {
+  switch ($type) {
+    case 'plugins':
+      return 'ckeditor/' . $type;
+  }
+}
+
+/**
+ * Implements hook_wysiwyg_plugin()
+ */
+function checkdesk_core_wysiwyg_plugin($editor, $version) {
+  switch ($editor) {
+    case 'ckeditor':
+      if ($version >= 4) {
+        return array(
+          'confighelper' => array(
+            'vendor url' => 'http://alfonsoml.blogspot.com/2012/02/configuration-helper-for-ckeditor.html',
+            'path' => drupal_get_path('module', 'checkdesk_core') . '/ckeditor/plugins/confighelper',
+            'filename' => 'plugin.js',
+            'extensions' => array(
+              'confighelper' => t('Config helper'),
+            ),
+            'load' => TRUE,
+          ),
+        );
+      }
+      break;
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for `user_cancel_confirm_form`.
  */
 function checkdesk_core_form_user_cancel_confirm_form_alter(&$form, $form_state) {

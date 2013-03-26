@@ -27,6 +27,9 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
           'Strike' => 1,
           'Link' => 1,
         ),
+        'confighelper' => array(
+          'confighelper' => 1,
+        ),
       ),
       'toolbar_loc' => 'top',
       'toolbar_align' => 'left',
@@ -62,6 +65,9 @@ function checkdesk_core_feature_wysiwyg_default_profiles() {
           'Italic' => 1,
           'Strike' => 1,
           'Link' => 1,
+        ),
+        'confighelper' => array(
+          'confighelper' => 1,
         ),
       ),
       'toolbar_loc' => 'top',
