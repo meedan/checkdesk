@@ -6,7 +6,7 @@
 function meedan_custom_css_init() {
   global $theme;
   $enabled_themes = variable_get('meedan_custom_css_enabled_themes', array());
-  if (isset($enabled_themes[$theme]) && $enabled_themes[$theme]) {
+  if (isset($enabled_themes[$theme]) && $enabled_themes[$theme] && !isset($_REQUEST['meedan_custom_theme'])) {
     drupal_add_css(theme_get_setting('custom_css', $theme), array('type' => 'inline', 'weight' => 9999, 'group' => CSS_THEME));
   }
 }
