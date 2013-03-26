@@ -183,7 +183,7 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
 
   if (!$success) {
     $_SESSION['twitter']['values'] = $response;
-    drupal_goto('user/register');
+    drupal_goto('user/login');
   }
   else {
     user_login_finalize();
