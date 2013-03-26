@@ -31,24 +31,46 @@
 
   Drupal.behaviors.checkdesk = {
     attach: function (context, settings) {
+      // Drag and drop support for reports
       $('.draggable', context).draggable({
         revert: 'invalid',
         zIndex: 3000,
         scroll: false,
-        helper: 'clone'
+        helper: 'clone',
+        iframeFix: true
       });
+
       $('.droppable', context).droppable({
         hoverClass: 'drop-hover',
         accept: '.draggable',
         tolerance: 'touch',
         drop: function(event, ui) {
           $(ui.draggable).hide();
+
           // Retrieve the Views information from the DOM.
-          var data = $(ui.draggable).data('views');
-          // Insert the report URL into the textarea of the post body.
-          $('textarea', this).insertAtCaret("\n" + data.droppable_ref + "\n");
+          var data       = $(ui.draggable).data('views'),
+              $ckeditor  = $('.cke', this),
+              $textarea  = $('textarea', this),
+              instance;
+
+          // Either insert the text into CKEDITOR, if available, else directly
+          // into the text editor.
+          if (CKEDITOR && $ckeditor && CKEDITOR.instances[$textarea.attr('id')]) {
+            instance = CKEDITOR.instances[$textarea.attr('id')];
+
+            // Slight abuse of the CKEDITOR input filtering to close the previous
+            // <p> for line break. A new opening <p> is automatically created
+            // by CKEDITOR. Annoyingly, putting this all into one insertHtml()
+            // call does not seem to work.
+            instance.insertHtml('</p>');
+            instance.insertHtml(data.droppable_ref);
+            instance.insertHtml('</p>');
+          } else {
+            $textarea.insertAtCaret("\n" + data.droppable_ref + "\n");
+          }
         }
       });
+
       // Attach the Views results to each correspoknding row in the DOM.
       $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
         var i = $(this).find('.report-row-container').attr('id');
