@@ -34,8 +34,9 @@ nav[role='navigation'] #user-menu SPAN.avatar {
 
 // stop container from collapsing
 // due to display: inline-block;
-// .report .report-content .report-media .container {
-// }
+.report .report-content .report-media .container .oembed-content {
+	display: block;
+}
 
 // clarify dropdown menu's edges 
 .dropdown-menu {

@@ -3,9 +3,8 @@
 	// IE8 fixes
 	Drupal.behaviors.ie8 = {
 		attach: function (context, settings) {
-      if ($.browser.msie) {
-
-        
+    // Run this only for ltr IE8
+    if (!$.support.leadingWhitespace) {
   			// set the width of content in presence of a sidebar
   			var bodyWidth = $(window).width();
   				gutter = 12;
