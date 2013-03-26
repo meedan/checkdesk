@@ -2210,7 +2210,8 @@ label,
 input,
 button,
 select,
-textarea {
+textarea,
+body.cke_editable {
   font-size: 18px;
   font-weight: normal;
   line-height: 27px;
@@ -2219,7 +2220,8 @@ textarea {
 input,
 button,
 select,
-textarea {
+textarea,
+body.cke_editable {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -2230,6 +2232,7 @@ label {
 
 select,
 textarea,
+body.cke_editable,
 input[type="text"],
 input[type="password"],
 input[type="datetime"],
@@ -2263,15 +2266,18 @@ input[type="color"],
 
 input,
 textarea,
+body.cke_editable,
 .uneditable-input {
   width: 206px;
 }
 
-textarea {
+textarea,
+body.cke_editable {
   height: auto;
 }
 
 textarea,
+body.cke_editable,
 input[type="text"],
 input[type="password"],
 input[type="datetime"],
@@ -2299,6 +2305,7 @@ input[type="color"],
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 textarea:focus,
+body.cke_editable:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="datetime"]:focus,
@@ -2321,6 +2328,29 @@ input[type="color"]:focus,
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+body.cke_editable {
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+  -webkit-border-radius: none !important;
+  -moz-border-radius: none !important;
+  -ms-border-radius: none !important;
+  -o-border-radius: none !important;
+  border-radius: none !important;
+  width: auto;
+  display: block;
+  margin: 0;
+  vertical-align: baseline;
+}
+body.cke_editable p br {
+  display: block;
 }
 
 input[type="radio"],
@@ -4962,17 +4992,17 @@ div.tabs ul.primary li a {
 }
 
 img.fyre-logo-drop {
-  width: auto !important;
+  width: auto!important;
 }
 
 body .fyre-widget {
   padding: 1em;
 }
 body .fyre-widget .img {
-  width: 83px !important;
+  width: 83px!important;
 }
 body .fyre-box-wrapper {
-  display: none !important;
+  display: none!important;
 }
 body div.livefyre-header {
   width: auto;
@@ -5878,15 +5908,15 @@ div.password-suggestions ul {
   clear: both;
 }
 
-label, input, button, select, textarea {
+label, input, button, select, textarea, body.cke_editable {
   font-size: 18px;
 }
 
-input, button, select, textarea {
+input, button, select, textarea, body.cke_editable {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
   background-color: white;
   border: 1px solid #cccccc;
   -webkit-box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
@@ -5897,7 +5927,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
-textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+textarea:focus, body.cke_editable:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
   border-color: rgba(38, 72, 135, 0.8);
   outline: 0;
   outline: thin dotted \9;
@@ -5940,7 +5970,8 @@ form input[type="radio"] {
   float: right;
 }
 form input:focus,
-form textarea:focus {
+form textarea:focus,
+form body.cke_editable:focus {
   background-color: white;
 }
 form label {
@@ -7066,7 +7097,7 @@ body.sidebar-first #main div#content .inner {
   width: 100%;
   float: left;
   margin-left: 0;
-  *margin-right: -10px;
+  #margin-right: -10px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -7438,7 +7469,7 @@ body.page-user-password div.profile .user-picture {
   width: 7.28477%;
   float: left;
   margin-left: 0;
-  *margin-right: -10px;
+  #margin-right: -10px;
   display: inline;
 }
 body.page-user-login div.profile h3,
@@ -7834,12 +7865,12 @@ body {
 }
 
 div.vertical-tabs, div.vertical-tabs-panes {
-  display: none !important;
+  display: none!important;
 }
 
 nav li.menu-449 {
-  display: none !important;
-  border: 1px solid red !important;
+  display: none!important;
+  border: 1px solid red!important;
 }
 
 p br {
@@ -7847,7 +7878,7 @@ p br {
 }
 
 input.form-autocomplete {
-  background-image: none !important;
+  background-image: none!important;
 }
 
 .filter-guidelines,
@@ -7861,7 +7892,7 @@ input.form-autocomplete {
 }
 
 body.toolbar-drawer {
-  padding-top: 0 !important;
+  padding-top: 0!important;
 }
 
 .views-exposed-widget .views-reset-button {

@@ -111,8 +111,8 @@
 //
 @mixin form-standardize {
   
-  label, input, button, select, textarea { font-size: $base-font-size; }
-  input, button, select, textarea { font-family: $sans-font-family; }
+  label, input, button, select, textarea, body.cke_editable { font-size: $base-font-size; }
+  input, button, select, textarea, body.cke_editable { font-family: $sans-font-family; }
 
   // select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
   //   display: inline-block;
@@ -125,7 +125,7 @@
   // }
 
   // Everything else
-  textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     background-color: $input-background;
     border: 1px solid $inputBorder;
     @include box-shadow(rgba($black, .075) 0 1px 1px inset);
@@ -209,7 +209,8 @@
 
     // When we start writing make it bright
     input:focus, 
-    textarea:focus { 
+    textarea:focus,
+    body.cke_editable:focus { 
       background-color: white; 
     }
 

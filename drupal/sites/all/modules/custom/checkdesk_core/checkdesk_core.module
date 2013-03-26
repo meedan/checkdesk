@@ -1272,6 +1272,34 @@ function checkdesk_core_wysiwyg_plugin($editor, $version) {
 }
 
 /**
+ * Implementation of hook_wysiwyg_editor_settings_alter().
+ *
+ * Have the editor use the current language. There are open bugs for WYSIWYG
+ * module to do this automatically..
+ */
+function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
+  global $language, $base_path;
+
+  $settings['language']       = $language->language;
+  $settings['directionality'] = $language->direction == LANGUAGE_RTL ? 'rtl' : 'ltr';
+
+  if ($language->direction == LANGUAGE_RTL) {
+    foreach ($settings['contentsCss'] as $key => $path) {
+      $filepath = substr(preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $path), 0, -4);
+      $filepath_rtl = $filepath . '-rtl.css';
+
+      if (file_exists($filepath_rtl)) {
+        $settings['contentsCss'][$key] = $base_path . $filepath_rtl;
+      }
+    }
+  }
+
+  // Hide crazy link settings
+  $settings['linkShowAdvancedTab'] = FALSE;
+  $settings['linkShowTargetTab'] = FALSE;
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for `user_cancel_confirm_form`.
  */
 function checkdesk_core_form_user_cancel_confirm_form_alter(&$form, $form_state) {

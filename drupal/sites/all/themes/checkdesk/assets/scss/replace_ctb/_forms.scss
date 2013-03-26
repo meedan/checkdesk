@@ -41,13 +41,15 @@ label,
 input,
 button,
 select,
-textarea {
+textarea,
+body.cke_editable {
   @include ctb-font-shorthand($baseFontSize, normal, $baseLineHeight); // Set size, weight, line-height here
 }
 input,
 button,
 select,
-textarea {
+textarea,
+body.cke_editable {
   font-family: $sans-font-family; // And only set font-family here for those that need it (note the missing label element)
 }
 
@@ -64,6 +66,7 @@ label {
 // Shared size and type resets
 select,
 textarea,
+body.cke_editable,
 input[type="text"],
 input[type="password"],
 input[type="datetime"],
@@ -95,15 +98,18 @@ input[type="color"],
 // Declare width for legacy (can't be on input[type=*] selectors or it's too specific)
 input,
 textarea,
+body.cke_editable,
 .uneditable-input {
   width: 206px; // plus 12px padding and 2px border
 }
 // Reset height since textareas have rows
-textarea {
+textarea,
+body.cke_editable {
   height: auto;
 }
 // Everything else
 textarea,
+body.cke_editable,
 input[type="text"],
 input[type="password"],
 input[type="datetime"],
@@ -130,6 +136,21 @@ input[type="color"],
     outline: 0;
     outline: thin dotted \9; /* IE6-9 */
     @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6));
+  }
+}
+// Fixes for WYSIWYG editor iframe field
+body.cke_editable {
+  border: none !important;
+  @include box-shadow(none !important);
+  @include transition(none !important);
+  @include border-radius(none !important);
+  width: auto;
+  display: block;
+  margin: 0;
+  vertical-align: baseline;
+
+  p br {
+    display: block;
   }
 }
 

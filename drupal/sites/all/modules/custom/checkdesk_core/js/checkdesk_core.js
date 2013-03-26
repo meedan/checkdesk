@@ -4,12 +4,12 @@
 
   Drupal.ajax.prototype.setMessages = function() {
     var ajax = this;
- 
+
     // Do not perform another ajax command if one is already in progress.
     if (ajax.ajaxing) {
       return false;
     }
- 
+
     try {
       $.ajax(ajax.options);
     }
@@ -17,10 +17,10 @@
       alert('An error occurred while attempting to process ' + ajax.options.url);
       return false;
     }
- 
+
     return false;
   };
- 
+
   // Ajax action settings for messages
   var message_settings = {};
   message_settings.url = '/core/messages/ajax/';
@@ -71,6 +71,22 @@
         }
       });
 
+      // CKEditor configuration, see: http://www.question2answer.org/qa/13255/simple-ckeditor-how-to-modify-it-to-be-simple-solution
+      CKEDITOR.on('dialogDefinition', function(ev) {
+        var dialog = ev.data, currentDialog;
+
+        if (dialog.name == 'link') {
+          dialog.definition.onShow = function () {
+            currentDialog = CKEDITOR.dialog.getCurrent();
+
+            currentDialog.getContentElement('info','anchorOptions').getElement().hide();
+            currentDialog.getContentElement('info','emailOptions').getElement().hide();
+            currentDialog.getContentElement('info','linkType').getElement().hide();
+            currentDialog.getContentElement('info','protocol').disable();
+          };
+        }
+      });
+
       // Attach the Views results to each correspoknding row in the DOM.
       $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
         var i = $(this).find('.report-row-container').attr('id');
@@ -118,7 +134,7 @@
       //   this.href = this.href.replace(/flag\/confirm\/flag\/graphic/,'node/flag/nojs/confirm/flag/graphic');
       // }).addClass('ctools-use-modal ctools-modal-checkdesk-style');
 
-      // Trigger 
+      // Trigger
       // $('.some-class').click(function() {
       //   Drupal.ajax['checkdesk_core_message_settings'].setMessages();
       // });
