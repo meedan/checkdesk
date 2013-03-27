@@ -39,20 +39,20 @@
 
 // Default font for the buttons mixin
 //
-$include-border: false;
-$include-text-shadow: false;
-$inner-box-shadow: false;
-$button-font-family: $sans-font-family; // Added nov 2012 - CGB 
-$button-font-weight: 200; // Added nov 2012 - CGB 
-$button-gradient-style: matte;
-$button-invert-on-click: 0;
+$include-border: false !default;
+$include-text-shadow: false !default;
+$inner-box-shadow: false !default;
+$button-font-family: $sans-font-stack !default;
+$button-font-weight: 200 !default; 
+$button-gradient-style: matte !default;
+$button-invert-on-click: 0 !default;
 $button-font-size: $small-font-size !default;
-$button-color: $dark-grey;
+$button-color: $dark-grey !default;
 $button-font-weight: 700 !default;
-$button-border-width: 0px;
+$button-border-width: 0px !default;
 $button-radius: 3px !default;
-$button-light-text: white;
-$button-dark-text: black;
+$button-light-text: white !default;
+$button-dark-text: black !default;
 $button-gradient: 0 !default;
 // Disabled background image support - CGB Nov 2012
 // $button-image-path: image-url("button_bg.png") !default;
@@ -60,8 +60,8 @@ $button-allow-disabled: false !default;
 $button-line-height: 1.2 !default;
 
 // Added configuration to set how much lightness and darkness is used to create the gradient from the base color - CGB Nov 2012
-$button-lighten-amount: 4; 
-$button-darken-amount: 12;
+$button-lighten-amount: 4 !default; 
+$button-darken-amount: 12 !default;
 
 // Default checkdeks button using bowerbird/buttons instead of twitter bootstrap
 @mixin checkdesk-button($button-color: $button-color) {

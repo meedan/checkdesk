@@ -8,32 +8,25 @@ $icon-position: before !default;
 
 // setup webfonts
 // @import
-// Typography configuration
+
+// Typography default configuration
 //
-// See also: typography.scss - sitewide typography styles
-// and style-rtl.scss for arabic typography
-$mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-$en-body-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$en-header-font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+// A.) Setup. Do not use these directly:
+$en-body-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$en-header-font-stack: "Merriweather", Georgia, "Times New Roman", Times, serif;
+$ar-header-font-stack: "Andalus", "Arabic Typesetting", "Tahoma";
+$ar-body-font-stack: "DecoType Naskh", "Amiri", "Tahoma";
+$ar-nav-font-stack: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
 
-// see style-rtl.scss
-$ar-header-font-family: "Andalus", "Arabic Typesetting", "Tahoma";
-$ar-body-font-family: "DecoType Naskh", "Amiri", "Tahoma";
-$ar-nav-font-family: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
+// B.) ... Use only these:
+$mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace;
+$nav-font-stack: $en-body-font-stack !default;
+$header-font-stack: $en-header-font-stack !default;
+$body-font-stack: $en-body-font-stack !default;
 
-// Typography by section
-// LTR defaults — each of these must be matched in styles-rtl.scss
-// See style-rtl.scss where these are overridden
-$nav-font-family: $en-body-font-family !default;
-$header-font-family: $en-header-font-family !default;
-$body-font-family: $en-body-font-family !default;
-
-// Sass libraries
-// ===========================================================================
-
-// Set direction
+// mixin to set direction
 // 
-@mixin ctb-layout($direction) {
+@mixin checkdesk-layout($direction) {
   text-align: $direction;
   @if $direction == 'right' {
     direction: rtl;
@@ -69,8 +62,8 @@ $break-large: 48;
 $total-width: $container-width; // Alias for Chris
 $sidebar-width: 4; // default sidebar width
 $tabs-width: $container-width; // Tabs inside forms and nodes
-$gutter-width: ms(-1); // The distance between grid columns
-$column-width: ms(2); // The width of columns
+$gutter-width: modular-scale(-1); // The distance between grid columns
+$column-width: modular-scale(2); // The width of columns
 $grid-padding: 10px; // The padding on the sides of the outer <container>
 
 // Modular scale
@@ -78,30 +71,21 @@ $grid-padding: 10px; // The padding on the sides of the outer <container>
 // http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
 // All of these numbers are based on 18 base font size and 1168 outer container
 // Now you can do this to see the scale values (px)
-$base-size: 18px 1168px; // Two scales at 1:1.61803
-$ratio: golden();
-$round_pixels: true;
+$base-size: 18px 1168px; // Two scales 
+$ratio: golden(); // use approximately 1:1.61803
+$round_pixels: true; //don't return fractional px
 
-// Typography
-//
-$smallest-font-size: ms(-2); // 7px
-$smaller-font-size: ms(-1); // 11px
-$small-font-size: ms(0) - ms(-5); // 16px
-$base-font-size: ms(0); // 18px            <--------- "tonal center" of the scale
-$large-font-size: ms(0) + ms(-5); // 20px 
-$larger-font-size: ms(1); // 25px
-$x-large-font-size: ms(2); // 29px
-$xx-large-font-size: ms(3); // 40px
-$xxx-large-font-size: ms(4); // 47px
-$largest-font-size: ms(5); // 65px
-
-// View typography settings in CLI
-$debug: false !default;
-@if $debug == true {
-  @each $size in $smallest-font-size $smaller-font-size $small-font-size $base-font-size $large-font-size $larger-font-size $x-large-font-size $xx-large-font-size {
-    @debug "#{$size}";
-  }
-}
+// Font sizes based on the scale
+$smallest-font-size:  modular-scale(-2); // 7px
+$smaller-font-size:   modular-scale(-1); // 11px
+$small-font-size:     modular-scale(0) - modular-scale(-5); // 16px — a half-step down
+$base-font-size:      modular-scale(0);                     // 18px — "tonal center" of the scale
+$large-font-size:     modular-scale(0) + modular-scale(-5); // 20px — a half-step up
+$larger-font-size:    modular-scale(1); // 25px
+$x-large-font-size:   modular-scale(2); // 29px
+$xx-large-font-size:  modular-scale(3); // 40px
+$xxx-large-font-size: modular-scale(4); // 47px
+$largest-font-size:   modular-scale(5); // 65px
 
 // Main sections
 // =============================================================================
@@ -112,10 +96,10 @@ $nav-font-size: 15px;
 $nav-icon-height: 15px;
 $nav-line-height: $nav-icon-height;
 $nav-height: $nav-icon-height + 7*2;
-$nav-gutter: ms(-2);
+$nav-gutter: modular-scale(-2);
 
 // Notifications
-$notification-dropdown-width: ms(11);
+$notification-dropdown-width: modular-scale(11);
 $notification-width: 5;
 $notification-icon-size: $small-font-size;
 $notification-image-width: 5%;
@@ -138,7 +122,7 @@ $nw: $nav-width;
 
 // Forms
 // =============================================================================
-$label-width: $cw/2;
+$label-width: $container-width/2;
 $checkbox-width: 25px;
 
 // Misc Values
@@ -150,3 +134,8 @@ $radius: 4px;
 // Colors
 // =============================================================================
 // ... live in colors.css
+
+// Debugger
+// =============================================================================
+// debug mode for @debug statements and other sass debuggers
+$debug: false !default;

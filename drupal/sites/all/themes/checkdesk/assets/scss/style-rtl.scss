@@ -7,14 +7,14 @@ $icon-position: after !default;
 
 // needs #review to confirm this selection
 // override defaults — which must be set with !default
-$header-font-family: $ar-header-font-family !default;
-$body-font-family: $ar-body-font-family !default;
+$header-font: $ar-header-font !default;
+$body-font: $ar-body-font !default;
+$nav-font-stack: $ar-body-font-stack !default;
 
 // 2. ============================================
 // Now we reload all styles with this updated configuration
 
 @import "style"; 
-
 
 // 3. ============================================
 // Override the text direction

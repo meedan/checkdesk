@@ -8,70 +8,138 @@
 @include establish-baseline;
 @include bb-typography-defaults; // typography defaults
 
-// Checkdesk specific
-// Global styles
-//
-@mixin cd-typography {
-
-  $h-pad: $base-font-size;
-
-  h1, h2, h3, h4 {
-    @include reset-box-model;
-    margin:  { bottom: $h-pad; top: $h-pad; }
-    padding: { bottom: $h-pad; top: $h-pad; }
-  }
-  
-  h1 {
-    font-size: $xxx-large-font-size;
-    line-height: $larger-font-size * 2;
-    color: $dark-grey;
-    @include cd-light-text-shadow;
-  }
-
-  // Navigation 
-  nav {
-    font-family: $sans-font-family;
-    font-size: $nav-font-size;
-    font-weight: 300px;
-  }
-
-  // The sidebar
-  #sidebar-first {
-    font-family: $sans-font-family;
-    font-size: $small-font-size;
-  }
-
-  #main h2 {
-    display: none; // hidden at this size;
-  }
+body {
+  line-height: $base-line-height; //1.2
+  font-size: $small-font-size; // in px
+  color: $text-color;
+  font-family: $body-font-stack;
+  text-align: $from-direction;
 }
 
-// =========================================================================
-// Pre-breakpoint defaults
-// 
+h1, h2, h3, h4 {
+  @include reset-box-model;
+}
 
-body {
-  @include bb-typography-defaults;
-  @include cd-typography;
+a {
+  color: $link-color;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $linkColorHover;
+  text-decoration: underline;
+}
+
+p {
+  margin: 0;
+}
+
+small {
+  font-size: $small-font-size;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+cite {
+  font-style: normal;
+}
+
+.muted {
+  color: $light-grey;
+}
+
+ul, ol {
+  padding: 0;
+  margin: 0;
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-bottom: 0;
+}
+
+li {
+  line-height: $base-line-height;
+}
+
+dl {
+  margin-bottom: $base-font-size;
+}
+
+dt,
+dd {
+  line-height: $base-line-height;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-#{$from-direction}: $base-font-size;
+}
+
+hr {
+  margin: $base-font-size 0;
+  border: 0;
+  border-top: 1px solid $hr-color;
+  border-bottom: 1px solid $white;
+}
+
+abbr[title] {
+  cursor: help;
+  border-bottom: 1px dotted $light-grey;
+}
+
+abbr.initialism {
+  font-size: 90%;
+  text-transform: uppercase;
+}
+
+blockquote {
+  @include reset-box-model;
+  border-#{$from-direction}: 5px solid $light-grey;
+  font-size: $small-font-size;
+}
+
+h1, h2, h3, h4 {
+  @include reset-box-model;
+  margin:  { bottom: $base-font-size; top: $base-font-size; }
+  padding: { bottom: $base-font-size; top: $base-font-size; }
+}
+
+h1 {
+  font-size: $xxx-large-font-size;
+  line-height: $larger-font-size * 2;
+  color: $dark-grey;
+  @include cd-light-text-shadow;
+}
+
+// Navigation 
+nav {
+  font-family: $nav-font-stack;
+  font-size: $nav-font-size;
+  font-weight: 300px;
+}
+
+// The sidebar
+#sidebar-first {
+  font-family: $nav-font-stack;
+  font-size: $small-font-size;
 }
 
 // =========================================================================
 // Breakpoint: Small
 // 
 @include at-breakpoint($break-small) {
-  body {
-    // font-size:  $large-font-size; // increased
-  }
-
-  nav {
-    // font-size: $nav-font-size + ms(-2);
-  }
-
-  h1.title {
-    // margin-top: ms(4); // reduced
-    // font-size:  $x-large-font-size; // increased
-    // line-height: ms(2) * 1.2; 
-  }
 }
 
 // =========================================================================
@@ -80,15 +148,7 @@ body {
 @include at-breakpoint($break-medium) {
   body {
     // font-size:  $larger-font-size; // increased
-    line-height: ms(2);
-  }
-  h1.title {
-    // font-size:  $larger-font-size; // increased
-  }
-
-  #main h2 {
-    display: block; // start displaying
-    // font-size: $small-font-size;
+    line-height: ms(2); // increased
   }
 }
 
@@ -96,5 +156,4 @@ body {
 // Breakpoint: Large
 // 
 @include at-breakpoint($break-large) {
-  // This is a really huge min-width ...
 }
