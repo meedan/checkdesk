@@ -252,16 +252,11 @@ function checkdesk_preprocess_page(&$variables) {
   drupal_add_js($modal_style, 'setting');
 
   // define custom header settings
-  $variables['header_image_path'] = '';
-  $variables['header_height'] = 0;
+  $variables['header_image'] = '';
   $image = theme_get_setting('header_image_path');
   
   if (!empty($image) && theme_get_setting('header_image_enabled')) {
-    $variables['header_image_path'] = file_create_url($image);
-    $info = image_get_info($image);
-    if ($info) {
-      $variables['header_height'] = $info['height'];
-    }
+    $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
 
   $position = theme_get_setting('header_image_position');

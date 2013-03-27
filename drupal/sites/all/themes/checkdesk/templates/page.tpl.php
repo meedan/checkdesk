@@ -24,7 +24,11 @@
     </div>
   </div>
 
-  <header id="partner-header" style="background: <?php print $header_background_color; ?> url(<?php print $header_image_path; ?>) <?php print $header_image_position; ?> bottom no-repeat; height: <?php print $header_height; ?>px;"></header>
+  <header id="partner-header" style="background-color: <?php print $header_background_color; ?>; text-align: <?php print $header_image_position; ?>;">
+    <?php if ($header_image): ?>
+      <?php print $header_image; ?>
+    <?php endif; ?>
+  </header>
 
   <!-- ______________________ MAIN _______________________ -->
 
