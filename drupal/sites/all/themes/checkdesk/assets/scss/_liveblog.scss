@@ -1,24 +1,37 @@
 @mixin vertical-margin($width) {
-  margin: { top: $width; bottom: $width; } 
+  margin: { top: $width; bottom: $width; }
 }
 
 @mixin liveblog-layout($width, $context) {
   @include span-columns($width, $context, $gw);
   @content; // pass in padding if needed
-  .post-row { 
-    @include vertical-margin($base-font-size); 
-    @include span-columns($width, $width, $gw);
-    
-    .livefyre-wrapper {
-      @include span-columns($width, $width, $gw);
+
+  .desk {
+    @include vertical-margin($base-font-size);
+    @include span-columns($width, $width, $gw / 2);
+
+    .post-row {
       @include vertical-margin($base-font-size);
+      @include span-columns($width, $width, $gw);
+
+      .livefyre-wrapper {
+        @include span-columns($width, $width, $gw);
+        @include vertical-margin($base-font-size);
+      }
     }
+  }
+
+  // The .related-updates bib is centered in 28 out of 30 columns
+  .related-updates {
+    @include vertical-margin($base-font-size);
+    @include span-columns(28, 30, $gw);
+    margin-#{$from-direction}: columns(1, 30); // default value is left, so this means margin-#{left}.
   }
 }
 
 // Liveblog homepage
-// 
-// Default liveblog layout overrides global default layout 
+//
+// Default liveblog layout overrides global default layout
 body.page-liveblog {
   #main {
     @include liveblog-layout($cw, $cw);
@@ -26,29 +39,69 @@ body.page-liveblog {
     // Live blog view
     .view-liveblog {
       @include ctb-clearfix;
-      background-color: white;
-      border-top: 2px solid black;
-      .post-row {
-        border-bottom: 1px solid $grey;
-        padding-bottom: 1em;
+
+      .desk {
+        // Ensure the desk is displayed above the .related-updates bib
+        z-index: 1;
+        position: relative;
+
+        margin-bottom: 0;
+
+        background-color: white;
+        @include ctb-box-shadow(0px 1px 1px 1px rgba(0, 0, 0, 0.2));
+
         h2 {
-          display: inline-block;
-          @include reset-box-model;
-          a { @include ctb-linkColor($grayDark); }
+          margin: 0;
+          font-size: 200%;
+
+          a {
+            @include ctb-linkColor($grayLight);
+            font-weight: normal;
+          }
+        }
+
+        .post-row {
+          background-color: #dadada;
+          margin-bottom: 1em;
+
+          & > h3 {
+            @include reset-box-model;
+            font-size: 125%;
+
+            padding-top: 0.5em;
+
+            a {
+              @include ctb-linkColor($grayDark);
+              font-weight: normal;
+              text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+            }
+          }
+        }
+      }
+
+      .related-updates {
+        margin-top: 0;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+
+        background-color: #f3f3f3;
+        @include ctb-box-shadow(0px 1px 1px 1px rgba(0, 0, 0, 0.2));
+
+        a {
+          @include ctb-linkColor($grayDark);
+          font-weight: bold;
         }
       }
     }
-
-    
   }
 }
 
-// Small breakpoint 
+// Small breakpoint
 @include at-breakpoint($break-small) {
   body.page-liveblog #main {
     @include liveblog-layout($break-small - 2, $break-small) {
     @include pad(1, 1, $break-small);
-    }  
+    }
   }
 }
 // Medium breakpoint

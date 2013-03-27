@@ -72,20 +72,22 @@
       });
 
       // CKEditor configuration, see: http://www.question2answer.org/qa/13255/simple-ckeditor-how-to-modify-it-to-be-simple-solution
-      CKEDITOR.on('dialogDefinition', function(ev) {
-        var dialog = ev.data, currentDialog;
+      if (CKEDITOR) {
+        CKEDITOR.on('dialogDefinition', function(ev) {
+          var dialog = ev.data, currentDialog;
 
-        if (dialog.name == 'link') {
-          dialog.definition.onShow = function () {
-            currentDialog = CKEDITOR.dialog.getCurrent();
+          if (dialog.name == 'link') {
+            dialog.definition.onShow = function () {
+              currentDialog = CKEDITOR.dialog.getCurrent();
 
-            currentDialog.getContentElement('info','anchorOptions').getElement().hide();
-            currentDialog.getContentElement('info','emailOptions').getElement().hide();
-            currentDialog.getContentElement('info','linkType').getElement().hide();
-            currentDialog.getContentElement('info','protocol').disable();
-          };
-        }
-      });
+              currentDialog.getContentElement('info','anchorOptions').getElement().hide();
+              currentDialog.getContentElement('info','emailOptions').getElement().hide();
+              currentDialog.getContentElement('info','linkType').getElement().hide();
+              currentDialog.getContentElement('info','protocol').disable();
+            };
+          }
+        });
+      }
 
       // Attach the Views results to each correspoknding row in the DOM.
       $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
