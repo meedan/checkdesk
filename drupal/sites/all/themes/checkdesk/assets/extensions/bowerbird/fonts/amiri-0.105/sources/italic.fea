@@ -1,0 +1,44 @@
+lookup loclLtr {
+  sub zero by zero.ltr;
+  sub one by one.ltr;
+  sub two by two.ltr;
+  sub three by three.ltr;
+  sub four by four.ltr;
+  sub five by five.ltr;
+  sub six by six.ltr;
+  sub seven by seven.ltr;
+  sub eight by eight.ltr;
+  sub nine by nine.ltr;
+} loclLtr;
+
+feature locl {
+  script latn;
+  language TRK include_dflt;
+  lookup loclLtr;
+} locl;
+
+lookup loclRtl {
+  sub zero by zero.rtl;
+  sub one by one.rtl;
+  sub two by two.rtl;
+  sub three by three.rtl;
+  sub four by four.rtl;
+  sub five by five.rtl;
+  sub six by six.rtl;
+  sub seven by seven.rtl;
+  sub eight by eight.rtl;
+  sub nine by nine.rtl;
+} loclRtl;
+
+feature locl {
+  script arab;
+
+  language ARA include_dflt;
+  lookup loclRtl;
+
+  language URD include_dflt;
+  lookup loclRtl;
+
+  language SND include_dflt;
+  lookup loclRtl;
+} locl;

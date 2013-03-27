@@ -1,0 +1,213 @@
+//
+// dagger alef
+//
+
+// In Quranic orthography, there are two forms of dagger alef; a superscript one
+// that is a combining mark and a spacing one that is regular alef letter, the
+// later is not encoded in Unicode yet. The spacing dagger alef is almost always
+// preceded by a fatha mark and we use this fact to replace the combing dagger
+// alef by a spacing one when preceded by fatha, a hack but should do the job
+// until the proper character get encoded.
+
+// substitute combining dagger alef preceded by fatha with the spacing one
+feature calt {
+  sub [uni064E] uni0670' by uni0670.isol;
+} calt;
+
+//
+// floats
+//
+
+// Some Arabic characters are shaping transparent, just like combining marks,
+// but are not combining marks, I call them float because they "float" between
+// adjacent characters. When a float comes between two characters that would
+// normally join, it will be placed between them over a connecting stroke, else
+// it will just set on the baseline.
+//
+// This concept is not recognized by Unicode, so we have to hack our way in the
+// font to override shaping decisions by OpenType engine.
+//
+// This includes:
+// * the dagger alef above
+// * standalone hamza (U+0621)
+// * small waw and yaa (U+06E5, U+06E6)
+//
+// Since the layout engine will consider those characters non-joiners, it will
+// break shaping between them, so we simply override this by replacing glyphs
+// around the float with forms that they would normally take if it was not
+// there, and replace the float wit its medial glyph that has a connecting
+// stroke.
+
+// do dagger alef first since in Unicode it is a combining mark so it does not
+// break shaping, we just need to substitute it with the medial alternate
+@before = [@aAyn.init @aAyn.medi @aBaa.init @aBaa.medi @aFaa.init @aFaa.medi
+           @aHaa.init @aHaa.medi @aHeh.init @aHeh.medi @aKaf.init @aKaf.medi
+           @aLam.init @aLam.medi @aMem.init @aMem.medi @aSad.init @aSad.medi
+           @aSen.init @aSen.medi @aTaa.init @aTaa.medi];
+@after  = [@aAlf.fina @aAyn.fina @aAyn.medi @aBaa.fina @aBaa.medi @aDal.fina
+           @aFaa.fina @aFaa.medi @aHaa.fina @aHaa.medi @aHeh.fina @aHeh.medi
+           @aKaf.fina @aKaf.medi @aLam.fina @aLam.medi @aMem.fina @aMem.medi
+           @aNon.fina @aQaf.fina @aRaa.fina @aSad.fina @aSad.medi @aSen.fina
+           @aSen.medi @aTaa.fina @aTaa.medi @aWaw.fina @aYaa.fina uni0640];
+
+lookup MedialSmallAlef {
+  sub uni0670.isol by uni0670.medi;
+} MedialSmallAlef;
+
+feature calt {
+  lookupflag IgnoreMarks;
+  sub @before'
+      uni0670.isol' lookup MedialSmallAlef
+      @after;
+} calt;
+
+@before.isol = [uni0626 uni0628 uni062A uni062B uni062C uni062D uni062E uni0633
+                uni0634 uni0635 uni0636 uni0637 uni0638 uni0639 uni063A uni0641
+                uni0642 uni0643 uni0644 uni0645 uni0646 uni0647 uni0649 uni064A
+                uni06CC];
+@before.init = [uni0626.init uni0628.init uni062A.init uni062B.init uni062C.init
+                uni062D.init uni062E.init uni0633.init uni0634.init uni0635.init
+                uni0636.init uni0637.init uni0638.init uni0639.init uni063A.init
+                uni0641.init uni0642.init uni0643.init uni0644.init uni0645.init
+                uni0646.init uni0647.init uni0649.init uni064A.init uni06CC.init];
+@before.medi = [uni0626.medi uni0628.medi uni062A.medi uni062B.medi uni062C.medi
+                uni062D.medi uni062E.medi uni0633.medi uni0634.medi uni0635.medi
+                uni0636.medi uni0637.medi uni0638.medi uni0639.medi uni063A.medi
+                uni0641.medi uni0642.medi uni0643.medi uni0644.medi uni0645.medi
+                uni0646.medi uni0647.medi uni0649.medi uni064A.medi uni06CC.medi];
+@before.fina = [uni0626.fina uni0628.fina uni062A.fina uni062B.fina uni062C.fina
+                uni062D.fina uni062E.fina uni0633.fina uni0634.fina uni0635.fina
+                uni0636.fina uni0637.fina uni0638.fina uni0639.fina uni063A.fina
+                uni0641.fina uni0642.fina uni0643.fina uni0644.fina uni0645.fina
+                uni0646.fina uni0647.fina uni0649.fina uni064A.fina uni06CC.fina];
+
+@after.isol =  [uni0622 uni0623 uni0624 uni0625 uni0627 uni0629 uni062F uni0630
+                uni0631 uni0632 uni0648];
+@after.fina =  [uni0622.fina uni0623.fina uni0624.fina uni0625.fina uni0627.fina
+                uni0629.fina uni062F.fina uni0630.fina uni0631.fina uni0632.fina
+                uni0648.fina];
+
+@before = [@before.isol @before.fina];
+@after  = [@after.isol @before.isol @before.init];
+
+@floats.isol = [uni0621 uni06E5 uni06E6 uni0670.isol];
+@floats.medi = [uni0621.medi uni06E5.medi uni06E6.medi uni0670.medi];
+
+lookup Before {
+  sub @before.isol by @before.init;
+  sub @before.fina by @before.medi;
+} Before;
+
+lookup After {
+  sub @before.isol by @before.fina;
+  sub @after.isol  by @after.fina;
+  sub @before.init by @before.medi;
+} After;
+
+lookup MedialFloats {
+  sub @floats.isol by @floats.medi;
+} MedialFloats;
+
+lookup FloatHamza {
+  sub uni0621 by uni0621.float;
+} FloatHamza;
+
+lookup LamAlefIsol {
+  sub uni0644 by uni0644.init_LamAlfIsol;
+  sub uni0627 by uni0627.fina_LamAlfIsol;
+} LamAlefIsol;
+
+lookup LamAlefFina {
+  sub uni0644.fina by uni0644.medi_LamAlfFina;
+  sub uni0627      by uni0627.fina_LamAlfFina;
+} LamAlefFina;
+
+feature calt {
+  lookupflag IgnoreMarks;
+  // hamza between lam and alef needs special treatment as it should not have
+  // a connecting stroke to avoid breaking lam-alef. Other floats don't
+  // normally occur between lam and alef so we don't bother handling them
+  sub uni0644'      lookup LamAlefIsol
+      uni0621'      lookup FloatHamza
+      uni0627'      lookup LamAlefIsol;
+
+  sub uni0644.fina' lookup LamAlefFina
+      uni0621'      lookup FloatHamza
+      uni0627'      lookup LamAlefFina;
+
+  // everything else
+  sub @before'      lookup Before
+      @floats.isol' lookup MedialFloats
+      @after'       lookup After;
+
+  // handle two successive floats
+  sub @before'      lookup Before
+      @floats.isol' lookup MedialFloats
+      @floats.isol' lookup MedialFloats
+      @after'       lookup After;
+} calt;
+
+// kern floating hamza between final lam-alef to avoid glyph overlap
+feature kern {
+  lookupflag IgnoreMarks;
+  pos uni0621.float' <-300 0 0 0> @aAlf.fina_LamAlfFina;
+} kern;
+
+// turn kashida followed by small alef to medial small alef, a common hack to
+// get medial floating small alef.
+feature calt {
+  sub uni0640.1 uni0670 by uni0670.medi;
+} calt;
+
+#ifdef QURAN
+// if a hamza on yaa or waw is followed by kasra, the hamza goes bellow
+lookup hamzakasra {
+  sub uni0626.init by uni0649.init uni0655; // yaa
+  sub uni0626.medi by uni0649.medi uni0655;
+  sub uni0626.fina by uni0649.fina uni0655;
+  sub uni0626      by uni0649      uni0655;
+  sub uni0624.fina by uni0648.fina uni0655; // waw
+  sub uni0624      by uni0648      uni0655;
+} hamzakasra;
+
+feature calt {
+# lookupflag IgnoreMarks;
+  sub [uni0626 uni0626.init uni0626.medi uni0626.fina uni0624 uni0624.fina]' lookup hamzakasra
+      [uni0650 uni064D uni08F2];
+} calt;
+#endif // QURAN
+
+//
+// sequential tanween
+//
+// The following marks are proposed for inclusion in Unicode 6.1:
+// http://std.dkuug.dk/jtc1/sc2/wg2/docs/n3791.pdf
+//
+// We can use this temporary ligature hack for now.
+
+// rlig as we want it to be applied before calt
+feature rlig {
+  sub uni064E uni064E by uni08F0; // fathatan
+  sub uni064F uni064F by uni08F1; // dammatan
+  sub uni0650 uni0650 by uni08F2; // kasratan
+} rlig;
+
+
+// small waw after isolated/final heh is lower than usual, so we use an
+// alternate glyph for that
+feature calt {
+  lookupflag IgnoreMarks;
+  sub [@aHeh.isol @aHeh.fina] [uni06E5]' by [uni06E5.low];
+} calt;
+
+// some glyphs need more room to accommodate madda mark, so we change the advance
+// width on fly.
+feature mark {
+  // small waw
+  pos [uni06E5.low]' <50 0 250 0> [uni06E4];
+
+  // alef
+  pos [uni0627.fina uni0627.fina_Wide uni0627.fina_KafMemAlf uni0627.fina_MemAlfFina]' <250 0 250 0> [uni06E4];
+  pos [uni0627.fina uni0627.fina_Wide uni0627.fina_KafMemAlf uni0627.fina_MemAlfFina]' <350 0 350 0> [uni0653];
+  pos [uni0627]' <150 0 300 0> [uni06E4];
+} mark;

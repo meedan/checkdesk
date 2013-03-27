@@ -1,0 +1,40 @@
+languagesystem DFLT dflt;
+languagesystem arab dflt;
+languagesystem arab ARA;
+languagesystem arab URD;
+languagesystem arab SND;
+languagesystem latn dflt;
+languagesystem latn TRK;
+
+#include "classes.fea"
+#include "composition.fea"
+#include "local.fea"
+
+#ifdef ITALIC
+#include "italic.fea"
+#endif
+
+#ifndef QURAN
+#include "proportional.fea"
+#endif
+
+#include "basic.fea"
+#include "kashida.fea"
+#include "quran.fea"
+#include "enclosing.fea"
+#include "rtlm.fea"
+#include "lellah.fea"
+#include "contextuals.fea"
+#include "stylisticsets.fea"
+#include "kerning.fea"
+
+#ifdef QURAN
+#include "post_mark.fea"
+#endif
+
+#ifndef QURAN
+#include "latin.fea"
+#ifdef ITALIC
+#include "italic_kerning.fea"
+#endif
+#endif

@@ -1,0 +1,60 @@
+#ifndef QURAN
+lookup loclPunct {
+  sub period         by period.ara;
+} loclPunct;
+#endif
+
+lookup loclUrduDigits {
+  sub [uni06F4 uni06F6 uni06F7] by [uni06F4.urd uni06F6.urd uni06F7.urd];
+} loclUrduDigits;
+
+lookup loclSindhiDigits {
+  sub [uni06F6 uni06F7] by [uni06F6.urd uni06F7.urd];
+} loclSindhiDigits;
+
+feature locl {
+#ifndef QURAN
+  script arab;
+  language ARA;
+  lookup loclPunct;
+#endif
+
+  language URD exclude_dflt;
+  lookup loclUrduDigits;
+#ifndef QURAN
+  lookup loclPunct;
+#endif
+
+  language SND exclude_dflt;
+  lookup loclSindhiDigits;
+#ifndef QURAN
+  lookup loclPunct;
+#endif
+} locl;
+
+
+// some implementations (e.g ICU) does not support ‘locl’ feature for Arabic
+// script, so we work around this by using ‘ccmp’ registered for the needed
+// languages, which should essentially give the same result.
+//
+// XXX: always sync with ‘locl’ feature above
+
+feature ccmp {
+#ifndef QURAN
+  script arab;
+  language ARA;
+  lookup loclPunct;
+#endif
+
+  language URD exclude_dflt;
+  lookup loclUrduDigits;
+#ifndef QURAN
+  lookup loclPunct;
+#endif
+
+  language SND exclude_dflt;
+  lookup loclSindhiDigits;
+#ifndef QURAN
+  lookup loclPunct;
+#endif
+} ccmp;
