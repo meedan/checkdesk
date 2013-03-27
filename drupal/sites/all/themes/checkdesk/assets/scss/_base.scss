@@ -12,12 +12,18 @@ $icon-position: before !default;
 //
 // See also: typography.scss - sitewide typography styles
 // and style-rtl.scss for arabic typography
-$mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace !default;
-$en-body-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$en-header-font-family: "Merriweather", Georgia, "Times New Roman", Times, serif !default;
+$mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+$en-body-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$en-header-font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+
+// see style-rtl.scss
+$ar-header-font-family: "Andalus", "Arabic Typesetting", "Tahoma";
+$ar-body-font-family: "DecoType Naskh", "Amiri", "Tahoma";
+$ar-nav-font-family: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
 
 // Typography by section
 // LTR defaults — each of these must be matched in styles-rtl.scss
+// See style-rtl.scss where these are overridden
 $nav-font-family: $en-body-font-family !default;
 $header-font-family: $en-header-font-family !default;
 $body-font-family: $en-body-font-family !default;
