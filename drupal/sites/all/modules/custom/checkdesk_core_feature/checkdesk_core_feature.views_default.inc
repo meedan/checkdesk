@@ -1324,11 +1324,23 @@ print theme(\'views_autorefresh\', array(
 ));
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_desk_target_id']['id'] = 'field_desk_target_id';
+  $handler->display->display_options['relationships']['field_desk_target_id']['table'] = 'field_data_field_desk';
+  $handler->display->display_options['relationships']['field_desk_target_id']['field'] = 'field_desk_target_id';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['fields']['title_1']['table'] = 'node';
+  $handler->display->display_options['fields']['title_1']['field'] = 'title';
+  $handler->display->display_options['fields']['title_1']['relationship'] = 'field_desk_target_id';
+  $handler->display->display_options['fields']['title_1']['label'] = '';
+  $handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   /* Field: Content: Rendered Node */
@@ -1424,6 +1436,7 @@ print theme(\'views_autorefresh\', array(
   ),
 ));
 ?>'),
+    t('Content entity referenced from field_desk'),
     t('Page'),
     t('Feed'),
     t('Autorefresh Page'),
