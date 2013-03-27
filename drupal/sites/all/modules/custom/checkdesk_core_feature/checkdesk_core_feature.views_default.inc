@@ -1291,7 +1291,6 @@ print t(\'No content available\');
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Liveblog';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -1372,6 +1371,7 @@ print theme(\'views_autorefresh\', array(
 
   /* Display: Feed */
   $handler = $view->new_display('feed', 'Feed', 'feed');
+  $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'rss';
@@ -1381,6 +1381,7 @@ print theme(\'views_autorefresh\', array(
     'default' => 'default',
     'page' => 'page',
   );
+  $handler->display->display_options['sitename_title'] = 1;
 
   /* Display: Autorefresh Page */
   $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
@@ -1398,7 +1399,6 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['path'] = 'liveblog/autorefresh/%';
   $translatables['liveblog'] = array(
     t('Master'),
-    t('Liveblog'),
     t('more'),
     t('Apply'),
     t('Reset'),
