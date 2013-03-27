@@ -13,7 +13,7 @@ $last_desk_nid = 0;
       if ($this_desk_nid != $last_desk_nid) {
         if ($last_desk_nid) {
           echo "</div> <!-- /desk -->\n";
-          echo theme('checkdesk_related_updates_bar', array('story' => node_load($this_desk_nid)));
+          echo theme('checkdesk_related_updates_bar', array('story' => node_load($last_desk_nid)));
           echo "<div class=\"desk\">\n";
         }
 
@@ -35,8 +35,8 @@ $last_desk_nid = 0;
 
   </div> <!-- /desk -->
 
-  <?php if ($this_desk_nid): // At least one desk is needed ?>
-    <?php echo theme('checkdesk_related_updates_bar', array('story' => node_load($this_desk_nid))); ?>
+  <?php if ($last_desk_nid): // At least one desk is needed ?>
+    <?php echo theme('checkdesk_related_updates_bar', array('story' => node_load($last_desk_nid))); ?>
   <?php endif; ?>
 
 </div>

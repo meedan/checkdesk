@@ -61,13 +61,11 @@ function checkdesk_checkdesk_user_menu_item($variables) {
  */
 function checkdesk_checkdesk_related_updates_bar($variables) {
   $story = $variables['story'];
-
-  $url   = url("node/$story->nid");
   $count = checkdesk_core_story_updates_count($story);
 
   $output  = '';
   $output .= '<div class="related-updates">';
-  $output .=   t('<a href="!url">@count more updates</a> related to <a href="!url">this story</a>. <a href="!url">View all</a>', array('!url' => $url, '@count' => $count));
+  $output .=   l(format_plural($count, '1 more update', '@count more updates'), "node/$story->nid");
   $output .= '</div>';
 
   return $output;
