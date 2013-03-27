@@ -4059,9 +4059,6 @@ body #sidebar-first {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
 }
-body #main h2 {
-  display: none;
-}
 
 @media (min-width: 1238px) {
   body {
@@ -6490,7 +6487,17 @@ body.page-liveblog #main {
   margin-left: 3.31126%;
   display: inline;
 }
-body.page-liveblog #main .post-row {
+body.page-liveblog #main .desk {
+  margin-top: 18px;
+  margin-bottom: 18px;
+  padding-right: 1.65563%;
+  padding-left: 1.65563%;
+  width: 96.68874%;
+  float: right;
+  margin-left: 3.31126%;
+  display: inline;
+}
+body.page-liveblog #main .desk .post-row {
   margin-top: 18px;
   margin-bottom: 18px;
   padding-right: 3.31126%;
@@ -6500,7 +6507,7 @@ body.page-liveblog #main .post-row {
   margin-left: 3.31126%;
   display: inline;
 }
-body.page-liveblog #main .post-row .livefyre-wrapper {
+body.page-liveblog #main .desk .post-row .livefyre-wrapper {
   padding-right: 3.31126%;
   padding-left: 3.31126%;
   width: 93.37748%;
@@ -6509,11 +6516,20 @@ body.page-liveblog #main .post-row .livefyre-wrapper {
   display: inline;
   margin-top: 18px;
   margin-bottom: 18px;
+}
+body.page-liveblog #main .related-updates {
+  margin-top: 18px;
+  margin-bottom: 18px;
+  padding-right: 0.64516%;
+  padding-left: 0.64516%;
+  width: 92.0%;
+  float: right;
+  margin-left: 0.64516%;
+  display: inline;
+  margin-right: 2.70968%;
 }
 body.page-liveblog #main .view-liveblog {
   *zoom: 1;
-  background-color: white;
-  border-top: 2px solid black;
 }
 body.page-liveblog #main .view-liveblog:before, body.page-liveblog #main .view-liveblog:after {
   display: table;
@@ -6523,20 +6539,59 @@ body.page-liveblog #main .view-liveblog:before, body.page-liveblog #main .view-l
 body.page-liveblog #main .view-liveblog:after {
   clear: both;
 }
-body.page-liveblog #main .view-liveblog .post-row {
-  border-bottom: 1px solid #cccccc;
-  padding-bottom: 1em;
+body.page-liveblog #main .view-liveblog .desk {
+  z-index: 1;
+  position: relative;
+  margin-bottom: 0;
+  background-color: white;
+  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
-body.page-liveblog #main .view-liveblog .post-row h2 {
-  display: inline-block;
+body.page-liveblog #main .view-liveblog .desk h2 {
+  margin: 0;
+  font-size: 200%;
+}
+body.page-liveblog #main .view-liveblog .desk h2 a {
+  color: #999999;
+  font-weight: normal;
+}
+body.page-liveblog #main .view-liveblog .desk h2 a:hover {
+  color: #333333;
+}
+body.page-liveblog #main .view-liveblog .desk .post-row {
+  background-color: #dadada;
+  margin-bottom: 1em;
+}
+body.page-liveblog #main .view-liveblog .desk .post-row > h3 {
   margin: 0;
   padding: 0;
   border: 0;
+  font-size: 125%;
+  padding-top: 0.5em;
 }
-body.page-liveblog #main .view-liveblog .post-row h2 a {
+body.page-liveblog #main .view-liveblog .desk .post-row > h3 a {
   color: #333333;
+  font-weight: normal;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
+body.page-liveblog #main .view-liveblog .desk .post-row > h3 a:hover {
+  color: black;
+}
+body.page-liveblog #main .view-liveblog .related-updates {
+  margin-top: 0;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background-color: #f3f3f3;
+  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+body.page-liveblog #main .view-liveblog .related-updates a {
+  color: #333333;
+  font-weight: bold;
+}
+body.page-liveblog #main .view-liveblog .related-updates a:hover {
   color: black;
 }
 
@@ -6550,7 +6605,16 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     padding-right: 8.46906%;
     padding-left: 8.46906%;
   }
-  body.page-liveblog #main .post-row {
+  body.page-liveblog #main .desk {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding-right: 0.98039%;
+    padding-left: 0.98039%;
+    width: 98.03922%;
+    float: right;
+    margin-left: 1.96078%;
+  }
+  body.page-liveblog #main .desk .post-row {
     margin-top: 18px;
     margin-bottom: 18px;
     padding-right: 1.96078%;
@@ -6559,7 +6623,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     float: right;
     margin-left: 1.96078%;
   }
-  body.page-liveblog #main .post-row .livefyre-wrapper {
+  body.page-liveblog #main .desk .post-row .livefyre-wrapper {
     padding-right: 1.96078%;
     padding-left: 1.96078%;
     width: 96.07843%;
@@ -6567,6 +6631,16 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     margin-left: 1.96078%;
     margin-top: 18px;
     margin-bottom: 18px;
+  }
+  body.page-liveblog #main .related-updates {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding-right: 0.64516%;
+    padding-left: 0.64516%;
+    width: 92.0%;
+    float: right;
+    margin-left: 0.64516%;
+    margin-right: 2.70968%;
   }
 }
 @media (min-width: 1238px) {
@@ -6579,7 +6653,16 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     padding-right: 8.40065%;
     padding-left: 8.40065%;
   }
-  body.page-liveblog #main .post-row {
+  body.page-liveblog #main .desk {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding-right: 0.48544%;
+    padding-left: 0.48544%;
+    width: 99.02913%;
+    float: right;
+    margin-left: 0.97087%;
+  }
+  body.page-liveblog #main .desk .post-row {
     margin-top: 18px;
     margin-bottom: 18px;
     padding-right: 0.97087%;
@@ -6588,7 +6671,7 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     float: right;
     margin-left: 0.97087%;
   }
-  body.page-liveblog #main .post-row .livefyre-wrapper {
+  body.page-liveblog #main .desk .post-row .livefyre-wrapper {
     padding-right: 0.97087%;
     padding-left: 0.97087%;
     width: 98.05825%;
@@ -6596,6 +6679,16 @@ body.page-liveblog #main .view-liveblog .post-row h2 a:hover {
     margin-left: 0.97087%;
     margin-top: 18px;
     margin-bottom: 18px;
+  }
+  body.page-liveblog #main .related-updates {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding-right: 0.64516%;
+    padding-left: 0.64516%;
+    width: 92.0%;
+    float: right;
+    margin-left: 0.64516%;
+    margin-right: 2.70968%;
   }
 }
 .node-type-discussion #block-views-desk-updates-block {
@@ -7779,7 +7872,7 @@ body.page-reports {
 }
 body.page-reports h1.title {
   text-align: center;
-  background-color: #f0f0f0;
+  background-color: #c9c9c9;
 }
 body.page-reports #main {
   padding-right: 0%;
@@ -7831,7 +7924,7 @@ body.page-reports li.views-fluid-grid-item {
   }
 }
 body {
-  background-color: #f0f0f0;
+  background-color: #c9c9c9;
 }
 
 #l10n-client {

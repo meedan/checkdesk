@@ -945,8 +945,9 @@ function checkdesk_core_fact_checking($node) {
 /**
  * API function to return number of drafted updates of a story.
  */
-function checkdesk_core_story_drafted_updates_count($node) {
-  $count = db_query("SELECT COUNT(*) FROM {node} n INNER JOIN {field_data_field_desk} f ON f.entity_id = n.nid WHERE n.type = 'post' AND n.status = 0 AND f.bundle = 'post' AND field_desk_target_id = " . $node->nid)->fetchField();
+function checkdesk_core_story_updates_count($node, $drafted_only = FALSE) {
+  $status = $drafted_only ? 0 : 1;
+  $count = db_query("SELECT COUNT(*) FROM {node} n INNER JOIN {field_data_field_desk} f ON f.entity_id = n.nid WHERE n.type = 'post' AND n.status = :status AND f.bundle = 'post' AND field_desk_target_id = :target_nid", array(':status' => $status, ':target_nid' => $node->nid))->fetchField();
   return intval($count);
 }
 
