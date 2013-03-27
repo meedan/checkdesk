@@ -1,26 +1,26 @@
 @charset "UTF-8";
 
-// ## Checkdesk Theme 
-// Typography: webfonts
-//
-// Webfont @imports are best served first.
-// As per https://github.com/chriseppstein/compass/issues/639
-// - CGB Nov 2012
-//
-// "Open Sans"
-// A light 300 and balanced 600: 2 excellent weights for use at very small sizes — cgb
-// see: http://www.google.com/webfonts/Collection:Open+Sans
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,600");
+// ## Checkdesk Themes 
 
-// "Merriweather" — our big heavyweight headline font
-@import url("https://fonts.googleapis.com/css?family=Merriweather:400,300,700,900");
+// Directional defaults
+$from-direction: left !default;
+$icon-position: before !default;
 
-// Typography configuration 
+// setup webfonts
+// @import
+// Typography configuration
 //
 // See also: typography.scss - sitewide typography styles
-$sans-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$serif-font-family: Georgia, "Times New Roman", Times, serif;
-$mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+// and style-rtl.scss for arabic typography
+$mono-font-family: Monaco, Menlo, Consolas, "Courier New", monospace !default;
+$en-body-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$en-header-font-family: "Merriweather", Georgia, "Times New Roman", Times, serif !default;
+
+// Typography by section
+// LTR defaults — each of these must be matched in styles-rtl.scss
+$nav-font-family: $en-body-font-family !default;
+$header-font-family: $en-header-font-family !default;
+$body-font-family: $en-body-font-family !default;
 
 // Sass libraries
 // ===========================================================================
