@@ -43,10 +43,10 @@ $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
 // Set the default position of icons
-$icon-position: 'before';
-@if $from-direction == 'right' {
-	$icon-position: 'after';
-}
+// $icon-position: 'before';
+// @if $from-direction == 'right' {
+// 	$icon-position: 'after';
+// }
 
 // Drupal styles
 // Drupal itself should not emit *any* CSS. 

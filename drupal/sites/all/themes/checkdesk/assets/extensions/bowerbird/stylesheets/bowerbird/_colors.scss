@@ -79,8 +79,6 @@ $form-validation-error: $firetruck-red;
 $form-validation-success: $verdun-green;
 $form-validation-warning: $yellow-orange;
 
-
-
 // A debugging theme
 $debug-bkg: lighten(hsl(212, 75%, 14%), 30%);
 $debug-one: hsl(344, 100%, 69%);
@@ -100,7 +98,7 @@ $notification-count-bkg-color: rgba($identity, 0.5);
 
 $nav-color: rgba(white, 0.65);
 $nav-bkg-color: rgb(38, 38, 38); // from maya's design
-$nav-active-color: $nav-bkg-color; // active text
+$nav-active-color: rgba(white, 0.95); // active text
 $nav-active-bkg-color: $nav-bkg-color;
 $nav-container-bkg-color: $nav-bkg-color; //wrapper on nav
 $nav-hover-bkg-color: white;
@@ -164,47 +162,22 @@ $purple:                #7a43b6 !default;
 $bodyBackground:        $white !default;
 $textColor:             $grayDark !default;
 
-
 // BootstrapLinks
 // #deprecated
 // -------------------------
 $linkColor:             #08c !default;
 $linkColorHover:        darken($linkColor, 15%) !default;
 
-
 // Tables
+// #deprecated
 // -------------------------
 $tableBackground:                   transparent !default; // overall background-color
 $tableBackgroundAccent:             #f9f9f9 !default; // for striping
 $tableBackgroundHover:              #f5f5f5 !default; // for hover
 $tableBorder:                       #ddd !default; // table and cell border
 
-// // Buttons
-// // -------------------------
-// $btnBackground:                     $white !default;
-// $btnBackgroundHighlight:            darken($white, 10%) !default;
-// $btnBorder:                         #bbb !default;
-
-// $btnPrimaryBackground:              $linkColor !default;
-// $btnPrimaryBackgroundHighlight:     adjust-hue($btnPrimaryBackground, 20%) !default;
-
-// $btnInfoBackground:                 #5bc0de !default;
-// $btnInfoBackgroundHighlight:        #2f96b4 !default;
-
-// $btnSuccessBackground:              #62c462 !default;
-// $btnSuccessBackgroundHighlight:     #51a351 !default;
-
-// $btnWarningBackground:              lighten($orange, 15%) !default;
-// $btnWarningBackgroundHighlight:     $orange !default;
-
-// $btnDangerBackground:               #ee5f5b !default;
-// $btnDangerBackgroundHighlight:      #bd362f !default;
-
-// $btnInverseBackground:              #444 !default;
-// $btnInverseBackgroundHighlight:     $grayDarker !default;
-
-
 // // Forms
+// #deprecated
 // // -------------------------
 $inputBackground:               $white !default;
 $inputBorder:                   #ccc !default;
@@ -215,6 +188,7 @@ $inputHeight:                   $absolute-line-height + 18px;
 
 
 // // Dropdowns
+// #deprecated
 // -------------------------
 $dropdownBackground:            $white !default;
 $dropdownBorder:                rgba(0,0,0,.2) !default;
@@ -228,22 +202,9 @@ $dropdownLinkColorActive:       $dropdownLinkColor !default;
 $dropdownLinkBackgroundActive:  $linkColor !default;
 $dropdownLinkBackgroundHover:   $dropdownLinkBackgroundActive !default;
 
-// // Tabs
-// // -------------------------
-// $tabBackground:            $white !default;
-// $tabBorder:                rgba(0,0,0,.2) !default;
-// $tabDividerTop:            #e5e5e5 !default;
-// $tabDividerBottom:         $white !default;
-
-// $tabLinkColor:             $grayDark !default;
-// $tabLinkColorHover:        $white !default;
-// $tabLinkColorActive:       $tabLinkColor !default;
-
-// $tabLinkBackgroundActive:  $linkColor !default;
-// $tabLinkBackgroundHover:   $tabLinkBackgroundActive !default;
-
 
 // // Form states and alerts
+// #deprecated
 // -------------------------
 $warningText:             #c09853 !default;
 $warningBackground:       #fcf8e3 !default;

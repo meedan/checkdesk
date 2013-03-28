@@ -66,7 +66,8 @@ $icon-position: 'before';
     line-height: $nav-height - 4px;
     color: $nav-color;
     display: inline-block;
-    &:hover {
+
+    &:active, &:hover {
       color: $nav-active-color;
       background-color: $nav-active-bkg-color;
     }
@@ -83,12 +84,12 @@ $icon-position: 'before';
   
   // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
   &:hover {
-    background-color: $nav-active-bkg-color;
+    background-color: $nav-hover-bkg-color;
     color: $nav-hover-color;
   }
 
-  &.active {
-    background-color: $nav-hover-bkg-color;
+  &.active,  {
+    background-color: $nav-active-bkg-color;
     color: $nav-active-color;
   }
 
@@ -98,6 +99,11 @@ $icon-position: 'before';
     color: $nav-active-color;
     @include border-radius($radius $radius 0 0);
     font-weight: 500;
+    // don't forget the icons
+    &:before { 
+      color: $nav-active-color; 
+      background-color: $nav-active-bkg-color;
+    }
   }
 
   span.avatar img { // images in nav items
