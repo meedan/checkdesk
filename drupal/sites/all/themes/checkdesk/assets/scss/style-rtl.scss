@@ -5,10 +5,14 @@
 $from-direction: right !default;
 $icon-position: after !default;
 
-// needs #review to confirm this selection
-// override defaults — which must be set with !default
-$header-font: $ar-header-font !default;
-$body-font: $ar-body-font !default;
+// configure arabic font names 
+$ar-header-font-stack: "Andalus", "Arabic Typesetting", "Tahoma";
+$ar-body-font-stack: "DecoType Naskh", "Amiri", "Tahoma";
+$ar-nav-font-stack: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
+
+// override default fonts with arabic fonts
+$header-font-stack: $ar-header-font-stack !default;
+$body-font-stack: $ar-body-font-stack !default;
 $nav-font-stack: $ar-body-font-stack !default;
 
 // 2. ============================================

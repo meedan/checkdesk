@@ -27,7 +27,6 @@ $bh: $baseLineHeight/4;
 		margin-#{$from-direction}: $gw*2;
 	}
 
-	font-family: $sans-font-family;
 	font-size: $fontSizeSmall;
 	margin: { top: $gw; bottom: $gw; }
 	
@@ -291,7 +290,7 @@ $bh: $baseLineHeight/4;
 				@include reset-box-model();
 				font-size: $fontSizeSmall;
 				display: inline-block;
-				font-family: $sans-font-family;
+		
 				font-weight: normal;
 				color: rgba(black, 0.8);
 				padding: 0;

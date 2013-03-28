@@ -29,24 +29,6 @@
 // $classPrefix - Prefix for the classname we will generate and extend
 $classPrefix: "icon-" !default;
 
-// Apply font-face mixin
-//
-// $fontnames = ("font1 [font2 font3 ...]")
-//
-// Compatibility: untested
-@mixin apply-font-face($name: "FontAwesome", $file: "fontawesome-webfont", $path: "fontawesome" ) {
-  // @debug "including .woff, .ttf, .svg, and .eot versions of #{$name}";
-  @include font-face( 
-  $name,
-  font-files(
-    "#{$path}/#{$file}.woff", woff,
-    "#{$path}/#{$file}.ttf", truetype,
-    "#{$path}/#{$file}.svg##{font}", svg),
-    "#{$path}/#{$file}.eot",
-  normal,
-  normal);
-}
-
 // Icon Mixin
 //
 // Extends a preexisting selector like .icon-thumb-up for a given font or font family.
@@ -90,6 +72,7 @@ $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
   }
 }
 
+// A small triangle, eg for dropdowns
 @mixin caret {
   @include icon('caret-down', 12px, white, 'after');
 }

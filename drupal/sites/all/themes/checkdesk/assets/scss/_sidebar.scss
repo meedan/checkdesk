@@ -39,7 +39,6 @@
       div#content .inner {
         @include span-columns($pw omega, $break);
         @include pad(0,0, $break);
-        margin-top: $base-font-size;
       }
     }
   }
@@ -94,10 +93,7 @@
 // incoming reports 
 // inside the sidebar
 #incoming-reports {
-
-  // @include ctb-clearfix;
-  font-family: $sans-font-family;
-  font-size: $fontSizeSmall;
+  font-size: $small-font-size;
   padding: 0 $gw*2;
   color: $gray;
 

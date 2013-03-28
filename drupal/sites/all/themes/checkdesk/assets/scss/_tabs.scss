@@ -34,7 +34,6 @@ div.tabs {
   ul.primary {
     @include reset-box-model;
     @include ctb-clearfix;
-    font-family: $sans-font-family;
     font-size: $small-font-size;
     font-weight: 300;
     @extend %tab-colors;

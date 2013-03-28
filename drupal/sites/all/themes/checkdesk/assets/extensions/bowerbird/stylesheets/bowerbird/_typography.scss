@@ -1,15 +1,33 @@
+// Apply font-face mixin
+//
+// $fontnames = ("font1 [font2 font3 ...]")
+// the base font_path and font_dir are set in config.rb
+//
+// Compatibility: Woff and TTF together support IE9+, FF3.6+, Chrome4.0+, iOS4.2+, Opera 10+ 
+// http://caniuse.com/ttf http://caniuse.com/woff
+// https://developer.mozilla.org/en-US/docs/CSS/@font-face#Browser_compatibility
+
+// Bowerbird font face
+//
+// $name is required, arbitrary, and what you will use in font stacks.
+// $weight shows if the font is bold, defaults to normal
+// $style defaults to normal, might be also italic
+//
+// Order of the includes matters, and it is: normal, bold, italic, bold+italic.
+// All fonts should be in the same folder as defined in config.rb font_path
+// See: http://compass-style.org/reference/compass/css3/font_face/
+@mixin bowerbird-font-face($name: "FontName", $file: "fontname-webfont", $weight: normal, $style: normal) {
+  @include font-face(  
+  $name,
+  font-files(
+    "#{$file}.woff",
+    "#{$file}.ttf"
+  ));
+}
+
 // bowerbird type defaults
-
-@mixin bb-typography-defaults {
+@mixin bowerbird-typography-defaults {
   
-  body {
-    line-height: $base-line-height; //1.2
-    font-size: $small-font-size; // in px
-    color: $text-color;
-    font-family: $serif-font-family;
-    text-align: $from-direction;
-  }
-
   h1, h2, h3, h4 {
     @include reset-box-model;
   }
@@ -18,6 +36,7 @@
     color: $link-color;
     text-decoration: none;
   }
+
   a:hover {
     color: $linkColorHover;
     text-decoration: underline;
@@ -28,7 +47,7 @@
   }
 
   small {
-    font-size: 85%; // Ex: 14px base font * 85% = about 12px
+    font-size: $small-font-size;
   }
 
   strong {
@@ -91,6 +110,7 @@
     cursor: help;
     border-bottom: 1px dotted $light-grey;
   }
+
   abbr.initialism {
     font-size: 90%;
     text-transform: uppercase;

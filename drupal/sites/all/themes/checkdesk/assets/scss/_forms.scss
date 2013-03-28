@@ -99,7 +99,6 @@
     margin: 0;
     padding: 0;
     padding-bottom: $baseLineHeight/2;
-    font-family: $sans-font-family;
     font-size: $fontSizeSmall;
     line-height: 1.4;
   }
@@ -108,11 +107,11 @@
 
 // In addition to our use of normalize, and other resets, 
 // This standardizes form elements
+// #review why so many resets? CGB
 //
 @mixin form-standardize {
   
   label, input, button, select, textarea, body.cke_editable { font-size: $base-font-size; }
-  input, button, select, textarea, body.cke_editable { font-family: $sans-font-family; }
 
   // select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
   //   display: inline-block;

@@ -67,7 +67,6 @@
 @mixin debug-grid($break: $cw) {
   // Add a banner with debugging info
   body:after {
-    font-family: $sans-font-family;
     font-size: $smaller-font-size;
     content: "At #{$break} cols. Breakpoints at #{$break-small}, #{$break-medium} and #{$break-large}.";
     position: fixed;

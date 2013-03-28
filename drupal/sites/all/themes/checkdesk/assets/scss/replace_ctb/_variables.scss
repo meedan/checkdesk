@@ -44,14 +44,14 @@ $linkColorHover:        darken($linkColor, 15%) !default;
 //
 // Overriden where appropriate with values from checkdesk. - Nov 2012 CGB
 // -------------------------
-$sansFontFamily: $sans-font-family;
-$serifFontFamily: $serif-font-family;
-$monoFontFamily: $mono-font-family;
+$sansFontFamily: $body-font-stack;
+$serifFontFamily: $header-font-stack;
+$monoFontFamily: $mono-font-stack;
 
 $baseFontSize:          $base-font-size !default;
-$baseFontFamily:        $sans-font-family !default;
+$baseFontFamily:        $body-font-stack !default;
 $baseLineHeight:        $base-font-size * $base-line-height !default; // TB expects pixels
-$altFontFamily:         $serifFontFamily !default;
+$altFontFamily:         $header-font-stack !default;
 
 $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily
 $headingsFontWeight:    bold !default;    // instead of browser default, bold

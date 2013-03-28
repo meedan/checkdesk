@@ -13,7 +13,7 @@ ul.pager {
 //     border-#{$from-direction}-width: 0;
 //   }
 //   li {
-//     font-family: $sans-font-family;
+//  
 //     font-size: $large-font-size;
 //     border-#{$from-direction}: 1px solid $grey;
 //     a { 
@@ -38,7 +38,6 @@ ul.pager {
   @include reset-list-style;
   @include ctb-clearfix;
   margin: $baseLineHeight 0;
-  font-family: $sans-font-family;
   font-size: $fontSizeSmall;
 
   li {

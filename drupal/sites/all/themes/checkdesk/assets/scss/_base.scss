@@ -6,19 +6,28 @@
 $from-direction: left !default;
 $icon-position: before !default;
 
-// setup webfonts
-// @import
-
-// Typography default configuration
+// Typography configuration
 //
-// A.) Setup. Do not use these directly:
+// See also typography.scss and bowerbird/typography.scss
+//
+// A.) ... Use only these:
+@import "compass/css3/font-face";
+@import "bowerbird/typography";
+//
+// B.)  Tell the browser about these files and define the font name
+@include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
+@include bowerbird-font-face("Merriweather", "merriweather-webfont-webfont");
+@include bowerbird-font-face("Merriweather Light", "merriweather-light-webfont-webfont");
+@include bowerbird-font-face("Andalus", "andlso-webfont");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "bold");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
+@include bowerbird-font-face("Andalus", "andlso-webfont");
+//
+// C.) Setup. Do not use these variables directly:
 $en-body-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$en-header-font-stack: "Merriweather", Georgia, "Times New Roman", Times, serif;
-$ar-header-font-stack: "Andalus", "Arabic Typesetting", "Tahoma";
-$ar-body-font-stack: "DecoType Naskh", "Amiri", "Tahoma";
-$ar-nav-font-stack: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
-
-// B.) ... Use only these:
+$en-header-font-stack: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+//
+// D.) Lastly set the language-independent variables
 $mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace;
 $nav-font-stack: $en-body-font-stack !default;
 $header-font-stack: $en-header-font-stack !default;

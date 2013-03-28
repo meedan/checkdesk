@@ -30,7 +30,7 @@
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
-// Set the position of icons
+// Set the default position of icons
 $icon-position: 'before';
 @if $from-direction == 'right' {
 	$icon-position: 'after';
@@ -84,15 +84,11 @@ $icon-position: 'before';
 // background image helper for development
 @import "bowerbird/backgrounds";
 
-// Bowerbird font-icon support mixins: apply-font-face() and icon()
+// Bowerbird font-icon support mixin: icon()
 @import "bowerbird/icons/icons";
 
-// Icon webfonts stored locally
-// This loads many classnames that can be safely removed before production - CGB
-@include apply-font-face("FontAwesome", "fontawesome-webfont");
-
-// Load .icon- classnames
-// Import the classnames as a mixin
+// Load @extendable %icon- selectors
+// @extend directly or use icon() mixin to do it for you
 @import "bowerbird/icons/fontawesome";
 
 // Bowerbird fancy-buttons 
@@ -251,6 +247,7 @@ body {
 }
 
 // Bidi helpers
+// These are unusual because they are not overridden in style-rtl.scss
 .rtl {
   text-align: right;
   direction: rtl;
@@ -258,6 +255,22 @@ body {
 .ltr {
   text-align: left;
   direction: ltr;        
+}
+
+// Not so evil hack
+// corrects the links to the story in the update
+a[href*="/en"] {
+  font-family: $en-body-font-stack;
+  @if $debug {
+    border: 1px solid red;
+  }
+}
+
+a[href*="/ar"] {
+  font-family: $ar-body-font-stack;
+  @if $debug {
+    border: 1px solid aqua;
+  }
 }
 
 
