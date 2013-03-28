@@ -37,14 +37,6 @@ $classPrefix: "icon-" !default;
 // $set - the shorthand name of the set eg "fontawesome"
 // $size - the width and height of the icon
 // $font-name - Required for Foundicons: Specify one font from the family.
-// 
-// Example: 
-// span { @include icon('thumb-up', 'foundicons', '40px', 'social'); }
-// span { @include icon('thumb-up', 'foundicons', '40px', 'social', $greenish, $whitey); }
-// span { @include icon('twitter', 'fontawesome', '100px'); }
-// span { @include icon('twitter') } // same as above with default size
-//
-// Compatibility: Untested
 
 $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
 
@@ -61,11 +53,8 @@ $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
     font-size: $size;
     line-height: $size;
     color: $color;
-    @if $position == "after" { 
-      margin-#{$from-direction}: $gutter-width; 
-    } @else {
-      margin-#{opposite-position($from-direction)}: $gutter-width;  
-    }
+    margin-#{$from-direction}: $gutter-width;
+    margin-#{opposite-position($from-direction)}: 0;  
     
     // 4. content (for any extra)
     @content;
