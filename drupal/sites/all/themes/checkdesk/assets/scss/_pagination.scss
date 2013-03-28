@@ -37,7 +37,7 @@ ul.pager {
   @include reset-box-model;
   @include reset-list-style;
   @include ctb-clearfix;
-  margin: $baseLineHeight 0;
+  margin: $absolute-line-height 0;
   font-size: $fontSizeSmall;
 
   li {
@@ -75,10 +75,4 @@ ul.pager {
     background-color: $white;
     cursor: default;
   }
-
-  .ajax-progress-throbber {
-    
-  }
-
-
 }

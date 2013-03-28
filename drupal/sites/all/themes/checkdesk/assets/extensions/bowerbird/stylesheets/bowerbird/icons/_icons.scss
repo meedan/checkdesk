@@ -62,9 +62,9 @@ $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
     line-height: $size;
     color: $color;
     @if $position == "after" { 
-      margin-#{$from-direction}: $gw; 
+      margin-#{$from-direction}: $gutter-width; 
     } @else {
-      margin-#{opposite-position($from-direction)}: $gw;  
+      margin-#{opposite-position($from-direction)}: $gutter-width;  
     }
     
     // 4. content (for any extra)

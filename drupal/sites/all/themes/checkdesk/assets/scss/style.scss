@@ -1,5 +1,17 @@
 @charset "UTF-8";
+
 // Checkdesk Sass Theme
+@import "base";
+
+// Tell the browser about these files and define the font name
+// See base.scss configuration, with overrides in style-rtl.scss
+@include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
+@include bowerbird-font-face("Merriweather", "merriweather-webfont-webfont");
+@include bowerbird-font-face("Merriweather Light", "merriweather-light-webfont-webfont");
+@include bowerbird-font-face("Andalus", "andlso-webfont");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "bold");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
+@include bowerbird-font-face("Andalus", "andlso-webfont");
 
 // Modular scale 
 // via: gem
@@ -118,12 +130,12 @@ $icon-position: 'before';
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
 @import "replace_ctb/navs";
-@import "bowerbird/compass_twitter_bootstrap/reset";
-@import "bowerbird/compass_twitter_bootstrap/code"; // TB Syntax highlighting
-@import "bowerbird/compass_twitter_bootstrap/tables"; // TB Tabular data
+@import "compass_twitter_bootstrap/reset";
+// @import "compass_twitter_bootstrap/code"; // TB Syntax highlighting
+// @import "compass_twitter_bootstrap/tables"; // TB Tabular data
 
 // TB utilities
-@import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
+@import "compass_twitter_bootstrap/utilities";   // Should come last of TB
 
 // Checkdesk mixins
 //
@@ -137,9 +149,9 @@ $icon-position: 'before';
 //  Default checkdesk layout
 //
 body {
-  @include container($cw $break-small $break-medium);
+  @include container($container-width $break-small $break-medium); // establish three breakpoints
   #main {
-    @include span-columns($cw, $cw, $gw);
+    @include span-columns($container-width, $container-width, $gutter-width);
   }
 }
 
@@ -233,7 +245,6 @@ body {
 #l10n-client {
 	display: block !important;
 	visibility: visible !important;
-	@include ctb-font-sans-serif($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight);
 	form {
 		width: 100%;
 		.form-item {

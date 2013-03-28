@@ -6,8 +6,6 @@
 //
 // Compatibility: untested
 
-
-$bh: $baseLineHeight/4;
 // setting omega
 $omega: opposite-position($from-direction);
 
@@ -18,7 +16,7 @@ $omega: opposite-position($from-direction);
   @if $from-direction == right {
     right: -308px;
   }
-  width: 360px;
+  width: 360px; // warning magic px CGB
   font-size: $fontSizeMini;
   line-height: 1;
   
@@ -26,7 +24,7 @@ $omega: opposite-position($from-direction);
   .heartbeat-activity {
     @include ctb-clearfix();
     color: $gray;
-    padding: $bh $gw;
+    padding: $absolute-line-height/2 $gutter-width;
     border-bottom: 1px solid $grayLighter;
     overflow: hidden;
 
@@ -45,7 +43,7 @@ $omega: opposite-position($from-direction);
       @include ctb-clearfix();
       .activity-data-image {
         float: $from-direction;
-        margin-#{$omega}: $gw;
+        margin-#{$omega}: $gutter-width;
         vertical-align: text-bottom;
         @include ctb-square(20px);
       }
@@ -54,15 +52,13 @@ $omega: opposite-position($from-direction);
         float: $from-direction;
         width: 80%;
       }
-
     }
 
     .activity-meta {
-      margin-top: $bh/2;
+      margin-top: $absolute-line-height/4;
       color: $grayLight;
     }
   }
-
 
   // Activity icons
   @mixin activity-icon(
@@ -100,7 +96,7 @@ $omega: opposite-position($from-direction);
   .view-content {
     height: ms(10);
     overflow-y: auto;
-    margin-bottom: $bh;
+    margin-bottom: $absolute-line-height/4;
   }
 
   .more-link {

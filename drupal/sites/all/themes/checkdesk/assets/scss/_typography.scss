@@ -9,7 +9,7 @@
 @include bowerbird-typography-defaults; // typography defaults
 
 body {
-  line-height: $base-line-height; //1.2
+  line-height: $absolute-line-height; // in px
   font-size: $small-font-size; // in px
   color: $text-color;
   font-family: $body-font-stack;
@@ -24,7 +24,7 @@ h1, h2, h3, h4 {
 
 h1 {
   font-size: $xxx-large-font-size;
-  line-height: $larger-font-size * 2;
+  line-height: $relative-line-height;
   color: $dark-grey;
   @include cd-light-text-shadow;
 }

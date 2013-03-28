@@ -9,11 +9,8 @@ $report-description-background-color: $light-grey;
 $report-footnotes-background-color: darken($light-grey, 10%);
 $report-text-color: $dark-grey;
 
-// Currently set on base font size of 18px which is too big
-$bh: $baseLineHeight/4;
-
 .report {
-	// @include span-columns($cw, $cw); // default is full width
+	// @include span-columns($container-width, $container-width); // default is full width
 	width: 100%; //default
 	// min-width: 240px;
 	// max-width: 600px;
@@ -24,11 +21,11 @@ $bh: $baseLineHeight/4;
 	// when inside a modal
 	.modal & { 
 		max-width: 380px; 
-		margin-#{$from-direction}: $gw*2;
+		margin-#{$from-direction}: $gutter-width*2;
 	}
 
 	font-size: $fontSizeSmall;
-	margin: { top: $gw; bottom: $gw; }
+	margin: { top: $gutter-width; bottom: $gutter-width; }
 	
 	a {
 		color: $report-text-color;
@@ -39,7 +36,7 @@ $bh: $baseLineHeight/4;
 
 	& > header {
 		color: $report-text-color;
-		padding: $gw/2 $gw;
+		padding: $gutter-width/2 $gutter-width;
 		@include ctb-clearfix;
 		background-color: darken($grayLighter, 5%);
 		h3 {
@@ -66,7 +63,7 @@ $bh: $baseLineHeight/4;
 			@include reset-list-style;
 			// display: inline-block;
 			float: $omega;
-			padding-right: $gw;
+			padding-right: $gutter-width;
 			// The last dropdown needs to not stick out at smaller sizes
 			@if $from-direction == left {
 				li.add-to .dropdown-menu {
@@ -92,14 +89,12 @@ $bh: $baseLineHeight/4;
 			}
 
 			& > li {
-				// display: inline-block;
 				float: $from-direction;
 				font-size: $fontSizeSmall;
 
 				& > a {
 					@include reset-box-model;
 					display: block;
-					// padding: $bh/2 0;
 					
 					@include transition-property(all);
 			    	@include transition-duration(0.2s);
@@ -112,7 +107,7 @@ $bh: $baseLineHeight/4;
 						@include reset-box-model;
 						float: $from-direction;
 						display: inline-block;
-						margin-#{$from-direction}: $gw;
+						margin-#{$from-direction}: $gutter-width;
 						&:hover {
 							color: $identity;
 						}
@@ -143,11 +138,11 @@ $bh: $baseLineHeight/4;
 
 		background-color: $report-background-color;
 		color: $report-text-color;
-		padding: $gw;
+		padding: $gutter-width;
 
 		.report-media {
 			text-align: center;
-			margin-bottom: $gw;
+			margin-bottom: $gutter-width;
 			.container {
 				max-width: 100%;
 				display: inline-block;
@@ -164,7 +159,7 @@ $bh: $baseLineHeight/4;
 				}
 
 				.thumbnail img {
-					padding: $gw 0;
+					padding: $gutter-width 0;
 				}
 
 				.oembed-title {
@@ -183,7 +178,7 @@ $bh: $baseLineHeight/4;
 				.favicon, 
 				.author-img {
 					float: $alpha;
-					padding-#{$omega}: $gw/2;
+					padding-#{$omega}: $gutter-width/2;
 					width: auto;
 				}
 				
@@ -208,10 +203,10 @@ $bh: $baseLineHeight/4;
 			    	background: none !important;
 			    .sensitive-notification-text {
 			    	color: $grayDark;
-			    	padding: $bh $gw/2;
+			    	padding: $absolute-line-height/2 $gutter-width/2;
 			    }
 			    .sensitive-notification-link {
-			    	padding: $bh $gw/2;
+			    	padding: $absolute-line-height/2 $gutter-width/2;
 			    	a {
 			    		@include button($grayLight, 18px);
 			    	}
@@ -222,18 +217,18 @@ $bh: $baseLineHeight/4;
 
 		& > p {
 			color: $grayLight;
-			margin: $bh 0;
+			margin: $absolute-line-height/2 0;
 			a {
 				font-weight: bold;
 			}
 		}
 
 		.gravatar {
-			margin-#{$alpha}: $gw;
+			margin-#{$alpha}: $gutter-width;
 			img {
 				vertical-align: text-bottom;
 				@include ctb-square(20px);
-				margin-#{$omega}: $gw/3;
+				margin-#{$omega}: $gutter-width/3;
 			}	
 		}
 
@@ -248,13 +243,12 @@ $bh: $baseLineHeight/4;
 		.description {
 			@include ctb-clearfix;
 			border-top: 1px solid $white;
-			padding-top: $gw;
-			@include ctb-font-sans-serif(15px, normal, 19px);
+			padding-top: $gutter-width;
 
 			span {
 				color: $white;
 				float: $alpha;
-				padding: $bh $gw;
+				padding: $absolute-line-height/2 $gutter-width;
 				font-size: 140%;
 			}
 		}
@@ -280,7 +274,7 @@ $bh: $baseLineHeight/4;
 
 		& > header {
 			@include clearfix();
-			padding: $gw;
+			padding: $gutter-width;
 			// text-shadow: 0 1px 0 rgba(255,255,255,.3);
 			cursor: pointer;
 			font-size: $fontSizeSmall;
@@ -343,14 +337,14 @@ $bh: $baseLineHeight/4;
 		.activity-wrapper {
 			display: none;
 			@include ctb-clearfix;
-			padding: $bh $gw;
+			padding: $absolute-line-height/2 $gutter-width;
 			background-color: $grayLighter;
 			
 			ul.pager-load-more {
 				float: $alpha;
 				clear: both;
 				text-align: $alpha;
-				margin: $bh 0 $bh*2 0;
+				margin: $absolute-line-height/2 0 $absolute-line-height 0;
 				position: relative;
 
 				a {
@@ -360,7 +354,7 @@ $bh: $baseLineHeight/4;
 				.ajax-progress-throbber {
 					position: absolute;
 					top: 6px;
-					#{$omega}: -$gw*3;
+					#{$omega}: -$gutter-width*3;
 					.throbber {
 						background: url("../imgs/icons/loader_white.gif");
 					}
@@ -375,17 +369,17 @@ $bh: $baseLineHeight/4;
 
 				font-size: 14px;
 				color: $gray;
-				margin-#{$from-direction}: $gw/2;
-				padding-bottom: $bh;
-				padding-#{$from-direction}: $gw*2;
+				margin-#{$from-direction}: $gutter-width/2;
+				padding-bottom: $absolute-line-height/2;
+				padding-#{$from-direction}: $gutter-width*2;
 
 				header {
 					@include ctb-clearfix;
 					[class^="icon-"],
 					[class*=" icon-"] {
 						float: $alpha;
-						margin-#{$alpha}: -$gw*2.8;
-						margin-#{$omega}: $gw/2;
+						margin-#{$alpha}: -$gutter-width*2.8;
+						margin-#{$omega}: $gutter-width/2;
 					}
 					.time {
 						float: $from-direction;
@@ -393,15 +387,15 @@ $bh: $baseLineHeight/4;
 					}
 					.title {
 						// float: $from-direction;
-						margin-#{$from-direction}: $gw;
+						margin-#{$from-direction}: $gutter-width;
 					}
 					a {
 						font-weight: bold;
 					}
 				}
 				.message {
-					margin-top: $bh;
-					padding: $bh $gw/2;
+					margin-top: $absolute-line-height/2;
+					padding: $absolute-line-height/2 $gutter-width/2;
 					background-color: $white;
 					@include border-radius(4px);
 					& > p {
@@ -414,7 +408,7 @@ $bh: $baseLineHeight/4;
 		#comment-form {
 			@include ctb-clearfix;
 			padding: 0;
-			margin-top: $bh*2;
+			margin-top: $absolute-line-height/2*2;
 			background-color: $grayLighter;
 			label {
 				display: none;
@@ -430,7 +424,7 @@ $bh: $baseLineHeight/4;
 
 		& > footer {
 			color: $grayLight;
-			// padding: $gw;
+			// padding: $gutter-width;
 			font-size: $fontSizeSmall;
 		}
 	}

@@ -64,7 +64,7 @@
 // Adds a breakpoint debugging banner the grid background image
 // $break: the number of columns you're working with
 //
-@mixin debug-grid($break: $cw) {
+@mixin debug-grid($break: $container-width) {
   // Add a banner with debugging info
   body:after {
     font-size: $smaller-font-size;
@@ -108,8 +108,8 @@ $drupal_form_selectors: ".item-list", ".form-item", ".form-actions", ".something
 
   // Default
   html {
-    @include column-grid-background($cw, column(), gutter(), 0%);
-    @if $banner == true { @include debug-grid($cw); }
+    @include column-grid-background($container-width, column(), gutter(), 0%);
+    @if $banner == true { @include debug-grid($container-width); }
   }
 
   // Small

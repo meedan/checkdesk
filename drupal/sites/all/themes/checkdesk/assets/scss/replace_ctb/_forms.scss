@@ -8,7 +8,7 @@
 
 // Make all forms have space below them
 form {
-  margin: 0 0 $baseLineHeight;
+  margin: 0 0 $absolute-line-height;
 }
 
 fieldset {
@@ -22,16 +22,16 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: $baseLineHeight;
-  font-size: $baseFontSize * 1.5;
-  line-height: $baseLineHeight * 2;
+  margin-bottom: $absolute-line-height;
+  font-size: $base-font-size * 1.5;
+  line-height: $absolute-line-height * 2;
   color: $gray;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 
   // Small
   small {
-    font-size: $baseLineHeight * .75;
+    font-size: $absolute-line-height * .75;
     color: $grayLight;
   }
 }
@@ -43,7 +43,7 @@ button,
 select,
 textarea,
 body.cke_editable {
-  @include ctb-font-shorthand($baseFontSize, normal, $baseLineHeight); // Set size, weight, line-height here
+  font: normal $base-font-size/$absolute-line-height; // Set size, weight, line-height here
 }
 input,
 button,
@@ -83,14 +83,14 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   display: inline-block;
-  height: $baseLineHeight;
+  height: $absolute-line-height;
   padding: 8px 6px;
-  margin-bottom: $baseLineHeight / 4;
-  font-size: $baseFontSize;
+  margin-bottom: $absolute-line-height / 4;
+  font-size: $base-font-size;
   font-family: $body-font-stack;
-  line-height: $baseLineHeight;
+  line-height: $absolute-line-height;
   color: $grayLight;
-  @include border-radius($inputBorderRadius);
+  @include border-radius($radius);
   vertical-align: middle;
 }
 
@@ -125,7 +125,7 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-  background-color: $inputBackground;
+  background-color: white;
   border: 1px solid $inputBorder;
   @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
   @include transition(border linear .2s, box-shadow linear .2s);
@@ -236,7 +236,7 @@ input[type="checkbox"]:focus {
 // Indent the labels to position radios/checkboxes as hanging
 .form-type-radio,
 .form-type-checkbox {
-  min-height: $baseLineHeight; // clear the floating input if there is no label text
+  min-height: $absolute-line-height; // clear the floating input if there is no label text
   padding-left: 20px;
 }
 .form-type-radio input[type="radio"],
@@ -312,16 +312,16 @@ input[type="checkbox"][readonly] {
 // ------------
 
 .form-actions {
-  padding: ($baseLineHeight - 1) 20px $baseLineHeight;
-  margin-top: $baseLineHeight;
-  margin-bottom: $baseLineHeight;
+  padding: ($absolute-line-height - 1) 20px $absolute-line-height;
+  margin-top: $absolute-line-height;
+  margin-bottom: $absolute-line-height;
   background-color: $formActionsBackground;
   border-top: 1px solid #e5e5e5;
   @include ctb-clearfix(); // Adding clearfix to allow for .pull-right button containers
 
   // add spacing when buttons appear together
   .btn {
-    margin-#{$omega}: $gw;
+    margin-#{$omega}: $gutter-width;
     :first-child { margin-#{$omega}: 0;}
   }
 }

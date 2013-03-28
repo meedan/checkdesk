@@ -77,7 +77,9 @@ $links-visited-color: $twitter-blue;
 $form-primary-accent: $bright-blue;
 $form-validation-error: $firetruck-red;
 $form-validation-success: $verdun-green;
-$form-valifation-warning: $yellow-orange;
+$form-validation-warning: $yellow-orange;
+
+
 
 // A debugging theme
 $debug-bkg: lighten(hsl(212, 75%, 14%), 30%);
@@ -127,3 +129,134 @@ $dropdown-link-bkg-hover: darken($dropdown-link-bkg-active, 10%);
 // Buttons
 $button-color: darken($grey, 20%);
 $active-button-color: $identity;
+
+// =================================================================
+// Legacy colors from twitter bootstrap
+
+// Bootstrap Grays
+// #deprecated
+// -------------------------
+$black:                 #000 !default;
+$grayDarker:            #222 !default;
+$grayDark:              #333 !default;
+$gray:                  #555 !default;
+$grayLight:             #999 !default;
+$grayLighter:           #eee !default;
+$white:                 #fff !default;
+
+
+// Bootstrap Accent colors
+// #deprecated
+// -------------------------
+$blue:                  #049cdb !default;
+$blueDark:              #0064cd !default;
+$green:                 #46a546 !default;
+$red:                   #9d261d !default;
+$yellow:                #ffc40d !default;
+$orange:                #f89406 !default;
+$pink:                  #c3325f !default;
+$purple:                #7a43b6 !default;
+
+
+// Bootstrap Scaffolding
+// #deprecated
+// -------------------------
+$bodyBackground:        $white !default;
+$textColor:             $grayDark !default;
+
+
+// BootstrapLinks
+// #deprecated
+// -------------------------
+$linkColor:             #08c !default;
+$linkColorHover:        darken($linkColor, 15%) !default;
+
+
+// Tables
+// -------------------------
+$tableBackground:                   transparent !default; // overall background-color
+$tableBackgroundAccent:             #f9f9f9 !default; // for striping
+$tableBackgroundHover:              #f5f5f5 !default; // for hover
+$tableBorder:                       #ddd !default; // table and cell border
+
+// // Buttons
+// // -------------------------
+// $btnBackground:                     $white !default;
+// $btnBackgroundHighlight:            darken($white, 10%) !default;
+// $btnBorder:                         #bbb !default;
+
+// $btnPrimaryBackground:              $linkColor !default;
+// $btnPrimaryBackgroundHighlight:     adjust-hue($btnPrimaryBackground, 20%) !default;
+
+// $btnInfoBackground:                 #5bc0de !default;
+// $btnInfoBackgroundHighlight:        #2f96b4 !default;
+
+// $btnSuccessBackground:              #62c462 !default;
+// $btnSuccessBackgroundHighlight:     #51a351 !default;
+
+// $btnWarningBackground:              lighten($orange, 15%) !default;
+// $btnWarningBackgroundHighlight:     $orange !default;
+
+// $btnDangerBackground:               #ee5f5b !default;
+// $btnDangerBackgroundHighlight:      #bd362f !default;
+
+// $btnInverseBackground:              #444 !default;
+// $btnInverseBackgroundHighlight:     $grayDarker !default;
+
+
+// // Forms
+// // -------------------------
+$inputBackground:               $white !default;
+$inputBorder:                   #ccc !default;
+// $inputBorderRadius:             $radius !default;
+$inputDisabledBackground:       $grayLighter !default;
+$formActionsBackground:         #f5f5f5 !default;
+$inputHeight:                   $absolute-line-height + 18px;
+
+
+// // Dropdowns
+// -------------------------
+$dropdownBackground:            $white !default;
+$dropdownBorder:                rgba(0,0,0,.2) !default;
+$dropdownDividerTop:            #e5e5e5 !default;
+$dropdownDividerBottom:         $white !default;
+
+$dropdownLinkColor:             $grayDark !default;
+$dropdownLinkColorHover:        $white !default;
+$dropdownLinkColorActive:       $dropdownLinkColor !default;
+
+$dropdownLinkBackgroundActive:  $linkColor !default;
+$dropdownLinkBackgroundHover:   $dropdownLinkBackgroundActive !default;
+
+// // Tabs
+// // -------------------------
+// $tabBackground:            $white !default;
+// $tabBorder:                rgba(0,0,0,.2) !default;
+// $tabDividerTop:            #e5e5e5 !default;
+// $tabDividerBottom:         $white !default;
+
+// $tabLinkColor:             $grayDark !default;
+// $tabLinkColorHover:        $white !default;
+// $tabLinkColorActive:       $tabLinkColor !default;
+
+// $tabLinkBackgroundActive:  $linkColor !default;
+// $tabLinkBackgroundHover:   $tabLinkBackgroundActive !default;
+
+
+// // Form states and alerts
+// -------------------------
+$warningText:             #c09853 !default;
+$warningBackground:       #fcf8e3 !default;
+$warningBorder:           darken(adjust-hue($warningBackground, -10), 3%) !default;
+
+$errorText:               #b94a48 !default;
+$errorBackground:         #f9e8e8 !default;
+$errorBorder:             darken(adjust-hue($errorBackground, -10), 3%) !default;
+
+$successText:             #468847 !default;
+$successBackground:       #dff0d8 !default;
+$successBorder:           darken(adjust-hue($successBackground, -10), 5%) !default;
+
+$infoText:                #3a87ad !default;
+$infoBackground:          #d9edf7 !default;
+$infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;

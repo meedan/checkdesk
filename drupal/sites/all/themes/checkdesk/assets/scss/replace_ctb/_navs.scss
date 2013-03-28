@@ -8,7 +8,7 @@
 
 .nav {
   margin-left: 0;
-  margin-bottom: $baseLineHeight;
+  margin-bottom: $absolute-line-height;
   list-style: none;
 }
 
@@ -38,7 +38,7 @@
   padding: 3px 15px;
   font-size: 11px;
   font-weight: bold;
-  line-height: $baseLineHeight;
+  line-height: $absolute-line-height;
   color: $grayLight;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   text-transform: uppercase;
@@ -119,7 +119,7 @@
 .nav-tabs > li > a {
   padding-top: 8px;
   padding-bottom: 8px;
-  line-height: $baseLineHeight;
+  line-height: $absolute-line-height;
   border: 1px solid transparent;
   @include border-radius(4px 4px 0 0);
   &:hover {
@@ -263,12 +263,6 @@
 .tabs-stacked .open > a:hover {
   border-color: $grayLight;
 }
-
-
-
-// TABBABLE
-// --------
-
 
 // COMMON STYLES
 // -------------

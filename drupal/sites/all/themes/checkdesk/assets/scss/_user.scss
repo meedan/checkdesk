@@ -1,31 +1,31 @@
 // User section profile
 // http://checkdesk:8888/user
-@mixin user-profile($width: $cw, $context: $cw) {
+@mixin user-profile($width: $container-width, $context: $container-width) {
 
   // Temporary, this should go in a layout not on the header ...
   #content-header > h1 {
-    padding-#{$alpha}: $gw;
+    padding-#{$alpha}: $gutter-width;
   }
 
   div.profile {
-    @include span-columns($width - 2, $context, $gw);
+    @include span-columns($width - 2, $context, $gutter-width);
     background-color: $input-background;
     @content;
     
     .user-picture {
       float: opposite-position($from-direction);
-      @include span-columns(1 omega, $context, $gw);
+      @include span-columns(1 omega, $context, $gutter-width);
     }
 
     h3 {
       display: block;
       width: auto;
-      padding: $gw;
+      padding: $gutter-width;
     }
 
     dl {
       @include ctb-clearfix;
-      padding: $gw;
+      padding: $gutter-width;
       font-size: $base-font-size;
       border-bottom: 1px solid $light-grey;
       dt {
@@ -84,7 +84,7 @@ body.page-user-password { // both logged in and not logged ins states
   #user-login {
     @include span-columns(4, 6);
     @include pad(1, 1, 6);
-    margin-top: $baseLineHeight;
+    margin-top: $absolute-line-height;
 
     // hide required stars
     .form-required {
@@ -103,12 +103,12 @@ body.page-user-password { // both logged in and not logged ins states
         @include reset-box-model;
         @include reset-list-style;
         display: inline;
-        margin-#{$omega}: $gw;
+        margin-#{$omega}: $gutter-width;
 
         a {
           display: inline-block;
-          padding: $baseLineHeight/2 $gw*4;
-          margin-bottom: $baseLineHeight/2;
+          padding: $absolute-line-height/2 $gutter-width*4;
+          margin-bottom: $absolute-line-height/2;
           color: $white;
           @include border-radius(4px);
           &:hover {
@@ -137,7 +137,7 @@ body.page-user-password { // both logged in and not logged ins states
       font-family: $header-font-stack;
       color: $grayLight;
       text-align: center;
-      margin: $baseLineHeight/2 0;
+      margin: $absolute-line-height/2 0;
       span {
         display: inline-block;
         border: 1px solid lighten($grayLight, 20%);
@@ -182,7 +182,7 @@ body.page-user-password { // both logged in and not logged ins states
       }
       .user-new-account-link {
         float: $omega;
-        margin-top: $baseLineHeight/4;
+        margin-top: $absolute-line-height/4;
         font-family: $header-font-stack;
         font-size: $fontSizeSmall;
         color: $grayLight;
@@ -226,10 +226,10 @@ body.page-user-password { // both logged in and not logged ins states
 // user admin page
 .view-administer-users {
   fieldset {
-    margin-bottom: $baseLineHeight/2;
+    margin-bottom: $absolute-line-height/2;
   }
   select {
-    margin-bottom: $baseLineHeight/2;
+    margin-bottom: $absolute-line-height/2;
   }
 }
 

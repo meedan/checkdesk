@@ -1,28 +1,27 @@
+
 // RTL
 //
+// 0. ============================================
+// ensure we have the original variables loaded
+@import "base"; 
+
 // 1. ============================================
-// re-configuration
-$from-direction: right !default;
+// re-configuration of default variables
+$from-direction: right !default; // keep these defaults incase style-rtl.scss is rendered first 
 $icon-position: after !default;
-
-// configure arabic font names 
-$ar-header-font-stack: "Andalus", "Arabic Typesetting", "Tahoma";
-$ar-body-font-stack: "DecoType Naskh", "Amiri", "Tahoma";
-$ar-nav-font-stack: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
-
-// override default fonts with arabic fonts
+$absolute-line-height: $absolute-line-height * 1.2 !default; // increase to account for arabic 
 $header-font-stack: $ar-header-font-stack !default;
 $body-font-stack: $ar-body-font-stack !default;
 $nav-font-stack: $ar-body-font-stack !default;
 
 // 2. ============================================
 // Now we reload all styles with this updated configuration
-
 @import "style"; 
 
 // 3. ============================================
 // Override the text direction
-body.i18n-ar, 
+html body.i18n-ar, 
 .rtl { 
-  direction: rtl; 
+  direction: rtl;
+  text-align: right;
 }

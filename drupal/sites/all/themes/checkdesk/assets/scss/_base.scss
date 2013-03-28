@@ -14,24 +14,24 @@ $icon-position: before !default;
 @import "compass/css3/font-face";
 @import "bowerbird/typography";
 //
-// B.)  Tell the browser about these files and define the font name
-@include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
-@include bowerbird-font-face("Merriweather", "merriweather-webfont-webfont");
-@include bowerbird-font-face("Merriweather Light", "merriweather-light-webfont-webfont");
-@include bowerbird-font-face("Andalus", "andlso-webfont");
-@include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "bold");
-@include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
-@include bowerbird-font-face("Andalus", "andlso-webfont");
 //
-// C.) Setup. Do not use these variables directly:
+// B.) Setup. Do not use these variables directly:
 $en-body-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $en-header-font-stack: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
 //
-// D.) Lastly set the language-independent variables
+// C.) configure arabic font names 
+$ar-header-font-stack: "Andalus", "Arabic Typesetting", "Tahoma";
+$ar-body-font-stack: "DecoType Naskh", "Amiri", "Tahoma";
+$ar-nav-font-stack: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
+//
+// D.) Set the defaults for language-independent variables
 $mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace;
 $nav-font-stack: $en-body-font-stack !default;
 $header-font-stack: $en-header-font-stack !default;
 $body-font-stack: $en-body-font-stack !default;
+//
+// E.) Font include statements for the browser to get the file
+// moved to styles.scss so this base file can be reloaded in style-rtl.scss CGB
 
 // mixin to set direction
 // 
@@ -48,9 +48,11 @@ $body-font-stack: $en-body-font-stack !default;
 //
 // vertical baseline support
 // http://compass-style.org/reference/compass/typography/vertical_rhythm/
-$round-to-nearest-half-line: true;
-$relative-font-sizing: false;
-$base-line-height: 1.5;
+$round-to-nearest-half-line: true !default;
+$relative-font-sizing: false !default;
+$relative-line-height: 1.5 !default;
+$absolute-line-height: 24px !default;
+$base-line-height: $absolute-line-height !default; // for compass calculations only
 
 // Susy configuration
 //
@@ -79,9 +81,9 @@ $grid-padding: 10px; // The padding on the sides of the outer <container>
 //
 // http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
 // All of these numbers are based on 18 base font size and 1168 outer container
-// Now you can do this to see the scale values (px)
-$base-size: 18px 1168px; // Two scales 
-$ratio: golden(); // use approximately 1:1.61803
+// The default ratio is golden, 1:1.618
+// Now you can do this to see the scale values (px
+$base-size: 18px 1168px; // Two scales based on original photoshop proportions
 $round_pixels: true; //don't return fractional px
 
 // Font sizes based on the scale
@@ -114,6 +116,15 @@ $notification-icon-size: $small-font-size;
 $notification-image-width: 5%;
 $notifications-icon-selector: '.heartbeat-time-ago';
 
+// Based on twitter bootstrap
+// Do not change these
+$z-index-Dropdown:          900 !default;
+$z-index-Popover:           910 !default;
+$z-index-Tooltip:           930 !default;
+$z-index-FixedNavbar:       930 !default;
+$z-index-ModalBackdrop:     940 !default;
+$z-index-Modal:             950 !default;
+
 // Reports
 $report-width-px: 400px; // for grid view, don't use columns or percents for now
 $report-width: $container-width;
@@ -123,9 +134,9 @@ $install-bookmarklet-abs-width: 600px;
 
 // Aliases
 // =============================================================================
-$cw: $container-width;
+$container-width: $container-width;
 $tw: $tabs-width; 
-$gw: $gutter-width; 
+$gutter-width: $gutter-width; 
 $rw: $report-width;
 $nw: $nav-width;
 

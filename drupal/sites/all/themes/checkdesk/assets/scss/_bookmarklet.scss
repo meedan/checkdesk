@@ -35,12 +35,12 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   }
 
   input[type=text] {
-    width: $bookmarklet-width - ($spinner-width + $gw*2);
+    width: $bookmarklet-width - ($spinner-width + $gutter-width*2);
     padding-#{opposite-position($from-direction)}: $spinner-width; //accomodate spinner
   }
 
   .form-type-textarea {
-    padding-top: $gw;
+    padding-top: $gutter-width;
   }
 
   textarea {
@@ -54,13 +54,13 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     background: transparent;
     float: $from-direction;
     width: auto;
-    margin-top: $gw;
+    margin-top: $gutter-width;
   }
 
   .footer {
     float: $from-direction;
     clear: both;
-    margin-top: $gw;
+    margin-top: $gutter-width;
     input {
       @include checkdesk-button();
     }
@@ -75,16 +75,16 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     font-size: $base-font-size;
     float: $from-direction;
     margin-bottom: 0;
-    padding-top: $gw;
-    line-height: $base-line-height;
+    padding-top: $gutter-width;
+    line-height: $absolute-line-height;
   }
 
   #meedan_bookmarklet_help {
     position: absolute;
     top: 0;
-    padding-top: $gw;
-    line-height: $base-line-height;
-    #{$omega-float}: $gw;
+    padding-top: $gutter-width;
+    line-height: $absolute-line-height;
+    #{$omega-float}: $gutter-width;
 
     span {
       display: block;
@@ -106,7 +106,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
         font-size: 12px;
         color: $grayLight;
         text-indent: 0;
-        padding: $gw;
+        padding: $gutter-width;
         position: absolute;
         #{opposite-position($from-direction)}: 1px;
       }
@@ -125,7 +125,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     clear: both;
     float: left;
     color: $dark-grey;
-    margin: $gw 0;
+    margin: $gutter-width 0;
   }
 
   #meedan_bookmarklet_preview_content img {
@@ -168,7 +168,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
   .fb-status-preview {
     background: $light-grey;
-    padding: $gw;
+    padding: $gutter-width;
     @include border-radius($radius);
 
     .author {
@@ -185,14 +185,14 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   #edit-graphic-content {
     float: $from-direction;
     clear: both;
-    margin: $gw 0 0 ($gw + $checkbox-width - 20px); // align with the button
+    margin: $gutter-width 0 0 ($gutter-width + $checkbox-width - 20px); // align with the button
     width: 100%;
     & > .form-type-checkbox {
       width: 100%;
     }
     .form-item label,
     .form-item input[type="checkbox"] {
-      // padding: $gw 2px; // pad for the hover
+      // padding: $gutter-width 2px; // pad for the hover
       &:hover {
         color: $identity;
       }

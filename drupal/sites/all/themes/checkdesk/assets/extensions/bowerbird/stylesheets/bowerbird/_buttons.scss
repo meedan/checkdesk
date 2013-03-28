@@ -57,7 +57,7 @@ $button-gradient: 0 !default;
 // Disabled background image support - CGB Nov 2012
 // $button-image-path: image-url("button_bg.png") !default;
 $button-allow-disabled: false !default;
-$button-line-height: 1.2 !default;
+$button-line-height: $relative-line-height !default;
 
 // Added configuration to set how much lightness and darkness is used to create the gradient from the base color - CGB Nov 2012
 $button-lighten-amount: 4 !default; 
