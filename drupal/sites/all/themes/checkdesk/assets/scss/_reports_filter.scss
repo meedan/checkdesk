@@ -1,8 +1,7 @@
 #incoming-reports-filters {
   @include ctb-clearfix;
-  font-family: $sans-font-family;
   font-size: $fontSizeSmall;
-  padding: 0 $gw*2;
+  padding: 0 $gutter-width*2;
   color: $gray;
 	
   header {
@@ -18,40 +17,39 @@
   }
 
   .panels {
-  	@include reset-list-style;
-	display: inline-block;
-	margin-top: $baseLineHeight/2;
-	.panel {
-		display: inline-block;
-
-		.panel-toggle {
-			display: inline-block;
-			padding: 4px 12px;
-			margin-#{$omega}: $gw;
-			text-align: center;
+    @include reset-list-style;
+	  display: inline-block;
+	  margin-top: $absolute-line-height/2;
+  	.panel {
+  		display: inline-block;
+  		.panel-toggle {
+  			display: inline-block;
+  			padding: 4px 12px; // warning magic pixels CGB
+  			margin-#{$omega}: $gutter-width;
+  			text-align: center;
 		  	vertical-align: middle;
 		  	cursor: pointer;
 		  	background-color: $grayLighter;
-		  	font-size: $baseFontSize;
-      		@include border-radius(6px);
-      		@include ctb-linkColor($gray);
-      		&:hover {
-      			background-color: darken($grayLighter, 10%);
-      			text-decoration: none;
-      		}
-      		// should not be necessary
-      		.icon-caret-down:before {
-      			margin-right: 0;
-      			margin-#{$alpha}: $gw;
-      		}
-		}
+		  	font-size: $base-font-size;
+    		@include border-radius(6px);
+    		@include ctb-linkColor($gray);
+    		&:hover {
+    			background-color: darken($grayLighter, 10%);
+    			text-decoration: none;
+    		}
+    		
+    		.icon-caret-down:before {
+    			margin-right: 0;
+    			margin-#{$alpha}: $gutter-width;
+    		}
+  		}
 
 		.panel-content {
 			display: none;
 			position: absolute;
 			background-color: $grayLighter;
-			padding: $baseLineHeight/2 $gw;
-			margin-top: $baseLineHeight/4;
+			padding: $absolute-line-height/2 $gutter-width;
+			margin-top: $absolute-line-height/4;
 			z-index: $zindexDropdown;
 			width: 410px;
 
@@ -88,7 +86,7 @@
 	}
 
   #filter-by {
-    #{$from-direction}: 130px;
+    #{$from-direction}: 130px; // warning magic pixels CGB 
   }
 
 	#filter-by .views-reset-button {
@@ -106,10 +104,9 @@
           	margin-#{$omega}: 0;
 		}
 		input {
-			margin-top: -4px; // no idea why it needs this
-			margin-#{$omega}: $gw;
+			margin-top: -4px; // no idea why it needs this CGB
+			margin-#{$omega}: $gutter-width;
 		}
-
 	}
 
   #sort-by label {
@@ -121,7 +118,7 @@
 	}
 
 	#sort-by .views-submit-button input {
-		margin-top: $baseLineHeight/2;
+		margin-top: $absolute-line-height/2;
 	}
   }
 

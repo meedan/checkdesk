@@ -6,91 +6,38 @@
 
 // Compass basline
 @include establish-baseline;
-@include bb-typography-defaults; // typography defaults
-
-// Checkdesk specific
-// Global styles
-//
-@mixin cd-typography {
-
-  $h-pad: $base-font-size;
-
-  h1, h2, h3, h4 {
-    @include reset-box-model;
-    margin:  { bottom: $h-pad; top: $h-pad; }
-    padding: { bottom: $h-pad; top: $h-pad; }
-  }
-  
-  h1 {
-    font-size: $xxx-large-font-size;
-    line-height: $larger-font-size * 2;
-    color: $dark-grey;
-    @include cd-light-text-shadow;
-  }
-
-  // Navigation 
-  nav {
-    font-family: $sans-font-family;
-    font-size: $nav-font-size;
-    font-weight: 300px;
-  }
-
-  // The sidebar
-  #sidebar-first {
-    font-family: $sans-font-family;
-    font-size: $small-font-size;
-  }
-}
-
-// =========================================================================
-// Pre-breakpoint defaults
-// 
+@include bowerbird-typography-defaults; // typography defaults
 
 body {
-  @include bb-typography-defaults;
-  @include cd-typography;
+  line-height: $absolute-line-height; // in px
+  font-size: $small-font-size; // in px
+  color: $text-color;
+  font-family: $body-font-stack;
+  text-align: $from-direction;
 }
 
-// =========================================================================
-// Breakpoint: Small
-// 
-@include at-breakpoint($break-small) {
-  body {
-    // font-size:  $large-font-size; // increased
-  }
-
-  nav {
-    // font-size: $nav-font-size + ms(-2);
-  }
-
-  h1.title {
-    // margin-top: ms(4); // reduced
-    // font-size:  $x-large-font-size; // increased
-    // line-height: ms(2) * 1.2; 
-  }
+h1, h2, h3, h4 {
+  @include reset-box-model;
+  margin:  { bottom: $base-font-size; top: $base-font-size; }
+  padding: { bottom: $base-font-size; top: $base-font-size; }
 }
 
-// =========================================================================
-// Breakpoint: Medium
-// 
-@include at-breakpoint($break-medium) {
-  body {
-    // font-size:  $larger-font-size; // increased
-    line-height: ms(2);
-  }
-  h1.title {
-    // font-size:  $larger-font-size; // increased
-  }
-
-  #main h2 {
-    display: block; // start displaying
-    // font-size: $small-font-size;
-  }
+h1 {
+  font-size: $xxx-large-font-size;
+  line-height: $relative-line-height;
+  color: $dark-grey;
+  @include cd-light-text-shadow;
 }
 
-// =========================================================================
-// Breakpoint: Large
-// 
-@include at-breakpoint($break-large) {
-  // This is a really huge min-width ...
+// Navigation 
+nav {
+  font-family: $nav-font-stack;
+  font-size: $nav-font-size;
+  font-weight: 300px;
+}
+
+// The sidebar
+#sidebar-first {
+  font-family: $nav-font-stack;
+  font-size: $small-font-size;
 }

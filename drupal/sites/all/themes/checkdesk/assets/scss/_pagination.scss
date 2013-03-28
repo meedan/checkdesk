@@ -13,7 +13,7 @@ ul.pager {
 //     border-#{$from-direction}-width: 0;
 //   }
 //   li {
-//     font-family: $sans-font-family;
+//  
 //     font-size: $large-font-size;
 //     border-#{$from-direction}: 1px solid $grey;
 //     a { 
@@ -37,8 +37,7 @@ ul.pager {
   @include reset-box-model;
   @include reset-list-style;
   @include ctb-clearfix;
-  margin: $baseLineHeight 0;
-  font-family: $sans-font-family;
+  margin: $absolute-line-height 0;
   font-size: $fontSizeSmall;
 
   li {
@@ -76,10 +75,4 @@ ul.pager {
     background-color: $white;
     cursor: default;
   }
-
-  .ajax-progress-throbber {
-    
-  }
-
-
 }

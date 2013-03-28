@@ -78,7 +78,7 @@ This is a list of the most frequent directives, rules, configs, and everything, 
       #=> "1"
     @debug sixth-of(12) #=> path/to/current/file/_name.scss 
       #=> DEBUG: 2
-    @warn "#{fifth-of(12)} columns breaks a #{$cw}-part grid." 
+    @warn "#{fifth-of(12)} columns breaks a #{$container-width}-part grid." 
       #=> path/to/current/file/_name.scss WARN: 2.4 columns breaks a 24-part grid.
 
 ##### Compass utility includes
@@ -87,13 +87,13 @@ This is a list of the most frequent directives, rules, configs, and everything, 
       # there are lots [more]("http://compass-style.org/index/functions/") 
 
 ##### Susy includes
-    @include span-columns(12, $cw); 
-      #=> span 50% of the total, if $cw is 24. Eg: "it's 12 in 24"
-    @include span-columns($center-column-width, $cw, $gw); 
+    @include span-columns(12, $container-width); 
+      #=> span 50% of the total, if $container-width is 24. Eg: "it's 12 in 24"
+    @include span-columns($center-column-width, $container-width, $gutter-width); 
       #=> 12 in 24 but each has gutter width padding
     @include at-breakpoint(12) { div.green {border: 1px soild red;}} 
       #=> Eg. "above the 12 (default) columns breakpoint"
-    @include squish(twelveth-of($cw),twelveth-of($cw),$cw); 
+    @include squish(twelveth-of($container-width),twelveth-of($container-width),$container-width); 
       #=> add padding on each side. Be sure to compensate for the children's new $context width.
 
 ##### Checkdesk and Bowerbird mixins
@@ -110,10 +110,10 @@ This is a list of the most frequent directives, rules, configs, and everything, 
     .pa &:before { content: "Hello!" }
 
 - basic variables
-    padding: { top: 17px; bottom: $gw; }
+    padding: { top: 17px; bottom: $gutter-width; }
 
 - dynamic-ish variables
-    margin-top: $gw * 6;
+    margin-top: $gutter-width * 6;
 
 ##### CSS (which is often identical to .scss)
 
@@ -173,7 +173,7 @@ To see the list of ms scales ...
     5.87 -> "harmonic" but missing from ms
     6.88 -> available as ms(-2) -> 7px
     9.5 -> "harmonic" but missing from ms
-    11.12 -> available as ms(-1) -> 11px -> used in $small->font->size and $gutter->width or $gw
+    11.12 -> available as ms(-1) -> 11px -> used in $small->font->size and $gutter->width or $gutter-width
     15.36 -> navigation font size
     18 -> available as ms(0) -> 18px -> $based font size 1 : 0.61803
     24.86 -> available as ms(1) -> 25px

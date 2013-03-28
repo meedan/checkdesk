@@ -13,12 +13,12 @@ body.page-reports {
 
   #main {
     @include pad(0, 0); // default reports page overriding default checkdesk page
-    @include span-columns($cw, $cw, $gw);
+    @include span-columns($container-width, $container-width, $gutter-width);
   }
 
   li.views-fluid-grid-item  {
     @include reset-box-model; // remove default border
-    @include span-columns($cw, $cw); // default is full width
+    @include span-columns($container-width, $container-width); // default is full width
     max-width: 400px;
   } 
 
@@ -37,7 +37,7 @@ body.page-reports {
 
   /* Default item style. */
   li.views-fluid-grid-item {
-    margin-#{$omega}: $gw;
+    margin-#{$omega}: $gutter-width;
   }
 }
 

@@ -8,7 +8,7 @@ end
 
 guard 'compass' do
   watch(%r{^drupal/sites/all/themes/checkdesk/assets/scss/.+\.(scss)$})
-  watch(%r{^drupal/sites/all/themes/bowerbird/.+\.(scss)$})
+  watch(%r{^drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/stylesheets/.+\.(scss)$})
 end
 
 guard 'uglify', :input => 'drupal/sites/all/modules/custom/checkdesk_oembed/js/embed.js', :output => 'drupal/sites/all/modules/custom/checkdesk_oembed/js/embed.min.js' do

@@ -1,162 +1,40 @@
-// Variables forked from compass-twitter-bootstrap variables.scss
-// To reset to defaults delete this file and do
-// @import compass_twitter_bootstrap/variables;
-//
-// for info on compass configuration see
-// http://compass-style.org/help/tutorials/configurable-variables/
-
-// Grays
-// -------------------------
-$black:                 #000 !default;
-$grayDarker:            #222 !default;
-$grayDark:              #333 !default;
-$gray:                  #555 !default;
-$grayLight:             #999 !default;
-$grayLighter:           #eee !default;
-$white:                 #fff !default;
-
-
-// Accent colors
-// -------------------------
-$blue:                  #049cdb !default;
-$blueDark:              #0064cd !default;
-$green:                 #46a546 !default;
-$red:                   #9d261d !default;
-$yellow:                #ffc40d !default;
-$orange:                #f89406 !default;
-$pink:                  #c3325f !default;
-$purple:                #7a43b6 !default;
-
-
-// Scaffolding
-// -------------------------
-$bodyBackground:        $white !default;
-$textColor:             $grayDark !default;
-
-
-// Links
-// -------------------------
-$linkColor:             #08c !default;
-$linkColorHover:        darken($linkColor, 15%) !default;
-
-
-// Typography
-//
-// Overriden where appropriate with values from checkdesk. - Nov 2012 CGB
-// -------------------------
-$sansFontFamily: $sans-font-family;
-$serifFontFamily: $serif-font-family;
-$monoFontFamily: $mono-font-family;
-
-$baseFontSize:          $base-font-size !default;
-$baseFontFamily:        $sans-font-family !default;
-$baseLineHeight:        $base-font-size * $base-line-height !default; // TB expects pixels
-$altFontFamily:         $serifFontFamily !default;
-
-$headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily
-$headingsFontWeight:    bold !default;    // instead of browser default, bold
-$headingsColor:         inherit !default; // empty to use BS default, $textColor
-
-// Component sizing
-// -------------------------
-// Based on 14px font-size and 20px line-height
-
-$fontSizeLarge:         $baseFontSize * 1.25; // ~18px
-$fontSizeSmall:         $baseFontSize * 0.85; // ~12px
-$fontSizeMini:          $baseFontSize * 0.75; // ~11px
-
-$paddingLarge:          11px 19px; // 44px
-$paddingSmall:          2px 10px;  // 26px
-$paddingMini:           1px 6px;   // 24px
-
-$baseBorderRadius:      3px;
-$borderRadiusLarge:     6px;
-$borderRadiusSmall:     3px;
-
-
-// Tables
-// -------------------------
-$tableBackground:                   transparent !default; // overall background-color
-$tableBackgroundAccent:             #f9f9f9 !default; // for striping
-$tableBackgroundHover:              #f5f5f5 !default; // for hover
-$tableBorder:                       #ddd !default; // table and cell border
-
-// Buttons
-// -------------------------
-$btnBackground:                     $white !default;
-$btnBackgroundHighlight:            darken($white, 10%) !default;
-$btnBorder:                         #bbb !default;
-
-$btnPrimaryBackground:              $linkColor !default;
-$btnPrimaryBackgroundHighlight:     adjust-hue($btnPrimaryBackground, 20%) !default;
-
-$btnInfoBackground:                 #5bc0de !default;
-$btnInfoBackgroundHighlight:        #2f96b4 !default;
-
-$btnSuccessBackground:              #62c462 !default;
-$btnSuccessBackgroundHighlight:     #51a351 !default;
-
-$btnWarningBackground:              lighten($orange, 15%) !default;
-$btnWarningBackgroundHighlight:     $orange !default;
-
-$btnDangerBackground:               #ee5f5b !default;
-$btnDangerBackgroundHighlight:      #bd362f !default;
-
-$btnInverseBackground:              #444 !default;
-$btnInverseBackgroundHighlight:     $grayDarker !default;
-
-
-// Forms
-// -------------------------
-$inputBackground:               $white !default;
-$inputBorder:                   #ccc !default;
-$inputBorderRadius:             $baseBorderRadius !default;
-$inputDisabledBackground:       $grayLighter !default;
-$formActionsBackground:         #f5f5f5 !default;
-$inputHeight:                   $baseLineHeight + 18px;
-
-
-// Dropdowns
-// -------------------------
-$dropdownBackground:            $white !default;
-$dropdownBorder:                rgba(0,0,0,.2) !default;
-$dropdownDividerTop:            #e5e5e5 !default;
-$dropdownDividerBottom:         $white !default;
-
-$dropdownLinkColor:             $grayDark !default;
-$dropdownLinkColorHover:        $white !default;
-$dropdownLinkColorActive:       $dropdownLinkColor !default;
-
-$dropdownLinkBackgroundActive:  $linkColor !default;
-$dropdownLinkBackgroundHover:   $dropdownLinkBackgroundActive !default;
-
-// Tabs
-// -------------------------
-$tabBackground:            $white !default;
-$tabBorder:                rgba(0,0,0,.2) !default;
-$tabDividerTop:            #e5e5e5 !default;
-$tabDividerBottom:         $white !default;
-
-$tabLinkColor:             $grayDark !default;
-$tabLinkColorHover:        $white !default;
-$tabLinkColorActive:       $tabLinkColor !default;
-
-$tabLinkBackgroundActive:  $linkColor !default;
-$tabLinkBackgroundHover:   $tabLinkBackgroundActive !default;
+// // Variables forked from compass-twitter-bootstrap variables.scss
+// // To reset to defaults delete this file and do
+// // @import compass_twitter_bootstrap/variables;
+// //
+// // for info on compass configuration see
+// // http://compass-style.org/help/tutorials/configurable-variables/
 
 
 
-// COMPONENT VARIABLES
-// --------------------------------------------------
+// // Typography
+// //
+// // Overriden where appropriate with values from checkdesk. - Nov 2012 CGB
+// // -------------------------
+// $sansFontFamily: $body-font-stack;
+// $serifFontFamily: $header-font-stack;
+// $monoFontFamily: $mono-font-stack;
 
-// Hr border color
-// -------------------------
-$hrBorder:                $grayLighter !default;
+// $base-font-size:          $base-font-size !default;
+// $baseFontFamily:        $body-font-stack !default;
+// $altFontFamily:         $header-font-stack !default;
 
-// Z-index master list
-// -------------------------
-// Used for a bird's eye view of components dependent on the z-axis
-// Try to avoid customizing these :)
+// $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily
+// $headingsFontWeight:    bold !default;    // instead of browser default, bold
+// $headingsColor:         inherit !default; // empty to use BS default, $textColor
+
+// // Component sizing
+// // -------------------------
+// // Based on 14px font-size and 20px line-height
+
+// Depracated
+// 
+// to #review and #remove
+// we should only use variables in base — CGB
+$fontSizeLarge:         $base-font-size * 1.25; // ~18px
+$fontSizeSmall:         $base-font-size * 0.85; // ~12px
+$fontSizeMini:          $base-font-size * 0.75; // ~11px
+
 $zindexDropdown:          900 !default;
 $zindexPopover:           910 !default;
 $zindexTooltip:           930 !default;
@@ -165,21 +43,40 @@ $zindexModalBackdrop:     940 !default;
 $zindexModal:             950 !default;
 
 
-// Navbar
-// -------------------------
-$navbarCollapseWidth:             979px !default;
+// $paddingLarge:          11px 19px; // 44px
+// $paddingSmall:          2px 10px;  // 26px
+// $paddingMini:           1px 6px;   // 24px
+
+// $radius:      3px;
+// $borderRadiusLarge:     6px;
+// $borderRadiusSmall:     3px;
+
+
+
+
+// // COMPONENT VARIABLES
+// // --------------------------------------------------
+
+// // Hr border color
+// // -------------------------
+// $hrBorder:                $grayLighter !default;
+
+
+// // Navbar
+// // -------------------------
+// $navbarCollapseWidth:             979px !default;
 
 $navbarHeight:                    24px !default;
-$navbarBackgroundHighlight:       $grayDarker !default;
-$navbarBackground:                $grayDarker;
-$navbarBorder:                    darken($navbarBackground, 12%) !default;
+// $navbarBackgroundHighlight:       $grayDarker !default;
+// $navbarBackground:                $grayDarker;
+// $navbarBorder:                    darken($navbarBackground, 12%) !default;
 
-$navbarText:                      $grayLight !default;
-$navbarLinkColor:                 $grayLight !default;
-$navbarLinkColorHover:            $white !default;
-$navbarLinkColorActive:           $white !default;
-$navbarLinkBackgroundHover:       transparent !default;
-$navbarLinkBackgroundActive:      darken($navbarBackground, 5%) !default;
+// $navbarText:                      $grayLight !default;
+// $navbarLinkColor:                 $grayLight !default;
+// $navbarLinkColorHover:            $white !default;
+// $navbarLinkColorActive:           $white !default;
+// $navbarLinkBackgroundHover:       transparent !default;
+// $navbarLinkBackgroundActive:      darken($navbarBackground, 5%) !default;
 
 // Drupal admin toolbar and drawer
 $toolbarMenuHeight:				  20px;
@@ -188,56 +85,37 @@ $toolbarHeight:					  $toolbarMenuHeight + $drawerMenuHeight;
 
 
 
-// Form states and alerts
-// -------------------------
-$warningText:             #c09853 !default;
-$warningBackground:       #fcf8e3 !default;
-$warningBorder:           darken(adjust-hue($warningBackground, -10), 3%) !default;
-
-$errorText:               #b94a48 !default;
-$errorBackground:         #f9e8e8 !default;
-$errorBorder:             darken(adjust-hue($errorBackground, -10), 3%) !default;
-
-$successText:             #468847 !default;
-$successBackground:       #dff0d8 !default;
-$successBorder:           darken(adjust-hue($successBackground, -10), 5%) !default;
-
-$infoText:                #3a87ad !default;
-$infoBackground:          #d9edf7 !default;
-$infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;
+// // GRID
+// // --------------------------------------------------
 
 
-// GRID
-// --------------------------------------------------
+// // Default 940px grid
+// // // -------------------------
+// $gridColumns:             $total-width !default;
+// $gridColumnWidth:         $column-width !default;
+// $gridGutterWidth:         $gutter-width !default;
+// $gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
 
-
-// Default 940px grid
+// // Horizontal forms & lists
 // // -------------------------
-$gridColumns:             $total-width !default;
-$gridColumnWidth:         $column-width !default;
-$gridGutterWidth:         $gutter-width !default;
-$gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
+// $horizontalComponentOffset:       180px !default;
 
-// Horizontal forms & lists
-// -------------------------
-$horizontalComponentOffset:       180px !default;
-
-$placeholderText:         $grayLight !default;
+// $placeholderText:         $grayLight !default;
 
 
-// Tooltips and popovers
-// -------------------------
-$tooltipColor:            #fff !default;
-$tooltipBackground:       #000 !default;
-$tooltipArrowWidth:       5px !default;
-$tooltipArrowColor:       $tooltipBackground !default;
+// // Tooltips and popovers
+// // -------------------------
+// $tooltipColor:            #fff !default;
+// $tooltipBackground:       #000 !default;
+// $tooltipArrowWidth:       5px !default;
+// $tooltipArrowColor:       $tooltipBackground !default;
 
-$popoverBackground:       #fff !default;
-$popoverArrowWidth:       10px !default;
-$popoverArrowColor:       #fff !default;
-$popoverTitleBackground:  darken($popoverBackground, 3%) !default;
+// $popoverBackground:       #fff !default;
+// $popoverArrowWidth:       10px !default;
+// $popoverArrowColor:       #fff !default;
+// $popoverTitleBackground:  darken($popoverBackground, 3%) !default;
 
-// Special enhancement for popovers
-$popoverArrowOuterWidth:  $popoverArrowWidth + 1 !default;
-$popoverArrowOuterColor:  rgba(0,0,0,.25) !default;
+// // Special enhancement for popovers
+// $popoverArrowOuterWidth:  $popoverArrowWidth + 1 !default;
+// $popoverArrowOuterColor:  rgba(0,0,0,.25) !default;
 

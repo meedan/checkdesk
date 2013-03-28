@@ -7,12 +7,11 @@
 // The alert container
 .messages {
   padding: 8px 14px;
-  margin-bottom: $baseLineHeight/2;
+  margin-bottom: $absolute-line-height/2;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   background-color: $warningBackground;
   border: 1px solid $warningBorder;
-  @include border-radius($baseBorderRadius);
-  font-family: $sans-font-family;
+  @include border-radius($radius);
   font-size: $fontSizeSmall;
 }
 
@@ -25,7 +24,7 @@
 // ----------------
 
 .success {
-  @include icon(ok-sign, $baseFontSize, $successText, $icon-position);
+  @include icon(ok-sign, $base-font-size, $successText, $icon-position);
   background-color: $successBackground;
   border-color: $successBorder;  
 }
@@ -35,7 +34,7 @@
 }
 .danger,
 .error {
-  @include icon(warning-sign, $baseFontSize, $errorText, $icon-position);
+  @include icon(warning-sign, $base-font-size, $errorText, $icon-position);
   background-color: $errorBackground;
   border-color: $errorBorder;
 }
@@ -46,7 +45,7 @@
   color: $errorText;
 }
 .status {
-  @include icon(info-sign, $baseFontSize, $infoText, $icon-position);
+  @include icon(info-sign, $base-font-size, $infoText, $icon-position);
   background-color: $infoBackground;
   border-color: $infoBorder;
 }
@@ -56,8 +55,8 @@
 }
 
 .messages ul {
-  padding-left: $gw*2;
-  margin: $baseLineHeight/4 0;
+  padding-left: $gutter-width*2;
+  margin: $absolute-line-height/4 0;
 }
 
 // Dismiss alert
@@ -82,7 +81,7 @@
   float: $omega;
   font-size: 20px;
   font-weight: bold;
-  line-height: $baseLineHeight;
+  line-height: $absolute-line-height;
   color: $black;
   text-shadow: 0 1px 0 rgba(255,255,255,1);
   @include opacity(0.2);

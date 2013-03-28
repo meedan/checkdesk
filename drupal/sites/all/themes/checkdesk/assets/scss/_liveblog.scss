@@ -3,19 +3,19 @@
 }
 
 @mixin liveblog-layout($width, $context) {
-  @include span-columns($width, $context, $gw);
+  @include span-columns($width, $context, $gutter-width);
   @content; // pass in padding if needed
-
-  .desk {
-    @include vertical-margin($base-font-size);
-    @include span-columns($width, $width, $gw / 2);
-
-    .post-row {
+  
+  .post-row { 
+    @include vertical-margin($base-font-size); 
+    @include span-columns($width, $width, $gutter-width);
+    
+    .livefyre-wrapper {
+      @include span-columns($width, $width, $gutter-width);
       @include vertical-margin($base-font-size);
-      @include span-columns($width, $width, $gw);
 
       .livefyre-wrapper {
-        @include span-columns($width, $width, $gw);
+        @include span-columns($width, $width, $gutter-width);
         @include vertical-margin($base-font-size);
       }
     }
@@ -24,7 +24,7 @@
   // The .related-updates bib is centered in 28 out of 30 columns
   .related-updates {
     @include vertical-margin($base-font-size);
-    @include span-columns(28, 30, $gw);
+    @include span-columns(28, 30, $gutter-width);
     margin-#{$from-direction}: columns(1, 30); // default value is left, so this means margin-#{left}.
   }
 }
@@ -34,7 +34,7 @@
 // Default liveblog layout overrides global default layout
 body.page-liveblog {
   #main {
-    @include liveblog-layout($cw, $cw);
+    @include liveblog-layout($container-width, $container-width);
 
     // Live blog view
     .view-liveblog {

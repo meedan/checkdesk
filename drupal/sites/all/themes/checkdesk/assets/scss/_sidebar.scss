@@ -2,8 +2,8 @@
 // Implementations: The story page as seen by a journalist (create update)
 //
 // By default, there is only one column.
-// In larger breakpoints the primary width $pw and secondary $sw diverge to create two columns.
-@mixin cd-sidebar($sw, $pw, $break: $cw) {
+// In larger breakpoints the primary width $primary-width and secondary-width diverge to create two columns.
+@mixin cd-sidebar($secondary-width, $primary-width, $break: $container-width) {
 
   body.sidebar-first {
     #main {
@@ -13,33 +13,29 @@
 
       // 2. The sidebar column
       #sidebar-first.column {
-        @include span-columns($sw, $break); // sidebar width
+        @include span-columns($secondary-width, $break); // sidebar width
         @include cd-box-shadow();
         background-color: white;
         margin-#{$omega}: 0;
-        padding-top: $baseLineHeight*1.6;
+        padding-top: $absolute-line-height*1.6;
 
         .view-desk-reports {
           // padding for the pager
           .item-list {
-            padding: 0 $gw*2;
+            padding: 0 $gutter-width*2;
           }
 
           // scrollbars
           height: 725px;
           overflow-y: auto;
-          overflow-x: hidden;
-
-          
+          overflow-x: hidden;          
         }
-
       }
 
       // 3. The primary content column with compser form
       div#content .inner {
-        @include span-columns($pw omega, $break);
+        @include span-columns($primary-width omega, $break);
         @include pad(0,0, $break);
-        margin-top: $base-font-size;
       }
     }
   }
@@ -47,21 +43,21 @@
 
 // ==========================================================================
 // Default: up to break-small
-@include cd-sidebar($cw, $cw); // full width for secondary and primary cols
+@include cd-sidebar($container-width, $container-width); // full width for secondary and primary cols
 
 // ==========================================================================
 // Breakpoint: small
 @include at-breakpoint($break-small) {
   $break: $break-small;
-  $sw: 4;
-  $pw: $break-small - $sw;
+  $secondary-width: 4;
+  $primary-width: $break-small - $secondary-width; // calculate main col width
 
   body.sidebar-first #main {
     @include span-columns($break, $break); //reset to full
     @include pad(0, 0); //reset to no pad 
   }
 
-  @include cd-sidebar($sw, $pw, $break); // reapply cd-sidebar
+  @include cd-sidebar($secondary-width, $primary-width, $break); // reapply cd-sidebar
 }
 // ======================================================================
 // Breakpoint: med
@@ -70,10 +66,10 @@
 
 @include at-breakpoint($break-medium) {
   $break: $break-medium;
-  $sw: 7;
-  $pw: $break-medium - $sw; 
+  $secondary-width: 7;
+  $primary-width: $break-medium - $secondary-width; 
 
-  @include cd-sidebar($sw, $pw, $break) {
+  @include cd-sidebar($secondary-width, $primary-width, $break) {
     @include span-columns($break, $break); //reset container to full
     @include pad(0, 0); //reset container padding
   }
@@ -81,24 +77,21 @@
 // Breakpoint: large
 @include at-breakpoint($break-large) {
   $break: $break-large;
-  $sw: 7;
-  $pw: $break-large - $sw;
+  $secondary-width: 7;
+  $primary-width: $break-large - $secondary-width;
   body.sidebar-first #main {
     @include span-columns($break, $break); // reset to full
     @include pad(0, 0, $break); // reset to zero
   }
-  @include cd-sidebar($sw, $pw, $break); // reapply cd-sidebar with new break
+  @include cd-sidebar($secondary-width, $primary-width, $break); // reapply cd-sidebar with new break
 }
 
 
 // incoming reports 
 // inside the sidebar
 #incoming-reports {
-
-  // @include ctb-clearfix;
-  font-family: $sans-font-family;
-  font-size: $fontSizeSmall;
-  padding: 0 $gw*2;
+  font-size: $small-font-size;
+  padding: 0 $gutter-width*2;
   color: $gray;
 
   .report-row {
@@ -107,7 +100,7 @@
 
     .report-row-container {
       cursor: pointer;
-      padding: $baseLineHeight/2 $gw;
+      padding: $absolute-line-height/2 $gutter-width;
       border-top: 1px solid $white;
       border-right: 1px solid $white;
       border-left: 1px solid $white;
@@ -124,7 +117,6 @@
       }
     }
 
-
     .report-content {
       @include ctb-clearfix;
       // thumbnail type
@@ -134,7 +126,7 @@
           @include ctb-opacity(.9);
         }
         .report-title {
-          margin: $baseLineHeight/4 0;
+          margin: $absolute-line-height/4 0;
           font-size: $fontSizeSmall;
           line-height: 1.2;
         }
@@ -207,7 +199,7 @@
     clear: both;
     float: $alpha;
     font-style: italic;
-    padding: $gw;
+    padding: $gutter-width;
     color: $grey;
   }
 } // incoming reports

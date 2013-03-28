@@ -11,7 +11,7 @@ $omega: opposite-position($from-direction);
 $icon-position: 'before';
 
 // Icons in the navigation
-@mixin nav-icons($size: $xsmall-font-size, $color: $navbarLinkColor) {
+@mixin nav-icons($size: $xsmall-font-size, $color: $nav-color) {
 
   // add a post
   a[href*="add/post"] { 
@@ -20,7 +20,6 @@ $icon-position: 'before';
   // add a report
   a#menu-submit-report { 
       @include icon("bookmark", $size, $color, $icon-position);
-
   }
   // add a story 
   a[href*="add/discussion"] { 
@@ -40,7 +39,7 @@ $icon-position: 'before';
 // This is necessary because some nav-items are h2s, a, or divs.
 @mixin nav-item-container() {
   @include reset-box-model;
-  line-height: $base-line-height;
+  line-height: $nav-line-height;
   float: $from-direction;
   display: inline-block;
   clear: none;
@@ -64,12 +63,13 @@ $icon-position: 'before';
     padding: 0 $nav-gutter;
     letter-spacing: 1px;
     text-decoration: none;
-    line-height: $nav-height - 4;
-    color: $navbarLinkColor;
+    line-height: $nav-height - 4px;
+    color: $nav-color;
     display: inline-block;
-    &:hover {
-      color: $navbarLinkColorActive;
-      background-color: $navbarLinkBackgroundHover;
+
+    &:active, &:hover {
+      color: $nav-active-color;
+      background-color: $nav-active-bkg-color;
     }
   }
 
@@ -79,26 +79,31 @@ $icon-position: 'before';
   }
 
   // Transitions
-  @include bb-transition($navbarLinkColor, $navbarLinkColorActive, '0.2s', 'color');
-  @include bb-transition($nav-bkg-color, $navbarLinkBackgroundActive, '0.2s', 'background-color');
+  @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
+  @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.2s', 'background-color');
   
   // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
   &:hover {
-    background-color: $navbarLinkBackgroundHover;
-    color: $navbarLinkColorHover;
+    background-color: $nav-hover-bkg-color;
+    color: $nav-hover-color;
   }
 
-  &.active {
-    background-color: $navbarLinkBackgroundActive;
-    color: $navbarLinkColorActive;
+  &.active,  {
+    background-color: $nav-active-bkg-color;
+    color: $nav-active-color;
   }
 
   // An anchor inside the chunky block
   &.active > a, 
   & > a.active {
-    color: $navbarLinkColorActive;
+    color: $nav-active-color;
     @include border-radius($radius $radius 0 0);
     font-weight: 500;
+    // don't forget the icons
+    &:before { 
+      color: $nav-active-color; 
+      background-color: $nav-active-bkg-color;
+    }
   }
 
   span.avatar img { // images in nav items
@@ -153,7 +158,7 @@ nav[role="navigation"] {
 
   // padding for the home icon
   #main-menu {
-    padding-#{$alpha}: $gw;
+    padding-#{$alpha}: $gutter-width;
   }
 
   #navigation-region,
@@ -167,7 +172,7 @@ nav[role="navigation"] {
 
     li {
       a.dropdown-toggle {
-        // margin-#{opposite-position($from-direction)}: $gw;
+        // margin-#{opposite-position($from-direction)}: $gutter-width;
       }
     }
 
@@ -227,8 +232,8 @@ div.region-page-top {
       @include reset-box-model;
 
       a { 
-        color: $navbarLinkColor; 
-        padding: $gw;
+        color: $nav-color; 
+        padding: $gutter-width;
       } 
     }
 
