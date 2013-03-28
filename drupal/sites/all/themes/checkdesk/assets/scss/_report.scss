@@ -234,10 +234,10 @@ $report-text-color: $dark-grey;
 
 		// description double quotes
 		.icon-quote-left {
-			@include icon(quote-left, 16px, $white);
+			@include icon("quote-left", 16px, $white);
 		}
 		.icon-quote-right {
-			@include icon(quote-right, 16px, $white);
+			@include icon("quote-right", 16px, $white);
 		}
 
 		.description {

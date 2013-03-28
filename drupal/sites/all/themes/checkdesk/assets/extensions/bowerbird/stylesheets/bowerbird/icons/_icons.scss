@@ -53,7 +53,7 @@ $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
     font-size: $size;
     line-height: $size;
     color: $color;
-    margin-#{$from-direction}: $gutter-width;
+    margin: 0 $gutter-width/2;
     
     // 4. content (for any extra)
     @content;

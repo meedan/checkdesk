@@ -1,30 +1,7 @@
-// .fyre-stream-stats {
-//   display: none;
-// }
-
-// rules from the module: 
-// TODO: integrate these into the mainstyles. CGB Jan 2013
-.livefyre-header {
-  background-color: #f6f6f6;
-  cursor: pointer;
-}
-
-.livefyre-header:hover {
-  background-color: #d6d6d6;
-}
-
-.livefyre-comments {
-  display: none;
-}
-
-img.fyre-logo-drop {
-  width: auto!important;
-}
-
-
-
 // Checkdesk original styles
-body {
+
+// extra selector context, to give it extra heft in the cascade
+html body {
   .fyre-widget {
     padding: 1em;
     .img {
@@ -34,25 +11,33 @@ body {
 
   .fyre-box-wrapper {
     display: none!important; // Temporary CGB
+
   }
 
-  div.livefyre-header {
-    width: auto;
+  .livefyre-comments {
+    display: none;
+  }
+
+  img.fyre-logo-drop {
+    width: auto!important;
   }
     
   div.livefyre-header {
     padding: 0.5em 1em;
     display: block;
-    color: darken($grey, 15%); // trying to match spec exactly
+    color: $medium-grey; // trying to match spec exactly
     font-weight: 200;
-    text-transform: capitalize; // HACK... also does this cause #i18n issue with ar?
+    text-transform: capitalize;
+    width: auto;
+    cursor: pointer;
+    background-color: transparent;
     // .livefyre-commentcount {
     //   @include icon('comment');
     // }
   }
 
-  // Appers on liveblog homepage and others 
-  // Do not set columnar layout here. 
+  // NOTE: This appers on liveblog homepage *and potentially* others that may not be obvious.
+  // Use the page-specific sass files for layout or other non-global styles. CGB
   .livefyre-wrapper {
     float: $from-direction;
     clear: both;
