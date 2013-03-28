@@ -265,8 +265,12 @@ function checkdesk_preprocess_page(&$variables) {
   $position = theme_get_setting('header_image_position');
   $variables['header_image_position'] = (empty($position) ? 'left' : $position);
 
-  $color = theme_get_setting('header_background_color');
-  $variables['header_background_color'] = (empty($color) ? 'transparent' : $color);
+  $bg = theme_get_setting('header_bg_path');
+  $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
+
+  $slogan = theme_get_setting('header_slogan');
+  $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
+  $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
 }
 
 /**

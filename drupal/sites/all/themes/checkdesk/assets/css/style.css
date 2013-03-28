@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -2095,10 +2096,6 @@ nav[role="navigation"] li.home a:before {
   content: "\f015";
 }
 
-nav[role="navigation"] a[href*="add/discussion"]:before {
-  content: "\f016";
-}
-
 /* \f020 doesn't work in Safari. all shifted one down */
 #incoming-reports .report-row .in_progress span:before {
   content: "\f021";
@@ -2167,6 +2164,10 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 
 #my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before {
   content: "\f0c1";
+}
+
+nav[role="navigation"] a[href*="add/discussion"]:before {
+  content: "\f0c9";
 }
 
 #incoming-reports-filters .icon-caret-down:before {
@@ -3796,7 +3797,7 @@ h1 {
 
 nav {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 300px;
 }
 
@@ -5211,9 +5212,13 @@ ul.pager {
 }
 
 nav[role="navigation"] {
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
   float: left;
   background-color: #262626;
   width: 100%;
+  padding: 7px 0;
 }
 nav[role="navigation"] li:last-of-type:after {
   float: left;
@@ -5286,7 +5291,6 @@ nav[role="navigation"] .nav > div h2 {
   float: left;
   position: relative;
   z-index: 899;
-  border-left: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
   -o-transition-property: color;
@@ -5307,7 +5311,7 @@ nav[role="navigation"] .nav > div h2 {
   background-color: #262626;
 }
 nav[role="navigation"] .nav > div h2 > a {
-  padding: 0 7px;
+  padding: 0 11px;
   letter-spacing: 1px;
   text-decoration: none;
   line-height: 25px;
@@ -5363,7 +5367,6 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   float: left;
   position: relative;
   z-index: 899;
-  border-left: 1px solid rgba(255, 255, 255, 0.29);
   -webkit-transition-property: color;
   -moz-transition-property: color;
   -o-transition-property: color;
@@ -5384,7 +5387,7 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   background-color: #262626;
 }
 nav[role="navigation"] .nav > a.btn > a, nav[role="navigation"] .nav > li > a {
-  padding: 0 7px;
+  padding: 0 11px;
   letter-spacing: 1px;
   text-decoration: none;
   line-height: 25px;
@@ -5443,7 +5446,7 @@ nav[role="navigation"] #navigation-region span.avatar img,
 nav[role="navigation"] #user-menu span.avatar img {
   width: 15px;
   height: 15px;
-  margin-left: 7px;
+  margin-left: 11px;
 }
 nav[role="navigation"] #navigation-region li.open a.dropdown-toggle,
 nav[role="navigation"] #user-menu li.open a.dropdown-toggle {
@@ -5460,6 +5463,28 @@ nav[role="navigation"] #user-menu li.last .dropdown-menu {
   left: -75px;
 }
 
+@media (min-width: 469px) {
+  nav[role="navigation"] {
+    padding-left: 2.34542%;
+    padding-right: 2.34542%;
+    width: 78.2516%;
+    float: left;
+    margin-right: 2.34542%;
+    padding-left: 8.52878%;
+    padding-right: 17.05757%;
+  }
+}
+@media (min-width: 949px) {
+  nav[role="navigation"] {
+    padding-left: 1.15911%;
+    padding-right: 1.15911%;
+    width: 80.82192%;
+    float: left;
+    margin-right: 1.15911%;
+    padding-left: 8.42993%;
+    padding-right: 12.64489%;
+  }
+}
 div.region-page-top #toolbar {
   position: fixed;
   z-index: 930;
@@ -5497,18 +5522,55 @@ div.region-page-top #toolbar div.toolbar-menu {
 }
 
 #partner-header {
-  width: 100%;
-  padding-top: 24px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: -10px;
+  padding-top: 38px;
+  margin-bottom: 38px;
 }
 
 .toolbar #partner-header {
-  margin-top: 79px;
+  margin-top: 93px;
   padding-top: 0;
 }
 
+#partner-header-inner {
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  background-color: white;
+  padding: 18px 0;
+}
+#partner-header-inner #partner-header-slogan,
+#partner-header-inner img {
+  padding: 0 18px;
+}
+#partner-header-inner #partner-header-slogan {
+  width: 323px;
+  color: #b0c94a;
+  font-size: 27px;
+  text-align: left;
+}
+
+@media (min-width: 469px) {
+  #partner-header {
+    padding-left: 2.34542%;
+    padding-right: 2.34542%;
+    width: 78.2516%;
+    float: left;
+    margin-right: 2.34542%;
+    padding-left: 8.52878%;
+    padding-right: 8.52878%;
+  }
+}
+@media (min-width: 949px) {
+  #partner-header {
+    padding-left: 1.15911%;
+    padding-right: 1.15911%;
+    width: 80.82192%;
+    float: left;
+    margin-right: 1.15911%;
+    padding-left: 8.42993%;
+    padding-right: 8.42993%;
+  }
+}
 div.tabs {
   margin: 0;
   padding: 0;

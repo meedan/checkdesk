@@ -24,10 +24,17 @@
     </div>
   </div>
 
-  <header id="partner-header" style="background-color: <?php print $header_background_color; ?>; text-align: <?php print $header_image_position; ?>;">
-    <?php if ($header_image): ?>
-      <?php print $header_image; ?>
-    <?php endif; ?>
+  <header id="partner-header">
+    <div id="partner-header-inner" style="background-image: url(<?php print $header_bg; ?>); text-align: <?php print $header_image_position; ?>;">
+      <?php if ($header_image): ?>
+        <?php print $header_image; ?>
+      <?php endif; ?>
+      <?php if ($header_slogan): ?>
+        <div id="partner-header-slogan" style="float: <?php print $header_slogan_position; ?>;">
+          <?php print $header_slogan; ?>
+        </div>
+      <?php endif; ?>
+    </div>
   </header>
 
   <!-- ______________________ MAIN _______________________ -->
