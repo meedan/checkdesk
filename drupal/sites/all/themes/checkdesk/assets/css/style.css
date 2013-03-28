@@ -6304,6 +6304,7 @@ body.page-liveblog #main .related-updates {
 body.page-liveblog #main .view-liveblog {
   overflow: hidden;
   *zoom: 1;
+  padding-top: 18px;
 }
 body.page-liveblog #main .view-liveblog .desk {
   z-index: 1;
@@ -6315,8 +6316,8 @@ body.page-liveblog #main .view-liveblog .desk {
   -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
-  width: 96%;
-  padding: 2%;
+  width: 98%;
+  padding: 1%;
   background-color: white;
 }
 body.page-liveblog #main .view-liveblog .desk h2 {
@@ -6329,6 +6330,9 @@ body.page-liveblog #main .view-liveblog .desk h2 a {
 }
 body.page-liveblog #main .view-liveblog .desk h2 a:hover {
   color: #333333;
+}
+body.page-liveblog #main .view-liveblog .desk h2 .desk {
+  border: 1px solid red;
 }
 body.page-liveblog #main .view-liveblog .desk .post-row {
   background-color: #dadada;

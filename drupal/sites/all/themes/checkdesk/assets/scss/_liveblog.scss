@@ -39,7 +39,7 @@ body.page-liveblog {
     // Live blog view
     .view-liveblog {
       @include clearfix;
-
+      padding-top: $base-font-size;
       .desk {
         z-index: 1;
         position: relative;
@@ -47,8 +47,8 @@ body.page-liveblog {
         float: $from-direction;
         margin-bottom: 0;
         @include ctb-box-shadow(0px 1px 1px 1px rgba(0, 0, 0, 0.2));
-        width: 96%;
-        padding: 2%;
+        width: 98%;
+        padding: 1%;
         background-color: white;
 
         h2 {
@@ -58,6 +58,10 @@ body.page-liveblog {
           a {
             @include ctb-linkColor($grayLight);
             font-weight: normal;
+          }
+
+          .desk {
+            border: 1px solid red;
           }
         }
 
