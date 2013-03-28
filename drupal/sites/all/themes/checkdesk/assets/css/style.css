@@ -6251,21 +6251,16 @@ body.page-liveblog #main .related-updates {
   margin-left: 2.43902%;
 }
 body.page-liveblog #main .view-liveblog {
+  overflow: hidden;
   *zoom: 1;
-}
-body.page-liveblog #main .view-liveblog:before, body.page-liveblog #main .view-liveblog:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.page-liveblog #main .view-liveblog:after {
-  clear: both;
 }
 body.page-liveblog #main .view-liveblog .desk {
   z-index: 1;
   position: relative;
+  overflow: hidden;
+  *zoom: 1;
+  float: left;
   margin-bottom: 0;
-  background-color: white;
   -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);

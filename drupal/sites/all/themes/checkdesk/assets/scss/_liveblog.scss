@@ -38,16 +38,14 @@ body.page-liveblog {
 
     // Live blog view
     .view-liveblog {
-      @include ctb-clearfix;
+      @include clearfix;
 
       .desk {
-        // Ensure the desk is displayed above the .related-updates bib
         z-index: 1;
         position: relative;
-
+        @include clearfix;
+        float: $from-direction;
         margin-bottom: 0;
-
-        background-color: white;
         @include ctb-box-shadow(0px 1px 1px 1px rgba(0, 0, 0, 0.2));
 
         h2 {
