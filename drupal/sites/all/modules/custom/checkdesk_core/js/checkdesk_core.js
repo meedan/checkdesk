@@ -72,7 +72,7 @@
       });
 
       // CKEditor configuration, see: http://www.question2answer.org/qa/13255/simple-ckeditor-how-to-modify-it-to-be-simple-solution
-      if (CKEDITOR) {
+      if (typeof CKEDITOR != 'undefined') {
         CKEDITOR.on('dialogDefinition', function(ev) {
           var dialog = ev.data, currentDialog;
 
