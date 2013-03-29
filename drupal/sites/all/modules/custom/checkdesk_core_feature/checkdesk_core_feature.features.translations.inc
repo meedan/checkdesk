@@ -42821,6 +42821,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['ee9cb1d991b307a5052b9dce519f0237'] = array(
+    'source' => 'Standard',
+    'context' => '',
+    'location' => '',
+    'translation' => 'معياري',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['8d281aadeefbcea7e2e1e862b01ffa9c'] = array(
+    'source' => 'Add a link',
+    'context' => '',
+    'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=&meedan_bookmarklet_prepopulate[field_link]=http://checkdesk.localhost/ar',
+    'translation' => 'أضف رابطاً',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
