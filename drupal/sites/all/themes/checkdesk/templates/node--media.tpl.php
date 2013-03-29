@@ -32,15 +32,15 @@
 
     <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity">
-          <header class="<?php print $status_class; ?>">
-            <a class="report-activity-header" href="#">
-              <h3><?php print $media_activity_report_count . ' ' . t('fact-checking footnotes'); ?></h3>
-              <?php if ($status_icon): ?>
-                <div class="report-status">
-                    <?php print $status_icon; ?>
-                </div>
-              <?php endif; ?>
-            </a>
+          <header<?php if ($status_class) print ' class="' . $status_class . '"'; ?>>
+            <h3><?php print $media_activity_report_count . ' ' . t('fact-checking footnotes'); ?></h3>
+            <div class="report-status">
+              <a class="report-activity-header" href="#">
+                <?php if ($status): ?>
+                  <?php print $status; ?>
+                <?php endif; ?>
+              </a>
+            </div>
           </header>
           <div class="activity-wrapper">
             <?php print $media_activity_report; ?>

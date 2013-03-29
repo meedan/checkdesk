@@ -361,7 +361,7 @@ function checkdesk_preprocess_node(&$variables) {
           $icon = '<span class="icon-remove-sign"></span> ';
         }
         $variables['status_class'] = $status_class;
-        $variables['status_icon'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+        $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
       }
     }
   }
