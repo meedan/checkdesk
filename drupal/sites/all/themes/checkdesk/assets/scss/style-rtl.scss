@@ -7,11 +7,12 @@
 
 // 1. ============================================
 // re-configuration of default variables
-$from-direction: right !default;
-$absolute-line-height: $absolute-line-height * 1.2 !default; // increase to account for arabic 
-$header-font-stack: $ar-header-font-stack !default;
-$body-font-stack: $ar-body-font-stack !default;
-$nav-font-stack: $ar-body-font-stack !default;
+$from-direction: right;
+$absolute-line-height: $absolute-line-height * 1.2; // increase to account for arabic 
+$header-font-stack: $ar-header-font-stack;
+$body-font-stack: $ar-body-font-stack;
+$nav-font-stack: $ar-body-font-stack;
+$debug: true;
 
 // 2. ============================================
 // Now we reload all styles with this updated configuration
@@ -23,4 +24,11 @@ html body.i18n-ar,
 .rtl { 
   direction: rtl;
   text-align: right;
+}
+
+// Specific overrides where we can not simply match the english font selection ... CGB
+.posts {
+  h3 a {
+    font-family: $ar-body-font-stack;
+  }
 }

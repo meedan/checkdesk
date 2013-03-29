@@ -2,14 +2,13 @@
 //
 // We use the views fluid grid plugin
 // See also report.scss
+
 body.page-reports {
 
   h1.title {
     text-align: center;
     @include cd-background;
   }
-
-  background-color: $grey;
 
   #main {
     @include pad(0, 0); // default reports page overriding default checkdesk page
@@ -41,7 +40,7 @@ body.page-reports {
   }
 }
 
-@include at-breakpoint($break-small) { // 12 
+@include at-breakpoint($break-small) {
   body.page-reports {
     li.views-fluid-grid-item {
       @include span-columns(6, $break-small);
@@ -49,7 +48,7 @@ body.page-reports {
   }  
 }
 
-@include at-breakpoint($break-medium) { // 18
+@include at-breakpoint($break-medium) {
   body.page-reports {
     li.views-fluid-grid-item {
       @include span-columns(9, $break-medium);
@@ -58,7 +57,7 @@ body.page-reports {
 }
 
 
-@include at-breakpoint($break-large) { // 24
+@include at-breakpoint($break-large) {
   body.page-reports {
     li.views-fluid-grid-item {
       @include span-columns(7, $break-large);

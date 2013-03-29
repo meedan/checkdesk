@@ -3,8 +3,7 @@
 //
 // By default, there is only one column.
 // In larger breakpoints the primary width $primary-width and secondary-width diverge to create two columns.
-@mixin cd-sidebar($secondary-width, $primary-width, $break: $container-width) {
-
+@mixin sidebar-layout($secondary-width, $primary-width, $break: $container-width) {
   body.sidebar-first {
     #main {
       @include span-columns($break, $break); //outermost container
@@ -16,24 +15,12 @@
         @include span-columns($secondary-width, $break); // sidebar width
         @include cd-box-shadow();
         background-color: white;
-        margin-#{$omega}: 0;
-        padding-top: $absolute-line-height*1.6;
-
-        .view-desk-reports {
-          // padding for the pager
-          .item-list {
-            padding: 0 $gutter-width*2;
-          }
-
-          // scrollbars
-          height: 725px;
-          overflow-y: auto;
-          overflow-x: hidden;          
-        }
+        margin-top: ms(0);
       }
 
-      // 3. The primary content column with compser form
-      div#content .inner {
+      // 3. The primary content column, 
+      // on story create page, the main column with the compser form
+      #content #content-area {
         @include span-columns($primary-width omega, $break);
         @include pad(0,0, $break);
       }
@@ -43,7 +30,7 @@
 
 // ==========================================================================
 // Default: up to break-small
-@include cd-sidebar($container-width, $container-width); // full width for secondary and primary cols
+@include sidebar-layout($container-width, $container-width - 2); 
 
 // ==========================================================================
 // Breakpoint: small
@@ -57,7 +44,7 @@
     @include pad(0, 0); //reset to no pad 
   }
 
-  @include cd-sidebar($secondary-width, $primary-width, $break); // reapply cd-sidebar
+  @include sidebar-layout($secondary-width, $primary-width, $break); // reapply sidebar-layout
 }
 // ======================================================================
 // Breakpoint: med
@@ -69,7 +56,7 @@
   $secondary-width: 7;
   $primary-width: $break-medium - $secondary-width; 
 
-  @include cd-sidebar($secondary-width, $primary-width, $break) {
+  @include sidebar-layout($secondary-width, $primary-width, $break) {
     @include span-columns($break, $break); //reset container to full
     @include pad(0, 0); //reset container padding
   }
@@ -83,124 +70,5 @@
     @include span-columns($break, $break); // reset to full
     @include pad(0, 0, $break); // reset to zero
   }
-  @include cd-sidebar($secondary-width, $primary-width, $break); // reapply cd-sidebar with new break
+  @include sidebar-layout($secondary-width, $primary-width, $break); // reapply sidebar-layout with new break
 }
-
-
-// incoming reports 
-// inside the sidebar
-#incoming-reports {
-  font-size: $small-font-size;
-  padding: 0 $gutter-width*2;
-  color: $gray;
-
-  .report-row {
-    @include ctb-clearfix;
-    position: relative;
-
-    .report-row-container {
-      cursor: pointer;
-      padding: $absolute-line-height/2 $gutter-width;
-      border-top: 1px solid $white;
-      border-right: 1px solid $white;
-      border-left: 1px solid $white;
-      border-bottom: 1px solid $grayLighter;
-      @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
-      @include ctb-transition(opacity 0.3s linear);
-    }
-
-    // for tweets
-    .twitter_com {
-      @include ctb-bg($grayLighter, rgba(238, 238, 238, 0.9));
-      .favicon, .domain {
-        display: none;
-      }
-    }
-
-    .report-content {
-      @include ctb-clearfix;
-      // thumbnail type
-      .report-type-thumbnail {
-        max-width: 100%;
-        .report-thumbnail img {
-          @include ctb-opacity(.9);
-        }
-        .report-title {
-          margin: $absolute-line-height/4 0;
-          font-size: $fontSizeSmall;
-          line-height: 1.2;
-        }
-      } // thumbnail type
-
-      .report-type-tweet {
-        & > div > a { display: none;}
-      }
-
-    } // report content
-
-    .report-status {
-      float: $omega;
-    }
-
-    // status icons
-    .verified span {
-      color: $green;
-      @include icon(ok-sign, 16px, darken($green, 15%)); 
-    }
-    .failed span {
-      color: $red;
-      @include icon(remove-sign, 16px, darken($red, 15%)); 
-    }
-    .undetermined span {
-      color: $orange;
-      @include icon(question-sign, 16px, darken($orange, 15%)); 
-    }
-    .in_progress span {
-      color: $yellow;
-      @include icon(refresh, 16px, darken($yellow, 15%)); 
-    }
-
-    .report-detail-link {
-      a {
-        @include checkdesk-button($grayLight);
-        @include button-size(13px);
-      }
-    }
-
-    // hover
-    &:hover {
-      color: $grayDark;
-      .report-row-container {
-        position: static;
-        $bw: 4px;
-        border: $bw solid $warningBorder;
-        background-color: $warningBackground;
-        margin-top: -$bw;
-        margin-#{$alpha}: -$bw;
-      } 
-
-      .report-content .report-thumbnail img {
-        @include ctb-opacity(1);
-      }
-
-    } // hover
-  } // report row
-
-  // while dragging
-  .ui-draggable-dragging {
-    .report-row-container {
-      border: 4px solid $warningBorder;
-      background-color: $warningBackground;
-    }
-  }
-
-  // no reports
-  .view-empty {
-    clear: both;
-    float: $alpha;
-    font-style: italic;
-    padding: $gutter-width;
-    color: $grey;
-  }
-} // incoming reports
-

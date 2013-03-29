@@ -5,15 +5,19 @@
 
 // Tell the browser about these files and define the font name
 // See base.scss configuration, with overrides in style-rtl.scss
+// Icon fonts
 @include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
+// English fonts
 @include bowerbird-font-face("Merriweather", "merriweather-webfont-webfont");
 @include bowerbird-font-face("Merriweather Light", "merriweather-light-webfont-webfont");
-@include bowerbird-font-face("Andalus", "andlso-webfont");
-@include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "bold");
+// Arabic fonts
+@include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
+@include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
 @include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
 @include bowerbird-font-face("Andalus", "andlso-webfont");
 
-// Modular scale 
+// Modular scale  
 // via: gem
 @import "modular-scale";
 
@@ -173,8 +177,15 @@ body {
 // #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
+// Filters
+@import "filters";
+
+// Partner stuff
+@import "partner_header";
+
 // Checkdesk reports
 @import "report";
+@import "reports_incoming";
 
 // Checkdesk updates
 @import "update";
@@ -219,7 +230,6 @@ body {
 
 // Create update page
 // Sidebar layout with main and secondary cols
-@import "reports_filter";
 @import "sidebar";
 
 // User section
@@ -229,7 +239,7 @@ body {
 @import "create_node";
 
 // Reports pages
-@import "reports";
+@import "reports_page";
 
 // ====================================================================== 
 // Styles in progress
@@ -251,12 +261,26 @@ body {
 			textarea {
 				clear: both;
 				float: none;
-			}
-			
+			}			
 		}
 	}
 }
 
+// The background colors
+body.page-reports {
+  background-color: $grey;
+}
+
+.desk {
+  background-color: white;
+}
+
+// The composer
+body.page-node-add-post {
+
+}
+
+// ====================================================================== 
 // Bidi helpers
 // These are unusual because they are not overridden in style-rtl.scss
 .rtl {
@@ -266,22 +290,6 @@ body {
 .ltr {
   text-align: left;
   direction: ltr;        
-}
-
-// Not so evil hack
-// corrects the links to the story in the update
-a[href*="/en"] {
-  font-family: $en-body-font-stack;
-  @if $debug {
-    border: 1px solid red;
-  }
-}
-
-a[href*="/ar"] {
-  font-family: $ar-body-font-stack;
-  @if $debug {
-    border: 1px solid aqua;
-  }
 }
 
 

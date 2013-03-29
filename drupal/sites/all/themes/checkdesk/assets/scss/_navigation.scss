@@ -1,13 +1,10 @@
 @charset "UTF-8";
 
-// setting omega
-$omega: opposite-position($from-direction);
-
 // 1. Drupal Navigation at the very top.
 // 2. Checkdesk #main-menu navigation
 
 
-// Navigation icons are always set as before
+// Navigation icons are always set as before, both RTL and LTR
 $icon-position: 'before';
 
 // Icons in the navigation
@@ -45,7 +42,7 @@ $icon-position: 'before';
   clear: none;
   position: relative;
   z-index: 1;
-  background: $nav-container-bkg-color;
+  // background: $nav-container-bkg-color;
 }
 
 // "Nav item" — single nav unit in the navigation
@@ -68,7 +65,7 @@ $icon-position: 'before';
 
     &:active, &:hover {
       color: $nav-active-color;
-      background-color: $nav-active-bkg-color;
+      // background-color: $nav-active-bkg-color;
     }
   }
 
@@ -79,7 +76,7 @@ $icon-position: 'before';
 
   // Transitions
   @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
-  @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.2s', 'background-color');
+  // @include bb-transition($nav-bkg-color, $nav-active-bkg-color, '0.2s', 'background-color');
   
   // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
   &:hover {
@@ -272,35 +269,6 @@ div.region-page-top {
 // when toolbar is present
 .toolbar .navbar-fixed-top {
   top: $toolbarHeight;
-}
-
-// Partner header
-#partner-header {
-  padding-top: $navbarHeight;
-  margin-bottom: $navbarHeight;
-}
-
-.toolbar #partner-header {
-  margin-top: $toolbarHeight + $navbarHeight;
-  padding-top: 0;
-}
-
-#partner-header-inner {
-  @include ctb-box-shadow(0px 1px 3px 1px rgba(0, 0, 0, 0.5));
-  background-color: $white;
-  padding: ms(0) 0;
-
-  #partner-header-slogan,
-  img {
-    padding: 0 ms(0); 
-  }
-
-  #partner-header-slogan {
-    width: ms(12);
-    color: $bright-green;
-    font-size: $base-font-size * 1.5;
-    text-align: $from-direction;
-  }
 }
 
 // Small breakpoint
