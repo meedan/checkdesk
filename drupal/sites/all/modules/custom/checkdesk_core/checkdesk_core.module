@@ -538,10 +538,10 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     $account = $user;
   }
   $links = array();
+  $url = url('node/' . $node->nid, array('absolute' => TRUE));
 
   // Links for reports.
   if ($node->type == 'media') {
-    $url = url('node/' . $node->nid, array('absolute' => TRUE));
     if (_checkdesk_core_report_can_suggest($node)) {
       $links['checkdesk-suggest'] = array(
         'title' => user_access('add report to story') ? t('Add to Story') : t('Suggest to Story'),
@@ -569,6 +569,10 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         ),
       );
     }
+  }
+
+  // Reports or updates can be shared
+  if (in_array($node->type, array('post', 'media'))) {
     $links['checkdesk-share-facebook'] = array(
       'title' => t('Share on Facebook'),
       'href' => $url,
@@ -587,7 +591,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   }
 
   // Links for stories, not as a dropdown menu.
-  else if ($node->type == 'discussion') {
+  if ($node->type == 'discussion') {
     if (node_access('update', $node)) {
       $links['checkdesk-edit-flat'] = array(
         'title' => t('Edit'),

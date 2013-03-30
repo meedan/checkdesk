@@ -3,10 +3,6 @@
   cursor: pointer;
 }
 
-.fb-comments-header:hover {
-  background-color: #d6d6d6;
-}
-
 .fb-comments, .fb_iframe_widget {
   display: none !important;
 }
@@ -23,7 +19,8 @@ body {
   }
     
   div.fb-comments-header {
-    padding: 0.5em 1em;
+    padding: 0 1em;
+    padding-#{$alpha}: ms(6);
     display: block;
     color: darken($grey, 15%); // trying to match spec exactly
     font-weight: 200;
@@ -33,7 +30,6 @@ body {
   // Appers on liveblog homepage and others 
   // Do not set columnar layout here. 
   .fb-comments-wrapper {
-    float: $from-direction;
     clear: both;
   }
 

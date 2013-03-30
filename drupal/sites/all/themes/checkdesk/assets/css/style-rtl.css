@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -2121,7 +2122,7 @@ nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f044";
 }
 
-.report #report-actions ul.content-actions > li > a span.icon-share:before {
+.report #report-actions ul.content-actions > li > a span.icon-share:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-share:before {
   content: "\f045";
 }
 
@@ -5110,6 +5111,56 @@ div.tabs ul.primary li a {
 .update .update-body p {
   margin: 7.2px 0;
 }
+.update .update-footer {
+  position: relative;
+  margin-bottom: 1em;
+}
+.update .update-footer .update-actions {
+  position: absolute;
+  font-size: 15.3px;
+  width: 65px;
+  right: 0;
+  top: 0;
+}
+.update .update-footer .update-actions ul.content-actions {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  display: block;
+}
+.update .update-footer .update-actions ul.content-actions > li > a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #595959;
+  display: block;
+}
+.update .update-footer .update-actions ul.content-actions > li > a:hover {
+  color: black;
+  text-decoration: none;
+}
+.update .update-footer .update-actions ul.content-actions > li > a span {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: inline-block;
+}
+.update .update-footer .update-actions ul.content-actions > li > a span:hover {
+  color: #0088ff;
+}
+.update .update-footer .update-actions ul.content-actions > li > a span.icon-share:before {
+  font-family: "FontAwesome";
+  font-size: 15.3px;
+  line-height: 15.3px;
+  color: black;
+  margin: 0 5.5px;
+}
 
 html body .fyre-widget {
   padding: 1em;
@@ -5127,7 +5178,8 @@ html body img.fyre-logo-drop {
   width: auto!important;
 }
 html body div.livefyre-header {
-  padding: 0.5em 1em;
+  padding: 0 1em;
+  padding-right: 76px;
   display: block;
   color: #a6a6a6;
   font-weight: 200;
@@ -5137,16 +5189,11 @@ html body div.livefyre-header {
   background-color: transparent;
 }
 html body .livefyre-wrapper {
-  float: right;
   clear: both;
 }
 
 .fb-comments-header {
   cursor: pointer;
-}
-
-.fb-comments-header:hover {
-  background-color: #d6d6d6;
 }
 
 .fb-comments, .fb_iframe_widget {
@@ -5161,14 +5208,14 @@ body div.fb-comments-header {
   width: auto;
 }
 body div.fb-comments-header {
-  padding: 0.5em 1em;
+  padding: 0 1em;
+  padding-right: 76px;
   display: block;
   color: #a6a6a6;
   font-weight: 200;
   text-transform: capitalize;
 }
 body .fb-comments-wrapper {
-  float: right;
   clear: both;
 }
 body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb-comments iframe[style] {

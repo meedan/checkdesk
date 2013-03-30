@@ -21,4 +21,44 @@
 		}
 
 	} // body
+  .update-footer {
+    position: relative;
+    margin-bottom: 1em;
+
+	  .update-actions {
+      position: absolute;
+      font-size: $fontSizeSmall;
+      width: ms(5);
+      #{$alpha}: 0;
+      top: 0;
+
+      ul.content-actions {
+        @include reset-box-model;
+        @include reset-list-style;
+        @include border-radius(4px);
+        display: block;
+
+        & > li > a {
+					@include reset-box-model;
+          color: $dark-grey;
+					display: block;
+
+					&:hover { 
+				    color: black;
+				    text-decoration: none;
+				  }
+
+					span {
+						@include reset-box-model;
+						display: inline-block;
+						&:hover {
+							color: $identity;
+						}
+						&.icon-share { @include icon(share, $fontSizeSmall, $darker-grey); }
+					}
+        }
+
+      } // content actions
+	  } // update actions
+  } // update footer
 } // update

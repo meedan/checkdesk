@@ -1,5 +1,5 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
-(function ($, FB) {
+(function ($) {
 'use strict';
 
 Drupal.behaviors.meedan_facebook_comments = {
@@ -99,4 +99,4 @@ Drupal.behaviors.meedan_facebook_comments = {
   }
 };
 
-}(jQuery, FB));
+}(jQuery));

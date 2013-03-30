@@ -23,7 +23,8 @@ html body {
   }
     
   div.livefyre-header {
-    padding: 0.5em 1em;
+    padding: 0 1em;
+    padding-#{$alpha}: ms(6);
     display: block;
     color: $medium-grey; // trying to match spec exactly
     font-weight: 200;
@@ -39,7 +40,6 @@ html body {
   // NOTE: This appers on liveblog homepage *and potentially* others that may not be obvious.
   // Use the page-specific sass files for layout or other non-global styles. CGB
   .livefyre-wrapper {
-    float: $from-direction;
     clear: both;
   }  
 }

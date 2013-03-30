@@ -10,8 +10,13 @@
       <?php print render($content['body']); ?>
     </div>
     <p><?php print render($content['field_desk']); ?></p>
-    <div class="update-comments">
-     <?php print render($content['custom_comments']); ?>
+    <div class="update-footer">
+      <div class="update-actions">
+        <?php print render($content['links']); ?>
+      </div>
+      <div class="update-comments">
+        <?php print render($content['custom_comments']); ?>
+      </div>
     </div>
   </article>
 </section>
