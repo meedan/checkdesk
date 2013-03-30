@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -5166,16 +5165,16 @@ html body .fyre-widget {
   padding: 1em;
 }
 html body .fyre-widget .img {
-  width: 83px!important;
+  width: 83px !important;
 }
 html body .fyre-box-wrapper {
-  display: none!important;
+  display: none !important;
 }
 html body .livefyre-comments {
   display: none;
 }
 html body img.fyre-logo-drop {
-  width: auto!important;
+  width: auto !important;
 }
 html body div.livefyre-header {
   padding: 0 1em;
@@ -6705,6 +6704,7 @@ body.page-liveblog #main .view-liveblog .desk {
 body.page-liveblog #main .view-liveblog .desk h2 {
   margin: 0;
   font-size: 200%;
+  line-height: 1.2;
 }
 body.page-liveblog #main .view-liveblog .desk h2 a {
   color: #999999;
@@ -7108,7 +7108,7 @@ body.sidebar-first #main #content #content-area {
   width: 65.0655%;
   float: right;
   margin-right: 0;
-  #margin-left: -11px;
+  *margin-left: -11px;
   display: inline;
   padding-left: 0%;
   padding-right: 0%;
@@ -7258,7 +7258,7 @@ body.page-user-password div.profile .user-picture {
   width: 3.05677%;
   float: right;
   margin-right: 0;
-  #margin-left: -11px;
+  *margin-left: -11px;
   display: inline;
 }
 body.page-user-login div.profile h3,
@@ -7656,12 +7656,12 @@ body.page-reports {
 }
 
 div.vertical-tabs, div.vertical-tabs-panes {
-  display: none!important;
+  display: none !important;
 }
 
 nav li.menu-449 {
-  display: none!important;
-  border: 1px solid red!important;
+  display: none !important;
+  border: 1px solid red !important;
 }
 
 p br {
@@ -7669,7 +7669,7 @@ p br {
 }
 
 input.form-autocomplete {
-  background-image: none!important;
+  background-image: none !important;
 }
 
 .filter-guidelines,
@@ -7683,7 +7683,7 @@ input.form-autocomplete {
 }
 
 body.toolbar-drawer {
-  padding-top: 0!important;
+  padding-top: 0 !important;
 }
 
 .views-exposed-widget .views-reset-button {
