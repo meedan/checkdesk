@@ -6694,11 +6694,13 @@ body.page-liveblog #main .view-liveblog .desk {
   *zoom: 1;
   float: right;
   margin-bottom: 0;
+  margin-top: 25px;
   -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   width: 98%;
   padding: 1%;
+  overflow: visible;
 }
 body.page-liveblog #main .view-liveblog .desk h2 {
   margin: 0;
