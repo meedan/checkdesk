@@ -9,16 +9,6 @@
   .post-row { 
     @include vertical-margin($base-font-size); 
     @include span-columns($width, $width, $gutter-width);
-    
-    .livefyre-wrapper {
-      @include span-columns($width, $width, $gutter-width);
-      @include vertical-margin($base-font-size);
-
-      .livefyre-wrapper {
-        @include span-columns($width, $width, $gutter-width);
-        @include vertical-margin($base-font-size);
-      }
-    }
   }
 
   // The .related-updates bib is centered in 28 out of 30 columns
