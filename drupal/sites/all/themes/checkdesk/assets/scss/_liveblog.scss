@@ -41,6 +41,10 @@ body.page-liveblog {
         width: 98%;
         padding: 1%;
         overflow: visible;
+        // remove margin for first instance
+        &:first-child {
+          margin-top: 0;
+        }
 
         h2 {
           margin: 0;

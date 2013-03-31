@@ -6701,6 +6701,9 @@ body.page-liveblog #main .view-liveblog .desk {
   padding: 1%;
   overflow: visible;
 }
+body.page-liveblog #main .view-liveblog .desk:first-child {
+  margin-top: 0;
+}
 body.page-liveblog #main .view-liveblog .desk h2 {
   margin: 0;
   font-size: 200%;
@@ -7104,7 +7107,7 @@ body.sidebar-first #main #sidebar-first.column {
   background-color: white;
   margin-top: 18px;
 }
-body.sidebar-first #main #content #content-area {
+body.sidebar-first #main #content {
   width: 65.0655%;
   float: right;
   margin-right: 0;
@@ -7140,7 +7143,7 @@ body.sidebar-first #main #content #content-area {
     background-color: white;
     margin-top: 18px;
   }
-  body.sidebar-first #main #content #content-area {
+  body.sidebar-first #main #content {
     width: 65.88486%;
     float: right;
     margin-right: 0;
@@ -7171,7 +7174,7 @@ body.sidebar-first #main #content #content-area {
     background-color: white;
     margin-top: 18px;
   }
-  body.sidebar-first #main #content #content-area {
+  body.sidebar-first #main #content {
     width: 70.49526%;
     float: right;
     margin-right: 0;
@@ -7205,7 +7208,135 @@ body.sidebar-first #main #content #content-area {
     background-color: white;
     margin-top: 18px;
   }
-  body.sidebar-first #main #content #content-area {
+  body.sidebar-first #main #content {
+    width: 85.33263%;
+    float: right;
+    margin-right: 0;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+}
+body.widgets #main {
+  width: 100%;
+  float: left;
+  margin-right: 4.80349%;
+  display: inline;
+  padding-left: 0%;
+  padding-right: 0%;
+}
+body.widgets #main #widgets.column {
+  width: 100%;
+  float: left;
+  margin-right: 4.80349%;
+  display: inline;
+  -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  margin-top: 18px;
+}
+body.widgets #main #content {
+  width: 65.0655%;
+  float: right;
+  margin-right: 0;
+  *margin-left: -11px;
+  display: inline;
+  padding-left: 0%;
+  padding-right: 0%;
+}
+
+@media (min-width: 469px) {
+  body.widgets #main {
+    width: 100%;
+    float: left;
+    margin-right: 2.34542%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+
+  body.widgets #main {
+    width: 100%;
+    float: left;
+    margin-right: 2.34542%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  body.widgets #main #widgets.column {
+    width: 31.76972%;
+    float: left;
+    margin-right: 2.34542%;
+    -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin-top: 18px;
+  }
+  body.widgets #main #content {
+    width: 65.88486%;
+    float: right;
+    margin-right: 0;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+}
+@media (min-width: 949px) {
+  body.widgets #main {
+    width: 100%;
+    float: left;
+    margin-right: 1.15911%;
+    padding-left: 0%;
+    padding-right: 0%;
+    width: 100%;
+    float: left;
+    margin-right: 1.15911%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  body.widgets #main #widgets.column {
+    width: 28.34563%;
+    float: left;
+    margin-right: 1.15911%;
+    -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin-top: 18px;
+  }
+  body.widgets #main #content {
+    width: 70.49526%;
+    float: right;
+    margin-right: 0;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+}
+@media (min-width: 1909px) {
+  body.widgets #main {
+    width: 100%;
+    float: left;
+    margin-right: 0.57622%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+
+  body.widgets #main {
+    width: 100%;
+    float: left;
+    margin-right: 0.57622%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  body.widgets #main #widgets.column {
+    width: 14.09115%;
+    float: left;
+    margin-right: 0.57622%;
+    -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin-top: 18px;
+  }
+  body.widgets #main #content {
     width: 85.33263%;
     float: right;
     margin-right: 0;

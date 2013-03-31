@@ -1,17 +1,17 @@
-// Page with a sidebar
+// Page with widgets
 // Implementations: The story page as seen by a journalist (create update)
 //
 // By default, there is only one column.
 // In larger breakpoints the primary width $primary-width and secondary-width diverge to create two columns.
-@mixin sidebar-layout($secondary-width, $primary-width, $break: $container-width) {
-  body.sidebar-first {
+@mixin widgets-layout($secondary-width, $primary-width, $break: $container-width) {
+  body.widgets {
     #main {
       @include span-columns($break, $break); //outermost container
       @include pad(0,0, $break); // override story.scss
       @content;
 
       // 2. The sidebar column
-      #sidebar-first.column {
+      #widgets.column {
         @include span-columns($secondary-width, $break); // sidebar width
         @include cd-box-shadow();
         background-color: white;
@@ -30,7 +30,7 @@
 
 // ==========================================================================
 // Default: up to break-small
-@include sidebar-layout($container-width, $container-width - 2); 
+@include widgets-layout($container-width, $container-width - 2); 
 
 // ==========================================================================
 // Breakpoint: small
@@ -39,12 +39,12 @@
   $secondary-width: 4;
   $primary-width: $break-small - $secondary-width; // calculate main col width
 
-  body.sidebar-first #main {
+  body.widgets #main {
     @include span-columns($break, $break); //reset to full
     @include pad(0, 0); //reset to no pad 
   }
 
-  @include sidebar-layout($secondary-width, $primary-width, $break); // reapply sidebar-layout
+  @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout
 }
 // ======================================================================
 // Breakpoint: med
@@ -56,7 +56,7 @@
   $secondary-width: 7;
   $primary-width: $break-medium - $secondary-width; 
 
-  @include sidebar-layout($secondary-width, $primary-width, $break) {
+  @include widgets-layout($secondary-width, $primary-width, $break) {
     @include span-columns($break, $break); //reset container to full
     @include pad(0, 0); //reset container padding
   }
@@ -66,9 +66,9 @@
   $break: $break-large;
   $secondary-width: 7;
   $primary-width: $break-large - $secondary-width;
-  body.sidebar-first #main {
+  body.widgets #main {
     @include span-columns($break, $break); // reset to full
     @include pad(0, 0, $break); // reset to zero
   }
-  @include sidebar-layout($secondary-width, $primary-width, $break); // reapply sidebar-layout with new break
+  @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout with new break
 }

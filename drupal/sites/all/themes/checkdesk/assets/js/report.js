@@ -100,17 +100,23 @@
 				}
 			});
 			// set the height of the sidebar
-			var bodyHeight = $(window).height(),
+			var windowHeight = $(window).height(),
 				  buffer = 160;
-			bodyHeight = bodyHeight - buffer;
-			$('#sidebar-first.column .view-desk-reports').height(bodyHeight);
+			windowHeight = windowHeight - buffer;
+			$('#sidebar-first.column .view-desk-reports').height(windowHeight);
 
 			$(window).resize(function(){
-				var bodyHeight = $(window).height();
-				bodyHeight = bodyHeight - buffer;
-				// console.log(bodyHeight);
-				$('#sidebar-first.column .view-desk-reports').height(bodyHeight);
+				var windowHeight = $(window).height();
+				windowHeight = windowHeight - buffer;
+				// console.log(windowHeight);
+				$('#sidebar-first.column .view-desk-reports').height(windowHeight);
 			});
+
+			// set the height of the widgets sidebar
+			var bodyHeight = $('body').height(),
+				  buffer = 160;
+			bodyHeight = bodyHeight + buffer;
+			$('#widgets.column').height(bodyHeight);
 
 			// close panel
 			$('#close').click(function(event) {

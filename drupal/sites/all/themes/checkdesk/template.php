@@ -43,6 +43,16 @@ function checkdesk_preprocess_html(&$variables) {
     $variables['classes_array'][] = $class;
   }
 
+  // Add information about widgets sidebar
+   if (checkdesk_widgets_visibility()) {
+    if (!empty($variables['page']['widgets'])) {
+      $variables['classes_array'][] = 'widgets';
+    }
+    else {
+      $variables['classes_array'][] = 'no-widgets';
+    }
+  }
+
   // Add conditional stylesheets for IE8.
   if ($variables['language'] == 'ar') {
     $filename = 'ie8-rtl.css';
@@ -271,6 +281,15 @@ function checkdesk_preprocess_page(&$variables) {
   $slogan = theme_get_setting('header_slogan');
   $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
   $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
+
+  // set page variable if widgets should be visible
+  $show_widgets = 0;
+  if (checkdesk_widgets_visibility()) {
+    $show_widgets = 1; 
+  } else {
+    $variables['page']['widgets'] = FALSE;
+  }
+  $variables['show_widgets'] = $show_widgets;
 }
 
 /**
@@ -479,6 +498,42 @@ function checkdesk_links__node($variables) {
   }
 
   return $output;
+}
+
+
+/**
+ * Utitity function to determine whether to show widgets or not
+ */
+function checkdesk_widgets_visibility() {
+  global $user;
+  $current_node = menu_get_object();
+  // what to check for
+  $roles = array('administrator', 'journalist');
+  $check_role = array_intersect($roles, array_values($user->roles));
+  $check_role = empty($check_role) ? FALSE : TRUE;
+  // node types to check for anonymous user
+  $anon_node_types = array('media', 'discussion', 'post');
+  // node types to check for logged in user
+  $user_node_types = array('media', 'post');
+
+  // for anonymous user
+  if (isset($current_node->type) && !$check_role) {
+    foreach ($anon_node_types as $node_type) {
+      if ($node_type == $current_node->type) return TRUE;
+    }
+  // for logged in users with specific role
+  } elseif (isset($current_node->type) && $check_role) {
+    foreach ($user_node_types as $node_type) {
+      if ($node_type == $current_node->type) return TRUE;
+    }
+  } 
+
+  // Always display on front page
+  if (drupal_is_front_page()) {
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
 /**
