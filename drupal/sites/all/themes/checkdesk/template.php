@@ -43,7 +43,7 @@ function checkdesk_preprocess_html(&$variables) {
     $variables['classes_array'][] = $class;
   }
 
-  // Add information about widgets sidebar
+  // Add classes about widgets sidebar
    if (checkdesk_widgets_visibility()) {
     if (!empty($variables['page']['widgets'])) {
       $variables['classes_array'][] = 'widgets';

@@ -47,16 +47,14 @@
         </div>
       </div>
     <?php endif; ?> <!-- /sidebar-first -->
-
-    <?php if ($show_widgets): ?>
-      <?php if ($page['widgets']): ?>
-        <div id="widgets" class="column widgets">
-          <div id="widgets-inner" class="inner">
-            <?php print render($page['widgets']); ?>
-          </div>
+    
+    <?php if ($show_widgets && $page['widgets']): ?>
+      <div id="widgets" class="column widgets">
+        <div id="widgets-inner" class="inner">
+          <?php print render($page['widgets']); ?>
         </div>
-      <?php endif; ?> <!-- /widgets -->
-    <?php endif; ?> 
+       </div>
+    <?php endif; ?> <!-- /widgets -->
 
     <div id="content">
       <div id="content-inner" class="inner column center">
