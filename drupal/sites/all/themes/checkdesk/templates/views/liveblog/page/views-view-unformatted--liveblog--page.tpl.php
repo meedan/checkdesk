@@ -22,6 +22,10 @@ $last_desk_nid = 0;
         echo     l($view->result[$id]->node_field_data_field_desk_title, "node/$this_desk_nid");
         echo   '</span>';
         echo '</h2>';
+
+        if(isset($view->result[$id]->field_body)) {
+          echo '<div class="story-description">' . render($view->result[$id]->field_body) . '</div>';  
+        }
       }
     ?>
 
