@@ -72,3 +72,42 @@
   }
   @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout with new break
 }
+
+
+
+// ======================================================================
+// Widgets styles
+
+
+#widgets {
+  #widgets-inner {
+    width: 96%;
+    padding: 2%;
+  }
+  // spacing between blocks/widgets
+  .block {
+    margin: ms(1) auto;
+    text-align: center;
+    &:first-child {
+      margin: 0;
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

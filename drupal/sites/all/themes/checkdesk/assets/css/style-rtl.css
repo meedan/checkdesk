@@ -7344,6 +7344,18 @@ body.widgets #main #content {
     padding-left: 0%;
   }
 }
+#widgets #widgets-inner {
+  width: 96%;
+  padding: 2%;
+}
+#widgets .block {
+  margin: 25px auto;
+  text-align: center;
+}
+#widgets .block:first-child {
+  margin: 0;
+}
+
 body.page-user-login #main,
 body.page-user-register #main,
 body.page-user-password #main {
