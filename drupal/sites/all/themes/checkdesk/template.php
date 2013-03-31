@@ -519,12 +519,14 @@ function checkdesk_widgets_visibility() {
   // for anonymous user
   if (isset($current_node->type) && !$check_role) {
     foreach ($anon_node_types as $node_type) {
+      // matches node types
       if ($node_type == $current_node->type) return TRUE;
     }
   // for logged in users with specific role
   } elseif (isset($current_node->type) && $check_role) {
     foreach ($user_node_types as $node_type) {
-      if ($node_type == $current_node->type) return TRUE;
+      // matches node types and is not on node edit page
+      if ($node_type == $current_node->type && arg(0) == 'node' && arg(2) != 'edit') return TRUE;
     }
   } 
 
