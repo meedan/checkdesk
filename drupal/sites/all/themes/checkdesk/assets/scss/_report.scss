@@ -387,20 +387,19 @@ $report-text-color: $dark-grey;
 					}
 					.title {
 						// float: $from-direction;
+						display: inline-block;
 						margin-#{$from-direction}: $gutter-width;
 					}
 					a {
 						font-weight: bold;
 					}
 				}
-				.message {
+				.message p {
+					display: block;
 					margin-top: $absolute-line-height/2;
 					padding: $absolute-line-height/2 $gutter-width/2;
 					background-color: $white;
 					@include border-radius(4px);
-					& > p {
-						@include reset-box-model;
-					}
 				}
 			}
 		}

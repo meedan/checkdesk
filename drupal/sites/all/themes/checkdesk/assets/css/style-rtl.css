@@ -2150,6 +2150,14 @@ nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f075";
 }
 
+#widgets ul.elsewhere li span.icon-twitter:before {
+  content: "\f081";
+}
+
+#widgets ul.elsewhere li span.icon-facebook:before {
+  content: "\f082";
+}
+
 .report h3 > a[href*="twitter.com"]:before, body.page-user-login #user-login #edit-social-media-signin li.first a:before,
 body.page-user-register #user-login #edit-social-media-signin li.first a:before,
 body.page-user-password #user-login #edit-social-media-signin li.first a:before {
@@ -2168,6 +2176,10 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 
 #my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before {
   content: "\f0c1";
+}
+
+#widgets ul.elsewhere li span.icon-sign-blank:before {
+  content: "\f0c8";
 }
 
 nav[role="navigation"] a[href*="add/discussion"]:before {
@@ -4794,12 +4806,14 @@ div.tabs ul.primary li a {
   color: #999999;
 }
 .report .report-activity .activity-list .activity header .title {
+  display: inline-block;
   margin-right: 11px;
 }
 .report .report-activity .activity-list .activity header a {
   font-weight: bold;
 }
-.report .report-activity .activity-list .activity .message {
+.report .report-activity .activity-list .activity .message p {
+  display: block;
   margin-top: 14.4px;
   padding: 14.4px 5.5px;
   background-color: white;
@@ -4808,11 +4822,6 @@ div.tabs ul.primary li a {
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
-}
-.report .report-activity .activity-list .activity .message > p {
-  margin: 0;
-  padding: 0;
-  border: 0;
 }
 .report .report-activity #comment-form {
   *zoom: 1;
@@ -7345,15 +7354,59 @@ body.widgets #main #content {
   }
 }
 #widgets #widgets-inner {
-  width: 96%;
-  padding: 2%;
+  width: 92%;
+  padding: 4%;
+  margin-top: 25px;
 }
 #widgets .block {
   margin: 25px auto;
-  text-align: center;
 }
 #widgets .block:first-child {
   margin: 0;
+}
+#widgets .block h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+#widgets ul.elsewhere {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  text-align: right;
+}
+#widgets ul.elsewhere li {
+  display: inline;
+}
+#widgets ul.elsewhere li a:hover {
+  text-decoration: none;
+}
+#widgets ul.elsewhere li span {
+  margin: -3.66667px;
+}
+#widgets ul.elsewhere li span.icon-facebook:before {
+  font-family: "FontAwesome";
+  font-size: 40px;
+  line-height: 40px;
+  color: #264887;
+  margin: 0 5.5px;
+}
+#widgets ul.elsewhere li span.icon-twitter:before {
+  font-family: "FontAwesome";
+  font-size: 40px;
+  line-height: 40px;
+  color: #1d87c9;
+  margin: 0 5.5px;
+}
+#widgets ul.elsewhere li span.icon-sign-blank:before {
+  font-family: "FontAwesome";
+  font-size: 40px;
+  line-height: 40px;
+  color: #555555;
+  margin: 0 5.5px;
 }
 
 body.page-user-login #main,

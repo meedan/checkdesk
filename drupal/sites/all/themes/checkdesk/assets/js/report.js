@@ -114,10 +114,16 @@
 
 			// set the height of the widgets sidebar
 			var bodyHeight = $('body').height(),
-				  buffer = 160;
-			bodyHeight = bodyHeight + buffer;
-			$('#widgets.column').height(bodyHeight);
+				windowHeight = $(window).height(),
+				widgetBarHeight = $('#widgets.column').height(),
+				buffer = 160;
 
+			bodyHeight = bodyHeight + buffer;
+			
+			if(windowHeight < bodyHeight) {
+				// $('#widgets.column').height(bodyHeight);	
+			}
+			
 			// close panel
 			$('#close').click(function(event) {
 				$('.panel-content').hide();

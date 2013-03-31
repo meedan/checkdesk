@@ -81,16 +81,48 @@
 
 #widgets {
   #widgets-inner {
-    width: 96%;
-    padding: 2%;
+    width: 92%;
+    padding: 4%;
+    margin-top: ms(1);
+    
   }
   // spacing between blocks/widgets
   .block {
     margin: ms(1) auto;
-    text-align: center;
+    
     &:first-child {
       margin: 0;
     }
+    // block title
+    h2 {
+      @include reset-box-model;
+      font-size: $small-font-size;
+      margin-bottom: $base-line-height/4;
+    }
+  }
+
+  ul.elsewhere {
+    @include reset-box-model;
+    @include reset-list-style;
+    text-align: $alpha;
+    li {
+      display: inline;
+      a {
+        &:hover { 
+          text-decoration: none; 
+        }
+      }
+
+      span {
+        margin: 0 -$gutter-width/3;
+        &.icon-facebook  { @include icon(facebook-sign, $xx-large-font-size, $facebook-blue); } 
+        &.icon-twitter  { @include icon(twitter-sign, $xx-large-font-size, $twitter-blue); }
+        &.icon-sign-blank  { @include icon(sign-blank, $xx-large-font-size, $gray); }
+      }
+
+    }
+    
+    
   }
 
 }
