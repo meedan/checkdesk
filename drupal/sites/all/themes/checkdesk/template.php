@@ -470,7 +470,7 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . l($links['checkdesk-edit']['title'], $links['checkdesk-edit']['href'], $links['checkdesk-edit']) .'</li>';
       }
       if (isset($links['checkdesk-delete'])) {
-        $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-edit']) .'</li>';
+        $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-delete']) .'</li>';
       }
       if (isset($links['flag-factcheck_journalist'])) {
         $output .= '<li class="divider"></li>';

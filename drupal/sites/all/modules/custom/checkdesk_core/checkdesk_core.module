@@ -565,7 +565,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         'title' => t('Delete'),
         'href' => 'node/' . $node->nid . '/delete',
         'query' => array(
-          'destination' => $_GET['q'],
+          'destination' => '<front>',
         ),
       );
     }
@@ -606,7 +606,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         'title' => t('Delete'),
         'href' => 'node/' . $node->nid . '/delete',
         'query' => array(
-          'destination' => $_GET['q'],
+          'destination' => '<front>',
         ),
       );
     }
