@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function checkdesk_hacks_init() {
+  // HACK: Fixes #1141, initialize 10 queries with pagination. This bumps up the
+  //       static variable PagerDefault::$maxElement to avoid conflicts between
+  //       views pagination and internal Drupal pagination.
+  //
+  //       The problem here is that views does not inform the PagerDefault class
+  //       when it initializes a new pager. Then, when a core Drupal page or
+  //       function makes use of the 'PagerDefault' extension the views pager
+  //       is clobbered.
+  for ($i = 0; $i < 10; $i++) {
+    $junk = db_select('cache', 'c')
+              ->extend('PagerDefault')
+              ->fields('c', array('cid'))
+              ->execute()
+              ->fetchCol();
+  }
+}
