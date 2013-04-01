@@ -42837,11 +42837,43 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
-  $translations['ar:default']['ee9cb1d991b307a5052b9dce519f0237'] = array(
-    'source' => 'Standard',
+  $translations['ar:default']['2c086e37f463aba143f4890ad30d77ac'] = array(
+    'source' => 'Unpublish',
     'context' => '',
-    'location' => '',
-    'translation' => 'معياري',
+    'location' => NULL,
+    'translation' => 'إلغاء النشر',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['6c8ce96c4391ac7fdcc1f53fc4b4e9cb'] = array(
+    'source' => '<a href="@user">!user</a> added this on <time class="date-time" datetime="!timestamp">!datetime</time>',
+    'context' => '',
+    'location' => NULL,
+    'translation' => '<a href="@user">!user</a> أضاف هذا التقرير <time class="date-time" datetime="!timestamp">!datetime</time>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0c2121748fdfc651777c6bc2c03bf36d'] = array(
+    'source' => '<a href="!url">@count more updates</a> related to <a href="!url">this story</a>. <a href="!url">View all</a>',
+    'context' => '',
+    'location' => NULL,
+    'translation' => '<a href="!url">@count تحديثات أخرى</a> مرتبطة <a href="!url">بهذا الخبر</a>. <a href="!url">عرض الكل</a>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0869522d5a55698fde06f804cb89a958'] = array(
+    'source' => '@count[3] more updates',
+    'context' => '',
+    'location' => NULL,
+    'translation' => '@count[3] تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0a046e997aded985b4be3de8aa8b5259'] = array(
+    'source' => '1 more update',
+    'context' => '',
+    'location' => NULL,
+    'translation' => 'تحديث 1 آخر',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42850,6 +42882,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=&meedan_bookmarklet_prepopulate[field_link]=http://checkdesk.localhost/ar',
     'translation' => 'أضف رابطاً',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['ee9cb1d991b307a5052b9dce519f0237'] = array(
+    'source' => 'Standard',
+    'context' => '',
+    'location' => '',
+    'translation' => 'معياري',
     'plid' => '0',
     'plural' => '0',
   );
