@@ -89,11 +89,12 @@ function checkdesk_preprocess_html(&$variables) {
 
 /**
  * Preprocess variables for blocks
- *
- * @see block.tpl.php
  */
 function checkdesk_preprocess_block(&$variables) {
-  // dsm($variables);
+  // remove block subjects for all except widgets
+  if($variables['elements']['#block']->region != 'widgets') {
+    $variables['elements']['#block']->subject = '';
+  }
 }
 
 /**
