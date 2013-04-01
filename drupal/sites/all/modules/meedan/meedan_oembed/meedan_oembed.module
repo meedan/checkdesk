@@ -206,6 +206,15 @@ function meedan_oembed_scrape_facebook($provider, $url) {
           ? $post_data['from']['name']
           : t('unknown Facebook user');
     $embed->description = t('Photo by @user', array('@user' => $name));
+
+    // Find the largest picture available
+    $max_size = 0;
+    foreach ($post_data['images'] as $image) {
+      if ($image['width'] * $image['height'] > $max_size) {
+        $embed->picture = $image['source'];
+        $max_size = $image['width'] * $image['height'];
+      }
+    }
   }
   else {
     $embed->description = t('No message available for this post');
@@ -213,7 +222,6 @@ function meedan_oembed_scrape_facebook($provider, $url) {
 
   $embed->title = $embed->description;
   $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
-  $embed->picture = isset($post_data['picture']) ? $post_data['picture'] : '';
   $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
   $embed->author_name = $post_data['from']['name'];
   $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
