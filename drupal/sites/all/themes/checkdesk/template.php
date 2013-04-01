@@ -355,11 +355,12 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time)
-    $variables['media_creation_info'] = t('<a href="@user">!user</a> added this on <time class="date-time" datetime="!timestamp">!datetime</time>', array(
+    $variables['media_creation_info'] = t('<a href="@user">!user</a> submitted this <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime_ago' => format_interval($variables['created'], 2),
     ));
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
