@@ -113,9 +113,10 @@ $report-text-color: $dark-grey;
 						}
 
 						// Flag and share on the top of the report
-						&.icon-edit  { @include icon(edit, $fontSizeSmall, $darker-grey); }
-						&.icon-flag  { @include icon(flag, $fontSizeSmall, $darker-grey); } 
-						&.icon-share { @include icon(share, $fontSizeSmall, $darker-grey); }
+						&.icon-link    { @include icon(link, $fontSizeSmall, $darker-grey); }
+						&.icon-reorder { @include icon(reorder, $fontSizeSmall, $darker-grey); }
+						&.icon-flag    { @include icon(flag, $fontSizeSmall, $darker-grey); }
+						&.icon-share   { @include icon(share, $fontSizeSmall, $darker-grey); }
 					}
 				}
 				// hide ajax throbber in dropdown

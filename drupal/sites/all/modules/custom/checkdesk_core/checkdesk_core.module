@@ -569,6 +569,14 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         ),
       );
     }
+
+    // View original content
+    if (isset($node->embed) && isset($node->embed->original_url)) {
+      $links['checkdesk-view-original'] = array(
+        'title' => t('View original'),
+        'href' => $node->embed->original_url,
+      );
+    }
   }
 
   // Reports or updates can be shared

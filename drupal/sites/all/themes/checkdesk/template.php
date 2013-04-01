@@ -355,11 +355,12 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time)
-    $variables['media_creation_info'] = t('<a href="@user">!user</a> added this on <time class="date-time" datetime="!timestamp">!datetime</time>', array(
+    $variables['media_creation_info'] = t('<a href="@user">!user</a> submitted this <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime_ago' => format_interval(time() - $variables['created'], 2),
     ));
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
@@ -412,7 +413,11 @@ function checkdesk_links__node($variables) {
 
   if (count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
-   
+
+    if (isset($links['checkdesk-view-original'])) {
+      $output .= '<li>' . l('<span class="icon-link"></span>' . $links['checkdesk-view-original']['title'], $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
+    }
+
     if (isset($links['checkdesk-share-facebook']) || 
         isset($links['checkdesk-share-twitter']) || 
         isset($links['checkdesk-share-google'])
@@ -469,9 +474,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span> ';
-      $output .=  t('...');
-      $output .= '</a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-reorder">&nbsp;</span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';

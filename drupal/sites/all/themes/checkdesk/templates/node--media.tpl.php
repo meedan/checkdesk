@@ -2,7 +2,7 @@
   <article class="report">
     <header>
       <h3>
-        <span class="icon-flag"></span> <?php print render($content['report_source']); ?>
+        <span class="icon-flag"></span>
       </h3>
       <div id="report-actions">
         <?php print render($content['links']); ?>

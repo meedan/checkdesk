@@ -1,21 +1,20 @@
 <?php
 
-// TODO: Use a hook_node_load() as a starting point to simplify how node pages / hooks interact with embeds.
-// /**
-//  * Implements hook_node_load().
-//  */
-// function meedan_oembed_node_load($nodes, $types) {
-//   foreach ($nodes as $nid => $node) {
-//     if ($node->type != 'media') {
-//       continue;
-//     }
-//     if (!isset($node->field_link) || !isset($node->field_link[LANGUAGE_NONE]) || !isset($node->field_link[LANGUAGE_NONE][0])) {
-//       continue;
-//     }
-//
-//     $nodes[$nid]->embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
-//   }
-// }
+/**
+ * Implements hook_node_load().
+ */
+function meedan_oembed_node_load($nodes, $types) {
+  foreach ($nodes as $nid => $node) {
+    if ($node->type != 'media') {
+      continue;
+    }
+    if (!isset($node->field_link) || !isset($node->field_link[LANGUAGE_NONE]) || !isset($node->field_link[LANGUAGE_NONE][0])) {
+      continue;
+    }
+
+    $nodes[$nid]->embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+  }
+}
 
 /**
  * Implements of hook_element_info_alter().
