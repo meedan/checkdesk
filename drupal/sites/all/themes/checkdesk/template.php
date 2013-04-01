@@ -88,6 +88,15 @@ function checkdesk_preprocess_html(&$variables) {
 }
 
 /**
+ * Preprocess variables for blocks
+ *
+ * @see block.tpl.php
+ */
+function checkdesk_preprocess_block(&$variables) {
+  // dsm($variables);
+}
+
+/**
  * Preprocess variables for page.tpl.php
  *
  * @see page.tpl.php
