@@ -42165,6 +42165,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['1697e19777a50f861fefbad1ca8f7892'] = array(
+    'source' => 'This report contains graphic content',
+    'context' => '',
+    'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar',
+    'translation' => 'هذا التقرير يتضمن محتوى أو صوراً صادمة',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['e681c06a074012ef4b55423e4a7c3787'] = array(
     'source' => 'Edit description',
     'context' => '',
