@@ -133,7 +133,7 @@ $omega: opposite-position($from-direction);
 // All of them are namespaced ctb-mixinname
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
-@import "replace_ctb/navs";
+// @import "replace_ctb/navs";
 @import "compass_twitter_bootstrap/reset";
 // @import "compass_twitter_bootstrap/code"; // TB Syntax highlighting
 // @import "compass_twitter_bootstrap/tables"; // TB Tabular data
@@ -230,7 +230,7 @@ body {
 
 // Create update page
 // Sidebar layout with main and secondary cols
-@import "sidebar";
+@import "_layout_2col";
 
 // Widgets
 @import "widgets";
@@ -269,19 +269,12 @@ body {
 	}
 }
 
-// The background colors
-body.page-reports {
-  background-color: $grey;
-}
+// ====================================================================== 
+// WIP: Extracting The background colors
+body.page-reports { background-color: $grey; }
 
-.desk {
-  background-color: white;
-}
-
-// The composer
-body.page-node-add-post {
-
-}
+#sidebar-first.column,
+.desk { background-color: white; }
 
 // ====================================================================== 
 // Bidi helpers
