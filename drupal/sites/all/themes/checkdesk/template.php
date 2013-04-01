@@ -413,7 +413,11 @@ function checkdesk_links__node($variables) {
 
   if (count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
-   
+
+    if (isset($links['checkdesk-view-original'])) {
+      $output .= '<li>' . l('<span class="icon-link"></span>' . $links['checkdesk-view-original']['title'], $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
+    }
+
     if (isset($links['checkdesk-share-facebook']) || 
         isset($links['checkdesk-share-twitter']) || 
         isset($links['checkdesk-share-google'])
@@ -470,9 +474,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span> ';
-      $output .=  t('...');
-      $output .= '</a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-reorder">&nbsp;</span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
