@@ -360,7 +360,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
-      '!datetime_ago' => format_interval($variables['created'], 2),
+      '!datetime_ago' => format_interval(time() - $variables['created'], 2),
     ));
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
