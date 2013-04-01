@@ -1,44 +1,13 @@
 // Citizen's view of Story page 
 // aka Discussion Node 
-// Journalist role sees sidebar.scss also
-// body.node-type-discussion {
-
-  // This page is identical to the meta-liveblog page. 
-
-  // // =======================================================
-  // // Breakpoint: small (8)
-  // @include at-breakpoint($break-small) {
-  //   #main {
-  //     @include span-columns($break-small - 2, $break-small);
-  //     @include pad(1, 1, $break-small);
-  //   }
-  // }
-  // // =======================================================
-  // // Breakpoint: medium (12)
-  // @include at-breakpoint($break-medium) {
-  //   #main {
-  //     @include span-columns($break-medium - 4, $break-medium);
-  //     @include pad(2, 2, $break-medium);
-  //   }
-  // }
-  // // =======================================================
-  // // Breakpoint: medium (16)
-  // @include at-breakpoint($break-large) {
-  //   #main {
-  //     @include span-columns($break-large - 8, $break-large);
-  //     @include pad(4, 4, $break-large);
-  //   }
-  // }
-// }
-
 
 @mixin vertical-margin($width) {
   margin: { top: $width; bottom: $width; } 
 }
 
-@mixin story-layout($width, $context) {
+@mixin layout-story($width, $context) {
   @include span-columns($width, $context, $gutter-width);
-  @content; // pass in padding if needed
+  @content;
   .update-row { 
     @include vertical-margin($base-font-size); 
     @include span-columns($width, $width, $gutter-width);
@@ -49,7 +18,6 @@
     }
   }
 }
-
 
 .node-type-discussion {
   // Updates must stay above story information, 
@@ -62,9 +30,8 @@
   }
 
   #main {
-    @include story-layout($container-width, $container-width);
+    @include layout-story($container-width, $container-width);
     #block-views-desk-updates-block {
-      // @include span-columns($pw, $pw);
       @include ctb-clearfix;
       margin-top: 1em;
       padding-top: 1em;

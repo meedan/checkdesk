@@ -6,7 +6,7 @@ require "modular-scale" #for ratios
 require "compass_twitter_bootstrap" #deprecated Sass-wise; for legacy support only CGB
 # see https://github.com/vwall/compass-twitter-bootstrap
 
-line_comments = false
+line_comments = true
 
 drupal_dir = "drupal"
 themes_dir = "sites/all/themes/"
@@ -48,4 +48,4 @@ module Sass::Script::Functions
 end
 
 output_style = (environment == :production) ? :compressed : :expanded
-# sass_options = (environment == :production) ? { :debug_info => false } : { :debug_info => true } 
+sass_options = (environment == :production) ? { :debug_info => false } : { :debug_info => true } 
