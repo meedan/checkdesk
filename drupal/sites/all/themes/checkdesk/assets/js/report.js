@@ -101,7 +101,8 @@
 			});
 			// set the height of the sidebar
       if ($('#post-node-form').length) {
-  			$('#sidebar-first.column .view-desk-reports').height($('#post-node-form').height());
+        var form = $('#post-node-form');
+  			$('#sidebar-first.column .view-desk-reports').height(form.offset().top + form.height() - 150);
       }
 
 			// set the height of the widgets sidebar
