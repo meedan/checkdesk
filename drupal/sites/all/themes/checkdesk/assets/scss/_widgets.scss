@@ -116,7 +116,7 @@
       span {
         display: inline-block;
         margin: 0 -$gutter-width/3;
-        height: 24px;
+        height: 25px;
         &.icon-facebook  { @include icon(facebook-sign, $xx-large-font-size, $facebook-blue); } 
         &.icon-twitter  { @include icon(twitter-sign, $xx-large-font-size, $twitter-blue); }
         &.icon-sign-blank  { @include icon(sign-blank, $xx-large-font-size, $gray); }
@@ -124,8 +124,9 @@
         &.icon-partner {
           margin: 0;
           img { 
-            width: 30px;
+            margin-top: -1px;
             vertical-align: top;
+            width: 30px;
           }  
         }
         
