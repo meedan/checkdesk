@@ -2,6 +2,12 @@
 //
 // inside the sidebar
 
+// Add a scrollbar to the sidebar to make it easier to drag a report that is not on the beginning of the list
+.view-desk-reports {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 // Report filters
 // 
 // They control which reports are visible while you are using the incoming report stream.
