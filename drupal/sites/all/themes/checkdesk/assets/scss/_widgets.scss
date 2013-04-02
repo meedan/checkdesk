@@ -54,7 +54,7 @@
 @include at-breakpoint($break-medium) {
   $break: $break-medium;
   $secondary-width: 7;
-  $primary-width: $break-medium - $secondary-width; 
+  $primary-width: $break-medium - $secongit sdary-width; 
 
   @include widgets-layout($secondary-width, $primary-width, $break) {
     @include span-columns($break, $break); //reset container to full
