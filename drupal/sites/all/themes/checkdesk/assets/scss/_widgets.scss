@@ -1,5 +1,5 @@
 // Page with widgets
-// Implementations: The story page as seen by a journalist (create update)
+// Mostly same as incoming reports sidebar
 //
 // By default, there is only one column.
 // In larger breakpoints the primary width $primary-width and secondary-width diverge to create two columns.
@@ -106,7 +106,7 @@
     @include reset-list-style;
     text-align: $alpha;
     li {
-      display: inline;
+      display: inline-block;
       a {
         &:hover { 
           text-decoration: none; 
@@ -114,17 +114,24 @@
       }
 
       span {
+        display: inline-block;
         margin: 0 -$gutter-width/3;
+        height: 24px;
         &.icon-facebook  { @include icon(facebook-sign, $xx-large-font-size, $facebook-blue); } 
         &.icon-twitter  { @include icon(twitter-sign, $xx-large-font-size, $twitter-blue); }
         &.icon-sign-blank  { @include icon(sign-blank, $xx-large-font-size, $gray); }
+        // partner logo as external images
+        &.icon-partner {
+          margin: 0;
+          img { 
+            width: 30px;
+            vertical-align: top;
+          }  
+        }
+        
       }
-
     }
-    
-    
   }
-
 }
 
 
