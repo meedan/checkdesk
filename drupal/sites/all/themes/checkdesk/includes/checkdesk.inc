@@ -65,7 +65,7 @@ function checkdesk_checkdesk_related_updates_bar($variables) {
 
   $output  = '';
   $output .= '<div class="related-updates">';
-  $output .=   l(format_plural($count, '1 more update', '@count more updates'), "node/$story->nid");
+  $output .=   l(format_plural($count - 1, '1 more update', '@count more updates'), "node/$story->nid");
   $output .= '</div>';
 
   return $output;
