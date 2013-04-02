@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -4498,6 +4499,11 @@ div.tabs ul.primary li a {
   line-height: 16px;
   color: #5c1611;
   margin: 0 5.5px;
+}
+
+.view-desk-reports {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 #incoming-reports-filters {
