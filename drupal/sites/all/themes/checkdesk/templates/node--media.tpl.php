@@ -1,14 +1,5 @@
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <article class="report">
-    <header>
-      <h3>
-        <span class="icon-flag"></span>
-      </h3>
-      <div id="report-actions">
-        <?php print render($content['links']); ?>
-      </div>
-    </header>
-    
+  <article class="report">   
     <section class="report-content">
       <div class="report-media">
         <div class="container">
@@ -49,9 +40,15 @@
 
       </section>
     <?php endif; ?>
-<!--       <footer>
-        Something in small 
-      </footer> -->
+
+    <footer>
+      <h3>
+        <span class="icon-flag"></span>
+      </h3>
+      <div id="report-actions">
+        <?php print render($content['links']); ?>
+      </div>
+    </footer>
   </article>
 
 </section>
