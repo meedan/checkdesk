@@ -19,12 +19,19 @@ body {
   }
     
   div.fb-comments-header {
+	  @include icon(comments, $fontSizeSmall, $darker-grey);
     padding: 0 1em;
-    padding-#{$alpha}: ms(6);
+    padding-#{$alpha}: ms(8);
     display: block;
-    color: darken($grey, 15%); // trying to match spec exactly
-    font-weight: 200;
     text-transform: capitalize; // HACK... also does this cause #i18n issue with ar?
+    font-size: $fontSizeSmall;
+    color: $dark-grey;
+    width: auto;
+    cursor: pointer;
+    background-color: transparent;
+    &:hover { 
+      color: black;
+    }
   }
 
   // Appers on liveblog homepage and others 

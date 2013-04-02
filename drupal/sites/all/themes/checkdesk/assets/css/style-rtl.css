@@ -2155,6 +2155,10 @@ nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f082";
 }
 
+html body div.livefyre-header:before, body div.fb-comments-header:before {
+  content: "\f086";
+}
+
 .report h3 > a[href*="twitter.com"]:before, body.page-user-login #user-login #edit-social-media-signin li.first a:before,
 body.page-user-register #user-login #edit-social-media-signin li.first a:before,
 body.page-user-password #user-login #edit-social-media-signin li.first a:before {
@@ -2179,7 +2183,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   content: "\f0c8";
 }
 
-.report #report-actions ul.content-actions > li > a span.icon-reorder:before, nav[role="navigation"] a[href*="add/discussion"]:before {
+.report #report-actions ul.content-actions > li > a span.icon-reorder:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before, nav[role="navigation"] a[href*="add/discussion"]:before {
   content: "\f0c9";
 }
 
@@ -4734,9 +4738,9 @@ div.tabs ul.primary li a {
 .update .update-footer .update-actions {
   position: absolute;
   font-size: 15.3px;
-  width: 65px;
+  width: auto;
   right: 0;
-  top: 0;
+  top: 1px;
 }
 .update .update-footer .update-actions ul.content-actions {
   margin: 0;
@@ -4749,6 +4753,9 @@ div.tabs ul.primary li a {
   -o-border-radius: 4px;
   border-radius: 4px;
   display: block;
+}
+.update .update-footer .update-actions ul.content-actions > li {
+  float: left;
 }
 .update .update-footer .update-actions ul.content-actions > li > a {
   margin: 0;
@@ -4777,6 +4784,16 @@ div.tabs ul.primary li a {
   color: black;
   margin: 0 5.5px;
 }
+.update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder {
+  margin-left: 11px;
+}
+.update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before {
+  font-family: "FontAwesome";
+  font-size: 15.3px;
+  line-height: 15.3px;
+  color: black;
+  margin: 0 5.5px;
+}
 
 html body .fyre-widget {
   padding: 1em;
@@ -4795,14 +4812,24 @@ html body img.fyre-logo-drop {
 }
 html body div.livefyre-header {
   padding: 0 1em;
-  padding-right: 76px;
+  padding-right: 123px;
   display: block;
-  color: #a6a6a6;
-  font-weight: 200;
   text-transform: capitalize;
+  font-size: 15.3px;
+  color: #595959;
   width: auto;
   cursor: pointer;
   background-color: transparent;
+}
+html body div.livefyre-header:before {
+  font-family: "FontAwesome";
+  font-size: 15.3px;
+  line-height: 15.3px;
+  color: black;
+  margin: 0 5.5px;
+}
+html body div.livefyre-header:hover {
+  color: black;
 }
 html body .livefyre-wrapper {
   clear: both;
@@ -4826,11 +4853,24 @@ body div.fb-comments-header {
 }
 body div.fb-comments-header {
   padding: 0 1em;
-  padding-right: 76px;
+  padding-right: 123px;
   display: block;
-  color: #a6a6a6;
-  font-weight: 200;
   text-transform: capitalize;
+  font-size: 15.3px;
+  color: #595959;
+  width: auto;
+  cursor: pointer;
+  background-color: transparent;
+}
+body div.fb-comments-header:before {
+  font-family: "FontAwesome";
+  font-size: 15.3px;
+  line-height: 15.3px;
+  color: black;
+  margin: 0 5.5px;
+}
+body div.fb-comments-header:hover {
+  color: black;
 }
 body .fb-comments-wrapper {
   clear: both;
@@ -6468,8 +6508,6 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
   float: right;
   margin-left: 4.80349%;
   display: inline;
-  margin-top: 18px;
-  margin-bottom: 18px;
 }
 .node-type-discussion #main #block-views-desk-updates-block {
   *zoom: 1;

@@ -21,6 +21,15 @@
       <?php endif; ?>
     </section>
 
+    <footer>
+      <h3>
+        <span class="icon-flag"></span>
+      </h3>
+      <div id="report-actions">
+        <?php print render($content['links']); ?>
+      </div>
+    </footer>
+
     <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity">
           <header<?php if ($status_class) print ' class="' . $status_class . '"'; ?>>
@@ -40,15 +49,6 @@
 
       </section>
     <?php endif; ?>
-
-    <footer>
-      <h3>
-        <span class="icon-flag"></span>
-      </h3>
-      <div id="report-actions">
-        <?php print render($content['links']); ?>
-      </div>
-    </footer>
   </article>
 
 </section>

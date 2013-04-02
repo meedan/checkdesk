@@ -23,15 +23,19 @@ html body {
   }
     
   div.livefyre-header {
+	  @include icon(comments, $fontSizeSmall, $darker-grey);
     padding: 0 1em;
-    padding-#{$alpha}: ms(6);
+    padding-#{$alpha}: ms(8);
     display: block;
-    color: $medium-grey; // trying to match spec exactly
-    font-weight: 200;
     text-transform: capitalize;
+    font-size: $fontSizeSmall;
+    color: $dark-grey;
     width: auto;
     cursor: pointer;
     background-color: transparent;
+    &:hover { 
+      color: black;
+    }
     // .livefyre-commentcount {
     //   @include icon('comment');
     // }

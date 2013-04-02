@@ -540,7 +540,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   $links = array();
   $url = url('node/' . $node->nid, array('absolute' => TRUE));
 
-  // Links for reports.
+  // Links for reports only.
   if ($node->type == 'media') {
     if (_checkdesk_core_report_can_suggest($node)) {
       $links['checkdesk-suggest'] = array(
@@ -551,6 +551,18 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         ),
       );
     }
+
+    // View original content
+    if (isset($node->embed) && isset($node->embed->original_url)) {
+      $links['checkdesk-view-original'] = array(
+        'title' => t('View original'),
+        'href' => $node->embed->original_url,
+      );
+    }
+  }
+
+  // Reports or updates can be shared, edited or deleted
+  if (in_array($node->type, array('post', 'media'))) {
     if (node_access('update', $node)) {
       $links['checkdesk-edit'] = array(
         'title' => t('Edit'),
@@ -570,17 +582,6 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       );
     }
 
-    // View original content
-    if (isset($node->embed) && isset($node->embed->original_url)) {
-      $links['checkdesk-view-original'] = array(
-        'title' => t('View original'),
-        'href' => $node->embed->original_url,
-      );
-    }
-  }
-
-  // Reports or updates can be shared
-  if (in_array($node->type, array('post', 'media'))) {
     $links['checkdesk-share-facebook'] = array(
       'title' => t('Share on Facebook'),
       'href' => $url,

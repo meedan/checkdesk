@@ -28,9 +28,9 @@
 	  .update-actions {
       position: absolute;
       font-size: $fontSizeSmall;
-      width: ms(5);
+      width: auto;
       #{$alpha}: 0;
-      top: 0;
+      top: 1px;
 
       ul.content-actions {
         @include reset-box-model;
@@ -38,24 +38,34 @@
         @include border-radius(4px);
         display: block;
 
-        & > li > a {
-					@include reset-box-model;
-          color: $dark-grey;
-					display: block;
+        & > li {
+          float: $omega;
 
-					&:hover { 
-				    color: black;
-				    text-decoration: none;
-				  }
+          & > a {
+					  @include reset-box-model;
+            color: $dark-grey;
+					  display: block;
 
-					span {
-						@include reset-box-model;
-						display: inline-block;
-						&:hover {
-							color: $identity;
-						}
-						&.icon-share { @include icon(share, $fontSizeSmall, $darker-grey); }
-					}
+					  &:hover { 
+				      color: black;
+				      text-decoration: none;
+				    }
+
+					  span {
+					  	@include reset-box-model;
+					  	display: inline-block;
+					  	&:hover {
+					  		color: $identity;
+					  	}
+					  	&.icon-share {
+                @include icon(share, $fontSizeSmall, $darker-grey);
+              }
+					  	&.icon-reorder {
+                @include icon(reorder, $fontSizeSmall, $darker-grey);
+						    margin-#{$omega}: $gutter-width;
+              }
+					  }
+          }
         }
 
       } // content actions
