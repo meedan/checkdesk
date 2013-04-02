@@ -205,7 +205,8 @@ function meedan_oembed_scrape_facebook($provider, $url) {
     $name = isset($post_data['from']) && isset($post_data['from']['name'])
           ? $post_data['from']['name']
           : t('unknown Facebook user');
-    $embed->description = t('Photo by @user', array('@user' => $name));
+    // No caption for photos
+    $embed->description = '';
 
     // Find the largest picture available
     $max_size = 0;
