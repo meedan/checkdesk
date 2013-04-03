@@ -111,21 +111,6 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
 }
 
-function checkdesk_core_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Remove "View" tab from local actions
-  // if (isset($data['tabs'][0]['output'][0]['#link']) && $data['tabs'][0]['output'][0]['#link']['path'] == 'node/%/view') {
-  //   $href = explode('/', $data['tabs'][0]['output'][0]['#link']['href']);
-  //   $type = db_select('node', 'n')
-  //     ->fields('n', array('type'))
-  //     ->condition('n.nid', $href[1])
-  //     ->execute()
-  //     ->fetchField(0);
-    
-  //     array_shift($data['tabs'][0]['output']);
-  //     $data['tabs'][0]['count'] -= 1;
-  // }
-}
-
 /**
  * Menu function for `modal/%ctools_js`.
  */
