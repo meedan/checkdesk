@@ -15,54 +15,56 @@ body.page-reports {
     @include span-columns($container-width, $container-width, $gutter-width);
   }
 
-  li.views-fluid-grid-item  {
-    @include reset-box-model; // remove default border
-    @include span-columns($container-width, $container-width); // default is full width
-    max-width: 400px;
+  .report-item  {
+    // @include reset-box-model; // remove default border
+    // @include span-columns($container-width, $container-width); // default is full width
+    // min-height: 400px!important;  
+    
+    
   } 
 
 
-  // ===============================================================================  
-  // Drupal Fluid Grid module overrides
-  //
-  div.views-fluid-grid h3 {
-    text-align: $from-direction; // override views fluid grid default css
-    background-color: transparent; // override default h3 treatment on reports
-  }
+//   // ===============================================================================  
+//   // Drupal Fluid Grid module overrides
+//   //
+//   div.views-fluid-grid h3 {
+//     text-align: $from-direction; // override views fluid grid default css
+//     background-color: transparent; // override default h3 treatment on reports
+//   }
 
-  ul.views-fluid-grid-list {
+//   ul.views-fluid-grid-list {
 
-  }
+//   }
 
-  /* Default item style. */
-  li.views-fluid-grid-item {
-    margin-#{$omega}: $gutter-width;
-  }
-}
+//   /* Default item style. */
+//   li.views-fluid-grid-item {
+//     margin-#{$omega}: $gutter-width;
+//   }
+// }
 
-@include at-breakpoint($break-small) {
-  body.page-reports {
-    li.views-fluid-grid-item {
-      @include span-columns(6, $break-small);
-    }
-  }  
-}
+// @include at-breakpoint($break-small) {
+//   body.page-reports {
+//     li.views-fluid-grid-item {
+//       @include span-columns(6, $break-small);
+//     }
+//   }  
+// }
 
-@include at-breakpoint($break-medium) {
-  body.page-reports {
-    li.views-fluid-grid-item {
-      @include span-columns(9, $break-medium);
-    }
-  }  
-}
+// @include at-breakpoint($break-medium) {
+//   body.page-reports {
+//     li.views-fluid-grid-item {
+//       @include span-columns(9, $break-medium);
+//     }
+//   }  
+// }
 
 
-@include at-breakpoint($break-large) {
-  body.page-reports {
-    li.views-fluid-grid-item {
-      @include span-columns(7, $break-large);
-    }
-  }  
+// @include at-breakpoint($break-large) {
+//   body.page-reports {
+//     li.views-fluid-grid-item {
+//       @include span-columns(7, $break-large);
+//     }
+//   }  
 }
 
 

@@ -1578,7 +1578,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Reports';
-  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
@@ -1595,10 +1594,15 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['pager']['options']['id'] = '3';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['load_all'] = 0;
-  $handler->display->display_options['style_plugin'] = 'fluid_grid';
-  $handler->display->display_options['style_options']['items_width'] = '400';
-  $handler->display->display_options['style_options']['box_shadow'] = '0';
-  $handler->display->display_options['style_options']['border_radius'] = '0';
+  $handler->display->display_options['style_plugin'] = 'masonry_views_grid';
+  $handler->display->display_options['style_options']['row_class'] = 'report-item';
+  $handler->display->display_options['style_options']['uses_fields'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_width'] = '420';
+  $handler->display->display_options['style_options']['masonry_animated'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_resizable'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_center'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_gutter'] = '1';
+  $handler->display->display_options['style_options']['masonry_rtl'] = TRUE;
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['comments'] = TRUE;
   /* Field: Content: Title */
