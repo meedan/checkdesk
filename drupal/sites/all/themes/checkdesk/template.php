@@ -742,7 +742,6 @@ function checkdesk_preprocess_views_view(&$vars) {
 /* Desk Reports */
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if($vars['display_id'] == 'block') {
-
     ctools_include('modal');
     ctools_modal_add_js();
     $modal_style = array(
@@ -766,5 +765,33 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
     );
     drupal_add_js($modal_style, 'setting');
   }
+}
+
+/* Reports page */
+function checkdesk_preprocess_views_view__reports(&$vars) {
+  // add masonry library
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') .'/assets/js/libs/jquery.masonry.min.js', 'file', array('group' => JS_THEME, 'every_page' => FALSE));
+  ctools_include('modal');
+    ctools_modal_add_js();
+    $modal_style = array(
+      'modal-popup-report' => array(
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 450,
+          'height' => 400,
+          'addWidth' => 0,
+          'addHeight' => 0
+        ),
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CToolsModalDialog',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      ),
+    );
+    drupal_add_js($modal_style, 'setting');
 }
 

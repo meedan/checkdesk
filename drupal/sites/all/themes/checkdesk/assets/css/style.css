@@ -2109,7 +2109,7 @@ nav[role="navigation"] li.home a:before {
 }
 
 /* \f020 doesn't work in Safari. all shifted one down */
-.report-row .in_progress span:before {
+.report-row .in_progress span:before, body.page-reports #reports .report-item .in_progress span:before {
   content: "\f021";
 }
 
@@ -2129,15 +2129,15 @@ nav[role="navigation"] a#menu-submit-report:before {
   content: "\f045";
 }
 
-.report .icon-remove-sign:after, .report-row .failed span:before {
+.report .icon-remove-sign:after, .report-row .failed span:before, body.page-reports #reports .report-item .failed span:before {
   content: "\f057";
 }
 
-.success:before, .report .icon-ok-sign:after, .report-row .verified span:before {
+.success:before, .report .icon-ok-sign:after, .report-row .verified span:before, body.page-reports #reports .report-item .verified span:before {
   content: "\f058";
 }
 
-.report .icon-question-sign:after, .report-row .undetermined span:before {
+.report .icon-question-sign:after, .report-row .undetermined span:before, body.page-reports #reports .report-item .undetermined span:before {
   content: "\f059";
 }
 
@@ -5367,16 +5367,16 @@ html body .fyre-widget {
   padding: 1em;
 }
 html body .fyre-widget .img {
-  width: 83px!important;
+  width: 83px !important;
 }
 html body .fyre-box-wrapper {
-  display: none!important;
+  display: none !important;
 }
 html body .livefyre-comments {
   display: none;
 }
 html body img.fyre-logo-drop {
-  width: auto!important;
+  width: auto !important;
 }
 html body div.livefyre-header {
   padding: 0 1em;
@@ -7338,7 +7338,7 @@ body.sidebar-first #main #content {
   width: 100%;
   float: right;
   margin-right: 0;
-  #margin-left: -11px;
+  *margin-left: -11px;
   display: inline;
   padding-left: 0%;
   padding-right: 0%;
@@ -7393,7 +7393,7 @@ body.widgets #main #content {
   width: 65.0655%;
   float: right;
   margin-right: 0;
-  #margin-left: -11px;
+  *margin-left: -11px;
   display: inline;
   padding-left: 0%;
   padding-right: 0%;
@@ -7517,7 +7517,7 @@ body.widgets #main #content {
   margin-bottom: 6px;
 }
 #widgets .block iframe {
-  width: 100%!important;
+  width: 100% !important;
 }
 #widgets ul.elsewhere {
   margin: 0;
@@ -7612,7 +7612,7 @@ body.page-user-password div.profile .user-picture {
   width: 3.05677%;
   float: right;
   margin-right: 0;
-  #margin-left: -11px;
+  *margin-left: -11px;
   display: inline;
 }
 body.page-user-login div.profile h3,
@@ -7929,6 +7929,164 @@ body.page-reports #main {
   margin-right: 4.80349%;
   display: inline;
 }
+body.page-reports #reports {
+  *zoom: 1;
+  text-align: center;
+  margin: 0 auto;
+}
+body.page-reports #reports:before, body.page-reports #reports:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body.page-reports #reports:after {
+  clear: both;
+}
+body.page-reports #reports .report-item {
+  min-width: 180px;
+  width: 32%;
+  margin-bottom: 12px;
+}
+body.page-reports #reports .report-item .report-row-container {
+  text-align: left;
+  padding: 12px 0;
+  border-bottom: 1px solid #999999;
+  -webkit-transition: opacity 0.3s linear;
+  -moz-transition: opacity 0.3s linear;
+  -o-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
+}
+body.page-reports #reports .report-item .twitter_com .favicon, body.page-reports #reports .report-item .twitter_com .domain, body.page-reports #reports .report-item .twitter_com .author {
+  display: none;
+}
+body.page-reports #reports .report-item .report-content {
+  *zoom: 1;
+}
+body.page-reports #reports .report-item .report-content:before, body.page-reports #reports .report-item .report-content:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body.page-reports #reports .report-item .report-content:after {
+  clear: both;
+}
+body.page-reports #reports .report-item .report-content .report-type-thumbnail {
+  max-width: 100%;
+}
+body.page-reports #reports .report-item .report-content .report-type-thumbnail .report-thumbnail img {
+  width: 100%;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+body.page-reports #reports .report-item .report-content .report-type-thumbnail .report-title {
+  margin: 6px 0;
+  font-size: 15.3px;
+  line-height: 1.2;
+  color: #555555;
+}
+body.page-reports #reports .report-item .report-content .report-type-tweet > div > a {
+  display: none;
+}
+body.page-reports #reports .report-item .report-status {
+  float: right;
+}
+body.page-reports #reports .report-item .verified span {
+  color: #46a546;
+}
+body.page-reports #reports .report-item .verified span:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  line-height: 16px;
+  color: #2f6f2f;
+  margin: 0 5.5px;
+}
+body.page-reports #reports .report-item .failed span {
+  color: #9d261d;
+}
+body.page-reports #reports .report-item .failed span:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  line-height: 16px;
+  color: #5c1611;
+  margin: 0 5.5px;
+}
+body.page-reports #reports .report-item .undetermined span {
+  color: #f89406;
+}
+body.page-reports #reports .report-item .undetermined span:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  line-height: 16px;
+  color: #ad6704;
+  margin: 0 5.5px;
+}
+body.page-reports #reports .report-item .in_progress span {
+  color: #ffc40d;
+}
+body.page-reports #reports .report-item .in_progress span:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  line-height: 16px;
+  color: #c09100;
+  margin: 0 5.5px;
+}
+body.page-reports #reports .report-item .report-detail-link a {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 200;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #999999;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 200;
+  margin-right: 1em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+}
+body.page-reports #reports .report-item .report-detail-link a::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+body.page-reports #reports .report-item .report-detail-link a:focus {
+  outline: none;
+}
+body.page-reports #reports .report-item .report-detail-link a, body.page-reports #reports .report-item .report-detail-link a:visited {
+  color: white;
+}
+body.page-reports #reports .report-item .report-detail-link a:hover, body.page-reports #reports .report-item .report-detail-link a:focus {
+  background-color: #919191;
+}
+body.page-reports #reports .report-item .report-detail-link a:hover, body.page-reports #reports .report-item .report-detail-link a:hover:visited, body.page-reports #reports .report-item .report-detail-link a:focus, body.page-reports #reports .report-item .report-detail-link a:focus:visited {
+  color: white;
+}
+body.page-reports #reports .report-item .report-detail-link a:active {
+  background-color: #8a8a8a;
+}
+body.page-reports #reports .report-item .report-detail-link a:active, body.page-reports #reports .report-item .report-detail-link a:active:visited {
+  color: white;
+}
 
 body {
   background-color: #c9c9c9;
@@ -7970,12 +8128,12 @@ body.page-reports {
 }
 
 div.vertical-tabs, div.vertical-tabs-panes {
-  display: none!important;
+  display: none !important;
 }
 
 nav li.menu-449 {
-  display: none!important;
-  border: 1px solid red!important;
+  display: none !important;
+  border: 1px solid red !important;
 }
 
 p br {
@@ -7983,7 +8141,7 @@ p br {
 }
 
 input.form-autocomplete {
-  background-image: none!important;
+  background-image: none !important;
 }
 
 .filter-guidelines,
@@ -7997,7 +8155,7 @@ input.form-autocomplete {
 }
 
 body.toolbar-drawer {
-  padding-top: 0!important;
+  padding-top: 0 !important;
 }
 
 .views-exposed-widget .views-reset-button {

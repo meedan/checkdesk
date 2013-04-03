@@ -15,13 +15,86 @@ body.page-reports {
     @include span-columns($container-width, $container-width, $gutter-width);
   }
 
-  .report-item  {
-    // @include reset-box-model; // remove default border
-    // @include span-columns($container-width, $container-width); // default is full width
-    // min-height: 400px!important;  
-    
-    
-  } 
+  #reports {
+    @include ctb-clearfix;
+    text-align: center;
+    margin: 0 auto;
+    .report-item  {
+
+      min-width: 180px;
+      width: 32%;
+      margin-bottom: $absolute-line-height/2;
+
+      .report-row-container {
+        text-align: $from-direction;
+        padding: $absolute-line-height/2 0;
+        border-bottom: 1px solid $grayLight;
+        @include ctb-transition(opacity 0.3s linear);
+      }
+
+      // for tweets
+      .twitter_com {
+        .favicon, .domain, .author {
+          display: none;
+        }
+      }
+
+      .report-content {
+        @include ctb-clearfix;
+
+        // thumbnail type
+        .report-type-thumbnail {
+          max-width: 100%;
+          .report-thumbnail img {
+            width: 100%;
+            @include ctb-opacity(.9);
+          }
+          .report-title {
+            margin: $absolute-line-height/4 0;
+            font-size: $fontSizeSmall;
+            line-height: 1.2;
+            color: $gray;
+          }
+        } // thumbnail type
+
+        .report-type-tweet {
+          & > div > a { display: none;}
+        }
+
+      } // report content
+
+      .report-status {
+        float: $omega;
+      }
+
+      // status icons
+      .verified span {
+        color: $green;
+        @include icon(ok-sign, 16px, darken($green, 15%)); 
+      }
+      .failed span {
+        color: $red;
+        @include icon(remove-sign, 16px, darken($red, 15%)); 
+      }
+      .undetermined span {
+        color: $orange;
+        @include icon(question-sign, 16px, darken($orange, 15%)); 
+      }
+      .in_progress span {
+        color: $yellow;
+        @include icon(refresh, 16px, darken($yellow, 15%)); 
+      }
+
+      .report-detail-link {
+        a {
+          @include checkdesk-button($grayLight);
+          @include button-size(13px);
+        }
+      }
+
+    } 
+  }
+  
 
 
 //   // ===============================================================================  
