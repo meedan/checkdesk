@@ -72,7 +72,7 @@ body.page-reports {
         color: $green;
         @include icon(ok-sign, 16px, darken($green, 15%)); 
       }
-      .failed span {
+      .false span {
         color: $red;
         @include icon(remove-sign, 16px, darken($red, 15%)); 
       }

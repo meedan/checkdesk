@@ -2129,7 +2129,7 @@ nav[role="navigation"] a#menu-submit-report:before {
   content: "\f045";
 }
 
-.report .icon-remove-sign:before, .report-row .failed span:before, body.page-reports #reports .report-item .failed span:before {
+.report .icon-remove-sign:before, .report-row .false span:before, body.page-reports #reports .report-item .false span:before {
   content: "\f057";
 }
 
@@ -5171,10 +5171,10 @@ div.tabs ul.primary li a {
   color: #2f6f2f;
   margin: 0 5.5px;
 }
-.report-row .failed span {
+.report-row .false span {
   color: #9d261d;
 }
-.report-row .failed span:before {
+.report-row .false span:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
@@ -8000,10 +8000,10 @@ body.page-reports #reports .report-item .verified span:before {
   color: #2f6f2f;
   margin: 0 5.5px;
 }
-body.page-reports #reports .report-item .failed span {
+body.page-reports #reports .report-item .false span {
   color: #9d261d;
 }
-body.page-reports #reports .report-item .failed span:before {
+body.page-reports #reports .report-item .false span:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
