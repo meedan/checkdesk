@@ -104,6 +104,29 @@ function checkdesk_core_menu() {
 }
 
 /**
+ * Implements hook_menu_alter(). 
+ */
+function checkdesk_core_menu_alter(&$items) {
+  // add delete tab to all nodes
+  $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
+}
+
+function checkdesk_core_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Remove "View" tab from local actions
+  // if (isset($data['tabs'][0]['output'][0]['#link']) && $data['tabs'][0]['output'][0]['#link']['path'] == 'node/%/view') {
+  //   $href = explode('/', $data['tabs'][0]['output'][0]['#link']['href']);
+  //   $type = db_select('node', 'n')
+  //     ->fields('n', array('type'))
+  //     ->condition('n.nid', $href[1])
+  //     ->execute()
+  //     ->fetchField(0);
+    
+  //     array_shift($data['tabs'][0]['output']);
+  //     $data['tabs'][0]['count'] -= 1;
+  // }
+}
+
+/**
  * Menu function for `modal/%ctools_js`.
  */
 function checkdesk_core_modal_callback($js = FALSE) {
@@ -600,26 +623,26 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   }
 
   // Links for stories, not as a dropdown menu.
-  if ($node->type == 'discussion') {
-    if (node_access('update', $node)) {
-      $links['checkdesk-edit-flat'] = array(
-        'title' => t('Edit'),
-        'href' => 'node/' . $node->nid . '/edit',
-        'query' => array(
-          'destination' => $_GET['q'],
-        ),
-      );
-    }
-    if (node_access('delete', $node)) {
-      $links['checkdesk-delete-flat'] = array(
-        'title' => t('Delete'),
-        'href' => 'node/' . $node->nid . '/delete',
-        'query' => array(
-          'destination' => '<front>',
-        ),
-      );
-    }
-  }
+  // if ($node->type == 'discussion') {
+  //   if (node_access('update', $node)) {
+  //     $links['checkdesk-edit-flat'] = array(
+  //       'title' => t('Edit'),
+  //       'href' => 'node/' . $node->nid . '/edit',
+  //       'query' => array(
+  //         'destination' => $_GET['q'],
+  //       ),
+  //     );
+  //   }
+  //   if (node_access('delete', $node)) {
+  //     $links['checkdesk-delete-flat'] = array(
+  //       'title' => t('Delete'),
+  //       'href' => 'node/' . $node->nid . '/delete',
+  //       'query' => array(
+  //         'destination' => '<front>',
+  //       ),
+  //     );
+  //   }
+  // }
 
   return $links;
 }

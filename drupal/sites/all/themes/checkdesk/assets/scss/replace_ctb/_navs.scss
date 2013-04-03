@@ -113,6 +113,15 @@
 // Make the list-items overlay the bottom border
 .nav-tabs > li {
   margin-bottom: -1px;
+
+  // icons in tabs
+  span {
+    &.icon-file    { @include icon(file, $small-font-size, $linkColor); }
+    &.icon-pencil  { @include icon(pencil, $small-font-size, $linkColor); }
+    &.icon-trash   { @include icon(trash, $small-font-size, $linkColor); }
+    &.icon-wrench   { @include icon(wrench, $small-font-size, $linkColor); }
+  }
+
 }
 // Actual tabs (as links)
 .nav-tabs > li > a {
@@ -133,6 +142,13 @@
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
+
+  // icons in tabs when active
+  span {
+    &.icon-file    { @include icon(file, $small-font-size, $dark-grey); }
+    &.icon-pencil  { @include icon(pencil, $small-font-size, $dark-grey); }
+    &.icon-trash   { @include icon(trash, $small-font-size, $dark-grey); }
+  }
 }
 
 

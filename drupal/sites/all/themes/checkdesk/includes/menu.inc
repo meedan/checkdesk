@@ -34,6 +34,7 @@ function checkdesk_menu_local_tasks(&$variables) {
  * @ingroup themeable
  */
 function checkdesk_menu_local_task($variables) {
+
   $link = $variables['element']['#link'];
   $link_text = $link['title'];
   $classes = array();
@@ -47,11 +48,30 @@ function checkdesk_menu_local_task($variables) {
     if (empty($link['localized_options']['html'])) {
       $link['title'] = check_plain($link['title']);
     }
-    $link['localized_options']['html'] = TRUE;
     $link_text = t('!local-task-title!active', array('!local-task-title' => $link['title'], '!active' => $active));
-
     $classes[] = 'active';
   }
+
+  $link['localized_options']['html'] = TRUE;
+
+  // add icons
+  // view tab
+  if($link['path'] == 'node/%/view') {
+    $icon = '<span class="icon-file"></span> ';
+  }
+  // edit tab
+  if($link['path'] == 'node/%/edit') {
+    $icon = '<span class="icon-pencil"></span> ';
+  }
+  // delete tab
+  if($link['path'] == 'node/%/delete') {
+    $icon = '<span class="icon-trash"></span> ';
+  }
+  // devel tab
+  if($link['path'] == 'node/%/devel') {
+    $icon = '<span class="icon-wrench"></span> ';
+  }
+  $link_text = $icon . $link_text;
 
   return '<li class="' . implode(' ', $classes) . '">' . l($link_text, $link['href'], $link['localized_options']) . "</li>\n";
 }

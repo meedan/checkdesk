@@ -87,6 +87,7 @@ function checkdesk_preprocess_html(&$variables) {
 
 }
 
+
 /**
  * Preprocess variables for blocks
  */
@@ -301,6 +302,7 @@ function checkdesk_preprocess_page(&$variables) {
   }
   $variables['show_widgets'] = $show_widgets;
 }
+
 
 /**
  * Override or insert variables into the node template.
@@ -524,6 +526,11 @@ function checkdesk_widgets_visibility() {
   $roles = array('administrator', 'journalist');
   $check_role = array_intersect($roles, array_values($user->roles));
   $check_role = empty($check_role) ? FALSE : TRUE;
+
+  $pages = array('edit', 'delete');
+  $check_page = array_intersect($pages, array_values(arg()));
+  $check_page = empty($check_page) ? FALSE : TRUE;
+
   // node types to check for anonymous user
   $anon_node_types = array('media', 'discussion', 'post');
   // node types to check for logged in user
@@ -538,8 +545,10 @@ function checkdesk_widgets_visibility() {
   // for logged in users with specific role
   } elseif (isset($current_node->type) && $check_role) {
     foreach ($user_node_types as $node_type) {
-      // matches node types and is not on node edit page
-      if ($node_type == $current_node->type && arg(0) == 'node' && arg(2) != 'edit') return TRUE;
+      // matches node types and does not include any pages
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
+        return TRUE; 
+      } 
     }
   } 
 
