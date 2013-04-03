@@ -43,4 +43,21 @@
 		}
 	};
 
+	// filters for reports inside sidebar
+	Drupal.behaviors.reportsPage = {
+		attach: function (context) {
+			// configure masonry
+			if($('#reports').masonry) {
+				$('#reports').masonry({ 
+					itemSelector: '.report-item',
+					columnWidth: function( containerWidth ) {
+						return containerWidth / 3;
+					},
+				}).imagesLoaded(function(){
+					$('#reports').masonry('reload');
+				});
+			}
+		}
+	};
+
 }(jQuery));

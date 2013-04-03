@@ -71,7 +71,10 @@ function checkdesk_menu_local_task($variables) {
   if($link['path'] == 'node/%/devel') {
     $icon = '<span class="icon-wrench"></span> ';
   }
-  $link_text = $icon . $link_text;
+  if($icon) {
+    $link_text = $icon . $link_text;  
+  }
+  
 
   return '<li class="' . implode(' ', $classes) . '">' . l($link_text, $link['href'], $link['localized_options']) . "</li>\n";
 }
