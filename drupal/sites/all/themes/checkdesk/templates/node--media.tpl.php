@@ -15,7 +15,6 @@
       </p>
       <?php if (isset($content['body'])) : ?>
         <div class="description">
-          <span class="icon-quote-<?php print $alpha; ?>"></span>
           <?php print render($content['body']); ?>
         </div>
       <?php endif; ?>
