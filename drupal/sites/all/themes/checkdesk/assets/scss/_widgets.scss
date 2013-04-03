@@ -99,6 +99,10 @@
       font-size: $small-font-size;
       margin-bottom: $base-line-height/4;
     }
+    // keep embedded widgets width 100%
+    iframe {
+      width: 100%!important;
+    }
   }
 
   ul.elsewhere {
