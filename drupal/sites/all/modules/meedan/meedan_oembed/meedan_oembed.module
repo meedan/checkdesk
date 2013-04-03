@@ -187,8 +187,35 @@ function meedan_oembed_scrape_facebook($provider, $url) {
   $embed->provider_name = 'Facebook';
   $embed->type = 'link';
 
+  // A photo, first priority
+  if (isset($post_data['picture']) || isset($post_data['images'])) {
+    $name = isset($post_data['from']) && isset($post_data['from']['name'])
+          ? $post_data['from']['name']
+          : t('unknown Facebook user');
+
+    // No caption for photos
+    $embed->description = '';
+
+    // Default case, we use the generic 'picture' attribute.
+    // This is usually a thumbnail.
+    if ($post_data['picture']) {
+      $embed->picture = $post_data['picture'];
+      $embed->thumbnail_url = $post_data['picture'];
+    }
+
+    // Best case, find the largest picture available
+    $max_size = 0;
+    foreach ($post_data['images'] as $image) {
+      if ($image['width'] * $image['height'] > $max_size) {
+        $embed->picture = $image['source'];
+        $embed->thumbnail_url = $image['source'];
+
+        $max_size = $image['width'] * $image['height'];
+      }
+    }
+  }
   // A status update, probably
-  if (isset($post_data['message'])) {
+  else if (isset($post_data['message'])) {
     $embed->description = $post_data['message'];
     $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
   }
@@ -199,23 +226,6 @@ function meedan_oembed_scrape_facebook($provider, $url) {
   // Something with a description
   else if (isset($post_data['description'])) {
     $embed->description = $post_data['description'];
-  }
-  // A photo
-  else if (isset($post_data['picture']) && isset($post_data['images'])) {
-    $name = isset($post_data['from']) && isset($post_data['from']['name'])
-          ? $post_data['from']['name']
-          : t('unknown Facebook user');
-    // No caption for photos
-    $embed->description = '';
-
-    // Find the largest picture available
-    $max_size = 0;
-    foreach ($post_data['images'] as $image) {
-      if ($image['width'] * $image['height'] > $max_size) {
-        $embed->picture = $image['source'];
-        $max_size = $image['width'] * $image['height'];
-      }
-    }
   }
   else {
     $embed->description = t('No message available for this post');
