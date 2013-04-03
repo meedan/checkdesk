@@ -92,10 +92,8 @@ function checkdesk_preprocess_html(&$variables) {
  * Preprocess variables for blocks
  */
 function checkdesk_preprocess_block(&$variables) {
-  // remove block subjects for all except widgets
-  if($variables['elements']['#block']->region != 'widgets') {
-    $variables['elements']['#block']->subject = '';
-  }
+  // remove subjects for all blocks
+  $variables['elements']['#block']->subject = '';
 }
 
 /**
@@ -121,7 +119,9 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($tree as $id => $item) {
       if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
         unset($tree[$id]);
-      } else if (isset($item['below']) && $item['link']['title'] == t('...')) {
+      }
+
+      if (isset($item['below']) && $item['link']['title'] == t('...')) {
         $tree[$id]['link']['title'] = '&nbsp;';
         $tree[$id]['link']['link_title'] = '&nbsp;';
       }
