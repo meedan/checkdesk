@@ -2096,8 +2096,7 @@ div.block:hover .edit {
   content: "\f005";
 }
 
-.nav-tabs > li span.icon-trash:before, .nav-tabs > .active > a span.icon-trash:before,
-.nav-tabs > .active > a:hover span.icon-trash:before {
+.nav-tabs > li span.icon-trash:before {
   content: "\f014";
 }
 
@@ -2105,8 +2104,7 @@ nav[role="navigation"] li.home a:before {
   content: "\f015";
 }
 
-.nav-tabs > li span.icon-file:before, .nav-tabs > .active > a span.icon-file:before,
-.nav-tabs > .active > a:hover span.icon-file:before {
+.nav-tabs > li span.icon-file:before {
   content: "\f016";
 }
 
@@ -2123,8 +2121,7 @@ nav[role="navigation"] a#menu-submit-report:before {
   content: "\f02e";
 }
 
-.nav-tabs > li span.icon-pencil:before, .nav-tabs > .active > a span.icon-pencil:before,
-.nav-tabs > .active > a:hover span.icon-pencil:before, nav[role="navigation"] a[href*="add/post"]:before {
+.nav-tabs > li span.icon-pencil:before, nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f040";
 }
 
@@ -2681,87 +2678,188 @@ input[type="checkbox"][readonly] {
 }
 
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  display: block;
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  padding: 7.2px 11px;
+  margin-bottom: 14.4px;
 }
 
 .nav-tabs > li {
-  margin-bottom: -1px;
+  display: inline-block;
 }
 .nav-tabs > li span.icon-file:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
-  color: #0088cc;
+  color: white;
   margin: 0 5.5px;
 }
 .nav-tabs > li span.icon-pencil:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
-  color: #0088cc;
+  color: white;
   margin: 0 5.5px;
 }
 .nav-tabs > li span.icon-trash:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
-  color: #0088cc;
+  color: white;
   margin: 0 5.5px;
 }
 .nav-tabs > li span.icon-wrench:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
-  color: #0088cc;
+  color: white;
   margin: 0 5.5px;
 }
 
 .nav-tabs > li > a {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  line-height: 28.8px;
-  border: 1px solid transparent;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
-  border-radius: 4px 4px 0 0;
+  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma", "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 200;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #999999;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 200;
+  margin-left: 1em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
+.nav-tabs > li > a::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+.nav-tabs > li > a:focus {
+  outline: none;
+}
+.nav-tabs > li > a, .nav-tabs > li > a:visited {
+  color: white;
+}
+.nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+  background-color: #919191;
+}
+.nav-tabs > li > a:hover, .nav-tabs > li > a:hover:visited, .nav-tabs > li > a:focus, .nav-tabs > li > a:focus:visited {
+  color: white;
+}
+.nav-tabs > li > a:active {
+  background-color: #8a8a8a;
+}
+.nav-tabs > li > a:active, .nav-tabs > li > a:active:visited {
+  color: white;
 }
 
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover {
-  color: #555555;
-  background-color: #eeeeee;
-  border: 1px solid #ddd;
-  border-bottom-color: transparent;
-  cursor: default;
+  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma", "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 200;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #555555;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 200;
+  margin-left: 1em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-.nav-tabs > .active > a span.icon-file:before,
-.nav-tabs > .active > a:hover span.icon-file:before {
-  font-family: "FontAwesome";
-  font-size: 16px;
-  line-height: 16px;
-  color: #595959;
-  margin: 0 5.5px;
+.nav-tabs > .active > a::-moz-focus-inner,
+.nav-tabs > .active > a:hover::-moz-focus-inner {
+  border: none;
+  padding: 0;
 }
-.nav-tabs > .active > a span.icon-pencil:before,
-.nav-tabs > .active > a:hover span.icon-pencil:before {
-  font-family: "FontAwesome";
-  font-size: 16px;
-  line-height: 16px;
-  color: #595959;
-  margin: 0 5.5px;
+.nav-tabs > .active > a:focus,
+.nav-tabs > .active > a:hover:focus {
+  outline: none;
 }
-.nav-tabs > .active > a span.icon-trash:before,
-.nav-tabs > .active > a:hover span.icon-trash:before {
-  font-family: "FontAwesome";
-  font-size: 16px;
-  line-height: 16px;
-  color: #595959;
-  margin: 0 5.5px;
+.nav-tabs > .active > a, .nav-tabs > .active > a:visited,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:hover:visited {
+  color: white;
+}
+.nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus,
+.nav-tabs > .active > a:hover:hover,
+.nav-tabs > .active > a:hover:focus {
+  background-color: #4d4d4d;
+}
+.nav-tabs > .active > a:hover, .nav-tabs > .active > a:hover:visited, .nav-tabs > .active > a:focus, .nav-tabs > .active > a:focus:visited,
+.nav-tabs > .active > a:hover:hover,
+.nav-tabs > .active > a:hover:hover:visited,
+.nav-tabs > .active > a:hover:focus,
+.nav-tabs > .active > a:hover:focus:visited {
+  color: white;
+}
+.nav-tabs > .active > a:active,
+.nav-tabs > .active > a:hover:active {
+  background-color: #464646;
+}
+.nav-tabs > .active > a:active, .nav-tabs > .active > a:active:visited,
+.nav-tabs > .active > a:hover:active,
+.nav-tabs > .active > a:hover:active:visited {
+  color: white;
 }
 
 .nav-pills > li > a {
@@ -7192,7 +7290,8 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 .story .story-body {
   *zoom: 1;
   margin: 6px 0;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  color: #666666;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 .story .story-body:before, .story .story-body:after {
   display: table;
