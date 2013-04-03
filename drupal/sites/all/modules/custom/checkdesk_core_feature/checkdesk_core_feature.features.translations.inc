@@ -42893,6 +42893,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['3648449a13dcbeb410c4aaf6e55dbab3'] = array(
+    'source' => 'View original',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'عرض الأصل',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
