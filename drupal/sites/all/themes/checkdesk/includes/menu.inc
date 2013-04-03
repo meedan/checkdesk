@@ -12,7 +12,7 @@ function checkdesk_menu_local_tasks(&$variables) {
 
   if ( !empty($variables['primary']) ) {
     $variables['primary']['#prefix'] = '<h2 class="element-invisible">' . t('Primary tabs') . '</h2>';
-    $variables['primary']['#prefix'] = '<ul class="nav nav-tabs">';
+    $variables['primary']['#prefix'] = '<ul class="nav admin-nav-tabs">';
     $variables['primary']['#suffix'] = '</ul>';
     $output .= drupal_render($variables['primary']);
   }

@@ -2096,7 +2096,7 @@ div.block:hover .edit {
   content: "\f005";
 }
 
-.nav-tabs > li span.icon-trash:before {
+.admin-nav-tabs > li span.icon-trash:before {
   content: "\f014";
 }
 
@@ -2104,7 +2104,7 @@ nav[role="navigation"] li.home a:before {
   content: "\f015";
 }
 
-.nav-tabs > li span.icon-file:before {
+.admin-nav-tabs > li span.icon-file:before {
   content: "\f016";
 }
 
@@ -2121,7 +2121,7 @@ nav[role="navigation"] a#menu-submit-report:before {
   content: "\f02e";
 }
 
-.nav-tabs > li span.icon-pencil:before, nav[role="navigation"] a[href*="add/post"]:before {
+.admin-nav-tabs > li span.icon-pencil:before, nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f040";
 }
 
@@ -2178,7 +2178,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   content: "\f09a";
 }
 
-.nav-tabs > li span.icon-wrench:before, #my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before {
+.admin-nav-tabs > li span.icon-wrench:before, #my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before {
   content: "\f0ad";
 }
 
@@ -2682,6 +2682,39 @@ input[type="checkbox"][readonly] {
 }
 
 .nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-tabs > li {
+  margin-bottom: -1px;
+}
+
+.nav-tabs > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 24px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  -ms-border-radius: 4px 4px 0 0;
+  -o-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+.nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+  border-color: #eeeeee #eeeeee #dddddd;
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
+  color: #555555;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+  cursor: default;
+}
+
+.admin-nav-tabs {
   margin: 0;
   padding: 0;
   border: 0;
@@ -2698,31 +2731,31 @@ input[type="checkbox"][readonly] {
   margin-bottom: 12px;
 }
 
-.nav-tabs > li {
+.admin-nav-tabs > li {
   display: inline-block;
 }
-.nav-tabs > li span.icon-file:before {
+.admin-nav-tabs > li span.icon-file:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
   color: white;
   margin: 0 5.5px;
 }
-.nav-tabs > li span.icon-pencil:before {
+.admin-nav-tabs > li span.icon-pencil:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
   color: white;
   margin: 0 5.5px;
 }
-.nav-tabs > li span.icon-trash:before {
+.admin-nav-tabs > li span.icon-trash:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
   color: white;
   margin: 0 5.5px;
 }
-.nav-tabs > li span.icon-wrench:before {
+.admin-nav-tabs > li span.icon-wrench:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
@@ -2730,7 +2763,7 @@ input[type="checkbox"][readonly] {
   margin: 0 5.5px;
 }
 
-.nav-tabs > li > a {
+.admin-nav-tabs > li > a {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
@@ -2768,31 +2801,31 @@ input[type="checkbox"][readonly] {
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.nav-tabs > li > a::-moz-focus-inner {
+.admin-nav-tabs > li > a::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-.nav-tabs > li > a:focus {
+.admin-nav-tabs > li > a:focus {
   outline: none;
 }
-.nav-tabs > li > a, .nav-tabs > li > a:visited {
+.admin-nav-tabs > li > a, .admin-nav-tabs > li > a:visited {
   color: white;
 }
-.nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+.admin-nav-tabs > li > a:hover, .admin-nav-tabs > li > a:focus {
   background-color: #919191;
 }
-.nav-tabs > li > a:hover, .nav-tabs > li > a:hover:visited, .nav-tabs > li > a:focus, .nav-tabs > li > a:focus:visited {
+.admin-nav-tabs > li > a:hover, .admin-nav-tabs > li > a:hover:visited, .admin-nav-tabs > li > a:focus, .admin-nav-tabs > li > a:focus:visited {
   color: white;
 }
-.nav-tabs > li > a:active {
+.admin-nav-tabs > li > a:active {
   background-color: #8a8a8a;
 }
-.nav-tabs > li > a:active, .nav-tabs > li > a:active:visited {
+.admin-nav-tabs > li > a:active, .admin-nav-tabs > li > a:active:visited {
   color: white;
 }
 
-.nav-tabs > .active > a,
-.nav-tabs > .active > a:hover {
+.admin-nav-tabs > .active > a,
+.admin-nav-tabs > .active > a:hover {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
@@ -2830,39 +2863,39 @@ input[type="checkbox"][readonly] {
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-.nav-tabs > .active > a::-moz-focus-inner,
-.nav-tabs > .active > a:hover::-moz-focus-inner {
+.admin-nav-tabs > .active > a::-moz-focus-inner,
+.admin-nav-tabs > .active > a:hover::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-.nav-tabs > .active > a:focus,
-.nav-tabs > .active > a:hover:focus {
+.admin-nav-tabs > .active > a:focus,
+.admin-nav-tabs > .active > a:hover:focus {
   outline: none;
 }
-.nav-tabs > .active > a, .nav-tabs > .active > a:visited,
-.nav-tabs > .active > a:hover,
-.nav-tabs > .active > a:hover:visited {
+.admin-nav-tabs > .active > a, .admin-nav-tabs > .active > a:visited,
+.admin-nav-tabs > .active > a:hover,
+.admin-nav-tabs > .active > a:hover:visited {
   color: white;
 }
-.nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus,
-.nav-tabs > .active > a:hover:hover,
-.nav-tabs > .active > a:hover:focus {
+.admin-nav-tabs > .active > a:hover, .admin-nav-tabs > .active > a:focus,
+.admin-nav-tabs > .active > a:hover:hover,
+.admin-nav-tabs > .active > a:hover:focus {
   background-color: #4d4d4d;
 }
-.nav-tabs > .active > a:hover, .nav-tabs > .active > a:hover:visited, .nav-tabs > .active > a:focus, .nav-tabs > .active > a:focus:visited,
-.nav-tabs > .active > a:hover:hover,
-.nav-tabs > .active > a:hover:hover:visited,
-.nav-tabs > .active > a:hover:focus,
-.nav-tabs > .active > a:hover:focus:visited {
+.admin-nav-tabs > .active > a:hover, .admin-nav-tabs > .active > a:hover:visited, .admin-nav-tabs > .active > a:focus, .admin-nav-tabs > .active > a:focus:visited,
+.admin-nav-tabs > .active > a:hover:hover,
+.admin-nav-tabs > .active > a:hover:hover:visited,
+.admin-nav-tabs > .active > a:hover:focus,
+.admin-nav-tabs > .active > a:hover:focus:visited {
   color: white;
 }
-.nav-tabs > .active > a:active,
-.nav-tabs > .active > a:hover:active {
+.admin-nav-tabs > .active > a:active,
+.admin-nav-tabs > .active > a:hover:active {
   background-color: #464646;
 }
-.nav-tabs > .active > a:active, .nav-tabs > .active > a:active:visited,
-.nav-tabs > .active > a:hover:active,
-.nav-tabs > .active > a:hover:active:visited {
+.admin-nav-tabs > .active > a:active, .admin-nav-tabs > .active > a:active:visited,
+.admin-nav-tabs > .active > a:hover:active,
+.admin-nav-tabs > .active > a:hover:active:visited {
   color: white;
 }
 
