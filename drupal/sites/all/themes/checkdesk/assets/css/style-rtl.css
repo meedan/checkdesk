@@ -1,41 +1,41 @@
 @font-face {
   font-family: "FontAwesome";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Merriweather";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Merriweather Light";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Amiri";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Amiri Bold";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Droid Naskh";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Droid Naskh";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Andalus";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.ttf') format('truetype');
 }
 
 /*
@@ -2127,6 +2127,10 @@ nav[role="navigation"] a#menu-submit-report:before {
 
 .report #report-actions ul.content-actions > li > a span.icon-share:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-share:before {
   content: "\f045";
+}
+
+#widgets ul.elsewhere li span.icon-play:before {
+  content: "\f04b";
 }
 
 .report .icon-remove-sign:before, .report-row .false span:before, body.page-reports #reports .report-item .false span:before {
@@ -7570,6 +7574,7 @@ body.widgets #main #content {
   margin: -3.66667px;
   height: 25px;
   vertical-align: top;
+  /* Font Awesome is missing YouTube */
 }
 #widgets ul.elsewhere li span.icon-facebook:before {
   font-family: "FontAwesome";
@@ -7589,8 +7594,25 @@ body.widgets #main #content {
   font-family: "FontAwesome";
   font-size: 40px;
   line-height: 40px;
-  color: #555555;
+  color: #9d261d;
   margin: 0 5.5px;
+}
+#widgets ul.elsewhere li span.icon-play:before {
+  font-family: "FontAwesome";
+  font-size: 20px;
+  line-height: 20px;
+  color: "black";
+  margin: 0 5.5px;
+}
+#widgets ul.elsewhere li span.icon-sign-blank {
+  position: relative;
+}
+#widgets ul.elsewhere li span.icon-sign-blank .icon-play {
+  position: absolute;
+  top: 9px;
+  left: 13px;
+  color: white;
+  font-size: 16px;
 }
 #widgets ul.elsewhere li span.icon-partner {
   margin: 0;
@@ -7598,7 +7620,6 @@ body.widgets #main #content {
 #widgets ul.elsewhere li span.icon-partner img {
   margin-top: -3px;
   vertical-align: top;
-  width: 30px;
 }
 
 body.page-user-login #main,
