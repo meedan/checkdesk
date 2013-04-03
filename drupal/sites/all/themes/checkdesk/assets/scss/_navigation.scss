@@ -25,6 +25,10 @@ $icon-position: 'before';
   li.home a { 
     @include icon("home", $size, $color, $icon-position); 
   }
+
+  #main-menu a.dropdown-toggle {
+    @include icon("reorder", $size, $color, $icon-position);
+  }
 }
 
 // Nav item container

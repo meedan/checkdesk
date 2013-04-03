@@ -107,8 +107,8 @@ function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
   // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
-  $vars['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
-  drupal_add_js(array('basePathCheckdeskTheme' => $vars['basePathCheckdeskTheme']), 'setting');
+  $variables['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
+  drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
 
   // Primary nav
   $variables['primary_nav'] = FALSE;
@@ -116,13 +116,19 @@ function checkdesk_preprocess_page(&$variables) {
     // Build links
     $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
 
+
     // Remove empty expanded menus
     foreach ($tree as $id => $item) {
       if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
         unset($tree[$id]);
       }
+
+      if (isset($item['below']) && $item['link']['title'] == t('...')) {
+        $tree[$id]['link']['title'] = '&nbsp;';
+        $tree[$id]['link']['link_title'] = '&nbsp;';
+      }
     }
-    
+
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
 
     // Change "Submit Report" link

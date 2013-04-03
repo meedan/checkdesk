@@ -2190,7 +2190,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   content: "\f0c8";
 }
 
-.report #report-actions ul.content-actions > li > a span.icon-reorder:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before {
+.report #report-actions ul.content-actions > li > a span.icon-reorder:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before, nav[role="navigation"] #main-menu a.dropdown-toggle:before {
   content: "\f0c9";
 }
 
@@ -5929,6 +5929,13 @@ nav[role="navigation"] a[href*="add/discussion"]:before {
   margin: 0 5.5px;
 }
 nav[role="navigation"] li.home a:before {
+  font-family: "FontAwesome";
+  font-size: 15px;
+  line-height: 15px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 5.5px;
+}
+nav[role="navigation"] #main-menu a.dropdown-toggle:before {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: 15px;
