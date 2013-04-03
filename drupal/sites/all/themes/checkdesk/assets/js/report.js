@@ -19,6 +19,8 @@
         return false;
       });
 
+
+
       // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
       $('.view-liveblog').unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
         $(content).find('section.node-post').each(function() {
@@ -29,6 +31,13 @@
         $(content).find('.report-row-container').each(function() {
           $('.view-desk-reports #' + $(this).attr('id')).eq(0).parents('.views-row').remove();
         });
+      });
+
+      // scroll to the bottom of modal when interacting with report actions
+      $('#modalContent #report-actions a').click(function (event) {
+      	$('.modal-body').animate({
+            scrollTop: 400,
+          }, 'slow');
       });
 
 			$('a.twitter').click(function(event) {

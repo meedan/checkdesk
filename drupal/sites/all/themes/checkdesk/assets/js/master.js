@@ -53,6 +53,7 @@
 					columnWidth: function( containerWidth ) {
 						return containerWidth / 3;
 					},
+					isRTL: true,
 				}).imagesLoaded(function(){
 					$('#reports').masonry('reload');
 				});
