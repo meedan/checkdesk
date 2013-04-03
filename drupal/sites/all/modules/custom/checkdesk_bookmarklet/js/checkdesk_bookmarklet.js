@@ -53,7 +53,8 @@
       case 'loaded':
         // Adjust bookmarklet modal position for internal bookmarklet
         if (jQuery('#menu-submit-report').length > 0) {
-          var topPosition = jQuery('#menu-submit-report').offset().top - jQuery('html').scrollTop() + 26;
+          var scrollPosition = jQuery('html').scrollTop() || jQuery('body').scrollTop();
+          var topPosition = jQuery('#menu-submit-report').offset().top - scrollPosition + 26;
           jQuery('#meedan_bookmarklet_cont').css('top', topPosition + 'px');
 
           // Watch if window height changes
