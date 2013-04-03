@@ -121,9 +121,7 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($tree as $id => $item) {
       if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
         unset($tree[$id]);
-      }
-
-      if (isset($item['below']) && $item['link']['title'] == t('...')) {
+      } else if (isset($item['below']) && $item['link']['title'] == t('...')) {
         $tree[$id]['link']['title'] = '&nbsp;';
         $tree[$id]['link']['link_title'] = '&nbsp;';
       }
