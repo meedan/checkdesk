@@ -63,6 +63,7 @@ body.page-reports {
   h1.title {
     text-align: center;
     @include cd-background;
+    font-weight: normal;
   }
 
   #reports {
@@ -109,6 +110,12 @@ body.page-reports {
 
         .report-type-tweet {
           & > div > a { display: none;}
+          // keeps embedded iframe
+          // inside sidebar
+          iframe {
+            min-width: 100%!important;
+            width: 100%!important;
+          }
         }
 
       } // report content

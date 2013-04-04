@@ -4006,6 +4006,7 @@ h1, h2, h3, h4 {
   padding-bottom: 18px;
   padding-top: 18px;
   font-family: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+  font-weight: normal;
 }
 
 h1 {
@@ -4359,6 +4360,7 @@ div.tabs ul.primary li a {
 }
 #incoming-reports-filters .panels .panel {
   display: inline-block;
+  margin-bottom: 12px;
 }
 #incoming-reports-filters .panels .panel .panel-toggle {
   display: inline-block;
@@ -5270,6 +5272,10 @@ div.tabs ul.primary li a {
 }
 .report-row .report-content .report-type-tweet > div > a {
   display: none;
+}
+.report-row .report-content .report-type-tweet iframe {
+  min-width: 100% !important;
+  width: 100% !important;
 }
 .report-row .report-status {
   float: right;
@@ -8142,6 +8148,7 @@ body.page-reports #main {
 body.page-reports h1.title {
   text-align: center;
   background-color: #ecebed;
+  font-weight: normal;
 }
 body.page-reports #reports {
   *zoom: 1;
@@ -8200,6 +8207,10 @@ body.page-reports #reports .report-item .report-content .report-type-thumbnail .
 }
 body.page-reports #reports .report-item .report-content .report-type-tweet > div > a {
   display: none;
+}
+body.page-reports #reports .report-item .report-content .report-type-tweet iframe {
+  min-width: 100% !important;
+  width: 100% !important;
 }
 body.page-reports #reports .report-item .report-status {
   float: right;
