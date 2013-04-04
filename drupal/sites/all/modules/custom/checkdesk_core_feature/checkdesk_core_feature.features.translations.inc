@@ -42893,6 +42893,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['f589226cbf87f383c0378736fbb9a3c7'] = array(
+    'source' => '<a href="@user">!user</a> submitted this <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'اضافه <a href="@user">!user</a> <time class="date-time" datetime="!timestamp">منذ !datetime_ago</time>',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['3648449a13dcbeb410c4aaf6e55dbab3'] = array(
     'source' => 'View original',
     'context' => '',
