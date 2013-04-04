@@ -149,7 +149,8 @@ $omega: opposite-position($from-direction);
 body {
   @include container($container-width $break-small $break-medium); // establish three breakpoints
   #main {
-    @include span-columns($container-width, $container-width, $gutter-width);
+    @include span-columns($break-small - 2, $break-small, $gutter-width / 2); //outermost container
+    @include pad(1, 1, $break-small);
   }
 }
 
