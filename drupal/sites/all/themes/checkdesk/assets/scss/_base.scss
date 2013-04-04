@@ -1,7 +1,9 @@
 @charset "UTF-8";
 
-// ## Checkdesk Themes 
-
+// Checkdesk Base
+//
+// Welcome 
+//
 // Directional defaults
 $from-direction: left !default;
 $icon-position: before !default;
@@ -10,29 +12,9 @@ $icon-position: before !default;
 //
 // See also typography.scss and bowerbird/typography.scss
 //
-// A.) ... Use only these:
 @import "compass/css3/font-face";
 @import "bowerbird/typography";
-//
-//
-// B.) Setup. Do not use these variables directly:
-$en-body-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$en-header-font-stack: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
-//
-// C.) configure arabic font names 
-$ar-header-font-stack: "Amiri", "Arabic Typesetting", "Tahoma";
-$ar-body-font-stack: "Droid Arabic Naskh", "Amiri", "Tahoma";
-$ar-nav-font-stack: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
-//
-// D.) Set the defaults for language-independent variables
-$mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace !default;
-$nav-font-stack: $en-body-font-stack !default;
-$header-font-stack: $en-header-font-stack !default;
-$body-font-stack: $en-body-font-stack !default;
-
-//
-// E.) Font include statements for the browser to get the file
-// moved to styles.scss so this base file can be reloaded in style-rtl.scss CGB
+@import "fonts";
 
 // mixin to set direction
 // 
@@ -159,4 +141,4 @@ $radius: 4px;
 // Debugger
 // =============================================================================
 // debug mode for @debug statements and other sass debuggers
-$debug: false !default;
+$debug: true !default;

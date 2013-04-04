@@ -13,11 +13,18 @@ $header-font-stack: $ar-header-font-stack;
 $body-font-stack: $ar-body-font-stack;
 $nav-font-stack: $ar-body-font-stack;
 
-// 2. ============================================
+// 2. Tell the browser about our Arabic fonts
+@include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
+@include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
+@include bowerbird-font-face("Andalus", "andlso-webfont");
+
+// 3. ============================================
 // Now we reload all styles with this updated configuration
 @import "style"; 
 
-// 3. ============================================
+// 4. ============================================
 // Override the text direction
 html body.i18n-ar, 
 .rtl { 

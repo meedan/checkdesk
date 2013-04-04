@@ -1,19 +1,4 @@
 @font-face {
-  font-family: "FontAwesome";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: "Merriweather";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: "Merriweather Light";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.ttf') format('truetype');
-}
-
-@font-face {
   font-family: "Amiri";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.ttf') format('truetype');
 }
@@ -36,6 +21,21 @@
 @font-face {
   font-family: "Andalus";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "FontAwesome";
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Merriweather Light";
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.ttf') format('truetype');
 }
 
 /*
@@ -2278,7 +2278,7 @@ button,
 select,
 textarea,
 body.cke_editable {
-  font-family: "Amiri", "Arabic Typesetting", "Tahoma";
+  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
 }
 
 label {
@@ -4003,7 +4003,7 @@ h1, h2, h3, h4 {
   margin-top: 18px;
   padding-bottom: 18px;
   padding-top: 18px;
-  font-family: "Amiri", "Arabic Typesetting", "Tahoma";
+  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
 }
 
 h1 {
@@ -7840,7 +7840,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 body.page-user-login #user-login .or,
 body.page-user-register #user-login .or,
 body.page-user-password #user-login .or {
-  font-family: "Amiri", "Arabic Typesetting", "Tahoma";
+  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
   color: #999999;
   text-align: center;
   margin: 14.4px 0;
@@ -7865,7 +7865,7 @@ body.page-user-login #user-login .user-links,
 body.page-user-register #user-login .user-links,
 body.page-user-password #user-login .user-links {
   *zoom: 1;
-  font-family: "Amiri", "Arabic Typesetting", "Tahoma";
+  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
   font-size: 15.3px;
   line-height: 1.5;
 }
@@ -7893,7 +7893,7 @@ body.page-user-register #user-login .form-item-remember-me label,
 body.page-user-password #user-login .form-item-remember-me label {
   display: block;
   color: #999999;
-  font-family: "Amiri", "Arabic Typesetting", "Tahoma";
+  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
   font-size: 15.3px;
   line-height: 1.5;
 }
@@ -7918,7 +7918,7 @@ body.page-user-register #user-login .form-actions .user-new-account-link,
 body.page-user-password #user-login .form-actions .user-new-account-link {
   float: left;
   margin-top: 7.2px;
-  font-family: "Amiri", "Arabic Typesetting", "Tahoma";
+  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
   font-size: 15.3px;
   color: #999999;
 }
@@ -7934,7 +7934,7 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   padding: 0;
   border: 0;
   background: none;
-  font-family: "Amiri", "Arabic Typesetting", "Tahoma";
+  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
   font-size: 15.3px;
   font-weight: normal;
   color: #0088cc;
