@@ -6,8 +6,8 @@
 @mixin widgets-layout($secondary-width, $primary-width, $break: $container-width) {
   body.widgets {
     #main {
-      @include span-columns($break, $break); //outermost container
-      @include pad(0,0, $break); // override story.scss
+      @include span-columns($break - 2, $break, $gutter-width / 2); //outermost container
+      @include pad(1, 1, $break);
       @content;
 
       // 2. The sidebar column
@@ -40,8 +40,8 @@
   $primary-width: $break-small - $secondary-width; // calculate main col width
 
   body.widgets #main {
-    @include span-columns($break, $break); //reset to full
-    @include pad(0, 0); //reset to no pad 
+    @include span-columns($break - 2, $break, $gutter-width / 2);
+    @include pad(1, 1, $break);
   }
 
   @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout
@@ -57,8 +57,8 @@
   $primary-width: $break-medium - $secondary-width; 
 
   @include widgets-layout($secondary-width, $primary-width, $break) {
-    @include span-columns($break, $break); //reset container to full
-    @include pad(0, 0); //reset container padding
+    @include span-columns($break - 4, $break, $gutter-width);
+    @include pad(2, 2, $break);
   }
 }  
 // Breakpoint: large
@@ -67,8 +67,8 @@
   $secondary-width: 7;
   $primary-width: $break-large - $secondary-width;
   body.widgets #main {
-    @include span-columns($break, $break); // reset to full
-    @include pad(0, 0, $break); // reset to zero
+    @include span-columns($break - 4, $break, $gutter-width);
+    @include pad(2, 2, $break);
   }
   @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout with new break
 }
