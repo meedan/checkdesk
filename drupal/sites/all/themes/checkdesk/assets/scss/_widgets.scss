@@ -128,7 +128,18 @@
         &.icon-play  { @include icon(play, $large-font-size); }
         /* Font Awesome is missing YouTube */
         &.icon-sign-blank { position: relative; } 
-        &.icon-sign-blank .icon-play { position: absolute; top: 9px; left: 13px; color: $white; font-size: $small-font-size; }
+        &.icon-sign-blank .icon-play { 
+          position: absolute;
+          top: 9px; 
+          left: 13px; 
+          color: $white; 
+          font-size: $small-font-size; 
+          vertical-align: middle;
+        }
+        // play icon adjustment for RTL arabic 
+        .body-ar &.icon-sign-blank .icon-play {
+          top: 11px;
+        }
 
         // partner logo as external images
         &.icon-partner {
