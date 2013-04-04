@@ -6,7 +6,7 @@
   font-size: $fontSizeSmall;
   padding: 0 $gutter-width*2;
   color: $gray;
-  
+
   header {
     h2 {
       display: inline-block;
@@ -26,6 +26,7 @@
     .panel {
       display: inline-block;
       margin-bottom: $absolute-line-height/2;
+      &:last-child { margin-bottom: 0; } 
       .panel-toggle {
         display: inline-block;
         padding: 4px 12px; // warning magic pixels CGB
@@ -133,4 +134,13 @@
   .form-type-radio, .form-type-checkbox {
     padding: 0;
   }  
+}
+
+// Medium breakpoint
+@include at-breakpoint($break-medium) {
+  .body-ar #incoming-reports-filters {
+    .panels .panel .panel-toggle {
+      font-size: 95%;
+    }
+  }
 }

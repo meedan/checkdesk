@@ -4387,6 +4387,9 @@ div.tabs ul.primary li a {
   display: inline-block;
   margin-bottom: 14.4px;
 }
+#incoming-reports-filters .panels .panel:last-child {
+  margin-bottom: 0;
+}
 #incoming-reports-filters .panels .panel .panel-toggle {
   display: inline-block;
   padding: 4px 12px;
@@ -4539,6 +4542,11 @@ div.tabs ul.primary li a {
   padding: 0;
 }
 
+@media (min-width: 949px) {
+  .body-ar #incoming-reports-filters .panels .panel .panel-toggle {
+    font-size: 95%;
+  }
+}
 #partner-header {
   padding-top: 38px;
   width: 100%;
