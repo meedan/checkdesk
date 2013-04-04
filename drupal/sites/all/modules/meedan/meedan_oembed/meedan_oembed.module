@@ -551,7 +551,7 @@ function meedan_oembed_node_presave($node) {
     //Set report type
     $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), TRUE);
     $node->status = ((isset($embed->error) && $embed->error) ? 0 : 1);
-    if (isset($embed->title)) {
+    if (!empty($embed->title)) {
       $node->title = substr($embed->title, 0, 255);
     }
     else {
