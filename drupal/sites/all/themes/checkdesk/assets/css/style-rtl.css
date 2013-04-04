@@ -2724,8 +2724,8 @@ input[type="checkbox"][readonly] {
   border: 0;
   list-style: none;
   display: block;
-  background-color: white;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.05);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -7976,7 +7976,7 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
 
 body.page-reports h1.title {
   text-align: center;
-  background-color: #c9c9c9;
+  background-color: #ecebed;
 }
 body.page-reports #main {
   padding-right: 0%;
@@ -8009,7 +8009,7 @@ body.page-reports #reports .report-item {
 body.page-reports #reports .report-item .report-row-container {
   text-align: right;
   padding: 14.4px 0;
-  border-bottom: 1px solid #999999;
+  border-bottom: 1px solid #cccccc;
   -webkit-transition: opacity 0.3s linear;
   -moz-transition: opacity 0.3s linear;
   -o-transition: opacity 0.3s linear;
@@ -8148,7 +8148,7 @@ body.page-reports #reports .report-item .report-detail-link a:active, body.page-
 }
 
 body {
-  background-color: #c9c9c9;
+  background-color: #ecebed;
 }
 
 #l10n-client {
@@ -8161,10 +8161,6 @@ body {
 #l10n-client form .form-item textarea {
   clear: both;
   float: none;
-}
-
-body.page-reports {
-  background-color: #cccccc;
 }
 
 #sidebar-first.column,

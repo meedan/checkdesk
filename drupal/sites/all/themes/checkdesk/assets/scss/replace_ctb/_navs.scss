@@ -144,7 +144,7 @@
   @include reset-box-model;
   @include reset-list-style;
   display: block;
-  @include ctb-bg(#fff, rgba(255, 255, 255, 0.2));
+  @include ctb-bg(#000, rgba(0, 0, 0, 0.05));
   @include border-radius(4px);
   padding: $absolute-line-height/4 $gutter-width;
   margin-bottom: $absolute-line-height/2;
