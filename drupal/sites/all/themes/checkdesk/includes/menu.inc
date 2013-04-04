@@ -56,6 +56,7 @@ function checkdesk_menu_local_task($variables) {
 
   // add icons
   // view tab
+  $icon = '';
   if($link['path'] == 'node/%/view') {
     $icon = '<span class="icon-file"></span> ';
   }
@@ -71,7 +72,7 @@ function checkdesk_menu_local_task($variables) {
   if($link['path'] == 'node/%/devel') {
     $icon = '<span class="icon-wrench"></span> ';
   }
-  if($icon) {
+  if(isset($icon)) {
     $link_text = $icon . $link_text;  
   }
   

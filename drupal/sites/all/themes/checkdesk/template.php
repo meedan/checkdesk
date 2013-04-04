@@ -97,11 +97,21 @@ function checkdesk_preprocess_block(&$variables) {
 }
 
 /**
+ * Preprocess variables for regions
+ */
+function checkdesk_preprocess_region(&$variables) {
+  if($variables['region'] == 'footer') {
+    dsm($variables);
+  }
+}
+
+/**
  * Preprocess variables for page.tpl.php
  *
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
+  
   global $user, $language;
 
   // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
@@ -219,6 +229,77 @@ function checkdesk_preprocess_page(&$variables) {
     ),
     'heading' => NULL,
   ));
+
+
+  // information nav
+  $variables['information_nav'] = FALSE;
+  $menu = menu_load('menu-information');
+  $tree = menu_tree_page_data($menu['menu_name']);
+
+  // Remove items that are not from this language or that does not have children
+  foreach ($tree as $id => $item) {
+    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+      unset($tree[$id]);
+    }
+    if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
+    foreach ($item['below'] as $subid => $subitem) {
+      if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+    }
+  }
+
+  // Add classes for modal
+  foreach ($tree as $id => $item) {
+    $tree[$id]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
+  }
+
+  $variables['information_menu'] = checkdesk_menu_navigation_links($tree);
+
+  // Build list
+  $variables['information_nav'] = theme('checkdesk_links', array(
+    'links' => $variables['information_menu'],
+    'attributes' => array(
+      'id' => 'information-menu',
+      'class' => array('nav'),
+    ),
+    'heading' => NULL,
+  ));
+
+  // footer nav
+  $variables['footer_nav'] = FALSE;
+  $menu = menu_load('menu-footer');
+  $tree = menu_tree_page_data($menu['menu_name']);
+
+  // Remove items that are not from this language or that does not have children
+  foreach ($tree as $id => $item) {
+    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+      unset($tree[$id]);
+    }
+    if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
+    foreach ($item['below'] as $subid => $subitem) {
+      if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+    }
+  }
+
+  // Add checkdesk logo class
+  foreach ($tree as $id => $item) {
+    if($tree[$id]['link']['link_path'] == 'http://checkdesk.org') {
+      $tree[$id]['link']['class'] = array('checkdesk');
+    }
+  }
+
+  $variables['footer_menu'] = checkdesk_menu_navigation_links($tree);
+
+  // Build list
+  $variables['footer_nav'] = theme('checkdesk_links', array(
+    'links' => $variables['footer_menu'],
+    'attributes' => array(
+      'id' => 'footer-menu',
+      'class' => array('nav'),
+    ),
+    'heading' => NULL,
+  ));
+
+  // ctools modal
 
   ctools_include('modal');
   ctools_modal_add_js();

@@ -1,0 +1,79 @@
+// Footer
+
+#footer {
+  @include ctb-clearfix;
+  width: 100%;
+  border-top: 1px solid lighten($grayLight, 20%);
+  padding-top: $absolute-line-height/4;
+  margin: $absolute-line-height*2 0 $absolute-line-height*4 0;
+}
+
+#footer-menu {
+  float: opposite-position($from-direction);
+  text-align: opposite-position($from-direction);
+
+}
+#information-menu {
+  float: $from-direction;
+  text-align: $from-direction;
+}
+
+#footer-inner {  
+  ul {
+    text-align: $from-direction;
+    @include reset-box-model;
+    @include reset-list-style;
+    li {
+      @include reset-box-model;
+      position: relative;
+      display: inline-block;
+      font-size: 90%;
+      border-#{opposite-position($from-direction)}: 2px solid lighten($grayLight, 20%);
+      line-height: 85%;
+      vertical-align: bottom;
+      &:last-child {
+        border-#{opposite-position($from-direction)}: 0 none;
+      }
+
+      a.checkdesk {
+        position: relative;
+        top: 2px;
+        line-height: 1.2;
+        padding-#{opposite-position($from-direction)}: 88px;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAAARCAYAAAChIpBnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowNjdFMkI4Rjc4MjA2ODExQUM4QkE0NjAyOTkyODY5NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFQkFENDgxMDk1MUUxMUUyQTI2OTk1NUNGNEE0NTQ3MSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFQkFENDgwRjk1MUUxMUUyQTI2OTk1NUNGNEE0NTQ3MSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M0IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDQUE2MDNCODUyMTY4MTFBQzhCQTQ2MDI5OTI4Njk3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjA2N0UyQjhGNzgyMDY4MTFBQzhCQTQ2MDI5OTI4Njk3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Oek1MQAAAxNJREFUeNrsWNFx2kAQRRkXQGaS30SpIEoFkSoAKrCoAFGB7QosV4CpADpAqQB1gJzffJhUQG49b52X9Z0gCvGXduYGjW619+7t7juJ6HA4DHp7Rfux+XDtxkHGK613wEg74tz8ByzXbX5SlG/6Ujmf9WSe0S6onGP3c+WGtNbQjcqNu/fZ98qUfe5+LuEnc0vnc++ZT9zYU5yafCR+4cYIfi/imDXFfwFcYlPE1hgxYvieHbufWQgPYfmKPdUYN86nCcS8RbwBYq3lIsKkTGwILNsED161JGUqRGCRwjMvm8hkAwC/ITBs985nStqcYWPsr2ttAzHEKueTteAZAE8FfQ1ps+x9hWshVzRZkpozXquZKxC5RwDdhNitWaBBZWh1iF0iIQpcKuytG58QRytL4ykJc6ylFZmjQ9SGASJzurc2MbjTQniecACzEjl3sSPyqW21GyLnSuRzm+PEjAnsGg8KqWMAKUxGG/h8prmxqcSCyBfQCapS/UoXp9RKcnMPyHTjrjUOt/acZGCksd29CcXgveTH8JCv2Az4aiS5drH3hGVmsJRBzRRTInEti5YgbWDuq/0MtEeotRIC9M2s7Xv1YNn56Lm/tu1tSDyGZ49iyUEsS5lIUhbAMlJugqc5yv5Z9NFOXUylwo7aEPvHQYHKsJvVVis8751JC/kn4UGrZiCnMrFvPckSSx2Wwkcmb5AzI4EW7qHdiQTWJnM1vQmsSJsqaqsYRKbw2XFCocsTtOZTHBDe0KYSKoTx3+LBaR+7OWndDNqqxjJQYr4ymvubTNEFKlmpjkcQmJvNtxokoia9esSprG8Jqjk3VEU7nMobqkSWkT3wTekZ0dEl+WxxIm874MlBrBTNFgcMx1l6JI0P3sWLNpesEKFDykgJMT7VsgD5cu+L6C2qgwElVEkTkGcTVXHCgZFjpJ5qPIoHelkSjpz37nvvxZmhBZHwZ2bkeTlO6KRsOn7PxgSqaXn5TakC6w7rnIT3FDxGj2tfUo99m0fo+2H/Mfhv9i59qC6s1vTW2aKo/z/zfPZLgAEAiii3C8AMnpIAAAAASUVORK5CYII=) no-repeat opposite-position($from-direction) top transparent;
+      }
+
+      a {
+        margin-top: -1px;
+        color: lighten($grayLight, 5%);  
+        text-decoration: none;
+        padding: 0 $gutter-width;
+        @include ctb-transition(color 0.3s linear);
+        &:hover {
+          color: $gray;
+        }
+      }
+      // hide ajax throbber in dropdown
+      .ajax-progress-throbber {
+        display: none;
+      }
+    }
+  }
+}
+
+
+// Small breakpoint
+@include at-breakpoint($break-small) {
+  #footer {
+    // @include span-columns($break-small - 2, $break-small, $gutter-width);
+    // @include pad(1, 1, $break-small);
+  }
+}
+
+// Medium breakpoint
+@include at-breakpoint($break-medium) {
+  #footer {
+    // @include span-columns($break-medium - 4, $break-medium, $gutter-width);
+    // @include pad(2, 2, $break-medium);
+  }
+}

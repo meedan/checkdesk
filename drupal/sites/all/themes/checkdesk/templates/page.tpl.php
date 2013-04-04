@@ -102,6 +102,24 @@
 
         <?php // print $feed_icons; ?>
 
+        <!-- ______________________ FOOTER _______________________ -->
+        
+        <?php if ($information_nav || $footer_nav): ?>
+          <div id="footer">
+            <div id="footer-inner" class="inner">
+              <?php if($page['footer']): ?>
+                <?php print render($page['footer']); ?>
+              <?php endif; ?>
+              <?php if ($information_nav): ?>
+                <?php print $information_nav; ?>
+              <?php endif; ?>
+              <?php if ($footer_nav): ?>
+                <?php print $footer_nav; ?>
+              <?php endif; ?>
+            </div>
+          </div> <!-- /footer -->
+        <?php endif; ?>
+
       </div>
     </div> <!-- /content-inner /content -->
 
@@ -114,13 +132,4 @@
     <?php endif; ?> <!-- /sidebar-second -->
 
   </div> <!-- /main -->
-
-  <!-- ______________________ FOOTER _______________________ -->
-
-  <?php if ($page['footer']): ?>
-    <div id="footer">
-      <?php print render($page['footer']); ?>
-    </div> <!-- /footer -->
-  <?php endif; ?>
-
 </div> <!-- /page -->

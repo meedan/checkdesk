@@ -94,7 +94,10 @@ body.page-reports {
     }
   }
 
+
   .pager-load-more {
+    @include ctb-clearfix;
+    float: none;
     width: 100%;
     text-align: center;
     a {
