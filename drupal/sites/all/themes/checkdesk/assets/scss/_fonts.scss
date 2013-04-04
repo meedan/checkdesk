@@ -1,0 +1,18 @@
+// Webfont definitions
+// 
+// For Arabic and English, using a third set of shared language-independent variables.
+//
+// A.) Setup. Do not use these font names or this variable directly:
+$en-body-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$en-header-font-stack: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+//
+// B.) configure arabic font names, again for use in this file only
+$ar-header-font-stack: "Amiri", "Arabic Typesetting", "Tahoma";
+$ar-body-font-stack: "Droid Arabic Naskh", "Amiri", "Tahoma";
+$ar-nav-font-stack: "Droid Arabic Naskh", "DecoType Naskh", "Tahoma";
+//
+// C.) Set the defaults for language-independent variables
+$mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace !default; // needs arabic equivalent CGB Apr 3
+$nav-font-stack: $en-body-font-stack !default;
+$header-font-stack: $en-header-font-stack !default;
+$body-font-stack: $en-body-font-stack !default;
