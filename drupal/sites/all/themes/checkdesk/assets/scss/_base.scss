@@ -1,7 +1,9 @@
 @charset "UTF-8";
 
-// ## Checkdesk Themes 
-
+// Checkdesk Base
+//
+// Welcome 
+//
 // Directional defaults
 $from-direction: left !default;
 $icon-position: before !default;
@@ -10,13 +12,9 @@ $icon-position: before !default;
 //
 // See also typography.scss and bowerbird/typography.scss
 //
-// A.) ... Use only these:
 @import "compass/css3/font-face";
 @import "bowerbird/typography";
 @import "fonts";
-//
-// E.) Font include statements for the browser to get the file
-// moved to styles.scss so this base file can be reloaded in style-rtl.scss CGB
 
 // mixin to set direction
 // 
@@ -143,4 +141,4 @@ $radius: 4px;
 // Debugger
 // =============================================================================
 // debug mode for @debug statements and other sass debuggers
-$debug: false !default;
+$debug: true !default;
