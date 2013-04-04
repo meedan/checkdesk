@@ -91,9 +91,20 @@ body.page-reports {
           @include button-size(13px);
         }
       }
-
-    } 
+    }
   }
+
+  .pager-load-more {
+    width: 100%;
+    text-align: center;
+    a {
+      width: 70%;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  
   
 
 
