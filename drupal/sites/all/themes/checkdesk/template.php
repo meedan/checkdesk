@@ -97,15 +97,6 @@ function checkdesk_preprocess_block(&$variables) {
 }
 
 /**
- * Preprocess variables for regions
- */
-function checkdesk_preprocess_region(&$variables) {
-  if($variables['region'] == 'footer') {
-    dsm($variables);
-  }
-}
-
-/**
  * Preprocess variables for page.tpl.php
  *
  * @see page.tpl.php
@@ -386,6 +377,16 @@ function checkdesk_preprocess_page(&$variables) {
     $variables['page']['widgets'] = FALSE;
   }
   $variables['show_widgets'] = $show_widgets;
+
+  // set page variable if widgets should be visible
+  $show_widgets = 0;
+  if (checkdesk_footer_visibility()) {
+    $show_widgets = 1; 
+  } else {
+    $variables['page']['widgets'] = FALSE;
+  }
+  $variables['show_widgets'] = $show_widgets;
+
 }
 
 
@@ -630,6 +631,38 @@ function checkdesk_widgets_visibility() {
   // for logged in users with specific role
   } elseif (isset($current_node->type) && $check_role) {
     foreach ($user_node_types as $node_type) {
+      // matches node types and does not include any pages
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
+        return TRUE; 
+      } 
+    }
+  } 
+
+  // Always display on front page
+  if (drupal_is_front_page()) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Utitity function to determine whether to show footer or not
+ */
+function checkdesk_footer_visibility() {
+  global $user;
+  $current_node = menu_get_object();
+  // what to check for
+  $pages = array('edit', 'delete');
+  $check_page = array_intersect($pages, array_values(arg()));
+  $check_page = empty($check_page) ? FALSE : TRUE;
+
+  // node types to check
+  $node_types = array('media', 'discussion', 'post');
+
+  // for anonymous user
+  if (isset($current_node->type)) {
+    foreach ($node_types as $node_type) {
       // matches node types and does not include any pages
       if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
         return TRUE; 
