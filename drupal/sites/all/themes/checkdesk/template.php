@@ -125,6 +125,7 @@ function checkdesk_preprocess_page(&$variables) {
       if (isset($item['below']) && $item['link']['title'] == t('...')) {
         $tree[$id]['link']['title'] = '&nbsp;';
         $tree[$id]['link']['link_title'] = '&nbsp;';
+        $tree[$id]['link']['html'] = TRUE;
       }
     }
 
