@@ -35640,7 +35640,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
     'source' => 'Story',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'خبر',
+    'translation' => 'موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -40648,7 +40648,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
     'source' => 'Add to Story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف إلى خبر',
+    'translation' => 'أضف إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -40971,7 +40971,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'source' => 'Report suggested to story',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'اقتراح تقرير لإدراجه ضمن خبر',
+    'translation' => 'اقتراح تقرير لإدراجه ضمن موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -40987,7 +40987,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'source' => 'New update on a story I commented on an update before',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تحديث جديد على خبر علقت على أحد تحديثاته في السابق',
+    'translation' => 'تحديث جديد على موضوع علقت على أحد تحديثاته في السابق',
     'plid' => '0',
     'plural' => '0',
   );
@@ -41521,7 +41521,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Story page',
     'context' => '',
     'location' => '',
-    'translation' => 'صفحة الخبر',
+    'translation' => 'صفحة الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -41681,7 +41681,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Create story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف خبر',
+    'translation' => 'أضف موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -41697,7 +41697,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Add report to story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف التقرير إلى خبر',
+    'translation' => 'أضف التقرير إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -41785,7 +41785,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'By story',
     'context' => '',
     'location' => '',
-    'translation' => 'الخبر',
+    'translation' => 'الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42201,7 +42201,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Add Report "!title" to Story',
     'context' => '',
     'location' => '/ar/node/63/checkdesk/modal/suggest/ajax',
-    'translation' => 'أضف التقرير "!title" إلى خبر',
+    'translation' => 'أضف التقرير "!title" إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42401,7 +42401,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Sorted by time and filtered by current story',
     'context' => '',
     'location' => '',
-    'translation' => 'مرتبة حسب التاريخ ومفلترة بحسب الخبر الحالي',
+    'translation' => 'مرتبة حسب التاريخ ومفلترة بحسب الموضوع الحالي',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42441,7 +42441,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Suggest to Story',
     'context' => '',
     'location' => '/ar/reports',
-    'translation' => 'اقترح الإضافة إلى خبر',
+    'translation' => 'اقترح الإضافة إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42489,7 +42489,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Suggest Report "!title" to Story',
     'context' => '',
     'location' => '/ar/node/240/checkdesk/modal/suggest/ajax',
-    'translation' => 'اقترح إضافة التقرير "!title" إلى خبر',
+    'translation' => 'اقترح إضافة التقرير "!title" إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42625,7 +42625,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Story title',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'عنوان الخبر',
+    'translation' => 'عنوان الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42713,14 +42713,13 @@ This was an auto-generated email from !site, please do not respond directly to t
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الخبر "!story_title".
+قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الموضوع "!story_title".
 
 <a href="!story_url">اضغط هنا</a> لكتابة تحديث جديد على ذلك الخبر باستخدام ذاك التقرير.
 
 بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
 
-هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
-',
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42767,7 +42766,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الخبر "!story_title".
+قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الموضوع "!story_title".
 
 إذهب إلى !story_url لكتابة تحديث جديد على الخبر باستخدام ذاك التقرير.
 
@@ -42840,7 +42839,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['2c086e37f463aba143f4890ad30d77ac'] = array(
     'source' => 'Unpublish',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => 'إلغاء النشر',
     'plid' => '0',
     'plural' => '0',
@@ -42848,7 +42847,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['6c8ce96c4391ac7fdcc1f53fc4b4e9cb'] = array(
     'source' => '<a href="@user">!user</a> added this on <time class="date-time" datetime="!timestamp">!datetime</time>',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => '<a href="@user">!user</a> أضاف هذا التقرير <time class="date-time" datetime="!timestamp">!datetime</time>',
     'plid' => '0',
     'plural' => '0',
@@ -42856,15 +42855,15 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['0c2121748fdfc651777c6bc2c03bf36d'] = array(
     'source' => '<a href="!url">@count more updates</a> related to <a href="!url">this story</a>. <a href="!url">View all</a>',
     'context' => '',
-    'location' => NULL,
-    'translation' => '<a href="!url">@count تحديثات أخرى</a> مرتبطة <a href="!url">بهذا الخبر</a>. <a href="!url">عرض الكل</a>',
+    'location' => '',
+    'translation' => '<a href="!url">@count تحديثات أخرى</a> مرتبطة <a href="!url">بهذا الموضوع</a>. <a href="!url">عرض الكل</a>',
     'plid' => '0',
     'plural' => '0',
   );
   $translations['ar:default']['0869522d5a55698fde06f804cb89a958'] = array(
     'source' => '@count[3] more updates',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => '@count[3] تحديثات أخرى',
     'plid' => '0',
     'plural' => '0',
@@ -42872,7 +42871,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['0a046e997aded985b4be3de8aa8b5259'] = array(
     'source' => '1 more update',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => 'تحديث 1 آخر',
     'plid' => '0',
     'plural' => '0',
@@ -42906,6 +42905,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/',
     'translation' => 'عرض الأصل',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['adf5f4b46e464ee4091cb1cae3a0d469'] = array(
+    'source' => '@count more updates',
+    'context' => '',
+    'location' => '',
+    'translation' => '@count تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['102a37962df1adad2b8a0d902fe6f69d'] = array(
+    'source' => 'Follow us on:',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تابعنا على:',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42969,7 +42984,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Story',
     'context' => 'body:discussion:label',
     'location' => 'field:body:discussion:label',
-    'translation' => 'الخبر',
+    'translation' => 'الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43049,7 +43064,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Story',
     'context' => 'field_desk:post:label',
     'location' => 'field:field_desk:post:label',
-    'translation' => 'الخبر',
+    'translation' => 'الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43121,7 +43136,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => 'item:edc54df9-4aa8-bf84-dd89-ca0a351af23b:title',
     'location' => 'menu:item:edc54df9-4aa8-bf84-dd89-ca0a351af23b:title',
-    'translation' => 'أنشئ خبر',
+    'translation' => 'أنشئ موضوع',
     'plid' => '0',
     'plural' => '0',
   );
