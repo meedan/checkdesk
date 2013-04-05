@@ -503,182 +503,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'customized' => '1',
     'parent_path' => '<sub>',
   );
-  // Exported menu link: menu-footer:http://checkdesk.org
-  $menu_links['menu-footer:http://checkdesk.org'] = array(
-    'menu_name' => 'menu-footer',
-    'link_path' => 'http://checkdesk.org',
-    'router_path' => '',
-    'link_title' => 'Developed by',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '1',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-48',
-    'uuid' => '46a9effa-0a43-41c2-a150-dee7ed74c01f',
-    'language' => 'en',
-    'customized' => '1',
-  );
-  // Exported menu link: menu-footer:http://meedan.org
-  $menu_links['menu-footer:http://meedan.org'] = array(
-    'menu_name' => 'menu-footer',
-    'link_path' => 'http://meedan.org',
-    'router_path' => '',
-    'link_title' => 'Supported by Meedan',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '1',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-49',
-    'uuid' => '93091458-8370-4ca5-9fae-2ac710021e68',
-    'language' => 'en',
-    'customized' => '1',
-  );
-  // Exported menu link: menu-information:modal/ajax/content/about
-  $menu_links['menu-information:modal/ajax/content/about'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/about',
-    'router_path' => 'modal/%',
-    'link_title' => 'About',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'About this site',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-48',
-    'uuid' => '567a9623-1ab2-3fd4-ddf8-ccaffafffa37',
-    'language' => 'en',
-    'customized' => '1',
-  );
-  // Exported menu link: menu-information:modal/ajax/content/fact-checking-statement
-  $menu_links['menu-information:modal/ajax/content/fact-checking-statement'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/fact-checking-statement',
-    'router_path' => 'modal/%',
-    'link_title' => 'Fact-checking statement',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Fact-checking statement',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-46',
-    'uuid' => 'aaac935a-d8c3-c964-b1a5-11747d737824',
-    'language' => 'en',
-    'customized' => '1',
-  );
-  // Exported menu link: menu-information:modal/ajax/content/terms-use
-  $menu_links['menu-information:modal/ajax/content/terms-use'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/terms-use',
-    'router_path' => 'modal/%',
-    'link_title' => 'Terms of Use',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Terms of Use',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-44',
-    'uuid' => 'a3f2b8b5-2d02-9934-79d7-246ff6231eaf',
-    'language' => 'en',
-    'customized' => '1',
-  );
-  // Exported menu link: menu-information:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات
-  $menu_links['menu-information:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/بيان-التحقق-من-صحة-المعلومات',
-    'router_path' => 'modal/%',
-    'link_title' => 'بيان التحقق من صحة المعلومات',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-45',
-    'uuid' => '3daae1f4-caac-41f1-b00c-7ada7412206e',
-    'language' => 'ar',
-    'customized' => '1',
-  );
-  // Exported menu link: menu-information:modal/ajax/content/حول
-  $menu_links['menu-information:modal/ajax/content/حول'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/حول',
-    'router_path' => 'modal/%',
-    'link_title' => 'حول',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-47',
-    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
-    'language' => 'ar',
-    'customized' => '1',
-  );
-  // Exported menu link: menu-information:modal/ajax/content/شروط-الاستخدام
-  $menu_links['menu-information:modal/ajax/content/شروط-الاستخدام'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/شروط-الاستخدام',
-    'router_path' => 'modal/%',
-    'link_title' => 'شروط الاستخدام',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-43',
-    'uuid' => '2caff8c7-f404-4de3-8c79-0fdf715f1b00',
-    'language' => 'ar',
-    'customized' => '1',
-  );
   // Translatables
   // Included for use with string extractors like potx.
   t('...');
@@ -687,7 +511,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Administer users');
   t('Compose update');
   t('Create story');
-  t('Developed by');
   t('Edit fact-checking statement');
   t('Fact-checking statement');
   t('Home');
@@ -698,7 +521,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Notifications');
   t('Sign in');
   t('Submit report');
-  t('Supported by Meedan');
   t('Terms of Use');
   t('View incoming citizen reports');
   t('بيان التحقق من صحة المعلومات');
