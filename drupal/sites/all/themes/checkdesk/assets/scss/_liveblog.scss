@@ -28,12 +28,12 @@ body.page-liveblog {
 
     // Live blog view
     .view-liveblog {
-      @include clearfix;
+      @include ctb-clearfix;
       padding-top: $base-font-size;
       .desk {
         z-index: 1;
         position: relative;
-        @include clearfix;
+        @include ctb-clearfix;
         float: $from-direction;
         margin-bottom: 0;
         margin-top: ms(1);

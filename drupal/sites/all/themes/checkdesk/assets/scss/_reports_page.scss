@@ -67,7 +67,7 @@ body.page-reports {
   }
 
   #reports {
-    @include clearfix;
+    @include ctb-clearfix;
     text-align: center;
     margin: 0 auto;
     .report-item  {
@@ -91,7 +91,7 @@ body.page-reports {
       }
 
       .report-content {
-        @include clearfix;
+        @include ctb-clearfix;
 
         // thumbnail type
         .report-type-thumbnail {
@@ -153,7 +153,7 @@ body.page-reports {
 
 
   .pager-load-more {
-    @include clearfix;
+    @include ctb-clearfix;
     float: none;
     width: 100%;
     text-align: center;

@@ -28,12 +28,12 @@ $tab-padding: $gutter-width;
 // Tabs
 div.tabs {
   @include reset-box-model;
-  @include clearfix;
+  @include ctb-clearfix;
   padding: { top: $tab-padding; bottom: $tab-padding; }
   
   ul.primary {
     @include reset-box-model;
-    @include clearfix;
+    @include ctb-clearfix;
     font-size: $small-font-size;
     font-weight: 300;
     @extend %tab-colors;
