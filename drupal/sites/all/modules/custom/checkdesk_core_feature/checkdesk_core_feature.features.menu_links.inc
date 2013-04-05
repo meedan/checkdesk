@@ -635,28 +635,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'ar',
     'customized' => '1',
   );
-  // Exported menu link: menu-information:modal/ajax/content/حول
-  $menu_links['menu-information:modal/ajax/content/حول'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/حول',
-    'router_path' => 'modal/%',
-    'link_title' => 'حول',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-47',
-    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
-    'language' => 'ar',
-    'customized' => '1',
-  );
   // Exported menu link: menu-information:modal/ajax/content/شروط-الاستخدام
   $menu_links['menu-information:modal/ajax/content/شروط-الاستخدام'] = array(
     'menu_name' => 'menu-information',
@@ -676,6 +654,28 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-43',
     'uuid' => '2caff8c7-f404-4de3-8c79-0fdf715f1b00',
+    'language' => 'ar',
+    'customized' => '1',
+  );
+  // Exported menu link: menu-information:modal/ajax/content/عن-الموقع
+  $menu_links['menu-information:modal/ajax/content/عن-الموقع'] = array(
+    'menu_name' => 'menu-information',
+    'link_path' => 'modal/ajax/content/عن-الموقع',
+    'router_path' => 'modal/%',
+    'link_title' => 'عن الموقع',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-47',
+    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
     'language' => 'ar',
     'customized' => '1',
   );
@@ -706,6 +706,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('تنصيب إضافة المتصفح');
   t('حول');
   t('شروط الاستخدام');
+  t('عن الموقع');
 
 
   return $menu_links;
