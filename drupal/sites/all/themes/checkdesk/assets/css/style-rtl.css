@@ -8452,6 +8452,10 @@ body {
   direction: ltr;
 }
 
+.filter-wrapper {
+  display: none;
+}
+
 div.vertical-tabs, div.vertical-tabs-panes {
   display: none !important;
 }
@@ -8467,6 +8471,11 @@ p br {
 
 input.form-autocomplete {
   background-image: none !important;
+}
+
+.filter-guidelines,
+.filter-help {
+  display: none;
 }
 
 #toolbar-home,
