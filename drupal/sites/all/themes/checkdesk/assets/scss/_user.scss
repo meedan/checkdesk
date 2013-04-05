@@ -24,7 +24,7 @@
     }
 
     dl {
-      @include ctb-clearfix;
+      @include clearfix;
       padding: $gutter-width;
       font-size: $base-font-size;
       border-bottom: 1px solid $light-grey;
@@ -151,7 +151,7 @@ body.page-user-password { // both logged in and not logged ins states
     }
 
     .user-links {
-      @include ctb-clearfix;
+      @include clearfix;
       font-family: $header-font-stack;
       font-size: $fontSizeSmall;
       line-height: 1.5;

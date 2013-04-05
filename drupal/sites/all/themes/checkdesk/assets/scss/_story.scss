@@ -22,7 +22,7 @@
   // Updates must stay above story information, 
   // otherwise you can't click to see the comments
   #block-views-desk-updates-block {
-    @include ctb-clearfix;
+    @include clearfix;
     form {
       clear: both;
     }
@@ -31,7 +31,7 @@
   #main {
     @include layout-story($container-width, $container-width);
     #block-views-desk-updates-block {
-      @include ctb-clearfix;
+      @include clearfix;
       margin-top: 1em;
       padding-top: 1em;
       background-color: white;
@@ -60,7 +60,7 @@
 $omega: opposite-position($alpha);
 
 .story {
-  @include ctb-clearfix;
+  @include clearfix;
   color: $grayLight;
   text-align: $alpha;
 
@@ -106,7 +106,7 @@ $omega: opposite-position($alpha);
   
   // The current blogger information
   .story-blogger {
-    @include ctb-clearfix;
+    @include clearfix;
     margin: $absolute-line-height/2 0;
 
     .avatar {
@@ -151,7 +151,7 @@ $omega: opposite-position($alpha);
   }
 
   .story-body {  
-    @include ctb-clearfix;
+    @include clearfix;
     margin: $base-line-height/4 0;
     color: darken($grayLight, 20%);
     text-shadow: 0 1px 1px rgba(255,255,255,.35);

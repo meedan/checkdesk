@@ -36,7 +36,7 @@ ul.pager {
 .pager {
   @include reset-box-model;
   @include reset-list-style;
-  @include ctb-clearfix;
+  @include clearfix;
   margin: $absolute-line-height 0;
   font-size: $fontSizeSmall;
 

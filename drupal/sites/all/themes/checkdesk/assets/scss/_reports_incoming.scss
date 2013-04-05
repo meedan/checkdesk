@@ -44,7 +44,7 @@
 
 // incoming reports
 .report-row {
-  @include ctb-clearfix;
+  @include clearfix;
   position: relative;
 
   .report-row-container {
@@ -67,7 +67,7 @@
   }
 
   .report-content {
-    @include ctb-clearfix;
+    @include clearfix;
     // thumbnail type
     .report-type-thumbnail {
       max-width: 100%;

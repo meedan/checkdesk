@@ -18,7 +18,7 @@ $report-text-color: $dark-grey;
 	// max-width: 600px;
 	float: $from-direction;
 	text-align: $alpha;
-	@include ctb-clearfix;
+	@include clearfix;
 	
 	// when inside a modal
 	.modal & { 
@@ -39,7 +39,7 @@ $report-text-color: $dark-grey;
 	& > footer {
 		color: $report-text-color;
 		padding: $gutter-width/2 $gutter-width;
-		@include ctb-clearfix;
+		@include clearfix;
 		background-color: darken($grayLighter, 5%);
 		h3 {
 			@include reset-box-model;
@@ -137,7 +137,7 @@ $report-text-color: $dark-grey;
 
 	// Main report content
 	.report-content {
-		@include ctb-clearfix;
+		@include clearfix;
 
 		background-color: $report-background-color;
 		color: $report-text-color;
@@ -154,7 +154,7 @@ $report-text-color: $dark-grey;
 				font-size: $fontSizeSmall;
 
 				.oembed-content {
-					@include ctb-clearfix;
+					@include clearfix;
 				}
 				
 				.oembed-content img {
@@ -244,7 +244,7 @@ $report-text-color: $dark-grey;
 		}
 
 		.description {
-			@include ctb-clearfix;
+			@include clearfix;
 			border-top: 1px solid $white;
 			padding-top: $gutter-width;
 
@@ -339,7 +339,7 @@ $report-text-color: $dark-grey;
 
 		.activity-wrapper {
 			display: none;
-			@include ctb-clearfix;
+			@include clearfix;
 			padding: $absolute-line-height/2 $gutter-width;
 			background-color: $grayLighter;
 			
@@ -367,7 +367,7 @@ $report-text-color: $dark-grey;
 
 		.activity-list {
 			.activity {
-				@include ctb-clearfix;
+				@include clearfix;
 				border-#{$from-direction}: 2px solid $white;
 
 				font-size: 14px;
@@ -377,7 +377,7 @@ $report-text-color: $dark-grey;
 				padding-#{$from-direction}: $gutter-width*2;
 
 				header {
-					@include ctb-clearfix;
+					@include clearfix;
 					[class^="icon-"],
 					[class*=" icon-"] {
 						float: $alpha;
@@ -408,7 +408,7 @@ $report-text-color: $dark-grey;
 		}
 
 		#comment-form {
-			@include ctb-clearfix;
+			@include clearfix;
 			padding: 0;
 			margin-top: $absolute-line-height/2*2;
 			background-color: $grayLighter;
@@ -419,7 +419,7 @@ $report-text-color: $dark-grey;
 				width: 100%;
 				textarea {
 					float: none;
-					@include ctb-clearfix;
+					@include clearfix;
 				}
 			}
 		}

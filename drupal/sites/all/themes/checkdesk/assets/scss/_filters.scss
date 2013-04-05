@@ -2,7 +2,7 @@
 //
 // Use @extend on the parent element containint the header and .panels
 %filters {
-  @include ctb-clearfix;
+  @include clearfix;
   font-size: $fontSizeSmall;
   padding: 0 $gutter-width*2;
   color: $gray;
