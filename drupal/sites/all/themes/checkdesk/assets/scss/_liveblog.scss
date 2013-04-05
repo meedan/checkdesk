@@ -65,6 +65,10 @@ body.page-liveblog {
           background-color: #dadada;
           margin-bottom: 1em;
 
+          .report .report-content .report-media .container {
+            min-width: 60%;
+          }
+
           & > h3 {
             @include reset-box-model;
             font-size: 125%;

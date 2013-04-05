@@ -4919,6 +4919,9 @@ div.tabs ul.primary li a {
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active:visited {
   color: white;
 }
+.report .report-content .report-media .twitter_com {
+  width: 60%;
+}
 .report .report-content > p {
   color: #999999;
   margin: 14.4px 0;
@@ -6994,6 +6997,9 @@ body.page-liveblog #main .view-liveblog .desk h2 .desk {
 body.page-liveblog #main .view-liveblog .desk .post-row {
   background-color: #dadada;
   margin-bottom: 1em;
+}
+body.page-liveblog #main .view-liveblog .desk .post-row .report .report-content .report-media .container {
+  min-width: 60%;
 }
 body.page-liveblog #main .view-liveblog .desk .post-row > h3 {
   margin: 0;

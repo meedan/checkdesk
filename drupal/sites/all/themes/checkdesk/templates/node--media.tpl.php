@@ -1,8 +1,18 @@
+<?php 
+  // set embed media type class
+  if(isset($node->embed->provider_url)) {
+    $url = $node->embed->provider_url;
+    $url = parse_url($url);
+    $media_type = $url['host'];
+    $media_type_class = str_replace('.', '_', $media_type);
+  }
+?>
+
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="report">   
     <section class="report-content">
       <div class="report-media">
-        <div class="container">
+        <div class="container <?php print $media_type_class; ?>">
           <?php if(isset($content['meedan_sensitive_content'])) { print render($content['meedan_sensitive_content']); }  ?>
           <?php if(isset($content['field_link'])) { print render($content['field_link']); } ?>
         </div>
