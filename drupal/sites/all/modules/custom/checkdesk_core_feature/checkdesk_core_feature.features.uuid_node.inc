@@ -226,7 +226,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<div class="legal">
+        'value' => '<div class="static legal">
 
 <h2>Welcome to Checkdesk</h2>
 
@@ -436,7 +436,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 ',
         'summary' => '',
         'format' => 'full_html',
-        'safe_value' => '<div class="legal">
+        'safe_value' => '<div class="static legal">
 <h2>Welcome to Checkdesk</h2>
 <p>Checkdesk is a web application developed by Meedan. Our goal in developing Checkdesk was to make the world a better place. Really. So, you can take these terms and conditions as our best effort to inform you of your legal obligations as a user and our legal obligations to you as the company that has designed and deployed this software.</p>
 <p>We recognize that as a user of our services you are extending to us certain aspects of your reputation and identity. We take this seriously and we’ve crafted these Terms of Service (the “Terms”) reflect that.</p>
@@ -716,10 +716,42 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>To be added.</p>',
+        'value' => '<div class="static legal">
+
+<p>Welcome to Checkdesk. Checkdesk is a collaborative space for journalist led and citizen participating fact-checking. We are doing investigative journalism on individual social media objects, checking incoming media and citizen media (“Reports”) our journalists believe are seminal to understanding events we are covering. This work is saved into an activity log that is attached to these media objects on Checkdesk. The journalists can assign (and change) the verification status of a media object on the system.</p>
+
+<p>We have four statuses for incoming reports:</p>
+	
+	<ul>
+
+		<li><b>In progress:</b> We\'re working to check this report - get involved and help answer any questions our journalists are asking about the report, or ask new questions you think might help us establish how credible (or not) this report might be.</li>
+
+		<li><b>Undetermined:</b> We\'ve checked the report and followed all the leads we can, but we just can\'t say to a reasonable degree of certainty whether this report is Verified or False.</li>
+
+		<li><b>Verified:</b> We\'ve corroborated this report with reports from other media, checked that the video/pictures accurately represent what they claim to, and have established the source as credible.</li>
+
+		<li><b>False:</b> We have found evidence that shows this report to be false, believe the report\'s media does not show what it purports to, or have serious questions about the credibility of the source.</li>
+
+	</ul>
+
+<p>Input from members of our community (you!) is greatly valued in helping establish whether a report is accurate and credible or not -  if you have information or corroborating media that could verify a report please share it with us here on Checkdesk.</p>
+
+<p>Please note that journalism is a process of ever-uncovering an always changing and very complex set of people, events, statements, assertions, artifacts, and opinions. Checkdesk’s notion of verified, is not meant to imply other than that a journalist has done work to assess the likely credibility of the source and the likely veracity of their output. Making this work explicit and visible is the heart of Checkdesk, it provides the means for our users to assess for themselves the reporter’s assessment. So don\'t think of our statuses as a rubber stamp of "Right" or "Wrong" but as an ongoing process of fact checking and asking questions</p>
+
+</div>
+',
         'summary' => '',
         'format' => 'full_html',
-        'safe_value' => '<p>To be added.</p>
+        'safe_value' => '<div class="static legal">
+<p>Welcome to Checkdesk. Checkdesk is a collaborative space for journalist led and citizen participating fact-checking. We are doing investigative journalism on individual social media objects, checking incoming media and citizen media (“Reports”) our journalists believe are seminal to understanding events we are covering. This work is saved into an activity log that is attached to these media objects on Checkdesk. The journalists can assign (and change) the verification status of a media object on the system.</p>
+<p>We have four statuses for incoming reports:</p>
+<ul><li><b>In progress:</b> We\'re working to check this report - get involved and help answer any questions our journalists are asking about the report, or ask new questions you think might help us establish how credible (or not) this report might be.</li>
+<li><b>Undetermined:</b> We\'ve checked the report and followed all the leads we can, but we just can\'t say to a reasonable degree of certainty whether this report is Verified or False.</li>
+<li><b>Verified:</b> We\'ve corroborated this report with reports from other media, checked that the video/pictures accurately represent what they claim to, and have established the source as credible.</li>
+<li><b>False:</b> We have found evidence that shows this report to be false, believe the report\'s media does not show what it purports to, or have serious questions about the credibility of the source.</li>
+</ul><p>Input from members of our community (you!) is greatly valued in helping establish whether a report is accurate and credible or not -  if you have information or corroborating media that could verify a report please share it with us here on Checkdesk.</p>
+<p>Please note that journalism is a process of ever-uncovering an always changing and very complex set of people, events, statements, assertions, artifacts, and opinions. Checkdesk’s notion of verified, is not meant to imply other than that a journalist has done work to assess the likely credibility of the source and the likely veracity of their output. Making this work explicit and visible is the heart of Checkdesk, it provides the means for our users to assess for themselves the reporter’s assessment. So don\'t think of our statuses as a rubber stamp of "Right" or "Wrong" but as an ongoing process of fact checking and asking questions</p>
+</div>
 ',
         'safe_summary' => '',
       ),

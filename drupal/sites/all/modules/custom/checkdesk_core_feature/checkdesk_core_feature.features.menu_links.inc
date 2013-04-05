@@ -552,7 +552,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'menu-information',
     'link_path' => 'modal/ajax/content/about',
     'router_path' => 'modal/%',
-    'link_title' => 'About',
+    'link_title' => 'About this site',
     'options' => array(
       'attributes' => array(
         'title' => 'About this site',
@@ -684,6 +684,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('...');
   t('<user>');
   t('About');
+  t('About this site');
   t('Administer users');
   t('Compose update');
   t('Create story');
