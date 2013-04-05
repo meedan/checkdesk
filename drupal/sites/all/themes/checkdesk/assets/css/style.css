@@ -4558,13 +4558,11 @@ div.tabs ul.primary li a {
   padding-top: 6px;
   margin: 48px 0 96px 0;
 }
-
-#footer-menu {
+#footer #footer-menu {
   float: right;
   text-align: right;
 }
-
-#information-menu {
+#footer #information-menu {
   float: left;
   text-align: left;
 }
@@ -4622,16 +4620,20 @@ div.tabs ul.primary li a {
 @media (min-width: 469px) {
   #footer #footer-menu, #footer #information-menu {
     float: left;
-    text-align: right;
+    text-align: left;
   }
 }
 @media (min-width: 949px) {
-  #footer #footer-menu, #footer #information-menu {
+  #footer #footer-menu {
+    float: right;
+    text-align: right;
+  }
+  #footer #information-menu {
     float: left;
-    text-align: right;
+    text-align: left;
   }
 }
-@media (min-width: 949px) {
+@media (min-width: 1909px) {
   #footer #footer-menu {
     float: right;
     text-align: right;

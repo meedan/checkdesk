@@ -6,19 +6,21 @@
   border-top: 1px solid lighten($grayLight, 20%);
   padding-top: $absolute-line-height/4;
   margin: $absolute-line-height*2 0 $absolute-line-height*4 0;
+
+  #footer-menu {
+    float: opposite-position($from-direction);
+    text-align: opposite-position($from-direction);
+  }
+  #information-menu {
+    float: $from-direction;
+    text-align: $from-direction;
+  }
+
 }
 
-#footer-menu {
-  float: opposite-position($from-direction);
-  text-align: opposite-position($from-direction);
-}
-#information-menu {
-  float: $from-direction;
-  text-align: $from-direction;
-}
+
 
 #footer-inner { 
-   
   ul {
     text-align: $from-direction;
     @include reset-box-model;
@@ -51,7 +53,7 @@
 
       &:first-child {
         a {
-          padding-left: 0;
+          padding-#{$from-direction}: 0;
         }
       }
       
@@ -79,7 +81,7 @@
   #footer {
     #footer-menu, #information-menu {
       float: $from-direction;
-      text-align: opposite-position($from-direction);
+      text-align: $from-direction;
     }
   }
 }
@@ -87,15 +89,19 @@
 // Medium breakpoint
 @include at-breakpoint($break-medium) {
   #footer {
-    #footer-menu, #information-menu {
-      float: $from-direction;
+    #footer-menu {
+      float: opposite-position($from-direction);
       text-align: opposite-position($from-direction);
+    }
+    #information-menu {
+      float: $from-direction;
+      text-align: $from-direction;
     }
   }
 }
 
-// Medium breakpoint
-@include at-breakpoint($break-medium) {
+// Large breakpoint
+@include at-breakpoint($break-large) {
   #footer {
     #footer-menu {
       float: opposite-position($from-direction);
