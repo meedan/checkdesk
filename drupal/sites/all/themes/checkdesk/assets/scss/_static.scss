@@ -28,10 +28,13 @@
   }
 
   ul {
-    margin: 0 0 $gutter-width $gutter-width*2;
+    @include reset-box-model;
+    margin-bottom: $gutter-width;
+    margin-#{$from-direction}: $gutter-width*2;
     list-style: disc outside none;
     li {
-      margin: 0 0 $absolute-line-height/2;
+      @include reset-box-model;
+      margin-bottom: $absolute-line-height/2;
       font-size: 88%;
     }
   }
