@@ -228,58 +228,12 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'und',
     'customized' => '1',
   );
-  // Exported menu link: menu-common:modal/ajax/content/about
-  $menu_links['menu-common:modal/ajax/content/about'] = array(
-    'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/about',
-    'router_path' => 'modal/%',
-    'link_title' => 'About',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'About this site',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-48',
-    'uuid' => '567a9623-1ab2-3fd4-ddf8-ccaffafffa37',
-    'language' => 'en',
-    'customized' => '1',
-    'parent_path' => '<nolink>',
-  );
-  // Exported menu link: menu-common:modal/ajax/content/fact-checking-statement
-  $menu_links['menu-common:modal/ajax/content/fact-checking-statement'] = array(
-    'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/fact-checking-statement',
-    'router_path' => 'modal/%',
-    'link_title' => 'Fact-checking statement',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Fact-checking statement',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-46',
-    'uuid' => 'aaac935a-d8c3-c964-b1a5-11747d737824',
-    'language' => 'en',
-    'customized' => '1',
-    'parent_path' => '<nolink>',
-  );
   // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
   $menu_links['menu-common:modal/ajax/content/install-bookmarklet'] = array(
     'menu_name' => 'menu-common',
     'link_path' => 'modal/ajax/content/install-bookmarklet',
     'router_path' => 'modal/%',
-    'link_title' => 'Install bookmarklet',
+    'link_title' => 'Bookmarklet',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -295,60 +249,13 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => 'd1606646-9485-5154-e504-9eabb5782cc6',
     'language' => 'en',
     'customized' => '1',
-    'parent_path' => '<nolink>',
-  );
-  // Exported menu link: menu-common:modal/ajax/content/terms-use
-  $menu_links['menu-common:modal/ajax/content/terms-use'] = array(
-    'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/terms-use',
-    'router_path' => 'modal/%',
-    'link_title' => 'Terms of Use',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Terms of Use',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-44',
-    'uuid' => 'a3f2b8b5-2d02-9934-79d7-246ff6231eaf',
-    'language' => 'en',
-    'customized' => '1',
-    'parent_path' => '<nolink>',
-  );
-  // Exported menu link: menu-common:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات
-  $menu_links['menu-common:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات'] = array(
-    'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/بيان-التحقق-من-صحة-المعلومات',
-    'router_path' => 'modal/%',
-    'link_title' => 'بيان التحقق من صحة المعلومات',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-45',
-    'uuid' => '3daae1f4-caac-41f1-b00c-7ada7412206e',
-    'language' => 'ar',
-    'customized' => '1',
-    'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
   $menu_links['menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
     'menu_name' => 'menu-common',
     'link_path' => 'modal/ajax/content/تنصيب-إضافة-المتصفح',
     'router_path' => 'modal/%',
-    'link_title' => 'تنصيب إضافة المتصفح',
+    'link_title' => 'إضافة المتصفح',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -364,53 +271,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '302da736-6f32-4024-695a-49ecde0f8091',
     'language' => 'ar',
     'customized' => '1',
-    'parent_path' => '<nolink>',
-  );
-  // Exported menu link: menu-common:modal/ajax/content/حول
-  $menu_links['menu-common:modal/ajax/content/حول'] = array(
-    'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/حول',
-    'router_path' => 'modal/%',
-    'link_title' => 'حول',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-47',
-    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
-    'language' => 'ar',
-    'customized' => '1',
-    'parent_path' => '<nolink>',
-  );
-  // Exported menu link: menu-common:modal/ajax/content/شروط-الاستخدام
-  $menu_links['menu-common:modal/ajax/content/شروط-الاستخدام'] = array(
-    'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/شروط-الاستخدام',
-    'router_path' => 'modal/%',
-    'link_title' => 'شروط الاستخدام',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-43',
-    'uuid' => '2caff8c7-f404-4de3-8c79-0fdf715f1b00',
-    'language' => 'ar',
-    'customized' => '1',
-    'parent_path' => '<nolink>',
   );
   // Exported menu link: menu-common:my-notifications
   $menu_links['menu-common:my-notifications'] = array(
