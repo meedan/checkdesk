@@ -5479,7 +5479,16 @@ div.tabs ul.primary li a {
   color: #333333;
 }
 .update .update-body .node-media {
+  *zoom: 1;
   margin: 6px 0;
+}
+.update .update-body .node-media:before, .update .update-body .node-media:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.update .update-body .node-media:after {
+  clear: both;
 }
 .update .update-body p {
   margin: 6px 0;
@@ -7546,7 +7555,6 @@ body.sidebar-first #main #content {
   display: inline;
   padding-left: 0%;
   padding-right: 0%;
-  margin-bottom: 25px;
 }
 
 @media (min-width: 469px) {
@@ -7574,7 +7582,6 @@ body.sidebar-first #main #content {
     margin-right: 0;
     padding-left: 0%;
     padding-right: 0%;
-    margin-bottom: 25px;
   }
 }
 

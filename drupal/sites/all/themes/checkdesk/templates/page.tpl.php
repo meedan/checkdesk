@@ -102,6 +102,26 @@
 
         <?php // print $feed_icons; ?>
 
+        <!-- ______________________ FOOTER _______________________ -->
+
+        <?php if (checkdesk_widgets_visibility()) : ?>        
+          <?php if ($information_nav || $footer_nav): ?>
+            <div id="footer">
+              <div id="footer-inner" class="inner">
+                <?php if($page['footer']): ?>
+                  <?php print render($page['footer']); ?>
+                <?php endif; ?>
+                <?php if ($information_nav): ?>
+                  <?php print $information_nav; ?>
+                <?php endif; ?>
+                <?php if ($footer_nav): ?>
+                  <?php print $footer_nav; ?>
+                <?php endif; ?>
+              </div>
+            </div> <!-- /footer -->
+          <?php endif; ?>
+        <?php endif; ?>
+
       </div>
     </div> <!-- /content-inner /content -->
 
@@ -112,27 +132,6 @@
         </div>
       </div>
     <?php endif; ?> <!-- /sidebar-second -->
-
-
-    <!-- ______________________ FOOTER _______________________ -->
-    
-    <?php if (checkdesk_footer_visibility()) : ?>        
-      <?php if ($information_nav || $footer_nav): ?>
-        <div id="footer">
-          <div id="footer-inner" class="inner">
-            <?php if($page['footer']): ?>
-              <?php print render($page['footer']); ?>
-            <?php endif; ?>
-            <?php if ($information_nav): ?>
-              <?php print $information_nav; ?>
-            <?php endif; ?>
-            <?php if ($footer_nav): ?>
-              <?php print $footer_nav; ?>
-            <?php endif; ?>
-          </div>
-        </div> <!-- /footer -->
-      <?php endif; ?>
-    <?php endif; ?>
 
   </div> <!-- /main -->
 </div> <!-- /page -->
