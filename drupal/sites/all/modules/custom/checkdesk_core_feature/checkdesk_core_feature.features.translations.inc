@@ -43140,6 +43140,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:menu']['69d78890b1558047d9382ff73d0c97ef'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:menu']['20ddd7b5fb8ad343dd15bb0090952c4e'] = array(
     'source' => 'Edit fact-checking statement',
     'context' => 'item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
@@ -43148,11 +43156,59 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:menu']['40f3a7f103a64b7d70433502860c2b74'] = array(
+    'source' => 'Submit report',
+    'context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
+    'location' => 'menu:item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
+    'translation' => 'أضف تقرير',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['461700f21002246799ec1ead60ba139d'] = array(
+    'source' => 'Compose update',
+    'context' => 'item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
+    'location' => 'menu:item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
+    'translation' => 'اكتب تحديث',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['6ca73892c7c02a201ae40d9dd65de329'] = array(
+    'source' => 'Create story',
+    'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'location' => 'menu:item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'translation' => 'أنشئ خبر',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:menu']['f393532105cccbcbe65e22c46b0e461c'] = array(
     'source' => 'Administer users',
     'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
     'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
     'translation' => 'إدارة المستخدمين',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['0b838703c2a217361d7b3d47deb90b1a'] = array(
+    'source' => 'Edit fact-checking statement',
+    'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
+    'location' => 'menu:item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
+    'translation' => 'حرر بيان التحقق من صحة المعلومات',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['1ac5d0b1c58fb0dea352e06cabd7b077'] = array(
+    'source' => 'Supported by Meedan',
+    'context' => 'item:93091458-8370-4ca5-9fae-2ac710021e68:title',
+    'location' => 'menu:item:93091458-8370-4ca5-9fae-2ac710021e68:title',
+    'translation' => 'بدعم من ميدان',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['cdb4f25368ae3d022c03b88e4266c144'] = array(
+    'source' => 'Powered by',
+    'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
+    'location' => 'menu:item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
+    'translation' => 'تطوير',
     'plid' => '0',
     'plural' => '0',
   );

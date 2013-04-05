@@ -95,7 +95,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
-    'uuid' => '66b64d10-0eef-f9b4-f112-8489755c1511',
+    'uuid' => '90119a03-9ff0-9324-11f8-f501ab2a5135',
     'language' => 'und',
     'customized' => '1',
     'parent_path' => '<sub>',
@@ -179,7 +179,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '50',
-    'uuid' => '0c6f9710-578a-31d4-c5ff-c18dbed4db89',
+    'uuid' => '50e68ce2-956c-6f64-1914-5e6a93778baf',
     'language' => 'und',
     'customized' => '1',
     'parent_path' => '<sub>',
@@ -508,7 +508,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'menu-footer',
     'link_path' => 'http://checkdesk.org',
     'router_path' => '',
-    'link_title' => 'Developed by',
+    'link_title' => 'Powered by',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -688,7 +688,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Administer users');
   t('Compose update');
   t('Create story');
-  t('Developed by');
   t('Edit fact-checking statement');
   t('Fact-checking statement');
   t('Home');
@@ -697,6 +696,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Logout');
   t('My account');
   t('Notifications');
+  t('Powered by');
   t('Sign in');
   t('Submit report');
   t('Supported by Meedan');
