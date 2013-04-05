@@ -4,6 +4,11 @@
 }
 
 @font-face {
+  font-family: "FontAwesomeSocial";
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.ttf') format('truetype');
+}
+
+@font-face {
   font-family: "Merriweather";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.ttf') format('truetype');
 }
@@ -2129,10 +2134,6 @@ nav[role="navigation"] a#menu-submit-report:before {
   content: "\f045";
 }
 
-#widgets ul.elsewhere li span.icon-play:before {
-  content: "\f04b";
-}
-
 .report .icon-remove-sign:after, .report-row .false span:before, body.page-reports #reports .report-item .false span:before {
   content: "\f057";
 }
@@ -2190,10 +2191,6 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   content: "\f0c1";
 }
 
-#widgets ul.elsewhere li span.icon-sign-blank:before {
-  content: "\f0c8";
-}
-
 .report #report-actions ul.content-actions > li > a span.icon-reorder:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before, nav[role="navigation"] #main-menu a.dropdown-toggle:before {
   content: "\f0c9";
 }
@@ -2216,6 +2213,10 @@ nav[role="navigation"] a[href*="add/discussion"]:before {
 
 .report .report-content .icon-quote-right:before {
   content: "\f10e";
+}
+
+#widgets ul.elsewhere li span.icon-youtube:before {
+  content: "\f30e";
 }
 
 .button-reset-base-class {
@@ -7738,7 +7739,6 @@ body.widgets #main #content {
   margin: -3.66667px;
   height: 25px;
   vertical-align: top;
-  /* Font Awesome is missing YouTube */
 }
 #widgets ul.elsewhere li span.icon-facebook:before {
   font-family: "FontAwesome";
@@ -7754,40 +7754,12 @@ body.widgets #main #content {
   color: #1d87c9;
   margin: 0 5.5px;
 }
-#widgets ul.elsewhere li span.icon-sign-blank:before {
-  font-family: "FontAwesome";
-  font-size: 40px;
-  line-height: 40px;
+#widgets ul.elsewhere li span.icon-youtube:before {
+  font-family: "FontAwesomeSocial";
+  font-size: 34px;
+  line-height: 34px;
   color: #9d261d;
   margin: 0 5.5px;
-}
-#widgets ul.elsewhere li span.icon-play:before {
-  font-family: "FontAwesome";
-  font-size: 20px;
-  line-height: 20px;
-  color: "black";
-  margin: 0 5.5px;
-}
-#widgets ul.elsewhere li span.icon-sign-blank {
-  position: relative;
-}
-#widgets ul.elsewhere li span.icon-sign-blank .icon-play {
-  position: absolute;
-  top: 9px;
-  left: 13px;
-  color: white;
-  font-size: 16px;
-  vertical-align: middle;
-}
-.body-ar #widgets ul.elsewhere li span.icon-sign-blank .icon-play {
-  top: 11px;
-}
-#widgets ul.elsewhere li span.icon-partner {
-  margin: 0;
-}
-#widgets ul.elsewhere li span.icon-partner img {
-  margin-top: -3px;
-  vertical-align: top;
 }
 
 body.page-user-login #main,

@@ -122,33 +122,10 @@
         margin: 0 -$gutter-width/3;
         height: 25px;
         vertical-align: top;
-        &.icon-facebook  { @include icon(facebook-sign, $xx-large-font-size, $facebook-blue); } 
-        &.icon-twitter  { @include icon(twitter-sign, $xx-large-font-size, $twitter-blue); }
-        &.icon-sign-blank  { @include icon(sign-blank, $xx-large-font-size, $red); }
-        &.icon-play  { @include icon(play, $large-font-size); }
-        /* Font Awesome is missing YouTube */
-        &.icon-sign-blank { position: relative; } 
-        &.icon-sign-blank .icon-play { 
-          position: absolute;
-          top: 9px; 
-          left: 13px; 
-          color: $white; 
-          font-size: $small-font-size; 
-          vertical-align: middle;
-        }
-        // play icon adjustment for RTL arabic 
-        .body-ar &.icon-sign-blank .icon-play {
-          top: 11px;
-        }
-
-        // partner logo as external images
-        &.icon-partner {
-          margin: 0;
-          img { 
-            margin-top: -3px;
-            vertical-align: top;
-          }  
-        }
+        &.icon-facebook  { @include icon(facebook-sign, 40px, $facebook-blue); } 
+        &.icon-twitter  { @include icon(twitter-sign, 40px, $twitter-blue); }
+        // social icons seem to be larger
+        &.icon-youtube  { @include social-icon(youtube, 34px, $red); }
         
       }
     }
