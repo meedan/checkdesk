@@ -8,9 +8,9 @@ function checkdesk_notifications_heartbeat_activity_view(HeartbeatActivity $hear
   unset($heartbeatActivity->content['username']);
   unset($heartbeatActivity->content['buttons']);
   $actor = user_load($heartbeatActivity->actor->uid);
-  $path = ($actor && $actor->picture && !empty($actor->picture->uri) ? $actor->picture->uri : '');
+  $avatar = ($actor && $actor->picture && !empty($actor->picture->uri) ? theme('image_style', array('style_name' => 'notifications_avatar', 'path' => $actor->picture->uri, 'attributes' => array('class' => 'avatar'))) : '');
   $heartbeatActivity->content['avatar'] = array(
-    '#markup' => theme('image_style', array('style_name' => 'notifications_avatar', 'path' => $path, 'attributes' => array('class' => 'avatar'))),
+    '#markup' => $avatar,
   );
 }
 
