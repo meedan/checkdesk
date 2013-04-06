@@ -16,8 +16,5 @@ group :development do
   gem 'guard-uglify', git: 'git://github.com/pferdefleisch/guard-uglify.git'
   gem 'pry'
   gem 'rb-fsevent'
+  gem "compass_twitter_bootstrap"
 end
-
-
-# gem "compass_twitter_bootstrap", "2.2.1" # does not exist yet at this version but you can build it yourself from commit 36624333ed on compass_twitter_bootstrap project on github.
-# https://github.com/vwall/compass-twitter-bootstrap

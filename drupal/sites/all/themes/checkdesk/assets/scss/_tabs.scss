@@ -23,7 +23,7 @@
   }
 }
 
-$tab-padding: $gw;
+$tab-padding: $gutter-width;
 
 // Tabs
 div.tabs {
@@ -34,30 +34,28 @@ div.tabs {
   ul.primary {
     @include reset-box-model;
     @include ctb-clearfix;
-    font-family: $sans-font-family;
     font-size: $small-font-size;
     font-weight: 300;
     @extend %tab-colors;
 
     li {
       @include reset-box-model;
-      @include span-columns($cw, $cw); // default full width
+      @include span-columns($container-width, $container-width); // default full width
       display: inline-block;
       float: $from-direction;
 
       &.active {
         a {
-          @include span-columns($cw, $cw, $gw); // default full width at smallest breakpoint
+          @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
           display: inline-block;
         }
       }
 
       a {
-        @include span-columns($cw, $cw, $gw); // default full width at smallest breakpoint
-        line-height: $base-line-height;
+        @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
+        line-height: $absolute-line-height;
         display: inline-block;
-        padding: { top: $gw; bottom: $gw; }
-
+        padding: { top: $gutter-width; bottom: $gutter-width; }
       }
     }
   }
@@ -77,8 +75,8 @@ div.tabs {
     li, li a, li.active a {
       @include reset-box-model;
       width: auto; // constrain full width
-      padding: $gw; // WARNING important should not be necessary — CGB
-      margin: $gw/2;
+      padding: $gutter-width; // WARNING important should not be necessary — CGB
+      margin: $gutter-width/2;
       display: inline-block;
     }
   }

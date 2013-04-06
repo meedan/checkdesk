@@ -1,0 +1,214 @@
+// Reports page 
+//
+// We use the views fluid grid plugin
+// See also report.scss
+
+@mixin reports-layout($secondary-width, $primary-width, $break: $container-width) {
+  body.page-reports {
+    #main {
+      @include span-columns($break - 2, $break, $gutter-width / 2); //outermost container
+      @include pad(1, 1, $break);
+      @content;
+    }
+  }
+}
+
+// ==========================================================================
+// Default: up to break-small
+@include reports-layout($container-width, $container-width - 2); 
+
+// ==========================================================================
+// Breakpoint: small
+@include at-breakpoint($break-small) {
+  $break: $break-small;
+  $secondary-width: 4;
+  $primary-width: $break-small - $secondary-width; // calculate main col width
+
+  body.page-reports #main {
+    @include span-columns($break - 2, $break, $gutter-width / 2);
+    @include pad(1, 1, $break);
+  }
+
+  @include reports-layout($secondary-width, $primary-width, $break); // reapply reports-layout
+}
+// ======================================================================
+// Breakpoint: med
+//
+// The sidebar doubles in width and the primary form widens
+@include at-breakpoint($break-medium) {
+  $break: $break-medium;
+  $secondary-width: 7;
+  $primary-width: $break-medium - $secondary-width; 
+
+  @include reports-layout($secondary-width, $primary-width, $break) {
+    @include span-columns($break - 4, $break, $gutter-width);
+    @include pad(2, 2, $break);
+  }
+}  
+// Breakpoint: large
+@include at-breakpoint($break-large) {
+  $break: $break-large;
+  $secondary-width: 7;
+  $primary-width: $break-large - $secondary-width;
+  body.page-reports #main {
+    @include span-columns($break - 4, $break, $gutter-width);
+    @include pad(2, 2, $break);
+  }
+  @include reports-layout($secondary-width, $primary-width, $break); // reapply reports-layout with new break
+}
+
+
+body.page-reports {
+
+  h1.title {
+    text-align: center;
+    @include cd-background;
+    font-weight: normal;
+  }
+
+  #reports {
+    @include ctb-clearfix;
+    text-align: center;
+    margin: 0 auto;
+    .report-item  {
+
+      min-width: 180px;
+      width: 32%;
+      margin-bottom: $absolute-line-height/2;
+
+      .report-row-container {
+        text-align: $from-direction;
+        padding: $absolute-line-height/2 0;
+        border-bottom: 1px solid lighten($grayLight, 20%);
+        @include ctb-transition(opacity 0.3s linear);
+      }
+
+      // for tweets
+      .twitter_com {
+        .favicon, .domain, .author {
+          display: none;
+        }
+      }
+
+      .report-content {
+        @include ctb-clearfix;
+
+        // thumbnail type
+        .report-type-thumbnail {
+          max-width: 100%;
+          .report-thumbnail img {
+            width: 100%;
+            @include ctb-opacity(.9);
+          }
+          .report-title {
+            margin: $absolute-line-height/4 0;
+            font-size: $fontSizeSmall;
+            line-height: 1.2;
+            color: $gray;
+          }
+        } // thumbnail type
+
+        .report-type-tweet {
+          & > div > a { display: none;}
+          // keeps embedded iframe
+          // inside sidebar
+          iframe {
+            min-width: 100%!important;
+            width: 100%!important;
+          }
+        }
+
+      } // report content
+
+      .report-status {
+        float: $omega;
+      }
+
+      // status icons
+      .verified span {
+        color: $green;
+        @include icon(ok-sign, 16px, darken($green, 15%)); 
+      }
+      .false span {
+        color: $red;
+        @include icon(remove-sign, 16px, darken($red, 15%)); 
+      }
+      .undetermined span {
+        color: $orange;
+        @include icon(question-sign, 16px, darken($orange, 15%)); 
+      }
+      .in_progress span {
+        color: $yellow;
+        @include icon(refresh, 16px, darken($yellow, 15%)); 
+      }
+
+      .report-detail-link {
+        a {
+          @include checkdesk-button($grayLight);
+          @include button-size(13px);
+        }
+      }
+    }
+  }
+
+
+  .pager-load-more {
+    @include ctb-clearfix;
+    float: none;
+    width: 100%;
+    text-align: center;
+    a {
+      width: 70%;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  
+  
+
+
+//   // ===============================================================================  
+//   // Drupal Fluid Grid module overrides
+//   //
+//   div.views-fluid-grid h3 {
+//     text-align: $from-direction; // override views fluid grid default css
+//     background-color: transparent; // override default h3 treatment on reports
+//   }
+
+//   ul.views-fluid-grid-list {
+
+//   }
+
+//   /* Default item style. */
+//   li.views-fluid-grid-item {
+//     margin-#{$omega}: $gutter-width;
+//   }
+// }
+
+// @include at-breakpoint($break-small) {
+//   body.page-reports {
+//     li.views-fluid-grid-item {
+//       @include span-columns(6, $break-small);
+//     }
+//   }  
+// }
+
+// @include at-breakpoint($break-medium) {
+//   body.page-reports {
+//     li.views-fluid-grid-item {
+//       @include span-columns(9, $break-medium);
+//     }
+//   }  
+// }
+
+
+// @include at-breakpoint($break-large) {
+//   body.page-reports {
+//     li.views-fluid-grid-item {
+//       @include span-columns(7, $break-large);
+//     }
+//   }  
+}
+
+

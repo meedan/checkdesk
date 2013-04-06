@@ -35640,7 +35640,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
     'source' => 'Story',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'خبر',
+    'translation' => 'موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -40648,7 +40648,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
     'source' => 'Add to Story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف إلى خبر',
+    'translation' => 'أضف إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -40971,7 +40971,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'source' => 'Report suggested to story',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'اقتراح تقرير لإدراجه ضمن خبر',
+    'translation' => 'اقتراح تقرير لإدراجه ضمن موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -40987,7 +40987,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'source' => 'New update on a story I commented on an update before',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تحديث جديد على خبر علقت على أحد تحديثاته في السابق',
+    'translation' => 'تحديث جديد على موضوع علقت على أحد تحديثاته في السابق',
     'plid' => '0',
     'plural' => '0',
   );
@@ -41521,7 +41521,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Story page',
     'context' => '',
     'location' => '',
-    'translation' => 'صفحة الخبر',
+    'translation' => 'صفحة الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -41681,7 +41681,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Create story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف خبر',
+    'translation' => 'أضف موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -41697,7 +41697,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Add report to story',
     'context' => '',
     'location' => '',
-    'translation' => 'أضف التقرير إلى خبر',
+    'translation' => 'أضف التقرير إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -41785,7 +41785,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'By story',
     'context' => '',
     'location' => '',
-    'translation' => 'الخبر',
+    'translation' => 'الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42165,6 +42165,22 @@ print theme(\'views_autorefresh\', array(
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['1697e19777a50f861fefbad1ca8f7892'] = array(
+    'source' => 'This report contains graphic content',
+    'context' => '',
+    'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar',
+    'translation' => 'هذا التقرير يتضمن محتوى أو صوراً صادمة',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['af0d238f9b444a61508963f3f4a6c848'] = array(
+    'source' => 'Click to show',
+    'context' => '',
+    'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar',
+    'translation' => 'انقر للعرض',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['e681c06a074012ef4b55423e4a7c3787'] = array(
     'source' => 'Edit description',
     'context' => '',
@@ -42185,7 +42201,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Add Report "!title" to Story',
     'context' => '',
     'location' => '/ar/node/63/checkdesk/modal/suggest/ajax',
-    'translation' => 'أضف التقرير "!title" إلى خبر',
+    'translation' => 'أضف التقرير "!title" إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42385,7 +42401,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Sorted by time and filtered by current story',
     'context' => '',
     'location' => '',
-    'translation' => 'مرتبة حسب التاريخ ومفلترة بحسب الخبر الحالي',
+    'translation' => 'مرتبة حسب التاريخ ومفلترة بحسب الموضوع الحالي',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42425,7 +42441,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Suggest to Story',
     'context' => '',
     'location' => '/ar/reports',
-    'translation' => 'اقترح الإضافة إلى خبر',
+    'translation' => 'اقترح الإضافة إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42473,7 +42489,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Suggest Report "!title" to Story',
     'context' => '',
     'location' => '/ar/node/240/checkdesk/modal/suggest/ajax',
-    'translation' => 'اقترح إضافة التقرير "!title" إلى خبر',
+    'translation' => 'اقترح إضافة التقرير "!title" إلى موضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42609,7 +42625,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Story title',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'عنوان الخبر',
+    'translation' => 'عنوان الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42697,14 +42713,13 @@ This was an auto-generated email from !site, please do not respond directly to t
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الخبر "!story_title".
+قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الموضوع "!story_title".
 
 <a href="!story_url">اضغط هنا</a> لكتابة تحديث جديد على ذلك الخبر باستخدام ذاك التقرير.
 
 بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
 
-هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
-',
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42751,7 +42766,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الخبر "!story_title".
+قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الموضوع "!story_title".
 
 إذهب إلى !story_url لكتابة تحديث جديد على الخبر باستخدام ذاك التقرير.
 
@@ -42821,6 +42836,94 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['2c086e37f463aba143f4890ad30d77ac'] = array(
+    'source' => 'Unpublish',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إلغاء النشر',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['6c8ce96c4391ac7fdcc1f53fc4b4e9cb'] = array(
+    'source' => '<a href="@user">!user</a> added this on <time class="date-time" datetime="!timestamp">!datetime</time>',
+    'context' => '',
+    'location' => '',
+    'translation' => '<a href="@user">!user</a> أضاف هذا التقرير <time class="date-time" datetime="!timestamp">!datetime</time>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0c2121748fdfc651777c6bc2c03bf36d'] = array(
+    'source' => '<a href="!url">@count more updates</a> related to <a href="!url">this story</a>. <a href="!url">View all</a>',
+    'context' => '',
+    'location' => '',
+    'translation' => '<a href="!url">@count تحديثات أخرى</a> مرتبطة <a href="!url">بهذا الموضوع</a>. <a href="!url">عرض الكل</a>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0869522d5a55698fde06f804cb89a958'] = array(
+    'source' => '@count[3] more updates',
+    'context' => '',
+    'location' => '',
+    'translation' => '@count[3] تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0a046e997aded985b4be3de8aa8b5259'] = array(
+    'source' => '1 more update',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تحديث 1 آخر',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['8d281aadeefbcea7e2e1e862b01ffa9c'] = array(
+    'source' => 'Add a link',
+    'context' => '',
+    'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=&meedan_bookmarklet_prepopulate[field_link]=http://checkdesk.localhost/ar',
+    'translation' => 'أضف رابطاً',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['ee9cb1d991b307a5052b9dce519f0237'] = array(
+    'source' => 'Standard',
+    'context' => '',
+    'location' => '',
+    'translation' => 'معياري',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['f589226cbf87f383c0378736fbb9a3c7'] = array(
+    'source' => '<a href="@user">!user</a> submitted this <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'اضافه <a href="@user">!user</a> <time class="date-time" datetime="!timestamp">منذ !datetime_ago</time>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['3648449a13dcbeb410c4aaf6e55dbab3'] = array(
+    'source' => 'View original',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'عرض الأصل',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['adf5f4b46e464ee4091cb1cae3a0d469'] = array(
+    'source' => '@count more updates',
+    'context' => '',
+    'location' => '',
+    'translation' => '@count تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['102a37962df1adad2b8a0d902fe6f69d'] = array(
+    'source' => 'Follow us on:',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تابعنا على:',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
@@ -42881,7 +42984,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Story',
     'context' => 'body:discussion:label',
     'location' => 'field:body:discussion:label',
-    'translation' => 'الخبر',
+    'translation' => 'الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42961,7 +43064,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Story',
     'context' => 'field_desk:post:label',
     'location' => 'field:field_desk:post:label',
-    'translation' => 'الخبر',
+    'translation' => 'الموضوع',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43033,7 +43136,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Create story',
     'context' => 'item:edc54df9-4aa8-bf84-dd89-ca0a351af23b:title',
     'location' => 'menu:item:edc54df9-4aa8-bf84-dd89-ca0a351af23b:title',
-    'translation' => 'أنشئ خبر',
+    'translation' => 'أنشئ موضوع',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['69d78890b1558047d9382ff73d0c97ef'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'translation' => 'إدارة المستخدمين',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43045,11 +43156,59 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:menu']['40f3a7f103a64b7d70433502860c2b74'] = array(
+    'source' => 'Submit report',
+    'context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
+    'location' => 'menu:item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
+    'translation' => 'أضف تقرير',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['461700f21002246799ec1ead60ba139d'] = array(
+    'source' => 'Compose update',
+    'context' => 'item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
+    'location' => 'menu:item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
+    'translation' => 'اكتب تحديث',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['6ca73892c7c02a201ae40d9dd65de329'] = array(
+    'source' => 'Create story',
+    'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'location' => 'menu:item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'translation' => 'أنشئ خبر',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:menu']['f393532105cccbcbe65e22c46b0e461c'] = array(
     'source' => 'Administer users',
     'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
     'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
     'translation' => 'إدارة المستخدمين',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['0b838703c2a217361d7b3d47deb90b1a'] = array(
+    'source' => 'Edit fact-checking statement',
+    'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
+    'location' => 'menu:item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
+    'translation' => 'حرر بيان التحقق من صحة المعلومات',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['1ac5d0b1c58fb0dea352e06cabd7b077'] = array(
+    'source' => 'Supported by Meedan',
+    'context' => 'item:93091458-8370-4ca5-9fae-2ac710021e68:title',
+    'location' => 'menu:item:93091458-8370-4ca5-9fae-2ac710021e68:title',
+    'translation' => 'بدعم من ميدان',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['cdb4f25368ae3d022c03b88e4266c144'] = array(
+    'source' => 'Powered by',
+    'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
+    'location' => 'menu:item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
+    'translation' => 'تطوير',
     'plid' => '0',
     'plural' => '0',
   );

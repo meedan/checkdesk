@@ -1,7 +1,24 @@
 @charset "UTF-8";
-// Checkdesk Sass Theme
 
-// Modular scale 
+// Checkdesk Sass Theme
+@import "base";
+
+// Tell the browser about these files and define the font name
+// See base.scss configuration, with overrides in style-rtl.scss
+// Icon fonts
+@include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
+@include bowerbird-font-face("FontAwesomeSocial", "fontawesome-social-webfont");
+// English fonts
+@include bowerbird-font-face("Merriweather", "merriweather-webfont-webfont");
+@include bowerbird-font-face("Merriweather Light", "merriweather-light-webfont-webfont");
+// Arabic fonts
+@include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
+@include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
+@include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
+@include bowerbird-font-face("Andalus", "andlso-webfont");
+
+// Modular scale  
 // via: gem
 @import "modular-scale";
 
@@ -30,11 +47,11 @@
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
-// Set the position of icons
-$icon-position: 'before';
-@if $from-direction == 'right' {
-	$icon-position: 'after';
-}
+// Set the default position of icons
+// $icon-position: 'before';
+// @if $from-direction == 'right' {
+// 	$icon-position: 'after';
+// }
 
 // Drupal styles
 // Drupal itself should not emit *any* CSS. 
@@ -84,15 +101,11 @@ $icon-position: 'before';
 // background image helper for development
 @import "bowerbird/backgrounds";
 
-// Bowerbird font-icon support mixins: apply-font-face() and icon()
+// Bowerbird font-icon support mixin: icon()
 @import "bowerbird/icons/icons";
 
-// Icon webfonts stored locally
-// This loads many classnames that can be safely removed before production - CGB
-@include apply-font-face("FontAwesome", "fontawesome-webfont");
-
-// Load .icon- classnames
-// Import the classnames as a mixin
+// Load @extendable %icon- selectors
+// @extend directly or use icon() mixin to do it for you
 @import "bowerbird/icons/fontawesome";
 
 // Bowerbird fancy-buttons 
@@ -122,12 +135,12 @@ $icon-position: 'before';
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
 @import "replace_ctb/navs";
-@import "bowerbird/compass_twitter_bootstrap/reset";
-@import "bowerbird/compass_twitter_bootstrap/code"; // TB Syntax highlighting
-@import "bowerbird/compass_twitter_bootstrap/tables"; // TB Tabular data
+@import "compass_twitter_bootstrap/reset";
+// @import "compass_twitter_bootstrap/code"; // TB Syntax highlighting
+// @import "compass_twitter_bootstrap/tables"; // TB Tabular data
 
 // TB utilities
-@import "bowerbird/compass_twitter_bootstrap/utilities";   // Should come last of TB
+@import "compass_twitter_bootstrap/utilities";   // Should come last of TB
 
 // Checkdesk mixins
 //
@@ -141,9 +154,10 @@ $icon-position: 'before';
 //  Default checkdesk layout
 //
 body {
-  @include container($cw $break-small $break-medium);
+  @include container($container-width $break-small $break-medium); // establish three breakpoints
   #main {
-    @include span-columns($cw, $cw, $gw);
+    @include span-columns($break-small - 2, $break-small, $gutter-width / 2); //outermost container
+    @include pad(1, 1, $break-small);
   }
 }
 
@@ -165,8 +179,17 @@ body {
 // #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
+// Filters
+@import "filters";
+
+// Partner stuff
+@import "partner_header";
+@import "footer";
+@import "static";
+
 // Checkdesk reports
 @import "report";
+@import "reports_incoming";
 
 // Checkdesk updates
 @import "update";
@@ -211,8 +234,10 @@ body {
 
 // Create update page
 // Sidebar layout with main and secondary cols
-@import "reports_filter";
-@import "sidebar";
+@import "_layout_2col";
+
+// Widgets
+@import "widgets";
 
 // User section
 @import "user";
@@ -221,7 +246,7 @@ body {
 @import "create_node";
 
 // Reports pages
-@import "reports";
+@import "reports_page";
 
 // ====================================================================== 
 // Styles in progress
@@ -237,20 +262,25 @@ body {
 #l10n-client {
 	display: block !important;
 	visibility: visible !important;
-	@include ctb-font-sans-serif($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight);
 	form {
 		width: 100%;
 		.form-item {
 			textarea {
 				clear: both;
 				float: none;
-			}
-			
+			}			
 		}
 	}
 }
 
+// ====================================================================== 
+
+#sidebar-first.column,
+.desk { background-color: white; }
+
+// ====================================================================== 
 // Bidi helpers
+// These are unusual because they are not overridden in style-rtl.scss
 .rtl {
   text-align: right;
   direction: rtl;

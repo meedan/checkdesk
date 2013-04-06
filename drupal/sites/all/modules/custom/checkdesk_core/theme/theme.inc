@@ -51,7 +51,7 @@ function checkdesk_core_preprocess_checkdesk_core_story_status(&$variables) {
  */
 function checkdesk_core_preprocess_checkdesk_core_story_drafts(&$variables) {
   $story = $variables['story'];
-  $count = checkdesk_core_story_drafted_updates_count($story);
+  $count = checkdesk_core_story_updates_count($story, TRUE);
   if ($count > 0) $variables['story_drafts'] = t('(Has one or more drafted updates)');
 }
 

@@ -45,7 +45,7 @@
           newSize.height = data.height;
         }
         jQuery('#meedan_bookmarklet_cont iframe').css(newSize);
-        // newSize.height += 32; // A little extra to avoid chopping the box-shadow
+        newSize.height += 7; // A little extra to avoid a scrollbar
         jQuery('#meedan_bookmarklet_cont').css(newSize);
         break;
 
@@ -53,8 +53,16 @@
       case 'loaded':
         // Adjust bookmarklet modal position for internal bookmarklet
         if (jQuery('#menu-submit-report').length > 0) {
-          offset = jQuery('#menu-submit-report').offset();
-          jQuery('#meedan_bookmarklet_cont').css('top', (parseInt(offset.top, 10) + 26) + 'px');
+          var scrollPosition = jQuery('html').scrollTop() || jQuery('body').scrollTop();
+          var topPosition = jQuery('#menu-submit-report').offset().top - scrollPosition + 26;
+          jQuery('#meedan_bookmarklet_cont').css('top', topPosition + 'px');
+
+          // Watch if window height changes
+          jQuery(window).resize(function() {
+            jQuery("#meedan_bookmarklet_cont").css('max-height', jQuery(window).height() - topPosition);
+          });
+          jQuery(window).resize();
+
         }
         jQuery('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').show();
         break;

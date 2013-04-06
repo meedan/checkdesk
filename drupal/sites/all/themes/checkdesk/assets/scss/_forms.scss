@@ -31,7 +31,7 @@
 
 @mixin form-actions {
   .form-actions {
-    margin-top: $gw;
+    margin-top: $gutter-width;
     input, a {
       @include checkdesk-button; 
     }
@@ -79,27 +79,23 @@
       label {
         display: inline-block;
         float: $alpha;
-        margin-#{$omega}: $gw;
-        line-height: $baseLineHeight;
-        padding-top: $baseLineHeight/3;
+        margin-#{$omega}: $gutter-width;
+        line-height: $absolute-line-height;
+        padding-top: $absolute-line-height/3;
       }
       select {
         float: $alpha;
-        @include span-columns($cw/2);
+        @include span-columns($container-width/2);
       }
     }
   }
   .messages-inline {
-    // @include cd-arrow-box($errorBackground, $errorBorder, $gw, 1px);
     background: none;
     border: 0 none;
     display: inline-block;
-    // margin: $baseLineHeight/4 0 $baseLineHeight/4 0;
-    // margin-#{$from-direction}: $gw*2;
     margin: 0;
     padding: 0;
-    padding-bottom: $baseLineHeight/2;
-    font-family: $sans-font-family;
+    padding-bottom: $absolute-line-height/2;
     font-size: $fontSizeSmall;
     line-height: 1.4;
   }
@@ -108,24 +104,14 @@
 
 // In addition to our use of normalize, and other resets, 
 // This standardizes form elements
+// #review why so many resets? CGB
 //
 @mixin form-standardize {
   
-  label, input, button, select, textarea { font-size: $base-font-size; }
-  input, button, select, textarea { font-family: $sans-font-family; }
-
-  // select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-  //   display: inline-block;
-  //   line-height: $base-line-height;
-  //   height: $base-line-height * $base-font-size;
-  //   margin-bottom: ms(-2);
-  //   color: $gray;
-  //   @include border-radius(4px);
-  //   vertical-align: middle;
-  // }
+  label, input, button, select, textarea, body.cke_editable { font-size: $base-font-size; }
 
   // Everything else
-  textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     background-color: $input-background;
     border: 1px solid $inputBorder;
     @include box-shadow(rgba($black, .075) 0 1px 1px inset);
@@ -184,7 +170,7 @@
       line-height: $base-line-height;
       background-color: $input-background;
       border: 1px solid $grey;
-      margin-top: $gw;
+      margin-top: $gutter-width;
 
       // focus state
       &:focus {
@@ -209,7 +195,8 @@
 
     // When we start writing make it bright
     input:focus, 
-    textarea:focus { 
+    textarea:focus,
+    body.cke_editable:focus { 
       background-color: white; 
     }
 
@@ -218,11 +205,11 @@
       font-size: $large-font-size;
       display: inline-block;
       font-weight: normal;
-      padding { top: $gw; bottom: $gw; }
+      padding { top: $gutter-width; bottom: $gutter-width; }
 
       &[for="edit-pass"] {
         a  {
-          padding: $gw;
+          padding: $gutter-width;
           font-size: $small-font-size;
           color: $grey;
           font-weight: normal;
@@ -281,10 +268,10 @@
 // ONLY LAYOUT in this section
 // It is reused many times at various breakpoints
 //
-@mixin cd-form-layout($w, $context, $gw: $gw) {
+@mixin cd-form-layout($w, $context, $gutter-width: $gutter-width) {
   form {
     // @include form-pass-layout($w, $context);
-    // @include span-columns($w, $context, $gw);
+    // @include span-columns($w, $context, $gutter-width);
     @content; // if you want to pass in padding via breakpoints
 
     // Form actions
@@ -303,12 +290,12 @@
     input[type="password"],
     input[type="text"],
     textarea {
-      @include span-columns($w, $w, $gw/2); // small padding with grid accounting
-      // padding: { top: $gw/2; bottom: $gw/2; } // match the padding on top and bottom
+      @include span-columns($w, $w, $gutter-width/2); // small padding with grid accounting
+      // padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
     }
 
     select {
-      @include span-columns($w, $w, $gw/2); // small padding with grid accounting
+      @include span-columns($w, $w, $gutter-width/2); // small padding with grid accounting
       @include ctb-clearfix;
       float: none;
     }
@@ -316,12 +303,12 @@
     div.form-wrapper {
       clear: both;
       // @include span-columns($w, $w);
-      margin: $baseLineHeight/2 0;
+      margin: $absolute-line-height/2 0;
     }
 
     .form-type-textarea {
       @include ctb-clearfix;
-      margin-bottom: $baseLineHeight/2;
+      margin-bottom: $absolute-line-height/2;
     }
 
 
@@ -333,7 +320,7 @@
 
 @include form-standardize;
 @include cd-form-styles-except-layout;
-@include cd-form-layout($cw, $cw, $gw); // Default render of the form layout
+@include cd-form-layout($container-width, $container-width, $gutter-width); // Default render of the form layout
 
 // Breakpoint: small
 @include at-breakpoint($break-small) {

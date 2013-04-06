@@ -1,13 +1,15 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
+  'use strict';
 
   Drupal.ajax.prototype.setMessages = function() {
     var ajax = this;
- 
+
     // Do not perform another ajax command if one is already in progress.
     if (ajax.ajaxing) {
       return false;
     }
- 
+
     try {
       $.ajax(ajax.options);
     }
@@ -15,38 +17,78 @@
       alert('An error occurred while attempting to process ' + ajax.options.url);
       return false;
     }
- 
+
     return false;
   };
- 
+
   // Ajax action settings for messages
   var message_settings = {};
   message_settings.url = '/core/messages/ajax/';
   message_settings.event = 'onload';
   message_settings.keypress = false;
   message_settings.prevent = false;
-  Drupal.ajax['checkdesk_core_message_settings'] = new Drupal.ajax(null, $(document.body), message_settings);
+  Drupal.ajax.checkdesk_core_message_settings = new Drupal.ajax(null, $(document.body), message_settings);
 
   Drupal.behaviors.checkdesk = {
     attach: function (context, settings) {
+      // Drag and drop support for reports
       $('.draggable', context).draggable({
         revert: 'invalid',
         zIndex: 3000,
         scroll: false,
-        helper: 'clone'
+        helper: 'clone',
+        iframeFix: true
       });
+
       $('.droppable', context).droppable({
         hoverClass: 'drop-hover',
         accept: '.draggable',
         tolerance: 'touch',
         drop: function(event, ui) {
           $(ui.draggable).hide();
+
           // Retrieve the Views information from the DOM.
-          var data = $(ui.draggable).data('views');
-          // Insert the report URL into the textarea of the post body.
-          $('textarea', this).insertAtCaret("\n" + data.droppable_ref + "\n");
-        },
+          var data       = $(ui.draggable).data('views'),
+              $ckeditor  = $('.cke', this),
+              $textarea  = $('textarea', this),
+              instance;
+
+          // Either insert the text into CKEDITOR, if available, else directly
+          // into the text editor.
+          if (CKEDITOR && $ckeditor && CKEDITOR.instances[$textarea.attr('id')]) {
+            instance = CKEDITOR.instances[$textarea.attr('id')];
+
+            // Slight abuse of the CKEDITOR input filtering to close the previous
+            // <p> for line break. A new opening <p> is automatically created
+            // by CKEDITOR. Annoyingly, putting this all into one insertHtml()
+            // call does not seem to work.
+            instance.insertHtml('</p>');
+            instance.insertHtml(data.droppable_ref);
+            instance.insertHtml('</p>');
+          } else {
+            $textarea.insertAtCaret("\n" + data.droppable_ref + "\n");
+          }
+        }
       });
+
+      // CKEditor configuration, see: http://www.question2answer.org/qa/13255/simple-ckeditor-how-to-modify-it-to-be-simple-solution
+      if (typeof CKEDITOR != 'undefined') {
+        CKEDITOR.on('dialogDefinition', function(ev) {
+          var dialog = ev.data, currentDialog;
+
+          if (dialog.name == 'link') {
+            dialog.definition.onShow = function () {
+              currentDialog = CKEDITOR.dialog.getCurrent();
+
+              currentDialog.getContentElement('info','anchorOptions').getElement().hide();
+              currentDialog.getContentElement('info','emailOptions').getElement().hide();
+              currentDialog.getContentElement('info','linkType').getElement().hide();
+              currentDialog.getContentElement('info','protocol').disable();
+            };
+          }
+        });
+      }
+
       // Attach the Views results to each correspoknding row in the DOM.
       $('.view-desk-reports .view-content #incoming-reports').children().each(function() {
         var i = $(this).find('.report-row-container').attr('id');
@@ -60,7 +102,9 @@
         video.css('position', 'absolute');
         video.find('embed').attr('wmode', 'transparent');
         $(this).css({ position : 'relative', display : 'block', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
-        if (video.attr('src')) video.attr('src', video.attr('src') + '&wmode=transparent');
+        if (video.attr('src')) {
+          video.attr('src', video.attr('src') + '&wmode=transparent');
+        }
         video.wrap('<div class="oembed-wrapper" />');
         $(this).find('.oembed-wrapper').after('<div class="oembed-mask" />');
         $(this).find('.oembed-mask, .oembed-wrapper').css({ position : 'absolute', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
@@ -74,8 +118,12 @@
       // Avoid videos over content
       $('.oembed-video iframe').attr('src', function(index, value) {
         var wmode_set = /wmode=transparent/g;
-        if (wmode_set.test(value)) return value;
-        else return value + '&wmode=transparent';
+
+        if (wmode_set.test(value)) {
+          return value;
+        }
+
+        return value + '&wmode=transparent';
       });
       $('.oembed-video embed').attr('wmode', 'transparent');
       // close modal
@@ -88,28 +136,25 @@
       //   this.href = this.href.replace(/flag\/confirm\/flag\/graphic/,'node/flag/nojs/confirm/flag/graphic');
       // }).addClass('ctools-use-modal ctools-modal-checkdesk-style');
 
-      // Trigger 
+      // Trigger
       // $('.some-class').click(function() {
       //   Drupal.ajax['checkdesk_core_message_settings'].setMessages();
       // });
 
       // Show messages when an item is flagged/unflagged
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
-        Drupal.ajax['checkdesk_core_message_settings'].setMessages();
+        Drupal.ajax.checkdesk_core_message_settings.setMessages();
       });
 
     }
   };
 
 
-  
-
   /**
    * Provide the HTML to create the modal dialog.
   */
   Drupal.theme.prototype.CheckDeskModal = function () {
     var html = '';
-
 
     html += '<div id="ctools-modal">';
     html += '<div class="ctools-modal-content">';
@@ -126,7 +171,6 @@
     html += '</div>';
 
     return html;
+  };
 
-  }
-
-})(jQuery);
+}(jQuery));

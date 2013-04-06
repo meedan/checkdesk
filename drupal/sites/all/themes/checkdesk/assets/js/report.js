@@ -1,12 +1,13 @@
-var debug;
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
+  'use strict';
 
 	Drupal.behaviors.reports = {
 		attach: function (context, settings) {
 		  // Show report activity
       $('.report-activity > header').unbind('click').click(function(event) {
-        var target = $(this);
-        var element = target.parent();
+        var target = $(this),
+            element = target.parent();
         if (element.find('.activity-wrapper').is(':visible')) {
           element.find('.activity-wrapper').slideUp('fast');
           element.removeClass('open');
@@ -17,6 +18,8 @@ var debug;
         }
         return false;
       });
+
+
 
       // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
       $('.view-liveblog').unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
@@ -30,12 +33,19 @@ var debug;
         });
       });
 
+      // scroll to the bottom of modal when interacting with report actions
+      $('#modalContent #report-actions a').click(function (event) {
+      	$('.modal-body').animate({
+            scrollTop: 400,
+          }, 'slow');
+      });
+
 			$('a.twitter').click(function(event) {
 				event.preventDefault();
 				// set URL
-				var loc = $(this).attr('href');
-				// set title 
-				var title  = $(this).attr('title');
+				var loc = $(this).attr('href'),
+				    // set title
+				    title  = $(this).attr('title');
 				// open a window
 				openShareWindow('twitter', loc, title);
 			});
@@ -43,9 +53,9 @@ var debug;
 			$('a.facebook').click(function(event) {
 				event.preventDefault();
 				// set URL
-				var loc = $(this).attr('href');
-				// set title 
-				var title  = $(this).attr('title');
+				var loc = $(this).attr('href'),
+				    // set title
+				    title  = $(this).attr('title');
 				// open a window
 				openShareWindow('facebook', loc, title);
 			});
@@ -53,25 +63,25 @@ var debug;
 			$('a.google').click(function(event) {
 				event.preventDefault();
 				// set URL
-				var loc = $(this).attr('href');
-				// set title 
-				var title  = $(this).attr('title');
+				var loc = $(this).attr('href'),
+				    // set title
+				    title  = $(this).attr('title');
 				// open a window
 				openShareWindow('google', loc, title);
 			});
-			
+
 			function openShareWindow(service, loc, title) {
-				if(service == 'twitter') {
-					window.open('http://twitter.com/share?url=' + loc + '&text=' + title, 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');	
+				if(service === 'twitter') {
+					window.open('http://twitter.com/share?url=' + loc + '&text=' + title, 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
 				}
-				if(service == 'facebook') {
-					window.open('https://www.facebook.com/sharer.php?u=' + loc + '&t=' + title, 'facebookwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');		
+				if(service === 'facebook') {
+					window.open('https://www.facebook.com/sharer.php?u=' + loc + '&t=' + title, 'facebookwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
 				}
-				if(service == 'google') {
-					window.open('https://plus.google.com/share?url=' + loc + '&t=' + title, 'googlewindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');		
+				if(service === 'google') {
+					window.open('https://plus.google.com/share?url=' + loc + '&t=' + title, 'googlewindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
 				}
 			}
-			
+
 		}
 	};
 
@@ -80,8 +90,8 @@ var debug;
 	Drupal.behaviors.reportFilters = {
 		attach: function (context, settings) {
 			$('.panel-toggle').unbind('click').click(function(event) {
-				var target = $(this);
-				var element = target.parent().attr('id');
+				var target = $(this),
+				    element = target.parent().attr('id');
 				if ($('#'+ element + ' .panel-content').is(':visible')) {
 					$('#'+ element + ' .panel-content').fadeOut('fast');
 					$('#'+ element).removeClass('open');
@@ -99,18 +109,23 @@ var debug;
 				}
 			});
 			// set the height of the sidebar
-			var bodyHeight = $(window).height();
-				buffer = 160;
-			var bodyHeight = bodyHeight - buffer;
-			$('#sidebar-first.column .view-desk-reports').height(bodyHeight);
-			
-			$(window).resize(function(){
-				var bodyHeight = $(window).height();
-				var bodyHeight = bodyHeight - buffer;
-				// console.log(bodyHeight);
-				$('#sidebar-first.column .view-desk-reports').height(bodyHeight);
-			});
+      if ($('#post-node-form').length) {
+        var form = $('#post-node-form');
+  			$('#sidebar-first.column .view-desk-reports').height(form.offset().top + form.height() - 150);
+      }
 
+			// set the height of the widgets sidebar
+			var bodyHeight = $('body').height(),
+				windowHeight = $(window).height(),
+				widgetBarHeight = $('#widgets.column').height(),
+				buffer = 160;
+
+			bodyHeight = bodyHeight + buffer;
+			
+			if(windowHeight < bodyHeight) {
+				// $('#widgets.column').height(bodyHeight);	
+			}
+			
 			// close panel
 			$('#close').click(function(event) {
 				$('.panel-content').hide();
@@ -119,4 +134,4 @@ var debug;
 		}
 	};
 
-})(jQuery);
+}(jQuery));

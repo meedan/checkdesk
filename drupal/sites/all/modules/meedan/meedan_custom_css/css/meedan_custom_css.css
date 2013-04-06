@@ -1,0 +1,27 @@
+#meedan-custom-css-field .CodeMirror,
+#meedan-custom-css-field textarea,
+#meedan-custom-css-preview-path,
+#meedan-custom-css-preview {
+  border: 1px solid #ccc;
+}
+
+#meedan-custom-css-field .CodeMirror,
+#meedan-custom-css-field textarea {
+  height: 200px;
+}
+
+#meedan-custom-css-field .form-textarea-wrapper label {
+  display: inline;
+  font-weight: normal;
+  line-height: 36px;
+  font-size: 12px;
+}
+
+#meedan-custom-css-preview {
+  width: 100%;
+  height: 400px;
+}
+
+#meedan-custom-css-field label + input[type=checkbox] {
+  margin-left: 36px;
+}

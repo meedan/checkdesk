@@ -3,18 +3,19 @@
 	// IE8 fixes
 	Drupal.behaviors.ie8 = {
 		attach: function (context, settings) {
-      if ($.browser.msie  && parseInt($.browser.version, 10) === 8) {
+    // Run this only for ltr IE8
+    if (!$.support.leadingWhitespace) {
   			// set the width of content in presence of a sidebar
   			var bodyWidth = $(window).width();
   				gutter = 12;
   			var sidebarWidth = $('BODY.sidebar-first #main .column#sidebar-first').width();
 
-  			var contentWidth = bodyWidth - sidebarWidth - buffer;
+  			var contentWidth = bodyWidth - sidebarWidth - gutter;
   			$('BODY.sidebar-first #main DIV#content .inner').width(contentWidth);
   			
   			$(window).resize(function(){
   				var bodyWidth = $(window).width();
-  				var contentWidth = bodyWidth - sidebarWidth - buffer;
+  				var contentWidth = bodyWidth - sidebarWidth - gutter;
   				$('BODY.sidebar-first #main DIV#content .inner').width(contentWidth);
   			});
 

@@ -1,4 +1,6 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
+  'use strict';
 
   Drupal.behaviors.checkdesk_extended = {
     attach: function (context, settings) {
@@ -9,11 +11,7 @@
       // $('.flag-'+Drupal.settings.checkdesk.flagSettings.flag.name).addClass(Drupal.settings.checkdesk.flagSettings.newAction+'-action');
       $('.flag-'+Drupal.settings.checkdesk.flagSettings.flag.name).parent().addClass('flag-'+Drupal.settings.checkdesk.flagSettings.flag.name);
       $('a.flag-'+Drupal.settings.checkdesk.flagSettings.flag.name).replaceWith(Drupal.settings.checkdesk.flagSettings.newHTML);
-  
     }
   };
 
-
- 
-
-})(jQuery);
+}(jQuery));

@@ -5,6 +5,7 @@
 $lightest-grey: hsl(0, 0%, 97%);
 $light-grey: hsl(0, 0%, 93%);
 $grey: hsl(0, 0%, 80%);
+$medium-grey: darken($grey, 15%);
 $dark-grey: darken($grey, 45%);
 $darker-grey: darken($dark-grey, 35%);
 $darkest-grey: darken($darker-grey, 25%);
@@ -27,6 +28,7 @@ $frenchpass-blue: hsl(210, 100%, 87%);
 $cornflower-blue: hsl(210, 67%, 80%);
 $sulu-green: hsl(86, 78%, 70%);
 $terminal-green: hsl(90, 96%, 36%);
+$bright-green: hsl(72, 54%, 54%);
 $confetti-yellow: hsl(53, 82%, 63%);
 $cinnamon-orange: hsl(25, 100%, 38%);
 $reef-green: hsl(86, 100%, 77%);
@@ -58,7 +60,7 @@ $youtube-red: hsl(1, 90%, 55%);
 $identity: $twitter-blueish;
 
 // Basics
-$bkg-color: hsl(0, 0%, 94%); // extremely light grey
+$bkg-color: #ECEBED; // light grey // TODO: This should be a subtle pattern
 $input-background: lighten($light-grey, 15%);
 $hr-color: $grey;
 $text-color: black;
@@ -77,7 +79,7 @@ $links-visited-color: $twitter-blue;
 $form-primary-accent: $bright-blue;
 $form-validation-error: $firetruck-red;
 $form-validation-success: $verdun-green;
-$form-valifation-warning: $yellow-orange;
+$form-validation-warning: $yellow-orange;
 
 // A debugging theme
 $debug-bkg: lighten(hsl(212, 75%, 14%), 30%);
@@ -98,8 +100,8 @@ $notification-count-bkg-color: rgba($identity, 0.5);
 
 $nav-color: rgba(white, 0.65);
 $nav-bkg-color: rgb(38, 38, 38); // from maya's design
-$nav-active-color: $nav-bkg-color; // active text
-$nav-active-bkg-color: $nav-color;
+$nav-active-color: rgba(white, 0.95); // active text
+$nav-active-bkg-color: $nav-bkg-color;
 $nav-container-bkg-color: $nav-bkg-color; //wrapper on nav
 $nav-hover-bkg-color: white;
 $nav-hover-color: black;
@@ -127,3 +129,97 @@ $dropdown-link-bkg-hover: darken($dropdown-link-bkg-active, 10%);
 // Buttons
 $button-color: darken($grey, 20%);
 $active-button-color: $identity;
+
+// =================================================================
+// Legacy colors from twitter bootstrap
+
+// Bootstrap Grays
+// #deprecated
+// -------------------------
+$black:                 #000 !default;
+$grayDarker:            #222 !default;
+$grayDark:              #333 !default;
+$gray:                  #555 !default;
+$grayLight:             #999 !default;
+$grayLighter:           #eee !default;
+$white:                 #fff !default;
+
+
+// Bootstrap Accent colors
+// #deprecated
+// -------------------------
+$blue:                  #049cdb !default;
+$blueDark:              #0064cd !default;
+$green:                 #46a546 !default;
+$red:                   #9d261d !default;
+$yellow:                #ffc40d !default;
+$orange:                #f89406 !default;
+$pink:                  #c3325f !default;
+$purple:                #7a43b6 !default;
+
+
+// Bootstrap Scaffolding
+// #deprecated
+// -------------------------
+$bodyBackground:        $white !default;
+$textColor:             $grayDark !default;
+
+// BootstrapLinks
+// #deprecated
+// -------------------------
+$linkColor:             #08c !default;
+$linkColorHover:        darken($linkColor, 15%) !default;
+
+// Tables
+// #deprecated
+// -------------------------
+$tableBackground:                   transparent !default; // overall background-color
+$tableBackgroundAccent:             #f9f9f9 !default; // for striping
+$tableBackgroundHover:              #f5f5f5 !default; // for hover
+$tableBorder:                       #ddd !default; // table and cell border
+
+// // Forms
+// #deprecated
+// // -------------------------
+$inputBackground:               $white !default;
+$inputBorder:                   #ccc !default;
+// $inputBorderRadius:             $radius !default;
+$inputDisabledBackground:       $grayLighter !default;
+$formActionsBackground:         #f5f5f5 !default;
+$inputHeight:                   $absolute-line-height + 18px;
+
+
+// // Dropdowns
+// #deprecated
+// -------------------------
+$dropdownBackground:            $white !default;
+$dropdownBorder:                rgba(0,0,0,.2) !default;
+$dropdownDividerTop:            #e5e5e5 !default;
+$dropdownDividerBottom:         $white !default;
+
+$dropdownLinkColor:             $grayDark !default;
+$dropdownLinkColorHover:        $white !default;
+$dropdownLinkColorActive:       $dropdownLinkColor !default;
+
+$dropdownLinkBackgroundActive:  $linkColor !default;
+$dropdownLinkBackgroundHover:   $dropdownLinkBackgroundActive !default;
+
+
+// // Form states and alerts
+// #deprecated
+// -------------------------
+$warningText:             #c09853 !default;
+$warningBackground:       #fcf8e3 !default;
+$warningBorder:           darken(adjust-hue($warningBackground, -10), 3%) !default;
+
+$errorText:               #b94a48 !default;
+$errorBackground:         #f9e8e8 !default;
+$errorBorder:             darken(adjust-hue($errorBackground, -10), 3%) !default;
+
+$successText:             #468847 !default;
+$successBackground:       #dff0d8 !default;
+$successBorder:           darken(adjust-hue($successBackground, -10), 5%) !default;
+
+$infoText:                #3a87ad !default;
+$infoBackground:          #d9edf7 !default;
+$infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;

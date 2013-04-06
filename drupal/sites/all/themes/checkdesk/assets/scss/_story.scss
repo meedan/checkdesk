@@ -1,55 +1,22 @@
 // Citizen's view of Story page 
 // aka Discussion Node 
-// Journalist role sees sidebar.scss also
-// body.node-type-discussion {
-
-  // This page is identical to the meta-liveblog page. 
-
-  // // =======================================================
-  // // Breakpoint: small (8)
-  // @include at-breakpoint($break-small) {
-  //   #main {
-  //     @include span-columns($break-small - 2, $break-small);
-  //     @include pad(1, 1, $break-small);
-  //   }
-  // }
-  // // =======================================================
-  // // Breakpoint: medium (12)
-  // @include at-breakpoint($break-medium) {
-  //   #main {
-  //     @include span-columns($break-medium - 4, $break-medium);
-  //     @include pad(2, 2, $break-medium);
-  //   }
-  // }
-  // // =======================================================
-  // // Breakpoint: medium (16)
-  // @include at-breakpoint($break-large) {
-  //   #main {
-  //     @include span-columns($break-large - 8, $break-large);
-  //     @include pad(4, 4, $break-large);
-  //   }
-  // }
-// }
-
 
 @mixin vertical-margin($width) {
   margin: { top: $width; bottom: $width; } 
 }
 
-@mixin story-layout($width, $context) {
-  @include span-columns($width, $context, $gw);
-  @content; // pass in padding if needed
+@mixin layout-story($width, $context) {
+  @include span-columns($width, $context, $gutter-width);
+  @content;
   .update-row { 
     @include vertical-margin($base-font-size); 
-    @include span-columns($width, $width, $gw);
+    @include span-columns($width, $width, $gutter-width);
     
     .livefyre-wrapper {
-      @include span-columns($width, $width, $gw);
-      @include vertical-margin($base-font-size);
+      @include span-columns($width, $width, $gutter-width);
     }
   }
 }
-
 
 .node-type-discussion {
   // Updates must stay above story information, 
@@ -62,9 +29,8 @@
   }
 
   #main {
-    @include story-layout($cw, $cw);
+    @include layout-story($container-width, $container-width);
     #block-views-desk-updates-block {
-      // @include span-columns($pw, $pw);
       @include ctb-clearfix;
       margin-top: 1em;
       padding-top: 1em;
@@ -79,7 +45,7 @@
   .update-row {
     border-bottom: 1px solid $grayLighter;
     &:last-child { border-bottom: 0 none; }
-    margin-bottom: $bh*2;
+    margin-bottom: $base-line-height/2;
 
     h2 {
       display: inline-block;
@@ -90,10 +56,6 @@
   }
 }
 
-
-
-// ark_20130126: Currently set on base font size of 18px which is too big
-$bh: $baseLineHeight/4;
 // ark_20130126: Omega not set, not sure why?
 $omega: opposite-position($alpha);
 
@@ -103,7 +65,6 @@ $omega: opposite-position($alpha);
   text-align: $alpha;
 
   #story-actions {
-    font-family: $sans-font-family;
     font-size: $fontSizeSmall;
     
     ul.content-actions {
@@ -112,8 +73,8 @@ $omega: opposite-position($alpha);
       display: block;
       @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
       @include border-radius(4px);
-      padding: $bh $gw;
-      margin-bottom: $bh*2;
+      padding: $absolute-line-height/4 $gutter-width;
+      margin-bottom: $absolute-line-height/2;
       li {
         display: inline-block;
         a {
@@ -125,14 +86,15 @@ $omega: opposite-position($alpha);
   }
 
   .story-by {
-    @include ctb-font-sans-serif(26px);
-    margin-top: $bh;
-    margin-bottom: $bh*2;
+    font-size: $larger-font-size;
+    margin-top: $absolute-line-height/4;
+    margin-bottom: $absolute-line-height/2;
     a { @include ctb-linkColor($grayLight); }
   }
 
   .story-context {
-    @include ctb-font-sans-serif(14px);
+    font-size: $small-font-size;
+    line-height: $relative-line-height;
   }
 
   // Message displayed when a story has drafted updates
@@ -145,19 +107,19 @@ $omega: opposite-position($alpha);
   // The current blogger information
   .story-blogger {
     @include ctb-clearfix;
-    margin: $bh*2 0;
+    margin: $absolute-line-height/2 0;
 
     .avatar {
       display: inline-block;
-      padding: $bh/2 0;
+      padding: $absolute-line-height/2 0;
       .user-picture {
         display: inline-block;
-        margin-#{$omega}: $gw;
+        margin-#{$omega}: $gutter-width;
         img {
           display: inline-block;
           vertical-align: text-bottom;
           @include ctb-square(20px);
-          margin-#{omega}: $gw/3;
+          margin-#{omega}: $gutter-width/3;
         }
       }
       a { @include ctb-linkColor($grayLight); }
@@ -165,7 +127,7 @@ $omega: opposite-position($alpha);
 
     .blogger-status {
       display: inline-block;
-      margin-#{$alpha}: $gw;
+      margin-#{$alpha}: $gutter-width;
 
       .blogger-status-indicator {
         @include ctb-square(10px);
@@ -178,29 +140,24 @@ $omega: opposite-position($alpha);
         @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
         @include border-radius(4px);
         display: inline-block;
-        padding: $bh/2 $gw;
-        margin-#{$alpha}: $gw;
+        padding: $absolute-line-height/2 $gutter-width;
+        margin-#{$alpha}: $gutter-width;
       }
       
     }
     // status indicator colors
     .story-blogger-status-offline .blogger-status-indicator { background-color: $grayLight; }
     .story-blogger-status-online .blogger-status-indicator { background-color: $green; }
-
   }
 
   .story-body {  
     @include ctb-clearfix;
-    margin: $bh 0;
-    text-shadow: 0 1px 1px rgba(255,255,255,.75);
+    margin: $base-line-height/4 0;
+    color: darken($grayLight, 20%);
+    text-shadow: 0 1px 1px rgba(255,255,255,.35);
 
     p {
-      margin: $bh 0;
+      margin: $base-line-height/4 0;
     }
-
   }
-
-
-
-
 }

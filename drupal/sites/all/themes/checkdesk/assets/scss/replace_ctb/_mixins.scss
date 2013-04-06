@@ -122,35 +122,35 @@
   border: 0;
 }
 
-// FONTS
-// --------------------------------------------------
+// // FONTS
+// // --------------------------------------------------
 
-@mixin ctb-font-family-serif() {
-  font-family: $serifFontFamily;
-}
-@mixin ctb-font-family-sans-serif() {
-  font-family: $sansFontFamily;
-}
-@mixin ctb-font-family-monospace() {
-  font-family: $monoFontFamily;
-}
-@mixin ctb-font-shorthand($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight) {
-  font-size: $size;
-  font-weight: $weight;
-  line-height: $lineHeight;
-}
-@mixin ctb-font-serif($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight) {
-  @include ctb-font-family-serif();
-  @include ctb-font-shorthand($size, $weight, $lineHeight);
-}
-@mixin ctb-font-sans-serif($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight) {
-  @include ctb-font-family-sans-serif();
-  @include ctb-font-shorthand($size, $weight, $lineHeight);
-}
-@mixin ctb-font-monospace($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight) {
-  @include ctb-font-family-monospace();
-  @include ctb-font-shorthand($size, $weight, $lineHeight);
-}
+// @mixin ctb-font-family-serif() {
+//   font-family: $serifFontFamily;
+// }
+// @mixin ctb-font-family-sans-serif() {
+//   font-family: $sansFontFamily;
+// }
+// @mixin ctb-font-family-monospace() {
+//   font-family: $monoFontFamily;
+// }
+// @mixin ctb-font-shorthand($size: $base-font-size, $weight: normal, $lineHeight: $absolute-line-height) {
+//   font-size: $size;
+//   font-weight: $weight;
+//   line-height: $lineHeight;
+// }
+// @mixin ctb-font-serif($size: $base-font-size, $weight: normal, $lineHeight: $absolute-line-height) {
+//   @include ctb-font-family-serif();
+//   @include ctb-font-shorthand($size, $weight, $lineHeight);
+// }
+// @mixin ctb-font-sans-serif($size: $base-font-size, $weight: normal, $lineHeight: $absolute-line-height) {
+//   @include ctb-font-family-sans-serif();
+//   @include ctb-font-shorthand($size, $weight, $lineHeight);
+// }
+// @mixin ctb-font-monospace($size: $base-font-size, $weight: normal, $lineHeight: $absolute-line-height) {
+//   @include ctb-font-family-monospace();
+//   @include ctb-font-shorthand($size, $weight, $lineHeight);
+// }
 
 
 // FORMS
@@ -487,7 +487,7 @@
   // to negative-margin away, but so it goes.
   *width: 100%;
   height: 1px;
-  margin: $baseLineHeight/4 1px; // 8px 1px
+  margin: $absolute-line-height/4 1px; // 8px 1px
   *margin: -5px 0 5px;
   overflow: hidden;
   background-color: $top;

@@ -1,0 +1,146 @@
+// Filters on the incoming report stream
+//
+// Use @extend on the parent element containint the header and .panels
+%filters {
+  @include ctb-clearfix;
+  font-size: $fontSizeSmall;
+  padding: 0 $gutter-width*2;
+  color: $gray;
+
+  header {
+    h2 {
+      display: inline-block;
+      @include reset-box-model;
+    }
+  }
+
+  // description double quotes
+  .icon-caret-down {
+    @include icon(caret-down, 16px, $gray);
+  }
+
+  .panels {
+    @include reset-list-style;
+    display: inline-block;
+    margin-top: $absolute-line-height/2;
+    .panel {
+      display: inline-block;
+      margin-bottom: $absolute-line-height/2;
+      &:last-child { margin-bottom: 0; } 
+      .panel-toggle {
+        display: inline-block;
+        padding: 4px 12px; // warning magic pixels CGB
+        margin-#{$omega}: $gutter-width;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: $grayLighter;
+        font-size: $base-font-size;
+        @include border-radius(6px);
+        @include ctb-linkColor($gray);
+        &:hover {
+          background-color: darken($grayLighter, 10%);
+          text-decoration: none;
+        }
+        
+        .icon-caret-down:before {
+          margin-right: 0;
+          margin-#{$alpha}: $gutter-width;
+        }
+      }
+
+    .panel-content {
+      display: none;
+      position: absolute;
+      background-color: $grayLighter;
+      padding: $absolute-line-height/2 $gutter-width;
+      margin-top: $absolute-line-height/4;
+      z-index: $zindexDropdown;
+      width: 410px;
+
+      background-color: lighten($grayLighter, 3%);
+      border: 1px solid #ccc; // Fallback for IE7-8
+      border: 1px solid $dropdownBorder;
+      *border-right-width: 2px;
+      *border-bottom-width: 2px;
+      @include border-radius(6px);
+      @include box-shadow(0 5px 10px rgba(0,0,0,.2));
+      -webkit-background-clip: padding-box;
+         -moz-background-clip: padding;
+              background-clip: padding-box;
+
+      input[type="text"] {
+        float: none;
+        width: 260px;
+      }
+
+      label {
+        font-size: 14px !important;
+      }
+
+      .views-reset-button input#edit-reset {
+        @include reset-box-model;
+        background: none;
+        border: 0 none;
+        color: $gray;
+        font-size: $fontSizeSmall;
+        &:hover { color: $grayDark; }
+      }
+    }
+
+  }
+
+  #filter-by {
+    #{$from-direction}: 130px; // warning magic pixels CGB 
+  }
+
+  #filter-by .views-reset-button {
+    float: $alpha;
+  }
+
+  #filter-by .views-submit-button {
+    float: $omega;
+    // hide the duplicate sort select
+    .form-type-select {
+      display: none;
+    }
+    #close {
+      @include checkdesk-button($grayLight);
+            margin-#{$omega}: 0;
+    }
+    input {
+      margin-top: -4px; // no idea why it needs this CGB
+      margin-#{$omega}: $gutter-width;
+    }
+  }
+
+  #sort-by label {
+    display: none;
+  }
+
+  #sort-by .panel-content {
+    width: 200px;
+  }
+
+  #sort-by .views-submit-button input {
+    margin-top: $absolute-line-height/2;
+  }
+  }
+
+  .form-type-radio input[type="radio"] {
+    margin: 0;
+  }
+
+  .form-type-radio, .form-type-checkbox {
+    padding: 0;
+  }  
+}
+
+// Medium breakpoint
+@include at-breakpoint($break-medium) {
+  .body-ar #incoming-reports-filters {
+    .panels .panel .panel-toggle {
+      font-size: 95%;
+    }
+  }
+}

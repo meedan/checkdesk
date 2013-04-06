@@ -8,7 +8,7 @@
 
 .nav {
   margin-left: 0;
-  margin-bottom: $baseLineHeight;
+  margin-bottom: $absolute-line-height;
   list-style: none;
 }
 
@@ -18,7 +18,6 @@
 }
 .nav > li > a:hover {
   text-decoration: none;
-  background-color: darken($grayLighter, 5%);
 }
 
 // Prevent IE8 from misplacing imgs
@@ -38,7 +37,7 @@
   padding: 3px 15px;
   font-size: 11px;
   font-weight: bold;
-  line-height: $baseLineHeight;
+  line-height: $absolute-line-height;
   color: $grayLight;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   text-transform: uppercase;
@@ -104,6 +103,7 @@
   line-height: 14px; // keeps the overall height an even number
 }
 
+
 // TABS
 // ----
 
@@ -119,21 +119,60 @@
 .nav-tabs > li > a {
   padding-top: 8px;
   padding-bottom: 8px;
-  line-height: $baseLineHeight;
+  line-height: $absolute-line-height;
   border: 1px solid transparent;
   @include border-radius(4px 4px 0 0);
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $grayLighter $grayLighter #ddd;
   }
 }
-// Active state, and it's :hover to override normal :hover
+// Active state, and it's :hover/:focus to override normal :hover/:focus
 .nav-tabs > .active > a,
-.nav-tabs > .active > a:hover {
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
   color: $gray;
-  background-color: $grayLighter;
+  background-color: $bodyBackground;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
+}
+
+// ADMIN NAV TABS
+// ---------------
+.admin-nav-tabs {
+  @include reset-box-model;
+  @include reset-list-style;
+  display: block;
+  @include ctb-bg(#000, rgba(0, 0, 0, 0.05));
+  @include border-radius(4px);
+  padding: $absolute-line-height/4 $gutter-width;
+  margin-bottom: $absolute-line-height/2;
+}
+
+.admin-nav-tabs > li {
+  display: inline-block;
+  // icons in tabs
+  span {
+    &.icon-file    { @include icon(file, $small-font-size, $white); }
+    &.icon-pencil  { @include icon(pencil, $small-font-size, $white); }
+    &.icon-trash   { @include icon(trash, $small-font-size, $white); }
+    &.icon-wrench  { @include icon(wrench, $small-font-size, $white); }
+  }
+
+}
+
+.admin-nav-tabs > li > a {
+  @include checkdesk-button($grayLight);
+  @include button-size(13px);
+  @include box-shadow(0 1px 2px rgba(0,0,0,.05));
+}
+
+.admin-nav-tabs > .active > a,
+.admin-nav-tabs > .active > a:hover {
+  @include checkdesk-button($gray);
+  @include button-size(13px);
+  @include box-shadow(0 1px 2px rgba(0,0,0,.1));
 }
 
 
@@ -263,12 +302,6 @@
 .tabs-stacked .open > a:hover {
   border-color: $grayLight;
 }
-
-
-
-// TABBABLE
-// --------
-
 
 // COMMON STYLES
 // -------------

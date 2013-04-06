@@ -60,7 +60,6 @@ $bookmarklet-modal-height: 350px;
 
   .install-bookmarklet-col {
     float: $alpha;
-    font-family: $sans-font-family;
 
     h3 {
       @include reset-box-model;
@@ -107,8 +106,8 @@ $bookmarklet-modal-height: 350px;
     $opposite-direction: opposite-position($from-direction);
     .install-bookmarklet-col:first-child {
       float: $from-direction;
-      margin-#{$opposite-direction}: $gw;
-      padding-#{$from-direction}: $gw*2;
+      margin-#{$opposite-direction}: $gutter-width;
+      padding-#{$from-direction}: $gutter-width*2;
       clear: both;
       
       width: 250px;

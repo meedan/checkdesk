@@ -1,0 +1,47 @@
+// Page with a sidebar
+// Implementations: The story page as seen by a journalist (create update)
+//
+// By default, there is only one column.
+// In larger breakpoints the primary width $primary-width and secondary-width diverge to create two columns.
+@mixin layout-2col($secondary-width, $primary-width, $break: $container-width) {
+  @include span-columns($break - 2, $break, $gutter-width / 2); //outermost container
+  @include pad(1, 1, $break);
+  @content;
+
+  // 2. The sidebar column
+  // Contains incoming reports
+  #sidebar-first.column {
+    @include span-columns($secondary-width, $break); // sidebar width
+    @include cd-box-shadow();
+    margin-top: ms(-1);
+  }
+
+  // 3. The primary content column, 
+  // on story create page, this is the main column with the compser form
+  #content {
+    @include span-columns($primary-width omega, $break);
+    @include pad(0,0, $break);
+  }
+}
+
+// ==========================================================================
+// Default sidebar layout: up to break-small
+body.sidebar-first {
+  $break: $container-width;
+  $secondary-width: $container-width;
+  $primary-width: $container-width;
+  #main {
+    @include layout-2col($secondary-width, $primary-width);   
+  }
+}
+
+body.sidebar-first {
+  #main {
+    @include at-breakpoint($break-small) { // Breakpoint: small
+      $break: $break-small;
+      $secondary-width: 4;
+      $primary-width: $break-small - $secondary-width;
+      @include layout-2col($secondary-width, $primary-width, $break); // reapply layout-2col
+    }
+  }
+}

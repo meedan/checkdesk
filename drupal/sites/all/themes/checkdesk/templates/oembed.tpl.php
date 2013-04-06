@@ -11,16 +11,17 @@
   <?php endif; ?>
   <?php print render($title_suffix); ?>
 
-  <span<?php print $content_attributes; ?>>
+  <div<?php print $content_attributes; ?>>
     <?php print render($content); ?>
-  </span>
-<?php if ($favicon_link) : ?>
-  <div class="favicon"><?php print $favicon_link ?></div>
-<?php endif ?>
-<?php if ($domain_link) : ?>
-  <div class="domain"><?php print $domain_link ?></div>
-<?php endif ?>
-<?php if (isset($embed_error)) : ?>
-  <div class="embederror"><?php print $embed_error ?></div>
-<?php endif ?>
+  </div>
+
+  <?php if ($favicon_link) : ?>
+    <div class="favicon"><?php print $favicon_link ?></div>
+  <?php endif ?>
+  <?php if ($embed->author_name) : ?>
+    <div class="author"><?php print $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name; ?></div>
+  <?php endif ?>
+  <?php if (isset($embed_error)) : ?>
+    <div class="embederror"><?php print $embed_error ?></div>
+  <?php endif ?>
 </div>

@@ -19,6 +19,9 @@ function checkdesk_theme() {
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),
+    'checkdesk_related_updates_bar' => array(
+      'variables' => array('story' => array()),
+    ),
   );
 }
 
@@ -38,6 +41,16 @@ function checkdesk_preprocess_html(&$variables) {
   if ($variables['language']) {
     $class = 'body-' . $variables['language']->language;
     $variables['classes_array'][] = $class;
+  }
+
+  // Add classes about widgets sidebar
+   if (checkdesk_widgets_visibility()) {
+    if (!empty($variables['page']['widgets'])) {
+      $variables['classes_array'][] = 'widgets';
+    }
+    else {
+      $variables['classes_array'][] = 'no-widgets';
+    }
   }
 
   // Add conditional stylesheets for IE8.
@@ -74,17 +87,27 @@ function checkdesk_preprocess_html(&$variables) {
 
 }
 
+
+/**
+ * Preprocess variables for blocks
+ */
+function checkdesk_preprocess_block(&$variables) {
+  // remove subjects for all blocks
+  $variables['elements']['#block']->subject = '';
+}
+
 /**
  * Preprocess variables for page.tpl.php
  *
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
+  
   global $user, $language;
 
   // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
-  $vars['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
-  drupal_add_js(array('basePathCheckdeskTheme' => $vars['basePathCheckdeskTheme']), 'setting');
+  $variables['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
+  drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
 
   // Primary nav
   $variables['primary_nav'] = FALSE;
@@ -92,13 +115,20 @@ function checkdesk_preprocess_page(&$variables) {
     // Build links
     $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
 
+
     // Remove empty expanded menus
     foreach ($tree as $id => $item) {
       if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
         unset($tree[$id]);
       }
+
+      if (isset($item['below']) && $item['link']['title'] == t('...')) {
+        $tree[$id]['link']['title'] = '&nbsp;';
+        $tree[$id]['link']['link_title'] = '&nbsp;';
+        $tree[$id]['link']['html'] = TRUE;
+      }
     }
-    
+
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
 
     // Change "Submit Report" link
@@ -140,11 +170,9 @@ function checkdesk_preprocess_page(&$variables) {
   }
 
   // Add classes for modal
-  foreach ($tree as $id => $item) {
-    if ($item['link']['link_title'] == t('Information') || $item['link']['link_title'] == 'Information') {
-      foreach ($item['below'] as $subid => $subitem) {
-        $tree[$id]['below'][$subid]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
-      }
+  foreach ($tree as $id => &$item) {
+    if (strpos($item['link']['link_path'], '/ajax/') !== FALSE) {
+      $item['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
     }
   }
 
@@ -191,6 +219,77 @@ function checkdesk_preprocess_page(&$variables) {
     ),
     'heading' => NULL,
   ));
+
+
+  // information nav
+  $variables['information_nav'] = FALSE;
+  $menu = menu_load('menu-information');
+  $tree = menu_tree_page_data($menu['menu_name']);
+
+  // Remove items that are not from this language or that does not have children
+  foreach ($tree as $id => $item) {
+    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+      unset($tree[$id]);
+    }
+    if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
+    foreach ($item['below'] as $subid => $subitem) {
+      if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+    }
+  }
+
+  // Add classes for modal
+  foreach ($tree as $id => $item) {
+    $tree[$id]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
+  }
+
+  $variables['information_menu'] = checkdesk_menu_navigation_links($tree);
+
+  // Build list
+  $variables['information_nav'] = theme('checkdesk_links', array(
+    'links' => $variables['information_menu'],
+    'attributes' => array(
+      'id' => 'information-menu',
+      'class' => array('nav'),
+    ),
+    'heading' => NULL,
+  ));
+
+  // footer nav
+  $variables['footer_nav'] = FALSE;
+  $menu = menu_load('menu-footer');
+  $tree = menu_tree_page_data($menu['menu_name']);
+
+  // Remove items that are not from this language or that does not have children
+  foreach ($tree as $id => $item) {
+    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+      unset($tree[$id]);
+    }
+    if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
+    foreach ($item['below'] as $subid => $subitem) {
+      if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+    }
+  }
+
+  // Add checkdesk logo class
+  foreach ($tree as $id => $item) {
+    if($tree[$id]['link']['link_path'] == 'http://checkdesk.org') {
+      $tree[$id]['link']['class'] = array('checkdesk');
+    }
+  }
+
+  $variables['footer_menu'] = checkdesk_menu_navigation_links($tree);
+
+  // Build list
+  $variables['footer_nav'] = theme('checkdesk_links', array(
+    'links' => $variables['footer_menu'],
+    'attributes' => array(
+      'id' => 'footer-menu',
+      'class' => array('nav'),
+    ),
+    'heading' => NULL,
+  ));
+
+  // ctools modal
 
   ctools_include('modal');
   ctools_modal_add_js();
@@ -252,24 +351,43 @@ function checkdesk_preprocess_page(&$variables) {
   drupal_add_js($modal_style, 'setting');
 
   // define custom header settings
-  $variables['header_image_path'] = '';
-  $variables['header_height'] = 0;
+  $variables['header_image'] = '';
   $image = theme_get_setting('header_image_path');
   
   if (!empty($image) && theme_get_setting('header_image_enabled')) {
-    $variables['header_image_path'] = file_create_url($image);
-    $info = image_get_info($image);
-    if ($info) {
-      $variables['header_height'] = $info['height'];
-    }
+    $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
 
   $position = theme_get_setting('header_image_position');
   $variables['header_image_position'] = (empty($position) ? 'left' : $position);
 
-  $color = theme_get_setting('header_background_color');
-  $variables['header_background_color'] = (empty($color) ? 'transparent' : $color);
+  $bg = theme_get_setting('header_bg_path');
+  $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
+
+  $slogan = theme_get_setting('header_slogan');
+  $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
+  $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
+
+  // set page variable if widgets should be visible
+  $show_widgets = 0;
+  if (checkdesk_widgets_visibility()) {
+    $show_widgets = 1; 
+  } else {
+    $variables['page']['widgets'] = FALSE;
+  }
+  $variables['show_widgets'] = $show_widgets;
+
+  // set page variable if widgets should be visible
+  $show_widgets = 0;
+  if (checkdesk_footer_visibility()) {
+    $show_widgets = 1; 
+  } else {
+    $variables['page']['widgets'] = FALSE;
+  }
+  $variables['show_widgets'] = $show_widgets;
+
 }
+
 
 /**
  * Override or insert variables into the node template.
@@ -324,11 +442,12 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time)
-    $variables['media_creation_info'] = t('<a href="@user">!user</a> added this <time class="time-ago" datetime="!timestamp">!interval ago</time>', array(
+    $variables['media_creation_info'] = t('<a href="@user">!user</a> submitted this <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-      '!interval' => format_interval(time()-$variables['created']),
+      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime_ago' => format_interval(time() - $variables['created'], 2),
     ));
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
@@ -359,7 +478,7 @@ function checkdesk_preprocess_node(&$variables) {
           $icon = '<span class="icon-remove-sign"></span> ';
         }
         $variables['status_class'] = $status_class;
-        $variables['status_icon'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+        $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
       }
     }
   }
@@ -381,7 +500,11 @@ function checkdesk_links__node($variables) {
 
   if (count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
-   
+
+    if (isset($links['checkdesk-view-original'])) {
+      $output .= '<li>' . l('<span class="icon-link"></span>' . $links['checkdesk-view-original']['title'], $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
+    }
+
     if (isset($links['checkdesk-share-facebook']) || 
         isset($links['checkdesk-share-twitter']) || 
         isset($links['checkdesk-share-google'])
@@ -438,9 +561,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to dropdown">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-edit"></span> ';
-      $output .=  t('...');
-      $output .= '</a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-reorder">&nbsp;</span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
@@ -449,7 +570,7 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . l($links['checkdesk-edit']['title'], $links['checkdesk-edit']['href'], $links['checkdesk-edit']) .'</li>';
       }
       if (isset($links['checkdesk-delete'])) {
-        $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-edit']) .'</li>';
+        $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-delete']) .'</li>';
       }
       if (isset($links['flag-factcheck_journalist'])) {
         $output .= '<li class="divider"></li>';
@@ -477,6 +598,83 @@ function checkdesk_links__node($variables) {
   }
 
   return $output;
+}
+
+
+/**
+ * Utitity function to determine whether to show widgets or not
+ */
+function checkdesk_widgets_visibility() {
+  global $user;
+  $current_node = menu_get_object();
+  // what to check for
+  $roles = array('administrator', 'journalist');
+  $check_role = array_intersect($roles, array_values($user->roles));
+  $check_role = empty($check_role) ? FALSE : TRUE;
+
+  $pages = array('edit', 'delete');
+  $check_page = array_intersect($pages, array_values(arg()));
+  $check_page = empty($check_page) ? FALSE : TRUE;
+
+  // node types to check for anonymous user
+  $anon_node_types = array('media', 'discussion', 'post');
+  // node types to check for logged in user
+  $user_node_types = array('media', 'post');
+
+  // for anonymous user
+  if (isset($current_node->type) && !$check_role) {
+    foreach ($anon_node_types as $node_type) {
+      // matches node types
+      if ($node_type == $current_node->type) return TRUE;
+    }
+  // for logged in users with specific role
+  } elseif (isset($current_node->type) && $check_role) {
+    foreach ($user_node_types as $node_type) {
+      // matches node types and does not include any pages
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
+        return TRUE; 
+      } 
+    }
+  } 
+
+  // Always display on front page
+  if (drupal_is_front_page()) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Utitity function to determine whether to show footer or not
+ */
+function checkdesk_footer_visibility() {
+  global $user;
+  $current_node = menu_get_object();
+  // what to check for
+  $pages = array('edit', 'delete');
+  $check_page = array_intersect($pages, array_values(arg()));
+  $check_page = empty($check_page) ? FALSE : TRUE;
+
+  // node types to check
+  $node_types = array('media', 'discussion', 'post');
+
+  // for anonymous user
+  if (isset($current_node->type)) {
+    foreach ($node_types as $node_type) {
+      // matches node types and does not include any pages
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
+        return TRUE; 
+      } 
+    }
+  } 
+
+  // Always display on front page
+  if (drupal_is_front_page()) {
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
 /**
@@ -655,7 +853,6 @@ function checkdesk_preprocess_views_view(&$vars) {
 /* Desk Reports */
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if($vars['display_id'] == 'block') {
-
     ctools_include('modal');
     ctools_modal_add_js();
     $modal_style = array(
@@ -679,5 +876,33 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
     );
     drupal_add_js($modal_style, 'setting');
   }
+}
+
+/* Reports page */
+function checkdesk_preprocess_views_view__reports(&$vars) {
+  // add masonry library
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') .'/assets/js/libs/jquery.masonry.min.js', 'file', array('group' => JS_THEME, 'every_page' => FALSE));
+  ctools_include('modal');
+    ctools_modal_add_js();
+    $modal_style = array(
+      'modal-popup-report' => array(
+        'modalSize' => array(
+          'type' => 'fixed',
+          'width' => 450,
+          'height' => 400,
+          'addWidth' => 0,
+          'addHeight' => 0
+        ),
+        'modalOptions' => array(
+          'opacity' => .5,
+          'background-color' => '#000',
+        ),
+        'animation' => 'show',
+        'animationSpeed' => 40,
+        'modalTheme' => 'CToolsModalDialog',
+        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      ),
+    );
+    drupal_add_js($modal_style, 'setting');
 }
 

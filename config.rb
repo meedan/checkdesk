@@ -3,7 +3,8 @@ require "logger" # custom logger with pass/fail
 require "pry" # ruby REPL debugger mode
 require "rake" # for filelist
 require "modular-scale" #for ratios
-# require "animation" # experimental https://github.com/ericam/compass-animate
+require "compass_twitter_bootstrap" #deprecated Sass-wise; for legacy support only CGB
+# see https://github.com/vwall/compass-twitter-bootstrap
 
 line_comments = false
 
@@ -24,6 +25,7 @@ javascripts_dir = File.join(full_assets_dir, "js")
 bb_background_path = "sites/all/themes/bowerbird/images/bkgs/"
 
 # icon webfonts from bowerbird
+fonts_dir = File.join("fonts")
 http_fonts_path = File.join(http_path, themes_dir, extensions_dir, bowerbird_extension_dir, "fonts")
 relative_assets = false
 

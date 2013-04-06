@@ -6,9 +6,9 @@
       </div>
     <?php } ?>
 
-  	<?php print render($content['story_status']); ?>
-  	<?php print render($content['story_drafts']); ?>
-  	<?php print render($content['story_blogger']); ?>
+  	<?php // print render($content['story_status']); ?>
+  	<?php // print render($content['story_drafts']); ?>
+  	<?php // print render($content['story_blogger']); ?>
 
   	<div class="story-body">
   		<?php print render($content['body']); ?>

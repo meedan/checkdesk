@@ -49,3 +49,19 @@ body.toolbar-drawer {
 .views-exposed-widget .views-reset-button {
   display: none;
 }
+
+// create update page
+.page-node-add-post { 
+  h1.title {
+    display: none;
+  }
+  // #sidebar-first {
+  //   h2 {
+  //     display: none;
+  //   }
+  // }
+  .tabs {
+    display: none; //if the empty tabs div appears it breaks the layout
+  }
+}
+

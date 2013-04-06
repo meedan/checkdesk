@@ -573,8 +573,20 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_bookmarklet_title';
-  $strongarm->value = 'Submit a report to our team';
+  $strongarm->value = 'Add a link';
   $export['meedan_bookmarklet_title'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_custom_css_enabled_themes';
+  $strongarm->value = array(
+    'checkdesk' => 'checkdesk',
+    'bartik' => 0,
+    'checkdesk_embed' => 0,
+    'seven' => 0,
+  );
+  $export['meedan_custom_css_enabled_themes'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

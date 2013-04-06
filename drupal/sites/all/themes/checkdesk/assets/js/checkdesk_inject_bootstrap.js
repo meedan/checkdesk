@@ -1,4 +1,7 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 jQuery(function () {
+  'use strict';
+
   var tp = Drupal.settings.basePathCheckdeskTheme;
   jQuery('body')
     // $, jQuery is replaced with the 1.8.2 version. Old is moved to _$, _jQuery
@@ -11,4 +14,5 @@ jQuery(function () {
     // Create a jQuery_182 variable which can be used later in the execution
     .append('<script>var jQuery_182 = jQuery.noConflict(true);</script>');
     // Now $ and jQuery refer to jQuery-1.4.4 again, @see $.noConflict()
+
 });

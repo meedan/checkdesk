@@ -1,5 +1,6 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
-// START jQuery
+'use strict';
 
 Drupal.behaviors.livefyreCommentCount = {
   attach: function(context, settings) {
@@ -9,8 +10,6 @@ Drupal.behaviors.livefyreCommentCount = {
       }
     });
   }
-}
+};
 
-// END jQuery
-})(jQuery);
-
+}(jQuery));

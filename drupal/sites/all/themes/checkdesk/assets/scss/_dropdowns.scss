@@ -23,8 +23,8 @@
   display: none; // none by default, but block on "open" of the menu
   float: $from-direction;
   min-width: 160px;
-  padding: $gw 0;
-  margin: $gw 0 0; // override default ul
+  padding: $gutter-width 0;
+  margin: $gutter-width 0 0; // override default ul
   list-style: none;
   background-color: white;
   @include border-radius($radius);
@@ -49,7 +49,7 @@
     padding: ms(-3) ms(0);
     clear: both;
     font-weight: normal;
-    line-height: $base-line-height;
+    line-height: $absolute-line-height;
     white-space: nowrap;
     @include border-radius(0);
     color: $dropdownLinkColor;

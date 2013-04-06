@@ -9,7 +9,12 @@ function checkdesk_menu_navigation_links($tree, $lvl = 0) {
   if(count($tree) > 0) {
 	foreach($tree as $id => $item) {
 	  $new_item = array('title' => $item['link']['title'], 'link_path' => $item['link']['link_path'], 'href' => $item['link']['href']);
-    if (isset($item['link']['class'])) $new_item['class'] = $item['link']['class'];
+    if (isset($item['link']['class'])) {
+      $new_item['class'] = $item['link']['class'];
+    }
+    if (isset($item['link']['html'])) {
+      $new_item['html'] = $item['link']['html'];
+    }
 	  // Dont do drugs and don't do any levels deeper then 1
 	  if($lvl < 1)
 		$new_item['below'] = checkdesk_menu_navigation_links($item['below'], $lvl+1);
@@ -55,6 +60,21 @@ function checkdesk_checkdesk_user_menu_item($variables) {
   
   return $output;
 } 
+
+/**
+ * theme_checkdesk_related_updates_bar
+ */
+function checkdesk_checkdesk_related_updates_bar($variables) {
+  $story = $variables['story'];
+  $count = checkdesk_core_story_updates_count($story);
+
+  $output  = '';
+  $output .= '<div class="related-updates">';
+  $output .=   l(format_plural($count - 1, '1 more update', '@count more updates'), "node/$story->nid");
+  $output .= '</div>';
+
+  return $output;
+}
 
 // /**
 //  * Override theme_button to add custom classes

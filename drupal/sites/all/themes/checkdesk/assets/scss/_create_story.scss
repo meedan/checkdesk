@@ -1,1 +1,26 @@
-// see forms.scss
+// see forms.scss and sidebar.scss
+// The compose story page is really just a form with a sidebar of reports ...
+
+#sidebar-first {
+  background-color: white;
+  margin-#{$omega}: 0;
+  padding-top: $absolute-line-height;
+  display: table;
+  .view-desk-reports {
+  // padding for the pager
+  // scrollbars
+  height: 725px;
+  overflow-y: auto;
+  overflow-x: hidden;          
+  .item-list {
+    padding: 0 $gutter-width*2;
+  }
+  // sidebar header
+  h2 {
+    @include reset-box-model;
+  }
+
+  div#content .inner {
+    border: 1px solid red;
+  }
+}

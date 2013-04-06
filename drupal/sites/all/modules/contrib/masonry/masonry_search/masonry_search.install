@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the Masonry Search module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function masonry_search_uninstall() {
+  variable_del('masonry_search');
+}
+

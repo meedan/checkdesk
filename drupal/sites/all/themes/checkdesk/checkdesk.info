@@ -32,8 +32,10 @@ regions[sidebar_second] = Second sidebar
 regions[footer] = Footer
 regions[page_bottom] = Page bottom
 regions[navigation] = Navigation bar
+regions[widgets] = Widgets
 
 ; EXCLUDE CSS
 exclude[css][] = 'sites/all/modules/contrib/*'
+exclude[css][] = 'sites/all/modules/meedan/meedan_livefyre/*'
 exclude[css][] = 'misc/*'
 exclude[css][] = 'modules/*'

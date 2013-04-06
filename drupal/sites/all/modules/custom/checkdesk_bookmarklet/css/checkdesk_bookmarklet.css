@@ -1,6 +1,6 @@
 #meedan_bookmarklet_cont,
 #meedan_bookmarklet_cont iframe {
-  width: 365px;
+  width: 370px;
   height: 500px;
   border-radius: 8px;
   -webkit-border-radius: 8px;
@@ -19,7 +19,8 @@
   left: 70px;
   border: 1px solid #ccc;
   display: none;
-  position: absolute !important;
+  overflow-y: auto;
+  overflow-x: hidden;
   -moz-box-shadow: 0px 0px 15px 1px #333;
   -webkit-box-shadow: 0px 0px 15px 1px #333;
   box-shadow: 0px 0px 15px 1px #333;

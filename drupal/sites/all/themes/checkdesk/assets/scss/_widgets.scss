@@ -1,0 +1,153 @@
+// Page with widgets
+// Mostly same as incoming reports sidebar
+//
+// By default, there is only one column.
+// In larger breakpoints the primary width $primary-width and secondary-width diverge to create two columns.
+@mixin widgets-layout($secondary-width, $primary-width, $break: $container-width) {
+  body.widgets {
+    #main {
+      @include span-columns($break - 2, $break, $gutter-width / 2); //outermost container
+      @include pad(1, 1, $break);
+      @content;
+
+      // 2. The sidebar column
+      #widgets.column {
+        @include span-columns($secondary-width, $break); // sidebar width
+        @include cd-box-shadow();
+        background-color: white;
+        margin-top: ms(0);
+      }
+
+      // 3. The primary content column, 
+      // on story create page, the main column with the compser form
+      #content {
+        @include span-columns($primary-width omega, $break);
+        @include pad(0,0, $break);
+      }
+    }
+  }
+}
+
+// ==========================================================================
+// Default: up to break-small
+@include widgets-layout($container-width, $container-width - 2); 
+
+// ==========================================================================
+// Breakpoint: small
+@include at-breakpoint($break-small) {
+  $break: $break-small;
+  $secondary-width: 4;
+  $primary-width: $break-small - $secondary-width; // calculate main col width
+
+  body.widgets #main {
+    @include span-columns($break - 2, $break, $gutter-width / 2);
+    @include pad(1, 1, $break);
+  }
+
+  @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout
+}
+// ======================================================================
+// Breakpoint: med
+//
+// The sidebar doubles in width and the primary form widens
+
+@include at-breakpoint($break-medium) {
+  $break: $break-medium;
+  $secondary-width: 7;
+  $primary-width: $break-medium - $secondary-width; 
+
+  @include widgets-layout($secondary-width, $primary-width, $break) {
+    @include span-columns($break - 4, $break, $gutter-width);
+    @include pad(2, 2, $break);
+  }
+}  
+// Breakpoint: large
+@include at-breakpoint($break-large) {
+  $break: $break-large;
+  $secondary-width: 7;
+  $primary-width: $break-large - $secondary-width;
+  body.widgets #main {
+    @include span-columns($break - 4, $break, $gutter-width);
+    @include pad(2, 2, $break);
+  }
+  @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout with new break
+}
+
+
+
+// ======================================================================
+// Widgets styles
+
+
+#widgets {
+  #widgets-inner {
+    width: 92%;
+    padding: 4%;
+    margin-top: ms(1);
+    
+  }
+  // spacing between blocks/widgets
+  .block {
+    margin: ms(1) auto;
+    
+    &:first-child {
+      margin: 0;
+    }
+    // block title
+    h2 {
+      @include reset-box-model;
+      font-size: $small-font-size;
+      margin-bottom: $base-line-height/4;
+    }
+    // keep embedded widgets width 100%
+    iframe {
+      width: 100%!important;
+    }
+  }
+
+  ul.elsewhere {
+    @include reset-box-model;
+    @include reset-list-style;
+    text-align: $alpha;
+    li {
+      display: inline-block;
+      a {
+        &:hover { 
+          text-decoration: none; 
+        }
+      }
+
+      span {
+        display: inline-block;
+        margin: 0 -$gutter-width/3;
+        height: 25px;
+        vertical-align: top;
+        &.icon-facebook  { @include icon(facebook-sign, 40px, $facebook-blue); } 
+        &.icon-twitter  { @include icon(twitter-sign, 40px, $twitter-blue); }
+        // social icons seem to be larger
+        &.icon-youtube  { 
+          @include social-icon(youtube, 35px, $red); 
+          margin-top: -5px;
+        }
+        
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

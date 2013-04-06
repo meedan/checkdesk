@@ -2,13 +2,13 @@
 @import "bowerbird";
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
-$gw: 12px;
+$gutter-width: 12px;
 
 // bad float issue
 BODY.sidebar-first #main .column#sidebar-first {
 	width: 400px;
 	float: $alpha;
-	margin-#{$omega}: $gw;
+	margin-#{$omega}: $gutter-width;
 }
 
 BODY.sidebar-first #main DIV#content .inner {
@@ -19,7 +19,7 @@ BODY.sidebar-first #main DIV#content .inner {
 nav[role='navigation'] #user-menu SPAN.avatar {
 	float: $alpha;
 	width: 20px;
-	margin-#{$omega}: $gw;
+	margin-#{$omega}: $gutter-width;
 }
 
 
@@ -27,15 +27,16 @@ nav[role='navigation'] #user-menu SPAN.avatar {
 // ---------------------------------------
 
 // remove extra space at the top
-.report > header {
+.report > footer {
 	padding: 0;
 	margin: 0;
 }
 
 // stop container from collapsing
 // due to display: inline-block;
-// .report .report-content .report-media .container {
-// }
+.report .report-content .report-media .container .oembed-content {
+	display: block;
+}
 
 // clarify dropdown menu's edges 
 .dropdown-menu {

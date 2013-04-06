@@ -29,24 +29,6 @@
 // $classPrefix - Prefix for the classname we will generate and extend
 $classPrefix: "icon-" !default;
 
-// Apply font-face mixin
-//
-// $fontnames = ("font1 [font2 font3 ...]")
-//
-// Compatibility: untested
-@mixin apply-font-face($name: "FontAwesome", $file: "fontawesome-webfont", $path: "fontawesome" ) {
-  // @debug "including .woff, .ttf, .svg, and .eot versions of #{$name}";
-  @include font-face( 
-  $name,
-  font-files(
-    "#{$path}/#{$file}.woff", woff,
-    "#{$path}/#{$file}.ttf", truetype,
-    "#{$path}/#{$file}.svg##{font}", svg),
-    "#{$path}/#{$file}.eot",
-  normal,
-  normal);
-}
-
 // Icon Mixin
 //
 // Extends a preexisting selector like .icon-thumb-up for a given font or font family.
@@ -55,14 +37,6 @@ $classPrefix: "icon-" !default;
 // $set - the shorthand name of the set eg "fontawesome"
 // $size - the width and height of the icon
 // $font-name - Required for Foundicons: Specify one font from the family.
-// 
-// Example: 
-// span { @include icon('thumb-up', 'foundicons', '40px', 'social'); }
-// span { @include icon('thumb-up', 'foundicons', '40px', 'social', $greenish, $whitey); }
-// span { @include icon('twitter', 'fontawesome', '100px'); }
-// span { @include icon('twitter') } // same as above with default size
-//
-// Compatibility: Untested
 
 $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
 
@@ -79,17 +53,35 @@ $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
     font-size: $size;
     line-height: $size;
     color: $color;
-    @if $position == "after" { 
-      margin-#{$from-direction}: $gw; 
-    } @else {
-      margin-#{opposite-position($from-direction)}: $gw;  
-    }
+    margin: 0 $gutter-width/2;
     
     // 4. content (for any extra)
     @content;
   }
 }
 
+
+// Just for icons on words or elements, before or after
+@mixin social-icon($icon, $size: $default-icon-font-size, $color: "black", $position: "before", $margin: true) {  
+
+  &:#{$position} { 
+
+    font-family: "FontAwesomeSocial"; // 1. set the font name
+    
+    @extend %icon-#{$icon}:before; // 2. class selector with dynamic name w/ @extend'ed placeholder
+
+    // 3. basic layout
+    font-size: $size;
+    line-height: $size;
+    color: $color;
+    margin: 0 $gutter-width/2;
+    
+    // 4. content (for any extra)
+    @content;
+  }
+}
+
+// A small triangle, eg for dropdowns
 @mixin caret {
   @include icon('caret-down', 12px, white, 'after');
 }

@@ -1,0 +1,140 @@
+<?php
+/**
+ * @file
+ * Displays search results in a jQuery Masonry grid.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter() for search_admin_settings.
+ */
+function masonry_form_search_admin_settings_alter(&$form, &$form_state, $form_id) {
+  $settings = variable_get('masonry_search', masonry_default_options());
+
+  $form['masonry_search'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Masonry'),
+    '#tree' => TRUE,
+  );
+  $form['masonry_search']['masonry'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Masonry'),
+    '#description' => t("Display search results in a grid using the jQuery Masonry plugin."),
+    '#default_value' => $settings['masonry'],
+  );
+  if (($library = libraries_detect('masonry')) && !empty($library['installed'])) {
+    masonry_options_form($form['masonry_search'], $settings);
+    $form['masonry_search']['masonry_width_unit']['#states'] = array(
+      'visible' => array(
+        'input.form-checkbox[name$="masonry_search[masonry]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['masonry_search']['masonry_width_unit']['#prefix'] = '<div class="masonry-options" style="padding-left: 1.5em;">';
+    $form['masonry_search']['masonry_width']['#states'] = array(
+      'visible' => array(
+        'input.form-checkbox[name$="masonry_search[masonry]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['masonry_search']['masonry_animated']['#states'] = array(
+      'visible' => array(
+        'input.form-checkbox[name$="masonry_search[masonry]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['masonry_search']['masonry_animated_duration']['#states'] = array(
+      'visible' => array(
+        'input.form-checkbox[name$="masonry_search[masonry]"]' => array('checked' => TRUE),
+        'input.form-checkbox[name$="masonry_search[masonry_animated]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['masonry_search']['masonry_animated_duration']['#prefix'] = '<div class="masonry-options animation" style="padding-left: 1.5em;">';
+    $form['masonry_search']['masonry_animated_duration']['#suffix'] = '</div>';
+    $form['masonry_search']['masonry_resizable']['#states'] = array(
+      'visible' => array(
+        'input.form-checkbox[name$="masonry_search[masonry]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['masonry_search']['masonry_center']['#states'] = array(
+      'visible' => array(
+        'input.form-checkbox[name$="masonry_search[masonry]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['masonry_search']['masonry_gutter']['#states'] = array(
+      'visible' => array(
+        'input.form-checkbox[name$="masonry_search[masonry]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['masonry_search']['masonry_rtl']['#states'] = array(
+      'visible' => array(
+        'input.form-checkbox[name$="masonry_search[masonry]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['masonry_search']['masonry_rtl']['#suffix'] = '</div>';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for theme_search_results().
+ */
+function masonry_search_preprocess_search_results(&$variables) {
+  // Get settings
+  $settings = variable_get('masonry_search', masonry_default_options());
+
+  // Display search results in a jQuery Masonry grid
+  if (!empty($settings['masonry'])) {
+    if (($library = libraries_load('masonry')) && !empty($library['loaded'])) {
+      // Add default styling to make grids display properly out-of-the-box
+      $css_margin = ($settings['masonry_width_unit'] == 'px') ? '10px' : '2%';
+      $css_width = ($settings['masonry_width_unit'] == 'px') ? ($settings['masonry_width'] - 20) . 'px' : ($settings['masonry_width'] - 5) . '%';
+      $grid_styles = '
+        .search-results .search-result {
+          float: left;
+          margin: ' . $css_margin . ';
+          width: ' . $css_width . ';
+        }
+      ';
+      drupal_add_css($grid_styles, 'inline');
+      if ($settings['masonry_center']) {
+        $center_styles = '
+          .search-results .search-result {
+            margin: 0 auto;
+          }
+        ';
+        drupal_add_css($center_styles, 'inline');
+      }
+
+      // Get column width
+      if ($settings['masonry_width_unit'] == 'px') {
+        $column_width = (int) $settings['masonry_width'];
+      }
+      else {
+        $percentage = $settings['masonry_width'] / 100;
+        $column_width = 'function (containerWidth) {
+          return containerWidth * ' . $percentage . ';
+        }';
+      }
+
+      // Initialize Masonry
+      $script = '(function ($) {
+        var $container = $(".search-results");
+        $container.imagesLoaded(function () {
+          $container.masonry({
+            itemSelector: ".search-result",
+            columnWidth: ' . $column_width . ',
+            isAnimated: ' . $settings['masonry_animated'] . ',
+            animationOptions: {
+              duration: ' . (int) $settings['masonry_animated_duration'] . '
+            },
+            isResizable: ' . $settings['masonry_resizable'] . ',
+            isFitWidth: ' . $settings['masonry_center'] . ',
+            gutterWidth: ' . (int) $settings['masonry_gutter'] . ',
+            isRTL: ' . $settings['masonry_rtl'] . '
+          });
+        });
+      })(jQuery);';
+      drupal_add_js($script, array(
+        'type' => 'inline',
+        'scope' => 'footer',
+      ));
+    }
+  }
+}
+

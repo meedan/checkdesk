@@ -50,7 +50,17 @@
     <li id="filter-by" class="panel">
       <a href="#" class="panel-toggle"><?php print t('Filter'); ?> <span class="icon-caret-down"></span></a>
       <div class="panel-content">
-        <div class="tabbable tabs-left">
+
+        <?php 
+          global $language;
+          if ($language->direction == LANGUAGE_RTL) {
+            $tabs_direction = 'right';
+          } else {
+            $tabs_direction = 'left';
+          }
+        ?>
+
+        <div class="tabbable tabs-<?php print $tabs_direction; ?>">
           <ul class="nav nav-tabs">
             <?php foreach ($widgets as $id => $widget): ?>
               <li>
