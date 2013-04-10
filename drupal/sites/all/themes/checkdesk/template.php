@@ -510,7 +510,7 @@ function checkdesk_links__node($variables) {
         isset($links['checkdesk-share-google'])
     ) {
       // Share on
-      $output .= '<li class="share-on dropdown">';
+      $output .= '<li class="share-on dropup">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span>' . t('Share') . '</a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-share-facebook'])) {
@@ -531,7 +531,7 @@ function checkdesk_links__node($variables) {
         isset($links['flag-delete'])
     ) {
       // Flag as
-      $output .= '<li class="flag-as dropdown">';
+      $output .= '<li class="flag-as dropup">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span>' . t('Flag') . '</a>';
       $output .= '<ul class="dropdown-menu">';
 
