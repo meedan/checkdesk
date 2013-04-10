@@ -2122,6 +2122,10 @@ nav[role="navigation"] li.home a:before {
   content: "\f024";
 }
 
+nav[role="navigation"] a[href*="add/discussion"]:before {
+  content: "\f02b";
+}
+
 nav[role="navigation"] a#menu-submit-report:before {
   content: "\f02e";
 }
@@ -2201,10 +2205,6 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 
 #my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
   content: "\f0e5";
-}
-
-nav[role="navigation"] a[href*="add/discussion"]:before {
-  content: "\f0e7";
 }
 
 .report .report-content .icon-quote-left:before {
