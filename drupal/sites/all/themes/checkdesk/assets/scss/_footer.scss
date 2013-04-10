@@ -2,8 +2,6 @@
 
 #footer {
   @include ctb-clearfix;
-  width: 100%;
-  border-top: 1px solid lighten($grayLight, 20%);
   padding-top: $absolute-line-height/4;
   margin: $absolute-line-height*2 0 $absolute-line-height*4 0;
 
@@ -18,9 +16,9 @@
 
 }
 
-
-
-#footer-inner { 
+#footer-inner {
+  border-top: 1px solid lighten($grayLight, 20%);
+  padding: $absolute-line-height/4 0;
   ul {
     text-align: $from-direction;
     @include reset-box-model;
@@ -79,6 +77,8 @@
 // Small breakpoint
 @include at-breakpoint($break-small) {
   #footer {
+    @include span-columns($break-small - 2, $break-small, $gutter-width);
+    @include pad(1, 1, $break-small);
     #footer-menu, #information-menu {
       float: $from-direction;
       text-align: $from-direction;
@@ -89,6 +89,8 @@
 // Medium breakpoint
 @include at-breakpoint($break-medium) {
   #footer {
+    @include span-columns($break-medium - 4, $break-medium, $gutter-width);
+    @include pad(2, 2, $break-medium);
     #footer-menu {
       float: opposite-position($from-direction);
       text-align: opposite-position($from-direction);
