@@ -42924,6 +42924,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['221835c6d77464983f6d3b87cdfa1515'] = array(
+    'source' => '(Linked account)',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => '(حساب مرتبط)',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['b2f35d37cabc488b68b09e33fb536c4c'] = array(
+    'source' => '(Linked accounts)',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => '(حسابات مرتبطة)',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

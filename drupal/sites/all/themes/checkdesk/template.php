@@ -16,6 +16,9 @@ function checkdesk_theme() {
     'checkdesk_user_menu_item' => array(
       'variables' => array('attributes' => array(), 'type' => NULL),
     ),
+    'checkdesk_user_menu_content' => array(
+      'variables' => array('items' => array()),
+    ),
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),
@@ -182,15 +185,21 @@ function checkdesk_preprocess_page(&$variables) {
   foreach ($variables['secondary_menu'] as $id => $item) {
 
     if ($item['title'] === '<user>') {
-      if (user_is_logged_in()) {
-        $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
-      }
       foreach ($item['below'] as $subid => $subitem) {
         if ($subitem['link_path'] == 'user/login') {
           if (user_is_logged_in()) unset($variables['secondary_menu'][$id]['below'][$subid]);
           else $variables['secondary_menu'][$id] = $subitem;
         }
+      }
+      if (user_is_logged_in()) {
+        $variables['secondary_menu'][$id]['html'] = TRUE;
+        $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
+
+        $variables['secondary_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
+        $variables['secondary_menu'][$id]['attributes']['class'] = 'dropdown-toggle';
+        $variables['secondary_menu'][$id]['suffix'] = theme('checkdesk_user_menu_content', array('items' => $variables['secondary_menu'][$id]['below']));
+
+        unset($variables['secondary_menu'][$id]['below']);
       }
     }
 

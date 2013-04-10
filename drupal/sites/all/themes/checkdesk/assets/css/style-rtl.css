@@ -2188,7 +2188,7 @@ nav[role="navigation"] a#menu-submit-report:before {
   content: "\f075";
 }
 
-#widgets ul.elsewhere li span.icon-twitter:before {
+#my-account .info .linked-account .icon-twitter:before, #widgets ul.elsewhere li span.icon-twitter:before {
   content: "\f081";
 }
 
@@ -6358,7 +6358,7 @@ nav[role="navigation"] #user-menu li.first .dropdown-menu {
   right: -135px;
 }
 nav[role="navigation"] #user-menu li.last .dropdown-menu {
-  right: -75px;
+  right: -345px;
 }
 
 @media (min-width: 469px) {
@@ -6441,6 +6441,62 @@ div.region-page-top #toolbar div.toolbar-menu {
     padding-left: 8.42993%;
   }
 }
+#my-account {
+  width: 438px;
+  color: #595959;
+}
+#my-account .user-picture, #my-account .info, #my-account #account-menu {
+  float: right;
+  padding: 0 11px;
+}
+#my-account .user-picture {
+  width: 60px;
+  height: 60px;
+}
+#my-account .user-picture a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+#my-account .info {
+  max-width: 200px;
+}
+#my-account .info a.username {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #cccccc;
+  font-weight: bold;
+  font-size: 15.3px;
+}
+#my-account .info .linked-account .icon-twitter:before {
+  font-family: "FontAwesome";
+  font-size: 21.5px;
+  line-height: 21.5px;
+  color: #1d87c9;
+  margin: 0 5.5px;
+}
+#my-account .info .linked-account .icon-twitter:before {
+  margin: 0;
+}
+#my-account .info .linked-account a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: inline;
+  color: black;
+}
+#my-account .info .linked-account small {
+  font-size: 13.5px;
+  color: #cccccc;
+}
+#my-account .info .bio {
+  word-wrap: break-word;
+}
+#my-account #account-menu {
+  float: left;
+}
+
 div.tabs {
   margin: 0;
   padding: 0;

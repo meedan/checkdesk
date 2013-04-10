@@ -122,8 +122,8 @@
         margin: 0 -$gutter-width/3;
         height: 25px;
         vertical-align: top;
-        &.icon-facebook  { @include icon(facebook-sign, 40px, $facebook-blue); } 
-        &.icon-twitter  { @include icon(twitter-sign, 40px, $twitter-blue); }
+        &.icon-facebook  { @include icon("facebook-sign", 40px, $facebook-blue); } 
+        &.icon-twitter  { @include icon("twitter-sign", 40px, $twitter-blue); }
         // social icons seem to be larger
         &.icon-youtube  { 
           @include social-icon(youtube, 35px, $red); 
