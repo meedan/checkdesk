@@ -19,7 +19,7 @@ $icon-position: 'before';
   }
   // add a story 
   a[href*="add/discussion"] { 
-    @include icon("bolt", $size, $color, $icon-position);
+    @include icon("tag", $size, $color, $icon-position);
   }
   // home
   li.home a { 
