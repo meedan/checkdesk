@@ -3511,6 +3511,7 @@ textarea {
   opacity: 0.4;
 }
 
+.dropup,
 .dropdown {
   position: relative;
 }
@@ -3572,6 +3573,12 @@ textarea {
   color: white;
 }
 
+.dropup .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+
 .dropdown-menu li > a:hover,
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover > a {
@@ -3615,6 +3622,18 @@ textarea {
   top: 0;
   left: 100%;
   right: auto;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.dropup .dropdown-submenu > .dropdown-menu {
+  top: auto;
+  bottom: 0;
+  margin-top: 0;
+  margin-bottom: -2px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;

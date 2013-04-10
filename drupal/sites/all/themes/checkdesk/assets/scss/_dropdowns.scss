@@ -5,6 +5,7 @@
 // ... is not in the current spec.
 // .caret { @include caret; }
 
+.dropup,
 .dropdown {
   position: relative;
 }
@@ -60,6 +61,13 @@
   }
 }
 
+// Drop up menus
+.dropup .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+
 // Hover state
 .dropdown-menu li > a:hover,
 .dropdown-menu li > a:focus,
@@ -113,6 +121,13 @@
   top: 0;
   #{$from-direction}: 100%;
   #{$omega-float}: auto;
+  @include border-radius($radius);
+}
+.dropup .dropdown-submenu > .dropdown-menu {
+  top: auto;
+  bottom: 0;
+  margin-top: 0;
+  margin-bottom: -2px;
   @include border-radius($radius);
 }
 

@@ -560,7 +560,7 @@ function checkdesk_links__node($variables) {
         isset($links['flag-graphic_journalist'])
     ) {
       // Add to
-      $output .= '<li class="add-to dropdown">';
+      $output .= '<li class="add-to dropup">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-reorder">&nbsp;</span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
