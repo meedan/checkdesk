@@ -95,7 +95,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-49',
-    'uuid' => '90119a03-9ff0-9324-11f8-f501ab2a5135',
+    'uuid' => '66b64d10-0eef-f9b4-f112-8489755c1511',
     'language' => 'und',
     'customized' => '1',
     'parent_path' => '<sub>',
@@ -179,7 +179,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '50',
-    'uuid' => '50e68ce2-956c-6f64-1914-5e6a93778baf',
+    'uuid' => '0c6f9710-578a-31d4-c5ff-c18dbed4db89',
     'language' => 'und',
     'customized' => '1',
     'parent_path' => '<sub>',
@@ -407,28 +407,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'und',
     'customized' => '1',
   );
-  // Exported menu link: menu-information:modal/ajax/content/about
-  $menu_links['menu-information:modal/ajax/content/about'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/about',
-    'router_path' => 'modal/%',
-    'link_title' => 'About this site',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'About this site',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-48',
-    'uuid' => '567a9623-1ab2-3fd4-ddf8-ccaffafffa37',
-    'language' => 'en',
-    'customized' => '1',
-  );
   // Exported menu link: menu-information:modal/ajax/content/fact-checking-statement
   $menu_links['menu-information:modal/ajax/content/fact-checking-statement'] = array(
     'menu_name' => 'menu-information',
@@ -517,42 +495,18 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'ar',
     'customized' => '1',
   );
-  // Exported menu link: menu-information:modal/ajax/content/عن-الموقع
-  $menu_links['menu-information:modal/ajax/content/عن-الموقع'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/عن-الموقع',
-    'router_path' => 'modal/%',
-    'link_title' => 'عن الموقع',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-47',
-    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
-    'language' => 'ar',
-    'customized' => '1',
-  );
   // Translatables
   // Included for use with string extractors like potx.
   t('...');
   t('<user>');
-  t('About');
-  t('About this site');
   t('Administer users');
+  t('Bookmarklet');
   t('Compose update');
   t('Create story');
   t('Edit fact-checking statement');
   t('Fact-checking statement');
   t('Home');
   t('Information');
-  t('Install bookmarklet');
   t('Logout');
   t('My account');
   t('Notifications');
@@ -562,11 +516,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Supported by Meedan');
   t('Terms of Use');
   t('View incoming citizen reports');
+  t('إضافة المتصفح');
   t('بيان التحقق من صحة المعلومات');
-  t('تنصيب إضافة المتصفح');
-  t('حول');
   t('شروط الاستخدام');
-  t('عن الموقع');
 
 
   return $menu_links;

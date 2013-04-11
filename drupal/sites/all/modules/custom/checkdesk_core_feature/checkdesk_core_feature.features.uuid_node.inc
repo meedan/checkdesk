@@ -25,7 +25,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'tnid' => '153',
   'translate' => '0',
   'uuid' => '07d83a6f-e26f-4dd6-9002-a7730dc6250f',
-  'revision_uid' => '1',
+  'revision_uid' => '0',
   'body' => array(
     'und' => array(
       0 => array(
@@ -373,6 +373,10 @@ function checkdesk_core_feature_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => '0',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '0',
+  'comment_count' => '0',
   'name' => '',
   'picture' => '0',
   'data' => NULL,
@@ -473,6 +477,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => '0',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '0',
+  'comment_count' => '0',
   'name' => '',
   'picture' => '0',
   'data' => NULL,
@@ -866,6 +874,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => '0',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '0',
+  'comment_count' => '0',
   'name' => '',
   'picture' => '0',
   'data' => NULL,
@@ -873,7 +885,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 );
   $nodes[] = array(
   'uid' => '0',
-  'title' => 'عن الموقع',
+  'title' => 'عن checkdesk',
   'log' => '',
   'status' => '1',
   'comment' => '1',
@@ -890,10 +902,65 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>To be added.</p>',
+        'value' => '<div class="static about">
+
+<h2>Checkdesk: toolkit for fact-checking social media</h2>
+
+<p>Checkdesk is a toolkit for investigating news reports circulating on social media designed for low resource newsrooms in the Middle East and North Africa that do not have a dedicated fact checker. Checkdesk is developed by Meedan, a tech non-profit organization based in San Francisco.</p>
+
+<p>The project and aims to contribute to pluralizing Arab media and improving the investigative quality of the region&rsquo;s citizen journalism. Checkdesk is a multi-year project combining research, open curriculum and trainings, and content creation through a network of media partners supported to use Checkdesk to do investigative liveblogging of the day&rsquo;s events in the MENA.</p>
+
+<h2>How does the technology work?</h2>
+
+<p>Checkdesk provides a complete fact-checking workflow for the digital newsroom. With Checkdesk, you can:</p>
+
+	<ul>
+
+		<li>quickly gather citizen media reports (youtube videos, tweets, blog posts) using a bookmarklet</li>
+
+		<li>embed and cross-reference these citizen media reports in story pages</li>
+
+		<li>assign customizable verification statuses to each embedded citizen media report (such as &lsquo;in review&rsquo; or &lsquo;verified&rsquo;)</li>
+
+		<li>annotate the citizen media report with fact-checking footnotes, providing a transparent history of scrutiny applied to investigate it which readers can engage with</li>
+
+		<li>share out the work you do as a shortlink or embed</li>
+
+		<li>maintain a database of citizen media sources that can be referenced when a future story breaks, to ascertain whether a source has provided reliable information in the past</li>
+
+	</ul>
+
+<h2>Why is Meedan working on this?</h2>
+
+<p>The pursuit of the truth is at the core of journalistic practice, and essential for functioning civil society. Meedan will support civil society by strengthening fragile news ecosystems with stronger and more trustworthy news outlets that struggle against limited resources and limited time.</p>
+
+<p>Checkdesk helps these news outlets improve their editorial rigor and community participation without unsustainable cost burden; journalists can better tell the story and better engage their community around it.</p>
+
+<h2>Who are our project partners?</h2>
+
+<p>Meedan is a network of technologists and designers working on social change issues out of Cairo, San Francisco, Beirut and London. We are developing Checkdesk with grassroots media collectives in the Arab region, including Sa7afet Welad El Balad (Egypt), 7iber (Jordan), Nahar Ashabab (Lebanon), Mamfakinch (Morocco) and Ma&rsquo;an Network (Palestine). Our research and curriculum partner on the project is Birmingham City University. The project is funded by the Arab Partnerships fund, Sida and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can read more on our blog http://meedan.org/category/checkdesk/.</p>
+
+</div>',
         'summary' => '',
         'format' => 'full_html',
-        'safe_value' => '<p>To be added.</p>
+        'safe_value' => '<div class="static about">
+<h2>Checkdesk: toolkit for fact-checking social media</h2>
+<p>Checkdesk is a toolkit for investigating news reports circulating on social media designed for low resource newsrooms in the Middle East and North Africa that do not have a dedicated fact checker. Checkdesk is developed by Meedan, a tech non-profit organization based in San Francisco.</p>
+<p>The project and aims to contribute to pluralizing Arab media and improving the investigative quality of the region’s citizen journalism. Checkdesk is a multi-year project combining research, open curriculum and trainings, and content creation through a network of media partners supported to use Checkdesk to do investigative liveblogging of the day’s events in the MENA.</p>
+<h2>How does the technology work?</h2>
+<p>Checkdesk provides a complete fact-checking workflow for the digital newsroom. With Checkdesk, you can:</p>
+<ul><li>quickly gather citizen media reports (youtube videos, tweets, blog posts) using a bookmarklet</li>
+<li>embed and cross-reference these citizen media reports in story pages</li>
+<li>assign customizable verification statuses to each embedded citizen media report (such as ‘in review’ or ‘verified’)</li>
+<li>annotate the citizen media report with fact-checking footnotes, providing a transparent history of scrutiny applied to investigate it which readers can engage with</li>
+<li>share out the work you do as a shortlink or embed</li>
+<li>maintain a database of citizen media sources that can be referenced when a future story breaks, to ascertain whether a source has provided reliable information in the past</li>
+</ul><h2>Why is Meedan working on this?</h2>
+<p>The pursuit of the truth is at the core of journalistic practice, and essential for functioning civil society. Meedan will support civil society by strengthening fragile news ecosystems with stronger and more trustworthy news outlets that struggle against limited resources and limited time.</p>
+<p>Checkdesk helps these news outlets improve their editorial rigor and community participation without unsustainable cost burden; journalists can better tell the story and better engage their community around it.</p>
+<h2>Who are our project partners?</h2>
+<p>Meedan is a network of technologists and designers working on social change issues out of Cairo, San Francisco, Beirut and London. We are developing Checkdesk with grassroots media collectives in the Arab region, including Sa7afet Welad El Balad (Egypt), 7iber (Jordan), Nahar Ashabab (Lebanon), Mamfakinch (Morocco) and Ma’an Network (Palestine). Our research and curriculum partner on the project is Birmingham City University. The project is funded by the Arab Partnerships fund, Sida and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can read more on our blog <a href="http://meedan.org/category/checkdesk/">http://meedan.org/category/checkdesk/</a>.</p>
+</div>
 ',
         'safe_summary' => '',
       ),
@@ -955,6 +1022,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => '0',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '0',
+  'comment_count' => '0',
   'name' => '',
   'picture' => '0',
   'data' => NULL,
@@ -1076,6 +1147,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => '0',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '0',
+  'comment_count' => '0',
   'name' => '',
   'picture' => '0',
   'data' => NULL,
@@ -1176,6 +1251,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => '0',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '0',
+  'comment_count' => '0',
   'name' => '',
   'picture' => '0',
   'data' => NULL,
@@ -1183,7 +1262,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 );
   $nodes[] = array(
   'uid' => '0',
-  'title' => 'About',
+  'title' => 'About Checkdesk',
   'log' => '',
   'status' => '1',
   'comment' => '1',
@@ -1196,14 +1275,69 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => '155',
   'translate' => '0',
   'uuid' => 'd3c58330-cc88-4e2c-8cc5-e60c4cac0803',
-  'revision_uid' => '0',
+  'revision_uid' => '1',
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>To be added.</p>',
+        'value' => '<div class="static about">
+
+<h2>Checkdesk: toolkit for fact-checking social media</h2>
+
+<p>Checkdesk is a toolkit for investigating news reports circulating on social media designed for low resource newsrooms in the Middle East and North Africa that do not have a dedicated fact checker. Checkdesk is developed by Meedan, a tech non-profit organization based in San Francisco.</p>
+
+<p>The project and aims to contribute to pluralizing Arab media and improving the investigative quality of the region&rsquo;s citizen journalism. Checkdesk is a multi-year project combining research, open curriculum and trainings, and content creation through a network of media partners supported to use Checkdesk to do investigative liveblogging of the day&rsquo;s events in the MENA.</p>
+
+<h2>How does the technology work?</h2>
+
+<p>Checkdesk provides a complete fact-checking workflow for the digital newsroom. With Checkdesk, you can:</p>
+
+	<ul>
+
+		<li>quickly gather citizen media reports (youtube videos, tweets, blog posts) using a bookmarklet</li>
+
+		<li>embed and cross-reference these citizen media reports in story pages</li>
+
+		<li>assign customizable verification statuses to each embedded citizen media report (such as &lsquo;in review&rsquo; or &lsquo;verified&rsquo;)</li>
+
+		<li>annotate the citizen media report with fact-checking footnotes, providing a transparent history of scrutiny applied to investigate it which readers can engage with</li>
+
+		<li>share out the work you do as a shortlink or embed</li>
+
+		<li>maintain a database of citizen media sources that can be referenced when a future story breaks, to ascertain whether a source has provided reliable information in the past</li>
+
+	</ul>
+
+<h2>Why is Meedan working on this?</h2>
+
+<p>The pursuit of the truth is at the core of journalistic practice, and essential for functioning civil society. Meedan will support civil society by strengthening fragile news ecosystems with stronger and more trustworthy news outlets that struggle against limited resources and limited time.</p>
+
+<p>Checkdesk helps these news outlets improve their editorial rigor and community participation without unsustainable cost burden; journalists can better tell the story and better engage their community around it.</p>
+
+<h2>Who are our project partners?</h2>
+
+<p>Meedan is a network of technologists and designers working on social change issues out of Cairo, San Francisco, Beirut and London. We are developing Checkdesk with grassroots media collectives in the Arab region, including Sa7afet Welad El Balad (Egypt), 7iber (Jordan), Nahar Ashabab (Lebanon), Mamfakinch (Morocco) and Ma&rsquo;an Network (Palestine). Our research and curriculum partner on the project is Birmingham City University. The project is funded by the Arab Partnerships fund, Sida and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can read more on our blog http://meedan.org/category/checkdesk/.</p>
+
+</div>',
         'summary' => '',
         'format' => 'full_html',
-        'safe_value' => '<p>To be added.</p>
+        'safe_value' => '<div class="static about">
+<h2>Checkdesk: toolkit for fact-checking social media</h2>
+<p>Checkdesk is a toolkit for investigating news reports circulating on social media designed for low resource newsrooms in the Middle East and North Africa that do not have a dedicated fact checker. Checkdesk is developed by Meedan, a tech non-profit organization based in San Francisco.</p>
+<p>The project and aims to contribute to pluralizing Arab media and improving the investigative quality of the region’s citizen journalism. Checkdesk is a multi-year project combining research, open curriculum and trainings, and content creation through a network of media partners supported to use Checkdesk to do investigative liveblogging of the day’s events in the MENA.</p>
+<h2>How does the technology work?</h2>
+<p>Checkdesk provides a complete fact-checking workflow for the digital newsroom. With Checkdesk, you can:</p>
+<ul><li>quickly gather citizen media reports (youtube videos, tweets, blog posts) using a bookmarklet</li>
+<li>embed and cross-reference these citizen media reports in story pages</li>
+<li>assign customizable verification statuses to each embedded citizen media report (such as ‘in review’ or ‘verified’)</li>
+<li>annotate the citizen media report with fact-checking footnotes, providing a transparent history of scrutiny applied to investigate it which readers can engage with</li>
+<li>share out the work you do as a shortlink or embed</li>
+<li>maintain a database of citizen media sources that can be referenced when a future story breaks, to ascertain whether a source has provided reliable information in the past</li>
+</ul><h2>Why is Meedan working on this?</h2>
+<p>The pursuit of the truth is at the core of journalistic practice, and essential for functioning civil society. Meedan will support civil society by strengthening fragile news ecosystems with stronger and more trustworthy news outlets that struggle against limited resources and limited time.</p>
+<p>Checkdesk helps these news outlets improve their editorial rigor and community participation without unsustainable cost burden; journalists can better tell the story and better engage their community around it.</p>
+<h2>Who are our project partners?</h2>
+<p>Meedan is a network of technologists and designers working on social change issues out of Cairo, San Francisco, Beirut and London. We are developing Checkdesk with grassroots media collectives in the Arab region, including Sa7afet Welad El Balad (Egypt), 7iber (Jordan), Nahar Ashabab (Lebanon), Mamfakinch (Morocco) and Ma’an Network (Palestine). Our research and curriculum partner on the project is Birmingham City University. The project is funded by the Arab Partnerships fund, Sida and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can read more on our blog <a href="http://meedan.org/category/checkdesk/">http://meedan.org/category/checkdesk/</a>.</p>
+</div>
 ',
         'safe_summary' => '',
       ),
@@ -1265,6 +1399,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => '0',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '0',
+  'comment_count' => '0',
   'name' => '',
   'picture' => '0',
   'data' => NULL,
@@ -1354,6 +1492,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => '0',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '0',
+  'comment_count' => '0',
   'name' => '',
   'picture' => '0',
   'data' => NULL,
