@@ -170,7 +170,9 @@ function _checkdesk_modal_report_view($js = FALSE) {
   $nid = arg(2);
   $node = node_load($nid);
   $title = $node->title;
-  $output = drupal_render(node_view($node));
+  $element = node_view($node);
+  $element['comments'] = comment_node_page_additions($node);
+  $output = drupal_render($element);
   if ($js) {
     ctools_modal_render($title, $output);
   }
