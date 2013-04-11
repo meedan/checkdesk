@@ -42357,6 +42357,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['e5d719f86ee493c114733a0a11c24d39'] = array(
+    'source' => 'Fact-checking has been enabled for this report.',
+    'context' => '',
+    'location' => '/ar/flag/flag/factcheck_journalist/236?destination=reports&token=cq66hVGBpwEbqZAoxwlCaVuAIJUzr17bkL6XpEe40Pg',
+    'translation' => ' تم تفعيل التحقق من صحة المعلومات لهذا التقرير. ',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['43feddfadcf43c89803b22ba40ee5986'] = array(
     'source' => 'Fact-checking turned on',
     'context' => '',
@@ -42450,6 +42458,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => '!username قال: <span class="message">!comment</span>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['3b82f0c7192c815f86c748b4484ac301'] = array(
+    'source' => 'Sorry, Facebook won\'t allow you to re-post content that isn\'t public. Try using a publicly accessible post, or request that your friend make the post public on Facebook.',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'عذراً، فيسبوك لا يسمح لك بإعادة نشر المواد الخاصة. يرجى أن تستخدم مادة علنية أو أن تطلب من صديقك أن يجعل المادة التي تريد نشرها متوفرة بشكل علني.',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42852,6 +42868,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['ee963958604481ddd9c7ebbb70085461'] = array(
+    'source' => 'All related updates will be deleted. Are you sure you want to proceed?',
+    'context' => '',
+    'location' => '/ar/node/844/delete?destination=node/844',
+    'translation' => 'سيتم حذف جميع التحديثات المرتبطة! هل أنت متأكد من أنك تريد الحذف؟ ',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['0c2121748fdfc651777c6bc2c03bf36d'] = array(
     'source' => '<a href="!url">@count more updates</a> related to <a href="!url">this story</a>. <a href="!url">View all</a>',
     'context' => '',
@@ -42937,6 +42961,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar/node/add/post',
     'translation' => '(حسابات مرتبطة)',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['7248e6b7a1b678f934387ac926f35d0d'] = array(
+    'source' => '@count[2] more updates',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/views/ajax',
+    'translation' => '@count[2] تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['25fb730a57af7d0f5227abacec2fd493'] = array(
+    'source' => '@count[4] more updates',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/',
+    'translation' => '@count[4] تحديثات أخرى',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43156,19 +43196,27 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
-  $translations['ar:menu']['69d78890b1558047d9382ff73d0c97ef'] = array(
-    'source' => 'Administer users',
-    'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
-    'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
-    'translation' => 'إدارة المستخدمين',
-    'plid' => '0',
-    'plural' => '0',
-  );
   $translations['ar:menu']['20ddd7b5fb8ad343dd15bb0090952c4e'] = array(
     'source' => 'Edit fact-checking statement',
     'context' => 'item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
     'location' => 'menu:item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
     'translation' => 'حرر بيان التحقق من صحة المعلومات',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['f393532105cccbcbe65e22c46b0e461c'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
+    'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['69d78890b1558047d9382ff73d0c97ef'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'translation' => 'إدارة المستخدمين',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43193,14 +43241,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
     'location' => 'menu:item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
     'translation' => 'أنشئ خبر',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:menu']['f393532105cccbcbe65e22c46b0e461c'] = array(
-    'source' => 'Administer users',
-    'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
-    'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
-    'translation' => 'إدارة المستخدمين',
     'plid' => '0',
     'plural' => '0',
   );
