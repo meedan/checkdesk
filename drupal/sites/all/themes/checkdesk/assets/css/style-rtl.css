@@ -2147,6 +2147,10 @@ nav[role="navigation"] li.home a:before {
   content: "\f024";
 }
 
+nav[role="navigation"] a[href*="add/discussion"]:before {
+  content: "\f02b";
+}
+
 nav[role="navigation"] a#menu-submit-report:before {
   content: "\f02e";
 }
@@ -2184,7 +2188,7 @@ nav[role="navigation"] a#menu-submit-report:before {
   content: "\f075";
 }
 
-#widgets ul.elsewhere li span.icon-twitter:before {
+#my-account .info .linked-account .icon-twitter:before, #widgets ul.elsewhere li span.icon-twitter:before {
   content: "\f081";
 }
 
@@ -2226,10 +2230,6 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 
 #my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
   content: "\f0e5";
-}
-
-nav[role="navigation"] a[href*="add/discussion"]:before {
-  content: "\f0e7";
 }
 
 .report .report-content .icon-quote-left:before {
@@ -3536,6 +3536,7 @@ textarea {
   opacity: 0.4;
 }
 
+.dropup,
 .dropdown {
   position: relative;
 }
@@ -3597,6 +3598,12 @@ textarea {
   color: white;
 }
 
+.dropup .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+
 .dropdown-menu li > a:hover,
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover > a {
@@ -3640,6 +3647,18 @@ textarea {
   top: 0;
   right: 100%;
   left: auto;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.dropup .dropdown-submenu > .dropdown-menu {
+  top: auto;
+  bottom: 0;
+  margin-top: 0;
+  margin-bottom: -2px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -3717,7 +3736,7 @@ textarea {
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 400px;
+  max-height: 510px;
 }
 .modal-body .modal-content {
   position: relative;
@@ -4578,8 +4597,6 @@ div.tabs ul.primary li a {
 
 #footer {
   *zoom: 1;
-  width: 100%;
-  border-top: 1px solid #cccccc;
   padding-top: 7.2px;
   margin: 57.6px 0 115.2px 0;
 }
@@ -4600,6 +4617,10 @@ div.tabs ul.primary li a {
   text-align: right;
 }
 
+#footer-inner {
+  border-top: 1px solid #cccccc;
+  padding: 7.2px 0;
+}
 #footer-inner ul {
   text-align: right;
   margin: 0;
@@ -4651,12 +4672,30 @@ div.tabs ul.primary li a {
 }
 
 @media (min-width: 469px) {
+  #footer {
+    padding-right: 2.34542%;
+    padding-left: 2.34542%;
+    width: 78.2516%;
+    float: right;
+    margin-left: 2.34542%;
+    padding-right: 8.52878%;
+    padding-left: 8.52878%;
+  }
   #footer #footer-menu, #footer #information-menu {
     float: right;
     text-align: right;
   }
 }
 @media (min-width: 949px) {
+  #footer {
+    padding-right: 1.15911%;
+    padding-left: 1.15911%;
+    width: 80.82192%;
+    float: right;
+    margin-left: 1.15911%;
+    padding-right: 8.42993%;
+    padding-left: 8.42993%;
+  }
   #footer #footer-menu {
     float: left;
     text-align: left;
@@ -4736,10 +4775,6 @@ div.tabs ul.primary li a {
 }
 .report:after {
   clear: both;
-}
-.modal .report {
-  max-width: 380px;
-  margin-right: 22px;
 }
 .report a {
   color: #595959;
@@ -6343,7 +6378,7 @@ nav[role="navigation"] #user-menu li.first .dropdown-menu {
   right: -135px;
 }
 nav[role="navigation"] #user-menu li.last .dropdown-menu {
-  right: -75px;
+  right: -345px;
 }
 
 @media (min-width: 469px) {
@@ -6426,6 +6461,62 @@ div.region-page-top #toolbar div.toolbar-menu {
     padding-left: 8.42993%;
   }
 }
+#my-account {
+  width: 438px;
+  color: #595959;
+}
+#my-account .user-picture, #my-account .info, #my-account #account-menu {
+  float: right;
+  padding: 0 11px;
+}
+#my-account .user-picture {
+  width: 60px;
+  height: 60px;
+}
+#my-account .user-picture a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+#my-account .info {
+  max-width: 200px;
+}
+#my-account .info a.username {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #cccccc;
+  font-weight: bold;
+  font-size: 15.3px;
+}
+#my-account .info .linked-account .icon-twitter:before {
+  font-family: "FontAwesome";
+  font-size: 21.5px;
+  line-height: 21.5px;
+  color: #1d87c9;
+  margin: 0 5.5px;
+}
+#my-account .info .linked-account .icon-twitter:before {
+  margin: 0;
+}
+#my-account .info .linked-account a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: inline;
+  color: black;
+}
+#my-account .info .linked-account small {
+  font-size: 13.5px;
+  color: #cccccc;
+}
+#my-account .info .bio {
+  word-wrap: break-word;
+}
+#my-account #account-menu {
+  float: left;
+}
+
 div.tabs {
   margin: 0;
   padding: 0;

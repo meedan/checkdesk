@@ -16,6 +16,9 @@ function checkdesk_theme() {
     'checkdesk_user_menu_item' => array(
       'variables' => array('attributes' => array(), 'type' => NULL),
     ),
+    'checkdesk_user_menu_content' => array(
+      'variables' => array('items' => array()),
+    ),
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),
@@ -182,15 +185,21 @@ function checkdesk_preprocess_page(&$variables) {
   foreach ($variables['secondary_menu'] as $id => $item) {
 
     if ($item['title'] === '<user>') {
-      if (user_is_logged_in()) {
-        $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
-      }
       foreach ($item['below'] as $subid => $subitem) {
         if ($subitem['link_path'] == 'user/login') {
           if (user_is_logged_in()) unset($variables['secondary_menu'][$id]['below'][$subid]);
           else $variables['secondary_menu'][$id] = $subitem;
         }
+      }
+      if (user_is_logged_in()) {
+        $variables['secondary_menu'][$id]['html'] = TRUE;
+        $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
+
+        $variables['secondary_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
+        $variables['secondary_menu'][$id]['attributes']['class'] = 'dropdown-toggle';
+        $variables['secondary_menu'][$id]['suffix'] = theme('checkdesk_user_menu_content', array('items' => $variables['secondary_menu'][$id]['below']));
+
+        unset($variables['secondary_menu'][$id]['below']);
       }
     }
 
@@ -510,7 +519,7 @@ function checkdesk_links__node($variables) {
         isset($links['checkdesk-share-google'])
     ) {
       // Share on
-      $output .= '<li class="share-on dropdown">';
+      $output .= '<li class="share-on dropup">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span>' . t('Share') . '</a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-share-facebook'])) {
@@ -531,7 +540,7 @@ function checkdesk_links__node($variables) {
         isset($links['flag-delete'])
     ) {
       // Flag as
-      $output .= '<li class="flag-as dropdown">';
+      $output .= '<li class="flag-as dropup">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span>' . t('Flag') . '</a>';
       $output .= '<ul class="dropdown-menu">';
 
@@ -560,7 +569,7 @@ function checkdesk_links__node($variables) {
         isset($links['flag-graphic_journalist'])
     ) {
       // Add to
-      $output .= '<li class="add-to dropdown">';
+      $output .= '<li class="add-to dropup">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-reorder">&nbsp;</span></a>';
       $output .= '<ul class="dropdown-menu">';
       if (isset($links['checkdesk-suggest'])) {
@@ -852,29 +861,8 @@ function checkdesk_preprocess_views_view(&$vars) {
 
 /* Desk Reports */
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
-  if($vars['display_id'] == 'block') {
-    ctools_include('modal');
-    ctools_modal_add_js();
-    $modal_style = array(
-      'modal-popup-report' => array(
-        'modalSize' => array(
-          'type' => 'fixed',
-          'width' => 450,
-          'height' => 400,
-          'addWidth' => 0,
-          'addHeight' => 0
-        ),
-        'modalOptions' => array(
-          'opacity' => .5,
-          'background-color' => '#000',
-        ),
-        'animation' => 'show',
-        'animationSpeed' => 40,
-        'modalTheme' => 'CToolsModalDialog',
-        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
-      ),
-    );
-    drupal_add_js($modal_style, 'setting');
+  if ($vars['display_id'] == 'block') {
+    _checkdesk_ensure_reports_modal_js();
   }
 }
 
@@ -882,27 +870,30 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
 function checkdesk_preprocess_views_view__reports(&$vars) {
   // add masonry library
   drupal_add_js(drupal_get_path('theme', 'checkdesk') .'/assets/js/libs/jquery.masonry.min.js', 'file', array('group' => JS_THEME, 'every_page' => FALSE));
-  ctools_include('modal');
-    ctools_modal_add_js();
-    $modal_style = array(
-      'modal-popup-report' => array(
-        'modalSize' => array(
-          'type' => 'fixed',
-          'width' => 450,
-          'height' => 400,
-          'addWidth' => 0,
-          'addHeight' => 0
-        ),
-        'modalOptions' => array(
-          'opacity' => .5,
-          'background-color' => '#000',
-        ),
-        'animation' => 'show',
-        'animationSpeed' => 40,
-        'modalTheme' => 'CToolsModalDialog',
-        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
-      ),
-    );
-    drupal_add_js($modal_style, 'setting');
+  _checkdesk_ensure_reports_modal_js();
 }
 
+function _checkdesk_ensure_reports_modal_js() {
+  ctools_include('modal');
+  ctools_modal_add_js();
+  $modal_style = array(
+    'modal-popup-report' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 768,
+        'height' => 540,
+        'addWidth' => 0,
+        'addHeight' => 0
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'show',
+      'animationSpeed' => 40,
+      'modalTheme' => 'CToolsModalDialog',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+    ),
+  );
+  drupal_add_js($modal_style, 'setting');
+}

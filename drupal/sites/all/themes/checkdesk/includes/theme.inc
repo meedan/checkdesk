@@ -74,6 +74,10 @@ function checkdesk_checkdesk_links($variables) {
 
       $output .= '<li' . drupal_attributes(array('class' => $attributes['class'])) . '>';
 
+      if (!empty($link['prefix'])) {
+        $output .= $link['prefix'];
+      }
+
       if (isset($link['class'])) {
         if (!isset($link['attributes']['class'])) $link['attributes']['class'] = array();
         $link['attributes']['class'] = array_merge($link['attributes']['class'], $link['class']);
@@ -118,6 +122,10 @@ function checkdesk_checkdesk_links($variables) {
       }
 
       $i++;
+
+      if (!empty($link['suffix'])) {
+        $output .= $link['suffix'];
+      }
 
       if(count($children) > 0) {
         $attributes = array();

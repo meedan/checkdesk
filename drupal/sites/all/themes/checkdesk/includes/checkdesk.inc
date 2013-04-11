@@ -36,30 +36,86 @@ function checkdesk_menu_navigation_links($tree, $lvl = 0) {
  * theme_checkdesk_user_menu_item
  */
 function checkdesk_checkdesk_user_menu_item($variables) {
+  global $user;
+
   $type_class = '';
+
   // Type class
-  if(isset($variables['type']))
-	$type_class = ' btn-'. $variables['type'];
-  
+  if (isset($variables['type'])) {
+    $type_class = ' btn-'. $variables['type'];
+  }
+
   // Start markup
   $output = '<span'. drupal_attributes($variables['attributes']) .'>';
 
-  // Show user 
-  global $user;
-  if(!empty($user->picture)) {
+  // Show user
+  if (!empty($user->picture)) {
     $user_avatar = theme('image_style', array('path' => file_load($user->picture)->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar'));
     $output .= '<span class="avatar">' . $user_avatar . '</span> ';
   }
   $output .= check_plain($user->name);
-  
-  // Finish markup 	
-  $output .= '
-  <span class="caret"></span>
-	</a>
-  </span>';
-  
+
+  // Finish markup
+  $output .= '<span class="caret"></span>';
+  $output .= '</span>';
+
   return $output;
-} 
+}
+
+/**
+ * theme_checkdesk_user_menu_content
+ */
+function checkdesk_checkdesk_user_menu_content($variables) {
+  // Need to load the full account to get access to all fields
+  $account = user_load($GLOBALS['user']->uid);
+
+  $items = $variables['items'];
+
+  $linked_accounts = '';
+  if ($account->twitter_accounts) {
+    $linked_accounts .= '<span class="icon-twitter"></span> ';
+
+    $to_join = array();
+    foreach ($account->twitter_accounts as $twitter_account) {
+      // See: http://stackoverflow.com/a/8920821/806988
+      $to_join[] = l(
+        '@' . $twitter_account->screen_name,
+        'https://twitter.com/account/redirect_by_id?id=' . $twitter_account->id,
+        array(
+          'attributes' => array('class' => array('twitter-name'))
+        )
+      );
+    }
+    $linked_accounts .= implode(', ', $to_join);
+
+    $linked_accounts .= ' <small>';
+    $linked_accounts .=   format_plural(count($account->twitter_accounts), '(Linked account)', '(Linked accounts)');
+    $linked_accounts .= '</small>';
+  }
+
+  $bio = $account->field_bio ? $account->field_bio[LANGUAGE_NONE][0]['safe_value'] : '';
+
+  $account_menu = theme('checkdesk_links', array(
+    'links' => $variables['items'],
+    'attributes' => array(
+      'id' => 'account-menu',
+    ),
+    'heading' => NULL,
+  ));
+
+  $output  = '';
+  $output .= '<div id="my-account" class="dropdown-menu">';
+  $output .=   theme('user_picture', array('account' => $account));
+  $output .=   '<div class="info">';
+  $output .=     theme('username', array('account' => $account));
+  $output .=     '<div class="linked-account">' . $linked_accounts . '</div>';
+  $output .=     '<div class="bio">' . $bio . '</div>';
+  $output .=   '</div>';
+  $output .=   $account_menu;
+  $output .= '</div>';
+
+  return $output;
+}
 
 /**
  * theme_checkdesk_related_updates_bar

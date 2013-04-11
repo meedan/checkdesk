@@ -407,15 +407,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'und',
     'customized' => '1',
   );
-  // Exported menu link: menu-information:modal/ajax/content/about
-  $menu_links['menu-information:modal/ajax/content/about'] = array(
+  // Exported menu link: menu-information:modal/ajax/content/about-checkdesk
+  $menu_links['menu-information:modal/ajax/content/about-checkdesk'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/about',
+    'link_path' => 'modal/ajax/content/about-checkdesk',
     'router_path' => 'modal/%',
-    'link_title' => 'About this site',
+    'link_title' => 'About Checkdesk',
     'options' => array(
       'attributes' => array(
-        'title' => 'About this site',
+        'title' => '',
       ),
       'alter' => TRUE,
     ),
@@ -437,7 +437,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'link_title' => 'Fact-checking statement',
     'options' => array(
       'attributes' => array(
-        'title' => 'Fact-checking statement',
+        'title' => '',
       ),
       'alter' => TRUE,
     ),
@@ -456,10 +456,10 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'menu-information',
     'link_path' => 'modal/ajax/content/terms-use',
     'router_path' => 'modal/%',
-    'link_title' => 'Terms of Use',
+    'link_title' => 'Terms of use',
     'options' => array(
       'attributes' => array(
-        'title' => 'Terms of Use',
+        'title' => '',
       ),
       'alter' => TRUE,
     ),
@@ -517,12 +517,12 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'ar',
     'customized' => '1',
   );
-  // Exported menu link: menu-information:modal/ajax/content/عن-الموقع
-  $menu_links['menu-information:modal/ajax/content/عن-الموقع'] = array(
+  // Exported menu link: menu-information:modal/ajax/content/عن-checkdesk
+  $menu_links['menu-information:modal/ajax/content/عن-checkdesk'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/عن-الموقع',
+    'link_path' => 'modal/ajax/content/عن-checkdesk',
     'router_path' => 'modal/%',
-    'link_title' => 'عن الموقع',
+    'link_title' => 'عن Checkdesk',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -543,16 +543,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
   // Included for use with string extractors like potx.
   t('...');
   t('<user>');
-  t('About');
-  t('About this site');
+  t('About Checkdesk');
   t('Administer users');
+  t('Bookmarklet');
   t('Compose update');
   t('Create story');
   t('Edit fact-checking statement');
   t('Fact-checking statement');
   t('Home');
   t('Information');
-  t('Install bookmarklet');
   t('Logout');
   t('My account');
   t('Notifications');
@@ -560,13 +559,12 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Sign in');
   t('Submit report');
   t('Supported by Meedan');
-  t('Terms of Use');
+  t('Terms of use');
   t('View incoming citizen reports');
+  t('إضافة المتصفح');
   t('بيان التحقق من صحة المعلومات');
-  t('تنصيب إضافة المتصفح');
-  t('حول');
   t('شروط الاستخدام');
-  t('عن الموقع');
+  t('عن Checkdesk');
 
 
   return $menu_links;

@@ -170,7 +170,9 @@ function _checkdesk_modal_report_view($js = FALSE) {
   $nid = arg(2);
   $node = node_load($nid);
   $title = $node->title;
-  $output = drupal_render(node_view($node));
+  $element = node_view($node);
+  $element['comments'] = comment_node_page_additions($node);
+  $output = drupal_render($element);
   if ($js) {
     ctools_modal_render($title, $output);
   }
@@ -548,6 +550,20 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   $links = array();
   $url = url('node/' . $node->nid, array('absolute' => TRUE));
 
+  // Try to gracefully redirect the user back to where they were. In some cases
+  // this is not a simple task. Ajax based UI is especially difficult.
+  $destination = $_GET['q'];
+
+  // When launched from a modal on the reports page, attempt to go back to reports
+  // and relaunch the modal.
+  if (arg(0) == 'report-view-modal') {
+    $destination = 'reports#report-' . arg(2);
+  }
+  // If the current page smells like AJAX, redirect somewhere safe.
+  if (strstr($destination, 'ajax')) {
+    $destination = 'reports';
+  }
+
   // Links for reports only.
   if ($node->type == 'media') {
     if (_checkdesk_core_report_can_suggest($node)) {
@@ -555,7 +571,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         'title' => user_access('add report to story') ? t('Add to Story') : t('Suggest to Story'),
         'href' => 'node/' . $node->nid . '/checkdesk/modal/suggest/nojs',
         'query' => array(
-          'destination' => $_GET['q'],
+          'destination' => $destination,
         ),
       );
     }
@@ -576,7 +592,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         'title' => t('Edit'),
         'href' => 'node/' . $node->nid . '/edit',
         'query' => array(
-          'destination' => $_GET['q'],
+          'destination' => $destination,
         ),
       );
     }
@@ -614,7 +630,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   //       'title' => t('Edit'),
   //       'href' => 'node/' . $node->nid . '/edit',
   //       'query' => array(
-  //         'destination' => $_GET['q'],
+  //         'destination' => $destination,
   //       ),
   //     );
   //   }

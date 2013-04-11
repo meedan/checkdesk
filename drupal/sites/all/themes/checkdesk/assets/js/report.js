@@ -2,6 +2,23 @@
 (function ($) {
   'use strict';
 
+  // NOTE: This code is intentionally NOT inside a Drupal behavior
+  $(function () {
+    // On initial page load, check to see if a modal should and can be restored.
+    var hash  = window.location.hash.replace('#', ''),
+        parts = hash ? hash.split('-') : null,
+        $link;
+
+    if (parts && parts[0] === 'report' && !isNaN(parseInt(parts[1], 10))) {
+      $link = $('#' + hash + ' .report-detail-link a');
+
+      if ($link) {
+        $link.click();
+      }
+    }
+  });
+
+
 	Drupal.behaviors.reports = {
 		attach: function (context, settings) {
 		  // Show report activity
@@ -36,7 +53,7 @@
       // scroll to the bottom of modal when interacting with report actions
       $('#modalContent #report-actions a').click(function (event) {
       	$('.modal-body').animate({
-            scrollTop: 400,
+            scrollTop: 400
           }, 'slow');
       });
 

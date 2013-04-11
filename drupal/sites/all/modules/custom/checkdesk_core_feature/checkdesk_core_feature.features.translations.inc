@@ -42357,6 +42357,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['e5d719f86ee493c114733a0a11c24d39'] = array(
+    'source' => 'Fact-checking has been enabled for this report.',
+    'context' => '',
+    'location' => '/ar/flag/flag/factcheck_journalist/236?destination=reports&token=cq66hVGBpwEbqZAoxwlCaVuAIJUzr17bkL6XpEe40Pg',
+    'translation' => ' تم تفعيل التحقق من صحة المعلومات لهذا التقرير. ',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['43feddfadcf43c89803b22ba40ee5986'] = array(
     'source' => 'Fact-checking turned on',
     'context' => '',
@@ -42450,6 +42458,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => '!username قال: <span class="message">!comment</span>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['3b82f0c7192c815f86c748b4484ac301'] = array(
+    'source' => 'Sorry, Facebook won\'t allow you to re-post content that isn\'t public. Try using a publicly accessible post, or request that your friend make the post public on Facebook.',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'عذراً، فيسبوك لا يسمح لك بإعادة نشر المواد الخاصة. يرجى أن تستخدم مادة علنية أو أن تطلب من صديقك أن يجعل المادة التي تريد نشرها متوفرة بشكل علني.',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42924,6 +42940,46 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['ee963958604481ddd9c7ebbb70085461'] = array(
+    'source' => 'All related updates will be deleted. Are you sure you want to proceed?',
+    'context' => '',
+    'location' => '/ar/node/844/delete?destination=node/844',
+    'translation' => 'سيتم حذف جميع التحديثات المرتبطة! هل أنت متأكد من أنك تريد الحذف؟ ',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['221835c6d77464983f6d3b87cdfa1515'] = array(
+    'source' => '(Linked account)',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => '(حساب مرتبط)',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['b2f35d37cabc488b68b09e33fb536c4c'] = array(
+    'source' => '(Linked accounts)',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => '(حسابات مرتبطة)',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['7248e6b7a1b678f934387ac926f35d0d'] = array(
+    'source' => '@count[2] more updates',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/views/ajax',
+    'translation' => '@count[2] تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['25fb730a57af7d0f5227abacec2fd493'] = array(
+    'source' => '@count[4] more updates',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/',
+    'translation' => '@count[4] تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
@@ -43076,14 +43132,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
-  $translations['ar:menu']['763308ddea446ed598f1de10ab7c14d2'] = array(
-    'source' => 'Information',
-    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
-    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
-    'translation' => 'معلومات',
-    'plid' => '0',
-    'plural' => '0',
-  );
   $translations['ar:menu']['e7028aef0796f2c9e89bec6c84b76592'] = array(
     'source' => 'Notifications',
     'context' => 'item:5626ddfd-e3f6-7ba4-f9ff-f8c36ff9d636:title',
@@ -43209,6 +43257,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
     'location' => 'menu:item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
     'translation' => 'تطوير',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['763308ddea446ed598f1de10ab7c14d2'] = array(
+    'source' => 'Information',
+    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'translation' => 'معلومات',
     'plid' => '0',
     'plural' => '0',
   );

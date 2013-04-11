@@ -45,20 +45,34 @@
 
 	// filters for reports inside sidebar
 	Drupal.behaviors.reportsPage = {
-		attach: function (context) {
-			// configure masonry
-			if($('#reports').masonry) {
-				$('#reports').masonry({ 
+		attach: function(context) {
+      // configure masonry
+			if ($('#reports', context).masonry) {
+				$('#reports', context).masonry({ 
 					itemSelector: '.report-item',
-					columnWidth: function( containerWidth ) {
+					columnWidth: function(containerWidth) {
 						return containerWidth / 3;
 					},
-					isRTL: true,
-				}).imagesLoaded(function(){
-					$('#reports').masonry('reload');
+					isRTL: true
+				}).imagesLoaded(function() {
+					$('#reports', context).masonry('reload');
 				});
+        $('#reports .report-item', context).watch('height', function() { $('#reports', context).masonry('reload'); }, 1000);
 			}
 		}
 	};
+
+  Drupal.behaviors.transparentFrames = {
+    attach: function(context) {
+      $('.oembed-content', context).watch('height', function() {
+        $('.oembed-content iframe', context).attr('wmode', 'transparent')
+          .contents().find('iframe').attr('wmode', 'transparent')
+          .attr('src', function(i, src) {
+            var sep = (src.indexOf('?') == -1 ? '?' : '&');
+            return (src.indexOf('wmode') == -1 ? src + sep + 'wmode=transparent' : src);
+          });
+      }, 1000);
+    }
+  };
 
 }(jQuery));

@@ -25,7 +25,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'tnid' => '153',
   'translate' => '0',
   'uuid' => '07d83a6f-e26f-4dd6-9002-a7730dc6250f',
-  'revision_uid' => '1',
+  'revision_uid' => '0',
   'body' => array(
     'und' => array(
       0 => array(
@@ -380,7 +380,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
 );
   $nodes[] = array(
   'uid' => '0',
-  'title' => 'Install Bookmarklet',
+  'title' => 'Install bookmarklet',
   'log' => '',
   'status' => '1',
   'comment' => '1',
@@ -393,7 +393,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'tnid' => '1',
   'translate' => '0',
   'uuid' => '1244c020-f663-b564-b94c-2cf29b12afa4',
-  'revision_uid' => '0',
+  'revision_uid' => '1',
   'body' => array(
     'und' => array(
       0 => array(
@@ -480,7 +480,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 );
   $nodes[] = array(
   'uid' => '0',
-  'title' => 'Terms of Use',
+  'title' => 'Terms of use',
   'log' => '',
   'status' => '1',
   'comment' => '1',
@@ -493,7 +493,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => '153',
   'translate' => '0',
   'uuid' => '31710726-27dc-4c80-99fc-cb2c79a84053',
-  'revision_uid' => '0',
+  'revision_uid' => '1',
   'body' => array(
     'und' => array(
       0 => array(
@@ -873,7 +873,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 );
   $nodes[] = array(
   'uid' => '0',
-  'title' => 'عن الموقع',
+  'title' => 'عن Checkdesk',
   'log' => '',
   'status' => '1',
   'comment' => '1',
@@ -890,10 +890,59 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>To be added.</p>',
+        'value' => '<div class="static about">
+
+<h2>Checkdesk: منصة لتقصي صحة معلومات وسائط الإعلام الاجتماعية</h2>
+
+<p>Checkdesk تطبيق مفتوح المصدر مصمم خصيصاً لتعزيز الصحافة الاستقصائية بشكل شفاف وتشاركي للغرف الإخبارية في المنطقة العربية.</p>
+
+<p>في عصر الإعلام الاجتماعي اللحظي، تعاني الغرف الإخبارية التقليدية لإيجاد توازن بين تلك المحادثات التي تجري في الوقت الحقيقي، والقيام بصحافة استقصائية جادة.  ولذلك تم تصميم Checkdesk لمواجهة هذا التحدي.</p>
+
+<p>يمكن Checkdesk الصحفيين المحترفين من العمل بشكل تعاوني مع شبكات متنوعة من الصحفيين المواطنين لجمع الأخبار من شبكات الإعلام الاجتماعي والتحقق من صحتها وتغطيتها بشكل مباشر فور نشرها. يسهل Checkdesk نوعاً جديداً من الصحافة المفتوحة المعتمدة على الأدلة، ويجعل المشاركة المدنية ممكنة في هذه العملية.</p>
+
+<p>يتم تصميم وتطوير Checkdesk من قبل فريق عمل ميدان، والذي يعمل من سان فرانسيسكو والقاهرة وفانكوفر ولندن وبيروت وسلفادور وهونولولو. إن Checkdesk مشروع يجمع الأبحاث وتطوير المناهج المفتوحة، بالإضافة إلى العمل الصحفي وتدريبات الصحفيين المواطنين بالتعاون مع شبكة متنامية من الشركاء الإعلاميين الإقليميين.</p>
+
+<h2>كيف تعمل التكنولوجيا؟</h2>
+
+<p>يوفر Checkdesk منصة لجمع الأخبار ونشرها بالإضافة إلى دعم كامل لسير عمل تقصي صحة الأخبار في الغرفة الإخبارية الرقمية. يمكنك Checkdesk من القيام بما يلي:</p>
+
+	<ul>
+
+		<li>التقارير الإخبارية من صحافة المواطن بشكل سريع (تسجيلات فيديو على يوتيوب أو تغريدات أو تدوينات إلخ) مباشرة على الموقع أو باستخدام إضافة للمتصفح</li>
+
+		<li>السماح للصحفيين المواطنين بإرسال المعلومات إلى الغرفة الإخبارية بحيث يمكنهم إعلامك عن الأحداث الطارئة، أو توفير معلومات إضافية حول التغطية الإخبارية الجارية</li>
+
+		<li>تغطية الأحداث الطارئة باستخدام المواد الإعلامية من الصحافة الشعبية ومن شبكات اجتماعية مختلفة</li>
+
+		<li>التحقق من صحة المعلومات بشكل شفاف وإشراك القراء والصحفيين المواطنين في العملية بالسماح لهم بتوفير المعلومات والأدلة حول صحة أي مادة إعلامية</li>
+
+	</ul>
+
+<h2>من هم شركاؤنا في المشروع؟</h2>
+
+<p>إننا في ميدان نقوم بتطوير Checkdesk بالتعاون مع شركائنا الإعلاميين في المنطقة العربية والقائمة تتضمن: المصري اليوم (مصر)، Egypt Independent (مصر)، صحافة ولاد البلد (مصر)، حبر (الأردن)، Social Media Exchange (لبنان)، شباب النهار (لبنان)، الأيام \\ شباب سوريا (سوريا)، وكالة معاً الإخبارية (فلسطين). وشريكنا في الأبحاث والمنهج في المشروع هو جامعة برمنجهام سيتي.</p>
+
+<p>المشروع ممول من قبل صندوق الشراكات العربية، والوكالة السويدية للتنمية SIDA، ومؤسسة الصحافة العالمية (فاز Checkdesk بجائزة الإبتكار في الصحافة لعام 2012 من مؤسسة الصحافة العالمية). بإمكانكم <a target="_blank" href="http://meedan.org/ar/category/checkdesk">قراءة المزيد على مدونة ميدان</a>.</p>
+
+</div>',
         'summary' => '',
         'format' => 'full_html',
-        'safe_value' => '<p>To be added.</p>
+        'safe_value' => '<div class="static about">
+<h2>Checkdesk: منصة لتقصي صحة معلومات وسائط الإعلام الاجتماعية</h2>
+<p>Checkdesk تطبيق مفتوح المصدر مصمم خصيصاً لتعزيز الصحافة الاستقصائية بشكل شفاف وتشاركي للغرف الإخبارية في المنطقة العربية.</p>
+<p>في عصر الإعلام الاجتماعي اللحظي، تعاني الغرف الإخبارية التقليدية لإيجاد توازن بين تلك المحادثات التي تجري في الوقت الحقيقي، والقيام بصحافة استقصائية جادة.  ولذلك تم تصميم Checkdesk لمواجهة هذا التحدي.</p>
+<p>يمكن Checkdesk الصحفيين المحترفين من العمل بشكل تعاوني مع شبكات متنوعة من الصحفيين المواطنين لجمع الأخبار من شبكات الإعلام الاجتماعي والتحقق من صحتها وتغطيتها بشكل مباشر فور نشرها. يسهل Checkdesk نوعاً جديداً من الصحافة المفتوحة المعتمدة على الأدلة، ويجعل المشاركة المدنية ممكنة في هذه العملية.</p>
+<p>يتم تصميم وتطوير Checkdesk من قبل فريق عمل ميدان، والذي يعمل من سان فرانسيسكو والقاهرة وفانكوفر ولندن وبيروت وسلفادور وهونولولو. إن Checkdesk مشروع يجمع الأبحاث وتطوير المناهج المفتوحة، بالإضافة إلى العمل الصحفي وتدريبات الصحفيين المواطنين بالتعاون مع شبكة متنامية من الشركاء الإعلاميين الإقليميين.</p>
+<h2>كيف تعمل التكنولوجيا؟</h2>
+<p>يوفر Checkdesk منصة لجمع الأخبار ونشرها بالإضافة إلى دعم كامل لسير عمل تقصي صحة الأخبار في الغرفة الإخبارية الرقمية. يمكنك Checkdesk من القيام بما يلي:</p>
+<ul><li>التقارير الإخبارية من صحافة المواطن بشكل سريع (تسجيلات فيديو على يوتيوب أو تغريدات أو تدوينات إلخ) مباشرة على الموقع أو باستخدام إضافة للمتصفح</li>
+<li>السماح للصحفيين المواطنين بإرسال المعلومات إلى الغرفة الإخبارية بحيث يمكنهم إعلامك عن الأحداث الطارئة، أو توفير معلومات إضافية حول التغطية الإخبارية الجارية</li>
+<li>تغطية الأحداث الطارئة باستخدام المواد الإعلامية من الصحافة الشعبية ومن شبكات اجتماعية مختلفة</li>
+<li>التحقق من صحة المعلومات بشكل شفاف وإشراك القراء والصحفيين المواطنين في العملية بالسماح لهم بتوفير المعلومات والأدلة حول صحة أي مادة إعلامية</li>
+</ul><h2>من هم شركاؤنا في المشروع؟</h2>
+<p>إننا في ميدان نقوم بتطوير Checkdesk بالتعاون مع شركائنا الإعلاميين في المنطقة العربية والقائمة تتضمن: المصري اليوم (مصر)، Egypt Independent (مصر)، صحافة ولاد البلد (مصر)، حبر (الأردن)، Social Media Exchange (لبنان)، شباب النهار (لبنان)، الأيام \\ شباب سوريا (سوريا)، وكالة معاً الإخبارية (فلسطين). وشريكنا في الأبحاث والمنهج في المشروع هو جامعة برمنجهام سيتي.</p>
+<p>المشروع ممول من قبل صندوق الشراكات العربية، والوكالة السويدية للتنمية SIDA، ومؤسسة الصحافة العالمية (فاز Checkdesk بجائزة الإبتكار في الصحافة لعام 2012 من مؤسسة الصحافة العالمية). بإمكانكم <a target="_blank" href="http://meedan.org/ar/category/checkdesk">قراءة المزيد على مدونة ميدان</a>.</p>
+</div>
 ',
         'safe_summary' => '',
       ),
@@ -962,7 +1011,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 );
   $nodes[] = array(
   'uid' => '0',
-  'title' => 'Fact Checking statement',
+  'title' => 'Fact-checking statement',
   'log' => '',
   'status' => '1',
   'comment' => '1',
@@ -975,7 +1024,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => '154',
   'translate' => '0',
   'uuid' => '9ff42c15-5459-4a62-94c2-f45fe8aab3d5',
-  'revision_uid' => '0',
+  'revision_uid' => '1',
   'body' => array(
     'und' => array(
       0 => array(
@@ -1183,7 +1232,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 );
   $nodes[] = array(
   'uid' => '0',
-  'title' => 'About',
+  'title' => 'About Checkdesk',
   'log' => '',
   'status' => '1',
   'comment' => '1',
@@ -1196,14 +1245,63 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => '155',
   'translate' => '0',
   'uuid' => 'd3c58330-cc88-4e2c-8cc5-e60c4cac0803',
-  'revision_uid' => '0',
+  'revision_uid' => '1',
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>To be added.</p>',
+        'value' => '<div class="static about">
+
+<h2>Checkdesk: A toolkit for fact-checking social media</h2>
+
+<p>Checkdesk is an open source application designed to enable open and participatory investigative journalism for professional newsrooms in the Arab region.</p>
+
+<p>In our era, real-time social media traditional newsrooms are struggling to find a balance between engaging with these real-time conversations and doing ‘serious’ investigative journalism.  Checkdesk is a design response to this challenge.</p>
+
+<p>Checkdesk enables our media partners to work collaboratively with networks of citizen journalists to curate, fact-check, and contextualize social media content as it is being published. Checkdesk facilitates a new form of open, evidence-based journalism and makes possible civic participation in the process.</p>
+
+<p>Checkdesk is designed and developed by the globally minded team at Meedan; working from San Francisco, Cairo, Vancouver, London, Beirut, and Brazil. Checkdesk is a multi-year project combining research and open curriculum development with our University partner Birmingham City University, open curriculum development and trainings with a set of community media initiatives, and content creation through a growing network of regional media partners.</p>
+
+<h2>How does the technology work?</h2>
+
+<p>Checkdesk provides a complete fact-checking workflow for the digital newsroom. With Checkdesk, you can:</p>
+
+	<ul>
+
+		<li>quickly gather citizen media reports (youtube videos, tweets, blog posts) using a bookmarklet</li>
+
+		<li>embed and cross-reference these citizen media reports in story pages</li>
+
+		<li>assign customizable verification statuses to each embedded citizen media report (such as &lsquo;in review&rsquo; or &lsquo;verified&rsquo;)</li>
+
+		<li>annotate the citizen media report with fact-checking footnotes, providing a transparent history of scrutiny applied to investigate it which readers can engage with</li>
+
+		<li>share out the work you do as a shortlink or embed</li>
+
+	</ul>
+
+<h2>Who are our project partners?</h2>
+
+<p>We are developing Checkdesk with media partners in the Arab region, including Almasry Alyoum (Egypt), Egypt Independent (Egypt), Sa7afet Welad El Balad (Egypt), 7iber (Jordan), SMEX Social Media Exchange (Lebanon), Nahar Ashabab (Lebanon), Alayyam/ Shabab Souria (Syria), and Ma\'an Network (Palestine). Our research and curriculum partner on the project is Birmingham City University. The project is funded by the Arab Partnerships fund, Sida and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can <a href="http://meedan.org/category/checkdesk/" target="_blank">read more on our blog</a>.</p>
+
+</div>',
         'summary' => '',
         'format' => 'full_html',
-        'safe_value' => '<p>To be added.</p>
+        'safe_value' => '<div class="static about">
+<h2>Checkdesk: A toolkit for fact-checking social media</h2>
+<p>Checkdesk is an open source application designed to enable open and participatory investigative journalism for professional newsrooms in the Arab region.</p>
+<p>In our era, real-time social media traditional newsrooms are struggling to find a balance between engaging with these real-time conversations and doing ‘serious’ investigative journalism.  Checkdesk is a design response to this challenge.</p>
+<p>Checkdesk enables our media partners to work collaboratively with networks of citizen journalists to curate, fact-check, and contextualize social media content as it is being published. Checkdesk facilitates a new form of open, evidence-based journalism and makes possible civic participation in the process.</p>
+<p>Checkdesk is designed and developed by the globally minded team at Meedan; working from San Francisco, Cairo, Vancouver, London, Beirut, and Brazil. Checkdesk is a multi-year project combining research and open curriculum development with our University partner Birmingham City University, open curriculum development and trainings with a set of community media initiatives, and content creation through a growing network of regional media partners.</p>
+<h2>How does the technology work?</h2>
+<p>Checkdesk provides a complete fact-checking workflow for the digital newsroom. With Checkdesk, you can:</p>
+<ul><li>quickly gather citizen media reports (youtube videos, tweets, blog posts) using a bookmarklet</li>
+<li>embed and cross-reference these citizen media reports in story pages</li>
+<li>assign customizable verification statuses to each embedded citizen media report (such as ‘in review’ or ‘verified’)</li>
+<li>annotate the citizen media report with fact-checking footnotes, providing a transparent history of scrutiny applied to investigate it which readers can engage with</li>
+<li>share out the work you do as a shortlink or embed</li>
+</ul><h2>Who are our project partners?</h2>
+<p>We are developing Checkdesk with media partners in the Arab region, including Almasry Alyoum (Egypt), Egypt Independent (Egypt), Sa7afet Welad El Balad (Egypt), 7iber (Jordan), SMEX Social Media Exchange (Lebanon), Nahar Ashabab (Lebanon), Alayyam/ Shabab Souria (Syria), and Ma\'an Network (Palestine). Our research and curriculum partner on the project is Birmingham City University. The project is funded by the Arab Partnerships fund, Sida and the International Press Institute (Checkdesk won a 2012 IPI Innovation Award). You can <a href="http://meedan.org/category/checkdesk/" target="_blank">read more on our blog</a>.</p>
+</div>
 ',
         'safe_summary' => '',
       ),
