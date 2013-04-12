@@ -283,20 +283,20 @@
 
 // Open dropdowns
 // -------------------------
-.nav-tabs .open .dropdown-toggle,
-.nav-pills .open .dropdown-toggle,
-.nav > li.dropdown.open.active > a:hover {
-  color: $white;
-  background-color: $grayLight;
-  border-color: $grayLight;
-}
-.nav li.dropdown.open .caret,
-.nav li.dropdown.open.active .caret,
-.nav li.dropdown.open a:hover .caret {
-  border-top-color: $white;
-  border-bottom-color: $white;
-  @include opacity(100);
-}
+// .nav-tabs .open .dropdown-toggle,
+// .nav-pills .open .dropdown-toggle,
+// .nav > li.dropdown.open.active > a:hover {
+//   color: $white;
+//   background-color: $grayLight;
+//   border-color: $grayLight;
+// }
+// .nav li.dropdown.open .caret,
+// .nav li.dropdown.open.active .caret,
+// .nav li.dropdown.open a:hover .caret {
+//   border-top-color: $white;
+//   border-bottom-color: $white;
+//   @include opacity(100);
+// }
 
 // Dropdowns in stacked tabs
 .tabs-stacked .open > a:hover {

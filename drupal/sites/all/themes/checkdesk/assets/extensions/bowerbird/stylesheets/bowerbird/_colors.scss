@@ -100,11 +100,11 @@ $notification-count-bkg-color: rgba($identity, 0.5);
 
 $nav-color: rgba(white, 0.65);
 $nav-bkg-color: rgb(38, 38, 38); // from maya's design
-$nav-active-color: rgba(white, 0.95); // active text
-$nav-active-bkg-color: $nav-bkg-color;
+$nav-active-color: $nav-bkg-color; // active text
+$nav-active-bkg-color: rgba(white, 0.95);
 $nav-container-bkg-color: $nav-bkg-color; //wrapper on nav
-$nav-hover-bkg-color: white;
-$nav-hover-color: black;
+$nav-hover-bkg-color: transparent;
+$nav-hover-color: white;
 
 // Tabs
 // on nodes ... note this is not in the spec! But we need it?

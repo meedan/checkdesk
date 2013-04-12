@@ -26,7 +26,7 @@ $icon-position: 'before';
     @include icon("home", $size, $color, $icon-position); 
   }
 
-  #main-menu a.dropdown-toggle {
+  #main-menu li.last.dropdown a {
     @include icon("reorder", $size, $color, $icon-position);
   }
 }
@@ -56,7 +56,7 @@ $icon-position: 'before';
   display: inline-block;
   float: $from-direction;  
   position: relative;
-  z-index: $zindexDropdown - 1; 
+  z-index: $zindexDropdown + 1; 
   & > a {
     // font-weight: 100;
     padding: 0 $nav-gutter;
@@ -65,10 +65,6 @@ $icon-position: 'before';
     line-height: $nav-height - 4px;
     color: $nav-color;
     display: inline-block;
-
-    &:active, &:hover {
-      color: $nav-active-color;
-    }
   }
 
   // remove border for first items
@@ -78,28 +74,42 @@ $icon-position: 'before';
 
   // Transitions
   @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
-  
-  // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
+
+  // Hover style for chunky element
   &:hover {
-    // background-color: $nav-hover-bkg-color;
+    background-color: $nav-hover-bkg-color;
     color: $nav-hover-color;
+
+    & > a:hover {
+      color: $nav-hover-color;
+
+      &:before {
+        color: $nav-hover-color;
+      }
+    }
   }
 
-  &.active,  {
-    // background-color: $nav-active-bkg-color;
-    color: $nav-active-color;
-  }
-
-  // An anchor inside the chunky block
-  &.active > a, 
-  & > a.active {
-    color: $nav-active-color;
+  // Base style for active chunky element
+  &.active,
+  &.active:hover,
+  &:active {
+    background-color: $nav-active-bkg-color;
     @include border-radius($radius $radius 0 0);
+
+    color: $nav-active-color;
     font-weight: 500;
-    // don't forget the icons
-    &:before { 
-      color: $nav-active-color; 
-      // background-color: $nav-active-bkg-color;
+
+    // An anchor inside the chunky block
+    & > a.active,
+    & > a.active:hover,
+    & > a:active {
+      color: $nav-active-color;
+      cursor: default;
+
+      // don't forget the icons
+      &:before {
+        color: $nav-active-color;
+      }
     }
   }
 

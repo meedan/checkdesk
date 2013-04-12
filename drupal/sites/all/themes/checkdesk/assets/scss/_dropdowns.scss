@@ -25,10 +25,11 @@
   float: $from-direction;
   min-width: 160px;
   padding: $gutter-width 0;
-  margin: $gutter-width 0 0; // override default ul
+  margin: -$gutter-width / 2 0 0; // override default ul
   list-style: none;
   background-color: white;
-  @include border-radius($radius);
+  color: $dark-grey;
+  @include border-radius(0 $radius $radius $radius);
   @include cd-box-shadow;
   @include background-clip(padding-box);
 
