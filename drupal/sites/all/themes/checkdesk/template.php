@@ -19,6 +19,12 @@ function checkdesk_theme() {
     'checkdesk_user_menu_content' => array(
       'variables' => array('items' => array()),
     ),
+    'checkdesk_dropdown_menu_item' => array(
+      'variables' => array('title' => NULL, 'attributes' => array()),
+    ),
+    'checkdesk_dropdown_menu_content' => array(
+      'variables' => array('id' => NULL, 'content' => array()),
+    ),
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),
@@ -134,13 +140,23 @@ function checkdesk_preprocess_page(&$variables) {
 
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
 
-    // Change "Submit Report" link
     foreach ($variables['main_menu'] as $id => $item) {
+      // Change "Submit Report" link
       if ($item['link_path'] == 'node/add/media') {
         $variables['main_menu'][$id]['href'] = meedan_bookmarklet_get_code();
         $variables['main_menu'][$id]['external'] = TRUE;
         $variables['main_menu'][$id]['absolute'] = TRUE;
         $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
+      }
+      else if ($item['link_path'] == 'node/add/discussion') {
+        module_load_include('inc', 'node', 'node.pages');
+        $content = node_add('discussion');
+
+        $variables['main_menu'][$id]['html'] = TRUE;
+        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));
+        $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
+        $variables['main_menu'][$id]['attributes']['class'] = 'dropdown-toggle';
+        $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
       }
     }
 
@@ -194,7 +210,6 @@ function checkdesk_preprocess_page(&$variables) {
       if (user_is_logged_in()) {
         $variables['secondary_menu'][$id]['html'] = TRUE;
         $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
-
         $variables['secondary_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
         $variables['secondary_menu'][$id]['attributes']['class'] = 'dropdown-toggle';
         $variables['secondary_menu'][$id]['suffix'] = theme('checkdesk_user_menu_content', array('items' => $variables['secondary_menu'][$id]['below']));

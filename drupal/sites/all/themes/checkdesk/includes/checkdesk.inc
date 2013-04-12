@@ -33,33 +33,46 @@ function checkdesk_menu_navigation_links($tree, $lvl = 0) {
  */
 
 /**
+ * theme_checkdesk_dropdown_menu_content
+ *
+ * Renders a dropdown-menu div suitable for use with a Twitter Bootstrap menu.
+ */
+function checkdesk_checkdesk_dropdown_menu_content($variables) {
+  return '<div id="' . $variables['id'] . '" class="dropdown-menu">' . drupal_render($variables['content']) . '</div>';
+}
+
+/**
+ * theme_checkdesk_dropdown_menu_item
+ */
+function checkdesk_checkdesk_dropdown_menu_item($variables) {
+  global $user;
+
+  $output  = '<span'. drupal_attributes($variables['attributes']) .'>';
+  $output .=   $variables['prefix'] ? $variables['prefix'] : '';
+  $output .=   $variables['title'];
+  $output .=   $variables['prefix'] ? $variables['prefix'] : '';
+  $output .=   '<span class="caret"></span>';
+  $output .= '</span>';
+
+  return $output;
+}
+
+/**
  * theme_checkdesk_user_menu_item
  */
 function checkdesk_checkdesk_user_menu_item($variables) {
   global $user;
 
-  $type_class = '';
+  $title = '';
 
-  // Type class
-  if (isset($variables['type'])) {
-    $type_class = ' btn-'. $variables['type'];
-  }
-
-  // Start markup
-  $output = '<span'. drupal_attributes($variables['attributes']) .'>';
-
-  // Show user
   if (!empty($user->picture)) {
     $user_avatar = theme('image_style', array('path' => file_load($user->picture)->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar'));
-    $output .= '<span class="avatar">' . $user_avatar . '</span> ';
+    $title .= '<span class="avatar">' . $user_avatar . '</span> ';
   }
-  $output .= check_plain($user->name);
 
-  // Finish markup
-  $output .= '<span class="caret"></span>';
-  $output .= '</span>';
+  $title .= check_plain($user->name);
 
-  return $output;
+  return theme('checkdesk_dropdown_menu_item', array('title' => $title));
 }
 
 /**
@@ -103,18 +116,18 @@ function checkdesk_checkdesk_user_menu_content($variables) {
     'heading' => NULL,
   ));
 
-  $output  = '';
-  $output .= '<div id="my-account" class="dropdown-menu">';
-  $output .=   theme('user_picture', array('account' => $account));
-  $output .=   '<div class="info">';
-  $output .=     theme('username', array('account' => $account));
-  $output .=     '<div class="linked-account">' . $linked_accounts . '</div>';
-  $output .=     '<div class="bio">' . $bio . '</div>';
-  $output .=   '</div>';
-  $output .=   $account_menu;
-  $output .= '</div>';
+  $content = array(
+    '#type'   => 'markup',
+    '#markup' => theme('user_picture', array('account' => $account))
+               . '<div class="info">'
+               .   theme('username', array('account' => $account))
+               .   '<div class="linked-account">' . $linked_accounts . '</div>'
+               .   '<div class="bio">' . $bio . '</div>'
+               . '</div>'
+               . $account_menu
+  );
 
-  return $output;
+  return theme('checkdesk_dropdown_menu_content', array('id' => 'my-account', 'content' => $content));
 }
 
 /**
