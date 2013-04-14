@@ -1321,7 +1321,7 @@ function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
   $settings['language']       = $language->language;
   $settings['directionality'] = $language->direction == LANGUAGE_RTL ? 'rtl' : 'ltr';
 
-  if ($language->direction == LANGUAGE_RTL) {
+  if ($language->direction == LANGUAGE_RTL && isset($settings['contentsCss'])) {
     foreach ($settings['contentsCss'] as $key => $path) {
       $filepath = substr(preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $path), 0, -4);
       $filepath_rtl = $filepath . '-rtl.css';
