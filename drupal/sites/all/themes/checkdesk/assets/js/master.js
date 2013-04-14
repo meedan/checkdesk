@@ -75,4 +75,8 @@
     }
   };
 
+  $.fn.scrollToHere = function(speed) {
+    $('html, body').animate({ scrollTop : $(this).offset().top - $('#toolbar').height() - $('#navbar').height() }, speed);
+  };
+
 }(jQuery));
