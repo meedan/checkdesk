@@ -1,5 +1,5 @@
 <?php
-// Group updates together by desk
+// Group consecutive updates together by desk
 $this_desk_nid = 0;
 $last_desk_nid = 0;
 ?>
@@ -26,12 +26,12 @@ $last_desk_nid = 0;
         if(isset($view->result[$id]->field_body)) {
           echo '<div class="story-description">' . render($view->result[$id]->field_body) . '</div>';  
         }
+
+        echo '<div class="post-row ' . $classes_array[$id] . '" data-story-nid="' . $this_desk_nid . '">';
+        echo $row;
+        echo '</div>';
       }
     ?>
-
-    <div class="post-row <?php print $classes_array[$id]; ?>">
-      <?php print $row; ?>
-    </div>
 
     <?php $last_desk_nid = $this_desk_nid; ?>
 

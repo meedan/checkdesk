@@ -36,8 +36,6 @@
         return false;
       });
 
-
-
       // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
       $('.view-liveblog').unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
         $(content).find('section.node-post').each(function() {
@@ -48,6 +46,18 @@
         $(content).find('.report-row-container').each(function() {
           $('.view-desk-reports #' + $(this).attr('id')).eq(0).parents('.views-row').remove();
         });
+      });
+  
+      // If a new update incrementally added has the same story as the next update, group them
+      $('.view-liveblog', context).unbind('autorefresh.incremental').bind('autorefresh.incremental', function(event, count) {
+        if (count > 0) {
+          var first_new = $(this).find('.posts:eq(0) .desk').eq(count - 1);
+          var first_old = $(this).find('.posts:eq(1) .desk:first');
+          if (first_new.find('.post-row').data('story-nid') === first_old.find('.post-row').data('story-nid')) {
+            first_old.next('.related-updates').remove();
+            first_old.remove();
+          }
+        }
       });
 
       // scroll to the bottom of modal when interacting with report actions
