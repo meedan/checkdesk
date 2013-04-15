@@ -8,17 +8,23 @@ $icon-position: 'before';
 
 // Icons in the navigation
 @mixin nav-icons($size: $xsmall-font-size, $color: $nav-color) {
+  $margin: 0 $gutter-width/2 0 0;
+
+  @if $from-direction == right {
+    $margin: 0 0 0 $gutter-width/2;
+  }
+
   // add a post
   a[href*="add/post"] {
-    @include icon("pencil", $size, $color, $icon-position, 0 $gutter-width/2 0 0);
+    @include icon("pencil", $size, $color, $icon-position, $margin);
   }
   // add a report
   li.submit-report a {
-      @include icon("bookmark", $size, $color, $icon-position, 0 $gutter-width/2 0 0);
+      @include icon("bookmark", $size, $color, $icon-position, $margin);
   }
   // add a story
   a[href*="add/discussion"] {
-    @include icon("tag", $size, $color, $icon-position, 0 $gutter-width/2 0 0);
+    @include icon("tag", $size, $color, $icon-position, $margin);
   }
   // home
   li.home a {
