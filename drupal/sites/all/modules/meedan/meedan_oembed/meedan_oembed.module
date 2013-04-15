@@ -106,24 +106,38 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
   $cache_key = implode(':', $element['#cache']['keys']);
   $cache     = cache_get($cache_key, $element['#cache']['bin']);
 
+  $embed = FALSE;
+
   if (!$no_cache && $cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
     return $embed;
   }
+
   // Call scrape function first if exist
   if (function_exists($callback)) {
     $embed = $callback($provider, $url);
   }
-  // Ask oEmbed core to render for us
-  elseif ($embed = oembedcore_oembed_data($url, $attributes)) {
-    // Nothing to do
-  }
-  // Call Embedly
-  else {
-    $matches = array();
-    $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+
+  if (!$embed || ($embed->error && $embed->try_embedly)) {
+    $original_embed = $embed;
+
+    // Ask oEmbed core to render for us
+    if ($embed = oembedcore_oembed_data($url, $attributes)) {
+      // Nothing to do
+    }
+    // Call Embedly
+    else {
+      $matches = array();
+      $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+    }
+
+    // In the case where Embedly was used as a fallback the first error message
+    // from the $callback is likely more accurate. Use it instead.
+    if ($embed->error && $original_embed->error && $original_embed->error_message) {
+      $embed->error_message = $original_embed->error_message;
+    }
   }
 
   if (!$embed || (isset($embed->error) && $embed->error)) {
@@ -362,6 +376,7 @@ function _meedan_oembed_facebook_graph_api_data($url, $depth = 0) {
     return array(
       'error'         => TRUE,
       'error_message' => t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."),
+      'try_embedly'   => TRUE,
     );
   }
 }
@@ -642,7 +657,7 @@ function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id
 }
 
 /**
- * Validate embed from facebook 
+ * Validate embed from Facebook
  * make sure that user login through facebook if he adds media from facebook
  */
 function _meedan_oembed_facebook_post_validate($form, &$form_state) {
@@ -656,10 +671,10 @@ function _meedan_oembed_facebook_post_validate($form, &$form_state) {
     }
     else {
       // Check if user has a permission to embed this post
-      $post_data = _meedan_oembed_facebook_graph_api_data($url);
+      $embed = meedan_oembed_data($url, array(), FALSE, TRUE);
 
-      if (isset($post_data['error']) && $post_data['error']) {
-        form_set_error('field_link', $post_data['error_message']);
+      if (isset($embed->error) && $embed->error) {
+        form_set_error('field_link', $embed->error_message);
       }
     }
   }
