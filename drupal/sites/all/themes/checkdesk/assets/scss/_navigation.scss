@@ -8,25 +8,24 @@ $icon-position: 'before';
 
 // Icons in the navigation
 @mixin nav-icons($size: $xsmall-font-size, $color: $nav-color) {
-
   // add a post
-  a[href*="add/post"] { 
-    @include icon("pencil", $size, $color, $icon-position); 
+  a[href*="add/post"] {
+    @include icon("pencil", $size, $color, $icon-position, 0 $gutter-width/2 0 0);
   }
   // add a report
-  a#menu-submit-report { 
-      @include icon("bookmark", $size, $color, $icon-position);
+  li.submit-report a {
+      @include icon("bookmark", $size, $color, $icon-position, 0 $gutter-width/2 0 0);
   }
-  // add a story 
-  a[href*="add/discussion"] { 
-    @include icon("tag", $size, $color, $icon-position);
+  // add a story
+  a[href*="add/discussion"] {
+    @include icon("tag", $size, $color, $icon-position, 0 $gutter-width/2 0 0);
   }
   // home
-  li.home a { 
-    @include icon("home", $size, $color, $icon-position); 
+  li.home a {
+    @include icon("home", $size, $color, $icon-position);
   }
-
-  #main-menu li.last.dropdown a {
+  // additional menu options
+  li.additional a {
     @include icon("reorder", $size, $color, $icon-position);
   }
 }
@@ -93,6 +92,7 @@ $icon-position: 'before';
   &.active,
   &.active:hover,
   &:active {
+    margin-bottom: -7px;
     background-color: $nav-active-bkg-color;
     @include border-radius($radius $radius 0 0);
 
@@ -100,11 +100,12 @@ $icon-position: 'before';
     font-weight: 500;
 
     // An anchor inside the chunky block
-    & > a.active,
-    & > a.active:hover,
+    & > a,
+    & > a:hover,
     & > a:active {
       color: $nav-active-color;
       cursor: default;
+      padding-bottom: 7px;
 
       // don't forget the icons
       &:before {
@@ -198,28 +199,32 @@ nav[role="navigation"] {
   }
 
   // Position dropdown menu
-  @if $from-direction == left {
-    // avoid cropping on the last item
-    #user-menu {
-      li.first .dropdown-menu {
-        left: -105px;
-      }
-      li.last .dropdown-menu {
-        left: -345px;
-      }
-    }
-  }
-  @if $from-direction == right {
-    #user-menu {
-      li.first .dropdown-menu {
-        right: -135px;
-      }
-      li.last .dropdown-menu {
-        right: -345px;
-      }
-    }
-  }
+  #main-menu {
+    .dropdown-menu {
+      #{$from-direction}: 0;
+      #{opposite-position($from-direction)}: auto;
 
+      @if $from-direction == left {
+        @include border-radius(0 $radius $radius $radius);
+      }
+      @else {
+        @include border-radius($radius 0 $radius $radius);
+      }
+    }
+  }
+  #user-menu {
+    .dropdown-menu {
+      #{$from-direction}: auto;
+      #{opposite-position($from-direction)}: 0;
+
+      @if $from-direction == left {
+        @include border-radius($radius 0 $radius $radius);
+      }
+      @else {
+        @include border-radius(0 $radius $radius $radius);
+      }
+    }
+  }
 }
 
 // Small breakpoint

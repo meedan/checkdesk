@@ -2133,7 +2133,7 @@ nav[role="navigation"] a[href*="add/discussion"]:before {
   content: "\f02b";
 }
 
-nav[role="navigation"] a#menu-submit-report:before {
+nav[role="navigation"] li.submit-report a:before {
   content: "\f02e";
 }
 
@@ -2202,7 +2202,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   content: "\f0c1";
 }
 
-.report #report-actions ul.content-actions > li > a span.icon-reorder:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before, nav[role="navigation"] #main-menu li.last.dropdown a:before {
+.report #report-actions ul.content-actions > li > a span.icon-reorder:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before, nav[role="navigation"] li.additional a:before {
   content: "\f0c9";
 }
 
@@ -3510,6 +3510,11 @@ textarea {
   position: absolute;
   top: 75%;
   left: 0;
+  -webkit-border-radius: 0 4px 4px 4px;
+  -moz-border-radius: 0 4px 4px 4px;
+  -ms-border-radius: 0 4px 4px 4px;
+  -o-border-radius: 0 4px 4px 4px;
+  border-radius: 0 4px 4px 4px;
   z-index: 900;
   display: none;
   float: left;
@@ -3519,11 +3524,6 @@ textarea {
   list-style: none;
   background-color: white;
   color: #595959;
-  -webkit-border-radius: 0 4px 4px 4px;
-  -moz-border-radius: 0 4px 4px 4px;
-  -ms-border-radius: 0 4px 4px 4px;
-  -o-border-radius: 0 4px 4px 4px;
-  border-radius: 0 4px 4px 4px;
   -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
@@ -4169,7 +4169,6 @@ div.tabs ul.primary li a {
   }
 }
 #my-notifications {
-  left: -255px;
   width: 360px;
   font-size: 13.5px;
   line-height: 1;
@@ -6139,21 +6138,21 @@ nav[role="navigation"] a[href*="add/post"]:before {
   font-size: 15px;
   line-height: 15px;
   color: rgba(255, 255, 255, 0.65);
-  margin: 0 5.5px;
+  margin: 0 5.5px 0 0;
 }
-nav[role="navigation"] a#menu-submit-report:before {
+nav[role="navigation"] li.submit-report a:before {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: 15px;
   color: rgba(255, 255, 255, 0.65);
-  margin: 0 5.5px;
+  margin: 0 5.5px 0 0;
 }
 nav[role="navigation"] a[href*="add/discussion"]:before {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: 15px;
   color: rgba(255, 255, 255, 0.65);
-  margin: 0 5.5px;
+  margin: 0 5.5px 0 0;
 }
 nav[role="navigation"] li.home a:before {
   font-family: "FontAwesome";
@@ -6162,7 +6161,7 @@ nav[role="navigation"] li.home a:before {
   color: rgba(255, 255, 255, 0.65);
   margin: 0 5.5px;
 }
-nav[role="navigation"] #main-menu li.last.dropdown a:before {
+nav[role="navigation"] li.additional a:before {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: 15px;
@@ -6242,6 +6241,7 @@ nav[role="navigation"] .nav > div h2:hover > a:hover:before {
   color: white;
 }
 nav[role="navigation"] .nav > div h2.active, nav[role="navigation"] .nav > div h2.active:hover, nav[role="navigation"] .nav > div h2:active {
+  margin-bottom: -7px;
   background-color: rgba(255, 255, 255, 0.95);
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
@@ -6251,11 +6251,12 @@ nav[role="navigation"] .nav > div h2.active, nav[role="navigation"] .nav > div h
   color: #262626;
   font-weight: 500;
 }
-nav[role="navigation"] .nav > div h2.active > a.active, nav[role="navigation"] .nav > div h2.active > a.active:hover, nav[role="navigation"] .nav > div h2.active > a:active, nav[role="navigation"] .nav > div h2.active:hover > a.active, nav[role="navigation"] .nav > div h2.active:hover > a.active:hover, nav[role="navigation"] .nav > div h2.active:hover > a:active, nav[role="navigation"] .nav > div h2:active > a.active, nav[role="navigation"] .nav > div h2:active > a.active:hover, nav[role="navigation"] .nav > div h2:active > a:active {
+nav[role="navigation"] .nav > div h2.active > a, nav[role="navigation"] .nav > div h2.active > a:hover, nav[role="navigation"] .nav > div h2.active > a:active, nav[role="navigation"] .nav > div h2.active:hover > a, nav[role="navigation"] .nav > div h2.active:hover > a:hover, nav[role="navigation"] .nav > div h2.active:hover > a:active, nav[role="navigation"] .nav > div h2:active > a, nav[role="navigation"] .nav > div h2:active > a:hover, nav[role="navigation"] .nav > div h2:active > a:active {
   color: #262626;
   cursor: default;
+  padding-bottom: 7px;
 }
-nav[role="navigation"] .nav > div h2.active > a.active:before, nav[role="navigation"] .nav > div h2.active > a.active:hover:before, nav[role="navigation"] .nav > div h2.active > a:active:before, nav[role="navigation"] .nav > div h2.active:hover > a.active:before, nav[role="navigation"] .nav > div h2.active:hover > a.active:hover:before, nav[role="navigation"] .nav > div h2.active:hover > a:active:before, nav[role="navigation"] .nav > div h2:active > a.active:before, nav[role="navigation"] .nav > div h2:active > a.active:hover:before, nav[role="navigation"] .nav > div h2:active > a:active:before {
+nav[role="navigation"] .nav > div h2.active > a:before, nav[role="navigation"] .nav > div h2.active > a:hover:before, nav[role="navigation"] .nav > div h2.active > a:active:before, nav[role="navigation"] .nav > div h2.active:hover > a:before, nav[role="navigation"] .nav > div h2.active:hover > a:hover:before, nav[role="navigation"] .nav > div h2.active:hover > a:active:before, nav[role="navigation"] .nav > div h2:active > a:before, nav[role="navigation"] .nav > div h2:active > a:hover:before, nav[role="navigation"] .nav > div h2:active > a:active:before {
   color: #262626;
 }
 nav[role="navigation"] .nav > div h2 span.avatar img {
@@ -6308,6 +6309,7 @@ nav[role="navigation"] .nav > a.btn:hover > a:hover:before, nav[role="navigation
   color: white;
 }
 nav[role="navigation"] .nav > a.btn.active, nav[role="navigation"] .nav > a.btn.active:hover, nav[role="navigation"] .nav > a.btn:active, nav[role="navigation"] .nav > li.active, nav[role="navigation"] .nav > li.active:hover, nav[role="navigation"] .nav > li:active {
+  margin-bottom: -7px;
   background-color: rgba(255, 255, 255, 0.95);
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
@@ -6317,11 +6319,12 @@ nav[role="navigation"] .nav > a.btn.active, nav[role="navigation"] .nav > a.btn.
   color: #262626;
   font-weight: 500;
 }
-nav[role="navigation"] .nav > a.btn.active > a.active, nav[role="navigation"] .nav > a.btn.active > a.active:hover, nav[role="navigation"] .nav > a.btn.active > a:active, nav[role="navigation"] .nav > a.btn.active:hover > a.active, nav[role="navigation"] .nav > a.btn.active:hover > a.active:hover, nav[role="navigation"] .nav > a.btn.active:hover > a:active, nav[role="navigation"] .nav > a.btn:active > a.active, nav[role="navigation"] .nav > a.btn:active > a.active:hover, nav[role="navigation"] .nav > a.btn:active > a:active, nav[role="navigation"] .nav > li.active > a.active, nav[role="navigation"] .nav > li.active > a.active:hover, nav[role="navigation"] .nav > li.active > a:active, nav[role="navigation"] .nav > li.active:hover > a.active, nav[role="navigation"] .nav > li.active:hover > a.active:hover, nav[role="navigation"] .nav > li.active:hover > a:active, nav[role="navigation"] .nav > li:active > a.active, nav[role="navigation"] .nav > li:active > a.active:hover, nav[role="navigation"] .nav > li:active > a:active {
+nav[role="navigation"] .nav > a.btn.active > a, nav[role="navigation"] .nav > a.btn.active > a:hover, nav[role="navigation"] .nav > a.btn.active > a:active, nav[role="navigation"] .nav > a.btn.active:hover > a, nav[role="navigation"] .nav > a.btn.active:hover > a:hover, nav[role="navigation"] .nav > a.btn.active:hover > a:active, nav[role="navigation"] .nav > a.btn:active > a, nav[role="navigation"] .nav > a.btn:active > a:hover, nav[role="navigation"] .nav > a.btn:active > a:active, nav[role="navigation"] .nav > li.active > a, nav[role="navigation"] .nav > li.active > a:hover, nav[role="navigation"] .nav > li.active > a:active, nav[role="navigation"] .nav > li.active:hover > a, nav[role="navigation"] .nav > li.active:hover > a:hover, nav[role="navigation"] .nav > li.active:hover > a:active, nav[role="navigation"] .nav > li:active > a, nav[role="navigation"] .nav > li:active > a:hover, nav[role="navigation"] .nav > li:active > a:active {
   color: #262626;
   cursor: default;
+  padding-bottom: 7px;
 }
-nav[role="navigation"] .nav > a.btn.active > a.active:before, nav[role="navigation"] .nav > a.btn.active > a.active:hover:before, nav[role="navigation"] .nav > a.btn.active > a:active:before, nav[role="navigation"] .nav > a.btn.active:hover > a.active:before, nav[role="navigation"] .nav > a.btn.active:hover > a.active:hover:before, nav[role="navigation"] .nav > a.btn.active:hover > a:active:before, nav[role="navigation"] .nav > a.btn:active > a.active:before, nav[role="navigation"] .nav > a.btn:active > a.active:hover:before, nav[role="navigation"] .nav > a.btn:active > a:active:before, nav[role="navigation"] .nav > li.active > a.active:before, nav[role="navigation"] .nav > li.active > a.active:hover:before, nav[role="navigation"] .nav > li.active > a:active:before, nav[role="navigation"] .nav > li.active:hover > a.active:before, nav[role="navigation"] .nav > li.active:hover > a.active:hover:before, nav[role="navigation"] .nav > li.active:hover > a:active:before, nav[role="navigation"] .nav > li:active > a.active:before, nav[role="navigation"] .nav > li:active > a.active:hover:before, nav[role="navigation"] .nav > li:active > a:active:before {
+nav[role="navigation"] .nav > a.btn.active > a:before, nav[role="navigation"] .nav > a.btn.active > a:hover:before, nav[role="navigation"] .nav > a.btn.active > a:active:before, nav[role="navigation"] .nav > a.btn.active:hover > a:before, nav[role="navigation"] .nav > a.btn.active:hover > a:hover:before, nav[role="navigation"] .nav > a.btn.active:hover > a:active:before, nav[role="navigation"] .nav > a.btn:active > a:before, nav[role="navigation"] .nav > a.btn:active > a:hover:before, nav[role="navigation"] .nav > a.btn:active > a:active:before, nav[role="navigation"] .nav > li.active > a:before, nav[role="navigation"] .nav > li.active > a:hover:before, nav[role="navigation"] .nav > li.active > a:active:before, nav[role="navigation"] .nav > li.active:hover > a:before, nav[role="navigation"] .nav > li.active:hover > a:hover:before, nav[role="navigation"] .nav > li.active:hover > a:active:before, nav[role="navigation"] .nav > li:active > a:before, nav[role="navigation"] .nav > li:active > a:hover:before, nav[role="navigation"] .nav > li:active > a:active:before {
   color: #262626;
 }
 nav[role="navigation"] .nav > a.btn span.avatar img, nav[role="navigation"] .nav > li span.avatar img {
@@ -6352,11 +6355,23 @@ nav[role="navigation"] #navigation-region .ajax-progress-throbber,
 nav[role="navigation"] #user-menu .ajax-progress-throbber {
   display: none;
 }
-nav[role="navigation"] #user-menu li.first .dropdown-menu {
-  left: -105px;
+nav[role="navigation"] #main-menu .dropdown-menu {
+  left: 0;
+  right: auto;
+  -webkit-border-radius: 0 4px 4px 4px;
+  -moz-border-radius: 0 4px 4px 4px;
+  -ms-border-radius: 0 4px 4px 4px;
+  -o-border-radius: 0 4px 4px 4px;
+  border-radius: 0 4px 4px 4px;
 }
-nav[role="navigation"] #user-menu li.last .dropdown-menu {
-  left: -345px;
+nav[role="navigation"] #user-menu .dropdown-menu {
+  left: auto;
+  right: 0;
+  -webkit-border-radius: 4px 0 4px 4px;
+  -moz-border-radius: 4px 0 4px 4px;
+  -ms-border-radius: 4px 0 4px 4px;
+  -o-border-radius: 4px 0 4px 4px;
+  border-radius: 4px 0 4px 4px;
 }
 
 @media (min-width: 469px) {
