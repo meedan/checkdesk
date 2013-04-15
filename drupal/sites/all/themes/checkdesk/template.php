@@ -755,10 +755,39 @@ function checkdesk_checkdesk_core_report_source(&$variables) {
  * Adjust node comments form
  */
 function checkdesk_form_comment_form_alter(&$form, &$form_state) {
+  $nid = $form['#node']->nid;
   $form['author']['homepage'] = NULL;
   $form['author']['mail'] = NULL;
   $form['actions']['submit']['#attributes']['class'] = array('btn');
   $form['actions']['submit']['#value'] = t('Add footnote');
+  $form['actions']['submit']['#ajax'] = array(
+    'callback' => '_checkdesk_comment_form_submit',
+    'wrapper' => 'node-' . $nid,
+    'method' => 'replace',
+    'effect' => 'fade',
+  );
+  $form_state['ctools comment alter'] = FALSE;
+}
+
+function _checkdesk_comment_form_submit($form, $form_state) {
+  drupal_get_messages();
+
+  $nid = $form['#node']->nid;
+  $view = views_get_view('activity_report');
+  $view->set_arguments(array($nid));
+  $output = $view->preview('block');
+
+  $commands = array();
+  // Update footnotes
+  $commands[] = ajax_command_replace('#node-' . $nid . ' .view-activity-report', $output);
+  // Update footnotes count
+  $commands[] = ajax_command_replace('#node-' . $nid . ' .report-footnotes-count span', '<span>' . $view->total_rows . '</span>');
+  // Clear textarea
+  $commands[] = ajax_command_invoke('#node-' . $nid . ' .comment-form textarea', 'val', array(''));
+  // Scroll to new footnote
+  $commands[] = ajax_command_invoke('#report-activity-node-' . $nid, 'scrollToHere');
+
+  return array('#type' => 'ajax', '#commands' => $commands);
 }
 
 function checkdesk_field__field_rating(&$variables) {
