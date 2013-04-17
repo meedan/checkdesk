@@ -1532,3 +1532,46 @@ function checkdesk_core_get_facebook_locale($lang_code = '') {
   }
 }
 
+/**
+ * Implements hook_filter_info().
+ */
+function checkdesk_core_filter_info() {
+  $filters['filter_checkdesk_markup'] = array(
+    'title' => t('Checkdesk markup filter'),
+    'description' => t('Replace bad characters, that can mess up Arabic text.'),
+    'prepare callback' => '_checkdesk_core_filter_prepare',
+    'process callback' => '_checkdesk_core_filter_process',
+    'tips callback' => '_checkdesk_core_filter_tips',
+    'cache' => FALSE,
+  );
+  return $filters;
+}
+
+/**
+ * Checkdesk filter prepare callback.
+ */
+function _checkdesk_core_filter_prepare($text, $filter) {
+  return $text;
+}
+
+/**
+ * Time filter process callback.
+ *
+ * Now, in the "process" step, we'll search for problematic characters
+ * and replace them by safe ones.
+ */
+function _checkdesk_core_filter_process($text, $filter) {
+  $replacements = array(
+    // On Google Chrome, on Windows, '&nbsp;' is replaced by '!' when using font 'Amiri'
+    '/&nbsp;/' => ' ',
+  );
+  $text = preg_replace(array_keys($replacements), array_values($replacements), $text);
+  return $text;
+}
+
+/**
+ * Filter tips callback for Checkdesk filter.
+ *
+ */
+function _checkdesk_core_filter_tips($filter, $format, $long = FALSE) {
+}

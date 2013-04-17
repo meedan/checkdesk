@@ -14,7 +14,7 @@ function checkdesk_core_feature_filter_default_formats() {
   $formats['filtered_html'] = array(
     'format' => 'filtered_html',
     'name' => 'Filtered HTML + Markdown',
-    'cache' => '1',
+    'cache' => '0',
     'status' => '1',
     'weight' => '-99',
     'filters' => array(
@@ -49,6 +49,11 @@ function checkdesk_core_feature_filter_default_formats() {
         'status' => '1',
         'settings' => array(),
       ),
+      'filter_checkdesk_markup' => array(
+        'weight' => '0',
+        'status' => '1',
+        'settings' => array(),
+      ),
     ),
   );
 
@@ -60,6 +65,11 @@ function checkdesk_core_feature_filter_default_formats() {
     'status' => '1',
     'weight' => '-98',
     'filters' => array(
+      'filter_checkdesk_markup' => array(
+        'weight' => '0',
+        'status' => '1',
+        'settings' => array(),
+      ),
       'filter_autop' => array(
         'weight' => '0',
         'status' => '1',
