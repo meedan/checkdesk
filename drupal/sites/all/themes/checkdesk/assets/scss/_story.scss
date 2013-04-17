@@ -158,6 +158,9 @@ $omega: opposite-position($alpha);
 
     p {
       margin: $base-line-height/4 0;
+      &:first-child {
+        margin: 0 0;
+      }
     }
   }
 }

@@ -47,12 +47,14 @@ body.page-liveblog {
         }
 
         h2 {
-          margin: 0;
+          @include reset-box-model;
+          margin-top: $absolute-line-height/2;
+          margin-bottom: $absolute-line-height/2;
           font-size: 200%;
           line-height: 1.2;
 
           a {
-            @include ctb-linkColor($grayLight);
+            @include ctb-linkColor($gray);
             font-weight: normal;
           }
 
@@ -72,8 +74,7 @@ body.page-liveblog {
           & > h3 {
             @include reset-box-model;
             font-size: 125%;
-
-            padding-top: 0.5em;
+            padding: 0.5em 0;
 
             a {
               @include ctb-linkColor($grayDark);

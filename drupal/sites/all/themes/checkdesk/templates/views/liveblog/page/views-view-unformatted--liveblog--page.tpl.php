@@ -12,9 +12,9 @@ $last_desk_nid = 0;
 
       if ($this_desk_nid != $last_desk_nid) {
         if ($last_desk_nid) {
-          echo "</div> <!-- /desk -->\n";
+          echo "</div></article> <!-- /desk -->\n";
           echo theme('checkdesk_related_updates_bar', array('story' => node_load($last_desk_nid)));
-          echo "<div class=\"desk\">\n";
+          echo "<article class=\"story\"><div class=\"desk\">\n";
         }
 
         echo '<h2>';
@@ -24,7 +24,7 @@ $last_desk_nid = 0;
         echo '</h2>';
 
         if(isset($view->result[$id]->field_body)) {
-          echo '<div class="story-description">' . render($view->result[$id]->field_body) . '</div>';  
+          echo '<div class="story-body">' . render($view->result[$id]->field_body) . '</div>';  
         }
 
         echo '<div class="post-row ' . $classes_array[$id] . '" data-story-nid="' . $this_desk_nid . '">';

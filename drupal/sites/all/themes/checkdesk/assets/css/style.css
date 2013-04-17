@@ -7271,15 +7271,19 @@ body.page-liveblog #main .view-liveblog .desk:first-child {
 }
 body.page-liveblog #main .view-liveblog .desk h2 {
   margin: 0;
+  padding: 0;
+  border: 0;
+  margin-top: 12px;
+  margin-bottom: 12px;
   font-size: 200%;
   line-height: 1.2;
 }
 body.page-liveblog #main .view-liveblog .desk h2 a {
-  color: #999999;
+  color: #555555;
   font-weight: normal;
 }
 body.page-liveblog #main .view-liveblog .desk h2 a:hover {
-  color: #333333;
+  color: black;
 }
 body.page-liveblog #main .view-liveblog .desk h2 .desk {
   border: 1px solid red;
@@ -7296,7 +7300,7 @@ body.page-liveblog #main .view-liveblog .desk .post-row > h3 {
   padding: 0;
   border: 0;
   font-size: 125%;
-  padding-top: 0.5em;
+  padding: 0.5em 0;
 }
 body.page-liveblog #main .view-liveblog .desk .post-row > h3 a {
   color: #333333;
@@ -7653,6 +7657,9 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 }
 .story .story-body p {
   margin: 6px 0;
+}
+.story .story-body p:first-child {
+  margin: 0 0;
 }
 
 body.sidebar-first #main {
