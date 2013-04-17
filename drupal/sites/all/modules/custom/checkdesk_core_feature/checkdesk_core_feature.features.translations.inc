@@ -42852,6 +42852,30 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['3648449a13dcbeb410c4aaf6e55dbab3'] = array(
+    'source' => 'View original',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'عرض الأصل',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['f589226cbf87f383c0378736fbb9a3c7'] = array(
+    'source' => '<a href="@user">!user</a> submitted this <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'اضافه <a href="@user">!user</a> <time class="date-time" datetime="!timestamp">منذ !datetime_ago</time>',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0869522d5a55698fde06f804cb89a958'] = array(
+    'source' => '@count[3] more updates',
+    'context' => '',
+    'location' => '',
+    'translation' => '@count[3] تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['2c086e37f463aba143f4890ad30d77ac'] = array(
     'source' => 'Unpublish',
     'context' => '',
@@ -42876,14 +42900,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
-  $translations['ar:default']['0869522d5a55698fde06f804cb89a958'] = array(
-    'source' => '@count[3] more updates',
-    'context' => '',
-    'location' => '',
-    'translation' => '@count[3] تحديثات أخرى',
-    'plid' => '0',
-    'plural' => '0',
-  );
   $translations['ar:default']['0a046e997aded985b4be3de8aa8b5259'] = array(
     'source' => '1 more update',
     'context' => '',
@@ -42905,22 +42921,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'معياري',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['f589226cbf87f383c0378736fbb9a3c7'] = array(
-    'source' => '<a href="@user">!user</a> submitted this <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>',
-    'context' => '',
-    'location' => '/',
-    'translation' => 'اضافه <a href="@user">!user</a> <time class="date-time" datetime="!timestamp">منذ !datetime_ago</time>',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['3648449a13dcbeb410c4aaf6e55dbab3'] = array(
-    'source' => 'View original',
-    'context' => '',
-    'location' => '/',
-    'translation' => 'عرض الأصل',
     'plid' => '0',
     'plural' => '0',
   );
@@ -42977,6 +42977,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/meedan/meedan-checkdesk/drupal/',
     'translation' => '@count[4] تحديثات أخرى',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0e6bc1516b2174c4fea8eec29ce88d82'] = array(
+    'source' => 'Sorry, @site can only handle public Facebook content. Please ensure you can access this URL when logged out of Facebook.',
+    'context' => '',
+    'location' => '/checkdesk/media-preview',
+    'translation' => 'عذراً، @site يمكنه استخدام محتوى فيسبوك العلني فقط. يرجى التأكد من أنك يمكنك الوصول إلى تلك الصفحة عندما تقوم بتسجيل الخروج من فيسبوك.',
     'plid' => '0',
     'plural' => '0',
   );
