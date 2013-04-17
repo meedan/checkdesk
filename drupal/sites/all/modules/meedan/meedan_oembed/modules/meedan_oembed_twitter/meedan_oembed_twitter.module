@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * Implementation of hook_theme().
+ */
+function meedan_oembed_twitter_theme() {
+  $path = drupal_get_path('module', 'meedan_oembed_twitter') . '/theme';
+  $file = 'meedan_oembed_twitter.theme.inc';
+
+  return array(
+    'meedan_oembed_twitter_tweet' => array(
+      'variables' => array('tweet' => NULL),
+      'path' => $path,
+      'file' => $file,
+    ),
+    'oembed__link__meedan_oembed_twitter' => array(
+      'variables' => array('embed' => NULL),
+      'template' => 'oembed-twitter',
+      'path' => $path,
+      'file' => $file,
+    ),
+  );
+}
