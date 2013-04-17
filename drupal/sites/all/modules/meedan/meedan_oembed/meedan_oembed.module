@@ -93,40 +93,45 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed = $handler['callback']($provider, $url);
   }
 
-  if (!$embed || ($embed->error && $embed->try_embedly)) {
+  if (!$embed || $embed->error) {
     $original_embed = $embed;
 
-    // Ask oEmbed core to render for us
-    if ($embed = oembedcore_oembed_data($url, $attributes)) {
-      // Nothing to do
-    }
-    // Call Embedly
-    else {
-      $matches = array();
-      $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+    if (!$embed || $embed->try_embedly) {
+      // Ask oEmbed core to render for us
+      if ($embed = oembedcore_oembed_data($url, $attributes)) {
+        // Nothing to do
+      }
+      // Call Embedly
+      else {
+        $matches = array();
+        $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+      }
     }
 
-    // In the case where Embedly was used as a fallback the first error message
-    // from the $handler['callback'] is likely more accurate. Use it instead.
-    if ($embed->error && $original_embed->error && $original_embed->error_message) {
-      $embed->error_message = $original_embed->error_message;
+    // Embedly failed, provide some fallback embed content
+    if (is_null($embed) || $embed === FALSE || $embed->error) {
+      // Ensure NULL and FALSE become (object) array()
+      $embed = (object) $embed;
+      unset($embed->scalar);
+
+      $url_info = parse_url($url);
+
+      $embed->url           = $url;
+      $embed->error         = TRUE;
+      $embed->original_url  = $url;
+      $embed->provider_name = '';
+      $embed->provider_url  = $url_info['scheme'] . '://' . $url_info['host'];
+      $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
+
+      // In the case where Embedly was used as a fallback the first error message
+      // from the $handler['callback'] is likely more accurate. Use it instead.
+      if ($original_embed && $original_embed->error && $original_embed->error_message) {
+        $embed->error_message = $original_embed->error_message;
+      }
     }
   }
 
-  if (!$embed || (isset($embed->error) && $embed->error)) {
-    $url_info = parse_url($url);
-
-    // Ensure NULL and FALSE become (object) array()
-    $embed = (object) $embed;
-
-    $embed->url           = $url;
-    $embed->error         = TRUE;
-    $embed->original_url  = $url;
-    $embed->provider_name = '';
-    $embed->provider_url  = $url_info['scheme'] . '://' . $url_info['host'];
-    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
-  }
-  else {
+  if ($embed && !$embed->error) {
     meedan_oembed_add_extra_information($embed);
     $embed->error = FALSE;
   }

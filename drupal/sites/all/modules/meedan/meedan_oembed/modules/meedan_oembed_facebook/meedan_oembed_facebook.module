@@ -159,7 +159,7 @@ function _meedan_oembed_facebook_graph_api_data($url, $depth = 0) {
 
     return array(
       'error'         => TRUE,
-      'error_message' => t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."),
+      'error_message' => t("Sorry, @site can only handle public Facebook content. Please ensure you can access this URL when logged out of Facebook.", array('@site' => variable_get('site_name', 'Checkdesk'))),
       // Request that meedan_oembed fallback to Embed.ly.
       'try_embedly'   => TRUE,
     );
