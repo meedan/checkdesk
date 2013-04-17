@@ -1,0 +1,309 @@
+<?php
+
+/**
+ * Implements hook_meedan_oembed()
+ */
+function meedan_oembed_facebook_meedan_oembed() {
+  return array(
+    'facebook' => array(
+      'callback' => 'meedan_oembed_facebook_handler',
+      'provider_name' => 'meedan_oembed_facebook',
+    )
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function meedan_oembed_facebook_theme() {
+  $path = drupal_get_path('module', 'meedan_oembed_facebook') . '/theme';
+  $file = 'meedan_oembed_facebook.theme.inc';
+
+  return array(
+    'oembed__link__meedan_oembed_facebook' => array(
+      'variables' => array('embed' => NULL),
+      'template' => 'oembed-facebook',
+      'path' => $path,
+      'file' => $file,
+    ),
+    'meedan_oembed_facebook_status' => array(
+      'variables' => array('status' => NULL, 'author' => NULL),
+      'path' => $file,
+      'file' => $file,
+    ),
+  );
+}
+
+/**
+ * Attempts to use Graph API to convert a Facebook post into an oembed response.
+ * If the post cannot be accessed an Embed.ly fallback is requested.
+ */
+function meedan_oembed_facebook_handler($provider, $url) {
+  $url_info = parse_url($url);
+  $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
+
+  $post_data = _meedan_oembed_facebook_graph_api_data($url);
+
+  if (isset($post_data['error']) && $post_data['error']) {
+    return (object) $post_data;
+  }
+
+  $embed = new stdclass();
+  $embed->url = $url;
+  $embed->original_url = $url;
+  $embed->provider = $provider;
+  $embed->provider_url = $provider_url;
+  $embed->provider_name = 'Facebook';
+  $embed->type = 'link';
+
+  // A photo, first priority
+  if (isset($post_data['picture']) || isset($post_data['images'])) {
+    $name = isset($post_data['from']) && isset($post_data['from']['name'])
+          ? $post_data['from']['name']
+          : t('unknown Facebook user');
+
+    // No caption for photos
+    $embed->description = '';
+
+    // Default case, we use the generic 'picture' attribute.
+    // This is usually a thumbnail.
+    if ($post_data['picture']) {
+      $embed->picture = $post_data['picture'];
+      $embed->thumbnail_url = $post_data['picture'];
+    }
+
+    // Best case, find the largest picture available
+    $max_size = 0;
+    foreach ($post_data['images'] as $image) {
+      if ($image['width'] * $image['height'] > $max_size) {
+        $embed->picture = $image['source'];
+        $embed->thumbnail_url = $image['source'];
+
+        $max_size = $image['width'] * $image['height'];
+      }
+    }
+  }
+  // A status update, probably
+  else if (isset($post_data['message'])) {
+    $embed->description = $post_data['message'];
+    $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
+  }
+  // A user
+  else if (isset($post_data['name'])) {
+    $embed->description = $post_data['name'];
+  }
+  // Something with a description
+  else if (isset($post_data['description'])) {
+    $embed->description = $post_data['description'];
+  }
+  else {
+    $embed->description = t('No message available for this post');
+  }
+
+  $embed->title = $embed->description;
+  $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
+  $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
+  $embed->author_name = $post_data['from']['name'];
+  $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
+  $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
+  $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
+
+  return $embed;
+}
+
+/**
+ * Returns Facebook Graph API data pertaining to a Facebook URL.
+ *
+ * Attempts to search through the Graph API until the original content is found.
+ *
+ * @param string $url
+ *  A URL on the www.faceboo.com domain.
+ * @param int $depth
+ *  Internal use only, prevents infinite recursion.
+ * @return mixed
+ *  One of a) a Facebook API post_data object array or b) an error object with
+ *  keys 'error' and 'message'
+ */
+function _meedan_oembed_facebook_graph_api_data($url, $depth = 0) {
+  include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
+
+  static $facebook = NULL;
+
+  if (is_null($facebook)) {
+    $facebook = new Facebook(array(
+      'appId'  => variable_get('fboauth_id', ''),
+      'secret' => variable_get('fboauth_secret', ''),
+    ));
+  }
+
+  try {
+    $post_id   = _meedan_oembed_facebook_getFacebookId($url);
+    $post_data = $facebook->api('/' . $post_id);
+
+    if (isset($post_data['link'])) {
+      $new_post_id = _meedan_oembed_facebook_getFacebookId($post_data['link']);
+
+      // Only dig deeper when both (a) AND (b) are TRUE.
+      //   a) This content links to another, different, content
+      //   b) Recursion has not gone too deeply
+      // Failing that, give up gracefully and return the data level that has
+      // been reached.
+      if ($new_post_id != $post_id && $depth < variable_get('meedan_oembed_facebook_max_graph_depth', 5)) {
+        return _meedan_oembed_facebook_graph_api_data($post_data['link'], $depth + 1);
+      }
+    }
+
+    return $post_data;
+  } catch (FacebookApiException $e) {
+    watchdog('FacebookApi', t('Unable to fetch data from Facebook: @error', array('@error' => $e->getMessage())));
+
+    return array(
+      'error'         => TRUE,
+      'error_message' => t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."),
+      // Request that meedan_oembed fallback to Embed.ly.
+      'try_embedly'   => TRUE,
+    );
+  }
+}
+
+
+/**
+ * Implements of hook_form_FORM_ID_form().
+ */
+function meedan_oembed_facebook_form_media_node_form_alter(&$form, &$form_state, $form_id) {
+  //Hide title field
+  $form['title']['#type'] = 'value';
+  $form['title']['#required'] = FALSE;
+  include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
+  $facebook = new Facebook(array(
+    'appId'  => variable_get('fboauth_id', ''),
+    'secret' => variable_get('fboauth_secret', ''),
+  ));
+  //TODO: remove commented code to enable FB javascript sdk instead of current one.
+  /**
+  drupal_add_js("
+    jQuery(document).ready(function () {
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '". $facebook->getAppID() ."',
+          cookie: true,
+          xfbml: true,
+          oauth: true
+        });
+        FB.Event.subscribe('auth.login', function(response) {
+          FB._oauth = false;
+          FB.Cookie.setEnabled(true);
+          FB.Auth.setSession(response.authResponse, response.status);
+          FB._oauth = true;
+          window.location.reload();
+        });
+        FB.Event.subscribe('auth.logout', function(response) {
+          window.location.reload();
+        });
+      };
+      (function() {
+        var e = document.createElement('script'); e.async = true;
+        e.src = document.location.protocol +
+          '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+      }());
+    });
+    ", 'inline'
+    );
+   */
+  // Get facebook User ID
+  $fb_user = $facebook->getUser();
+  $fb_logged_in = FALSE;
+  if ($fb_user) {
+    try {
+      $facebook->api('/me');
+      $fb_logged_in = TRUE;
+    }
+    catch(FacebookApiException $e) {
+      $fb_logged_in = FALSE;
+    }
+  } else $fb_logged_in = FALSE;
+  if ($fb_logged_in) {
+    $form['field_link']['und'][0]['#description'] = NULL;
+  } else {
+    $onclick = implode('', array(
+      'window.open(',
+        'this.href,',
+        '\'checkdesk\',',
+        '\'toolbar=0,location=0,menubar=0,directories=0,status=0,scrollbars=1,width=1000,height=650,modal=1,left=\'+((screen.width/2)-500)+\',top=\'+((screen.height/2)-325)',
+      ');',
+      'return false;',
+    ));
+    $loginUrl = t('If you want to submit a Facebook link, you need to <a href="@url" onclick="!onclick" target="_blank">connect to your Facebook account first</a>.', array('@url' => _meedan_oembed_facebook_login_url($facebook), '!onclick' => $onclick));
+    $form['field_link']['und'][0]['#description'] = $loginUrl;
+    $form['fb_loginurl'] = array(
+      '#type' => 'hidden',
+      '#value' => $loginUrl,
+    );
+  }
+  $form['fb_userid'] = array(
+    '#type' => 'hidden',
+    '#value' => $fb_user,
+  );
+  $form['#validate'][] = '_meedan_oembed_facebook_post_validate';
+}
+
+
+/**
+ * Validate embed from Facebook
+ * make sure that user login through facebook if he adds media from facebook
+ */
+function _meedan_oembed_facebook_post_validate($form, &$form_state) {
+  $lang = $form_state['node']->language;
+  $url = $form_state['values']['field_link'][$lang][0]['url'];
+  $host = parse_url($url, PHP_URL_HOST);
+  if (strpos($host, 'facebook.com')) {
+    if (!$form_state['values']['fb_userid']) {
+      //Ask user to login through facebook first
+      form_set_error('field_link', $form_state['values']['fb_loginurl']);
+    }
+    else {
+      // Check if user has a permission to embed this post
+      $embed = meedan_oembed_data($url, array(), FALSE, TRUE);
+
+      if (isset($embed->error) && $embed->error) {
+        form_set_error('field_link', $embed->error_message);
+      }
+    }
+  }
+}
+
+/**
+ * Returns a permissioned Facebook login URL. This enables the Checkdesk website
+ * to drive which permissions are required for the report embedding to function
+ * correctly.
+ */
+function _meedan_oembed_facebook_login_url($facebook) {
+  // Everything in $_GET except $_GET['q']
+  $query = array_diff_key($_GET, array('q' => ''));
+
+  $permissions = variable_get('meedan_oembed_fb_permissions', array(
+    'user_photos',
+    'user_status',
+    'friends_photos',
+    'friends_status',
+  ));
+
+  return $facebook->getLoginUrl(array(
+    'redirect_uri' => url($_GET['q'], array('absolute' => TRUE, 'query' => $query)),
+    'scope' => implode(',', $permissions)
+  ));
+}
+
+/**
+ * Extract post id from URL
+ */
+function _meedan_oembed_facebook_getFacebookId($url) {
+  //Check if this post is Timeline Photos
+  $query = parse_url($url, PHP_URL_QUERY);
+  parse_str(urldecode($query), $query);
+  if (isset($query['fbid'])) {
+    return $query['fbid'];
+  }
+  return substr(strrchr($url,'/'),1);
+}
