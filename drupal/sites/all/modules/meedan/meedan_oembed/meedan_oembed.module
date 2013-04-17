@@ -1,72 +1,29 @@
 <?php
 
-/**
- * Implements hook_node_load().
- */
-function meedan_oembed_node_load($nodes, $types) {
-  foreach ($nodes as $nid => $node) {
-    if ($node->type != 'media') {
-      continue;
-    }
-    if (!isset($node->field_link) || !isset($node->field_link[LANGUAGE_NONE]) || !isset($node->field_link[LANGUAGE_NONE][0])) {
-      continue;
-    }
-
-    $nodes[$nid]->embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
-  }
-}
+require_once dirname(__FILE__) . '/meedan_oembed.inc';
+require_once dirname(__FILE__) . '/meedan_oembed.filter.inc';
 
 /**
- * Implements of hook_element_info_alter().
+ * Implementation of hook_theme().
  */
-function meedan_oembed_element_info_alter(&$type) {
-  // Override oEmbed's pre_render hooks with ours.
-  foreach (array('oembed', 'oembed_bare', 'oembed_thumbnail') as $key) {
-    foreach ($type[$key]['#pre_render'] as &$pre_render) {
-      if ($pre_render == 'oembedcore_pre_render_fetch') {
-        $pre_render = 'meedan_oembed_pre_render_fetch';
-      }
-    }
-  }
-}
+function meedan_oembed_theme() {
+  $path = drupal_get_path('module', 'meedan_oembed') . '/theme';
+  $file = 'meedan_oembed.theme.inc';
 
-/**
- * Pre render fetches the oEmbed data.
- * Copy of oembedcore_pre_render_fetch with meedan_oembed_data() called instead of oembedcore_oembed_data().
- */
-function meedan_oembed_pre_render_fetch($element) {
-  $embed = meedan_oembed_data($element['#url'], $element['#options']);
-
-  // Prevent rendering if the response is bad.
-  if (!$embed) {
-    $element['#printed'] = TRUE;
-    return $element;
-  }
-
-  $element['#embed'] = $embed;
-
-  // Recalculate cache expire time based on response.
-  if (isset($embed->cache_age) && $element['#cache']['expire'] != CACHE_PERMANENT) {
-    $expire = REQUEST_TIME + intval($embed->cache_age);
-    if ($expire > $element['#cache']['expire']) {
-      $element['#cache']['expire'] = $expire;
-    }
-  }
-
-  return $element;
-}
-
-/**
- * Returns the hook_meedan_oembed() handler information for a given domain.
- */
-function meedan_oembed_get_handler_for_domain($domain) {
-  $handlers = module_invoke_all('meedan_oembed');
-
-  if (array_key_exists($domain, $handlers)) {
-    return $handlers[$domain];
-  }
-
-  return FALSE;
+  return array(
+    'oembed__link__meedan_oembed_generic' => array(
+      'variables' => array('embed' => NULL),
+      'template' => 'oembed-generic',
+      'path' => $path,
+      'file' => $file,
+    ),
+    'meedan_oembed_missing' => array(
+      'variables' => array('media' => NULL),
+      'template' => 'oembed-missing',
+      'path' => $path,
+      'file' => $file,
+    ),
+  );
 }
 
 /**
@@ -197,50 +154,59 @@ function meedan_oembed_add_extra_information(&$embed) {
 }
 
 /**
- * Get domain name from url.
- * Get site name.
- * Choose largest token of the host.
+ * Implements hook_node_load().
  */
-function _meedan_oembed_get_domain_name($url) {
-  $parts = explode('.', parse_url($url, PHP_URL_HOST));
-  $domain = '';
-  foreach ($parts as $part) {
-    if (strlen($part) > strlen($domain)) {
-      $domain = $part;
+function meedan_oembed_node_load($nodes, $types) {
+  foreach ($nodes as $nid => $node) {
+    if ($node->type != 'media') {
+      continue;
+    }
+    if (!isset($node->field_link) || !isset($node->field_link[LANGUAGE_NONE]) || !isset($node->field_link[LANGUAGE_NONE][0])) {
+      continue;
+    }
+
+    $nodes[$nid]->embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
+  }
+}
+
+/**
+ * Implements of hook_element_info_alter().
+ */
+function meedan_oembed_element_info_alter(&$type) {
+  // Override oEmbed's pre_render hooks with ours.
+  foreach (array('oembed', 'oembed_bare', 'oembed_thumbnail') as $key) {
+    foreach ($type[$key]['#pre_render'] as &$pre_render) {
+      if ($pre_render == 'oembedcore_pre_render_fetch') {
+        $pre_render = 'meedan_oembed_pre_render_fetch';
+      }
     }
   }
-  return strtolower($domain);
 }
 
 /**
- * Implementation of hook_theme().
+ * Pre render fetches the oEmbed data.
+ * Copy of oembedcore_pre_render_fetch with meedan_oembed_data() called instead of oembedcore_oembed_data().
  */
-function meedan_oembed_theme() {
-  $path = drupal_get_path('module', 'meedan_oembed') . '/theme';
-  return array(
-    'oembed__link__meedan_oembed_generic' => array(
-      'variables' => array('embed' => NULL),
-      'template' => 'oembed-generic',
-      'path' => $path,
-    ),
-    'meedan_oembed_missing' => array(
-      'variables' => array('media' => NULL),
-      'template' => 'oembed-missing',
-      'path' => $path,
-    ),
-  );
-}
+function meedan_oembed_pre_render_fetch($element) {
+  $embed = meedan_oembed_data($element['#url'], $element['#options']);
 
-/**
- * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_generic'.
- */
-function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
-  $embed = $vars['embed'];
-  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
-  $vars['title_link'] = l($embed->title, $embed->url);
-  $vars['content'] = $embed->description;
-  $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
-  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
+  // Prevent rendering if the response is bad.
+  if (!$embed) {
+    $element['#printed'] = TRUE;
+    return $element;
+  }
+
+  $element['#embed'] = $embed;
+
+  // Recalculate cache expire time based on response.
+  if (isset($embed->cache_age) && $element['#cache']['expire'] != CACHE_PERMANENT) {
+    $expire = REQUEST_TIME + intval($embed->cache_age);
+    if ($expire > $element['#cache']['expire']) {
+      $element['#cache']['expire'] = $expire;
+    }
+  }
+
+  return $element;
 }
 
 /**
@@ -251,68 +217,6 @@ function meedan_oembed_entity_info_alter(&$entity_info) {
     'label' => t('Meedan oEmbed'),
     'custom settings' => TRUE,
   );
-}
-
-/**
- * Implements hook_filter_info().
- */
-function meedan_oembed_filter_info() {
-  $filters['filter_meedan_oembed'] = array(
-    'title' => t('Meedan oEmbed filter'),
-    'description' => t('Every instance of [media-title:$nid] will be replaced with the corresponding Meedan oEmbed node view.'),
-    'prepare callback' => '_meedan_oembed_filter_prepare',
-    'process callback' => '_meedan_oembed_filter_process',
-    'tips callback' => '_meedan_oembed_filter_tips',
-    'cache' => FALSE,
-  );
-  return $filters;
-}
-
-/**
- * Meedan oEmbed filter prepare callback.
- */
-function _meedan_oembed_filter_prepare($text, $filter) {
-  return $text;
-}
-
-/**
- * Time filter process callback.
- *
- * Now, in the "process" step, we'll search for our escaped time tags and
- * do the real filtering: replace nid with meedan oembed node view.
- */
-function _meedan_oembed_filter_process($text, $filter) {
-  $matches = array();
-  preg_match_all('/\[\S+:(\d+)\]/u', $text, $matches);
-  if (count($matches[1])) {
-    $output = array();
-    foreach ($matches[1] as $key => $nid) {
-      if (is_numeric($nid)) {
-        $node = node_load($nid);
-        if (is_object($node)) {
-          // Render node using custom Meedan oEmbed view.
-          $element = node_view($node, 'meedan_oembed');
-          $element['comments'] = comment_node_page_additions($node);
-          $node_view = drupal_render($element);
-          // Replace [media-title:$nid] with node view.
-          $text = str_replace($matches[0][$key], $node_view, $text);
-        }
-        else {
-          $missing = theme('meedan_oembed_missing', array('media' => $matches[0][$key]));
-          $text = str_replace($matches[0][$key], $missing, $text);
-        }
-      }
-    }
-  }
-  return $text;
-}
-
-/**
- * Filter tips callback for meedan oembed filter.
- *
- */
-function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
-  return t('<em>[media-title:$nid]</em> is replaced with the Meedan oEmbed node view for <em>$nid</em>.');
 }
 
 /**
@@ -364,12 +268,4 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
     if ($embed->error) $vars['embed_error'] = t('It was not possible to parse this report.');
   }
-}
-
-/**
- * Any string beginning with at least one Arabic character is deemed
- * to be Arabic.
- */
-function meedan_oembed_needs_rtl($text) {
-  return (boolean) preg_match('/^\p{Arabic}/u', $text);
 }
