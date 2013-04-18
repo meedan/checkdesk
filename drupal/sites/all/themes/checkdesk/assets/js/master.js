@@ -26,24 +26,6 @@
 	};
 
 	// filters for reports inside sidebar
-	Drupal.behaviors.installBookmarklet = {
-		attach: function (context) {
-			// set the top margin of modal
-			var bodyHeight = $(window).height(),
-			    percentage = 20,
-			    modalPosition = ((percentage / 100) * bodyHeight);
-			$('div.modal-install-bookmarklet#modalContent', context).css('top', modalPosition);
-
-			$(window).resize(function(){
-				var bodyHeight = $(window).height(),
-				    modalPosition = ((percentage / 100) * bodyHeight);
-				$('div.modal-install-bookmarklet#modalContent', context).css('top', modalPosition);
-			});
-
-		}
-	};
-
-	// filters for reports inside sidebar
 	Drupal.behaviors.reportsPage = {
 		attach: function(context) {
       // configure masonry

@@ -228,28 +228,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'und',
     'customized' => '1',
   );
-  // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
-  $menu_links['menu-common:modal/ajax/content/install-bookmarklet'] = array(
-    'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/install-bookmarklet',
-    'router_path' => 'modal/%',
-    'link_title' => 'Bookmarklet',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-50',
-    'uuid' => 'd1606646-9485-5154-e504-9eabb5782cc6',
-    'language' => 'en',
-    'customized' => '1',
-  );
   // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
   $menu_links['menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
     'menu_name' => 'menu-common',
@@ -424,7 +402,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-48',
+    'weight' => '-50',
     'uuid' => '567a9623-1ab2-3fd4-ddf8-ccaffafffa37',
     'language' => 'en',
     'customized' => '1',
@@ -446,8 +424,30 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-46',
+    'weight' => '-45',
     'uuid' => 'aaac935a-d8c3-c964-b1a5-11747d737824',
+    'language' => 'en',
+    'customized' => '1',
+  );
+  // Exported menu link: menu-information:modal/ajax/content/install-bookmarklet
+  $menu_links['menu-information:modal/ajax/content/install-bookmarklet'] = array(
+    'menu_name' => 'menu-information',
+    'link_path' => 'modal/ajax/content/install-bookmarklet',
+    'router_path' => 'modal/%',
+    'link_title' => 'Bookmarklet',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-41',
+    'uuid' => 'd1606646-9485-5154-e504-9eabb5782cc6',
     'language' => 'en',
     'customized' => '1',
   );
@@ -468,7 +468,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-44',
+    'weight' => '-43',
     'uuid' => 'a3f2b8b5-2d02-9934-79d7-246ff6231eaf',
     'language' => 'en',
     'customized' => '1',
@@ -490,7 +490,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-45',
+    'weight' => '-44',
     'uuid' => '3daae1f4-caac-41f1-b00c-7ada7412206e',
     'language' => 'ar',
     'customized' => '1',
@@ -512,7 +512,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-43',
+    'weight' => '-42',
     'uuid' => '2caff8c7-f404-4de3-8c79-0fdf715f1b00',
     'language' => 'ar',
     'customized' => '1',
