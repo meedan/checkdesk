@@ -261,7 +261,7 @@ function checkdesk_core_feature_translations_defaults() {
     'source' => 'URL',
     'context' => '',
     'location' => '',
-    'translation' => 'المسار',
+    'translation' => 'الرابط',
     'plid' => '0',
     'plural' => '0',
   );
