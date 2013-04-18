@@ -84,11 +84,10 @@ input[type="color"],
 .uneditable-input {
   display: inline-block;
   height: $absolute-line-height;
-  padding: 8px 6px;
+  padding: 10px 6px;
   margin-bottom: $absolute-line-height / 4;
   font-size: $base-font-size;
   font-family: $body-font-stack;
-  line-height: $absolute-line-height;
   color: $grayLight;
   @include border-radius($radius);
   vertical-align: middle;
