@@ -48,9 +48,9 @@ function checkdesk_checkdesk_dropdown_menu_item($variables) {
   global $user;
 
   $output  = '<span'. drupal_attributes($variables['attributes']) .'>';
-  $output .=   $variables['prefix'] ? $variables['prefix'] : '';
+  $output .=   isset($variables['prefix']) ? $variables['prefix'] : '';
   $output .=   $variables['title'];
-  $output .=   $variables['prefix'] ? $variables['prefix'] : '';
+  $output .=   isset($variables['suffix']) ? $variables['suffix'] : '';
   $output .=   '<span class="caret"></span>';
   $output .= '</span>';
 
@@ -106,7 +106,7 @@ function checkdesk_checkdesk_user_menu_content($variables) {
     $linked_accounts .= '</small>';
   }
 
-  $bio = $account->field_bio ? $account->field_bio[LANGUAGE_NONE][0]['safe_value'] : '';
+  $bio = isset($account->field_bio) && $account->field_bio ? $account->field_bio[LANGUAGE_NONE][0]['safe_value'] : '';
 
   $account_menu = theme('checkdesk_links', array(
     'links' => $variables['items'],
