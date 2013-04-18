@@ -73,10 +73,18 @@ class Twitter {
     return $url;
   }
 
-  public function get_access_token() {
--    $url = variable_get('twitter_api', TWITTER_API) . '/oauth/access_token';
+  /* Added $oauth_verifier */
+  public function get_access_token($oauth_verifier = FALSE) {
+    $url = variable_get('twitter_api', TWITTER_API) . '/oauth/access_token';
+
+    // Adding parameter oauth_verifier to auth_request
+    $parameters = array();
+    if (!empty($oauth_verifier)) {
+      $parameters['oauth_verifier'] = $oauth_verifier;
+    }
+
     try {
-      $response = $this->auth_request($url);
+      $response = $this->auth_request($url, $parameters);
     }
     catch (TwitterException $e) {
       watchdog('twitter', '!message', array('!message' => $e->__toString()), WATCHDOG_ERROR);
