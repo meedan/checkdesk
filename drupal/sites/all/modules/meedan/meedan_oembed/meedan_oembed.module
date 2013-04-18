@@ -131,7 +131,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     }
   }
 
-  if ($embed && !$embed->error) {
+  if ($embed && (!isset($embed->error) || !$embed->error)) {
     meedan_oembed_add_extra_information($embed);
     $embed->error = FALSE;
   }
@@ -233,7 +233,7 @@ function meedan_oembed_node_presave($node) {
     $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), TRUE);
     $node->status = ((isset($embed->error) && $embed->error) ? 0 : 1);
     if (!empty($embed->title)) {
-      $node->title = substr($embed->title, 0, 255);
+      $node->title = truncate_utf8($embed->title, 255);
     }
     else {
       $node->title = t('report-!user-!datetime', array('!user' => $node->name, '!datetime' => date('U', $node->created)));
