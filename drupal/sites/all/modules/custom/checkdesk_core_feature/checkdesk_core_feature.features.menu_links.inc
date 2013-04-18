@@ -228,6 +228,28 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'und',
     'customized' => '1',
   );
+  // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
+  $menu_links['menu-common:modal/ajax/content/install-bookmarklet'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'modal/ajax/content/install-bookmarklet',
+    'router_path' => 'modal/%',
+    'link_title' => 'Bookmarklet',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '1',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-41',
+    'uuid' => 'd1606646-9485-5154-e504-9eabb5782cc6',
+    'language' => 'en',
+    'customized' => '1',
+  );
   // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
   $menu_links['menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
     'menu_name' => 'menu-common',
@@ -446,7 +468,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-41',
+    'weight' => '0',
     'uuid' => 'd1606646-9485-5154-e504-9eabb5782cc6',
     'language' => 'en',
     'customized' => '1',
