@@ -263,7 +263,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
       'alter' => TRUE,
     ),
     'module' => 'menu',
-    'hidden' => '0',
+    'hidden' => '1',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
@@ -514,6 +514,28 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-44',
     'uuid' => '3daae1f4-caac-41f1-b00c-7ada7412206e',
+    'language' => 'ar',
+    'customized' => '1',
+  );
+  // Exported menu link: menu-information:modal/ajax/content/تنصيب-إضافة-المتصفح
+  $menu_links['menu-information:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
+    'menu_name' => 'menu-information',
+    'link_path' => 'modal/ajax/content/تنصيب-إضافة-المتصفح',
+    'router_path' => 'modal/%',
+    'link_title' => 'إضافة المتصفح',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+      'alter' => TRUE,
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '0',
+    'uuid' => '70468a91-c4d2-4a27-9a1b-c85b7f133967',
     'language' => 'ar',
     'customized' => '1',
   );
