@@ -505,6 +505,12 @@ function checkdesk_preprocess_node(&$variables) {
         $variables['status_class'] = $status_class;
         $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
       }
+      if (user_is_logged_in()) {
+        $variables['media_activity_footer'] = '';
+      }
+      else {
+        $variables['media_activity_footer'] = t('Please <a href="@register_url">register</a> or <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@register_url' => url('user/register'), '@login_url' => url('user/login')));
+      }
     }
   }
 }
