@@ -114,6 +114,9 @@ function checkdesk_preprocess_page(&$variables) {
   
   global $user, $language;
 
+  // Unescape HTML in title
+  $variables['title'] = htmlspecialchars_decode(drupal_get_title());
+
   // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
   $variables['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
   drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
