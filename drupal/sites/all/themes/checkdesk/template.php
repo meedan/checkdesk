@@ -948,3 +948,15 @@ function _checkdesk_ensure_reports_modal_js() {
   );
   drupal_add_js($modal_style, 'setting');
 }
+
+/**
+ * Adjust edit node form
+ */
+function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
+  $form['field_link']['und'][0]['#title'] = t('URL');
+  if (isset($form['nid']['#value'])) {
+    $node = $form['#node'];
+    unset($form['field_stories']);
+    drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+  }
+}

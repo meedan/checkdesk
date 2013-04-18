@@ -42988,6 +42988,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['7a0bfc30d37dd07255c639ffab5bc3f1'] = array(
+    'source' => 'Edit @type <em>@title</em>',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/886/edit',
+    'translation' => 'تعديل @type <em>@title</em>',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
