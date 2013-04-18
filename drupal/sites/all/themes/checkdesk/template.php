@@ -114,6 +114,9 @@ function checkdesk_preprocess_page(&$variables) {
   
   global $user, $language;
 
+  // Unescape HTML in title
+  $variables['title'] = htmlspecialchars_decode(drupal_get_title());
+
   // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
   $variables['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
   drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
@@ -177,9 +180,9 @@ function checkdesk_preprocess_page(&$variables) {
   $menu = menu_load('menu-common');
   $tree = menu_tree_page_data($menu['menu_name']);
 
-  // Remove items that are not from this language or that does not have children
+  // Remove items that are not from this language or that does not have children, or are not enabled
   foreach ($tree as $id => $item) {
-    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+    if ((preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) || $item['link']['hidden']) {
       unset($tree[$id]);
     }
 
@@ -504,6 +507,12 @@ function checkdesk_preprocess_node(&$variables) {
         }
         $variables['status_class'] = $status_class;
         $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+      }
+      if (user_is_logged_in()) {
+        $variables['media_activity_footer'] = '';
+      }
+      else {
+        $variables['media_activity_footer'] = t('Please <a href="@register_url">register</a> or <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@register_url' => url('user/register'), '@login_url' => url('user/login')));
       }
     }
   }
@@ -941,4 +950,16 @@ function _checkdesk_ensure_reports_modal_js() {
     ),
   );
   drupal_add_js($modal_style, 'setting');
+}
+
+/**
+ * Adjust edit node form
+ */
+function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
+  $form['field_link']['und'][0]['#title'] = t('URL');
+  if (isset($form['nid']['#value'])) {
+    $node = $form['#node'];
+    unset($form['field_stories']);
+    drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+  }
 }

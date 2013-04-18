@@ -54,6 +54,7 @@
           <div class="activity-wrapper">
             <?php print $media_activity_report; ?>
             <?php print render($content['comments']); ?>
+            <p class="activity-list-footer"><?php print $media_activity_footer; ?></p>
           </div>
 
       </section>

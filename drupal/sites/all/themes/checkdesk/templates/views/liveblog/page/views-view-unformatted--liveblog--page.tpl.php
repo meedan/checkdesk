@@ -17,6 +17,7 @@ $last_desk_nid = 0;
           echo "<div class=\"desk\">\n";
         }
 
+        echo '<article class="story">';
         echo '<h2>';
         echo   '<span class="field-content">';
         echo     l($view->result[$id]->node_field_data_field_desk_title, "node/$this_desk_nid");
@@ -24,9 +25,10 @@ $last_desk_nid = 0;
         echo '</h2>';
 
         if(isset($view->result[$id]->field_body)) {
-          echo '<div class="story-description">' . render($view->result[$id]->field_body) . '</div>';  
+          echo '<div class="story-body">' . render($view->result[$id]->field_body) . '</div>';  
         }
 
+        echo '</article>';
         echo '<div class="post-row ' . $classes_array[$id] . '" data-story-nid="' . $this_desk_nid . '">';
         echo $row;
         echo '</div>';
