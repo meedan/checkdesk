@@ -47,7 +47,7 @@
   Drupal.behaviors.transparentFrames = {
     attach: function(context) {
       $('.oembed-content', context).watch('height', function() {
-        $('.oembed-content iframe', context).attr('wmode', 'transparent')
+        $(this).find('iframe').attr('wmode', 'transparent')
           .contents().find('iframe').attr('wmode', 'transparent')
           .attr('src', function(i, src) {
             var sep = (src.indexOf('?') == -1 ? '?' : '&');
