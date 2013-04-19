@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "Amiri";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.ttf') format('truetype');
@@ -2246,6 +2245,10 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 
 .report .report-content .icon-quote-right:before {
   content: "\f10e";
+}
+
+.report .icon-spinner:before {
+  content: "\f110";
 }
 
 #widgets ul.elsewhere li span.icon-youtube:before {
@@ -4789,7 +4792,7 @@ div.tabs ul.primary li a {
   color: #595959;
   padding: 5.5px 11px;
   *zoom: 1;
-  background-color: #e1e1e1;
+  background-color: #c8c8c8;
 }
 .report > footer:before, .report > footer:after {
   display: table;
@@ -4899,7 +4902,7 @@ div.tabs ul.primary li a {
 }
 .report .report-content {
   *zoom: 1;
-  background-color: #ededed;
+  background-color: #e0e0e0;
   color: #595959;
   padding: 11px;
 }
@@ -5100,7 +5103,7 @@ div.tabs ul.primary li a {
   padding: 11px;
   cursor: pointer;
   font-size: 15.3px;
-  background-color: #e1e1e1;
+  background-color: #d4d4d4;
 }
 .report .report-activity > header h3 {
   float: right;
@@ -5127,28 +5130,40 @@ div.tabs ul.primary li a {
   margin-left: 5px;
 }
 .report .report-activity > header:hover {
-  background-color: #d4d4d4;
+  background-color: #bbbbbb;
+}
+.report .report-activity > .in-progress {
+  background-color: #ffe9a6;
+}
+.report .report-activity > .in-progress a {
+  color: #a67e00;
+}
+.report .report-activity > .in-progress:hover {
+  background-color: #ffdd73;
+}
+.report .report-activity > .in-progress:hover a {
+  color: #735700;
 }
 .report .report-activity > .undetermined {
-  background-color: #fee9cc;
+  background-color: #fdd49a;
 }
 .report .report-activity > .undetermined a {
   color: #c67605;
 }
 .report .report-activity > .undetermined:hover {
-  background-color: #fdd49a;
+  background-color: #fbbf69;
 }
 .report .report-activity > .undetermined:hover a {
-  color: #945904;
+  color: #c67605;
 }
 .report .report-activity > .verified {
-  background-color: #f1f9f1;
+  background-color: #cdeacd;
 }
 .report .report-activity > .verified a {
   color: #46a546;
 }
 .report .report-activity > .verified:hover {
-  background-color: #cdeacd;
+  background-color: #86cb86;
 }
 .report .report-activity > .verified:hover a {
   color: #378137;
@@ -5305,6 +5320,12 @@ div.tabs ul.primary li a {
 .report .open > .verified {
   background-color: #cdeacd;
 }
+.report .open > .in-progress {
+  background-color: #ffdd73;
+}
+.report .open > .in-progress a {
+  color: #735700;
+}
 .report .icon-ok-sign {
   color: #46a546;
 }
@@ -5313,6 +5334,16 @@ div.tabs ul.primary li a {
   font-size: 16px;
   line-height: 16px;
   color: #2f6f2f;
+  margin: 0 5.5px;
+}
+.report .icon-spinner {
+  color: #ffc40d;
+}
+.report .icon-spinner:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  line-height: 16px;
+  color: #c09100;
   margin: 0 5.5px;
 }
 .report .icon-question-sign {
@@ -5422,8 +5453,8 @@ div.tabs ul.primary li a {
   display: none;
 }
 .report-row .report-content .report-type-tweet iframe {
-  min-width: 100%!important;
-  width: 100%!important;
+  min-width: 100% !important;
+  width: 100% !important;
 }
 .report-row .report-status {
   float: left;
@@ -5634,16 +5665,16 @@ html body .fyre-widget {
   padding: 1em;
 }
 html body .fyre-widget .img {
-  width: 83px!important;
+  width: 83px !important;
 }
 html body .fyre-box-wrapper {
-  display: none!important;
+  display: none !important;
 }
 html body .livefyre-comments {
   display: none;
 }
 html body img.fyre-logo-drop {
-  width: auto!important;
+  width: auto !important;
 }
 html body div.livefyre-header {
   padding: 0 1em;
@@ -7321,7 +7352,7 @@ body.page-liveblog #main .view-liveblog .desk h2 .desk {
   border: 1px solid red;
 }
 body.page-liveblog #main .view-liveblog .desk .post-row {
-  background-color: #dadada;
+  background-color: #eee;
   margin-bottom: 1em;
 }
 body.page-liveblog #main .view-liveblog .desk .post-row .report .report-content .report-media .container {
@@ -7721,7 +7752,7 @@ body.sidebar-first #main #content {
   width: 100%;
   float: left;
   margin-left: 0;
-  #margin-right: -11px;
+  *margin-right: -11px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -7780,7 +7811,7 @@ body.widgets #main #content {
   width: 65.0655%;
   float: left;
   margin-left: 0;
-  #margin-right: -11px;
+  *margin-right: -11px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -7916,7 +7947,7 @@ body.widgets #main #content {
   margin-bottom: 6px;
 }
 #widgets .block iframe {
-  width: 100%!important;
+  width: 100% !important;
 }
 #widgets ul.elsewhere {
   margin: 0;
@@ -8004,7 +8035,7 @@ body.page-user-password div.profile .user-picture {
   width: 3.05677%;
   float: left;
   margin-left: 0;
-  #margin-right: -11px;
+  *margin-right: -11px;
   display: inline;
 }
 body.page-user-login div.profile h3,
@@ -8449,8 +8480,8 @@ body.page-reports #reports .report-item .report-content .report-type-tweet > div
   display: none;
 }
 body.page-reports #reports .report-item .report-content .report-type-tweet iframe {
-  min-width: 100%!important;
-  width: 100%!important;
+  min-width: 100% !important;
+  width: 100% !important;
 }
 body.page-reports #reports .report-item .report-status {
   float: left;
@@ -8608,12 +8639,12 @@ body {
 }
 
 div.vertical-tabs, div.vertical-tabs-panes {
-  display: none!important;
+  display: none !important;
 }
 
 nav li.menu-449 {
-  display: none!important;
-  border: 1px solid red!important;
+  display: none !important;
+  border: 1px solid red !important;
 }
 
 p br {
@@ -8621,7 +8652,7 @@ p br {
 }
 
 input.form-autocomplete {
-  background-image: none!important;
+  background-image: none !important;
 }
 
 .filter-guidelines,
@@ -8635,7 +8666,7 @@ input.form-autocomplete {
 }
 
 body.toolbar-drawer {
-  padding-top: 0!important;
+  padding-top: 0 !important;
 }
 
 .views-exposed-widget .views-reset-button {
