@@ -8,25 +8,30 @@ $icon-position: 'before';
 
 // Icons in the navigation
 @mixin nav-icons($size: $xsmall-font-size, $color: $nav-color) {
+  $margin: 0 $gutter-width/2 0 0;
+
+  @if $from-direction == right {
+    $margin: 0 0 0 $gutter-width/2;
+  }
 
   // add a post
-  a[href*="add/post"] { 
-    @include icon("pencil", $size, $color, $icon-position); 
+  a[href*="add/post"] {
+    @include icon("pencil", $size, $color, $icon-position, $margin);
   }
   // add a report
-  a#menu-submit-report { 
-      @include icon("bookmark", $size, $color, $icon-position);
+  li.submit-report a {
+      @include icon("bookmark", $size, $color, $icon-position, $margin);
   }
-  // add a story 
-  a[href*="add/discussion"] { 
-    @include icon("tag", $size, $color, $icon-position);
+  // add a story
+  a[href*="add/discussion"] {
+    @include icon("tag", $size, $color, $icon-position, $margin);
   }
   // home
-  li.home a { 
-    @include icon("home", $size, $color, $icon-position); 
+  li.home a {
+    @include icon("home", $size, $color, $icon-position);
   }
-
-  #main-menu a.dropdown-toggle {
+  // additional menu options
+  li.additional a {
     @include icon("reorder", $size, $color, $icon-position);
   }
 }
@@ -56,7 +61,7 @@ $icon-position: 'before';
   display: inline-block;
   float: $from-direction;  
   position: relative;
-  z-index: $zindexDropdown - 1; 
+  z-index: $zindexDropdown + 1; 
   & > a {
     // font-weight: 100;
     padding: 0 $nav-gutter;
@@ -65,10 +70,6 @@ $icon-position: 'before';
     line-height: $nav-height - 4px;
     color: $nav-color;
     display: inline-block;
-
-    &:active, &:hover {
-      color: $nav-active-color;
-    }
   }
 
   // remove border for first items
@@ -78,28 +79,44 @@ $icon-position: 'before';
 
   // Transitions
   @include bb-transition($nav-color, $nav-active-color, '0.2s', 'color');
-  
-  // Hovering on the chunky element (could be an <h2> or an <li> or an <a>)
+
+  // Hover style for chunky element
   &:hover {
-    // background-color: $nav-hover-bkg-color;
+    background-color: $nav-hover-bkg-color;
     color: $nav-hover-color;
+
+    & > a:hover {
+      color: $nav-hover-color;
+
+      &:before {
+        color: $nav-hover-color;
+      }
+    }
   }
 
-  &.active,  {
-    // background-color: $nav-active-bkg-color;
-    color: $nav-active-color;
-  }
-
-  // An anchor inside the chunky block
-  &.active > a, 
-  & > a.active {
-    color: $nav-active-color;
+  // Base style for active chunky element
+  &.active,
+  &.active:hover,
+  &:active {
+    margin-bottom: -7px;
+    background-color: $nav-active-bkg-color;
     @include border-radius($radius $radius 0 0);
+
+    color: $nav-active-color;
     font-weight: 500;
-    // don't forget the icons
-    &:before { 
-      color: $nav-active-color; 
-      // background-color: $nav-active-bkg-color;
+
+    // An anchor inside the chunky block
+    & > a,
+    & > a:hover,
+    & > a:active {
+      color: $nav-active-color;
+      cursor: default;
+      padding-bottom: 7px;
+
+      // don't forget the icons
+      &:before {
+        color: $nav-active-color;
+      }
     }
   }
 
@@ -188,28 +205,32 @@ nav[role="navigation"] {
   }
 
   // Position dropdown menu
-  @if $from-direction == left {
-    // avoid cropping on the last item
-    #user-menu {
-      li.first .dropdown-menu {
-        left: -105px;
-      }
-      li.last .dropdown-menu {
-        left: -345px;
-      }
-    }
-  }
-  @if $from-direction == right {
-    #user-menu {
-      li.first .dropdown-menu {
-        right: -135px;
-      }
-      li.last .dropdown-menu {
-        right: -345px;
-      }
-    }
-  }
+  #main-menu {
+    .dropdown-menu {
+      #{$from-direction}: 0;
+      #{opposite-position($from-direction)}: auto;
 
+      @if $from-direction == left {
+        @include border-radius(0 $radius $radius $radius);
+      }
+      @else {
+        @include border-radius($radius 0 $radius $radius);
+      }
+    }
+  }
+  #user-menu {
+    .dropdown-menu {
+      #{$from-direction}: auto;
+      #{opposite-position($from-direction)}: 0;
+
+      @if $from-direction == left {
+        @include border-radius($radius 0 $radius $radius);
+      }
+      @else {
+        @include border-radius(0 $radius $radius $radius);
+      }
+    }
+  }
 }
 
 // Small breakpoint

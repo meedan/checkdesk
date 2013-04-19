@@ -16,19 +16,21 @@
   top: 75%;
   @if $from-direction == left {
     left: 0;
+    @include border-radius(0 $radius $radius $radius);
   }
   @if $from-direction == right {
     right: 0;
+    @include border-radius($radius 0 $radius $radius);
   }
   z-index: $zindexDropdown;
   display: none; // none by default, but block on "open" of the menu
   float: $from-direction;
   min-width: 160px;
   padding: $gutter-width 0;
-  margin: $gutter-width 0 0; // override default ul
+  margin: -$gutter-width / 2 0 0; // override default ul
   list-style: none;
   background-color: white;
-  @include border-radius($radius);
+  color: $dark-grey;
   @include cd-box-shadow;
   @include background-clip(padding-box);
 

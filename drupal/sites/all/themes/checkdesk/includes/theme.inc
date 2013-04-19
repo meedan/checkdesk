@@ -63,6 +63,14 @@ function checkdesk_checkdesk_links($variables) {
         $attributes['class'][] = 'home';
       }
 
+      if ($link['href'] == '<sub>' && $link['title'] == '&nbsp;') {
+        $attributes['class'][] = 'additional';
+      }
+
+      if ($link['link_path'] == 'node/add/media') {
+        $attributes['class'][] = 'submit-report';
+      }
+
       if(count($children) > 0) {
         $attributes['class'][] = 'dropdown';
         $link['attributes']['data-toggle'] = 'dropdown';

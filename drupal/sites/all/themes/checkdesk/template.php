@@ -19,6 +19,12 @@ function checkdesk_theme() {
     'checkdesk_user_menu_content' => array(
       'variables' => array('items' => array()),
     ),
+    'checkdesk_dropdown_menu_item' => array(
+      'variables' => array('title' => NULL, 'attributes' => array()),
+    ),
+    'checkdesk_dropdown_menu_content' => array(
+      'variables' => array('id' => NULL, 'content' => array()),
+    ),
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),
@@ -108,6 +114,9 @@ function checkdesk_preprocess_page(&$variables) {
   
   global $user, $language;
 
+  // Unescape HTML in title
+  $variables['title'] = htmlspecialchars_decode(drupal_get_title());
+
   // Add a path to the theme so checkdesk_inject_bootstrap.js can load libraries
   $variables['basePathCheckdeskTheme'] = url(drupal_get_path('theme', 'checkdesk'), array('language' => (object) array('language' => FALSE)));
   drupal_add_js(array('basePathCheckdeskTheme' => $variables['basePathCheckdeskTheme']), 'setting');
@@ -134,13 +143,24 @@ function checkdesk_preprocess_page(&$variables) {
 
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
 
-    // Change "Submit Report" link
     foreach ($variables['main_menu'] as $id => $item) {
+      // Change "Submit Report" link
       if ($item['link_path'] == 'node/add/media') {
         $variables['main_menu'][$id]['href'] = meedan_bookmarklet_get_code();
         $variables['main_menu'][$id]['external'] = TRUE;
         $variables['main_menu'][$id]['absolute'] = TRUE;
         $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
+      }
+      else if ($item['link_path'] == 'node/add/discussion') {
+        // TODO: #809: Complete this with the rest of the Story form 1.0 work.
+        // module_load_include('inc', 'node', 'node.pages');
+        // $content = node_add('discussion');
+
+        // $variables['main_menu'][$id]['html'] = TRUE;
+        // $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));
+        // $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
+        // $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
+        // $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
       }
     }
 
@@ -160,9 +180,9 @@ function checkdesk_preprocess_page(&$variables) {
   $menu = menu_load('menu-common');
   $tree = menu_tree_page_data($menu['menu_name']);
 
-  // Remove items that are not from this language or that does not have children
+  // Remove items that are not from this language or that does not have children, or are not enabled
   foreach ($tree as $id => $item) {
-    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+    if ((preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) || $item['link']['hidden']) {
       unset($tree[$id]);
     }
 
@@ -194,7 +214,6 @@ function checkdesk_preprocess_page(&$variables) {
       if (user_is_logged_in()) {
         $variables['secondary_menu'][$id]['html'] = TRUE;
         $variables['secondary_menu'][$id]['title'] = theme('checkdesk_user_menu_item');
-
         $variables['secondary_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
         $variables['secondary_menu'][$id]['attributes']['class'] = 'dropdown-toggle';
         $variables['secondary_menu'][$id]['suffix'] = theme('checkdesk_user_menu_content', array('items' => $variables['secondary_menu'][$id]['below']));
@@ -478,6 +497,10 @@ function checkdesk_preprocess_node(&$variables) {
           $status_class = 'verified';
           $icon = '<span class="icon-ok-sign"></span> ';
         }
+        elseif ($status_name == 'In Progress') {
+          $status_class = 'in-progress';
+          $icon = '<span class="icon-random"></span> ';
+        }
         elseif ($status_name == 'Undetermined') {
           $status_class = 'undetermined';
           $icon = '<span class="icon-question-sign"></span> ';
@@ -488,6 +511,12 @@ function checkdesk_preprocess_node(&$variables) {
         }
         $variables['status_class'] = $status_class;
         $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+      }
+      if (user_is_logged_in()) {
+        $variables['media_activity_footer'] = '';
+      }
+      else {
+        $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
       }
     }
   }
@@ -740,10 +769,39 @@ function checkdesk_checkdesk_core_report_source(&$variables) {
  * Adjust node comments form
  */
 function checkdesk_form_comment_form_alter(&$form, &$form_state) {
+  $nid = $form['#node']->nid;
   $form['author']['homepage'] = NULL;
   $form['author']['mail'] = NULL;
   $form['actions']['submit']['#attributes']['class'] = array('btn');
   $form['actions']['submit']['#value'] = t('Add footnote');
+  $form['actions']['submit']['#ajax'] = array(
+    'callback' => '_checkdesk_comment_form_submit',
+    'wrapper' => 'node-' . $nid,
+    'method' => 'replace',
+    'effect' => 'fade',
+  );
+  $form_state['ctools comment alter'] = FALSE;
+}
+
+function _checkdesk_comment_form_submit($form, $form_state) {
+  drupal_get_messages();
+
+  $nid = $form['#node']->nid;
+  $view = views_get_view('activity_report');
+  $view->set_arguments(array($nid));
+  $output = $view->preview('block');
+
+  $commands = array();
+  // Update footnotes
+  $commands[] = ajax_command_replace('#node-' . $nid . ' .view-activity-report', $output);
+  // Update footnotes count
+  $commands[] = ajax_command_replace('#node-' . $nid . ' .report-footnotes-count span', '<span>' . $view->total_rows . '</span>');
+  // Clear textarea
+  $commands[] = ajax_command_invoke('#node-' . $nid . ' .comment-form textarea', 'val', array(''));
+  // Scroll to new footnote
+  $commands[] = ajax_command_invoke('#report-activity-node-' . $nid, 'scrollToHere');
+
+  return array('#type' => 'ajax', '#commands' => $commands);
 }
 
 function checkdesk_field__field_rating(&$variables) {
@@ -896,4 +954,16 @@ function _checkdesk_ensure_reports_modal_js() {
     ),
   );
   drupal_add_js($modal_style, 'setting');
+}
+
+/**
+ * Adjust edit node form
+ */
+function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
+  $form['field_link']['und'][0]['#title'] = t('URL');
+  if (isset($form['nid']['#value'])) {
+    $node = $form['#node'];
+    unset($form['field_stories']);
+    drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+  }
 }

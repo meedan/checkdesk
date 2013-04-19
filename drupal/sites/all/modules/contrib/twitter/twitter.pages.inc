@@ -418,7 +418,8 @@ function twitter_oauth_callback_form_validate($form, &$form_state) {
   module_load_include('inc', 'twitter');
 
   if ($twitter = new Twitter($key, $secret, $token['oauth_token'], $token['oauth_token_secret'])) {
-    if ($response = $twitter->get_access_token()) {
+    //Collect oauth_verifier from url
+    if ($response = $twitter->get_access_token($_GET['oauth_verifier'])) {
       $form_state['twitter_oauth']['response'] = $response;
     }
     else {

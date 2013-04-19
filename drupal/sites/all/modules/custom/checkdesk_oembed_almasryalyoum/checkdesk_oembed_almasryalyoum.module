@@ -1,0 +1,103 @@
+<?php
+
+
+/**
+ * Implements hook_meedan_oembed()
+ */
+function checkdesk_oembed_almasryalyoum_meedan_oembed() {
+  return array(
+    'almasryalyoum' => array(
+      'callback' => 'checkdesk_oembed_almasryalyoum_handler',
+      'provider_name' => 'checkdesk_oembed_almasryalyoum',
+    )
+  );
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function checkdesk_oembed_almasryalyoum_theme() {
+  $path = drupal_get_path('module', 'checkdesk_oembed_almasryalyoum') . '/theme';
+  $file = 'checkdesk_oembed_almasryalyoum.theme.inc';
+
+  return array(
+    'oembed__link__meedan_oembed_almasryalyoum' => array(
+      'variables' => array('embed' => NULL),
+      'template' => 'oembed-almasryalyoum',
+      'path' => $path,
+      'file' => $file,
+    ),
+  );
+}
+
+/**
+ * Attempts to create an oembed response by scraping a post from
+ * almasryalyoum.com.
+ */
+function checkdesk_oembed_almasryalyoum_handler($provider, $url) {
+  $url_info = parse_url($url);
+  $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
+  $embed = new stdclass();
+  $embed->url = $url;
+  $embed->original_url = $url;
+  $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
+  $embed->provider = $provider;
+  $embed->provider_url = $provider_url;
+  $embed->provider_name = 'Al-Masry Al-Youm';
+  $embed->type = 'link';
+  try {
+    require_once('lib/simplehtmldom_1_5/simple_html_dom.php');
+    $html = file_get_html($url);
+    if (is_object($html)) {
+
+      // Video
+      if ($html->find('body.node-type-video', 0)) {
+        $embed->description = $html->find('input#embed_code', 0)->value;
+        $embed->author = $html->find('.field-field-reporter a', 0);
+        $video_params = $html->find('#video-player param[name=FlashVars]', 0)->value;
+        if (!empty($video_params)) {
+          $params = preg_split("/(?:&(?:amp;)?|^)([^=]+)=/", $video_params, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
+          $index = array_search('image', $params);
+          if (is_numeric($index)) {
+            $embed->thumbnail_url = $params[$index + 1];
+            $embed->picture = $embed->thumbnail_url;
+          }
+        }
+      }
+
+      // Photo
+      else if ($html->find('body.node-type-photo', 0)) {
+        $embed->author = $html->find('.field-field-photographer a', 0);
+        $image = $html->find('.field-field-image img', 0)->src;
+        $embed->description = theme_image(array('path' => $image));
+        $embed->thumbnail_url = $image;
+        $embed->picture = $image;
+      }
+
+      // Generic for all kind of content
+      $embed->title = $html->find('h1.custom-article-title', 0)->innertext;
+      if (empty($embed->description) && is_object($html->find('.body-pane p', 0))) $embed->description = $html->find('.body-pane p', 0)->innertext;
+      $embed->link = $url;
+      $embed->link_description = $embed->title;
+      if (!$embed->author) $embed->author = $html->find('.field-field-reporter a', 0);
+      if (is_object($embed->author)) {
+        $embed->author_name = $embed->author->innertext;
+        $embed->author_url = 'http://www.almasryalyoum.com' . $embed->author->href;
+        $profile = file_get_html($embed->author_url);
+        if (is_object($profile)) {
+          $embed->author_img = $profile->find('.field-field-staff-photo img', 0)->src;
+          $profile->clear(); // Free memory
+        }
+      }
+      if (empty($embed->thumbnail_url) && is_object($html->find('img', 0))) $embed->thumbnail_url = $html->find('img', 0)->src;
+      if (empty($embed->picture) && isset($embed->thumbnail_url)) $embed->picture = $embed->thumbnail_url;
+
+      $html->clear(); // Free memory
+      return $embed;
+    }
+  } catch (Exception $e) {
+    watchdog('MeedanOEmbed', t('Could not parse Al-Masry Al-Youm: ') . $e->getMessage());
+  }
+  // Ok, give up!
+  return NULL;
+}

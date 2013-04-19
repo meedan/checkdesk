@@ -10,12 +10,6 @@
 $omega: opposite-position($from-direction);
 
 #my-notifications {
-  @if $from-direction == left {
-    left: -255px;
-  }
-  @if $from-direction == right {
-    right: -308px;
-  }
   width: 360px; // warning magic px CGB
   font-size: $fontSizeMini;
   line-height: 1;
