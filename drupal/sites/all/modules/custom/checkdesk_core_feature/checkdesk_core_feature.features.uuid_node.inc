@@ -107,7 +107,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
 			
 <p>تخضع جميع المحتويات على Checkdesk، باستثناء الأماكن التي يشار إليها بخلاف ذلك، إلى إتفاقية ترخيص المشاع الإبداعي: النسبة - غير تجاري - المشاركة ضمن نفس الشروط، الإصدار العام 3.0. يمكن للآخرين القيام بالتحميل وإعادة التوزيع والترجمة والمزج والفرز والإضافة على مساهماتك لأغراض غير تجارية، شريطة نسبة العمل إليك على أنك المؤلف الأصلي وإعادة توزيع المادة ضمن نفس الشروط. ستحمل جميع الأعمال الجديدة المبنية على عملك الرخصة ذاتها، لذلك فإن أية اشتقاقات ستكون أيضاً غير تجارية. تغطي هذه الرخصة جميع البيانات اللغوية التي يتم توليدها ضمن Checkdesk.</p>
 
-<p><img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />بعض الحقوق محفوظة</p>
+<p><img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />بعض الحقوق محفوظة</p>
 
 <h2>ميدان</h2>
 
@@ -256,7 +256,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
 <h2>حقوق وتراخيص المحتوى</h2>
 <h3>المشاع الإبداعي</h3>
 <p>تخضع جميع المحتويات على Checkdesk، باستثناء الأماكن التي يشار إليها بخلاف ذلك، إلى إتفاقية ترخيص المشاع الإبداعي: النسبة - غير تجاري - المشاركة ضمن نفس الشروط، الإصدار العام 3.0. يمكن للآخرين القيام بالتحميل وإعادة التوزيع والترجمة والمزج والفرز والإضافة على مساهماتك لأغراض غير تجارية، شريطة نسبة العمل إليك على أنك المؤلف الأصلي وإعادة توزيع المادة ضمن نفس الشروط. ستحمل جميع الأعمال الجديدة المبنية على عملك الرخصة ذاتها، لذلك فإن أية اشتقاقات ستكون أيضاً غير تجارية. تغطي هذه الرخصة جميع البيانات اللغوية التي يتم توليدها ضمن Checkdesk.</p>
-<p><img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />بعض الحقوق محفوظة</p>
+<p><img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />بعض الحقوق محفوظة</p>
 <h2>ميدان</h2>
 <p>لا يدعي ميدان ملكية المحتوى الذي أضفته أو جعلته متاحاً للإدراج ضمن خدمات ميدان. و لكن على أية حال، فيما يتعلق بالمحتوى الذي أضفته أو جعلته متاحاً للإدراج في الأجزاء المفتوحة العامة ضمن خدمات ميدان، فإنك توافق على منح ميدان رخصة غير حصرية و دائمة وغير قابلة للنقض وعالمية الانتشار لاستخدام المحتوى الخاص بك في هذه الخدمات، بما فيها و دون أية قيود حقوق النسخ والتوزيع والنقل والعرض العام والتمثيل وإعادة الإنتاج والتحرير والتعديل والترجمة والترجمة الآلية وإعادة الصياغة و/ أو دمجها في عمل مشترك.</p>
 <h2>بيانات و ضمانات المستخدم</h2>
@@ -591,7 +591,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <p>All content created on Checkdesk, except where otherwise noted, is licensed under a Creative Commons Attribution Non-Commercial Share-Alike 3.0 Unported License. Others can download, redistribute, translate, remix, tweak, and build upon your contributions non-commercially, as long as they credit you and license their new creations under identical terms. All new work based on yours will carry the same license, so any derivatives will also be non-commercial in nature. This license covers all linguistic data generated on the liveblog.
 
-<p><img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" /> Some rights reserved.</p>
+<p><img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" /> Some rights reserved.</p>
 
 <h2>Meedan</h2>
 
@@ -629,7 +629,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <p>If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at termsofservice@meedan.net</p>
 
-<p>These Terms are licensed under <img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (http://www.citmedialaw.org/)</p>
+<p>These Terms are licensed under <img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (http://www.citmedialaw.org/)</p>
 
 <h2>DMCA</h2>
 
@@ -750,7 +750,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 <h2>Content rights and licenses</h2>
 <h3>Creative Commons</h3>
 <p>All content created on Checkdesk, except where otherwise noted, is licensed under a Creative Commons Attribution Non-Commercial Share-Alike 3.0 Unported License. Others can download, redistribute, translate, remix, tweak, and build upon your contributions non-commercially, as long as they credit you and license their new creations under identical terms. All new work based on yours will carry the same license, so any derivatives will also be non-commercial in nature. This license covers all linguistic data generated on the liveblog.</p>
-<p><img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" /> Some rights reserved.</p>
+<p><img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" /> Some rights reserved.</p>
 <h2>Meedan</h2>
 <p>Meedan does not claim ownership of Content you submit or make available for inclusion on the Meedan Services. However, with respect to Content you submit or make available for inclusion on publicly accessible areas of the Meedan Services, you grant Meedan a non-exclusive, royalty-free, perpetual, and worldwide license to use your content in connection with the operation of the Services, including, without limitation, the license rights to copy, distribute, transmit, publicly display, publicly perform, reproduce, edit, translate, machine translate, reformat, and/or to incorporate it into a collective work.</p>
 <h2>User Representations and Warranties</h2>
@@ -769,7 +769,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 <p>These Terms are governed by the laws of the State of California, without regard to the rules of conflict of law that may cause the laws of another jurisdiction to apply. You agree to the sole and exclusive jurisdiction and venue of the federal or state courts of the State of California in the event of any dispute of any kind arising from or relating to the Site, or your use or review of it. The Terms constitute the entire agreement between the parties with respect to the subject matter hereof and supersedes and replaces all prior or contemporaneous understandings or agreements, written or oral, regarding such subject matter. If for any reason a court of competent jurisdiction finds any provision or portion of these Terms to be unenforceable, the remainder of the Terms will continue in full force and effect.</p>
 <h2>Contact</h2>
 <p>If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at <a href="mailto:termsofservice@meedan.net">termsofservice@meedan.net</a></p>
-<p>These Terms are licensed under <img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (<a href="http://www.citmedialaw.org/">http://www.citmedialaw.org/</a>)</p>
+<p>These Terms are licensed under <img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (<a href="http://www.citmedialaw.org/">http://www.citmedialaw.org/</a>)</p>
 <h2>DMCA</h2>
 <h3>Notice and Takedown Procedure</h3>
 <p>It is our policy to expeditiously respond to clear notices of alleged copyright infringement that comply with the United States Digital Millennium Copyright Act (DMCA). This page describes the information that should be present in these notices. It is designed to make submitting notices of alleged infringement to Meedan as straightforward as possible while reducing the number of notices that we receive that are fraudulent or difficult to understand or verify. The form of notice specified below is consistent with the form suggested by the DMCA (the text of which can be found at the U.S. Copyright Office Web Site, <a href="http://www.copyright.gov">http://www.copyright.gov</a>), but we will respond to notices of this form from other jurisdictions as well.</p>
