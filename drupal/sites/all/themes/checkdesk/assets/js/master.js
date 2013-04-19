@@ -61,4 +61,20 @@
     $('html, body').animate({ scrollTop : $(this).offset().top - $('#toolbar').height() - $('#navbar').height() }, speed);
   };
 
+  // Add destination to login links
+  // We are using JavaScript because of cache
+  Drupal.behaviors.addDestinationToLogin = {
+    attach: function(context) {
+      var prefix = (Drupal.settings.basePath + Drupal.settings.pathPrefix).replace(/\/$/, '');
+      $('a[href^="' + prefix + '/user/login"]', context).attr('href', function(index, path) {
+        // Remove old destination value
+        var value = path.replace(/([?&])destination=[^&]+(&|$)/, '$1').replace(/[?&]$/, '');
+        var sep = (/\?/.test(value) ? '&' : '?');
+        var destination = (window.location.pathname === prefix ? 'liveblog' : window.location.pathname.replace(prefix + '/', ''));
+        value = value + sep + 'destination=' + destination;
+        return value;
+      });
+    }
+  };
+
 }(jQuery));
