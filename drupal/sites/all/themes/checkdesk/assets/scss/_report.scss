@@ -4,11 +4,12 @@
 //
 // Compatibility: untested
 
-$report-background-color: $light-grey;
-$report-description-background-color: $light-grey;
-$report-footnotes-background-color: darken($light-grey, 10%);
-$report-text-color: $dark-grey;
-
+$report-background-color: 				darken($light-grey, 5%);
+$report-description-background-color: 	$light-grey;
+$report-footer-color: 					darken($grayLighter, 15%);
+$report-footnotes-background-color: 	darken($light-grey, 10%);
+$report-text-color: 					$dark-grey;
+$report-activity-header-color: 			darken($light-grey, 10%);
 
 
 .report {
@@ -40,7 +41,7 @@ $report-text-color: $dark-grey;
 		color: $report-text-color;
 		padding: $gutter-width/2 $gutter-width;
 		@include ctb-clearfix;
-		background-color: darken($grayLighter, 5%);
+		background-color: $report-footer-color;
 		h3 {
 			@include reset-box-model;
 			overflow: hidden;
@@ -285,7 +286,8 @@ $report-text-color: $dark-grey;
 			// text-shadow: 0 1px 0 rgba(255,255,255,.3);
 			cursor: pointer;
 			font-size: $fontSizeSmall;
-			background-color: darken($grayLighter, 5%);
+			background-color: $report-activity-header-color;
+
 			h3 {
 				float: $from-direction;
 				@include reset-box-model();
@@ -312,23 +314,31 @@ $report-text-color: $dark-grey;
 				}
 			}
 			&:hover {
-				background-color: darken($grayLighter, 10%);
+				background-color: darken($grayLighter, 20%);
 			}
 		}
 		// header status
+		& > .in-progress {
+			background-color: lighten($yellow, 30%);
+			a { color: darken($yellow, 20%); }
+			&:hover {
+				background-color: lighten($yellow, 20%);
+				a {	color: darken($yellow, 30%); }
+			}
+		}	
 		& > .undetermined {
-			background-color: lighten($orange, 40%);
+			background-color: lighten($orange, 30%);
 			a { color: darken($orange, 10%); }
 			&:hover {
-				background-color: lighten($orange, 30%);
-				a {	color: darken($orange, 20%); }
+				background-color: lighten($orange, 20%);
+				a {	color: darken($orange, 10%); }
 			}
 		}
 		& > .verified {
-			background-color: lighten($green, 50%);
+			background-color: lighten($green, 40%);
 			a { color: $green; }
 			&:hover {
-				background-color: lighten($green, 40%);
+				background-color: lighten($green, 20%);
 				a {	color: darken($green, 10%); }
 			}
 		}	
@@ -450,6 +460,10 @@ $report-text-color: $dark-grey;
 	.open > .verified {
 		background-color: lighten($green, 40%);
 	}
+	.open > .in-progress {
+		background-color: lighten($yellow, 20%);
+		a {	color: darken($yellow, 30%); }
+	}
 
 	// report icon based on status
 	$position:  "before";
@@ -462,6 +476,10 @@ $report-text-color: $dark-grey;
 	.icon-ok-sign { 
 		color: $green;
 		@include icon(ok-sign, 16px, darken($green, 15%), $position);
+	}
+	.icon-spinner { 
+		color: $yellow; 
+		@include icon(spinner, 16px, darken($yellow, 15%), $position);
 	}
 	.icon-question-sign { 
 		color: $orange; 

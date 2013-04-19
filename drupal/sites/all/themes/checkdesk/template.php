@@ -497,6 +497,10 @@ function checkdesk_preprocess_node(&$variables) {
           $status_class = 'verified';
           $icon = '<span class="icon-ok-sign"></span> ';
         }
+        elseif ($status_name == 'In Progress') {
+          $status_class = 'in-progress';
+          $icon = '<span class="icon-spinner"></span> ';
+        }
         elseif ($status_name == 'Undetermined') {
           $status_class = 'undetermined';
           $icon = '<span class="icon-question-sign"></span> ';
