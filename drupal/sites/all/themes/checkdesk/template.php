@@ -499,7 +499,7 @@ function checkdesk_preprocess_node(&$variables) {
         }
         elseif ($status_name == 'In Progress') {
           $status_class = 'in-progress';
-          $icon = '<span class="icon-spinner"></span> ';
+          $icon = '<span class="icon-random"></span> ';
         }
         elseif ($status_name == 'Undetermined') {
           $status_class = 'undetermined';

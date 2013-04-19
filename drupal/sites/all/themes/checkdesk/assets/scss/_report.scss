@@ -477,9 +477,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		color: $green;
 		@include icon(ok-sign, 16px, darken($green, 15%), $position);
 	}
-	.icon-spinner { 
+	.icon-random { 
 		color: $yellow; 
-		@include icon(spinner, 16px, darken($yellow, 15%), $position);
+		@include icon(random, 16px, darken($yellow, 15%), $position);
 	}
 	.icon-question-sign { 
 		color: $orange; 
