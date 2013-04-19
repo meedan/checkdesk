@@ -2191,6 +2191,10 @@ nav[role="navigation"] li.submit-report a:before {
   content: "\f071";
 }
 
+.report .icon-random:before {
+  content: "\f074";
+}
+
 #my-notifications .checkdesk_comment_on_update .heartbeat-time-ago:before, #my-notifications .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago:before, #my-notifications .checkdesk_comment_on_report .heartbeat-time-ago:before {
   content: "\f075";
 }
@@ -2245,10 +2249,6 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 
 .report .report-content .icon-quote-right:before {
   content: "\f10e";
-}
-
-.report .icon-spinner:before {
-  content: "\f110";
 }
 
 #widgets ul.elsewhere li span.icon-youtube:before {
@@ -5123,6 +5123,7 @@ div.tabs ul.primary li a {
 }
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
   float: right;
+  font-weight: normal;
 }
 .report .report-activity > header .report-status span.status-name {
   text-align: left;
@@ -5336,10 +5337,10 @@ div.tabs ul.primary li a {
   color: #2f6f2f;
   margin: 0 5.5px;
 }
-.report .icon-spinner {
+.report .icon-random {
   color: #ffc40d;
 }
-.report .icon-spinner:before {
+.report .icon-random:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
