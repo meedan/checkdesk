@@ -42868,14 +42868,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
-  $translations['ar:default']['ee963958604481ddd9c7ebbb70085461'] = array(
-    'source' => 'All related updates will be deleted. Are you sure you want to proceed?',
-    'context' => '',
-    'location' => '/ar/node/844/delete?destination=node/844',
-    'translation' => 'سيتم حذف جميع التحديثات المرتبطة! هل أنت متأكد من أنك تريد الحذف؟ ',
-    'plid' => '0',
-    'plural' => '0',
-  );
   $translations['ar:default']['0c2121748fdfc651777c6bc2c03bf36d'] = array(
     'source' => '<a href="!url">@count more updates</a> related to <a href="!url">this story</a>. <a href="!url">View all</a>',
     'context' => '',
@@ -42948,6 +42940,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['ee963958604481ddd9c7ebbb70085461'] = array(
+    'source' => 'All related updates will be deleted. Are you sure you want to proceed?',
+    'context' => '',
+    'location' => '/ar/node/844/delete?destination=node/844',
+    'translation' => 'سيتم حذف جميع التحديثات المرتبطة! هل أنت متأكد من أنك تريد الحذف؟ ',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default']['221835c6d77464983f6d3b87cdfa1515'] = array(
     'source' => '(Linked account)',
     'context' => '',
@@ -43000,7 +43000,23 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.',
     'context' => '',
     'location' => '/meedan/meedan-checkdesk/drupal/ar/node/886',
-    'translation' => 'ﻱﺮﺟﻯ <a href="@login_url">ﺖﺴﺠﻴﻟ ﺎﻟﺪﺧﻮﻟ</a> ﻞﺘﺘﻤﻜﻧ ﻢﻧ ﺈﺿﺎﻓﺓ ﺎﻠﻣﻼﺤﻇﺎﺗ ﻭﺎﻠﻤﺳﺎﻬﻣﺓ ﻒﻳ ﺎﻠﺘﺤﻘﻗ ﻢﻧ ﺺﺣﺓ ﺎﻠﻤﻌﻟﻮﻣﺎﺗ ﻞﻫﺫﺍ ﺎﻠﺘﻗﺮﻳﺭ',
+    'translation' => 'يرجى <a href="@login_url">تسجيل الدخول</a> لتتمكن من إضافة الملاحظات والمساهمة في التحقق من صحة المعلومات لهذا التقرير',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['0e6bc1516b2174c4fea8eec29ce88d82'] = array(
+    'source' => 'Sorry, @site can only handle public Facebook content. Please ensure you can access this URL when logged out of Facebook.',
+    'context' => '',
+    'location' => '/checkdesk/media-preview',
+    'translation' => 'عذراً، @site يمكنه استخدام محتوى فيسبوك العلني فقط. يرجى التأكد من أنك يمكنك الوصول إلى تلك الصفحة عندما تقوم بتسجيل الخروج من فيسبوك.',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:default']['e6579ca2bfdc5e34490054ca581c01f5'] = array(
+    'source' => 'Please log in or register to relate your Twitter account with a user.',
+    'context' => '',
+    'location' => '/ar/twitter/oauth?oauth_token=AgIUgQoAq4MhXrZP2fa8X8tpvUZIDoGZwJyQmaTqubA&oauth_verifier=CyRpb9VadZP6bvsZRALrMrdjGI131Q6lsBiFMv8',
+    'translation' => 'برجاء تسجيل الدخول أو إنشاء حساباً جديداً لربط حساب تويتر الخاص بك.',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43156,14 +43172,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
-  $translations['ar:menu']['763308ddea446ed598f1de10ab7c14d2'] = array(
-    'source' => 'Information',
-    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
-    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
-    'translation' => 'معلومات',
-    'plid' => '0',
-    'plural' => '0',
-  );
   $translations['ar:menu']['e7028aef0796f2c9e89bec6c84b76592'] = array(
     'source' => 'Notifications',
     'context' => 'item:5626ddfd-e3f6-7ba4-f9ff-f8c36ff9d636:title',
@@ -43220,27 +43228,19 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
-  $translations['ar:menu']['20ddd7b5fb8ad343dd15bb0090952c4e'] = array(
-    'source' => 'Edit fact-checking statement',
-    'context' => 'item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
-    'location' => 'menu:item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
-    'translation' => 'حرر بيان التحقق من صحة المعلومات',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:menu']['f393532105cccbcbe65e22c46b0e461c'] = array(
-    'source' => 'Administer users',
-    'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
-    'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
-    'translation' => 'إدارة المستخدمين',
-    'plid' => '0',
-    'plural' => '0',
-  );
   $translations['ar:menu']['69d78890b1558047d9382ff73d0c97ef'] = array(
     'source' => 'Administer users',
     'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
     'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
     'translation' => 'إدارة المستخدمين',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['20ddd7b5fb8ad343dd15bb0090952c4e'] = array(
+    'source' => 'Edit fact-checking statement',
+    'context' => 'item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
+    'location' => 'menu:item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
+    'translation' => 'حرر بيان التحقق من صحة المعلومات',
     'plid' => '0',
     'plural' => '0',
   );
@@ -43268,6 +43268,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:menu']['f393532105cccbcbe65e22c46b0e461c'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
+    'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:menu']['0b838703c2a217361d7b3d47deb90b1a'] = array(
     'source' => 'Edit fact-checking statement',
     'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
@@ -43289,6 +43297,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
     'location' => 'menu:item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
     'translation' => 'تطوير',
+    'plid' => '0',
+    'plural' => '0',
+  );
+  $translations['ar:menu']['763308ddea446ed598f1de10ab7c14d2'] = array(
+    'source' => 'Information',
+    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'translation' => 'معلومات',
     'plid' => '0',
     'plural' => '0',
   );
