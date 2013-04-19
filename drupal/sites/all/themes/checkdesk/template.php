@@ -512,7 +512,7 @@ function checkdesk_preprocess_node(&$variables) {
         $variables['media_activity_footer'] = '';
       }
       else {
-        $variables['media_activity_footer'] = t('Please <a href="@register_url">register</a> or <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@register_url' => url('user/register'), '@login_url' => url('user/login')));
+        $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
       }
     }
   }

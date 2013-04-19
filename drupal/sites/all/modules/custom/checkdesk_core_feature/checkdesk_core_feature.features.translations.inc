@@ -42996,6 +42996,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default']['c578cc8a08562bcc22df5fe4a946a6c6'] = array(
+    'source' => 'Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/886',
+    'translation' => 'ﻱﺮﺟﻯ <a href="@login_url">ﺖﺴﺠﻴﻟ ﺎﻟﺪﺧﻮﻟ</a> ﻞﺘﺘﻤﻜﻧ ﻢﻧ ﺈﺿﺎﻓﺓ ﺎﻠﻣﻼﺤﻇﺎﺗ ﻭﺎﻠﻤﺳﺎﻬﻣﺓ ﻒﻳ ﺎﻠﺘﺤﻘﻗ ﻢﻧ ﺺﺣﺓ ﺎﻠﻤﻌﻟﻮﻣﺎﺗ ﻞﻫﺫﺍ ﺎﻠﺘﻗﺮﻳﺭ',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
