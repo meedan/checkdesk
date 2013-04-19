@@ -57,6 +57,39 @@ function checkdesk_core_feature_filter_default_formats() {
     ),
   );
 
+  // Exported format: Full HTML.
+  $formats['full_html'] = array(
+    'format' => 'full_html',
+    'name' => 'Full HTML',
+    'cache' => '0',
+    'status' => '1',
+    'weight' => '1',
+    'filters' => array(
+      'filter_url' => array(
+        'weight' => '-40',
+        'status' => '1',
+        'settings' => array(
+          'filter_url_length' => '72',
+        ),
+      ),
+      'filter_autop' => array(
+        'weight' => '-39',
+        'status' => '1',
+        'settings' => array(),
+      ),
+      'filter_checkdesk_markup' => array(
+        'weight' => '-38',
+        'status' => '1',
+        'settings' => array(),
+      ),
+      'filter_htmlcorrector' => array(
+        'weight' => '-37',
+        'status' => '1',
+        'settings' => array(),
+      ),
+    ),
+  );
+
   // Exported format: Liveblog.
   $formats['liveblog'] = array(
     'format' => 'liveblog',
