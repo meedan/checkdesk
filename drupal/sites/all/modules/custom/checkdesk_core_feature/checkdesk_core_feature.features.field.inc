@@ -999,7 +999,7 @@ function checkdesk_core_feature_field_default_fields() {
       'settings' => array(
         'better_formats' => array(
           'allowed_formats' => array(
-            'filtered_html' => 0,
+            'filtered_html' => 'filtered_html',
             'full_html' => 'full_html',
             'liveblog' => 0,
             'php_code' => 0,
