@@ -1,0 +1,42 @@
+diff --git a/features_override.export.inc b/features_override.export.inc
+index 38ab684..e23a41b 100644
+--- a/features_override.export.inc
++++ b/features_override.export.inc
+@@ -83,7 +83,7 @@ function features_override_get_overrides($component_key = FALSE, $element_key =
+     module_load_include('inc', 'features', 'features.export');
+     features_include();
+     foreach (features_get_components() as $component => $info) {
+-      if (empty($info['default_hook']) || $component == 'features_override_items' || $component == 'features_overrides' 
++      if (!empty($info['features_override_ignore']) || empty($info['default_hook']) || $component == 'features_override_items' || $component == 'features_overrides'
+         || !features_get_default_alter_hook($component) || !features_hook($component, 'features_export_render')) {
+         continue;
+       }
+@@ -257,7 +257,8 @@ function _features_override_set_additions(&$default, &$normal, &$additions, $ign
+         continue;
+       }
+       if (is_object($normal)) {
+-        if (!is_object($default) || !property_exists($default, $key) || (is_scalar($value) && ($default->$key !== $value))) {
++        if (!is_object($default) || !property_exists($default, $key) ||
++           (is_scalar($value) && (features_var_export($default->$key) !== features_var_export($value)))) {
+           $_keys = array_merge($keys, array(array('type' => 'object', 'key' => $key)));
+           $additions[features_override_make_key($_keys)] = array(
+             'keys' => $_keys,
+@@ -270,7 +271,8 @@ function _features_override_set_additions(&$default, &$normal, &$additions, $ign
+         }
+       }
+       elseif (is_array($normal)) {
+-        if (!is_array($default) || !array_key_exists($key, $default) || (is_scalar($value) && ($default[$key] !== $value))) {
++        if (!is_array($default) || !array_key_exists($key, $default) ||
++           (is_scalar($value) && (features_var_export($default[$key]) !== features_var_export($value)))) {
+           $_keys = array_merge($keys, array(array('type' => 'array', 'key' => $key)));
+           $additions[features_override_make_key($_keys)] = array(
+             'keys' => $_keys,
+@@ -308,7 +310,7 @@ function _features_override_set_deletions(&$default, &$normal, &$deletions, $ign
+       if (isset($ignore_keys[$key]) && ($level == $ignore_keys[$key])) {
+         continue;
+       }
+-  
++
+       if (is_object($default) && is_object($normal)) {
+         if (!property_exists($normal, $key)) {
+           $_keys = array_merge($keys, array(array('type' => 'object', 'key' => $key)));

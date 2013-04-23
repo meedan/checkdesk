@@ -1270,6 +1270,22 @@ function checkdesk_core_views_api() {
 }
 
 /**
+ * Implements hook_views_default_views_alter().
+ */
+function checkdesk_core_views_default_views_alter(&$data) {
+  if (isset($data['admin_views_user'])) {
+    $data['admin_views_user']->display['default']->display_options['fields']['views_bulk_operations']['vbo']['operations']['action::user_block_user_action'] = array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Block user',
+    ); /* WAS: '' */
+  }
+}
+
+/**
+/**
  * Register a directory containing Wysiwyg plugins.
  *
  * @param $type

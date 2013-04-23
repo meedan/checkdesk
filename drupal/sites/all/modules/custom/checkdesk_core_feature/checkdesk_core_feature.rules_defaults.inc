@@ -299,7 +299,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: fact-checking on",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" }
@@ -321,7 +321,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: comment on update",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
       "ACTION SET" : [
         { "notify_subscribers" : {
@@ -340,7 +340,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: existing report suggested to story",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "list_item" : { "label" : "List Item", "type" : "node" },
@@ -363,7 +363,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: fact-checking status changed for commenter",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "current_user" : { "label" : "Current user", "type" : "user" }
@@ -385,7 +385,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: fact-checking status changed for submitter",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "current_user" : { "label" : "Current user", "type" : "user" }
@@ -407,7 +407,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: footnote",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
       "ACTION SET" : [
         { "notify_subscribers" : {
@@ -426,7 +426,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: new update",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "story" : { "label" : "Story", "type" : "node" }
@@ -448,7 +448,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: reply to comment",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
       "ACTION SET" : [
         { "notify_subscribers" : {
@@ -467,7 +467,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report published",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "report" : { "label" : "Report", "type" : "node" }
@@ -489,7 +489,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report suggested to story",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "list_item" : { "label" : "List item", "type" : "node" }
@@ -511,7 +511,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: report was flagged",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" },
@@ -750,7 +750,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Report was flagged",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "flag" ],
       "ON" : [
         "flag_flagged_factcheck",
         "flag_flagged_graphic_journalist",

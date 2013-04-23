@@ -14,25 +14,25 @@ function checkdesk_core_feature_filter_default_formats() {
   $formats['filtered_html'] = array(
     'format' => 'filtered_html',
     'name' => 'Filtered HTML + Markdown',
-    'cache' => '1',
-    'status' => '1',
-    'weight' => '-99',
+    'cache' => 1,
+    'status' => 1,
+    'weight' => -99,
     'filters' => array(
       'filter_markdown' => array(
-        'weight' => '-47',
-        'status' => '1',
+        'weight' => -47,
+        'status' => 1,
         'settings' => array(),
       ),
       'filter_url' => array(
-        'weight' => '-46',
-        'status' => '1',
+        'weight' => -46,
+        'status' => 1,
         'settings' => array(
-          'filter_url_length' => '72',
+          'filter_url_length' => 72,
         ),
       ),
       'filter_html' => array(
-        'weight' => '-45',
-        'status' => '1',
+        'weight' => -45,
+        'status' => 1,
         'settings' => array(
           'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>',
           'filter_html_help' => 1,
@@ -40,13 +40,13 @@ function checkdesk_core_feature_filter_default_formats() {
         ),
       ),
       'filter_autop' => array(
-        'weight' => '-44',
-        'status' => '1',
+        'weight' => -44,
+        'status' => 1,
         'settings' => array(),
       ),
       'filter_htmlcorrector' => array(
-        'weight' => '-43',
-        'status' => '1',
+        'weight' => -43,
+        'status' => 1,
         'settings' => array(),
       ),
     ),
@@ -56,28 +56,28 @@ function checkdesk_core_feature_filter_default_formats() {
   $formats['liveblog'] = array(
     'format' => 'liveblog',
     'name' => 'Liveblog',
-    'cache' => '0',
-    'status' => '1',
-    'weight' => '-98',
+    'cache' => 0,
+    'status' => 1,
+    'weight' => -98,
     'filters' => array(
       'filter_autop' => array(
-        'weight' => '0',
-        'status' => '1',
+        'weight' => 0,
+        'status' => 1,
         'settings' => array(),
       ),
       'filter_markdown' => array(
-        'weight' => '0',
-        'status' => '1',
+        'weight' => 0,
+        'status' => 1,
         'settings' => array(),
       ),
       'filter_meedan_oembed' => array(
-        'weight' => '0',
-        'status' => '1',
+        'weight' => 0,
+        'status' => 1,
         'settings' => array(),
       ),
       'filter_htmlcorrector' => array(
-        'weight' => '10',
-        'status' => '1',
+        'weight' => 10,
+        'status' => 1,
         'settings' => array(),
       ),
     ),
@@ -87,13 +87,13 @@ function checkdesk_core_feature_filter_default_formats() {
   $formats['php_code'] = array(
     'format' => 'php_code',
     'name' => 'PHP code',
-    'cache' => '0',
-    'status' => '1',
-    'weight' => '10',
+    'cache' => 0,
+    'status' => 1,
+    'weight' => 10,
     'filters' => array(
       'php_code' => array(
-        'weight' => '0',
-        'status' => '1',
+        'weight' => 0,
+        'status' => 1,
         'settings' => array(),
       ),
     ),
