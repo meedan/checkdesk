@@ -1312,6 +1312,22 @@ function checkdesk_core_views_default_views_alter(&$data) {
       'label' => 'Block user',
     ); /* WAS: '' */
   }
+
+  if (isset($data['admin_views_node'])) {
+    $data['admin_views_node']->display['default']->display_options['fields']['views_bulk_operations']['vbo']['operations']['action::checkdesk_core_node_set_language'] = array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ); /* WAS: '' */
+    $data['admin_views_node']->display['default']->display_options['fields']['language'] = array(
+      'id' => 'language',
+      'table' => 'node',
+      'field' => 'language',
+    );
+  }
+
 }
 
 /**
@@ -1465,6 +1481,52 @@ function checkdesk_core_form_flag_confirm_alter(&$form, $form_state, $form_id) {
  */
 function checkdesk_core_form_twitter_oauth_callback_form_alter(&$form, $form_state) {
   $_GET['destination'] = 'user/register';
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function checkdesk_core_action_info() {
+  return array(
+    'checkdesk_core_node_set_language' => array(
+      'type' => 'node',
+      'label' => t('Set language'),
+      'configurable' => TRUE,
+      'behavior' => array('changes_property'),
+    ),
+  );
+}
+
+/**
+ * Form function for action `checkdesk_core_node_set_language`.
+ */
+function checkdesk_core_node_set_language_form($context) {
+  $languages = array();
+  foreach (language_list() as $langcode => $language) {
+    $languages[$langcode] = $language->name;
+  }
+  $form['language'] = array(
+    '#title' => t('Language'),
+    '#type' => 'select',
+    '#options' => $languages,
+    '#default_value' => @$context['language'],
+  );
+  return $form;
+}
+
+/**
+ * Submit function for action `checkdesk_core_node_set_language`.
+ */
+function checkdesk_core_node_set_language_submit($form, $form_state) {
+  return array('language' => $form_state['values']['language']);
+}
+
+/**
+ * Action function for action `checkdesk_core_node_set_language`.
+ */
+function checkdesk_core_node_set_language($node, $context) {
+  $node->language = $context['language'];
+  watchdog('action', 'Set node language to %language.', array('%language' => $context['language']));
 }
 
 /**
