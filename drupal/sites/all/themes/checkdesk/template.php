@@ -153,7 +153,7 @@ function checkdesk_preprocess_page(&$variables) {
         );
 
         $variables['main_menu'][$id]['html'] = TRUE;
-        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Submit report'));
+        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => t('Submit report')));
         $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
         $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
         $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
