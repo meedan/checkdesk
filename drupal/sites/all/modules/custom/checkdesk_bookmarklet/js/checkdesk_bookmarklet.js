@@ -9,11 +9,9 @@
    * Example messages include:
    *   - window.parent.postMessage('close', '*');
    *   - window.parent.postMessage('reset', '*');
-   *   - window.parent.postMessage({ type: 'resize', width: 123, height: 456 }, '*');
    */
   var messageCallback = function(e) {
     var offset,
-        newSize,
         data = (e.data.substr(0, 1) === '{') ? jQuery.parseJSON(e.data) : e.data,
         type = (data && data.type) ? data.type : data;
 
@@ -33,20 +31,6 @@
       // Send another report
       case 'reset':
         jQuery('#meedan_bookmarklet_cont').removeClass('meedan-bookmarklet-collapsed');
-        break;
-
-      // Resize the container to match the iframe size
-      case 'resize':
-        newSize = {};
-        if (data.width) {
-          newSize.width = data.width;
-        }
-        if (data.height) {
-          newSize.height = data.height;
-        }
-        jQuery('#meedan_bookmarklet_cont iframe').css(newSize);
-        newSize.height += 7; // A little extra to avoid a scrollbar
-        jQuery('#meedan_bookmarklet_cont').css(newSize);
         break;
 
       // Bookmarklet loaded

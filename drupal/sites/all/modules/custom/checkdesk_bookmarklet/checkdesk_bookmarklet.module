@@ -9,6 +9,10 @@ function checkdesk_bookmarklet_init() {
   if (isset($_GET['meedan_bookmarklet_submitted'])) {
     drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_bookmarklet_submitted.js');
   }
+  // For all main checkdesk pages, when not inside of an IFRAME.
+  if (!isset($_GET['meedan_bookmarklet'])) {
+    drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_bookmarklet.js');
+  }
 }
 
 /**

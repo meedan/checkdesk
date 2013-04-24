@@ -13,3 +13,7 @@ $is_dev  = preg_match('@(local(host)?$|(^|\.)dev\.)@', $_SERVER['HTTP_HOST']);
 $is_test = preg_match('@(^|\.)(test|testing|qa)\.@', $_SERVER['HTTP_HOST']);
 
 define('MEEDAN_ENVIRONMENT', ($is_dev ? 'DEV' : ($is_test ? 'TEST' : 'LIVE')));
+
+// Fixes an issue ind D7 core where url('', array('https' => TRUE)); would not
+// force HTTPS on an SSL enabled server.
+$conf['https'] = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off');

@@ -11,6 +11,6 @@ guard 'compass' do
   watch(%r{^drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/stylesheets/.+\.(scss)$})
 end
 
-guard 'uglify', :input => 'drupal/sites/all/modules/custom/checkdesk_oembed/js/embed.js', :output => 'drupal/sites/all/modules/custom/checkdesk_oembed/js/embed.min.js' do
-  watch 'drupal/sites/all/modules/custom/checkdesk_oembed/js/embed.js'
+guard 'uglify', :input => 'drupal/sites/all/modules/meedan/meedan_iframes/js/meedan_iframes.parent.js', :output => 'drupal/sites/all/modules/meedan/meedan_iframes/js/meedan_iframes.parent.min.js' do
+  watch 'drupal/sites/all/modules/meedan/meedan_iframes/js/meedan_iframes.parent.js'
 end

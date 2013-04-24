@@ -1,5 +1,5 @@
 /**
- * Checkdesk seamless IFRAME support.
+ * Parent component for Meedan seamless IFRAME support.
  */
 (function () {
 
@@ -14,10 +14,10 @@
       iframe  = script.previousSibling;
 
   if (!script || script.tagName !== 'SCRIPT') {
-    throw("Checkdesk: Could not locate embedded widget SCRIPT.");
+    throw("Meedan: Could not locate embedded widget SCRIPT.");
   }
   if (!iframe || iframe.tagName !== 'IFRAME') {
-    throw("Checkdesk: Could not locate embedded widget IFRAME.");
+    throw("Meedan: Could not locate embedded widget IFRAME.");
   }
 
 

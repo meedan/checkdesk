@@ -1,7 +1,7 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 
 /**
- *
+ * Child component for Meedan seamless IFRAME support.
  */
 jQuery(function ($) {
   'use strict';

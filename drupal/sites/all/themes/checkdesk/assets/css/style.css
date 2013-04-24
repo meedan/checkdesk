@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -5726,12 +5725,11 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   width: 100% !important;
 }
 
-#meedan_bookmarklet_cont {
-  display: none;
-  position: fixed !important;
-  left: 44px !important;
-  right: auto !important;
-  border-width: 0 !important;
+#nav-media-form {
+  width: 366px;
+}
+#nav-media-form iframe {
+  width: 100%;
 }
 
 .meedan-bookmarklet-internal #meedan_bookmarklet_preview,
