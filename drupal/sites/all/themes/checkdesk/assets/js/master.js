@@ -77,4 +77,26 @@
     }
   };
 
+  /**
+   * Takes the data-lazy-load-src attribute of any element and applies it
+   * to the src attribute when that element is in view.
+   *
+   * Relies on the jquery.inview.js plugin by Remy Sharp
+   * See: http://remysharp.com/2009/01/26/element-in-view-event-plugin/
+   */
+  Drupal.behaviors.lazyLoadSrc = {
+    attach: function (context) {
+      $('[data-lazy-load-src]', context).bind('inview', function (e, visible) {
+        var $this = $(this);
+
+        if (visible) {
+          // Using $(this).attr('src', 'http://....'); does not appear to work
+          // in some browsers kicking the DOM object directly does the trick.
+          this.src = $this.attr('data-lazy-load-src');
+          $this.unbind('inview');
+        }
+      });
+    }
+  };
+
 }(jQuery));

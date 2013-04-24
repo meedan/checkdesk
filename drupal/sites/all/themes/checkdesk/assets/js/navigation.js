@@ -26,8 +26,6 @@
   var messageCallback = function(e) {
     var type = e.data;
 
-    console.log(type, 'caught');
-
     switch (type) {
       case 'close':
       case 'destroy':

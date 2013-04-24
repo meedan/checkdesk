@@ -527,6 +527,21 @@ function checkdesk_preprocess_node(&$variables) {
         $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
       }
     }
+
+    if (isset($variables['content']['field_link'])) {
+      $field_link_rendered = render($variables['content']['field_link']);
+
+      // Never lazy-load inside the modal
+      if (arg(0) != 'report-view-modal') {
+        // Quick and easy, replace all src attributes with data-somethingelse
+        // Drupal.behavior.lazyLoadSrc handles re-applying the src attribute when
+        // the iframe tag enters the viewport.
+        // See: http://stackoverflow.com/a/7154968/806988
+        $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src)=/i', '<\1\2src="about:blank" data-lazy-load-src=', $field_link_rendered);
+      }
+
+      $variables['field_link_lazy_load'] = $field_link_rendered;
+    }
   }
 }
 

@@ -14,7 +14,7 @@
       <div class="report-media">
         <div class="container <?php print $media_type_class; ?>">
           <?php if(isset($content['meedan_sensitive_content'])) { print render($content['meedan_sensitive_content']); }  ?>
-          <?php if(isset($content['field_link'])) { print render($content['field_link']); } ?>
+          <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>
       <p>
