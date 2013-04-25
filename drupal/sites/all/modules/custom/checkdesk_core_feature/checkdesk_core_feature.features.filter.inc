@@ -99,8 +99,8 @@ function checkdesk_core_feature_filter_default_formats() {
     'weight' => -98,
     'filters' => array(
       'filter_checkdesk_markup' => array(
-        'weight' => '0',
-        'status' => '1',
+        'weight' => 0,
+        'status' => 1,
         'settings' => array(),
       ),
       'filter_autop' => array(

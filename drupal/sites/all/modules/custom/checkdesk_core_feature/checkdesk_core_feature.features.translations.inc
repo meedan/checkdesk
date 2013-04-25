@@ -43020,46 +43020,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['451d45789c3792754cece53e7ba42c4c'] = array(
-    'source' => 'Please <a href="@register_url">register</a> or <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.',
-    'context' => '',
-    'location' => '/meedan/meedan-checkdesk/drupal/ar/liveblog/one-more-test',
-    'translation' => 'TODO',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['7a0bfc30d37dd07255c639ffab5bc3f1'] = array(
-    'source' => 'Edit @type <em>@title</em>',
-    'context' => '',
-    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/886/edit',
-    'translation' => 'تعديل @type <em>@title</em>',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['c578cc8a08562bcc22df5fe4a946a6c6'] = array(
-    'source' => 'Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.',
-    'context' => '',
-    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/886',
-    'translation' => 'يرجى <a href="@login_url">تسجيل الدخول</a> لتتمكن من إضافة الملاحظات والمساهمة في التحقق من صحة المعلومات لهذا التقرير',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['0e6bc1516b2174c4fea8eec29ce88d82'] = array(
-    'source' => 'Sorry, @site can only handle public Facebook content. Please ensure you can access this URL when logged out of Facebook.',
-    'context' => '',
-    'location' => '/checkdesk/media-preview',
-    'translation' => 'عذراً، @site يمكنه استخدام محتوى فيسبوك العلني فقط. يرجى التأكد من أنك يمكنك الوصول إلى تلك الصفحة عندما تقوم بتسجيل الخروج من فيسبوك.',
-    'plid' => '0',
-    'plural' => '0',
-  );
-  $translations['ar:default']['e6579ca2bfdc5e34490054ca581c01f5'] = array(
-    'source' => 'Please log in or register to relate your Twitter account with a user.',
-    'context' => '',
-    'location' => '/ar/twitter/oauth?oauth_token=AgIUgQoAq4MhXrZP2fa8X8tpvUZIDoGZwJyQmaTqubA&oauth_verifier=CyRpb9VadZP6bvsZRALrMrdjGI131Q6lsBiFMv8',
-    'translation' => 'برجاء تسجيل الدخول أو إنشاء حساباً جديداً لربط حساب تويتر الخاص بك.',
-    'plid' => '0',
-    'plural' => '0',
-  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
