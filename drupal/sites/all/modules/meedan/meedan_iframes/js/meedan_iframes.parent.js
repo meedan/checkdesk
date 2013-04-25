@@ -1,5 +1,5 @@
 /**
- * Checkdesk seamless IFRAME support.
+ * Parent component for Meedan seamless IFRAME support.
  */
 (function () {
 
@@ -14,10 +14,10 @@
       iframe  = script.previousSibling;
 
   if (!script || script.tagName !== 'SCRIPT') {
-    throw("Checkdesk: Could not locate embedded widget SCRIPT.");
+    throw("Meedan: Could not locate embedded widget SCRIPT.");
   }
   if (!iframe || iframe.tagName !== 'IFRAME') {
-    throw("Checkdesk: Could not locate embedded widget IFRAME.");
+    throw("Meedan: Could not locate embedded widget IFRAME.");
   }
 
 
@@ -44,8 +44,28 @@
       if (data[0]) {
         iframe.style.height = data[0] + 'px';
       }
-    }
+      MessageHandler.api('postSetHeight', data);
+    },
 
+    api: function (type, data) {
+      var event;
+
+      if (document.createEvent) {
+        event = document.createEvent("HTMLEvents");
+        event.initEvent(type, true, true);
+      } else {
+        event = document.createEventObject();
+        event.eventType = type;
+      }
+
+      event.data = data || {};
+
+      if (document.createEvent) {
+        iframe.dispatchEvent(event);
+      } else {
+        iframe.fireEvent("on" + event.eventType, event);
+      }
+    }
   };
 
 

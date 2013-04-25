@@ -1,0 +1,40 @@
+diff --git a/drupal/sites/all/modules/contrib/twitter/twitter.lib.php b/drupal/sites/all/modules/contrib/twitter/twitter.lib.php
+index e60053a..3efabac 100644
+--- a/drupal/sites/all/modules/contrib/twitter/twitter.lib.php
++++ b/drupal/sites/all/modules/contrib/twitter/twitter.lib.php
+@@ -73,10 +73,18 @@ class Twitter {
+     return $url;
+   }
+ 
+-  public function get_access_token() {
+--    $url = variable_get('twitter_api', TWITTER_API) . '/oauth/access_token';
++  /* Added $oauth_verifier */
++  public function get_access_token($oauth_verifier = FALSE) {
++    $url = variable_get('twitter_api', TWITTER_API) . '/oauth/access_token';
++
++    // Adding parameter oauth_verifier to auth_request
++    $parameters = array();
++    if (!empty($oauth_verifier)) {
++      $parameters['oauth_verifier'] = $oauth_verifier;
++    }
++
+     try {
+-      $response = $this->auth_request($url);
++      $response = $this->auth_request($url, $parameters);
+     }
+     catch (TwitterException $e) {
+       watchdog('twitter', '!message', array('!message' => $e->__toString()), WATCHDOG_ERROR);
+diff --git a/drupal/sites/all/modules/contrib/twitter/twitter.pages.inc b/drupal/sites/all/modules/contrib/twitter/twitter.pages.inc
+index feba5a0..0bfd677 100644
+--- a/drupal/sites/all/modules/contrib/twitter/twitter.pages.inc
++++ b/drupal/sites/all/modules/contrib/twitter/twitter.pages.inc
+@@ -418,7 +418,8 @@ function twitter_oauth_callback_form_validate($form, &$form_state) {
+   module_load_include('inc', 'twitter');
+ 
+   if ($twitter = new Twitter($key, $secret, $token['oauth_token'], $token['oauth_token_secret'])) {
+-    if ($response = $twitter->get_access_token()) {
++    //Collect oauth_verifier from url
++    if ($response = $twitter->get_access_token($_GET['oauth_verifier'])) {
+       $form_state['twitter_oauth']['response'] = $response;
+     }
+     else {

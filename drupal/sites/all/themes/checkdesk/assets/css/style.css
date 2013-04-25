@@ -2166,6 +2166,10 @@ nav[role="navigation"] li.submit-report a:before {
   content: "\f071";
 }
 
+.report .icon-random:after {
+  content: "\f074";
+}
+
 #my-notifications .checkdesk_comment_on_update .heartbeat-time-ago:before, #my-notifications .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago:before, #my-notifications .checkdesk_comment_on_report .heartbeat-time-ago:before {
   content: "\f075";
 }
@@ -2286,7 +2290,7 @@ button,
 select,
 textarea,
 body.cke_editable {
-  font-family: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 label {
@@ -2314,11 +2318,10 @@ input[type="color"],
 .uneditable-input {
   display: inline-block;
   height: 24px;
-  padding: 8px 6px;
+  padding: 10px 6px;
   margin-bottom: 6px;
   font-size: 18px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 24px;
   color: #999999;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -4016,7 +4019,7 @@ h1, h2, h3, h4 {
   margin-top: 18px;
   padding-bottom: 18px;
   padding-top: 18px;
-  font-family: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-weight: normal;
 }
 
@@ -4680,35 +4683,32 @@ div.tabs ul.primary li a {
     text-align: left;
   }
 }
-.static {
-  color: #555555;
-  padding: 12px 44px;
+.static-page {
+  margin-bottom: 96px;
 }
-.static h2 {
+.static-page h2 {
   margin: 0;
   padding: 0;
   border: 0;
-  margin: 12px 0;
-  font-size: 88%;
+  margin: 28.8px 0 12px 0;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.static h3 {
+.static-page h2:first-child {
+  margin: 0 0 12px 0;
+}
+.static-page h3 {
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 18px;
 }
-.static img {
+.static-page img.creativecommons {
   width: auto;
   height: 31px;
   vertical-align: text-bottom;
 }
-.static p {
-  margin: 0 0 24px;
-  font-size: 88%;
-}
-.static ul {
+.static-page ul {
   margin: 0;
   padding: 0;
   border: 0;
@@ -4716,12 +4716,32 @@ div.tabs ul.primary li a {
   margin-left: 22px;
   list-style: disc outside none;
 }
-.static ul li {
+.static-page ul li {
   margin: 0;
   padding: 0;
   border: 0;
   margin-bottom: 12px;
+}
+.static-page p {
+  margin: 0 0 24px;
+}
+
+#modalContent .static-page {
+  color: #555555;
+  padding: 12px 44px;
+}
+#modalContent .static-page ul li {
   font-size: 88%;
+}
+#modalContent .static-page h2 {
+  font-size: 92%;
+}
+#modalContent .static-page p {
+  font-size: 88%;
+}
+
+#page-node-form .filter-wrapper {
+  display: block;
 }
 
 .report {
@@ -4751,7 +4771,7 @@ div.tabs ul.primary li a {
   color: #595959;
   padding: 5.5px 11px;
   *zoom: 1;
-  background-color: #e1e1e1;
+  background-color: #c8c8c8;
 }
 .report > footer:before, .report > footer:after {
   display: table;
@@ -4861,7 +4881,7 @@ div.tabs ul.primary li a {
 }
 .report .report-content {
   *zoom: 1;
-  background-color: #ededed;
+  background-color: #e0e0e0;
   color: #595959;
   padding: 11px;
 }
@@ -5062,7 +5082,7 @@ div.tabs ul.primary li a {
   padding: 11px;
   cursor: pointer;
   font-size: 15.3px;
-  background-color: #e1e1e1;
+  background-color: #d4d4d4;
 }
 .report .report-activity > header h3 {
   float: left;
@@ -5082,6 +5102,7 @@ div.tabs ul.primary li a {
 }
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
   float: left;
+  font-weight: normal;
 }
 .report .report-activity > header .report-status span.status-name {
   text-align: right;
@@ -5089,28 +5110,40 @@ div.tabs ul.primary li a {
   margin-right: 5px;
 }
 .report .report-activity > header:hover {
-  background-color: #d4d4d4;
+  background-color: #bbbbbb;
+}
+.report .report-activity > .in-progress {
+  background-color: #ffe9a6;
+}
+.report .report-activity > .in-progress a {
+  color: #a67e00;
+}
+.report .report-activity > .in-progress:hover {
+  background-color: #ffdd73;
+}
+.report .report-activity > .in-progress:hover a {
+  color: #735700;
 }
 .report .report-activity > .undetermined {
-  background-color: #fee9cc;
+  background-color: #fdd49a;
 }
 .report .report-activity > .undetermined a {
   color: #c67605;
 }
 .report .report-activity > .undetermined:hover {
-  background-color: #fdd49a;
+  background-color: #fbbf69;
 }
 .report .report-activity > .undetermined:hover a {
-  color: #945904;
+  color: #c67605;
 }
 .report .report-activity > .verified {
-  background-color: #f1f9f1;
+  background-color: #cdeacd;
 }
 .report .report-activity > .verified a {
   color: #46a546;
 }
 .report .report-activity > .verified:hover {
-  background-color: #cdeacd;
+  background-color: #86cb86;
 }
 .report .report-activity > .verified:hover a {
   color: #378137;
@@ -5252,6 +5285,9 @@ div.tabs ul.primary li a {
   color: #999999;
   font-size: 15.3px;
 }
+.report .report-activity .activity-list-footer {
+  clear: both;
+}
 .report .open > .false {
   background-color: #eca09a;
 }
@@ -5264,6 +5300,12 @@ div.tabs ul.primary li a {
 .report .open > .verified {
   background-color: #cdeacd;
 }
+.report .open > .in-progress {
+  background-color: #ffdd73;
+}
+.report .open > .in-progress a {
+  color: #735700;
+}
 .report .icon-ok-sign {
   color: #46a546;
 }
@@ -5272,6 +5314,16 @@ div.tabs ul.primary li a {
   font-size: 16px;
   line-height: 16px;
   color: #2f6f2f;
+  margin: 0 5.5px;
+}
+.report .icon-random {
+  color: #ffc40d;
+}
+.report .icon-random:after {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  line-height: 16px;
+  color: #c09100;
   margin: 0 5.5px;
 }
 .report .icon-question-sign {
@@ -5673,12 +5725,11 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   width: 100% !important;
 }
 
-#meedan_bookmarklet_cont {
-  display: none;
-  position: fixed !important;
-  left: 44px !important;
-  right: auto !important;
-  border-width: 0 !important;
+#nav-media-form {
+  width: 366px;
+}
+#nav-media-form iframe {
+  width: 100%;
 }
 
 .meedan-bookmarklet-internal #meedan_bookmarklet_preview,
@@ -6622,6 +6673,10 @@ div.password-suggestions ul {
   clear: both;
 }
 
+.page-node-edit form.ife label {
+  display: block;
+}
+
 label, input, button, select, textarea, body.cke_editable {
   font-size: 18px;
 }
@@ -7241,8 +7296,8 @@ body.page-liveblog #main .view-liveblog .desk {
   -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
-  width: 98%;
-  padding: 1%;
+  width: 96%;
+  padding: 2%;
   overflow: visible;
 }
 body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after {
@@ -7258,21 +7313,25 @@ body.page-liveblog #main .view-liveblog .desk:first-child {
 }
 body.page-liveblog #main .view-liveblog .desk h2 {
   margin: 0;
+  padding: 0;
+  border: 0;
+  margin-top: 12px;
+  margin-bottom: 12px;
   font-size: 200%;
   line-height: 1.2;
 }
 body.page-liveblog #main .view-liveblog .desk h2 a {
-  color: #999999;
+  color: #555555;
   font-weight: normal;
 }
 body.page-liveblog #main .view-liveblog .desk h2 a:hover {
-  color: #333333;
+  color: black;
 }
 body.page-liveblog #main .view-liveblog .desk h2 .desk {
   border: 1px solid red;
 }
 body.page-liveblog #main .view-liveblog .desk .post-row {
-  background-color: #dadada;
+  background-color: #eee;
   margin-bottom: 1em;
 }
 body.page-liveblog #main .view-liveblog .desk .post-row .report .report-content .report-media .container {
@@ -7283,7 +7342,7 @@ body.page-liveblog #main .view-liveblog .desk .post-row > h3 {
   padding: 0;
   border: 0;
   font-size: 125%;
-  padding-top: 0.5em;
+  padding: 0.5em 0;
 }
 body.page-liveblog #main .view-liveblog .desk .post-row > h3 a {
   color: #333333;
@@ -7292,6 +7351,9 @@ body.page-liveblog #main .view-liveblog .desk .post-row > h3 a {
 }
 body.page-liveblog #main .view-liveblog .desk .post-row > h3 a:hover {
   color: black;
+}
+body.page-liveblog #main .view-liveblog .desk .post-row p {
+  color: #555555;
 }
 body.page-liveblog #main .view-liveblog .related-updates {
   margin-top: 0;
@@ -7641,6 +7703,9 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 .story .story-body p {
   margin: 6px 0;
 }
+.story .story-body p:first-child {
+  margin: 0 0;
+}
 
 body.sidebar-first #main {
   padding-left: 2.40175%;
@@ -7896,13 +7961,10 @@ body.widgets #main #content {
   color: #1d87c9;
   margin: 0 5.5px;
 }
-#widgets ul.elsewhere li span.icon-youtube {
-  margin-top: -5px;
-}
 #widgets ul.elsewhere li span.icon-youtube:before {
   font-family: "FontAwesomeSocial";
-  font-size: 35px;
-  line-height: 35px;
+  font-size: 40px;
+  line-height: 40px;
   color: #9d261d;
   margin: 0 5.5px;
 }
@@ -8121,7 +8183,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 body.page-user-login #user-login .or,
 body.page-user-register #user-login .or,
 body.page-user-password #user-login .or {
-  font-family: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   color: #999999;
   text-align: center;
   margin: 12px 0;
@@ -8146,7 +8208,7 @@ body.page-user-login #user-login .user-links,
 body.page-user-register #user-login .user-links,
 body.page-user-password #user-login .user-links {
   *zoom: 1;
-  font-family: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
   line-height: 1.5;
 }
@@ -8174,7 +8236,7 @@ body.page-user-register #user-login .form-item-remember-me label,
 body.page-user-password #user-login .form-item-remember-me label {
   display: block;
   color: #999999;
-  font-family: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
   line-height: 1.5;
 }
@@ -8199,7 +8261,7 @@ body.page-user-register #user-login .form-actions .user-new-account-link,
 body.page-user-password #user-login .form-actions .user-new-account-link {
   float: right;
   margin-top: 6px;
-  font-family: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
   color: #999999;
 }
@@ -8215,7 +8277,7 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   padding: 0;
   border: 0;
   background: none;
-  font-family: "Merriweather Light", Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
   font-weight: normal;
   color: #0088cc;

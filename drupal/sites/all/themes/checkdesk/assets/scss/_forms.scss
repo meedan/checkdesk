@@ -99,8 +99,13 @@
     font-size: $fontSizeSmall;
     line-height: 1.4;
   }
-}
 
+}
+  
+// do not hide labels for report edit form
+.page-node-edit form.ife label {
+  display: block;
+}
 
 // In addition to our use of normalize, and other resets, 
 // This standardizes form elements

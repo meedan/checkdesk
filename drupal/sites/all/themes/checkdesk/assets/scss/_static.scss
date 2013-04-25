@@ -1,30 +1,28 @@
 // Static pages
 
-.static {
-  color: $gray;
-  padding: $absolute-line-height/2 $gutter-width*4;
+
+.static-page {
+  margin-bottom: $absolute-line-height*4;
   h2 {
     @include reset-box-model;
-    margin: $absolute-line-height/2 0;
-    font-size: 88%;
+    margin: $absolute-line-height*1.2 0 $absolute-line-height/2 0;
     text-transform: uppercase;
     letter-spacing: 1px;
+    &:first-child {
+      margin: 0 0 $absolute-line-height/2 0;
+    }
   }
 
   h3 {
     @include reset-box-model;
+
     font-size: $base-font-size;
   }
 
-  img {
+  img.creativecommons {
     width: auto;
     height: 31px;
     vertical-align: text-bottom;
-  }
-
-  p {
-    margin: 0 0 $absolute-line-height;
-    font-size: 88%;
   }
 
   ul {
@@ -35,8 +33,33 @@
     li {
       @include reset-box-model;
       margin-bottom: $absolute-line-height/2;
-      font-size: 88%;
     }
   }
 
+  p {
+    margin: 0 0 $absolute-line-height;
+  } 
+}
+
+#modalContent {
+  .static-page {
+    color: $gray;
+    padding: $absolute-line-height/2 $gutter-width*4;
+
+    ul li { font-size: 88%; }
+    
+    h2 {
+      font-size: 92%;
+    }
+
+    p {
+      font-size: 88%;
+    }
+
+  }
+}
+
+// For static pages you can choose input format
+#page-node-form .filter-wrapper {
+  display: block;
 }

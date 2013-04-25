@@ -1,5 +1,168 @@
 <?php
 
+require_once dirname(__FILE__) . '/meedan_oembed.inc';
+require_once dirname(__FILE__) . '/meedan_oembed.filter.inc';
+
+/**
+ * Implementation of hook_theme().
+ */
+function meedan_oembed_theme() {
+  $path = drupal_get_path('module', 'meedan_oembed') . '/theme';
+  $file = 'meedan_oembed.theme.inc';
+
+  return array(
+    'oembed__link__meedan_oembed_generic' => array(
+      'variables' => array('embed' => NULL),
+      'template' => 'oembed-generic',
+      'path' => $path,
+      'file' => $file,
+    ),
+    'meedan_oembed_missing' => array(
+      'variables' => array('media' => NULL),
+      'template' => 'oembed-missing',
+      'path' => $path,
+      'file' => $file,
+    ),
+  );
+}
+
+/**
+ * Fetch data for an embeddable URL.
+ *
+ * All request data is cached (even if error).
+ *
+ * Oembed sequence
+ *   1. Hit cache
+ *   2. Call custom scrape function if exist
+ *   3. Ask oEmbed core to render for us
+ *   4. Call Embedly
+ *
+ * @param string $url
+ *   An external URL for the content to embed.
+ * @param array $attributes
+ *   An associative array of attributes, with the following keys:
+ *   - 'maxwidth'
+ *       The maximum width of the embed, in pixels.
+ *   - 'maxheight'
+ *       The maximum height of the embed, in pixels.
+ * @param boolean $retry_if_error
+ *   Whether the media should be reparsed if an error happened. Defaults to FALSE.
+ * @param boolean $no_cache
+ *   Optional, when set to TRUE the cache will be ignored AND reset for this
+ *   oembed response.
+ * @return
+ *   an object representing the embeddable data of the URL.
+ */
+function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE, $no_cache = FALSE) {
+  $provider = array();
+  $provider['endpoint'] = 'http://api.embed.ly/1/oembed';
+
+  // Set provider name specific to domain name to use it on #theme function
+  $domain  = _meedan_oembed_get_domain_name($url);
+  $handler = meedan_oembed_get_handler_for_domain($domain);
+
+  if ($handler && isset($handler['provider_name'])) {
+    $provider['name'] = $handler['provider_name'];
+  }
+  else if (function_exists('template_preprocess_oembed__link__meedan_oembed_' . $domain)) {
+    $provider['name'] = 'meedan_oembed_' . $domain;
+  }
+  else {
+    $provider['name'] = 'meedan_oembed_generic';
+  }
+
+  $attributes = array_filter($attributes);
+  $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
+
+  $element = oembedcore_render_cache('oembed_request', $url, $attributes);
+
+  $cache_key = implode(':', $element['#cache']['keys']);
+  $cache     = cache_get($cache_key, $element['#cache']['bin']);
+
+  $embed = FALSE;
+
+  // Cache hit
+  if (!$no_cache && $cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
+    $embed = $cache->data;
+    $embed->original_url = $url;
+    $embed->provider = $provider;
+    return $embed;
+  }
+  // Cache miss
+  else if ($cache) {
+    cache_clear_all($cache_key, $element['#cache']['bin']);
+  }
+
+  // Call scrape function first if exist
+  if ($handler && function_exists($handler['callback'])) {
+    $embed = $handler['callback']($provider, $url);
+  }
+
+  if (!$embed || $embed->error) {
+    $original_embed = $embed;
+
+    if (!$embed || $embed->try_embedly) {
+      // Ask oEmbed core to render for us
+      if ($embed = oembedcore_oembed_data($url, $attributes)) {
+        // Nothing to do
+      }
+      // Call Embedly
+      else {
+        $matches = array();
+        $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
+      }
+    }
+
+    // Embedly failed, provide some fallback embed content
+    if (is_null($embed) || $embed === FALSE || $embed->error) {
+      // Ensure NULL and FALSE become (object) array()
+      $embed = (object) $embed;
+      unset($embed->scalar);
+
+      $url_info = parse_url($url);
+
+      $embed->url           = $url;
+      $embed->error         = TRUE;
+      $embed->original_url  = $url;
+      $embed->provider_name = '';
+      $embed->provider_url  = $url_info['scheme'] . '://' . $url_info['host'];
+      $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
+
+      // In the case where Embedly was used as a fallback the first error message
+      // from the $handler['callback'] is likely more accurate. Use it instead.
+      if ($original_embed && $original_embed->error && $original_embed->error_message) {
+        $embed->error_message = $original_embed->error_message;
+      }
+    }
+  }
+
+  if ($embed && (!isset($embed->error) || !$embed->error)) {
+    meedan_oembed_add_extra_information($embed);
+    $embed->error = FALSE;
+  }
+
+  // Clear cached markup as well
+  $template = oembedcore_render_cache('oembed', $url);
+
+  // Set the result to cache, even if error
+  cache_clear_all(implode(':', $template['#cache']['keys']), $template['#cache']['bin'], TRUE);
+  cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
+
+  return $embed;
+}
+
+/**
+ * Scrape page to extract oEmbed-relevent information.
+ */
+function meedan_oembed_add_extra_information(&$embed) {
+  //Use google getFavicon service http://getfavicon.appspot.com/
+  $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
+  // TODO Get thumbnail.
+  if (empty($embed->thumbnail_url)) {
+    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
+  }
+}
+
 /**
  * Implements hook_node_load().
  */
@@ -57,505 +220,13 @@ function meedan_oembed_pre_render_fetch($element) {
 }
 
 /**
- * Fetch data for an embeddable URL.
- *
- * All request data is cached (even if error).
- *
- * Oembed sequence
- *   1. Hit cache
- *   2. Call custom scrape function if exist
- *   3. Ask oEmbed core to render for us
- *   4. Call Embedly
- *
- * @param string $url
- *   An external URL for the content to embed.
- * @param array $attributes
- *   An associative array of attributes, with the following keys:
- *   - 'maxwidth'
- *       The maximum width of the embed, in pixels.
- *   - 'maxheight'
- *       The maximum height of the embed, in pixels.
- * @param boolean $retry_if_error
- *   Whether the media should be reparsed if an error happened. Defaults to FALSE.
- * @param boolean $no_cache
- *   Optional, when set to TRUE the cache will be ignored AND reset for this
- *   oembed response.
- * @return
- *   an object representing the embeddable data of the URL.
+ * Implements hook_entity_info_alter().
  */
-function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE, $no_cache = FALSE) {
-  $provider = array();
-  $provider['endpoint'] = 'http://api.embed.ly/1/oembed';
-
-  // Set provider name specific to domain name to use it on #theme function
-  $domain   = _meedan_oembed_get_domain_name($url);
-  $callback = 'meedan_oembed_scrape_' . $domain;
-
-  if (function_exists('template_preprocess_oembed__link__meedan_oembed_theme_' . $domain)) {
-    $provider['name'] = 'meedan_oembed_theme_' . $domain;
-  }
-  else {
-    $provider['name'] = 'meedan_oembed_theme_generic';
-  }
-
-  $attributes = array_filter($attributes);
-  $attributes['key'] = variable_get('oembedembedly_api_key', NULL);
-
-  $element = oembedcore_render_cache('oembed_request', $url, $attributes);
-
-  $cache_key = implode(':', $element['#cache']['keys']);
-  $cache     = cache_get($cache_key, $element['#cache']['bin']);
-
-  $embed = FALSE;
-
-  if (!$no_cache && $cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
-    $embed = $cache->data;
-    $embed->original_url = $url;
-    $embed->provider = $provider;
-    return $embed;
-  }
-
-  // Call scrape function first if exist
-  if (function_exists($callback)) {
-    $embed = $callback($provider, $url);
-  }
-
-  if (!$embed || ($embed->error && $embed->try_embedly)) {
-    $original_embed = $embed;
-
-    // Ask oEmbed core to render for us
-    if ($embed = oembedcore_oembed_data($url, $attributes)) {
-      // Nothing to do
-    }
-    // Call Embedly
-    else {
-      $matches = array();
-      $embed = oembedcore_oembed_fetch($provider, $url, $matches, $attributes);
-    }
-
-    // In the case where Embedly was used as a fallback the first error message
-    // from the $callback is likely more accurate. Use it instead.
-    if ($embed->error && $original_embed->error && $original_embed->error_message) {
-      $embed->error_message = $original_embed->error_message;
-    }
-  }
-
-  if (!$embed || (isset($embed->error) && $embed->error)) {
-    $url_info = parse_url($url);
-
-    // Ensure NULL and FALSE become (object) array()
-    $embed = (object) $embed;
-
-    $embed->url           = $url;
-    $embed->error         = TRUE;
-    $embed->original_url  = $url;
-    $embed->provider_name = '';
-    $embed->provider_url  = $url_info['scheme'] . '://' . $url_info['host'];
-    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
-  }
-  else {
-    meedan_oembed_scrape_generic($embed);
-    $embed->error = FALSE;
-  }
-
-  // Clear cached markup as well
-  $template = oembedcore_render_cache('oembed', $url);
-
-  // Set the result to cache, even if error
-  cache_clear_all(implode(':', $template['#cache']['keys']), $template['#cache']['bin'], TRUE);
-  cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
-
-  return $embed;
-}
-
-/**
- * Scrape page to extract oEmbed-relevent information.
- */
-function meedan_oembed_scrape_generic(&$embed) {
-  //Use google getFavicon service http://getfavicon.appspot.com/
-  $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
-  // TODO Get thumbnail.
-  if (empty($embed->thumbnail_url)) {
-    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
-  }
-}
-
-/**
- * Scrape Facebook post.
- */
-function meedan_oembed_scrape_facebook($provider, $url) {
-  $url_info = parse_url($url);
-  $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
-
-  $post_data = _meedan_oembed_facebook_graph_api_data($url);
-
-  if (isset($post_data['error']) && $post_data['error']) {
-    return (object) $post_data;
-  }
-
-  $embed = new stdclass();
-  $embed->url = $url;
-  $embed->original_url = $url;
-  $embed->provider = $provider;
-  $embed->provider_url = $provider_url;
-  $embed->provider_name = 'Facebook';
-  $embed->type = 'link';
-
-  // A photo, first priority
-  if (isset($post_data['picture']) || isset($post_data['images'])) {
-    $name = isset($post_data['from']) && isset($post_data['from']['name'])
-          ? $post_data['from']['name']
-          : t('unknown Facebook user');
-
-    // No caption for photos
-    $embed->description = '';
-
-    // Default case, we use the generic 'picture' attribute.
-    // This is usually a thumbnail.
-    if ($post_data['picture']) {
-      $embed->picture = $post_data['picture'];
-      $embed->thumbnail_url = $post_data['picture'];
-    }
-
-    // Best case, find the largest picture available
-    $max_size = 0;
-    foreach ($post_data['images'] as $image) {
-      if ($image['width'] * $image['height'] > $max_size) {
-        $embed->picture = $image['source'];
-        $embed->thumbnail_url = $image['source'];
-
-        $max_size = $image['width'] * $image['height'];
-      }
-    }
-  }
-  // A status update, probably
-  else if (isset($post_data['message'])) {
-    $embed->description = $post_data['message'];
-    $embed->link_name = isset($post_data['name']) ? $post_data['name'] : '';
-  }
-  // A user
-  else if (isset($post_data['name'])) {
-    $embed->description = $post_data['name'];
-  }
-  // Something with a description
-  else if (isset($post_data['description'])) {
-    $embed->description = $post_data['description'];
-  }
-  else {
-    $embed->description = t('No message available for this post');
-  }
-
-  $embed->title = $embed->description;
-  $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
-  $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
-  $embed->author_name = $post_data['from']['name'];
-  $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
-  $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
-  $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
-
-  return $embed;
-}
-
-/**
- * Scrape some post from almasryalyoum.
- */
-function meedan_oembed_scrape_almasryalyoum($provider, $url) {
-  $url_info = parse_url($url);
-  $provider_url = $url_info['scheme'] . '://' . $url_info['host'];
-  $embed = new stdclass();
-  $embed->url = $url;
-  $embed->original_url = $url;
-  $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
-  $embed->provider = $provider;
-  $embed->provider_url = $provider_url;
-  $embed->provider_name = 'Al-Masry Al-Youm';
-  $embed->type = 'link';
-  try {
-    include_once('lib/simplehtmldom_1_5/simple_html_dom.php');
-    $html = file_get_html($url);
-    if (is_object($html)) {
-
-      // Video
-      if ($html->find('body.node-type-video', 0)) {
-        $embed->description = $html->find('input#embed_code', 0)->value; 
-        $embed->author = $html->find('.field-field-reporter a', 0);
-        $video_params = $html->find('#video-player param[name=FlashVars]', 0)->value;
-        if (!empty($video_params)) {
-          $params = preg_split("/(?:&(?:amp;)?|^)([^=]+)=/", $video_params, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
-          $index = array_search('image', $params);
-          if (is_numeric($index)) {
-            $embed->thumbnail_url = $params[$index + 1];
-            $embed->picture = $embed->thumbnail_url;
-          }
-        }
-      }
-
-      // Photo
-      else if ($html->find('body.node-type-photo', 0)) {
-        $embed->author = $html->find('.field-field-photographer a', 0);
-        $image = $html->find('.field-field-image img', 0)->src;
-        $embed->description = theme_image(array('path' => $image));
-        $embed->thumbnail_url = $image;
-        $embed->picture = $image;
-      }
-
-      // Generic for all kind of content
-      $embed->title = $html->find('h1.custom-article-title', 0)->innertext;
-      if (empty($embed->description) && is_object($html->find('.body-pane p', 0))) $embed->description = $html->find('.body-pane p', 0)->innertext;
-      $embed->link = $url;
-      $embed->link_description = $embed->title;
-      if (!$embed->author) $embed->author = $html->find('.field-field-reporter a', 0);
-      if (is_object($embed->author)) {
-        $embed->author_name = $embed->author->innertext;
-        $embed->author_url = 'http://www.almasryalyoum.com' . $embed->author->href;
-        $profile = file_get_html($embed->author_url);
-        if (is_object($profile)) {
-          $embed->author_img = $profile->find('.field-field-staff-photo img', 0)->src;
-          $profile->clear(); // Free memory
-        }
-      }
-      if (empty($embed->thumbnail_url) && is_object($html->find('img', 0))) $embed->thumbnail_url = $html->find('img', 0)->src;
-      if (empty($embed->picture) && isset($embed->thumbnail_url)) $embed->picture = $embed->thumbnail_url;
-
-      $html->clear(); // Free memory
-      return $embed;
-    }
-  } catch (Exception $e) {
-    watchdog('MeedanOEmbed', t('Could not parse Al-Masry Al-Youm: ') . $e->getMessage());
-  }
-  // Ok, give up!
-  return NULL;
-}
-
-/**
- * Returns Facebook Graph API data pertaining to a Facebook URL.
- *
- * Attempts to search through the Graph API until the original content is found.
- *
- * @param string $url
- *  A URL on the www.faceboo.com domain.
- * @param int $depth
- *  Internal use only, prevents infinite recursion.
- * @return mixed
- *  One of a) a Facebook API post_data object array or b) an error object with
- *  keys 'error' and 'message'
- */
-function _meedan_oembed_facebook_graph_api_data($url, $depth = 0) {
-  include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
-
-  static $facebook = NULL;
-
-  if (is_null($facebook)) {
-    $facebook = new Facebook(array(
-      'appId'  => variable_get('fboauth_id', ''),
-      'secret' => variable_get('fboauth_secret', ''),
-    ));
-  }
-
-  try {
-    $post_id   = _meedan_oembed_getFacebookId($url);
-    $post_data = $facebook->api('/' . $post_id);
-
-    if (isset($post_data['link'])) {
-      $new_post_id = _meedan_oembed_getFacebookId($post_data['link']);
-
-      // Only dig deeper when both (a) AND (b) are TRUE.
-      //   a) This content links to another, different, content
-      //   b) Recursion has not gone too deeply
-      // Failing that, give up gracefully and return the data level that has
-      // been reached.
-      if ($new_post_id != $post_id && $depth < variable_get('meedan_oembed_facebook_max_graph_depth', 5)) {
-        return _meedan_oembed_facebook_graph_api_data($post_data['link'], $depth + 1);
-      }
-    }
-
-    return $post_data;
-  } catch (FacebookApiException $e) {
-    watchdog('FacebookApi', t('Unable to fetch data from Facebook: @error', array('@error' => $e->getMessage())));
-
-    return array(
-      'error'         => TRUE,
-      'error_message' => t("Sorry, Facebook won't allow you to re-post content that isn't public. Try using a publicly accessible post, or request that your friend make the post public on Facebook."),
-      'try_embedly'   => TRUE,
-    );
-  }
-}
-
-/**
- * Get domain name from url.
- * Get site name.
- * Choose largest token of the host.
- */
-function _meedan_oembed_get_domain_name($url) {
-  $parts = explode('.', parse_url($url, PHP_URL_HOST));
-  $domain = '';
-  foreach ($parts as $part) {
-    if (strlen($part) > strlen($domain)) {
-      $domain = $part;
-    }
-  }
-  return strtolower($domain);
-}
-
-/**
- * Implementation of hook_theme().
- */
-function meedan_oembed_theme() {
-  $path = drupal_get_path('module', 'meedan_oembed') . '/theme';
-  return array(
-    'oembed__link__meedan_oembed_theme_generic' => array(
-      'variables' => array('embed' => NULL), 
-      'template' => 'oembed-generic',
-      'path' => $path,
-    ),  
-    'oembed__link__meedan_oembed_theme_facebook' => array(
-      'variables' => array('embed' => NULL),  
-      'template' => 'oembed-facebook',
-      'path' => $path,
-    ),
-    'meedan_oembed_missing' => array(
-      'variables' => array('media' => NULL),
-      'template' => 'oembed-missing',
-      'path' => $path,
-    ),
-    'meedan_oembed_tweet' => array(
-      'variables' => array('tweet' => NULL),
-    ),
-    'meedan_oembed_facebook_status' => array(
-      'variables' => array('status' => NULL, 'author' => NULL),
-    ),
-    'oembed__link__meedan_oembed_theme_twitter' => array(
-      'variables' => array('embed' => NULL), 
-      'template' => 'oembed-twitter',
-      'path' => $path,
-    ),
-    'oembed__link__meedan_oembed_theme_almasryalyoum' => array(
-      'variables' => array('embed' => NULL), 
-      'template' => 'oembed-almasryalyoum',
-      'path' => $path,
-    ),
-  );
-}
-
-/**
- * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_theme_facebook'.
- */
-function template_preprocess_oembed__link__meedan_oembed_theme_facebook (&$vars) {
-  $embed = $vars['embed'];
-  $vars['author_img'] = l(theme('image', array('path' => $embed->author_img)), $embed->author_url, array('html' => TRUE));
-  $vars['author_name'] = l($embed->author_name, $embed->author_url);
-  $vars['content'] = $embed->description;
-  $vars['fb_picture']  = isset($embed->picture) ? theme('image', array('path' => $embed->picture)) : '';
-  $vars['fb_link_title'] = isset($embed->link_name) ? $embed->link_name : '';
-  $vars['fb_link_desc'] = isset($embed->link_description) ? $embed->link_description : '';
-  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
-  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
-}
-
-/**
- * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_theme_generic'.
- */
-function template_preprocess_oembed__link__meedan_oembed_theme_generic(&$vars) {
-  $embed = $vars['embed'];
-  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
-  $vars['title_link'] = l($embed->title, $embed->url);
-  $vars['content'] = $embed->description;
-  $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
-  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
-}
-
-/**
- * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_theme_twitter'.
- */
-function template_preprocess_oembed__link__meedan_oembed_theme_twitter(&$vars) {
-  $embed = $vars['embed'];
-  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
-  $vars['content'] = $embed->html;
-  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
-}
-
-/**
- * Template preprocessor for 'oembed_link' with provider 'meedan_oembed_theme_almasryalyoum'.
- */
-function template_preprocess_oembed__link__meedan_oembed_theme_almasryalyoum(&$vars) {
-  $embed = $vars['embed'];
-  $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
-  $vars['title_link'] = l($embed->title, $embed->url);
-  $vars['content'] = $embed->description;
-  $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
-  $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
-}
-
-/**
-* Implements hook_entity_info_alter().
-*/
 function meedan_oembed_entity_info_alter(&$entity_info) {
   $entity_info['node']['view modes']['meedan_oembed'] = array(
     'label' => t('Meedan oEmbed'),
     'custom settings' => TRUE,
   );
-}
-
-/**
- * Implements hook_filter_info().
- */
-function meedan_oembed_filter_info() {
-  $filters['filter_meedan_oembed'] = array(
-    'title' => t('Meedan oEmbed filter'),
-    'description' => t('Every instance of [media-title:$nid] will be replaced with the corresponding Meedan oEmbed node view.'),
-    'prepare callback' => '_meedan_oembed_filter_prepare',
-    'process callback' => '_meedan_oembed_filter_process',
-    'tips callback' => '_meedan_oembed_filter_tips',
-    'cache' => FALSE,
-  );
-  return $filters;
-}
-
-/**
- * Meedan oEmbed filter prepare callback.
- */
-function _meedan_oembed_filter_prepare($text, $filter) {
-  return $text;
-}
-
-/**
- * Time filter process callback.
- *
- * Now, in the "process" step, we'll search for our escaped time tags and
- * do the real filtering: replace nid with meedan oembed node view.
- */
-function _meedan_oembed_filter_process($text, $filter) {
-  $matches = array();
-  preg_match_all('/\[\S+:(\d+)\]/u', $text, $matches);
-  if (count($matches[1])) {
-    $output = array();
-    foreach ($matches[1] as $key => $nid) {
-      if (is_numeric($nid)) {
-        $node = node_load($nid);
-        if (is_object($node)) {
-          // Render node using custom Meedan oEmbed view.
-          $element = node_view($node, 'meedan_oembed');
-          $element['comments'] = comment_node_page_additions($node);
-          $node_view = drupal_render($element);
-          // Replace [media-title:$nid] with node view.
-          $text = str_replace($matches[0][$key], $node_view, $text);
-        }
-        else {
-          $missing = theme('meedan_oembed_missing', array('media' => $matches[0][$key]));
-          $text = str_replace($matches[0][$key], $missing, $text);
-        }
-      }
-    }
-  }
-  return $text;
-}
-
-/**
- * Filter tips callback for meedan oembed filter.
- *
- */
-function _meedan_oembed_filter_tips($filter, $format, $long = FALSE) {
-  return t('<em>[media-title:$nid]</em> is replaced with the Meedan oEmbed node view for <em>$nid</em>.');
 }
 
 /**
@@ -567,152 +238,12 @@ function meedan_oembed_node_presave($node) {
     $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), TRUE);
     $node->status = ((isset($embed->error) && $embed->error) ? 0 : 1);
     if (!empty($embed->title)) {
-      $node->title = substr($embed->title, 0, 255);
+      $node->title = truncate_utf8($embed->title, 255);
     }
     else {
       $node->title = t('report-!user-!datetime', array('!user' => $node->name, '!datetime' => date('U', $node->created)));
     }
   }
-}
-
-/**
- * Implements of hook_form_FORM_ID_form().
- */
-function meedan_oembed_form_media_node_form_alter(&$form, &$form_state, $form_id) {
-  //Hide title field
-  $form['title']['#type'] = 'value';
-  $form['title']['#required'] = FALSE;
-  include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
-  $facebook = new Facebook(array(
-    'appId'  => variable_get('fboauth_id', ''),
-    'secret' => variable_get('fboauth_secret', ''),
-  ));
-  //TODO: remove commented code to enable FB javascript sdk instead of current one.
-  /**
-  drupal_add_js("
-    jQuery(document).ready(function () {
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId: '". $facebook->getAppID() ."',
-          cookie: true,
-          xfbml: true,
-          oauth: true
-        });
-        FB.Event.subscribe('auth.login', function(response) {
-          FB._oauth = false;
-          FB.Cookie.setEnabled(true);
-          FB.Auth.setSession(response.authResponse, response.status);
-          FB._oauth = true;
-          window.location.reload();
-        });
-        FB.Event.subscribe('auth.logout', function(response) {
-          window.location.reload();
-        });
-      };
-      (function() {
-        var e = document.createElement('script'); e.async = true;
-        e.src = document.location.protocol +
-          '//connect.facebook.net/en_US/all.js';
-        document.getElementById('fb-root').appendChild(e);
-      }());
-    });
-    ", 'inline'
-    );
-   */
-  // Get facebook User ID
-  $fb_user = $facebook->getUser();
-  $fb_logged_in = FALSE;
-  if ($fb_user) {
-    try {
-      $facebook->api('/me');
-      $fb_logged_in = TRUE;
-    }
-    catch(FacebookApiException $e) {
-      $fb_logged_in = FALSE;
-    }
-  } else $fb_logged_in = FALSE;
-  if ($fb_logged_in) {
-    $form['field_link']['und'][0]['#description'] = NULL;
-  } else {
-    $onclick = implode('', array(
-      'window.open(',
-        'this.href,',
-        '\'checkdesk\',',
-        '\'toolbar=0,location=0,menubar=0,directories=0,status=0,scrollbars=1,width=1000,height=650,modal=1,left=\'+((screen.width/2)-500)+\',top=\'+((screen.height/2)-325)',
-      ');',
-      'return false;',
-    ));
-    $loginUrl = t('If you want to submit a Facebook link, you need to <a href="@url" onclick="!onclick" target="_blank">connect to your Facebook account first</a>.', array('@url' => _meedan_oembed_facebook_login_url($facebook), '!onclick' => $onclick));
-    $form['field_link']['und'][0]['#description'] = $loginUrl;
-    $form['fb_loginurl'] = array(
-      '#type' => 'hidden', 
-      '#value' => $loginUrl,
-    );
-  }
-  $form['fb_userid'] = array(
-    '#type' => 'hidden', 
-    '#value' => $fb_user,
-  );
-  $form['#validate'][] = '_meedan_oembed_facebook_post_validate';
-}
-
-/**
- * Validate embed from Facebook
- * make sure that user login through facebook if he adds media from facebook
- */
-function _meedan_oembed_facebook_post_validate($form, &$form_state) {
-  $lang = $form_state['node']->language;
-  $url = $form_state['values']['field_link'][$lang][0]['url'];
-  $host = parse_url($url, PHP_URL_HOST);
-  if (strpos($host, 'facebook.com')) {
-    if (!$form_state['values']['fb_userid']) {
-      //Ask user to login through facebook first
-      form_set_error('field_link', $form_state['values']['fb_loginurl']);
-    }
-    else {
-      // Check if user has a permission to embed this post
-      $embed = meedan_oembed_data($url, array(), FALSE, TRUE);
-
-      if (isset($embed->error) && $embed->error) {
-        form_set_error('field_link', $embed->error_message);
-      }
-    }
-  }
-}
-
-/**
- * Returns a permissioned Facebook login URL. This enables the Checkdesk website
- * to drive which permissions are required for the report embedding to function
- * correctly.
- */
-function _meedan_oembed_facebook_login_url($facebook) {
-  // Everything in $_GET except $_GET['q']
-  $query = array_diff_key($_GET, array('q' => ''));
-
-  $permissions = variable_get('meedan_oembed_fb_permissions', array(
-    'user_photos',
-    'user_status',
-    'friends_photos',
-    'friends_status',
-  ));
-
-  return $facebook->getLoginUrl(array(
-    'redirect_uri' => url($_GET['q'], array('absolute' => TRUE, 'query' => $query)),
-    'scope' => implode(',', $permissions)
-  ));
-}
-
-/**
- * Extract post id from URL
- */
-function _meedan_oembed_getFacebookId($url) {
-  //Check if this post is Timeline Photos
-  $query = parse_url($url, PHP_URL_QUERY);
-  parse_str(urldecode($query), $query);
-  if (isset($query['fbid'])) {
-    return $query['fbid'];
-  }
-  return substr(strrchr($url,'/'),1);
 }
 
 /**
@@ -747,37 +278,4 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
     if ($embed->error) $vars['embed_error'] = t('It was not possible to parse this report.');
   }
-}
-
-/**
- * Any string beginning with at least one Arabic character is deemed
- * to be Arabic.
- */
-function meedan_oembed_needs_rtl($text) {
-  return (boolean) preg_match('/^\p{Arabic}/u', $text);
-}
-
-function theme_meedan_oembed_tweet($variables) {
-  return '<div class="tweet-preview">' . $variables['tweet'] . '</div>';
-}
-
-/**
- * Default theme implementation for embedded Facebook status message.
- */
-function theme_meedan_oembed_facebook_status($variables) {
-  $text   = $variables['status'];
-  $author = $variables['author'];
-
-  $dir = meedan_oembed_needs_rtl($text) ? 'rtl' : 'ltr';
-
-  $output  = '<div class="fb-status-preview clearfix ' . $dir . '"">';
-  $output .=   check_plain($text);
-
-  if ($author) {
-    $output .= '<div class="author">&ndash; ' . l($author['name'], $author['url'], array('attributes' => array('target' => '_blank'))) . '</div>';
-  }
-
-  $output .= '</div>';
-
-  return $output;
 }

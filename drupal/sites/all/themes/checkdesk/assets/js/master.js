@@ -26,24 +26,6 @@
 	};
 
 	// filters for reports inside sidebar
-	Drupal.behaviors.installBookmarklet = {
-		attach: function (context) {
-			// set the top margin of modal
-			var bodyHeight = $(window).height(),
-			    percentage = 20,
-			    modalPosition = ((percentage / 100) * bodyHeight);
-			$('div.modal-install-bookmarklet#modalContent', context).css('top', modalPosition);
-
-			$(window).resize(function(){
-				var bodyHeight = $(window).height(),
-				    modalPosition = ((percentage / 100) * bodyHeight);
-				$('div.modal-install-bookmarklet#modalContent', context).css('top', modalPosition);
-			});
-
-		}
-	};
-
-	// filters for reports inside sidebar
 	Drupal.behaviors.reportsPage = {
 		attach: function(context) {
       // configure masonry
@@ -65,7 +47,7 @@
   Drupal.behaviors.transparentFrames = {
     attach: function(context) {
       $('.oembed-content', context).watch('height', function() {
-        $('.oembed-content iframe', context).attr('wmode', 'transparent')
+        $(this).find('iframe').attr('wmode', 'transparent')
           .contents().find('iframe').attr('wmode', 'transparent')
           .attr('src', function(i, src) {
             var sep = (src.indexOf('?') == -1 ? '?' : '&');
@@ -77,6 +59,44 @@
 
   $.fn.scrollToHere = function(speed) {
     $('html, body').animate({ scrollTop : $(this).offset().top - $('#toolbar').height() - $('#navbar').height() }, speed);
+  };
+
+  // Add destination to login links
+  // We are using JavaScript because of cache
+  Drupal.behaviors.addDestinationToLogin = {
+    attach: function(context) {
+      var prefix = (Drupal.settings.basePath + Drupal.settings.pathPrefix).replace(/\/$/, '');
+      $('a[href^="' + prefix + '/user/login"]', context).attr('href', function(index, path) {
+        // Remove old destination value
+        var value = path.replace(/([?&])destination=[^&]+(&|$)/, '$1').replace(/[?&]$/, '');
+        var sep = (/\?/.test(value) ? '&' : '?');
+        var destination = (window.location.pathname === prefix ? 'liveblog' : window.location.pathname.replace(prefix + '/', ''));
+        value = value + sep + 'destination=' + destination;
+        return value;
+      });
+    }
+  };
+
+  /**
+   * Takes the data-lazy-load-src attribute of any element and applies it
+   * to the src attribute when that element is in view.
+   *
+   * Relies on the jquery.inview.js plugin by Remy Sharp
+   * See: http://remysharp.com/2009/01/26/element-in-view-event-plugin/
+   */
+  Drupal.behaviors.lazyLoadSrc = {
+    attach: function (context) {
+      $('[data-lazy-load-src]', context).bind('inview', function (e, visible) {
+        var $this = $(this);
+
+        if (visible) {
+          // Using $(this).attr('src', 'http://....'); does not appear to work
+          // in some browsers kicking the DOM object directly does the trick.
+          this.src = $this.attr('data-lazy-load-src');
+          $this.unbind('inview');
+        }
+      });
+    }
   };
 
 }(jQuery));

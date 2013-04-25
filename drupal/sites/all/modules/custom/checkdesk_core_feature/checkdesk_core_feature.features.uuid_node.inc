@@ -107,7 +107,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
 			
 <p>تخضع جميع المحتويات على Checkdesk، باستثناء الأماكن التي يشار إليها بخلاف ذلك، إلى إتفاقية ترخيص المشاع الإبداعي: النسبة - غير تجاري - المشاركة ضمن نفس الشروط، الإصدار العام 3.0. يمكن للآخرين القيام بالتحميل وإعادة التوزيع والترجمة والمزج والفرز والإضافة على مساهماتك لأغراض غير تجارية، شريطة نسبة العمل إليك على أنك المؤلف الأصلي وإعادة توزيع المادة ضمن نفس الشروط. ستحمل جميع الأعمال الجديدة المبنية على عملك الرخصة ذاتها، لذلك فإن أية اشتقاقات ستكون أيضاً غير تجارية. تغطي هذه الرخصة جميع البيانات اللغوية التي يتم توليدها ضمن Checkdesk.</p>
 
-<p><img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />بعض الحقوق محفوظة</p>
+<p><img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />بعض الحقوق محفوظة</p>
 
 <h2>ميدان</h2>
 
@@ -213,6 +213,107 @@ function checkdesk_core_feature_uuid_features_default_content() {
 ',
         'summary' => '',
         'format' => 'full_html',
+        'safe_value' => '<div class="static legal">
+<h2>أهلا بكم في Checkdesk</h2>
+<p>Checkdesk هو تطبيق على الإنترنت تم تطويره من قبل ميدان. الهدف الذي دفعنا لتطوره هو لجعل العالم مكاناً أفضل. بجد. ولذلك شروط الخدمة هذه موجودة لتعلمك بواجباتك القانونية كمستخدم، وواجباتنا القانونية تجاهك كوننا الشركة التي صممت وطورت هذا التطبيق.</p>
+<p>ندرك تماماً في ميدان بأن استخدامك لخدماتنا يتضمن مناح من سمعتك وهويتك على الإنترنت. نحن نعامل هذا الأمر بمنتهى الجدية ولذلك صغنا هذا القواعد الأساسية وشروط الخدمة (الشروط) لتعكس ذلك.</p>
+<p>أسس مشروع ميدان على قيم ومبادئ المشاركة و المصادر المفتوحة لتطوير المحتوى و البرمجيات. فبقدر ما تعكس هذه الشروط ما طلب منا المحامون قوله، إلا أننا نأمل أيضا بأن تعكس التزامنا بحمل هذه القيم في اتفاقية رسمية نلتزم بها تجاه مستخدمينا.</p>
+<p>و الآن، إليكم بعض الكلام الذي سيبهج المحامين.</p>
+<h2>عام</h2>
+<p>يمنح ميدان مستخدمي Checkdesk القدرة على نشر والتعليق على وإضافة سياق ومحاولة التحقق من صحة المعلومات محتوى وسائل الإعلام الاجتماعي على الإنترنت.  يشار إلى هذه الوظائف بـ "بالخدمات". تشمل الخدمات المعرفة في هذه الشروط أية خدمات ستحصل عليها نتيجة دخولك على أي من المواقع العاملة على منصة Checkdesk والتي يديرها أي من شركائنا الإعلاميين.</p>
+<p>توضح الشروط ما يقدمه ميدان إليك، كمستخدم، و التزاماتك تجاهنا، كميدان، وهي اتفاقية بينك، المستخدم، وبيننا، ميدان، مزود الخدمة (الإتفاقية).</p>
+<p>لكي تستطيع استخدام خدماتنا يتوجب عليك قبول هذه الشروط بالإضافة إلى سياسة الخصوصية في ميدان. و علاوة على ذلك، فإنك من خلال استخدامك لموقعنا أو لخدماتنا فإنك توافق ضمنياً على التقيد بهذه الشروط.</p>
+<p>نحن نحتفظ بحق تعديل الشروط في أي وقت كان، ومن دون سابق إنذار، و ذلك من خلال تعديل هذه الصفحة، وتعتبر أنت مسؤولاً عن مراجعة هذه الشروط بشكل منتظم. إن استخدامك المتكرر للموقع بعد مثل هذه التغييرات يعتبر تصريحاً منك بمعرفة وقبول الشروط الجديدة.</p>
+<h2>حسابك على Checkdesk</h2>
+<p>للاستفادة من العضوية في المدونة المباشرة، يجب ألا يقل عمرك عن 13 سنة. لا يحق لك استخدام الموقع، سواء كنت عضواً أو لم تكن في الحالات التي يحظر فيها ذلك.</p>
+<p>مقابل استخدامك للموقع فإنك توافق على:</p>
+<ul><li>أن توفر بياناتك الشخصية،على أن تكون دقيقة وحديثة وكاملة، وذلك عن طريق ملء استمارة التسجيل المتوفرة على الموقع ("بيانات التسجيل").</li>
+<li>أن تحافظ على حماية كلمة السر ومعلومات التعريف الخاصة بك.</li>
+<li>أن تحمي وتحدث بيانات التسجيل الخاصة بك وأية معلومات أخرى تقدمها للشركة لضمان بقائها دقيقة ومطابقة للواقع الحالي و كاملة.</li>
+<li>أن تتحمل المسؤولية الكاملة لاستعمال حسابك والعمليات التي تنجز عن طريق هذا الاستعمال.</li>
+<li>القبول بأنه لا يمكنك نقل ملكية حسابك.</li>
+<li>أن تبلغ ميدان على الفور إذا اشتبهت بدخول غير مرخص إلى حسابك في Checkdesk.</li>
+</ul><p>يخلي ميدان مسؤوليته عن أية خسائر قد تنجم عن استخدام غير مرخص له لاسم عضويتك، أو كلمة السر الخاصة بك، و/أو الحساب الخاص بك. وإنك توافق على تعويض ميدان وشركائه ومدرائه وموظفيه ووكلائه و/أو مرخصيه وإعفاءهم من أية مسؤولية عن أية خسارة تلحق بأي منهم بسبب استعمال غير لائق أو غير مرخص أو غير قانوني لحسابك.</p>
+<p>يحتفظ ميدان بالحق بإلغاء حسابك أو الحد من القدرة على الدخول إلى حسابك، أو حذف أي محتوى يتم إدخاله من خلال الحساب الخاص بك، مع أو من دون إخطار، لأي سبب أو من دون إبداء أي سبب، دون أن ندين لك بشيء.</p>
+<h2>سلوك المستخدم</h2>
+<p>يسمح تطبيق Checkdesk للمستخدمين بنشر المحتوى من مصادر مختلفة على الإنترنت. ندرك تماماً الحساسيات المختلفة السياسية والإجتماعية والثقافية لمستخدمينا مما يتطلب منا أن نعتمد أسلوباً فاعلاً لضمان استمتاع الجميع بالمدونة المباشرة  بصفتها بيئة شاملة ومحترمة على شبكة الإنترنت.</p>
+<p>إنك، باستعمالك لمنصة Checkdesk وموافقتك على شروط الاستخداه، توافق على الامتناع عن استغلال الموقع في المسائل التالية:</p>
+<ul><li>نشر محتوى أو مباشرة حوارات غير قانونية أو تشهيرية أو تعسفية أو محرضة على العنف تنطوي على الكراهية أو العنصرية.</li>
+<li>استخدام Checkdesk لأغراض غير قانونية.</li>
+<li>تحميل أو إرسال أو مراسلة أو تمرير أو إتاحة أي محتوى أو مباشرة حوارات تمس ببراءة اختراع أو علامة تجارية أو أسرار تجارية أو حقوق تأليف أخرى أو تحتوي على معلومات لاحق لك في كشفها أو جعلها متوفرة.</li>
+<li>تحميل أو إرسال أو مراسلة أو تمرير أو إتاحة أي إعلان أو مادة ترويجية لم يطلب أو يصرح بنشرها أو بثها، بما في ذلك الإعلانات التجارية المرسلة عشوائياً (junk mail) والإعلانات التجارية المرسلة بواسطة البريد الإلكتروني (spam) أو الرسائل التي يُطلب ممن يتلقاها إرسالها بدوره إلى عدد من الأشخاص (chain letters) أو الرسائل التي يُطلب ممن يتلقاها دفع مبلغ مالي وإرسال الرسالة بدوره إلى عدد من الأشخاص (pyramid scheme) أو أي شكل آخر من أشكال طلب المال أو طلب القيام بأي عمل.</li>
+<li>محاولة الاستمرار في حوار مع شخص أو أشخاص عبروا لك ضمنيا أو صراحة بعدم رغبتهم في التحاور معك.</li>
+<li>إرسال أو تمرير أو ترويج أو توزيع محتوى غير قانوني.</li>
+<li>التحرش أو تهديد أو توريط أو إلحاق أي ضرر بأي مستخدم آخر غير مرغوب فيه. نتوقع منك أن تحترم المستخدمين الآخرين وأن لا تتحداهم على خلفية العرق أوالانتماء أوالدين أوالجنس أوالتوجه الجنسي أوالسن أوالمعتقدات، الخ.</li>
+<li>العبث عمداً ببنية نظام الموقع بشكل يراد منه خلق البلبلة وعدم المواءمة والحد من فعالية هذا النظام أو ممارسة التأثير السلبي على المستخدمين الآخرين.</li>
+<ul><p>قد تشكل بعض هذه الخروقات المتعلقة بسلوك المستخدم على الموقع انتهاكاً للقوانين الجنائية أو المدنية وبالتالي قد تعرضك للملاحقة الجنائية أو المدنية.</p>
+<h2>نزاعات المستخدِمِين</h2>
+<p>إنك المسؤول الوحيد عن تفاعلاتك مع أشخاص آخرين يستخدمون Checkdesk. و إننا نحتفظ بحقنا في التدخل في النزاعات التي قد تنشأ بينك وبين المستخدمين الآخرين.</p>
+<h2>الاستخدام الدولي</h2>
+<p>نظراً للصبغة العالمية للإنترنت، فإنك توافق على الامتثال لجميع القواعد المحلية، على سبيل المثال لا الحصر: القواعد المتعلقة بالسلوك على الإنترنت والمعايير التي تحدد الطبيعة المقبولة للمحتوى. ولا يعد ميدان مجبراً قانونياً على إخطارك، بصفتك مستخدماً، بالتغييرات التي تطرأ على هذه القوانين، كما أنه ليس مسؤولاً أمام القانون عن الأنشطة غير القانونية التي تزاولها عند استخدامك للنظام.</p>
+<h2>الروابط لأطراف خارجية</h2>
+<p>يعتبر Checkdesk مركزاً لتجميع المحتوى من المواقع الأخرى، ونحن لا نستطيع ولا نتحمل مسؤولية النصوص أو الصور أو الفيديو أو التصاميم أو الملفات الصوتية أو البرمجيات أو أية بيانات أخرى أو محتويات تقتبس من أو تخص هذه المواقع. فالارتباط بطرف خارجي لا يعكس أو يتضمن بأي حال من الأحوال دعم أو مصادقة ميدان على هذه المواقع أو المحتويات التي تتضمنها. إنك توافق على إبراء ساحة ميدان من أية تبعة أو مسؤولية قانونية لأي ضرر قد ينتج عن محتوى مواقع الأطراف الخارجية. إلا تنطبق شروط الخدمة الخاصة بمؤسسة ميدان عند الربط بطرف خارجي. ننصحك بشدة بالإطلاع على الشروط و السياسات لأي موقع ستضيف رابطاً إليه على Checkdesk.</p>
+<h2>حقوق وتراخيص المحتوى</h2>
+<h3>المشاع الإبداعي</h3>
+<p>تخضع جميع المحتويات على Checkdesk، باستثناء الأماكن التي يشار إليها بخلاف ذلك، إلى إتفاقية ترخيص المشاع الإبداعي: النسبة - غير تجاري - المشاركة ضمن نفس الشروط، الإصدار العام 3.0. يمكن للآخرين القيام بالتحميل وإعادة التوزيع والترجمة والمزج والفرز والإضافة على مساهماتك لأغراض غير تجارية، شريطة نسبة العمل إليك على أنك المؤلف الأصلي وإعادة توزيع المادة ضمن نفس الشروط. ستحمل جميع الأعمال الجديدة المبنية على عملك الرخصة ذاتها، لذلك فإن أية اشتقاقات ستكون أيضاً غير تجارية. تغطي هذه الرخصة جميع البيانات اللغوية التي يتم توليدها ضمن Checkdesk.</p>
+<p><img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />بعض الحقوق محفوظة</p>
+<h2>ميدان</h2>
+<p>لا يدعي ميدان ملكية المحتوى الذي أضفته أو جعلته متاحاً للإدراج ضمن خدمات ميدان. و لكن على أية حال، فيما يتعلق بالمحتوى الذي أضفته أو جعلته متاحاً للإدراج في الأجزاء المفتوحة العامة ضمن خدمات ميدان، فإنك توافق على منح ميدان رخصة غير حصرية و دائمة وغير قابلة للنقض وعالمية الانتشار لاستخدام المحتوى الخاص بك في هذه الخدمات، بما فيها و دون أية قيود حقوق النسخ والتوزيع والنقل والعرض العام والتمثيل وإعادة الإنتاج والتحرير والتعديل والترجمة والترجمة الآلية وإعادة الصياغة و/ أو دمجها في عمل مشترك.</p>
+<h2>بيانات و ضمانات المستخدم</h2>
+<p>عبر تحميلك لأي محتوى إلى Checkdesk فإنك تصرح و تضمن بأنك تمتلك جميع الحقوق لهذا المحتوى، متضمنة و غير محصورة في أية موافقة أو تفويض أو إطلاق أو تصريح أو ترخيص من أي طرف ثالث (على سبيل المثال لا الحصر: أي تصريح متعلق بحقوق الخصوصية أو الدعاية و الإعلان.) يخولك بإضافة أو إدخال أو تحميل أو لصق أو وضع المحتوى، وبأن تحميل هذا المحتوى لا ينتهك أو يعد اختراقاً لأية براءة اختراع أو حقوق ملكية أو علامة تجارية أو أسرار تجارية أو حقوق الخصوصية أو حقوق الدعاية و الإعلان أو الحقوق الأخلاقية أو أي حق ملكية فكرية آخر معترف به من قبل أية سلطة قضائية نافذة لأي شخص أو كيان، أو أن يمثل خرقاً لأي اتفاقية مع أي شخص أو كيان. كما أنك تصرح أيضا وتضمن بأنك أنت من تدعي شخصيته، و أنك لم تعطي معلومات زائفة أو مضللة أو كاذبة عن نفسك، و أن جميع المعلومات المتضمنة في المحتوى المضاف صحيحة ومن صنعك أنت أو أنه مرخص لك بإضافتها، وأن المحتوى المضاف لا يتضمن أي تهديد أو انتهاك أو تشهير أو قذف أو تشويه للسمعة أو هجوم أو أية مواد إباحية أو أي شيء أخر من الممكن أن يخرق أي قانون أو تشريع نافذ. كما توافق على أن لا تضيف معلومات مضللة عن قصد وبنية الإساءة، وبأنك تصرح وتضمن بأن المحتوى الذي أضفته لا ينتهك أياً من شروط الإستخدام.</p>
+<h2>شكاوى حقوق الملكية</h2>
+<p>إن كنت مالكاً لحق في التأليف أو النشر و تعتقد أن موادك الخاضعة لهذا الحق قد تم استخدامها بطريقة قد تعد انتهاكاً لحقوق الملكية، نرجو منك الإطلاع على سياسة الملاحظة الخاصة في القسم الأخير من هذه الصفحة.</p>
+<h2>الضمانات والتنازلات والتعويضات</h2>
+<p>إنك تتحمل مسؤولية تعرضك للأخطار التي قد تترتب عن استخدامك لمواقع Checkdesk. إننا لا نتحمل أية مسؤولية في ما يلي: محتوى أية مادة أو محادثة أنشأتها أنت أو شخص آخر أو استلمتها من مصدر يقع خارج موقعنا (حتى وإن أحِلتَ إليه من خلال رابط من الروابط التي يعرضها Checkdesk)، أية أضرار مباشرة أو غير مباشرة أو تأديبية أو عرضية ناجمة عن استخدام الموقع أو أية مسؤولية قانونية و/أو مصاريف بما في ذلك أتعاب المحاماة الناجمة عن الأسلوب الذي استخدمت به معدات ميدان أو تقنياته بما في ذلك دعاوى التشهير و المس بالكرامة أو التجاوز و/أو الاقتباس دون ذكر المصدر؛ وأية أضرار مباشرة أو غير مباشرة أو تأديبية أو عرضية ناجمة عن استخدام الموقع، وأية مسؤولية قانونية و/أو مصاريف بما في ذلك أتعاب المحاماة الناجمة عن انقطاع خدمات ميدان و انقطاع أو تغير خدمة الانترنت، حتى و إن كانت هذه الانقطاعات ضمن ظروف أو حدود سيطرتنا؛ وأية أضرار مباشرة أو غير مباشرة أو تأديبية أو عرضية ناجمة عن استخدام الموقع، وأية مسؤولية قانونية و/أو مصاريف بما في ذلك أتعاب المحاماة الناجمة عن مشاركتك؛ وخصوصيتك فيما يتعلق باستخدامك لـ Checkdesk و/أو أنشطة أخرى في شبكة الانترنت (عدا فيما يتعلق بخرق مقصود و سافر من طرف ميدان لسياسة الخصوصية)</p>
+<p>كل ما يوجد على المواقع العاملة بمنصة Checkdesk  يقدم إليك "كما هو" بدون أية ضمانات أكانت ضمنية أم صريحة بما في ذلك، وليس حصرياً، أية ضمانات أو ملاءمة لغاية معينة.</p>
+<p>إذا قمت بأشياء تستوجب، بحسب أحكام سياسة الخصوصية و الإتفاقيات الأخرى، إنهاء استخدامك لخدمات Checkdeskأو طردك من الموقع، فإنك تتحمل بذلك المسؤولية الكاملة على ما سيترتب عن طردك، بما في ذلك تعويض ميدان وشركائه و مدرائه وموظفيه ووكلائه و/أو مرخصيه وإعفاءهم من أية مسؤولية عن أي من الدعاوى التي قد يرفعها المستخدمون الآخرون من جراء سلوكك و/أو استعمالك لموقع ميدان و/أو المواد و الخدمات المتاحة.</p>
+<h2>خدمات التشغيل</h2>
+<p>يتنصل ميدان من كل التبعة و المسؤولية فيما يتعلق بتوفر وأداء ووثوقية الخدمات أو أية برمجيات تزودها هذه الخدمات. يحتفظ ميدان بالحق في تعديل أو تعليق أو حجب الخدمات أو الوصول إليها من دون أي تنويه في أي وقت و من دون أن يترتب عليه أية مسؤولية تجاهك.</p>
+<h2>لا تنازل عن الشروط</h2>
+<p>إن عدم ممارسة ميدان أو فرضة لأي من الحقوق أو البنود الواردة في هذه الشروط لن يعتبر بأي حال من الأحوال تنازلاً عن هذا الحق أو البند في تلك الحالة أو أية حالة أخرى.</p>
+<h2>القانون المنظم</h2>
+<p>تخضع هذه الأحكام لقانون ولاية كاليفورنيا، بغض النظر عن النزاعات التي قد تنشأ ضمن سلطات قضائية أخرى. إنك توافق على المرجعية الكاملة والوحيدة للسلطة القضائية ومكان المحاكم الفيدرالية التابعة لولاية كاليفورنيا في حال وقوع أي نوع من النزاعات ينشأ من أو يتعلق بالموقع أو استخدامه أو الإطلاع عليه. تمثل الشروط كامل الإتفاق بين جميع الأطراف فيما يتعلق بهذا الموضوع، و تبطل و تستبدل جميع الاتفاقيات السابقة و المعاصرة، المكتوبة أو الشفهية، التي تتعلق بمثل هذه الموضوع. و إذا ما حدث – لأي سبب من الأسباب - بأن ارتأت محكمة السلطة القضائية المؤهلة بأن أي بند أو جزء من هذه الشروط ليس ملزماً فإن بقية الشروط ستبقى على حالها.</p>
+<h2>الاتصال</h2>
+<p>إذا أردت مناقشة التفاصيل الدقيقة لهذه الاتفاقية أو في حال كانت لديك أفكار أخرى، لا تتردد في مراسلتنا على العنوان التالي: <a href="mailto:termsofservice@meedan.net">termsofservice@meedan.net</a></p>
+<p>إستناداً إلى مشروع قانون وسائل الإعلام المواطنة (<a href="http://www.citmedialaw.org/">http://www.citmedialaw.org/</a>)</p>
+<h2>قانون حقوق تمثيل الألفية الرقمية</h2>
+<h3>إجراء المتابعة و التنفيذ</h3>
+<p>تتمثل سياستنا فى الإستجابة بسرعة لأى ملاحظات مباشرة و واضحة لإنتهاك حقوق الملكية المشروعة و التى تخضع قانون حقوق ملكية الألفية الرقمية (DMCA) . و تقوم هذه الصفحة بوصف المعلومات التى يجب تقديمها فى مثل هذه الملاحظات. و قد صمممت لتجعل من عملية التعامل مع تلك الملاحظات لإنتهاك حقوق الملكية الخخاصة بموقع ميدان بشكل مباشر بينما يتم محاولة تقليل عدد الملاحظات التى نستقبلها و التى قد يكون من الصعب فهمها او حتى تصنيفها.ز إن استمارة الملاحظة التالية متوافقة مع الصيغة التى تم اقتراحها من قبل قانون حقوق تمثيل الألفية الرقمية، و التى يمكن الحصول على النص الخخاص بها من موقع مكتب حقوق الملكية بالولايات المتحدة الأمريكية:  <a href="http://www.copyright.gov">http://www.copyright.gov</a> و لكننا سنستجيب و نرد على هذه الإستمارة من ناحية إختصاصات أخرى.</p>
+<p>فمن المتوقع أن يقوم كل مستخدم لأى جزء أوتطبيق بموقع ميدان بالشكوى من حق ملكية مطابق. و بالرغم من أنه قد يستقبل موقع ميدان إعلام مناسب حول هذا الخرق للحقوق الملكية، ستكون استجابتنا لذلك متمثلة فى إزالة أو منع الولوج للمواد التى وقعت تحت موضوع خرق حقوق الملكية أو حتى إقصاء المسجلين بتلك الجزئية. بغض النظر عن كوننا نخضع لهذا الخرق تحت سلطة قانون الولايات المتحدة أو أى تشريع آخر.</p>
+<p>فإذا قمنا بحجب أو إزالة الولوج إلى تلك الجزئيات موضوع ملاحظة الخرق كنوع من الإستجابة لها، فنحن بهذا نخلق محاولة إيمان جيد للتواصل مع المالك أو مدير الموقع المضار أوحتى المحتوى المعرض للخرق و لذلك فقد يقومون بمحاولة اصدار تحذير مضاد للأجزاء 512 (ج) (2) و (3) الخاصة بقانون حقوق تمثيل الألفية الرقمية. كذلك فقد نقوم بتوثيق الملاحظات التى تصدر و الخاصة بخرق الملكية و التى قمنا بالتعامل معها.</p>
+<h3>الوكيل</h3>
+<p>الوكيل المكلف باستقبال إعلامات الخرق لحقوق الملكية تحت سلطة قانون حقوق تمثيل الألفية الرقميةهو:</p>
+<ul><li>الاسم: إد بيس<br />
+البريد إلكترونى: <a href="mailto:ebice@meedan.net">ebice@meedan.net</a><br />
+البريد العادى:<br />
+1255 Post Suite 540 San Francisco, CA 94109 USA<br />
+بمجرد تلقى ميدان لأى إعلام مسبق بخرق لحقوق الملكية ستقوم بالتصرف وفق لقانون حقوق تمثيل الألفية الرقمية كما هو وارد فى الأسطر القليلة التالية.
+</li>
+</ul><h3>إعلام بالخرق:</h3>
+<p>إذا كنت تؤمن بأن أعمالك تم نسخها بشكل يمثل خرق لحقوق الملكية، أو أن حقوق ملكيتك الفكرية تم خرقها بشكل آخر، فمن فضلك قم بإمداد وكيل موقع ميدان (المسجل اسمه عالياً) بالمعلومات التالية بصيغة مكتوبة و يفضل أن تكون عبر استخدام البريد الإلكترونى.</p>
+<p>إن عملية التعريف  بالأعمال المحمية بحقوق الملكية و التى زعم أنها حدث بها خرق أو العديد من المواد المحمية على موقع واحد يتم تغطيتها من خلال استخدام مذكرة إعلام واحدة. و كقائمة تقديمية لمثل تلك الأعمال على هذا الموقع ما يلى:</p>
+<ul><li>التعربف بالمادة التى تم الإدعاء أنها حدث لها خرق أو تعرضت لنشاط إنتهاك حقوق الملكية و التى تم الإقرار بإزالتها أو منع الولوج إليها و توفير العديد من المعلومات التى تتيح لموقع ميدان من تحديد تلك المادة؛</li>
+<li>المعلومات التى يتم توفيرها لموقع ميدان لابد أن تكون كافية للسماح بالاتصال بالطرف الشاكى، و منها ما يدل على عنوان، رقم تليفون، أو إن كان متاحاً عنوان بريد إلكترونى و الذى من خلاله يمكن التواصل مع الطرف الشاكى؛</li>
+<li>ذكر الجملة التالية: "عندى إيمان راسخ أن استخدام المادة بهذا الشكل التى تمت الشكوى عنها ليس مخولاً بالسلطة من قبل مالك حقوق الملكية، وكيله أو حتى القانون."؛</li>
+<li>ذكر الجملة التالية: "أقسم تحت عقوبة الحنث باليمين أن معلومات الإعلام عن الخرق دقيقة و أننى مالك حقوق الملكية أو أننى المخول بالسلطة للتمثيل بالنيابة عن صاحب الحق التنفيذى و الذى تم خرقه."؛ و </li>
+<li>وجود توقيع حى أو إلكترونى للمالك أو الشخص المخول بالسلطة للتمثيل بالنيابة عن صاحب الحق التنفيذى و الذى تم خرقه.</li>
+</ul><p>من فضلك لاحظ أنه من الممكن تعرضك للتلف كذلك متضمناً ذلك النفقات و أتعاب المحاماة إذا فشلت فى إثبات بشكل مادى بأن المادة التى تم خرقها تنتمى لحقوق ملكيتك. و من ثم، فإن لم تكن واثقاً من أن المادة المنشورة على الموقع تخرق حقوق ملكيتك فنحن نقترح أولاً استشارة المحامى.</p>
+<h3>إعلام مضاد</h3>
+<p>إن من قام بوضع المادة و التى كانت موضوع الإدعاء بالخرق يستطيع أن يرفع مذكرة إعلام مضاد للأجزاء 512 (ج)(2) و (3) و الخاصة بقانون حقوق تمثيل الألفية الرقمية. و لملىء ملف ضد الإعلام معنا قم بامداد وكيل ميدان المذكور سابقاً بالمعلومات التالية بشكل كتابى و يفضل عبر البريد الإلكترونى.</p>
+<ul><li>التعريف بالمادة التى تم إذالتها أو تم حجب الولوج إليها قبل إزالتها أو منع الولوج إليها.</li>
+<li>اسمك، العنوان، و رقم التليفون؛</li>
+<li>ذكر الجملة التالية "أقر بالخضوع و الولاية لمحكمة المقاطعة (المحافظة) الحكومية ل (قم بادراج المقاطعة أو المحافظة الحكومية القضائية و التى يقع بها عنوانك)"؛</li>
+<li>ذكر الجملة التالية: "سأقبل بخدمة العملية من قبل (قم بذكر اسم الشخص الذى قام برفع مذكرة الخرق و الإنتهاك) أو وكيله"؛</li>
+<li>ذكر الجملة التالية: "اقسم تحت وطأة عقوبة الحنث باليمين أننى عندى إيمان و يقين راسخ بأن المادة المتأثرة و التى تم إزالتها أو عدم تمكين الولوج إليها كنتيجة لخطأ أو سوء التعريف بالمادة ليتم إذالتها أو عدم تمكين الولوج إليها"؛ و</li>
+<li>توقيعك بشكل كتابى أو صيغة إلكترونية.</li>
+</ul><p>و بمجرد استلام مثل ذلك الإعلام المضاد، ستوفر ميدان الشخص الذى سيقوم حينئذٍ بوضع نسخة من الإعلام المضاد مع ذلك الإعلام الخاص بالخرق لحقوق الملكية، و سيتم إعلام ذلك الشخص أن ميدان ستقوم باستبدال المادة التى تم إزالتها أو حجب الولوج إليها خلال عشرة أيام عمل. و أن ميدان لن تقوم بإزالتها أو حجب الولوج إليها فى أقل منعشرة ايامٍ عاملة أو أكثر من أربعة عشرة يوماً عاملة بعد استلام إيصال الإعلام المضاد، إلا فى حالة أن يتسلم وكيل ميدان إعلام من الشخص صاحب إعلام خرق حقوق الملكية الأصلى أولاً و من ثم فإن هذا الشخص قام بعمل يبحث فيه عن إذن محكمة لوقف من يقوم باستخدام المادة من نشاطات  الخرق للمادة المرفوعة على الموقع (ميدان).</p>
+<h3>تكرار للمنتهكين لحقوق الملكية:</h3>
+<p>وفقاً للبنود 512 (i) (1) (a) من قانون حقوق تمثيل الألفية الرقمية، فإن ميدان ستقوم وفق تلك الظروف بحجب أو إزالة حسابات المستخدمين الذين يكررون خرق و إنتهاك لحقوق الملكية.</p>
+<h3>التكييفات الملائمة لمعايير الجودة التقنية:</h3>
+<p>من سياسة ميدان أن تكيف و ليس أن تتدخل فى معايير الجودة التقنية المستخدمة من قبل مالكى حقوق الملكية لتعريف أو حماية الأعمال ذات حقوق الملكية و التى تقر ميدان أنها مسؤلة عنها بعد ذلك تحت هذه الظروف.</p>
+</ul></ul></div>
+',
+        'safe_summary' => '',
       ),
     ),
   ),
@@ -492,7 +593,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <p>All content created on Checkdesk, except where otherwise noted, is licensed under a Creative Commons Attribution Non-Commercial Share-Alike 3.0 Unported License. Others can download, redistribute, translate, remix, tweak, and build upon your contributions non-commercially, as long as they credit you and license their new creations under identical terms. All new work based on yours will carry the same license, so any derivatives will also be non-commercial in nature. This license covers all linguistic data generated on the liveblog.
 
-<p><img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" /> Some rights reserved.</p>
+<p><img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" /> Some rights reserved.</p>
 
 <h2>Meedan</h2>
 
@@ -530,7 +631,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 
 <p>If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at termsofservice@meedan.net</p>
 
-<p>These Terms are licensed under <img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (http://www.citmedialaw.org/)</p>
+<p>These Terms are licensed under <img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (http://www.citmedialaw.org/)</p>
 
 <h2>DMCA</h2>
 
@@ -608,6 +709,106 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
 ',
         'summary' => '',
         'format' => 'full_html',
+        'safe_value' => '<div class="static legal">
+<h2>Welcome to Checkdesk</h2>
+<p>Checkdesk is a web application developed by Meedan. Our goal in developing Checkdesk was to make the world a better place. Really. So, you can take these terms and conditions as our best effort to inform you of your legal obligations as a user and our legal obligations to you as the company that has designed and deployed this software.</p>
+<p>We recognize that as a user of our services you are extending to us certain aspects of your reputation and identity. We take this seriously and we’ve crafted these Terms of Service (the “Terms”) reflect that.</p>
+<p>Meedan is a project founded on the values of collaboration and open source approaches to content and code development. As much as the Terms reflect what our lawyers say we must say, we hope they also reflect our commitment to carry these values through to the formal agreement with our Users.</p>
+<p>Now, some of the language that pleases the lawyers.</p>
+<h2>General</h2>
+<p>Meedan provides Checkdesk users with the ability to publish, comment on, contextualize, and, generally, attempt to verify social media content from the internet. Collectively these are referred to as “the Services.” The services so defined in the Terms include any services performed by accessing any of the Checkdesk instances served by any of our media partners. The Terms describes Meedan’s offerings to you, the User, and describes your obligations to us, Meedan, and is an agreement between you, the User, and us, Meedan, the service provider (the “Agreement”).</p>
+<p>In order to use our services you must accept the Terms and Meedan’s Privacy Policy. Moreover, by using our site or services you are implicitly agreeing to be bound by Terms.</p>
+<p>We reserve the right to modify the Terms at any time, without prior notice, by making changes to this page. You are responsible for regularly reviewing these terms. Your continued use of the site after such changes serves as an acknowledgment and acceptance of the amended Terms.</p>
+<h2>Your Checkdesk Account</h2>
+<p>You must be at least 13 (thirteen) years of age or older to register for a Checkdesk account. Use of the website as either a registered or unregistered User is void where prohibited.</p>
+<p>In consideration of your use of the site, you agree to:</p>
+<ul><li>Provide accurate, current and complete information about you as may be prompted by any registration forms on the site (“Registration Data”).</li>
+<li>Maintain the security and confidentiality of your password and identification.</li>
+<li>Maintain and promptly update the Registration Data, and any other information you provide to Company, to keep it accurate, current and complete.</li>
+<li>Be fully responsible for all use of your account and for any actions that take place using your account.</li>
+<li>Accept that your account is not transferrable.</li>
+<li>Notify Meedan immediately if you suspect unauthorized use of your Checkdesk account.</li>
+</ul><p>Meedan will not be responsible for any losses arising out of the unauthorized use of your member name, password and/or account, and you agree to indemnify and hold harmless Meedan, its partners, parents, subsidiaries, agents, affiliates and/or licensors, as applicable, for any improper, unauthorized or illegal uses of your account.</p>
+<p>Meedan reserves the right to terminate your Account or restrict access to your Account, or to delete any content posted through your Account, with or without notice, for any or for no reason, and without any liability to you.</p>
+<h2>User Conduct</h2>
+<p>The Checkdesk application allows users to cross-post content from around the web. We are particularly aware that the varying political, social, and cultural sensitivities of our Users demand we take an active approach to ensuring everyone can participate in a respectful, inclusive online environment.</p>
+<p>By using the site and agreeing to the Terms, you agree that you will not:</p>
+<ul><li>Post content or initiate communications which are unlawful, libelous, abusive, urging violence, promoting intolerance, discriminatory, or otherwise objectionable.</li>
+<li>Use Checkdesk for any illegal purpose.</li>
+<li>Upload, post, email, transmit or otherwise make available any content or initiate any communication that infringes upon patents, trademarks, copyrights, trade secrets, other proprietary rights, or that contains any content or information that you do not have the right to disclose or make available.</li>
+<li>Upload, post, email, transmit or otherwise make available any unsolicited or unauthorized advertising, promotional materials, “junk mail”, “spam”, “chain letters”, “pyramid schemes”, or any other form of solicitation.</li>
+<li>Upload, post, email, transmit or otherwise make available any material that contains software viruses or any other computer code, files, or programs designed to interrupt, destroy or limit the functionality of any computer software or hardware or telecommunications equipment.</li>
+<li>Attempt to pursue communications with someone who has indicated to you either explicitly or implicitly that they do not want to communicate with you.</li>
+<li>Post, transmit, promote, or distribute content that is illegal.</li>
+<li>Harass, threaten, embarrass, or do anything else to another User that is unwanted. We expect you to be respectful to other Users and never challenge another User on the basis of their race, heritage, religion, gender, sexual orientation, age, beliefs, etc.</li>
+<li>Game the structure of ‘the services’ in such a way to intentionally confuse, limit, inconvenience or otherwise negatively affect other Users</li>
+</ul><p>Some of these breaches of conduct may constitute violations of civil or criminal codes and, as such, could subject you to civil or criminal prosecution.</p>
+<h2>User Disputes</h2>
+<p>You are solely responsible for your interactions with other Users. We reserve the right to monitor disputes between you and other Users.</p>
+<h2>International Use</h2>
+<p>Recognizing the global nature of the internet, you agree to comply with all applicable local rules including but not limited to rules regarding online conduct and acceptable content. Meedan will not be liable for keeping you, the User, apprised of changes in these laws. Nor will Meedan itself be liable for any illegal activities you engage in while using the system.</p>
+<h2>Third Party Links</h2>
+<p>Checkdesk serves as an aggregation point for content from other websites. We cannot warrant and do not take responsibility for the text, photos, videos, graphics, audio, software, or any other data or content originating from or belonging to these sites. Linking to Third Party sites does not express or imply approval or endorsement of these sites or the content contained therein. You agree that neither Meedan nor the partner or individual managing this Checkdesk instance, bear responsibility or liability for any content accessed or harm caused from any third-party website. These Terms of Service are not in effect should you link from Checkdesk to a Third Party site. We encourage you to review the terms and policies of any site you link to from Checkdesk</p>
+<h2>Content rights and licenses</h2>
+<h3>Creative Commons</h3>
+<p>All content created on Checkdesk, except where otherwise noted, is licensed under a Creative Commons Attribution Non-Commercial Share-Alike 3.0 Unported License. Others can download, redistribute, translate, remix, tweak, and build upon your contributions non-commercially, as long as they credit you and license their new creations under identical terms. All new work based on yours will carry the same license, so any derivatives will also be non-commercial in nature. This license covers all linguistic data generated on the liveblog.</p>
+<p><img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" /> Some rights reserved.</p>
+<h2>Meedan</h2>
+<p>Meedan does not claim ownership of Content you submit or make available for inclusion on the Meedan Services. However, with respect to Content you submit or make available for inclusion on publicly accessible areas of the Meedan Services, you grant Meedan a non-exclusive, royalty-free, perpetual, and worldwide license to use your content in connection with the operation of the Services, including, without limitation, the license rights to copy, distribute, transmit, publicly display, publicly perform, reproduce, edit, translate, machine translate, reformat, and/or to incorporate it into a collective work.</p>
+<h2>User Representations and Warranties</h2>
+<p>By posting any content, you represent and warrant that you have all right, title, and interest to such posted content, including but not limited to any consent, authorization, release, clearance or license from any third party (such as, but not limited to, any release related to rights of privacy or publicity) necessary for you to provide, post, upload, input or submit the content, and that posting such content does not violate or constitute the infringement of any patent, copyright, trademark, trade secret, right of privacy, right of publicity, moral rights, or other intellectual property right recognized by any applicable jurisdiction of any person or entity, or otherwise constitute the breach of any agreement with any other person or entity. You further represent and warrant that you are who you say you are, that you have not submitted false or inaccurate information about yourself, and that all information contained in the posted content is true and your own work or work you are authorized to submit, and that the posted content does not contain any threatening, harassing, libelous, false, defamatory, offensive, obscene, or pornographic, material, or other material that would violate any other applicable law or regulation. You agree that you will not knowingly and with intent to defraud provide material and misleading information. You represent and warrant that the content you supply does not violate the Terms.</p>
+<h2>Copyright Complaints</h2>
+<p>If you are a copyright owner and you believe that your copyrighted materials have been used in a way that constitutes copyright infringement, please see our DMCA Notice Policy below.</p>
+<p>WARRANTIES, DISCLAIMERS AND INDEMNIFICATION?</p>
+<p>YOUR USE OF Checkdesk SITES IS AT YOUR OWN RISK. WE ASSUME NO RESPONSIBILITY AND/OR LIABILITY FOR: THE CONTENT OF ANY MATERIAL OR COMMUNICATION CREATED BY YOU, ANY THIRD PARTY OR RECEIVED BY YOU FROM A SOURCE OUTSIDE THE OUR SITE (EVEN IF YOU HAVE LINKED TO THAT SITE FROM the Checkdesk powered liveblog); ANY DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE OR INCIDENTAL DAMAGES, LIABILITY AND/OR COSTS, INCLUDING ATTORNEYS FEES, CAUSED BY THE WAY YOU USE THE liveblog MATERIALS OR TECHNOLOGY, INCLUDING BUT NOT LIMITED TO CLAIMS OF SLANDER, LIBEL, INFRINGEMENT, AND/OR PLAGIARISM; ANY DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE OR INCIDENTAL DAMAGES, LIABILITY AND/OR COSTS, INCLUDING ATTORNEYS FEES, ARISING FROM Meedan SERVICE INTERRUPTIONS, INTERNET SERVICE INTERRUPTIONS OR CHANGES, EVEN IF THESE DISRUPTIONS ARISE FROM CIRCUMSTANCES UNDER OUR CONTROL; ANY OTHER DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE DAMAGES OF ANY KIND, INCLUDING ATTORNEYS FEES, ARISING FROM YOUR PARTICIPATION; PRIVACY IN CONNECTION WITH YOUR USE OF Checkdesk powered liveblog AND/OR OTHER INTERNET ACTIVITIES (EXCEPT IN THE CASE OF ANY WILLFUL OR GROSSLY NEGLIGENT BREACH OF THE PRIVACY POLICY BY Meedan).</p>
+<p>EVERYTHING ON THE liveblog SITE IS PROVIDED TO YOU “AS IS”, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>If you do something that, according to the terms of the Privacy Policy and Other Agreements, warrants your termination from the service or expulsion from the Checkdesk liveblog, you accept full responsibility for anything that happens following your expulsion, including indemnifying and holding Meedan harmless from any and all claims by others arising from your conduct and/or use of the Meedan site, and/or the materials and services provided.</p>
+<h2>Service uptime</h2>
+<p>Meedan disclaims all responsibility and liability for the availability, timeliness, security or reliability of the Services or any software provided through the Services. Meedan reserves the right to modify, suspend, or discontinue the Services or access to the Services without any notice at any time and without any liability to you.</p>
+<h2>No Waiver of Terms</h2>
+<p>Failure of Meedan to exercise or enforce any right or provision of these Terms shall not be deemed a waiver of such right or provision in that or any other instance.</p>
+<h2>Governing Law</h2>
+<p>These Terms are governed by the laws of the State of California, without regard to the rules of conflict of law that may cause the laws of another jurisdiction to apply. You agree to the sole and exclusive jurisdiction and venue of the federal or state courts of the State of California in the event of any dispute of any kind arising from or relating to the Site, or your use or review of it. The Terms constitute the entire agreement between the parties with respect to the subject matter hereof and supersedes and replaces all prior or contemporaneous understandings or agreements, written or oral, regarding such subject matter. If for any reason a court of competent jurisdiction finds any provision or portion of these Terms to be unenforceable, the remainder of the Terms will continue in full force and effect.</p>
+<h2>Contact</h2>
+<p>If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at <a href="mailto:termsofservice@meedan.net">termsofservice@meedan.net</a></p>
+<p>These Terms are licensed under <img class="creativecommons" src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.eu.png" />. Some rights reserved, with attribution and thanks to the Citizens Media and Law Project at the Berkman Center (<a href="http://www.citmedialaw.org/">http://www.citmedialaw.org/</a>)</p>
+<h2>DMCA</h2>
+<h3>Notice and Takedown Procedure</h3>
+<p>It is our policy to expeditiously respond to clear notices of alleged copyright infringement that comply with the United States Digital Millennium Copyright Act (DMCA). This page describes the information that should be present in these notices. It is designed to make submitting notices of alleged infringement to Meedan as straightforward as possible while reducing the number of notices that we receive that are fraudulent or difficult to understand or verify. The form of notice specified below is consistent with the form suggested by the DMCA (the text of which can be found at the U.S. Copyright Office Web Site, <a href="http://www.copyright.gov">http://www.copyright.gov</a>), but we will respond to notices of this form from other jurisdictions as well.</p>
+<p>It is expected that all users of any part of the Meedan site will comply with applicable copyright laws. However, if the Meedan receives proper notification of claimed copyright infringement, our response to these notices will include removing or disabling access to material claimed to be the subject of infringing activity and/or terminating subscribers, regardless of whether we may be liable for such infringement under United States law or the laws of another jurisdiction.</p>
+<p>If we remove or disable access in response to such a notice, we will make a good-faith attempt to contact the owner or administrator of the affected site or content so that they may make a counter notification pursuant to Sections 512(g)(2) and (3) of the DMCA. We may also document notices of alleged infringement on which we act.</p>
+<h3>Designated Agent</h3>
+<p>Meedan’s Designated Agent to receive notification of alleged infringement under the DMCA is:</p>
+<ul><li>Ed Bice <br />
+			Email: <a href="mailto:ebice@meedan.net">ebice@meedan.net</a> <br />
+			Physical Mail: 1255 Post Suite 540 San Francisco, CA 94109 USA <br />
+			Upon receipt of proper notification of claimed infringement, Meedan will follow the procedures outlined herein and in the DMCA.
+		</li>
+</ul><h3>Infringement Notification</h3>
+<p>If you believe that your work has been copied in a way that constitutes copyright infringement, or your intellectual property rights have been otherwise violated, please provide Meedan’s Registered Agent (listed above) the following information in a written communication (preferably via email):</p>
+<ul><li>Identification of the copyrighted work claimed to have been infringed, or, if multiple copyrighted works at a single online site are covered by a single notification, a representative list of such works at that site;</li>
+<li>Identification of the material that is claimed to be infringing or to be the subject of infringing activity and that is to be removed or access to which is to be disabled, and information reasonably sufficient to permit Meedan to locate the material;</li>
+<li>Information reasonably sufficient to permit Meedan to contact the complaining party, such as an address, telephone number, and, if available, an email address at which the complaining party may be contacted;</li>
+<li>The following statement: “I have a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law”;</li>
+<li>The following statement: “I swear, under penalty of perjury, that the information in the notification is accurate, and that I am the copyright owner or am authorized to act on behalf of the owner of an exclusive right that is allegedly infringed”; and</li>
+<li>A physical or electronic signature of the owner or a person authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.</li>
+</ul><p>Please note that you may be liable for damages (including costs and attorneys’ fees) if you materially misrepresent that material is infringing your copyrights. Accordingly, if you are not sure whether material available online infringes your copyright, we suggest that you first contact an attorney.</p>
+<h3>Counter Notification</h3>
+<p>A provider of content subject to a claim of infringment may make a counter notification pursuant to sections 512(g)(2) and (3) of the DMCA. To file a counter notification with us, please provide Meedan’s Registered Agent (listed above) the following information in a written communication (preferably via email):</p>
+<p>Identification of the material that has been removed or to which access has been disabled and the location at which the material appeared before it was removed or access to it was disabled;</p>
+<p>Your name, address, and telephone number;</p>
+<p>The following statement: “I consent to the jurisdiction of Federal District Court for the [insert the federal judicial district in which your address is located]”;</p>
+<p>The following statement: “I will accept service of process from [insert the name of the person who submitted the infringement notification] or his/her agent”;</p>
+<p>The following statement: “I swear, under penalty of perjury, that I have a good faith belief that the affected material was removed or disabled as a result of a mistake or misidentification of the material to be removed or disabled”; and</p>
+<p>Your signature, in physical or electronic form.</p>
+<p>Upon receipt of such counter notification, Meedan will promptly provide the person who provided the original infringement notification with a copy of the counter notification, and inform that person that Meedan will replace the removed material or cease disabling access to it in 10 business days. Meedan will replace the removed material and cease disabling access to it not less than 10, nor more than 14, business days following receipt of the counter notice, unless our Designated Agent first receives notice from the person who submitted the original infringement notification that such person has filed an action seeking a court order to restrain the subscriber from engaging in infringing activity relating to the material on our system or network.</p>
+<h3>Repeat Infringers</h3>
+<p>In accordance with Section 512(i)(1)(a) of the DMCA, Meedan will, in appropriate circumstances, disable and/or terminate the accounts of users who are repeat infringers.</p>
+<h3>Accommodation of Standard Technical Measures</h3>
+<p>It is Meedan’s policy to accommodate and not interfere with standard technical measures used by copyright owners to identify or protect copyrighted works that Meedan determines are reasonable under the circumstances.</p>
+</div>
+',
+        'safe_summary' => '',
       ),
     ),
   ),

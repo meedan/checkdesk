@@ -14,24 +14,24 @@ function checkdesk_core_feature_filter_default_formats() {
   $formats['filtered_html'] = array(
     'format' => 'filtered_html',
     'name' => 'Filtered HTML + Markdown',
-    'cache' => 1,
+    'cache' => 0,
     'status' => 1,
     'weight' => -99,
     'filters' => array(
       'filter_markdown' => array(
-        'weight' => -47,
+        'weight' => -50,
         'status' => 1,
         'settings' => array(),
       ),
       'filter_url' => array(
-        'weight' => -46,
+        'weight' => -49,
         'status' => 1,
         'settings' => array(
           'filter_url_length' => 72,
         ),
       ),
       'filter_html' => array(
-        'weight' => -45,
+        'weight' => -48,
         'status' => 1,
         'settings' => array(
           'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>',
@@ -39,13 +39,51 @@ function checkdesk_core_feature_filter_default_formats() {
           'filter_html_nofollow' => 0,
         ),
       ),
+      'filter_checkdesk_markup' => array(
+        'weight' => -47,
+        'status' => 1,
+        'settings' => array(),
+      ),
       'filter_autop' => array(
-        'weight' => -44,
+        'weight' => -46,
         'status' => 1,
         'settings' => array(),
       ),
       'filter_htmlcorrector' => array(
-        'weight' => -43,
+        'weight' => -45,
+        'status' => 1,
+        'settings' => array(),
+      ),
+    ),
+  );
+
+  // Exported format: Full HTML.
+  $formats['full_html'] = array(
+    'format' => 'full_html',
+    'name' => 'Full HTML',
+    'cache' => 0,
+    'status' => 1,
+    'weight' => 1,
+    'filters' => array(
+      'filter_url' => array(
+        'weight' => -40,
+        'status' => 1,
+        'settings' => array(
+          'filter_url_length' => 72,
+        ),
+      ),
+      'filter_autop' => array(
+        'weight' => -39,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      'filter_checkdesk_markup' => array(
+        'weight' => -38,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      'filter_htmlcorrector' => array(
+        'weight' => -37,
         'status' => 1,
         'settings' => array(),
       ),
@@ -60,6 +98,11 @@ function checkdesk_core_feature_filter_default_formats() {
     'status' => 1,
     'weight' => -98,
     'filters' => array(
+      'filter_checkdesk_markup' => array(
+        'weight' => '0',
+        'status' => '1',
+        'settings' => array(),
+      ),
       'filter_autop' => array(
         'weight' => 0,
         'status' => 1,

@@ -10,7 +10,7 @@ function meedan_bookmarklet_init() {
     header("p3p:CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
     $GLOBALS['meedan_bookmarklet_page_template'] = TRUE;
     drupal_add_css(drupal_get_path('module', 'meedan_bookmarklet') . '/css/meedan_bookmarklet_inside.css');
-    drupal_add_js(drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet_page.js');
+    drupal_add_library('meedan_iframes', 'meedan_iframes.child');
   }
 }
 
