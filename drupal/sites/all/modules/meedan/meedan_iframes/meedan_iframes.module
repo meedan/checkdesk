@@ -43,8 +43,9 @@ function meedan_iframes_theme($existing, $type, $theme, $path) {
 function theme_meedan_iframe($vars) {
   $defaults = array(
     'frameborder' => "0",
-    'scrolling' => "no",
-    'seamless' => NULL
+    'scrolling'   => "no",
+    'seamless'    => NULL,
+    'id'          => 'meedan-iframe-' . substr(md5($vars['src']), 0, 6),
   );
   $attrs = array_merge($defaults, (array) $vars['attributes']);
 
