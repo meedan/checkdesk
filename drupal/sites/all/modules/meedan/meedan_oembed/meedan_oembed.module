@@ -81,11 +81,16 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
 
   $embed = FALSE;
 
+  // Cache hit
   if (!$no_cache && $cache && isset($cache->data) && (!isset($cache->data->error) || !$cache->data->error || !$retry_if_error)) {
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
     return $embed;
+  }
+  // Cache miss
+  else if ($cache) {
+    cache_clear_all($cache_key, $element['#cache']['bin']);
   }
 
   // Call scrape function first if exist
