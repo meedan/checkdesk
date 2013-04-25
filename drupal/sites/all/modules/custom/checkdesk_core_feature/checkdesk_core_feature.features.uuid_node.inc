@@ -1265,12 +1265,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       ),
     ),
   ),
-  'field_file' => array(
-    'und' => array(
-      0 => NULL,
-      1 => NULL,
-    ),
-  ),
+  'field_file' => array(),
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
