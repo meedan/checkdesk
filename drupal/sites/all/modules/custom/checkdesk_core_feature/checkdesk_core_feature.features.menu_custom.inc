@@ -16,7 +16,7 @@ function checkdesk_core_feature_menu_default_menu_custom() {
     'title' => 'Main menu',
     'description' => 'The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar.',
     'language' => 'und',
-    'i18n_mode' => '5',
+    'i18n_mode' => 5,
   );
   // Exported menu: menu-common.
   $menus['menu-common'] = array(
@@ -24,7 +24,7 @@ function checkdesk_core_feature_menu_default_menu_custom() {
     'title' => 'Common',
     'description' => 'Links that are common to all users and appear usually at the right.',
     'language' => 'und',
-    'i18n_mode' => '5',
+    'i18n_mode' => 5,
   );
   // Exported menu: menu-footer.
   $menus['menu-footer'] = array(
@@ -32,7 +32,7 @@ function checkdesk_core_feature_menu_default_menu_custom() {
     'title' => 'Footer',
     'description' => 'Links for footer',
     'language' => 'und',
-    'i18n_mode' => '5',
+    'i18n_mode' => 5,
   );
   // Exported menu: menu-information.
   $menus['menu-information'] = array(
@@ -40,7 +40,7 @@ function checkdesk_core_feature_menu_default_menu_custom() {
     'title' => 'Information',
     'description' => 'Menu with links for static information pages.',
     'language' => 'und',
-    'i18n_mode' => '5',
+    'i18n_mode' => 5,
   );
   // Translatables
   // Included for use with string extractors like potx.

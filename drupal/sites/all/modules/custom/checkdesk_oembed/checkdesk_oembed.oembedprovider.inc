@@ -41,11 +41,9 @@ function checkdesk_oembed_provider($provider, $url, $matches) {
   $language = $languages[$node->language];
 
   $src = url('embed/' . $node->nid, array('absolute' => TRUE));
-  $script_src = url(drupal_get_path('module', 'checkdesk_oembed') . '/js/embed.min.js', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
 
   $result = _oembedprovider_result('rich', array(
-    // Note, it is extremely important that the script tag comes IMMEDIATELY AFTER the iframe.
-    'html' => '<iframe src="' . $src . '" frameborder="0" scrolling="no" seamless></iframe><script src="' . $script_src . '"></script>',
+    'html' => theme('meedan_iframe', array('src' => $src)),
     'width' => 0,
     'height' => 0,
     'title' => $node->title,

@@ -13,19 +13,19 @@ function checkdesk_core_feature_user_default_roles() {
   // Exported role: administrator.
   $roles['administrator'] = array(
     'name' => 'administrator',
-    'weight' => '2',
+    'weight' => 2,
   );
 
   // Exported role: citizen journalist.
   $roles['citizen journalist'] = array(
     'name' => 'citizen journalist',
-    'weight' => '4',
+    'weight' => 4,
   );
 
   // Exported role: journalist.
   $roles['journalist'] = array(
     'name' => 'journalist',
-    'weight' => '3',
+    'weight' => 3,
   );
 
   return $roles;

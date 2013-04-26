@@ -146,10 +146,18 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($variables['main_menu'] as $id => $item) {
       // Change "Submit Report" link
       if ($item['link_path'] == 'node/add/media') {
-        $variables['main_menu'][$id]['href'] = meedan_bookmarklet_get_code();
-        $variables['main_menu'][$id]['external'] = TRUE;
-        $variables['main_menu'][$id]['absolute'] = TRUE;
-        $variables['main_menu'][$id]['attributes'] = array('onclick' => 'jQuery(this).addClass("open")', 'id' => 'menu-submit-report');
+        $src = url('node/add/media', array('query' => array('meedan_bookmarklet' => '1'), 'absolute' => TRUE));
+        $content = array(
+          '#type' => 'markup',
+          '#markup' => theme('meedan_iframe', array('src' => $src)),
+        );
+
+        $variables['main_menu'][$id]['html'] = TRUE;
+        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => t('Submit report')));
+        $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
+        $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
+        $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
+        $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-media-form', 'content' => $content));
       }
       else if ($item['link_path'] == 'node/add/discussion') {
         // TODO: #809: Complete this with the rest of the Story form 1.0 work.
@@ -518,6 +526,21 @@ function checkdesk_preprocess_node(&$variables) {
       else {
         $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
       }
+    }
+
+    if (isset($variables['content']['field_link'])) {
+      $field_link_rendered = render($variables['content']['field_link']);
+
+      // Never lazy-load inside the modal
+      if (arg(0) != 'report-view-modal') {
+        // Quick and easy, replace all src attributes with data-somethingelse
+        // Drupal.behavior.lazyLoadSrc handles re-applying the src attribute when
+        // the iframe tag enters the viewport.
+        // See: http://stackoverflow.com/a/7154968/806988
+        $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src)=/i', '<\1\2src="about:blank" data-lazy-load-src=', $field_link_rendered);
+      }
+
+      $variables['field_link_lazy_load'] = $field_link_rendered;
     }
   }
 }

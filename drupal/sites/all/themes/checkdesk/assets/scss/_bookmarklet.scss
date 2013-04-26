@@ -268,23 +268,22 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
 // Internal bookmarklet (Submit Report link)
 // ==============================================================
-#meedan_bookmarklet_cont {
-  display: none;
-  position: fixed !important; 
-  #{$from-direction}: 44px !important;
-  #{opposite-position($from-direction)}: auto !important;
-  border-width: 0 !important;
+#nav-media-form {
+  width: 366px;
+
+  iframe {
+    width: 100%;
+  }
 }
 
-// NOTE applied to body 
+// NOTE applied to body
 .meedan-bookmarklet-internal {
-  #meedan_bookmarklet_preview, 
-  #edit-body, 
-  #edit-graphic-content, 
-  #edit-actions #edit-submit {
+  #meedan_bookmarklet_preview,
+    #edit-body,
+    #edit-graphic-content,
+    #edit-actions #edit-submit {
     display: none;
   }
-
 }
 
 

@@ -8,7 +8,7 @@ function template_preprocess_oembed__link__meedan_oembed_facebook(&$vars) {
   $vars['author_img'] = l(theme('image', array('path' => $embed->author_img)), $embed->author_url, array('html' => TRUE));
   $vars['author_name'] = l($embed->author_name, $embed->author_url);
   $vars['content'] = $embed->description;
-  $vars['fb_picture']  = isset($embed->picture) ? theme('image', array('path' => $embed->picture)) : '';
+  $vars['fb_picture']  = isset($embed->picture) ? theme('image', array('path' => $embed->picture)) : (isset($embed->thumbnail_url) ? theme('image', array('path' => $embed->thumbnail_url)) : '');
   $vars['fb_link_title'] = isset($embed->link_name) ? $embed->link_name : '';
   $vars['fb_link_desc'] = isset($embed->link_description) ? $embed->link_description : '';
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
