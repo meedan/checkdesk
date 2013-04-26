@@ -1,0 +1,17 @@
+name = Checkdesk Multilingual
+description = Multilingual configuration for Checkdesk. Only for partners that require multilingual functionality.
+core = 7.x
+package = Checkdesk
+php = 5.2.4
+dependencies[] = checkdesk_core_feature
+dependencies[] = context
+dependencies[] = locale
+features[context][] = multilingual
+features[ctools][] = context:context:3
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:1
+features[features_override_items][] = views_view.liveblog
+features[features_override_items][] = views_view.stories_for_updates
+features[features_overrides][] = views_view.liveblog.display|default|display_options|filters|language
+features[features_overrides][] = views_view.stories_for_updates.display|default|display_options|filters|language
+features_exclude[dependencies][views] = views

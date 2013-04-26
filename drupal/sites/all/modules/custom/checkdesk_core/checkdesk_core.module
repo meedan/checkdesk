@@ -879,7 +879,7 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
 }
 
 /**
- * Implements of hook_form_views_exposed_form_alter().
+ * Implements hook_form_FORM_ID_alter() for `views_exposed_form`.
  */
 function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   if ($form['#id'] == 'views-exposed-form-desk-reports-block') {
@@ -1113,6 +1113,34 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function checkdesk_core_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    // Move mymodule_form_alter() to the end of the list. module_implements()
+    // iterates through $implementations with a foreach loop which PHP iterates
+    // in the order that the items were added, so to move an item to the end of
+    // the array, we remove it and then add it.
+    $group = $implementations['checkdesk_core'];
+    unset($implementations['checkdesk_core']);
+    $implementations['checkdesk_core'] = $group;
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function checkdesk_core_form_node_form_alter(&$form, &$form_state) {
+  if (in_array($form['#node']->type, array('discussion', 'post'))) {
+    global $language;
+    $form['language'] = array(
+      '#type' => 'value',
+      '#value' => $language->language,
+    );
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
@@ -1165,6 +1193,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['actions']['cancel']['#attributes']['id'] = array('close');
     $form['actions']['cancel']['#weight'] = -1;
   }
+
   if ($form_id == 'node_delete_confirm') {
     if (isset($form['#node'])) {
       if ($form['#node']->type == 'discussion') {
@@ -1172,6 +1201,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       }
     }
   }
+
   if ($form_id == 'user_register_form') {
     global $user;
     //Hide administer role so journalist can not give his account a higher role.
@@ -1269,6 +1299,38 @@ function checkdesk_core_views_api() {
   );
 }
 
+/**
+ * Implements hook_views_default_views_alter().
+ */
+function checkdesk_core_views_default_views_alter(&$data) {
+  if (isset($data['admin_views_user'])) {
+    $data['admin_views_user']->display['default']->display_options['fields']['views_bulk_operations']['vbo']['operations']['action::user_block_user_action'] = array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Block user',
+    ); /* WAS: '' */
+  }
+
+  if (isset($data['admin_views_node'])) {
+    $data['admin_views_node']->display['default']->display_options['fields']['views_bulk_operations']['vbo']['operations']['action::checkdesk_core_node_set_language'] = array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ); /* WAS: '' */
+    $data['admin_views_node']->display['default']->display_options['fields']['language'] = array(
+      'id' => 'language',
+      'table' => 'node',
+      'field' => 'language',
+    );
+  }
+
+}
+
+/**
 /**
  * Register a directory containing Wysiwyg plugins.
  *
@@ -1419,6 +1481,52 @@ function checkdesk_core_form_flag_confirm_alter(&$form, $form_state, $form_id) {
  */
 function checkdesk_core_form_twitter_oauth_callback_form_alter(&$form, $form_state) {
   $_GET['destination'] = 'user/register';
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function checkdesk_core_action_info() {
+  return array(
+    'checkdesk_core_node_set_language' => array(
+      'type' => 'node',
+      'label' => t('Set language'),
+      'configurable' => TRUE,
+      'behavior' => array('changes_property'),
+    ),
+  );
+}
+
+/**
+ * Form function for action `checkdesk_core_node_set_language`.
+ */
+function checkdesk_core_node_set_language_form($context) {
+  $languages = array();
+  foreach (language_list() as $langcode => $language) {
+    $languages[$langcode] = $language->name;
+  }
+  $form['language'] = array(
+    '#title' => t('Language'),
+    '#type' => 'select',
+    '#options' => $languages,
+    '#default_value' => @$context['language'],
+  );
+  return $form;
+}
+
+/**
+ * Submit function for action `checkdesk_core_node_set_language`.
+ */
+function checkdesk_core_node_set_language_submit($form, $form_state) {
+  return array('language' => $form_state['values']['language']);
+}
+
+/**
+ * Action function for action `checkdesk_core_node_set_language`.
+ */
+function checkdesk_core_node_set_language($node, $context) {
+  $node->language = $context['language'];
+  watchdog('action', 'Set node language to %language.', array('%language' => $context['language']));
 }
 
 /**
