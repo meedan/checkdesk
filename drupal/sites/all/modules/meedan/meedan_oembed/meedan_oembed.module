@@ -88,8 +88,11 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed->provider = $provider;
     return $embed;
   }
-  // Cache miss
+  // Ask for fresh data, remove cache first
   else if ($cache) {
+    // Clear cached markup as well
+    $template = oembedcore_render_cache('oembed', $url);
+    cache_clear_all(implode(':', $template['#cache']['keys']), $template['#cache']['bin'], TRUE);
     cache_clear_all($cache_key, $element['#cache']['bin']);
   }
 
@@ -141,11 +144,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed->error = FALSE;
   }
 
-  // Clear cached markup as well
-  $template = oembedcore_render_cache('oembed', $url);
-
-  // Set the result to cache, even if error
-  cache_clear_all(implode(':', $template['#cache']['keys']), $template['#cache']['bin'], TRUE);
+  // Set result to cache, even if error
   cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
 
   return $embed;
