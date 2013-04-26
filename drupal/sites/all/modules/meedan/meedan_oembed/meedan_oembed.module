@@ -114,7 +114,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     }
 
     // Embedly failed, provide some fallback embed content
-    if (is_null($embed) || $embed === FALSE || $embed->error) {
+    if (is_null($embed) || $embed === FALSE || (isset($embed->error) && $embed->error)) {
       // Ensure NULL and FALSE become (object) array()
       $embed = (object) $embed;
       unset($embed->scalar);
