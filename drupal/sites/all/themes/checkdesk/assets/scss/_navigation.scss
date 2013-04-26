@@ -233,6 +233,16 @@ nav[role="navigation"] {
   }
 }
 
+#block-locale-language {
+  .language-switcher-locale-url {
+    li {  
+      @include nav-item;
+      &.active { display: none; }
+    }
+  }
+
+}
+
 // Small breakpoint
 @include at-breakpoint($break-small) {
   nav[role="navigation"] {
