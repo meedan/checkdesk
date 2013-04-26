@@ -1,0 +1,12 @@
+name = Checkdesk API
+description = Services API endpoint for Checkdesk.
+core = 7.x
+package = Checkdesk
+version = 7.x-1.0
+project = checkdesk_api
+dependencies[] = ctools
+dependencies[] = rest_server
+dependencies[] = services
+features[ctools][] = services:services:3
+features[features_api][] = api:1
+features[services_endpoint][] = api
