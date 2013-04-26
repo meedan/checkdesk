@@ -23,7 +23,27 @@ function checkdesk_api_default_services_endpoint() {
   $endpoint->resources = array(
     'comment' => array(
       'operations' => array(
+        'create' => array(
+          'enabled' => '1',
+        ),
         'retrieve' => array(
+          'enabled' => '1',
+        ),
+        'update' => array(
+          'enabled' => '1',
+        ),
+        'delete' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+      'actions' => array(
+        'countAll' => array(
+          'enabled' => '1',
+        ),
+        'countNew' => array(
           'enabled' => '1',
         ),
       ),
@@ -33,9 +53,45 @@ function checkdesk_api_default_services_endpoint() {
         'retrieve' => array(
           'enabled' => '1',
         ),
+        'create' => array(
+          'enabled' => '1',
+        ),
+        'update' => array(
+          'enabled' => '1',
+        ),
+        'delete' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+      'relationships' => array(
+        'files' => array(
+          'enabled' => '1',
+        ),
+        'comments' => array(
+          'enabled' => '1',
+        ),
+      ),
+      'targeted_actions' => array(
+        'attach_file' => array(
+          'enabled' => '1',
+        ),
       ),
     ),
     'user' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
+        ),
+        'update' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
       'actions' => array(
         'login' => array(
           'enabled' => '1',
@@ -47,6 +103,16 @@ function checkdesk_api_default_services_endpoint() {
               'resource_api_version' => '1.0',
             ),
           ),
+        ),
+        'register' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'views' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
         ),
       ),
     ),
