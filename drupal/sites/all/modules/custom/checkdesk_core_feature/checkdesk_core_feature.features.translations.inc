@@ -1468,7 +1468,7 @@ function checkdesk_core_feature_translations_defaults() {
   $translations['ar:default']['da6c2824214c47f47f49430289e12732'] = array(
     'source' => 'view',
     'context' => '',
-    'location' => '; sites/all/modules/contrib/features_override/features_override_form.js',
+    'location' => '',
     'translation' => 'اعرض',
     'plid' => 0,
     'plural' => 0,
@@ -27593,7 +27593,7 @@ Unless you know what you are doing, it is highly recommended that you prefix the
   $translations['ar:default']['7930b8491214a4877b0510fc8da1e3ff'] = array(
     'source' => '@title dialog',
     'context' => '',
-    'location' => '',
+    'location' => '; modules/overlay/overlay-parent.js',
     'translation' => 'حوار @title',
     'plid' => 0,
     'plural' => 0,
@@ -41957,6 +41957,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['81fb8d0b4a9fa9b35ee167f719e9cf36'] = array(
+    'source' => 'Twitter accounts',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'حسابات تويتر',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['4ada50f7669ca29d7c013048a5a8d9e2'] = array(
     'source' => 'I\'m offline.',
     'context' => '',
@@ -42026,6 +42034,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/ar/modal/ajax/content/%D8%AA%D9%86%D8%B5%D9%8A%D8%A8-%D8%A5%D8%B6%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D9%85%D8%AA%D8%B5%D9%81%D8%AD',
     'translation' => 'تسجيل الدخول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['1b7e02b8b9ef3ac4f721bbd5b245bbde'] = array(
+    'source' => 'Add Twitter accounts',
+    'context' => '',
+    'location' => '/ar/modal/ajax/content/%D8%AA%D9%86%D8%B5%D9%8A%D8%A8-%D8%A5%D8%B6%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D9%85%D8%AA%D8%B5%D9%81%D8%AD',
+    'translation' => 'أضف حسابات تويتر',
     'plid' => 0,
     'plural' => 0,
   );
@@ -42637,6 +42653,22 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['aff580d45880cdd433ee18b2026caa70'] = array(
+    'source' => 'Add authenticated Twitter accounts',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'أضف حسابات تويتر مصدقة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['4939391f3ec2de504b3bda116b762f2e'] = array(
+    'source' => 'Administer Twitter accounts',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'أدر حسابات تويتر',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['4fa548506256ae755ae53785f3de0215'] = array(
     'source' => 'Story title',
     'context' => '',
@@ -43020,6 +43052,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['dfb0716138280c2e9ac9ceef97c956c4'] = array(
+    'source' => 'You have related a Twitter account with your user. Next time you can sign in with Twitter.',
+    'context' => '',
+    'location' => '/ar/user/login?destination=liveblog',
+    'translation' => 'لفد ربطت حساب تويتر مع حسابك على الموقع. يمكنك تسجيل الدخول في المرة القادمة باستخدام حساب تويتر خاصتك.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
@@ -43228,14 +43268,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:menu']['69d78890b1558047d9382ff73d0c97ef'] = array(
-    'source' => 'Administer users',
-    'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
-    'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
-    'translation' => 'إدارة المستخدمين',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:menu']['20ddd7b5fb8ad343dd15bb0090952c4e'] = array(
     'source' => 'Edit fact-checking statement',
     'context' => 'item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
@@ -43244,43 +43276,11 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:menu']['40f3a7f103a64b7d70433502860c2b74'] = array(
-    'source' => 'Submit report',
-    'context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
-    'location' => 'menu:item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
-    'translation' => 'أضف تقرير',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:menu']['461700f21002246799ec1ead60ba139d'] = array(
-    'source' => 'Compose update',
-    'context' => 'item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
-    'location' => 'menu:item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
-    'translation' => 'اكتب تحديث',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:menu']['6ca73892c7c02a201ae40d9dd65de329'] = array(
-    'source' => 'Create story',
-    'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
-    'location' => 'menu:item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
-    'translation' => 'أنشئ خبر',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:menu']['f393532105cccbcbe65e22c46b0e461c'] = array(
     'source' => 'Administer users',
     'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
     'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
     'translation' => 'إدارة المستخدمين',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:menu']['0b838703c2a217361d7b3d47deb90b1a'] = array(
-    'source' => 'Edit fact-checking statement',
-    'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
-    'location' => 'menu:item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
-    'translation' => 'حرر بيان التحقق من صحة المعلومات',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43305,6 +43305,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
     'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
     'translation' => 'معلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['666fa50ec84ff027511ba17b010af39d'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
+    'location' => 'menu:item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
+    'translation' => 'إدارة المستخدمين',
     'plid' => 0,
     'plural' => 0,
   );
