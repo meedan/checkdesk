@@ -67,19 +67,21 @@ function meedan_oembed_facebook_handler($provider, $url) {
 
     // Default case, we use the generic 'picture' attribute.
     // This is usually a thumbnail.
-    if ($post_data['picture']) {
+    if (isset($post_data['picture'])) {
       $embed->picture = $post_data['picture'];
       $embed->thumbnail_url = $post_data['picture'];
     }
 
     // Best case, find the largest picture available
     $max_size = 0;
-    foreach ($post_data['images'] as $image) {
-      if ($image['width'] * $image['height'] > $max_size) {
-        $embed->picture = $image['source'];
-        $embed->thumbnail_url = $image['source'];
+    if (isset($post_data['images'])) {
+      foreach ($post_data['images'] as $image) {
+        if ($image['width'] * $image['height'] > $max_size) {
+          $embed->picture = $image['source'];
+          $embed->thumbnail_url = $image['source'];
 
-        $max_size = $image['width'] * $image['height'];
+          $max_size = $image['width'] * $image['height'];
+        }
       }
     }
   }
