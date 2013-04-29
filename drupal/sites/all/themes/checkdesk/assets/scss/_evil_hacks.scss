@@ -11,20 +11,20 @@
 
 // Disable vertical tabs in forms
 div.vertical-tabs, div.vertical-tabs-panes {
-  display: none!important;  
+  display: none !important;  
 }
 
 // hack for an empty div
 nav li.menu-449 {
-  display: none!important;
-  border: 1px solid red!important;
+  display: none !important;
+  border: 1px solid red !important;
 }
 
 p br { display: none; } // hack to remove br's from content
 
 // Drupal autocomplete indicator is appearing broken
 input.form-autocomplete {
-  background-image: none!important; // Remove the drupal autocomplete image
+  background-image: none !important; // Remove the drupal autocomplete image
 }
 
 // hide unnecessary elements in forms
@@ -41,7 +41,7 @@ input.form-autocomplete {
 }  
 
 body.toolbar-drawer {
-  padding-top: 0!important; // override drupal
+  padding-top: 0 !important; // override drupal
 }
 
 // there is no reset, on the filter on the reports stream 
