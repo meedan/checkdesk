@@ -8459,9 +8459,15 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
 }
 #nav-discussion-form form {
   padding: 0 11px;
+  margin: 0;
 }
 #nav-discussion-form #edit-body #cke_1_contents {
   max-height: 200px;
+}
+#nav-discussion-form .form-actions {
+  padding: 0;
+  background-color: transparent;
+  border: none;
 }
 
 body.page-reports #main {
