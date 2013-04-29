@@ -22,15 +22,8 @@ $omega: opposite-position($from-direction);
     border-bottom: 1px solid $grayLighter;
     overflow: hidden;
 
-    a { 
-      display: inline;
-      @include reset-box-model();
+    a {
       @include ctb-linkColor($gray);
-      font-weight: bold;
-      white-space: normal;
-      &:hover {
-        // text-decoration: none;
-      }
     }
 
     .activity-data {
@@ -95,13 +88,22 @@ $omega: opposite-position($from-direction);
 
   .more-link {
     float: $alpha;
-    a { @include ctb-linkColor($gray); }
   }
 
   .notifications-settings-link {
     @include reset-box-model;
     float: $omega;
-    a { @include ctb-linkColor($gray); }
+  }
+
+  .more-link,
+  .notifications-settings-link {
+    a {
+      @include dropdown-link;
+      @include ctb-linkColor($gray);
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 
 }

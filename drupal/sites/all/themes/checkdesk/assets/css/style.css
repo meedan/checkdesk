@@ -3551,7 +3551,8 @@ textarea {
   background-color: #e5e5e5;
   border-bottom: 1px solid white;
 }
-.dropdown-menu a {
+
+ul.dropdown-menu a {
   display: block;
   float: none;
   padding: 4px 18px;
@@ -3567,8 +3568,9 @@ textarea {
   color: #333333;
   background-color: white;
 }
-.dropdown-menu a:hover {
+ul.dropdown-menu a:hover {
   color: white;
+  background-color: #0088cc;
 }
 
 .dropup .dropdown-menu {
@@ -4196,13 +4198,7 @@ div.tabs ul.primary li a {
   clear: both;
 }
 #my-notifications .heartbeat-activity a {
-  display: inline;
-  margin: 0;
-  padding: 0;
-  border: 0;
   color: #555555;
-  font-weight: bold;
-  white-space: normal;
 }
 #my-notifications .heartbeat-activity a:hover {
   color: black;
@@ -4324,23 +4320,42 @@ div.tabs ul.primary li a {
 #my-notifications .more-link {
   float: left;
 }
-#my-notifications .more-link a {
-  color: #555555;
-}
-#my-notifications .more-link a:hover {
-  color: black;
-}
 #my-notifications .notifications-settings-link {
   margin: 0;
   padding: 0;
   border: 0;
   float: right;
 }
+#my-notifications .more-link a,
 #my-notifications .notifications-settings-link a {
+  display: block;
+  float: none;
+  padding: 4px 18px;
+  clear: both;
+  font-weight: normal;
+  line-height: 24px;
+  white-space: nowrap;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  color: #333333;
+  background-color: white;
   color: #555555;
 }
+#my-notifications .more-link a:hover,
+#my-notifications .notifications-settings-link a:hover {
+  color: white;
+  background-color: #0088cc;
+}
+#my-notifications .more-link a:hover,
 #my-notifications .notifications-settings-link a:hover {
   color: black;
+}
+#my-notifications .more-link a:hover,
+#my-notifications .notifications-settings-link a:hover {
+  background-color: transparent;
 }
 
 #incoming-reports-filters {
@@ -6636,6 +6651,26 @@ div.region-page-top #toolbar div.toolbar-menu {
 #my-account #account-menu {
   float: right;
 }
+#my-account #account-menu a {
+  display: block;
+  float: none;
+  padding: 4px 18px;
+  clear: both;
+  font-weight: normal;
+  line-height: 24px;
+  white-space: nowrap;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  color: #333333;
+  background-color: white;
+}
+#my-account #account-menu a:hover {
+  color: white;
+  background-color: #0088cc;
+}
 
 div.tabs {
   margin: 0;
@@ -8399,6 +8434,9 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
 }
 #nav-discussion-form form {
   padding: 0 11px;
+}
+#nav-discussion-form #edit-body #cke_1_contents {
+  max-height: 200px;
 }
 
 body.page-reports #main {

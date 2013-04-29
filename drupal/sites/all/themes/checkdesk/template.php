@@ -161,14 +161,14 @@ function checkdesk_preprocess_page(&$variables) {
       }
       else if ($item['link_path'] == 'node/add/discussion') {
         // TODO: #809: Complete this with the rest of the Story form 1.0 work.
-        // module_load_include('inc', 'node', 'node.pages');
-        // $content = node_add('discussion');
+        module_load_include('inc', 'node', 'node.pages');
+        $content = node_add('discussion');
 
-        // $variables['main_menu'][$id]['html'] = TRUE;
-        // $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));
-        // $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
-        // $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
-        // $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
+        $variables['main_menu'][$id]['html'] = TRUE;
+        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));
+        $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
+        $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
+        $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
       }
     }
 
