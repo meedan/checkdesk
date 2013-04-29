@@ -6045,7 +6045,8 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 
 #modalContent.modal-install-bookmarklet {
   z-index: 950;
-  position: fixed;
+  position: fixed !important;
+  top: 200px !important;
 }
 #modalContent.modal-install-bookmarklet .ctools-modal-content .modal-content {
   overflow: visible;
@@ -6138,7 +6139,7 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 }
 #modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:last-child {
   float: left;
-  width: 350px;
+  width: 300px;
 }
 
 ul.pager {
@@ -7832,7 +7833,7 @@ body.sidebar-first #main #content {
   width: 100%;
   float: left;
   margin-left: 0;
-  *margin-right: -11px;
+  #margin-right: -11px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -7891,7 +7892,7 @@ body.widgets #main #content {
   width: 65.0655%;
   float: left;
   margin-left: 0;
-  *margin-right: -11px;
+  #margin-right: -11px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -8115,7 +8116,7 @@ body.page-user-password div.profile .user-picture {
   width: 3.05677%;
   float: left;
   margin-left: 0;
-  *margin-right: -11px;
+  #margin-right: -11px;
   display: inline;
 }
 body.page-user-login div.profile h3,
