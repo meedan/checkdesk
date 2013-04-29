@@ -75,32 +75,34 @@
    */
   Drupal.behaviors.lazyLoadSrc = {
     attach: function (context) {
-      $('[data-lazy-load-src]', context).bind('inview', function (e, visible) {
-        var $this = $(this),
-            sep, src;
+      $('[data-lazy-load-src]:not(.processed-lazy-load-src)', context)
+        .addClass('processed-lazy-load-src')
+        .bind('inview', function (e, visible) {
+          var $this = $(this),
+              sep, src;
 
-        if (visible) {
-          // Ensure we never run this twice on the same element
-          $this.unbind('inview');
+          if (visible) {
+            // Ensure we never run this twice on the same element
+            $this.unbind('inview');
 
-          src = $this.attr('data-lazy-load-src');
+            src = $this.attr('data-lazy-load-src');
 
-          // Ensure wmode=transparent is added to both the tag AND the src URL
-          // for all IFRAMEs.
-          if (this.tagName === 'IFRAME') {
-            $this.attr('wmode', 'transparent');
+            // Ensure wmode=transparent is added to both the tag AND the src URL
+            // for all IFRAMEs.
+            if (this.tagName === 'IFRAME') {
+              $this.attr('wmode', 'transparent');
 
-            sep = src.indexOf('?') === -1 ? '?' : '&';
-            src = src.indexOf('wmode') === -1 ? src + sep + 'wmode=transparent' : src;
+              sep = src.indexOf('?') === -1 ? '?' : '&';
+              src = src.indexOf('wmode') === -1 ? src + sep + 'wmode=transparent' : src;
+            }
+
+            // Using $(this).attr('src', 'http://....'); does not appear to work
+            // in some browsers.
+            //
+            // Kicking the DOM object directly does the trick.
+            this.src = src;
           }
-
-          // Using $(this).attr('src', 'http://....'); does not appear to work
-          // in some browsers.
-          //
-          // Kicking the DOM object directly does the trick.
-          this.src = src;
-        }
-      });
+        });
     }
   };
 
