@@ -38,7 +38,7 @@ function checkdesk_core_feature_flag_default_flags() {
   $flags['delete'] = array(
     'entity_type' => 'node',
     'title' => 'Delete',
-    'global' => '0',
+    'global' => 0,
     'types' => array(
       0 => 'media',
     ),
@@ -50,7 +50,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged for deletion.',
     'unflag_denied_text' => '',
     'link_type' => 'checkdesk_modal',
-    'weight' => '-6',
+    'weight' => -6,
     'show_on_form' => 0,
     'access_author' => 'own',
     'show_contextual_link' => 1,
@@ -70,7 +70,7 @@ function checkdesk_core_feature_flag_default_flags() {
   $flags['factcheck'] = array(
     'entity_type' => 'node',
     'title' => 'Fact-checking',
-    'global' => '0',
+    'global' => 0,
     'types' => array(
       0 => 'media',
     ),
@@ -82,13 +82,13 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged for fact-checking.',
     'unflag_denied_text' => 'Flagged for fact-checking.',
     'link_type' => 'checkdesk_modal',
-    'weight' => '-7',
+    'weight' => -7,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
     'show_on_page' => 1,
     'show_on_teaser' => 1,
-    'i18n' => '0',
+    'i18n' => 0,
     'confirm_modal_style' => 'modal-popup-small',
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
@@ -102,7 +102,7 @@ function checkdesk_core_feature_flag_default_flags() {
   $flags['factcheck_journalist'] = array(
     'entity_type' => 'node',
     'title' => 'Fact-checking (journalist)',
-    'global' => '1',
+    'global' => 1,
     'types' => array(
       0 => 'media',
     ),
@@ -114,7 +114,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'Fact-checking has been disabled for this report.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'weight' => '-10',
+    'weight' => -10,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
@@ -131,7 +131,7 @@ function checkdesk_core_feature_flag_default_flags() {
   $flags['graphic'] = array(
     'entity_type' => 'node',
     'title' => 'Graphic content',
-    'global' => '0',
+    'global' => 0,
     'types' => array(
       0 => 'media',
     ),
@@ -143,7 +143,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged as containing graphic content.',
     'unflag_denied_text' => '',
     'link_type' => 'checkdesk_modal',
-    'weight' => '-8',
+    'weight' => -8,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
@@ -163,7 +163,7 @@ function checkdesk_core_feature_flag_default_flags() {
   $flags['graphic_journalist'] = array(
     'entity_type' => 'node',
     'title' => 'Graphic content (journalist)',
-    'global' => '1',
+    'global' => 1,
     'types' => array(
       0 => 'media',
     ),
@@ -175,7 +175,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged as containing graphic content.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'weight' => '-11',
+    'weight' => -11,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
@@ -192,7 +192,7 @@ function checkdesk_core_feature_flag_default_flags() {
   $flags['spam'] = array(
     'entity_type' => 'node',
     'title' => 'Spam',
-    'global' => '0',
+    'global' => 0,
     'types' => array(
       0 => 'media',
     ),
@@ -204,13 +204,13 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_message' => 'This report was unflagged as spam.',
     'unflag_denied_text' => 'Flagged as spam.',
     'link_type' => 'checkdesk_modal',
-    'weight' => '-9',
+    'weight' => -9,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
     'show_on_page' => 1,
     'show_on_teaser' => 1,
-    'i18n' => '0',
+    'i18n' => 0,
     'confirm_modal_style' => 'modal-popup-small',
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
@@ -244,10 +244,10 @@ function checkdesk_core_feature_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
-          'width' => '24',
-          'height' => '24',
+          'width' => 24,
+          'height' => 24,
         ),
-        'weight' => '1',
+        'weight' => 1,
       ),
     ),
   );
@@ -266,11 +266,11 @@ function checkdesk_core_feature_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale',
         'data' => array(
-          'width' => '350',
+          'width' => 350,
           'height' => '',
           'upscale' => 0,
         ),
-        'weight' => '1',
+        'weight' => 1,
       ),
       2 => array(
         'label' => 'Crop',
@@ -282,11 +282,11 @@ function checkdesk_core_feature_image_default_styles() {
         'module' => 'image',
         'name' => 'image_crop',
         'data' => array(
-          'width' => '320',
-          'height' => '144',
+          'width' => 320,
+          'height' => 144,
           'anchor' => 'center-center',
         ),
-        'weight' => '2',
+        'weight' => 2,
       ),
     ),
   );
