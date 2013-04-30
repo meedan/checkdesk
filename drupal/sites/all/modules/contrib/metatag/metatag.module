@@ -12,7 +12,7 @@ function metatag_help($path, $arg) {
     return '<p>' . t('To view a summary of the default meta tags and the inheritance, click on a meta tag type.') . '</p>';
   }
   elseif ($path == 'admin/help#metatag') {
-    return '<p>' . t('The Meta tags module provides a options to let each page have customized meta data added to the "meta" tags in the HEAD section of the document.') . '</p>';
+    return '<p>' . t('The Metatag module provides a options to let each page have customized meta data added to the "meta" tags in the HEAD section of the document.') . '</p>';
   }
   elseif ($path == 'admin/config/search/metatags/bulk-revert') {
     return '<p>' . t('This form <strong>will wipe out</strong> all custom meta tags for the selected entities, reverting them to the default configuration assigned at the <a href="@url">Defaults tab</a>. For example, if the meta tags are changed for an article they will be removed if the "Node: Article" checkbox is selected.', array('@url' => url('admin/config/search/metatags'))) . '</p>';
@@ -95,8 +95,8 @@ function metatag_permission() {
  */
 function metatag_menu() {
   $items['admin/config/search/metatags'] = array(
-    'title' => 'Meta tags',
-    'description' => 'Configure meta tag defaults.',
+    'title' => 'Metatag',
+    'description' => 'Configure Metatag defaults.',
     'page callback' => 'metatag_config_overview',
     'access arguments' => array('administer meta tags'),
     'file' => 'metatag.admin.inc',
@@ -107,7 +107,7 @@ function metatag_menu() {
     'weight' => -10,
   );
   $items['admin/config/search/metatags/config/add'] = array(
-    'title' => 'Add a meta tag default',
+    'title' => 'Add a Metatag default',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_config_add_form'),
     'access arguments' => array('administer meta tags'),
@@ -254,6 +254,16 @@ function metatag_config_save($config) {
   // Allow modules to alter the configuration before it is saved using
   // hook_metatag_config_presave().
   module_invoke_all('metatag_config_presave', $config);
+
+  // Update the i18n string
+  if (function_exists('i18n_string_update')) {
+    $instance = $config->instance;
+
+    foreach ($config->config as $field => $item) {
+      $name = "metatag:" . $instance . ":" . $field;
+      i18n_string_update($name, $item['value']);
+    }
+  }
 
   if ($config->is_new) {
     drupal_write_record('metatag_config', $config);
@@ -639,7 +649,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
     // The requested language is different to the entity's language, look for
     // a language elsewhere.
     if ($entity_language != $langcode) {
-      // If no language was defined for the entity then use that for the 
+      // No language was defined for the entity.
       if ($entity_language == LANGUAGE_NONE) {
         $langcode = LANGUAGE_NONE;
       }
@@ -753,6 +763,8 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
   // Add any default tags to the mix.
   $metatags += metatag_config_load_with_defaults($instance);
 
+  $options['instance'] = $instance;
+
   foreach ($metatags as $metatag => $data) {
     if ($metatag_instance = metatag_get_instance($metatag, $data)) {
       $output[$metatag] = $metatag_instance->getElement($options);
@@ -781,7 +793,7 @@ function metatag_metatags_values($instance, array $metatags = array(), array $op
     // Convert language codes to a language object.
     $languages = language_list();
     $options['language'] = isset($languages[$language]) ? $languages[$language] : NULL;
-
+    $options['instance'] = $instance;
     // Get output elements.
     foreach ($metatags[$language] as $metatag => $data) {
       if ($metatag_instance = metatag_get_instance($metatag, $data)) {
@@ -816,6 +828,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   $options += array(
     'token types' => array(),
     'defaults' => metatag_config_load_with_defaults($instance),
+    'instance' => $instance,
   );
 
   $form['metatags'] = array(
@@ -907,9 +920,9 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
  * Form submit handler; unset meta tag values that equal their default values.
  */
 function metatag_metatags_form_submit($form, &$form_state) {
-  $defaults = $form['metatags']['#metatag_defaults'];
-  $values = &$form_state['values']['metatags'];
-  metatag_filter_values_from_defaults($values, $defaults);
+  if (!empty($form_state['values']['metatags']) && !empty($form['metatags']['#metatag_defaults'])) {
+    metatag_filter_values_from_defaults($form_state['values']['metatags'], $form['metatags']['#metatag_defaults']);
+  }
 }
 
 /**
@@ -1262,6 +1275,8 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
 
   $options['token types'] = array(token_get_entity_mapping('entity', $entity_type));
   $options['context'] = $entity_type;
+  // Allow hook_metatag_token_types_alter() to modify the defined tokens.
+  drupal_alter('metatag_token_types', $options);
 
   // @todo Remove metatag_form_alter() when http://drupal.org/node/1284642 is fixed in core.
   //metatag_metatags_form($form, $instance, $metatags, $options);
@@ -1369,6 +1384,7 @@ function metatag_get_instance($metatag, array $data = array()) {
 function metatag_get_value($metatag, array $data, array $options = array()) {
   $value = '';
   if ($metatag_instance = metatag_get_instance($metatag, $data)) {
+    $options["instance"] = $metatag;
     $value = $metatag_instance->getValue($options);
   }
   return $value;
@@ -1638,7 +1654,7 @@ function metatag_entity_get_language($entity_type, $entity) {
 function metatag_features_api() {
   $components = array(
     'metatag' => array(
-      'name' => t('Meta tags'),
+      'name' => t('Metatag'),
       'feature_source' => TRUE,
       'default_hook' => 'metatag_export_default',
       'default_file' => FEATURES_DEFAULTS_INCLUDED,
@@ -1722,7 +1738,29 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
 function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
   // Get the entity's ID.
   list($entity_id) = entity_extract_ids($entity_type, $entity);
-  
+
   // Delete the translation.
   metatag_metatags_delete($entity_type, $entity_id, $langcode);
+}
+
+/**
+ * Translates the metatag if i18n_string is enabled.
+ * @param $name
+ *   Array or string concatenated with ':' that contains textgroup and string context
+ * @param string $string
+ *   String in default language or array of strings to be translated
+ * @param $options
+ *   An associative array of additional options. @see i18n_string_translate()
+ */
+function metatag_translate($name, $string, $langcode = NULL, $update = FALSE) {
+  if (function_exists('i18n_string_translate')) {
+    $options = array(
+      'langcode' => $langcode,
+      'update' => $update,
+    );
+    return i18n_string_translate($name, $string, $options);
+  }
+  else {
+    return $string;
+  }
 }

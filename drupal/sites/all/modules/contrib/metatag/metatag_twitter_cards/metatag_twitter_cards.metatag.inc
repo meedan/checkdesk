@@ -49,7 +49,7 @@ function metatag_twitter_cards_metatag_config_default_alter(array &$configs) {
 function metatag_twitter_cards_metatag_info() {
   $info['groups']['twitter-cards'] = array(
     'label' => t('Twitter card'),
-    'description' => t('A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Twitter</a>. <strong>NOTE:</strong> Only use if the site supports SSL as all URLs <em>must</em> be secured via HTTPS.', array('!url' => 'http://twitter.com/')),
+    'description' => t('A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Twitter</a>.', array('!url' => 'http://twitter.com/')),
     'form' => array(
       '#weight' => 60,
     ),

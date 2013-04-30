@@ -29,7 +29,7 @@ function metatag_feeds_set_target($source, $entity, $target, $value) {
     return;
   }
 
-  // Strip the prefix that was added above. 
+  // Strip the prefix that was added above.
   $name = str_replace('meta_', '', $target);
 
   // Assign the value.

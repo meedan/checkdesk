@@ -93,7 +93,18 @@ class twitter_views_handler_field_profile_image extends views_handler_field {
  * @see https://dev.twitter.com/docs/intents
  */
 class twitter_views_handler_field_web_intents extends views_handler_field {
-  function query() {}
+  /**
+   * Add twitter_id field, which is needed during rendering.
+   */
+  function construct() {
+    parent::construct();
+    $this->additional_fields['twitter_id'] = 'twitter_id';
+  }
+
+  function query() {
+    $this->ensure_my_table();
+    $this->add_additional_fields();
+  }
 
   function render($values) {
     drupal_add_js('//platform.twitter.com/widgets.js', 'external');

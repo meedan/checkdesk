@@ -30,7 +30,7 @@ function metatag_dc_theme() {
 function theme_metatag_dc($variables) {
   $element = &$variables['element'];
   element_set_attributes($element, array(
-    '#name' => 'property',
+    '#name' => 'name',
     '#schema' => 'schema',
     '#value' => 'content')
   );
