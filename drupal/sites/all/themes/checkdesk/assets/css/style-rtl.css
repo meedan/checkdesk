@@ -7874,7 +7874,7 @@ body.sidebar-first #main #content {
   width: 100%;
   float: left;
   margin-left: 0;
-  #margin-right: -11px;
+  *margin-right: -11px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -7933,7 +7933,7 @@ body.widgets #main #content {
   width: 65.0655%;
   float: left;
   margin-left: 0;
-  #margin-right: -11px;
+  *margin-right: -11px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -8157,7 +8157,7 @@ body.page-user-password div.profile .user-picture {
   width: 3.05677%;
   float: left;
   margin-left: 0;
-  #margin-right: -11px;
+  *margin-right: -11px;
   display: inline;
 }
 body.page-user-login div.profile h3,
@@ -8373,11 +8373,12 @@ body.page-user-login #user-login .form-item-remember-me,
 body.page-user-register #user-login .form-item-remember-me,
 body.page-user-password #user-login .form-item-remember-me {
   float: right;
+  padding-right: 22px;
 }
 body.page-user-login #user-login .form-item-remember-me label,
 body.page-user-register #user-login .form-item-remember-me label,
 body.page-user-password #user-login .form-item-remember-me label {
-  display: block;
+  display: inline-block;
   color: #999999;
   font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
   font-size: 15.3px;
