@@ -10,8 +10,9 @@ jQuery(function ($) {
   var htmlHeight = 0;
 
   function checkHTMLHeight() {
-    if ($('html').height() != htmlHeight) {
-      htmlHeight = $('html').height();
+    var height = $('html')[0].offsetHeight;
+    if (height != htmlHeight) {
+      htmlHeight = height;
 
       window.parent.postMessage(['setHeight', htmlHeight].join(';'), '*');
     }
