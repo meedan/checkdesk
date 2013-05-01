@@ -4,5 +4,20 @@
 
   form {
     padding: 0 $gutter-width;
+    margin: 0;
+
+    h2 {
+      @include reset-box-model;
+    }
+  }
+
+  #edit-body #cke_1_contents {
+    max-height: 200px;
+  }
+
+  .form-actions {
+    padding: 0;
+    background-color: transparent;
+    border: none;
   }
 }

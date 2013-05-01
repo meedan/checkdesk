@@ -111,7 +111,6 @@ function checkdesk_preprocess_block(&$variables) {
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
-  
   global $user, $language;
 
   // Unescape HTML in title
@@ -160,15 +159,16 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-media-form', 'content' => $content));
       }
       else if ($item['link_path'] == 'node/add/discussion') {
-        // TODO: #809: Complete this with the rest of the Story form 1.0 work.
-        // module_load_include('inc', 'node', 'node.pages');
-        // $content = node_add('discussion');
+        module_load_include('inc', 'node', 'node.pages');
+        $node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
+        // The third 'ajax' parameter is a flag for checkdesk_core
+        $content = drupal_get_form('discussion_node_form', $node, 'ajax');
 
-        // $variables['main_menu'][$id]['html'] = TRUE;
-        // $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));
-        // $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
-        // $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
-        // $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
+        $variables['main_menu'][$id]['html'] = TRUE;
+        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));
+        $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
+        $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
+        $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
       }
     }
 
@@ -921,8 +921,8 @@ function checkdesk_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['title']['#title'] = t('Story title');
   $form['title']['#attributes']['placeholder'] = t('Story title');
 
-  // $form['body']['und'][0]['#title'] = NULL;
-  $form['body']['und'][0]['#attributes']['placeholder'] = t('Introduction');
+  $form['body']['und'][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
+  $form['body']['und'][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
 }
 
 /**
