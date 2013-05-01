@@ -528,6 +528,11 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
 
+    // HACK: Refs #1338, add a unique class to the ctools modal for a report
+    if (arg(0) == 'report-view-modal') {
+      $variables['modal_class_hack'] = '<script>jQuery("#modalContent, #modalBackdrop").addClass("modal-report");</script>';
+    }
+
     if (isset($variables['content']['field_link'])) {
       $field_link_rendered = render($variables['content']['field_link']);
 

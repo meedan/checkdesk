@@ -61,4 +61,8 @@
     <?php endif; ?>
   </article>
 
+  <?php if (isset($modal_class_hack)): ?>
+    <?php print $modal_class_hack; ?>
+  <?php endif; ?>
+
 </section>
