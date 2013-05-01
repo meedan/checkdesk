@@ -7,7 +7,6 @@
   //       dropdown menu should close the menu.
   Drupal.behaviors.checkdeskKeepTBDropdownsOpen = {
     attach: function (context) {
-      console.log($('.dropdown-menu,.cd-keep-tb-dropdown-open', context), 'checkdeskKeepTBDropdownsOpen');
       $('.dropdown-menu,.cd-keep-tb-dropdown-open', context).children().each(function () {
         var $this = $(this);
 
