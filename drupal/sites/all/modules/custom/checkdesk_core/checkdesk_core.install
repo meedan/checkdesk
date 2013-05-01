@@ -134,3 +134,11 @@ function checkdesk_core_update_7013() {
 function checkdesk_core_update_7014() {
   checkdesk_core_ensure_ife_settings();
 }
+
+/**
+ * Enable the featured stories feature.
+ */
+function checkdesk_core_update_7015() {
+  module_enable(array('checkdesk_featured_stories_feature'));
+}
+
