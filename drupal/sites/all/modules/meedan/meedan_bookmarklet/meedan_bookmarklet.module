@@ -162,10 +162,26 @@ function meedan_bookmarklet_admin_settings() {
  */
 function meedan_bookmarklet_get_code() {
   $force_https = intval(variable_get('meedan_bookmarklet_force_https', 0));
-  $js_url = url(drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet.js', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
+  $js_url      = url(drupal_get_path('module', 'meedan_bookmarklet') . '/js/meedan_bookmarklet.js', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
   $setting_url = url('meedan_bookmarklet/js', array('query' => array('callback' => '?'), 'absolute' => TRUE));
-  $timestamp = time(); // Avoids cache
-  return "javascript:(function(){window.meedanBookmarkletProtocol=(((document.location.protocol=='https:')||$force_https)?'https':'http');window.meedanBookmarkletURL='$setting_url'.replace(/^https?/, window.meedanBookmarkletProtocol);if(window.meedanBookmarklet!==undefined){meedanBookmarklet();}else{var src='$js_url?$timestamp'.replace(/^https?/, window.meedanBookmarkletProtocol);document.body.appendChild(document.createElement('script')).src=src;}})();";
+  $hostname    = $_SERVER['HTTP_HOST'];
+  $timestamp   = time(); // Avoids cache
+
+  return "javascript:("
+       .   "function () {"
+       .     "window.meedanBookmarkletProtocol = (((document.location.protocol === 'https:') || $force_https) ? 'https' : 'http');"
+       .     "window.meedanBookmarkletURL = '$setting_url'.replace(/^https?/, window.meedanBookmarkletProtocol);"
+       .     "window.meedanBookmarkletHost = '$hostname';"
+
+       .     "if (window.meedanBookmarklet !== undefined) {"
+       .       "meedanBookmarklet();"
+       .     "} else {"
+       .       "var src = '$js_url?$timestamp'.replace(/^https?/, window.meedanBookmarkletProtocol);"
+
+       .       "document.body.appendChild(document.createElement('script')).src = src;"
+       .     "}"
+       .   "}"
+       . ")();";
 }
 
 /**
