@@ -921,8 +921,8 @@ function checkdesk_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['title']['#title'] = t('Story title');
   $form['title']['#attributes']['placeholder'] = t('Story title');
 
-  // $form['body']['und'][0]['#title'] = NULL;
-  $form['body']['und'][0]['#attributes']['placeholder'] = t('Introduction');
+  $form['body']['und'][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
+  $form['body']['und'][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
 }
 
 /**
