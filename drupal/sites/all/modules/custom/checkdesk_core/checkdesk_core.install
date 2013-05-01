@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * Implements hook_enable().
+ */
+function checkdesk_core_enable() {
+  // Ensure CAPTCHA points are installed for new sites
+  checkdesk_core_update_7015();
+}
+
+/**
  * Implements hook_update_N().
  * Enable remember me and change checkdesk_core weight
  */
@@ -133,4 +141,16 @@ function checkdesk_core_update_7013() {
  */
 function checkdesk_core_update_7014() {
   checkdesk_core_ensure_ife_settings();
+}
+
+/**
+ * Installing CAPTCHA points.
+ */
+function checkdesk_core_update_7015() {
+  if (db_table_exists('captcha_points')) {
+    // MySQL specific code here
+    db_query("REPLACE INTO captcha_points VALUES('user_pass', NULL, 'default')");
+    db_query("REPLACE INTO captcha_points VALUES('user_register_form', NULL, 'default')");
+    // db_query("REPLACE INTO captcha_points VALUES('webform_client_form_1', NULL, 'default')");
+  }
 }
