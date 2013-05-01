@@ -1,8 +1,15 @@
-#meedan_bookmarklet_cont,
-#meedan_bookmarklet_cont iframe {
+#meedan_bookmarklet_cont {
   width: 600px;
-  height: 350px;
   background: #fff;
+}
+
+#meedan_bookmarklet_cont iframe {
+  width: 100%;
+  height: 350px;
+
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #meedan_bookmarklet_cont {
