@@ -111,7 +111,6 @@ function checkdesk_preprocess_block(&$variables) {
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
-  
   global $user, $language;
 
   // Unescape HTML in title
@@ -160,9 +159,10 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-media-form', 'content' => $content));
       }
       else if ($item['link_path'] == 'node/add/discussion') {
-        // TODO: #809: Complete this with the rest of the Story form 1.0 work.
         module_load_include('inc', 'node', 'node.pages');
-        $content = node_add('discussion');
+        $node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
+        // The third 'ajax' parameter is a flag for checkdesk_core
+        $content = drupal_get_form('discussion_node_form', $node, 'ajax');
 
         $variables['main_menu'][$id]['html'] = TRUE;
         $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));

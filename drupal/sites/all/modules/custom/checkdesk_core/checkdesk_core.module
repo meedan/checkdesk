@@ -7,6 +7,11 @@ function checkdesk_core_init() {
   drupal_add_library('system', 'ui.draggable');
   drupal_add_library('system', 'ui.droppable');
   drupal_add_library('system', 'drupal.ajax');
+
+  // HACK: This enables the #ajax submission of the node form. Currently
+  //       there does not appear to be a clean way to do this.
+  //       See similar: http://drupal.org/node/1167076
+  module_load_include('inc', 'node', 'node.pages');
 }
 
 /**
@@ -779,6 +784,93 @@ function _checkdesk_core_post_node_form_validate($form, &$form_state) {
       );
     }
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `discussion_node_form`.
+ *
+ * Ajax-enable the discussion form as requested.
+ */
+function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
+  if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
+    return;
+  }
+
+  $form['#prefix'] = '<div id="discussion-form-wrapper">';
+  $form['#suffix'] = '</div>';
+
+  // Helper class caught by Drupal.behaviors.checkdeskKeepTBDropdownsOpen
+  // after the form is rebuilt by AJAX we need the hacks to stay active.
+  $form['#attributes']['class'][] = 'cd-keep-tb-dropdown-open';
+
+  $form['actions']['submit']['#ajax'] = array(
+    'callback' => 'checkdesk_core_discussion_ajax_node_form_submit_callback',
+    'wrapper' => 'discussion-form-wrapper',
+    'method' => 'replace',
+    'effect' => 'fade',
+  );
+  $form['actions']['submit']['#submit'][] = 'checkdesk_core_discussion_node_form_submit_callback';
+}
+
+/**
+ * Submit handler to be invoked AFTER node_form_submit().
+ *
+ * Removes redirect added by node_form_submit() to ensure AJAX commands
+ * are returned correctly.
+ */
+function checkdesk_core_discussion_node_form_submit_callback($form, &$form_state) {
+  if (!form_get_errors()) {
+    unset($form_state['redirect']);
+
+    // Reset the form form next usage. This is critical else drupal_get_form()
+    // in checkdesk_core_discussion_ajax_node_form_submit_callback() can
+    // double submit the form!
+    //
+    // See: http://drupal.org/node/1350700
+    $form_state['input'] = array();
+    $form_state['rebuild'] = TRUE;
+  }
+}
+
+/**
+ * Delivers the updated discussion node form after the #ajax enabled node form is
+ * submitted.
+ */
+function checkdesk_core_discussion_ajax_node_form_submit_callback($form, &$form_state) {
+  global $user;
+
+  // Return the actual form if it contains errors.
+  if (form_get_errors()) {
+    return $form;
+  }
+
+  $node = $form_state['node'];
+
+  $title_link = l('<strong>' . check_plain($node->title) . '</strong>', 'node/' . $node->nid, array('html' => TRUE));
+  $success_message = t("!title created successfully.", array('!title' => $title_link));
+
+  // Yuck. Need to wipe $_POST to trick drupal_get_form() into creating a
+  // brand new form. If we don't do this drupal_get_form() will latch onto the
+  // old build_id. There appears to be no way around this in D7.
+  $_POST = array();
+  $new_node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
+  $fresh_form = drupal_get_form('discussion_node_form', $new_node, 'ajax');
+
+  $fresh_form['create_another_story'] = array(
+    '#type'   => 'markup',
+    '#markup' => '<h2>Create another story</h2>',
+    '#weight' => -500,
+  );
+
+  $commands = array();
+  $commands[] = ajax_command_replace('#discussion-form-wrapper', drupal_render($fresh_form));
+  $commands[] = ajax_command_prepend('#discussion-form-wrapper', '<div class="messages success">' . $success_message . '</div>');
+
+  ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
+
+  // Some rouge actor is throwing extra ajax commands after these ones causing
+  // invalid JSON.
+  drupal_exit();
 }
 
 /**
