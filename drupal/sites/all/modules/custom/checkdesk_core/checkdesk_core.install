@@ -154,3 +154,11 @@ function checkdesk_core_update_7015() {
     // db_query("REPLACE INTO captcha_points VALUES('webform_client_form_1', NULL, 'default')");
   }
 }
+
+/**
+ * Enable the featured stories feature.
+ */
+function checkdesk_core_update_7016() {
+  module_enable(array('checkdesk_featured_stories_feature'));
+}
+
