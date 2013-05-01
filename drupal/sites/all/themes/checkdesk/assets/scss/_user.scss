@@ -159,8 +159,9 @@ body.page-user-password { // both logged in and not logged ins states
 
     .form-item-remember-me {
       float: $alpha;
+      padding-#{$from-direction}: $gutter-width*2;
       label {
-        display: block;
+        display: inline-block;
         color: $grayLight;
         font-family: $header-font-stack;
         font-size: $fontSizeSmall;
@@ -169,6 +170,7 @@ body.page-user-password { // both logged in and not logged ins states
       input[type="checkbox"] {
         float: $alpha;
         width: auto;
+
       }
     }
 

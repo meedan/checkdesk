@@ -7843,7 +7843,7 @@ body.sidebar-first #main #content {
   width: 100%;
   float: right;
   margin-right: 0;
-  #margin-left: -11px;
+  *margin-left: -11px;
   display: inline;
   padding-left: 0%;
   padding-right: 0%;
@@ -7902,7 +7902,7 @@ body.widgets #main #content {
   width: 65.0655%;
   float: right;
   margin-right: 0;
-  #margin-left: -11px;
+  *margin-left: -11px;
   display: inline;
   padding-left: 0%;
   padding-right: 0%;
@@ -8126,7 +8126,7 @@ body.page-user-password div.profile .user-picture {
   width: 3.05677%;
   float: right;
   margin-right: 0;
-  #margin-left: -11px;
+  *margin-left: -11px;
   display: inline;
 }
 body.page-user-login div.profile h3,
@@ -8342,11 +8342,12 @@ body.page-user-login #user-login .form-item-remember-me,
 body.page-user-register #user-login .form-item-remember-me,
 body.page-user-password #user-login .form-item-remember-me {
   float: left;
+  padding-left: 22px;
 }
 body.page-user-login #user-login .form-item-remember-me label,
 body.page-user-register #user-login .form-item-remember-me label,
 body.page-user-password #user-login .form-item-remember-me label {
-  display: block;
+  display: inline-block;
   color: #999999;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
