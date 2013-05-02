@@ -43060,6 +43060,31 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['95718cc451264e1cde8b0f5a119baa40'] = array(
+    'source' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+    'context' => '',
+    'location' => '/; sites/all/modules/contrib/maxlength/js/maxlength.js',
+    'translation' => 'المحتوى محصور بـ @limit حرف، باق: <strong>@remaining</strong>
+‏',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7ed98c114459b0b619bc76cfb2c92f26'] = array(
+    'source' => 'Add a brief description of the story (optional)',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'أضف تلخيصاً موجزاً للموضوع (اختياري)',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['74f84ea57e2c480d46b7e36f3e3900ec'] = array(
+    'source' => 'A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'يجب أن يحتوي الموضوع تحديثاً واحداً أو أكثر. سيبقى هذا الموضوع غير منشور حتى تكتب أول تحديث.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

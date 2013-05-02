@@ -165,7 +165,7 @@ function checkdesk_preprocess_page(&$variables) {
         $content = drupal_get_form('discussion_node_form', $node, 'ajax');
 
         $variables['main_menu'][$id]['html'] = TRUE;
-        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));
+        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => t('Create story')));
         $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
         $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
         $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
@@ -526,6 +526,11 @@ function checkdesk_preprocess_node(&$variables) {
       else {
         $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
       }
+    }
+
+    // HACK: Refs #1338, add a unique class to the ctools modal for a report
+    if (arg(0) == 'report-view-modal') {
+      $variables['modal_class_hack'] = '<script>jQuery("#modalContent, #modalBackdrop").addClass("modal-report");</script>';
     }
 
     if (isset($variables['content']['field_link'])) {

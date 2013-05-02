@@ -5570,6 +5570,12 @@ div.tabs ul.primary li a {
   filter: alpha(opacity=100);
 }
 
+#modalContent.modal-report {
+  z-index: 950;
+  position: fixed !important;
+  top: 200px !important;
+}
+
 .update .update-by {
   margin-bottom: 6px;
   color: #999999;
