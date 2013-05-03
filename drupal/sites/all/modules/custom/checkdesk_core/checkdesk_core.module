@@ -810,6 +810,21 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     'effect' => 'fade',
   );
   $form['actions']['submit']['#submit'][] = 'checkdesk_core_discussion_node_form_submit_callback';
+
+  $form['body'][$form['#node']->language][0]['#after_build'][] = 'checkdesk_core_discussion_node_form_after_build';
+}
+
+/**
+ * Append extra information 
+ */
+function checkdesk_core_discussion_node_form_after_build($element) {
+  $element['#id'] .= '-noconflict';
+
+  if (isset($element['format']) && isset($element['format']['format'])) {
+    $element['format']['format']['#id'] .= '-noconflict';
+  }
+
+  return $element;
 }
 
 /**

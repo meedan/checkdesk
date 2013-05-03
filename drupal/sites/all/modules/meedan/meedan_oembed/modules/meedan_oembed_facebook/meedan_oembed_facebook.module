@@ -102,13 +102,15 @@ function meedan_oembed_facebook_handler($provider, $url) {
     $embed->description = t('No message available for this post');
   }
 
+  $default_thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
+
   $embed->title = $embed->description;
   $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
   $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
   $embed->author_name = $post_data['from']['name'];
   $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
   $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
-  $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : $embed->picture;
+  $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : (isset($embed->picture) ? $embed->picture : $default_thumbnail_url);
 
   return $embed;
 }
