@@ -724,6 +724,24 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_sensitive_content_fields';
+  $strongarm->value = array(
+    'field_link' => 'field_link',
+    'comment_body' => 0,
+    'body' => 0,
+    'field_attachment' => 0,
+    'field_reason' => 0,
+    'field_rating' => 0,
+    'field_stories' => 0,
+    'field_desk' => 0,
+    'field_bio' => 0,
+    'field_file' => 0,
+  );
+  $export['meedan_sensitive_content_fields'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'meedan_sensitive_content_flag';
   $strongarm->value = 'graphic_journalist';
   $export['meedan_sensitive_content_flag'] = $strongarm;
