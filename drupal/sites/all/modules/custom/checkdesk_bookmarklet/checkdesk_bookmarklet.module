@@ -44,7 +44,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     );
 
     // Check for graphic content
-    $flag = (in_array('journalist', $user->roles) ? 'graphic_journalist' : 'graphic');
+    $flag = ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) ? 'graphic_journalist' : 'graphic');
     $form['graphic_content'] = array(
       '#type' => 'checkboxes',
       '#options' => array($flag => t('Graphic content')),
