@@ -164,3 +164,32 @@ $omega: opposite-position($alpha);
     }
   }
 }
+
+// story lists
+.stories {
+  
+  .story-row {
+      @include ctb-bg(#ddd, rgba(0, 0, 0, 0.1));
+      padding: $absolute-line-height/4 $gutter-width;
+      margin-bottom: $absolute-line-height/4;
+      &:last-child {
+        margin-bottom: 0;        
+      }
+      line-height: 1.4;
+      
+      h3 {
+        @include reset-box-model;
+        margin-bottom: $absolute-line-height/4;
+        font-family: $nav-font-stack;
+        font-size: 15px;
+        font-weight: bold;
+        a { @include ctb-linkColor($linkColor); }
+      }
+
+      .story-desc {
+        color: $gray;
+        font-size: 14px;
+
+      }
+  }
+}

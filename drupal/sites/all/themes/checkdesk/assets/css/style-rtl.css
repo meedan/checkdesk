@@ -2145,10 +2145,6 @@ nav[role="navigation"] li.home a:before {
   content: "\f015";
 }
 
-.admin-nav-tabs > li span.icon-file:before {
-  content: "\f016";
-}
-
 /* \f020 doesn't work in Safari. all shifted one down */
 .report-row .in_progress span:before, body.page-reports #reports .report-item .in_progress span:before {
   content: "\f021";
@@ -2166,8 +2162,12 @@ nav[role="navigation"] li.submit-report a:before {
   content: "\f02e";
 }
 
-.admin-nav-tabs > li span.icon-pencil:before, nav[role="navigation"] a[href*="add/post"]:before {
+nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f040";
+}
+
+.admin-nav-tabs > li span.icon-pencil:before {
+  content: "\f044";
 }
 
 .report #report-actions ul.content-actions > li > a span.icon-share:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-share:before {
@@ -2245,6 +2245,14 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 
 #my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
   content: "\f0e5";
+}
+
+.admin-nav-tabs > li span.icon-file:before {
+  content: "\f0f6";
+}
+
+.admin-nav-tabs > li span.icon-plus:before {
+  content: "\f0fe";
 }
 
 .report .report-content .icon-quote-left:before {
@@ -2786,6 +2794,13 @@ input[type="checkbox"][readonly] {
   margin: 0 5.5px;
 }
 .admin-nav-tabs > li span.icon-pencil:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  line-height: 16px;
+  color: white;
+  margin: 0 5.5px;
+}
+.admin-nav-tabs > li span.icon-plus:before {
   font-family: "FontAwesome";
   font-size: 16px;
   line-height: 16px;
@@ -7848,6 +7863,36 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 }
 .story .story-body p:first-child {
   margin: 0 0;
+}
+
+.stories .story-row {
+  background-color: #dddddd;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 7.2px 11px;
+  margin-bottom: 7.2px;
+  line-height: 1.4;
+}
+.stories .story-row:last-child {
+  margin-bottom: 0;
+}
+.stories .story-row h3 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  margin-bottom: 7.2px;
+  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma";
+  font-size: 15px;
+  font-weight: bold;
+}
+.stories .story-row h3 a {
+  color: #0088cc;
+}
+.stories .story-row h3 a:hover {
+  color: black;
+}
+.stories .story-row .story-desc {
+  color: #555555;
+  font-size: 14px;
 }
 
 body.sidebar-first #main {
