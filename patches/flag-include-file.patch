@@ -1,0 +1,14 @@
+diff --git a/drupal/sites/all/modules/contrib/flag/flag.module b/drupal/sites/all/modules/contrib/flag/flag.module
+index 6c9888d..fc78690 100644
+--- a/drupal/sites/all/modules/contrib/flag/flag.module
++++ b/drupal/sites/all/modules/contrib/flag/flag.module
+@@ -10,6 +10,9 @@ define('FLAG_API_VERSION', 3);
+ define('FLAG_ADMIN_PATH', 'admin/structure/flags');
+ define('FLAG_ADMIN_PATH_START', 3);
+ 
++// FIXME: It shouldn't be necessary
++include_once('flag.flag.inc');
++
+ /**
+  * Implements hook_entity_info().
+  */
