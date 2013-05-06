@@ -25,7 +25,7 @@
         return;
       }
 
-      var allowableHeight = $(window).height() - $wrapper.offset().top + $(window).scrollTop(),
+      var allowableHeight = $(window).height() - $wrapper.offset().top + $(window).scrollTop() - 26,
           desiredHeight   = Drupal.behaviors.reportIframeResize.desiredHeight;
 
       if (desiredHeight && allowableHeight < desiredHeight) {
