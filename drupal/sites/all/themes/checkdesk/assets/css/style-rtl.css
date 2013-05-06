@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Amiri";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.ttf') format('truetype');
@@ -2150,7 +2151,7 @@ nav[role="navigation"] li.home a:before {
   content: "\f021";
 }
 
-#my-notifications .checkdesk_flag_report .heartbeat-time-ago:before, .report #report-actions ul.content-actions > li > a span.icon-flag:before {
+#my-notifications .checkdesk_flag_report .heartbeat-time-ago:before, .report #report-actions ul.content-actions > li > a span.icon-flag:before, .report #report-actions ul.content-actions > li > a.flagged .icon-flag:before {
   content: "\f024";
 }
 
@@ -4930,6 +4931,13 @@ div.tabs ul.primary li a {
   font-size: 15.3px;
   line-height: 15.3px;
   color: black;
+  margin: 0 5.5px;
+}
+.report #report-actions ul.content-actions > li > a.flagged .icon-flag:before {
+  font-family: "FontAwesome";
+  font-size: 15.3px;
+  line-height: 15.3px;
+  color: #9d261d;
   margin: 0 5.5px;
 }
 .report #report-actions ul.content-actions > li .ajax-progress-throbber {
@@ -7919,7 +7927,7 @@ body.sidebar-first #main #content {
   width: 100%;
   float: left;
   margin-left: 0;
-  *margin-right: -11px;
+  #margin-right: -11px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -7978,7 +7986,7 @@ body.widgets #main #content {
   width: 65.0655%;
   float: left;
   margin-left: 0;
-  *margin-right: -11px;
+  #margin-right: -11px;
   display: inline;
   padding-right: 0%;
   padding-left: 0%;
@@ -8209,7 +8217,7 @@ body.page-user-password div.profile .user-picture {
   width: 3.05677%;
   float: left;
   margin-left: 0;
-  *margin-right: -11px;
+  #margin-right: -11px;
   display: inline;
 }
 body.page-user-login div.profile h3,
