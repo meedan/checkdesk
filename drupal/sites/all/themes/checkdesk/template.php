@@ -93,6 +93,9 @@ function checkdesk_preprocess_html(&$variables) {
       'every_page' => TRUE,
     )
   );
+  
+  $head_title = array(drupal_get_title(), variable_get('site_name', ''));
+  $variables['head_title'] = implode(' | ', $head_title);
 
 }
 
