@@ -15,6 +15,7 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'name' => 'manipulate all queues',
     'roles' => array(
       'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'nodequeue',
   );
@@ -24,6 +25,7 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'name' => 'manipulate queues',
     'roles' => array(
       'administrator' => 'administrator',
+      'journalist' => 'journalist',
     ),
     'module' => 'nodequeue',
   );
