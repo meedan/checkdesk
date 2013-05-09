@@ -114,6 +114,15 @@ function checkdesk_core_menu() {
 function checkdesk_core_menu_alter(&$items) {
   // add delete tab to all nodes
   $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
+  // make nodequeue tab localizable
+  $items['node/%node/nodequeue']['title callback'] = 'checkdesk_core_nodequeue_tab_title';
+}
+
+/**
+ * Title callback for menu item `node/%node/nodequeue`.
+ */
+function checkdesk_core_nodequeue_tab_title() {
+  return t(variable_get('nodequeue_tab_name', 'Nodequeue'));
 }
 
 /**

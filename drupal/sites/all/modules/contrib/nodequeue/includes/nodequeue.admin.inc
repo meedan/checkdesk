@@ -182,7 +182,7 @@ function nodequeue_node_tab($node) {
     $row = array();
     $row[] = array(
       'class' => array('nodequeue-title'),
-      'data' => l(nodequeue_title_substitute($queue->subqueue_title, $queue, $subqueue), "admin/structure/nodequeue/$queue->qid/view/$subqueue->sqid"),
+      'data' => l(t(nodequeue_title_substitute($queue->subqueue_title, $queue, $subqueue)), "admin/structure/nodequeue/$queue->qid/view/$subqueue->sqid"),
     );
     $row[] = array(
       'class' => array('nodequeue-max-nodes'),

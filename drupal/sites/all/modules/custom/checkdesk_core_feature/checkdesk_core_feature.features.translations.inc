@@ -43060,12 +43060,11 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['95718cc451264e1cde8b0f5a119baa40'] = array(
-    'source' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+  $translations['ar:default']['9c7373d0741240d522491a5602302aea'] = array(
+    'source' => 'In queue',
     'context' => '',
-    'location' => '/; sites/all/modules/contrib/maxlength/js/maxlength.js',
-    'translation' => 'المحتوى محصور بـ @limit حرف، باق: <strong>@remaining</strong>
-‏',
+    'location' => '',
+    'translation' => 'في القائمة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43082,6 +43081,111 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/',
     'translation' => 'يجب أن يحتوي الموضوع تحديثاً واحداً أو أكثر. سيبقى هذا الموضوع غير منشور حتى تكتب أول تحديث.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['8ee24d0dda94409b3ca20e135cc771e1'] = array(
+    'source' => 'Max nodes',
+    'context' => '',
+    'location' => '',
+    'translation' => 'الحد الأقصى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7e1645a0302a8fe2405e7ecea56e3a6b'] = array(
+    'source' => 'Add to queue',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إضافة إلى القائمة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7482e4b6109304a227ed1957875dd9c9'] = array(
+    'source' => 'Infinite',
+    'context' => '',
+    'location' => '',
+    'translation' => 'لا نهائي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['403597de30b071d719877b1e89b5d40c'] = array(
+    'source' => 'Remove from queue',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إزالة من القائمة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['ca84965fa6d92df05db8ad7a6a1d4bc3'] = array(
+    'source' => 'remove',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إزالة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['e20a84e2100862bca53373ce5331bf9d'] = array(
+    'source' => 'Enter the title of a node to add it to the queue',
+    'context' => '',
+    'location' => '',
+    'translation' => 'أدخل عنوان الموضوع لاضافته للقائمة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['bfbb835fc25c16230d30f72e3f0688dd'] = array(
+    'source' => 'Reverse',
+    'context' => '',
+    'location' => '',
+    'translation' => 'عكسي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['33fa1ea50e95d05bd87f729b45a32c92'] = array(
+    'source' => 'Shuffle',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تبديل عشوائي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['eab2a1063b8d5520eb993ae8e2ad7638'] = array(
+    'source' => 'Post Date',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تاريخ النشر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a0f4aa7cc43ef2f3afd2a6eb2885cb93'] = array(
+    'source' => 'Featured Stories',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مواضيع مختارة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['dbefdb4bf3bdca279f9c4470789d0f2f'] = array(
+    'source' => 'Featured stories',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مواضيع مختارة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['95718cc451264e1cde8b0f5a119baa40'] = array(
+    'source' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+    'context' => '',
+    'location' => '/; sites/all/modules/contrib/maxlength/js/maxlength.js',
+    'translation' => 'المحتوى محصور بـ @limit حرف، باق: <strong>@remaining</strong>
+‏',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['755f47eb9afffa46055f2670d7db6812'] = array(
+    'source' => 'Add to',
+    'context' => '',
+    'location' => NULL,
+    'translation' => 'أضف إلى',
     'plid' => 0,
     'plural' => 0,
   );
