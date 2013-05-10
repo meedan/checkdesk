@@ -17,4 +17,5 @@ group :development do
   gem 'pry'
   gem 'rb-fsevent'
   gem "compass_twitter_bootstrap"
+  gem 'json', '~> 1.7.7'
 end
