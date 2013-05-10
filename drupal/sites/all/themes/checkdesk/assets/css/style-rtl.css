@@ -8264,9 +8264,29 @@ body.page-user-register .tabs,
 body.page-user-password .tabs {
   display: none;
 }
+body.page-user-login .captcha,
+body.page-user-register .captcha,
+body.page-user-password .captcha {
+  *zoom: 1;
+}
+body.page-user-login .captcha:before, body.page-user-login .captcha:after,
+body.page-user-register .captcha:before,
+body.page-user-register .captcha:after,
+body.page-user-password .captcha:before,
+body.page-user-password .captcha:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body.page-user-login .captcha:after,
+body.page-user-register .captcha:after,
+body.page-user-password .captcha:after {
+  clear: both;
+}
 body.page-user-login .captcha #recaptcha_table,
 body.page-user-register .captcha #recaptcha_table,
 body.page-user-password .captcha #recaptcha_table {
+  float: right;
   width: auto;
   background-color: white;
 }
