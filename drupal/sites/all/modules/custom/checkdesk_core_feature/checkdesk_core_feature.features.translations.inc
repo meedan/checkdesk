@@ -41909,6 +41909,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['7e6a3f7d2d11276cdbc9b74aa5811589'] = array(
+    'source' => 'Theme',
+    'context' => '',
+    'location' => '',
+    'translation' => 'حلة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['c5fd32289148822da9e9971274d426c9'] = array(
     'source' => 'A blog by <a href="@url">!owner</a>.',
     'context' => '',
@@ -42226,6 +42234,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=%D8%A3%D9%86%D8%B4%D8%A6%20%D8%AE%D8%A8%D8%B1%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar/node/add/discussion',
     'translation' => 'بإمكانك إرسال رابط من الفيس بوك هنا.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['57a4becf6fd4d3c1137d6570c016d0ca'] = array(
+    'source' => '<a href="!url" target="_blank">Content</a> created successfully.',
+    'context' => '',
+    'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=%D8%A3%D9%86%D8%B4%D8%A6%20%D8%AE%D8%A8%D8%B1%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar/node/add/discussion',
+    'translation' => 'إنشاء تم <a href="!url" target="_blank">المحتوى</a>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43060,11 +43076,52 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['9c7373d0741240d522491a5602302aea'] = array(
-    'source' => 'In queue',
+  $translations['ar:default']['95718cc451264e1cde8b0f5a119baa40'] = array(
+    'source' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+    'context' => '',
+    'location' => '/; sites/all/modules/contrib/maxlength/js/maxlength.js',
+    'translation' => 'المحتوى محصور بـ @limit حرف، باق: <strong>@remaining</strong>
+‏',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['5ceb08be29a2a27a605e590159e1905f'] = array(
+    'source' => 'normal',
     'context' => '',
     'location' => '',
-    'translation' => 'في القائمة',
+    'translation' => 'عادية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['51330bcd509a7ce54768f814a7dcc062'] = array(
+    'source' => 'low',
+    'context' => '',
+    'location' => '',
+    'translation' => 'منخفضة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['97622279142c89de15db58c1290f3380'] = array(
+    'source' => 'high',
+    'context' => '',
+    'location' => '',
+    'translation' => 'عالية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7a68ab73c218269f01fcae4c25444838'] = array(
+    'source' => 'Display on separate page',
+    'context' => '',
+    'location' => '',
+    'translation' => 'في صفحة منفصلة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['31aaab2b21765ff0d0922ffc3e6122b9'] = array(
+    'source' => 'Location of comment submission form',
+    'context' => '',
+    'location' => '',
+    'translation' => 'موضع استمارة التعليق',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43081,6 +43138,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/',
     'translation' => 'يجب أن يحتوي الموضوع تحديثاً واحداً أو أكثر. سيبقى هذا الموضوع غير منشور حتى تكتب أول تحديث.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['9c7373d0741240d522491a5602302aea'] = array(
+    'source' => 'In queue',
+    'context' => '',
+    'location' => '',
+    'translation' => 'في القائمة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43172,20 +43237,27 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['95718cc451264e1cde8b0f5a119baa40'] = array(
-    'source' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
-    'context' => '',
-    'location' => '/; sites/all/modules/contrib/maxlength/js/maxlength.js',
-    'translation' => 'المحتوى محصور بـ @limit حرف، باق: <strong>@remaining</strong>
-‏',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['755f47eb9afffa46055f2670d7db6812'] = array(
     'source' => 'Add to',
     'context' => '',
     'location' => NULL,
     'translation' => 'أضف إلى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7590abbbcba8f139af5e3e2252c2edeb'] = array(
+    'source' => '!title created successfully.',
+    'context' => '',
+    'location' => '/ar/system/ajax',
+    'translation' => 'إنشاء تم !title',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['fe76452fbac1b92538d60c76ea89230d'] = array(
+    'source' => 'Create another story',
+    'context' => '',
+    'location' => '/ar/system/ajax',
+    'translation' => 'أنشئ خبراً آخر',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43434,14 +43506,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
     'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
     'translation' => 'معلومات',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:menu']['666fa50ec84ff027511ba17b010af39d'] = array(
-    'source' => 'Administer users',
-    'context' => 'item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
-    'location' => 'menu:item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
-    'translation' => 'إدارة المستخدمين',
     'plid' => 0,
     'plural' => 0,
   );

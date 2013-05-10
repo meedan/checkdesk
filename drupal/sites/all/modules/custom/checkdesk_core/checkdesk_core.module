@@ -906,7 +906,7 @@ function checkdesk_core_discussion_ajax_node_form_submit_callback($form, &$form_
 
   $fresh_form['create_another_story'] = array(
     '#type'   => 'markup',
-    '#markup' => '<h2>Create another story</h2>',
+    '#markup' => '<h2>' . t('Create another story') . '</h2>',
     '#weight' => -500,
   );
 
