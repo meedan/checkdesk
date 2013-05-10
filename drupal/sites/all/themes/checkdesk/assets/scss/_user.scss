@@ -75,6 +75,26 @@ body.page-user-password { // both logged in and not logged ins states
     display: none;
   }
 
+  // captcha
+  .captcha {
+    #recaptcha_table {
+      width: auto;
+      background-color: $white;
+      
+      #recaptcha_response_field {
+        width: 284px !important;
+        @if $from-direction == right {
+          margin-#{$alpha}: $gutter-width;
+        }
+      }
+
+      #recaptcha_privacy {
+        font-size: 80%;
+      }
+
+    }
+  }
+
   // same size as the form
   #content-header {
     @include span-columns(4, 6);
@@ -176,7 +196,7 @@ body.page-user-password { // both logged in and not logged ins states
 
     .user-forgot-pass-link {
       float: $omega;
-    } 
+    }
 
     .form-actions {
       .form-submit {
