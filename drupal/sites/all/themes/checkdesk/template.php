@@ -93,6 +93,14 @@ function checkdesk_preprocess_html(&$variables) {
       'every_page' => TRUE,
     )
   );
+  
+  $head_title = array();
+  $title = drupal_get_title();
+  if (!empty($title)) {
+    $head_title[] = $title;
+  }
+  $head_title[] = variable_get('site_name', 'Drupal');
+  $variables['head_title'] = implode(' | ', $head_title);
 
 }
 
@@ -598,7 +606,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Flag as
       $output .= '<li class="flag-as dropup">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span>' . t('Flag') . '</a>';
+      $output .= l($links['checkdesk-flag']['title'], $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
       $output .= '<ul class="dropdown-menu">';
 
       if (isset($links['flag-spam'])) {

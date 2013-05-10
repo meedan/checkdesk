@@ -154,8 +154,9 @@
   display: inline-block;
   // icons in tabs
   span {
-    &.icon-file    { @include icon(file, $small-font-size, $white); }
-    &.icon-pencil  { @include icon(pencil, $small-font-size, $white); }
+    &.icon-file    { @include icon(file-alt, $small-font-size, $white); }
+    &.icon-pencil  { @include icon(edit, $small-font-size, $white); }
+    &.icon-plus    { @include icon(plus-sign-alt, $small-font-size, $white); }
     &.icon-trash   { @include icon(trash, $small-font-size, $white); }
     &.icon-wrench  { @include icon(wrench, $small-font-size, $white); }
   }

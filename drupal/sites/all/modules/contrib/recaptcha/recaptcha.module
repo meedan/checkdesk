@@ -144,7 +144,7 @@ function recaptcha_captcha() {
           $recaptcha_public_key .= '&nocookie=1';
         }
 
-        $html = recaptcha_get_html($recaptcha_public_key, NULL, TRUE);
+        $html = recaptcha_get_html($recaptcha_public_key, NULL, TRUE, $language->language);
         $captcha['form']['captcha_response'] = array(
           '#type' => 'hidden',
           '#value' => 'reCAPTCHA',
