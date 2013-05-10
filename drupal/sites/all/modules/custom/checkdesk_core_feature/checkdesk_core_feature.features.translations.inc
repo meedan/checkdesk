@@ -42241,7 +42241,7 @@ print theme(\'views_autorefresh\', array(
     'source' => '<a href="!url" target="_blank">Content</a> created successfully.',
     'context' => '',
     'location' => '/ar/node/add/media?meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=%D8%A3%D9%86%D8%B4%D8%A6%20%D8%AE%D8%A8%D8%B1%20|%20Meedan%20Checkdesk&meedan_bookmarklet_prepopulate[field_link]=http://qa.checkdesk.org/ar/node/add/discussion',
-    'translation' => 'إنشاء تم <a href="!url" target="_blank">المحتوى</a>',
+    'translation' => 'تم إنشاء <a href="!url" target="_blank">المحتوى</a>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43249,7 +43249,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => '!title created successfully.',
     'context' => '',
     'location' => '/ar/system/ajax',
-    'translation' => 'إنشاء تم !title',
+    'translation' => 'تم إنشاء !title',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43258,6 +43258,197 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar/system/ajax',
     'translation' => 'أنشئ خبراً آخر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['0df1ef434fe0e67808788fba8a8d20ba'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has changed the fact-checking status for a <a href="!url">report</a> you submitted to !rating.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor بتغيير حالة التحقق من صحة المعلومات <a href="!url">للتقرير</a> الذي أضفته إلى !rating.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3f2dad1b3e852c61342868c4d3268585'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has changed the fact-checking status for a <a href="!url">report</a> you added footnote to to !rating.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor بتغيير حالة التحقق من صحة المعلومات <a href="!url">للتقرير</a> الذي أضفت إليه ملاحظات إلى !rating.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['69dfe79801b63a24d843ba9dc58bd5f1'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has turned on fact-checking for a <a href="!url">report</a> you submitted.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor بتفعيل التحقق من صحة المعلومات على <a href="!url">التقرير</a> الذي أرسلته.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['ffefc0cabe86d1c7ace4590a24e163d9'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has suggested this report "!node_title" to this story "!story_title".
+
+<a href="!story_url">Click here</a> to compose a new update to the story using that report.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site, please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الموضوع "!story_title".
+
+<a href="!story_url">اضغط هنا</a> لكتابة تحديث جديد على ذلك الخبر باستخدام ذاك التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7f51659cfa4a68b98de07ce7f011cb11'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added footnote to the following report "!title":
+
+!body
+
+<a href="!url">Click here</a> to respond or change the status of the report.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+لقد قام !author بإضافة معلومات جديدة للتحقق من صحة المعلومات في التقرير التالي "!title":
+
+!body
+
+<a href="!url">اضغط هنا</a> لترد أو تغير حالة التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['34cc39e26cd375fbb0ad9313c1f7a8b0'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has suggested this report "!node_title" to this story "!story_title".
+
+Go to !story_url to compose a new update to the story using that report.
+
+You can edit your notification settings from !recipient_url.
+
+This was an auto-generated email from !site, please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor باقتراح إضافة هذا التقرير "!node_title" إلى هذا الموضوع "!story_title".
+
+إذهب إلى !story_url لكتابة تحديث جديد على الخبر باستخدام ذاك التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['733f2a5920d706b00f6523753bc274cc'] = array(
+    'source' => 'Hello !recipient_name,
+
+!flagging_user_name has flagged the following <a href="!flagged_node_url">report</a> under "!flag_title":
+
+!flagged_node_title
+
+They provided the following explanation for flagging:
+!reason
+
+<a href="!flagged_node_edit_url">Click here</a> to review.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site, please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !flagging_user_name بتنبيه فريق العمل عن <a href="!flagged_node_url">التقرير الآتي</a> بأنه "!flag_title": !flagged_node_title
+
+وأعطى سبب التنبيه قائلاً:
+!reason
+
+<a href="!flagged_node_edit_url">انقر هنا</a> لمراجعة التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['154a8e30d42d7a5ecf1bead8e4b213dd'] = array(
+    'source' => 'Hello !recipient_name,
+
+A <a href="!report_url">report</a> which you have submitted has been published in an <a href="!node_url">update</a>.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+تم نشر <a href="!report_url">التقرير</a> الذي أرسلته في <a href="!node_url">تحديث</a> جديد.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
     'plid' => 0,
     'plural' => 0,
   );
