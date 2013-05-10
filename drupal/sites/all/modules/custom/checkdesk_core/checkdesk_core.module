@@ -835,6 +835,15 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   );
   $form['actions']['submit']['#submit'][] = 'checkdesk_core_discussion_node_form_submit_callback';
 
+  $form['actions']['cancel'] = array(
+    '#type' => 'button',
+    '#value' => t('Cancel'),
+    '#attributes' => array(
+      'onclick' => "document.getElementById('discussion-form-menu-link').click(); return false;"
+    ),
+    '#weight' => 15,
+  );
+
   $form['body'][$form['#node']->language][0]['#after_build'][] = 'checkdesk_core_discussion_node_form_after_build';
 }
 
