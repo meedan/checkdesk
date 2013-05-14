@@ -1,0 +1,11 @@
+$from-direction: right;
+
+html.ar_AR {
+  @import "main";
+}
+
+html.ar_AR,
+html.ar_AR body {
+  text-direction: right;
+  direction: rtl;
+}

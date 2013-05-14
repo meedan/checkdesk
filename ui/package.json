@@ -1,0 +1,21 @@
+{
+  "name": "checkdesk",
+  "version": "0.1.0",
+  "description": "Checkdesk: a toolkit for fact-checking social media",
+  "main": "./public/js/checkdesk.js",
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start --browsers Firefox --single-run"
+  },
+  "devDependencies": {
+    "karma": "~0.8.5",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.4.x",
+    "grunt-contrib-watch": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.x",
+    "grunt-contrib-uglify": "~0.2.x",
+    "grunt-karma": "~0.4.x",
+    "grunt-ngmin": "0.0.2"
+  },
+  "author": "Meedan",
+  "license": "Copyright 2013 Meedan | http://meedan.org"
+}

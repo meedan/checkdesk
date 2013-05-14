@@ -1,0 +1,23 @@
+<div class="main container">
+    <form ng-cloak id="report-form">
+        <h1>{{report.title || ("New report" | translate)}}</h1>
+
+        <div class="form-item">
+            <label for="report-title" translate>Title</label>
+            <input type="text" ng-model="report.title" id="report-title" placeholder="{{'Title for this report' | translate}}">
+        </div>
+
+        <div class="form-item">
+            <label for="report-body" translate>Description</label>
+            <textarea type="text" ng-model="report.body.und[0].value" id="report-body" placeholder="{{'A brief description' | translate}}"></textarea>
+        </div>
+
+        <div class="form-item">
+            <label for="report-link" translate>URL</label>
+            <input type="url" ng-model="report.field_link.und[0].url" id="report-link" placeholder="{{'URL to report' | translate}}">
+        </div>
+
+        <button ng-click="submit()" class="btn btn-primary">Submit</button>
+        <button ng-click="cancel()" class="btn">Cancel</button>
+    </form>
+</div>
