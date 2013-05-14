@@ -1,5 +1,5 @@
 /*! checkdesk - v0.1.0 - 2013-05-14
- *  Copyright (c) 2013  | Licensed 
+ *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 var app = angular.module('Checkdesk', [
       'ngTranslate',

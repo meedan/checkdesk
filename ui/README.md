@@ -3,9 +3,20 @@
 The AngularJS based user interface for the Checkdesk project.
 
 
-## Installation and Server Configuration
+## Set up
 
-The checkdesk project uses Drupal as a back-end, see the `drupal` directory in the project root.
+### Building the project
+
+1. Get the project dependencies, you will need node.js and npm. Use [Homebrew](http://mxcl.github.io/homebrew/), [Macports](http://www.macports.org/), [Apt](https://help.ubuntu.com/community/AptGet/Howto) or similar to retrieve these.
+2. If you haven't already, install grunt globally via `sudo npm -g install grunt`.
+3. Install required npm dependencies by running `npm install` in the project root.
+4. Build the code by running `grunt build`.
+5. You should now have a fresh copy of `build/checkdesk.js`.
+
+
+### Server Configuration
+
+The checkdesk project uses Drupal as a back-end, see the 'drupal' directory in the project root.
 
 The server configuration proxies requests from some paths through to the Drupal back-end. This enables same-domain AJAX requests and gets around AJAX security issues.
 
@@ -102,4 +113,3 @@ The server configuration proxies requests from some paths through to the Drupal 
        |---templates
        |-test                              # Testing code, eg: unit tests
        |---unit
-
