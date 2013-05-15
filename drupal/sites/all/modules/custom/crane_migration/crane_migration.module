@@ -1,0 +1,77 @@
+<?php
+
+/**
+ * Implements hook_flush_caches().
+ */
+function crane_migration_flush_caches() {
+  crane_migration_register_migrations();
+}
+
+/**
+ * Register all D6->D7 migrations.
+ */
+function crane_migration_register_migrations() {
+  
+  // Migrating data from a Drupal 6 application
+  $common_arguments = array(
+    'source_connection' => 'crane',
+    'source_version' => 6,
+  );
+
+  // Migrating user pictures
+  $picture_arguments = $common_arguments + array(
+      'machine_name' => 'CranePicture',
+      'description' => t('Import Drupal 6 picture files from Crane'),
+      'default_uid' => 1,
+      // Below, set where is the source pictures directory
+      'source_dir' => variable_get('crane_migration_pictures_source', '/tmp/pictures'),
+      // Below, set where the destination pictures directory should stay
+      'destination_dir' => 'public://',
+  );
+  Migration::registerMigration('DrupalPicture6Migration', $picture_arguments['machine_name'], $picture_arguments);
+
+  // Now migrating users, along with their pictures and roles
+  $arguments = $common_arguments + array(
+    'description' => t('Migration of users from Crane'),
+    'machine_name' => 'CraneUsers',
+    'picture_migration' => 'CranePicture',
+  );
+  Migration::registerMigration('CraneUserMigration', $arguments['machine_name'], $arguments);
+
+  // Migrating content
+  $node_arguments = array(
+    array(
+      'class_name' => 'ReportMigration',
+      'description' => t('Migration of reports from Drupal 6 Crane'),
+      'machine_name' => 'Report',
+      'source_type' => 'report',
+      'destination_type' => 'media',
+    ),
+    array(
+      'class_name' => 'UpdateMigration',
+      'description' => t('Migration of updates from Drupal 6 Crane'),
+      'machine_name' => 'Update',
+      'source_type' => 'update',
+      'destination_type' => 'post',
+    ),
+  );
+  // Tell the node migrations where the users are coming from, so they can
+  // set up the dependency and resolve D6->D7 uids.
+  $common_node_arguments = $common_arguments + array(
+    'user_migration' => 'CraneUsers',
+  );
+  foreach ($node_arguments as $arguments) {
+    $arguments = array_merge_recursive($arguments, $common_node_arguments);
+    Migration::registerMigration($arguments['class_name'], $arguments['machine_name'], $arguments);
+  }
+}
+
+/**
+ * Implements hook_migrate_api().
+ */
+function crane_migration_migrate_api() {
+  $api = array(
+    'api' => 2,
+  );
+  return $api;
+}
