@@ -1,0 +1,13 @@
+diff --git a/drupal/sites/all/modules/contrib/nodequeue/includes/nodequeue.admin.inc b/drupal/sites/all/modules/contrib/nodequeue/includes/nodequeue.admin.inc
+index 06fca99..ca61749 100644
+--- a/drupal/sites/all/modules/contrib/nodequeue/includes/nodequeue.admin.inc
++++ b/drupal/sites/all/modules/contrib/nodequeue/includes/nodequeue.admin.inc
+@@ -182,7 +182,7 @@ function nodequeue_node_tab($node) {
+     $row = array();
+     $row[] = array(
+       'class' => array('nodequeue-title'),
+-      'data' => l(nodequeue_title_substitute($queue->subqueue_title, $queue, $subqueue), "admin/structure/nodequeue/$queue->qid/view/$subqueue->sqid"),
++      'data' => l(t(nodequeue_title_substitute($queue->subqueue_title, $queue, $subqueue)), "admin/structure/nodequeue/$queue->qid/view/$subqueue->sqid"),
+     );
+     $row[] = array(
+       'class' => array('nodequeue-max-nodes'),

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<!-- Here we inform Angular that this entire body is managed by the Checkdesk app
+     @see js/app.js -->
+<html ng-app="Checkdesk">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Checkdesk</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Correctly defining the base is necessary for Angular to find
+             dependencies. When the site is run from a sub-directory the
+             base should be "/Sub/Directory/Path". -->
+        <base href="/" />
+
+        <!-- Enables web crawlers to spider a pure Javascript application
+             @see: https://developers.google.com/webmasters/ajax-crawling/docs/specification -->
+        <meta name="fragment" content="!" />
+
+        <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="libs/bootstrap/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <!-- <link rel="stylesheet" href="css/main-rtl.css"> -->
+        <link rel="stylesheet" href="css/cdTranslationUI.css">
+
+        <script src="libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+
+    <body>
+        <!-- The header section is managed by the header controller "HeaderCtrl"
+             which defines the toggleLang(), login() and logout()
+             functions.
+             @see js/controllers.js -->
+        <header id="header" ng-controller="HeaderCtrl">
+            <div class="main container">
+                <div id="logo">
+                    <a href="/"><img src="img/logo.png" alt="Checkdesk logo"></a>
+                </div>
+
+                <div id="actions">
+                    <img src="img/header-icons.png" alt="Checkdesk header icons">
+
+                    <a href="/report/add" class="btn" ng-show="isLoggedIn" ng-cloak translate>Add new report</a>
+                </div>
+
+                <div id="user-actions" ng-cloak>
+                    <!-- ng-show and ng-hide are directives which hide/show a block
+                         based on a boolean.
+
+                         The beauty of this is that Angular watches these
+                         variables in real-time. So if the boolean changes, the
+                         show/hide is toggled immediately. -->
+                    <div ng-show="isLoggedIn" class="logged-in">
+                        <span translate values="{{user}}">WELCOME_USER</span>
+
+                        <button class="btn btn-warning" ng-click="logout()" translate>LOGOUT</button>
+                    </div>
+                    <div ng-hide="isLoggedIn" class="logged-out">
+                        <form ng-submit="login()">
+                            <input type="text" ng-model="user.name" placeholder="{{'USER_NAME' | translate}}">
+                            <input type="password" ng-model="user.pass" placeholder="{{'PASSWORD' | translate}}">
+                            <button class="btn" ng-click="login()" translate>LOG_IN</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="call-to-action">
+                    <!-- "ng-cloak" hides HTML tags until Angular has finished
+                         processing them.
+
+                         "translate" is a filter defined by ngTranslate which is
+                         responsible for hot-swapping the contents of the HTML
+                         tag depending on the currently used language.
+                         @see libs/angular-translate/angular-translate-0.6.0.js -->
+                    <h2 ng-cloak translate>CALL_TO_ACTION_HEAD</h2>
+                    <p ng-cloak translate>CALL_TO_ACTION_TEXT</p>
+                </div>
+
+                <!-- @see $scope.toggleLang in js/controllers.js -->
+                <button id="toggle-language-btn" class="btn btn-inverse" ng-click="toggleLang()" ng-cloak translate>LANGUAGE_TOGGLE</button>
+
+            </div>
+        </header>
+
+        <!-- This tiny little 'ng-view' marker has the same function as 'yield'
+             in Ruby or 'print render($content);' in Drupal.
+
+             The contents of the page will be rendered and placed here.-->
+        <div ng-view></div>
+
+        <section>
+            <div class="main container">
+                <hr>
+                <span ng-cloak translate>BOTTOM_CONTENT_GOES_HERE</span>
+            </div>
+        </section>
+
+        <footer>
+            <div class="main container">
+                <hr>
+                <span ng-cloak translate>REALLY_BOTTOM_CONTENT_GOES_HERE</span>
+            </div>
+        </footer>
+
+
+        <!-- Checkdesk translation UI is included here
+             @see js/cdTranslationUI.js -->
+        <div ng-include src="'templates/cd-translation-ui.html'" ng-controller="cdTranslationUICtrl" id="cd-translation-ui"></div>
+        <div id="cd-translation-ui-padding-hack"></div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="libs/jquery-1.9.1.min.js"><\/script>')</script>
+
+        <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+        <script src="libs/angular-1.1.4/angular.js"></script>
+        <script src="libs/angular-1.1.4/angular-cookies.js"></script>
+        <script src="libs/angular-1.1.4/i18n/angular-locale_ar.js"></script>
+        <script src="libs/angular-translate/angular-translate-0.6.0.js"></script>
+        <script src="libs/angular-1.1.4/angular-resource.js"></script>
+        <script src="js/checkdesk.min.js"></script>
+    </body>
+</html>

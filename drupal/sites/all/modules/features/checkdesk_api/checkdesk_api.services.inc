@@ -97,6 +97,13 @@ function checkdesk_api_default_services_endpoint() {
         ),
       ),
     ),
+    'system' => array(
+      'actions' => array(
+        'connect' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'user' => array(
       'operations' => array(
         'retrieve' => array(

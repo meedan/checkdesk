@@ -176,6 +176,7 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => t('Create story')));
         $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
         $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
+        $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
         $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
       }
     }

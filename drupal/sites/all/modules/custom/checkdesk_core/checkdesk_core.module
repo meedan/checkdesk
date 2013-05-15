@@ -114,6 +114,15 @@ function checkdesk_core_menu() {
 function checkdesk_core_menu_alter(&$items) {
   // add delete tab to all nodes
   $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
+  // make nodequeue tab localizable
+  $items['node/%node/nodequeue']['title callback'] = 'checkdesk_core_nodequeue_tab_title';
+}
+
+/**
+ * Title callback for menu item `node/%node/nodequeue`.
+ */
+function checkdesk_core_nodequeue_tab_title() {
+  return t(variable_get('nodequeue_tab_name', 'Nodequeue'));
 }
 
 /**
@@ -826,6 +835,15 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   );
   $form['actions']['submit']['#submit'][] = 'checkdesk_core_discussion_node_form_submit_callback';
 
+  $form['actions']['cancel'] = array(
+    '#type' => 'button',
+    '#value' => t('Cancel'),
+    '#attributes' => array(
+      'onclick' => "document.getElementById('discussion-form-menu-link').click(); return false;"
+    ),
+    '#weight' => 15,
+  );
+
   $form['body'][$form['#node']->language][0]['#after_build'][] = 'checkdesk_core_discussion_node_form_after_build';
 }
 
@@ -888,7 +906,7 @@ function checkdesk_core_discussion_ajax_node_form_submit_callback($form, &$form_
 
   $fresh_form['create_another_story'] = array(
     '#type'   => 'markup',
-    '#markup' => '<h2>Create another story</h2>',
+    '#markup' => '<h2>' . t('Create another story') . '</h2>',
     '#weight' => -500,
   );
 

@@ -1,0 +1,39 @@
+diff --git a/drupal/sites/all/modules/contrib/recaptcha/recaptcha-php-1.11/recaptchalib.php b/drupal/sites/all/modules/contrib/recaptcha/recaptcha-php-1.11/recaptchalib.php
+index 32c4f4d..291132f 100644
+--- a/drupal/sites/all/modules/contrib/recaptcha/recaptcha-php-1.11/recaptchalib.php
++++ b/drupal/sites/all/modules/contrib/recaptcha/recaptcha-php-1.11/recaptchalib.php
+@@ -103,7 +103,7 @@ function _recaptcha_http_post($host, $path, $data, $port = 80) {
+ 
+  * @return string - The HTML to be embedded in the user's form.
+  */
+-function recaptcha_get_html ($pubkey, $error = null, $use_ssl = false)
++function recaptcha_get_html ($pubkey, $error = null, $use_ssl = false, $language = null)
+ {
+ 	if ($pubkey == null || $pubkey == '') {
+ 		die ("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
+@@ -119,7 +119,11 @@ function recaptcha_get_html ($pubkey, $error = null, $use_ssl = false)
+         if ($error) {
+            $errorpart = "&amp;error=" . $error;
+         }
+-        return '<script type="text/javascript" src="'. $server . '/challenge?k=' . $pubkey . $errorpart . '"></script>
++        $languagepart = "";
++        if ($language) {
++           $languagepart = "&amp;hl=" . $language;
++        }
++        return '<script type="text/javascript" src="'. $server . '/challenge?k=' . $pubkey . $errorpart . $languagepart .'"></script>
+ 
+ 	<noscript>
+   		<iframe src="'. $server . '/noscript?k=' . $pubkey . $errorpart . '" height="300" width="500" frameborder="0"></iframe><br/>
+diff --git a/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module b/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
+index d6cb122..4f2d421 100644
+--- a/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
++++ b/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
+@@ -144,7 +144,7 @@ function recaptcha_captcha() {
+           $recaptcha_public_key .= '&nocookie=1';
+         }
+ 
+-        $html = recaptcha_get_html($recaptcha_public_key, NULL, TRUE);
++        $html = recaptcha_get_html($recaptcha_public_key, NULL, TRUE, $language->language);
+         $captcha['form']['captcha_response'] = array(
+           '#type' => 'hidden',
+           '#value' => 'reCAPTCHA',
