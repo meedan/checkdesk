@@ -100,7 +100,7 @@ function checkdesk_preprocess_html(&$variables) {
     $head_title[] = $title;
   }
   $head_title[] = variable_get('site_name', 'Drupal');
-  $variables['head_title'] = implode(' | ', $head_title);
+  $variables['head_title'] = strip_tags(implode(' | ', $head_title));
 
 }
 
