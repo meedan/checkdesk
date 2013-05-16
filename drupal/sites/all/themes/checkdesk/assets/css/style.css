@@ -5582,10 +5582,14 @@ div.tabs ul.primary li a {
 
 #modalContent.modal-report {
   z-index: 950;
-  position: fixed !important;
-  top: 200px !important;
 }
 
+@media all and (min-height: 40em) {
+  #modalContent.modal-report {
+    position: fixed !important;
+    top: 200px !important;
+  }
+}
 .update .update-by {
   margin-bottom: 6px;
   color: #999999;
