@@ -90,6 +90,27 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'captcha_add_captcha_description';
+  $strongarm->value = 0;
+  $export['captcha_add_captcha_description'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'captcha_default_challenge';
+  $strongarm->value = 'recaptcha/reCAPTCHA';
+  $export['captcha_default_challenge'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'captcha_default_validation';
+  $strongarm->value = '1';
+  $export['captcha_default_validation'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_discussion';
   $strongarm->value = 0;
   $export['comment_anonymous_discussion'] = $strongarm;
@@ -682,6 +703,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_notifications_enabled';
+  $strongarm->value = 1;
+  $export['meedan_notifications_enabled'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'meedan_notifications_list_limit';
   $strongarm->value = '';
   $export['meedan_notifications_list_limit'] = $strongarm;
@@ -699,6 +727,24 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'meedan_notifications_since';
   $strongarm->value = '';
   $export['meedan_notifications_since'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_sensitive_content_fields';
+  $strongarm->value = array(
+    'field_link' => 'field_link',
+    'comment_body' => 0,
+    'body' => 0,
+    'field_attachment' => 0,
+    'field_reason' => 0,
+    'field_rating' => 0,
+    'field_stories' => 0,
+    'field_desk' => 0,
+    'field_bio' => 0,
+    'field_file' => 0,
+  );
+  $export['meedan_sensitive_content_fields'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1002,6 +1048,27 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'pathauto_user_pattern';
   $strongarm->value = 'users/[user:name]';
   $export['pathauto_user_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'recaptcha_private_key';
+  $strongarm->value = '6LcEvOASAAAAAL6iPhZyCxW0Qai0F1LOrMkljiz3';
+  $export['recaptcha_private_key'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'recaptcha_public_key';
+  $strongarm->value = '6LcEvOASAAAAAIvsfS1ISjfaWRs0qc3Ggm37Phg6';
+  $export['recaptcha_public_key'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'recaptcha_theme';
+  $strongarm->value = 'clean';
+  $export['recaptcha_theme'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

@@ -75,18 +75,34 @@
         $('body').scrollTop(0);
       }
 
-      // First time, create bookmarklet window
-			if ($("#meedan_bookmarklet_cont").length === 0) {
-        // Load settings
-        $.getJSON(window.meedanBookmarkletURL, function(json) {
-          MeedanBookmarklet.settings = json;
-          createBookmarklet();
-        });
-      // After the first time, just show and hide the bookmarklet  
-			} else {
-				$("#meedan_bookmarklet_cont, #meedan_bookmarklet_mask").fadeIn(500);
-        $('body').scrollTop(0);
-			}
+      // Special short circuit, when on the site this bookmarklet was taken from
+      // just click the submit report button in the navigation. Then abort the
+      // bookmarklet entirely.
+      if (window.location.host === window.meedanBookmarkletHost) {
+        var submitReport = $('a#menu-submit-report')[0];
+
+        // Trigger a click even programmatically without jQuery. This is useful
+        // to ensure the event is caught by all applicable handlers. Not JUST
+        // the current window.jQuery.
+        if (submitReport.click) {
+          submitReport.click();
+        } else if (submitReport.onclick) {
+          submitReport.onclick();
+        }
+      } else {
+        // First time, create bookmarklet window
+        if ($("#meedan_bookmarklet_cont").length === 0) {
+          // Load settings
+          $.getJSON(window.meedanBookmarkletURL, function(json) {
+            MeedanBookmarklet.settings = json;
+            createBookmarklet();
+          });
+        // After the first time, just show and hide the bookmarklet  
+        } else {
+          $("#meedan_bookmarklet_cont, #meedan_bookmarklet_mask").fadeIn(500);
+          $('body').scrollTop(0);
+        }
+      }
 
 		})();
 	}

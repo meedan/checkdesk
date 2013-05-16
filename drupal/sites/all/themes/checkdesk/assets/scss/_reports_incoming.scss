@@ -86,8 +86,8 @@
       // keeps embedded iframe
       // inside sidebar
       iframe {
-        min-width: 100%!important;
-        width: 100%!important;
+        min-width: 100% !important;
+        width: 100% !important;
       }
     }
 
@@ -140,3 +140,12 @@
 
   } // hover
 } // report row
+
+//
+// CTools modal report
+//
+#modalContent.modal-report {
+  z-index: $zindexModal;
+  position: fixed !important;
+  top: 200px !important;
+}

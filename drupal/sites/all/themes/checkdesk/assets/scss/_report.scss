@@ -121,6 +121,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						&.icon-flag    { @include icon(flag, $fontSizeSmall, $darker-grey); }
 						&.icon-share   { @include icon(share, $fontSizeSmall, $darker-grey); }
 					}
+
+          &.flagged .icon-flag {
+            @include icon(flag, $fontSizeSmall, $red);
+          }
 				}
 				// hide ajax throbber in dropdown
 			    .ajax-progress-throbber {

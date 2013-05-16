@@ -23,20 +23,35 @@ The primary features include:
 
 * Multi-lingual support using the Entity Translation module.
 
-* Per-path control over meta tags using the "Meta tags: Context" submodule
+* Translation support using the Internationalization (i18n) module.
+
+* Per-path control over meta tags using the "Metatag: Context" submodule
   (requires the Context module).
 
+* Integration with the Views module allowing meta tags to be controlled for
+  individual Views pages, with each display in the view able to have different
+  meta tags, by using the "Metatag: Views" submodule.
+
+* Integration with the Panels module allowing meta tags to be controlled for
+  individual Panels pages, by using the "Metatag: Panels" submodule.
+
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
-  enabling the "Meta tags: Dublin Core" submodule.
+  enabling the "Metatag: Dublin Core" submodule.
 
 * The Open Graph Protocol meta tags, as used by Facebook, may be added by
-  enabling the "Meta tags: Open Graph" submodule.
+  enabling the "Metatag: Open Graph" submodule.
 
-* The Twitter Cards meta tags may be added by enabling the "Meta tags: Twitter
+* The Twitter Cards meta tags may be added by enabling the "Metatag: Twitter
   Cards" submodule.
 
 * An API allowing for additional meta tags to be added, beyond what is provided
   by this module - see metatag.api.php for full details.
+
+* Support for the Migrate module for migrating data from another system - see
+  metatag.migrate.inc for full details.
+
+* Support for the Feeds module for importing data from external data sources or
+  file uploads.
 
 
 Configuration
@@ -67,6 +82,14 @@ Configuration
     the "Custom Display Settings" section ensure that "Tokens" is checked (save
     the form if necessary), then to customize the tokens go to:
     admin/structure/types/manage/article/display/token
+
+
+Internationalization: i18n.module
+------------------------------------------------------------------------------
+All default configurations may be translated using the Internationalization
+(i18n) module. The custom strings that are assigned to e.g. the "Global: Front
+page" configuration will show up in the Translate Interface admin page
+(admin/config/regional/translate/translate) and may be customized per language.
 
 
 Fine Tuning

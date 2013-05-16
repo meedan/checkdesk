@@ -1,0 +1,12 @@
+# A sample Guardfile
+# More info at https://github.com/guard/guard#readme
+
+guard 'compass' do
+  watch(%r{^src/scss/(.+)\.s[ac]ss$})
+end
+
+guard 'process', :name => 'grunt build', :command => 'grunt build --no-color', :stop_signal => "KILL" do
+  watch(%r{^src/(.+)\.js$})
+  watch('package.json')
+  watch('Gruntfile.json')
+end

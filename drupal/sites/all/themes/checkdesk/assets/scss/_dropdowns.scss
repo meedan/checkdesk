@@ -10,7 +10,7 @@
   position: relative;
 }
 
-// The dropdown menu (ul)
+// The dropdown menu (usually a ul)
 .dropdown-menu {
   position: absolute;
   top: 75%;
@@ -44,22 +44,29 @@
   .divider {
     @include ctb-nav-divider($dropdownDividerTop, $dropdownDividerBottom);
   }
+}
 
-  // Links within the dropdown menu
+// Links within a dropdown list menu
+@mixin dropdown-link {
+  display: block;
+  float: none;
+  padding: ms(-3) ms(0);
+  clear: both;
+  font-weight: normal;
+  line-height: $absolute-line-height;
+  white-space: nowrap;
+  @include border-radius(0);
+  color: $dropdownLinkColor;
+  background-color: $dropdownBackground;
+  &:hover {
+    color: $dropdownLinkColorHover;
+    background-color: $dropdownLinkBackgroundHover;
+  }
+}
+
+ul.dropdown-menu {
   a {
-    display: block;
-    float: none;
-    padding: ms(-3) ms(0);
-    clear: both;
-    font-weight: normal;
-    line-height: $absolute-line-height;
-    white-space: nowrap;
-    @include border-radius(0);
-    color: $dropdownLinkColor;
-    background-color: $dropdownBackground;
-    &:hover {
-      color: $dropdownLinkColorHover;
-    }
+    @include dropdown-link;
   }
 }
 

@@ -1,0 +1,58 @@
+@import "variables";
+
+// HACK: Quick and easy way to add space for the UI
+#cd-translation-ui-padding-hack {
+  height: 350px;
+}
+
+#cd-translation-ui {
+  position: fixed;
+  bottom: 0;
+  #{$from-direction}: 0;
+  width: 100%;
+
+  background-color: $tb-blue;
+  color: #fff;
+
+  & > .inner {
+    overflow-y: auto;
+    position: relative;
+    margin: $gutter-width / 2 $gutter-width;
+    padding-#{$opposite-from-direction}: 80px;
+
+    max-height: 350px;
+
+    &.collapsed {
+      height: $gutter-width * 2;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-spacing: 2px;
+    border-collapse: separate;
+
+    td {
+      background-color: #fff;
+      color: #000;
+
+      &.source,
+      &.translation {
+        width: 50%;
+      }
+
+      input {
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        height: 30px;
+      }
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    #{$opposite-from-direction}: 0;
+  }
+}

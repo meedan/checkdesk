@@ -1,0 +1,12 @@
+diff --git a/drupal/sites/all/modules/contrib/twitter/twitter.inc b/drupal/sites/all/modules/contrib/twitter/twitter.inc
+index ded7e11..8c959e7 100644
+--- a/drupal/sites/all/modules/contrib/twitter/twitter.inc
++++ b/drupal/sites/all/modules/contrib/twitter/twitter.inc
+@@ -6,6 +6,7 @@
+  */
+ 
+ module_load_include('php', 'oauth_common', 'lib/OAuth');
++require_once('twitter.lib.php');
+ 
+ /**
+  * Connect to the Twitter API.

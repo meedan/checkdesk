@@ -14,7 +14,9 @@ group :development do
   gem 'guard-livereload'
   gem 'guard-compass'
   gem 'guard-uglify', git: 'git://github.com/pferdefleisch/guard-uglify.git'
+  gem 'guard-process'
   gem 'pry'
   gem 'rb-fsevent'
   gem "compass_twitter_bootstrap"
+  gem 'json', '~> 1.7.7'
 end

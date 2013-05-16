@@ -55,5 +55,9 @@
 
   #account-menu {
     float: opposite-position($from-direction);
+
+    a {
+      @include dropdown-link;
+    }
   }
 }

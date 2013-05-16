@@ -93,6 +93,14 @@ function checkdesk_preprocess_html(&$variables) {
       'every_page' => TRUE,
     )
   );
+  
+  $head_title = array();
+  $title = drupal_get_title();
+  if (!empty($title)) {
+    $head_title[] = $title;
+  }
+  $head_title[] = variable_get('site_name', 'Drupal');
+  $variables['head_title'] = strip_tags(implode(' | ', $head_title));
 
 }
 
@@ -111,7 +119,6 @@ function checkdesk_preprocess_block(&$variables) {
  * @see page.tpl.php
  */
 function checkdesk_preprocess_page(&$variables) {
-  
   global $user, $language;
 
   // Unescape HTML in title
@@ -160,15 +167,17 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-media-form', 'content' => $content));
       }
       else if ($item['link_path'] == 'node/add/discussion') {
-        // TODO: #809: Complete this with the rest of the Story form 1.0 work.
-        // module_load_include('inc', 'node', 'node.pages');
-        // $content = node_add('discussion');
+        module_load_include('inc', 'node', 'node.pages');
+        $node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
+        // The third 'ajax' parameter is a flag for checkdesk_core
+        $content = drupal_get_form('discussion_node_form', $node, 'ajax');
 
-        // $variables['main_menu'][$id]['html'] = TRUE;
-        // $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => 'Create story'));
-        // $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
-        // $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
-        // $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
+        $variables['main_menu'][$id]['html'] = TRUE;
+        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => t('Create story')));
+        $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
+        $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
+        $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
+        $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
       }
     }
 
@@ -528,6 +537,11 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
 
+    // HACK: Refs #1338, add a unique class to the ctools modal for a report
+    if (arg(0) == 'report-view-modal') {
+      $variables['modal_class_hack'] = '<script>jQuery("#modalContent, #modalBackdrop").addClass("modal-report");</script>';
+    }
+
     if (isset($variables['content']['field_link'])) {
       $field_link_rendered = render($variables['content']['field_link']);
 
@@ -593,7 +607,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Flag as
       $output .= '<li class="flag-as dropup">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-flag"></span>' . t('Flag') . '</a>';
+      $output .= l($links['checkdesk-flag']['title'], $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
       $output .= '<ul class="dropdown-menu">';
 
       if (isset($links['flag-spam'])) {
@@ -921,8 +935,8 @@ function checkdesk_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['title']['#title'] = t('Story title');
   $form['title']['#attributes']['placeholder'] = t('Story title');
 
-  // $form['body']['und'][0]['#title'] = NULL;
-  $form['body']['und'][0]['#attributes']['placeholder'] = t('Introduction');
+  $form['body']['und'][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
+  $form['body']['und'][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
 }
 
 /**
@@ -988,5 +1002,14 @@ function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
     $node = $form['#node'];
     unset($form['field_stories']);
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+  }
+}
+
+/**
+ * Implements template_preprocess_views_view_fields().
+ */
+function checkdesk_preprocess_views_view_fields(&$vars) {
+  if ($vars['view']->name == 'reports') {
+    $vars['name_i18n'] = t($vars['fields']['field_rating']->content);
   }
 }

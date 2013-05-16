@@ -48,6 +48,17 @@ function meedan_sensitive_content_settings() {
     '#title' => t('Flag'),
     '#description' => t('The flag that is associated with the sensitive content.'),
   );
+  $fields = array();
+  foreach (field_info_field_map() as $field_name => $field) {
+    $fields[$field_name] = $field_name;
+  }
+  $form['meedan_sensitive_content_fields'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $fields,
+    '#default_value' => variable_get('meedan_sensitive_content_fields', array()),
+    '#title' => t('Fields'),
+    '#description' => t('Which fields can have sensitive content.'),
+  );
   $form['meedan_sensitive_content_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Warning text'),
@@ -61,29 +72,9 @@ function meedan_sensitive_content_settings() {
  * Implements of hook_node_view().
  */
 function meedan_sensitive_content_node_view($node, $view_mode, $langcode) {
-  global $user;
-  $display_sensitive = TRUE;
-  if (isset($user->data['sensitive_content']) && $user->data['sensitive_content']) {
-    $display_sensitive = FALSE;
-  }
-  // FIXME Wrapper should always be added for selected fields. Fields should be selectable in admin settings.
-  if ($display_sensitive && meedan_sensitive_content_is_flagged($node)) {
-    $node->content['field_link']['#prefix'] = '<div class="sensitive-hide sensitive-item-'. $node->nid .'">';
-    $node->content['field_link']['#suffix'] = '</div>';
-    $node->content['meedan_sensitive_content'] = array(
-      '#markup' => t(variable_get('meedan_sensitive_content_text', MEEDAN_SENSITIVE_CONTENT_DEFAULT_TEXT)),
-      '#meedan_sensitive_nid' => $node->nid,
-      '#theme' => 'meedan_sensitive_content_display',
-      '#attached' => array( 
-        'js' => array(
-          drupal_get_path('module', 'meedan_sensitive_content') . '/js/meedan_sensitive_content.js',
-          array('data' => array('meedanSensitiveContent' => array('flag' => variable_get('meedan_sensitive_content_flag', ''))), 'type' => 'setting'),
-        ),
-        'css' => array(
-          drupal_get_path('module', 'meedan_sensitive_content') . '/css/meedan_sensitive_content.css',
-        ),
-      ),
-    );
+  $fields = variable_get('meedan_sensitive_content_fields', array());
+  foreach ($fields as $field) {
+    meedan_sensitive_content_data($node->content[$field], $node->nid);
   }
 }
 
@@ -136,3 +127,55 @@ function template_preprocess_meedan_sensitive_content_display(&$vars) {
   $vars['meedan_sensitive_link'] = l(t('Display'), '', array('attributes' => array('class' => 'display-sensitive', 'onclick' => 'meedanSensitiveContent.Update('. $vars['meedan_sensitive_nid'] .', true); return false;')));
 }
 
+function meedan_sensitive_content_preprocess_views_view_fields(&$vars) {
+  $view = $vars['view'];
+  if (isset($vars['fields'])) {
+    $fields = variable_get('meedan_sensitive_content_fields', array());
+    foreach ($fields as $field_name) {
+      if (isset($vars['fields'][$field_name])) {
+        $field = $vars['fields'][$field_name];
+        $content = $field->content;
+        meedan_sensitive_content_data($content, $field->raw);
+        $vars['fields'][$field_name]->content = render($content);
+      }
+    }
+  }
+}
+
+/**
+ * Return a renderable array for sensitive content
+ */
+function meedan_sensitive_content_data(&$content, $nid) {
+  global $user;
+  $node = node_load($nid);
+  $display_sensitive = TRUE;
+  
+  if (isset($user->data['sensitive_content']) && $user->data['sensitive_content']) {
+    $display_sensitive = FALSE;
+  }
+  
+  if ($display_sensitive && meedan_sensitive_content_is_flagged($node)) {
+
+    if (!is_array($content)) {
+      $content = array('#markup' => $content);
+    }
+
+    $sensitive = array(
+      '#markup' => t(variable_get('meedan_sensitive_content_text', MEEDAN_SENSITIVE_CONTENT_DEFAULT_TEXT)),
+      '#meedan_sensitive_nid' => $node->nid,
+      '#theme' => 'meedan_sensitive_content_display',
+      '#attached' => array( 
+        'js' => array(
+          drupal_get_path('module', 'meedan_sensitive_content') . '/js/meedan_sensitive_content.js',
+          array('data' => array('meedanSensitiveContent' => array('flag' => variable_get('meedan_sensitive_content_flag', ''))), 'type' => 'setting'),
+        ),
+        'css' => array(
+          drupal_get_path('module', 'meedan_sensitive_content') . '/css/meedan_sensitive_content.css',
+        ),
+      ),
+    );
+
+    $content['#prefix'] = '<div class="sensitive-hide sensitive-item-'. $node->nid .'" data-nid="' . $node->nid . '">';
+    $content['#suffix'] = '</div>' . render($sensitive);
+  }
+}

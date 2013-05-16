@@ -1,3 +1,48 @@
+Metatag 7.x-1.0-beta7, 2013-04-22
+---------------------------------
+#1970946 by laura s: Twitter Cards no longer requires SSL.
+#1971406 by alextataurov, DamienMcKenna: Correct check to see if i18n is
+  installed.
+#1955898 by DamienMcKenna: Clicking 'cancel' when editing a per-path
+  configuration would cause the config to be deleted.
+#1955894 by plopesc: It wasn't possible to remove values from the
+  Metatag:Context editor.
+#1972038 by DamienMcKenna: Context admin page didn't display the '<front>' path
+  correctly.
+#1970064 by DamienMcKenna: Metatag:Context did not load the data correctly.
+#1970518 by John Morahan: Incorrect syntax in metatag.info.
+#1972932 by chrisjlee: Typo in hook_requirements.
+By DamienMcKenna: Removed trailing space in some files.
+#1951118 by DamienMcKenna: Display a runtime hook_requirements error message if
+  the old metatag.entity_translation.inc file is still present.
+By DamienMcKenna: Removed some tabs that snook in.
+#1973254 by plopesc: Added functional tests for Metatag:Context.
+#1284756 by dsdeiz: Add instructions to metatag.migrate.inc explaining how to
+  use the Migrate integration.
+#1954106 by DamienMcKenna: Simplified the project's name to just 'Metatag'.
+#1974870 by DamienMcKenna: Moved all modules to the 'SEO' package.
+
+
+Metatag 7.x-1.0-beta6, 2013-04-14
+---------------------------------
+#1961448 by DamienMcKenna: Disable the fb:app_id field if fb_social is present.
+#1282620 by idflood, evanbarter, mgifford, Lukas von Blarer, Peacog, zterry95,
+  DamienMcKenna: Configuration translation through integration with the i18n
+  module.
+#1498740 by devuo: Merged Diogo's metatag_panels module.
+#1804356 by Dave Reid: Merged Dave's metatag_views module.
+#1909224 by DamienMcKenna: Fixed sloppy code in metatag_metatags_form_submit().
+#1969428 by DamienMcKenna: Changed the DC 'property' attribute to 'name'.
+#1284756 by dsdeiz: Update Migrate integration for compatibility with v2.5,
+  support additional entity types.
+#1953724 by DamienMcKenna, joshf, wiifm, twistor: PostgreSQL compatibility for
+  recent updates.
+#1295524 by DamienMcKenna: Temporary fix for the [node:summary] token not
+  working.
+#1952190 by DamienMcKenna: Only run queries involving taxonomy data if the
+  Taxonomy module is enabled.
+
+
 Metatag 7.x-1.0-beta5, 2013-03-23
 ---------------------------------
 #1844638 by DamienMcKenna: Updated help messages around update 7004, when ran

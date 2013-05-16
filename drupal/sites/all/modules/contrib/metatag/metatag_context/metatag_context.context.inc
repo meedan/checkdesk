@@ -112,18 +112,20 @@ class metatag_context_reaction extends context_reaction {
 
       // Only proceed if metatags were assigned.
       if (!empty($metatags)) {
+        // Load the global defaults.
         $metatags += metatag_config_load_with_defaults('');
+
+        // Compile the identifier for this combination based on the context
+        // names.
+        asort($instance_names);
+        $instance = 'context:' . implode(',', $instance_names);
+        $options['instance'] = $instance;
 
         foreach ($metatags as $metatag => $data) {
           if ($metatag_instance = metatag_get_instance($metatag, $data)) {
             $output[$metatag] = $metatag_instance->getElement($options);
           }
         }
-
-        // Compile the identifier for this combination based on the context
-        // names.
-        asort($instance_names);
-        $instance = 'context:' . implode(',', $instance_names);
 
         // Allow the output meta tags to be modified using
         // hook_metatag_metatags_view_alter().

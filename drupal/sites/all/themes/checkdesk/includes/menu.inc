@@ -64,6 +64,10 @@ function checkdesk_menu_local_task($variables) {
   if($link['path'] == 'node/%/edit') {
     $icon = '<span class="icon-pencil"></span> ';
   }
+  // add to tab
+  if($link['path'] == 'node/%/nodequeue') {
+    $icon = '<span class="icon-plus"></span> ';
+  }
   // delete tab
   if($link['path'] == 'node/%/delete') {
     $icon = '<span class="icon-trash"></span> ';

@@ -44,19 +44,6 @@
 		}
 	};
 
-  Drupal.behaviors.transparentFrames = {
-    attach: function(context) {
-      $('.oembed-content', context).watch('height', function() {
-        $(this).find('iframe').attr('wmode', 'transparent')
-          .contents().find('iframe').attr('wmode', 'transparent')
-          .attr('src', function(i, src) {
-            var sep = (src.indexOf('?') == -1 ? '?' : '&');
-            return (src.indexOf('wmode') == -1 ? src + sep + 'wmode=transparent' : src);
-          });
-      }, 1000);
-    }
-  };
-
   $.fn.scrollToHere = function(speed) {
     $('html, body').animate({ scrollTop : $(this).offset().top - $('#toolbar').height() - $('#navbar').height() }, speed);
   };
@@ -68,9 +55,9 @@
       var prefix = (Drupal.settings.basePath + Drupal.settings.pathPrefix).replace(/\/$/, '');
       $('a[href^="' + prefix + '/user/login"]', context).attr('href', function(index, path) {
         // Remove old destination value
-        var value = path.replace(/([?&])destination=[^&]+(&|$)/, '$1').replace(/[?&]$/, '');
-        var sep = (/\?/.test(value) ? '&' : '?');
-        var destination = (window.location.pathname === prefix ? 'liveblog' : window.location.pathname.replace(prefix + '/', ''));
+        var value = path.replace(/([?&])destination=[^&]+(&|$)/, '$1').replace(/[?&]$/, ''),
+            sep = (/\?/.test(value) ? '&' : '?'),
+            destination = (window.location.pathname === prefix ? 'liveblog' : window.location.pathname.replace(prefix + '/', ''));
         value = value + sep + 'destination=' + destination;
         return value;
       });
@@ -81,21 +68,41 @@
    * Takes the data-lazy-load-src attribute of any element and applies it
    * to the src attribute when that element is in view.
    *
+   * Additionally, all iframes
+   *
    * Relies on the jquery.inview.js plugin by Remy Sharp
    * See: http://remysharp.com/2009/01/26/element-in-view-event-plugin/
    */
   Drupal.behaviors.lazyLoadSrc = {
     attach: function (context) {
-      $('[data-lazy-load-src]', context).bind('inview', function (e, visible) {
-        var $this = $(this);
+      $('[data-lazy-load-src]:not(.processed-lazy-load-src)', context)
+        .addClass('processed-lazy-load-src')
+        .bind('inview', function (e, visible) {
+          var $this = $(this),
+              sep, src;
 
-        if (visible) {
-          // Using $(this).attr('src', 'http://....'); does not appear to work
-          // in some browsers kicking the DOM object directly does the trick.
-          this.src = $this.attr('data-lazy-load-src');
-          $this.unbind('inview');
-        }
-      });
+          if (visible) {
+            // Ensure we never run this twice on the same element
+            $this.unbind('inview');
+
+            src = $this.attr('data-lazy-load-src');
+
+            // Ensure wmode=transparent is added to both the tag AND the src URL
+            // for all IFRAMEs.
+            if (this.tagName === 'IFRAME') {
+              $this.attr('wmode', 'transparent');
+
+              sep = src.indexOf('?') === -1 ? '?' : '&';
+              src = src.indexOf('wmode') === -1 ? src + sep + 'wmode=transparent' : src;
+            }
+
+            // Using $(this).attr('src', 'http://....'); does not appear to work
+            // in some browsers.
+            //
+            // Kicking the DOM object directly does the trick.
+            this.src = src;
+          }
+        });
     }
   };
 

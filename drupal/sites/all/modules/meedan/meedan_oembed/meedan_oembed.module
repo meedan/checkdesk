@@ -101,7 +101,7 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed = $handler['callback']($provider, $url);
   }
 
-  if (!$embed || $embed->error) {
+  if (!$embed || (isset($embed->error) && $embed->error)) {
     $original_embed = $embed;
 
     if (!$embed || $embed->try_embedly) {
@@ -117,13 +117,16 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     }
 
     // Embedly failed, provide some fallback embed content
-    if (is_null($embed) || $embed === FALSE || $embed->error) {
+    if (is_null($embed) || $embed === FALSE || (isset($embed->error) && $embed->error)) {
       // Ensure NULL and FALSE become (object) array()
       $embed = (object) $embed;
       unset($embed->scalar);
 
       $url_info = parse_url($url);
 
+      $embed->type          = 'link';
+      $embed->provider      = array('name' => '', 'callback' => NULL, 'endpoint' => NULL);
+      $embed->title         = '';
       $embed->url           = $url;
       $embed->error         = TRUE;
       $embed->original_url  = $url;
@@ -274,7 +277,12 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
       );
     }
     $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
-    $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
+    if (isset($embed->favicon_link)) {
+      $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
+    }
+    else {
+      $vars['favicon_link'] = '';
+    }
     if ($embed->error) $vars['embed_error'] = t('It was not possible to parse this report.');
   }
 }

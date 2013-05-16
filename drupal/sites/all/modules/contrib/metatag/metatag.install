@@ -158,7 +158,19 @@ function metatag_requirements($phase) {
         'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
         'value' => $t('Possible conflicts with Exclude Node Title module'),
-        'description' => $t('The Metatag module\'s default setitngs for content types (nodes) uses [node:title] for the page title. Unfortunately, Exclude Node Title hides this so the page title ends up blank. It is recommended to <a href="!config">change the "title" field\'s default value</a> to "[current-page:title]" instead of "[node:title]" for any content types affected by Exclude Node Title.', array('!config' => 'admin/config/search/metatags')),
+        'description' => $t('The Metatag module\'s default settings for content types (nodes) uses [node:title] for the page title. Unfortunately, Exclude Node Title hides this so the page title ends up blank. It is recommended to <a href="!config">change the "title" field\'s default value</a> to "[current-page:title]" instead of "[node:title]" for any content types affected by Exclude Node Title.', array('!config' => 'admin/config/search/metatags')),
+      );
+    }
+
+    // Add a note if the deprecated metatag.entity_translation.inc file still
+    // exists.
+    $filename = 'metatag.entity_translation.inc';
+    if (file_exists(dirname(__FILE__) . '/' . $filename)) {
+      $requirements['metatag_deprecated_et_file'] = array(
+        'severity' => REQUIREMENT_ERROR,
+        'title' => 'Metatag',
+        'value' => $t('Unwanted :filename file found', array(':filename' => $filename)),
+        'description' => $t("The :filename file was removed in v7.x-1.0-beta5 but it still exists in the site's Metatag module's directory and will cause problems. This file needs to be removed. The file's path in the Drupal directory structure is:<br /><code>!short_path</code><br />The file's full path is:<br /><code>!full_path</code>", array(':filename' => $filename, '!short_path' => drupal_get_path('module', 'metatag') . '/' . $filename, '!full_path' => dirname(__FILE__) . $filename)),
       );
     }
   }
@@ -218,7 +230,12 @@ function metatag_update_7001() {
   $keys = array('primary key' => array($field_name));
 
   // Before making any changes, drop the existing primary key.
-  db_drop_primary_key($table_name);
+  try {
+    db_drop_primary_key($table_name);
+  }
+  catch (Exception $e) {
+    drupal_set_message('Caught an exception: ', $e->getMessage());
+  }
 
   // Rejig the field, and turn on the primary key again.
   db_change_field($table_name, $field_name, $field_name, $field_spec, $keys);
@@ -284,7 +301,7 @@ function metatag_update_7005() {
 
 /**
  * Remove {metatag} records that were added by old versions of the module for
- * entities that don't actually support meta tags. A more complete version of
+ * entities that don't actually support Metatag. A more complete version of
  * this will be added later on after it's (hopefully) guaranteed that all
  * modules have updated to the correct API usage.
  */
@@ -317,34 +334,67 @@ function metatag_update_7006() {
  * of Metatag may have failed to purge these.
  */
 function metatag_update_7007() {
-  $result = db_query("DELETE m
+  $nodes = db_query("SELECT m.entity_id
     FROM {metatag} m
     LEFT OUTER JOIN {node} n
-    	ON m.entity_id=n.nid
+      ON m.entity_id=n.nid
     WHERE m.entity_type='node'
-    	AND n.nid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for nodes that had been purged.', array('@count' => $result->rowCount())));
+      AND n.nid IS NULL")
+    ->fetchCol();
+  if (count($nodes) > 0) {
+    $deleted = db_delete('metatag')
+      ->condition('entity_type', 'node')
+      ->condition('entity_id', $nodes)
+      ->execute();
+    if ($deleted > 0) {
+      drupal_set_message(t('Removed @count meta tag record(s) for nodes that had been purged.', array('@count' => $deleted)));
+    }
+    else {
+      drupal_set_message(t('There were no meta tag records to purge for removed nodes. This is a good thing :)'));
+    }
   }
 
-  $result = db_query("DELETE m
+  $users = db_query("SELECT m.entity_id
     FROM {metatag} m
     LEFT OUTER JOIN {users} u
-    	ON m.entity_id=u.uid
+      ON m.entity_id=u.uid
     WHERE m.entity_type='user'
-    	AND u.uid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for users that had been purged.', array('@count' => $result->rowCount())));
+      AND u.uid IS NULL")
+    ->fetchCol();
+  if (count($users) > 0) {
+    $deleted = db_delete('metatag')
+      ->condition('entity_type', 'user')
+      ->condition('entity_id', $users)
+      ->execute();
+    if ($deleted > 0) {
+      drupal_set_message(t('Removed @count meta tag record(s) for users that had been purged.', array('@count' => $deleted)));
+    }
+    else {
+      drupal_set_message(t('There were no meta tag records to purge for removed users. This is a good thing :)'));
+    }
   }
 
-  $result = db_query("DELETE m
-    FROM {metatag} m
-    LEFT OUTER JOIN {taxonomy_term_data} t
-    	ON m.entity_id=t.tid
-    WHERE m.entity_type='taxonomy_term'
-    	AND t.tid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $result->rowCount())));
+  // Only run this if the Taxonomy module is enabled.
+  if (module_exists('taxonomy')) {
+    $terms = db_query("SELECT m.entity_id
+      FROM {metatag} m
+      LEFT OUTER JOIN {taxonomy_term_data} t
+        ON m.entity_id=t.tid
+      WHERE m.entity_type='taxonomy_term'
+        AND t.tid IS NULL")
+      ->fetchCol();
+    if (count($terms) > 0) {
+      $deleted = db_delete('metatag')
+        ->condition('entity_type', 'taxonomy_term')
+        ->condition('entity_id', $terms)
+        ->execute();
+      if ($deleted > 0) {
+        drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $deleted)));
+      }
+      else {
+        drupal_set_message(t('There were no meta tag records to purge for removed taxonomy terms. This is a good thing :)'));
+      }
+    }
   }
 }
 
@@ -352,9 +402,15 @@ function metatag_update_7007() {
  * Remove any empty records that may be hanging around from old releases.
  */
 function metatag_update_7008() {
-  $result = db_query("DELETE m FROM {metatag} m WHERE m.data IS NULL or m.data = '' OR m.data = :empty", array(':empty' => serialize(array())));
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Purged @count empty meta tag record(s).', array('@count' => $result->rowCount())));
+  $conditions = db_or()
+    ->isNull('data')
+    ->condition('data', '')
+    ->condition('data', serialize(array()));
+  $deleted = db_delete("metatag")
+    ->condition($conditions)
+    ->execute();
+  if ($deleted > 0) {
+    drupal_set_message(t('Purged @count empty meta tag record(s).', array('@count' => $deleted)));
   }
 }
 
@@ -362,8 +418,10 @@ function metatag_update_7008() {
  * Fix {metatag} records for taxonomy terms.
  */
 function metatag_update_7009() {
-  // Remove duplicates.
-  _metatag_remove_dupes('taxonomy_term');
+  if (module_exists('taxonomy')) {
+    // Remove duplicates.
+    _metatag_remove_dupes('taxonomy_term');
+  }
 
   // The taxonomy term entity doesn't support a 'language' option, so reset it
   // to LANGUAGE_NONE.
@@ -390,7 +448,7 @@ function metatag_update_7010() {
 /**
  * Fix {metatag} records for nodes.
  */
-function metatag_update_7011() {
+function metatag_update_7011(&$sandbox) {
   // Only proceed if Entity_Translation is not enabled as it allows each node
   // record to have multiple languages available.
   if (module_exists('entity_translation')) {
@@ -398,13 +456,103 @@ function metatag_update_7011() {
     return;
   }
 
-  // Remove duplicates.
-  _metatag_remove_dupes('node');
+  // Process records by groups of 10 (arbitrary value).
+  // When a group is processed, the batch update engine determines whether it
+  // should continue processing in the same request or provide progress
+  // feedback to the user and wait for the next request.
+  $limit = 20;
 
-  // Update Node values.
-  $result = db_query("UPDATE {metatag} AS m INNER JOIN {node} n ON m.entity_id=n.nid AND m.entity_type='node' SET m.language = n.language");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Fixed language values for @count nodes.', array('@count' => $result->rowCount())));
+  // Use the sandbox at your convenience to store the information needed
+  // to track progression between successive calls to the function.
+  if (!isset($sandbox['progress'])) {
+    // The count of records visited so far.
+    $sandbox['progress'] = 0;
+
+    // Remove duplicates.
+    _metatag_remove_dupes('node');
+
+    // Update Node values.
+    $nodes = db_query("SELECT n.nid, n.language FROM {node} n INNER JOIN {metatag} m ON n.nid = m.entity_id WHERE m.entity_type = 'node' AND n.language != m.language ORDER BY nid");
+    $sandbox['records'] = array();
+    foreach ($nodes as $record) {
+      $sandbox['records'][] = $record;
+    }
+
+    // If there's no data, don't bother with the extra work.
+    if (empty($sandbox['records'])) {
+      watchdog('metatag', 'Update 7011: No nodes need the Metatag language values fixed.', array(), WATCHDOG_INFO);
+      if (drupal_is_cli()) {
+        drupal_set_message(t('Update 7011: No nodes need the Metatag language values fixed.'));
+      }
+      return t('No nodes need the Metatag language values fixed.');
+    }
+
+    // Total records that must be visited.
+    $sandbox['max'] = count($sandbox['records']);
+
+    // A place to store messages during the run.
+    $sandbox['messages'] = array();
+
+    // An initial record of the number of records to be updated.
+    watchdog('metatag', 'Update 7011: !count records to update.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7011: !count records to update.', array('!count' => $sandbox['max'])));
+    }
+
+    // Last record processed.
+    $sandbox['current_record'] = -1;
+
+    // Because a lot of other processing happens on the first iteration, just do
+    // one.
+    $limit = 1;
+  }
+
+  // The for loop will run as normal when ran via update.php, but when ran via
+  // Drush it'll just run 'til it's finished.
+  $increment = 1;
+  if (drupal_is_cli()) {
+    $increment = 0;
+  }
+
+  // Set default values.
+  for ($ctr = 0; $ctr < $limit; $ctr += $increment) {
+    $sandbox['current_record']++;
+    if (empty($sandbox['records'][$sandbox['current_record']])) {
+      break;
+    }
+
+    // Shortcuts for later.
+    $langcode = $sandbox['records'][$sandbox['current_record']]->language;
+    $nid = $sandbox['records'][$sandbox['current_record']]->nid;
+
+    db_update('metatag')
+      ->fields(array('language' => $langcode))
+      ->condition('entity_type', 'node')
+      ->condition('entity_id', $nid)
+      ->execute();
+
+    // Update our progress information.
+    $sandbox['progress']++;
+  }
+
+  // Set the "finished" status, to tell batch engine whether this function
+  // needs to run again. If you set a float, this will indicate the progress of
+  // the batch so the progress bar will update.
+  $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ? TRUE : ($sandbox['progress'] / $sandbox['max']);
+
+  if ($sandbox['#finished']) {
+    // Clear all caches so the fixed data will be reloaded.
+    cache_clear_all('*', 'cache_metatag', TRUE);
+
+    // A final log of the number of records that were converted.
+    watchdog('metatag', 'Update 7011: !count records were updated in total.', array('!count' => $sandbox['progress']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7011: !count records were updated.', array('!count' => $sandbox['progress'])));
+    }
+
+    // hook_update_N() may optionally return a string which will be displayed
+    // to the user.
+    return t('Fixed the Metatag language values for @count nodes.', array('!count' => $sandbox['progress']));
   }
 }
 
@@ -581,7 +729,7 @@ function _metatag_remove_dupes($entity_type) {
     WHERE
       m.entity_type = :type
     GROUP BY m.entity_id
-    HAVING the_count > 1", array(':type' => $entity_type));
+    HAVING count(m.language) > 1", array(':type' => $entity_type));
 
   if (!empty($dupe_records)) {
     foreach ($dupe_records as $record) {
@@ -702,9 +850,9 @@ function metatag_update_7014() {
   $records = db_query("SELECT *
   FROM {metatag} m
   WHERE
-       m.`data` LIKE :nolang
-    OR m.`data` LIKE :lang
-    OR m.`data` LIKE :und",
+       m.data LIKE :nolang
+    OR m.data LIKE :lang
+    OR m.data LIKE :und",
     array(
       ':nolang' => 'a:1:{s:0:"";a:%:{s:%;a:%:{%;}}}',
       ':lang' => 'a:1:{s:2:"__";a:%:{s:%;a:%:{%;}}}',

@@ -73,8 +73,16 @@ class Twitter {
     return $url;
   }
 
-  /* Added $oauth_verifier */
-  public function get_access_token($oauth_verifier = FALSE) {
+  /**
+   * Request an access token to the Twitter API.
+   * @see https://dev.twitter.com/docs/auth/implementing-sign-twitter
+   *
+   * @param string$oauth_verifier
+   *   String an access token to append to the request or NULL.
+   * @return
+   *   String the access token or FALSE when there was an error.
+   */
+  public function get_access_token($oauth_verifier = NULL) {
     $url = variable_get('twitter_api', TWITTER_API) . '/oauth/access_token';
 
     // Adding parameter oauth_verifier to auth_request

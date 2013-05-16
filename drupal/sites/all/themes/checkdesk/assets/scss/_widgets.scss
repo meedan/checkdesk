@@ -52,10 +52,10 @@
 // The sidebar doubles in width and the primary form widens
 
 @include at-breakpoint($break-medium) {
+
   $break: $break-medium;
   $secondary-width: 7;
   $primary-width: $break-medium - $secondary-width; 
-
   @include widgets-layout($secondary-width, $primary-width, $break) {
     @include span-columns($break - 4, $break, $gutter-width);
     @include pad(2, 2, $break);
@@ -63,14 +63,18 @@
 }  
 // Breakpoint: large
 @include at-breakpoint($break-large) {
-  $break: $break-large;
+  $break: $break-large/2;
   $secondary-width: 7;
-  $primary-width: $break-large - $secondary-width;
+  $primary-width: $break - $secondary-width;
+
   body.widgets #main {
+    @include span-columns($break - 8, $break, $gutter-width);
+    @include pad(2, 2, $break);
+  }
+  @include widgets-layout($secondary-width, $primary-width, $break) {
     @include span-columns($break - 4, $break, $gutter-width);
     @include pad(2, 2, $break);
   }
-  @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout with new break
 }
 
 
@@ -83,25 +87,26 @@
   #widgets-inner {
     width: 92%;
     padding: 4%;
-    margin-top: ms(1);
     
+    // remove margin from first block
+    .region-widgets :first-child {
+      margin: 0;
+    }
   }
+
+
   // spacing between blocks/widgets
   .block {
     margin: ms(1) auto;
-    
-    &:first-child {
-      margin: 0;
-    }
     // block title
     h2 {
       @include reset-box-model;
-      font-size: $small-font-size;
+      font-size: $base-font-size;
       margin-bottom: $base-line-height/4;
     }
     // keep embedded widgets width 100%
     iframe {
-      width: 100%!important;
+      width: 100% !important;
     }
   }
 

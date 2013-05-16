@@ -44,7 +44,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     );
 
     // Check for graphic content
-    $flag = (in_array('journalist', $user->roles) ? 'graphic_journalist' : 'graphic');
+    $flag = ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) ? 'graphic_journalist' : 'graphic');
     $form['graphic_content'] = array(
       '#type' => 'checkboxes',
       '#options' => array($flag => t('Graphic content')),
@@ -56,7 +56,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $preview = _checkdesk_bookmarklet_media_preview($path);
     $message = isset($preview['error']) ? $preview['error']['message'] : $preview['preview'];
     $form['report_preview'] = array(
-      '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . $preview['preview'] . '</div></div>',
+      '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . (isset($preview['preview']) ? $preview['preview'] : '') . '</div></div>',
       '#weight' => 1, 
     );
     $form['field_link']['#weight'] = 0;

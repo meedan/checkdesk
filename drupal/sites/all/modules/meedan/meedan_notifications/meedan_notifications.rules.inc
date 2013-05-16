@@ -41,6 +41,7 @@ function meedan_notifications_rules_action_info() {
           'restriction' => 'input',
           'description' => t('A serialized PHP array of named arguments to pass to the t() function, for both subject and message texts. Each argument will itself be first passed through t(). For example: <code>return serialize(array("!type" => $node->type, "!title" => $node->title));</code>.'),
           'default value' => '<?php return serialize(array()); ?>',
+          'cleaning callback' => 'meedan_notifications_cleaning_callback',
         ),
       ),
       'group' => 'User',
@@ -63,3 +64,12 @@ function meedan_notifications_rules_action($object, $event, $subject, $message, 
   meedan_notifications_action($object, array('event' => $event, 'subject' => $subject, 'message' => $message, 'actor' => $actor->uid, 't_args' => (array)@unserialize($t_args)));
 }
 
+/**
+ * Callback for `t_args` parameter from Rules action `notify_subscribers`.
+ */
+function meedan_notifications_cleaning_callback(&$replacements, $data, $options) {
+  // Keep tokens to be replaced later
+  foreach ($replacements as $token => $value) {
+    $replacements[$token] = $token;
+  }
+}

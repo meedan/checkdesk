@@ -1,6 +1,9 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 
-var meedanSensitiveContent = {};
+var meedanSensitiveContent = {
+  // Store content the user decided to display, so they don't need to be hidden again
+  displayed : []
+};
 
 (function ($) {
 'use strict';
@@ -11,6 +14,10 @@ var meedanSensitiveContent = {};
 meedanSensitiveContent.Update = function(nid, show) {
   $('div.sensitive-notification-'+nid)[show ? 'hide' : 'show']();
   $('div.sensitive-item-'+nid)[show ? 'show' : 'hide']();
+  $('div.sensitive-item-'+nid).data('inview', show);
+  if (show) {
+    meedanSensitiveContent.displayed.push(nid);
+  }
 };
 
 /**
@@ -35,6 +42,14 @@ Drupal.behaviors.meedanSensitiveContent = {
         }
       });
     });
+
+    // Do not hide already displayed content
+    $('.sensitive-hide', context).each(function() {
+      var nid = $(this).data('nid');
+      if (meedanSensitiveContent.displayed.indexOf(nid) > -1) {
+        meedanSensitiveContent.Update(nid, true);
+      }
+    });  
   }
 };
 
