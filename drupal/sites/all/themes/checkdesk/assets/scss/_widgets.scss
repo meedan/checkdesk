@@ -87,8 +87,14 @@
   #widgets-inner {
     width: 92%;
     padding: 4%;
-    // margin-top: ms(1);
+    
+    // remove margin from first block
+    .region-widgets :first-child {
+      margin: 0;
+    }
   }
+
+
   // spacing between blocks/widgets
   .block {
     margin: ms(1) auto;
