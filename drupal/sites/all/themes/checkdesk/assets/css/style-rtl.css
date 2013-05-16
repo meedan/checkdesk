@@ -3405,18 +3405,6 @@ textarea {
   float: left;
 }
 
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:before, .clearfix:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.clearfix:after {
-  clear: both;
-}
-
 .hide {
   display: none;
 }
@@ -8112,19 +8100,15 @@ body.widgets #main #content {
 #widgets #widgets-inner {
   width: 92%;
   padding: 4%;
-  margin-top: 25px;
 }
 #widgets .block {
   margin: 25px auto;
-}
-#widgets .block:first-child {
-  margin: 0;
 }
 #widgets .block h2 {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 6px;
 }
 #widgets .block iframe {
