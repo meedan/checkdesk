@@ -1,0 +1,11 @@
+name = "Crane Migration"
+description = "Migrate content from D6 AMAY-Crane site to D7 Checkdesk"
+package = "Development"
+core = 7.x
+hidden = TRUE
+
+dependencies[] = migrate
+dependencies[] = migrate_d2d
+
+files[] = node.inc
+files[] = users.inc

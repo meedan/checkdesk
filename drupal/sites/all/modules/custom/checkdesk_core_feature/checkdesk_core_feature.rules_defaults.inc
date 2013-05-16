@@ -271,7 +271,8 @@ function checkdesk_core_feature_default_rules_configuration() {
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
       "ON" : [ "node_insert" ],
       "IF" : [
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } }
+        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
+        { "NOT data_is_empty" : { "data" : [ "node:field_desk" ] } }
       ],
       "DO" : [
         { "heartbeat_activity_checkdesk_new_update_on_story_i_commented_on_update" : {
@@ -538,7 +539,8 @@ function checkdesk_core_feature_default_rules_configuration() {
       "REQUIRES" : [ "rules", "heartbeat_rules" ],
       "ON" : [ "node_insert" ],
       "IF" : [
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } }
+        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
+        { "NOT data_is_empty" : { "data" : [ "node:field_desk" ] } }
       ],
       "DO" : [
         { "LOOP" : {

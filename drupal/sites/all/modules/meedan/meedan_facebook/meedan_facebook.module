@@ -23,11 +23,27 @@ function meedan_facebook_theme() {
  * Implements `facebook_comments` theme.
  */
 function theme_facebook_comments($variables) {
-  global $base_url;
+  global $base_url, $language;
   $node = $variables['node'];
   $per_page = variable_get('meedan_facebook_comments_per_page', 10);
   $nid = $node->nid;
-  $path = url('node/' . $nid, array('absolute' => TRUE, 'language' => (object) array('language' => FALSE), 'alias' => TRUE));
+  $path = 'node/' . $nid;
+  $base = variable_get('meedan_facebook_base_path', 'raw');
+  $alias = TRUE;
+  switch($base) {
+    case 'raw':
+      // Does nothing, $path is correctly set
+      break;
+    case 'first':
+      $path = db_query("SELECT alias FROM {url_alias} WHERE source = :source AND language = :language ORDER BY pid ASC", array(':source' => $path, ':language' => $language->language))->fetchField();
+      $alias = FALSE;
+      break;
+    case 'last':
+      $path = drupal_get_path_alias($path, $language->language);
+      $alias = FALSE;
+      break;
+  }
+  $path = url($path, array('absolute' => TRUE, 'language' => (object) array('language' => FALSE), 'alias' => $alias));
   drupal_add_js(array('meedan_facebook' => array(
     'language' => meedan_facebook_get_locale(),
     'appId' => variable_get('meedan_facebook_appid', ''),
@@ -128,7 +144,12 @@ function meedan_facebook_admin_settings() {
     '#description' => t('Number of posts to show before "view all" appears.'),
     '#default_value' => variable_get('meedan_facebook_comments_per_page', 10),
   );
-
+  $form['meedan_facebook_base_path'] = array(
+    '#type' => 'radios',
+    '#title' => t('Which node URL alias to use as a base path to load comments'),
+    '#default_value' => variable_get('meedan_facebook_base_path', 'raw'),
+    '#options' => array('first' => t('Use the first alias found for this node'), 'last' => t('Use the last alias found for this node'), 'raw' => t('Do not use an alias, use a raw path (eg, node/123)')),
+  );
   return system_settings_form($form);
 }
 

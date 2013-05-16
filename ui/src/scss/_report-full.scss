@@ -1,0 +1,54 @@
+//
+// All reports
+//
+.checkdesk-report {
+  position: relative;
+  background-color: #fff;
+  border-top: 5px solid $cd-green;
+  margin-bottom: $gutter-width * 3;
+
+  .report-content {
+    width: 100%;
+  }
+
+  .report-icons {
+    position: absolute;
+    #{$opposite-from-direction}: -42px;
+    top: $gutter-width;
+  }
+
+  .added-by,
+  .facts > .fact {
+    padding: $gutter-width / 2 $gutter-width;
+  }
+
+  .added-by {
+    border: 1px solid $lightest-grey;
+    border-bottom: none;
+  }
+
+  .facts {
+    display: table;
+
+    border: 1px solid $lightest-grey;
+
+    & > .fact {
+      display: table-cell;
+
+      border-#{$opposite-from-direction}: 1px solid $lightest-grey;
+
+      &:last-child {
+        border-#{$opposite-from-direction}: none;
+      }
+
+      &.active {
+        background-color: $lightest-grey;
+      }
+
+      &.verified {
+        background-color: $cd-content-green;
+      }
+    }
+  }
+
+}
