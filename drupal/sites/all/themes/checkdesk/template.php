@@ -1004,3 +1004,12 @@ function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
   }
 }
+
+/**
+ * Implements template_preprocess_views_view_fields().
+ */
+function checkdesk_preprocess_views_view_fields(&$vars) {
+  if ($vars['view']->name == 'reports') {
+    $vars['name_i18n'] = t($vars['fields']['field_rating']->content);
+  }
+}
