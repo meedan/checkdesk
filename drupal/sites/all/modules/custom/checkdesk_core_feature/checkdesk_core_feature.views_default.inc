@@ -170,9 +170,7 @@ function checkdesk_core_feature_views_default_views() {
     'title' => array(
       'more_options' => array(
         'is_secondary' => 0,
-        'bef_filter_description' => '<span class="report-stream-filter-desc">Existing keyword filters: </span> 
-<br>
-<span class="report-stream-filter-label">{key:[current-page:query:title_op]}</span><span class="report-stream-filter-val">"[current-page:query:title]"</span>',
+        'bef_filter_description' => '<span class="report-stream-filter-label">{key:[current-page:query:title_op]}</span>&nbsp;<span class="report-stream-filter-val">"[current-page:query:title]"</span>',
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
@@ -197,9 +195,7 @@ function checkdesk_core_feature_views_default_views() {
     'source' => array(
       'more_options' => array(
         'is_secondary' => 0,
-        'bef_filter_description' => '<span class="report-stream-filter-desc">Existing domian filters: </span> 
-<br>
-<span class="report-stream-filter-label">{key:[current-page:query:source_op]}</span><span class="report-stream-filter-val">"[current-page:query:source]"</span>',
+        'bef_filter_description' => '<span class="report-stream-filter-label">{key:[current-page:query:source_op]}</span>&nbsp;<span class="report-stream-filter-val">"[current-page:query:source]"</span>',
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
@@ -263,19 +259,6 @@ print t(\'No content available\');
   $handler->display->display_options['relationships']['ms_id']['table'] = 'node';
   $handler->display->display_options['relationships']['ms_id']['field'] = 'ms_id';
   $handler->display->display_options['relationships']['ms_id']['required'] = TRUE;
-  /* Relationship: Media sources: Parent */
-  $handler->display->display_options['relationships']['parent']['id'] = 'parent';
-  $handler->display->display_options['relationships']['parent']['table'] = 'meedan_sources';
-  $handler->display->display_options['relationships']['parent']['field'] = 'parent';
-  $handler->display->display_options['relationships']['parent']['relationship'] = 'ms_id';
-  /* Relationship: Content: Taxonomy terms on node */
-  $handler->display->display_options['relationships']['term_node_tid']['id'] = 'term_node_tid';
-  $handler->display->display_options['relationships']['term_node_tid']['table'] = 'node';
-  $handler->display->display_options['relationships']['term_node_tid']['field'] = 'term_node_tid';
-  $handler->display->display_options['relationships']['term_node_tid']['vocabularies'] = array(
-    'media_rating' => 'media_rating',
-    'tags' => 0,
-  );
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
@@ -359,15 +342,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Taxonomy term: Name (translated) */
-  $handler->display->display_options['fields']['name_i18n']['id'] = 'name_i18n';
-  $handler->display->display_options['fields']['name_i18n']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name_i18n']['field'] = 'name_i18n';
-  $handler->display->display_options['fields']['name_i18n']['relationship'] = 'term_node_tid';
-  $handler->display->display_options['fields']['name_i18n']['label'] = '';
-  $handler->display->display_options['fields']['name_i18n']['element_type'] = '0';
-  $handler->display->display_options['fields']['name_i18n']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['name_i18n']['element_default_classes'] = FALSE;
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
   $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
@@ -391,15 +365,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['source_url']['element_type'] = '0';
   $handler->display->display_options['fields']['source_url']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['source_url']['element_default_classes'] = FALSE;
-  /* Field: Media sources: Parent */
-  $handler->display->display_options['fields']['parent']['id'] = 'parent';
-  $handler->display->display_options['fields']['parent']['table'] = 'meedan_sources';
-  $handler->display->display_options['fields']['parent']['field'] = 'parent';
-  $handler->display->display_options['fields']['parent']['relationship'] = 'parent';
-  $handler->display->display_options['fields']['parent']['label'] = '';
-  $handler->display->display_options['fields']['parent']['element_type'] = '0';
-  $handler->display->display_options['fields']['parent']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['parent']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -712,19 +677,17 @@ print theme(\'views_autorefresh\', array(
 print t(\'No content available\');
 ?>'),
     t('Media sources'),
-    t('Parent'),
-    t('term'),
     t('<div class="draggable">[field_link]</div>'),
     t('Date'),
     t('Block'),
     t('Details'),
-    t('.'),
-    t(','),
     t('By keyword'),
     t('By status'),
     t('By source'),
     t('By story'),
     t('Autorefresh'),
+    t('.'),
+    t(','),
     t('All'),
   );
   $export['desk_reports'] = $view;

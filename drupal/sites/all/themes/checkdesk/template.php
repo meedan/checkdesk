@@ -1009,7 +1009,8 @@ function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
  * Implements template_preprocess_views_view_fields().
  */
 function checkdesk_preprocess_views_view_fields(&$vars) {
-  if ($vars['view']->name == 'reports') {
+  if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
     $vars['name_i18n'] = t($vars['fields']['field_rating']->content);
   }
 }
+

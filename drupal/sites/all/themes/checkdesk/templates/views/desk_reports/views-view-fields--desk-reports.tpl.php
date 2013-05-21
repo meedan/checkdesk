@@ -29,7 +29,7 @@
 			$status_class = str_replace(' ', '_', strtolower($fields['field_rating']->content));
 		?>
 		<div class="report-status <?php print $status_class; ?>">
-			<span><?php print $fields['name_i18n']->content; ?></span>
+			<span><?php print $name_i18n; ?></span>
 		</div>
 	<?php } ?>
 	<div class="report-detail-link">
