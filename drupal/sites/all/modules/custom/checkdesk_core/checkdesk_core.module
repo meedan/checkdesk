@@ -772,6 +772,11 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   }
   $form['#validate'][] = '_checkdesk_core_post_node_form_validate';
   $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
+
+  // Handle HTML entities
+  foreach ($form['field_desk']['und']['#options'] as $key => $value) {
+    $form['field_desk']['und']['#options'][$key] = htmlspecialchars_decode($value);
+  }
 }
 
 /**
