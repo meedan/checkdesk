@@ -552,6 +552,9 @@ function checkdesk_preprocess_node(&$variables) {
         // the iframe tag enters the viewport.
         // See: http://stackoverflow.com/a/7154968/806988
         $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src)=/i', '<\1\2src="about:blank" data-lazy-load-src=', $field_link_rendered);
+
+        // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)
+        $field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
       }
 
       $variables['field_link_lazy_load'] = $field_link_rendered;

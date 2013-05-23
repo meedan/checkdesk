@@ -103,6 +103,27 @@
             this.src = src;
           }
         });
+
+      $('[data-lazy-load-class]:not(.processed-lazy-load-class)', context)
+        .addClass('processed-lazy-load-class')
+        .bind('inview', function (e, visible) {
+          var $this = $(this),
+              classes;
+
+          if (visible) {
+            // Ensure we never run this twice on the same element
+            $this.unbind('inview');
+
+            classes = $this.attr('data-lazy-load-class');
+            
+            this.className = classes;
+
+            // Lazy-load tweets
+            if (window.twttr) {
+              window.twttr.widgets.load();
+            }
+          }
+        });
     }
   };
 
