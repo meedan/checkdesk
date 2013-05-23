@@ -33,7 +33,7 @@ function checkdesk_core_menu() {
   $items = array();
 
   $items['<sub>'] = array(
-    'page callback' => 'drupal_not_found',
+    'page callback' => 'drupal_goto',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
