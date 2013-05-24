@@ -90,6 +90,18 @@ The server configuration proxies requests from some paths through to the Drupal 
             log_not_found off;
     }
 
+**Example configuration for Apache:**
+
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|api|admin)
+    RewriteRule ^(.*)$ http://checkdesk.local/$1 [L,P]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !=/favicon.ico
+    RewriteRule ^ index.html [L]
+
 
 ## Project layout
 
