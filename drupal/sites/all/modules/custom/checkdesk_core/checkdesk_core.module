@@ -1212,10 +1212,13 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
       // Localize URLs
       else if (in_array($variable, array('!user_url', '!story_url', '!report_url', '!update_url', '!flag_author_url'))) {
         $url = parse_url($value);
-        if ($url && isset($url['scheme']) && $url['scheme'] . '://' . $url['host'] == $base_root) {
+        if ($url) {
           $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
           if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
             list($langcode, $alias) = explode('/', $alias, 2);
+            if (!in_array($langcode, array_keys(language_list()))) {
+              $alias = $langcode . '/' . $alias;
+            }
           }
           $path = drupal_lookup_path('source', urldecode($alias), $langcode);
           if (empty($path)) $path = $alias;
