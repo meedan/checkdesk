@@ -178,7 +178,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 50,
+    'weight' => -50,
     'uuid' => '50e68ce2-956c-6f64-1914-5e6a93778baf',
     'language' => 'und',
     'customized' => 1,
