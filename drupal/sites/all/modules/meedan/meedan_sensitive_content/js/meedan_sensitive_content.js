@@ -14,7 +14,7 @@ var meedanSensitiveContent = {
 meedanSensitiveContent.Update = function(nid, show) {
   $('div.sensitive-notification-'+nid)[show ? 'hide' : 'show']();
   $('div.sensitive-item-'+nid)[show ? 'show' : 'hide']();
-  $(window).scroll();
+  $('div.sensitive-item-' + nid).find('[data-lazy-load-class], [data-lazy-load-src]').data('inview', show).trigger('inview', [show]);
   if (show) {
     meedanSensitiveContent.displayed.push(nid);
   }
