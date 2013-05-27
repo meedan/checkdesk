@@ -1765,7 +1765,7 @@ function checkdesk_core_feature_translations_defaults() {
     'source' => 'Create @name',
     'context' => '',
     'location' => '',
-    'translation' => 'أنشئ @name',
+    'translation' => 'اكتب @name',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2341,7 +2341,7 @@ function checkdesk_core_feature_translations_defaults() {
     'source' => 'Update',
     'context' => '',
     'location' => '',
-    'translation' => 'حَدِّث',
+    'translation' => 'تحديث',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43085,46 +43085,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['5ceb08be29a2a27a605e590159e1905f'] = array(
-    'source' => 'normal',
-    'context' => '',
-    'location' => '',
-    'translation' => 'عادية',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['51330bcd509a7ce54768f814a7dcc062'] = array(
-    'source' => 'low',
-    'context' => '',
-    'location' => '',
-    'translation' => 'منخفضة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['97622279142c89de15db58c1290f3380'] = array(
-    'source' => 'high',
-    'context' => '',
-    'location' => '',
-    'translation' => 'عالية',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['7a68ab73c218269f01fcae4c25444838'] = array(
-    'source' => 'Display on separate page',
-    'context' => '',
-    'location' => '',
-    'translation' => 'في صفحة منفصلة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['31aaab2b21765ff0d0922ffc3e6122b9'] = array(
-    'source' => 'Location of comment submission form',
-    'context' => '',
-    'location' => '',
-    'translation' => 'موضع استمارة التعليق',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['7ed98c114459b0b619bc76cfb2c92f26'] = array(
     'source' => 'Add a brief description of the story (optional)',
     'context' => '',
@@ -43146,6 +43106,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'في القائمة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a0f4aa7cc43ef2f3afd2a6eb2885cb93'] = array(
+    'source' => 'Featured Stories',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مواضيع مختارة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['dbefdb4bf3bdca279f9c4470789d0f2f'] = array(
+    'source' => 'Featured stories',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مواضيع مختارة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43221,35 +43197,59 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['a0f4aa7cc43ef2f3afd2a6eb2885cb93'] = array(
-    'source' => 'Featured Stories',
+  $translations['ar:default']['7590abbbcba8f139af5e3e2252c2edeb'] = array(
+    'source' => '!title created successfully.',
     'context' => '',
-    'location' => '',
-    'translation' => 'مواضيع مختارة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['dbefdb4bf3bdca279f9c4470789d0f2f'] = array(
-    'source' => 'Featured stories',
-    'context' => '',
-    'location' => '/index.php',
-    'translation' => 'مواضيع مختارة',
+    'location' => '/ar/system/ajax',
+    'translation' => 'تم إنشاء !title',
     'plid' => 0,
     'plural' => 0,
   );
   $translations['ar:default']['755f47eb9afffa46055f2670d7db6812'] = array(
     'source' => 'Add to',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => 'أضف إلى',
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['7590abbbcba8f139af5e3e2252c2edeb'] = array(
-    'source' => '!title created successfully.',
+  $translations['ar:default']['5ceb08be29a2a27a605e590159e1905f'] = array(
+    'source' => 'normal',
     'context' => '',
-    'location' => '/ar/system/ajax',
-    'translation' => 'تم إنشاء !title',
+    'location' => '',
+    'translation' => 'عادية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['51330bcd509a7ce54768f814a7dcc062'] = array(
+    'source' => 'low',
+    'context' => '',
+    'location' => '',
+    'translation' => 'منخفضة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['97622279142c89de15db58c1290f3380'] = array(
+    'source' => 'high',
+    'context' => '',
+    'location' => '',
+    'translation' => 'عالية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7a68ab73c218269f01fcae4c25444838'] = array(
+    'source' => 'Display on separate page',
+    'context' => '',
+    'location' => '',
+    'translation' => 'في صفحة منفصلة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['31aaab2b21765ff0d0922ffc3e6122b9'] = array(
+    'source' => 'Location of comment submission form',
+    'context' => '',
+    'location' => '',
+    'translation' => 'موضع استمارة التعليق',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43449,6 +43449,22 @@ This was an auto-generated email from !site; please do not respond directly to t
 بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
 
 هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['58f078030058cf1b5cede4c4e21c7c40'] = array(
+    'source' => 'Update headline',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'عنوان التحديث',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['c6c337399caf31017a790eeef55b22e1'] = array(
+    'source' => 'Write text and drag reports here to compose the update',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'اكتب النص واسحب التقارير هنا لإنشاء التحديث',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43676,6 +43692,30 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:menu']['763308ddea446ed598f1de10ab7c14d2'] = array(
+    'source' => 'Information',
+    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'translation' => 'معلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['d5b349c205064de1e605dbeb2ac925f0'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'location' => 'menu:item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['666fa50ec84ff027511ba17b010af39d'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
+    'location' => 'menu:item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:menu']['1ac5d0b1c58fb0dea352e06cabd7b077'] = array(
     'source' => 'Supported by Meedan',
     'context' => 'item:93091458-8370-4ca5-9fae-2ac710021e68:title',
@@ -43689,14 +43729,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
     'location' => 'menu:item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
     'translation' => 'تطوير',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:menu']['763308ddea446ed598f1de10ab7c14d2'] = array(
-    'source' => 'Information',
-    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
-    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
-    'translation' => 'معلومات',
     'plid' => 0,
     'plural' => 0,
   );
