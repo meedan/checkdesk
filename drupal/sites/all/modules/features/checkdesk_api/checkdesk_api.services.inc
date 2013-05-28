@@ -38,6 +38,26 @@ function checkdesk_api_default_services_endpoint() {
     ),
   );
   $endpoint->resources = array(
+    'flag' => array(
+      'actions' => array(
+        'is_flagged' => array(
+          'enabled' => '1',
+        ),
+        'flag' => array(
+          'enabled' => '1',
+        ),
+        'countall' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'discussion' => array(
+      'operations' => array(
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'comment' => array(
       'operations' => array(
         'create' => array(
