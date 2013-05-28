@@ -3380,6 +3380,18 @@ textarea {
   float: left;
 }
 
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+
 .hide {
   display: none;
 }
@@ -8081,7 +8093,7 @@ body.widgets #main #content {
   padding: 4%;
 }
 #widgets #widgets-inner .region-widgets :first-child {
-  margin: 0;
+  margin-top: 0;
 }
 #widgets .block {
   margin: 25px auto;
@@ -8871,9 +8883,6 @@ body.toolbar-drawer {
   display: none;
 }
 
-.page-node-add-post h1.title {
-  display: none;
-}
 .page-node-add-post .tabs {
   display: none;
 }
