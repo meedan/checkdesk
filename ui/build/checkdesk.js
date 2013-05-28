@@ -1,8 +1,8 @@
-/*! checkdesk - v0.1.0 - 2013-05-14
+/*! checkdesk - v0.1.0 - 2013-05-28
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 var app = angular.module('Checkdesk', [
-      'ngTranslate',
+      'pascalprecht.translate',
       'cdTranslationUI',
       'Checkdesk.services'
     ]),
@@ -38,7 +38,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   $routeProvider.otherwise({ redirectTo: '/reports' });
 }]);
 
-app.config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
+app.config(['$translateProvider', function ($translateProvider) {
   $translateProvider.translations('en_EN', {
     // #/reports
     'CALL_TO_ACTION_HEAD':                 'Help verify this report',
@@ -98,32 +98,44 @@ app.config(['$translateProvider', 'cdTranslationUIProvider', function ($translat
   });
   $translateProvider.uses('ar_AR');
 
-  $translateProvider.rememberLanguage(true);
+  // FIXME: Something is amiss with the cookie thing.
+  // $translateProvider.useCookieStorage();
 
-  // Experimental missing translation handler for the cdTranslationUI module.
-  // @see: https://github.com/PascalPrecht/ng-translate/commit/9a042c7f2cf1e3ff57b6a2fbd497a8b9ddcb0ef4
-  $translateProvider.missingTranslationHandler(cdTranslationUIProvider.missingTranslationHandler);
+  $translateProvider.useMissingTranslationHandler('cdTranslationUI');
 }]);
 
 angular.module('cdTranslationUI', [])
-  // Defines cdTranslationUIProvider
   .provider('cdTranslationUI', function () {
-    var $missingTranslations = [];
+    var $translationTable,
+        $missingTranslations = [],
+        $missingTranslationHandler = function (translationId) {
+          if ($missingTranslations.indexOf(translationId) === -1) {
+            $missingTranslations.push(translationId);
+          }
+        };
 
-    this.missingTranslationHandler = function (translationId) {
-      if ($missingTranslations.indexOf(translationId) === -1) {
-        $missingTranslations.push(translationId);
+    this.translationTable = function (translationTable) {
+      if (!angular.isUndefined(translationTable)) {
+        $translationTable = translationTable;
       }
+
+      return $translationTable;
     };
+
+    this.missingTranslations = function () {
+      return $missingTranslations;
+    };
+
+    $missingTranslationHandler.translationTable = this.translationTable;
+    $missingTranslationHandler.missingTranslations = this.missingTranslations;
 
     this.$get = function () {
-      return {
-        missingTranslations: function () {
-          return $missingTranslations;
-        }
-      };
+      return $missingTranslationHandler;
     };
   })
+  .config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
+    cdTranslationUIProvider.translationTable($translateProvider.translations());
+  }])
   .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
     $scope.collapsed = true;
 
@@ -131,6 +143,7 @@ angular.module('cdTranslationUI', [])
       $scope.collapsed = !$scope.collapsed;
     };
 
+    $scope.translationTable = cdTranslationUI.translationTable();
     $scope.missingTranslations = cdTranslationUI.missingTranslations();
     $scope.inputTranslations = [];
 
@@ -139,7 +152,7 @@ angular.module('cdTranslationUI', [])
           source = $scope.missingTranslations[index],
           translation = $scope.inputTranslations[index];
 
-      $translate.translationTable[uses][source] = translation;
+      $scope.translationTable[uses][source] = translation;
       $translate.uses(uses);
     };
   }]);

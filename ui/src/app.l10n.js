@@ -1,4 +1,4 @@
-app.config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
+app.config(['$translateProvider', function ($translateProvider) {
   $translateProvider.translations('en_EN', {
     // #/reports
     'CALL_TO_ACTION_HEAD':                 'Help verify this report',
@@ -58,9 +58,8 @@ app.config(['$translateProvider', 'cdTranslationUIProvider', function ($translat
   });
   $translateProvider.uses('ar_AR');
 
-  $translateProvider.rememberLanguage(true);
+  // FIXME: Something is amiss with the cookie thing.
+  // $translateProvider.useCookieStorage();
 
-  // Experimental missing translation handler for the cdTranslationUI module.
-  // @see: https://github.com/PascalPrecht/ng-translate/commit/9a042c7f2cf1e3ff57b6a2fbd497a8b9ddcb0ef4
-  $translateProvider.missingTranslationHandler(cdTranslationUIProvider.missingTranslationHandler);
+  $translateProvider.useMissingTranslationHandler('cdTranslationUI');
 }]);
