@@ -4,7 +4,6 @@ $this_desk_nid = 0;
 $last_desk_nid = 0;
 ?>
 <div class="posts">
-  <div class="desk">
 
   <?php foreach ($rows as $id => $row): ?>
     <?php
@@ -12,12 +11,7 @@ $last_desk_nid = 0;
 
       if ($this_desk_nid) {
         if ($this_desk_nid != $last_desk_nid) {
-          if ($last_desk_nid) {
-            echo "</div> <!-- /desk -->\n";
-            echo theme('checkdesk_related_updates_bar', array('story' => node_load($last_desk_nid)));
-            echo "<div class=\"desk\">\n";
-          }
-
+          echo '<div class="desk">';
           echo '<article class="story">';
           echo '<h2>';
           echo   '<span class="field-content">';
@@ -25,7 +19,7 @@ $last_desk_nid = 0;
           echo   '</span>';
           echo '</h2>';
 
-          if(isset($view->result[$id]->field_body)) {
+          if (isset($view->result[$id]->field_body)) {
             echo '<div class="story-body">' . render($view->result[$id]->field_body) . '</div>';  
           }
 
@@ -33,16 +27,18 @@ $last_desk_nid = 0;
           echo '<div class="post-row ' . $classes_array[$id] . '" data-story-nid="' . $this_desk_nid . '">';
           echo $row;
           echo '</div>';
+          echo '</div>';
+        
+          echo theme('checkdesk_related_updates_bar', array('story' => node_load($this_desk_nid)));
         }
       }
 
       // If an update is not related to any story, just print it
       else {
-        if ($last_desk_nid) {
-          echo '</div>';
-        }
+        echo '<div class="desk">';
         echo '<div class="post-row ' . $classes_array[$id] . '" data-story-nid="0">';
         echo $row;
+        echo '</div>';
         echo '</div>';
       }
     ?>
@@ -50,11 +46,5 @@ $last_desk_nid = 0;
     <?php $last_desk_nid = $this_desk_nid; ?>
 
   <?php endforeach; ?>
-
-  </div> <!-- /desk -->
-
-  <?php if ($last_desk_nid): // At least one desk is needed ?>
-    <?php echo theme('checkdesk_related_updates_bar', array('story' => node_load($last_desk_nid))); ?>
-  <?php endif; ?>
 
 </div>
