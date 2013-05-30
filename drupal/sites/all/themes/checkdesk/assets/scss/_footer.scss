@@ -86,8 +86,8 @@
   }
 }
 
-// Medium breakpoint
-@include at-breakpoint($break-medium) {
+// Medium (using minimum 75em and max 24 cols)
+@include at-breakpoint(75em $break-medium) {
   #footer {
     @include span-columns($break-medium - 4, $break-medium, $gutter-width);
     @include pad(2, 2, $break-medium);
@@ -102,17 +102,6 @@
   }
 }
 
-// Large breakpoint
-@include at-breakpoint($break-large) {
-  #footer {
-    #footer-menu {
-      float: opposite-position($from-direction);
-      text-align: opposite-position($from-direction);
-    }
-    #information-menu {
-      float: $from-direction;
-      text-align: $from-direction;
-    }
-  }
-}
+
+
 
