@@ -39,10 +39,28 @@ $bookmarklet-modal-height: 350px;
     margin-top: -$absolute-line-height;
 
     #install-bookmarklet-button {
+      position: relative;
       text-align: center;
       margin-top: -$absolute-line-height/2;
+      // arrow
+      &:before {
+        pointer-events: none;
+        content: "";
+        position: absolute;
+        top: -35px;
+        bottom: 0;
+        #{$alpha}: -60px;
+        width: 66px;
+        height: 84px;
+        @if $from-direction == left {
+          background: transparent url(../imgs/icons/bookmarklet-drag.png) no-repeat;
+        } @else {
+          background: transparent url(../imgs/icons/bookmarklet-drag-ltr.png) no-repeat;
+        }
+        overflow: visible;
+      }
+
       a {
-        position: relative;
         padding: 10px;
         display: block;
         background: $identity;
@@ -51,22 +69,6 @@ $bookmarklet-modal-height: 350px;
         text-decoration: none;
         @include border-radius(3px);
         overflow: visible;
-        &:before {
-          pointer-events: none;
-          content: "";
-          position: absolute;
-          top: -35px;
-          bottom: 0;
-          #{$alpha}: -65px;
-          width: 66px;
-          height: 84px;
-          @if $from-direction == left {
-            background: transparent url(../imgs/icons/bookmarklet-drag.png) no-repeat;
-          } @else {
-            background: transparent url(../imgs/icons/bookmarklet-drag-ltr.png) no-repeat;
-          }
-          overflow: visible;
-        }
       } 
 
       .description {

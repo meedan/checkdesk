@@ -6079,11 +6079,23 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   margin-top: -24px;
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button {
+  position: relative;
   text-align: center;
   margin-top: -12px;
 }
+#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button:before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  top: -35px;
+  bottom: 0;
+  left: -60px;
+  width: 66px;
+  height: 84px;
+  background: transparent url(../imgs/icons/bookmarklet-drag.png) no-repeat;
+  overflow: visible;
+}
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button a {
-  position: relative;
   padding: 10px;
   display: block;
   background: #0088ff;
@@ -6095,18 +6107,6 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
-  overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button a:before {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  top: -35px;
-  bottom: 0;
-  left: -65px;
-  width: 66px;
-  height: 84px;
-  background: transparent url(../imgs/icons/bookmarklet-drag.png) no-repeat;
   overflow: visible;
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button .description {
