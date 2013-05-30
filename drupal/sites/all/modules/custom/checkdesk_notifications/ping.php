@@ -7,23 +7,27 @@ require("../../../../{$server_name}/settings.php");
 // Connect to the database
 global $databases;
 $p = $databases['default']['default'];
-$mysql = mysql_pconnect($p['host'], $p['username'], @$p['password']);
-if (!$mysql) die('Could not connect to database server.');
-mysql_set_charset('utf8', $mysql);
-if (!mysql_select_db($p['database'], $mysql)) die('Could not select database.');
+$mysql = new PDO('mysql:host=' . $p['host'] . ';dbname=' . $p['database'], $p['username'], @$p['password']);
+$mysql->exec('SET NAMES utf8');
+
+function get_result($sql, $mysql) {
+  $query = $mysql->prepare($sql);
+  $query->execute();
+  return $query->fetchColumn();
+}
 
 // Handle parameters - call intval to avoid injection of non-sense stuff
 $timestamp = intval(mysql_real_escape_string($_REQUEST['timestamp']));
 $uid = intval($_REQUEST['user']);
 
 // Get user notification preferences
-$data = unserialize(mysql_result(mysql_query("SELECT data FROM users WHERE uid = $uid", $mysql), 0));
+$data = unserialize(get_result("SELECT data FROM users WHERE uid = $uid", $mysql));
 function should_notify($data, $option) {
   return (isset($data['meedan_notifications']) ? $data['meedan_notifications'][$option] : TRUE);
 }
 
 // Is this user a journalist?
-$is_journalist = mysql_result(mysql_query("SELECT COUNT(*) FROM users_roles ur INNER JOIN role r ON r.rid = ur.rid WHERE ur.uid = $uid AND r.name = 'journalist'", $mysql), 0);
+$is_journalist = get_result("SELECT COUNT(*) FROM users_roles ur INNER JOIN role r ON r.rid = ur.rid WHERE ur.uid = $uid AND r.name = 'journalist'", $mysql);
 
 $query = "SELECT COUNT(DISTINCT(ha.uaid)) FROM heartbeat_activity ha LEFT JOIN node n ON n.nid = ha.nid LEFT JOIN comment c ON c.cid = ha.nid LEFT JOIN comment c2 ON c2.nid = n.nid WHERE (";
 if ($is_journalist) {
@@ -47,7 +51,7 @@ if ($is_journalist) {
 $query .= "FALSE) AND ha.timestamp > $timestamp AND ha.uid != $uid";
 
 // Execute query
-$count = mysql_result(mysql_query($query, $mysql), 0);
+$count = get_result($query, $mysql);
 
 // Return result
 print json_encode(array(
