@@ -145,7 +145,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Fact-checking status changed",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
       "ON" : [ "node_update" ],
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
@@ -154,7 +154,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "data" : [ "node:field-rating:tid" ],
             "value" : [ "node-unchanged:field-rating:tid" ]
           }
-        }
+        },
+        { "php_eval" : { "code" : "return (!isset($node-\\u003Eskip_status_change_notification) || !$node-\\u003Eskip_status_change_notification);" } }
       ],
       "DO" : [
         { "heartbeat_activity_checkdesk_fact_checking_set" : {
@@ -716,7 +717,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Fact-checking turned on for report",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "php", "flag" ],
       "ON" : [ "flag_flagged_factcheck_journalist" ],
       "IF" : [
         { "node_is_of_type" : {
@@ -744,7 +745,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_flagging_user" : [ "flagging-user" ]
           }
         },
-        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "2" } }
+        { "data_set" : { "data" : [ "flagged-node:field-rating" ], "value" : "2" } },
+        { "php_eval" : { "code" : "$flagged_node-\\u003Eskip_status_change_notification = TRUE;" } }
       ]
     }
   }');

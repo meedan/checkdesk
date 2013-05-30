@@ -43468,6 +43468,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['9519bfbd9446e034c588bfd437fb3562'] = array(
+    'source' => '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> you submitted. Fact checking is in progress.</p>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
@@ -43769,6 +43777,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'term:547bb9d2-1dd3-4116-9001-61dfdf877a78:name',
     'location' => 'taxonomy:term:547bb9d2-1dd3-4116-9001-61dfdf877a78:name',
     'translation' => 'خطأ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a7c7cd53e0a23c92164ad94ad26a09cb'] = array(
+    'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> TODO <span class="checkdesk-slogan-partner">@partner</span>',
     'plid' => 0,
     'plural' => 0,
   );
