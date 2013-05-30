@@ -1,4 +1,4 @@
-/*! checkdesk - v0.1.0 - 2013-05-28
+/*! checkdesk - v0.1.0 - 2013-05-30
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 var app = angular.module('Checkdesk', [
@@ -146,6 +146,7 @@ angular.module('cdTranslationUI', [])
     $scope.translationTable = cdTranslationUI.translationTable();
     $scope.missingTranslations = cdTranslationUI.missingTranslations();
     $scope.inputTranslations = [];
+    $scope.currentLanguage = $translate.uses();
 
     $scope.translationChanged = function (index) {
       var uses = $translate.uses(),
