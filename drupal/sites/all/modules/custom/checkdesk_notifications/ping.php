@@ -3,7 +3,6 @@ header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past (HTTP 1.0)
 $server_name = $_SERVER['HTTP_HOST'];
 require("../../../../{$server_name}/settings.php");
-require("../../../../../../sites/{$server_name}/settings.local.php");
 
 // Connect to the database
 global $databases;
@@ -18,7 +17,7 @@ function get_result($sql, $mysql) {
 }
 
 // Handle parameters - call intval to avoid injection of non-sense stuff
-$timestamp = intval(mysql_real_escape_string($_REQUEST['timestamp']));
+$timestamp = intval($_REQUEST['timestamp']);
 $uid = intval($_REQUEST['user']);
 
 // Get user notification preferences
