@@ -43468,6 +43468,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['9519bfbd9446e034c588bfd437fb3562'] = array(
+    'source' => '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> you submitted. Fact checking is in progress.</p>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
