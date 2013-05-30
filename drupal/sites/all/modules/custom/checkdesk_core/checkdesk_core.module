@@ -607,7 +607,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       }
     }
     $links['checkdesk-flag'] = array(
-      'title' => '<span class="icon-flag"></span>' . t('Flag'),
+      'title' => t('Flag'),
       'href' => '#',
       'attributes' => array('class' => 'dropdown-toggle ' . ($flagged ? 'flagged' : 'unflagged'), 'data-toggle' => 'dropdown'),
       'html' => TRUE,

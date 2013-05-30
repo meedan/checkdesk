@@ -13,7 +13,6 @@
       // 2. The sidebar column
       #widgets.column {
         @include span-columns($secondary-width, $break); // sidebar width
-        @include cd-box-shadow();
         background-color: white;
         margin-top: ms(0);
       }
