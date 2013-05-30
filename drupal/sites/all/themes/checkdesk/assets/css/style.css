@@ -4591,15 +4591,22 @@ div.tabs ul.primary li a {
   background-color: white;
   padding: 18px 0;
 }
-#partner-header-inner #partner-header-slogan,
-#partner-header-inner img {
-  padding: 0 18px;
+#partner-header-inner #partner-header-slogan {
+  padding: 0 40px;
+  padding-top: 25px;
+  margin-top: 40px;
 }
 #partner-header-inner #partner-header-slogan {
-  width: 323px;
-  color: #b0c94a;
-  font-size: 27px;
+  color: #595959;
+  font-size: 18px;
   text-align: left;
+}
+#partner-header-inner .checkdesk-slogan-logo {
+  display: inline-block;
+  width: 86px;
+  height: 16px;
+  text-indent: -5000em;
+  background: url(../imgs/checkdesk-logo.png);
 }
 
 #footer {

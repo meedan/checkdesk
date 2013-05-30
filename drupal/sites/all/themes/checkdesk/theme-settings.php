@@ -64,14 +64,6 @@ function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
     '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('thumbnail', $path) . '" />'),
   );
 
-  $slogan = theme_get_setting('header_slogan');
-  $form['header']['header_slogan'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Slogan'),
-    '#description' => t('Type a slogan to be placed on the opposite side of the logo (or on the left, if the logo is centered)'),
-    '#default_value' => ($slogan === NULL ? t('A checkdesk liveblog by @site', array('@site' => variable_get('site_name', ''))) : $slogan),
-  );
-
   $form['#submit'][] = 'checkdesk_settings_submit';
 }
 

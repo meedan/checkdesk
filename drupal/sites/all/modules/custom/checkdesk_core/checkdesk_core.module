@@ -1839,3 +1839,17 @@ function checkdesk_core_preprocess_htmlmail(&$variables) {
   $directions = array('ltr', 'rtl');
   $variables['direction'] = (isset($variables['language']) ? $directions[$variables['language']->direction] : 'ltr');
 }
+
+/**
+ * Implements hook_variable_info().
+ */
+function checkdesk_core_variable_info($options) {
+  $variable['checkdesk_site_owner'] = array(
+    'type' => 'string',
+    'title' => t('Checkdesk site owner', array(), $options),
+    'description' => t('Checkdesk site owner'),
+    'default' => '',
+    'localize' => TRUE,
+  );
+  return $variable;
+}

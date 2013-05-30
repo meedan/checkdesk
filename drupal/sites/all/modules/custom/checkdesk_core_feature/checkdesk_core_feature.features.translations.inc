@@ -43780,5 +43780,13 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['a7c7cd53e0a23c92164ad94ad26a09cb'] = array(
+    'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> TODO <span class="checkdesk-slogan-partner">@partner</span>',
+    'plid' => 0,
+    'plural' => 0,
+  );
   return $translations;
 }
