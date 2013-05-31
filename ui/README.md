@@ -94,13 +94,15 @@ The server configuration proxies requests from some paths through to the Drupal 
 
     RewriteEngine On
 
+    # You MUST have mod_proxy and mod_proxy_http for this to work, else you
+    # will get a 404
     RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|api|admin)
     RewriteRule ^(.*)$ http://checkdesk.local/$1 [L,P]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !=/favicon.ico
-    RewriteRule ^ index.html [L]
+    RewriteRule ^(.*)$ index.html?q=$1 [L]
 
 
 ## Project layout
