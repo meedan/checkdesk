@@ -40,6 +40,8 @@ angular.module('cdTranslationUI', [])
     $scope.translationTable = cdTranslationUI.translationTable();
     $scope.missingTranslations = cdTranslationUI.missingTranslations();
     $scope.inputTranslations = [];
+    // FIXME: $translate.uses() is not updating when language is switched
+    $scope.currentLanguage = $translate.uses();
 
     $scope.translationChanged = function (index) {
       var uses = $translate.uses(),

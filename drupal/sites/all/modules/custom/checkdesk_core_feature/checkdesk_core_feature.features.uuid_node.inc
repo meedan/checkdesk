@@ -273,6 +273,10 @@ function checkdesk_core_feature_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -293,21 +297,25 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'tnid' => 1,
   'translate' => 0,
   'uuid' => '1244c020-f663-b564-b94c-2cf29b12afa4',
-  'revision_uid' => 0,
+  'revision_uid' => 1,
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<div id="info-page-install-bookmarklet" class="info-page">
-<div class="install-bookmarklet-col">
-<p><a id="install-bookmarklet-button" href="<?php print meedan_bookmarklet_get_code(); ?>"><span>Send to <?php print variable_get(\'site_name\', \'this site\'); ?></span></a></p>
-<h3>Drag this button <br /> to your bookmarks bar.</h3>
-</div>
-<div class="install-bookmarklet-col">
-<h2>Install Bookmarklet</h2>
-<p>The browser bookmarklet allows you to send us reports from any page.</p>
-<p>Once you install it, you can click it, preview how the report will appear, and send it to one of our stories.</p>
-<p>To install the bookmarklet, drag the button into your browser\'s bookmarks toolbar.</p>
-</div>
+        'value' => '<div class="info-page" id="info-page-install-bookmarklet">
+	<div class="install-bookmarklet-col">
+		<div id="install-bookmarklet-button">
+			<a class="cta" href="<?php print meedan_bookmarklet_get_code(); ?>">
+				<span>Send to <?php print variable_get(\'site_name\', \'this site\'); ?></span>
+			</a>
+			<div class="description">Drag this button to your bookmarks bar.</div>
+		</div>
+	</div>
+	<div class="install-bookmarklet-col">
+		<h2>Install Bookmarklet</h2>
+		<p>The browser bookmarklet allows you to send us reports from any page.</p>
+		<p>Once you install it, you can click it, preview how the report will appear, and send it to one of our stories.</p>
+		<p>To install the bookmarklet, drag the button into your browser&#39;s bookmarks toolbar.</p>
+	</div>
 </div>
 <script type="text/javascript">
 jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
@@ -374,6 +382,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -668,6 +680,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -789,6 +805,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -899,6 +919,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -919,21 +943,25 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 1,
   'translate' => 0,
   'uuid' => 'b9dfa9a5-9654-8894-d51b-027bff47c7f1',
-  'revision_uid' => 0,
+  'revision_uid' => 1,
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<div id="info-page-install-bookmarklet" class="info-page">
-<div class="install-bookmarklet-col">
-<p><a id="install-bookmarklet-button" href="<?php print meedan_bookmarklet_get_code(); ?>"><span>أضف تقرير إلى <?php print variable_get(\'site_name\', \'this site\'); ?></span></a></p>
-<h3>إسحب هذا الزر <br /> إلى شريط الروابط.</h3>
-</div>
-<div class="install-bookmarklet-col">
-<h2>تنصيب إضافة المتصفح</h2>
-<p>زر إضافة المتصفح يمكنك من إضافة تقارير من أي صفحة.</p>
-<p>بعد التنصيب، انقر الزر وعاين تقريرك الجديد قبل إرساله إلى أحد الأخبار.</p>
-<p>للتنصيب، إسحب الزر إلى شريط الروابط لدى المتصفح.</p>
-</div>
+        'value' => '<div class="info-page" id="info-page-install-bookmarklet">
+	<div class="install-bookmarklet-col">
+		<div id="install-bookmarklet-button">
+			<a class="cta" href="<?php print meedan_bookmarklet_get_code(); ?>">
+				أضف تقرير إلى <?php print variable_get(\'site_name\', \'this site\'); ?>
+			</a>
+			<div class="description">إسحب هذا الزر إلى شريط الروابط.</div>
+		</div>
+	</div>
+	<div class="install-bookmarklet-col">
+		<h2>تنصيب إضافة المتصفح</h2>
+		<p>زر إضافة المتصفح يمكنك من إضافة تقارير من أي صفحة.</p>
+		<p>بعد التنصيب، انقر الزر وعاين تقريرك الجديد قبل إرساله إلى أحد الأخبار.</p>
+		<p>للتنصيب، إسحب الزر إلى شريط الروابط لدى المتصفح.</p>
+	</div>
 </div>
 <script type="text/javascript">
 jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
@@ -1000,6 +1028,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -1121,6 +1153,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -1208,6 +1244,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
