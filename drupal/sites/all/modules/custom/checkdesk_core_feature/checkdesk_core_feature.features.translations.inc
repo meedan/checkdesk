@@ -43040,7 +43040,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Please <a href="@register_url">register</a> or <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.',
     'context' => '',
     'location' => '/meedan/meedan-checkdesk/drupal/ar/liveblog/one-more-test',
-    'translation' => 'TODO',
+    'translation' => 'الرجاء <a href="@register_url">إنشاء حساباً جديداً</a> أو <a href="@login_url">تسجيل الدخول</a> لإضافة ملاحظات والمشاركة في التحقق من صحة المعلومات.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43472,7 +43472,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> you submitted. Fact checking is in progress.</p>',
     'context' => '',
     'location' => '/ar/user',
-    'translation' => 'TODO',
+    'translation' => '<p>قام <strong><a href="!user_url">!username</a></strong> بتفعيل التحقق من صحة المعلومات <strong><a href="!report_url">للتقرير</a></strong> الذي انشأته. التحقق من صحة المعلومات جارٍ.</p>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a7c7cd53e0a23c92164ad94ad26a09cb'] = array(
+    'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'مدونة <span class="checkdesk-slogan-logo">Checkdesk</span> المباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43777,14 +43785,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'term:547bb9d2-1dd3-4116-9001-61dfdf877a78:name',
     'location' => 'taxonomy:term:547bb9d2-1dd3-4116-9001-61dfdf877a78:name',
     'translation' => 'خطأ',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['a7c7cd53e0a23c92164ad94ad26a09cb'] = array(
-    'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
-    'context' => '',
-    'location' => '/ar/user',
-    'translation' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> TODO <span class="checkdesk-slogan-partner">@partner</span>',
     'plid' => 0,
     'plural' => 0,
   );
