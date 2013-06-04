@@ -143,15 +143,15 @@ function _checkdesk_services_i18n_translation_create($translation) {
   // TODO: Should API connections be allowed to set all values on the translation like this?.
   $lid = _locale_import_one_string_db(
     $report,
-    (string) $translation->language,
-    (string) $translation->context,
-    (string) $translation->source,
-    (string) $translation->translation,
-    (string) $translation->textgroup,
-    (string) $translation->location,
+    (string) $translation['language'],
+    (string) $translation['context'],
+    (string) $translation['source'],
+    (string) $translation['translation'],
+    (string) $translation['textgroup'],
+    (string) $translation['location'],
     LOCALE_IMPORT_OVERWRITE,
-    (int) $translation->plid,
-    (int) $translation->plural
+    (int) $translation['plid'],
+    (int) $translation['plural']
   );
 
   if ($lid) {

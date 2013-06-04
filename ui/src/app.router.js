@@ -25,5 +25,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     controller: ReportFormCtrl
   });
 
+  $routeProvider.when('/translationsTest', {
+    templateUrl: 'templates/translationsTest.html',
+    controller: TranslationsTestCtrl
+  });
+
   $routeProvider.otherwise({ redirectTo: '/reports' });
 }]);

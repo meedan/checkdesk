@@ -35,6 +35,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     controller: ReportFormCtrl
   });
 
+  $routeProvider.when('/translationsTest', {
+    templateUrl: 'templates/translationsTest.html',
+    controller: TranslationsTestCtrl
+  });
+
   $routeProvider.otherwise({ redirectTo: '/reports' });
 }]);
 
@@ -238,6 +243,42 @@ appServices
 
 // Integration with Drupal services API
 appServices
+  .factory('Translation', ['$resource', '$http', function($resource, $http) {
+    var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
+      query: {
+        method: 'GET',
+        params: { lid: '', 'textgroup': 'ui' },
+        isArray: true
+      },
+      save: {
+        method: 'POST',
+        params: { lid: '' }
+      },
+      update: {
+        method: 'PUT'
+      },
+      remove: {
+        method: 'DELETE'
+      }
+    });
+
+    // Override the default $save method such that it uses PUT instead of POST
+    // when updating
+    // See: http://stackoverflow.com/a/16263805/806988
+    angular.extend(Translation.prototype, {
+      save: function (callback) {
+        if (this.lid) {
+          return this.$update(callback);
+        }
+        return this.$save(callback);
+      }
+    });
+
+    return Translation;
+  }]);
+
+// Integration with Drupal services API
+appServices
   .factory('User', ['$resource', '$http', function($resource, $http) {
     return $resource('api/user/:verb', {}, {
       login: {
@@ -391,3 +432,26 @@ var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
 }];
 
 app.controller('ReportsCtrl', ReportsCtrl);
+
+var TranslationsTestCtrl = ['$scope', '$translate', 'Translation', function ($scope, $translate, Translation) {
+  $scope.translations = Translation.query({ language: $translate.uses() });
+
+  $scope.translation = new Translation({
+    language:    '',
+    context:     '',
+    source:      '',
+    translation: '',
+    textgroup:   '',
+    location:    '',
+    plid:        '',
+    plural:      ''
+  });
+
+  $scope.submit = function () {
+    $scope.translation.save();
+    return false;
+  };
+
+}];
+
+app.controller('TranslationsTestCtrl', TranslationsTestCtrl);
