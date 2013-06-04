@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * Implements hook_locale().
+ */
+function checkdesk_services_i18n_locale($op = 'groups') {
+  switch ($op) {
+    case 'groups':
+      return array('ui' => t('Checkdesk AngularJS UI'));
+  }
+}
+
+/**
  * Retrieves a Services module endpoint CTools object by name.
  */
 function checkdesk_services_endpoint($name) {

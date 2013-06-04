@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * Implements hook_services_resources().
+ */
+function checkdesk_services_i18n_services_resources() {
+  module_load_include('inc', 'checkdesk_services_i18n', 'checkdesk_services_i18n.resource');
+  return _checkdesk_services_i18n_services_resources();
+}
