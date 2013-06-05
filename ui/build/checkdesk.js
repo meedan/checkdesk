@@ -372,7 +372,9 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 app.controller('HeaderCtrl', HeaderCtrl);
 
 var ReportCtrl = ['$scope', '$routeParams', 'Report', 'ReportActivity', function ($scope, $routeParams, Report, ReportActivity) {
-  $scope.report = Report.get({ nid: $routeParams.nid });
+  $scope.report = Report.get({ nid: $routeParams.nid }, function () {
+    $('body').attr('data-status', 'ready'); // This page has finished loading
+  });
   $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
 }];
 
@@ -428,6 +430,8 @@ var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
       // LOL: Hilariously unperformant, we will improve this of course.
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
+
+    $('body').attr('data-status', 'ready'); // This page has finished loading
   });
 }];
 

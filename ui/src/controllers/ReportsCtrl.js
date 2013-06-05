@@ -6,6 +6,8 @@ var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
       // LOL: Hilariously unperformant, we will improve this of course.
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
+
+    $('body').attr('data-status', 'ready'); // This page has finished loading
   });
 }];
 

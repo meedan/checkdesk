@@ -28,7 +28,9 @@
         <script src="libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
 
-    <body>
+    <!-- The PhantomJS snapshotting system waits until data-status is 'ready'
+         before fetching the page snapshot. -->
+    <body data-status="loading">
         <!-- The header section is managed by the header controller "HeaderCtrl"
              which defines the toggleLang(), login() and logout()
              functions.
