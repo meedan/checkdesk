@@ -191,7 +191,7 @@ function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
   global $base_url;
   // If the user is not logged in, replace bookmarklet title to help text
   if(isset($variables['meedan_bookmarklet_title']) && !user_is_logged_in()) {
-    $variables['meedan_bookmarklet_title'] = t('To ') . strtolower($variables['meedan_bookmarklet_title']) . t(', you need to log in.');
+    $variables['meedan_bookmarklet_title'] = t('To ' . strtolower($variables['meedan_bookmarklet_title']) . ', you need to log in.');
   }
 
   if (isset($_GET['meedan_bookmarklet_submitted'])) {
