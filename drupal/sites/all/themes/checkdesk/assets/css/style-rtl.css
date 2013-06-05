@@ -2215,15 +2215,11 @@ html body div.livefyre-header:before, body div.fb-comments-header:before {
   content: "\f086";
 }
 
-.report h3 > a[href*="twitter.com"]:before, body.page-user-login #user-login #edit-social-media-signin li.first a:before,
-body.page-user-register #user-login #edit-social-media-signin li.first a:before,
-body.page-user-password #user-login #edit-social-media-signin li.first a:before {
+.report h3 > a[href*="twitter.com"]:before, #user-login #edit-social-media-signin li.first a:before {
   content: "\f099";
 }
 
-body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:before,
-body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:before,
-body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:before {
+#user-login #edit-social-media-signin li a[class^='facebook']:before {
   content: "\f09a";
 }
 
@@ -5928,11 +5924,42 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   display: block;
   margin: 0;
 }
-#meedan_bookmarklet #user-login #edit-social-media-signin label, #meedan_bookmarklet #user-login #edit-social-media-signin li, #meedan_bookmarklet #user-login #edit-social-media-signin a {
-  float: right;
+#meedan_bookmarklet #user-login .messages.error {
+  position: static;
+  font-size: 14px;
+  margin-bottom: 9.6px;
 }
-#meedan_bookmarklet #user-login #edit-social-media-signin li {
-  margin-right: 5px;
+#meedan_bookmarklet #user-login #edit-social-media-signin {
+  margin-top: 14.4px;
+}
+#meedan_bookmarklet #user-login #edit-social-media-signin .item-list li a {
+  padding: 9.6px 11px;
+}
+#meedan_bookmarklet #user-login .or {
+  margin: 0 0;
+}
+#meedan_bookmarklet #user-login .user-links {
+  clear: both;
+  font-size: 14px;
+  padding-left: 11px;
+}
+#meedan_bookmarklet #user-login .form-item-remember-me {
+  clear: none;
+}
+#meedan_bookmarklet #user-login .form-item-remember-me label {
+  font-size: 14px;
+}
+#meedan_bookmarklet #user-login .user-new-account-link .register {
+  text-align: left;
+  font-size: 14px;
+}
+#meedan_bookmarklet #user-login input[type=text],
+#meedan_bookmarklet #user-login input[type=password] {
+  width: 323px;
+  padding-right: 0;
+}
+#meedan_bookmarklet #user-login .form-actions {
+  margin-top: 14.4px;
 }
 #meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all {
   display: none !important;
@@ -6114,7 +6141,7 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   position: absolute;
   top: -35px;
   bottom: 0;
-  right: -58px;
+  right: -60px;
   width: 66px;
   height: 84px;
   background: transparent url(../imgs/icons/bookmarklet-drag-ltr.png) no-repeat;
@@ -8306,9 +8333,15 @@ body.page-user-password #content-header {
   padding-right: 17.46725%;
   padding-left: 17.46725%;
 }
-body.page-user-login #user-login,
-body.page-user-register #user-login,
-body.page-user-password #user-login {
+@media (min-width: 469px) {
+  body.page-user-login form #edit-social-media-signin a,
+  body.page-user-register form #edit-social-media-signin a,
+  body.page-user-password form #edit-social-media-signin a {
+    font-size: 20px !important;
+  }
+}
+
+#user-login {
   width: 65.0655%;
   float: right;
   margin-left: 4.80349%;
@@ -8317,36 +8350,36 @@ body.page-user-password #user-login {
   padding-left: 17.46725%;
   margin-top: 28.8px;
 }
-body.page-user-login #user-login .form-required,
-body.page-user-register #user-login .form-required,
-body.page-user-password #user-login .form-required {
+#user-login .form-required {
   display: none;
 }
-body.page-user-login #user-login > div > .item-list,
-body.page-user-register #user-login > div > .item-list,
-body.page-user-password #user-login > div > .item-list {
+#user-login > div > .item-list {
   display: none;
 }
-body.page-user-login #user-login #edit-social-media-signin,
-body.page-user-register #user-login #edit-social-media-signin,
-body.page-user-password #user-login #edit-social-media-signin {
+#user-login #edit-social-media-signin {
+  float: none;
+}
+#user-login #edit-social-media-signin .item-list {
+  *zoom: 1;
   text-align: center;
 }
-body.page-user-login #user-login #edit-social-media-signin .item-list li,
-body.page-user-register #user-login #edit-social-media-signin .item-list li,
-body.page-user-password #user-login #edit-social-media-signin .item-list li {
-  margin: 0;
-  padding: 0;
-  border: 0;
+#user-login #edit-social-media-signin .item-list:before, #user-login #edit-social-media-signin .item-list:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#user-login #edit-social-media-signin .item-list:after {
+  clear: both;
+}
+#user-login #edit-social-media-signin .item-list li {
   list-style: none;
   display: inline;
   margin-left: 11px;
 }
-body.page-user-login #user-login #edit-social-media-signin .item-list li a,
-body.page-user-register #user-login #edit-social-media-signin .item-list li a,
-body.page-user-password #user-login #edit-social-media-signin .item-list li a {
+#user-login #edit-social-media-signin .item-list li a {
+  float: none;
   display: inline-block;
-  padding: 14.4px 44px;
+  padding: 14.4px 22px;
   margin-bottom: 14.4px;
   color: white;
   -webkit-border-radius: 4px;
@@ -8355,14 +8388,10 @@ body.page-user-password #user-login #edit-social-media-signin .item-list li a {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-body.page-user-login #user-login #edit-social-media-signin .item-list li a:hover,
-body.page-user-register #user-login #edit-social-media-signin .item-list li a:hover,
-body.page-user-password #user-login #edit-social-media-signin .item-list li a:hover {
+#user-login #edit-social-media-signin .item-list li a:hover {
   text-decoration: none;
 }
-body.page-user-login #user-login #edit-social-media-signin li.first a,
-body.page-user-register #user-login #edit-social-media-signin li.first a,
-body.page-user-password #user-login #edit-social-media-signin li.first a {
+#user-login #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -8373,23 +8402,17 @@ body.page-user-password #user-login #edit-social-media-signin li.first a {
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-body.page-user-login #user-login #edit-social-media-signin li.first a:hover,
-body.page-user-register #user-login #edit-social-media-signin li.first a:hover,
-body.page-user-password #user-login #edit-social-media-signin li.first a:hover {
+#user-login #edit-social-media-signin li.first a:hover {
   background-color: #1d87c9;
 }
-body.page-user-login #user-login #edit-social-media-signin li.first a:before,
-body.page-user-register #user-login #edit-social-media-signin li.first a:before,
-body.page-user-password #user-login #edit-social-media-signin li.first a:before {
+#user-login #edit-social-media-signin li.first a:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: 20px;
   color: white;
   margin: 0 5.5px;
 }
-body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook'],
-body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook'],
-body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook'] {
+#user-login #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -8400,31 +8423,32 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:hover,
-body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:hover,
-body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:hover {
+#user-login #edit-social-media-signin li a[class^='facebook']:hover {
   background-color: #264887;
 }
-body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:before,
-body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:before,
-body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:before {
+#user-login #edit-social-media-signin li a[class^='facebook']:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: 20px;
   color: white;
   margin: 0 5.5px;
 }
-body.page-user-login #user-login .or,
-body.page-user-register #user-login .or,
-body.page-user-password #user-login .or {
+#user-login .or {
+  *zoom: 1;
   font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
   color: #999999;
   text-align: center;
   margin: 14.4px 0;
 }
-body.page-user-login #user-login .or span,
-body.page-user-register #user-login .or span,
-body.page-user-password #user-login .or span {
+#user-login .or:before, #user-login .or:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#user-login .or:after {
+  clear: both;
+}
+#user-login .or span {
   display: inline-block;
   border: 1px solid #cccccc;
   width: 40px;
@@ -8438,96 +8462,63 @@ body.page-user-password #user-login .or span {
   -o-border-radius: 1000px;
   border-radius: 1000px;
 }
-body.page-user-login #user-login .user-links,
-body.page-user-register #user-login .user-links,
-body.page-user-password #user-login .user-links {
+#user-login .user-links {
   *zoom: 1;
   font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
-  font-size: 15.3px;
+  font-size: 16px;
   line-height: 1.5;
 }
-body.page-user-login #user-login .user-links:before, body.page-user-login #user-login .user-links:after,
-body.page-user-register #user-login .user-links:before,
-body.page-user-register #user-login .user-links:after,
-body.page-user-password #user-login .user-links:before,
-body.page-user-password #user-login .user-links:after {
+#user-login .user-links:before, #user-login .user-links:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.page-user-login #user-login .user-links:after,
-body.page-user-register #user-login .user-links:after,
-body.page-user-password #user-login .user-links:after {
+#user-login .user-links:after {
   clear: both;
 }
-body.page-user-login #user-login .form-item-remember-me,
-body.page-user-register #user-login .form-item-remember-me,
-body.page-user-password #user-login .form-item-remember-me {
+#user-login .form-item-remember-me {
   float: right;
   padding-right: 22px;
 }
-body.page-user-login #user-login .form-item-remember-me label,
-body.page-user-register #user-login .form-item-remember-me label,
-body.page-user-password #user-login .form-item-remember-me label {
+#user-login .form-item-remember-me label {
   display: inline-block;
   color: #999999;
   font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
-  font-size: 15.3px;
+  font-size: 16px;
   line-height: 1.5;
 }
-body.page-user-login #user-login .form-item-remember-me input[type="checkbox"],
-body.page-user-register #user-login .form-item-remember-me input[type="checkbox"],
-body.page-user-password #user-login .form-item-remember-me input[type="checkbox"] {
+#user-login .form-item-remember-me input[type="checkbox"] {
   float: right;
   width: auto;
 }
-body.page-user-login #user-login .user-forgot-pass-link,
-body.page-user-register #user-login .user-forgot-pass-link,
-body.page-user-password #user-login .user-forgot-pass-link {
+#user-login .user-forgot-pass-link {
   float: left;
 }
-body.page-user-login #user-login .form-actions .form-submit,
-body.page-user-register #user-login .form-actions .form-submit,
-body.page-user-password #user-login .form-actions .form-submit {
+#user-login .form-actions .form-submit {
   float: right;
 }
-body.page-user-login #user-login .form-actions .user-new-account-link,
-body.page-user-register #user-login .form-actions .user-new-account-link,
-body.page-user-password #user-login .form-actions .user-new-account-link {
+#user-login .form-actions .user-new-account-link {
   float: left;
   margin-top: 7.2px;
   font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
-  font-size: 15.3px;
+  font-size: 16px;
   color: #999999;
 }
-body.page-user-login #user-login .form-actions .user-new-account-link span,
-body.page-user-register #user-login .form-actions .user-new-account-link span,
-body.page-user-password #user-login .form-actions .user-new-account-link span {
+#user-login .form-actions .user-new-account-link span {
   display: inline-block;
 }
-body.page-user-login #user-login .form-actions .user-new-account-link .register,
-body.page-user-register #user-login .form-actions .user-new-account-link .register,
-body.page-user-password #user-login .form-actions .user-new-account-link .register {
+#user-login .form-actions .user-new-account-link .register {
   margin: 0;
   padding: 0;
   border: 0;
   background: none;
   font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
-  font-size: 15.3px;
+  font-size: 16px;
   font-weight: normal;
   color: #0088cc;
 }
-body.page-user-login #user-login .form-actions .user-new-account-link .register:hover,
-body.page-user-register #user-login .form-actions .user-new-account-link .register:hover,
-body.page-user-password #user-login .form-actions .user-new-account-link .register:hover {
+#user-login .form-actions .user-new-account-link .register:hover {
   color: black;
-}
-@media (min-width: 469px) {
-  body.page-user-login form #edit-social-media-signin a,
-  body.page-user-register form #edit-social-media-signin a,
-  body.page-user-password form #edit-social-media-signin a {
-    font-size: 20px !important;
-  }
 }
 
 .view-administer-users fieldset {

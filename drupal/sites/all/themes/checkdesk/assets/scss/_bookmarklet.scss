@@ -65,6 +65,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
       @include checkdesk-button();
     }
   }
+
 }
 
 @mixin bookmarklet-step-one() {
@@ -253,14 +254,43 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
       display: block;
       margin: 0;
     }
-
+    .messages.error {
+      position: static;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px
+      margin-bottom: $absolute-line-height/3;
+    }
     #edit-social-media-signin {
-      label, li, a {
-        float: $from-direction;
+      margin-top: $absolute-line-height/2;
+      .item-list li a {
+        padding: $absolute-line-height/3 $gutter-width;
       }
-      li {
-        margin-#{$from-direction}: 5px;
+    }
+    .or {
+      margin: 0 0;
+    }
+    .user-links {
+      clear: both;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px
+      padding-#{$omega}: $gutter-width;
+    }
+    .form-item-remember-me {
+      clear: none;
+      label { font-size: modular-scale(0) - modular-scale(-3); } // 14px 
+    }
+    .user-new-account-link {
+      .register {
+        text-align: $omega;
+        font-size: modular-scale(0) - modular-scale(-3); // 14px
       }
+    }
+    // username/pass field widths
+    input[type=text], 
+    input[type=password] {
+      width: $bookmarklet-width - $gutter-width*2;
+      padding-right: 0;
+    }
+    .form-actions {
+      margin-top: $absolute-line-height/2;
     }
   }
 }
