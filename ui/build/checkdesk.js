@@ -1,4 +1,4 @@
-/*! checkdesk - v0.1.0 - 2013-06-04
+/*! checkdesk - v0.1.0 - 2013-06-05
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 var app = angular.module('Checkdesk', [
@@ -371,9 +371,15 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
 app.controller('HeaderCtrl', HeaderCtrl);
 
-var ReportCtrl = ['$scope', '$routeParams', 'Report', 'ReportActivity', function ($scope, $routeParams, Report, ReportActivity) {
+var PageCtrl = ['$scope', 'PageState', function ($scope, PageState) {
+  $scope.PageState = PageState;
+}];
+
+app.controller('PageCtrl', PageCtrl);
+
+var ReportCtrl = ['$scope', '$routeParams', 'PageState', 'Report', 'ReportActivity', function ($scope, $routeParams, PageState, Report, ReportActivity) {
   $scope.report = Report.get({ nid: $routeParams.nid }, function () {
-    $('body').attr('data-status', 'ready'); // This page has finished loading
+    PageState.status('ready'); // This page has finished loading
   });
   $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
 }];
@@ -422,7 +428,7 @@ var ReportFormCtrl = ['$scope', '$routeParams', '$location', 'Report', function 
 
 app.controller('ReportFormCtrl', ReportFormCtrl);
 
-var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
+var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState, Report) {
   $scope.reports = [];
 
   Report.query(function (reports) {
@@ -431,7 +437,7 @@ var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
 
-    $('body').attr('data-status', 'ready'); // This page has finished loading
+    PageState.status('ready'); // This page has finished loading
   });
 }];
 
@@ -459,3 +465,23 @@ var TranslationsTestCtrl = ['$scope', '$translate', 'Translation', function ($sc
 }];
 
 app.controller('TranslationsTestCtrl', TranslationsTestCtrl);
+
+app.factory('PageState', function() {
+  var status = 'loading',
+      title  = 'Checkdesk';
+
+  return {
+    status: function(newStatus) {
+      if (newStatus) {
+        status = newStatus;
+      }
+      return status;
+    },
+    title: function(newTitle) {
+      if (newTitle) {
+        title = newTitle;
+      }
+      return title;
+    }
+  };
+});

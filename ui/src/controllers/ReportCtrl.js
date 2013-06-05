@@ -1,6 +1,6 @@
-var ReportCtrl = ['$scope', '$routeParams', 'Report', 'ReportActivity', function ($scope, $routeParams, Report, ReportActivity) {
+var ReportCtrl = ['$scope', '$routeParams', 'PageState', 'Report', 'ReportActivity', function ($scope, $routeParams, PageState, Report, ReportActivity) {
   $scope.report = Report.get({ nid: $routeParams.nid }, function () {
-    $('body').attr('data-status', 'ready'); // This page has finished loading
+    PageState.status('ready'); // This page has finished loading
   });
   $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
 }];
