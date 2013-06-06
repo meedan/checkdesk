@@ -30,7 +30,9 @@
 
     <!-- The PhantomJS snapshotting system waits until data-status is 'ready'
          before fetching the page snapshot. -->
-    <body data-status="{{PageState.status()}}">
+    <!-- "ng-cloak" hides HTML tags until Angular has finished
+         processing them. -->
+    <body data-status="{{PageState.status()}}" ng-cloak>
         <!-- The header section is managed by the header controller "HeaderCtrl"
              which defines the toggleLang(), login() and logout()
              functions.
@@ -44,10 +46,10 @@
                 <div id="actions">
                     <img src="img/header-icons.png" alt="Checkdesk header icons">
 
-                    <a href="/report/add" class="btn" ng-show="isLoggedIn" ng-cloak translate>Add new report</a>
+                    <a href="/report/add" class="btn" ng-show="isLoggedIn" translate>Add new report</a>
                 </div>
 
-                <div id="user-actions" ng-cloak>
+                <div id="user-actions">
                     <!-- ng-show and ng-hide are directives which hide/show a block
                          based on a boolean.
 
@@ -69,19 +71,16 @@
                 </div>
 
                 <div id="call-to-action">
-                    <!-- "ng-cloak" hides HTML tags until Angular has finished
-                         processing them.
-
-                         "translate" is a filter defined by ngTranslate which is
+                    <!-- "translate" is a filter defined by ngTranslate which is
                          responsible for hot-swapping the contents of the HTML
                          tag depending on the currently used language.
                          @see libs/angular-translate/angular-translate-0.6.0.js -->
-                    <h2 ng-cloak translate>CALL_TO_ACTION_HEAD</h2>
-                    <p ng-cloak translate>CALL_TO_ACTION_TEXT</p>
+                    <h2 translate>CALL_TO_ACTION_HEAD</h2>
+                    <p translate>CALL_TO_ACTION_TEXT</p>
                 </div>
 
                 <!-- @see $scope.toggleLang in js/controllers.js -->
-                <button id="toggle-language-btn" class="btn btn-inverse" ng-click="toggleLang()" ng-cloak translate>LANGUAGE_TOGGLE</button>
+                <button id="toggle-language-btn" class="btn btn-inverse" ng-click="toggleLang()" translate>LANGUAGE_TOGGLE</button>
 
             </div>
         </header>
@@ -95,7 +94,7 @@
         <section>
             <div class="main container">
                 <hr>
-                <span ng-cloak translate>BOTTOM_CONTENT_GOES_HERE</span>
+                <span translate>BOTTOM_CONTENT_GOES_HERE</span>
             </div>
         </section>
 
