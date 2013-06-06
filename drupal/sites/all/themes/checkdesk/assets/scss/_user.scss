@@ -103,8 +103,23 @@ body.page-user-password { // both logged in and not logged ins states
     @include span-columns(4, 6);
     @include pad(1, 1, 6);
   }
+  
 
-  #user-login {
+  // ================================================================================
+  // Breakpoints
+  //
+
+  // Break small
+  @include at-breakpoint($break-small) {
+    form {
+      #edit-social-media-signin a {
+        font-size: $large-font-size !important;
+      }
+    }
+  }
+}
+
+#user-login {
     @include span-columns(4, 6);
     @include pad(1, 1, 6);
     margin-top: $absolute-line-height;
@@ -121,16 +136,19 @@ body.page-user-password { // both logged in and not logged ins states
 
     // The social media sign-in boxes
     #edit-social-media-signin {
-      text-align: center;
+      float: none;
+      .item-list {
+        @include ctb-clearfix;
+        text-align: center;
+      }
       .item-list li {
-        @include reset-box-model;
         @include reset-list-style;
         display: inline;
         margin-#{$omega}: $gutter-width;
-
         a {
+          float: none;
           display: inline-block;
-          padding: $absolute-line-height/2 $gutter-width*4;
+          padding: $absolute-line-height/2 $gutter-width*2;
           margin-bottom: $absolute-line-height/2;
           color: $white;
           @include border-radius(4px);
@@ -157,6 +175,7 @@ body.page-user-password { // both logged in and not logged ins states
     }
 
     .or {
+      @include ctb-clearfix;
       font-family: $header-font-stack;
       color: $grayLight;
       text-align: center;
@@ -176,7 +195,7 @@ body.page-user-password { // both logged in and not logged ins states
     .user-links {
       @include ctb-clearfix;
       font-family: $header-font-stack;
-      font-size: $fontSizeSmall;
+      font-size: $small-font-size;
       line-height: 1.5;
     }
 
@@ -187,7 +206,7 @@ body.page-user-password { // both logged in and not logged ins states
         display: inline-block;
         color: $grayLight;
         font-family: $header-font-stack;
-        font-size: $fontSizeSmall;
+        font-size: $small-font-size;
         line-height: 1.5;
       }
       input[type="checkbox"] {
@@ -209,7 +228,7 @@ body.page-user-password { // both logged in and not logged ins states
         float: $omega;
         margin-top: $absolute-line-height/4;
         font-family: $header-font-stack;
-        font-size: $fontSizeSmall;
+        font-size: $small-font-size;
         color: $grayLight;
 
         span {
@@ -220,7 +239,7 @@ body.page-user-password { // both logged in and not logged ins states
           @include reset-box-model;
           background: none;
           font-family: $header-font-stack;
-          font-size: $fontSizeSmall;
+          font-size: $small-font-size;
           font-weight: normal;
           @include ctb-linkColor($linkColor);
         }
@@ -229,26 +248,9 @@ body.page-user-password { // both logged in and not logged ins states
 
 
   }
-  
-  
 
 
-  // ================================================================================
-  // Breakpoints
-  //
-
-  // Break small
-  @include at-breakpoint($break-small) {
-    form {
-      #edit-social-media-signin a {
-        font-size: $large-font-size !important;
-      }
-    }
-  }
-}
-
-
-// user admin page
+// user admin page#
 .view-administer-users {
   fieldset {
     margin-bottom: $absolute-line-height/2;
