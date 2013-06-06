@@ -9,7 +9,7 @@ appServices
         //        services_views.module to return pre-formatted HTML. This is
         //        slightly more helpful, but I couldn't get Angular to process
         //        it correctly. Raw data is much better anyway.
-        params: { display_id: 'page_1', args: [] },
+        params: { display_id: 'services_1', args: [] },
         isArray: true
       }
     });
