@@ -1,5 +1,5 @@
 // Integration with Drupal services API
-appServices
+cdServices
   .factory('User', ['$resource', '$http', function($resource, $http) {
     return $resource('api/user/:verb', {}, {
       login: {

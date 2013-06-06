@@ -1,6 +1,8 @@
 var app = angular.module('Checkdesk', [
       'pascalprecht.translate',
-      'cdTranslationUI',
-      'Checkdesk.services'
+      'cd.l10n',
+      'cd.translationUI',
+      'cd.page',
+      'cd.services'
     ]),
-    appServices = angular.module('Checkdesk.services', ['ngResource']);
+    cdServices = angular.module('cd.services', ['ngResource']);

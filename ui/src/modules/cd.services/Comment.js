@@ -1,5 +1,5 @@
 // Integration with Drupal services API
-appServices
+cdServices
   .factory('Comment', ['$resource', function($resource) {
     return $resource('api/node/:nid/comments', {}, {
       query: {

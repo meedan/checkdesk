@@ -1,12 +1,14 @@
-/*! checkdesk - v0.1.0 - 2013-06-05
+/*! checkdesk - v0.1.0 - 2013-06-06
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 var app = angular.module('Checkdesk', [
       'pascalprecht.translate',
-      'cdTranslationUI',
-      'Checkdesk.services'
+      'cd.l10n',
+      'cd.translationUI',
+      'cd.page',
+      'cd.services'
     ]),
-    appServices = angular.module('Checkdesk.services', ['ngResource']);
+    cdServices = angular.module('cd.services', ['ngResource']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   // See: http://docs.angularjs.org/guide/dev_guide.services.$location
@@ -43,73 +45,207 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   $routeProvider.otherwise({ redirectTo: '/reports' });
 }]);
 
-app.config(['$translateProvider', function ($translateProvider) {
-  $translateProvider.translations('en_EN', {
-    // #/reports
-    'CALL_TO_ACTION_HEAD':                 'Help verify this report',
-    'CALL_TO_ACTION_TEXT':                 'Checkdesk is a collaborative space for journalist led and citizen participating fact-checking.',
-    'LANGUAGE_TOGGLE':                     'Switch to Arabic',
-    'WELCOME_USER':                        'Welcome, {{name}}',
-    'LOGOUT':                              'Logout',
-    'USER_NAME':                           'User name',
-    'PASSWORD':                            'Password',
-    'LOG_IN':                              'Log in',
-    'BOTTOM_CONTENT_GOES_HERE':            'Bottom content goes here.',
-    'REALLY_BOTTOM_CONTENT_GOES_HERE':     'Really bottom content goes here.',
+angular.module('cd.l10n', ['pascalprecht.translate', 'cd.translationUI'])
+  .config(['$translateProvider', function ($translateProvider) {
+    // Initially empty translation tables
+    $translateProvider.translations('en', {});
+    $translateProvider.translations('ar', {});
 
-    // #/report/:nid
-    '#_FACT_CHECKING_FOOTNOTES':           '{{num}} fact-checking footnotes',
-    'VERIFIED':                            'Verified',
-    'CREATE_NOTE':                         'Create note',
-    'PEOPLE_HELPING_VERIFY_THIS_REPORT':   'People helping verify this report:',
-    '#_JOURNALISTS':                       '{{num}} journalists',
-    '#_CITIZENS':                          '{{num}} citizens',
-    'CHANGED_STATUS_TO_VERIFIED':          'Changed status to verified',
-    '#_MINUTES_SHORT':                     '{{num}}m',
-    '#_HOURS_SHORT':                       '{{num}}h',
-    'LOREM_IPSUM':                         'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    'CHANGED_STATUS_TO':                   'Changed status to',
-    'UNDETERMINED':                        'Undetermined',
-    'LOAD_MORE':                           'Load more'
+    $translateProvider.uses('ar');
+
+    // FIXME: Something is amiss with the cookie thing.
+    // $translateProvider.useCookieStorage();
+
+    $translateProvider.useMissingTranslationHandler('cdTranslationUI');
+  }])
+  .run(['$translate', 'cdTranslationUI', 'Translation', function ($translate, cdTranslationUI, Translation) {
+    Translation.query({}, function (translations) {
+      var translationTable,
+          languages = ['ar', 'en'],
+          language, translation, i, j;
+
+      // Get a reference to the translation table
+      translationTable = cdTranslationUI.translationTable();
+
+      for (i = languages.length - 1; i >= 0; i--) {
+        language = languages[i];
+
+        if (translations.hasOwnProperty(language)) {
+          for (j = translations[language].length - 1; j >= 0; j--) {
+            translation = translations[language][j];
+
+            translationTable[language][translation.source] = translation.translation;
+          }
+        }
+      }
+
+      // Refresh interface translations
+      $translate.uses($translate.uses());
+    });
+  }]);
+
+angular.module('cd.page', [])
+  .factory('PageState', function() {
+    var status = 'loading',
+        title  = 'Checkdesk';
+
+    return {
+      status: function(newStatus) {
+        if (newStatus) {
+          status = newStatus;
+        }
+        return status;
+      },
+      title: function(newTitle) {
+        if (newTitle) {
+          title = newTitle;
+        }
+        return title;
+      }
+    };
   });
 
-  $translateProvider.translations('ar_AR', {
-    // #/reports
-    'CALL_TO_ACTION_HEAD':                 'مساعدة في التحقق من هذا التقرير',
-    'CALL_TO_ACTION_TEXT':                 'Checkdesk هو مساحة تعاونية للصحفي ومواطن قاد المشاركة تدقيق الحقائق.',
-    'LANGUAGE_TOGGLE':                     'التبديل إلى الإنجليزية',
-    'WELCOME_USER':                        'أهلا، {{name}}',
-    'LOGOUT':                              'تسجيل الخروج',
-    'USER_NAME':                           'اسم المستخدم',
-    'PASSWORD':                            'كلمة السر',
-    'LOG_IN':                              'تسجيل الدخول',
-    'BOTTOM_CONTENT_GOES_HERE':            'محتوى أسفل يذهب هنا.',
-    'REALLY_BOTTOM_CONTENT_GOES_HERE':     'محتوى أسفل حقا يذهب هنا.',
+// Integration with Drupal services API
+cdServices
+  .factory('Comment', ['$resource', function($resource) {
+    return $resource('api/node/:nid/comments', {}, {
+      query: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  }]);
 
-    // #/report/:nid
-    '#_FACT_CHECKING_FOOTNOTES':           '{{num}} الحواشي تدقيق الحقائق',
-    'VERIFIED':                            'التحقق',
-    'CREATE_NOTE':                         'إنشاء حاشية',
-    'PEOPLE_HELPING_VERIFY_THIS_REPORT':   'الناس الذين يساعدون تحقق من هذا التقرير:',
-    '#_JOURNALISTS':                       '{{num}} الصحفيين',
-    '#_CITIZENS':                          '{{num}} مواطنا',
-    'CHANGED_STATUS_TO_VERIFIED':          'تغيرت الحالة إلى <em>التحقق</em>',
-    '#_MINUTES_SHORT':                     '{{num}} دقيقة',
-    '#_HOURS_SHORT':                       '{{num}} ساعات',
-    'LOREM_IPSUM':                         'غريمه وحلفاؤها تعد من, جُل لم الذود السبب الأمامية, وبعض شمال فمرّ بحث لم. مما أمدها الأرواح بـ, بالقصف اتفاقية لبولندا بـ حشد, سقط أم الذود للصين للألمان.',
-    'CHANGED_STATUS_TO_*':                 'تغيرت الحالة إلى',
-    'UNDETERMINED':                        'غير محدد',
-    'LOAD_MORE':                           'تحميل أكثر'
-  });
-  $translateProvider.uses('ar_AR');
+// Integration with Drupal services API
+cdServices
+  .factory('Report', ['$resource', '$http', function($resource, $http) {
+    var Report = $resource('api/node/:nid', { nid: '@nid' }, {
+      query: {
+        method: 'GET',
+        params: { nid: '', 'parameters[type]': 'media', pagesize: 5 },
+        isArray: true
+      },
+      get: {
+        method: 'GET',
+        isArray: false
+      },
+      save: {
+        method: 'POST',
+        params: { nid: '' }
+      },
+      update: {
+        method: 'PUT'
+      }
+    });
 
-  // FIXME: Something is amiss with the cookie thing.
-  // $translateProvider.useCookieStorage();
+    // Override the default $save method such that it uses PUT instead of POST
+    // when updating
+    // See: http://stackoverflow.com/a/16263805/806988
+    angular.extend(Report.prototype, {
+      save: function (callback) {
+        if (this.nid) {
+          return this.$update(callback);
+        }
+        return this.$save(callback);
+      }
+    });
 
-  $translateProvider.useMissingTranslationHandler('cdTranslationUI');
-}]);
+    return Report;
+  }]);
 
-angular.module('cdTranslationUI', [])
+// Integration with Drupal services API
+cdServices
+  // TODO: Merge 'ReportActivity' cleanly into the 'Report' service.
+  .factory('ReportActivity', ['$resource', function($resource) {
+    return $resource('api/views/activity_report', {}, {
+      query: {
+        method: 'GET',
+        // FIXME: Sending the {format_output: '1'} param causes Drupal's
+        //        services_views.module to return pre-formatted HTML. This is
+        //        slightly more helpful, but I couldn't get Angular to process
+        //        it correctly. Raw data is much better anyway.
+        params: { display_id: 'services_1', args: [] },
+        isArray: true
+      }
+    });
+  }]);
+
+// Integration with Drupal services API
+cdServices
+  .factory('System', ['$resource', function($resource) {
+    return $resource('api/system/:verb', {}, {
+      connect: {
+        method:  'POST',
+        params:  { verb: 'connect' },
+        isArray: false // eg: {sessid:'123',user:{...}}
+      }
+    });
+  }]);
+
+// Integration with Drupal services API
+cdServices
+  .factory('Translation', ['$resource', '$http', function($resource, $http) {
+    var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
+      query: {
+        method: 'GET',
+        params: { lid: '', 'textgroup': 'ui' },
+        isArray: false
+      },
+      save: {
+        method: 'POST',
+        params: { lid: '' }
+      },
+      update: {
+        method: 'PUT'
+      },
+      remove: {
+        method: 'DELETE'
+      }
+    });
+
+    // Override the default $save method such that it uses PUT instead of POST
+    // when updating
+    // See: http://stackoverflow.com/a/16263805/806988
+    angular.extend(Translation.prototype, {
+      save: function (callback) {
+        if (this.lid) {
+          return this.$update(callback);
+        }
+        return this.$save(callback);
+      }
+    });
+
+    return Translation;
+  }]);
+
+// Integration with Drupal services API
+cdServices
+  .factory('User', ['$resource', '$http', function($resource, $http) {
+    return $resource('api/user/:verb', {}, {
+      login: {
+        method: 'POST',
+        params:  { verb: 'login' },
+        isArray: false // eg: {sessid:'123',sessname:'abc',user:{...}}
+      },
+      logout: {
+        method: 'POST',
+        params:  { verb: 'logout' },
+        isArray: false, // eg: [true] transformed to { result: true }
+        transformResponse: $http.defaults.transformResponse.concat([
+          function (data, headersGetter) {
+            if (angular.isArray(data) && data.length > 0) {
+              return { result: data[0] };
+            } else {
+              // TODO: Return error.
+              return { result: false };
+            }
+          }
+        ])
+      }
+    });
+  }]);
+
+angular.module('cd.translationUI', [])
   .provider('cdTranslationUI', function () {
     var $translationTable,
         $missingTranslations = [],
@@ -162,146 +298,6 @@ angular.module('cdTranslationUI', [])
       $scope.translationTable[uses][source] = translation;
       $translate.uses(uses);
     };
-  }]);
-
-// Integration with Drupal services API
-appServices
-  .factory('Comment', ['$resource', function($resource) {
-    return $resource('api/node/:nid/comments', {}, {
-      query: {
-        method: 'GET',
-        isArray: true
-      }
-    });
-  }]);
-
-// Integration with Drupal services API
-appServices
-  .factory('Report', ['$resource', '$http', function($resource, $http) {
-    var Report = $resource('api/node/:nid', { nid: '@nid' }, {
-      query: {
-        method: 'GET',
-        params: { nid: '', 'parameters[type]': 'media', pagesize: 5 },
-        isArray: true
-      },
-      get: {
-        method: 'GET',
-        isArray: false
-      },
-      save: {
-        method: 'POST',
-        params: { nid: '' }
-      },
-      update: {
-        method: 'PUT'
-      }
-    });
-
-    // Override the default $save method such that it uses PUT instead of POST
-    // when updating
-    // See: http://stackoverflow.com/a/16263805/806988
-    angular.extend(Report.prototype, {
-      save: function (callback) {
-        if (this.nid) {
-          return this.$update(callback);
-        }
-        return this.$save(callback);
-      }
-    });
-
-    return Report;
-  }]);
-
-// Integration with Drupal services API
-appServices
-  // TODO: Merge 'ReportActivity' cleanly into the 'Report' service.
-  .factory('ReportActivity', ['$resource', function($resource) {
-    return $resource('api/views/activity_report', {}, {
-      query: {
-        method: 'GET',
-        // FIXME: Sending the {format_output: '1'} param causes Drupal's
-        //        services_views.module to return pre-formatted HTML. This is
-        //        slightly more helpful, but I couldn't get Angular to process
-        //        it correctly. Raw data is much better anyway.
-        params: { display_id: 'page_1', args: [] },
-        isArray: true
-      }
-    });
-  }]);
-
-// Integration with Drupal services API
-appServices
-  .factory('System', ['$resource', function($resource) {
-    return $resource('api/system/:verb', {}, {
-      connect: {
-        method:  'POST',
-        params:  { verb: 'connect' },
-        isArray: false // eg: {sessid:'123',user:{...}}
-      }
-    });
-  }]);
-
-// Integration with Drupal services API
-appServices
-  .factory('Translation', ['$resource', '$http', function($resource, $http) {
-    var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
-      query: {
-        method: 'GET',
-        params: { lid: '', 'textgroup': 'ui' },
-        isArray: true
-      },
-      save: {
-        method: 'POST',
-        params: { lid: '' }
-      },
-      update: {
-        method: 'PUT'
-      },
-      remove: {
-        method: 'DELETE'
-      }
-    });
-
-    // Override the default $save method such that it uses PUT instead of POST
-    // when updating
-    // See: http://stackoverflow.com/a/16263805/806988
-    angular.extend(Translation.prototype, {
-      save: function (callback) {
-        if (this.lid) {
-          return this.$update(callback);
-        }
-        return this.$save(callback);
-      }
-    });
-
-    return Translation;
-  }]);
-
-// Integration with Drupal services API
-appServices
-  .factory('User', ['$resource', '$http', function($resource, $http) {
-    return $resource('api/user/:verb', {}, {
-      login: {
-        method: 'POST',
-        params:  { verb: 'login' },
-        isArray: false // eg: {sessid:'123',sessname:'abc',user:{...}}
-      },
-      logout: {
-        method: 'POST',
-        params:  { verb: 'logout' },
-        isArray: false, // eg: [true] transformed to { result: true }
-        transformResponse: $http.defaults.transformResponse.concat([
-          function (data, headersGetter) {
-            if (angular.isArray(data) && data.length > 0) {
-              return { result: data[0] };
-            } else {
-              // TODO: Return error.
-              return { result: false };
-            }
-          }
-        ])
-      }
-    });
   }]);
 
 var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
@@ -465,23 +461,3 @@ var TranslationsTestCtrl = ['$scope', '$translate', 'Translation', function ($sc
 }];
 
 app.controller('TranslationsTestCtrl', TranslationsTestCtrl);
-
-app.factory('PageState', function() {
-  var status = 'loading',
-      title  = 'Checkdesk';
-
-  return {
-    status: function(newStatus) {
-      if (newStatus) {
-        status = newStatus;
-      }
-      return status;
-    },
-    title: function(newTitle) {
-      if (newTitle) {
-        title = newTitle;
-      }
-      return title;
-    }
-  };
-});

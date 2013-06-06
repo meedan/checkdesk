@@ -1,5 +1,5 @@
 // Integration with Drupal services API
-appServices
+cdServices
   .factory('Report', ['$resource', '$http', function($resource, $http) {
     var Report = $resource('api/node/:nid', { nid: '@nid' }, {
       query: {

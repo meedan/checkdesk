@@ -30,11 +30,7 @@ module.exports = function(grunt) {
         src: [
           'src/app.js',
           'src/app.router.js',
-          'src/app.l10n.js',
           'src/modules/**/*.js',
-          'src/services/**/*.js',
-          'src/directives/**/*.js',
-          'src/filters/**/*.js',
           'src/**/*.js'
         ],
         dest: 'build/<%= pkg.name %>.js'

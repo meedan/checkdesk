@@ -1,11 +1,11 @@
 // Integration with Drupal services API
-appServices
+cdServices
   .factory('Translation', ['$resource', '$http', function($resource, $http) {
     var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
       query: {
         method: 'GET',
         params: { lid: '', 'textgroup': 'ui' },
-        isArray: true
+        isArray: false
       },
       save: {
         method: 'POST',

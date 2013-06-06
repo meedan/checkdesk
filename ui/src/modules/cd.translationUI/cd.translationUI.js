@@ -1,4 +1,4 @@
-angular.module('cdTranslationUI', [])
+angular.module('cd.translationUI', [])
   .provider('cdTranslationUI', function () {
     var $translationTable,
         $missingTranslations = [],

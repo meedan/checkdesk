@@ -1,5 +1,5 @@
 // Integration with Drupal services API
-appServices
+cdServices
   // TODO: Merge 'ReportActivity' cleanly into the 'Report' service.
   .factory('ReportActivity', ['$resource', function($resource) {
     return $resource('api/views/activity_report', {}, {

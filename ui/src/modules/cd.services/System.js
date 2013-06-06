@@ -1,5 +1,5 @@
 // Integration with Drupal services API
-appServices
+cdServices
   .factory('System', ['$resource', function($resource) {
     return $resource('api/system/:verb', {}, {
       connect: {
