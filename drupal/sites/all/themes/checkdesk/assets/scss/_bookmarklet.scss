@@ -28,16 +28,20 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     display: none; // HACK hidden
   }
 
-  input[type=text], 
-  input[type=password], 
-  textarea {
-    @include border-radius($radius);
-  }
 
-  input[type=text] {
-    width: $bookmarklet-width - ($spinner-width + $gutter-width*2);
-    padding-#{opposite-position($from-direction)}: $spinner-width; //accomodate spinner
+  .link-field-url {
+    input[type=text], 
+    input[type=password], 
+    textarea {
+      @include border-radius($radius);
+    }
+
+    input[type=text] {
+      width: $bookmarklet-width - ($spinner-width + $gutter-width*2);
+      padding-#{opposite-position($from-direction)}: $spinner-width; //accomodate spinner
+    }
   }
+  
 
   .form-type-textarea {
     padding-top: $gutter-width;
@@ -287,7 +291,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     input[type=text], 
     input[type=password] {
       width: $bookmarklet-width - $gutter-width*2;
-      padding-right: 0;
+      padding-#{$omega}: 0;
     }
     .form-actions {
       margin-top: $absolute-line-height/2;

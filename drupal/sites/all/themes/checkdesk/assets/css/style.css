@@ -5802,16 +5802,16 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 #meedan_bookmarklet .field-edit-link {
   display: none;
 }
-#meedan_bookmarklet input[type=text],
-#meedan_bookmarklet input[type=password],
-#meedan_bookmarklet textarea {
+#meedan_bookmarklet .link-field-url input[type=text],
+#meedan_bookmarklet .link-field-url input[type=password],
+#meedan_bookmarklet .link-field-url textarea {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-#meedan_bookmarklet input[type=text] {
+#meedan_bookmarklet .link-field-url input[type=text] {
   width: 278px;
   padding-right: 45px;
 }
