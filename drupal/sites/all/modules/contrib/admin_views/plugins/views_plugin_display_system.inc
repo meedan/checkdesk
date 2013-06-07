@@ -209,6 +209,24 @@ class views_plugin_display_system extends views_plugin_display {
       $parent = &$callbacks[$path];
     }
 
+    // Work out whether we need to get the access callback and arguments from
+    // the parent item.
+    $default_map = array(
+      'access callback' => 'user_access',
+      'access arguments' => array(),
+    );
+
+    foreach ($default_map as $menu_key => &$default) {
+      // Override the default if we can. Otherwise this will use the defaults
+      // above.
+      if (!empty($callbacks[$path][$menu_key])) {
+        $default = $callbacks[$path][$menu_key];
+      }
+      elseif (!empty($parent[$menu_key])) {
+        $default = $parent[$menu_key];
+      }
+    }
+
     $items[$path] = array(
       // default views page entry
       'page callback' => 'views_page',
@@ -216,8 +234,8 @@ class views_plugin_display_system extends views_plugin_display {
       // Take over the access definition from the original router item.
       // @see option_definition()
       // @see views_plugin_access_menu
-      'access callback' => !empty($callbacks[$path]['access callback']) ? $callbacks[$path]['access callback'] : 'user_access',
-      'access arguments' => !empty($callbacks[$path]['access arguments']) ? $callbacks[$path]['access arguments'] : array(),
+      'access callback' => $default_map['access callback'],
+      'access arguments' => $default_map['access arguments'],
       // Identify URL embedded arguments and correlate them to a handler
       'load arguments' => array($this->view->name, $this->display->id, '%index'),
     );
