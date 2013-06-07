@@ -5,6 +5,7 @@ package = Checkdesk
 php = 5.2.4
 version = 7.x-1.0
 project = checkdesk_api
+dependencies[] = checkdesk_services
 dependencies[] = ctools
 dependencies[] = rest_server
 dependencies[] = services

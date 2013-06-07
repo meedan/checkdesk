@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * Implements hook_locale().
+ */
+function checkdesk_services_i18n_locale($op = 'groups') {
+  switch ($op) {
+    case 'groups':
+      return array('ui' => t('Checkdesk AngularJS UI'));
+  }
+}
+
+/**
+ * Retrieves a Services module endpoint CTools object by name.
+ */
+function checkdesk_services_endpoint($name) {
+  ctools_include('export');
+  $endpoints = ctools_export_load_object('services_endpoint', 'all', array('name' => $name));
+
+  if (count($endpoints) <= 0) {
+    return FALSE; // TODO: Log errors in checkdesk_services_is_api_call().
+  }
+
+  $endpoint = reset($endpoints);
+
+  return $endpoint;
+}
+
+/**
+ * Is the current menu path inside the API?
+ */
+function checkdesk_services_is_api_call() {
+  $endpoint_name = variable_get('checkdesk_services_endpoint_name', 'api');
+
+  if (($endpoint = checkdesk_services_endpoint($endpoint_name)) && (!isset($endpoint->disabled) || !$endpoint->disabled)) {
+    return preg_match('/^' . preg_quote($endpoint->path, '/') . '/', $_GET['q']);
+  }
+
+  return FALSE; // TODO: Log errors in checkdesk_services_is_api_call().
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function checkdesk_services_node_load($nodes, $types) {
+  // Only alter when running in the API
+  if (!checkdesk_services_is_api_call()) {
+    return;
+  }
+
+  foreach ($nodes as $nid => $node) {
+    $nodes[$nid]->checkdesk = (object) array();
+
+    $rating = taxonomy_term_load($node->field_rating[LANGUAGE_NONE][0]['tid']);
+
+    // TODO: Un-stub the activity count.
+    $nodes[$nid]->checkdesk->activity_count         = 123;
+    // TODO: Un-stub the num journalists.
+    $nodes[$nid]->checkdesk->num_journalists        = 2;
+    // TODO: Un-stub the num citizens.
+    $nodes[$nid]->checkdesk->num_citizens           = 16;
+    $nodes[$nid]->checkdesk->rating                 = (object) array('name' => $rating->name);
+
+    checkdesk_services_node_load_scrub($nodes[$nid]);
+  }
+}
+
+/**
+ * Scrubs junk from nodes sent out via services module.
+ */
+function checkdesk_services_node_load_scrub($node) {
+  unset($node->rdf_mapping); // FIXME: Can RDF data be removed more cleanly here?
+  unset($node->data); // Node $author->data
+}

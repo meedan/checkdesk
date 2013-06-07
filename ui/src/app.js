@@ -1,5 +1,5 @@
 var app = angular.module('Checkdesk', [
-      'ngTranslate',
+      'pascalprecht.translate',
       'cdTranslationUI',
       'Checkdesk.services'
     ]),

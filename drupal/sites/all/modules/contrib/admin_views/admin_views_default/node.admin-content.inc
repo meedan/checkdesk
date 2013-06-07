@@ -40,7 +40,7 @@ $handler->display->display_options['style_options']['columns'] = array(
   'status' => 'status',
   'changed' => 'changed',
   'edit_node' => 'edit_node',
-  'delete_node' => 'delete_node',
+  'delete_node' => 'edit_node',
 );
 $handler->display->display_options['style_options']['default'] = 'changed';
 $handler->display->display_options['style_options']['info'] = array(
@@ -91,7 +91,7 @@ $handler->display->display_options['style_options']['info'] = array(
   ),
   'edit_node' => array(
     'align' => '',
-    'separator' => '',
+    'separator' => '&emsp;',
     'empty_column' => 0,
   ),
   'delete_node' => array(
@@ -127,25 +127,27 @@ $handler->display->display_options['fields']['views_bulk_operations']['field'] =
 $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
 $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
   'action::node_assign_owner_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Change author',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_delete_item' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 1,
     'label' => 'Delete',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_modify_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Change value',
@@ -155,34 +157,35 @@ $handler->display->display_options['fields']['views_bulk_operations']['vbo']['op
         '_all_' => '_all_',
       ),
     ),
+    'postpone_processing' => 0,
   ),
   'action::system_message_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_script_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::node_make_sticky_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Stick',
+    'postpone_processing' => 0,
   ),
   'action::node_make_unsticky_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Unstick',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_argument_selector_action' => array(
     'selected' => 0,
@@ -195,65 +198,61 @@ $handler->display->display_options['fields']['views_bulk_operations']['vbo']['op
   ),
   'action::node_promote_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Promote to front page',
+    'postpone_processing' => 0,
   ),
   'action::node_publish_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Publish',
+    'postpone_processing' => 0,
   ),
   'action::system_goto_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::node_unpromote_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Demote from front page',
+    'postpone_processing' => 0,
   ),
   'action::node_save_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::system_send_email_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::node_unpublish_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Unpublish',
+    'postpone_processing' => 0,
   ),
   'action::node_unpublish_by_keyword_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
 );
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
 /* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -290,7 +289,7 @@ $handler->display->display_options['fields']['changed']['date_format'] = 'short'
 $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
 $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
 $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-$handler->display->display_options['fields']['edit_node']['label'] = '';
+$handler->display->display_options['fields']['edit_node']['label'] = 'Operations';
 /* Field: Content: Delete link */
 $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
 $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
@@ -382,6 +381,7 @@ $translatables['admin_views_node'] = array(
   t('Author'),
   t('Published'),
   t('Updated'),
+  t('Operations'),
   t('Vocabulary'),
   t('System'),
 );

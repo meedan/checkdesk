@@ -515,6 +515,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'htmlmail_theme';
+  $strongarm->value = 'checkdesk';
+  $export['htmlmail_theme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'ife_display';
   $strongarm->value = '2';
   $export['ife_display'] = $strongarm;
@@ -1408,6 +1415,17 @@ Your account on [site:name] has been canceled.
   $strongarm->name = 'user_signatures';
   $strongarm->value = 0;
   $export['user_signatures'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'variable_realm_list_language';
+  $strongarm->value = array(
+    0 => 'checkdesk_site_owner',
+    1 => 'site_name',
+    2 => 'site_slogan',
+  );
+  $export['variable_realm_list_language'] = $strongarm;
 
   return $export;
 }

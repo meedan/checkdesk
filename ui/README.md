@@ -90,6 +90,20 @@ The server configuration proxies requests from some paths through to the Drupal 
             log_not_found off;
     }
 
+**Example configuration for Apache:**
+
+    RewriteEngine On
+
+    # You MUST have mod_proxy and mod_proxy_http for this to work, else you
+    # will get a 404
+    RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|api|admin)
+    RewriteRule ^(.*)$ http://checkdesk.local/$1 [L,P]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !=/favicon.ico
+    RewriteRule ^(.*)$ index.html?q=$1 [L]
+
 
 ## Project layout
 
@@ -103,6 +117,7 @@ The server configuration proxies requests from some paths through to the Drupal 
        |...libs (../libs)
        |...template (../src/templates)
        |-scripts                           # Scripts, eg: nodejs, bash, python
+       |-snapshots                         # Static site snapshots
        |-src                               # The source code for the application
        |---controllers
        |---directives
@@ -113,3 +128,22 @@ The server configuration proxies requests from some paths through to the Drupal 
        |---templates
        |-test                              # Testing code, eg: unit tests
        |---unit
+
+
+## Snapshotting For Robots
+
+Accommodating search engine spiders and other robots can be tricky for sites with a Javascript heavy front-end. For this reason static snapshots of the site are captured at intervals.
+
+When a robot is detected (eg: Nginx, Varnish) the request is rewritten to serve the snapshot rather than the dynamic page.
+
+
+
+### PhantomJS Snapshot Script
+
+    Sript: scripts/phantomjs-snapshot.js
+
+PhantomJS is used to capture the static site snapshots.
+
+It is important to ensure the page has fully loaded before each snapshot is taken. A special  `<body data-status="ready">` flag is used to inform the PhantomJS script when the snapshot can be taken. The PhantomJS script polls every few milliseconds waiting for this flag to be set.
+
+It is important that each new site page take this special flag into account. It can easily be set using the PageState service.

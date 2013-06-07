@@ -1,6 +1,18 @@
 <?php
 
 /**
+ * Implements hook_meedan_oembed()
+ */
+function meedan_oembed_twitter_meedan_oembed() {
+  return array(
+    'twitter' => array(
+      'callback' => 'meedan_oembed_twitter_handler',
+      'provider_name' => 'meedan_oembed_twitter',
+    )
+  );
+}
+
+/**
  * Implementation of hook_theme().
  */
 function meedan_oembed_twitter_theme() {
@@ -20,4 +32,47 @@ function meedan_oembed_twitter_theme() {
       'file' => $file,
     ),
   );
+}
+
+/**
+ * Attempts to create an oembed response from a tweet.
+ */
+function meedan_oembed_twitter_handler($provider, $url) {
+  try {
+    $curl_request = curl_init();
+    curl_setopt($curl_request, CURLOPT_URL, 'https://api.twitter.com/1/statuses/oembed.json?url=' . $url);
+    curl_setopt($curl_request, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl_request, CURLOPT_SSL_VERIFYPEER, false);
+    $json = curl_exec($curl_request);
+    curl_close($curl_request);
+    $data = json_decode($json);
+
+    if (empty($data)) {
+      watchdog('MeedanOEmbedTwitter', t('Empty response'));
+      return NULL;
+    }
+    if (isset($data->errors)) {
+      watchdog('MeedanOEmbedTwitter', t('Error from Twitter: ') . $data->errors[0]->message);
+      return NULL;
+    }
+
+    $embed = $data;
+
+    // Set information Twitter doesn't give to us
+    $text = strip_tags($data->html);
+    $embed->description = $text;
+    $embed->link_description = $text;
+    if (mb_strlen($text, 'utf-8') > 23) {
+      $text = mb_substr($text, 0, 20, 'utf-8') . '...';
+    }
+    $embed->title = 'Twitter / ' . $embed->author_name . ': ' . $text;
+    $embed->original_url = $url;
+    $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
+    $embed->provider = $provider;
+
+    return $embed;
+  } catch (Exception $e) {
+    watchdog('MeedanOEmbedTwitter', t('Could not handle Twitter: ') . $e->getMessage());
+  }
+  return NULL;
 }

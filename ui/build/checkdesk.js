@@ -1,8 +1,8 @@
-/*! checkdesk - v0.1.0 - 2013-05-14
+/*! checkdesk - v0.1.0 - 2013-06-05
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 var app = angular.module('Checkdesk', [
-      'ngTranslate',
+      'pascalprecht.translate',
       'cdTranslationUI',
       'Checkdesk.services'
     ]),
@@ -35,10 +35,15 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     controller: ReportFormCtrl
   });
 
+  $routeProvider.when('/translationsTest', {
+    templateUrl: 'templates/translationsTest.html',
+    controller: TranslationsTestCtrl
+  });
+
   $routeProvider.otherwise({ redirectTo: '/reports' });
 }]);
 
-app.config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
+app.config(['$translateProvider', function ($translateProvider) {
   $translateProvider.translations('en_EN', {
     // #/reports
     'CALL_TO_ACTION_HEAD':                 'Help verify this report',
@@ -98,32 +103,44 @@ app.config(['$translateProvider', 'cdTranslationUIProvider', function ($translat
   });
   $translateProvider.uses('ar_AR');
 
-  $translateProvider.rememberLanguage(true);
+  // FIXME: Something is amiss with the cookie thing.
+  // $translateProvider.useCookieStorage();
 
-  // Experimental missing translation handler for the cdTranslationUI module.
-  // @see: https://github.com/PascalPrecht/ng-translate/commit/9a042c7f2cf1e3ff57b6a2fbd497a8b9ddcb0ef4
-  $translateProvider.missingTranslationHandler(cdTranslationUIProvider.missingTranslationHandler);
+  $translateProvider.useMissingTranslationHandler('cdTranslationUI');
 }]);
 
 angular.module('cdTranslationUI', [])
-  // Defines cdTranslationUIProvider
   .provider('cdTranslationUI', function () {
-    var $missingTranslations = [];
+    var $translationTable,
+        $missingTranslations = [],
+        $missingTranslationHandler = function (translationId) {
+          if ($missingTranslations.indexOf(translationId) === -1) {
+            $missingTranslations.push(translationId);
+          }
+        };
 
-    this.missingTranslationHandler = function (translationId) {
-      if ($missingTranslations.indexOf(translationId) === -1) {
-        $missingTranslations.push(translationId);
+    this.translationTable = function (translationTable) {
+      if (!angular.isUndefined(translationTable)) {
+        $translationTable = translationTable;
       }
+
+      return $translationTable;
     };
+
+    this.missingTranslations = function () {
+      return $missingTranslations;
+    };
+
+    $missingTranslationHandler.translationTable = this.translationTable;
+    $missingTranslationHandler.missingTranslations = this.missingTranslations;
 
     this.$get = function () {
-      return {
-        missingTranslations: function () {
-          return $missingTranslations;
-        }
-      };
+      return $missingTranslationHandler;
     };
   })
+  .config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
+    cdTranslationUIProvider.translationTable($translateProvider.translations());
+  }])
   .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
     $scope.collapsed = true;
 
@@ -131,15 +148,18 @@ angular.module('cdTranslationUI', [])
       $scope.collapsed = !$scope.collapsed;
     };
 
+    $scope.translationTable = cdTranslationUI.translationTable();
     $scope.missingTranslations = cdTranslationUI.missingTranslations();
     $scope.inputTranslations = [];
+    // FIXME: $translate.uses() is not updating when language is switched
+    $scope.currentLanguage = $translate.uses();
 
     $scope.translationChanged = function (index) {
       var uses = $translate.uses(),
           source = $scope.missingTranslations[index],
           translation = $scope.inputTranslations[index];
 
-      $translate.translationTable[uses][source] = translation;
+      $scope.translationTable[uses][source] = translation;
       $translate.uses(uses);
     };
   }]);
@@ -219,6 +239,42 @@ appServices
         isArray: false // eg: {sessid:'123',user:{...}}
       }
     });
+  }]);
+
+// Integration with Drupal services API
+appServices
+  .factory('Translation', ['$resource', '$http', function($resource, $http) {
+    var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
+      query: {
+        method: 'GET',
+        params: { lid: '', 'textgroup': 'ui' },
+        isArray: true
+      },
+      save: {
+        method: 'POST',
+        params: { lid: '' }
+      },
+      update: {
+        method: 'PUT'
+      },
+      remove: {
+        method: 'DELETE'
+      }
+    });
+
+    // Override the default $save method such that it uses PUT instead of POST
+    // when updating
+    // See: http://stackoverflow.com/a/16263805/806988
+    angular.extend(Translation.prototype, {
+      save: function (callback) {
+        if (this.lid) {
+          return this.$update(callback);
+        }
+        return this.$save(callback);
+      }
+    });
+
+    return Translation;
   }]);
 
 // Integration with Drupal services API
@@ -315,8 +371,16 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
 app.controller('HeaderCtrl', HeaderCtrl);
 
-var ReportCtrl = ['$scope', '$routeParams', 'Report', 'ReportActivity', function ($scope, $routeParams, Report, ReportActivity) {
-  $scope.report = Report.get({ nid: $routeParams.nid });
+var PageCtrl = ['$scope', 'PageState', function ($scope, PageState) {
+  $scope.PageState = PageState;
+}];
+
+app.controller('PageCtrl', PageCtrl);
+
+var ReportCtrl = ['$scope', '$routeParams', 'PageState', 'Report', 'ReportActivity', function ($scope, $routeParams, PageState, Report, ReportActivity) {
+  $scope.report = Report.get({ nid: $routeParams.nid }, function () {
+    PageState.status('ready'); // This page has finished loading
+  });
   $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
 }];
 
@@ -364,7 +428,7 @@ var ReportFormCtrl = ['$scope', '$routeParams', '$location', 'Report', function 
 
 app.controller('ReportFormCtrl', ReportFormCtrl);
 
-var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
+var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState, Report) {
   $scope.reports = [];
 
   Report.query(function (reports) {
@@ -372,7 +436,52 @@ var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
       // LOL: Hilariously unperformant, we will improve this of course.
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
+
+    PageState.status('ready'); // This page has finished loading
   });
 }];
 
 app.controller('ReportsCtrl', ReportsCtrl);
+
+var TranslationsTestCtrl = ['$scope', '$translate', 'Translation', function ($scope, $translate, Translation) {
+  $scope.translations = Translation.query({ language: $translate.uses() });
+
+  $scope.translation = new Translation({
+    language:    '',
+    context:     '',
+    source:      '',
+    translation: '',
+    textgroup:   '',
+    location:    '',
+    plid:        '',
+    plural:      ''
+  });
+
+  $scope.submit = function () {
+    $scope.translation.save();
+    return false;
+  };
+
+}];
+
+app.controller('TranslationsTestCtrl', TranslationsTestCtrl);
+
+app.factory('PageState', function() {
+  var status = 'loading',
+      title  = 'Checkdesk';
+
+  return {
+    status: function(newStatus) {
+      if (newStatus) {
+        status = newStatus;
+      }
+      return status;
+    },
+    title: function(newTitle) {
+      if (newTitle) {
+        title = newTitle;
+      }
+      return title;
+    }
+  };
+});

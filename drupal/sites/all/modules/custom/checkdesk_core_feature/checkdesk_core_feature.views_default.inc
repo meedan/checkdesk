@@ -56,6 +56,22 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['fields']['message']['label'] = '';
   $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['message']['element_default_classes'] = FALSE;
+  /* Field: Heartbeat activity: Node ID */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  /* Field: Heartbeat activity: Node target ID */
+  $handler->display->display_options['fields']['nid_target']['id'] = 'nid_target';
+  $handler->display->display_options['fields']['nid_target']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['nid_target']['field'] = 'nid_target';
+  /* Field: Heartbeat activity: User ID */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  /* Field: Heartbeat activity: User target ID */
+  $handler->display->display_options['fields']['uid_target']['id'] = 'uid_target';
+  $handler->display->display_options['fields']['uid_target']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['uid_target']['field'] = 'uid_target';
   /* Sort criterion: Heartbeat activity: Creation date */
   $handler->display->display_options['sorts']['created_at']['id'] = 'created_at';
   $handler->display->display_options['sorts']['created_at']['table'] = 'heartbeat_activity';
@@ -100,6 +116,45 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['path'] = 'report_activity/%';
+
+  /* Display: Services */
+  $handler = $view->new_display('services', 'Services', 'services_1');
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Heartbeat activity: Creation date */
+  $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['label'] = 'creation_date';
+  $handler->display->display_options['fields']['created_at']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created_at']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['created_at']['custom_date_format'] = 'c';
+  /* Field: Heartbeat activity: Activity message */
+  $handler->display->display_options['fields']['message']['id'] = 'message';
+  $handler->display->display_options['fields']['message']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['message']['field'] = 'message';
+  $handler->display->display_options['fields']['message']['label'] = 'activity_message';
+  $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['message']['element_default_classes'] = FALSE;
+  /* Field: Heartbeat activity: Node ID */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = 'nid';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nid']['separator'] = '';
+  /* Field: Heartbeat activity: User ID */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = 'uid';
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['separator'] = '';
   $translatables['activity_report'] = array(
     t('Master'),
     t('Fact-checking activity'),
@@ -116,10 +171,21 @@ function checkdesk_core_feature_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Node ID'),
+    t('.'),
+    t(','),
+    t('Node target ID'),
+    t('User ID'),
+    t('User target ID'),
     t('All'),
     t('Block'),
     t('more'),
     t('Page'),
+    t('Services'),
+    t('creation_date'),
+    t('activity_message'),
+    t('nid'),
+    t('uid'),
   );
   $export['activity_report'] = $view;
 

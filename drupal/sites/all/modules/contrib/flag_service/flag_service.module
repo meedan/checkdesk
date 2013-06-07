@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function flag_service_services_resources() {
+  $resources = array();
+
+  $resources['flag']['actions']['is_flagged'] = array(
+    'file' => array(
+      'type' => 'inc', 
+      'module' => 'flag_service', 
+      'name' => 'flag_service',
+    ),
+    'help'   => t('Check if a content was flagged by a user.'),
+    'access arguments' => array('access content'),
+    'callback' => 'flag_service_is_flagged',
+    'args'     => array(
+      array(
+        'name' => 'flag_name',
+        'type' => 'string',
+        'description' => t('The name of the flag.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+      array(
+        'name' => 'content_id',
+        'type' => 'int',
+        'description' => t('The content ID.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+      array(
+        'name' => 'uid',
+        'type' => 'int',
+        'description' => t('The user ID that might have flagged the content.'),
+        'source' => 'data',
+        'optional' => TRUE,
+        'default value' => NULL,
+      ),
+    ),
+  );
+
+  $resources['flag']['actions']['flag'] = array(
+    'file' => array(
+      'type' => 'inc', 
+      'module' => 'flag_service', 
+      'name' => 'flag_service',
+    ),
+    'help' => t('Flags (or unflags) a content.'),
+    'access callback' => 'flag_service_flag_content_access',
+    'callback' => 'flag_service_flag_content',
+    'args' => array(
+      array(
+        'name' => 'flag_name',
+        'type' => 'string',
+        'description' => t('The name of the flag.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+      array(
+        'name' => 'content_id',
+        'type' => 'int',
+        'description' => t('The content ID.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+      array(
+        'name' => 'action',
+        'type' => 'string',
+        'description' => t('Optional; The action to perform, default is "flag". Should be "flag" or "unflag".'),
+        'source' => 'data',
+        'optional' => TRUE,
+        'default value' => 'flag',
+      ),
+      array(
+        'name' => 'uid',
+        'type' => 'int',
+        'description' => t('The user ID for which to flag.'),
+        'source' => 'data',
+        'optional' => TRUE,
+        'default value' => NULL,
+      ),
+      array(
+        'name' => 'skip_permission_check',
+        'type' => 'boolean',
+        'description' => t('Optional; Flag the content even if the user does not have permission to do so. FALSE by default'),
+        'source' => 'data',
+        'optional' => TRUE,
+        'default value' => FALSE,
+      ),
+    ),
+  );
+
+  $resources['flag']['actions']['countall'] = array(
+    'file' => array(
+      'type' => 'inc', 
+      'module' => 'flag_service', 
+      'name' => 'flag_service',
+    ),
+    'help' => t('Count the flags number on a specific node.'),
+    'access arguments' => array('access content'),
+    'callback' => 'flag_service_flag_countall',
+    'args' => array(
+      array(
+        'name' => 'flag_name',
+        'type' => 'string',
+        'description' => t('The name of the flag.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+      array(
+        'name' => 'content_id',
+        'type' => 'int',
+        'description' => t('The content ID.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+    ),
+  );
+  
+  return $resources;
+}
+          

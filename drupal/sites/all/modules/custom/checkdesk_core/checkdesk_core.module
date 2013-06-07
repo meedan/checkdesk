@@ -33,7 +33,7 @@ function checkdesk_core_menu() {
   $items = array();
 
   $items['<sub>'] = array(
-    'page callback' => 'drupal_not_found',
+    'page callback' => 'drupal_goto',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
@@ -772,6 +772,11 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   }
   $form['#validate'][] = '_checkdesk_core_post_node_form_validate';
   $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
+
+  // Handle HTML entities
+  foreach ($form['field_desk']['und']['#options'] as $key => $value) {
+    $form['field_desk']['und']['#options'][$key] = htmlspecialchars_decode($value);
+  }
 }
 
 /**
@@ -1207,10 +1212,13 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
       // Localize URLs
       else if (in_array($variable, array('!user_url', '!story_url', '!report_url', '!update_url', '!flag_author_url'))) {
         $url = parse_url($value);
-        if ($url && isset($url['scheme']) && $url['scheme'] . '://' . $url['host'] == $base_root) {
+        if ($url) {
           $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
           if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
             list($langcode, $alias) = explode('/', $alias, 2);
+            if (!in_array($langcode, array_keys(language_list()))) {
+              $alias = $langcode . '/' . $alias;
+            }
           }
           $path = drupal_lookup_path('source', urldecode($alias), $langcode);
           if (empty($path)) $path = $alias;
@@ -1822,4 +1830,26 @@ function _checkdesk_core_filter_process($text, $filter) {
  *
  */
 function _checkdesk_core_filter_tips($filter, $format, $long = FALSE) {
+}
+
+/**
+ * Implements hook_preprocess_htmlmail().
+ */
+function checkdesk_core_preprocess_htmlmail(&$variables) {
+  $directions = array('ltr', 'rtl');
+  $variables['direction'] = (isset($variables['language']) ? $directions[$variables['language']->direction] : 'ltr');
+}
+
+/**
+ * Implements hook_variable_info().
+ */
+function checkdesk_core_variable_info($options) {
+  $variable['checkdesk_site_owner'] = array(
+    'type' => 'string',
+    'title' => t('Checkdesk site owner', array(), $options),
+    'description' => t('Checkdesk site owner'),
+    'default' => '',
+    'localize' => TRUE,
+  );
+  return $variable;
 }

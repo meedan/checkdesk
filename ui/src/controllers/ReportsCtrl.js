@@ -1,4 +1,4 @@
-var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
+var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState, Report) {
   $scope.reports = [];
 
   Report.query(function (reports) {
@@ -6,6 +6,8 @@ var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
       // LOL: Hilariously unperformant, we will improve this of course.
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
+
+    PageState.status('ready'); // This page has finished loading
   });
 }];
 

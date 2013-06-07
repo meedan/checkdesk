@@ -153,9 +153,11 @@ function checkdesk_checkdesk_related_updates_bar($variables) {
   $count = checkdesk_core_story_updates_count($story);
 
   $output  = '';
-  $output .= '<div class="related-updates">';
-  $output .=   l(format_plural($count - 1, '1 more update', '@count more updates'), "node/$story->nid");
-  $output .= '</div>';
+  if ($count > 1) {
+    $output .= '<div class="related-updates">';
+    $output .=   l(format_plural($count - 1, '1 more update', '@count more updates'), "node/$story->nid");
+    $output .= '</div>';
+  }
 
   return $output;
 }

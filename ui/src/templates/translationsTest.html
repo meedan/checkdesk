@@ -1,0 +1,52 @@
+<form>
+  <form id="translation-test-form">
+      <h1>New translation</h1>
+
+      <div class="form-item">
+          <label for="report-language" translate>Language</label>
+          <input type="text" ng-model="translation.language" id="report-language">
+      </div>
+
+      <div class="form-item">
+          <label for="report-context" translate>Context</label>
+          <input type="text" ng-model="translation.context" id="report-context">
+      </div>
+
+      <div class="form-item">
+          <label for="report-source" translate>Source</label>
+          <input type="text" ng-model="translation.source" id="report-source">
+      </div>
+
+      <div class="form-item">
+          <label for="report-translation" translate>Translation</label>
+          <input type="text" ng-model="translation.translation" id="report-translation">
+      </div>
+
+      <div class="form-item">
+          <label for="report-textgroup" translate>Textgroup</label>
+          <input type="text" ng-model="translation.textgroup" id="report-textgroup">
+      </div>
+
+      <div class="form-item">
+          <label for="report-location" translate>Location</label>
+          <input type="text" ng-model="translation.location" id="report-location">
+      </div>
+
+      <div class="form-item">
+          <label for="report-plid" translate>Plid</label>
+          <input type="text" ng-model="translation.plid" id="report-plid">
+      </div>
+
+      <div class="form-item">
+          <label for="report-plural" translate>Plural</label>
+          <input type="text" ng-model="translation.plural" id="report-plural">
+      </div>
+
+      <button ng-click="submit()" class="btn btn-primary">Create</button>
+  </form>
+</form>
+
+<div ng-repeat="translation in translations">
+  <strong>{{translation.source}}</strong>
+  <span>{{translation.translation}}</span>
+</div>

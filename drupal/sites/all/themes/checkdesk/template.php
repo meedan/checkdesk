@@ -203,9 +203,9 @@ function checkdesk_preprocess_page(&$variables) {
       unset($tree[$id]);
     }
 
-    if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
+    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
     foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
     }
   }
 
@@ -276,9 +276,9 @@ function checkdesk_preprocess_page(&$variables) {
     if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
       unset($tree[$id]);
     }
-    if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
+    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
     foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
     }
   }
 
@@ -309,9 +309,9 @@ function checkdesk_preprocess_page(&$variables) {
     if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
       unset($tree[$id]);
     }
-    if ($item['link']['language'] != 'und' && $item['link']['language'] != $language->language) unset($tree[$id]);
+    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
     foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != 'und' && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
     }
   }
 
@@ -409,8 +409,7 @@ function checkdesk_preprocess_page(&$variables) {
   $bg = theme_get_setting('header_bg_path');
   $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
 
-  $slogan = theme_get_setting('header_slogan');
-  $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
+  $variables['header_slogan'] = t('A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
   $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
 
   // set page variable if widgets should be visible
@@ -552,6 +551,9 @@ function checkdesk_preprocess_node(&$variables) {
         // the iframe tag enters the viewport.
         // See: http://stackoverflow.com/a/7154968/806988
         $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src)=/i', '<\1\2src="about:blank" data-lazy-load-src=', $field_link_rendered);
+
+        // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)
+        $field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
       }
 
       $variables['field_link_lazy_load'] = $field_link_rendered;
@@ -922,10 +924,10 @@ function checkdesk_twitter_signin_button() {
  */
 function checkdesk_form_post_node_form_alter(&$form, &$form_state) {
   // $form['title']['#title'] = NULL;
-  $form['title']['#attributes']['placeholder'] = t('Add headline');
+  $form['title']['#attributes']['placeholder'] = t('Update headline');
 
-  // $form['body']['und'][0]['#title'] = NULL;
-  $form['body']['und'][0]['#attributes']['placeholder'] = t('Drag and drop reports here to compose your update');
+  // $form['body'][LANGUAGE_NONE][0]['#title'] = NULL;
+  $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Write text and drag reports here to compose the update');
 }
 
 /**
@@ -935,8 +937,8 @@ function checkdesk_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['title']['#title'] = t('Story title');
   $form['title']['#attributes']['placeholder'] = t('Story title');
 
-  $form['body']['und'][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
-  $form['body']['und'][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
+  $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
+  $form['body'][LANGUAGE_NONE][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
 }
 
 /**
@@ -997,7 +999,7 @@ function _checkdesk_ensure_reports_modal_js() {
  * Adjust edit node form
  */
 function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
-  $form['field_link']['und'][0]['#title'] = t('URL');
+  $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
   if (isset($form['nid']['#value'])) {
     $node = $form['#node'];
     unset($form['field_stories']);
