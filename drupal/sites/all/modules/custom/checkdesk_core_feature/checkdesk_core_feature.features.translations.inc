@@ -41476,7 +41476,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $translations['ar:default']['ef7131b8526153b01d573bf1299920ae'] = array(
     'source' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -41485,7 +41485,7 @@ print theme(\'views_autorefresh\', array(
     'location' => '/ar',
     'translation' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -43480,7 +43480,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
     'context' => '',
     'location' => '/ar/user',
-    'translation' => 'مدونة <span class="checkdesk-slogan-logo">Checkdesk</span> المباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
+    'translation' => 'مدونة <span class="checkdesk-slogan-logo">Checkdesk</span> مباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
     'plid' => 0,
     'plural' => 0,
   );
