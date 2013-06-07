@@ -129,6 +129,7 @@
         vertical-align: top;
         &.icon-facebook  { @include icon("facebook-sign", 40px, $facebook-blue); } 
         &.icon-twitter  { @include icon("twitter-sign", 40px, $twitter-blue); }
+        &.icon-google-plus  { @include icon("google-plus-sign", 40px, $red); }
         // social icons seem to be larger
         &.icon-youtube  { 
           @include social-icon(youtube, 40px, $red); 
@@ -138,20 +139,4 @@
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
