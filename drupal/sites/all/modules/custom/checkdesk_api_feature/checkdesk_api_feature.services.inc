@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * checkdesk_api.services.inc
+ * checkdesk_api_feature.services.inc
  */
 
 /**
  * Implements hook_default_services_endpoint().
  */
-function checkdesk_api_default_services_endpoint() {
+function checkdesk_api_feature_default_services_endpoint() {
   $export = array();
 
   $endpoint = new stdClass();
