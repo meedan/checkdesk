@@ -39,7 +39,7 @@ $handler->display->display_options['style_options']['columns'] = array(
   'created' => 'created',
   'access' => 'access',
   'edit_node' => 'edit_node',
-  'cancel_node' => 'cancel_node',
+  'cancel_node' => 'edit_node',
 );
 $handler->display->display_options['style_options']['default'] = 'access';
 $handler->display->display_options['style_options']['info'] = array(
@@ -90,7 +90,7 @@ $handler->display->display_options['style_options']['info'] = array(
   ),
   'edit_node' => array(
     'align' => '',
-    'separator' => '',
+    'separator' => '&emsp;',
     'empty_column' => 0,
   ),
   'cancel_node' => array(
@@ -114,32 +114,34 @@ $handler->display->display_options['fields']['views_bulk_operations']['field'] =
 $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
 $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
   'action::system_block_ip_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Ban IP address of the current user',
+    'postpone_processing' => 0,
   ),
   'action::user_block_user_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_delete_item' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 1,
     'label' => 'Delete',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_modify_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Change value',
@@ -149,27 +151,28 @@ $handler->display->display_options['fields']['views_bulk_operations']['vbo']['op
         '_all_' => '_all_',
       ),
     ),
+    'postpone_processing' => 0,
   ),
   'action::system_message_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_script_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_user_roles_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 1,
     'label' => 'Change user roles',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_argument_selector_action' => array(
     'selected' => 0,
@@ -182,23 +185,19 @@ $handler->display->display_options['fields']['views_bulk_operations']['vbo']['op
   ),
   'action::system_goto_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::system_send_email_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 1,
     'label' => 'Send e-mail',
+    'postpone_processing' => 0,
   ),
 );
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
 /* Field: User: Name */
 $handler->display->display_options['fields']['name']['id'] = 'name';
 $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -235,7 +234,7 @@ $handler->display->display_options['fields']['access']['date_format'] = 'time ag
 $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
 $handler->display->display_options['fields']['edit_node']['table'] = 'users';
 $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-$handler->display->display_options['fields']['edit_node']['label'] = '';
+$handler->display->display_options['fields']['edit_node']['label'] = 'Operations';
 /* Field: User: Cancel link */
 $handler->display->display_options['fields']['cancel_node']['id'] = 'cancel_node';
 $handler->display->display_options['fields']['cancel_node']['table'] = 'users';
@@ -333,6 +332,7 @@ $translatables['admin_views_user'] = array(
   t('Roles'),
   t('Member for'),
   t('Last access'),
+  t('Operations'),
   t('Username'),
   t('E-mail'),
   t('Role'),

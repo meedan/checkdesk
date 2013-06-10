@@ -2235,6 +2235,10 @@ html body div.livefyre-header:before, body div.fb-comments-header:before {
   content: "\f0c9";
 }
 
+#widgets ul.elsewhere li span.icon-google-plus:before {
+  content: "\f0d4";
+}
+
 #incoming-reports-filters .icon-caret-down:before {
   content: "\f0d7";
 }
@@ -3399,6 +3403,18 @@ textarea {
 
 .pull-left {
   float: left;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
 }
 
 .hide {
@@ -8183,6 +8199,13 @@ body.widgets #main #content {
   font-size: 40px;
   line-height: 40px;
   color: #1d87c9;
+  margin: 0 5.5px;
+}
+#widgets ul.elsewhere li span.icon-google-plus:before {
+  font-family: "FontAwesome";
+  font-size: 40px;
+  line-height: 40px;
+  color: #9d261d;
   margin: 0 5.5px;
 }
 #widgets ul.elsewhere li span.icon-youtube:before {

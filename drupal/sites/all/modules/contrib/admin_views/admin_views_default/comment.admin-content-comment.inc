@@ -37,7 +37,7 @@ $handler->display->display_options['style_options']['columns'] = array(
   'title' => 'title',
   'timestamp' => 'timestamp',
   'edit_comment' => 'edit_comment',
-  'delete_comment' => 'delete_comment',
+  'delete_comment' => 'edit_comment',
 );
 $handler->display->display_options['style_options']['default'] = 'timestamp';
 $handler->display->display_options['style_options']['info'] = array(
@@ -76,7 +76,7 @@ $handler->display->display_options['style_options']['info'] = array(
   ),
   'edit_comment' => array(
     'align' => '',
-    'separator' => '',
+    'separator' => '&emsp;',
     'empty_column' => 0,
   ),
   'delete_comment' => array(
@@ -109,18 +109,20 @@ $handler->display->display_options['fields']['views_bulk_operations']['field'] =
 $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
 $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
   'action::views_bulk_operations_delete_item' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Delete',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_modify_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Change value',
@@ -130,20 +132,21 @@ $handler->display->display_options['fields']['views_bulk_operations']['vbo']['op
         '_all_' => '_all_',
       ),
     ),
+    'postpone_processing' => 0,
   ),
   'action::system_message_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_script_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::views_bulk_operations_argument_selector_action' => array(
     'selected' => 0,
@@ -156,51 +159,47 @@ $handler->display->display_options['fields']['views_bulk_operations']['vbo']['op
   ),
   'action::comment_publish_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Publish',
+    'postpone_processing' => 0,
   ),
   'action::system_goto_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::comment_save_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::system_send_email_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
   'action::comment_unpublish_action' => array(
     'selected' => 1,
-    'use_queue' => 0,
     'skip_confirmation' => 1,
     'override_label' => 1,
     'label' => 'Unpublish',
+    'postpone_processing' => 0,
   ),
   'action::comment_unpublish_by_keyword_action' => array(
     'selected' => 0,
-    'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
+    'postpone_processing' => 0,
   ),
 );
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-$handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
 /* Field: Comment: Title */
 $handler->display->display_options['fields']['subject']['id'] = 'subject';
 $handler->display->display_options['fields']['subject']['table'] = 'comment';
@@ -228,7 +227,7 @@ $handler->display->display_options['fields']['timestamp']['date_format'] = 'time
 $handler->display->display_options['fields']['edit_comment']['id'] = 'edit_comment';
 $handler->display->display_options['fields']['edit_comment']['table'] = 'comment';
 $handler->display->display_options['fields']['edit_comment']['field'] = 'edit_comment';
-$handler->display->display_options['fields']['edit_comment']['label'] = '';
+$handler->display->display_options['fields']['edit_comment']['label'] = 'Operations';
 /* Field: Comment: Delete link */
 $handler->display->display_options['fields']['delete_comment']['id'] = 'delete_comment';
 $handler->display->display_options['fields']['delete_comment']['table'] = 'comment';
@@ -374,6 +373,7 @@ $translatables['admin_views_comment'] = array(
   t('Author'),
   t('Posted in'),
   t('Updated'),
+  t('Operations'),
   t('Published'),
   t('Unpublished'),
 );
