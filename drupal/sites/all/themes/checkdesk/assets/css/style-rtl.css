@@ -2174,6 +2174,10 @@ nav[role="navigation"] li.home a:before {
   content: "\f015";
 }
 
+.update .update-footer .icon-time:before {
+  content: "\f017";
+}
+
 /* F020 doesn't work in Safari. all shifted one down */
 .report-row .in_progress span:before, body.page-reports #reports .report-item .in_progress span:before {
   content: "\f021";
@@ -5800,16 +5804,8 @@ article.in-progress {
 .update:after {
   clear: both;
 }
-.update .update-by {
-  margin-bottom: 7.2px;
-  color: #999999;
-}
-.update .update-by a {
-  font-weight: bold;
-  color: #999999;
-}
-.update .update-by a:hover {
-  color: #333333;
+.update .update-body {
+  padding-top: 10.4px;
 }
 .update .update-body .node-media {
   *zoom: 1;
@@ -5824,18 +5820,75 @@ article.in-progress {
   clear: both;
 }
 .update .update-body p {
-  margin: 7.2px 0;
+  margin: 9.6px 0;
 }
 .update .update-footer {
   margin-right: 22px;
   margin-bottom: 1em;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: rgba(0, 0, 0, 0.2);
 }
-.update .update-footer .update-actions {
-  position: absolute;
-  font-size: 15.3px;
+.update .update-footer a {
+  color: rgba(0, 0, 0, 0.2);
+}
+.update .update-footer a:hover {
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+.update .update-footer .update-info {
+  border-top: 4px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 28.8px;
+  padding-top: 14.4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+}
+.update .update-footer .update-info b {
+  display: block;
+  padding: 14.4px 0;
+  font-size: 47px;
+}
+.update .update-footer .update-meta {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.update .update-footer .update-meta li {
+  list-style: none;
+}
+.update .update-footer .update-meta li {
+  padding: 7.2px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.update .update-footer .update-meta li:last-child {
+  border-bottom: 0px none;
+}
+.update .update-footer .update-meta li span {
+  font-weight: 400;
+}
+.update .update-footer .icon-time:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: rgba(0, 0, 0, 0.2);
+  margin: 0 5.5px;
   width: auto;
-  right: 0;
-  top: 1px;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+}
+.update .update-footer .update-by {
+  margin-bottom: 7.2px;
+}
+.update .update-footer .update-by .gravatar {
+  margin: 0 5.5px;
+  text-align: center;
+}
+.update .update-footer .update-by .gravatar img {
+  width: 15px;
+  height: 15px;
 }
 .update .update-footer .update-actions ul.content-actions {
   margin: 0;
@@ -5851,9 +5904,6 @@ article.in-progress {
 }
 .update .update-footer .update-actions ul.content-actions li {
   list-style: none;
-}
-.update .update-footer .update-actions ul.content-actions > li {
-  float: left;
 }
 .update .update-footer .update-actions ul.content-actions > li > a {
   margin: 0;
@@ -5875,7 +5925,7 @@ article.in-progress {
 }
 .update .update-footer .update-actions ul.content-actions > li > a span.icon-share:before {
   font-family: "FontAwesome";
-  font-size: 15.3px;
+  font-size: 15px;
   line-height: inherit;
   color: black;
   margin: 0 5.5px;
@@ -5889,7 +5939,7 @@ article.in-progress {
 }
 .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before {
   font-family: "FontAwesome";
-  font-size: 15.3px;
+  font-size: 15px;
   line-height: inherit;
   color: black;
   margin: 0 5.5px;
@@ -7839,9 +7889,11 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
   clear: both;
 }
 
+#updates {
+  margin-top: 14.4px;
+}
 #updates .update-row {
   border-top: 2px solid rgba(0, 0, 0, 0.2);
-  padding-top: 12px;
   margin-bottom: 12px;
 }
 #updates .update-row h2 {
