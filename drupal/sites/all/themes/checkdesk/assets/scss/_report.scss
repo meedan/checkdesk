@@ -131,6 +131,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 	// Main report content
 	.report-content {
+		font-family: $sans-serif-font-stack;
 		border-left: 1px solid rgba(0,0,0,.1);
 		border-right: 1px solid rgba(0,0,0,.1);
 		// width: 100%;
@@ -257,7 +258,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 	// Report activity 
 	.report-activity {
-
+		font-family: $sans-serif-font-stack;
 		& > header {
 			@include ctb-clearfix();
 			padding: $absolute-line-height/3 $gutter-width;
@@ -269,16 +270,15 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			h3 {
 				@include reset-box-model();
 				float: $from-direction;
-				font-family: $body-font-stack;
+				font-family: $sans-serif-font-stack;
 				font-size: modular-scale(0) - modular-scale(-5); // 16px
-				font-weight: bold;
+				font-weight: 700;
 			}
 			.report-status {
 				float: opposite-position($from-direction);
 				text-align: opposite-position($from-direction);
-				font-family: $body-font-stack;
 				font-size: modular-scale(0) - modular-scale(-5); // 16px
-				font-weight: bold;
+				font-weight: 700;
 				// icon in the status
 				span[class^="icon-"], span[class*="icon-"] {
 					float: $alpha;
@@ -387,7 +387,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							padding-#{$omega}: $gutter-width*2;
 							text-align: $omega;
 							vertical-align: top;
-							font-weight: bold;
+							font-weight: 700;
 							color: rgba(0,0,0,.6);
 						}
 						.activity-inner-wrapper {

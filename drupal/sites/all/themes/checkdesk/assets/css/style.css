@@ -5041,6 +5041,7 @@ div.tabs ul.primary li a {
   display: none;
 }
 .report .report-content {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -5197,6 +5198,9 @@ div.tabs ul.primary li a {
   transform: rotate(-19deg);
   font-size: inherit;
 }
+.report .report-activity {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .report .report-activity > header {
   *zoom: 1;
   padding: 8px 11px;
@@ -5217,16 +5221,15 @@ div.tabs ul.primary li a {
   margin: 0;
   padding: 0;
   float: left;
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
 }
 .report .report-activity > header .report-status {
   float: right;
   text-align: right;
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
 }
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
   float: left;
@@ -5374,7 +5377,7 @@ div.tabs ul.primary li a {
   padding-right: 22px;
   text-align: right;
   vertical-align: top;
-  font-weight: bold;
+  font-weight: 700;
   color: rgba(0, 0, 0, 0.6);
 }
 .report .report-activity .activity-wrapper .view-content .activity header .activity-inner-wrapper {
@@ -7978,6 +7981,19 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 .story #story-actions ul.content-actions li a:active, .story #story-actions ul.content-actions li a:active:visited {
   color: white;
 }
+.story .story-meta {
+  margin-top: 12px;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: rgba(0, 0, 0, 0.6);
+}
+.story .story-meta a {
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+}
+.story .story-meta a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
 .story .story-by {
   font-size: 25px;
   margin-top: 6px;
@@ -8066,7 +8082,7 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 }
 .story .story-body {
   *zoom: 1;
-  margin: 6px 0;
+  margin: 12px 0;
   font-size: 16px;
   line-height: 1.6;
   color: rgba(0, 0, 0, 0.9);

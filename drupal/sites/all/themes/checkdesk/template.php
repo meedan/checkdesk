@@ -449,7 +449,7 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['omega'] = 'right';
   }
 
-  if ($variables['type'] == 'post') {
+  if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     //Add author info to variables
     $user = user_load($variables['elements']['#node']->uid);
     $user_picture = $user->picture;
@@ -463,18 +463,18 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
 
-    // Add update creation info
-    $variables['update_creation_info'] = t('Update by <a href="@user">!user</a> <time datetime="!date">!datetime</time>', array(
+    // Add creation info
+    $variables['creation_info'] = t('<a href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
     ));
-    $variables['update_created_by'] = t('<a href="@user">!user</a>', array(
+    $variables['created_by'] = t('<a href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
     ));
-    $variables['update_created_at'] = t('<time datetime="!date">!interval ago</time>', array(
+    $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
       '!interval' => format_interval((time() - $variables['created']), 1),
@@ -496,13 +496,13 @@ function checkdesk_preprocess_node(&$variables) {
       );
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
-    //Add node creation info(author name plus creation time)
-    $variables['media_creation_info'] = t('Added by <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>', array(
+    //Add node creation info(author name plus creation time
+    $variables['media_creation_info'] = t('Added by <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
-      '!datetime_ago' => format_interval(time() - $variables['created'], 2),
+      '!interval' => format_interval(time() - $variables['created'], 1),
     ));
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 

@@ -7,17 +7,17 @@
   <article class="update">
     <div class="update-footer">
       <div class="update-info">
-        Update <b>#<?php print render($content['update_number']); ?></b>
+        <?php print t('Update'); ?> <b>#<?php print render($content['update_number']); ?></b>
       </div>
       <ul class="update-meta">
         <li class="update-at">
-          <span class="icon-time"></span> <?php print $update_created_at; ?>
+          <span class="icon-time"></span> <?php print $created_at; ?>
         </li>
         <li class="update-by">
           <?php if (isset($user_avatar)) : ?>
             <?php print $user_avatar; ?>
           <?php endif; ?>
-          <?php print $update_created_by; ?>
+          <?php print $created_by; ?>
         </li>
         <!-- <li class="update-actions"> -->
           <?php // print render($content['links']); ?>

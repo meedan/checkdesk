@@ -1,5 +1,21 @@
+<?php
+  // dsm($content);
+  // dsm($node);
+?>
+
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
+
+
+    <div class="story-meta">
+      <div class="story-at">
+        <?php if (isset($user_avatar)) : ?>
+          <?php print $user_avatar; ?>
+        <?php endif; ?>
+        <?php print $creation_info; ?>
+      </div>
+    </div>
+
     <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
       <div id="story-actions">
         <?php print render($content['links']); ?>
