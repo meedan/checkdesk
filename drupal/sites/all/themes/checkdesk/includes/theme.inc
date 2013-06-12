@@ -283,12 +283,16 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
 
   $output = '';
   $output .= '<header>';
-  $output .= '<span class="actor">' . $actor . '</span>';
+  if(isset($actor)) {
+    $output .= '<span class="actor">' . $actor . '</span>';  
+  }
   $output .= '<span class="activity-inner-wrapper">';
   if (isset($icon)) {
     $output .= '<span class="icon">' . $icon . '</span>';
   }
-  $output .= '<span class="title">' . $title . '</span>';
+  if(isset($title)) {
+    $output .= '<span class="title">' . $title . '</span>';
+  }
   $output .= '</span>';
   $output .= '<time class="time" title=' . format_date($message->timestamp, 'custom', 'Y-m-d')  .'>' . _theme_time_ago($message->timestamp) . '</time>';
   $output .= '</header>';

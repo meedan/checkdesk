@@ -2,6 +2,7 @@
 //
 
 .update {
+	@include ctb-clearfix;
 	.update-by {
 		margin-bottom: $absolute-line-height/4;
 		color: $grayLight;
@@ -21,8 +22,9 @@
 		}
 
 	} // body
+  
   .update-footer {
-    position: relative;
+  	margin-right: $gutter-width*2;
     margin-bottom: 1em;
 
 	  .update-actions {

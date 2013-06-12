@@ -1,46 +1,37 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "FontAwesomeSocial";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: "Merriweather";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-webfont-webfont.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: "Merriweather Light";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/merriweather-light-webfont-webfont.ttf') format('truetype');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Amiri";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.ttf') format('truetype');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Amiri Bold";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.ttf') format('truetype');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Droid Naskh";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf') format('truetype');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Droid Naskh";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf') format('truetype');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Andalus";
-  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.ttf') format('truetype');
+  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.ttf') format('truetype');
 }
 
 /*
@@ -2277,7 +2268,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 }
 
 .button-reset-base-class {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -2336,7 +2327,7 @@ button,
 select,
 textarea,
 body.cke_editable {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
 }
 
 label {
@@ -2367,7 +2358,7 @@ input[type="color"],
   padding: 10px 6px;
   margin-bottom: 6px;
   font-size: 18px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #999999;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -2855,7 +2846,7 @@ input[type="checkbox"][readonly] {
 }
 
 .admin-nav-tabs > li > a {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -2917,7 +2908,7 @@ input[type="checkbox"][readonly] {
 
 .admin-nav-tabs > .active > a,
 .admin-nav-tabs > .active > a:hover {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -3853,7 +3844,7 @@ ul.dropdown-menu a:hover {
 }
 .modal-footer .form-actions input.btn {
   float: left;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -3899,7 +3890,7 @@ ul.dropdown-menu a:hover {
   color: white;
 }
 .modal-footer .form-actions a.btn {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -3950,7 +3941,7 @@ ul.dropdown-menu a:hover {
 
 @media (min-width: 949px) {
   body {
-    max-width: -14px;
+    max-width: -2px;
     padding-left: 10px;
     padding-right: 10px;
     margin-left: auto;
@@ -4082,7 +4073,7 @@ body {
   line-height: 24px;
   font-size: 15px;
   color: black;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   text-align: left;
 }
 
@@ -4093,25 +4084,27 @@ h1, h2, h3, h4 {
   margin-top: 18px;
   padding-bottom: 18px;
   padding-top: 18px;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-weight: normal;
 }
 
 h1 {
-  font-size: 47px;
-  line-height: 1.5;
-  color: #595959;
-  text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1.15;
+  color: #191919;
+  color: rgba(0, 0, 0, 0.9);
 }
 
 nav {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 14px;
   font-weight: 300px;
 }
 
 #sidebar-first {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
 }
 
@@ -4198,26 +4191,26 @@ div.tabs ul.primary li {
   padding: 0;
   width: 100%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
   display: inline-block;
   float: left;
 }
 div.tabs ul.primary li.active a {
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 90.39301%;
+  padding-left: 1.55148%;
+  padding-right: 1.55148%;
+  width: 96.89704%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
   display: inline-block;
 }
 div.tabs ul.primary li a {
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 90.39301%;
+  padding-left: 1.55148%;
+  padding-right: 1.55148%;
+  width: 96.89704%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
   line-height: 24px;
   display: inline-block;
@@ -4590,7 +4583,7 @@ div.tabs ul.primary li a {
   display: none;
 }
 #incoming-reports-filters .panels #filter-by .views-submit-button #close {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -5110,7 +5103,7 @@ div.tabs ul.primary li a {
   padding: 12px 5.5px;
 }
 .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -5220,14 +5213,14 @@ div.tabs ul.primary li a {
   margin: 0;
   padding: 0;
   float: left;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: bold;
 }
 .report .report-activity > header .report-status {
   float: right;
   text-align: right;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: bold;
 }
@@ -5690,7 +5683,7 @@ article.in-progress {
   *margin-right: .3em;
 }
 .report-row .report-detail-link a {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -5771,6 +5764,17 @@ article.in-progress {
     top: 200px !important;
   }
 }
+.update {
+  *zoom: 1;
+}
+.update:before, .update:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.update:after {
+  clear: both;
+}
 .update .update-by {
   margin-bottom: 6px;
   color: #999999;
@@ -5798,7 +5802,7 @@ article.in-progress {
   margin: 6px 0;
 }
 .update .update-footer {
-  position: relative;
+  margin-right: 22px;
   margin-bottom: 1em;
 }
 .update .update-footer .update-actions {
@@ -6037,7 +6041,7 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   margin-top: 11px;
 }
 #meedan_bookmarklet .footer input {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -7099,7 +7103,7 @@ form label[for="edit-pass"] a {
   font-weight: normal;
 }
 form.confirmation .form-actions input {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -7150,7 +7154,7 @@ form .form-actions {
   margin-top: 11px;
 }
 form .form-actions input, form .form-actions a {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -7200,7 +7204,7 @@ form .form-actions input:active, form .form-actions input:active:visited, form .
 form input#edit-reset,
 form input#edit-draft,
 form input[type="reset"] {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -7276,7 +7280,7 @@ form input[type="reset"]:active:visited {
 }
 form input#edit-submit,
 form .form-submit {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -7391,9 +7395,9 @@ form.ife .form-type-select label {
 }
 form.ife .form-type-select select {
   float: left;
-  width: 47.59825%;
+  width: 49.22426%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
 }
 form .messages-inline {
@@ -7410,31 +7414,31 @@ form .messages-inline {
 form > .form-item {
   width: 100%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
 }
 form > .form-item .form-item {
   width: 100%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
 }
 form input[type="password"],
 form input[type="text"],
 form textarea {
-  padding-left: 2.40175%;
-  padding-right: 2.40175%;
-  width: 95.19651%;
+  padding-left: 0.77574%;
+  padding-right: 0.77574%;
+  width: 98.44852%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
 }
 form select {
-  padding-left: 2.40175%;
-  padding-right: 2.40175%;
-  width: 95.19651%;
+  padding-left: 0.77574%;
+  padding-right: 0.77574%;
+  width: 98.44852%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
   *zoom: 1;
   float: none;
@@ -7590,21 +7594,21 @@ table th[class*="span"],
 }
 
 body.page-liveblog #main {
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 90.39301%;
+  padding-left: 1.55148%;
+  padding-right: 1.55148%;
+  width: 96.89704%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
 }
 body.page-liveblog #main .post-row {
   margin-top: 18px;
   margin-bottom: 18px;
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 90.39301%;
+  padding-left: 1.55148%;
+  padding-right: 1.55148%;
+  width: 96.89704%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
 }
 body.page-liveblog #main .related-updates {
@@ -7637,9 +7641,6 @@ body.page-liveblog #main .view-liveblog .desk {
   float: left;
   margin-bottom: 0;
   margin-top: 25px;
-  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
   width: 96%;
   padding: 2%;
   overflow: visible;
@@ -7788,38 +7789,21 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 .node-type-discussion #block-views-desk-updates-block form {
   clear: both;
 }
-.node-type-discussion #main {
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 90.39301%;
+.node-type-discussion #main .update-row .update-body {
+  width: 77.433%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
+  margin-right: 0;
 }
-.node-type-discussion #main .update-row {
-  margin-top: 18px;
-  margin-bottom: 18px;
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 90.39301%;
+.node-type-discussion #main .update-row .update-footer {
+  width: 21.01551%;
   float: left;
-  margin-right: 4.80349%;
-  display: inline;
-}
-.node-type-discussion #main .update-row .livefyre-wrapper {
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 90.39301%;
-  float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
 }
 .node-type-discussion #main #block-views-desk-updates-block {
   *zoom: 1;
-  margin-top: 1em;
-  padding-top: 1em;
-  background-color: white;
-  border-top: 1px solid #cccccc;
 }
 .node-type-discussion #main #block-views-desk-updates-block:before, .node-type-discussion #main #block-views-desk-updates-block:after {
   display: table;
@@ -7831,14 +7815,12 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 }
 
 #updates .update-row {
-  border-bottom: 1px solid #eeeeee;
+  border-top: 2px solid rgba(0, 0, 0, 0.2);
+  padding-top: 12px;
   margin-bottom: 12px;
 }
-#updates .update-row:last-child {
-  border-bottom: 0 none;
-}
 #updates .update-row h2 {
-  display: inline-block;
+  display: none;
   margin: 0;
   padding: 0;
 }
@@ -7888,7 +7870,7 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
   display: inline-block;
 }
 .story #story-actions ul.content-actions li a {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -8033,7 +8015,9 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 .story .story-body {
   *zoom: 1;
   margin: 6px 0;
-  color: #666666;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.9);
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 .story .story-body:before, .story .story-body:after {
@@ -8065,7 +8049,7 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
   margin: 0;
   padding: 0;
   margin-bottom: 6px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15px;
   font-weight: bold;
 }
@@ -8081,19 +8065,19 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 }
 
 body.sidebar-first #main {
-  padding-left: 2.40175%;
-  padding-right: 2.40175%;
-  width: 60.26201%;
+  padding-left: 0.77574%;
+  padding-right: 0.77574%;
+  width: 87.16502%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
-  padding-left: 17.46725%;
-  padding-right: 17.46725%;
+  padding-left: 5.64175%;
+  padding-right: 5.64175%;
 }
 body.sidebar-first #main #sidebar-first.column {
   width: 100%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
   -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
@@ -8139,25 +8123,25 @@ body.sidebar-first #main #content {
 }
 
 body.widgets #main {
-  padding-left: 2.40175%;
-  padding-right: 2.40175%;
-  width: 60.26201%;
+  padding-left: 0.77574%;
+  padding-right: 0.77574%;
+  width: 87.16502%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
-  padding-left: 17.46725%;
-  padding-right: 17.46725%;
+  padding-left: 5.64175%;
+  padding-right: 5.64175%;
 }
 body.widgets #main #widgets.column {
   width: 100%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
   background-color: white;
   margin-top: 18px;
 }
 body.widgets #main #content {
-  width: 65.0655%;
+  width: 88.7165%;
   float: right;
   margin-right: 0;
   *margin-left: -11px;
@@ -8376,11 +8360,11 @@ body.page-user-password #content-header > h1 {
 body.page-user-login div.profile,
 body.page-user-register div.profile,
 body.page-user-password div.profile {
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 55.45852%;
+  padding-left: 1.55148%;
+  padding-right: 1.55148%;
+  width: 85.61354%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
   background-color: white;
 }
@@ -8388,9 +8372,9 @@ body.page-user-login div.profile .user-picture,
 body.page-user-register div.profile .user-picture,
 body.page-user-password div.profile .user-picture {
   float: right;
-  padding-left: 4.80349%;
-  padding-right: 4.80349%;
-  width: 3.05677%;
+  padding-left: 1.55148%;
+  padding-right: 1.55148%;
+  width: 0.98731%;
   float: right;
   margin-right: 0;
   *margin-left: -11px;
@@ -8611,7 +8595,7 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 body.page-user-login #user-login .or,
 body.page-user-register #user-login .or,
 body.page-user-password #user-login .or {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #999999;
   text-align: center;
   margin: 12px 0;
@@ -8636,7 +8620,7 @@ body.page-user-login #user-login .user-links,
 body.page-user-register #user-login .user-links,
 body.page-user-password #user-login .user-links {
   *zoom: 1;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
   line-height: 1.5;
 }
@@ -8665,7 +8649,7 @@ body.page-user-register #user-login .form-item-remember-me label,
 body.page-user-password #user-login .form-item-remember-me label {
   display: inline-block;
   color: #999999;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
   line-height: 1.5;
 }
@@ -8690,7 +8674,7 @@ body.page-user-register #user-login .form-actions .user-new-account-link,
 body.page-user-password #user-login .form-actions .user-new-account-link {
   float: right;
   margin-top: 6px;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
   color: #999999;
 }
@@ -8705,7 +8689,7 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
   margin: 0;
   padding: 0;
   background: none;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 15.3px;
   font-weight: normal;
   color: #0088cc;
@@ -8766,14 +8750,14 @@ body.page-user-password #user-login .form-actions .user-new-account-link .regist
 }
 
 body.page-reports #main {
-  padding-left: 2.40175%;
-  padding-right: 2.40175%;
-  width: 60.26201%;
+  padding-left: 0.77574%;
+  padding-right: 0.77574%;
+  width: 87.16502%;
   float: left;
-  margin-right: 4.80349%;
+  margin-right: 1.55148%;
   display: inline;
-  padding-left: 17.46725%;
-  padding-right: 17.46725%;
+  padding-left: 5.64175%;
+  padding-right: 5.64175%;
 }
 
 @media (min-width: 469px) {
@@ -8963,7 +8947,7 @@ body.page-reports #reports .report-item .in_progress span:before {
   *margin-right: .3em;
 }
 body.page-reports #reports .report-item .report-detail-link a {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;

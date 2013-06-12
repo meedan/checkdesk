@@ -37,7 +37,6 @@ body.page-liveblog {
         float: $from-direction;
         margin-bottom: 0;
         margin-top: ms(1);
-        @include ctb-box-shadow(0px 1px 1px 1px rgba(0, 0, 0, 0.2));
         width: 96%;
         padding: 2%;
         overflow: visible;
@@ -66,7 +65,6 @@ body.page-liveblog {
         .post-row {
           background-color: #eee;
           margin-bottom: 1em;
-
           .report .report-content .report-media .container {
             min-width: 60%;
           }
