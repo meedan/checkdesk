@@ -462,6 +462,7 @@ function checkdesk_preprocess_node(&$variables) {
       );
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
+
     // Add update creation info
     $variables['update_creation_info'] = t('Update by <a href="@user">!user</a> <time datetime="!date">!datetime</time>', array(
       '@user' => url('user/'. $variables['uid']),

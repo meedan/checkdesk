@@ -727,6 +727,22 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       '#report' => $node,
     );
   }
+
+  // Add update number to posts/updates
+  if($node->type == 'post') {
+    $view = views_get_view('desk_updates');
+    $view->execute();
+    $output = array();
+    foreach(array_reverse($view->result) as $key => $value) {
+      if($node->nid == $value->nid) {
+        $node->content['update_number'] = array(
+          '#type' => 'markup',
+          '#markup' => $key+1,
+        );  
+      }
+    }
+  }
+
 }
 
 /*

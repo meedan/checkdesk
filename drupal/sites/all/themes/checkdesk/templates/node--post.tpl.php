@@ -7,7 +7,7 @@
   <article class="update">
     <div class="update-footer">
       <div class="update-info">
-        Update <b>#1</b>
+        Update <b>#<?php print render($content['update_number']); ?></b>
       </div>
       <ul class="update-meta">
         <li class="update-at">
