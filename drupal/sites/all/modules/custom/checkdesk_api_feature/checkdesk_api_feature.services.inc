@@ -38,6 +38,22 @@ function checkdesk_api_feature_default_services_endpoint() {
     ),
   );
   $endpoint->resources = array(
+    'i18n' => array(
+      'operations' => array(
+        'create' => array(
+          'enabled' => '1',
+        ),
+        'update' => array(
+          'enabled' => '1',
+        ),
+        'delete' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'flag' => array(
       'actions' => array(
         'is_flagged' => array(
@@ -139,6 +155,11 @@ function checkdesk_api_feature_default_services_endpoint() {
       'actions' => array(
         'login' => array(
           'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
         ),
         'logout' => array(
           'enabled' => '1',
