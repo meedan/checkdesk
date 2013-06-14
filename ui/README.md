@@ -45,7 +45,7 @@ The server configuration proxies requests from some paths through to the Drupal 
         # it is important to proxy these.
         #
         # api and admin are the two paths we really want to proxy.
-        location ~ /(misc|modules|sites|themes|api|admin) {
+        location ~ /(misc|modules|sites|themes|services|api|admin) {
             # Pass to the Drupal site, eg: /Users/james/Code/Meedan/Checkdesk
             proxy_pass  http://checkdesk.localhost;
         }
@@ -96,7 +96,7 @@ The server configuration proxies requests from some paths through to the Drupal 
 
     # You MUST have mod_proxy and mod_proxy_http for this to work, else you
     # will get a 404
-    RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|api|admin)
+    RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|services|api|admin)
     RewriteRule ^(.*)$ http://checkdesk.local/$1 [L,P]
 
     RewriteCond %{REQUEST_FILENAME} !-f

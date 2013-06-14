@@ -1,4 +1,4 @@
-/*! checkdesk - v0.1.0 - 2013-06-06
+/*! checkdesk - v0.1.0 - 2013-06-14
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 var app = angular.module('Checkdesk', [
@@ -8,7 +8,7 @@ var app = angular.module('Checkdesk', [
       'cd.page',
       'cd.services'
     ]),
-    cdServices = angular.module('cd.services', ['ngResource']);
+    cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   // See: http://docs.angularjs.org/guide/dev_guide.services.$location
@@ -44,6 +44,23 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 
   $routeProvider.otherwise({ redirectTo: '/reports' });
 }]);
+
+/**
+ * @ngdoc function
+ *
+ * Integration with Drupal Services X-CSRF-Token header.
+ *
+ * This code relies on this tag to be added to the page BEFORE the main application
+ * script tag.
+ *
+ *     <script src="/services/session/token"></script>
+ */
+angular.module('cd.csrfToken', [])
+  .config(['$httpProvider', function ($httpProvider) {
+    // Set the cookie and header name to what the Drupal Services module expects.
+    $httpProvider.defaults.xsrfCookieName = 'CSRF-Token';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
+  }]);
 
 angular.module('cd.l10n', ['pascalprecht.translate', 'cd.translationUI'])
   .config(['$translateProvider', function ($translateProvider) {

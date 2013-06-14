@@ -5,4 +5,4 @@ var app = angular.module('Checkdesk', [
       'cd.page',
       'cd.services'
     ]),
-    cdServices = angular.module('cd.services', ['ngResource']);
+    cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']);
