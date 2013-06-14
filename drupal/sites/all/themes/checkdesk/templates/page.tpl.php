@@ -24,19 +24,6 @@
     </div>
   </div>
 
-  <header id="partner-header">
-    <div id="partner-header-inner" style="background-image: url(<?php print $header_bg; ?>); text-align: <?php print $header_image_position; ?>;">
-      <?php if ($header_image): ?>
-        <?php print $header_image; ?>
-      <?php endif; ?>
-      <?php if ($header_slogan): ?>
-        <div id="partner-header-slogan" style="float: <?php print $header_slogan_position; ?>;">
-          <?php print $header_slogan; ?>
-        </div>
-      <?php endif; ?>
-    </div>
-  </header>
-
   <!-- ______________________ MAIN _______________________ -->
 
   <div id="main" class="clearfix">
@@ -117,22 +104,6 @@
 
   <!-- ______________________ FOOTER _______________________ -->
 
-  <?php if (checkdesk_footer_visibility()) : ?>        
-    <?php if ($information_nav || $footer_nav): ?>
-      <div id="footer">
-        <div id="footer-inner" class="inner">
-          <?php if($page['footer']): ?>
-            <?php print render($page['footer']); ?>
-          <?php endif; ?>
-          <?php if ($information_nav): ?>
-            <?php print $information_nav; ?>
-          <?php endif; ?>
-          <?php if ($footer_nav): ?>
-            <?php print $footer_nav; ?>
-          <?php endif; ?>
-        </div>
-      </div> <!-- /footer -->
-    <?php endif; ?>
-  <?php endif; ?>
+  
 
 </div> <!-- /page -->

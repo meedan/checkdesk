@@ -18,8 +18,8 @@ body {
 
 h1, h2, h3, h4 {
   @include reset-box-model;
-  margin:  { bottom: $base-font-size; top: $base-font-size; }
-  padding: { bottom: $base-font-size; top: $base-font-size; }
+  // margin:  { bottom: $base-font-size; top: $base-font-size; }
+  // padding: { bottom: $base-font-size; top: $base-font-size; }
   font-family: $header-font-stack;
   font-weight: normal;
 }

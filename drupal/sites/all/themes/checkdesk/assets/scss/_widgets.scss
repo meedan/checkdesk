@@ -12,16 +12,33 @@
 
       // 2. The sidebar column
       #widgets.column {
-        @include span-columns($secondary-width, $break); // sidebar width
-        background-color: white;
-        margin-top: ms(0);
+        position: absolute;
+        height: 100%;
+        #{$alpha}: 0;
+        max-width: 342px;
+        @debug $toolbarHeight;
+        top: $navbarHeight;
+        width: 30%;
+        border-#{$omega}: 1px solid rgba(0,0,0,.1);
+        background-color: #fff;
       }
 
       // 3. The primary content column, 
       // on story create page, the main column with the compser form
       #content {
-        @include span-columns($primary-width omega, $break);
+        @include span-columns($primary-width+2 omega, $break);
         @include pad(0,0, $break);
+        overflow: auto;
+        position: absolute;
+        bottom: 0;
+        #{$alpha}: 30%;
+        #{$omega}: 0;
+        top: 0;
+        #content-inner {
+          max-width: 800px;
+          width: 100%;
+          padding-top: $navbarHeight + $base-line-height*2;
+        }
       }
     }
   }
@@ -84,23 +101,26 @@
 
 #widgets {
   #widgets-inner {
-    width: 92%;
-    padding: 4%;
+    // width: 92%;
+    padding: 10%;
     
     // remove margin from first block
     .region-widgets :first-child {
       margin-top: 0;
     }
   }
-
-
   // spacing between blocks/widgets
   .block {
     margin: ms(1) auto;
     // block title
     h2 {
+
       @include reset-box-model;
+      border-top: 4px solid rgba(0,0,0,.1);
+      font-family: $sans-serif-font-stack;
       font-size: $base-font-size;
+      color: rgba(0,0,0,.4);
+      padding-top: $base-line-height/2;
       margin-bottom: $base-line-height/4;
     }
     // keep embedded widgets width 100%

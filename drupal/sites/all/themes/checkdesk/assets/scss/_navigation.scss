@@ -305,18 +305,18 @@ div.region-page-top {
 
 // Small breakpoint
 @include at-breakpoint($break-small) {
-  #partner-header {
-    @include span-columns($break-small - 2, $break-small, $gutter-width);
-    @include pad(1, 1, $break-small);
-  }
+  // #partner-header {
+  //   @include span-columns($break-small - 2, $break-small, $gutter-width);
+  //   @include pad(1, 1, $break-small);
+  // }
 }
 
 // Medium breakpoint
 @include at-breakpoint($break-medium) {
-  #partner-header {
-    @include span-columns($break-medium - 4, $break-medium, $gutter-width);
-    @include pad(2, 2, $break-medium);
-  }
+  // #partner-header {
+  //   @include span-columns($break-medium - 4, $break-medium, $gutter-width);
+  //   @include pad(2, 2, $break-medium);
+  // }
 }
 
 

@@ -65,12 +65,9 @@ $omega: opposite-position($alpha);
 
 .story {
   @include ctb-clearfix;
-  color: $grayLight;
   text-align: $alpha;
 
   #story-actions {
-    font-size: $fontSizeSmall;
-    
     ul.content-actions {
       @include reset-box-model;
       @include reset-list-style;
@@ -93,6 +90,12 @@ $omega: opposite-position($alpha);
     margin-top: $absolute-line-height/2;
     font-family: $sans-serif-font-stack;
     color: rgba(0,0,0,.6); 
+    .separator {
+      color: rgba(0,0,0,.3); 
+    }
+    .gravatar {
+      margin-#{$omega}: $gutter-width/2;
+    }
     a { 
       font-weight: 700;
       color: rgba(0,0,0,.6); 
@@ -172,8 +175,8 @@ $omega: opposite-position($alpha);
     @include ctb-clearfix;
     margin: $absolute-line-height/2 0;
     font-size: modular-scale(0) - modular-scale(-5); // 16px;
-    line-height: 1.6;
     color: rgba(0,0,0,.9);
+    line-height: 1.6;
     text-shadow: 0 1px 1px rgba(255,255,255,.35);
     p {
       margin: $base-line-height/4 0;
@@ -187,8 +190,8 @@ $omega: opposite-position($alpha);
 // story lists
 .stories {
   .story-row {
-    @include ctb-bg(#ddd, rgba(0, 0, 0, 0.1));
-    padding: $absolute-line-height/4 $gutter-width;
+    // @include ctb-bg(#ddd, rgba(0, 0, 0, 0.1));
+    // padding: $absolute-line-height/4 $gutter-width;
     margin-bottom: $absolute-line-height/4;
     &:last-child {
       margin-bottom: 0;        
@@ -203,6 +206,7 @@ $omega: opposite-position($alpha);
       a { @include ctb-linkColor($linkColor); }
     }
     .story-desc {
+      display: none;
       color: $gray;
       font-size: 14px;
 

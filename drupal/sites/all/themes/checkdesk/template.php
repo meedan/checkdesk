@@ -104,6 +104,33 @@ function checkdesk_preprocess_html(&$variables) {
 
 }
 
+/**
+ * Override or insert variables into the region template.
+ */
+function checkdesk_preprocess_region(&$variables) {
+
+  if ($variables['region'] == 'widgets') {
+    // define custom header settings
+    $variables['header_image'] = '';
+    $image = theme_get_setting('header_image_path');
+    
+    if (!empty($image) && theme_get_setting('header_image_enabled')) {
+      $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
+    }
+
+    $position = theme_get_setting('header_image_position');
+    $variables['header_image_position'] = (empty($position) ? 'left' : $position);
+
+    $bg = theme_get_setting('header_bg_path');
+    $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
+
+    $slogan = theme_get_setting('header_slogan');
+    $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
+    $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right'); 
+  }
+}
+
+
 
 /**
  * Preprocess variables for blocks
