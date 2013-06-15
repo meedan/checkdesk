@@ -175,8 +175,6 @@ function _meedan_oembed_facebook_graph_api_data($url, $depth = 0) {
  * Implements of hook_form_FORM_ID_form().
  */
 function meedan_oembed_facebook_form_media_node_form_alter(&$form, &$form_state, $form_id) {
-  //Hide title field
-  $form['title']['#type'] = 'value';
   $form['title']['#required'] = FALSE;
   include_once(libraries_get_path('facebook-php-sdk') . '/src/facebook.php');
   $facebook = new Facebook(array(

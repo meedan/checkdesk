@@ -5818,7 +5818,8 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 .meedan-bookmarklet-internal #meedan_bookmarklet_preview,
 .meedan-bookmarklet-internal #edit-body,
 .meedan-bookmarklet-internal #edit-graphic-content,
-.meedan-bookmarklet-internal #edit-actions #edit-submit {
+.meedan-bookmarklet-internal #edit-actions #edit-submit,
+.meedan-bookmarklet-internal #edit-title {
   display: none;
 }
 
@@ -5862,6 +5863,10 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 #meedan_bookmarklet .link-field-url input[type=text] {
   width: 278px;
   padding-left: 45px;
+}
+#meedan_bookmarklet form input[type=text] {
+  width: 323px;
+  padding: 5px;
 }
 #meedan_bookmarklet .form-type-textarea {
   padding-top: 11px;
@@ -5984,7 +5989,7 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 #meedan_bookmarklet #user-login .form-actions {
   margin-top: 14.4px;
 }
-#meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all {
+#meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all, #meedan_bookmarklet #absolute-messages-messages {
   display: none !important;
 }
 #meedan_bookmarklet .messages.error {
