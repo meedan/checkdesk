@@ -111,6 +111,7 @@
   }
   // spacing between blocks/widgets
   .block {
+    @include ctb-clearfix;
     margin: ms(1) auto;
     // block title
     h2 {
@@ -129,34 +130,56 @@
     }
   }
 
-  
+  .elsewhere {
+    @include ctb-clearfix;
+    border: 1px solid rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.05);
 
-  ul.elsewhere {
-    @include reset-box-model;
-    @include reset-list-style;
-    text-align: $alpha;
-    li {
-      display: inline-block;
-      border-#{$alpha}: 1px solid rgba(0,0,0,.1);
-      a {
-        &:hover { 
-          text-decoration: none; 
+    h2 {
+      @include reset-box-model;
+      float: $alpha;
+      border-top: 0px none;
+      padding: $absolute-line-height/2 $gutter-width*2;
+      font-size: $smaller-font-size;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+    ul {
+      @include reset-list-style;
+      float: $omega;
+      text-align: center;
+      
+      li {
+        float: $alpha;
+        a {
+          display: block;
+          border-#{$alpha}: 1px solid rgba(0,0,0,.1);
+          padding: $absolute-line-height/4 $gutter-width/2 $absolute-line-height/4 $gutter-width/2;
+          vertical-align: top;
+          line-height: 1.4;
+          height: 36px;
+          width: 35px;
+          text-align: center;
+          background-color: $white;
+          &:hover { 
+            text-decoration: none;
+            background-color: rgba(0,0,0,.05);
+          }
         }
-      }
 
-      span {
-        display: inline-block;
-        vertical-align: middle;
-        &.icon-facebook  { @include icon("facebook", $larger-font-size, $facebook-blue); } 
-        &.icon-twitter  { @include icon("twitter", $larger-font-size, $twitter-blue); }
-        // social icons seem to be larger
-        &.icon-youtube  { 
-          @include social-icon(youtube, $larger-font-size, $red); 
+        span {
+          &.icon-facebook  { @include icon("facebook", $larger-font-size, $facebook-blue); } 
+          &.icon-twitter  { @include icon("twitter", $larger-font-size, $twitter-blue); }
+          // social icons seem to be larger
+          &.icon-youtube  { 
+            @include social-icon("youtube", $larger-font-size, $red); 
+          }
+          
         }
-        
       }
     }
-  }
+    }
+    
 }
 
 
