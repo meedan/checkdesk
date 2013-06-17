@@ -6878,7 +6878,7 @@ label, input, button, select, textarea, body.cke_editable {
   font-size: 18px;
 }
 
-textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="text"], .uneditable-input {
   background-color: white;
   border: 1px solid #cccccc;
   -webkit-box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
@@ -6889,7 +6889,7 @@ textarea, body.cke_editable, input[type="text"], input[type="password"], input[t
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
-textarea:focus, body.cke_editable:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+textarea:focus, body.cke_editable:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, input[type="text"]:focus, .uneditable-input:focus {
   border-color: rgba(38, 72, 135, 0.8);
   outline: 0;
   outline: thin dotted \9;
@@ -6907,6 +6907,7 @@ select[multiple], select[size] {
 }
 
 form input[type="text"],
+form input[type="file"],
 form textarea {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -6920,6 +6921,7 @@ form textarea {
   margin-top: 11px;
 }
 form input[type="text"]:focus,
+form input[type="file"]:focus,
 form textarea:focus {
   border-color: rgba(0, 0, 0, 0.5);
   outline: thin dotted #ededed;
@@ -7274,6 +7276,7 @@ form > .form-item .form-item {
 }
 form input[type="password"],
 form input[type="text"],
+form input[type="file"],
 form textarea {
   padding-left: 2.40175%;
   padding-right: 2.40175%;
@@ -7337,6 +7340,7 @@ form .form-type-textarea:after {
   }
   form input[type="password"],
   form input[type="text"],
+  form input[type="file"],
   form textarea {
     padding-left: 2.40175%;
     padding-right: 2.40175%;
