@@ -3,6 +3,7 @@
 #partner-header {
   // padding-top: $navbarHeight;
   // width: 100%;
+  text-align: center;
 }
 
 .toolbar #partner-header {
@@ -25,5 +26,9 @@
     // color: $bright-green;
     // font-size: $base-font-size * 1.5;
     // text-align: $from-direction;
+    border-top: 1px solid rgba(0,0,0,.1);
+    color: rgba(0,0,0,.6);
+    margin-top: $absolute-line-height;
+    padding: $absolute-line-height $gutter-width*2;
   }
 }

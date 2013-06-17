@@ -190,26 +190,30 @@ $omega: opposite-position($alpha);
 // story lists
 .stories {
   .story-row {
-    // @include ctb-bg(#ddd, rgba(0, 0, 0, 0.1));
-    // padding: $absolute-line-height/4 $gutter-width;
     margin-bottom: $absolute-line-height/4;
+    padding: $absolute-line-height/2 0;
+    border-bottom: 1px solid rgba(0,0,0,.05);
     &:last-child {
-      margin-bottom: 0;        
+      margin-bottom: 0;
+      border-bottom: 0px none;
     }
-    line-height: 1.4;
+
+    a {
+      color: rgba(0,0,0,.6);
+      &:hover {
+        color: rgba(0,0,0,.8);
+        text-decoration: none;
+      }
+    }
+
     h3 {
       @include reset-box-model;
-      margin-bottom: $absolute-line-height/4;
-      font-family: $nav-font-stack;
-      font-size: 15px;
-      font-weight: bold;
-      a { @include ctb-linkColor($linkColor); }
+      font-size: modular-scale(0) - modular-scale(-3); // 14px;
+      font-weight: 700;
+      line-height: 1.4;
     }
     .story-desc {
       display: none;
-      color: $gray;
-      font-size: 14px;
-
     }
   }
 }

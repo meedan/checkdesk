@@ -36,11 +36,11 @@
     <?php endif; ?> <!-- /sidebar-first -->
     
     <?php if ($show_widgets && $page['widgets']): ?>
-      <div id="widgets" class="column widgets">
+      <aside id="widgets" class="column widgets">
         <div id="widgets-inner" class="inner">
           <?php print render($page['widgets']); ?>
         </div>
-       </div>
+       </aside>
     <?php endif; ?> <!-- /widgets -->
 
     <div id="content">

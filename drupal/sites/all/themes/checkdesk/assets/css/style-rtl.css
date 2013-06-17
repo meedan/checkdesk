@@ -2236,25 +2236,21 @@ nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f075";
 }
 
-#my-account .info .linked-account .icon-twitter:before, #widgets ul.elsewhere li span.icon-twitter:before {
+#my-account .info .linked-account .icon-twitter:before {
   content: "\f081";
-}
-
-#widgets ul.elsewhere li span.icon-facebook:before {
-  content: "\f082";
 }
 
 html body div.livefyre-header:before, body div.fb-comments-header:before {
   content: "\f086";
 }
 
-.report h3 > a[href*="twitter.com"]:before, body.page-user-login #user-login #edit-social-media-signin li.first a:before,
+.report h3 > a[href*="twitter.com"]:before, #widgets ul.elsewhere li span.icon-twitter:before, body.page-user-login #user-login #edit-social-media-signin li.first a:before,
 body.page-user-register #user-login #edit-social-media-signin li.first a:before,
 body.page-user-password #user-login #edit-social-media-signin li.first a:before {
   content: "\f099";
 }
 
-body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:before,
+#widgets ul.elsewhere li span.icon-facebook:before, body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:before,
 body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:before,
 body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:before {
   content: "\f09a";
@@ -4698,6 +4694,17 @@ div.tabs ul.primary li a {
     font-size: 95%;
   }
 }
+#partner-header {
+  text-align: center;
+}
+
+#partner-header-inner #partner-header-slogan {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 28.8px;
+  padding: 28.8px 22px;
+}
+
 #footer {
   *zoom: 1;
   padding-top: 7.2px;
@@ -8095,29 +8102,29 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
 
 .stories .story-row {
   margin-bottom: 7.2px;
-  line-height: 1.4;
+  padding: 14.4px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 .stories .story-row:last-child {
   margin-bottom: 0;
+  border-bottom: 0px none;
+}
+.stories .story-row a {
+  color: rgba(0, 0, 0, 0.6);
+}
+.stories .story-row a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
 }
 .stories .story-row h3 {
   margin: 0;
   padding: 0;
-  margin-bottom: 7.2px;
-  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma";
-  font-size: 15px;
-  font-weight: bold;
-}
-.stories .story-row h3 a {
-  color: #0088cc;
-}
-.stories .story-row h3 a:hover {
-  color: black;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
 }
 .stories .story-row .story-desc {
   display: none;
-  color: #555555;
-  font-size: 14px;
 }
 
 body.sidebar-first #main {
@@ -8371,7 +8378,7 @@ body.widgets #main #content #content-inner {
   }
 }
 #widgets #widgets-inner {
-  padding: 10%;
+  padding: 12%;
 }
 #widgets #widgets-inner .region-widgets :first-child {
   margin-top: 0;
@@ -8383,11 +8390,12 @@ body.widgets #main #content #content-inner {
   margin: 0;
   padding: 0;
   border-top: 4px solid rgba(0, 0, 0, 0.1);
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  color: rgba(0, 0, 0, 0.4);
   padding-top: 12px;
   margin-bottom: 6px;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.4);
 }
 #widgets .block iframe {
   width: 100% !important;
@@ -8404,19 +8412,18 @@ body.widgets #main #content #content-inner {
 }
 #widgets ul.elsewhere li {
   display: inline-block;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 #widgets ul.elsewhere li a:hover {
   text-decoration: none;
 }
 #widgets ul.elsewhere li span {
   display: inline-block;
-  margin: -3.66667px;
-  height: 25px;
-  vertical-align: top;
+  vertical-align: middle;
 }
 #widgets ul.elsewhere li span.icon-facebook:before {
   font-family: "FontAwesome";
-  font-size: 40px;
+  font-size: 25px;
   line-height: inherit;
   color: #264887;
   margin: 0 5.5px;
@@ -8427,7 +8434,7 @@ body.widgets #main #content #content-inner {
 }
 #widgets ul.elsewhere li span.icon-twitter:before {
   font-family: "FontAwesome";
-  font-size: 40px;
+  font-size: 25px;
   line-height: inherit;
   color: #1d87c9;
   margin: 0 5.5px;
@@ -8438,8 +8445,8 @@ body.widgets #main #content #content-inner {
 }
 #widgets ul.elsewhere li span.icon-youtube:before {
   font-family: "FontAwesomeSocial";
-  font-size: 40px;
-  line-height: 40px;
+  font-size: 25px;
+  line-height: 25px;
   color: #9d261d;
   margin: 0 5.5px;
   -webkit-font-smoothing: antialiased;

@@ -102,7 +102,7 @@
 #widgets {
   #widgets-inner {
     // width: 92%;
-    padding: 10%;
+    padding: 12%;
     
     // remove margin from first block
     .region-widgets :first-child {
@@ -114,14 +114,14 @@
     margin: ms(1) auto;
     // block title
     h2 {
-
       @include reset-box-model;
       border-top: 4px solid rgba(0,0,0,.1);
-      font-family: $sans-serif-font-stack;
-      font-size: $base-font-size;
-      color: rgba(0,0,0,.4);
       padding-top: $base-line-height/2;
       margin-bottom: $base-line-height/4;
+      font-family: $sans-serif-font-stack;
+      font-weight: 700;
+      font-size: $base-font-size;
+      color: rgba(0,0,0,.4);
     }
     // keep embedded widgets width 100%
     iframe {
@@ -129,12 +129,15 @@
     }
   }
 
+  
+
   ul.elsewhere {
     @include reset-box-model;
     @include reset-list-style;
     text-align: $alpha;
     li {
       display: inline-block;
+      border-#{$alpha}: 1px solid rgba(0,0,0,.1);
       a {
         &:hover { 
           text-decoration: none; 
@@ -143,14 +146,12 @@
 
       span {
         display: inline-block;
-        margin: 0 -$gutter-width/3;
-        height: 25px;
-        vertical-align: top;
-        &.icon-facebook  { @include icon("facebook-sign", 40px, $facebook-blue); } 
-        &.icon-twitter  { @include icon("twitter-sign", 40px, $twitter-blue); }
+        vertical-align: middle;
+        &.icon-facebook  { @include icon("facebook", $larger-font-size, $facebook-blue); } 
+        &.icon-twitter  { @include icon("twitter", $larger-font-size, $twitter-blue); }
         // social icons seem to be larger
         &.icon-youtube  { 
-          @include social-icon(youtube, 40px, $red); 
+          @include social-icon(youtube, $larger-font-size, $red); 
         }
         
       }
