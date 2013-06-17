@@ -580,6 +580,7 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->value = array(
     'field_rating' => 'field_rating',
     'field_stories' => 'field_stories',
+    'title' => 0,
     'body' => 0,
     'field_link' => 0,
   );
@@ -619,6 +620,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'meedan_bookmarklet_prepopulate_field_stories';
   $strongarm->value = 'title';
   $export['meedan_bookmarklet_prepopulate_field_stories'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_prepopulate_title';
+  $strongarm->value = 'title';
+  $export['meedan_bookmarklet_prepopulate_title'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

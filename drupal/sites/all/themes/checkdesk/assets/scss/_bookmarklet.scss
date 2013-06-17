@@ -41,7 +41,11 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
       padding-#{opposite-position($from-direction)}: $spinner-width; //accomodate spinner
     }
   }
-  
+
+  form input[type=text] {
+    width: $bookmarklet-width - $gutter-width * 2;
+    padding: 5px;
+  }
 
   .form-type-textarea {
     padding-top: $gutter-width;
@@ -208,7 +212,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // Alerts in bookmarklet
 @mixin bookmarklet-alerts() {
  
-  .absolute-messages-status, .messages.status, #absolute-messages-show, .absolute-messages-dismiss-all {
+  .absolute-messages-status, .messages.status, #absolute-messages-show, .absolute-messages-dismiss-all, #absolute-messages-messages {
     display: none !important; // HACK hide status messages in bookmarklet
   }
 
@@ -315,7 +319,8 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   #meedan_bookmarklet_preview,
     #edit-body,
     #edit-graphic-content,
-    #edit-actions #edit-submit {
+    #edit-actions #edit-submit,
+    #edit-title {
     display: none;
   }
 }

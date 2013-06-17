@@ -116,7 +116,7 @@
   label, input, button, select, textarea, body.cke_editable { font-size: $base-font-size; }
 
   // Everything else
-  textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="text"], .uneditable-input {
     background-color: $input-background;
     border: 1px solid $inputBorder;
     @include box-shadow(rgba($black, .075) 0 1px 1px inset);
@@ -169,6 +169,7 @@
   form {
     // input[type="password"],
     input[type="text"], 
+    input[type="file"], 
     textarea {
       @include border-radius(3px);
       display: block;
@@ -294,6 +295,7 @@
     // Default main inputs and textareas
     input[type="password"],
     input[type="text"],
+    input[type="file"],
     textarea {
       @include span-columns($w, $w, $gutter-width/2); // small padding with grid accounting
       // padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
