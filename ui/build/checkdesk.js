@@ -1,5 +1,14 @@
-/*! checkdesk - v0.1.0 - 2013-06-14
+/*! checkdesk - v0.1.0 - 2013-06-18
  *  Copyright (c) 2013 Meedan | Licensed MIT
+ */
+/**
+ * @doc app
+ * @id index
+ * @name Checkdesk App
+ *
+ * @description
+ * The Checkdesk application is an AngularJS based front-end consuming
+ * web-servicesprovided by a Drupal powered back-end.
  */
 var app = angular.module('Checkdesk', [
       'pascalprecht.translate',
@@ -53,7 +62,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
  * This code relies on this tag to be added to the page BEFORE the main application
  * script tag.
  *
- *     <script src="/services/session/token"></script>
+ *     <script src="services/session/token"></script>
  */
 angular.module('cd.csrfToken', [])
   .config(['$httpProvider', function ($httpProvider) {
@@ -62,43 +71,32 @@ angular.module('cd.csrfToken', [])
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
   }]);
 
-angular.module('cd.l10n', ['pascalprecht.translate', 'cd.translationUI'])
+/**
+ * @ngdoc module
+ * @name l10n
+ *
+ * @description
+ * The `cd.l10n` module manages all translation and localization aspects of
+ * the Checkdesk app.
+ */
+angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translationUI'])
+
+  /**
+   * @ngdoc function
+   * @name l10n.class:config
+   * @requires $translateProvider
+   *
+   * @description
+   * Configures all languages necessary for the Checkdesk app and sets the
+   * cdTranslationUI service as the missing translation handler for $translate.
+   */
   .config(['$translateProvider', function ($translateProvider) {
-    // Initially empty translation tables
-    $translateProvider.translations('en', {});
-    $translateProvider.translations('ar', {});
+    $translateProvider.useUrlLoader('api/i18n?textgroup=ui&angular=1');
+    $translateProvider.preferredLanguage('ar');
 
-    $translateProvider.uses('ar');
-
-    // FIXME: Something is amiss with the cookie thing.
-    // $translateProvider.useCookieStorage();
+    $translateProvider.useCookieStorage();
 
     $translateProvider.useMissingTranslationHandler('cdTranslationUI');
-  }])
-  .run(['$translate', 'cdTranslationUI', 'Translation', function ($translate, cdTranslationUI, Translation) {
-    Translation.query({}, function (translations) {
-      var translationTable,
-          languages = ['ar', 'en'],
-          language, translation, i, j;
-
-      // Get a reference to the translation table
-      translationTable = cdTranslationUI.translationTable();
-
-      for (i = languages.length - 1; i >= 0; i--) {
-        language = languages[i];
-
-        if (translations.hasOwnProperty(language)) {
-          for (j = translations[language].length - 1; j >= 0; j--) {
-            translation = translations[language][j];
-
-            translationTable[language][translation.source] = translation.translation;
-          }
-        }
-      }
-
-      // Refresh interface translations
-      $translate.uses($translate.uses());
-    });
   }]);
 
 angular.module('cd.page', [])
@@ -262,12 +260,32 @@ cdServices
     });
   }]);
 
-angular.module('cd.translationUI', [])
+/**
+ * @ngdoc module
+ * @name translationUI
+ *
+ * @description
+ * The `cd.translationUI` module houses the service and controller necessary
+ * to manage the Checkdesk real-time translation interface.
+ */
+angular.module('cd.translationUI', ['pascalprecht.translate'])
+
+  /**
+   * @ngdoc service
+   * @name translationUI.global:cdTranslationUI
+   * @requires $http
+   *
+   * @description
+   * Provides coordination for UI translation. Enables access to the
+   * $translate.translationTable and can be used as a missing translation handler
+   * for $translate.
+   */
   .provider('cdTranslationUI', function () {
     var $translationTable,
         $missingTranslations = [],
-        $missingTranslationHandler = function (translationId) {
+        $missingTranslationHandler = function (translationId, uses) {
           if ($missingTranslations.indexOf(translationId) === -1) {
+            console.log([translationId, uses]);
             $missingTranslations.push(translationId);
           }
         };
@@ -291,29 +309,108 @@ angular.module('cd.translationUI', [])
       return $missingTranslationHandler;
     };
   })
+
+  /**
+   * @ngdoc function
+   * @name translationUI.class:config
+   * @requires $translateProvider
+   * @requires cdTranslationUIProvider
+   *
+   * @description
+   * Get's a reference to $translate's master translationTable. This is sort of
+   * a hack but is a very handy way to directly access the current list of
+   * translated strings on the page.
+   *
+   * See: {@link https://github.com/PascalPrecht/angular-translate/pull/61}
+   */
   .config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
     cdTranslationUIProvider.translationTable($translateProvider.translations());
   }])
+
+  /**
+   * @ngdoc object
+   * @name translationUI.global:cdTranslationUICtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires cdTranslationUI
+   *
+   * @description
+   * Controller for the cd-translation-ui.html template.
+   */
   .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
+    var translationSources = {};
+
     $scope.collapsed = true;
 
     $scope.toggle = function () {
       $scope.collapsed = !$scope.collapsed;
     };
 
+    $scope.$translate = $translate;
+    $scope.cdTranslationUI = cdTranslationUI;
+
     $scope.translationTable = cdTranslationUI.translationTable();
-    $scope.missingTranslations = cdTranslationUI.missingTranslations();
-    $scope.inputTranslations = [];
-    // FIXME: $translate.uses() is not updating when language is switched
-    $scope.currentLanguage = $translate.uses();
+    $scope.editedTranslations = {};
 
-    $scope.translationChanged = function (index) {
-      var uses = $translate.uses(),
-          source = $scope.missingTranslations[index],
-          translation = $scope.inputTranslations[index];
+    // Helpful list of languages available in the system
+    $scope.languages = function () {
+      var languages = [], language;
 
-      $scope.translationTable[uses][source] = translation;
-      $translate.uses(uses);
+      for (language in $scope.translationTable) {
+        if ($scope.translationTable.hasOwnProperty(language)) {
+          languages.push(language);
+        }
+      }
+
+      return languages;
+    };
+
+    $scope.translationSources = function () {
+      var translationTable = cdTranslationUI.translationTable(),
+          missingTranslations = cdTranslationUI.missingTranslations(),
+          languages = $scope.languages(),
+          language, source, i, j;
+
+      for (language in translationTable) {
+        if (translationTable.hasOwnProperty(language)) {
+          for (source in translationTable[language]) {
+            // Ensure source is not an internal angular property, ugh.
+            if (translationTable[language].hasOwnProperty(source) && !source.match(/^\$\$/)) {
+              translationSources[source] = translationSources[source] || {};
+
+              // Create an empty record for each source language
+              for (j = languages.length - 1; j >= 0; j--) {
+                translationSources[source][languages[j]] = '';
+              }
+
+              translationSources[source][language] = translationTable[language][source];
+            }
+          }
+        }
+      }
+
+      for (i = missingTranslations.length - 1; i >= 0; i--) {
+        source = missingTranslations[i];
+
+        if (angular.isUndefined(translationSources[source])) {
+          translationSources[source] = {};
+
+          for (j = languages.length - 1; j >= 0; j--) {
+            if (angular.isUndefined(translationSources[source][languages[j]])) {
+              translationSources[source][languages[j]] = '';
+            }
+          }
+        }
+      }
+
+      return translationSources;
+    };
+
+    // Refreshes the display when a translation is changed
+    $scope.translationChanged = function (language, source) {
+      console.log([$scope.editedTranslations, language, source]);
+      $scope.translationTable[language][source] = $scope.editedTranslations[language][source];
+      $translate.uses($translate.uses());
     };
   }]);
 
@@ -334,10 +431,10 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
   $scope.toggleLang = function () {
     updateLangClass('remove', $translate.uses());
-    if ($translate.uses() === 'en_EN') {
-      $translate.uses('ar_AR');
+    if ($translate.uses() === 'en-NG') {
+      $translate.uses('ar');
     } else {
-      $translate.uses('en_EN');
+      $translate.uses('en-NG');
     }
     updateLangClass('add', $translate.uses());
   };

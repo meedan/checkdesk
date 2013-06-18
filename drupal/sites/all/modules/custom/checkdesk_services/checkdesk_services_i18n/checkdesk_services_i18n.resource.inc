@@ -7,79 +7,90 @@ function _checkdesk_services_i18n_services_resources() {
   return array(
 
     'i18n' => array(
-      'index' => array(
-        'file' => array('type' => 'inc', 'module' => 'checkdesk_services_i18n', 'name' => 'checkdesk_services_i18n.resource'),
-        'callback' => '_checkdesk_services_i18n_translation_index',
-        'args' => array(
-          array(
-            'name' => 'textgroup',
-            'optional' => FALSE,
-            'type' => 'string',
-            'description' => 'The textgroup to fetch translations for.',
-            'default value' => NULL,
-            'source' => array('param' => 'textgroup'),
-          ),
-          array(
-            'name' => 'language',
-            'optional' => TRUE,
-            'type' => 'string',
-            'description' => 'The language to fetch translations for.',
-            'source' => array('param' => 'language'),
-          ),
-        ),
-        'access arguments' => array('access content'),
-      ),
-      'create' => array(
-        'file' => array('type' => 'inc', 'module' => 'checkdesk_services_i18n', 'name' => 'checkdesk_services_i18n.resource'),
-        'callback' => '_checkdesk_services_i18n_translation_create',
-        'args' => array(
-          array(
-            'name' => 'translation',
-            'optional' => FALSE,
-            'source' => 'data',
-            'description' => 'The data used to create a translation.',
-            'type' => 'array',
-          ),
-        ),
-        'access arguments' => array('translate interface'),
-      ),
-      'update' => array(
-        'file' => array('type' => 'inc', 'module' => 'checkdesk_services_i18n', 'name' => 'checkdesk_services_i18n.resource'),
-        'callback' => '_checkdesk_services_i18n_translation_update',
-        'args' => array(
-          array(
-            'name' => 'lid',
-            'optional' => FALSE,
-            'source' => array('path' => 0),
-            'type' => 'int',
-            'description' => 'The ID of a translation.',
-          ),
-          array(
-            'name' => 'translation',
-            'optional' => FALSE,
-            'source' => 'data',
-            'description' => 'The translation data to update.',
-            'type' => 'array',
-          ),
-        ),
-        'access arguments' => array('translate interface'),
-      ),
-      'delete' => array(
-        'file' => array('type' => 'inc', 'module' => 'checkdesk_services_i18n', 'name' => 'checkdesk_services_i18n.resource'),
-        'callback' => '_checkdesk_services_i18n_translation_delete',
-        'args' => array(
-          array(
-            'name' => 'lid',
-            'optional' => FALSE,
-            'source' => array('path' => 0),
-            'type' => 'int',
-            'description' => 'The ID of a translation.',
-          ),
-        ),
-        'access arguments' => array('translate interface'),
-      ),
-    ),
+      'operations' => array(
 
+        'index' => array(
+          'file' => array('type' => 'inc', 'module' => 'checkdesk_services_i18n', 'name' => 'checkdesk_services_i18n.resource'),
+          'callback' => '_checkdesk_services_i18n_translation_index',
+          'args' => array(
+            array(
+              'name' => 'textgroup',
+              'optional' => FALSE,
+              'type' => 'string',
+              'description' => 'The textgroup to fetch translations for.',
+              'default value' => NULL,
+              'source' => array('param' => 'textgroup'),
+            ),
+            array(
+              'name' => 'lang',
+              'optional' => TRUE,
+              'type' => 'string',
+              'description' => 'The language to fetch translations for.',
+              'source' => array('param' => 'lang'),
+            ),
+            array(
+              'name' => 'angular',
+              'optional' => TRUE,
+              'type' => 'int',
+              'description' => 'When set to \'1\' angular compatible formatting will be used. The \'lang\' parameter must be supplied in this case.',
+              'source' => array('param' => 'angular'),
+              'default value' => FALSE,
+            ),
+          ),
+          'access arguments' => array('access content'),
+        ),
+        'create' => array(
+          'file' => array('type' => 'inc', 'module' => 'checkdesk_services_i18n', 'name' => 'checkdesk_services_i18n.resource'),
+          'callback' => '_checkdesk_services_i18n_translation_create',
+          'args' => array(
+            array(
+              'name' => 'translation',
+              'optional' => FALSE,
+              'source' => 'data',
+              'description' => 'The data used to create a translation.',
+              'type' => 'array',
+            ),
+          ),
+          'access arguments' => array('translate interface'),
+        ),
+        'update' => array(
+          'file' => array('type' => 'inc', 'module' => 'checkdesk_services_i18n', 'name' => 'checkdesk_services_i18n.resource'),
+          'callback' => '_checkdesk_services_i18n_translation_update',
+          'args' => array(
+            array(
+              'name' => 'lid',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'int',
+              'description' => 'The ID of a translation.',
+            ),
+            array(
+              'name' => 'translation',
+              'optional' => FALSE,
+              'source' => 'data',
+              'description' => 'The translation data to update.',
+              'type' => 'array',
+            ),
+          ),
+          'access arguments' => array('translate interface'),
+        ),
+        'delete' => array(
+          'file' => array('type' => 'inc', 'module' => 'checkdesk_services_i18n', 'name' => 'checkdesk_services_i18n.resource'),
+          'callback' => '_checkdesk_services_i18n_translation_delete',
+          'args' => array(
+            array(
+              'name' => 'lid',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'int',
+              'description' => 'The ID of a translation.',
+            ),
+          ),
+          'access arguments' => array('translate interface'),
+        ),
+      ), // END 'operations'
+
+    ),
   );
 }
 
@@ -89,8 +100,12 @@ function _checkdesk_services_i18n_services_resources() {
  * @return (array) $translations
  *  A list of translations.
  */
-function _checkdesk_services_i18n_translation_index($textgroup, $language = NULL) {
+function _checkdesk_services_i18n_translation_index($textgroup, $language = NULL, $angular = FALSE) {
   _checkdesk_services_i18n_validate_textgroup($textgroup);
+
+  if ($angular && !$language) {
+    return services_error(t('When \'angular\' mode is enabled the \'lang\' parameter must be supplied.'), 406);
+  }
 
   $conditions = array('s.textgroup' => $textgroup);
   if ($language) {
@@ -102,7 +117,12 @@ function _checkdesk_services_i18n_translation_index($textgroup, $language = NULL
 
   $translations = array();
   while ($translation = $result->fetchAssoc()) {
-    $translations[$translation['language']][] = $translation;
+    if ($angular) {
+      $translations[$translation['source']] = $translation['translation'];
+    }
+    else {
+      $translations[$translation['language']][] = $translation;
+    }
   }
 
   return $translations;

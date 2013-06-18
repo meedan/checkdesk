@@ -21,7 +21,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   .provider('cdTranslationUI', function () {
     var $translationTable,
         $missingTranslations = [],
-        $missingTranslationHandler = function (translationId) {
+        $missingTranslationHandler = function (translationId, uses) {
           if ($missingTranslations.indexOf(translationId) === -1) {
             $missingTranslations.push(translationId);
           }
@@ -75,24 +75,77 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
    * Controller for the cd-translation-ui.html template.
    */
   .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
+    var translationSources = {};
+
     $scope.collapsed = true;
 
     $scope.toggle = function () {
       $scope.collapsed = !$scope.collapsed;
     };
 
+    $scope.$translate = $translate;
+    $scope.cdTranslationUI = cdTranslationUI;
+
     $scope.translationTable = cdTranslationUI.translationTable();
-    $scope.missingTranslations = cdTranslationUI.missingTranslations();
-    $scope.inputTranslations = [];
-    // FIXME: $translate.uses() is not updating when language is switched
-    $scope.currentLanguage = $translate.uses();
+    $scope.editedTranslations = {};
 
-    $scope.translationChanged = function (index) {
-      var uses = $translate.uses(),
-          source = $scope.missingTranslations[index],
-          translation = $scope.inputTranslations[index];
+    // Helpful list of languages available in the system
+    $scope.languages = function () {
+      var languages = [], language;
 
-      $scope.translationTable[uses][source] = translation;
-      $translate.uses(uses);
+      for (language in $scope.translationTable) {
+        if ($scope.translationTable.hasOwnProperty(language)) {
+          languages.push(language);
+        }
+      }
+
+      return languages;
+    };
+
+    $scope.translationSources = function () {
+      var translationTable = cdTranslationUI.translationTable(),
+          missingTranslations = cdTranslationUI.missingTranslations(),
+          languages = $scope.languages(),
+          language, source, i, j;
+
+      for (language in translationTable) {
+        if (translationTable.hasOwnProperty(language)) {
+          for (source in translationTable[language]) {
+            // Ensure source is not an internal angular property, ugh.
+            if (translationTable[language].hasOwnProperty(source) && !source.match(/^\$\$/)) {
+              translationSources[source] = translationSources[source] || {};
+
+              // Create an empty record for each source language
+              for (j = languages.length - 1; j >= 0; j--) {
+                translationSources[source][languages[j]] = '';
+              }
+
+              translationSources[source][language] = translationTable[language][source];
+            }
+          }
+        }
+      }
+
+      for (i = missingTranslations.length - 1; i >= 0; i--) {
+        source = missingTranslations[i];
+
+        if (angular.isUndefined(translationSources[source])) {
+          translationSources[source] = {};
+
+          for (j = languages.length - 1; j >= 0; j--) {
+            if (angular.isUndefined(translationSources[source][languages[j]])) {
+              translationSources[source][languages[j]] = '';
+            }
+          }
+        }
+      }
+
+      return translationSources;
+    };
+
+    // Refreshes the display when a translation is changed
+    $scope.translationChanged = function (language, source) {
+      $scope.translationTable[language][source] = $scope.editedTranslations[language][source];
+      $translate.uses($translate.uses());
     };
   }]);

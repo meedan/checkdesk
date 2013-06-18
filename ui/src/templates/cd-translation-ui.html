@@ -3,12 +3,14 @@
   <table ng-hide="collapsed ">
     <thead>
       <th>Token</th>
-      <th>Translation {{currentLanguage}}</th>
+
+      <th ng-repeat="language in languages()">Translation for {{language}}</th>
     </thead>
     <tbody>
-      <tr ng-repeat="missingTranslation in missingTranslations">
-        <td class="source">{{missingTranslation}}</td>
-        <td class="translation"><input type="text" ng-model="inputTranslations[$index]" ng-change="translationChanged($index)"></td>
+      <tr ng-repeat="(source, translations) in translationSources()">
+        <td class="source">{{source}}</td>
+
+        <td ng-repeat="(language, translation) in translations" class="translation"><input type="text" ng-model="editedTranslations[language][source]" ng-change="translationChanged(language, source)"></td>
       </tr>
     </tbody>
   </table>

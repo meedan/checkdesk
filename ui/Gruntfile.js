@@ -51,6 +51,7 @@ module.exports = function(grunt) {
         {
           groupTitle: 'Checkdesk App',
           groupId: 'app',
+          groupIcon: 'icon-ok',
           sections: [
             {
               id: 'cd',
