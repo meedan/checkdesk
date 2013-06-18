@@ -307,6 +307,22 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'default_oembedcore_provider';
+  $strongarm->value = array(
+    'youtube' => TRUE,
+    'flickr' => TRUE,
+    'qik' => TRUE,
+    'revision3' => TRUE,
+    'soundcloud' => TRUE,
+    'twitter' => TRUE,
+    'viddler' => TRUE,
+    'vimeo' => TRUE,
+  );
+  $export['default_oembedcore_provider'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'fboauth_user_connections';
   $strongarm->value = array(
     0 => 'posts',
