@@ -295,14 +295,3 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     if ($embed->error) $vars['embed_error'] = t('It was not possible to parse this report.');
   }
 }
-
-/**
- * Implement hook_oembed_request_alter().
- *
- * Force to use embed.ly instead of oembed YouTube endpoint, which does not return a description.
- */
-function meedan_oembed_oembed_request_alter(&$attributes, &$provider, $url) {
-  if ($provider['name'] === 'youtube') {
-    $provider = array('endpoint' => 'http://api.embed.ly/1/oembed', 'name' => 'meedan_oembed_generic');
-  }
-}
