@@ -7627,9 +7627,7 @@ body.page-liveblog #main {
 body.page-liveblog #main .post-row {
   margin-top: 18px;
   margin-bottom: 18px;
-  padding-left: 1.55148%;
-  padding-right: 1.55148%;
-  width: 96.89704%;
+  width: 100%;
   float: left;
   margin-right: 1.55148%;
   display: inline;
@@ -7647,7 +7645,6 @@ body.page-liveblog #main .related-updates {
 }
 body.page-liveblog #main .view-liveblog {
   *zoom: 1;
-  padding-top: 18px;
 }
 body.page-liveblog #main .view-liveblog:before, body.page-liveblog #main .view-liveblog:after {
   display: table;
@@ -7664,8 +7661,6 @@ body.page-liveblog #main .view-liveblog .desk {
   float: left;
   margin-bottom: 0;
   margin-top: 25px;
-  width: 96%;
-  padding: 2%;
   overflow: visible;
 }
 body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after {
@@ -7679,63 +7674,15 @@ body.page-liveblog #main .view-liveblog .desk:after {
 body.page-liveblog #main .view-liveblog .desk:first-child {
   margin-top: 0;
 }
-body.page-liveblog #main .view-liveblog .desk h2 {
-  margin: 0;
-  padding: 0;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  font-size: 200%;
-  line-height: 1.2;
+body.page-liveblog #main .view-liveblog .desk h1 {
+  color: rgba(0, 0, 0, 0.9);
 }
-body.page-liveblog #main .view-liveblog .desk h2 a {
-  color: #555555;
-  font-weight: normal;
+body.page-liveblog #main .view-liveblog .desk h1 a {
+  color: rgba(0, 0, 0, 0.9);
 }
-body.page-liveblog #main .view-liveblog .desk h2 a:hover {
+body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   color: black;
-}
-body.page-liveblog #main .view-liveblog .desk h2 .desk {
-  border: 1px solid red;
-}
-body.page-liveblog #main .view-liveblog .desk .post-row {
-  background-color: #eee;
-  margin-bottom: 1em;
-}
-body.page-liveblog #main .view-liveblog .desk .post-row .report .report-content .report-media .container {
-  min-width: 60%;
-}
-body.page-liveblog #main .view-liveblog .desk .post-row > h3 {
-  margin: 0;
-  padding: 0;
-  font-size: 125%;
-  padding: 0.5em 0;
-}
-body.page-liveblog #main .view-liveblog .desk .post-row > h3 a {
-  color: #333333;
-  font-weight: normal;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-body.page-liveblog #main .view-liveblog .desk .post-row > h3 a:hover {
-  color: black;
-}
-body.page-liveblog #main .view-liveblog .desk .post-row p {
-  color: #555555;
-}
-body.page-liveblog #main .view-liveblog .related-updates {
-  margin-top: 0;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  background-color: #f3f3f3;
-  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
-}
-body.page-liveblog #main .view-liveblog .related-updates a {
-  color: #333333;
-  font-weight: bold;
-}
-body.page-liveblog #main .view-liveblog .related-updates a:hover {
-  color: black;
+  text-decoration: none;
 }
 
 @media (min-width: 469px) {
@@ -7751,9 +7698,7 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
   body.page-liveblog #main .post-row {
     margin-top: 18px;
     margin-bottom: 18px;
-    padding-left: 2.82776%;
-    padding-right: 2.82776%;
-    width: 94.34447%;
+    width: 100%;
     float: left;
     margin-right: 2.82776%;
   }
@@ -7781,9 +7726,7 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
   body.page-liveblog #main .post-row {
     margin-top: 18px;
     margin-bottom: 18px;
-    padding-left: 1.39417%;
-    padding-right: 1.39417%;
-    width: 97.21166%;
+    width: 100%;
     float: left;
     margin-right: 1.39417%;
   }
@@ -7798,61 +7741,61 @@ body.page-liveblog #main .view-liveblog .related-updates a:hover {
     margin-left: 2.43902%;
   }
 }
-.node-type-discussion #block-views-desk-updates-block {
+.node-type-discussion #block-views-desk-updates-block, .page-liveblog #block-views-desk-updates-block {
   *zoom: 1;
 }
-.node-type-discussion #block-views-desk-updates-block:before, .node-type-discussion #block-views-desk-updates-block:after {
+.node-type-discussion #block-views-desk-updates-block:before, .node-type-discussion #block-views-desk-updates-block:after, .page-liveblog #block-views-desk-updates-block:before, .page-liveblog #block-views-desk-updates-block:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.node-type-discussion #block-views-desk-updates-block:after {
+.node-type-discussion #block-views-desk-updates-block:after, .page-liveblog #block-views-desk-updates-block:after {
   clear: both;
 }
-.node-type-discussion #block-views-desk-updates-block form {
+.node-type-discussion #block-views-desk-updates-block form, .page-liveblog #block-views-desk-updates-block form {
   clear: both;
 }
-.node-type-discussion #main .update-row .update-body {
+.node-type-discussion #main .update-row .update-body, .page-liveblog #main .update-row .update-body {
   width: 77.433%;
   float: left;
   margin-right: 1.55148%;
   display: inline;
   margin-right: 0;
 }
-.node-type-discussion #main .update-row .update-footer {
+.node-type-discussion #main .update-row .update-footer, .page-liveblog #main .update-row .update-footer {
   width: 21.01551%;
   float: left;
   margin-right: 1.55148%;
   display: inline;
 }
-.node-type-discussion #main #block-views-desk-updates-block {
+.node-type-discussion #main #block-views-desk-updates-block, .page-liveblog #main #block-views-desk-updates-block {
   *zoom: 1;
 }
-.node-type-discussion #main #block-views-desk-updates-block:before, .node-type-discussion #main #block-views-desk-updates-block:after {
+.node-type-discussion #main #block-views-desk-updates-block:before, .node-type-discussion #main #block-views-desk-updates-block:after, .page-liveblog #main #block-views-desk-updates-block:before, .page-liveblog #main #block-views-desk-updates-block:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.node-type-discussion #main #block-views-desk-updates-block:after {
+.node-type-discussion #main #block-views-desk-updates-block:after, .page-liveblog #main #block-views-desk-updates-block:after {
   clear: both;
 }
 
-#updates {
+.updates {
   margin-top: 12px;
 }
-#updates .update-row {
+.updates .update-row {
   border-top: 2px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 12px;
 }
-#updates .update-row h2 {
+.updates .update-row h2 {
   display: none;
   margin: 0;
   padding: 0;
 }
-#updates .update-row h2 a {
+.updates .update-row h2 a {
   color: #333333;
 }
-#updates .update-row h2 a:hover {
+.updates .update-row h2 a:hover {
   color: black;
 }
 
@@ -9171,11 +9114,6 @@ body {
 #l10n-client form .form-item textarea {
   clear: both;
   float: none;
-}
-
-#sidebar-first.column,
-.desk {
-  background-color: white;
 }
 
 .rtl {
