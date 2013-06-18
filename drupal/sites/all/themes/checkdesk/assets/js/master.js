@@ -118,9 +118,12 @@
             
             this.className = classes;
 
-            // Lazy-load tweets
+            // Lazy-load tweets and livefyre comments
             if (window.twttr) {
               window.twttr.widgets.load();
+            }
+            if (Drupal.livefyreCommentCount) {
+              Drupal.livefyreCommentCount.callback();
             }
           }
         });

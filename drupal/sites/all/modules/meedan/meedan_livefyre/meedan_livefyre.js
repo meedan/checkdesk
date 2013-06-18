@@ -51,11 +51,13 @@ Drupal.behaviors.livefyre = {
               Drupal.livefyre.widget.changeCollection(stream);
             }
             else {
-              window.fyre.conv.load(
-                {},
-                [stream],
-                Drupal.livefyre.callback 
-              );
+              $.getScript(Drupal.settings.livefyreScript.main, function() {
+                window.fyre.conv.load(
+                  {},
+                  [stream],
+                  Drupal.livefyre.callback 
+                );
+              });
             }
 
             comments.show();
