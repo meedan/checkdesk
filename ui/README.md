@@ -14,6 +14,12 @@ The AngularJS based user interface for the Checkdesk project.
 5. You should now have a fresh copy of `build/checkdesk.js`.
 
 
+### Project documentation
+
+1. Build fresh documentation with `grunt docs`
+2. Run the documentation server using `grunt docular-server`
+
+
 ### Server Configuration
 
 The checkdesk project uses Drupal as a back-end, see the 'drupal' directory in the project root.
