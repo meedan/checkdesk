@@ -4679,6 +4679,8 @@ div.tabs ul.primary li a {
   *zoom: 1;
   padding-top: 6px;
   margin: 48px 0 96px 0;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
 }
 #footer:before, #footer:after {
   display: table;
@@ -4688,21 +4690,12 @@ div.tabs ul.primary li a {
 #footer:after {
   clear: both;
 }
-#footer #footer-menu {
-  float: right;
-  text-align: right;
-}
-#footer #information-menu {
-  float: left;
-  text-align: left;
-}
 
 #footer-inner {
   border-top: 1px solid #cccccc;
   padding: 6px 0;
 }
 #footer-inner ul {
-  text-align: left;
   margin: 0;
   padding: 0;
   margin: 0;
@@ -4753,50 +4746,6 @@ div.tabs ul.primary li a {
   line-height: 1.2;
 }
 
-@media (min-width: 469px) {
-  #footer {
-    padding-left: 2.34542%;
-    padding-right: 2.34542%;
-    width: 78.2516%;
-    float: left;
-    margin-right: 2.34542%;
-    padding-left: 8.52878%;
-    padding-right: 8.52878%;
-  }
-  #footer #footer-menu, #footer #information-menu {
-    float: left;
-    text-align: left;
-  }
-}
-@media (min-width: 949px) {
-  #footer {
-    padding-left: 1.15911%;
-    padding-right: 1.15911%;
-    width: 80.82192%;
-    float: left;
-    margin-right: 1.15911%;
-    padding-left: 8.42993%;
-    padding-right: 8.42993%;
-  }
-  #footer #footer-menu {
-    float: right;
-    text-align: right;
-  }
-  #footer #information-menu {
-    float: left;
-    text-align: left;
-  }
-}
-@media (min-width: 1909px) {
-  #footer #footer-menu {
-    float: right;
-    text-align: right;
-  }
-  #footer #information-menu {
-    float: left;
-    text-align: left;
-  }
-}
 .static-page {
   margin-bottom: 96px;
 }

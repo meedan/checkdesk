@@ -4704,6 +4704,8 @@ div.tabs ul.primary li a {
   *zoom: 1;
   padding-top: 7.2px;
   margin: 57.6px 0 115.2px 0;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
 }
 #footer:before, #footer:after {
   display: table;
@@ -4713,21 +4715,12 @@ div.tabs ul.primary li a {
 #footer:after {
   clear: both;
 }
-#footer #footer-menu {
-  float: left;
-  text-align: left;
-}
-#footer #information-menu {
-  float: right;
-  text-align: right;
-}
 
 #footer-inner {
   border-top: 1px solid #cccccc;
   padding: 7.2px 0;
 }
 #footer-inner ul {
-  text-align: right;
   margin: 0;
   padding: 0;
   margin: 0;
@@ -4778,50 +4771,6 @@ div.tabs ul.primary li a {
   line-height: 1.2;
 }
 
-@media (min-width: 469px) {
-  #footer {
-    padding-right: 2.34542%;
-    padding-left: 2.34542%;
-    width: 78.2516%;
-    float: right;
-    margin-left: 2.34542%;
-    padding-right: 8.52878%;
-    padding-left: 8.52878%;
-  }
-  #footer #footer-menu, #footer #information-menu {
-    float: right;
-    text-align: right;
-  }
-}
-@media (min-width: 949px) {
-  #footer {
-    padding-right: 1.15911%;
-    padding-left: 1.15911%;
-    width: 80.82192%;
-    float: right;
-    margin-left: 1.15911%;
-    padding-right: 8.42993%;
-    padding-left: 8.42993%;
-  }
-  #footer #footer-menu {
-    float: left;
-    text-align: left;
-  }
-  #footer #information-menu {
-    float: right;
-    text-align: right;
-  }
-}
-@media (min-width: 1909px) {
-  #footer #footer-menu {
-    float: left;
-    text-align: left;
-  }
-  #footer #information-menu {
-    float: right;
-    text-align: right;
-  }
-}
 .static-page {
   margin-bottom: 115.2px;
 }
