@@ -8040,13 +8040,17 @@ body.sidebar-first #main {
   padding-left: 5.64175%;
 }
 body.sidebar-first #main #sidebar-first.column {
-  position: absolute;
+  position: fixed;
   max-width: 360px;
   right: 0;
   width: 25%;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
   padding-top: 28.8px;
+}
+body.sidebar-first #main #sidebar-first.column .view-desk-reports {
+  height: 400px;
+  overflow-y: auto;
 }
 body.sidebar-first #main #content {
   margin-top: 38px;
@@ -8079,13 +8083,17 @@ body.sidebar-first #main #content #content-inner:after {
     padding-left: 8.52878%;
   }
   body.sidebar-first #main #sidebar-first.column {
-    position: absolute;
+    position: fixed;
     max-width: 360px;
     right: 0;
     width: 25%;
     border-left: 1px solid rgba(0, 0, 0, 0.1);
     background-color: white;
     padding-top: 28.8px;
+  }
+  body.sidebar-first #main #sidebar-first.column .view-desk-reports {
+    height: 400px;
+    overflow-y: auto;
   }
   body.sidebar-first #main #content {
     margin-top: 38px;

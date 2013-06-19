@@ -11,7 +11,7 @@
   // 2. The sidebar column
   // Contains incoming reports
   #sidebar-first.column {
-    position: absolute;
+    position: fixed;
     // height: 100%;
     max-width: 360px;
     #{$alpha}: 0;
@@ -20,6 +20,10 @@
     border-#{$omega}: 1px solid rgba(0,0,0,.1);
     background-color: $white;
     padding-top: $absolute-line-height;
+    .view-desk-reports {
+      height: 400px;
+      overflow-y: auto;
+    }
   }
 
   // 3. The primary content column, 
