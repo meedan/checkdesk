@@ -28,9 +28,6 @@ function checkdesk_theme() {
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),
-    'checkdesk_related_updates_bar' => array(
-      'variables' => array('story' => array()),
-    ),
   );
 }
 

@@ -145,23 +145,6 @@ function checkdesk_checkdesk_user_menu_content($variables) {
   return theme('checkdesk_dropdown_menu_content', array('id' => 'my-account', 'content' => $content));
 }
 
-/**
- * theme_checkdesk_related_updates_bar
- */
-function checkdesk_checkdesk_related_updates_bar($variables) {
-  $story = $variables['story'];
-  $count = checkdesk_core_story_updates_count($story);
-
-  $output  = '';
-  if ($count > 1) {
-    $output .= '<div class="related-updates">';
-    $output .=   l(format_plural($count - 1, '1 more update', '@count more updates'), "node/$story->nid");
-    $output .= '</div>';
-  }
-
-  return $output;
-}
-
 // /**
 //  * Override theme_button to add custom classes
 //  */
