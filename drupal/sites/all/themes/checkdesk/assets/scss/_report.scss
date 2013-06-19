@@ -177,9 +177,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				}
 				
 				.favicon, 
-				.author-img {
+				.author {
 					float: $alpha;
-					padding-#{$omega}: $gutter-width/2;
+					padding: $absolute-line-height/4 $gutter-width;
 					width: auto;
 				}
 				
