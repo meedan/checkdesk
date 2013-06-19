@@ -19,9 +19,9 @@
   });
 
 
-	Drupal.behaviors.reports = {
-		attach: function (context, settings) {
-		  // Show report activity
+  Drupal.behaviors.reports = {
+    attach: function (context, settings) {
+      // Show report activity
       $('.report-activity > header').unbind('click').click(function(event) {
         var target = $(this),
             element = target.parent();
@@ -47,7 +47,7 @@
           $('.view-desk-reports #' + $(this).attr('id')).eq(0).parents('.views-row').remove();
         });
       });
-  
+
       // If a new update incrementally added has the same story as the next update, group them
       $('.view-liveblog', context).unbind('autorefresh.incremental').bind('autorefresh.incremental', function(event, count) {
         if (count > 0) {
@@ -67,98 +67,77 @@
       //     }, 'slow');
       // });
 
-			$('a.twitter').click(function(event) {
-				event.preventDefault();
-				// set URL
-				var loc = $(this).attr('href'),
-				    // set title
-				    title  = $(this).attr('title');
-				// open a window
-				openShareWindow('twitter', loc, title);
-			});
+      $('a.twitter').click(function(event) {
+        event.preventDefault();
+        // set URL
+        var loc = $(this).attr('href'),
+            // set title
+            title  = $(this).attr('title');
+        // open a window
+        window.open('http://twitter.com/share?url=' + loc + '&text=' + title, 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+      });
 
-			$('a.facebook').click(function(event) {
-				event.preventDefault();
-				// set URL
-				var loc = $(this).attr('href'),
-				    // set title
-				    title  = $(this).attr('title');
-				// open a window
-				openShareWindow('facebook', loc, title);
-			});
+      $('a.facebook').click(function(event) {
+        event.preventDefault();
+        // set URL
+        var loc = $(this).attr('href'),
+            // set title
+            title  = $(this).attr('title');
+        // open a window
+        window.open('https://www.facebook.com/sharer.php?u=' + loc + '&t=' + title, 'facebookwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+      });
 
-			$('a.google').click(function(event) {
-				event.preventDefault();
-				// set URL
-				var loc = $(this).attr('href'),
-				    // set title
-				    title  = $(this).attr('title');
-				// open a window
-				openShareWindow('google', loc, title);
-			});
+      $('a.google').click(function(event) {
+        event.preventDefault();
+        // set URL
+        var loc = $(this).attr('href'),
+            // set title
+            title  = $(this).attr('title');
+        // open a window
+        window.open('https://plus.google.com/share?url=' + loc + '&t=' + title, 'googlewindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+      });
+    }
+  };
 
-			function openShareWindow(service, loc, title) {
-				if(service === 'twitter') {
-					window.open('http://twitter.com/share?url=' + loc + '&text=' + title, 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
-				}
-				if(service === 'facebook') {
-					window.open('https://www.facebook.com/sharer.php?u=' + loc + '&t=' + title, 'facebookwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
-				}
-				if(service === 'google') {
-					window.open('https://plus.google.com/share?url=' + loc + '&t=' + title, 'googlewindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
-				}
-			}
+  // filters for reports inside sidebar
+  Drupal.behaviors.reportFilters = {
+    attach: function (context, settings) {
+      $('.panel-toggle').unbind('click').click(function(event) {
+        var target = $(this),
+            element = target.parent().attr('id');
+        if ($('#'+ element + ' .panel-content').is(':visible')) {
+          $('#'+ element + ' .panel-content').fadeOut('fast');
+          $('#'+ element).removeClass('open');
+        } else {
+          $('#'+ element + ' .panel-content').fadeIn('fast');
+          $('#'+ element).addClass('open');
+        }
+      });
 
-		}
-	};
+      // hide when clicked outside
+      $(document).mouseup(function(event){
+        var container = $('.panel-content');
+        if (container.has(event.target).length === 0) {
+          container.hide();
+        }
+      });
 
+      // Resize reports sidebar
+      $(window).resize(function() {
+        var $sidebar = $('#sidebar-first'),
+            offset = $sidebar.offset(),
+            total = $(window).height(),
+            height = total - offset.top;
+        $sidebar.find('.view-desk-reports').height(height);
+      });
+      $(window).trigger('resize');
 
-	// filters for reports inside sidebar
-	Drupal.behaviors.reportFilters = {
-		attach: function (context, settings) {
-			$('.panel-toggle').unbind('click').click(function(event) {
-				var target = $(this),
-				    element = target.parent().attr('id');
-				if ($('#'+ element + ' .panel-content').is(':visible')) {
-					$('#'+ element + ' .panel-content').fadeOut('fast');
-					$('#'+ element).removeClass('open');
-				} else {
-					$('#'+ element + ' .panel-content').fadeIn('fast');
-				  	$('#'+ element).addClass('open');
-				}
+      // close panel
+      $('#close').click(function(event) {
+        $('.panel-content').hide();
+      });
 
-			});
-			// hide when clicked outside
-			$(document).mouseup(function(event){
-				var container = $('.panel-content');
-				if (container.has(event.target).length === 0) {
-					container.hide();
-				}
-			});
-			// set the height of the sidebar
-			if ($('#post-node-form').length) {
-				var form = $('#post-node-form');
-			  	$('#sidebar-first.column .view-desk-reports').height(form.offset().top + form.height() - 150);
-			}
-
-			// set the height of the widgets sidebar
-			// var bodyHeight = $('body').height(),
-			// 	windowHeight = $(window).height(),
-			// 	widgetBarHeight = $('#sidebar-first.column').height(),
-			// 	buffer = 160;
-
-			// bodyHeight = bodyHeight + buffer;
-			
-			// if(windowHeight < bodyHeight) {
-			// 	$('#sidebar-first.column #incoming-reports').height(bodyHeight);	
-			// }
-			
-			// close panel
-			$('#close').click(function(event) {
-				$('.panel-content').hide();
-			});
-
-		}
-	};
+    }
+  };
 
 }(jQuery));
