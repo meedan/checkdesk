@@ -127,8 +127,11 @@
         var $sidebar = $('#sidebar-first'),
             offset = $sidebar.offset(),
             total = $(window).height(),
-            height = total - offset.top;
-        $sidebar.find('.view-desk-reports').height(height);
+            height;
+        if (offset) {
+          height = total - offset.top;
+          $sidebar.find('.view-desk-reports').height(height);
+        }
       });
       $(window).trigger('resize');
 
