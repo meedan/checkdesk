@@ -8334,6 +8334,8 @@ body.widgets #main #content #content-inner {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
+  line-height: 2;
+  vertical-align: middle;
 }
 #widgets .elsewhere ul {
   margin: 0;
@@ -8350,7 +8352,7 @@ body.widgets #main #content #content-inner {
 #widgets .elsewhere ul li a {
   display: block;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 7.2px 5.5px 7.2px 5.5px;
+  padding: 7.2px 5.5px;
   vertical-align: top;
   line-height: 1.4;
   height: 36px;
