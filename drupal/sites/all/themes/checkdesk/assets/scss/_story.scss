@@ -63,7 +63,9 @@
       text-transform: uppercase;
       font-weight: 700;
       font-size: modular-scale(0) - modular-scale(-3); // 14px
-      letter-spacing: 0.15em;
+      @if $from-direction == left {
+        letter-spacing: 0.15em;
+      }
       // update number
       b {
         display: block;

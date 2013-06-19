@@ -305,7 +305,15 @@ div.region-page-top {
 
 body.toolbar-drawer {
   #main #widgets.column { padding-top: ($toolbarHeight) !important; }
-  #main #content #content-inner { padding-top: ($toolbarHeight + $absolute-line-height*2) !important; }
+  #main {
+    #content {
+      top: $toolbarHeight !important;
+      #content-inner { 
+        padding-top: ($toolbarHeight + $absolute-line-height*2) !important; 
+      }
+    }
+  }
+    
 }
 
 // Small breakpoint

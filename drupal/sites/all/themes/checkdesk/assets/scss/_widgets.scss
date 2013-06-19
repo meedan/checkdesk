@@ -25,18 +25,16 @@
       // 3. The primary content column, 
       // on story create page, the main column with the compser form
       #content {
-        @include span-columns($primary-width+2 omega, $break);
-        @include pad(0,0, $break);
-        overflow: auto;
         position: absolute;
         bottom: 0;
         #{$alpha}: 30%;
         #{$omega}: 0;
-        top: 0;
+        top: $navbarHeight;
+        overflow-y: auto;
         #content-inner {
           max-width: 800px;
-          width: 100%;
           padding-top: $navbarHeight + $base-line-height*2;
+          @include pad(1,2, $break);
         }
       }
     }
