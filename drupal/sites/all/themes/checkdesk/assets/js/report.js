@@ -61,11 +61,11 @@
       });
 
       // scroll to the bottom of modal when interacting with report actions
-      $('#modalContent #report-actions a').click(function (event) {
-      	$('.modal-body').animate({
-            scrollTop: 400
-          }, 'slow');
-      });
+      // $('#modalContent #report-actions a').click(function (event) {
+      // 	$('.modal-body').animate({
+      //       scrollTop: 400
+      //     }, 'slow');
+      // });
 
 			$('a.twitter').click(function(event) {
 				event.preventDefault();

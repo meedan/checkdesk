@@ -18,6 +18,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 	position: relative;
 	margin: { top: $gutter-width; bottom: $gutter-width; }
 	width: 100%; //default
+	// when inside a modal window
+	.modal-content & { 
+		width: 92%; 
+	}
 	border-top: 4px solid rgba(0, 0, 0, 0.4);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	text-align: $alpha;
