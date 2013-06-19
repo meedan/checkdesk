@@ -3577,13 +3577,11 @@ textarea {
 
 .dropdown-menu {
   position: absolute;
-  top: 75%;
-  left: 0;
-  -webkit-border-radius: 0 4px 4px 4px;
-  -moz-border-radius: 0 4px 4px 4px;
-  -ms-border-radius: 0 4px 4px 4px;
-  -o-border-radius: 0 4px 4px 4px;
-  border-radius: 0 4px 4px 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
   z-index: 900;
   display: none;
   float: left;
@@ -4904,8 +4902,6 @@ div.tabs ul.primary li a {
 .report #report-actions ul.content-actions {
   margin: 0;
   padding: 0;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
   position: relative;
 }
 .report #report-actions ul.content-actions li {

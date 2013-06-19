@@ -13,15 +13,16 @@
 // The dropdown menu (usually a ul)
 .dropdown-menu {
   position: absolute;
-  top: 75%;
-  @if $from-direction == left {
-    left: 0;
-    @include border-radius(0 $radius $radius $radius);
-  }
-  @if $from-direction == right {
-    right: 0;
-    @include border-radius($radius 0 $radius $radius);
-  }
+  // top: 75%;
+  // @if $from-direction == left {
+  //   left: 0;
+  //   @include border-radius(0 $radius $radius $radius);
+  // }
+  // @if $from-direction == right {
+  //   right: 0;
+  //   @include border-radius($radius 0 $radius $radius);
+  // }
+  @include border-radius($radius);
   z-index: $zindexDropdown;
   display: none; // none by default, but block on "open" of the menu
   float: $from-direction;
