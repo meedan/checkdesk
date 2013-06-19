@@ -605,6 +605,16 @@ function checkdesk_links__node($variables) {
   $heading = $variables['heading'];
 
   $class[] = 'content-actions';
+  // set $alpha and $omega for language directions
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    $alpha = 'right';
+    $omega = 'left';
+  } else {
+    $alpha = 'left';
+    $omega = 'right';
+  }
+
   $output = '';
 
   // Prepare for modal dialogs.
@@ -627,7 +637,7 @@ function checkdesk_links__node($variables) {
       // Share on
       $output .= '<li class="share-on">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span></a>';
-      $output .= '<ul class="dropdown-menu pull-right">';
+      $output .= '<ul class="dropdown-menu pull-'. $omega .'">';
       if (isset($links['checkdesk-share-facebook'])) {
         $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
       }
