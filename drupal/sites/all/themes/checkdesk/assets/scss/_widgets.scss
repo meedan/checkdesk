@@ -16,11 +16,10 @@
         height: 100%;
         #{$alpha}: 0;
         max-width: 342px;
-        @debug $toolbarHeight;
         top: $navbarHeight;
         width: 30%;
         border-#{$omega}: 1px solid rgba(0,0,0,.1);
-        background-color: #fff;
+        background-color: $white;
       }
 
       // 3. The primary content column, 

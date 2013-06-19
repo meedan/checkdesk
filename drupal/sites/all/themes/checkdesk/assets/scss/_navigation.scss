@@ -263,8 +263,6 @@ nav[role="navigation"] {
 // Drupal toolbars at the very top
 //
 div.region-page-top {
-  
-
   #toolbar {
     position: fixed;
     z-index: $zindexFixedNavbar;
@@ -276,7 +274,6 @@ div.region-page-top {
     background: $nav-container-bkg-color;
     li {
       @include reset-box-model;
-
       a { 
         color: $nav-color; 
         padding: $gutter-width;
@@ -284,6 +281,7 @@ div.region-page-top {
     }
 
     div.toolbar-menu {
+      height: $toolbarMenuHeight;
       padding: 0;
       background-color: $nav-container-bkg-color;
     }
@@ -299,8 +297,13 @@ div.region-page-top {
 }
 
 // when toolbar is present
-.toolbar .navbar-fixed-top {
-  top: $toolbarHeight;
+.toolbar {
+  
+}
+
+body.toolbar-drawer {
+  #main #sidebar-first.column, #main #widgets.column { padding-top: ($toolbarHeight) !important; }
+  #main #content #content-inner { padding-top: ($toolbarHeight + $absolute-line-height*2) !important; }
 }
 
 // Small breakpoint
@@ -318,5 +321,4 @@ div.region-page-top {
   //   @include pad(2, 2, $break-medium);
   // }
 }
-
 

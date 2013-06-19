@@ -115,7 +115,7 @@ function checkdesk_preprocess_region(&$variables) {
     $image = theme_get_setting('header_image_path');
     
     if (!empty($image) && theme_get_setting('header_image_enabled')) {
-      $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
+      $variables['header_image'] = l(theme('image', array('path' => $image, 'style_name'=> 'partner_logo')), '<front>', array('html' => TRUE,));
     }
 
     $position = theme_get_setting('header_image_position');
@@ -998,6 +998,13 @@ function checkdesk_preprocess_views_view(&$vars) {
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if ($vars['display_id'] == 'block') {
     _checkdesk_ensure_reports_modal_js();
+  }
+}
+
+/* Desk Updates */
+function checkdesk_preprocess_views_view__desk_updates(&$vars) {
+  if ($vars['display_id'] == 'block') {
+    
   }
 }
 

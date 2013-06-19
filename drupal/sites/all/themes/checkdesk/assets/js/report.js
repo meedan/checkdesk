@@ -136,22 +136,22 @@
 				}
 			});
 			// set the height of the sidebar
-      if ($('#post-node-form').length) {
-        var form = $('#post-node-form');
-  			$('#sidebar-first.column .view-desk-reports').height(form.offset().top + form.height() - 150);
-      }
+      // if ($('#post-node-form').length) {
+        // var form = $('#post-node-form');
+  			// $('#sidebar-first.column .view-desk-reports').height(form.offset().top + form.height() - 150);
+      // }
 
 			// set the height of the widgets sidebar
-			var bodyHeight = $('body').height(),
-				windowHeight = $(window).height(),
-				widgetBarHeight = $('#widgets.column').height(),
-				buffer = 160;
+			// var bodyHeight = $('body').height(),
+				// windowHeight = $(window).height(),
+				// widgetBarHeight = $('#widgets.column').height(),
+				// buffer = 160;
 
-			bodyHeight = bodyHeight + buffer;
+			// bodyHeight = bodyHeight + buffer;
 			
-			if(windowHeight < bodyHeight) {
+			// if(windowHeight < bodyHeight) {
 				// $('#widgets.column').height(bodyHeight);	
-			}
+			// }
 			
 			// close panel
 			$('#close').click(function(event) {

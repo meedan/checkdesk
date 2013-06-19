@@ -11,16 +11,35 @@
   // 2. The sidebar column
   // Contains incoming reports
   #sidebar-first.column {
-    @include span-columns($secondary-width, $break); // sidebar width
-    @include cd-box-shadow();
-    margin-top: ms(-1);
+    position: absolute;
+    height: 100%;
+    #{$alpha}: 0;
+    max-width: 342px;
+    top: $navbarHeight;
+    width: 30%;
+    border-#{$omega}: 1px solid rgba(0,0,0,.1);
+    background-color: $white;
+    overflow-y: auto;
   }
 
   // 3. The primary content column, 
   // on story create page, this is the main column with the compser form
   #content {
-    @include span-columns($primary-width omega, $break);
+    @include span-columns($primary-width+2 omega, $break);
     @include pad(0,0, $break);
+    position: absolute;
+    height: 100%;
+    bottom: 0;
+    #{$alpha}: 30%;
+    #{$omega}: 0;
+    top: 0;
+    overflow-y: auto;
+    #content-inner {
+      max-width: 800px;
+      width: 100%;
+      height: 100%;
+      padding-top: $navbarHeight + $base-line-height*2;
+    }
   }
 }
 

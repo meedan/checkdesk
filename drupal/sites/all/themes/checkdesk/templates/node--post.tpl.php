@@ -5,10 +5,10 @@
 
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="update">
+    <div class="update-body">
+      <?php print render($content['body']); ?>
+    </div>
     <div class="update-footer">
-      <div class="update-info">
-        <?php print t('Update'); ?> <b>#<?php print render($content['update_number']); ?></b>
-      </div>
       <ul class="update-meta">
         <li class="update-at">
           <span class="icon-time"></span> <?php print $created_at; ?>
@@ -19,16 +19,7 @@
           <?php endif; ?>
           <?php print $created_by; ?>
         </li>
-        <!-- <li class="update-actions"> -->
-          <?php // print render($content['links']); ?>
-        <!-- </li> -->
-        <!-- <li class="update-comments"> -->
-          <?php // print render($content['custom_comments']); ?>
-        <!-- </li> -->
       </ul>
-    </div>
-    <div class="update-body">
-      <?php print render($content['body']); ?>
     </div>
   </article>
 </section>
