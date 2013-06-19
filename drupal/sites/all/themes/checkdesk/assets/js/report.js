@@ -138,7 +138,7 @@
 			// set the height of the sidebar
 			if ($('#post-node-form').length) {
 				var form = $('#post-node-form');
-			  	$('#sidebar-first.column .view-desk-reports').height(form.offset().top + form.height() + 150);
+			  	$('#sidebar-first.column .view-desk-reports').height(form.offset().top + form.height() - 150);
 			}
 
 			// set the height of the widgets sidebar

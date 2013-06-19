@@ -12,10 +12,10 @@
   // Contains incoming reports
   #sidebar-first.column {
     position: absolute;
-    height: 100%;
+    // height: 100%;
     max-width: 360px;
     #{$alpha}: 0;
-    top: $toolbarHeight + $navbarHeight;
+    // top: $toolbarHeight + $navbarHeight;
     width: 25%;
     border-#{$omega}: 1px solid rgba(0,0,0,.1);
     background-color: $white;
@@ -25,14 +25,14 @@
   // 3. The primary content column, 
   // on story create page, this is the main column with the compser form
   #content {
-    position: absolute;
-    top: $navbarHeight;
-    bottom: 0;
-    #{$alpha}: 25%;
-    #{$omega}: 0;
-    overflow-y: auto;
+    // position: absolute;
+    margin-top: $navbarHeight;
+    // bottom: 0;
+    margin-#{$alpha}: 25%;
+    // #{$omega}: 0;
+    // overflow-y: auto;
     #content-inner {
-      float: $alpha;
+      @include ctb-clearfix;
       max-width: 800px;
       padding-top: $base-line-height*2;
       @include pad(1,2, $break);
@@ -59,5 +59,29 @@ body.sidebar-first {
       $primary-width: $break-small - $secondary-width;
       @include layout-2col($secondary-width, $primary-width, $break); // reapply layout-2col
     }
+  }
+}
+
+
+// ======================================================================
+// Breakpoint: med
+//
+// The sidebar has a max-width of 360px and the primary content widens until 800px
+// Needs further tweaks
+
+@include at-breakpoint($break-small) {
+  body.sidebar-first #main #content {
+    #{$alpha}: 25%;
+  }
+}  
+@include at-breakpoint($break-medium) {
+  body.sidebar-first #main #content {
+    #{$alpha}: 360px;
+  }
+}  
+// Breakpoint: large
+@include at-breakpoint($break-large) {
+  body.sidebar-first #main #content {
+    #{$alpha}: 360px;
   }
 }

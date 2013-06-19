@@ -12,7 +12,7 @@
 
       // 2. The sidebar column
       #widgets.column {
-        position: absolute;
+        position: fixed;
         height: 100%;
         max-width: 360px;
         #{$alpha}: 0;
@@ -25,13 +25,14 @@
       // 3. The primary content column, 
       // on story create page, the main column with the compser form
       #content {
-        position: absolute;
-        top: $navbarHeight;
-        bottom: 0;
-        #{$alpha}: 25%;
-        #{$omega}: 0;
+        // position: absolute;
+        margin-top: $navbarHeight;
+        // bottom: 0;
+        margin-#{$alpha}: 25%;
+        // #{$omega}: 0;
         overflow-y: auto;
         #content-inner {
+          @include ctb-clearfix;
           max-width: 800px;
           padding-top: $base-line-height*2;
           @include pad(1,2, $break);
@@ -65,7 +66,6 @@
 // The sidebar doubles in width and the primary form widens
 
 @include at-breakpoint($break-medium) {
-
   $break: $break-medium;
   $secondary-width: 7;
   $primary-width: $break-medium - $secondary-width; 
@@ -73,9 +73,19 @@
     @include span-columns($break - 4, $break, $gutter-width);
     @include pad(2, 2, $break);
   }
+
+ body.widgets #main #content {
+    #{$alpha}: 360px;
+  }
+
 }  
 // Breakpoint: large
 @include at-breakpoint($break-large) {
+
+  body.widgets #main #content {
+    #{$alpha}: 360px;
+  }
+
   $break: $break-large/2;
   $secondary-width: 7;
   $primary-width: $break - $secondary-width;
@@ -177,23 +187,5 @@
         }
       }
     }
-    }
-    
+  }   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
