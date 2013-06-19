@@ -6809,11 +6809,6 @@ div.region-page-top #toolbar li a {
   color: rgba(255, 255, 255, 0.65);
   padding: 11px;
 }
-div.region-page-top #toolbar div.toolbar-menu {
-  height: 40px;
-  padding: 0;
-  background-color: #262626;
-}
 
 .navbar-fixed-top {
   position: fixed;
@@ -6822,11 +6817,15 @@ div.region-page-top #toolbar div.toolbar-menu {
   z-index: 930;
 }
 
+.toolbar .navbar-fixed-top {
+  top: 65px;
+}
+
 body.toolbar-drawer #main #widgets.column {
-  padding-top: 75px !important;
+  top: 103px !important;
 }
 body.toolbar-drawer #main #content {
-  top: 75px !important;
+  top: 103px !important;
 }
 body.toolbar-drawer #main #content #content-inner {
   padding-top: 57.6px !important;
@@ -8050,10 +8049,11 @@ body.sidebar-first #main #sidebar-first.column {
   height: 100%;
   max-width: 360px;
   right: 0;
-  top: 75px;
+  top: 103px;
   width: 25%;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
+  padding-top: 28.8px;
 }
 body.sidebar-first #main #content {
   position: absolute;
@@ -8061,7 +8061,7 @@ body.sidebar-first #main #content {
   bottom: 0;
   right: 25%;
   left: 0;
-  overflow: auto;
+  overflow-y: auto;
 }
 body.sidebar-first #main #content #content-inner {
   float: right;
@@ -8086,10 +8086,11 @@ body.sidebar-first #main #content #content-inner {
     height: 100%;
     max-width: 360px;
     right: 0;
-    top: 75px;
+    top: 103px;
     width: 25%;
     border-left: 1px solid rgba(0, 0, 0, 0.1);
     background-color: white;
+    padding-top: 28.8px;
   }
   body.sidebar-first #main #content {
     position: absolute;
@@ -8097,7 +8098,7 @@ body.sidebar-first #main #content #content-inner {
     bottom: 0;
     right: 25%;
     left: 0;
-    overflow: auto;
+    overflow-y: auto;
   }
   body.sidebar-first #main #content #content-inner {
     float: right;

@@ -15,10 +15,11 @@
     height: 100%;
     max-width: 360px;
     #{$alpha}: 0;
-    top: $toolbarHeight;
+    top: $toolbarHeight + $navbarHeight;
     width: 25%;
     border-#{$omega}: 1px solid rgba(0,0,0,.1);
     background-color: $white;
+    padding-top: $absolute-line-height;
   }
 
   // 3. The primary content column, 

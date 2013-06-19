@@ -283,9 +283,9 @@ div.region-page-top {
     }
 
     div.toolbar-menu {
-      height: $toolbarMenuHeight;
-      padding: 0;
-      background-color: $nav-container-bkg-color;
+      // height: $toolbarMenuHeight;
+      // padding: 0;
+      // background-color: $nav-container-bkg-color;
     }
   }
 }
@@ -299,21 +299,20 @@ div.region-page-top {
 }
 
 // when toolbar is present
-.toolbar {
-  
+.toolbar .navbar-fixed-top {
+  top: $toolbarHeight;
 }
 
 body.toolbar-drawer {
-  #main #widgets.column { padding-top: ($toolbarHeight) !important; }
+  #main #widgets.column { top: ($toolbarHeight + $navbarHeight) !important; }
   #main {
     #content {
-      top: $toolbarHeight !important;
+      top: $toolbarHeight+$navbarHeight !important;
       #content-inner { 
         padding-top: ($absolute-line-height*2) !important; 
       }
     }
   }
-    
 }
 
 // Small breakpoint
