@@ -11,15 +11,16 @@
   .update-row { 
     // @include vertical-margin($base-font-size);
     // @include span-columns($width, $context, $gutter-width);
-    @debug $width;
+    // @debug $width;
     .update-body {
       @include span-columns(14); 
       float: $omega;
+      min-height: 220px;
       margin-#{$omega}: 0;
     }
     .update-footer {
-      float: $alpha;
       @include span-columns(4);
+      float: $alpha;
       // width: 160px;
       .livefyre-wrapper {
         // @include span-columns($width, $width);
@@ -53,7 +54,6 @@
     border-top: 2px solid rgba(0,0,0,.2);
     margin-bottom: $base-line-height/2;
     .update-info {
-      float: $alpha;
       @include span-columns(4);
       font-family: $sans-serif-font-stack;
       color: rgba(0,0,0,.2);

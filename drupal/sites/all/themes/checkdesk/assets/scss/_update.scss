@@ -16,7 +16,7 @@
 	} // body
   
   .update-footer {
-  	margin-right: $gutter-width*2;
+  	margin-#{$omega}: $gutter-width*2;
     margin-bottom: 1em;
     font-family: $sans-serif-font-stack;
     color: rgba(0,0,0,.2);
@@ -30,6 +30,7 @@
 
     .update-meta {
     	@include reset-list-style;
+      float: $alpha;
       font-size: modular-scale(0) - modular-scale(-5); // 16px
     	font-weight: 700;
     	li {

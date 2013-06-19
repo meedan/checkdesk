@@ -5760,6 +5760,7 @@ article.in-progress {
 .update .update-footer .update-meta {
   margin: 0;
   padding: 0;
+  float: left;
   font-size: 16px;
   font-weight: 700;
 }
@@ -7717,14 +7718,15 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   margin-right: 1.55148%;
   display: inline;
   float: right;
+  min-height: 220px;
   margin-right: 0;
 }
 .node-type-discussion #main .update-row .update-footer, .page-liveblog #main .update-row .update-footer {
-  float: left;
   width: 21.01551%;
   float: left;
   margin-right: 1.55148%;
   display: inline;
+  float: left;
 }
 .node-type-discussion #main #block-views-desk-updates-block, .page-liveblog #main #block-views-desk-updates-block {
   *zoom: 1;
@@ -7746,7 +7748,6 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   margin-bottom: 12px;
 }
 .updates .update-row .update-info {
-  float: left;
   width: 21.01551%;
   float: left;
   margin-right: 1.55148%;

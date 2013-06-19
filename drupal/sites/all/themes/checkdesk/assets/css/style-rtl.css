@@ -5770,7 +5770,7 @@ article.in-progress {
   margin: 9.6px 0;
 }
 .update .update-footer {
-  margin-right: 22px;
+  margin-left: 22px;
   margin-bottom: 1em;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgba(0, 0, 0, 0.2);
@@ -5785,6 +5785,7 @@ article.in-progress {
 .update .update-footer .update-meta {
   margin: 0;
   padding: 0;
+  float: right;
   font-size: 16px;
   font-weight: 700;
 }
@@ -7742,14 +7743,15 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   margin-left: 1.55148%;
   display: inline;
   float: left;
+  min-height: 220px;
   margin-left: 0;
 }
 .node-type-discussion #main .update-row .update-footer, .page-liveblog #main .update-row .update-footer {
-  float: right;
   width: 21.01551%;
   float: right;
   margin-left: 1.55148%;
   display: inline;
+  float: right;
 }
 .node-type-discussion #main #block-views-desk-updates-block, .page-liveblog #main #block-views-desk-updates-block {
   *zoom: 1;
@@ -7771,7 +7773,6 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   margin-bottom: 12px;
 }
 .updates .update-row .update-info {
-  float: right;
   width: 21.01551%;
   float: right;
   margin-left: 1.55148%;
