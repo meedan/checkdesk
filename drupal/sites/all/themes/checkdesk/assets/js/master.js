@@ -30,7 +30,7 @@
 		attach: function(context) {
       // configure masonry
 			if ($('#reports', context).masonry) {
-				$('#reports', context).masonry({ 
+				$('#reports', context).masonry({
 					itemSelector: '.report-item',
 					columnWidth: function(containerWidth) {
 						return containerWidth / 3;
@@ -115,11 +115,11 @@
             $this.unbind('inview');
 
             classes = $this.attr('data-lazy-load-class');
-            
+
             this.className = classes;
 
             // Lazy-load tweets and livefyre comments
-            if (window.twttr) {
+            if (window.twttr && window.twttr.widgets) {
               window.twttr.widgets.load();
             }
             if (Drupal.livefyreCommentCount) {
