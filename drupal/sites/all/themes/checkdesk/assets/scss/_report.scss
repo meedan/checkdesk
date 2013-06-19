@@ -38,7 +38,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 	#report-actions {
 		position: absolute;
 		top: $absolute-line-height/2;
-		right: -40px;
+		#{$omega}: -40px;
 		// Checkdesk icon
 		&:before {
 			position: absolute;
