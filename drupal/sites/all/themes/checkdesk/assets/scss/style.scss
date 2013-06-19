@@ -161,7 +161,6 @@ $omega: opposite-position($from-direction);
 html {
   overflow: hidden;
   height: 100%;
-  
 }
 
 body {
@@ -175,11 +174,6 @@ body {
   }
   #main {
     padding-top: $navbarHeight;
-    
-  }
-  .toolbar #main {
-    margin-top: $toolbarHeight + $navbarHeight;
-    padding-top: 0;
   }
 }
 

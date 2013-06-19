@@ -3974,10 +3974,6 @@ body #main {
 body #main {
   padding-top: 38px;
 }
-body .toolbar #main {
-  margin-top: 113px;
-  padding-top: 0;
-}
 
 * html {
   font-size: 112.5%;
@@ -4095,6 +4091,7 @@ body {
 h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
+  margin-bottom: 12px;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-weight: normal;
 }
@@ -6004,7 +6001,16 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 }
 
 #nav-media-form {
+  *zoom: 1;
   width: 366px;
+}
+#nav-media-form:before, #nav-media-form:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#nav-media-form:after {
+  clear: both;
 }
 #nav-media-form iframe {
   width: 100%;
@@ -7904,7 +7910,6 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   color: white;
 }
 .story .story-meta {
-  margin-top: 12px;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgba(0, 0, 0, 0.6);
 }
