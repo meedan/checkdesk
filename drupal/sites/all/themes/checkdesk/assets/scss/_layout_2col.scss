@@ -13,10 +13,10 @@
   #sidebar-first.column {
     position: absolute;
     height: 100%;
+    max-width: 360px;
     #{$alpha}: 0;
-    max-width: 342px;
     top: $toolbarHeight;
-    width: 30%;
+    width: 25%;
     border-#{$omega}: 1px solid rgba(0,0,0,.1);
     background-color: $white;
   }
@@ -25,16 +25,16 @@
   // on story create page, this is the main column with the compser form
   #content {
     position: absolute;
-    bottom: 0;
-    #{$alpha}: 30%;
-    #{$omega}: 0;
     top: $navbarHeight;
-    overflow-y: auto;
+    bottom: 0;
+    #{$alpha}: 25%;
+    #{$omega}: 0;
+    overflow: auto;
     #content-inner {
       float: $alpha;
       max-width: 800px;
       padding-top: $base-line-height*2;
-      // @include pad(1,2, $break);
+      @include pad(1,2, $break);
     }
   }
 }
