@@ -2796,15 +2796,9 @@ input[type="checkbox"][readonly] {
   margin: 0;
   padding: 0;
   display: block;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.05);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  padding: 7.2px 11px;
+  padding: 7.2px 0;
   margin-bottom: 14.4px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .admin-nav-tabs li {
