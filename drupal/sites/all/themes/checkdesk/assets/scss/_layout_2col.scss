@@ -19,7 +19,9 @@
     width: 30%;
     border-#{$omega}: 1px solid rgba(0,0,0,.1);
     background-color: $white;
-    overflow-y: auto;
+    #incoming-reports {
+      overflow-y: auto;
+    }
   }
 
   // 3. The primary content column, 
