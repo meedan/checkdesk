@@ -5449,6 +5449,13 @@ div.tabs ul.primary li a {
   color: rgba(0, 0, 0, 0.3);
   font-size: 14px;
 }
+.report .report-activity .activity-wrapper .activity-list-footer {
+  padding: 0 11px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.report .report-activity .activity-wrapper .activity-list-footer a {
+  color: #0088ff;
+}
 .report .report-activity section#comment-form {
   *zoom: 1;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -6467,6 +6474,8 @@ nav[role="navigation"] {
   -webkit-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
   float: right;
   background-color: #262626;
   width: 100%;
@@ -6579,7 +6588,7 @@ nav[role="navigation"] .nav > div h2 {
 }
 nav[role="navigation"] .nav > div h2 > a {
   padding: 0 11px;
-  letter-spacing: 1px;
+  letter-spacing: 0.05px;
   text-decoration: none;
   line-height: 25px;
   color: rgba(255, 255, 255, 0.65);
@@ -6610,7 +6619,7 @@ nav[role="navigation"] .nav > div h2.active, nav[role="navigation"] .nav > div h
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
   color: #262626;
-  font-weight: 500;
+  font-weight: 700;
 }
 nav[role="navigation"] .nav > div h2.active > a, nav[role="navigation"] .nav > div h2.active > a:hover, nav[role="navigation"] .nav > div h2.active > a:active, nav[role="navigation"] .nav > div h2.active:hover > a, nav[role="navigation"] .nav > div h2.active:hover > a:hover, nav[role="navigation"] .nav > div h2.active:hover > a:active, nav[role="navigation"] .nav > div h2:active > a, nav[role="navigation"] .nav > div h2:active > a:hover, nav[role="navigation"] .nav > div h2:active > a:active {
   color: #262626;
@@ -6645,7 +6654,7 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
 }
 nav[role="navigation"] .nav > a.btn > a, nav[role="navigation"] .nav > li > a {
   padding: 0 11px;
-  letter-spacing: 1px;
+  letter-spacing: 0.05px;
   text-decoration: none;
   line-height: 25px;
   color: rgba(255, 255, 255, 0.65);
@@ -6676,7 +6685,7 @@ nav[role="navigation"] .nav > a.btn.active, nav[role="navigation"] .nav > a.btn.
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
   color: #262626;
-  font-weight: 500;
+  font-weight: 700;
 }
 nav[role="navigation"] .nav > a.btn.active > a, nav[role="navigation"] .nav > a.btn.active > a:hover, nav[role="navigation"] .nav > a.btn.active > a:active, nav[role="navigation"] .nav > a.btn.active:hover > a, nav[role="navigation"] .nav > a.btn.active:hover > a:hover, nav[role="navigation"] .nav > a.btn.active:hover > a:active, nav[role="navigation"] .nav > a.btn:active > a, nav[role="navigation"] .nav > a.btn:active > a:hover, nav[role="navigation"] .nav > a.btn:active > a:active, nav[role="navigation"] .nav > li.active > a, nav[role="navigation"] .nav > li.active > a:hover, nav[role="navigation"] .nav > li.active > a:active, nav[role="navigation"] .nav > li.active:hover > a, nav[role="navigation"] .nav > li.active:hover > a:hover, nav[role="navigation"] .nav > li.active:hover > a:active, nav[role="navigation"] .nav > li:active > a, nav[role="navigation"] .nav > li:active > a:hover, nav[role="navigation"] .nav > li:active > a:active {
   color: #262626;
@@ -6751,7 +6760,7 @@ nav[role="navigation"] #user-menu .dropdown-menu {
 }
 #block-locale-language .language-switcher-locale-url li > a {
   padding: 0 11px;
-  letter-spacing: 1px;
+  letter-spacing: 0.05px;
   text-decoration: none;
   line-height: 25px;
   color: rgba(255, 255, 255, 0.65);
@@ -6782,7 +6791,7 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
   color: #262626;
-  font-weight: 500;
+  font-weight: 700;
 }
 #block-locale-language .language-switcher-locale-url li.active > a, #block-locale-language .language-switcher-locale-url li.active > a:hover, #block-locale-language .language-switcher-locale-url li.active > a:active, #block-locale-language .language-switcher-locale-url li.active:hover > a, #block-locale-language .language-switcher-locale-url li.active:hover > a:hover, #block-locale-language .language-switcher-locale-url li.active:hover > a:active, #block-locale-language .language-switcher-locale-url li:active > a, #block-locale-language .language-switcher-locale-url li:active > a:hover, #block-locale-language .language-switcher-locale-url li:active > a:active {
   color: #262626;

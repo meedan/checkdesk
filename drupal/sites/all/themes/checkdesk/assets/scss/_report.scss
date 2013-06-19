@@ -452,6 +452,13 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				}
 			}
 
+			.activity-list-footer {
+				padding: 0 $gutter-width;
+				color: rgba(0,0,0,.6);
+				a {
+					color: $link-color;
+				}
+			}
 
 		} // activity wrapper
 
