@@ -4481,8 +4481,10 @@ div.tabs ul.primary li a {
 
 #incoming-reports-filters {
   *zoom: 1;
-  font-size: 15.3px;
-  padding: 0 22px;
+  margin-top: 57.6px;
+  margin-bottom: 28.8px;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
   color: #555555;
 }
 #incoming-reports-filters:before, #incoming-reports-filters:after {
@@ -4497,6 +4499,7 @@ div.tabs ul.primary li a {
   display: inline-block;
   margin: 0;
   padding: 0;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 #incoming-reports-filters .icon-caret-down:before {
   font-family: "FontAwesome";
@@ -5505,15 +5508,11 @@ article.in-progress {
 .view-desk-reports {
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-#incoming-reports-filters {
-  margin: 25px 0;
+  padding: 0 22px;
 }
 
 #incoming-reports {
   font-size: 15px;
-  padding: 0 22px;
   color: #555555;
 }
 #incoming-reports .ui-draggable-dragging .report-row-container {
@@ -8047,6 +8046,7 @@ body.sidebar-first #main #sidebar-first.column {
   width: 25%;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
+  z-index: 1;
 }
 body.sidebar-first #main #sidebar-first.column .view-desk-reports {
   height: 400px;
@@ -8090,6 +8090,7 @@ body.sidebar-first #main #content #content-inner:after {
     width: 25%;
     border-left: 1px solid rgba(0, 0, 0, 0.1);
     background-color: white;
+    z-index: 1;
   }
   body.sidebar-first #main #sidebar-first.column .view-desk-reports {
     height: 400px;
