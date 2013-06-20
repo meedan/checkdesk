@@ -32,6 +32,7 @@
         // #{$omega}: 0;
         overflow-y: auto;
         #content-inner {
+          -moz-box-sizing: border-box;
           @include ctb-clearfix;
           max-width: 850px;
           padding-top: $base-line-height*2;

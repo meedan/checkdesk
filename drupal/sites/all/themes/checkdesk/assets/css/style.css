@@ -7069,7 +7069,6 @@ select[multiple], select[size] {
 }
 
 form input[type="text"],
-form input[type="file"],
 form textarea {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -7083,7 +7082,6 @@ form textarea {
   margin-top: 11px;
 }
 form input[type="text"]:focus,
-form input[type="file"]:focus,
 form textarea:focus {
   border-color: rgba(0, 0, 0, 0.5);
   outline: thin dotted #ededed;
@@ -7438,7 +7436,6 @@ form > .form-item .form-item {
 }
 form input[type="password"],
 form input[type="text"],
-form input[type="file"],
 form textarea {
   padding-left: 0.77574%;
   padding-right: 0.77574%;
@@ -7502,7 +7499,6 @@ form .form-type-textarea:after {
   }
   form input[type="password"],
   form input[type="text"],
-  form input[type="file"],
   form textarea {
     padding-left: 2.40175%;
     padding-right: 2.40175%;
@@ -7623,7 +7619,6 @@ body.page-liveblog #main .view-liveblog .desk {
   z-index: 1;
   position: relative;
   *zoom: 1;
-  float: left;
   margin-bottom: 0;
   margin-top: 25px;
   overflow: visible;
@@ -8085,6 +8080,7 @@ body.widgets #main #content {
   overflow-y: auto;
 }
 body.widgets #main #content #content-inner {
+  -moz-box-sizing: border-box;
   *zoom: 1;
   max-width: 850px;
   padding-top: 48px;
