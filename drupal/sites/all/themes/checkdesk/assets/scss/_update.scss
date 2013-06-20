@@ -45,6 +45,9 @@
     .icon-time {
     	@include icon(time, $base-font-size, rgba(0,0,0,.2));
     }
+    .icon-share {
+      @include icon(share, $small-font-size, $darker-grey);
+    }
 
     // by
     .update-by {
@@ -83,9 +86,7 @@
 							&:hover {
 								color: $identity;
 							}	
-							&.icon-share {
-								@include icon(share, $small-font-size, $darker-grey);
-							}
+							
 							&.icon-reorder {
 								@include icon(reorder, $small-font-size, $darker-grey);
 								margin-#{$omega}: $gutter-width;

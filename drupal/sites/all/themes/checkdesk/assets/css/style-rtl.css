@@ -2202,7 +2202,7 @@ nav[role="navigation"] a[href*="add/post"]:before {
   content: "\f044";
 }
 
-.report #report-actions ul.content-actions > li > a span.icon-share:before, .update .update-footer .update-actions ul.content-actions > li > a span.icon-share:before {
+.report #report-actions ul.content-actions > li > a span.icon-share:before, .update .update-footer .icon-share:before {
   content: "\f045";
 }
 
@@ -5807,6 +5807,17 @@ article.in-progress {
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
 }
+.update .update-footer .icon-share:before {
+  font-family: "FontAwesome";
+  font-size: 15px;
+  line-height: inherit;
+  color: black;
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+}
 .update .update-footer .update-by {
   margin-bottom: 7.2px;
 }
@@ -5850,17 +5861,6 @@ article.in-progress {
 }
 .update .update-footer .update-actions ul.content-actions > li > a span:hover {
   color: #0088ff;
-}
-.update .update-footer .update-actions ul.content-actions > li > a span.icon-share:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: black;
-  margin: 0 5.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
 }
 .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder {
   margin-left: 11px;
