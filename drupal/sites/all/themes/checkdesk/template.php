@@ -139,7 +139,7 @@ function checkdesk_preprocess_block(&$variables) {
   $variables['elements']['#block']->subject = '';
   // Add Compose Update on update form
   if($variables['elements']['#block']->bid == 'checkdesk_core-post') {
-    $variables['elements']['#block']->subject = t('Create Update'); 
+    $variables['elements']['#block']->subject = t('Compose Update'); 
   }
 }
 
