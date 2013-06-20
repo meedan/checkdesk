@@ -58,6 +58,12 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['report_preview'] = array(
       '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . (isset($preview['preview']) ? $preview['preview'] : '') . '</div></div>',
     );
+    if (isset($preview['title'])) {
+      $form['title']['#default_value'] = $preview['title'];
+    }
+    if (isset($preview['description'])) {
+      $form['body'][LANGUAGE_NONE][0]['#default_value'] = $preview['description'];
+    }
 
     // Fields order
     $form['field_link']['#weight'] = -1;
@@ -149,6 +155,12 @@ function _checkdesk_bookmarklet_media_preview($path) {
       else {
         $response['preview'] = theme_image(array('path' => $oembed->thumbnail_url, 'alt' => t('Preview'), 'attributes' => array('class' => 'bookmarklet-preview')));
       }
+    }
+    if (!isset($response['error']) && isset($oembed->description)) {
+      $response['description'] = $oembed->description;
+    }
+    if (!isset($response['error']) && isset($oembed->title)) {
+      $response['title'] = $oembed->title;
     }
   }
 
