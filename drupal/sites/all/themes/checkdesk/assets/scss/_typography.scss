@@ -18,17 +18,20 @@ body {
 
 h1, h2, h3, h4 {
   @include reset-box-model;
-  margin:  { bottom: $base-font-size; top: $base-font-size; }
-  padding: { bottom: $base-font-size; top: $base-font-size; }
+
+  margin:  { bottom: $absolute-line-height/2; }
+  // padding: { bottom: $base-font-size; top: $base-font-size; }
   font-family: $header-font-stack;
   font-weight: normal;
 }
 
 h1 {
-  font-size: $xxx-large-font-size;
-  line-height: $relative-line-height;
-  color: $dark-grey;
-  @include cd-light-text-shadow;
+  font-size: $xx-large-font-size + 2px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1.15;
+  color: #191919;
+  color: rgba(0,0,0,.9);
 }
 
 // Navigation 

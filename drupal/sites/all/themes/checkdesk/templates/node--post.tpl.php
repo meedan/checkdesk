@@ -1,22 +1,25 @@
+<?php
+  // dsm($content);
+  // dsm($node);
+?>
+
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="update">
-    <p class="update-by">
-    	<?php if (isset($user_avatar)) : ?>
-            <?php print $user_avatar; ?>
-        <?php endif; ?>
-    	<?php print $update_creation_info; ?>
-    </p>
     <div class="update-body">
       <?php print render($content['body']); ?>
     </div>
-    <p><?php print render($content['field_desk']); ?></p>
     <div class="update-footer">
-      <div class="update-actions">
-        <?php print render($content['links']); ?>
-      </div>
-      <div class="update-comments">
-        <?php print render($content['custom_comments']); ?>
-      </div>
+      <ul class="update-meta">
+        <li class="update-at">
+          <span class="icon-time"></span> <?php print $created_at; ?>
+        </li>
+        <li class="update-by">
+          <?php if (isset($user_avatar)) : ?>
+            <?php print $user_avatar; ?>
+          <?php endif; ?>
+          <?php print $created_by; ?>
+        </li>
+      </ul>
     </div>
   </article>
 </section>

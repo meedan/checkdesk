@@ -65,7 +65,7 @@ $icon-position: 'before';
   & > a {
     // font-weight: 100;
     padding: 0 $nav-gutter;
-    letter-spacing: 1px;
+    letter-spacing: 0.05px;
     text-decoration: none;
     line-height: $nav-height - 4px;
     color: $nav-color;
@@ -103,7 +103,7 @@ $icon-position: 'before';
     @include border-radius($radius $radius 0 0);
 
     color: $nav-active-color;
-    font-weight: 500;
+    font-weight: 700;
 
     // An anchor inside the chunky block
     & > a,
@@ -134,6 +134,8 @@ $icon-position: 'before';
 // This nav contains two rows of nav-items with icons.
 nav[role="navigation"] {
   @include ctb-box-shadow(0px 1px 3px 1px rgba(0, 0, 0, 0.5));
+  font-family: $sans-serif-font-stack;
+  font-size: $small-font-size;
   float: $from-direction;
   background-color: $nav-container-bkg-color;
   width: 100%;
@@ -263,8 +265,6 @@ nav[role="navigation"] {
 // Drupal toolbars at the very top
 //
 div.region-page-top {
-  
-
   #toolbar {
     position: fixed;
     z-index: $zindexFixedNavbar;
@@ -276,7 +276,6 @@ div.region-page-top {
     background: $nav-container-bkg-color;
     li {
       @include reset-box-model;
-
       a { 
         color: $nav-color; 
         padding: $gutter-width;
@@ -284,8 +283,9 @@ div.region-page-top {
     }
 
     div.toolbar-menu {
-      padding: 0;
-      background-color: $nav-container-bkg-color;
+      // height: $toolbarMenuHeight;
+      // padding: 0;
+      // background-color: $nav-container-bkg-color;
     }
   }
 }
@@ -303,20 +303,28 @@ div.region-page-top {
   top: $toolbarHeight;
 }
 
+body.toolbar-drawer {
+  #main #widgets.column { top: ($toolbarHeight + $navbarHeight) !important; }
+  #main {
+    #content {
+      margin-top: ($toolbarHeight + $navbarHeight) !important;
+    }
+  }
+}
+
 // Small breakpoint
 @include at-breakpoint($break-small) {
-  #partner-header {
-    @include span-columns($break-small - 2, $break-small, $gutter-width);
-    @include pad(1, 1, $break-small);
-  }
+  // #partner-header {
+  //   @include span-columns($break-small - 2, $break-small, $gutter-width);
+  //   @include pad(1, 1, $break-small);
+  // }
 }
 
 // Medium breakpoint
 @include at-breakpoint($break-medium) {
-  #partner-header {
-    @include span-columns($break-medium - 4, $break-medium, $gutter-width);
-    @include pad(2, 2, $break-medium);
-  }
+  // #partner-header {
+  //   @include span-columns($break-medium - 4, $break-medium, $gutter-width);
+  //   @include pad(2, 2, $break-medium);
+  // }
 }
-
 

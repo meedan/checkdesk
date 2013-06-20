@@ -11,9 +11,8 @@ $mysql = new PDO('mysql:host=' . $p['host'] . ';dbname=' . $p['database'], $p['u
 $mysql->exec('SET NAMES utf8');
 
 $timestamp = intval($_REQUEST['timestamp']);
-$type = preg_replace('/[^a-z_-]/', '', $_REQUEST['type']);
 
-$sql = "SELECT COUNT(nid) FROM node WHERE type='" . $type .  "' AND created > " . $timestamp;
+$sql = "SELECT COUNT(nid) FROM node WHERE type='discussion' AND changed > " . $timestamp;
 if (!empty($_REQUEST['uid'])) {
   $uid = intval($_REQUEST['uid']);
   $sql .= " AND uid = " . $uid;

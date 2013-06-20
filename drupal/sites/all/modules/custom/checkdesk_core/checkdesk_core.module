@@ -607,7 +607,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       }
     }
     $links['checkdesk-flag'] = array(
-      'title' => '<span class="icon-flag"></span>' . t('Flag'),
+      'title' => t('Flag'),
       'href' => '#',
       'attributes' => array('class' => 'dropdown-toggle ' . ($flagged ? 'flagged' : 'unflagged'), 'data-toggle' => 'dropdown'),
       'html' => TRUE,
@@ -1833,6 +1833,19 @@ function _checkdesk_core_filter_tips($filter, $format, $long = FALSE) {
 }
 
 /**
+ * Implements hook_node_insert().
+ */
+function checkdesk_core_node_insert($node) {
+
+  // Update story when a new update is created in this story
+  if ($node->type === 'post' && isset($node->field_desk)) {
+    $story = node_load($node->field_desk[LANGUAGE_NONE][0]['target_id']);
+    $story->updated = $node->updated;
+    node_save($story); // Update updated time
+  }
+}
+
+/**
  * Implements hook_preprocess_htmlmail().
  */
 function checkdesk_core_preprocess_htmlmail(&$variables) {
@@ -1853,3 +1866,4 @@ function checkdesk_core_variable_info($options) {
   );
   return $variable;
 }
+

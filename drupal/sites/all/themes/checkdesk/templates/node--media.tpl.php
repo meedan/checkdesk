@@ -9,46 +9,41 @@
 ?>
 
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <article class="report">   
+  <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
     <section class="report-content">
       <div class="report-media">
         <div class="container <?php print $media_type_class; ?>">
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>
-      <p>
-        <?php if (isset($user_avatar)) : ?>
-            <?php print $user_avatar; ?>
-        <?php endif; ?>
-        <?php print $media_creation_info; ?>
-      </p>
       <?php if (isset($content['body'])) : ?>
         <div class="description">
           <?php print render($content['body']); ?>
         </div>
       <?php endif; ?>
+      <div class="added-by">
+        <?php if (isset($user_avatar)) : ?>
+            <?php print $user_avatar; ?>
+        <?php endif; ?>
+        <?php print $media_creation_info; ?>
+      </div>
     </section>
 
-    <footer>
-      <h3>
-        <span class="icon-flag"></span>
-      </h3>
       <div id="report-actions">
         <?php print render($content['links']); ?>
       </div>
-    </footer>
 
     <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity">
           <header<?php if ($status_class) print ' class="' . $status_class . '"'; ?>>
-            <h3 class="report-footnotes-count"><span><?php print $media_activity_report_count . '</span> ' . t('fact-checking footnotes'); ?></h3>
-            <div class="report-status">
-              <a class="report-activity-header" href="#">
+            <a class="report-activity-header" href="#">
+              <h3 class="report-footnotes-count"><span><?php print $media_activity_report_count . '</span> ' . t('fact-checking footnotes'); ?></h3>
+              <div class="report-status">
                 <?php if ($status): ?>
                   <?php print $status; ?>
                 <?php endif; ?>
-              </a>
-            </div>
+              </div>
+            </a>
           </header>
           <div class="activity-wrapper">
             <?php print $media_activity_report; ?>

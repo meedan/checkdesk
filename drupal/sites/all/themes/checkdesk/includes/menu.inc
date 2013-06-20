@@ -34,7 +34,6 @@ function checkdesk_menu_local_tasks(&$variables) {
  * @ingroup themeable
  */
 function checkdesk_menu_local_task($variables) {
-
   $link = $variables['element']['#link'];
   $link_text = $link['title'];
   $classes = array();

@@ -28,9 +28,6 @@ function checkdesk_theme() {
     'checkdesk_heartbeat_content' => array(
       'variables' => array('message' => array(), 'node' => array()),
     ),
-    'checkdesk_related_updates_bar' => array(
-      'variables' => array('story' => array()),
-    ),
   );
 }
 
@@ -103,6 +100,33 @@ function checkdesk_preprocess_html(&$variables) {
   $variables['head_title'] = strip_tags(implode(' | ', $head_title));
 
 }
+
+/**
+ * Override or insert variables into the region template.
+ */
+function checkdesk_preprocess_region(&$variables) {
+
+  if ($variables['region'] == 'widgets') {
+    // define custom header settings
+    $variables['header_image'] = '';
+    $image = theme_get_setting('header_image_path');
+    
+    if (!empty($image) && theme_get_setting('header_image_enabled')) {
+      $variables['header_image'] = l(theme('image', array('path' => $image, 'style_name'=> 'partner_logo')), '<front>', array('html' => TRUE,));
+    }
+
+    $position = theme_get_setting('header_image_position');
+    $variables['header_image_position'] = (empty($position) ? 'left' : $position);
+
+    $bg = theme_get_setting('header_bg_path');
+    $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
+
+    $slogan = theme_get_setting('header_slogan');
+    $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
+    $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right'); 
+  }
+}
+
 
 
 /**
@@ -448,7 +472,7 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['omega'] = 'right';
   }
 
-  if ($variables['type'] == 'post') {
+  if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     //Add author info to variables
     $user = user_load($variables['elements']['#node']->uid);
     $user_picture = $user->picture;
@@ -461,12 +485,22 @@ function checkdesk_preprocess_node(&$variables) {
       );
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
-    // Add update creation info
-    $variables['update_creation_info'] = t('Update by <a href="@user">!user</a> <time datetime="!date">!datetime</time>', array(
+
+    // Add creation info
+    $variables['creation_info'] = t('<a href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+      '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
+    ));
+    $variables['created_by'] = t('<a href="@user">!user</a>', array(
+      '@user' => url('user/'. $variables['uid']),
+      '!user' => $variables['elements']['#node']->name,
+    ));
+    $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
+      '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+      '!interval' => format_interval((time() - $variables['created']), 1),
     ));
   }
 
@@ -485,13 +519,13 @@ function checkdesk_preprocess_node(&$variables) {
       );
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
-    //Add node creation info(author name plus creation time)
-    $variables['media_creation_info'] = t('<a href="@user">!user</a> submitted this <time class="date-time" datetime="!timestamp">!datetime_ago ago</time>', array(
+    //Add node creation info(author name plus creation time
+    $variables['media_creation_info'] = t('Added by <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
-      '!datetime_ago' => format_interval(time() - $variables['created'], 2),
+      '!interval' => format_interval(time() - $variables['created'], 1),
     ));
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
@@ -568,6 +602,16 @@ function checkdesk_links__node($variables) {
   $heading = $variables['heading'];
 
   $class[] = 'content-actions';
+  // set $alpha and $omega for language directions
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    $alpha = 'right';
+    $omega = 'left';
+  } else {
+    $alpha = 'left';
+    $omega = 'right';
+  }
+
   $output = '';
 
   // Prepare for modal dialogs.
@@ -579,18 +623,18 @@ function checkdesk_links__node($variables) {
   if (count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
 
-    if (isset($links['checkdesk-view-original'])) {
-      $output .= '<li>' . l('<span class="icon-link"></span>' . $links['checkdesk-view-original']['title'], $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
-    }
+    // if (isset($links['checkdesk-view-original'])) {
+    //   $output .= '<li>' . l('<span class="icon-link"></span>', $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
+    // }
 
     if (isset($links['checkdesk-share-facebook']) || 
         isset($links['checkdesk-share-twitter']) || 
         isset($links['checkdesk-share-google'])
     ) {
       // Share on
-      $output .= '<li class="share-on dropup">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span>' . t('Share') . '</a>';
-      $output .= '<ul class="dropdown-menu">';
+      $output .= '<li class="share-on">';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span></a>';
+      $output .= '<ul class="dropdown-menu pull-'. $omega .'">';
       if (isset($links['checkdesk-share-facebook'])) {
         $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
       }
@@ -609,9 +653,9 @@ function checkdesk_links__node($variables) {
         isset($links['flag-delete'])
     ) {
       // Flag as
-      $output .= '<li class="flag-as dropup">';
-      $output .= l($links['checkdesk-flag']['title'], $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
-      $output .= '<ul class="dropdown-menu">';
+      $output .= '<li class="flag-as">';
+      $output .= l('<span class="icon-flag"></span>', $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
+      $output .= '<ul class="dropdown-menu pull-right">';
 
       if (isset($links['flag-spam'])) {
         $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
@@ -638,9 +682,9 @@ function checkdesk_links__node($variables) {
         isset($links['flag-graphic_journalist'])
     ) {
       // Add to
-      $output .= '<li class="add-to dropup">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-reorder">&nbsp;</span></a>';
-      $output .= '<ul class="dropdown-menu">';
+      $output .= '<li class="add-to">';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-horizontal">&nbsp;</span></a>';
+      $output .= '<ul class="dropdown-menu pull-right">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
       }
@@ -964,6 +1008,13 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   }
 }
 
+/* Desk Updates */
+function checkdesk_preprocess_views_view__desk_updates(&$vars) {
+  if ($vars['display_id'] == 'block') {
+    
+  }
+}
+
 /* Reports page */
 function checkdesk_preprocess_views_view__reports(&$vars) {
   // add masonry library
@@ -1015,5 +1066,25 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
     $vars['name_i18n'] = t($vars['fields']['field_rating']->content);
   }
-}
 
+  if ($vars['view']->name === 'liveblog') {
+    $view = views_get_view('updates_for_stories');
+    $view->set_arguments(array($vars['fields']['nid']->raw));
+    $view_output = $view->preview('block');
+    $total_rows = $view->total_rows;
+    $view->destroy();
+    if ($total_rows) {
+      $vars['updates'] = $view_output;
+    }
+  }
+
+  if ($vars['view']->name === 'updates_for_stories') {
+    $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
+    if ($vars['counter'] === $vars['view']->total_rows) {
+      $vars['update'] = $vars['fields']['rendered_entity']->content;
+    }
+    else {
+      $vars['update'] = $vars['fields']['rendered_entity_1']->content;
+    }
+  }
+}

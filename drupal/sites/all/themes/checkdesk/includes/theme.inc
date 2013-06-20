@@ -233,11 +233,23 @@ function _checkdesk_alter($files, $type) {
 // }
 
 function checkdesk_checkdesk_heartbeat_content($variables) {
+
   $message = $variables['message'];
 
-  // status report
+  // set variables for new comment aka fact-checking footnote
+  if ($message->message_id == 'new_comment_report') {
+    // set actor / editor / user
+    $actor = $message->variables['!username'];
+    // 
+    $title = $message->variables['!comment'];
+  }
+
+  // set variables for status report 
   if ($message->message_id == 'status_report') {
+
+    // set icons
     if ($status = $message->variables['!status']) {
+      $status_class_name = strtolower(str_replace(' ', '-', $status));
       if ($status == 'Verified') {
         $icon = '<span class="icon-ok-sign"></span>';
       }
@@ -247,16 +259,42 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
       if ($status == 'Undetermined') {
         $icon = '<span class="icon-question-sign"></span>'; 
       }
+      if ($status == 'In Progress') {
+        // $icon = '<span class="icon-stack">';
+        // $icon .= '<span class="icon-circle icon-stack-base"></span>';
+        $icon = '<span class="icon-random"></span>'; 
+        // $icon .= '</span>';
+      }
     }
+
+    // set actor / editor / user
+    $actor = $message->variables['!editor'];
+    $title = t('Changed status to ') . '<strong class="' . $status_class_name . '">' . strtolower($message->variables['!status']) . '</strong>';
+
+
+    
   }
+
+  // format status report as
+  // Noha Aziz {status icon} Changed status to verified (different color and add hover info on verified) {timestamp}
+
+  // format comments as
+  // Noha Aziz {comment} {timestamp}
 
   $output = '';
   $output .= '<header>';
-  if (isset($icon)) {
-    $output .= $icon;
+  if(isset($actor)) {
+    $output .= '<span class="actor">' . $actor . '</span>';  
   }
+  $output .= '<span class="activity-inner-wrapper">';
+  if (isset($icon)) {
+    $output .= '<span class="icon">' . $icon . '</span>';
+  }
+  if(isset($title)) {
+    $output .= '<span class="title">' . $title . '</span>';
+  }
+  $output .= '</span>';
   $output .= '<time class="time" title=' . format_date($message->timestamp, 'custom', 'Y-m-d')  .'>' . _theme_time_ago($message->timestamp) . '</time>';
-  $output .= '<span class="title">' . $message->message . '</span>';
   $output .= '</header>';
   return $output;
 }

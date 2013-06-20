@@ -39,6 +39,7 @@ $classPrefix: "icon-" !default;
 // $font-name - Required for Foundicons: Specify one font from the family.
 
 $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
+$large-icon-font-size: 18px;
 
 // Just for icons on words or elements, before or after
 @mixin icon($icon, $size: $default-icon-font-size, $color: "black", $position: "before", $margin: 0 $gutter-width/2) {
@@ -51,9 +52,13 @@ $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
 
     // 3. basic layout
     font-size: $size;
-    line-height: $size;
+    line-height: inherit;
     color: $color;
     margin: $margin;
+    width: auto;
+    vertical-align: baseline;
+    -webkit-font-smoothing: antialiased;
+    *margin-right: .3em; // fixes ie7 issues
 
     // 4. content (for any extra)
     @content;
@@ -72,9 +77,11 @@ $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
 
     // 3. basic layout
     font-size: $size;
-    line-height: $size;
+    line-height: inherit;
     color: $color;
     margin: 0 $gutter-width/2;
+    -webkit-font-smoothing: antialiased;
+    *margin-right: .3em; // fixes ie7 issues
     
     // 4. content (for any extra)
     @content;
@@ -94,3 +101,36 @@ $default-icon-font-size: 14px; // fontawesome 3.0 is optimized for 14px
 // .icon-link {
 //   @include icon('link');
 // }
+
+.icon-muted { color: rgba(255, 255, 255, 0.2); }
+.icon-light { color: $white; }
+.icon-dark { color: $grayDark; }
+
+
+@mixin icon-stack($width: 22px, $height: 20px, $top-font-size: $default-icon-font-size, $base-font-size: $large-icon-font-size) {
+  .icon-stack {
+    position: relative;
+    display: inline-block;
+    width: $width;
+    height: $height;
+    line-height: $width;
+    vertical-align: -35%;
+    [class^="icon-"],
+    [class*=" icon-"] {
+      display: block;
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      font-size: $top-font-size;
+      line-height: inherit;
+      *line-height: $height;
+    }
+    .icon-stack-base {
+      font-size: $base-font-size;
+      *line-height: $height / $base-font-size;
+    }
+  }
+}
+
+@include icon-stack;

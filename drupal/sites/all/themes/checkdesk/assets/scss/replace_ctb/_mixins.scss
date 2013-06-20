@@ -70,6 +70,19 @@
   *margin-right: .3em;
 }
 
+// Resets
+// -------------------------
+
+@mixin reset-box-model() {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin reset-list-style() {
+  @include reset-box-model();
+  li { list-style: none; }
+}
+
 // Sizing shortcuts
 // -------------------------
 @mixin ctb-size($height, $width) {

@@ -3,14 +3,17 @@
 // Use @extend on the parent element containint the header and .panels
 %filters {
   @include ctb-clearfix;
-  font-size: $fontSizeSmall;
-  padding: 0 $gutter-width*2;
+  margin-top: $absolute-line-height*2;
+  margin-bottom: $absolute-line-height;
+  font-family: $sans-serif-font-stack;
+  font-size: $small-font-size;
   color: $gray;
 
   header {
     h2 {
       display: inline-block;
       @include reset-box-model;
+      font-family: $sans-serif-font-stack;
     }
   }
 

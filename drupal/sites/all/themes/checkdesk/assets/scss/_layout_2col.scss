@@ -4,23 +4,43 @@
 // By default, there is only one column.
 // In larger breakpoints the primary width $primary-width and secondary-width diverge to create two columns.
 @mixin layout-2col($secondary-width, $primary-width, $break: $container-width) {
-  @include span-columns($break - 2, $break, $gutter-width / 2); //outermost container
-  @include pad(1, 1, $break);
+  // @include span-columns($break - 2, $break, $gutter-width / 2); //outermost container
+  // @include pad(1, 1, $break);
   @content;
 
   // 2. The sidebar column
   // Contains incoming reports
   #sidebar-first.column {
-    @include span-columns($secondary-width, $break); // sidebar width
-    @include cd-box-shadow();
-    margin-top: ms(-1);
+    position: fixed;
+    max-width: 360px;
+    #{$alpha}: 0;
+    top: $toolbarHeight + $navbarHeight;
+    width: 30%;
+    border-#{$omega}: 1px solid rgba(0,0,0,.1);
+    background-color: $white;
+    z-index: 1;
+    .view-desk-reports {
+      height: 400px;
+      overflow-y: auto;
+    }
   }
 
   // 3. The primary content column, 
   // on story create page, this is the main column with the compser form
   #content {
-    @include span-columns($primary-width omega, $break);
-    @include pad(0,0, $break);
+    // position: absolute;
+    // margin-top: $navbarHeight;
+    // bottom: 0;
+    margin-#{$alpha}: 30%;
+    // #{$omega}: 0;
+    // overflow-y: auto;
+    #content-inner {
+      @include ctb-clearfix;
+      max-width: 850px;
+      margin-top: $navbarHeight;
+      padding-top: $base-line-height*2;
+      @include pad(1,2, $break);
+    }
   }
 }
 
@@ -37,11 +57,35 @@ body.sidebar-first {
 
 body.sidebar-first {
   #main {
-    @include at-breakpoint($break-small) { // Breakpoint: small
-      $break: $break-small;
-      $secondary-width: 4;
-      $primary-width: $break-small - $secondary-width;
-      @include layout-2col($secondary-width, $primary-width, $break); // reapply layout-2col
-    }
+    // @include at-breakpoint($break-small) { // Breakpoint: small
+    //   $break: $break-small;
+    //   $secondary-width: 4;
+    //   $primary-width: $break-small - $secondary-width;
+    //   @include layout-2col($secondary-width, $primary-width, $break); // reapply layout-2col
+    // }
+  }
+}
+
+
+// ======================================================================
+// Breakpoint: med
+//
+// The sidebar has a max-width of 360px and the primary content widens until 800px
+// Needs further tweaks
+
+@include at-breakpoint($break-small) {
+  body.sidebar-first #main #content {
+    margin-#{$alpha}: 30%;
+  }
+}  
+@include at-breakpoint($break-medium) {
+  body.sidebar-first #main #content {
+    margin-#{$alpha}: 360px;
+  }
+}  
+// Breakpoint: large
+@include at-breakpoint($break-large) {
+  body.sidebar-first #main #content {
+    margin-#{$alpha}: 360px;
   }
 }

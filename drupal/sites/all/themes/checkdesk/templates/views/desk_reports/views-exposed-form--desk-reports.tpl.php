@@ -32,7 +32,7 @@
   </header>
   <ul class="panels">
     <li id="sort-by" class="panel">
-      <a href="#" class="panel-toggle"><?php print t('Sort by'); ?> <span class="icon-caret-down"></span></a>
+      <div class="panel-toggle"><?php print t('Sort by'); ?> <span class="icon-caret-down"></span></div>
       <div class="panel-content">
         <?php if (!empty($sort_by)): ?>
           <div class="views-exposed-widget views-widget-sort-by">
@@ -48,7 +48,7 @@
       </div>
     </li>
     <li id="filter-by" class="panel">
-      <a href="#" class="panel-toggle"><?php print t('Filter'); ?> <span class="icon-caret-down"></span></a>
+      <div class="panel-toggle"><?php print t('Filter'); ?> <span class="icon-caret-down"></span></div>
       <div class="panel-content">
 
         <?php 

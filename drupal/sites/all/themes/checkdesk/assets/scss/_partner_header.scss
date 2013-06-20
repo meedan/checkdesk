@@ -1,30 +1,35 @@
 // Partner header
 
 #partner-header {
-  padding-top: $navbarHeight;
-  width: 100%;
+  // padding-top: $navbarHeight;
+  // width: 100%;
+  text-align: center;
 }
 
 .toolbar #partner-header {
-  margin-top: $toolbarHeight + $navbarHeight;
-  padding-top: 0;
+  // margin-top: $toolbarHeight + $navbarHeight;
+  // padding-top: 0;
 }
 
 #partner-header-inner {
-  @include ctb-box-shadow(0px 1px 3px 1px rgba(0, 0, 0, 0.2));
-  background-color: $white;
-  padding: ms(0) 0;
+  // @include ctb-box-shadow(0px 1px 3px 1px rgba(0, 0, 0, 0.2));
+  // background-color: $white;
+  // padding: ms(0) 0;
 
-  #partner-header-slogan {
-    padding: 0 ms(3);
-    padding-top: ms(1);
-    margin-top: ms(3);
+  #partner-header-slogan,
+  img {
+    // padding: 0 ms(0);
   }
 
   #partner-header-slogan {
-    color: $dark-grey;
-    font-size: $base-font-size;
-    text-align: $from-direction;
+    // width: ms(12);
+    // color: $bright-green;
+    // font-size: $base-font-size * 1.5;
+    // text-align: $from-direction;
+    border-top: 1px solid rgba(0,0,0,.1);
+    color: rgba(0,0,0,.6);
+    margin-top: $absolute-line-height;
+    padding: $absolute-line-height $gutter-width*2;
   }
 
   .checkdesk-slogan-logo {

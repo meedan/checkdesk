@@ -6,19 +6,30 @@
 }
 
 @mixin layout-story($width, $context) {
-  @include span-columns($width, $context, $gutter-width);
+  // @include span-columns($width, $context, $gutter-width);
   @content;
   .update-row { 
-    @include vertical-margin($base-font-size); 
-    @include span-columns($width, $width, $gutter-width);
-    
-    .livefyre-wrapper {
-      @include span-columns($width, $width, $gutter-width);
+    // @include vertical-margin($base-font-size);
+    // @include span-columns($width, $context, $gutter-width);
+    // @debug $width;
+    .update-body {
+      @include span-columns(14); 
+      float: $omega;
+      min-height: 220px;
+      margin-#{$omega}: 0;
+    }
+    .update-footer {
+      @include span-columns(4);
+      float: $alpha;
+      // width: 160px;
+      .livefyre-wrapper {
+        // @include span-columns($width, $width);
+      }
     }
   }
 }
 
-.node-type-discussion {
+.node-type-discussion, .page-liveblog {
   // Updates must stay above story information, 
   // otherwise you can't click to see the comments
   #block-views-desk-updates-block {
@@ -32,27 +43,36 @@
     @include layout-story($container-width, $container-width);
     #block-views-desk-updates-block {
       @include ctb-clearfix;
-      margin-top: 1em;
-      padding-top: 1em;
-      background-color: white;
-      border-top: 1px solid $grey;
     }
   }
 }
 
 // "Published" updates
-#updates {
+.updates {
+  margin-top: $absolute-line-height/2;
   .update-row {
-    border-bottom: 1px solid $grayLighter;
-    &:last-child { border-bottom: 0 none; }
+    border-top: 2px solid rgba(0,0,0,.2);
     margin-bottom: $base-line-height/2;
-
-    h2 {
-      display: inline-block;
-      @include reset-box-model;
-      a { @include ctb-linkColor($grayDark); }
+    .update-info {
+      @include span-columns(4);
+      font-family: $sans-serif-font-stack;
+      color: rgba(0,0,0,.2);
+      border-top: 4px solid rgba(0,0,0,.2);
+      margin-bottom: $absolute-line-height;
+      padding-top: $absolute-line-height/2;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px
+      @if $from-direction == left {
+        letter-spacing: 0.15em;
+      }
+      // update number
+      b {
+        display: block;
+        padding: $absolute-line-height/2 0;
+        font-size: $xxx-large-font-size;
+      }
     }
-
   }
 }
 
@@ -61,12 +81,9 @@ $omega: opposite-position($alpha);
 
 .story {
   @include ctb-clearfix;
-  color: $grayLight;
   text-align: $alpha;
 
   #story-actions {
-    font-size: $fontSizeSmall;
-    
     ul.content-actions {
       @include reset-box-model;
       @include reset-list-style;
@@ -81,6 +98,25 @@ $omega: opposite-position($alpha);
           @include checkdesk-button($grayLight);
           @include button-size(13px);
         }
+      }
+    }
+  }
+
+  .story-meta {
+    font-family: $sans-serif-font-stack;
+    color: rgba(0,0,0,.6); 
+    .separator {
+      color: rgba(0,0,0,.3); 
+    }
+    .gravatar {
+      margin-#{$omega}: $gutter-width/2;
+    }
+    a { 
+      font-weight: 700;
+      color: rgba(0,0,0,.6); 
+      &:hover { 
+        color: rgba(0,0,0,.8); 
+        text-decoration: none;
       }
     }
   }
@@ -152,10 +188,11 @@ $omega: opposite-position($alpha);
 
   .story-body {  
     @include ctb-clearfix;
-    margin: $base-line-height/4 0;
-    color: darken($grayLight, 20%);
+    margin: $absolute-line-height/2 0;
+    font-size: modular-scale(0) - modular-scale(-5); // 16px;
+    color: rgba(0,0,0,.9);
+    line-height: 1.6;
     text-shadow: 0 1px 1px rgba(255,255,255,.35);
-
     p {
       margin: $base-line-height/4 0;
       &:first-child {
@@ -167,29 +204,31 @@ $omega: opposite-position($alpha);
 
 // story lists
 .stories {
-  
   .story-row {
-      @include ctb-bg(#ddd, rgba(0, 0, 0, 0.1));
-      padding: $absolute-line-height/4 $gutter-width;
-      margin-bottom: $absolute-line-height/4;
-      &:last-child {
-        margin-bottom: 0;        
+    margin-bottom: $absolute-line-height/4;
+    padding: $absolute-line-height/2 0;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    &:last-child {
+      margin-bottom: 0;
+      border-bottom: 0px none;
+    }
+
+    a {
+      color: rgba(0,0,0,.6);
+      &:hover {
+        color: rgba(0,0,0,.8);
+        text-decoration: none;
       }
+    }
+
+    h3 {
+      @include reset-box-model;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px;
+      font-weight: 700;
       line-height: 1.4;
-      
-      h3 {
-        @include reset-box-model;
-        margin-bottom: $absolute-line-height/4;
-        font-family: $nav-font-stack;
-        font-size: 15px;
-        font-weight: bold;
-        a { @include ctb-linkColor($linkColor); }
-      }
-
-      .story-desc {
-        color: $gray;
-        font-size: 14px;
-
-      }
+    }
+    .story-desc {
+      display: none;
+    }
   }
 }
