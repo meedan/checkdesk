@@ -63,7 +63,8 @@
             url = MeedanBookmarklet.settings.url;
         // FIXME: Assumption that $ will be jQuery here. Not necessarily true. -- J. Andres
         $.each(MeedanBookmarklet.settings.prepopulate, function(field, value) {
-          url += '&meedan_bookmarklet_prepopulate[' + field + ']=' + getPageInformation(value);
+          value = encodeURIComponent(getPageInformation(value)).replace(/'/g, '"');
+          url += '&meedan_bookmarklet_prepopulate[' + field + ']=' + value;
         });
         $("head").append('<link type="text/css" rel="stylesheet" href="' + MeedanBookmarklet.settings.default_stylesheet + '?' + parseInt(Math.random()*10000000000, 10) + '" media="all" />');
         if (MeedanBookmarklet.settings.stylesheet !== '') $("head").append('<link type="text/css" rel="stylesheet" href="' + MeedanBookmarklet.settings.stylesheet + '?' + parseInt(Math.random()*10000000000, 10) + '" media="all" />');

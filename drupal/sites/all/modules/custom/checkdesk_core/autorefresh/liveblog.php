@@ -7,19 +7,20 @@ require("../../../../../../sites/{$server_name}/settings.php");
 // Connect to the database
 global $databases;
 $p = $databases['default']['default'];
-$mysql = mysql_pconnect($p['host'], $p['username'], @$p['password']);
-if (!$mysql) die('Could not connect to database server.');
-mysql_set_charset('utf8', $mysql);
-if (!mysql_select_db($p['database'], $mysql)) die('Could not select database.');
+$mysql = new PDO('mysql:host=' . $p['host'] . ';dbname=' . $p['database'], $p['username'], @$p['password']);
+$mysql->exec('SET NAMES utf8');
 
-$timestamp = mysql_real_escape_string($_REQUEST['timestamp']);
+$timestamp = intval($_REQUEST['timestamp']);
 
 $sql = "SELECT COUNT(nid) FROM node WHERE type='discussion' AND changed > " . $timestamp;
 if (!empty($_REQUEST['uid'])) {
-  $uid = mysql_real_escape_string($_REQUEST['uid']);
+  $uid = intval($_REQUEST['uid']);
   $sql .= " AND uid = " . $uid;
 }
-$count = mysql_result(mysql_query($sql, $mysql), 0);
+
+$query = $mysql->prepare($sql);
+$query->execute();
+$count = $query->fetchColumn();
  
 print json_encode(array(
   'pong' => $count,

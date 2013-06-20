@@ -2136,7 +2136,7 @@ div.block:hover .edit {
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-#my-notifications .checkdesk_fact_checking_set .heartbeat-time-ago:before, #my-notifications .checkdesk_report_published_in_update .heartbeat-time-ago:before {
+#my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before, #my-notifications .checkdesk_fact_checking_set .heartbeat-time-ago:before, #my-notifications .checkdesk_report_published_in_update .heartbeat-time-ago:before {
   content: "\f005";
 }
 
@@ -2218,19 +2218,15 @@ html body div.livefyre-header:before, body div.fb-comments-header:before {
   content: "\f086";
 }
 
-.report h3 > a[href*="twitter.com"]:before, #widgets .elsewhere ul li span.icon-twitter:before, body.page-user-login #user-login #edit-social-media-signin li.first a:before,
-body.page-user-register #user-login #edit-social-media-signin li.first a:before,
-body.page-user-password #user-login #edit-social-media-signin li.first a:before {
+.report h3 > a[href*="twitter.com"]:before, #widgets .elsewhere ul li span.icon-twitter:before, #user-login #edit-social-media-signin li.first a:before {
   content: "\f099";
 }
 
-#widgets .elsewhere ul li span.icon-facebook:before, body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:before,
-body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:before,
-body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:before {
+#widgets .elsewhere ul li span.icon-facebook:before, #user-login #edit-social-media-signin li a[class^='facebook']:before {
   content: "\f09a";
 }
 
-.admin-nav-tabs > li span.icon-wrench:before, #my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before {
+.admin-nav-tabs > li span.icon-wrench:before {
   content: "\f0ad";
 }
 
@@ -2240,6 +2236,10 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
 
 .update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before, nav[role="navigation"] li.additional a:before {
   content: "\f0c9";
+}
+
+#widgets .elsewhere ul li span.icon-google-plus:before {
+  content: "\f0d4";
 }
 
 #incoming-reports-filters .icon-caret-down:before {
@@ -3422,6 +3422,18 @@ textarea {
   float: left;
 }
 
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+
 .hide {
   display: none;
 }
@@ -4323,7 +4335,7 @@ div.tabs ul.primary li a {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: inherit;
-  color: #cccccc;
+  color: #0088ff;
   margin: 0 5.5px;
   width: auto;
   vertical-align: baseline;
@@ -4654,6 +4666,13 @@ div.tabs ul.primary li a {
   color: rgba(0, 0, 0, 0.6);
   margin-top: 24px;
   padding: 24px 22px;
+}
+#partner-header-inner .checkdesk-slogan-logo {
+  display: inline-block;
+  width: 86px;
+  height: 22px;
+  text-indent: -5000em;
+  background: transparent url(../imgs/checkdesk-logo.png) center bottom no-repeat;
 }
 
 #footer {
@@ -5946,7 +5965,8 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 .meedan-bookmarklet-internal #meedan_bookmarklet_preview,
 .meedan-bookmarklet-internal #edit-body,
 .meedan-bookmarklet-internal #edit-graphic-content,
-.meedan-bookmarklet-internal #edit-actions #edit-submit {
+.meedan-bookmarklet-internal #edit-actions #edit-submit,
+.meedan-bookmarklet-internal #edit-title {
   display: none;
 }
 
@@ -5976,18 +5996,22 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 #meedan_bookmarklet .field-edit-link {
   display: none;
 }
-#meedan_bookmarklet input[type=text],
-#meedan_bookmarklet input[type=password],
-#meedan_bookmarklet textarea {
+#meedan_bookmarklet .link-field-url input[type=text],
+#meedan_bookmarklet .link-field-url input[type=password],
+#meedan_bookmarklet .link-field-url textarea {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-#meedan_bookmarklet input[type=text] {
+#meedan_bookmarklet .link-field-url input[type=text] {
   width: 278px;
   padding-right: 45px;
+}
+#meedan_bookmarklet form input[type=text] {
+  width: 323px;
+  padding: 5px;
 }
 #meedan_bookmarklet .form-type-textarea {
   padding-top: 11px;
@@ -6072,13 +6096,44 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   display: block;
   margin: 0;
 }
-#meedan_bookmarklet #user-login #edit-social-media-signin label, #meedan_bookmarklet #user-login #edit-social-media-signin li, #meedan_bookmarklet #user-login #edit-social-media-signin a {
-  float: left;
+#meedan_bookmarklet #user-login .messages.error {
+  position: static;
+  font-size: 14px;
+  margin-bottom: 8px;
 }
-#meedan_bookmarklet #user-login #edit-social-media-signin li {
-  margin-left: 5px;
+#meedan_bookmarklet #user-login #edit-social-media-signin {
+  margin-top: 12px;
 }
-#meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all {
+#meedan_bookmarklet #user-login #edit-social-media-signin .item-list li a {
+  padding: 8px 11px;
+}
+#meedan_bookmarklet #user-login .or {
+  margin: 0 0;
+}
+#meedan_bookmarklet #user-login .user-links {
+  clear: both;
+  font-size: 14px;
+  padding-right: 11px;
+}
+#meedan_bookmarklet #user-login .form-item-remember-me {
+  clear: none;
+}
+#meedan_bookmarklet #user-login .form-item-remember-me label {
+  font-size: 14px;
+}
+#meedan_bookmarklet #user-login .user-new-account-link .register {
+  text-align: right;
+  font-size: 14px;
+}
+#meedan_bookmarklet #user-login input[type=text],
+#meedan_bookmarklet #user-login input[type=password] {
+  width: 323px;
+  padding-right: 0;
+}
+#meedan_bookmarklet #user-login .form-actions {
+  margin-top: 12px;
+}
+#meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all, #meedan_bookmarklet #absolute-messages-messages {
   display: none !important;
 }
 #meedan_bookmarklet .messages.error {
@@ -6242,45 +6297,50 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 #modalContent.modal-install-bookmarklet .modal-header .modal-title {
   display: none;
 }
-#modalContent.modal-install-bookmarklet #install-bookmarklet-button {
-  background: transparent url(../imgs/icons/bookmarklet-drag.png) left center no-repeat;
-  display: block;
-  height: 84px;
-  width: 233.33333px;
-  padding-left: 66px;
+#modalContent.modal-install-bookmarklet .install-bookmarklet-col {
+  float: left;
+  margin-top: -24px;
+}
+#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button {
+  position: relative;
+  text-align: center;
+  margin-top: -12px;
+}
+#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button:before {
+  pointer-events: none;
+  content: "";
   position: absolute;
-  left: 15px;
-  top: -52px;
-  z-index: 1056;
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
+  top: -35px;
+  bottom: 0;
+  left: -60px;
+  width: 66px;
+  height: 84px;
+  background: transparent url(../imgs/icons/bookmarklet-drag.png) no-repeat;
   overflow: visible;
 }
-#modalContent.modal-install-bookmarklet #install-bookmarklet-button span {
-  position: absolute;
-  top: 35px;
+#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button a {
   padding: 10px;
-  font-size: 16px;
+  display: block;
   background: #0088ff;
+  font-size: 15px;
+  color: white;
+  text-decoration: none;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
+  overflow: visible;
 }
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col {
-  float: left;
-}
-#modalContent.modal-install-bookmarklet .install-bookmarklet-col h3 {
+#modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button .description {
   margin: 0;
   padding: 0;
-  margin: 20px auto 25px auto;
-  padding-left: 60px;
-  text-align: center;
-  font-size: 15.3px;
+  margin: 12px auto;
+  font-size: 14px;
   font-weight: normal;
+  line-height: 1.3;
   color: #999999;
+  width: 80%;
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col ul {
   margin: 0;
@@ -6301,9 +6361,8 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   margin: 0;
   padding: 0;
   font-weight: normal;
-  font-size: 29px;
+  font-size: 20px;
   color: #555555;
-  margin-top: -30px;
   width: 90%;
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col p {
@@ -6312,7 +6371,7 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 #modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:first-child {
   float: left;
   margin-right: 11px;
-  padding-left: 22px;
+  padding-left: 11px;
   clear: both;
   width: 250px;
 }
@@ -6983,7 +7042,7 @@ label, input, button, select, textarea, body.cke_editable {
   font-size: 18px;
 }
 
-textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="text"], .uneditable-input {
   background-color: white;
   border: 1px solid #cccccc;
   -webkit-box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
@@ -6994,7 +7053,7 @@ textarea, body.cke_editable, input[type="text"], input[type="password"], input[t
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
-textarea:focus, body.cke_editable:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+textarea:focus, body.cke_editable:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, input[type="text"]:focus, .uneditable-input:focus {
   border-color: rgba(38, 72, 135, 0.8);
   outline: 0;
   outline: thin dotted \9;
@@ -7012,6 +7071,7 @@ select[multiple], select[size] {
 }
 
 form input[type="text"],
+form input[type="file"],
 form textarea {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -7025,6 +7085,7 @@ form textarea {
   margin-top: 11px;
 }
 form input[type="text"]:focus,
+form input[type="file"]:focus,
 form textarea:focus {
   border-color: rgba(0, 0, 0, 0.5);
   outline: thin dotted #ededed;
@@ -7379,6 +7440,7 @@ form > .form-item .form-item {
 }
 form input[type="password"],
 form input[type="text"],
+form input[type="file"],
 form textarea {
   padding-left: 0.77574%;
   padding-right: 0.77574%;
@@ -7442,6 +7504,7 @@ form .form-type-textarea:after {
   }
   form input[type="password"],
   form input[type="text"],
+  form input[type="file"],
   form textarea {
     padding-left: 2.40175%;
     padding-right: 2.40175%;
@@ -8100,6 +8163,17 @@ body.widgets #main #content #content-inner:after {
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
 }
+#widgets .elsewhere ul li span.icon-google-plus:before {
+  font-family: "FontAwesome";
+  font-size: 40px;
+  line-height: inherit;
+  color: #9d261d;
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+}
 #widgets .elsewhere ul li span.icon-youtube:before {
   font-family: "FontAwesomeSocial";
   font-size: 25px;
@@ -8249,9 +8323,15 @@ body.page-user-password #content-header {
   padding-left: 17.46725%;
   padding-right: 17.46725%;
 }
-body.page-user-login #user-login,
-body.page-user-register #user-login,
-body.page-user-password #user-login {
+@media (min-width: 469px) {
+  body.page-user-login form #edit-social-media-signin a,
+  body.page-user-register form #edit-social-media-signin a,
+  body.page-user-password form #edit-social-media-signin a {
+    font-size: 20px !important;
+  }
+}
+
+#user-login {
   width: 65.0655%;
   float: left;
   margin-right: 4.80349%;
@@ -8260,41 +8340,40 @@ body.page-user-password #user-login {
   padding-right: 17.46725%;
   margin-top: 24px;
 }
-body.page-user-login #user-login .form-required,
-body.page-user-register #user-login .form-required,
-body.page-user-password #user-login .form-required {
+#user-login .form-required {
   display: none;
 }
-body.page-user-login #user-login > div > .item-list,
-body.page-user-register #user-login > div > .item-list,
-body.page-user-password #user-login > div > .item-list {
+#user-login > div > .item-list {
   display: none;
 }
-body.page-user-login #user-login #edit-social-media-signin,
-body.page-user-register #user-login #edit-social-media-signin,
-body.page-user-password #user-login #edit-social-media-signin {
+#user-login #edit-social-media-signin {
+  float: none;
+}
+#user-login #edit-social-media-signin .item-list {
+  *zoom: 1;
   text-align: center;
 }
-body.page-user-login #user-login #edit-social-media-signin .item-list li,
-body.page-user-register #user-login #edit-social-media-signin .item-list li,
-body.page-user-password #user-login #edit-social-media-signin .item-list li {
-  margin: 0;
-  padding: 0;
+#user-login #edit-social-media-signin .item-list:before, #user-login #edit-social-media-signin .item-list:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#user-login #edit-social-media-signin .item-list:after {
+  clear: both;
+}
+#user-login #edit-social-media-signin .item-list li {
   margin: 0;
   padding: 0;
   display: inline;
   margin-right: 11px;
 }
-body.page-user-login #user-login #edit-social-media-signin .item-list li li,
-body.page-user-register #user-login #edit-social-media-signin .item-list li li,
-body.page-user-password #user-login #edit-social-media-signin .item-list li li {
+#user-login #edit-social-media-signin .item-list li li {
   list-style: none;
 }
-body.page-user-login #user-login #edit-social-media-signin .item-list li a,
-body.page-user-register #user-login #edit-social-media-signin .item-list li a,
-body.page-user-password #user-login #edit-social-media-signin .item-list li a {
+#user-login #edit-social-media-signin .item-list li a {
+  float: none;
   display: inline-block;
-  padding: 12px 44px;
+  padding: 12px 22px;
   margin-bottom: 12px;
   color: white;
   -webkit-border-radius: 4px;
@@ -8303,14 +8382,10 @@ body.page-user-password #user-login #edit-social-media-signin .item-list li a {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-body.page-user-login #user-login #edit-social-media-signin .item-list li a:hover,
-body.page-user-register #user-login #edit-social-media-signin .item-list li a:hover,
-body.page-user-password #user-login #edit-social-media-signin .item-list li a:hover {
+#user-login #edit-social-media-signin .item-list li a:hover {
   text-decoration: none;
 }
-body.page-user-login #user-login #edit-social-media-signin li.first a,
-body.page-user-register #user-login #edit-social-media-signin li.first a,
-body.page-user-password #user-login #edit-social-media-signin li.first a {
+#user-login #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -8321,14 +8396,10 @@ body.page-user-password #user-login #edit-social-media-signin li.first a {
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-body.page-user-login #user-login #edit-social-media-signin li.first a:hover,
-body.page-user-register #user-login #edit-social-media-signin li.first a:hover,
-body.page-user-password #user-login #edit-social-media-signin li.first a:hover {
+#user-login #edit-social-media-signin li.first a:hover {
   background-color: #1d87c9;
 }
-body.page-user-login #user-login #edit-social-media-signin li.first a:before,
-body.page-user-register #user-login #edit-social-media-signin li.first a:before,
-body.page-user-password #user-login #edit-social-media-signin li.first a:before {
+#user-login #edit-social-media-signin li.first a:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
@@ -8339,9 +8410,7 @@ body.page-user-password #user-login #edit-social-media-signin li.first a:before 
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
 }
-body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook'],
-body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook'],
-body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook'] {
+#user-login #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -8352,14 +8421,10 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:hover,
-body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:hover,
-body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:hover {
+#user-login #edit-social-media-signin li a[class^='facebook']:hover {
   background-color: #264887;
 }
-body.page-user-login #user-login #edit-social-media-signin li a[class^='facebook']:before,
-body.page-user-register #user-login #edit-social-media-signin li a[class^='facebook']:before,
-body.page-user-password #user-login #edit-social-media-signin li a[class^='facebook']:before {
+#user-login #edit-social-media-signin li a[class^='facebook']:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
@@ -8370,17 +8435,22 @@ body.page-user-password #user-login #edit-social-media-signin li a[class^='faceb
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
 }
-body.page-user-login #user-login .or,
-body.page-user-register #user-login .or,
-body.page-user-password #user-login .or {
+#user-login .or {
+  *zoom: 1;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   color: #999999;
   text-align: center;
   margin: 12px 0;
 }
-body.page-user-login #user-login .or span,
-body.page-user-register #user-login .or span,
-body.page-user-password #user-login .or span {
+#user-login .or:before, #user-login .or:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#user-login .or:after {
+  clear: both;
+}
+#user-login .or span {
   display: inline-block;
   border: 1px solid #cccccc;
   width: 40px;
@@ -8394,95 +8464,62 @@ body.page-user-password #user-login .or span {
   -o-border-radius: 1000px;
   border-radius: 1000px;
 }
-body.page-user-login #user-login .user-links,
-body.page-user-register #user-login .user-links,
-body.page-user-password #user-login .user-links {
+#user-login .user-links {
   *zoom: 1;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 15.3px;
+  font-size: 15px;
   line-height: 1.5;
 }
-body.page-user-login #user-login .user-links:before, body.page-user-login #user-login .user-links:after,
-body.page-user-register #user-login .user-links:before,
-body.page-user-register #user-login .user-links:after,
-body.page-user-password #user-login .user-links:before,
-body.page-user-password #user-login .user-links:after {
+#user-login .user-links:before, #user-login .user-links:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.page-user-login #user-login .user-links:after,
-body.page-user-register #user-login .user-links:after,
-body.page-user-password #user-login .user-links:after {
+#user-login .user-links:after {
   clear: both;
 }
-body.page-user-login #user-login .form-item-remember-me,
-body.page-user-register #user-login .form-item-remember-me,
-body.page-user-password #user-login .form-item-remember-me {
+#user-login .form-item-remember-me {
   float: left;
   padding-left: 22px;
 }
-body.page-user-login #user-login .form-item-remember-me label,
-body.page-user-register #user-login .form-item-remember-me label,
-body.page-user-password #user-login .form-item-remember-me label {
+#user-login .form-item-remember-me label {
   display: inline-block;
   color: #999999;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 15.3px;
+  font-size: 15px;
   line-height: 1.5;
 }
-body.page-user-login #user-login .form-item-remember-me input[type="checkbox"],
-body.page-user-register #user-login .form-item-remember-me input[type="checkbox"],
-body.page-user-password #user-login .form-item-remember-me input[type="checkbox"] {
+#user-login .form-item-remember-me input[type="checkbox"] {
   float: left;
   width: auto;
 }
-body.page-user-login #user-login .user-forgot-pass-link,
-body.page-user-register #user-login .user-forgot-pass-link,
-body.page-user-password #user-login .user-forgot-pass-link {
+#user-login .user-forgot-pass-link {
   float: right;
 }
-body.page-user-login #user-login .form-actions .form-submit,
-body.page-user-register #user-login .form-actions .form-submit,
-body.page-user-password #user-login .form-actions .form-submit {
+#user-login .form-actions .form-submit {
   float: left;
 }
-body.page-user-login #user-login .form-actions .user-new-account-link,
-body.page-user-register #user-login .form-actions .user-new-account-link,
-body.page-user-password #user-login .form-actions .user-new-account-link {
+#user-login .form-actions .user-new-account-link {
   float: right;
   margin-top: 6px;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 15.3px;
+  font-size: 15px;
   color: #999999;
 }
-body.page-user-login #user-login .form-actions .user-new-account-link span,
-body.page-user-register #user-login .form-actions .user-new-account-link span,
-body.page-user-password #user-login .form-actions .user-new-account-link span {
+#user-login .form-actions .user-new-account-link span {
   display: inline-block;
 }
-body.page-user-login #user-login .form-actions .user-new-account-link .register,
-body.page-user-register #user-login .form-actions .user-new-account-link .register,
-body.page-user-password #user-login .form-actions .user-new-account-link .register {
+#user-login .form-actions .user-new-account-link .register {
   margin: 0;
   padding: 0;
   background: none;
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 15.3px;
+  font-size: 15px;
   font-weight: normal;
   color: #0088cc;
 }
-body.page-user-login #user-login .form-actions .user-new-account-link .register:hover,
-body.page-user-register #user-login .form-actions .user-new-account-link .register:hover,
-body.page-user-password #user-login .form-actions .user-new-account-link .register:hover {
+#user-login .form-actions .user-new-account-link .register:hover {
   color: black;
-}
-@media (min-width: 469px) {
-  body.page-user-login form #edit-social-media-signin a,
-  body.page-user-register form #edit-social-media-signin a,
-  body.page-user-password form #edit-social-media-signin a {
-    font-size: 20px !important;
-  }
 }
 
 .view-administer-users fieldset {

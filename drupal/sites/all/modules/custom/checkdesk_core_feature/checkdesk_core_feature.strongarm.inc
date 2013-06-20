@@ -307,6 +307,22 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'default_oembedcore_provider';
+  $strongarm->value = array(
+    'youtube' => TRUE,
+    'flickr' => TRUE,
+    'qik' => TRUE,
+    'revision3' => TRUE,
+    'soundcloud' => TRUE,
+    'twitter' => TRUE,
+    'viddler' => TRUE,
+    'vimeo' => TRUE,
+  );
+  $export['default_oembedcore_provider'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'fboauth_user_connections';
   $strongarm->value = array(
     0 => 'posts',
@@ -515,6 +531,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'htmlmail_theme';
+  $strongarm->value = 'checkdesk';
+  $export['htmlmail_theme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'ife_display';
   $strongarm->value = '2';
   $export['ife_display'] = $strongarm;
@@ -573,6 +596,7 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->value = array(
     'field_rating' => 'field_rating',
     'field_stories' => 'field_stories',
+    'title' => 0,
     'body' => 0,
     'field_link' => 0,
   );
@@ -612,6 +636,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'meedan_bookmarklet_prepopulate_field_stories';
   $strongarm->value = 'title';
   $export['meedan_bookmarklet_prepopulate_field_stories'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_prepopulate_title';
+  $strongarm->value = 'title';
+  $export['meedan_bookmarklet_prepopulate_title'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -665,6 +696,13 @@ function checkdesk_core_feature_strongarm() {
     'article' => 0,
   );
   $export['meedan_facebook_comments_types'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_livefyre_lazy_load_comments';
+  $strongarm->value = 1;
+  $export['meedan_livefyre_lazy_load_comments'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1408,6 +1446,17 @@ Your account on [site:name] has been canceled.
   $strongarm->name = 'user_signatures';
   $strongarm->value = 0;
   $export['user_signatures'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'variable_realm_list_language';
+  $strongarm->value = array(
+    0 => 'checkdesk_site_owner',
+    1 => 'site_name',
+    2 => 'site_slogan',
+  );
+  $export['variable_realm_list_language'] = $strongarm;
 
   return $export;
 }

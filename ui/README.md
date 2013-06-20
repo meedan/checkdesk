@@ -14,6 +14,12 @@ The AngularJS based user interface for the Checkdesk project.
 5. You should now have a fresh copy of `build/checkdesk.js`.
 
 
+### Project documentation
+
+1. Build fresh documentation with `grunt docs`
+2. Run the documentation server using `grunt docular-server`
+
+
 ### Server Configuration
 
 The checkdesk project uses Drupal as a back-end, see the 'drupal' directory in the project root.
@@ -45,7 +51,7 @@ The server configuration proxies requests from some paths through to the Drupal 
         # it is important to proxy these.
         #
         # api and admin are the two paths we really want to proxy.
-        location ~ /(misc|modules|sites|themes|api|admin) {
+        location ~ /(misc|modules|sites|themes|services|api|admin) {
             # Pass to the Drupal site, eg: /Users/james/Code/Meedan/Checkdesk
             proxy_pass  http://checkdesk.localhost;
         }
@@ -94,13 +100,15 @@ The server configuration proxies requests from some paths through to the Drupal 
 
     RewriteEngine On
 
-    RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|api|admin)
+    # You MUST have mod_proxy and mod_proxy_http for this to work, else you
+    # will get a 404
+    RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|services|api|admin)
     RewriteRule ^(.*)$ http://checkdesk.local/$1 [L,P]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !=/favicon.ico
-    RewriteRule ^ index.html [L]
+    RewriteRule ^(.*)$ index.html?q=$1 [L]
 
 
 ## Project layout
@@ -115,6 +123,7 @@ The server configuration proxies requests from some paths through to the Drupal 
        |...libs (../libs)
        |...template (../src/templates)
        |-scripts                           # Scripts, eg: nodejs, bash, python
+       |-snapshots                         # Static site snapshots
        |-src                               # The source code for the application
        |---controllers
        |---directives
@@ -125,3 +134,22 @@ The server configuration proxies requests from some paths through to the Drupal 
        |---templates
        |-test                              # Testing code, eg: unit tests
        |---unit
+
+
+## Snapshotting For Robots
+
+Accommodating search engine spiders and other robots can be tricky for sites with a Javascript heavy front-end. For this reason static snapshots of the site are captured at intervals.
+
+When a robot is detected (eg: Nginx, Varnish) the request is rewritten to serve the snapshot rather than the dynamic page.
+
+
+
+### PhantomJS Snapshot Script
+
+    Sript: scripts/phantomjs-snapshot.js
+
+PhantomJS is used to capture the static site snapshots.
+
+It is important to ensure the page has fully loaded before each snapshot is taken. A special  `<body data-status="ready">` flag is used to inform the PhantomJS script when the snapshot can be taken. The PhantomJS script polls every few milliseconds waiting for this flag to be set.
+
+It is important that each new site page take this special flag into account. It can easily be set using the PageState service.

@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-docular');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
 
@@ -30,11 +31,7 @@ module.exports = function(grunt) {
         src: [
           'src/app.js',
           'src/app.router.js',
-          'src/app.l10n.js',
           'src/modules/**/*.js',
-          'src/services/**/*.js',
-          'src/directives/**/*.js',
-          'src/filters/**/*.js',
           'src/**/*.js'
         ],
         dest: 'build/<%= pkg.name %>.js'
@@ -48,13 +45,32 @@ module.exports = function(grunt) {
         src: 'build/<%= pkg.name %>.js',
         dest: 'build/<%= pkg.name %>.min.js'
       }
+    },
+    docular: {
+      groups: [
+        {
+          groupTitle: 'Checkdesk App',
+          groupId: 'app',
+          groupIcon: 'icon-ok',
+          sections: [
+            {
+              id: 'cd',
+              title: 'cd',
+              scripts: ['src'],
+              docs: ['src/docs']
+            }
+          ]
+        }
+      ],
+      showDocularDocs: false,
+      showAngularDocs: false
+    },
+    ngmin: {
+      src: {
+        src: '<%= concat.src.dest %>',
+        dest: '<%= concat.src.dest %>'
+      }
     }
-    // ngmin: {
-    //   src: {
-    //     src: '<%= concat.src.dest %>',
-    //     dest: '<%= concat.src.dest %>'
-    //   }
-    // }
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -65,5 +81,8 @@ module.exports = function(grunt) {
   // grunt.registerTask('build', ['jshint', 'karma', 'concat', 'ngmin', 'uglify']);
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('build', ['jshint', 'concat', 'uglify']);
+
+  // Note, use 'grunt docular-server' to view the compiled documentation
+  grunt.registerTask('docs', ['jshint', 'docular']);
 
 };

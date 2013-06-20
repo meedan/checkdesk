@@ -41476,7 +41476,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $translations['ar:default']['ef7131b8526153b01d573bf1299920ae'] = array(
     'source' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -41485,7 +41485,7 @@ print theme(\'views_autorefresh\', array(
     'location' => '/ar',
     'translation' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000, 
+  \'interval\' => 5000,
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -43040,7 +43040,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Please <a href="@register_url">register</a> or <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.',
     'context' => '',
     'location' => '/meedan/meedan-checkdesk/drupal/ar/liveblog/one-more-test',
-    'translation' => 'TODO',
+    'translation' => 'الرجاء <a href="@register_url">إنشاء حساباً جديداً</a> أو <a href="@login_url">تسجيل الدخول</a> لإضافة ملاحظات والمشاركة في التحقق من صحة المعلومات.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43468,6 +43468,30 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['9519bfbd9446e034c588bfd437fb3562'] = array(
+    'source' => '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> you submitted. Fact checking is in progress.</p>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => '<p>قام <strong><a href="!user_url">!username</a></strong> بتفعيل التحقق من صحة المعلومات <strong><a href="!report_url">للتقرير</a></strong> الذي انشأته. التحقق من صحة المعلومات جارٍ.</p>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a7c7cd53e0a23c92164ad94ad26a09cb'] = array(
+    'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'مدونة <span class="checkdesk-slogan-logo">Checkdesk</span> مباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['6db02ad27c3c5e24b0e28104f934ade8'] = array(
+    'source' => 'To add a link, you need to log in.',
+    'context' => '',
+    'location' => '/ar/user/login?destination=node/add/media%3Fmeedan_bookmarklet%3D1%26meedan_bookmarklet_prepopulate%5Bbody%5D%3D%26meedan_bookmarklet_prepopulate%5Bfield_link%5D%3Dhttp%253A//www.youtube.com/&meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=&meedan_bookmarklet_prepopulate[field_link]=http%3A//www.youtube.com/',
+    'translation' => 'لإضافة رابط، الرجاء تسجيل الدخول.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
@@ -43692,6 +43716,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:menu']['1ac5d0b1c58fb0dea352e06cabd7b077'] = array(
+    'source' => 'Supported by Meedan',
+    'context' => 'item:93091458-8370-4ca5-9fae-2ac710021e68:title',
+    'location' => 'menu:item:93091458-8370-4ca5-9fae-2ac710021e68:title',
+    'translation' => 'بدعم من ميدان',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['cdb4f25368ae3d022c03b88e4266c144'] = array(
+    'source' => 'Powered by',
+    'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
+    'location' => 'menu:item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
+    'translation' => 'تطوير',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:menu']['763308ddea446ed598f1de10ab7c14d2'] = array(
     'source' => 'Information',
     'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
@@ -43713,22 +43753,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => 'item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
     'location' => 'menu:item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
     'translation' => 'إدارة المستخدمين',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:menu']['1ac5d0b1c58fb0dea352e06cabd7b077'] = array(
-    'source' => 'Supported by Meedan',
-    'context' => 'item:93091458-8370-4ca5-9fae-2ac710021e68:title',
-    'location' => 'menu:item:93091458-8370-4ca5-9fae-2ac710021e68:title',
-    'translation' => 'بدعم من ميدان',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:menu']['cdb4f25368ae3d022c03b88e4266c144'] = array(
-    'source' => 'Powered by',
-    'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
-    'location' => 'menu:item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
-    'translation' => 'تطوير',
     'plid' => 0,
     'plural' => 0,
   );

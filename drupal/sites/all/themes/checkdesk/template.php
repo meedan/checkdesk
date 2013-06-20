@@ -433,8 +433,7 @@ function checkdesk_preprocess_page(&$variables) {
   $bg = theme_get_setting('header_bg_path');
   $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
 
-  $slogan = theme_get_setting('header_slogan');
-  $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
+  $variables['header_slogan'] = t('A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
   $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
 
   // set page variable if widgets should be visible
@@ -585,7 +584,8 @@ function checkdesk_preprocess_node(&$variables) {
         // Drupal.behavior.lazyLoadSrc handles re-applying the src attribute when
         // the iframe tag enters the viewport.
         // See: http://stackoverflow.com/a/7154968/806988
-        $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src)=/i', '<\1\2src="about:blank" data-lazy-load-src=', $field_link_rendered);
+        $placeholder = base_path() . path_to_theme() . '/assets/imgs/icons/loader_white.gif';
+        $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src)=/i', '<\1\2src="' . $placeholder . '" data-lazy-load-src=', $field_link_rendered);
 
         // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)
         $field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);

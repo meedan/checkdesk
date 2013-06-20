@@ -57,12 +57,15 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $message = isset($preview['error']) ? $preview['error']['message'] : $preview['preview'];
     $form['report_preview'] = array(
       '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . (isset($preview['preview']) ? $preview['preview'] : '') . '</div></div>',
-      '#weight' => 1, 
     );
-    $form['field_link']['#weight'] = 0;
+
+    // Fields order
+    $form['field_link']['#weight'] = -1;
+    $form['report_preview']['#weight'] = 0;
    
-    // Change field label
-    $form['body']['und'][0]['#title'] = t('Edit description');
+    // Change field labels
+    $form['body']['und'][0]['#attributes'] = array('placeholder' => t('Description'));
+    $form['title']['#attributes'] = array('placeholder' => t('Title'));
 
     // Description textarea should not be resizable
     $form['body']['und'][0]['#resizable'] = FALSE;
@@ -81,8 +84,9 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     // Additional processing for internal bookmarklet
     global $base_url;
     if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {
-      if (isset($form['field_link'])) $form['field_link']['und'][0]['#default_value'] = '';
-      if (isset($form['body'])) $form['body']['und'][0]['#default_value'] = '';
+      foreach (array('title', 'body', 'field_link') as $field) {
+        if (isset($form[$field])) $form[$field]['und'][0]['#default_value'] = '';
+      }
       $form['#after_build'][] = '_checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet';
     }
 
@@ -189,6 +193,11 @@ function checkdesk_bookmarklet_node_insert($node) {
  */
 function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
   global $base_url;
+  // If the user is not logged in, replace bookmarklet title to help text
+  if(isset($variables['meedan_bookmarklet_title']) && !user_is_logged_in()) {
+    $variables['meedan_bookmarklet_title'] = t('To ' . strtolower($variables['meedan_bookmarklet_title']) . ', you need to log in.');
+  }
+
   if (isset($_GET['meedan_bookmarklet_submitted'])) {
     $variables['meedan_bookmarklet_title'] = t('Report submitted, thanks!');
     $attributes = array('target' => '_blank', 'onclick' => 'if (window.parent.location.host == window.location.host) { window.parent.location.href = this.href; return false; }');

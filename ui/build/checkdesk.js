@@ -1,12 +1,23 @@
-/*! checkdesk - v0.1.0 - 2013-05-14
+/*! checkdesk - v0.1.0 - 2013-06-18
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
+/**
+ * @doc app
+ * @id index
+ * @name Checkdesk App
+ *
+ * @description
+ * The Checkdesk application is an AngularJS based front-end consuming
+ * web-servicesprovided by a Drupal powered back-end.
+ */
 var app = angular.module('Checkdesk', [
-      'ngTranslate',
-      'cdTranslationUI',
-      'Checkdesk.services'
+      'pascalprecht.translate',
+      'cd.l10n',
+      'cd.translationUI',
+      'cd.page',
+      'cd.services'
     ]),
-    appServices = angular.module('Checkdesk.services', ['ngResource']);
+    cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   // See: http://docs.angularjs.org/guide/dev_guide.services.$location
@@ -35,117 +46,82 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     controller: ReportFormCtrl
   });
 
+  $routeProvider.when('/translationsTest', {
+    templateUrl: 'templates/translationsTest.html',
+    controller: TranslationsTestCtrl
+  });
+
   $routeProvider.otherwise({ redirectTo: '/reports' });
 }]);
 
-app.config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
-  $translateProvider.translations('en_EN', {
-    // #/reports
-    'CALL_TO_ACTION_HEAD':                 'Help verify this report',
-    'CALL_TO_ACTION_TEXT':                 'Checkdesk is a collaborative space for journalist led and citizen participating fact-checking.',
-    'LANGUAGE_TOGGLE':                     'Switch to Arabic',
-    'WELCOME_USER':                        'Welcome, {{name}}',
-    'LOGOUT':                              'Logout',
-    'USER_NAME':                           'User name',
-    'PASSWORD':                            'Password',
-    'LOG_IN':                              'Log in',
-    'BOTTOM_CONTENT_GOES_HERE':            'Bottom content goes here.',
-    'REALLY_BOTTOM_CONTENT_GOES_HERE':     'Really bottom content goes here.',
-
-    // #/report/:nid
-    '#_FACT_CHECKING_FOOTNOTES':           '{{num}} fact-checking footnotes',
-    'VERIFIED':                            'Verified',
-    'CREATE_NOTE':                         'Create note',
-    'PEOPLE_HELPING_VERIFY_THIS_REPORT':   'People helping verify this report:',
-    '#_JOURNALISTS':                       '{{num}} journalists',
-    '#_CITIZENS':                          '{{num}} citizens',
-    'CHANGED_STATUS_TO_VERIFIED':          'Changed status to verified',
-    '#_MINUTES_SHORT':                     '{{num}}m',
-    '#_HOURS_SHORT':                       '{{num}}h',
-    'LOREM_IPSUM':                         'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    'CHANGED_STATUS_TO':                   'Changed status to',
-    'UNDETERMINED':                        'Undetermined',
-    'LOAD_MORE':                           'Load more'
-  });
-
-  $translateProvider.translations('ar_AR', {
-    // #/reports
-    'CALL_TO_ACTION_HEAD':                 'مساعدة في التحقق من هذا التقرير',
-    'CALL_TO_ACTION_TEXT':                 'Checkdesk هو مساحة تعاونية للصحفي ومواطن قاد المشاركة تدقيق الحقائق.',
-    'LANGUAGE_TOGGLE':                     'التبديل إلى الإنجليزية',
-    'WELCOME_USER':                        'أهلا، {{name}}',
-    'LOGOUT':                              'تسجيل الخروج',
-    'USER_NAME':                           'اسم المستخدم',
-    'PASSWORD':                            'كلمة السر',
-    'LOG_IN':                              'تسجيل الدخول',
-    'BOTTOM_CONTENT_GOES_HERE':            'محتوى أسفل يذهب هنا.',
-    'REALLY_BOTTOM_CONTENT_GOES_HERE':     'محتوى أسفل حقا يذهب هنا.',
-
-    // #/report/:nid
-    '#_FACT_CHECKING_FOOTNOTES':           '{{num}} الحواشي تدقيق الحقائق',
-    'VERIFIED':                            'التحقق',
-    'CREATE_NOTE':                         'إنشاء حاشية',
-    'PEOPLE_HELPING_VERIFY_THIS_REPORT':   'الناس الذين يساعدون تحقق من هذا التقرير:',
-    '#_JOURNALISTS':                       '{{num}} الصحفيين',
-    '#_CITIZENS':                          '{{num}} مواطنا',
-    'CHANGED_STATUS_TO_VERIFIED':          'تغيرت الحالة إلى <em>التحقق</em>',
-    '#_MINUTES_SHORT':                     '{{num}} دقيقة',
-    '#_HOURS_SHORT':                       '{{num}} ساعات',
-    'LOREM_IPSUM':                         'غريمه وحلفاؤها تعد من, جُل لم الذود السبب الأمامية, وبعض شمال فمرّ بحث لم. مما أمدها الأرواح بـ, بالقصف اتفاقية لبولندا بـ حشد, سقط أم الذود للصين للألمان.',
-    'CHANGED_STATUS_TO_*':                 'تغيرت الحالة إلى',
-    'UNDETERMINED':                        'غير محدد',
-    'LOAD_MORE':                           'تحميل أكثر'
-  });
-  $translateProvider.uses('ar_AR');
-
-  $translateProvider.rememberLanguage(true);
-
-  // Experimental missing translation handler for the cdTranslationUI module.
-  // @see: https://github.com/PascalPrecht/ng-translate/commit/9a042c7f2cf1e3ff57b6a2fbd497a8b9ddcb0ef4
-  $translateProvider.missingTranslationHandler(cdTranslationUIProvider.missingTranslationHandler);
-}]);
-
-angular.module('cdTranslationUI', [])
-  // Defines cdTranslationUIProvider
-  .provider('cdTranslationUI', function () {
-    var $missingTranslations = [];
-
-    this.missingTranslationHandler = function (translationId) {
-      if ($missingTranslations.indexOf(translationId) === -1) {
-        $missingTranslations.push(translationId);
-      }
-    };
-
-    this.$get = function () {
-      return {
-        missingTranslations: function () {
-          return $missingTranslations;
-        }
-      };
-    };
-  })
-  .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
-    $scope.collapsed = true;
-
-    $scope.toggle = function () {
-      $scope.collapsed = !$scope.collapsed;
-    };
-
-    $scope.missingTranslations = cdTranslationUI.missingTranslations();
-    $scope.inputTranslations = [];
-
-    $scope.translationChanged = function (index) {
-      var uses = $translate.uses(),
-          source = $scope.missingTranslations[index],
-          translation = $scope.inputTranslations[index];
-
-      $translate.translationTable[uses][source] = translation;
-      $translate.uses(uses);
-    };
+/**
+ * @ngdoc function
+ *
+ * Integration with Drupal Services X-CSRF-Token header.
+ *
+ * This code relies on this tag to be added to the page BEFORE the main application
+ * script tag.
+ *
+ *     <script src="services/session/token"></script>
+ */
+angular.module('cd.csrfToken', [])
+  .config(['$httpProvider', function ($httpProvider) {
+    // Set the cookie and header name to what the Drupal Services module expects.
+    $httpProvider.defaults.xsrfCookieName = 'CSRF-Token';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
   }]);
 
+/**
+ * @ngdoc module
+ * @name l10n
+ *
+ * @description
+ * The `cd.l10n` module manages all translation and localization aspects of
+ * the Checkdesk app.
+ */
+angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translationUI'])
+
+  /**
+   * @ngdoc function
+   * @name l10n.class:config
+   * @requires $translateProvider
+   *
+   * @description
+   * Configures all languages necessary for the Checkdesk app and sets the
+   * cdTranslationUI service as the missing translation handler for $translate.
+   */
+  .config(['$translateProvider', function ($translateProvider) {
+    $translateProvider.useUrlLoader('api/i18n?textgroup=ui&angular=1');
+    $translateProvider.preferredLanguage('ar');
+
+    $translateProvider.useCookieStorage();
+
+    $translateProvider.useMissingTranslationHandler('cdTranslationUI');
+  }]);
+
+angular.module('cd.page', [])
+  .factory('PageState', function() {
+    var status = 'loading',
+        title  = 'Checkdesk';
+
+    return {
+      status: function(newStatus) {
+        if (newStatus) {
+          status = newStatus;
+        }
+        return status;
+      },
+      title: function(newTitle) {
+        if (newTitle) {
+          title = newTitle;
+        }
+        return title;
+      }
+    };
+  });
+
 // Integration with Drupal services API
-appServices
+cdServices
   .factory('Comment', ['$resource', function($resource) {
     return $resource('api/node/:nid/comments', {}, {
       query: {
@@ -156,7 +132,7 @@ appServices
   }]);
 
 // Integration with Drupal services API
-appServices
+cdServices
   .factory('Report', ['$resource', '$http', function($resource, $http) {
     var Report = $resource('api/node/:nid', { nid: '@nid' }, {
       query: {
@@ -193,7 +169,7 @@ appServices
   }]);
 
 // Integration with Drupal services API
-appServices
+cdServices
   // TODO: Merge 'ReportActivity' cleanly into the 'Report' service.
   .factory('ReportActivity', ['$resource', function($resource) {
     return $resource('api/views/activity_report', {}, {
@@ -203,14 +179,14 @@ appServices
         //        services_views.module to return pre-formatted HTML. This is
         //        slightly more helpful, but I couldn't get Angular to process
         //        it correctly. Raw data is much better anyway.
-        params: { display_id: 'page_1', args: [] },
+        params: { display_id: 'services_1', args: [] },
         isArray: true
       }
     });
   }]);
 
 // Integration with Drupal services API
-appServices
+cdServices
   .factory('System', ['$resource', function($resource) {
     return $resource('api/system/:verb', {}, {
       connect: {
@@ -222,7 +198,43 @@ appServices
   }]);
 
 // Integration with Drupal services API
-appServices
+cdServices
+  .factory('Translation', ['$resource', '$http', function($resource, $http) {
+    var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
+      query: {
+        method: 'GET',
+        params: { lid: '', 'textgroup': 'ui' },
+        isArray: false
+      },
+      save: {
+        method: 'POST',
+        params: { lid: '' }
+      },
+      update: {
+        method: 'PUT'
+      },
+      remove: {
+        method: 'DELETE'
+      }
+    });
+
+    // Override the default $save method such that it uses PUT instead of POST
+    // when updating
+    // See: http://stackoverflow.com/a/16263805/806988
+    angular.extend(Translation.prototype, {
+      save: function (callback) {
+        if (this.lid) {
+          return this.$update(callback);
+        }
+        return this.$save(callback);
+      }
+    });
+
+    return Translation;
+  }]);
+
+// Integration with Drupal services API
+cdServices
   .factory('User', ['$resource', '$http', function($resource, $http) {
     return $resource('api/user/:verb', {}, {
       login: {
@@ -248,6 +260,160 @@ appServices
     });
   }]);
 
+/**
+ * @ngdoc module
+ * @name translationUI
+ *
+ * @description
+ * The `cd.translationUI` module houses the service and controller necessary
+ * to manage the Checkdesk real-time translation interface.
+ */
+angular.module('cd.translationUI', ['pascalprecht.translate'])
+
+  /**
+   * @ngdoc service
+   * @name translationUI.global:cdTranslationUI
+   * @requires $http
+   *
+   * @description
+   * Provides coordination for UI translation. Enables access to the
+   * $translate.translationTable and can be used as a missing translation handler
+   * for $translate.
+   */
+  .provider('cdTranslationUI', function () {
+    var $translationTable,
+        $missingTranslations = [],
+        $missingTranslationHandler = function (translationId, uses) {
+          if ($missingTranslations.indexOf(translationId) === -1) {
+            console.log([translationId, uses]);
+            $missingTranslations.push(translationId);
+          }
+        };
+
+    this.translationTable = function (translationTable) {
+      if (!angular.isUndefined(translationTable)) {
+        $translationTable = translationTable;
+      }
+
+      return $translationTable;
+    };
+
+    this.missingTranslations = function () {
+      return $missingTranslations;
+    };
+
+    $missingTranslationHandler.translationTable = this.translationTable;
+    $missingTranslationHandler.missingTranslations = this.missingTranslations;
+
+    this.$get = function () {
+      return $missingTranslationHandler;
+    };
+  })
+
+  /**
+   * @ngdoc function
+   * @name translationUI.class:config
+   * @requires $translateProvider
+   * @requires cdTranslationUIProvider
+   *
+   * @description
+   * Get's a reference to $translate's master translationTable. This is sort of
+   * a hack but is a very handy way to directly access the current list of
+   * translated strings on the page.
+   *
+   * See: {@link https://github.com/PascalPrecht/angular-translate/pull/61}
+   */
+  .config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
+    cdTranslationUIProvider.translationTable($translateProvider.translations());
+  }])
+
+  /**
+   * @ngdoc object
+   * @name translationUI.global:cdTranslationUICtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires cdTranslationUI
+   *
+   * @description
+   * Controller for the cd-translation-ui.html template.
+   */
+  .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
+    var translationSources = {};
+
+    $scope.collapsed = true;
+
+    $scope.toggle = function () {
+      $scope.collapsed = !$scope.collapsed;
+    };
+
+    $scope.$translate = $translate;
+    $scope.cdTranslationUI = cdTranslationUI;
+
+    $scope.translationTable = cdTranslationUI.translationTable();
+    $scope.editedTranslations = {};
+
+    // Helpful list of languages available in the system
+    $scope.languages = function () {
+      var languages = [], language;
+
+      for (language in $scope.translationTable) {
+        if ($scope.translationTable.hasOwnProperty(language)) {
+          languages.push(language);
+        }
+      }
+
+      return languages;
+    };
+
+    $scope.translationSources = function () {
+      var translationTable = cdTranslationUI.translationTable(),
+          missingTranslations = cdTranslationUI.missingTranslations(),
+          languages = $scope.languages(),
+          language, source, i, j;
+
+      for (language in translationTable) {
+        if (translationTable.hasOwnProperty(language)) {
+          for (source in translationTable[language]) {
+            // Ensure source is not an internal angular property, ugh.
+            if (translationTable[language].hasOwnProperty(source) && !source.match(/^\$\$/)) {
+              translationSources[source] = translationSources[source] || {};
+
+              // Create an empty record for each source language
+              for (j = languages.length - 1; j >= 0; j--) {
+                translationSources[source][languages[j]] = '';
+              }
+
+              translationSources[source][language] = translationTable[language][source];
+            }
+          }
+        }
+      }
+
+      for (i = missingTranslations.length - 1; i >= 0; i--) {
+        source = missingTranslations[i];
+
+        if (angular.isUndefined(translationSources[source])) {
+          translationSources[source] = {};
+
+          for (j = languages.length - 1; j >= 0; j--) {
+            if (angular.isUndefined(translationSources[source][languages[j]])) {
+              translationSources[source][languages[j]] = '';
+            }
+          }
+        }
+      }
+
+      return translationSources;
+    };
+
+    // Refreshes the display when a translation is changed
+    $scope.translationChanged = function (language, source) {
+      console.log([$scope.editedTranslations, language, source]);
+      $scope.translationTable[language][source] = $scope.editedTranslations[language][source];
+      $translate.uses($translate.uses());
+    };
+  }]);
+
 var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
   var updateLangClass = function (mode, langClass) {
         switch (mode) {
@@ -265,10 +431,10 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
   $scope.toggleLang = function () {
     updateLangClass('remove', $translate.uses());
-    if ($translate.uses() === 'en_EN') {
-      $translate.uses('ar_AR');
+    if ($translate.uses() === 'en-NG') {
+      $translate.uses('ar');
     } else {
-      $translate.uses('en_EN');
+      $translate.uses('en-NG');
     }
     updateLangClass('add', $translate.uses());
   };
@@ -315,8 +481,16 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
 app.controller('HeaderCtrl', HeaderCtrl);
 
-var ReportCtrl = ['$scope', '$routeParams', 'Report', 'ReportActivity', function ($scope, $routeParams, Report, ReportActivity) {
-  $scope.report = Report.get({ nid: $routeParams.nid });
+var PageCtrl = ['$scope', 'PageState', function ($scope, PageState) {
+  $scope.PageState = PageState;
+}];
+
+app.controller('PageCtrl', PageCtrl);
+
+var ReportCtrl = ['$scope', '$routeParams', 'PageState', 'Report', 'ReportActivity', function ($scope, $routeParams, PageState, Report, ReportActivity) {
+  $scope.report = Report.get({ nid: $routeParams.nid }, function () {
+    PageState.status('ready'); // This page has finished loading
+  });
   $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
 }];
 
@@ -364,7 +538,7 @@ var ReportFormCtrl = ['$scope', '$routeParams', '$location', 'Report', function 
 
 app.controller('ReportFormCtrl', ReportFormCtrl);
 
-var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
+var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState, Report) {
   $scope.reports = [];
 
   Report.query(function (reports) {
@@ -372,7 +546,32 @@ var ReportsCtrl = ['$scope', 'Report', function ($scope, Report) {
       // LOL: Hilariously unperformant, we will improve this of course.
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
+
+    PageState.status('ready'); // This page has finished loading
   });
 }];
 
 app.controller('ReportsCtrl', ReportsCtrl);
+
+var TranslationsTestCtrl = ['$scope', '$translate', 'Translation', function ($scope, $translate, Translation) {
+  $scope.translations = Translation.query({ language: $translate.uses() });
+
+  $scope.translation = new Translation({
+    language:    '',
+    context:     '',
+    source:      '',
+    translation: '',
+    textgroup:   '',
+    location:    '',
+    plid:        '',
+    plural:      ''
+  });
+
+  $scope.submit = function () {
+    $scope.translation.save();
+    return false;
+  };
+
+}];
+
+app.controller('TranslationsTestCtrl', TranslationsTestCtrl);
