@@ -508,6 +508,11 @@ function checkdesk_preprocess_node(&$variables) {
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
       '!interval' => format_interval((time() - $variables['created']), 1),
     ));
+    $variables['updated_at'] = t('<time datetime="!date">!datetime</time>', array(
+      '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
+      '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia')),
+      '!interval' => format_interval((time() - $variables['changed']), 1),
+    ));
   }
 
   $variables['icon'] = '';

@@ -30,5 +30,9 @@
   		<?php print render($content['body']); ?>
   	</div>
 
+    <div class="story-footer">
+      <?php print t('Updated at ') . $updated_at; ?>
+    </div>
+
   </article>
 </section>

@@ -46,18 +46,16 @@
     }
     // compose / create update form
     #block-checkdesk-core-post {
-
-      
-
       margin-top: $absolute-line-height;
       & > h2.open {
         color: rgba(0,0,0,.9);
+        @include icon("pencil", $large-font-size, rgba(0,0,0,.9));
         background-color: rgba(239,202,43,.2);
         border-radius: 0px;
       }
       
       & > h2 {
-        @include icon("pencil", $large-font-size);
+        @include icon("pencil", $large-font-size, $white);
         font-family: $sans-serif-font-stack;
         font-size: $large-font-size;
         margin-bottom: 0;
@@ -230,6 +228,17 @@ $omega: opposite-position($alpha);
         margin: 0 0;
       }
     }
+  }
+
+  .story-footer {
+    margin-top: $absolute-line-height/2;
+    padding: $absolute-line-height/4 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+    color: rgba(0,0,0,.2);
+    font-family: $sans-serif-font-stack;
+    font-size: $small-font-size;
+    font-style: italic;
+    text-align: $omega;
   }
 }
 

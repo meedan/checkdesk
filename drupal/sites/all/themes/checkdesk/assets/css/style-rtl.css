@@ -2194,7 +2194,7 @@ nav[role="navigation"] li.submit-report a:before {
   content: "\f02e";
 }
 
-nav[role="navigation"] a[href*="add/post"]:before, .node-type-discussion #main #block-checkdesk-core-post > h2:before, .page-liveblog #main #block-checkdesk-core-post > h2:before {
+nav[role="navigation"] a[href*="add/post"]:before, .node-type-discussion #main #block-checkdesk-core-post > h2.open:before, .page-liveblog #main #block-checkdesk-core-post > h2.open:before, .node-type-discussion #main #block-checkdesk-core-post > h2:before, .page-liveblog #main #block-checkdesk-core-post > h2:before {
   content: "\f040";
 }
 
@@ -7718,6 +7718,17 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   background-color: rgba(239, 202, 43, 0.2);
   border-radius: 0px;
 }
+.node-type-discussion #main #block-checkdesk-core-post > h2.open:before, .page-liveblog #main #block-checkdesk-core-post > h2.open:before {
+  font-family: "FontAwesome";
+  font-size: 20px;
+  line-height: inherit;
+  color: rgba(0, 0, 0, 0.9);
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+}
 .node-type-discussion #main #block-checkdesk-core-post > h2, .page-liveblog #main #block-checkdesk-core-post > h2 {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 20px;
@@ -7732,7 +7743,7 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
-  color: "black";
+  color: white;
   margin: 0 5.5px;
   width: auto;
   vertical-align: baseline;
@@ -7989,6 +8000,16 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
 }
 .story .story-body p:first-child {
   margin: 0 0;
+}
+.story .story-footer {
+  margin-top: 14.4px;
+  padding: 7.2px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.2);
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-style: italic;
+  text-align: left;
 }
 
 .stories .story-row {
