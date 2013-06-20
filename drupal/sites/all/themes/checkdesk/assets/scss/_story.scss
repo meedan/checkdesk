@@ -49,13 +49,13 @@
       margin-top: $absolute-line-height;
       & > h2.open {
         color: rgba(0,0,0,.9);
-        @include icon("pencil", $large-font-size, rgba(0,0,0,.9));
+        @include icon("pencil", $large-font-size, rgba(0,0,0,.9), $icon-position);
         background-color: rgba(239,202,43,.2);
         border-radius: 0px;
       }
       
       & > h2 {
-        @include icon("pencil", $large-font-size, $white);
+        @include icon("pencil", $large-font-size, $white, $icon-position);
         font-family: $sans-serif-font-stack;
         font-size: $large-font-size;
         margin-bottom: 0;
@@ -92,7 +92,7 @@
       text-transform: uppercase;
       font-weight: 700;
       font-size: modular-scale(0) - modular-scale(-3); // 14px
-      @if $from-direction == left {
+      @if $from-direction == 'left' {
         letter-spacing: 0.15em;
       }
       // update number
