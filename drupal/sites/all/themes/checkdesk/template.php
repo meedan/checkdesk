@@ -1079,8 +1079,8 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   }
 
   if ($vars['view']->name === 'updates_for_stories') {
-    $vars['counter'] = $vars['fields']['counter']->content;
-    if ($vars['counter'] == 1) {
+    $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
+    if ($vars['counter'] === $vars['view']->total_rows) {
       $vars['update'] = $vars['fields']['rendered_entity']->content;
     }
     else {
