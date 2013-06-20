@@ -55,9 +55,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 }]);
 
 /**
- * @ngdoc function
+ * @ngdoc object
  * @name cd.csrfToken
  *
+ * @description
  * Integration with Drupal Services X-CSRF-Token header.
  *
  * This code relies on this tag to be added to the page BEFORE the main application
@@ -66,8 +67,16 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
  *     <script src="services/session/token"></script>
  */
 angular.module('cd.csrfToken', [])
+
+  /**
+   * @ngdoc method
+   * @name cd.csrfToken#config
+   * @methodOf cd.csrfToken
+   *
+   * @description
+   * Set the cookie and header name to what the Drupal Services module expects.
+   */
   .config(['$httpProvider', function ($httpProvider) {
-    // Set the cookie and header name to what the Drupal Services module expects.
     $httpProvider.defaults.xsrfCookieName = 'CSRF-Token';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
   }]);
@@ -83,8 +92,9 @@ angular.module('cd.csrfToken', [])
 angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translationUI'])
 
   /**
-   * @ngdoc function
-   * @name cd.l10n.config
+   * @ngdoc method
+   * @name cd.l10n#config
+   * @methodOf cd.l10n
    * @requires $translateProvider
    *
    * @description
@@ -100,18 +110,40 @@ angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translatio
     $translateProvider.useMissingTranslationHandler('cdTranslationUI');
   }]);
 
+/**
+ * @ngdoc service
+ * @name cd.page.pageState
+ *
+ * @description
+ * State management for the loading status and title of each page.
+ */
 angular.module('cd.page', [])
-  .factory('PageState', function() {
+  .factory('pageState', function() {
     var status = 'loading',
         title  = 'Checkdesk';
 
     return {
+      /**
+       * @ngdoc method
+       * @name cd.page.pageState#status
+       * @methodOf cd.page.pageState
+       * @param {string=} new page status
+       * @returns {string} The current page status
+       */
       status: function(newStatus) {
         if (newStatus) {
           status = newStatus;
         }
         return status;
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.page.pageState#title
+       * @methodOf cd.page.pageState
+       * @param {string=} new page title
+       * @returns {string} The current page title
+       */
       title: function(newTitle) {
         if (newTitle) {
           title = newTitle;
@@ -121,10 +153,21 @@ angular.module('cd.page', [])
     };
   });
 
-// Integration with Drupal services API
+/**
+ * @ngdoc service
+ * @name cd.services.Comment
+ *
+ * @description
+ * Resource to interact with the Drupal comments API.
+ */
 cdServices
   .factory('Comment', ['$resource', function($resource) {
     return $resource('api/node/:nid/comments', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Comment#query
+       * @methodOf cd.services.Comment
+       */
       query: {
         method: 'GET',
         isArray: true
@@ -132,23 +175,52 @@ cdServices
     });
   }]);
 
-// Integration with Drupal services API
+/**
+ * @ngdoc service
+ * @name cd.services.Report
+ *
+ * @description
+ * Resource to interact with the Drupal report node API.
+ */
 cdServices
   .factory('Report', ['$resource', '$http', function($resource, $http) {
     var Report = $resource('api/node/:nid', { nid: '@nid' }, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Report#query
+       * @methodOf cd.services.Report
+       */
       query: {
         method: 'GET',
         params: { nid: '', 'parameters[type]': 'media', pagesize: 5 },
         isArray: true
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Report#get
+       * @methodOf cd.services.Report
+       */
       get: {
         method: 'GET',
         isArray: false
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Report#save
+       * @methodOf cd.services.Report
+       */
       save: {
         method: 'POST',
         params: { nid: '' }
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Report#update
+       * @methodOf cd.services.Report
+       */
       update: {
         method: 'PUT'
       }
@@ -169,11 +241,22 @@ cdServices
     return Report;
   }]);
 
-// Integration with Drupal services API
+/**
+ * @ngdoc service
+ * @name cd.services.ReportActivity
+ *
+ * @description
+ * Resource to retrieve the Drupal API for the activiy_report stream.
+ */
 cdServices
   // TODO: Merge 'ReportActivity' cleanly into the 'Report' service.
   .factory('ReportActivity', ['$resource', function($resource) {
     return $resource('api/views/activity_report', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.ReportActivity#query
+       * @methodOf cd.services.ReportActivity
+       */
       query: {
         method: 'GET',
         // FIXME: Sending the {format_output: '1'} param causes Drupal's
@@ -186,34 +269,77 @@ cdServices
     });
   }]);
 
-// Integration with Drupal services API
+/**
+ * @ngdoc service
+ * @name cd.services.System
+ *
+ * @description
+ * Resource to interact with the Drupal system API.
+ */
 cdServices
   .factory('System', ['$resource', function($resource) {
     return $resource('api/system/:verb', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.System#connect
+       * @methodOf cd.services.System
+       *
+       * @description
+       * Resolves to an object like {sessid:'123',user:{...}}
+       */
       connect: {
         method:  'POST',
         params:  { verb: 'connect' },
-        isArray: false // eg: {sessid:'123',user:{...}}
+        isArray: false
       }
     });
   }]);
 
-// Integration with Drupal services API
+/**
+ * @ngdoc service
+ * @name cd.services.Translation
+ *
+ * @description
+ * Resource to interact with the Drupal i18n API.
+ */
 cdServices
   .factory('Translation', ['$resource', '$http', function($resource, $http) {
     var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#query
+       * @methodOf cd.services.Translation
+       */
       query: {
         method: 'GET',
         params: { lid: '', 'textgroup': 'ui' },
         isArray: false
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#save
+       * @methodOf cd.services.Translation
+       */
       save: {
         method: 'POST',
         params: { lid: '' }
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#update
+       * @methodOf cd.services.Translation
+       */
       update: {
         method: 'PUT'
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#remove
+       * @methodOf cd.services.Translation
+       */
       remove: {
         method: 'DELETE'
       }
@@ -234,15 +360,38 @@ cdServices
     return Translation;
   }]);
 
-// Integration with Drupal services API
+/**
+ * @ngdoc service
+ * @name cd.services.User
+ *
+ * @description
+ * Resource to interact with the Drupal user API.
+ */
 cdServices
   .factory('User', ['$resource', '$http', function($resource, $http) {
     return $resource('api/user/:verb', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.User#login
+       * @methodOf cd.services.User
+       *
+       * @description
+       * Resolves to an object like {sessid:'123',sessname:'abc',user:{...}}
+       */
       login: {
         method: 'POST',
         params:  { verb: 'login' },
-        isArray: false // eg: {sessid:'123',sessname:'abc',user:{...}}
+        isArray: false
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.User#logout
+       * @methodOf cd.services.User
+       *
+       * @description
+       * After transformation, resolves to an object like { result: true }
+       */
       logout: {
         method: 'POST',
         params:  { verb: 'logout' },
@@ -311,8 +460,9 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   })
 
   /**
-   * @ngdoc function
-   * @name cd.translationUI.config
+   * @ngdoc method
+   * @name cd.translationUI#config
+   * @methodOf cd.translationUI
    * @requires $translateProvider
    * @requires cdTranslationUIProvider
    *
@@ -328,7 +478,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   }])
 
   /**
-   * @ngdoc object
+   * @ngdoc function
    * @name cd.translationUI.cdTranslationUICtrl
    * @requires $scope
    * @requires $translate
@@ -480,15 +630,15 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
 app.controller('HeaderCtrl', HeaderCtrl);
 
-var PageCtrl = ['$scope', 'PageState', function ($scope, PageState) {
-  $scope.PageState = PageState;
+var PageCtrl = ['$scope', 'pageState', function ($scope, pageState) {
+  $scope.pageState = pageState;
 }];
 
 app.controller('PageCtrl', PageCtrl);
 
-var ReportCtrl = ['$scope', '$routeParams', 'PageState', 'Report', 'ReportActivity', function ($scope, $routeParams, PageState, Report, ReportActivity) {
+var ReportCtrl = ['$scope', '$routeParams', 'pageState', 'Report', 'ReportActivity', function ($scope, $routeParams, pageState, Report, ReportActivity) {
   $scope.report = Report.get({ nid: $routeParams.nid }, function () {
-    PageState.status('ready'); // This page has finished loading
+    pageState.status('ready'); // This page has finished loading
   });
   $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
 }];
@@ -537,7 +687,7 @@ var ReportFormCtrl = ['$scope', '$routeParams', '$location', 'Report', function 
 
 app.controller('ReportFormCtrl', ReportFormCtrl);
 
-var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState, Report) {
+var ReportsCtrl = ['$scope', 'pageState', 'Report', function ($scope, pageState, Report) {
   $scope.reports = [];
 
   Report.query(function (reports) {
@@ -546,7 +696,7 @@ var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState,
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
 
-    PageState.status('ready'); // This page has finished loading
+    pageState.status('ready'); // This page has finished loading
   });
 }];
 

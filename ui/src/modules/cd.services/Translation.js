@@ -1,19 +1,48 @@
-// Integration with Drupal services API
+/**
+ * @ngdoc service
+ * @name cd.services.Translation
+ *
+ * @description
+ * Resource to interact with the Drupal i18n API.
+ */
 cdServices
   .factory('Translation', ['$resource', '$http', function($resource, $http) {
     var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#query
+       * @methodOf cd.services.Translation
+       */
       query: {
         method: 'GET',
         params: { lid: '', 'textgroup': 'ui' },
         isArray: false
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#save
+       * @methodOf cd.services.Translation
+       */
       save: {
         method: 'POST',
         params: { lid: '' }
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#update
+       * @methodOf cd.services.Translation
+       */
       update: {
         method: 'PUT'
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#remove
+       * @methodOf cd.services.Translation
+       */
       remove: {
         method: 'DELETE'
       }

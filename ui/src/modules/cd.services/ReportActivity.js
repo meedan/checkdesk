@@ -1,8 +1,19 @@
-// Integration with Drupal services API
+/**
+ * @ngdoc service
+ * @name cd.services.ReportActivity
+ *
+ * @description
+ * Resource to retrieve the Drupal API for the activiy_report stream.
+ */
 cdServices
   // TODO: Merge 'ReportActivity' cleanly into the 'Report' service.
   .factory('ReportActivity', ['$resource', function($resource) {
     return $resource('api/views/activity_report', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.ReportActivity#query
+       * @methodOf cd.services.ReportActivity
+       */
       query: {
         method: 'GET',
         // FIXME: Sending the {format_output: '1'} param causes Drupal's

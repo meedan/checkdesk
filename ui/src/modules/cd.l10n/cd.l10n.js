@@ -9,8 +9,9 @@
 angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translationUI'])
 
   /**
-   * @ngdoc function
-   * @name cd.l10n.config
+   * @ngdoc method
+   * @name cd.l10n#config
+   * @methodOf cd.l10n
    * @requires $translateProvider
    *
    * @description

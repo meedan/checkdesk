@@ -48,8 +48,9 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   })
 
   /**
-   * @ngdoc function
-   * @name cd.translationUI.config
+   * @ngdoc method
+   * @name cd.translationUI#config
+   * @methodOf cd.translationUI
    * @requires $translateProvider
    * @requires cdTranslationUIProvider
    *
@@ -65,7 +66,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   }])
 
   /**
-   * @ngdoc object
+   * @ngdoc function
    * @name cd.translationUI.cdTranslationUICtrl
    * @requires $scope
    * @requires $translate
