@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-docular');
+  grunt.loadNpmTasks('grunt-ngdocs');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
 
@@ -46,24 +46,25 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
-    docular: {
-      groups: [
-        {
-          groupTitle: 'Checkdesk App',
-          groupId: 'app',
-          groupIcon: 'icon-ok',
-          sections: [
-            {
-              id: 'cd',
-              title: 'cd',
-              scripts: ['src'],
-              docs: ['src/docs']
-            }
-          ]
-        }
-      ],
-      showDocularDocs: false,
-      showAngularDocs: false
+    // Much of the structure of the documentation is borrowed from @PascalPrecht's
+    // angular-translate (https://github.com/PascalPrecht/angular-translate)
+    // project.
+    ngdocs: {
+      options: {
+        dest: 'docs/public',
+        title: 'Checkdesk',
+        navTemplate: 'docs/html/nav.html',
+        html5Mode: false,
+        // scripts: [],
+        styles: ['docs/css/styles.css']
+      },
+      api: {
+        src: [
+          'src/**/*.js',
+          'docs/content/api/*.ngdoc'
+        ],
+        title: 'API Reference'
+      }
     },
     ngmin: {
       src: {

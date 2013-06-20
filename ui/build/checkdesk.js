@@ -1,4 +1,4 @@
-/*! checkdesk - v0.1.0 - 2013-06-18
+/*! checkdesk - v0.1.0 - 2013-06-20
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 /**
@@ -56,6 +56,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 
 /**
  * @ngdoc function
+ * @name cd.csrfToken
  *
  * Integration with Drupal Services X-CSRF-Token header.
  *
@@ -72,8 +73,8 @@ angular.module('cd.csrfToken', [])
   }]);
 
 /**
- * @ngdoc module
- * @name l10n
+ * @ngdoc object
+ * @name cd.l10n
  *
  * @description
  * The `cd.l10n` module manages all translation and localization aspects of
@@ -83,7 +84,7 @@ angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translatio
 
   /**
    * @ngdoc function
-   * @name l10n.class:config
+   * @name cd.l10n.config
    * @requires $translateProvider
    *
    * @description
@@ -261,8 +262,8 @@ cdServices
   }]);
 
 /**
- * @ngdoc module
- * @name translationUI
+ * @ngdoc object
+ * @name cd.translationUI
  *
  * @description
  * The `cd.translationUI` module houses the service and controller necessary
@@ -271,8 +272,8 @@ cdServices
 angular.module('cd.translationUI', ['pascalprecht.translate'])
 
   /**
-   * @ngdoc service
-   * @name translationUI.global:cdTranslationUI
+   * @ngdoc object
+   * @name cd.translationUI.cdTranslationUIProvider
    * @requires $http
    *
    * @description
@@ -283,9 +284,8 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   .provider('cdTranslationUI', function () {
     var $translationTable,
         $missingTranslations = [],
-        $missingTranslationHandler = function (translationId, uses) {
+        $missingTranslationHandler = function (translationId, language) {
           if ($missingTranslations.indexOf(translationId) === -1) {
-            console.log([translationId, uses]);
             $missingTranslations.push(translationId);
           }
         };
@@ -312,7 +312,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
 
   /**
    * @ngdoc function
-   * @name translationUI.class:config
+   * @name cd.translationUI.config
    * @requires $translateProvider
    * @requires cdTranslationUIProvider
    *
@@ -329,7 +329,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
 
   /**
    * @ngdoc object
-   * @name translationUI.global:cdTranslationUICtrl
+   * @name cd.translationUI.cdTranslationUICtrl
    * @requires $scope
    * @requires $translate
    * @requires cdTranslationUI
@@ -408,7 +408,6 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
 
     // Refreshes the display when a translation is changed
     $scope.translationChanged = function (language, source) {
-      console.log([$scope.editedTranslations, language, source]);
       $scope.translationTable[language][source] = $scope.editedTranslations[language][source];
       $translate.uses($translate.uses());
     };

@@ -1,6 +1,6 @@
 /**
- * @ngdoc module
- * @name translationUI
+ * @ngdoc object
+ * @name cd.translationUI
  *
  * @description
  * The `cd.translationUI` module houses the service and controller necessary
@@ -9,8 +9,8 @@
 angular.module('cd.translationUI', ['pascalprecht.translate'])
 
   /**
-   * @ngdoc service
-   * @name translationUI.global:cdTranslationUI
+   * @ngdoc object
+   * @name cd.translationUI.cdTranslationUIProvider
    * @requires $http
    *
    * @description
@@ -21,7 +21,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   .provider('cdTranslationUI', function () {
     var $translationTable,
         $missingTranslations = [],
-        $missingTranslationHandler = function (translationId, uses) {
+        $missingTranslationHandler = function (translationId, language) {
           if ($missingTranslations.indexOf(translationId) === -1) {
             $missingTranslations.push(translationId);
           }
@@ -49,7 +49,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
 
   /**
    * @ngdoc function
-   * @name translationUI.class:config
+   * @name cd.translationUI.config
    * @requires $translateProvider
    * @requires cdTranslationUIProvider
    *
@@ -66,7 +66,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
 
   /**
    * @ngdoc object
-   * @name translationUI.global:cdTranslationUICtrl
+   * @name cd.translationUI.cdTranslationUICtrl
    * @requires $scope
    * @requires $translate
    * @requires cdTranslationUI

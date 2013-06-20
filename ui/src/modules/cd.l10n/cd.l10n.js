@@ -1,6 +1,6 @@
 /**
- * @ngdoc module
- * @name l10n
+ * @ngdoc object
+ * @name cd.l10n
  *
  * @description
  * The `cd.l10n` module manages all translation and localization aspects of
@@ -10,7 +10,7 @@ angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translatio
 
   /**
    * @ngdoc function
-   * @name l10n.class:config
+   * @name cd.l10n.config
    * @requires $translateProvider
    *
    * @description

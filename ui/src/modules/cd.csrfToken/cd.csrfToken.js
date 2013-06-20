@@ -1,5 +1,6 @@
 /**
  * @ngdoc function
+ * @name cd.csrfToken
  *
  * Integration with Drupal Services X-CSRF-Token header.
  *
