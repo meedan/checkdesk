@@ -161,19 +161,11 @@ $omega: opposite-position($from-direction);
 html {
   // overflow: hidden;
   height: 100%;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAD1BMVEX9/f35+fn8/Pz7+/v6+vreGhydAAACQUlEQVQYGQXBAY0EMAhFwWYdkEXABWpgAQP0P/+abuaYV8QY6xp15LquT1MH1LNgDq666z3eQZ2Xa2Yv1xznDaTZi+xTY2YGawBqaHgZfXoNMzNzvausaUXWVB6a7lkwNACAGvoQEZG8WdcAAErgTATvKgaULDBoKjldybuKabwBvIGXHKAiRijBYI0xAx2A7oVKsAcwC+ismTlmL+Z7eUOieVccAB94kS956wAvR0foeoM6IuatGY5idKD53hWK1GgBXQ0c80HjWsWlBw11hfkBLlCrSDQExMD6ASXAvkjUHSgHLQe64q55fS5T0XTNCg5kN7DK8e4e0PCo0zTmaAGvnzADxfydBmChgfqBOQCcXHPWTDHeNeYGYHAKWHNIFCOge0T1KYB1aF6MgIh5t/I0482a17yrWfP43BcxBwAAqIvWiA+a5ph5oqlckn3rimtm2DE8gQpQzbugyxocg2T9xaC4L8EHQMeDu2hA+S4AwLoOwTgFKN8FA2Dp0wGqAQAQwLKVJxtXLw0MNO2sWeVJDFgr+N59Q3tizpyBAVaDD3RnN2ZwFq7zlsDRvojoMTOdBXxZ1KOBSOrC1lkwBwPdd6GuVyLiAKauLUDRFK5LZRwYV/YWQA3garrrmJK4UEtcFvDRBY4JNVDQOCzkuwvH8B57U4mZv1gUcVccAKgl10wRQMRAnRigYr3X7EVMEzFOnBjMFblgPhUxqGbVpwdDkeugeRE99FBzqOsVMRi6UJFdCcGhxyviAgwohhdL8w9WegM3i2rjpwAAAABJRU5ErkJggg==);
 }
 
 body {
   @include container($container-width $break-small $break-medium); // establish three breakpoints
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAD1BMVEX9/f35+fn8/Pz7+/v6+vreGhydAAACQUlEQVQYGQXBAY0EMAhFwWYdkEXABWpgAQP0P/+abuaYV8QY6xp15LquT1MH1LNgDq666z3eQZ2Xa2Yv1xznDaTZi+xTY2YGawBqaHgZfXoNMzNzvausaUXWVB6a7lkwNACAGvoQEZG8WdcAAErgTATvKgaULDBoKjldybuKabwBvIGXHKAiRijBYI0xAx2A7oVKsAcwC+ismTlmL+Z7eUOieVccAB94kS956wAvR0foeoM6IuatGY5idKD53hWK1GgBXQ0c80HjWsWlBw11hfkBLlCrSDQExMD6ASXAvkjUHSgHLQe64q55fS5T0XTNCg5kN7DK8e4e0PCo0zTmaAGvnzADxfydBmChgfqBOQCcXHPWTDHeNeYGYHAKWHNIFCOge0T1KYB1aF6MgIh5t/I0482a17yrWfP43BcxBwAAqIvWiA+a5ph5oqlckn3rimtm2DE8gQpQzbugyxocg2T9xaC4L8EHQMeDu2hA+S4AwLoOwTgFKN8FA2Dp0wGqAQAQwLKVJxtXLw0MNO2sWeVJDFgr+N59Q3tizpyBAVaDD3RnN2ZwFq7zlsDRvojoMTOdBXxZ1KOBSOrC1lkwBwPdd6GuVyLiAKauLUDRFK5LZRwYV/YWQA3garrrmJK4UEtcFvDRBY4JNVDQOCzkuwvH8B57U4mZv1gUcVccAKgl10wRQMRAnRigYr3X7EVMEzFOnBjMFblgPhUxqGbVpwdDkeugeRE99FBzqOsVMRi6UJFdCcGhxyviAgwohhdL8w9WegM3i2rjpwAAAABJRU5ErkJggg==);
-  // height: 100%;
-  // text-rendering: optimizelegibility;
-  #main {
-  	margin-top: $base-line-height*2;
-    padding-top: $navbarHeight;
-    @include span-columns($break-small - 2, $break-small, $gutter-width / 2); //outermost container
-    @include pad(1, 1, $break-small);
-  }
 }
 
 // ====================================================================== 
@@ -273,9 +265,6 @@ body {
 
 // @include version-banner;
 
-body {
-  // @include cd-background;
-}
 
 // Translation client
 #l10n-client {

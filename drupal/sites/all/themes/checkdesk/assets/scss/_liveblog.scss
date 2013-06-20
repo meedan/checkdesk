@@ -24,7 +24,7 @@
 // Default liveblog layout overrides global default layout
 body.page-liveblog {
   #main {
-    @include liveblog-layout($container-width, $container-width);
+    // @include liveblog-layout($container-width, $container-width);
     // Live blog view
     .view-liveblog {
       @include ctb-clearfix;
@@ -69,16 +69,16 @@ body.page-liveblog {
 // Small breakpoint
 @include at-breakpoint($break-small) {
   body.page-liveblog #main {
-    @include liveblog-layout($break-small - 2, $break-small) {
-    @include pad(1, 1, $break-small);
-    }
+    // @include liveblog-layout($break-small - 2, $break-small) {
+    // @include pad(1, 1, $break-small);
+    // }
   }
 }
 // Medium breakpoint
 @include at-breakpoint($break-medium) {
   body.page-liveblog #main {
-    @include liveblog-layout($break-medium - 4, $break-medium) {
-      @include pad(2, 2, $break-medium);
-    }
+    // @include liveblog-layout($break-medium - 4, $break-medium) {
+      // @include pad(2, 2, $break-medium);
+    // }
   }
 }

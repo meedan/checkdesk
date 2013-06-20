@@ -304,13 +304,10 @@ div.region-page-top {
 }
 
 body.toolbar-drawer {
-  top: $toolbarHeight+$navbarHeight !important;
   #main #widgets.column { top: ($toolbarHeight + $navbarHeight) !important; }
   #main {
     #content {
-      #content-inner { 
-        padding-top: ($absolute-line-height*2) !important; 
-      }
+      margin-top: ($toolbarHeight + $navbarHeight) !important;
     }
   }
 }
