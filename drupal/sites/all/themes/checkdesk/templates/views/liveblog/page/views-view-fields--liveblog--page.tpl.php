@@ -1,4 +1,4 @@
-<div class="desk" style="clear: both;">
+<div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
   <article class="story">
     <h1>
       <span class="field-content">

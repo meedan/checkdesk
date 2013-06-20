@@ -907,7 +907,7 @@ print t(\'No content available\');
   $handler->display->display_options['header']['area']['content'] = '<?php
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
-  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php\'),
   \'incremental\' => array(
     \'view_base_path\' => \'liveblog/autorefresh\',
     \'view_display_id\' => \'page_1\',
@@ -928,11 +928,11 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Content: Updated date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -982,15 +982,15 @@ print theme(\'views_autorefresh\', array(
   $handler = $view->new_display('page', 'Autorefresh Page', 'page_1');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Post date (with operator) */
-  $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
-  $handler->display->display_options['arguments']['created_operator']['table'] = 'node';
-  $handler->display->display_options['arguments']['created_operator']['field'] = 'created_operator';
-  $handler->display->display_options['arguments']['created_operator']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['created_operator']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['created_operator']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['created_operator']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['created_operator']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Content: Updated date (with operator) */
+  $handler->display->display_options['arguments']['changed_operator']['id'] = 'changed_operator';
+  $handler->display->display_options['arguments']['changed_operator']['table'] = 'node';
+  $handler->display->display_options['arguments']['changed_operator']['field'] = 'changed_operator';
+  $handler->display->display_options['arguments']['changed_operator']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['changed_operator']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['changed_operator']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['changed_operator']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['changed_operator']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['path'] = 'liveblog/autorefresh/%';
   $translatables['liveblog'] = array(
     t('Master'),
@@ -1011,7 +1011,7 @@ print theme(\'views_autorefresh\', array(
     t('<?php
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
-  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php\'),
   \'incremental\' => array(
     \'view_base_path\' => \'liveblog/autorefresh\',
     \'view_display_id\' => \'page_1\',
