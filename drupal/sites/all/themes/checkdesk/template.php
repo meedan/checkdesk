@@ -137,6 +137,10 @@ function checkdesk_preprocess_region(&$variables) {
 function checkdesk_preprocess_block(&$variables) {
   // remove subjects for all blocks
   $variables['elements']['#block']->subject = '';
+  // Add Compose Update on update form
+  if($variables['elements']['#block']->bid == 'checkdesk_core-post') {
+    $variables['elements']['#block']->subject = t('Create Update'); 
+  }
 }
 
 /**
@@ -970,7 +974,6 @@ function checkdesk_twitter_signin_button() {
  * Adjust compose update form
  */
 function checkdesk_form_post_node_form_alter(&$form, &$form_state) {
-  // $form['title']['#title'] = NULL;
   $form['title']['#attributes']['placeholder'] = t('Update headline');
 
   // $form['body'][LANGUAGE_NONE][0]['#title'] = NULL;

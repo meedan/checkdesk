@@ -44,6 +44,17 @@
 		}
 	};
 
+  Drupal.behaviors.story = {
+    attach: function (context, settings) {
+      // show or hide compose update form
+      $('#block-checkdesk-core-post>h2').click(function() {
+        $('#block-checkdesk-core-post .node-post-form').slideToggle('fast');
+        $(this).toggleClass('open');
+        return false;
+      });
+    }
+  };
+
   $.fn.scrollToHere = function(speed) {
     $('html, body').animate({ scrollTop : $(this).offset().top - $('#toolbar').height() - $('#navbar').height() }, speed);
   };
