@@ -7662,11 +7662,18 @@ body.page-liveblog #main .view-liveblog .desk h1 {
   color: rgba(0, 0, 0, 0.9);
 }
 body.page-liveblog #main .view-liveblog .desk h1 a {
+  display: block;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.01);
   color: rgba(0, 0, 0, 0.9);
 }
 body.page-liveblog #main .view-liveblog .desk h1 a:hover {
-  color: black;
+  background-color: #efefef;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
   text-decoration: none;
+}
+body.page-liveblog #main .view-liveblog .desk h1 a:active {
+  background-color: #99cfff;
 }
 
 .node-type-discussion #block-views-desk-updates-block, .page-liveblog #block-views-desk-updates-block {

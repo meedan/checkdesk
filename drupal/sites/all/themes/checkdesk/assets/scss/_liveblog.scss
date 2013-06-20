@@ -45,20 +45,18 @@ body.page-liveblog {
         h1 {
           color: rgba(0,0,0,.9);
           a { 
-            color: rgba(0,0,0,.9); 
+            display: block;
+            border-bottom: 1px dotted rgba(255,255,255,.01);
+            color: rgba(0,0,0,.9);
             &:hover {
-              color: $black;
+              @include ctb-bg(#efefef, rgba(0,0,0,.05));
+              border-bottom: 1px dotted rgba(0,0,0,.1);
               text-decoration: none;
             }
+            &:active { background-color: lighten($link-color, 30); }
           }
         }
-
-        
-
-        
-
       }
-
       .related-updates {
         
       }
