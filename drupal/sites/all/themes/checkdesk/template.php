@@ -1066,5 +1066,25 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
     $vars['name_i18n'] = t($vars['fields']['field_rating']->content);
   }
-}
 
+  if ($vars['view']->name === 'liveblog') {
+    $view = views_get_view('updates_for_stories');
+    $view->set_arguments(array($vars['fields']['nid']->raw));
+    $view_output = $view->preview('block');
+    $total_rows = $view->total_rows;
+    $view->destroy();
+    if ($total_rows) {
+      $vars['updates'] = $view_output;
+    }
+  }
+
+  if ($vars['view']->name === 'updates_for_stories') {
+    $vars['counter'] = $vars['fields']['counter']->content;
+    if ($vars['counter'] == 1) {
+      $vars['update'] = $vars['fields']['rendered_entity']->content;
+    }
+    else {
+      $vars['update'] = $vars['fields']['rendered_entity_1']->content;
+    }
+  }
+}
