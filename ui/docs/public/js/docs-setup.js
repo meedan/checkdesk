@@ -54,6 +54,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "cd.services.Story",
+      "shortName": "Story",
+      "type": "service",
+      "keywords": "api cd discussion drupal get interact method node query resource save service services story the to update with"
+    },
+    {
+      "section": "api",
       "id": "cd.services.System",
       "shortName": "System",
       "type": "service",
@@ -65,6 +72,13 @@ NG_DOCS={
       "shortName": "Translation",
       "type": "service",
       "keywords": "api cd drupal i18n interact method query remove resource save service services the to translation update with"
+    },
+    {
+      "section": "api",
+      "id": "cd.services.Update",
+      "shortName": "Update",
+      "type": "service",
+      "keywords": "api cd drupal get interact method node post query resource save service services the to update with"
     },
     {
       "section": "api",

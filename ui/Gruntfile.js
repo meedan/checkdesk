@@ -81,9 +81,6 @@ module.exports = function(grunt) {
   // grunt.registerTask('default', ['jshint', 'karma']);
   // grunt.registerTask('build', ['jshint', 'karma', 'concat', 'ngmin', 'uglify']);
   grunt.registerTask('default', ['jshint']);
-  grunt.registerTask('build', ['jshint', 'concat', 'uglify']);
-
-  // Note, use 'grunt docular-server' to view the compiled documentation
-  grunt.registerTask('docs', ['jshint', 'docular']);
+  grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'ngdocs']);
 
 };
