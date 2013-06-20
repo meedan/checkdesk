@@ -6,8 +6,7 @@
 @mixin widgets-layout($secondary-width, $primary-width, $break: $container-width) {
   body.widgets {
     #main {
-      // @include span-columns($break - 2, $break); //outermost container
-      // @include pad(1, 1, $break);
+      @include reset-box-model;
       @content;
 
       // 2. The sidebar column

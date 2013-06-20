@@ -4,7 +4,9 @@
 // By default, there is only one column.
 // In larger breakpoints the primary width $primary-width and secondary-width diverge to create two columns.
 @mixin layout-2col($secondary-width, $primary-width, $break: $container-width) {
-  // @include span-columns($break - 2, $break, $gutter-width / 2); //outermost container
+  @include reset-box-model;
+  @include container;
+  // @include span-columns($break); //outermost container
   // @include pad(1, 1, $break);
   @content;
 

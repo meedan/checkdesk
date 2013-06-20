@@ -53,6 +53,8 @@ function checkdesk_preprocess_html(&$variables) {
    if (checkdesk_widgets_visibility()) {
     if (!empty($variables['page']['widgets'])) {
       $variables['classes_array'][] = 'widgets';
+      // remove no-sidebars class from drupal
+      $variables['classes_array'] = array_diff($variables['classes_array'], array('no-sidebars'));
     }
     else {
       $variables['classes_array'][] = 'no-widgets';

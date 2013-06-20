@@ -3422,18 +3422,6 @@ textarea {
   float: left;
 }
 
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:before, .clearfix:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.clearfix:after {
-  clear: both;
-}
-
 .hide {
   display: none;
 }
@@ -3962,6 +3950,16 @@ html {
     display: table;
     clear: both;
   }
+}
+
+body.no-sidebars #main {
+  width: 88.7165%;
+  float: left;
+  margin-right: 1.55148%;
+  display: inline;
+  padding-left: 5.64175%;
+  padding-right: 5.64175%;
+  margin-top: 72px;
 }
 
 * html {
@@ -7967,6 +7965,22 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
   display: none;
 }
 
+body.sidebar-first #main {
+  margin: 0;
+  padding: 0;
+  *zoom: 1;
+  max-width: -2px;
+  _width: -2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+body.sidebar-first #main:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 body.sidebar-first #main #sidebar-first.column {
   position: fixed;
   max-width: 360px;
@@ -8015,6 +8029,10 @@ body.sidebar-first #main #content #content-inner:after {
   body.sidebar-first #main #content {
     margin-left: 360px;
   }
+}
+body.widgets #main {
+  margin: 0;
+  padding: 0;
 }
 body.widgets #main #widgets.column {
   position: fixed;

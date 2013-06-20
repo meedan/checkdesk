@@ -33,7 +33,7 @@
           <?php print render($page['sidebar_first']); ?>
         </div>
       </div>
-    <?php endif; ?> <!-- /sidebar-first -->
+    <?php endif; ?>
     
     <?php if ($show_widgets && $page['widgets']): ?>
       <aside id="widgets" class="column widgets">
@@ -41,7 +41,7 @@
           <?php print render($page['widgets']); ?>
         </div>
        </aside>
-    <?php endif; ?> <!-- /widgets -->
+    <?php endif; ?> 
 
     <div id="content">
       <div id="content-inner" class="inner column center">
