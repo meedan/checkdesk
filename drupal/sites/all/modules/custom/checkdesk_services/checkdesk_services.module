@@ -1,6 +1,30 @@
 <?php
 
 /**
+ * Implements hook_language_switch_links_alter().
+ *
+ * Hide the en-NG language from the language switcher block
+ */
+function checkdesk_services_language_switch_links_alter(&$result, $type, $path) {
+  unset($result['en-NG']);
+}
+
+/**
+ * Implements hook_init().
+ */
+function checkdesk_services_init() {
+  global $language;
+
+  // If a user somehow stumbles into the en-NG language permanently redirect
+  // them to the same URL for the regular English language.
+  if (is_object($language) && $language->language == 'en-NG') {
+    $query = array_diff_key($_GET, array('q' => ''));
+    $all_languages = language_list();
+    drupal_goto($_GET['q'], array('language' => $all_languages['en'], 'query' => $query), 301);
+  }
+}
+
+/**
  * Implements hook_menu_alter().
  */
 function checkdesk_services_menu_alter(&$items) {
