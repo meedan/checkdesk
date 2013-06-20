@@ -16,8 +16,7 @@ The AngularJS based user interface for the Checkdesk project.
 
 ### Project documentation
 
-1. Build fresh documentation with `grunt docs`
-2. Run the documentation server using `grunt docular-server`
+Build fresh documentation with `grunt ngdocs` View the documentation in `docs/public`.
 
 
 ### Server Configuration
@@ -115,6 +114,8 @@ The server configuration proxies requests from some paths through to the Drupal 
 
     meedan-checkdesk/ui
        |-build                             # Compiled files, eg: checkdesk.js
+       |-docs                              # Project documentation
+       |-docs/public                       # Browseable documentation
        |-libs                              # Libraries, eg: angular, jquery
        |-public                            # WWW served documents
        |---css
@@ -126,11 +127,8 @@ The server configuration proxies requests from some paths through to the Drupal 
        |-snapshots                         # Static site snapshots
        |-src                               # The source code for the application
        |---controllers
-       |---directives
-       |---filters
        |---modules
        |---scss
-       |---services
        |---templates
        |-test                              # Testing code, eg: unit tests
        |---unit
