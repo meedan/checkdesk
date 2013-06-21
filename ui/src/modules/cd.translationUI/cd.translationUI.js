@@ -99,7 +99,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
    * @description
    * Controller for the cd-translation-ui.html template.
    */
-  .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
+  .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', 'Translation', function ($scope, $translate, cdTranslationUI, Translation) {
     var translationSources = {};
 
     $scope.collapsed = true;
@@ -165,7 +165,27 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
     // Refreshes the display when a translation is changed
     $scope.translationChanged = function (language, source) {
       // FIXME: Causing the input to go out of focus after each keypress
-      $scope.translationTable[language][source] = $scope.allTranslations[source][language];
-      $translate.uses($translate.uses());
+      // $scope.translationTable[language][source] = $scope.allTranslations[source][language];
+      // $translate.uses($translate.uses());
+    };
+
+    $scope.save = function (language, source) {
+      var record;
+
+      if (!$scope.allTranslations[source][language]) {
+        return false;
+      }
+
+      record = new Translation({
+        language:    language,
+        source:      source,
+        translation: $scope.allTranslations[source][language],
+        textgroup:   'ui'
+      });
+
+      record.save(function (translation) {
+        $scope.translationTable[language][source] = $scope.allTranslations[source][language];
+        $translate.uses($translate.uses());
+      });
     };
   }]);

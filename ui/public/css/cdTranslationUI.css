@@ -32,13 +32,16 @@
 #cd-translation-ui table td.source {
   width: 20%;
 }
-#cd-translation-ui table td input {
+#cd-translation-ui table td.save {
+  width: 60px;
+}
+#cd-translation-ui table td input[type=text] {
   width: 100%;
   margin: 0;
   box-sizing: border-box;
   height: 30px;
 }
-#cd-translation-ui button {
+#cd-translation-ui button.btn-visibility {
   position: absolute;
   top: 0;
   right: 0;

@@ -40,7 +40,11 @@
         width: 20%;
       }
 
-      input {
+      &.save {
+        width: 60px;
+      }
+
+      input[type=text] {
         width: 100%;
         margin: 0;
         box-sizing: border-box;
@@ -49,7 +53,7 @@
     }
   }
 
-  button {
+  button.btn-visibility {
     position: absolute;
     top: 0;
     #{$opposite-from-direction}: 0;
