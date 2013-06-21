@@ -8048,6 +8048,9 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
 .story .story-blogger .story-blogger-status-online .blogger-status-indicator {
   background-color: #46a546;
 }
+.story figure {
+  margin: 12px 0;
+}
 .story .story-body {
   *zoom: 1;
   margin: 12px 0;
@@ -8097,6 +8100,9 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
   color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
 }
+.stories .story-row figure {
+  display: none;
+}
 .stories .story-row h3 {
   margin: 0;
   padding: 0;
@@ -8106,6 +8112,10 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
 }
 .stories .story-row .story-desc {
   display: none;
+}
+.stories .views-row-first figure {
+  display: block;
+  margin-bottom: 12px;
 }
 
 body.sidebar-first #main {

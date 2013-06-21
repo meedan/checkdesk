@@ -5,8 +5,6 @@
 
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
-
-
     <div class="story-meta">
       <div class="story-at">
         <?php if (isset($user_avatar)) : ?>
@@ -26,6 +24,13 @@
   	<?php // print render($content['story_drafts']); ?>
   	<?php // print render($content['story_blogger']); ?>
 
+
+    <?php if ($content['field_lead_image']) { ?>
+      <figure>
+        <?php print render(field_view_field('node', $node, 'field_lead_image')); ?>
+      </figure>
+    <?php } ?>
+    
   	<div class="story-body">
   		<?php print render($content['body']); ?>
   	</div>

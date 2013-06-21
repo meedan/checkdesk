@@ -215,6 +215,10 @@ $omega: opposite-position($alpha);
     .story-blogger-status-online .blogger-status-indicator { background-color: $green; }
   }
 
+  figure {
+    margin: $absolute-line-height/2 0;
+  }
+
   .story-body {  
     @include ctb-clearfix;
     margin: $absolute-line-height/2 0;
@@ -244,6 +248,7 @@ $omega: opposite-position($alpha);
 
 // story lists
 .stories {
+
   .story-row {
     margin-bottom: $absolute-line-height/4;
     padding: $absolute-line-height/2 0;
@@ -261,6 +266,12 @@ $omega: opposite-position($alpha);
       }
     }
 
+    // hide by default
+    figure {
+      display: none;
+    }
+    
+
     h3 {
       @include reset-box-model;
       font-size: modular-scale(0) - modular-scale(-3); // 14px;
@@ -269,6 +280,14 @@ $omega: opposite-position($alpha);
     }
     .story-desc {
       display: none;
+    }
+  }
+
+  // show featured image on the first item
+  .views-row-first {
+    figure {
+      display: block;
+      margin-bottom: $absolute-line-height/2;
     }
   }
 }
