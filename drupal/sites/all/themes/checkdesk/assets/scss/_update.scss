@@ -30,7 +30,7 @@
 
     .update-meta {
     	@include reset-list-style;
-      float: $alpha;
+      // float: $alpha;
       font-size: modular-scale(0) - modular-scale(-5); // 16px
     	font-weight: 700;
     	li {
@@ -51,8 +51,17 @@
 
     // by
     .update-by {
+      @include ctb-clearfix;
 			margin-bottom: $absolute-line-height/4;
+      a {
+        float: $alpha; 
+      }
+      a:last-child {
+        width: 80%;
+        @include ctb-break-words;
+      }
       .gravatar {
+        width: 15px;
         margin: 0 $gutter-width/2;
         text-align: center;
         img {
