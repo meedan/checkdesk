@@ -5292,6 +5292,12 @@ div.tabs ul.primary li a {
   vertical-align: top;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.6);
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .activity-inner-wrapper {
   position: relative;
@@ -5736,7 +5742,6 @@ article.in-progress {
 .update .update-footer .update-meta {
   margin: 0;
   padding: 0;
-  float: right;
   font-size: 16px;
   font-weight: 700;
 }
@@ -5776,9 +5781,31 @@ article.in-progress {
   *margin-right: .3em;
 }
 .update .update-footer .update-by {
+  *zoom: 1;
   margin-bottom: 7.2px;
 }
+.update .update-footer .update-by:before, .update .update-footer .update-by:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.update .update-footer .update-by:after {
+  clear: both;
+}
+.update .update-footer .update-by a {
+  float: right;
+}
+.update .update-footer .update-by a:last-child {
+  width: 80%;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
 .update .update-footer .update-by .gravatar {
+  width: 15px;
   margin: 0 5.5px;
   text-align: center;
 }

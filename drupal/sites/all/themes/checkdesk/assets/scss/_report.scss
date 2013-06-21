@@ -395,6 +395,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							vertical-align: top;
 							font-weight: 700;
 							color: rgba(0,0,0,.6);
+							@include ctb-break-words;
 						}
 						.activity-inner-wrapper {
 							position: relative;
