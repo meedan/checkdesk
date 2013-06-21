@@ -107,7 +107,7 @@ function checkdesk_preprocess_html(&$variables) {
  * Override or insert variables into the region template.
  */
 function checkdesk_preprocess_region(&$variables) {
-
+  global $language;
   if ($variables['region'] == 'widgets') {
     // define custom header settings
     $variables['header_image'] = '';
@@ -443,22 +443,10 @@ function checkdesk_preprocess_page(&$variables) {
   $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
 
   // set page variable if widgets should be visible
-  $show_widgets = 0;
-  if (checkdesk_widgets_visibility()) {
-    $show_widgets = 1; 
-  } else {
-    $variables['page']['widgets'] = FALSE;
-  }
-  $variables['show_widgets'] = $show_widgets;
+  $variables['show_widgets'] = checkdesk_widgets_visibility();
 
   // set page variable if widgets should be visible
-  $show_widgets = 0;
-  if (checkdesk_footer_visibility()) {
-    $show_widgets = 1; 
-  } else {
-    $variables['page']['widgets'] = FALSE;
-  }
-  $variables['show_widgets'] = $show_widgets;
+  $variables['show_footer'] = checkdesk_footer_visibility();
 
 }
 
@@ -749,6 +737,10 @@ function checkdesk_widgets_visibility() {
   $check_page = array_intersect($pages, array_values(arg()));
   $check_page = empty($check_page) ? FALSE : TRUE;
 
+  $user_pages = array('login', 'password', 'register');
+  $check_user_page = array_intersect($user_pages, array_values(arg()));
+  $check_user_page = empty($check_user_page) ? FALSE : TRUE;
+
   // node types to check for anonymous user
   $anon_node_types = array('media', 'discussion', 'post');
   // node types to check for logged in user
@@ -766,15 +758,18 @@ function checkdesk_widgets_visibility() {
       // matches node types and does not include any pages
       if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
         return TRUE; 
-      } 
+      }
+      
     }
-  } 
+  // for user login, register and forgot pass page
+  } elseif (arg(0) == 'user' && $check_user_page) {
+      return TRUE;
+  }
 
   // Always display on front page
   if (drupal_is_front_page()) {
     return TRUE;
   }
-
   return FALSE;
 }
 

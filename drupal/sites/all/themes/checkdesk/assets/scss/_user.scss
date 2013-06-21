@@ -53,8 +53,6 @@ body.page-user-register,
 body.page-user-password { // both logged in and not logged ins states
 
   #main {
-    @include span-columns(4, 6);
-    @include pad(1, 1, 6);
 
     h1.title {
       text-align: center;
