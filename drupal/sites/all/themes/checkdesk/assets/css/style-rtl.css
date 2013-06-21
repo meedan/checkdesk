@@ -7092,6 +7092,7 @@ select[multiple], select[size] {
   height: auto;
 }
 
+form input[type="password"],
 form input[type="text"],
 form textarea {
   -webkit-border-radius: 3px;
@@ -7105,6 +7106,7 @@ form textarea {
   border: 1px solid #cccccc;
   margin-top: 11px;
 }
+form input[type="password"]:focus,
 form input[type="text"]:focus,
 form textarea:focus {
   border-color: rgba(0, 0, 0, 0.5);
@@ -7136,6 +7138,11 @@ form label[for="edit-pass"] a {
   font-size: 15px;
   color: #cccccc;
   font-weight: normal;
+}
+form .description {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.4);
 }
 form.confirmation .form-actions input {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
@@ -7468,6 +7475,27 @@ form textarea {
   margin-left: 1.55148%;
   display: inline;
 }
+form .image-widget input[type="file"] {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin-left: 11px;
+  margin-bottom: 14.4px;
+  padding: 0 11px;
+  background-color: white;
+  border: 1px solid #cccccc;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  vertical-align: middle;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+form .image-widget input[type="submit"] {
+  margin-bottom: 14.4px;
+}
 form select {
   padding-right: 0.77574%;
   padding-left: 0.77574%;
@@ -7529,6 +7557,27 @@ form .form-type-textarea:after {
     width: 95.19651%;
     float: right;
     margin-left: 4.80349%;
+  }
+  form .image-widget input[type="file"] {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin-left: 11px;
+    margin-bottom: 14.4px;
+    padding: 0 11px;
+    background-color: white;
+    border: 1px solid #cccccc;
+    font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    vertical-align: middle;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+  }
+  form .image-widget input[type="submit"] {
+    margin-bottom: 14.4px;
   }
   form select {
     padding-right: 2.40175%;

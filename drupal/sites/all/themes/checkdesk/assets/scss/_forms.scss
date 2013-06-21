@@ -167,7 +167,7 @@
 
 @mixin cd-form-styles-except-layout {
   form {
-    // input[type="password"],
+    input[type="password"],
     input[type="text"], 
     // input[type="file"], 
     textarea {
@@ -224,14 +224,11 @@
     }
 
     // // Default descriptions
-    // .description {
-    //   // clear: $from-direction;
-    //   font-size: ms(-1);
-    //   display: none; // displayed at larger breakpoints
-    //   padding: 0.5em 0;
-    //   color: rgba(black, 0.75);
-    //   margin: 0;
-    // }
+    .description {
+      font-family: $sans-serif-font-stack;
+      font-size: $small-font-size;
+      color: rgba(0,0,0,.4);
+    }
 
     // little links: create new account, forgot password 
     // wow BAD selector here haha - CGB
@@ -300,6 +297,34 @@
       @include span-columns($w, $w, $gutter-width/2); // small padding with grid accounting
       // padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
     }
+
+    .image-widget {
+      // @include border-radius(3px);
+      // display: block;
+      // line-height: $base-line-height;
+      // background-color: $input-background;
+      // border: 1px solid $grey;
+      // margin-top: $gutter-width;
+      
+      input[type="file"] {
+        @include reset-box-model;
+        display: inline-block;
+        margin-#{$omega}: $gutter-width;
+        margin-bottom: $absolute-line-height/2;
+        padding: 0 $gutter-width;
+        background-color: $input-background;
+        border: 1px solid $grey;
+        font-family: $sans-serif-font-stack;
+        font-size: $small-font-size;
+        vertical-align: middle;
+        @include border-radius(3px);
+      }
+      input[type="submit"] {
+        margin-bottom: $absolute-line-height/2;
+      }
+    }
+
+    
 
     select {
       @include span-columns($w, $w, $gutter-width/2); // small padding with grid accounting

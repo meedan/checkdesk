@@ -994,6 +994,10 @@ function checkdesk_form_discussion_node_form_alter(&$form, &$form_state) {
 
   $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
   $form['body'][LANGUAGE_NONE][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
+
+  $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload">';
+  $form['field_lead_image']['#suffix'] = '</div">';
+  $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
 }
 
 /**
