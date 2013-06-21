@@ -92,7 +92,7 @@ function checkdesk_core_feature_translations_defaults() {
   $translations['ar:default']['60ba6963a2917e8608c295927b8b6770'] = array(
     'source' => 'Disabled',
     'context' => '',
-    'location' => '; sites/all/modules/contrib/save_draft/save_draft.js; modules/filter/filter.admin.js',
+    'location' => '; sites/all/modules/contrib/save_draft/save_draft.js; modules/filter/filter.admin.js; sites/all/modules/contrib/auto_nodetitle/auto_nodetitle.js',
     'translation' => 'مُعَطَّل',
     'plid' => 0,
     'plural' => 0,
@@ -43533,6 +43533,22 @@ print theme(\'views_autorefresh\', array(
   \'incremental\' => FALSE,
 ));
 ?>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['b84637a59bc5babf3a324aaa9e4b3ba0'] = array(
+    'source' => 'Added by <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'اضافه <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp"> منذ !interval</time>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['413659d87c19bf6e36e584fe0837a885'] = array(
+    'source' => '<time datetime="!date">!interval ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => '<time datetime="!date">منذ !interval</time>',
     'plid' => 0,
     'plural' => 0,
   );
