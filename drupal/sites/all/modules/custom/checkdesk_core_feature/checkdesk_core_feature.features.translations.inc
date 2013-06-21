@@ -92,7 +92,7 @@ function checkdesk_core_feature_translations_defaults() {
   $translations['ar:default']['60ba6963a2917e8608c295927b8b6770'] = array(
     'source' => 'Disabled',
     'context' => '',
-    'location' => '; sites/all/modules/contrib/save_draft/save_draft.js; modules/filter/filter.admin.js',
+    'location' => '; sites/all/modules/contrib/save_draft/save_draft.js; modules/filter/filter.admin.js; sites/all/modules/contrib/auto_nodetitle/auto_nodetitle.js',
     'translation' => 'مُعَطَّل',
     'plid' => 0,
     'plural' => 0,
