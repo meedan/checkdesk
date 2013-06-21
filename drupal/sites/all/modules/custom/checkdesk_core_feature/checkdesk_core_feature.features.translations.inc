@@ -43536,6 +43536,22 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['b84637a59bc5babf3a324aaa9e4b3ba0'] = array(
+    'source' => 'Added by <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'اضافه <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp"> منذ !interval</time>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['413659d87c19bf6e36e584fe0837a885'] = array(
+    'source' => '<time datetime="!date">!interval ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => '<time datetime="!date">منذ !interval</time>',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['8fe209e9c671fdc2a2353cf51ffefa6d'] = array(
     'source' => 'Compose Update',
     'context' => '',
