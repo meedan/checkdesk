@@ -27,8 +27,11 @@ h1, h2, h3, h4 {
 
 h1 {
   font-size: $xx-large-font-size + 2px;
+  @if $from-direction == 'right' {
+    font-size: $largest-font-size;
+  }
   font-weight: 700;
-  @if $from-direction == left {
+  @if $from-direction == 'left' {
     letter-spacing: -.04em;
   }
   line-height: 1.15;

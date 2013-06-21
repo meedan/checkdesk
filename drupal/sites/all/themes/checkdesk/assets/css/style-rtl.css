@@ -1,30 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
-  font-family: "Amiri";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-regular-webfont.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: "Amiri Bold";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/amiri-bold-webfont.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: "Droid Naskh";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: "Droid Naskh";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: "Andalus";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/andlso-webfont.ttf') format('truetype');
-}
-
-@font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
@@ -2351,7 +2326,7 @@ button,
 select,
 textarea,
 body.cke_editable {
-  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
 }
 
 label {
@@ -2382,7 +2357,7 @@ input[type="color"],
   padding: 10px 6px;
   margin-bottom: 7.2px;
   font-size: 18px;
-  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   color: #999999;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -4096,7 +4071,7 @@ body {
   line-height: 28.8px;
   font-size: 15px;
   color: black;
-  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   text-align: right;
 }
 
@@ -4104,12 +4079,13 @@ h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
   margin-bottom: 14.4px;
-  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   font-weight: normal;
 }
 
 h1 {
   font-size: 42px;
+  font-size: 65px;
   font-weight: 700;
   line-height: 1.15;
   color: #191919;
@@ -4117,13 +4093,13 @@ h1 {
 }
 
 nav {
-  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   font-size: 14px;
   font-weight: 300px;
 }
 
 #sidebar-first {
-  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   font-size: 15px;
 }
 
@@ -6470,6 +6446,7 @@ nav[role="navigation"] {
   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
+  font-size: 18px;
   float: right;
   background-color: #262626;
   width: 100%;
@@ -8118,9 +8095,11 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
   border-bottom: 0px none;
 }
 .stories .story-row a {
+  color: #cccccc;
   color: rgba(0, 0, 0, 0.6);
 }
 .stories .story-row a:hover {
+  color: #595959;
   color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
 }
@@ -8131,6 +8110,7 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
   margin: 0;
   padding: 0;
   font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.4;
 }
@@ -8634,7 +8614,7 @@ body.page-user-password #content-header {
 }
 #user-login .or {
   *zoom: 1;
-  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   color: #999999;
   text-align: center;
   margin: 14.4px 0;
@@ -8663,7 +8643,7 @@ body.page-user-password #content-header {
 }
 #user-login .user-links {
   *zoom: 1;
-  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -8682,7 +8662,7 @@ body.page-user-password #content-header {
 #user-login .form-item-remember-me label {
   display: inline-block;
   color: #999999;
-  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -8699,7 +8679,7 @@ body.page-user-password #content-header {
 #user-login .form-actions .user-new-account-link {
   float: left;
   margin-top: 7.2px;
-  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   font-size: 15px;
   color: #999999;
 }
@@ -8710,7 +8690,7 @@ body.page-user-password #content-header {
   margin: 0;
   padding: 0;
   background: none;
-  font-family: "Amiri Bold", "Arabic Typesetting", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
   font-size: 15px;
   font-weight: normal;
   color: #0088cc;
@@ -9106,6 +9086,10 @@ html body.i18n-ar,
   text-align: right;
 }
 
+html body.i18n-ar {
+  font-size: 20px;
+}
+
 .posts h3 a {
-  font-family: "Droid Arabic Naskh", "Amiri", "Tahoma";
+  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
 }

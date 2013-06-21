@@ -248,7 +248,6 @@ $omega: opposite-position($alpha);
 
 // story lists
 .stories {
-
   .story-row {
     margin-bottom: $absolute-line-height/4;
     padding: $absolute-line-height/2 0;
@@ -259,8 +258,10 @@ $omega: opposite-position($alpha);
     }
 
     a {
+      color: $grey;
       color: rgba(0,0,0,.6);
       &:hover {
+        color: $dark-grey;
         color: rgba(0,0,0,.8);
         text-decoration: none;
       }
@@ -275,6 +276,9 @@ $omega: opposite-position($alpha);
     h3 {
       @include reset-box-model;
       font-size: modular-scale(0) - modular-scale(-3); // 14px;
+      @if $from-direction == 'right' {
+        font-size: $base-font-size;
+      }
       font-weight: 700;
       line-height: 1.4;
     }

@@ -136,6 +136,9 @@ nav[role="navigation"] {
   @include ctb-box-shadow(0px 1px 3px 1px rgba(0, 0, 0, 0.5));
   font-family: $sans-serif-font-stack;
   font-size: $small-font-size;
+  @if $from-direction == 'right' {
+    font-size: $base-font-size;
+  }
   float: $from-direction;
   background-color: $nav-container-bkg-color;
   width: 100%;
