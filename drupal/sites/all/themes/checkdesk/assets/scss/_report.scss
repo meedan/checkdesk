@@ -385,6 +385,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					
 					header {
 						@include ctb-clearfix;
+						position: relative;
 						.actor {
 							display: inline-block;
 							width: 10%;
@@ -398,7 +399,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						.activity-inner-wrapper {
 							position: relative;
 							display: inline-block;
-							width: 60%;
+							width: 62%;
 							padding: $absolute-line-height/3 0;
 							padding-#{$alpha}: $gutter-width*2;
 							border-#{$from-direction}: 4px solid rgba(0,0,0,.1);
@@ -406,21 +407,19 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						.icon {
 							position: absolute;
 							display: inline-block;
+							top: 6px;
 							border-radius: 50%;
 							width: 24px;
 							line-height: 24px;
 							height: 24px;
 							margin-#{$from-direction}: -36px;
 							background-color: $white;
-							
 							span[class^="icon-"], span[class*="icon-"] {
-								
 							    text-align: center;
 							    position: absolute;
 							    width: 100%;
 							    height: 100%;
 							    &:before {margin: 0;}
-
 							}
 						}
 						.title {
@@ -447,7 +446,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						}
 						.time {
 							padding: $absolute-line-height/3 0;
-							float: $omega;
+							position: absolute;
+							top: 0;
+							#{$omega}: $gutter-width;
 							text-align: $omega;
 							width: 20%;
 							color: rgba(0,0,0,.3);
@@ -464,7 +465,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					color: $link-color;
 				}
 			}
-
 		} // activity wrapper
 
 		section#comment-form {
@@ -482,8 +482,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				}
 			}
 		}
-
-
 	} // report activity
 
 	// Activity header when open
@@ -495,7 +493,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		background-color: rgba(0,140,0,.8);
 		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 	}
-
 
 	// Report status icons in activity log's header
 	$position:  "before";
@@ -531,13 +528,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 } // report
 
-
-
-
 // Report status color bar at the top of a report
 article.in-progress {
 	border-top: 4px solid $yellow;
 }
-	
-
-

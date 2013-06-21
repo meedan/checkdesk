@@ -1,12 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "FontAwesomeSocial";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-social-webfont.ttf') format('truetype');
 }
 
 /*
@@ -5272,6 +5272,7 @@ div.tabs ul.primary li a {
 }
 .report .report-activity .activity-wrapper .view-content .activity header {
   *zoom: 1;
+  position: relative;
 }
 .report .report-activity .activity-wrapper .view-content .activity header:before, .report .report-activity .activity-wrapper .view-content .activity header:after {
   display: table;
@@ -5294,7 +5295,7 @@ div.tabs ul.primary li a {
 .report .report-activity .activity-wrapper .view-content .activity header .activity-inner-wrapper {
   position: relative;
   display: inline-block;
-  width: 60%;
+  width: 62%;
   padding: 9.6px 0;
   padding-right: 22px;
   border-right: 4px solid rgba(0, 0, 0, 0.1);
@@ -5302,6 +5303,7 @@ div.tabs ul.primary li a {
 .report .report-activity .activity-wrapper .view-content .activity header .icon {
   position: absolute;
   display: inline-block;
+  top: 6px;
   border-radius: 50%;
   width: 24px;
   line-height: 24px;
@@ -5342,7 +5344,9 @@ div.tabs ul.primary li a {
 }
 .report .report-activity .activity-wrapper .view-content .activity header .time {
   padding: 9.6px 0;
-  float: left;
+  position: absolute;
+  top: 0;
+  left: 11px;
   text-align: left;
   width: 20%;
   color: rgba(0, 0, 0, 0.3);
@@ -8138,7 +8142,7 @@ body.sidebar-first #main #content #content-inner {
   margin-top: 38px;
   padding-top: 48px;
   padding-right: 5.64175%;
-  padding-left: 11.2835%;
+  padding-left: 5.64175%;
 }
 body.sidebar-first #main #content #content-inner:before, body.sidebar-first #main #content #content-inner:after {
   display: table;

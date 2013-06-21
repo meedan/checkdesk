@@ -1900,3 +1900,31 @@ function checkdesk_core_variable_info($options) {
   return $variable;
 }
 
+/**
+ * Overriding Drupal's format_interval for shorter indicators as units
+ */
+function checkdesk_core_format_interval($interval, $granularity = 2, $langcode = NULL) {
+  $units = array(
+    '1 year|@county' => 31536000,
+    '1 month|@countmon' => 2592000,
+    '1 week|@countw' => 604800,
+    '1 day|@countd' => 86400,
+    '1 hour|@counth' => 3600,
+    '1 min|@countm' => 60,
+    '1 sec|@counts' => 1,
+  );
+  $output = '';
+  foreach ($units as $key => $value) {
+    $key = explode('|', $key);
+    if ($interval >= $value) {
+      $output .= ($output ? ' ' : '') . format_plural(floor($interval / $value), $key[0], $key[1], array(), array('langcode' => $langcode));
+      $interval %= $value;
+      $granularity--;
+    }
+
+    if ($granularity == 0) {
+      break;
+    }
+  }
+  return $output ? $output : t('0 sec', array(), array('langcode' => $langcode));
+}

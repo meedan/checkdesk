@@ -244,6 +244,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     $title = $message->variables['!comment'];
   }
 
+
   // set variables for status report 
   if ($message->message_id == 'status_report') {
 
@@ -270,10 +271,23 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     // set actor / editor / user
     $actor = $message->variables['!editor'];
     $title = t('Changed status to ') . '<strong class="' . $status_class_name . '">' . strtolower($message->variables['!status']) . '</strong>';
-
-
     
   }
+
+  // set variables for publish_report
+  if ($message->message_id == 'publish_report') {
+    // set actor / editor / user / publisher
+    $actor = $message->variables['!publisher'];
+    $title = t('Published on live blog under ') . '<strong>' . $message->variables['!story'] . '</strong>';
+  }
+
+  // set variables for new_report
+  if ($message->message_id == 'new_report') {
+    // set actor / editor / user / publisher
+    $actor = $message->variables['!username'];
+    $title = t('Added ') . '<strong>' . $message->variables['!title'] . '</strong>';
+  }
+
 
   // format status report as
   // Noha Aziz {status icon} Changed status to verified (different color and add hover info on verified) {timestamp}
@@ -292,9 +306,12 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   }
   if(isset($title)) {
     $output .= '<span class="title">' . $title . '</span>';
+  } else {
+    $output .= $message->message;
   }
+
   $output .= '</span>';
-  $output .= '<time class="time" title=' . format_date($message->timestamp, 'custom', 'Y-m-d')  .'>' . _theme_time_ago($message->timestamp) . '</time>';
+  $output .= '<time class="time" title=' . format_date($message->timestamp, 'custom', t('g:ia'))  .'>' . format_interval((time() - $message->timestamp), 1) . t(' ago') . '</time>';
   $output .= '</header>';
   return $output;
 }
