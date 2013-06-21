@@ -120,7 +120,7 @@ NG_DOCS={
       "id": "cd.translationUI.cdTranslationUIProvider",
       "shortName": "cdTranslationUIProvider",
       "type": "object",
-      "keywords": "$http $missingtranslations $translate $translationtable access and api as be can cd cdtranslationuiprovider coordination current eg enables for getter handler helper invert inverted inverttranslations method missing missingtranslations new object objects or provides set table the to translation translations translationtable translationui ui used"
+      "keywords": "$http $missingtranslations $translate $translationtable access and api as be can cd cdtranslationuiprovider coordination current enables for getter handler method missing missingtranslations new object provides set table the to translation translationtable translationui ui used"
     }
   ],
   "apis": {

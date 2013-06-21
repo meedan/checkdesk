@@ -7,16 +7,12 @@
       <th ng-repeat="language in languages">Translation for {{language}}</th>
     </thead>
     <tbody>
-      <tr ng-repeat="(source, sourceLanguages) in missingTranslationsInvert">
+      <tr ng-repeat="(source, languageTranslations) in allTranslations track by $index">
         <td class="source">{{source}}</td>
 
-        <td ng-repeat="language in sourceLanguages" class="translation"><input type="text" ng-model="editedTranslations[language][source]" ng-change="translationChanged(language, source)"></td>
-      </tr>
-
-      <tr ng-repeat="(source, translations) in translationTableInvert">
-        <td class="source">{{source}}</td>
-
-        <td ng-repeat="(language, translation) in translations" class="translation"><input type="text" ng-model="editedTranslations[language][source]" ng-change="translationChanged(language, source)"></td>
+        <td ng-repeat="(language, translation) in languageTranslations track by $index" class="translation translation-{{language}}">
+          <input type="text" ng-model="allTranslations[source][language]" ng-change="translationChanged(language, source)">
+        </td>
       </tr>
     </tbody>
   </table>
