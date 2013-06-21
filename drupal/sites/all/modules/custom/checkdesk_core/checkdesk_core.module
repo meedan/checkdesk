@@ -1300,6 +1300,8 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       $form['#attributes']['class'][] = 'ife';
     }
   }
+
+  // dsm($form_id);
   
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $items = array();
@@ -1357,7 +1359,35 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
     }
   }
+
+  // theme file field
+  if ($form_id == 'discussion_node_form') {
+    if (isset($form['#node']->language)) {
+      $node_language = $form['#node']->language;
+      if (isset($form['field_lead_image'][$node_language])) {
+        foreach ($form['field_lead_image'][$node_language] as $item => $field_lead_image) {
+
+          if (!is_numeric($item)) {
+            continue;
+          }
+          if (isset($form['field_lead_image'][$node_language][$item])) {
+            // Alter the file field element after it has been built.
+            $form['field_lead_image'][$node_language][$item]['#after_build'][] = 'checkdesk_core_rename_remove_button';
+          }
+        }
+      }
+    }
+  }
 }
+
+function checkdesk_core_rename_remove_button($element, &$form_state) {
+  $element['upload_button']['#value'] = t('Upload');
+  $element['remove_button']['#value'] = t('Remove');
+  // $element['upload']['#prefix'] = '<label class="cabinet">';
+  // $element['upload']['#suffix'] = '</label>';
+  return $element;
+}
+
 
 /**
  * Implements hook_user_insert().

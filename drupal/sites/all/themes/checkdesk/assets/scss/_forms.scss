@@ -298,13 +298,22 @@
       // padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
     }
 
+    // image field
     .image-widget {
-      // @include border-radius(3px);
-      // display: block;
-      // line-height: $base-line-height;
-      // background-color: $input-background;
-      // border: 1px solid $grey;
-      // margin-top: $gutter-width;
+      @include border-radius(3px);
+      display: block;
+      background-color: rgba(0,0,0,.02);
+      margin-top: $gutter-width;
+      padding: $absolute-line-height/2 $gutter-width 0;
+
+      .image-preview {
+        display: inline-block;
+        margin-#{$omega}: $gutter-width;
+      }
+
+      .image-widget-data {
+        display: inline-block;
+      }
       
       input[type="file"] {
         @include reset-box-model;
@@ -324,7 +333,7 @@
       }
     }
 
-    
+
 
     select {
       @include span-columns($w, $w, $gutter-width/2); // small padding with grid accounting

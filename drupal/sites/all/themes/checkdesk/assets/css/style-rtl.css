@@ -7475,6 +7475,24 @@ form textarea {
   margin-left: 1.55148%;
   display: inline;
 }
+form .image-widget {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.02);
+  margin-top: 11px;
+  padding: 14.4px 11px 0;
+}
+form .image-widget .image-preview {
+  display: inline-block;
+  margin-left: 11px;
+}
+form .image-widget .image-widget-data {
+  display: inline-block;
+}
 form .image-widget input[type="file"] {
   margin: 0;
   padding: 0;
@@ -7557,6 +7575,24 @@ form .form-type-textarea:after {
     width: 95.19651%;
     float: right;
     margin-left: 4.80349%;
+  }
+  form .image-widget {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.02);
+    margin-top: 11px;
+    padding: 14.4px 11px 0;
+  }
+  form .image-widget .image-preview {
+    display: inline-block;
+    margin-left: 11px;
+  }
+  form .image-widget .image-widget-data {
+    display: inline-block;
   }
   form .image-widget input[type="file"] {
     margin: 0;

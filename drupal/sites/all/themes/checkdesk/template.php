@@ -1000,6 +1000,8 @@ function checkdesk_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
 }
 
+
+
 /**
  * Theme views
  */
