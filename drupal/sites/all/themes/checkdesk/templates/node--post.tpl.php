@@ -19,9 +19,9 @@
           <?php endif; ?>
           <?php print $created_by; ?>
         </li>
-        <li class="share">
+        <!-- <li class="share">
           <a href="#"><span class="icon-share"></span> <?php print t('Share'); ?></a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </article>
