@@ -343,6 +343,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		.activity-wrapper {
 			display: none;
 			@include ctb-clearfix;
+			background-image: $striped_lens;
 			border-left: 1px solid rgba(0,0,0,.1);
 			border-right: 1px solid rgba(0,0,0,.1);
 
