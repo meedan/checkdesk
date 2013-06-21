@@ -6018,7 +6018,6 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 }
 #meedan_bookmarklet form input[type=text] {
   width: 323px;
-  padding: 5px;
 }
 #meedan_bookmarklet .form-type-textarea {
   padding-top: 11px;
@@ -6035,6 +6034,7 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   float: right;
   width: auto;
   margin-top: 11px;
+  padding-top: 11px;
 }
 #meedan_bookmarklet .footer {
   float: right;
@@ -7078,6 +7078,9 @@ select[multiple], select[size] {
   height: auto;
 }
 
+form {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 form input[type="password"],
 form input[type="text"],
 form textarea {
@@ -8614,7 +8617,7 @@ body.page-user-password #content-header {
 }
 #user-login .or {
   *zoom: 1;
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #999999;
   text-align: center;
   margin: 14.4px 0;
@@ -8643,7 +8646,7 @@ body.page-user-password #content-header {
 }
 #user-login .user-links {
   *zoom: 1;
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -8662,7 +8665,7 @@ body.page-user-password #content-header {
 #user-login .form-item-remember-me label {
   display: inline-block;
   color: #999999;
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -8679,7 +8682,7 @@ body.page-user-password #content-header {
 #user-login .form-actions .user-new-account-link {
   float: left;
   margin-top: 7.2px;
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   color: #999999;
 }
@@ -8690,7 +8693,7 @@ body.page-user-password #content-header {
   margin: 0;
   padding: 0;
   background: none;
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   font-weight: normal;
   color: #0088cc;
