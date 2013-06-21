@@ -25,10 +25,34 @@ function checkdesk_services_init() {
 }
 
 /**
+ * Implements hook_menu().
+ */
+function checkdesk_services_menu() {
+  $items = array();
+  $items['services/session/token.json'] = array(
+    'page callback' => '_checkdesk_services_session_token_js',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
  * Implements hook_menu_alter().
  */
 function checkdesk_services_menu_alter(&$items) {
   $items['services/session/token']['page callback'] = '_checkdesk_services_session_token';
+}
+
+/**
+ * Overridden implementation of _services_session_token(). Prints the token and
+ * additionally sets a CSRF-Token cookie which is used by the Angular app.
+ */
+function _checkdesk_services_session_token_js() {
+  $token = drupal_get_token('services');
+  setcookie('CSRF-Token', $token, time() + 60 * 60 * 24 * 7, base_path());
+  drupal_json_output($token);
+  drupal_exit();
 }
 
 /**
