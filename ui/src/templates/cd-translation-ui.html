@@ -12,14 +12,11 @@
 
         <td ng-repeat="(language, translation) in languageTranslations track by $index" class="translation translation-{{language}}">
           <input type="text" ng-model="allTranslations[source][language]" ng-change="translationChanged(language, source)">
-          <button class="btn btn-success" ng-click="save(language, source)">Save</button>
-        </td>
-
-        <td class="save">
+          <button class="btn btn-success btn-save" ng-click="save(language, source)">Save</button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <button ng-click="toggle()" class="btn-visibility">{{ collapsed && 'Show' || 'Hide' }}</button>
+  <button ng-click="toggle()" class="btn btn-visibility">{{ collapsed && 'Show' || 'Hide' }}</button>
 </div>

@@ -120,11 +120,13 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
     // Check when available languages list changes, ensure the model is ready
     // for this and the languages helper is updated
     $scope.$watch('translationTable', function (newVal, oldVal) {
-      angular.forEach(newVal, function (translations, language) {
-        if ($scope.languages.indexOf(language) === -1) {
-          $scope.languages.push(language);
-        }
+      // Update the languages array. Rebuild it to ensure correct order
+      $scope.languages = [];
+      angular.forEach(newV, function (translations, language) {
+        $scope.languages.push(language);
+      });
 
+      angular.forEach(newVal, function (translations, language) {
         angular.forEach(translations, function (translation, source) {
           if (angular.isUndefined($scope.allTranslations[source])) {
             $scope.allTranslations[source] = {};

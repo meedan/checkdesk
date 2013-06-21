@@ -40,8 +40,17 @@
         width: 20%;
       }
 
-      &.save {
+      &.translation {
+        padding-#{$from-direction}: 15px;
+        padding-#{$opposite-from-direction}: 65px;
+        position: relative;
+      }
+
+      button.btn-save {
         width: 60px;
+        position: absolute;
+        top: 0;
+        #{$opposite-from-direction}: 0;
       }
 
       input[type=text] {
