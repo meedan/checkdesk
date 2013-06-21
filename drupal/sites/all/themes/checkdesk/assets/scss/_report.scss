@@ -389,7 +389,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						.actor {
 							display: inline-block;
 							width: 10%;
-							padding: $absolute-line-height/3 0;
+							padding-top: $absolute-line-height/3;
 							padding-#{$omega}: $gutter-width*2;
 							text-align: $omega;
 							vertical-align: top;
@@ -400,7 +400,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							position: relative;
 							display: inline-block;
 							width: 62%;
-							padding: $absolute-line-height/3 0;
+							padding: $absolute-line-height/3 0 $absolute-line-height 0;
 							padding-#{$alpha}: $gutter-width*2;
 							border-#{$from-direction}: 4px solid rgba(0,0,0,.1);
 						}
@@ -426,6 +426,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							display: inline-block;
 							width: 97%;
 							p { 
+								margin: 0;
 								margin-bottom: $absolute-line-height/2; 
 								&:last-child {
 									margin-bottom: 0; 

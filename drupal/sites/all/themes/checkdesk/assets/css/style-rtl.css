@@ -5286,7 +5286,7 @@ div.tabs ul.primary li a {
 .report .report-activity .activity-wrapper .view-content .activity header .actor {
   display: inline-block;
   width: 10%;
-  padding: 9.6px 0;
+  padding-top: 9.6px;
   padding-left: 22px;
   text-align: left;
   vertical-align: top;
@@ -5297,7 +5297,7 @@ div.tabs ul.primary li a {
   position: relative;
   display: inline-block;
   width: 62%;
-  padding: 9.6px 0;
+  padding: 9.6px 0 28.8px 0;
   padding-right: 22px;
   border-right: 4px solid rgba(0, 0, 0, 0.1);
 }
@@ -5326,6 +5326,7 @@ div.tabs ul.primary li a {
   width: 97%;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title p {
+  margin: 0;
   margin-bottom: 14.4px;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title p:last-child {
