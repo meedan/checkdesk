@@ -12,6 +12,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "cd",
+      "shortName": "cd",
+      "type": "object",
+      "keywords": "additional affected an angularjs api app application are back-end based be by cd checkdesk config configuration consuming correct currently drupal enabling front-end html html5mode in includes index is method needs notes object powered router running set sub-directory templateurl the this to ui web-servicesprovided"
+    },
+    {
+      "section": "api",
       "id": "cd.csrfToken",
       "shortName": "csrfToken",
       "type": "object",
@@ -37,6 +44,13 @@ NG_DOCS={
       "shortName": "Comment",
       "type": "service",
       "keywords": "api cd comment comments drupal interact method query resource service services the to with"
+    },
+    {
+      "section": "api",
+      "id": "cd.services.Liveblog",
+      "shortName": "Liveblog",
+      "type": "service",
+      "keywords": "api cd drupal for liveblog method query resource retrieve service services stream the to"
     },
     {
       "section": "api",
@@ -106,7 +120,7 @@ NG_DOCS={
       "id": "cd.translationUI.cdTranslationUIProvider",
       "shortName": "cdTranslationUIProvider",
       "type": "object",
-      "keywords": "$http $translate access and api as be can cd cdtranslationuiprovider coordination enables for handler missing object provides the to translation translationtable translationui ui used"
+      "keywords": "$http $missingtranslations $translate $translationtable access and api as be can cd cdtranslationuiprovider coordination current eg enables for getter handler helper invert inverted inverttranslations method missing missingtranslations new object objects or provides set table the to translation translations translationtable translationui ui used"
     }
   ],
   "apis": {
