@@ -32415,7 +32415,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
   $translations['ar:default']['12314539229ad02c2aaa7ac09a9887dd'] = array(
     'source' => 'The selected file %filename cannot be uploaded. Only files with the following extensions are allowed: %extensions.',
     'context' => '',
-    'location' => '',
+    'location' => '; modules/file/file.js',
     'translation' => 'لا يمكن رفع الملف المحدد %filename. يسمح فقط بالملفات ذات اللواحق التالية: %extensions.',
     'plid' => 0,
     'plural' => 0,
@@ -41476,7 +41476,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $translations['ar:default']['ef7131b8526153b01d573bf1299920ae'] = array(
     'source' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000,
+  \'interval\' => 5000, 
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -41485,7 +41485,7 @@ print theme(\'views_autorefresh\', array(
     'location' => '/ar',
     'translation' => '<?php
 print theme(\'views_autorefresh\', array(
-  \'interval\' => 5000,
+  \'interval\' => 5000, 
   \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
   \'incremental\' => FALSE,
 ));
@@ -42146,6 +42146,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => 'نشره <a href="@user">!user</a> <time datetime="!date">!datetime</time>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d1b72c5e4eb3d633f5012e2ab7f1053b'] = array(
+    'source' => 'cancel account',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إلغاء الحساب',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43076,6 +43084,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['f61b1706a08527adea1de9359c59f392'] = array(
+    'source' => '- Any -',
+    'context' => '',
+    'location' => '',
+    'translation' => '- أي -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a7a4a462f78b1b6b1366f58e89ff68d8'] = array(
+    'source' => 'cancel',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إلغاء',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['95718cc451264e1cde8b0f5a119baa40'] = array(
     'source' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
     'context' => '',
@@ -43489,6 +43513,34 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar/user/login?destination=node/add/media%3Fmeedan_bookmarklet%3D1%26meedan_bookmarklet_prepopulate%5Bbody%5D%3D%26meedan_bookmarklet_prepopulate%5Bfield_link%5D%3Dhttp%253A//www.youtube.com/&meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=&meedan_bookmarklet_prepopulate[field_link]=http%3A//www.youtube.com/',
     'translation' => 'لإضافة رابط، الرجاء تسجيل الدخول.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['55d5d7afd112f94f83d30ebe587504b4'] = array(
+    'source' => '<?php
+print theme(\'views_autorefresh\', array(
+  \'interval\' => 5000,
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
+  \'incremental\' => FALSE,
+));
+?>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => '<?php
+print theme(\'views_autorefresh\', array(
+  \'interval\' => 5000,
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
+  \'incremental\' => FALSE,
+));
+?>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['8fe209e9c671fdc2a2353cf51ffefa6d'] = array(
+    'source' => 'Compose Update',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'اكتب تحديث',
     'plid' => 0,
     'plural' => 0,
   );
