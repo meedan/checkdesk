@@ -1,12 +1,13 @@
-/*! checkdesk - v0.1.0 - 2013-06-20
+/*! checkdesk - v0.1.0 - 2013-06-21
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 /**
- * @doc app
- * @id index
- * @name Checkdesk App
+ * @ngdoc object
+ * @name cd
  *
  * @description
+ * ## Checkdesk App
+ *
  * The Checkdesk application is an AngularJS based front-end consuming
  * web-servicesprovided by a Drupal powered back-end.
  */
@@ -19,13 +20,30 @@ var app = angular.module('Checkdesk', [
     ]),
     cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']);
 
+/**
+ * @ngdoc method
+ * @name cd#config
+ * @methodOf cd
+ *
+ * @description
+ * Checkdesk UI app configuration. This includes:
+ *  - Router configuration
+ *  - Enabling HTML5Mode
+ *
+ * ## Additional notes
+ * `templateUrl`'s are affected by the currently set <base> in the
+ * index.html. Running this app in a sub-directory needs the correct <base>
+ * to be set!
+ */
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   // See: http://docs.angularjs.org/guide/dev_guide.services.$location
   $locationProvider.html5Mode(true).hashPrefix('!');
 
-  // Note, templateUrls are affected by the currently set <base> in the
-  // index.html. Running this app in a sub-directory needs the correct <base>
-  // to be set!
+  $routeProvider.when('/liveblog', {
+    templateUrl: 'templates/liveblog.html',
+    controller: LiveblogCtrl
+  });
+
   $routeProvider.when('/reports', {
     templateUrl: 'templates/reports.html',
     controller: ReportsCtrl
@@ -51,7 +69,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     controller: TranslationsTestCtrl
   });
 
-  $routeProvider.otherwise({ redirectTo: '/reports' });
+  $routeProvider.otherwise({ redirectTo: '/liveblog' });
 }]);
 
 /**
@@ -170,6 +188,29 @@ cdServices
        */
       query: {
         method: 'GET',
+        isArray: true
+      }
+    });
+  }]);
+
+/**
+ * @ngdoc service
+ * @name cd.services.Liveblog
+ *
+ * @description
+ * Resource to retrieve the Drupal API for the liveblog stream.
+ */
+cdServices
+  .factory('Liveblog', ['$resource', function($resource) {
+    return $resource('api/views/liveblog', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Liveblog#query
+       * @methodOf cd.services.Liveblog
+       */
+      query: {
+        method: 'GET',
+        params: { display_id: 'services_1', args: [] },
         isArray: true
       }
     });
@@ -564,13 +605,27 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
    */
   .provider('cdTranslationUI', function () {
     var $translationTable,
-        $missingTranslations = [],
+        $missingTranslations = {},
         $missingTranslationHandler = function (translationId, language) {
-          if ($missingTranslations.indexOf(translationId) === -1) {
-            $missingTranslations.push(translationId);
+          if (angular.isUndefined($missingTranslations[language])) {
+            $missingTranslations[language] = {};
+          }
+          if (angular.isUndefined($missingTranslations[language][translationId])) {
+            $missingTranslations[language][translationId] = '';
           }
         };
 
+    /**
+     * @ngdoc method
+     * @name cd.translationUI.cdTranslationUIProvider#translationTable
+     * @methodOf cd.translationUI.cdTranslationUIProvider
+     *
+     * @description
+     * Getter/setter for the translationTable object.
+     *
+     * @param  {object} translationTable A new translation table to set.
+     * @return {object} The current $translationTable.
+     */
     this.translationTable = function (translationTable) {
       if (!angular.isUndefined(translationTable)) {
         $translationTable = translationTable;
@@ -579,6 +634,16 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
       return $translationTable;
     };
 
+    /**
+     * @ngdoc method
+     * @name cd.translationUI.cdTranslationUIProvider#missingTranslations
+     * @methodOf cd.translationUI.cdTranslationUIProvider
+     *
+     * @description
+     * Getter for the $missingTranslations object.
+     *
+     * @return {object} The current $missingTranslations object.
+     */
     this.missingTranslations = function () {
       return $missingTranslations;
     };
@@ -619,7 +684,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
    * @description
    * Controller for the cd-translation-ui.html template.
    */
-  .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
+  .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', 'Translation', function ($scope, $translate, cdTranslationUI, Translation) {
     var translationSources = {};
 
     $scope.collapsed = true;
@@ -632,66 +697,83 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
     $scope.cdTranslationUI = cdTranslationUI;
 
     $scope.translationTable = cdTranslationUI.translationTable();
-    $scope.editedTranslations = {};
+    $scope.missingTranslations = cdTranslationUI.missingTranslations();
 
-    // Helpful list of languages available in the system
-    $scope.languages = function () {
-      var languages = [], language;
+    $scope.allTranslations = {};
+    $scope.languages = [];
 
-      for (language in $scope.translationTable) {
-        if ($scope.translationTable.hasOwnProperty(language)) {
-          languages.push(language);
-        }
-      }
+    // Check when available languages list changes, ensure the model is ready
+    // for this and the languages helper is updated
+    $scope.$watch('translationTable', function (newVal, oldVal) {
+      // Update the languages array. Rebuild it to ensure correct order
+      $scope.languages = [];
+      angular.forEach(newV, function (translations, language) {
+        $scope.languages.push(language);
+      });
 
-      return languages;
-    };
-
-    $scope.translationSources = function () {
-      var translationTable = cdTranslationUI.translationTable(),
-          missingTranslations = cdTranslationUI.missingTranslations(),
-          languages = $scope.languages(),
-          language, source, i, j;
-
-      for (language in translationTable) {
-        if (translationTable.hasOwnProperty(language)) {
-          for (source in translationTable[language]) {
-            // Ensure source is not an internal angular property, ugh.
-            if (translationTable[language].hasOwnProperty(source) && !source.match(/^\$\$/)) {
-              translationSources[source] = translationSources[source] || {};
-
-              // Create an empty record for each source language
-              for (j = languages.length - 1; j >= 0; j--) {
-                translationSources[source][languages[j]] = '';
-              }
-
-              translationSources[source][language] = translationTable[language][source];
-            }
+      angular.forEach(newVal, function (translations, language) {
+        angular.forEach(translations, function (translation, source) {
+          if (angular.isUndefined($scope.allTranslations[source])) {
+            $scope.allTranslations[source] = {};
           }
-        }
-      }
-
-      for (i = missingTranslations.length - 1; i >= 0; i--) {
-        source = missingTranslations[i];
-
-        if (angular.isUndefined(translationSources[source])) {
-          translationSources[source] = {};
-
-          for (j = languages.length - 1; j >= 0; j--) {
-            if (angular.isUndefined(translationSources[source][languages[j]])) {
-              translationSources[source][languages[j]] = '';
-            }
+          if (angular.isUndefined($scope.allTranslations[source][language])) {
+            $scope.allTranslations[source][language] = translation;
           }
-        }
-      }
 
-      return translationSources;
-    };
+          angular.forEach($scope.languages, function (l) {
+            if (angular.isUndefined($scope.allTranslations[source][l])) {
+              $scope.allTranslations[source][l] = '';
+            }
+          });
+        });
+      });
+    }, true);
+
+    // Helper object for creating table listing of missing translations
+    $scope.$watch('missingTranslations', function (newVal, oldVal) {
+      angular.forEach(newVal, function (translations, language) {
+        angular.forEach(translations, function (translation, source) {
+          if (angular.isUndefined($scope.allTranslations[source])) {
+            $scope.allTranslations[source] = {};
+          }
+          if (angular.isUndefined($scope.allTranslations[source][language])) {
+            $scope.allTranslations[source][language] = translation;
+          }
+
+          angular.forEach($scope.languages, function (l) {
+            if (angular.isUndefined($scope.allTranslations[source][l])) {
+              $scope.allTranslations[source][l] = '';
+            }
+          });
+        });
+      });
+    }, true);
 
     // Refreshes the display when a translation is changed
     $scope.translationChanged = function (language, source) {
-      $scope.translationTable[language][source] = $scope.editedTranslations[language][source];
-      $translate.uses($translate.uses());
+      // FIXME: Causing the input to go out of focus after each keypress
+      // $scope.translationTable[language][source] = $scope.allTranslations[source][language];
+      // $translate.uses($translate.uses());
+    };
+
+    $scope.save = function (language, source) {
+      var record;
+
+      if (!$scope.allTranslations[source][language]) {
+        return false;
+      }
+
+      record = new Translation({
+        language:    language,
+        source:      source,
+        translation: $scope.allTranslations[source][language],
+        textgroup:   'ui'
+      });
+
+      record.save(function (translation) {
+        $scope.translationTable[language][source] = $scope.allTranslations[source][language];
+        $translate.uses($translate.uses());
+      });
     };
   }]);
 
@@ -761,6 +843,21 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 }];
 
 app.controller('HeaderCtrl', HeaderCtrl);
+
+var LiveblogCtrl = ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
+  $scope.stories = [];
+
+  Story.query(function (stories) {
+    for (var i = 0; i < stories.length; i++) {
+      // LOL: Hilariously unperformant, we will improve this of course.
+      $scope.stories.push(Story.get({ nid: stories[i].nid }));
+    }
+
+    pageState.status('ready'); // This page has finished loading
+  });
+}];
+
+app.controller('LiveblogCtrl', LiveblogCtrl);
 
 var PageCtrl = ['$scope', 'pageState', function ($scope, pageState) {
   $scope.pageState = pageState;

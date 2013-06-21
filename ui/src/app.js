@@ -1,9 +1,10 @@
 /**
- * @doc app
- * @id index
- * @name Checkdesk App
+ * @ngdoc object
+ * @name cd
  *
  * @description
+ * ## Checkdesk App
+ *
  * The Checkdesk application is an AngularJS based front-end consuming
  * web-servicesprovided by a Drupal powered back-end.
  */

@@ -1,0 +1,26 @@
+<!-- This runs in the context of LiveblogCtrl -->
+<section id="content">
+    <div class="main container">
+        <article class="checkdesk-report embed" ng-repeat="report in reports">
+            <a href="/report/{{report.nid}}">
+                <img ng-src="{{report.embed.thumbnail_url}}" alt="The content" class="report-content">
+            </a>
+
+            <img src="img/report-icons.png" alt="Report icons" class="report-icons">
+
+            <div class="added-by">
+              <span translate>Added by {{report.embed.author_name}} &bull; 10 hours ago</span>
+              <span class="icon-twitter pull-right"></span>
+            </div>
+
+            <div class="facts">
+              <span class="fact active" translate><em>16</em> footnotes</span>
+              <span class="fact" translate><em>1</em> journalist</span>
+              <span class="fact" translate><em>21</em> citizens</span>
+              <span class="fact verified" translate><em>verified</em> report status</span>
+            </div>
+
+        </article>
+    </div>
+</section>
+

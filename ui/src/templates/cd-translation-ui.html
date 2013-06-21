@@ -4,16 +4,19 @@
     <thead>
       <th>Token</th>
 
-      <th ng-repeat="language in languages()">Translation for {{language}}</th>
+      <th ng-repeat="language in languages">Translation for {{language}}</th>
     </thead>
     <tbody>
-      <tr ng-repeat="(source, translations) in translationSources()">
+      <tr ng-repeat="(source, languageTranslations) in allTranslations track by $index">
         <td class="source">{{source}}</td>
 
-        <td ng-repeat="(language, translation) in translations" class="translation"><input type="text" ng-model="editedTranslations[language][source]" ng-change="translationChanged(language, source)"></td>
+        <td ng-repeat="(language, translation) in languageTranslations track by $index" class="translation translation-{{language}}">
+          <input type="text" ng-model="allTranslations[source][language]" ng-change="translationChanged(language, source)">
+          <button class="btn btn-success btn-save" ng-click="save(language, source)">Save</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <button ng-click="toggle()">{{ collapsed && 'Show' || 'Hide' }}</button>
+  <button ng-click="toggle()" class="btn btn-visibility">{{ collapsed && 'Show' || 'Hide' }}</button>
 </div>
