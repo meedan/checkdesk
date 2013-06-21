@@ -230,6 +230,51 @@ function checkdesk_core_feature_flag_default_flags() {
 function checkdesk_core_feature_image_default_styles() {
   $styles = array();
 
+  // Exported image style: featured_image.
+  $styles['featured_image'] = array(
+    'name' => 'featured_image',
+    'effects' => array(
+      2 => array(
+        'label' => 'Scale',
+        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
+        'effect callback' => 'image_scale_effect',
+        'dimensions callback' => 'image_scale_dimensions',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'image',
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 900,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: featured_stories_lead_image.
+  $styles['featured_stories_lead_image'] = array(
+    'name' => 'featured_stories_lead_image',
+    'effects' => array(
+      3 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 360,
+          'height' => 220,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: navigation_avatar.
   $styles['navigation_avatar'] = array(
     'name' => 'navigation_avatar',
@@ -246,6 +291,29 @@ function checkdesk_core_feature_image_default_styles() {
         'data' => array(
           'width' => 24,
           'height' => 24,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: partner_logo.
+  $styles['partner_logo'] = array(
+    'name' => 'partner_logo',
+    'effects' => array(
+      1 => array(
+        'label' => 'Scale',
+        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
+        'effect callback' => 'image_scale_effect',
+        'dimensions callback' => 'image_scale_dimensions',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'image',
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 200,
+          'height' => '',
+          'upscale' => 0,
         ),
         'weight' => 1,
       ),
