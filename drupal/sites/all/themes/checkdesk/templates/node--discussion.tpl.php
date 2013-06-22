@@ -36,14 +36,20 @@
   	</div>
 
     <?php
+      // get compose update form
       $block = block_load('checkdesk_core', 'post');
       $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
-      $compose_update_form = render($render_array);
+      if(isset($render_array['checkdesk_core_post'])) {
+        $compose_update_form = render($render_array);  
+      }
     ?>
-    <div class="compose-update-form">
-      <h2>Compose Update</h2>
-      <?php print $compose_update_form; ?>
-    </div>
+    
+    <?php if(isset($compose_update_form)) { ?>
+      <div class="compose-update-form">
+        <h2>Compose Update</h2>
+        <?php print $compose_update_form; ?>
+      </div>
+    <?php } ?>
 
     <?php print $updates; ?>
 
