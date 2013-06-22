@@ -223,6 +223,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			}
 			.www_facebook_com {
 				padding: $absolute-line-height/2 $gutter-width;
+				.fb-picture {
+					padding-top: -$absolute-line-height/2;
+					padding-#{$alpha}: - $gutter-width;
+				}
 			}
 
 		}
