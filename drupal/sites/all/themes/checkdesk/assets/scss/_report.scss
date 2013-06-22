@@ -202,16 +202,16 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			    	text-align: center;
 			    	vertical-align: middle;
 			    	background: none !important;
-			    .sensitive-notification-text {
-			    	color: $grayDark;
-			    	padding: $absolute-line-height/2 $gutter-width/2;
-			    }
-			    .sensitive-notification-link {
-			    	padding: $absolute-line-height/2 $gutter-width/2;
-			    	a {
-			    		@include button($grayLight, 18px);
-			    	}
-			    }
+				    .sensitive-notification-text {
+				    	color: $grayDark;
+				    	padding: $absolute-line-height/2 $gutter-width/2;
+				    }
+				    .sensitive-notification-link {
+				    	padding: $absolute-line-height/2 $gutter-width/2;
+				    	a {
+				    		@include button($grayLight, 18px);
+				    	}
+				    }
 				}
 			}
 
