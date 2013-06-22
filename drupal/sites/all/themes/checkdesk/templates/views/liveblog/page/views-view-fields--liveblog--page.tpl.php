@@ -39,5 +39,10 @@
     </div>
     
     <?php print $updates; ?>
+
+    <div class="story-footer">
+      <?php print l(t('Updated at ') . render($fields['changed']->content), 'node/' . $fields['nid']->raw); ?>
+    </div>
+
   </article>
 </div>

@@ -35,6 +35,18 @@
   		<?php print render($content['body']); ?>
   	</div>
 
+    <?php
+      $block = block_load('checkdesk_core', 'post');
+      $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
+      $compose_update_form = render($render_array);
+    ?>
+    <div class="compose-update-form">
+      <h2>Compose Update</h2>
+      <?php print $compose_update_form; ?>
+    </div>
+
+    <?php print $updates; ?>
+
     <div class="story-footer">
       <?php print t('Updated at ') . $updated_at; ?>
     </div>

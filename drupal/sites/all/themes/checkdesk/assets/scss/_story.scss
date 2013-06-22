@@ -30,49 +30,8 @@
 }
 
 .node-type-discussion, .page-liveblog {
-  // Updates must stay above story information, 
-  // otherwise you can't click to see the comments
-  #block-views-desk-updates-block {
-    @include ctb-clearfix;
-    form {
-      clear: both;
-    }
-  }
-
   #main {
     @include layout-story($container-width, $container-width);
-    #block-views-desk-updates-block {
-      @include ctb-clearfix;
-    }
-    // compose / create update form
-    #block-checkdesk-core-post {
-      margin-top: $absolute-line-height;
-      & > h2.open {
-        color: rgba(0,0,0,.9);
-        @include icon("pencil", $large-font-size, rgba(0,0,0,.9), $icon-position);
-        background-color: rgba(239,202,43,.2);
-        border-radius: 0px;
-      }
-      
-      & > h2 {
-        @include icon("pencil", $large-font-size, $white, $icon-position);
-        font-family: $sans-serif-font-stack;
-        font-size: $large-font-size;
-        margin-bottom: 0;
-        padding: $absolute-line-height/2 $gutter-width;
-        cursor: pointer;
-        color: $white;
-        background-color: rgb(239,202,43);
-        border-radius: 4px;
-      }
-      .node-post-form {
-        display: none;
-        border-top: 4px solid rgb(239,202,43);
-        padding: 0 $gutter-width;
-        background-image: $striped_lens;
-      }
-    }
-
   }
 }
 
@@ -236,6 +195,38 @@ $omega: opposite-position($alpha);
     }
   }
 
+  // compose / create update form
+  .compose-update-form {
+    margin-top: $absolute-line-height;
+    & > h2.open {
+      color: rgba(0,0,0,.9);
+      @include icon("pencil", $large-font-size, rgba(0,0,0,.9), $icon-position);
+      background-color: rgba(239,202,43,.2);
+      border-radius: 0px;
+    }
+    
+    & > h2 {
+      @include icon("pencil", $large-font-size, $white, $icon-position);
+      font-family: $sans-serif-font-stack;
+      font-size: $large-font-size;
+      margin-bottom: 0;
+      padding: $absolute-line-height/2 $gutter-width;
+      cursor: pointer;
+      color: $white;
+      background-color: rgb(239,202,43);
+      border-radius: 4px;
+    }
+    .node-post-form {
+      display: none;
+      border-top: 4px solid rgb(239,202,43);
+      padding: 0 $gutter-width;
+      background-image: $striped_lens;
+      input[type='submit'] {
+        @include checkdesk-button($identity);
+      }
+    }
+  }
+
   .story-footer {
     margin-top: $absolute-line-height/2;
     padding: $absolute-line-height/4 0;
@@ -245,6 +236,13 @@ $omega: opposite-position($alpha);
     font-size: $small-font-size;
     font-style: italic;
     text-align: $omega;
+    a {
+      color: rgba(0,0,0,.2);
+      &:hover {
+        color: rgba(0,0,0,.4);
+        text-decoration: none;
+      }
+    }
   }
 }
 
