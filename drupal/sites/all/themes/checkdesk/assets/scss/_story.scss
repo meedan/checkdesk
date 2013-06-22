@@ -40,7 +40,7 @@
   margin-top: $absolute-line-height/2;
   .update-row {
     border-top: 2px solid rgba(0,0,0,.2);
-    margin-bottom: $base-line-height/2;
+    margin-bottom: $base-line-height;
     .update-info {
       @include span-columns(4);
       font-family: $sans-serif-font-stack;
@@ -70,6 +70,7 @@ $omega: opposite-position($alpha);
 .story {
   @include ctb-clearfix;
   text-align: $alpha;
+  margin-bottom: $absolute-line-height/2;
 
   #story-actions {
     ul.content-actions {
@@ -227,21 +228,44 @@ $omega: opposite-position($alpha);
     }
   }
 
+  .story-updates-wrapper {
+    // add styles for load more pager
+    @include ctb-load-more-pager;
+  }
+
   .story-footer {
+    @include ctb-clearfix;
+    display: block;
     margin-top: $absolute-line-height/2;
     padding: $absolute-line-height/4 0;
     border-top: 1px solid rgba(0,0,0,.1);
     color: rgba(0,0,0,.2);
     font-family: $sans-serif-font-stack;
     font-size: $small-font-size;
-    font-style: italic;
-    text-align: $omega;
+    cursor: pointer;
     a {
       color: rgba(0,0,0,.2);
       &:hover {
         color: rgba(0,0,0,.4);
         text-decoration: none;
       }
+    }
+    .story-continue {
+      @include icon('link', $small-font-size);
+      float: $alpha;
+      
+      .permalink {
+        display: none;
+      }
+    }
+
+    .story-updated-at {
+      float: $omega;
+      text-align: $omega;
+      font-style: italic;
+    }
+    &:hover {
+      .story-continue .permalink { display: inline-block; }
     }
   }
 }

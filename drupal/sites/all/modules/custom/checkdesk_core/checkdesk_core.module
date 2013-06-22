@@ -1878,7 +1878,7 @@ function _checkdesk_core_filter_tips($filter, $format, $long = FALSE) {
  */
 function checkdesk_core_node_insert($node) {
   // Update story when a new update is created in this story
-  if ($node->type == 'post' && isset($node->field_desk)) {
+  if ($node->type === 'post' && isset($node->field_desk)) {
     $story = node_load($node->field_desk[LANGUAGE_NONE][0]['target_id']);
     $story->changed = $node->changed;
     node_save($story); // Update updated time

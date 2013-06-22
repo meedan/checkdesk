@@ -356,31 +356,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			background-image: $striped_lens;
 			border-left: 1px solid rgba(0,0,0,.1);
 			border-right: 1px solid rgba(0,0,0,.1);
-
-			// reset default pager float
-			ul.pager {
-				float: none;
-			}
 			
-			ul.pager-load-more {
-				@include reset-list-style;
-				text-align: $alpha;
-				margin: $absolute-line-height/2 0 $absolute-line-height 0;
-				padding: 0 $gutter-width;
-				li { position: relative; } // for ajax throbber
-				a {
-					text-align: center;
-					display: inline-block;
-				}
-				.ajax-progress-throbber {
-					position: absolute;
-					top: 0px;
-					#{$omega}: -$gutter-width*3;
-					.throbber {
-						background: url("../imgs/icons/loader_white.gif");
-					}
-				}
-			}
+			// add styles for load more pager
+    		@include ctb-load-more-pager;
 
 
 			// activity items

@@ -51,10 +51,14 @@
       </div>
     <?php } ?>
 
-    <?php print $updates; ?>
+    <div class="story-updates-wrapper">
+      <?php print $updates; ?>
+    </div>
 
     <div class="story-footer">
-      <?php print t('Updated at ') . $updated_at; ?>
+      <div class="story-updated-at">
+        <?php print t('Updated at ') . $updated_at; ?>
+      </div>
     </div>
 
   </article>

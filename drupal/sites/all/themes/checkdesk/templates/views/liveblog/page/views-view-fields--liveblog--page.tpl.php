@@ -37,12 +37,19 @@
     <div class="story-body">
       <?php print render($fields['body']->content); ?>
     </div>
-    
-    <?php print $updates; ?>
 
-    <div class="story-footer">
-      <?php print l(t('Updated at ') . render($fields['changed']->content), 'node/' . $fields['nid']->raw); ?>
+    <div class="story-updates-wrapper">
+      <?php print $updates; ?>
     </div>
+
+    <a class="story-footer" href="<?php print 'node/' . $fields['nid']->raw; ?>">
+      <div class="story-continue">
+        <span class="link"></span> <span class="permalink"><?php print t('Go to story'); ?></span>
+      </div>
+      <div class="story-updated-at">
+        <?php print t('Updated at ') . render($fields['changed']->content); ?>
+      </div>
+    </a>
 
   </article>
 </div>
