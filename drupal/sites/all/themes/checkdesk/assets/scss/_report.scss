@@ -176,15 +176,13 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					padding: 0;
 				}
 				
-				.favicon, 
-				.author {
+				.favicon {
 					float: $alpha;
 					padding: $absolute-line-height/4 $gutter-width;
 					width: auto;
 				}
-				
-				.domain {
-
+				.author, .domain {
+					padding: $absolute-line-height/4 0;
 				}
 
 				img,
@@ -214,9 +212,11 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				    }
 				}
 			}
-
 			.twitter_com {
 				width: 60%;
+			}
+			.www_facebook_com {
+				padding: $absolute-line-height/2 $gutter-width;
 			}
 		}
 

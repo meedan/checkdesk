@@ -4989,11 +4989,13 @@ div.tabs ul.primary li a {
 .report .report-content .report-media .container .content {
   padding: 0;
 }
-.report .report-content .report-media .container .favicon,
-.report .report-content .report-media .container .author {
+.report .report-content .report-media .container .favicon {
   float: right;
   padding: 7.2px 11px;
   width: auto;
+}
+.report .report-content .report-media .container .author, .report .report-content .report-media .container .domain {
+  padding: 7.2px 0;
 }
 .report .report-content .report-media .container img,
 .report .report-content .report-media .container embed,
@@ -5065,6 +5067,9 @@ div.tabs ul.primary li a {
 }
 .report .report-content .report-media .twitter_com {
   width: 60%;
+}
+.report .report-content .report-media .www_facebook_com {
+  padding: 14.4px 11px;
 }
 .report .report-content .description {
   padding: 14.4px 11px;
