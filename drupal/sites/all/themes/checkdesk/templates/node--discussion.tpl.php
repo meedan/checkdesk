@@ -25,7 +25,7 @@
   	<?php // print render($content['story_blogger']); ?>
 
 
-    <?php if ($content['field_lead_image']) { ?>
+    <?php if(isset($content['field_lead_image'])) { ?>
       <figure>
         <?php print render(field_view_field('node', $node, 'field_lead_image')); ?>
       </figure>
