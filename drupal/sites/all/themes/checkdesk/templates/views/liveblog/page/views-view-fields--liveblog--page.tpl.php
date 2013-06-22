@@ -42,7 +42,7 @@
       <?php print $updates; ?>
     </div>
 
-    <a class="story-footer" href="<?php print 'node/' . $fields['nid']->raw; ?>">
+    <a class="story-footer" href="<?php print url('node/' . $fields['nid']->raw); ?>">
       <div class="story-continue">
         <span class="link"></span> <span class="permalink"><?php print t('Go to story'); ?></span>
       </div>

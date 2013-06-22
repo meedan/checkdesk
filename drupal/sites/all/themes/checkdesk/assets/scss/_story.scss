@@ -59,6 +59,9 @@
         display: block;
         padding: $absolute-line-height/2 0;
         font-size: $xxx-large-font-size;
+        @if $from-direction == 'left' {
+          letter-spacing: -0.08em;
+        }
       }
     }
   }
