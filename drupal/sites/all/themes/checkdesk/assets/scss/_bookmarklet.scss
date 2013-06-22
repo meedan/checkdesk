@@ -89,11 +89,11 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   }
 
   #meedan_bookmarklet_help {
-    position: absolute;
-    top: 0;
+    // position: absolute;
+    // top: 0;
     padding-top: $gutter-width;
     line-height: $absolute-line-height;
-    #{$omega-float}: $gutter-width;
+    // #{$omega-float}: $gutter-width;
 
     span {
       display: block;
@@ -112,7 +112,8 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
         height: auto;
         background: white;
         border: 1px solid $grayLighter;
-        font-size: 12px;
+        font-size: $small-font-size;
+        line-height: 1.2;
         color: $grayLight;
         text-indent: 0;
         padding: $gutter-width;
@@ -121,6 +122,8 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
       }
     }
   }
+
+
 
   // Loading ..
   .meedan-bookmarklet-loading {
@@ -343,7 +346,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   @include bookmarklet-step-one;
   @include bookmarklet-step-two;
 }
-
 
 // ===========================================================================
 // Breakpoints 
