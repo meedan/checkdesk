@@ -43544,6 +43544,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['88342fd66ec71d893d5f3f733218dfcd'] = array(
+    'source' => 'Changed status to ',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'غيّر الحالة إلى',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['413659d87c19bf6e36e584fe0837a885'] = array(
     'source' => '<time datetime="!date">!interval ago</time>',
     'context' => '',
@@ -43552,11 +43560,59 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['1a9c1cdae00170519616100b743755ce'] = array(
+    'source' => 'Updated at ',
+    'context' => '',
+    'location' => '/ar/story/%D8%A7%D9%84%D8%B4%D8%B9%D8%A8-%D9%8A%D8%B1%D9%8A%D8%AF-%D8%A5%D9%82%D8%A7%D9%84%D8%A9%D8%A7%D9%84%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D8%B1%D8%B4',
+    'translation' => 'حُدث الساعة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['8fe209e9c671fdc2a2353cf51ffefa6d'] = array(
     'source' => 'Compose Update',
     'context' => '',
     'location' => '/ar/node/add/post',
     'translation' => 'اكتب تحديث',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['acdd0a4bcc6d648f72e8846eab120b1a'] = array(
+    'source' => 'A Checkdesk live blog by <span class="checkdesk-slogan-partner">@partner</span>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'مدونة Checkdesk مباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d1fd5335988a1bae6f07d38101ebd5c2'] = array(
+    'source' => 'Published on live blog under ',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'نُشر على المدونة المباشرة في',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['43e65e789145dd0fd713e0ac59b2496b'] = array(
+    'source' => 'Load more updates',
+    'context' => '',
+    'location' => NULL,
+    'translation' => 'تحميل المزيد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['214546bcbdd7a47053089577bb11fee6'] = array(
+    'source' => 'Go to story',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'إذهب إلى الخبر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['435958ed029aa31b3508928fcf1be226'] = array(
+    'source' => 'Load more stories',
+    'context' => '',
+    'location' => NULL,
+    'translation' => 'تحميل المزيد',
     'plid' => 0,
     'plural' => 0,
   );
