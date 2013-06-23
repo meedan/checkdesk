@@ -563,7 +563,7 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_bookmarklet_prepopulate_body';
-  $strongarm->value = 'selected';
+  $strongarm->value = '';
   $export['meedan_bookmarklet_prepopulate_body'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -591,7 +591,7 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_bookmarklet_prepopulate_title';
-  $strongarm->value = 'title';
+  $strongarm->value = '';
   $export['meedan_bookmarklet_prepopulate_title'] = $strongarm;
 
   $strongarm = new stdClass();
