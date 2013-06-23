@@ -961,6 +961,7 @@ print t(\'No content available\');
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '2';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['more_button_text'] = 'Load more stories';
   $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';

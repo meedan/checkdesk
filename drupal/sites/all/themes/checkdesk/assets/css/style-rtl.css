@@ -7766,6 +7766,42 @@ body.page-liveblog #main .view-liveblog .desk h1 a:hover {
 body.page-liveblog #main .view-liveblog .desk h1 a:active {
   background-color: #99cfff;
 }
+body.page-liveblog #main .view-liveblog .pager-load-more {
+  *zoom: 1;
+  float: none;
+  clear: both;
+  position: relative;
+  text-align: center;
+}
+body.page-liveblog #main .view-liveblog .pager-load-more:before, body.page-liveblog #main .view-liveblog .pager-load-more:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body.page-liveblog #main .view-liveblog .pager-load-more:after {
+  clear: both;
+}
+body.page-liveblog #main .view-liveblog .pager-load-more a {
+  width: 70%;
+  text-align: center;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+body.page-liveblog #main .view-liveblog .pager-load-more a:hover {
+  color: white;
+  background-color: #0088ff;
+}
+body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber {
+  position: absolute;
+  top: 4px;
+  left: 11px;
+}
+body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber .throbber {
+  background: url("../imgs/icons/loader_white.gif");
+}
 
 .node-type-discussion #main .update-row .update-body, .page-liveblog #main .update-row .update-body {
   width: 77.433%;
