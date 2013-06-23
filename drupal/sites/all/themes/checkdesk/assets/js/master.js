@@ -47,9 +47,17 @@
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // show or hide compose update form
-      $('.compose-update-form>h2').click(function() {
-        $('.compose-update-form .node-post-form').slideToggle('fast');
-        $(this).toggleClass('open');
+      $('.compose-update-form>h2').unbind('click').click(function(event) {
+        var target = $(this),
+            element = target.parent();
+        if (element.find('.node-post-form').is(':visible')) {
+          element.find('.node-post-form').slideUp('fast');
+          element.removeClass('open');
+        }
+        else {
+          element.find('.node-post-form').slideDown('fast');
+          element.addClass('open');
+        }
         return false;
       });
     }

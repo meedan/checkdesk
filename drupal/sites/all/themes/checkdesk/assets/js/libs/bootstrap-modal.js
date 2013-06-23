@@ -1,21 +1,21 @@
 /* =========================================================
-* bootstrap-modal.js v2.2.2
-* http://twitter.github.com/bootstrap/javascript.html#modals
-* =========================================================
-* Copyright 2012 Twitter, Inc.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-* ========================================================= */
+ * bootstrap-modal.js v2.3.2
+ * http://twitter.github.com/bootstrap/javascript.html#modals
+ * =========================================================
+ * Copyright 2012 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================= */
 
 
 !function ($) {
@@ -24,7 +24,7 @@
 
 
  /* MODAL CLASS DEFINITION
-* ====================== */
+  * ====================== */
 
   var Modal = function (element, options) {
     this.options = options
@@ -60,8 +60,7 @@
             that.$element.appendTo(document.body) //don't move modals dom position
           }
 
-          that.$element
-            .show()
+          that.$element.show()
 
           if (transition) {
             that.$element[0].offsetWidth // force reflow
@@ -139,16 +138,17 @@
         })
       }
 
-    , hideModal: function (that) {
-        this.$element
-          .hide()
-          .trigger('hidden')
-
-        this.backdrop()
+    , hideModal: function () {
+        var that = this
+        this.$element.hide()
+        this.backdrop(function () {
+          that.removeBackdrop()
+          that.$element.trigger('hidden')
+        })
       }
 
     , removeBackdrop: function () {
-        this.$backdrop.remove()
+        this.$backdrop && this.$backdrop.remove()
         this.$backdrop = null
       }
 
@@ -172,6 +172,8 @@
 
           this.$backdrop.addClass('in')
 
+          if (!callback) return
+
           doAnimate ?
             this.$backdrop.one($.support.transition.end, callback) :
             callback()
@@ -180,8 +182,8 @@
           this.$backdrop.removeClass('in')
 
           $.support.transition && this.$element.hasClass('fade')?
-            this.$backdrop.one($.support.transition.end, $.proxy(this.removeBackdrop, this)) :
-            this.removeBackdrop()
+            this.$backdrop.one($.support.transition.end, callback) :
+            callback()
 
         } else if (callback) {
           callback()
@@ -191,7 +193,7 @@
 
 
  /* MODAL PLUGIN DEFINITION
-* ======================= */
+  * ======================= */
 
   var old = $.fn.modal
 
@@ -216,7 +218,7 @@
 
 
  /* MODAL NO CONFLICT
-* ================= */
+  * ================= */
 
   $.fn.modal.noConflict = function () {
     $.fn.modal = old
@@ -225,7 +227,7 @@
 
 
  /* MODAL DATA-API
-* ============== */
+  * ============== */
 
   $(document).on('click.modal.data-api', '[data-toggle="modal"]', function (e) {
     var $this = $(this)
