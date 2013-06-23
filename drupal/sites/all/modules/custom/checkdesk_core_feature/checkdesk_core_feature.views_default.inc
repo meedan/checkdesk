@@ -302,7 +302,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['header']['area']['content'] = '<?php
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
-  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media\'),
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media&field=created\'),
   \'incremental\' => array(
     \'view_base_path\' => \'desk-reports/autorefresh\',
     \'view_display_id\' => \'page_1\',
@@ -731,7 +731,7 @@ print t(\'No content available\');
     t('<?php
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
-  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media\'),
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media&field=created\'),
   \'incremental\' => array(
     \'view_base_path\' => \'desk-reports/autorefresh\',
     \'view_display_id\' => \'page_1\',
@@ -974,7 +974,7 @@ print t(\'No content available\');
   $handler->display->display_options['header']['area']['content'] = '<?php
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
-  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php\'),
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=discussion&field=changed\'),
   \'incremental\' => array(
     \'view_base_path\' => \'liveblog/autorefresh\',
     \'view_display_id\' => \'page_1\',
@@ -1129,7 +1129,7 @@ print theme(\'views_autorefresh\', array(
     t('<?php
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
-  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php\'),
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=discussion&field=changed\'),
   \'incremental\' => array(
     \'view_base_path\' => \'liveblog/autorefresh\',
     \'view_display_id\' => \'page_1\',
