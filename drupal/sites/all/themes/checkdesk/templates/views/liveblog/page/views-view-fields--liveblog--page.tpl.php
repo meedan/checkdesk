@@ -9,11 +9,11 @@
       )    
     );
     $user_avatar = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar')), 'user/'. $user->uid, $options);
-    $author = t('<a href="@user">!user</a>', array(
-      '@user' => url('user/'. $user->uid),
-      '!user' => $user->name,
-    ));
   }
+  $author = t('<a href="@user">!user</a>', array(
+    '@user' => url('user/'. $user->uid),
+    '!user' => $user->name,
+  ));
 ?>
 <div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
   <article class="story">
