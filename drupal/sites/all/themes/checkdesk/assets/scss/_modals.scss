@@ -1,10 +1,10 @@
 //
 // Checkdesk Modals
-$modal-width: 426px;
+$modal-width: 700px;
 
 // Background
 .modal-backdrop {
-  position: relative;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -22,10 +22,12 @@ $modal-width: 426px;
 
 // Base modal
 .modal {
-  position: relative;
-  top: 0;
+  position: fixed;
+  top: 10%;
+  #{$alpha}: 50%;
   z-index: $zindexModal;
-  // width: $modal-width;
+  width: $modal-width;
+  margin-#{$alpha}: -$modal-width/2;
   margin-top: -80px;
   background-color: $white;
   border: 1px solid #999;
