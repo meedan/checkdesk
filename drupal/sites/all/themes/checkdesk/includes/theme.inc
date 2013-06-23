@@ -311,7 +311,9 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   }
 
   $output .= '</span>';
-  $output .= '<time class="time" title=' . format_date($message->timestamp, 'custom', t('g:ia'))  .'>' . format_interval((time() - $message->timestamp), 1) . t(' ago') . '</time>';
+  $output .= '<time class="time" title=' . format_date($message->timestamp, 'custom', t('g:ia')) . '>';
+  $output .= t('!time ago', array('!time' => format_interval((time() - $message->timestamp), 1)));
+  $output .= '</time>';
   $output .= '</header>';
   return $output;
 }
