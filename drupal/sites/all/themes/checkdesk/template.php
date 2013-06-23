@@ -1052,7 +1052,7 @@ function _checkdesk_ensure_reports_modal_js() {
     'modal-popup-report' => array(
       'modalSize' => array(
         'type' => 'fixed',
-        'width' => 768,
+        'width' => 700,
         'height' => 540,
         'addWidth' => 0,
         'addHeight' => 0
