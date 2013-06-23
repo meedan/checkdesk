@@ -794,7 +794,7 @@ function _checkdesk_core_post_node_form_submit($form, &$form_state) {
     drupal_set_message(t('@type %title saved as draft.', array('@type' => t('Update'), '%title' => $form_state['values']['title'])));
   }
   // Redirect to story page
-  $form_state['redirect'] = 'node/' . $form['field_desk'][LANGUAGE_NONE]['#default_value'];
+  $form_state['redirect'] = array('node/' . $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id']);
   // drupal_set_message(t('Update has been added to this story.'));
   // $form_state['redirect'] = array('node/' . $form['field_desk'][LANGUAGE_NONE]['#default_value'], array('fragment' => 'update-'. $form_state['nid']));
 }
