@@ -1091,14 +1091,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   }
 
   if ($vars['view']->name === 'liveblog') {
-    $view = views_get_view('updates_for_stories');
-    $view->set_arguments(array($vars['fields']['nid']->raw));
-    $view_output = $view->preview('block');
-    $total_rows = $view->total_rows;
-    $view->destroy();
-    if ($total_rows) {
-      $vars['updates'] = $view_output;
-    }
+    $vars['updates'] = $vars['view']->result[$vars['view']->row_index]->updates;
   }
 
   if ($vars['view']->name === 'updates_for_stories') {
