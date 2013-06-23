@@ -15,6 +15,10 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     @include reset-box-model;
     float: $from-direction;
     clear: both;
+
+    .description {
+      width: $bookmarklet-width - $gutter-width * 2;
+    }
   }
 
   .field-type-link-field {
@@ -63,6 +67,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     width: auto;
     margin-top: $gutter-width;
     padding-top: $gutter-width;
+    border-top: 0;
   }
 
   .footer {
@@ -91,7 +96,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   #meedan_bookmarklet_help {
     // position: absolute;
     // top: 0;
-    padding-top: $gutter-width;
+    padding-top: $absolute-line-height / 3;
     line-height: $absolute-line-height;
     // #{$omega-float}: $gutter-width;
 
@@ -127,7 +132,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
   // Loading ..
   .meedan-bookmarklet-loading {
-    background: #fff url(../imgs/icons/bookmarklet-loading.gif) 305px center no-repeat;
+    background: $white url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
   }
 }
 
@@ -225,8 +230,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     background: transparent;
     padding: 0;
     border: 0;
-    position: absolute;
-    top: 150px;
     color: #a00;
   }
 
@@ -334,7 +337,12 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // ==============================================================
 
 // The bookmarklet itself
-// NOTE: applied to body
+// NOTE: applied to html
+#meedan_bookmarklet_html {
+  height: auto;
+  background: $white;
+}
+
 #meedan_bookmarklet {
   font-size: $small-font-size;
   overflow: hidden;
@@ -345,6 +353,13 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   @include bookmarklet-alerts;
   @include bookmarklet-step-one;
   @include bookmarklet-step-two;
+}
+
+#meedan_bookmarklet_close {
+  top: 20px;
+  #{$from-direction}: $bookmarklet-width - 30; // the close icon is 30px wide
+  #{opposite-position($from-direction)}: auto;
+  z-index: 2;
 }
 
 // ===========================================================================
