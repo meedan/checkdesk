@@ -160,6 +160,11 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					// width: $report-width-px; // enlarge photos to fit ...
 				}
 
+				.oembed--link--meedan-oembed-generic,
+				.oembed--link--meedan-oembed-theme-generic {
+					padding: $absolute-line-height/2 $gutter-width;
+				}
+
 				.thumbnail img {
 					padding: $gutter-width 0;
 				}
@@ -176,15 +181,13 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					padding: 0;
 				}
 				
-				.favicon, 
-				.author {
+				.favicon {
 					float: $alpha;
 					padding: $absolute-line-height/4 $gutter-width;
 					width: auto;
 				}
-				
-				.domain {
-
+				.author, .domain {
+					padding: $absolute-line-height/4 0;
 				}
 
 				img,
@@ -202,22 +205,29 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			    	text-align: center;
 			    	vertical-align: middle;
 			    	background: none !important;
-			    .sensitive-notification-text {
-			    	color: $grayDark;
-			    	padding: $absolute-line-height/2 $gutter-width/2;
-			    }
-			    .sensitive-notification-link {
-			    	padding: $absolute-line-height/2 $gutter-width/2;
-			    	a {
-			    		@include button($grayLight, 18px);
-			    	}
-			    }
+				    .sensitive-notification-text {
+				    	color: $grayDark;
+				    	padding: $absolute-line-height/2 $gutter-width/2;
+				    }
+				    .sensitive-notification-link {
+				    	padding: $absolute-line-height/2 $gutter-width/2;
+				    	a {
+				    		@include button($grayLight, 18px);
+				    	}
+				    }
 				}
 			}
 
 			.twitter_com {
 				width: 60%;
 			}
+			.www_facebook_com {
+				// padding: $absolute-line-height/2 $gutter-width;
+				.oembed--link--meedan-oembed-facebook > div {
+					padding: $absolute-line-height/2 $gutter-width;
+				}
+			}
+
 		}
 
 		.description {
@@ -346,31 +356,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			background-image: $striped_lens;
 			border-left: 1px solid rgba(0,0,0,.1);
 			border-right: 1px solid rgba(0,0,0,.1);
-
-			// reset default pager float
-			ul.pager {
-				float: none;
-			}
 			
-			ul.pager-load-more {
-				@include reset-list-style;
-				text-align: $alpha;
-				margin: $absolute-line-height/2 0 $absolute-line-height 0;
-				padding: 0 $gutter-width;
-				li { position: relative; } // for ajax throbber
-				a {
-					text-align: center;
-					display: inline-block;
-				}
-				.ajax-progress-throbber {
-					position: absolute;
-					top: 0px;
-					#{$omega}: -$gutter-width*3;
-					.throbber {
-						background: url("../imgs/icons/loader_white.gif");
-					}
-				}
-			}
+			// add styles for load more pager
+    		@include ctb-load-more-pager;
 
 
 			// activity items

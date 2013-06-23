@@ -539,6 +539,40 @@
   }
 }
 
+@mixin ctb-load-more-pager {
+  .pager-load-more {
+      @include ctb-clearfix;
+      float: none;
+      clear: both;
+      position: relative;
+      text-align: center;
+      a {
+        width: 70%;
+        text-align: center;
+        @if $from-direction == 'left' {
+          letter-spacing: 0.05em;
+        }
+        font-family: $sans-serif-font-stack;
+        font-size: $small-font-size;
+        font-weight: 700;
+        color: rgba(0,0,0,.4);
+        background-color: rgba(255,255,255,.8);
+        &:hover {
+          color: $white;
+          background-color: $identity;
+        }
+      }
+      .ajax-progress-throbber {
+        position: absolute;
+        top: 4px;
+        #{$omega}: $gutter-width;
+        .throbber {
+          background: url("../imgs/icons/loader_white.gif");
+        }
+      }
+    }
+}
+
 // Navbar vertical align
 // -------------------------
 // Vertically center elements in the navbar.

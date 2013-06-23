@@ -2,8 +2,8 @@
   // dsm($content);
   // dsm($node);
 ?>
-
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+  <a name="update-<?php print $node->nid; ?>" class="scroll"></a>
   <article class="update">
     <div class="update-body">
       <?php print render($content['body']); ?>

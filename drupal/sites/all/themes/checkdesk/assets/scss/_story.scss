@@ -30,49 +30,8 @@
 }
 
 .node-type-discussion, .page-liveblog {
-  // Updates must stay above story information, 
-  // otherwise you can't click to see the comments
-  #block-views-desk-updates-block {
-    @include ctb-clearfix;
-    form {
-      clear: both;
-    }
-  }
-
   #main {
     @include layout-story($container-width, $container-width);
-    #block-views-desk-updates-block {
-      @include ctb-clearfix;
-    }
-    // compose / create update form
-    #block-checkdesk-core-post {
-      margin-top: $absolute-line-height;
-      & > h2.open {
-        color: rgba(0,0,0,.9);
-        @include icon("pencil", $large-font-size, rgba(0,0,0,.9), $icon-position);
-        background-color: rgba(239,202,43,.2);
-        border-radius: 0px;
-      }
-      
-      & > h2 {
-        @include icon("pencil", $large-font-size, $white, $icon-position);
-        font-family: $sans-serif-font-stack;
-        font-size: $large-font-size;
-        margin-bottom: 0;
-        padding: $absolute-line-height/2 $gutter-width;
-        cursor: pointer;
-        color: $white;
-        background-color: rgb(239,202,43);
-        border-radius: 4px;
-      }
-      .node-post-form {
-        display: none;
-        border-top: 4px solid rgb(239,202,43);
-        padding: 0 $gutter-width;
-        background-image: $striped_lens;
-      }
-    }
-
   }
 }
 
@@ -81,7 +40,7 @@
   margin-top: $absolute-line-height/2;
   .update-row {
     border-top: 2px solid rgba(0,0,0,.2);
-    margin-bottom: $base-line-height/2;
+    margin-bottom: $base-line-height;
     .update-info {
       @include span-columns(4);
       font-family: $sans-serif-font-stack;
@@ -100,6 +59,9 @@
         display: block;
         padding: $absolute-line-height/2 0;
         font-size: $xxx-large-font-size;
+        @if $from-direction == 'left' {
+          letter-spacing: -0.08em;
+        }
       }
     }
   }
@@ -111,6 +73,7 @@ $omega: opposite-position($alpha);
 .story {
   @include ctb-clearfix;
   text-align: $alpha;
+  margin-bottom: $absolute-line-height/2;
 
   #story-actions {
     ul.content-actions {
@@ -132,6 +95,8 @@ $omega: opposite-position($alpha);
   }
 
   .story-meta {
+    border-top: 4px solid rgba(0,0,0,.9);
+    padding-top: $absolute-line-height/2;
     font-family: $sans-serif-font-stack;
     color: rgba(0,0,0,.6); 
     .separator {
@@ -234,15 +199,77 @@ $omega: opposite-position($alpha);
     }
   }
 
+  // compose / create update form
+  .compose-update-form {
+    margin-top: $absolute-line-height;
+    & > h2.open {
+      color: rgba(0,0,0,.9);
+      @include icon("pencil", $large-font-size, rgba(0,0,0,.9), $icon-position);
+      background-color: rgba(239,202,43,.2);
+      border-radius: 0px;
+    }
+    
+    & > h2 {
+      @include icon("pencil", $large-font-size, $white, $icon-position);
+      font-family: $sans-serif-font-stack;
+      font-size: $large-font-size;
+      margin-bottom: 0;
+      padding: $absolute-line-height/2 $gutter-width;
+      cursor: pointer;
+      color: $white;
+      background-color: rgb(239,202,43);
+      border-radius: 4px;
+    }
+    .node-post-form {
+      display: none;
+      border-top: 4px solid rgb(239,202,43);
+      padding: 0 $gutter-width;
+      background-image: $striped_lens;
+      input[type='submit'] {
+        @include checkdesk-button($identity);
+      }
+    }
+  }
+
+  .story-updates-wrapper {
+    // add styles for load more pager
+    @include ctb-load-more-pager;
+  }
+
   .story-footer {
+    @include ctb-clearfix;
+    display: block;
     margin-top: $absolute-line-height/2;
     padding: $absolute-line-height/4 0;
     border-top: 1px solid rgba(0,0,0,.1);
     color: rgba(0,0,0,.2);
     font-family: $sans-serif-font-stack;
     font-size: $small-font-size;
-    font-style: italic;
-    text-align: $omega;
+    cursor: pointer;
+    a {
+      color: rgba(0,0,0,.2);
+      &:hover {
+        color: rgba(0,0,0,.4);
+        text-decoration: none;
+      }
+    }
+    .story-continue {
+      @include icon('link', $small-font-size);
+      float: $alpha;
+      
+      .permalink {
+        display: none;
+      }
+    }
+
+    .story-updated-at {
+      float: $omega;
+      text-align: $omega;
+      font-style: italic;
+    }
+    &:hover {
+      .story-continue .permalink { display: inline-block; }
+    }
   }
 }
 

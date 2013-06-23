@@ -57,9 +57,8 @@ body.page-liveblog {
           }
         }
       }
-      .related-updates {
-        
-      }
+      // add styles for load more pager
+      @include ctb-load-more-pager;
     }
   }
 }

@@ -47,8 +47,8 @@
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // show or hide compose update form
-      $('#block-checkdesk-core-post>h2').click(function() {
-        $('#block-checkdesk-core-post .node-post-form').slideToggle('fast');
+      $('.compose-update-form>h2').click(function() {
+        $('.compose-update-form .node-post-form').slideToggle('fast');
         $(this).toggleClass('open');
         return false;
       });

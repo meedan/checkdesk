@@ -25,7 +25,7 @@
   	<?php // print render($content['story_blogger']); ?>
 
 
-    <?php if ($content['field_lead_image']) { ?>
+    <?php if(isset($content['field_lead_image'])) { ?>
       <figure>
         <?php print render(field_view_field('node', $node, 'field_lead_image')); ?>
       </figure>
@@ -35,8 +35,30 @@
   		<?php print render($content['body']); ?>
   	</div>
 
+    <?php
+      // get compose update form
+      $block = block_load('checkdesk_core', 'post');
+      $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
+      if(isset($render_array['checkdesk_core_post'])) {
+        $compose_update_form = render($render_array);  
+      }
+    ?>
+    
+    <?php if(isset($compose_update_form)) { ?>
+      <div class="compose-update-form">
+        <h2>Compose Update</h2>
+        <?php print $compose_update_form; ?>
+      </div>
+    <?php } ?>
+
+    <div class="story-updates-wrapper">
+      <?php print $updates; ?>
+    </div>
+
     <div class="story-footer">
-      <?php print t('Updated at ') . $updated_at; ?>
+      <div class="story-updated-at">
+        <?php print t('Updated at ') . $updated_at; ?>
+      </div>
     </div>
 
   </article>
