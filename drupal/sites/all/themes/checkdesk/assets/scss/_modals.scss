@@ -141,3 +141,7 @@ $modal-width: 426px;
     }
   }
 }
+
+#modalContent {
+  position: fixed !important; // "position: absolute" is hardcoded in ctools/js/modal.js:389
+}
