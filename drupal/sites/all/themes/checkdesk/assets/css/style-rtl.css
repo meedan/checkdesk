@@ -2237,6 +2237,10 @@ html body div.livefyre-header:before, body div.fb-comments-header:before {
   content: "\f141";
 }
 
+.update .update-footer .icon-edit-sign:before {
+  content: "\f14b";
+}
+
 #widgets .elsewhere ul li span.icon-youtube:before {
   content: "\f30e";
 }
@@ -5788,6 +5792,17 @@ article.in-progress {
   *margin-right: .3em;
 }
 .update .update-footer .icon-share:before {
+  font-family: "FontAwesome";
+  font-size: 15px;
+  line-height: inherit;
+  color: rgba(0, 0, 0, 0.2);
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+}
+.update .update-footer .icon-edit-sign:before {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: inherit;
