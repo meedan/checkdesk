@@ -1,10 +1,22 @@
 //
 // Checkdesk Modals
-$modal-width: 700px;
+$large-modal-width: 700px;
+
+.modal-modal-popup-large {
+  width: $large-modal-width;
+  margin-#{$alpha}: -$large-modal-width/2;
+  // align large modals at top
+  // as these are mostly content based
+  top: 100px !important;
+}
+
+.modal-modal-popup-report {
+  top: 100px !important;
+}
 
 // Background
 .modal-backdrop {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
@@ -22,13 +34,8 @@ $modal-width: 700px;
 
 // Base modal
 .modal {
-  position: fixed;
-  top: 10%;
-  #{$alpha}: 50%;
+  position: absolute;
   z-index: $zindexModal;
-  width: $modal-width;
-  margin-#{$alpha}: -$modal-width/2;
-  margin-top: -80px;
   background-color: $white;
   border: 1px solid #999;
   border: 1px solid rgba(0,0,0,.3);
@@ -38,6 +45,7 @@ $modal-width: 700px;
   @include background-clip(padding-box);
   // Remove focus outline from opened modal
   outline: none;
+  overflow: visible; /* allow content to popup out (i.e tooltips) */
 
   &.fade {
     @include transition(opacity .3s linear, top .3s ease-out);
@@ -68,7 +76,7 @@ $modal-width: 700px;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 510px;
+  // max-height: 510px;
 
   .modal-content {
     position: relative;

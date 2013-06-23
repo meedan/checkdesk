@@ -3680,8 +3680,18 @@ ul.dropdown-menu a:hover {
   display: block;
 }
 
+.modal-modal-popup-large {
+  width: 700px;
+  margin-left: -350px;
+  top: 100px !important;
+}
+
+.modal-modal-popup-report {
+  top: 100px !important;
+}
+
 .modal-backdrop {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
@@ -3700,13 +3710,8 @@ ul.dropdown-menu a:hover {
 }
 
 .modal {
-  position: fixed;
-  top: 10%;
-  left: 50%;
+  position: absolute;
   z-index: 950;
-  width: 700px;
-  margin-left: -350px;
-  margin-top: -80px;
   background-color: white;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -3719,6 +3724,8 @@ ul.dropdown-menu a:hover {
   -moz-background-clip: padding;
   background-clip: padding-box;
   outline: none;
+  overflow: visible;
+  /* allow content to popup out (i.e tooltips) */
 }
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
@@ -3749,7 +3756,6 @@ ul.dropdown-menu a:hover {
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 510px;
 }
 .modal-body .modal-content {
   position: relative;
@@ -6331,15 +6337,9 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
 
 #modalContent.modal-install-bookmarklet {
   z-index: 950;
-  position: fixed !important;
-  top: 200px !important;
 }
 #modalContent.modal-install-bookmarklet .ctools-modal-content .modal-content {
   overflow: visible;
-}
-#modalContent.modal-install-bookmarklet .modal {
-  width: 700px;
-  height: 350px;
 }
 #modalContent.modal-install-bookmarklet .modal .modal-body {
   overflow: visible;
@@ -7228,6 +7228,7 @@ form.confirmation .form-actions input:active, form.confirmation .form-actions in
 }
 form .form-actions {
   margin-top: 11px;
+  border-top: 0px none;
 }
 form .form-actions input, form .form-actions a {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;

@@ -25,6 +25,17 @@
 		return html;
 	};
 
+  // ctools bindings
+  Drupal.behaviors.modalWorks = {
+    attach: function(context) {
+      $('a.ctools-use-modal').unbind('click').click(function(event) {
+        var $this = $(this);
+        // $this.unbind(); // Note the unbind: Otherwise there are multiple bind events which causes issues
+          console.log(this);
+      });
+    }
+  };
+
 	// filters for reports inside sidebar
 	Drupal.behaviors.reportsPage = {
 		attach: function(context) {

@@ -37,7 +37,6 @@ function checkdesk_theme() {
  * @see html.tpl.php
  */
 function checkdesk_preprocess_html(&$variables) {
-  
   if(arg(0) == 'user' && arg(1) == '') {
    $class = 'page-user-login';
    $variables['classes_array'][] = $class;
@@ -314,7 +313,7 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
-    $tree[$id]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
+    $tree[$id]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-large');
   }
 
   $variables['information_menu'] = checkdesk_menu_navigation_links($tree);
@@ -408,8 +407,8 @@ function checkdesk_preprocess_page(&$variables) {
     'modal-popup-large' => array(
       'modalSize' => array(
         'type' => 'fixed',
-        'width' => 420,
-        'height' => 380,
+        'width' => 700,
+        // 'height' => 700,
         'addWidth' => 0,
         'addHeight' => 0
       ),
