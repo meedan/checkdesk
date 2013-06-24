@@ -376,3 +376,12 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 @include at-breakpoint($break-large) {
   // same as previous breakpoint
 }
+
+
+// Fixed only for normal screen sizes
+@media all and (max-height: 42em) {
+  #nav-media-form {
+    max-height: 290px;
+    overflow-y: scroll;
+  }
+}

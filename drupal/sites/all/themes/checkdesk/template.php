@@ -408,7 +408,7 @@ function checkdesk_preprocess_page(&$variables) {
       'modalSize' => array(
         'type' => 'fixed',
         'width' => 700,
-        // 'height' => 700,
+        'height' => 400,
         'addWidth' => 0,
         'addHeight' => 0
       ),

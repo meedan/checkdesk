@@ -8,15 +8,29 @@ $large-modal-width: 700px;
   // align large modals at top
   // as these are mostly content based
   top: 100px !important;
+  #{$alpha}: 50%;
+}
+
+.modal-modal-popup-small {
+  top: 100px !important;
 }
 
 .modal-modal-popup-report {
   top: 100px !important;
 }
 
+// Fixed only for normal screen sizes
+@media all and (max-height: 42em) {
+  .modal-modal-popup-report {  
+    .modal-body {
+      max-height: 290px;
+    }
+  }
+}
+
 // Background
 .modal-backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -34,7 +48,7 @@ $large-modal-width: 700px;
 
 // Base modal
 .modal {
-  position: absolute;
+  position: fixed;
   z-index: $zindexModal;
   background-color: $white;
   border: 1px solid #999;
@@ -76,7 +90,7 @@ $large-modal-width: 700px;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
-  // max-height: 510px;
+  max-height: 480px;
 
   .modal-content {
     position: relative;

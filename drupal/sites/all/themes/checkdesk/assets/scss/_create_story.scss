@@ -21,3 +21,11 @@
     border: none;
   }
 }
+
+// Fixed only for normal screen sizes
+@media all and (max-height: 42em) {
+  #nav-discussion-form {
+    max-height: 290px;
+    overflow-y: scroll;
+  }
+}

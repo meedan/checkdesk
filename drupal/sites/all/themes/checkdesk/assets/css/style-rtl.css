@@ -3684,14 +3684,24 @@ ul.dropdown-menu a:hover {
   width: 700px;
   margin-right: -350px;
   top: 100px !important;
+  right: 50%;
+}
+
+.modal-modal-popup-small {
+  top: 100px !important;
 }
 
 .modal-modal-popup-report {
   top: 100px !important;
 }
 
+@media all and (max-height: 42em) {
+  .modal-modal-popup-report .modal-body {
+    max-height: 290px;
+  }
+}
 .modal-backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -3710,7 +3720,7 @@ ul.dropdown-menu a:hover {
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   z-index: 950;
   background-color: white;
   border: 1px solid #999;
@@ -3756,6 +3766,7 @@ ul.dropdown-menu a:hover {
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  max-height: 480px;
 }
 .modal-body .modal-content {
   position: relative;
@@ -5725,6 +5736,12 @@ article.in-progress {
   z-index: 950;
 }
 
+@media all and (min-height: 40em) {
+  #modalContent.modal-report {
+    position: fixed !important;
+    top: 200px !important;
+  }
+}
 .update {
   *zoom: 1;
 }
@@ -6334,11 +6351,21 @@ body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb
   z-index: 2;
 }
 
+@media all and (max-height: 42em) {
+  #nav-media-form {
+    max-height: 290px;
+    overflow-y: scroll;
+  }
+}
 #modalContent.modal-install-bookmarklet {
   z-index: 950;
 }
 #modalContent.modal-install-bookmarklet .ctools-modal-content .modal-content {
   overflow: visible;
+}
+#modalContent.modal-install-bookmarklet .modal {
+  width: 700px;
+  height: 350px;
 }
 #modalContent.modal-install-bookmarklet .modal .modal-body {
   overflow: visible;
@@ -8965,6 +8992,12 @@ body.page-user-password #content-header {
   border: none;
 }
 
+@media all and (max-height: 42em) {
+  #nav-discussion-form {
+    max-height: 290px;
+    overflow-y: scroll;
+  }
+}
 body.page-reports #main {
   padding-right: 0.77574%;
   padding-left: 0.77574%;
