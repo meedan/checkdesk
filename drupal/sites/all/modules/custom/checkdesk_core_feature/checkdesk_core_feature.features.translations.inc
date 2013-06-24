@@ -43552,19 +43552,19 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['dce35e9550838a5d86752c729a42d65e'] = array(
+    'source' => 'l M d, Y \\a\\t g:ia',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => '\\ف\\ي M d, Y \\ا\\ل\\س\\ا\\ع\\ة g:i a',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['413659d87c19bf6e36e584fe0837a885'] = array(
     'source' => '<time datetime="!date">!interval ago</time>',
     'context' => '',
     'location' => '/',
     'translation' => '<time datetime="!date">منذ !interval</time>',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['1a9c1cdae00170519616100b743755ce'] = array(
-    'source' => 'Updated at ',
-    'context' => '',
-    'location' => '/ar/story/%D8%A7%D9%84%D8%B4%D8%B9%D8%A8-%D9%8A%D8%B1%D9%8A%D8%AF-%D8%A5%D9%82%D8%A7%D9%84%D8%A9%D8%A7%D9%84%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D8%B1%D8%B4',
-    'translation' => 'حُدث الساعة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43589,6 +43589,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/',
     'translation' => 'نُشر على المدونة المباشرة في',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['1a9c1cdae00170519616100b743755ce'] = array(
+    'source' => 'Updated at ',
+    'context' => '',
+    'location' => '/ar/story/%D8%A7%D9%84%D8%B4%D8%B9%D8%A8-%D9%8A%D8%B1%D9%8A%D8%AF-%D8%A5%D9%82%D8%A7%D9%84%D8%A9%D8%A7%D9%84%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D8%B1%D8%B4',
+    'translation' => 'حُدث الساعة',
     'plid' => 0,
     'plural' => 0,
   );
