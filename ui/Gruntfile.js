@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-ngdocs');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
 
@@ -30,11 +31,7 @@ module.exports = function(grunt) {
         src: [
           'src/app.js',
           'src/app.router.js',
-          'src/app.l10n.js',
           'src/modules/**/*.js',
-          'src/services/**/*.js',
-          'src/directives/**/*.js',
-          'src/filters/**/*.js',
           'src/**/*.js'
         ],
         dest: 'build/<%= pkg.name %>.js'
@@ -48,13 +45,33 @@ module.exports = function(grunt) {
         src: 'build/<%= pkg.name %>.js',
         dest: 'build/<%= pkg.name %>.min.js'
       }
+    },
+    // Much of the structure of the documentation is borrowed from @PascalPrecht's
+    // angular-translate (https://github.com/PascalPrecht/angular-translate)
+    // project.
+    ngdocs: {
+      options: {
+        dest: 'docs/public',
+        title: 'Checkdesk',
+        navTemplate: 'docs/html/nav.html',
+        html5Mode: false,
+        // scripts: [],
+        styles: ['docs/css/styles.css']
+      },
+      api: {
+        src: [
+          'src/**/*.js',
+          'docs/content/api/*.ngdoc'
+        ],
+        title: 'API Reference'
+      }
+    },
+    ngmin: {
+      src: {
+        src: '<%= concat.src.dest %>',
+        dest: '<%= concat.src.dest %>'
+      }
     }
-    // ngmin: {
-    //   src: {
-    //     src: '<%= concat.src.dest %>',
-    //     dest: '<%= concat.src.dest %>'
-    //   }
-    // }
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -64,6 +81,6 @@ module.exports = function(grunt) {
   // grunt.registerTask('default', ['jshint', 'karma']);
   // grunt.registerTask('build', ['jshint', 'karma', 'concat', 'ngmin', 'uglify']);
   grunt.registerTask('default', ['jshint']);
-  grunt.registerTask('build', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'ngdocs']);
 
 };

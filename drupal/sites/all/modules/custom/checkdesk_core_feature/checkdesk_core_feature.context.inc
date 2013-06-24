@@ -56,18 +56,6 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-desk_updates-block' => array(
-          'module' => 'views',
-          'delta' => 'desk_updates-block',
-          'region' => 'content',
-          'weight' => '18',
-        ),
-        'checkdesk_core-post' => array(
-          'module' => 'checkdesk_core',
-          'delta' => 'post',
-          'region' => 'content',
-          'weight' => '17',
-        ),
         'views-desk_reports-block' => array(
           'module' => 'views',
           'delta' => 'desk_reports-block',

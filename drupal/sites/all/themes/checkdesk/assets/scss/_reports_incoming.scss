@@ -6,6 +6,7 @@
 .view-desk-reports {
   overflow-x: hidden;
   overflow-y: auto;
+  padding: 0 $gutter-width*2;
 }
 
 // Report filters
@@ -13,7 +14,6 @@
 // They control which reports are visible while you are using the incoming report stream.
 #incoming-reports-filters {
   @extend %filters;
-  margin: ms(1) 0;
 }
 
 // Incoming reports
@@ -21,7 +21,6 @@
 // A list of the incoming media submitted with the bookmarklet.
 #incoming-reports {
   font-size: $small-font-size;
-  padding: 0 $gutter-width*2;
   color: $gray;
 
   // while dragging
@@ -146,6 +145,10 @@
 //
 #modalContent.modal-report {
   z-index: $zindexModal;
+  .modal {
+    
+    
+  }
 }
 // Fixed only for normal screen sizes
 @media all and (min-height: 40em) {

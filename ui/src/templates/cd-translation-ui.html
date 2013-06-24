@@ -2,16 +2,21 @@
 <div class="inner" ng-class="{'collapsed': collapsed}">
   <table ng-hide="collapsed ">
     <thead>
-      <th>Source</th>
-      <th>Translation {{currentLanguage}}</th>
+      <th>Token</th>
+
+      <th ng-repeat="language in languages">Translation for {{language}}</th>
     </thead>
     <tbody>
-      <tr ng-repeat="missingTranslation in missingTranslations">
-        <td class="source">{{missingTranslation}}</td>
-        <td class="translation"><input type="text" ng-model="inputTranslations[$index]" ng-change="translationChanged($index)"></td>
+      <tr ng-repeat="(source, languageTranslations) in allTranslations track by $index">
+        <td class="source">{{source}}</td>
+
+        <td ng-repeat="(language, translation) in languageTranslations track by $index" class="translation translation-{{language}}">
+          <input type="text" ng-model="allTranslations[source][language]" ng-change="translationChanged(language, source)">
+          <button class="btn btn-success btn-save" ng-click="save(language, source)">Save</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <button ng-click="toggle()">{{ collapsed && 'Show' || 'Hide' }}</button>
+  <button ng-click="toggle()" class="btn btn-visibility">{{ collapsed && 'Show' || 'Hide' }}</button>
 </div>

@@ -1,10 +1,36 @@
 //
 // Checkdesk Modals
-$modal-width: 426px;
+$large-modal-width: 700px;
+
+.modal-modal-popup-large {
+  width: $large-modal-width;
+  margin-#{$alpha}: -$large-modal-width/2;
+  // align large modals at top
+  // as these are mostly content based
+  top: 100px !important;
+  #{$alpha}: 50%;
+}
+
+.modal-modal-popup-small {
+  top: 100px !important;
+}
+
+.modal-modal-popup-report {
+  top: 100px !important;
+}
+
+// Fixed only for normal screen sizes
+@media all and (max-height: 42em) {
+  .modal-modal-popup-report {  
+    .modal-body {
+      max-height: 290px;
+    }
+  }
+}
 
 // Background
 .modal-backdrop {
-  position: relative;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -22,11 +48,8 @@ $modal-width: 426px;
 
 // Base modal
 .modal {
-  position: relative;
-  top: 0;
+  position: fixed;
   z-index: $zindexModal;
-  // width: $modal-width;
-  margin-top: -80px;
   background-color: $white;
   border: 1px solid #999;
   border: 1px solid rgba(0,0,0,.3);
@@ -36,6 +59,7 @@ $modal-width: 426px;
   @include background-clip(padding-box);
   // Remove focus outline from opened modal
   outline: none;
+  overflow: visible; /* allow content to popup out (i.e tooltips) */
 
   &.fade {
     @include transition(opacity .3s linear, top .3s ease-out);
@@ -66,11 +90,11 @@ $modal-width: 426px;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 510px;
+  max-height: 480px;
 
   .modal-content {
     position: relative;
-    padding: $absolute-line-height/4 $gutter-width;
+    padding: $absolute-line-height/4 $gutter-width*2;
     line-height: $base-line-height;
 
     form {
@@ -140,4 +164,8 @@ $modal-width: 426px;
       display: none;
     }
   }
+}
+
+#modalContent {
+  position: fixed !important; // "position: absolute" is hardcoded in ctools/js/modal.js:389
 }

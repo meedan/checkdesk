@@ -23,9 +23,10 @@ function meedan_livefyre_theme() {
 function theme_livefyre_commentcount($variables) {
   // @see https://github.com/Livefyre/livefyre-docs/wiki/Comments-3-Comment-Counts
   $node = $variables['node'];
-  drupal_add_js(MEEDAN_LIVEFYRE_COMMENTCOUNT, 'external');
+  drupal_add_js(array('livefyreScript' => array('commentCount' => MEEDAN_LIVEFYRE_COMMENTCOUNT)), 'setting');
   drupal_add_js(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre_commentcount.js');
-  $output  = '<span class="livefyre-commentcount" data-lf-site-id="' . variable_get('meedan_livefyre_siteid', '') . '" data-lf-article-id="' . $node->nid . '">';
+  $class_attribute = (variable_get('meedan_livefyre_lazy_load_comments', false) ? 'data-lazy-load-class' : 'class');
+  $output  = '<span ' . $class_attribute . '="livefyre-commentcount" data-lf-site-id="' . variable_get('meedan_livefyre_siteid', '') . '" data-lf-article-id="' . $node->nid . '">';
   $output .= t('@count comments', array('@count' => 0));
   $output .= '</span>';
   return $output;
@@ -47,7 +48,7 @@ function theme_livefyre_comments($variables) {
     'siteId' => variable_get('meedan_livefyre_siteid', ''),
     'el' => 'livefyre-' . $node->nid,
   );
-  drupal_add_js(MEEDAN_LIVEFYRE_SCRIPT, 'external');
+  drupal_add_js(array('livefyreScript' => array('main' => MEEDAN_LIVEFYRE_SCRIPT)), 'setting');
   drupal_add_js(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.js');
   drupal_add_css(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre.css');
   drupal_add_js(array('livefyre' => array("livefyre-$node->nid" => array(
@@ -114,6 +115,12 @@ function meedan_livefyre_admin_settings() {
     '#options' => $options,
     '#default_value' => variable_get('meedan_livefyre_types', array()),
     '#description' => t('Activate Livefyre comments for the selected content types.'),
+  );
+  $form['meedan_livefyre_lazy_load_comments'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Lazy-load comments count.'),
+    '#default_value' => variable_get('meedan_livefyre_lazy_load_comments', FALSE),
+    '#description' => t('Class with be added as data-lazy-load-class HTML attribute instead of a class HTML attribute.'),
   );
 
   return system_settings_form($form);

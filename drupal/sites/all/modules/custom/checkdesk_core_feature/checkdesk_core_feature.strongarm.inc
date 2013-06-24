@@ -13,79 +13,23 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_dismiss_all_count';
-  $strongarm->value = '2';
-  $export['absolute_messages_dismiss_all_count'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_dismiss_error';
-  $strongarm->value = 0;
-  $export['absolute_messages_dismiss_error'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_dismiss_status';
-  $strongarm->value = 1;
-  $export['absolute_messages_dismiss_status'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_dismiss_time_error';
+  $strongarm->name = 'ant_pattern_post';
   $strongarm->value = '';
-  $export['absolute_messages_dismiss_time_error'] = $strongarm;
+  $export['ant_pattern_post'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_dismiss_time_status';
-  $strongarm->value = '2';
-  $export['absolute_messages_dismiss_time_status'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_dismiss_time_warning';
-  $strongarm->value = '2';
-  $export['absolute_messages_dismiss_time_warning'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_dismiss_warning';
-  $strongarm->value = 1;
-  $export['absolute_messages_dismiss_warning'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_display_lines';
-  $strongarm->value = '';
-  $export['absolute_messages_display_lines'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_fixed';
+  $strongarm->name = 'ant_php_post';
   $strongarm->value = 0;
-  $export['absolute_messages_fixed'] = $strongarm;
+  $export['ant_php_post'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_group';
-  $strongarm->value = 0;
-  $export['absolute_messages_group'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'absolute_messages_no_js_check';
-  $strongarm->value = 0;
-  $export['absolute_messages_no_js_check'] = $strongarm;
+  $strongarm->name = 'ant_post';
+  $strongarm->value = '1';
+  $export['ant_post'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -303,6 +247,22 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'comment_subject_field_post';
   $strongarm->value = 1;
   $export['comment_subject_field_post'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'default_oembedcore_provider';
+  $strongarm->value = array(
+    'youtube' => TRUE,
+    'flickr' => TRUE,
+    'qik' => TRUE,
+    'revision3' => TRUE,
+    'soundcloud' => TRUE,
+    'twitter' => TRUE,
+    'viddler' => TRUE,
+    'vimeo' => TRUE,
+  );
+  $export['default_oembedcore_provider'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -543,6 +503,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_post';
+  $strongarm->value = '0';
+  $export['language_content_type_post'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_login_with_email';
   $strongarm->value = '1';
   $export['logintoboggan_login_with_email'] = $strongarm;
@@ -596,7 +563,7 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_bookmarklet_prepopulate_body';
-  $strongarm->value = 'selected';
+  $strongarm->value = '';
   $export['meedan_bookmarklet_prepopulate_body'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -619,6 +586,13 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->name = 'meedan_bookmarklet_prepopulate_field_stories';
   $strongarm->value = 'title';
   $export['meedan_bookmarklet_prepopulate_field_stories'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_bookmarklet_prepopulate_title';
+  $strongarm->value = '';
+  $export['meedan_bookmarklet_prepopulate_title'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -672,6 +646,13 @@ function checkdesk_core_feature_strongarm() {
     'article' => 0,
   );
   $export['meedan_facebook_comments_types'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'meedan_livefyre_lazy_load_comments';
+  $strongarm->value = 1;
+  $export['meedan_livefyre_lazy_load_comments'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

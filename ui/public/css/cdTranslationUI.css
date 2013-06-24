@@ -29,16 +29,27 @@
   background-color: transparent;
   color: #000;
 }
-#cd-translation-ui table td.source, #cd-translation-ui table td.translation {
-  width: 50%;
+#cd-translation-ui table td.source {
+  width: 20%;
 }
-#cd-translation-ui table td input {
+#cd-translation-ui table td.translation {
+  padding-left: 15px;
+  padding-right: 65px;
+  position: relative;
+}
+#cd-translation-ui table td button.btn-save {
+  width: 60px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+#cd-translation-ui table td input[type=text] {
   width: 100%;
   margin: 0;
   box-sizing: border-box;
   height: 30px;
 }
-#cd-translation-ui button {
+#cd-translation-ui button.btn-visibility {
   position: absolute;
   top: 0;
   right: 0;

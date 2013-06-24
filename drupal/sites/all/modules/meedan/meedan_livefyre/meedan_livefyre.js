@@ -51,11 +51,13 @@ Drupal.behaviors.livefyre = {
               Drupal.livefyre.widget.changeCollection(stream);
             }
             else {
-              window.fyre.conv.load(
-                {},
-                [stream],
-                Drupal.livefyre.callback 
-              );
+              $.getScript(Drupal.settings.livefyreScript.main, function() {
+                window.fyre.conv.load(
+                  {},
+                  [stream],
+                  Drupal.livefyre.callback 
+                );
+              });
             }
 
             comments.show();
@@ -78,7 +80,7 @@ var i, waitForGoogEditor;
 
 i = window.setInterval(function() { waitForGoogEditor(); }, 1000);
 waitForGoogEditor = function() {
-  if (window.goog.editor) {
+  if (window.goog && window.goog.editor) {
     window.clearInterval(i);
 
     // This method was causing an unrecoverable error on Firefox and Opera, so it is overwritten here

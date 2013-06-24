@@ -1,20 +1,49 @@
-/*! checkdesk - v0.1.0 - 2013-06-05
+/*! checkdesk - v0.1.0 - 2013-06-21
  *  Copyright (c) 2013 Meedan | Licensed MIT
+ */
+/**
+ * @ngdoc object
+ * @name cd
+ *
+ * @description
+ * ## Checkdesk App
+ *
+ * The Checkdesk application is an AngularJS based front-end consuming
+ * web-servicesprovided by a Drupal powered back-end.
  */
 var app = angular.module('Checkdesk', [
       'pascalprecht.translate',
-      'cdTranslationUI',
-      'Checkdesk.services'
+      'cd.l10n',
+      'cd.translationUI',
+      'cd.page',
+      'cd.services'
     ]),
-    appServices = angular.module('Checkdesk.services', ['ngResource']);
+    cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']);
 
+/**
+ * @ngdoc method
+ * @name cd#config
+ * @methodOf cd
+ *
+ * @description
+ * Checkdesk UI app configuration. This includes:
+ *  - Router configuration
+ *  - Enabling HTML5Mode
+ *
+ * ## Additional notes
+ * `templateUrl`'s are affected by the currently set <base> in the
+ * index.html. Running this app in a sub-directory needs the correct <base>
+ * to be set!
+ */
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   // See: http://docs.angularjs.org/guide/dev_guide.services.$location
   $locationProvider.html5Mode(true).hashPrefix('!');
 
-  // Note, templateUrls are affected by the currently set <base> in the
-  // index.html. Running this app in a sub-directory needs the correct <base>
-  // to be set!
+  $routeProvider.when('/liveblog', {
+    templateUrl: 'templates/liveblog.html',
+    controller: LiveblogCtrl
+  });
+
   $routeProvider.when('/reports', {
     templateUrl: 'templates/reports.html',
     controller: ReportsCtrl
@@ -40,134 +69,123 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     controller: TranslationsTestCtrl
   });
 
-  $routeProvider.otherwise({ redirectTo: '/reports' });
+  $routeProvider.otherwise({ redirectTo: '/liveblog' });
 }]);
 
-app.config(['$translateProvider', function ($translateProvider) {
-  $translateProvider.translations('en_EN', {
-    // #/reports
-    'CALL_TO_ACTION_HEAD':                 'Help verify this report',
-    'CALL_TO_ACTION_TEXT':                 'Checkdesk is a collaborative space for journalist led and citizen participating fact-checking.',
-    'LANGUAGE_TOGGLE':                     'Switch to Arabic',
-    'WELCOME_USER':                        'Welcome, {{name}}',
-    'LOGOUT':                              'Logout',
-    'USER_NAME':                           'User name',
-    'PASSWORD':                            'Password',
-    'LOG_IN':                              'Log in',
-    'BOTTOM_CONTENT_GOES_HERE':            'Bottom content goes here.',
-    'REALLY_BOTTOM_CONTENT_GOES_HERE':     'Really bottom content goes here.',
+/**
+ * @ngdoc object
+ * @name cd.csrfToken
+ *
+ * @description
+ * Integration with Drupal Services X-CSRF-Token header.
+ *
+ * This code relies on this tag to be added to the page BEFORE the main application
+ * script tag.
+ *
+ *     <script src="services/session/token"></script>
+ */
+angular.module('cd.csrfToken', [])
 
-    // #/report/:nid
-    '#_FACT_CHECKING_FOOTNOTES':           '{{num}} fact-checking footnotes',
-    'VERIFIED':                            'Verified',
-    'CREATE_NOTE':                         'Create note',
-    'PEOPLE_HELPING_VERIFY_THIS_REPORT':   'People helping verify this report:',
-    '#_JOURNALISTS':                       '{{num}} journalists',
-    '#_CITIZENS':                          '{{num}} citizens',
-    'CHANGED_STATUS_TO_VERIFIED':          'Changed status to verified',
-    '#_MINUTES_SHORT':                     '{{num}}m',
-    '#_HOURS_SHORT':                       '{{num}}h',
-    'LOREM_IPSUM':                         'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    'CHANGED_STATUS_TO':                   'Changed status to',
-    'UNDETERMINED':                        'Undetermined',
-    'LOAD_MORE':                           'Load more'
-  });
-
-  $translateProvider.translations('ar_AR', {
-    // #/reports
-    'CALL_TO_ACTION_HEAD':                 'مساعدة في التحقق من هذا التقرير',
-    'CALL_TO_ACTION_TEXT':                 'Checkdesk هو مساحة تعاونية للصحفي ومواطن قاد المشاركة تدقيق الحقائق.',
-    'LANGUAGE_TOGGLE':                     'التبديل إلى الإنجليزية',
-    'WELCOME_USER':                        'أهلا، {{name}}',
-    'LOGOUT':                              'تسجيل الخروج',
-    'USER_NAME':                           'اسم المستخدم',
-    'PASSWORD':                            'كلمة السر',
-    'LOG_IN':                              'تسجيل الدخول',
-    'BOTTOM_CONTENT_GOES_HERE':            'محتوى أسفل يذهب هنا.',
-    'REALLY_BOTTOM_CONTENT_GOES_HERE':     'محتوى أسفل حقا يذهب هنا.',
-
-    // #/report/:nid
-    '#_FACT_CHECKING_FOOTNOTES':           '{{num}} الحواشي تدقيق الحقائق',
-    'VERIFIED':                            'التحقق',
-    'CREATE_NOTE':                         'إنشاء حاشية',
-    'PEOPLE_HELPING_VERIFY_THIS_REPORT':   'الناس الذين يساعدون تحقق من هذا التقرير:',
-    '#_JOURNALISTS':                       '{{num}} الصحفيين',
-    '#_CITIZENS':                          '{{num}} مواطنا',
-    'CHANGED_STATUS_TO_VERIFIED':          'تغيرت الحالة إلى <em>التحقق</em>',
-    '#_MINUTES_SHORT':                     '{{num}} دقيقة',
-    '#_HOURS_SHORT':                       '{{num}} ساعات',
-    'LOREM_IPSUM':                         'غريمه وحلفاؤها تعد من, جُل لم الذود السبب الأمامية, وبعض شمال فمرّ بحث لم. مما أمدها الأرواح بـ, بالقصف اتفاقية لبولندا بـ حشد, سقط أم الذود للصين للألمان.',
-    'CHANGED_STATUS_TO_*':                 'تغيرت الحالة إلى',
-    'UNDETERMINED':                        'غير محدد',
-    'LOAD_MORE':                           'تحميل أكثر'
-  });
-  $translateProvider.uses('ar_AR');
-
-  // FIXME: Something is amiss with the cookie thing.
-  // $translateProvider.useCookieStorage();
-
-  $translateProvider.useMissingTranslationHandler('cdTranslationUI');
-}]);
-
-angular.module('cdTranslationUI', [])
-  .provider('cdTranslationUI', function () {
-    var $translationTable,
-        $missingTranslations = [],
-        $missingTranslationHandler = function (translationId) {
-          if ($missingTranslations.indexOf(translationId) === -1) {
-            $missingTranslations.push(translationId);
-          }
-        };
-
-    this.translationTable = function (translationTable) {
-      if (!angular.isUndefined(translationTable)) {
-        $translationTable = translationTable;
-      }
-
-      return $translationTable;
-    };
-
-    this.missingTranslations = function () {
-      return $missingTranslations;
-    };
-
-    $missingTranslationHandler.translationTable = this.translationTable;
-    $missingTranslationHandler.missingTranslations = this.missingTranslations;
-
-    this.$get = function () {
-      return $missingTranslationHandler;
-    };
-  })
-  .config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
-    cdTranslationUIProvider.translationTable($translateProvider.translations());
-  }])
-  .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', function ($scope, $translate, cdTranslationUI) {
-    $scope.collapsed = true;
-
-    $scope.toggle = function () {
-      $scope.collapsed = !$scope.collapsed;
-    };
-
-    $scope.translationTable = cdTranslationUI.translationTable();
-    $scope.missingTranslations = cdTranslationUI.missingTranslations();
-    $scope.inputTranslations = [];
-    // FIXME: $translate.uses() is not updating when language is switched
-    $scope.currentLanguage = $translate.uses();
-
-    $scope.translationChanged = function (index) {
-      var uses = $translate.uses(),
-          source = $scope.missingTranslations[index],
-          translation = $scope.inputTranslations[index];
-
-      $scope.translationTable[uses][source] = translation;
-      $translate.uses(uses);
-    };
+  /**
+   * @ngdoc method
+   * @name cd.csrfToken#config
+   * @methodOf cd.csrfToken
+   *
+   * @description
+   * Set the cookie and header name to what the Drupal Services module expects.
+   */
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'CSRF-Token';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
   }]);
 
-// Integration with Drupal services API
-appServices
+/**
+ * @ngdoc object
+ * @name cd.l10n
+ *
+ * @description
+ * The `cd.l10n` module manages all translation and localization aspects of
+ * the Checkdesk app.
+ */
+angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translationUI'])
+
+  /**
+   * @ngdoc method
+   * @name cd.l10n#config
+   * @methodOf cd.l10n
+   * @requires $translateProvider
+   *
+   * @description
+   * Configures all languages necessary for the Checkdesk app and sets the
+   * cdTranslationUI service as the missing translation handler for $translate.
+   */
+  .config(['$translateProvider', function ($translateProvider) {
+    $translateProvider.useUrlLoader('api/i18n?textgroup=ui&angular=1');
+    $translateProvider.preferredLanguage('ar');
+
+    $translateProvider.useCookieStorage();
+
+    $translateProvider.useMissingTranslationHandler('cdTranslationUI');
+  }]);
+
+/**
+ * @ngdoc service
+ * @name cd.page.pageState
+ *
+ * @description
+ * State management for the loading status and title of each page.
+ */
+angular.module('cd.page', [])
+  .factory('pageState', function() {
+    var status = 'loading',
+        title  = 'Checkdesk';
+
+    return {
+      /**
+       * @ngdoc method
+       * @name cd.page.pageState#status
+       * @methodOf cd.page.pageState
+       * @param {string=} new page status
+       * @returns {string} The current page status
+       */
+      status: function(newStatus) {
+        if (newStatus) {
+          status = newStatus;
+        }
+        return status;
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.page.pageState#title
+       * @methodOf cd.page.pageState
+       * @param {string=} new page title
+       * @returns {string} The current page title
+       */
+      title: function(newTitle) {
+        if (newTitle) {
+          title = newTitle;
+        }
+        return title;
+      }
+    };
+  });
+
+/**
+ * @ngdoc service
+ * @name cd.services.Comment
+ *
+ * @description
+ * Resource to interact with the Drupal comments API.
+ */
+cdServices
   .factory('Comment', ['$resource', function($resource) {
     return $resource('api/node/:nid/comments', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Comment#query
+       * @methodOf cd.services.Comment
+       */
       query: {
         method: 'GET',
         isArray: true
@@ -175,23 +193,75 @@ appServices
     });
   }]);
 
-// Integration with Drupal services API
-appServices
+/**
+ * @ngdoc service
+ * @name cd.services.Liveblog
+ *
+ * @description
+ * Resource to retrieve the Drupal API for the liveblog stream.
+ */
+cdServices
+  .factory('Liveblog', ['$resource', function($resource) {
+    return $resource('api/views/liveblog', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Liveblog#query
+       * @methodOf cd.services.Liveblog
+       */
+      query: {
+        method: 'GET',
+        params: { display_id: 'services_1', args: [] },
+        isArray: true
+      }
+    });
+  }]);
+
+/**
+ * @ngdoc service
+ * @name cd.services.Report
+ *
+ * @description
+ * Resource to interact with the Drupal report node API.
+ */
+cdServices
   .factory('Report', ['$resource', '$http', function($resource, $http) {
     var Report = $resource('api/node/:nid', { nid: '@nid' }, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Report#query
+       * @methodOf cd.services.Report
+       */
       query: {
         method: 'GET',
         params: { nid: '', 'parameters[type]': 'media', pagesize: 5 },
         isArray: true
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Report#get
+       * @methodOf cd.services.Report
+       */
       get: {
         method: 'GET',
         isArray: false
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Report#save
+       * @methodOf cd.services.Report
+       */
       save: {
         method: 'POST',
         params: { nid: '' }
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Report#update
+       * @methodOf cd.services.Report
+       */
       update: {
         method: 'PUT'
       }
@@ -212,51 +282,171 @@ appServices
     return Report;
   }]);
 
-// Integration with Drupal services API
-appServices
+/**
+ * @ngdoc service
+ * @name cd.services.ReportActivity
+ *
+ * @description
+ * Resource to retrieve the Drupal API for the activiy_report stream.
+ */
+cdServices
   // TODO: Merge 'ReportActivity' cleanly into the 'Report' service.
   .factory('ReportActivity', ['$resource', function($resource) {
     return $resource('api/views/activity_report', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.ReportActivity#query
+       * @methodOf cd.services.ReportActivity
+       */
       query: {
         method: 'GET',
         // FIXME: Sending the {format_output: '1'} param causes Drupal's
         //        services_views.module to return pre-formatted HTML. This is
         //        slightly more helpful, but I couldn't get Angular to process
         //        it correctly. Raw data is much better anyway.
-        params: { display_id: 'page_1', args: [] },
+        params: { display_id: 'services_1', args: [] },
         isArray: true
       }
     });
   }]);
 
-// Integration with Drupal services API
-appServices
+/**
+ * @ngdoc service
+ * @name cd.services.Story
+ *
+ * @description
+ * Resource to interact with the Drupal story (aka 'discussion') node API.
+ */
+cdServices
+  .factory('Story', ['$resource', '$http', function($resource, $http) {
+    var Story = $resource('api/node/:nid', { nid: '@nid' }, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Story#query
+       * @methodOf cd.services.Story
+       */
+      query: {
+        method: 'GET',
+        params: { nid: '', 'parameters[type]': 'discussion', pagesize: 5 },
+        isArray: true
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Story#get
+       * @methodOf cd.services.Story
+       */
+      get: {
+        method: 'GET',
+        isArray: false
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Story#save
+       * @methodOf cd.services.Story
+       */
+      save: {
+        method: 'POST',
+        params: { nid: '' }
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Story#update
+       * @methodOf cd.services.Story
+       */
+      update: {
+        method: 'PUT'
+      }
+    });
+
+    // Override the default $save method such that it uses PUT instead of POST
+    // when updating
+    // See: http://stackoverflow.com/a/16263805/806988
+    angular.extend(Story.prototype, {
+      save: function (callback) {
+        if (this.nid) {
+          return this.$update(callback);
+        }
+        return this.$save(callback);
+      }
+    });
+
+    return Story;
+  }]);
+
+/**
+ * @ngdoc service
+ * @name cd.services.System
+ *
+ * @description
+ * Resource to interact with the Drupal system API.
+ */
+cdServices
   .factory('System', ['$resource', function($resource) {
     return $resource('api/system/:verb', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.System#connect
+       * @methodOf cd.services.System
+       *
+       * @description
+       * Resolves to an object like {sessid:'123',user:{...}}
+       */
       connect: {
         method:  'POST',
         params:  { verb: 'connect' },
-        isArray: false // eg: {sessid:'123',user:{...}}
+        isArray: false
       }
     });
   }]);
 
-// Integration with Drupal services API
-appServices
+/**
+ * @ngdoc service
+ * @name cd.services.Translation
+ *
+ * @description
+ * Resource to interact with the Drupal i18n API.
+ */
+cdServices
   .factory('Translation', ['$resource', '$http', function($resource, $http) {
     var Translation = $resource('api/i18n/:lid', { lid: '@lid' }, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#query
+       * @methodOf cd.services.Translation
+       */
       query: {
         method: 'GET',
         params: { lid: '', 'textgroup': 'ui' },
-        isArray: true
+        isArray: false
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#save
+       * @methodOf cd.services.Translation
+       */
       save: {
         method: 'POST',
         params: { lid: '' }
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#update
+       * @methodOf cd.services.Translation
+       */
       update: {
         method: 'PUT'
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Translation#remove
+       * @methodOf cd.services.Translation
+       */
       remove: {
         method: 'DELETE'
       }
@@ -277,15 +467,104 @@ appServices
     return Translation;
   }]);
 
-// Integration with Drupal services API
-appServices
+/**
+ * @ngdoc service
+ * @name cd.services.Update
+ *
+ * @description
+ * Resource to interact with the Drupal update (aka 'post') node API.
+ */
+cdServices
+  .factory('Update', ['$resource', '$http', function($resource, $http) {
+    var Update = $resource('api/node/:nid', { nid: '@nid' }, {
+      /**
+       * @ngdoc method
+       * @name cd.services.Update#query
+       * @methodOf cd.services.Update
+       */
+      query: {
+        method: 'GET',
+        params: { nid: '', 'parameters[type]': 'post', pagesize: 5 },
+        isArray: true
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Update#get
+       * @methodOf cd.services.Update
+       */
+      get: {
+        method: 'GET',
+        isArray: false
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Update#save
+       * @methodOf cd.services.Update
+       */
+      save: {
+        method: 'POST',
+        params: { nid: '' }
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Update#update
+       * @methodOf cd.services.Update
+       */
+      update: {
+        method: 'PUT'
+      }
+    });
+
+    // Override the default $save method such that it uses PUT instead of POST
+    // when updating
+    // See: http://stackoverflow.com/a/16263805/806988
+    angular.extend(Update.prototype, {
+      save: function (callback) {
+        if (this.nid) {
+          return this.$update(callback);
+        }
+        return this.$save(callback);
+      }
+    });
+
+    return Update;
+  }]);
+
+/**
+ * @ngdoc service
+ * @name cd.services.User
+ *
+ * @description
+ * Resource to interact with the Drupal user API.
+ */
+cdServices
   .factory('User', ['$resource', '$http', function($resource, $http) {
     return $resource('api/user/:verb', {}, {
+      /**
+       * @ngdoc method
+       * @name cd.services.User#login
+       * @methodOf cd.services.User
+       *
+       * @description
+       * Resolves to an object like {sessid:'123',sessname:'abc',user:{...}}
+       */
       login: {
         method: 'POST',
         params:  { verb: 'login' },
-        isArray: false // eg: {sessid:'123',sessname:'abc',user:{...}}
+        isArray: false
       },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.User#logout
+       * @methodOf cd.services.User
+       *
+       * @description
+       * After transformation, resolves to an object like { result: true }
+       */
       logout: {
         method: 'POST',
         params:  { verb: 'logout' },
@@ -302,6 +581,200 @@ appServices
         ])
       }
     });
+  }]);
+
+/**
+ * @ngdoc object
+ * @name cd.translationUI
+ *
+ * @description
+ * The `cd.translationUI` module houses the service and controller necessary
+ * to manage the Checkdesk real-time translation interface.
+ */
+angular.module('cd.translationUI', ['pascalprecht.translate'])
+
+  /**
+   * @ngdoc object
+   * @name cd.translationUI.cdTranslationUIProvider
+   * @requires $http
+   *
+   * @description
+   * Provides coordination for UI translation. Enables access to the
+   * $translate.translationTable and can be used as a missing translation handler
+   * for $translate.
+   */
+  .provider('cdTranslationUI', function () {
+    var $translationTable,
+        $missingTranslations = {},
+        $missingTranslationHandler = function (translationId, language) {
+          if (angular.isUndefined($missingTranslations[language])) {
+            $missingTranslations[language] = {};
+          }
+          if (angular.isUndefined($missingTranslations[language][translationId])) {
+            $missingTranslations[language][translationId] = '';
+          }
+        };
+
+    /**
+     * @ngdoc method
+     * @name cd.translationUI.cdTranslationUIProvider#translationTable
+     * @methodOf cd.translationUI.cdTranslationUIProvider
+     *
+     * @description
+     * Getter/setter for the translationTable object.
+     *
+     * @param  {object} translationTable A new translation table to set.
+     * @return {object} The current $translationTable.
+     */
+    this.translationTable = function (translationTable) {
+      if (!angular.isUndefined(translationTable)) {
+        $translationTable = translationTable;
+      }
+
+      return $translationTable;
+    };
+
+    /**
+     * @ngdoc method
+     * @name cd.translationUI.cdTranslationUIProvider#missingTranslations
+     * @methodOf cd.translationUI.cdTranslationUIProvider
+     *
+     * @description
+     * Getter for the $missingTranslations object.
+     *
+     * @return {object} The current $missingTranslations object.
+     */
+    this.missingTranslations = function () {
+      return $missingTranslations;
+    };
+
+    $missingTranslationHandler.translationTable = this.translationTable;
+    $missingTranslationHandler.missingTranslations = this.missingTranslations;
+
+    this.$get = function () {
+      return $missingTranslationHandler;
+    };
+  })
+
+  /**
+   * @ngdoc method
+   * @name cd.translationUI#config
+   * @methodOf cd.translationUI
+   * @requires $translateProvider
+   * @requires cdTranslationUIProvider
+   *
+   * @description
+   * Get's a reference to $translate's master translationTable. This is sort of
+   * a hack but is a very handy way to directly access the current list of
+   * translated strings on the page.
+   *
+   * See: {@link https://github.com/PascalPrecht/angular-translate/pull/61}
+   */
+  .config(['$translateProvider', 'cdTranslationUIProvider', function ($translateProvider, cdTranslationUIProvider) {
+    cdTranslationUIProvider.translationTable($translateProvider.translations());
+  }])
+
+  /**
+   * @ngdoc function
+   * @name cd.translationUI.cdTranslationUICtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires cdTranslationUI
+   *
+   * @description
+   * Controller for the cd-translation-ui.html template.
+   */
+  .controller('cdTranslationUICtrl', ['$scope', '$translate', 'cdTranslationUI', 'Translation', function ($scope, $translate, cdTranslationUI, Translation) {
+    var translationSources = {};
+
+    $scope.collapsed = true;
+
+    $scope.toggle = function () {
+      $scope.collapsed = !$scope.collapsed;
+    };
+
+    $scope.$translate = $translate;
+    $scope.cdTranslationUI = cdTranslationUI;
+
+    $scope.translationTable = cdTranslationUI.translationTable();
+    $scope.missingTranslations = cdTranslationUI.missingTranslations();
+
+    $scope.allTranslations = {};
+    $scope.languages = [];
+
+    // Check when available languages list changes, ensure the model is ready
+    // for this and the languages helper is updated
+    $scope.$watch('translationTable', function (newVal, oldVal) {
+      // Update the languages array. Rebuild it to ensure correct order
+      $scope.languages = [];
+      angular.forEach(newV, function (translations, language) {
+        $scope.languages.push(language);
+      });
+
+      angular.forEach(newVal, function (translations, language) {
+        angular.forEach(translations, function (translation, source) {
+          if (angular.isUndefined($scope.allTranslations[source])) {
+            $scope.allTranslations[source] = {};
+          }
+          if (angular.isUndefined($scope.allTranslations[source][language])) {
+            $scope.allTranslations[source][language] = translation;
+          }
+
+          angular.forEach($scope.languages, function (l) {
+            if (angular.isUndefined($scope.allTranslations[source][l])) {
+              $scope.allTranslations[source][l] = '';
+            }
+          });
+        });
+      });
+    }, true);
+
+    // Helper object for creating table listing of missing translations
+    $scope.$watch('missingTranslations', function (newVal, oldVal) {
+      angular.forEach(newVal, function (translations, language) {
+        angular.forEach(translations, function (translation, source) {
+          if (angular.isUndefined($scope.allTranslations[source])) {
+            $scope.allTranslations[source] = {};
+          }
+          if (angular.isUndefined($scope.allTranslations[source][language])) {
+            $scope.allTranslations[source][language] = translation;
+          }
+
+          angular.forEach($scope.languages, function (l) {
+            if (angular.isUndefined($scope.allTranslations[source][l])) {
+              $scope.allTranslations[source][l] = '';
+            }
+          });
+        });
+      });
+    }, true);
+
+    // Refreshes the display when a translation is changed
+    $scope.translationChanged = function (language, source) {
+      // FIXME: Causing the input to go out of focus after each keypress
+      // $scope.translationTable[language][source] = $scope.allTranslations[source][language];
+      // $translate.uses($translate.uses());
+    };
+
+    $scope.save = function (language, source) {
+      var record;
+
+      if (!$scope.allTranslations[source][language]) {
+        return false;
+      }
+
+      record = new Translation({
+        language:    language,
+        source:      source,
+        translation: $scope.allTranslations[source][language],
+        textgroup:   'ui'
+      });
+
+      record.save(function (translation) {
+        $scope.translationTable[language][source] = $scope.allTranslations[source][language];
+        $translate.uses($translate.uses());
+      });
+    };
   }]);
 
 var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
@@ -321,10 +794,10 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
   $scope.toggleLang = function () {
     updateLangClass('remove', $translate.uses());
-    if ($translate.uses() === 'en_EN') {
-      $translate.uses('ar_AR');
+    if ($translate.uses() === 'en-NG') {
+      $translate.uses('ar');
     } else {
-      $translate.uses('en_EN');
+      $translate.uses('en-NG');
     }
     updateLangClass('add', $translate.uses());
   };
@@ -371,15 +844,30 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
 app.controller('HeaderCtrl', HeaderCtrl);
 
-var PageCtrl = ['$scope', 'PageState', function ($scope, PageState) {
-  $scope.PageState = PageState;
+var LiveblogCtrl = ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
+  $scope.stories = [];
+
+  Story.query(function (stories) {
+    for (var i = 0; i < stories.length; i++) {
+      // LOL: Hilariously unperformant, we will improve this of course.
+      $scope.stories.push(Story.get({ nid: stories[i].nid }));
+    }
+
+    pageState.status('ready'); // This page has finished loading
+  });
+}];
+
+app.controller('LiveblogCtrl', LiveblogCtrl);
+
+var PageCtrl = ['$scope', 'pageState', function ($scope, pageState) {
+  $scope.pageState = pageState;
 }];
 
 app.controller('PageCtrl', PageCtrl);
 
-var ReportCtrl = ['$scope', '$routeParams', 'PageState', 'Report', 'ReportActivity', function ($scope, $routeParams, PageState, Report, ReportActivity) {
+var ReportCtrl = ['$scope', '$routeParams', 'pageState', 'Report', 'ReportActivity', function ($scope, $routeParams, pageState, Report, ReportActivity) {
   $scope.report = Report.get({ nid: $routeParams.nid }, function () {
-    PageState.status('ready'); // This page has finished loading
+    pageState.status('ready'); // This page has finished loading
   });
   $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
 }];
@@ -428,7 +916,7 @@ var ReportFormCtrl = ['$scope', '$routeParams', '$location', 'Report', function 
 
 app.controller('ReportFormCtrl', ReportFormCtrl);
 
-var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState, Report) {
+var ReportsCtrl = ['$scope', 'pageState', 'Report', function ($scope, pageState, Report) {
   $scope.reports = [];
 
   Report.query(function (reports) {
@@ -437,7 +925,7 @@ var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState,
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
 
-    PageState.status('ready'); // This page has finished loading
+    pageState.status('ready'); // This page has finished loading
   });
 }];
 
@@ -465,23 +953,3 @@ var TranslationsTestCtrl = ['$scope', '$translate', 'Translation', function ($sc
 }];
 
 app.controller('TranslationsTestCtrl', TranslationsTestCtrl);
-
-app.factory('PageState', function() {
-  var status = 'loading',
-      title  = 'Checkdesk';
-
-  return {
-    status: function(newStatus) {
-      if (newStatus) {
-        status = newStatus;
-      }
-      return status;
-    },
-    title: function(newTitle) {
-      if (newTitle) {
-        title = newTitle;
-      }
-      return title;
-    }
-  };
-});

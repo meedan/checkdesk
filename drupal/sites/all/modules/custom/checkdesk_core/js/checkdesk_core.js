@@ -102,8 +102,11 @@
         video.css('position', 'absolute');
         video.find('embed').attr('wmode', 'transparent');
         $(this).css({ position : 'relative', display : 'block', width : video.attr('width') + 'px', height : video.attr('height') + 'px' });
-        if (video.attr('src')) {
-          video.attr('src', video.attr('src') + '&wmode=transparent');
+        var src = video.attr('src');
+        if (src) {
+          var sep = src.indexOf('?') === -1 ? '?' : '&';
+          src = src.indexOf('wmode') === -1 ? src + sep + 'wmode=transparent' : src;
+          video.attr('src', src);
         }
         video.wrap('<div class="oembed-wrapper" />');
         $(this).find('.oembed-wrapper').after('<div class="oembed-mask" />');
@@ -122,8 +125,10 @@
         if (wmode_set.test(value)) {
           return value;
         }
+          
+        var sep = value.indexOf('?') === -1 ? '?' : '&';
 
-        return value + '&wmode=transparent';
+        return value + sep + 'wmode=transparent';
       });
       $('.oembed-video embed').attr('wmode', 'transparent');
       // close modal

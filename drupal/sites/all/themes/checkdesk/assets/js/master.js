@@ -30,7 +30,7 @@
 		attach: function(context) {
       // configure masonry
 			if ($('#reports', context).masonry) {
-				$('#reports', context).masonry({ 
+				$('#reports', context).masonry({
 					itemSelector: '.report-item',
 					columnWidth: function(containerWidth) {
 						return containerWidth / 3;
@@ -43,6 +43,25 @@
 			}
 		}
 	};
+
+  Drupal.behaviors.story = {
+    attach: function (context, settings) {
+      // show or hide compose update form
+      $('.compose-update-form>h2').unbind('click').click(function(event) {
+        var target = $(this),
+            element = target.parent();
+        if (element.find('.node-post-form').is(':visible')) {
+          element.find('.node-post-form').slideUp('fast');
+          element.removeClass('open');
+        }
+        else {
+          element.find('.node-post-form').slideDown('fast');
+          element.addClass('open');
+        }
+        return false;
+      });
+    }
+  };
 
   $.fn.scrollToHere = function(speed) {
     $('html, body').animate({ scrollTop : $(this).offset().top - $('#toolbar').height() - $('#navbar').height() }, speed);
@@ -115,12 +134,15 @@
             $this.unbind('inview');
 
             classes = $this.attr('data-lazy-load-class');
-            
+
             this.className = classes;
 
-            // Lazy-load tweets
-            if (window.twttr) {
+            // Lazy-load tweets and livefyre comments
+            if (window.twttr && window.twttr.widgets) {
               window.twttr.widgets.load();
+            }
+            if (Drupal.livefyreCommentCount) {
+              Drupal.livefyreCommentCount.callback();
             }
           }
         });

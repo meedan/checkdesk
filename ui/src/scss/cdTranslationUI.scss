@@ -36,12 +36,24 @@
       background-color: transparent;
       color: #000;
 
-      &.source,
-      &.translation {
-        width: 50%;
+      &.source {
+        width: 20%;
       }
 
-      input {
+      &.translation {
+        padding-#{$from-direction}: 15px;
+        padding-#{$opposite-from-direction}: 65px;
+        position: relative;
+      }
+
+      button.btn-save {
+        width: 60px;
+        position: absolute;
+        top: 0;
+        #{$opposite-from-direction}: 0;
+      }
+
+      input[type=text] {
         width: 100%;
         margin: 0;
         box-sizing: border-box;
@@ -50,7 +62,7 @@
     }
   }
 
-  button {
+  button.btn-visibility {
     position: absolute;
     top: 0;
     #{$opposite-from-direction}: 0;

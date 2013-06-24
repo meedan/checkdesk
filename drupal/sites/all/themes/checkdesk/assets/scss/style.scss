@@ -9,14 +9,18 @@
 @include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
 @include bowerbird-font-face("FontAwesomeSocial", "fontawesome-social-webfont");
 // English fonts
-@include bowerbird-font-face("Merriweather", "merriweather-webfont-webfont");
-@include bowerbird-font-face("Merriweather Light", "merriweather-light-webfont-webfont");
+// @include bowerbird-font-face("Merriweather", "merriweather-webfont-webfont");
+// @include bowerbird-font-face("Merriweather Light", "merriweather-light-webfont-webfont");
+// @include bowerbird-font-face("Merriweather Bold", "merriweather-bold-webfont-webfont");
+// @include bowerbird-font-face("PT Sans", "ptsans-webfont-webfont");
+// @include bowerbird-font-face("PT Sans Bold", "ptsans-bold-webfont-webfont");
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 // Arabic fonts
-@include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
-@include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
-@include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
-@include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
-@include bowerbird-font-face("Andalus", "andlso-webfont");
+// @include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
+// @include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
+// @include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
+// @include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
+// @include bowerbird-font-face("Andalus", "andlso-webfont");
 
 // Modular scale  
 // via: gem
@@ -153,12 +157,23 @@ $omega: opposite-position($from-direction);
 // ====================================================================== 
 //  Default checkdesk layout
 //
+
+html {
+  // overflow: hidden;
+  height: 100%;
+  background-image: $cream_dust;
+}
+
 body {
   @include container($container-width $break-small $break-medium); // establish three breakpoints
-  #main {
-    @include span-columns($break-small - 2, $break-small, $gutter-width / 2); //outermost container
-    @include pad(1, 1, $break-small);
-  }
+}
+// when no sidebars
+body.no-sidebars {
+	#main {
+		@include span-columns($container-width - 2, $container-width); //outermost container
+	  @include pad(1, 1, $container-width);
+	  margin-top: $absolute-line-height*3;
+	}
 }
 
 // ====================================================================== 
@@ -258,9 +273,6 @@ body {
 
 // @include version-banner;
 
-body {
-  @include cd-background;
-}
 
 // Translation client
 #l10n-client {
@@ -279,8 +291,8 @@ body {
 
 // ====================================================================== 
 
-#sidebar-first.column,
-.desk { background-color: white; }
+// #sidebar-first.column,
+// .desk { background-color: white; }
 
 // ====================================================================== 
 // Bidi helpers

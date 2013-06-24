@@ -8,7 +8,7 @@ jQuery(function($) {
   function getMediaPreview() {
     var $input = $('#edit-field-link-und-0-url'),
         $preview = $('#meedan_bookmarklet_preview_content'),
-        $controls = $('#edit-body, #edit-graphic-content, #edit-submit');
+        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, #edit-title');
 
     $input.addClass('meedan-bookmarklet-loading');
 
@@ -22,6 +22,8 @@ jQuery(function($) {
           $controls.hide();
         } else {
           $preview.removeClass('error').html(data.preview);
+          if (data.title) $('#edit-title').val(data.title);
+          if (data.description) $('#edit-body-und-0-value').val(data.description);
           $controls.show();
         }
       },

@@ -236,14 +236,26 @@ function meedan_oembed_entity_info_alter(&$entity_info) {
  */
 function meedan_oembed_node_presave($node) {
   if ($node->type == 'media') {
-    //Set report type
-    $embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url'], array(), TRUE);
+    // Set report title and description
+    $link = $node->field_link[LANGUAGE_NONE][0]['url'];
+    $old_link = (isset($node->original) ? $node->original->field_link[LANGUAGE_NONE][0]['url'] : ''); 
+    $embed = meedan_oembed_data($link, array(), TRUE);
     $node->status = ((isset($embed->error) && $embed->error) ? 0 : 1);
-    if (!empty($embed->title)) {
-      $node->title = truncate_utf8($embed->title, 255);
+    if (empty($node->title) || (isset($node->original) && $link !== $old_link && $node->title === $node->original->title)) {
+      if (!empty($embed->title)) {
+        $node->title = truncate_utf8($embed->title, 255);
+      }
+      else {
+        $node->title = t('report-!user-!datetime', array('!user' => $node->name, '!datetime' => date('U', $node->created)));
+      }
     }
-    else {
-      $node->title = t('report-!user-!datetime', array('!user' => $node->name, '!datetime' => date('U', $node->created)));
+    if (!empty($embed->description) && 
+       (empty($node->body[LANGUAGE_NONE][0]['value']) || 
+       (isset($node->original) && 
+        $link !== $old_link && 
+        html_entity_decode(strip_tags($node->body[LANGUAGE_NONE][0]['value'])) === 
+        html_entity_decode(strip_tags($node->original->body[LANGUAGE_NONE][0]['value']))))) {
+      $node->body[LANGUAGE_NONE][0]['value'] = $embed->description;
     }
   }
 }

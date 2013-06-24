@@ -92,7 +92,7 @@ function checkdesk_core_feature_translations_defaults() {
   $translations['ar:default']['60ba6963a2917e8608c295927b8b6770'] = array(
     'source' => 'Disabled',
     'context' => '',
-    'location' => '; sites/all/modules/contrib/save_draft/save_draft.js; modules/filter/filter.admin.js',
+    'location' => '; sites/all/modules/contrib/save_draft/save_draft.js; modules/filter/filter.admin.js; sites/all/modules/contrib/auto_nodetitle/auto_nodetitle.js',
     'translation' => 'مُعَطَّل',
     'plid' => 0,
     'plural' => 0,
@@ -32415,7 +32415,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
   $translations['ar:default']['12314539229ad02c2aaa7ac09a9887dd'] = array(
     'source' => 'The selected file %filename cannot be uploaded. Only files with the following extensions are allowed: %extensions.',
     'context' => '',
-    'location' => '',
+    'location' => '; modules/file/file.js',
     'translation' => 'لا يمكن رفع الملف المحدد %filename. يسمح فقط بالملفات ذات اللواحق التالية: %extensions.',
     'plid' => 0,
     'plural' => 0,
@@ -42149,6 +42149,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['d1b72c5e4eb3d633f5012e2ab7f1053b'] = array(
+    'source' => 'cancel account',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إلغاء الحساب',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['8a2b2077848980e974fbe306ce19ef7a'] = array(
     'source' => 'Compose new update',
     'context' => '',
@@ -43076,6 +43084,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['f61b1706a08527adea1de9359c59f392'] = array(
+    'source' => '- Any -',
+    'context' => '',
+    'location' => '',
+    'translation' => '- أي -',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a7a4a462f78b1b6b1366f58e89ff68d8'] = array(
+    'source' => 'cancel',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إلغاء',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['95718cc451264e1cde8b0f5a119baa40'] = array(
     'source' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
     'context' => '',
@@ -43480,7 +43504,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
     'context' => '',
     'location' => '/ar/user',
-    'translation' => 'مدونة <span class="checkdesk-slogan-logo">Checkdesk</span> المباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
+    'translation' => 'مدونة <span class="checkdesk-slogan-logo">Checkdesk</span> مباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43489,6 +43513,106 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar/user/login?destination=node/add/media%3Fmeedan_bookmarklet%3D1%26meedan_bookmarklet_prepopulate%5Bbody%5D%3D%26meedan_bookmarklet_prepopulate%5Bfield_link%5D%3Dhttp%253A//www.youtube.com/&meedan_bookmarklet=1&meedan_bookmarklet_prepopulate[body]=&meedan_bookmarklet_prepopulate[field_link]=http%3A//www.youtube.com/',
     'translation' => 'لإضافة رابط، الرجاء تسجيل الدخول.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['55d5d7afd112f94f83d30ebe587504b4'] = array(
+    'source' => '<?php
+print theme(\'views_autorefresh\', array(
+  \'interval\' => 5000,
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
+  \'incremental\' => FALSE,
+));
+?>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => '<?php
+print theme(\'views_autorefresh\', array(
+  \'interval\' => 5000,
+  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=post\'),
+  \'incremental\' => FALSE,
+));
+?>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['b84637a59bc5babf3a324aaa9e4b3ba0'] = array(
+    'source' => 'Added by <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'اضافه <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp"> منذ !interval</time>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['88342fd66ec71d893d5f3f733218dfcd'] = array(
+    'source' => 'Changed status to ',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'غيّر الحالة إلى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['413659d87c19bf6e36e584fe0837a885'] = array(
+    'source' => '<time datetime="!date">!interval ago</time>',
+    'context' => '',
+    'location' => '/',
+    'translation' => '<time datetime="!date">منذ !interval</time>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['1a9c1cdae00170519616100b743755ce'] = array(
+    'source' => 'Updated at ',
+    'context' => '',
+    'location' => '/ar/story/%D8%A7%D9%84%D8%B4%D8%B9%D8%A8-%D9%8A%D8%B1%D9%8A%D8%AF-%D8%A5%D9%82%D8%A7%D9%84%D8%A9%D8%A7%D9%84%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D8%B1%D8%B4',
+    'translation' => 'حُدث الساعة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['8fe209e9c671fdc2a2353cf51ffefa6d'] = array(
+    'source' => 'Compose Update',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'اكتب تحديث',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['acdd0a4bcc6d648f72e8846eab120b1a'] = array(
+    'source' => 'A Checkdesk live blog by <span class="checkdesk-slogan-partner">@partner</span>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'مدونة Checkdesk مباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d1fd5335988a1bae6f07d38101ebd5c2'] = array(
+    'source' => 'Published on live blog under ',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'نُشر على المدونة المباشرة في',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['43e65e789145dd0fd713e0ac59b2496b'] = array(
+    'source' => 'Load more updates',
+    'context' => '',
+    'location' => NULL,
+    'translation' => 'تحميل المزيد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['214546bcbdd7a47053089577bb11fee6'] = array(
+    'source' => 'Go to story',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'إذهب إلى الخبر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['435958ed029aa31b3508928fcf1be226'] = array(
+    'source' => 'Load more stories',
+    'context' => '',
+    'location' => NULL,
+    'translation' => 'تحميل المزيد',
     'plid' => 0,
     'plural' => 0,
   );

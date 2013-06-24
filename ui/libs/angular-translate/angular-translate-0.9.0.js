@@ -139,7 +139,7 @@ angular.module('pascalprecht.translate').provider('$translate', [
             return $interpolate(translation)(interpolateParams);
           }
           if ($missingTranslationHandlerFactory) {
-            $injector.get($missingTranslationHandlerFactory)(translationId);
+            $injector.get($missingTranslationHandlerFactory)(translationId, $uses);
           }
           return translationId;
         };

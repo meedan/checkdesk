@@ -70,6 +70,19 @@
   *margin-right: .3em;
 }
 
+// Resets
+// -------------------------
+
+@mixin reset-box-model() {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin reset-list-style() {
+  @include reset-box-model();
+  li { list-style: none; }
+}
+
 // Sizing shortcuts
 // -------------------------
 @mixin ctb-size($height, $width) {
@@ -109,6 +122,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@mixin ctb-break-words() {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  // Non standard for webkit
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 
 // CSS image replacement
@@ -414,11 +437,11 @@
 // Gradients
 @mixin ctb-gradient-horizontal($startColor: #555, $endColor: #333) {
   background-color: $endColor;
-  background-image: -moz-linear-gradient(left, $startColor, $endColor); // FF 3.6+
+  background-image: -moz-linear-gradient($alpha, $startColor, $endColor); // FF 3.6+
   background-image: -webkit-gradient(linear, 0 0, 100% 0, from($startColor), to($endColor)); // Safari 4+, Chrome 2+
-  background-image: -webkit-linear-gradient(left, $startColor, $endColor); // Safari 5.1+, Chrome 10+
-  background-image: -o-linear-gradient(left, $startColor, $endColor); // Opera 11.10
-  background-image: linear-gradient(to right, $startColor, $endColor); // Standard, IE10
+  background-image: -webkit-linear-gradient($alpha, $startColor, $endColor); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient($alpha, $startColor, $endColor); // Opera 11.10
+  background-image: linear-gradient(to $omega, $startColor, $endColor); // Standard, IE10
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{darken($startColor, 1%)}', endColorstr='#{darken($endColor, 1%)}', GradientType=1); // IE9 and down
 }
@@ -514,6 +537,40 @@
   &.active {
     background-color: darken($endColor, 10%) \9;
   }
+}
+
+@mixin ctb-load-more-pager {
+  .pager-load-more {
+      @include ctb-clearfix;
+      float: none;
+      clear: both;
+      position: relative;
+      text-align: center;
+      a {
+        width: 70%;
+        text-align: center;
+        @if $from-direction == 'left' {
+          letter-spacing: 0.05em;
+        }
+        font-family: $sans-serif-font-stack;
+        font-size: $small-font-size;
+        font-weight: 700;
+        color: rgba(0,0,0,.4);
+        background-color: rgba(255,255,255,.8);
+        &:hover {
+          color: $white;
+          background-color: $identity;
+        }
+      }
+      .ajax-progress-throbber {
+        position: absolute;
+        top: 4px;
+        #{$omega}: $gutter-width;
+        .throbber {
+          background: url("../imgs/icons/loader_white.gif");
+        }
+      }
+    }
 }
 
 // Navbar vertical align

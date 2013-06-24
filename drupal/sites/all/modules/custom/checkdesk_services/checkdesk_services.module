@@ -1,9 +1,76 @@
 <?php
 
 /**
+ * Implements hook_language_switch_links_alter().
+ *
+ * Hide the en-NG language from the language switcher block
+ */
+function checkdesk_services_language_switch_links_alter(&$result, $type, $path) {
+  unset($result['en-NG']);
+}
+
+/**
+ * Implements hook_init().
+ */
+function checkdesk_services_init() {
+  global $language;
+
+  // If a user somehow stumbles into the en-NG language permanently redirect
+  // them to the same URL for the regular English language.
+  if (is_object($language) && $language->language == 'en-NG') {
+    $query = array_diff_key($_GET, array('q' => ''));
+    $all_languages = language_list();
+    drupal_goto($_GET['q'], array('language' => $all_languages['en'], 'query' => $query), 301);
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function checkdesk_services_menu() {
+  $items = array();
+  $items['services/session/token.json'] = array(
+    'page callback' => '_checkdesk_services_session_token_js',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function checkdesk_services_menu_alter(&$items) {
+  $items['services/session/token']['page callback'] = '_checkdesk_services_session_token';
+}
+
+/**
+ * Overridden implementation of _services_session_token(). Prints the token and
+ * additionally sets a CSRF-Token cookie which is used by the Angular app.
+ */
+function _checkdesk_services_session_token_js() {
+  $token = drupal_get_token('services');
+  setcookie('CSRF-Token', $token, time() + 60 * 60 * 24 * 7, base_path());
+  drupal_json_output($token);
+  drupal_exit();
+}
+
+/**
+ * Overridden implementation of _services_session_token(). Prints the token and
+ * additionally sets a CSRF-Token cookie which is used by the Angular app.
+ */
+function _checkdesk_services_session_token() {
+  drupal_add_http_header('Content-Type', 'text/plain');
+  $token = drupal_get_token('services');
+  setcookie('CSRF-Token', $token, time() + 60 * 60 * 24 * 7, base_path());
+  print $token;
+  drupal_exit();
+}
+
+/**
  * Implements hook_locale().
  */
-function checkdesk_services_i18n_locale($op = 'groups') {
+function checkdesk_services_locale($op = 'groups') {
   switch ($op) {
     case 'groups':
       return array('ui' => t('Checkdesk AngularJS UI'));

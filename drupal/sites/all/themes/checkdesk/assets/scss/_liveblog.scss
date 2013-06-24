@@ -8,7 +8,7 @@
   
   .post-row { 
     @include vertical-margin($base-font-size); 
-    @include span-columns($width, $width, $gutter-width);
+    @include span-columns($width, $width);
   }
 
   // The .related-updates bib is centered in 28 out of 30 columns
@@ -24,85 +24,41 @@
 // Default liveblog layout overrides global default layout
 body.page-liveblog {
   #main {
-    @include liveblog-layout($container-width, $container-width);
-
+    // @include liveblog-layout($container-width, $container-width);
     // Live blog view
     .view-liveblog {
       @include ctb-clearfix;
-      padding-top: $base-font-size;
+      // padding-top: $base-font-size;
       .desk {
         z-index: 1;
         position: relative;
         @include ctb-clearfix;
-        float: $from-direction;
+        // float: $from-direction;
         margin-bottom: 0;
         margin-top: ms(1);
-        @include ctb-box-shadow(0px 1px 1px 1px rgba(0, 0, 0, 0.2));
-        width: 96%;
-        padding: 2%;
         overflow: visible;
         // remove margin for first instance
         &:first-child {
           margin-top: 0;
         }
 
-        h2 {
-          @include reset-box-model;
-          margin-top: $absolute-line-height/2;
-          margin-bottom: $absolute-line-height/2;
-          font-size: 200%;
-          line-height: 1.2;
-
-          a {
-            @include ctb-linkColor($gray);
-            font-weight: normal;
-          }
-
-          .desk {
-            border: 1px solid red;
-          }
-        }
-
-        .post-row {
-          background-color: #eee;
-          margin-bottom: 1em;
-
-          .report .report-content .report-media .container {
-            min-width: 60%;
-          }
-
-          & > h3 {
-            @include reset-box-model;
-            font-size: 125%;
-            padding: 0.5em 0;
-
-            a {
-              @include ctb-linkColor($grayDark);
-              font-weight: normal;
-              text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        h1 {
+          color: rgba(0,0,0,.9);
+          a { 
+            display: block;
+            border-bottom: 1px dotted rgba(255,255,255,.01);
+            color: rgba(0,0,0,.9);
+            &:hover {
+              @include ctb-bg(#efefef, rgba(0,0,0,.05));
+              border-bottom: 1px dotted rgba(0,0,0,.1);
+              text-decoration: none;
             }
+            &:active { background-color: lighten($link-color, 30); }
           }
-
-          p {
-            color: $gray;
-          }
-
         }
       }
-
-      .related-updates {
-        margin-top: 0;
-        padding-top: $base-font-size;
-        padding-bottom: $base-font-size;
-
-        background-color: #f3f3f3;
-        @include ctb-box-shadow(0px 1px 1px 1px rgba(0, 0, 0, 0.2));
-
-        a {
-          @include ctb-linkColor($grayDark);
-          font-weight: bold;
-        }
-      }
+      // add styles for load more pager
+      @include ctb-load-more-pager;
     }
   }
 }
@@ -110,16 +66,16 @@ body.page-liveblog {
 // Small breakpoint
 @include at-breakpoint($break-small) {
   body.page-liveblog #main {
-    @include liveblog-layout($break-small - 2, $break-small) {
-    @include pad(1, 1, $break-small);
-    }
+    // @include liveblog-layout($break-small - 2, $break-small) {
+    // @include pad(1, 1, $break-small);
+    // }
   }
 }
 // Medium breakpoint
 @include at-breakpoint($break-medium) {
   body.page-liveblog #main {
-    @include liveblog-layout($break-medium - 4, $break-medium) {
-      @include pad(2, 2, $break-medium);
-    }
+    // @include liveblog-layout($break-medium - 4, $break-medium) {
+      // @include pad(2, 2, $break-medium);
+    // }
   }
 }

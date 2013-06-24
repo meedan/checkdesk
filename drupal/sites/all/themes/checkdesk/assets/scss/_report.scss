@@ -13,22 +13,19 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 
 .report {
-	// @include span-columns($container-width, $container-width); // default is full width
-	width: 100%; //default
-	// min-width: 240px;
-	// max-width: 600px;
-	float: $from-direction;
-	text-align: $alpha;
 	@include ctb-clearfix;
-	
-	// when inside a modal
-	.modal & { 
-		// max-width: 380px; 
-		// margin-#{$from-direction}: $gutter-width*2;
-	}
-
-	font-size: $fontSizeSmall;
+	float: $from-direction;
+	position: relative;
 	margin: { top: $gutter-width; bottom: $gutter-width; }
+	width: 100%; //default
+	// when inside a modal window
+	.modal-content & { 
+		width: 92%; 
+	}
+	border-top: 4px solid rgba(0, 0, 0, 0.4);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	text-align: $alpha;
+	font-size: $small-font-size;
 	
 	a {
 		color: $report-text-color;
@@ -37,103 +34,99 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		}
 	}
 
-	& > footer {
-		color: $report-text-color;
-		padding: $gutter-width/2 $gutter-width;
-		@include ctb-clearfix;
-		background-color: $report-footer-color;
-		h3 {
-			@include reset-box-model;
-			overflow: hidden;
-			float: $alpha;
-			font-size: $fontSizeSmall;
-			line-height: inherit;
-			font-weight: normal;
-
-			.source-url { // this is not the best markup CGB
-				font-weight: bold;
-				overflow: inherit;
-			}
-		}
-	}
-
 	// Report actions
 	#report-actions {
+		position: absolute;
+		top: $absolute-line-height/2;
+		#{$omega}: -40px;
+		// Checkdesk icon
+		&:before {
+			position: absolute;
+			content: "";
+			z-index: -1;
+			top: -7px;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 7px;
+			@include ctb-bg(#ccc, rgba(0,0,0,.1));
+		}
 
 		ul.content-actions {
-
-			@include reset-box-model;
 			@include reset-list-style;
-			// display: inline-block;
-			float: $omega;
-			padding-right: $gutter-width;
-			// The last dropdown needs to not stick out at smaller sizes
-			@if $from-direction == left {
-				li.add-to .dropdown-menu {
-					left: -125px;
-				}
-				li.flag-as .dropdown-menu {
-					left: -120px;
-				}
-				li.share-on .dropdown-menu {
-					left: -90px;
-				}
+			// @include ctb-opacity(0.8);
+			// @include transition-property(opacity);
+			// @include transition-duration(0.2s);
+			position: relative;
+			// Dropshadow for depth
+			&:before {
+				position: absolute;
+				content: "";
+				z-index: -1;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				width: 10px;
+				@include ctb-gradient-horizontal(rgba(0,0,0,.05), rgba(0,0,0,0));
 			}
-			@if $from-direction == right {
-				li.add-to .dropdown-menu {
-					right: -145px;
-				}
-				li.flag-as .dropdown-menu {
-					right: -115px;
-				}
-				li.share-on .dropdown-menu {
-					right: -100px;
-				}
-			}
+
 
 			& > li {
-				float: $from-direction;
-				font-size: $fontSizeSmall;
-
+				display: block;
+				margin-bottom: 1px;
 				& > a {
 					@include reset-box-model;
-					display: block;
-					
-					@include transition-property(all);
+			    	@include ctb-bg(#eee, rgba(0,0,0,.05));
+			    	display: block;
+			    	padding: 16px 0 12px 0;
+			    	width: 40px;
+			    	text-align: center;
+			    	@include transition-property(all);
 			    	@include transition-duration(0.2s);
 					&:hover { 
 				    	color: black;
 				    	text-decoration: none;
+				    	@include ctb-bg(#ccc, rgba(0,0,0,.1));
+				    	span { color: rgba(0,0,0,.9); }
 				    }
-
 					span {
-						@include reset-box-model;
-						float: $from-direction;
-						display: inline-block;
-						margin-#{$from-direction}: $gutter-width;
+						color: rgba(0,0,0,.6);
 						&:hover {
-							color: $identity;
+							color: rgba(0,0,0,.9);
 						}
 
 						// Flag and share on the top of the report
-						&.icon-link    { @include icon(link, $fontSizeSmall, $darker-grey); }
-						&.icon-reorder { @include icon(reorder, $fontSizeSmall, $darker-grey); }
-						&.icon-flag    { @include icon(flag, $fontSizeSmall, $darker-grey); }
-						&.icon-share   { @include icon(share, $fontSizeSmall, $darker-grey); }
+						&.icon-link    			   { @include icon(link, $large-font-size); }
+						&.icon-ellipsis-horizontal { @include icon(ellipsis-horizontal, $large-font-size); }
+						&.icon-flag    			   { @include icon(flag, $large-font-size); }
+						&.icon-share  			   { @include icon(share, $large-font-size); }
 					}
-
-          &.flagged .icon-flag {
-            @include icon(flag, $fontSizeSmall, $red);
-          }
+					// highlight flagged reports
+					&.flagged .icon-flag {
+						@include icon(flag, $large-font-size, $red);
+					}
 				}
+				// when dropdown is open
+				&.open > a {
+					@include ctb-bg(#ccc, rgba(0,0,0,.2));
+				}
+
 				// hide ajax throbber in dropdown
 			    .ajax-progress-throbber {
 			    	display: none;
 			  	}
+
 			} // li
+
+			// Hover on report actions
+			&:hover {
+				// @include ctb-opacity(1);
+			}
+
+
 		} // ul
 	} // report actions
-
 
 	// Sensitive content handling
 	div.sensitive-hide {
@@ -142,21 +135,22 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 	// Main report content
 	.report-content {
-		@include ctb-clearfix;
-
-		background-color: $report-background-color;
-		color: $report-text-color;
-		padding: $gutter-width;
-
+		font-family: $sans-serif-font-stack;
+		border-left: 1px solid rgba(0,0,0,.1);
+		border-right: 1px solid rgba(0,0,0,.1);
+		// width: 100%;
+		// margin-#{$alpha}: -1px;
 		.report-media {
+			background-color: rgba(0,0,0,.05);
+			border-bottom: 1px solid rgba(0,0,0,.05);
 			text-align: center;
-			margin-bottom: $gutter-width;
 			.container {
 				max-width: 100%;
+				// since we stack the report actions vertically
+				// on media item's side
+				min-height: 260px;
 				display: inline-block;
-				vertical-align: middle;
 				text-align: $from-direction;
-				font-size: $fontSizeSmall;
 
 				.oembed-content {
 					@include ctb-clearfix;
@@ -164,6 +158,11 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				
 				.oembed-content img {
 					// width: $report-width-px; // enlarge photos to fit ...
+				}
+
+				.oembed--link--meedan-oembed-generic,
+				.oembed--link--meedan-oembed-theme-generic {
+					padding: $absolute-line-height/2 $gutter-width;
 				}
 
 				.thumbnail img {
@@ -176,22 +175,19 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				
 				.title {
 					padding: 0;
-					font-size: $fontSizeSmall;
 				}
 				
 				.content {
 					padding: 0;
 				}
 				
-				.favicon, 
-				.author-img {
+				.favicon {
 					float: $alpha;
-					padding-#{$omega}: $gutter-width/2;
+					padding: $absolute-line-height/4 $gutter-width;
 					width: auto;
 				}
-				
-				.domain {
-
+				.author, .domain {
+					padding: $absolute-line-height/4 0;
 				}
 
 				img,
@@ -209,62 +205,57 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			    	text-align: center;
 			    	vertical-align: middle;
 			    	background: none !important;
-			    .sensitive-notification-text {
-			    	color: $grayDark;
-			    	padding: $absolute-line-height/2 $gutter-width/2;
-			    }
-			    .sensitive-notification-link {
-			    	padding: $absolute-line-height/2 $gutter-width/2;
-			    	a {
-			    		@include button($grayLight, 18px);
-			    	}
-			    }
+				    .sensitive-notification-text {
+				    	color: $grayDark;
+				    	padding: $absolute-line-height/2 $gutter-width/2;
+				    }
+				    .sensitive-notification-link {
+				    	padding: $absolute-line-height/2 $gutter-width/2;
+				    	a {
+				    		@include button($grayLight, 18px);
+				    	}
+				    }
 				}
 			}
 
 			.twitter_com {
 				width: 60%;
 			}
+			.www_facebook_com {
+				// padding: $absolute-line-height/2 $gutter-width;
+				.oembed--link--meedan-oembed-facebook > div {
+					padding: $absolute-line-height/2 $gutter-width;
+				}
+			}
+
 		}
 
-		& > p {
-			color: $grayLight;
-			margin: $absolute-line-height/2 0;
-			a {
-				font-weight: bold;
-			}
+		.description {
+			padding: $absolute-line-height/2 $gutter-width;
+			font-size: $base-font-size;
+			line-height: 1.4;
+			color: rgba(0,0,0,.8);
 		}
+
+		// added by
+		& > .added-by {
+			color: rgba(0,0,0,.8);
+			font-size: modular-scale(0) - modular-scale(-3); // 14px
+			padding: $absolute-line-height/4 $gutter-width;
+			.separator {
+				color: rgba(0,0,0,.4);
+				font-size: $smaller-font-size;
+			}
+		}	
 
 		.gravatar {
-			margin-#{$alpha}: $gutter-width;
 			img {
 				vertical-align: text-bottom;
 				@include ctb-square(20px);
 				margin-#{$omega}: $gutter-width/3;
 			}	
 		}
-
-		// description double quotes
-		.icon-quote-left {
-			@include icon("quote-left", 16px, $white);
-		}
-		.icon-quote-right {
-			@include icon("quote-right", 16px, $white);
-		}
-
-		.description {
-			@include ctb-clearfix;
-			border-top: 1px solid $white;
-			padding-top: $gutter-width;
-
-			span {
-				color: $white;
-				float: $alpha;
-				padding: $absolute-line-height/2 $gutter-width;
-				font-size: 140%;
-			}
-		}
-	}
+	} // report content
 
 	// Twitter customizations
 	h3 > a[href*="twitter.com"] { 
@@ -278,37 +269,32 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		}
 	}
 
+
 	// Report activity 
 	.report-activity {
-		background-color: $white;
-		margin: 0 auto;
-		width: 95%;
-
+		font-family: $sans-serif-font-stack;
 		& > header {
-			@include clearfix();
-			padding: $gutter-width;
-			// text-shadow: 0 1px 0 rgba(255,255,255,.3);
+			@include ctb-clearfix();
+			padding: $absolute-line-height/3 $gutter-width;
 			cursor: pointer;
-			font-size: $fontSizeSmall;
-			background-color: $report-activity-header-color;
-
+			background-color: rgba(0,0,0,.1);
+			border-left: 1px solid rgba(0,0,0,.1);
+			border-right: 1px solid rgba(0,0,0,.1);
+			
 			h3 {
-				float: $from-direction;
 				@include reset-box-model();
-				font-size: $fontSizeSmall;
-				display: inline-block;
-		
-				font-weight: normal;
-				color: rgba(black, 0.8);
-				padding: 0;
+				float: $from-direction;
+				font-family: $sans-serif-font-stack;
+				font-size: modular-scale(0) - modular-scale(-5); // 16px
+				font-weight: 700;
 			}
 			.report-status {
-				font-weight: bold;
 				float: opposite-position($from-direction);
 				text-align: opposite-position($from-direction);
+				font-size: modular-scale(0) - modular-scale(-5); // 16px
+				font-weight: 700;
 				// icon in the status
 				span[class^="icon-"], span[class*="icon-"] {
-					// width: 20px;
 					float: $alpha;
 					font-weight: normal;
 				}
@@ -318,33 +304,39 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					margin-#{opposite-position($from-direction)}:5px; 
 				}
 			}
+			// header hover
 			&:hover {
-				background-color: darken($grayLighter, 20%);
+				background-color: rgba(0, 0, 0, 0.5);
+				color: $white;
+				a { color: $white; }
 			}
 		}
+
 		// header status
 		& > .in-progress {
-			background-color: lighten($yellow, 30%);
-			a { color: darken($yellow, 20%); }
+			background-color: rgba(239,202,43,.2);
+			color: rgba(239,202,43,1);
+			a { color: rgba(239,202,43,1); }
 			&:hover {
-				background-color: lighten($yellow, 20%);
-				a {	color: darken($yellow, 30%); }
+				background-color: rgba(239,202,43,1);
+				span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 			}
-		}	
+		}
 		& > .undetermined {
 			background-color: lighten($orange, 30%);
 			a { color: darken($orange, 10%); }
 			&:hover {
 				background-color: lighten($orange, 20%);
-				a {	color: darken($orange, 10%); }
+				span[class^="icon-"], span[class*="icon-"], a {	color: darken($orange, 10%); }
 			}
 		}
 		& > .verified {
-			background-color: lighten($green, 40%);
-			a { color: $green; }
+			background-color: rgba(0,140,0,.2);
+			color: rgba(0,140,0,1);
+			a { color: rgba(0,140,0,1); }
 			&:hover {
-				background-color: lighten($green, 20%);
-				a {	color: darken($green, 10%); }
+				background-color: rgba(0,140,0,.8);
+				span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 			}
 		}	
 		& > .false {
@@ -352,148 +344,181 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			a { color: $red; }
 			&:hover {
 				background-color: lighten($red, 40%);
-				a {	color: darken($red, 10%); }
+				span[class^="icon-"], span[class*="icon-"], a {	color: darken($red, 10%); }
 			}
 		}
 
+		// report activity
+		// fact-checking log
 		.activity-wrapper {
 			display: none;
 			@include ctb-clearfix;
-			padding: $absolute-line-height/2 $gutter-width;
-			background-color: $grayLighter;
+			background-image: $striped_lens;
+			border-left: 1px solid rgba(0,0,0,.1);
+			border-right: 1px solid rgba(0,0,0,.1);
 			
-			ul.pager-load-more {
-				float: $alpha;
-				clear: both;
-				text-align: $alpha;
-				margin: $absolute-line-height/2 0 $absolute-line-height 0;
-				position: relative;
+			// add styles for load more pager
+    		@include ctb-load-more-pager;
 
-				a {
-					text-align: center;
-					display: inline-block;
-				}
-				.ajax-progress-throbber {
-					position: absolute;
-					top: 6px;
-					#{$omega}: -$gutter-width*3;
-					.throbber {
-						background: url("../imgs/icons/loader_white.gif");
-					}
-				}
-			}
-		}
 
-		.activity-list {
-			.activity {
-				@include ctb-clearfix;
-				border-#{$from-direction}: 2px solid $white;
-
-				font-size: 14px;
-				color: $gray;
-				margin-#{$from-direction}: $gutter-width/2;
-				padding-bottom: $absolute-line-height/2;
-				padding-#{$from-direction}: $gutter-width*2;
-
-				header {
+			// activity items
+			.view-content {
+				padding: 0 $gutter-width;
+				.activity {
 					@include ctb-clearfix;
-					[class^="icon-"],
-					[class*=" icon-"] {
-						float: $alpha;
-						margin-#{$alpha}: -$gutter-width*2.8;
-						margin-#{$omega}: $gutter-width/2;
+					margin-#{$from-direction}: $gutter-width/2;
+					border-top: 1px dotted rgba(0,0,0,.1);
+					&:first-child { border-top: 0px none; }
+					color: rgba(0,0,0,.8);
+					line-height: 1.3;
+					header {
+						@include ctb-clearfix;
+						position: relative;
+						.actor {
+							display: inline-block;
+							width: 10%;
+							padding-top: $absolute-line-height/3;
+							padding-#{$omega}: $gutter-width*2;
+							text-align: $omega;
+							vertical-align: top;
+							font-weight: 700;
+							color: rgba(0,0,0,.6);
+							@include ctb-break-words;
+						}
+						.activity-inner-wrapper {
+							position: relative;
+							display: inline-block;
+							width: 62%;
+							padding: $absolute-line-height/3 0 $absolute-line-height 0;
+							padding-#{$alpha}: $gutter-width*2;
+							border-#{$from-direction}: 4px solid rgba(0,0,0,.1);
+						}
+						.icon {
+							position: absolute;
+							display: inline-block;
+							top: 6px;
+							border-radius: 50%;
+							width: 24px;
+							line-height: 24px;
+							height: 24px;
+							margin-#{$from-direction}: -36px;
+							background-color: $white;
+							span[class^="icon-"], span[class*="icon-"] {
+							    text-align: center;
+							    position: absolute;
+							    width: 100%;
+							    height: 100%;
+							    &:before {margin: 0;}
+							}
+						}
+						.title {
+							display: inline-block;
+							width: 97%;
+							p { 
+								margin: 0;
+								margin-bottom: $absolute-line-height/2; 
+								&:last-child {
+									margin-bottom: 0; 
+								}
+							}
+							.verified { 
+								color: rgba(0,140,0, 1);
+							}
+							.in-progress { 
+								color: rgba(239,202,43, 1);
+							}
+							.undetermined { 
+								color: $orange; 
+							}
+							.false { 
+								color: $red; 
+							}
+						}
+						.time {
+							padding: $absolute-line-height/3 0;
+							position: absolute;
+							top: 0;
+							#{$omega}: $gutter-width;
+							text-align: $omega;
+							width: 20%;
+							color: rgba(0,0,0,.3);
+							font-size: modular-scale(0) - modular-scale(-3); // 14px
+						}
 					}
-					.time {
-						float: $from-direction;
-						color: $grayLight;
-					}
-					.title {
-						// float: $from-direction;
-						display: inline-block;
-						margin-#{$from-direction}: $gutter-width;
-					}
-					a {
-						font-weight: bold;
-					}
-				}
-				.message p {
-					display: block;
-					margin-top: $absolute-line-height/2;
-					padding: $absolute-line-height/2 $gutter-width/2;
-					background-color: $white;
-					@include border-radius(4px);
 				}
 			}
-		}
 
-		#comment-form {
+			.activity-list-footer {
+				padding: 0 $gutter-width;
+				color: rgba(0,0,0,.6);
+				a {
+					color: $link-color;
+				}
+			}
+		} // activity wrapper
+
+		section#comment-form {
 			@include ctb-clearfix;
-			padding: 0;
-			margin-top: $absolute-line-height/2*2;
-			background-color: $grayLighter;
+			border-top: 1px solid rgba(0,0,0,.1);
+			padding: 0 $gutter-width;
 			label {
 				display: none;
 			}
 			form { 
-				width: 100%;
+				
 				textarea {
 					float: none;
 					@include ctb-clearfix;
 				}
 			}
 		}
+	} // report activity
 
-		& > footer {
-			color: $grayLight;
-			// padding: $gutter-width;
-			font-size: $fontSizeSmall;
-		}
-
-    .activity-list-footer {
-      clear: both;
-    }
-	}
-
-	// toggle states in dropdown
-	.open > .false {
-		background-color: lighten($red, 40%);
-	}
-	.open > .undetermined {
-		background-color: lighten($orange, 30%);
-		a {	color: darken($orange, 20%); }
+	// Activity header when open
+	.open > .in-progress {
+		background-color: rgba(239,202,43,1);
+		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 	}
 	.open > .verified {
-		background-color: lighten($green, 40%);
-	}
-	.open > .in-progress {
-		background-color: lighten($yellow, 20%);
-		a {	color: darken($yellow, 30%); }
+		background-color: rgba(0,140,0,.8);
+		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 	}
 
-	// report icon based on status
+	// Report status icons in activity log's header
 	$position:  "before";
 	@if $from-direction == left {
-	    $position: "after";
-	  }
-	  @if $from-direction == right {
-	    $position: "before";
-	  }
+		$position: "after";
+	}
+	@if $from-direction == right {
+		$position: "before";
+	}
+	// verified
 	.icon-ok-sign { 
-		color: $green;
-		@include icon(ok-sign, 16px, darken($green, 15%), $position);
+		color: rgba(0,140,0,1);
+		@include icon(ok-sign, $base-font-size);
 	}
+	// in-progress
 	.icon-random { 
-		color: $yellow; 
-		@include icon(random, 16px, darken($yellow, 15%), $position);
+		color: rgba(239,202,43,1);
+		@include icon(random, $small-font-size);
 	}
+	.icon-circle { 
+		color: rgba(239,202,43,1);
+	}
+	// undetermined
 	.icon-question-sign { 
 		color: $orange; 
-		@include icon(question-sign, 16px, darken($orange, 15%), $position);
+		@include icon(question-sign, $base-font-size);
 	}
+	// false
 	.icon-remove-sign { 
 		color: $red; 
-		@include icon(remove-sign, 16px, darken($red, 15%), $position);
+		@include icon(remove-sign, $base-font-size);
 	}
 
 } // report
 
+// Report status color bar at the top of a report
+article.in-progress {
+	border-top: 4px solid $yellow;
+}

@@ -6,22 +6,15 @@ $bookmarklet-modal-height: 350px;
 
 #modalContent.modal-install-bookmarklet {
   z-index: $zindexModal;
-  position: fixed !important;
-  top: 200px !important;
-
   .ctools-modal-content {
-  //   border: 1px solid $light-grey;
-  //   width: 300px;
     .modal-content {
-  //     width: 300px;
       overflow: visible;
     }
   }
 
-
   .modal {
     width: $bookmarklet-modal-width;
-    height: $bookmarklet-modal-height;
+    height: $bookmarklet-modal-height; 
     .modal-body {
       overflow: visible;
     }

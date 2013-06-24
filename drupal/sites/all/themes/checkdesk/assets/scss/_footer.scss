@@ -3,15 +3,17 @@
 #footer {
   @include ctb-clearfix;
   padding-top: $absolute-line-height/4;
-  margin: $absolute-line-height*2 0 $absolute-line-height*4 0;
+  margin: $absolute-line-height*4 0 $absolute-line-height*2 0;
+  font-family: $sans-serif-font-stack;
+  text-align: center;
 
   #footer-menu {
-    float: opposite-position($from-direction);
-    text-align: opposite-position($from-direction);
+    // float: opposite-position($from-direction);
+    // text-align: opposite-position($from-direction);
   }
   #information-menu {
-    float: $from-direction;
-    text-align: $from-direction;
+    // float: $from-direction;
+    // text-align: $from-direction;
   }
 
 }
@@ -20,7 +22,7 @@
   border-top: 1px solid lighten($grayLight, 20%);
   padding: $absolute-line-height/4 0;
   ul {
-    text-align: $from-direction;
+    // text-align: $from-direction;
     @include reset-box-model;
     @include reset-list-style;
     li {
@@ -75,37 +77,44 @@
 
 
 // Small breakpoint
-@include at-breakpoint($break-small) {
-  #footer {
-    @include span-columns($break-small - 2, $break-small, $gutter-width);
-    @include pad(1, 1, $break-small);
-    #footer-menu, #information-menu {
-      float: $from-direction;
-      text-align: $from-direction;
-    }
+// @include at-breakpoint($break-small) {
+//   #footer {
+//     @include span-columns($break-small - 2, $break-small, $gutter-width);
+//     @include pad(1, 1, $break-small);
+//     #footer-menu, #information-menu {
+//       float: $from-direction;
+//       text-align: $from-direction;
+//     }
+//   }
+// }
 
-    #information-menu {
-      padding-#{$omega}: $gutter-width*2;
-    }
-  }
-}
+// Medium breakpoint
+// @include at-breakpoint($break-medium) {
+//   #footer {
+//     @include span-columns($break-medium - 4, $break-medium, $gutter-width);
+//     @include pad(2, 2, $break-medium);
+//     #footer-menu {
+//       float: opposite-position($from-direction);
+//       text-align: opposite-position($from-direction);
+//     }
+//     #information-menu {
+//       float: $from-direction;
+//       text-align: $from-direction;
+//     }
+//   }
+// }
 
-// Medium (using minimum 75em and max 24 cols)
-@include at-breakpoint(75em $break-medium) {
-  #footer {
-    @include span-columns($break-medium - 4, $break-medium, $gutter-width);
-    @include pad(2, 2, $break-medium);
-    #footer-menu {
-      float: opposite-position($from-direction);
-      text-align: opposite-position($from-direction);
-    }
-    #information-menu {
-      float: $from-direction;
-      text-align: $from-direction;
-    }
-  }
-}
-
-
-
+// Large breakpoint
+// @include at-breakpoint($break-large) {
+//   #footer {
+//     #footer-menu {
+//       float: opposite-position($from-direction);
+//       text-align: opposite-position($from-direction);
+//     }
+//     #information-menu {
+//       float: $from-direction;
+//       text-align: $from-direction;
+//     }
+//   }
+// }
 

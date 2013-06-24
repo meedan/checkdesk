@@ -14,6 +14,11 @@ The AngularJS based user interface for the Checkdesk project.
 5. You should now have a fresh copy of `build/checkdesk.js`.
 
 
+### Project documentation
+
+Build fresh documentation with `grunt ngdocs` View the documentation in `docs/public`.
+
+
 ### Server Configuration
 
 The checkdesk project uses Drupal as a back-end, see the 'drupal' directory in the project root.
@@ -45,7 +50,7 @@ The server configuration proxies requests from some paths through to the Drupal 
         # it is important to proxy these.
         #
         # api and admin are the two paths we really want to proxy.
-        location ~ /(misc|modules|sites|themes|api|admin) {
+        location ~ /(misc|modules|sites|themes|services|api|admin) {
             # Pass to the Drupal site, eg: /Users/james/Code/Meedan/Checkdesk
             proxy_pass  http://checkdesk.localhost;
         }
@@ -96,7 +101,7 @@ The server configuration proxies requests from some paths through to the Drupal 
 
     # You MUST have mod_proxy and mod_proxy_http for this to work, else you
     # will get a 404
-    RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|api|admin)
+    RewriteCond %{REQUEST_URI} ^/(misc|modules|sites|themes|services|api|admin)
     RewriteRule ^(.*)$ http://checkdesk.local/$1 [L,P]
 
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -109,6 +114,8 @@ The server configuration proxies requests from some paths through to the Drupal 
 
     meedan-checkdesk/ui
        |-build                             # Compiled files, eg: checkdesk.js
+       |-docs                              # Project documentation
+       |-docs/public                       # Browseable documentation
        |-libs                              # Libraries, eg: angular, jquery
        |-public                            # WWW served documents
        |---css
@@ -120,11 +127,8 @@ The server configuration proxies requests from some paths through to the Drupal 
        |-snapshots                         # Static site snapshots
        |-src                               # The source code for the application
        |---controllers
-       |---directives
-       |---filters
        |---modules
        |---scss
-       |---services
        |---templates
        |-test                              # Testing code, eg: unit tests
        |---unit

@@ -1,10 +1,27 @@
+/**
+ * @ngdoc method
+ * @name cd#config
+ * @methodOf cd
+ *
+ * @description
+ * Checkdesk UI app configuration. This includes:
+ *  - Router configuration
+ *  - Enabling HTML5Mode
+ *
+ * ## Additional notes
+ * `templateUrl`'s are affected by the currently set <base> in the
+ * index.html. Running this app in a sub-directory needs the correct <base>
+ * to be set!
+ */
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   // See: http://docs.angularjs.org/guide/dev_guide.services.$location
   $locationProvider.html5Mode(true).hashPrefix('!');
 
-  // Note, templateUrls are affected by the currently set <base> in the
-  // index.html. Running this app in a sub-directory needs the correct <base>
-  // to be set!
+  $routeProvider.when('/liveblog', {
+    templateUrl: 'templates/liveblog.html',
+    controller: LiveblogCtrl
+  });
+
   $routeProvider.when('/reports', {
     templateUrl: 'templates/reports.html',
     controller: ReportsCtrl
@@ -30,5 +47,5 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     controller: TranslationsTestCtrl
   });
 
-  $routeProvider.otherwise({ redirectTo: '/reports' });
+  $routeProvider.otherwise({ redirectTo: '/liveblog' });
 }]);

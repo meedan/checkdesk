@@ -32,6 +32,7 @@
 @mixin form-actions {
   .form-actions {
     margin-top: $gutter-width;
+    border-top: 0px none;
     input, a {
       @include checkdesk-button; 
     }
@@ -62,7 +63,7 @@
 // Inline form errors
 //
 @mixin form-inline-errors {
-
+  font-family: $sans-serif-font-stack;
   // hide labels for forms with ife
   &.ife {
     label {
@@ -116,7 +117,7 @@
   label, input, button, select, textarea, body.cke_editable { font-size: $base-font-size; }
 
   // Everything else
-  textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="text"], .uneditable-input {
     background-color: $input-background;
     border: 1px solid $inputBorder;
     @include box-shadow(rgba($black, .075) 0 1px 1px inset);
@@ -167,8 +168,9 @@
 
 @mixin cd-form-styles-except-layout {
   form {
-    // input[type="password"],
+    input[type="password"],
     input[type="text"], 
+    // input[type="file"], 
     textarea {
       @include border-radius(3px);
       display: block;
@@ -223,14 +225,11 @@
     }
 
     // // Default descriptions
-    // .description {
-    //   // clear: $from-direction;
-    //   font-size: ms(-1);
-    //   display: none; // displayed at larger breakpoints
-    //   padding: 0.5em 0;
-    //   color: rgba(black, 0.75);
-    //   margin: 0;
-    // }
+    .description {
+      font-family: $sans-serif-font-stack;
+      font-size: $small-font-size;
+      color: rgba(0,0,0,.4);
+    }
 
     // little links: create new account, forgot password 
     // wow BAD selector here haha - CGB
@@ -294,10 +293,49 @@
     // Default main inputs and textareas
     input[type="password"],
     input[type="text"],
+    // input[type="file"],
     textarea {
       @include span-columns($w, $w, $gutter-width/2); // small padding with grid accounting
       // padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
     }
+
+    // image field
+    .image-widget {
+      @include border-radius(3px);
+      display: block;
+      background-color: rgba(0,0,0,.02);
+      margin-top: $gutter-width;
+      padding: $absolute-line-height/2 $gutter-width 0;
+
+      .image-preview {
+        display: inline-block;
+        margin-#{$omega}: $gutter-width;
+      }
+
+      .image-widget-data {
+        display: inline-block;
+      }
+      
+      input[type="file"] {
+        @include reset-box-model;
+        display: inline-block;
+        margin-#{$omega}: $gutter-width;
+        margin-bottom: $absolute-line-height/2;
+        padding: 0 $gutter-width;
+        background-color: $input-background;
+        border: 1px solid $grey;
+        font-family: $sans-serif-font-stack;
+        font-size: $small-font-size;
+        vertical-align: middle;
+        @include border-radius(3px);
+      }
+      input[type="submit"] {
+        margin-bottom: $absolute-line-height/2;
+        margin-#{$omega}: 0;
+      }
+    }
+
+
 
     select {
       @include span-columns($w, $w, $gutter-width/2); // small padding with grid accounting

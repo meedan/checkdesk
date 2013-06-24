@@ -15,10 +15,10 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
 
   $scope.toggleLang = function () {
     updateLangClass('remove', $translate.uses());
-    if ($translate.uses() === 'en_EN') {
-      $translate.uses('ar_AR');
+    if ($translate.uses() === 'en-NG') {
+      $translate.uses('ar');
     } else {
-      $translate.uses('en_EN');
+      $translate.uses('en-NG');
     }
     updateLangClass('add', $translate.uses());
   };

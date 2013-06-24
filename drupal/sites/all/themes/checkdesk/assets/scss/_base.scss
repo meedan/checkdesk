@@ -46,7 +46,7 @@ $base-line-height: $absolute-line-height !default; // for compass calculations o
 $container-style: magic;
 
 // Columns count and breakpoints
-$container-width: 6; // Mobile first
+$container-width: 18; // Mobile first
 $total-columns: $container-width; // Alias for Susy
 $break-small: 12; 
 $break-medium: 24;
@@ -72,7 +72,7 @@ $round_pixels: true; //don't return fractional px
 // Font sizes based on the scale
 $smallest-font-size:  modular-scale(-2); // 7px
 $smaller-font-size:   modular-scale(-1); // 11px
-$small-font-size:     modular-scale(0) - modular-scale(-5); // 16px — a half-step down
+$small-font-size:     modular-scale(0) - modular-scale(-4); // 15px — a half-step down
 $base-font-size:      modular-scale(0);                     // 18px — "tonal center" of the scale
 $large-font-size:     modular-scale(0) + modular-scale(-5); // 20px — a half-step up
 $larger-font-size:    modular-scale(1); // 25px

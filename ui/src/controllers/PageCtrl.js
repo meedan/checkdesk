@@ -1,5 +1,5 @@
-var PageCtrl = ['$scope', 'PageState', function ($scope, PageState) {
-  $scope.PageState = PageState;
+var PageCtrl = ['$scope', 'pageState', function ($scope, pageState) {
+  $scope.pageState = pageState;
 }];
 
 app.controller('PageCtrl', PageCtrl);

@@ -1,4 +1,4 @@
-var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState, Report) {
+var ReportsCtrl = ['$scope', 'pageState', 'Report', function ($scope, pageState, Report) {
   $scope.reports = [];
 
   Report.query(function (reports) {
@@ -7,7 +7,7 @@ var ReportsCtrl = ['$scope', 'PageState', 'Report', function ($scope, PageState,
       $scope.reports.push(Report.get({ nid: reports[i].nid }));
     }
 
-    PageState.status('ready'); // This page has finished loading
+    pageState.status('ready'); // This page has finished loading
   });
 }];
 

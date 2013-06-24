@@ -24,19 +24,6 @@
     </div>
   </div>
 
-  <header id="partner-header">
-    <div id="partner-header-inner" style="background-image: url(<?php print $header_bg; ?>); text-align: <?php print $header_image_position; ?>;">
-      <?php if ($header_image): ?>
-        <?php print $header_image; ?>
-      <?php endif; ?>
-      <?php if ($header_slogan): ?>
-        <div id="partner-header-slogan" style="float: <?php print $header_slogan_position; ?>;">
-          <?php print $header_slogan; ?>
-        </div>
-      <?php endif; ?>
-    </div>
-  </header>
-
   <!-- ______________________ MAIN _______________________ -->
 
   <div id="main" class="clearfix">
@@ -46,15 +33,15 @@
           <?php print render($page['sidebar_first']); ?>
         </div>
       </div>
-    <?php endif; ?> <!-- /sidebar-first -->
+    <?php endif; ?>
     
-    <?php if ($show_widgets && $page['widgets']): ?>
-      <div id="widgets" class="column widgets">
+    <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
+      <aside id="widgets" class="column widgets">
         <div id="widgets-inner" class="inner">
           <?php print render($page['widgets']); ?>
         </div>
-       </div>
-    <?php endif; ?> <!-- /widgets -->
+       </aside>
+    <?php endif; ?> 
 
     <div id="content">
       <div id="content-inner" class="inner column center">
@@ -102,22 +89,9 @@
 
         <?php // print $feed_icons; ?>
 
-      </div>
-    </div> <!-- /content-inner /content -->
+        <!-- ______________________ FOOTER _______________________ -->
 
-    <?php if ($page['sidebar_second']): ?>
-      <div id="sidebar-second" class="column sidebar second">
-        <div id="sidebar-second-inner" class="inner">
-          <?php print render($page['sidebar_second']); ?>
-        </div>
-      </div>
-    <?php endif; ?> <!-- /sidebar-second -->
-
-  </div> <!-- /main -->
-
-  <!-- ______________________ FOOTER _______________________ -->
-
-  <?php if (checkdesk_footer_visibility()) : ?>        
+    <?php if (checkdesk_footer_visibility()) : ?>        
     <?php if ($information_nav || $footer_nav): ?>
       <div id="footer">
         <div id="footer-inner" class="inner">
@@ -135,4 +109,19 @@
     <?php endif; ?>
   <?php endif; ?>
 
+      </div>
+    </div> <!-- /content-inner /content -->
+
+    <?php if ($page['sidebar_second']): ?>
+      <div id="sidebar-second" class="column sidebar second">
+        <div id="sidebar-second-inner" class="inner">
+          <?php print render($page['sidebar_second']); ?>
+        </div>
+      </div>
+    <?php endif; ?> <!-- /sidebar-second -->
+
+
+
+
+  </div> <!-- /main -->
 </div> <!-- /page -->

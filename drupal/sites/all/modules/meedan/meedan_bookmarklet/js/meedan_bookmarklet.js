@@ -20,6 +20,23 @@
 		initMeedanBookmarklet();
 	}
 
+  var messageCallback = function(e) {
+    var offset,
+        data = e.data.split(';'),
+        type = data.shift();
+
+    if (type === 'close') {
+      jQuery('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').fadeOut(500);
+    }
+  };
+
+  if (!window.addEventListener) {
+    window.attachEvent('onmessage', messageCallback);
+  }
+  else {
+    window.addEventListener('message', messageCallback, false);
+  }
+
   // Initiate bookmarklet
 	function initMeedanBookmarklet() {
 		(window.meedanBookmarklet = function() {
@@ -63,15 +80,13 @@
             url = MeedanBookmarklet.settings.url;
         // FIXME: Assumption that $ will be jQuery here. Not necessarily true. -- J. Andres
         $.each(MeedanBookmarklet.settings.prepopulate, function(field, value) {
-          url += '&meedan_bookmarklet_prepopulate[' + field + ']=' + getPageInformation(value);
+          value = encodeURIComponent(getPageInformation(value)).replace(/'/g, '"');
+          url += '&meedan_bookmarklet_prepopulate[' + field + ']=' + value;
         });
         $("head").append('<link type="text/css" rel="stylesheet" href="' + MeedanBookmarklet.settings.default_stylesheet + '?' + parseInt(Math.random()*10000000000, 10) + '" media="all" />');
         if (MeedanBookmarklet.settings.stylesheet !== '') $("head").append('<link type="text/css" rel="stylesheet" href="' + MeedanBookmarklet.settings.stylesheet + '?' + parseInt(Math.random()*10000000000, 10) + '" media="all" />');
         if (MeedanBookmarklet.settings.javascript !== '') $("body").append('<script type="text/javascript" src="' + MeedanBookmarklet.settings.javascript + '?' + parseInt(Math.random()*10000000000, 10) + '"></script>');
-				$("body").append("<div id='meedan_bookmarklet_cont'><a id='meedan_bookmarklet_close'><span>[X]</span></a><iframe src='" + url + "' id='meedan_bookmarklet_frame'></iframe></div><div id='meedan_bookmarklet_mask'></div>");
-        $('#meedan_bookmarklet_close').live('click', function() {
-          $('#meedan_bookmarklet_cont, #meedan_bookmarklet_mask').fadeOut(500);
-        });
+				$("body").append("<div id='meedan_bookmarklet_cont'><iframe src='" + url + "' id='meedan_bookmarklet_frame'></iframe></div><div id='meedan_bookmarklet_mask'></div>");
         $('body').scrollTop(0);
       }
 
