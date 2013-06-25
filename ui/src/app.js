@@ -13,6 +13,13 @@ var app = angular.module('Checkdesk', [
       'cd.l10n',
       'cd.translationUI',
       'cd.page',
-      'cd.services'
+      'cd.services',
+      'cd.liveblog',
+      'cd.report',
+      'cd.story'
     ]),
+    cdLiveblog = angular.module('cd.liveblog', ['pascalprecht.translate']),
+    cdPage = angular.module('cd.page', ['pascalprecht.translate']),
+    cdReport = angular.module('cd.report', ['pascalprecht.translate']),
+    cdStory = angular.module('cd.story', ['pascalprecht.translate']),
     cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']);
