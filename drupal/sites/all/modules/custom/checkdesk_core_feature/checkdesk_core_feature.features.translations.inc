@@ -43548,14 +43548,14 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Changed status to ',
     'context' => '',
     'location' => '/',
-    'translation' => 'غيّر الحالة إلى',
+    'translation' => 'غيّر الحالة إلى ',
     'plid' => 0,
     'plural' => 0,
   );
   $translations['ar:default']['dce35e9550838a5d86752c729a42d65e'] = array(
     'source' => 'l M d, Y \\a\\t g:ia',
     'context' => '',
-    'location' => '/ar',
+    'location' => '/',
     'translation' => '\\ف\\ي M d, Y \\ا\\ل\\س\\ا\\ع\\ة g:i a',
     'plid' => 0,
     'plural' => 0,
@@ -43588,7 +43588,15 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Published on live blog under ',
     'context' => '',
     'location' => '/',
-    'translation' => 'نُشر على المدونة المباشرة في',
+    'translation' => 'نُشر على المدونة المباشرة في ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3e4638893d13f289baa2b6f7f3467642'] = array(
+    'source' => 'Added ',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'أضاف ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43603,7 +43611,7 @@ print theme(\'views_autorefresh\', array(
   $translations['ar:default']['43e65e789145dd0fd713e0ac59b2496b'] = array(
     'source' => 'Load more updates',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => 'تحميل المزيد',
     'plid' => 0,
     'plural' => 0,
@@ -43619,8 +43627,16 @@ print theme(\'views_autorefresh\', array(
   $translations['ar:default']['435958ed029aa31b3508928fcf1be226'] = array(
     'source' => 'Load more stories',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => 'تحميل المزيد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['6f1788ea6d225c0eab904c3fd669a95a'] = array(
+    'source' => 'Follow us',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'تابعنا',
     'plid' => 0,
     'plural' => 0,
   );
