@@ -33,10 +33,94 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "cd.liveblog",
+      "shortName": "liveblog",
+      "type": "object",
+      "keywords": "api app cd checkdesk liveblog manages module object of page the"
+    },
+    {
+      "section": "api",
+      "id": "cd.liveblog.LiveblogCtrl",
+      "shortName": "LiveblogCtrl",
+      "type": "function",
+      "keywords": "$scope api cd controller for function html liveblog liveblogctrl pagestate story template"
+    },
+    {
+      "section": "api",
+      "id": "cd.liveblog.ReportCtrl",
+      "shortName": "ReportCtrl",
+      "type": "function",
+      "keywords": "$routeparams $scope api cd controller for function html liveblog pagestate report reportctrl template"
+    },
+    {
+      "section": "api",
+      "id": "cd.liveblog.ReportFormCtrl",
+      "shortName": "ReportFormCtrl",
+      "type": "function",
+      "keywords": "$location $routeparams $scope api cd controller for function html liveblog report reportform reportformctrl template"
+    },
+    {
+      "section": "api",
+      "id": "cd.liveblog.ReportsCtrl",
+      "shortName": "ReportsCtrl",
+      "type": "function",
+      "keywords": "$scope api cd controller for function html liveblog pagestate report reportform reportsctrl template"
+    },
+    {
+      "section": "api",
+      "id": "cd.page",
+      "shortName": "page",
+      "type": "object",
+      "keywords": "and api app cd checkdesk controllers houses maintain module object of overall page services state the to"
+    },
+    {
+      "section": "api",
+      "id": "cd.page.FooterCtrl",
+      "shortName": "FooterCtrl",
+      "type": "function",
+      "keywords": "$scope api cd controller footer footerctrl for function page pagestate site story"
+    },
+    {
+      "section": "api",
+      "id": "cd.page.NavbarCtrl",
+      "shortName": "NavbarCtrl",
+      "type": "function",
+      "keywords": "$scope $translate api bar cd controller for function navbarctrl navigation page site system user"
+    },
+    {
+      "section": "api",
+      "id": "cd.page.PageCtrl",
+      "shortName": "PageCtrl",
+      "type": "function",
+      "keywords": "$scope and api cd for function like manages meta-controller on page pagectrl pagestate state tag the"
+    },
+    {
+      "section": "api",
       "id": "cd.page.pageState",
       "shortName": "pageState",
       "type": "service",
       "keywords": "and api cd current each for headtitle loading management method new of page pagestate service state status the title"
+    },
+    {
+      "section": "api",
+      "id": "cd.page.WidgetsSidebarCtrl",
+      "shortName": "WidgetsSidebarCtrl",
+      "type": "function",
+      "keywords": "$scope $translate api cd controller for function page sidebar system user widgets widgetssidebarctrl"
+    },
+    {
+      "section": "api",
+      "id": "cd.report",
+      "shortName": "report",
+      "type": "object",
+      "keywords": "api app cd checkdesk manages module object of pages report reports the"
+    },
+    {
+      "section": "api",
+      "id": "cd.services",
+      "shortName": "services",
+      "type": "object",
+      "keywords": "all api app cd checkdesk houses integration module object of services the"
     },
     {
       "section": "api",
@@ -100,6 +184,13 @@ NG_DOCS={
       "shortName": "User",
       "type": "service",
       "keywords": "abc after an api cd drupal interact like login logout method object resolves resource result service services sessname the to transformation true user with"
+    },
+    {
+      "section": "api",
+      "id": "cd.story",
+      "shortName": "story",
+      "type": "object",
+      "keywords": "api app cd checkdesk manages module object of pages stories story the"
     },
     {
       "section": "api",

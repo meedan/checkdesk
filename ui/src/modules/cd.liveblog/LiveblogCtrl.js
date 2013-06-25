@@ -1,4 +1,15 @@
 cdLiveblog
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.LiveblogCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Story
+   *
+   * @description
+   * Controller for liveblog.html template.
+   */
   .controller('LiveblogCtrl', ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
     // TODO: This page title management is clunky, could it be moved to the router?
     pageState.headTitle('Liveblog | Checkdesk');

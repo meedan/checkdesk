@@ -1,4 +1,16 @@
 cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.NavbarCtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires System
+   * @requires User
+   *
+   * @description
+   * Controller for site navigation bar.
+   */
   .controller('NavbarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
     var updateLangClass = function (mode, langClass) {
           switch (mode) {
