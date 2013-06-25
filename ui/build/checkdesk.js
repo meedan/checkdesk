@@ -1,4 +1,4 @@
-/*! checkdesk - v0.1.0 - 2013-06-21
+/*! checkdesk - v0.1.0 - 2013-06-25
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 /**
@@ -137,8 +137,9 @@ angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translatio
  */
 angular.module('cd.page', [])
   .factory('pageState', function() {
-    var status = 'loading',
-        title  = 'Checkdesk';
+    var status     = 'loading',
+        headTitle  = 'Checkdesk',
+        title      = 'Checkdesk';
 
     return {
       /**
@@ -153,6 +154,20 @@ angular.module('cd.page', [])
           status = newStatus;
         }
         return status;
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.page.pageState#headTitle
+       * @methodOf cd.page.pageState
+       * @param {string=} new page headTitle
+       * @returns {string} The current page headTitle
+       */
+      headTitle: function(newHeadTitle) {
+        if (newHeadTitle) {
+          headTitle = newHeadTitle;
+        }
+        return headTitle;
       },
 
       /**
@@ -707,7 +722,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
     $scope.$watch('translationTable', function (newVal, oldVal) {
       // Update the languages array. Rebuild it to ensure correct order
       $scope.languages = [];
-      angular.forEach(newV, function (translations, language) {
+      angular.forEach(newVal, function (translations, language) {
         $scope.languages.push(language);
       });
 
@@ -777,7 +792,50 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
     };
   }]);
 
-var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+var FooterCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+  // TODO: Unstub the informationMenu.
+  $scope.informationMenu = [
+    {
+      title: $translate('INFORMATION_MENU_ITEM_ABOUT_TITLE'),
+      href: '/about-checkdesk'
+    }
+  ];
+
+  // TODO: Unstub the footerMenu.
+  $scope.footerMenu = [
+    {
+      title: $translate('FOOTER_MENU_ITEM_MEEDAN_TITLE'),
+      href: 'http://meedan.org'
+    },
+    {
+      title: $translate('FOOTER_MENU_ITEM_CHECKDESK_TITLE'),
+      href: 'http://checkdesk.org'
+    }
+  ];
+}];
+
+app.controller('FooterCtrl', FooterCtrl);
+
+var LiveblogCtrl = ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
+  // TODO: This page title management is clunky, could it be moved to the router?
+  pageState.headTitle('Liveblog | Checkdesk');
+  pageState.title('Liveblog');
+
+  $scope.stories = [];
+
+  Story.query(function (stories) {
+    for (var i = 0; i < stories.length; i++) {
+      // LOL: Hilariously unperformant, we will improve this of course.
+      $scope.stories.push(Story.get({ nid: stories[i].nid }));
+    }
+
+    pageState.status('ready'); // This page has finished loading
+  });
+}];
+
+app.controller('LiveblogCtrl', LiveblogCtrl);
+
+var NavbarCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
   var updateLangClass = function (mode, langClass) {
         switch (mode) {
           case 'remove':
@@ -788,6 +846,28 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
             break;
         }
       };
+
+  // TODO: Unstub the mainMenu.
+  $scope.mainMenu = [
+    {
+      title: $translate('MAIN_MENU_ITEM_HOME_TITLE'),
+      href: '/',
+      icon: 'icon-home'
+    },
+    {
+      title: $translate('MAIN_MENU_ITEM_REPORTS_TITLE'),
+      href: '/reports',
+      icon: 'icon-eye-open'
+    }
+  ];
+
+  // TODO: Unstub the userMenu.
+  $scope.userMenu = [
+    {
+      title: $translate('USER_MENU_ITEM_LOGIN_TITLE'),
+      href: '/user/login'
+    }
+  ];
 
   // Initially set the HTML language class
   updateLangClass('add', $translate.uses());
@@ -842,22 +922,7 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
   };
 }];
 
-app.controller('HeaderCtrl', HeaderCtrl);
-
-var LiveblogCtrl = ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
-  $scope.stories = [];
-
-  Story.query(function (stories) {
-    for (var i = 0; i < stories.length; i++) {
-      // LOL: Hilariously unperformant, we will improve this of course.
-      $scope.stories.push(Story.get({ nid: stories[i].nid }));
-    }
-
-    pageState.status('ready'); // This page has finished loading
-  });
-}];
-
-app.controller('LiveblogCtrl', LiveblogCtrl);
+app.controller('NavbarCtrl', NavbarCtrl);
 
 var PageCtrl = ['$scope', 'pageState', function ($scope, pageState) {
   $scope.pageState = pageState;

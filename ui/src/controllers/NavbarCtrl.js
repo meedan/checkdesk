@@ -1,4 +1,4 @@
-var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+var NavbarCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
   var updateLangClass = function (mode, langClass) {
         switch (mode) {
           case 'remove':
@@ -9,6 +9,28 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
             break;
         }
       };
+
+  // TODO: Unstub the mainMenu.
+  $scope.mainMenu = [
+    {
+      title: $translate('MAIN_MENU_ITEM_HOME_TITLE'),
+      href: '/',
+      icon: 'icon-home'
+    },
+    {
+      title: $translate('MAIN_MENU_ITEM_REPORTS_TITLE'),
+      href: '/reports',
+      icon: 'icon-eye-open'
+    }
+  ];
+
+  // TODO: Unstub the userMenu.
+  $scope.userMenu = [
+    {
+      title: $translate('USER_MENU_ITEM_LOGIN_TITLE'),
+      href: '/user/login'
+    }
+  ];
 
   // Initially set the HTML language class
   updateLangClass('add', $translate.uses());
@@ -63,4 +85,4 @@ var HeaderCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $t
   };
 }];
 
-app.controller('HeaderCtrl', HeaderCtrl);
+app.controller('NavbarCtrl', NavbarCtrl);

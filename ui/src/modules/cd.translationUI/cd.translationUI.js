@@ -122,7 +122,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
     $scope.$watch('translationTable', function (newVal, oldVal) {
       // Update the languages array. Rebuild it to ensure correct order
       $scope.languages = [];
-      angular.forEach(newV, function (translations, language) {
+      angular.forEach(newVal, function (translations, language) {
         $scope.languages.push(language);
       });
 

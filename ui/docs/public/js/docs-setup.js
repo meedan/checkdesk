@@ -36,7 +36,7 @@ NG_DOCS={
       "id": "cd.page.pageState",
       "shortName": "pageState",
       "type": "service",
-      "keywords": "and api cd current each for loading management method new of page pagestate service state status the title"
+      "keywords": "and api cd current each for headtitle loading management method new of page pagestate service state status the title"
     },
     {
       "section": "api",

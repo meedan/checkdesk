@@ -7,8 +7,9 @@
  */
 angular.module('cd.page', [])
   .factory('pageState', function() {
-    var status = 'loading',
-        title  = 'Checkdesk';
+    var status     = 'loading',
+        headTitle  = 'Checkdesk',
+        title      = 'Checkdesk';
 
     return {
       /**
@@ -23,6 +24,20 @@ angular.module('cd.page', [])
           status = newStatus;
         }
         return status;
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.page.pageState#headTitle
+       * @methodOf cd.page.pageState
+       * @param {string=} new page headTitle
+       * @returns {string} The current page headTitle
+       */
+      headTitle: function(newHeadTitle) {
+        if (newHeadTitle) {
+          headTitle = newHeadTitle;
+        }
+        return headTitle;
       },
 
       /**
