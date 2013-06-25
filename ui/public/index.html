@@ -85,10 +85,71 @@
           </div>
         </div>
 
-        <aside id="widgets" class="column widgets">
+        <aside ng-controller="WidgetsSidebarCtrl" id="widgets" class="column widgets">
           <div id="widgets-inner" class="inner">
-            <!-- TODO: Put the widgets sidbar here. -->
-          </div>
+            <header id="partner-header">
+              <div id="partner-header-inner">
+                <a href="/en" class="active">
+                  <img ng-src="{{logoSrc}}" alt="Meedan logo">
+                </a>
+                <div id="partner-header-slogan" translate>SITE_SLOGAN</div>
+              </div>
+            </header>
+
+            <!-- TODO: This is just a direct dump from Drupal's HTML. All the
+                       Drupal-isms should be pulled out of here. They are not
+                       needed. -->
+            <div id="block-views-featured-stories-block" class="block block-views contextual-links-region">
+              <div class="content">
+                <div class="view view-featured-stories view-id-featured_stories view-display-id-block view-dom-id-3e97e45f5517abb1f597e55da8cc403d">
+                  <div class="view-header">
+                    <h2 translate>WIDGETS_SIDEBAR_FEATURED_STORIES</h2>
+                  </div>
+
+                  <div class="view-content">
+                    <div class="stories">
+                      <div ng-repeat="story in featuredStories" class="story-row">
+                        <figure>
+                          <a href="{{story.href}}">
+                            <img ng-src="{{story.imageSrc}}" width="360" height="220" alt="Featured story image">
+                          </a>
+                        </figure>
+                        <h3>
+                          <span class="field-content">
+                            <a href="{{story.href}}">{{story.title}}</a>
+                          </span>
+                        </h3>
+                        <div class="story-desc">
+                          <div class="field-content">
+                            <p>
+                              {{story.description}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div> <!-- /block-views-featured-stories-block -->
+
+            <div id="block-block-2" class="block block-block contextual-links-region">
+              <div class="content">
+                <div class="elsewhere">
+                  <h2 translate>WIDGETS_SIDEBAR_FOLLOW_US</h2>
+                  <ul>
+                    <li ng-repeat="link in followLinks">
+                      <a href="{{link.href}}">
+                        <span class="{{link.icon}}"></span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div> <!-- /block-block-2 -->
+
+          </div> <!-- /widgets-inner -->
         </aside>
 
         <div id="content">
