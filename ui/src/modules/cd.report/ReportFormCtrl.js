@@ -1,4 +1,16 @@
 cdReport
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.ReportFormCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires $location
+   * @requires Report
+   *
+   * @description
+   * Controller for reportForm.html template.
+   */
   .controller('ReportFormCtrl', ['$scope', '$routeParams', '$location', 'Report', function ($scope, $routeParams, $location, Report) {
     if ($routeParams.nid) {
       $scope.report = Report.get({ nid: $routeParams.nid });

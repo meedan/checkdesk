@@ -1,4 +1,15 @@
 cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.FooterCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Story
+   *
+   * @description
+   * Controller for site footer.
+   */
   .controller('FooterCtrl', FooterCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
     // TODO: Unstub the informationMenu.
     $scope.informationMenu = [

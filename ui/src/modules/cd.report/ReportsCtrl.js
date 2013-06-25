@@ -1,4 +1,15 @@
 cdReport
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.ReportsCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Report
+   *
+   * @description
+   * Controller for reportForm.html template.
+   */
   .controller('ReportsCtrl', ['$scope', 'pageState', 'Report', function ($scope, pageState, Report) {
     $scope.reports = [];
 

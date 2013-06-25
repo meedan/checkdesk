@@ -1,5 +1,17 @@
 cdPage
-  .controller('WidgetsSidebarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+
+  /**
+   * @ngdoc function
+   * @name cd.page.WidgetsSidebarCtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires System
+   * @requires User
+   *
+   * @description
+   * Controller for widgets sidebar.
+   */
+  .controller('WidgetsSidebarCtrl', ['$scope', function ($scope) {
     // TODO: Pull logoSrc from the server.
     $scope.logoSrc = 'http://qa.checkdesk.org/sites/qa.checkdesk.org/files/checkdesk_theme/meedan.png';
 

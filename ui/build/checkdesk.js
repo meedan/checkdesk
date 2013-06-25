@@ -21,11 +21,52 @@ var app = angular.module('Checkdesk', [
       'cd.report',
       'cd.story'
     ]),
+
+    /**
+     * @ngdoc object
+     * @name cd.services
+     *
+     * @description
+     * The `cd.services` module houses all API integration of the Checkdesk app.
+     */
+    cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']),
+
+    /**
+     * @ngdoc object
+     * @name cd.liveblog
+     *
+     * @description
+     * The `cd.liveblog` module manages the liveblog page of the Checkdesk app.
+     */
     cdLiveblog = angular.module('cd.liveblog', ['pascalprecht.translate']),
+
+    /**
+     * @ngdoc object
+     * @name cd.page
+     *
+     * @description
+     * The `cd.page` module houses services and controllers to maintain the
+     * overall page state of the Checkdesk app.
+     */
     cdPage = angular.module('cd.page', ['pascalprecht.translate']),
+
+    /**
+     * @ngdoc object
+     * @name cd.report
+     *
+     * @description
+     * The `cd.report` module manages the reports pages of the Checkdesk app.
+     */
     cdReport = angular.module('cd.report', ['pascalprecht.translate']),
-    cdStory = angular.module('cd.story', ['pascalprecht.translate']),
-    cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']);
+
+    /**
+     * @ngdoc object
+     * @name cd.story
+     *
+     * @description
+     * The `cd.story` module manages the stories pages of the Checkdesk app.
+     */
+    cdStory = angular.module('cd.story', ['pascalprecht.translate']);
 
 /**
  * @ngdoc method
@@ -136,6 +177,17 @@ angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translatio
   }]);
 
 cdLiveblog
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.LiveblogCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Story
+   *
+   * @description
+   * Controller for liveblog.html template.
+   */
   .controller('LiveblogCtrl', ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
     // TODO: This page title management is clunky, could it be moved to the router?
     pageState.headTitle('Liveblog | Checkdesk');
@@ -154,6 +206,17 @@ cdLiveblog
   }]);
 
 cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.FooterCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Story
+   *
+   * @description
+   * Controller for site footer.
+   */
   .controller('FooterCtrl', FooterCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
     // TODO: Unstub the informationMenu.
     $scope.informationMenu = [
@@ -177,6 +240,18 @@ cdPage
   }]);
 
 cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.NavbarCtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires System
+   * @requires User
+   *
+   * @description
+   * Controller for site navigation bar.
+   */
   .controller('NavbarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
     var updateLangClass = function (mode, langClass) {
           switch (mode) {
@@ -265,6 +340,17 @@ cdPage
   }]);
 
 cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.PageCtrl
+   * @requires $scope
+   * @requires pageState
+   *
+   * @description
+   * Meta-controller for the <html> tag on the page. Manages page state and the
+   * like.
+   */
   .controller('PageCtrl', ['$scope', 'pageState', function ($scope, pageState) {
     $scope.pageState = pageState;
   }]);
@@ -328,7 +414,19 @@ cdPage
   });
 
 cdPage
-  .controller('WidgetsSidebarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+
+  /**
+   * @ngdoc function
+   * @name cd.page.WidgetsSidebarCtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires System
+   * @requires User
+   *
+   * @description
+   * Controller for widgets sidebar.
+   */
+  .controller('WidgetsSidebarCtrl', ['$scope', function ($scope) {
     // TODO: Pull logoSrc from the server.
     $scope.logoSrc = 'http://qa.checkdesk.org/sites/qa.checkdesk.org/files/checkdesk_theme/meedan.png';
 
@@ -360,6 +458,17 @@ cdPage
   }]);
 
 cdReport
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.ReportCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires pageState
+   *
+   * @description
+   * Controller for report.html template.
+   */
   .controller('ReportCtrl', ['$scope', '$routeParams', 'pageState', 'Report', 'ReportActivity', function ($scope, $routeParams, pageState, Report, ReportActivity) {
     $scope.report = Report.get({ nid: $routeParams.nid }, function () {
       pageState.status('ready'); // This page has finished loading
@@ -368,6 +477,18 @@ cdReport
   }]);
 
 cdReport
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.ReportFormCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires $location
+   * @requires Report
+   *
+   * @description
+   * Controller for reportForm.html template.
+   */
   .controller('ReportFormCtrl', ['$scope', '$routeParams', '$location', 'Report', function ($scope, $routeParams, $location, Report) {
     if ($routeParams.nid) {
       $scope.report = Report.get({ nid: $routeParams.nid });
@@ -409,6 +530,17 @@ cdReport
   }]);
 
 cdReport
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.ReportsCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Report
+   *
+   * @description
+   * Controller for reportForm.html template.
+   */
   .controller('ReportsCtrl', ['$scope', 'pageState', 'Report', function ($scope, pageState, Report) {
     $scope.reports = [];
 
