@@ -5,7 +5,7 @@
  * @description
  * State management for the loading status and title of each page.
  */
-angular.module('cd.page', [])
+cdPage
   .factory('pageState', function() {
     var status     = 'loading',
         headTitle  = 'Checkdesk',

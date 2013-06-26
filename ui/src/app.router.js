@@ -19,32 +19,32 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 
   $routeProvider.when('/liveblog', {
     templateUrl: 'templates/liveblog.html',
-    controller: LiveblogCtrl
+    controller: 'LiveblogCtrl'
   });
 
   $routeProvider.when('/reports', {
     templateUrl: 'templates/reports.html',
-    controller: ReportsCtrl
+    controller: 'ReportsCtrl'
   });
 
   $routeProvider.when('/report/add', {
     templateUrl: 'templates/reportForm.html',
-    controller: ReportFormCtrl
+    controller: 'ReportFormCtrl'
   });
   $routeProvider.when('/report/:nid', {
     templateUrl: 'templates/report.html',
-    controller: ReportCtrl
+    controller: 'ReportCtrl'
   });
   // Note, here is the technique to reuse a controller and template for two, or
   // more, pages.
   $routeProvider.when('/report/:nid/edit', {
     templateUrl: 'templates/reportForm.html',
-    controller: ReportFormCtrl
+    controller: 'ReportFormCtrl'
   });
 
   $routeProvider.when('/translationsTest', {
     templateUrl: 'templates/translationsTest.html',
-    controller: TranslationsTestCtrl
+    controller: 'TranslationsTestCtrl'
   });
 
   $routeProvider.otherwise({ redirectTo: '/liveblog' });

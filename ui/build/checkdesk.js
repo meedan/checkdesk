@@ -16,9 +16,57 @@ var app = angular.module('Checkdesk', [
       'cd.l10n',
       'cd.translationUI',
       'cd.page',
-      'cd.services'
+      'cd.services',
+      'cd.liveblog',
+      'cd.report',
+      'cd.story'
     ]),
-    cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']);
+
+    /**
+     * @ngdoc object
+     * @name cd.services
+     *
+     * @description
+     * The `cd.services` module houses all API integration of the Checkdesk app.
+     */
+    cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']),
+
+    /**
+     * @ngdoc object
+     * @name cd.liveblog
+     *
+     * @description
+     * The `cd.liveblog` module manages the liveblog page of the Checkdesk app.
+     */
+    cdLiveblog = angular.module('cd.liveblog', ['pascalprecht.translate']),
+
+    /**
+     * @ngdoc object
+     * @name cd.page
+     *
+     * @description
+     * The `cd.page` module houses services and controllers to maintain the
+     * overall page state of the Checkdesk app.
+     */
+    cdPage = angular.module('cd.page', ['pascalprecht.translate']),
+
+    /**
+     * @ngdoc object
+     * @name cd.report
+     *
+     * @description
+     * The `cd.report` module manages the reports pages of the Checkdesk app.
+     */
+    cdReport = angular.module('cd.report', ['pascalprecht.translate']),
+
+    /**
+     * @ngdoc object
+     * @name cd.story
+     *
+     * @description
+     * The `cd.story` module manages the stories pages of the Checkdesk app.
+     */
+    cdStory = angular.module('cd.story', ['pascalprecht.translate']);
 
 /**
  * @ngdoc method
@@ -41,32 +89,32 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 
   $routeProvider.when('/liveblog', {
     templateUrl: 'templates/liveblog.html',
-    controller: LiveblogCtrl
+    controller: 'LiveblogCtrl'
   });
 
   $routeProvider.when('/reports', {
     templateUrl: 'templates/reports.html',
-    controller: ReportsCtrl
+    controller: 'ReportsCtrl'
   });
 
   $routeProvider.when('/report/add', {
     templateUrl: 'templates/reportForm.html',
-    controller: ReportFormCtrl
+    controller: 'ReportFormCtrl'
   });
   $routeProvider.when('/report/:nid', {
     templateUrl: 'templates/report.html',
-    controller: ReportCtrl
+    controller: 'ReportCtrl'
   });
   // Note, here is the technique to reuse a controller and template for two, or
   // more, pages.
   $routeProvider.when('/report/:nid/edit', {
     templateUrl: 'templates/reportForm.html',
-    controller: ReportFormCtrl
+    controller: 'ReportFormCtrl'
   });
 
   $routeProvider.when('/translationsTest', {
     templateUrl: 'templates/translationsTest.html',
-    controller: TranslationsTestCtrl
+    controller: 'TranslationsTestCtrl'
   });
 
   $routeProvider.otherwise({ redirectTo: '/liveblog' });
@@ -128,6 +176,185 @@ angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translatio
     $translateProvider.useMissingTranslationHandler('cdTranslationUI');
   }]);
 
+cdLiveblog
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.LiveblogCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Story
+   *
+   * @description
+   * Controller for liveblog.html template.
+   */
+  .controller('LiveblogCtrl', ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
+    // TODO: This page title management is clunky, could it be moved to the router?
+    pageState.headTitle('Liveblog | Checkdesk');
+    pageState.title('Liveblog');
+
+    $scope.stories = [];
+
+    Story.query(function (stories) {
+      for (var i = 0; i < stories.length; i++) {
+        // LOL: Hilariously unperformant, we will improve this of course.
+        $scope.stories.push(Story.get({ nid: stories[i].nid }));
+      }
+
+      pageState.status('ready'); // This page has finished loading
+    });
+  }]);
+
+cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.FooterCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Story
+   *
+   * @description
+   * Controller for site footer.
+   */
+  .controller('FooterCtrl', FooterCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+    // TODO: Unstub the informationMenu.
+    $scope.informationMenu = [
+      {
+        title: $translate('INFORMATION_MENU_ITEM_ABOUT_TITLE'),
+        href: '/about-checkdesk'
+      }
+    ];
+
+    // TODO: Unstub the footerMenu.
+    $scope.footerMenu = [
+      {
+        title: $translate('FOOTER_MENU_ITEM_MEEDAN_TITLE'),
+        href: 'http://meedan.org'
+      },
+      {
+        title: $translate('FOOTER_MENU_ITEM_CHECKDESK_TITLE'),
+        href: 'http://checkdesk.org'
+      }
+    ];
+  }]);
+
+cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.NavbarCtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires System
+   * @requires User
+   *
+   * @description
+   * Controller for site navigation bar.
+   */
+  .controller('NavbarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+    var updateLangClass = function (mode, langClass) {
+          switch (mode) {
+            case 'remove':
+              $('html').removeClass(langClass);
+              break;
+            case 'add':
+              $('html').addClass(langClass);
+              break;
+          }
+        };
+
+    // TODO: Unstub the mainMenu.
+    $scope.mainMenu = [
+      {
+        title: $translate('MAIN_MENU_ITEM_HOME_TITLE'),
+        href: '/',
+        icon: 'icon-home'
+      },
+      {
+        title: $translate('MAIN_MENU_ITEM_REPORTS_TITLE'),
+        href: '/reports',
+        icon: 'icon-eye-open'
+      }
+    ];
+
+    // TODO: Unstub the userMenu.
+    $scope.userMenu = [
+      {
+        title: $translate('USER_MENU_ITEM_LOGIN_TITLE'),
+        href: '/user/login'
+      }
+    ];
+
+    // Initially set the HTML language class
+    updateLangClass('add', $translate.uses());
+
+    $scope.toggleLang = function () {
+      updateLangClass('remove', $translate.uses());
+      if ($translate.uses() === 'en-NG') {
+        $translate.uses('ar');
+      } else {
+        $translate.uses('en-NG');
+      }
+      updateLangClass('add', $translate.uses());
+    };
+
+
+    // Determine logged in or logged out state and set up helper functions
+    var anonymousUser = { uid: 0 };
+    $scope.isLoggedIn = false;
+    $scope.user       = angular.copy(anonymousUser);
+
+    System.connect({}, function (connection) {
+      $scope.user       = connection.user;
+      $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
+    });
+
+    $scope.login = function () {
+      // Must provide both user and pass
+      if (!$scope.user.name || !$scope.user.pass) {
+        // TODO: Display error.
+        return false;
+      } else if (!$scope.user || $scope.user.uid === 0) {
+        // Must not already have an established connection
+        User.login({ username: $scope.user.name, password: $scope.user.pass }, function (connection) {
+          $scope.user       = connection.user;
+          $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
+        });
+      } else {
+        // Already logged in
+      }
+    };
+
+    $scope.logout = function () {
+      // Must send empty POST data for this to work
+      User.logout({}, function (data) {
+        if (data.result) {
+          $scope.user       = angular.copy(anonymousUser);
+          $scope.isLoggedIn = false;
+        } else {
+          // TODO: Display error.
+        }
+      });
+    };
+  }]);
+
+cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.PageCtrl
+   * @requires $scope
+   * @requires pageState
+   *
+   * @description
+   * Meta-controller for the <html> tag on the page. Manages page state and the
+   * like.
+   */
+  .controller('PageCtrl', ['$scope', 'pageState', function ($scope, pageState) {
+    $scope.pageState = pageState;
+  }]);
+
 /**
  * @ngdoc service
  * @name cd.page.pageState
@@ -135,7 +362,7 @@ angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translatio
  * @description
  * State management for the loading status and title of each page.
  */
-angular.module('cd.page', [])
+cdPage
   .factory('pageState', function() {
     var status     = 'loading',
         headTitle  = 'Checkdesk',
@@ -185,6 +412,147 @@ angular.module('cd.page', [])
       }
     };
   });
+
+cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.WidgetsSidebarCtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires System
+   * @requires User
+   *
+   * @description
+   * Controller for widgets sidebar.
+   */
+  .controller('WidgetsSidebarCtrl', ['$scope', function ($scope) {
+    // TODO: Pull logoSrc from the server.
+    $scope.logoSrc = 'http://qa.checkdesk.org/sites/qa.checkdesk.org/files/checkdesk_theme/meedan.png';
+
+    // TODO: Unstub featuredStories content.
+    $scope.featuredStories = [
+      {
+        href: '/story/1510',
+        title: 'الشعب يريد إقالةالوزير المتحرش',
+        imageSrc: 'http://qa.checkdesk.org/sites/qa.checkdesk.org/files/styles/featured_stories_lead_image/public/adbusters_blog_occupygezi_s_2.jpg?itok=uYCbtd7B',
+        description: 'أثار رد وزير الإعلام "صلاح عبد المقصود" على سؤال أحدى الصحفيات في مؤتمر صحفي أمس ضجة كبيرة على مواقع التواصل...'
+      }
+    ];
+
+    // TODO: Unstub followLinks content.
+    $scope.followLinks = [
+      {
+        href: 'https://www.facebook.com/YomatyEgypt',
+        icon: 'icon-facebook'
+      },
+      {
+        href: 'https://twitter.com/YomatyEgypt',
+        icon: 'icon-twitter'
+      },
+      {
+        href: 'http://www.youtube.com/user/weladelbaladlt',
+        icon: 'icon-youtube'
+      }
+    ];
+  }]);
+
+cdReport
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.ReportCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires pageState
+   *
+   * @description
+   * Controller for report.html template.
+   */
+  .controller('ReportCtrl', ['$scope', '$routeParams', 'pageState', 'Report', 'ReportActivity', function ($scope, $routeParams, pageState, Report, ReportActivity) {
+    $scope.report = Report.get({ nid: $routeParams.nid }, function () {
+      pageState.status('ready'); // This page has finished loading
+    });
+    $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
+  }]);
+
+cdReport
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.ReportFormCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires $location
+   * @requires Report
+   *
+   * @description
+   * Controller for reportForm.html template.
+   */
+  .controller('ReportFormCtrl', ['$scope', '$routeParams', '$location', 'Report', function ($scope, $routeParams, $location, Report) {
+    if ($routeParams.nid) {
+      $scope.report = Report.get({ nid: $routeParams.nid });
+    } else {
+      $scope.report = new Report({
+        title: '',
+        type: 'media',
+        body: {
+          und: [
+            {
+              url: ''
+            }
+          ]
+        },
+        field_link: {
+          und: [
+            {
+              url: ''
+            }
+          ]
+        }
+      });
+    }
+
+    $scope.submit = function() {
+      $scope.report.save(function (report) {
+        $location.path('/report/' + report.nid);
+      });
+      return false;
+    };
+
+    $scope.cancel = function () {
+      if ($routeParams.nid) {
+        $location.path('/report/' + $routeParams.nid);
+      } else {
+        $location.path('/');
+      }
+    };
+  }]);
+
+cdReport
+
+  /**
+   * @ngdoc function
+   * @name cd.liveblog.ReportsCtrl
+   * @requires $scope
+   * @requires pageState
+   * @requires Report
+   *
+   * @description
+   * Controller for reportForm.html template.
+   */
+  .controller('ReportsCtrl', ['$scope', 'pageState', 'Report', function ($scope, pageState, Report) {
+    $scope.reports = [];
+
+    Report.query(function (reports) {
+      for (var i = 0; i < reports.length; i++) {
+        // LOL: Hilariously unperformant, we will improve this of course.
+        $scope.reports.push(Report.get({ nid: reports[i].nid }));
+      }
+
+      pageState.status('ready'); // This page has finished loading
+    });
+  }]);
 
 /**
  * @ngdoc service
@@ -791,230 +1159,3 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
       });
     };
   }]);
-
-var FooterCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
-  // TODO: Unstub the informationMenu.
-  $scope.informationMenu = [
-    {
-      title: $translate('INFORMATION_MENU_ITEM_ABOUT_TITLE'),
-      href: '/about-checkdesk'
-    }
-  ];
-
-  // TODO: Unstub the footerMenu.
-  $scope.footerMenu = [
-    {
-      title: $translate('FOOTER_MENU_ITEM_MEEDAN_TITLE'),
-      href: 'http://meedan.org'
-    },
-    {
-      title: $translate('FOOTER_MENU_ITEM_CHECKDESK_TITLE'),
-      href: 'http://checkdesk.org'
-    }
-  ];
-}];
-
-app.controller('FooterCtrl', FooterCtrl);
-
-var LiveblogCtrl = ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
-  // TODO: This page title management is clunky, could it be moved to the router?
-  pageState.headTitle('Liveblog | Checkdesk');
-  pageState.title('Liveblog');
-
-  $scope.stories = [];
-
-  Story.query(function (stories) {
-    for (var i = 0; i < stories.length; i++) {
-      // LOL: Hilariously unperformant, we will improve this of course.
-      $scope.stories.push(Story.get({ nid: stories[i].nid }));
-    }
-
-    pageState.status('ready'); // This page has finished loading
-  });
-}];
-
-app.controller('LiveblogCtrl', LiveblogCtrl);
-
-var NavbarCtrl = ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
-  var updateLangClass = function (mode, langClass) {
-        switch (mode) {
-          case 'remove':
-            $('html').removeClass(langClass);
-            break;
-          case 'add':
-            $('html').addClass(langClass);
-            break;
-        }
-      };
-
-  // TODO: Unstub the mainMenu.
-  $scope.mainMenu = [
-    {
-      title: $translate('MAIN_MENU_ITEM_HOME_TITLE'),
-      href: '/',
-      icon: 'icon-home'
-    },
-    {
-      title: $translate('MAIN_MENU_ITEM_REPORTS_TITLE'),
-      href: '/reports',
-      icon: 'icon-eye-open'
-    }
-  ];
-
-  // TODO: Unstub the userMenu.
-  $scope.userMenu = [
-    {
-      title: $translate('USER_MENU_ITEM_LOGIN_TITLE'),
-      href: '/user/login'
-    }
-  ];
-
-  // Initially set the HTML language class
-  updateLangClass('add', $translate.uses());
-
-  $scope.toggleLang = function () {
-    updateLangClass('remove', $translate.uses());
-    if ($translate.uses() === 'en-NG') {
-      $translate.uses('ar');
-    } else {
-      $translate.uses('en-NG');
-    }
-    updateLangClass('add', $translate.uses());
-  };
-
-
-  // Determine logged in or logged out state and set up helper functions
-  var anonymousUser = { uid: 0 };
-  $scope.isLoggedIn = false;
-  $scope.user       = angular.copy(anonymousUser);
-
-  System.connect({}, function (connection) {
-    $scope.user       = connection.user;
-    $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
-  });
-
-  $scope.login = function () {
-    // Must provide both user and pass
-    if (!$scope.user.name || !$scope.user.pass) {
-      // TODO: Display error.
-      return false;
-    } else if (!$scope.user || $scope.user.uid === 0) {
-      // Must not already have an established connection
-      User.login({ username: $scope.user.name, password: $scope.user.pass }, function (connection) {
-        $scope.user       = connection.user;
-        $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
-      });
-    } else {
-      // Already logged in
-    }
-  };
-
-  $scope.logout = function () {
-    // Must send empty POST data for this to work
-    User.logout({}, function (data) {
-      if (data.result) {
-        $scope.user       = angular.copy(anonymousUser);
-        $scope.isLoggedIn = false;
-      } else {
-        // TODO: Display error.
-      }
-    });
-  };
-}];
-
-app.controller('NavbarCtrl', NavbarCtrl);
-
-var PageCtrl = ['$scope', 'pageState', function ($scope, pageState) {
-  $scope.pageState = pageState;
-}];
-
-app.controller('PageCtrl', PageCtrl);
-
-var ReportCtrl = ['$scope', '$routeParams', 'pageState', 'Report', 'ReportActivity', function ($scope, $routeParams, pageState, Report, ReportActivity) {
-  $scope.report = Report.get({ nid: $routeParams.nid }, function () {
-    pageState.status('ready'); // This page has finished loading
-  });
-  $scope.reportActivity = ReportActivity.query({ args: [$routeParams.nid] });
-}];
-
-app.controller('ReportCtrl', ReportCtrl);
-
-var ReportFormCtrl = ['$scope', '$routeParams', '$location', 'Report', function ($scope, $routeParams, $location, Report) {
-  if ($routeParams.nid) {
-    $scope.report = Report.get({ nid: $routeParams.nid });
-  } else {
-    $scope.report = new Report({
-      title: '',
-      type: 'media',
-      body: {
-        und: [
-          {
-            url: ''
-          }
-        ]
-      },
-      field_link: {
-        und: [
-          {
-            url: ''
-          }
-        ]
-      }
-    });
-  }
-
-  $scope.submit = function() {
-    $scope.report.save(function (report) {
-      $location.path('/report/' + report.nid);
-    });
-    return false;
-  };
-
-  $scope.cancel = function () {
-    if ($routeParams.nid) {
-      $location.path('/report/' + $routeParams.nid);
-    } else {
-      $location.path('/');
-    }
-  };
-}];
-
-app.controller('ReportFormCtrl', ReportFormCtrl);
-
-var ReportsCtrl = ['$scope', 'pageState', 'Report', function ($scope, pageState, Report) {
-  $scope.reports = [];
-
-  Report.query(function (reports) {
-    for (var i = 0; i < reports.length; i++) {
-      // LOL: Hilariously unperformant, we will improve this of course.
-      $scope.reports.push(Report.get({ nid: reports[i].nid }));
-    }
-
-    pageState.status('ready'); // This page has finished loading
-  });
-}];
-
-app.controller('ReportsCtrl', ReportsCtrl);
-
-var TranslationsTestCtrl = ['$scope', '$translate', 'Translation', function ($scope, $translate, Translation) {
-  $scope.translations = Translation.query({ language: $translate.uses() });
-
-  $scope.translation = new Translation({
-    language:    '',
-    context:     '',
-    source:      '',
-    translation: '',
-    textgroup:   '',
-    location:    '',
-    plid:        '',
-    plural:      ''
-  });
-
-  $scope.submit = function () {
-    $scope.translation.save();
-    return false;
-  };
-
-}];
-
-app.controller('TranslationsTestCtrl', TranslationsTestCtrl);
