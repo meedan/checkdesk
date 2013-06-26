@@ -8342,6 +8342,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   padding: 12px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
+.stories .story-row:first-child {
+  padding: 0 0 12px 0;
+}
 .stories .story-row:last-child {
   margin-bottom: 0;
   border-bottom: 0px none;
@@ -8511,6 +8514,20 @@ body.widgets #main #content #content-inner:after {
   clear: both;
 }
 
+@media all and (max-height: 42em) {
+  body.widgets #main #widgets.column .view-featured-stories {
+    display: none;
+  }
+}
+@media all and (max-height: 62em) {
+  body.widgets #main #widgets.column .view-featured-stories .story-row {
+    display: none;
+  }
+  body.widgets #main #widgets.column .view-featured-stories .views-row-first {
+    display: block;
+    border-bottom: 0px none;
+  }
+}
 @media (min-width: 949px) {
   body.widgets #main #content {
     margin-left: 360px;
@@ -8544,7 +8561,7 @@ body.widgets #main #content #content-inner:after {
   padding: 0;
   border-top: 4px solid rgba(0, 0, 0, 0.1);
   padding-top: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -8556,7 +8573,7 @@ body.widgets #main #content #content-inner:after {
 #widgets .elsewhere {
   *zoom: 1;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 #widgets .elsewhere:before, #widgets .elsewhere:after {
   display: table;
@@ -8571,12 +8588,11 @@ body.widgets #main #content #content-inner:after {
   padding: 0;
   float: left;
   border-top: 0px none;
+  height: 24px;
   padding: 12px 22px;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  line-height: 2;
-  vertical-align: middle;
 }
 #widgets .elsewhere ul {
   margin: 0;
@@ -8593,13 +8609,13 @@ body.widgets #main #content #content-inner:after {
 #widgets .elsewhere ul li a {
   display: block;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.02);
   padding: 6px 5.5px;
   vertical-align: top;
   line-height: 1.4;
   height: 36px;
   width: 35px;
   text-align: center;
-  background-color: white;
 }
 #widgets .elsewhere ul li a:hover {
   text-decoration: none;

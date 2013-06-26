@@ -279,6 +279,9 @@ $omega: opposite-position($alpha);
     margin-bottom: $absolute-line-height/4;
     padding: $absolute-line-height/2 0;
     border-bottom: 1px solid rgba(0,0,0,.05);
+    &:first-child {
+      padding: 0 0 $absolute-line-height/2 0;
+    }
     &:last-child {
       margin-bottom: 0;
       border-bottom: 0px none;
