@@ -1951,3 +1951,17 @@ function checkdesk_core_format_interval($interval, $granularity = 2, $langcode =
   }
   return $output ? $output : t('0 sec', array(), array('langcode' => $langcode));
 }
+
+/**
+ * Generate a title to a node based on its body.
+ * Used by auto_nodetitle to set titles of updates.
+ */
+function _checkdesk_core_auto_title($node) {
+  $replacements = array('/\[[^]]+\]/' => '', '/&nbsp;/' => ' '); // &nbsp; would be decoded as a non-UTF-8 char
+  $body = html_entity_decode(strip_tags(preg_replace(array_keys($replacements), array_values($replacements), $node->body[LANGUAGE_NONE][0]['value'])));
+  if (empty($body)) {
+    return t('Update');
+  }
+  $title = (mb_strlen($body) > 25) ? mb_substr($body, 0, 22) . '...' : $body;
+  return $title;
+}

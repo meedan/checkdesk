@@ -514,6 +514,12 @@ function checkdesk_preprocess_node(&$variables) {
     }
   }
 
+  if ($variables['type'] == 'post') {
+    if ($variables['title'] === _checkdesk_core_auto_title($variables['elements']['#node']) || $variables['title'] === t('Update')) {
+      unset($variables['title']);
+    }
+  }
+
   $variables['icon'] = '';
   
   if ($variables['type'] == 'media') {
