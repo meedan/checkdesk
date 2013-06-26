@@ -27,21 +27,6 @@
   <!-- ______________________ MAIN _______________________ -->
 
   <div id="main" class="clearfix">
-    <?php if ($page['sidebar_first']): ?>
-      <div id="sidebar-first" class="column sidebar first">
-        <div id="sidebar-first-inner" class="inner">
-          <?php print render($page['sidebar_first']); ?>
-        </div>
-      </div>
-    <?php endif; ?>
-    
-    <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
-      <aside id="widgets" class="column widgets">
-        <div id="widgets-inner" class="inner">
-          <?php print render($page['widgets']); ?>
-        </div>
-       </aside>
-    <?php endif; ?> 
 
     <div id="content">
       <div id="content-inner" class="inner column center">
@@ -89,7 +74,35 @@
 
         <?php // print $feed_icons; ?>
 
-        <!-- ______________________ FOOTER _______________________ -->
+      </div>
+    </div> <!-- /content-inner /content -->
+
+
+    <?php if ($page['sidebar_first']): ?>
+      <div id="sidebar-first" class="column sidebar first">
+        <div id="sidebar-first-inner" class="inner">
+          <?php print render($page['sidebar_first']); ?>
+        </div>
+      </div>
+    <?php endif; ?>
+    
+    <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
+      <aside id="widgets" class="column widgets">
+        <div id="widgets-inner" class="inner">
+          <?php print render($page['widgets']); ?>
+        </div>
+       </aside>
+    <?php endif; ?> 
+
+    <?php if ($page['sidebar_second']): ?>
+      <div id="sidebar-second" class="column sidebar second">
+        <div id="sidebar-second-inner" class="inner">
+          <?php print render($page['sidebar_second']); ?>
+        </div>
+      </div>
+    <?php endif; ?> <!-- /sidebar-second -->
+
+    <!-- ______________________ FOOTER _______________________ -->
 
     <?php if (checkdesk_footer_visibility()) : ?>        
     <?php if ($information_nav || $footer_nav): ?>
@@ -107,18 +120,7 @@
         </div>
       </div> <!-- /footer -->
     <?php endif; ?>
-  <?php endif; ?>
-
-      </div>
-    </div> <!-- /content-inner /content -->
-
-    <?php if ($page['sidebar_second']): ?>
-      <div id="sidebar-second" class="column sidebar second">
-        <div id="sidebar-second-inner" class="inner">
-          <?php print render($page['sidebar_second']); ?>
-        </div>
-      </div>
-    <?php endif; ?> <!-- /sidebar-second -->
+    <?php endif; ?>
 
 
 

@@ -1,6 +1,10 @@
 <?php
   // dsm($content);
   // dsm($node);
+  $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+  $parent_story_link = url('node/'.$parent_story_id);
+  $update_anchor = 'update-' . $node->nid;
+  $update_link = url($parent_story_link, array('fragment' => $update_anchor));
 ?>
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="update">
@@ -10,7 +14,7 @@
     <div class="update-footer">
       <ul class="update-meta">
         <li class="update-at">
-          <a name="update-<?php print $node->nid; ?>"><span class="icon-time"></span> <?php print $created_at; ?></a>
+          <a href="<?php print $update_link; ?>"><span class="icon-time"></span> <?php print $created_at; ?></a>
         </li>
         <li class="update-by">
           <?php if (isset($user_avatar)) { ?>
