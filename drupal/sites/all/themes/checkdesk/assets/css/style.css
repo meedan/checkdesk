@@ -8752,6 +8752,13 @@ body.page-user-register .tabs,
 body.page-user-password .tabs {
   display: none;
 }
+body.page-user-login .password-strength, body.page-user-login .password-suggestions,
+body.page-user-register .password-strength,
+body.page-user-register .password-suggestions,
+body.page-user-password .password-strength,
+body.page-user-password .password-suggestions {
+  display: none !important;
+}
 body.page-user-login .captcha,
 body.page-user-register .captcha,
 body.page-user-password .captcha {
