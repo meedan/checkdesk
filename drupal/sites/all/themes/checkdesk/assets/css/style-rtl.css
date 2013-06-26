@@ -7139,7 +7139,7 @@ div.password-suggestions ul {
 }
 
 label, input, button, select, textarea, body.cke_editable {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="text"], .uneditable-input {
@@ -7176,6 +7176,7 @@ form {
 form input[type="password"],
 form input[type="text"],
 form textarea {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -7206,7 +7207,7 @@ form body.cke_editable:focus {
   background-color: white;
 }
 form label {
-  font-size: 20px;
+  font-size: 15px;
   display: inline-block;
   font-weight: normal;
 }
@@ -7221,7 +7222,6 @@ form label[for="edit-pass"] a {
   font-weight: normal;
 }
 form .description {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   color: rgba(0, 0, 0, 0.4);
 }
@@ -7531,7 +7531,7 @@ form .messages-inline {
   margin: 0;
   padding: 0;
   padding-bottom: 14.4px;
-  font-size: 15.3px;
+  font-size: 15px;
   line-height: 1.4;
 }
 
@@ -7550,9 +7550,8 @@ form > .form-item .form-item {
 form input[type="password"],
 form input[type="text"],
 form textarea {
-  padding-right: 0.77574%;
-  padding-left: 0.77574%;
-  width: 98.44852%;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 100%;
   float: right;
   margin-left: 1.55148%;
   display: inline;
@@ -7598,14 +7597,13 @@ form .image-widget input[type="submit"] {
   margin-left: 0;
 }
 form select {
-  padding-right: 0.77574%;
-  padding-left: 0.77574%;
-  width: 98.44852%;
+  width: 100%;
   float: right;
   margin-left: 1.55148%;
   display: inline;
   *zoom: 1;
   float: none;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 form select:before, form select:after {
   display: table;
@@ -7653,9 +7651,8 @@ form .form-type-textarea:after {
   form input[type="password"],
   form input[type="text"],
   form textarea {
-    padding-right: 2.40175%;
-    padding-left: 2.40175%;
-    width: 95.19651%;
+    font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 100%;
     float: right;
     margin-left: 4.80349%;
   }
@@ -7700,13 +7697,12 @@ form .form-type-textarea:after {
     margin-left: 0;
   }
   form select {
-    padding-right: 2.40175%;
-    padding-left: 2.40175%;
-    width: 95.19651%;
+    width: 100%;
     float: right;
     margin-left: 4.80349%;
     *zoom: 1;
     float: none;
+    font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   form select:before, form select:after {
     display: table;
