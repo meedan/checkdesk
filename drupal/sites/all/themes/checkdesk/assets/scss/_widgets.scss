@@ -61,6 +61,31 @@
 
   // @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout
 }
+
+// Hide featured stories block for small viewports
+@media all and (max-height: 42em) {
+  body.widgets #main #widgets.column {
+    .view-featured-stories {
+      display: none;
+    }
+  }
+}
+
+// Hide featured stories block for small viewports
+@media all and (max-height: 62em) {
+  body.widgets #main #widgets.column {
+    .view-featured-stories {
+      .story-row {
+        display: none;
+      }
+      .views-row-first {
+        display: block;
+        border-bottom: 0px none;
+      }
+    }
+  }
+}
+
 // ======================================================================
 // Breakpoint: med
 //
@@ -126,7 +151,7 @@
       @include reset-box-model;
       border-top: 4px solid rgba(0,0,0,.1);
       padding-top: $base-line-height/2;
-      margin-bottom: $base-line-height/4;
+      margin-bottom: $base-line-height/2;
       font-family: $sans-serif-font-stack;
       font-weight: 700;
       font-size: $base-font-size;
@@ -140,19 +165,29 @@
 
   .elsewhere {
     @include ctb-clearfix;
+    // position: fixed;
+    // bottom: $absolute-line-height;
     border: 1px solid rgba(0,0,0,.1);
-    background-color: rgba(0,0,0,.05);
+    background-color: rgba(255,255,255,.8);
 
     h2 {
       @include reset-box-model;
       float: $alpha;
       border-top: 0px none;
+      height: 24px;
+
       padding: $absolute-line-height/2 $gutter-width*2;
       font-size: $smaller-font-size;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      line-height: 2;
-      vertical-align: middle;
+      @if $from-direction == 'right' {
+        font-size: $x-large-font-size;
+        height: 20px;
+        color: $grey;
+      }
+      @if $from-direction == 'left' {
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        
+      }
     }
     ul {
       @include reset-list-style;
@@ -164,13 +199,13 @@
         a {
           display: block;
           border-#{$alpha}: 1px solid rgba(0,0,0,.1);
+          background-color: rgba(0,0,0,.02);
           padding: $absolute-line-height/4 $gutter-width/2;
           vertical-align: top;
           line-height: 1.4;
           height: 36px;
           width: 35px;
           text-align: center;
-          background-color: $white;
           &:hover { 
             text-decoration: none;
             background-color: rgba(0,0,0,.05);
