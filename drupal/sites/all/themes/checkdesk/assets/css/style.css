@@ -4667,7 +4667,7 @@ div.tabs ul.primary li a {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.6);
   margin-top: 24px;
-  padding: 24px 22px;
+  padding: 24px 22px 0 22px;
 }
 #partner-header-inner .checkdesk-slogan-logo {
   display: inline-block;
@@ -8519,7 +8519,7 @@ body.widgets #main #content #content-inner:after {
   clear: both;
 }
 
-@media all and (max-height: 42em) {
+@media all and (max-height: 52em) {
   body.widgets #main #widgets.column .view-featured-stories {
     display: none;
   }
