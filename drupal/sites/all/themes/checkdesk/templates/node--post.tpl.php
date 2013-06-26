@@ -8,10 +8,10 @@
 ?>
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="update">
-    <?php if (isset($title)) { ?>
-      <h2><?php print $title; ?></h2>
-    <?php } ?>
     <div class="update-body">
+      <?php if (isset($title)) { ?>
+        <h2 class="update-title"><?php print $title; ?></h2>
+      <?php } ?>
       <?php print render($content['body']); ?>
     </div>
     <div class="update-footer">

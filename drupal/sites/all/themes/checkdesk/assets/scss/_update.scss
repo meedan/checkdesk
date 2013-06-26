@@ -3,8 +3,17 @@
 
 .update {
 	@include ctb-clearfix;
+
 	.update-body {
     padding-top: $absolute-line-height/2 - 4; // to align with update number
+
+    .update-title {
+      font-size: $larger-font-size;
+      line-height: 1.4;
+      padding-top: $absolute-line-height/3;
+      padding-bottom: $absolute-line-height/2;
+    }
+
 		.node-media {
 			@include ctb-clearfix;
 			margin: $absolute-line-height/4 0;
