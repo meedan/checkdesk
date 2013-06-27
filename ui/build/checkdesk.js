@@ -1291,7 +1291,6 @@ cdUser
       remember_me: false
     };
 
-    // TODO: Manage the currently logged in user with a service of some sort.
     $scope.submit = function() {
       // Must provide both user and pass
       if (!$scope.user.name || !$scope.user.pass) {
@@ -1300,6 +1299,7 @@ cdUser
       } else if (!$scope.user || $scope.user.uid === 0) {
         // Must not already have an established connection
         User.login({ username: $scope.user.name, password: $scope.user.pass }, function (connection) {
+          // TODO: Manage the currently logged in user with a service of some sort.
           $scope.user       = connection.user;
           $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
 

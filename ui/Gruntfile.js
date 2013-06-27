@@ -70,6 +70,12 @@ module.exports = function(grunt) {
           'docs/content/api/*.ngdoc'
         ],
         title: 'API Reference'
+      },
+      l10n: {
+        src: [
+          'docs/content/l10n/*.ngdoc'
+        ],
+        title: 'Localization Reference'
       }
     },
     ngmin: {

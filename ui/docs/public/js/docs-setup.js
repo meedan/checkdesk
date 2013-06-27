@@ -1,6 +1,7 @@
 NG_DOCS={
   "sections": {
-    "api": "API Reference"
+    "api": "API Reference",
+    "l10n": "Localization Reference"
   },
   "pages": [
     {
@@ -254,10 +255,18 @@ NG_DOCS={
       "shortName": "UserProfileCtrl",
       "type": "function",
       "keywords": "$routeparams $scope api cd controller for function html pagestate template user userprofile userprofilectrl"
+    },
+    {
+      "section": "l10n",
+      "id": "index",
+      "shortName": "Localization Reference",
+      "type": "overview",
+      "keywords": "checkdesk hello l10n localization overview reference ui"
     }
   ],
   "apis": {
-    "api": true
+    "api": true,
+    "l10n": false
   },
   "html5Mode": false,
   "startPage": "/api",
