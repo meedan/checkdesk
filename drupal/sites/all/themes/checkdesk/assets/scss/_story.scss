@@ -39,8 +39,8 @@
 .updates {
   margin-top: $absolute-line-height/2;
   .update-row {
-    border-top: 2px solid rgba(0,0,0,.2);
     margin-bottom: $base-line-height;
+    border-top: 2px solid rgba(0,0,0,.2);
     .update-info {
       @include span-columns(4);
       font-family: $sans-serif-font-stack;
@@ -201,14 +201,7 @@ $omega: opposite-position($alpha);
 
   // compose / create update form
   .compose-update-form {
-    margin-top: $absolute-line-height;
-    & > h2.open {
-      color: rgba(0,0,0,.9);
-      @include icon("pencil", $large-font-size, rgba(0,0,0,.9), $icon-position);
-      background-color: rgba(239,202,43,.2);
-      border-radius: 0px;
-    }
-    
+    margin: $absolute-line-height 0;
     & > h2 {
       @include icon("pencil", $large-font-size, $white, $icon-position);
       font-family: $sans-serif-font-stack;
@@ -218,8 +211,9 @@ $omega: opposite-position($alpha);
       cursor: pointer;
       color: $white;
       background-color: rgb(239,202,43);
-      border-radius: 4px;
+      @include border-radius(4px);
     }
+
     .node-post-form {
       display: none;
       border-top: 4px solid rgb(239,202,43);
@@ -229,6 +223,12 @@ $omega: opposite-position($alpha);
         @include checkdesk-button($identity);
       }
     }
+  }
+  .open > h2 {
+    color: rgba(0,0,0,.9);
+    @include icon("pencil", $large-font-size, rgba(0,0,0,.9), $icon-position);
+    background-color: rgba(239,202,43,.2);
+    @include border-radius(4px 4px 0 0);
   }
 
   .story-updates-wrapper {
@@ -279,6 +279,9 @@ $omega: opposite-position($alpha);
     margin-bottom: $absolute-line-height/4;
     padding: $absolute-line-height/2 0;
     border-bottom: 1px solid rgba(0,0,0,.05);
+    &:first-child {
+      padding: 0 0 $absolute-line-height/2 0;
+    }
     &:last-child {
       margin-bottom: 0;
       border-bottom: 0px none;

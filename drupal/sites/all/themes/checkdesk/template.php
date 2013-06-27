@@ -514,6 +514,12 @@ function checkdesk_preprocess_node(&$variables) {
     }
   }
 
+  if ($variables['type'] == 'post') {
+    if ($variables['title'] === _checkdesk_core_auto_title($variables['elements']['#node']) || $variables['title'] === t('Update')) {
+      unset($variables['title']);
+    }
+  }
+
   $variables['icon'] = '';
   
   if ($variables['type'] == 'media') {
@@ -1096,9 +1102,11 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     if ($vars['counter'] === $vars['view']->total_rows) {
+      $vars['update_id'] = $vars['fields']['nid']->raw;
       $vars['update'] = $vars['fields']['rendered_entity']->content;
     }
     else {
+      $vars['update_id'] = $vars['fields']['nid']->raw;
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
   }
