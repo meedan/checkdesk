@@ -46,6 +46,12 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        singleRun: true
+      }
+    },
     // Much of the structure of the documentation is borrowed from @PascalPrecht's
     // angular-translate (https://github.com/PascalPrecht/angular-translate)
     // project.
@@ -78,9 +84,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Default task(s).
-  // grunt.registerTask('default', ['jshint', 'karma']);
-  // grunt.registerTask('build', ['jshint', 'karma', 'concat', 'ngmin', 'uglify']);
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'ngdocs']);
+  grunt.registerTask('test', ['jshint', 'karma']);
 
 };
