@@ -38,6 +38,37 @@ body, html {
   }
 }
 
+// 2. The sidebar column
+#widgets.column {
+  position: fixed;
+  height: 100%;
+  max-width: 360px;
+  #{$from-direction}: 0;
+  top: $navbarHeight;
+  width: 30%;
+  border-#{$opposite-from-direction}: 1px solid rgba(0,0,0,.1);
+  background-color: #fff;
+
+  overflow: hidden;
+}
+
+// 3. The primary content column, 
+// on story create page, the main column with the compser form
+#content {
+  // position: absolute;
+  margin-top: $navbarHeight;
+  // bottom: 0;
+  margin-#{$from-direction}: 30%;
+  // #{$opposite-from-direction}: 0;
+  overflow-y: auto;
+  #content-inner {
+    -moz-box-sizing: border-box;
+    @include ctb-clearfix;
+    max-width: 850px;
+    padding-top: $base-line-height * 2;
+    @include pad(1, 2, 12);
+  }
+}
 
 // Section shapes and colours
 #header {

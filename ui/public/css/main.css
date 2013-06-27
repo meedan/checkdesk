@@ -93,6 +93,40 @@ body, html {
   clear: both;
 }
 
+#widgets.column {
+  position: fixed;
+  height: 100%;
+  max-width: 360px;
+  left: 0;
+  top: 38px;
+  width: 30%;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+#content {
+  margin-top: 38px;
+  margin-left: 30%;
+  overflow-y: auto;
+}
+#content #content-inner {
+  -moz-box-sizing: border-box;
+  *zoom: 1;
+  max-width: 850px;
+  padding-top: 48px;
+  padding-left: 8.4507%;
+  padding-right: 16.90141%;
+}
+#content #content-inner:before, #content #content-inner:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#content #content-inner:after {
+  clear: both;
+}
+
 #header {
   background-color: #333333;
   color: #fffef6;
