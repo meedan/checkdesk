@@ -41709,14 +41709,6 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['4e59f143b98af61dd8d039af784624ad'] = array(
-    'source' => 'Graphic content (journalist)',
-    'context' => '',
-    'location' => '/ar/node/22/edit?destination=liveblog',
-    'translation' => 'محتوى صادم (صحفي)',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['582b670316df8c6961492d217d12bff3'] = array(
     'source' => 'Spam',
     'context' => '',
@@ -41978,14 +41970,6 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => 'أنا غير متصل',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['e692d0997179a127157aef70fe549a92'] = array(
-    'source' => '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> !preposition !flag_type</p>',
-    'context' => '',
-    'location' => '/ar',
-    'translation' => ' <p><strong><a href="!flag_author_url">!flag_author_name</a></strong> قام بتنبيهك على <strong><a href="!report_url">تقرير</a></strong> !preposition !flag_type</p> ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43637,6 +43621,30 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/',
     'translation' => 'تابعنا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d97b4df3d3732457fd5a724d85d54ec2'] = array(
+    'source' => 'Needing fact-checking',
+    'context' => '',
+    'location' => '/ar/user/577/notifications',
+    'translation' => 'يحتاج التقصي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['9a334ef658ecb711995b9116bb717764'] = array(
+    'source' => 'Needing deletion',
+    'context' => '',
+    'location' => '/ar/user/577/notifications',
+    'translation' => 'يحتاج الحذف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a02ff39cb352eb9381bf59ee50c1ee4a'] = array(
+    'source' => '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> as <span class="notification-flag">!flag_type</span>.</p>',
+    'context' => '',
+    'location' => '/ar/user/577/notifications',
+    'translation' => '<p>قام <strong><a href="!flag_author_url">!flag_author_name</a></strong>  بتنبيه فريق العمل عن <strong><a href="!report_url">التقرير الآتي</a></strong> بأنه <span class="notification-flag">!flag_type</span>.</p>',
     'plid' => 0,
     'plural' => 0,
   );

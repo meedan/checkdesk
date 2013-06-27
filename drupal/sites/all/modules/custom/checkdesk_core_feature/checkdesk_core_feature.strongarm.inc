@@ -549,7 +549,6 @@ return _checkdesk_core_auto_title($node);
   $strongarm->value = array(
     'field_rating' => 'field_rating',
     'field_stories' => 'field_stories',
-    'title' => 0,
     'body' => 0,
     'field_link' => 0,
   );
