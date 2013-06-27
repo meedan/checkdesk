@@ -1,9 +1,11 @@
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd.translationUI
  *
  * @description
- * The `cd.translationUI` module houses the service and controller necessary
+ * ## Module: cd.translationUI
+ *
+ * Houses the service and controller necessary
  * to manage the Checkdesk real-time translation interface.
  */
 angular.module('cd.translationUI', ['pascalprecht.translate'])

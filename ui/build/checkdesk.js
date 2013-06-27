@@ -2,7 +2,7 @@
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd
  *
  * @description
@@ -23,48 +23,53 @@ var app = angular.module('cd', [
     ]),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.services
      *
      * @description
-     * The `cd.services` module houses all API integration of the Checkdesk app.
+     * ## Module: cd.services
+     * Houses all API integration of the Checkdesk app.
      */
     cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.liveblog
      *
      * @description
-     * The `cd.liveblog` module manages the liveblog page of the Checkdesk app.
+     * ## Module: cd.liveblog
+     * Manages the liveblog page of the Checkdesk app.
      */
     cdLiveblog = angular.module('cd.liveblog', ['pascalprecht.translate']),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.page
      *
      * @description
-     * The `cd.page` module houses services and controllers to maintain the
+     * ## Module: cd.page
+     * Houses services and controllers to maintain the
      * overall page state of the Checkdesk app.
      */
     cdPage = angular.module('cd.page', ['pascalprecht.translate']),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.report
      *
      * @description
-     * The `cd.report` module manages the reports pages of the Checkdesk app.
+     * ## Module: cd.report
+     * Manages the reports pages of the Checkdesk app.
      */
     cdReport = angular.module('cd.report', ['pascalprecht.translate']),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.story
      *
      * @description
-     * The `cd.story` module manages the stories pages of the Checkdesk app.
+     * ## Module: cd.story
+     * Manages the stories pages of the Checkdesk app.
      */
     cdStory = angular.module('cd.story', ['pascalprecht.translate']);
 
@@ -121,10 +126,12 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 }]);
 
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd.csrfToken
  *
  * @description
+ * ## Module: cd.csrfToken
+ *
  * Integration with Drupal Services X-CSRF-Token header.
  *
  * This code relies on this tag to be added to the page BEFORE the main application
@@ -148,11 +155,13 @@ angular.module('cd.csrfToken', [])
   }]);
 
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd.l10n
  *
  * @description
- * The `cd.l10n` module manages all translation and localization aspects of
+ * ## Module: cd.l10n
+ *
+ * Manages all translation and localization aspects of
  * the Checkdesk app.
  */
 angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translationUI'])
@@ -208,8 +217,8 @@ cdLiveblog
 cdPage
 
   /**
-   * @ngdoc function
-   * @name cd.page#FooterCtrl
+   * @ngdoc object
+   * @name cd.page.FooterCtrl
    * @requires $scope
    * @requires pageState
    * @requires Story
@@ -1016,11 +1025,13 @@ cdServices
   }]);
 
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd.translationUI
  *
  * @description
- * The `cd.translationUI` module houses the service and controller necessary
+ * ## Module: cd.translationUI
+ *
+ * Houses the service and controller necessary
  * to manage the Checkdesk real-time translation interface.
  */
 angular.module('cd.translationUI', ['pascalprecht.translate'])

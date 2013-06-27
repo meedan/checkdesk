@@ -14,29 +14,29 @@ NG_DOCS={
       "section": "api",
       "id": "cd",
       "shortName": "cd",
-      "type": "object",
-      "keywords": "additional affected an angularjs api app application are back-end based be by cd checkdesk config configuration consuming correct currently drupal enabling front-end html html5mode in includes index is method needs notes object powered router running set sub-directory templateurl the this to ui web-servicesprovided"
+      "type": "overview",
+      "keywords": "additional affected an angularjs api app application are back-end based be by cd checkdesk config configuration consuming correct currently drupal enabling front-end html html5mode in includes index is method needs notes overview powered router running set sub-directory templateurl the this to ui web-servicesprovided"
     },
     {
       "section": "api",
       "id": "cd.csrfToken",
       "shortName": "csrfToken",
-      "type": "object",
-      "keywords": "added and api application be before cd code config cookie csrftoken drupal expects header integration main method module name object on page relies script services set src tag the this to what with x-csrf-token"
+      "type": "overview",
+      "keywords": "added and api application be before cd code config cookie csrftoken drupal expects header integration main method module name on overview page relies script services set src tag the this to what with x-csrf-token"
     },
     {
       "section": "api",
       "id": "cd.l10n",
       "shortName": "l10n",
-      "type": "object",
-      "keywords": "$translate $translateprovider all and api app as aspects cd cdtranslationui checkdesk config configures for handler l10n languages localization manages method missing module necessary object of service sets the translation"
+      "type": "overview",
+      "keywords": "$translate $translateprovider all and api app as aspects cd cdtranslationui checkdesk config configures for handler l10n languages localization manages method missing module necessary of overview service sets the translation"
     },
     {
       "section": "api",
       "id": "cd.liveblog",
       "shortName": "liveblog",
-      "type": "object",
-      "keywords": "api app cd checkdesk liveblog manages module object of page the"
+      "type": "overview",
+      "keywords": "api app cd checkdesk liveblog manages module of overview page the"
     },
     {
       "section": "api",
@@ -70,15 +70,15 @@ NG_DOCS={
       "section": "api",
       "id": "cd.page",
       "shortName": "page",
-      "type": "object",
-      "keywords": "and api app cd checkdesk controllers houses maintain module object of overall page services state the to"
+      "type": "overview",
+      "keywords": "and api app cd checkdesk controllers houses maintain module of overall overview page services state the to"
     },
     {
       "section": "api",
-      "id": "cd.page#FooterCtrl",
-      "shortName": "page#FooterCtrl",
-      "type": "function",
-      "keywords": "$scope api cd controller footer footerctrl for function page pagestate site story"
+      "id": "cd.page.FooterCtrl",
+      "shortName": "FooterCtrl",
+      "type": "object",
+      "keywords": "$scope api cd controller footer footerctrl for object page pagestate site story"
     },
     {
       "section": "api",
@@ -112,15 +112,15 @@ NG_DOCS={
       "section": "api",
       "id": "cd.report",
       "shortName": "report",
-      "type": "object",
-      "keywords": "api app cd checkdesk manages module object of pages report reports the"
+      "type": "overview",
+      "keywords": "api app cd checkdesk manages module of overview pages report reports the"
     },
     {
       "section": "api",
       "id": "cd.services",
       "shortName": "services",
-      "type": "object",
-      "keywords": "all api app cd checkdesk houses integration module object of services the"
+      "type": "overview",
+      "keywords": "all api app cd checkdesk houses integration module of overview services the"
     },
     {
       "section": "api",
@@ -196,15 +196,15 @@ NG_DOCS={
       "section": "api",
       "id": "cd.story",
       "shortName": "story",
-      "type": "object",
-      "keywords": "api app cd checkdesk manages module object of pages stories story the"
+      "type": "overview",
+      "keywords": "api app cd checkdesk manages module of overview pages stories story the"
     },
     {
       "section": "api",
       "id": "cd.translationUI",
       "shortName": "translationUI",
-      "type": "object",
-      "keywords": "$translate $translateprovider access and api but cd cdtranslationuiprovider checkdesk com config controller current directly get hack handy houses https interface is list manage master method module necessary object of on page real-time reference see service sort strings the this to translated translation translationtable translationui very way"
+      "type": "overview",
+      "keywords": "$translate $translateprovider access and api but cd cdtranslationuiprovider checkdesk com config controller current directly get hack handy houses https interface is list manage master method module necessary of on overview page real-time reference see service sort strings the this to translated translation translationtable translationui very way"
     },
     {
       "section": "api",

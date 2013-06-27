@@ -1,9 +1,11 @@
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd.l10n
  *
  * @description
- * The `cd.l10n` module manages all translation and localization aspects of
+ * ## Module: cd.l10n
+ *
+ * Manages all translation and localization aspects of
  * the Checkdesk app.
  */
 angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translationUI'])

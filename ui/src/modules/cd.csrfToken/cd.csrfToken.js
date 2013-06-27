@@ -1,8 +1,10 @@
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd.csrfToken
  *
  * @description
+ * ## Module: cd.csrfToken
+ *
  * Integration with Drupal Services X-CSRF-Token header.
  *
  * This code relies on this tag to be added to the page BEFORE the main application

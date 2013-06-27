@@ -1,5 +1,5 @@
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd
  *
  * @description
@@ -20,47 +20,52 @@ var app = angular.module('cd', [
     ]),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.services
      *
      * @description
-     * The `cd.services` module houses all API integration of the Checkdesk app.
+     * ## Module: cd.services
+     * Houses all API integration of the Checkdesk app.
      */
     cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.liveblog
      *
      * @description
-     * The `cd.liveblog` module manages the liveblog page of the Checkdesk app.
+     * ## Module: cd.liveblog
+     * Manages the liveblog page of the Checkdesk app.
      */
     cdLiveblog = angular.module('cd.liveblog', ['pascalprecht.translate']),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.page
      *
      * @description
-     * The `cd.page` module houses services and controllers to maintain the
+     * ## Module: cd.page
+     * Houses services and controllers to maintain the
      * overall page state of the Checkdesk app.
      */
     cdPage = angular.module('cd.page', ['pascalprecht.translate']),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.report
      *
      * @description
-     * The `cd.report` module manages the reports pages of the Checkdesk app.
+     * ## Module: cd.report
+     * Manages the reports pages of the Checkdesk app.
      */
     cdReport = angular.module('cd.report', ['pascalprecht.translate']),
 
     /**
-     * @ngdoc object
+     * @ngdoc overview
      * @name cd.story
      *
      * @description
-     * The `cd.story` module manages the stories pages of the Checkdesk app.
+     * ## Module: cd.story
+     * Manages the stories pages of the Checkdesk app.
      */
     cdStory = angular.module('cd.story', ['pascalprecht.translate']);
