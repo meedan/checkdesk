@@ -1237,6 +1237,46 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
 
   /* Display: Services */
   $handler = $view->new_display('services', 'Services', 'services_1');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Heartbeat activity: Activity message */
+  $handler->display->display_options['fields']['message']['id'] = 'message';
+  $handler->display->display_options['fields']['message']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['message']['field'] = 'message';
+  $handler->display->display_options['fields']['message']['label'] = 'activity_message';
+  $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
+  /* Field: Heartbeat activity: Creation date */
+  $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['label'] = 'timestamp';
+  $handler->display->display_options['fields']['created_at']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created_at']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['created_at']['custom_date_format'] = 'c';
+  /* Field: Heartbeat activity: Node ID */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = 'nid';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nid']['separator'] = '';
+  /* Field: Heartbeat activity: User ID */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = 'uid';
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['separator'] = '';
   $translatables['my_notifications'] = array(
     t('Master'),
     t('My Notifications'),
@@ -1266,6 +1306,11 @@ $path = drupal_get_path(\'module\', \'checkdesk_notifications\') . \'/ping.php?u
 print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_field\' => TRUE, \'incremental\' => FALSE, \'ping\' => array(\'ping_base_path\' =>  $path)));
 ?>'),
     t('Services'),
+    t('activity_message'),
+    t('timestamp'),
+    t('nid'),
+    t('.'),
+    t('uid'),
   );
   $export['my_notifications'] = $view;
 
