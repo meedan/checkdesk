@@ -984,9 +984,6 @@ function checkdesk_core_views_pre_render(&$view) {
       if ($total_rows) {
         $view->result[$id]->updates = $output;
       }
-      else {
-        unset($view->result[$id]);
-      }
     }
   }
 }
@@ -1494,6 +1491,15 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       $query->add_groupby('node.nid');
       $query->orderby = array(array('field' => "(f.field_stories_target_id IS NOT NULL AND f.field_stories_target_id = $story_id)", 'direction' => 'DESC'), array('field' => 'node.created', 'direction' => $sort_order));
     }
+  }
+
+  // Do not display on liveblog stories without updates
+  if ($view->name === 'liveblog') {
+    $join = new views_join();
+    $join->construct('field_data_field_desk', 'node', 'nid', 'field_desk_target_id', array(), 'INNER');
+    $query->add_relationship('f', $join, 'field_data_field_desk');
+    $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
+    $query->add_groupby('node.nid');
   }
 }
 
