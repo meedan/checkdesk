@@ -8,7 +8,7 @@
  * The Checkdesk application is an AngularJS based front-end consuming
  * web-servicesprovided by a Drupal powered back-end.
  */
-var app = angular.module('Checkdesk', [
+var app = angular.module('cd', [
       'pascalprecht.translate',
       'cd.l10n',
       'cd.translationUI',
