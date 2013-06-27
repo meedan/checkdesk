@@ -1,0 +1,35 @@
+<div class="main container">
+    <form id="user-login-form">
+        <h1 translate>USER_LOGIN_FORM_TITLE</h1>
+
+        <div class="form-item">
+            <label for="user-name" translate>USER_LOGIN_FORM_NAME_LABEL</label>
+            <input type="text" ng-model="user.name" id="user-name" placeholder="{{'USER_LOGIN_FORM_NAME_PLACEHOLDER' | translate}}">
+        </div>
+
+        <div class="form-item">
+            <label for="user-pass" translate>USER_LOGIN_FORM_PASS_LABEL</label>
+            <input type="password" ng-model="user.pass" id="user-pass" placeholder="{{'USER_LOGIN_FORM_PASS_PLACEHOLDER' | translate}}">
+        </div>
+
+        <div class="form-item">
+            <input type="checkbox" ng-model="user.remeber_me" id="remember-me" class="form-checkbox" tabindex="1">
+            <label class="option" for="remember-me" translate>USER_LOGIN_FORM_REMEMBER_ME_LABEL</label>
+        </div>
+
+        <div class="user-forgot-pass-link">
+            <a href="/user/password" translate>USER_LOGIN_FORM_FORGOT_PASSWORD_LINK</a>
+        </div>
+
+        <div class="form-actions">
+            <div class="user-new-account-link">
+                <span translate>USER_LOGIN_FORM_SIGNUP_LABEL</span>
+                <a href="/user/register" class="register" translate>USER_LOGIN_FORM_SIGNUP_LINK</a>
+            </div>
+
+            <button ng-click="submit()" class="btn btn-primary" translate>USER_LOGIN_FORM_SUBMIT</button>
+            <button ng-click="cancel()" class="btn" translate>FORM_CANCEL</button>
+        </div>
+
+    </form>
+</div>

@@ -219,6 +219,41 @@ NG_DOCS={
       "shortName": "cdTranslationUIProvider",
       "type": "object",
       "keywords": "$http $missingtranslations $translate $translationtable access and api as be can cd cdtranslationuiprovider coordination current enables for getter handler method missing missingtranslations new object provides set table the to translation translationtable translationui ui used"
+    },
+    {
+      "section": "api",
+      "id": "cd.user",
+      "shortName": "user",
+      "type": "overview",
+      "keywords": "and api app cd checkdesk login manages module of overview pages registration the user"
+    },
+    {
+      "section": "api",
+      "id": "cd.user.UserForgotPasswordCtrl",
+      "shortName": "UserForgotPasswordCtrl",
+      "type": "function",
+      "keywords": "$routeparams $scope api cd controller for function html pagestate template user userforgotpassword userforgotpasswordctrl"
+    },
+    {
+      "section": "api",
+      "id": "cd.user.UserFormCtrl",
+      "shortName": "UserFormCtrl",
+      "type": "function",
+      "keywords": "$routeparams $scope api cd controller for function html pagestate template user userform userformctrl"
+    },
+    {
+      "section": "api",
+      "id": "cd.user.UserLoginCtrl",
+      "shortName": "UserLoginCtrl",
+      "type": "function",
+      "keywords": "$routeparams $scope api cd controller for function html pagestate template user userlogin userloginctrl"
+    },
+    {
+      "section": "api",
+      "id": "cd.user.UserProfileCtrl",
+      "shortName": "UserProfileCtrl",
+      "type": "function",
+      "keywords": "$routeparams $scope api cd controller for function html pagestate template user userprofile userprofilectrl"
     }
   ],
   "apis": {

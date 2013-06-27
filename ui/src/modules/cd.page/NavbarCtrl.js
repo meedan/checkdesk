@@ -59,16 +59,6 @@ cdPage
     };
 
 
-    // Determine logged in or logged out state and set up helper functions
-    var anonymousUser = { uid: 0 };
-    $scope.isLoggedIn = false;
-    $scope.user       = angular.copy(anonymousUser);
-
-    System.connect({}, function (connection) {
-      $scope.user       = connection.user;
-      $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
-    });
-
     $scope.login = function () {
       // Must provide both user and pass
       if (!$scope.user.name || !$scope.user.pass) {

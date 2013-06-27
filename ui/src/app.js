@@ -14,6 +14,7 @@ var app = angular.module('cd', [
       'cd.translationUI',
       'cd.page',
       'cd.services',
+      'cd.user',
       'cd.liveblog',
       'cd.report',
       'cd.story'
@@ -28,6 +29,16 @@ var app = angular.module('cd', [
      * Houses all API integration of the Checkdesk app.
      */
     cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']),
+
+    /**
+     * @ngdoc overview
+     * @name cd.user
+     *
+     * @description
+     * ## Module: cd.user
+     * Manages the login, registration and user pages of the Checkdesk app.
+     */
+    cdUser = angular.module('cd.user', ['pascalprecht.translate']),
 
     /**
      * @ngdoc overview

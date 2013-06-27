@@ -17,6 +17,7 @@ var app = angular.module('cd', [
       'cd.translationUI',
       'cd.page',
       'cd.services',
+      'cd.user',
       'cd.liveblog',
       'cd.report',
       'cd.story'
@@ -31,6 +32,16 @@ var app = angular.module('cd', [
      * Houses all API integration of the Checkdesk app.
      */
     cdServices = angular.module('cd.services', ['ngResource', 'cd.csrfToken']),
+
+    /**
+     * @ngdoc overview
+     * @name cd.user
+     *
+     * @description
+     * ## Module: cd.user
+     * Manages the login, registration and user pages of the Checkdesk app.
+     */
+    cdUser = angular.module('cd.user', ['pascalprecht.translate']),
 
     /**
      * @ngdoc overview
@@ -92,16 +103,42 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   // See: http://docs.angularjs.org/guide/dev_guide.services.$location
   $locationProvider.html5Mode(true).hashPrefix('!');
 
+
+  // User pages
+  $routeProvider.when('/user/register', {
+    templateUrl: 'templates/user/userForm.html',
+    controller: 'UserFormCtrl'
+  });
+  $routeProvider.when('/user/login', {
+    templateUrl: 'templates/user/userLogin.html',
+    controller: 'UserLoginCtrl'
+  });
+  $routeProvider.when('/user/password', {
+    templateUrl: 'templates/user/userForgotPassword.html',
+    controller: 'UserForgotPasswordCtrl'
+  });
+  $routeProvider.when('/user/:uid', {
+    templateUrl: 'templates/user/userProfile.html',
+    controller: 'UserProfileCtrl'
+  });
+  $routeProvider.when('/user/:uid/edit', {
+    templateUrl: 'templates/user/userForm.html',
+    controller: 'UserFormCtrl'
+  });
+
+
+  // Liveblog pages
   $routeProvider.when('/liveblog', {
     templateUrl: 'templates/liveblog.html',
     controller: 'LiveblogCtrl'
   });
 
+
+  // Reports pages
   $routeProvider.when('/reports', {
     templateUrl: 'templates/reports.html',
     controller: 'ReportsCtrl'
   });
-
   $routeProvider.when('/report/add', {
     templateUrl: 'templates/reportForm.html',
     controller: 'ReportFormCtrl'
@@ -110,16 +147,9 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     templateUrl: 'templates/report.html',
     controller: 'ReportCtrl'
   });
-  // Note, here is the technique to reuse a controller and template for two, or
-  // more, pages.
   $routeProvider.when('/report/:nid/edit', {
     templateUrl: 'templates/reportForm.html',
     controller: 'ReportFormCtrl'
-  });
-
-  $routeProvider.when('/translationsTest', {
-    templateUrl: 'templates/translationsTest.html',
-    controller: 'TranslationsTestCtrl'
   });
 
   $routeProvider.otherwise({ redirectTo: '/liveblog' });
@@ -308,16 +338,6 @@ cdPage
       updateLangClass('add', $translate.uses());
     };
 
-
-    // Determine logged in or logged out state and set up helper functions
-    var anonymousUser = { uid: 0 };
-    $scope.isLoggedIn = false;
-    $scope.user       = angular.copy(anonymousUser);
-
-    System.connect({}, function (connection) {
-      $scope.user       = connection.user;
-      $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
-    });
 
     $scope.login = function () {
       // Must provide both user and pass
@@ -1218,4 +1238,96 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
         $translate.uses($translate.uses());
       });
     };
+  }]);
+
+cdUser
+
+  /**
+   * @ngdoc function
+   * @name cd.user.UserForgotPasswordCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires pageState
+   *
+   * @description
+   * Controller for userForgotPassword.html template.
+   */
+  .controller('UserForgotPasswordCtrl', ['$scope', 'pageState', 'User', function ($scope, pageState, User) {
+  }]);
+
+cdUser
+
+  /**
+   * @ngdoc function
+   * @name cd.user.UserFormCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires pageState
+   *
+   * @description
+   * Controller for userForm.html template.
+   */
+  .controller('UserFormCtrl', ['$scope', 'pageState', 'User', function ($scope, pageState, User) {
+  }]);
+
+cdUser
+
+  /**
+   * @ngdoc function
+   * @name cd.user.UserLoginCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires pageState
+   *
+   * @description
+   * Controller for userLogin.html template.
+   */
+  .controller('UserLoginCtrl', ['$scope', '$location', 'pageState', 'User', function ($scope, $location, pageState, User) {
+    $scope.user = {
+      uid: 0,
+      name: '',
+      pass: '',
+      // TODO: Do something useful with $scope.user.remember_me
+      remember_me: false
+    };
+
+    // TODO: Manage the currently logged in user with a service of some sort.
+    $scope.submit = function() {
+      // Must provide both user and pass
+      if (!$scope.user.name || !$scope.user.pass) {
+        // TODO: Display error.
+        return false;
+      } else if (!$scope.user || $scope.user.uid === 0) {
+        // Must not already have an established connection
+        User.login({ username: $scope.user.name, password: $scope.user.pass }, function (connection) {
+          $scope.user       = connection.user;
+          $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
+
+          // TODO: Display a success message about the user being logged in?
+          $location.path('/');
+        });
+      } else {
+        // Already logged in, run away
+        $location.path('/');
+      }
+    };
+
+    $scope.cancel = function () {
+      $location.path('/');
+    };
+  }]);
+
+cdUser
+
+  /**
+   * @ngdoc function
+   * @name cd.user.UserProfileCtrl
+   * @requires $scope
+   * @requires $routeParams
+   * @requires pageState
+   *
+   * @description
+   * Controller for userProfile.html template.
+   */
+  .controller('UserProfileCtrl', ['$scope', 'pageState', 'User', function ($scope, pageState, User) {
   }]);
