@@ -848,8 +848,10 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
     'wrapper' => 'discussion-form-wrapper',
     'method' => 'replace',
     'effect' => 'fade',
+    'selector' => '#edit-submit-story',
   );
   $form['actions']['submit']['#submit'][] = 'checkdesk_core_discussion_node_form_submit_callback';
+  $form['actions']['submit']['#attributes']['id'] = 'edit-submit-story';
 
   $form['actions']['cancel'] = array(
     '#type' => 'button',
@@ -929,6 +931,7 @@ function checkdesk_core_discussion_ajax_node_form_submit_callback($form, &$form_
   $commands = array();
   $commands[] = ajax_command_replace('#discussion-form-wrapper', drupal_render($fresh_form));
   $commands[] = ajax_command_prepend('#discussion-form-wrapper', '<div class="messages success">' . $success_message . '</div>');
+  $commands[] = ajax_command_append('#edit-field-desk-und', form_select_options(array('#options' => array($node->nid => $node->title))));
 
   ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
 
