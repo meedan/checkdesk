@@ -73,10 +73,14 @@ body.page-user-password { // both logged in and not logged ins states
     display: none;
   }
 
+  // hide password strength and suggestions
+  .password-strength, .password-suggestions {
+    display: none !important;
+  }
+
   // captcha
   .captcha {
     @include ctb-clearfix;
-    
     #recaptcha_table {
       float: $alpha;
       width: auto;
@@ -92,7 +96,6 @@ body.page-user-password { // both logged in and not logged ins states
       #recaptcha_privacy {
         font-size: 80%;
       }
-
     }
   }
 

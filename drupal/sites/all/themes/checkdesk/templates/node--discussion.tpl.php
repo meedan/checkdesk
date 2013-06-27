@@ -61,5 +61,10 @@
       </div>
     </div>
 
+    <!-- story comments -->
+    <!-- <div class="story-comments"> -->
+      <?php // print render($content['comments']); ?>
+    <!-- </div> -->
+
   </article>
 </section>

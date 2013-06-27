@@ -7,11 +7,11 @@
   // $update_link = url($parent_story_link, array('fragment' => $update_anchor));
 ?>
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <article class="update">
-    <?php if (isset($title)) { ?>
-      <h2><?php print $title; ?></h2>
-    <?php } ?>
+  <article class="update <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
     <div class="update-body">
+      <?php if (isset($title)) { ?>
+        <h2 class="update-title"><?php print $title; ?></h2>
+      <?php } ?>
       <?php print render($content['body']); ?>
     </div>
     <div class="update-footer">

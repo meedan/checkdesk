@@ -560,7 +560,9 @@
         &:hover {
           color: $white;
           background-color: $identity;
+          border: 1px solid $identity;
         }
+        @include ctb-border-radius(4px);
       }
       .ajax-progress-throbber {
         position: absolute;
