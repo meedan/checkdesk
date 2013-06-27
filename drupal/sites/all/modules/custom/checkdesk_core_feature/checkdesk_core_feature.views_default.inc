@@ -1110,6 +1110,9 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['arguments']['changed_operator']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['changed_operator']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['path'] = 'liveblog/autorefresh/%';
+
+  /* Display: Services */
+  $handler = $view->new_display('services', 'Services', 'services_1');
   $translatables['liveblog'] = array(
     t('Master'),
     t('more'),
@@ -1137,10 +1140,14 @@ print theme(\'views_autorefresh\', array(
   ),
 ));
 ?>'),
+    t('Title'),
+    t('Body'),
+    t('Nid'),
     t('Page'),
     t('Feed'),
     t('Autorefresh Page'),
     t('All'),
+    t('Services'),
   );
   $export['liveblog'] = $view;
 
@@ -1227,6 +1234,9 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
   $handler->display->display_options['defaults']['footer'] = FALSE;
+
+  /* Display: Services */
+  $handler = $view->new_display('services', 'Services', 'services_1');
   $translatables['my_notifications'] = array(
     t('Master'),
     t('My Notifications'),
@@ -1255,6 +1265,7 @@ $interval = 5000;
 $path = drupal_get_path(\'module\', \'checkdesk_notifications\') . \'/ping.php?user=\' . $user->uid;
 print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_field\' => TRUE, \'incremental\' => FALSE, \'ping\' => array(\'ping_base_path\' =>  $path)));
 ?>'),
+    t('Services'),
   );
   $export['my_notifications'] = $view;
 
