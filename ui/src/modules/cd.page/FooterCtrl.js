@@ -2,7 +2,7 @@ cdPage
 
   /**
    * @ngdoc function
-   * @name cd.page.FooterCtrl
+   * @name cd.page#FooterCtrl
    * @requires $scope
    * @requires pageState
    * @requires Story

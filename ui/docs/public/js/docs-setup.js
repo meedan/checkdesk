@@ -75,8 +75,8 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "cd.page.FooterCtrl",
-      "shortName": "FooterCtrl",
+      "id": "cd.page#FooterCtrl",
+      "shortName": "page#FooterCtrl",
       "type": "function",
       "keywords": "$scope api cd controller footer footerctrl for function page pagestate site story"
     },
@@ -134,7 +134,14 @@ NG_DOCS={
       "id": "cd.services.Liveblog",
       "shortName": "Liveblog",
       "type": "service",
-      "keywords": "api cd drupal for liveblog method query resource retrieve service services stream the to"
+      "keywords": "api autorefresh cd drupal for liveblog method query resource retrieve service services stream the to"
+    },
+    {
+      "section": "api",
+      "id": "cd.services.Notification",
+      "shortName": "Notification",
+      "type": "service",
+      "keywords": "api autorefresh cd drupal for liveblog method notification query resource retrieve service services stream the to"
     },
     {
       "section": "api",

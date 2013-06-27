@@ -1,4 +1,4 @@
-/*! checkdesk - v0.1.0 - 2013-06-25
+/*! checkdesk - v0.1.0 - 2013-06-27
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 /**
@@ -209,7 +209,7 @@ cdPage
 
   /**
    * @ngdoc function
-   * @name cd.page.FooterCtrl
+   * @name cd.page#FooterCtrl
    * @requires $scope
    * @requires pageState
    * @requires Story
@@ -355,6 +355,50 @@ cdPage
     $scope.pageState = pageState;
   }]);
 
+cdPage
+
+  /**
+   * @ngdoc function
+   * @name cd.page.WidgetsSidebarCtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires System
+   * @requires User
+   *
+   * @description
+   * Controller for widgets sidebar.
+   */
+  .controller('WidgetsSidebarCtrl', ['$scope', function ($scope) {
+    // TODO: Pull logoSrc from the server.
+    $scope.logoSrc = 'http://qa.checkdesk.org/sites/qa.checkdesk.org/files/checkdesk_theme/meedan.png';
+
+    // TODO: Unstub featuredStories content.
+    $scope.featuredStories = [
+      {
+        href: '/story/1510',
+        title: 'الشعب يريد إقالةالوزير المتحرش',
+        imageSrc: 'http://qa.checkdesk.org/sites/qa.checkdesk.org/files/styles/featured_stories_lead_image/public/adbusters_blog_occupygezi_s_2.jpg?itok=uYCbtd7B',
+        description: 'أثار رد وزير الإعلام "صلاح عبد المقصود" على سؤال أحدى الصحفيات في مؤتمر صحفي أمس ضجة كبيرة على مواقع التواصل...'
+      }
+    ];
+
+    // TODO: Unstub followLinks content.
+    $scope.followLinks = [
+      {
+        href: 'https://www.facebook.com/YomatyEgypt',
+        icon: 'icon-facebook'
+      },
+      {
+        href: 'https://twitter.com/YomatyEgypt',
+        icon: 'icon-twitter'
+      },
+      {
+        href: 'http://www.youtube.com/user/weladelbaladlt',
+        icon: 'icon-youtube'
+      }
+    ];
+  }]);
+
 /**
  * @ngdoc service
  * @name cd.page.pageState
@@ -412,50 +456,6 @@ cdPage
       }
     };
   });
-
-cdPage
-
-  /**
-   * @ngdoc function
-   * @name cd.page.WidgetsSidebarCtrl
-   * @requires $scope
-   * @requires $translate
-   * @requires System
-   * @requires User
-   *
-   * @description
-   * Controller for widgets sidebar.
-   */
-  .controller('WidgetsSidebarCtrl', ['$scope', function ($scope) {
-    // TODO: Pull logoSrc from the server.
-    $scope.logoSrc = 'http://qa.checkdesk.org/sites/qa.checkdesk.org/files/checkdesk_theme/meedan.png';
-
-    // TODO: Unstub featuredStories content.
-    $scope.featuredStories = [
-      {
-        href: '/story/1510',
-        title: 'الشعب يريد إقالةالوزير المتحرش',
-        imageSrc: 'http://qa.checkdesk.org/sites/qa.checkdesk.org/files/styles/featured_stories_lead_image/public/adbusters_blog_occupygezi_s_2.jpg?itok=uYCbtd7B',
-        description: 'أثار رد وزير الإعلام "صلاح عبد المقصود" على سؤال أحدى الصحفيات في مؤتمر صحفي أمس ضجة كبيرة على مواقع التواصل...'
-      }
-    ];
-
-    // TODO: Unstub followLinks content.
-    $scope.followLinks = [
-      {
-        href: 'https://www.facebook.com/YomatyEgypt',
-        icon: 'icon-facebook'
-      },
-      {
-        href: 'https://twitter.com/YomatyEgypt',
-        icon: 'icon-twitter'
-      },
-      {
-        href: 'http://www.youtube.com/user/weladelbaladlt',
-        icon: 'icon-youtube'
-      }
-    ];
-  }]);
 
 cdReport
 
@@ -586,10 +586,59 @@ cdServices
 cdServices
   .factory('Liveblog', ['$resource', function($resource) {
     return $resource('api/views/liveblog', {}, {
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Liveblog#autorefresh
+       * @methodOf cd.services.Liveblog
+       */
+      autorefresh: {
+        url: 'sites/all/modules/custom/checkdesk_core/autorefresh/liveblog.php',
+        method: 'GET',
+        params: { type: 'discussion', field: 'changed', timestamp: 0 },
+        isArray: false
+      },
+
       /**
        * @ngdoc method
        * @name cd.services.Liveblog#query
        * @methodOf cd.services.Liveblog
+       */
+      query: {
+        method: 'GET',
+        params: { display_id: 'services_1', args: [] },
+        isArray: true
+      }
+    });
+  }]);
+
+/**
+ * @ngdoc service
+ * @name cd.services.Notification
+ *
+ * @description
+ * Resource to retrieve the Drupal API for the liveblog stream.
+ */
+cdServices
+  .factory('Notification', ['$resource', function($resource) {
+    return $resource('api/views/my_notifications', {}, {
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Notification#autorefresh
+       * @methodOf cd.services.Notification
+       */
+      autorefresh: {
+        url: 'sites/all/modules/custom/checkdesk_notifications/ping.php',
+        method: 'GET',
+        params: { user: 0, timestamp: 0 },
+        isArray: false
+      },
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Notification#query
+       * @methodOf cd.services.Notification
        */
       query: {
         method: 'GET',
