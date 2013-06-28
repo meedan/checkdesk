@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
-  src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
+  src: url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/checkdesk/drupal/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
 /*
@@ -2165,7 +2165,7 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form >
   content: "\f081";
 }
 
-body div.fb-comments-header:before, .story .story-meta .story-commentcount:before, .story .story-comments .livefyre-header:before {
+.story .story-meta .story-commentcount:before, .story .story-comments .livefyre-header:before, .story .story-comments .fb-comments-header:before {
   content: "\f086";
 }
 
@@ -2214,7 +2214,7 @@ body div.fb-comments-header:before, .story .story-meta .story-commentcount:befor
 }
 
 #widgets .elsewhere ul li span.icon-youtube:before {
-  content: "\f166";
+  content: "\f167";
 }
 
 .button-reset-base-class {
@@ -5960,38 +5960,7 @@ html body .livefyre-wrapper {
   display: block !important;
 }
 
-body div.fb-comments-header {
-  width: auto;
-}
-body div.fb-comments-header {
-  padding: 0 1em;
-  padding-left: 123px;
-  display: block;
-  text-transform: capitalize;
-  font-size: 15.3px;
-  color: #595959;
-  width: auto;
-  cursor: pointer;
-  background-color: transparent;
-}
-body div.fb-comments-header:before {
-  font-family: "FontAwesome";
-  font-size: 15.3px;
-  line-height: inherit;
-  color: black;
-  margin: 0 5.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-}
-body div.fb-comments-header:hover {
-  color: black;
-}
-body .fb-comments-wrapper {
-  clear: both;
-}
-body .fb-comments-wrapper, body .fb-comments > span, body .fb-comments, body .fb-comments iframe[style] {
+.fb-comments-wrapper, .fb-comments > span, .fb-comments, .fb-comments iframe[style] {
   width: 100% !important;
 }
 
@@ -8342,7 +8311,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-comments {
   margin-top: 24px;
 }
-.story .story-comments .livefyre-header {
+.story .story-comments .livefyre-header, .story .story-comments .fb-comments-header {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.8);
@@ -8355,7 +8324,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   border-radius: 4px;
   cursor: pointer;
 }
-.story .story-comments .livefyre-header:before {
+.story .story-comments .livefyre-header:before, .story .story-comments .fb-comments-header:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
@@ -8366,9 +8335,12 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
 }
-.story .story-comments .livefyre-header:hover {
+.story .story-comments .livefyre-header:hover, .story .story-comments .fb-comments-header:hover {
   color: white;
   background-color: #efca2b;
+}
+.story .story-comments .fb-comments {
+  margin-top: 12px;
 }
 
 .stories .story-row {

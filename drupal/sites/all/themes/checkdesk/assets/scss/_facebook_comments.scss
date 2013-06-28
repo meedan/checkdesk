@@ -11,37 +11,7 @@
   display: block !important;
 }
 
-// Checkdesk original styles
-body {
-
-  div.fb-comments-header {
-    width: auto;
-  }
-    
-  div.fb-comments-header {
-	  @include icon(comments, $fontSizeSmall, $darker-grey);
-    padding: 0 1em;
-    padding-#{$alpha}: ms(8);
-    display: block;
-    text-transform: capitalize; // HACK... also does this cause #i18n issue with ar?
-    font-size: $fontSizeSmall;
-    color: $dark-grey;
-    width: auto;
-    cursor: pointer;
-    background-color: transparent;
-    &:hover { 
-      color: black;
-    }
-  }
-
-  // Appers on liveblog homepage and others 
-  // Do not set columnar layout here. 
-  .fb-comments-wrapper {
-    clear: both;
-  }
-
-  // Full width
-  .fb-comments-wrapper, .fb-comments > span, .fb-comments, .fb-comments iframe[style] {
-    width: 100% !important;
-  }
+// Full width
+.fb-comments-wrapper, .fb-comments > span, .fb-comments, .fb-comments iframe[style] {
+  width: 100% !important;
 }
