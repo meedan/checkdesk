@@ -52,21 +52,11 @@
               <button id="toggle-language-btn" class="btn btn-inverse" ng-click="toggleLang()" translate>LANGUAGE_TOGGLE</button>
 
               <ul ng-show="mainMenu" id="main-menu" class="nav">
-                <li ng-repeat="item in mainMenu">
-                  <a href="{{item.href}}">
-                    <span ng-show="item.icon" class="{{item.icon}}"></span>
-                    {{item.title | translate}}
-                  </a>
-                </li>
+                <li ng-repeat="item in mainMenu" cd-menu-item="item"></li>
               </ul>
 
               <ul ng-show="userMenu" id="user-menu" class="nav">
-                <li ng-repeat="item in userMenu">
-                  <a href="{{item.href}}">
-                    <span ng-show="item.icon" class="{{item.icon}}"></span>
-                    {{item.title | translate}}
-                  </a>
-                </li>
+                <li ng-repeat="item in userMenu" cd-menu-item="item"></li>
               </ul>
 
             </nav>
@@ -195,21 +185,11 @@
               <div id="footer-inner" class="inner">
 
                 <ul id="information-menu" class="nav">
-                  <li ng-repeat="item in informationMenu">
-                    <a href="{{item.href}}">
-                      <span ng-show="item.icon" class="{{item.icon}}"></span>
-                      {{item.title | translate}}
-                    </a>
-                  </li>
+                  <li ng-repeat="item in informationMenu" cd-menu-item="item"></li>
                 </ul>
 
                 <ul id="footer-menu" class="nav">
-                  <li ng-repeat="item in footerMenu">
-                    <a href="{{item.href}}">
-                      <span ng-show="item.icon" class="{{item.icon}}"></span>
-                      {{item.title | translate}}
-                    </a>
-                  </li>
+                  <li ng-repeat="item in footerMenu" cd-menu-item="item"></li>
                 </ul>
 
               </div>

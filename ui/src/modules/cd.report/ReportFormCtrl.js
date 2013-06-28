@@ -1,8 +1,8 @@
 cdReport
 
   /**
-   * @ngdoc function
-   * @name cd.liveblog.ReportFormCtrl
+   * @ngdoc object
+   * @name cd.liveblog.controllers:ReportFormCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires $location

@@ -23,7 +23,7 @@ NG_DOCS={
       "id": "cd.csrfToken",
       "shortName": "csrfToken",
       "type": "overview",
-      "keywords": "added and api application be before cd code config cookie csrftoken drupal expects header integration main method module name on overview page relies script services set src tag the this to what with x-csrf-token"
+      "keywords": "added api application be before cd code csrftoken drupal header integration json main module on overview page relies script services src tag the this to with x-csrf-token"
     },
     {
       "section": "api",
@@ -41,31 +41,31 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "cd.liveblog.LiveblogCtrl",
+      "id": "cd.liveblog.controllers:LiveblogCtrl",
       "shortName": "LiveblogCtrl",
-      "type": "function",
-      "keywords": "$scope api cd controller for function html liveblog liveblogctrl pagestate story template"
+      "type": "object",
+      "keywords": "$scope api cd controller controllers for html liveblog object pagestate story template"
     },
     {
       "section": "api",
-      "id": "cd.liveblog.ReportCtrl",
+      "id": "cd.liveblog.controllers:ReportCtrl",
       "shortName": "ReportCtrl",
-      "type": "function",
-      "keywords": "$routeparams $scope api cd controller for function html liveblog pagestate report reportctrl template"
+      "type": "object",
+      "keywords": "$routeparams $scope api cd controller controllers for html liveblog object pagestate report template"
     },
     {
       "section": "api",
-      "id": "cd.liveblog.ReportFormCtrl",
+      "id": "cd.liveblog.controllers:ReportFormCtrl",
       "shortName": "ReportFormCtrl",
-      "type": "function",
-      "keywords": "$location $routeparams $scope api cd controller for function html liveblog report reportform reportformctrl template"
+      "type": "object",
+      "keywords": "$location $routeparams $scope api cd controller controllers for html liveblog object report reportform template"
     },
     {
       "section": "api",
-      "id": "cd.liveblog.ReportsCtrl",
+      "id": "cd.liveblog.controllers:ReportsCtrl",
       "shortName": "ReportsCtrl",
-      "type": "function",
-      "keywords": "$scope api cd controller for function html liveblog pagestate report reportform reportsctrl template"
+      "type": "object",
+      "keywords": "$scope api cd controller controllers for html liveblog object pagestate report reportform template"
     },
     {
       "section": "api",
@@ -76,24 +76,38 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "cd.page.FooterCtrl",
+      "id": "cd.page.controllers:FooterCtrl",
       "shortName": "FooterCtrl",
       "type": "object",
-      "keywords": "$scope api cd controller footer footerctrl for object page pagestate site story"
+      "keywords": "$scope api cd controller controllers footer for object page pagestate site story"
     },
     {
       "section": "api",
-      "id": "cd.page.NavbarCtrl",
+      "id": "cd.page.controllers:NavbarCtrl",
       "shortName": "NavbarCtrl",
-      "type": "function",
-      "keywords": "$scope $translate api bar cd controller for function navbarctrl navigation page site system user"
+      "type": "object",
+      "keywords": "$scope $translate api bar cd controller controllers for navigation object page site system user"
     },
     {
       "section": "api",
-      "id": "cd.page.PageCtrl",
+      "id": "cd.page.controllers:PageCtrl",
       "shortName": "PageCtrl",
-      "type": "function",
-      "keywords": "$scope and api cd for function like manages meta-controller on page pagectrl pagestate state tag the"
+      "type": "object",
+      "keywords": "$scope and api cd controllers for like manages meta-controller object on page pagestate state tag the"
+    },
+    {
+      "section": "api",
+      "id": "cd.page.controllers:WidgetsSidebarCtrl",
+      "shortName": "WidgetsSidebarCtrl",
+      "type": "object",
+      "keywords": "$scope $translate api cd controller controllers for object page sidebar system user widgets"
+    },
+    {
+      "section": "api",
+      "id": "cd.page.directives:cdMenuItem",
+      "shortName": "cdMenuItem",
+      "type": "directive",
+      "keywords": "api cd checkdesk directive directives item menu page renders"
     },
     {
       "section": "api",
@@ -101,13 +115,6 @@ NG_DOCS={
       "shortName": "pageState",
       "type": "service",
       "keywords": "and api cd current each for headtitle loading management method new of page pagestate service state status the title"
-    },
-    {
-      "section": "api",
-      "id": "cd.page.WidgetsSidebarCtrl",
-      "shortName": "WidgetsSidebarCtrl",
-      "type": "function",
-      "keywords": "$scope $translate api cd controller for function page sidebar system user widgets widgetssidebarctrl"
     },
     {
       "section": "api",
@@ -191,7 +198,7 @@ NG_DOCS={
       "id": "cd.services.User",
       "shortName": "User",
       "type": "service",
-      "keywords": "abc after an api cd drupal interact like login logout method object resolves resource result service services sessname the to transformation true user with"
+      "keywords": "abc account after an anonymous anonymoususer any api cd currently currentuser drupal in interact is isloggedin like logged login logout method not object or property resolves resource result service services sessname the to transformation true used user when with"
     },
     {
       "section": "api",
@@ -209,17 +216,17 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "cd.translationUI.cdTranslationUICtrl",
-      "shortName": "cdTranslationUICtrl",
-      "type": "function",
-      "keywords": "$scope $translate api cd cd-translation-ui cdtranslationui cdtranslationuictrl controller for function html template the translationui"
-    },
-    {
-      "section": "api",
       "id": "cd.translationUI.cdTranslationUIProvider",
       "shortName": "cdTranslationUIProvider",
       "type": "object",
       "keywords": "$http $missingtranslations $translate $translationtable access and api as be can cd cdtranslationuiprovider coordination current enables for getter handler method missing missingtranslations new object provides set table the to translation translationtable translationui ui used"
+    },
+    {
+      "section": "api",
+      "id": "cd.translationUI.controllers:cdTranslationUICtrl",
+      "shortName": "cdTranslationUICtrl",
+      "type": "object",
+      "keywords": "$scope $translate api cd cd-translation-ui cdtranslationui controller controllers for html object template the translationui"
     },
     {
       "section": "api",
@@ -230,31 +237,31 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "cd.user.UserForgotPasswordCtrl",
+      "id": "cd.user.controllers:UserForgotPasswordCtrl",
       "shortName": "UserForgotPasswordCtrl",
-      "type": "function",
-      "keywords": "$routeparams $scope api cd controller for function html pagestate template user userforgotpassword userforgotpasswordctrl"
+      "type": "object",
+      "keywords": "$routeparams $scope api cd controller controllers for html object pagestate template user userforgotpassword"
     },
     {
       "section": "api",
-      "id": "cd.user.UserFormCtrl",
+      "id": "cd.user.controllers:UserFormCtrl",
       "shortName": "UserFormCtrl",
-      "type": "function",
-      "keywords": "$routeparams $scope api cd controller for function html pagestate template user userform userformctrl"
+      "type": "object",
+      "keywords": "$routeparams $scope api cd controller controllers for html object pagestate template user userform"
     },
     {
       "section": "api",
-      "id": "cd.user.UserLoginCtrl",
+      "id": "cd.user.controllers:UserLoginCtrl",
       "shortName": "UserLoginCtrl",
-      "type": "function",
-      "keywords": "$routeparams $scope api cd controller for function html pagestate template user userlogin userloginctrl"
+      "type": "object",
+      "keywords": "$routeparams $scope api cd controller controllers for html object pagestate template user userlogin"
     },
     {
       "section": "api",
-      "id": "cd.user.UserProfileCtrl",
+      "id": "cd.user.controllers:UserProfileCtrl",
       "shortName": "UserProfileCtrl",
-      "type": "function",
-      "keywords": "$routeparams $scope api cd controller for function html pagestate template user userprofile userprofilectrl"
+      "type": "object",
+      "keywords": "$routeparams $scope api cd controller controllers for html object pagestate template user userprofile"
     },
     {
       "section": "l10n",
