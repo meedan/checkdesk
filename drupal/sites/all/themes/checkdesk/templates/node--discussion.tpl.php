@@ -62,9 +62,9 @@
     </div>
 
     <!-- story comments -->
-    <!-- <div class="story-comments"> -->
-      <?php // print render($content['comments']); ?>
-    <!-- </div> -->
+    <div class="story-comments">
+      <?php if (isset($content['custom_comments'])) print render($content['custom_comments']); ?>
+    </div>
 
   </article>
 </section>

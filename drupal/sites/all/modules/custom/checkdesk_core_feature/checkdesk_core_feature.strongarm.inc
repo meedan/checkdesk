@@ -641,8 +641,8 @@ return _checkdesk_core_auto_title($node);
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_facebook_comments_types';
   $strongarm->value = array(
-    'post' => 'post',
-    'discussion' => 0,
+    'post' => 0,
+    'discussion' => 'discussion',
     'media' => 0,
     'page' => 0,
     'article' => 0,
@@ -668,8 +668,8 @@ return _checkdesk_core_auto_title($node);
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_livefyre_types';
   $strongarm->value = array(
-    'post' => 'post',
-    'discussion' => 0,
+    'post' => 0,
+    'discussion' => 'discussion',
     'media' => 0,
     'page' => 0,
     'article' => 0,

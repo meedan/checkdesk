@@ -51,5 +51,10 @@
       </div>
     </a>
 
+    <!-- story comments -->
+    <div class="story-comments">
+      <?php if (isset($story_comments)) print render($story_comments); ?>
+    </div>
+
   </article>
 </div>

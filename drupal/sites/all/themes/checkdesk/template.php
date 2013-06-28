@@ -1097,6 +1097,22 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
 
   if ($vars['view']->name === 'liveblog') {
     $vars['updates'] = $vars['view']->result[$vars['view']->row_index]->updates;
+
+    // Livefyre comments
+    if (!variable_get('meedan_livefyre_disable', FALSE)) {
+      $vars['story_comments'] = array(
+        '#theme' => 'livefyre_comments',
+        '#node' => node_load($vars['fields']['nid']->raw),
+      );
+    }
+
+    // Facebook comments
+    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $vars['story_comments'] = array(
+        '#theme' => 'facebook_comments',
+        '#node' => node_load($vars['fields']['nid']->raw),
+      );
+    }
   }
 
   if ($vars['view']->name === 'updates_for_stories') {
