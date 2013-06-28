@@ -1421,9 +1421,11 @@ function checkdesk_core_rename_remove_button($element, &$form_state) {
  */
 function checkdesk_core_user_insert(&$edit, $account, $category) {
   module_load_include('lib.php', 'twitter');
-  //Add new citizen journalist role to all registered users
-  $user_roles = array_flip(user_roles(TRUE));
-  $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
+  //Add new citizen journalist role to all registered users if they don't have another role
+  if (!isset($edit['roles']) || empty($edit['roles']) || array_keys($edit['roles']) === array(DRUPAL_AUTHENTICATED_RID)) {
+    $user_roles = array_flip(user_roles(TRUE));
+    $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
+  }
 
   // Profile image for Twitter
   if (isset($_SESSION['twitter']) && isset($_SESSION['twitter']['values'])) {
