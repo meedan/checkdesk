@@ -520,6 +520,15 @@ function checkdesk_preprocess_node(&$variables) {
         '#node' => node_load($variables['nid']),
       );
     }
+    // TODO: get facebook comment count
+    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $variables['story_commentcount'] = array(
+        // '#theme' => 'facebook_comments',
+        // '#node' => node_load($vars['fields']['nid']->raw),
+        '#type' => 'markup',
+        '#markup' => 'Comments',
+      );
+    }
 
   }
 
@@ -1115,14 +1124,16 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       );
     }
 
-    // TODO get facebook comments count
+    // TODO get facebook comments count here
     // Facebook comments
-    // else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-      // $vars['story_comments'] = array(
+    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $vars['story_commentcount'] = array(
         // '#theme' => 'facebook_comments',
         // '#node' => node_load($vars['fields']['nid']->raw),
-      // );
-    // }
+        '#type' => 'markup',
+        '#markup' => 'Comments',
+      );
+    }
   }
 
   if ($vars['view']->name === 'updates_for_stories') {
