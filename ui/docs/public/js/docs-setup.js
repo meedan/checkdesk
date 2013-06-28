@@ -261,7 +261,7 @@ NG_DOCS={
       "id": "index",
       "shortName": "Localization Reference",
       "type": "overview",
-      "keywords": "checkdesk hello l10n localization overview reference ui"
+      "keywords": "accomplished all and angular-translate any are avoid be because between but case changed checkdesk circumstance clear code com confusion content conventions convey different directly done drupal eg en english eventually few for format from good have however html if imagine in inside into is just l10n language later localization localizing meaning module not of on overview php please prefix presentation primarily project puts reference rendered separation should simple start strings tag thanks the their these this time to token tokens translate translation translations ui use user uses using visiting ways we what which while with working"
     }
   ],
   "apis": {
