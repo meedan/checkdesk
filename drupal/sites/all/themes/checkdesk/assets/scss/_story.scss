@@ -95,6 +95,7 @@ $omega: opposite-position($alpha);
   }
 
   .story-meta {
+    @include ctb-clearfix;
     border-top: 4px solid rgba(0,0,0,.9);
     padding-top: $absolute-line-height/2;
     font-family: $sans-serif-font-stack;
@@ -111,6 +112,27 @@ $omega: opposite-position($alpha);
       &:hover { 
         color: rgba(0,0,0,.8); 
         text-decoration: none;
+      }
+    }
+    .story-at {
+      float: $alpha;
+    }
+    .story-commentcount {
+      @include icon(comments, $base-font-size);
+      float: $omega;
+      font-weight: 700;
+      color: rgba(0,0,0,.3);
+      a {
+        color: rgba(0,0,0,.3);
+        &:hover {
+          color: rgba(0,0,0,.8);
+        }
+      }
+      @if $from-direction == 'left' {
+        font-size: modular-scale(0) - modular-scale(-3); // 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(0,0,0,.3);
       }
     }
   }
@@ -271,6 +293,24 @@ $omega: opposite-position($alpha);
       .story-continue .permalink { display: inline-block; }
     }
   }
+
+  .story-comments {
+    margin-top: $absolute-line-height;
+    .livefyre-header {
+      @include icon(comments, $large-font-size);
+      font-family: $sans-serif-font-stack;
+      font-size: $large-font-size;
+      color: rgba(0,0,0,.8);
+      background-color: rgba(0,0,0,.02);
+      padding: $absolute-line-height/2 $gutter-width/2;
+      @include border-radius(4px);
+      cursor: pointer;
+      &:hover {
+        color: $white;
+        background-color: rgb(239,202,43);
+      }
+    }
+  }
 }
 
 // story lists
@@ -301,7 +341,6 @@ $omega: opposite-position($alpha);
     figure {
       display: none;
     }
-    
 
     h3 {
       @include reset-box-model;

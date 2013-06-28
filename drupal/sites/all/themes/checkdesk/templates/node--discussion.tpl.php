@@ -12,6 +12,13 @@
         <?php endif; ?>
         <?php print $creation_info; ?>
       </div>
+      <?php if (isset($story_commentcount)) { ?>
+        <div class="story-commentcount">
+          <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
+            <?php print render($story_commentcount); ?>
+          </a>
+        </div>
+      <?php } ?>
     </div>
 
     <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
@@ -62,7 +69,7 @@
     </div>
 
     <!-- story comments -->
-    <div class="story-comments">
+    <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
       <?php if (isset($content['custom_comments'])) print render($content['custom_comments']); ?>
     </div>
 

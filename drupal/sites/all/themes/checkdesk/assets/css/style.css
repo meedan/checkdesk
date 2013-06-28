@@ -2165,7 +2165,7 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form >
   content: "\f081";
 }
 
-html body div.livefyre-header:before, body div.fb-comments-header:before {
+body div.fb-comments-header:before, .story .story-meta .story-commentcount:before, .story .story-comments .livefyre-header:before {
   content: "\f086";
 }
 
@@ -5928,6 +5928,12 @@ html body .fyre-widget {
 html body .fyre-widget .img {
   width: 83px !important;
 }
+html body .fyre-widget .fyre-stream-stats {
+  display: none;
+}
+html body .fyre-widget .fyre-editor {
+  margin-top: 0;
+}
 html body .fyre-box-wrapper {
   display: none !important;
 }
@@ -5936,31 +5942,6 @@ html body .livefyre-comments {
 }
 html body img.fyre-logo-drop {
   width: auto !important;
-}
-html body div.livefyre-header {
-  padding: 0 1em;
-  padding-left: 123px;
-  display: block;
-  text-transform: capitalize;
-  font-size: 15.3px;
-  color: #595959;
-  width: auto;
-  cursor: pointer;
-  background-color: transparent;
-}
-html body div.livefyre-header:before {
-  font-family: "FontAwesome";
-  font-size: 15.3px;
-  line-height: inherit;
-  color: black;
-  margin: 0 5.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-}
-html body div.livefyre-header:hover {
-  color: black;
 }
 html body .livefyre-wrapper {
   clear: both;
@@ -7996,10 +7977,19 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   color: white;
 }
 .story .story-meta {
+  *zoom: 1;
   border-top: 4px solid rgba(0, 0, 0, 0.9);
   padding-top: 12px;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgba(0, 0, 0, 0.6);
+}
+.story .story-meta:before, .story .story-meta:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.story .story-meta:after {
+  clear: both;
 }
 .story .story-meta .separator {
   color: rgba(0, 0, 0, 0.3);
@@ -8014,6 +8004,35 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-meta a:hover {
   color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
+}
+.story .story-meta .story-at {
+  float: left;
+}
+.story .story-meta .story-commentcount {
+  float: right;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(0, 0, 0, 0.3);
+}
+.story .story-meta .story-commentcount:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+}
+.story .story-meta .story-commentcount a {
+  color: rgba(0, 0, 0, 0.3);
+}
+.story .story-meta .story-commentcount a:hover {
+  color: rgba(0, 0, 0, 0.8);
 }
 .story .story-by {
   font-size: 25px;
@@ -8319,6 +8338,37 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-footer:hover .story-continue .permalink {
   display: inline-block;
+}
+.story .story-comments {
+  margin-top: 24px;
+}
+.story .story-comments .livefyre-header {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.02);
+  padding: 12px 5.5px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.story .story-comments .livefyre-header:before {
+  font-family: "FontAwesome";
+  font-size: 20px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+}
+.story .story-comments .livefyre-header:hover {
+  color: white;
+  background-color: #efca2b;
 }
 
 .stories .story-row {

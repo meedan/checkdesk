@@ -7,11 +7,18 @@ html body {
     .img {
       width: 83px !important; // there is a bug with with:100%
     }
+    // hide the comment count etc inside the widget
+    .fyre-stream-stats {
+      display: none;
+    }
+    // editor: input box
+    .fyre-editor {
+      margin-top: 0;
+    }
   }
 
   .fyre-box-wrapper {
     display: none !important; // Temporary CGB
-
   }
 
   .livefyre-comments {
@@ -21,30 +28,11 @@ html body {
   img.fyre-logo-drop {
     width: auto !important;
   }
-    
-  div.livefyre-header {
-	  @include icon(comments, $fontSizeSmall, $darker-grey);
-    padding: 0 1em;
-    padding-#{$alpha}: ms(8);
-    display: block;
-    text-transform: capitalize;
-    font-size: $fontSizeSmall;
-    color: $dark-grey;
-    width: auto;
-    cursor: pointer;
-    background-color: transparent;
-    &:hover { 
-      color: black;
-    }
-    // .livefyre-commentcount {
-    //   @include icon('comment');
-    // }
-  }
 
   // NOTE: This appers on liveblog homepage *and potentially* others that may not be obvious.
   // Use the page-specific sass files for layout or other non-global styles. CGB
   .livefyre-wrapper {
     clear: both;
     display: block;
-  }  
+  }
 }

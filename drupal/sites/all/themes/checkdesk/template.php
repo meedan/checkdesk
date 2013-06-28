@@ -512,6 +512,15 @@ function checkdesk_preprocess_node(&$variables) {
     if ($total_rows) {
       $variables['updates'] = $view_output;
     }
+
+    // Livefyre comments count
+    if (!variable_get('meedan_livefyre_disable', FALSE)) {
+      $variables['story_commentcount'] = array(
+        '#theme' => 'livefyre_commentcount',
+        '#node' => node_load($variables['nid']),
+      );
+    }
+
   }
 
   if ($variables['type'] == 'post') {
@@ -1098,21 +1107,22 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'liveblog') {
     $vars['updates'] = $vars['view']->result[$vars['view']->row_index]->updates;
 
-    // Livefyre comments
+    // Livefyre comment count
     if (!variable_get('meedan_livefyre_disable', FALSE)) {
-      $vars['story_comments'] = array(
-        '#theme' => 'livefyre_comments',
+      $vars['story_commentcount'] = array(
+        '#theme' => 'livefyre_commentcount',
         '#node' => node_load($vars['fields']['nid']->raw),
       );
     }
 
+    // TODO get facebook comments count
     // Facebook comments
-    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-      $vars['story_comments'] = array(
-        '#theme' => 'facebook_comments',
-        '#node' => node_load($vars['fields']['nid']->raw),
-      );
-    }
+    // else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      // $vars['story_comments'] = array(
+        // '#theme' => 'facebook_comments',
+        // '#node' => node_load($vars['fields']['nid']->raw),
+      // );
+    // }
   }
 
   if ($vars['view']->name === 'updates_for_stories') {
