@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * tracelytics_late module install file
+ */
+
+/**
+ * Implements hook_install().
+ */
+function tracelytics_late_install() {
+  db_update('system')
+    ->fields(array('weight' => 10000))
+    ->condition('name', 'tracelytics_late', '=')
+    ->execute();
+}

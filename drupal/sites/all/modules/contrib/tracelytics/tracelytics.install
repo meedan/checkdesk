@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * tracelytics module install file
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function tracelytics_install() {
+  // @todo remove this and reset module weight to 0 after tracelytics fixes
+  // the bug.
+  // Tracelytics needs to run its hook_X calls immediately before
+  // tracelytics_early so that 'info' layer calls are not wrapped in
+  // custom drupal_X layers to work around a bug in tracelytics oboe_log.
+  db_update('system')
+  ->fields(array('weight' => -10001))
+  ->condition('name', 'tracelytics', '=')
+  ->execute();
+}
+
+/**
+ * Implements hook_requirements().
+ *
+ * Indicate whether the oboe php extension requirement is met.
+ */
+function tracelytics_requirements($phase) {
+  $requirements = array();
+
+  switch ($phase) {
+    case 'install':
+    case 'runtime':
+      if (!extension_loaded('oboe')) {
+        $requirements['tracelytics'] = array(
+          'value' => t('Not installed'),
+          'severity' => REQUIREMENT_ERROR,
+          'description' => t('tracelytics module requires the oboe php extension to be installed.'),
+        );
+      }
+      else {
+        $requirements['tracelytics'] = array(
+          'value' => t('Installed'),
+          'severity' => REQUIREMENT_OK,
+        );
+      }
+      $requirements['tracelytics']['title'] = t('Oboe PHP Extension (tracelytics)');
+      break;
+
+    case 'update':
+      // Partition update traffic.
+      if (variable_get('tracelytics_partition_traffic', FALSE)) {
+        tracelytics_set_partition('Update');
+      }
+
+      // Track active menu item.
+      if (variable_get('tracelytics_track_menu', FALSE)) {
+        $controller = array(
+          'Controller' => 'update',
+          'Action' => NULL,
+        );
+        tracelytics_set_controller($controller, TRUE, FALSE);
+      }
+      break;
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function tracelytics_uninstall() {
+  $tracelytics_vars = array(
+    'tracelytics_partition_traffic',
+    'tracelytics_track_menu',
+    'tracelytics_log_errors',
+    'tracelytics_layers',
+    'tracelytics_partition_drush_traffic',
+    'tracelytics_track_drush_commands',
+    'tracelytics_drupal_http_request',
+    'tracelytics_key',
+    'tracelytics_annotation_appname',
+    'tracelytics_annotation_username',
+    'tracelytics_annotate_modules',
+  );
+  foreach ($tracelytics_vars as $var) {
+    variable_del($var);
+  }
+}

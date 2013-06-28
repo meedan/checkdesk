@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Module file for tracelytics_context module.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function tracelytics_context_init() {
+  if ($plugin = context_get_plugin('reaction', 'tracelytics_partition')) {
+    $plugin->execute($region);
+  }
+}
+
+/**
+ * Implements hook_context_plugins().
+ */
+function tracelytics_context_context_plugins() {
+  $plugins = array();
+  $plugins['tracelytics_partition'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'tracelytics_context') . '/plugins',
+      'file' => 'tracelytics_partition_context_reaction.inc',
+      'class' => 'tracelytics_partition',
+      'parent' => 'context_reaction',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry().
+ */
+function tracelytics_context_context_registry() {
+  return array(
+    'reactions' => array(
+      'tracelytics_partition' => array(
+        'title' => t('Tracelytics traffic partition'),
+        'description' => t('Set the tracelytics traffic partition.'),
+        'plugin' => 'tracelytics_partition',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ *
+ * Notify CTools that we'll be using the plugin API with Context module
+ */
+function tracelytics_context_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
