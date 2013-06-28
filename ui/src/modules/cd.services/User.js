@@ -7,7 +7,46 @@
  */
 cdServices
   .factory('User', ['$resource', '$http', function($resource, $http) {
-    return $resource('api/user/:verb', {}, {
+    var User,
+        anonymousUser,
+        currentUser,
+        isLoggedIn;
+
+    anonymousUser = { uid: 0, pass: null, name: 'Anonymous' };
+    currentUser = angular.copy(anonymousUser);
+    isLoggedIn = false;
+
+    User = $resource('api/user/:verb', {}, {
+      /**
+       * @ngdoc property
+       * @name cd.services.User#anonymousUser
+       * @methodOf cd.services.User
+       *
+       * @description
+       * The anonymous user is the account used when not logged in.
+       */
+      anonymousUser: anonymousUser,
+
+      /**
+       * @ngdoc property
+       * @name cd.services.User#isLoggedIn
+       * @methodOf cd.services.User
+       *
+       * @description
+       * Is any user currently logged in?
+       */
+      isLoggedIn: isLoggedIn,
+
+      /**
+       * @ngdoc property
+       * @name cd.services.User#currentUser
+       * @methodOf cd.services.User
+       *
+       * @description
+       * The currently logged in user or the anonymousUser.
+       */
+      currentUser: currentUser,
+
       /**
        * @ngdoc method
        * @name cd.services.User#login
@@ -19,7 +58,22 @@ cdServices
       login: {
         method: 'POST',
         params:  { verb: 'login' },
-        isArray: false
+        isArray: false,
+        transformResponse: $http.defaults.transformResponse.concat([
+          function (data, headersGetter) {
+            if (angular.isObject(data) && angular.isObject(data.user)) {
+              currentUser = data.user;
+              isLoggedIn = true;
+            }
+            // TODO: Flipping to anonymous user when a login error occurs. Double check if this logic is sound.
+            else {
+              currentUser = angular.copy(anonymousUser);
+              isLoggedIn = false;
+            }
+
+            return data;
+          }
+        ])
       },
 
       /**
@@ -37,8 +91,14 @@ cdServices
         transformResponse: $http.defaults.transformResponse.concat([
           function (data, headersGetter) {
             if (angular.isArray(data) && data.length > 0) {
+              if (data[0] === true) {
+                currentUser = angular.copy(anonymousUser);
+                isLoggedIn = false;
+              }
+
               return { result: data[0] };
             } else {
+              // TODO: Deal with indeterminate state here. Is the user logged in still or not?
               // TODO: Return error.
               return { result: false };
             }
@@ -46,4 +106,10 @@ cdServices
         ])
       }
     });
+
+    // // Add methods to retrieve the currently logged in user
+    // angular.extend(User.prototype, {
+    // });
+
+    return User;
   }]);

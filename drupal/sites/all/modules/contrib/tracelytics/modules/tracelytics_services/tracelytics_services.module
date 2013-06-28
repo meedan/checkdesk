@@ -1,0 +1,25 @@
+<?php
+
+function tracelytics_services_tracelytics_controller_alter(&$controller) {
+  $tracelytics_controller = tracelytics_services_set_controller();
+  if (!empty($tracelytics_controller)) {
+    $controller = $tracelytics_controller;
+  }
+}
+
+function tracelytics_services_services_request_preprocess_alter(&$controller, $args, $options) {
+  $endpoint_name = services_get_server_info('endpoint');
+  $action = $controller['callback'];
+  tracelytics_services_set_controller($endpoint_name, $action);
+}
+
+function tracelytics_services_set_controller($controller = NULL, $action = NULL) {
+  static $tracelytics_controller = array();
+  if (!empty($controller) && !empty($action)) {
+    $tracelytics_controller = array(
+      'Controller' => $controller,
+      'Action' => $action,
+    );
+  }
+  return $tracelytics_controller;
+}

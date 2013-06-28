@@ -14,21 +14,23 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_pattern_post';
-  $strongarm->value = '';
+  $strongarm->value = '<?php
+return _checkdesk_core_auto_title($node);
+?>';
   $export['ant_pattern_post'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_php_post';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['ant_php_post'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_post';
-  $strongarm->value = '1';
+  $strongarm->value = '2';
   $export['ant_post'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -639,8 +641,8 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_facebook_comments_types';
   $strongarm->value = array(
-    'post' => 'post',
-    'discussion' => 0,
+    'post' => 0,
+    'discussion' => 'discussion',
     'media' => 0,
     'page' => 0,
     'article' => 0,
@@ -666,8 +668,8 @@ function checkdesk_core_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_livefyre_types';
   $strongarm->value = array(
-    'post' => 'post',
-    'discussion' => 0,
+    'post' => 0,
+    'discussion' => 'discussion',
     'media' => 0,
     'page' => 0,
     'article' => 0,

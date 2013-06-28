@@ -360,7 +360,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_flag_report';
   $heartbeatmessagetemplate->description = 'Report was flagged';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> !preposition !flag_type</p>';
+  $heartbeatmessagetemplate->message = '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> as <span class="notification-flag">!flag_type</span>.</p>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -375,15 +375,14 @@ function checkdesk_core_feature_heartbeat_template_info() {
       1 => 0,
       2 => 0,
       3 => 0,
-      4 => 0,
       5 => 0,
+      4 => 0,
     ),
   );
   $heartbeatmessagetemplate->variables = array(
     '!flag_author_url' => '',
     '!flag_author_name' => '',
     '!report_url' => '',
-    '!preposition' => '',
     '!flag_type' => '',
   );
   $heartbeatmessagetemplate->attachments = array(

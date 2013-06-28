@@ -15,14 +15,30 @@
     // float: $from-direction;
     // text-align: $from-direction;
   }
+}
 
+// Treating footer as same as content/content-inner
+// 
+body.widgets, body.sidebar-first {
+  #main {
+    #footer {
+      margin-#{$alpha}: 30%;
+      #footer-inner {
+        max-width: 850px;
+        padding-top: $base-line-height*2;
+        @include pad(1, 2, $container-width);
+      }   
+    }
+  }
 }
 
 #footer-inner {
-  border-top: 1px solid lighten($grayLight, 20%);
   padding: $absolute-line-height/4 0;
+  & > ul:first-child {
+    border-top: 1px solid lighten($grayLight, 20%);
+    padding-top: $absolute-line-height/2;
+  }
   ul {
-    // text-align: $from-direction;
     @include reset-box-model;
     @include reset-list-style;
     li {
@@ -71,50 +87,25 @@
   #footer-menu ul li {
     line-height: 1.2;
   }
-
-
 }
 
 
 // Small breakpoint
 // @include at-breakpoint($break-small) {
-//   #footer {
-//     @include span-columns($break-small - 2, $break-small, $gutter-width);
-//     @include pad(1, 1, $break-small);
-//     #footer-menu, #information-menu {
-//       float: $from-direction;
-//       text-align: $from-direction;
-//     }
-//   }
+
 // }
 
 // Medium breakpoint
-// @include at-breakpoint($break-medium) {
-//   #footer {
-//     @include span-columns($break-medium - 4, $break-medium, $gutter-width);
-//     @include pad(2, 2, $break-medium);
-//     #footer-menu {
-//       float: opposite-position($from-direction);
-//       text-align: opposite-position($from-direction);
-//     }
-//     #information-menu {
-//       float: $from-direction;
-//       text-align: $from-direction;
-//     }
-//   }
-// }
+@include at-breakpoint($break-medium) {
+  body.widgets #main #footer {
+    margin-#{$alpha}: 360px;
+  }
+}
 
 // Large breakpoint
-// @include at-breakpoint($break-large) {
-//   #footer {
-//     #footer-menu {
-//       float: opposite-position($from-direction);
-//       text-align: opposite-position($from-direction);
-//     }
-//     #information-menu {
-//       float: $from-direction;
-//       text-align: $from-direction;
-//     }
-//   }
-// }
+@include at-breakpoint($break-large) {
+  body.widgets #main #footer {
+    margin-#{$alpha}: 360px;
+  }
+}
 

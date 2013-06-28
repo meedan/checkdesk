@@ -84,6 +84,38 @@ html.ar_AR .checkdesk-report.embed:nth-child(2n) {
 html.ar_AR .checkdesk-report.embed:nth-child(2n-1) {
   clear: both;
 }
+html.ar_AR #widgets.column {
+  position: fixed;
+  height: 100%;
+  max-width: 360px;
+  right: 0;
+  top: 38px;
+  width: 30%;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  overflow: hidden;
+}
+html.ar_AR #content {
+  margin-top: 38px;
+  margin-right: 30%;
+  overflow-y: auto;
+}
+html.ar_AR #content #content-inner {
+  -moz-box-sizing: border-box;
+  *zoom: 1;
+  max-width: 850px;
+  padding-top: 48px;
+  padding-right: 8.4507%;
+  padding-left: 16.90141%;
+}
+html.ar_AR #content #content-inner:before, html.ar_AR #content #content-inner:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+html.ar_AR #content #content-inner:after {
+  clear: both;
+}
 html.ar_AR #header {
   background-color: #333333;
   color: #fffef6;

@@ -41709,14 +41709,6 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['4e59f143b98af61dd8d039af784624ad'] = array(
-    'source' => 'Graphic content (journalist)',
-    'context' => '',
-    'location' => '/ar/node/22/edit?destination=liveblog',
-    'translation' => 'محتوى صادم (صحفي)',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['582b670316df8c6961492d217d12bff3'] = array(
     'source' => 'Spam',
     'context' => '',
@@ -41978,14 +41970,6 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => 'أنا غير متصل',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['e692d0997179a127157aef70fe549a92'] = array(
-    'source' => '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> !preposition !flag_type</p>',
-    'context' => '',
-    'location' => '/ar',
-    'translation' => ' <p><strong><a href="!flag_author_url">!flag_author_name</a></strong> قام بتنبيهك على <strong><a href="!report_url">تقرير</a></strong> !preposition !flag_type</p> ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43548,7 +43532,15 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Changed status to ',
     'context' => '',
     'location' => '/',
-    'translation' => 'غيّر الحالة إلى',
+    'translation' => 'غيّر الحالة إلى ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['dce35e9550838a5d86752c729a42d65e'] = array(
+    'source' => 'l M d, Y \\a\\t g:ia',
+    'context' => '',
+    'location' => '/',
+    'translation' => '\\ف\\ي M d, Y \\ا\\ل\\س\\ا\\ع\\ة g:i a',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43557,14 +43549,6 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/',
     'translation' => '<time datetime="!date">منذ !interval</time>',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['1a9c1cdae00170519616100b743755ce'] = array(
-    'source' => 'Updated at ',
-    'context' => '',
-    'location' => '/ar/story/%D8%A7%D9%84%D8%B4%D8%B9%D8%A8-%D9%8A%D8%B1%D9%8A%D8%AF-%D8%A5%D9%82%D8%A7%D9%84%D8%A9%D8%A7%D9%84%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D8%B1%D8%B4',
-    'translation' => 'حُدث الساعة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43588,14 +43572,30 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Published on live blog under ',
     'context' => '',
     'location' => '/',
-    'translation' => 'نُشر على المدونة المباشرة في',
+    'translation' => 'نُشر على المدونة المباشرة في ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3e4638893d13f289baa2b6f7f3467642'] = array(
+    'source' => 'Added ',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'أضاف ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['1a9c1cdae00170519616100b743755ce'] = array(
+    'source' => 'Updated at ',
+    'context' => '',
+    'location' => '/ar/story/%D8%A7%D9%84%D8%B4%D8%B9%D8%A8-%D9%8A%D8%B1%D9%8A%D8%AF-%D8%A5%D9%82%D8%A7%D9%84%D8%A9%D8%A7%D9%84%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D8%B1%D8%B4',
+    'translation' => 'حُدث الساعة',
     'plid' => 0,
     'plural' => 0,
   );
   $translations['ar:default']['43e65e789145dd0fd713e0ac59b2496b'] = array(
     'source' => 'Load more updates',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => 'تحميل المزيد',
     'plid' => 0,
     'plural' => 0,
@@ -43611,8 +43611,40 @@ print theme(\'views_autorefresh\', array(
   $translations['ar:default']['435958ed029aa31b3508928fcf1be226'] = array(
     'source' => 'Load more stories',
     'context' => '',
-    'location' => NULL,
+    'location' => '',
     'translation' => 'تحميل المزيد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['6f1788ea6d225c0eab904c3fd669a95a'] = array(
+    'source' => 'Follow us',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'تابعنا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d97b4df3d3732457fd5a724d85d54ec2'] = array(
+    'source' => 'Needing fact-checking',
+    'context' => '',
+    'location' => '/ar/user/577/notifications',
+    'translation' => 'يحتاج التقصي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['9a334ef658ecb711995b9116bb717764'] = array(
+    'source' => 'Needing deletion',
+    'context' => '',
+    'location' => '/ar/user/577/notifications',
+    'translation' => 'يحتاج الحذف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a02ff39cb352eb9381bf59ee50c1ee4a'] = array(
+    'source' => '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> as <span class="notification-flag">!flag_type</span>.</p>',
+    'context' => '',
+    'location' => '/ar/user/577/notifications',
+    'translation' => '<p>قام <strong><a href="!flag_author_url">!flag_author_name</a></strong>  بتنبيه فريق العمل عن <strong><a href="!report_url">التقرير الآتي</a></strong> بأنه <span class="notification-flag">!flag_type</span>.</p>',
     'plid' => 0,
     'plural' => 0,
   );

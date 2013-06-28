@@ -34,10 +34,10 @@ function checkdesk_core_feature_views_api() {
  */
 function checkdesk_core_feature_flag_default_flags() {
   $flags = array();
-  // Exported flag: "Delete".
+  // Exported flag: "Needing deletion".
   $flags['delete'] = array(
     'entity_type' => 'node',
-    'title' => 'Delete',
+    'title' => 'Needing deletion',
     'global' => 0,
     'types' => array(
       0 => 'media',
@@ -66,10 +66,10 @@ function checkdesk_core_feature_flag_default_flags() {
     ),
     'api_version' => 3,
   );
-  // Exported flag: "Fact-checking".
+  // Exported flag: "Needing fact-checking".
   $flags['factcheck'] = array(
     'entity_type' => 'node',
-    'title' => 'Fact-checking',
+    'title' => 'Needing fact-checking',
     'global' => 0,
     'types' => array(
       0 => 'media',
@@ -98,10 +98,10 @@ function checkdesk_core_feature_flag_default_flags() {
     ),
     'api_version' => 3,
   );
-  // Exported flag: "Fact-checking (journalist)".
+  // Exported flag: "Needing fact-checking".
   $flags['factcheck_journalist'] = array(
     'entity_type' => 'node',
-    'title' => 'Fact-checking (journalist)',
+    'title' => 'Needing fact-checking',
     'global' => 1,
     'types' => array(
       0 => 'media',
@@ -159,10 +159,10 @@ function checkdesk_core_feature_flag_default_flags() {
     ),
     'api_version' => 3,
   );
-  // Exported flag: "Graphic content (journalist)".
+  // Exported flag: "Graphic content".
   $flags['graphic_journalist'] = array(
     'entity_type' => 'node',
-    'title' => 'Graphic content (journalist)',
+    'title' => 'Graphic content',
     'global' => 1,
     'types' => array(
       0 => 'media',

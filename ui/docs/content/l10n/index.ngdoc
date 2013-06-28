@@ -1,0 +1,73 @@
+@ngdoc overview
+@name Localization Reference
+@description
+
+#Checkdesk UI - Localization Reference
+
+Localizing the Checkdesk UI project is accomplished using the [angular-translate module](https://github.com/PascalPrecht/angular-translate).
+
+The angular-translate module is different from Drupal's localization in a few ways:
+
+- Drupal uses `t('English language strings')`. While the angular-translate module uses `<span translate>TRANSLATION_TOKENS</span>`
+- Drupal's translations are primarily done in PHP code which, eventually, are rendered to HTML. Angular-translate, however, puts the translation tokens directly into the HTML. These tokens are rendered just in time for presentation.
+
+
+## Translation tokens
+
+To avoid confusion please use these translation token conventions.
+
+<table>
+  <thead>
+    <tr>
+      <th>Circumstance</th>
+      <th>Token format</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Working on
+        <code>index.html</code>
+        , not inside any module
+      </td>
+      <td>
+        Tokens should not have a prefix, should be simple and convey the meaning of their content but
+        <strong>not <em>be</em> the content</strong>. eg:
+        <code>SITE_SLOGAN</code>
+        and
+        <code>MISSION_STATEMENT</code>
+        are good tokens.
+        <br><br>
+        <code>HELLO_AND_WELCOME_TO_CHECKDESK</code>
+        is not a good token because the separation between content and token
+        is not clear. What if we later changed the translation. Imagine this circumstance
+        <code>HELLO_AND_WELCOME_TO_CHECKDESK ~> en:'Thanks for visiting Checkdesk!'</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Working on
+        <code>userLogin.html</code>
+        which is inside the
+        <code>cd.user</code>
+        module
+      </td>
+      <td>
+        In this case, all tokens should start with
+        <code>USER_LOGIN_</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Working in a
+        <code>&lt;form&gt;</code> tag
+        inside of
+        <code>userLogin.html</code>
+      </td>
+      <td>
+        In this case, all tokens should start with
+        <code>USER_LOGIN_FORM_</code>
+      </td>
+    </tr>
+  </tbody>
+</table>

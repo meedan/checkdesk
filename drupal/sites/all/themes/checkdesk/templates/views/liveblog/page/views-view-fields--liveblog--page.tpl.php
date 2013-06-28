@@ -26,6 +26,14 @@
         <?php endif; ?>
         <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?>
       </div>
+      
+      <?php if (isset($story_commentcount)) { ?>
+        <div class="story-commentcount">
+          <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
+            <?php print render($story_commentcount); ?>
+          </a>
+        </div>
+      <?php } ?>
     </div>
 
     <?php if(isset($fields['field_lead_image']->content)) { ?>
@@ -50,6 +58,5 @@
         <?php print t('Updated at ') . render($fields['changed']->content); ?>
       </div>
     </a>
-
   </article>
 </div>

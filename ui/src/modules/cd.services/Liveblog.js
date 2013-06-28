@@ -8,6 +8,19 @@
 cdServices
   .factory('Liveblog', ['$resource', function($resource) {
     return $resource('api/views/liveblog', {}, {
+
+      /**
+       * @ngdoc method
+       * @name cd.services.Liveblog#autorefresh
+       * @methodOf cd.services.Liveblog
+       */
+      autorefresh: {
+        url: 'sites/all/modules/custom/checkdesk_core/autorefresh/liveblog.php',
+        method: 'GET',
+        params: { type: 'discussion', field: 'changed', timestamp: 0 },
+        isArray: false
+      },
+
       /**
        * @ngdoc method
        * @name cd.services.Liveblog#query

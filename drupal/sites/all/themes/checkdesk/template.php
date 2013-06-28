@@ -512,6 +512,30 @@ function checkdesk_preprocess_node(&$variables) {
     if ($total_rows) {
       $variables['updates'] = $view_output;
     }
+
+    // Livefyre comments count
+    if (!variable_get('meedan_livefyre_disable', FALSE)) {
+      $variables['story_commentcount'] = array(
+        '#theme' => 'livefyre_commentcount',
+        '#node' => node_load($variables['nid']),
+      );
+    }
+    // TODO: get facebook comment count
+    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $variables['story_commentcount'] = array(
+        // '#theme' => 'facebook_comments',
+        // '#node' => node_load($vars['fields']['nid']->raw),
+        '#type' => 'markup',
+        '#markup' => 'Comments',
+      );
+    }
+
+  }
+
+  if ($variables['type'] == 'post') {
+    if ($variables['title'] === _checkdesk_core_auto_title($variables['elements']['#node']) || $variables['title'] === t('Update')) {
+      unset($variables['title']);
+    }
   }
 
   $variables['icon'] = '';
@@ -1091,14 +1115,35 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
 
   if ($vars['view']->name === 'liveblog') {
     $vars['updates'] = $vars['view']->result[$vars['view']->row_index]->updates;
+
+    // Livefyre comment count
+    if (!variable_get('meedan_livefyre_disable', FALSE)) {
+      $vars['story_commentcount'] = array(
+        '#theme' => 'livefyre_commentcount',
+        '#node' => node_load($vars['fields']['nid']->raw),
+      );
+    }
+
+    // TODO get facebook comments count here
+    // Facebook comments
+    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $vars['story_commentcount'] = array(
+        // '#theme' => 'facebook_comments',
+        // '#node' => node_load($vars['fields']['nid']->raw),
+        '#type' => 'markup',
+        '#markup' => 'Comments',
+      );
+    }
   }
 
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
     if ($vars['counter'] === $vars['view']->total_rows) {
+      $vars['update_id'] = $vars['fields']['nid']->raw;
       $vars['update'] = $vars['fields']['rendered_entity']->content;
     }
     else {
+      $vars['update_id'] = $vars['fields']['nid']->raw;
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
   }

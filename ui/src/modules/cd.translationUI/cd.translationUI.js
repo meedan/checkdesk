@@ -1,9 +1,11 @@
 /**
- * @ngdoc object
+ * @ngdoc overview
  * @name cd.translationUI
  *
  * @description
- * The `cd.translationUI` module houses the service and controller necessary
+ * ## Module: cd.translationUI
+ *
+ * Houses the service and controller necessary
  * to manage the Checkdesk real-time translation interface.
  */
 angular.module('cd.translationUI', ['pascalprecht.translate'])
@@ -90,8 +92,8 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   }])
 
   /**
-   * @ngdoc function
-   * @name cd.translationUI.cdTranslationUICtrl
+   * @ngdoc object
+   * @name cd.translationUI.controllers:cdTranslationUICtrl
    * @requires $scope
    * @requires $translate
    * @requires cdTranslationUI
@@ -122,7 +124,7 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
     $scope.$watch('translationTable', function (newVal, oldVal) {
       // Update the languages array. Rebuild it to ensure correct order
       $scope.languages = [];
-      angular.forEach(newV, function (translations, language) {
+      angular.forEach(newVal, function (translations, language) {
         $scope.languages.push(language);
       });
 

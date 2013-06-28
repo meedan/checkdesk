@@ -8,7 +8,8 @@ $large-modal-width: 700px;
   // align large modals at top
   // as these are mostly content based
   top: 100px !important;
-  #{$alpha}: 50%;
+  #{$alpha}: 50% !important;
+  #{$omega}: auto !important;
 }
 
 .modal-modal-popup-small {

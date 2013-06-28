@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * tracelytics_early module install file
+ */
+
+/**
+ * Implements hook_install().
+ */
+function tracelytics_early_install() {
+  db_update('system')
+    ->fields(array('weight' => -10000))
+    ->condition('name', 'tracelytics_early', '=')
+    ->execute();
+}
