@@ -1,8 +1,8 @@
 cdUser
 
   /**
-   * @ngdoc function
-   * @name cd.user.UserProfileCtrl
+   * @ngdoc object
+   * @name cd.user.controllers:UserProfileCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState

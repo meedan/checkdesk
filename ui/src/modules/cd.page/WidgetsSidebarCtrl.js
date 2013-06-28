@@ -1,8 +1,8 @@
 cdPage
 
   /**
-   * @ngdoc function
-   * @name cd.page.WidgetsSidebarCtrl
+   * @ngdoc object
+   * @name cd.page.controllers:WidgetsSidebarCtrl
    * @requires $scope
    * @requires $translate
    * @requires System

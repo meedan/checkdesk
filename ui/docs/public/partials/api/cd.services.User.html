@@ -5,7 +5,16 @@
 <div><h2 id="Description">Description</h2>
 <div class="description"><p>Resource to interact with the Drupal user API.</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="login">login()</h3>
+<ul class="methods"><li><h3 id="anonymousUser">anonymousUser()</h3>
+<div class="anonymoususer"><p>The anonymous user is the account used when not logged in.</p></div>
+</li>
+<li><h3 id="currentUser">currentUser()</h3>
+<div class="currentuser"><p>The currently logged in user or the anonymousUser.</p></div>
+</li>
+<li><h3 id="isLoggedIn">isLoggedIn()</h3>
+<div class="isloggedin"><p>Is any user currently logged in?</p></div>
+</li>
+<li><h3 id="login">login()</h3>
 <div class="login"><p>Resolves to an object like {sessid:'123',sessname:'abc',user:{...}}</p></div>
 </li>
 <li><h3 id="logout">logout()</h3>

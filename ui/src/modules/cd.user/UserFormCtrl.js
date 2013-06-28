@@ -1,8 +1,8 @@
 cdUser
 
   /**
-   * @ngdoc function
-   * @name cd.user.UserFormCtrl
+   * @ngdoc object
+   * @name cd.user.controllers:UserFormCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState

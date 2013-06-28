@@ -1,8 +1,8 @@
 cdUser
 
   /**
-   * @ngdoc function
-   * @name cd.user.UserForgotPasswordCtrl
+   * @ngdoc object
+   * @name cd.user.controllers:UserForgotPasswordCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState

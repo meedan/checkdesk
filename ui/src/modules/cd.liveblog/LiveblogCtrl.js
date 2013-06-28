@@ -1,8 +1,8 @@
 cdLiveblog
 
   /**
-   * @ngdoc function
-   * @name cd.liveblog.LiveblogCtrl
+   * @ngdoc object
+   * @name cd.liveblog.controllers:LiveblogCtrl
    * @requires $scope
    * @requires pageState
    * @requires Story

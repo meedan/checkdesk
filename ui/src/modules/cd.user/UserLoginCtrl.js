@@ -1,8 +1,8 @@
 cdUser
 
   /**
-   * @ngdoc function
-   * @name cd.user.UserLoginCtrl
+   * @ngdoc object
+   * @name cd.user.controllers:UserLoginCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState
@@ -11,13 +11,8 @@ cdUser
    * Controller for userLogin.html template.
    */
   .controller('UserLoginCtrl', ['$scope', '$location', 'pageState', 'User', function ($scope, $location, pageState, User) {
-    $scope.user = {
-      uid: 0,
-      name: '',
-      pass: '',
-      // TODO: Do something useful with $scope.user.remember_me
-      remember_me: false
-    };
+    $scope.user = User.currentUser;
+    $scope.isLoggedIn = User.isLoggedIn;
 
     $scope.submit = function() {
       // Must provide both user and pass
@@ -27,14 +22,16 @@ cdUser
       } else if (!$scope.user || $scope.user.uid === 0) {
         // Must not already have an established connection
         User.login({ username: $scope.user.name, password: $scope.user.pass }, function (connection) {
-          // TODO: Manage the currently logged in user with a service of some sort.
-          $scope.user       = connection.user;
-          $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
-
-          // TODO: Display a success message about the user being logged in?
-          $location.path('/');
+          if ($scope.isLoggedIn) {
+            // TODO: Display a success message about the user being logged in?
+            $location.path('/');
+          }
+          else {
+            // TODO: Display the error message here.
+          }
         });
       } else {
+        // TODO: Is this logic sound?? Perhaps we should do this immediately when the login page loads?
         // Already logged in, run away
         $location.path('/');
       }

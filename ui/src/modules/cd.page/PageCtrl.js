@@ -1,8 +1,8 @@
 cdPage
 
   /**
-   * @ngdoc function
-   * @name cd.page.PageCtrl
+   * @ngdoc object
+   * @name cd.page.controllers:PageCtrl
    * @requires $scope
    * @requires pageState
    *

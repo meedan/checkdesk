@@ -167,18 +167,9 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
  * This code relies on this tag to be added to the page BEFORE the main application
  * script tag.
  *
- *     <script src="services/session/token"></script>
+ *     <script src="services/session/token.json"></script>
  */
 angular.module('cd.csrfToken', [])
-
-  /**
-   * @ngdoc method
-   * @name cd.csrfToken#config
-   * @methodOf cd.csrfToken
-   *
-   * @description
-   * Set the cookie and header name to what the Drupal Services module expects.
-   */
   .config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'CSRF-Token';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
@@ -218,8 +209,8 @@ angular.module('cd.l10n', ['ngCookies', 'pascalprecht.translate', 'cd.translatio
 cdLiveblog
 
   /**
-   * @ngdoc function
-   * @name cd.liveblog.LiveblogCtrl
+   * @ngdoc object
+   * @name cd.liveblog.controllers:LiveblogCtrl
    * @requires $scope
    * @requires pageState
    * @requires Story
@@ -248,7 +239,7 @@ cdPage
 
   /**
    * @ngdoc object
-   * @name cd.page.FooterCtrl
+   * @name cd.page.controllers:FooterCtrl
    * @requires $scope
    * @requires pageState
    * @requires Story
@@ -281,98 +272,8 @@ cdPage
 cdPage
 
   /**
-   * @ngdoc function
-   * @name cd.page.NavbarCtrl
-   * @requires $scope
-   * @requires $translate
-   * @requires System
-   * @requires User
-   *
-   * @description
-   * Controller for site navigation bar.
-   */
-  .controller('NavbarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
-    var updateLangClass = function (mode, langClass) {
-          switch (mode) {
-            case 'remove':
-              $('html').removeClass(langClass);
-              break;
-            case 'add':
-              $('html').addClass(langClass);
-              break;
-          }
-        };
-
-    // TODO: Unstub the mainMenu.
-    $scope.mainMenu = [
-      {
-        title: $translate('MAIN_MENU_ITEM_HOME_TITLE'),
-        href: '/',
-        icon: 'icon-home'
-      },
-      {
-        title: $translate('MAIN_MENU_ITEM_REPORTS_TITLE'),
-        href: '/reports',
-        icon: 'icon-eye-open'
-      }
-    ];
-
-    // TODO: Unstub the userMenu.
-    $scope.userMenu = [
-      {
-        title: $translate('USER_MENU_ITEM_LOGIN_TITLE'),
-        href: '/user/login'
-      }
-    ];
-
-    // Initially set the HTML language class
-    updateLangClass('add', $translate.uses());
-
-    $scope.toggleLang = function () {
-      updateLangClass('remove', $translate.uses());
-      if ($translate.uses() === 'en-NG') {
-        $translate.uses('ar');
-      } else {
-        $translate.uses('en-NG');
-      }
-      updateLangClass('add', $translate.uses());
-    };
-
-
-    $scope.login = function () {
-      // Must provide both user and pass
-      if (!$scope.user.name || !$scope.user.pass) {
-        // TODO: Display error.
-        return false;
-      } else if (!$scope.user || $scope.user.uid === 0) {
-        // Must not already have an established connection
-        User.login({ username: $scope.user.name, password: $scope.user.pass }, function (connection) {
-          $scope.user       = connection.user;
-          $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
-        });
-      } else {
-        // Already logged in
-      }
-    };
-
-    $scope.logout = function () {
-      // Must send empty POST data for this to work
-      User.logout({}, function (data) {
-        if (data.result) {
-          $scope.user       = angular.copy(anonymousUser);
-          $scope.isLoggedIn = false;
-        } else {
-          // TODO: Display error.
-        }
-      });
-    };
-  }]);
-
-cdPage
-
-  /**
-   * @ngdoc function
-   * @name cd.page.PageCtrl
+   * @ngdoc object
+   * @name cd.page.controllers:PageCtrl
    * @requires $scope
    * @requires pageState
    *
@@ -387,8 +288,8 @@ cdPage
 cdPage
 
   /**
-   * @ngdoc function
-   * @name cd.page.WidgetsSidebarCtrl
+   * @ngdoc object
+   * @name cd.page.controllers:WidgetsSidebarCtrl
    * @requires $scope
    * @requires $translate
    * @requires System
@@ -427,6 +328,102 @@ cdPage
       }
     ];
   }]);
+
+cdPage
+
+  /**
+   * @ngdoc object
+   * @name cd.page.controllers:NavbarCtrl
+   * @requires $scope
+   * @requires $translate
+   * @requires System
+   * @requires User
+   *
+   * @description
+   * Controller for site navigation bar.
+   */
+  .controller('NavbarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+    var updateLangClass = function (mode, langClass) {
+          switch (mode) {
+            case 'remove':
+              $('html').removeClass(langClass);
+              break;
+            case 'add':
+              $('html').addClass(langClass);
+              break;
+          }
+        };
+
+    $scope.currentUser = User.currentUser;
+    $scope.isLoggedIn = User.isLoggedIn;
+
+    // TODO: Unstub the mainMenu.
+    $scope.mainMenu = [
+      {
+        title: $translate('MAIN_MENU_ITEM_HOME_LINK'),
+        href: '/',
+        icon: 'icon-home'
+      },
+      {
+        title: $translate('MAIN_MENU_ITEM_REPORTS_LINK'),
+        href: '/reports',
+        icon: 'icon-eye-open'
+      }
+    ];
+
+    // TODO: Unstub the userMenu.
+    $scope.$watch('isLoggedIn', function (newVal, oldVal) {
+      if (newVal) {
+        $scope.userMenu = [
+          {
+            title: $translate('USER_MENU_ITEM_LOGOUT_LINK'),
+            click: function () {
+              // Must send empty POST data for this to work
+              User.logout({});
+            }
+          }
+        ];
+      } else {
+        $scope.userMenu = [
+          {
+            title: $translate('USER_MENU_ITEM_LOGIN_LINK'),
+            href: '/user/login'
+          }
+        ];
+      }
+    }, true);
+
+    // Initially set the HTML language class
+    updateLangClass('add', $translate.uses());
+
+    $scope.toggleLang = function () {
+      updateLangClass('remove', $translate.uses());
+      if ($translate.uses() === 'en-NG') {
+        $translate.uses('ar');
+      } else {
+        $translate.uses('en-NG');
+      }
+      updateLangClass('add', $translate.uses());
+    };
+  }])
+
+  /**
+   * @ngdoc directive
+   * @name cd.page.directives:cdMenuItem
+   *
+   * @description
+   * Renders a Checkdesk menu item.
+   */
+  .directive('cdMenuItem', function () {
+    return {
+      restrict: 'A',
+      scope: { item: '=cdMenuItem' },
+      template: ['<a href="{{item.href}}">',
+                   '<span ng-show="item.icon" class="{{item.icon}}"></span>',
+                   '{{item.title | translate}}',
+                 '</a>'].join('')
+    };
+  });
 
 /**
  * @ngdoc service
@@ -489,8 +486,8 @@ cdPage
 cdReport
 
   /**
-   * @ngdoc function
-   * @name cd.liveblog.ReportCtrl
+   * @ngdoc object
+   * @name cd.liveblog.controllers:ReportCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState
@@ -508,8 +505,8 @@ cdReport
 cdReport
 
   /**
-   * @ngdoc function
-   * @name cd.liveblog.ReportFormCtrl
+   * @ngdoc object
+   * @name cd.liveblog.controllers:ReportFormCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires $location
@@ -561,8 +558,8 @@ cdReport
 cdReport
 
   /**
-   * @ngdoc function
-   * @name cd.liveblog.ReportsCtrl
+   * @ngdoc object
+   * @name cd.liveblog.controllers:ReportsCtrl
    * @requires $scope
    * @requires pageState
    * @requires Report
@@ -1003,7 +1000,46 @@ cdServices
  */
 cdServices
   .factory('User', ['$resource', '$http', function($resource, $http) {
-    return $resource('api/user/:verb', {}, {
+    var User,
+        anonymousUser,
+        currentUser,
+        isLoggedIn;
+
+    anonymousUser = { uid: 0, pass: null, name: 'Anonymous' };
+    currentUser = angular.copy(anonymousUser);
+    isLoggedIn = false;
+
+    User = $resource('api/user/:verb', {}, {
+      /**
+       * @ngdoc property
+       * @name cd.services.User#anonymousUser
+       * @methodOf cd.services.User
+       *
+       * @description
+       * The anonymous user is the account used when not logged in.
+       */
+      anonymousUser: anonymousUser,
+
+      /**
+       * @ngdoc property
+       * @name cd.services.User#isLoggedIn
+       * @methodOf cd.services.User
+       *
+       * @description
+       * Is any user currently logged in?
+       */
+      isLoggedIn: isLoggedIn,
+
+      /**
+       * @ngdoc property
+       * @name cd.services.User#currentUser
+       * @methodOf cd.services.User
+       *
+       * @description
+       * The currently logged in user or the anonymousUser.
+       */
+      currentUser: currentUser,
+
       /**
        * @ngdoc method
        * @name cd.services.User#login
@@ -1015,7 +1051,22 @@ cdServices
       login: {
         method: 'POST',
         params:  { verb: 'login' },
-        isArray: false
+        isArray: false,
+        transformResponse: $http.defaults.transformResponse.concat([
+          function (data, headersGetter) {
+            if (angular.isObject(data) && angular.isObject(data.user)) {
+              currentUser = data.user;
+              isLoggedIn = true;
+            }
+            // TODO: Flipping to anonymous user when a login error occurs. Double check if this logic is sound.
+            else {
+              currentUser = angular.copy(anonymousUser);
+              isLoggedIn = false;
+            }
+
+            return data;
+          }
+        ])
       },
 
       /**
@@ -1033,8 +1084,14 @@ cdServices
         transformResponse: $http.defaults.transformResponse.concat([
           function (data, headersGetter) {
             if (angular.isArray(data) && data.length > 0) {
+              if (data[0] === true) {
+                currentUser = angular.copy(anonymousUser);
+                isLoggedIn = false;
+              }
+
               return { result: data[0] };
             } else {
+              // TODO: Deal with indeterminate state here. Is the user logged in still or not?
               // TODO: Return error.
               return { result: false };
             }
@@ -1042,6 +1099,12 @@ cdServices
         ])
       }
     });
+
+    // // Add methods to retrieve the currently logged in user
+    // angular.extend(User.prototype, {
+    // });
+
+    return User;
   }]);
 
 /**
@@ -1138,8 +1201,8 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   }])
 
   /**
-   * @ngdoc function
-   * @name cd.translationUI.cdTranslationUICtrl
+   * @ngdoc object
+   * @name cd.translationUI.controllers:cdTranslationUICtrl
    * @requires $scope
    * @requires $translate
    * @requires cdTranslationUI
@@ -1243,8 +1306,8 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
 cdUser
 
   /**
-   * @ngdoc function
-   * @name cd.user.UserForgotPasswordCtrl
+   * @ngdoc object
+   * @name cd.user.controllers:UserForgotPasswordCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState
@@ -1258,8 +1321,8 @@ cdUser
 cdUser
 
   /**
-   * @ngdoc function
-   * @name cd.user.UserFormCtrl
+   * @ngdoc object
+   * @name cd.user.controllers:UserFormCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState
@@ -1273,8 +1336,8 @@ cdUser
 cdUser
 
   /**
-   * @ngdoc function
-   * @name cd.user.UserLoginCtrl
+   * @ngdoc object
+   * @name cd.user.controllers:UserLoginCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState
@@ -1283,13 +1346,8 @@ cdUser
    * Controller for userLogin.html template.
    */
   .controller('UserLoginCtrl', ['$scope', '$location', 'pageState', 'User', function ($scope, $location, pageState, User) {
-    $scope.user = {
-      uid: 0,
-      name: '',
-      pass: '',
-      // TODO: Do something useful with $scope.user.remember_me
-      remember_me: false
-    };
+    $scope.user = User.currentUser;
+    $scope.isLoggedIn = User.isLoggedIn;
 
     $scope.submit = function() {
       // Must provide both user and pass
@@ -1299,14 +1357,16 @@ cdUser
       } else if (!$scope.user || $scope.user.uid === 0) {
         // Must not already have an established connection
         User.login({ username: $scope.user.name, password: $scope.user.pass }, function (connection) {
-          // TODO: Manage the currently logged in user with a service of some sort.
-          $scope.user       = connection.user;
-          $scope.isLoggedIn = !angular.isUndefined(connection.user) && connection.user.uid > 0;
-
-          // TODO: Display a success message about the user being logged in?
-          $location.path('/');
+          if ($scope.isLoggedIn) {
+            // TODO: Display a success message about the user being logged in?
+            $location.path('/');
+          }
+          else {
+            // TODO: Display the error message here.
+          }
         });
       } else {
+        // TODO: Is this logic sound?? Perhaps we should do this immediately when the login page loads?
         // Already logged in, run away
         $location.path('/');
       }
@@ -1320,8 +1380,8 @@ cdUser
 cdUser
 
   /**
-   * @ngdoc function
-   * @name cd.user.UserProfileCtrl
+   * @ngdoc object
+   * @name cd.user.controllers:UserProfileCtrl
    * @requires $scope
    * @requires $routeParams
    * @requires pageState

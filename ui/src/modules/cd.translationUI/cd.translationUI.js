@@ -92,8 +92,8 @@ angular.module('cd.translationUI', ['pascalprecht.translate'])
   }])
 
   /**
-   * @ngdoc function
-   * @name cd.translationUI.cdTranslationUICtrl
+   * @ngdoc object
+   * @name cd.translationUI.controllers:cdTranslationUICtrl
    * @requires $scope
    * @requires $translate
    * @requires cdTranslationUI
