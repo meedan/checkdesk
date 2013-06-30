@@ -6,11 +6,13 @@ Drupal.livefyreCommentCount = {
   loaded: false,
 
    callback: function(context, settings) {
-     LF.CommentCount({
-       replacer: function(element, count) {
-         element.innerHTML = Drupal.formatPlural(count, '1 comment', '@count comments');
-       }
-     });
+     if (LF) {
+       LF.CommentCount({
+         replacer: function(element, count) {
+           element.innerHTML = Drupal.formatPlural(count, '1 comment', '@count comments');
+         }
+       });
+     }
    }
 };
 
