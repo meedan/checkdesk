@@ -164,7 +164,17 @@
             }
           }
         });
+
+      // kick the event to pick up any elements already in view.
+      $(window).scroll();
     }
   };
+
+  // kick the event to pick up any elements already in view.
+  $(window).load(
+    function() {
+      $(window).scroll();
+    }
+  );
 
 }(jQuery));
