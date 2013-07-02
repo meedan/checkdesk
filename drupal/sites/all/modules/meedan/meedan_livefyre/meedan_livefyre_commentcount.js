@@ -6,7 +6,7 @@ Drupal.livefyreCommentCount = {
   loaded: false,
 
    callback: function(context, settings) {
-     if (LF !== undefined) {
+     if (typeof LF !== 'undefined') {
        LF.CommentCount({
          replacer: function(element, count) {
            element.innerHTML = Drupal.formatPlural(count, '1 comment', '@count comments');
