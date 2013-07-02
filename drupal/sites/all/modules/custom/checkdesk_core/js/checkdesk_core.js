@@ -149,6 +149,15 @@
       // Show messages when an item is flagged/unflagged
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
         Drupal.ajax.checkdesk_core_message_settings.setMessages();
+        
+        // Run any other ajax command
+        if (data.hasOwnProperty('commands')) {
+          for (var i = 0; i < data.commands.length; i++) {
+            if (data.commands[i]['command'] && Drupal.ajax.prototype.commands[data.commands[i]['command']]) {
+              Drupal.ajax.prototype.commands[data.commands[i]['command']](Drupal.ajax.prototype, data.commands[i], data.status);
+            }
+          }
+        }
       });
 
     }

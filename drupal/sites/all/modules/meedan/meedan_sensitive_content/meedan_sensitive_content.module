@@ -3,6 +3,13 @@
 define('MEEDAN_SENSITIVE_CONTENT_DEFAULT_TEXT', 'This media contains graphic imagery which may be considered offensive.');
 
 /**
+ * Implements hook_init().
+ */
+function meedan_sensitive_content_init() {
+  drupal_add_js(drupal_get_path('module', 'meedan_sensitive_content') . '/js/meedan_sensitive_content.js');
+}
+
+/**
  * API function to determine whether content is marked as sensitive.
  */
 function meedan_sensitive_content_is_flagged($node) {
@@ -166,7 +173,6 @@ function meedan_sensitive_content_data(&$content, $nid) {
       '#theme' => 'meedan_sensitive_content_display',
       '#attached' => array( 
         'js' => array(
-          drupal_get_path('module', 'meedan_sensitive_content') . '/js/meedan_sensitive_content.js',
           array('data' => array('meedanSensitiveContent' => array('flag' => variable_get('meedan_sensitive_content_flag', ''))), 'type' => 'setting'),
         ),
         'css' => array(

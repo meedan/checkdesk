@@ -25,31 +25,29 @@ meedanSensitiveContent.Update = function(nid, show) {
  */
 Drupal.behaviors.meedanSensitiveContent = {
   attach: function(context) {
-    // FIXME This section is not working. Events are not caught.
-    //       One of the problems is that the sensitive wrapper is added by the backend
-    //       only if the content is already marked as sensitive.
-    // Listen to Flag update events to show/hide the content.
-    $('.flag-'+Drupal.settings.meedanSensitiveContent.flag+' a.flag-link-toggle', context)
-    .bind('flagGlobalAfterLinkUpdate', function() {
-      var $wrapper = $(this).parents('.flag-wrapper'),
-          flagged = $(this).hasClass('flagged'),
-          nid;
-      $.each($wrapper.attr('class').split(/\s+/), function(n,i) {
-        // http://james.padolsey.com/javascript/match-trick/
-        nid = ( i.match(new RegExp('flag-'+Drupal.settings.meedanSensitiveContent.flag+'-(\\d+)')) || [undefined,0] )[1];
-        if (nid > 0) { // found a match
-          meedanSensitiveContent.Update(nid, !flagged);
+    if (Drupal.settings.meedanSensitiveContent) {
+      $('.flag-'+Drupal.settings.meedanSensitiveContent.flag+' a.flag-link-toggle', context)
+      .bind('flagGlobalAfterLinkUpdate', function() {
+        var $wrapper = $(this).parents('.flag-wrapper'),
+            flagged = $(this).hasClass('flagged'),
+            nid;
+        $.each($wrapper.attr('class').split(/\s+/), function(n,i) {
+          // http://james.padolsey.com/javascript/match-trick/
+          nid = ( i.match(new RegExp('flag-'+Drupal.settings.meedanSensitiveContent.flag+'-(\\d+)')) || [undefined,0] )[1];
+          if (nid > 0) { // found a match
+            meedanSensitiveContent.Update(nid, !flagged);
+          }
+        });
+      });
+
+      // Do not hide already displayed content
+      $('.sensitive-hide', context).each(function() {
+        var nid = $(this).data('nid');
+        if (meedanSensitiveContent.displayed.indexOf(nid) > -1) {
+          meedanSensitiveContent.Update(nid, true);
         }
       });
-    });
-
-    // Do not hide already displayed content
-    $('.sensitive-hide', context).each(function() {
-      var nid = $(this).data('nid');
-      if (meedanSensitiveContent.displayed.indexOf(nid) > -1) {
-        meedanSensitiveContent.Update(nid, true);
-      }
-    });  
+    }
   }
 };
 

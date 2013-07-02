@@ -1976,3 +1976,18 @@ function checkdesk_core_ajax_command_attach_behaviors($selector = NULL) {
   );
  return $command; 
 }
+
+/**
+ * Implements hook_flag_javascript_info_alter().
+ */
+function checkdesk_core_flag_javascript_info_alter(&$info) {
+  $nid = $info['contentId'];
+  $node = node_load($nid);
+  $output = drupal_render(node_view($node));
+
+  $commands = array();
+  $commands[] = ajax_command_invoke('#node-' . $nid, 'replaceWith', array($output));
+  $commands[] = checkdesk_core_ajax_command_attach_behaviors('#node-' . $nid);
+
+  $info['commands'] = $commands;
+}
