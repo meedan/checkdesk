@@ -467,8 +467,8 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js) {
     $new_link = trim(flag_create_link($flag->name, $nid));
 
     // Update link (we need to wrap the link in order to get the correct behavior)
-    $commands[] = ajax_command_invoke('#node-' . $nid . ' .flag-' . $flag->name, 'replaceWith', array('<span>' . $new_link . '</span>'));
-    $commands[] = ajax_command_invoke('#node-' . $nid . ' .flag-' . $flag->name, 'unwrap');
+    $commands[] = ajax_command_invoke('#node-' . $nid . ' .flag-' . $flag->name, 'replaceWith', array($new_link));
+    $commands[] = checkdesk_core_ajax_command_attach_behaviors('#node-' . $nid . ' .flag-as');
     
     // Check if this report is flagged and highlight icon or not
     $flags = flag_get_flags('node');
@@ -1964,4 +1964,15 @@ function _checkdesk_core_auto_title($node) {
   }
   $title = (mb_strlen($body) > 25) ? mb_substr($body, 0, 22) . '...' : $body;
   return $title;
+}
+
+/**
+ * Ajax command to call Drupal.attachBehaviors passing $selector as context
+ */
+function checkdesk_core_ajax_command_attach_behaviors($selector = NULL) {
+  $command = array(
+    'command' => 'attachBehaviors',
+    'selector' => $selector,
+  );
+ return $command; 
 }

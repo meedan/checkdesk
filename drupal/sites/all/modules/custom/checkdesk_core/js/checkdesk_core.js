@@ -178,4 +178,11 @@
     return html;
   };
 
+  /**
+   *  Command for `checkdesk_core_ajax_command_attach_behaviors`.
+   */
+  Drupal.ajax.prototype.commands.attachBehaviors = function(ajax, response, status) {
+    Drupal.attachBehaviors(response.selector);
+  };
+
 }(jQuery));
