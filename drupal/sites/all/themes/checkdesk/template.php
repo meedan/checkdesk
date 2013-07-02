@@ -48,6 +48,17 @@ function checkdesk_preprocess_html(&$variables) {
     $variables['classes_array'][] = $class;
   }
 
+  // 404 HTML template
+  $status = drupal_get_http_header("status");  
+  if($status == "404 Not Found") {
+    if ($variables['language']->language == 'ar') {
+      $variables['theme_hook_suggestions'][] = 'html__404__rtl';
+    } else {
+      $variables['theme_hook_suggestions'][] = 'html__404';
+    }
+  }
+  // dsm($variables['theme_hook_suggestions']);
+
   // Add classes about widgets sidebar
    if (checkdesk_widgets_visibility()) {
     if (!empty($variables['page']['widgets'])) {
@@ -61,7 +72,7 @@ function checkdesk_preprocess_html(&$variables) {
   }
 
   // Add conditional stylesheets for IE8.
-  if ($variables['language'] == 'ar') {
+  if ($variables['language']->language == 'ar') {
     $filename = 'ie8-rtl.css';
   } else {
     $filename = 'ie8.css';
@@ -107,6 +118,7 @@ function checkdesk_preprocess_html(&$variables) {
  */
 function checkdesk_preprocess_region(&$variables) {
   global $language;
+
   if ($variables['region'] == 'widgets') {
     // define custom header settings
     $variables['header_image'] = '';
@@ -149,6 +161,18 @@ function checkdesk_preprocess_block(&$variables) {
  */
 function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
+  
+  // 404 PAGE template
+  $status = drupal_get_http_header("status");  
+  if($status == "404 Not Found") {
+    if ($variables['language']->language == 'ar') {
+      $variables['theme_hook_suggestions'][] = 'page__404__rtl';
+    } else {
+      $variables['theme_hook_suggestions'][] = 'page__404';
+    }
+  }
+
+  // dsm($variables['language']->language);
 
   // Unescape HTML in title
   $variables['title'] = htmlspecialchars_decode(drupal_get_title());
@@ -767,6 +791,8 @@ function checkdesk_widgets_visibility() {
   $roles = array('administrator', 'journalist');
   $check_role = array_intersect($roles, array_values($user->roles));
   $check_role = empty($check_role) ? FALSE : TRUE;
+  // for 404s
+  $status = drupal_get_http_header("status");
 
   $pages = array('edit', 'delete');
   $check_page = array_intersect($pages, array_values(arg()));
@@ -782,7 +808,7 @@ function checkdesk_widgets_visibility() {
   $user_node_types = array('media', 'post');
 
   // for anonymous user
-  if (isset($current_node->type) && !$check_role) {
+  if (isset($current_node->type) && !$check_role && $status != "404 Not Found") {
     foreach ($anon_node_types as $node_type) {
       // matches node types
       if ($node_type == $current_node->type) return TRUE;
@@ -791,7 +817,7 @@ function checkdesk_widgets_visibility() {
   } elseif (isset($current_node->type) && $check_role) {
     foreach ($user_node_types as $node_type) {
       // matches node types and does not include any pages
-      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page && $status != "404 Not Found") {
         return TRUE; 
       }
       
