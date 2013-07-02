@@ -28,7 +28,7 @@
         <!-- <li class="share">
           <a href="#"><span class="icon-share"></span> <?php print t('Share'); ?></a>
         </li> -->
-        <?php if (user_access('administer nodes')) { ?>
+        <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) { ?>
           <li class="update-edit">
             <?php print l('<span class="icon-edit-sign"></span>'. t('Edit'), 'node/' . $node->nid . '/edit', array('html'=>TRUE)); ?>
           </li>
