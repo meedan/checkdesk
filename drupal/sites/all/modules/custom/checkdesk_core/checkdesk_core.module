@@ -899,28 +899,37 @@ function checkdesk_core_discussion_ajax_node_form_submit_callback($form, &$form_
     return $form;
   }
 
-  $node = $form_state['node'];
-
-  $title_link = l('<strong>' . check_plain($node->title) . '</strong>', 'node/' . $node->nid, array('html' => TRUE));
-  $success_message = t("!title created successfully.", array('!title' => $title_link));
-
-  // Yuck. Need to wipe $_POST to trick drupal_get_form() into creating a
-  // brand new form. If we don't do this drupal_get_form() will latch onto the
-  // old build_id. There appears to be no way around this in D7.
-  $_POST = array();
-  $new_node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
-  $fresh_form = drupal_get_form('discussion_node_form', $new_node, 'ajax');
-
-  $fresh_form['create_another_story'] = array(
-    '#type'   => 'markup',
-    '#markup' => '<h2>' . t('Create another story') . '</h2>',
-    '#weight' => -500,
-  );
-
   $commands = array();
-  $commands[] = ajax_command_replace('#discussion-form-wrapper', drupal_render($fresh_form));
-  $commands[] = ajax_command_prepend('#discussion-form-wrapper', '<div class="messages success">' . $success_message . '</div>');
-  $commands[] = ajax_command_append('#edit-field-desk-und', form_select_options(array('#options' => array($node->nid => $node->title))));
+
+  // Redirect to compose update page is user is not on it yet
+  if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== url('node/add/post', array('absolute' => TRUE))) {
+    $commands[] = ctools_ajax_command_redirect('node/add/post');
+  }
+
+  // Update form if user is on compose update page
+  else {
+    $node = $form_state['node'];
+
+    $title_link = l('<strong>' . check_plain($node->title) . '</strong>', 'node/' . $node->nid, array('html' => TRUE));
+    $success_message = t("!title created successfully.", array('!title' => $title_link));
+
+    // Yuck. Need to wipe $_POST to trick drupal_get_form() into creating a
+    // brand new form. If we don't do this drupal_get_form() will latch onto the
+    // old build_id. There appears to be no way around this in D7.
+    $_POST = array();
+    $new_node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
+    $fresh_form = drupal_get_form('discussion_node_form', $new_node, 'ajax');
+
+    $fresh_form['create_another_story'] = array(
+      '#type'   => 'markup',
+      '#markup' => '<h2>' . t('Create another story') . '</h2>',
+      '#weight' => -500,
+    );
+
+    $commands[] = ajax_command_replace('#discussion-form-wrapper', drupal_render($fresh_form));
+    $commands[] = ajax_command_prepend('#discussion-form-wrapper', '<div class="messages success">' . $success_message . '</div>');
+    $commands[] = ajax_command_append('#edit-field-desk-und', form_select_options(array('#options' => array($node->nid => $node->title))));
+  }
 
   ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
 
