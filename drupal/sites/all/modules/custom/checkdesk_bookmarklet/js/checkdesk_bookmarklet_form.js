@@ -53,6 +53,13 @@ jQuery(function($) {
     }
   });
 
+  // Disable submission on pressing ENTER key
+  $('#edit-field-link-und-0-url').keydown(function(e) {
+    if (e.keyCode == 13) {
+      return false;
+    }
+  });
+
   // Hide preview if graphic content is checked
   $('#edit-graphic-content-graphic, #edit-graphic-content-graphic-journalist').click(function() {
     var mask = $('#meedan_bookmarklet_preview_gc'),
