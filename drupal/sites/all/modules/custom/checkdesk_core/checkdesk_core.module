@@ -1983,7 +1983,9 @@ function checkdesk_core_ajax_command_attach_behaviors($selector = NULL) {
 function checkdesk_core_flag_javascript_info_alter(&$info) {
   $nid = $info['contentId'];
   $node = node_load($nid);
-  $output = drupal_render(node_view($node));
+  $element = node_view($node);
+  $element['comments'] = comment_node_page_additions($node);
+  $output = drupal_render($element);
 
   $commands = array();
   $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
