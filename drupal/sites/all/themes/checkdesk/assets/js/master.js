@@ -170,12 +170,19 @@
     }
   };
 
-  // kick the event to pick up any elements already in view.
-  $(window).load(
-    function() {
+  // Things that must happen after the Drupal behaviors run
+  $(window).load(function() {
+
+      // kick the event to pick up any lazy elements already in view.
       $(window).scroll(false); // Disable scrolling the page when this event is triggered
       $(window).scroll();
-    }
-  );
+
+      // Open story comments if anchor is present
+      var match = window.location.hash.match(/^#story-comments-([0-9]+)$/);
+      if (match) {
+        $(match[0]).find('.fb-comments-header, .livefyre-header').click();
+      }
+
+   });
 
 }(jQuery));

@@ -537,20 +537,20 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['updates'] = $view_output;
     }
 
+    // Comments count
+    $theme = NULL;
     // Livefyre comments count
     if (!variable_get('meedan_livefyre_disable', FALSE)) {
-      $variables['story_commentcount'] = array(
-        '#theme' => 'livefyre_commentcount',
-        '#node' => node_load($variables['nid']),
-      );
+      $theme = 'livefyre_commentcount';
     }
-    // TODO: get facebook comment count
+    // Facebook comments count
     else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $theme = 'facebook_commentcount';
+    }
+    if ($theme) {
       $variables['story_commentcount'] = array(
-        // '#theme' => 'facebook_comments',
-        // '#node' => node_load($vars['fields']['nid']->raw),
-        '#type' => 'markup',
-        '#markup' => 'Comments',
+        '#theme' => $theme,
+        '#node' => node_load($variables['nid']),
       );
     }
 
@@ -1142,22 +1142,20 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'liveblog') {
     $vars['updates'] = $vars['view']->result[$vars['view']->row_index]->updates;
 
-    // Livefyre comment count
+    // Comments count
+    $theme = NULL;
+    // Livefyre comments count
     if (!variable_get('meedan_livefyre_disable', FALSE)) {
-      $vars['story_commentcount'] = array(
-        '#theme' => 'livefyre_commentcount',
-        '#node' => node_load($vars['fields']['nid']->raw),
-      );
+      $theme = 'livefyre_commentcount';
     }
-
-    // TODO get facebook comments count here
-    // Facebook comments
+    // Facebook comments count
     else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $theme = 'facebook_commentcount';
+    }
+    if ($theme) {
       $vars['story_commentcount'] = array(
-        // '#theme' => 'facebook_comments',
-        // '#node' => node_load($vars['fields']['nid']->raw),
-        '#type' => 'markup',
-        '#markup' => 'Comments',
+        '#theme' => $theme,
+        '#node' => node_load($vars['fields']['nid']->raw),
       );
     }
   }
