@@ -7822,6 +7822,15 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   float: right;
 }
 
+.anchor {
+  display: block;
+  height: 160.6px;
+  /* this is the height of your header */
+  margin-top: -160.6px;
+  /* this is again negative value of the height of your header */
+  visibility: hidden;
+}
+
 .updates {
   margin-top: 14.4px;
 }

@@ -35,12 +35,22 @@
   }
 }
 
+// Psuedo div for anchors
+// Adds head room for updates in presence of navbars
+.anchor {
+  display: block;
+  height: (($toolbarHeight + $navbarHeight) + ($absolute-line-height*2)); /* this is the height of your header */
+  margin-top: -(($toolbarHeight + $navbarHeight) + ($absolute-line-height*2)); /* this is again negative value of the height of your header */
+  visibility: hidden;
+}
+
 // "Published" updates
 .updates {
   margin-top: $absolute-line-height/2;
   .update-row {
     margin-bottom: $base-line-height;
     border-top: 2px solid rgba(0,0,0,.2);
+
     .update-info {
       @include span-columns(4);
       font-family: $sans-serif-font-stack;

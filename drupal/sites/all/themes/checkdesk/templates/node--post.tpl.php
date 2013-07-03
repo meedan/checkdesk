@@ -6,7 +6,7 @@
   $update_anchor = 'update-' . $node->nid;
   $update_link = url('node/'.$parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
 ?>
-<section id="update-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<section class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="update <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
     <div class="update-body">
       <?php if (isset($title)) { ?>
