@@ -50,9 +50,19 @@ function _meedan_facebook_get_path($nid) {
  * Implements `facebook_commentcount` theme.
  */
 function theme_facebook_commentcount($variables) {
+  global $base_url;
+
+  drupal_add_js(array('meedan_facebook' => array(
+    'language' => meedan_facebook_get_locale(),
+    'appId' => variable_get('meedan_facebook_appid', ''),
+    'channelUrl' => $base_url . '/meedan_facebook/channel',
+  )), 'setting');
+  drupal_add_js(drupal_get_path('module', 'meedan_facebook') . '/meedan_facebook.js');
+
   $node = $variables['node'];
   $nid = $node->nid;
   $path = _meedan_facebook_get_path($nid);
+
   return t('<span class="fb-commentscount" data-url="@url" id="fb-commentscount-@nid">No comments</span>', array('@url' => $path, '@nid' => $nid));
 }
 
