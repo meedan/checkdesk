@@ -467,8 +467,8 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js) {
     $new_link = trim(flag_create_link($flag->name, $nid));
 
     // Update link (we need to wrap the link in order to get the correct behavior)
-    $commands[] = ajax_command_invoke('#node-' . $nid . ' .flag-' . $flag->name, 'replaceWith', array($new_link));
-    $commands[] = checkdesk_core_ajax_command_attach_behaviors('#node-' . $nid . ' .flag-as');
+    $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-' . $flag->name, 'replaceWith', array($new_link));
+    $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid . ' .flag-as');
     
     // Check if this report is flagged and highlight icon or not
     $flags = flag_get_flags('node');
@@ -478,8 +478,8 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js) {
         $class = 'flagged';
       }
     }
-    $commands[] = ajax_command_invoke('#node-' . $nid . ' .flag-as > a', 'removeClass', array('flagged unflagged'));
-    $commands[] = ajax_command_invoke('#node-' . $nid . ' .flag-as > a', 'addClass', array($class));
+    $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-as > a', 'removeClass', array('flagged unflagged'));
+    $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-as > a', 'addClass', array($class));
     
     // Dismiss modal
     $commands[] = ctools_modal_command_dismiss();
@@ -1986,8 +1986,8 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
   $output = drupal_render(node_view($node));
 
   $commands = array();
-  $commands[] = ajax_command_invoke('#node-' . $nid, 'replaceWith', array($output));
-  $commands[] = checkdesk_core_ajax_command_attach_behaviors('#node-' . $nid);
+  $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
+  $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
 
   $info['commands'] = $commands;
 }

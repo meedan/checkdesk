@@ -8,7 +8,7 @@
   }
 ?>
 
-<section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
     <section class="report-content">
       <div class="report-media">
