@@ -173,6 +173,7 @@
   // kick the event to pick up any elements already in view.
   $(window).load(
     function() {
+      $(window).scroll(false); // Disable scrolling the page when this event is triggered
       $(window).scroll();
     }
   );
