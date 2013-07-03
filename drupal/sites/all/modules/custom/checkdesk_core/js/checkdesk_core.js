@@ -150,6 +150,11 @@
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
         Drupal.ajax.checkdesk_core_message_settings.setMessages();
         
+        // Keep settings
+        if (data.settings) {
+          $.extend(true, Drupal.settings, data.settings);
+        }
+        
         // Run any other ajax command
         if (data.hasOwnProperty('commands')) {
           for (var i = 0; i < data.commands.length; i++) {

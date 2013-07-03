@@ -1987,6 +1987,13 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
   $element['comments'] = comment_node_page_additions($node);
   $output = drupal_render($element);
 
+  // Keep settings
+  $js = drupal_add_js();
+  if (isset($js['settings'])) {
+    $settings = ajax_command_settings(call_user_func_array('array_merge_recursive', $js['settings']['data']), TRUE);
+    $info['settings'] = $settings['settings'];
+  }
+
   $commands = array();
   $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
   $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
