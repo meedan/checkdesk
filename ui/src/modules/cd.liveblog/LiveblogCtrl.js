@@ -12,7 +12,7 @@ cdLiveblog
    */
   .controller('LiveblogCtrl', ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
     // TODO: This page title management is clunky, could it be moved to the router?
-    pageState.headTitle('Liveblog | Checkdesk');
+    pageState.headTitle('Liveblog');
     pageState.title('Liveblog');
 
     $scope.stories = [];

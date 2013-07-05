@@ -1,4 +1,4 @@
-/*! checkdesk - v0.1.0 - 2013-06-28
+/*! checkdesk - v0.1.0 - 2013-07-05
  *  Copyright (c) 2013 Meedan | Licensed MIT
  */
 /**
@@ -220,7 +220,7 @@ cdLiveblog
    */
   .controller('LiveblogCtrl', ['$scope', 'pageState', 'Story', function ($scope, pageState, Story) {
     // TODO: This page title management is clunky, could it be moved to the router?
-    pageState.headTitle('Liveblog | Checkdesk');
+    pageState.headTitle('Liveblog');
     pageState.title('Liveblog');
 
     $scope.stories = [];
@@ -336,13 +336,12 @@ cdPage
    * @name cd.page.controllers:NavbarCtrl
    * @requires $scope
    * @requires $translate
-   * @requires System
    * @requires User
    *
    * @description
    * Controller for site navigation bar.
    */
-  .controller('NavbarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+  .controller('NavbarCtrl', ['$scope', '$translate', 'User', function ($scope, $translate, User) {
     var updateLangClass = function (mode, langClass) {
           switch (mode) {
             case 'remove':
@@ -372,8 +371,9 @@ cdPage
     ];
 
     // TODO: Unstub the userMenu.
-    $scope.$watch('isLoggedIn', function (newVal, oldVal) {
-      if (newVal) {
+    $scope.$watch('currentUser', function (newVal, oldVal) {
+      console.log([newVal, oldVal], 'Watching curentUser');
+      if (newVal.uid > 0) {
         $scope.userMenu = [
           {
             title: $translate('USER_MENU_ITEM_LOGOUT_LINK'),
@@ -418,7 +418,7 @@ cdPage
     return {
       restrict: 'A',
       scope: { item: '=cdMenuItem' },
-      template: ['<a href="{{item.href}}">',
+      template: ['<a href="{{item.href}}" ng-click="item.click()">',
                    '<span ng-show="item.icon" class="{{item.icon}}"></span>',
                    '{{item.title | translate}}',
                  '</a>'].join('')
@@ -460,9 +460,14 @@ cdPage
        * @param {string=} new page headTitle
        * @returns {string} The current page headTitle
        */
-      headTitle: function(newHeadTitle) {
+      headTitle: function(newHeadTitle, appendSiteName) {
         if (newHeadTitle) {
+          appendSiteName = !angular.isUndefined(appendSiteName) ? appendSiteName : true;
           headTitle = newHeadTitle;
+
+          if (appendSiteName) {
+            headTitle += ' | Checkdesk';
+          }
         }
         return headTitle;
       },
@@ -999,7 +1004,7 @@ cdServices
  * Resource to interact with the Drupal user API.
  */
 cdServices
-  .factory('User', ['$resource', '$http', function($resource, $http) {
+  .factory('User', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http) {
     var User,
         anonymousUser,
         currentUser,
@@ -1010,36 +1015,6 @@ cdServices
     isLoggedIn = false;
 
     User = $resource('api/user/:verb', {}, {
-      /**
-       * @ngdoc property
-       * @name cd.services.User#anonymousUser
-       * @methodOf cd.services.User
-       *
-       * @description
-       * The anonymous user is the account used when not logged in.
-       */
-      anonymousUser: anonymousUser,
-
-      /**
-       * @ngdoc property
-       * @name cd.services.User#isLoggedIn
-       * @methodOf cd.services.User
-       *
-       * @description
-       * Is any user currently logged in?
-       */
-      isLoggedIn: isLoggedIn,
-
-      /**
-       * @ngdoc property
-       * @name cd.services.User#currentUser
-       * @methodOf cd.services.User
-       *
-       * @description
-       * The currently logged in user or the anonymousUser.
-       */
-      currentUser: currentUser,
-
       /**
        * @ngdoc method
        * @name cd.services.User#login
@@ -1100,9 +1075,29 @@ cdServices
       }
     });
 
-    // // Add methods to retrieve the currently logged in user
-    // angular.extend(User.prototype, {
-    // });
+    /**
+     * @ngdoc property
+     * @name cd.services.User#isLoggedIn
+     * @methodOf cd.services.User
+     *
+     * @description
+     * Is any user currently logged in?
+     */
+    User.isLoggedIn = isLoggedIn;
+
+    /**
+     * @ngdoc property
+     * @name cd.services.User#currentUser
+     * @methodOf cd.services.User
+     *
+     * @description
+     * The currently logged in user or the anonymousUser.
+     */
+    User.currentUser = currentUser;
+
+    // Bring these objects under the purview of Angular.
+    $rootScope.isLoggedIn = isLoggedIn;
+    $rootScope.currentUser = currentUser;
 
     return User;
   }]);
@@ -1391,3 +1386,13 @@ cdUser
    */
   .controller('UserProfileCtrl', ['$scope', 'pageState', 'User', function ($scope, pageState, User) {
   }]);
+
+cdUser
+  .run(['User', 'System', function (User, System) {
+      System.connect({}, function (connection) {
+        if (angular.isObject(connection) && angular.isObject(connection.user)) {
+          User.currentUser = connection.user;
+          User.isLoggedIn  = !angular.isUndefined(connection.user) && connection.user.uid > 0;
+        }
+      });
+    }]);
