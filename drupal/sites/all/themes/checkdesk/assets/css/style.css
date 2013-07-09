@@ -8546,12 +8546,8 @@ body.widgets #main #content #content-inner:after {
   }
 }
 @media all and (max-height: 72em) {
-  body.widgets #main #widgets.column .view-featured-stories .story-row {
+  body.widgets #main #widgets.column .view-featured-stories .views-row-first img {
     display: none;
-  }
-  body.widgets #main #widgets.column .view-featured-stories .views-row-first {
-    display: block;
-    border-bottom: 0px none;
   }
 }
 @media (min-width: 949px) {
