@@ -138,8 +138,19 @@ function checkdesk_preprocess_region(&$variables) {
     $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
     $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right'); 
   }
-}
 
+  if ($variables['region'] == 'footer') {
+    // define custom header settings
+    $variables['footer_image'] = '';
+    $image = theme_get_setting('footer_image_path');
+    
+    if (!empty($image)) {
+      $variables['footer_image'] = theme('image', array('path' => $image, 'style_name'=> 'footer_partner_logo'));
+      $variables['partner_url'] = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
+    }
+  }
+
+}
 
 
 /**
@@ -353,39 +364,48 @@ function checkdesk_preprocess_page(&$variables) {
   ));
 
   // footer nav
-  $variables['footer_nav'] = FALSE;
-  $menu = menu_load('menu-footer');
-  $tree = menu_tree_page_data($menu['menu_name']);
+  // $variables['footer_nav'] = FALSE;
+  // $menu = menu_load('menu-footer');
+  // $tree = menu_tree_page_data($menu['menu_name']);
 
   // Remove items that are not from this language or that does not have children
-  foreach ($tree as $id => $item) {
-    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
-      unset($tree[$id]);
-    }
-    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
-    foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
-    }
-  }
+  // foreach ($tree as $id => $item) {
+  //   if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+  //     unset($tree[$id]);
+  //   }
+  //   if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
+  //   foreach ($item['below'] as $subid => $subitem) {
+  //     if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+  //   }
+  // }
 
   // Add checkdesk logo class
-  foreach ($tree as $id => $item) {
-    if($tree[$id]['link']['link_path'] == 'http://checkdesk.org') {
-      $tree[$id]['link']['class'] = array('checkdesk');
-    }
-  }
+  // foreach ($tree as $id => $item) {
+  //   if($tree[$id]['link']['link_path'] == 'http://checkdesk.org') {
+  //     $tree[$id]['link']['class'] = array('checkdesk');
+  //   }
+  // }
+  
+  // $partner_url = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
+  // Add partner logo class
+  // foreach ($tree as $id => $item) {
+    // if($tree[$id]['link']['link_path'] == $partner_url) {
+      // $tree[$id]['link']['class'] = array('partner-logo');
+    // }
+  // }
 
-  $variables['footer_menu'] = checkdesk_menu_navigation_links($tree);
+
+  // $variables['footer_menu'] = checkdesk_menu_navigation_links($tree);
 
   // Build list
-  $variables['footer_nav'] = theme('checkdesk_links', array(
-    'links' => $variables['footer_menu'],
-    'attributes' => array(
-      'id' => 'footer-menu',
-      'class' => array('nav'),
-    ),
-    'heading' => NULL,
-  ));
+  // $variables['footer_nav'] = theme('checkdesk_links', array(
+  //   'links' => $variables['footer_menu'],
+  //   'attributes' => array(
+  //     'id' => 'footer-menu',
+  //     'class' => array('nav'),
+  //   ),
+  //   'heading' => NULL,
+  // ));
 
   // ctools modal
 
@@ -864,6 +884,21 @@ function checkdesk_footer_visibility() {
   }
 
   return FALSE;
+}
+
+/**
+ * Force footer to show
+ */
+function checkdesk_page_alter(&$page) {
+  foreach (system_region_list($GLOBALS['theme'], REGIONS_ALL) as $region => $name) {
+    if (in_array($region, array('footer'))) {
+      $page['footer'] = array(
+        '#region' => 'footer',
+        '#weight' => '-10',
+        '#theme_wrappers' => array('region'),
+      );
+    }
+  }
 }
 
 /**

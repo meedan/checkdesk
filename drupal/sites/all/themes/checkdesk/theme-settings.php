@@ -64,6 +64,11 @@ function checkdesk_form_system_theme_settings_alter(&$form, &$form_state) {
     '#markup' => (empty($path) ? '' : '<img src="' . image_style_url('thumbnail', $path) . '" />'),
   );
 
+  $form['footer']['footer_image_upload'] = array(
+    '#type' => 'file',
+    '#title' => t('Choose a logo that will appear in the footer:'),
+  );
+
   $form['#submit'][] = 'checkdesk_settings_submit';
 }
 
@@ -88,6 +93,15 @@ function checkdesk_settings_submit($form, &$form_state) {
     file_save($file);
     $_POST['header_bg_path'] = $form_state['values']['header_bg_path'] = $file->destination;
   }
+
+  if ($file = file_save_upload('footer_image_upload', array('file_validate_is_image' => array()), $filepath, FILE_EXISTS_REPLACE)) {
+    // Make the file permanent
+    $file->status = 1;
+    file_save($file);
+    $_POST['footer_image_path'] = $form_state['values']['footer_image_path'] = $file->destination;
+  }
+
+
 }
 
 ?>
