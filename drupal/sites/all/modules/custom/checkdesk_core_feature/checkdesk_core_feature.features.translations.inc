@@ -15704,7 +15704,7 @@ function checkdesk_core_feature_translations_defaults() {
     'source' => '!name cannot be longer than %max characters but is currently %length characters long.',
     'context' => '',
     'location' => '',
-    'translation' => 'لا يمكن أن يتجاوز !name ‏%max حرفاً إلا أن طوله الحالي %legnth حرفاً.',
+    'translation' => 'لا يمكن أن يتجاوز !name ‏%max حرفاً إلا أن طوله الحالي %length حرفاً.',
     'plid' => 0,
     'plural' => 0,
   );
