@@ -132,6 +132,9 @@ function checkdesk_core_modal_callback($js = FALSE) {
   $alias = preg_replace('/([a-z]{2}\/)?modal\/[^\/]+\//', '', request_path());
   $path = drupal_lookup_path('source', $alias);
   $node = menu_get_object('node', 1, $path);
+  if (empty($node)) {
+    return MENU_NOT_FOUND;
+  }
   $output = drupal_render(node_view($node));
   $title = $node->title;
   if ($js) {
