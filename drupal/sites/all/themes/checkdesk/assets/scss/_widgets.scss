@@ -75,12 +75,10 @@
 @media all and (max-height: 72em) {
   body.widgets #main #widgets.column {
     .view-featured-stories {
-      .story-row {
-        display: none;
-      }
       .views-row-first {
-        display: block;
-        border-bottom: 0px none;
+        img {
+          display: none;
+        }
       }
     }
   }

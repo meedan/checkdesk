@@ -30,6 +30,15 @@
     color: rgba(0,0,0,.6);
     margin-top: $absolute-line-height;
     padding: $absolute-line-height $gutter-width*2 0 $gutter-width*2;
+
+    a {
+      color: rgba(0,0,0,.6);
+      &:hover { 
+        text-decoration: none;
+        color: rgba(0,0,0,.8); 
+      }
+    }
+
   }
 
   .checkdesk-slogan-logo {

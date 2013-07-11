@@ -363,72 +363,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'customized' => 1,
     'parent_path' => '<sub>',
   );
-  // Exported menu link: menu-footer:http://checkdesk.org
-  $menu_links['menu-footer:http://checkdesk.org'] = array(
-    'menu_name' => 'menu-footer',
-    'link_path' => 'http://checkdesk.org',
-    'router_path' => '',
-    'link_title' => 'Powered by',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 1,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -48,
-    'uuid' => '46a9effa-0a43-41c2-a150-dee7ed74c01f',
-    'language' => 'und',
-    'customized' => 1,
-  );
-  // Exported menu link: menu-footer:http://meedan.org
-  $menu_links['menu-footer:http://meedan.org'] = array(
-    'menu_name' => 'menu-footer',
-    'link_path' => 'http://meedan.org',
-    'router_path' => '',
-    'link_title' => 'Supported by Meedan',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 1,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -49,
-    'uuid' => '93091458-8370-4ca5-9fae-2ac710021e68',
-    'language' => 'und',
-    'customized' => 1,
-  );
-  // Exported menu link: menu-information:modal/ajax/content/about-checkdesk
-  $menu_links['menu-information:modal/ajax/content/about-checkdesk'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/about-checkdesk',
-    'router_path' => 'modal/%',
-    'link_title' => 'About Checkdesk',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -50,
-    'uuid' => '567a9623-1ab2-3fd4-ddf8-ccaffafffa37',
-    'language' => 'en',
-    'customized' => 1,
-  );
   // Exported menu link: menu-information:modal/ajax/content/fact-checking-statement
   $menu_links['menu-information:modal/ajax/content/fact-checking-statement'] = array(
     'menu_name' => 'menu-information',
@@ -558,28 +492,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => -42,
     'uuid' => '2caff8c7-f404-4de3-8c79-0fdf715f1b00',
-    'language' => 'ar',
-    'customized' => 1,
-  );
-  // Exported menu link: menu-information:modal/ajax/content/عن-checkdesk
-  $menu_links['menu-information:modal/ajax/content/عن-checkdesk'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/عن-checkdesk',
-    'router_path' => 'modal/%',
-    'link_title' => 'عن Checkdesk',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -47,
-    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
     'language' => 'ar',
     'customized' => 1,
   );
