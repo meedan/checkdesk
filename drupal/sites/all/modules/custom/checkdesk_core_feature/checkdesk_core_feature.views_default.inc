@@ -1140,9 +1140,6 @@ print theme(\'views_autorefresh\', array(
   ),
 ));
 ?>'),
-    t('Title'),
-    t('Body'),
-    t('Nid'),
     t('Page'),
     t('Feed'),
     t('Autorefresh Page'),
@@ -1600,13 +1597,8 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'load_more';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '4';
+  $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
-  $handler->display->display_options['pager']['options']['more_button_text'] = 'Load more updates';
-  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Content: Rendered Node */
@@ -1665,20 +1657,8 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'post' => 'post',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'updates-for-stories';
-
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'load_more';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '4';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '8';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
-  $handler->display->display_options['pager']['options']['more_button_text'] = 'Load more updates';
-  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $translatables['updates_for_stories'] = array(
     t('Master'),
     t('Updates for stories'),
@@ -1688,17 +1668,9 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
     t('View result counter'),
     t('Nid'),
     t('All'),
-    t('Page'),
     t('Block'),
   );
   $export['updates_for_stories'] = $view;
