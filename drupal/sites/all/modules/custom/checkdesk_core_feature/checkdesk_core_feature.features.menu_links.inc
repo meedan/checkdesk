@@ -228,15 +228,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'und',
     'customized' => 1,
   );
-  // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
-  $menu_links['menu-common:modal/ajax/content/install-bookmarklet'] = array(
+  // Exported menu link: menu-common:content/install-bookmarklet
+  $menu_links['menu-common:content/install-bookmarklet'] = array(
     'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/install-bookmarklet',
+    'link_path' => 'content/install-bookmarklet',
     'router_path' => 'modal/%',
     'link_title' => 'Bookmarklet',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array('checkdesk-use-modal'),
       ),
       'alter' => TRUE,
     ),
@@ -250,15 +250,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'en',
     'customized' => 1,
   );
-  // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
-  $menu_links['menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
+  // Exported menu link: menu-common:content/تنصيب-إضافة-المتصفح
+  $menu_links['menu-common:content/تنصيب-إضافة-المتصفح'] = array(
     'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/تنصيب-إضافة-المتصفح',
+    'link_path' => 'content/تنصيب-إضافة-المتصفح',
     'router_path' => 'modal/%',
     'link_title' => 'إضافة المتصفح',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array('checkdesk-use-modal'),
       ),
       'alter' => TRUE,
     ),
@@ -363,15 +363,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'customized' => 1,
     'parent_path' => '<sub>',
   );
-  // Exported menu link: menu-information:modal/ajax/content/fact-checking-statement
-  $menu_links['menu-information:modal/ajax/content/fact-checking-statement'] = array(
+  // Exported menu link: menu-information:content/fact-checking-statement
+  $menu_links['menu-information:content/fact-checking-statement'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/fact-checking-statement',
+    'link_path' => 'content/fact-checking-statement',
     'router_path' => 'modal/%',
     'link_title' => 'Fact-checking statement',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array('checkdesk-use-modal'),
       ),
       'alter' => TRUE,
     ),
@@ -385,15 +385,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'en',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/install-bookmarklet
-  $menu_links['menu-information:modal/ajax/content/install-bookmarklet'] = array(
+  // Exported menu link: menu-information:content/install-bookmarklet
+  $menu_links['menu-information:content/install-bookmarklet'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/install-bookmarklet',
+    'link_path' => 'content/install-bookmarklet',
     'router_path' => 'modal/%',
     'link_title' => 'Bookmarklet',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array('checkdesk-use-modal'),
       ),
       'alter' => TRUE,
     ),
@@ -407,15 +407,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'en',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/terms-use
-  $menu_links['menu-information:modal/ajax/content/terms-use'] = array(
+  // Exported menu link: menu-information:content/terms-use
+  $menu_links['menu-information:content/terms-use'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/terms-use',
+    'link_path' => 'content/terms-use',
     'router_path' => 'modal/%',
     'link_title' => 'Terms of use',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array('checkdesk-use-modal'),
       ),
       'alter' => TRUE,
     ),
@@ -429,15 +429,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'en',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات
-  $menu_links['menu-information:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات'] = array(
+  // Exported menu link: menu-information:content/بيان-التحقق-من-صحة-المعلومات
+  $menu_links['menu-information:content/بيان-التحقق-من-صحة-المعلومات'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/بيان-التحقق-من-صحة-المعلومات',
+    'link_path' => 'content/بيان-التحقق-من-صحة-المعلومات',
     'router_path' => 'modal/%',
     'link_title' => 'بيان التحقق من صحة المعلومات',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array('checkdesk-use-modal'),
       ),
       'alter' => TRUE,
     ),
@@ -451,15 +451,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'ar',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/تنصيب-إضافة-المتصفح
-  $menu_links['menu-information:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
+  // Exported menu link: menu-information:content/تنصيب-إضافة-المتصفح
+  $menu_links['menu-information:content/تنصيب-إضافة-المتصفح'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/تنصيب-إضافة-المتصفح',
+    'link_path' => 'content/تنصيب-إضافة-المتصفح',
     'router_path' => 'modal/%',
     'link_title' => 'إضافة المتصفح',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array('checkdesk-use-modal'),
       ),
       'alter' => TRUE,
     ),
@@ -473,15 +473,15 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'ar',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/شروط-الاستخدام
-  $menu_links['menu-information:modal/ajax/content/شروط-الاستخدام'] = array(
+  // Exported menu link: menu-information:content/شروط-الاستخدام
+  $menu_links['menu-information:content/شروط-الاستخدام'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/شروط-الاستخدام',
+    'link_path' => 'content/شروط-الاستخدام',
     'router_path' => 'modal/%',
     'link_title' => 'شروط الاستخدام',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array('checkdesk-use-modal'),
       ),
       'alter' => TRUE,
     ),

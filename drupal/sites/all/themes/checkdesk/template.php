@@ -348,7 +348,17 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
-    $tree[$id]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-large');
+    $classes = array();
+    if (isset($item['link']['options']['attributes']['class'])) {
+      $classes = $item['link']['options']['attributes']['class'];
+    }
+    if (in_array('checkdesk-use-modal', $classes)) {
+      $alias = drupal_lookup_path('alias', $item['link']['href']);
+      $path = $alias ? $alias : $item['link']['href'];
+      $tree[$id]['link']['link_path'] = 'modal/ajax/' . $path;
+      $tree[$id]['link']['href'] = 'modal/ajax/' . $path;
+      $tree[$id]['link']['class'] = array_merge($classes, array('use-ajax', 'ctools-modal-modal-popup-large'));
+    }
   }
 
   $variables['information_menu'] = checkdesk_menu_navigation_links($tree);
