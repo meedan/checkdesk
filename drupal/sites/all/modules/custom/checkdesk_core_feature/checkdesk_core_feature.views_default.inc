@@ -1581,7 +1581,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $view = new view();
   $view->name = 'updates_for_stories';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'checkdesk';
   $view->base_table = 'node';
   $view->human_name = 'Updates for stories';
   $view->core = 7;
@@ -1659,6 +1659,17 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+
+  /* Display: Liveblog Block */
+  $handler = $view->new_display('block', 'Liveblog Block', 'block_1');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'load_more';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '4';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['more_button_text'] = 'Load more updates';
+  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $translatables['updates_for_stories'] = array(
     t('Master'),
     t('Updates for stories'),
@@ -1672,6 +1683,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Nid'),
     t('All'),
     t('Block'),
+    t('Liveblog Block'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
   );
   $export['updates_for_stories'] = $view;
 

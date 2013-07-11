@@ -990,7 +990,8 @@ function checkdesk_core_views_pre_render(&$view) {
     foreach ($view->result as $id => $story) {
       $updates = views_get_view('updates_for_stories');
       $updates->set_arguments(array($story->nid));
-      $output = $updates->preview('block');
+      $updates->get_total_rows = TRUE;
+      $output = $updates->preview('block_1');
       $total_rows = $updates->total_rows;
       $updates->destroy();
       if ($total_rows) {
