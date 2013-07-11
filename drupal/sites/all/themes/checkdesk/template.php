@@ -560,6 +560,7 @@ function checkdesk_preprocess_node(&$variables) {
     // get updates for a particular story
     $view = views_get_view('updates_for_stories');
     $view->set_arguments(array($variables['nid']));
+    $view->get_total_rows = TRUE;
     $view_output = $view->preview('block');
     $total_rows = $view->total_rows;
     $view->destroy();
@@ -623,6 +624,7 @@ function checkdesk_preprocess_node(&$variables) {
     if ($status_name !== 'Not Applicable') {
       $view = views_get_view('activity_report');
       $view->set_arguments(array($variables['nid']));
+      $view->get_total_rows = TRUE;
       $view_output = $view->preview('block');
       $total_rows = $view->total_rows;
       $view->destroy();
@@ -985,6 +987,7 @@ function _checkdesk_comment_form_submit($form, $form_state) {
   $nid = $form['#node']->nid;
   $view = views_get_view('activity_report');
   $view->set_arguments(array($nid));
+  $view->get_total_rows = TRUE;
   $output = $view->preview('block');
 
   $commands = array();
