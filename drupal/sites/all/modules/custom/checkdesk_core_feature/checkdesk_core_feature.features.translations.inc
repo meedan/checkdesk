@@ -43648,6 +43648,30 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['d8fa5fc081ef0dc91a67b5e315827fce'] = array(
+    'source' => 'Browse',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/fileinput.js; sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d78193c3855b51b3b1debe577d4a0178'] = array(
+    'source' => 'Change',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7bd965469e77eb252553f533ce101d57'] = array(
+    'source' => 'No file selected...',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

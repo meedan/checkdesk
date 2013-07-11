@@ -852,6 +852,17 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   );
 
   $form['body'][$form['#node']->language][0]['#after_build'][] = 'checkdesk_core_discussion_node_form_after_build';
+
+  // Make the upload field customizable
+  drupal_add_js(libraries_get_path('fileinput') . '/jquery.fileinput.js');
+  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/fileinput.js');
+  $fileinput = array(
+    'change' => t('Change'),
+    'button' => t('Browse'),
+    'field'  => t('No file selected...')
+  );
+  drupal_add_js(array('fileInput' => $fileinput), 'setting');
+  drupal_add_css(libraries_get_path('fileinput') . '/fileinput.css');
 }
 
 /**
