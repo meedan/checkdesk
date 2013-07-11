@@ -26,14 +26,6 @@ function checkdesk_core_feature_menu_default_menu_custom() {
     'language' => 'und',
     'i18n_mode' => 5,
   );
-  // Exported menu: menu-footer.
-  $menus['menu-footer'] = array(
-    'menu_name' => 'menu-footer',
-    'title' => 'Footer',
-    'description' => 'Links for footer',
-    'language' => 'und',
-    'i18n_mode' => 5,
-  );
   // Exported menu: menu-information.
   $menus['menu-information'] = array(
     'menu_name' => 'menu-information',
