@@ -17,9 +17,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => '',
     'link_title' => 'Home',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -39,9 +37,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => '<sub>',
     'link_title' => '...',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -61,9 +57,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'admin/config/system/checkdesk',
     'link_title' => 'Edit fact-checking statement',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -84,9 +78,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'admin/people',
     'link_title' => 'Administer users',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'system',
@@ -95,7 +87,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'has_children' => 0,
     'expanded' => 0,
     'weight' => -49,
-    'uuid' => '1aabba86-d2db-4ee0-9956-24815b9ad3b1',
+    'uuid' => '90476ce1-c57a-48e8-b95a-abc56aae9886',
     'language' => 'und',
     'customized' => 1,
     'parent_path' => '<sub>',
@@ -107,9 +99,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'node/add/discussion',
     'link_title' => 'Create story',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -129,9 +119,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'node/add/media',
     'link_title' => 'Submit report',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -151,9 +139,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'node/add/post',
     'link_title' => 'Compose update',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -191,9 +177,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => '<nolink>',
     'link_title' => 'Information',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -213,9 +197,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => '<sub>',
     'link_title' => '<user>',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -228,15 +210,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'und',
     'customized' => 1,
   );
-  // Exported menu link: menu-common:modal/ajax/content/install-bookmarklet
-  $menu_links['menu-common:modal/ajax/content/install-bookmarklet'] = array(
+  // Exported menu link: menu-common:content/install-bookmarklet
+  $menu_links['menu-common:content/install-bookmarklet'] = array(
     'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/install-bookmarklet',
+    'link_path' => 'content/install-bookmarklet',
     'router_path' => 'modal/%',
     'link_title' => 'Bookmarklet',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
       ),
       'alter' => TRUE,
     ),
@@ -250,15 +234,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'en',
     'customized' => 1,
   );
-  // Exported menu link: menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح
-  $menu_links['menu-common:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
+  // Exported menu link: menu-common:content/تنصيب-إضافة-المتصفح
+  $menu_links['menu-common:content/تنصيب-إضافة-المتصفح'] = array(
     'menu_name' => 'menu-common',
-    'link_path' => 'modal/ajax/content/تنصيب-إضافة-المتصفح',
+    'link_path' => 'content/تنصيب-إضافة-المتصفح',
     'router_path' => 'modal/%',
     'link_title' => 'إضافة المتصفح',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
       ),
       'alter' => TRUE,
     ),
@@ -279,9 +265,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'my-notifications',
     'link_title' => 'Notifications',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -301,9 +285,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'user',
     'link_title' => 'My account',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -324,9 +306,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'user/login',
     'link_title' => 'Sign in',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -347,9 +327,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'user/logout',
     'link_title' => 'Logout',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
       'alter' => TRUE,
     ),
     'module' => 'menu',
@@ -363,81 +341,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'customized' => 1,
     'parent_path' => '<sub>',
   );
-  // Exported menu link: menu-footer:http://checkdesk.org
-  $menu_links['menu-footer:http://checkdesk.org'] = array(
-    'menu_name' => 'menu-footer',
-    'link_path' => 'http://checkdesk.org',
-    'router_path' => '',
-    'link_title' => 'Powered by',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 1,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -48,
-    'uuid' => '46a9effa-0a43-41c2-a150-dee7ed74c01f',
-    'language' => 'und',
-    'customized' => 1,
-  );
-  // Exported menu link: menu-footer:http://meedan.org
-  $menu_links['menu-footer:http://meedan.org'] = array(
-    'menu_name' => 'menu-footer',
-    'link_path' => 'http://meedan.org',
-    'router_path' => '',
-    'link_title' => 'Supported by Meedan',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 1,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -49,
-    'uuid' => '93091458-8370-4ca5-9fae-2ac710021e68',
-    'language' => 'und',
-    'customized' => 1,
-  );
-  // Exported menu link: menu-information:modal/ajax/content/about-checkdesk
-  $menu_links['menu-information:modal/ajax/content/about-checkdesk'] = array(
+  // Exported menu link: menu-information:content/fact-checking-statement
+  $menu_links['menu-information:content/fact-checking-statement'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/about-checkdesk',
-    'router_path' => 'modal/%',
-    'link_title' => 'About Checkdesk',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -50,
-    'uuid' => '567a9623-1ab2-3fd4-ddf8-ccaffafffa37',
-    'language' => 'en',
-    'customized' => 1,
-  );
-  // Exported menu link: menu-information:modal/ajax/content/fact-checking-statement
-  $menu_links['menu-information:modal/ajax/content/fact-checking-statement'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/fact-checking-statement',
+    'link_path' => 'content/fact-checking-statement',
     'router_path' => 'modal/%',
     'link_title' => 'Fact-checking statement',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
       ),
       'alter' => TRUE,
     ),
@@ -451,15 +365,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'en',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/install-bookmarklet
-  $menu_links['menu-information:modal/ajax/content/install-bookmarklet'] = array(
+  // Exported menu link: menu-information:content/install-bookmarklet
+  $menu_links['menu-information:content/install-bookmarklet'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/install-bookmarklet',
+    'link_path' => 'content/install-bookmarklet',
     'router_path' => 'modal/%',
     'link_title' => 'Bookmarklet',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
       ),
       'alter' => TRUE,
     ),
@@ -473,15 +389,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'en',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/terms-use
-  $menu_links['menu-information:modal/ajax/content/terms-use'] = array(
+  // Exported menu link: menu-information:content/terms-use
+  $menu_links['menu-information:content/terms-use'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/terms-use',
+    'link_path' => 'content/terms-use',
     'router_path' => 'modal/%',
     'link_title' => 'Terms of use',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
       ),
       'alter' => TRUE,
     ),
@@ -495,15 +413,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'en',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات
-  $menu_links['menu-information:modal/ajax/content/بيان-التحقق-من-صحة-المعلومات'] = array(
+  // Exported menu link: menu-information:content/بيان-التحقق-من-صحة-المعلومات
+  $menu_links['menu-information:content/بيان-التحقق-من-صحة-المعلومات'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/بيان-التحقق-من-صحة-المعلومات',
+    'link_path' => 'content/بيان-التحقق-من-صحة-المعلومات',
     'router_path' => 'modal/%',
     'link_title' => 'بيان التحقق من صحة المعلومات',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
       ),
       'alter' => TRUE,
     ),
@@ -517,15 +437,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'ar',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/تنصيب-إضافة-المتصفح
-  $menu_links['menu-information:modal/ajax/content/تنصيب-إضافة-المتصفح'] = array(
+  // Exported menu link: menu-information:content/تنصيب-إضافة-المتصفح
+  $menu_links['menu-information:content/تنصيب-إضافة-المتصفح'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/تنصيب-إضافة-المتصفح',
+    'link_path' => 'content/تنصيب-إضافة-المتصفح',
     'router_path' => 'modal/%',
     'link_title' => 'إضافة المتصفح',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
       ),
       'alter' => TRUE,
     ),
@@ -539,15 +461,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'ar',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/شروط-الاستخدام
-  $menu_links['menu-information:modal/ajax/content/شروط-الاستخدام'] = array(
+  // Exported menu link: menu-information:content/شروط-الاستخدام
+  $menu_links['menu-information:content/شروط-الاستخدام'] = array(
     'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/شروط-الاستخدام',
+    'link_path' => 'content/شروط-الاستخدام',
     'router_path' => 'modal/%',
     'link_title' => 'شروط الاستخدام',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
       ),
       'alter' => TRUE,
     ),
@@ -561,33 +485,10 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'language' => 'ar',
     'customized' => 1,
   );
-  // Exported menu link: menu-information:modal/ajax/content/عن-checkdesk
-  $menu_links['menu-information:modal/ajax/content/عن-checkdesk'] = array(
-    'menu_name' => 'menu-information',
-    'link_path' => 'modal/ajax/content/عن-checkdesk',
-    'router_path' => 'modal/%',
-    'link_title' => 'عن Checkdesk',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-      'alter' => TRUE,
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -47,
-    'uuid' => '73569ef8-14a7-4aa7-bb03-420d23ec8564',
-    'language' => 'ar',
-    'customized' => 1,
-  );
   // Translatables
   // Included for use with string extractors like potx.
   t('...');
   t('<user>');
-  t('About Checkdesk');
   t('Administer users');
   t('Bookmarklet');
   t('Compose update');
@@ -599,16 +500,13 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Logout');
   t('My account');
   t('Notifications');
-  t('Powered by');
   t('Sign in');
   t('Submit report');
-  t('Supported by Meedan');
   t('Terms of use');
   t('View incoming citizen reports');
   t('إضافة المتصفح');
   t('بيان التحقق من صحة المعلومات');
   t('شروط الاستخدام');
-  t('عن Checkdesk');
 
 
   return $menu_links;

@@ -48,6 +48,17 @@ function checkdesk_preprocess_html(&$variables) {
     $variables['classes_array'][] = $class;
   }
 
+  // 404 HTML template
+  $status = drupal_get_http_header("status");  
+  if($status == "404 Not Found") {
+    if ($variables['language']->language == 'ar') {
+      $variables['theme_hook_suggestions'][] = 'html__404__rtl';
+    } else {
+      $variables['theme_hook_suggestions'][] = 'html__404';
+    }
+  }
+  // dsm($variables['theme_hook_suggestions']);
+
   // Add classes about widgets sidebar
    if (checkdesk_widgets_visibility()) {
     if (!empty($variables['page']['widgets'])) {
@@ -61,7 +72,7 @@ function checkdesk_preprocess_html(&$variables) {
   }
 
   // Add conditional stylesheets for IE8.
-  if ($variables['language'] == 'ar') {
+  if ($variables['language']->language == 'ar') {
     $filename = 'ie8-rtl.css';
   } else {
     $filename = 'ie8.css';
@@ -107,6 +118,7 @@ function checkdesk_preprocess_html(&$variables) {
  */
 function checkdesk_preprocess_region(&$variables) {
   global $language;
+
   if ($variables['region'] == 'widgets') {
     // define custom header settings
     $variables['header_image'] = '';
@@ -122,12 +134,23 @@ function checkdesk_preprocess_region(&$variables) {
     $bg = theme_get_setting('header_bg_path');
     $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
 
-    $slogan = $variables['header_slogan'] = t('A Checkdesk live blog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
+    $slogan = $variables['header_slogan'] = t('A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language)), '@partner_url' => variable_get_value('checkdesk_site_owner_url', array('language' => $language)) ));
     $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
     $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right'); 
   }
-}
 
+  if ($variables['region'] == 'footer') {
+    // define custom header settings
+    $variables['footer_image'] = '';
+    $image = theme_get_setting('footer_image_path');
+    
+    if (!empty($image)) {
+      $variables['footer_image'] = theme('image', array('path' => $image, 'style_name'=> 'footer_partner_logo'));
+      $variables['partner_url'] = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
+    }
+  }
+
+}
 
 
 /**
@@ -149,6 +172,18 @@ function checkdesk_preprocess_block(&$variables) {
  */
 function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
+  
+  // 404 PAGE template
+  $status = drupal_get_http_header("status");  
+  if($status == "404 Not Found") {
+    if ($variables['language']->language == 'ar') {
+      $variables['theme_hook_suggestions'][] = 'page__404__rtl';
+    } else {
+      $variables['theme_hook_suggestions'][] = 'page__404';
+    }
+  }
+
+  // dsm($variables['language']->language);
 
   // Unescape HTML in title
   $variables['title'] = htmlspecialchars_decode(drupal_get_title());
@@ -313,7 +348,17 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
-    $tree[$id]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-large');
+    $classes = array();
+    if (isset($item['link']['options']['attributes']['class'])) {
+      $classes = $item['link']['options']['attributes']['class'];
+    }
+    if (in_array('checkdesk-use-modal', $classes)) {
+      $alias = drupal_lookup_path('alias', $item['link']['href']);
+      $path = $alias ? $alias : $item['link']['href'];
+      $tree[$id]['link']['link_path'] = 'modal/ajax/' . $path;
+      $tree[$id]['link']['href'] = 'modal/ajax/' . $path;
+      $tree[$id]['link']['class'] = array_merge($classes, array('use-ajax', 'ctools-modal-modal-popup-large'));
+    }
   }
 
   $variables['information_menu'] = checkdesk_menu_navigation_links($tree);
@@ -329,39 +374,48 @@ function checkdesk_preprocess_page(&$variables) {
   ));
 
   // footer nav
-  $variables['footer_nav'] = FALSE;
-  $menu = menu_load('menu-footer');
-  $tree = menu_tree_page_data($menu['menu_name']);
+  // $variables['footer_nav'] = FALSE;
+  // $menu = menu_load('menu-footer');
+  // $tree = menu_tree_page_data($menu['menu_name']);
 
   // Remove items that are not from this language or that does not have children
-  foreach ($tree as $id => $item) {
-    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
-      unset($tree[$id]);
-    }
-    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
-    foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
-    }
-  }
+  // foreach ($tree as $id => $item) {
+  //   if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+  //     unset($tree[$id]);
+  //   }
+  //   if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
+  //   foreach ($item['below'] as $subid => $subitem) {
+  //     if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+  //   }
+  // }
 
   // Add checkdesk logo class
-  foreach ($tree as $id => $item) {
-    if($tree[$id]['link']['link_path'] == 'http://checkdesk.org') {
-      $tree[$id]['link']['class'] = array('checkdesk');
-    }
-  }
+  // foreach ($tree as $id => $item) {
+  //   if($tree[$id]['link']['link_path'] == 'http://checkdesk.org') {
+  //     $tree[$id]['link']['class'] = array('checkdesk');
+  //   }
+  // }
+  
+  // $partner_url = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
+  // Add partner logo class
+  // foreach ($tree as $id => $item) {
+    // if($tree[$id]['link']['link_path'] == $partner_url) {
+      // $tree[$id]['link']['class'] = array('partner-logo');
+    // }
+  // }
 
-  $variables['footer_menu'] = checkdesk_menu_navigation_links($tree);
+
+  // $variables['footer_menu'] = checkdesk_menu_navigation_links($tree);
 
   // Build list
-  $variables['footer_nav'] = theme('checkdesk_links', array(
-    'links' => $variables['footer_menu'],
-    'attributes' => array(
-      'id' => 'footer-menu',
-      'class' => array('nav'),
-    ),
-    'heading' => NULL,
-  ));
+  // $variables['footer_nav'] = theme('checkdesk_links', array(
+  //   'links' => $variables['footer_menu'],
+  //   'attributes' => array(
+  //     'id' => 'footer-menu',
+  //     'class' => array('nav'),
+  //   ),
+  //   'heading' => NULL,
+  // ));
 
   // ctools modal
 
@@ -506,6 +560,7 @@ function checkdesk_preprocess_node(&$variables) {
     // get updates for a particular story
     $view = views_get_view('updates_for_stories');
     $view->set_arguments(array($variables['nid']));
+    $view->get_total_rows = TRUE;
     $view_output = $view->preview('block');
     $total_rows = $view->total_rows;
     $view->destroy();
@@ -513,20 +568,20 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['updates'] = $view_output;
     }
 
+    // Comments count
+    $theme = NULL;
     // Livefyre comments count
     if (!variable_get('meedan_livefyre_disable', FALSE)) {
-      $variables['story_commentcount'] = array(
-        '#theme' => 'livefyre_commentcount',
-        '#node' => node_load($variables['nid']),
-      );
+      $theme = 'livefyre_commentcount';
     }
-    // TODO: get facebook comment count
+    // Facebook comments count
     else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $theme = 'facebook_commentcount';
+    }
+    if ($theme) {
       $variables['story_commentcount'] = array(
-        // '#theme' => 'facebook_comments',
-        // '#node' => node_load($vars['fields']['nid']->raw),
-        '#type' => 'markup',
-        '#markup' => 'Comments',
+        '#theme' => $theme,
+        '#node' => node_load($variables['nid']),
       );
     }
 
@@ -569,6 +624,7 @@ function checkdesk_preprocess_node(&$variables) {
     if ($status_name !== 'Not Applicable') {
       $view = views_get_view('activity_report');
       $view->set_arguments(array($variables['nid']));
+      $view->get_total_rows = TRUE;
       $view_output = $view->preview('block');
       $total_rows = $view->total_rows;
       $view->destroy();
@@ -767,6 +823,8 @@ function checkdesk_widgets_visibility() {
   $roles = array('administrator', 'journalist');
   $check_role = array_intersect($roles, array_values($user->roles));
   $check_role = empty($check_role) ? FALSE : TRUE;
+  // for 404s
+  $status = drupal_get_http_header("status");
 
   $pages = array('edit', 'delete');
   $check_page = array_intersect($pages, array_values(arg()));
@@ -782,7 +840,7 @@ function checkdesk_widgets_visibility() {
   $user_node_types = array('media', 'post');
 
   // for anonymous user
-  if (isset($current_node->type) && !$check_role) {
+  if (isset($current_node->type) && !$check_role && $status != "404 Not Found") {
     foreach ($anon_node_types as $node_type) {
       // matches node types
       if ($node_type == $current_node->type) return TRUE;
@@ -791,7 +849,7 @@ function checkdesk_widgets_visibility() {
   } elseif (isset($current_node->type) && $check_role) {
     foreach ($user_node_types as $node_type) {
       // matches node types and does not include any pages
-      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
+      if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page && $status != "404 Not Found") {
         return TRUE; 
       }
       
@@ -838,6 +896,21 @@ function checkdesk_footer_visibility() {
   }
 
   return FALSE;
+}
+
+/**
+ * Force footer to show
+ */
+function checkdesk_page_alter(&$page) {
+  foreach (system_region_list($GLOBALS['theme'], REGIONS_ALL) as $region => $name) {
+    if (in_array($region, array('footer'))) {
+      $page['footer'] = array(
+        '#region' => 'footer',
+        '#weight' => '-10',
+        '#theme_wrappers' => array('region'),
+      );
+    }
+  }
 }
 
 /**
@@ -914,6 +987,7 @@ function _checkdesk_comment_form_submit($form, $form_state) {
   $nid = $form['#node']->nid;
   $view = views_get_view('activity_report');
   $view->set_arguments(array($nid));
+  $view->get_total_rows = TRUE;
   $output = $view->preview('block');
 
   $commands = array();
@@ -1116,22 +1190,20 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   if ($vars['view']->name === 'liveblog') {
     $vars['updates'] = $vars['view']->result[$vars['view']->row_index]->updates;
 
-    // Livefyre comment count
+    // Comments count
+    $theme = NULL;
+    // Livefyre comments count
     if (!variable_get('meedan_livefyre_disable', FALSE)) {
-      $vars['story_commentcount'] = array(
-        '#theme' => 'livefyre_commentcount',
-        '#node' => node_load($vars['fields']['nid']->raw),
-      );
+      $theme = 'livefyre_commentcount';
     }
-
-    // TODO get facebook comments count here
-    // Facebook comments
+    // Facebook comments count
     else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+      $theme = 'facebook_commentcount';
+    }
+    if ($theme) {
       $vars['story_commentcount'] = array(
-        // '#theme' => 'facebook_comments',
-        // '#node' => node_load($vars['fields']['nid']->raw),
-        '#type' => 'markup',
-        '#markup' => 'Comments',
+        '#theme' => $theme,
+        '#node' => node_load($vars['fields']['nid']->raw),
       );
     }
   }

@@ -1,12 +1,12 @@
 <?php
   // dsm($content);
   // dsm($node);
-  // $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
-  // $parent_story_link = url('node/'.$parent_story_id);
-  // $update_anchor = 'update-' . $node->nid;
-  // $update_link = url($parent_story_link, array('fragment' => $update_anchor));
+  global $language;
+  $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+  $update_anchor = 'update-' . $node->nid;
+  $update_link = url('node/'.$parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
 ?>
-<section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<section class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="update <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
     <div class="update-body">
       <?php if (isset($title)) { ?>
@@ -17,7 +17,7 @@
     <div class="update-footer">
       <ul class="update-meta">
         <li class="update-at">
-          <span class="icon-time"></span> <?php print $created_at; ?>
+          <a href="<?php print $update_link; ?>"><span class="icon-time"></span> <?php print $created_at; ?></a>
         </li>
         <li class="update-by">
           <?php if (isset($user_avatar)) { ?>
@@ -28,7 +28,7 @@
         <!-- <li class="share">
           <a href="#"><span class="icon-share"></span> <?php print t('Share'); ?></a>
         </li> -->
-        <?php if (user_access('administer nodes')) { ?>
+        <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) { ?>
           <li class="update-edit">
             <?php print l('<span class="icon-edit-sign"></span>'. t('Edit'), 'node/' . $node->nid . '/edit', array('html'=>TRUE)); ?>
           </li>

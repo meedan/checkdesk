@@ -132,6 +132,9 @@ function checkdesk_core_modal_callback($js = FALSE) {
   $alias = preg_replace('/([a-z]{2}\/)?modal\/[^\/]+\//', '', request_path());
   $path = drupal_lookup_path('source', $alias);
   $node = menu_get_object('node', 1, $path);
+  if (empty($node)) {
+    return MENU_NOT_FOUND;
+  }
   $output = drupal_render(node_view($node));
   $title = $node->title;
   if ($js) {
@@ -427,7 +430,7 @@ function checkdesk_core_preprocess_flag(&$variables) {
 /**
  * Modal function for `flag_confirm`.
  */
-function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js){
+function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js) {
 
   if (!$js) {
     return drupal_get_form('flag_confirm', $action, $flag, $nid);
@@ -459,46 +462,35 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js){
     // Add the responder javascript, required by ctools
     ctools_add_js('ajax-responder');
 
-
-    // set new link
-    if($action == 'flag') {
-      $new_url = 'node/flag/confirm/unflag/' . "$flag->name/$nid" . '/nojs';
-      $new_action = 'unflag';
-      $new_text_link = $flag->unflag_short;
-    } else {
-      $new_url = 'node/flag/confirm/flag/' . "$flag->name/$nid" . '/nojs';
-      $new_action = 'flag';
-      $new_text_link = $flag->flag_short;
-    }
-    $flag_css_name = str_replace('_', '-', $flag->name);
-
-    // $new_url = checkdesk_core_flag_link($flag, $new_action, $nid);
-    $new_html = ctools_modal_text_button($new_text_link, $new_url, $new_text_link, 'ctools-modal-checkdesk-style ' . 'flag-'.$flag_css_name);
-
-    // pass the new URL to JS
-    $flag_settings = array(
-      'flag' => $flag,
-      'action' => $action,
-      'newAction' => $new_action,
-      'newHTML' => $new_html,
-      'url' => $new_url,
-    );
-
-    //drupal_add_js(array('checkdesk' => array('flagSettings' => $flag_settings)), 'setting');
-    //ctools_add_js('checkdesk_core_ex', 'checkdesk_core');
-
-    // Array with ajax response.
+    // Array with ajax response
     $commands = array();
-    // Create ajax command array, refresh messagess and dismiss the modal window.
-    // Disabling ajax message refresh
-    // switching to inline post refresh messages
-    // $commands[] = ajax_command_prepend('#messages-container', theme('status_messages'));
+    
+    // Refresh messages
+    $commands[] = ajax_command_html('#messages-container', theme('status_messages'));
+    $new_link = trim(flag_create_link($flag->name, $nid));
+
+    // Update link (we need to wrap the link in order to get the correct behavior)
+    $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-' . $flag->name, 'replaceWith', array($new_link));
+    $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid . ' .flag-as');
+    
+    // Check if this report is flagged and highlight icon or not
+    $flags = flag_get_flags('node');
+    $class = 'unflagged';
+    foreach ($flags as $flag) {
+      if ($flag->is_flagged($nid)) {
+        $class = 'flagged';
+      }
+    }
+    $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-as > a', 'removeClass', array('flagged unflagged'));
+    $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-as > a', 'addClass', array($class));
+    
+    // Dismiss modal
     $commands[] = ctools_modal_command_dismiss();
-    $commands[] = ctools_ajax_command_reload();
   }
 
   print ajax_render($commands);
-  exit;
+  
+  exit();
 }
 
 /**
@@ -863,6 +855,17 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   );
 
   $form['body'][$form['#node']->language][0]['#after_build'][] = 'checkdesk_core_discussion_node_form_after_build';
+
+  // Make the upload field customizable
+  drupal_add_js(libraries_get_path('fileinput') . '/jquery.fileinput.js');
+  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/fileinput.js');
+  $fileinput = array(
+    'change' => t('Change'),
+    'button' => t('Browse'),
+    'field'  => t('No file selected...')
+  );
+  drupal_add_js(array('fileInput' => $fileinput), 'setting');
+  drupal_add_css(libraries_get_path('fileinput') . '/fileinput.css');
 }
 
 /**
@@ -910,28 +913,37 @@ function checkdesk_core_discussion_ajax_node_form_submit_callback($form, &$form_
     return $form;
   }
 
-  $node = $form_state['node'];
-
-  $title_link = l('<strong>' . check_plain($node->title) . '</strong>', 'node/' . $node->nid, array('html' => TRUE));
-  $success_message = t("!title created successfully.", array('!title' => $title_link));
-
-  // Yuck. Need to wipe $_POST to trick drupal_get_form() into creating a
-  // brand new form. If we don't do this drupal_get_form() will latch onto the
-  // old build_id. There appears to be no way around this in D7.
-  $_POST = array();
-  $new_node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
-  $fresh_form = drupal_get_form('discussion_node_form', $new_node, 'ajax');
-
-  $fresh_form['create_another_story'] = array(
-    '#type'   => 'markup',
-    '#markup' => '<h2>' . t('Create another story') . '</h2>',
-    '#weight' => -500,
-  );
-
   $commands = array();
-  $commands[] = ajax_command_replace('#discussion-form-wrapper', drupal_render($fresh_form));
-  $commands[] = ajax_command_prepend('#discussion-form-wrapper', '<div class="messages success">' . $success_message . '</div>');
-  $commands[] = ajax_command_append('#edit-field-desk-und', form_select_options(array('#options' => array($node->nid => $node->title))));
+
+  // Redirect to compose update page is user is not on it yet
+  if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== url('node/add/post', array('absolute' => TRUE))) {
+    $commands[] = ctools_ajax_command_redirect('node/add/post');
+  }
+
+  // Update form if user is on compose update page
+  else {
+    $node = $form_state['node'];
+
+    $title_link = l('<strong>' . check_plain($node->title) . '</strong>', 'node/' . $node->nid, array('html' => TRUE));
+    $success_message = t("!title created successfully.", array('!title' => $title_link));
+
+    // Yuck. Need to wipe $_POST to trick drupal_get_form() into creating a
+    // brand new form. If we don't do this drupal_get_form() will latch onto the
+    // old build_id. There appears to be no way around this in D7.
+    $_POST = array();
+    $new_node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
+    $fresh_form = drupal_get_form('discussion_node_form', $new_node, 'ajax');
+
+    $fresh_form['create_another_story'] = array(
+      '#type'   => 'markup',
+      '#markup' => '<h2>' . t('Create another story') . '</h2>',
+      '#weight' => -500,
+    );
+
+    $commands[] = ajax_command_replace('#discussion-form-wrapper', drupal_render($fresh_form));
+    $commands[] = ajax_command_prepend('#discussion-form-wrapper', '<div class="messages success">' . $success_message . '</div>');
+    $commands[] = ajax_command_append('#edit-field-desk-und', form_select_options(array('#options' => array($node->nid => $node->title))));
+  }
 
   ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
 
@@ -978,7 +990,8 @@ function checkdesk_core_views_pre_render(&$view) {
     foreach ($view->result as $id => $story) {
       $updates = views_get_view('updates_for_stories');
       $updates->set_arguments(array($story->nid));
-      $output = $updates->preview('block');
+      $updates->get_total_rows = TRUE;
+      $output = $updates->preview('block_1');
       $total_rows = $updates->total_rows;
       $updates->destroy();
       if ($total_rows) {
@@ -1975,4 +1988,39 @@ function _checkdesk_core_auto_title($node) {
   }
   $title = (mb_strlen($body) > 25) ? mb_substr($body, 0, 22) . '...' : $body;
   return $title;
+}
+
+/**
+ * Ajax command to call Drupal.attachBehaviors passing $selector as context
+ */
+function checkdesk_core_ajax_command_attach_behaviors($selector = NULL) {
+  $command = array(
+    'command' => 'attachBehaviors',
+    'selector' => $selector,
+  );
+ return $command; 
+}
+
+/**
+ * Implements hook_flag_javascript_info_alter().
+ */
+function checkdesk_core_flag_javascript_info_alter(&$info) {
+  $nid = $info['contentId'];
+  $node = node_load($nid);
+  $element = node_view($node);
+  $element['comments'] = comment_node_page_additions($node);
+  $output = drupal_render($element);
+
+  // Keep settings
+  $js = drupal_add_js();
+  if (isset($js['settings'])) {
+    $settings = ajax_command_settings(call_user_func_array('array_merge_recursive', $js['settings']['data']), TRUE);
+    $info['settings'] = $settings['settings'];
+  }
+
+  $commands = array();
+  $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
+  $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
+
+  $info['commands'] = $commands;
 }

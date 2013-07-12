@@ -75,12 +75,10 @@
 @media all and (max-height: 72em) {
   body.widgets #main #widgets.column {
     .view-featured-stories {
-      .story-row {
-        display: none;
-      }
       .views-row-first {
-        display: block;
-        border-bottom: 0px none;
+        img {
+          display: none;
+        }
       }
     }
   }
@@ -218,7 +216,7 @@
           &.icon-google-plus  { @include icon("google-plus-sign", 40px, $red); }
           // social icons seem to be larger
           &.icon-youtube  { 
-            @include icon("youtube-sign", $larger-font-size, $red); 
+            @include icon("youtube", $larger-font-size, $red); 
           }
         }
       }

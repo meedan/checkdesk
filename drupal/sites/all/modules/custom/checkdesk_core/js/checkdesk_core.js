@@ -149,6 +149,20 @@
       // Show messages when an item is flagged/unflagged
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
         Drupal.ajax.checkdesk_core_message_settings.setMessages();
+        
+        // Keep settings
+        if (data.settings) {
+          $.extend(true, Drupal.settings, data.settings);
+        }
+        
+        // Run any other ajax command
+        if (data.hasOwnProperty('commands')) {
+          for (var i = 0; i < data.commands.length; i++) {
+            if (data.commands[i]['command'] && Drupal.ajax.prototype.commands[data.commands[i]['command']]) {
+              Drupal.ajax.prototype.commands[data.commands[i]['command']](Drupal.ajax.prototype, data.commands[i], data.status);
+            }
+          }
+        }
       });
 
     }
@@ -176,6 +190,13 @@
     html += '</div>';
 
     return html;
+  };
+
+  /**
+   *  Command for `checkdesk_core_ajax_command_attach_behaviors`.
+   */
+  Drupal.ajax.prototype.commands.attachBehaviors = function(ajax, response, status) {
+    Drupal.attachBehaviors(response.selector);
   };
 
 }(jQuery));

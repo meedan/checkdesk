@@ -20,6 +20,42 @@
     background-color: transparent;
     border: none;
   }
+
+  .image-widget-data {
+    width: 100%;
+  }
+
+  .customfile {
+    width: 100%;
+    background: $grey;
+    margin-bottom: $gutter-width;
+    border: 0;
+
+    .customfile {
+      display: none;
+    }
+
+    .customfile-button {
+      background: $twitter-blueish;
+      float: opposite-position($from-direction);
+      border: 0;
+      width: auto;
+    }
+
+    .customfile-feedback {
+      text-align: $from-direction;
+      overflow: hidden;
+    }
+  }
+  .customfile-hover {
+    .customfile-button {
+      background: $twitter-blueish;
+      color: $white;
+    }
+  }
+  #edit-field-lead-image-und-0-upload-button {
+    display: none; // FIXME: avoid uploading image before submitting form in order to avoid creating multiple stories
+  }
 }
 
 // Fixed only for normal screen sizes

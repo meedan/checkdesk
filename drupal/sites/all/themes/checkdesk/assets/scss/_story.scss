@@ -35,12 +35,22 @@
   }
 }
 
+// Psuedo div for anchors
+// Adds head room for updates in presence of navbars
+.anchor {
+  display: block;
+  height: (($toolbarHeight + $navbarHeight) + ($absolute-line-height*2)); /* this is the height of your header */
+  margin-top: -(($toolbarHeight + $navbarHeight) + ($absolute-line-height*2)); /* this is again negative value of the height of your header */
+  visibility: hidden;
+}
+
 // "Published" updates
 .updates {
   margin-top: $absolute-line-height/2;
   .update-row {
     margin-bottom: $base-line-height;
     border-top: 2px solid rgba(0,0,0,.2);
+
     .update-info {
       @include span-columns(4);
       font-family: $sans-serif-font-stack;
@@ -296,10 +306,13 @@ $omega: opposite-position($alpha);
 
   .story-comments {
     margin-top: $absolute-line-height;
-    .livefyre-header {
+    .livefyre-header, .fb-comments-header {
       @include icon(comments, $large-font-size);
       font-family: $sans-serif-font-stack;
       font-size: $large-font-size;
+      @if $from-direction == 'right' {
+        font-size: $larger-font-size;
+      }
       color: rgba(0,0,0,.8);
       background-color: rgba(0,0,0,.02);
       padding: $absolute-line-height/2 $gutter-width/2;
@@ -309,6 +322,9 @@ $omega: opposite-position($alpha);
         color: $white;
         background-color: rgb(239,202,43);
       }
+    }
+    .fb-comments {
+      margin-top: $absolute-line-height/2;
     }
   }
 }

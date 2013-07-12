@@ -111,11 +111,11 @@
           <?php if($page['footer']): ?>
             <?php print render($page['footer']); ?>
           <?php endif; ?>
+          <?php //if ($footer_nav): ?>
+            <?php //print $footer_nav; ?>
+          <?php //endif; ?>
           <?php if ($information_nav): ?>
             <?php print $information_nav; ?>
-          <?php endif; ?>
-          <?php if ($footer_nav): ?>
-            <?php print $footer_nav; ?>
           <?php endif; ?>
         </div>
       </div> <!-- /footer -->
