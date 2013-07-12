@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
@@ -2353,9 +2352,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-transition: border linear, box-shadow linear;
+  -webkit-transition-delay: 0.2s, 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2392,7 +2391,6 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
-  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -2744,6 +2742,7 @@ input[type="checkbox"][readonly] {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .admin-nav-tabs > li span.icon-pencil:before {
   font-family: "FontAwesome";
@@ -2755,6 +2754,7 @@ input[type="checkbox"][readonly] {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .admin-nav-tabs > li span.icon-plus:before {
   font-family: "FontAwesome";
@@ -2766,6 +2766,7 @@ input[type="checkbox"][readonly] {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .admin-nav-tabs > li span.icon-trash:before {
   font-family: "FontAwesome";
@@ -2777,6 +2778,7 @@ input[type="checkbox"][readonly] {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .admin-nav-tabs > li span.icon-wrench:before {
   font-family: "FontAwesome";
@@ -2788,6 +2790,7 @@ input[type="checkbox"][readonly] {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 
 .admin-nav-tabs > li > a {
@@ -3373,18 +3376,6 @@ textarea {
   float: left;
 }
 
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:before, .clearfix:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.clearfix:after {
-  clear: both;
-}
-
 .hide {
   display: none;
 }
@@ -3434,6 +3425,7 @@ textarea {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 
 .success,
@@ -3457,6 +3449,7 @@ textarea {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 
 .danger,
@@ -3480,6 +3473,7 @@ textarea {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 
 .status,
@@ -3725,7 +3719,6 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
-  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4125,12 +4118,10 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #f7f7f7;
@@ -4282,6 +4273,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago:before {
@@ -4294,6 +4286,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
@@ -4306,6 +4299,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_comment_on_report .heartbeat-time-ago:before {
@@ -4318,6 +4312,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before {
@@ -4330,6 +4325,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_fact_checking_set .heartbeat-time-ago:before {
@@ -4342,6 +4338,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before {
@@ -4354,6 +4351,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago:before {
@@ -4366,6 +4364,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_flag_report .heartbeat-time-ago:before {
@@ -4378,6 +4377,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications .checkdesk_report_published_in_update .heartbeat-time-ago:before {
@@ -4390,6 +4390,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   width: 5%;
 }
 #my-notifications ul.pager-load-more {
@@ -4473,6 +4474,7 @@ div.tabs ul.primary li a {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 #incoming-reports-filters .panels {
   margin: 0;
@@ -4930,12 +4932,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
-  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -4964,6 +4964,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report #report-actions ul.content-actions > li > a span.icon-ellipsis-horizontal:before {
   font-family: "FontAwesome";
@@ -4975,6 +4976,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report #report-actions ul.content-actions > li > a span.icon-flag:before {
   font-family: "FontAwesome";
@@ -4986,6 +4988,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report #report-actions ul.content-actions > li > a span.icon-share:before {
   font-family: "FontAwesome";
@@ -4997,6 +5000,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report #report-actions ul.content-actions > li > a.flagged .icon-flag:before {
   font-family: "FontAwesome";
@@ -5008,6 +5012,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report #report-actions ul.content-actions > li.open > a {
   background-color: #cccccc;
@@ -5175,6 +5180,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
   margin: 1px;
 }
 .report h3 > a[href*="twitter.com"]:before {
@@ -5511,6 +5517,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report .icon-random {
   color: #efca2b;
@@ -5525,6 +5532,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report .icon-circle {
   color: #efca2b;
@@ -5542,6 +5550,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report .icon-remove-sign {
   color: #9d261d;
@@ -5556,6 +5565,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 
 article.in-progress {
@@ -5663,6 +5673,7 @@ article.in-progress {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report-row .false span {
   color: #9d261d;
@@ -5677,6 +5688,7 @@ article.in-progress {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report-row .undetermined span {
   color: #f89406;
@@ -5691,6 +5703,7 @@ article.in-progress {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report-row .in_progress span {
   color: #ffc40d;
@@ -5705,6 +5718,7 @@ article.in-progress {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .report-row .report-detail-link a {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
@@ -5865,6 +5879,7 @@ article.in-progress {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .update .update-footer .icon-share:before {
   font-family: "FontAwesome";
@@ -5876,6 +5891,7 @@ article.in-progress {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .update .update-footer .icon-edit-sign:before {
   font-family: "FontAwesome";
@@ -5887,6 +5903,7 @@ article.in-progress {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .update .update-footer .update-by {
   *zoom: 1;
@@ -5967,6 +5984,7 @@ article.in-progress {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 
 html body .fyre-widget {
@@ -6539,6 +6557,7 @@ nav[role="navigation"] a[href*="add/post"]:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 nav[role="navigation"] li.submit-report a:before {
   font-family: "FontAwesome";
@@ -6550,6 +6569,7 @@ nav[role="navigation"] li.submit-report a:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 nav[role="navigation"] a[href*="add/discussion"]:before {
   font-family: "FontAwesome";
@@ -6561,6 +6581,7 @@ nav[role="navigation"] a[href*="add/discussion"]:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 nav[role="navigation"] li.home a:before {
   font-family: "FontAwesome";
@@ -6572,6 +6593,7 @@ nav[role="navigation"] li.home a:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 nav[role="navigation"] li.additional a:before {
   font-family: "FontAwesome";
@@ -6583,6 +6605,7 @@ nav[role="navigation"] li.additional a:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 nav[role="navigation"] .dropdown-menu,
 nav[role="navigation"] #block-views-my-notifications-block .content {
@@ -6621,12 +6644,10 @@ nav[role="navigation"] .nav > div h2 {
   z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -6689,12 +6710,10 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -6797,12 +6816,10 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -6955,6 +6972,7 @@ body.toolbar-drawer #main #content {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 #my-account .info .linked-account .icon-twitter:before {
   margin: 0;
@@ -8058,6 +8076,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .story .story-meta .story-commentcount a {
   color: rgba(0, 0, 0, 0.3);
@@ -8203,6 +8222,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .story .compose-update-form .node-post-form {
   display: none;
@@ -8277,6 +8297,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .story .story-updates-wrapper .pager-load-more {
   *zoom: 1;
@@ -8358,6 +8379,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .story .story-footer .story-continue .permalink {
   display: none;
@@ -8396,6 +8418,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 .story .story-comments .livefyre-header:hover, .story .story-comments .fb-comments-header:hover {
   color: white;
@@ -8699,6 +8722,7 @@ body.widgets #main #content #content-inner:after {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 #widgets .elsewhere ul li span.icon-twitter:before {
   font-family: "FontAwesome";
@@ -8710,6 +8734,7 @@ body.widgets #main #content #content-inner:after {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 #widgets .elsewhere ul li span.icon-google-plus:before {
   font-family: "FontAwesome";
@@ -8721,6 +8746,7 @@ body.widgets #main #content #content-inner:after {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 #widgets .elsewhere ul li span.icon-youtube:before {
   font-family: "FontAwesome";
@@ -8732,6 +8758,7 @@ body.widgets #main #content #content-inner:after {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 
 body.page-user-login #main h1.title,
@@ -8935,12 +8962,10 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -8958,16 +8983,15 @@ body.page-user-password #content-header {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 #user-login #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -8985,6 +9009,7 @@ body.page-user-password #content-header {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 #user-login .or {
   *zoom: 1;
@@ -9304,6 +9329,7 @@ body.page-reports #reports .report-item .verified span:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 body.page-reports #reports .report-item .false span {
   color: #9d261d;
@@ -9318,6 +9344,7 @@ body.page-reports #reports .report-item .false span:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 body.page-reports #reports .report-item .undetermined span {
   color: #f89406;
@@ -9332,6 +9359,7 @@ body.page-reports #reports .report-item .undetermined span:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 body.page-reports #reports .report-item .in_progress span {
   color: #ffc40d;
@@ -9346,6 +9374,7 @@ body.page-reports #reports .report-item .in_progress span:before {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
+  font-weight: normal;
 }
 body.page-reports #reports .report-item .report-detail-link a {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
