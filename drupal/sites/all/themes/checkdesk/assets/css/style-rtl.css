@@ -7187,6 +7187,9 @@ form textarea:focus {
   border-color: rgba(0, 0, 0, 0.5);
   outline: thin dotted #ededed;
 }
+form textarea {
+  height: 250px;
+}
 form .cke_contents {
   max-height: 250px !important;
 }
