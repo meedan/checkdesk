@@ -1,4 +1,7 @@
-<?php print $messages; ?>
+<?php 
+	global $language;
+	print $messages; 
+?>
 <div id="header">
 	<h1>Sorry!</h1>
 	<h3>That page was not found.</h3>
@@ -9,7 +12,7 @@
 		   Here’s what you can do instead:</p>
 		<ul>
         	<li>
-				<p>Return to <a class="checkdesk" href="/">home</a></p>
+				<p>Return to <a class="checkdesk" href="<?php print url('<front>', array('language' => $language)); ?>">home</a></p>
             </li>
         </ul>
 	</div>
