@@ -7190,6 +7190,9 @@ form textarea:focus {
   border-color: rgba(0, 0, 0, 0.5);
   outline: thin dotted #ededed;
 }
+form .cke_contents {
+  max-height: 250px !important;
+}
 form input[type="checkbox"],
 form input[type="radio"] {
   width: 25px;
@@ -7551,6 +7554,12 @@ form textarea {
   float: left;
   margin-right: 1.55148%;
   display: inline;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 5.5px;
+  padding-bottom: 5.5px;
+  height: auto !important;
 }
 form .image-widget {
   -webkit-border-radius: 3px;
@@ -7651,6 +7660,12 @@ form .form-type-textarea:after {
     width: 100%;
     float: left;
     margin-right: 4.80349%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: 5.5px;
+    padding-bottom: 5.5px;
+    height: auto !important;
   }
   form .image-widget {
     -webkit-border-radius: 3px;
