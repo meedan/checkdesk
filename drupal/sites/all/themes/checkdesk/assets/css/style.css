@@ -5021,9 +5021,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report #report-actions ul.content-actions > li .ajax-progress-throbber {
   display: none;
 }
-.report div.sensitive-hide {
-  display: none;
-}
 .report .report-content {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -5081,67 +5078,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-media .container video,
 .report .report-content .report-media .container iframe {
   max-width: 100%;
-}
-.report .report-content .report-media .container .sensitive-notification {
-  display: table-cell;
-  width: 400px;
-  height: 200px;
-  text-align: center;
-  vertical-align: middle;
-  background: none !important;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-text {
-  color: #333333;
-  padding: 12px 5.5px;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link {
-  padding: 12px 5.5px;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #999999;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus {
-  outline: none;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:visited {
-  color: white;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus {
-  background-color: #919191;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:hover:visited, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:focus:visited {
-  color: white;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active {
-  background-color: #8a8a8a;
-}
-.report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active, .report .report-content .report-media .container .sensitive-notification .sensitive-notification-link a:active:visited {
-  color: white;
 }
 .report .report-content .report-media .twitter_com {
   width: 60%;
@@ -5570,6 +5506,72 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 
 article.in-progress {
   border-top: 4px solid #ffc40d;
+}
+
+div.sensitive-hide {
+  display: none;
+}
+
+.sensitive-notification {
+  display: table-cell;
+  width: 400px;
+  height: 200px;
+  text-align: center;
+  vertical-align: middle;
+  background: none !important;
+}
+.sensitive-notification .sensitive-notification-text {
+  color: #333333;
+  padding: 12px 5.5px;
+}
+.sensitive-notification .sensitive-notification-link {
+  padding: 12px 5.5px;
+}
+.sensitive-notification .sensitive-notification-link a {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #999999;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.sensitive-notification .sensitive-notification-link a::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+.sensitive-notification .sensitive-notification-link a:focus {
+  outline: none;
+}
+.sensitive-notification .sensitive-notification-link a, .sensitive-notification .sensitive-notification-link a:visited {
+  color: white;
+}
+.sensitive-notification .sensitive-notification-link a:hover, .sensitive-notification .sensitive-notification-link a:focus {
+  background-color: #919191;
+}
+.sensitive-notification .sensitive-notification-link a:hover, .sensitive-notification .sensitive-notification-link a:hover:visited, .sensitive-notification .sensitive-notification-link a:focus, .sensitive-notification .sensitive-notification-link a:focus:visited {
+  color: white;
+}
+.sensitive-notification .sensitive-notification-link a:active {
+  background-color: #8a8a8a;
+}
+.sensitive-notification .sensitive-notification-link a:active, .sensitive-notification .sensitive-notification-link a:active:visited {
+  color: white;
 }
 
 .view-desk-reports {

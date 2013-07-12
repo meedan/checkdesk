@@ -128,11 +128,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		} // ul
 	} // report actions
 
-	// Sensitive content handling
-	div.sensitive-hide {
-	  display: none;
-	}
-
 	// Main report content
 	.report-content {
 		font-family: $sans-serif-font-stack;
@@ -198,24 +193,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					max-width: 100%;
 				}
 
-				.sensitive-notification {
-					display: table-cell;
-					width: 400px;
-			    	height: 200px;
-			    	text-align: center;
-			    	vertical-align: middle;
-			    	background: none !important;
-				    .sensitive-notification-text {
-				    	color: $grayDark;
-				    	padding: $absolute-line-height/2 $gutter-width/2;
-				    }
-				    .sensitive-notification-link {
-				    	padding: $absolute-line-height/2 $gutter-width/2;
-				    	a {
-				    		@include button($grayLight, 18px);
-				    	}
-				    }
-				}
 			}
 
 			.twitter_com {
@@ -521,4 +498,29 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 // Report status color bar at the top of a report
 article.in-progress {
 	border-top: 4px solid $yellow;
+}
+
+
+// Sensitive content handling
+div.sensitive-hide {
+  display: none;
+}
+
+.sensitive-notification {
+	display: table-cell;
+	width: 400px;
+	height: 200px;
+	text-align: center;
+	vertical-align: middle;
+	background: none !important;
+    .sensitive-notification-text {
+    	color: $grayDark;
+    	padding: $absolute-line-height/2 $gutter-width/2;
+    }
+    .sensitive-notification-link {
+    	padding: $absolute-line-height/2 $gutter-width/2;
+    	a {
+    		@include button($grayLight, 18px);
+    	}
+    }
 }
