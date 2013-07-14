@@ -1,0 +1,89 @@
+<?php
+/**
+ * @file
+ * Install and uninstall functions for the User Alert module.
+ */
+
+/**
+ * Implements hook_requirements().
+ * @param $phase
+ * @return array
+ */
+function user_alert_requirements($phase) {
+  global $cookie_domain;
+
+  $requirements = array();
+  $requirements['user_alert'] = array(
+    'title' => t('User Alert'),
+  );
+
+  switch ($phase) {
+    case 'runtime':
+    case 'install':
+      if (!drupal_strlen($cookie_domain) || substr_count($cookie_domain, '.') < 2) {
+        $requirements['user_alert']['severity'] = REQUIREMENT_WARNING;
+        $requirements['user_alert']['description'] = t('User Alert runs on a cookie, and $cookie_domain is not set in settings.php. Multisite setups may encounter issues. The $cookie_domain needs at least two dots (ex. .mysite.com) to be valid and accepted by browsers. User Alert will not work properly otherwise.');
+        $requirements['user_alert']['value'] = t('$cookie_domain value is: !cookie', array('!cookie' => $cookie_domain));
+      } else {
+        $requirements['user_alert']['severity'] = REQUIREMENT_OK;
+        $requirements['user_alert']['value'] = t('$cookie_domain is set to @cookie_domain.', array('@cookie_domain' => $cookie_domain));
+      }
+      break;
+    default:
+      break;
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_schema().
+ * @return array
+ */
+function user_alert_schema() {
+	$schema['user_alert'] = array(
+    'description' => 'User Alert table.',
+    'fields' => array(
+      'aid' => array(
+        'description' => 'The serial ID.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'description' => 'The primary identifier of a user alert node.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uuid' => array(
+        'description' => 'The UUID of the visitor.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '0',
+      ),
+	  ),
+    'primary key' => array('aid'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function user_alert_install() {
+  node_types_rebuild();
+  $types = node_type_get_types();
+  node_add_body_field($types['user_alert']);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function user_alert_uninstall() {
+	variable_del('user_alert_label');
+	variable_del('user_alert_timelimit');
+}

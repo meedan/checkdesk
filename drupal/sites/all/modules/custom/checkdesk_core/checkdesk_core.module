@@ -2024,3 +2024,11 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
 
   $info['commands'] = $commands;
 }
+
+/**
+ * Implements hook_preprocess() for user_alert theme.
+ */
+function checkdesk_core_preprocess_user_alert(&$vars) {
+  $vars['body'] = $vars['node']->body[LANGUAGE_NONE][0]['value'];
+  $vars['is_closeable'] = TRUE;
+}

@@ -273,10 +273,104 @@ function checkdesk_core_feature_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
   'date' => '2013-03-04 12:45:20 -0800',
+);
+  $nodes[] = array(
+  'uid' => 1,
+  'title' => 'Report it',
+  'log' => '',
+  'status' => 1,
+  'comment' => 2,
+  'promote' => 1,
+  'sticky' => 0,
+  'vuuid' => 'a1d2dcbd-f66b-486f-9ba3-137142229edc',
+  'type' => 'user_alert',
+  'language' => 'en',
+  'created' => 1373743712,
+  'tnid' => 0,
+  'translate' => 0,
+  'uuid' => '0f9577cb-2267-41d1-938c-5d1ffc89db8e',
+  'revision_uid' => 1,
+  'body' => array(
+    'und' => array(
+      0 => array(
+        'value' => 'Have you seen suspicious social media recently? <a class="checkdesk-use-modal use-ajax ctools-modal-modal-popup-large" href="/en/modal/ajax/content/about">Report it!</a>',
+        'summary' => '',
+        'format' => 'filtered_html',
+      ),
+    ),
+  ),
+  'metatags' => array(),
+  'rdf_mapping' => array(
+    'rdftype' => array(
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
+    ),
+    'title' => array(
+      'predicates' => array(
+        0 => 'dc:title',
+      ),
+    ),
+    'created' => array(
+      'predicates' => array(
+        0 => 'dc:date',
+        1 => 'dc:created',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'changed' => array(
+      'predicates' => array(
+        0 => 'dc:modified',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'body' => array(
+      'predicates' => array(
+        0 => 'content:encoded',
+      ),
+    ),
+    'uid' => array(
+      'predicates' => array(
+        0 => 'sioc:has_creator',
+      ),
+      'type' => 'rel',
+    ),
+    'name' => array(
+      'predicates' => array(
+        0 => 'foaf:name',
+      ),
+    ),
+    'comment_count' => array(
+      'predicates' => array(
+        0 => 'sioc:num_replies',
+      ),
+      'datatype' => 'xsd:integer',
+    ),
+    'last_activity' => array(
+      'predicates' => array(
+        0 => 'sioc:last_activity_date',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+  ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 1,
+  'comment_count' => 0,
+  'name' => 'admin',
+  'picture' => 0,
+  'data' => 'a:4:{s:11:"remember_me";b:1;s:20:"l10n_client_disabled";b:0;s:18:"htmlmail_plaintext";i:0;s:17:"sensitive_content";i:0;}',
+  'date' => '2013-07-13 12:28:32 -0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -378,6 +472,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -672,6 +770,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -782,6 +884,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -887,10 +993,104 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
   'date' => '2013-03-04 12:45:20 -0800',
+);
+  $nodes[] = array(
+  'uid' => 1,
+  'title' => 'Report it (Arabic)',
+  'log' => '',
+  'status' => 1,
+  'comment' => 2,
+  'promote' => 1,
+  'sticky' => 0,
+  'vuuid' => '8de466f7-0773-4829-8290-f13955d671f4',
+  'type' => 'user_alert',
+  'language' => 'ar',
+  'created' => 1373755725,
+  'tnid' => 0,
+  'translate' => 0,
+  'uuid' => 'd008f7b7-f994-47c6-9c92-83742262b8a7',
+  'revision_uid' => 1,
+  'body' => array(
+    'und' => array(
+      0 => array(
+        'value' => '<p>هل رأيت معلومات مشكوك بصحتها على الشبكات الإجتماعية مؤخراً؟ [أعلمنا بها]</p>',
+        'summary' => '',
+        'format' => 'filtered_html',
+      ),
+    ),
+  ),
+  'metatags' => array(),
+  'rdf_mapping' => array(
+    'rdftype' => array(
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
+    ),
+    'title' => array(
+      'predicates' => array(
+        0 => 'dc:title',
+      ),
+    ),
+    'created' => array(
+      'predicates' => array(
+        0 => 'dc:date',
+        1 => 'dc:created',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'changed' => array(
+      'predicates' => array(
+        0 => 'dc:modified',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'body' => array(
+      'predicates' => array(
+        0 => 'content:encoded',
+      ),
+    ),
+    'uid' => array(
+      'predicates' => array(
+        0 => 'sioc:has_creator',
+      ),
+      'type' => 'rel',
+    ),
+    'name' => array(
+      'predicates' => array(
+        0 => 'foaf:name',
+      ),
+    ),
+    'comment_count' => array(
+      'predicates' => array(
+        0 => 'sioc:num_replies',
+      ),
+      'datatype' => 'xsd:integer',
+    ),
+    'last_activity' => array(
+      'predicates' => array(
+        0 => 'sioc:last_activity_date',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+  ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 1,
+  'comment_count' => 0,
+  'name' => 'admin',
+  'picture' => 0,
+  'data' => 'a:4:{s:11:"remember_me";b:1;s:20:"l10n_client_disabled";b:0;s:18:"htmlmail_plaintext";i:0;s:17:"sensitive_content";i:0;}',
+  'date' => '2013-07-13 15:48:45 -0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -974,6 +1174,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
