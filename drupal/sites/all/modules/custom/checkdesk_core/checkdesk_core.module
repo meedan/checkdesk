@@ -7,6 +7,8 @@ function checkdesk_core_init() {
   drupal_add_library('system', 'ui.draggable');
   drupal_add_library('system', 'ui.droppable');
   drupal_add_library('system', 'drupal.ajax');
+    
+  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
 
   // HACK: This enables the #ajax submission of the node form. Currently
   //       there does not appear to be a clean way to do this.
@@ -132,6 +134,9 @@ function checkdesk_core_modal_callback($js = FALSE) {
   $alias = preg_replace('/([a-z]{2}\/)?modal\/[^\/]+\//', '', request_path());
   $path = drupal_lookup_path('source', $alias);
   $node = menu_get_object('node', 1, $path);
+  if (empty($node)) {
+    return MENU_NOT_FOUND;
+  }
   $output = drupal_render(node_view($node));
   $title = $node->title;
   if ($js) {
@@ -852,6 +857,17 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   );
 
   $form['body'][$form['#node']->language][0]['#after_build'][] = 'checkdesk_core_discussion_node_form_after_build';
+
+  // Make the upload field customizable
+  drupal_add_js(libraries_get_path('fileinput') . '/jquery.fileinput.js');
+  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/fileinput.js');
+  $fileinput = array(
+    'change' => t('Change'),
+    'button' => t('Browse'),
+    'field'  => t('No file selected...')
+  );
+  drupal_add_js(array('fileInput' => $fileinput), 'setting');
+  drupal_add_css(libraries_get_path('fileinput') . '/fileinput.css');
 }
 
 /**
@@ -952,7 +968,6 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
 function checkdesk_core_views_pre_render(&$view) {
   if ($view->name == 'desk_reports') {
     // Setup drag & drop.
-    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 
     $data = array();
@@ -976,7 +991,8 @@ function checkdesk_core_views_pre_render(&$view) {
     foreach ($view->result as $id => $story) {
       $updates = views_get_view('updates_for_stories');
       $updates->set_arguments(array($story->nid));
-      $output = $updates->preview('block');
+      $updates->get_total_rows = TRUE;
+      $output = $updates->preview('block_1');
       $total_rows = $updates->total_rows;
       $updates->destroy();
       if ($total_rows) {
@@ -1272,6 +1288,8 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
 }
 
 define('RATING_IN_PROGRESS', 'In Progress');
+define('RATING_FALSE', 'False');
+define('RATING_VERIFIED', 'Verified');
 
 /**
  * Implements hook_form_FORM_ID_alter() for `comment_node_media_form`.
@@ -1280,7 +1298,7 @@ function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, 
   $term = isset($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
     $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
     taxonomy_term_load($form['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
-  if ($term->name !== RATING_IN_PROGRESS) {
+  if (!in_array($term->name, array(RATING_IN_PROGRESS, RATING_FALSE, RATING_VERIFIED))) {
     $form['#access'] = FALSE;
   }
 }
@@ -2008,4 +2026,12 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
   $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
 
   $info['commands'] = $commands;
+}
+
+/**
+ * Implements hook_preprocess() for user_alert theme.
+ */
+function checkdesk_core_preprocess_user_alert(&$vars) {
+  $vars['body'] = $vars['node']->body[LANGUAGE_NONE][0]['value'];
+  $vars['is_closeable'] = TRUE;
 }

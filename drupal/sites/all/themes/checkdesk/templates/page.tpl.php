@@ -30,6 +30,12 @@
 
     <div id="content">
       <div id="content-inner" class="inner column center">
+        <?php if ($page['header']): ?>
+          <div id="header-region">
+            <?php print render($page['header']); ?>
+          </div>
+        <?php endif; ?>
+
         <?php if ($title|| $messages || $tabs || $action_links): ?>
           <div id="content-header">
 

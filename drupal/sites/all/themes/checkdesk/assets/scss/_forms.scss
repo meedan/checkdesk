@@ -189,9 +189,13 @@
     }
 
     textarea { 
-      
-      // height: 200px; 
+      height: 250px; 
     } // starting height
+
+    // set textarea height under 
+    .cke_contents { 
+      max-height: 250px !important;
+    }
 
     // checkboxes and radios
     input[type="checkbox"], 
@@ -298,7 +302,9 @@
     textarea {
       font-family: $sans-serif-font-stack;
       @include span-columns($w, $w); // small padding with grid accounting
-      // padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
+      @include ctb-box-sizing(border-box); // Makes inputs behave like true block-level elements
+      padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
+      height: auto !important;
     }
 
     // image field

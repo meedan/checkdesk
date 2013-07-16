@@ -37,9 +37,7 @@ function checkdesk_core_feature_menu_default_menu_custom() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Common');
-  t('Footer');
   t('Information');
-  t('Links for footer');
   t('Links that are common to all users and appear usually at the right.');
   t('Main menu');
   t('Menu with links for static information pages.');

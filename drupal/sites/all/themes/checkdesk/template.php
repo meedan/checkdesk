@@ -125,7 +125,11 @@ function checkdesk_preprocess_region(&$variables) {
     $image = theme_get_setting('header_image_path');
     
     if (!empty($image) && theme_get_setting('header_image_enabled')) {
-      $variables['header_image'] = l(theme('image', array('path' => $image, 'style_name'=> 'partner_logo')), '<front>', array('html' => TRUE,));
+      $header_image_data = array(
+        'style_name' => 'partner_logo',
+        'path' => $image,
+      );
+      $variables['header_image'] = l(theme_image_style($header_image_data), '<front>', array('html' => TRUE,));
     }
 
     $position = theme_get_setting('header_image_position');
@@ -145,7 +149,11 @@ function checkdesk_preprocess_region(&$variables) {
     $image = theme_get_setting('footer_image_path');
     
     if (!empty($image)) {
-      $variables['footer_image'] = theme('image', array('path' => $image, 'style_name'=> 'footer_partner_logo'));
+      $footer_image_data = array(
+        'style_name' => 'footer_partner_logo',
+        'path' => $image,
+      );
+      $variables['footer_image'] = theme_image_style($footer_image_data);
       $variables['partner_url'] = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
     }
   }
@@ -348,7 +356,17 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
-    $tree[$id]['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-large');
+    $classes = array();
+    if (isset($item['link']['options']['attributes']['class'])) {
+      $classes = $item['link']['options']['attributes']['class'];
+    }
+    if (in_array('checkdesk-use-modal', $classes)) {
+      $alias = drupal_lookup_path('alias', $item['link']['href']);
+      $path = $alias ? $alias : $item['link']['href'];
+      $tree[$id]['link']['link_path'] = 'modal/ajax/' . $path;
+      $tree[$id]['link']['href'] = 'modal/ajax/' . $path;
+      $tree[$id]['link']['class'] = array_merge($classes, array('use-ajax', 'ctools-modal-modal-popup-large'));
+    }
   }
 
   $variables['information_menu'] = checkdesk_menu_navigation_links($tree);
@@ -550,6 +568,7 @@ function checkdesk_preprocess_node(&$variables) {
     // get updates for a particular story
     $view = views_get_view('updates_for_stories');
     $view->set_arguments(array($variables['nid']));
+    $view->get_total_rows = TRUE;
     $view_output = $view->preview('block');
     $total_rows = $view->total_rows;
     $view->destroy();
@@ -613,6 +632,7 @@ function checkdesk_preprocess_node(&$variables) {
     if ($status_name !== 'Not Applicable') {
       $view = views_get_view('activity_report');
       $view->set_arguments(array($variables['nid']));
+      $view->get_total_rows = TRUE;
       $view_output = $view->preview('block');
       $total_rows = $view->total_rows;
       $view->destroy();
@@ -975,6 +995,7 @@ function _checkdesk_comment_form_submit($form, $form_state) {
   $nid = $form['#node']->nid;
   $view = views_get_view('activity_report');
   $view->set_arguments(array($nid));
+  $view->get_total_rows = TRUE;
   $output = $view->preview('block');
 
   $commands = array();
