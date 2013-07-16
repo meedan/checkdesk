@@ -2,15 +2,8 @@
 
 /**
  * Implements hook_init()
- * Set a cookie to track this user.
  */
 function user_alert_init() {
-	if (!isset($_COOKIE['UUID']) || !_user_alert_uuid_is_valid($_COOKIE['UUID'])) {
-		$uuid = _user_alert_uuid_generate_php();
-		global $cookie_domain;
-		setcookie('UUID', $uuid, time() + 31536000, '/', $cookie_domain, FALSE, TRUE);
-	}
-	
 	drupal_add_js(array('user_alert' => array('url_prefix' => variable_get('clean_url', 0) != 0 ? '' : '?q=')), 'setting');
 }
 
@@ -34,12 +27,6 @@ function user_alert_menu() {
 		'type' => MENU_DEFAULT_LOCAL_TASK,
 		'access arguments' => array('administer user alert'),
 		'weight' => -15,
-  );
-  $items['js/user-alert/get-message'] = array(
-		'page callback' => 'user_alert_display_alert',
-		'delivery callback' => 'ajax_deliver',
-		'access arguments' => array('access content'),
-		'type' => MENU_CALLBACK,
   );
   $items['js/user-alert/close-message'] = array(
 		'page callback' => 'user_alert_close_message',
@@ -143,6 +130,8 @@ function user_alert_form($node, &$form_state) {
  *   Returns themed output if there is a message to display.
  */
 function user_alert_display_alert() {
+  global $user;
+
   if (module_exists('translation')) {
     global $language;
     $language = $language->language;
@@ -151,11 +140,11 @@ function user_alert_display_alert() {
   }
 
 	$output = '';
-	$result = db_query("SELECT n.nid FROM {node} n WHERE type = :type AND status = :status AND language = :language AND n.nid NOT IN (SELECT ua.nid FROM {user_alert} ua WHERE ua.nid = n.nid AND ua.uuid = :cookie) ORDER BY nid DESC", array(':type' => 'user_alert', ':status' => NODE_PUBLISHED,  ':language' => $language, ':cookie' => $_COOKIE['UUID']));
+	$result = db_query("SELECT n.nid FROM {node} n WHERE type = :type AND status = :status AND language = :language AND n.nid NOT IN (SELECT ua.nid FROM {user_alert} ua WHERE ua.nid = n.nid AND ua.uid = :uid) ORDER BY nid DESC", array(':type' => 'user_alert', ':status' => NODE_PUBLISHED,  ':language' => $language, ':uid' => $user->uid));
 
 	foreach ($result as $record) {
 		$alert = node_load($record->nid);
-		if (node_access('view', $alert) && isset($_COOKIE['UUID'])) {
+		if (node_access('view', $alert)) {
 			$output .= theme('user_alert', array('node' => $alert));
 		}
 	}
@@ -167,13 +156,14 @@ function user_alert_display_alert() {
  * Respond to a user clicking to close an alert.
  */
 function user_alert_close_message() {
+  global $user;
 	$nid = $_GET['message'];
 
 	if (!node_load($nid)) {
 	  return;
 	}
 	
-	$fields = array('nid' => $nid, 'uuid' => $_COOKIE['UUID']);
+	$fields = array('nid' => $nid, 'uid' => $user->uid);
 	db_insert('user_alert')->fields($fields)->execute();
 }
 
@@ -197,7 +187,7 @@ function user_alert_preprocess_user_alert(&$vars) {
   $vars['alert_label'] = variable_get('user_alert_label', 'User Alert');
   $vars['nid'] = $vars['node']->nid;
   $vars['body'] = $vars['node']->body[$vars['node']->language][0]['value'];
-  $vars['is_closeable'] = user_alert_cookie_is_valid();
+  $vars['is_closeable'] = TRUE;
 }
 
 /**
@@ -211,52 +201,4 @@ function user_alert_preprocess_user_alert(&$vars) {
       node_delete($record->nid);
     }
   }
-}
-
-/**
- * Check that a string appears to be in the format of a UUID.
- *
- * @param $uuid
- *  The string to test.
- *
- * @return bool
- *   TRUE if the string is well formed.
- */
-function _user_alert_uuid_is_valid($uuid) {
-  return preg_match("/^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/", $uuid);
-}
-
-/**
- * Generates a UUID v4 using PHP code.
- * @see http://php.net/uniqid#65879
- */
-function _user_alert_uuid_generate_php() {
-  // The field names refer to RFC 4122 section 4.1.2.
-  return sprintf('%04x%04x-%04x-%03x4-%04x-%04x%04x%04x',
-    // 32 bits for "time_low".
-    mt_rand(0, 65535), mt_rand(0, 65535),
-    // 16 bits for "time_mid".
-    mt_rand(0, 65535),
-    // 12 bits before the 0100 of (version) 4 for "time_hi_and_version".
-    mt_rand(0, 4095),
-    bindec(substr_replace(sprintf('%016b', mt_rand(0, 65535)), '01', 6, 2)),
-    // 8 bits, the last two of which (positions 6 and 7) are 01, for "clk_seq_hi_res"
-    // (hence, the 2nd hex digit after the 3rd hyphen can only be 1, 5, 9 or d)
-    // 8 bits for "clk_seq_low" 48 bits for "node".
-    mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535)
-  );
-}
-
-/**
- * Check to see that a cookie exists and has a format of at least .example.com
- * @return bool
- */
-function user_alert_cookie_is_valid() {
-  global $cookie_domain;
-
-  if (!drupal_strlen($cookie_domain) || substr_count($cookie_domain, '.') < 2) {
-    return FALSE;
-  }
-
-  return TRUE;
 }

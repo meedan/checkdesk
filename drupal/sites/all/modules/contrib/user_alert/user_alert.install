@@ -5,38 +5,6 @@
  */
 
 /**
- * Implements hook_requirements().
- * @param $phase
- * @return array
- */
-function user_alert_requirements($phase) {
-  global $cookie_domain;
-
-  $requirements = array();
-  $requirements['user_alert'] = array(
-    'title' => t('User Alert'),
-  );
-
-  switch ($phase) {
-    case 'runtime':
-    case 'install':
-      if (!drupal_strlen($cookie_domain) || substr_count($cookie_domain, '.') < 2) {
-        $requirements['user_alert']['severity'] = REQUIREMENT_WARNING;
-        $requirements['user_alert']['description'] = t('User Alert runs on a cookie, and $cookie_domain is not set in settings.php. Multisite setups may encounter issues. The $cookie_domain needs at least two dots (ex. .mysite.com) to be valid and accepted by browsers. User Alert will not work properly otherwise.');
-        $requirements['user_alert']['value'] = t('$cookie_domain value is: !cookie', array('!cookie' => $cookie_domain));
-      } else {
-        $requirements['user_alert']['severity'] = REQUIREMENT_OK;
-        $requirements['user_alert']['value'] = t('$cookie_domain is set to @cookie_domain.', array('@cookie_domain' => $cookie_domain));
-      }
-      break;
-    default:
-      break;
-  }
-
-  return $requirements;
-}
-
-/**
  * Implements hook_schema().
  * @return array
  */
@@ -57,10 +25,10 @@ function user_alert_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'uuid' => array(
-        'description' => 'The UUID of the visitor.',
-        'type' => 'varchar',
-        'length' => 255,
+      'uid' => array(
+        'description' => 'The UID of the visitor.',
+        'type' => 'int',
+        'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => '0',
       ),
@@ -86,4 +54,12 @@ function user_alert_install() {
 function user_alert_uninstall() {
 	variable_del('user_alert_label');
 	variable_del('user_alert_timelimit');
+}
+
+/**
+ * Implements hook_update_N().
+ * Rename column from UUID to UID
+ */
+function user_alert_update_7001() {
+  db_change_field('user_alert', 'uuid', 'uid', array('description' => 'The UID of the visitor.', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => '0'));
 }

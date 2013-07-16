@@ -301,7 +301,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => 'Have you seen suspicious social media recently? <a class="checkdesk-use-modal use-ajax ctools-modal-modal-popup-large" href="/en/modal/ajax/content/about">Report it!</a>',
+        'value' => '<p>Have you seen suspicious social media recently?&nbsp;<a class="checkdesk-use-modal use-ajax ctools-modal-modal-popup-large" href="/en/modal/ajax/content/about-checkdesk">Report it!</a></p>',
         'summary' => '',
         'format' => 'filtered_html',
       ),
@@ -1021,7 +1021,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>هل رأيت معلومات مشكوك بصحتها على الشبكات الإجتماعية مؤخراً؟ [أعلمنا بها]</p>',
+        'value' => '<p>هل رأيت معلومات مشكوك بصحتها على الشبكات الإجتماعية مؤخراً؟&nbsp;<a class="checkdesk-use-modal use-ajax ctools-modal-modal-popup-large" href="/ar/modal/ajax/content/عن-checkdesk">أعلمنا بها</a></p>',
         'summary' => '',
         'format' => 'filtered_html',
       ),

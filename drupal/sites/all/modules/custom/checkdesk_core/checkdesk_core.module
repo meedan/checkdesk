@@ -7,6 +7,8 @@ function checkdesk_core_init() {
   drupal_add_library('system', 'ui.draggable');
   drupal_add_library('system', 'ui.droppable');
   drupal_add_library('system', 'drupal.ajax');
+    
+  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
 
   // HACK: This enables the #ajax submission of the node form. Currently
   //       there does not appear to be a clean way to do this.
@@ -966,7 +968,6 @@ function checkdesk_core_form_comment_node_discussion_form_alter(&$form, &$form_s
 function checkdesk_core_views_pre_render(&$view) {
   if ($view->name == 'desk_reports') {
     // Setup drag & drop.
-    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
     drupal_add_js(libraries_get_path('insertatcaret') . '/jquery.insertatcaret.js');
 
     $data = array();
