@@ -629,39 +629,43 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 
       taxonomy_term_load($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
     $status_name = $term->name;
-    $view = views_get_view('activity_report');
-    $view->set_arguments(array($variables['nid']));
-    $view->get_total_rows = TRUE;
-    $view_output = $view->preview('block');
-    $total_rows = $view->total_rows;
-    $view->destroy();
-    $variables['media_activity_report_count'] = $total_rows;
-    $variables['media_activity_report'] = $view_output;
-    $status_class = '';
-    $icon = '';
-    if ($status_name == 'Verified') {
-      $status_class = 'verified';
-      $icon = '<span class="icon-ok-sign"></span> ';
-    }
-    elseif ($status_name == 'In Progress') {
-      $status_class = 'in-progress';
-      $icon = '<span class="icon-random"></span> ';
-    }
-    elseif ($status_name == 'Undetermined') {
-      $status_class = 'undetermined';
-      $icon = '<span class="icon-question-sign"></span> ';
-    }
-    elseif ($status_name == 'False') {
-      $status_class = 'false';
-      $icon = '<span class="icon-remove-sign"></span> ';
-    }
-    $variables['status_class'] = $status_class;
-    $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
-    if (user_is_logged_in()) {
-      $variables['media_activity_footer'] = '';
-    }
-    else {
-      $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
+    if ($status_name !== 'Not Applicable') {
+      $view = views_get_view('activity_report');
+      $view->set_arguments(array($variables['nid']));
+      $view->get_total_rows = TRUE;
+      $view_output = $view->preview('block');
+      $total_rows = $view->total_rows;
+      $view->destroy();
+      if ($total_rows) {
+        $variables['media_activity_report_count'] = $total_rows;
+        $variables['media_activity_report'] = $view_output;
+        $status_class = '';
+        $icon = '';
+        if ($status_name == 'Verified') {
+          $status_class = 'verified';
+          $icon = '<span class="icon-ok-sign"></span> ';
+        }
+        elseif ($status_name == 'In Progress') {
+          $status_class = 'in-progress';
+          $icon = '<span class="icon-random"></span> ';
+        }
+        elseif ($status_name == 'Undetermined') {
+          $status_class = 'undetermined';
+          $icon = '<span class="icon-question-sign"></span> ';
+        }
+        elseif ($status_name == 'False') {
+          $status_class = 'false';
+          $icon = '<span class="icon-remove-sign"></span> ';
+        }
+        $variables['status_class'] = $status_class;
+        $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+      }
+      if (user_is_logged_in()) {
+        $variables['media_activity_footer'] = '';
+      }
+      else {
+        $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
+      }
     }
 
     // HACK: Refs #1338, add a unique class to the ctools modal for a report

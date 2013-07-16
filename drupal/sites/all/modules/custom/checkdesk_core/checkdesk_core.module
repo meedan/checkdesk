@@ -1288,6 +1288,20 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
 }
 
 define('RATING_IN_PROGRESS', 'In Progress');
+define('RATING_FALSE', 'False');
+define('RATING_VERIFIED', 'Verified');
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `comment_node_media_form`.
+ */
+function checkdesk_core_form_comment_node_media_form_alter(&$form, $form_state, $form_id) {
+  $term = isset($form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
+    $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+    taxonomy_term_load($form['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
+  if (!in_array($term->name, array(RATING_IN_PROGRESS, RATING_FALSE, RATING_VERIFIED))) {
+    $form['#access'] = FALSE;
+  }
+}
 
 /**
  * Implements hook_module_implements_alter().
