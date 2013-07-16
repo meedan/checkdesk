@@ -742,6 +742,9 @@ function checkdesk_links__node($variables) {
       if (isset($links['checkdesk-share-google'])) {
         $output .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
       }
+      if (isset($links['checkdesk-share-embed'])) {
+        $output .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-embed']) . '</li>';
+      }
       $output .= '</ul></li>'; 
     }
 
