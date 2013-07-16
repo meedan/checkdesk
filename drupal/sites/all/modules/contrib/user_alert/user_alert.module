@@ -134,13 +134,13 @@ function user_alert_display_alert() {
 
   if (module_exists('translation')) {
     global $language;
-    $language = $language->language;
+    $langcode = $language->language;
   } else {
-    $language = LANGUAGE_NONE;
+    $langcode = LANGUAGE_NONE;
   }
 
 	$output = '';
-	$result = db_query("SELECT n.nid FROM {node} n WHERE type = :type AND status = :status AND language = :language AND n.nid NOT IN (SELECT ua.nid FROM {user_alert} ua WHERE ua.nid = n.nid AND ua.uid = :uid) ORDER BY nid DESC", array(':type' => 'user_alert', ':status' => NODE_PUBLISHED,  ':language' => $language, ':uid' => $user->uid));
+	$result = db_query("SELECT n.nid FROM {node} n WHERE type = :type AND status = :status AND language = :language AND n.nid NOT IN (SELECT ua.nid FROM {user_alert} ua WHERE ua.nid = n.nid AND ua.uid = :uid) ORDER BY nid DESC", array(':type' => 'user_alert', ':status' => NODE_PUBLISHED,  ':language' => $langcode, ':uid' => $user->uid));
 
 	foreach ($result as $record) {
 		$alert = node_load($record->nid);
