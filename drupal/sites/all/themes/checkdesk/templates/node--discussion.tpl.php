@@ -53,7 +53,7 @@
     
     <?php if(isset($compose_update_form)) { ?>
       <div class="compose-update-form">
-        <h2><?php print t('Compose Update'); ?></h2>
+        <div class="compose-update-header"><a href="#"><?php print t('Compose Update'); ?></a></div>
         <?php print $compose_update_form; ?>
       </div>
     <?php } ?>

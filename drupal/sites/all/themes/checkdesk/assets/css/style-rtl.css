@@ -2120,7 +2120,7 @@ nav[role="navigation"] li.submit-report a:before {
   content: "\f02e";
 }
 
-nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form > h2:before, .story .open > h2:before {
+nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .compose-update-header a:before, .story .open .compose-update-header a:before {
   content: "\f040";
 }
 
@@ -8227,21 +8227,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .compose-update-form {
   margin: 28.8px 0;
 }
-.story .compose-update-form > h2 {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  margin-bottom: 0;
+.story .compose-update-form .compose-update-header a {
+  display: inline-block;
   padding: 14.4px 11px;
-  cursor: pointer;
   color: white;
-  background-color: #efca2b;
+  background-color: #0088ff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  text-decoration: none;
 }
-.story .compose-update-form > h2:before {
+.story .compose-update-form .compose-update-header a:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
@@ -8255,7 +8255,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .compose-update-form .node-post-form {
   display: none;
-  border-top: 4px solid #efca2b;
   padding: 0 11px;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
 }
@@ -8307,16 +8306,20 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .compose-update-form .node-post-form input[type='submit']:active, .story .compose-update-form .node-post-form input[type='submit']:active:visited {
   color: white;
 }
-.story .open > h2 {
+.story .open .compose-update-header {
+  border-bottom: 4px solid #efca2b;
+  background-color: rgba(239, 202, 43, 0.1);
+}
+.story .open .compose-update-header a {
   color: rgba(0, 0, 0, 0.9);
-  background-color: rgba(239, 202, 43, 0.2);
+  background: none;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
-.story .open > h2:before {
+.story .open .compose-update-header a:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
