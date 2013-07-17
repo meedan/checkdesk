@@ -4766,6 +4766,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   transition: color 0.3s linear;
   overflow: visible;
 }
+#footer-inner ul li a span {
+  margin-left: 11px;
+}
 #footer-inner ul li a:hover {
   color: rgba(0, 0, 0, 0.6);
 }
@@ -8616,7 +8619,6 @@ body.widgets #main #widgets.column {
 body.widgets #main #content {
   margin-top: 38px;
   margin-right: 30%;
-  overflow-y: auto;
 }
 body.widgets #main #content #content-inner {
   -moz-box-sizing: border-box;
