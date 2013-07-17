@@ -8619,9 +8619,9 @@ body.widgets #main #widgets.column {
 body.widgets #main #content {
   margin-top: 38px;
   margin-right: 30%;
+  overflow-y: auto;
 }
 body.widgets #main #content #content-inner {
-  -moz-box-sizing: border-box;
   *zoom: 1;
   max-width: 850px;
   padding-top: 48px;
