@@ -7248,6 +7248,7 @@ form label[for="edit-pass"] a {
 form .description {
   font-size: 15px !important;
   color: rgba(0, 0, 0, 0.3) !important;
+  width: 100%;
 }
 form.confirmation .form-actions input {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
@@ -9194,12 +9195,14 @@ body.page-user-password #content-header {
   font-weight: normal;
 }
 #nav-discussion-form .customfile .customfile-feedback {
-  padding: 7.2px 3.66667px;
+  padding: 7.2px 5.5px;
   text-align: right;
   overflow: hidden;
   color: #555555;
   font-weight: normal;
   font-style: normal;
+  font-size: 15px;
+  line-height: 2.4;
 }
 #nav-discussion-form .customfile .customfile-ext-jpg, #nav-discussion-form .customfile .customfile-feedback-populated {
   background: none !important;

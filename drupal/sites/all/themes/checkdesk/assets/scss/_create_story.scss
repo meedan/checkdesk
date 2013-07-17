@@ -50,12 +50,16 @@
     }
 
     .customfile-feedback {
-      padding: $absolute-line-height/4 $gutter-width/3;
+      padding: $absolute-line-height/4 $gutter-width/2;
       text-align: $from-direction;
       overflow: hidden;
       color: $gray;
       font-weight: normal;
       font-style: normal;
+      @if $from-direction == 'right' {
+        font-size: $small-font-size;
+        line-height: 2.4;
+      }
     }
 
     .customfile-ext-jpg, .customfile-feedback-populated {
