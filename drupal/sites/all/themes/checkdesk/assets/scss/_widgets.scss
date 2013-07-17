@@ -63,7 +63,7 @@
 }
 
 // Hide featured stories block for small viewports
-@media all and (max-height: 52em) {
+@media all and (max-height: 42em) {
   body.widgets #main #widgets.column {
     .view-featured-stories {
       display: none;
@@ -143,7 +143,7 @@
   // spacing between blocks/widgets
   .block {
     @include ctb-clearfix;
-    margin: ms(1) auto;
+    margin: $absolute-line-height/2 0;
     // block title
     h2 {
       @include reset-box-model;
