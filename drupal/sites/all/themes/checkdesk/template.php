@@ -129,7 +129,7 @@ function checkdesk_preprocess_region(&$variables) {
         'style_name' => 'partner_logo',
         'path' => $image,
       );
-      $variables['header_image'] = l(theme_image_style($header_image_data), '<front>', array('html' => TRUE,));
+      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE,));
     }
 
     $position = theme_get_setting('header_image_position');
@@ -153,7 +153,7 @@ function checkdesk_preprocess_region(&$variables) {
         'style_name' => 'footer_partner_logo',
         'path' => $image,
       );
-      $variables['footer_image'] = theme_image_style($footer_image_data);
+      $variables['footer_image'] = theme('image_style', $footer_image_data);
       $variables['partner_url'] = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
     }
   }
