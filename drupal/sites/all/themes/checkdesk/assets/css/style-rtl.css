@@ -7242,8 +7242,8 @@ form label[for="edit-pass"] a {
   font-weight: normal;
 }
 form .description {
-  font-size: 15px;
-  color: rgba(0, 0, 0, 0.4);
+  font-size: 15px !important;
+  color: rgba(0, 0, 0, 0.3) !important;
 }
 form.confirmation .form-actions input {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
@@ -7589,9 +7589,7 @@ form .image-widget {
   -o-border-radius: 3px;
   border-radius: 3px;
   display: block;
-  background-color: rgba(0, 0, 0, 0.02);
   margin-top: 11px;
-  padding: 14.4px 11px 0;
 }
 form .image-widget .image-preview {
   display: inline-block;
@@ -7605,10 +7603,8 @@ form .image-widget input[type="file"] {
   padding: 0;
   display: inline-block;
   margin-left: 11px;
-  margin-bottom: 14.4px;
   padding: 0 11px;
-  background-color: white;
-  border: 1px solid #cccccc;
+  background-color: rgba(0, 0, 0, 0.05);
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   vertical-align: middle;
@@ -7695,9 +7691,7 @@ form .form-type-textarea:after {
     -o-border-radius: 3px;
     border-radius: 3px;
     display: block;
-    background-color: rgba(0, 0, 0, 0.02);
     margin-top: 11px;
-    padding: 14.4px 11px 0;
   }
   form .image-widget .image-preview {
     display: inline-block;
@@ -7711,10 +7705,8 @@ form .form-type-textarea:after {
     padding: 0;
     display: inline-block;
     margin-left: 11px;
-    margin-bottom: 14.4px;
     padding: 0 11px;
-    background-color: white;
-    border: 1px solid #cccccc;
+    background-color: rgba(0, 0, 0, 0.05);
     font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 15px;
     vertical-align: middle;
@@ -9154,7 +9146,7 @@ body.page-user-password #content-header {
 }
 
 #nav-discussion-form {
-  width: 450px;
+  width: 550px;
 }
 #nav-discussion-form form {
   padding: 0 11px;
@@ -9165,37 +9157,50 @@ body.page-user-password #content-header {
   padding: 0;
 }
 #nav-discussion-form .cke_contents {
-  max-height: 160px !important;
+  max-height: 120px !important;
 }
 #nav-discussion-form .form-actions {
   padding: 0;
   background-color: transparent;
   border: none;
 }
+#nav-discussion-form .form-actions #edit-submit-story {
+  background: #0088ff;
+}
 #nav-discussion-form .image-widget-data {
   width: 100%;
 }
 #nav-discussion-form .customfile {
-  width: 100%;
-  background: #cccccc;
-  margin-bottom: 11px;
+  width: 98%;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 7.2px 3.66667px;
+  margin-bottom: 7.2px;
   border: 0;
 }
 #nav-discussion-form .customfile .customfile {
   display: none;
 }
 #nav-discussion-form .customfile .customfile-button {
-  background: #0088ff;
+  background: rgba(0, 0, 0, 0.2);
   float: left;
   border: 0;
   width: auto;
+  min-width: 120px;
+  font-weight: normal;
 }
 #nav-discussion-form .customfile .customfile-feedback {
+  padding: 7.2px 3.66667px;
   text-align: right;
   overflow: hidden;
+  color: #555555;
+  font-weight: normal;
+  font-style: normal;
+}
+#nav-discussion-form .customfile:hover .customfile-button {
+  background: rgba(0, 0, 0, 0.3);
 }
 #nav-discussion-form .customfile-hover .customfile-button {
-  background: #0088ff;
+  background: rgba(0, 0, 0, 0.4);
   color: white;
 }
 #nav-discussion-form #edit-field-lead-image-und-0-upload-button {
