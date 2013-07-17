@@ -2120,6 +2120,10 @@ nav[role="navigation"] li.submit-report a:before {
   content: "\f02e";
 }
 
+#nav-discussion-form .customfile .customfile-feedback-populated:before {
+  content: "\f03e";
+}
+
 nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .compose-update-header a:before, .story .open .compose-update-header a:before {
   content: "\f040";
 }
@@ -9173,7 +9177,7 @@ body.page-user-password #content-header {
 #nav-discussion-form .customfile {
   width: 98%;
   background: rgba(0, 0, 0, 0.05);
-  padding: 7.2px 3.66667px;
+  padding: 0;
   margin-bottom: 7.2px;
   border: 0;
 }
@@ -9183,6 +9187,7 @@ body.page-user-password #content-header {
 #nav-discussion-form .customfile .customfile-button {
   background: rgba(0, 0, 0, 0.2);
   float: left;
+  padding: 9.6px 3.66667px;
   border: 0;
   width: auto;
   min-width: 120px;
@@ -9195,6 +9200,21 @@ body.page-user-password #content-header {
   color: #555555;
   font-weight: normal;
   font-style: normal;
+}
+#nav-discussion-form .customfile .customfile-ext-jpg, #nav-discussion-form .customfile .customfile-feedback-populated {
+  background: none !important;
+}
+#nav-discussion-form .customfile .customfile-feedback-populated:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
 }
 #nav-discussion-form .customfile:hover .customfile-button {
   background: rgba(0, 0, 0, 0.3);
