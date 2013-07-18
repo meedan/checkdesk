@@ -312,6 +312,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 // ==============================================================
 #nav-media-form {
   width: 366px;
+  overflow-y: scroll;
 
   iframe {
     width: 100%;
@@ -375,7 +376,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
 
 // Fixed only for normal screen sizes
-@media all and (max-height: 42em) {
+@media all and (max-height: 32em) {
   #nav-media-form {
     max-height: 290px;
     overflow-y: scroll;
