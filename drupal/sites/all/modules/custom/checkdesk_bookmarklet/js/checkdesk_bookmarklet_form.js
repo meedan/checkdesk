@@ -48,8 +48,16 @@ jQuery(function($) {
       clearTimeout($.data(this, 'timer'));
       wait = setTimeout(getMediaPreview, 1500);
       $(this).data('timer', wait);
-    } else {
+    }
+    else {
       done.attr('disabled', 'disabled');
+    }
+    
+    if (/https?:\/\/([^.]+\.)?facebook\.com/.test(url)) {
+      $('.fb-message .description').show();
+    }
+    else {
+      $('.fb-message .description').hide();
     }
   });
 

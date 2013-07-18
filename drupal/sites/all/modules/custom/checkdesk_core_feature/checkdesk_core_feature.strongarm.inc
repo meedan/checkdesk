@@ -547,6 +547,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_bookmarklet_hidden_fields';
   $strongarm->value = array(
+    'title' => 'title',
     'field_rating' => 'field_rating',
     'field_stories' => 'field_stories',
     'body' => 0,

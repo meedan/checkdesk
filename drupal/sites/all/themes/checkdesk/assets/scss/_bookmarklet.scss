@@ -1,4 +1,4 @@
-$spinner-width: 45px; 
+$spinner-width: 25px; 
 $bookmarklet-width: 345px;
 $bookmarklet-preview-max-height: 345px;
 $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
@@ -8,7 +8,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   
   form {
     @include reset-box-model;
-    width: $bookmarklet-width;
   }
 
   .form-item {
@@ -19,6 +18,10 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     .description {
       width: $bookmarklet-width - $gutter-width * 2;
     }
+  }
+
+  .fb-message .description {
+    display: none;
   }
 
   .field-type-link-field {
@@ -41,21 +44,12 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     }
 
     input[type=text] {
-      width: $bookmarklet-width - ($spinner-width + $gutter-width*2);
+      // width: $bookmarklet-width - ($spinner-width + $gutter-width*2);
       padding-#{opposite-position($from-direction)}: $spinner-width; //accomodate spinner
     }
   }
 
-  form input[type=text] {
-    width: $bookmarklet-width - $gutter-width * 2;
-  }
-
-  .form-type-textarea {
-    padding-top: $gutter-width;
-  }
-
   textarea {
-    width: $bookmarklet-width - 10px; // account for padding
     height: 60px;
     padding: 5px;
   }
@@ -65,8 +59,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     background: transparent;
     float: $from-direction;
     width: auto;
-    margin-top: $gutter-width;
-    padding-top: $gutter-width;
     border-top: 0;
   }
 
@@ -140,24 +132,21 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 @mixin bookmarklet-step-two() {
   #meedan_bookmarklet_preview {
     clear: both;
-    float: left;
     color: $dark-grey;
     margin: $gutter-width 0;
   }
 
   #meedan_bookmarklet_preview_content img {
     width: auto;
-    float: $from-direction;
     clear: both;
   }
 
   #meedan_bookmarklet_preview_content,
   #meedan_bookmarklet_preview_gc {
-    width: 332px;
     height: auto;
+    width: 100%;
     max-height: $bookmarklet-preview-max-height;
     display: inline-block;
-    float: $from-direction;
     overflow: hidden;
   }
 
@@ -197,13 +186,14 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   #edit-body {
     float: $from-direction;
     clear: both;
+    margin-top: 0;
   }
 
   #edit-graphic-content {
-    float: $from-direction;
-    clear: both;
-    margin: $gutter-width 0 0 ($gutter-width + $checkbox-width - 20px); // align with the button
-    width: 100%;
+    float: opposite-position($from-direction);
+    margin: 0;
+    margin-top: $gutter-width;
+    width: auto;
     & > .form-type-checkbox {
       width: 100%;
     }
@@ -236,16 +226,23 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   #meedan_bookmarklet_messages {
     padding: 0;
     margin: 0;
-    font-size: $small-font-size;
     clear: both;
     li {
       display: block;
       list-style: none;
+      width: 100%;
+      text-align: center;
+      font-size: $small-font-size;
+      margin-top: $gutter-width;
     }
-    a, a:link, a:visited, a:hover {
-      text-decoration: none;
-      color: #848484;
-      line-height: $base-font-size;
+    a {
+      text-decoration: underline;
+    }
+    .meedan-bookmarklet-success {
+      display: block;
+      color: $white;
+      padding: $gutter-width;
+      background: $form-validation-success;
     }
   }
 
@@ -300,7 +297,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     // username/pass field widths
     input[type=text], 
     input[type=password] {
-      width: $bookmarklet-width - $gutter-width*2;
       padding-#{$omega}: 0;
     }
     .form-actions {
@@ -355,9 +351,8 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 }
 
 #meedan_bookmarklet_close {
-  top: 20px;
-  #{$from-direction}: $bookmarklet-width - 30; // the close icon is 30px wide
-  #{opposite-position($from-direction)}: auto;
+  float: opposite-position($from-direction);
+  position: relative;
   z-index: 2;
 }
 

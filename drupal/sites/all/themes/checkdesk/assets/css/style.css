@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
@@ -2352,9 +2353,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear, box-shadow linear;
-  -webkit-transition-delay: 0.2s, 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2391,6 +2392,7 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
+  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -3376,6 +3378,18 @@ textarea {
   float: left;
 }
 
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+
 .hide {
   display: none;
 }
@@ -3728,6 +3742,7 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4127,10 +4142,12 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #f7f7f7;
@@ -4941,10 +4958,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
+  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -6074,7 +6093,6 @@ html body .livefyre-wrapper {
 #meedan_bookmarklet form {
   margin: 0;
   padding: 0;
-  width: 345px;
 }
 #meedan_bookmarklet .form-item {
   margin: 0;
@@ -6084,6 +6102,9 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet .form-item .description {
   width: 323px;
+}
+#meedan_bookmarklet .fb-message .description {
+  display: none;
 }
 #meedan_bookmarklet .field-type-link-field {
   clear: both;
@@ -6104,17 +6125,9 @@ html body .livefyre-wrapper {
   border-radius: 4px;
 }
 #meedan_bookmarklet .link-field-url input[type=text] {
-  width: 278px;
-  padding-right: 45px;
-}
-#meedan_bookmarklet form input[type=text] {
-  width: 323px;
-}
-#meedan_bookmarklet .form-type-textarea {
-  padding-top: 11px;
+  padding-right: 25px;
 }
 #meedan_bookmarklet textarea {
-  width: 335px;
   height: 60px;
   padding: 5px;
 }
@@ -6124,8 +6137,6 @@ html body .livefyre-wrapper {
   background: transparent;
   float: left;
   width: auto;
-  margin-top: 11px;
-  padding-top: 11px;
   border-top: 0;
 }
 #meedan_bookmarklet .footer {
@@ -6226,7 +6237,6 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #user-login input[type=text],
 #meedan_bookmarklet #user-login input[type=password] {
-  width: 323px;
   padding-right: 0;
 }
 #meedan_bookmarklet #user-login .form-actions {
@@ -6245,17 +6255,24 @@ html body .livefyre-wrapper {
 #meedan_bookmarklet #meedan_bookmarklet_messages {
   padding: 0;
   margin: 0;
-  font-size: 15px;
   clear: both;
 }
 #meedan_bookmarklet #meedan_bookmarklet_messages li {
   display: block;
   list-style: none;
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  margin-top: 11px;
 }
-#meedan_bookmarklet #meedan_bookmarklet_messages a, #meedan_bookmarklet #meedan_bookmarklet_messages a:link, #meedan_bookmarklet #meedan_bookmarklet_messages a:visited, #meedan_bookmarklet #meedan_bookmarklet_messages a:hover {
-  text-decoration: none;
-  color: #848484;
-  line-height: 18px;
+#meedan_bookmarklet #meedan_bookmarklet_messages a {
+  text-decoration: underline;
+}
+#meedan_bookmarklet #meedan_bookmarklet_messages .meedan-bookmarklet-success {
+  display: block;
+  color: white;
+  padding: 11px;
+  background: #336600;
 }
 #meedan_bookmarklet h2 {
   margin: 0;
@@ -6301,22 +6318,19 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #meedan_bookmarklet_preview {
   clear: both;
-  float: left;
   color: #595959;
   margin: 11px 0;
 }
 #meedan_bookmarklet #meedan_bookmarklet_preview_content img {
   width: auto;
-  float: left;
   clear: both;
 }
 #meedan_bookmarklet #meedan_bookmarklet_preview_content,
 #meedan_bookmarklet #meedan_bookmarklet_preview_gc {
-  width: 332px;
   height: auto;
+  width: 100%;
   max-height: 345px;
   display: inline-block;
-  float: left;
   overflow: hidden;
 }
 #meedan_bookmarklet #meedan_bookmarklet_preview_gc {
@@ -6356,12 +6370,13 @@ html body .livefyre-wrapper {
 #meedan_bookmarklet #edit-body {
   float: left;
   clear: both;
+  margin-top: 0;
 }
 #meedan_bookmarklet #edit-graphic-content {
-  float: left;
-  clear: both;
-  margin: 11px 0 0 16px;
-  width: 100%;
+  float: right;
+  margin: 0;
+  margin-top: 11px;
+  width: auto;
 }
 #meedan_bookmarklet #edit-graphic-content > .form-type-checkbox {
   width: 100%;
@@ -6372,9 +6387,8 @@ html body .livefyre-wrapper {
 }
 
 #meedan_bookmarklet_close {
-  top: 20px;
-  left: 315px;
-  right: auto;
+  float: right;
+  position: relative;
   z-index: 2;
 }
 
@@ -6660,10 +6674,12 @@ nav[role="navigation"] .nav > div h2 {
   z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -6726,10 +6742,12 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -6832,10 +6850,12 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -8996,10 +9016,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -9022,10 +9044,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
