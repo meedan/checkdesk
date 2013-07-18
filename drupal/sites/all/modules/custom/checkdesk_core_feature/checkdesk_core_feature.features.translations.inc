@@ -43744,6 +43744,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['c6be8229aba12b368317ddd9aefc4eef'] = array(
+    'source' => 'A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'مدونة Checkdesk مباشرة من <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a> ',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['9c3c9bc4bbabf4bc22d5d8cf49ad5aa2'] = array(
     'source' => 'Powered by ',
     'context' => '',
@@ -43756,7 +43764,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Success: Report created',
     'context' => '',
     'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=15631&meedan_bookmarklet_url=http%3A//www.youtube.com/watch',
-    'translation' => 'TODO',
+    'translation' => 'تم إنشاء التقرير بنجاح',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43772,7 +43780,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'View your reports.',
     'context' => '',
     'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=15648&meedan_bookmarklet_url=http%3A//www.flickr.com/photos/axemann/9185859240/',
-    'translation' => 'TODO',
+    'translation' => 'إستعرض تقاريرك.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43780,7 +43788,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Edit profile',
     'context' => '',
     'location' => '/ar/user',
-    'translation' => 'TODO',
+    'translation' => 'تحرير ملف المستخدم',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43788,7 +43796,7 @@ print theme(\'views_autorefresh\', array(
     'source' => '<strong>@user\'s</strong> reports',
     'context' => '',
     'location' => '/ar/user/4482',
-    'translation' => 'TODO',
+    'translation' => 'تقارير <strong>@user</strong>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43796,7 +43804,39 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Member for @time',
     'context' => '',
     'location' => '/ar/user/4482',
-    'translation' => 'TODO',
+    'translation' => '@time مسجل بالموقع منذ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['e17eae57815d1b04e31e8fda2a500391'] = array(
+    'source' => 'Blogged by ',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تدوينة من',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['aeceaebb397248450b6d72f85e49647a'] = array(
+    'source' => 'fact-check it',
+    'context' => '',
+    'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=1785&meedan_bookmarklet_url=http%3A//www.google.com',
+    'translation' => 'التحقق من صحة المعلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a73ea34c934a42677885639285c067c7'] = array(
+    'source' => 'blog about it',
+    'context' => '',
+    'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=1785&meedan_bookmarklet_url=http%3A//www.google.com',
+    'translation' => 'التدوين عنه',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['6d3b3aab5100920101252abf8032d98e'] = array(
+    'source' => 'Now let\'s !fact_check and !blog.',
+    'context' => '',
+    'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=1785&meedan_bookmarklet_url=http%3A//www.google.com',
+    'translation' => 'الآن يمكنك !fact_check أو !blog.',
     'plid' => 0,
     'plural' => 0,
   );
