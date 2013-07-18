@@ -19,7 +19,6 @@
         width: 30%;
         border-#{$omega}: 1px solid rgba(0,0,0,.1);
         background-color: $white;
-        
       }
 
       // 3. The primary content column, 
@@ -63,7 +62,7 @@
 }
 
 // Hide featured stories block for small viewports
-@media all and (max-height: 40em) {
+@media all and (max-height: 38em) {
   body.widgets #main #widgets.column {
     .view-featured-stories {
       display: none;

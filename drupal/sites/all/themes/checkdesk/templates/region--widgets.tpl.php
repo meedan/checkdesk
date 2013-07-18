@@ -10,4 +10,18 @@
 	  <?php endif; ?>
 	</div>
 </header>
+<?php
+  // get featured stories
+  $block = block_load('views', 'featured_stories-block');
+  $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
+  dsm($render_array);
+  if(isset($render_array['views_featured_stories-block'])) {
+    $featured_stories = render($render_array);  
+  }
+?>
+<?php if(isset($featured_stories)) : ?>
+	<div id="featured-stories">
+		<?php print $featured_stories; ?>
+	</div>
+<?php endif; ?>
 <?php print $content; ?>
