@@ -24,7 +24,7 @@
 			</div>
 		<?php } ?>
 	</div>
-	<?php if($fields['field_rating']->content != 'Not Applicable') { ?>
+	<?php if(isset($fields['field_rating']) && $fields['field_rating']->content != 'Not Applicable') { ?>
 		<?php
 			$status_class = str_replace(' ', '_', strtolower($fields['field_rating']->content));
 		?>
