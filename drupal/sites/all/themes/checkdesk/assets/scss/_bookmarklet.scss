@@ -120,8 +120,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     }
   }
 
-
-
   // Loading ..
   .meedan-bookmarklet-loading {
     background: $white url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
@@ -139,6 +137,10 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   #meedan_bookmarklet_preview_content img {
     width: auto;
     clear: both;
+  }
+
+  .bookmarklet-preview {
+    width: 100%;
   }
 
   #meedan_bookmarklet_preview_content,
@@ -242,7 +244,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
       display: block;
       color: $white;
       padding: $gutter-width;
-      background: $form-validation-success;
+      background-color: rgba(0,140,0,.8);
     }
   }
 
