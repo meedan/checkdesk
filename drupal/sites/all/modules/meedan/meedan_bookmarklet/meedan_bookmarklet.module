@@ -220,6 +220,7 @@ function meedan_bookmarklet_preprocess_html(&$variables, $hook) {
     $variables['theme_hook_suggestions'][] = 'meedan_bookmarklet_html';
     $variables['meedan_bookmarklet_title'] = t(variable_get('meedan_bookmarklet_title', ''));
     $variables['meedan_bookmarklet_messages'] = array();
+    $variables['meedan_bookmarklet_close'] = l('<span>[X]</span>', '', array('html' => TRUE, 'attributes' => array('id' => 'meedan_bookmarklet_close', 'onclick' => 'window.parent.postMessage(\'close\', \'*\')')));
   }
 }
 

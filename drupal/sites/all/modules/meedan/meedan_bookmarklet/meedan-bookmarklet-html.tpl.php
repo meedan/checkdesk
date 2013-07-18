@@ -8,7 +8,11 @@
   <?php print $scripts; ?>
 </head>
 <body id="meedan_bookmarklet" style="padding: 1em;" class="<?php print (isset($body_class) ? $body_class : ''); ?>">
-  <a id="meedan_bookmarklet_close" onclick="window.parent.postMessage('close', '*')"><span>[X]</span></a>
+  
+  <?php if (!empty($meedan_bookmarklet_close)) { ?>
+    <?php print $meedan_bookmarklet_close; ?>
+  <?php } ?>
+
   <?php if (!empty($meedan_bookmarklet_title)) { ?>
     <h2><?php print $meedan_bookmarklet_title; ?></h2>
   <?php } ?>
