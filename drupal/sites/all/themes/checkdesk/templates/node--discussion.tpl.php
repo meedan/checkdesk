@@ -34,7 +34,7 @@
 
     <?php if(isset($content['field_lead_image'])) { ?>
       <figure>
-        <?php print render(field_view_field('node', $node, 'field_lead_image')); ?>
+        <?php print render(field_view_field('node', $node, 'field_lead_image', 'featured_image')); ?>
       </figure>
     <?php } ?>
     
