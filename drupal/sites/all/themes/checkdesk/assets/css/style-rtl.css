@@ -8458,7 +8458,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 
 .stories .story-row {
-  margin-bottom: 9.6px;
   padding: 9.6px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -8637,12 +8636,12 @@ body.widgets #main #content #content-inner:after {
   clear: both;
 }
 
-@media all and (max-height: 42em) {
+@media all and (max-height: 40em) {
   body.widgets #main #widgets.column .view-featured-stories {
     display: none;
   }
 }
-@media all and (max-height: 72em) {
+@media all and (max-height: 52em) {
   body.widgets #main #widgets.column .view-featured-stories .views-row-first img {
     display: none;
   }
