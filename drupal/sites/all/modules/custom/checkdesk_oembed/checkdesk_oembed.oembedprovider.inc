@@ -62,5 +62,5 @@ function checkdesk_oembed_provider($provider, $url, $matches) {
  */
 function checkdesk_oembed_embed_code($nid) {
   $src = url('embed/' . $node->nid, array('absolute' => TRUE));
-  return theme('meedan_iframe', array('src' => $src));
+  return theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;')));
 }
