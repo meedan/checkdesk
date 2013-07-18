@@ -217,10 +217,9 @@ function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
     $variables['meedan_bookmarklet_messages'] = array('<span class="meedan-bookmarklet-success">' . t('Success: Report created') . '</span>');
 
     if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
-      $variables['meedan_bookmarklet_messages'][] = t('Now let\'s <a href="!fact_check_url" !attributes>fact-check it</a> and <a href="!blog_url" !attributes>blog about it</a>.', array(
-        '!attributes' => drupal_attributes($attributes),
-        '!fact_check_url' => url('user/' . $user->uid, array('absolute' => TRUE)),
-        '!blog_url' => url('node/add/post', array('absolute' => TRUE, 'query' => array('report' => $_GET['meedan_bookmarklet_nid']))),
+      $variables['meedan_bookmarklet_messages'][] = t('Now let\'s !fact_check and !blog.', array(
+        '!fact_check' => l(t('fact-check it'), url('user/' . $user->uid, array('absolute' => TRUE)), array('attributes' => $attributes)),
+        '!blog' => l(t('blog about it'), url('node/add/post', array('absolute' => TRUE, 'query' => array('report' => $_GET['meedan_bookmarklet_nid']))), array('attributes' => $attributes)),
       ));
     }
     else {
