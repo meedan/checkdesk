@@ -43804,7 +43804,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Member for @time',
     'context' => '',
     'location' => '/ar/user/4482',
-    'translation' => '@time مسجل بالموقع منذ',
+    'translation' => 'مسجل بالموقع منذ @time',
     'plid' => 0,
     'plural' => 0,
   );
