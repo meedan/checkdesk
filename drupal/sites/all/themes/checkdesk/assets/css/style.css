@@ -4665,6 +4665,9 @@ div.tabs ul.primary li a {
   text-align: center;
 }
 
+#partner-header-inner img {
+  max-height: 140px;
+}
 #partner-header-inner #partner-header-slogan {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.6);
@@ -8649,7 +8652,7 @@ body.widgets #main #content #content-inner:after {
     display: none;
   }
 }
-@media all and (max-height: 52em) {
+@media all and (max-height: 48em) {
   body.widgets #main #widgets.column .view-featured-stories .views-row-first img {
     display: none;
   }
