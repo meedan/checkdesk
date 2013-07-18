@@ -12,20 +12,11 @@
 }
 
 #partner-header-inner {
-  // @include ctb-box-shadow(0px 1px 3px 1px rgba(0, 0, 0, 0.2));
-  // background-color: $white;
-  // padding: ms(0) 0;
-
-  #partner-header-slogan,
   img {
-    // padding: 0 ms(0);
+    max-height: 140px;
   }
 
   #partner-header-slogan {
-    // width: ms(12);
-    // color: $bright-green;
-    // font-size: $base-font-size * 1.5;
-    // text-align: $from-direction;
     border-top: 1px solid rgba(0,0,0,.1);
     color: rgba(0,0,0,.6);
     margin-top: $absolute-line-height;

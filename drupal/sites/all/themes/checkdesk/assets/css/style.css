@@ -2121,7 +2121,11 @@ nav[role="navigation"] li.submit-report a:before {
   content: "\f02e";
 }
 
-nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form > h2:before, .story .open > h2:before {
+#nav-discussion-form .customfile .customfile-feedback-populated:before {
+  content: "\f03e";
+}
+
+nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .compose-update-header a:before, .story .open .compose-update-header a:before {
   content: "\f040";
 }
 
@@ -4678,6 +4682,9 @@ div.tabs ul.primary li a {
   text-align: center;
 }
 
+#partner-header-inner img {
+  max-height: 140px;
+}
 #partner-header-inner #partner-header-slogan {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.6);
@@ -4783,6 +4790,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   -o-transition: color 0.3s linear;
   transition: color 0.3s linear;
   overflow: visible;
+}
+#footer-inner ul li a span {
+  margin-right: 11px;
 }
 #footer-inner ul li a:hover {
   color: rgba(0, 0, 0, 0.6);
@@ -7260,8 +7270,9 @@ form label[for="edit-pass"] a {
   font-weight: normal;
 }
 form .description {
-  font-size: 15px;
-  color: rgba(0, 0, 0, 0.4);
+  font-size: 15px !important;
+  color: rgba(0, 0, 0, 0.3) !important;
+  width: 100%;
 }
 form.confirmation .form-actions input {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
@@ -7607,9 +7618,7 @@ form .image-widget {
   -o-border-radius: 3px;
   border-radius: 3px;
   display: block;
-  background-color: rgba(0, 0, 0, 0.02);
   margin-top: 11px;
-  padding: 12px 11px 0;
 }
 form .image-widget .image-preview {
   display: inline-block;
@@ -7623,10 +7632,8 @@ form .image-widget input[type="file"] {
   padding: 0;
   display: inline-block;
   margin-right: 11px;
-  margin-bottom: 12px;
   padding: 0 11px;
-  background-color: white;
-  border: 1px solid #cccccc;
+  background-color: rgba(0, 0, 0, 0.05);
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   vertical-align: middle;
@@ -7713,9 +7720,7 @@ form .form-type-textarea:after {
     -o-border-radius: 3px;
     border-radius: 3px;
     display: block;
-    background-color: rgba(0, 0, 0, 0.02);
     margin-top: 11px;
-    padding: 12px 11px 0;
   }
   form .image-widget .image-preview {
     display: inline-block;
@@ -7729,10 +7734,8 @@ form .form-type-textarea:after {
     padding: 0;
     display: inline-block;
     margin-right: 11px;
-    margin-bottom: 12px;
     padding: 0 11px;
-    background-color: white;
-    border: 1px solid #cccccc;
+    background-color: rgba(0, 0, 0, 0.05);
     font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 15px;
     vertical-align: middle;
@@ -8252,21 +8255,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .compose-update-form {
   margin: 24px 0;
 }
-.story .compose-update-form > h2 {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  margin-bottom: 0;
+.story .compose-update-form .compose-update-header a {
+  display: inline-block;
   padding: 12px 11px;
-  cursor: pointer;
   color: white;
-  background-color: #efca2b;
+  background-color: #0088ff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  text-decoration: none;
 }
-.story .compose-update-form > h2:before {
+.story .compose-update-form .compose-update-header a:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
@@ -8280,7 +8283,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .compose-update-form .node-post-form {
   display: none;
-  border-top: 4px solid #efca2b;
   padding: 0 11px;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
 }
@@ -8332,16 +8334,20 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .compose-update-form .node-post-form input[type='submit']:active, .story .compose-update-form .node-post-form input[type='submit']:active:visited {
   color: white;
 }
-.story .open > h2 {
+.story .open .compose-update-header {
+  border-bottom: 4px solid #efca2b;
+  background-color: rgba(239, 202, 43, 0.1);
+}
+.story .open .compose-update-header a {
   color: rgba(0, 0, 0, 0.9);
-  background-color: rgba(239, 202, 43, 0.2);
+  background: none;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
-.story .open > h2:before {
+.story .open .compose-update-header a:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
@@ -8483,7 +8489,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 
 .stories .story-row {
-  margin-bottom: 8px;
   padding: 8px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -8647,7 +8652,6 @@ body.widgets #main #content {
   overflow-y: auto;
 }
 body.widgets #main #content #content-inner {
-  -moz-box-sizing: border-box;
   *zoom: 1;
   max-width: 850px;
   padding-top: 48px;
@@ -8663,12 +8667,12 @@ body.widgets #main #content #content-inner:after {
   clear: both;
 }
 
-@media all and (max-height: 42em) {
+@media all and (max-height: 38em) {
   body.widgets #main #widgets.column .view-featured-stories {
     display: none;
   }
 }
-@media all and (max-height: 72em) {
+@media all and (max-height: 48em) {
   body.widgets #main #widgets.column .view-featured-stories .views-row-first img {
     display: none;
   }
@@ -9179,7 +9183,7 @@ body.page-user-password #content-header {
 }
 
 #nav-discussion-form {
-  width: 450px;
+  width: 550px;
 }
 #nav-discussion-form form {
   padding: 0 11px;
@@ -9190,37 +9194,66 @@ body.page-user-password #content-header {
   padding: 0;
 }
 #nav-discussion-form .cke_contents {
-  max-height: 160px !important;
+  max-height: 120px !important;
 }
 #nav-discussion-form .form-actions {
   padding: 0;
   background-color: transparent;
   border: none;
 }
+#nav-discussion-form .form-actions #edit-submit-story {
+  background: #0088ff;
+}
 #nav-discussion-form .image-widget-data {
   width: 100%;
 }
 #nav-discussion-form .customfile {
-  width: 100%;
-  background: #cccccc;
-  margin-bottom: 11px;
+  width: 98%;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0;
+  margin-bottom: 6px;
   border: 0;
 }
 #nav-discussion-form .customfile .customfile {
   display: none;
 }
 #nav-discussion-form .customfile .customfile-button {
-  background: #0088ff;
+  background: rgba(0, 0, 0, 0.2);
   float: right;
+  padding: 8px 3.66667px;
   border: 0;
   width: auto;
+  min-width: 120px;
+  font-weight: normal;
 }
 #nav-discussion-form .customfile .customfile-feedback {
+  padding: 6px 5.5px;
   text-align: left;
   overflow: hidden;
+  color: #555555;
+  font-weight: normal;
+  font-style: normal;
+}
+#nav-discussion-form .customfile .customfile-ext-jpg, #nav-discussion-form .customfile .customfile-feedback-populated {
+  background: none !important;
+}
+#nav-discussion-form .customfile .customfile-feedback-populated:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+#nav-discussion-form .customfile:hover .customfile-button {
+  background: rgba(0, 0, 0, 0.3);
 }
 #nav-discussion-form .customfile-hover .customfile-button {
-  background: #0088ff;
+  background: rgba(0, 0, 0, 0.4);
   color: white;
 }
 #nav-discussion-form #edit-field-lead-image-und-0-upload-button {

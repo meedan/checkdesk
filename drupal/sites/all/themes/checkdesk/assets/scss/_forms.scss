@@ -232,8 +232,9 @@
 
     // // Default descriptions
     .description {
-      font-size: $small-font-size;
-      color: rgba(0,0,0,.4);
+      font-size: $small-font-size !important;
+      color: rgba(0,0,0,.3) !important;
+      width: 100%;
     }
 
     // little links: create new account, forgot password 
@@ -311,9 +312,9 @@
     .image-widget {
       @include border-radius(3px);
       display: block;
-      background-color: rgba(0,0,0,.02);
+      // background-color: rgba(0,0,0,.02);
       margin-top: $gutter-width;
-      padding: $absolute-line-height/2 $gutter-width 0;
+      // padding: $absolute-line-height/2 $gutter-width 0;
 
       .image-preview {
         display: inline-block;
@@ -328,15 +329,14 @@
         @include reset-box-model;
         display: inline-block;
         margin-#{$omega}: $gutter-width;
-        margin-bottom: $absolute-line-height/2;
         padding: 0 $gutter-width;
-        background-color: $input-background;
-        border: 1px solid $grey;
+        background-color: rgba(0,0,0,.05);
         font-family: $sans-serif-font-stack;
         font-size: $small-font-size;
         vertical-align: middle;
         @include border-radius(3px);
       }
+
       input[type="submit"] {
         margin-bottom: $absolute-line-height/2;
         margin-#{$omega}: 0;

@@ -71,6 +71,9 @@ body.widgets, body.sidebar-first {
         padding: 0 $gutter-width;
         @include ctb-transition(color 0.3s linear);
         overflow: visible;
+        span {
+          margin-#{$omega}: $gutter-width;
+        }
         &:hover {
           color: rgba(0,0,0,.6);
         }

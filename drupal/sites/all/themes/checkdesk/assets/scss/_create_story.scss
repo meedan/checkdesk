@@ -1,6 +1,6 @@
 // Create story form in navigation
 #nav-discussion-form {
-  width: 450px;
+  width: 550px;
 
   form {
     padding: 0 $gutter-width;
@@ -12,13 +12,16 @@
   }
 
   .cke_contents {
-    max-height: 160px !important;
+    max-height: 120px !important;
   }
 
   .form-actions {
     padding: 0;
     background-color: transparent;
     border: none;
+    #edit-submit-story {
+      background: $identity;
+    }
   }
 
   .image-widget-data {
@@ -26,9 +29,10 @@
   }
 
   .customfile {
-    width: 100%;
-    background: $grey;
-    margin-bottom: $gutter-width;
+    width: 98%;
+    background: rgba(0,0,0,.05);
+    padding: 0;
+    margin-bottom: $absolute-line-height/4;
     border: 0;
 
     .customfile {
@@ -36,20 +40,44 @@
     }
 
     .customfile-button {
-      background: $twitter-blueish;
+      background: rgba(0,0,0,.2);
       float: opposite-position($from-direction);
+      padding: $absolute-line-height/3 $gutter-width/3;
       border: 0;
       width: auto;
+      min-width: 120px;
+      font-weight: normal;
     }
 
     .customfile-feedback {
+      padding: $absolute-line-height/4 $gutter-width/2;
       text-align: $from-direction;
       overflow: hidden;
+      color: $gray;
+      font-weight: normal;
+      font-style: normal;
+      @if $from-direction == 'right' {
+        font-size: $small-font-size;
+        line-height: 2.4;
+      }
     }
+
+    .customfile-ext-jpg, .customfile-feedback-populated {
+      background: none !important;
+    }
+
+    .customfile-feedback-populated {
+      @include icon(picture, $base-font-size);
+    }
+
+    &:hover {
+      .customfile-button { background: rgba(0,0,0,.3); }
+    }
+
   }
   .customfile-hover {
     .customfile-button {
-      background: $twitter-blueish;
+      background: rgba(0,0,0,.4);
       color: $white;
     }
   }
