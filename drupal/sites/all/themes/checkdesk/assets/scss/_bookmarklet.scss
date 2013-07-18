@@ -379,6 +379,6 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 @media all and (max-height: 32em) {
   #nav-media-form {
     max-height: 290px;
-    overflow-y: scroll;
+    // overflow-y: scroll;
   }
 }
