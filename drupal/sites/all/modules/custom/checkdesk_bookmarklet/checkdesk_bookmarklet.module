@@ -202,6 +202,10 @@ function checkdesk_bookmarklet_node_insert($node) {
 function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
   global $base_url, $user;
 
+  // Reload page on clicking close
+  $reset_url = url('node/add/media', array('absolute' => TRUE, 'query' => array('meedan_bookmarklet' => 1)));
+  $variables['meedan_bookmarklet_close'] = l('<span>[X]</span>', '', array('html' => TRUE, 'attributes' => array('id' => 'meedan_bookmarklet_close', 'onclick' => 'window.parent.postMessage(\'destroy\', \'*\'); window.location.href = \'' . $reset_url . '\'; return false;')));
+
   // If the user is not logged in, replace bookmarklet title to help text
   if(isset($variables['meedan_bookmarklet_title']) && !user_is_logged_in()) {
     $variables['meedan_bookmarklet_title'] = t('To ' . strtolower(variable_get('meedan_bookmarklet_title', '')) . ', you need to log in.');
@@ -226,7 +230,7 @@ function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
       $variables['meedan_bookmarklet_messages'][] = l(t('View your reports.'), url('user/' . $user->uid, array('absolute' => TRUE)), array('attributes' => $attributes));
     }
 
-    $variables['footer'] = '<input type="reset" onclick="window.parent.postMessage(\'destroy\', \'*\'); return false;" value="' . t('Close') . '" class="form-submit" id="meedan_bookmarklet_cancel_button" />';
+    $variables['footer'] = '<input type="reset" onclick="window.parent.postMessage(\'destroy\', \'*\'); window.location.href = \'' . $reset_url . '\'" value="' . t('Close') . '" class="form-submit" id="meedan_bookmarklet_cancel_button" />';
 
   }
 
