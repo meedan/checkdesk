@@ -6,7 +6,7 @@
  * Resource to interact with the Drupal user API.
  */
 cdServices
-  .factory('User', ['$resource', '$http', function($resource, $http) {
+  .factory('User', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http) {
     var User,
         anonymousUser,
         currentUser,
@@ -17,36 +17,6 @@ cdServices
     isLoggedIn = false;
 
     User = $resource('api/user/:verb', {}, {
-      /**
-       * @ngdoc property
-       * @name cd.services.User#anonymousUser
-       * @methodOf cd.services.User
-       *
-       * @description
-       * The anonymous user is the account used when not logged in.
-       */
-      anonymousUser: anonymousUser,
-
-      /**
-       * @ngdoc property
-       * @name cd.services.User#isLoggedIn
-       * @methodOf cd.services.User
-       *
-       * @description
-       * Is any user currently logged in?
-       */
-      isLoggedIn: isLoggedIn,
-
-      /**
-       * @ngdoc property
-       * @name cd.services.User#currentUser
-       * @methodOf cd.services.User
-       *
-       * @description
-       * The currently logged in user or the anonymousUser.
-       */
-      currentUser: currentUser,
-
       /**
        * @ngdoc method
        * @name cd.services.User#login
@@ -107,9 +77,29 @@ cdServices
       }
     });
 
-    // // Add methods to retrieve the currently logged in user
-    // angular.extend(User.prototype, {
-    // });
+    /**
+     * @ngdoc property
+     * @name cd.services.User#isLoggedIn
+     * @methodOf cd.services.User
+     *
+     * @description
+     * Is any user currently logged in?
+     */
+    User.isLoggedIn = isLoggedIn;
+
+    /**
+     * @ngdoc property
+     * @name cd.services.User#currentUser
+     * @methodOf cd.services.User
+     *
+     * @description
+     * The currently logged in user or the anonymousUser.
+     */
+    User.currentUser = currentUser;
+
+    // Bring these objects under the purview of Angular.
+    $rootScope.isLoggedIn = isLoggedIn;
+    $rootScope.currentUser = currentUser;
 
     return User;
   }]);

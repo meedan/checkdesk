@@ -1,0 +1,204 @@
+<?php
+
+/**
+ * Implements hook_init()
+ */
+function user_alert_init() {
+	drupal_add_js(array('user_alert' => array('url_prefix' => variable_get('clean_url', 0) != 0 ? '' : '?q=')), 'setting');
+}
+
+/**
+ * Implements hook_menu()
+ */
+function user_alert_menu() {
+  $items = array();
+
+  $items['admin/config/content/user-alert'] = array(
+		'title' => 'User Alert',
+		'description' => 'Configuration options for User Alert.',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('user_alert_admin_settings'),
+		'access arguments' => array('administer user alert'),
+		'file' => 'user_alert.admin.inc',
+  );
+  $items['admin/config/content/user-alert/list'] = array(
+		'title' => 'User Alert',
+		'type' => MENU_DEFAULT_LOCAL_TASK,
+		'access arguments' => array('administer user alert'),
+		'weight' => -15,
+  );
+  $items['js/user-alert/close-message'] = array(
+		'page callback' => 'user_alert_close_message',
+		'delivery callback' => 'ajax_deliver',
+		'access arguments' => array('access content'),
+		'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission()
+ */
+function user_alert_permission() {
+  return array(
+    'administer user alert' => array(
+      'title' => t('Administer user alert'), 
+      'description' => t('Perform administration tasks for User Alert.'),
+    ),      
+  );
+}
+
+/**
+ * Implements hook_access().
+ */
+function user_alert_node_access($op, $node, $account) {
+  switch ($op) {
+    case 'create':
+      if (user_access('create user alert', $account)) {
+        return TRUE;
+      }
+      break;
+
+    case 'update':
+      if (user_access('edit any user alert', $account) || ($account->uid == $node->uid && user_access('edit own user alert', $account))) {
+        return TRUE;
+      }
+      break;
+
+    case 'delete':
+      if (user_access('delete any user alert', $account) || ($account->uid == $node->uid && user_access('delete own user alert', $account))) {
+        return TRUE;
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_block_info()
+ */
+function user_alert_block_info() {
+  $blocks['user_alert'] = array(
+    'info'   => t('User Alert'),
+    'region' => 'content',
+    'status' => 1,
+    'cache'  => DRUPAL_NO_CACHE,
+  );
+
+	return $blocks;
+}
+
+/**
+ * Implements hook_block_view()
+ */
+ function user_alert_block_view($delta) {
+  if ($delta == 'user_alert') {
+    $block['subject'] = '<none>';
+    $block['content'] = user_alert_display_alert();
+    return $block;
+  }
+}
+
+/**
+ * Implements hook_node_info().
+ */
+function user_alert_node_info() {
+  return array(
+    'user_alert' => array(
+      'name' => t('User Alert'),
+      'base' => 'user_alert',
+      'description' => t('A User Alert is a short Twitter like message displayed at the top of the site, alerting users to critical information like an online sale, new blog post, or breaking news. After viewing it, they can click and close the message.'),
+      'has_title' => TRUE,
+      'title_label' => t('Title'),
+      'disabled' => FALSE,
+    )
+  );
+}
+
+/**
+ * Implements hook_form().
+ */
+function user_alert_form($node, &$form_state) {
+  return node_content_form($node, $form_state);
+}
+
+/**
+ * Gather alerts for the current user and return them. Exclude ones already closed.
+ *
+ * @return string
+ *   Returns themed output if there is a message to display.
+ */
+function user_alert_display_alert() {
+  global $user;
+
+  if (module_exists('translation')) {
+    global $language;
+    $langcode = $language->language;
+  } else {
+    $langcode = LANGUAGE_NONE;
+  }
+
+	$output = '';
+	$result = db_query("SELECT n.nid FROM {node} n WHERE type = :type AND status = :status AND language = :language AND n.nid NOT IN (SELECT ua.nid FROM {user_alert} ua WHERE ua.nid = n.nid AND ua.uid = :uid) ORDER BY nid DESC", array(':type' => 'user_alert', ':status' => NODE_PUBLISHED,  ':language' => $langcode, ':uid' => $user->uid));
+
+	foreach ($result as $record) {
+		$alert = node_load($record->nid);
+		if (node_access('view', $alert)) {
+			$output .= theme('user_alert', array('node' => $alert));
+		}
+	}
+	
+	return $output;
+}
+ 
+/**
+ * Respond to a user clicking to close an alert.
+ */
+function user_alert_close_message() {
+  global $user;
+	$nid = $_GET['message'];
+
+	if (!node_load($nid)) {
+	  return;
+	}
+	
+	$fields = array('nid' => $nid, 'uid' => $user->uid);
+	db_insert('user_alert')->fields($fields)->execute();
+}
+
+/**
+ * Implements hook_theme()
+ */
+function user_alert_theme() {
+  return array(
+    'user_alert' => array(
+      'template' => 'user-alert',
+      'variables' => array('node' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess()
+ */
+function user_alert_preprocess_user_alert(&$vars) {
+  $node = $vars['node'];
+  $vars['alert_label'] = variable_get('user_alert_label', 'User Alert');
+  $vars['nid'] = $vars['node']->nid;
+  $vars['body'] = $vars['node']->body[$vars['node']->language][0]['value'];
+  $vars['is_closeable'] = TRUE;
+}
+
+/**
+ * Implements hook_cron()
+ */
+ function user_alert_cron() {
+  if (variable_get('user_alert_cron_delete', 0)) {
+    $result = db_query('SELECT nid FROM {node} WHERE type = :type AND status = :status', array(':type' => 'user_alert', ':status' => NODE_NOT_PUBLISHED));
+
+    foreach ($result as $record) {
+      node_delete($record->nid);
+    }
+  }
+}

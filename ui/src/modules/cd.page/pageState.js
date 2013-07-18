@@ -33,9 +33,14 @@ cdPage
        * @param {string=} new page headTitle
        * @returns {string} The current page headTitle
        */
-      headTitle: function(newHeadTitle) {
+      headTitle: function(newHeadTitle, appendSiteName) {
         if (newHeadTitle) {
+          appendSiteName = !angular.isUndefined(appendSiteName) ? appendSiteName : true;
           headTitle = newHeadTitle;
+
+          if (appendSiteName) {
+            headTitle += ' | Checkdesk';
+          }
         }
         return headTitle;
       },

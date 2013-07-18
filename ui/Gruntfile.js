@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-ngdocs');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
@@ -44,6 +45,15 @@ module.exports = function(grunt) {
       build: {
         src: 'build/<%= pkg.name %>.js',
         dest: 'build/<%= pkg.name %>.min.js'
+      }
+    },
+    watch: {
+      src: {
+        files: '<config:jshint.all>',
+        tasks: ['jshint', 'concat', 'uglify', 'ngdocs']
+        // options: {
+        //   nospawn: true,
+        // }
       }
     },
     karma: {

@@ -36,6 +36,74 @@
        font-weight: 200px;
       }
     }
+
+  }
+}
+
+// A user profile
+body.page-user.logged-in {
+
+  // Sidebar
+  #sidebar-first {
+    height: 100%;
+    top: $navbarHeight !important;
+    padding: $base-line-height;
+    padding-top: $base-line-height * 2;
+  }
+
+  // User info block
+  .user-info {
+    .linked-accounts {
+      margin-top: $gutter-width * 2;
+      margin-bottom: $gutter-width * 2;
+
+      .icon-twitter  {
+        @include icon("twitter-sign", 21.5px, $twitter-blue);
+
+        &:before {
+          margin: 0;
+        }
+      }
+
+      a {
+        @include reset-box-model;
+        display: inline;
+        color: black;
+      }
+    }
+    .profile-links {
+      a {
+        @include checkdesk-button($grayLight);
+        @include button-size(16px);
+        text-transform: lowercase;
+        float: $from-direction;
+        clear: both;
+        margin-bottom: $gutter-width;
+      }
+    }
+  }
+
+  // Profile contents
+  h1.title {
+    font-size: $x-large-font-size;
+    strong {
+      font-size: $xx-large-font-size + 2px;
+    }
+  }
+  .tabs {
+    display: none;
+  }
+  div.profile {
+    .report-row-container {
+      margin: 2px;
+    }
+  }
+}
+
+body.page-user.logged-in.toolbar {
+  // Sidebar
+  #sidebar-first {
+    top: $navbarHeight + $toolbarHeight !important;
   }
 }
 

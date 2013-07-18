@@ -5,13 +5,12 @@ cdPage
    * @name cd.page.controllers:NavbarCtrl
    * @requires $scope
    * @requires $translate
-   * @requires System
    * @requires User
    *
    * @description
    * Controller for site navigation bar.
    */
-  .controller('NavbarCtrl', ['$scope', '$translate', 'System', 'User', function ($scope, $translate, System, User) {
+  .controller('NavbarCtrl', ['$scope', '$translate', 'User', function ($scope, $translate, User) {
     var updateLangClass = function (mode, langClass) {
           switch (mode) {
             case 'remove':
@@ -41,8 +40,9 @@ cdPage
     ];
 
     // TODO: Unstub the userMenu.
-    $scope.$watch('isLoggedIn', function (newVal, oldVal) {
-      if (newVal) {
+    $scope.$watch('currentUser', function (newVal, oldVal) {
+      console.log([newVal, oldVal], 'Watching curentUser');
+      if (newVal.uid > 0) {
         $scope.userMenu = [
           {
             title: $translate('USER_MENU_ITEM_LOGOUT_LINK'),
@@ -87,7 +87,7 @@ cdPage
     return {
       restrict: 'A',
       scope: { item: '=cdMenuItem' },
-      template: ['<a href="{{item.href}}">',
+      template: ['<a href="{{item.href}}" ng-click="item.click()">',
                    '<span ng-show="item.icon" class="{{item.icon}}"></span>',
                    '{{item.title | translate}}',
                  '</a>'].join('')

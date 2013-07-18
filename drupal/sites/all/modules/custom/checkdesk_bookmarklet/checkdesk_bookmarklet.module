@@ -48,7 +48,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['graphic_content'] = array(
       '#type' => 'checkboxes',
       '#options' => array($flag => t('Graphic content')),
-      '#weight' => 99,
+      '#weight' => 999,
     );
 
     // Show media preview just after the link field
@@ -58,9 +58,6 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['report_preview'] = array(
       '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . (isset($preview['preview']) ? $preview['preview'] : '') . '</div></div>',
     );
-    if (isset($preview['title'])) {
-      $form['title']['#default_value'] = $preview['title'];
-    }
     if (isset($preview['description'])) {
       $form['body'][LANGUAGE_NONE][0]['#default_value'] = $preview['description'];
     }
@@ -69,9 +66,8 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['field_link']['#weight'] = -1;
     $form['report_preview']['#weight'] = 0;
 
-    // Change field labels
-    $form['body']['und'][0]['#attributes'] = array('placeholder' => t('Description'));
-    $form['title']['#attributes'] = array('placeholder' => t('Title'));
+    // Change field attributes
+    $form['body']['und'][0]['#attributes'] = array('placeholder' => t('Description'), 'rows' => 5);
 
     // Description textarea should not be resizable
     $form['body']['und'][0]['#resizable'] = FALSE;
@@ -80,7 +76,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['#after_build'] = array('_checkdesk_bookmarklet_load_javascript_for_bookmarklet_form');
 
     // Two buttons: submit and cancel
-    $form['actions']['submit']['#value'] = t('Done');
+    $form['actions']['submit']['#value'] = t('Submit');
     $form['actions']['draft']['#access'] = FALSE;
     $form['actions']['cancel'] = array(
       '#markup' => '<input type="reset" onclick="window.parent.postMessage(\'close\', \'*\'); return false;" class="form-submit" value="' . t('Cancel') . '" id="meedan_bookmarklet_cancel_button" />',
@@ -192,7 +188,7 @@ function checkdesk_bookmarklet_node_insert($node) {
 
   if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $node->type == variable_get('meedan_bookmarklet_content_type', 'page')) {
     // Hack to avoid other hooks from not being called: http://drupal.org/node/130734#comment-3835244
-    $_GET['destination'] = 'meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=' . $node->nid;
+    $_GET['destination'] = 'meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=' . $node->nid . '&meedan_bookmarklet_url=' . urlencode($node->field_link[LANGUAGE_NONE][0]['url']);
   }
 }
 
@@ -204,20 +200,38 @@ function checkdesk_bookmarklet_node_insert($node) {
  * Adds an id when bookmarklet is opened from inside the site.
  */
 function checkdesk_bookmarklet_preprocess_html(&$variables, $hook) {
-  global $base_url;
+  global $base_url, $user;
+
+  // Reload page on clicking close
+  $reset_url = url('node/add/media', array('absolute' => TRUE, 'query' => array('meedan_bookmarklet' => 1)));
+  $variables['meedan_bookmarklet_close'] = l('<span>[X]</span>', '', array('html' => TRUE, 'attributes' => array('id' => 'meedan_bookmarklet_close', 'onclick' => 'window.parent.postMessage(\'destroy\', \'*\'); window.location.href = \'' . $reset_url . '\'; return false;')));
+
   // If the user is not logged in, replace bookmarklet title to help text
   if(isset($variables['meedan_bookmarklet_title']) && !user_is_logged_in()) {
     $variables['meedan_bookmarklet_title'] = t('To ' . strtolower(variable_get('meedan_bookmarklet_title', '')) . ', you need to log in.');
   }
 
   if (isset($_GET['meedan_bookmarklet_submitted'])) {
-    $variables['meedan_bookmarklet_title'] = t('Report submitted, thanks!');
+
+    $preview = _checkdesk_bookmarklet_media_preview(urldecode($_GET['meedan_bookmarklet_url']));
+    $variables['meedan_bookmarklet_title'] = isset($preview['error']) ? $preview['error']['message'] : $preview['preview'];
+
     $attributes = array('target' => '_blank', 'onclick' => 'if (window.parent.location.host == window.location.host) { window.parent.location.href = this.href; return false; }');
-    $variables['meedan_bookmarklet_messages'] = array(
-      l(t('See the new report'), url('node/' . $_GET['meedan_bookmarklet_nid'], array('absolute' => TRUE)), array('attributes' => $attributes)),
-      l(t('Submit a new report'), url('node/add/media', array('absolute' => TRUE, 'query' => array('meedan_bookmarklet' => 1))), array('attributes' => array('onclick' => "window.parent.postMessage('reset', '*')"))),
-    );
-    $variables['footer'] = '<input type="reset" onclick="window.parent.postMessage(\'destroy\', \'*\'); return false;" value="' . t('Close') . '" class="form-submit" id="meedan_bookmarklet_cancel_button" />';
+
+    $variables['meedan_bookmarklet_messages'] = array('<span class="meedan-bookmarklet-success">' . t('Success: Report created') . '</span>');
+
+    if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
+      $variables['meedan_bookmarklet_messages'][] = t('Now let\'s !fact_check and !blog.', array(
+        '!fact_check' => l(t('fact-check it'), url('user/' . $user->uid, array('absolute' => TRUE)), array('attributes' => $attributes)),
+        '!blog' => l(t('blog about it'), url('node/add/post', array('absolute' => TRUE, 'query' => array('report' => $_GET['meedan_bookmarklet_nid']))), array('attributes' => $attributes)),
+      ));
+    }
+    else {
+      $variables['meedan_bookmarklet_messages'][] = l(t('View your reports.'), url('user/' . $user->uid, array('absolute' => TRUE)), array('attributes' => $attributes));
+    }
+
+    $variables['footer'] = '<input type="reset" onclick="window.parent.postMessage(\'destroy\', \'*\'); window.location.href = \'' . $reset_url . '\'" value="' . t('Close') . '" class="form-submit" id="meedan_bookmarklet_cancel_button" />';
+
   }
 
   if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {

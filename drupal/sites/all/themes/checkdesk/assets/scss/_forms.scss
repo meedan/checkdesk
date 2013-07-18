@@ -189,9 +189,13 @@
     }
 
     textarea { 
-      
-      // height: 200px; 
+      height: 250px; 
     } // starting height
+
+    // set textarea height under 
+    .cke_contents { 
+      max-height: 250px !important;
+    }
 
     // checkboxes and radios
     input[type="checkbox"], 
@@ -228,8 +232,9 @@
 
     // // Default descriptions
     .description {
-      font-size: $small-font-size;
-      color: rgba(0,0,0,.4);
+      font-size: $small-font-size !important;
+      color: rgba(0,0,0,.3) !important;
+      width: 100%;
     }
 
     // little links: create new account, forgot password 
@@ -298,16 +303,18 @@
     textarea {
       font-family: $sans-serif-font-stack;
       @include span-columns($w, $w); // small padding with grid accounting
-      // padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
+      @include ctb-box-sizing(border-box); // Makes inputs behave like true block-level elements
+      padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
+      height: auto !important;
     }
 
     // image field
     .image-widget {
       @include border-radius(3px);
       display: block;
-      background-color: rgba(0,0,0,.02);
+      // background-color: rgba(0,0,0,.02);
       margin-top: $gutter-width;
-      padding: $absolute-line-height/2 $gutter-width 0;
+      // padding: $absolute-line-height/2 $gutter-width 0;
 
       .image-preview {
         display: inline-block;
@@ -322,15 +329,14 @@
         @include reset-box-model;
         display: inline-block;
         margin-#{$omega}: $gutter-width;
-        margin-bottom: $absolute-line-height/2;
         padding: 0 $gutter-width;
-        background-color: $input-background;
-        border: 1px solid $grey;
+        background-color: rgba(0,0,0,.05);
         font-family: $sans-serif-font-stack;
         font-size: $small-font-size;
         vertical-align: middle;
         @include border-radius(3px);
       }
+
       input[type="submit"] {
         margin-bottom: $absolute-line-height/2;
         margin-#{$omega}: 0;

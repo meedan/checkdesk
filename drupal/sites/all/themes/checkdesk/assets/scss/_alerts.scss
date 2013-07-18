@@ -5,7 +5,7 @@
 // We establish the basic alert and then alternates.
 
 // The alert container
-.messages {
+.messages, .user-alert {
   padding: 8px 14px;
   margin-bottom: $absolute-line-height/2;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
@@ -16,8 +16,13 @@
 }
 
 .messages,
+.user-alert,
 .messages-heading {
   color: $warningText;
+  a, a:hover {
+    color: $warningLink;
+    text-decoration: none;
+  }
 }
 
 // Alternate styles
@@ -77,7 +82,7 @@
 }
 
 // Close icons
-.close {
+.close, .user-alert-close {
   float: $omega;
   font-size: 20px;
   font-weight: bold;

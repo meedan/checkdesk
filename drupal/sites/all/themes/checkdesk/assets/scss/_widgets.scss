@@ -19,7 +19,6 @@
         width: 30%;
         border-#{$omega}: 1px solid rgba(0,0,0,.1);
         background-color: $white;
-        
       }
 
       // 3. The primary content column, 
@@ -32,7 +31,7 @@
         // #{$omega}: 0;
         overflow-y: auto;
         #content-inner {
-          -moz-box-sizing: border-box;
+          // -moz-box-sizing: border-box;
           @include ctb-clearfix;
           max-width: 850px;
           padding-top: $base-line-height*2;
@@ -63,7 +62,7 @@
 }
 
 // Hide featured stories block for small viewports
-@media all and (max-height: 52em) {
+@media all and (max-height: 38em) {
   body.widgets #main #widgets.column {
     .view-featured-stories {
       display: none;
@@ -72,7 +71,7 @@
 }
 
 // Hide featured stories block for small viewports
-@media all and (max-height: 72em) {
+@media all and (max-height: 48em) {
   body.widgets #main #widgets.column {
     .view-featured-stories {
       .views-row-first {
@@ -143,7 +142,7 @@
   // spacing between blocks/widgets
   .block {
     @include ctb-clearfix;
-    margin: ms(1) auto;
+    margin: $absolute-line-height/2 0;
     // block title
     h2 {
       @include reset-box-model;

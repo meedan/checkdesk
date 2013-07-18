@@ -125,7 +125,11 @@ function checkdesk_preprocess_region(&$variables) {
     $image = theme_get_setting('header_image_path');
     
     if (!empty($image) && theme_get_setting('header_image_enabled')) {
-      $variables['header_image'] = l(theme('image', array('path' => $image, 'style_name'=> 'partner_logo')), '<front>', array('html' => TRUE,));
+      $header_image_data = array(
+        'style_name' => 'partner_logo',
+        'path' => $image,
+      );
+      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE,));
     }
 
     $position = theme_get_setting('header_image_position');
@@ -145,7 +149,11 @@ function checkdesk_preprocess_region(&$variables) {
     $image = theme_get_setting('footer_image_path');
     
     if (!empty($image)) {
-      $variables['footer_image'] = theme('image', array('path' => $image, 'style_name'=> 'footer_partner_logo'));
+      $footer_image_data = array(
+        'style_name' => 'footer_partner_logo',
+        'path' => $image,
+      );
+      $variables['footer_image'] = theme('image_style', $footer_image_data);
       $variables['partner_url'] = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
     }
   }
@@ -1219,4 +1227,19 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
   }
+}
+
+/**
+ * Process variables for user-profile.tpl.php.
+ */
+function checkdesk_preprocess_user_profile(&$variables) {
+  $profile = $variables['elements']['#account'];
+
+  $variables['member_for'] = t('Member for @time', array('@time' => $variables['user_profile']['summary']['member_for']['#markup']));
+
+  // User reports
+  $reports = views_get_view('reports');
+  $reports->set_arguments(array($profile->uid));
+  $variables['reports'] = $reports->preview('block_1');
+  $reports->destroy();
 }

@@ -59,6 +59,9 @@ body.widgets, body.sidebar-first {
       position: relative;
       display: inline-block;
       font-size: modular-scale(0) - modular-scale(-3); // 14px
+      @if $from-direction == 'right' {
+        font-size: $small-font-size;
+      }
       line-height: 1.6;
 
       a {
@@ -68,6 +71,9 @@ body.widgets, body.sidebar-first {
         padding: 0 $gutter-width;
         @include ctb-transition(color 0.3s linear);
         overflow: visible;
+        span {
+          margin-#{$omega}: $gutter-width;
+        }
         &:hover {
           color: rgba(0,0,0,.6);
         }
@@ -84,6 +90,9 @@ body.widgets, body.sidebar-first {
           display: inline; 
           vertical-align: middle;
           margin-top: -2px;
+          @if $from-direction == 'right' {
+            margin-top: -6px;
+          }
         }
       }
 

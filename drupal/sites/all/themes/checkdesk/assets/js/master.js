@@ -65,7 +65,7 @@
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // show or hide compose update form
-      $('.compose-update-form>h2').unbind('click').click(function(event) {
+      $('.compose-update-form .compose-update-header').unbind('click').click(function(event) {
         var target = $(this),
             element = target.parent();
         if (element.find('.node-post-form').is(':visible')) {

@@ -547,6 +547,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->api_version = 1;
   $strongarm->name = 'meedan_bookmarklet_hidden_fields';
   $strongarm->value = array(
+    'title' => 'title',
     'field_rating' => 'field_rating',
     'field_stories' => 'field_stories',
     'body' => 0,
@@ -1112,6 +1113,20 @@ return _checkdesk_core_auto_title($node);
   $strongarm->name = 'user_admin_role';
   $strongarm->value = '3';
   $export['user_admin_role'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_alert_cron_delete';
+  $strongarm->value = 0;
+  $export['user_alert_cron_delete'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_alert_label';
+  $strongarm->value = '';
+  $export['user_alert_label'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

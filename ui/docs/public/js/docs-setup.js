@@ -86,7 +86,7 @@ NG_DOCS={
       "id": "cd.page.controllers:NavbarCtrl",
       "shortName": "NavbarCtrl",
       "type": "object",
-      "keywords": "$scope $translate api bar cd controller controllers for navigation object page site system user"
+      "keywords": "$scope $translate api bar cd controller controllers for navigation object page site user"
     },
     {
       "section": "api",
@@ -198,7 +198,7 @@ NG_DOCS={
       "id": "cd.services.User",
       "shortName": "User",
       "type": "service",
-      "keywords": "abc account after an anonymous anonymoususer any api cd currently currentuser drupal in interact is isloggedin like logged login logout method not object or property resolves resource result service services sessname the to transformation true used user when with"
+      "keywords": "abc after an anonymoususer any api cd currently currentuser drupal in interact is isloggedin like logged login logout method object or property resolves resource result service services sessname the to transformation true user with"
     },
     {
       "section": "api",

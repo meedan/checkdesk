@@ -238,6 +238,7 @@ function meedan_oembed_facebook_form_media_node_form_alter(&$form, &$form_state,
     ));
     $loginUrl = t('If you want to submit a Facebook link, you need to <a href="@url" onclick="!onclick" target="_blank">connect to your Facebook account first</a>.', array('@url' => _meedan_oembed_facebook_login_url($facebook), '!onclick' => $onclick));
     $form['field_link']['und'][0]['#description'] = $loginUrl;
+    $form['field_link']['#attributes']['class'] = array('fb-message');
     $form['fb_loginurl'] = array(
       '#type' => 'hidden',
       '#value' => $loginUrl,
@@ -249,7 +250,6 @@ function meedan_oembed_facebook_form_media_node_form_alter(&$form, &$form_state,
   );
   $form['#validate'][] = '_meedan_oembed_facebook_post_validate';
 }
-
 
 /**
  * Validate embed from Facebook
