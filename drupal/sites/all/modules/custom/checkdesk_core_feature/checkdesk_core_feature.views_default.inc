@@ -1462,6 +1462,18 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['menu']['weight'] = '50';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_1');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Author uid */
+  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['table'] = 'node';
+  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $translatables['reports'] = array(
     t('Master'),
     t('Reports'),
@@ -1483,6 +1495,8 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('.'),
     t(','),
     t('Page'),
+    t('Block'),
+    t('All'),
   );
   $export['reports'] = $view;
 

@@ -50,6 +50,9 @@
                     print t('Sign In');
                   } elseif (arg(0) == 'user' && arg(1) == '') {
                     print t('Sign In');
+                  } elseif (arg(0) == 'user' && is_numeric(arg(1))) {
+                    $account = user_load(arg(1));
+                    print t('<strong>@user\'s</strong> reports', array('@user' => $account->name));
                   } else {
                     print $title;
                   }

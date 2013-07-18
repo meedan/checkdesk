@@ -1228,3 +1228,18 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     }
   }
 }
+
+/**
+ * Process variables for user-profile.tpl.php.
+ */
+function checkdesk_preprocess_user_profile(&$variables) {
+  $profile = $variables['elements']['#account'];
+
+  $variables['member_for'] = t('Member for @time', array('@time' => $variables['user_profile']['summary']['member_for']['#markup']));
+
+  // User reports
+  $reports = views_get_view('reports');
+  $reports->set_arguments(array($profile->uid));
+  $variables['reports'] = $reports->preview('block_1');
+  $reports->destroy();
+}

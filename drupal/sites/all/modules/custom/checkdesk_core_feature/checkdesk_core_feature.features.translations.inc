@@ -43776,6 +43776,30 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['de2f6fe55ca6f366e4e135e40af4c454'] = array(
+    'source' => 'Edit profile',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['c3648421aaf81a3ecc2781659ca9cf06'] = array(
+    'source' => '<strong>@user\'s</strong> reports',
+    'context' => '',
+    'location' => '/ar/user/4482',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['1f8e2102791135c39ea9342a1d334e0f'] = array(
+    'source' => 'Member for @time',
+    'context' => '',
+    'location' => '/ar/user/4482',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

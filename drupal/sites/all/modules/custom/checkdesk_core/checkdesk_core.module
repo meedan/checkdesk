@@ -1141,6 +1141,13 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_user_info'] = array(
+    'template' => 'user_info',
+    'variables' => array(
+      'user' => NULL,
+    ),
+  ) + $base;
+
   return $themes;
 }
 
@@ -1190,6 +1197,11 @@ function checkdesk_core_block_info() {
     'cache' => DRUPAL_NO_CACHE,
   );
 
+  $blocks['checkdesk_user_info'] = array(
+    'info'   => t('Checkdesk user information'),
+    'cache'  => DRUPAL_NO_CACHE,
+  );
+
   return $blocks;
 }
 
@@ -1200,6 +1212,8 @@ function checkdesk_core_block_view($delta = '') {
   switch ($delta) {
     case 'post':
       return checkdesk_core_report_form_block();
+    case 'checkdesk_user_info':
+      return checkdesk_core_user_info_block();
   }
 }
 
@@ -1241,6 +1255,18 @@ AND n.uid = :uid
 
   drupal_set_title($title);
   return array('subject' => $subject, 'content' => $content);
+}
+
+/**
+ * Generates a block with user information.
+ */
+function checkdesk_core_user_info_block() {
+  $content = '';
+  if (arg(0) == 'user' && is_numeric(arg(1))) {
+    $profile = user_load(arg(1));
+    $content = theme('checkdesk_core_user_info', array('user' => $profile));
+  }
+  return array('subject' => '<none>', 'content' => $content);
 }
 
 /**

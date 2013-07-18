@@ -87,6 +87,42 @@ function checkdesk_core_feature_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'profile';
+  $context->description = 'User profile';
+  $context->tag = 'checkdesk';
+  $context->conditions = array(
+    'user_page' => array(
+      'values' => array(
+        'view' => 'view',
+      ),
+      'options' => array(
+        'mode' => 'all',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'checkdesk_core-checkdesk_user_info' => array(
+          'module' => 'checkdesk_core',
+          'delta' => 'checkdesk_user_info',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('User profile');
+  t('checkdesk');
+  $export['profile'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'report';
   $context->description = 'Report page';
   $context->tag = 'checkdesk';
