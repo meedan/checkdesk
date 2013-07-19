@@ -341,11 +341,12 @@ function checkdesk_preprocess_page(&$variables) {
   // information nav
   $variables['information_nav'] = FALSE;
   $menu = menu_load('menu-information');
-  $tree = menu_tree_page_data($menu['menu_name']);
 
+  $tree = menu_tree_page_data($menu['menu_name']);
+  
   // Remove items that are not from this language or that does not have children
   foreach ($tree as $id => $item) {
-    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+    if ($item['link']['hidden']) {
       unset($tree[$id]);
     }
     if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
@@ -353,6 +354,7 @@ function checkdesk_preprocess_page(&$variables) {
       if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
     }
   }
+  
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
