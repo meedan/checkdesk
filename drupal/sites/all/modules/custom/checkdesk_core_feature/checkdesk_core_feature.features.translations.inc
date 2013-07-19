@@ -43840,6 +43840,22 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['348aad46f88d0a35c6038e99ffdfe3c3'] = array(
+    'source' => 'Add optional feature image',
+    'context' => '',
+    'location' => '/ar/liveblog',
+    'translation' => 'أضف صورة واجهة اختيارية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3a72b4efca47119425b0245ba408c7f7'] = array(
+    'source' => 'Image must be less than !size.',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'يجب أن يكون حجم الصورة أقل من !size.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

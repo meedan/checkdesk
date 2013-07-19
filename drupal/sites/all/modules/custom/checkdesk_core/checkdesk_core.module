@@ -839,7 +839,9 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
 
   $file_size = $form['field_lead_image'][LANGUAGE_NONE][0]['#upload_validators']['file_validate_size'][0];
   $formats = $form['field_lead_image'][LANGUAGE_NONE][0]['#upload_validators']['file_validate_extensions'][0];
-  $file_upload_description = t('Image must be less than ' . format_size($file_size) . '. Allowed file types: ' . $formats . '.');
+  $file_upload_description = t('Image must be less than !size.', array('!size' => format_size($file_size))) . 
+                             ' ' . 
+                             t('Allowed file types: !extensions.', array('!extensions' => $formats));
   $form['field_lead_image'][LANGUAGE_NONE][0]['#description'] = $file_upload_description;
 
   $form['actions']['submit']['#ajax'] = array(
