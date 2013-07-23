@@ -608,8 +608,8 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     );
   }
 
-  // Reports or updates can be shared, edited or deleted
-  if (in_array($node->type, array('post', 'media'))) {
+  // Reports or stories can be shared, edited or deleted
+  if (in_array($node->type, array('discussion', 'media'))) {
     if (node_access('update', $node)) {
       $links['checkdesk-edit'] = array(
         'title' => t('Edit'),
@@ -629,21 +629,10 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       );
     }
 
-    $links['checkdesk-share-facebook'] = array(
-      'title' => t('Share on Facebook'),
-      'href' => $url,
-      'attributes' => array('title' => $node->title, 'class' => array('facebook')),
-    );
-    $links['checkdesk-share-twitter'] = array(
-      'title' => t('Share on Twitter'),
-      'href' => $url,
-      'attributes' => array('title' => $node->title, 'class' => array('twitter')),
-    );
-    $links['checkdesk-share-google'] = array(
-      'title' => t('Share on Google+'),
-      'href' => $url,
-      'attributes' => array('title' => $node->title, 'class' => array('google')),
-    );
+    $share_links = checkdesk_core_share_links($url, $node->title);
+    foreach ($share_links as $id => $link) {
+      $links[$id] = $link;
+    }
   }
 
   // Links for stories, not as a dropdown menu.
@@ -667,6 +656,31 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   //     );
   //   }
   // }
+
+  return $links;
+}
+
+/**
+ * Returns an array containing share links for a node
+ */
+function checkdesk_core_share_links($url, $title) {
+  $links = array();
+
+  $links['checkdesk-share-facebook'] = array(
+    'title' => t('Share on Facebook'),
+    'href' => $url,
+    'attributes' => array('title' => $title, 'class' => array('facebook')),
+  );
+  $links['checkdesk-share-twitter'] = array(
+    'title' => t('Share on Twitter'),
+    'href' => $url,
+    'attributes' => array('title' => $title, 'class' => array('twitter')),
+  );
+  $links['checkdesk-share-google'] = array(
+    'title' => t('Share on Google+'),
+    'href' => $url,
+    'attributes' => array('title' => $title, 'class' => array('google')),
+  );
 
   return $links;
 }

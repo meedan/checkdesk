@@ -2132,7 +2132,7 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f044";
 }
 
-.report #report-actions ul.content-actions > li > a span.icon-share:before, .update .update-footer .icon-share:before {
+.report #report-actions ul.content-actions > li > a span.icon-share:before, .update .update-footer .icon-share:before, .story .story-meta ul.content-actions .share-on > a .icon-share:before {
   content: "\f045";
 }
 
@@ -2169,7 +2169,7 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f081";
 }
 
-.story .story-meta .story-commentcount:before, .story .story-comments .livefyre-header:before, .story .story-comments .fb-comments-header:before {
+.story .story-meta .story-attributes .story-commentcount .icon-comment:before, .story .story-comments .livefyre-header:before, .story .story-comments .fb-comments-header:before {
   content: "\f086";
 }
 
@@ -7981,85 +7981,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story:after {
   clear: both;
 }
-.story #story-actions ul.content-actions {
-  margin: 0;
-  padding: 0;
-  margin: 0;
-  padding: 0;
-  display: block;
-  background-color: white;
-  background-color: rgba(255, 255, 255, 0.6);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  padding: 6px 11px;
-  margin-bottom: 12px;
-}
-.story #story-actions ul.content-actions li {
-  list-style: none;
-}
-.story #story-actions ul.content-actions li {
-  display: inline-block;
-}
-.story #story-actions ul.content-actions li a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #999999;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  font-weight: 400;
-  margin-right: 1em;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 13px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-}
-.story #story-actions ul.content-actions li a::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-.story #story-actions ul.content-actions li a:focus {
-  outline: none;
-}
-.story #story-actions ul.content-actions li a, .story #story-actions ul.content-actions li a:visited {
-  color: white;
-}
-.story #story-actions ul.content-actions li a:hover, .story #story-actions ul.content-actions li a:focus {
-  background-color: #919191;
-}
-.story #story-actions ul.content-actions li a:hover, .story #story-actions ul.content-actions li a:hover:visited, .story #story-actions ul.content-actions li a:focus, .story #story-actions ul.content-actions li a:focus:visited {
-  color: white;
-}
-.story #story-actions ul.content-actions li a:active {
-  background-color: #8a8a8a;
-}
-.story #story-actions ul.content-actions li a:active, .story #story-actions ul.content-actions li a:active:visited {
-  color: white;
-}
 .story .story-meta {
   *zoom: 1;
   border-top: 4px solid rgba(0, 0, 0, 0.9);
@@ -8081,18 +8002,51 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-meta .gravatar {
   margin-right: 5.5px;
 }
-.story .story-meta a {
+.story .story-meta a.contributor {
   font-weight: 700;
   color: rgba(0, 0, 0, 0.6);
 }
-.story .story-meta a:hover {
+.story .story-meta a.contributor:hover {
   color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
 }
-.story .story-meta .story-at {
+.story .story-meta .story-attributes {
   float: left;
 }
-.story .story-meta .story-commentcount {
+.story .story-meta .story-attributes .story-commentcount {
+  display: inline-block;
+}
+.story .story-meta .story-attributes .story-commentcount a {
+  color: rgba(0, 0, 0, 0.6);
+}
+.story .story-meta .story-attributes .story-commentcount a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
+.story .story-meta .story-attributes .story-commentcount .icon-comment:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: rgba(0, 0, 0, 0.3);
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.story .story-meta ul.content-actions {
+  margin: 0;
+  padding: 0;
+  float: right;
+}
+.story .story-meta ul.content-actions li {
+  list-style: none;
+}
+.story .story-meta ul.content-actions .add-to {
+  display: none;
+}
+.story .story-meta ul.content-actions .share-on > a {
   float: right;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.3);
@@ -8101,9 +8055,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   letter-spacing: 0.08em;
   color: rgba(0, 0, 0, 0.3);
 }
-.story .story-meta .story-commentcount:before {
+.story .story-meta ul.content-actions .share-on > a .icon-share:before {
   font-family: "FontAwesome";
-  font-size: 18px;
+  font-size: 14px;
   line-height: inherit;
   color: "black";
   margin: 0 5.5px;
@@ -8113,11 +8067,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   *margin-right: .3em;
   font-weight: normal;
 }
-.story .story-meta .story-commentcount a {
-  color: rgba(0, 0, 0, 0.3);
-}
-.story .story-meta .story-commentcount a:hover {
+.story .story-meta ul.content-actions .share-on > a:hover {
   color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
+.story .story-meta ul.content-actions .share-on > a .icon-share:before {
+  font-family: "FontAwesome";
+  font-size: 14px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
 }
 .story .story-by {
   font-size: 25px;

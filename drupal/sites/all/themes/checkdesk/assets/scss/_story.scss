@@ -85,24 +85,24 @@ $omega: opposite-position($alpha);
   text-align: $alpha;
   margin-bottom: $absolute-line-height/2;
 
-  #story-actions {
-    ul.content-actions {
-      @include reset-box-model;
-      @include reset-list-style;
-      display: block;
-      @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
-      @include border-radius(4px);
-      padding: $absolute-line-height/4 $gutter-width;
-      margin-bottom: $absolute-line-height/2;
-      li {
-        display: inline-block;
-        a {
-          @include checkdesk-button($grayLight);
-          @include button-size(13px);
-        }
-      }
-    }
-  }
+  // #story-actions {
+  //   ul.content-actions {
+  //     @include reset-box-model;
+  //     @include reset-list-style;
+  //     display: block;
+  //     @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
+  //     @include border-radius(4px);
+  //     padding: $absolute-line-height/4 $gutter-width;
+  //     margin-bottom: $absolute-line-height/2;
+  //     li {
+  //       display: inline-block;
+  //       a {
+  //         @include checkdesk-button($grayLight);
+  //         @include button-size(13px);
+  //       }
+  //     }
+  //   }
+  // }
 
   .story-meta {
     @include ctb-clearfix;
@@ -116,7 +116,7 @@ $omega: opposite-position($alpha);
     .gravatar {
       margin-#{$omega}: $gutter-width/2;
     }
-    a { 
+    a.contributor { 
       font-weight: 700;
       color: rgba(0,0,0,.6); 
       &:hover { 
@@ -124,25 +124,46 @@ $omega: opposite-position($alpha);
         text-decoration: none;
       }
     }
-    .story-at {
+    .story-attributes {
       float: $alpha;
+      .story-commentcount {
+        display: inline-block;
+        a {
+          color: rgba(0,0,0,.6); 
+          &:hover {
+            color: rgba(0,0,0,.8); 
+            text-decoration: none;
+          }
+        }
+        .icon-comment {
+          @include icon(comments, $base-font-size, rgba(0,0,0,.3));  
+        }
+        
+      }
     }
-    .story-commentcount {
-      @include icon(comments, $base-font-size);
+
+    ul.content-actions {
+      @include reset-list-style;
       float: $omega;
-      font-weight: 700;
-      color: rgba(0,0,0,.3);
-      a {
+      .add-to {
+        display: none;
+      }
+      .share-on > a {
+        float: $omega;
+        font-weight: 700;
         color: rgba(0,0,0,.3);
+        .icon-share { @include icon(share); }
         &:hover {
           color: rgba(0,0,0,.8);
+          text-decoration: none;
         }
-      }
-      @if $from-direction == 'left' {
-        font-size: modular-scale(0) - modular-scale(-3); // 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: rgba(0,0,0,.3);
+        @if $from-direction == 'left' {
+          .icon-share { @include icon(share, modular-scale(0) - modular-scale(-3)); }
+          font-size: modular-scale(0) - modular-scale(-3); // 14px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: rgba(0,0,0,.3);
+        }
       }
     }
   }

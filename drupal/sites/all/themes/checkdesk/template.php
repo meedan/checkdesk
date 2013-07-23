@@ -520,14 +520,7 @@ function checkdesk_preprocess_page(&$variables) {
 function checkdesk_preprocess_node(&$variables) {
 
   // set $alpha and $omega for language directions
-  global $language;
-  if ($language->direction == LANGUAGE_RTL) {
-    $variables['alpha'] = 'right';
-    $variables['omega'] = 'left';
-  } else {
-    $variables['alpha'] = 'left';
-    $variables['omega'] = 'right';
-  }
+  $layout = checkdesk_direction_settings();
 
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     //Add author info to variables
@@ -544,7 +537,7 @@ function checkdesk_preprocess_node(&$variables) {
     }
 
     // Add creation info
-    $variables['creation_info'] = t('<a href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+    $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
@@ -619,7 +612,7 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time
-    $variables['media_creation_info'] = t('Added by <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>', array(
+    $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
@@ -702,15 +695,9 @@ function checkdesk_links__node($variables) {
   $heading = $variables['heading'];
 
   $class[] = 'content-actions';
-  // set $alpha and $omega for language directions
-  global $language;
-  if ($language->direction == LANGUAGE_RTL) {
-    $alpha = 'right';
-    $omega = 'left';
-  } else {
-    $alpha = 'left';
-    $omega = 'right';
-  }
+
+  // get $alpha and $omega 
+  $layout = checkdesk_direction_settings();
 
   $output = '';
 
@@ -733,8 +720,9 @@ function checkdesk_links__node($variables) {
     ) {
       // Share on
       $output .= '<li class="share-on">';
+
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span></a>';
-      $output .= '<ul class="dropdown-menu pull-'. $omega .'">';
+      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-share-facebook'])) {
         $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
       }
@@ -755,7 +743,7 @@ function checkdesk_links__node($variables) {
       // Flag as
       $output .= '<li class="flag-as">';
       $output .= l('<span class="icon-flag"></span>', $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
-      $output .= '<ul class="dropdown-menu pull-'. $omega .'">';
+      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
 
       if (isset($links['flag-spam'])) {
         $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
@@ -784,7 +772,7 @@ function checkdesk_links__node($variables) {
       // Add to
       $output .= '<li class="add-to">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-horizontal">&nbsp;</span></a>';
-      $output .= '<ul class="dropdown-menu pull-'. $omega .'">';
+      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
       }
@@ -1244,4 +1232,22 @@ function checkdesk_preprocess_user_profile(&$variables) {
   $reports->set_arguments(array($profile->uid));
   $variables['reports'] = $reports->preview('block_1');
   $reports->destroy();
+}
+
+/**
+ * Utility function to set $alpha and $omega for layouts
+ */
+function checkdesk_direction_settings() {
+  // set $alpha and $omega for language directions
+  global $language;
+  $layout = array();
+  if ($language->direction == LANGUAGE_RTL) {
+    $layout['alpha'] = 'right';
+    $layout['omega'] = 'left';
+  } else {
+    $layout['alpha'] = 'left';
+    $layout['omega'] = 'right';
+  }
+
+  return $layout;
 }
