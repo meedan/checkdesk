@@ -707,7 +707,7 @@ function checkdesk_links__node($variables) {
   ctools_modal_add_js();
   ctools_add_js('checkdesk_core', 'checkdesk_core');
 
-  if (count($links) > 0) {
+  if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
 
     // if (isset($links['checkdesk-view-original'])) {
@@ -716,7 +716,8 @@ function checkdesk_links__node($variables) {
 
     if (isset($links['checkdesk-share-facebook']) || 
         isset($links['checkdesk-share-twitter']) || 
-        isset($links['checkdesk-share-google'])
+        isset($links['checkdesk-share-google']) ||
+        isset($links['checkdesk-share-embed'])
     ) {
       // Share on
       $output .= '<li class="share-on">';
@@ -731,6 +732,9 @@ function checkdesk_links__node($variables) {
       }
       if (isset($links['checkdesk-share-google'])) {
         $output .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
+      }
+      if (isset($links['checkdesk-share-embed'])) {
+        $output .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-embed']) . '</li>';
       }
       $output .= '</ul></li>'; 
     }

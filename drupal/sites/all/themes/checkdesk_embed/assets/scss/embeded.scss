@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+$from-direction: left !default;
+
+body.page-embed {
+  padding: 0;
+  margin: 0;
+
+  #main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+
+    #content {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+}
+
+.report {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#footer-inner {
+  padding: 0.5em;
+
+  a.factcheck-cta {
+    display: block;
+    float: left;
+    padding: 0.15em 0.5em;
+    margin: 0;
+  }
+}
+
+#footer #footer-menu {
+  float: right;
+  padding: 0.15em 0.5em;
+
+  &:before {
+    background-color: none;
+    background-image: none;
+  }
+}
+
