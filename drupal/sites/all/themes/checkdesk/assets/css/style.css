@@ -6125,6 +6125,7 @@ html body .livefyre-wrapper {
 #nav-media-form {
   width: 366px;
   overflow-y: scroll;
+  z-index: 900;
 }
 #nav-media-form iframe {
   width: 100%;
@@ -6712,7 +6713,6 @@ nav[role="navigation"] .nav {
   display: inline-block;
   clear: none;
   position: relative;
-  z-index: 1;
   background: #262626;
 }
 nav[role="navigation"] .nav > div {
@@ -6723,7 +6723,6 @@ nav[role="navigation"] .nav > div {
   display: inline-block;
   clear: none;
   position: relative;
-  z-index: 1;
   background: #262626;
 }
 nav[role="navigation"] .nav > div h2 {
@@ -6732,7 +6731,6 @@ nav[role="navigation"] .nav > div h2 {
   display: inline-block;
   float: left;
   position: relative;
-  z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
   -o-transition-property: color;
@@ -6798,7 +6796,6 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   display: inline-block;
   float: left;
   position: relative;
-  z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
   -o-transition-property: color;
@@ -6904,7 +6901,6 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   display: inline-block;
   float: left;
   position: relative;
-  z-index: 901;
   -webkit-transition-property: color;
   -moz-transition-property: color;
   -o-transition-property: color;

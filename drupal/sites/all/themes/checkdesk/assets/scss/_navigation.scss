@@ -49,7 +49,7 @@ $icon-position: 'before';
   display: inline-block;
   clear: none;
   position: relative;
-  z-index: 1;
+  // z-index: 1;
   background: $nav-container-bkg-color;
 }
 
@@ -61,7 +61,7 @@ $icon-position: 'before';
   display: inline-block;
   float: $from-direction;  
   position: relative;
-  z-index: $zindexDropdown + 1; 
+  // z-index: $zindexDropdown + 1; 
   & > a {
     // font-weight: 100;
     padding: 0 $nav-gutter;

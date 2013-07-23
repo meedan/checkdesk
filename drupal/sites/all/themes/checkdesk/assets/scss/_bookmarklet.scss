@@ -313,6 +313,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 #nav-media-form {
   width: 366px;
   overflow-y: scroll;
+  z-index: $zindexDropdown;
 
   iframe {
     width: 100%;
