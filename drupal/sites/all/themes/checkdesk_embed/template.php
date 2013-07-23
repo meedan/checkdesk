@@ -3,9 +3,12 @@
 /**
  * Override or insert variables into the region template.
  */
-function checkdesk_embed_preprocess_region(&$variables) {
+function checkdesk_embed_preprocess_page(&$variables) {
   // Invoke parent preprocessor
-  checkdesk_preprocess_region($variables);
+  checkdesk_preprocess_page($variables);
 
-  // TODO: Update the footer region
+  // Never display user alerts in the embed
+  unset($variables['page']['content']['user_alert_user_alert']);
+
+  $variables['content_url'] = url('node/' . arg(1), array('absolute' => TRUE));
 }

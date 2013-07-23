@@ -112,6 +112,18 @@ body.widgets, body.sidebar-first {
   #footer-menu ul li {
     
   }
+
+  // Note, factcheck call to action and icons required for embed theme
+  .factcheck-cta {
+    @include checkdesk-button($medium-grey);
+  }
+  .icon-comments-alt  {
+    @include icon("comments-alt", 21.5px, #fff);
+
+    &:before {
+      margin: 0;
+    }
+  }
 }
 
 
