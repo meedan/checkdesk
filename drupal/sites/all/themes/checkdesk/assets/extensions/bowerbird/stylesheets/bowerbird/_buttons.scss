@@ -63,8 +63,8 @@ $button-lighten-amount: 4 !default;
 $button-darken-amount: 12 !default;
 
 // Default checkdeks button using bowerbird/buttons instead of twitter bootstrap
-@mixin checkdesk-button($button-color: $button-color) {
-  @include button-matte($button-color, $base-font-size, $button-radius, $button-border-width);
+@mixin checkdesk-button($color: $button-color) {
+  @include button-matte($color, $base-font-size, $button-radius, $button-border-width);
   font-weight: $button-font-weight;
   margin-#{$omega-float}: 1em;
 }

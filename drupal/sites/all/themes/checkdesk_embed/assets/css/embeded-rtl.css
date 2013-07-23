@@ -1,22 +1,45 @@
-/* line 3, ../scss/embeded.scss */
+/* line 5, ../scss/embeded.scss */
 body.page-embed {
   padding: 0;
   margin: 0;
 }
-/* line 7, ../scss/embeded.scss */
+/* line 9, ../scss/embeded.scss */
 body.page-embed #main {
   padding: 0 !important;
   margin: 0 !important;
   width: 100% !important;
 }
-/* line 12, ../scss/embeded.scss */
+/* line 14, ../scss/embeded.scss */
 body.page-embed #main #content {
   padding: 0 !important;
   margin: 0 !important;
 }
 
-/* line 19, ../scss/embeded.scss */
+/* line 21, ../scss/embeded.scss */
 .report {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+/* line 26, ../scss/embeded.scss */
+#footer-inner {
+  padding: 0.5em;
+}
+/* line 29, ../scss/embeded.scss */
+#footer-inner a.factcheck-cta {
+  display: block;
+  float: left;
+  padding: 0.15em 0.5em;
+  margin: 0;
+}
+
+/* line 37, ../scss/embeded.scss */
+#footer #footer-menu {
+  float: right;
+  padding: 0.15em 0.5em;
+}
+/* line 41, ../scss/embeded.scss */
+#footer #footer-menu:before {
+  background-color: none;
+  background-image: none;
 }
