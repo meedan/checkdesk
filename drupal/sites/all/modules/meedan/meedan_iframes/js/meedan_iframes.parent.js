@@ -11,7 +11,8 @@
   // See: http://stackoverflow.com/a/3326554/806988
   var scripts = document.getElementsByTagName('script'),
       script  = scripts[scripts.length - 1],
-      iframe  = script.previousSibling;
+      iframes = document.getElementsByTagName('iframe'),
+      iframe  = iframes[iframes.length - 1];
 
   if (!script || script.tagName !== 'SCRIPT') {
     throw("Meedan: Could not locate embedded widget SCRIPT.");

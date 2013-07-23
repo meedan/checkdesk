@@ -644,6 +644,14 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       'href' => $url,
       'attributes' => array('title' => $node->title, 'class' => array('google')),
     );
+    if ($node->type == 'media') {
+      $links['checkdesk-share-embed'] = array(
+        'html' => TRUE,
+        'title' => t('Embed this report') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
+        'href' => $url,
+        'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
+      );
+    }
   }
 
   // Links for stories, not as a dropdown menu.

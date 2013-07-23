@@ -37,7 +37,8 @@ function checkdesk_oembed_menu() {
  * Menu access callback to limit widget embeds to only 'media' node type.
  */
 function checkdesk_oembed_embed_access($node) {
-  return $node && $node->type == 'media' && node_access('view', $node);
+  $types = variable_get('checkdesk_oembed_embed_types', array('media', 'discussion'));
+  return $node && in_array($node->type, $types) && node_access('view', $node);
 }
 
 /**

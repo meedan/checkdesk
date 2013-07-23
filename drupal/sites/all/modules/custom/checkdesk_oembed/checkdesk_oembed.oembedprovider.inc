@@ -40,10 +40,8 @@ function checkdesk_oembed_provider($provider, $url, $matches) {
   $languages = language_list();
   $language = $languages[$node->language];
 
-  $src = url('embed/' . $node->nid, array('absolute' => TRUE));
-
   $result = _oembedprovider_result('rich', array(
-    'html' => theme('meedan_iframe', array('src' => $src)),
+    'html' => checkdesk_oembed_embed_code($node->nid),
     'width' => 0,
     'height' => 0,
     'title' => $node->title,
@@ -54,4 +52,15 @@ function checkdesk_oembed_provider($provider, $url, $matches) {
   ));
 
   return $result;
+}
+
+/**
+ * Returns the embed code for a node.
+ *
+ * @param  (int) $nid
+ * @return (string) $embed_code
+ */
+function checkdesk_oembed_embed_code($nid) {
+  $src = url('embed/' . $node->nid, array('absolute' => TRUE));
+  return theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;')));
 }
