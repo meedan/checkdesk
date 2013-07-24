@@ -714,15 +714,16 @@ function checkdesk_links__node($variables) {
     //   $output .= '<li>' . l('<span class="icon-link"></span>', $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
     // }
 
-    if (isset($links['checkdesk-share-facebook']) || 
+    if (isset($links['checkdesk-share']) ||
+        isset($links['checkdesk-share-facebook']) || 
         isset($links['checkdesk-share-twitter']) || 
         isset($links['checkdesk-share-google']) ||
         isset($links['checkdesk-share-embed'])
     ) {
       // Share on
       $output .= '<li class="share-on">';
-
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span></a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . $links['checkdesk-share']['title'] . '</span></a>';
+      
       $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-share-facebook'])) {
         $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';

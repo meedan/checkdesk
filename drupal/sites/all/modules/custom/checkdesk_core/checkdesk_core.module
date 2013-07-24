@@ -634,7 +634,22 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $links[$id] = $link;
     }
 
+    if ($node->type == 'discussion') {
+      // parent share link with title
+      $links['checkdesk-share'] = array(
+        'title' => t('Share'),
+        'href' => '#',
+        'attributes' => array('title' => $title),
+      );
+    }
+
     if ($node->type == 'media') {
+      // parent share link without title
+      $links['checkdesk-share'] = array(
+        'title' => '',
+        'href' => '#',
+        'attributes' => array('title' => $title),
+      );
       $links['checkdesk-share-embed'] = array(
         'html' => TRUE,
         'title' => t('Embed this report') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
