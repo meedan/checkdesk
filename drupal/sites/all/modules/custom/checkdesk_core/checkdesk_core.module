@@ -2091,3 +2091,17 @@ function checkdesk_core_preprocess_user_alert(&$vars) {
   $vars['body'] = $vars['node']->body[LANGUAGE_NONE][0]['value'];
   $vars['is_closeable'] = TRUE;
 }
+
+/**
+ * Helper function to check whether a report was published on an update before
+ */
+function checkdesk_core_report_published_on_update($nid) {
+  $node = node_load(intval($nid));
+  if ($node && $node->type === 'media') {
+    $count = db_query("SELECT COUNT(*) FROM {heartbeat_activity} WHERE message_id = 'checkdesk_report_published_in_update' AND nid = :nid", array(':nid' => $node->nid))->fetchField();
+    return intval($count);
+  }
+  else {
+    return FALSE;
+  }
+}
