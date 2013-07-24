@@ -2185,7 +2185,7 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f0ad";
 }
 
-#my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before, .report #report-actions ul.content-actions > li > a span.icon-link:before, .story .story-footer .story-continue:before {
+#my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before, .report #report-actions ul.content-actions > li > a span.icon-link:before, .report .report-content .report-attributes .icon-link:before, .story .story-footer .story-continue:before {
   content: "\f0c1";
 }
 
@@ -5177,14 +5177,48 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   line-height: 1.4;
   color: rgba(0, 0, 0, 0.8);
 }
-.report .report-content > .added-by {
+.report .report-content .report-attributes {
+  *zoom: 1;
   color: rgba(0, 0, 0, 0.8);
   font-size: 14px;
   padding: 7.2px 11px;
 }
-.report .report-content > .added-by .separator {
+.report .report-content .report-attributes:before, .report .report-content .report-attributes:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.report .report-content .report-attributes:after {
+  clear: both;
+}
+.report .report-content .report-attributes .added-by {
+  float: right;
+}
+.report .report-content .report-attributes .added-by .separator {
   color: rgba(0, 0, 0, 0.4);
   font-size: 11px;
+}
+.report .report-content .report-attributes .icon-link:before {
+  font-family: "FontAwesome";
+  font-size: 14px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.report .report-content .report-attributes .permalink {
+  float: left;
+}
+.report .report-content .report-attributes .permalink a {
+  color: rgba(0, 0, 0, 0.2);
+}
+.report .report-content .report-attributes .permalink a:hover {
+  color: rgba(0, 0, 0, 0.4);
+  text-decoration: none;
 }
 .report .report-content .gravatar img {
   vertical-align: text-bottom;
