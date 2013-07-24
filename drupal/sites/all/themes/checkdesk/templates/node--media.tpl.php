@@ -7,8 +7,6 @@
     $media_type = $url['host'];
     $media_type_class = str_replace('.', '_', $media_type);
   }
-  kpr($node);
-  kpr($content);
 ?>
 
 <section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
