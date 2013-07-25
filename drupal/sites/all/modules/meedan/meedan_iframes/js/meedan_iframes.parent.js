@@ -41,7 +41,7 @@
   delete params.u;
 
   if (!/:\/\//.test(url)) {
-    url = window.location.origin + url;
+    url = script.src.match(/http[s]?:\/\/[^\/]+/)[0] + url;
   }
 
   url = /\?/.test(url) ? url.replace(/\?/, '#' + hashToken) : url + hashToken;
