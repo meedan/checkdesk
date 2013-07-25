@@ -1,3 +1,5 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
+
 /**
  * Parent component for Meedan seamless IFRAME support.
  */
@@ -29,7 +31,7 @@
     return p;
   }
 
-  params = /\?/.test(script.src) ? getParams(script.src.split('?')[1]) : false
+  params = /\?/.test(script.src) ? getParams(script.src.split('?')[1]) : false;
 
   if (!params || !params.u) {
     throw("Meedan: No embeddable URL provided.");
@@ -74,7 +76,7 @@
           type = data.shift();
 
       // This message is not intended for us
-      if (!childToken || childToken != hashToken) {
+      if (!childToken || childToken !== hashToken) {
         return;
       }
 

@@ -11,9 +11,16 @@ jQuery(function ($) {
       id = window.location.hash;
 
   function checkHTMLHeight() {
-    var height = $('body')[0].offsetHeight;
+    var ds = Drupal && Drupal.settings ? Drupal.settings : false,
+        height;
 
-    if (height != htmlHeight) {
+    if (ds && ds.meedanIframes) {
+      height = $(ds.meedanIframes.contentSelector).outerHeight(true);
+    } else {
+      height = $('body')[0].offsetHeight;
+    }
+
+    if (height !== htmlHeight) {
       htmlHeight = height;
 
       window.parent.postMessage([id, 'setHeight', htmlHeight].join(';'), '*');
