@@ -43856,6 +43856,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['52d7f666a9eb49bfe74ea08bc820f62c'] = array(
+    'source' => 'Published on update',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'نُشر بتحديث',
+    'plid' => 0,
+    'plural' => 0,
+  ); 
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

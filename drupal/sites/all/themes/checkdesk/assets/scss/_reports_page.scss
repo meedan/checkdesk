@@ -148,6 +148,31 @@ body.page-reports, .profile {
           @include button-size(13px);
         }
       }
+
+      // report published on an update
+      .report-published {
+        position: absolute;
+        top: 0;
+        #{$alpha}: auto;
+        #{$omega}: 0;
+        z-index: 2; // over the report thumbnail
+        height: 54px; // background image height
+        width: 51px; // background image width
+        background-color: transparent;
+        background-position: center center;
+        background-repeat: no-repeat;
+        @if $alpha == 'left' {
+          background-image: url(../imgs/published.png);
+        }
+        @if $alpha == 'right' {
+          background-image: url(../imgs/published-ar.png);
+        }
+        // @include icon(file-alt, 22px, $black, 'after');
+
+        span {
+          display: none;
+        }
+      }
     }
   }
 
