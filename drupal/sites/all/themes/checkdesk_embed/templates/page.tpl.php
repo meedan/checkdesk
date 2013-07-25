@@ -14,7 +14,9 @@
 
     <div id="footer">
       <div id="footer-inner" class="inner">
-        <a href="<?php print $content_url; ?>" class="factcheck-cta btn btn-large"><span class="icon-comments-alt"></span> Help verify this report</a>
+        <?php if ($factcheck_cta): ?>
+          <?php print render($factcheck_cta); ?>
+        <?php endif; ?>
 
         <?php if ($page['footer']): ?>
           <?php print render($page['footer']); ?>
