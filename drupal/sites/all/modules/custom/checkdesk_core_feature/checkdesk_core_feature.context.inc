@@ -93,6 +93,7 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->conditions = array(
     'user_page' => array(
       'values' => array(
+        'form' => 'form',
         'view' => 'view',
       ),
       'options' => array(
