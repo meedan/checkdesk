@@ -42,8 +42,9 @@ Drupal.behaviors.meedan_facebook_comments = {
               } else {
                 for (path in response) {
                   if (response.hasOwnProperty(path)) {
-                    // Why "shares" and not "comments"?
-                    value = response[path].shares;
+                    // Looks like "shares" returns total number of comments,
+                    // and "comments" return number of comments you can see (?)
+                    value = response[path].comments;
                     if (value) {
                       Drupal.behaviors.meedan_facebook_comments.updateCommentsCount(path, value);
                     }
