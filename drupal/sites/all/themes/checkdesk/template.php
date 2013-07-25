@@ -225,10 +225,10 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($variables['main_menu'] as $id => $item) {
       // Change "Submit Report" link
       if ($item['link_path'] == 'node/add/media') {
-        $src = url('node/add/media', array('query' => array('meedan_bookmarklet' => '1'), 'absolute' => TRUE));
+        $src = url('node/add/media', array('query' => array('meedan_bookmarklet' => '1')));
         $content = array(
           '#type' => 'markup',
-          '#markup' => theme('meedan_iframe', array('src' => $src)),
+          '#markup' => theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;'))),
         );
 
         $variables['main_menu'][$id]['html'] = TRUE;

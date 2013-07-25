@@ -44,7 +44,9 @@
     url = script.src.match(/http[s]?:\/\/[^\/]+/)[0] + url;
   }
 
-  url = /\?/.test(url) ? url.replace(/\?/, '#' + hashToken) : url + hashToken;
+  // Strip any existing fragment and append our hash token
+  url.replace(/#.*$/, '');
+  url += hashToken;
 
   // Create an insert the iframe
   iframe = document.createElement('IFRAME');
