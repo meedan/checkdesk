@@ -1050,11 +1050,18 @@ function checkdesk_form_alter(&$form, &$form_state) {
     $form['account']['mail']['#attributes']['placeholder'] = t('E-mail address');
     unset($form['account']['mail']['#description']);
     unset($form['account']['pass']['#description']);
+    $form['account']['pass']['#process'] = array('form_process_password_confirm', '_checkdesk_register_alter_password');
   }
   // forgot password form
   if($form['form_id']['#id'] == 'edit-user-pass') {
     $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
   }
+}
+
+function _checkdesk_register_alter_password($element) {
+  $element['pass1']['#attributes']['placeholder'] = t('Password');
+  $element['pass2']['#attributes']['placeholder'] = t('Confirm password');
+  return $element;
 }
 
 function checkdesk_fboauth_action__connect(&$variables) {
