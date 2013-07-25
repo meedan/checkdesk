@@ -9,17 +9,57 @@
 
   // Find the DOM node for THIS current script tag
   // See: http://stackoverflow.com/a/3326554/806988
-  var scripts = document.getElementsByTagName('script'),
-      script  = scripts[scripts.length - 1],
-      iframes = document.getElementsByTagName('iframe'),
-      iframe  = iframes[iframes.length - 1];
+  var scripts   = document.getElementsByTagName('script'),
+      script    = scripts[scripts.length - 1],
+      hashToken = '#' + Math.random().toString(36).substring(2),
+      params, url, iframe, i;
 
-  if (!script || script.tagName !== 'SCRIPT') {
-    throw("Meedan: Could not locate embedded widget SCRIPT.");
+  // See: http://stackoverflow.com/a/2880929/806988
+  function getParams(query) {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        p = {};
+
+    while (match = search.exec(query)) {
+      p[decode(match[1])] = decode(match[2]);
+    }
+
+    return p;
   }
-  if (!iframe || iframe.tagName !== 'IFRAME') {
-    throw("Meedan: Could not locate embedded widget IFRAME.");
+
+  params = /\?/.test(script.src) ? getParams(script.src.split('?')[1]) : false
+
+  if (!params || !params.u) {
+    throw("Meedan: No embeddable URL provided.");
   }
+
+  url = params.u;
+  delete params.u;
+
+  if (!/:\/\//.test(url)) {
+    url = window.location.origin + url;
+  }
+
+  url = /\?/.test(url) ? url.replace(/\?/, '#' + hashToken) : url + hashToken;
+
+  // Create an insert the iframe
+  iframe = document.createElement('IFRAME');
+  iframe.setAttribute('src', url);
+  iframe.setAttribute('frameborder', '0');
+  iframe.setAttribute('scrolling', 'no');
+  iframe.setAttribute('seamless', '');
+
+  for (i in params) {
+    if (params.hasOwnProperty(i)) {
+      console.log('Setting ' + i + '="' + params[i] + '"');
+      iframe.setAttribute(i, params[i]);
+    }
+  }
+
+  // Insert the iframe after the script tag
+  script.parentNode.insertBefore(iframe, script.nextSibling);
 
 
   // Define the MessageHandler singleton object
@@ -31,7 +71,13 @@
     // B) e.data = 'message-type;foo;bar;baz'
     handleMessage: function(e) {
       var data = e.data.split(';'),
+          childToken = data.shift(),
           type = data.shift();
+
+      // This message is not intended for us
+      if (!childToken || childToken != hashToken) {
+        return;
+      }
 
       switch (type) {
         case 'loaded':    MessageHandler.handleLoadedMessage(data); break;
