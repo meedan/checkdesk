@@ -2,7 +2,7 @@
 
   <!-- ______________________ MAIN _______________________ -->
   <div id="main" class="clearfix">
-    <div id="content">
+    <div id="content" class="clearfix">
       <div id="content-inner" class="inner column center">
 
         <div id="content-area">

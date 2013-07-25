@@ -11,7 +11,7 @@ jQuery(function ($) {
       id = window.location.hash;
 
   function checkHTMLHeight() {
-    var height = $('html')[0].offsetHeight;
+    var height = $('body')[0].offsetHeight;
 
     if (height != htmlHeight) {
       htmlHeight = height;

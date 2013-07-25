@@ -53,7 +53,6 @@
 
   for (i in params) {
     if (params.hasOwnProperty(i)) {
-      console.log('Setting ' + i + '="' + params[i] + '"');
       iframe.setAttribute(i, params[i]);
     }
   }
