@@ -31,7 +31,7 @@
     // Share on
     $share_link .= '<li class="share-on">';
 
-    $share_link .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . t('Share') . </span></a>';
+    $share_link .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . t('Share') . '</span></a>';
     $share_link .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
     if (isset($links['checkdesk-share-facebook'])) {
       $share_link .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
