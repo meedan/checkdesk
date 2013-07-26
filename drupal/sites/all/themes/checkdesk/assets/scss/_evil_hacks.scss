@@ -10,9 +10,13 @@
 }
 
 // Disable vertical tabs in forms
-div.vertical-tabs, div.vertical-tabs-panes {
-  display: none !important;  
+.story .compose-update-form,
+#nav-discussion-form {
+  div.vertical-tabs, div.vertical-tabs-panes {
+    display: none !important;  
+  }  
 }
+
 
 // hack for an empty div
 nav li.menu-449 {

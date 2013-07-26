@@ -68,7 +68,7 @@ $omega: opposite-position($from-direction);
 @import "replace_drupal/system_base";
 @import "replace_drupal/system_menus";
 // @import "replace_drupal/system_messages";
-// @import "system_theme"; // hoping i can remove this huge one ....
+// @import "replace_drupal/system_theme"; // hoping i can remove this huge one ....
 @import "replace_drupal/jquery_ui_core";
 // @import "jquery_ui_theme"; // this is pretty big do we really need it?
 @import "replace_drupal/comment";
@@ -86,6 +86,7 @@ $omega: opposite-position($from-direction);
 @import "replace_drupal/rules";
 @import "replace_drupal/context_reaction_block";
 @import "replace_drupal/l10n_client";
+@import "replace_drupal/vertical-tabs";
 
 // Bowerbird Drupal touchups
 // via: bowerbird

@@ -254,9 +254,9 @@ $omega: opposite-position($alpha);
 
   // compose / create update form
   .compose-update-form {
+    @include ctb-clearfix();
     margin: $absolute-line-height 0;
     .compose-update-header {
-
       a {
         display: inline-block;
         @include icon("pencil", $large-font-size, $white, $icon-position);
@@ -270,12 +270,20 @@ $omega: opposite-position($alpha);
       }
     }
 
+    .div.vertical-tabs, div.vertical-tabs-panes {
+        display: none !important;
+      }
+
     .node-post-form {
       display: none;
       padding: 0 $gutter-width;
       background-image: $striped_lens;
       input[type='submit'] {
         @include checkdesk-button($identity);
+      }
+      // override drupal
+      .ui-droppable {
+        float: none;
       }
     }
   }
