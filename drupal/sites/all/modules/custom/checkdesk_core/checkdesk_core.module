@@ -608,8 +608,8 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     );
   }
 
-  // Reports or updates can be shared, edited or deleted
-  if (in_array($node->type, array('post', 'media'))) {
+  // Reports or stories can be shared, edited or deleted
+  if (in_array($node->type, array('discussion', 'media'))) {
     if (node_access('update', $node)) {
       $links['checkdesk-edit'] = array(
         'title' => t('Edit'),
@@ -629,21 +629,34 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       );
     }
 
-    $links['checkdesk-share-facebook'] = array(
-      'title' => t('Share on Facebook'),
-      'href' => $url,
-      'attributes' => array('title' => $node->title, 'class' => array('facebook')),
-    );
-    $links['checkdesk-share-twitter'] = array(
-      'title' => t('Share on Twitter'),
-      'href' => $url,
-      'attributes' => array('title' => $node->title, 'class' => array('twitter')),
-    );
-    $links['checkdesk-share-google'] = array(
-      'title' => t('Share on Google+'),
-      'href' => $url,
-      'attributes' => array('title' => $node->title, 'class' => array('google')),
-    );
+    $share_links = checkdesk_core_share_links($url, $node->title);
+    foreach ($share_links as $id => $link) {
+      $links[$id] = $link;
+    }
+
+    if ($node->type == 'discussion') {
+      // parent share link with title
+      $links['checkdesk-share'] = array(
+        'title' => t('Share'),
+        'href' => '#',
+        'attributes' => array('title' => $title),
+      );
+    }
+
+    if ($node->type == 'media') {
+      // parent share link without title
+      $links['checkdesk-share'] = array(
+        'title' => '',
+        'href' => '#',
+        'attributes' => array('title' => $title),
+      );
+      $links['checkdesk-share-embed'] = array(
+        'html' => TRUE,
+        'title' => t('Embed this report') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
+        'href' => $url,
+        'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
+      );
+    }
   }
 
   // Links for stories, not as a dropdown menu.
@@ -667,6 +680,31 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   //     );
   //   }
   // }
+
+  return $links;
+}
+
+/**
+ * Returns an array containing share links for a node
+ */
+function checkdesk_core_share_links($url, $title) {
+  $links = array();
+
+  $links['checkdesk-share-facebook'] = array(
+    'title' => t('Share on Facebook'),
+    'href' => $url,
+    'attributes' => array('title' => $title, 'class' => array('facebook')),
+  );
+  $links['checkdesk-share-twitter'] = array(
+    'title' => t('Share on Twitter'),
+    'href' => $url,
+    'attributes' => array('title' => $title, 'class' => array('twitter')),
+  );
+  $links['checkdesk-share-google'] = array(
+    'title' => t('Share on Google+'),
+    'href' => $url,
+    'attributes' => array('title' => $title, 'class' => array('google')),
+  );
 
   return $links;
 }
@@ -1056,7 +1094,7 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
   if (!isset($node->body[LANGUAGE_NONE][0])) return $reports;
   $text = $node->body[LANGUAGE_NONE][0]['value'];
   $matches = array();
-  preg_match_all('@\[\S+:(\d+)\]@', $text, $matches);
+  preg_match_all('/\[[^:]+:([0-9]+)\]/u', $text, $matches);
   if (count($matches[1])) {
     $output = array();
     foreach ($matches[1] as $key => $nid) {
@@ -2067,4 +2105,18 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
 function checkdesk_core_preprocess_user_alert(&$vars) {
   $vars['body'] = $vars['node']->body[LANGUAGE_NONE][0]['value'];
   $vars['is_closeable'] = TRUE;
+}
+
+/**
+ * Helper function to check whether a report was published on an update before
+ */
+function checkdesk_core_report_published_on_update($nid) {
+  $node = node_load(intval($nid));
+  if ($node && $node->type === 'media') {
+    $count = db_query("SELECT COUNT(*) FROM {heartbeat_activity} WHERE message_id = 'checkdesk_report_published_in_update' AND nid = :nid", array(':nid' => $node->nid))->fetchField();
+    return intval($count);
+  }
+  else {
+    return FALSE;
+  }
 }

@@ -6,6 +6,11 @@
 	$media_type_class = str_replace('.', '_', $media_type);
 ?>
 <div class="report-row-container <?php print $media_type_class; ?>" id="report-<?php print $fields['nid']->raw; ?>">
+	<?php if ($report_published) { ?>
+		<div class="report-published" title="<?php print $report_published; ?>">
+			<span><?php print $report_published; ?></span>
+		</div>
+	<?php } ?>
 	<div class="report-content">
 		<?php if($media_type != 'twitter.com') { ?>
 			<!-- display thumbnail -->

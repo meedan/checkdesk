@@ -214,17 +214,33 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			color: rgba(0,0,0,.8);
 		}
 
-		// added by
-		& > .added-by {
+		.report-attributes {
+			@include ctb-clearfix();
 			color: rgba(0,0,0,.8);
 			font-size: modular-scale(0) - modular-scale(-3); // 14px
 			padding: $absolute-line-height/4 $gutter-width;
-			.separator {
-				color: rgba(0,0,0,.4);
-				font-size: $smaller-font-size;
-			}
-		}	
 
+			// added by
+			.added-by {
+				float: $alpha;
+				.separator {
+					color: rgba(0,0,0,.4);
+					font-size: $smaller-font-size;
+				}
+			}	
+			.icon-link { @include icon(link); }
+			.permalink {
+				float: $omega;
+				a {
+			      color: rgba(0,0,0,.2);
+			      &:hover {
+			        color: rgba(0,0,0,.4);
+			        text-decoration: none;
+			      }
+			    }
+			}
+		}
+		
 		.gravatar {
 			img {
 				vertical-align: text-bottom;

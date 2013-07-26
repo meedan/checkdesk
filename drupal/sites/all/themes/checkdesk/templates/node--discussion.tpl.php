@@ -6,31 +6,28 @@
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
     <div class="story-meta">
-      <div class="story-at">
+      <div class="story-attributes">
         <?php if (isset($user_avatar)) : ?>
           <?php print $user_avatar; ?>
         <?php endif; ?>
         <?php print $creation_info; ?>
-      </div>
-      <?php if (isset($story_commentcount)) { ?>
+        <?php if (isset($story_commentcount)) { ?>
         <div class="story-commentcount">
           <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
-            <?php print render($story_commentcount); ?>
+            <span class="icon-comment"><?php print render($story_commentcount); ?></span>
           </a>
         </div>
+      <?php } ?> 
+      </div>
+       
+      <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
+        <?php print render($content['links']); ?>
       <?php } ?>
     </div>
-
-    <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
-      <div id="story-actions">
-        <?php print render($content['links']); ?>
-      </div>
-    <?php } ?>
 
   	<?php // print render($content['story_status']); ?>
   	<?php // print render($content['story_drafts']); ?>
   	<?php // print render($content['story_blogger']); ?>
-
 
     <?php if(isset($content['field_lead_image'])) { ?>
       <figure>

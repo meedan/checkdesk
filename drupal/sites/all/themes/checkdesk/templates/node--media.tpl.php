@@ -1,6 +1,7 @@
 <?php 
   // set embed media type class
   if(isset($node->embed->provider_url)) {
+    $original_url = $node->embed->url;
     $url = $node->embed->provider_url;
     $url = parse_url($url);
     $media_type = $url['host'];
@@ -21,13 +22,19 @@
           <?php print render($content['body']); ?>
         </div>
       <?php endif; ?>
-      <div class="added-by">
-        <?php if (isset($user_avatar)) : ?>
-            <?php print $user_avatar; ?>
-        <?php endif; ?>
-        <?php print $media_creation_info; ?>
+      <div class="report-attributes">
+        <div class="added-by">
+          <?php if (isset($user_avatar)) : ?>
+              <?php print $user_avatar; ?>
+          <?php endif; ?>
+          <?php print $media_creation_info; ?>
+        </div>
+        <div class="permalink">
+          <?php print l('<span class="icon-link"></span>', $original_url, array('attributes' => array('title' => t('View original')), 'html' => TRUE)); ?>
+        </div>
       </div>
     </section>
+
 
       <div id="report-actions">
         <?php print render($content['links']); ?>

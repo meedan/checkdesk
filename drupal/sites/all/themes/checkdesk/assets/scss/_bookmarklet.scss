@@ -1,5 +1,5 @@
 $spinner-width: 25px; 
-$bookmarklet-width: 345px;
+$bookmarklet-width: 365px;
 $bookmarklet-preview-max-height: 345px;
 $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
@@ -313,6 +313,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 #nav-media-form {
   width: 366px;
   overflow-y: scroll;
+  z-index: $zindexDropdown;
 
   iframe {
     width: 100%;
@@ -376,9 +377,9 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
 
 // Fixed only for normal screen sizes
-@media all and (max-height: 32em) {
-  #nav-media-form {
-    max-height: 290px;
-    // overflow-y: scroll;
-  }
-}
+// @media all and (max-height: 32em) {
+//   #nav-media-form {
+//     max-height: 350px;
+//     // overflow-y: scroll;
+//   }
+// }

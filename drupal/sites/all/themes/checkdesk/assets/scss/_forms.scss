@@ -104,8 +104,14 @@
 }
   
 // do not hide labels for report edit form
-.page-node-edit form.ife label {
-  display: block;
+.page-node-edit form.node-media-form {
+  label {
+    display: inline-block; 
+  }
+  input[type="text"],
+  textarea {
+    margin-top: 0;
+  }
 }
 
 // In addition to our use of normalize, and other resets, 

@@ -341,11 +341,12 @@ function checkdesk_preprocess_page(&$variables) {
   // information nav
   $variables['information_nav'] = FALSE;
   $menu = menu_load('menu-information');
-  $tree = menu_tree_page_data($menu['menu_name']);
 
+  $tree = menu_tree_page_data($menu['menu_name']);
+  
   // Remove items that are not from this language or that does not have children
   foreach ($tree as $id => $item) {
-    if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
+    if ($item['link']['hidden']) {
       unset($tree[$id]);
     }
     if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
@@ -353,6 +354,7 @@ function checkdesk_preprocess_page(&$variables) {
       if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
     }
   }
+  
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
@@ -518,14 +520,7 @@ function checkdesk_preprocess_page(&$variables) {
 function checkdesk_preprocess_node(&$variables) {
 
   // set $alpha and $omega for language directions
-  global $language;
-  if ($language->direction == LANGUAGE_RTL) {
-    $variables['alpha'] = 'right';
-    $variables['omega'] = 'left';
-  } else {
-    $variables['alpha'] = 'left';
-    $variables['omega'] = 'right';
-  }
+  $layout = checkdesk_direction_settings();
 
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     //Add author info to variables
@@ -542,7 +537,7 @@ function checkdesk_preprocess_node(&$variables) {
     }
 
     // Add creation info
-    $variables['creation_info'] = t('<a href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+    $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
@@ -617,7 +612,7 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time
-    $variables['media_creation_info'] = t('Added by <a href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>', array(
+    $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
@@ -700,15 +695,9 @@ function checkdesk_links__node($variables) {
   $heading = $variables['heading'];
 
   $class[] = 'content-actions';
-  // set $alpha and $omega for language directions
-  global $language;
-  if ($language->direction == LANGUAGE_RTL) {
-    $alpha = 'right';
-    $omega = 'left';
-  } else {
-    $alpha = 'left';
-    $omega = 'right';
-  }
+
+  // get $alpha and $omega 
+  $layout = checkdesk_direction_settings();
 
   $output = '';
 
@@ -718,21 +707,24 @@ function checkdesk_links__node($variables) {
   ctools_modal_add_js();
   ctools_add_js('checkdesk_core', 'checkdesk_core');
 
-  if (count($links) > 0) {
+  if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
 
     // if (isset($links['checkdesk-view-original'])) {
     //   $output .= '<li>' . l('<span class="icon-link"></span>', $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
     // }
 
-    if (isset($links['checkdesk-share-facebook']) || 
+    if (isset($links['checkdesk-share']) ||
+        isset($links['checkdesk-share-facebook']) || 
         isset($links['checkdesk-share-twitter']) || 
-        isset($links['checkdesk-share-google'])
+        isset($links['checkdesk-share-google']) ||
+        isset($links['checkdesk-share-embed'])
     ) {
       // Share on
       $output .= '<li class="share-on">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share"></span></a>';
-      $output .= '<ul class="dropdown-menu pull-'. $omega .'">';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . $links['checkdesk-share']['title'] . '</span></a>';
+      
+      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-share-facebook'])) {
         $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
       }
@@ -741,6 +733,9 @@ function checkdesk_links__node($variables) {
       }
       if (isset($links['checkdesk-share-google'])) {
         $output .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
+      }
+      if (isset($links['checkdesk-share-embed'])) {
+        $output .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-embed']) . '</li>';
       }
       $output .= '</ul></li>'; 
     }
@@ -753,7 +748,7 @@ function checkdesk_links__node($variables) {
       // Flag as
       $output .= '<li class="flag-as">';
       $output .= l('<span class="icon-flag"></span>', $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
-      $output .= '<ul class="dropdown-menu pull-'. $omega .'">';
+      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
 
       if (isset($links['flag-spam'])) {
         $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
@@ -782,7 +777,7 @@ function checkdesk_links__node($variables) {
       // Add to
       $output .= '<li class="add-to">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-horizontal">&nbsp;</span></a>';
-      $output .= '<ul class="dropdown-menu pull-'. $omega .'">';
+      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
       }
@@ -1055,11 +1050,18 @@ function checkdesk_form_alter(&$form, &$form_state) {
     $form['account']['mail']['#attributes']['placeholder'] = t('E-mail address');
     unset($form['account']['mail']['#description']);
     unset($form['account']['pass']['#description']);
+    $form['account']['pass']['#process'] = array('form_process_password_confirm', '_checkdesk_register_alter_password');
   }
   // forgot password form
   if($form['form_id']['#id'] == 'edit-user-pass') {
     $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
   }
+}
+
+function _checkdesk_register_alter_password($element) {
+  $element['pass1']['#attributes']['placeholder'] = t('Password');
+  $element['pass2']['#attributes']['placeholder'] = t('Confirm password');
+  return $element;
 }
 
 function checkdesk_fboauth_action__connect(&$variables) {
@@ -1191,8 +1193,17 @@ function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
  * Implements template_preprocess_views_view_fields().
  */
 function checkdesk_preprocess_views_view_fields(&$vars) {
+  global $user;
+
   if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
     $vars['name_i18n'] = t($vars['fields']['field_rating']->content);
+
+    if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($vars['fields']['nid']->raw)) {
+      $vars['report_published'] = t('Published on update');
+    }
+    else {
+      $vars['report_published'] = FALSE;
+    }
   }
 
   if ($vars['view']->name === 'liveblog') {
@@ -1242,4 +1253,22 @@ function checkdesk_preprocess_user_profile(&$variables) {
   $reports->set_arguments(array($profile->uid));
   $variables['reports'] = $reports->preview('block_1');
   $reports->destroy();
+}
+
+/**
+ * Utility function to set $alpha and $omega for layouts
+ */
+function checkdesk_direction_settings() {
+  // set $alpha and $omega for language directions
+  global $language;
+  $layout = array();
+  if ($language->direction == LANGUAGE_RTL) {
+    $layout['alpha'] = 'right';
+    $layout['omega'] = 'left';
+  } else {
+    $layout['alpha'] = 'left';
+    $layout['omega'] = 'right';
+  }
+
+  return $layout;
 }

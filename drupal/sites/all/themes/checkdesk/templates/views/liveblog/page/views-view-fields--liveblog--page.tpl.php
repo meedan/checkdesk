@@ -10,30 +10,64 @@
     );
     $user_avatar = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($user->name)), 'style_name' => 'navigation_avatar')), 'user/'. $user->uid, $options);
   }
-  $author = t('<a href="@user">!user</a>', array(
+  $author = t('<a class="contributor" href="@user">!user</a>', array(
     '@user' => url('user/'. $user->uid),
     '!user' => $user->name,
   ));
+
+  $links = array();
+  $url = url('node/' . $fields['nid']->raw, array('absolute' => TRUE));
+  $layout = checkdesk_direction_settings();
+  $share_links = checkdesk_core_share_links($url, $fields['title']->raw);
+  foreach ($share_links as $id => $link) {
+    $links[$id] = $link;
+  }
+  // theme share links into a dropdown
+  if (isset($links['checkdesk-share-facebook']) || 
+      isset($links['checkdesk-share-twitter']) || 
+      isset($links['checkdesk-share-google'])
+  ) {
+    $share_link = '';
+    // Share on
+    $share_link .= '<li class="share-on">';
+
+    $share_link .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . t('Share') . '</span></a>';
+    $share_link .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
+    if (isset($links['checkdesk-share-facebook'])) {
+      $share_link .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
+    }
+    if (isset($links['checkdesk-share-twitter'])) {
+      $share_link .= '<li>' . l($links['checkdesk-share-twitter']['title'], $links['checkdesk-share-twitter']['href'], $links['checkdesk-share-twitter']) . '</li>';
+    }
+    if (isset($links['checkdesk-share-google'])) {
+      $share_link .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
+    }
+    $share_link .= '</ul></li>'; 
+  }
+
+
 ?>
 <div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
   <article class="story">
     <h1><?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw); ?></h1>
 
     <div class="story-meta">
-      <div class="story-at">
+      <div class="story-attributes">
         <?php if (isset($user_avatar)) : ?>
           <?php print $user_avatar; ?>
         <?php endif; ?>
         <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?>
+        <?php if (isset($story_commentcount)) { ?>
+          <div class="story-commentcount">
+            <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
+              <span class="icon-comment"><?php print render($story_commentcount); ?></span>
+            </a>
+          </div>
+        <?php } ?>
       </div>
-      
-      <?php if (isset($story_commentcount)) { ?>
-        <div class="story-commentcount">
-          <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
-            <?php print render($story_commentcount); ?>
-          </a>
-        </div>
-      <?php } ?>
+      <ul class="content-actions">
+        <?php print $share_link; ?>
+      </ul>
     </div>
 
     <?php if(isset($fields['field_lead_image']->content)) { ?>

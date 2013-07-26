@@ -136,6 +136,11 @@
         Drupal.CTools.Modal.dismiss();
         return false;
       });
+      
+      // Close modal by clicking outside it
+      $('#modalBackdrop').click(function() {
+        Drupal.CTools.Modal.dismiss();
+      });
 
       // $(".flag-link-confirm", context).once('checkdesk-modal', function () {
       //   this.href = this.href.replace(/flag\/confirm\/flag\/graphic/,'node/flag/nojs/confirm/flag/graphic');
@@ -164,7 +169,6 @@
           }
         }
       });
-
     }
   };
 
