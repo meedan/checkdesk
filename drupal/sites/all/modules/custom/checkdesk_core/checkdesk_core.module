@@ -1094,7 +1094,7 @@ function checkdesk_core_entity_property_get_reports($node, array $options, $name
   if (!isset($node->body[LANGUAGE_NONE][0])) return $reports;
   $text = $node->body[LANGUAGE_NONE][0]['value'];
   $matches = array();
-  preg_match_all('@\[\S+:(\d+)\]@', $text, $matches);
+  preg_match_all('/\[[^:]+:([0-9]+)\]/u', $text, $matches);
   if (count($matches[1])) {
     $output = array();
     foreach ($matches[1] as $key => $nid) {
