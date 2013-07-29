@@ -1,0 +1,170 @@
+@charset "UTF-8";
+@import "compass/utilities";
+
+@font-face {
+    font-family: 'DroidNaskhReg';
+    src: url('fonts/droidnaskh-regular-webfont.eot');
+    src: url('fonts/droidnaskh-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/droidnaskh-regular-webfont.woff') format('woff'),
+         url('fonts/droidnaskh-regular-webfont.ttf') format('truetype'),
+         url('fonts/droidnaskh-regular-webfont.svg#MerriweatherBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DroidNaskhBold';
+    src: url('fonts/droidnaskh-bold-webfont.eot');
+    src: url('fonts/droidnaskh-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/droidnaskh-bold-webfont.woff') format('woff'),
+         url('fonts/droidnaskh-bold-webfont.ttf') format('truetype'),
+         url('fonts/droidnaskh-bold-webfont.svg#MerriweatherBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+}
+
+#header {
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+  color: #333;
+}
+
+#header ul li {
+  display: inline-block;
+}
+
+#video {
+  embed {
+    width: 50%;
+    display: inline;
+  }
+  text-align: center;
+  background-color: #e1e1e1;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+#follow {
+  text-align: center;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.partners ul li {
+  display: block;
+}
+
+input {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  height: 45px;
+  padding: 2px;
+  float: left;
+  font-size: 20px;  
+  color: #999;
+}
+
+.button input {
+  background-color: #ECBF1D;
+  border-radius: 5px;
+  color: #fff;
+  padding: 6px;
+  text-align: center;
+  float: left;
+  clear: both;
+  font-size: 18px;
+  margin-left: 5px; 
+  cursor: pointer;
+  margin-top: 21px;
+}
+
+form div,
+form span {
+  float: left;
+  clear: both;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.partners {
+  width: 100%;
+  text-align: center;
+  color: #666;
+  font-size: 17px;
+  float: left;
+  clear: both;
+  margin-top: 10px;
+  &.logos {
+    background: #fff;
+  }
+}
+
+.partners ul li {
+  display: inline-block;  
+  margin: 5px;
+  img {
+    max-height: 55px;
+    max-width: 100px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+}
+
+#meedan {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  img {
+    vertical-align: middle;
+    display: inline-block;
+  }
+}
+
+// Form
+#connect {
+  margin: 0 auto;
+  margin-top: 20px;
+  @include clearfix;
+
+  form {
+    width: 700px;
+    margin: 0 auto;
+    @include clearfix;
+    & > div {
+      margin: 10px;
+      float: left;
+      clear: none;
+    }
+  }
+
+  span.label,
+  span.spacer,
+  span.multiple span {
+    width:120px;
+    float:left;
+  } 
+  
+  span.multiple {
+    float:left;
+  } 
+}
+
+:lang(en) {
+  font-family: "helvetica neue";
+}
+
+:lang(ar) {
+  font-family: 'DroidNaskhReg', georgia, serif;
+}
