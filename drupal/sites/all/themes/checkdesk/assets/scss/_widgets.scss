@@ -27,6 +27,16 @@
           .elsewhere {
             @include reset-columns;
           }
+          #featured-stories {
+            .block {
+              margin: $absolute-line-height/2 0;
+            }
+            h2 {
+              border-top: 4px solid rgba(0,0,0,.1);
+              padding-top: $base-line-height/2;
+            }
+          }
+
         }
       }
 
@@ -222,7 +232,6 @@
       float: $alpha;
       border-top: 0px none;
       height: 24px;
-
       padding: $absolute-line-height/2 $gutter-width*2 $absolute-line-height/2 0;
       font-size: $smaller-font-size;
       @if $from-direction == 'right' {
