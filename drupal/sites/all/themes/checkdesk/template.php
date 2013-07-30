@@ -519,9 +519,6 @@ function checkdesk_preprocess_page(&$variables) {
  */
 function checkdesk_preprocess_node(&$variables) {
 
-  // set $alpha and $omega for language directions
-  $layout = checkdesk_direction_settings();
-
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     //Add author info to variables
     $user = user_load($variables['elements']['#node']->uid);
