@@ -129,7 +129,7 @@ function checkdesk_preprocess_region(&$variables) {
         'style_name' => 'partner_logo',
         'path' => $image,
       );
-      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE,));
+      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
     }
 
     $position = theme_get_setting('header_image_position');

@@ -128,9 +128,11 @@ body.widgets, body.sidebar-first {
 
 
 // Small breakpoint
-// @include at-breakpoint($break-small) {
-
-// }
+@include at-breakpoint($break-small) {
+  body.widgets #main #footer {
+    margin-#{$alpha}: 0;
+  }
+}
 
 // Medium breakpoint
 @include at-breakpoint($break-medium) {

@@ -28,6 +28,24 @@
 
   <div id="main" class="clearfix">
 
+
+    <?php if ($page['sidebar_first']): ?>
+      <div id="sidebar-first" class="column sidebar first">
+        <div id="sidebar-first-inner" class="inner">
+          <?php print render($page['sidebar_first']); ?>
+        </div>
+      </div>
+    <?php endif; ?>
+    
+    <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
+      <aside id="widgets" class="column widgets">
+        <div id="widgets-inner" class="inner">
+          <?php print render($page['widgets']); ?>
+        </div>
+       </aside>
+    <?php endif; ?> 
+
+
     <div id="content">
       <div id="content-inner" class="inner column center">
         <?php if ($page['header']): ?>
@@ -87,21 +105,7 @@
     </div> <!-- /content-inner /content -->
 
 
-    <?php if ($page['sidebar_first']): ?>
-      <div id="sidebar-first" class="column sidebar first">
-        <div id="sidebar-first-inner" class="inner">
-          <?php print render($page['sidebar_first']); ?>
-        </div>
-      </div>
-    <?php endif; ?>
     
-    <?php if ($page['widgets'] && checkdesk_widgets_visibility()): ?>
-      <aside id="widgets" class="column widgets">
-        <div id="widgets-inner" class="inner">
-          <?php print render($page['widgets']); ?>
-        </div>
-       </aside>
-    <?php endif; ?> 
 
     <?php if ($page['sidebar_second']): ?>
       <div id="sidebar-second" class="column sidebar second">
