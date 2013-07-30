@@ -8904,8 +8904,6 @@ body.widgets #main #content #content-inner:after {
 }
 #widgets .elsewhere {
   *zoom: 1;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(255, 255, 255, 0.8);
 }
 #widgets .elsewhere:before, #widgets .elsewhere:after {
   display: table;
@@ -8929,7 +8927,7 @@ body.widgets #main #content #content-inner:after {
 #widgets .elsewhere ul {
   margin: 0;
   padding: 0;
-  float: right;
+  float: left;
   text-align: center;
 }
 #widgets .elsewhere ul li {
@@ -8940,8 +8938,6 @@ body.widgets #main #content #content-inner:after {
 }
 #widgets .elsewhere ul li a {
   display: block;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(0, 0, 0, 0.02);
   padding: 6px 5.5px;
   vertical-align: top;
   line-height: 1.4;

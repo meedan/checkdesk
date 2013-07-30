@@ -162,11 +162,8 @@
 
   .elsewhere {
     @include ctb-clearfix;
-    // position: fixed;
-    // bottom: $absolute-line-height;
-    border: 1px solid rgba(0,0,0,.1);
-    background-color: rgba(255,255,255,.8);
-
+    // border-top: 4px solid rgba(0,0,0,.1);
+    
     h2 {
       @include reset-box-model;
       float: $alpha;
@@ -188,15 +185,13 @@
     }
     ul {
       @include reset-list-style;
-      float: $omega;
+      float: $alpha;
       text-align: center;
       
       li {
         float: $alpha;
         a {
           display: block;
-          border-#{$alpha}: 1px solid rgba(0,0,0,.1);
-          background-color: rgba(0,0,0,.02);
           padding: $absolute-line-height/4 $gutter-width/2;
           vertical-align: top;
           line-height: 1.4;
