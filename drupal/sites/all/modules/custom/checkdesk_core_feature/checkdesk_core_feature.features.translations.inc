@@ -43856,6 +43856,53 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['8a304bc9c0f58e6f4481902a78768082'] = array(
+    'source' => '[user:name],
+
+A request to reset the password for your account has been made at [site:name].
+
+You may now log in by clicking this link or copying and pasting it to your browser:
+
+[user:one-time-login-url]
+
+This link can only be used once to log in and will lead you to a page where you can set your password. It expires after one day and nothing will happen if it\'s not used.
+
+--  [site:name] team',
+    'context' => '',
+    'location' => '/ar/user/password',
+    'translation' => '[user:name]، لقد تم طلب إعادة ضبط كلمة السر لحسابك على [site:name]. يمكنك الآن تسجيل الدخول بالضغط على الرابط التالي أو نسخه ولصقه في شريط العنوان في المتصفح: [user:one-time-login-url]
+
+يمكن استخدام هذا الرابط لتسجيل الدخول مرة واحد فقط وسيقودك إلى صفحة لتغيير كلمة السر. تنتهي صلاحية الرابط بعد يوم واحد ولن يحصل شيء إذا لم يتم استخدامه.
+
+-- فريق [site:name]',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['6fbc55e63831e4ebbdb46fec89e37006'] = array(
+    'source' => '[user:name],
+
+Thank you for registering at [site:name]. You may now log in by clicking this link or copying and pasting it to your browser:
+
+[user:one-time-login-url]
+
+This link can only be used once to log in and will lead you to a page where you can set your password.
+
+After setting your password, you will be able to log in at [site:login-url] in the future using:
+
+username: [user:name]
+password: Your password
+
+--  [site:name] team',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => '[user:name]، شكراً لتسجيلك على [site:name]. يمكنك الآن تسجيل الدخول بالضغط على الرابط التالي أو نسخه ولصقه في شريط العنوان في المتصفح: [user:one-time-login-url]
+
+يمكن استخدام هذا الرابط لتسجيل الدخول مرة واحد فقط وسيقودك إلى صفحة لضبط كلمة السر. بعد اختيار كلمة السر سيمكنك تسجيل الدخول على هذا الرابط: [site:login-url] بواسطة اسم المستخدم: [user:name] وكلمة السر التي اخترتها.
+
+-- فريق [site:name] ',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['52d7f666a9eb49bfe74ea08bc820f62c'] = array(
     'source' => 'Published on update',
     'context' => '',
