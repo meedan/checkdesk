@@ -106,7 +106,7 @@ function checkdesk_preprocess_html(&$variables) {
   $head_title = array();
   $title = drupal_get_title();
   if (!empty($title)) {
-    $head_title[] = $title;
+    $head_title[] = htmlspecialchars_decode($title);
   }
   $head_title[] = variable_get('site_name', 'Drupal');
   $variables['head_title'] = strip_tags(implode(' | ', $head_title));
