@@ -107,6 +107,22 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						@include icon(flag, $large-font-size, $red);
 					}
 				}
+				// share embed
+				.embed {
+					&:hover { 
+				    	color: black;
+				    	text-decoration: none;
+				    	background: none;
+				    	span { color: black; }
+				    }
+					textarea {
+						font-family: $sans-serif-font-stack;
+						font-size: $small-font-size;
+					}
+				}
+
+
+
 				// when dropdown is open
 				&.open > a {
 					@include ctb-bg(#ccc, rgba(0,0,0,.2));

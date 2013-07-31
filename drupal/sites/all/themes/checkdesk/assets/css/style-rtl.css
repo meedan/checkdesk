@@ -5207,6 +5207,18 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   *margin-right: .3em;
   font-weight: normal;
 }
+.report #report-actions ul.content-actions > li .embed:hover {
+  color: black;
+  text-decoration: none;
+  background: none;
+}
+.report #report-actions ul.content-actions > li .embed:hover span {
+  color: black;
+}
+.report #report-actions ul.content-actions > li .embed textarea {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
 .report #report-actions ul.content-actions > li.open > a {
   background-color: #cccccc;
   background-color: rgba(0, 0, 0, 0.2);
