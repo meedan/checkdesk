@@ -73,7 +73,7 @@
         border-#{$omega}: 0 none;
         border-bottom: 1px solid rgba(0,0,0,.1);
         #widgets-inner {
-          padding: 2%;
+          padding: 4% 2% 2%;
           @include ctb-clearfix();
           @include pad(1,1, $container-width);
           #partner-header {
@@ -85,6 +85,9 @@
               h2 {
                 border-top: 0 none;
                 padding-top: 0;
+              }
+              .block {
+                margin-top: 0;
               }
             }
           }

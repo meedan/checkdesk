@@ -8916,7 +8916,7 @@ body.widgets #main #content #content-inner:after {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   body.widgets #main #widgets.column #widgets-inner {
-    padding: 2%;
+    padding: 4% 2% 2%;
     *zoom: 1;
     padding-left: 5.64175%;
     padding-right: 5.64175%;
@@ -8942,6 +8942,9 @@ body.widgets #main #content #content-inner:after {
   body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-stories h2 {
     border-top: 0 none;
     padding-top: 0;
+  }
+  body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-stories .block {
+    margin-top: 0;
   }
   body.widgets #main #content {
     margin-left: 0;
