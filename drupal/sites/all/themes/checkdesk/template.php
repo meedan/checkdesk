@@ -538,7 +538,7 @@ function checkdesk_preprocess_node(&$variables) {
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
+      '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia T')),
     ));
     $variables['created_by'] = t('<a href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
@@ -546,12 +546,12 @@ function checkdesk_preprocess_node(&$variables) {
     ));
     $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia T')),
       '!interval' => format_interval((time() - $variables['created']), 1),
     ));
     $variables['updated_at'] = t('<time datetime="!date">!datetime</time>', array(
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia T')),
       '!interval' => format_interval((time() - $variables['changed']), 1),
     ));
   }
@@ -613,7 +613,7 @@ function checkdesk_preprocess_node(&$variables) {
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
       '!interval' => format_interval(time() - $variables['created'], 1),
     ));
     //Add activity report with status

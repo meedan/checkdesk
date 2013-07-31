@@ -235,16 +235,14 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						left: 0;
 						width: 100%;
 						height: 100%;
+						display: inline-block;
 					}
 				}
 
 				.twitter {
 					width: 100%;
 					max-width: 100%;
-					display: inline-block;
 					.oembed-content, .oembed-attributes {
-						width: 80%;
-						margin: 0 auto;
 						padding: 0 $gutter-width;
 					}
 				}
@@ -255,12 +253,15 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					}
 				}
 				.facebook {
-					// padding: $absolute-line-height/2 $gutter-width;
 					.oembed--link--meedan-oembed-facebook > div {
 						padding: $absolute-line-height/2 $gutter-width;
 					}
 				}
 
+			}
+			// centralize twitter embeds
+			.twitter-wrapper {
+				display: inline-block;
 			}
 
 		}

@@ -1,13 +1,16 @@
 <?php 
   // set embed media type class
-  
+  if(isset($node->embed->provider_name)) {
+    $provider = strtolower($node->embed->provider_name);
+    $provider_class_name = str_replace('.', '_', $provider) . '-wrapper';
+  }
 ?>
 
 <section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
     <section class="report-content">
       <div class="report-media">
-        <div class="container">
+        <div class="container <?php print $provider_class_name; ?>">
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>

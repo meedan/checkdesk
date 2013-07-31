@@ -5327,15 +5327,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   left: 0;
   width: 100%;
   height: 100%;
+  display: inline-block;
 }
 .report .report-content .report-media .container .twitter {
   width: 100%;
   max-width: 100%;
-  display: inline-block;
 }
 .report .report-content .report-media .container .twitter .oembed-content, .report .report-content .report-media .container .twitter .oembed-attributes {
-  width: 80%;
-  margin: 0 auto;
   padding: 0 11px;
 }
 .report .report-content .report-media .container .youtube .oembed-attributes {
@@ -5343,6 +5341,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-content .report-media .container .facebook .oembed--link--meedan-oembed-facebook > div {
   padding: 12px 11px;
+}
+.report .report-content .report-media .twitter-wrapper {
+  display: inline-block;
 }
 .report .report-content .description {
   padding: 12px 11px;
