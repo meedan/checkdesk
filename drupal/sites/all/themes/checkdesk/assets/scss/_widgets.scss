@@ -23,20 +23,19 @@
         #widgets-inner { 
           padding: 12%;
           #partner-header,
-          #featured-stories,
-          .elsewhere {
+          .widgets-wrapper {
             @include reset-columns;
-          }
-          #featured-stories {
-            .block {
-              margin: $absolute-line-height/2 0;
+            #featured-stories {
+              .block {
+                margin: $absolute-line-height/2 0;
+              }
+              h2 {
+                border-top: 4px solid rgba(0,0,0,.1);
+                padding-top: $base-line-height/2;
+              }
             }
-            h2 {
-              border-top: 4px solid rgba(0,0,0,.1);
-              padding-top: $base-line-height/2;
-            }
           }
-
+          
         }
       }
 
@@ -74,61 +73,22 @@
         border-#{$omega}: 0 none;
         border-bottom: 1px solid rgba(0,0,0,.1);
         #widgets-inner {
-          padding: 0;
+          padding: 2%;
+          @include ctb-clearfix();
           @include pad(1,1, $container-width);
           #partner-header {
             @include span-columns($break-small - 8, $break-small);
           }
-          .block {
-            @include ctb-clearfix;
-          }
-          #featured-stories {
-            h2 { border-top: 0 none; }
-            .block {
-              margin-top: 0;
+          .widgets-wrapper {
+            @include span-columns($break-small - 5, $break-small);
+            #featured-stories {
+              h2 {
+                border-top: 0 none;
+                padding-top: 0;
+              }
             }
-            @include span-columns($break-small - 5, $break-small);
           }
-          .elsewhere {
-            @include span-columns($break-small - 5, $break-small);
-          }
-        }
-      }
-      #content {
-        margin-#{$alpha}: 0;
-      }
-    }
-  }
-}
-
-@include at-breakpoint($container-width) {
-  body.widgets {
-    #main {
-      #widgets.column {
-        position: relative;
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        border-#{$omega}: 0 none;
-        #widgets-inner {
-          @include pad(1,1, $container-width);
-          #partner-header {
-            @include span-columns($break-small - 8, $break-small);
-          }
-          .block {
-            @include ctb-clearfix;
-            
-          }
-          #featured-stories {
-            h2 { border-top: 0 none; }
-            .block {
-              margin-top: 0;
-            }
-            @include span-columns($break-small - 5, $break-small);
-          }
-          .elsewhere {
-            @include span-columns($break-small - 5, $break-small);
-          }
+          
         }
       }
       #content {
