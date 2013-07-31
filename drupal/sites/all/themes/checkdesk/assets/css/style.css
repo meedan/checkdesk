@@ -5227,7 +5227,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-media .container {
   max-width: 100%;
   min-height: 260px;
-  display: inline-block;
   text-align: left;
 }
 .report .report-content .report-media .container .oembed-content {
@@ -5257,16 +5256,16 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-media .container .content {
   padding: 0;
 }
-.report .report-content .report-media .container .embed-attributes {
+.report .report-content .report-media .container .oembed-attributes {
   *zoom: 1;
   padding: 6px 11px;
 }
-.report .report-content .report-media .container .embed-attributes:before, .report .report-content .report-media .container .embed-attributes:after {
+.report .report-content .report-media .container .oembed-attributes:before, .report .report-content .report-media .container .oembed-attributes:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.report .report-content .report-media .container .embed-attributes:after {
+.report .report-content .report-media .container .oembed-attributes:after {
   clear: both;
 }
 .report .report-content .report-media .container .favicon {
@@ -5305,8 +5304,32 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-media .container iframe {
   max-width: 100%;
 }
-.report .report-content .report-media .container .twitter .embed-attributes,
-.report .report-content .report-media .container .youtube .embed-attributes {
+.report .report-content .report-media .container .oembed-video .oembed-content {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+.report .report-content .report-media .container .oembed-video .oembed-content embed,
+.report .report-content .report-media .container .oembed-video .oembed-content object,
+.report .report-content .report-media .container .oembed-video .oembed-content iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.report .report-content .report-media .container .twitter {
+  width: 100%;
+  max-width: 100%;
+  display: inline-block;
+}
+.report .report-content .report-media .container .twitter .oembed-content, .report .report-content .report-media .container .twitter .oembed-attributes {
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 11px;
+}
+.report .report-content .report-media .container .youtube .oembed-attributes {
   padding: 0 11px 6px 11px;
 }
 .report .report-content .report-media .container .facebook .oembed--link--meedan-oembed-facebook > div {
@@ -5753,7 +5776,7 @@ div.sensitive-hide {
 
 .sensitive-notification {
   display: table-cell;
-  width: 400px;
+  width: 60%;
   height: 200px;
   text-align: center;
   vertical-align: middle;

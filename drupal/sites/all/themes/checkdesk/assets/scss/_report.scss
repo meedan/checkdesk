@@ -133,8 +133,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		font-family: $sans-serif-font-stack;
 		border-left: 1px solid rgba(0,0,0,.1);
 		border-right: 1px solid rgba(0,0,0,.1);
-		// width: 100%;
-		// margin-#{$alpha}: -1px;
 		.report-media {
 			background-color: rgba(0,0,0,.05);
 			border-bottom: 1px solid rgba(0,0,0,.05);
@@ -144,7 +142,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				// since we stack the report actions vertically
 				// on media item's side
 				min-height: 260px;
-				display: inline-block;
 				text-align: $from-direction;
 
 				.oembed-content {
@@ -176,7 +173,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					padding: 0;
 				}
 				
-				.embed-attributes {
+				.oembed-attributes {
 					@include ctb-clearfix();
 					padding: $absolute-line-height/4 $gutter-width;
 				}
@@ -208,9 +205,36 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					max-width: 100%;
 				}
 
-				.twitter, 
+				// scale videos proportionally
+				.oembed-video .oembed-content {
+					position: relative;
+					padding-bottom: 56.25%;
+					height: 0; 
+					overflow: hidden;
+					embed,
+					object,
+					iframe {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+					}
+				}
+
+				.twitter {
+					width: 100%;
+					max-width: 100%;
+					display: inline-block;
+					.oembed-content, .oembed-attributes {
+						width: 80%;
+						margin: 0 auto;
+						padding: 0 $gutter-width;
+					}
+				}
+
 				.youtube {
-					.embed-attributes {
+					.oembed-attributes {
 						padding: 0 $gutter-width $absolute-line-height/4 $gutter-width;
 					}
 				}
@@ -531,7 +555,7 @@ div.sensitive-hide {
 
 .sensitive-notification {
 	display: table-cell;
-	width: 400px;
+	width: 60%;
 	height: 200px;
 	text-align: center;
 	vertical-align: middle;

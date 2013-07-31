@@ -21,7 +21,7 @@
     <?php print render($content); ?>
   </div>
 
-  <div class="embed-attributes">
+  <div class="oembed-attributes">
     <?php if ($favicon_link) : ?>
       <div class="favicon"><?php print $favicon_link ?></div>
     <?php endif ?>
