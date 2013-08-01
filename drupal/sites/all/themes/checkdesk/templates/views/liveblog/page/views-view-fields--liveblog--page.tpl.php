@@ -45,6 +45,8 @@
     $share_link .= '</ul></li>'; 
   }
 
+  // get timezone information to display in timestamps e.g. Cairo, Egypt
+  $site_timezone = checkdesk_get_timezone();
 
 ?>
 <div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
@@ -56,7 +58,7 @@
         <?php if (isset($user_avatar)) : ?>
           <?php print $user_avatar; ?>
         <?php endif; ?>
-        <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?>
+        <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?> <?php print t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))); ?>
         <?php if (isset($story_commentcount)) { ?>
           <div class="story-commentcount">
             <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
@@ -89,7 +91,7 @@
         <span class="link"></span> <span class="permalink"><?php print t('Go to story'); ?></span>
       </div>
       <div class="story-updated-at">
-        <?php print t('Updated at ') . render($fields['changed']->content); ?>
+        <?php print t('Updated at ') . render($fields['changed']->content) . ' ' . t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))); ?>
       </div>
     </a>
   </article>

@@ -533,12 +533,16 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
 
+    // get timezone information to display in timestamps e.g. Cairo, Egypt
+    $site_timezone = checkdesk_get_timezone();
+
     // Add creation info
-    $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+    $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime !timezone</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia T')),
+      '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
+      '!timezone' => t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])))
     ));
     $variables['created_by'] = t('<a href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
@@ -546,13 +550,14 @@ function checkdesk_preprocess_node(&$variables) {
     ));
     $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia T')),
+      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
       '!interval' => format_interval((time() - $variables['created']), 1),
     ));
-    $variables['updated_at'] = t('<time datetime="!date">!datetime</time>', array(
+    $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia T')),
+      '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia')),
       '!interval' => format_interval((time() - $variables['changed']), 1),
+      '!timezone' => t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))),
     ));
   }
 
@@ -1269,4 +1274,28 @@ function checkdesk_direction_settings() {
   }
 
   return $layout;
+}
+
+
+/* 
+ * Utility function to set timezone as City, Country
+ */
+function checkdesk_get_timezone() {
+  // set timezone as Cairo, Egypt
+  $site_timezone = array();
+  $timezone = date_default_timezone();
+  if($timezone) {
+    $site_timezone['city'] = array_pop(explode('/', $timezone));  
+  }
+  $site_country_code = variable_get('site_default_country', '');
+  if($site_country_code) {
+    $countries = country_get_list();
+    foreach ($countries as $cc => $country) {
+      if($cc == $site_country_code) {
+        $site_timezone['country'] = $country;
+      }
+    }
+  }
+
+  return $site_timezone;
 }
