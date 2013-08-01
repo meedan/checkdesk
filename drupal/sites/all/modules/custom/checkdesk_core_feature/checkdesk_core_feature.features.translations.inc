@@ -43856,6 +43856,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['2ef8e574adaa7f5b822fed631252fd65'] = array(
+    'source' => 'Embed this report',
+    'context' => '',
+    'location' => '/ar/node/15423',
+    'translation' => 'ضمّن هذا التقرير على موقعك',
+    'plid' => 0,
+    'plural' => 0,
+  ); 
   $translations['ar:default']['8a304bc9c0f58e6f4481902a78768082'] = array(
     'source' => '[user:name],
 
