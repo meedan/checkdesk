@@ -542,7 +542,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
-      '!timezone' => t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])))
+      '!timezone' => t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))),
     ));
     $variables['created_by'] = t('<a href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
@@ -1285,7 +1285,7 @@ function checkdesk_get_timezone() {
   $site_timezone = array();
   $timezone = date_default_timezone();
   if($timezone) {
-    $site_timezone['city'] = array_pop(explode('/', $timezone));  
+    $site_timezone['city'] = str_replace('_', ' ', array_pop(explode('/', $timezone)));  
   }
   $site_country_code = variable_get('site_default_country', '');
   if($site_country_code) {
