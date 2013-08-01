@@ -1292,7 +1292,11 @@ function checkdesk_get_timezone() {
     $countries = country_get_list();
     foreach ($countries as $cc => $country) {
       if($cc == $site_country_code) {
-        $site_timezone['country'] = $country;
+		if($country == 'Palestinian Territory') {
+          $site_timezone['country'] = t('Palestine');
+        } else {
+          $site_timezone['country'] = $country;
+        }
       }
     }
   }
