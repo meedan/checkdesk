@@ -43886,6 +43886,46 @@ This link can only be used once to log in and will lead you to a page where you 
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['b016552ccb0eb8d15bd5df9a15ddb8a8'] = array(
+    'source' => 'Damascus',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'دمشق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['03c54d7c2cf89721ee487b5460aad9b8'] = array(
+    'source' => '!city, !country',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => '!city، !country',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['78b4ef5e65210536597f084acd96f2bf'] = array(
+    'source' => 'Amman',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'عمان',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['c5e0263c928418236b444c8db956a1a0'] = array(
+    'source' => 'Beirut',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'بيروت',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['4bc2b179eea40c65de4115554cdd05b2'] = array(
+    'source' => 'Cairo',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'القاهرة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['6fbc55e63831e4ebbdb46fec89e37006'] = array(
     'source' => '[user:name],
 
