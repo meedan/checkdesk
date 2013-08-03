@@ -11,6 +11,8 @@
 
       // 2. The sidebar column
       #widgets.column {
+        background-color: $white;
+        display: block;
         position: fixed;
         height: 100%;
         max-width: 360px;
@@ -18,20 +20,32 @@
         top: $navbarHeight;
         width: 30%;
         border-#{$omega}: 1px solid rgba(0,0,0,.1);
-        background-color: $white;
+        #widgets-inner { 
+          padding: 12%;
+          #partner-header,
+          .widgets-wrapper {
+            @include reset-columns;
+            #featured-stories {
+              .block {
+                margin: $absolute-line-height/2 0;
+              }
+              h2 {
+                border-top: 4px solid rgba(0,0,0,.1);
+                padding-top: $base-line-height/2;
+              }
+            }
+          }
+          
+        }
       }
 
       // 3. The primary content column, 
       // on story create page, the main column with the compser form
       #content {
-        // position: absolute;
         margin-top: $navbarHeight;
-        // bottom: 0;
         margin-#{$alpha}: 30%;
-        // #{$omega}: 0;
         overflow-y: auto;
         #content-inner {
-          // -moz-box-sizing: border-box;
           @include ctb-clearfix;
           max-width: 850px;
           padding-top: $base-line-height*2;
@@ -44,21 +58,47 @@
 
 // ==========================================================================
 // Default: up to break-small
-@include widgets-layout($container-width, $container-width - 2); 
+@include widgets-layout($container-width, $container-width); 
 
 // ==========================================================================
 // Breakpoint: small
 @include at-breakpoint($break-small) {
-  // $break: $break-small;
-  // $secondary-width: 4;
-  // $primary-width: $break-small - $secondary-width; // calculate main col width
-
-  // body.widgets #main {
-    // @include span-columns($break - 2, $break);
-    // @include pad(1, 1, $break);
-  // }
-
-  // @include widgets-layout($secondary-width, $primary-width, $break); // reapply widgets-layout
+  body.widgets {
+    #main {
+      #widgets.column {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-#{$omega}: 0 none;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        #widgets-inner {
+          padding: 4% 2% 2%;
+          @include ctb-clearfix();
+          @include pad(1,1, $container-width);
+          #partner-header {
+            @include span-columns($break-small - 8, $break-small);
+          }
+          .widgets-wrapper {
+            @include span-columns($break-small - 5, $break-small);
+            #featured-stories {
+              h2 {
+                border-top: 0 none;
+                padding-top: 0;
+              }
+              .block {
+                margin-top: 0;
+              }
+            }
+          }
+          
+        }
+      }
+      #content {
+        margin-#{$alpha}: 0;
+      }
+    }
+  }
 }
 
 // Hide featured stories block for small viewports
@@ -89,38 +129,26 @@
 // The sidebar doubles in width and the primary form widens
 
 @include at-breakpoint($break-medium) {
-  // $break: $break-medium;
-  // $secondary-width: 7;
-  // $primary-width: $break-medium - $secondary-width; 
-  // @include widgets-layout($secondary-width, $primary-width, $break) {
-  //   @include span-columns($break - 4, $break, $gutter-width);
-  //   @include pad(2, 2, $break);
-  // }
-
- body.widgets #main #content {
-    margin-#{$alpha}: 360px;
+  @include widgets-layout($container-width, $container-width); 
+  body.widgets {
+    #main {
+      #content {
+        margin-#{$alpha}: 360px;
+      }
+    }
   }
+}
 
-}  
 // Breakpoint: large
 @include at-breakpoint($break-large) {
-
-  body.widgets #main #content {
-    margin-#{$alpha}: 360px;
+  @include widgets-layout($container-width, $container-width); 
+  body.widgets {
+    #main {
+      #content {
+        margin-#{$alpha}: 360px;
+      }
+    }
   }
-
-//   $break: $break-large/2;
-//   $secondary-width: 7;
-//   $primary-width: $break - $secondary-width;
-
-//   body.widgets #main {
-//     @include span-columns($break - 8, $break);
-//     @include pad(2, 2, $break);
-//   }
-//   @include widgets-layout($secondary-width, $primary-width, $break) {
-//     @include span-columns($break - 4, $break, $gutter-width);
-//     @include pad(2, 2, $break);
-//   }
 }
 
 
@@ -131,9 +159,6 @@
 
 #widgets {
   #widgets-inner {
-    // width: 92%;
-    padding: 12%;
-    
     // remove margin from first block
     .region-widgets :first-child {
       margin-top: 0;
@@ -162,18 +187,15 @@
 
   .elsewhere {
     @include ctb-clearfix;
-    // position: fixed;
-    // bottom: $absolute-line-height;
-    border: 1px solid rgba(0,0,0,.1);
-    background-color: rgba(255,255,255,.8);
-
+    text-align: center;
+    // border-top: 4px solid rgba(0,0,0,.1);
+    
     h2 {
       @include reset-box-model;
       float: $alpha;
       border-top: 0px none;
       height: 24px;
-
-      padding: $absolute-line-height/2 $gutter-width*2;
+      padding: $absolute-line-height/2 $gutter-width*2 $absolute-line-height/2 0;
       font-size: $smaller-font-size;
       @if $from-direction == 'right' {
         font-size: $x-large-font-size;
@@ -188,15 +210,13 @@
     }
     ul {
       @include reset-list-style;
-      float: $omega;
+      float: $alpha;
       text-align: center;
       
       li {
         float: $alpha;
         a {
           display: block;
-          border-#{$alpha}: 1px solid rgba(0,0,0,.1);
-          background-color: rgba(0,0,0,.02);
           padding: $absolute-line-height/4 $gutter-width/2;
           vertical-align: top;
           line-height: 1.4;

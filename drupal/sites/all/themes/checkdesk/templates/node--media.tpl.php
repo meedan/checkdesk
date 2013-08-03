@@ -1,11 +1,8 @@
 <?php 
   // set embed media type class
-  if(isset($node->embed->provider_url)) {
-    $original_url = $node->embed->url;
-    $url = $node->embed->provider_url;
-    $url = parse_url($url);
-    $media_type = $url['host'];
-    $media_type_class = str_replace('.', '_', $media_type);
+  if(isset($node->embed->provider_name)) {
+    $provider = strtolower($node->embed->provider_name);
+    $provider_class_name = str_replace('.', '_', $provider) . '-wrapper';
   }
 ?>
 
@@ -13,7 +10,7 @@
   <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
     <section class="report-content">
       <div class="report-media">
-        <div class="container <?php print $media_type_class; ?>">
+        <div class="container <?php print $provider_class_name; ?>">
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>
@@ -28,9 +25,6 @@
               <?php print $user_avatar; ?>
           <?php endif; ?>
           <?php print $media_creation_info; ?>
-        </div>
-        <div class="permalink">
-          <?php print l('<span class="icon-link"></span>', $original_url, array('attributes' => array('title' => t('View original')), 'html' => TRUE)); ?>
         </div>
       </div>
     </section>

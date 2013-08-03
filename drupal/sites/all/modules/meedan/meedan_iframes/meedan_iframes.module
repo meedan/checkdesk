@@ -41,14 +41,6 @@ function meedan_iframes_theme($existing, $type, $theme, $path) {
  * Default theme implementation for 'meedan_iframe'.
  */
 function theme_meedan_iframe($vars) {
-  $defaults = array(
-    'frameborder' => "0",
-    'scrolling'   => "no",
-    'seamless'    => NULL,
-    'id'          => 'meedan-iframe-' . substr(md5($vars['src']), 0, 6),
-  );
-  $attrs = array_merge($defaults, (array) $vars['attributes']);
-
   $parent = drupal_get_library('meedan_iframes', 'meedan_iframes.parent');
 
   // It is critical that these URLs are:
@@ -56,12 +48,17 @@ function theme_meedan_iframe($vars) {
   // 2. HTTPS, to ensure embedded IFRAMEs work and do not throw security errors
   //    on remote sites. Note, this will only work correctly when $conf['https'] = TRUE;
   // 3. Have no language set, for correct paths in all languages
-  $script_src = url(key($parent['js']), array('absolute' => TRUE, 'https' => TRUE, 'language' => (object) array('language' => FALSE)));
+  $script_src = url(
+    key($parent['js']),
+    array(
+      'query' => array_merge($vars['attributes'], array('u' => $vars['src'])),
+      'absolute' => TRUE,
+      'https' => TRUE,
+      'language' => (object) array('language' => FALSE)
+    )
+  );
 
-  // The IFRAME comes first and the parent script MUST come second. The parent
-  // script relies on this fact for DOM calculations.
-  $output  = '<iframe src="' . $vars['src'] .'" ' . drupal_attributes($attrs) . '></iframe>';
-  $output .= '<script src="' . $script_src . '"></script>';
+  $output .= '<script src="' . filter_xss($script_src) . '"></script>';
 
   return $output;
 }

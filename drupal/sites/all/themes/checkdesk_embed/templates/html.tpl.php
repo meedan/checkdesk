@@ -9,6 +9,10 @@
         <title><?php print $head_title; ?></title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width" />
+
+        <!-- See: http://benvinegar.github.io/seamless-talk/#/21 -->
+        <base href="<?php print url('', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE))); ?>" target="_parent">
+
         <?php print $scripts; ?>
         <?php print $styles; ?>
     </head>

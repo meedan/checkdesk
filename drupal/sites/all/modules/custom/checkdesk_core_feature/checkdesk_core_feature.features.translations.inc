@@ -43856,6 +43856,109 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['2ef8e574adaa7f5b822fed631252fd65'] = array(
+    'source' => 'Embed this report',
+    'context' => '',
+    'location' => '/ar/node/15423',
+    'translation' => 'ضمّن هذا التقرير على موقعك',
+    'plid' => 0,
+    'plural' => 0,
+  ); 
+  $translations['ar:default']['8a304bc9c0f58e6f4481902a78768082'] = array(
+    'source' => '[user:name],
+
+A request to reset the password for your account has been made at [site:name].
+
+You may now log in by clicking this link or copying and pasting it to your browser:
+
+[user:one-time-login-url]
+
+This link can only be used once to log in and will lead you to a page where you can set your password. It expires after one day and nothing will happen if it\'s not used.
+
+--  [site:name] team',
+    'context' => '',
+    'location' => '/ar/user/password',
+    'translation' => '[user:name]، لقد تم طلب إعادة ضبط كلمة السر لحسابك على [site:name]. يمكنك الآن تسجيل الدخول بالضغط على الرابط التالي أو نسخه ولصقه في شريط العنوان في المتصفح: [user:one-time-login-url]
+
+يمكن استخدام هذا الرابط لتسجيل الدخول مرة واحد فقط وسيقودك إلى صفحة لتغيير كلمة السر. تنتهي صلاحية الرابط بعد يوم واحد ولن يحصل شيء إذا لم يتم استخدامه.
+
+-- فريق [site:name]',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['b016552ccb0eb8d15bd5df9a15ddb8a8'] = array(
+    'source' => 'Damascus',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'دمشق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['03c54d7c2cf89721ee487b5460aad9b8'] = array(
+    'source' => '!city, !country',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => '!city، !country',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['78b4ef5e65210536597f084acd96f2bf'] = array(
+    'source' => 'Amman',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'عمان',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['c5e0263c928418236b444c8db956a1a0'] = array(
+    'source' => 'Beirut',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'بيروت',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['4bc2b179eea40c65de4115554cdd05b2'] = array(
+    'source' => 'Cairo',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'القاهرة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['23d37207e103a8e36e4f0c8f45ffc980'] = array(
+    'source' => 'Jerusalem, Palestine',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'القدس',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['6fbc55e63831e4ebbdb46fec89e37006'] = array(
+    'source' => '[user:name],
+
+Thank you for registering at [site:name]. You may now log in by clicking this link or copying and pasting it to your browser:
+
+[user:one-time-login-url]
+
+This link can only be used once to log in and will lead you to a page where you can set your password.
+
+After setting your password, you will be able to log in at [site:login-url] in the future using:
+
+username: [user:name]
+password: Your password
+
+--  [site:name] team',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => '[user:name]، شكراً لتسجيلك على [site:name]. يمكنك الآن تسجيل الدخول بالضغط على الرابط التالي أو نسخه ولصقه في شريط العنوان في المتصفح: [user:one-time-login-url]
+
+يمكن استخدام هذا الرابط لتسجيل الدخول مرة واحد فقط وسيقودك إلى صفحة لضبط كلمة السر. بعد اختيار كلمة السر سيمكنك تسجيل الدخول على هذا الرابط: [site:login-url] بواسطة اسم المستخدم: [user:name] وكلمة السر التي اخترتها.
+
+-- فريق [site:name] ',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['52d7f666a9eb49bfe74ea08bc820f62c'] = array(
     'source' => 'Published on update',
     'context' => '',

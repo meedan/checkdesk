@@ -240,6 +240,7 @@ function meedan_bookmarklet_preprocess_page(&$variables, $hook) {
  */
 function meedan_bookmarklet_form_alter(&$form, $form_state, $form_id) {
   if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
+    drupal_add_js(array('meedanIframes' => array('contentSelector' => '#main')), 'setting');
 
     // Prepopulate fields
     // FIXME Not sure if all cases are handled here, or if it is the best approach... maybe use entityreference_prepopulate? Or prepopulate? Functions from Field API? From Entity API? From both?

@@ -551,12 +551,13 @@ function _checkdesk_core_report_publish_submit($form, &$form_state) {
  * Retrieve action links on given node.
  */
 function _checkdesk_core_node_links($node, $account = NULL) {
+  global $language;
   if (!$account) {
     global $user;
     $account = $user;
   }
   $links = array();
-  $url = url('node/' . $node->nid, array('absolute' => TRUE));
+  $url = url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
 
   // Try to gracefully redirect the user back to where they were. In some cases
   // this is not a simple task. Ajax based UI is especially difficult.

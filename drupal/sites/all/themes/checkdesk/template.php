@@ -106,7 +106,7 @@ function checkdesk_preprocess_html(&$variables) {
   $head_title = array();
   $title = drupal_get_title();
   if (!empty($title)) {
-    $head_title[] = $title;
+    $head_title[] = htmlspecialchars_decode($title);
   }
   $head_title[] = variable_get('site_name', 'Drupal');
   $variables['head_title'] = strip_tags(implode(' | ', $head_title));
@@ -129,7 +129,7 @@ function checkdesk_preprocess_region(&$variables) {
         'style_name' => 'partner_logo',
         'path' => $image,
       );
-      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE,));
+      $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
     }
 
     $position = theme_get_setting('header_image_position');
@@ -225,10 +225,10 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($variables['main_menu'] as $id => $item) {
       // Change "Submit Report" link
       if ($item['link_path'] == 'node/add/media') {
-        $src = url('node/add/media', array('query' => array('meedan_bookmarklet' => '1'), 'absolute' => TRUE));
+        $src = url('node/add/media', array('query' => array('meedan_bookmarklet' => '1')));
         $content = array(
           '#type' => 'markup',
-          '#markup' => theme('meedan_iframe', array('src' => $src)),
+          '#markup' => theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;'))),
         );
 
         $variables['main_menu'][$id]['html'] = TRUE;
@@ -519,9 +519,6 @@ function checkdesk_preprocess_page(&$variables) {
  */
 function checkdesk_preprocess_node(&$variables) {
 
-  // set $alpha and $omega for language directions
-  $layout = checkdesk_direction_settings();
-
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     //Add author info to variables
     $user = user_load($variables['elements']['#node']->uid);
@@ -536,12 +533,21 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
 
+    // get timezone information to display in timestamps e.g. Cairo, Egypt
+    $site_timezone = checkdesk_get_timezone();
+    $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
+    // FIXME: Ugly hack
+    if ($site_timezone['city'] == 'Jerusalem') {
+      $timezone = t('Jerusalem, Palestine');
+    }
+
     // Add creation info
-    $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+    $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime !timezone</time>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
+      '!timezone' => $timezone,
     ));
     $variables['created_by'] = t('<a href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
@@ -552,10 +558,11 @@ function checkdesk_preprocess_node(&$variables) {
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
       '!interval' => format_interval((time() - $variables['created']), 1),
     ));
-    $variables['updated_at'] = t('<time datetime="!date">!datetime</time>', array(
+    $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia')),
       '!interval' => format_interval((time() - $variables['changed']), 1),
+      '!timezone' => t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))),
     ));
   }
 
@@ -616,7 +623,7 @@ function checkdesk_preprocess_node(&$variables) {
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
       '!interval' => format_interval(time() - $variables['created'], 1),
     ));
     //Add activity report with status
@@ -735,6 +742,7 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
       }
       if (isset($links['checkdesk-share-embed'])) {
+        $output .= '<li class="divider"></li>';
         $output .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-embed']) . '</li>';
       }
       $output .= '</ul></li>'; 
@@ -1271,4 +1279,28 @@ function checkdesk_direction_settings() {
   }
 
   return $layout;
+}
+
+
+/* 
+ * Utility function to set timezone as City, Country
+ */
+function checkdesk_get_timezone() {
+  // set timezone as Cairo, Egypt
+  $site_timezone = array();
+  $timezone = date_default_timezone();
+  if($timezone) {
+    $site_timezone['city'] = str_replace('_', ' ', array_pop(explode('/', $timezone)));  
+  }
+  $site_country_code = variable_get('site_default_country', '');
+  if($site_country_code) {
+    $countries = country_get_list();
+    foreach ($countries as $cc => $country) {
+      if($cc == $site_country_code) {
+          $site_timezone['country'] = $country;
+      }
+    }
+  }
+
+  return $site_timezone;
 }

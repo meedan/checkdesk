@@ -7,14 +7,23 @@ jQuery(function ($) {
   'use strict';
 
   // Watch the height of the iframe, inform the parent every time it changes
-  var htmlHeight = 0;
+  var htmlHeight = 0,
+      id = window.location.hash;
 
   function checkHTMLHeight() {
-    var height = $('html')[0].offsetHeight;
-    if (height != htmlHeight) {
+    var ds = Drupal && Drupal.settings ? Drupal.settings : false,
+        height;
+
+    if (ds && ds.meedanIframes) {
+      height = $(ds.meedanIframes.contentSelector).outerHeight(true);
+    } else {
+      height = $('body')[0].offsetHeight;
+    }
+
+    if (height !== htmlHeight) {
       htmlHeight = height;
 
-      window.parent.postMessage(['setHeight', htmlHeight].join(';'), '*');
+      window.parent.postMessage([id, 'setHeight', htmlHeight].join(';'), '*');
     }
 
     setTimeout(checkHTMLHeight, 30);
@@ -23,5 +32,5 @@ jQuery(function ($) {
   // Start the checker
   checkHTMLHeight();
 
-  window.parent.postMessage('loaded', '*');
+  window.parent.postMessage([id, 'loaded'].join(';'), '*');
 });

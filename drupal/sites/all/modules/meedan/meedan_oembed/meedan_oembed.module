@@ -288,6 +288,7 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
         'html' => TRUE,
       );
     }
+    $vars['provider_name'] = $embed->provider_name;
     $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
     if (isset($embed->favicon_link)) {
       $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));

@@ -55,7 +55,7 @@
             height;
         if (offset) {
           height = total - offset.top;
-          $sidebar.find('#widgets-inner').height(height);
+          // $sidebar.find('#widgets-inner').height(height);
         }
       });
       $(window).trigger('resize');
