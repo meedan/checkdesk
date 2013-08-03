@@ -257,6 +257,12 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						padding: $absolute-line-height/2 $gutter-width;
 					}
 				}
+			  .oembed--link--meedan-oembed-facebook {
+          height: 400px;
+          iframe {
+            width: 100%;
+          }
+        }
 
 			}
 			// centralize twitter embeds

@@ -55,9 +55,17 @@ function meedan_oembed_facebook_handler($provider, $url) {
   $embed->provider_url = $provider_url;
   $embed->provider_name = 'Facebook';
   $embed->type = 'link';
-
-  // A photo, first priority
-  if (isset($post_data['picture']) || isset($post_data['images'])) {
+  
+  // A video
+  if (isset($post_data['embed_html'])) {
+    $embed->html = $post_data['embed_html'];
+    $embed->title = addslashes($post_data['name']);
+    $embed->thumbnail_url = $post_data['picture'];
+    $embed->description = $post_data['description'];
+    $embed->link_description = '';
+  }
+  // A photo
+  else if (isset($post_data['picture']) || isset($post_data['images'])) {
     $name = isset($post_data['from']) && isset($post_data['from']['name'])
           ? $post_data['from']['name']
           : t('unknown Facebook user');
@@ -104,13 +112,19 @@ function meedan_oembed_facebook_handler($provider, $url) {
 
   $default_thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
 
-  $embed->title = $embed->description;
+  if (!isset($embed->title)) {
+    $embed->title = $embed->description;
+  }
   $embed->link = isset($post_data['link']) ? $post_data['link'] : '';
-  $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
+  if (!isset($embed->link_description)) {
+    $embed->link_description = isset($post_data['description']) ? $post_data['description'] : '';
+  }
   $embed->author_name = $post_data['from']['name'];
   $embed->author_url = $embed->provider_url . '/'. $post_data['from']['id'];
   $embed->author_img = 'https://graph.facebook.com/'. $post_data['from']['id'] .'/picture';
-  $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : (isset($embed->picture) ? $embed->picture : $default_thumbnail_url);
+  if (!isset($embed->thumbnail_url)) {
+    $embed->thumbnail_url = isset($post_data['source']) ? $post_data['source'] : (isset($embed->picture) ? $embed->picture : $default_thumbnail_url);
+  }
 
   return $embed;
 }
@@ -287,8 +301,10 @@ function _meedan_oembed_facebook_login_url($facebook) {
   $permissions = variable_get('meedan_oembed_fb_permissions', array(
     'user_photos',
     'user_status',
+    'user_videos',
     'friends_photos',
     'friends_status',
+    'friends_videos',
   ));
 
   return $facebook->getLoginUrl(array(
@@ -306,6 +322,9 @@ function _meedan_oembed_facebook_getFacebookId($url) {
   parse_str(urldecode($query), $query);
   if (isset($query['fbid'])) {
     return $query['fbid'];
+  }
+  if (isset($query['v'])) {
+    return $query['v'];
   }
   return substr(strrchr($url,'/'),1);
 }
