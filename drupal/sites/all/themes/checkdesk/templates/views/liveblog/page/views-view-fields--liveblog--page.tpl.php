@@ -47,6 +47,11 @@
 
   // get timezone information to display in timestamps e.g. Cairo, Egypt
   $site_timezone = checkdesk_get_timezone();
+  $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
+  // FIXME: Ugly hack
+  if ($site_timezone['city'] == 'Jerusalem') {
+    $timezone = t('Jerusalem, Palestine');
+  }
 
 ?>
 <div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
@@ -58,7 +63,7 @@
         <?php if (isset($user_avatar)) : ?>
           <?php print $user_avatar; ?>
         <?php endif; ?>
-        <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?> <?php print t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))); ?>
+        <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?> <?php print $timezone; ?>
         <?php if (isset($story_commentcount)) { ?>
           <div class="story-commentcount">
             <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
