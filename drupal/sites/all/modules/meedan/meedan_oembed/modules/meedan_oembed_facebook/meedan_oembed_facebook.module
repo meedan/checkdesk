@@ -59,7 +59,7 @@ function meedan_oembed_facebook_handler($provider, $url) {
   // A video
   if (isset($post_data['embed_html'])) {
     $embed->html = $post_data['embed_html'];
-    $embed->title = addslashes($post_data['name']);
+    $embed->title = $post_data['name'];
     $embed->thumbnail_url = $post_data['picture'];
     $embed->description = $post_data['description'];
     $embed->link_description = '';
