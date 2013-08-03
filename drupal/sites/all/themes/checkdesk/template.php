@@ -535,6 +535,11 @@ function checkdesk_preprocess_node(&$variables) {
 
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
+    $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
+    // FIXME: Ugly hack
+    if ($site_timezone['city'] == 'Jerusalem') {
+      $timezone = t('Jerusalem, Palestine');
+    }
 
     // Add creation info
     $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime !timezone</time>', array(
@@ -542,7 +547,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!user' => $variables['elements']['#node']->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
-      '!timezone' => t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))),
+      '!timezone' => $timezone,
     ));
     $variables['created_by'] = t('<a href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
@@ -1292,11 +1297,7 @@ function checkdesk_get_timezone() {
     $countries = country_get_list();
     foreach ($countries as $cc => $country) {
       if($cc == $site_country_code) {
-		if($country == 'Palestinian Territory') {
-          $site_timezone['country'] = t('Palestine');
-        } else {
           $site_timezone['country'] = $country;
-        }
       }
     }
   }

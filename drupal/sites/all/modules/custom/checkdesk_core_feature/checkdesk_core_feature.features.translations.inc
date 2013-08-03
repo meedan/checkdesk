@@ -43926,6 +43926,14 @@ This link can only be used once to log in and will lead you to a page where you 
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['23d37207e103a8e36e4f0c8f45ffc980'] = array(
+    'source' => 'Jerusalem, Palestine',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => 'القدس',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['6fbc55e63831e4ebbdb46fec89e37006'] = array(
     'source' => '[user:name],
 
