@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'DroidNaskhReg';
+    src: url('fonts/droidnaskh-regular-webfont.eot');
+    src: url('fonts/droidnaskh-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/droidnaskh-regular-webfont.woff') format('woff'),
+         url('fonts/droidnaskh-regular-webfont.ttf') format('truetype'),
+         url('fonts/droidnaskh-regular-webfont.svg#MerriweatherBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DroidNaskhBold';
+    src: url('fonts/droidnaskh-bold-webfont.eot');
+    src: url('fonts/droidnaskh-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/droidnaskh-bold-webfont.woff') format('woff'),
+         url('fonts/droidnaskh-bold-webfont.ttf') format('truetype'),
+         url('fonts/droidnaskh-bold-webfont.svg#MerriweatherBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:lang(en) {
+  font-family: "helvetica neue";
+}
+
+:lang(ar) {
+  font-family: 'DroidNaskhReg', georgia, serif;
+}
