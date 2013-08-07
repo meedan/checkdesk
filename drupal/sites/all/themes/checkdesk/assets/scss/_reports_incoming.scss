@@ -4,9 +4,19 @@
 
 // Add a scrollbar to the sidebar to make it easier to drag a report that is not on the beginning of the list
 .view-desk-reports {
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 0 $gutter-width*1.2;
+  .view-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 $gutter-width*1.2;
+  }
+  form {
+    margin-bottom: 0;
+  }
+  .pager-load-more {
+    border-top: 1px solid rgba(0,0,0,.05);
+    @include reset-box-model;
+    padding: $absolute-line-height/4 0;
+  }
 }
 
 // Report filters
@@ -22,7 +32,8 @@
 #incoming-reports {
   font-size: $small-font-size;
   color: $gray;
-
+  padding-top: $absolute-line-height/2;
+  
   // while dragging
   .ui-draggable-dragging {
     border: 3px solid rgb(239,202,43);
@@ -56,6 +67,7 @@
   .report-row-container {
     cursor: pointer;
     border: 1px solid rgba(0,0,0,.2);
+    background-color: $white;
     font-family: $sans-serif-font-stack;
   }
 
