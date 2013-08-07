@@ -5996,7 +5996,10 @@ div.sensitive-hide {
   clear: both;
 }
 .report-row .report-attributes:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.report-row .report-attributes:active {
+  background-color: #99cfff;
 }
 .report-row .report-attributes .report-meta {
   float: right;

@@ -107,8 +107,9 @@
     color: rgba(0,0,0,.4);
     background-color: rgba(0,0,0,.02);
     &:hover {
-      background-color: rgba(0,0,0,.05);
+      background-color: rgba(0,0,0,.08);
     }
+    &:active { background-color: lighten($link-color, 30); }
     .report-meta {
       float: $alpha;
       color: rgba(0,0,0,.4);
