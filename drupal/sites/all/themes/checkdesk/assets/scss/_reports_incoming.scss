@@ -6,7 +6,7 @@
 .view-desk-reports {
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 0 $gutter-width*2;
+  padding: 0 $gutter-width*1.2;
 }
 
 // Report filters
@@ -45,28 +45,25 @@
 .report-row {
   @include ctb-clearfix;
   position: relative;
+  margin-bottom: $absolute-line-height/5;
+  border: 3px solid rgba(255,255,255,.01);
+  @include border-radius(4px);
+
+  // hide ajax throbber in dropdown
+  .ajax-progress-throbber {
+    display: none;
+  }
 
   .report-row-container {
     cursor: pointer;
-    padding: $absolute-line-height/2 $gutter-width;
-    border-top: 1px solid $white;
-    border-right: 1px solid $white;
-    border-left: 1px solid $white;
-    border-bottom: 1px solid $grayLighter;
-    @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
-    @include ctb-transition(opacity 0.3s linear);
-  }
-
-  // for tweets
-  .twitter_com {
-    @include ctb-bg($grayLighter, rgba(238, 238, 238, 0.9));
-    .favicon, .domain {
-      display: none;
-    }
+    border: 1px solid rgba(0,0,0,.2);
+    @include border-radius(4px);
+    font-family: $sans-serif-font-stack;
   }
 
   .report-content {
     @include ctb-clearfix;
+    padding: $absolute-line-height/3 $gutter-width 0;
     // thumbnail type
     .report-type-thumbnail {
       max-width: 100%;
@@ -75,8 +72,9 @@
       }
       .report-title {
         margin: $absolute-line-height/4 0;
-        font-size: $fontSizeSmall;
-        line-height: 1.2;
+        font-size: $small-font-size;
+        line-height: 1.1;
+        color: rgba(0,0,0,.6);
       }
     } // thumbnail type
 
@@ -87,52 +85,81 @@
       iframe {
         min-width: 100% !important;
         width: 100% !important;
+        .standalone-tweet {
+          padding: 0 !important;
+        }
+      }
+      // for tweets
+      iframe,
+      .tweet {
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 none !important;
+        box-shadow: none !important;
+      }
+      .favicon, .domain, .author {
+        display: none;
       }
     }
 
   } // report content
 
-  .report-status {
-    float: $omega;
+
+  .report-attributes {
+    @include ctb-clearfix;
+    padding: $absolute-line-height/4 $gutter-width;
+    border-top: 1px solid rgba(0,0,0,.1);
+    display: block;
+    color: rgba(0,0,0,.4);
+    background-color: rgba(0,0,0,.02);
+    &:hover {
+      background-color: rgba(0,0,0,.05);
+    }
+
+
+
+    .report-meta {
+      float: $alpha;
+      color: rgba(0,0,0,.4);
+
+      .favicon,
+      .report-created-at {
+        display: inline-block;
+      }
+    }
+    .report-status {
+      float: $omega;
+    }
   }
 
   // status icons
-  .verified span {
-    color: $green;
-    @include icon(ok-sign, 16px, darken($green, 15%)); 
+  .verified {
+    color: rgba(0,140,0,1);
+    background-color: rgba(0,140,0,.2);
+    span { @include icon(ok-sign, 16px); }
   }
-  .false span {
+  .false {
     color: $red;
-    @include icon(remove-sign, 16px, darken($red, 15%)); 
+    background-color: lighten($red, 50%);
+    span { @include icon(remove-sign, 16px); }
   }
-  .undetermined span {
-    color: $orange;
-    @include icon(question-sign, 16px, darken($orange, 15%)); 
+  .undetermined {
+    color: darken($orange, 10%);
+    background-color: lighten($orange, 30%);
+    span { @include icon(question-sign, 16px); }
   }
-  .in_progress span {
-    color: $yellow;
-    @include icon(refresh, 16px, darken($yellow, 15%)); 
-  }
-
-  .report-detail-link {
-    a {
-      @include checkdesk-button($grayLight);
-      @include button-size(13px);
-    }
+  .in_progress {
+    color: rgba(239,202,43,1);
+    background-color: rgba(239,202,43,.2);
+    span { @include icon(refresh, 16px); }
   }
 
   // hover
   &:hover {
-    color: $grayDark;
+    border: 3px solid rgb(239,202,43);
     .report-row-container {
-      position: static;
-      $bw: 4px;
-      border: $bw solid $warningBorder;
-      background-color: $warningBackground;
-      margin-top: -$bw;
-      margin-#{$alpha}: -$bw;
+      border: 1px solid rgb(239,202,43);
     } 
-
     .report-content .report-thumbnail img {
       @include ctb-opacity(1);
     }

@@ -325,6 +325,11 @@ print t(\'No content available\');
   $handler->display->display_options['relationships']['ms_id']['table'] = 'node';
   $handler->display->display_options['relationships']['ms_id']['field'] = 'ms_id';
   $handler->display->display_options['relationships']['ms_id']['required'] = TRUE;
+  /* Relationship: Media sources: Parent */
+  $handler->display->display_options['relationships']['parent']['id'] = 'parent';
+  $handler->display->display_options['relationships']['parent']['table'] = 'meedan_sources';
+  $handler->display->display_options['relationships']['parent']['field'] = 'parent';
+  $handler->display->display_options['relationships']['parent']['relationship'] = 'ms_id';
   /* Field: Content: Media */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
@@ -422,6 +427,25 @@ print t(\'No content available\');
     'maxwidth' => '270',
     'maxheight' => '',
   );
+  /* Field: Media sources: Source name */
+  $handler->display->display_options['fields']['source']['id'] = 'source';
+  $handler->display->display_options['fields']['source']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source']['field'] = 'source';
+  $handler->display->display_options['fields']['source']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['source']['label'] = '';
+  $handler->display->display_options['fields']['source']['element_type'] = '0';
+  $handler->display->display_options['fields']['source']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['source']['element_default_classes'] = FALSE;
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = '';
+  $handler->display->display_options['fields']['created']['element_type'] = '0';
+  $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['created']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['created']['custom_date_format'] = 'g:ia - d M Y';
   /* Field: Media sources: Source URL */
   $handler->display->display_options['fields']['source_url']['id'] = 'source_url';
   $handler->display->display_options['fields']['source_url']['table'] = 'meedan_sources';
@@ -431,6 +455,15 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['source_url']['element_type'] = '0';
   $handler->display->display_options['fields']['source_url']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['source_url']['element_default_classes'] = FALSE;
+  /* Field: Media sources: Source URL */
+  $handler->display->display_options['fields']['source_url_1']['id'] = 'source_url_1';
+  $handler->display->display_options['fields']['source_url_1']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source_url_1']['field'] = 'source_url';
+  $handler->display->display_options['fields']['source_url_1']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['source_url_1']['label'] = '';
+  $handler->display->display_options['fields']['source_url_1']['element_type'] = '0';
+  $handler->display->display_options['fields']['source_url_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['source_url_1']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -594,24 +627,25 @@ print t(\'No content available\');
     'maxwidth' => '270',
     'maxheight' => '',
   );
-  /* Field: Media sources: Source URL */
-  $handler->display->display_options['fields']['source_url']['id'] = 'source_url';
-  $handler->display->display_options['fields']['source_url']['table'] = 'meedan_sources';
-  $handler->display->display_options['fields']['source_url']['field'] = 'source_url';
-  $handler->display->display_options['fields']['source_url']['relationship'] = 'ms_id';
-  $handler->display->display_options['fields']['source_url']['label'] = '';
-  $handler->display->display_options['fields']['source_url']['element_type'] = '0';
-  $handler->display->display_options['fields']['source_url']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['source_url']['element_default_classes'] = FALSE;
-  /* Field: Media sources: Parent */
-  $handler->display->display_options['fields']['parent']['id'] = 'parent';
-  $handler->display->display_options['fields']['parent']['table'] = 'meedan_sources';
-  $handler->display->display_options['fields']['parent']['field'] = 'parent';
-  $handler->display->display_options['fields']['parent']['relationship'] = 'parent';
-  $handler->display->display_options['fields']['parent']['label'] = '';
-  $handler->display->display_options['fields']['parent']['element_type'] = '0';
-  $handler->display->display_options['fields']['parent']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['parent']['element_default_classes'] = FALSE;
+  /* Field: Media sources: Source name */
+  $handler->display->display_options['fields']['source']['id'] = 'source';
+  $handler->display->display_options['fields']['source']['table'] = 'meedan_sources';
+  $handler->display->display_options['fields']['source']['field'] = 'source';
+  $handler->display->display_options['fields']['source']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['source']['label'] = '';
+  $handler->display->display_options['fields']['source']['element_type'] = '0';
+  $handler->display->display_options['fields']['source']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['source']['element_default_classes'] = FALSE;
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = '';
+  $handler->display->display_options['fields']['created']['element_type'] = '0';
+  $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['created']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['created']['custom_date_format'] = 'g:ia - d M Y';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Post date (with operator) */
   $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
@@ -743,6 +777,7 @@ print theme(\'views_autorefresh\', array(
 print t(\'No content available\');
 ?>'),
     t('Media sources'),
+    t('Parent'),
     t('<div class="draggable">[field_link]</div>'),
     t('Date'),
     t('Block'),
@@ -752,8 +787,6 @@ print t(\'No content available\');
     t('By source'),
     t('By story'),
     t('Autorefresh'),
-    t('.'),
-    t(','),
     t('All'),
   );
   $export['desk_reports'] = $view;
