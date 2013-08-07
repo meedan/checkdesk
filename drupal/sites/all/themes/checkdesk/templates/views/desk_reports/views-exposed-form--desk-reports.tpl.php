@@ -18,6 +18,14 @@
  *
  * @ingroup views_templates
  */
+  
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    $tabs_direction = 'right';
+  } else {
+    $tabs_direction = 'left';
+  }
+
 ?>
 <section id="incoming-reports-filters">
   <?php if (!empty($q)): ?>
@@ -32,7 +40,13 @@
   </header>
   <ul class="panels">
     <li id="sort-by" class="panel">
-      <div class="panel-toggle" title="<?php print t('Sort by'); ?>"><span class="icon-sort"></span> <span class="icon-caret-down"></span></div>
+      <div class="panel-toggle" title="<?php print t('Sort by'); ?>">
+        <?php if($language->direction == LANGUAGE_RTL) : ?>
+          <span class="icon-caret-down"></span> <span class="icon-sort"></span>
+        <?php else : ?>
+          <span class="icon-sort"></span> <span class="icon-caret-down"></span>
+        <?php endif; ?>
+      </div>
       <div class="panel-content">
         <?php if (!empty($sort_by)): ?>
           <div class="views-exposed-widget views-widget-sort-by">
@@ -48,18 +62,14 @@
       </div>
     </li>
     <li id="filter-by" class="panel">
-      <div class="panel-toggle" title="<?php print t('Filter'); ?>"><span class="icon-filter"></span> <span class="icon-caret-down"></span></div>
+      <div class="panel-toggle" title="<?php print t('Filter'); ?>">
+        <?php if($language->direction == LANGUAGE_RTL) : ?>
+          <span class="icon-caret-down"></span> <span class="icon-filter"></span>
+        <?php else : ?>
+          <span class="icon-filter"></span> <span class="icon-caret-down"></span>
+        <?php endif; ?>
+      </div>
       <div class="panel-content">
-
-        <?php 
-          global $language;
-          if ($language->direction == LANGUAGE_RTL) {
-            $tabs_direction = 'right';
-          } else {
-            $tabs_direction = 'left';
-          }
-        ?>
-
         <div class="tabbable tabs-<?php print $tabs_direction; ?>">
           <ul class="nav nav-tabs">
             <?php foreach ($widgets as $id => $widget): ?>
