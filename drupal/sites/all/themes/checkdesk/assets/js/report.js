@@ -124,12 +124,19 @@
       // Resize reports sidebar
       $(window).resize(function() {
         var $sidebar = $('#sidebar-first'),
-            offset = $sidebar.offset(),
+            sidebarOffset = $sidebar.offset(),
+            $filters = $('#incoming-reports-filters'),
+            filtersHeight = $filters.outerHeight(true),
+            $pager = $('#sidebar-first .pager-load-more'),
+            pagerHeight = $pager.outerHeight(true),
             total = $(window).height(),
+            adjustment,
             height;
-        if (offset) {
-          height = total - offset.top;
-          $sidebar.find('.view-desk-reports').height(height);
+            console.log(filtersHeight);
+        if (sidebarOffset) {
+          adjustment = sidebarOffset.top + filtersHeight + pagerHeight;
+          height = total - adjustment;
+          $sidebar.find('.view-desk-reports .view-content').height(height);
         }
       });
       $(window).trigger('resize');
