@@ -562,7 +562,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia')),
       '!interval' => format_interval((time() - $variables['changed']), 1),
-      '!timezone' => t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))),
+      '!timezone' => $timezone,
     ));
   }
 

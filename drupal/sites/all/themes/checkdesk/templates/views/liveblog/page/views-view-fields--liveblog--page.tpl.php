@@ -96,7 +96,7 @@
         <span class="link"></span> <span class="permalink"><?php print t('Go to story'); ?></span>
       </div>
       <div class="story-updated-at">
-        <?php print t('Updated at ') . render($fields['changed']->content) . ' ' . t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))); ?>
+        <?php print t('Updated at ') . render($fields['changed']->content) . ' ' . $timezone; ?>
       </div>
     </a>
   </article>
