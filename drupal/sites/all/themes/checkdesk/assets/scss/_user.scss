@@ -188,7 +188,7 @@ body.page-user-password { // both logged in and not logged ins states
   }
 }
 
-#user-login {
+#user-login, #user-register-form {
     @include span-columns(4, 6);
     @include pad(1, 1, 6);
     margin-top: $absolute-line-height;

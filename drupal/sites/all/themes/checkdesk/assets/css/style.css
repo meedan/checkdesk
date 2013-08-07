@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
@@ -2275,11 +2276,11 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f086";
 }
 
-.report h3 > a[href*="twitter.com"]:before, #widgets .elsewhere ul li span.icon-twitter:before, #user-login #edit-social-media-signin li.first a:before {
+.report h3 > a[href*="twitter.com"]:before, #widgets .elsewhere ul li span.icon-twitter:before, #user-login #edit-social-media-signin li.first a:before, #user-register-form #edit-social-media-signin li.first a:before {
   content: "\f099";
 }
 
-#widgets .elsewhere ul li span.icon-facebook:before, #user-login #edit-social-media-signin li a[class^='facebook']:before {
+#widgets .elsewhere ul li span.icon-facebook:before, #user-login #edit-social-media-signin li a[class^='facebook']:before, #user-register-form #edit-social-media-signin li a[class^='facebook']:before {
   content: "\f09a";
 }
 
@@ -2470,9 +2471,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear, box-shadow linear;
-  -webkit-transition-delay: 0.2s, 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2509,6 +2510,7 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
+  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -3494,6 +3496,18 @@ textarea {
   float: left;
 }
 
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+
 .hide {
   display: none;
 }
@@ -3846,6 +3860,7 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4245,10 +4260,12 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #f7f7f7;
@@ -5156,10 +5173,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
+  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -6967,10 +6986,12 @@ nav[role="navigation"] .nav > div h2 {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -7032,10 +7053,12 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -7137,10 +7160,12 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -9497,7 +9522,7 @@ body.page-user-password #content-header {
   }
 }
 
-#user-login {
+#user-login, #user-register-form {
   width: 65.0655%;
   float: left;
   margin-right: 4.80349%;
@@ -9506,37 +9531,37 @@ body.page-user-password #content-header {
   padding-right: 17.46725%;
   margin-top: 24px;
 }
-#user-login .form-required {
+#user-login .form-required, #user-register-form .form-required {
   display: none;
 }
-#user-login > div > .item-list {
+#user-login > div > .item-list, #user-register-form > div > .item-list {
   display: none;
 }
-#user-login #edit-social-media-signin {
+#user-login #edit-social-media-signin, #user-register-form #edit-social-media-signin {
   float: none;
 }
-#user-login #edit-social-media-signin .item-list {
+#user-login #edit-social-media-signin .item-list, #user-register-form #edit-social-media-signin .item-list {
   *zoom: 1;
   text-align: center;
 }
-#user-login #edit-social-media-signin .item-list:before, #user-login #edit-social-media-signin .item-list:after {
+#user-login #edit-social-media-signin .item-list:before, #user-login #edit-social-media-signin .item-list:after, #user-register-form #edit-social-media-signin .item-list:before, #user-register-form #edit-social-media-signin .item-list:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#user-login #edit-social-media-signin .item-list:after {
+#user-login #edit-social-media-signin .item-list:after, #user-register-form #edit-social-media-signin .item-list:after {
   clear: both;
 }
-#user-login #edit-social-media-signin .item-list li {
+#user-login #edit-social-media-signin .item-list li, #user-register-form #edit-social-media-signin .item-list li {
   margin: 0;
   padding: 0;
   display: inline;
   margin-right: 11px;
 }
-#user-login #edit-social-media-signin .item-list li li {
+#user-login #edit-social-media-signin .item-list li li, #user-register-form #edit-social-media-signin .item-list li li {
   list-style: none;
 }
-#user-login #edit-social-media-signin .item-list li a {
+#user-login #edit-social-media-signin .item-list li a, #user-register-form #edit-social-media-signin .item-list li a {
   float: none;
   display: inline-block;
   padding: 12px 22px;
@@ -9548,24 +9573,26 @@ body.page-user-password #content-header {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-#user-login #edit-social-media-signin .item-list li a:hover {
+#user-login #edit-social-media-signin .item-list li a:hover, #user-register-form #edit-social-media-signin .item-list li a:hover {
   text-decoration: none;
 }
-#user-login #edit-social-media-signin li.first a {
+#user-login #edit-social-media-signin li.first a, #user-register-form #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-#user-login #edit-social-media-signin li.first a:hover {
+#user-login #edit-social-media-signin li.first a:hover, #user-register-form #edit-social-media-signin li.first a:hover {
   background-color: #1d87c9;
 }
-#user-login #edit-social-media-signin li.first a:before {
+#user-login #edit-social-media-signin li.first a:before, #user-register-form #edit-social-media-signin li.first a:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
@@ -9577,21 +9604,23 @@ body.page-user-password #content-header {
   *margin-right: .3em;
   font-weight: normal;
 }
-#user-login #edit-social-media-signin li a[class^='facebook'] {
+#user-login #edit-social-media-signin li a[class^='facebook'], #user-register-form #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-#user-login #edit-social-media-signin li a[class^='facebook']:hover {
+#user-login #edit-social-media-signin li a[class^='facebook']:hover, #user-register-form #edit-social-media-signin li a[class^='facebook']:hover {
   background-color: #264887;
 }
-#user-login #edit-social-media-signin li a[class^='facebook']:before {
+#user-login #edit-social-media-signin li a[class^='facebook']:before, #user-register-form #edit-social-media-signin li a[class^='facebook']:before {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: inherit;
@@ -9603,22 +9632,22 @@ body.page-user-password #content-header {
   *margin-right: .3em;
   font-weight: normal;
 }
-#user-login .or {
+#user-login .or, #user-register-form .or {
   *zoom: 1;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #999999;
   text-align: center;
   margin: 12px 0;
 }
-#user-login .or:before, #user-login .or:after {
+#user-login .or:before, #user-login .or:after, #user-register-form .or:before, #user-register-form .or:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#user-login .or:after {
+#user-login .or:after, #user-register-form .or:after {
   clear: both;
 }
-#user-login .or span {
+#user-login .or span, #user-register-form .or span {
   display: inline-block;
   border: 1px solid #cccccc;
   width: 40px;
@@ -9632,52 +9661,52 @@ body.page-user-password #content-header {
   -o-border-radius: 1000px;
   border-radius: 1000px;
 }
-#user-login .user-links {
+#user-login .user-links, #user-register-form .user-links {
   *zoom: 1;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
-#user-login .user-links:before, #user-login .user-links:after {
+#user-login .user-links:before, #user-login .user-links:after, #user-register-form .user-links:before, #user-register-form .user-links:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#user-login .user-links:after {
+#user-login .user-links:after, #user-register-form .user-links:after {
   clear: both;
 }
-#user-login .form-item-remember-me {
+#user-login .form-item-remember-me, #user-register-form .form-item-remember-me {
   float: left;
   padding-left: 22px;
 }
-#user-login .form-item-remember-me label {
+#user-login .form-item-remember-me label, #user-register-form .form-item-remember-me label {
   display: inline-block;
   color: #999999;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
-#user-login .form-item-remember-me input[type="checkbox"] {
+#user-login .form-item-remember-me input[type="checkbox"], #user-register-form .form-item-remember-me input[type="checkbox"] {
   float: left;
   width: auto;
 }
-#user-login .user-forgot-pass-link {
+#user-login .user-forgot-pass-link, #user-register-form .user-forgot-pass-link {
   float: right;
 }
-#user-login .form-actions .form-submit {
+#user-login .form-actions .form-submit, #user-register-form .form-actions .form-submit {
   float: left;
 }
-#user-login .form-actions .user-new-account-link {
+#user-login .form-actions .user-new-account-link, #user-register-form .form-actions .user-new-account-link {
   float: right;
   margin-top: 6px;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   color: #999999;
 }
-#user-login .form-actions .user-new-account-link span {
+#user-login .form-actions .user-new-account-link span, #user-register-form .form-actions .user-new-account-link span {
   display: inline-block;
 }
-#user-login .form-actions .user-new-account-link .register {
+#user-login .form-actions .user-new-account-link .register, #user-register-form .form-actions .user-new-account-link .register {
   margin: 0;
   padding: 0;
   background: none;
@@ -9686,7 +9715,7 @@ body.page-user-password #content-header {
   font-weight: normal;
   color: #0088cc;
 }
-#user-login .form-actions .user-new-account-link .register:hover {
+#user-login .form-actions .user-new-account-link .register:hover, #user-register-form .form-actions .user-new-account-link .register:hover {
   color: black;
 }
 

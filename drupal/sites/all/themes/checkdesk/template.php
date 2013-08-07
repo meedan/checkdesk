@@ -1027,11 +1027,15 @@ function checkdesk_field__field_rating(&$variables) {
  * Adjust user login form
  */
 function checkdesk_form_alter(&$form, &$form_state) {
-  // user login form
-  if($form['form_id']['#id'] == 'edit-user-login') {
+
+  if ($form['form_id']['#id'] == 'edit-user-login' || $form['form_id']['#id'] == 'edit-user-register-form') {
     unset($form['social_media_signin']['#title']);
     // $form['social_media_signin']['#prefix'] = '<div class="social-media-signin-label"><span>' . t('Sign in with:') . '</span></div>';
     $form['social_media_signin']['#suffix'] = '<div class="or"><span>' . t('or') . '</span></div>';
+  }
+
+  // user login form
+  if($form['form_id']['#id'] == 'edit-user-login') {
     unset($form['name']['#description']);
     // unset($form['name']['#title']);
     unset($form['pass']['#description']);
