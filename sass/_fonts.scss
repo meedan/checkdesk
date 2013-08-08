@@ -1,3 +1,7 @@
+// ===============
+// 1. Font-face
+// ===============
+
 @font-face {
     font-family: 'DroidNaskhReg';
     src: url('fonts/droidnaskh-regular-webfont.eot');
@@ -30,14 +34,10 @@
     font-style: normal;
 }
 
-:lang(en) {
-  font-family: "helvetica neue";
-}
+// ====================
+// 2. lang-selector
+// ====================
 
-:lang(ar) {
-  font-family: 'DroidNaskhReg', georgia, serif;
-}
-
-:lang(lorem) {
-  font-family: 'BLOKKNeue-Regular', sans-serif;
-}
+:lang(en) {font-family: "Helvetica Neue"; } 
+:lang(ar) {font-family: 'DroidNaskhReg', georgia, serif; } 
+:lang(loremipsum) {font-family: 'BLOKKNeue-Regular', sans-serif; }
