@@ -1,8 +1,18 @@
 
+.logo {
+  margin: 0 auto;
+  width: 300px;
+  .about-logo {
+    position: absolute;
+    top: 10px;
+    display: inline;
+    text-align: center;
+  }
+}
 
 div#about {
   width: 80%;
-  padding: 10%;
+  padding: 0 10%;
   background: white;
   img {
     max-width: 100%;
