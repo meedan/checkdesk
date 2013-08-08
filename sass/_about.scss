@@ -1,20 +1,34 @@
-
-.logo {
+.image-header {
+  height: 300px;
+  display: block;
   margin: 0 auto;
-  width: 300px;
-  .about-logo {
-    position: absolute;
-    top: 10px;
-    display: inline;
-    text-align: center;
-  }
+  width: 100%;
+  background-image: url("http://meedan.github.io/meedan-checkdesk/img/checkdesk-screenshots/checkdesk-wilder.jpg");
+  background-size: cover;
+  padding: 2em;
+  
 }
 
-div#about {
-  width: 80%;
-  padding: 0 10%;
+img.logo {
+  display: block;
+  border: 1px solid green;
+  top: 1%;
+  left: 0%;
+  width: 50%;
+  height: auto;
+}
+
+div#about-section {
+  width: 90%;
+  padding: 1% 5%;
   background: white;
+  margin: 0 auto;
   img {
     max-width: 100%;
   }
+}
+
+div.about-footer {
+  width: 100%;
+  padding: 5em; 
 }

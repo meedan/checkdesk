@@ -39,6 +39,26 @@
 // 2. lang-selector
 // ====================
 
-:lang(en) {font-family: "Helvetica Neue"; } 
-:lang(ar) {font-family: 'DroidNaskhReg', georgia, serif; } 
-:lang(loremipsum) {font-family: 'BLOKKNeue-Regular', sans-serif; }
+:lang(en) {
+    font-family: "Helvetica Neue"; 
+} 
+
+:lang(ar) { :lang(en) h2 { font-size: 10.0em;}}
+
+:lang(ar) {
+    font-family: 'DroidNaskhReg', georgia, serif; 
+    text-align: right;
+    direction: rtl;
+    font-size: 21px;
+    // english words inside arabic need larger font size 
+    // :lang(en) {
+    //   border: 1px solid green;
+    // }
+    h1 { font-size: 3em;}
+    h2 { font-size: 2em;}
+    h3 { font-size: 1em;}
+} 
+
+:lang(loremipsum) {
+    font-family: 'BLOKKNeue-Regular', sans-serif; 
+}
