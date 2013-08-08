@@ -13,9 +13,22 @@
     margin-bottom: 0;
   }
   .pager-load-more {
+    position: relative;
     border-top: 1px solid rgba(0,0,0,.05);
     @include reset-box-model;
     padding: $absolute-line-height/4 0;
+    // Dropshadow for depth
+    &:before {
+      position: absolute;
+      content: "";
+      z-index: -1;
+      top: -12px;
+      left: 0;
+      right: 0;
+      height: 12px;
+      width: 100%;
+      @include ctb-gradient-vertical(rgba(255,255,255,0.0), rgba(0,0,0,.02));
+    }
   }
 }
 

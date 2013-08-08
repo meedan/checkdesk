@@ -318,7 +318,7 @@ function checkdesk_preprocess_page(&$variables) {
         if ($count > 0) $counter = '<span>' . $count . '</span>';
         $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = '<span class="notifications-count">' . $counter . '</span> <span class="notifications-label">' . $item['title'] . '</span>';
+        $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell"></span><span class="notifications-count">' . $counter . '</span>';
       }
       else {
         unset($variables['secondary_menu'][$id]);
@@ -562,7 +562,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia')),
       '!interval' => format_interval((time() - $variables['changed']), 1),
-      '!timezone' => t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country']))),
+      '!timezone' => $timezone,
     ));
   }
 
