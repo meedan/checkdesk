@@ -132,7 +132,6 @@
             total = $(window).height(),
             adjustment,
             height;
-            console.log(filtersHeight);
         if (sidebarOffset) {
           adjustment = sidebarOffset.top + filtersHeight + pagerHeight;
           height = total - adjustment;
