@@ -1,28 +1,36 @@
 .image-header {
-  height: 300px;
+  height: 2%;
   display: block;
   margin: 0 auto;
-  width: 100%;
+  width: 90%;
   background-image: url("http://meedan.github.io/meedan-checkdesk/img/checkdesk-screenshots/checkdesk-wilder.jpg");
   background-size: cover;
-  padding: 2em;
-  
+  background-position: left top;
+  padding: 5%;
+  text-align: center;
+  @include clearfix;
 }
 
 img.logo {
-  display: block;
-  border: 1px solid green;
-  top: 1%;
-  left: 0%;
-  width: 50%;
-  height: auto;
+  max-width: 100%;
+  float: right;
 }
 
+p {
+  padding: 5px 0;
+  margin: 3px 0;
+}
+
+ul li {
+  margin: 3px 0;
+}
 div#about-section {
   width: 90%;
   padding: 1% 5%;
   background: white;
   margin: 0 auto;
+  
+
   img {
     max-width: 100%;
   }
@@ -30,5 +38,44 @@ div#about-section {
 
 div.about-footer {
   width: 100%;
-  padding: 5em; 
+  padding: 2em; 
+  font-size: 0.85em;
+  background-image: url("http://meedan.github.io/meedan-checkdesk/img/wavecut.png");
+  float: left;
+  clear: both;
+}
+
+.bilingual {
+  direction: rtl;
+  font-size: 21px;
+  
+  h2 :lang(en) {
+    border: 1px solid green;
+    font-size: 0.8em;
+  }
+
+  #about-section {
+    width: 60%;
+    float: left;
+    h1 { font-size: 18px;}
+    h2 { font-size: 38px;}
+    h3 { font-size: 1em;}
+    &:lang(en) {
+      padding-top: 4%;
+      direction: ltr;
+      width: 17%;
+      float: right;
+      color: #c3c3c3;
+      font-size: 12px;
+      background-color: transparent;
+      h1 { font-size: 15px;}
+      h2 { font-size: 17px;}
+      h3 { font-size: 1em;}
+      p {
+        padding-top: 40px;
+      }
+    }
+  }
+
+
 }

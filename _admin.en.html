@@ -1,0 +1,410 @@
+<%= render "header" %>
+
+<!-- HTML from http://dev.checkdesk.org/en/admin/config -->
+<div class="admin clearfix">
+    <div class="compact-link">
+        <a href="/en/admin/compact/on?destination=admin/config" title="Compress layout by hiding descriptions.">Hide descriptions</a>
+    </div>
+    <div class="left clearfix">
+        <div class="admin-panel">
+            <h3>
+                People
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/people/accounts">Account settings</a>
+                        <div class="description">
+                            Configure default behavior of users, including registration requirements, e-mails, fields, and user pictures.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/people/captcha">CAPTCHA</a>
+                        <div class="description">
+                            Administer how and where CAPTCHAs are used.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/people/fboauth">Facebook OAuth settings</a>
+                        <div class="description">
+                            Configure site for Facebook Connect and map Facebook information to user profiles.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/people/notifications">Notifications</a>
+                        <div class="description">
+                            Administer notification settings.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/people/ip-blocking">IP address blocking</a>
+                        <div class="description">
+                            Manage blocked IP addresses.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h3>
+                Content authoring
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/meedan_bookmarklet">Bookmarklet</a>
+                        <div class="description">
+                            Administer bookmarklet settings.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/diff">Diff</a>
+                        <div class="description">
+                            Diff settings.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/facebook">Facebook</a>
+                        <div class="description">
+                            Administer Facebook settings.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/livefyre">Livefyre</a>
+                        <div class="description">
+                            Administer Livefyre settings.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/scheduler">Scheduler module settings</a>
+                        <div class="description">
+                            Allows site admins to configure scheduler.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/sensitive">Sensitive content</a>
+                        <div class="description">
+                            Manage how sensitive content should be displayed to users.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/formats">Text formats</a>
+                        <div class="description">
+                            Configure how content input by users is filtered, including allowed HTML tags. Also allows enabling of module-provided filters.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/user-alert">User Alert</a>
+                        <div class="description">
+                            Configuration options for User Alert.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/content/wysiwyg">Wysiwyg profiles</a>
+                        <div class="description">
+                            Configure client-side editors.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h3>
+                Media
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/media/file-system">File system</a>
+                        <div class="description">
+                            Tell Drupal where to store uploaded files and how they are accessed.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/media/image-styles">Image styles</a>
+                        <div class="description">
+                            Configure styles that can be used for resizing or adjusting images on display.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/media/oembed">oEmbed</a>
+                        <div class="description">
+                            Admin overview of oEmbed.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/media/image-toolkit">Image toolkit</a>
+                        <div class="description">
+                            Choose which image toolkit to use if you have installed optional toolkits.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h3>
+                Search and metadata
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/search/settings">Search settings</a>
+                        <div class="description">
+                            Configure relevance settings for search and other indexing options.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/search/path">URL aliases</a>
+                        <div class="description">
+                            Change your site's URL paths by aliasing them.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/search/metatags">Metatag</a>
+                        <div class="description">
+                            Configure Metatag defaults.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/search/clean-urls">Clean URLs</a>
+                        <div class="description">
+                            Enable or disable clean URLs for your site.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h3>
+                Regional and language
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/regional/settings">Regional settings</a>
+                        <div class="description">
+                            Settings for the site's default time zone and country.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/regional/date-time">Date and time</a>
+                        <div class="description">
+                            Configure display formats for date and time.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/regional/language">Languages</a>
+                        <div class="description">
+                            Configure languages for content and the user interface.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/regional/translate">Translate interface</a>
+                        <div class="description">
+                            Translate the built in interface and optionally other text.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/regional/i18n">Multilingual settings</a>
+                        <div class="description">
+                            Configure extended options for multilingual content and translations.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/regional/i18n_translation">Translation sets</a>
+                        <div class="description">
+                            Translation sets overview.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="right clearfix">
+        <div class="admin-panel">
+            <h3>
+                System
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/site-information">Site information</a>
+                        <div class="description">
+                            Change site name, e-mail address, slogan, default front page, and number of posts per page, error pages.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/actions">Actions</a>
+                        <div class="description">
+                            Manage the actions defined for your site.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/checkdesk">Checkdesk</a>
+                        <div class="description">
+                            Manage general Checkdesk configuration.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/htmlmail">HTML Mail</a>
+                        <div class="description">
+                            Configure HTML Mail system-wide settings.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/logintoboggan">LoginToboggan</a>
+                        <div class="description">
+                            Set up custom login options like instant login, login redirects, pre-authorized validation roles, etc.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/mailsystem">Mail System</a>
+                        <div class="description">
+                            Configure per-module Mail System settings.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/remember_me">Remember me settings</a>
+                        <div class="description">
+                            Configure settings like session time out for remember_me module.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/uuid">Universally unique identifiers</a>
+                        <div class="description">
+                            Configure universally unique identifiers.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/system/cron">Cron</a>
+                        <div class="description">
+                            Manage automatic site maintenance tasks.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h3>
+                User interface
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/user-interface/custom-css">Custom CSS</a>
+                        <div class="description">
+                            General settings for custom CSS per theme.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/user-interface/ife">Inline Form Errors</a>
+                        <div class="description">
+                            Administer which forms to use with field messages.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/user-interface/shortcut">Shortcuts</a>
+                        <div class="description">
+                            Add and modify shortcut sets.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h3>
+                Development
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/development/performance">Performance</a>
+                        <div class="description">
+                            Enable or disable page caching for anonymous users and set CSS and JS bandwidth optimization options.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/development/logging">Logging and errors</a>
+                        <div class="description">
+                            Settings for logging and alerts modules. Various modules can route Drupal's system events to different destinations, such as syslog, database, email, etc.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/development/maintenance">Maintenance mode</a>
+                        <div class="description">
+                            Take the site offline for maintenance or bring it back online.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/development/devel">Devel settings</a>
+                        <div class="description">
+                            Helper functions, pages, and blocks to assist Drupal developers. The devel blocks can be managed via the <a href="/ar/admin/structure/block">block administration</a> page.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/development/maillog">Maillog Settings</a>
+                        <div class="description">
+                            Configure the settings of Maillog module.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/development/strongarm">Strongarm</a>
+                        <div class="description">
+                            Manage Drupal variable settings that have been strongarmed.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/development/varnish">Varnish</a>
+                        <div class="description">
+                            Configure your varnish integration.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h3>
+                Web services
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/services/oauth">OAuth</a>
+                        <div class="description">
+                            Settings for OAuth
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/services/rss-publishing">RSS publishing</a>
+                        <div class="description">
+                            Configure the site description, the number of items per feed and whether feeds should be titles/teasers/full-text.
+                        </div>
+                    </li>
+                    <li class="leaf">
+                        <a href="/en/admin/config/services/twitter">Twitter</a>
+                        <div class="description">
+                            Twitter accounts and settings.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h3>
+                Workflow
+            </h3>
+            <div class="body">
+                <ul class="admin-list">
+                    <li class="leaf">
+                        <a href="/en/admin/config/workflow/rules">Rules</a>
+                        <div class="description">
+                            Manage reaction rules and rule components.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%= render "footer" %>
