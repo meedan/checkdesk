@@ -190,6 +190,8 @@ nav[role="navigation"] {
       height: $nav-icon-height;
       margin-#{$alpha}: $nav-gutter;
     }
+    // add bell icon for notifications.
+    .icon-bell { @include icon("bell"); }
 
     li {
       a.dropdown-toggle {

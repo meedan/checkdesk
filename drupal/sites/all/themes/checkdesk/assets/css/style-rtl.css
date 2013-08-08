@@ -2283,6 +2283,11 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f09a";
 }
 
+nav[role="navigation"] #navigation-region .icon-bell:before,
+nav[role="navigation"] #user-menu .icon-bell:before {
+  content: "\f0a2";
+}
+
 .admin-nav-tabs > li span.icon-wrench:before {
   content: "\f0ad";
 }
@@ -7145,6 +7150,19 @@ nav[role="navigation"] #user-menu span.avatar img {
   width: 15px;
   height: 15px;
   margin-right: 11px;
+}
+nav[role="navigation"] #navigation-region .icon-bell:before,
+nav[role="navigation"] #user-menu .icon-bell:before {
+  font-family: "FontAwesome";
+  font-size: 14px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
 }
 nav[role="navigation"] #navigation-region li.open a.dropdown-toggle,
 nav[role="navigation"] #user-menu li.open a.dropdown-toggle {

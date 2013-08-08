@@ -315,10 +315,10 @@ function checkdesk_preprocess_page(&$variables) {
       if (user_is_logged_in()) {
         $count = checkdesk_notifications_number_of_new_items($user);
         $counter = '';
-        if ($count >= 0) $counter = '<span>' . $count . '</span>';
+        if ($count > 0) $counter = '<span>' . $count . '</span>';
         $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
-        $variables['secondary_menu'][$id]['title'] = '<span class="notifications-count">' . $counter . '</span>';
+        $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell"></span><span class="notifications-count">' . $counter . '</span>';
       }
       else {
         unset($variables['secondary_menu'][$id]);

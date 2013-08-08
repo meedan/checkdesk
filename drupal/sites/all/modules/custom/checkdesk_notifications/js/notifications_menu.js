@@ -18,7 +18,7 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
           success: function(data) {
             if (data.timestamp) {
               // Don't hide the notification count
-              // that.find('.notifications-count').html('');
+              that.find('.notifications-count').html('');
             }
           }
         });
