@@ -2,7 +2,6 @@
 //
 // inside the sidebar
 
-// Add a scrollbar to the sidebar to make it easier to drag a report that is not on the beginning of the list
 .view-desk-reports {
   .view-content {
     overflow-x: hidden;
@@ -37,6 +36,28 @@
 // They control which reports are visible while you are using the incoming report stream.
 #incoming-reports-filters {
   @extend %filters;
+}
+
+.filters-summary {
+  position: relative;
+  margin-top: $absolute-line-height/4;
+  border-top: 1px solid rgba(0,0,0,.02);
+  padding: $absolute-line-height/4 $gutter-width*2 $absolute-line-height/5;
+  font-size: $small-font-size;
+  font-family: $sans-serif-font-stack;
+  color: rgba(0,0,0,.4);
+  // Dropshadow for depth
+  &:before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    width: 100%;
+    @include ctb-gradient-vertical(rgba(0,0,0,.02), rgba(255,255,255,0.0));
+  }
 }
 
 // Incoming reports

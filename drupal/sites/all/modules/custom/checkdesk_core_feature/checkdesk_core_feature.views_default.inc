@@ -309,7 +309,11 @@ print theme(\'views_autorefresh\', array(
     \'view_name\' => \'desk_reports\',
   ),
 ));
-?>';
+$view = views_get_current_view();
+?>
+<div class="filters-summary">
+  <p><?php print format_plural($view->total_rows, \'<span>1</span> result. You can drag and drop it.\', \'<span>@count</span> results. Drag and drop the best ones.\'); ?></p>
+</div>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
@@ -772,7 +776,11 @@ print theme(\'views_autorefresh\', array(
     \'view_name\' => \'desk_reports\',
   ),
 ));
-?>'),
+$view = views_get_current_view();
+?>
+<div class="filters-summary">
+  <p><?php print format_plural($view->total_rows, \'<span>1</span> result. You can drag and drop it.\', \'<span>@count</span> results. Drag and drop the best ones.\'); ?></p>
+</div>'),
     t('<?php
 print t(\'No content available\');
 ?>'),

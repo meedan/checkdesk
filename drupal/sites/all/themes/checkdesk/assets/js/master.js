@@ -44,24 +44,6 @@
 		}
 	};
 
-  // filters for reports inside sidebar
-  Drupal.behaviors.sidebar = {
-    attach: function(context) {
-      // Resize reports sidebar
-      $(window).resize(function() {
-        var $sidebar = $('#widgets'),
-            offset = $sidebar.offset(),
-            total = $(window).height(),
-            height;
-        if (offset) {
-          height = total - offset.top;
-          // $sidebar.find('#widgets-inner').height(height);
-        }
-      });
-      $(window).trigger('resize');
-    }
-  };
-
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // show or hide compose update form

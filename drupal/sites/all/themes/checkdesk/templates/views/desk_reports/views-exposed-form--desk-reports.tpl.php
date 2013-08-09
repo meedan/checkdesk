@@ -118,7 +118,4 @@
       </li>
     </ul>
   </div>
-  <div class="filters-summary">
-    <p><?php print t('20 results.') . ' ' . t('Drag and drop the best ones.'); ?></p>
-  </div>
 </section>

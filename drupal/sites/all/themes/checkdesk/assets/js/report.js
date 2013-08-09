@@ -121,24 +121,22 @@
         }
       });
 
-      // Resize reports sidebar
+      // Incoming reports sidebar
       $(window).resize(function() {
-        var $sidebar = $('#sidebar-first'),
-            sidebarOffset = $sidebar.offset(),
-            $filters = $('#incoming-reports-filters'),
-            filtersHeight = $filters.outerHeight(true),
-            $pager = $('#sidebar-first .pager-load-more'),
-            pagerHeight = $pager.outerHeight(true),
-            total = $(window).height(),
-            adjustment,
-            height;
-        if (sidebarOffset) {
-          adjustment = sidebarOffset.top + filtersHeight + pagerHeight;
-          height = total - adjustment;
-          $sidebar.find('.view-desk-reports .view-content').height(height);
+        if ($('.view-desk-reports .view-content').length) {
+          var difference = $('.view-desk-reports .view-content').offset().top + $('.view-desk-reports .pager').outerHeight(true);
+          var height = $(window).height() - difference;
+          $('.view-desk-reports .view-content').height(height);
         }
       });
       $(window).trigger('resize');
+      $('.view-desk-reports').unbind('autorefresh.incremental').bind('autorefresh.incremental', function(event, count) {
+        if (count > 0) {
+          var $counter = $('.view-desk-reports .filters-summary span');
+          $counter.html(parseInt($counter.html(), 10) + count);
+          $(window).trigger('resize');
+        }
+      });
 
       // close panel
       $('#close').click(function(event) {

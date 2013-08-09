@@ -6,31 +6,10 @@
   margin-top: $absolute-line-height;
   font-family: $sans-serif-font-stack;
   font-size: $small-font-size;
-  border-bottom: 1px solid rgba(0,0,0,.02);
 
   .filters-wrapper {
     @include ctb-clearfix();
     padding: 0 $gutter-width*2;
-  }
-  .filters-summary {
-    position: relative;
-    margin-top: $absolute-line-height/4;
-    border-top: 1px solid rgba(0,0,0,.02);
-    padding: $absolute-line-height/4 $gutter-width*2 $absolute-line-height/5;
-    font-size: $small-font-size;
-    color: rgba(0,0,0,.4);
-    // Dropshadow for depth
-    &:before {
-      position: absolute;
-      content: "";
-      z-index: -1;
-      bottom: -12px;
-      left: 0;
-      right: 0;
-      height: 12px;
-      width: 100%;
-      @include ctb-gradient-vertical(rgba(0,0,0,.02), rgba(255,255,255,0.0));
-    }
   }
 
   header {
