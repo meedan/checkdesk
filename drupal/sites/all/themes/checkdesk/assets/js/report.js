@@ -132,8 +132,9 @@
       $(window).trigger('resize');
       $('.view-desk-reports').unbind('autorefresh.incremental').bind('autorefresh.incremental', function(event, count) {
         if (count > 0) {
-          var $counter = $('.view-desk-reports .filters-summary span');
-          $counter.html(parseInt($counter.html(), 10) + count);
+          var $counter = $('.view-desk-reports .filters-summary p');
+          var value = parseInt($counter.find('span').html(), 10) + count;
+          $counter.html(Drupal.formatPlural(value, '<span>1</span> result. You can drag and drop it.', '<span>@count</span> results. Drag and drop the best ones.'));
           $(window).trigger('resize');
         }
       });
