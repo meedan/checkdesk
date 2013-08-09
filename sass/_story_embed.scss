@@ -1,0 +1,59 @@
+
+body {
+  background-color: #333;
+}
+
+$direction: right;
+
+article.story {
+  text-align: $direction;
+  border: 10px solid green;
+  background: white;
+  @include clearfix;
+  .story-meta {
+    border: 1px solid grey;
+  }
+
+  .story-description {
+    border: 1px solid grey;
+    p {
+      padding:10px;
+    }
+  }
+
+  .story-participants {
+    border: 1px solid black;
+    @extend %left-col;
+  }
+
+  .participant-avatar {
+    border:1px solid red;
+    float: $direction;
+  }
+
+  .participant-avatar {
+    border:1px solid red;
+    float: $direction;
+  }
+
+  .story-slogan {
+    border: 1px solid green;
+    float: $direction;
+    clear: both;
+    padding: 10px;
+    a {
+      color: hsl(44, 95%, 50%);
+      font-weight: bold;
+      font-family: Arial;
+    }
+  }
+
+  .story-reports {
+    border: 1px solid pink;
+    clear: both;
+    .report-icon {
+      border: 1px solid orange;
+      float: $direction;
+    }
+  }
+}
