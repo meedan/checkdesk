@@ -43995,7 +43995,7 @@ password: Your password
     'source' => '<span>1</span> result. You can drag and drop it.',
     'context' => '',
     'location' => '/ar/node/add/post?sort_order=DESC&title=universidade&title_op=contains&source=&source_op=contains',
-    'translation' => '<span>1</span> يمكنك سحب التقرير واستخدامه',
+    'translation' => '<span>1</span> نتيجة. يمكنك سحب التقرير واستخدامه.',
     'plid' => 0,
     'plural' => 0,
   );
