@@ -18,6 +18,14 @@
  *
  * @ingroup views_templates
  */
+  
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    $tabs_direction = 'right';
+  } else {
+    $tabs_direction = 'left';
+  }
+
 ?>
 <section id="incoming-reports-filters">
   <?php if (!empty($q)): ?>
@@ -27,85 +35,87 @@
       print $q;
     ?>
   <?php endif; ?>
-  <header>
-    <h2><?php print t('Incoming Reports'); ?></h2>
-  </header>
-  <ul class="panels">
-    <li id="sort-by" class="panel">
-      <div class="panel-toggle"><?php print t('Sort by'); ?> <span class="icon-caret-down"></span></div>
-      <div class="panel-content">
-        <?php if (!empty($sort_by)): ?>
-          <div class="views-exposed-widget views-widget-sort-by">
-            <?php /* There is just one option, better to hide it: print $sort_by; */ ?>
-          </div>
-          <div class="views-exposed-widget views-widget-sort-order">
-            <?php print $sort_order; ?>
-          </div>
-        <?php endif; ?>
-        <div class="views-exposed-widget views-submit-button">
-          <?php print $button; ?>
+  <div class="filters-wrapper">
+    <header>
+      <h2><?php print t('Incoming Reports'); ?></h2>
+    </header>
+    <ul class="panels">
+      <li id="sort-by" class="panel">
+        <div class="panel-toggle" title="<?php print t('Sort by'); ?>">
+          <?php if($language->direction == LANGUAGE_RTL) : ?>
+            <span class="icon-caret-down"></span> <span class="icon-sort"></span>
+          <?php else : ?>
+            <span class="icon-sort"></span> <span class="icon-caret-down"></span>
+          <?php endif; ?>
         </div>
-      </div>
-    </li>
-    <li id="filter-by" class="panel">
-      <div class="panel-toggle"><?php print t('Filter'); ?> <span class="icon-caret-down"></span></div>
-      <div class="panel-content">
-
-        <?php 
-          global $language;
-          if ($language->direction == LANGUAGE_RTL) {
-            $tabs_direction = 'right';
-          } else {
-            $tabs_direction = 'left';
-          }
-        ?>
-
-        <div class="tabbable tabs-<?php print $tabs_direction; ?>">
-          <ul class="nav nav-tabs">
-            <?php foreach ($widgets as $id => $widget): ?>
-              <li>
-                <a href="#<?php print $widget->id; ?>" data-toggle="tab">
-                  <?php print $widget->label; ?>
-                </a>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-
-          <div class="tab-content">
-            <?php foreach ($widgets as $id => $widget): ?>
-            <div class="tab-pane" id="<?php print $widget->id; ?>">
-              <?php print $widget->description; ?>
-              <?php print $widget->widget; ?>
-              <?php print $widget->operator; ?>
+        <div class="panel-content">
+          <?php if (!empty($sort_by)): ?>
+            <div class="views-exposed-widget views-widget-sort-by">
+              <?php /* There is just one option, better to hide it: print $sort_by; */ ?>
             </div>
-            <?php endforeach; ?>
+            <div class="views-exposed-widget views-widget-sort-order">
+              <?php print $sort_order; ?>
+            </div>
+          <?php endif; ?>
+          <div class="views-exposed-widget views-submit-button">
+            <?php print $button; ?>
           </div>
         </div>
-
-        <?php if (!empty($items_per_page)): ?>
-          <div class="views-exposed-widget views-widget-per-page">
-            <?php print $items_per_page; ?>
-          </div>
-        <?php endif; ?>
-        <?php if (!empty($offset)): ?>
-          <div class="views-exposed-widget views-widget-offset">
-            <?php print $offset; ?>
-          </div>
-        <?php endif; ?>
-
-        <div class="views-exposed-widget views-submit-button">
-          <?php print $button; ?>
-          <a id="close" class="btn" data-dismiss="dropdown" aria-hidden="true"><?php print t('Close'); ?></a>
+      </li>
+      <li id="filter-by" class="panel">
+        <div class="panel-toggle" title="<?php print t('Filter'); ?>">
+          <?php if($language->direction == LANGUAGE_RTL) : ?>
+            <span class="icon-caret-down"></span> <span class="icon-filter"></span>
+          <?php else : ?>
+            <span class="icon-filter"></span> <span class="icon-caret-down"></span>
+          <?php endif; ?>
         </div>
-        
-        <?php if (!empty($reset_button)): ?>
-          <div class="views-exposed-widget views-reset-button">
-            <?php print $reset_button; ?>
-          </div>
-        <?php endif; ?>
-      </div>
-    </li>
-  </ul>
-  
+        <div class="panel-content">
+          <div class="tabbable tabs-<?php print $tabs_direction; ?>">
+            <ul class="nav nav-tabs">
+              <?php foreach ($widgets as $id => $widget): ?>
+                <li>
+                  <a href="#<?php print $widget->id; ?>" data-toggle="tab">
+                    <?php print $widget->label; ?>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
 
+            <div class="tab-content">
+              <?php foreach ($widgets as $id => $widget): ?>
+              <div class="tab-pane" id="<?php print $widget->id; ?>">
+                <?php print $widget->description; ?>
+                <?php print $widget->widget; ?>
+                <?php print $widget->operator; ?>
+              </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+
+          <?php if (!empty($items_per_page)): ?>
+            <div class="views-exposed-widget views-widget-per-page">
+              <?php print $items_per_page; ?>
+            </div>
+          <?php endif; ?>
+          <?php if (!empty($offset)): ?>
+            <div class="views-exposed-widget views-widget-offset">
+              <?php print $offset; ?>
+            </div>
+          <?php endif; ?>
+
+          <div class="views-exposed-widget views-submit-button">
+            <?php print $button; ?>
+            <a id="close" class="btn" data-dismiss="dropdown" aria-hidden="true"><?php print t('Close'); ?></a>
+          </div>
+          
+          <?php if (!empty($reset_button)): ?>
+            <div class="views-exposed-widget views-reset-button">
+              <?php print $reset_button; ?>
+            </div>
+          <?php endif; ?>
+        </div>
+      </li>
+    </ul>
+  </div>
 </section>

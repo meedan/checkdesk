@@ -43959,6 +43959,46 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['33af3748adccec398e6623fb7b23234e'] = array(
+    'source' => '<span>@count[4]</span> results. Drag and drop the best ones.',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => '<span>@count[4]</span> نتائج. يمكنك سحب تقاريرك المفضلة لاستخدامها. ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['e4afa8d3faf6213a07a3e0ea8420ee0a'] = array(
+    'source' => '<span>@count[3]</span> results. Drag and drop the best ones.',
+    'context' => '',
+    'location' => '/ar/node/add/post?sort_order=DESC&title=cazuza&title_op=contains&source=&source_op=contains',
+    'translation' => '<span>@count[3]</span> نتائج. يمكنك سحب تقاريرك المفضلة لاستخدامها. ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['0d38b271b5744a674693082a1b414220'] = array(
+    'source' => '<span>@count</span> results. Drag and drop the best ones.',
+    'context' => '',
+    'location' => '/ar/node/add/post?sort_order=DESC&title=rancid&title_op=contains&source=&source_op=contains',
+    'translation' => '<span>@count</span> نتائج. يمكنك سحب تقاريرك المفضلة لاستخدامها. ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['2fd742ed81498c29a1c23cbcf55c9a9a'] = array(
+    'source' => '<span>@count[2]</span> results. Drag and drop the best ones.',
+    'context' => '',
+    'location' => '/ar/node/add/post?sort_order=DESC&title=universidade&title_op=contains&source=&source_op=contains',
+    'translation' => '<span>@count[2]</span> نتائج. يمكنك سحب تقاريرك المفضلة لاستخدامها. ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['92e40fb90697c46a1e241b533504caa1'] = array(
+    'source' => '<span>1</span> result. You can drag and drop it.',
+    'context' => '',
+    'location' => '/ar/node/add/post?sort_order=DESC&title=universidade&title_op=contains&source=&source_op=contains',
+    'translation' => '<span>1</span> نتيجة. يمكنك سحب التقرير واستخدامه.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['52d7f666a9eb49bfe74ea08bc820f62c'] = array(
     'source' => 'Published on update',
     'context' => '',

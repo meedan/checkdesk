@@ -121,18 +121,23 @@
         }
       });
 
-      // Resize reports sidebar
+      // Incoming reports sidebar
       $(window).resize(function() {
-        var $sidebar = $('#sidebar-first'),
-            offset = $sidebar.offset(),
-            total = $(window).height(),
-            height;
-        if (offset) {
-          height = total - offset.top;
-          $sidebar.find('.view-desk-reports').height(height);
+        if ($('.view-desk-reports .view-content').length) {
+          var difference = $('.view-desk-reports .view-content').offset().top + $('.view-desk-reports .pager').outerHeight(true);
+          var height = $(window).height() - difference;
+          $('.view-desk-reports .view-content').height(height);
         }
       });
       $(window).trigger('resize');
+      $('.view-desk-reports').unbind('autorefresh.incremental').bind('autorefresh.incremental', function(event, count) {
+        if (count > 0) {
+          var $counter = $('.view-desk-reports .filters-summary p');
+          var value = parseInt($counter.find('span').html(), 10) + count;
+          $counter.html(Drupal.formatPlural(value, '<span>1</span> result. You can drag and drop it.', '<span>@count</span> results. Drag and drop the best ones.'));
+          $(window).trigger('resize');
+        }
+      });
 
       // close panel
       $('#close').click(function(event) {

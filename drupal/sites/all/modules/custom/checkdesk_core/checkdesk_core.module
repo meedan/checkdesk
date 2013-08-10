@@ -1417,11 +1417,10 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   // dsm($form_id);
-
-  if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+  if (in_array($form_id, array('user_login', 'user_login_block', 'user_register_form'))) {
     $items = array();
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
-    $items[] = twitter_signin_button();;
+    $items[] = twitter_signin_button();
     $items[] = $fb_block['content'];
     $form['social_media_signin'] = array(
       '#type' => 'item',
@@ -1429,6 +1428,10 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       '#markup' => theme('item_list', array('items' => $items)),
       '#weight' => '-99',
     );
+    unset($form['twitter_signin']);
+  } 
+  
+  if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $form['pass']['#title'] = $form['pass']['#title'] . l(t('(forgot?)'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
     $items = array();
     if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
@@ -1436,7 +1439,6 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     }
     $form['links'] = array('#markup' => theme('item_list', array('items' => $items)));
     $form['actions']['submit']['#value'] = t('Sign in');
-    unset($form['twitter_signin']);
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {

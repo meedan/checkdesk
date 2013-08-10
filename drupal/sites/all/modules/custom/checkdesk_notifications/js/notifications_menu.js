@@ -17,6 +17,7 @@ Drupal.behaviors.meedan_notifications_menu_visibility = {
           url: Drupal.settings.basePath + 'user/update-last-time',
           success: function(data) {
             if (data.timestamp) {
+              // Don't hide the notification count
               that.find('.notifications-count').html('');
             }
           }
