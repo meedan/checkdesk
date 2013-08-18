@@ -142,7 +142,7 @@ function _checkdesk_bookmarklet_media_preview($path) {
     }
     else if (isset($oembed->thumbnail_url)) {
       // If it is a tweeet, show the text instead of the image
-      if (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter') {
+      if (isset($oembed->provider_name) && $oembed->provider_name == 'Twitter' && $oembed->type != 'photo') {
         $response['preview'] = theme('meedan_oembed_twitter_tweet', array('tweet' => $oembed->html));
       }
       else if (isset($oembed->provider_name) && $oembed->provider_name == 'Facebook' && empty($oembed->picture) && empty($oembed->html)) {
