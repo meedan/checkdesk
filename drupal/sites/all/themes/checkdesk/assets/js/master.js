@@ -77,7 +77,7 @@
         var value = path.replace(/([?&])destination=[^&]+(&|$)/, '$1').replace(/[?&]$/, ''),
             sep = (/\?/.test(value) ? '&' : '?'),
             destination = (window.location.pathname === prefix ? 'liveblog' : window.location.pathname.replace(prefix + '/', ''));
-        value = value + sep + 'destination=' + destination;
+        value = value + sep + 'destination=' + destination.replace(/^\//, '');
         return value;
       });
     }
