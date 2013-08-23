@@ -5,6 +5,8 @@
  * Uses the reCAPTCHA web service to improve the CAPTCHA system.
  */
 
+require_once(drupal_get_path('module', 'recaptcha') . '/recaptcha-php-1.11/recaptchalib.php');
+
 /**
  * Implements hook_help().
  */

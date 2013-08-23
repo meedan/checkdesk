@@ -230,13 +230,13 @@
           });
           if (result.result == false) {
             jQuery.extend(jQuery.validator.messages, {
-              'captcha': Drupal.t('wrong answer')
+              'captcha': Drupal.t('wrong')
             });
           }
           return result.result;
-        }, jQuery.format(Drupal.t('wrong answer')));
+        }, jQuery.format(Drupal.t('wrong')));
 
-        // Check if username is taken
+        // Check if username or e-mail is taken
         jQuery.validator.addMethod('unique', function (value, element, param) {
           var result = false;
           jQuery.ajax({

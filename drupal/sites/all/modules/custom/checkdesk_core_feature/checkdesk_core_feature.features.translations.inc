@@ -44070,7 +44070,15 @@ password: Your password
     'translation' => 'نُشر بتحديث',
     'plid' => 0,
     'plural' => 0,
-  ); 
+  );
+  $translations['ar:default']['f4bd0403b6b044186e362645e5f7634f'] = array(
+    'source' => 'wrong',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'إجابة خاطئة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
