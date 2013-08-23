@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Clientside Validation support for Form API's #states.
+ */
+
+/**
+ * Implements hook_clientside_validation_form_alter().
+ */
+function clientside_validation_states_clientside_validation_form_alter(&$form, &$form_state, &$js_rules) {
+  clientside_validation_states_after_build_recurse($form['#id'], $form, $form_state, $js_rules);
+}
+
+function clientside_validation_states_after_build_recurse($form_id, &$form, &$form_state, &$js_rules) {
+  if ($children = array_values(element_children($form))) {
+    foreach ($children as $index => $item) {
+      $element = &$form[$item];
+      if (isset($element['#type']) && isset($element['#states'])) {
+        clientside_validation_states_regular($form_id, $element, $js_rules, $form_state);
+      }
+      clientside_validation_states_after_build_recurse($form_id, $element, $form_state, $js_rules);
+    }
+  }
+}
+
+function clientside_validation_states_regular($form_id, $element, &$js_rules, $form_state) {
+  static $js_added = FALSE;
+  foreach ($element['#states'] as $state => $triggers) {
+    while (strpos($state, '!') === 0) {
+      $state = drupal_substr($state, 1);
+    }
+    if ($state == 'required' || $state == 'optional') {
+      if (!$js_added) {
+        drupal_add_js(drupal_get_path('module', 'clientside_validation_states') . '/clientside_validation_states.js');
+        $js_added = TRUE;
+      }
+      $js_rules[$element['#name']]['statesrequired'] = TRUE;
+    }
+
+  }
+}

@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Code for the Clientside Validation Test Field Validation feature.
+ */
+
+include_once 'clientside_validation_test_field_validation.features.inc';
+
+/**
+ * Implements hook_enable().
+ */
+function clientside_validation_test_field_validation_enable() {
+  $path = array(
+    'source' => 'node/add/cv-test-field-validation',
+    'alias' => 'clientsidevalidation/tests/fieldvalidation',
+  );
+  path_save($path);
+}

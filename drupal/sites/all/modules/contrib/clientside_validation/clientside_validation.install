@@ -1,0 +1,268 @@
+<?php
+/*
+ * @file
+ * Clientside validation install file
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function clientside_validation_enable() {
+  //support for module like e.g. select_or_other
+  db_update('system')
+    ->fields(array(
+      'weight' => 5,
+    ))
+    ->condition('type', 'module')
+    ->condition('name', 'clientside_validation')
+    ->execute();
+
+  // @TODO: exclude admin-block-theme-form by default
+
+}
+
+/**
+ * Implements hook_schema().
+ */
+function clientside_validation_schema() {
+  $schema = array();
+  $schema['clientside_validation_settings'] = array(
+    'description' => 'Table for storing Clientside Validation Settings',
+    'fields' => array(
+      'cvsid' => array(
+        'description' => 'The primary identifier for the clientside validation settings',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => 'The type of setting: content_type, webform or custom',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'status' => array(
+        'description' => 'The status for this form. 1 for enabled (validate), 0 for disabled (don\'t validate)',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+      'form_id' => array(
+        'description' => 'The form id these settings apply to',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'settings' => array(
+        'type' => 'blob',
+        'not null' => TRUE,
+        'size' => 'big',
+        'translatable' => TRUE,
+        'serialize' => TRUE,
+      ),
+    ),
+    'indexes' => array(
+      'clientside_validation_settings_form_id' => array('form_id'),
+      'clientside_validation_settings_type' => array('type'),
+      'clientside_validation_settings_form_id_type' => array('form_id', 'type'),
+    ),
+    'unique keys' => array(
+      'cvs_form_id' => array('form_id'),
+    ),
+    'primary key' => array('cvsid'),
+  );
+  return $schema;
+}
+
+/**
+ * Clientside validation was split up into form validation, webform validation and fapi validation.
+ * This update enables the form and webform clientside validation module. It does not enable the
+ * fapi clientside validation module, because it's a new feature since this release.
+ */
+function clientside_validation_update_7100() {
+  module_enable(array('clientside_validation_form', 'clientside_validation_webform'));
+}
+
+/**
+ * The settings for Clientside Validation were restructured and put into a separate table,
+ * This update will create this table.
+ */
+function clientside_validation_update_7101() {
+  if (!db_table_exists('clientside_validation_settings')) {
+    db_create_table('clientside_validation_settings', drupal_get_schema('clientside_validation_settings', TRUE));
+  }
+  // @TODO: Convert old settings to new
+  // 1. fill in clientside_validation_default_settings
+  $default_settings = array(
+    'validate_options' => array(
+      'disable_html5' => variable_get('clientside_validation_disable_html5', 1),
+      'validate_onsubmit' => variable_get('clientside_validation_validate_onsubmit', 1),
+      'validate_onblur' => variable_get('clientside_validation_validate_onblur', 1),
+      'validate_onblur_always' => variable_get('clientside_validation_validate_onblur_always', 0),
+      'validate_onkeyup' => variable_get('clientside_validation_validate_onkeyup', 1),
+      'show_messages' => variable_get('clientside_validation_show_messages', 0),
+    ),
+    'error' => array(
+      'prefix' => variable_get('clientside_validation_prefix', ''),
+      'suffix' => variable_get('clientside_validation_suffix', ''),
+      'scrollto_errormessage' => variable_get('clientside_validation_scrollto_errormessage', 1),
+      'scroll_speed' => variable_get('clientside_validation_scroll_speed', 1000),
+      'error_element' => variable_get('clientside_validation_error_element', 'label'),
+    ),
+    'error_placement' => array(
+      'error_placement_default' => variable_get('clientside_validation_error_placement_default', CLIENTSIDE_VALIDATION_TOP_OF_FORM),
+      'jquery_selector' => variable_get('clientside_validation_jquery_selector', ''),
+      'custom_error_function' => variable_get('clientside_validation_custom_error_function', ''),
+    ),
+    'include_hidden' => array(
+      'include_hidden' => variable_get('clientside_validation_include_hidden', ''),
+      'include_hidden_fields' => FALSE, // New setting
+      'validate_tabs' => variable_get('clientside_validation_validate_tabs', ''),
+    ),
+  );
+  variable_set('clientside_validation_default_settings', $default_settings);
+
+  // 2. check clientside_validation_error_placement_after_input
+  $after_input = preg_split('/(\r\n?|\n)/', variable_get('clientside_validation_error_placement_after_input', ''), -1, PREG_SPLIT_NO_EMPTY);
+  foreach ($after_input as $formid) {
+    $settings = $default_settings;
+    $settings['error_placement_override_default'] = TRUE;
+    $settings['error_placement']['error_placement_default'] = CLIENTSIDE_VALIDATION_AFTER_INPUT;
+    _clientside_validation_update_7101_save($formid, $settings);
+  }
+
+  // 3. check clientside_validation_error_placement_after_label
+  $after_label = preg_split('/(\r\n?|\n)/', variable_get('clientside_validation_error_placement_after_label', ''), -1, PREG_SPLIT_NO_EMPTY);
+  foreach ($after_label as $formid) {
+    $settings = $default_settings;
+    $settings['error_placement_override_default'] = TRUE;
+    $settings['error_placement']['error_placement_default'] = CLIENTSIDE_VALIDATION_AFTER_LABEL;
+    _clientside_validation_update_7101_save($formid, $settings);
+  }
+
+  // 4. check clientside_validation_error_placement_before_input
+  $before_input = preg_split('/(\r\n?|\n)/', variable_get('clientside_validation_error_placement_before_input', ''), -1, PREG_SPLIT_NO_EMPTY);
+  foreach ($before_input as $formid) {
+    $settings = $default_settings;
+    $settings['error_placement_override_default'] = TRUE;
+    $settings['error_placement']['error_placement_default'] = CLIENTSIDE_VALIDATION_BEFORE_INPUT;
+    _clientside_validation_update_7101_save($formid, $settings);
+  }
+
+  // 5. check clientside_validation_error_placement_before_label
+  $before_label = preg_split('/(\r\n?|\n)/', variable_get('clientside_validation_error_placement_before_label', ''), -1, PREG_SPLIT_NO_EMPTY);
+  foreach ($before_label as $formid) {
+    $settings = $default_settings;
+    $settings['error_placement_override_default'] = TRUE;
+    $settings['error_placement']['error_placement_default'] = CLIENTSIDE_VALIDATION_BEFORE_LABEL;
+    _clientside_validation_update_7101_save($formid, $settings);
+  }
+
+  // 6. check clientside_validation_error_placement_custom_function
+  $custom_function = preg_split('/(\r\n?|\n)/', variable_get('clientside_validation_error_placement_custom_function', ''), -1, PREG_SPLIT_NO_EMPTY);
+  foreach ($custom_function as $formid) {
+    $settings = $default_settings;
+    $settings['error_placement_override_default'] = TRUE;
+    $settings['error_placement']['error_placement_default'] = CLIENTSIDE_VALIDATION_CUSTOM_ERROR_FUNCTION;
+    _clientside_validation_update_7101_save($formid, $settings);
+  }
+
+  // 7. check clientside_validation_error_placement_jquery
+  $jquery = preg_split('/(\r\n?|\n)/', variable_get('clientside_validation_error_placement_jquery', ''), -1, PREG_SPLIT_NO_EMPTY);
+  $jquery_selector = variable_get('clientside_validation_jquery_selector', '');
+  if (!empty($jquery_selector)) {
+    foreach ($jquery as $formid) {
+      $settings = $default_settings;
+    $settings['error_placement_override_default'] = TRUE;
+      $settings['error_placement']['error_placement_default'] = CLIENTSIDE_VALIDATION_JQUERY_SELECTOR;
+      _clientside_validation_update_7101_save($formid, $settings);
+    }
+  }
+
+  // 8. check clientside_validation_error_placement_top_of_form
+  $top_of_form = preg_split('/(\r\n?|\n)/', variable_get('clientside_validation_error_placement_top_of_form', ''), -1, PREG_SPLIT_NO_EMPTY);
+  foreach ($after_input as $formid) {
+    $settings = $default_settings;
+    $settings['error_placement_override_default'] = TRUE;
+    $settings['error_placement']['error_placement_default'] = CLIENTSIDE_VALIDATION_TOP_OF_FORM;
+    _clientside_validation_update_7101_save($formid, $settings);
+  }
+
+  // 9. delete old vars? @TODO: good idea?
+}
+
+function _clientside_validation_update_7101_save($formid, $settings) {
+  static $contenttypes;
+  $saved = FALSE;
+  if (!$contenttypes) {
+    $contenttypes = node_type_get_types();
+  }
+  $formid = str_replace('-', '_', $formid);
+  if (strpos($formid, 'webform_client_form_') !== FALSE) {
+    $nid = str_replace('webform_client_form_', '', $formid);
+    if (is_numeric($nid)) {
+      clientside_validation_settings_add('webforms', $nid, $settings, TRUE);
+      $saved = TRUE;
+    }
+  }
+  if (strpos($formid, '_node_form') !== FALSE) {
+    $type = str_replace('_node_form', '', $formid);
+    if (is_string($type) && array_key_exists($type, $contenttypes)) {
+      clientside_validation_settings_add('content-types', $type, $settings, TRUE);
+      $saved = TRUE;
+    }
+  }
+  if (!$saved) {
+    clientside_validation_settings_add('custom-forms', $formid, $settings, TRUE);
+  }
+}
+
+/**
+ * Dependencies changed, enable the right modules.
+ */
+function clientside_validation_update_7102() {
+  $dependants = array(
+    'clientside_validation_fapi',
+    'clientside_validation_field_validation',
+    'clientside_validation_html5',
+    'clientside_validation_ife',
+    'clientside_validation_webform',
+  );
+  foreach($dependants as $dependant) {
+    if (module_exists($dependant) && !module_exists('clientside_validation_form')) {
+      module_enable(array('clientside_validation_form'));
+      break;
+    }
+  }
+}
+
+/**
+ * Add captcha setting.
+ */
+function clientside_validation_update_7103() {
+  $default_settings_db = variable_get('clientside_validation_default_settings', FALSE);
+  if (!$default_settings_db) {
+    // Default settings are not stored in the database.
+    // Nothing to do here.
+    return;
+  }
+  $default_settings = clientside_validation_settings_load_defaults();
+  if (!isset($default_settings['validate_options']['captcha'])) {
+    $default_settings['validate_options']['captcha'] = 1;
+  }
+  variable_set('clientside_validation_default_settings', $default_settings);
+}
+
+/**
+ * Disable clientside validation for views.
+ */
+function clientside_validation_update_7104() {
+  $paths = explode("\n", variable_get('clientside_validation_path_list', ''));
+  if (array_search('admin/structure/views/view/*', $paths) === FALSE) {
+    $paths[] = 'admin/structure/views/view/*';
+  }
+  variable_set('clientside_validation_path_list', implode("\n", $paths));
+}

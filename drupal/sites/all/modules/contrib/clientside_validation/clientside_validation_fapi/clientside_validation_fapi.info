@@ -1,0 +1,16 @@
+; $Id: 
+name = Clientside Validation FAPI
+description = Add client side validation support for <a href="http://www.drupal.org/project/fapi_validation">FAPI Validation</a>
+core = 7.x
+package = Clientside Validation
+
+files[] = clientside_validation_fapi.module
+dependencies[] = clientside_validation_form
+dependencies[] = fapi_validation
+
+; Information added by drupal.org packaging script on 2013-01-03
+version = "7.x-1.37"
+core = "7.x"
+project = "clientside_validation"
+datestamp = "1357215656"
+

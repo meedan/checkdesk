@@ -1,0 +1,155 @@
+<?php
+/**
+ * @file
+ * Add client side validation support for fapi validation
+ */
+
+function clientside_validation_fapi_clientside_validation_form_alter(&$form, &$form_state, &$js_rules) {
+  clientside_validation_fapi_after_build_recurse($form['#id'], $form, $form_state, $js_rules);
+}
+
+function clientside_validation_fapi_after_build_recurse($form_id, &$form, &$form_state, &$js_rules) {
+  if ($children = array_values(element_children($form))) {
+    foreach ($children as $index => $item) {
+      $element = &$form[$item];
+      $types = array(
+        'emailfield', 'phonefield', 'telfield', 'link_field', 'textfield', 'textarea', 'select', 'radio', 'checkbox', 'password', 'file', 'radios', 'checkboxes',
+      );
+      if (isset($element['#type']) && in_array($element['#type'], $types)) {
+        clientside_validation_fapi_regular($form_id, $element, $js_rules);
+      }
+      clientside_validation_fapi_after_build_recurse($form_id, $element, $form_state, $js_rules);
+    }
+  }
+}
+
+function clientside_validation_fapi_regular($form_id, $element, &$js_rules) {
+  if (isset($element['#name']) && isset($element['#rules'])) {
+    $data = _fapi_validation_data('rules');
+    foreach ($element['#rules'] as $rule) {
+      $params = array($element['#value']);
+      $error_message = NULL;
+
+      // If $rule is an array, use error message if is set.
+      if (is_array($rule)) {
+        if (isset($rule['error'])) {
+          $error_message = $rule['error'];
+        }
+
+        if (!isset($rule['rule'])) {
+          drupal_set_message(t('Rule array with wrong structure on %field.', array('%field' => $element['#name'])), 'error');
+          continue;
+        }
+        $rule = $rule['rule'];
+      }
+
+      preg_match('/^(.*?)(\[(.*)\])?$/', $rule, $rs);
+
+      $rule = $rs[1];
+
+      if (!isset($data[$rule])) {
+        $error_message = t('Rule %rule not found!', array('%rule' => $rule));
+        continue;
+      }
+
+      // Parsing parameters.
+      if (isset($rs[3]) && $rs[1] != 'regexp') {
+        $params[] = preg_split('/ *, */', $rs[3]);
+      }
+      elseif (isset($rs[3])) {
+        $params[] = $rs[3];
+      }
+
+      if (count($params) > 1) {
+        $params = $params[1];
+      }
+      $error = is_null($error_message) ? $data[$rule]['error_msg'] : $error_message;
+      _clientside_validation_set_fapi_validation($element, $data[$rule], $params, $js_rules, $error);
+    }
+  }
+}
+
+/**
+ * Set fapi validation.
+ */
+function _clientside_validation_set_fapi_validation($element, $rule, $params, &$js_rules, $message = '') {
+  $callback = $rule['callback'];
+  $name = $element['#name'];
+  $title = $name;
+  if (isset($element['#title'])) {
+    $title = $element['#title'];
+  }
+  $expressions = array(
+    'fapi_validation_rule_alpha' => '/^[\p{L}]+$/uD',
+    'fapi_validation_rule_alpha_numeric' => '/^[\p{L}\p{N}]+$/uD',
+    'fapi_validation_rule_ipv4' => '/^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])'
+      . '(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/',
+    'fapi_validation_rule_alpha_dash' => '/^[-\p{L}\p{N}_]+$/uD',
+    'fapi_validation_rule_digit' => '/^\d+$/',
+  );
+  if (strpos($message, '%field') !== FALSE) {
+    $message = t($message, array('%field' => _clientside_validation_set_title($title)));
+  }
+  switch ($callback) {
+    case 'fapi_validation_rule_alpha':
+      $type = 'alpha';
+      _clientside_validation_set_regex_pcre($name, $title, $js_rules, $expressions[$callback], $message, $type);
+      break;
+    case 'fapi_validation_rule_alpha_numeric':
+      $type = 'alpha numeric';
+      _clientside_validation_set_regex_pcre($name, $title, $js_rules, $expressions[$callback], $message, $type);
+      break;
+    case 'fapi_validation_rule_ipv4':
+      $type = 'ipv4';
+      _clientside_validation_set_regex_pcre($name, $title, $js_rules, $expressions[$callback], $message, $type);
+      break;
+    case 'fapi_validation_rule_alpha_dash':
+      $type = 'alpha dash';
+      _clientside_validation_set_regex_pcre($name, $title, $js_rules, $expressions[$callback], $message, $type);
+      break;
+    case 'fapi_validation_rule_digit':
+      $type = 'digit';
+      _clientside_validation_set_regex_pcre($name, $title, $js_rules, $expressions[$callback], $message, $type);
+      break;
+    case 'fapi_validation_rule_regexp':
+      if ($callback == 'fapi_validation_rule_regexp') {
+        $expressions['fapi_validation_rule_regexp'] = is_array($params) ? $params[0] : $params;
+        $type = 'regexp';
+      }
+      _clientside_validation_set_regex_pcre($name, $title, $js_rules, $expressions[$callback], $message, $type);
+      break;
+    case 'fapi_validation_rule_numeric':
+      _clientside_validation_set_number_decimal($name, $title, '.', $js_rules, $message);
+      break;
+    case 'fapi_validation_rule_email':
+      _clientside_validation_set_email($name, $title, $js_rules, $message);
+      break;
+    case 'fapi_validation_rule_length':
+      if (count($params) == 1) {
+        _clientside_validation_set_minmaxlength($name, $title, '', $params[0], $js_rules, $message);
+      }
+      elseif (count($params) == 2) {
+        _clientside_validation_set_minmaxlength($name, $title, $params[0], $params[1], $js_rules, $message);
+      }
+      break;
+    case 'fapi_validation_rule_url':
+      _clientside_validation_set_url($name, $title, $js_rules, $message);
+      break;
+    case 'fapi_validation_rule_chars':
+      _clientside_validation_set_specific_values($name, $title, $params, $js_rules, $message);
+      break;
+    case 'fapi_validation_rule_decimal':
+      if (count($params) == 2) {
+        $expression = '/^[0-9]{' . $params[0] . '}\.[0-9]{' . $params[1] . '}$/';
+      }
+      else {
+        $expression = '/\d+\.\d+/';
+      }
+      _clientside_validation_set_regex_pcre($name, $title, $js_rules, $expression, $message, 'decimal');
+      break;
+    default:
+      $context = array('type' => 'fapi', 'rule' => $rule, 'message' => $message, 'params' => $params);
+      drupal_alter('clientside_validation_rule', $js_rules, $element, $context);
+      break;
+  }
+}

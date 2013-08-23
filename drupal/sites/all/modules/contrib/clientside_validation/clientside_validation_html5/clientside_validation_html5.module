@@ -1,0 +1,188 @@
+<?php
+/**
+ * @file
+ * Add clientside validation support for html5 elements
+ */
+
+function clientside_validation_html5_clientside_validation_form_alter(&$form, &$form_state, &$js_rules) {
+  $js_added = &drupal_static('cv_html5_js_added', FALSE);
+  if (!$js_added) {
+    drupal_add_js(drupal_get_path('module', 'clientside_validation_html5') . '/clientside_validation_html5.js', array('scope' => 'footer', 'weight' => 20));
+    $js_added = TRUE;
+  }
+  clientside_validation_html5_after_build_recurse($form['#id'], $form, $form_state, $js_rules);
+}
+
+function clientside_validation_html5_clientside_validation_webform_alter(&$form, &$form_state, &$js_rules) {
+  $js_added = &drupal_static('cv_html5_js_added', FALSE);
+  if (!$js_added) {
+    drupal_add_js(drupal_get_path('module', 'clientside_validation_html5') . '/clientside_validation_html5.js', array('scope' => 'footer', 'weight' => 20));
+    $js_added = TRUE;
+  }
+}
+
+function clientside_validation_html5_after_build_recurse($form_id, &$form, &$form_state, &$js_rules) {
+  if ($children = array_values(element_children($form))) {
+    foreach ($children as $index => $item) {
+      $element = &$form[$item];
+      $types = array(
+        'number', 'numberfield', 'url', 'urlfield', 'email', 'emailfield', 'range', 'rangefield', 'search', 'tel', 'color',
+      );
+      if ((isset($element['#type']) && in_array($element['#type'], $types)) || isset($element['#pattern'])) {
+        clientside_validation_html5($form_id, $element, $js_rules);
+      }
+      clientside_validation_html5_after_build_recurse($form_id, $element, $form_state, $js_rules);
+    }
+  }
+}
+
+function clientside_validation_html5($form_id, $element, &$js_rules) {
+  static $multiples = array();
+  if (isset($element['#name'])) {
+    $el_name = $element['#name'];
+    $el_title = $el_name;
+    if (isset($element['#title'])) {
+      $el_title = $element['#title'];
+    }
+    $is_multiple = FALSE;
+    if (isset($element['#multiple'])) {
+      $is_multiple = $element['#multiple'];
+    }
+    if ($element['#type'] == 'color') {
+      //color elements are required by design, see: http://dev.w3.org/html5/spec/Overview.html#colors
+      //"If input is not exactly seven characters long, then return an error."
+      $element['#required'] = TRUE;
+    }
+    $required_error = isset($element['#required_error']) ? $element['#required_error'] : '';
+    _clientside_validation_set_required($el_name, $el_title, isset($element['#required']) ? $element['#required'] : FALSE, $js_rules, $required_error);
+    if (isset($element['#pattern'])) {
+      _clientside_validation_set_regex($el_name, $el_title, $js_rules, $element['#pattern']);
+    }
+    if (isset($element['#maxlength']) && $element['#maxlength'] > 0) {
+      _clientside_validation_set_minmaxlength($el_name, $el_title, '', $element['#maxlength'], $js_rules);
+    }
+    switch ($element['#type']) {
+      case 'range':
+      case 'rangefield':
+        $default_min = 0;
+        $default_max = 100;
+      case 'number':
+      case 'numberfield':
+        if (!isset($default_min)) {
+          $default_min = '';
+          $default_max = '';
+        }
+        $min = isset($element['#min']) ? $element['#min'] : $default_min;
+        $max = isset($element['#max']) ? $element['#max'] : $default_max;
+        $step = isset($element['#step']) ? $element['#step'] : 1;
+
+        $is_decimal = drupal_strtolower($step) == 'any' || (floor($step) != $step || floor($min) != $min);
+        if ($is_decimal) {
+          _clientside_validation_set_number_decimal($el_name, $el_title, '.', $js_rules);
+        }
+        else {
+          _clientside_validation_set_number($el_name, $el_title, $js_rules);
+        }
+        if (!empty($min) || !empty($max)) {
+          _clientside_validation_set_minmax_html5($el_name, $el_title, $min, $max, $step, $js_rules);
+        }
+
+        break;
+      case 'url':
+      case 'urlfield':
+        _clientside_validation_set_url($el_name, $el_title, $js_rules);
+        break;
+      case 'email':
+      case 'emailfield':
+        _clientside_validation_set_email($el_name, $el_title, $js_rules);
+        break;
+      case 'color':
+        _clientside_validation_set_html5_color($el_name, $el_title, $js_rules);
+
+    }
+  }
+}
+
+function _clientside_validation_set_minmax_html5($name, $title, $min, $max, $step, &$js_rules, $message='') {
+  $title = variable_get('clientside_validation_prefix', '') . $title . variable_get('clientside_validation_suffix', '');
+  if (drupal_strtolower($step) == 'any') {
+    _clientside_validation_set_minmax($name, $title, $min, $max, $js_rules, $message);
+  }
+  elseif (isset($min) && $min !== '' && isset($max) && $max !== '') {
+    $js_rules[$name]['Html5Range'] = array($min, $max, $step);
+    if (empty($message)) {
+      $variables = array(
+        'message' => '!title field has to be greater than !min with steps of !step and smaller than !max.',
+        'placeholders' => array('!title' => $title, '!min' => $min, '!max' => $max, '!step' => $step),
+        'error_type' => 'range',
+        'element_name' => $name,
+      );
+    }
+    else {
+      $variables = array(
+        'message' => $message,
+        'error_type' => 'range',
+        'element_name' => $name,
+      );
+    }
+    $js_rules[$name]['messages']['Html5Range'] = theme('clientside_error', $variables);
+  }
+  elseif (isset($min) && $min !== '') {
+    $js_rules[$name]['Html5Min'] = array($min, $step);
+    if (empty($message)) {
+      $variables = array(
+        'message' => '!title field has to be greater than !min with steps of !step.',
+        'placeholders' => array('!title' => $title, '!min' => $min, '!step' => $step),
+        'error_type' => 'min',
+        'element_name' => $name,
+      );
+    }
+    else {
+      $variables = array(
+        'message' => $message,
+        'error_type' => 'min',
+        'element_name' => $name,
+      );
+    }
+    $js_rules[$name]['messages']['Html5Min'] = theme('clientside_error', $variables);
+  }
+  elseif (isset($max) && $max !== '') {
+    $js_rules[$name]['Html5Max'] = array($max, $step);
+    if (empty($message)) {
+      $variables = array(
+        'message' => '!title field has to be smaller than !max and must be dividable by !step.',
+        'placeholders' => array('!title' => $title, '!max' => $max, '!step' => $step),
+        'error_type' => 'max',
+        'element_name' => $name,
+      );
+    }
+    else {
+      $variables = array(
+        'message' => $message,
+        'error_type' => 'max',
+        'element_name' => $name,
+      );
+    }
+    $js_rules[$name]['messages']['Html5Max'] = theme('clientside_error', $variables);
+  }
+}
+
+function _clientside_validation_set_html5_color($name, $title, &$js_rules, $message='') {
+  $title = variable_get('clientside_validation_prefix', '') . $title . variable_get('clientside_validation_suffix', '');
+  $js_rules[$name]['Html5Color'] = TRUE;
+  if (empty($message)) {
+    $variables = array(
+      'message' => '!title field must be a valid color code.',
+      'placeholders' => array('!title' => $title),
+      'error_type' => 'color',
+      'element_name' => 'name');
+  }
+  else {
+      $variables = array(
+        'message' => $message,
+        'error_type' => 'color',
+        'element_name' => $name,
+      );
+    }
+  $js_rules[$name]['messages']['Html5Color'] = theme('clientside_error', $variables);
+}
