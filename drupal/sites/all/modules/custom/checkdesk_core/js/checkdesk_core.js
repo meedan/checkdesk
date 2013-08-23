@@ -229,6 +229,7 @@
             }
           });
           if (result.result == false) {
+            $(element).closest('#recaptcha_area').find('#recaptcha_reload').click();
             jQuery.extend(jQuery.validator.messages, {
               'captcha': Drupal.t('wrong')
             });
