@@ -43999,6 +43999,70 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['856f0e441ed5e06257e1ee7995a31030'] = array(
+    'source' => 'E-mail address <span>(never shared)</span>',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'البريد الإلكتروني <span>(لا تتم مشاركته أبداٌ) </span>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['1232cfafd103c971f3d7636d2054e010'] = array(
+    'source' => 'Check your e-mail to confirm your account',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'تحقق من بريدك الإلكتروني لتفعّل حسابك',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['18432433b429538a44e63fb732d1848c'] = array(
+    'source' => 'invalid',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'غير صالح',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['776b9979e364ef1c4ae5e07ef508459f'] = array(
+    'source' => 'required',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'مطلوب ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['2abeab5e278d5ba23cd8f97a1254f4c4'] = array(
+    'source' => 'mismatch',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'عدم تطابق ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['f49c7385473efa2ddae02941e5de750f'] = array(
+    'source' => 'unavailable',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'غير متوفر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3ecdd25c9d7354ae5b44cc235a469648'] = array(
+    'source' => 'good',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'جيد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['45b6edd5977fe929b1395ef481571abf'] = array(
+    'source' => 'wrong answer',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'إجابة خاطئة',
+    'plid' => 0,
+    'plural' => 0,
+  ); 
   $translations['ar:default']['52d7f666a9eb49bfe74ea08bc820f62c'] = array(
     'source' => 'Published on update',
     'context' => '',

@@ -90,6 +90,57 @@
       }
     }
   }
+  // Show labels on registration form
+  &#user-register-form {
+    label {
+      display: block;
+      clear: both;
+
+      span {
+        color: rgba(0,0,0,.3);
+        font-size: $small-font-size;
+      }
+    }
+    input[type=text], input[type=password] {
+      margin-top: 0;
+      width: 80%;
+
+      &.success {
+        border-color: $successText;
+      }
+    }
+    .form-item {
+      position: relative;
+      clear: both;
+    }
+    label.danger, label.error, label.success {
+      position: absolute;
+      #{$from-direction}: 80%;
+      padding-#{$from-direction}: $gutter-width;
+      line-height: $absolute-line-height * 1.5;
+      width: 20%;
+      background: transparent;
+    }
+    label.danger, label.error {
+      color: $errorText;
+    }
+    label.success {
+      color: $successText;
+    }
+    .recaptcha_input_area label {
+      top: $absolute-line-height * 1.5;
+      text-align: $from-direction;
+    }
+    div.password-confirm {
+      display: none;
+    }
+    .recaptchatable {
+      width: 80% !important;
+    }
+    .recaptcha_input_area {
+      position: static !important;
+    }
+  }
   .messages-inline {
     background: none;
     border: 0 none;

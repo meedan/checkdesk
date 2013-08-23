@@ -7940,6 +7940,52 @@ form.ife .form-type-select select {
   margin-left: 1.55148%;
   display: inline;
 }
+form#user-register-form label {
+  display: block;
+  clear: both;
+}
+form#user-register-form label span {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 15px;
+}
+form#user-register-form input[type=text], form#user-register-form input[type=password] {
+  margin-top: 0;
+  width: 80%;
+}
+form#user-register-form input[type=text].success, form#user-register-form input[type=password].success {
+  border-color: #468847;
+}
+form#user-register-form .form-item {
+  position: relative;
+  clear: both;
+}
+form#user-register-form label.danger, form#user-register-form label.error, form#user-register-form label.success {
+  position: absolute;
+  right: 80%;
+  padding-right: 11px;
+  line-height: 43.2px;
+  width: 20%;
+  background: transparent;
+}
+form#user-register-form label.danger, form#user-register-form label.error {
+  color: #b94a48;
+}
+form#user-register-form label.success {
+  color: #468847;
+}
+form#user-register-form .recaptcha_input_area label {
+  top: 43.2px;
+  text-align: right;
+}
+form#user-register-form div.password-confirm {
+  display: none;
+}
+form#user-register-form .recaptchatable {
+  width: 80% !important;
+}
+form#user-register-form .recaptcha_input_area {
+  position: static !important;
+}
 form .messages-inline {
   background: none;
   border: 0 none;
