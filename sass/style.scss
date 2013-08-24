@@ -5,21 +5,13 @@
 @import "about"; // this will move to develop branch
 @import "story_embed";
 @import "compass/css3";
-@import "animate";
-@import "fade";
+
 
 body {
   margin: 0;
   padding: 0px;
   background-color: #f1f1f1;
-  // @include filter(blur(4px));
-  // background-image: url("http://meedan.github.io/meedan-checkdesk/img/video-buildings.png");  
   background-size: cover;
-  
-}
-
-body.loading {
-  @include filter(grayscale(100%));
 }
 
 #header {
@@ -154,5 +146,3 @@ form span {
     float:left;
   } 
 }
-
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }

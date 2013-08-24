@@ -1,21 +1,26 @@
+// config
+$direction: "right";
+$default-color: "#c3c3c3";
 
+// body 
 body {
   background-color: #333;
 }
 
-$direction: right;
-
+%left-col {
+  float: left;
+}
+// story
 article.story {
   text-align: $direction;
-  border: 10px solid green;
   background: white;
   @include clearfix;
   .story-meta {
-    border: 1px solid grey;
+    border: 1px solid $default-color;
   }
 
   .story-description {
-    border: 1px solid grey;
+    border: 1px solid $default-color;
     p {
       padding:10px;
     }
@@ -27,17 +32,17 @@ article.story {
   }
 
   .participant-avatar {
-    border:1px solid red;
+    border:1px solid $default-color;
     float: $direction;
   }
 
   .participant-avatar {
-    border:1px solid red;
+    border:1px solid $default-color;
     float: $direction;
   }
 
   .story-slogan {
-    border: 1px solid green;
+    border: 1px solid blue;
     float: $direction;
     clear: both;
     padding: 10px;
@@ -49,10 +54,10 @@ article.story {
   }
 
   .story-reports {
-    border: 1px solid pink;
+    border: 1px solid $default-color;
     clear: both;
     .report-icon {
-      border: 1px solid orange;
+      border: 1px solid $default-color;
       float: $direction;
     }
   }
