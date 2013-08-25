@@ -7944,6 +7944,11 @@ form.ife .form-type-select select {
 form#user-login label {
   display: block;
 }
+form#user-register-form {
+  padding-right: 0;
+  padding-left: 0;
+  width: 100%;
+}
 form#user-register-form label {
   display: block;
   clear: both;
@@ -7968,7 +7973,7 @@ form#user-register-form label.danger, form#user-register-form label.error, form#
   left: 80%;
   padding-left: 11px;
   line-height: 36px;
-  width: 20%;
+  width: 30%;
   background: transparent;
 }
 form#user-register-form label.danger, form#user-register-form label.error {

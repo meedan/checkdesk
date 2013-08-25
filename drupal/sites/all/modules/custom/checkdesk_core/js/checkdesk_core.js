@@ -289,6 +289,12 @@
             $success.hide();
           }
         });
+        // Check password as the user types
+        $('#user-register-form', context).find('input[type=password]').keyup(function() {
+          $(this).trigger('focusout');
+          $(this).blur();
+          $(this).focus();
+        });
 
       });
     }
