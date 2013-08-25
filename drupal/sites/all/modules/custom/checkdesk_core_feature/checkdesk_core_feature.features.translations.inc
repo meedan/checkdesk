@@ -44079,6 +44079,14 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['ac6a46c774598f36d84b9af8a9b042e4'] = array(
+    'source' => 'too short',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'قصيرة جدا',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

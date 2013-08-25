@@ -2140,10 +2140,16 @@ function checkdesk_core_clientside_validation_form_alter(&$form, &$form_state, &
 
     // Passwords must match
     $value = array(
-      'element_name' => $form['account']['pass']['pass2']['#name'],
-      'name' => $form['account']['pass']['pass2']['#title'],
+      'element_name' => $form['account']['pass']['pass1']['#name'],
+      'name' => $form['account']['pass']['pass1']['#title'],
     );
-    _clientside_validation_set_equal($form['account']['pass']['pass1']['#name'], $form['account']['pass']['pass1']['#title'], $value, $js_rules, t('mismatch'));
+    _clientside_validation_set_equal($form['account']['pass']['pass2']['#name'], $form['account']['pass']['pass2']['#title'], $value, $js_rules, t('mismatch'));
+
+    // Password min length
+    $min = variable_get('logintoboggan_minimum_password_length', 0);
+    if ($min) {
+      _clientside_validation_set_minmaxlength($form['account']['pass']['pass1']['#name'], $form['account']['pass']['pass1']['#title'], $min, 1, $js_rules, t('too short'));
+    }
     
     // E-mail must be valid
     _clientside_validation_set_email($form['account']['mail']['#name'], $form['account']['mail']['#title'], $js_rules, t('invalid'));

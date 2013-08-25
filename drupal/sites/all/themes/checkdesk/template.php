@@ -1041,8 +1041,6 @@ function checkdesk_form_alter(&$form, &$form_state) {
     unset($form['pass']['#description']);
     $form['pass']['#title'] = t('Password');
     // unset($form['pass']['#title']);
-    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
-    $form['pass']['#attributes']['placeholder'] = t('Password');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
