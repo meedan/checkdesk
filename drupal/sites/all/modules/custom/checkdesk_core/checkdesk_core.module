@@ -2149,6 +2149,7 @@ function checkdesk_core_clientside_validation_form_alter(&$form, &$form_state, &
     $min = variable_get('logintoboggan_minimum_password_length', 0);
     if ($min) {
       _clientside_validation_set_minmaxlength($form['account']['pass']['pass1']['#name'], $form['account']['pass']['pass1']['#title'], $min, 1, $js_rules, t('too short'));
+      _clientside_validation_set_minmaxlength($form['account']['pass']['pass2']['#name'], $form['account']['pass']['pass2']['#title'], $min, 1, $js_rules, t('too short'));
     }
     
     // E-mail must be valid

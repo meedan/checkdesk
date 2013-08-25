@@ -280,6 +280,15 @@
             $success.hide();
           }
         });
+        // Special case for password field - message is displayed on confirmation field
+        $('#user-register-form #edit-pass-pass1', context).blur(function() {
+          var $confirmation = $('#user-register-form #edit-pass-pass2'),
+              $success = $('#user-register-form label[for=edit-pass-pass2].success', context);
+          if (($(this).val() != $confirmation.val()) && $success.length) {
+            $confirmation.removeClass('success');
+            $success.hide();
+          }
+        });
 
       });
     }
