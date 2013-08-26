@@ -1,0 +1,16 @@
+; $Id: 
+name = Clientside Validation Webform
+description = Add client side validation to Webforms
+core = 7.x
+package = Clientside Validation
+
+files[] = clientside_validation_webform.module
+dependencies[] = clientside_validation_form
+dependencies[] = webform
+
+; Information added by drupal.org packaging script on 2013-01-03
+version = "7.x-1.37"
+core = "7.x"
+project = "clientside_validation"
+datestamp = "1357215656"
+

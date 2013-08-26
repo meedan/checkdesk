@@ -1,0 +1,29 @@
+; $Id:
+name = Clientside Validation Testswarm
+description = Testswarm tests for the Clientside Validation Module
+core = 7.x
+package = Clientside Validation
+
+files[] = clientside_validation_testswarm.forms.inc
+files[] = clientside_validation_testswarm.install
+files[] = clientside_validation_testswarm.defaultcontent.inc
+
+dependencies[] = clientside_validation
+dependencies[] = clientside_validation_fapi
+dependencies[] = clientside_validation_field_validation
+dependencies[] = clientside_validation_form
+dependencies[] = clientside_validation_html5
+dependencies[] = clientside_validation_webform
+dependencies[] = clientside_validation_test_field_validation
+dependencies[] = webform_validation
+dependencies[] = testswarm
+dependencies[] = context
+dependencies[] = defaultcontent
+dependencies[] = elements
+
+; Information added by drupal.org packaging script on 2013-01-03
+version = "7.x-1.37"
+core = "7.x"
+project = "clientside_validation"
+datestamp = "1357215656"
+

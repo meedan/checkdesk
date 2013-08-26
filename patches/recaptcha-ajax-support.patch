@@ -1,0 +1,50 @@
+From 055bd95ed76d665bddf2d3e4d4a2eed0f308bb08 Mon Sep 17 00:00:00 2001
+From: Caio SBA <caiosba@gmail.com>
+Date: Fri, 23 Aug 2013 04:06:01 -0300
+Subject: [PATCH] Ajax support
+
+---
+ recaptcha.module |   15 ++++++++++++---
+ 1 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/recaptcha.module b/recaptcha.module
+index 4f2d421..584d836 100644
+--- a/recaptcha.module
++++ b/recaptcha.module
+@@ -5,6 +5,8 @@
+  * Uses the reCAPTCHA web service to improve the CAPTCHA system.
+  */
+ 
++require_once(drupal_get_path('module', 'recaptcha') . '/recaptcha-php-1.11/recaptchalib.php');
++
+ /**
+  * Implements hook_help().
+  */
+@@ -199,14 +201,21 @@ function _recaptcha_test_recaptcha_server() {
+ function recaptcha_captcha_validation($solution = NULL, $response = NULL) {
+   global $user;
+   $recaptcha_private_key = variable_get('recaptcha_private_key', FALSE);
++  $challenge = $_POST['recaptcha_challenge_field'];
++  $answer = $_POST['recaptcha_response_field'];
++  $key = 'recaptcha:' . $answer;
++  if (isset($_SESSION[$key])) {
++    return $_SESSION[$key];
++  }
+   $ip_address = ip_address();
+-  if ($recaptcha_private_key && $ip_address && $response === 'reCAPTCHA' && !empty($_POST['recaptcha_challenge_field']) && !empty($_POST['recaptcha_response_field']) && _recaptcha_test_recaptcha_server()) {
++  if ($recaptcha_private_key && $ip_address && $response === 'reCAPTCHA' && !empty($challenge) && !empty($answer) && _recaptcha_test_recaptcha_server()) {
+     $resp = recaptcha_check_answer(
+       $recaptcha_private_key,
+       $ip_address,
+-      check_plain($_POST['recaptcha_challenge_field']),
+-      check_plain($_POST['recaptcha_response_field'])
++      check_plain($challenge),
++      check_plain($answer)
+     );
++    $_SESSION[$key] = $resp->is_valid;
+     return $resp->is_valid;
+   }
+   return FALSE;
+-- 
+1.7.2.5
+

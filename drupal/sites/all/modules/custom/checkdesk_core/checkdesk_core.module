@@ -107,6 +107,14 @@ function checkdesk_core_menu() {
     'page arguments' => array(1),
     'access arguments' => array('access content'),
   );
+
+  $items['checkdesk_validation/unique_field'] = array(
+    'title' => 'Client-side validation ajax callback to validate unique fields',
+    'page callback' => '_checkdesk_validation_ajax_unique_field',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
@@ -2122,4 +2130,75 @@ function checkdesk_core_report_published_on_update($nid) {
   else {
     return FALSE;
   }
+}
+
+/**
+ * Implements hook_clientside_validation_form_alter().
+ */
+function checkdesk_core_clientside_validation_form_alter(&$form, &$form_state, &$js_rules) {
+  if ($form['#form_id'] == 'user_register_form') {
+
+    // Passwords must match
+    $value = array(
+      'element_name' => $form['account']['pass']['pass1']['#name'],
+      'name' => $form['account']['pass']['pass1']['#title'],
+    );
+    _clientside_validation_set_equal($form['account']['pass']['pass2']['#name'], $form['account']['pass']['pass2']['#title'], $value, $js_rules, t('mismatch'));
+
+    // Password min length
+    $min = variable_get('logintoboggan_minimum_password_length', 0);
+    if ($min) {
+      _clientside_validation_set_minmaxlength($form['account']['pass']['pass1']['#name'], $form['account']['pass']['pass1']['#title'], $min, 1, $js_rules, t('too short'));
+      _clientside_validation_set_minmaxlength($form['account']['pass']['pass2']['#name'], $form['account']['pass']['pass2']['#title'], $min, 1, $js_rules, t('too short'));
+    }
+    
+    // E-mail must be valid
+    _clientside_validation_set_email($form['account']['mail']['#name'], $form['account']['mail']['#title'], $js_rules, t('invalid'));
+
+    // Captcha
+    _clientside_validation_set_captcha('recaptcha_response_field', t('Captcha'), $form['captcha']['#captcha_validate'], $js_rules, t('wrong'));
+    _clientside_validation_set_required('recaptcha_response_field', t('Captcha'), TRUE, &$js_rules, t('required'));
+
+    // Customize error messages to shorter strings
+    foreach (array('name', 'mail', 'pass[pass1]', 'pass[pass2]') as $field) {
+      $js_rules[$field]['messages']['required'] = t('required');
+    }
+
+    // Username must be unique
+    _checkdesk_validation_set_unique_field('users', $form['account']['name']['#name'], $form['account']['name']['#title'], $js_rules, t('unavailable'));
+
+    // E-mail must be unique
+    _checkdesk_validation_set_unique_field('users', $form['account']['mail']['#name'], $form['account']['mail']['#title'], $js_rules, t('unavailable'));
+
+  }
+}
+
+/**
+ * Set validation rule for unique fields.
+ */
+function _checkdesk_validation_set_unique_field($table, $name, $title, &$js_rules, $message = '') {
+  $title = _clientside_validation_set_title($title);
+  $js_rules[$name]['unique'] = $table;
+  $variables = array(
+    'message' => empty($message) ? 'The value in !title is already taken.' : $message,
+    'placeholders' => empty($message) ? array('!title' => $title) : array(),
+    'error_type' => 'unique',
+    'element_name' => $name
+  );
+  $js_rules[$name]['messages']['unique'] = theme('clientside_error', $variables);
+}
+
+/**
+ * Menu callback function for checkdesk_validation/unique_field.
+ */
+function _checkdesk_validation_ajax_unique_field() {
+  $value = filter_xss($_POST['value']);
+  $table = filter_xss($_POST['table']);
+  $field = filter_xss($_POST['field']);
+  $exists = db_select($table)
+            ->fields($table, array($field))
+            ->condition($field, $value)
+            ->execute()
+            ->rowCount();
+  return drupal_json_output(array('result' => !(bool)$exists));
 }

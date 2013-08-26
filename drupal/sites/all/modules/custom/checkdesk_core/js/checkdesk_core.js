@@ -203,4 +203,100 @@
     Drupal.attachBehaviors(response.selector);
   };
 
+  // Custom client-side validations
+  Drupal.behaviors.clientSideValidations = {
+    attach: function (context) {
+      $(document).bind('clientsideValidationAddCustomRules', function(event) {
+
+        // Overwrite default captcha validator to support reCAPTCHA
+        jQuery.validator.addMethod('captcha', function (value, element, param) {
+          var result = false;
+          var sid = $(element).closest('.captcha').find('input[name=captcha_sid]').val();
+          var challenge = $(element).parent().find('#recaptcha_challenge_field').val();
+          jQuery.ajax({
+            'url': Drupal.settings.basePath + 'clientside_validation/captcha',
+            'type': 'POST',
+            'data': {
+              'recaptcha_challenge_field' : challenge,
+              'recaptcha_response_field' : value,
+              'value': 'reCAPTCHA',
+              'param': [sid, param]
+            },
+            'dataType': 'json',
+            'async': false,
+            'success': function(res) {
+              result = res;
+            }
+          });
+          if (result.result == false) {
+            $(element).closest('#recaptcha_area').find('#recaptcha_reload').click();
+            jQuery.extend(jQuery.validator.messages, {
+              'captcha': Drupal.t('wrong')
+            });
+          }
+          return result.result;
+        }, jQuery.format(Drupal.t('wrong')));
+
+        // Check if username or e-mail is taken
+        jQuery.validator.addMethod('unique', function (value, element, param) {
+          var result = false;
+          jQuery.ajax({
+            'url': Drupal.settings.basePath + 'checkdesk_validation/unique_field',
+            'type': 'POST',
+            'data': {
+              'value' : value,
+              'field' : $(element).attr('name'),
+              'table' : param
+            },
+            'dataType': 'json',
+            'async': false,
+            'success': function(res) {
+              result = res;
+            }
+          });
+          if (result.result == false) {
+            jQuery.extend(jQuery.validator.messages, {
+              'unique': Drupal.t('unavailable')
+            });
+          }
+          return result.result;
+        }, jQuery.format(Drupal.t('unavailable')));
+
+        // Show a success message if no error is found
+        $('#user-register-form', context).find('input[type=text], input[type=password]').blur(function() {
+          var id = $(this).attr('id'),
+              $success = $('#user-register-form label[for=' + id + '].success', context);
+          if (!$(this).hasClass('error')) {
+            if ($success.length) {
+              $success.show();
+            }
+            else {
+              $(this).after($('<label />').attr('for', id).addClass('success').html(Drupal.t('good')));
+            }
+            $(this).addClass('success');
+          }
+          else {
+            $(this).removeClass('success');
+            $success.hide();
+          }
+        });
+        // Special case for password field - message is displayed on confirmation field
+        $('#user-register-form #edit-pass-pass1', context).blur(function() {
+          var $confirmation = $('#user-register-form #edit-pass-pass2'),
+              $success = $('#user-register-form label[for=edit-pass-pass2].success', context);
+          if (($(this).val() != $confirmation.val()) && $success.length) {
+            $confirmation.removeClass('success');
+            $success.hide();
+          }
+        });
+        // Check password as the user types
+        $('#user-register-form', context).find('input[type=password]').keyup(function() {
+          $(this).trigger('focusout');
+          $(this).blur();
+          $(this).focus();
+        });
+
+      });
+    }
+  }
 }(jQuery));

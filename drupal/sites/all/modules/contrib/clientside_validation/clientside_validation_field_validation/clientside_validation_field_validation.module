@@ -1,0 +1,324 @@
+<?php
+/**
+ * @file
+ * Add clientside validation support for Field Validation
+ */
+/**
+ * Implements hook_clientside_validation_form_alter().
+ */
+function clientside_validation_field_validation_clientside_validation_form_alter(&$form, &$form_state, &$js_rules) {
+  $field_rules = array();
+  clientside_validation_field_validation_find_rules($form, $field_rules);
+  if (!empty($field_rules)) {
+    $form['#attached']['js'][] = drupal_get_path('module', 'clientside_validation_field_validation') . '/clientside_validation_field_validation.js';
+    foreach ($field_rules as $rule) {
+      $element = &$form;
+      // Field validation 1.x
+      if (function_exists('field_validation_get_bundle_rules')) {
+        foreach ($rule['field']['#parents'] as $parent) {
+          $element = &$element[$parent];
+        }
+        clientside_validation_field_validation_after_build_recurse($form['#id'], $element, $form_state, $rule['rule'], $js_rules);
+      }
+      // Field validation 2.x
+      else {
+        $path = clientside_validation_array_key_path($rule['rule']['field_name'], $element);
+        if ($path !== FALSE) {
+          $element =& clientside_validation_array_path($form, $path);
+          clientside_validation_field_validation_after_build_recurse($form['#id'], $element, $form_state, $rule['rule'], $js_rules);
+          if (isset($element['#type']) && $element['#type'] == 'select') {
+            clientside_validation_field_validation_regular($form['#id'], $element, $rule['rule'], $js_rules);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Search for a key in an array, returning a path to the entry.
+ *
+ * @param $needle
+ *   A key to look for.
+ * @param $haystack
+ *   A keyed array.
+ * @param $forbidden
+ *   A list of keys to ignore.
+ * @param $path
+ *   The intermediate path. Internal use only.
+ * @param $depth
+ *   The depth of the array to search.
+ * @param $current_depth
+ *   The current depth searched. Internal use only.
+ * @return
+ *   The path to the parent of the first occurrence of the key, represented as an array where entries are consecutive keys.
+ */
+function clientside_validation_array_key_path($needle, $haystack, $forbidden = array(), $path = array(), $depth = 3, $current_depth = 0) {
+  foreach ($haystack as $key => $val) {
+    if (in_array($key, $forbidden)) {
+      continue;
+    }
+    if (is_array($val) && ($current_depth < $depth) && is_array($sub = clientside_validation_array_key_path($needle, $val, $forbidden, array_merge($path, (array)$key), $depth, $current_depth + 1))) {
+      return $sub;
+    }
+    elseif ($key === $needle) {
+      return array_merge($path, (array)$key);
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Given a path, return a reference to the array entry.
+ *
+ * @param $array
+ *   A keyed array.
+ * @param $path
+ *    An array path, represented as an array where entries are consecutive keys.
+ * @return
+ *   A reference to the entry that corresponds to the given path.
+ */
+function &clientside_validation_array_path(&$array, $path) {
+  $offset =& $array;
+  if ($path) foreach ($path as $index) {
+    $offset =& $offset[$index];
+  }
+  return $offset;
+}
+
+function clientside_validation_field_validation_find_rules($form, &$field_rules) {
+  if (isset($form['#entity_type']) && isset($form['#bundle'])) {
+    $rules = array();
+    if (function_exists('field_validation_get_bundle_rules')) {
+      $rules = field_validation_get_bundle_rules($form['#entity_type'], $form['#bundle']);
+    }
+    else {
+      ctools_include('export');
+      $rules = (array)ctools_export_load_object('field_validation_rule', 'conditions', array('entity_type' => $form['#entity_type'], 'bundle' => $form['#bundle']));
+    }
+    if (!empty($rules)) {
+      foreach ($rules as $rule) {
+        $rule = (array)$rule;
+        if (isset($form[$rule['field_name']])) {
+          $field_rules[] = array(
+            'rule' => $rule,
+            'field' => $form[$rule['field_name']],
+          );
+        }
+      }
+    }
+  }
+  foreach (element_children($form) as $child) {
+    clientside_validation_field_validation_find_rules($form[$child], $field_rules);
+  }
+}
+
+function clientside_validation_field_validation_after_build_recurse($form_id, &$form, &$form_state, $rule, &$js_rules) {
+  if ($children = array_values(element_children($form))) {
+    foreach ($children as $index => $item) {
+      $element = &$form[$item];
+      $types = array(
+        'emailfield', 'phonefield', 'telfield', 'link_field', 'textfield', 'textarea', 'select', 'radio', 'checkbox', 'password', 'file', 'radios', 'checkboxes',
+      );
+      if (isset($element['#type']) && in_array($element['#type'], $types) && isset($element['#name']) /* && strpos($element['#name'], '[value]') !== FALSE */) {
+        clientside_validation_field_validation_regular($form_id, $element, $rule, $js_rules);
+      }
+      clientside_validation_field_validation_after_build_recurse($form_id, $element, $form_state, $rule, $js_rules);
+    }
+  }
+}
+
+function clientside_validation_field_validation_regular($form_id, $element, $rule, &$js_rules) {
+  if (isset($rule['col']) && $rule['col'] === 'value') {
+    if (strpos($element['#name'], '[format]') === strlen($element['#name']) - strlen('[format]')) {
+      return;
+    }
+    if (strpos($element['#name'], '[summary]') === strlen($element['#name']) - strlen('[summary]')) {
+      return;
+    }
+  }
+  $el_name = $element['#name'];
+  if (isset($element['#multiple']) && $element['#multiple']) {
+    $el_name .= '[]';
+  }
+  $el_title = $el_name;
+  if (isset($element['#title'])) {
+    $el_title = $element['#title'];
+  }
+  switch ($rule['validator']) {
+    case 'regex':
+    case 'field_validation_regex_validator':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : t('Invalid value for !name', array('!name' => variable_get('clientside_validation_prefix', '') . $el_title . variable_get('clientside_validation_suffix', '')));
+      // Field Validation 1.x and 2.x
+      $data = isset($rule['data']) ? $rule['data'] : $rule['settings']['data'];
+      _clientside_validation_set_regex($el_name, $el_title, $js_rules, $data, $message);
+      break;
+    case 'min_length':
+      $message = isset($rule['error_message']) ? $rule['error_message'] : t('!name field has a minimum length of !minl characters.', array('!name' => variable_get('clientside_validation_prefix', '') . $el_title . variable_get('clientside_validation_suffix', ''), '!minl' => $rule['data']));
+      _clientside_validation_set_minmaxlength($el_name, $el_title, $rule['data'], '', $js_rules, $message);
+      break;
+    case 'max_length':
+      $message = isset($rule['error_message']) ? $rule['error_message'] : t('!name field has a maximum length of !maxl characters.', array('!name' => variable_get('clientside_validation_prefix', '') . $el_title . variable_get('clientside_validation_suffix', ''), '!maxl' => $rule['data']));
+      _clientside_validation_set_minmaxlength($el_name, $el_title, '', $rule['data'], $js_rules, $message);
+      break;
+    // Field Validation 2.x
+    case 'field_validation_length_validator':
+      $message = '';
+      $rule['settings']['min'] = isset($rule['settings']['min']) ? $rule['settings']['min'] : '';
+      $rule['settings']['max'] = isset($rule['settings']['max']) ? $rule['settings']['max'] : '';
+      if (isset($rule['error_message'])) {
+        $message = $rule['error_message'];
+      }
+      else {
+        if (!empty($rule['settings']['min'])) {
+          $message = t('!name field has a minimum length of !minl characters.', array('!name' => variable_get('clientside_validation_prefix', '') . $el_title . variable_get('clientside_validation_suffix', ''), '!minl' => $rule['settings']['min']));
+        }
+        if (!empty($rule['settings']['max'])) {
+          $message = empty($message) ?
+          t('!name field has a maximum length of !maxl characters.', array('!name' => variable_get('clientside_validation_prefix', '') . $el_title . variable_get('clientside_validation_suffix', ''), '!maxl' => $rule['settings']['max'])) :
+          $message . ' ' . t('and a maximum length of !maxl characters', array('!maxl' => $rule['settings']['maxl']));
+        }
+      }
+      _clientside_validation_set_minmaxlength($el_name, $el_title, $rule['settings']['min'], $rule['settings']['max'], $js_rules, $message);
+      break;
+    case 'min_words':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      _clientside_validation_set_minmax_words($el_name, $el_title, $rule['data'], '', $js_rules, $message);
+      break;
+    case 'max_words':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      _clientside_validation_set_minmax_words($el_name, $el_title, '', $rule['data'], $js_rules, $message);
+      break;
+    // Field Validation 2.x
+    case 'field_validation_words_validator':
+      $message = '';
+      $rule['settings']['min'] = isset($rule['settings']['min']) ? $rule['settings']['min'] : '';
+      $rule['settings']['max'] = isset($rule['settings']['max']) ? $rule['settings']['max'] : '';
+      if (isset($rule['error_message'])) {
+        $message = $rule['error_message'];
+      }
+      else {
+        if (!empty($rule['settings']['min'])) {
+          $message = t('!name field has a minimum length of !minl words.', array('!name' => variable_get('clientside_validation_prefix', '') . $el_title . variable_get('clientside_validation_suffix', ''), '!minl' => $rule['settings']['min']));
+        }
+        if (!empty($rule['settings']['max'])) {
+          $message = empty($message) ?
+          t('!name field has a maximum length of !maxl words.', array('!name' => variable_get('clientside_validation_prefix', '') . $el_title . variable_get('clientside_validation_suffix', ''), '!maxl' => $rule['settings']['max'])) :
+          $message . ' ' . t('and a maximum length of !maxl words', array('!maxl' => $rule['settings']['maxl']));
+        }
+      }
+      _clientside_validation_set_minmax_words($el_name, $el_title, $rule['settings']['min'], $rule['settings']['max'], $js_rules, $message);
+      break;
+    case 'plain_text':
+    case 'field_validation_plain_text_validator':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      // Field Validation 1.x and 2.x
+      $data = isset($rule['data']) ? $rule['data'] : '';
+      _clientside_validation_set_plain_text($el_name, $el_title, $data, $js_rules, $message);
+      break;
+    case 'must_be_empty':
+    case 'field_validation_must_be_empty_validator':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      _clientside_validation_set_specific_value($el_name, $el_title, '', $js_rules, $message);
+      break;
+    case 'blacklist':
+    case 'field_validation_blacklist_validator':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      // Field Validation 1.x
+      if (isset($rule['data'])) {
+        $blacklist = explode(',', $rule['data']);
+      }
+      // Field Validation 2.x
+      else {
+        $blacklist = explode(',', $rule['settings']['data']);
+      }
+      $blacklist = array_map('trim', $blacklist);
+      _clientside_validation_set_blacklist($el_name, $el_title, $blacklist, $js_rules, $message);
+      break;
+    case 'numeric':
+    case 'field_validation_numeric2_validator':
+      $range = array('min' => NULL, 'max' => NULL);
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      // Field Validation 1.x
+      if (isset($rule['data'])) {
+        $data = $rule['data'];
+        if (strpos($data, '|') !== FALSE) {
+          list($min, $max) = explode('|', $data);
+          if ($min != '' && is_numeric($min)) {
+            $range['min'] = (int) $min;
+          }
+          if ($max != '' && is_numeric($max)) {
+            $range['max'] = (int) $max;
+          }
+        }
+        else {
+          if ($data != '' && is_numeric($data)) {
+              $range['min'] = (int) $data;
+          }
+        }
+      }
+      // Field Validation 2.x
+      else {
+        $range['min'] = isset($rule['settings']['min']) ? $rule['settings']['min'] : '';
+        $range['max'] = isset($rule['settings']['max']) ? $rule['settings']['max'] : '';
+      }
+      if (!empty($range['min']) || !empty($range['max'])) {
+        _clientside_validation_set_minmax($el_name, $el_title, $range['min'], $range['max'], $js_rules, $message);
+      }
+      else {
+        _clientside_validation_set_number_decimal($el_name, $el_title, '.', $js_rules, $message);
+      }
+      break;
+    case 'specific_value':
+    case 'field_validation_specific_value_validator':
+      // Field Validation 1.x and 2.x
+      $value = isset($rule['data']) ? explode(',', $rule['data']) : explode(',', $rule['settings']['data']);
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      _clientside_validation_set_specific_value($el_name, $el_title, $value, $js_rules, $message);
+      break;
+    case 'select_min':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      _clientside_validation_set_minmaxlength_select($el_name, $el_title, $rule['data'], '', $js_rules, $message);
+      break;
+    case 'select_max':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      _clientside_validation_set_minmaxlength_select($el_name, $el_title, '', $rule['data'], $js_rules, $message);
+      break;
+    case 'select_exact':
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : '';
+      _clientside_validation_set_minmaxlength_select($el_name, $el_title, $rule['data'], $rule['data'], $js_rules, $message);
+      break;
+    case 'field_validation_number_of_selections_validator':
+      $message = '';
+      $rule['settings']['min'] = isset($rule['settings']['min']) ? $rule['settings']['min'] : '';
+      $rule['settings']['max'] = isset($rule['settings']['max']) ? $rule['settings']['max'] : '';
+      if (isset($rule['error_message'])) {
+        $message = $rule['error_message'];
+      }
+      else {
+        if (!empty($rule['settings']['min'])) {
+          $message = t('You must select a minimum of !minl items for !name.', array('!name' => _clientside_validation_set_title($el_title), '!minl' => $rule['settings']['min']));
+        }
+        if (!empty($rule['settings']['max'])) {
+          $message = empty($message) ?
+          t('You can\'t select more than !maxl items for !name.', array('!name' => _clientside_validation_set_title($el_title), '!maxl' => $rule['settings']['max'])) :
+          $message . ' ' . t('and a maximum of !maxl', array('!maxl' => $rule['settings']['maxl']));
+        }
+      }
+      _clientside_validation_set_minmaxlength_select($el_name, $el_title, $rule['settings']['min'], $rule['settings']['max'], $js_rules, $message);
+      break;
+    case 'field_validation_email_validator':
+      $message = isset($rule['error_message']) ? $rule['error_message'] : t('!name is not a valid email address', array('!name' => _clientside_validation_set_title($el_title)));
+      _clientside_validation_set_email($el_name, $el_title, $js_rules, $message);
+      break;
+    case 'field_validation_url_validator':
+      $message = isset($rule['error_message']) ? $rule['error_message'] : t('!name is not a valid url', array('!name' => _clientside_validation_set_title($el_title)));
+      _clientside_validation_set_url($el_name, $el_title, $js_rules, $message);
+      break;
+    default:
+      $message = (isset($rule['error_message']) && !empty($rule['error_message'])) ? $rule['error_message'] : t('Invalid value for !name', array('!name' => _clientside_validation_set_title($el_title)));
+      $context = array('type' => 'field_validation', 'rule' => $rule, 'message' => $message);
+      drupal_alter('clientside_validation_rule', $js_rules, $element, $context);
+      break;
+  }
+}

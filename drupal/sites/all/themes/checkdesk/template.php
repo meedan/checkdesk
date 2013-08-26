@@ -1041,8 +1041,6 @@ function checkdesk_form_alter(&$form, &$form_state) {
     unset($form['pass']['#description']);
     $form['pass']['#title'] = t('Password');
     // unset($form['pass']['#title']);
-    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
-    $form['pass']['#attributes']['placeholder'] = t('Password');
     // Add forgot link and a wrapper around forgot pass and remember me
     $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
     $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
@@ -1057,23 +1055,15 @@ function checkdesk_form_alter(&$form, &$form_state) {
   }
   // create new account form
   if($form['form_id']['#id'] == 'edit-user-register-form') {  
-    $form['account']['name']['#attributes']['placeholder'] = t('Username');
     unset($form['account']['name']['#description']);
-    $form['account']['mail']['#attributes']['placeholder'] = t('E-mail address');
-    unset($form['account']['mail']['#description']);
     unset($form['account']['pass']['#description']);
-    $form['account']['pass']['#process'] = array('form_process_password_confirm', '_checkdesk_register_alter_password');
+    $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
+    $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
   }
   // forgot password form
   if($form['form_id']['#id'] == 'edit-user-pass') {
     $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
   }
-}
-
-function _checkdesk_register_alter_password($element) {
-  $element['pass1']['#attributes']['placeholder'] = t('Password');
-  $element['pass2']['#attributes']['placeholder'] = t('Confirm password');
-  return $element;
 }
 
 function checkdesk_fboauth_action__connect(&$variables) {

@@ -60,6 +60,7 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
         ),
       ),
+      'exclude_cv' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -124,6 +125,7 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
         ),
       ),
+      'exclude_cv' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -188,6 +190,7 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
         ),
       ),
+      'exclude_cv' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -268,6 +271,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         ),
       ),
       'display_summary' => 1,
+      'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -323,6 +327,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
+      'exclude_cv' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -411,6 +416,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         ),
       ),
       'display_summary' => 1,
+      'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -480,6 +486,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'exclude_cv' => FALSE,
       'title' => 'none',
       'title_maxlength' => 128,
       'title_value' => '',
@@ -533,6 +540,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     'label' => 'Fact-checking status',
     'required' => 1,
     'settings' => array(
+      'exclude_cv' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -578,6 +586,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     'label' => 'Stories',
     'required' => 0,
     'settings' => array(
+      'exclude_cv' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -655,6 +664,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         ),
       ),
       'display_summary' => 1,
+      'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -702,6 +712,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'exclude_cv' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'txt pdf png gif jpg jpeg',
       'max_filesize' => '',
@@ -782,6 +793,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         ),
       ),
       'display_summary' => 1,
+      'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -828,6 +840,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     'label' => 'Story',
     'required' => 1,
     'settings' => array(
+      'exclude_cv' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -875,6 +888,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
+      'exclude_cv' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -939,6 +953,7 @@ function checkdesk_core_feature_field_default_field_instances() {
           ),
         ),
       ),
+      'exclude_cv' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 1,
     ),

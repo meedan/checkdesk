@@ -42916,14 +42916,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['344c58c9a2822da9c62310948eb20006'] = array(
-    'source' => 'Powered by',
-    'context' => '',
-    'location' => '/index.php',
-    'translation' => 'مشغل بواسطة',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['3648449a13dcbeb410c4aaf6e55dbab3'] = array(
     'source' => 'View original',
     'context' => '',
@@ -42937,6 +42929,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/',
     'translation' => 'اضافه <a href="@user">!user</a> <time class="date-time" datetime="!timestamp">منذ !datetime_ago</time>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['0869522d5a55698fde06f804cb89a958'] = array(
+    'source' => '@count[3] more updates',
+    'context' => '',
+    'location' => '',
+    'translation' => '@count[3] تحديثات أخرى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['344c58c9a2822da9c62310948eb20006'] = array(
+    'source' => 'Powered by',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مشغل بواسطة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -42961,14 +42969,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => '<a href="!url">@count تحديثات أخرى</a> مرتبطة <a href="!url">بهذا الموضوع</a>. <a href="!url">عرض الكل</a>',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['0869522d5a55698fde06f804cb89a958'] = array(
-    'source' => '@count[3] more updates',
-    'context' => '',
-    'location' => '',
-    'translation' => '@count[3] تحديثات أخرى',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43052,11 +43052,11 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['c578cc8a08562bcc22df5fe4a946a6c6'] = array(
-    'source' => 'Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.',
+  $translations['ar:default']['0e6bc1516b2174c4fea8eec29ce88d82'] = array(
+    'source' => 'Sorry, @site can only handle public Facebook content. Please ensure you can access this URL when logged out of Facebook.',
     'context' => '',
-    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/886',
-    'translation' => 'يرجى <a href="@login_url">تسجيل الدخول</a> لتتمكن من إضافة الملاحظات والمساهمة في التحقق من صحة المعلومات لهذا التقرير',
+    'location' => '/checkdesk/media-preview',
+    'translation' => 'عذراً، @site يمكنه استخدام محتوى فيسبوك العلني فقط. يرجى التأكد من أنك يمكنك الوصول إلى تلك الصفحة عندما تقوم بتسجيل الخروج من فيسبوك.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43076,19 +43076,19 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['0e6bc1516b2174c4fea8eec29ce88d82'] = array(
-    'source' => 'Sorry, @site can only handle public Facebook content. Please ensure you can access this URL when logged out of Facebook.',
-    'context' => '',
-    'location' => '/checkdesk/media-preview',
-    'translation' => 'عذراً، @site يمكنه استخدام محتوى فيسبوك العلني فقط. يرجى التأكد من أنك يمكنك الوصول إلى تلك الصفحة عندما تقوم بتسجيل الخروج من فيسبوك.',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['e6579ca2bfdc5e34490054ca581c01f5'] = array(
     'source' => 'Please log in or register to relate your Twitter account with a user.',
     'context' => '',
     'location' => '/ar/twitter/oauth?oauth_token=AgIUgQoAq4MhXrZP2fa8X8tpvUZIDoGZwJyQmaTqubA&oauth_verifier=CyRpb9VadZP6bvsZRALrMrdjGI131Q6lsBiFMv8',
     'translation' => 'برجاء تسجيل الدخول أو إنشاء حساباً جديداً لربط حساب تويتر الخاص بك.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['c578cc8a08562bcc22df5fe4a946a6c6'] = array(
+    'source' => 'Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/886',
+    'translation' => 'يرجى <a href="@login_url">تسجيل الدخول</a> لتتمكن من إضافة الملاحظات والمساهمة في التحقق من صحة المعلومات لهذا التقرير',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43125,46 +43125,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['5ceb08be29a2a27a605e590159e1905f'] = array(
-    'source' => 'normal',
-    'context' => '',
-    'location' => '',
-    'translation' => 'عادية',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['51330bcd509a7ce54768f814a7dcc062'] = array(
-    'source' => 'low',
-    'context' => '',
-    'location' => '',
-    'translation' => 'منخفضة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['97622279142c89de15db58c1290f3380'] = array(
-    'source' => 'high',
-    'context' => '',
-    'location' => '',
-    'translation' => 'عالية',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['7a68ab73c218269f01fcae4c25444838'] = array(
-    'source' => 'Display on separate page',
-    'context' => '',
-    'location' => '',
-    'translation' => 'في صفحة منفصلة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['31aaab2b21765ff0d0922ffc3e6122b9'] = array(
-    'source' => 'Location of comment submission form',
-    'context' => '',
-    'location' => '',
-    'translation' => 'موضع استمارة التعليق',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['7ed98c114459b0b619bc76cfb2c92f26'] = array(
     'source' => 'Add a brief description of the story (optional)',
     'context' => '',
@@ -43189,6 +43149,54 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['4a752e0837c8863b9a4cdaeced3b1fda'] = array(
+    'source' => 'Queue title',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'عنوان القائمة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7dbe140f3bc7f4ebd9e6d490a6d6f2ec'] = array(
+    'source' => 'Queue',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'القائمة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a0f4aa7cc43ef2f3afd2a6eb2885cb93'] = array(
+    'source' => 'Featured Stories',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مواضيع مختارة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['dbefdb4bf3bdca279f9c4470789d0f2f'] = array(
+    'source' => 'Featured stories',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مواضيع مختارة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7cb8626379697c95bc110c8c39c9e391'] = array(
+    'source' => 'Queue \'@queue\'',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'قائمة \'@queue\'',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['84036b60ed7a266d2d7bcc4b3522288c'] = array(
+    'source' => 'Queue \'Featured Stories\'',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'قائمة المواضيع المختارة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['8ee24d0dda94409b3ca20e135cc771e1'] = array(
     'source' => 'Max nodes',
     'context' => '',
@@ -43210,6 +43218,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'لا نهائي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['9980767e49e046555cb835196d1ec417'] = array(
+    'source' => 'Queue empty',
+    'context' => '',
+    'location' => '/ar/node/1510/nodequeue',
+    'translation' => 'القائمة خالية',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43261,19 +43277,11 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['a0f4aa7cc43ef2f3afd2a6eb2885cb93'] = array(
-    'source' => 'Featured Stories',
+  $translations['ar:default']['7590abbbcba8f139af5e3e2252c2edeb'] = array(
+    'source' => '!title created successfully.',
     'context' => '',
-    'location' => '',
-    'translation' => 'مواضيع مختارة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['dbefdb4bf3bdca279f9c4470789d0f2f'] = array(
-    'source' => 'Featured stories',
-    'context' => '',
-    'location' => '/index.php',
-    'translation' => 'مواضيع مختارة',
+    'location' => '/ar/system/ajax',
+    'translation' => 'تم إنشاء !title',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43285,11 +43293,43 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['7590abbbcba8f139af5e3e2252c2edeb'] = array(
-    'source' => '!title created successfully.',
+  $translations['ar:default']['5ceb08be29a2a27a605e590159e1905f'] = array(
+    'source' => 'normal',
     'context' => '',
-    'location' => '/ar/system/ajax',
-    'translation' => 'تم إنشاء !title',
+    'location' => '',
+    'translation' => 'عادية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['51330bcd509a7ce54768f814a7dcc062'] = array(
+    'source' => 'low',
+    'context' => '',
+    'location' => '',
+    'translation' => 'منخفضة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['97622279142c89de15db58c1290f3380'] = array(
+    'source' => 'high',
+    'context' => '',
+    'location' => '',
+    'translation' => 'عالية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7a68ab73c218269f01fcae4c25444838'] = array(
+    'source' => 'Display on separate page',
+    'context' => '',
+    'location' => '',
+    'translation' => 'في صفحة منفصلة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['31aaab2b21765ff0d0922ffc3e6122b9'] = array(
+    'source' => 'Location of comment submission form',
+    'context' => '',
+    'location' => '',
+    'translation' => 'موضع استمارة التعليق',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43492,46 +43532,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['4a752e0837c8863b9a4cdaeced3b1fda'] = array(
-    'source' => 'Queue title',
-    'context' => '',
-    'location' => '/index.php',
-    'translation' => 'عنوان القائمة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['7dbe140f3bc7f4ebd9e6d490a6d6f2ec'] = array(
-    'source' => 'Queue',
-    'context' => '',
-    'location' => '/index.php',
-    'translation' => 'القائمة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['7cb8626379697c95bc110c8c39c9e391'] = array(
-    'source' => 'Queue \'@queue\'',
-    'context' => '',
-    'location' => '/',
-    'translation' => 'قائمة \'@queue\'',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['84036b60ed7a266d2d7bcc4b3522288c'] = array(
-    'source' => 'Queue \'Featured Stories\'',
-    'context' => '',
-    'location' => '/',
-    'translation' => 'قائمة المواضيع المختارة',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['a7c7cd53e0a23c92164ad94ad26a09cb'] = array(
-    'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
-    'context' => '',
-    'location' => '/ar/user',
-    'translation' => 'مدونة <span class="checkdesk-slogan-logo">Checkdesk</span> مباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['58f078030058cf1b5cede4c4e21c7c40'] = array(
     'source' => 'Update headline',
     'context' => '',
@@ -43553,6 +43553,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar/user',
     'translation' => '<p>قام <strong><a href="!user_url">!username</a></strong> بتفعيل التحقق من صحة المعلومات <strong><a href="!report_url">للتقرير</a></strong> الذي انشأته. التحقق من صحة المعلومات جارٍ.</p>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a7c7cd53e0a23c92164ad94ad26a09cb'] = array(
+    'source' => 'A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'مدونة <span class="checkdesk-slogan-logo">Checkdesk</span> مباشرة من <span class="checkdesk-slogan-partner">@partner</span>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43600,6 +43608,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['dce35e9550838a5d86752c729a42d65e'] = array(
+    'source' => 'l M d, Y \\a\\t g:ia',
+    'context' => '',
+    'location' => '/',
+    'translation' => '\\ف\\ي M d, Y \\ا\\ل\\س\\ا\\ع\\ة g:i a',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['413659d87c19bf6e36e584fe0837a885'] = array(
     'source' => '<time datetime="!date">!interval ago</time>',
     'context' => '',
@@ -43608,11 +43624,19 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['6f1788ea6d225c0eab904c3fd669a95a'] = array(
+    'source' => 'Follow us',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'تابعنا',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['1a9c1cdae00170519616100b743755ce'] = array(
     'source' => 'Updated at ',
     'context' => '',
     'location' => '/ar/story/%D8%A7%D9%84%D8%B4%D8%B9%D8%A8-%D9%8A%D8%B1%D9%8A%D8%AF-%D8%A5%D9%82%D8%A7%D9%84%D8%A9%D8%A7%D9%84%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D8%B1%D8%B4',
-    'translation' => 'حُدث الساعة',
+    'translation' => 'آخر تحديث ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43640,6 +43664,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['3e4638893d13f289baa2b6f7f3467642'] = array(
+    'source' => 'Added ',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'أضاف ',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['43e65e789145dd0fd713e0ac59b2496b'] = array(
     'source' => 'Load more updates',
     'context' => '',
@@ -43661,30 +43693,6 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => 'تحميل المزيد',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['dce35e9550838a5d86752c729a42d65e'] = array(
-    'source' => 'l M d, Y \\a\\t g:ia',
-    'context' => '',
-    'location' => '/',
-    'translation' => '\\ف\\ي M d, Y \\ا\\ل\\س\\ا\\ع\\ة g:i a',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['6f1788ea6d225c0eab904c3fd669a95a'] = array(
-    'source' => 'Follow us',
-    'context' => '',
-    'location' => '/',
-    'translation' => 'تابعنا',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['3e4638893d13f289baa2b6f7f3467642'] = array(
-    'source' => 'Added ',
-    'context' => '',
-    'location' => '/',
-    'translation' => 'أضاف ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43712,11 +43720,19 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['9980767e49e046555cb835196d1ec417'] = array(
-    'source' => 'Queue empty',
+  $translations['ar:default']['c6be8229aba12b368317ddd9aefc4eef'] = array(
+    'source' => 'A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>',
     'context' => '',
-    'location' => '/ar/node/1510/nodequeue',
-    'translation' => 'القائمة خالية',
+    'location' => '/',
+    'translation' => 'مدونة Checkdesk مباشرة من <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a> ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['9c3c9bc4bbabf4bc22d5d8cf49ad5aa2'] = array(
+    'source' => 'Powered by ',
+    'context' => '',
+    'location' => '/',
+    'translation' => 'مشغل بواسطة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43744,19 +43760,19 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['c6be8229aba12b368317ddd9aefc4eef'] = array(
-    'source' => 'A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>',
+  $translations['ar:default']['e17eae57815d1b04e31e8fda2a500391'] = array(
+    'source' => 'Blogged by ',
     'context' => '',
-    'location' => '/',
-    'translation' => 'مدونة Checkdesk مباشرة من <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a> ',
+    'location' => '/ar',
+    'translation' => 'تدوينة من',
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['9c3c9bc4bbabf4bc22d5d8cf49ad5aa2'] = array(
-    'source' => 'Powered by ',
+  $translations['ar:default']['348aad46f88d0a35c6038e99ffdfe3c3'] = array(
+    'source' => 'Add optional feature image',
     'context' => '',
-    'location' => '/',
-    'translation' => 'مشغل بواسطة',
+    'location' => '/ar/liveblog',
+    'translation' => 'أضف صورة واجهة اختيارية',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43765,14 +43781,6 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=15631&meedan_bookmarklet_url=http%3A//www.youtube.com/watch',
     'translation' => 'تم إنشاء التقرير بنجاح',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['68daa96bb565c4ed72ff96cc202029d8'] = array(
-    'source' => 'Now let\'s <a href="!fact_check_url" !attributes>fact-check it</a> and <a href="!blog_url" !attributes>blog about it</a>.',
-    'context' => '',
-    'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=15631&meedan_bookmarklet_url=http%3A//www.youtube.com/watch',
-    'translation' => 'TODO',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43808,14 +43816,6 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['e17eae57815d1b04e31e8fda2a500391'] = array(
-    'source' => 'Blogged by ',
-    'context' => '',
-    'location' => '/ar',
-    'translation' => 'تدوينة من',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['aeceaebb397248450b6d72f85e49647a'] = array(
     'source' => 'fact-check it',
     'context' => '',
@@ -43840,11 +43840,11 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['348aad46f88d0a35c6038e99ffdfe3c3'] = array(
-    'source' => 'Add optional feature image',
+  $translations['ar:default']['68daa96bb565c4ed72ff96cc202029d8'] = array(
+    'source' => 'Now let\'s <a href="!fact_check_url" !attributes>fact-check it</a> and <a href="!blog_url" !attributes>blog about it</a>.',
     'context' => '',
-    'location' => '/ar/liveblog',
-    'translation' => 'أضف صورة واجهة اختيارية',
+    'location' => '/ar/meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=15631&meedan_bookmarklet_url=http%3A//www.youtube.com/watch',
+    'translation' => 'TODO',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43863,7 +43863,31 @@ print theme(\'views_autorefresh\', array(
     'translation' => 'ضمّن هذا التقرير على موقعك',
     'plid' => 0,
     'plural' => 0,
-  ); 
+  );
+  $translations['ar:default']['52d7f666a9eb49bfe74ea08bc820f62c'] = array(
+    'source' => 'Published on update',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'نُشر بتحديث',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['c3fc1640e75bde915a61111a5c13d222'] = array(
+    'source' => 'Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>',
+    'context' => '',
+    'location' => NULL,
+    'translation' => 'أضيف من قبل <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">منذ !interval </time>',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['03c54d7c2cf89721ee487b5460aad9b8'] = array(
+    'source' => '!city, !country',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
+    'translation' => '!city، !country',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['8a304bc9c0f58e6f4481902a78768082'] = array(
     'source' => '[user:name],
 
@@ -43886,19 +43910,36 @@ This link can only be used once to log in and will lead you to a page where you 
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['6fbc55e63831e4ebbdb46fec89e37006'] = array(
+    'source' => '[user:name],
+
+Thank you for registering at [site:name]. You may now log in by clicking this link or copying and pasting it to your browser:
+
+[user:one-time-login-url]
+
+This link can only be used once to log in and will lead you to a page where you can set your password.
+
+After setting your password, you will be able to log in at [site:login-url] in the future using:
+
+username: [user:name]
+password: Your password
+
+--  [site:name] team',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => '[user:name]، شكراً لتسجيلك على [site:name]. يمكنك الآن تسجيل الدخول بالضغط على الرابط التالي أو نسخه ولصقه في شريط العنوان في المتصفح: [user:one-time-login-url]
+
+يمكن استخدام هذا الرابط لتسجيل الدخول مرة واحد فقط وسيقودك إلى صفحة لضبط كلمة السر. بعد اختيار كلمة السر سيمكنك تسجيل الدخول على هذا الرابط: [site:login-url] بواسطة اسم المستخدم: [user:name] وكلمة السر التي اخترتها.
+
+-- فريق [site:name] ',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['b016552ccb0eb8d15bd5df9a15ddb8a8'] = array(
     'source' => 'Damascus',
     'context' => '',
     'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
     'translation' => 'دمشق',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['03c54d7c2cf89721ee487b5460aad9b8'] = array(
-    'source' => '!city, !country',
-    'context' => '',
-    'location' => '/meedan/meedan-checkdesk/drupal/ar/node/15692',
-    'translation' => '!city، !country',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43934,28 +43975,19 @@ This link can only be used once to log in and will lead you to a page where you 
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['6fbc55e63831e4ebbdb46fec89e37006'] = array(
-    'source' => '[user:name],
-
-Thank you for registering at [site:name]. You may now log in by clicking this link or copying and pasting it to your browser:
-
-[user:one-time-login-url]
-
-This link can only be used once to log in and will lead you to a page where you can set your password.
-
-After setting your password, you will be able to log in at [site:login-url] in the future using:
-
-username: [user:name]
-password: Your password
-
---  [site:name] team',
+  $translations['ar:default']['92e40fb90697c46a1e241b533504caa1'] = array(
+    'source' => '<span>1</span> result. You can drag and drop it.',
     'context' => '',
-    'location' => '/ar/user/register',
-    'translation' => '[user:name]، شكراً لتسجيلك على [site:name]. يمكنك الآن تسجيل الدخول بالضغط على الرابط التالي أو نسخه ولصقه في شريط العنوان في المتصفح: [user:one-time-login-url]
-
-يمكن استخدام هذا الرابط لتسجيل الدخول مرة واحد فقط وسيقودك إلى صفحة لضبط كلمة السر. بعد اختيار كلمة السر سيمكنك تسجيل الدخول على هذا الرابط: [site:login-url] بواسطة اسم المستخدم: [user:name] وكلمة السر التي اخترتها.
-
--- فريق [site:name] ',
+    'location' => '/ar/node/add/post?sort_order=DESC&title=universidade&title_op=contains&source=&source_op=contains; sites/all/themes/checkdesk/assets/js/report.js',
+    'translation' => '<span>1</span> نتيجة. يمكنك سحب التقرير واستخدامه.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['0d38b271b5744a674693082a1b414220'] = array(
+    'source' => '<span>@count</span> results. Drag and drop the best ones.',
+    'context' => '',
+    'location' => '/ar/node/add/post?sort_order=DESC&title=rancid&title_op=contains&source=&source_op=contains; sites/all/themes/checkdesk/assets/js/report.js',
+    'translation' => '<span>@count</span> نتائج. يمكنك سحب تقاريرك المفضلة لاستخدامها. ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43975,14 +44007,6 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['0d38b271b5744a674693082a1b414220'] = array(
-    'source' => '<span>@count</span> results. Drag and drop the best ones.',
-    'context' => '',
-    'location' => '/ar/node/add/post?sort_order=DESC&title=rancid&title_op=contains&source=&source_op=contains',
-    'translation' => '<span>@count</span> نتائج. يمكنك سحب تقاريرك المفضلة لاستخدامها. ',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['2fd742ed81498c29a1c23cbcf55c9a9a'] = array(
     'source' => '<span>@count[2]</span> results. Drag and drop the best ones.',
     'context' => '',
@@ -43991,22 +44015,86 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['92e40fb90697c46a1e241b533504caa1'] = array(
-    'source' => '<span>1</span> result. You can drag and drop it.',
+  $translations['ar:default']['856f0e441ed5e06257e1ee7995a31030'] = array(
+    'source' => 'E-mail address <span>(never shared)</span>',
     'context' => '',
-    'location' => '/ar/node/add/post?sort_order=DESC&title=universidade&title_op=contains&source=&source_op=contains',
-    'translation' => '<span>1</span> نتيجة. يمكنك سحب التقرير واستخدامه.',
+    'location' => '/ar/user/register',
+    'translation' => 'البريد الإلكتروني <span>(لا تتم مشاركته أبداٌ) </span>',
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['52d7f666a9eb49bfe74ea08bc820f62c'] = array(
-    'source' => 'Published on update',
+  $translations['ar:default']['1232cfafd103c971f3d7636d2054e010'] = array(
+    'source' => 'Check your e-mail to confirm your account',
     'context' => '',
-    'location' => '/ar/node/add/post',
-    'translation' => 'نُشر بتحديث',
+    'location' => '/ar/user/register',
+    'translation' => 'تحقق من بريدك الإلكتروني لتفعّل حسابك',
     'plid' => 0,
     'plural' => 0,
-  ); 
+  );
+  $translations['ar:default']['18432433b429538a44e63fb732d1848c'] = array(
+    'source' => 'invalid',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'غير صالح',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['776b9979e364ef1c4ae5e07ef508459f'] = array(
+    'source' => 'required',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'مطلوب ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['2abeab5e278d5ba23cd8f97a1254f4c4'] = array(
+    'source' => 'mismatch',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'عدم تطابق ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['f49c7385473efa2ddae02941e5de750f'] = array(
+    'source' => 'unavailable',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'غير متوفر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3ecdd25c9d7354ae5b44cc235a469648'] = array(
+    'source' => 'good',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'جيد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['45b6edd5977fe929b1395ef481571abf'] = array(
+    'source' => 'wrong answer',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'إجابة خاطئة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['f4bd0403b6b044186e362645e5f7634f'] = array(
+    'source' => 'wrong',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'إجابة خاطئة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['ac6a46c774598f36d84b9af8a9b042e4'] = array(
+    'source' => 'too short',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'قصيرة جداً',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
@@ -44255,10 +44343,10 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:menu']['e802337d1064104fa4df6e447ccdc1f0'] = array(
+  $translations['ar:menu']['d5b349c205064de1e605dbeb2ac925f0'] = array(
     'source' => 'Administer users',
-    'context' => 'item:90476ce1-c57a-48e8-b95a-abc56aae9886:title',
-    'location' => 'menu:item:90476ce1-c57a-48e8-b95a-abc56aae9886:title',
+    'context' => 'item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'location' => 'menu:item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
     'translation' => 'إدارة المستخدمين',
     'plid' => 0,
     'plural' => 0,
@@ -44271,10 +44359,10 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:menu']['d5b349c205064de1e605dbeb2ac925f0'] = array(
+  $translations['ar:menu']['e802337d1064104fa4df6e447ccdc1f0'] = array(
     'source' => 'Administer users',
-    'context' => 'item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
-    'location' => 'menu:item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'context' => 'item:90476ce1-c57a-48e8-b95a-abc56aae9886:title',
+    'location' => 'menu:item:90476ce1-c57a-48e8-b95a-abc56aae9886:title',
     'translation' => 'إدارة المستخدمين',
     'plid' => 0,
     'plural' => 0,

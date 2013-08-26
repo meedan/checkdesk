@@ -57,6 +57,99 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_default_settings';
+  $strongarm->value = array(
+    'validate_options' => array(
+      'disable_html5' => '1',
+      'captcha' => '1',
+      'validate_onsubmit' => '0',
+      'validate_onblur' => '1',
+      'validate_onblur_always' => '1',
+      'validate_onkeyup' => '0',
+      'show_messages' => '0',
+    ),
+    'error' => array(
+      'prefix' => '',
+      'suffix' => '',
+      'scrollto_errormessage' => 1,
+      'scroll_speed' => '1000',
+      'error_element' => 'label',
+    ),
+    'error_placement' => array(
+      'error_placement_default' => '5',
+      'jquery_selector' => '',
+      'custom_error_function' => '',
+    ),
+    'include_hidden' => array(
+      'include_hidden_fields' => 1,
+      'validate_tabs' => 0,
+      'include_hidden' => 'user_register_form',
+    ),
+  );
+  $export['clientside_validation_default_settings'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_filter_paths';
+  $strongarm->value = '1';
+  $export['clientside_validation_filter_paths'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_override_jquery_form';
+  $strongarm->value = '1';
+  $export['clientside_validation_override_jquery_form'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_path_list';
+  $strongarm->value = 'user/register';
+  $export['clientside_validation_path_list'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_rules_added';
+  $strongarm->value = 1;
+  $export['clientside_validation_rules_added'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_testswarm_nodenames';
+  $strongarm->value = array(
+    'webform' => '15730',
+    'webformvalidation' => '15731',
+  );
+  $export['clientside_validation_testswarm_nodenames'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_use_minified';
+  $strongarm->value = '1';
+  $export['clientside_validation_use_minified'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_validate_all';
+  $strongarm->value = '0';
+  $export['clientside_validation_validate_all'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'clientside_validation_validate_specific';
+  $strongarm->value = 'user_register_form';
+  $export['clientside_validation_validate_specific'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_discussion';
   $strongarm->value = 0;
   $export['comment_anonymous_discussion'] = $strongarm;
@@ -522,6 +615,13 @@ return _checkdesk_core_auto_title($node);
   $strongarm->name = 'logintoboggan_login_with_email';
   $strongarm->value = '1';
   $export['logintoboggan_login_with_email'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'logintoboggan_minimum_password_length';
+  $strongarm->value = '6';
+  $export['logintoboggan_minimum_password_length'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1146,7 +1246,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_email_verification';
-  $strongarm->value = 0;
+  $strongarm->value = FALSE;
   $export['user_email_verification'] = $strongarm;
 
   $strongarm = new stdClass();

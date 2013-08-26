@@ -1,0 +1,54 @@
+<?php
+/**
+ * @file
+ *
+ */
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function clientside_validation_ife_form_ife_settings_form_alter(&$form) {
+  $form['general_settings']['ife_display']['#options'][] = t('Show error messages through Clientside Validation');
+  foreach (element_children($form['form_ids']) as $child) {
+    $form['form_ids'][$child]['display']['#options'][] = t('Show error messages through Clientside Validation');
+  }
+}
+
+/**
+ * Implements hook_clientside_validation_form_alter().
+ */
+function clientside_validation_ife_clientside_validation_form_alter(&$form, &$form_state, &$js_rules) {
+  $form['#validate'][] = 'clientside_validation_ife_validator';
+}
+
+function clientside_validation_ife_validator($form, $form_state) {
+  static $settings = array();
+  if (!isset($settings[$form['#form_id']])) {
+    $settings[$form['#form_id']] = array();
+    if (isset($form['#ife_display']) && $form['#ife_display'] == 3) {
+      // recurse through the form elements
+      clientside_validation_ife_recurse_elements($form, $form['#form_id'], $settings);
+    }
+  }
+  $form_id = $form['#id'];
+  $matches = array();
+  preg_match(' /.*?(--(\d)*)/', $form_id, $matches);
+  if (isset($matches[1])) {
+    $form_id = str_replace($matches[1], '', $form_id);
+  }
+  $js_settings['clientsideValidation']['forms'][$form_id]['serverSideErrors'] = $settings[$form['#form_id']];
+  drupal_add_js(drupal_get_path('module', 'clientside_validation_ife') . '/clientside_validation_ife.js');
+  clientside_validation_add_js_settings($settings);
+}
+
+function clientside_validation_ife_recurse_elements($element, $form_id, &$settings) {
+  foreach (element_children($element) as $key) {
+    if (isset($element[$key]) && $element[$key]) {
+      clientside_validation_ife_recurse_elements($element[$key], $form_id, $settings);
+    }
+  }
+  if (isset($element['#name'])) {
+    $settings[$form_id][$element['#name']] = ife_errors('get', $element['#id']);
+    // Delete the message so IFE won't display it again.
+    ife_errors('set', $element['#id'], NULL);
+  }
+}
