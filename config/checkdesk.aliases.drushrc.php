@@ -11,7 +11,7 @@ $aliases['dev'] = array(
 
 // Prod aliases
 $aliases['prod-alias'] = array (
-  'remote-host' => 'www1.checkdesk.org',
+  'remote-host' => 'www2.checkdesk.org',
   //'remote-user' => 'checkdeskdeploy',
   '%dump-dir' => '/home/checkdeskdeploy/drush-dumps',
   //'ssh-options' => '-i /home/checkdeskdeploy/.ssh/checkdeskdeploy -p 43896',
