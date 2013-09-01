@@ -285,6 +285,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			font-size: $base-font-size;
 			line-height: 1.4;
 			color: rgba(0,0,0,.8);
+
+      p {
+        clear: both;
+      }
 		}
 
 		.report-attributes {
