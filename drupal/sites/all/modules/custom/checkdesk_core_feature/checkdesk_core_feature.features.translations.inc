@@ -44095,6 +44095,14 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['6fedd66d5a21e809da11c7ff52fd5842'] = array(
+    'source' => 'Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?',
+    'context' => '',
+    'location' => '/ar/node/add/media?meedan_bookmarklet=1',
+    'translation' => 'اكتب وصفاً أو أضف المزيد من المعلومات. ما هو السياق؟ هل يحتاج هذا الرابط إلى التحقق من صحته؟ هل لديك أدلة على ذلك؟',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
