@@ -255,7 +255,7 @@ function meedan_oembed_node_presave($node) {
         $link !== $old_link && 
         html_entity_decode(strip_tags($node->body[LANGUAGE_NONE][0]['value'])) === 
         html_entity_decode(strip_tags($node->original->body[LANGUAGE_NONE][0]['value']))))) {
-      $node->body[LANGUAGE_NONE][0]['value'] = $embed->description;
+      // $node->body[LANGUAGE_NONE][0]['value'] = $embed->description;
     }
   }
 }

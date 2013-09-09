@@ -5417,6 +5417,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-media .container .oembed--link--meedan-oembed-facebook iframe {
   width: 100%;
 }
+.report .report-content .report-media .container .oembed--link--meedan-oembed-generic .title {
+  padding: 0;
+  font-weight: bold;
+  font-size: 29px;
+  line-height: 1.3;
+}
 .report .report-content .report-media .twitter-wrapper {
   display: inline-block;
 }
@@ -5425,6 +5431,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   font-size: 18px;
   line-height: 1.4;
   color: rgba(0, 0, 0, 0.8);
+}
+.report .report-content .description p {
+  clear: both;
 }
 .report .report-content .report-attributes {
   *zoom: 1;

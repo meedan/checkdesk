@@ -58,16 +58,13 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['report_preview'] = array(
       '#markup' => '<div id="meedan_bookmarklet_preview"><div id="meedan_bookmarklet_preview_gc" style="display: none;"><span>' . t('This report contains graphic content') . '</span>' . l(t('Click to show'), 'javascript:;', array('absolute' => TRUE, 'external' => TRUE)) . '</div><div id="meedan_bookmarklet_preview_content">' . (isset($preview['preview']) ? $preview['preview'] : '') . '</div></div>',
     );
-    if (isset($preview['description'])) {
-      $form['body'][LANGUAGE_NONE][0]['#default_value'] = $preview['description'];
-    }
 
     // Fields order
     $form['field_link']['#weight'] = -1;
     $form['report_preview']['#weight'] = 0;
 
     // Change field attributes
-    $form['body']['und'][0]['#attributes'] = array('placeholder' => t('Description'), 'rows' => 5);
+    $form['body']['und'][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 5);
 
     // Description textarea should not be resizable
     $form['body']['und'][0]['#resizable'] = FALSE;

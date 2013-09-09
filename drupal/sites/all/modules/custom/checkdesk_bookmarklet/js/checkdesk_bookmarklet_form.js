@@ -23,7 +23,6 @@ jQuery(function($) {
         } else {
           $preview.removeClass('error').html(data.preview);
           if (data.title) $('#edit-title').val(data.title);
-          if (data.description) $('#edit-body-und-0-value').val(data.description);
           $controls.show();
         }
       },
