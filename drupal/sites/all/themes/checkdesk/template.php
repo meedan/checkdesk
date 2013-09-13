@@ -923,11 +923,13 @@ function checkdesk_page_alter(&$page) {
       );
     }
     // Sidebar
-    if (in_array($region, array('widgets'))) {
-      $page['widgets'] = array(
-        '#region' => 'widgets',
-        '#theme_wrappers' => array('region'),
-      );
+    if(!isset($page['widgets'])){
+      if (in_array($region, array('widgets'))) {
+        $page['widgets'] = array(
+          '#region' => 'widgets',
+          '#theme_wrappers' => array('region'),
+        );
+      }  
     }
   }
 }
