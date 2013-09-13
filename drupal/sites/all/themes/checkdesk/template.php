@@ -910,14 +910,22 @@ function checkdesk_footer_visibility() {
 }
 
 /**
- * Force footer to show
+ * Force footer and sidebar to show
  */
 function checkdesk_page_alter(&$page) {
   foreach (system_region_list($GLOBALS['theme'], REGIONS_ALL) as $region => $name) {
+    // Footer
     if (in_array($region, array('footer'))) {
       $page['footer'] = array(
         '#region' => 'footer',
         '#weight' => '-10',
+        '#theme_wrappers' => array('region'),
+      );
+    }
+    // Sidebar
+    if (in_array($region, array('widgets'))) {
+      $page['widgets'] = array(
+        '#region' => 'widgets',
         '#theme_wrappers' => array('region'),
       );
     }
