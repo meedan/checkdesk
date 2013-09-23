@@ -17,9 +17,9 @@
             <span class="icon-comment"><?php print render($story_commentcount); ?></span>
           </a>
         </div>
-      <?php } ?> 
+      <?php } ?>
       </div>
-       
+
       <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
         <?php print render($content['links']); ?>
       <?php } ?>
@@ -34,7 +34,7 @@
         <?php print render(field_view_field('node', $node, 'field_lead_image', 'featured_image')); ?>
       </figure>
     <?php } ?>
-    
+
   	<div class="story-body">
   		<?php print render($content['body']); ?>
   	</div>
@@ -44,20 +44,22 @@
       $block = block_load('checkdesk_core', 'post');
       $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
       if(isset($render_array['checkdesk_core_post'])) {
-        $compose_update_form = render($render_array);  
+        $compose_update_form = render($render_array);
       }
     ?>
-    
-    <?php if(isset($compose_update_form)) { ?>
+
+    <?php if (isset($compose_update_form)) { ?>
       <div class="compose-update-form">
         <div class="compose-update-header"><a href="#"><?php print t('Compose Update'); ?></a></div>
         <?php print $compose_update_form; ?>
       </div>
     <?php } ?>
 
-    <div class="story-updates-wrapper">
-      <?php print $updates; ?>
-    </div>
+    <?php if (isset($updates)) { ?>
+      <div class="story-updates-wrapper">
+        <?php print $updates; ?>
+      </div>
+    <?php } ?>
 
     <div class="story-footer">
       <div class="story-updated-at">
