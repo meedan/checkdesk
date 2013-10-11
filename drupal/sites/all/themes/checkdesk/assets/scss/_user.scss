@@ -193,6 +193,16 @@ body.page-user-password { // both logged in and not logged ins states
     @include pad(1, 1, 6);
     margin-top: $absolute-line-height;
 
+    // when labels are visible
+    label {
+      color: $dark-grey;
+    }    
+
+    // no need of space
+    input[type="text"], input[type="password"] {
+      margin-top: 0;
+    }
+
     // hide required stars
     .form-required {
       display: none;

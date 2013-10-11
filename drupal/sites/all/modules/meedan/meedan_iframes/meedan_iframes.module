@@ -58,7 +58,5 @@ function theme_meedan_iframe($vars) {
     )
   );
 
-  $output .= '<script src="' . filter_xss($script_src) . '"></script>';
-
-  return $output;
+  return '<script src="' . filter_xss($script_src) . '"></script>';
 }
