@@ -245,6 +245,13 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					.oembed-content, .oembed-attributes {
 						padding: 0 $gutter-width;
 					}
+					// avoid width to collapse
+					iframe {
+						display: inline-block !important; // centralizes
+						width: 100% !important;
+						min-width: 400px !important;
+						margin-bottom: 0!important; // brings attributes closer
+					}
 				}
 
 				.youtube {
