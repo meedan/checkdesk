@@ -5386,6 +5386,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-media .container .twitter .oembed-content, .report .report-content .report-media .container .twitter .oembed-attributes {
   padding: 0 11px;
 }
+.report .report-content .report-media .container .twitter iframe {
+  display: inline-block !important;
+  width: 100% !important;
+  min-width: 400px !important;
+  margin-bottom: 0 !important;
+}
 .report .report-content .report-media .container .youtube .oembed-attributes {
   padding: 0 11px 6px 11px;
 }
