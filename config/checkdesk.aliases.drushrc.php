@@ -1,6 +1,6 @@
 <?php
 $aliases['prod'] = array(
-  'site-list' => array('@prod.7iber', '@prod.alayyam', '@prod.almasryalyoum', '@prod.annahar', '@prod.maan', '@prod.meedan', '@prod.weladelbalad', '@prod.thetribune'),
+  'site-list' => array('@prod.7iber', '@prod.alayyam', '@prod.almasryalyoum', '@prod.annahar', '@prod.maan', '@prod.meedan', '@prod.weladelbalad', '@prod.thetribune, @prod.madamasr'),
 );
 $aliases['qa'] = array(
   'site-list' => array('@qa.7iber', '@qa.alayyam', '@qa.almasryalyoum', '@qa.annahar', '@qa.maan', '@qa.meedan', '@qa.weladelbalad'),
@@ -62,6 +62,11 @@ $aliases['prod.weladelbalad'] = array (
 $aliases['prod.thetribune'] = array (
   'parent' => '@prod-alias',
   'uri' => 'thetribune.checkdesk.org',
+  'root' => '/var/www/checkdesk.prod/current/drupal',
+);
+$aliases['prod.madamasr'] = array (
+  'parent' => '@prod-alias',
+  'uri' => 'madamasr.checkdesk.org',
   'root' => '/var/www/checkdesk.prod/current/drupal',
 );
 
