@@ -6622,8 +6622,9 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #meedan_bookmarklet_messages {
   padding: 0;
-  margin: 0;
+  margin: 24px 0 0 0;
   clear: both;
+  text-align: center;
 }
 #meedan_bookmarklet #meedan_bookmarklet_messages li {
   display: block;
@@ -6648,12 +6649,11 @@ html body .livefyre-wrapper {
   color: #cccccc;
   font-size: 18px;
   float: left;
-  margin-bottom: 0;
-  padding-top: 11px;
+  margin: 12px 0 0 0;
   line-height: 24px;
 }
 #meedan_bookmarklet #meedan_bookmarklet_help {
-  padding-top: 8px;
+  padding-top: 12px;
   line-height: 24px;
 }
 #meedan_bookmarklet #meedan_bookmarklet_help span {
@@ -6758,8 +6758,9 @@ html body .livefyre-wrapper {
 }
 
 #meedan_bookmarklet_close {
-  float: right;
-  position: relative;
+  position: absolute;
+  right: 11px;
+  top: 2px;
   z-index: 2;
 }
 

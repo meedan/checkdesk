@@ -80,15 +80,14 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     color: $grey;
     font-size: $base-font-size;
     float: $from-direction;
-    margin-bottom: 0;
-    padding-top: $gutter-width;
+    margin: $absolute-line-height/2 0 0 0;
     line-height: $absolute-line-height;
   }
 
   #meedan_bookmarklet_help {
     // position: absolute;
     // top: 0;
-    padding-top: $absolute-line-height / 3;
+    padding-top: $absolute-line-height / 2;
     line-height: $absolute-line-height;
     // #{$omega-float}: $gutter-width;
 
@@ -227,8 +226,9 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
   #meedan_bookmarklet_messages {
     padding: 0;
-    margin: 0;
+    margin: $absolute-line-height 0 0 0;
     clear: both;
+    text-align: center;
     li {
       display: block;
       list-style: none;
@@ -355,8 +355,9 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 }
 
 #meedan_bookmarklet_close {
-  float: opposite-position($from-direction);
-  position: relative;
+  position: absolute;
+  #{opposite-position($from-direction)}: $gutter-width;
+  top: 2px;
   z-index: 2;
 }
 

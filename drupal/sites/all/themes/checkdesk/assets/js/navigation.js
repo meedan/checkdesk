@@ -31,7 +31,7 @@
       if (desiredHeight && allowableHeight < desiredHeight) {
         $wrapper.css({ height: allowableHeight, overflowY: 'scroll' });
       } else {
-        $wrapper.css({ height: 'auto', overflowY: 'hidden' });
+        $wrapper.css({ height: 'auto'});
       }
     },
 
