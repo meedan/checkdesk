@@ -342,7 +342,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		& > header {
 			@include ctb-clearfix();
 			padding: $absolute-line-height/3 $gutter-width;
-			cursor: pointer;
 			background-color: rgba(0,0,0,.1);
 			border-left: 1px solid rgba(0,0,0,.1);
 			border-right: 1px solid rgba(0,0,0,.1);
@@ -427,7 +426,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		// report activity
 		// fact-checking log
 		.activity-wrapper {
-			display: none;
 			@include ctb-clearfix;
 			background-image: $striped_lens;
 			border-left: 1px solid rgba(0,0,0,.1);
