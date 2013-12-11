@@ -13,7 +13,7 @@
        <?php print $edit_profile; ?>
      <?php endif; ?>
 
-     <?php if ($edit_notifications): ?>
+     <?php if (isset($edit_notifications)): ?>
        <?php print $edit_notifications; ?>
      <?php endif; ?>
   </div>
