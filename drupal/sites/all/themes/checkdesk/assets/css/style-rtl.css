@@ -5511,7 +5511,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity > header .report-status span.status-name {
   text-align: left;
   overflow: visible;
-  margin-left: 5px;
+}
+.report .report-activity > header .report-status span.status-by {
+  font-size: 14px;
+  font-weight: 400;
 }
 .report .report-activity > header:hover {
   background-color: rgba(0, 0, 0, 0.5);
@@ -5528,6 +5531,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #efca2b;
 }
 .report .report-activity > .in-progress:hover {
+  color: white;
   background-color: #efca2b;
 }
 .report .report-activity > .in-progress:hover span[class^="icon-"], .report .report-activity > .in-progress:hover span[class*="icon-"], .report .report-activity > .in-progress:hover a {
@@ -5535,11 +5539,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity > .undetermined {
   background-color: #fdd49a;
+  color: #c67605;
 }
 .report .report-activity > .undetermined a {
   color: #c67605;
 }
 .report .report-activity > .undetermined:hover {
+  color: #c67605;
   background-color: #fbbf69;
 }
 .report .report-activity > .undetermined:hover span[class^="icon-"], .report .report-activity > .undetermined:hover span[class*="icon-"], .report .report-activity > .undetermined:hover a {
@@ -5553,6 +5559,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #008c00;
 }
 .report .report-activity > .verified:hover {
+  color: white;
   background-color: rgba(0, 140, 0, 0.8);
 }
 .report .report-activity > .verified:hover span[class^="icon-"], .report .report-activity > .verified:hover span[class*="icon-"], .report .report-activity > .verified:hover a {
@@ -5560,11 +5567,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity > .false {
   background-color: #f4c8c5;
+  color: #9d261d;
 }
 .report .report-activity > .false a {
   color: #9d261d;
 }
 .report .report-activity > .false:hover {
+  color: #721c15;
   background-color: #eca09a;
 }
 .report .report-activity > .false:hover span[class^="icon-"], .report .report-activity > .false:hover span[class*="icon-"], .report .report-activity > .false:hover a {
@@ -5771,12 +5780,14 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   clear: both;
 }
 .report .open > .in-progress {
+  color: white;
   background-color: #efca2b;
 }
 .report .open > .in-progress span[class^="icon-"], .report .open > .in-progress span[class*="icon-"], .report .open > .in-progress a {
   color: white;
 }
 .report .open > .verified {
+  color: white;
   background-color: rgba(0, 140, 0, 0.8);
 }
 .report .open > .verified span[class^="icon-"], .report .open > .verified span[class*="icon-"], .report .open > .verified a {

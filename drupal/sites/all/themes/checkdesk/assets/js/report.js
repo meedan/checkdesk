@@ -33,7 +33,6 @@
           element.find('.activity-wrapper').slideDown('fast');
           element.addClass('open');
         }
-        return false;
       });
 
       // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more

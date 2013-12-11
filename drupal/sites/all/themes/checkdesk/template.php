@@ -659,8 +659,19 @@ function checkdesk_preprocess_node(&$variables) {
           $status_class = 'false';
           $icon = '<span class="icon-remove-sign"></span> ';
         }
+        // Display "{status} by {partner site name}" for all statuses
+        // except when the report is in progress
+        if($status_name != 'In Progress') {
+          $status_by = t(' by <a href="@report_url" target="_blank"><span class="checkdesk-status-partner">@partner</span></a></span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language)), '@report_url' => url('node/' . $variables['nid'], array('language' => $language, 'absolute' => TRUE, 'alias' => TRUE))));
+        }
+
         $variables['status_class'] = $status_class;
-        $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+        // display status with an icon and "x by partner"
+        if(isset($status_name) && isset($icon) && isset($status_by)) {
+          $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span><span class="status-by">' . $status_by . '</span>';
+        } else { // display status with an icon only
+           $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+        }
       }
       if (user_is_logged_in()) {
         $variables['media_activity_footer'] = '';
