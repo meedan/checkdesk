@@ -648,7 +648,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $links['checkdesk-share'] = array(
         'title' => t('Share'),
         'href' => '#',
-        'attributes' => array('title' => $title),
+        'attributes' => array('title' => $node->title),
       );
     }
 
