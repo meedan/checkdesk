@@ -769,11 +769,12 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       ),
     );
     drupal_add_html_head($element, 'meta_og_title');
+    $description = strip_tags(preg_replace('/\n|\r/', ' ', token_replace('[node:summary]', array('node' => $node), array('clear' => TRUE))));
     $element = array(
       '#tag' => 'meta',
       '#attributes' => array(
         'property' => 'og:description',
-        'content' => strip_tags(preg_replace('/\n|\r/', ' ', token_replace('[node:summary]', array('node' => $node), array('clear' => TRUE)))),
+        'content' => (empty($description) ? '-' : $description),
       ),
     );
     drupal_add_html_head($element, 'meta_og_description');
