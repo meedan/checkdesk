@@ -44335,6 +44335,14 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:menu']['148e409e16570985f46071b7e752cced'] = array(
+    'source' => 'Update story',
+    'context' => 'item::title',
+    'location' => 'menu:item::title',
+    'translation' => 'تحديث موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  ); 
   $translations['ar:menu']['cdb4f25368ae3d022c03b88e4266c144'] = array(
     'source' => 'Powered by',
     'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
