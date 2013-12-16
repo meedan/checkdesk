@@ -353,6 +353,13 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'cron_safe_threshold';
+  $strongarm->value = '0';
+  $export['cron_safe_threshold'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'default_oembedcore_provider';
   $strongarm->value = array(
     'youtube' => TRUE,
@@ -1239,7 +1246,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_cancel_method';
-  $strongarm->value = 'user_cancel_block';
+  $strongarm->value = 'user_cancel_delete';
   $export['user_cancel_method'] = $strongarm;
 
   $strongarm = new stdClass();
