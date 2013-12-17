@@ -1601,5 +1601,14 @@ password: Your password
   );
   $export['variable_realm_list_language'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'views_defaults';
+  $strongarm->value = array(
+    'admin_views_user' => TRUE,
+  );
+  $export['views_defaults'] = $strongarm;
+
   return $export;
 }
