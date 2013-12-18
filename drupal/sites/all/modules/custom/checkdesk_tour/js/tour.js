@@ -29,9 +29,17 @@ jQuery(function () {
         
         html += '    </ul>';
 
-        var label = (i == (that.steps.length - 1) ? Drupal.t('Get started') : Drupal.t('Next - <span>@step</span>', { '@step' : that.steps[i+1].title }));
-        html += '    <button data-role="next" class="tour-next">' + label + '</button>';
+        var label, role;
+        if (i == (that.steps.length - 1)) {
+          label = Drupal.t('Get started');
+          role = 'end';
+        }
+        else {
+          label = Drupal.t('Next - <span>@step</span>', { '@step' : that.steps[i+1].title });
+          role = 'next';
+        }
 
+        html += '    <button data-role="' + role + '" class="tour-next">' + label + '</button>';
         html += '    <div class="popover-footer"></div>';
         html += '  </div>';
         html += '</div>';
