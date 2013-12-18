@@ -350,6 +350,10 @@ function meedan_notifications_mail($key, &$message, $params) {
   $body = t($context['message'], $t_args, array('langcode' => $account->language));
   $body = token_replace($body, array('recipient' => $account, $events[$context['event']] => $object), $options);
   $message['body'][] = nl2br($body);
+
+  if (isset($object->nid)) {
+    $message['headers']['X-Checkdesk-ID'] = $object->nid;
+  }
 }
 
 /**
