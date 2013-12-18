@@ -251,6 +251,9 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
         $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
       }
+      else if ($item['link_path'] == 'node/add/post') {
+        $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
+      }
     }
 
     // Build list
