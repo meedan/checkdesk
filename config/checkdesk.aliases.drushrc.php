@@ -1,6 +1,6 @@
 <?php
 $aliases['prod'] = array(
-  'site-list' => array('@prod.7iber', '@prod.alayyam', '@prod.almasryalyoum', '@prod.annahar', '@prod.maan', '@prod.meedan', '@prod.weladelbalad', '@prod.thetribune, @prod.madamasr'),
+  'site-list' => array('@prod.7iber', '@prod.alayyam', '@prod.almasryalyoum', '@prod.annahar', '@prod.maan', '@prod.meedan', '@prod.weladelbalad', '@prod.thetribune', '@prod.madamasr'),
 );
 $aliases['qa'] = array(
   'site-list' => array('@qa.7iber', '@qa.alayyam', '@qa.almasryalyoum', '@qa.annahar', '@qa.maan', '@qa.meedan', '@qa.weladelbalad'),
