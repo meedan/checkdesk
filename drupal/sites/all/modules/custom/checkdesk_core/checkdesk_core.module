@@ -1510,6 +1510,9 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
     }
+
+    // Hook on submit to remove misleading message.
+    $form['#submit'][] = 'checkdesk_core_user_register_form_submit';
   }
 
   // theme file field
@@ -1540,6 +1543,16 @@ function checkdesk_core_rename_remove_button($element, &$form_state) {
   return $element;
 }
 
+function checkdesk_core_user_register_form_submit(&$form, &$form_state) {
+  $message = t('Thank you for applying for an account. Your account is currently pending approval by the site administrator.<br />In the meantime, a welcome message with further instructions has been sent to your e-mail address.');
+  $position = array_search($message, $_SESSION['messages']['status']);
+  if ($position !== FALSE) {
+    unset($_SESSION['messages']['status'][$position]);
+  }
+  $_SESSION['messages']['status'] = array_values($_SESSION['messages']['status']);
+
+  drupal_set_message(t('Thank you for applying for an account. Your account is currently pending approval by the site administrator.'));
+}
 
 /**
  * Implements hook_user_insert().

@@ -1,0 +1,24 @@
+User Registration Password 7.x-1.3 2012-09-12
+---------------------------------------------
+- Feature request: Translatable Confirmation E-Mail - By kle - http://drupal.org/node/1321998
+- New: The correct configuration options are set from the 1.3 release and higher during install. No need to configure anything from now on.
+- New: The default 'Account activation' e-mail template will be overridden during installation, now it makes a lot more sense.
+- Renamed the user_registrationpassword variable to user_registrationpassword_registration, so we can actually remove it correctly via the uninstaller.
+- Minor edit to the e-mail template.
+- Small change in the logic, we used to check for the role of a user (if admin perms) before we called the submit handler, we now only check if the uid < 1. This fixes a minor possible issue. This module should only work if an anonymous user tries to register. This also made #1773430 unnecessary.
+- Added an update function to update the variable names that changed.
+- Added CHANGELOG.txt so people can check at all times what changed, even if d.o. is down. (for maintenance for example)
+- Updated README.txt to reflect changes and remove wrong / unclear documentation.
+
+User Registration Password 1.2 2012-04-12
+-----------------------------------------
+- Bug by scor : Error with user status value - http://drupal.org/node/1513016
+- New: hook_mailkeys() is now supported, please test this. Thanks ominds for the patch!
+
+User Registration Password 1.1 2012-02-04
+-----------------------------------------
+- Bug by jide : Verification email was sent even when option was disabled.
+
+User Registration Password 1.0 2012-02-04
+-----------------------------------------
+- First commit.
