@@ -342,7 +342,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		& > header {
 			@include ctb-clearfix();
 			padding: $absolute-line-height/3 $gutter-width;
-			cursor: pointer;
 			background-color: rgba(0,0,0,.1);
 			border-left: 1px solid rgba(0,0,0,.1);
 			border-right: 1px solid rgba(0,0,0,.1);
@@ -367,7 +366,11 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				span.status-name {
 					text-align: opposite-position($from-direction);
 					overflow: visible;
-					margin-#{opposite-position($from-direction)}:5px; 
+					// margin-#{opposite-position($from-direction)}:5px; 
+				}
+				span.status-by {
+					font-size: modular-scale(0) - modular-scale(-3); // 14px
+					font-weight: 400;
 				}
 			}
 			// header hover
@@ -384,14 +387,17 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			color: rgba(239,202,43,1);
 			a { color: rgba(239,202,43,1); }
 			&:hover {
+				color: $white;
 				background-color: rgba(239,202,43,1);
 				span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 			}
 		}
 		& > .undetermined {
 			background-color: lighten($orange, 30%);
+			color: darken($orange, 10%);
 			a { color: darken($orange, 10%); }
 			&:hover {
+				color: darken($orange, 10%);
 				background-color: lighten($orange, 20%);
 				span[class^="icon-"], span[class*="icon-"], a {	color: darken($orange, 10%); }
 			}
@@ -401,14 +407,17 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			color: rgba(0,140,0,1);
 			a { color: rgba(0,140,0,1); }
 			&:hover {
+				color: $white;
 				background-color: rgba(0,140,0,.8);
 				span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 			}
 		}	
 		& > .false {
 			background-color: lighten($red, 50%);
+			color: $red;
 			a { color: $red; }
 			&:hover {
+				color: darken($red, 10%);
 				background-color: lighten($red, 40%);
 				span[class^="icon-"], span[class*="icon-"], a {	color: darken($red, 10%); }
 			}
@@ -417,7 +426,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		// report activity
 		// fact-checking log
 		.activity-wrapper {
-			display: none;
 			@include ctb-clearfix;
 			background-image: $striped_lens;
 			border-left: 1px solid rgba(0,0,0,.1);
@@ -542,10 +550,12 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 	// Activity header when open
 	.open > .in-progress {
+		color: $white;
 		background-color: rgba(239,202,43,1);
 		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 	}
 	.open > .verified {
+		color: $white;
 		background-color: rgba(0,140,0,.8);
 		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 	}

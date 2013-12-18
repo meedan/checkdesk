@@ -45,7 +45,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 1,
-    'weight' => -45,
+    'weight' => -46,
     'uuid' => 'b54b8beb-654c-c3b4-1938-db4fae8838fe',
     'language' => 'und',
     'customized' => 1,
@@ -107,7 +107,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -47,
+    'weight' => -48,
     'uuid' => 'edc54df9-4aa8-bf84-dd89-ca0a351af23b',
     'language' => 'und',
     'customized' => 1,
@@ -137,17 +137,17 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_name' => 'main-menu',
     'link_path' => 'node/add/post',
     'router_path' => 'node/add/post',
-    'link_title' => 'Compose update',
+    'link_title' => 'Update story',
     'options' => array(
-      'attributes' => array(),
       'alter' => TRUE,
+      'attributes' => array(),
     ),
     'module' => 'menu',
     'hidden' => 0,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -48,
+    'weight' => -47,
     'uuid' => 'd1a4a4e9-b0c3-8d94-11a4-34f35bda25c1',
     'language' => 'und',
     'customized' => 1,
@@ -491,7 +491,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('<user>');
   t('Administer users');
   t('Bookmarklet');
-  t('Compose update');
   t('Create story');
   t('Edit fact-checking statement');
   t('Fact-checking statement');
@@ -503,6 +502,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Sign in');
   t('Submit report');
   t('Terms of use');
+  t('Update story');
   t('View incoming citizen reports');
   t('إضافة المتصفح');
   t('بيان التحقق من صحة المعلومات');

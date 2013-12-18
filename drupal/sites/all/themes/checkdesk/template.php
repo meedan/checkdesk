@@ -251,6 +251,9 @@ function checkdesk_preprocess_page(&$variables) {
         $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
         $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
       }
+      else if ($item['link_path'] == 'node/add/post') {
+        $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
+      }
     }
 
     // Build list
@@ -659,8 +662,19 @@ function checkdesk_preprocess_node(&$variables) {
           $status_class = 'false';
           $icon = '<span class="icon-remove-sign"></span> ';
         }
+        // Display "{status} by {partner site name}" for all statuses
+        // except when the report is in progress
+        if($status_name != 'In Progress') {
+          $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
+        }
+
         $variables['status_class'] = $status_class;
-        $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+        // display status with an icon and "x by partner"
+        if(isset($status_name) && isset($icon) && isset($status_by)) {
+          $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
+        } else { // display status with an icon only
+          $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+        }
       }
       if (user_is_logged_in()) {
         $variables['media_activity_footer'] = '';

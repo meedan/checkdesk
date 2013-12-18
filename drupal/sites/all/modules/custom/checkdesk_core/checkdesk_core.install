@@ -6,6 +6,8 @@
 function checkdesk_core_enable() {
   // Ensure CAPTCHA points are installed for new sites
   checkdesk_core_update_7015();
+  // Resize "uri" column on "file_managed" table
+  checkdesk_core_update_7018();
 }
 
 /**
@@ -173,4 +175,15 @@ function checkdesk_core_update_7017() {
     ))
     ->condition('name', 'checkdesk_core')
     ->execute();
+}
+
+/**
+ * Implements hook_update_N().
+ * Fixes #1861 on Mantis, by resizing "uri" column on "file_managed" table
+ */
+function checkdesk_core_update_7018() {
+  db_query("ALTER TABLE file_managed DROP KEY uri"); // Drop the `uri` index
+  db_query("ALTER TABLE file_managed MODIFY uri VARCHAR(1024)"); // Resize the column
+  db_query("CREATE UNIQUE INDEX uri ON file_managed (uri(255))"); // Recreate the index without exceeding the InnoDB index size
+  db_query("ALTER TABLE file_managed ENGINE=innodb"); // Rebuild the index
 }

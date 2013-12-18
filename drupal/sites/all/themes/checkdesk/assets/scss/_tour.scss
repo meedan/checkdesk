@@ -1,0 +1,149 @@
+// Based on the default bootstrap-tour CSS
+
+.tour-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  background-color: $black;
+  @include ctb-opacity(0.5);
+}
+
+.tour-step-backdrop {
+  position: relative;
+  z-index: 1031;
+  background: inherit;
+}
+
+.tour-step-background {
+  position: absolute !important;
+  z-index: 1030;
+  border-radius: 50%;
+  background: transparent;
+  top: 0;
+  @include box-shadow(200px 15px 50px $white);
+}
+
+.popover-close {
+  display: block;
+  cursor: pointer;
+  width: 15px;
+  height: 24px;
+  background: transparent url(../imgs/icons/close-default.png) center center no-repeat;
+  float: $omega;
+  margin-#{$omega}: 10px;
+  margin-top: 10px;
+
+  &:hover {
+    background: transparent url(../imgs/icons/close-hover.png) center center no-repeat;
+  }
+
+  span {
+    display: none;
+  }
+}
+
+.popover {
+  position: absolute;
+  z-index: 99999;
+  width: 455px;
+  left: 0;
+  @include box-shadow(0px 1px 15px rgba($black, 0.8));
+
+  h3 {
+    line-height: 74px;
+    background: $white;
+    margin: 0;
+
+    b {
+      display: block;
+      width: 34px;
+      line-height: 34px;
+      background: #1986ff;
+      color: $white;
+      text-align: center;
+      border-radius: 50%;
+      float: $alpha;
+      margin: 20px;
+    }
+
+    span {
+      color: #1986ff;
+      font-weight: bold;
+    }
+  }
+}
+
+.popover-content {
+  height: 60px;
+  background: $white;
+  padding: 0;
+  padding-#{$omega}: 20px;
+  padding-#{$alpha}: 74px;
+  font-size: $small-font-size;
+  clear: both;
+}
+
+.popover-arrow {
+  position: absolute;
+  display: block;
+  #{$alpha}: 185px;
+  top: -17px;
+  width: 0; 
+  height: 0; 
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-bottom: 17px solid $white;
+  font-size: 0;
+  line-height: 0;
+}
+
+.popover-navigation {
+  padding: 10px;
+  padding-#{$alpha}: 74px;
+  background: $white;
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: block;
+    cursor: pointer;
+    width: 8px;
+    height: 8px;
+    list-style: none;
+    background-color: #d0d0d0;
+    float: $alpha;
+    margin: 10px;
+    margin-#{$alpha}: 0;
+    border-radius: 50%;
+
+    &.tour-current-step {
+      background-color: #1885fe;
+    }
+  }
+}
+
+.tour-next {
+  float: $omega;
+  background-color: #1885fe;
+  padding: 10px 28px;
+  color: $white;
+  border: 0;
+  border-radius: 4px;
+  font-weight: bold;
+
+  span {
+    font-weight: thin;
+    text-transform: uppercase;
+    font-size: $smaller-font-size;
+  }
+}
+
+.popover-footer {
+  clear: both;
+}

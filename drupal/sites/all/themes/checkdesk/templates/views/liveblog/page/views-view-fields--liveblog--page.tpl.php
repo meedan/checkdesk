@@ -1,4 +1,5 @@
 <?php
+  global $language;
   $user = user_load($fields['uid']->raw);
   $user_picture = $user->picture;
   if (!empty($user_picture)) {
@@ -16,7 +17,7 @@
   ));
 
   $links = array();
-  $url = url('node/' . $fields['nid']->raw, array('absolute' => TRUE));
+  $url = url('node/' . $fields['nid']->raw, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
   $layout = checkdesk_direction_settings();
   $share_links = checkdesk_core_share_links($url, $fields['title']->raw);
   foreach ($share_links as $id => $link) {

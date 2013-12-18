@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
@@ -2475,9 +2476,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear, box-shadow linear;
-  -webkit-transition-delay: 0.2s, 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2514,6 +2515,7 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
+  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -3851,6 +3853,7 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4250,10 +4253,12 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #f7f7f7;
@@ -5172,10 +5177,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
+  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -5477,7 +5484,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity > header {
   *zoom: 1;
   padding: 9.6px 11px;
-  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.1);
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -5511,7 +5517,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity > header .report-status span.status-name {
   text-align: left;
   overflow: visible;
-  margin-left: 5px;
+}
+.report .report-activity > header .report-status span.status-by {
+  font-size: 14px;
+  font-weight: 400;
 }
 .report .report-activity > header:hover {
   background-color: rgba(0, 0, 0, 0.5);
@@ -5528,6 +5537,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #efca2b;
 }
 .report .report-activity > .in-progress:hover {
+  color: white;
   background-color: #efca2b;
 }
 .report .report-activity > .in-progress:hover span[class^="icon-"], .report .report-activity > .in-progress:hover span[class*="icon-"], .report .report-activity > .in-progress:hover a {
@@ -5535,11 +5545,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity > .undetermined {
   background-color: #fdd49a;
+  color: #c67605;
 }
 .report .report-activity > .undetermined a {
   color: #c67605;
 }
 .report .report-activity > .undetermined:hover {
+  color: #c67605;
   background-color: #fbbf69;
 }
 .report .report-activity > .undetermined:hover span[class^="icon-"], .report .report-activity > .undetermined:hover span[class*="icon-"], .report .report-activity > .undetermined:hover a {
@@ -5553,6 +5565,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #008c00;
 }
 .report .report-activity > .verified:hover {
+  color: white;
   background-color: rgba(0, 140, 0, 0.8);
 }
 .report .report-activity > .verified:hover span[class^="icon-"], .report .report-activity > .verified:hover span[class*="icon-"], .report .report-activity > .verified:hover a {
@@ -5560,18 +5573,19 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity > .false {
   background-color: #f4c8c5;
+  color: #9d261d;
 }
 .report .report-activity > .false a {
   color: #9d261d;
 }
 .report .report-activity > .false:hover {
+  color: #721c15;
   background-color: #eca09a;
 }
 .report .report-activity > .false:hover span[class^="icon-"], .report .report-activity > .false:hover span[class*="icon-"], .report .report-activity > .false:hover a {
   color: #721c15;
 }
 .report .report-activity .activity-wrapper {
-  display: none;
   *zoom: 1;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
   border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -5771,12 +5785,14 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   clear: both;
 }
 .report .open > .in-progress {
+  color: white;
   background-color: #efca2b;
 }
 .report .open > .in-progress span[class^="icon-"], .report .open > .in-progress span[class*="icon-"], .report .open > .in-progress a {
   color: white;
 }
 .report .open > .verified {
+  color: white;
   background-color: rgba(0, 140, 0, 0.8);
 }
 .report .open > .verified span[class^="icon-"], .report .open > .verified span[class*="icon-"], .report .open > .verified a {
@@ -6620,8 +6636,9 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #meedan_bookmarklet_messages {
   padding: 0;
-  margin: 0;
+  margin: 28.8px 0 0 0;
   clear: both;
+  text-align: center;
 }
 #meedan_bookmarklet #meedan_bookmarklet_messages li {
   display: block;
@@ -6646,12 +6663,11 @@ html body .livefyre-wrapper {
   color: #cccccc;
   font-size: 18px;
   float: right;
-  margin-bottom: 0;
-  padding-top: 11px;
+  margin: 14.4px 0 0 0;
   line-height: 28.8px;
 }
 #meedan_bookmarklet #meedan_bookmarklet_help {
-  padding-top: 9.6px;
+  padding-top: 14.4px;
   line-height: 28.8px;
 }
 #meedan_bookmarklet #meedan_bookmarklet_help span {
@@ -6756,8 +6772,9 @@ html body .livefyre-wrapper {
 }
 
 #meedan_bookmarklet_close {
-  float: left;
-  position: relative;
+  position: absolute;
+  left: 11px;
+  top: 2px;
   z-index: 2;
 }
 
@@ -7032,10 +7049,12 @@ nav[role="navigation"] .nav > div h2 {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -7097,10 +7116,12 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -7215,10 +7236,12 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -9675,10 +9698,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li.first a, #user-register-form #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -9701,10 +9726,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li a[class^='facebook'], #user-register-form #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -10233,6 +10260,150 @@ body.page-reports .pager-load-more a, .profile .pager-load-more a {
 .ltr {
   text-align: left;
   direction: ltr;
+}
+
+.tour-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  background-color: black;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.tour-step-backdrop {
+  position: relative;
+  z-index: 1031;
+  background: inherit;
+}
+
+.tour-step-background {
+  position: absolute !important;
+  z-index: 1030;
+  border-radius: 50%;
+  background: transparent;
+  top: 0;
+  -webkit-box-shadow: 200px 15px 50px white;
+  -moz-box-shadow: 200px 15px 50px white;
+  box-shadow: 200px 15px 50px white;
+}
+
+.popover-close {
+  display: block;
+  cursor: pointer;
+  width: 15px;
+  height: 24px;
+  background: transparent url(../imgs/icons/close-default.png) center center no-repeat;
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.popover-close:hover {
+  background: transparent url(../imgs/icons/close-hover.png) center center no-repeat;
+}
+.popover-close span {
+  display: none;
+}
+
+.popover {
+  position: absolute;
+  z-index: 99999;
+  width: 455px;
+  left: 0;
+  -webkit-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.8);
+}
+.popover h3 {
+  line-height: 74px;
+  background: white;
+  margin: 0;
+}
+.popover h3 b {
+  display: block;
+  width: 34px;
+  line-height: 34px;
+  background: #1986ff;
+  color: white;
+  text-align: center;
+  border-radius: 50%;
+  float: right;
+  margin: 20px;
+}
+.popover h3 span {
+  color: #1986ff;
+  font-weight: bold;
+}
+
+.popover-content {
+  height: 60px;
+  background: white;
+  padding: 0;
+  padding-left: 20px;
+  padding-right: 74px;
+  font-size: 15px;
+  clear: both;
+}
+
+.popover-arrow {
+  position: absolute;
+  display: block;
+  right: 185px;
+  top: -17px;
+  width: 0;
+  height: 0;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-bottom: 17px solid white;
+  font-size: 0;
+  line-height: 0;
+}
+
+.popover-navigation {
+  padding: 10px;
+  padding-right: 74px;
+  background: white;
+}
+.popover-navigation ul {
+  padding: 0;
+  margin: 0;
+}
+.popover-navigation li {
+  display: block;
+  cursor: pointer;
+  width: 8px;
+  height: 8px;
+  list-style: none;
+  background-color: #d0d0d0;
+  float: right;
+  margin: 10px;
+  margin-right: 0;
+  border-radius: 50%;
+}
+.popover-navigation li.tour-current-step {
+  background-color: #1885fe;
+}
+
+.tour-next {
+  float: left;
+  background-color: #1885fe;
+  padding: 10px 28px;
+  color: white;
+  border: 0;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.tour-next span {
+  font-weight: thin;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.popover-footer {
+  clear: both;
 }
 
 .filter-wrapper {

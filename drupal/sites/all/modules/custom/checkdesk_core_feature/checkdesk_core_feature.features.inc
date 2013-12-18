@@ -9,6 +9,10 @@
  */
 function checkdesk_core_feature_ctools_plugin_api() {
   list($module, $api) = func_get_args();
+  if ($module == "checkdesk_tour" && $api == "default_checkdesk_tour_presets") {
+    return array("version" => "1");
+  }
+  list($module, $api) = func_get_args();
   if ($module == "context" && $api == "context") {
     return array("version" => "3");
   }
