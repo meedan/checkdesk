@@ -35,7 +35,7 @@ jQuery(function () {
           role = 'end';
         }
         else {
-          label = Drupal.t('Next - <span>@step</span>', { '@step' : that.steps[i+1].title });
+          label = Drupal.t('Next');
           role = 'next';
         }
 
@@ -55,7 +55,7 @@ jQuery(function () {
           redirect: false,
           orphan: true,
           container: '#main-body', // Protect iframes
-          duration: 6000,
+          duration: false,
           template: this.template,
           onEnd: function(tour) {
             var next = checkdeskTours.shift();
