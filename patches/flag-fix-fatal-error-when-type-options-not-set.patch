@@ -1,17 +1,8 @@
-From 7d6ab204b45f4b011fad98ffae837e8ef2496954 Mon Sep 17 00:00:00 2001
-From: Caio SBA <caiosba@gmail.com>
-Date: Tue, 25 Dec 2012 12:51:56 -0200
-Subject: [PATCH] Fix fatal error when type options are not set
-
----
- includes/flag/flag_flag.inc |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/includes/flag/flag_flag.inc b/includes/flag/flag_flag.inc
-index 26ef707..03eb79b 100644
---- a/includes/flag/flag_flag.inc
-+++ b/includes/flag/flag_flag.inc
-@@ -115,7 +115,7 @@ class flag_flag {
+diff --git a/drupal/sites/all/modules/contrib/flag/includes/flag/flag_flag.inc b/drupal/sites/all/modules/contrib/flag/includes/flag/flag_flag.inc
+index 071b148..dfd29e2 100644
+--- a/drupal/sites/all/modules/contrib/flag/includes/flag/flag_flag.inc
++++ b/drupal/sites/all/modules/contrib/flag/includes/flag/flag_flag.inc
+@@ -127,7 +127,7 @@ class flag_flag {
  
      // Populate the options with the defaults.
      $options = (array) unserialize($row->options);
@@ -20,7 +11,7 @@ index 26ef707..03eb79b 100644
  
      // Make the unserialized options accessible as normal properties.
      foreach ($options as $option => $value) {
-@@ -184,7 +184,7 @@ class flag_flag {
+@@ -196,7 +196,7 @@ class flag_flag {
  
      // Merge in options from the current link type.
      $link_type = $this->get_link_type();
@@ -29,6 +20,3 @@ index 26ef707..03eb79b 100644
  
      // Allow other modules to change the flag options.
      drupal_alter('flag_options', $options, $this);
--- 
-1.7.2.5
-

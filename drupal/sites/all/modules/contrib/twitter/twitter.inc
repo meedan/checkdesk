@@ -6,6 +6,7 @@
  */
 
 module_load_include('php', 'oauth_common', 'lib/OAuth');
+require_once('twitter.lib.php');
 
 /**
  * Connect to the Twitter API.

@@ -7,10 +7,10 @@ Subject: [PATCH 2/2] Trigger custom event
  views_load_more.js |    3 +++
  1 files changed, 3 insertions(+), 0 deletions(-)
 
-diff --git a/views_load_more.js b/views_load_more.js
+diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 index 6d12f2a..86707a7 100644
---- a/views_load_more.js
-+++ b/views_load_more.js
+--- a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
++++ b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 @@ -55,6 +55,9 @@
        content_query = content_query + ':not(' + content_query + ' ' + content_query + ')';
      }

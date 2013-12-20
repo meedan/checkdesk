@@ -22,7 +22,7 @@ function views_load_more_views_api() {
 function views_load_more_theme() {
   return array(
     'views_load_more_pager' => array(
-      'variables' => array('tags' => array(), 'quantity' => 10, 'element' => 0, 'parameters' => array()),
+      'variables' => array('tags' => array(), 'quantity' => 10, 'element' => 0, 'parameters' => array(), 'total' => 0),
       'pattern' => 'views_load_more_pager__',
     ),
   );
@@ -78,10 +78,11 @@ function theme_views_load_more_pager($vars) {
   $tags = $vars['tags'];
   $element = $vars['element'];
   $parameters = $vars['parameters'];
+  $total = $vars['total'];
 
   $li_next = theme('pager_next',
     array(
-      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'])),
+      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'], array('@total' => $total))),
       'element' => $element,
       'interval' => 1,
       'parameters' => $parameters,
@@ -118,4 +119,15 @@ function views_load_more_views_pre_render(&$view) {
   }
 
   drupal_add_js(drupal_get_path('module', 'views_load_more') . '/views_load_more.js');
+}
+
+/**
+ * Implements hook_views_pre_execute().
+ */
+function views_load_more_views_pre_execute(&$view) {
+  global $pager_page_array;
+  $page = (isset($view->query->pager->options['id']) ? $pager_page_array[$view->query->pager->options['id']] : 0);
+  if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all'] && $page > 0) {
+    $view->query->limit = NULL;
+  }
 }

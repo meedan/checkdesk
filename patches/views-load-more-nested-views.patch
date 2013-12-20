@@ -7,10 +7,10 @@ Subject: [PATCH] Nested views support
  views_load_more.js |   12 +++++++++---
  1 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/views_load_more.js b/views_load_more.js
+diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 index 0914e05..c986a18 100644
---- a/views_load_more.js
-+++ b/views_load_more.js
+--- a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
++++ b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 @@ -11,7 +11,8 @@
    Drupal.ajax.prototype.commands.viewsLoadMoreAppend = function (ajax, response, status) {
      // Get information from the response. If it is not there, default to

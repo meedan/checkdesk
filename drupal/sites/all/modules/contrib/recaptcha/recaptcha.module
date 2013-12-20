@@ -5,6 +5,8 @@
  * Uses the reCAPTCHA web service to improve the CAPTCHA system.
  */
 
+require_once(drupal_get_path('module', 'recaptcha') . '/recaptcha-php-1.11/recaptchalib.php');
+
 /**
  * Implements hook_help().
  */
@@ -143,7 +145,7 @@ function recaptcha_captcha() {
         $recaptcha_custom_html = ($recaptcha_theme == 'custom') ? theme('recaptcha_custom_widget') : '';
         if ($recaptcha_ajax_api == FALSE) {
           // Only generate recaptcha_get_html() if we're not using the AJAX API.
-          $html = recaptcha_get_html($recaptcha_public_key, NULL, TRUE);
+          $html = recaptcha_get_html($recaptcha_public_key, NULL, TRUE, $language->language);
           $captcha['form']['captcha_form'] = array(
             '#type' => 'item',
             '#markup' => (!empty($recaptcha_custom_html) ? '<div id="recaptcha_custom_theme_widget">' . $recaptcha_custom_html . '</div>' : '') . $html,
@@ -193,14 +195,21 @@ function _recaptcha_test_recaptcha_server() {
 function recaptcha_captcha_validation($solution = NULL, $response = NULL) {
   global $user;
   $recaptcha_private_key = variable_get('recaptcha_private_key', FALSE);
+  $challenge = $_POST['recaptcha_challenge_field'];
+  $answer = $_POST['recaptcha_response_field'];
+  $key = 'recaptcha:' . $answer;
+  if (isset($_SESSION[$key])) {
+    return $_SESSION[$key];
+  }
   $ip_address = ip_address();
-  if ($recaptcha_private_key && $ip_address && $response === 'reCAPTCHA' && !empty($_POST['recaptcha_challenge_field']) && !empty($_POST['recaptcha_response_field']) && _recaptcha_test_recaptcha_server()) {
+  if ($recaptcha_private_key && $ip_address && $response === 'reCAPTCHA' && !empty($challenge) && !empty($answer) && _recaptcha_test_recaptcha_server()) {
     $resp = recaptcha_check_answer(
       $recaptcha_private_key,
       $ip_address,
-      check_plain($_POST['recaptcha_challenge_field']),
-      check_plain($_POST['recaptcha_response_field'])
+      check_plain($challenge),
+      check_plain($answer)
     );
+    $_SESSION[$key] = $resp->is_valid;
     return $resp->is_valid;
   }
   return FALSE;

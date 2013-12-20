@@ -9,10 +9,10 @@ Subject: [PATCH] Load all
  views_plugin_pager_load_more.inc |   15 +++++++++++++++
  3 files changed, 36 insertions(+), 4 deletions(-)
 
-diff --git a/views_load_more.js b/views_load_more.js
+diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 index 0914e05..48c70d3 100644
---- a/views_load_more.js
-+++ b/views_load_more.js
+--- a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
++++ b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 @@ -54,8 +54,13 @@
      }
  
@@ -29,10 +29,10 @@ index 0914e05..48c70d3 100644
      wrapper.find(content_query)[method](new_content.find(content_query).children());
      if (effect.showEffect != 'show') {
        wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
-diff --git a/views_load_more.module b/views_load_more.module
+diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.module b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.module
 index 4205e55..df7705e 100644
---- a/views_load_more.module
-+++ b/views_load_more.module
+--- a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.module
++++ b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.module
 @@ -22,7 +22,7 @@ function views_load_more_views_api() {
  function views_load_more_theme() {
    return array(
@@ -70,10 +70,10 @@ index 4205e55..df7705e 100644
 +    $view->query->limit = NULL;
 +  }
 +}
-diff --git a/views_plugin_pager_load_more.inc b/views_plugin_pager_load_more.inc
+diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_plugin_pager_load_more.inc b/drupal/sites/all/modules/contrib/views_load_more/views_plugin_pager_load_more.inc
 index 936bba4..7172313 100644
---- a/views_plugin_pager_load_more.inc
-+++ b/views_plugin_pager_load_more.inc
+--- a/drupal/sites/all/modules/contrib/views_load_more/views_plugin_pager_load_more.inc
++++ b/drupal/sites/all/modules/contrib/views_load_more/views_plugin_pager_load_more.inc
 @@ -40,6 +40,9 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
          'content_class' => array('default' => ''),
        ),
