@@ -170,7 +170,7 @@ function _services_apply_endpoint(&$resources, $endpoint, $strict = TRUE) {
               }
             }
             else {
-              $resource[$class][$op]['endpoint'] = empty($cop['endpoint']) ? array() : $cop['endpoint'];
+              $resource[$class][$op]['endpoint'] = empty($cop['settings']) ? array() : $cop['settings'];
               if (isset($cres['alias'])) {
                 $resource[$class][$op]['endpoint']['alias'] =  $cres['alias'];
               }

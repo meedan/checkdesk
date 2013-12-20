@@ -418,7 +418,7 @@ function entity_metadata_field_property_get($entity, array $options, $name, $ent
 /**
  * Callback for setting field property values.
  */
-function entity_metadata_field_property_set($entity, $name, $value, $langcode, $entity_type) {
+function entity_metadata_field_property_set($entity, $name, $value, $langcode, $entity_type, $info) {
   $field = field_info_field($name);
   $columns = array_keys($field['columns']);
   $langcode = entity_metadata_field_get_language($entity_type, $entity, $field, $langcode);
@@ -428,6 +428,10 @@ function entity_metadata_field_property_set($entity, $name, $value, $langcode, $
   foreach ($values as $delta => $value) {
     if (isset($value)) {
       $items[$delta][$columns[0]] = $value;
+      if ($info['type'] == 'boolean' || $info['type'] == 'list<boolean>') {
+        // Convert boolean values back to an integer for writing.
+        $items[$delta][$columns[0]] = (integer) $items[$delta][$columns[0]] = $value;
+      }
     }
   }
   $entity->{$name}[$langcode] = $items;
@@ -576,7 +580,7 @@ function entity_metadata_field_file_set(&$item, $property_name, $value) {
  */
 function entity_metadata_field_file_create_item($property_name, $context) {
   // 'fid' is required, so 'file' has to be set as initial property.
-  return array('display' => $context['field']['settings']['display_default']);
+  return array('display' => isset($context['field']['settings']['display_default']) ? $context['field']['settings']['display_default'] : 0);
 }
 
 /**
@@ -677,8 +681,24 @@ function entity_metadata_user_properties_access($op, $property, $entity = NULL, 
  * Access callback for the comment entity.
  */
 function entity_metadata_comment_access($op, $entity = NULL, $account = NULL) {
-  if (isset($entity) && !isset($account) && comment_access($op, $entity)) {
-    return TRUE;
+  // When determining access to a comment, 'comment_access' does not take any
+  // access restrictions to the comment's associated node into account. If a
+  // comment has an associated node, the user must be able to view it in order
+  // to access the comment.
+  if (isset($entity->nid)) {
+    if (!entity_access('view', 'node', node_load($entity->nid), $account)) {
+      return FALSE;
+    }
+  }
+  if (isset($entity) && $op == 'update') {
+    // Because 'comment_access' only checks the current user, we need to do our
+    // own access checking if an account was specified.
+    if (!isset($account)) {
+      return comment_access('edit', $entity);
+    }
+    else {
+      return ($account->uid && $account->uid == $entity->uid && $entity->status == COMMENT_PUBLISHED && user_access('edit own comments', $account)) || user_access('administer comments', $account);
+    }
   }
   if (user_access('administer comments', $account) || user_access('access comments', $account) && $op == 'view') {
     return TRUE;

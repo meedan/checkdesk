@@ -1,0 +1,67 @@
+<?php
+
+spl_autoload_register(function ($className) {
+    $parts = explode('_', $className);
+    if ('Redis' === $parts[0]) {
+        $filename = __DIR__ . '/../lib/' . implode('/', $parts) . '.php';
+        return (bool) include_once $filename;
+    }
+    return false;
+}, null, true);
+
+/**
+ * Base implementation for locking functionnal testing.
+ */
+abstract class AbstractRedisCacheUnitTestCase extends DrupalUnitTestCase
+{
+    /**
+     * @var DrupalCacheInterface
+     */
+    private $backend;
+
+    /**
+     * Set up the Redis configuration.
+     *
+     * Set up the needed variables using variable_set() if necessary.
+     *
+     * @return bool
+     *   TRUE in case of success FALSE otherwise.
+     */
+    abstract protected function getCacheBackendClass();
+
+    /**
+     * Get cache backend
+     *
+     * @return DrupalCacheInterface
+     */
+    final protected function getBackend()
+    {
+        if (null === $this->backend) {
+            $class = $this->getCacheBackendClass();
+
+            if (null === $class) {
+                throw new \Exception("Test skipped due to missing driver");
+            }
+
+            $this->backend = new $class('cache');
+        }
+
+        return $this->backend;
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        drupal_install_schema('system');
+    }
+
+    public function tearDown()
+    {
+        $this->backend = null;
+
+        drupal_uninstall_schema('system');
+
+        parent::tearDown();
+    }
+}

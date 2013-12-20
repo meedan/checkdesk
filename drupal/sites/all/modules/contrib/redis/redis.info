@@ -4,11 +4,14 @@ package = Performance
 version = VERSION
 core = 7.x
 configure = admin/config/development/performance/redis
+files[] = tests/abstract_cache.test
 files[] = tests/admin_variables.test
+files[] = tests/cache_fixes.test
+files[] = tests/cache_flush.test
 files[] = tests/lock.test
-; Information added by drupal.org packaging script on 2013-01-16
-version = "7.x-2.0-beta4"
+; Information added by  packaging script on 2013-11-27
+version = "7.x-2.6"
 core = "7.x"
 project = "redis"
-datestamp = "1358339303"
+datestamp = "1385558306"
 

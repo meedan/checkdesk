@@ -22,24 +22,15 @@ define('CLIENTSIDE_VALIDATION_CUSTOM_ERROR_FUNCTION', 7);
 /**
  * Implements hook_js_alter().
  */
-function clientside_validation_js_alter() {
+function clientside_validation_js_alter(&$javascript) {
   $clientside_validation_settings = &drupal_static('clientside_validation_settings', array());
-  if (isset($clientside_validation_settings['clientsideValidation'])) {
-    foreach ($clientside_validation_settings['clientsideValidation']['forms'] as $form_id => $settings) {
-      $stripped_form_id = $form_id;
-      $matches = array();
-      preg_match(' /.*?(--(\d)*)/', $form_id, $matches);
-      if (isset($matches[1])) {
-        $stripped_form_id = str_replace($matches[1], '', $form_id);
-      }
-      if ($stripped_form_id != $form_id) {
-        $clientside_validation_settings['clientsideValidation']['forms'][$form_id] = $clientside_validation_settings['clientsideValidation']['forms'][$stripped_form_id];
-        $clientside_validation_settings['clientsideValidation']['groups'][$form_id] = $clientside_validation_settings['clientsideValidation']['groups'][$stripped_form_id];
-      }
-    }
+  // Provide conversion table between translated month names, both full and abbreviated, and their number.
+  foreach (range(1, 12) as $month_number) {
+    $date = mktime(12, 0, 0, $month_number, 1, 1970);
+    $clientside_validation_settings['clientsideValidation']['general']['months'][t(date('F', $date))] = $month_number;
+    $clientside_validation_settings['clientsideValidation']['general']['months'][t(date('M', $date))] = $month_number;
   }
-  drupal_add_js($clientside_validation_settings, 'setting');
-
+  $javascript['settings']['data'][] = $clientside_validation_settings;
 }
 
 /**
@@ -286,7 +277,7 @@ function clientside_validation_form_alter(&$form, &$form_state, $form_id) {
  * Webform.
  */
 function clientside_validation_webform_after_build(&$form, &$form_state) {
-  static $js_rules = array();
+  $js_rules = array();
   clientside_validation_settings_current_form($form['#clientside_validation_settings']);
   drupal_alter("clientside_validation_webform", $form, $form_state, $js_rules);
   if (!empty($js_rules)) {
@@ -324,15 +315,6 @@ function clientside_validation_add_js_settings($settings) {
 
 function _clientside_validation_add_special_rules(&$js_rules, &$settings, $form) {
   $form_id = $form['#id'];
-  $matches = array();
-  preg_match(' /.*?(--(\d)*)/', $form_id, $matches);
-  if (isset($matches[1])) {
-    $form_id = str_replace($matches[1], '', $form_id);
-  }
-  if ($form_id != $form['#id']) {
-    $settings['clientsideValidation']['forms'][$form['#id']] = array();
-    $settings['clientsideValidation']['groups'][$form['#id']] = new stdClass();
-  }
   if (isset($js_rules['_groups'])) {
     $settings['clientsideValidation']['groups'][$form_id] = (object)$js_rules['_groups'];
     unset($js_rules['_groups']);
@@ -389,13 +371,24 @@ function _clientside_validation_add_special_rules(&$js_rules, &$settings, $form)
       $settings['clientsideValidation']['forms'][$form_id]['rules'][$key] = $rule;
     }
   }
+  // Ajax callback: We do not know if only a single field is replaced/added or
+  // an entire form, so add the settings twice.
+  $matches = array();
+  preg_match(' /.*?(--(\d)*)/', $form_id, $matches);
+  if (isset($matches[1])) {
+    $form_id = str_replace($matches[1], '', $form_id);
+  }
+  if ($form_id != $form['#id']) {
+    $settings['clientsideValidation']['forms'][$form_id] = $settings['clientsideValidation']['forms'][$form['#id']];
+    $settings['clientsideValidation']['groups'][$form_id] = $settings['clientsideValidation']['groups'][$form['#id']];
+  }
 }
 
 /**
  * Regular form.
  */
 function clientside_validation_form_after_build(&$form, &$form_state) {
-  static $js_rules = array();
+  $js_rules = array();
   clientside_validation_settings_current_form($form['#clientside_validation_settings']);
   drupal_alter("clientside_validation_form", $form, $form_state, $js_rules);
   if (!empty($js_rules)) {
@@ -410,19 +403,11 @@ function clientside_validation_form_after_build(&$form, &$form_state) {
 
 function _clientside_validation_add_general_settings(&$settings, $form) {
   $form_id = $form['#id'];
-  $matches = array();
-  preg_match(' /.*?(--(\d)*)/', $form_id, $matches);
-  if (isset($matches[1])) {
-    $form_id = str_replace($matches[1], '', $form_id);
-  }
-  if ($form_id != $form['#id']) {
-    $settings['clientsideValidation']['forms'][$form['#id']] = array();
-  }
   $definedsettings = clientside_validation_settings_current_form();
   // Add a setting for this form if the hidden elements should still be validated
   $include_hidden_setting = $definedsettings['include_hidden']['include_hidden'];
   $include_hidden = preg_split('/(\r\n?|\n)/', $include_hidden_setting, -1, PREG_SPLIT_NO_EMPTY);
-  if (in_array($form['#form_id'], $include_hidden)) {
+  if (isset($form['#form_id']) && in_array($form['#form_id'], $include_hidden) || in_array($form_id, $include_hidden)) {
     $settings['clientsideValidation']['forms'][$form_id]['includeHidden'] = TRUE;
   }
   elseif ($definedsettings['include_hidden']['include_hidden_fields']) {
@@ -470,6 +455,16 @@ function _clientside_validation_add_general_settings(&$settings, $form) {
   }
   else {
     $settings['clientsideValidation']['general']['usexregxp'] = 0;
+  }
+  // Ajax callback: We do not know if only a single field is replaced/added or
+  // an entire form, so add the settings twice.
+  $matches = array();
+  preg_match(' /.*?(--(\d)*)/', $form_id, $matches);
+  if (isset($matches[1])) {
+    $form_id = str_replace($matches[1], '', $form_id);
+  }
+  if ($form_id != $form['#id']) {
+    $settings['clientsideValidation']['forms'][$form_id] = $settings['clientsideValidation']['forms'][$form['#id']];
   }
 }
 
@@ -768,13 +763,14 @@ function _clientside_validation_set_minmaxlength($name, $title, $min, $max, &$js
 /**
  * Set validation rule for fields with a minimum and/or maximum length for select options.
  */
-function _clientside_validation_set_minmaxlength_select($name, $title, $min, $max, &$js_rules, $message = '') {
+function _clientside_validation_set_minmaxlength_select($name, $title, $min, $max, &$js_rules, $message = '', $negate = FALSE) {
   $title = _clientside_validation_set_title($title);
   if ($max == 1) {
     $max = '';
   }
   if (isset($min) && $min !== '' && isset($max) && $max !== '') {
-    $js_rules[$name]['selectRangelength'] = array($min, $max);
+    $js_rules[$name]['selectRangelength']['range'] = array($min, $max);
+    $js_rules[$name]['selectRangelength']['negate'] = $negate;
     if (empty($message)) {
       $variables = array(
         'message' => '!title field has to have between !min and !max values.',
@@ -793,7 +789,7 @@ function _clientside_validation_set_minmaxlength_select($name, $title, $min, $ma
     $js_rules[$name]['messages']['selectRangelength'] = theme('clientside_error', $variables);
   }
   elseif (isset($min) && $min !== '') {
-    $js_rules[$name]['selectMinlength'] = $min;
+    $js_rules[$name]['selectMinlength'] = array('min' => $min, 'negate' => $negate);
     if (empty($message)) {
       $variables = array(
         'message' => '!title field has to have minimal !min values.',
@@ -812,7 +808,7 @@ function _clientside_validation_set_minmaxlength_select($name, $title, $min, $ma
     $js_rules[$name]['messages']['selectMinlength'] = theme('clientside_error', $variables);
   }
   elseif (isset($max) && $max !== '') {
-    $js_rules[$name]['selectMaxlength'] = $max;
+    $js_rules[$name]['selectMaxlength'] = array('max' => $max, 'negate' => $negate);
     if (empty($message)) {
       $variables = array(
         'message' => '!title field has to have maximum !max values.',
@@ -899,9 +895,10 @@ function _clientside_validation_set_minmax_words($name, $title, $min, $max, &$js
 /**
  * Set validation rule for plain text fields
  */
-function _clientside_validation_set_plain_text($name, $title, $allowed_tags, &$js_rules, $message = '') {
+function _clientside_validation_set_plain_text($name, $title, $allowed_tags, &$js_rules, $message = '', $negate = FALSE) {
   $title = _clientside_validation_set_title($title);
-  $js_rules[$name]['plaintext'] = empty($allowed_tags) ? '' : $allowed_tags;
+  $js_rules[$name]['plaintext']['tags'] = empty($allowed_tags) ? '' : $allowed_tags;
+  $js_rules[$name]['plaintext']['negate'] = $negate;
   if (empty($message)) {
       $variables = array(
         'message' => (empty($allowed_tags)) ? '!title field can not contain any HTML tags' : '!title field can not contain any HTML tags exept !allowed',
@@ -966,7 +963,7 @@ function _clientside_validation_set_not_equal($name, $title, $elements, &$js_rul
   }
   if (empty($message)) {
     $variables = array(
-      'message' => '!title field has to different from !firstone',
+      'message' => '!title field has to be different from !firstone',
       'placeholders' => array('!title' => $title, '!firstone' => theme('item_list',  $items)),
       'error_type' => 'notequalto',
       'element_name' => $name,
@@ -986,11 +983,11 @@ function _clientside_validation_set_not_equal($name, $title, $elements, &$js_rul
 /**
  * Set validation rule for fields that must be equal to a specific value.
  */
-function _clientside_validation_set_specific_value($name, $title, $value, &$js_rules, $message = '', $case_sensitive = TRUE) {
+function _clientside_validation_set_specific_value($name, $title, $value, &$js_rules, $message = '', $case_sensitive = TRUE, $negate = FALSE) {
   if (!is_array($value)) {
     $value = array($value);
   }
-  $js_rules[$name]['oneOf'] = array('values' => $value, 'caseSensitive' => $case_sensitive);
+  $js_rules[$name]['oneOf'] = array('values' => $value, 'caseSensitive' => $case_sensitive, 'negate' => $negate);
   $title = _clientside_validation_set_title($title);
   if (empty($message)) {
     $variables = array(
@@ -1039,8 +1036,9 @@ function _clientside_validation_set_specific_values($name, $title, $values, &$js
 /**
  * Set validation rule for fields that can not consist of one or more specific values
  */
-function _clientside_validation_set_blacklist($name, $title, $values, &$js_rules, $message='') {
-  $js_rules[$name]['blacklist'] = $values;
+function _clientside_validation_set_blacklist($name, $title, $values, &$js_rules, $message = '', $negate = FALSE) {
+  $js_rules[$name]['blacklist']['values'] = $values;
+  $js_rules[$name]['blacklist']['negate'] = $negate;
   $title = _clientside_validation_set_title($title);
   if (empty($message)) {
     $variables = array(
@@ -1089,7 +1087,7 @@ function _clientside_validation_set_ean($name, $title, &$js_rules, $message = ''
 /**
  * Set validation rule for fields with regex validation from webform_validation
  */
-function _clientside_validation_set_regex($name, $title, &$js_rules, $expression, $message = '', $modifiers = "", $type = 'regex') {
+function _clientside_validation_set_regex($name, $title, &$js_rules, $expression, $message = '', $modifiers = "", $type = 'regex', $negate = FALSE) {
   $title = _clientside_validation_set_title($title);
   if (empty($message)) {
     $variables = array(
@@ -1107,9 +1105,10 @@ function _clientside_validation_set_regex($name, $title, &$js_rules, $expression
     );
   }
   $message = theme('clientside_error', $variables);
-  $js_rules[$name]['regexMatch'] = array($expression);
+  $js_rules[$name]['regexMatch']['regex'] = array($expression);
+  $js_rules[$name]['regexMatch']['negate'] = $negate;
   if (!empty($modifiers)) {
-    $js_rules[$name]['regexMatch'][] = $modifiers;
+    $js_rules[$name]['regexMatch']['regex'][] = $modifiers;
   }
   $js_rules[$name]['messages']['regexMatch'] = $message;
 }
@@ -1268,7 +1267,12 @@ function _clientside_validation_set_date($name, $title, $format, &$js_rules, $me
   }
   $parts = explode($splitter, $format);
   $daypos = (array_search('d', $parts) === FALSE) ? array_search('j', $parts) : array_search('d', $parts);
-  $monthpos = (array_search('m', $parts) === FALSE) ? array_search('M', $parts) : array_search('m', $parts);
+  foreach (array('m', 'M', 'F', 'n') as $m) {
+    $monthpos = array_search($m, $parts);
+    if ($monthpos !== FALSE) {
+      break;
+    }
+  }
   $yearpos = array_search('Y', $parts);
   $js_rules[$name]['dateFormat'] = array('format' => $format, 'splitter' => $splitter, 'daypos' => $daypos, 'monthpos' => $monthpos, 'yearpos' => $yearpos);
   $variables = array(
@@ -1555,7 +1559,7 @@ function clientside_validation_library_alter(&$libraries, $module) {
     }
 
     $path = drupal_get_path('module', 'clientside_validation');
-    
+
     // Replace jQuery Form plugin.
     $libraries['jquery.form']['js']['misc/jquery.form.js']['data'] = $path . '/jquery.form.js';
     $libraries['jquery.form']['version'] = '3.09';

@@ -25,6 +25,8 @@
  *  - 'description': A longer description shown in the UI when creating a new
  *    flag.
  *  - 'handler': The name of the class implementing this flag type.
+ *  - 'module': (optional) The name of the module that should be registered as a
+ *    dependency for this flag type.
  *
  * @see flag_fetch_definition()
  */
@@ -34,6 +36,7 @@ function hook_flag_type_info() {
       'title' => t('Nodes'),
       'description' => t("Nodes are a Drupal site's primary content."),
       'handler' => 'flag_node',
+      'module' => 'node',
     ),
   );
 }
@@ -54,7 +57,37 @@ function hook_flag_type_info_alter(&$definitions) {
  * Define default flags.
  */
 function hook_flag_default_flags() {
-
+  $flags = array();
+  $flags['bookmarks'] = array (
+    'entity_type' => 'node',
+    'title' => 'Bookmarks',
+    'global' => FALSE,
+    'types' => array (
+      0 => 'article',
+      1 => 'blog',
+    ),
+    'flag_short' => 'Bookmark this',
+    'flag_long' => 'Add this post to your bookmarks',
+    'flag_message' => 'This post has been added to your bookmarks',
+    'unflag_short' => 'Unbookmark this',
+    'unflag_long' => 'Remove this post from your bookmarks',
+    'unflag_message' => 'This post has been removed from your bookmarks',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'weight' => 0,
+    'show_in_links' => array (
+      'full' => TRUE,
+      'token' => FALSE,
+    ),
+    'show_as_field' => FALSE,
+    'show_on_form' => FALSE,
+    'access_author' => '',
+    'show_contextual_link' => TRUE,
+    'show_on_profile' => FALSE,
+    'access_uid' => '',
+    'api_version' => 3,
+  );
+  return $flags;
 }
 
 /**
@@ -121,7 +154,46 @@ function hook_flag_unflag($flag, $entity_id, $account, $flagging) {
 }
 
 /**
- * Allow modules to allow or deny access to flagging.
+ * Perform custom validation on a flag before flagging/unflagging.
+ *
+ * @param $action
+ *  The action about to be carried out. Either 'flag' or 'unflag'.
+ * @param $flag
+ *  The flag object.
+ * @param $entity_id
+ *  The id of the entity the user is trying to flag or unflag.
+ * @param $account
+ *  The user account performing the action.
+ * @param $flagging
+ *  The flagging entity.
+ *
+ * @return
+ *   Optional array: textual error with the error-name as the key.
+ *   If the error name is 'access-denied' and javascript is disabled,
+ *   drupal_access_denied will be called and a 403 will be returned.
+ *   If validation is successful, do not return a value.
+ */
+function hook_flag_validate($action, $flag, $entity_id, $account, $skip_permission_check, $flagging) {
+  // We're only operating on the "test" flag, and users may always unflag.
+  if ($flag->name == 'test' && $action == 'flag') {
+    // Get all flags set by the current user.
+    $flags = flag_get_user_flags('node', NULL, $account->uid, $sid = NULL, $reset = FALSE);
+    // Check if this user has any flags of this type set.
+    if (isset($flags['test'])) {
+      $count = count($flags[$flag->name]);
+      if ($count >= 2) {
+        // Users may flag only 2 nodes with this flag.
+        return(array('access-denied' => t('You may only flag 2 nodes with the test flag.')));
+      }
+    }
+  }
+}
+
+/**
+ * Allow modules to allow or deny access to flagging for a single entity.
+ *
+ * Called when displaying a single entity view or edit page.  For flag access
+ * checks from within Views, implement hook_flag_access_multiple().
  *
  * @param $flag
  *  The flag object.
@@ -133,9 +205,15 @@ function hook_flag_unflag($flag, $entity_id, $account, $flagging) {
  *  The user on whose behalf to test the flagging action.
  *
  * @return
- *   Boolean TRUE if the user is allowed to flag/unflag the given entity.
- *   FALSE otherwise.
+ *   One of the following values:
+ *     - TRUE: User has access to the flag.
+ *     - FALSE: User does not have access to the flag.
+ *     - NULL: This module does not perform checks on this flag/action.
  *
+ *   NOTE: Any module that returns FALSE will prevent the user from
+ *   being able to use the flag.
+ *
+ * @see hook_flag_access_multiple()
  * @see flag_flag:access()
  */
 function hook_flag_access($flag, $entity_id, $action, $account) {
@@ -143,7 +221,10 @@ function hook_flag_access($flag, $entity_id, $action, $account) {
 }
 
 /**
- * Allow modules to allow or deny access to flagging.
+ * Allow modules to allow or deny access to flagging for multiple entities.
+ *
+ * Called when preparing a View or list of multiple flaggable entities.
+ * For flag access checks for individual entities, see hook_flag_access().
  *
  * @param $flag
  *  The flag object.
@@ -277,5 +358,17 @@ function hook_flag_reset($flag, $entity_id, $rows) {
  * @see flag_build_javascript_info()
  */
 function hook_flag_javascript_info_alter() {
+
+}
+
+/**
+ * Alter a flag object that is being prepared for exporting.
+ *
+ * @param $flag
+ *  The flag object.
+ *
+ * @see flag_export_flags()
+ */
+function hook_flag_export_alter($flag) {
 
 }

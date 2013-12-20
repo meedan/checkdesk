@@ -262,7 +262,7 @@ function theme_twitter_account_list_form($variables) {
         drupal_render($element['visible_name']),
       drupal_render($element['description']),
     );
-    if (user_access('administer_twitter_accounts')) {
+    if (user_access('administer twitter accounts')) {
       $row[] = drupal_render($element['user']);
     }
     $row = array_merge($row, array(

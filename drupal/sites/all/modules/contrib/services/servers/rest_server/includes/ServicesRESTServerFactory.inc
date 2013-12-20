@@ -30,7 +30,7 @@ class ServicesRESTServerFactory {
     $parsers = $this->getParsers();
     $formatters = $this->getFormatters();
 
-    $class_name = static::$class_name;
+    $class_name = self::$class_name;
     return new $class_name($context, $content_type_negotiator, $resources, $parsers, $formatters);
   }
 

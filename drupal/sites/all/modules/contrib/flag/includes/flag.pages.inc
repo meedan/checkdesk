@@ -23,47 +23,48 @@ function flag_page($action, $flag, $entity_id) {
   // Specifically $_GET to avoid getting the $_COOKIE variable by the same key.
   $has_js = isset($_GET['has_js']);
 
-  // Check the flag token, then perform the flagging.
+  // Check the flag token, and then javascript status.
   if (!flag_check_token($token, $entity_id)) {
-    $error = t('Bad token. You seem to have followed an invalid link.');
+    $flag->errors['token'] = t('Bad token. You seem to have followed an invalid link.');
   }
   elseif ($user->uid == 0 && !$has_js) {
-    $error = t('You must have JavaScript and cookies enabled in your browser to flag content.');
-  }
-  else {
-    $result = $flag->flag($action, $entity_id);
-    if (!$result) {
-      $error = t('You are not allowed to flag, or unflag, this content.');
-    }
+    $flag->errors['javascript'] = t('You must have JavaScript and cookies enabled in your browser to flag content.');
   }
 
-  // If an error was received, set a message and exit.
-  if (isset($error)) {
-    if ($js) {
-      drupal_add_http_header('Content-Type', 'text/javascript; charset=utf-8');
-      print drupal_json_encode(array(
-        'status' => FALSE,
-        'errorMessage' => $error,
-      ));
-      drupal_exit();
-    }
-    else {
-      drupal_set_message($error);
-      drupal_access_denied();
-      return;
-    }
+  // If no errors have been detected thus far, perform the flagging.
+  // Further errors may still be detected during validation and prevent
+  // the operation from succeeding.
+  if (!$flag->errors) {
+    $flag->flag($action, $entity_id);
   }
 
   // If successful, return data according to the request type.
   if ($js) {
     drupal_add_http_header('Content-Type', 'text/javascript; charset=utf-8');
     $flag->link_type = 'toggle';
+    // Any errors that have been set will be output below
+    // the flag link with javascript.
     print drupal_json_encode(flag_build_javascript_info($flag, $entity_id));
     drupal_exit();
   }
   else {
-    drupal_set_message($flag->get_label($action . '_message', $entity_id));
-    drupal_goto();
+    $errors = $flag->get_errors();
+    if ($errors) {
+      // If an error was received, set a message and exit.
+      foreach ($errors as $error) {
+        drupal_set_message($error, 'error');
+      }
+      if (isset($errors['access-denied'])) {
+        return MENU_ACCESS_DENIED;
+      }
+      else {
+        drupal_goto();
+      }
+    }
+    else {
+      drupal_set_message($flag->get_label($action . '_message', $entity_id));
+      drupal_goto();
+    }
   }
 }
 
@@ -80,13 +81,10 @@ function flag_page($action, $flag, $entity_id) {
  * @see flag_confirm_submit()
  */
 function flag_confirm($form, &$form_state, $action, $flag, $entity_id) {
+  $form['#flag'] = $flag;
   $form['action'] = array(
     '#type' => 'value',
     '#value' => $action,
-  );
-  $form['flag_name'] = array(
-    '#type' => 'value',
-    '#value' => $flag->name,
   );
   $form['entity_id'] = array(
     '#type' => 'value',
@@ -117,11 +115,9 @@ function flag_confirm($form, &$form_state, $action, $flag, $entity_id) {
  * @see flag_confirm()
  */
 function flag_confirm_submit(&$form, &$form_state) {
+  $flag = $form['#flag'];
   $action = $form_state['values']['action'];
-  $flag_name = $form_state['values']['flag_name'];
   $entity_id = $form_state['values']['entity_id'];
-
-  $flag = flag_get_flag($flag_name);
 
   if ($action == 'flag') {
     // If the action 'flag', further build up the new entity from form values.
@@ -135,7 +131,11 @@ function flag_confirm_submit(&$form, &$form_state) {
   }
 
   if (!$result) {
-    drupal_set_message(t('You are not allowed to flag, or unflag, this content.'));
+    if ($errors = $flag->get_errors()) {
+      foreach ($errors as $error) {
+        drupal_set_message($error, 'error');
+      }
+    }
   }
   else {
     drupal_set_message($flag->get_label($action . '_message', $entity_id));
@@ -146,10 +146,15 @@ function flag_confirm_submit(&$form, &$form_state) {
  * Builds the JavaScript structure describing the flagging operation.
  */
 function flag_build_javascript_info($flag, $entity_id) {
+  $errors = $flag->get_errors();
   $info = array(
     'status' => TRUE,
-    'newLink' => $flag->theme($flag->is_flagged($entity_id) ? 'unflag' : 'flag', $entity_id, TRUE),
+    'newLink' => $flag->theme($flag->is_flagged($entity_id) ? 'unflag' : 'flag', $entity_id, array(
+      'after_flagging' => TRUE,
+      'errors' => $errors,
+    )),
     // Further information for the benefit of custom JavaScript event handlers:
+    'flagSuccess' => !$errors,
     'contentId' => $entity_id,
     'entityType' => $flag->entity_type,
     'flagName' => $flag->name,

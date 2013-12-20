@@ -16,8 +16,12 @@ class flag_entity extends flag_flag {
     $options = parent::options();
     $options += array(
       // Output the flag in the entity links.
+      // This is empty for now and will get overriden for different
+      // entities.
       // @see hook_entity_view().
-      'show_on_entity' => TRUE,
+      'show_in_links' => array(),
+      // Output the flag as individual pseudofields.
+      'show_as_field' => FALSE,
       // Add a checkbox for the flag in the entity form.
       // @see hook_field_attach_form().
       'show_on_form' => FALSE,
@@ -43,24 +47,56 @@ class flag_entity extends flag_flag {
       '#description' => t('Select the bundles that this flag may be used on. Leave blank to allow on all bundles for the entity type.'),
       '#default_value' => $this->types,
     );
-    // Handlers may want to unset this option if they provide their own more
-    // specific ways to show links.
-    $form['display']['show_on_entity'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Display link on entity'),
-      '#default_value' => isset($this->show_on_entity) ? $this->show_on_entity : TRUE,
+
+    // Add checkboxes to show flag link on each entity view mode.
+    $options = array();
+    $defaults = array();
+    foreach ($entity_info['view modes'] as $name => $view_mode) {
+      $options[$name] = t('Display on @name view mode', array('@name' => $view_mode['label']));
+      $defaults[$name] = !empty($this->show_in_links[$name]) ? $name : 0;
+    }
+
+    $form['display']['show_in_links'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Display in entity links'),
+      '#description' => t('Show the flag link with the other links on the entity.'),
+      '#options' => $options,
+      '#default_value' => $defaults,
     );
+
+    $form['display']['show_as_field'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Display link as field'),
+      '#description' => t('Show the flag link as a pseudofield, which can be ordered among other entity elements in the "Manage display" settings for the entity type.'),
+      '#default_value' => isset($this->show_as_field) ? $this->show_as_field : TRUE,
+    );
+    if (empty($entity_info['fieldable'])) {
+      $form['display']['show_as_field']['#disabled'] = TRUE;
+      $form['display']['show_as_field']['#description'] = t("This entity type is not fieldable.");
+    }
+
     $form['display']['show_on_form'] = array(
       '#type' => 'checkbox',
       '#title' => t('Display checkbox on entity edit form'),
       '#default_value' => $this->show_on_form,
+      '#weight' => 5,
     );
+
+    // We use FieldAPI to put the flag checkbox on the entity form, so therefore
+    // require the entity to be fielable. Since this is a potential DX
+    // headscratcher for a developer wondering where this option has gone,
+    // we disable it and explain why.
+    if (empty($entity_info['fieldable'])) {
+      $form['display']['show_on_form']['#disabled'] = TRUE;
+      $form['display']['show_on_form']['#description'] = t('This is only possible on entities which are fieldable.');
+    }
     $form['display']['show_contextual_link'] = array(
       '#type' => 'checkbox',
       '#title' => t('Display in contextual links'),
       '#default_value' => $this->show_contextual_link,
       '#description' => t('Note that not all entity types support contextual links.'),
       '#access' => module_exists('contextual'),
+      '#weight' => 10,
     );
   }
 
@@ -128,11 +164,12 @@ class flag_entity extends flag_flag {
   }
 
   /**
-   * Returns TRUE if the link should be displayed.
+   * Determine whether the flag should show a flag link in entity links.
    */
-  function uses_hook_link($teaser) {
-    if ($this->show_on_entity) {
-      return TRUE;
+  function shows_in_entity_links($view_mode) {
+    // Check for settings for the given view mode.
+    if (isset($this->show_in_links[$view_mode])) {
+      return (bool) $this->show_in_links[$view_mode];
     }
     return FALSE;
   }
@@ -163,7 +200,7 @@ class flag_entity extends flag_flag {
     $flag_action = parent::get_flag_action($entity_id);
     $entity = $this->fetch_entity($entity_id);
     $flag_action->content_title = entity_label($this->entity_type, $entity);
-    $flag_action->content_url = _flag_url($this->entity_type . '/' . $this->get_entity_id($entity));
+    $flag_action->content_url = $this->_flag_url($this->entity_type . '/' . $this->get_entity_id($entity));
     return $flag_action;
   }
 
@@ -181,6 +218,11 @@ class flag_entity extends flag_flag {
    */
   function get_views_info() {
     $entity_info = entity_get_info($this->entity_type);
+
+    if (!isset($entity_info['base table'])) {
+      return NULL;
+    }
+
     return array(
       'views table' => $entity_info['base table'],
       'join field' => $entity_info['entity keys']['id'],

@@ -11,11 +11,8 @@
 class flag_comment extends flag_entity {
   function options() {
     $options = parent::options();
-    // Use own display settings in the meanwhile.
-    unset($options['show_on_entity']);
     $options += array(
       'access_author' => '',
-      'show_on_comment' => TRUE,
     );
     return $options;
   }
@@ -39,14 +36,6 @@ class flag_comment extends flag_entity {
       '#default_value' => $this->access_author,
       '#description' => t("Restrict access to this flag based on the user's ownership of the content. Users must also have access to the flag through the role settings."),
     );
-
-    $form['display']['show_on_comment'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Display link under comment'),
-      '#default_value' => $this->show_on_comment,
-    );
-
-    unset($form['display']['show_on_entity']);
   }
 
   function type_access_multiple($entity_ids, $account) {
@@ -80,10 +69,6 @@ class flag_comment extends flag_entity {
     return $comment->cid;
   }
 
-  function uses_hook_link($teaser) {
-    return $this->show_on_comment;
-  }
-
   function get_labels_token_types() {
     return array_merge(array('comment', 'node'), parent::get_labels_token_types());
   }
@@ -102,7 +87,7 @@ class flag_comment extends flag_entity {
     $flag_action = parent::get_flag_action($entity_id);
     $comment = $this->fetch_entity($entity_id);
     $flag_action->content_title = $comment->subject;
-    $flag_action->content_url = _flag_url("comment/$comment->cid", "comment-$comment->cid");
+    $flag_action->content_url = $this->_flag_url("comment/$comment->cid", "comment-$comment->cid");
     return $flag_action;
   }
 

@@ -6,7 +6,6 @@
  */
 
 module_load_include('php', 'oauth_common', 'lib/OAuth');
-require_once('twitter.lib.php');
 
 /**
  * Connect to the Twitter API.
@@ -76,11 +75,13 @@ function twitter_account_save($twitter_user, $save_auth = FALSE) {
  *   TwitterUser object or NULL.
  */
 function twitter_account_load($id) {
-  if ($values = db_query('SELECT *
-                          FROM {twitter_account}
-                          WHERE twitter_uid = :id
-                            OR screen_name  = :id',
-                          array(':id' => $id))->fetchAssoc()) {
+  $values = db_query('SELECT *
+                      FROM {twitter_account}
+                      WHERE twitter_uid = :id_1
+                      OR screen_name  = :id_2',
+                      array(':id_1' => $id, ':id_2' => $id))
+              ->fetchAssoc();
+  if (!empty($values)) {
     $values['id'] = $values['twitter_uid'];
     $account = new TwitterUser($values);
     $account->set_auth($values);

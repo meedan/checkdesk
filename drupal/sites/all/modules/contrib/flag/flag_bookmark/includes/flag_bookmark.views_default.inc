@@ -193,7 +193,7 @@ function flag_bookmark_views_default_views() {
 
   $view = new view;
   $view->name = 'flag_bookmarks_tab';
-  $view->description = 'Provides a tab on all user\'s profile pages containing bookmarks for that user.';
+  $view->description = "Provides a tab on all users' profile pages containing bookmarks for that user.";
   $view->tag = 'flag';
   $view->view_php = '';
   $view->base_table = 'node';
@@ -246,7 +246,7 @@ function flag_bookmark_views_default_views() {
 
   $view = new view;
   $view->name = 'flag_' . $flag->name;
-  $view->description = 'A page listing the current user\'s bookmarks at /bookmarks.';
+  $view->description = "A page listing the current user's bookmarks at /bookmarks.";
   $view->tag = 'flag';
   $view->view_php = '';
   $view->base_table = 'node';

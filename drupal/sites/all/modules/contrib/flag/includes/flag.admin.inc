@@ -12,7 +12,11 @@ function flag_admin_page() {
   $flags = flag_get_flags();
   $default_flags = flag_get_default_flags(TRUE);
   $flag_admin_listing = drupal_get_form('flag_admin_listing', $flags);
-  return theme('flag_admin_page', array('flags' => $flags, 'default_flags' => $default_flags, 'flag_admin_listing' => $flag_admin_listing));
+  return theme('flag_admin_page', array(
+    'flags' => $flags,
+    'default_flags' => $default_flags,
+    'flag_admin_listing' => $flag_admin_listing,
+  ));
 }
 
 /**
@@ -84,7 +88,7 @@ function theme_flag_admin_listing($variables) {
     $permission = "flag $flag->name";
     $roles = user_roles(FALSE, $permission);
     $row = array();
-    $row[] = $flag->title . ' <small>(' . t('Machine name: @name', array('@name' => $flag->name)) . ')</small>';
+    $row[] = check_plain($flag->title) . ' <small>(' . t('Machine name: @name', array('@name' => $flag->name)) . ')</small>';
     if (count($flags) > 1) {
       $row[] = drupal_render($form['flags'][$flag->name]['weight']);
     }
@@ -113,7 +117,11 @@ function theme_flag_admin_listing($variables) {
     $header[] = t('Weight');
   }
   $header = array_merge($header, array(t('Flag type'), t('Roles'), t('Entity bundles'), t('Global?'), t('Operations')));
-  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'flag-admin-listing-table')));
+  $output .= theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array('id' => 'flag-admin-listing-table'),
+  ));
   $output .= drupal_render_children($form);
 
   return $output;
@@ -208,10 +216,20 @@ function theme_flag_admin_page($variables) {
 
 /**
  * Menu callback for adding a new flag.
+ *
+ * @param $entity_type
+ *  The entity type for the new flag, taken from the path argument. If not
+ *  present (i.e., '/add'), a form showing all possible flag types is shown.
+ *  Otherwise, this shows a form for adding af flag the given type.
+ *
+ * @see flag_add_form()
+ * @see flag_form()
  */
 function flag_add_page($entity_type = NULL) {
   if (isset($entity_type)) {
     $flag = flag_flag::factory_by_entity_type($entity_type);
+    // Mark the flag as new.
+    $flag->is_new = TRUE;
     $type_info = flag_fetch_definition($entity_type);
     drupal_set_title(t('Add new @type flag', array('@type' => $type_info['title'])));
     return drupal_get_form('flag_form', $flag);
@@ -362,11 +380,14 @@ function flag_form($form, &$form_state, $flag) {
     '#type' => 'fieldset',
     '#description' =>
       '<p>' . t('The above six texts may contain any of the tokens listed below. For example, <em>"Flag link text"</em> could be entered as:') . '</p>' .
-      theme('item_list', array('items' => array(
-        t('Add &lt;em&gt;[node:title]&lt;/em&gt; to your favorites'),
-        t('Add this [node:type] to your favorites'),
-        t('Vote for this proposal ([node:flag-vote-count] people have already done so)'),
-      ), 'attributes' => array('class' => 'token-examples'))) .
+      theme('item_list', array(
+        'items' => array(
+          t('Add &lt;em&gt;[node:title]&lt;/em&gt; to your favorites'),
+          t('Add this [node:type] to your favorites'),
+          t('Vote for this proposal ([node:flag-vote-count] people have already done so)'),
+        ),
+        'attributes' => array('class' => 'token-examples'),
+      )) .
       '<p>' . t('These tokens will be replaced with the appropriate fields from the node (or user, or comment).') . '</p>' .
       theme('flag_tokens_browser', array('types' => $flag->get_labels_token_types())),
     '#collapsible' => TRUE,
@@ -459,21 +480,36 @@ function flag_form($form, &$form_state, $flag) {
     '#description' => t('Flags are usually controlled through links that allow users to toggle their behavior. You can choose how users interact with flags by changing options here. It is legitimate to have none of the following checkboxes ticked, if, for some reason, you wish <a href="@placement-url">to place the the links on the page yourself</a>.', array('@placement-url' => 'http://drupal.org/node/295383')),
     '#tree' => FALSE,
     '#weight' => 20,
+    '#after_build' => array('flag_link_type_options_states'),
   );
 
   $form['display']['link_type'] = array(
     '#type' => 'radios',
     '#title' => t('Link type'),
     '#options' => _flag_link_type_options(),
-    '#option_descriptions' => _flag_link_type_descriptions(),
-    '#flag_link_fields' => _flag_link_type_fields(),
-    '#after_build' => array('flag_expand_link_option', 'flag_check_link_types'),
+    '#after_build' => array('flag_check_link_types'),
     '#default_value' => $flag->link_type,
-    '#weight' => 2,
+    // Give this a high weight so additions by the flag classes for entity-
+    // specific options go above.
+    '#weight' => 18,
+    '#attached' => array(
+      'js' => array(drupal_get_path('module', 'flag') . '/theme/flag-admin.js'),
+    ),
+    '#attributes' => array(
+      'class' => array('flag-link-options'),
+    ),
   );
+  // Add the descriptions to each ratio button element. These attach to the
+  // elements when FormAPI expands them.
+  foreach (_flag_link_type_descriptions() as $key => $description) {
+    $form['display']['link_type'][$key]['#description'] = $description;
+  }
 
   $form['display']['link_options_intro'] = array(
-    '#markup' => '<p id="link-options-intro">' . t('The selected link type may require these additional settings:') . '</p>',
+    // This is a hack to allow a markup element to use FormAPI states.
+    // @see http://www.bywombats.com/blog/06-25-2011/using-containers-states-enabled-markup-form-elements
+    '#type' => 'container',
+    '#children' => '<p id="link-options-intro">' . t('The selected link type may require these additional settings:') . '</p>',
     '#weight' => 20,
   );
 
@@ -525,6 +561,42 @@ function flag_form($form, &$form_state, $flag) {
 }
 
 /**
+ * FormAPI after_build function set states on link type options fieldsets.
+ *
+ * We do this in an after build so we handle further link types fieldsets from
+ * other modules that provide link types.
+ *
+ * This expects a link type's fieldset to be $form['display'][link_options_TYPE]
+ * so that can be matched up with the radio button value.
+ */
+function flag_link_type_options_states($element) {
+  $intro_element_values_array = array();
+  foreach (element_children($element) as $key) {
+    if (isset($element[$key]['#type']) && $element[$key]['#type'] == 'fieldset' && substr($key, 0, 12) == 'link_options') {
+      // Trim the radio value from the fieldset key. This assumed the fieldset
+      // key is 'link_options_TYPE'.
+      $radio_value = substr($key, 13);
+      $element[$key]['#states'] = array(
+        'visible' => array(
+          ':input[name="link_type"]' => array('value' => $radio_value),
+        ),
+      );
+      // Gather up the radio values for the format we need for a multiple
+      // value state.
+      $intro_element_values_array[] = array('value' => $radio_value);
+    }
+  }
+
+  $element['link_options_intro']['#states'] = array(
+    'visible' => array(
+      ':input[name="link_type"]' => $intro_element_values_array,
+    ),
+  );
+
+  return $element;
+}
+
+/**
  * Form process handler for locking flag properties.
  *
  * Flags defined in code may define an array of properties in $flag->locked that
@@ -560,6 +632,7 @@ function flag_form_locked_process($element, &$form_state, $form) {
  * Add/Edit flag form validate.
  */
 function flag_form_validate($form, &$form_state) {
+  $form_state['values']['title'] = trim($form_state['values']['title']);
   $form_values = $form_state['values'];
 
   if ($form_values['link_type'] == 'confirm') {
@@ -587,12 +660,15 @@ function flag_form_validate($form, &$form_state) {
  */
 function flag_form_submit($form, &$form_state) {
   $flag = $form['#flag'];
+
+  $form_state['values']['title'] = trim($form_state['values']['title']);
   $flag->form_input($form_state['values']);
 
   $flag->save();
   $flag->enable();
   drupal_set_message(t('Flag @title has been saved.', array('@title' => $flag->get_title())));
-  _flag_clear_cache();
+  // We clear caches more vigorously if the flag was new.
+  _flag_clear_cache($flag->entity_type, !empty($flag->is_new));
 
   // Save permissions.
   // This needs to be done after the flag cache has been cleared, so that
@@ -648,14 +724,21 @@ function theme_flag_form_roles($variables) {
     $rows[] = $row;
   }
 
-  return theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('flag-admin-table'), 'id' => 'flag-roles')));
+  return theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array(
+      'class' => array('flag-admin-table'),
+      'id' => 'flag-roles',
+    ),
+  ));
 }
 
 /**
  * Delete flag page.
  */
 function flag_delete_confirm($form, &$form_state, $flag) {
-  $form['fid'] = array('#type' => 'value', '#value' => $flag->fid);
+  $form['#flag'] = $flag;
 
   return confirm_form($form,
     t('Are you sure you want to delete %title?', array('%title' => $flag->get_title())),
@@ -666,33 +749,14 @@ function flag_delete_confirm($form, &$form_state, $flag) {
 }
 
 function flag_delete_confirm_submit($form, &$form_state) {
-  $flag = flag_get_flag(NULL, $form_state['values']['fid']);
+  $flag = $form['#flag'];
   if ($form_state['values']['confirm']) {
     $flag->delete();
     $flag->disable();
-    _flag_clear_cache();
+    _flag_clear_cache($flag->entity_type, TRUE);
   }
   drupal_set_message(t('Flag @name has been deleted.', array('@name' => $flag->get_title())));
   $form_state['redirect'] = FLAG_ADMIN_PATH;
-}
-
-/**
- * FormAPI after_build function to add descriptions to radio buttons.
- */
-function flag_expand_link_option($element) {
-  $element['#attached'] = array(
-    'js' => array(drupal_get_path('module', 'flag') . '/theme/flag-admin.js'),
-  );
-
-  foreach (element_children($element) as $key) {
-    // Add a description to the link option.
-    if (isset($element['#option_descriptions'][$key])) {
-      $element[$key]['#description'] = $element['#option_descriptions'][$key];
-    }
-  }
-  $element['#attributes']['class'] = array('flag-link-options');
-
-  return $element;
 }
 
 /**
@@ -707,15 +771,44 @@ function flag_check_link_types($element) {
 }
 
 /**
- * Clears various caches when a flag is modified.
+ * Clears various caches when one or more flags are modified.
+ *
+ * @param $entity_types
+ *  The entity types for the flags. May be a single value or an array.
+ * @param $is_insert_or_delete
+ *  Whether the modified flag is being inserted (saved for the first time) or
+ *  deleted. This results in a more vigorous clearing of caches. In
+ *  particular, when no flags exist yet, no Field admin UI paths exist and these
+ *  need to be created.
  */
-function _flag_clear_cache() {
-  if (module_exists('views')) {
-    views_invalidate_cache();
+function _flag_clear_cache($entity_types, $is_insert_or_delete = FALSE) {
+  if (!is_array($entity_types)) {
+    $entity_types = array($entity_types);
   }
+
   // Reset our flags cache, thereby making the following code aware of the
   // modifications.
   drupal_static_reset('flag_get_flags');
+
+  if ($is_insert_or_delete) {
+    // A new or deleted flag means we are changing bundles on the Flagging
+    // entity, and thus need to clear the entity info cache.
+    entity_info_cache_clear();
+  }
+
+  // Clear FieldAPI's field_extra cache, so our changes to pseudofields are
+  // noticed. It's rather too much effort to both a) check whether the
+  // pseudofield setting has changed either way, and b) specifically clear just
+  // the bundles that are (or were!!) affected, so we just clear for all bundles
+  // on our entity type regardlesss.
+  foreach ($entity_types as $entity_type) {
+    cache_clear_all("field_info:bundle_extra:$entity_type:", 'cache_field', TRUE);
+  }
+
+  if (module_exists('views')) {
+    views_invalidate_cache();
+  }
+
   // The title of a flag may appear in the menu (indirectly, via our "default
   // views"), so we need to clear the menu cache. This call also clears the
   // page cache, which is desirable too because the flag labels may have

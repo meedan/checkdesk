@@ -11,8 +11,6 @@
 class flag_user extends flag_entity {
   function options() {
     $options = parent::options();
-    // Use own display settings in the meanwhile.
-    unset($options['show_on_entity']);
     $options += array(
       'show_on_profile' => TRUE,
       'access_uid' => '',
@@ -40,10 +38,11 @@ class flag_user extends flag_entity {
     $form['display']['show_on_profile'] = array(
       '#type' => 'checkbox',
       '#title' => t('Display link on user profile page'),
+      '#description' => t('Show the link formatted as a user profile element.'),
       '#default_value' => $this->show_on_profile,
+      // Put this above 'show on entity'.
+      '#weight' => -1,
     );
-
-    unset($form['display']['show_on_entity']);
   }
 
   function form_input($form_values) {
@@ -76,18 +75,11 @@ class flag_user extends flag_entity {
     return $access;
   }
 
-  function uses_hook_link($teaser) {
-    if ($this->show_on_profile) {
-      return TRUE;
-    }
-    return FALSE;
-  }
-
   function get_flag_action($entity_id) {
     $flag_action = parent::get_flag_action($entity_id);
     $user = $this->fetch_entity($entity_id);
     $flag_action->content_title = $user->name;
-    $flag_action->content_url = _flag_url('user/' . $user->uid);
+    $flag_action->content_url = $this->_flag_url('user/' . $user->uid);
     return $flag_action;
   }
 

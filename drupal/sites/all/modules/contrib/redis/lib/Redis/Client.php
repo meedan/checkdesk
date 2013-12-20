@@ -85,11 +85,21 @@ class Redis_Client {
    * @return Redis_Client_Interface
    */
   public static function getClientInterface() {
-    if (!isset(self::$_clientInterface)) {
-      global $conf;
+    global $conf;
 
-      if ($clientName = variable_get('redis_client_interface', FALSE)) {
-        $className = self::getClass(self::REDIS_IMPL_CLIENT, $clientName);
+    if (!isset(self::$_clientInterface)) {
+      if (!empty($conf['redis_client_interface'])) {
+        $className = self::getClass(self::REDIS_IMPL_CLIENT, $conf['redis_client_interface']);
+        self::$_clientInterface = new $className();
+      }
+      else if (class_exists('Predis\Client')) {
+        // Transparent and abitrary preference for Predis library.
+        $className = self::getClass(self::REDIS_IMPL_CLIENT, 'Predis');
+        self::$_clientInterface = new $className();
+      }
+      else if (class_exists('Redis')) {
+        // Fallback on PhpRedis if available.
+        $className = self::getClass(self::REDIS_IMPL_CLIENT, 'PhpRedis');
         self::$_clientInterface = new $className();
       }
       else {
@@ -152,6 +162,14 @@ class Redis_Client {
     }
 
     return $className;
+  }
+
+  /**
+   * For unit testing only reset internals.
+   */
+  static public function reset() {
+    self::$_clientInterface = null;
+    self::$_client = null;
   }
 }
 

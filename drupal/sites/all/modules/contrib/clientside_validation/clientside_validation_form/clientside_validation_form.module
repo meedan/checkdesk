@@ -17,6 +17,9 @@ function clientside_validation_form_after_build_recurse($form_id, &$form, &$form
       $element = &$form[$item];
       if (isset($element['#type'])) {
         clientside_validation_regular($form_id, $element, $js_rules, $form_state);
+        if ($element['#type'] == 'submit' && isset($element['#limit_validation_errors']) && empty($element['#limit_validation_errors']) && $element['#limit_validation_errors'] !== FALSE) {
+          $element['#attributes']['class'][] = 'cancel';
+        }
       }
       if (isset($element['#element_validate']) && !empty($element['#element_validate'])) {
         $context = array('type' => 'element_validate', 'functions' => $element['#element_validate']);
@@ -46,6 +49,10 @@ function clientside_validation_regular($form_id, $element, &$js_rules, $form_sta
     $field_info = field_info_instance($element['#entity_type'], $element['#field_name'], $element['#bundle']);
   }
   if (isset($field_info['exclude_cv']) && $field_info['exclude_cv'] == '1') {
+    $skipvalidation = TRUE;
+  }
+  elseif (isset($element['#exclude_cv']) && $element['#exclude_cv']) {
+    //skip validation if defined so by form element
     $skipvalidation = TRUE;
   }
 

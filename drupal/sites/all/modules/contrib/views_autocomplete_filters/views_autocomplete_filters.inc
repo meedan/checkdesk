@@ -83,6 +83,7 @@ function views_autocomplete_filter($filter_name, $view_name, $display_name, $str
   if (empty($expose_options['autocomplete_items'])) {
     $pager = array(
       'type' => 'full',
+      'options' => array(),
     );
   }
   else {
@@ -118,23 +119,26 @@ function views_autocomplete_filter($filter_name, $view_name, $display_name, $str
     // Get the raw field value only if suggestion or dropdown item is in RAW format.
     if ($use_raw_suggestion || $use_raw_dropdown) {
       $raw_field = $view->style_plugin->get_field_value($index, $field_name);
-      if (is_array($raw_field)) {
-        $values = array();
-        foreach ($raw_field as $delta => $item) {
-          if (isset($item['value'])) {
-            $values[] = $item['value'];
-          }
-        }
-        $raw_field = implode(', ', $values);
+      if (!is_array($raw_field)) {
+        $raw_field = array(array('value' => $raw_field));
       }
     }
     
-    $dropdown = $use_raw_dropdown ? check_plain($raw_field) : $rendered_field;
-    if ($dropdown != '') {
-      $suggestion = $use_raw_suggestion ? check_plain($raw_field) : decode_entities($rendered_field);
+    if (empty($raw_field)) {
+      $raw_field = array(array('value' => $rendered_field));
+    }
 
-      // Add a class wrapper for a few required CSS overrides.
-      $matches[$suggestion] = '<div class="reference-autocomplete">' . $dropdown . '</div>';
+    foreach ($raw_field as $delta => $item) {
+      if (isset($item['value']) && strstr(drupal_strtolower($item['value']), drupal_strtolower($string))) {
+        $dropdown = $use_raw_dropdown ? check_plain($item['value']) : $rendered_field;
+        if ($dropdown != '') {
+          $suggestion = $use_raw_suggestion ? check_plain($item['value']) : $rendered_field;
+          $suggestion = decode_entities($suggestion);
+
+          // Add a class wrapper for a few required CSS overrides.
+          $matches[$suggestion] = '<div class="reference-autocomplete">' . $dropdown . '</div>';
+        }
+      }
     }
   }
   unset($view->row_index);
