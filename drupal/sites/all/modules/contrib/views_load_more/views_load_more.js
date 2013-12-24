@@ -55,7 +55,7 @@
 
     // Ignore nested views
     pager_query = pager_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + pager_query + ')';
-    content_query = content_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + content_query + ')';
+    content_query = '.view-content:not(' + wrapper_selector + ' .view-content .view-content)';
 
     // Additional processing over new content
     wrapper.trigger('views_load_more.new_content', new_content.clone());
