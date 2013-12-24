@@ -699,7 +699,7 @@ function checkdesk_preprocess_node(&$variables) {
         // the iframe tag enters the viewport.
         // See: http://stackoverflow.com/a/7154968/806988
         $placeholder = base_path() . path_to_theme() . '/assets/imgs/icons/loader_white.gif';
-        $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src=["\'])=/i', '<\1\2src="' . $placeholder . '" data-lazy-load-src=', $field_link_rendered);
+        $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src=["\'])/i', '<\1\2src="' . $placeholder . '" data-lazy-load-\3', $field_link_rendered);
 
         // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)
         $field_link_rendered = preg_replace('/<(blockquote)([^>]*)class=/i', '<\1\2data-lazy-load-class=', $field_link_rendered);
