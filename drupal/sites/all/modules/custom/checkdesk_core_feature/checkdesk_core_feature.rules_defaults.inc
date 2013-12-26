@@ -779,7 +779,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "!flag_author_url" : [ "flagging-user:url" ],
             "!flag_author_name" : [ "flagging-user:name" ],
             "!report_url" : [ "flagged-node:url" ],
-            "!flag_type" : "[flag:title]"
+            "!flag_type" : "\\u003C?php print $flag-\\u003Etitle; ?\\u003E"
           }
         },
         { "schedule" : {
