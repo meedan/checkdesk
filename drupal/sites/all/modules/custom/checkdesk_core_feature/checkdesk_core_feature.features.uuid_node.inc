@@ -273,14 +273,10 @@ function checkdesk_core_feature_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 12:45:20 -0800',
+  'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
   'uid' => 1,
@@ -297,7 +293,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '0f9577cb-2267-41d1-938c-5d1ffc89db8e',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -369,8 +365,8 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'comment_count' => 0,
   'name' => 'admin',
   'picture' => 0,
-  'data' => 'a:4:{s:11:"remember_me";b:1;s:20:"l10n_client_disabled";b:0;s:18:"htmlmail_plaintext";i:0;s:17:"sensitive_content";i:0;}',
-  'date' => '2013-07-13 12:28:32 -0700',
+  'data' => 'a:5:{s:18:"htmlmail_plaintext";i:0;s:20:"l10n_client_disabled";b:0;s:17:"sensitive_content";i:0;s:7:"overlay";i:0;s:11:"remember_me";b:1;}',
+  'date' => '2013-07-13 22:28:32 +0300',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -472,14 +468,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 12:45:20 -0800',
+  'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -770,14 +762,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 12:45:20 -0800',
+  'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -884,14 +872,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 12:45:20 -0800',
+  'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -993,14 +977,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 12:45:20 -0800',
+  'date' => '2013-03-04 22:45:20 +0200',
 );
   $nodes[] = array(
   'uid' => 1,
@@ -1017,7 +997,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'd008f7b7-f994-47c6-9c92-83742262b8a7',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1089,8 +1069,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'comment_count' => 0,
   'name' => 'admin',
   'picture' => 0,
-  'data' => 'a:4:{s:11:"remember_me";b:1;s:20:"l10n_client_disabled";b:0;s:18:"htmlmail_plaintext";i:0;s:17:"sensitive_content";i:0;}',
-  'date' => '2013-07-13 15:48:45 -0700',
+  'data' => 'a:5:{s:18:"htmlmail_plaintext";i:0;s:20:"l10n_client_disabled";b:0;s:17:"sensitive_content";i:0;s:7:"overlay";i:0;s:11:"remember_me";b:1;}',
+  'date' => '2013-07-14 01:48:45 +0300',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -1174,14 +1154,10 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 12:45:20 -0800',
+  'date' => '2013-03-04 22:45:20 +0200',
 );
   return $nodes;
 }

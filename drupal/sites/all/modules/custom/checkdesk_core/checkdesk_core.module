@@ -115,7 +115,39 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['checkdesk_take_tour'] = array(
+    'title' => 'Take a tour based on role',
+    'page callback' => '_checkdesk_core_take_tour',
+    'access callback' => '_checkdesk_core_can_take_tour',
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
+}
+
+/**
+ * Menu callback function for `checkdesk_take_tour`
+ */
+function _checkdesk_core_take_tour() {
+  global $user;
+  $roles = array_values($user->roles);
+  $tour = '';
+  if (in_array('journalist', $roles)) {
+    $tour = 'journalist';
+  }
+  else if (in_array('citizen journalist', $roles)) {
+    $tour = 'citizen';
+  }
+  drupal_goto('<front>', array('query' => array('tour' => $tour)));
+}
+
+/**
+ * Menu access callback function for `checkdesk_take_tour`
+ */
+function _checkdesk_core_can_take_tour() {
+  global $user;
+  $roles = array_values($user->roles);
+  return in_array('journalist', $roles) || in_array('citizen journalist', $roles);
 }
 
 /**

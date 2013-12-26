@@ -2337,6 +2337,10 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f14b";
 }
 
+nav[role="navigation"] a[href*="checkdesk_take_tour"]:before {
+  content: "\f14e";
+}
+
 #widgets .elsewhere ul li span.icon-youtube:before {
   content: "\f167";
 }
@@ -6997,6 +7001,18 @@ nav[role="navigation"] li.home a:before {
   line-height: inherit;
   color: rgba(255, 255, 255, 0.65);
   margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+nav[role="navigation"] a[href*="checkdesk_take_tour"]:before {
+  font-family: "FontAwesome";
+  font-size: 15px;
+  line-height: inherit;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 0 5.5px;
   width: auto;
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
