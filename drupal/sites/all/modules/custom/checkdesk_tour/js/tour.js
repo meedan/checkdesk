@@ -67,6 +67,9 @@ jQuery(function () {
             // If we set margin-left directly on CSS, it won't work on Firefox
             // FIXME: Argh, hard-coded
             jQuery('.tour-step-background').css('margin-left', '-200px');
+            
+            // Do not hide popovers on mouse over
+            jQuery182('#' + this.id).off('mouseenter').off('mouseleave');
           }
         });
 
