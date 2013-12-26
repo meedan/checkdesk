@@ -7,20 +7,16 @@
 /**
  * Implements hook_ctools_plugin_api().
  */
-function checkdesk_core_feature_ctools_plugin_api() {
-  list($module, $api) = func_get_args();
+function checkdesk_core_feature_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "checkdesk_tour" && $api == "default_checkdesk_tour_presets") {
     return array("version" => "1");
   }
-  list($module, $api) = func_get_args();
   if ($module == "context" && $api == "context") {
     return array("version" => "3");
   }
-  list($module, $api) = func_get_args();
   if ($module == "heartbeat" && $api == "heartbeat") {
     return array("version" => "1");
   }
-  list($module, $api) = func_get_args();
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -29,7 +25,7 @@ function checkdesk_core_feature_ctools_plugin_api() {
 /**
  * Implements hook_views_api().
  */
-function checkdesk_core_feature_views_api() {
+function checkdesk_core_feature_views_api($module = NULL, $api = NULL) {
   return array("api" => "3.0");
 }
 
@@ -55,15 +51,17 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_denied_text' => '',
     'link_type' => 'checkdesk_modal',
     'weight' => -6,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => 'own',
     'show_contextual_link' => 1,
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
     'i18n' => 0,
     'confirm_modal_style' => 'modal-popup-small',
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
@@ -87,15 +85,17 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_denied_text' => 'Flagged for fact-checking.',
     'link_type' => 'checkdesk_modal',
     'weight' => -7,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
     'i18n' => 0,
     'confirm_modal_style' => 'modal-popup-small',
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
@@ -119,12 +119,14 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
     'weight' => -10,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
+    'i18n' => 0,
     'show_on_page' => 1,
     'show_on_teaser' => 1,
-    'i18n' => 0,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
@@ -148,15 +150,17 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_denied_text' => '',
     'link_type' => 'checkdesk_modal',
     'weight' => -8,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
     'i18n' => 0,
     'confirm_modal_style' => 'modal-popup-small',
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
@@ -180,12 +184,14 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
     'weight' => -11,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
+    'i18n' => 0,
     'show_on_page' => 1,
     'show_on_teaser' => 1,
-    'i18n' => 0,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
@@ -209,15 +215,17 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_denied_text' => 'Flagged as spam.',
     'link_type' => 'checkdesk_modal',
     'weight' => -9,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 1,
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
     'i18n' => 0,
     'confirm_modal_style' => 'modal-popup-small',
     'flag_confirmation' => 'Are you sure you want to flag this report?',
     'unflag_confirmation' => 'Are you sure you want to unflag this report?',
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
     'module' => 'checkdesk_core_feature',
     'locked' => array(
       0 => 'name',
@@ -255,6 +263,7 @@ function checkdesk_core_feature_image_default_styles() {
         'weight' => 1,
       ),
     ),
+    'label' => 'featured_image',
   );
 
   // Exported image style: featured_stories_lead_image.
@@ -277,6 +286,7 @@ function checkdesk_core_feature_image_default_styles() {
         'weight' => 1,
       ),
     ),
+    'label' => 'featured_stories_lead_image',
   );
 
   // Exported image style: footer_partner_logo.
@@ -300,6 +310,7 @@ function checkdesk_core_feature_image_default_styles() {
         'weight' => 1,
       ),
     ),
+    'label' => 'footer_partner_logo',
   );
 
   // Exported image style: navigation_avatar.
@@ -322,6 +333,7 @@ function checkdesk_core_feature_image_default_styles() {
         'weight' => 1,
       ),
     ),
+    'label' => 'navigation_avatar',
   );
 
   // Exported image style: partner_logo.
@@ -345,6 +357,7 @@ function checkdesk_core_feature_image_default_styles() {
         'weight' => 1,
       ),
     ),
+    'label' => 'partner_logo',
   );
 
   // Exported image style: report_thumbnail.
@@ -384,6 +397,7 @@ function checkdesk_core_feature_image_default_styles() {
         'weight' => 2,
       ),
     ),
+    'label' => 'report_thumbnail',
   );
 
   return $styles;

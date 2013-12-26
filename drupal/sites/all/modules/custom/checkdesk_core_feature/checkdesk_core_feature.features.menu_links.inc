@@ -156,6 +156,32 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_links_language' => 'und',
     'menu_links_customized_2' => 1,
   );
+  // Exported menu link: main-menu_take-tour:checkdesk_take_tour
+  $menu_links['main-menu_take-tour:checkdesk_take_tour'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'checkdesk_take_tour',
+    'router_path' => 'checkdesk_take_tour',
+    'link_title' => 'Take tour',
+    'options' => array(
+      'alter' => TRUE,
+      'attributes' => array(
+        'id' => 'take-tour-link',
+      ),
+      'identifier' => 'main-menu_take-tour:checkdesk_take_tour',
+    ),
+    'module' => 'menu',
+    'hidden' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'expanded' => 0,
+    'weight' => -46,
+    'customized' => 1,
+    'language' => 'und',
+    'menu_links_customized' => 1,
+    'uuid' => '8c756773-9dfa-4485-b025-3faadf8c7a52',
+    'menu_links_language' => 'und',
+    'menu_links_customized_2' => 1,
+  );
   // Exported menu link: main-menu_update-story:node/add/post
   $menu_links['main-menu_update-story:node/add/post'] = array(
     'menu_name' => 'main-menu',
@@ -590,6 +616,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Notifications');
   t('Sign in');
   t('Submit report');
+  t('Take tour');
   t('Terms of use');
   t('Update story');
   t('View incoming citizen reports');
