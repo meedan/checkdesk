@@ -42205,6 +42205,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['95f5c08c8cd3265be9a640b989601eee'] = array(
+    'source' => 'New user',
+    'context' => '',
+    'location' => '/ar/user/16/notifications',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['0b46d79b04858b3f1bb5fe4936f348cc'] = array(
     'source' => 'Please select the events for which you wish to be notified',
     'context' => '',
@@ -44261,6 +44269,28 @@ password: Your password
     'context' => '',
     'location' => '/ar/user',
     'translation' => 'سيتم تنبيهك هنا عندما ننشر تقاريرك أو نقوم بالتحقق من صحتها.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['0277a4d23ee82705bd7742112e63847a'] = array(
+    'source' => 'Hello !recipient_name,
+
+A new user called <a href="!url">!name </a>has registered. If you want to accept this registration, please mark this user as "active".
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['043ef36896cc2ce64b40e3a28a41ccd2'] = array(
+    'source' => '<p>A new user called <strong><a href="!url">!name</a></strong> has registered. Please mark him as <em>active</em>, if you want to accept this registration.</p>',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => 'TODO',
     'plid' => 0,
     'plural' => 0,
   );

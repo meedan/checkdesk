@@ -23,7 +23,7 @@ $uid = intval($_REQUEST['user']);
 // Get user notification preferences
 $data = unserialize(get_result("SELECT data FROM users WHERE uid = $uid", $mysql));
 function should_notify($data, $option) {
-  return (isset($data['meedan_notifications']) ? $data['meedan_notifications'][$option] : TRUE);
+  return ((isset($data['meedan_notifications']) && isset($data['meedan_notifications'][$option])) ? $data['meedan_notifications'][$option] : TRUE);
 }
 
 // Is this user a journalist?
@@ -39,6 +39,7 @@ if ($is_journalist) {
   if (should_notify($data, 'site_fact_checking_set')) $query .= "(ha.message_id = 'checkdesk_fact_checking_set' AND n.uid = $uid) OR ";
   if (should_notify($data, 'site_fact_status_changed_for_commenter')) $query .= "(ha.message_id = 'checkdesk_fact_status_changed_for_commenter' AND c2.uid = $uid AND ha.timestamp > c2.created) OR ";
   if (should_notify($data, 'site_reply_to_comment')) $query .= "(ha.message_id = 'checkdesk_reply_to_comment' AND c.uid = $uid) OR ";
+  if (should_notify($data, 'site_new_user')) $query .= "(ha.message_id = 'checkdesk_new_user') OR ";
 } else {
   if (should_notify($data, 'site_reply_to_comment')) $query .= "(ha.message_id = 'checkdesk_reply_to_comment' AND c.uid = $uid) OR ";
   if (should_notify($data, 'site_comment_on_report')) $query .= "(ha.message_id = 'checkdesk_comment_on_report' AND c2.uid = $uid AND ha.timestamp > c2.created) OR ";
