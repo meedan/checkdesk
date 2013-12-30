@@ -71,6 +71,10 @@ function checkdesk_checkdesk_links($variables) {
         $attributes['class'][] = 'submit-report';
       }
 
+      if ($link['link_path'] == 'node/add/discussion') {
+        $attributes['class'][] = 'create-story';
+      }
+
       if(count($children) > 0) {
         $attributes['class'][] = 'dropdown';
         $link['attributes']['data-toggle'] = 'dropdown';
