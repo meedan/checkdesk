@@ -1,0 +1,134 @@
+<?php
+/**
+ * @file
+ * Main checkdesk_tests file
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function checkdesk_tests_menu() {
+  $items = array();
+
+  $items['admin/config/development/checkdesk_tests'] = array(
+    'title' => 'Checkdesk Tests',
+    'description' => 'Run automated tests for Checkdesk',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_checkdesk_tests_settings'),
+    'access arguments' => array('administer site configuration'),
+  );
+
+  $items['checkdesk-tests/status'] = array(
+    'page callback' => '_checkdesk_tests_status',
+    'access callback' => TRUE,
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Form function for `_checkdesk_tests_settings`.
+ */
+function _checkdesk_tests_settings($form, $form_state) {
+  drupal_add_css(drupal_get_path('module', 'checkdesk_tests') . '/css/checkdesk_tests.css');
+
+  $pidfile = variable_get('checkdesk_tests_pidfile', '');
+  $pid = empty($pidfile) ? '' : file_get_contents($pidfile);
+  $outfile = variable_get('checkdesk_tests_outfile', '');
+  $output = empty($outfile) ? '' : file_get_contents($outfile);
+
+  $label = t('Running');
+  $class = 'running';
+  if (!$pid) {
+    $label = t('Not running');
+    $class = '';
+  }
+  $form['checkdesk_tests_status'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p id="checkdesk-tests-status" class="'. $class .'">' . t('Status:') . ' <span>' . $label . '</span></p>',
+  );
+
+  $form['checkdesk_tests_output'] = array(
+    '#title' => t('Tests output'),
+    '#type' => 'markup',
+    '#markup' => '<div id="checkdesk-tests-output">' . $output . '</div>',
+  );
+    
+  $form['#after_build'] = array('_checkdesk_tests_load_javascript');
+  
+  $form['actions']['#type'] = 'actions';
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Run tests'),
+  );
+  $form['#submit'] = array('_checkdesk_tests_submit');
+
+  $form['#theme'] = 'system_settings_form';
+  return $form;
+}
+
+/**
+ * Load JavaScript file for form.
+ */
+function _checkdesk_tests_load_javascript($form, &$form_state) {
+  drupal_add_js(drupal_get_path('module', 'checkdesk_tests') . '/js/checkdesk_tests.js');
+  return $form;
+}
+
+/**
+ * Submit function.
+ */
+function _checkdesk_tests_submit($form, &$form_state) {
+  global $base_root;
+
+  $pidfile = variable_get('checkdesk_tests_pidfile', '');
+  $pid = empty($pidfile) ? 0 : intval(trim(file_get_contents($pidfile)));
+  $outfile = variable_get('checkdesk_tests_outfile', '');
+
+  if (!$pid && empty($file)) {
+    $tmp = file_directory_temp();
+    $cmd = "MINK_EXTENSION_PARAMS='base_url=$base_root' php bin/behat -f html";
+    $outfile = $tmp . '/checkdesk-tests-' . time() . '.log';
+    $pidfile = $tmp . '/checkdesk-tests-' . time() . '.pid';
+    exec(sprintf("cd ..; %s > %s 2>&1 & echo $! > %s", $cmd, $outfile, $pidfile));
+    variable_set('checkdesk_tests_pidfile', $pidfile);
+    variable_set('checkdesk_tests_outfile', $outfile);
+  }
+  else {
+    drupal_set_message(t('Tests are already running.'));
+  }
+}
+
+/**
+ * Function to get tests status.
+ */
+function _checkdesk_tests_status() {
+  $pidfile = variable_get('checkdesk_tests_pidfile', '');
+  $pid = empty($pidfile) ? 0 : intval(trim(file_get_contents($pidfile)));
+  $outfile = variable_get('checkdesk_tests_outfile', '');
+  $output = file_get_contents($outfile);
+
+  $running = false;
+
+  if ($pid) {
+    try {
+      $result = shell_exec(sprintf("ps %d", $pid));
+      if (count(preg_split("/\n/", $result)) > 2) {
+        $running = true;
+      }
+    } catch (Exception $e) {
+      // Do nothing
+    }
+
+    if (!$running) {
+      unlink($pidfile);
+      unlink($outfile);
+      variable_set('checkdesk_tests_pidfile', '');
+      variable_set('checkdesk_tests_outfile', '');
+    }
+  }
+
+  drupal_json_output(array('running' => $running, 'output' => $output));
+}

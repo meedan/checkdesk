@@ -1,0 +1,33 @@
+default:
+  extensions:
+    Behat\MinkExtension\Extension:
+      # base_url: http://localhost
+      goutte: ~
+      selenium2:
+        wd_host: 'http://127.0.0.1:4444/wd/hub'
+    Drupal\DrupalExtension\Extension:
+      blackbox: ~
+      api_driver: 'drupal'
+      drush:
+        root: drupal
+      drupal:
+        drupal_root: drupal
+      text:
+        log_out: 'Logout'
+        log_in: 'Sign in'
+        password_field: 'Password'
+        username_field: 'E-mail'
+      selectors:
+        success_message_selector: '.messages.status'
+
+  paths:
+    features:  features
+    bootstrap: features/bootstrap
+
+annotations:
+  paths:
+    features: features/annotations
+
+closures:
+  paths:
+    features: features/closures

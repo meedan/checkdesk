@@ -1,0 +1,59 @@
+Checkdesk Automated Tests
+-------------------------
+
+Automated testing on Checkdesk relies on Behat, Mink, Selenium and Drupal Extension. 
+This documentation assumes that you are familiar with Behat, Selenium, Mink, Cucumber, automated testing and 
+Behavior-Driven Development. If not, check the references on section 5 of this document, and you'll be.
+
+1. Preparing your environment and running tests
+
+  1.1  In order to run the tests that use JavaScript, you must have a browser. By default, this browser is Firefox,
+       but you can change it by editing behat.yml. You don't need to have a real X server, you can use xvfb, for example.
+       On apt-based Linux distributions, such as Ubuntu and Debian, you can install it by running:
+       `apt-get install xvfb`.
+       You'll need to run a standalone Selenium server. Get the latest Selenium standalone server (.jar) 
+       at http://code.google.com/p/selenium/downloads/list. After that, you can start the server by running: 
+       `java -jar selenium-server-standalone-2.39.0.jar`, where selenium-server-standalone-2.39.0.jar is the file you
+       downloaded. If you want to use xvfb, you can run the server this way: 
+       `DISPLAY=:1 xvfb-run java -jar selenium-server-standalone-2.39.0.jar`
+  1.2  Once Selenium is running, you can execute the test suite. Do it by running: `php bin/behat` from the root of this
+       repository. You don't need to have any testing data, they will be created and removed automatically.
+  1.3  If you are going to run tests from the command line, you will need to configure the base URL. You can do it by
+       editing behat.yml (check for a commented line) or by exporting an environment variable:
+       `export MINK_EXTENSION_PARAMS='base_url=http://localhost'`
+  1.4  Alternatively, you can run the tests from the Drupal administrative UI by enabling the module checkdesk_tests
+       and visiting admin/config/development/checkdesk_tests. You don't need to configure a base URL on this case.
+
+2. Adding new tests
+
+  You can add new tests by adding scenarios to existing features, or by adding new features. Check existing features
+  before creating new ones. These files must be located in features/ directory on the root of this repository. 
+  Probably all scenarios need to be tagged with @api, because they need Drupal. Scenarios that require JavaScript must 
+  be tagged with @javascript. On some cases you may want to wait for some time before asserting something, so the step
+  `And I wait for X seconds` is useful. You may also want to remove test data that is not automatically removed by
+  calling the step `And I remove the created nodes`. 
+  You can check existing implemented steps by running `php bin/behat -dl`.
+  If the steps you need are not implemented, you can implement them or install Behat extensions that implement them. 
+  Check the two following sections to know how to do both.
+
+3. Adding new Behat extensions
+
+  Behat extensions implement new steps. You can add new extensions by editing file composer.json on the root of this 
+  repository and by running: `php compose.phar update`. If you don't have Composer, install it:
+  `curl -sS https://getcomposer.org/installer | php`. Composer will download and install files under vendor/ directory
+  on the root of this repository. You may need to edit files behat.yml and features/bootstrap/FeatureContext.php
+  in order to configure and/or use the new extensions.
+
+4. Adding new steps
+
+  New steps can be implemented as new methods on file features/bootstrap/FeatureContext.php. 
+  Check existing methods as reference.
+
+5. References
+
+  * https://drupal.org/project/behat
+  * https://portland2013.drupal.org/session/behat-behavioral-driven-development-and-selenium-drupal
+  * http://jmolivas.com/slides/dcla2013/behavior-driven-development-behat-mink-selenium/#/1
+  * http://www.dspeak.com/drupalextension/drupalapi.html
+  * http://mink.behat.org/api/behat/mink/session.html
+  * https://gist.github.com/jhedstrom
