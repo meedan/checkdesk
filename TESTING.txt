@@ -7,7 +7,11 @@ Behavior-Driven Development. If not, check the references on section 5 of this d
 
 1. Preparing your environment and running tests
 
-  1.1  In order to run the tests that use JavaScript, you must have a browser. By default, this browser is Firefox,
+  1.1  This project uses Composer to manage Behat and its dependencies. From the repository root, run
+       `php composer.phar install` or `php composer.phar update` in order to install or update the dependencies.
+       This command will create bin/ and vendor/ directories. If you don't have Composer, install it:
+       `curl -sS https://getcomposer.org/installer | php`.
+  1.2  In order to run the tests that use JavaScript, you must have a browser. By default, this browser is Firefox,
        but you can change it by editing behat.yml. You don't need to have a real X server, you can use xvfb, for example.
        On apt-based Linux distributions, such as Ubuntu and Debian, you can install it by running:
        `apt-get install xvfb`.
@@ -16,12 +20,12 @@ Behavior-Driven Development. If not, check the references on section 5 of this d
        `java -jar selenium-server-standalone-2.39.0.jar`, where selenium-server-standalone-2.39.0.jar is the file you
        downloaded. If you want to use xvfb, you can run the server this way: 
        `DISPLAY=:1 xvfb-run java -jar selenium-server-standalone-2.39.0.jar`
-  1.2  Once Selenium is running, you can execute the test suite. Do it by running: `php bin/behat` from the root of this
+  1.3  Once Selenium is running, you can execute the test suite. Do it by running: `php bin/behat` from the root of this
        repository. You don't need to have any testing data, they will be created and removed automatically.
-  1.3  If you are going to run tests from the command line, you will need to configure the base URL. You can do it by
+  1.4  If you are going to run tests from the command line, you will need to configure the base URL. You can do it by
        editing behat.yml (check for a commented line) or by exporting an environment variable:
        `export MINK_EXTENSION_PARAMS='base_url=http://localhost'`
-  1.4  Alternatively, you can run the tests from the Drupal administrative UI by enabling the module checkdesk_tests
+  1.5  Alternatively, you can run the tests from the Drupal administrative UI by enabling the module checkdesk_tests
        and visiting admin/config/development/checkdesk_tests. You don't need to configure a base URL on this case.
 
 2. Adding new tests
@@ -39,7 +43,7 @@ Behavior-Driven Development. If not, check the references on section 5 of this d
 3. Adding new Behat extensions
 
   Behat extensions implement new steps. You can add new extensions by editing file composer.json on the root of this 
-  repository and by running: `php compose.phar update`. If you don't have Composer, install it:
+  repository and by running: `php composer.phar update`. If you don't have Composer, install it:
   `curl -sS https://getcomposer.org/installer | php`. Composer will download and install files under vendor/ directory
   on the root of this repository. You may need to edit files behat.yml and features/bootstrap/FeatureContext.php
   in order to configure and/or use the new extensions.
