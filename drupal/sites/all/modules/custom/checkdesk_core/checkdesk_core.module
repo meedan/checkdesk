@@ -844,8 +844,7 @@ function checkdesk_core_contextual_links_view_alter(&$element, $items) {
  * Implements hook_form_FORM_ID_alter() for `post_node_form`.
  */
 function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
-
-
+  global $user;
 
   // Are we showing the post form on the desk page?
   if (($node = menu_get_object()) && $node->type == 'discussion') {
@@ -879,6 +878,10 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   // Handle HTML entities
   foreach ($form['field_desk']['und']['#options'] as $key => $value) {
     $form['field_desk']['und']['#options'][$key] = htmlspecialchars_decode($value);
+  }
+
+  if (!in_array('administrator', array_values($user->roles))) {
+    $form['additional_settings']['#access'] = FALSE;
   }
 
   // Change title.
