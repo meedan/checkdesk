@@ -28,7 +28,15 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
      */
     public function __construct(array $parameters)
     {
-        // Initialize your context here
+      // Initialize your context here
+    }
+
+    /**
+     * @AfterStep @javascript
+     */
+    public function afterStep($event)
+    {
+      $this->getSession()->executeScript('window.alert = function(msg) { console.log(msg); }');
     }
 
     /**
