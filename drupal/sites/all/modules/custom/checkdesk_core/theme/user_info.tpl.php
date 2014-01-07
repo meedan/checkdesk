@@ -9,7 +9,7 @@
   </div>
 
   <div class="profile-links">
-     <?php if ($edit_profile): ?>
+     <?php if (isset($edit_profile)): ?>
        <?php print $edit_profile; ?>
      <?php endif; ?>
 
