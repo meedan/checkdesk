@@ -439,23 +439,11 @@
 @include cd-form-styles-except-layout;
 @include cd-form-layout($container-width, $container-width, $gutter-width); // Default render of the form layout
 
-// Breakpoint: small
-@include at-breakpoint($break-small) {
-  $break: $break-small;
-  @include cd-form-layout($break - 6, $break) {
-    @include pad(0, 0, $break);
+@include at-breakpoint($breakpoint) {
+  @include cd-form-layout($breakpoint - 6, $breakpoint) {
+    @include pad(0, 0, $breakpoint);
     .description {
       display: inline-block; // appears
     }
   }
-}
-
-// Breakpoint: medium
-@include at-breakpoint($break-medium) {
-  $break: $break-medium;
-}
-
-// Breakpoint: large
-@include at-breakpoint($break-large) {
-  $break: $break-large;
 }

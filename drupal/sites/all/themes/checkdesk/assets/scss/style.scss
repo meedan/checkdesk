@@ -166,7 +166,7 @@ html {
 }
 
 body {
-  @include container($container-width $break-small $break-medium); // establish three breakpoints
+  @include container($breakpoint); // establish two regions, smaller and larger than $breakpoint
 }
 // when no sidebars
 body.no-sidebars {
@@ -319,5 +319,5 @@ body.no-sidebars {
 //
 // Debuggers get the final word
 
-// $display-layout-debugger: true; // shows current breakpoint and columns
-// @include visualize-grid($display-layout-debugger);
+$display-layout-debugger: true; // shows current breakpoint and columns
+@include visualize-grid($display-layout-debugger);

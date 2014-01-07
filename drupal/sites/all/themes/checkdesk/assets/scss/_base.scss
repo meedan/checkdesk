@@ -46,14 +46,13 @@ $base-line-height: $absolute-line-height !default; // for compass calculations o
 $container-style: magic;
 
 // Columns count and breakpoints
-$container-width: 18; // Mobile first
+$container-width: 12; // Mobile first
 $total-columns: $container-width; // Alias for Susy
-$break-small: 12; 
-$break-medium: 24;
-$break-large: 48;
+$breakpoint: 12;  // Breakpoints apply after the browser is stretched wider than this target width
+
+$break-small: $breakpoint; // Deprecated
 
 // Checkdesk layout sections
-$total-width: $container-width; // Alias for Chris
 $sidebar-width: 4; // default sidebar width
 $tabs-width: $container-width; // Tabs inside forms and nodes
 $gutter-width: modular-scale(-1); // The distance between grid columns
@@ -141,4 +140,4 @@ $radius: 4px;
 // Debugger
 // =============================================================================
 // debug mode for @debug statements and other sass debuggers
-$debug: true !default;
+$debug: false !default;

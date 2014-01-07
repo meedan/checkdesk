@@ -63,8 +63,7 @@ div.tabs {
 
 // =================================================================================
 // Breakpoints for tabs
-@include at-breakpoint($break-small) { 
-  $break: $break-small;
+@include at-breakpoint($breakpoint) { 
 
   div.tabs ul.primary {
     display: block;
@@ -80,12 +79,4 @@ div.tabs {
       display: inline-block;
     }
   }
-}
-
-@include at-breakpoint($break-medium) {
-  // same as previous breakpoint
-}
-
-@include at-breakpoint($break-large) {
-  // same as previous breakpoint
 }
