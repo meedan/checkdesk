@@ -37,7 +37,6 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     public function afterStep($event)
     {
       $this->getSession()->executeScript('window.alert = function(msg) { console.log(msg); }');
-      $this->getSession()->wait(3000);
     }
 
     /**

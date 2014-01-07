@@ -39,18 +39,6 @@ function _checkdesk_tests_settings($form, $form_state) {
   $outfile = variable_get('checkdesk_tests_outfile', '');
   $output = empty($outfile) ? '' : file_get_contents($outfile);
 
-  $form['checkdesk_tests_http_user'] = array(
-    '#title' => t('HTTP Authentication User'),
-    '#type' => 'textfield',
-    '#default_value' => variable_get('checkdesk_tests_http_user', ''),
-  );
-
-  $form['checkdesk_tests_http_password'] = array(
-    '#title' => t('HTTP Authentication Password'),
-    '#type' => 'password',
-    '#default_value' => variable_get('checkdesk_tests_http_password', ''),
-  );
-
   $label = t('Running');
   $class = 'running';
   if (!$pid) {
@@ -117,29 +105,13 @@ function _checkdesk_tests_load_javascript($form, &$form_state) {
 function _checkdesk_tests_submit($form, &$form_state) {
   global $base_root;
 
-  // HTTP authentication
-
-  variable_set('checkdesk_tests_http_user', $form_state['values']['checkdesk_tests_http_user']);
-  if (!empty($form_state['values']['checkdesk_tests_http_password'])) {
-    variable_set('checkdesk_tests_http_password', $form_state['values']['checkdesk_tests_http_password']);
-  }
-  $username = variable_get('checkdesk_tests_http_user', '');
-  $password = variable_get('checkdesk_tests_http_password', '');
-
-  $url = $base_root;
-  if (!empty($username) && !empty($password)) {
-    $url = preg_replace('/^(https?:\/\/)/', "$1$username:$password@", $url);
-  }
-
-  // Run tests
-
   $pidfile = variable_get('checkdesk_tests_pidfile', '');
   $pid = empty($pidfile) ? 0 : intval(trim(file_get_contents($pidfile)));
   $outfile = variable_get('checkdesk_tests_outfile', '');
 
   if (!$pid && empty($file)) {
     $tmp = file_directory_temp();
-    $cmd = "MINK_EXTENSION_PARAMS='base_url=$url' php bin/behat -f html";
+    $cmd = "MINK_EXTENSION_PARAMS='base_url=$base_root' php bin/behat -f html";
     $outfile = $tmp . '/checkdesk-tests-' . time() . '.log';
     $pidfile = $tmp . '/checkdesk-tests-' . time() . '.pid';
     exec(sprintf("cd ..; %s > %s 2>&1 & echo $! > %s", $cmd, $outfile, $pidfile));
