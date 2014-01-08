@@ -55,6 +55,18 @@ function _checkdesk_tests_settings($form, $form_state) {
     '#type' => 'markup',
     '#markup' => '<div id="checkdesk-tests-output">' . $output . '</div>',
   );
+
+  $form['checkdesk_tests_steps'] = array(
+    '#title' => t('Available steps'),
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['checkdesk_tests_steps']['checkdesk_tests_steps_content'] = array(
+    '#type' => 'markup',
+    '#markup' => _checkdesk_tests_steps(),
+  );
     
   $form['#after_build'] = array('_checkdesk_tests_load_javascript');
   
@@ -67,6 +79,16 @@ function _checkdesk_tests_settings($form, $form_state) {
 
   $form['#theme'] = 'system_settings_form';
   return $form;
+}
+
+/**
+ * Get available steps.
+ */
+function _checkdesk_tests_steps() {
+  global $base_root;
+  $cmd = "cd ..; MINK_EXTENSION_PARAMS='base_url=$base_root' php bin/behat -dl";
+  $output = shell_exec($cmd);
+  return nl2br(htmlentities($output));
 }
 
 /**

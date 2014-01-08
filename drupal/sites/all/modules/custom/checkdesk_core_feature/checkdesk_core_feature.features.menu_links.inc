@@ -156,32 +156,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_links_language' => 'und',
     'menu_links_customized_2' => 1,
   );
-  // Exported menu link: main-menu_take-tour:checkdesk_take_tour
-  $menu_links['main-menu_take-tour:checkdesk_take_tour'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'checkdesk_take_tour',
-    'router_path' => 'checkdesk_take_tour',
-    'link_title' => 'Take tour',
-    'options' => array(
-      'alter' => TRUE,
-      'attributes' => array(
-        'id' => 'take-tour-link',
-      ),
-      'identifier' => 'main-menu_take-tour:checkdesk_take_tour',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -46,
-    'customized' => 1,
-    'language' => 'und',
-    'menu_links_customized' => 1,
-    'uuid' => '8c756773-9dfa-4485-b025-3faadf8c7a52',
-    'menu_links_language' => 'und',
-    'menu_links_customized_2' => 1,
-  );
   // Exported menu link: main-menu_update-story:node/add/post
   $menu_links['main-menu_update-story:node/add/post'] = array(
     'menu_name' => 'main-menu',
@@ -249,7 +223,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -49,
+    'weight' => -47,
     'customized' => 1,
     'language' => 'ar',
     'menu_links_customized' => 1,
@@ -277,7 +251,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -41,
+    'weight' => -45,
     'customized' => 1,
     'language' => 'en',
     'menu_links_customized' => 1,
@@ -325,7 +299,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -49,
+    'weight' => -48,
     'customized' => 1,
     'language' => 'und',
     'menu_links_customized' => 1,
@@ -350,7 +324,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -50,
+    'weight' => -49,
     'customized' => 1,
     'language' => 'und',
     'menu_links_customized' => 1,
@@ -375,7 +349,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -49,
+    'weight' => -48,
     'customized' => 1,
     'language' => 'und',
     'menu_links_customized' => 1,
@@ -399,7 +373,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -48,
+    'weight' => -47,
     'customized' => 1,
     'language' => 'und',
     'menu_links_customized' => 1,
@@ -407,6 +381,32 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_links_language' => 'und',
     'menu_links_customized_2' => 1,
     'parent_identifier' => 'menu-common_user:<sub>',
+  );
+  // Exported menu link: menu-common_take-tour:checkdesk_take_tour
+  $menu_links['menu-common_take-tour:checkdesk_take_tour'] = array(
+    'menu_name' => 'menu-common',
+    'link_path' => 'checkdesk_take_tour',
+    'router_path' => 'checkdesk_take_tour',
+    'link_title' => 'Take tour',
+    'options' => array(
+      'attributes' => array(
+        'id' => 'take-tour-link',
+      ),
+      'alter' => TRUE,
+      'identifier' => 'menu-common_take-tour:checkdesk_take_tour',
+    ),
+    'module' => 'menu',
+    'hidden' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'expanded' => 0,
+    'weight' => -50,
+    'customized' => 1,
+    'language' => 'und',
+    'menu_links_customized' => 1,
+    'uuid' => '15e60957-a3ae-4474-acc9-1c77ab8c6fbf',
+    'menu_links_language' => 'und',
+    'menu_links_customized_2' => 1,
   );
   // Exported menu link: menu-common_user:<sub>
   $menu_links['menu-common_user:<sub>'] = array(
@@ -424,7 +424,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 1,
-    'weight' => -48,
+    'weight' => -46,
     'customized' => 1,
     'language' => 'und',
     'menu_links_customized' => 1,

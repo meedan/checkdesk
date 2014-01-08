@@ -42209,7 +42209,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'New user',
     'context' => '',
     'location' => '/ar/user/16/notifications',
-    'translation' => 'TODO',
+    'translation' => 'مستخدم جديد',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44272,6 +44272,14 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['0077d698b7444d9c5a3db40c42411ce7'] = array(
+    'source' => 'Thank you for applying for an account. Your account is currently pending approval by the site administrator.',
+    'context' => '',
+    'location' => '/ar/user/register',
+    'translation' => 'نشكرك لطلبك حسابا. حسابك حاليا بانتظار موافقة مشرف الموقع.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['0277a4d23ee82705bd7742112e63847a'] = array(
     'source' => 'Hello !recipient_name,
 
@@ -44282,7 +44290,12 @@ You can edit your notification settings from your <a href="!recipient_url">profi
 This was an auto-generated email from !site; please do not respond directly to this email.',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'TODO',
+    'translation' => 'مرحباً !recipient_name،
+
+لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط". 
+
+يمكنك تغيير إعدادات التنبيهات من <a href="!recipient_url">هنا</a>. هذه رسالة تلقائية من !site ويرجى عدم الرد عليها.
+',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44290,7 +44303,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => '<p>A new user called <strong><a href="!url">!name</a></strong> has registered. Please mark him as <em>active</em>, if you want to accept this registration.</p>',
     'context' => '',
     'location' => '/ar/user',
-    'translation' => 'TODO',
+    'translation' => '<p>لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط".</p>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44582,11 +44595,51 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:menu']['69470ffeb5e5c3849c54eddd999dad1f'] = array(
-    'source' => 'Take tour',
-    'context' => 'item:8c756773-9dfa-4485-b025-3faadf8c7a52:title',
-    'location' => 'menu:item:8c756773-9dfa-4485-b025-3faadf8c7a52:title',
-    'translation' => 'تأخذ جولة',
+  $translations['ar:menu']['69d78890b1558047d9382ff73d0c97ef'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['40f3a7f103a64b7d70433502860c2b74'] = array(
+    'source' => 'Submit report',
+    'context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
+    'location' => 'menu:item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
+    'translation' => 'أضف تقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['461700f21002246799ec1ead60ba139d'] = array(
+    'source' => 'Compose update',
+    'context' => 'item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
+    'location' => 'menu:item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
+    'translation' => 'اكتب تحديث',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['6ca73892c7c02a201ae40d9dd65de329'] = array(
+    'source' => 'Create story',
+    'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'location' => 'menu:item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'translation' => 'أنشئ خبر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['0b838703c2a217361d7b3d47deb90b1a'] = array(
+    'source' => 'Edit fact-checking statement',
+    'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
+    'location' => 'menu:item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
+    'translation' => 'حرر بيان التحقق من صحة المعلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['148e409e16570985f46071b7e752cced'] = array(
+    'source' => 'Update story',
+    'context' => 'item::title',
+    'location' => 'menu:item::title',
+    'translation' => 'تحديث موضوع',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44626,6 +44679,46 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'False',
     'context' => 'term:547bb9d2-1dd3-4116-9001-61dfdf877a78:name',
     'location' => 'taxonomy:term:547bb9d2-1dd3-4116-9001-61dfdf877a78:name',
+    'translation' => 'خطأ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['ead76bb2252429ba9164235cf8ccc844'] = array(
+    'source' => 'Not Applicable',
+    'context' => 'term:4:name',
+    'location' => 'taxonomy:term:4:name',
+    'translation' => 'لا ينطبق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['757b2910e8dcf2a0887fe5333639df29'] = array(
+    'source' => 'In Progress',
+    'context' => 'term:2:name',
+    'location' => 'taxonomy:term:2:name',
+    'translation' => 'جار',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['7d7708d2a9256194311c7fb17497cbf0'] = array(
+    'source' => 'Undetermined',
+    'context' => 'term:5:name',
+    'location' => 'taxonomy:term:5:name',
+    'translation' => 'لا يمكن التأكد من صحة المعلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['34bfcd559a4c4305f771b7c5bce339ad'] = array(
+    'source' => 'Verified',
+    'context' => 'term:1:name',
+    'location' => 'taxonomy:term:1:name',
+    'translation' => 'صحيح',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['a6ce116f0b38261eacb1a38a1f96b94f'] = array(
+    'source' => 'False',
+    'context' => 'term:3:name',
+    'location' => 'taxonomy:term:3:name',
     'translation' => 'خطأ',
     'plid' => 0,
     'plural' => 0,
