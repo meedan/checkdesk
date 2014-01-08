@@ -486,7 +486,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "subject" : "New user",
             "message" : "Hello !recipient_name,\\r\\n\\r\\nA new user called \\u003Ca href=\\u0022!url\\u0022\\u003E!name \\u003C\\/a\\u003Ehas registered. If you want to accept this registration, please mark this user as \\u0022active\\u0022.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
             "actor" : [ "user" ],
-            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!name\\u0027 =\\u003E $user-\\u003Ename, \\u0027!url\\u0027 =\\u003E url(\\u0027user\\/\\u0027.$user-\\u003Euid.\\u0027\\/notifications\\u0027, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E\\r\\n"
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!name\\u0027 =\\u003E $user-\\u003Ename, \\u0027!url\\u0027 =\\u003E url(\\u0027user\\/\\u0027 . $user-\\u003Euid . \\u0027\\/edit\\u0027, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:notifications-url]\\u0027)); \\r\\n?\\u003E"
           }
         }
       ]
