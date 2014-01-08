@@ -44283,7 +44283,7 @@ password: Your password
   $translations['ar:default']['0277a4d23ee82705bd7742112e63847a'] = array(
     'source' => 'Hello !recipient_name,
 
-A new user called <a href="!url">!name </a>has registered. If you want to accept this registration, please mark this user as "active".
+A new user <a href="!url">!name </a>has registered. If you want to accept this registration, please mark this user as "active".
 
 You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
 
@@ -44300,7 +44300,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translations['ar:default']['043ef36896cc2ce64b40e3a28a41ccd2'] = array(
-    'source' => '<p>A new user called <strong><a href="!url">!name</a></strong> has registered. Please mark him as <em>active</em>, if you want to accept this registration.</p>',
+    'source' => '<p>A new user <strong><a href="!url">!name</a></strong> has registered. Please mark him as <em>active</em>, if you want to accept this registration.</p>',
     'context' => '',
     'location' => '/ar/user',
     'translation' => '<p>لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط".</p>',
