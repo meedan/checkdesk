@@ -32,7 +32,8 @@ $icon-position: 'before';
   }
   // tour
   a[href*="checkdesk_take_tour"] {
-    @include icon("question", $size, $color, $icon-position, $margin);
+    // We were using an icon but it doesn't look good...
+    font-weight: bold;
   }
   // additional menu options
   li.additional a {
