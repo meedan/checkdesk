@@ -254,9 +254,6 @@ function checkdesk_preprocess_page(&$variables) {
       else if ($item['link_path'] == 'node/add/post') {
         $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
       }
-      else if ($item['link_path'] == 'checkdesk_take_tour') {
-        $variables['main_menu'][$id]['attributes']['id'] = 'take-tour-menu-link';
-      }
     }
 
     // Build list
@@ -329,6 +326,11 @@ function checkdesk_preprocess_page(&$variables) {
       else {
         unset($variables['secondary_menu'][$id]);
       }
+    }
+
+    else if ($item['link_path'] == 'checkdesk_take_tour') {
+      $variables['secondary_menu'][$id]['attributes']['id'] = 'take-tour-menu-link';
+      $variables['secondary_menu'][$id]['title'] = '';
     }
 
   }
