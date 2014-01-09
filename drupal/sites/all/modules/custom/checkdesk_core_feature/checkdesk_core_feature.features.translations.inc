@@ -44307,6 +44307,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['36bfea1b21f819c7b513a8d16153367c'] = array(
+    'source' => '?',
+    'context' => '',
+    'location' => '/ar/user',
+    'translation' => '؟',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

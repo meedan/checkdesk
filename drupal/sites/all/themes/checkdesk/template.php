@@ -330,7 +330,7 @@ function checkdesk_preprocess_page(&$variables) {
 
     else if ($item['link_path'] == 'checkdesk_take_tour') {
       $variables['secondary_menu'][$id]['attributes']['id'] = 'take-tour-menu-link';
-      $variables['secondary_menu'][$id]['title'] = '?';
+      $variables['secondary_menu'][$id]['title'] = t('?');
     }
 
   }
