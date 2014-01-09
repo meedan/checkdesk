@@ -1,0 +1,39 @@
+From bdf74761f38103e70b21db7f6ab98c385d2f8567 Mon Sep 17 00:00:00 2001
+From: Caio SBA <caiosba@gmail.com>
+Date: Fri, 26 Apr 2013 03:36:20 -0300
+Subject: [PATCH] Do not delete permanent items if cid is null
+
+---
+ lib/Redis/Cache/PhpRedis.php |   16 ++++++++++++++--
+ 1 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/lib/Redis/Cache/PhpRedis.php b/lib/Redis/Cache/PhpRedis.php
+index 39a9142..1fb45df 100644
+--- a/lib/Redis/Cache/PhpRedis.php
++++ b/lib/Redis/Cache/PhpRedis.php
+@@ -120,8 +120,20 @@ class Redis_Cache_PhpRedis extends Redis_Cache_Base {
+     }
+ 
+     if ($many) {
+-      $keys = $client->keys($key);
+-
++      $keys = array();
++      // If $cid is null, check expiration before deleting multiple keys
++      if (NULL === $cid) {
++        foreach ($client->keys($key) as $key) {
++          $expire = $client->hget($key, 'expire');
++          if ($expire != CACHE_PERMANENT && $expire < REQUEST_TIME) {
++            $keys[] = $key;
++          }
++        }
++      }
++      // Otherwise, delete all requested keys
++      else {
++        $keys = $client->keys($key);
++      }
+       // Attempt to clear an empty array will raise exceptions.
+       if (!empty($keys)) {
+         $client->del($keys);
+-- 
+1.7.2.5
+
