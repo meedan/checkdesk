@@ -297,6 +297,33 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_new_user'] = entity_import('rules_config', '{ "rules_new_user" : {
+      "LABEL" : "New user",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
+      "ON" : [ "user_insert" ],
+      "IF" : [ { "user_is_blocked" : { "account" : [ "account" ] } } ],
+      "DO" : [
+        { "heartbeat_activity_checkdesk_new_user" : {
+            "nid" : "[account:uid]",
+            "uid" : "[account:uid]",
+            "nid_target" : "0",
+            "uid_target" : "0",
+            "message_id" : { "value" : { "checkdesk_new_user" : "checkdesk_new_user" } },
+            "!url" : "[account:edit-url]",
+            "!name" : "[account:name]"
+          }
+        },
+        { "schedule" : {
+            "component" : "rules_notify_subscribed_users_new_user",
+            "date" : "now",
+            "param_user" : [ "account" ]
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_notify_subscribed_users'] = entity_import('rules_config', '{ "rules_notify_subscribed_users" : {
       "LABEL" : "Notify subscribed users: fact-checking on",
       "PLUGIN" : "action set",
@@ -441,6 +468,25 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message" : "Hello !recipient_name,\\r\\n\\r\\nStory \\u0022!title\\u0022 which you commented on has a \\u003Ca href=\\u0022!url\\u0022\\u003Enew update\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
             "actor" : [ "node:author" ],
             "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!title\\u0027 =\\u003E $story-\\u003Etitle, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_notify_subscribed_users_new_user'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_new_user" : {
+      "LABEL" : "Notify subscribed users: new user",
+      "PLUGIN" : "action set",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "USES VARIABLES" : { "user" : { "label" : "User", "type" : "user" } },
+      "ACTION SET" : [
+        { "notify_subscribers" : {
+            "object" : [ "user" ],
+            "event" : "email_new_user",
+            "subject" : "New user",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\nA new user \\u003Ca href=\\u0022!url\\u0022\\u003E!name \\u003C\\/a\\u003Ehas registered. If you want to accept this registration, please mark this user as \\u0022active\\u0022.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
+            "actor" : [ "user" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!name\\u0027 =\\u003E $user-\\u003Ename, \\u0027!url\\u0027 =\\u003E url(\\u0027user\\/\\u0027 . $user-\\u003Euid . \\u0027\\/edit\\u0027, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:notifications-url]\\u0027)); \\r\\n?\\u003E"
           }
         }
       ]
@@ -779,7 +825,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "!flag_author_url" : [ "flagging-user:url" ],
             "!flag_author_name" : [ "flagging-user:name" ],
             "!report_url" : [ "flagged-node:url" ],
-            "!flag_type" : "[flag:title]"
+            "!flag_type" : "\\u003C?php print $flag-\\u003Etitle; ?\\u003E"
           }
         },
         { "schedule" : {

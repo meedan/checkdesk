@@ -5,7 +5,217 @@
  * Tests for the Flag module.
  */
 
-class FlagTestCase extends DrupalWebTestCase {
+/**
+ * Base class for our tests with common methods.
+ */
+abstract class FlagTestCaseBase extends DrupalWebTestCase {
+
+  /**
+   * Helper to create a flag from an array of data and clear caches etc.
+   *
+   * @param $flag_data
+   *  An array of flag data.
+   *
+   * @return
+   *  The flag object.
+   */
+  function createFlag($flag_data) {
+    $flag = flag_flag::factory_by_array($flag_data);
+    $flag->save();
+    // Reset our cache so our permissions show up.
+    drupal_static_reset('flag_get_flags');
+
+    // Reset permissions so that permissions for this flag are available.
+    $this->checkPermissions(array(), TRUE);
+
+    return $flag;
+  }
+
+}
+
+/**
+ * Test CRUD operations on Flagging entities.
+ */
+class FlagFlaggingCRUDTestCase extends FlagTestCaseBase {
+
+  /**
+   * Implements getInfo().
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Flagging CRUD',
+      'description' => 'Basic CRUD operations on flagging entities.',
+      'group' => 'Flag',
+    );
+  }
+
+  /**
+   * Implements setUp().
+   */
+  function setUp() {
+    parent::setUp('flag');
+
+    $flag_data = array(
+      'entity_type' => 'node',
+      'name' => 'test_flag',
+      'title' => 'Test Flag',
+      'global' => 0,
+      'types' => array(
+        0 => 'article',
+      ),
+      'flag_short' => 'Flag this item',
+      'flag_long' => '',
+      'flag_message' => '',
+      'unflag_short' => 'Unflag this item',
+      'unflag_long' => '',
+      'unflag_message' => '',
+      'unflag_denied_text' => 'You may not unflag this item',
+      'link_type' => 'normal',
+      'weight' => 0,
+      'show_on_form' => 0,
+      'access_author' => '',
+      'show_contextual_link' => 0,
+      'show_in_links' => array(
+        'full' => 1,
+        'teaser' => 1,
+      ),
+      'i18n' => 0,
+      'api_version' => 3,
+    );
+    $this->flag = $this->createFlag($flag_data);
+
+    // Create test user who can flag and unflag.
+    $this->flag_unflag_user = $this->drupalCreateUser(array('flag test_flag', 'unflag test_flag'));
+    $this->drupalLogin($this->flag_unflag_user);
+  }
+
+  /**
+   * Test creation of a flagging entity with flagging_save().
+   */
+  function testFlaggingCreate() {
+    // Create an article node that we try to create a flagging entity for.
+    $title = $this->randomName(8);
+    $node = array(
+      'title' => $title,
+      'body' => array(LANGUAGE_NONE => array(array('value' => $this->randomName(32)))),
+      'uid' => 1,
+      'type' => 'article',
+      'is_new' => TRUE,
+    );
+    $node = node_submit((object) $node);
+    node_save($node);
+
+    // Create a flagging entity and save it.
+    $flagging = array(
+      'fid' => $this->flag->fid,
+      'entity_type' => 'node',
+      'entity_id' => $node->nid,
+      'uid' => $this->flag_unflag_user->uid,
+    );
+
+    $flagging = (object) $flagging;
+    flagging_save($flagging);
+
+    // Test flagging has a flagging_id
+    $this->assertTrue(!empty($flagging->flagging_id), 'The flagging entity has an entity id.');
+
+    // Test the database record exists.
+    $result = db_query("SELECT * FROM {flagging} WHERE fid = :fid AND entity_id = :nid AND uid = :uid", array(
+      ':fid' => $this->flag->fid,
+      ':nid' => $node->nid,
+      ':uid' => $this->flag_unflag_user->uid,
+    ));
+    $records = $result->fetchAll();
+    $this->assertTrue(count($records), 'The flagging record exists in the database.');
+
+    // Test node is flagged.
+    // The current user is not the same as the user logged into the internal
+    // browser, so we have to pass the UID param explicitly.
+    $this->assertTrue($this->flag->is_flagged($node->nid, $this->flag_unflag_user->uid), 'The node has been flagged by creating the flagging.');
+  }
+
+  /**
+   * Test throwing of exceptions with flagging_save().
+   */
+  function testFlaggingCreateException() {
+    // Create an article node that we try to create a flagging entity for.
+    $title = $this->randomName(8);
+    $node = array(
+      'title' => $title,
+      'body' => array(LANGUAGE_NONE => array(array('value' => $this->randomName(32)))),
+      'uid' => 1,
+      'type' => 'article',
+      'is_new' => TRUE,
+    );
+    $node = node_submit((object) $node);
+    node_save($node);
+
+    // Create test user who can't use this flag.
+    $no_flag_user = $this->drupalCreateUser(array());
+
+    // Create a flagging entity with that tries to perform an flagging action
+    // that is not permitted.
+    $flagging = array(
+      'fid' => $this->flag->fid,
+      'entity_type' => 'node',
+      'entity_id' => $node->nid,
+      'uid' => $no_flag_user->uid,
+    );
+
+    $flagging = (object) $flagging;
+    try {
+      flagging_save($flagging);
+      $this->fail(t('Expected exception has not been thrown.'));
+    }
+    catch (Exception $e) {
+      $this->pass(t('Expected exception has been thrown.'));
+    }
+  }
+
+  /**
+   * Test creation of a flagging entity with flagging_save().
+   */
+  function testFlaggingUpdate() {
+    // Create an article node that we try to create a flagging entity for.
+    $title = $this->randomName(8);
+    $node = array(
+      'title' => $title,
+      'body' => array(LANGUAGE_NONE => array(array('value' => $this->randomName(32)))),
+      'uid' => 1,
+      'type' => 'article',
+      'is_new' => TRUE,
+    );
+    $node = node_submit((object) $node);
+    node_save($node);
+
+    // Flag the node as the user.
+    $flag = flag_get_flag('test_flag');
+    $flag->flag('flag', $node->nid, $this->flag_unflag_user);
+
+    // Get the flagging record back from the database.
+    $result = db_query("SELECT * FROM {flagging} WHERE fid = :fid AND entity_id = :nid AND uid = :uid", array(
+      ':fid' => $this->flag->fid,
+      ':nid' => $node->nid,
+      ':uid' => $this->flag_unflag_user->uid,
+    ));
+    $record = $result->fetchObject();
+
+    // Load the flagging entity we just created.
+    $flagging = flagging_load($record->flagging_id);
+
+    // Save it, as if we were updating field values.
+    flagging_save($flagging);
+
+    // This should have no effect: the node should still be flagged.
+    $this->assertTrue($this->flag->is_flagged($node->nid, $this->flag_unflag_user->uid), 'The node is still flagged after updating the flagging.');
+  }
+
+}
+
+/**
+ * Test Flag admin UI.
+ */
+class FlagAdminTestCase extends FlagTestCaseBase {
   var $_flag = FALSE;
 
   /**
@@ -13,9 +223,9 @@ class FlagTestCase extends DrupalWebTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => t('Flag tests'),
-      'description' => t('Add, edit and delete flags.'),
-      'group' => t('Flag'),
+      'name' => 'Flag admin tests',
+      'description' => 'Add, edit and delete flags.',
+      'group' => 'Flag',
     );
   }
 
@@ -48,15 +258,19 @@ class FlagTestCase extends DrupalWebTestCase {
       'roles[unflag][2]' => TRUE,
       'types[article]' => FALSE,
       'types[page]' => TRUE,
-      'show_on_teaser' => FALSE,
-      'show_on_page' => FALSE,
+      'show_in_links[full]' => FALSE,
+      'show_in_links[teaser]' => FALSE,
+      'show_in_links[rss]' => FALSE,
+      'show_in_links[search_index]' => FALSE,
+      'show_in_links[search_result]' => FALSE,
       'show_on_form' => FALSE,
       'link_type' => 'toggle',
     );
     $saved = $edit;
     $saved['roles'] = array('flag' => array(2), 'unflag' => array(2));
     $saved['types'] = array('page');
-    unset($saved['roles[flag][2]'], $saved['roles[unflag][2]'], $saved['types[article]'], $saved['types[page]']);
+    $saved['show_in_links'] = array('full' => 0, 'teaser' => 0, 'rss' => 0, 'search_index' => 0, 'search_result' => 0);
+    unset($saved['roles[flag][2]'], $saved['roles[unflag][2]'], $saved['types[article]'], $saved['types[page]'], $saved['show_in_links[full]'], $saved['show_in_links[teaser]'], $saved['show_in_links[rss]'], $saved['show_in_links[search_index]'], $saved['show_in_links[search_result]']);
 
     $this->drupalPost(FLAG_ADMIN_PATH . '/add/node', $edit, t('Save flag'));
 
@@ -98,15 +312,19 @@ class FlagTestCase extends DrupalWebTestCase {
       'roles[unflag][2]' => TRUE,
       'types[article]' => TRUE,
       'types[page]' => FALSE,
-      'show_on_teaser' => TRUE,
-      'show_on_page' => TRUE,
+      'show_in_links[full]' => TRUE,
+      'show_in_links[teaser]' => TRUE,
+      'show_in_links[rss]' => FALSE,
+      'show_in_links[search_index]' => FALSE,
+      'show_in_links[search_result]' => FALSE,
       'show_on_form' => TRUE,
       'link_type' => 'normal',
     );
     $saved = $edit;
     $saved['roles'] = array('flag' => array(2), 'unflag' => array(2));
     $saved['types'] = array('article');
-    unset($saved['roles[flag][2]'], $saved['roles[unflag][2]'], $saved['types[article]'], $saved['types[page]']);
+    $saved['show_in_links'] = array('full' => TRUE, 'teaser' => TRUE, 'rss' => 0, 'search_index' => 0, 'search_result' => 0);
+    unset($saved['roles[flag][2]'], $saved['roles[unflag][2]'], $saved['types[article]'], $saved['types[page]'], $saved['show_in_links[full]'], $saved['show_in_links[teaser]'], $saved['show_in_links[rss]'], $saved['show_in_links[search_index]'], $saved['show_in_links[search_result]']);
 
     $this->drupalPost(FLAG_ADMIN_PATH . '/manage/' . $flag->name, $edit, t('Save flag'));
 
@@ -145,12 +363,609 @@ class FlagTestCase extends DrupalWebTestCase {
     $this->assertFalse(flag_get_flag($flag->name), t('Flag successfully deleted.'));
   }
 
-  /**
-   * Test that only allowed users have access to flags.
-   */
-  function testFlagAccess() {
+}
 
+/**
+ * Access to flags using the entity forms.
+ *
+ * @todo: complete this test class.
+ */
+class FlagAccessFormTestCase extends FlagTestCaseBase {
+
+  /**
+   * Implements getInfo().
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Flag access: entity forms',
+      'description' => 'Access to flag and unflag entities via entity forms.',
+      'group' => 'Flag',
+    );
+  }
+
+  /**
+   * Implements setUp().
+   */
+  function setUp() {
+    parent::setUp('flag');
+  }
+
+  /**
+   * Test scenarios with no access to a global flag.
+   */
+  function testFlagAccessGlobalNone() {
+    // Create a global flag on article nodes.
+    $flag_data = array(
+      'entity_type' => 'node',
+      'name' => 'global_flag',
+      'title' => 'Global Flag',
+      'global' => 1,
+      'types' => array(
+        0 => 'article',
+      ),
+      'flag_short' => 'Flag this item',
+      'flag_long' => '',
+      'flag_message' => '',
+      'unflag_short' => 'Unflag this item',
+      'unflag_long' => '',
+      'unflag_message' => '',
+      'unflag_denied_text' => 'You may not unflag this item',
+      'link_type' => 'normal',
+      'weight' => 0,
+      // Show the flag on the form.
+      'show_on_form' => 1,
+      'access_author' => '',
+      'show_contextual_link' => 0,
+      'show_in_links' => array(
+        'full' => 1,
+        'teaser' => 1,
+      ),
+      'i18n' => 0,
+      'api_version' => 3,
+    );
+    $flag = $this->createFlag($flag_data);
+
+    // Create test user who can't us this flag, but can create nodes.
+    $no_flag_user = $this->drupalCreateUser(array('create article content'));
+    $this->drupalLogin($no_flag_user);
+
+    $this->drupalGet('node/add/article');
+
+    // Check that the flag form element cannot be seen
+    $this->assertNoText('Flag this item', t('Flag form element was not found.'));
+
+    // Have the user create a node.
+    $edit = array(
+      'title' => 'node 1',
+    );
+    $this->drupalPost('node/add/article', $edit, t('Save'));
+
+    $node = $this->drupalGetNodeByTitle($edit["title"]);
+
+    // Check the new node has not been flagged.
+    $this->assertFalse($flag->is_flagged($node->nid), t('New node is not flagged.'));
+
+    // Now set the variable so that the flag is set by default on new nodes.
+    variable_set('flag_' . $flag->name . '_default_' . 'article', 1);
+
+    // Create another new node.
+    $edit = array(
+      'title' => 'node 2',
+    );
+    $this->drupalPost('node/add/article', $edit, t('Save'));
+
+    $node = $this->drupalGetNodeByTitle($edit["title"]);
+
+    // Check the new node has been flagged, despite the user not having access
+    // to the flag.
+    $this->assertTrue($flag->is_flagged($node->nid), t('New node is flagged.'));
   }
 
 }
 
+/**
+ * Access to flags using the basic flag link.
+ */
+class FlagAccessLinkTestCase extends FlagTestCaseBase {
+
+  /**
+   * Implements getInfo().
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Flag access tests',
+      'description' => 'Access to flag and unflag entities using the basic link.',
+      'group' => 'Flag',
+    );
+  }
+
+  /**
+   * Implements setUp().
+   */
+  function setUp() {
+    parent::setUp('flag');
+
+    // Create a test flag on article nodes.
+    $flag_data = array(
+      'entity_type' => 'node',
+      'name' => 'test_flag',
+      'title' => 'Test Flag',
+      'global' => 0,
+      'types' => array(
+        0 => 'article',
+      ),
+      'flag_short' => 'Flag this item',
+      'flag_long' => '',
+      'flag_message' => '',
+      'unflag_short' => 'Unflag this item',
+      'unflag_long' => '',
+      'unflag_message' => '',
+      'unflag_denied_text' => 'You may not unflag this item',
+      // Use the normal link type as it involves no intermediary page loads.
+      'link_type' => 'normal',
+      'weight' => 0,
+      'show_on_form' => 0,
+      'access_author' => '',
+      'show_contextual_link' => 0,
+      'show_in_links' => array(
+        'full' => 1,
+        'teaser' => 1,
+      ),
+      'i18n' => 0,
+      'api_version' => 3,
+    );
+    $flag = $this->createFlag($flag_data);
+
+    // Create an article node that various users will try to flag.
+    $title = $this->randomName(8);
+    $node = array(
+      'title' => $title,
+      'body' => array(LANGUAGE_NONE => array(array('value' => $this->randomName(32)))),
+      'uid' => 1,
+      'type' => 'article',
+      'is_new' => TRUE,
+    );
+    $node = node_submit((object) $node);
+    node_save($node);
+    $this->nid = $node->nid;
+  }
+
+  /**
+   * Test that a user without flag access can't see the flag.
+   */
+  function testFlagAccessNone() {
+    // Create test user who can't flag at all.
+    $no_flag_user = $this->drupalCreateUser(array());
+    $this->drupalLogin($no_flag_user);
+
+    // Look at our node.
+    $this->drupalGet('node/' . $this->nid);
+
+    $this->assertNoLink('Flag this item', 0, 'The flag link does not appear on the page');
+  }
+
+  /**
+   * Test that a user with only flag access can flag but not unflag.
+   */
+  function testFlagAccessFlagOnly() {
+    // Create test user who can flag but not unflag.
+    $flag_user = $this->drupalCreateUser(array('flag test_flag',));
+    $this->drupalLogin($flag_user);
+
+    // Look at our node.
+    $this->drupalGet('node/' . $this->nid);
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page.');
+
+    // Click the link to flag the node.
+    $this->clickLink(t('Flag this item'));
+
+    $this->assertText('You may not unflag this item', 0, 'The unflag denied text appears on the page after flagging.');
+  }
+
+  /**
+   * Test that a user with flag access can flag and unflag.
+   */
+  function testFlagAccessFlagUnflag() {
+    // Create test user who can flag and unflag.
+    $flag_unflag_user = $this->drupalCreateUser(array('flag test_flag', 'unflag test_flag'));
+    $this->drupalLogin($flag_unflag_user);
+
+    // Look at our node.
+    $this->drupalGet('node/' . $this->nid);
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page.');
+
+    // Click the link to flag the node.
+    $this->clickLink(t('Flag this item'));
+
+    $this->assertLink('Unflag this item', 0, 'The unflag link appears on the page after flagging.');
+
+    // Click the link to unflag the node.
+    $this->clickLink(t('Unflag this item'));
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page after unflagging.');
+  }
+
+}
+
+/**
+ * Test the 'confirm form' link type.
+ */
+class FlagLinkTypeConfirmTestCase extends DrupalWebTestCase {
+
+  /**
+   * Implements getInfo().
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Flag confirm link tests',
+      'description' => 'Flag confirm form link type.',
+      'group' => 'Flag',
+    );
+  }
+
+  /**
+   * Implements setUp().
+   */
+  function setUp() {
+    parent::setUp('flag');
+
+    // Create a test flag on article nodes.
+    // Keep the original data so we can compare strings.
+    $this->flag_data = array(
+      'entity_type' => 'node',
+      'name' => 'test_flag',
+      'title' => 'Test Flag',
+      'global' => 0,
+      'types' => array(
+        0 => 'article',
+      ),
+      'flag_short' => 'Flag this item',
+      'flag_long' => '',
+      'flag_message' => 'You have flagged this item.',
+      'unflag_short' => 'Unflag this item',
+      'unflag_long' => '',
+      'unflag_message' => 'You have unflagged this item',
+      'unflag_denied_text' => 'You may not unflag this item',
+      'link_type' => 'confirm',
+      'flag_confirmation' => 'Are you sure you want to flag this item?',
+      'unflag_confirmation' => 'Are you sure you want to unflag this item?',
+      'weight' => 0,
+      'show_on_form' => 0,
+      'access_author' => '',
+      'show_contextual_link' => 0,
+      'show_in_links' => array(
+        'full' => 1,
+        'teaser' => 1,
+      ),
+      'i18n' => 0,
+      'api_version' => 3,
+    );
+    $flag = flag_flag::factory_by_array($this->flag_data);
+    $flag->save();
+    // Reset our cache so our permissions show up.
+    drupal_static_reset('flag_get_flags');
+
+    // Reset permissions so that permissions for this flag are available.
+    $this->checkPermissions(array(), TRUE);
+
+    // Create test user who can flag and unflag.
+    $flag_unflag_user = $this->drupalCreateUser(array('flag test_flag', 'unflag test_flag'));
+    $this->drupalLogin($flag_unflag_user);
+
+    // Create an article node to flag and unflag.
+    $title = $this->randomName(8);
+    $node = array(
+      'title' => $title,
+      'body' => array(LANGUAGE_NONE => array(array('value' => $this->randomName(32)))),
+      'uid' => 1,
+      'type' => 'article',
+      'is_new' => TRUE,
+    );
+    $node = node_submit((object) $node);
+    node_save($node);
+    $this->nid = $node->nid;
+  }
+
+  /**
+   * Test that a user sees the flag confirm form.
+   */
+  function testFlag() {
+    // Look at our node.
+    $this->drupalGet('node/' . $this->nid);
+
+    $this->assertLink($this->flag_data['flag_short'], 0, 'The flag link appears on the page');
+
+    // Click the link to flag the node.
+    $this->clickLink($this->flag_data['flag_short']);
+
+    $this->assertUrl('flag/confirm/flag/test_flag/' . $this->nid, array(
+      'query' => array(
+        'destination' => 'node/' . $this->nid,
+      ),
+    ), 'On confirm flagging form page.');
+
+    $this->assertText($this->flag_data['flag_confirmation'], 'The flag confirmation text appears as the confirmation page title.');
+
+    // Click the button to confirm the flagging.
+    $this->drupalPost(NULL, array(), $this->flag_data['flag_short']);
+
+    $this->assertText($this->flag_data['flag_message'], 'The flag message appears once the item has been flagged.');
+    $this->assertLink($this->flag_data['unflag_short'], 0, 'The unflag link appears once the item has been flagged.');
+
+    // Click the link to unflag the node.
+    $this->clickLink($this->flag_data['unflag_short']);
+
+    $this->assertUrl('flag/confirm/unflag/test_flag/' . $this->nid, array(
+      'query' => array(
+        'destination' => 'node/' . $this->nid,
+      ),
+    ), t('On confirm unflagging form page.'));
+
+    $this->assertText($this->flag_data['unflag_confirmation'], 'The unflag confirmation text appears as the confirmation page title.');
+
+    // Click the button to confirm the flagging.
+    $this->drupalPost(NULL, array(), $this->flag_data['unflag_short']);
+
+    $this->assertText($this->flag_data['unflag_message'], 'The unflag message appears once the item has been flagged.');
+  }
+
+}
+
+/**
+ * Verifies the implementation of hook_flag_access().
+ */
+class FlagHookFlagAccessTestCase extends FlagTestCaseBase {
+
+  /**
+   * Implements getInfo().
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Flag hook_flag_access() tests',
+      'description' => 'Checks the ability of modules to use hook_flag_access().',
+      'group' => 'Flag',
+    );
+  }
+
+  /**
+   * Implements setUp().
+   */
+  function setUp() {
+    parent::setUp('flag');
+
+    $success = module_enable(array('flagaccesstest'), FALSE);
+
+    // Create a test flag on article nodes.
+    $flag_data = array(
+      'entity_type' => 'node',
+      'name' => 'test_flag',
+      'title' => 'Test Flag',
+      'global' => 0,
+      'types' => array(
+        0 => 'article',
+      ),
+      'flag_short' => 'Flag this item',
+      'flag_long' => '',
+      'flag_message' => '',
+      'unflag_short' => 'Unflag this item',
+      'unflag_long' => '',
+      'unflag_message' => '',
+      'unflag_denied_text' => 'You may not unflag this item',
+      // Use the normal link type as it involves no intermediary page loads.
+      'link_type' => 'normal',
+      'weight' => 0,
+      'show_on_form' => 0,
+      'access_author' => '',
+      'show_contextual_link' => 0,
+      'show_in_links' => array(
+        'full' => 1,
+        'teaser' => 1,
+      ),
+      'i18n' => 0,
+      'api_version' => 3,
+    );
+    $flag = $this->createFlag($flag_data);
+
+    // Create an article node that various users will try to flag.
+    $title = $this->randomName(8);
+    $node = array(
+      'title' => $title,
+      'body' => array(LANGUAGE_NONE => array(array('value' => $this->randomName(32)))),
+      'uid' => 1,
+      'type' => 'article',
+      'is_new' => TRUE,
+    );
+    $node = node_submit((object) $node);
+    node_save($node);
+    $this->nid = $node->nid;
+  }
+
+  /**
+   * Verifies that the user sees the flag if a module returns NULL (Ignore).
+   */
+  function testFlagAccessIgnore() {
+    variable_set('FlagHookFlagAccessTestCaseMode', 'ignore');
+    $flag_user = $this->drupalCreateUser(array('flag test_flag', 'unflag test_flag'));
+    $this->drupalLogin($flag_user);
+
+    // Look at our node.
+    $this->drupalGet('node/' . $this->nid);
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page.');
+
+    // Click the link to flag the node.
+    $this->clickLink(t('Flag this item'));
+
+    $this->assertLink('Unflag this item', 0, 'The unflag link appears on the page after flagging.');
+
+    // Click the link to unflag the node.
+    $this->clickLink(t('Unflag this item'));
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page after unflagging.');
+  }
+
+  /**
+   * Verifies that the user sees the flag if a module returns TRUE (Allow).
+   */
+  function testFlagAccessAllow() {
+    variable_set('FlagHookFlagAccessTestCaseMode', 'allow');
+    $flag_user = $this->drupalCreateUser(array('flag test_flag', 'unflag test_flag'));
+    $this->drupalLogin($flag_user);
+
+    // Look at our node.
+    $this->drupalGet('node/' . $this->nid);
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page.');
+
+    // Click the link to flag the node.
+    $this->clickLink(t('Flag this item'));
+
+    $this->assertLink('Unflag this item', 0, 'The unflag link appears on the page after flagging.');
+
+    // Click the link to unflag the node.
+    $this->clickLink(t('Unflag this item'));
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page after unflagging.');
+  }
+
+  /**
+   * Verifies that the user sees the flag if a module returns TRUE (Allow) to override default access check.
+   */
+  function testFlagAccessAllowOverride() {
+    variable_set('FlagHookFlagAccessTestCaseMode', 'allow');
+    $flag_user = $this->drupalCreateUser(array());
+    $this->drupalLogin($flag_user);
+
+    // Look at our node.
+    $this->drupalGet('node/' . $this->nid);
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page.');
+
+    // Click the link to flag the node.
+    $this->clickLink(t('Flag this item'));
+
+    $this->assertLink('Unflag this item', 0, 'The unflag link appears on the page after flagging.');
+
+    // Click the link to unflag the node.
+    $this->clickLink(t('Unflag this item'));
+
+    $this->assertLink('Flag this item', 0, 'The flag link appears on the page after unflagging.');
+  }
+
+  /**
+   * Verifies that the user does not see the flag if a module returns FALSE (Deny).
+   */
+  function testFlagAccessDeny() {
+    variable_set('FlagHookFlagAccessTestCaseMode', 'deny');
+    $flag_user = $this->drupalCreateUser(array('flag test_flag', 'unflag test_flag'));
+    $this->drupalLogin($flag_user);
+
+    // Look at our node.
+    $this->drupalGet('node/' . $this->nid);
+
+    $this->assertNoLink('Flag this item', 0, 'The flag link does not appear on the page.');
+  }
+
+}
+
+/**
+ * Test use of EntityFieldQueries with flagging entities.
+ */
+class FlagEntityFieldQueryTestCase extends FlagTestCaseBase {
+
+  /**
+   * Implements getInfo().
+   */
+  public static function getInfo() {
+     return array(
+      'name' => 'Flagging Entity Field Query Extension',
+      'description' => 'Entity Field Query for flagging entities.',
+      'group' => 'Flag',
+    );
+  }
+
+  /**
+   * Implements setUp().
+   */
+  function setUp() {
+    parent::setUp('flag');
+
+    $flag_data = array(
+      'entity_type' => 'node',
+      'name' => 'test_flag_1',
+      'title' => 'Test Flag',
+      'global' => 0,
+      'types' => array(
+        0 => 'article',
+      ),
+      'flag_short' => 'Flag this item',
+      'flag_long' => '',
+      'flag_message' => '',
+      'unflag_short' => 'Unflag this item',
+      'unflag_long' => '',
+      'unflag_message' => '',
+      'unflag_denied_text' => 'You may not unflag this item',
+      // Use the normal link type as it involves no intermediary page loads.
+      'link_type' => 'normal',
+      'weight' => 0,
+      'show_on_form' => 0,
+      'access_author' => '',
+      'show_contextual_link' => 0,
+      'show_in_links' => array(
+        'full' => 1,
+        'teaser' => 1,
+      ),
+      'i18n' => 0,
+      'api_version' => 3,
+    );
+
+    $this->flag1 = $this->createFlag($flag_data);
+    $flag_data['name'] = 'test_flag_2';
+    $this->flag2 = $this->createFlag($flag_data);
+    $flag_data['name'] = 'test_flag_3';
+    $this->flag3 = $this->createFlag($flag_data);
+
+    // Create test user who can flag and unflag.
+    $this->flag_unflag_user = $this->drupalCreateUser(array('flag test_flag_1', 'unflag test_flag_1', 'flag test_flag_2', 'unflag test_flag_2'));
+    $this->drupalLogin($this->flag_unflag_user);
+
+  }
+
+  /**
+   * Test use of EntityFieldQuery with flagging entities.
+   */
+  function testEntityFieldQuery() {
+     $node_settings = array(
+      'title' => $this->randomName(),
+      'body' => array(LANGUAGE_NONE => array(array('value' => $this->randomName(32)))),
+      'uid' => 1,
+      'type' => 'article',
+      'is_new' => TRUE,
+    );
+    $node = $this->drupalCreateNode($node_settings);
+
+    flag('flag', 'test_flag_1', $node->nid, $this->flag_unflag_user);
+    flag('flag', 'test_flag_2', $node->nid, $this->flag_unflag_user);
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'flagging')
+      ->entityCondition('bundle', 'test_flag_1');
+
+    $flagged = $query->execute();
+    $this->assertEqual(count($flagged['flagging']), 1);
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'flagging')
+      ->entityCondition('bundle', 'test%', 'like');
+    $flagged = $query->execute();
+    $this->assertEqual(count($flagged['flagging']), 2);
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'flagging')
+      ->entityCondition('bundle', array('test_flag_1', 'test_flag_2'), 'IN');
+    $this->assertEqual(count($flagged['flagging']), 2);
+  }
+
+}

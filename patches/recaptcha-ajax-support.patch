@@ -7,10 +7,10 @@ Subject: [PATCH] Ajax support
  recaptcha.module |   15 ++++++++++++---
  1 files changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/recaptcha.module b/recaptcha.module
+diff --git a/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module b/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
 index 4f2d421..584d836 100644
---- a/recaptcha.module
-+++ b/recaptcha.module
+--- a/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
++++ b/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
 @@ -5,6 +5,8 @@
   * Uses the reCAPTCHA web service to improve the CAPTCHA system.
   */

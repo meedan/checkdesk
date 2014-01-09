@@ -80,6 +80,10 @@ function context_ui_permission() {
     'title' => 'Administer contexts',
     'description' => 'Associate menus, views, blocks, etc. with different contexts to structure your site.'
   );
+  $permissions['context ajax block access'] = array(
+    'title' => t('Access All Blocks'),
+    'description' => t('Allows users to access all rendered blocks via an AJAX callback. If you have some blocks that should not be rendered for some users but need those users to be able to use context UI, then implement hook_context_allow_ajax_block_access with the necessary logic.'),
+  );
   return $permissions;
 }
 
@@ -367,7 +371,7 @@ function context_ui_page_alter(&$page) {
  */
 function context_ui_menu_contextual_links_alter(&$links, $router_item, $root_path) {
   if(context_ui_dialog_is_enabled()  &&
-     !context_isset('context_ui', 'context_ui_editor_present')) {
+     !context_isset('context_ui', 'context_ui_editor_present') && user_access('administer contexts')) {
     $links['layout'] = array(
       'href' => 'context-ui/activate',
       'title' => t('Configure Layout'),

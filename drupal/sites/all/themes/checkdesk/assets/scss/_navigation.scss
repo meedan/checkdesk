@@ -20,7 +20,7 @@ $icon-position: 'before';
   }
   // add a report
   li.submit-report a {
-      @include icon("bookmark", $size, $color, $icon-position, $margin);
+    @include icon("bookmark", $size, $color, $icon-position, $margin);
   }
   // add a story
   a[href*="add/discussion"] {
@@ -29,6 +29,11 @@ $icon-position: 'before';
   // home
   li.home a {
     @include icon("home", $size, $color, $icon-position);
+  }
+  // tour
+  a[href*="checkdesk_take_tour"] {
+    // We were using an icon but it doesn't look good...
+    font-weight: bold;
   }
   // additional menu options
   li.additional a {

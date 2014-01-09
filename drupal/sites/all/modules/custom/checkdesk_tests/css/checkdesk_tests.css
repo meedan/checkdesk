@@ -1,0 +1,45 @@
+#checkdesk-tests-output {
+  display: block;
+  height: 300px;
+  overflow: auto;
+  padding: 5px;
+  font-size: 12px;
+  border: 1px solid #333;
+  background: #ffe;
+  /*
+  word-wrap: normal;
+  white-space: pre;
+  */
+}
+
+#checkdesk-tests-output * {
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+#checkdesk-tests-output table {
+  width: 90% !important;
+}
+
+#checkdesk-tests-status {
+  font-weight: bold;
+  line-height: 16px;
+}
+
+#checkdesk-tests-status span {
+  color: #a00;
+  padding-left: 18px; 
+}
+
+#checkdesk-tests-status.running span {
+  color: green;
+  background: transparent url(loading.gif) left center no-repeat;
+}
+
+#behat .summary {
+  position: static !important;
+}
+
+#behat .summary .switchers {
+  display: none !important;
+}

@@ -47,8 +47,17 @@ function views_load_more_views_ajax_data_alter(&$commands, $view) {
       if ($command['command'] == 'viewsScrollTop') {
         unset($commands[$key]);
       }
-      // the replace should the only one, but just incase, we'll make sure.
+      // the replace should the only one, but just in case, we'll make sure.
       if ($command['command'] == 'insert' && $command['selector'] == '.view-dom-id-' . $view->dom_id) {
+        if ($view->style_plugin->options['type'] == 'ul' || $view->style_plugin->options['type'] == 'ol') {
+          $target = ".{$view->style_plugin->options['wrapper_class']} > {$view->style_plugin->options['type']}:not(.links)";
+          $commands[$key]['targetList'] = $target;
+        }
+        if ($view->style_plugin->plugin_name == 'table') {
+          $target = '.views-table tbody';
+          $commands[$key]['targetList'] = $target;
+        }
+
         $commands[$key]['command'] = 'viewsLoadMoreAppend';
         $commands[$key]['method'] = 'append';
         if (isset($view->query->pager->options['effects']) && $view->query->pager->options['effects']['type'] != 'none') {
@@ -65,8 +74,6 @@ function views_load_more_views_ajax_data_alter(&$commands, $view) {
 
 function theme_views_load_more_pager($vars) {
   global $pager_page_array, $pager_total;
-
-  drupal_add_js(drupal_get_path('module', 'views_load_more').'/views_load_more.js');
 
   $tags = $vars['tags'];
   $element = $vars['element'];
@@ -99,6 +106,19 @@ function theme_views_load_more_pager($vars) {
       )
     );
   }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * Load js file only if ajax is enabled.
+ */
+function views_load_more_views_pre_render(&$view) {
+  if (!$view->use_ajax) {
+    return;
+  }
+
+  drupal_add_js(drupal_get_path('module', 'views_load_more') . '/views_load_more.js');
 }
 
 /**

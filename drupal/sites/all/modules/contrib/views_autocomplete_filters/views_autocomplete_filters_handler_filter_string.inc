@@ -123,8 +123,10 @@ class views_autocomplete_filters_handler_filter_string extends views_handler_fil
       $fields = $this->view->display_handler->get_handlers('field');
       $field_name = !empty($this->options['expose']['autocomplete_field']) ? $this->options['expose']['autocomplete_field'] : $this->options['id'];
       if (empty($field_name) || empty($fields[$field_name])) {
-        $errors[] = t('Field with autocomplete results is not selected for %label filter.', array(
+        $current_display = $this->view->display[$this->view->current_display];
+        $errors[] = t('Field with autocomplete results is not selected for %label filter in %display display.', array(
           '%label' => $this->ui_name(TRUE),
+          '%display' => $current_display->display_title . ' (' . $this->view->current_display . ')',
         ));
       }
     }

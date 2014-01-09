@@ -78,6 +78,25 @@ function clientside_validation_schema() {
 }
 
 /**
+ * Removes variables on uninstall.
+ */
+function clientside_validation_uninstall() {
+  $variables = array(
+    'clientside_validation_default_settings',
+    'clientside_validation_filter_paths',
+    'clientside_validation_override_jquery_form',
+    'clientside_validation_path_list',
+    'clientside_validation_use_minified',
+    'clientside_validation_validate_all',
+    'clientside_validation_validate_specific',
+  );
+
+  foreach ($variables as $name) {
+    variable_del($name);
+  }
+}
+
+/**
  * Clientside validation was split up into form validation, webform validation and fapi validation.
  * This update enables the form and webform clientside validation module. It does not enable the
  * fapi clientside validation module, because it's a new feature since this release.

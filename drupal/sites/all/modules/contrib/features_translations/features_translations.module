@@ -10,7 +10,6 @@ function features_translations_features_api() {
       'default_hook' => 'translations_defaults',
       'feature_source' => TRUE,
       'default_file' => FEATURES_DEFAULTS_INCLUDED,
-      'features_override_ignore' => TRUE,
     ),
   );
 }
@@ -24,7 +23,7 @@ function translations_features_export_options() {
   foreach (language_list() as $langcode => $language) {
     if ($langcode == translations_features_string_source_language()) continue;
     foreach ($textgroups as $textgroup => $label) {
-      $options[$langcode . ':' . $textgroup] = $language->name . ': ' . $label;
+      $options[$langcode . ':' . $textgroup] = t($language->name) . ': ' . $label;
     }
   }
   return $options;
@@ -75,14 +74,17 @@ function translations_features_revert($module_name) {
   include_once('includes/locale.inc');
   $translations = features_get_default('translations', $module_name);
   if (!empty($translations)) {
-    $report = array();
+    $report = array('updates' => 0, 'skips' => 0, 'additions' => 0, 'deletes' => 0);
     $lids = array();
     foreach ($translations as $key => $strings) {
       list($langcode, $textgroup) = explode(':', $key);
       foreach ($strings as $md5 => $string) {
         if (!empty($string['plid'])) {
           if (!isset($lids[$string['plid']])) {
-            watchdog('features', 'Translations: importing plid %plid not found for string %source.', array('%plid' => $string['plid'], '%source' => $string->source));
+            watchdog('features', 'Translations: importing plid %plid not found for string %source', array(
+              '%plid' => $string['plid'], 
+              '%source' => $string['source'],
+            ), WATCHDOG_WARNING);
             $string['plid'] = 0;
           }
           else {
@@ -103,6 +105,10 @@ function translations_features_revert($module_name) {
         );
       }
     }
+    watchdog('features', 'Translations: results for importing feature %feature: %report', array(
+      '%feature' => $module_name,
+      '%report' => var_export($report, TRUE),
+    ), WATCHDOG_INFO);
   }
   return TRUE;
 }

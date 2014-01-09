@@ -18,7 +18,7 @@ t('!title field has to have maximum !max words.', array('!title' => 'title', '!m
 t('!title field can not contain any HTML tags', array('!title' => 'title'));
 t('!title field can not contain any HTML tags exept !allowed', array('!title' => 'title', '!allowed' => 'a'));
 t('!title field has to be equal to !firstone.', array('!title' => 'title', '!firstone' => 'title2'));
-t('!title field has to different from !firstone', array('!title' => 'title', '!firstone' => 'title2'));
+t('!title field has to be different from !firstone', array('!title' => 'title', '!firstone' => 'title2'));
 t('!title field has to be one of the following values: !values.', array('!title' => 'title', '!values' => 'value1, value2'));
 t('!title field must consist of following elements only: !elements.', array('!title' => 'title', '!elements' => 'element1, element2'));
 t('!title field can not consist of following elements: !elements.', array('!title' => 'title', '!elements' => 'element1, element2'));

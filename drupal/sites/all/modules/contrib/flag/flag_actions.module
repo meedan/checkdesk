@@ -6,10 +6,17 @@
  */
 
 /**
- * Implements hook_flag(). Trigger actions if any are available.
+ * Implements hook_flag_flag(). Trigger actions if any are available.
  */
-function flag_actions_flag($event, $flag, $entity_id, $account) {
-  flag_actions_do($event, $flag, $entity_id, $account);
+function flag_actions_flag_flag($flag, $entity_id, $account, $flagging) {
+  flag_actions_do('flag', $flag, $entity_id, $account);
+}
+
+/**
+ * Implements hook_flag_unflag(). Trigger actions if any are available.
+ */
+function flag_actions_flag_unflag($flag, $entity_id, $account, $flagging) {
+  flag_actions_do('unflag', $flag, $entity_id, $account);
 }
 
 /**

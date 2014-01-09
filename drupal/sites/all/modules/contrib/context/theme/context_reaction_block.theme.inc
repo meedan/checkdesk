@@ -61,7 +61,8 @@ function theme_context_block_regions_form($vars) {
 /**
  * Use placeholder content for script tags that need to be replaced.
  */
-function theme_context_block_script_placeholder($text = '') {
+function theme_context_block_script_placeholder($vars) {
+  $text = $vars['text'];
   $message = t('Please reload the page to view this block.');
   return "<div class='script-placeholder'><strong>{$text}</strong><div class='description'>{$message}</div></div>";
 }
@@ -120,11 +121,6 @@ function template_preprocess_context_block_browser(&$vars) {
  * Preprocessor for theme('context_block_browser_item').
  */
 function template_preprocess_context_block_browser_item(&$vars) {
-  static $added = array();
   $vars['bid'] = $vars['block']->bid;
   $vars['info'] = check_plain($vars['block']->info);
-  if (empty($added[$vars['bid']])) {
-    drupal_add_js(array('contextBlockEditor' => array('block_tokens' => array($vars['bid'] => drupal_get_token($vars['bid'])))), 'setting');
-    $added[$vars['bid']] = TRUE;
-  }
 }

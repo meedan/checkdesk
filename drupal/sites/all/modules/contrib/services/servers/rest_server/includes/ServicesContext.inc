@@ -161,6 +161,11 @@ class ServicesContext implements ServicesContextInterface {
     if (isset($this->data['server'][$variable_name])) {
       return $this->data['server'][$variable_name];
     }
+    else {
+      if ($variable_name == 'CONTENT_TYPE' && isset($this->data['server']['HTTP_CONTENT_TYPE'])) {
+        return $this->data['server']['HTTP_CONTENT_TYPE'];
+      }
+    }
   }
 
   /**

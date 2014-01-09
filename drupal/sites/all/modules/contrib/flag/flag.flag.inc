@@ -34,6 +34,16 @@ function flag_flag_type_info() {
       'title' => t('Comments'),
       'description' => t('Comments are responses to node content.'),
       'handler' => 'flag_comment',
+      'module' => 'comment',
+    );
+  }
+
+  if (module_exists('taxonomy')) {
+    $definitions['taxonomy_term'] = array(
+      'title' => t('Taxonomy Terms'),
+      'description' => t('Taxonomy terms are used to categorize content.'),
+      'handler' => 'flag_entity',
+      'module' => 'taxonomy',
     );
   }
 
@@ -52,6 +62,13 @@ function flag_flag_type_info_alter(&$definitions) {
     // Only add flag support for entities that don't yet have them, and which
     // are non-config entities.
     if (!isset($definitions[$entity_type]) && empty($entity_info['configuration'])) {
+      // We deliberately exclude taxonomy vocabularies from the list of
+      // supported entity types because they aren't fieldable or directly
+      // viewable, which makes them impossible to flag.
+      if ($entity_type === 'taxonomy_vocabulary') {
+        continue;
+      }
+
       $definitions[$entity_type] = array(
         'title' => $entity_info['label'],
         'description' => t('@entity-type entity', array('@entity-type' => $entity_info['label'])),

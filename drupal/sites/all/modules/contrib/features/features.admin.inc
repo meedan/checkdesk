@@ -5,6 +5,70 @@
  * Forms for Features admin screens
  */
 
+
+/**
+ * Settings form for features
+ */
+function features_settings_form($form, $form_state) {
+  $form = array();
+
+  $components = features_get_components();
+  uasort($components, 'features_compare_component_name');
+  $form['show_components'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Show components on create/edit feature form.'),
+    '#description' => t('Components with no options will not be shown no matter the setting below. Disabled components cannot be used with admin form.')
+  );
+  foreach ($components as $compontent => $info) {
+    if (empty($info['feature_source']) && empty($info['features_source'])) {
+      continue;
+    }
+    $form['show_components']['features_admin_show_component_' . $compontent] = array(
+      '#title' => t('@name (@machine)', array('@name' => $info['name'], '@machine' => $compontent)),
+      '#type' => 'checkbox',
+      '#default_value' => variable_get('features_admin_show_component_' . $compontent, TRUE),
+    );
+    if ($compontent == 'menu_links' && ($menus = menu_get_menus())) {
+      $form['show_components']['features_admin_menu_links'] = array(
+        '#title' => t('Advanced Menu Link Settings'),
+        '#type' => 'fieldset',
+        '#collapsed' => TRUE,
+        '#collapsible' => TRUE,
+        '#states' => array(
+          'invisible' => array(
+            'input[name="features_admin_show_component_menu_links"]' => array('checked' => FALSE),
+          ),
+        ),
+      );
+      $form['show_components']['features_admin_menu_links']['features_admin_menu_links_menus'] = array(
+        '#title' => t('Allowed menus for menu links'),
+        '#type' => 'checkboxes',
+        '#options' =>  array_map('check_plain', $menus),
+        '#default_value' => variable_get('features_admin_menu_links_menus', array_keys(menu_get_menus())),
+      );
+    }
+  }
+
+  $form['general'] = array(
+    '#title' => t('General settings'),
+    '#type' => 'fieldset',
+  );
+  $form['general']['features_default_export_path'] = array(
+    '#title' => t('Default export path'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('features_default_export_path', FEATURES_DEFAULT_EXPORT_PATH),
+    '#description' => t('All feature exports will be automatically saved to this path, unless overridden on the individual feature.'),
+  );
+  $form['general']['features_rebuild_on_flush'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Rebuild features on cache clear'),
+    '#default_value' => variable_get('features_rebuild_on_flush', TRUE),
+    '#description' => t('If you have a large site with many features, you may experience lag on full cache clear. If disabled, features will rebuild only when viewing the features list or saving the modules list.'),
+  );
+
+  return system_settings_form($form);
+}
+
 /**
  * Form constructor for features export form.
  *
@@ -98,24 +162,26 @@ function features_export_form($form, $form_state, $feature = NULL) {
     '#default_value' => !empty($feature->info['project status url']) ? $feature->info['project status url'] : '',
     '#element_validate' => array('features_export_form_validate_field'),
   );
-  $directory = (!empty($feature->filename)) ? dirname($feature->filename) : 'sites/all/modules';
+  $directory = (!empty($feature->filename)) ? dirname($feature->filename) : variable_get('features_default_export_path', FEATURES_DEFAULT_EXPORT_PATH);
   if (!empty($feature_name) && substr_compare($directory, $feature_name, strlen($directory)-strlen($feature_name), strlen($feature_name)) === 0) {
     // if path ends with module_name, strip it
     $directory = dirname($directory);
   }
-  $form['advanced']['generate_path'] = array(
-    '#title' => t('Path to Generate feature module'),
-    '#description' => t('File path for feature module.  For Example: sites/all/modules or /tmp.  ' .
-      t('Leave blank for <strong>@path</strong>', array('@path' => $directory))),
-    '#type' => 'textfield',
-    '#required' => FALSE,
-    '#default_value' => !empty($feature->info['project path']) ? $feature->info['project path'] : '',
-  );
-  $form['advanced']['generate'] = array(
-    '#type' => 'submit',
-    '#value' => t('Generate feature'),
-    '#submit' => array('features_export_build_form_submit'),
-  );
+  if (user_access('generate features')) {
+    $form['advanced']['generate_path'] = array(
+      '#title' => t('Path to Generate feature module'),
+      '#description' => t('File path for feature module.  For Example: sites/all/modules/features or /tmp.  ' .
+        t('Leave blank for <strong>@path</strong>', array('@path' => $directory))),
+      '#type' => 'textfield',
+      '#required' => FALSE,
+      '#default_value' => !empty($feature->info['project path']) ? $feature->info['project path'] : '',
+    );
+    $form['advanced']['generate'] = array(
+      '#type' => 'submit',
+      '#value' => t('Generate feature'),
+      '#submit' => array('features_export_build_form_submit'),
+    );
+  }
   // build the Component Listing panel on the right
   _features_export_form_components($form, $form_state);
 
@@ -278,17 +344,24 @@ function _features_export_form_components(&$form, &$form_state) {
 
   $sections = array('included', 'detected', 'added');
   foreach ($export['components'] as $component => $component_info) {
-    $label = (isset($component_info['name']) ?
-      $component_info['name'] . " <span>(" . check_plain($component) . ")</span>" : check_plain($component));
+    if (!variable_get('features_admin_show_component_' . $component, TRUE)) {
+      continue;
+    }
 
-    $count = 0;
+      $component_items_count = count($component_info['options']['sources']);
+      $count_label = ' (<span class = "component-count">' . $component_items_count . '</span>)';
+      $label = (isset($component_info['name']) ?
+          $component_info['name'] . $count_label . " <span>(" . check_plain($component) . ")</span>"
+          : check_plain($component) . $count_label);
+
+      $count = 0;
     foreach ($sections as $section) {
       $count += count($component_info['options'][$section]);
     }
     $extra_class = ($count == 0) ? 'features-export-empty' : '';
     $component_name = str_replace('_', '-', check_plain($component));
 
-    if ($count + count($component_info['options']['sources']) > 0) {
+    if ($count + $component_items_count > 0) {
 
       if (!empty($deprecated[$component])) {
         // only show deprecated component if it has some exports
@@ -438,6 +511,10 @@ function _features_export_build($feature, &$form_state) {
   foreach ($components as $component => $component_info) {
     if ($reset) {
       unset($form_state['values'][$component]);
+    }
+    if (!variable_get('features_admin_show_component_' . $component, TRUE)) {
+      unset($components[$component]);
+      continue;
     }
     // User-selected components take precedence.
     $stub[$component] = array();
@@ -664,6 +741,8 @@ function features_export_components_json($feature_name) {
         }
       }
     }
+
+    $stub['dependencies'] = isset($stub['dependencies']) ? $stub['dependencies'] : array();
     $export = features_populate(array('features' => $stub, 'dependencies' => $stub['dependencies']), $feature_name);
     $export['features']['dependencies'] = $export['dependencies'];
 
@@ -767,13 +846,18 @@ function features_export_build_form_submit($form, &$form_state) {
   $generate = ($form_state['values']['op'] == $form_state['values']['generate']);
   $module_name = $form_state['values']['module_name'];
 
+  if ($generate && !user_access('generate features')) {
+    drupal_set_message(t("No permission for generating features."));
+    return;
+  }
+
   // Generate download
   if ($files = features_export_render($export, $module_name, TRUE)) {
     $filename = (!empty($export['version']) ? "{$module_name}-{$export['version']}" : $module_name) . '.tar';
 
     if ($generate) {
       $success = TRUE;
-      $destination = 'sites/all/modules';
+      $destination = variable_get('features_default_export_path', FEATURES_DEFAULT_EXPORT_PATH);
       $directory = (!empty($export['project path'])) ? $export['project path'] . '/' . $module_name :
         (isset($feature->filename) ? dirname($feature->filename) : $destination . '/' . $module_name);
       if (!is_dir($directory)) {
@@ -810,6 +894,14 @@ function features_export_build_form_submit($form, &$form_state) {
       }
     }
     if (features_get_modules($module_name, TRUE)) {
+      // prevent deprecated component files from being included in download
+      $deprecated = features_get_deprecated();
+      foreach ($deprecated as $component) {
+        $info = features_get_components($component);
+        $filename = isset($info['default_file']) && $info['default_file'] == FEATURES_DEFAULTS_CUSTOM ? $info['default_filename'] : "features.{$component}";
+        $filename .= '.inc';
+        $filenames[] = "{$module_name}.$filename";
+      }
       $module_path = drupal_get_path('module', $module_name);
       // file_scan_directory() can throw warnings when using PHP 5.3, messing
       // up the output of our file stream. Suppress errors in this one case in
@@ -927,23 +1019,28 @@ function features_admin_form($form, $form_state) {
         }
       }
       if (!empty($unmet_dependencies)) {
-        $description .= "<div class='dependencies'>" . t('Unmet dependencies: @dependencies', array('@dependencies' => implode(', ', $unmet_dependencies))) . "</div>";
+        $description .= "<div class='dependencies'>" . t('Unmet dependencies: !dependencies', array('!dependencies' => implode(', ', $unmet_dependencies))) . "</div>";
         $disabled = TRUE;
       }
     }
 
     if (!empty($module->dependents)) {
       $disabled = TRUE;
-      $description .= "<div class='requirements'>". t('Required by: @dependents', array('@dependents' => implode(', ', $module->dependents))) ."</div>";
+      $description .= "<div class='requirements'>". t('Required by: !dependents', array('!dependents' => implode(', ', $module->dependents))) ."</div>";
     }
 
     // Detect potential conflicts
     if (!empty($conflicts[$name])) {
       $module_conflicts = array();
-      foreach (array_keys($conflicts[$name]) as $conflict) {
+      foreach ($conflicts[$name] as $conflict => $components) {
+        $component_strings = array();
+        foreach ($components as $component => $component_conflicts) {
+          $component_strings[] = t('@component [@items]', array('@component' => $component, '@items' => implode(', ', $component_conflicts)));
+        }
+        $component_strings = implode(', ', $component_strings);
         // If conflicting module is disabled, indicate so in feature listing
         $status = !module_exists($conflict) ? FEATURES_MODULE_DISABLED : FEATURES_MODULE_CONFLICT;
-        $module_conflicts[] = theme('features_module_status', array('status' => $status, 'module' => $conflict));
+        $module_conflicts[] = theme('features_module_status', array('status' => $status, 'module' => $conflict)) . t(' in ') . $component_strings;
         // Only disable modules with conflicts if they are not already enabled.
         // If they are already enabled, somehow the user got themselves into a
         // bad situation and they need to be able to disable a conflicted module.
@@ -1028,6 +1125,8 @@ function features_admin_form($form, $form_state) {
 function features_admin_components($form, $form_state, $feature) {
   // Breadcrumb navigation
   $breadcrumb[] = l(t('Home'), NULL);
+  $breadcrumb[] = l(t('Administration'), 'admin');
+  $breadcrumb[] = l(t('Structure'), 'admin/structure');
   $breadcrumb[] = l(t('Features'), 'admin/structure/features');
   drupal_set_breadcrumb($breadcrumb);
 
@@ -1235,6 +1334,7 @@ function features_cleanup_form($form, $form_state, $cache_clear = FALSE) {
 function features_feature_diff($feature, $component = NULL) {
   drupal_add_css(drupal_get_path('module', 'features') . '/features.css');
   module_load_include('inc', 'features', 'features.export');
+  drupal_set_title($feature->info['name']);
 
   $overrides = features_detect_overrides($feature);
 

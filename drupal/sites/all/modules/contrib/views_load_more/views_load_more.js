@@ -14,6 +14,7 @@
     var wrapper_selector = response.selector || ajax.wrapper;
     var wrapper = $(wrapper_selector);
     var method = response.method || ajax.method;
+    var targetList = response.targetList || '';
     var effect = ajax.getEffect(response);
 
     // We don't know what response.data contains: it might be a string of text
@@ -47,12 +48,14 @@
     // Set up our default query options. This is for advance users that might
     // change there views layout classes. This allows them to write there own
     // jquery selector to replace the content with.
-    var content_query = response.options.content || '.view-content';
+    // Provide sensible defaults for unordered list, ordered list and table
+    // view styles.
+    var content_query = targetList && !response.options.content ? '.view-content ' + targetList : response.options.content || '.view-content';
     var pager_query = '.pager';
 
     // Ignore nested views
     pager_query = pager_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + pager_query + ')';
-    content_query = content_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + content_query + ')';
+    content_query = '.view-content:not(' + wrapper_selector + ' .view-content .view-content)';
 
     // Additional processing over new content
     wrapper.trigger('views_load_more.new_content', new_content.clone());
@@ -71,9 +74,29 @@
       wrapper.find(pager_query).parent('.item-list').html(new_content.find(pager_query));
     }
     wrapper.find(content_query)[method](new_content.find(content_query).children());
+
+    // Re-class the loaded content.
+    wrapper.find(content_query).children()
+      .removeClass('views-row-first views-row-last views-row-odd views-row-even')
+      .filter(':first')
+        .addClass('views-row-first')
+        .end()
+      .filter(':last')
+        .addClass('views-row-last')
+        .end()
+      .filter(':even')
+        .addClass('views-row-odd')
+        .end()
+      .filter(':odd')
+        .addClass('views-row-even')
+        .end();
+
     if (effect.showEffect != 'show') {
       wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
     }
+
+    // Additional processing over new content
+    wrapper.trigger('views_load_more.new_content', new_content.clone());
 
     // Attach all JavaScript behaviors to the new content
     // Remove the Jquery once Class, TODO: There needs to be a better

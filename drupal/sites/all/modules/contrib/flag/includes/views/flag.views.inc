@@ -170,6 +170,10 @@ function flag_views_data_alter(&$data) {
     $flag = flag_flag::factory_by_entity_type($flag_type);
     $info = $flag->get_views_info();
 
+    if (!isset($info)) {
+      continue;
+    }
+
     if (!empty($info['join field'])) {
       // Add the flag relationship.
       $data[$info['views table']]['flag_content_rel'] = array(

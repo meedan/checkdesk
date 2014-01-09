@@ -1188,6 +1188,10 @@ class i18n_string_object_wrapper extends i18n_object_wrapper {
    * Translate access (localize strings)
    */
   protected function localize_access() {
+    // We could check also whether the object has strings to translate:
+    //   && $this->get_strings(array('empty' => TRUE))
+    // However it may be better to display the 'No available strings' message
+    // for the user to have a clue of what's going on. See i18n_string_translate_page_object()
     return user_access('translate interface') && user_access('translate user-defined strings');
   }
 

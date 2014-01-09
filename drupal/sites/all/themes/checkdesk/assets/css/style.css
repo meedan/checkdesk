@@ -2191,6 +2191,10 @@ div.block:hover .edit {
   content: "\f005";
 }
 
+#my-notifications .checkdesk_new_user .heartbeat-time-ago:before {
+  content: "\f007";
+}
+
 .admin-nav-tabs > li span.icon-trash:before {
   content: "\f014";
 }
@@ -4522,6 +4526,19 @@ div.tabs ul.primary li a {
   font-size: 15px;
   line-height: inherit;
   color: #cccccc;
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+  width: 5%;
+}
+#my-notifications .checkdesk_new_user .heartbeat-time-ago:before {
+  font-family: "FontAwesome";
+  font-size: 15px;
+  line-height: inherit;
+  color: #0065a8;
   margin: 0 5.5px;
   width: auto;
   vertical-align: baseline;
@@ -7003,6 +7020,9 @@ nav[role="navigation"] li.home a:before {
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em;
   font-weight: normal;
+}
+nav[role="navigation"] a[href*="checkdesk_take_tour"] {
+  font-weight: bold;
 }
 nav[role="navigation"] li.additional a:before {
   font-family: "FontAwesome";
