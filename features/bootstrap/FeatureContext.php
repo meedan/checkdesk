@@ -32,11 +32,15 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     }
 
     /**
-     * @AfterStep @javascript
+     * @BeforeStep ~@javascript
      */
-    public function afterStep($event)
+    public function beforeStep($event)
     {
-      $this->getSession()->executeScript('window.alert = function(msg) { console.log(msg); }');
+      $username = variable_get('checkdesk_tests_http_user', '');
+      $password = variable_get('checkdesk_tests_http_password', '');
+      if (!empty($username) && !empty($password)) {
+        $this->getSession()->getDriver()->setBasicAuth($username, $password);
+      }
     }
 
     /**
