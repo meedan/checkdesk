@@ -134,7 +134,7 @@ class Redis_Cache_PhpRedis extends Redis_Cache_Base {
       }
       // Otherwise, delete all requested keys
       else {
-        $client->del($keys);
+        $client->del(array($key));
       }
     }
     else {
