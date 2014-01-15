@@ -11,7 +11,7 @@ function checkdesk_tests_init() {
   // Alerts break tests, so let's replace them by console.log
   // Clearly this is not the best approach... but the others didn't work! :(
   // I tried: Behat hooks (beforeStep, afterStep), set cookie on Behat, send HTTP headers on Behat, etc.
-  drupal_add_js('inline', 'window.alert = function(message) { if (console) console.log(message); }');
+  drupal_add_js('window.alert = function(message) { if (console) console.log(message); }', 'inline');
 }
 
 /**
