@@ -122,9 +122,9 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     }
 
     /**
-     * @Then /^menu item "([^"]*)" should be expanded$/
+     * @Then /^element "([^"]*)" should be expanded$/
      */
-    public function menuItemShouldBeExpanded($item)
+    public function elementShouldBeExpanded($item)
     {
       $page = $this->getSession()->getPage();
       $element = $page->find('css', $item);
@@ -135,9 +135,9 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     }
 
     /**
-     * @Then /^menu item "([^"]*)" should not be expanded$/
+     * @Then /^element "([^"]*)" should not be expanded$/
      */
-    public function menuItemShouldNotBeExpanded($item)
+    public function elementShouldNotBeExpanded($item)
     {
       $page = $this->getSession()->getPage();
       $element = $page->find('css', $item);

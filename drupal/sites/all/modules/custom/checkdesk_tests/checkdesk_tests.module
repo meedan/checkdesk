@@ -61,6 +61,13 @@ function _checkdesk_tests_settings($form, $form_state) {
     '#default_value' => variable_get('checkdesk_tests_http_password', ''),
   );
 
+  $form['checkdesk_tests_http_auth_headless_only'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable HTTP authentication only for headless testing'),
+    '#default_value' => variable_get('checkdesk_tests_http_auth_headless_only', 0),
+    '#description' => t('Sometimes testing using Selenium (or other driver that allows JavaScript) does not handle HTTP authentication well, for example when you have some link with some JavaScript behavior attached. On these cases, you may enable this HTTP authentication only for headless testing and find another solution for drivers that allow JavaScript (for example, with Selenium + JavaScript you can use the extension Auto Auth and save the credentials on a Firefox profile).'),
+  );
+
   $label = t('Running');
   $class = 'running';
   if (!$pid) {
@@ -137,7 +144,7 @@ function _checkdesk_tests_submit($form, &$form_state) {
   $password = variable_get('checkdesk_tests_http_password', '');
 
   $url = $base_root;
-  if (!empty($username) && !empty($password)) {
+  if (!empty($username) && !empty($password) && !variable_get('checkdesk_tests_http_auth_headless_only', 0)) {
     $url = preg_replace('/^(https?:\/\/)/', "$1$username:$password@", $url);
     $url = preg_replace('/([^\/])$/', "$1/", $url);
   }

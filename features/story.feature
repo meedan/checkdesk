@@ -37,17 +37,17 @@ Scenario: Display compose update form on story page
   And I am logged in as a user with the "journalist" role
   When I go to the homepage
   And I click "Meedan Story"
-  Then I should not see a "#post-node-form" element
+  Then element ".compose-update-form" should not be expanded
   When I click "Compose Update"
   And I wait for 5 seconds
-  Then I should see a "#post-node-form" element
+  Then element ".compose-update-form" should be expanded
   And I remove the created nodes
 
 @api @javascript
 Scenario: Open create story modal
   Given I am logged in as a user with the "journalist" role
   When I go to the homepage
-  Then menu item ".create-story" should not be expanded
+  Then element ".create-story" should not be expanded
   When I click "Create story"
   And I wait for 5 seconds
-  Then menu item ".create-story" should be expanded
+  Then element ".create-story" should be expanded
