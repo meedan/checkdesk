@@ -669,6 +669,7 @@ function checkdesk_preprocess_node(&$variables) {
         }
         // Display "{status} by {partner site name}" for all statuses
         // except when the report is in progress
+        global $language;
         if($status_name != 'In Progress') {
           $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
         }

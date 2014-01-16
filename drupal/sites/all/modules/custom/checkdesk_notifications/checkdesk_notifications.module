@@ -150,7 +150,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     // Add relationships to query
     global $user;
     $events = array_keys(checkdesk_notifications_get_events());
-    $subscriptions = isset($user->data['meedan_notifications']) ? $user->data['meedan_notifications'] : array_combine($events, $events);
+    $subscriptions = isset($user->data['meedan_notifications']) ? 
+      $user->data['meedan_notifications'] : array();
+    $subscriptions += array_combine($events, $events);
     $params = meedan_notifications_placeholders_for_views($user);
     unset($params[':nids']);
     $join = new views_join;

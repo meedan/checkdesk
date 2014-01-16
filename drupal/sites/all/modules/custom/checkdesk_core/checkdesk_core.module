@@ -460,6 +460,9 @@ function checkdesk_core_preprocess_flag(&$variables) {
     ctools_modal_add_js();
 
     $flag_css_name = 'flag-' . str_replace('_', '-', $variables['flag']->name);
+    if (empty($variables['flag_classes'])) {
+      $variables['flag_classes'] = '';
+    }
     $variables['flag_classes'] .= ' ctools-modal-' . $variables['flag']->confirm_modal_style;
     $variables['flag_classes'] .= ' '. $flag_css_name;
 
@@ -689,7 +692,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $links['checkdesk-share'] = array(
         'title' => '',
         'href' => '#',
-        'attributes' => array('title' => $title),
+        'attributes' => array('title' => $node->title),
       );
       $links['checkdesk-share-embed'] = array(
         'html' => TRUE,
@@ -2142,7 +2145,7 @@ function checkdesk_core_format_interval($interval, $granularity = 2, $langcode =
  */
 function _checkdesk_core_auto_title($node) {
   $replacements = array('/\[[^]]+\]/' => '', '/&nbsp;/' => ' '); // &nbsp; would be decoded as a non-UTF-8 char
-  $body = html_entity_decode(strip_tags(preg_replace(array_keys($replacements), array_values($replacements), $node->body[LANGUAGE_NONE][0]['value'])));
+  $body = html_entity_decode(strip_tags(preg_replace(array_keys($replacements), array_values($replacements), @$node->body[LANGUAGE_NONE][0]['value'])));
   if (empty($body)) {
     return t('Update');
   }
