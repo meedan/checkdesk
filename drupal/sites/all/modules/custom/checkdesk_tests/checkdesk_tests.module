@@ -140,6 +140,7 @@ function _checkdesk_tests_submit($form, &$form_state) {
   if (!empty($form_state['values']['checkdesk_tests_http_password'])) {
     variable_set('checkdesk_tests_http_password', $form_state['values']['checkdesk_tests_http_password']);
   }
+  variable_set('checkdesk_tests_http_auth_headless_only', $form_state['values']['checkdesk_tests_http_auth_headless_only']);
   $username = variable_get('checkdesk_tests_http_user', '');
   $password = variable_get('checkdesk_tests_http_password', '');
 
