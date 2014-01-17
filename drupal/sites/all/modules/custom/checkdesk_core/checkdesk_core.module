@@ -594,7 +594,7 @@ function _checkdesk_core_report_publish_submit($form, &$form_state) {
  * Retrieve action links on given node.
  */
 function _checkdesk_core_node_links($node, $account = NULL) {
-  global $language;
+  global $language, $base_root, $base_path;
   if (!$account) {
     global $user;
     $account = $user;
@@ -664,11 +664,37 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       );
     }
     if (node_access('delete', $node)) {
+
+      // After deleting the report, redirect to current page or previous page, if the current page is the report to be removed
+      $destination = current_path();
+      if (($destination == 'node/' . $node->nid) || (arg(0) == 'report-view-modal' && arg(2) == $node->nid)) {
+        if (isset($_SERVER['HTTP_REFERER'])) {
+          $url = parse_url($_SERVER['HTTP_REFERER']);
+          if ($url['scheme'] . '://' . $url['host'] == $base_root) {
+            $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
+            if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
+              list($langcode, $alias) = explode('/', $alias, 2);
+              if (!in_array($langcode, array_keys(language_list()))) {
+                $alias = $langcode . '/' . $alias;
+              }
+            }
+            $destination = drupal_lookup_path('source', urldecode($alias), $langcode);
+            if (empty($destination)) $destination = $alias;
+          }
+          else {
+            $destination = '<front>';
+          }
+        }
+        else {
+          $destination = '<front>';
+        }
+      }
+
       $links['checkdesk-delete'] = array(
         'title' => t('Delete'),
         'href' => 'node/' . $node->nid . '/delete',
         'query' => array(
-          'destination' => '<front>',
+          'destination' => $destination,
         ),
       );
     }
