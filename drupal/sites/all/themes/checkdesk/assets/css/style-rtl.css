@@ -2320,12 +2320,20 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f0dc";
 }
 
+.notifications-preferences .notifications-preferences-email:before {
+  content: "\f0e0";
+}
+
 #my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
   content: "\f0e5";
 }
 
 #footer-inner .icon-comments-alt:before {
   content: "\f0e6";
+}
+
+.notifications-preferences .notifications-preferences-site:before {
+  content: "\f0f3";
 }
 
 .admin-nav-tabs > li span.icon-plus:before {
@@ -4601,6 +4609,34 @@ div.tabs ul.primary li a {
 #my-notifications .more-link a:hover,
 #my-notifications .notifications-settings-link a:hover {
   background-color: transparent;
+}
+
+.notifications-preferences .notifications-preferences-site:before {
+  font-family: "FontAwesome";
+  font-size: 14px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.notifications-preferences .notifications-preferences-email:before {
+  font-family: "FontAwesome";
+  font-size: 14px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 5.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.notifications-preferences tr td, .notifications-preferences tr th {
+  text-align: right;
 }
 
 #incoming-reports-filters {

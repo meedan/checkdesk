@@ -9,6 +9,7 @@
 // setting omega
 $omega: opposite-position($from-direction);
 
+// Notifications list
 #my-notifications {
   width: 360px; // warning magic px CGB
   font-size: $fontSizeMini;
@@ -107,4 +108,19 @@ $omega: opposite-position($from-direction);
     }
   }
 
+}
+
+// Notifications settings page
+.notifications-preferences {
+  .notifications-preferences-site {
+    @include icon('bell-alt');
+  }
+  .notifications-preferences-email {
+    @include icon('envelope');
+  }
+  tr {
+    td, th {
+      text-align: $from-direction;
+    }
+  }
 }

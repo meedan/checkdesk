@@ -41925,6 +41925,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['c82150a77d9cd99353f9c36d2d0d2e7d'] = array(
+    'source' => 'Event',
+    'context' => '',
+    'location' => '/ar/i18n_string/save',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['f5b03a2b040078ff6a2c4a2d4c456a4b'] = array(
     'source' => 'Compose update here...',
     'context' => '',
@@ -44312,6 +44320,38 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar/user',
     'translation' => '؟',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7fd413ac362c2c37d437eeb71bb5fd5a'] = array(
+    'source' => 'Notify me by e-mail or on site when...',
+    'context' => '',
+    'location' => '/ar/user/1/notifications',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3a8f31b3cec158028e5e20fcb446fac9'] = array(
+    'source' => 'Receive notifications',
+    'context' => '',
+    'location' => '/ar/user/1/notifications',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['adaee7e9e55e280e61316e3340b05969'] = array(
+    'source' => 'On site',
+    'context' => '',
+    'location' => '/ar/user/1/notifications',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['4d218dc37349c6b0c4954ef26ef7fcff'] = array(
+    'source' => 'By e-mail',
+    'context' => '',
+    'location' => '/ar/user/1/notifications',
+    'translation' => 'TODO',
     'plid' => 0,
     'plural' => 0,
   );

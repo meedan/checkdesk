@@ -120,11 +120,12 @@ class Redis_Cache_PhpRedis extends Redis_Cache_Base {
     }
 
     if ($many) {
+      $all_keys = $client->keys($key);
       // If $cid is null, check expiration before deleting multiple keys
       if (NULL === $cid) {
         $keys = array();
         // Maybe here it breaks with many keys too
-        foreach ($client->keys($key) as $key) {
+        foreach ($all_keys as $key) {
           $expire = $client->hget($key, 'expire');
           if ($expire != CACHE_PERMANENT && $expire < REQUEST_TIME) {
             $keys[] = $key;
@@ -134,7 +135,7 @@ class Redis_Cache_PhpRedis extends Redis_Cache_Base {
       }
       // Otherwise, delete all requested keys
       else {
-        $client->del(array($key));
+        $client->del($all_keys);
       }
     }
     else {
