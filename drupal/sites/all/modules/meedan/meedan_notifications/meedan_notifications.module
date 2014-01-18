@@ -114,14 +114,16 @@ function meedan_notifications_get_events($key = 'all', $reset = FALSE) {
  * Custom user notifications tab.
  */
 function meedan_notifications_user_page($form, $form_state, $account) {
-  $options = meedan_notifications_get_events('label');
-  $subscriptions = isset($account->data['meedan_notifications']) ? $account->data['meedan_notifications'] : array_keys($options);
+  $events = meedan_notifications_get_events('label');
+  $subscriptions = isset($account->data['meedan_notifications']) ? $account->data['meedan_notifications'] : array_keys($events);
+
   $form['subscriptions'] = array(
     '#type' => 'checkboxes',
-    '#title' => t('Please select the events for which you wish to be notified'),
-    '#options' => $options,
+    '#title' => t('Notify me by e-mail or on site when...'),
+    '#options' => $events,
     '#default_value' => $subscriptions,
-  );  
+    '#theme' => 'meedan_notifications_checkboxes',
+  );
   $form['account_uid'] = array(
     '#type' => 'value',
     '#value' => $account->uid
@@ -131,6 +133,44 @@ function meedan_notifications_user_page($form, $form_state, $account) {
     '#value' => t('Save configuration'),
   );
   return $form;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function meedan_notifications_theme() {
+  return array(
+    'meedan_notifications_checkboxes' => array(
+      'render element' => 'element'
+    )
+  );
+}
+
+/**
+ * Theme function for `meedan_notification_checkboxes`.
+ */
+function theme_meedan_notifications_checkboxes($variable) {
+  $element = $variable['element'];
+
+  $header = array(
+    t('Event'),
+    array('data' => t('On site'), 'class' => 'notifications-preferences-site'),
+    array('data' => t('By e-mail'), 'class' => 'notifications-preferences-email'),
+  );
+
+  $events = $element['#options'];
+  $rows = array();
+  foreach ($events as $name => $label) {
+    list($context, $event) = explode('_', $name, 2);
+    $i = ($context == 'site' ? 1 : 2);
+    if (!isset($rows[$event])) {
+      $title = preg_replace('/^[^:]+: /u', '', $label);
+      $rows[$event] = array($title, '', '');
+    }
+    unset($element[$name]['#title']);
+    $rows[$event][$i] = render($element[$name]);
+  }
+  return theme_table(array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => 'notifications-preferences')));
 }
 
 /**
