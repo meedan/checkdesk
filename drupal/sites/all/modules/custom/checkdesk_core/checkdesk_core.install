@@ -196,3 +196,11 @@ function checkdesk_core_update_7019() {
   db_query("ALTER TABLE file_managed MODIFY uri VARCHAR(1024) COLLATE utf8_bin"); // Resize the column
   db_query("ALTER TABLE file_managed ENGINE=innodb"); // Rebuild the index
 }
+
+/**
+ * Implements hook_update_N().
+ * Disable module meedan_oembed_facebook for #1619.
+ */
+function checkdesk_core_update_7020() {
+  module_disable('meedan_oembed_facebook');
+}
