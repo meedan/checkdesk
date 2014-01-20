@@ -41929,7 +41929,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Event',
     'context' => '',
     'location' => '/ar/i18n_string/save',
-    'translation' => 'TODO',
+    'translation' => 'الحدث',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44327,7 +44327,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Notify me by e-mail or on site when...',
     'context' => '',
     'location' => '/ar/user/1/notifications',
-    'translation' => 'TODO',
+    'translation' => 'نبهني عبر البريد الإلكتروني أو على الموقع عندما...',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44335,7 +44335,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Receive notifications',
     'context' => '',
     'location' => '/ar/user/1/notifications',
-    'translation' => 'TODO',
+    'translation' => 'تلقّي التنبيهات',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44343,7 +44343,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'On site',
     'context' => '',
     'location' => '/ar/user/1/notifications',
-    'translation' => 'TODO',
+    'translation' => 'على الموقع',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44351,7 +44351,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'By e-mail',
     'context' => '',
     'location' => '/ar/user/1/notifications',
-    'translation' => 'TODO',
+    'translation' => 'بالبريد الإلكتروني',
     'plid' => 0,
     'plural' => 0,
   );
