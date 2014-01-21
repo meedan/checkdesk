@@ -180,6 +180,14 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				.oembed-title {
 					display: none;
 				}
+
+        .instagram .oembed-title {
+          display: block;
+          &:hover {
+		        color: $report-text-color;
+            text-decoration: none;
+          }
+        }
 				
 				.title {
 					padding: 0;
