@@ -242,6 +242,21 @@ function _checkdesk_modal_report_view($js = FALSE) {
 }
 
 /**
+ * Implements hook_ajax_render_alter().
+ * Add a `facebook_refresh` command to make sure FB embeds are shown correctly.
+ * @see http://thereisamoduleforthat.com/content/loading-facebook-embeds-ajax
+ */
+function checkdesk_core_ajax_render_alter(&$commands) {
+  foreach ($commands as $command) {
+    if ($command['command'] == 'modal_display') {
+      $commands[] = array(
+        'command' => 'refreshFacebook',
+      );
+    }
+  }
+}
+
+/**
  * Form function for `_checkdesk_core_settings`.
  */
 function _checkdesk_core_settings($form, $form_state) {

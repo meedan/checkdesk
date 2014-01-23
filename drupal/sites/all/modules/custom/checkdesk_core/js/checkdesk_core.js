@@ -203,6 +203,21 @@
     Drupal.attachBehaviors(response.selector);
   };
 
+  /**
+   * Command to refresh Facebook embeds.
+   */
+  Drupal.ajax.prototype.commands.refreshFacebook = function(ajax, response, status) {
+    // Wait until FB object is loaded and initialized to refresh the embeds.
+    // @see http://thereisamoduleforthat.com/content/loading-facebook-embeds-ajax
+    // Funnily, the FB script tag is removed by jQuery, so we cannot wait for it to finish loading.
+    // @see http://stackoverflow.com/questions/4079179/jquery-html-strips-out-script-tags
+    window.setTimeout(function() {
+      if (typeof(FB) != 'undefined' && typeof(FB.XFBML) != 'undefined') {
+        FB.XFBML.parse();
+      }
+    }, 1000);
+  };
+
   // Custom client-side validations
   Drupal.behaviors.clientSideValidations = {
     attach: function (context) {

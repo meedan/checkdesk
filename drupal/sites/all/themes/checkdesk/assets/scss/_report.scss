@@ -229,6 +229,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					max-width: 100%;
 				}
 
+				.fb_iframe_widget iframe {
+					max-width: none;
+				}
+
 				// scale videos proportionally
 				.oembed-video .oembed-content {
 					position: relative;
