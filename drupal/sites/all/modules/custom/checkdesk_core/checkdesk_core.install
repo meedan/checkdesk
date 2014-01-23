@@ -202,5 +202,22 @@ function checkdesk_core_update_7019() {
  * Disable module meedan_oembed_facebook for #1619.
  */
 function checkdesk_core_update_7021() {
-  module_disable(array('meedan_oembed_facebook'));
+  $modules = array('meedan_oembed_facebook');
+  module_disable($modules);
+  drupal_uninstall_modules($modules);
+}
+
+/**
+ * Implements hook_update_N().
+ * Disable module user_alert and delete content for #1915.
+ */
+function checkdesk_core_update_7022() {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'user_alert');
+  $result = $query->execute();
+  node_delete_multiple(array_keys($result['node']));
+  $modules = array('user_alert');
+  module_disable($modules);
+  drupal_uninstall_modules($modules);
 }

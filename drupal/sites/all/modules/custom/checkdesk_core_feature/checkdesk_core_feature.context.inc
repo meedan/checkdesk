@@ -29,16 +29,6 @@ function checkdesk_core_feature_context_default_contexts() {
     ),
   );
   $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'user_alert-user_alert' => array(
-          'module' => 'user_alert',
-          'delta' => 'user_alert',
-          'region' => 'header',
-          'weight' => '-10',
-        ),
-      ),
-    ),
   );
   $context->condition_mode = 1;
 
