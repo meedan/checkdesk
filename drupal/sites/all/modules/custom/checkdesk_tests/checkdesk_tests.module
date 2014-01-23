@@ -43,6 +43,7 @@ function checkdesk_tests_menu() {
  */
 function _checkdesk_tests_settings($form, $form_state) {
   drupal_add_css(drupal_get_path('module', 'checkdesk_tests') . '/css/checkdesk_tests.css');
+  drupal_add_css(drupal_get_path('module', 'checkdesk_tests') . '/css/modal.css');
 
   $pidfile = variable_get('checkdesk_tests_pidfile', '');
   $pid = empty($pidfile) ? '' : file_get_contents($pidfile);
@@ -88,15 +89,22 @@ function _checkdesk_tests_settings($form, $form_state) {
   $form['checkdesk_tests_steps'] = array(
     '#title' => t('Available steps'),
     '#type' => 'fieldset',
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#prefix' => '<div id="checkdesk-tests-steps">',
+    '#suffix' => '</div>',
   );
 
   $form['checkdesk_tests_steps']['checkdesk_tests_steps_content'] = array(
     '#type' => 'markup',
     '#markup' => _checkdesk_tests_steps(),
   );
-    
+
+  $form['checkdesk_tests_steps_link'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p>' . l(t('Available steps'), '#', array('attributes' => array('id' => 'checkdesk-tests-steps-link'))) . '</p>',
+  );
+
   $form['#after_build'] = array('_checkdesk_tests_load_javascript');
   
   $form['actions']['#type'] = 'actions';
@@ -115,7 +123,7 @@ function _checkdesk_tests_settings($form, $form_state) {
  */
 function _checkdesk_tests_steps() {
   global $base_root;
-  $cmd = "cd ..; MINK_EXTENSION_PARAMS='base_url=$base_root' php bin/behat -dl";
+  $cmd = "cd ..; (MINK_EXTENSION_PARAMS='base_url=$base_root' php bin/behat -dl | sed 's/^\s*//g' | sort)";
   $output = shell_exec($cmd);
   return nl2br(htmlentities($output));
 }
@@ -125,6 +133,7 @@ function _checkdesk_tests_steps() {
  */
 function _checkdesk_tests_load_javascript($form, &$form_state) {
   drupal_add_js(drupal_get_path('module', 'checkdesk_tests') . '/js/checkdesk_tests.js');
+  drupal_add_js(drupal_get_path('module', 'checkdesk_tests') . '/js/jquery.simplemodal.1.4.4.min.js');
   return $form;
 }
 

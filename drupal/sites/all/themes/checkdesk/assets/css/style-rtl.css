@@ -2304,7 +2304,7 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f0c1";
 }
 
-.update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before, nav[role="navigation"] li.additional a:before {
+.update .update-footer .update-actions ul.content-actions > li > a span.icon-reorder:before {
   content: "\f0c9";
 }
 
@@ -2340,7 +2340,7 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f0fe";
 }
 
-.report #report-actions ul.content-actions > li > a span.icon-ellipsis-horizontal:before {
+.report #report-actions ul.content-actions > li > a span.icon-ellipsis-horizontal:before, nav[role="navigation"] li.additional a.dropdown-toggle:before {
   content: "\f141";
 }
 
@@ -7061,7 +7061,7 @@ nav[role="navigation"] a[href*="add/discussion"]:before {
 }
 nav[role="navigation"] li.home a:before {
   font-family: "FontAwesome";
-  font-size: 15px;
+  font-size: 19px;
   line-height: inherit;
   color: rgba(255, 255, 255, 0.65);
   margin: 0 5.5px;
@@ -7074,7 +7074,7 @@ nav[role="navigation"] li.home a:before {
 nav[role="navigation"] a[href*="checkdesk_take_tour"] {
   font-weight: bold;
 }
-nav[role="navigation"] li.additional a:before {
+nav[role="navigation"] li.additional a.dropdown-toggle:before {
   font-family: "FontAwesome";
   font-size: 15px;
   line-height: inherit;
@@ -7166,7 +7166,7 @@ nav[role="navigation"] .nav > div h2.active, nav[role="navigation"] .nav > div h
 nav[role="navigation"] .nav > div h2.active > a, nav[role="navigation"] .nav > div h2.active > a:hover, nav[role="navigation"] .nav > div h2.active > a:active, nav[role="navigation"] .nav > div h2.active:hover > a, nav[role="navigation"] .nav > div h2.active:hover > a:hover, nav[role="navigation"] .nav > div h2.active:hover > a:active, nav[role="navigation"] .nav > div h2:active > a, nav[role="navigation"] .nav > div h2:active > a:hover, nav[role="navigation"] .nav > div h2:active > a:active {
   color: #262626;
   cursor: default;
-  padding-bottom: 7px;
+  padding-bottom: 8px;
 }
 nav[role="navigation"] .nav > div h2.active > a:before, nav[role="navigation"] .nav > div h2.active > a:hover:before, nav[role="navigation"] .nav > div h2.active > a:active:before, nav[role="navigation"] .nav > div h2.active:hover > a:before, nav[role="navigation"] .nav > div h2.active:hover > a:hover:before, nav[role="navigation"] .nav > div h2.active:hover > a:active:before, nav[role="navigation"] .nav > div h2:active > a:before, nav[role="navigation"] .nav > div h2:active > a:hover:before, nav[role="navigation"] .nav > div h2:active > a:active:before {
   color: #262626;
@@ -7231,7 +7231,7 @@ nav[role="navigation"] .nav > a.btn.active, nav[role="navigation"] .nav > a.btn.
 nav[role="navigation"] .nav > a.btn.active > a, nav[role="navigation"] .nav > a.btn.active > a:hover, nav[role="navigation"] .nav > a.btn.active > a:active, nav[role="navigation"] .nav > a.btn.active:hover > a, nav[role="navigation"] .nav > a.btn.active:hover > a:hover, nav[role="navigation"] .nav > a.btn.active:hover > a:active, nav[role="navigation"] .nav > a.btn:active > a, nav[role="navigation"] .nav > a.btn:active > a:hover, nav[role="navigation"] .nav > a.btn:active > a:active, nav[role="navigation"] .nav > li.active > a, nav[role="navigation"] .nav > li.active > a:hover, nav[role="navigation"] .nav > li.active > a:active, nav[role="navigation"] .nav > li.active:hover > a, nav[role="navigation"] .nav > li.active:hover > a:hover, nav[role="navigation"] .nav > li.active:hover > a:active, nav[role="navigation"] .nav > li:active > a, nav[role="navigation"] .nav > li:active > a:hover, nav[role="navigation"] .nav > li:active > a:active {
   color: #262626;
   cursor: default;
-  padding-bottom: 7px;
+  padding-bottom: 8px;
 }
 nav[role="navigation"] .nav > a.btn.active > a:before, nav[role="navigation"] .nav > a.btn.active > a:hover:before, nav[role="navigation"] .nav > a.btn.active > a:active:before, nav[role="navigation"] .nav > a.btn.active:hover > a:before, nav[role="navigation"] .nav > a.btn.active:hover > a:hover:before, nav[role="navigation"] .nav > a.btn.active:hover > a:active:before, nav[role="navigation"] .nav > a.btn:active > a:before, nav[role="navigation"] .nav > a.btn:active > a:hover:before, nav[role="navigation"] .nav > a.btn:active > a:active:before, nav[role="navigation"] .nav > li.active > a:before, nav[role="navigation"] .nav > li.active > a:hover:before, nav[role="navigation"] .nav > li.active > a:active:before, nav[role="navigation"] .nav > li.active:hover > a:before, nav[role="navigation"] .nav > li.active:hover > a:hover:before, nav[role="navigation"] .nav > li.active:hover > a:active:before, nav[role="navigation"] .nav > li:active > a:before, nav[role="navigation"] .nav > li:active > a:hover:before, nav[role="navigation"] .nav > li:active > a:active:before {
   color: #262626;
@@ -7349,7 +7349,7 @@ nav[role="navigation"] #user-menu .dropdown-menu {
 #block-locale-language .language-switcher-locale-url li.active > a, #block-locale-language .language-switcher-locale-url li.active > a:hover, #block-locale-language .language-switcher-locale-url li.active > a:active, #block-locale-language .language-switcher-locale-url li.active:hover > a, #block-locale-language .language-switcher-locale-url li.active:hover > a:hover, #block-locale-language .language-switcher-locale-url li.active:hover > a:active, #block-locale-language .language-switcher-locale-url li:active > a, #block-locale-language .language-switcher-locale-url li:active > a:hover, #block-locale-language .language-switcher-locale-url li:active > a:active {
   color: #262626;
   cursor: default;
-  padding-bottom: 7px;
+  padding-bottom: 8px;
 }
 #block-locale-language .language-switcher-locale-url li.active > a:before, #block-locale-language .language-switcher-locale-url li.active > a:hover:before, #block-locale-language .language-switcher-locale-url li.active > a:active:before, #block-locale-language .language-switcher-locale-url li.active:hover > a:before, #block-locale-language .language-switcher-locale-url li.active:hover > a:hover:before, #block-locale-language .language-switcher-locale-url li.active:hover > a:active:before, #block-locale-language .language-switcher-locale-url li:active > a:before, #block-locale-language .language-switcher-locale-url li:active > a:hover:before, #block-locale-language .language-switcher-locale-url li:active > a:active:before {
   color: #262626;
