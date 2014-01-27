@@ -31,10 +31,4 @@ jQuery(function($) {
     });
   }
   checkStatus();
-
-  // Display available steps on a modal window
-  $('#checkdesk-tests-steps-link').click(function() {
-    $('#checkdesk-tests-steps').modal();
-    return false;
-  });
 });

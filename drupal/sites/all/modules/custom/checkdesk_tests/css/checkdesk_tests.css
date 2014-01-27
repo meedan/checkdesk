@@ -1,6 +1,6 @@
 #checkdesk-tests-output {
   display: block;
-  height: 300px;
+  height: 600px;
   overflow: auto;
   padding: 5px;
   font-size: 12px;
@@ -46,4 +46,105 @@
 
 #checkdesk-tests-steps {
   display: none;
+}
+
+#checkdesk-tests-new-scenario, #checkdesk-tests-scenario-output {
+  width: 40%;
+}
+
+#checkdesk-tests-new-scenario {
+  float: left;
+}
+
+#checkdesk-tests-scenario-output {
+  float: right;
+}
+
+#checkdesk-tests-run {
+  display: block;
+  width: 20%;
+  text-align: center;
+  float: left;
+  padding-top: 200px;
+}
+
+#checkdesk-tests-create {
+  clear: both;
+  text-align: center;
+}
+
+#checkdesk-tests-new-steps fieldset fieldset {
+  padding: 0;
+}
+
+#checkdesk-tests-new-steps .form-item {
+  float: left;
+  margin-bottom: 0;
+}
+
+#checkdesk-tests-new-steps .form-type-select {
+  width: 20%;
+}
+
+#checkdesk-tests-new-steps .form-type-textfield {
+  width: 80%;
+}
+
+#checkdesk-tests-new-steps .form-type-select select {
+  width: 90%;
+}
+
+#checkdesk-tests-new-steps .form-type-textfield .form-text,
+#checkdesk-tests-new-steps .form-type-textfield .form-rich {
+  width: 100%;
+}
+
+#checkdesk-tests-new-steps .field-rich-wrapper {
+  position: relative;
+  background: #fff;
+  padding: 2px;
+  border: 1px solid #ccc;
+}
+
+#checkdesk-tests-new-steps .form-type-textfield .form-rich,
+#checkdesk-tests-new-steps .form-type-textfield .form-text.form-rich-processed {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
+
+#checkdesk-tests-new-steps .form-type-textfield .form-rich {
+  z-index: 1;
+  background: transparent;
+}
+
+#checkdesk-tests-new-steps .form-type-textfield .form-text.form-rich-processed {
+  color: transparent;
+  background-position: 100% 2px;
+}
+
+#checkdesk-tests-new-steps .form-type-textfield .form-text.form-rich-processed.throbbing {
+  background-position: 100% -18px;
+}
+
+#checkdesk-tests-new-steps .form-type-select select {
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+#checkdesk-tests-new-steps .step-param {
+  font-weight: bold;
+  color: #000;
+}
+
+#checkdesk-tests-new-steps .step-no-param {
+  font-weight: normal;
+  color: #666;
+}
+
+#edit-checkdesk-tests-title {
+  width: 98%;
 }

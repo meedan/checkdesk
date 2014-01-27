@@ -146,6 +146,19 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
       }
     }
 
+    /**
+     * @Then /^take screenshot$/
+     */
+    public function takeScreenshot()
+    {
+      $driver = $this->getSession()->getDriver();
+      // Only makes sense on HTML formatting and using the testing module
+      $base64 = base64_encode($driver->getScreenshot());
+      echo '<p>
+              <img src="data:image/png;base64,' . $base64 . '" id="checkdesk-tests-screenshot" style="width: 100%;" />
+            <p>';
+    }
+
 //
 // Place your definition and hook methods here:
 //
