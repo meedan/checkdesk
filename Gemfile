@@ -1,15 +1,15 @@
 source "https://rubygems.org"
 
-gem 'susy'
-gem 'compass'
-gem 'rake'
-gem 'modular-scale'
-
 group :test do 
   
 end
 
 group :development do 
+  gem 'susy'
+  gem 'compass'
+  gem 'rake'
+  gem 'modular-scale'
+  gem 'sass-globbing'
   gem 'guard'
   gem 'guard-livereload'
   gem 'guard-compass'

@@ -24,9 +24,6 @@ $icon-position: before !default;
   }
 }
 
-
-@charset "UTF-8";
-
 $font-size-large:         $base-font-size * 1.25; // ~18px
 $font-sze-small:         $base-font-size * 0.85; // ~12px
 $font-size-mini:          $base-font-size * 0.75; // ~11px
@@ -103,8 +100,7 @@ $xx-large-font-size:  modular-scale(3); // 40px
 $xxx-large-font-size: modular-scale(4); // 47px
 $largest-font-size:   modular-scale(5); // 65px
 
-// Main sections
-// =============================================================================
+// ## Main sections
 
 // Navigation
 $nav-width: $container-width;
@@ -121,8 +117,15 @@ $notification-icon-size: $small-font-size;
 $notification-image-width: 5%;
 $notifications-icon-selector: '.heartbeat-time-ago';
 
-// Based on twitter bootstrap
-// Do not change these
+// #Z-indexes
+// Based closely on Twitter Bootstrap
+//
+// <span class="dropdown"></span>
+// <span class="popover"></span>
+// <span class="tooltip"></span>
+// <span class="fixednavbar"></span>
+// <span class="modalbackdrop"></span>
+// <span class="modal"></span>
 $z-index-Dropdown:          900 !default;
 $z-index-Popover:           910 !default;
 $z-index-Tooltip:           930 !default;
@@ -137,30 +140,25 @@ $report-width: $container-width;
 // Install Bookmarklet
 $install-bookmarklet-abs-width: 600px;
 
-// Aliases
-// =============================================================================
+// ## Aliases
 $container-width: $container-width;
 $tw: $tabs-width; 
 $gutter-width: $gutter-width; 
 $rw: $report-width;
 $nw: $nav-width;
 
-// Forms
-// =============================================================================
+// ## Forms
 $label-width: $container-width/2;
 $checkbox-width: 25px;
 
-// Misc Values
-// =============================================================================
+// ## Misc Values
 
 // Standardize our box-radius
 $radius: 4px;
 
-// Colors
-// =============================================================================
+// ## Colors
 // ... live in colors.css
 
-// Debugger
-// =============================================================================
+// ## Debugger
 // debug mode for @debug statements and other sass debuggers
 $debug: false !default;
