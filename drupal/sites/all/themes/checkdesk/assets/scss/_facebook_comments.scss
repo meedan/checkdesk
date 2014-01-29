@@ -1,13 +1,20 @@
-// TODO: integrate these into the mainstyles. CGB Jan 2013
+// TODO: integrate these into the main styles. CGB Jan 2013
+//
+
+// Facebook comments header
 .fb-comments-header {
   cursor: pointer;
 }
 
-.fb-comments, .fb_iframe_widget {
+// Hide comments by default, until they load
+.fb-comments, 
+.fb_iframe_widget {
   display: none !important;
 }
 
-.fb-comments.fb-comments-visible, .fb_iframe_widget.fb-comments-visible {
+// Display comments-visible
+.fb-comments.fb-comments-visible, 
+.fb_iframe_widget.fb-comments-visible {
   display: block !important;
 }
 
