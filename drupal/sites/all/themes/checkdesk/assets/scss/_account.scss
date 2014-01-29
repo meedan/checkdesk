@@ -1,9 +1,14 @@
 // My account dropdown in the primary navigation
 #my-account {
+
   // Magic numbers, taken from designs
   width: 438px;
 
-  .user-picture, .info, #account-menu {
+  // User picture
+  //
+  .user-picture, 
+  .info, 
+  #account-menu {
     float: $from-direction;
     padding: 0 $gutter-width;
   }
