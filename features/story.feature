@@ -51,3 +51,18 @@ Scenario: Open create story modal
   When I click "Create story"
   And I wait for 5 seconds
   Then element ".create-story" should be expanded
+
+@api @javascript
+Scenario: Sharing options for stories
+  Given a story "Share Story" with the following updates:
+  | title  |
+  | Update |
+  And I am not logged in
+  When I go to the homepage
+  And I click "Share Story"
+  And I click "Share"
+  And I wait for 1 seconds
+  Then I should see "Share on Facebook"
+  And I should see "Share on Twitter"
+  And I should see "Share on Google"
+  And I remove the created nodes
