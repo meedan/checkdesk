@@ -6,6 +6,9 @@
 // Mobile default
 //
 %widgets-layout-1col {
+
+  @include d;
+  
   #main {
 
     #content { margin-#{$alpha}: 0; }

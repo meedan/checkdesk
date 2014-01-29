@@ -8932,6 +8932,18 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
   margin-bottom: 14.4px;
 }
 
+body.widgets {
+  background-color: rgba(0, 255, 255, 0.2);
+}
+body.widgets > div {
+  background-color: red;
+}
+body.widgets > span {
+  background-color: pink;
+}
+body.widgets * {
+  border-top: 1px solid rgba(0, 255, 255, 0.5);
+}
 body.widgets #main #content {
   margin-right: 0;
 }
