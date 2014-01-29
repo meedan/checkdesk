@@ -1,17 +1,14 @@
 @charset "UTF-8";
 
-// Checkdesk Base
-//
-// Welcome 
-//
-// Directional defaults
-$from-direction: left !default;
-$icon-position: before !default;
 
 // Typography configuration
 //
+// Text-direction and inline iconography, fonts, font helpers
+//
 // See also typography.scss and bowerbird/typography.scss
 //
+$from-direction: left !default;
+$icon-position: before !default;
 @import "compass/css3/font-face";
 @import "bowerbird/typography";
 @import "fonts";
