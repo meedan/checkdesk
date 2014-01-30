@@ -628,6 +628,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				margin: 0 $gutter-width;
 				.form-actions {
 					padding-bottom: 0;
+					input {
+						font-size: 16px;
+					}
 				}
 				textarea {
 					float: none;
