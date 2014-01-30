@@ -542,6 +542,8 @@
 @mixin ctb-load-more-pager {
   .pager-load-more {
       @include ctb-clearfix;
+      @include reset-list-style;
+      padding: $absolute-line-height/2 0;
       float: none;
       clear: both;
       position: relative;
