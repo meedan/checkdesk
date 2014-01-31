@@ -180,14 +180,6 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				.oembed-title {
 					display: none;
 				}
-
-        .instagram .oembed-title {
-          display: block;
-          &:hover {
-		        color: $report-text-color;
-            text-decoration: none;
-          }
-        }
 				
 				.title {
 					padding: 0;
@@ -204,6 +196,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				.favicon {
 					float: $alpha;
 					margin-#{$omega}: $gutter-width;
+					img { 
+						width: 16px; 
+						vertical-align: text-top;
+					}
 				}
 				.author, .domain {
 					float: $alpha;
@@ -254,8 +250,14 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				.twitter {
 					width: 100%;
 					max-width: 100%;
-					.oembed-content, .oembed-attributes {
-						padding: 0 $gutter-width;
+					.oembed-content {
+						// padding: 0 $gutter-width;
+						padding: 0 $gutter-width $absolute-line-height/4;
+					}
+					.oembed-attributes {
+						// hiding attributes
+						display: none;
+						padding: 0 $gutter-width $absolute-line-height/4;
 					}
 					// avoid width to collapse
 					iframe {
@@ -268,7 +270,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 				.youtube {
 					.oembed-attributes {
-						padding: 0 $gutter-width $absolute-line-height/4 $gutter-width;
+						// hiding attributes
+						display: none;
+						padding: $absolute-line-height/4 $gutter-width $absolute-line-height/4 $gutter-width;
 					}
 				}
 				.facebook {
@@ -291,7 +295,18 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 					}
 				}
 
+				.instagram {
+					.oembed-title {
+						display: block;
+						padding: $absolute-line-height/2 $gutter-width $absolute-line-height/4;
+						&:hover {
+							color: $report-text-color;
+							text-decoration: none;
+						}
+					}
+				}
 			}
+
 			// centralize twitter embeds
 			.twitter-wrapper {
 				display: inline-block;
@@ -386,11 +401,11 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				}
 			}
 			// header hover
-			&:hover {
-				background-color: rgba(0, 0, 0, 0.5);
-				color: $white;
-				a { color: $white; }
-			}
+			// &:hover {
+			// 	background-color: rgba(0, 0, 0, 0.5);
+			// 	color: $white;
+			// 	a { color: $white; }
+			// }
 		}
 
 		// header status
@@ -398,53 +413,62 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			background-color: rgba(239,202,43,.2);
 			color: rgba(239,202,43,1);
 			a { color: rgba(239,202,43,1); }
-			&:hover {
-				color: $white;
-				background-color: rgba(239,202,43,1);
-				span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-			}
+			// &:hover {
+			// 	color: $white;
+			// 	background-color: rgba(239,202,43,1);
+			// 	span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
+			// }
 		}
 		& > .undetermined {
 			background-color: lighten($orange, 30%);
 			color: darken($orange, 10%);
 			a { color: darken($orange, 10%); }
-			&:hover {
-				color: darken($orange, 10%);
-				background-color: lighten($orange, 20%);
-				span[class^="icon-"], span[class*="icon-"], a {	color: darken($orange, 10%); }
-			}
+			// &:hover {
+			// 	color: darken($orange, 10%);
+			// 	background-color: lighten($orange, 20%);
+			// 	span[class^="icon-"], span[class*="icon-"], a {	color: darken($orange, 10%); }
+			// }
 		}
 		& > .verified {
 			background-color: rgba(0,140,0,.2);
 			color: rgba(0,140,0,1);
 			a { color: rgba(0,140,0,1); }
-			&:hover {
-				color: $white;
-				background-color: rgba(0,140,0,.8);
-				span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-			}
+			// &:hover {
+			// 	color: $white;
+			// 	background-color: rgba(0,140,0,.8);
+			// 	span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
+			// }
 		}	
 		& > .false {
 			background-color: lighten($red, 50%);
 			color: $red;
 			a { color: $red; }
-			&:hover {
-				color: darken($red, 10%);
-				background-color: lighten($red, 40%);
-				span[class^="icon-"], span[class*="icon-"], a {	color: darken($red, 10%); }
-			}
+			// &:hover {
+			// 	color: darken($red, 10%);
+			// 	background-color: lighten($red, 40%);
+			// 	span[class^="icon-"], span[class*="icon-"], a {	color: darken($red, 10%); }
+			// }
 		}
 
 		// report activity
 		// fact-checking log
 		.activity-wrapper {
 			@include ctb-clearfix;
-			background-image: $striped_lens;
 			border-left: 1px solid rgba(0,0,0,.1);
 			border-right: 1px solid rgba(0,0,0,.1);
 			
 			// add styles for load more pager
     		@include ctb-load-more-pager;
+
+    		// bg only on the view
+    		.view {
+    			// background-image: $striped_lens;
+    			background-color: rgba(0,0,0,.01);
+    			max-height: 230px;
+    			overflow: auto;
+    			// to test
+    			-webkit-overflow-scrolling: touch;
+    		}
 
 
 			// activity items
@@ -452,10 +476,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				padding: 0 $gutter-width;
 				.activity {
 					@include ctb-clearfix;
-					margin-#{$from-direction}: $gutter-width/2;
+					// margin-#{$from-direction}: $gutter-width/2;
 					border-top: 1px dotted rgba(0,0,0,.1);
 					&:first-child { border-top: 0px none; }
-					color: rgba(0,0,0,.8);
+					color: rgba(0,0,0,.6);
 					line-height: 1.3;
 					header {
 						@include ctb-clearfix;
@@ -463,7 +487,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						.actor {
 							display: inline-block;
 							width: 10%;
-							padding-top: $absolute-line-height/3;
+							padding-top: $absolute-line-height/2;
 							padding-#{$omega}: $gutter-width*2;
 							text-align: $omega;
 							vertical-align: top;
@@ -475,14 +499,14 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							position: relative;
 							display: inline-block;
 							width: 62%;
-							padding: $absolute-line-height/3 0 $absolute-line-height 0;
+							padding: $absolute-line-height/2 0 $absolute-line-height/2 0;
 							padding-#{$alpha}: $gutter-width*2;
 							border-#{$from-direction}: 4px solid rgba(0,0,0,.1);
 						}
 						.icon {
 							position: absolute;
 							display: inline-block;
-							top: 6px;
+							top: 9px;
 							border-radius: 50%;
 							width: 24px;
 							line-height: 24px;
@@ -521,7 +545,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							}
 						}
 						.time {
-							padding: $absolute-line-height/3 0;
+							padding: $absolute-line-height/2 0;
 							position: absolute;
 							top: 0;
 							#{$omega}: $gutter-width;
@@ -530,15 +554,48 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							color: rgba(0,0,0,.3);
 							font-size: modular-scale(0) - modular-scale(-3); // 14px
 						}
-					}
-				}
-			}
+					} // header
+				} // activity
+			} // view-content
 
 			.activity-list-footer {
-				padding: 0 $gutter-width;
+				@include ctb-clearfix;
+				border-top: 1px solid rgba(0,0,0,.1);
+				padding: $absolute-line-height/2 $gutter-width;
 				color: rgba(0,0,0,.6);
+
+				position: relative;
+				// gradient for depth
+				&:before {
+					position: absolute;
+					content: "";
+					z-index: -1;
+					top: -10px;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: 10px;
+					width: 100%;
+					@include ctb-gradient-vertical(rgba(255,255,255,0), rgba(0,0,0,.02));
+				}
+
+
 				a {
 					color: $link-color;
+				}
+				.cta {
+					float: $from-direction;
+				}
+				.helper {
+					float: opposite-position($from-direction);
+					text-align: opposite-position($from-direction);
+					span[class^="icon-"], span[class*="icon-"], a {
+						float: $alpha;
+						font-weight: normal;
+						font-size: 14px;
+						color: rgba(0,0,0,.4);
+						text-decoration: none;
+					}
 				}
 			}
 		} // activity wrapper
@@ -546,12 +603,35 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		section#comment-form {
 			@include ctb-clearfix;
 			border-top: 1px solid rgba(0,0,0,.1);
-			padding: 0 $gutter-width;
+			
+			position: relative;
+			// gradient for depth
+			&:before {
+				position: absolute;
+				content: "";
+				z-index: -1;
+				top: -10px;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 10px;
+				width: 100%;
+				@include ctb-gradient-vertical(rgba(255,255,255,0), rgba(0,0,0,.02));
+			}
+
+
 			label {
 				display: none;
 			}
 			form { 
-				
+				@include reset-box-model;
+				margin: 0 $gutter-width;
+				.form-actions {
+					padding-bottom: 0;
+					input {
+						font-size: 16px;
+					}
+				}
 				textarea {
 					float: none;
 					@include ctb-clearfix;
@@ -560,7 +640,32 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		}
 	} // report activity
 
+	// indicate when report activity
+	// view's scoll reaches the end
+	.end section#comment-form, .end .activity-wrapper .activity-list-footer {
+		position: relative;
+		// blueish gradient indicating end
+		&:before {
+			position: absolute;
+			content: "";
+			z-index: -1;
+			top: -15px;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 15px;
+			width: 100%;
+			@include ctb-gradient-vertical(rgba(255, 255, 255,0), rgba(26, 130, 254,.08));
+		}
+	}
+
 	// Activity header when open
+
+	.open > header {
+		color: $white;
+		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
+	}
+
 	.open > .in-progress {
 		color: $white;
 		background-color: rgba(239,202,43,1);
@@ -569,6 +674,18 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 	.open > .verified {
 		color: $white;
 		background-color: rgba(0,140,0,.8);
+		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
+	}
+
+	.open > .false {
+		color: $white;
+		background-color: $red;
+		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
+	}
+
+	.open > .undetermined {
+		color: $white;
+		background-color: $red;
 		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
 	}
 

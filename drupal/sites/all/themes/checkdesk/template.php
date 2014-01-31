@@ -286,9 +286,9 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Add classes for modal
   foreach ($tree as $id => &$item) {
-    if (strpos($item['link']['link_path'], '/ajax/') !== FALSE) {
-      $item['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
-    }
+    // if (strpos($item['link']['link_path'], '/ajax/') !== FALSE) {
+    //   $item['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
+    // }
   }
 
   $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
@@ -614,6 +614,7 @@ function checkdesk_preprocess_node(&$variables) {
   $variables['icon'] = '';
   
   if ($variables['type'] == 'media') {
+    global $language;
     //Add author info to variables
     $user = user_load($variables['elements']['#node']->uid);
     $user_picture = $user->picture;
@@ -670,7 +671,7 @@ function checkdesk_preprocess_node(&$variables) {
         }
         // Display "{status} by {partner site name}" for all statuses
         // except when the report is in progress
-        global $language;
+        
         if($status_name != 'In Progress') {
           $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
         }
@@ -687,7 +688,9 @@ function checkdesk_preprocess_node(&$variables) {
         $variables['media_activity_footer'] = '';
       }
       else {
-        $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
+        $icon = '<span class="icon-question-sign"></span> ';
+        $link = l(t('About verification process'), 'modal/ajax/content/fact-checking-statement', array('html' => 'true', 'language' => $language, 'attributes' => array('class' => array('use-ajax', 'ctools-modal-modal-popup-large'))));
+        $variables['media_activity_footer'] = '<span class="cta">' . t('To help verify this report, please <a href="@login_url">sign in</a>', array('@login_url' => url('user/login'))) . '</span><span class="helper">' . $icon . $link . '</span>';
       }
     }
 
