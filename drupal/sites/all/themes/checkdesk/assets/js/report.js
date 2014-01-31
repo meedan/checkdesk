@@ -48,9 +48,11 @@
       // and also when there is no pager
       $('.report-activity .view').bind('scroll', function() {
         if(($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) && $(this).children('.item-list').is(':empty')) {
-          console.log('end reached');
           $(this).parents('.report-activity').addClass('end');
-        } else {
+        } else if (($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) && $(this).children('.item-list').length == 0) {
+          $(this).parents('.report-activity').addClass('end');
+        }
+        else {
           $(this).parents('.report-activity').removeClass('end');
         }
       });
