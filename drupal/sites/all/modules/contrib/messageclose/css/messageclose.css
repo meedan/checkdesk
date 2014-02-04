@@ -1,0 +1,27 @@
+a.messageclose {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  float: right;
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 13.5px;
+  text-shadow: 0 1px 0 #ffffff;
+  filter: alpha(opacity=25);
+  -khtml-opacity: 0.25;
+  -moz-opacity: 0.25;
+  opacity: 0.25;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: inline-block;
+  padding: 0 1px;
+}
+
+a.messageclose:hover,
+a.messageclose:focus,
+a.messageclose:active {
+  color: #000000;
+  text-decoration: none;
+  filter: alpha(opacity=40);
+  -khtml-opacity: 0.4;
+  -moz-opacity: 0.4;
+  opacity: 0.4;
+}

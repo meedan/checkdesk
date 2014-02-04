@@ -28,8 +28,7 @@ function checkdesk_core_feature_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-  );
+  $context->reactions = array();
   $context->condition_mode = 1;
 
   // Translatables
