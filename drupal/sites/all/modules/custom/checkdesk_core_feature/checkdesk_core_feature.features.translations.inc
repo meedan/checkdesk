@@ -46017,7 +46017,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['0adecf44ab13ab7a5e4782ce6a1bc391'] = array(
     'source' => 'Fact-checking has been enabled for <a href="[node:url:unaliased]"> [node:author] report </a>. ',
     'context' => '',
-    'location' => '/checkdesk/ar/flag/flag/factcheck_journalist/1922?destination=node/1922&token=F2vxBn07yWTD3j1V2JGK9kM9xTALZq2dqSTqJ110hXo',
+    'location' => 'ar/flag/flag/factcheck_journalist/1922?destination=node/1922&token=F2vxBn07yWTD3j1V2JGK9kM9xTALZq2dqSTqJ110hXo',
     'translation' => 'تم تفعيل التحقق من صحة معلومات <a href="[node:url:unaliased]"> [node:author] تقرير </a>.',
     'plid' => 0,
     'plural' => 0,
@@ -46025,7 +46025,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['97ad43f07516566f405701896e0f2fad'] = array(
     'source' => 'Fact-checking has been disabled for <a href="[node:url:unaliased]"> [node:author] report </a>. ',
     'context' => '',
-    'location' => '/checkdesk/ar/flag/unflag/factcheck_journalist/1922?destination=node/1922&token=F2vxBn07yWTD3j1V2JGK9kM9xTALZq2dqSTqJ110hXo',
+    'location' => '/ar/flag/unflag/factcheck_journalist/1922?destination=liveblog&token=Zs8iOqhZDL6DkX0iupYAwjtKIR9PJQffS_SJuh2VuQg',
     'translation' => 'تم إلغاء التحقق من صحة معلومات <a href="[node:url:unaliased]"> [node:author] تقرير </a>.
 ',
     'plid' => 0,
