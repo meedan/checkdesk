@@ -685,7 +685,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       if (($destination == 'node/' . $node->nid) || (arg(0) == 'report-view-modal' && arg(2) == $node->nid)) {
         if (isset($_SERVER['HTTP_REFERER'])) {
           $url = parse_url($_SERVER['HTTP_REFERER']);
-          if ($url['scheme'] . '://' . $url['host'] == $base_root) {
+          if (@$url['scheme'] . '://' . @$url['host'] == $base_root) {
             $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
             if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
               list($langcode, $alias) = explode('/', $alias, 2);
