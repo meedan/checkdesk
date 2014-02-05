@@ -31,7 +31,7 @@ $aliases['prod.7iber'] = array (
 );
 $aliases['prod.alayyam'] = array (
   'parent' => '@prod-alias',
-  'uri' => 'shabab.ayyam.org',
+  'uri' => 'checkdesk.synews.info',
   'root' => '/var/www/checkdesk.prod/current/drupal',
 );
 $aliases['prod.almasryalyoum'] = array (
