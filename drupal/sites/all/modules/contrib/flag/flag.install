@@ -100,7 +100,7 @@ function flag_schema() {
         'default' => 0,
       ),
       'sid' => array(
-        'description' => "The user's session id as stored in the session table.",
+        'description' => "The user's numeric sid from the session_api table.",
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,

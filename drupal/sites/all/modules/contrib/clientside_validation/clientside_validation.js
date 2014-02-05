@@ -28,6 +28,9 @@
         }
       }
       else {
+        if (typeof(Drupal.settings.clientsideValidation.forms) === 'undefined') {
+          return;
+        }
         var update = false;
         jQuery.each(Drupal.settings.clientsideValidation.forms, function (f) {
           if ($(context).find('#' + f).length || $(context).is('#' + f)) {
@@ -193,6 +196,9 @@
   Drupal.clientsideValidation.prototype.bindForms = function(){
     var self = this;
     var groupkey;
+    if (typeof(self.forms) === 'undefined') {
+      return;
+    }
     self.time.start('2. bindForms');
     // unset invalid forms
     jQuery.each (self.forms, function (f) {
@@ -381,7 +387,7 @@
                * @name clientsideValidationFormHasErrors
                * @memberof Drupal.clientsideValidation
                */
-              jQuery.event.trigger('clientsideValidationFormHasErrors', form.currentTarget);
+              jQuery.event.trigger('clientsideValidationFormHasErrors', [form.target]);
             }
           }
         };
@@ -1378,7 +1384,13 @@
       // Set validation for ctools modal forms
       for (var ajax_el in Drupal.ajax) {
         if (typeof Drupal.ajax[ajax_el] !== 'undefined') {
-          if (!jQuery(Drupal.ajax[ajax_el].element).hasClass('cancel')) {
+          var $ajax_el = jQuery(Drupal.ajax[ajax_el].element);
+          var ajax_form = $ajax_el.is('form') ? $ajax_el.attr('id') : $ajax_el.closest('form').attr('id');
+          var change_ajax = true;
+          if (typeof Drupal.myClientsideValidation.forms[ajax_form] !== 'undefined') {
+            change_ajax = Boolean(parseInt(Drupal.myClientsideValidation.forms[ajax_form].general.validateBeforeAjax, 10));
+          }
+          if (!$ajax_el.hasClass('cancel') && change_ajax) {
             changeAjax(ajax_el);
           }
         }
