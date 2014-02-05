@@ -1910,13 +1910,6 @@ function checkdesk_core_form_flag_confirm_alter(&$form, $form_state, $form_id) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter() for `twitter_oauth_callback_form`.
- */
-function checkdesk_core_form_twitter_oauth_callback_form_alter(&$form, $form_state) {
-  $_GET['destination'] = 'user/register';
-}
-
-/**
  * Implements hook_action_info().
  */
 function checkdesk_core_action_info() {
