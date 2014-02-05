@@ -529,6 +529,8 @@ function flag_form($form, &$form_state, $flag) {
     '#title' => t('Flag confirmation message'),
     '#default_value' => isset($flag->flag_confirmation) ? $flag->flag_confirmation : '',
     '#description' => t('Message displayed if the user has clicked the "flag this" link and confirmation is required. Usually presented in the form of a question such as, "Are you sure you want to flag this content?"'),
+    // This will get changed to a state by flag_link_type_options_states().
+    '#required' => TRUE,
   );
 
   $form['display']['link_options_confirm']['unflag_confirmation'] = array(
@@ -536,6 +538,8 @@ function flag_form($form, &$form_state, $flag) {
     '#title' => t('Unflag confirmation message'),
     '#default_value' => isset($flag->unflag_confirmation) ? $flag->unflag_confirmation : '',
     '#description' => t('Message displayed if the user has clicked the "unflag this" link and confirmation is required. Usually presented in the form of a question such as, "Are you sure you want to unflag this content?"'),
+    // This will get changed to a state by flag_link_type_options_states().
+    '#required' => TRUE,
   );
 
   $form['actions'] = array(
@@ -561,7 +565,7 @@ function flag_form($form, &$form_state, $flag) {
 }
 
 /**
- * FormAPI after_build function set states on link type options fieldsets.
+ * FormAPI after_build function to set states on link type options fieldsets.
  *
  * We do this in an after build so we handle further link types fieldsets from
  * other modules that provide link types.
@@ -581,6 +585,20 @@ function flag_link_type_options_states($element) {
           ':input[name="link_type"]' => array('value' => $radio_value),
         ),
       );
+
+      // If an element in a link type options fieldset is required, then we
+      // remove this, as this would break the form, by demanding the user
+      // enter a value for a form element they possibly can't see!
+      // Instead, we set the required property as a state.
+      foreach (element_children($element[$key]) as $child_key) {
+        if (!empty($element[$key][$child_key]['#required'])) {
+          $element[$key][$child_key]['#required'] = FALSE;
+          $element[$key][$child_key]['#states']['required'] = array(
+            ':input[name="link_type"]' => array('value' => $radio_value),
+          );
+        }
+      }
+
       // Gather up the radio values for the format we need for a multiple
       // value state.
       $intro_element_values_array[] = array('value' => $radio_value);
@@ -634,16 +652,6 @@ function flag_form_locked_process($element, &$form_state, $form) {
 function flag_form_validate($form, &$form_state) {
   $form_state['values']['title'] = trim($form_state['values']['title']);
   $form_values = $form_state['values'];
-
-  if ($form_values['link_type'] == 'confirm') {
-    if (empty($form_values['flag_confirmation'])) {
-      form_set_error('flag_confirmation', t('A flag confirmation message is required when using the confirmation link type.'));
-    }
-    if (empty($form_values['unflag_confirmation'])) {
-      form_set_error('unflag_confirmation', t('An unflag confirmation message is required when using the confirmation link type.'));
-    }
-  }
-
 
   $flag = $form['#flag'];
   $flag->form_input($form_values);

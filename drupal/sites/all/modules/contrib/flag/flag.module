@@ -36,6 +36,7 @@ function flag_entity_info() {
       // The following tells EntityAPI how to save flaggings, thus allowing use
       // of Entity metadata wrappers (if present).
       'save callback' => 'flagging_save',
+      'creation callback' => 'flagging_create',
     ),
   );
 
@@ -73,6 +74,37 @@ function flagging_load($flagging_id, $reset = FALSE) {
   // The flag machine name is loaded in by FlaggingController::buildQuery().
   $result = entity_load('flagging', array($flagging_id), array(), $reset);
   return reset($result);
+}
+
+/**
+ * Entity API creation callback.
+ *
+ * Creates an unsaved flagging object for use with $flag->flag().
+ *
+ * @param $values
+ *   An array of values as described by the entity's property info. Only
+ *   'flag_name' or 'fid' must be specified, since $flag->flag() does the rest.
+ *
+ * @return
+ *   An unsaved flagging object containing the property values.
+ */
+function flagging_create($values = array()) {
+  $flagging = (object) array();
+
+  if (!isset($values['flag_name'])) {
+    if (isset($values['fid'])) {
+      // Add flag_name, determined from fid.
+      $flag = flag_get_flag(NULL, $values['fid']);
+      $values['flag_name'] = $flag->name;
+    }
+  }
+
+  // Apply the given values.
+  foreach ($values as $key => $value) {
+    $flagging->$key = $value;
+  }
+
+  return $flagging;
 }
 
 /**
@@ -619,7 +651,14 @@ function flag_field_extra_fields() {
       continue;
     }
 
-    foreach ($flag->types as $bundle_name) {
+    $applicable_bundles = $flag->types;
+    // If the list of bundles is empty, it indicates all bundles apply.
+    if (empty($applicable_bundles)) {
+      $entity_info = entity_get_info($flag->entity_type);
+      $applicable_bundles = array_keys($entity_info['bundles']);
+    }
+
+    foreach ($applicable_bundles as $bundle_name) {
       if ($flag->show_on_form) {
         $extra[$flag->entity_type][$bundle_name]['form']['flag'] = array(
           'label' => t('Flags'),
@@ -701,6 +740,10 @@ function flag_field_attach_form($entity_type, $entity, &$form, &$form_state, $la
     $id = NULL;
   }
 
+  // Keep track of whether the entity is new or not, as we're about to fiddle
+  // with the entity id for the flag's entity cache.
+  $is_existing_entity = !empty($id);
+
   // Get all possible flags for this entity type.
   $flags = flag_get_flags($entity_type);
 
@@ -713,7 +756,7 @@ function flag_field_attach_form($entity_type, $entity, &$form, &$form_state, $la
     }
 
     // Get the flag status.
-    if (isset($id)) {
+    if ($is_existing_entity) {
       $flag_status = $flag->is_flagged($id);
     }
     else {
@@ -722,7 +765,8 @@ function flag_field_attach_form($entity_type, $entity, &$form, &$form_state, $la
       $flag_status = FALSE;
       // Apply the per-bundle defaults for nodes.
       if ($entity_type == 'node') {
-        $flag_status = variable_get('flag_' . $flag->name . '_default_' . $form['type']['#value'], 0);
+        $node_type = $entity->type;
+        $flag_status = variable_get('flag_' . $flag->name . '_default_' . $node_type, 0);
       }
 
       // For a new, unsaved entity, make a dummy entity ID so that the flag
@@ -1649,12 +1693,12 @@ function _flag_link_type_descriptions() {
 // Non-Views public API
 
 /**
- * Get the count of flags for a certain entity.
+ * Get the count of flags for a particular entity type.
  *
  * @param $flag
  *   The flag.
  * @param $entity_type
- *   The entity type (usually 'node').
+ *   The entity type. For example, 'node'.
  *
  * @return
  *   The flag count with the flag name and entity type as the array key.
@@ -2107,11 +2151,17 @@ function flag_get_entity_flags($entity_type, $entity_id, $flag_name = NULL) {
  *   The "machine readable" name of the flag; e.g. 'bookmarks'.
  * @param $entity_id
  *   The entity ID to check for flagging, for example a node ID.
+ * @param $variables
+ *  An array of further variables to pass to theme('flag'). For the full list
+ *  of parameters, see flag.tpl.php. Of particular interest:
+ *  - after_flagging: Set to TRUE if this flag link is being displayed as the
+ *    result of a flagging action.
+ *  - errors: An array of error messages.
  *
  * @return
  *   The HTML for the themed flag link.
  */
-function flag_create_link($flag_name, $entity_id) {
+function flag_create_link($flag_name, $entity_id, $variables = array()) {
   $flag = flag_get_flag($flag_name);
   if (!$flag) {
     // Flag does not exist.
@@ -2121,7 +2171,7 @@ function flag_create_link($flag_name, $entity_id) {
     // User has no permission to use this flag.
     return;
   }
-  return $flag->theme($flag->is_flagged($entity_id) ? 'unflag' : 'flag', $entity_id);
+  return $flag->theme($flag->is_flagged($entity_id) ? 'unflag' : 'flag', $entity_id, $variables);
 }
 
 /**

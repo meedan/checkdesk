@@ -788,6 +788,9 @@ class flag_flag {
       }
     }
     elseif ($action == 'flag') {
+      // Invoke hook_entity_presave().
+      module_invoke_all('entity_presave', $flagging, 'flagging');
+
       if ($this->uses_anonymous_cookies()) {
         $this->_flag_anonymous($entity_id);
       }
@@ -850,17 +853,23 @@ class flag_flag {
   private function _insert_flagging($flagging) {
     field_attach_presave('flagging', $flagging);
     field_attach_insert('flagging', $flagging);
+    // Invoke hook_entity_insert().
+    module_invoke_all('entity_insert', $flagging, 'flagging');
   }
   private function _update_flagging($flagging) {
     field_attach_presave('flagging', $flagging);
     field_attach_update('flagging', $flagging);
     // Update the cache.
     entity_get_controller('flagging')->resetCache();
+    // Invoke hook_entity_update().
+    module_invoke_all('entity_update', $flagging, 'flagging');
   }
   private function _delete_flagging($flagging) {
     field_attach_delete('flagging', $flagging);
     // Remove from the cache.
     entity_get_controller('flagging')->resetCache();
+    // Invoke hook_entity_delete().
+    module_invoke_all('entity_delete', $flagging, 'flagging');
   }
 
   /**

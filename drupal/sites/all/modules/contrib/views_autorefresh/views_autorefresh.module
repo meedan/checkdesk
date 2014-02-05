@@ -1,0 +1,136 @@
+<?php
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_autorefresh_views_api() {
+  return array(
+    'api' => 3.0,
+    'path' => drupal_get_path('module', 'views_autorefresh') . '/views',
+  );
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function views_autorefresh_theme() {
+  return array(
+    'views_autorefresh' => array(
+      'variables' => array(
+        'interval' => NULL,
+        'ping' => NULL,
+        'incremental' => NULL,
+        'view' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Theme function for 'views_autorefresh'.
+ */
+function theme_views_autorefresh($variables) {
+  $interval = $variables['interval'];
+  $ping = $variables['ping'];
+  $incremental = $variables['incremental'];
+  $view = $variables['view'];
+
+  if (empty($view)) $view = views_get_current_view();
+
+  // Signal the view that we're here.
+  $view->autorefresh['interval'] = $interval;
+  if (!empty($incremental)) {
+    $view->autorefresh['incremental'] = $incremental;
+  }
+  if (!empty($ping)) {
+    $view->autorefresh['ping'] = $ping;
+  }
+
+  // Add the JavaScript settings.
+  drupal_add_js(drupal_get_path('module', 'views_autorefresh') . '/views_autorefresh.js');
+  drupal_add_js(array('views_autorefresh' => array($view->name => array(
+    'interval' => $interval,
+    'ping' => $ping,
+    'incremental' => $incremental,
+    'timestamp' => __views_autorefresh_get_timestamp($view),
+  ))), 'setting');
+  $query = drupal_get_query_parameters($_REQUEST, array_merge(array('q', 'pass'), array_keys($_COOKIE)));
+  $link = l('', $_GET['q'], array('query' => $query));
+
+  // Signal modules to add their own plugins.
+  module_invoke_all('views_autorefresh_plugins', $view);
+
+  return '<div class="auto-refresh">' . $link . '</div>';
+}
+
+/**
+ * Implementation of hook_views_ajax_data_alter().
+ */
+function views_autorefresh_views_ajax_data_alter(&$commands, $view) {
+  $replace = isset($_REQUEST['autorefreshRequest']);
+  if ($replace && !empty($view->autorefresh['incremental'])) {
+    foreach ($commands as $key => &$command) {
+      if ($command['command'] == 'insert' && $command['selector'] == ('.view-dom-id-' . $view->dom_id)) {
+        $command['command'] = 'viewsAutoRefreshIncremental';
+        $command['view_name'] = $view->name;
+      }
+      if ($command['command'] == 'viewsScrollTop') {
+        unset($commands[$key]);
+      }
+    }
+  }
+  if ($replace && !empty($view->autorefresh['interval'])) {
+    $commands[] = array(
+      'command' => 'viewsAutoRefreshTriggerUpdate',
+      'selector' => '.view-dom-id-' . $view->dom_id,
+      'timestamp' => __views_autorefresh_get_timestamp($view),
+    );
+  }
+}
+
+/**
+ * Helper function to return view's "timestamp" - either real timestamp or max primary key in view rows.
+ */
+function __views_autorefresh_get_timestamp($view) {
+  if (empty($view->autorefresh['ping']) || empty($view->autorefresh['ping']['use_base_field'])) {
+    return time(); // return standard timestamp
+  }
+  $base_field = $view->base_field;
+  $max = 0;
+  foreach ($view->result as $row) {
+    if ($row->$base_field > $max) {
+      $max = $row->$base_field;
+    }
+  }
+  return $max;
+}
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * Reset information about first display instead of the second display (incremental approach only)
+ * FIXME: Check if it's necessary to reset any further information
+ */
+function views_autorefresh_views_pre_render(&$view) {
+  if (isset($_REQUEST['original_view_data']) && 
+      !empty($_REQUEST['original_view_data']['view_display_id']) && 
+      isset($_REQUEST['original_view_data']['view_dom_id']) && 
+      $_REQUEST['original_view_data']['view_dom_id'] == $view->dom_id
+  ) {
+    $view->current_display = $_REQUEST['original_view_data']['view_display_id'];
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter for `views_ui_add_item_form`.
+ */
+function views_autorefresh_form_views_ui_add_item_form_alter(&$form, $form_state) {
+  if ($form_state['type'] != 'header') {
+    $type = $form_state['type'];
+    $types = views_object_types();
+    if (isset($types[$type]['type']) && ($types[$type]['type'] == 'area')) {
+      unset($form['options']['name']['views.autorefresh']);
+    }
+  }
+}
+

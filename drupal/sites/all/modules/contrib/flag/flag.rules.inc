@@ -456,7 +456,7 @@ function flag_rules_get_flag_types() {
 }
 
 /**
- * Base action implementation: Fetch count of flags for a particular entity.
+ * Base action implementation: Fetch count of flags for a particular entity type.
  */
 function flag_rules_action_fetch_entity_flag_count($flag, $entity_type) {
   $count = flag_get_entity_flag_counts($flag, $entity_type);

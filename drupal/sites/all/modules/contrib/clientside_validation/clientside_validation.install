@@ -97,6 +97,14 @@ function clientside_validation_uninstall() {
 }
 
 /**
+ * Implements hook_install().
+ */
+function clientside_validation_install() {
+  $paths = array('admin/structure/views/*');
+  variable_set('clientside_validation_path_list', implode("\n", $paths));
+}
+
+/**
  * Clientside validation was split up into form validation, webform validation and fapi validation.
  * This update enables the form and webform clientside validation module. It does not enable the
  * fapi clientside validation module, because it's a new feature since this release.
@@ -282,6 +290,18 @@ function clientside_validation_update_7104() {
   $paths = explode("\n", variable_get('clientside_validation_path_list', ''));
   if (array_search('admin/structure/views/view/*', $paths) === FALSE) {
     $paths[] = 'admin/structure/views/view/*';
+  }
+  variable_set('clientside_validation_path_list', implode("\n", $paths));
+}
+
+/**
+ * Disable clientside validation for views (views ajax path changed).
+ */
+function clientside_validation_update_7105() {
+  $paths = explode("\n", variable_get('clientside_validation_path_list', ''));
+  $filter_type = variable_get('clientside_validation_filter_paths', CLIENTSIDE_VALIDATION_EXCLUDE_PATHS);
+  if (array_search('admin/structure/views/*', $paths) === FALSE && $filter_type == CLIENTSIDE_VALIDATION_EXCLUDE_PATHS) {
+    $paths[] = 'admin/structure/views/*';
   }
   variable_set('clientside_validation_path_list', implode("\n", $paths));
 }

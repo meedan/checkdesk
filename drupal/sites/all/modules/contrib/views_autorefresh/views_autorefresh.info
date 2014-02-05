@@ -1,0 +1,16 @@
+name = Views Auto-Refresh
+description = Allows auto-refreshing of Ajax-enabled views.
+package = Views
+dependencies[] = views
+core = 7.x
+
+files[] = views/views_autorefresh_handler_argument_base.inc
+files[] = views/views_autorefresh_handler_argument_date.inc
+files[] = views/views_autorefresh_handler_area_autorefresh.inc
+
+; Information added by drupal.org packaging script on 2013-04-22
+version = "7.x-1.0-beta2"
+core = "7.x"
+project = "views_autorefresh"
+datestamp = "1366653313"
+

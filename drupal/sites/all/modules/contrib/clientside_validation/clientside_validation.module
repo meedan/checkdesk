@@ -33,6 +33,14 @@ function clientside_validation_js_alter(&$javascript) {
   $javascript['settings']['data'][] = $clientside_validation_settings;
 }
 
+function clientside_validation_ajax_render_alter(&$commands) {
+  $cv_settings = &drupal_static('clientside_validation_settings', array());
+  foreach ($commands as $delta => $command) {
+    if ($command['command'] == 'settings') {
+      $commands[$delta]['settings'] = drupal_array_merge_deep($command['settings'], $cv_settings);
+    }
+  }
+}
 /**
  * Implements hook_menu().
  */
@@ -444,6 +452,7 @@ function _clientside_validation_add_general_settings(&$settings, $form) {
     "validateOnBlur" => $definedsettings['validate_options']['validate_onblur'],
     "validateOnBlurAlways" => $definedsettings['validate_options']['validate_onblur_always'],
     "validateOnKeyUp" => $definedsettings['validate_options']['validate_onkeyup'],
+    "validateBeforeAjax" => $definedsettings['validate_options']['validate_before_ajax'],
     "validateOnSubmit" => $definedsettings['validate_options']['validate_onsubmit'],
     "showMessages" => $definedsettings['validate_options']['show_messages'],
     "errorElement" => $definedsettings['error']['error_element'],
@@ -925,13 +934,16 @@ function _clientside_validation_set_equal($name, $title, $value, &$js_rules, $me
   if ($webform) {
     $js_rules[$name]['equalTo'] = ':input[name=\'submitted[' . $value['form_key'] . ']\']';
   }
-  else {
+  elseif (is_array($value)) {
     $js_rules[$name]['equalTo'] = ':input[name=\'' . $value['element_name'] . '\']';
+  }
+  else {
+    $js_rules[$name]['equalTo'] = ':input[name=\'' . $value . '\']';
   }
   if (empty($message)) {
     $variables = array(
-      'message' => '!title field has to be equal to !firstone.',
-      'placeholders' => array('!title' => $title, '!firstone' => $value['name']),
+      'message' => is_array($value) ? '!title field has to be equal to !firstone.' : 'Field values must match',
+      'placeholders' => is_array($value) ? array('!title' => $title, '!firstone' => $value['name']) : array(),
       'error_type' => 'equalto',
       'element_name' => $name,
     );
@@ -1142,6 +1154,8 @@ function _clientside_validation_set_regex_pcre($name, $title, &$js_rules, $expre
  * Set validation rule for file fields that must have a certain extension.
  */
 function _clientside_validation_set_extensions($name, $extensions, &$js_rules) {
+  // @see https://drupal.org/comment/8428631#comment-8428631
+  /*
   $extension_list = preg_replace('#,(?![^,]+,)#', ' or', implode(', ', $extensions));
   $js_rules[$name]['accept'] = implode('|', $extensions);
   $variables = array(
@@ -1151,6 +1165,7 @@ function _clientside_validation_set_extensions($name, $extensions, &$js_rules) {
     'element_name' => $name
   );
   $js_rules[$name]['messages']['accept'] = theme('clientside_error', $variables);
+  */
 }
 
 /**
@@ -1466,7 +1481,7 @@ function clientside_validation_settings_current_form($settings = NULL) {
 }
 
 function clientside_validation_settings_load_defaults() {
-  static $defaults;
+  static $defaults = FALSE;
   if (!$defaults) {
     $defaults = clientside_validation_settings_load('default');
   }
@@ -1481,6 +1496,7 @@ function clientside_validation_settings_load($cvs_type = NULL, $cvs_formid = NUL
       'validate_onblur' => 1,
       'validate_onblur_always' => 0,
       'validate_onkeyup' => 1,
+      'validate_before_ajax' => 0,
       'show_messages' => 0,
       'captcha' => 1,
     ),
@@ -1503,7 +1519,7 @@ function clientside_validation_settings_load($cvs_type = NULL, $cvs_formid = NUL
     ),
   );
   if ($cvs_type == 'default') {
-    return variable_get('clientside_validation_default_settings', $default_settings);
+    return drupal_array_merge_deep($default_settings, variable_get('clientside_validation_default_settings', $default_settings));
   }
   if (!db_table_exists('clientside_validation_settings')) {
     drupal_set_message(

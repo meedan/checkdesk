@@ -147,6 +147,9 @@ function _clientside_validation_set_fapi_validation($element, $rule, $params, &$
       }
       _clientside_validation_set_regex_pcre($name, $title, $js_rules, $expression, $message, 'decimal');
       break;
+    case 'fapi_validation_rule_match_field';
+      _clientside_validation_set_equal($name, $title, $params[0], $js_rules);
+      break;
     default:
       $context = array('type' => 'fapi', 'rule' => $rule, 'message' => $message, 'params' => $params);
       drupal_alter('clientside_validation_rule', $js_rules, $element, $context);
