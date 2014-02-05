@@ -80,6 +80,10 @@ Drupal.behaviors.views_autorefresh = {
 Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
   Drupal.settings.views_autorefresh[view_name].timer = setTimeout(function() {
     clearTimeout(Drupal.settings.views_autorefresh[view_name].timer);
+
+    // Turn off "new" items class.
+    $('.views-autorefresh-new', target).removeClass('views-autorefresh-new');
+
     // Handle ping path.
     var ping_base_path;
     if (Drupal.settings.views_autorefresh[view_name].ping) {

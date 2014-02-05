@@ -15,20 +15,20 @@ class views_autorefresh_handler_argument_date extends views_handler_argument {
    */
   function summary_name($data) {
     $created = $data->{$this->name_alias};
-    return format_date(strtotime($created), 'custom', $this->format, 0);
+    return format_date(strtotime($created), 'custom', $this->format, NULL);
   }
 
   /**
    * Provide a link to the next level of the view
    */
   function title() {
-    return format_date(strtotime($this->argument), 'custom', $this->format, 0);
+    return format_date($this->argument, 'custom', $this->format, NULL);
   }
 
   /**
    * Build the query based upon the formula
    */
-  function query($group_by = false) {
+  function query($group_by = FALSE) {
     $this->ensure_my_table();
     $this->query->add_where_expression(0, "{$this->table_alias}.{$this->real_field} {$this->operator} :date", array(':date' => $this->argument));
   }

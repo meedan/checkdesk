@@ -4,6 +4,15 @@
  * Implementation of hook_views_data_alter().
  */
 function views_autorefresh_views_data_alter(&$data) {
+  // Add our autorefresh area to Global.
+  $data['views']['autorefresh'] = array(
+    'title' => t('Autorefresh'),
+    'help' => t('Enable autorefresh for this view. NOTE: This will automatically turn AJAX support ON.'),
+    'area' => array(
+      'handler' => 'views_autorefresh_handler_area_autorefresh',
+    ),
+  );
+
   foreach ($data as $table_name => $table_info) {
     foreach ($table_info as $field_name => $field_info) {
       // Add an operator-based date handler to all date arguments.
@@ -31,24 +40,5 @@ function views_autorefresh_views_data_alter(&$data) {
       }
     }
   }
-}
-
-/**
- * Implementation of hook_views_handlers().
- */
-function views_autorefresh_views_handlers() {
-  return array(
-    'info' => array(
-      'path' => drupal_get_path('module', 'views_autorefresh'),
-    ),
-    'handlers' => array(
-      'views_autorefresh_handler_argument_date' => array(
-        'parent' => 'views_handler_argument',
-      ),
-      'views_autorefresh_handler_argument_base' => array(
-        'parent' => 'views_handler_argument',
-      ),
-    ),
-  );
 }
 
