@@ -46035,7 +46035,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>',
     'context' => '',
     'location' => '/ar/',
-    'translation' => 'ﺄﻀﻴﻓ ﻢﻧ ﻖﺒﻟ <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">ﻢﻧﺫ !interval </time></a>',
+    'translation' => 'أضيف من قبل <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">منذ !interval </time></a>',
     'plid' => 0, 
     'plural' => 0, 
   );
