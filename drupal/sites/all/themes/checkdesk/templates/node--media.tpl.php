@@ -35,7 +35,7 @@
       </div>
 
     <?php if (isset($media_activity_report_count)) : ?>
-      <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity">
+      <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity open">
           <header<?php if ($status_class) print ' class="' . $status_class . '"'; ?>>
             <div class="report-activity-header" href="#">
               <h3 class="report-footnotes-count"><span><?php print $media_activity_report_count . '</span> ' . t('fact-checking footnotes'); ?></h3>
@@ -49,7 +49,9 @@
           <div class="activity-wrapper">
             <?php print $media_activity_report; ?>
             <?php print render($content['comments']); ?>
-            <p class="activity-list-footer"><?php print $media_activity_footer; ?></p>
+            <?php if ($media_activity_footer) : ?>
+              <div class="activity-list-footer"><?php print $media_activity_footer; ?></div>
+            <?php endif; ?>
           </div>
 
       </section>

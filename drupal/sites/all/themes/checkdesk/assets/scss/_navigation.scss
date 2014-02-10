@@ -28,15 +28,16 @@ $icon-position: 'before';
   }
   // home
   li.home a {
-    @include icon("home", $size, $color, $icon-position);
+    @include icon("home", $size+4, $color, $icon-position);
   }
   // tour
   a[href*="checkdesk_take_tour"] {
-    @include icon("question", $size, $color, $icon-position, $margin);
+    // We were using an icon but it doesn't look good...
+    font-weight: bold;
   }
   // additional menu options
-  li.additional a {
-    @include icon("reorder", $size, $color, $icon-position);
+  li.additional a.dropdown-toggle {
+    @include icon("ellipsis-horizontal", $size, $color, $icon-position);
   }
 }
 
@@ -115,7 +116,7 @@ $icon-position: 'before';
     & > a:active {
       color: $nav-active-color;
       cursor: default;
-      padding-bottom: 7px;
+      padding-bottom: 8px;
 
       // don't forget the icons
       &:before {

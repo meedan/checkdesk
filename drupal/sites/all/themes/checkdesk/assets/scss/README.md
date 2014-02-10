@@ -39,3 +39,12 @@ The overall pattern is to compile stylesheets dynamically using a terminal proce
 - All stylesheets that start with an underscore are partials, they might contain mixins or complete modules, but they will *not be rendered as .css files* and can not be used to emit styles to the application.
 - Try to avoid dupilcation with mixins and configuration variables, but try to reduce complication.
 - Best served with Guard and Livereload
+
+### Browser support
+
+<!-- @TODO automated tests for browser support-->
+
+- IE10+
+- FF latest
+- Chrome latest
+- Safari latest

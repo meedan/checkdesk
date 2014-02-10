@@ -60,7 +60,7 @@ function checkdesk_core_preprocess_checkdesk_core_story_drafts(&$variables) {
  */
 function checkdesk_core_preprocess_checkdesk_core_report_source(&$variables) {
   $report = $variables['report'];
-  $embed = meedan_oembed_data($report->field_link[LANGUAGE_NONE][0]['display_url']);
+  $embed = meedan_oembed_data($report->field_link[LANGUAGE_NONE][0]['url']);
 
   $parsed_url = parse_url($embed->original_url);
   $stripped_url = preg_replace('#^www\.(.+\.)#i', '$1', $parsed_url['host']) . $parsed_url['path'];

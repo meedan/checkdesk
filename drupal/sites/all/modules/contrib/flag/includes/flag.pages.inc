@@ -160,6 +160,6 @@ function flag_build_javascript_info($flag, $entity_id) {
     'flagName' => $flag->name,
     'flagStatus' => $flag->is_flagged($entity_id) ? 'flagged' : 'unflagged',
   );
-  drupal_alter('flag_javascript_info', $info);
+  drupal_alter('flag_javascript_info', $info, $flag);
   return $info;
 }

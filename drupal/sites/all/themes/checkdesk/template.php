@@ -286,9 +286,9 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Add classes for modal
   foreach ($tree as $id => &$item) {
-    if (strpos($item['link']['link_path'], '/ajax/') !== FALSE) {
-      $item['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
-    }
+    // if (strpos($item['link']['link_path'], '/ajax/') !== FALSE) {
+    //   $item['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
+    // }
   }
 
   $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
@@ -330,7 +330,7 @@ function checkdesk_preprocess_page(&$variables) {
 
     else if ($item['link_path'] == 'checkdesk_take_tour') {
       $variables['secondary_menu'][$id]['attributes']['id'] = 'take-tour-menu-link';
-      $variables['secondary_menu'][$id]['title'] = '';
+      $variables['secondary_menu'][$id]['title'] = t('?');
     }
 
   }
@@ -614,6 +614,7 @@ function checkdesk_preprocess_node(&$variables) {
   $variables['icon'] = '';
   
   if ($variables['type'] == 'media') {
+    global $language;
     //Add author info to variables
     $user = user_load($variables['elements']['#node']->uid);
     $user_picture = $user->picture;
@@ -627,9 +628,10 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time
-    $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time class="date-time" datetime="!timestamp">!interval ago</time>', array(
+    $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,
+      '@url' => url('node/'. $variables['nid']),
       '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
       '!interval' => format_interval(time() - $variables['created'], 1),
@@ -669,6 +671,7 @@ function checkdesk_preprocess_node(&$variables) {
         }
         // Display "{status} by {partner site name}" for all statuses
         // except when the report is in progress
+        
         if($status_name != 'In Progress') {
           $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
         }
@@ -685,7 +688,9 @@ function checkdesk_preprocess_node(&$variables) {
         $variables['media_activity_footer'] = '';
       }
       else {
-        $variables['media_activity_footer'] = t('Please <a href="@login_url">login</a> to be able to add footnotes and contribute to the fact-checking of this report.', array('@login_url' => url('user/login')));
+        $icon = '<span class="icon-question-sign"></span> ';
+        $link = l(t('About verification process'), 'modal/ajax/content/fact-checking-statement', array('html' => 'true', 'language' => $language, 'attributes' => array('class' => array('use-ajax', 'ctools-modal-modal-popup-large'))));
+        $variables['media_activity_footer'] = '<span class="cta">' . t('To help verify this report, please <a href="@login_url">sign in</a>', array('@login_url' => url('user/login'))) . '</span><span class="helper">' . $icon . $link . '</span>';
       }
     }
 

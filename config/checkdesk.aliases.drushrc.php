@@ -3,10 +3,10 @@ $aliases['prod'] = array(
   'site-list' => array('@prod.7iber', '@prod.alayyam', '@prod.almasryalyoum', '@prod.annahar', '@prod.maan', '@prod.meedan', '@prod.weladelbalad', '@prod.thetribune', '@prod.madamasr'),
 );
 $aliases['qa'] = array(
-  'site-list' => array('@qa.7iber', '@qa.alayyam', '@qa.almasryalyoum', '@qa.annahar', '@qa.maan', '@qa.meedan', '@qa.weladelbalad'),
+  'site-list' => array('@qa.meedan'),
 );
 $aliases['dev'] = array(
-  'site-list' => array('@dev.7iber', '@dev.alayyam', '@dev.almasryalyoum', '@dev.annahar', '@dev.maan', '@dev.meedan', '@dev.weladelbalad'),
+  'site-list' => array('@dev.meedan'),
 );
 $aliases['ooew'] = array(
   'site-list' => array('@ooew.prod', '@ooew.dev'),
@@ -31,7 +31,7 @@ $aliases['prod.7iber'] = array (
 );
 $aliases['prod.alayyam'] = array (
   'parent' => '@prod-alias',
-  'uri' => 'shabab.ayyam.org',
+  'uri' => 'checkdesk.synews.info',
   'root' => '/var/www/checkdesk.prod/current/drupal',
 );
 $aliases['prod.almasryalyoum'] = array (
@@ -83,39 +83,9 @@ $aliases['qa-alias'] = array (
   ),
 );
 
-$aliases['qa.7iber'] = array (
-  'parent' => '@qa-alias',
-  'uri' => 'qa.7iber.checkdesk.org',
-  'root' => '/var/www/checkdesk.qa/current/drupal',
-);
-$aliases['qa.alayyam'] = array (
-  'parent' => '@qa-alias',
-  'uri' => 'qa.alayyam.checkdesk.org',
-  'root' => '/var/www/checkdesk.qa/current/drupal',
-);
-$aliases['qa.almasryalyoum'] = array (
-  'parent' => '@qa-alias',
-  'uri' => 'qa.almasryalyoum.checkdesk.org',
-  'root' => '/var/www/checkdesk.qa/current/drupal',
-);
-$aliases['qa.annahar'] = array (
-  'parent' => '@qa-alias',
-  'uri' => 'qa.annahar.checkdesk.org',
-  'root' => '/var/www/checkdesk.qa/current/drupal',
-);
-$aliases['qa.maan'] = array (
-  'parent' => '@qa-alias',
-  'uri' => 'qa.maan.checkdesk.org',
-  'root' => '/var/www/checkdesk.qa/current/drupal',
-);
 $aliases['qa.meedan'] = array (
   'parent' => '@qa-alias',
   'uri' => 'qa.checkdesk.org',
-  'root' => '/var/www/checkdesk.qa/current/drupal',
-);
-$aliases['qa.weladelbalad'] = array (
-  'parent' => '@qa-alias',
-  'uri' => 'qa.weladelbalad.checkdesk.org',
   'root' => '/var/www/checkdesk.qa/current/drupal',
 );
 
@@ -131,45 +101,9 @@ $aliases['dev-alias'] = array (
     '%drush' => '/usr/share/php/drush',
   ),
 );
-$aliases['dev.7iber'] = array (
-  'parent' => '@dev-alias',
-  'uri' => 'dev.7iber.checkdesk.org',
-  'root' => '/var/www/checkdesk.dev/current/drupal',
-  '#file' => '/etc/drush/sites.aliases.drushrc.php',
-);
-$aliases['dev.alayyam'] = array (
-  'parent' => '@dev-alias',
-  'uri' => 'dev.alayyam.checkdesk.org',
-  'root' => '/var/www/checkdesk.dev/current/drupal',
-  '#file' => '/etc/drush/sites.aliases.drushrc.php',
-);
-$aliases['dev.almasryalyoum'] = array (
-  'parent' => '@dev-alias',
-  'uri' => 'dev.almasryalyoum.checkdesk.org',
-  'root' => '/var/www/checkdesk.dev/current/drupal',
-  '#file' => '/etc/drush/sites.aliases.drushrc.php',
-);
-$aliases['dev.annahar'] = array (
-  'parent' => '@dev-alias',
-  'uri' => 'dev.annahar.checkdesk.org',
-  'root' => '/var/www/checkdesk.dev/current/drupal',
-  '#file' => '/etc/drush/sites.aliases.drushrc.php',
-);
-$aliases['dev.maan'] = array (
-  'parent' => '@dev-alias',
-  'uri' => 'dev.maan.checkdesk.org',
-  'root' => '/var/www/checkdesk.dev/current/drupal',
-  '#file' => '/etc/drush/sites.aliases.drushrc.php',
-);
 $aliases['dev.meedan'] = array (
   'parent' => '@dev-alias',
   'uri' => 'dev.checkdesk.org',
-  'root' => '/var/www/checkdesk.dev/current/drupal',
-  '#file' => '/etc/drush/sites.aliases.drushrc.php',
-);
-$aliases['dev.weladelbalad'] = array (
-  'parent' => '@dev-alias',
-  'uri' => 'dev.weladelbalad.checkdesk.org',
   'root' => '/var/www/checkdesk.dev/current/drupal',
   '#file' => '/etc/drush/sites.aliases.drushrc.php',
 );

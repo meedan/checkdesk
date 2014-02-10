@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Implements hook_init()
+ */
+function messageclose_init() {
+  // Custom javascript and CSS for close button.
+  drupal_add_css( drupal_get_path('module', 'messageclose') . '/css/messageclose.css');
+  drupal_add_js(  drupal_get_path('module', 'messageclose') . '/js/messageclose.js');
+}

@@ -180,7 +180,13 @@ class flag_entity extends flag_flag {
   function get_labels_token_types() {
     // The token type name might be different to the entity type name. If so,
     // an own flag entity handler can be used for overriding this.
-    return array_merge(array($this->entity_type), parent::get_labels_token_types());
+    $entity_info = entity_get_info($this->entity_type);
+    if (isset($entity_info['token type'])) {
+      return array_merge(array($entity_info['token type']), parent::get_labels_token_types());
+    }
+    else {
+      return array_merge(array($this->entity_type), parent::get_labels_token_types());
+    }
   }
 
   /**

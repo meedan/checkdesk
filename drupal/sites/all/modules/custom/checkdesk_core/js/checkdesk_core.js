@@ -203,6 +203,25 @@
     Drupal.attachBehaviors(response.selector);
   };
 
+  /**
+   * Command to refresh Facebook embeds.
+   */
+  Drupal.ajax.prototype.commands.refreshFacebook = function(ajax, response, status) {
+    if (typeof(FB) != 'undefined') {
+      window.fbAsyncInit();
+    }
+  }
+
+  /**
+   * Facebook initialization callback.
+   */
+  window.fbAsyncInit = function() {
+    // Wait until FB object is loaded and initialized to refresh the embeds.
+    // @see http://thereisamoduleforthat.com/content/loading-facebook-embeds-ajax
+    FB.init({ xfbml: true });
+    FB.XFBML.parse();
+  }
+
   // Custom client-side validations
   Drupal.behaviors.clientSideValidations = {
     attach: function (context) {

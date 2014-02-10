@@ -10,7 +10,7 @@
 function checkdesk_devel_feature_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: access devel information.
+  // Exported permission: 'access devel information'.
   $permissions['access devel information'] = array(
     'name' => 'access devel information',
     'roles' => array(

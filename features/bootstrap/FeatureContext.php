@@ -32,11 +32,15 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     }
 
     /**
-     * @AfterStep @javascript
+     * @BeforeStep ~@javascript
      */
-    public function afterStep($event)
+    public function beforeStep($event)
     {
-      $this->getSession()->executeScript('window.alert = function(msg) { console.log(msg); }');
+      $username = variable_get('checkdesk_tests_http_user', '');
+      $password = variable_get('checkdesk_tests_http_password', '');
+      if (!empty($username) && !empty($password)) {
+        $this->getSession()->getDriver()->setBasicAuth($username, $password);
+      }
     }
 
     /**
@@ -118,9 +122,9 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     }
 
     /**
-     * @Then /^menu item "([^"]*)" should be expanded$/
+     * @Then /^element "([^"]*)" should be expanded$/
      */
-    public function menuItemShouldBeExpanded($item)
+    public function elementShouldBeExpanded($item)
     {
       $page = $this->getSession()->getPage();
       $element = $page->find('css', $item);
@@ -131,15 +135,28 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     }
 
     /**
-     * @Then /^menu item "([^"]*)" should not be expanded$/
+     * @Then /^element "([^"]*)" should not be expanded$/
      */
-    public function menuItemShouldNotBeExpanded($item)
+    public function elementShouldNotBeExpanded($item)
     {
       $page = $this->getSession()->getPage();
       $element = $page->find('css', $item);
       if ($element->hasClass('open')) {
         throw new \Exception();
       }
+    }
+
+    /**
+     * @Then /^take screenshot$/
+     */
+    public function takeScreenshot()
+    {
+      $driver = $this->getSession()->getDriver();
+      // Only makes sense on HTML formatting and using the testing module
+      $base64 = base64_encode($driver->getScreenshot());
+      echo '<p>
+              <img src="data:image/png;base64,' . $base64 . '" id="checkdesk-tests-screenshot" style="width: 100%;" />
+            <p>';
     }
 
 //

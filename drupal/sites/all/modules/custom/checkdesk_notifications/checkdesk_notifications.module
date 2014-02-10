@@ -150,7 +150,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     // Add relationships to query
     global $user;
     $events = array_keys(checkdesk_notifications_get_events());
-    $subscriptions = isset($user->data['meedan_notifications']) ? $user->data['meedan_notifications'] : array_combine($events, $events);
+    $subscriptions = isset($user->data['meedan_notifications']) ? 
+      $user->data['meedan_notifications'] : array();
+    $subscriptions += array_combine($events, $events);
     $params = meedan_notifications_placeholders_for_views($user);
     unset($params[':nids']);
     $join = new views_join;
@@ -278,4 +280,28 @@ function checkdesk_notifications_theme_heartbeat_time_ago($variables) {
 function checkdesk_notifications_theme_registry_alter(&$theme_registry) {
   $theme_registry['heartbeat_time_ago']['theme path'] = drupal_get_path('module', 'checkdesk_notifications');
   $theme_registry['heartbeat_time_ago']['function'] = 'checkdesk_notifications_theme_heartbeat_time_ago';
+}
+
+/**
+ * Implements hook_token_info
+ */
+function checkdesk_notifications_token_info() {
+  $info['tokens']['user']['notifications-url'] = array(
+    'name' => t('Notifications URL'),
+    'description' => t('URL to the notifications page of a user'),
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_tokens
+ */
+function checkdesk_notifications_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $replacements = array();
+  if ($type == 'user' && !empty($data['user']) && isset($tokens['notifications-url'])) {
+    $user = $data['user'];
+    $original = $tokens['notifications-url'];
+    $replacements[$original] = url('user/' . $user->uid . '/notifications', array('absolute' => TRUE, 'alias' => TRUE, 'language' => $options['language']));
+  }
+  return $replacements;
 }

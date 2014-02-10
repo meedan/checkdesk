@@ -472,7 +472,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_new_user';
   $heartbeatmessagetemplate->description = 'New user registered';
-  $heartbeatmessagetemplate->message = '<p>A new user called <strong><a href="!url">!name</a></strong> has registered. Please mark him as <em>active</em>, if you want to accept this registration.</p>';
+  $heartbeatmessagetemplate->message = '<p>A new user <strong><a href="!url">!name</a></strong> has registered. Please mark him as <em>active</em>, if you want to accept this registration.</p>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';

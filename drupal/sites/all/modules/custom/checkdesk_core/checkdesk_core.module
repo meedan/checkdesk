@@ -242,6 +242,21 @@ function _checkdesk_modal_report_view($js = FALSE) {
 }
 
 /**
+ * Implements hook_ajax_render_alter().
+ * Add a `facebook_refresh` command to make sure FB embeds are shown correctly.
+ * @see http://thereisamoduleforthat.com/content/loading-facebook-embeds-ajax
+ */
+function checkdesk_core_ajax_render_alter(&$commands) {
+  foreach ($commands as $command) {
+    if ($command['command'] == 'modal_display') {
+      $commands[] = array(
+        'command' => 'refreshFacebook',
+      );
+    }
+  }
+}
+
+/**
  * Form function for `_checkdesk_core_settings`.
  */
 function _checkdesk_core_settings($form, $form_state) {
@@ -460,6 +475,9 @@ function checkdesk_core_preprocess_flag(&$variables) {
     ctools_modal_add_js();
 
     $flag_css_name = 'flag-' . str_replace('_', '-', $variables['flag']->name);
+    if (empty($variables['flag_classes'])) {
+      $variables['flag_classes'] = '';
+    }
     $variables['flag_classes'] .= ' ctools-modal-' . $variables['flag']->confirm_modal_style;
     $variables['flag_classes'] .= ' '. $flag_css_name;
 
@@ -591,7 +609,7 @@ function _checkdesk_core_report_publish_submit($form, &$form_state) {
  * Retrieve action links on given node.
  */
 function _checkdesk_core_node_links($node, $account = NULL) {
-  global $language;
+  global $language, $base_root, $base_path;
   if (!$account) {
     global $user;
     $account = $user;
@@ -661,11 +679,37 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       );
     }
     if (node_access('delete', $node)) {
+
+      // After deleting the report, redirect to current page or previous page, if the current page is the report to be removed
+      $destination = current_path();
+      if (($destination == 'node/' . $node->nid) || (arg(0) == 'report-view-modal' && arg(2) == $node->nid)) {
+        if (isset($_SERVER['HTTP_REFERER'])) {
+          $url = parse_url($_SERVER['HTTP_REFERER']);
+          if (@$url['scheme'] . '://' . @$url['host'] == $base_root) {
+            $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
+            if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
+              list($langcode, $alias) = explode('/', $alias, 2);
+              if (!in_array($langcode, array_keys(language_list()))) {
+                $alias = $langcode . '/' . $alias;
+              }
+            }
+            $destination = drupal_lookup_path('source', urldecode($alias), $langcode);
+            if (empty($destination)) $destination = $alias;
+          }
+          else {
+            $destination = '<front>';
+          }
+        }
+        else {
+          $destination = '<front>';
+        }
+      }
+
       $links['checkdesk-delete'] = array(
         'title' => t('Delete'),
         'href' => 'node/' . $node->nid . '/delete',
         'query' => array(
-          'destination' => '<front>',
+          'destination' => $destination,
         ),
       );
     }
@@ -689,7 +733,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $links['checkdesk-share'] = array(
         'title' => '',
         'href' => '#',
-        'attributes' => array('title' => $title),
+        'attributes' => array('title' => $node->title),
       );
       $links['checkdesk-share-embed'] = array(
         'html' => TRUE,
@@ -1393,7 +1437,7 @@ function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heart
         $messages[$key]->variables[$variable] = t($value);
       }
       // Localize URLs
-      else if (in_array($variable, array('!user_url', '!story_url', '!report_url', '!update_url', '!flag_author_url'))) {
+      else if (in_array($variable, array('!url', '!user_url', '!story_url', '!report_url', '!update_url', '!flag_author_url'))) {
         $url = parse_url($value);
         if ($url) {
           $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
@@ -1869,7 +1913,17 @@ function checkdesk_core_form_flag_confirm_alter(&$form, $form_state, $form_id) {
  * Implements hook_form_FORM_ID_alter() for `twitter_oauth_callback_form`.
  */
 function checkdesk_core_form_twitter_oauth_callback_form_alter(&$form, $form_state) {
-  $_GET['destination'] = 'user/register';
+  if (isset($_SESSION['twitter_oauth']['signin'])) {
+    //add function to show msg if user still blocked.
+    $form['#submit'][] = '_checkdesk_twitter_signin_user_status';
+  }
+}
+
+function _checkdesk_twitter_signin_user_status(&$form, &$form_state) {
+ $account = $form_state['twitter_oauth']['account'];
+ if (!$account->status) {
+   drupal_set_message(t('The username @name has not been activated or is blocked.', array('@name' => $account->name)), 'error');
+ }
 }
 
 /**
@@ -2142,7 +2196,7 @@ function checkdesk_core_format_interval($interval, $granularity = 2, $langcode =
  */
 function _checkdesk_core_auto_title($node) {
   $replacements = array('/\[[^]]+\]/' => '', '/&nbsp;/' => ' '); // &nbsp; would be decoded as a non-UTF-8 char
-  $body = html_entity_decode(strip_tags(preg_replace(array_keys($replacements), array_values($replacements), $node->body[LANGUAGE_NONE][0]['value'])));
+  $body = html_entity_decode(strip_tags(preg_replace(array_keys($replacements), array_values($replacements), @$node->body[LANGUAGE_NONE][0]['value'])));
   if (empty($body)) {
     return t('Update');
   }
@@ -2283,4 +2337,23 @@ function _checkdesk_validation_ajax_unique_field() {
  */
 function checkdesk_core_form_comment_form_alter(&$form, &$form_state) {
   $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
+}
+
+/**
+ * Implements hook_search_preprocess().
+ */
+function checkdesk_core_search_preprocess($text) {
+  // Reject overly long 2 byte sequences, as well as characters above U+10000
+  $text = preg_replace('/[\x00-\x08\x10\x0B\x0C\x0E-\x19\x7F]'.
+    '|[\x00-\x7F][\x80-\xBF]+'.
+    '|([\xC0\xC1]|[\xF0-\xFF])[\x80-\xBF]*'.
+    '|[\xC2-\xDF]((?![\x80-\xBF])|[\x80-\xBF]{2,})'.
+    '|[\xE0-\xEF](([\x80-\xBF](?![\x80-\xBF]))|(?![\x80-\xBF]{2})|[\x80-\xBF]{3,})/S',
+    '', $text);
+
+  // Reject overly long 3 byte sequences and UTF-16 surrogates
+  $text = preg_replace('/\xE0[\x80-\x9F][\x80-\xBF]'.
+    '|\xED[\xA0-\xBF][\x80-\xBF]/S', '', $text);
+
+  return $text;
 }

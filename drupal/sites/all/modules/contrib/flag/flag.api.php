@@ -350,15 +350,23 @@ function hook_flag_reset($flag, $entity_id, $rows) {
 /**
  * Alter the javascript structure that describes the flag operation.
  *
+ * @param $info
+ *   The info array before it is returned from flag_build_javascript_info().
  * @param $flag
  *   The full flag object.
- * @param $entity_id
- *   The ID of the node, comment, user or other object being flagged.
  *
  * @see flag_build_javascript_info()
  */
-function hook_flag_javascript_info_alter() {
-
+function hook_flag_javascript_info_alter(&$info, $flag) {
+  if ($flag->name === 'test') {
+    $info['newLink'] = $flag->theme($flag->is_flagged($info['contentId']) ? 'unflag' : 'flag', $info['contentId'], array(
+      'after_flagging' => TRUE,
+      'errors' => $flag->get_errors(),
+      // Additional options to pass to theme's preprocess function/template.
+      'icon' => TRUE,
+      'hide_text' => TRUE,
+    ));
+  }
 }
 
 /**

@@ -44,6 +44,19 @@
         }
       });
 
+      // add class when end of fact-checking log is reached
+      // and also when there is no pager
+      $('.report-activity .view').bind('scroll', function() {
+        if(($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) && $(this).children('.item-list').is(':empty')) {
+          $(this).parents('.report-activity').addClass('end');
+        } else if (($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) && $(this).children('.item-list').length == 0) {
+          $(this).parents('.report-activity').addClass('end');
+        }
+        else {
+          $(this).parents('.report-activity').removeClass('end');
+        }
+      });
+
       // scroll to the bottom of modal when interacting with report actions
       // $('#modalContent #report-actions a').click(function (event) {
       // 	$('.modal-body').animate({

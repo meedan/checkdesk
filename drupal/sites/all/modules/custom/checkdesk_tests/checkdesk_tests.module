@@ -5,27 +5,74 @@
  */
 
 /**
+ * Implements hook_init().
+ */
+function checkdesk_tests_init() {
+  // Alerts break tests, so let's replace them by console.log
+  // Clearly this is not the best approach... but the others didn't work! :(
+  // I tried: Behat hooks (beforeStep, afterStep), set cookie on Behat, send HTTP headers on Behat, etc.
+  drupal_add_js('window.alert = function(message) { if (console) console.log(message); }', 'inline');
+}
+
+/**
  * Implements hook_menu().
  */
 function checkdesk_tests_menu() {
   $items = array();
 
   $items['admin/config/development/checkdesk_tests'] = array(
-    'title' => 'Checkdesk Tests',
-    'description' => 'Run automated tests for Checkdesk',
+    'title' => 'Checkdesk tests',
+    'description' => 'Automated tests for Checkdesk',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_checkdesk_tests_settings'),
     'access arguments' => array('administer site configuration'),
   );
 
+  $items['admin/config/development/checkdesk_tests/run'] = array(
+    'title' => 'Run tests',
+    'description' => 'Run automated tests for Checkdesk',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
+  );
+
+  $items['admin/config/development/checkdesk_tests/new'] = array(
+    'title' => 'Create test',
+    'description' => 'Create a new automated test for Checkdesk',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_checkdesk_tests_new'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 2,
+  );
+
   $items['checkdesk-tests/status'] = array(
     'page callback' => '_checkdesk_tests_status',
-    'access callback' => TRUE,
     'access arguments' => array('administer site configuration'),
     'type' => MENU_CALLBACK,
   );
 
+  $items['checkdesk-tests/autocomplete'] = array(
+    'page callback' => '_checkdesk_tests_autocomplete',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK
+  );
+
   return $items;
+}
+
+function _checkdesk_tests_autocomplete($string) {
+  $matches = array();
+  
+  $steps = explode('<br />', _checkdesk_tests_steps());
+  foreach ($steps as $step) {
+    $title = preg_replace('/^\s*(Given|Then|When) \/\^/', '', $step);
+    $title = preg_replace('/\$\/$/', '', $title);
+    if (preg_match('/' . preg_quote($string) . '/', $title)) {
+      $matches[$title] = $title;
+    }
+  }
+  
+  drupal_json_output($matches);
 }
 
 /**
@@ -38,6 +85,41 @@ function _checkdesk_tests_settings($form, $form_state) {
   $pid = empty($pidfile) ? '' : file_get_contents($pidfile);
   $outfile = variable_get('checkdesk_tests_outfile', '');
   $output = empty($outfile) ? '' : file_get_contents($outfile);
+
+  $form['checkdesk_tests_behat_bin_path'] = array(
+    '#title' => t('Path to Behat binary'),
+    '#description' => t('Absolute or relative to the path below.'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('checkdesk_tests_behat_bin', 'bin/behat'),
+    '#required' => TRUE,
+  );
+
+  $form['checkdesk_tests_behat_config_path'] = array(
+    '#title' => t('Directory path where Behat configuration file (behat.yml) is located'),
+    '#description' => t('No need to include behat.yml on it, neither a trailing slash at the end. Relative paths are relative to Drupal root.'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('checkdesk_tests_behat_config_path', '.'),
+    '#required' => TRUE,
+  );
+
+  $form['checkdesk_tests_http_user'] = array(
+    '#title' => t('HTTP Authentication User'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('checkdesk_tests_http_user', ''),
+  );
+
+  $form['checkdesk_tests_http_password'] = array(
+    '#title' => t('HTTP Authentication Password'),
+    '#type' => 'password',
+    '#default_value' => variable_get('checkdesk_tests_http_password', ''),
+  );
+
+  $form['checkdesk_tests_http_auth_headless_only'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable HTTP authentication only for headless testing'),
+    '#default_value' => variable_get('checkdesk_tests_http_auth_headless_only', 0),
+    '#description' => t('Sometimes testing using Selenium (or other driver that allows JavaScript) does not handle HTTP authentication well, for example when you have some link with some JavaScript behavior attached. On these cases, you may enable this HTTP authentication only for headless testing and find another solution for drivers that allow JavaScript (for example, with Selenium + JavaScript you can use the extension Auto Auth and save the credentials on a Firefox profile).'),
+  );
 
   $label = t('Running');
   $class = 'running';
@@ -56,18 +138,6 @@ function _checkdesk_tests_settings($form, $form_state) {
     '#markup' => '<div id="checkdesk-tests-output">' . $output . '</div>',
   );
 
-  $form['checkdesk_tests_steps'] = array(
-    '#title' => t('Available steps'),
-    '#type' => 'fieldset',
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-
-  $form['checkdesk_tests_steps']['checkdesk_tests_steps_content'] = array(
-    '#type' => 'markup',
-    '#markup' => _checkdesk_tests_steps(),
-  );
-    
   $form['#after_build'] = array('_checkdesk_tests_load_javascript');
   
   $form['actions']['#type'] = 'actions';
@@ -82,13 +152,284 @@ function _checkdesk_tests_settings($form, $form_state) {
 }
 
 /**
+ * Form function for `_checkdesk_tests_new`.
+ */
+function _checkdesk_tests_new($form, $form_state) {
+  drupal_add_css(drupal_get_path('module', 'checkdesk_tests') . '/css/modal.css');
+  drupal_add_css(drupal_get_path('module', 'checkdesk_tests') . '/css/checkdesk_tests.css');
+
+  $form['checkdesk_tests_steps'] = array(
+    '#title' => t('Available steps'),
+    '#type' => 'fieldset',
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#prefix' => '<div id="checkdesk-tests-steps">',
+    '#suffix' => '</div>',
+  );
+
+  $form['checkdesk_tests_steps']['checkdesk_tests_steps_content'] = array(
+    '#type' => 'markup',
+    '#markup' => _checkdesk_tests_steps(),
+  );
+
+  $form['checkdesk_tests_steps_link'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p>' . l(t('Check available steps'), '#', array('attributes' => array('id' => 'checkdesk-tests-steps-link'))) . '</p>',
+  );
+
+  $form['checkdesk_tests_new_scenario'] = array(
+    '#title' => t('New scenario'),
+    '#type' => 'fieldset',
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#prefix' => '<div id="checkdesk-tests-new-scenario">',
+    '#suffix' => '</div>',
+  );
+
+  $form['checkdesk_tests_scenario_output'] = array(
+    '#title' => t('Scenario output'),
+    '#type' => 'fieldset',
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#prefix' => '<div id="checkdesk-tests-scenario-output">',
+    '#suffix' => '</div>',
+  );
+
+  $form['checkdesk_tests_run'] = array(
+    '#type' => 'submit',
+    '#value' => t('Run >>'),
+    '#prefix' => '<div id="checkdesk-tests-run">',
+    '#suffix' => '</div>',
+    '#ajax' => array(
+      'callback' => '_checkdesk_tests_run_single_test',
+      'wrapper' => 'checkdesk-tests-output-inner'
+    ),
+  );
+
+  $form['checkdesk_tests_new_scenario']['checkdesk_tests_title'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Title of this scenario',
+    '#required' => TRUE,
+  );
+
+  $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Steps'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#tree' => TRUE,
+    '#prefix' => '<div id="checkdesk-tests-new-steps">',
+    '#suffix' => '</div>',
+  );
+  
+  $form_state['storage']['steps']++;
+
+  if ($form_state['storage']['steps']) {
+    for ($i = 0; $i < $form_state['storage']['steps']; $i++) {
+      $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i] = array(
+        '#type' => 'fieldset',
+        '#collapsible' => FALSE, 
+        '#collapsed' => FALSE,
+        '#tree' => TRUE,
+      );
+
+      $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i]['type'] = array(
+        '#type' => 'select',
+        '#options' => array('' => '', 'And' => 'And', 'Given' => 'Given', 'When' => 'When', 'Then' => 'Then'),
+        '#default_value' => '',
+      );
+      
+      $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'][$i]['step'] = array(
+        '#type' => 'textfield',
+        '#autocomplete_path' => 'checkdesk-tests/autocomplete',
+      );
+    }
+  }
+
+  $form['checkdesk_tests_new_scenario']['checkdesk_tests_add_step'] = array(
+    '#type' => 'button',
+    '#value' => t('Add'),
+    '#href' => '',
+    '#ajax' => array(
+      'callback' => 'checkdesk_tests_ajax_add_step',
+      'wrapper' => 'checkdesk-tests-new-steps',
+    ),
+  );
+
+  $form['checkdesk_tests_new_scenario']['checkdesk_tests_javascript'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Needs a real browser'),
+    '#default_value' => 0,
+    '#description' => t('Check this if this test needs a real browser, which supports JavaScript, in order to perform actions that happen without reloading the page.'),
+  );
+
+  $form['checkdesk_tests_new_scenario']['checkdesk_tests_feature'] = array(
+    '#type' => 'radios',
+    '#title' => t('Feature'),
+    '#options' => _checkdesk_tests_features(),
+    '#required' => TRUE,
+  );
+
+  $form['checkdesk_tests_scenario_output']['checkdesk_tests_output'] = array(
+    '#title' => t('Tests output'),
+    '#type' => 'markup',
+    '#markup' => '<div id="checkdesk-tests-output"><div id="checkdesk-tests-output-inner"></div></div>',
+  );
+
+  $form['checkdesk_tests_create'] = array(
+    '#type' => 'submit',
+    '#value' => t('Download updated feature'),
+    '#prefix' => '<div id="checkdesk-tests-create">',
+    '#suffix' => '</div>',
+    '#submit' => array('_checkdesk_tests_create'),
+  );
+
+  $form['#after_build'] = array('_checkdesk_tests_load_javascript_for_new');
+
+  $form['#theme'] = 'system_settings_form';
+  return $form;
+}
+
+/**
+ * Given a form_state, return a Behat scenario.
+ */
+function _checkdesk_tests_generate_scenario($form_state) {
+  $scenario = "@api";
+  if ($form_state['values']['checkdesk_tests_javascript']) {
+    $scenario .= " @javascript";
+  }
+  $title = $form_state['values']['checkdesk_tests_title'];
+  $scenario .= "\nScenario: $title\n";
+  
+  for ($i = 0; $i < $form_state['storage']['steps']; $i++) {
+    $type = $form_state['values']['checkdesk_tests_steps'][$i]['type'];
+    $step = $form_state['values']['checkdesk_tests_steps'][$i]['step'];
+
+    if (!empty($type) && !empty($step)) {
+      $step = preg_replace('/\n\|/', "\n  |", preg_replace('/([:\|])\|/', "$1\n|", $step)); // Blocks
+      $scenario .= "  $type $step\n";
+    }
+  }
+
+  return $scenario;
+}
+
+/**
+ * Run a single test.
+ */
+function _checkdesk_tests_run_single_test($form, &$form_state) {
+  global $user, $base_root;
+
+  // Write to temporary file
+  $tmp = file_directory_temp();
+  $file = $tmp . '/' . $user->uid . '-' . time() . '.feature';
+  $feature = $form_state['values']['checkdesk_tests_feature'];
+  $test = "Feature: $feature\n  In order to test \"$feature\"\n\n";
+  $test .= _checkdesk_tests_generate_scenario($form_state);
+  $handle = fopen($file, 'w+');
+  fwrite($handle, $test);
+  fclose($handle);
+
+  // Run file
+  $behat_bin = variable_get('checkdesk_tests_behat_bin_path', 'bin/behat');
+  $behat_config = variable_get('checkdesk_tests_behat_config_path', '.');
+  $output = shell_exec("cd $behat_config; (MINK_EXTENSION_PARAMS='base_url=$base_root' php $behat_bin -f html $file 2>&1)");
+
+  unlink($file);
+  return '<div id="checkdesk-tests-output-inner">' . $output . '</div>';
+}
+
+function checkdesk_tests_ajax_add_step($form, $form_state) {
+  return $form['checkdesk_tests_new_scenario']['checkdesk_tests_steps'];
+}
+
+/**
+ * Save a scenario.
+ */
+function _checkdesk_tests_create($form, &$form_state) {
+  global $user, $base_root;
+
+  $behat_bin = variable_get('checkdesk_tests_behat_bin_path', 'bin/behat');
+  $behat_config_path = variable_get('checkdesk_tests_behat_config_path', '.');
+  $features_path = 'features';
+  if (extension_loaded('yaml')) {
+    $behat_config = yaml_parse(file_get_contents($behat_config_path . '/behat.yml'));
+    $features_path = $behat_config['default']['paths']['features'];
+  }
+  else {
+    drupal_set_message(t('Extension yaml is not loaded. Could not parse behat.yml file.'), 'error');
+  }
+
+  // Temporary file
+  $tmp = file_directory_temp();
+  $name = $user->uid . '-' . time() . '.feature';
+  $file = $tmp . '/' . $name;
+
+  // Concatenate existing feature with new scenario
+  $feature = $form_state['values']['checkdesk_tests_feature'];
+  $content = file_get_contents($behat_config_path . '/' . $features_path . '/' . $feature . '.feature');
+  $scenario = _checkdesk_tests_generate_scenario($form_state);
+
+  // Write file
+  $handle = fopen($file, 'w+');
+  fwrite($handle, $content . "\n" . $scenario);
+  fclose($handle);
+
+  // Send file
+  $headers = array(
+    'Content-Type' => 'text/x-behat',
+    'Content-Disposition' => 'attachment; filename="' . "$feature.feature" . '"',
+    'Content-Length' => filesize($file),
+  );
+  file_transfer('temporary://' . $name, $headers);
+  // Can't unlink here, because file_transfer, above, calls drupal_exit()
+  // unlink($file); 
+}
+
+/**
  * Get available steps.
  */
 function _checkdesk_tests_steps() {
+  if ($cache = cache_get('checkdesk_tests_steps')) {
+    return $cache->data;
+  }
+
+  $behat_bin = variable_get('checkdesk_tests_behat_bin_path', 'bin/behat');
+  $behat_config_path = variable_get('checkdesk_tests_behat_config_path', '.');
+
   global $base_root;
-  $cmd = "cd ..; MINK_EXTENSION_PARAMS='base_url=$base_root' php bin/behat -dl";
+  $cmd = "cd $behat_config_path; (MINK_EXTENSION_PARAMS='base_url=$base_root' php $behat_bin -dl | sed 's/^\s*//g' | sort)";
   $output = shell_exec($cmd);
-  return nl2br(htmlentities($output));
+  $output = nl2br(htmlentities($output));
+  cache_set('checkdesk_tests_steps', $output, 'cache');
+  return $output;
+}
+
+/**
+ * Get existing features.
+ */
+function _checkdesk_tests_features() {
+  $behat_config_path = variable_get('checkdesk_tests_behat_config_path', '.');
+  $features_path = 'features';
+  if (extension_loaded('yaml')) {
+    $behat_config = yaml_parse(file_get_contents($behat_config_path . '/behat.yml'));
+    $features_path = $behat_config['default']['paths']['features'];
+  }
+  else {
+    drupal_set_message(t('Extension yaml is not loaded. Could not parse behat.yml file.'), 'error');
+  }
+  $features = array();
+
+  if ($handle = opendir($behat_config_path . '/' . $features_path)) {
+    while (false !== ($file = readdir($handle))) {
+      if (preg_match('/\.feature$/', $file)) {
+        $feature = preg_replace('/\.feature$/', '', $file);
+        $name = ucfirst(str_replace('_', ' ', $feature));
+        $features[$feature] = $name;
+      }
+    }
+  }
+  return $features;
 }
 
 /**
@@ -100,10 +441,44 @@ function _checkdesk_tests_load_javascript($form, &$form_state) {
 }
 
 /**
+ * Load JavaScript file for test creation form.
+ */
+function _checkdesk_tests_load_javascript_for_new($form, &$form_state) {
+  drupal_add_js(drupal_get_path('module', 'checkdesk_tests') . '/js/checkdesk_tests_new.js');
+  drupal_add_js(drupal_get_path('module', 'checkdesk_tests') . '/js/jquery.simplemodal.1.4.4.min.js');
+  return $form;
+}
+
+/**
  * Submit function.
  */
 function _checkdesk_tests_submit($form, &$form_state) {
   global $base_root;
+
+  // Paths
+
+  $behat_bin = $form_state['values']['checkdesk_tests_behat_bin_path'];
+  variable_set('checkdesk_tests_behat_bin_path', $behat_bin);
+  $behat_config_path = $form_state['values']['checkdesk_tests_behat_config_path'];
+  variable_set('checkdesk_tests_behat_config_path', $behat_config_path);
+
+  // HTTP authentication
+
+  variable_set('checkdesk_tests_http_user', $form_state['values']['checkdesk_tests_http_user']);
+  if (!empty($form_state['values']['checkdesk_tests_http_password'])) {
+    variable_set('checkdesk_tests_http_password', $form_state['values']['checkdesk_tests_http_password']);
+  }
+  variable_set('checkdesk_tests_http_auth_headless_only', $form_state['values']['checkdesk_tests_http_auth_headless_only']);
+  $username = variable_get('checkdesk_tests_http_user', '');
+  $password = variable_get('checkdesk_tests_http_password', '');
+
+  $url = $base_root;
+  if (!empty($username) && !empty($password) && !variable_get('checkdesk_tests_http_auth_headless_only', 0)) {
+    $url = preg_replace('/^(https?:\/\/)/', "$1$username:$password@", $url);
+    $url = preg_replace('/([^\/])$/', "$1/", $url);
+  }
+
+  // Run tests
 
   $pidfile = variable_get('checkdesk_tests_pidfile', '');
   $pid = empty($pidfile) ? 0 : intval(trim(file_get_contents($pidfile)));
@@ -111,10 +486,10 @@ function _checkdesk_tests_submit($form, &$form_state) {
 
   if (!$pid && empty($file)) {
     $tmp = file_directory_temp();
-    $cmd = "MINK_EXTENSION_PARAMS='base_url=$base_root' php bin/behat -f html";
+    $cmd = "MINK_EXTENSION_PARAMS='base_url=$url' php $behat_bin -f html";
     $outfile = $tmp . '/checkdesk-tests-' . time() . '.log';
     $pidfile = $tmp . '/checkdesk-tests-' . time() . '.pid';
-    exec(sprintf("cd ..; %s > %s 2>&1 & echo $! > %s", $cmd, $outfile, $pidfile));
+    exec(sprintf("cd $behat_config_path; %s > %s 2>&1 & echo $! > %s", $cmd, $outfile, $pidfile));
     variable_set('checkdesk_tests_pidfile', $pidfile);
     variable_set('checkdesk_tests_outfile', $outfile);
   }

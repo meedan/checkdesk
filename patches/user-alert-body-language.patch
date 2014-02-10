@@ -1,0 +1,15 @@
+diff --git a/drupal/sites/all/modules/contrib/user_alert/user_alert.module b/drupal/sites/all/modules/contrib/user_alert/user_alert.module
+index dcceb41..48b8cf3 100644
+--- a/drupal/sites/all/modules/contrib/user_alert/user_alert.module
++++ b/drupal/sites/all/modules/contrib/user_alert/user_alert.module
+@@ -186,7 +186,9 @@ function user_alert_preprocess_user_alert(&$vars) {
+   $node = $vars['node'];
+   $vars['alert_label'] = variable_get('user_alert_label', 'User Alert');
+   $vars['nid'] = $vars['node']->nid;
+-  $vars['body'] = $vars['node']->body[$vars['node']->language][0]['value'];
++  $vars['body'] = isset($vars['node']->body[$vars['node']->language][0]['value']) ?
++    $vars['node']->body[$vars['node']->language][0]['value'] :
++    $vars['node']->body[LANGUAGE_NONE][0]['value'];
+   $vars['is_closeable'] = TRUE;
+ }
+ 

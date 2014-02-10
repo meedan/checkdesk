@@ -99,7 +99,7 @@
   }
 
   .report-row-container {
-    cursor: pointer;
+    cursor: move;
     border: 1px solid rgba(0,0,0,.2);
     background-color: $white;
     font-family: $sans-serif-font-stack;
@@ -152,6 +152,7 @@
     display: block;
     color: rgba(0,0,0,.4);
     background-color: rgba(0,0,0,.02);
+    cursor: move;
     &:hover {
       background-color: rgba(0,0,0,.08);
     }
@@ -163,6 +164,13 @@
       .favicon,
       .report-created-at {
         display: inline-block;
+      }
+
+      .favicon {
+        img { 
+          width: 16px; 
+          vertical-align: text-top;
+        }
       }
     }
     .report-status {

@@ -1,0 +1,13 @@
+diff --git a/drupal/sites/all/modules/contrib/twitter/twitter_signin/twitter_signin.module b/drupal/sites/all/modules/contrib/twitter/twitter_signin/twitter_signin.module
+index dfea8ef..2783fa8 100644
+--- a/drupal/sites/all/modules/contrib/twitter/twitter_signin/twitter_signin.module
++++ b/drupal/sites/all/modules/contrib/twitter/twitter_signin/twitter_signin.module
+@@ -183,7 +183,7 @@ function twitter_signin_oauth_callback_submit(&$form, &$form_state) {
+ 
+   if (!$success) {
+     $_SESSION['twitter']['values'] = $response;
+-    drupal_goto('user/login');
++    drupal_goto('user/register');
+   }
+   else {
+     user_login_finalize();
