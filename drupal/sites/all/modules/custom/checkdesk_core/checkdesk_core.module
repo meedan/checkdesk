@@ -2357,3 +2357,10 @@ function checkdesk_core_search_preprocess($text) {
 
   return $text;
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function checkdesk_core_form_i18n_string_locale_translate_edit_form_alter(&$form, $form_state) {
+  unset($form['#validate']);
+}

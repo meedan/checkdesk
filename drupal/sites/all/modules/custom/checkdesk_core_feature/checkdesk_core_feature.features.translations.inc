@@ -46047,6 +46047,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0, 
     'plural' => 0, 
   );
+  $translations['ar:default']['3f1af83ae1c316908fe96e15a839c34d'] = array(
+    'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was flagged as containing graphic content.',
+    'context' => '',
+    'location' => '/ar/node/flag/confirm/flag/graphic/2442/ajax',
+    'translation' => 'تم تنبيه المشرف على احتواء <a href="@url">تقرير [node:author]\'s </a> على محتوى أو صور صادمة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['60255bf04fa2a1df6ad778651b1df664'] = array(
+    'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged as containing graphic content.',
+    'context' => '',
+    'location' => '/ar/flag/unflag/graphic_journalist/2447?destination=node/2447&token=KPFawrLou6qfujz-SsQucRW0B_4hr8CIbDcZBfbnrBo',
+    'translation' => 'تم إلغاء تنبيه المشرف على احتواء <a href="[node:url:unaliased]">تقرير [node:author]\'s </a> على محتوى أو صور صادمة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
