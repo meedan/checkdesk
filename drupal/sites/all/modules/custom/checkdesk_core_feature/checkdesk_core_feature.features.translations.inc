@@ -46031,6 +46031,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['12090bed7a1ad6e3f4579065120c823e'] = array(
+    'source' => 'Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>',
+    'context' => '',
+    'location' => '/ar/',
+    'translation' => 'ﺄﻀﻴﻓ ﻢﻧ ﻖﺒﻟ <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">ﻢﻧﺫ !interval </time></a>',
+    'plid' => 0, 
+    'plural' => 0, 
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
