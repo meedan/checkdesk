@@ -46043,7 +46043,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'To help verify this report, please <a href="@login_url">sign in</a>',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'ﻞﻠﻤﺳﺎﻋﺩﺓ ﻒﻳ ﺎﻠﺘﺤﻘﻗ ﻢﻧ ﺺﺣﺓ ﻩﺫﺍ ﺎﻠﺘﻗﺮﻳﺭ, ﻱﺮﺟﻯ <a href="@login_url">ﺖﺴﺠﻴﻟ ﺎﻟﺪﺧﻮﻟ</a>',
+    'translation' => 'للمساعدة في التحقق من صحة هذا التقرير, يرجى <a href="@login_url">تسجيل الدخول</a>',
     'plid' => 0, 
     'plural' => 0, 
   );
