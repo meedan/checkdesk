@@ -1922,7 +1922,7 @@ function checkdesk_core_form_twitter_oauth_callback_form_alter(&$form, $form_sta
 function _checkdesk_twitter_signin_user_status(&$form, &$form_state) {
  $account = $form_state['twitter_oauth']['account'];
  if (!$account->status) {
-   drupal_set_message(t('The username @name has not been activated or is blocked.', array('@name' => $account->name)), 'error');
+   drupal_set_message(t('The username %name has not been activated or is blocked.', array('%name' => $account->name)), 'error');
  }
 }
 
