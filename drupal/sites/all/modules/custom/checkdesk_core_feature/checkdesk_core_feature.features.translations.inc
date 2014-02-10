@@ -46039,6 +46039,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0, 
     'plural' => 0, 
   );
+  $translations['ar:default']['10ade07a6c1c32b7b8a7553b77ba0b12'] = array(
+    'source' => 'To help verify this report, please <a href="@login_url">sign in</a>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'ﻞﻠﻤﺳﺎﻋﺩﺓ ﻒﻳ ﺎﻠﺘﺤﻘﻗ ﻢﻧ ﺺﺣﺓ ﻩﺫﺍ ﺎﻠﺘﻗﺮﻳﺭ, ﻱﺮﺟﻯ <a href="@login_url">ﺖﺴﺠﻴﻟ ﺎﻟﺪﺧﻮﻟ</a>',
+    'plid' => 0, 
+    'plural' => 0, 
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
