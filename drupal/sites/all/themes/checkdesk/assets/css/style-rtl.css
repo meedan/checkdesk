@@ -6261,6 +6261,8 @@ div.sensitive-hide {
 .report-row .report-content .media-type-fbpost {
   max-width: 100%;
   overflow: hidden;
+}
+.report-row .report-content .media-type-fbpost iframe {
   border-right: 1px solid #d3d6db;
 }
 .report-row .report-content .media-type-fbpost .oembed-title, .report-row .report-content .media-type-fbpost .favicon, .report-row .report-content .media-type-fbpost .domain, .report-row .report-content .media-type-fbpost .author {
@@ -10298,6 +10300,8 @@ body.page-reports #reports .report-item .report-content .media-type-tweet iframe
 body.page-reports #reports .report-item .report-content .media-type-fbpost, .profile #reports .report-item .report-content .media-type-fbpost {
   max-width: 100%;
   overflow: hidden;
+}
+body.page-reports #reports .report-item .report-content .media-type-fbpost iframe, .profile #reports .report-item .report-content .media-type-fbpost iframe {
   border-right: 1px solid #d3d6db;
 }
 body.page-reports #reports .report-item .report-content .media-type-fbpost .oembed-title, body.page-reports #reports .report-item .report-content .media-type-fbpost .favicon, body.page-reports #reports .report-item .report-content .media-type-fbpost .domain, body.page-reports #reports .report-item .report-content .media-type-fbpost .author, .profile #reports .report-item .report-content .media-type-fbpost .oembed-title, .profile #reports .report-item .report-content .media-type-fbpost .favicon, .profile #reports .report-item .report-content .media-type-fbpost .domain, .profile #reports .report-item .report-content .media-type-fbpost .author {

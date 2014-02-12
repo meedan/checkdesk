@@ -353,7 +353,8 @@ function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $inst
     $domain = _meedan_oembed_get_domain_name($url);
     $theme = 'meedan_oembed_thumbnail_' . $domain;
     $args = array('title' => $entity->title, 'url' => $url, 'attributes' => $attributes);
-    if (function_exists('template_preprocess_' . $theme)) {
+    $hooks = theme_get_registry(FALSE);
+    if (isset($hooks[$theme])) {
       $element[$delta] = array('#markup' => theme($theme, $args));
     }
     else {
