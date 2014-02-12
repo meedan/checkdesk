@@ -120,7 +120,10 @@ body.page-reports, .profile {
         .media-type-fbpost {
           max-width: 100%;
           overflow: hidden;
-          border-right: 1px solid #d3d6db;
+
+          iframe {
+            border-right: 1px solid #d3d6db;
+          }
 
           .oembed-title, .favicon, .domain, .author {
             display: none;
