@@ -43,14 +43,14 @@ body.page-liveblog {
         }
 
         h1 {
-          color: rgba(0,0,0,.9);
+          color: $firefly90;
           a { 
             display: block;
             border-bottom: 1px dotted rgba(255,255,255,.01);
-            color: rgba(0,0,0,.9);
+            color: $firefly90;
             &:hover {
-              @include ctb-bg(#efefef, rgba(0,0,0,.05));
-              border-bottom: 1px dotted rgba(0,0,0,.1);
+              @include ctb-bg(#efefef, $firefly5);
+              border-bottom: 1px dotted $firefly10;
               text-decoration: none;
             }
             &:active { background-color: lighten($link-color, 30); }

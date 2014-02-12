@@ -28,7 +28,7 @@
     }
   }
   #information-menu {
-    border-top: 1px solid rgba(0,0,0,.05);
+    border-top: 1px solid $firefly5;
     padding-top: $absolute-line-height/2;
   }
 }
@@ -65,7 +65,7 @@ body.widgets, body.sidebar-first {
 
       a {
         display: block;
-        color: rgba(0,0,0,.2);
+        color: $firefly20;
         text-decoration: none;
         padding: 0 $gutter-width;
         @include ctb-transition(color 0.3s linear);
@@ -74,7 +74,7 @@ body.widgets, body.sidebar-first {
           margin-#{$omega}: $gutter-width;
         }
         &:hover {
-          color: rgba(0,0,0,.6);
+          color: $firefly60;
         }
       }
 

@@ -2164,17 +2164,33 @@ function checkdesk_core_variable_info($options) {
 /**
  * Overriding Drupal's format_interval for shorter indicators as units
  */
-function checkdesk_core_format_interval($interval, $granularity = 2, $langcode = NULL) {
+function checkdesk_core_format_interval($timestamp, $granularity = 2, $langcode = NULL) {
+  $interval = time() - $timestamp;
+  $y = 31536000;
+  $m = 2592000;
+  $d = 86400;
+  if ($interval > $y) {
+    return format_date($timestamp, 'custom', t('j M Y'));
+  }
+  if ($interval > (3*$m) && $interval <= $y ) {
+    return format_date($timestamp, 'custom', t('M j'));
+  }
+  if ($interval <= 5) {
+    return 'now';
+  }
+  $output = '';
+  if ($interval >= $d && $interval <= (3*$m)) {
+    $key = explode('|', '1 d|@countd');
+    $output .= ($output ? ' ' : '') . format_plural(floor($interval / $d), $key[0], $key[1], array(), array('langcode' => $langcode));
+    $interval %= $value;
+    $granularity--;
+  }
   $units = array(
-    '1 year|@county' => 31536000,
-    '1 month|@countmon' => 2592000,
-    '1 week|@countw' => 604800,
     '1 day|@countd' => 86400,
     '1 hour|@counth' => 3600,
     '1 min|@countm' => 60,
     '1 sec|@counts' => 1,
   );
-  $output = '';
   foreach ($units as $key => $value) {
     $key = explode('|', $key);
     if ($interval >= $value) {
@@ -2356,4 +2372,11 @@ function checkdesk_core_search_preprocess($text) {
     '|\xED[\xA0-\xBF][\x80-\xBF]/S', '', $text);
 
   return $text;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function checkdesk_core_form_i18n_string_locale_translate_edit_form_alter(&$form, $form_state) {
+  unset($form['#validate']);
 }

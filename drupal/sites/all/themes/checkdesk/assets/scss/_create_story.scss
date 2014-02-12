@@ -30,7 +30,7 @@
 
   .customfile {
     width: 98%;
-    background: rgba(0,0,0,.05);
+    background: $firefly5;
     padding: 0;
     margin-bottom: $absolute-line-height/4;
     border: 0;
@@ -40,7 +40,7 @@
     }
 
     .customfile-button {
-      background: rgba(0,0,0,.2);
+      background: $firefly20;
       float: opposite-position($from-direction);
       padding: $absolute-line-height/3 $gutter-width/3;
       border: 0;
@@ -71,13 +71,13 @@
     }
 
     &:hover {
-      .customfile-button { background: rgba(0,0,0,.3); }
+      .customfile-button { background: $firefly30; }
     }
 
   }
   .customfile-hover {
     .customfile-button {
-      background: rgba(0,0,0,.4);
+      background: $firefly40;
       color: $white;
     }
   }

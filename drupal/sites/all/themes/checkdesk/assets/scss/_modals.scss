@@ -53,7 +53,7 @@ $large-modal-width: 700px;
   z-index: $zindexModal;
   background-color: $white;
   border: 1px solid #999;
-  border: 1px solid rgba(0,0,0,.3);
+  border: 1px solid $firefly30;
   *border: 1px solid #999; /* IE6-7 */
   // @include border-radius($radius);
   @include box-shadow(0 3px 7px rgba(0,0,0,0.3));

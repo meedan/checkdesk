@@ -4,12 +4,12 @@
 //
 // Compatibility: untested
 
-$report-background-color: 				darken($light-grey, 5%);
-$report-description-background-color: 	$light-grey;
+$report-background-color: 				darken($firefly30, 5%);
+$report-description-background-color: 	$firefly30;
 $report-footer-color: 					darken($grayLighter, 15%);
-$report-footnotes-background-color: 	darken($light-grey, 10%);
-$report-text-color: 					$dark-grey;
-$report-activity-header-color: 			darken($light-grey, 10%);
+$report-footnotes-background-color: 	darken($firefly30, 10%);
+$report-text-color: 					$firefly60;
+$report-activity-header-color: 			darken($firefly30, 10%);
 
 
 .report {
@@ -22,8 +22,8 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 	.modal-content & { 
 		width: 92%; 
 	}
-	border-top: 4px solid rgba(0, 0, 0, 0.4);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	border-top: 4px solid $firefly40;
+	border-bottom: 1px solid $firefly10;
 	text-align: $alpha;
 	font-size: $small-font-size;
 	
@@ -49,7 +49,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			left: 0;
 			right: 0;
 			height: 7px;
-			@include ctb-bg(#ccc, rgba(0,0,0,.1));
+			@include ctb-bg($firefly5, $firefly10);
 		}
 
 		ul.content-actions {
@@ -68,7 +68,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				left: 0;
 				right: 0;
 				width: 10px;
-				@include ctb-gradient-horizontal(rgba(0,0,0,.05), rgba(0,0,0,0));
+				@include ctb-gradient-horizontal($firefly5, rgba($firefly,0));
 			}
 
 
@@ -77,7 +77,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				margin-bottom: 1px;
 				& > a {
 					@include reset-box-model;
-			    	@include ctb-bg(#eee, rgba(0,0,0,.05));
+			    	@include ctb-bg(#eee, $firefly5);
 			    	display: block;
 			    	padding: 16px 0 12px 0;
 			    	width: 40px;
@@ -85,15 +85,15 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			    	@include transition-property(all);
 			    	@include transition-duration(0.2s);
 					&:hover { 
-				    	color: black;
+				    	color: $firefly;
 				    	text-decoration: none;
-				    	@include ctb-bg(#ccc, rgba(0,0,0,.1));
-				    	span { color: rgba(0,0,0,.9); }
+				    	@include ctb-bg(#ccc, $firefly10);
+				    	span { color: $firefly90; }
 				    }
 					span {
-						color: rgba(0,0,0,.6);
+						color: $firefly60;
 						&:hover {
-							color: rgba(0,0,0,.9);
+							color: $firefly90;
 						}
 
 						// Flag and share on the top of the report
@@ -110,10 +110,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				// share embed
 				.embed {
 					&:hover { 
-				    	color: black;
+				    	color: $firefly;
 				    	text-decoration: none;
 				    	background: none;
-				    	span { color: black; }
+				    	span { color: $firefly; }
 				    }
 					textarea {
 						font-family: $sans-serif-font-stack;
@@ -125,7 +125,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 				// when dropdown is open
 				&.open > a {
-					@include ctb-bg(#ccc, rgba(0,0,0,.2));
+					@include ctb-bg(#ccc, $firefly20);
 				}
 
 				// hide ajax throbber in dropdown
@@ -147,11 +147,10 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 	// Main report content
 	.report-content {
 		font-family: $sans-serif-font-stack;
-		border-left: 1px solid rgba(0,0,0,.1);
-		border-right: 1px solid rgba(0,0,0,.1);
+		border-left: 1px solid rgba($firefly,.1);
+		border-right: 1px solid rgba($firefly,.1);
 		.report-media {
-			background-color: rgba(0,0,0,.05);
-			border-bottom: 1px solid rgba(0,0,0,.05);
+			border-bottom: 1px solid rgba($firefly,.05);
 			text-align: center;
 			.container {
 				max-width: 100%;
@@ -209,9 +208,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				.permalink {
 					float: $omega;
 					a {
-				      color: rgba(0,0,0,.2);
+				      color: $firefly20;
 				      &:hover {
-				        color: rgba(0,0,0,.4);
+				        color: $firefly40;
 				        text-decoration: none;
 				      }
 				    }
@@ -318,16 +317,17 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			padding: $absolute-line-height/2 $gutter-width;
 			font-size: $base-font-size;
 			line-height: 1.4;
-			color: rgba(0,0,0,.8);
+			color: $firefly80;
 
-      p {
-        clear: both;
-      }
+      		p {
+        		clear: both;
+        		margin-bottom: 0;
+      		}
 		}
 
 		.report-attributes {
 			@include ctb-clearfix();
-			color: rgba(0,0,0,.8);
+			color: $firefly80;
 			font-size: modular-scale(0) - modular-scale(-3); // 14px
 			padding: $absolute-line-height/4 $gutter-width;
 
@@ -335,7 +335,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			.added-by {
 				float: $alpha;
 				.separator {
-					color: rgba(0,0,0,.4);
+					color: $firefly40;
 					font-size: $smaller-font-size;
 				}
 			}
@@ -369,9 +369,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		& > header {
 			@include ctb-clearfix();
 			padding: $absolute-line-height/3 $gutter-width;
-			background-color: rgba(0,0,0,.1);
-			border-left: 1px solid rgba(0,0,0,.1);
-			border-right: 1px solid rgba(0,0,0,.1);
+			background-color: $firefly10;
+			border-left: 1px solid $firefly10;
+			border-right: 1px solid $firefly10;
 			
 			h3 {
 				@include reset-box-model();
@@ -454,8 +454,8 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 		// fact-checking log
 		.activity-wrapper {
 			@include ctb-clearfix;
-			border-left: 1px solid rgba(0,0,0,.1);
-			border-right: 1px solid rgba(0,0,0,.1);
+			border-left: 1px solid $firefly10;
+			border-right: 1px solid $firefly10;
 			
 			// add styles for load more pager
     		@include ctb-load-more-pager;
@@ -463,7 +463,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
     		// bg only on the view
     		.view {
     			// background-image: $striped_lens;
-    			background-color: rgba(0,0,0,.01);
+    			background-color: rgba($thatch,.02);
     			max-height: 230px;
     			overflow: auto;
     			// to test
@@ -477,9 +477,9 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 				.activity {
 					@include ctb-clearfix;
 					// margin-#{$from-direction}: $gutter-width/2;
-					border-top: 1px dotted rgba(0,0,0,.1);
+					border-top: 1px dotted $firefly10;
 					&:first-child { border-top: 0px none; }
-					color: rgba(0,0,0,.6);
+					color: $firefly60;
 					line-height: 1.3;
 					header {
 						@include ctb-clearfix;
@@ -492,7 +492,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							text-align: $omega;
 							vertical-align: top;
 							font-weight: 700;
-							color: rgba(0,0,0,.6);
+							color: $firefly60;
 							@include ctb-break-words;
 						}
 						.activity-inner-wrapper {
@@ -501,7 +501,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							width: 62%;
 							padding: $absolute-line-height/2 0 $absolute-line-height/2 0;
 							padding-#{$alpha}: $gutter-width*2;
-							border-#{$from-direction}: 4px solid rgba(0,0,0,.1);
+							border-#{$from-direction}: 4px solid $firefly10;
 						}
 						.icon {
 							position: absolute;
@@ -551,18 +551,22 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 							#{$omega}: $gutter-width;
 							text-align: $omega;
 							width: 20%;
-							color: rgba(0,0,0,.3);
+							color: $firefly30;
 							font-size: modular-scale(0) - modular-scale(-3); // 14px
 						}
 					} // header
 				} // activity
 			} // view-content
 
-			.activity-list-footer {
+			.activity-list-footer-wrapper {
 				@include ctb-clearfix;
-				border-top: 1px solid rgba(0,0,0,.1);
-				padding: $absolute-line-height/2 $gutter-width;
-				color: rgba(0,0,0,.6);
+				border-top: 1px solid $firefly10;
+				color: $firefly60;
+
+				.activity-list-footer {
+					@include ctb-clearfix;
+					padding: $absolute-line-height/2 $gutter-width $absolute-line-height/4 $gutter-width;
+				}
 
 				position: relative;
 				// gradient for depth
@@ -593,7 +597,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 						float: $alpha;
 						font-weight: normal;
 						font-size: 14px;
-						color: rgba(0,0,0,.4);
+						color: $firefly40;
 						text-decoration: none;
 					}
 				}
@@ -602,7 +606,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 		section#comment-form {
 			@include ctb-clearfix;
-			border-top: 1px solid rgba(0,0,0,.1);
+			border-top: 1px solid $firefly10;
 			
 			position: relative;
 			// gradient for depth
@@ -642,7 +646,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 
 	// indicate when report activity
 	// view's scoll reaches the end
-	.end section#comment-form, .end .activity-wrapper .activity-list-footer {
+	.end section#comment-form, .end .activity-wrapper .activity-list-footer-wrapper {
 		position: relative;
 		// blueish gradient indicating end
 		&:before {
@@ -655,7 +659,7 @@ $report-activity-header-color: 			darken($light-grey, 10%);
 			right: 0;
 			height: 15px;
 			width: 100%;
-			@include ctb-gradient-vertical(rgba(255, 255, 255,0), rgba(26, 130, 254,.08));
+			@include ctb-gradient-vertical(rgba(255, 255, 255,0), rgba(38, 125, 253,.08));
 		}
 	}
 
@@ -755,5 +759,5 @@ div.sensitive-hide {
 
 .report-row .sensitive-notification {
 	font-family: $sans-serif-font-stack;
-	background-color: rgba(0,0,0,.05) !important;
+	background-color: $firefly5 !important;
 }

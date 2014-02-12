@@ -46035,9 +46035,33 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>',
     'context' => '',
     'location' => '/ar/',
-    'translation' => 'ﺄﻀﻴﻓ ﻢﻧ ﻖﺒﻟ <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">ﻢﻧﺫ !interval </time></a>',
+    'translation' => 'أضيف من قبل <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">منذ !interval </time></a>',
     'plid' => 0, 
     'plural' => 0, 
+  );
+  $translations['ar:default']['10ade07a6c1c32b7b8a7553b77ba0b12'] = array(
+    'source' => 'To help verify this report, please <a href="@login_url">sign in</a>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'للمساعدة في التحقق من صحة هذا التقرير, يرجى <a href="@login_url">تسجيل الدخول</a>',
+    'plid' => 0, 
+    'plural' => 0, 
+  );
+  $translations['ar:default']['3f1af83ae1c316908fe96e15a839c34d'] = array(
+    'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was flagged as containing graphic content.',
+    'context' => '',
+    'location' => '/ar/node/flag/confirm/flag/graphic/2442/ajax',
+    'translation' => 'تم تنبيه المشرف على احتواء <a href="@url">تقرير [node:author]\'s </a> على محتوى أو صور صادمة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['60255bf04fa2a1df6ad778651b1df664'] = array(
+    'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged as containing graphic content.',
+    'context' => '',
+    'location' => '/ar/flag/unflag/graphic_journalist/2447?destination=node/2447&token=KPFawrLou6qfujz-SsQucRW0B_4hr8CIbDcZBfbnrBo',
+    'translation' => 'تم إلغاء تنبيه المشرف على احتواء <a href="[node:url:unaliased]">تقرير [node:author]\'s </a> على محتوى أو صور صادمة.',
+    'plid' => 0,
+    'plural' => 0,
   );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
