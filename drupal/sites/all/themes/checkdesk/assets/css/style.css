@@ -6263,6 +6263,10 @@ div.sensitive-hide {
   max-width: 100%;
   overflow: hidden;
   border-right: 1px solid #d3d6db;
+  clear: both;
+}
+.report-row .report-content .media-type-fbpost .fb-post > span {
+  float: left;
 }
 .report-row .report-content .media-type-fbpost .oembed-title, .report-row .report-content .media-type-fbpost .favicon, .report-row .report-content .media-type-fbpost .domain, .report-row .report-content .media-type-fbpost .author {
   display: none;
@@ -10315,6 +10319,10 @@ body.page-reports #reports .report-item .report-content .media-type-fbpost .fb-p
   max-width: 100%;
   overflow: hidden;
   border-right: 1px solid #d3d6db;
+  clear: both;
+}
+body.page-reports #reports .report-item .report-content .media-type-fbpost .fb-post > span, .profile #reports .report-item .report-content .media-type-fbpost .fb-post > span {
+  float: left;
 }
 body.page-reports #reports .report-item .report-content .media-type-fbpost .oembed-title, body.page-reports #reports .report-item .report-content .media-type-fbpost .favicon, body.page-reports #reports .report-item .report-content .media-type-fbpost .domain, body.page-reports #reports .report-item .report-content .media-type-fbpost .author, .profile #reports .report-item .report-content .media-type-fbpost .oembed-title, .profile #reports .report-item .report-content .media-type-fbpost .favicon, .profile #reports .report-item .report-content .media-type-fbpost .domain, .profile #reports .report-item .report-content .media-type-fbpost .author {
   display: none;

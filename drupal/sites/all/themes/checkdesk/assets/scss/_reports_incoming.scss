@@ -146,6 +146,11 @@
         max-width: 100%;
         overflow: hidden;
         border-right: 1px solid #d3d6db;
+        clear: both;
+
+        & > span {
+          float: left;  // force
+        }
       }
 
       .oembed-title, .favicon, .domain, .author {
