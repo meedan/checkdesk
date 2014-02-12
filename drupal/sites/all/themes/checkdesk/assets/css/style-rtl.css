@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
@@ -2487,9 +2488,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear, box-shadow linear;
-  -webkit-transition-delay: 0.2s, 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2526,6 +2527,7 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
+  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -3863,6 +3865,7 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4262,10 +4265,12 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #f7f7f7;
@@ -5225,10 +5230,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
+  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -6211,33 +6218,41 @@ div.sensitive-hide {
 .report-row .report-content:after {
   clear: both;
 }
-.report-row .report-content .report-type-thumbnail {
+.report-row .report-content .media-type-thumbnail {
   max-width: 100%;
 }
-.report-row .report-content .report-type-thumbnail .report-thumbnail img {
+.report-row .report-content .media-type-thumbnail .media-thumbnail img {
   opacity: 0.9;
   filter: alpha(opacity=90);
 }
-.report-row .report-content .report-type-thumbnail .report-title {
+.report-row .report-content .media-type-thumbnail .media-title {
   margin: 7.2px 0;
   font-size: 15px;
   line-height: 1.1;
   color: rgba(0, 0, 0, 0.6);
 }
-.report-row .report-content .report-type-tweet > div > a {
+.report-row .report-content .media-type-tweet > div > a {
   display: none;
 }
-.report-row .report-content .report-type-tweet iframe {
+.report-row .report-content .media-type-tweet iframe {
   min-width: 100% !important;
   width: 100% !important;
 }
-.report-row .report-content .report-type-tweet iframe {
+.report-row .report-content .media-type-tweet iframe {
   padding: 0 !important;
   margin: 0 !important;
   border: 0 none !important;
   box-shadow: none !important;
 }
-.report-row .report-content .report-type-tweet .favicon, .report-row .report-content .report-type-tweet .domain, .report-row .report-content .report-type-tweet .author {
+.report-row .report-content .media-type-tweet .favicon, .report-row .report-content .media-type-tweet .domain, .report-row .report-content .media-type-tweet .author {
+  display: none;
+}
+.report-row .report-content .media-type-fbpost {
+  max-width: 100%;
+  overflow: hidden;
+  border-right: 1px solid #d3d6db;
+}
+.report-row .report-content .media-type-fbpost .oembed-title, .report-row .report-content .media-type-fbpost .favicon, .report-row .report-content .media-type-fbpost .domain, .report-row .report-content .media-type-fbpost .author {
   display: none;
 }
 .report-row .report-attributes {
@@ -6285,7 +6300,7 @@ div.sensitive-hide {
 .report-row:hover .report-row-container {
   border: 1px solid #efca2b;
 }
-.report-row:hover .report-content .report-thumbnail img {
+.report-row:hover .report-content .media-thumbnail img {
   opacity: 1;
   filter: alpha(opacity=100);
 }
@@ -7214,10 +7229,12 @@ nav[role="navigation"] .nav > div h2 {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -7279,10 +7296,12 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -7397,10 +7416,12 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: rgba(255, 255, 255, 0.65);
@@ -9875,10 +9896,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li.first a, #user-register-form #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -9901,10 +9924,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li a[class^='facebook'], #user-register-form #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -10236,26 +10261,34 @@ body.page-reports #reports .report-item .report-content:before, body.page-report
 body.page-reports #reports .report-item .report-content:after, .profile #reports .report-item .report-content:after {
   clear: both;
 }
-body.page-reports #reports .report-item .report-content .report-type-thumbnail, .profile #reports .report-item .report-content .report-type-thumbnail {
+body.page-reports #reports .report-item .report-content .media-type-thumbnail, .profile #reports .report-item .report-content .media-type-thumbnail {
   max-width: 100%;
 }
-body.page-reports #reports .report-item .report-content .report-type-thumbnail .report-thumbnail img, .profile #reports .report-item .report-content .report-type-thumbnail .report-thumbnail img {
+body.page-reports #reports .report-item .report-content .media-type-thumbnail .media-thumbnail img, .profile #reports .report-item .report-content .media-type-thumbnail .media-thumbnail img {
   width: 100%;
   opacity: 0.9;
   filter: alpha(opacity=90);
 }
-body.page-reports #reports .report-item .report-content .report-type-thumbnail .report-title, .profile #reports .report-item .report-content .report-type-thumbnail .report-title {
+body.page-reports #reports .report-item .report-content .media-type-thumbnail .media-title, .profile #reports .report-item .report-content .media-type-thumbnail .media-title {
   margin: 7.2px 0;
   font-size: 15.3px;
   line-height: 1.2;
   color: #555555;
 }
-body.page-reports #reports .report-item .report-content .report-type-tweet > div > a, .profile #reports .report-item .report-content .report-type-tweet > div > a {
+body.page-reports #reports .report-item .report-content .media-type-tweet > div > a, .profile #reports .report-item .report-content .media-type-tweet > div > a {
   display: none;
 }
-body.page-reports #reports .report-item .report-content .report-type-tweet iframe, .profile #reports .report-item .report-content .report-type-tweet iframe {
+body.page-reports #reports .report-item .report-content .media-type-tweet iframe, .profile #reports .report-item .report-content .media-type-tweet iframe {
   min-width: 100% !important;
   width: 100% !important;
+}
+body.page-reports #reports .report-item .report-content .media-type-fbpost, .profile #reports .report-item .report-content .media-type-fbpost {
+  max-width: 100%;
+  overflow: hidden;
+  border-right: 1px solid #d3d6db;
+}
+body.page-reports #reports .report-item .report-content .media-type-fbpost .oembed-title, body.page-reports #reports .report-item .report-content .media-type-fbpost .favicon, body.page-reports #reports .report-item .report-content .media-type-fbpost .domain, body.page-reports #reports .report-item .report-content .media-type-fbpost .author, .profile #reports .report-item .report-content .media-type-fbpost .oembed-title, .profile #reports .report-item .report-content .media-type-fbpost .favicon, .profile #reports .report-item .report-content .media-type-fbpost .domain, .profile #reports .report-item .report-content .media-type-fbpost .author {
+  display: none;
 }
 body.page-reports #reports .report-item .report-status, .profile #reports .report-item .report-status {
   float: left;

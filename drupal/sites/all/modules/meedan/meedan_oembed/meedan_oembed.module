@@ -23,6 +23,12 @@ function meedan_oembed_theme() {
       'path' => $path,
       'file' => $file,
     ),
+    'meedan_oembed_thumbnail_generic' => array(
+      'variables' => array('url' => NULL, 'attributes' => NULL, 'title' => NULL),
+      'template' => 'oembed-thumbnail',
+      'path' => $path,
+      'file' => $file,
+    ),
   );
 }
 
@@ -298,4 +304,61 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     }
     if ($embed->error) $vars['embed_error'] = t('It was not possible to parse this report.');
   }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function meedan_oembed_field_formatter_info() {
+  $formatters = array(
+    'meedan_oembed_thumbnail' => array(
+      'label' => t('Meedan oEmbed Thumbnail'),
+      'field types' => array('link_field'),
+      'description' => t('Embeds links as thumbnails if possible - otherwise just links them.'),
+      'settings' => array('imagestyle' => ''),
+    ),
+  );
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function meedan_oembed_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $element = array();
+
+  $element['imagestyle'] = array(
+    '#title' => t('Image Style'),
+    '#type' => 'select',
+    '#options' => image_style_options(),
+    '#default_value' => !empty($settings['imagestyle']) ?  $settings['imagestyle'] : 'default',
+  );
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  foreach ($items as $delta => $item) {
+    $attributes = array();
+    $attributes = array_filter($display['settings']);
+    $url = url($item['url'], $item + array('external' => TRUE));
+    $domain = _meedan_oembed_get_domain_name($url);
+    $theme = 'meedan_oembed_thumbnail_' . $domain;
+    $args = array('title' => $entity->title, 'url' => $url, 'attributes' => $attributes);
+    if (function_exists('template_preprocess_' . $theme)) {
+      $element[$delta] = array('#markup' => theme($theme, $args));
+    }
+    else {
+      $element[$delta] = array('#markup' => theme('meedan_oembed_thumbnail_generic', $args));
+    }
+  }
+  return $element;
 }

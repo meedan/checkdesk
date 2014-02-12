@@ -31,6 +31,12 @@ function meedan_oembed_twitter_theme() {
       'path' => $path,
       'file' => $file,
     ),
+    'meedan_oembed_thumbnail_twitter' => array(
+      'variables' => array('url' => NULL, 'attributes' => NULL, 'title' => NULL),
+      'template' => 'oembed-thumbnail',
+      'path' => $path,
+      'file' => $file,
+    ),
   );
 }
 

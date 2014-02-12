@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function meedan_oembed_facebook_embed_theme() {
+  $path = drupal_get_path('module', 'meedan_oembed_facebook_embed') . '/theme';
+  $file = 'meedan_oembed_facebook_embed.theme.inc';
+
+  return array(
+    'meedan_oembed_thumbnail_facebook' => array(
+      'variables' => array('url' => NULL, 'attributes' => NULL, 'title' => NULL),
+      'template' => 'oembed-thumbnail',
+      'path' => $path,
+      'file' => $file,
+    ),
+  );
+}

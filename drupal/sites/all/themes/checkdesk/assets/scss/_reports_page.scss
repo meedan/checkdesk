@@ -94,13 +94,13 @@ body.page-reports, .profile {
         @include ctb-clearfix;
 
         // thumbnail type
-        .report-type-thumbnail {
+        .media-type-thumbnail {
           max-width: 100%;
-          .report-thumbnail img {
+          .media-thumbnail img {
             width: 100%;
             @include ctb-opacity(.9);
           }
-          .report-title {
+          .media-title {
             margin: $absolute-line-height/4 0;
             font-size: $fontSizeSmall;
             line-height: 1.2;
@@ -108,13 +108,22 @@ body.page-reports, .profile {
           }
         } // thumbnail type
 
-        .report-type-tweet {
+        .media-type-tweet {
           & > div > a { display: none;}
           // keeps embedded iframe
           // inside sidebar
           iframe {
             min-width: 100% !important;
             width: 100% !important;
+          }
+        }
+        .media-type-fbpost {
+          max-width: 100%;
+          overflow: hidden;
+          border-right: 1px solid #d3d6db;
+
+          .oembed-title, .favicon, .domain, .author {
+            display: none;
           }
         }
 

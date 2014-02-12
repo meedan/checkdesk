@@ -12,3 +12,10 @@ function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
   $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
+
+/**
+ * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
+ */
+function template_preprocess_meedan_oembed_thumbnail_generic(&$vars) {
+  $vars['thumbnail'] = render(oembedcore_render_cache('oembed_thumbnail', $vars['url'], $vars['attributes']));
+}

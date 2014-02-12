@@ -726,7 +726,7 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_link']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_thumbnail';
+  $handler->display->display_options['fields']['field_link']['type'] = 'meedan_oembed_thumbnail';
   $handler->display->display_options['fields']['field_link']['settings'] = array(
     'imagestyle' => 'report_thumbnail',
   );
@@ -751,20 +751,6 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Media */
-  $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
-  $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
-  $handler->display->display_options['fields']['field_link_1']['field'] = 'field_link';
-  $handler->display->display_options['fields']['field_link_1']['label'] = '';
-  $handler->display->display_options['fields']['field_link_1']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_link_1']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_link_1']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_link_1']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link_1']['type'] = 'oembed_default';
-  $handler->display->display_options['fields']['field_link_1']['settings'] = array(
-    'maxwidth' => '270',
-    'maxheight' => '',
-  );
   /* Field: Media sources: Source name */
   $handler->display->display_options['fields']['source']['id'] = 'source';
   $handler->display->display_options['fields']['source']['table'] = 'meedan_sources';
@@ -1748,7 +1734,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_link']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link']['type'] = 'oembed_thumbnail';
+  $handler->display->display_options['fields']['field_link']['type'] = 'meedan_oembed_thumbnail';
   $handler->display->display_options['fields']['field_link']['settings'] = array(
     'imagestyle' => 'report_thumbnail',
   );
@@ -1769,20 +1755,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['fields']['field_rating']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_rating']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Media */
-  $handler->display->display_options['fields']['field_link_1']['id'] = 'field_link_1';
-  $handler->display->display_options['fields']['field_link_1']['table'] = 'field_data_field_link';
-  $handler->display->display_options['fields']['field_link_1']['field'] = 'field_link';
-  $handler->display->display_options['fields']['field_link_1']['label'] = '';
-  $handler->display->display_options['fields']['field_link_1']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_link_1']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_link_1']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_link_1']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link_1']['type'] = 'oembed_default';
-  $handler->display->display_options['fields']['field_link_1']['settings'] = array(
-    'maxwidth' => '',
-    'maxheight' => '',
-  );
   /* Field: Media sources: Source URL */
   $handler->display->display_options['fields']['source_url']['id'] = 'source_url';
   $handler->display->display_options['fields']['source_url']['table'] = 'meedan_sources';

@@ -109,12 +109,12 @@
     @include ctb-clearfix;
     padding: $absolute-line-height/3 $gutter-width 0;
     // thumbnail type
-    .report-type-thumbnail {
+    .media-type-thumbnail {
       max-width: 100%;
-      .report-thumbnail img {
+      .media-thumbnail img {
         @include ctb-opacity(.9);
       }
-      .report-title {
+      .media-title {
         margin: $absolute-line-height/4 0;
         font-size: $small-font-size;
         line-height: 1.1;
@@ -122,7 +122,7 @@
       }
     } // thumbnail type
 
-    .report-type-tweet {
+    .media-type-tweet {
       & > div > a { display: none;}
       // keeps embedded iframe
       // inside sidebar
@@ -138,6 +138,15 @@
         box-shadow: none !important;
       }
       .favicon, .domain, .author {
+        display: none;
+      }
+    }
+    .media-type-fbpost {
+      max-width: 100%;
+      overflow: hidden;
+      border-right: 1px solid #d3d6db;
+
+      .oembed-title, .favicon, .domain, .author {
         display: none;
       }
     }
@@ -184,7 +193,7 @@
     .report-row-container {
       border: 1px solid rgb(239,202,43);
     } 
-    .report-content .report-thumbnail img {
+    .report-content .media-thumbnail img {
       @include ctb-opacity(1);
     }
 
