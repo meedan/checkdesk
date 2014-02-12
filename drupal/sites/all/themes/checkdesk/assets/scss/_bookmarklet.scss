@@ -129,7 +129,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 @mixin bookmarklet-step-two() {
   #meedan_bookmarklet_preview {
     clear: both;
-    color: $dark-grey;
+    color: $firefly60;
     margin: $gutter-width 0;
   }
 
@@ -153,7 +153,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
   #meedan_bookmarklet_preview_gc {
     background: $grey;
-    color: $dark-grey;
+    color: $firefly60;
     padding-top: 85px;
     height: $bookmarklet-preview-max-height;
     max-height: 145px;
@@ -174,7 +174,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   }
 
   .fb-status-preview {
-    background: $light-grey;
+    background: $firefly30;
     padding: $gutter-width;
     @include border-radius($radius);
 

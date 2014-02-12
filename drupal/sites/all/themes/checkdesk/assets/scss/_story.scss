@@ -240,14 +240,15 @@ $omega: opposite-position($alpha);
   .story-body {  
     @include ctb-clearfix;
     margin: $absolute-line-height/2 0;
-    font-size: modular-scale(0) - modular-scale(-5); // 16px;
-    color: $firefly90;
-    line-height: 1.6;
+    font-size: modular-scale(0) + modular-scale(-5); // 20px;
+    color: $firefly80;
+    line-height: 1.5;
     text-shadow: 0 1px 1px rgba(255,255,255,.35);
     p {
-      margin: $base-line-height/4 0;
+      margin: 0 0 $base-line-height*1.4 0;
+      max-width: 630px;
       &:first-child {
-        margin: 0 0;
+        // margin: 0 0;
       }
     }
   }
@@ -382,7 +383,7 @@ $omega: opposite-position($alpha);
       color: $grey;
       color: $firefly60;
       &:hover {
-        color: $dark-grey;
+        color: $firefly60;
         color: $firefly80;
         text-decoration: none;
       }

@@ -50,7 +50,11 @@
             <?php print $media_activity_report; ?>
             <?php print render($content['comments']); ?>
             <?php if ($media_activity_footer) : ?>
-              <div class="activity-list-footer"><?php print $media_activity_footer; ?></div>
+              <div class="activity-list-footer-wrapper">
+                <div class="activity-list-footer">
+                  <?php print $media_activity_footer; ?>
+                </div>
+              </div>
             <?php endif; ?>
           </div>
 

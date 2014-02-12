@@ -67,7 +67,7 @@
   }
 
   .muted {
-    color: $light-grey;
+    color: $firefly30;
   }
 
   ul, ol {
@@ -112,7 +112,7 @@
 
   abbr[title] {
     cursor: help;
-    border-bottom: 1px dotted $light-grey;
+    border-bottom: 1px dotted $firefly30;
   }
 
   abbr.initialism {
@@ -122,7 +122,7 @@
 
   blockquote {
     @include reset-box-model;
-    border-#{$from-direction}: 5px solid $light-grey;
+    border-#{$from-direction}: 5px solid $firefly30;
     font-size: $small-font-size;
   }
 }

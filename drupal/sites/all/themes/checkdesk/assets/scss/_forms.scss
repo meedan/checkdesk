@@ -185,7 +185,7 @@
   textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="text"], .uneditable-input {
     background-color: $input-background;
     border: 1px solid $inputBorder;
-    @include box-shadow(rgba($black, .075) 0 1px 1px inset);
+    @include box-shadow(rgba($firefly, .075) 0 1px 1px inset);
     @include ctb-transition(#{border linear .2s, box-shadow linear .2s});
 
     // Focus state
@@ -249,7 +249,7 @@
       // focus state
       &:focus {
         border-color: rgba(black, .5);
-        outline: thin dotted $light-grey;
+        outline: thin dotted $firefly30;
       }
     }
 
@@ -332,8 +332,8 @@
     // & > .form-item {
     //   clear: both;
     //   font-size: $small-font-size;
-    //   color: $dark-grey;
-    //   background: rgba($light-grey, 0.5);
+    //   color: $firefly60;
+    //   background: rgba($firefly30, 0.5);
     // }
   }
 }
