@@ -2162,48 +2162,46 @@ function checkdesk_core_variable_info($options) {
 }
 
 /**
- * Overriding Drupal's format_interval for shorter indicators as units
+ * Function to generate custom format interval
+ * issue #1930
  */
-function checkdesk_core_format_interval($timestamp, $granularity = 2, $langcode = NULL) {
+function checkdesk_core_custom_format_interval($timestamp) {
   $interval = time() - $timestamp;
   $y = 31536000;
   $m = 2592000;
   $d = 86400;
+  //interval over 1 year
   if ($interval > $y) {
     return format_date($timestamp, 'custom', t('j M Y'));
   }
+  //interval between 3 months and year
   if ($interval > (3*$m) && $interval <= $y ) {
     return format_date($timestamp, 'custom', t('M j'));
   }
-  if ($interval <= 5) {
-    return 'now';
+  //less than 5 sec (as soos as item is posted)
+  if ($interval < 5) {
+    return t('now');
   }
-  $output = '';
+  //interval beteen one day and 3 months.
   if ($interval >= $d && $interval <= (3*$m)) {
-    $key = explode('|', '1 d|@countd');
-    $output .= ($output ? ' ' : '') . format_plural(floor($interval / $d), $key[0], $key[1], array(), array('langcode' => $langcode));
-    $interval %= $value;
-    $granularity--;
+    $count = floor($interval / $d);
+    return t('@countd', array('@count' => $count));
   }
+  //interval less than one day
   $units = array(
-    '1 day|@countd' => 86400,
-    '1 hour|@counth' => 3600,
-    '1 min|@countm' => 60,
-    '1 sec|@counts' => 1,
+    'h' => 3600,
+    'm' => 60,
+    's' => 1,
   );
+  $output = '';
   foreach ($units as $key => $value) {
-    $key = explode('|', $key);
     if ($interval >= $value) {
-      $output .= ($output ? ' ' : '') . format_plural(floor($interval / $value), $key[0], $key[1], array(), array('langcode' => $langcode));
-      $interval %= $value;
-      $granularity--;
-    }
-
-    if ($granularity == 0) {
+      $count = floor($interval / $value);
+      $output = t("@count$key", array('@count' => $count));
       break;
     }
   }
-  return $output ? $output : t('0 sec', array(), array('langcode' => $langcode));
+  return $output;
 }
 
 /**
