@@ -46063,6 +46063,46 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['7ff7f51a7cbf7d1727588e886ab07f1a'] = array(
+    'source' => '@counts',
+    'context' => '',
+    'location' => '/checkdesk/ar',
+    'translation' => '@countثا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['35aabdc35574abd9103c313134dda913'] = array(
+    'source' => '@counth',
+    'context' => '',
+    'location' => '/checkdesk/ar',
+    'translation' => '@countسا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7084c2dfcc1fa943ca6e76780c7e0b89'] = array(
+    'source' => '@countm',
+    'context' => '',
+    'location' => '/checkdesk/ar',
+    'translation' => '@countد',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['0a6abc0d29b4bb8e7c820958f1993dfa'] = array(
+    'source' => '@countd',
+    'context' => '',
+    'location' => '/checkdesk/ar',
+    'translation' => '@countي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['c213df830462fc6d2dc33ca14d464846'] = array(
+    'source' => 'now',
+    'context' => '',
+    'location' => '/checkdesk/ar/system/ajax',
+    'translation' => 'اﻵن',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
