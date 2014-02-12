@@ -118,10 +118,9 @@ body.page-reports, .profile {
           }
         }
         .media-type-fbpost {
-          max-width: 100%;
-          overflow: hidden;
-
-          iframe {
+          .fb-post {
+            max-width: 100%;
+            overflow: hidden;
             border-right: 1px solid #d3d6db;
           }
 
