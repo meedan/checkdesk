@@ -105,7 +105,7 @@
       clear: both;
 
       span {
-        color: rgba(0,0,0,.3);
+        color: $firefly30;
         font-size: $small-font-size;
       }
     }
@@ -298,7 +298,7 @@
     // // Default descriptions
     .description {
       font-size: $small-font-size !important;
-      color: rgba(0,0,0,.3) !important;
+      color: $firefly30 !important;
       width: 100%;
     }
 
@@ -395,7 +395,7 @@
         display: inline-block;
         margin-#{$omega}: $gutter-width;
         padding: 0 $gutter-width;
-        background-color: rgba(0,0,0,.05);
+        background-color: $firefly5;
         font-family: $sans-serif-font-stack;
         font-size: $small-font-size;
         vertical-align: middle;

@@ -13,7 +13,7 @@
   }
   .pager-load-more {
     position: relative;
-    border-top: 1px solid rgba(0,0,0,.05);
+    border-top: 1px solid $firefly5;
     @include reset-box-model;
     padding: $absolute-line-height/4 0;
     // Dropshadow for depth
@@ -45,7 +45,7 @@
   padding: $absolute-line-height/4 $gutter-width*2 $absolute-line-height/5;
   font-size: $small-font-size;
   font-family: $sans-serif-font-stack;
-  color: rgba(0,0,0,.4);
+  color: $firefly40;
   // Dropshadow for depth
   &:before {
     position: absolute;
@@ -100,7 +100,7 @@
 
   .report-row-container {
     cursor: move;
-    border: 1px solid rgba(0,0,0,.2);
+    border: 1px solid $firefly20;
     background-color: $white;
     font-family: $sans-serif-font-stack;
   }
@@ -118,7 +118,7 @@
         margin: $absolute-line-height/4 0;
         font-size: $small-font-size;
         line-height: 1.1;
-        color: rgba(0,0,0,.6);
+        color: $firefly60;
       }
     } // thumbnail type
 
@@ -147,10 +147,10 @@
   .report-attributes {
     @include ctb-clearfix;
     padding: $absolute-line-height/4 $gutter-width;
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-top: 1px solid $firefly10;
     font-size: modular-scale(0) - modular-scale(-3); // 14px
     display: block;
-    color: rgba(0,0,0,.4);
+    color: $firefly40;
     background-color: rgba(0,0,0,.02);
     cursor: move;
     &:hover {
@@ -159,7 +159,7 @@
     &:active { background-color: lighten($link-color, 30); }
     .report-meta {
       float: $alpha;
-      color: rgba(0,0,0,.4);
+      color: $firefly40;
 
       .favicon,
       .report-created-at {

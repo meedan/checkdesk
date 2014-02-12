@@ -63,7 +63,7 @@ $identity: $twitter-blueish;
 $bkg-color: #fff; // light grey // TODO: This should be a subtle pattern
 $input-background: lighten($light-grey, 15%);
 $hr-color: $grey;
-$text-color: black;
+$text-color: $firefly;
 $link-color: $identity;
 
 // susy grid colors
@@ -98,10 +98,10 @@ $notification-count-bkg-color: rgba($identity, 0.5);
 // Navigation theme
 // Used in chunky_block in buttons.scss
 
-$nav-color: rgba(white, 0.65);
-$nav-bkg-color: rgb(38, 38, 38); // from maya's design
+$nav-color: $firefly20;
+$nav-bkg-color: $firefly90; // from maya's design
 $nav-active-color: $nav-bkg-color; // active text
-$nav-active-bkg-color: rgba(white, 0.95);
+$nav-active-bkg-color: $firefly10;
 $nav-container-bkg-color: $nav-bkg-color; //wrapper on nav
 $nav-hover-bkg-color: transparent;
 $nav-hover-color: white;
@@ -111,12 +111,12 @@ $nav-hover-color: white;
 
 $tabs-color: rgba(black, 0.75);
 $tabs-bkg-color: $lightest-grey;
-$tabs-active-color: black; // active text
+$tabs-active-color: $firefly; // active text
 $tabs-active-bkg-color: $light-grey;
 
 // Dropdowns
 $dropdown-bkg: white;
-$dropdown-border: rgba(0,0,0,.2);
+$dropdown-border: $firefly20;
 $dropdown-divider-top: $light-grey;
 $dropdown-divider-bottom: white;
 $dropdown-link-color: $dark-grey;
@@ -193,7 +193,7 @@ $inputHeight:                   $absolute-line-height + 18px;
 // #deprecated
 // -------------------------
 $dropdownBackground:            $white !default;
-$dropdownBorder:                rgba(0,0,0,.2) !default;
+$dropdownBorder:                $firefly20 !default;
 $dropdownDividerTop:            #e5e5e5 !default;
 $dropdownDividerBottom:         $white !default;
 

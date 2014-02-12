@@ -10,16 +10,16 @@
   }
 
   #partner-header-slogan {
-    border-top: 1px solid rgba(0,0,0,.1);
-    color: rgba(0,0,0,.6);
+    border-top: 1px solid $firefly10;
+    color: $firefly60;
     margin-top: $absolute-line-height;
     padding: $absolute-line-height/1.5 $gutter-width*2 0 $gutter-width*2;
 
     a {
-      color: rgba(0,0,0,.6);
+      color: $firefly60;
       &:hover { 
         text-decoration: none;
-        color: rgba(0,0,0,.8); 
+        color: $firefly80; 
       }
     }
 

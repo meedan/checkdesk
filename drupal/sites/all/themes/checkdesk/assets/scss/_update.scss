@@ -6,11 +6,13 @@
 
 	.update-body {
     padding-top: $absolute-line-height/2 - 4; // to align with update number
+    color: $firefly80;
 
     .update-title {
       font-size: $larger-font-size;
       line-height: 1.4;
       padding-top: $absolute-line-height/3;
+      color: $firefly80;
       @if $from-direction == 'left' {
         letter-spacing: -.03em;
       }
@@ -30,11 +32,11 @@
   	margin-#{$omega}: $gutter-width*2;
     margin-bottom: 1em;
     font-family: $sans-serif-font-stack;
-    color: rgba(0,0,0,.2);
+    color: $firefly20;
     a { 
-      color: rgba(0,0,0,.2); 
+      color: $firefly20; 
       &:hover { 
-        color: rgba(0,0,0,.5); 
+        color: $firefly60; 
         text-decoration: none;
       }
     }
@@ -54,13 +56,13 @@
 
     // icons
     .icon-time {
-    	@include icon(time, $base-font-size, rgba(0,0,0,.2));
+    	@include icon(time, $base-font-size, $firefly20);
     }
     .icon-share {
-      @include icon(share, $small-font-size, rgba(0,0,0,.2));
+      @include icon(share, $small-font-size, $firefly20);
     }
     .icon-edit-sign {
-      @include icon(edit-sign, $small-font-size, rgba(0,0,0,.2));
+      @include icon(edit-sign, $small-font-size, $firefly20);
     }
 
     // by
@@ -99,7 +101,7 @@
 						display: block;
 
 						&:hover { 
-							color: black;
+							color: $firefly;
 							text-decoration: none;
 						}
 

@@ -431,7 +431,7 @@
   text-shadow: $textShadow;
   @include ctb-gradient-vertical($primaryColor, $secondaryColor);
   border-color: $secondaryColor $secondaryColor darken($secondaryColor, 15%);
-  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fade-in(rgba(0,0,0,.1), 0.15);
+  border-color: $firefly10 $firefly10 fade-in($firefly10, 0.15);
 }
 
 // Gradients
@@ -557,7 +557,7 @@
         font-family: $sans-serif-font-stack;
         font-size: $small-font-size;
         font-weight: 700;
-        color: rgba(0,0,0,.4);
+        color: $firefly40;
         background-color: rgba(255,255,255,.8);
         &:hover {
           color: $white;
