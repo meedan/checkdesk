@@ -5,14 +5,14 @@ group :test do
 end
 
 group :development do 
-  gem 'susy'
+  gem 'susy', '2.0.0.rc1'
   gem 'compass'
   gem 'rake'
   gem 'modular-scale'
   gem 'sass-globbing'
   gem 'guard'
   gem 'guard-livereload'
-  gem 'guard-compass'
+  gem 'guard-sass'
   gem 'guard-uglify', git: 'git://github.com/pferdefleisch/guard-uglify.git' 
   gem 'guard-process'
   gem 'pry'
