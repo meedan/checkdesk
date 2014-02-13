@@ -292,6 +292,8 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     $title = t('Added ') . '<strong>' . $message->variables['!title'] . '</strong>';
   }
 
+  // $actor_short = (strlen($actor) > 8) ? substr($actor,0,6).'...' : $actor;
+
 
   // format status report as
   // Noha Aziz {status icon} Changed status to verified (different color and add hover info on verified) {timestamp}

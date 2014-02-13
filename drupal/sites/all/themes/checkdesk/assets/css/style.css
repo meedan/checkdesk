@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 @font-face {
   font-family: "FontAwesome";
@@ -2488,9 +2487,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-transition: border linear, box-shadow linear;
+  -webkit-transition-delay: 0.2s, 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2527,7 +2526,6 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
-  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -3865,7 +3863,6 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
-  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4265,12 +4262,10 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cfd3d5;
@@ -5230,12 +5225,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
-  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -5341,6 +5334,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-media {
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
   text-align: center;
+  background-color: rgba(16, 33, 47, 0.05);
 }
 .report .report-content .report-media .container {
   max-width: 100%;
@@ -5723,24 +5717,22 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .activity-wrapper .view-content .activity header .actor {
   display: inline-block;
-  width: 10%;
+  width: 12%;
   padding-top: 12px;
   padding-right: 22px;
   text-align: right;
   vertical-align: top;
   font-weight: 700;
+  line-height: 1;
   color: #6f7a82;
-  -ms-word-break: break-all;
-  word-break: break-all;
-  word-break: break-word;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
+}
+.report .report-activity .activity-wrapper .view-content .activity header .multiple-lines {
+  padding-top: 6px;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .activity-inner-wrapper {
   position: relative;
   display: inline-block;
-  width: 62%;
+  width: 65%;
   padding: 12px 0 12px 0;
   padding-left: 22px;
   border-left: 4px solid #e7e8ea;
@@ -5767,7 +5759,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title {
   display: inline-block;
-  width: 97%;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title p {
   margin: 0;
@@ -5792,9 +5783,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   padding: 12px 0;
   position: absolute;
   top: 0;
-  right: 11px;
+  right: 0;
   text-align: right;
-  width: 20%;
+  width: 15%;
   color: #b7bcc0;
   font-size: 14px;
 }
@@ -6055,7 +6046,7 @@ div.sensitive-hide {
   background: none !important;
 }
 .sensitive-notification .sensitive-notification-text {
-  color: #333333;
+  color: #6f7a82;
   padding: 12px 5.5px;
 }
 .sensitive-notification .sensitive-notification-link {
@@ -6080,7 +6071,7 @@ div.sensitive-hide {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #999999;
+  background-color: rgba(3, 34, 60, 0.2);
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -6096,13 +6087,13 @@ div.sensitive-hide {
   color: white;
 }
 .sensitive-notification .sensitive-notification-link a:hover, .sensitive-notification .sensitive-notification-link a:focus {
-  background-color: #919191;
+  background-color: rgba(3, 26, 45, 0.2);
 }
 .sensitive-notification .sensitive-notification-link a:hover, .sensitive-notification .sensitive-notification-link a:hover:visited, .sensitive-notification .sensitive-notification-link a:focus, .sensitive-notification .sensitive-notification-link a:focus:visited {
   color: white;
 }
 .sensitive-notification .sensitive-notification-link a:active {
-  background-color: #8a8a8a;
+  background-color: rgba(2, 18, 31, 0.2);
 }
 .sensitive-notification .sensitive-notification-link a:active, .sensitive-notification .sensitive-notification-link a:active:visited {
   color: white;
@@ -7249,12 +7240,10 @@ nav[role="navigation"] .nav > div h2 {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7316,12 +7305,10 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7436,12 +7423,10 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -9931,12 +9916,10 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li.first a, #user-register-form #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -9959,12 +9942,10 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li a[class^='facebook'], #user-register-form #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;

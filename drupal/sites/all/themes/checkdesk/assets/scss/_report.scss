@@ -6,7 +6,7 @@
 
 $report-background-color: 				darken($firefly30, 5%);
 $report-description-background-color: 	$firefly30;
-$report-footer-color: 					darken($grayLighter, 15%);
+$report-footer-color: 					darken($firefly30, 15%);
 $report-footnotes-background-color: 	darken($firefly30, 10%);
 $report-text-color: 					$firefly60;
 $report-activity-header-color: 			darken($firefly30, 10%);
@@ -152,6 +152,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 		.report-media {
 			border-bottom: 1px solid rgba($firefly,.05);
 			text-align: center;
+			background-color: rgba($firefly, .05);
 			.container {
 				max-width: 100%;
 				// since we stack the report actions vertically
@@ -486,19 +487,23 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 						position: relative;
 						.actor {
 							display: inline-block;
-							width: 10%;
+							width: 12%;
 							padding-top: $absolute-line-height/2;
 							padding-#{$omega}: $gutter-width*2;
 							text-align: $omega;
 							vertical-align: top;
 							font-weight: 700;
+							line-height: 1;
 							color: $firefly60;
-							@include ctb-break-words;
+							// @include ctb-break-words;
+						}
+						.multiple-lines {
+							padding-top: $absolute-line-height/4;
 						}
 						.activity-inner-wrapper {
 							position: relative;
 							display: inline-block;
-							width: 62%;
+							width: 65%;
 							padding: $absolute-line-height/2 0 $absolute-line-height/2 0;
 							padding-#{$alpha}: $gutter-width*2;
 							border-#{$from-direction}: 4px solid $firefly10;
@@ -523,7 +528,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 						}
 						.title {
 							display: inline-block;
-							width: 97%;
+							// width: 97%;
 							p { 
 								margin: 0;
 								margin-bottom: $absolute-line-height/2; 
@@ -548,9 +553,9 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 							padding: $absolute-line-height/2 0;
 							position: absolute;
 							top: 0;
-							#{$omega}: $gutter-width;
+							#{$omega}: 0;
 							text-align: $omega;
-							width: 20%;
+							width: 15%;
 							color: $firefly30;
 							font-size: modular-scale(0) - modular-scale(-3); // 14px
 						}
@@ -746,13 +751,13 @@ div.sensitive-hide {
 	vertical-align: middle;
 	background: none !important;
     .sensitive-notification-text {
-    	color: $grayDark;
+    	color: $firefly60;
     	padding: $absolute-line-height/2 $gutter-width/2;
     }
     .sensitive-notification-link {
     	padding: $absolute-line-height/2 $gutter-width/2;
     	a {
-    		@include button($grayLight, 18px);
+    		@include button(rgba($firefly, 0.2), 18px);
     	}
     }
 }
