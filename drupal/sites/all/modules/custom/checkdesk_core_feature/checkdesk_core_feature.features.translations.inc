@@ -46014,23 +46014,6 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['0adecf44ab13ab7a5e4782ce6a1bc391'] = array(
-    'source' => 'Fact-checking has been enabled for <a href="[node:url:unaliased]"> [node:author] report </a>. ',
-    'context' => '',
-    'location' => 'ar/flag/flag/factcheck_journalist/1922?destination=node/1922&token=F2vxBn07yWTD3j1V2JGK9kM9xTALZq2dqSTqJ110hXo',
-    'translation' => 'تم تفعيل التحقق من صحة معلومات <a href="[node:url:unaliased]"> [node:author] تقرير </a>.',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['97ad43f07516566f405701896e0f2fad'] = array(
-    'source' => 'Fact-checking has been disabled for <a href="[node:url:unaliased]"> [node:author] report </a>. ',
-    'context' => '',
-    'location' => '/ar/flag/unflag/factcheck_journalist/1922?destination=liveblog&token=Zs8iOqhZDL6DkX0iupYAwjtKIR9PJQffS_SJuh2VuQg',
-    'translation' => 'تم إلغاء التحقق من صحة معلومات <a href="[node:url:unaliased]"> [node:author] تقرير </a>.
-',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['12090bed7a1ad6e3f4579065120c823e'] = array(
     'source' => 'Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>',
     'context' => '',
@@ -46047,11 +46030,27 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0, 
     'plural' => 0, 
   );
+  $translations['ar:default']['95805a6bc878f126cbc8e2012852e649'] = array(
+    'source' => 'Fact-checking has been enabled for <a href="[node:url:unaliased]">[node:author]\'s report</a>.',
+    'context' => '',
+    'location' => '/ar/flag/flag/factcheck_journalist/2447?destination=report-view-modal/ajax/2447&token=KPFawrLou6qfujz-SsQucRW0B_4hr8CIbDcZBfbnrBo',
+    'translation' => 'تم تفعيل التحقق من صحة معلومات <a href="[node:url:unaliased]"> [node:author] تقرير </a>.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['3f1af83ae1c316908fe96e15a839c34d'] = array(
     'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was flagged as containing graphic content.',
     'context' => '',
     'location' => '/ar/node/flag/confirm/flag/graphic/2442/ajax',
-    'translation' => 'تم تنبيه المشرف على احتواء <a href="@url">تقرير [node:author]\'s </a> على محتوى أو صور صادمة.',
+    'translation' => 'تم تنبيه المشرف على احتواء <a href="[node:url:unaliased]">تقرير [node:author]\'s </a> على محتوى أو صور صادمة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['bd75ec0eb89bb48de6a149251293d757'] = array(
+    'source' => 'Fact-checking has been disabled for <a href="[node:url:unaliased]">[node:author]\'s report</a>.',
+    'context' => '',
+    'location' => '/ar/flag/unflag/factcheck_journalist/2447?destination=node/2447&token=KPFawrLou6qfujz-SsQucRW0B_4hr8CIbDcZBfbnrBo',
+    'translation' => 'تم إلغاء التحقق من صحة معلومات <a href="[node:url:unaliased]"> [node:author] تقرير </a>.',
     'plid' => 0,
     'plural' => 0,
   );
