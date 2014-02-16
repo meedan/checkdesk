@@ -1095,14 +1095,14 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_discussion_pattern';
-  $strongarm->value = 'story/[node:title]';
+  $strongarm->value = 'story/[node:nid]';
   $export['pathauto_node_discussion_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_media_pattern';
-  $strongarm->value = 'report/[node:title]';
+  $strongarm->value = 'report/[node:nid]';
   $export['pathauto_node_media_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1116,7 +1116,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_post_pattern';
-  $strongarm->value = 'liveblog/[node:title]';
+  $strongarm->value = 'update/[node:nid]';
   $export['pathauto_node_post_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1151,7 +1151,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_user_pattern';
-  $strongarm->value = 'users/[user:name]';
+  $strongarm->value = '';
   $export['pathauto_user_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
