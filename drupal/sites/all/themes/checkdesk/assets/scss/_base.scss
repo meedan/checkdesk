@@ -24,10 +24,6 @@ $icon-position: before !default;
   }
 }
 
-$font-size-large:         $base-font-size * 1.25; // ~18px
-$font-sze-small:         $base-font-size * 0.85; // ~12px
-$font-size-mini:          $base-font-size * 0.75; // ~11px
-
 $z-index-dropdown:          900 !default;
 $z-index-popover:           910 !default;
 $z-index-tooltip:           930 !default;
@@ -99,7 +95,9 @@ $xx-large-font-size:  40px; // 3
 $xxx-large-font-size: 27px; // 4
 $largest-font-size:   65px; // 5
 
-@debug $large-font-size;
+$font-size-large:         $base-font-size * 1.25; // ~18px
+$font-sze-small:         $base-font-size * 0.85; // ~12px
+$font-size-mini:          $base-font-size * 0.75; // ~11px
 
 // ## Main sections
 
@@ -119,14 +117,7 @@ $notification-image-width: 5%;
 $notifications-icon-selector: '.heartbeat-time-ago';
 
 // #Z-indexes
-// Based closely on Twitter Bootstrap
 //
-// <span class="dropdown"></span>
-// <span class="popover"></span>
-// <span class="tooltip"></span>
-// <span class="fixednavbar"></span>
-// <span class="modalbackdrop"></span>
-// <span class="modal"></span>
 $z-index-Dropdown:          900 !default;
 $z-index-Popover:           910 !default;
 $z-index-Tooltip:           930 !default;
@@ -160,7 +151,6 @@ $radius: 4px;
 // ## Colors
 // ... live in colors.css
 
-<<<<<<< HEAD
 $firefly: 		#10212F;
 $firefly90: 	#283743;
 $firefly80: 	#404D59;
@@ -178,11 +168,6 @@ $thatch: 		#B89892;
 $thatch5: 		#FBFAF9;
 $thatch2:		#FEFDFD;
 
-
-// Debugger
-// =============================================================================
-=======
 // ## Debugger
->>>>>>> merge-refactor
 // debug mode for @debug statements and other sass debuggers
 $debug: false !default;

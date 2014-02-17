@@ -3,24 +3,11 @@
 // Checkdesk Sass Theme
 @import "base";
 
-// Tell the browser about these files and define the font name
+// Tell the browser about these files and define the font name.
+//
 // See base.scss configuration, with overrides in style-rtl.scss
 // Icon fonts
 @include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
-// @include bowerbird-font-face("FontAwesomeSocial", "fontawesome-social-webfont");
-// English fonts
-// @include bowerbird-font-face("Merriweather", "merriweather-webfont-webfont");
-// @include bowerbird-font-face("Merriweather Light", "merriweather-light-webfont-webfont");
-// @include bowerbird-font-face("Merriweather Bold", "merriweather-bold-webfont-webfont");
-// @include bowerbird-font-face("PT Sans", "ptsans-webfont-webfont");
-// @include bowerbird-font-face("PT Sans Bold", "ptsans-bold-webfont-webfont");
-// @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
-// Arabic fonts
-// @include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
-// @include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
-// @include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
-// @include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
-// @include bowerbird-font-face("Andalus", "andlso-webfont");
 
 // Modular scale  
 // via: gem
@@ -47,12 +34,6 @@
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
-// Set the default position of icons
-// $icon-position: 'before';
-// @if $from-direction == 'right' {
-// 	$icon-position: 'after';
-// }
-
 // Drupal styles
 // Drupal itself should not emit *any* CSS. 
 //
@@ -60,29 +41,29 @@ $omega: opposite-position($from-direction);
 // Now all of them can be controlled here and inspected more easily.
 // Ideally these will all be *completely refactored away* CGB Jan 2013
 
-@import "replace_drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
-@import "replace_drupal/system_base";
-@import "replace_drupal/system_menus";
-// @import "replace_drupal/system_messages";
-// @import "replace_drupal/system_theme"; // hoping i can remove this huge one ....
-@import "replace_drupal/jquery_ui_core";
+@import "drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
+@import "drupal/system_base";
+@import "drupal/system_menus";
+// @import "drupal/system_messages";
+// @import "drupal/system_theme"; // hoping i can remove this huge one ....
+@import "drupal/jquery_ui_core";
 // @import "jquery_ui_theme"; // this is pretty big do we really need it?
-@import "replace_drupal/comment";
-@import "replace_drupal/field";
-@import "replace_drupal/node";
-// @import "replace_drupal/search";
-// @import "replace_drupal/user";
-// @import "replace_drupal/views";
-// @import "replace_drupal/ctools"; 
-// @import "replace_drupal/ctools_modal"; // using styles based on TB for all windows
-// @import "replace_drupal/oembed";
-@import "replace_drupal/toolbar";
-@import "replace_drupal/shortcut";
-@import "replace_drupal/contextual";
-@import "replace_drupal/rules";
-@import "replace_drupal/context_reaction_block";
-@import "replace_drupal/l10n_client";
-@import "replace_drupal/vertical-tabs";
+@import "drupal/comment";
+@import "drupal/field";
+@import "drupal/node";
+// @import "drupal/search";
+// @import "drupal/user";
+// @import "drupal/views";
+// @import "drupal/ctools"; 
+// @import "drupal/ctools_modal"; // using styles based on TB for all windows
+// @import "drupal/oembed";
+@import "drupal/toolbar";
+@import "drupal/shortcut";
+@import "drupal/contextual";
+@import "drupal/rules";
+@import "drupal/context_reaction_block";
+@import "drupal/l10n_client";
+@import "drupal/vertical-tabs";
 
 // Bowerbird Drupal touchups
 // via: bowerbird
@@ -136,7 +117,8 @@ $omega: opposite-position($from-direction);
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
 @import "replace_ctb/navs";
-@import "compass_twitter_bootstrap/reset";
+
+// @import "compass_twitter_bootstrap/reset";
 // @import "compass_twitter_bootstrap/code"; // TB Syntax highlighting
 // @import "compass_twitter_bootstrap/tables"; // TB Tabular data
 

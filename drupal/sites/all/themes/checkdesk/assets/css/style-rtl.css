@@ -1,17 +1,36 @@
 /*
-Syntax error: Invalid CSS after "...e in colors.css": expected selector or at-rule, was "<<<<<<< HEAD"
-        on line 163 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_base.scss
-        from line 6 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style-rtl.scss
+Syntax error: Undefined variable: "$warning-background".
+        on line 13 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_alerts.scss
+        from line 131 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss
+        from line 25 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style-rtl.scss
 
 Backtrace:
-/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_base.scss:163
-/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style-rtl.scss:6
-/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/scss/parser.rb:1149:in `expected'
-/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/scss/parser.rb:1085:in `expected'
-/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/scss/parser.rb:28:in `parse'
-/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/engine.rb:342:in `_to_tree'
-/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/engine.rb:274:in `to_tree'
-/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:225:in `visit_import'
+/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_alerts.scss:13
+/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss:131
+/Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style-rtl.scss:25
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/script/variable.rb:49:in `_perform'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/script/node.rb:40:in `perform'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:298:in `visit_prop'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:53:in `map'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:227:in `block in visit_import'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:227:in `map'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:227:in `visit_import'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:227:in `block in visit_import'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:227:in `map'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:227:in `visit_import'
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:37:in `visit'
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/perform.rb:100:in `visit'
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/sass-3.2.14/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
@@ -50,7 +69,7 @@ Backtrace:
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/guard-2.4.0/lib/guard/runner.rb:109:in `block in _run_first_task_found'
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/guard-2.4.0/lib/guard/runner.rb:107:in `each'
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/guard-2.4.0/lib/guard/runner.rb:107:in `_run_first_task_found'
-/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/guard-2.4.0/lib/guard/runner.rb:47:in `block in run_on_changes'
+/Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/guard-2.4.0/lib/guard/runner.rb:48:in `block in run_on_changes'
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/guard-2.4.0/lib/guard/runner.rb:140:in `block (3 levels) in _scoped_plugins'
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/guard-2.4.0/lib/guard/runner.rb:138:in `each'
 /Users/chris/.rvm/gems/ruby-1.9.3-p484/gems/guard-2.4.0/lib/guard/runner.rb:138:in `block (2 levels) in _scoped_plugins'
@@ -73,4 +92,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Invalid CSS after \"...e in colors.css\": expected selector or at-rule, was \"<<<<<<< HEAD\"\A         on line 163 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_base.scss\A         from line 6 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style-rtl.scss"; }
+  content: "Syntax error: Undefined variable: \"$warning-background\".\A         on line 13 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/_alerts.scss\A         from line 131 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style.scss\A         from line 25 of /Users/chris/git/meedan-checkdesk/drupal/sites/all/themes/checkdesk/assets/scss/style-rtl.scss"; }
