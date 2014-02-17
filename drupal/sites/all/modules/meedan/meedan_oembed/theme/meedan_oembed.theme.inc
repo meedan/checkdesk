@@ -17,5 +17,6 @@ function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
  */
 function template_preprocess_meedan_oembed_thumbnail_generic(&$vars) {
-  $vars['thumbnail'] = render(oembedcore_render_cache('oembed_thumbnail', $vars['url'], $vars['attributes']));
+	$render = oembedcore_render_cache('oembed_thumbnail', $vars['url'], $vars['attributes']);
+  $vars['thumbnail'] = render($render);
 }
