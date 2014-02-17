@@ -2,11 +2,10 @@
 // Font stacks
 $en-body-font-stack: "Mercury SSm A", "Mercury SSm B", Georgia, "Times New Roman", Times, serif;
 $en-header-font-stack: "Mercury Display A", "Mercury Display B", Georgia, "Times New Roman", Times, serif;
-$ar-header-font-stack: "Arial", "Verdana", "Tahoma", sans-serif;
-$ar-body-font-stack: "Arial", "Verdana", "Tahoma", sans-serif;
-$ar-nav-font-stack: "Arial", "Verdana", "Tahoma", sans-serif;
+
 $mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace !default;
 $nav-font-stack: $en-body-font-stack !default;
+
 $sans-serif-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $header-font-stack: $en-header-font-stack !default;
 $body-font-stack: $en-body-font-stack !default;
@@ -142,7 +141,7 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: $xx-large-font-size
+  font-size: $xx-large-font-size;
   font-weight: 700;
   font-style: normal;
   line-height: 1.15;

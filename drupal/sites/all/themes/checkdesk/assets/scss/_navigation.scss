@@ -267,7 +267,7 @@ nav[role="navigation"] {
 div.region-page-top {
   #toolbar {
     position: fixed;
-    z-index: $zindex-fixed-navbar;
+    z-index: $z-index-fixed-navbar;
     // This can be cleaned up with toolbar css is removed.
     @include box-shadow(0 0 0 0); // disable box shadow
     padding: 0;

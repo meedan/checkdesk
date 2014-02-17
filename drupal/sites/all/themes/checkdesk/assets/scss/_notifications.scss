@@ -97,7 +97,7 @@
   .notifications-settings-link {
     a {
       @include dropdown-link;
-      @include ctb-link-color($grey);
+      color: $grey;
       &:hover {
         background-color: transparent;
       }

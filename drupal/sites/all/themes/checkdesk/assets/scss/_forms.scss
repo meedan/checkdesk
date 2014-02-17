@@ -53,7 +53,7 @@
 
 // Inline form errors
 //
-@mixin form-inline-errors {
+%form-inline-errors {
   font-family: $sans-serif-font-stack;
 
   // hide labels for forms with ife
@@ -168,7 +168,7 @@
 // This standardizes form elements
 // #review why so many resets? CGB
 //
-@mixin form-standardize {
+%form-standardize {
   
   label, input, button, select, textarea, body.cke_editable { 
     font-size: $small-font-size; 
@@ -283,9 +283,9 @@
       }
     }
 
-    @include form-actions;
-    @include form-drag-and-drop;
-    @include form-inline-errors;
+    @extend %form-actions;
+    @extend %form-drag-and-drop;
+    @extend %form-inline-errors;
   }
 }
 
@@ -370,6 +370,8 @@
   }
 }
 
-@include form-standardize;
-@include cd-form-styles-except-layout;
-@include cd-form-layout($container-width, $container-width, $gutter-width);
+body {
+  @extend %form-standardize;  
+  @extend %cd-form-styles-except-layout;
+  @include cd-form-layout($container-width, $container-width, $gutter-width);  
+}

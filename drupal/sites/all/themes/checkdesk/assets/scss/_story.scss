@@ -249,7 +249,7 @@
     .node-post-form {
       display: none;
       padding: 0 $gutter-width;
-      background-image: $striped_lens;
+      background-image: $striped-lens-background;
       input[type='submit'] {
         @include checkdesk-button($identity);
       }

@@ -186,8 +186,8 @@ body.page-user-password { // both logged in and not logged ins states
 
 #user-login, 
 #user-register-form {
-    @include span-columns(4, 6);
-    @include pad(1, 1, 6);
+    // @include span-columns(4, 6);
+    // @include pad(1, 1, 6);
     margin-top: $absolute-line-height;
 
     // when labels are visible
@@ -321,6 +321,7 @@ body.page-user-password { // both logged in and not logged ins states
       }
     }
   }
+}
 
 // user admin page#
 .view-administer-users {
@@ -337,6 +338,7 @@ body.page-user-password { // both logged in and not logged ins states
 #user-admin-roles td.edit-name {
   clear: both;
 }
+
 #user-admin-roles .form-item-name {
   float: $alpha;
   margin-#{$omega}: 1em;

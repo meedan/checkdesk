@@ -21,22 +21,22 @@ $large-modal-width: 700px;
   top: 100px !important;
 }
 
-// Fixed only for normal screen sizes
-@media all and (max-height: 42em) {
-  .modal-modal-popup-report {  
-    .modal-body {
-      max-height: 290px;
-    }
-  }
-}
+// // Fixed only for normal screen sizes
+// @media all and (max-height: 42em) {
+//   .modal-modal-popup-report {  
+//     .modal-body {
+//       max-height: 290px;
+//     }
+//   }
+// }
 
 // Background
 .modal-backdrop {
   position: fixed;
   top: 0;
-  #{opposite-position($from-direction)} 0;
+  #{opposite-position($from-direction)}: 0;
   bottom: 0;
-  #{$from-direction} 0;
+  #{$from-direction}: 0;
   z-index: $z-index-modal-backdrop;
   background-color: $black;
 
@@ -118,7 +118,7 @@ $large-modal-width: 700px;
 
   #modal-throbber {
     padding: $absolute-line-height/4 0;
-    margin-#{$from-direction} -$gutter-width/2;
+    margin-#{$from-direction}: -$gutter-width/2;
   }
 
   .form-actions {
@@ -134,7 +134,7 @@ $large-modal-width: 700px;
 .modal-footer {
   position: absolute;
   bottom: 0;
-  #{$from-direction} -$gutter-width;
+  #{$from-direction}: -$gutter-width;
   padding: 0;
   width: 100%;
   display: block;
@@ -173,5 +173,6 @@ $large-modal-width: 700px;
 }
 
 #modalContent {
-  position: fixed !important; // "position: absolute" is hardcoded in ctools/js/modal.js:389
+  // "position: absolute" is hardcoded in ctools/js/modal.js:389
+  position: fixed !important; 
 }

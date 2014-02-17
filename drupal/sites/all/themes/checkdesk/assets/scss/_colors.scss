@@ -38,6 +38,12 @@ $verdun-green: hsl(90, 100%, 20%);
 $yellow-orange: hsl(32, 100%, 79%);
 $default-box-shadow-color: hsl(0, 0%, 76%);
 
+// TODO: refine these 
+$orange: $yellow-orange; 
+$red: $firetruck-red;
+$yellow: $postit-yellow;
+$green: $verdun-green;
+
 // Greys 
 $lightest-grey: hsl(0, 0%, 97%);
 $light-grey: hsl(0, 0%, 93%);
@@ -51,7 +57,7 @@ $darkest-grey: darken($darker-grey, 25%);
 // Social network colors
 $twitter-blue: hsl(203, 75%, 45%);  // exact Twitter brand color
 $google-blue: hsl(217, 99%, 65%); // bright blue eg in google groups
-$twitter-blueish: $syntax-three; // same hue neighborhood, but not exact
+$twitter-blueish: darken($twitter-blue, 10%); 
 $facebook-blue: hsl(219, 56%, 34%);
 $youtube-red: hsl(1, 90%, 55%);
 

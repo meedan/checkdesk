@@ -8,6 +8,10 @@
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
+@import "typography"; 
+@include checkdesk-font-face("FontAwesome", "fontawesome-webfont-webfont");
+
+
 // Drupal
 @import "drupal/html5bp_defaults"; 
 @import "drupal/system_base";
@@ -32,8 +36,11 @@ $omega: opposite-position($from-direction);
 @import "bowerbird/icons/fontawesome";
 @import "bowerbird/buttons";
 @import "bowerbird/gradients";
+
+// Forks of Compass Twitter Bootstrap
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
+
 @import "mixins"; 
 @import "alerts"; 
 @import "dropdowns"; 
@@ -56,9 +63,6 @@ body.no-sidebars {
   }
 }
 
-@import "typography"; checkdesk
-@include checkdesk-font-face("FontAwesome", "fontawesome-webfont-webfont");
-
 @import "tabs";
 @import "notifications";
 @import "filters";
@@ -77,8 +81,6 @@ body.no-sidebars {
 @import "user_account";
 @import "form_password";
 @import "forms";
-@import "tables";
-@import "administer_users";
 @import "liveblog";
 @import "story";
 @import "_layout_2col";
