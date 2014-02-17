@@ -5,7 +5,6 @@ group :test do
 end
 
 group :development do 
-  gem 'susy'
   gem 'compass'
   gem 'sass'
   gem 'rake'

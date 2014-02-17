@@ -1,10 +1,4 @@
-require "susy"
-require "logger" # custom logger with pass/fail
-require "pry" # ruby REPL debugger mode
-require "rake" # for filelist
-# require "modular-scale" #for ratios
-require "compass_twitter_bootstrap" #deprecated Sass-wise; for legacy support only CGB
-# see https://github.com/vwall/compass-twitter-bootstrap
+require "compass_twitter_bootstrap"
 
 line_comments = false
 
@@ -19,11 +13,9 @@ bower_dir = File.join(full_assets_dir, "bower_components")
 images_dir      = File.join(full_assets_dir, "imgs")
 javascripts_dir = File.join(full_assets_dir, "js")
 
-bb_background_path = "sites/all/themes/bowerbird/images/bkgs/"
-
 # icon webfonts from bowerbird
-fonts_dir = File.join("fonts")
-http_fonts_path = File.join(http_path, themes_dir, extensions_dir, bowerbird_extension_dir, "fonts")
+fonts_dir = File.join(full_assets_dir, "fonts")
+http_fonts_path = File.join(http_path, themes_dir, assets_dir, "fonts")
 relative_assets = false
 
 output_style = (environment == :production) ? :compressed : :expanded

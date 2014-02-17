@@ -3,40 +3,21 @@
 // Checkdesk Sass Theme
 @import "base";
 
-// Tell the browser about these files and define the font name.
-//
-// See base.scss configuration, with overrides in style-rtl.scss
-// Icon fonts
 @include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
 
-// Modular scale  
-// via: gem
-// @import "modular-scale";
-
 @import "colors";
-
-// Checkdesk configuration 
-// Requires colors, modular-scale
 @import "base";
 @import "mixins";
 
-// Bowerbird Compass Extension
-// See also README.md and ../bowerbird/README.md
-// Requires: base
-// @import "bowerbird/transition";
-
 // Aliases for bidirectional stuff
-// Todo load susy earlier and move this file to base CGB Jan 2013
+//
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
 // Drupal styles
+//
 // Drupal itself should not emit *any* CSS. 
 //
-// These are all of the files that were ultimately being included in the markup.
-// Now all of them can be controlled here and inspected more easily.
-// Ideally these will all be *completely refactored away* CGB Jan 2013
-
 @import "drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
 @import "drupal/system_base";
 @import "drupal/system_menus";
@@ -65,11 +46,6 @@ $omega: opposite-position($from-direction);
 // via: bowerbird
 @import "bowerbird/drupal";
 
-// Some views stuff we extracted from cd
-// 
-// Deprecated
-// @import "views";
-
 //  Debugger mixins for the grid, breakpoints, etc.
 @import "bowerbird/debug";
 
@@ -96,27 +72,10 @@ $omega: opposite-position($from-direction);
 // Example usage: div { @include gradient($dark-blue, $midnight-blue); }
 @import "bowerbird/gradients";
 
-// ======================================================================
+// =============================================
 // Checkdesk (lightly forked) versions of Twitter Bootstrap libraries.
-//
-// These are customized versions of existing modules (files).
-// The order of the includes is important: variables, mixin, then reset
-//
-// Deprecated: use our own mixins wherever possible. Also, use unmodified versions straight from bowerbird whenever possible.
-
-// Our overrides and replacement for TB mixins
-//
-// All of them are namespaced ctb-mixinname
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
-// @import "replace_ctb/navs";
-
-// @import "compass_twitter_bootstrap/reset";
-// @import "compass_twitter_bootstrap/code"; // TB Syntax highlighting
-// @import "compass_twitter_bootstrap/tables"; // TB Tabular data
-
-// TB utilities
-// @import "compass_twitter_bootstrap/utilities";   // Should come last of TB
 
 // Checkdesk mixins
 //
@@ -126,10 +85,9 @@ $omega: opposite-position($from-direction);
 @import "modals"; // Based on Twitter Bootstrap modals
 
 
-// ====================================================================== 
+// ============================================= 
 //  Default checkdesk layout
 //
-
 html {
   // overflow: hidden;
   height: 100%;
@@ -150,22 +108,18 @@ body.no-sidebars {
 	}
 }
 
-// ====================================================================== 
+// ============================================= 
 // Main Checkdesk Sass files
-// Drupal sections, pages, mixins
 
 //  Checkdesk typography
-//  And a reponsive typography mixin which is applied in layout.
 @import "bowerbird/_typography"; //defaults
 @import "typography"; //checkdesk specific
 
 // Checkdesk Drupal tabs
-// .tabs - the containing element which has a ul.primary and ul.secondary
 @import "bowerbird/tabs";  // defaults
 @import "tabs";
 
 // Checkdesk notifications
-// #block-views-my-notifications-block - the main notification list in the top bar
 @import "notifications";
 
 // Filters
@@ -211,10 +165,6 @@ body.no-sidebars {
 @import "forms";
 @import "tables";
 
-// ====================================================================== 
-// Checkdesk pages 
-//
-
 // Checkdesk reports
 @import "administer_users";
 
@@ -241,13 +191,6 @@ body.no-sidebars {
 // Reports pages
 @import "reports_page";
 
-// ====================================================================== 
-// Styles in progress
-//
-
-// @include version-banner;
-
-
 // Translation client
 #l10n-client {
 	display: block !important;
@@ -263,12 +206,7 @@ body.no-sidebars {
 	}
 }
 
-// ====================================================================== 
-
-// #sidebar-first.column,
-// .desk { background-color: white; }
-
-// ====================================================================== 
+// ============================================= 
 // Bidi helpers
 // These are unusual because they are not overridden in style-rtl.scss
 .rtl {
@@ -282,12 +220,12 @@ body.no-sidebars {
 
 @import "tour"; // Based on bootstrap-tour default CSS
 
-// ====================================================================== 
+// ============================================= 
 // Lastly: hacks to be removed
 //
 @import "evil_hacks";
 
-// ====================================================================== 
+// ============================================= 
 // No really, The End
 //
 // Debuggers get the final word
