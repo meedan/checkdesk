@@ -1318,7 +1318,8 @@ function checkdesk_get_timezone() {
   $site_timezone = array();
   $timezone = date_default_timezone();
   if($timezone) {
-    $site_timezone['city'] = str_replace('_', ' ', array_pop(explode('/', $timezone)));  
+    $timezone_array = explode('/', $timezone);
+    $site_timezone['city'] = str_replace('_', ' ', array_pop($timezone_array));  
   }
   $site_country_code = variable_get('site_default_country', '');
   if($site_country_code) {
