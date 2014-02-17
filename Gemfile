@@ -5,10 +5,10 @@ group :test do
 end
 
 group :development do 
-  gem 'susy', '2.0.0.rc1'
+  gem 'susy'
   gem 'compass'
+  gem 'sass'
   gem 'rake'
-  gem 'modular-scale'
   gem 'sass-globbing'
   gem 'guard'
   gem 'guard-livereload'

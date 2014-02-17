@@ -11,13 +11,9 @@
 
 // Modular scale  
 // via: gem
-@import "modular-scale";
+// @import "modular-scale";
 
-// Colors
-// via: bowerbird sass extension
-// note: We always want to use colors by name, to facilitate readbility + discussion.
-// note: hsl() values preferred for readability
-@import "bowerbird/colors";
+@import "colors";
 
 // Checkdesk configuration 
 // Requires colors, modular-scale
@@ -27,7 +23,7 @@
 // Bowerbird Compass Extension
 // See also README.md and ../bowerbird/README.md
 // Requires: base
-@import "bowerbird";
+// @import "bowerbird/transition";
 
 // Aliases for bidirectional stuff
 // Todo load susy earlier and move this file to base CGB Jan 2013
@@ -108,22 +104,19 @@ $omega: opposite-position($from-direction);
 //
 // Deprecated: use our own mixins wherever possible. Also, use unmodified versions straight from bowerbird whenever possible.
 
-// Twitter Bootstrap Recognizable by their $camelCase variables
-@import "replace_ctb/variables";
-
 // Our overrides and replacement for TB mixins
 //
 // All of them are namespaced ctb-mixinname
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
-@import "replace_ctb/navs";
+// @import "replace_ctb/navs";
 
 // @import "compass_twitter_bootstrap/reset";
 // @import "compass_twitter_bootstrap/code"; // TB Syntax highlighting
 // @import "compass_twitter_bootstrap/tables"; // TB Tabular data
 
 // TB utilities
-@import "compass_twitter_bootstrap/utilities";   // Should come last of TB
+// @import "compass_twitter_bootstrap/utilities";   // Should come last of TB
 
 // Checkdesk mixins
 //
@@ -147,10 +140,11 @@ html {
 body {
   @include container($container-width $break-small $break-medium); // establish three breakpoints
 }
+
 // when no sidebars
 body.no-sidebars {
 	#main {
-		@include span-columns($container-width - 2, $container-width); //outermost container
+	  @include span-columns($container-width - 2, $container-width); //outermost container
 	  @include pad(1, 1, $container-width);
 	  margin-top: $absolute-line-height*3;
 	}
