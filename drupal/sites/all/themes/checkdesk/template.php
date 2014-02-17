@@ -71,6 +71,10 @@ function checkdesk_preprocess_html(&$variables) {
     }
   }
 
+
+  // Add remote fonts 
+  drupal_add_css('http://cloud.typography.com/6545452/628984/css/fonts.css', array('type' => 'external'));
+
   // Add conditional stylesheets for IE8.
   if ($variables['language']->language == 'ar') {
     $filename = 'ie8-rtl.css';

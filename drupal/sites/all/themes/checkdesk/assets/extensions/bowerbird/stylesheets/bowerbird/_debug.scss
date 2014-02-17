@@ -155,9 +155,3 @@ $drupal_form_selectors: ".item-list", ".form-item", ".form-actions", ".something
     border-top: 1px solid rgba(aqua, 0.5);
   }
 }
-
-@if $debug == true {
-  @each $size in $smallest-font-size $smaller-font-size $small-font-size $base-font-size $large-font-size $larger-font-size $x-large-font-size $xx-large-font-size {
-    @debug "#{$size}";
-  }
-}

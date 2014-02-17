@@ -1,16 +1,16 @@
 
 // Checkdesk Typography
 //
-// Configutation variables are in base.scss
+// Configuration variables are in base.scss
 // Typography configuration needs to come very early in the load sequence, but we want this file to emit CSS which comes later in the stylesheet.
 
-// Compass basline
-@include establish-baseline;
+// Compass baseline
+// @include establish-baseline;
 @include bowerbird-typography-defaults; // typography defaults
 
 body {
-  line-height: $absolute-line-height; // in px
-  font-size: $small-font-size; // in px
+  line-height: $absolute-line-height;
+  font-size: $small-font-size;
   color: $text-color;
   font-family: $body-font-stack;
   text-align: $from-direction;
@@ -22,7 +22,8 @@ h1, h2, h3, h4 {
   margin:  { bottom: $absolute-line-height/2; }
   // padding: { bottom: $base-font-size; top: $base-font-size; }
   font-family: $header-font-stack;
-  font-weight: normal;
+  font-weight: 400;
+  font-style: normal;
 }
 
 h1 {
@@ -31,8 +32,9 @@ h1 {
     font-size: $largest-font-size - 10px;
   }
   font-weight: 700;
+  font-style: normal;
   @if $from-direction == 'left' {
-    letter-spacing: -.04em;
+    letter-spacing: -.03em;
   }
   line-height: 1.15;
   color: #191919;
@@ -43,11 +45,14 @@ h1 {
 nav {
   font-family: $nav-font-stack;
   font-size: $nav-font-size;
-  font-weight: 300px;
+  font-weight: 400;
+  font-style: normal;
 }
 
 // The sidebar
 #sidebar-first {
   font-family: $nav-font-stack;
   font-size: $small-font-size;
+  font-weight: 400;
+  font-style: normal;
 }

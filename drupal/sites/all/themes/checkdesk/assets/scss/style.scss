@@ -14,7 +14,7 @@
 // @include bowerbird-font-face("Merriweather Bold", "merriweather-bold-webfont-webfont");
 // @include bowerbird-font-face("PT Sans", "ptsans-webfont-webfont");
 // @include bowerbird-font-face("PT Sans Bold", "ptsans-bold-webfont-webfont");
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
+// @import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|PT+Sans:400,700);
 // Arabic fonts
 // @include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
 // @include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
@@ -41,10 +41,6 @@
 // See also README.md and ../bowerbird/README.md
 // Requires: base
 @import "bowerbird";
-
-// Checkdesk overrides a Susy function very selectively
-// Requires: base
-@import "override_susy/grid";
 
 // Aliases for bidirectional stuff
 // Todo load susy earlier and move this file to base CGB Jan 2013

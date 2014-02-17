@@ -31,11 +31,11 @@ $icon-position: before !default;
 //
 // vertical baseline support
 // http://compass-style.org/reference/compass/typography/vertical_rhythm/
-$round-to-nearest-half-line: true !default;
-$relative-font-sizing: false !default;
+// $round-to-nearest-half-line: true !default;
+// $relative-font-sizing: false !default;
 $relative-line-height: 1.5 !default;
 $absolute-line-height: 24px !default;
-$base-line-height: $absolute-line-height !default; // for compass calculations only
+// $base-line-height: $absolute-line-height !default; // for compass calculations only
 
 // Susy configuration
 //
@@ -56,30 +56,31 @@ $break-large: 48;
 $total-width: $container-width; // Alias for Chris
 $sidebar-width: 4; // default sidebar width
 $tabs-width: $container-width; // Tabs inside forms and nodes
-$gutter-width: modular-scale(-1); // The distance between grid columns
-$column-width: modular-scale(2); // The width of columns
+$gutter-width: 15px; // The distance between grid columns
+$column-width: 25px; // The width of columns
 $grid-padding: 10px; // The padding on the sides of the outer <container>
 
-// Modular scale
+// Modular scale setup
 //
+// Font sizes based on the modular-scale calculations.
 // http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
-// All of these numbers are based on 18 base font size and 1168 outer container
-// The default ratio is golden, 1:1.618
-// Now you can do this to see the scale values (px
+//
 $base-size: 18px 1168px; // Two scales based on original photoshop proportions
 $round_pixels: true; //don't return fractional px
 
-// Font sizes based on the scale
-$smallest-font-size:  modular-scale(-2); // 7px
-$smaller-font-size:   modular-scale(-1); // 11px
-$small-font-size:     modular-scale(0) - modular-scale(-4); // 15px — a half-step down
-$base-font-size:      modular-scale(0);                     // 18px — "tonal center" of the scale
-$large-font-size:     modular-scale(0) + modular-scale(-5); // 20px — a half-step up
-$larger-font-size:    modular-scale(1); // 25px
-$x-large-font-size:   modular-scale(2); // 29px
-$xx-large-font-size:  modular-scale(3); // 40px
-$xxx-large-font-size: modular-scale(4); // 47px
-$largest-font-size:   modular-scale(5); // 65px
+// Modular scale-based typography
+$smallest-font-size:  7px; // -2
+$smaller-font-size:   11px; // -1
+$small-font-size:     15px; // -0.5
+$base-font-size:      18px; // 0 
+$large-font-size:     20px; // 0.5
+$larger-font-size:    25px; // 1
+$x-large-font-size:   29px; // 2
+$xx-large-font-size:  40px; // 3
+$xxx-large-font-size: 27px; // 4
+$largest-font-size:   65px; // 5
+
+@debug $large-font-size;
 
 // Main sections
 // =============================================================================
@@ -90,7 +91,7 @@ $nav-font-size: 14px;
 $nav-icon-height: 15px;
 $nav-line-height: $nav-icon-height;
 $nav-height: $nav-icon-height + 7*2;
-$nav-gutter: modular-scale(-1);
+$nav-gutter: 11px;
 
 // Notifications
 $notification-dropdown-width: modular-scale(11);
