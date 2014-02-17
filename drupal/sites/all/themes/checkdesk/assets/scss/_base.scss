@@ -1,75 +1,23 @@
 @charset "UTF-8";
 
 @import "compass/reset/utilities";
+@import 'susy';
+@import 'modular-scale';
 
-@import "../bower_components/modular-scale/stylesheets/modular-scale";
-@import "../bower_components/modular-scale/stylesheets/susy";
-
-// Typography configuration
-//
-// Text-direction and inline iconography, fonts, font helpers
-//
-// See also typography.scss and bowerbird/typography.scss
-//
 $from-direction: left !default;
+$omega: opposite-position($from-direction);
 $icon-position: before !default;
-$omega-float: opposite-position($from-direction);
 
+@import "compass/css3/transform";
 @import "compass/css3/transition";
 @import "compass/css3/font-face";
-@import "bowerbird/typography";
-@import "fonts";
 
-// mixin to set direction
-// 
-@mixin checkdesk-layout($direction) {
-  text-align: $direction;
-  @if $direction == 'right' {
-    direction: rtl;
-  } @else {
-    direction: ltr;
-  }
-}
+// Line heights
+$default-relative-line-height: 1.5;
+$default-absolute-line-height: 24px;
 
-$z-index-dropdown:          900 !default;
-$z-index-popover:           910 !default;
-$z-index-tooltip:           930 !default;
-$z-index-fixed-navbar:       930 !default;
-$z-index-modal-backdrop:     940 !default;
-$z-index-modal:             950 !default;
-
-$navbarHeight:                    38px !default;
-
-
-// Drupal admin toolbar and drawer
-$toolbar-menu-height:         30px;
-$drawer-menu-height:          35px;
-$toolbar-height:            $toolbar-menu-height + $drawer-menu-height;
-
-// Backgrounds
-$cream_dust: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAD1BMVEX9/f35+fn8/Pz7+/v6+vreGhydAAACQUlEQVQYGQXBAY0EMAhFwWYdkEXABWpgAQP0P/+abuaYV8QY6xp15LquT1MH1LNgDq666z3eQZ2Xa2Yv1xznDaTZi+xTY2YGawBqaHgZfXoNMzNzvausaUXWVB6a7lkwNACAGvoQEZG8WdcAAErgTATvKgaULDBoKjldybuKabwBvIGXHKAiRijBYI0xAx2A7oVKsAcwC+ismTlmL+Z7eUOieVccAB94kS956wAvR0foeoM6IuatGY5idKD53hWK1GgBXQ0c80HjWsWlBw11hfkBLlCrSDQExMD6ASXAvkjUHSgHLQe64q55fS5T0XTNCg5kN7DK8e4e0PCo0zTmaAGvnzADxfydBmChgfqBOQCcXHPWTDHeNeYGYHAKWHNIFCOge0T1KYB1aF6MgIh5t/I0482a17yrWfP43BcxBwAAqIvWiA+a5ph5oqlckn3rimtm2DE8gQpQzbugyxocg2T9xaC4L8EHQMeDu2hA+S4AwLoOwTgFKN8FA2Dp0wGqAQAQwLKVJxtXLw0MNO2sWeVJDFgr+N59Q3tizpyBAVaDD3RnN2ZwFq7zlsDRvojoMTOdBXxZ1KOBSOrC1lkwBwPdd6GuVyLiAKauLUDRFK5LZRwYV/YWQA3garrrmJK4UEtcFvDRBY4JNVDQOCzkuwvH8B57U4mZv1gUcVccAKgl10wRQMRAnRigYr3X7EVMEzFOnBjMFblgPhUxqGbVpwdDkeugeRE99FBzqOsVMRi6UJFdCcGhxyviAgwohhdL8w9WegM3i2rjpwAAAABJRU5ErkJggg==);
-$striped_lens: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
-
-
-// Compass utility configuration
-//
-// vertical baseline support
-// http://compass-style.org/reference/compass/typography/vertical_rhythm/
-// $round-to-nearest-half-line: true !default;
-// $relative-font-sizing: false !default;
-$relative-line-height: 1.5 !default;
-$absolute-line-height: 24px !default;
-// $base-line-height: $absolute-line-height !default; // for compass calculations only
-
-// Susy configuration
-//
-// For more information: `gem unpack susy`
-// Note that these also feed Twitter Bootstrap variables; see variables.scss.
-// Further reading: http://susy.oddbird.net
-//
+// Susy
 $container-style: magic;
-
-// Columns count and breakpoints
 $container-width: 12; // Mobile first
 $total-columns: $container-width; // Alias for Susy
 $breakpoint: 12;  // Breakpoints apply after the browser is stretched wider than this target width
@@ -88,28 +36,21 @@ $grid-padding: 10px; // The padding on the sides of the outer <container>
 // Font sizes based on the modular-scale calculations.
 // http://modularscale.com/scale/?px1=18&px2=1168&ra1=1.618&ra2=0
 //
-$base-size: 18px 1168px; // Two scales based on original photoshop proportions
-$round_pixels: true; //don't return fractional px
-
-// Modular scale-based typography
-$smallest-font-size:  7px; // -2
-$smaller-font-size:   11px; // -1
-$small-font-size:     15px; // -0.5
-$base-font-size:      18px; // 0 
-$large-font-size:     20px; // 0.5
-$larger-font-size:    25px; // 1
-$x-large-font-size:   29px; // 2
-$xx-large-font-size:  40px; // 3
-$xxx-large-font-size: 27px; // 4
-$largest-font-size:   65px; // 5
-
-$font-size-large:         $base-font-size * 1.25; // ~18px
-$font-sze-small:         $base-font-size * 0.85; // ~12px
-$font-size-mini:          $base-font-size * 0.75; // ~11px
-
-// ## Main sections
+$base-size: 18px 1168px; 
+$round_pixels: true; // don't return fractional px
+$smallest-font-size: 7px; // ms(-2)
+$smaller-font-size: 11px; // ms(-1)
+$small-font-size: 15px; // ms(-0.5)
+$base-font-size: 18px; // ms(0 )
+$large-font-size: 20px; // ms(0.5)
+$larger-font-size: 25px; // ms(1)
+$x-large-font-size: 29px; // ms(2)
+$xx-large-font-size: 40px; // ms(3)
+$xxx-large-font-size: 29px; // ms(4) + 2px
+$largest-font-size: 65px; // ms(5)
 
 // Navigation
+$navbar-height: 38px;
 $nav-width: $container-width;
 $nav-font-size: 14px;
 $nav-icon-height: 15px;
@@ -117,7 +58,12 @@ $nav-line-height: $nav-icon-height;
 $nav-height: $nav-icon-height + 7*2;
 $nav-gutter: 11px;
 
-// Notifications
+// Admin toolbar and drawer
+$toolbar-menu-height: 30px;
+$drawer-menu-height: 35px;
+$toolbar-height: $toolbar-menu-height + $drawer-menu-height;
+
+// Notifications (currently in navigation)
 $notification-dropdown-width: modular-scale(11);
 $notification-width: 5;
 $notification-icon-size: $small-font-size;
@@ -126,49 +72,34 @@ $notifications-icon-selector: '.heartbeat-time-ago';
 
 // Reports
 $report-width-px: 400px; // for grid view, don't use columns or percents for now
-$report-width: $container-width;
+$report-width: $container-width; // Default width of reports
 
 // Install Bookmarklet
 $install-bookmarklet-abs-width: 600px;
 
-// ## Aliases
-$container-width: $container-width;
-$tw: $tabs-width; 
-$gutter-width: $gutter-width; 
-$rw: $report-width;
-$nw: $nav-width;
-
-// ## Forms
+// Forms
 $label-width: $container-width/2;
 $checkbox-width: 25px;
-
-// ## Misc Values
+$input-height: $absolute-line-height + 18px;
 
 // Standardize our box-radius
 $radius: 4px;
-$inputHeight: $absolute-line-height + 18px;
 
-// ## Colors
-// ... live in colors.css
+// Z-index
+$z-index-dropdown: 900;
+$z-index-popover: 910;
+$z-index-tooltip: 930;
+$z-index-fixed-navbar: 930;
+$z-index-modal-backdrop: 940;
+$z-index-modal: 950;
+
+// Backgrounds
+$cream-dust-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAD1BMVEX9/f35+fn8/Pz7+/v6+vreGhydAAACQUlEQVQYGQXBAY0EMAhFwWYdkEXABWpgAQP0P/+abuaYV8QY6xp15LquT1MH1LNgDq666z3eQZ2Xa2Yv1xznDaTZi+xTY2YGawBqaHgZfXoNMzNzvausaUXWVB6a7lkwNACAGvoQEZG8WdcAAErgTATvKgaULDBoKjldybuKabwBvIGXHKAiRijBYI0xAx2A7oVKsAcwC+ismTlmL+Z7eUOieVccAB94kS956wAvR0foeoM6IuatGY5idKD53hWK1GgBXQ0c80HjWsWlBw11hfkBLlCrSDQExMD6ASXAvkjUHSgHLQe64q55fS5T0XTNCg5kN7DK8e4e0PCo0zTmaAGvnzADxfydBmChgfqBOQCcXHPWTDHeNeYGYHAKWHNIFCOge0T1KYB1aF6MgIh5t/I0482a17yrWfP43BcxBwAAqIvWiA+a5ph5oqlckn3rimtm2DE8gQpQzbugyxocg2T9xaC4L8EHQMeDu2hA+S4AwLoOwTgFKN8FA2Dp0wGqAQAQwLKVJxtXLw0MNO2sWeVJDFgr+N59Q3tizpyBAVaDD3RnN2ZwFq7zlsDRvojoMTOdBXxZ1KOBSOrC1lkwBwPdd6GuVyLiAKauLUDRFK5LZRwYV/YWQA3garrrmJK4UEtcFvDRBY4JNVDQOCzkuwvH8B57U4mZv1gUcVccAKgl10wRQMRAnRigYr3X7EVMEzFOnBjMFblgPhUxqGbVpwdDkeugeRE99FBzqOsVMRi6UJFdCcGhxyviAgwohhdL8w9WegM3i2rjpwAAAABJRU5ErkJggg==);
+
+$striped-lens-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
+
+$checkdesk-logo-background: url(data:image/png;base64,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);
 
 // ## Debugger
 // debug mode for @debug statements and other sass debuggers
 $debug: false !default;
-
-$zindex-dropdown:          900 !default;
-$zindex-popover:           910 !default;
-$zindex-tooltip:           930 !default;
-$zindex-fixed-navbar:       930 !default;
-$zindex-modal-backdrop:     940 !default;
-$zindex-modal:             950 !default;
-
-$navbarHeight:                    38px !default;
-
-// Drupal admin toolbar and drawer
-$toolbar-menu-height:         30px;
-$drawer-menu-height:          35px;
-$toolbar-height:            $toolbar-menu-height + $drawer-menu-height;
-
-// Backgrounds
-$cream_dust: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAD1BMVEX9/f35+fn8/Pz7+/v6+vreGhydAAACQUlEQVQYGQXBAY0EMAhFwWYdkEXABWpgAQP0P/+abuaYV8QY6xp15LquT1MH1LNgDq666z3eQZ2Xa2Yv1xznDaTZi+xTY2YGawBqaHgZfXoNMzNzvausaUXWVB6a7lkwNACAGvoQEZG8WdcAAErgTATvKgaULDBoKjldybuKabwBvIGXHKAiRijBYI0xAx2A7oVKsAcwC+ismTlmL+Z7eUOieVccAB94kS956wAvR0foeoM6IuatGY5idKD53hWK1GgBXQ0c80HjWsWlBw11hfkBLlCrSDQExMD6ASXAvkjUHSgHLQe64q55fS5T0XTNCg5kN7DK8e4e0PCo0zTmaAGvnzADxfydBmChgfqBOQCcXHPWTDHeNeYGYHAKWHNIFCOge0T1KYB1aF6MgIh5t/I0482a17yrWfP43BcxBwAAqIvWiA+a5ph5oqlckn3rimtm2DE8gQpQzbugyxocg2T9xaC4L8EHQMeDu2hA+S4AwLoOwTgFKN8FA2Dp0wGqAQAQwLKVJxtXLw0MNO2sWeVJDFgr+N59Q3tizpyBAVaDD3RnN2ZwFq7zlsDRvojoMTOdBXxZ1KOBSOrC1lkwBwPdd6GuVyLiAKauLUDRFK5LZRwYV/YWQA3garrrmJK4UEtcFvDRBY4JNVDQOCzkuwvH8B57U4mZv1gUcVccAKgl10wRQMRAnRigYr3X7EVMEzFOnBjMFblgPhUxqGbVpwdDkeugeRE99FBzqOsVMRi6UJFdCcGhxyviAgwohhdL8w9WegM3i2rjpwAAAABJRU5ErkJggg==);
-$striped_lens: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);

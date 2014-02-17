@@ -1,15 +1,9 @@
-// ===================================================================
-// Form drag and drop
-// On create update page
-//
-@mixin form-drag-and-drop() {
+%form-drag-and-drop {
   .views-row.ui-draggable-dragging .views-row, 
   .views-row.ui-draggable:hover .views-row {
     background-color: $postit-yellow;
     cursor: move;
     @include cd-box-shadow;
-    // z-index: 1000000;
-    // position: relative;
   }
 
   // The drop indicator
@@ -25,11 +19,9 @@
   }
 }
 
-// ===================================================================
 // Form actions
 //
-
-@mixin form-actions {
+%form-actions {
   .form-actions {
     margin-top: $gutter-width;
     border-top: 0px none;
@@ -42,7 +34,7 @@
   input#edit-reset, 
   input#edit-draft, 
   input[type="reset"] {
-    @include checkdesk-button();
+    @include checkdesk-button;
     border: 1px solid $grey;
   }
 
@@ -56,14 +48,14 @@
   input:disabled {
     @include disable-button();
   }
-
 }
 
-// ===================================================================
+
 // Inline form errors
 //
 @mixin form-inline-errors {
   font-family: $sans-serif-font-stack;
+
   // hide labels for forms with ife
   &.ife {
     label {
@@ -178,12 +170,14 @@
 //
 @mixin form-standardize {
   
-  label, input, button, select, textarea, body.cke_editable { font-size: $small-font-size; }
+  label, input, button, select, textarea, body.cke_editable { 
+    font-size: $small-font-size; 
+  }
 
   // Everything else
   textarea, body.cke_editable, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="text"], .uneditable-input {
     background-color: $input-background;
-    border: 1px solid $inputBorder;
+    border: 1px solid $input-border;
     @include box-shadow(rgba($firefly, .075) 0 1px 1px inset);
     @include ctb-transition(#{border linear .2s, box-shadow linear .2s});
 
@@ -191,17 +185,14 @@
     &:focus {
       border-color: rgba($facebook-blue,.8);
       outline: 0;
-      outline: thin dotted \9; /* IE6-9 */
-      // @include ctb-box-shadow(#{inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)});
     }
   }
 
   // Make select elements obey height by applying a border
   select {
     width: 220px; // default input width + 10px of padding that doesn't get applied
-    border: 1px solid $inputBorder;
+    border: 1px solid $input-border;
     background-color: $input-background; // Chrome on Linux and Mobile Safari need background-color
-    // font-size: $small-font-size;
   }
 
   // Make multiple select elements height not fixed
@@ -213,7 +204,7 @@
   }
 }
 
-@mixin cd-form-styles-except-layout {
+%cd-form-styles-except-layout {
   form {
 
     input[type="password"],
@@ -235,9 +226,10 @@
       }
     }
 
+    // starting height
     textarea { 
       height: 250px; 
-    } // starting height
+    } 
 
     // set textarea height under 
     .cke_contents { 
@@ -294,30 +286,22 @@
     @include form-actions;
     @include form-drag-and-drop;
     @include form-inline-errors;
-
   }
 }
 
-// ============================================================================
 // The reusable form layout mixin 
 // ONLY LAYOUT in this section
 // It is reused many times at various breakpoints
 //
-@mixin cd-form-layout($w, $context, $gutter-width: $gutter-width) {
+@mixin cd-form-layout($form-width, $context, $gutter-width: $gutter-width) {
   form {
-    // @include form-pass-layout($w, $context);
-    // @include span-columns($w, $context, $gutter-width);
-    @content; // if you want to pass in padding via breakpoints
-
-    // Form actions
-    // .form-actions { @include span-columns($w, $w); }
 
     & > .form-item {
-      @include span-columns($w, $w);
+      @include span-columns($form-width, $form-width);
 
       // Nested <.form-item>s
       .form-item { 
-        @include span-columns($w, $w);
+        @include span-columns($form-width, $form-width);
       }
     } 
 
@@ -327,9 +311,10 @@
     // input[type="file"],
     textarea {
       font-family: $sans-serif-font-stack;
-      @include span-columns($w, $w); // small padding with grid accounting
-      @include ctb-box-sizing(border-box); // Makes inputs behave like true block-level elements
-      padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
+      @include span-columns($form-width, $form-width);
+      @include ctb-box-sizing(border-box);
+      padding-top: $gutter-width/2; 
+      padding-bottom: $gutter-width/2; 
       height: auto !important;
     }
 
@@ -337,9 +322,7 @@
     .image-widget {
       @include border-radius(3px);
       display: block;
-      // background-color: rgba(0,0,0,.02);
       margin-top: $gutter-width;
-      // padding: $absolute-line-height/2 $gutter-width 0;
 
       .image-preview {
         display: inline-block;
@@ -369,7 +352,7 @@
     }
 
     select {
-      @include span-columns($w, $w); // small padding with grid accounting
+      @include span-columns($form-width, $form-width);
       @include ctb-clearfix;
       float: none;
       font-family: $sans-serif-font-stack;
@@ -377,7 +360,6 @@
 
     div.form-wrapper {
       clear: both;
-      // @include span-columns($w, $w);
       margin: $absolute-line-height/2 0;
     }
 
@@ -388,18 +370,6 @@
   }
 }
 
-// ======================================================================
-// Forms Breakpoints
-
 @include form-standardize;
 @include cd-form-styles-except-layout;
-@include cd-form-layout($container-width, $container-width, $gutter-width); // Default render of the form layout
-
-@include at-breakpoint($breakpoint) {
-  @include cd-form-layout($breakpoint - 6, $breakpoint) {
-    @include pad(0, 0, $breakpoint);
-    .description {
-      display: inline-block; // appears
-    }
-  }
-}
+@include cd-form-layout($container-width, $container-width, $gutter-width);

@@ -4,41 +4,15 @@ ul.pager {
  margin-top: 1em;
  float: $from-direction;
  clear: both;
-
-  // TBD this is breaking something in the js — CGB
-
-//   @include border-radius(3px);
-  
-//   li:last-child {
-//     border-#{$from-direction}-width: 0;
-//   }
-//   li {
-//  
-//     font-size: $large-font-size;
-//     border-#{$from-direction}: 1px solid $grey;
-//     a { 
-//       @include building-block($black);
-//       padding: $base-font-size; 
-//       color: $identity;
-//     }
-//     &.pager-current {
-//       @include building-block($identity);
-//       color: $firefly;
-//       padding: $base-font-size; // hack ... the markup is uneven
-//     }
-//   }
 }  
 
-//
 // From drupal pager
-// --------------------------------------------------
-
 .pager {
   @include reset-box-model;
   @include reset-list-style;
   @include ctb-clearfix;
   margin: $absolute-line-height 0;
-  font-size: $fontSizeSmall;
+  font-size: $small-font-size;
 
   li {
     display: inline;
@@ -49,13 +23,13 @@ ul.pager {
       display: inline-block;
       padding: 5px 14px;
       background-color: $white;
-      border: 1px solid $grayLighter;
+      border: 1px solid $lightest-grey;
       @include ctb-border-radius(15px);
     }
     & > a:hover {
       color: $gray;
       text-decoration: none;
-      background-color: darken($grayLighter, 1%);
+      background-color: darken($light-grey, 1%);
     }
   }
 
@@ -71,7 +45,7 @@ ul.pager {
   .disabled > a,
   .disabled > a:hover,
   .disabled > span {
-    color: $grayLight;
+    color: $light-grey;
     background-color: $white;
     cursor: default;
   }

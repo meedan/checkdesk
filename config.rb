@@ -1,4 +1,5 @@
 require "compass_twitter_bootstrap"
+require "susy"
 
 line_comments = false
 

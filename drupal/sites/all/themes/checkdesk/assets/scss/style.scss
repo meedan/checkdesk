@@ -1,39 +1,21 @@
 @charset "UTF-8";
 
-// Checkdesk Sass Theme
 @import "base";
-
-@include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
-
 @import "colors";
 @import "base";
 @import "mixins";
 
-// Aliases for bidirectional stuff
-//
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
-// Drupal styles
-//
-// Drupal itself should not emit *any* CSS. 
-//
-@import "drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
+// Drupal
+@import "drupal/html5bp_defaults"; 
 @import "drupal/system_base";
 @import "drupal/system_menus";
-// @import "drupal/system_messages";
-// @import "drupal/system_theme"; // hoping i can remove this huge one ....
 @import "drupal/jquery_ui_core";
-// @import "jquery_ui_theme"; // this is pretty big do we really need it?
 @import "drupal/comment";
 @import "drupal/field";
 @import "drupal/node";
-// @import "drupal/search";
-// @import "drupal/user";
-// @import "drupal/views";
-// @import "drupal/ctools"; 
-// @import "drupal/ctools_modal"; // using styles based on TB for all windows
-// @import "drupal/oembed";
 @import "drupal/toolbar";
 @import "drupal/shortcut";
 @import "drupal/contextual";
@@ -42,193 +24,79 @@ $omega: opposite-position($from-direction);
 @import "drupal/l10n_client";
 @import "drupal/vertical-tabs";
 
-// Bowerbird Drupal touchups
-// via: bowerbird
+// Meedan common base styles
 @import "bowerbird/drupal";
-
-//  Debugger mixins for the grid, breakpoints, etc.
 @import "bowerbird/debug";
-
-// Transition helper, for transitioning between two states
 @import "bowerbird/transition";
-
-// background image helper for development
-@import "bowerbird/backgrounds";
-
-// Bowerbird font-icon support mixin: icon()
 @import "bowerbird/icons/icons";
-
-// Load @extendable %icon- selectors
-// @extend directly or use icon() mixin to do it for you
 @import "bowerbird/icons/fontawesome";
-
-// Bowerbird fancy-buttons 
-// Example usage: button { @include button($tupperware-blue, 26px, 1em, 4px); }
-// Replaces: "bowerbird/compass_twitter_bootstrap/buttons";
-// Replaces: "bowerbird/compass_twitter_bootstrap/button-groups";
 @import "bowerbird/buttons";
-
-// Bowerbird fancy-gradients
-// Example usage: div { @include gradient($dark-blue, $midnight-blue); }
 @import "bowerbird/gradients";
-
-// =============================================
-// Checkdesk (lightly forked) versions of Twitter Bootstrap libraries.
 @import "replace_ctb/mixins";
 @import "replace_ctb/forms";
+@import "mixins"; 
+@import "alerts"; 
+@import "dropdowns"; 
+@import "modals"; 
 
-// Checkdesk mixins
-//
-@import "mixins"; // Completely unrelated to Twitter Bootstrap mixins file
-@import "alerts"; // Mix of Drupal alerts and Twitter Bootstrap alerts.
-@import "dropdowns"; // Based on Twitter Bootstrap dropdowns
-@import "modals"; // Based on Twitter Bootstrap modals
-
-
-// ============================================= 
-//  Default checkdesk layout
-//
 html {
-  // overflow: hidden;
   height: 100%;
-  // background-image: $cream_dust;
   background-color: $thatch5;
 }
 
 body {
-  @include container($container-width $break-small $break-medium); // establish three breakpoints
+  // @include container($container-width $breakpoint); 
 }
 
-// when no sidebars
 body.no-sidebars {
-	#main {
-	  @include span-columns($container-width - 2, $container-width); //outermost container
-	  @include pad(1, 1, $container-width);
-	  margin-top: $absolute-line-height*3;
-	}
+  #main {
+    // @include span-columns($container-width - 2, $container-width);
+    @include pad(1, 1, $container-width);
+    margin-top: $absolute-line-height*3;
+  }
 }
 
-// ============================================= 
-// Main Checkdesk Sass files
+@import "typography"; checkdesk
+@include checkdesk-font-face("FontAwesome", "fontawesome-webfont-webfont");
 
-//  Checkdesk typography
-@import "bowerbird/_typography"; //defaults
-@import "typography"; //checkdesk specific
-
-// Checkdesk Drupal tabs
-@import "bowerbird/tabs";  // defaults
 @import "tabs";
-
-// Checkdesk notifications
 @import "notifications";
-
-// Filters
 @import "filters";
-
-// Partner stuff
 @import "partner_header";
 @import "footer";
 @import "static";
-
-// Checkdesk reports
 @import "report";
 @import "reports_incoming";
-
-// Checkdesk updates
 @import "update";
-
-// Checkdesk commenting plugins
 @import "livefyre";
 @import "facebook_comments";
-
-// Checkdesk bookmarklet stuff
 @import "bookmarklet";
 @import "install_bookmarklet";
-
-// Checkdesk Pagination
 @import "pagination";
-
-// Primary Navigation and Drupal nav at very top
 @import "navigation";
-
-// Checkdesk user accounts
-@import "account";
-
-// Tabs
-@import "bowerbird/tabs"; // reset
-// @import "tabs";  // checkdesk styles
-
-// Form: password strength section
+@import "user_account";
 @import "form_password";
-
-// Forms, Tables
 @import "forms";
 @import "tables";
-
-// Checkdesk reports
 @import "administer_users";
-
-// Liveblog page
 @import "liveblog";
-
-// Story blog page with discussion
 @import "story";
-
-// Create update page
-// Sidebar layout with main and secondary cols
 @import "_layout_2col";
-
-// Widgets
 @import "widgets";
-
-// User section
 @import "user";
-
-// Create node page and form
-@import "create_node";
 @import "create_story";
-
-// Reports pages
 @import "reports_page";
+@import "tour"; 
 
-// Translation client
-#l10n-client {
-	display: block !important;
-	visibility: visible !important;
-	form {
-		width: 100%;
-		.form-item {
-			textarea {
-				clear: both;
-				float: none;
-			}			
-		}
-	}
-}
-
-// ============================================= 
-// Bidi helpers
-// These are unusual because they are not overridden in style-rtl.scss
+// Utility classes come last
 .rtl {
   text-align: right;
   direction: rtl;
 }
+
 .ltr {
   text-align: left;
   direction: ltr;        
 }
 
-@import "tour"; // Based on bootstrap-tour default CSS
-
-// ============================================= 
-// Lastly: hacks to be removed
-//
 @import "evil_hacks";
-
-// ============================================= 
-// No really, The End
-//
-// Debuggers get the final word
-
-// $display-layout-debugger: true; // shows current breakpoint and columns
-// @include visualize-grid($display-layout-debugger);

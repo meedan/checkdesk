@@ -1,43 +1,25 @@
 
-// RTL
-//
-// 0.
-// ensure we have the original variables loaded
 @import "base"; 
 
-// 1.
-// re-configuration of default variables for this RTL stylesheet
 $from-direction: right;
-$absolute-line-height: $absolute-line-height * 1.2; // increase to account for arabic 
+$absolute-line-height: $absolute-line-height * 1.2;
 $header-font-stack: $ar-header-font-stack;
 $body-font-stack: $ar-body-font-stack;
 $nav-font-stack: $ar-body-font-stack;
 
-// 2. Tell the browser about our Arabic fonts
-// @include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
-// @include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
-// @include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
-// @include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
-// @include bowerbird-font-face("Andalus", "andlso-webfont");
-
-// 3.
-// Now we reload all styles with this updated configuration
 @import "style"; 
-@import "replace_drupal/vertical-tabs-rtl";
+@import "drupal/vertical-tabs-rtl";
 
-// 4.
-// Override the text direction
 html body.i18n-ar, 
 .rtl { 
   direction: rtl;
   text-align: right;
 }
-// set font size for Arabic
+
 html body.i18n-ar {
-	font-size: $large-font-size;
+  font-size: $large-font-size;
 }
 
-// Specific overrides where we can not simply match the English font selection
 .posts {
   h3 a {
     font-family: $ar-body-font-stack;

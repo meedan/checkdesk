@@ -8,11 +8,6 @@ guard 'uglify', :input => 'drupal/sites/all/modules/meedan/meedan_iframes/js/mee
   watch 'drupal/sites/all/modules/meedan/meedan_iframes/js/meedan_iframes.parent.js'
 end
 
-guard 'sass', :input => 'drupal/sites/all/themes/checkdesk/assets/scss', :output => 'css', :compass => {
-  :images_dir       => "imgs",
-  :images_path      => File.join(Dir.pwd, "drupal/sites/all/themes/checkdesk/assets/"),
-  :http_images_path => "/sites/all/themes/checkdesk/assets/",
-  :http_images_dir  => "/imgs",
-  :http_fonts_path  => "/assets",
-  :http_fonts_dir   => "/fonts"
-}
+guard :compass, configuration_file: 'config.rb', compile_on_start: true do
+  watch(%r{.scss$})
+end

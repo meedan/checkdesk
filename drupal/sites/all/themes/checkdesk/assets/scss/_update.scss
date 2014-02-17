@@ -1,10 +1,9 @@
-// A Liveblog Update
-//
+// A Liveblog Update, eg. a blog post
 
 .update {
-	@include ctb-clearfix;
+  @include ctb-clearfix;
 
-	.update-body {
+  .update-body {
     padding-top: $absolute-line-height/2 - 4; // to align with update number
     color: $firefly80;
 
@@ -17,20 +16,19 @@
       @if $from-direction == 'left' {
         letter-spacing: -.03em;
       }
-      // padding-bottom: $absolute-line-height/2;
     }
 
-		.node-media {
-			@include ctb-clearfix;
-			margin: $absolute-line-height/4 0;
-		}
-		p {
-			margin: 0 0 $absolute-line-height*1.2 0;
-		}
-	} // body
+    .node-media {
+      @include ctb-clearfix;
+      margin: $absolute-line-height/4 0;
+    }
+    p {
+      margin: 0 0 $absolute-line-height*1.2 0;
+    }
+  } // update.body
   
   .update-footer {
-  	margin-#{$omega}: $gutter-width*2;
+    margin-#{$omega}: $gutter-width*2;
     margin-bottom: 1em;
     font-family: $sans-serif-font-stack;
     color: $firefly20;
@@ -43,33 +41,27 @@
     }
 
     .update-meta {
-    	@include reset-list-style;
+      @include reset-list-style;
       // float: $alpha;
-      font-size: modular-scale(0) - modular-scale(-5); // 16px
-    	font-weight: 700;
-    	li {
-    		padding: $absolute-line-height/4 0;
-    		border-bottom: 1px solid $firefly10;
-    		&:last-child { border-bottom: 0px none; }
+      font-size: 16px;
+      font-weight: 700;
+      li {
+        padding: $absolute-line-height/4 0;
+        border-bottom: 1px solid $firefly10;
+        &:last-child { border-bottom: 0px none; }
         span { font-weight: 400; }
-    	}
+      }
     }
 
     // icons
-    .icon-time {
-    	@include icon(time, $base-font-size, $firefly20);
-    }
-    .icon-share {
-      @include icon(share, $small-font-size, $firefly20);
-    }
-    .icon-edit-sign {
-      @include icon(edit-sign, $small-font-size, $firefly20);
-    }
+    .icon-time { @include icon(time, $base-font-size, $firefly20); }
+    .icon-share { @include icon(share, $small-font-size, $firefly20); }
+    .icon-edit-sign { @include icon(edit-sign, $small-font-size, $firefly20); }
 
     // by
     .update-by {
       @include ctb-clearfix;
-			margin-bottom: $absolute-line-height/4;
+      margin-bottom: $absolute-line-height/4;
       a {
         float: $alpha; 
       }
@@ -85,10 +77,10 @@
           @include ctb-square(15px);
         }
       }
-		} 
+    } 
 
-		// actions
-	  .update-actions {
+    // actions
+    .update-actions {
       ul.content-actions {
         @include reset-box-model;
         @include reset-list-style;
@@ -97,30 +89,30 @@
 
         & > li {
           & > a {
-						@include reset-box-model;
+            @include reset-box-model;
             color: $firefly60;
-						display: block;
+            display: block;
 
-						&:hover { 
-							color: $firefly;
-							text-decoration: none;
-						}
+            &:hover { 
+              color: $firefly;
+              text-decoration: none;
+            }
 
-						span {
-							@include reset-box-model;
-							display: inline-block;
-							&:hover {
-								color: $identity;
-							}	
-							
-							&.icon-reorder {
-								@include icon(reorder, $small-font-size, $darker-grey);
-								margin-#{$omega}: $gutter-width;
-							}
-						}
-    			}
+            span {
+              @include reset-box-model;
+              display: inline-block;
+              &:hover {
+                color: $identity;
+              } 
+              
+              &.icon-reorder {
+                @include icon(reorder, $small-font-size, $darker-grey);
+                margin-#{$omega}: $gutter-width;
+              }
+            }
+          }
         }
       } // content actions
-	  } // update actions
+    } // update actions
   } // update footer
 } // update

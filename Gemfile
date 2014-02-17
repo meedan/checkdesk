@@ -6,12 +6,13 @@ end
 
 group :development do 
   gem 'compass'
+  gem 'susy'
   gem 'sass'
   gem 'rake'
   gem 'sass-globbing'
   gem 'guard'
   gem 'guard-livereload'
-  gem 'guard-sass'
+  gem 'guard-compass'
   gem 'guard-uglify', git: 'git://github.com/pferdefleisch/guard-uglify.git' 
   gem 'guard-process'
   gem 'pry'

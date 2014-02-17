@@ -1,4 +1,17 @@
 
+// Font stacks
+$en-body-font-stack: "Mercury SSm A", "Mercury SSm B", Georgia, "Times New Roman", Times, serif;
+$en-header-font-stack: "Mercury Display A", "Mercury Display B", Georgia, "Times New Roman", Times, serif;
+$ar-header-font-stack: "Arial", "Verdana", "Tahoma", sans-serif;
+$ar-body-font-stack: "Arial", "Verdana", "Tahoma", sans-serif;
+$ar-nav-font-stack: "Arial", "Verdana", "Tahoma", sans-serif;
+$mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace !default;
+$nav-font-stack: $en-body-font-stack !default;
+$sans-serif-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$header-font-stack: $en-header-font-stack !default;
+$body-font-stack: $en-body-font-stack !default;
+
+// Mixin: font-face
 @mixin checkdesk-font-face($name: "FontName", $file: "fontname-webfont", $weight: normal, $style: normal) {
   @if $debug {  @debug ">>> loading #{$file}" }
   @include font-face(  
@@ -9,7 +22,11 @@
   ));
 }
 
-@mixin checkdesk-typography-defaults {
+@include checkdesk-font-face("FontAwesome", "fontawesome-webfont-webfont");
+
+
+
+%checkdesk-typography-defaults {
   
   h1, h2, h3, h4 {
     @include reset-box-model;
@@ -21,7 +38,7 @@
   }
 
   a:hover {
-    color: $linkColorHover;
+    color: $link-color-hover;
     text-decoration: underline;
   }
 
@@ -106,10 +123,9 @@
   }
 }
 
-// ==============================================[]
-@include checkdesk-typography-defaults; // typography defaults
-
+// Apply defaults
 body {
+  @extend %checkdesk-typography-defaults; 
   line-height: $absolute-line-height;
   font-size: $small-font-size;
   color: $text-color;
@@ -119,41 +135,36 @@ body {
 
 h1, h2, h3, h4 {
   @include reset-box-model;
-
   margin:  { bottom: $absolute-line-height/2; }
-  // padding: { bottom: $base-font-size; top: $base-font-size; }
   font-family: $header-font-stack;
   font-weight: 400;
   font-style: normal;
 }
 
 h1 {
-  font-size: $xx-large-font-size + 2px;
-  @if $from-direction == 'right' {
-    font-size: $largest-font-size - 10px;
-  }
+  font-size: $xx-large-font-size
   font-weight: 700;
   font-style: normal;
-  @if $from-direction == 'left' {
-    letter-spacing: -.03em;
-  }
   line-height: 1.15;
   color: #191919;
   color: $firefly90;
+
+  @if $from-direction == 'right' {
+    font-size: $largest-font-size - 10px;
+  }
+  
+  @if $from-direction == 'left' {
+    letter-spacing: -.03em;
+  }
 }
 
-// Navigation 
-nav {
+nav, #sidebar-first {
   font-family: $nav-font-stack;
   font-size: $nav-font-size;
   font-weight: 400;
   font-style: normal;
 }
 
-// The sidebar
 #sidebar-first {
-  font-family: $nav-font-stack;
   font-size: $small-font-size;
-  font-weight: 400;
-  font-style: normal;
 }
