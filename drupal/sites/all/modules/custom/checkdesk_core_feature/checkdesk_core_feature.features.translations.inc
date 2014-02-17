@@ -46042,7 +46042,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was flagged as containing graphic content.',
     'context' => '',
     'location' => '/ar/node/flag/confirm/flag/graphic/2442/ajax',
-    'translation' => 'تم تنبيه المشرف على احتواء <a href="[node:url:unaliased]">تقرير [node:author]\'s </a> على محتوى أو صور صادمة.',
+    'translation' => 'تم تنبيه المشرف على احتواء <a href="[node:url:unaliased]"> [node:author] تقرير </a> على محتوى أو صور صادمة.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -46058,7 +46058,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged as containing graphic content.',
     'context' => '',
     'location' => '/ar/flag/unflag/graphic_journalist/2447?destination=node/2447&token=KPFawrLou6qfujz-SsQucRW0B_4hr8CIbDcZBfbnrBo',
-    'translation' => 'تم إلغاء تنبيه المشرف على احتواء <a href="[node:url:unaliased]">تقرير [node:author]\'s </a> على محتوى أو صور صادمة.',
+    'translation' => 'تم إلغاء تنبيه المشرف على احتواء <a href="[node:url:unaliased]"> [node:author] تقرير </a> على محتوى أو صور صادمة.',
     'plid' => 0,
     'plural' => 0,
   );
