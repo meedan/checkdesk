@@ -3,60 +3,14 @@
 // We use the views fluid grid plugin
 // See also report.scss
 
-@mixin reports-layout($secondary-width, $primary-width, $break: $container-width) {
+@mixin reports-layout($secondary-width, $primary-width) {
   body.page-reports {
     #main {
-      @include span-columns($break - 2, $break, $gutter-width / 2); //outermost container
-      @include pad(1, 1, $break);
-      @content;
+      @include span-columns($breakpoint - 2, $breakpoint, $gutter-width / 2); //outermost container
+      @include pad(1, 1, $breakpoint);
     }
   }
 }
-
-// ==========================================================================
-// Default: up to break-small
-@include reports-layout($container-width, $container-width - 2); 
-
-// ==========================================================================
-// Breakpoint: small
-@include at-breakpoint($break-small) {
-  $break: $break-small;
-  $secondary-width: 4;
-  $primary-width: $break-small - $secondary-width; // calculate main col width
-
-  body.page-reports #main {
-    @include span-columns($break - 2, $break, $gutter-width / 2);
-    @include pad(1, 1, $break);
-  }
-
-  @include reports-layout($secondary-width, $primary-width, $break); // reapply reports-layout
-}
-// ======================================================================
-// Breakpoint: med
-//
-// The sidebar doubles in width and the primary form widens
-@include at-breakpoint($break-medium) {
-  $break: $break-medium;
-  $secondary-width: 7;
-  $primary-width: $break-medium - $secondary-width; 
-
-  @include reports-layout($secondary-width, $primary-width, $break) {
-    @include span-columns($break - 4, $break, $gutter-width);
-    @include pad(2, 2, $break);
-  }
-}  
-// Breakpoint: large
-@include at-breakpoint($break-large) {
-  $break: $break-large;
-  $secondary-width: 7;
-  $primary-width: $break-large - $secondary-width;
-  body.page-reports #main {
-    @include span-columns($break - 4, $break, $gutter-width);
-    @include pad(2, 2, $break);
-  }
-  @include reports-layout($secondary-width, $primary-width, $break); // reapply reports-layout with new break
-}
-
 
 body.page-reports, .profile {
 
@@ -85,9 +39,7 @@ body.page-reports, .profile {
 
       // for tweets
       .twitter_com {
-        .favicon, .domain, .author {
-          display: none;
-        }
+        .favicon, .domain, .author { display: none; }
       }
 
       .report-content {
@@ -117,7 +69,8 @@ body.page-reports, .profile {
             width: 100% !important;
           }
         }
-        .media-type-fbpost {
+
+      .media-type-fbpost {
           .fb-post {
             max-width: 100%;
             overflow: hidden;
@@ -138,7 +91,10 @@ body.page-reports, .profile {
 
       .report-status {
         float: $omega;
+
       }
+
+      .report-status { float: $omega; }
 
       // status icons
       .verified span {
@@ -183,15 +139,11 @@ body.page-reports, .profile {
         @if $alpha == 'right' {
           background-image: url(../imgs/published-ar.png);
         }
-        // @include icon(file-alt, 22px, $black, 'after');
 
-        span {
-          display: none;
-        }
+        span { display: none; }
       }
     }
-  }
-
+  } // #reports
 
   .pager-load-more {
     @include ctb-clearfix;
@@ -204,52 +156,8 @@ body.page-reports, .profile {
       text-align: center;
     }
   }
-
-  
-  
-
-
-//   // ===============================================================================  
-//   // Drupal Fluid Grid module overrides
-//   //
-//   div.views-fluid-grid h3 {
-//     text-align: $from-direction; // override views fluid grid default css
-//     background-color: transparent; // override default h3 treatment on reports
-//   }
-
-//   ul.views-fluid-grid-list {
-
-//   }
-
-//   /* Default item style. */
-//   li.views-fluid-grid-item {
-//     margin-#{$omega}: $gutter-width;
-//   }
-// }
-
-// @include at-breakpoint($break-small) {
-//   body.page-reports {
-//     li.views-fluid-grid-item {
-//       @include span-columns(6, $break-small);
-//     }
-//   }  
-// }
-
-// @include at-breakpoint($break-medium) {
-//   body.page-reports {
-//     li.views-fluid-grid-item {
-//       @include span-columns(9, $break-medium);
-//     }
-//   }  
-// }
-
-
-// @include at-breakpoint($break-large) {
-//   body.page-reports {
-//     li.views-fluid-grid-item {
-//       @include span-columns(7, $break-large);
-//     }
-//   }  
 }
 
-
+// ==========================================================================
+// Default layout
+@include reports-layout($container-width, $container-width - 2); 

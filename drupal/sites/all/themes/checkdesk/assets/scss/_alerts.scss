@@ -1,26 +1,27 @@
-//
-// Alerts
+
+// # Alerts
 //
 // Alerts and "messages" appear for many kinds of notifications and errors
 // We establish the basic alert and then alternates.
 
-// The alert container
-.messages, .user-alert {
+// # The alert container
+.messages, 
+.user-alert {
   padding: 8px 14px;
   margin-bottom: $absolute-line-height/2;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
-  background-color: $warningBackground;
-  border: 1px solid $warningBorder;
+  background-color: $warning-background;
+  border: 1px solid $warning-border;
   @include border-radius($radius);
-  font-size: $fontSizeSmall;
+  font-size: $font-size-small;
 }
 
 .messages,
 .user-alert,
 .messages-heading {
-  color: $warningText;
+  color: $warning-text;
   a, a:hover {
-    color: $warningLink;
+    color: $warning-link;
     text-decoration: none;
   }
 }
@@ -30,8 +31,8 @@
 
 .success {
   @include icon(ok-sign, $base-font-size, $successText, $icon-position);
-  background-color: $successBackground;
-  border-color: $successBorder;  
+  background-color: $success-background;
+  border-color: $success-border;  
 }
 .success,
 .success .messages-heading {
@@ -40,19 +41,19 @@
 .danger,
 .error {
   @include icon(warning-sign, $base-font-size, $errorText, $icon-position);
-  background-color: $errorBackground;
-  border-color: $errorBorder;
+  background-color: $error-background;
+  border-color: $error-border;
 }
 .danger,
 .error,
 .danger .messages-heading,
 .error .messages-heading {
-  color: $errorText;
+  color: $error-text;
 }
 .status {
   @include icon(info-sign, $base-font-size, $infoText, $icon-position);
-  background-color: $infoBackground;
-  border-color: $infoBorder;
+  background-color: $info-background;
+  border-color: $info-border;
 }
 .status,
 .status .messages-heading {
@@ -67,7 +68,7 @@
 // Dismiss alert
 .alert .close {
   float: $omega;
-  font-size: $fontSizeSmall;
+  font-size: $font-size-small;
   font-weight: bold;
   line-height: 1;
   color: $black;

@@ -64,6 +64,7 @@
 // Adds a breakpoint debugging banner the grid background image
 // $break: the number of columns you're working with
 //
+
 @mixin debug-grid($break: $container-width) {
   // Add a banner with debugging info
   body:after {
@@ -79,6 +80,7 @@
     padding: 0.5em;
   }
 }
+
 // ========================================================================
 // Drupal specific debugging
 
@@ -103,39 +105,26 @@ $drupal_form_selectors: ".item-list", ".form-item", ".form-actions", ".something
 // @mixin debug_livefyre { @include debug_by_selector($drupal_fyre_selectors); }
 
 // ========================================================================
-// Breakpoint-corrected grid viz
+// Visualize Grid
+//
+// Example of how to do breakpoint-corrected grid viz
+//
 @mixin visualize-grid($banner: true) {
+  @debug "visualize grid is disabled temporarily";
 
-  // Default
-  html {
-    @include column-grid-background($container-width, column(), gutter(), 0%);
-    @if $banner == true { @include debug-grid($container-width); }
-  }
+//   // Default
+//   html {
+//     @include column-grid-background($container-width, column(), gutter(), 0%);
+//     @if $banner == true { @include debug-grid($container-width); }
+//   }
 
-  // Small
-  @include at-breakpoint($break-small) {
-    html {
-      @include column-grid-background($break-small, column(), gutter(), 0%);
-      @if $banner == true { @include debug-grid($break-small); }
-    }
+//   // Small
+//   @include at-breakpoint($break-small) {
+//     html {
+//       @include column-grid-background($break-small, column(), gutter(), 0%);
+//       @if $banner == true { @include debug-grid($break-small); }
+//     }
   }
-
-  // Medium
-  @include at-breakpoint($break-medium) {
-    html {
-      @include column-grid-background($break-medium, column(), gutter(), 0%);
-      @if $banner == true { @include debug-grid($break-medium); }
-    }
-  }
-  
-  // Large
-  @include at-breakpoint($break-large) {
-    html {
-      @include column-grid-background($break-large, column(), gutter(), 0%);
-      @if $banner == true { @include debug-grid($break-large); }
-    }
-  }
-}
 
 // Quick debugger
 @mixin d() {
