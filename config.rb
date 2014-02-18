@@ -1,3 +1,4 @@
+Encoding.default_external = "utf-8"
 require "compass_twitter_bootstrap"
 
 line_comments = false
