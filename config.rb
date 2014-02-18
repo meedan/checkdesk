@@ -3,8 +3,9 @@ require "logger" # custom logger with pass/fail
 require "pry" # ruby REPL debugger mode
 require "rake" # for filelist
 require "modular-scale" #for ratios
-require "compass_twitter_bootstrap" #deprecated Sass-wise; for legacy support only CGB
 # see https://github.com/vwall/compass-twitter-bootstrap
+Encoding.default_external = "utf-8"
+require "compass_twitter_bootstrap"
 
 line_comments = false
 
