@@ -1,0 +1,302 @@
+@charset "UTF-8";
+// Buttons
+//
+// Based on fancy buttons by imathis
+// The gem is not used, instead do: @include "bowerbird/button";
+// Based on buttons 1.1.0 ish 93113c137ef March 2012
+// Converted to scss with sass-convert: 
+// sass-convert -F sass -T scss lib/stylesheets/_buttons.sass ./buttons.scss
+//
+// Capabilities of the button mixin:
+// - Generate a color palette from the base color
+// - Discern sensible palette variations based on a base color (dark, medium, light)
+// - Allow button style types (subtle gradient, shiny gradient)
+// - Make it easy to override/modify styles
+// - Reduce weight of generated styles (define button base, add color through additional classes)
+//
+// Example usage:
+// button { @include button(#124c89, 26px, 1em, 4px); }
+// 
+// Or call the two main inner mixins separately:
+// button {
+//  @include button-structure(26px, 1em, 4px);
+//  @include button-colors(#124c89, adjust-hue(#124c89, -120), darken(adjust-hue(#124c89, -120), 6));
+//  }
+// https://github.com/imathis/buttons
+// 
+// Deprecated usage: 
+// The twitter bootsrap button classes are replaced by our button mixin, but they are still available and we can still extend them if necessary — CGB Nov 2012
+// @extend .btn;
+// @extend .btn-large;
+// @extend .btn-primary;
+
+@import "compass/css3/images";
+@import "compass/css3/border-radius";
+@import "compass/css3/opacity";
+@import "compass/css3/text-shadow";
+@import "compass/css3/box-shadow";
+@import "compass/css3/background-clip";
+
+// Default font for the buttons mixin
+//
+$include-border: false !default;
+$include-text-shadow: false !default;
+$inner-box-shadow: false !default;
+$button-font-family: $sans-serif-font-stack !default;
+$button-font-weight: 400 !default; 
+$button-gradient-style: matte !default;
+$button-invert-on-click: 0 !default;
+$button-font-size: $small-font-size !default;
+$button-color: $firefly60 !default;
+$button-border-width: 0px !default;
+$button-radius: 3px !default;
+$button-light-text: white !default;
+$button-dark-text: black !default;
+$button-gradient: 0 !default;
+// Disabled background image support - CGB Nov 2012
+// $button-image-path: image-url("button_bg.png") !default;
+$button-allow-disabled: false !default;
+$button-line-height: $relative-line-height !default;
+
+// Added configuration to set how much lightness and darkness is used to create the gradient from the base color - CGB Nov 2012
+$button-lighten-amount: 4 !default; 
+$button-darken-amount: 12 !default;
+
+// Default checkdeks button using bowerbird/buttons instead of twitter bootstrap
+@mixin checkdesk-button($color: $button-color) {
+  @include button-matte($color, $base-font-size, $button-radius, $button-border-width);
+  font-weight: $button-font-weight;
+  margin-#{$omega-float}: 1em;
+}
+
+// Default button mixin
+//
+// $color - the main color of the button, the basis of more calculations.
+// $font-size - the size of the button
+// $radius - the size of the radius
+// $border-width - the width of the border
+@mixin button(
+  $color: $button-color, 
+  $font-size: $button-font-size, 
+  $radius: $button-radius, 
+  $border-width: $button-border-width) {
+  @include button-structure($font-size, $radius, $border-width);
+  @include button-colors($color);
+}
+
+// Colors in a button
+//
+// Used by main button mixin, but can be overridden.
+// 
+// Style the button's colors, picking the most appropriate color set for the base color.
+@mixin button-colors($color: $button-color, $hover: 0, $active: 0, $button-allow-disabled: $button-allow-disabled) {
+  @include button-color($color, "default");
+  &:hover, &:focus {
+    @if $hover == 0 {
+      @include button-color(darken($color, 3), "hover", $color);
+    }
+    @else {
+      @include button-color($hover, "hover");
+    }
+  }
+  &:active {
+    @if $active == 0 {
+      @include button-color(darken($color, 6), "active", $color);
+      @if $inner-box-shadow {
+        @include box-shadow(darken($color, 15) 0 0.08em 0.2em 1px inset);
+      }
+    }
+    @else {
+      @include button-color($active, "active");
+      @if $inner-box-shadow {
+        @include box-shadow(darken($active, 9) 0 0.08em 0.1em 1px inset);  
+      }
+      
+    }
+  }
+  @if $inner-box-shadow {
+    @include box-shadow(rgba(white, lightness($color) / 100) 0 0 0.1em 1px inset);
+  }
+  @include background-clip(padding-box);
+  @if $button-allow-disabled {
+    &.disabled, &[disabled] {
+      @include disable-button($color);
+    }
+  }
+}
+
+@mixin button-allow-disable($color: $button-color, $font-size: $button-font-size, $radius: $button-radius, $border-width: $button-border-width) {
+  $button-disable-allowed: $button-allow-disabled;
+  $button-allow-disabled: true;
+  @include button-structure($font-size, $radius, $border-width);
+  @include button-colors-matte($color);
+  $button-allow-disabled: $button-disable-allowed;
+}
+
+@mixin button-matte($color: $button-color, $font-size: $button-font-size, $radius: $button-radius, $border-width: $button-border-width) {
+  @include button-structure($font-size, $radius, $border-width);
+  @include button-colors-matte($color);
+}
+
+@mixin button-custom($color: $button-color, $font-size: $button-font-size, $radius: $button-radius, $border-width: $button-border-width) {
+  @include button-structure($font-size, $radius, $border-width);
+  @include button-colors-custom($color, $font-size, $radius, $border-width);
+}
+
+@mixin button-colors-matte($color: $button-color, $hover: 0, $active: 0) {
+  $button-current-style: $button-gradient-style;
+  $button-gradient-style: matte;
+  @include button-colors($color, $hover, $active);
+  $button-gradient-style: $button-current-style;
+}
+
+@mixin button-colors-custom($color: $button-color, $hover: 0, $active: 0) {
+  $button-current-style: $button-gradient-style;
+  $button-gradient-style: custom;
+  @include button-colors($color, $hover, $active);
+  $button-gradient-style: $button-current-style;
+}
+
+// Default state color settings
+@mixin button-color($color, $state, $lumins: $color) {
+  $gradient-top: lighten($color, $button-lighten-amount);
+  $gradient-bottom: darken($color, $button-darken-amount);
+  $border-color: darken($color, 8);
+  @if $button-invert-on-click != 0 {
+    $border-color: darken($color, 15);
+  }
+  @if saturation($color) > 0 {
+    $color: saturate($color, 40);
+  }
+  @else if lightness($lumins) >= lightness(#aaaaaa) {
+    $color: lighten($color, 20);
+  }
+  @include button-state-colors($color, $gradient-top, $gradient-bottom, $border-color, $state, $lumins);
+}
+
+// Apply the button colors specified for the button state into which it is mixed.
+@mixin button-state-colors($color, $gradient-top, $gradient-bottom, $border, $state, $lumins: $color) {
+  background-color: $color;
+  @if $button-gradient != 0 {
+    @if $button-gradient-style == "glossy" {
+      @if $state == "active" {
+        @include gradient-active($gradient-top, $gradient-bottom);
+      }
+      @else {
+        @include gradient($gradient-top, $gradient-bottom);
+      }
+    }
+    @else if $button-gradient-style == "matte" {
+      @if $state == "active" {
+        @include matte-gradient-active($gradient-top, $gradient-bottom);
+      }
+      @else {
+        @include matte-gradient($gradient-top, $gradient-bottom);
+      }
+    }
+    @else if $button-gradient-style == "custom" {
+      @if $state == "active" {
+        @include custom-gradient-active($gradient-top, $gradient-bottom);
+      }
+      @else {
+        @include custom-gradient($gradient-top, $gradient-bottom);
+      }
+    }
+  }
+
+  @if $include-border {
+    border: { color: $border; };  
+  }
+  
+  @if $include-text-shadow { $text-shadow-settings: unquote("0px 1px 1px"); }
+
+    @if $button-invert-on-click != 0 and $state == "active" {
+      @if $include-text-shadow { $text-shadow-settings: unquote("0px -1px -1px"); }
+    }
+    
+    @if lightness($lumins) < lightness(#aaaaaa) {
+      @if $include-text-shadow { text-shadow: darken($color, 25) $text-shadow-settings; }
+      &, &:visited { color: $button-light-text; }
+    }
+    
+    @else {
+      @if $include-text-shadow { text-shadow: lighten($color, 15) $text-shadow-settings; }
+      &, &:visited { color: $button-dark-text; }
+    }
+  
+}
+
+@mixin button-text-colors($color, $hover: $color, $active: $color, $button-allow-disabled: $button-allow-disabled) {
+  &, &:visited {
+    color: $color;
+  }
+  &:hover, &:focus {
+    color: $hover;
+  }
+  &:active {
+    color: $active;
+  }
+  @if $button-allow-disabled {
+    &.disabled, &[disabled] {
+      color: $color;
+    }
+  }
+}
+
+// Layout the button's box
+@mixin button-structure($font-size: $button-font-size, $radius: $button-radius, $border-width: $button-border-width, $line-height: $button-line-height) {
+  @include button-reset;
+  @include button-size($font-size, $radius, $border-width, $line-height);
+}
+
+@mixin button-size($font-size: $button-font-size, $radius: $button-radius, $border-width: $button-border-width, $line-height: $button-line-height) {
+  // better padding for smaller buttons
+  $v-padding: 0.3em;
+  $h-padding: 1em;
+  @if $radius > 0 {
+    @include border-radius($radius);
+  }
+  font-size: $font-size;
+  line-height: $line-height;
+  @include button-padding($v-padding, $h-padding, $border-width);
+}
+
+@mixin button-padding($v-padding, $h-padding, $border-width: $button-border-width) {
+  padding: $v-padding $h-padding;
+  border-width: $border-width;
+}
+
+// Reset the button's important properties to make sure they behave correctly
+@mixin button-reset($font-weight: $button-font-weight) {
+  
+  // updated font-family to include configurable font - CGB nov 2012
+  font-family: $button-font-family, "Lucida Grande", Lucida, Arial, sans-serif;
+  // Disabled background image support CGB Nov 2012
+  // background: #{$button-image-path} repeat-x bottom left;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: $button-font-weight;
+  &::-moz-focus-inner {
+    border: none;
+    padding: 0;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin disable-button($color: $button-color, $opacity: 0.7) {
+  @include button-color($color, "default");
+  @include opacity($opacity);
+  @include box-shadow(none);
+  cursor: default !important;
+}
+
+.button-reset-base-class {
+  @include button-reset;
+}

@@ -1,3 +1,4 @@
+
 // Building block
 // Layout helper
 // 
@@ -6,6 +7,30 @@
 // Typography, resets, transitions, floated, block level, padded
 // with base font size and colors defined in colors.scss
 //
+
+// Layout Helper: Ensure padding is accounted for.
+//
+// Deprecated
+//
+// This is only necessary if you have not ste 
+@mixin span-padded-columns(
+  $width: $container-width, 
+  $context: $container-width, 
+  $from-pad: 0, 
+  $to-pad: 0) {
+
+  $total-pad: $from-pad + $to-pad;
+  $adjusted-width: $width - $total-pad; // will prune the 'omega' shorthand ...
+
+  // Apply the adjusted width ...
+  @include span-columns($adjusted-width, $context);
+
+  // And add the padding
+  @include pad($from-pad, $to-pad, $context);
+
+  // optionally call with omega
+  @content;
+}
 
 // text-shadow
 // see http://compass-style.org/reference/compass/css3/text-shadow/
@@ -28,6 +53,48 @@
   background-color: $bkg-color; 
 }
 
-@mixin cd-vertical-margin($width) {
-  margin: { top: $width; bottom: $width; } 
+@mixin cd-arrow-box($background-color: #eee, $border-color: #444, $arrow-size: 10px, $border-width: 1px) {
+  position: relative;
+  background: $background-color;
+  border: $border-width solid $border-color;
+
+  &:after, &:before {
+    #{opposite-position($from-direction)}: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  &:after {
+    border-color: rgba($background-color, 0);
+    border-#{opposite-position($from-direction)}-color: $background-color;
+    border-width: $arrow-size;
+    top: 50%;
+    margin-top: -$arrow-size;
+  }
+  &:before {
+    border-color: rgba($border-color, 0);
+    border-#{opposite-position($from-direction)}-color: $border-color;
+    border-width: ($arrow-size + $border-width);
+    top: 50%;
+    margin-top: -($arrow-size + $border-width);
+  }
+}
+
+// Version banner 
+// 
+// For Dev and Testing sites, so we know what version we are looking at.
+@mixin version-banner {
+  html body:before {
+    position: fixed;
+    content: "v0.2 Beta Bandicoot"; // Later, can enhance this with timestamp etc
+    background-color: rgba(yellow, 0.5);
+    padding: 3px;
+    border: {top: 1px solid yellow; bottom: 1px solid yellow; }
+    bottom: 0;
+    #{opposite-position($from-direction)}: 0;
+    font-size: $smaller-font-size;
+  }
 }

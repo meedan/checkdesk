@@ -1,26 +1,30 @@
 // Notifications block
 //
 // When the user gets a notification they can preview it in the navigation.
-// See: http://wf.meedan.net/project/checkdesk/notifications
+// http://wf.meedan.net/project/checkdesk/notifications
 // Contained by: Navigation
 //
 // Compatibility: untested
 
+// setting omega
+$omega: opposite-position($from-direction);
+
 // Notifications list
 #my-notifications {
-  width: 360px; 
-  font-size: $small-font-size;
+  width: 360px; // warning magic px CGB
+  font-size: $fontSizeMini;
   line-height: 1;
+  
 
   .heartbeat-activity {
     @include ctb-clearfix();
-    color: $grey;
+    color: $gray;
     padding: $absolute-line-height/2 $gutter-width;
-    border-bottom: 1px solid $light-grey;
+    border-bottom: 1px solid $grayLighter;
     overflow: hidden;
 
     a {
-      @include ctb-link-color($grey);
+      @include ctb-linkColor($gray);
     }
 
     .activity-data {
@@ -40,11 +44,11 @@
 
     .activity-meta {
       margin-top: $absolute-line-height/4;
-      color: $light-grey;
+      color: $grayLight;
     }
   }
 
-  // Activity icons Mixin
+  // Activity icons
   @mixin activity-icon(
     $name: "add_story", 
     $symbol: "warning-sign", 
@@ -61,16 +65,16 @@
 
   // .icon-iconname
   @include activity-icon("comment_on_update", "comment", $grey);
-  @include activity-icon("new_update_on_story_i_commented_on_update", "comment", $identity);
-  @include activity-icon("reply_to_comment", "comment-alt", $identity);
-  @include activity-icon("comment_on_report", "comment", $identity);
+  @include activity-icon("new_update_on_story_i_commented_on_update", "comment", $dark-blue);
+  @include activity-icon("reply_to_comment", "comment-alt", $dark-blue);
+  @include activity-icon("comment_on_report", "comment", $dark-blue);
   @include activity-icon("fact_checking_on", "star", $twitter-blueish);
   @include activity-icon("fact_checking_set", "star", $twitter-blueish);
   @include activity-icon("report_suggested_to_story", "link", $facebook-blue);
   @include activity-icon("fact_status_changed_for_commenter", "warning-sign", $black);
   @include activity-icon("flag_report", "flag", $youtube-red);
   @include activity-icon("report_published_in_update", "star", $grey);
-  @include activity-icon("new_user", "user", $black);
+  @include activity-icon("new_user", "user", $dark-blue);
   
   // Pager is called when content is scrolled, so it must be hidden
   ul.pager-load-more {
@@ -97,12 +101,13 @@
   .notifications-settings-link {
     a {
       @include dropdown-link;
-      color: $grey;
+      @include ctb-linkColor($gray);
       &:hover {
         background-color: transparent;
       }
     }
   }
+
 }
 
 // Notifications settings page

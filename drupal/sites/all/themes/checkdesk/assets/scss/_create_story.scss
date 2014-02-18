@@ -82,11 +82,8 @@
       color: $white;
     }
   }
-  
   #edit-field-lead-image-und-0-upload-button {
-    // Avoid uploading image before submitting form 
-    // in order to avoid creating multiple stories
-    display: none; 
+    display: none; // FIXME: avoid uploading image before submitting form in order to avoid creating multiple stories
   }
 }
 

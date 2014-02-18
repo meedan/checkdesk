@@ -1,5 +1,5 @@
+//
 // Checkdesk Modals
-
 $large-modal-width: 700px;
 
 .modal-modal-popup-large {
@@ -20,25 +20,24 @@ $large-modal-width: 700px;
   top: 100px !important;
 }
 
-// // Fixed only for normal screen sizes
-// @media all and (max-height: 42em) {
-//   .modal-modal-popup-report {  
-//     .modal-body {
-//       max-height: 290px;
-//     }
-//   }
-// }
+// Fixed only for normal screen sizes
+@media all and (max-height: 42em) {
+  .modal-modal-popup-report {  
+    .modal-body {
+      max-height: 290px;
+    }
+  }
+}
 
 // Background
 .modal-backdrop {
   position: fixed;
   top: 0;
-  #{opposite-position($from-direction)}: 0;
+  right: 0;
   bottom: 0;
-  #{$from-direction}: 0;
-  z-index: $z-index-modal-backdrop;
+  left: 0;
+  z-index: $zindexModalBackdrop;
   background-color: $black;
-
   // Fade for backdrop
   &.fade { opacity: 0; }
 }
@@ -51,17 +50,17 @@ $large-modal-width: 700px;
 // Base modal
 .modal {
   position: fixed;
-  z-index: $z-index-modal;
+  z-index: $zindexModal;
   background-color: $white;
   border: 1px solid #999;
   border: 1px solid $firefly30;
+  *border: 1px solid #999; /* IE6-7 */
+  // @include border-radius($radius);
   @include box-shadow(0 3px 7px rgba(0,0,0,0.3));
   @include background-clip(padding-box);
-
   // Remove focus outline from opened modal
   outline: none;
-  // allow content to popup out (i.e tooltips)
-  overflow: visible; 
+  overflow: visible; /* allow content to popup out (i.e tooltips) */
 
   &.fade {
     @include transition(opacity .3s linear, top .3s ease-out);
@@ -69,13 +68,12 @@ $large-modal-width: 700px;
   }
   &.fade.in { top: 50%; }
 }
-
 .modal-header {
+  // padding: 4px $gutter-width 0 $gutter-width;
   border-bottom: 1px solid #eee;
   background-color: $white;
   overflow: hidden;
-  
-// Close icon
+  // Close icon
   .close { 
     margin-top: 7px; 
     $direction: opposite-position($from-direction);
@@ -98,19 +96,19 @@ $large-modal-width: 700px;
   .modal-content {
     position: relative;
     padding: $absolute-line-height/4 $gutter-width*2;
-    line-height: $relative-line-height;
+    line-height: $base-line-height;
 
     form {
       padding: 0;
       margin: 0;
-      z-index: $z-index-modal + 1;
+      z-index: $zindexModal + 1;
       
       label { 
-        font-size: $small-font-size
+        font-size: $fontSizeSmall;
       }
 
       textarea {
-        font-size: $small-font-size;
+        font-size: $fontSizeSmall;
         height: 80px;
       }
     }
@@ -118,14 +116,13 @@ $large-modal-width: 700px;
 
   #modal-throbber {
     padding: $absolute-line-height/4 0;
-    margin-#{$from-direction}: -$gutter-width/2;
+    margin-left: -$gutter-width/2;
   }
 
   .form-actions {
     @include reset-box-model;
   }
 }
-
 // Remove bottom margin if need be
 .modal-form {
   margin-bottom: 0;
@@ -135,7 +132,7 @@ $large-modal-width: 700px;
 .modal-footer {
   position: absolute;
   bottom: 0;
-  #{$from-direction}: -$gutter-width;
+  left: -$gutter-width;
   padding: 0;
   width: 100%;
   display: block;
@@ -146,25 +143,22 @@ $large-modal-width: 700px;
   border-top: 1px solid #ddd;
   @include border-radius(0 0 6px 6px);
   @include box-shadow(inset 0 1px 0 $white);
-  @include ctb-clearfix;
+  @include ctb-clearfix(); // clear it in case folks use .pull-* classes on buttons
 
   .form-actions {
     padding-#{$alpha}: $gutter-width;
-    
-// space between buttons
+    // space between buttons
     .btn {
       margin-#{$omega}: $gutter-width !important;
     }
-
     // sometimes the button is an input
     input.btn {
       float: $from-direction;
       @include button($identity, 18px);
     }
-    
     // sometimes it is an anchor element
     a.btn {
-      @include button($light-grey, 18px);
+      @include button($grayLight, 18px);
     }
 
     .ajax-progress-throbber {
@@ -174,6 +168,5 @@ $large-modal-width: 700px;
 }
 
 #modalContent {
-  // "position: absolute" is hardcoded in ctools/js/modal.js:389
-  position: fixed !important; 
+  position: fixed !important; // "position: absolute" is hardcoded in ctools/js/modal.js:389
 }

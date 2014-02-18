@@ -1,5 +1,5 @@
 // User section profile
-//
+// http://checkdesk:8888/user
 @mixin user-profile($width: $container-width, $context: $container-width) {
 
   // Temporary, this should go in a layout not on the header ...
@@ -8,13 +8,13 @@
   }
 
   div.profile {
-    // @include span-columns($width - 2, $context, $gutter-width);
+    @include span-columns($width - 2, $context, $gutter-width);
     background-color: $input-background;
     @content;
     
     .user-picture {
-      float: $omega;
-      // @include span-columns(1 omega, $context, $gutter-width);
+      float: opposite-position($from-direction);
+      @include span-columns(1 omega, $context, $gutter-width);
     }
 
     h3 {
@@ -32,10 +32,11 @@
         float: $from-direction;
       }
       dd {
-       float: $omega; 
+       float: opposite-position($from-direction); 
        font-weight: 200px;
       }
     }
+
   }
 }
 
@@ -45,7 +46,7 @@ body.page-user.logged-in {
   // Sidebar
   #sidebar-first {
     height: 100%;
-    top: $navbar-height !important;
+    top: $navbarHeight !important;
     padding: $base-line-height;
     padding-top: $base-line-height * 2;
   }
@@ -72,7 +73,7 @@ body.page-user.logged-in {
     }
     .profile-links {
       a {
-        @include checkdesk-button($light-grey);
+        @include checkdesk-button($grayLight);
         @include button-size(16px);
         text-transform: lowercase;
         float: $from-direction;
@@ -102,7 +103,7 @@ body.page-user.logged-in {
 body.page-user.logged-in.toolbar {
   // Sidebar
   #sidebar-first {
-    top: $navbar-height + $toolbar-height !important;
+    top: $navbarHeight + $toolbarHeight !important;
   }
 }
 
@@ -134,14 +135,14 @@ body.page-user-password { // both logged in and not logged ins states
   // The page with your picture
   @include user-profile;
 
+
   // hide tabs
   .tabs {
     display: none;
   }
 
   // hide password strength and suggestions
-  .password-strength, 
-  .password-suggestions {
+  .password-strength, .password-suggestions {
     display: none !important;
   }
 
@@ -168,26 +169,28 @@ body.page-user-password { // both logged in and not logged ins states
 
   // same size as the form
   #content-header {
-    // @include span-columns(4, 6);
-    // @include pad(1, 1, 6);
+    @include span-columns(4, 6);
+    @include pad(1, 1, 6);
   }
   
 
-  
-//   // Break small
-//   @include at-breakpoint($break-small) {
-//     form {
-//       #edit-social-media-signin a {
-//         font-size: $large-font-size !important;
-//       }
-//     }
-//   }
-// }
+  // ================================================================================
+  // Breakpoints
+  //
 
-#user-login, 
-#user-register-form {
-    // @include span-columns(4, 6);
-    // @include pad(1, 1, 6);
+  // Break small
+  @include at-breakpoint($break-small) {
+    form {
+      #edit-social-media-signin a {
+        font-size: $large-font-size !important;
+      }
+    }
+  }
+}
+
+#user-login, #user-register-form {
+    @include span-columns(4, 6);
+    @include pad(1, 1, 6);
     margin-top: $absolute-line-height;
 
     // when labels are visible
@@ -232,8 +235,9 @@ body.page-user-password { // both logged in and not logged ins states
             text-decoration: none;
           }
         }
+        
+      
       }
-
       // Add the icons with a transition
       $sign-in-icon-size: 20px;
       li.first a {
@@ -252,12 +256,12 @@ body.page-user-password { // both logged in and not logged ins states
     .or {
       @include ctb-clearfix;
       font-family: $sans-serif-font-stack;
-      color: $light-grey;
+      color: $grayLight;
       text-align: center;
       margin: $absolute-line-height/2 0;
       span {
         display: inline-block;
-        border: 1px solid lighten($light-grey, 20%);
+        border: 1px solid lighten($grayLight, 20%);
         width: 40px;
         font-size: 10px;
         line-height: 40px;
@@ -279,7 +283,7 @@ body.page-user-password { // both logged in and not logged ins states
       padding-#{$from-direction}: $gutter-width*2;
       label {
         display: inline-block;
-        color: $light-grey;
+        color: $grayLight;
         font-family: $sans-serif-font-stack;
         font-size: $small-font-size;
         line-height: 1.5;
@@ -304,7 +308,7 @@ body.page-user-password { // both logged in and not logged ins states
         margin-top: $absolute-line-height/4;
         font-family: $sans-serif-font-stack;
         font-size: $small-font-size;
-        color: $light-grey;
+        color: $grayLight;
 
         span {
           display: inline-block;
@@ -316,12 +320,14 @@ body.page-user-password { // both logged in and not logged ins states
           font-family: $sans-serif-font-stack;
           font-size: $small-font-size;
           font-weight: normal;
-          @include ctb-link-color($link-color);
+          @include ctb-linkColor($linkColor);
         }
       }
     }
+
+
   }
-}
+
 
 // user admin page#
 .view-administer-users {
@@ -333,13 +339,16 @@ body.page-user-password { // both logged in and not logged ins states
   }
 }
 
-// Override default textfield float to put the "Add role" button next to
-// the input textfield.
+
+
+/**
+ * Override default textfield float to put the "Add role" button next to
+ * the input textfield.
+ */
 #user-admin-roles td.edit-name {
   clear: both;
 }
-
 #user-admin-roles .form-item-name {
-  float: $alpha;
-  margin-#{$omega}: 1em;
+  float: left; /* LTR */
+  margin-right: 1em; /* LTR */
 }

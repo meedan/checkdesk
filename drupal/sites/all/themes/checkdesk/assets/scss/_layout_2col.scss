@@ -1,39 +1,39 @@
-// // Page with a sidebar
-// // 
-// @mixin layout-2col($secondary-width, $primary-width, $break: $container-width) {
+// Page with a sidebar
+// 
+@mixin layout-2col($secondary-width, $primary-width, $break: $container-width) {
 
-//   // 1. Setup
-//   @include reset-box-model;
-//   @include container;
+  // 1. Setup
+  @include reset-box-model;
+  @include container;
 
-//   // 2. The sidebar
-//   #sidebar-first.column {
-//     @include ctb-load-more-pager;
-//     position: fixed;
-//     max-width: 360px;
-//     #{$alpha}: 0;
-//     top: $toolbar-height + $navbar-height;
-//     width: 30%;
-//     border-#{$omega}: 1px solid $firefly10;
-//     background-color: $white;
-//     z-index: 1;
-//     .view-desk-reports {
-//       .view-content {
-//         height: 400px; // default height, adjusted by jQuery in reports.js
-//         overflow-y: auto;
-//       }
-//     }
-//   }
+  // 2. The sidebar
+  #sidebar-first.column {
+    @include ctb-load-more-pager;
+    position: fixed;
+    max-width: 360px;
+    #{$alpha}: 0;
+    top: $toolbarHeight + $navbarHeight;
+    width: 30%;
+    border-#{$omega}: 1px solid $firefly10;
+    background-color: $white;
+    z-index: 1;
+    .view-desk-reports {
+      .view-content {
+        height: 400px; // default height, adjusted by jQuery in reports.js
+        overflow-y: auto;
+      }
+    }
+  }
 
-//   // 3. The primary content 
-//   #content {
-//     margin-#{$alpha}: 30%;
-//     #content-inner {
-//       @include ctb-clearfix;
-//       max-width: 850px;
-//       margin-top: $navbar-height;
-//       padding-top: $base-line-height*2;
-//       @include pad(1,1, $break);
-//     }
-//   }
-// }
+  // 3. The primary content 
+  #content {
+    margin-#{$alpha}: 30%;
+    #content-inner {
+      @include ctb-clearfix;
+      max-width: 850px;
+      margin-top: $navbarHeight;
+      padding-top: $base-line-height*2;
+      @include pad(1,1, $break);
+    }
+  }
+}

@@ -1,6 +1,8 @@
 // My account dropdown in the primary navigation
+
 #my-account {
-  
+
+  // Magic numbers, taken from designs
   width: 438px;
 
   // User picture
@@ -28,7 +30,7 @@
       @include reset-box-model;
       color: $grey;
       font-weight: bold;
-      font-size: $small-font-size;
+      font-size: $fontSizeSmall;
     }
 
     .linked-account {
@@ -47,7 +49,7 @@
       }
 
       small {
-        font-size: $smallest-font-size;
+        font-size: $fontSizeMini;
         color: $grey;
       }
     }

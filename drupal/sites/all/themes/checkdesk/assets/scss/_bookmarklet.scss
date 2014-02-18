@@ -1,13 +1,12 @@
-// Checkdesk Bookmarklet
+// Bookmarklet
 
 $spinner-width: 25px; 
 $bookmarklet-width: 365px;
 $bookmarklet-preview-max-height: 345px;
 $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
-$bookmarklet-font-size: 14px;
 
 // Bookmarklet forms
-@mixin bookmarklet-forms {
+@mixin bookmarklet-forms() {
   
   form {
     @include reset-box-model;
@@ -38,6 +37,7 @@ $bookmarklet-font-size: 14px;
     display: none; // HACK hidden
   }
 
+
   .link-field-url {
     input[type=text], 
     input[type=password], 
@@ -45,9 +45,9 @@ $bookmarklet-font-size: 14px;
       @include border-radius($radius);
     }
 
-    // accommodate spinner
     input[type=text] {
-      padding-#{opposite-position($from-direction)}: $spinner-width;
+      // width: $bookmarklet-width - ($spinner-width + $gutter-width*2);
+      padding-#{opposite-position($from-direction)}: $spinner-width; //accomodate spinner
     }
   }
 
@@ -72,9 +72,11 @@ $bookmarklet-font-size: 14px;
       @include checkdesk-button();
     }
   }
+
 }
 
 @mixin bookmarklet-step-one() {
+  // Step one  ...
   h2 {
     @include reset-box-model;
     color: $grey;
@@ -85,8 +87,11 @@ $bookmarklet-font-size: 14px;
   }
 
   #meedan_bookmarklet_help {
+    // position: absolute;
+    // top: 0;
     padding-top: $absolute-line-height / 2;
     line-height: $absolute-line-height;
+    // #{$omega-float}: $gutter-width;
 
     span {
       display: block;
@@ -104,10 +109,10 @@ $bookmarklet-font-size: 14px;
         width: 240px;
         height: auto;
         background: white;
-        border: 1px solid $lightest-grey;
+        border: 1px solid $grayLighter;
         font-size: $small-font-size;
         line-height: 1.2;
-        color: $light-grey;
+        color: $grayLight;
         text-indent: 0;
         padding: $gutter-width;
         position: absolute;
@@ -197,6 +202,7 @@ $bookmarklet-font-size: 14px;
     }
     .form-item label,
     .form-item input[type="checkbox"] {
+      // padding: $gutter-width 2px; // pad for the hover
       &:hover {
         color: $identity;
       }
@@ -206,6 +212,10 @@ $bookmarklet-font-size: 14px;
 
 // Alerts in bookmarklet
 @mixin bookmarklet-alerts() {
+ 
+  .absolute-messages-status, .messages.status, #absolute-messages-show, .absolute-messages-dismiss-all, #absolute-messages-messages {
+    display: none !important; // HACK hide status messages in bookmarklet
+  }
 
   // Error messages
   .messages.error {
@@ -239,10 +249,11 @@ $bookmarklet-font-size: 14px;
       background-color: rgba(0,140,0,.8);
     }
   }
+
 }
 
 // Login
-@mixin bookmarklet-login {
+@mixin bookmarklet-login() {
   #user-login {
     label, 
     input[type=text], 
@@ -260,7 +271,7 @@ $bookmarklet-font-size: 14px;
     }
     .messages.error {
       position: static;
-      font-size: $bookmarklet-font-size;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px
       margin-bottom: $absolute-line-height/3;
     }
     #edit-social-media-signin {
@@ -274,17 +285,17 @@ $bookmarklet-font-size: 14px;
     }
     .user-links {
       clear: both;
-      font-size: $bookmarklet-font-size;
+      font-size: modular-scale(0) - modular-scale(-3); // 14px
       padding-#{$omega}: $gutter-width;
     }
     .form-item-remember-me {
       clear: none;
-      label { font-size: $bookmarklet-font-size; } 
+      label { font-size: modular-scale(0) - modular-scale(-3); } // 14px 
     }
     .user-new-account-link {
       .register {
         text-align: $omega;
-        font-size: $bookmarklet-font-size;
+        font-size: modular-scale(0) - modular-scale(-3); // 14px
       }
     }
     // username/pass field widths
@@ -300,10 +311,11 @@ $bookmarklet-font-size: 14px;
 
 
 // Internal bookmarklet (Submit Report link)
+// ==============================================================
 #nav-media-form {
   width: 366px;
   overflow-y: scroll;
-  z-index: $z-index-dropdown;
+  z-index: $zindexDropdown;
 
   iframe {
     width: 100%;
@@ -323,6 +335,9 @@ $bookmarklet-font-size: 14px;
 
 
 // Bookmarklet
+// ==============================================================
+
+// The bookmarklet itself
 // NOTE: applied to html
 #meedan_bookmarklet_html {
   height: auto;
