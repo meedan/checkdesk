@@ -561,6 +561,12 @@ function checkdesk_preprocess_node(&$variables) {
       '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
       '!timezone' => $timezone,
     ));
+    $variables['creation_info_short'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+      '@user' => url('user/'. $variables['uid']),
+      '!user' => $variables['elements']['#node']->name,
+      '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+      '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
+    ));
     $variables['created_by'] = t('<a href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $variables['elements']['#node']->name,

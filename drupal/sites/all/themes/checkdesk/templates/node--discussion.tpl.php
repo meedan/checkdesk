@@ -10,7 +10,7 @@
         <?php if (isset($user_avatar)) : ?>
           <?php print $user_avatar; ?>
         <?php endif; ?>
-        <?php print $creation_info; ?>
+        <?php print $creation_info_short; ?>
         <?php if (isset($story_commentcount)) { ?>
         <div class="story-commentcount">
           <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
