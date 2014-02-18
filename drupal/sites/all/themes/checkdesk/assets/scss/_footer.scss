@@ -125,8 +125,25 @@ body.widgets, body.sidebar-first {
   }
 }
 
-@include at-breakpoint($breakpoint) {
+
+// Small breakpoint
+@include at-breakpoint($break-small) {
+  body.widgets #main #footer {
+    margin-#{$alpha}: 0;
+  }
+}
+
+// Medium breakpoint
+@include at-breakpoint($break-medium) {
   body.widgets #main #footer {
     margin-#{$alpha}: 360px;
   }
 }
+
+// Large breakpoint
+@include at-breakpoint($break-large) {
+  body.widgets #main #footer {
+    margin-#{$alpha}: 360px;
+  }
+}
+

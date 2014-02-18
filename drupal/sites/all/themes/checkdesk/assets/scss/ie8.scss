@@ -1,0 +1,45 @@
+
+@import "bowerbird";
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+$gutter-width: 12px;
+
+// bad float issue
+BODY.sidebar-first #main .column#sidebar-first {
+	width: 400px;
+	float: $alpha;
+	margin-#{$omega}: $gutter-width;
+}
+
+BODY.sidebar-first #main DIV#content .inner {
+	width: 800px;
+	float: $alpha;
+}
+// username in single line
+nav[role='navigation'] #user-menu SPAN.avatar {
+	float: $alpha;
+	width: 20px;
+	margin-#{$omega}: $gutter-width;
+}
+
+
+// REPORTS
+// ---------------------------------------
+
+// remove extra space at the top
+.report > footer {
+	padding: 0;
+	margin: 0;
+}
+
+// stop container from collapsing
+// due to display: inline-block;
+.report .report-content .report-media .container .oembed-content {
+	display: block;
+}
+
+// clarify dropdown menu's edges 
+.dropdown-menu {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#DDDDDD')";
+	border: 1px solid #CCCCCC;
+}

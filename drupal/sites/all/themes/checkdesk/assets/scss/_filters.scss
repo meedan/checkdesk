@@ -151,8 +151,8 @@
   }
 }
 
-// breakpoint
-@include at-breakpoint($breakpoint) {
+// Medium breakpoint
+@include at-breakpoint($break-medium) {
   .body-ar #incoming-reports-filters {
     .panels .panel .panel-toggle {
       font-size: 95%;

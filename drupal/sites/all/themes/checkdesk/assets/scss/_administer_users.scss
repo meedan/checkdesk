@@ -1,34 +1,37 @@
-// The administer users page
-// 
 .page-administer-users {
-  
-  // Submit button
+  // Default render of the form layout
+  // @include cd-form-layout($container-width, $container-width, $gutter-width);
+
   .views-submit-button {
-    float: $from-direction;
+    float: $alpha;
   }
 
-  // Submit input
   input[type="submit"] {
-    float: $from-direction !important; //@TODO why is this submit float important?
+    float: $from-direction !important;
   }
 
-  // Select markup
   div.vbo-table-select-all-markup {
-    display: none; // temporary hidden @TODO why is this hidden?
+    display: none; // temporary
     input {
       font-size: $small-font-size;
       background-color: $grey;
     }
   }
 
-  // VBO table select all pages
   input.vbo-table-select-all-pages {
-    float: $from-direction;
+    float: left;
     clear: both;
   }
 
-  // Views table
   table.views-table {
     border-top: 1px solid black;
+  }
+
+  // Breakpoint: small
+  @include at-breakpoint($break-small) {
+    $break: $break-small;
+    // @include cd-form-layout($break, $break) {
+    //   @include pad(0,0,$break);
+    // }
   }
 }

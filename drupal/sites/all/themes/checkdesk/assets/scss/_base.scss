@@ -1,14 +1,17 @@
 @charset "UTF-8";
 
+// Checkdesk Base
+//
+// Welcome 
+//
+// Directional defaults
+$from-direction: left !default;
+$icon-position: before !default;
 
 // Typography configuration
 //
-// Text-direction and inline iconography, fonts, font helpers
-//
 // See also typography.scss and bowerbird/typography.scss
 //
-$from-direction: left !default;
-$icon-position: before !default;
 @import "compass/css3/font-face";
 @import "bowerbird/typography";
 @import "fonts";
@@ -23,29 +26,6 @@ $icon-position: before !default;
     direction: ltr;
   }
 }
-
-$font-size-large:         $base-font-size * 1.25; // ~18px
-$font-sze-small:         $base-font-size * 0.85; // ~12px
-$font-size-mini:          $base-font-size * 0.75; // ~11px
-
-$z-index-dropdown:          900 !default;
-$z-index-popover:           910 !default;
-$z-index-tooltip:           930 !default;
-$z-index-fixed-navbar:       930 !default;
-$z-index-modal-backdrop:     940 !default;
-$z-index-modal:             950 !default;
-
-$navbarHeight:                    38px !default;
-
-// Drupal admin toolbar and drawer
-$toolbar-menu-height:         30px;
-$drawer-menu-height:          35px;
-$toolbar-height:            $toolbar-menu-height + $drawer-menu-height;
-
-// Backgrounds
-$cream_dust: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAD1BMVEX9/f35+fn8/Pz7+/v6+vreGhydAAACQUlEQVQYGQXBAY0EMAhFwWYdkEXABWpgAQP0P/+abuaYV8QY6xp15LquT1MH1LNgDq666z3eQZ2Xa2Yv1xznDaTZi+xTY2YGawBqaHgZfXoNMzNzvausaUXWVB6a7lkwNACAGvoQEZG8WdcAAErgTATvKgaULDBoKjldybuKabwBvIGXHKAiRijBYI0xAx2A7oVKsAcwC+ismTlmL+Z7eUOieVccAB94kS956wAvR0foeoM6IuatGY5idKD53hWK1GgBXQ0c80HjWsWlBw11hfkBLlCrSDQExMD6ASXAvkjUHSgHLQe64q55fS5T0XTNCg5kN7DK8e4e0PCo0zTmaAGvnzADxfydBmChgfqBOQCcXHPWTDHeNeYGYHAKWHNIFCOge0T1KYB1aF6MgIh5t/I0482a17yrWfP43BcxBwAAqIvWiA+a5ph5oqlckn3rimtm2DE8gQpQzbugyxocg2T9xaC4L8EHQMeDu2hA+S4AwLoOwTgFKN8FA2Dp0wGqAQAQwLKVJxtXLw0MNO2sWeVJDFgr+N59Q3tizpyBAVaDD3RnN2ZwFq7zlsDRvojoMTOdBXxZ1KOBSOrC1lkwBwPdd6GuVyLiAKauLUDRFK5LZRwYV/YWQA3garrrmJK4UEtcFvDRBY4JNVDQOCzkuwvH8B57U4mZv1gUcVccAKgl10wRQMRAnRigYr3X7EVMEzFOnBjMFblgPhUxqGbVpwdDkeugeRE99FBzqOsVMRi6UJFdCcGhxyviAgwohhdL8w9WegM3i2rjpwAAAABJRU5ErkJggg==);
-$striped_lens: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
-
 
 // Compass utility configuration
 //
@@ -66,13 +46,14 @@ $absolute-line-height: 24px !default;
 $container-style: magic;
 
 // Columns count and breakpoints
-$container-width: 12; // Mobile first
+$container-width: 18; // Mobile first
 $total-columns: $container-width; // Alias for Susy
-$breakpoint: 12;  // Breakpoints apply after the browser is stretched wider than this target width
-
-$break-small: $breakpoint; // Deprecated
+$break-small: 12; 
+$break-medium: 24;
+$break-large: 48;
 
 // Checkdesk layout sections
+$total-width: $container-width; // Alias for Chris
 $sidebar-width: 4; // default sidebar width
 $tabs-width: $container-width; // Tabs inside forms and nodes
 $gutter-width: 15px; // The distance between grid columns
@@ -101,7 +82,8 @@ $largest-font-size:   65px; // 5
 
 @debug $large-font-size;
 
-// ## Main sections
+// Main sections
+// =============================================================================
 
 // Navigation
 $nav-width: $container-width;
@@ -118,15 +100,8 @@ $notification-icon-size: $small-font-size;
 $notification-image-width: 5%;
 $notifications-icon-selector: '.heartbeat-time-ago';
 
-// #Z-indexes
-// Based closely on Twitter Bootstrap
-//
-// <span class="dropdown"></span>
-// <span class="popover"></span>
-// <span class="tooltip"></span>
-// <span class="fixednavbar"></span>
-// <span class="modalbackdrop"></span>
-// <span class="modal"></span>
+// Based on twitter bootstrap
+// Do not change these
 $z-index-Dropdown:          900 !default;
 $z-index-Popover:           910 !default;
 $z-index-Tooltip:           930 !default;
@@ -141,26 +116,29 @@ $report-width: $container-width;
 // Install Bookmarklet
 $install-bookmarklet-abs-width: 600px;
 
-// ## Aliases
+// Aliases
+// =============================================================================
 $container-width: $container-width;
 $tw: $tabs-width; 
 $gutter-width: $gutter-width; 
 $rw: $report-width;
 $nw: $nav-width;
 
-// ## Forms
+// Forms
+// =============================================================================
 $label-width: $container-width/2;
 $checkbox-width: 25px;
 
-// ## Misc Values
+// Misc Values
+// =============================================================================
 
 // Standardize our box-radius
 $radius: 4px;
 
-// ## Colors
+// Colors
+// =============================================================================
 // ... live in colors.css
 
-<<<<<<< HEAD
 $firefly: 		#10212F;
 $firefly90: 	#283743;
 $firefly80: 	#404D59;
@@ -181,8 +159,5 @@ $thatch2:		#FEFDFD;
 
 // Debugger
 // =============================================================================
-=======
-// ## Debugger
->>>>>>> merge-refactor
 // debug mode for @debug statements and other sass debuggers
-$debug: false !default;
+$debug: true !default;

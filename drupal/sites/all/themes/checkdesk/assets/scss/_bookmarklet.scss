@@ -1,5 +1,3 @@
-// Bookmarklet
-
 $spinner-width: 25px; 
 $bookmarklet-width: 365px;
 $bookmarklet-preview-max-height: 345px;
@@ -362,3 +360,27 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   top: 2px;
   z-index: 2;
 }
+
+// ===========================================================================
+// Breakpoints 
+
+@include at-breakpoint($break-small) {
+  // same as previous breakpoint
+}
+
+@include at-breakpoint($break-medium) {
+  // same as previous breakpoint
+}
+
+@include at-breakpoint($break-large) {
+  // same as previous breakpoint
+}
+
+
+// Fixed only for normal screen sizes
+// @media all and (max-height: 32em) {
+//   #nav-media-form {
+//     max-height: 350px;
+//     // overflow-y: scroll;
+//   }
+// }
