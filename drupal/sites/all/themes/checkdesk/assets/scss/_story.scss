@@ -240,13 +240,14 @@ $omega: opposite-position($alpha);
   .story-body {  
     @include ctb-clearfix;
     margin: $absolute-line-height/2 0;
-    font-size: modular-scale(0) + modular-scale(-5); // 20px;
     color: $firefly80;
+    font-size: 18px;
     line-height: 1.5;
-    text-shadow: 0 1px 1px rgba(255,255,255,.35);
+    font-weight: 300;
+    letter-spacing: -0.4px;
     p {
       margin: 0 0 $base-line-height*1.4 0;
-      max-width: 630px;
+      max-width: 600px;
       &:first-child {
         // margin: 0 0;
       }

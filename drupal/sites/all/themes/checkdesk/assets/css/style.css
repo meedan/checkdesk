@@ -9013,10 +9013,11 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-body {
   *zoom: 1;
   margin: 12px 0;
-  font-size: 1.09017em;
   color: #404d59;
+  font-size: 18px;
   line-height: 1.5;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
+  font-weight: 300;
+  letter-spacing: -0.4px;
 }
 .story .story-body:before, .story .story-body:after {
   display: table;
@@ -9028,7 +9029,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-body p {
   margin: 0 0 33.6px 0;
-  max-width: 630px;
+  max-width: 600px;
 }
 .story .compose-update-form {
   *zoom: 1;
