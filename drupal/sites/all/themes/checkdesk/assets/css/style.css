@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -2241,15 +2242,18 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f045";
 }
 
-.report .icon-remove-sign:before, .report-row .false span:before, body.page-reports #reports .report-item .false span:before, .profile #reports .report-item .false span:before {
+.report .report-activity .current-status.false:before,
+.report .report-activity label.option.false:before, .report .icon-remove-sign:before, .report-row .false span:before, body.page-reports #reports .report-item .false span:before, .profile #reports .report-item .false span:before {
   content: "\f057";
 }
 
-.success:before, .report .icon-ok-sign:before, .report-row .verified span:before, body.page-reports #reports .report-item .verified span:before, .profile #reports .report-item .verified span:before {
+.success:before, .report .report-activity .current-status.verified:before,
+.report .report-activity label.option.verified:before, .report .icon-ok-sign:before, .report-row .verified span:before, body.page-reports #reports .report-item .verified span:before, .profile #reports .report-item .verified span:before {
   content: "\f058";
 }
 
-.report .icon-question-sign:before, .report-row .undetermined span:before, body.page-reports #reports .report-item .undetermined span:before, .profile #reports .report-item .undetermined span:before {
+.report .report-activity .current-status.undetermined:before,
+.report .report-activity label.option.undetermined:before, .report .icon-question-sign:before, .report-row .undetermined span:before, body.page-reports #reports .report-item .undetermined span:before, .profile #reports .report-item .undetermined span:before {
   content: "\f059";
 }
 
@@ -2257,12 +2261,18 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f05a";
 }
 
+.report .report-activity .current-status.not-applicable:before,
+.report .report-activity label.option.not-applicable:before {
+  content: "\f05e";
+}
+
 .danger:before,
 .error:before, #my-notifications .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago:before {
   content: "\f071";
 }
 
-.report .icon-random:before {
+.report .report-activity .current-status.in-progress:before,
+.report .report-activity label.option.in-progress:before, .report .icon-random:before {
   content: "\f074";
 }
 
@@ -2486,9 +2496,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear, box-shadow linear;
-  -webkit-transition-delay: 0.2s, 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2525,6 +2535,7 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
+  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -3710,7 +3721,7 @@ textarea {
 ul.dropdown-menu a {
   display: block;
   float: none;
-  padding: 0.23607em 1em;
+  padding: 4px 18px;
   clear: both;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -3862,6 +3873,7 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4257,10 +4269,12 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cfd3d5;
@@ -4549,7 +4563,7 @@ div.tabs ul.primary li a {
   display: none;
 }
 #my-notifications .view-content {
-  height: 122.99188em;
+  height: 200px;
   overflow-y: auto;
   margin-bottom: 6px;
 }
@@ -4565,7 +4579,7 @@ div.tabs ul.primary li a {
 #my-notifications .notifications-settings-link a {
   display: block;
   float: none;
-  padding: 0.23607em 1em;
+  padding: 4px 18px;
   clear: both;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -4961,7 +4975,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   padding: 0;
   position: relative;
   display: inline-block;
-  font-size: 0.76393em;
+  font-size: 14px;
   line-height: 1.6;
 }
 #footer-inner ul li a {
@@ -5220,10 +5234,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
+  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -5494,7 +5510,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-attributes {
   *zoom: 1;
   color: #404d59;
-  font-size: 0.76393em;
+  font-size: 14px;
   padding: 6px 15px;
 }
 .report .report-content .report-attributes:before, .report .report-content .report-attributes:after {
@@ -5563,13 +5579,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   padding: 0;
   float: left;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.90983em;
+  font-size: 16px;
   font-weight: 700;
 }
 .report .report-activity > header .report-status {
   float: right;
   text-align: right;
-  font-size: 0.90983em;
+  font-size: 16px;
   font-weight: 700;
 }
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
@@ -5581,7 +5597,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   overflow: visible;
 }
 .report .report-activity > header .report-status span.status-by {
-  font-size: 0.76393em;
+  font-size: 14px;
   font-weight: 400;
 }
 .report .report-activity > .in-progress {
@@ -5782,7 +5798,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: right;
   width: 15%;
   color: #b7bcc0;
-  font-size: 0.76393em;
+  font-size: 14px;
 }
 .report .report-activity .activity-wrapper .activity-list-footer-wrapper {
   *zoom: 1;
@@ -5881,6 +5897,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity section#comment-form label {
   display: none;
 }
+.report .report-activity section#comment-form .field-name-field-rating label {
+  display: block;
+}
 .report .report-activity section#comment-form form {
   margin: 0;
   padding: 0;
@@ -5903,6 +5922,192 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity section#comment-form form textarea:after {
   clear: both;
+}
+.report .report-activity .form-actions {
+  text-align: right;
+}
+.report .report-activity .form-actions span.edit-status {
+  font-size: 15px;
+  color: #6f7a82;
+  cursor: pointer;
+  margin-right: 15px;
+}
+.report .report-activity .form-actions span.edit-status.active {
+  font-style: italic;
+}
+.report .report-activity .form-actions .form-submit {
+  margin: 0;
+}
+.report .report-activity .form-actions .current-status {
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 15px;
+}
+.report .report-activity .current-status.verified:before,
+.report .report-activity label.option.verified:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 7.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.report .report-activity .current-status.in-progress:before,
+.report .report-activity label.option.in-progress:before {
+  font-family: "FontAwesome";
+  font-size: 15px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 7.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.report .report-activity .current-status.false:before,
+.report .report-activity label.option.false:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 7.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.report .report-activity .current-status.undetermined:before,
+.report .report-activity label.option.undetermined:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 7.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.report .report-activity .current-status.not-applicable:before,
+.report .report-activity label.option.not-applicable:before {
+  font-family: "FontAwesome";
+  font-size: 18px;
+  line-height: inherit;
+  color: "black";
+  margin: 0 7.5px;
+  width: auto;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em;
+  font-weight: normal;
+}
+.report .report-activity .current-status.verified,
+.report .report-activity input[type="radio"]:checked + label.verified {
+  color: #008c00;
+}
+.report .report-activity .current-status.in-progress,
+.report .report-activity input[type="radio"]:checked + label.in-progress {
+  color: #efca2b;
+}
+.report .report-activity .current-status.false,
+.report .report-activity input[type="radio"]:checked + label.false {
+  color: #9d261d;
+}
+.report .report-activity .current-status.undetermined,
+.report .report-activity input[type="radio"]:checked + label.undetermined {
+  color: #f89406;
+}
+.report .report-activity .current-status.not-applicable,
+.report .report-activity input[type="radio"]:checked + label.not-applicable {
+  color: black !important;
+}
+.report .report-activity .report-activity-edit-status.popover {
+  background: #fff;
+  margin-top: 40px;
+  margin-left: 80px;
+  left: auto;
+  right: auto;
+  width: 340px;
+  height: 230px;
+  border: 1px solid #e8e8e8;
+  z-index: 2;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+.report .report-activity .report-activity-edit-status.popover label {
+  width: 169.5px;
+  display: block;
+  float: left;
+  height: 49px;
+  line-height: 49px;
+  text-align: center;
+  color: #6f7a82;
+  font-weight: bold;
+  border-right: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+.report .report-activity .report-activity-edit-status.popover .form-type-radio {
+  padding-left: 0;
+  min-height: 0;
+}
+.report .report-activity .report-activity-edit-status.popover .form-type-radios > label {
+  font-weight: bold;
+  width: 339px;
+  background: #f2f2f2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #303030;
+  height: 30px;
+  line-height: 30px;
+}
+.report .report-activity .report-activity-edit-status.popover .description {
+  padding: 0;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: 30px;
+  color: #6f7a82;
+  background: #f2f2f2;
+  text-align: center;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios {
+  position: absolute;
+  top: 80px;
+  left: 0;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radio {
+  display: none;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios .form-item:last-child label {
+  width: 340px;
+  color: #e2e2e2;
+}
+.report .report-activity .report-activity-edit-status .popover-arrow {
+  border-bottom-color: #e8e8e8;
+  left: 151px;
+}
+.report .report-activity .report-activity-edit-status .popover-arrow + .popover-arrow {
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #f2f2f2;
+  left: 153px;
+  top: -15px;
 }
 .report .end section#comment-form, .report .end .activity-wrapper .activity-list-footer-wrapper {
   position: relative;
@@ -6261,7 +6466,7 @@ div.sensitive-hide {
   *zoom: 1;
   padding: 6px 15px;
   border-top: 1px solid rgba(16, 33, 47, 0.1);
-  font-size: 0.76393em;
+  font-size: 14px;
   display: block;
   color: #9fa6ac;
   background-color: rgba(16, 33, 47, 0.02);
@@ -6452,7 +6657,7 @@ div.sensitive-hide {
 .update .update-footer .update-meta {
   margin: 0;
   padding: 0;
-  font-size: 0.90983em;
+  font-size: 16px;
   font-weight: 700;
 }
 .update .update-footer .update-meta li {
@@ -6774,7 +6979,7 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #user-login .messages.error {
   position: static;
-  font-size: 0.76393em;
+  font-size: 14px;
   margin-bottom: 8px;
 }
 #meedan_bookmarklet #user-login #edit-social-media-signin {
@@ -6788,18 +6993,18 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #user-login .user-links {
   clear: both;
-  font-size: 0.76393em;
+  font-size: 14px;
   padding-right: 15px;
 }
 #meedan_bookmarklet #user-login .form-item-remember-me {
   clear: none;
 }
 #meedan_bookmarklet #user-login .form-item-remember-me label {
-  font-size: 0.76393em;
+  font-size: 14px;
 }
 #meedan_bookmarklet #user-login .user-new-account-link .register {
   text-align: right;
-  font-size: 0.76393em;
+  font-size: 14px;
 }
 #meedan_bookmarklet #user-login input[type=text],
 #meedan_bookmarklet #user-login input[type=password] {
@@ -7020,7 +7225,7 @@ html body .livefyre-wrapper {
   margin: 0;
   padding: 0;
   margin: 12px auto;
-  font-size: 0.76393em;
+  font-size: 14px;
   font-weight: normal;
   line-height: 1.3;
   color: #999999;
@@ -7050,7 +7255,7 @@ html body .livefyre-wrapper {
   width: 90%;
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col p {
-  margin: 1em 0;
+  margin: 18px 0;
 }
 #modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:first-child {
   float: left;
@@ -7235,10 +7440,12 @@ nav[role="navigation"] .nav > div h2 {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7300,10 +7507,12 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7418,10 +7627,12 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7598,7 +7809,7 @@ body.toolbar-drawer #main #content {
 #my-account #account-menu a {
   display: block;
   float: none;
-  padding: 0.23607em 1em;
+  padding: 4px 18px;
   clear: both;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -8476,7 +8687,7 @@ body.page-liveblog #main .view-liveblog .desk {
   position: relative;
   *zoom: 1;
   margin-bottom: 0;
-  margin-top: 1.61803em;
+  margin-top: 25px;
   overflow: visible;
 }
 body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after {
@@ -8600,7 +8811,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   padding-top: 12px;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 0.76393em;
+  font-size: 14px;
   letter-spacing: 0.15em;
 }
 .updates .update-row .update-info b {
@@ -8692,7 +8903,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   float: right;
   font-weight: 700;
   color: #b7bcc0;
-  font-size: 0.76393em;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #b7bcc0;
@@ -8715,7 +8926,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-meta ul.content-actions .share-on > a .icon-share:before {
   font-family: "FontAwesome";
-  font-size: 0.76393em;
+  font-size: 14px;
   line-height: inherit;
   color: "black";
   margin: 0 7.5px;
@@ -8817,7 +9028,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-body {
   *zoom: 1;
   margin: 12px 0;
-  font-size: 1.09017em;
+  font-size: 20px;
   color: #404d59;
   line-height: 1.5;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
@@ -9117,7 +9328,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .stories .story-row h3 {
   margin: 0;
   padding: 0;
-  font-size: 0.76393em;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.4;
 }
@@ -9279,7 +9490,6 @@ body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-sto
 body.widgets #main #content {
   margin-top: 38px;
   margin-left: 30%;
-  overflow-y: auto;
 }
 body.widgets #main #content #content-inner {
   *zoom: 1;
@@ -9388,7 +9598,6 @@ body.widgets #main #content #content-inner:after {
   body.widgets #main #content {
     margin-top: 38px;
     margin-left: 30%;
-    overflow-y: auto;
   }
   body.widgets #main #content #content-inner {
     *zoom: 1;
@@ -9447,7 +9656,6 @@ body.widgets #main #content #content-inner:after {
   body.widgets #main #content {
     margin-top: 38px;
     margin-left: 30%;
-    overflow-y: auto;
   }
   body.widgets #main #content #content-inner {
     *zoom: 1;
@@ -9911,10 +10119,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li.first a, #user-register-form #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -9937,10 +10147,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li a[class^='facebook'], #user-register-form #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;

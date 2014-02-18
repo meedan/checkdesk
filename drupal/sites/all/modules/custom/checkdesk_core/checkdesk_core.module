@@ -2351,6 +2351,38 @@ function _checkdesk_validation_ajax_unique_field() {
  */
 function checkdesk_core_form_comment_form_alter(&$form, &$form_state) {
   $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
+
+  $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add footnote');
+
+  $term = $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'];
+  
+  $form['field_rating'][LANGUAGE_NONE]['#default_value'] = $term->name;
+
+  $form['field_rating'][LANGUAGE_NONE]['#prefix'] = '<div class="report-activity-edit-status"><span class="current-status ' . preg_replace('/\s+/', '-', trim(strtolower($term->name))) . '">' . t($term->name) . '</span>';
+  $form['field_rating'][LANGUAGE_NONE]['#suffix'] = '</div>';
+  $form['field_rating'][LANGUAGE_NONE]['#title'] = t('Edit Status');
+  $form['field_rating'][LANGUAGE_NONE]['#description'] = t('Pick the status that reflects the state of the verification process');
+
+  // Options
+  $options = array();
+  foreach ($form['field_rating'][LANGUAGE_NONE]['#options'] as $tid => $name) {
+    if ($tid !== '_none') {
+      $term = taxonomy_term_load($tid);
+      $options[$term->name] = t($term->name);
+    }
+  }
+  $form['field_rating'][LANGUAGE_NONE]['#options'] = array_reverse($options);
+  $form['#validate'] = array('_checkdesk_core_comment_form_validate');
+}
+
+function _checkdesk_core_comment_form_validate($form, &$form_state) {
+
+  // Get tid from name
+  if (isset($form_state['values']['field_rating'])) { 
+    $tids = array_keys(taxonomy_get_term_by_name($form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid']));
+    $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'] = $tids[0];
+  }
+
 }
 
 /**

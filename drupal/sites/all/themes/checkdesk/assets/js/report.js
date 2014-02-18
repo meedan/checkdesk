@@ -157,4 +157,90 @@
     }
   };
 
+  // On the report log, group activities that were triggered by the same actor
+  // It's hard to do it on the backend because of pagination
+  Drupal.behaviors.groupReportActivities = {
+
+    group: function(content) {
+      var $previous = null;
+      content.find('.activity-content:not(activity-grouped)').each(function() {
+        var $current = $(this);
+        if ($previous !== null && $current.hasClass('new_comment_report') && $previous.hasClass('status_report') &&
+            $current.find('.actor').text() === $previous.find('.actor').text()) {
+          $current.find('.actor').html('');
+          $current.find('.time').html('');
+          $current.parents('.views-row').css('border-top', '0 none');
+        }
+        $current.addClass('activity-grouped');
+        $previous = $current;
+      });
+    },
+
+    attach: function(context, settings) {
+
+      // Group activities on page load
+      Drupal.behaviors.groupReportActivities.group($('.view-activity-report', context));
+
+      // Group activities when new content is loaded
+      $('.view-activity-report', context).unbind('views_load_more.new_content').bind('views_load_more.new_content', function(event, content) {
+        Drupal.behaviors.groupReportActivities.group($('.view-activity-report', context));
+      });
+
+      // Display the "Edit status" as a popover
+      $('.report-activity-edit-status:not(.popover)', context).each(function() {
+        var $pop = $(this);
+        $pop.hide();
+        var $link = $('<span class="edit-status">' + Drupal.t('Edit Status') + '</span>');
+        var $current = $pop.find('.current-status');
+        $pop.parents('.comment-form').find('.form-submit').before($link);
+        $pop.parents('.comment-form').find('.form-submit').before($current);
+        $pop.prepend('<div class="popover-arrow" />');
+        $pop.prepend('<div class="popover-arrow" />');
+        $pop.addClass('popover');
+
+        // Each status inside the popover
+        $pop.find('label.option').each(function() {
+          var name = $(this).prev('input').attr('value').toLowerCase().trim().replace(/\s+/, '-');
+          $(this).attr('rel', name);
+          $(this).addClass(name);
+
+          // A status is clicked
+          $(this).click(function() {
+            var rating = $(this).text(),
+                rel = $(this).attr('rel'),
+                $current = $(this).parents('.comment-form').find('.current-status');
+            $current.html(rating);
+            $current.attr('class', 'current-status');
+            $current.addClass(rel);
+          });
+        });
+
+        // 'Edit Status' link is clicked
+        $link.click(function() {
+          $(this).toggleClass('active');
+          $(this).parents('.comment-form').find('.popover').toggle();
+          return false;
+        });
+
+        // Current status is clicked
+        $current.click(function() {
+          $(this).parents('.comment-form').find('.edit-status').toggleClass('active');
+          $(this).parents('.comment-form').find('.popover').toggle();
+        });
+      });
+    }
+  };
+
+  // This callback is invoked when a new footnote is added
+  $.fn.footnoteCallback = function(nid, output) {
+    var $form = $('#node-' + nid + ' section#comment-form');
+    $form.hide();
+    $form.appendTo($('html'));
+    $('#node-' + nid).replaceWith(output);
+    $('#node-' + nid + ' .activity-wrapper').append($form);
+    $form.show();
+    $form.find('textarea').val('');
+    Drupal.attachBehaviors($('#node-' + nid));
+  };
+
 }(jQuery));

@@ -632,6 +632,11 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 			label {
 				display: none;
 			}
+
+      .field-name-field-rating label {
+        display: block;
+      }
+
 			form { 
 				@include reset-box-model;
 				margin: 0 $gutter-width;
@@ -647,6 +652,163 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 				}
 			}
 		}
+
+    .form-actions {
+			text-align: opposite-position($from-direction);
+
+      span.edit-status {
+	      font-size: $small-font-size;
+        color: $report-text-color;
+        cursor: pointer;
+        margin-#{opposite-position($from-direction)}: $gutter-width;
+
+        &.active {
+          font-style: italic;
+        }
+      }
+
+      .form-submit {
+        margin: 0;
+      }
+
+      .current-status {
+        display: inline-block;
+        font-weight: bold;
+        margin-#{opposite-position($from-direction)}: $gutter-width;
+      }
+
+    }
+
+    .current-status,
+    label.option {
+		  &.verified {
+		    @include icon(ok-sign, $base-font-size);
+      }
+	    &.in-progress {
+		    @include icon(random, $small-font-size);
+	    }
+	    &.false {
+		    @include icon(remove-sign, $base-font-size);
+	    }
+	    &.undetermined {
+		    @include icon(question-sign, $base-font-size);
+	    }
+      &.not-applicable {
+		    @include icon(ban-circle, $base-font-size);
+      }
+    }
+
+    .current-status,
+    input[type="radio"]:checked + label {
+		  &.verified {
+        color: rgba(0, 140, 0, 1);
+      }
+	    &.in-progress {
+	    	color: rgba(239, 202, 43, 1);
+	    }
+	    &.false {
+	    	color: $red;
+	    }
+	    &.undetermined {
+		    color: $orange; 
+	    }
+      &.not-applicable {
+        color: $black !important;
+      }
+    }
+
+    .report-activity-edit-status {
+
+      &.popover {
+        background: #fff;
+        margin-top: 40px;
+	      @if $from-direction == left {
+          margin-left: 80px;
+	      }
+	      @if $from-direction == right {
+          margin-right: 130px;
+	      }
+        left: auto;
+        right: auto;
+        width: 340px;
+        height: 230px;
+        border: 1px solid #e8e8e8;
+        z-index: 2;
+        @include box-shadow(0px 1px 3px rgba($black, 0.1));
+        @include border-radius(5px);
+
+        label {
+          width: 169.5px;
+          display: block;
+          float: $from-direction;
+          height: 49px;
+          line-height: 49px;
+          text-align: center;
+					color: $firefly60;
+          font-weight: bold;
+          border-right: 1px solid #f2f2f2;
+          border-bottom: 1px solid #f2f2f2;
+          margin-bottom: 0;
+          overflow: hidden;
+        }
+
+        .form-type-radio {
+          padding-left: 0;
+          min-height: 0;
+        }
+
+        .form-type-radios > label {
+          font-weight: bold;
+          width: 339px;
+          background: #f2f2f2;
+          position: absolute;
+          left: 0;
+          top: 0;
+          color: #303030;
+          height: 30px;
+          line-height: 30px;
+        }
+
+        .description {
+          padding: 0;
+          height: 50px;
+          position: absolute;
+          left: 0;
+          top: 30px;
+					color: $firefly60;
+          background: #f2f2f2;
+          text-align: center;
+        }
+
+        .form-radios {
+          position: absolute;
+          top: 80px;
+          left: 0;
+        }
+
+        .form-radio {
+          display: none;
+        }
+        
+        .form-radios .form-item:last-child label {
+          width: 340px;
+          color: #e2e2e2;
+        }
+      }
+
+      .popover-arrow {
+        border-bottom-color: #e8e8e8;
+        #{$from-direction}: 151px;
+      }
+
+      .popover-arrow + .popover-arrow {
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 15px solid #f2f2f2;
+        #{$from-direction}: 153px;
+        top: -15px;
+      }
+    }
 	} // report activity
 
 	// indicate when report activity

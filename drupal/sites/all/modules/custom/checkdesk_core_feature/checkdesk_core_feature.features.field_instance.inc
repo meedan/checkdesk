@@ -10,6 +10,111 @@
 function checkdesk_core_feature_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'comment-comment_node_media-comment_body'
+  $field_instances['comment-comment_node_media-comment_body'] = array(
+    'bundle' => 'comment_node_media',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'comment',
+    'exclude_cv' => 0,
+    'field_name' => 'comment_body',
+    'label' => 'Comment',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'liveblog' => 'liveblog',
+          'php_code' => 'php_code',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'filtered_html' => array(
+              'weight' => -50,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'liveblog' => array(
+              'weight' => -50,
+            ),
+            'php_code' => array(
+              'weight' => 10,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'exclude_cv' => FALSE,
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'comment-comment_node_media-field_rating'
+  $field_instances['comment-comment_node_media-field_rating'] = array(
+    'bundle' => 'comment_node_media',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'comment',
+    'exclude_cv' => 0,
+    'field_name' => 'field_rating',
+    'label' => 'Fact-checking status',
+    'required' => 0,
+    'settings' => array(
+      'exclude_cv' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+      ),
+      'type' => 'options_buttons',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'flagging-factcheck-field_reason'
   $field_instances['flagging-factcheck-field_reason'] = array(
     'bundle' => 'factcheck',
@@ -922,6 +1027,7 @@ function checkdesk_core_feature_field_default_field_instances() {
   t('Attachment');
   t('Bio');
   t('Body');
+  t('Comment');
   t('Description');
   t('Fact-checking status');
   t('Lead image');

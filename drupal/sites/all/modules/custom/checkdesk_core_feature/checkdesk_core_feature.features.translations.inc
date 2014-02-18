@@ -46110,6 +46110,22 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['934daf7385d23c6139c81f1291df2b89'] = array(
+    'source' => 'Edit Status',
+    'context' => '',
+    'location' => 'sites/all/themes/checkdesk/assets/js/report.js',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d060d6682f61dc6a50259f7325f965ee'] = array(
+    'source' => 'Pick the status that reflects the state of the verification process',
+    'context' => '',
+    'location' => '/ar/node/1993',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',

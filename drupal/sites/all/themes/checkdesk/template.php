@@ -1030,24 +1030,26 @@ function checkdesk_form_comment_form_alter(&$form, &$form_state) {
   $form_state['ctools comment alter'] = FALSE;
 }
 
-function _checkdesk_comment_form_submit($form, $form_state) {
-  drupal_get_messages();
+function _checkdesk_comment_form_submit($form, &$form_state) {
+  global $user;
 
+  drupal_get_messages();
+  
   $nid = $form['#node']->nid;
-  $view = views_get_view('activity_report');
-  $view->set_arguments(array($nid));
-  $view->get_total_rows = TRUE;
-  $output = $view->preview('block');
+  $node = node_load($nid);
+
+  // Change report status
+  if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
+    $node->field_rating[LANGUAGE_NONE][0]['tid'] = $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'];
+    node_save($node);
+  }
+
+  $node_view = node_view($node);
+  // $node_view['comments'] = comment_node_page_additions($node);
+  $output = drupal_render($node_view);
 
   $commands = array();
-  // Update footnotes
-  $commands[] = ajax_command_replace('#node-' . $nid . ' .view-activity-report', $output);
-  // Update footnotes count
-  $commands[] = ajax_command_replace('#node-' . $nid . ' .report-footnotes-count span', '<span>' . $view->total_rows . '</span>');
-  // Clear textarea
-  $commands[] = ajax_command_invoke('#node-' . $nid . ' .comment-form textarea', 'val', array(''));
-  // Scroll to new footnote
-  $commands[] = ajax_command_invoke('#report-activity-node-' . $nid, 'scrollToHere');
+  $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output));
 
   return array('#type' => 'ajax', '#commands' => $commands);
 }
