@@ -16,7 +16,7 @@ $report-activity-header-color: darken($firefly30, 10%);
   float: $from-direction;
   position: relative;
   margin: { top: $gutter-width; bottom: $gutter-width; }
-  width: 100%; //default
+  // width: 100%; //default
   
   // when inside a modal window
   .modal-content & { 
@@ -138,8 +138,8 @@ $report-activity-header-color: darken($firefly30, 10%);
         }
 
         .twitter {
-          width: 100%;
-          max-width: 100%;
+          // width: 100%;
+          // max-width: 100%;
           .oembed-content {
             // padding: 0 $gutter-width;
             padding: 0 $gutter-width $absolute-line-height/4;
@@ -152,8 +152,8 @@ $report-activity-header-color: darken($firefly30, 10%);
           // avoid width to collapse
           iframe {
             display: inline-block !important; // centralizes
-            width: 100% !important;
-            min-width: 400px !important;
+            // width: 100% !important;
+            // min-width: 400px !important;
             margin-bottom: 0!important; // brings attributes closer
           }
         }
@@ -173,7 +173,7 @@ $report-activity-header-color: darken($firefly30, 10%);
         .oembed--link--meedan-oembed-facebook {
           height: 400px;
           iframe {
-            width: 100%;
+            // width: 100%;
           }
         }
         .oembed--link--meedan-oembed-generic {

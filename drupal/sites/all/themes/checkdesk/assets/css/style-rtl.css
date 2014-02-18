@@ -3863,7 +3863,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   position: relative;
   margin-top: 15px;
   margin-bottom: 15px;
-  width: 100%;
   border-top: 4px solid #9fa6ac;
   border-bottom: 1px solid #e7e8ea;
   text-align: right;
@@ -3999,10 +3998,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   height: 100%;
   display: inline-block;
 }
-.report .report-content .report-media .container .twitter {
-  width: 100%;
-  max-width: 100%;
-}
 .report .report-content .report-media .container .twitter .oembed-content {
   padding: 0 15px 6px;
 }
@@ -4012,8 +4007,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-content .report-media .container .twitter iframe {
   display: inline-block !important;
-  width: 100% !important;
-  min-width: 400px !important;
   margin-bottom: 0 !important;
 }
 .report .report-content .report-media .container .youtube .oembed-attributes {
@@ -4025,9 +4018,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-content .report-media .container .oembed--link--meedan-oembed-facebook {
   height: 400px;
-}
-.report .report-content .report-media .container .oembed--link--meedan-oembed-facebook iframe {
-  width: 100%;
 }
 .report .report-content .report-media .container .oembed--link--meedan-oembed-generic .title {
   padding: 0;
