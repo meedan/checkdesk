@@ -8,20 +8,6 @@ guard 'uglify', :input => 'drupal/sites/all/modules/meedan/meedan_iframes/js/mee
   watch 'drupal/sites/all/modules/meedan/meedan_iframes/js/meedan_iframes.parent.js'
 end
 
-guard 'livereload' do
-  watch(%r{app/views/.+\.(erb|haml|slim)$})
-  watch(%r{app/helpers/.+\.rb})
-  watch(%r{public/.+\.(css|js|html)})
-  watch(%r{config/locales/.+\.yml})
-  # Rails Assets Pipeline
-  watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html|png|jpg))).*}) { |m| "/assets/#{m[3]}" }
+guard :compass, configuration_file: 'config.rb', compile_on_start: true do
+  watch(%r{.scss$})
 end
-
-guard 'sass', :input => 'sass', :output => 'css', :compass => {
-  :images_dir       => "imgs",
-  :images_path      => File.join(Dir.pwd, "drupal/sites/all/themes/checkdesk/assets/"),
-  :http_images_path => "/sites/all/themes/checkdesk/assets/",
-  :http_images_dir  => "/imgs",
-  :http_fonts_path  => "/assets",
-  :http_fonts_dir   => "/fonts"
-}

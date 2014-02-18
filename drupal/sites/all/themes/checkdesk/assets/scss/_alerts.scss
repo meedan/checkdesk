@@ -13,7 +13,7 @@
   background-color: $warning-background;
   border: 1px solid $warning-border;
   @include border-radius($radius);
-  font-size: $font-size-small;
+  font-size: $small-font-size;
 }
 
 .messages,
@@ -30,17 +30,17 @@
 // ----------------
 
 .success {
-  @include icon(ok-sign, $base-font-size, $successText, $icon-position);
+  @include icon(ok-sign, $base-font-size, $success-text, $icon-position);
   background-color: $success-background;
   border-color: $success-border;  
 }
 .success,
 .success .messages-heading {
-  color: $successText;
+  color: $success-text;
 }
 .danger,
 .error {
-  @include icon(warning-sign, $base-font-size, $errorText, $icon-position);
+  @include icon(warning-sign, $base-font-size, $error-text, $icon-position);
   background-color: $error-background;
   border-color: $error-border;
 }
@@ -51,13 +51,13 @@
   color: $error-text;
 }
 .status {
-  @include icon(info-sign, $base-font-size, $infoText, $icon-position);
+  @include icon(info-sign, $base-font-size, $info-text, $icon-position);
   background-color: $info-background;
   border-color: $info-border;
 }
 .status,
 .status .messages-heading {
-  color: $infoText;
+  color: $info-text;
 }
 
 .messages ul {
@@ -68,7 +68,7 @@
 // Dismiss alert
 .alert .close {
   float: $omega;
-  font-size: $font-size-small;
+  font-size: $small-font-size;
   font-weight: bold;
   line-height: 1;
   color: $black;

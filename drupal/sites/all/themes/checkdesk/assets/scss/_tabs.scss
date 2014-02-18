@@ -3,10 +3,9 @@
 //
 // div.tabs - the main tab container with ul.primary and ul.secondary inside
 //
-// Adds styles for the primary and secondary tabs. Compare this with default CSS found in the system module's stylesheet.
-
-// resuable resets and basic styles
-@include bb-tabs-reset;
+// Adds styles for the primary and secondary tabs. 
+// Compare this with default CSS found in the system module's stylesheet.
+$tab-padding: $gutter-width;
 
 // Tab colors
 %tab-colors {
@@ -23,8 +22,6 @@
   }
 }
 
-$tab-padding: $gutter-width;
-
 // Tabs
 div.tabs {
   @include reset-box-model;
@@ -40,19 +37,19 @@ div.tabs {
 
     li {
       @include reset-box-model;
-      @include span-columns($container-width, $container-width); // default full width
+      // @include span-columns($container-width, $container-width); // default full width
       display: inline-block;
       float: $from-direction;
 
       &.active {
         a {
-          @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
+          // @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
           display: inline-block;
         }
       }
 
       a {
-        @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
+        // @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
         line-height: $absolute-line-height;
         display: inline-block;
         padding: { top: $gutter-width; bottom: $gutter-width; }
@@ -61,22 +58,20 @@ div.tabs {
   }
 }
 
-// =================================================================================
-// Breakpoints for tabs
-@include at-breakpoint($breakpoint) { 
+// @include at-breakpoint($breakpoint) { 
 
-  div.tabs ul.primary {
-    display: block;
-    margin: 0 auto;
-    float: none;
-    text-align: center;
+//   div.tabs ul.primary {
+//     display: block;
+//     margin: 0 auto;
+//     float: none;
+//     text-align: center;
 
-    li, li a, li.active a {
-      @include reset-box-model;
-      width: auto; // constrain full width
-      padding: $gutter-width; // WARNING important should not be necessary — CGB
-      margin: $gutter-width/2;
-      display: inline-block;
-    }
-  }
-}
+//     li, li a, li.active a {
+//       @include reset-box-model;
+//       width: auto; // constrain full width
+//       padding: $gutter-width; // WARNING important should not be necessary — CGB
+//       margin: $gutter-width/2;
+//       display: inline-block;
+//     }
+//   }
+// }

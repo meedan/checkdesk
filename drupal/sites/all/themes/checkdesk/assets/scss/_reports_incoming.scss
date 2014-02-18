@@ -16,7 +16,8 @@
     border-top: 1px solid $firefly5;
     @include reset-box-model;
     padding: $absolute-line-height/4 0;
-    // Dropshadow for depth
+    
+// Dropshadow for depth
     &:before {
       position: absolute;
       content: "";
@@ -93,6 +94,7 @@
   position: relative;
   margin-bottom: $absolute-line-height/6;
   border: 3px solid $white;
+  
   // hide ajax throbber in dropdown
   .ajax-progress-throbber {
     display: none;
@@ -261,18 +263,14 @@
 // CTools modal report
 //
 #modalContent.modal-report {
-  z-index: $zindexModal;
-  .modal {
-    
-    
-  }
-}
-// Fixed only for normal screen sizes
-@media all and (min-height: 40em) {
-  #modalContent.modal-report {
-    position: fixed !important;
-    top: 200px !important;
-  }
+  z-index: $z-index-modal;
 }
 
 
+// // Fixed only for normal screen sizes
+// @media all and (min-height: 40em) {
+//   #modalContent.modal-report {
+//     position: fixed !important;
+//     top: 200px !important;
+//   }
+// }

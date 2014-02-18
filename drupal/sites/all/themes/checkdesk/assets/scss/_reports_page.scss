@@ -6,8 +6,8 @@
 @mixin reports-layout($secondary-width, $primary-width) {
   body.page-reports {
     #main {
-      @include span-columns($breakpoint - 2, $breakpoint, $gutter-width / 2); //outermost container
-      @include pad(1, 1, $breakpoint);
+      // @include span-columns($breakpoint - 2, $breakpoint, $gutter-width / 2); //outermost container
+      // @include pad(1, 1, $breakpoint);
     }
   }
 }
@@ -33,7 +33,7 @@ body.page-reports, .profile {
       .report-row-container {
         text-align: $from-direction;
         padding: $absolute-line-height/2 0;
-        border-bottom: 1px solid lighten($grayLight, 20%);
+        border-bottom: 1px solid lighten($light-grey, 20%);
         @include ctb-transition(opacity 0.3s linear);
       }
 
@@ -54,7 +54,7 @@ body.page-reports, .profile {
           }
           .media-title {
             margin: $absolute-line-height/4 0;
-            font-size: $fontSizeSmall;
+            font-size: $small-font-size;
             line-height: 1.2;
             color: $gray;
           }
@@ -91,7 +91,6 @@ body.page-reports, .profile {
 
       .report-status {
         float: $omega;
-
       }
 
       .report-status { float: $omega; }
@@ -116,7 +115,7 @@ body.page-reports, .profile {
 
       .report-detail-link {
         a {
-          @include checkdesk-button($grayLight);
+          @include checkdesk-button($light-grey);
           @include button-size(13px);
         }
       }
@@ -158,6 +157,5 @@ body.page-reports, .profile {
   }
 }
 
-// ==========================================================================
 // Default layout
 @include reports-layout($container-width, $container-width - 2); 

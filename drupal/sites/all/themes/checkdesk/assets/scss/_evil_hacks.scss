@@ -1,8 +1,3 @@
-
-// Dungeon of deprecated techniques and hidden divs
-// This is a todo list of things to fix in the markup ...
-// NOT a permanent selector ghetto! ... CGB Dec 2012
-
 // Don't display so much stuff on the forms
 .filter-wrapper {
   display: none;
@@ -16,12 +11,6 @@
   }  
 }
 
-// hack for an empty div
-nav li.menu-449 {
-  display: none !important;
-  border: 1px solid red !important;
-}
-
 p br { display: none; } // hack to remove br's from content
 
 // Drupal autocomplete indicator is appearing broken
@@ -31,7 +20,7 @@ input.form-autocomplete {
 
 // hide unnecessary elements in forms
 .filter-guidelines,
-.filter-help   // the extremeley verbose lessons in how to use the editor
+.filter-help   // the extremely verbose lessons in how to use the editor
 {
   display: none;
 }
@@ -46,16 +35,20 @@ body.toolbar-drawer {
   padding-top: 0 !important; // override drupal
 }
 
-// there is no reset, on the filter on the reports stream 
 // on the create update page
+// there is no reset, on the filter on the reports stream 
 .views-exposed-widget .views-reset-button {
   display: none;
 }
 
-// create update page
+// on the create update page
+// if the empty tabs div appears it breaks the layout
 .page-node-add-post { 
   .tabs {
-    display: none; //if the empty tabs div appears it breaks the layout
+    display: none; 
   }
 }
 
+.absolute-messages-status, .messages.status, #absolute-messages-show, .absolute-messages-dismiss-all, #absolute-messages-messages {
+  display: none !important; // HACK hide status messages in bookmarklet
+}

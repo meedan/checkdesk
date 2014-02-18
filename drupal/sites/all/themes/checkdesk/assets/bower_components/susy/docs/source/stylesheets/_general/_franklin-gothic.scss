@@ -1,0 +1,112 @@
+// ---------------------------------------------------------------------------
+// Settings
+
+$sans-stack : 'FranklinGothicFSBook', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+$cond-stack : 'FranklinGothicFSCd', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+// ---------------------------------------------------------------------------
+// Fonts
+
+// Franklin Gothic Book
+@include font-face (
+  'FranklinGothicFS',
+  font-files(
+    'fg/FranklinGothic-Book-webfont.woff', 'woff',
+    'fg/FranklinGothic-Book-webfont.ttf', 'truetype',
+    'fg/FranklinGothic-Book-webfont.svg#webfont', 'svg'
+  ),
+  'fg/FranklinGothic-Book-webfont.eot',
+  $weight : normal,
+  $style  : normal
+);
+
+// Franklin Gothic Book Italic
+@include font-face (
+  'FranklinGothicFS',
+  font-files(
+    'fg/FranklinGothic-BookIt-webfont.woff', 'woff',
+    'fg/FranklinGothic-BookIt-webfont.ttf', 'truetype',
+    'fg/FranklinGothic-BookIt-webfont.svg#webfont', 'svg'
+  ),
+  'fg/FranklinGothic-BookIt-webfont.eot',
+  $weight : normal,
+  $style  : italic
+);
+
+// Franklin Gothic Medium
+@include font-face (
+  'FranklinGothicFS',
+  font-files(
+    'fg/FranklinGothic-Med-webfont.woff', 'woff',
+    'fg/FranklinGothic-Med-webfont.ttf', 'truetype',
+    'fg/FranklinGothic-Med-webfont.svg#webfont', 'svg'
+  ),
+  'fg/FranklinGothic-Med-webfont.eot',
+  $weight : bold,
+  $style  : normal
+);
+
+// Franklin Gothic Medium Italic
+@include font-face (
+  'FranklinGothicFS',
+  font-files(
+    'fg/FranklinGothic-MedIt-webfont.woff', 'woff',
+    'fg/FranklinGothic-MedIt-webfont.ttf', 'truetype',
+    'fg/FranklinGothic-MedIt-webfont.svg#webfont', 'svg'
+  ),
+  'fg/FranklinGothic-MedIt-webfont.eot',
+  $weight : bold,
+  $style  : italic
+);
+
+// Franklin Gothic Condensed
+@include font-face (
+  'FranklinGothicFSCd',
+  font-files(
+    'fg/FranklinGothic-Cd-webfont.woff', 'woff',
+    'fg/FranklinGothic-Cd-webfont.ttf', 'truetype',
+    'fg/FranklinGothic-Cd-webfont.svg#webfont', 'svg'
+  ),
+  'fg/FranklinGothic-Cd-webfont.eot',
+  $weight : normal,
+  $style  : normal
+);
+
+// Franklin Gothic Condensed Italic
+@include font-face (
+  'FranklinGothicFSCd',
+  font-files(
+    'fg/FranklinGothic-CdIt-webfont.woff', 'woff',
+    'fg/FranklinGothic-CdIt-webfont.ttf', 'truetype',
+    'fg/FranklinGothic-CdIt-webfont.svg#webfont', 'svg'
+  ),
+  'fg/FranklinGothic-CdIt-webfont.eot',
+  $weight : normal,
+  $style  : italic
+);
+
+// Franklin Gothic Condensed Medium
+@include font-face (
+  'FranklinGothicFSCd',
+  font-files(
+    'fg/FranklinGothic-MedCd-webfont.woff', 'woff',
+    'fg/FranklinGothic-MedCd-webfont.ttf', 'truetype',
+    'fg/FranklinGothic-MedCd-webfont.svg#webfont', 'svg'
+  ),
+  'fg/FranklinGothic-MedCd-webfont.eot',
+  $weight : bold,
+  $style  : normal
+);
+
+// Franklin Gothic Condensed Medium Italic
+@include font-face (
+  'FranklinGothicFSCd',
+  font-files(
+    'fg/FranklinGothic-MedCdIt-webfont.woff', 'woff',
+    'fg/FranklinGothic-MedCdIt-webfont.ttf', 'truetype',
+    'fg/FranklinGothic-MedCdIt-webfont.svg#webfont', 'svg'
+  ),
+  'fg/FranklinGothic-MedCdIt-webfont.eot',
+  $weight : bold,
+  $style  : italic
+);

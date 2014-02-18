@@ -54,7 +54,6 @@ $icon-position: 'before';
   display: inline-block;
   clear: none;
   position: relative;
-  // z-index: 1;
   background: $nav-container-bkg-color;
 }
 
@@ -66,9 +65,7 @@ $icon-position: 'before';
   display: inline-block;
   float: $from-direction;  
   position: relative;
-  // z-index: $zindexDropdown + 1; 
   & > a {
-    // font-weight: 100;
     padding: 0 $nav-gutter;
     letter-spacing: 0.05px;
     text-decoration: none;
@@ -135,15 +132,16 @@ $icon-position: 'before';
   @content;
 }
 
-
 // This nav contains two rows of nav-items with icons.
 nav[role="navigation"] {
   // @include ctb-box-shadow(0px 1px 3px 1px rgba(0, 0, 0, 0.5));
   font-family: $sans-serif-font-stack;
   font-size: $small-font-size;
+  
   @if $from-direction == 'right' {
     font-size: $base-font-size;
   }
+
   float: $from-direction;
   background-color: $nav-container-bkg-color;
   width: 100%;
@@ -181,66 +179,67 @@ nav[role="navigation"] {
       @include nav-item;
     }
   }
+}
 
-  // padding for the home icon
-  #main-menu {
-    padding-#{$alpha}: $gutter-width;
+// padding for the home icon
+#main-menu {
+  padding-#{$alpha}: $gutter-width;
+}
+
+#navigation-region,
+#user-menu {
+  float: $omega; // at a larger breakpoint these fall in line
+  span.avatar img {
+    width: $nav-icon-height;
+    height: $nav-icon-height;
+    margin-#{$alpha}: $nav-gutter;
   }
+  // add bell icon for notifications.
+  .icon-bell { @include icon("bell"); }
 
-  #navigation-region,
-  #user-menu {
-    float: $omega; // at a larger breakpoint these fall in line
-    span.avatar img {
-      width: $nav-icon-height;
-      height: $nav-icon-height;
-      margin-#{$alpha}: $nav-gutter;
-    }
-    // add bell icon for notifications.
-    .icon-bell { @include icon("bell"); }
-
-    li {
-      a.dropdown-toggle {
-        // margin-#{opposite-position($from-direction)}: $gutter-width;
-      }
-    }
-
-    li.open {
-      a.dropdown-toggle {
-        text-shadow: none;
-      }
-    }
-    
-    // hide ajax throbber in dropdown
-    .ajax-progress-throbber {
-      display: none;
+  li {
+    a.dropdown-toggle {
+      // margin-#{opposite-position($from-direction)}: $gutter-width;
     }
   }
 
-  // Position dropdown menu
-  #main-menu {
-    .dropdown-menu {
-      #{$from-direction}: 0;
-      #{opposite-position($from-direction)}: auto;
-
-      @if $from-direction == left {
-        @include border-radius(0 $radius $radius $radius);
-      }
-      @else {
-        @include border-radius($radius 0 $radius $radius);
-      }
+  li.open {
+    a.dropdown-toggle {
+      text-shadow: none;
     }
   }
-  #user-menu {
-    .dropdown-menu {
-      #{$from-direction}: auto;
-      #{opposite-position($from-direction)}: 0;
+  
+  // hide ajax throbber in dropdown
+  .ajax-progress-throbber {
+    display: none;
+  }
+}
 
-      @if $from-direction == left {
-        @include border-radius($radius 0 $radius $radius);
-      }
-      @else {
-        @include border-radius(0 $radius $radius $radius);
-      }
+// Position dropdown menu
+#main-menu {
+  .dropdown-menu {
+    #{$from-direction}: 0;
+    #{opposite-position($from-direction)}: auto;
+
+    @if $from-direction == left {
+      @include border-radius(0 $radius $radius $radius);
+    }
+    @else {
+      @include border-radius($radius 0 $radius $radius);
+    }
+  }
+}
+
+#user-menu {
+  .dropdown-menu {
+    #{$from-direction}: auto;
+    #{opposite-position($from-direction)}: 0;
+
+    @if $from-direction == left {
+      @include border-radius($radius 0 $radius $radius);
+    }
+    @else {
+      @include border-radius(0 $radius $radius $radius);
     }
   }
 }
@@ -252,15 +251,14 @@ nav[role="navigation"] {
       &.active { display: none; }
     }
   }
+} 
 
-}
-
-@include at-breakpoint($breakpoint) {
-  nav[role="navigation"] {
-    @include span-columns($breakpoint - 2, $breakpoint, $gutter-width);
-    @include pad(1, 2, $breakpoint);
-  }
-}
+// @include at-breakpoint($breakpoint) {
+//   nav[role="navigation"] {
+//     @include span-columns($breakpoint - 2, $breakpoint, $gutter-width);
+//     @include pad(1, 2, $breakpoint);
+//   }
+// }
 
 
 // =======================================================================
@@ -269,7 +267,7 @@ nav[role="navigation"] {
 div.region-page-top {
   #toolbar {
     position: fixed;
-    z-index: $zindexFixedNavbar;
+    z-index: $z-index-fixed-navbar;
     // This can be cleaned up with toolbar css is removed.
     @include box-shadow(0 0 0 0); // disable box shadow
     padding: 0;
@@ -297,19 +295,19 @@ div.region-page-top {
   position: fixed;
   right: 0;
   left: 0;
-  z-index: $zindexFixedNavbar;
+  z-index: $z-index-fixed-navbar;
 }
 
 // when toolbar is present
 .toolbar .navbar-fixed-top {
-  top: $toolbarHeight;
+  top: $toolbar-height;
 }
 
 body.toolbar-drawer {
-  #main #widgets.column { top: ($toolbarHeight + $navbarHeight) !important; }
+  #main #widgets.column { top: ($toolbar-height + $navbar-height) !important; }
   #main {
     #content {
-      margin-top: ($toolbarHeight + $navbarHeight) !important;
+      margin-top: ($toolbar-height + $navbar-height) !important;
     }
   }
 }

@@ -1,0 +1,70 @@
+// ---------------------------------------------------------------------------
+// Settings
+
+$fallback   : "Adobe Caslon Pro",Caslon,Baskerville,Palatino,"Palatino Linotype","Hoefler Text",Garamond,"URW Palladio L","Book Antiqua",Georgia,serif;
+$font-stack : "CenturyOldStyleFS", $fallback;
+$caps-stack : "CenturyOldStyleFSCaps", $fallback;
+$amp-stack  : "BaskervilleAmp", $font-stack;
+
+// ---------------------------------------------------------------------------
+// Fonts
+
+@include font-face (
+  'CenturyOldStyleFS',
+  font-files(
+    'cos/CenturyOldStyle-Regular-webfont.woff', 'woff',
+    'cos/CenturyOldStyle-Regular-webfont.ttf', 'truetype',
+    'cos/CenturyOldStyle-Regular-webfont.svg#webfont', 'svg'
+  ),
+  'cos/CenturyOldStyle-Regular-webfont.eot',
+  normal,
+  normal
+);
+
+@include font-face (
+  'CenturyOldStyleFS',
+  font-files(
+    'cos/CenturyOldStyle-Bold-webfont.woff', 'woff',
+    'cos/CenturyOldStyle-Bold-webfont.ttf', 'truetype',
+    'cos/CenturyOldStyle-Bold-webfont.svg#webfont', 'svg'
+  ),
+  'cos/CenturyOldStyle-Bold-webfont.eot',
+  bold,
+  normal
+);
+
+@include font-face (
+  'CenturyOldStyleFS',
+  font-files(
+    'cos/CenturyOldStyle-Italic-webfont.woff', 'woff',
+    'cos/CenturyOldStyle-Italic-webfont.ttf', 'truetype',
+    'cos/CenturyOldStyle-Italic-webfont.svg#webfont', 'svg'
+  ),
+  'cos/CenturyOldStyle-Italic-webfont.eot',
+  normal,
+  italic
+);
+
+@include font-face (
+  'CenturyOldStyleFSCaps',
+  font-files(
+    'cos/CenturyOldStyleCaps-Regular-webfont.woff', 'woff',
+    'cos/CenturyOldStyleCaps-Regular-webfont.ttf', 'truetype',
+    'cos/CenturyOldStyleCaps-Regular-webfont.svg#webfont', 'svg'
+  ),
+  'cos/CenturyOldStyleCaps-Regular-webfont.eot',
+  normal,
+  normal
+);
+
+@include font-face (
+  'BaskervilleAmp',
+  font-files(
+    'amp/Baskerville-amp-webfont.woff', 'woff',
+    'amp/Baskerville-amp-webfont.ttf', 'truetype',
+    'amp/Baskerville-amp-webfont.svg#webfont', 'svg'
+  ),
+  'amp/Baskerville-amp-webfont.eot',
+  normal,
+  normal
+);

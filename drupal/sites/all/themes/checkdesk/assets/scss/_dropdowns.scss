@@ -1,9 +1,4 @@
-//
-// Checkdesk Dropdown menus
-
-// Dropdown arrow/caret
-// ... is not in the current spec.
-// .caret { @include caret; }
+// Checkdesk dropdowns
 
 .dropup,
 .dropdown {
@@ -13,17 +8,9 @@
 // The dropdown menu (usually a ul)
 .dropdown-menu {
   position: absolute;
-  // top: 75%;
-  // @if $from-direction == left {
-  //   left: 0;
-  //   @include border-radius(0 $radius $radius $radius);
-  // }
-  // @if $from-direction == right {
-  //   right: 0;
-  //   @include border-radius($radius 0 $radius $radius);
-  // }
+
   @include border-radius($radius);
-  z-index: $zindexDropdown;
+  z-index: $z-index-dropdown;
   display: none; // none by default, but block on "open" of the menu
   float: $from-direction;
   min-width: 160px;
@@ -36,14 +23,14 @@
   @include background-clip(padding-box);
 
   // Aligns the dropdown menu to right
-  &.pull-#{$omega-float} {
+  &.pull-#{$omega} {
     #{opposite-position($from-direction)}: 0;
     #{$from-direction}: auto;
   }
 
   // Dividers (basically an hr) within the dropdown
   .divider {
-    @include ctb-nav-divider($dropdownDividerTop, $dropdownDividerBottom);
+    @include ctb-nav-divider($dropdown-divider-top, $dropdown-divider-bottom);
   }
 }
 
@@ -58,11 +45,11 @@
   line-height: $absolute-line-height;
   white-space: nowrap;
   @include border-radius(0);
-  color: $dropdownLinkColor;
-  background-color: $dropdownBackground;
+  color: $dropdown-link-color;
+  background-color: $dropdown-background;
   &:hover {
-    color: $dropdownLinkColorHover;
-    background-color: $dropdownLinkBackgroundHover;
+    color: $dropdown-link-color-hover;
+    background-color: $dropdown-link-background-hover;
   }
 }
 
@@ -84,14 +71,14 @@ ul.dropdown-menu {
 .dropdown-menu li > a:focus,
 .dropdown-submenu:hover > a {
   text-decoration: none;
-  color: $dropdownLinkColorHover;
+  color: $dropdown-link-color-hover;
   background-color: $identity;
 }
 
 // Active state
 .dropdown-menu .active > a,
 .dropdown-menu .active > a:hover {
-  color: $dropdownDividerTop;
+  color: $dropdown-divider-top;
   text-decoration: none;
   outline: 0;
   background-color: $identity;
@@ -112,14 +99,8 @@ ul.dropdown-menu {
 }
 
 // Open state for the dropdown
-.open {
-  // IE7's z-index only goes to the nearest positioned ancestor, which would
-  // make the menu appear below buttons that appeared later on the page
-  *z-index: $zindexDropdown;
-
-  & > .dropdown-menu {
-    display: block;
-  }
+.open > .dropdown-menu {
+  display: block;
 }
 
 // Sub menus
@@ -131,7 +112,7 @@ ul.dropdown-menu {
 .dropdown-submenu > .dropdown-menu {
   top: 0;
   #{$from-direction}: 100%;
-  #{$omega-float}: auto;
+  #{$omega}: auto;
   @include border-radius($radius);
 }
 .dropup .dropdown-submenu > .dropdown-menu {

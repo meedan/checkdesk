@@ -1,11 +1,12 @@
-// Checkdesk original styles
 
-// extra selector context, to give it extra heft in the cascade
+// Livefyre adjustments. 
+// CSS is also served by Livefyre, we are just modifying it.
 html body {
+  // Extra selector context used to give it extra heft in the cascade.
   .fyre-widget {
     padding: 1em;
     .img {
-      width: 83px !important; // there is a bug with with:100%
+      width: 83px !important; // there is a bug with with: 100%
     }
     // hide the comment count etc inside the widget
     .fyre-stream-stats {
@@ -29,7 +30,7 @@ html body {
     width: auto !important;
   }
 
-  // NOTE: This appers on liveblog homepage *and potentially* others that may not be obvious.
+  // NOTE: Livefyre appears on the  liveblog homepage *and potentially* others that may not be obvious.
   // Use the page-specific sass files for layout or other non-global styles. CGB
   .livefyre-wrapper {
     clear: both;

@@ -38,6 +38,6 @@ body.page-liveblog {
 // The .related-updates bib is centered in 28 out of 30 columns
 .related-updates {
   margin: { top: $base-font-size; bottom: $base-font-size; }
-  @include span-columns(28, 30, $gutter-width);
+  // @include span-columns(28, 30, $gutter-width);
   margin-#{$from-direction}: columns(1, 30); 
 }

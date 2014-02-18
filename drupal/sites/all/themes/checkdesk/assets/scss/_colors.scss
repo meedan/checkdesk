@@ -1,0 +1,142 @@
+// Colors
+$firefly: #10212F;
+$firefly90: #283743;
+$firefly80: #404D59;
+$firefly60: #6F7A82;
+$firefly40: #9FA6AC;
+$firefly30: #B7BCC0;
+$firefly20: #CFD3D5;
+$firefly10: #E7E8EA;
+$firefly5: #F3F4F4;
+$firefly2: #FAFBFB;
+
+$dodger-blue:  #2E77FC;
+
+$thatch: #B89892;
+$thatch5: #FBFAF9;
+$thatch2: #FEFDFD;
+
+// Identity
+$identity: $dodger-blue;
+
+// Basics
+$white: #fff;
+$black: #000;
+$bkg-color: #fff;
+$input-background: #fff;
+$hr-color: $firefly20;
+$text-color: $firefly;
+$link-color: $identity;
+
+
+// Misc Colors
+$dark-blue: hsl(204, 100%, 33%);
+$firetruck-red: hsl(3, 100%, 36%);
+$postit-yellow: hsl(46, 100%, 95%);
+$bright-blue: hsl(204, 100%, 45%);
+$verdun-green: hsl(90, 100%, 20%);
+$yellow-orange: hsl(32, 100%, 79%);
+$default-box-shadow-color: hsl(0, 0%, 76%);
+
+// TODO: refine these
+$orange: $yellow-orange; 
+$red: $firetruck-red;
+$yellow: $postit-yellow;
+$green: $verdun-green;
+
+// Greys 
+$lightest-grey: hsl(0, 0%, 97%);
+$light-grey: hsl(0, 0%, 93%);
+$grey: hsl(0, 0%, 80%);
+$gray: $grey; // alias
+$medium-grey: darken($grey, 15%);
+$dark-grey: darken($grey, 45%);
+$darker-grey: darken($dark-grey, 35%);
+$darkest-grey: darken($darker-grey, 25%);
+
+// Social network colors
+$twitter-blue: hsl(203, 75%, 45%);  // exact Twitter brand color
+$google-blue: hsl(217, 99%, 65%); // bright blue eg in google groups
+$twitter-blueish: darken($twitter-blue, 10%); 
+$facebook-blue: hsl(219, 56%, 34%);
+$youtube-red: hsl(1, 90%, 55%);
+
+// links colors for compass links helper
+$links-color: $dodger-blue;
+$links-active-color: $firefly80;
+$links-visited-color: $dodger-blue;
+
+// Notifications theme
+$notification-count-color: hsl(222, 59%, 45%);
+$notification-count-bkg-color: rgba($identity, 0.5);
+
+// Navigation theme
+// Used in chunky_block in buttons.scss
+$nav-color: $firefly20;
+$nav-bkg-color: $firefly90;
+$nav-active-color: $nav-bkg-color; 
+$nav-active-bkg-color: $firefly10;
+$nav-container-bkg-color: $nav-bkg-color; 
+$nav-hover-bkg-color: transparent;
+$nav-hover-color: white;
+
+// Tabs
+$tabs-color: $firefly80;
+$tabs-bkg-color: $firefly20;
+$tabs-active-color: $firefly; // active text
+$tabs-active-bkg-color: $firefly40;
+
+// Dropdowns
+$dropdown-background: white;
+$dropdown-border: $firefly20;
+$dropdown-divider-top: $firefly30;
+$dropdown-divider-bottom: white;
+$dropdown-link-color: $firefly60;
+$dropdown-link-color-hover: white;
+$dropdown-link-background-hover: white; 
+$dropdown-link-color-active: $dodger-blue;
+$dropdown-link-bkg-active: darken($link-color, 5%);
+$dropdown-link-bkg-hover: darken($dropdown-link-bkg-active, 10%);
+
+// Links
+$link-color: #08c !default;
+$link-color-hover: darken($link-color, 15%) !default;
+
+// Forms
+$input-background: $white !default;
+$input-border: #ccc !default;
+$input-disabled-background: $light-grey !default;
+$warning-text: #c09853 !default;
+$warning-background: #fcf8e3 !default;
+$warning-border: darken(adjust-hue($warning-background, -10), 3%) !default;
+$warning-link: darken($warning-text, 20%) !default;
+$error-text: #b94a48 !default;
+$error-background: #f9e8e8 !default;
+$error-border: darken(adjust-hue($error-background, -10), 3%) !default;
+$success-text: #468847 !default;
+$success-background: #dff0d8 !default;
+$success-border: darken(adjust-hue($success-background, -10), 5%) !default;
+$info-text: #3a87ad !default;
+$info-background: #d9edf7 !default;
+$info-border: darken(adjust-hue($info-background, -10), 7%) !default;
+
+// form validation colors
+$form-primary-accent: $bright-blue;
+$form-validation-error: $firetruck-red;
+$form-validation-success: $verdun-green;
+$form-validation-warning: $yellow-orange;
+
+// A debugging theme (syntax highlighting)
+$debug-bkg: lighten(hsl(212, 75%, 14%), 30%);
+$debug-one: hsl(344, 100%, 69%);
+$debug-two: hsl(104, 100%, 43%);
+$debug-three: hsl(208, 100%, 50%);
+$debug-four: hsl(151, 100%, 75%);
+$debug-five: hsl(52, 100%, 50%);
+$debug-six: hsl(37, 100%, 50%);
+$default_debug_color: $debug-six;
+
+// susy grid colors
+$grid-background-gutter-color : $postit-yellow;
+$grid-background-column-color : white;
+
