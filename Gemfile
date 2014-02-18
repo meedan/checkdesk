@@ -8,7 +8,7 @@ group :development do
   gem 'susy'
   gem 'compass'
   gem 'rake'
-  gem 'modular-scale'
+  gem 'modular-scale', '~> 1.0'
   gem 'sass-globbing'
   gem 'guard'
   gem 'guard-livereload'

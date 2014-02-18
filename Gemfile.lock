@@ -58,8 +58,10 @@ GEM
       rb-inotify (>= 0.9)
     lumberjack (1.0.4)
     method_source (0.8.2)
-    modular-scale (2.0.4)
-      compass (>= 0.12.0)
+    modular-scale (1.0.6)
+      compass (>= 0.12.1)
+      sass (>= 3.2.0)
+      sassy-math (>= 1.5)
     multi_json (1.8.4)
     nio4r (1.0.0)
     pry (0.9.12.6)
@@ -73,6 +75,8 @@ GEM
     sass (3.2.14)
     sass-globbing (1.1.0)
       sass (>= 3.1)
+    sassy-math (1.5)
+      compass (~> 0.11)
     slop (3.4.7)
     spoon (0.0.4)
       ffi
@@ -98,7 +102,7 @@ DEPENDENCIES
   guard-sass
   guard-uglify!
   json (~> 1.7.7)
-  modular-scale
+  modular-scale (~> 1.0)
   pry
   rake
   rb-fsevent
