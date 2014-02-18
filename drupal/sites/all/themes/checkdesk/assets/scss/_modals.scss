@@ -1,4 +1,3 @@
-
 // Checkdesk Modals
 
 $large-modal-width: 700px;
@@ -61,7 +60,8 @@ $large-modal-width: 700px;
 
   // Remove focus outline from opened modal
   outline: none;
-  overflow: visible; /* allow content to popup out (i.e tooltips) */
+  // allow content to popup out (i.e tooltips)
+  overflow: visible; 
 
   &.fade {
     @include transition(opacity .3s linear, top .3s ease-out);
@@ -125,6 +125,7 @@ $large-modal-width: 700px;
     @include reset-box-model;
   }
 }
+
 // Remove bottom margin if need be
 .modal-form {
   margin-bottom: 0;

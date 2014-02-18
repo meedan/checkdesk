@@ -5,12 +5,12 @@
 @import "base";
 @import "mixins";
 
+body { direction: ltr; }
 $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
 @import "typography"; 
 @include checkdesk-font-face("FontAwesome", "fontawesome-webfont-webfont");
-
 
 // Drupal
 @import "drupal/html5bp_defaults"; 
@@ -53,12 +53,13 @@ html {
 
 body {
   // @include container($container-width $breakpoint); 
+   @include box-sizing(border-box);
 }
 
 body.no-sidebars {
   #main {
     // @include span-columns($container-width - 2, $container-width);
-    @include pad(1, 1, $container-width);
+    // @include pad(1, 1, $container-width);
     margin-top: $absolute-line-height*3;
   }
 }
@@ -83,8 +84,8 @@ body.no-sidebars {
 @import "forms";
 @import "liveblog";
 @import "story";
-@import "_layout_2col";
-@import "widgets";
+@import "layout_2col";
+@import "layout_widgets";
 @import "user";
 @import "create_story";
 @import "reports_page";

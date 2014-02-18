@@ -28,12 +28,6 @@
   background-color: $bkg-color; 
 }
 
-// Set the direction property
-@mixin checkdesk-layout($direction) {
-  text-align: $direction;
-  @if $direction == 'right' {
-    direction: rtl;
-  } @else {
-    direction: ltr;
-  }
+@mixin cd-vertical-margin($width) {
+  margin: { top: $width; bottom: $width; } 
 }

@@ -8,13 +8,13 @@
   }
 
   div.profile {
-    @include span-columns($width - 2, $context, $gutter-width);
+    // @include span-columns($width - 2, $context, $gutter-width);
     background-color: $input-background;
     @content;
     
     .user-picture {
       float: $omega;
-      @include span-columns(1 omega, $context, $gutter-width);
+      // @include span-columns(1 omega, $context, $gutter-width);
     }
 
     h3 {
@@ -316,7 +316,7 @@ body.page-user-password { // both logged in and not logged ins states
           font-family: $sans-serif-font-stack;
           font-size: $small-font-size;
           font-weight: normal;
-          @include ctb-linkColor($link-color);
+          @include ctb-link-color($link-color);
         }
       }
     }

@@ -37,19 +37,19 @@ div.tabs {
 
     li {
       @include reset-box-model;
-      @include span-columns($container-width, $container-width); // default full width
+      // @include span-columns($container-width, $container-width); // default full width
       display: inline-block;
       float: $from-direction;
 
       &.active {
         a {
-          @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
+          // @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
           display: inline-block;
         }
       }
 
       a {
-        @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
+        // @include span-columns($container-width, $container-width, $gutter-width); // default full width at smallest breakpoint
         line-height: $absolute-line-height;
         display: inline-block;
         padding: { top: $gutter-width; bottom: $gutter-width; }

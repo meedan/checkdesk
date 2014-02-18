@@ -1,3 +1,7 @@
+body {
+  direction: ltr;
+}
+
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -2652,7 +2656,7 @@ body.page-user-password #user-register-form #edit-social-media-signin li a[class
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-.dropdown-menu.pull-right {
+.dropdown-menu.pull-left {
   left: 0;
   right: auto;
 }
@@ -2733,7 +2737,7 @@ ul.dropdown-menu a:hover {
 .dropdown-submenu > .dropdown-menu {
   top: 0;
   right: 100%;
-  right: auto;
+  left: auto;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -2806,7 +2810,6 @@ ul.dropdown-menu a:hover {
   background-clip: padding-box;
   outline: none;
   overflow: visible;
-  /* allow content to popup out (i.e tooltips) */
 }
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
@@ -3012,9 +3015,13 @@ html {
   background-color: #fbfaf9;
 }
 
+body {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body.no-sidebars #main {
-  padding-right: 8.60215%;
-  padding-left: 8.60215%;
   margin-top: 72px;
 }
 
@@ -3079,29 +3086,13 @@ div.tabs ul.primary li {
   margin: 0;
   padding: 0;
   border: 0;
-  width: 100%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
   display: inline-block;
   float: right;
 }
 div.tabs ul.primary li.active a {
-  padding-right: 3.22581%;
-  padding-left: 3.22581%;
-  width: 93.54839%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
   display: inline-block;
 }
 div.tabs ul.primary li a {
-  padding-right: 3.22581%;
-  padding-left: 3.22581%;
-  width: 93.54839%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
   line-height: 24px;
   display: inline-block;
   padding-top: 15px;
@@ -3568,7 +3559,7 @@ div.tabs ul.primary li a {
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
   margin-left: 0;
 }
 #incoming-reports-filters .panels #filter-by .views-submit-button #close::-moz-focus-inner {
@@ -3686,8 +3677,6 @@ body.widgets #main #footer, body.sidebar-first #main #footer {
 body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #footer-inner {
   max-width: 850px;
   padding-top: 48px;
-  padding-right: 8.60215%;
-  padding-left: 17.2043%;
 }
 
 #footer-inner {
@@ -3767,7 +3756,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
 }
 #footer-inner .factcheck-cta::-moz-focus-inner {
   border: none;
@@ -5461,7 +5450,7 @@ html body .livefyre-wrapper {
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
 }
 #meedan_bookmarklet .footer input::-moz-focus-inner {
   border: none;
@@ -6485,7 +6474,7 @@ body form .form-actions input, body form .form-actions a {
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
 }
 body form .form-actions input::-moz-focus-inner, body form .form-actions a::-moz-focus-inner {
   border: none;
@@ -6535,7 +6524,7 @@ body form input[type="reset"] {
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
   border: 1px solid #cccccc;
 }
 body form input#edit-reset::-moz-focus-inner,
@@ -6611,7 +6600,7 @@ body form .form-submit {
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
 }
 body form input#edit-submit::-moz-focus-inner,
 body form .form-submit::-moz-focus-inner {
@@ -6690,10 +6679,6 @@ body form.ife .form-type-select label {
 }
 body form.ife .form-type-select select {
   float: right;
-  width: 48.3871%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
 }
 body form#user-login label {
   display: block;
@@ -6878,7 +6863,7 @@ body form.confirmation .form-actions input {
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
 }
 body form.confirmation .form-actions input::-moz-focus-inner {
   border: none;
@@ -6903,26 +6888,10 @@ body form.confirmation .form-actions input:active, body form.confirmation .form-
   color: white;
 }
 
-body form > .form-item {
-  width: 100%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
-}
-body form > .form-item .form-item {
-  width: 100%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
-}
 body form input[type="password"],
 body form input[type="text"],
 body form textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  width: 100%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -6968,10 +6937,6 @@ body form .image-widget input[type="submit"] {
   margin-left: 0;
 }
 body form select {
-  width: 100%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
   *zoom: 1;
   float: none;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -7094,7 +7059,7 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
 .related-updates {
   margin-top: 18px;
   margin-bottom: 18px;
-  margin-right: 2.1097%;
+  margin-right: columns(1, 30);
 }
 
 .node-type-discussion #main .update-row .update-body, .page-liveblog #main .update-row .update-body {
@@ -7121,10 +7086,6 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
   border-top: 2px solid #cfd3d5;
 }
 .updates .update-row .update-info {
-  width: 31.1828%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #cfd3d5;
   border-top: 4px solid #cfd3d5;
@@ -7414,7 +7375,7 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
 }
 .story .compose-update-form .node-post-form input[type='submit']::-moz-focus-inner {
   border: none;
@@ -7818,7 +7779,7 @@ body.page-user.logged-in .user-info .profile-links a {
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -7890,25 +7851,12 @@ body.page-user-password #content-header > h1 {
 body.page-user-login div.profile,
 body.page-user-register div.profile,
 body.page-user-password div.profile {
-  padding-right: 3.22581%;
-  padding-left: 3.22581%;
-  width: 76.34409%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
   background-color: white;
 }
 body.page-user-login div.profile .user-picture,
 body.page-user-register div.profile .user-picture,
 body.page-user-password div.profile .user-picture {
   float: left;
-  padding-right: 3.22581%;
-  padding-left: 3.22581%;
-  width: -1.07527%;
-  float: right;
-  margin-left: 0;
-  *margin-left: -15px;
-  display: inline;
 }
 body.page-user-login div.profile h3,
 body.page-user-register div.profile h3,
@@ -8652,7 +8600,7 @@ body.page-reports #reports .report-item .report-detail-link a, .profile #reports
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
-  margin-right: 1em;
+  margin-left: 1em;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -8719,17 +8667,6 @@ body.page-reports .pager-load-more a, .profile .pager-load-more a {
   width: 70%;
   margin: 0 auto;
   text-align: center;
-}
-
-body.page-reports #main {
-  padding-right: 1.6129%;
-  padding-left: 1.6129%;
-  width: 79.56989%;
-  float: right;
-  margin-left: 3.22581%;
-  display: inline;
-  padding-right: 8.60215%;
-  padding-left: 8.60215%;
 }
 
 .tour-backdrop {
@@ -8958,4 +8895,8 @@ html body.i18n-ar {
 
 .posts h3 a {
   font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+}
+
+body {
+  direction: rtl;
 }

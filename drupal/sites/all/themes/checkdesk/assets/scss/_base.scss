@@ -1,22 +1,37 @@
 @charset "UTF-8";
 
+// Set this to true to add support for IE 6.
+// Override default set in Compass' Support partial.
+$legacy-support-for-ie6: false; 
+
+// Set this to true to add support for IE 7.
+// Override default set in Compass' Support partial.
+$legacy-support-for-ie7: false; 
+
+// Line heights
+$relative-line-height: 1.5;
+$absolute-line-height: 24px;
+
+// The amount lists and blockquotes are indented.
+$indent-amount: 40px !default;
+
+// After the default variables are set, import the required Compass partials.
+@import "compass/support";
+@import "compass/css3/box-sizing";
+@import "compass/typography/vertical_rhythm";
 @import "compass/reset/utilities";
-@import 'susy';
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/css3/font-face";
+
 @import 'modular-scale';
 
 $from-direction: left !default;
 $omega: opposite-position($from-direction);
 $icon-position: before !default;
 
-@import "compass/css3/transform";
-@import "compass/css3/transition";
-@import "compass/css3/font-face";
-
-// Line heights
-$relative-line-height: 1.5;
-$absolute-line-height: 24px;
-
 // Susy
+// @import 'susy';
 $container-style: magic;
 $container-width: 12; // Mobile first
 $total-columns: $container-width; // Alias for Susy

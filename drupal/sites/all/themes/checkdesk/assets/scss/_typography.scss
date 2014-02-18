@@ -1,3 +1,11 @@
+// Checkdesk typography 
+
+
+// The default font family.
+$base-font-family: sans-serif !default;
+
+// The amount lists and blockquotes are indented.
+$indent-amount: 40px !default;
 
 // Font stacks
 $en-body-font-stack: "Mercury SSm A", "Mercury SSm B", Georgia, "Times New Roman", Times, serif;
@@ -23,10 +31,7 @@ $body-font-stack: $en-body-font-stack !default;
 
 @include checkdesk-font-face("FontAwesome", "fontawesome-webfont-webfont");
 
-
-
 %checkdesk-typography-defaults {
-  
   h1, h2, h3, h4 {
     @include reset-box-model;
   }

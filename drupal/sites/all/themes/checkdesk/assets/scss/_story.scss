@@ -1,9 +1,7 @@
-// Citizen's view of Story page 
-// aka Discussion Node 
+// Checkdesk story page 
+//
+// aka the Discussion Node 
 
-@mixin vertical-margin($width) {
-  margin: { top: $width; bottom: $width; } 
-}
 
 @mixin layout-story($width, $context) {
   
@@ -44,7 +42,7 @@
     border-top: 2px solid $firefly20;
 
     .update-info {
-      @include span-columns(4);
+      // @include span-columns(4);
       font-family: $sans-serif-font-stack;
       color: $firefly20;
       border-top: 4px solid $firefly20;
@@ -142,7 +140,7 @@
     font-size: $larger-font-size;
     margin-top: $absolute-line-height/4;
     margin-bottom: $absolute-line-height/2;
-    a { @include ctb-linkColor($light-grey); }
+    a { @include ctb-link-color($light-grey); }
   }
 
   .story-context {
@@ -175,7 +173,7 @@
           margin-#{omega}: $gutter-width/3;
         }
       }
-      a { @include ctb-linkColor($light-grey); }
+      a { @include ctb-link-color($light-grey); }
     }
 
     .blogger-status {

@@ -1,3 +1,5 @@
+// Checkdesk Forms
+
 %form-drag-and-drop {
   .views-row.ui-draggable-dragging .views-row, 
   .views-row.ui-draggable:hover .views-row {
@@ -78,7 +80,7 @@
       }
       select {
         float: $alpha;
-        @include span-columns($container-width/2);
+        // @include span-columns($container-width/2);
       }
     }
   }
@@ -190,9 +192,11 @@
 
   // Make select elements obey height by applying a border
   select {
-    width: 220px; // default input width + 10px of padding that doesn't get applied
+    // default input width + 10px of padding that doesn't get applied
+    width: 220px; 
     border: 1px solid $input-border;
-    background-color: $input-background; // Chrome on Linux and Mobile Safari need background-color
+    // Chrome on Linux and Mobile Safari need background-color
+    background-color: $input-background; 
   }
 
   // Make multiple select elements height not fixed
@@ -297,11 +301,11 @@
   form {
 
     & > .form-item {
-      @include span-columns($form-width, $form-width);
+      // @include span-columns($form-width, $form-width);
 
       // Nested <.form-item>s
       .form-item { 
-        @include span-columns($form-width, $form-width);
+        // @include span-columns($form-width, $form-width);
       }
     } 
 
@@ -311,7 +315,7 @@
     // input[type="file"],
     textarea {
       font-family: $sans-serif-font-stack;
-      @include span-columns($form-width, $form-width);
+      // @include span-columns($form-width, $form-width);
       @include ctb-box-sizing(border-box);
       padding-top: $gutter-width/2; 
       padding-bottom: $gutter-width/2; 
@@ -352,7 +356,7 @@
     }
 
     select {
-      @include span-columns($form-width, $form-width);
+      // @include span-columns($form-width, $form-width);
       @include ctb-clearfix;
       float: none;
       font-family: $sans-serif-font-stack;

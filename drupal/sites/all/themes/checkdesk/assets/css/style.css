@@ -1,3 +1,7 @@
+body {
+  direction: ltr;
+}
+
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -2806,7 +2810,6 @@ ul.dropdown-menu a:hover {
   background-clip: padding-box;
   outline: none;
   overflow: visible;
-  /* allow content to popup out (i.e tooltips) */
 }
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
@@ -3012,9 +3015,13 @@ html {
   background-color: #fbfaf9;
 }
 
+body {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body.no-sidebars #main {
-  padding-left: 8.60215%;
-  padding-right: 8.60215%;
   margin-top: 72px;
 }
 
@@ -3079,29 +3086,13 @@ div.tabs ul.primary li {
   margin: 0;
   padding: 0;
   border: 0;
-  width: 100%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
   display: inline-block;
   float: left;
 }
 div.tabs ul.primary li.active a {
-  padding-left: 3.22581%;
-  padding-right: 3.22581%;
-  width: 93.54839%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
   display: inline-block;
 }
 div.tabs ul.primary li a {
-  padding-left: 3.22581%;
-  padding-right: 3.22581%;
-  width: 93.54839%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
   line-height: 24px;
   display: inline-block;
   padding-top: 15px;
@@ -3688,8 +3679,6 @@ body.widgets #main #footer, body.sidebar-first #main #footer {
 body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #footer-inner {
   max-width: 850px;
   padding-top: 48px;
-  padding-left: 8.60215%;
-  padding-right: 17.2043%;
 }
 
 #footer-inner {
@@ -6691,10 +6680,6 @@ body form.ife .form-type-select label {
 }
 body form.ife .form-type-select select {
   float: left;
-  width: 48.3871%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
 }
 body form#user-login label {
   display: block;
@@ -6904,26 +6889,10 @@ body form.confirmation .form-actions input:active, body form.confirmation .form-
   color: white;
 }
 
-body form > .form-item {
-  width: 100%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
-}
-body form > .form-item .form-item {
-  width: 100%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
-}
 body form input[type="password"],
 body form input[type="text"],
 body form textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  width: 100%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -6969,10 +6938,6 @@ body form .image-widget input[type="submit"] {
   margin-right: 0;
 }
 body form select {
-  width: 100%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
   *zoom: 1;
   float: none;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -7096,7 +7061,7 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
 .related-updates {
   margin-top: 18px;
   margin-bottom: 18px;
-  margin-left: 2.1097%;
+  margin-left: columns(1, 30);
 }
 
 .node-type-discussion #main .update-row .update-body, .page-liveblog #main .update-row .update-body {
@@ -7123,10 +7088,6 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
   border-top: 2px solid #cfd3d5;
 }
 .updates .update-row .update-info {
-  width: 31.1828%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #cfd3d5;
   border-top: 4px solid #cfd3d5;
@@ -7908,25 +7869,12 @@ body.page-user-password #content-header > h1 {
 body.page-user-login div.profile,
 body.page-user-register div.profile,
 body.page-user-password div.profile {
-  padding-left: 3.22581%;
-  padding-right: 3.22581%;
-  width: 76.34409%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
   background-color: white;
 }
 body.page-user-login div.profile .user-picture,
 body.page-user-register div.profile .user-picture,
 body.page-user-password div.profile .user-picture {
   float: right;
-  padding-left: 3.22581%;
-  padding-right: 3.22581%;
-  width: -1.07527%;
-  float: right;
-  margin-right: 0;
-  *margin-left: -15px;
-  display: inline;
 }
 body.page-user-login div.profile h3,
 body.page-user-register div.profile h3,
@@ -8734,17 +8682,6 @@ body.page-reports .pager-load-more a, .profile .pager-load-more a {
   width: 70%;
   margin: 0 auto;
   text-align: center;
-}
-
-body.page-reports #main {
-  padding-left: 1.6129%;
-  padding-right: 1.6129%;
-  width: 79.56989%;
-  float: left;
-  margin-right: 3.22581%;
-  display: inline;
-  padding-left: 8.60215%;
-  padding-right: 8.60215%;
 }
 
 .tour-backdrop {

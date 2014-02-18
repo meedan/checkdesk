@@ -6,8 +6,8 @@
 @mixin reports-layout($secondary-width, $primary-width) {
   body.page-reports {
     #main {
-      @include span-columns($breakpoint - 2, $breakpoint, $gutter-width / 2); //outermost container
-      @include pad(1, 1, $breakpoint);
+      // @include span-columns($breakpoint - 2, $breakpoint, $gutter-width / 2); //outermost container
+      // @include pad(1, 1, $breakpoint);
     }
   }
 }
