@@ -10,7 +10,6 @@ $alpha: $from-direction;
 $omega: opposite-position($from-direction);
 
 @import "typography"; 
-@include checkdesk-font-face("FontAwesome", "fontawesome-webfont-webfont");
 
 // Drupal
 @import "drupal/html5bp_defaults"; 
@@ -33,7 +32,9 @@ $omega: opposite-position($from-direction);
 @import "bowerbird/debug";
 @import "bowerbird/transition";
 @import "bowerbird/icons/icons";
+
 @import "bowerbird/icons/fontawesome";
+
 @import "bowerbird/buttons";
 @import "bowerbird/gradients";
 
@@ -52,8 +53,9 @@ html {
 }
 
 body {
-  // @include container($container-width $breakpoint); 
-   @include box-sizing(border-box);
+  @include susy-grid-background;
+  @include container($container-width $breakpoint); 
+  @include box-sizing(border-box);
 }
 
 body.no-sidebars {

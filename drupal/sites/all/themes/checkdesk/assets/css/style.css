@@ -4,7 +4,7 @@ body {
 
 @font-face {
   font-family: "FontAwesome";
-  src: url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
+  src: url('/sites/all/themes/checkdesk/assets/scss/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/scss/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
 body h1, body h2, body h3, body h4 {
@@ -123,11 +123,6 @@ nav, #sidebar-first {
 
 #sidebar-first {
   font-size: 15px;
-}
-
-@font-face {
-  font-family: "FontAwesome";
-  src: url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
 /*
@@ -3016,9 +3011,33 @@ html {
 }
 
 body {
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #fff9e5), color-stop(0%, #ffffff), color-stop(5.37634%, #ffffff), color-stop(5.37634%, #fff9e5), color-stop(8.60215%, #fff9e5), color-stop(8.60215%, #ffffff), color-stop(13.97849%, #ffffff), color-stop(13.97849%, #fff9e5), color-stop(17.2043%, #fff9e5), color-stop(17.2043%, #ffffff), color-stop(22.58065%, #ffffff), color-stop(22.58065%, #fff9e5), color-stop(25.80645%, #fff9e5), color-stop(25.80645%, #ffffff), color-stop(31.1828%, #ffffff), color-stop(31.1828%, #fff9e5), color-stop(34.4086%, #fff9e5), color-stop(34.4086%, #ffffff), color-stop(39.78495%, #ffffff), color-stop(39.78495%, #fff9e5), color-stop(43.01075%, #fff9e5), color-stop(43.01075%, #ffffff), color-stop(48.3871%, #ffffff), color-stop(48.3871%, #fff9e5), color-stop(51.6129%, #fff9e5), color-stop(51.6129%, #ffffff), color-stop(56.98925%, #ffffff), color-stop(56.98925%, #fff9e5), color-stop(60.21505%, #fff9e5), color-stop(60.21505%, #ffffff), color-stop(65.5914%, #ffffff), color-stop(65.5914%, #fff9e5), color-stop(68.8172%, #fff9e5), color-stop(68.8172%, #ffffff), color-stop(74.19355%, #ffffff), color-stop(74.19355%, #fff9e5), color-stop(77.41935%, #fff9e5), color-stop(77.41935%, #ffffff), color-stop(82.7957%, #ffffff), color-stop(82.7957%, #fff9e5), color-stop(86.02151%, #fff9e5), color-stop(86.02151%, #ffffff), color-stop(91.39785%, #ffffff), color-stop(91.39785%, #fff9e5), color-stop(94.62366%, #fff9e5), color-stop(94.62366%, #ffffff), color-stop(100%, #ffffff), color-stop(100%, #fff9e5), color-stop(100%, #fff9e5));
+  background-image: -webkit-linear-gradient(left, #fff9e5 0%, #ffffff 0%, #ffffff 5.37634%, #fff9e5 5.37634%, #fff9e5 8.60215%, #ffffff 8.60215%, #ffffff 13.97849%, #fff9e5 13.97849%, #fff9e5 17.2043%, #ffffff 17.2043%, #ffffff 22.58065%, #fff9e5 22.58065%, #fff9e5 25.80645%, #ffffff 25.80645%, #ffffff 31.1828%, #fff9e5 31.1828%, #fff9e5 34.4086%, #ffffff 34.4086%, #ffffff 39.78495%, #fff9e5 39.78495%, #fff9e5 43.01075%, #ffffff 43.01075%, #ffffff 48.3871%, #fff9e5 48.3871%, #fff9e5 51.6129%, #ffffff 51.6129%, #ffffff 56.98925%, #fff9e5 56.98925%, #fff9e5 60.21505%, #ffffff 60.21505%, #ffffff 65.5914%, #fff9e5 65.5914%, #fff9e5 68.8172%, #ffffff 68.8172%, #ffffff 74.19355%, #fff9e5 74.19355%, #fff9e5 77.41935%, #ffffff 77.41935%, #ffffff 82.7957%, #fff9e5 82.7957%, #fff9e5 86.02151%, #ffffff 86.02151%, #ffffff 91.39785%, #fff9e5 91.39785%, #fff9e5 94.62366%, #ffffff 94.62366%, #ffffff 100%, #fff9e5 100%, #fff9e5 100%);
+  background-image: -moz-linear-gradient(left, #fff9e5 0%, #ffffff 0%, #ffffff 5.37634%, #fff9e5 5.37634%, #fff9e5 8.60215%, #ffffff 8.60215%, #ffffff 13.97849%, #fff9e5 13.97849%, #fff9e5 17.2043%, #ffffff 17.2043%, #ffffff 22.58065%, #fff9e5 22.58065%, #fff9e5 25.80645%, #ffffff 25.80645%, #ffffff 31.1828%, #fff9e5 31.1828%, #fff9e5 34.4086%, #ffffff 34.4086%, #ffffff 39.78495%, #fff9e5 39.78495%, #fff9e5 43.01075%, #ffffff 43.01075%, #ffffff 48.3871%, #fff9e5 48.3871%, #fff9e5 51.6129%, #ffffff 51.6129%, #ffffff 56.98925%, #fff9e5 56.98925%, #fff9e5 60.21505%, #ffffff 60.21505%, #ffffff 65.5914%, #fff9e5 65.5914%, #fff9e5 68.8172%, #ffffff 68.8172%, #ffffff 74.19355%, #fff9e5 74.19355%, #fff9e5 77.41935%, #ffffff 77.41935%, #ffffff 82.7957%, #fff9e5 82.7957%, #fff9e5 86.02151%, #ffffff 86.02151%, #ffffff 91.39785%, #fff9e5 91.39785%, #fff9e5 94.62366%, #ffffff 94.62366%, #ffffff 100%, #fff9e5 100%, #fff9e5 100%);
+  background-image: -o-linear-gradient(left, #fff9e5 0%, #ffffff 0%, #ffffff 5.37634%, #fff9e5 5.37634%, #fff9e5 8.60215%, #ffffff 8.60215%, #ffffff 13.97849%, #fff9e5 13.97849%, #fff9e5 17.2043%, #ffffff 17.2043%, #ffffff 22.58065%, #fff9e5 22.58065%, #fff9e5 25.80645%, #ffffff 25.80645%, #ffffff 31.1828%, #fff9e5 31.1828%, #fff9e5 34.4086%, #ffffff 34.4086%, #ffffff 39.78495%, #fff9e5 39.78495%, #fff9e5 43.01075%, #ffffff 43.01075%, #ffffff 48.3871%, #fff9e5 48.3871%, #fff9e5 51.6129%, #ffffff 51.6129%, #ffffff 56.98925%, #fff9e5 56.98925%, #fff9e5 60.21505%, #ffffff 60.21505%, #ffffff 65.5914%, #fff9e5 65.5914%, #fff9e5 68.8172%, #ffffff 68.8172%, #ffffff 74.19355%, #fff9e5 74.19355%, #fff9e5 77.41935%, #ffffff 77.41935%, #ffffff 82.7957%, #fff9e5 82.7957%, #fff9e5 86.02151%, #ffffff 86.02151%, #ffffff 91.39785%, #fff9e5 91.39785%, #fff9e5 94.62366%, #ffffff 94.62366%, #ffffff 100%, #fff9e5 100%, #fff9e5 100%);
+  background-image: linear-gradient(left, #fff9e5 0%, #ffffff 0%, #ffffff 5.37634%, #fff9e5 5.37634%, #fff9e5 8.60215%, #ffffff 8.60215%, #ffffff 13.97849%, #fff9e5 13.97849%, #fff9e5 17.2043%, #ffffff 17.2043%, #ffffff 22.58065%, #fff9e5 22.58065%, #fff9e5 25.80645%, #ffffff 25.80645%, #ffffff 31.1828%, #fff9e5 31.1828%, #fff9e5 34.4086%, #ffffff 34.4086%, #ffffff 39.78495%, #fff9e5 39.78495%, #fff9e5 43.01075%, #ffffff 43.01075%, #ffffff 48.3871%, #fff9e5 48.3871%, #fff9e5 51.6129%, #ffffff 51.6129%, #ffffff 56.98925%, #fff9e5 56.98925%, #fff9e5 60.21505%, #ffffff 60.21505%, #ffffff 65.5914%, #fff9e5 65.5914%, #fff9e5 68.8172%, #ffffff 68.8172%, #ffffff 74.19355%, #fff9e5 74.19355%, #fff9e5 77.41935%, #ffffff 77.41935%, #ffffff 82.7957%, #fff9e5 82.7957%, #fff9e5 86.02151%, #ffffff 86.02151%, #ffffff 91.39785%, #fff9e5 91.39785%, #fff9e5 94.62366%, #ffffff 94.62366%, #ffffff 100%, #fff9e5 100%, #fff9e5 100%);
+  background-position: left top;
+  -webkit-background-origin: content;
+  -moz-background-origin: content;
+  -ms-background-origin: content-box;
+  -o-background-origin: content-box;
+  background-origin: content-box;
+  -webkit-background-clip: content-box;
+  -moz-background-clip: content-box;
+  background-clip: content-box;
+  max-width: -8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: auto;
+  margin-right: auto;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+body:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 body.no-sidebars #main {
@@ -3863,6 +3882,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   position: relative;
   margin-top: 15px;
   margin-bottom: 15px;
+  width: 100%;
   border-top: 4px solid #9fa6ac;
   border-bottom: 1px solid #e7e8ea;
   text-align: left;
@@ -3884,6 +3904,16 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report a:hover {
   color: #2e77fc;
+}
+.report .report-content {
+  border-top: 1px solid blue;
+  .report-content-border-top: 1px solid green;
+}
+.report .report-content .report-media {
+  border-top: 1px solid yellow;
+}
+.report .report-content .report-media .container {
+  border-top: 1px solid red;
 }
 .report .report-content {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -5117,6 +5147,7 @@ div.sensitive-hide {
 .update .update-body {
   padding-top: 8px;
   color: #404d59;
+  width: 100%;
 }
 .update .update-body .update-title {
   font-size: 25px;
@@ -7051,7 +7082,7 @@ body.page-liveblog #main .view-liveblog .desk h1 a:active {
 .related-updates {
   margin-top: 18px;
   margin-bottom: 18px;
-  margin-left: columns(1, 30);
+  margin-left: 2.1097%;
 }
 
 .node-type-discussion #main .update-row .update-body, .page-liveblog #main .update-row .update-body {

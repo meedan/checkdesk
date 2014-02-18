@@ -13,9 +13,12 @@ images_dir = File.join(full_assets_dir, "imgs")
 javascripts_dir = File.join(full_assets_dir, "js")
 
 # icon webfonts from bowerbird
-fonts_dir = File.join(full_assets_dir, "fonts")
-http_fonts_path = File.join(http_path, themes_dir, assets_dir, "fonts")
+fonts_dir = File.join(full_assets_dir, "scss/bowerbird/fonts")
+http_fonts_path = File.join(http_path, themes_dir, assets_dir, "scss/bowerbird/fonts")
 relative_assets = false
+
+# puts fonts_dir
+# puts http_fonts_path
 
 # Add bower components to our path
 add_import_path "drupal/sites/all/themes/checkdesk/assets/bower_components/susy/sass"

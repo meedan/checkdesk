@@ -20,7 +20,6 @@ $body-font-stack: $en-body-font-stack !default;
 
 // Mixin: font-face
 @mixin checkdesk-font-face($name: "FontName", $file: "fontname-webfont", $weight: normal, $style: normal) {
-  @if $debug {  @debug ">>> loading #{$file}" }
   @include font-face(  
   $name,
   font-files(

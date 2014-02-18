@@ -31,10 +31,9 @@ $omega: opposite-position($from-direction);
 $icon-position: before !default;
 
 // Susy
-// @import 'susy';
+@import 'susy';
 $container-style: magic;
-$container-width: 12; // Mobile first
-$total-columns: $container-width; // Alias for Susy
+$container-width: 12;
 $breakpoint: 12;  // Breakpoints apply after the browser is stretched wider than this target width
 
 $break-small: $breakpoint; // Deprecated
@@ -117,4 +116,4 @@ $checkdesk-logo-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH
 
 // ## Debugger
 // debug mode for @debug statements and other sass debuggers
-$debug: false !default;
+$debug: true !default;

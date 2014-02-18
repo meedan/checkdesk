@@ -13,19 +13,26 @@ $report-activity-header-color: darken($firefly30, 10%);
 
 .report {
   @include ctb-clearfix;
-  float: $from-direction;
+  // float: $from-direction;
   position: relative;
+
   margin: { top: $gutter-width; bottom: $gutter-width; }
-  // width: 100%; //default
+  
+
+  @include span-columns(6)
+  
+
+  border-top: 4px solid $firefly40;
+  border-bottom: 1px solid $firefly10;
+  text-align: $alpha;
+  font-size: $small-font-size;
   
   // when inside a modal window
   .modal-content & { 
     width: 92%; 
   }
-  border-top: 4px solid $firefly40;
-  border-bottom: 1px solid $firefly10;
-  text-align: $alpha;
-  font-size: $small-font-size;
+
+  
   
   a {
     color: $report-text-color;
@@ -34,11 +41,25 @@ $report-activity-header-color: darken($firefly30, 10%);
     }
   }
 
+.report-content {
+  border-top: 1px solid blue;
+  .report-content: {
+    border-top: 1px solid green;
+  }
+  .report-media {
+    border-top: 1px solid yellow;
+    .container {
+      border-top: 1px solid red;
+    }
+  }
+}
+
   // Main report content
   .report-content {
     font-family: $sans-serif-font-stack;
     border-left: 1px solid rgba($firefly,.1);
     border-right: 1px solid rgba($firefly,.1);
+
     .report-media {
       border-bottom: 1px solid rgba($firefly,.05);
       text-align: center;
@@ -83,6 +104,7 @@ $report-activity-header-color: darken($firefly30, 10%);
           @include ctb-clearfix();
           padding: $absolute-line-height/4 $gutter-width;
         }
+
         .favicon {
           float: $alpha;
           margin-#{$omega}: $gutter-width;
@@ -91,6 +113,7 @@ $report-activity-header-color: darken($firefly30, 10%);
             vertical-align: text-top;
           }
         }
+        
         .author, .domain {
           float: $alpha;
         }
