@@ -27,17 +27,16 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: $xx-large-font-size + 2px;
+  font-size: 62px;
   @if $from-direction == 'right' {
     font-size: $largest-font-size - 10px;
   }
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
   @if $from-direction == 'left' {
-    letter-spacing: -.03em;
+    letter-spacing: -2px;
   }
-  line-height: 1.15;
-  color: #191919;
+  line-height: 1;
   color: $firefly90;
 }
 

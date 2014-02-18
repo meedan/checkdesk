@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -2496,9 +2495,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-transition: border linear, box-shadow linear;
+  -webkit-transition-delay: 0.2s, 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2535,7 +2534,6 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
-  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -3721,7 +3719,7 @@ textarea {
 ul.dropdown-menu a {
   display: block;
   float: none;
-  padding: 4px 18px;
+  padding: 0.23607em 1em;
   clear: both;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -3873,7 +3871,6 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
-  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4213,12 +4210,11 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: 42px;
-  font-weight: 700;
+  font-size: 62px;
+  font-weight: 600;
   font-style: normal;
-  letter-spacing: -.03em;
-  line-height: 1.15;
-  color: #191919;
+  letter-spacing: -2px;
+  line-height: 1;
   color: #283743;
 }
 
@@ -4269,12 +4265,10 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cfd3d5;
@@ -4563,7 +4557,7 @@ div.tabs ul.primary li a {
   display: none;
 }
 #my-notifications .view-content {
-  height: 200px;
+  height: 122.99188em;
   overflow-y: auto;
   margin-bottom: 6px;
 }
@@ -4579,7 +4573,7 @@ div.tabs ul.primary li a {
 #my-notifications .notifications-settings-link a {
   display: block;
   float: none;
-  padding: 4px 18px;
+  padding: 0.23607em 1em;
   clear: both;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -4975,7 +4969,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   padding: 0;
   position: relative;
   display: inline-block;
-  font-size: 14px;
+  font-size: 0.76393em;
   line-height: 1.6;
 }
 #footer-inner ul li a {
@@ -5234,12 +5228,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
-  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -5510,7 +5502,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-content .report-attributes {
   *zoom: 1;
   color: #404d59;
-  font-size: 14px;
+  font-size: 0.76393em;
   padding: 6px 15px;
 }
 .report .report-content .report-attributes:before, .report .report-content .report-attributes:after {
@@ -5579,13 +5571,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   padding: 0;
   float: left;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 0.90983em;
   font-weight: 700;
 }
 .report .report-activity > header .report-status {
   float: right;
   text-align: right;
-  font-size: 16px;
+  font-size: 0.90983em;
   font-weight: 700;
 }
 .report .report-activity > header .report-status span[class^="icon-"], .report .report-activity > header .report-status span[class*="icon-"] {
@@ -5597,7 +5589,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   overflow: visible;
 }
 .report .report-activity > header .report-status span.status-by {
-  font-size: 14px;
+  font-size: 0.76393em;
   font-weight: 400;
 }
 .report .report-activity > .in-progress {
@@ -5798,7 +5790,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: right;
   width: 15%;
   color: #b7bcc0;
-  font-size: 14px;
+  font-size: 0.76393em;
 }
 .report .report-activity .activity-wrapper .activity-list-footer-wrapper {
   *zoom: 1;
@@ -6466,7 +6458,7 @@ div.sensitive-hide {
   *zoom: 1;
   padding: 6px 15px;
   border-top: 1px solid rgba(16, 33, 47, 0.1);
-  font-size: 14px;
+  font-size: 0.76393em;
   display: block;
   color: #9fa6ac;
   background-color: rgba(16, 33, 47, 0.02);
@@ -6657,7 +6649,7 @@ div.sensitive-hide {
 .update .update-footer .update-meta {
   margin: 0;
   padding: 0;
-  font-size: 16px;
+  font-size: 0.90983em;
   font-weight: 700;
 }
 .update .update-footer .update-meta li {
@@ -6979,7 +6971,7 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #user-login .messages.error {
   position: static;
-  font-size: 14px;
+  font-size: 0.76393em;
   margin-bottom: 8px;
 }
 #meedan_bookmarklet #user-login #edit-social-media-signin {
@@ -6993,18 +6985,18 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #user-login .user-links {
   clear: both;
-  font-size: 14px;
+  font-size: 0.76393em;
   padding-right: 15px;
 }
 #meedan_bookmarklet #user-login .form-item-remember-me {
   clear: none;
 }
 #meedan_bookmarklet #user-login .form-item-remember-me label {
-  font-size: 14px;
+  font-size: 0.76393em;
 }
 #meedan_bookmarklet #user-login .user-new-account-link .register {
   text-align: right;
-  font-size: 14px;
+  font-size: 0.76393em;
 }
 #meedan_bookmarklet #user-login input[type=text],
 #meedan_bookmarklet #user-login input[type=password] {
@@ -7225,7 +7217,7 @@ html body .livefyre-wrapper {
   margin: 0;
   padding: 0;
   margin: 12px auto;
-  font-size: 14px;
+  font-size: 0.76393em;
   font-weight: normal;
   line-height: 1.3;
   color: #999999;
@@ -7255,7 +7247,7 @@ html body .livefyre-wrapper {
   width: 90%;
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col + .install-bookmarklet-col p {
-  margin: 18px 0;
+  margin: 1em 0;
 }
 #modalContent.modal-install-bookmarklet #info-page-install-bookmarklet .install-bookmarklet-col:first-child {
   float: left;
@@ -7440,12 +7432,10 @@ nav[role="navigation"] .nav > div h2 {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7507,12 +7497,10 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7627,12 +7615,10 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
-  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7809,7 +7795,7 @@ body.toolbar-drawer #main #content {
 #my-account #account-menu a {
   display: block;
   float: none;
-  padding: 4px 18px;
+  padding: 0.23607em 1em;
   clear: both;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -8687,7 +8673,7 @@ body.page-liveblog #main .view-liveblog .desk {
   position: relative;
   *zoom: 1;
   margin-bottom: 0;
-  margin-top: 25px;
+  margin-top: 1.61803em;
   overflow: visible;
 }
 body.page-liveblog #main .view-liveblog .desk:before, body.page-liveblog #main .view-liveblog .desk:after {
@@ -8811,7 +8797,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   padding-top: 12px;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 0.76393em;
   letter-spacing: 0.15em;
 }
 .updates .update-row .update-info b {
@@ -8836,7 +8822,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-meta {
   *zoom: 1;
-  border-top: 4px solid #283743;
   padding-top: 12px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #6f7a82;
@@ -8903,7 +8888,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   float: right;
   font-weight: 700;
   color: #b7bcc0;
-  font-size: 14px;
+  font-size: 0.76393em;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #b7bcc0;
@@ -8926,7 +8911,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-meta ul.content-actions .share-on > a .icon-share:before {
   font-family: "FontAwesome";
-  font-size: 14px;
+  font-size: 0.76393em;
   line-height: inherit;
   color: "black";
   margin: 0 7.5px;
@@ -9028,7 +9013,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-body {
   *zoom: 1;
   margin: 12px 0;
-  font-size: 20px;
+  font-size: 1.09017em;
   color: #404d59;
   line-height: 1.5;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
@@ -9328,7 +9313,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .stories .story-row h3 {
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: 0.76393em;
   font-weight: 700;
   line-height: 1.4;
 }
@@ -10119,12 +10104,10 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li.first a, #user-register-form #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -10147,12 +10130,10 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li a[class^='facebook'], #user-register-form #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
-  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
