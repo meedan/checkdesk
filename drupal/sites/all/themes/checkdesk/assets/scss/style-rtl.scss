@@ -84,9 +84,18 @@ html body.i18n-ar {
 
 // report
 
-.report {
+.report .activity {
 	font-size: 16px;
 }
+
+.report .activity-list-footer {
+	font-size: 15px;
+	.helper {
+		display: none;
+	}
+}
+
+
 
 .report .report-activity .activity-wrapper .view-content .activity {
 	line-height: 26px;
