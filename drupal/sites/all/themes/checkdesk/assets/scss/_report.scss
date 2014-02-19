@@ -644,6 +644,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 					padding-bottom: 0;
 					input {
 						font-size: 16px;
+						margin-#{$from-direction}: $gutter-width;
 						margin-#{opposite-position($from-direction)}: 0;
 						// align with edit status
 						margin-top: -5px;
@@ -663,21 +664,15 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 			font-size: $small-font-size;
 			color: $firefly40;
 			cursor: pointer;
-			margin-#{opposite-position($from-direction)}: $gutter-width;
 
 			&.active {
-			  font-style: italic;
+			  color: $firefly60;
 			}
-	  }
-
-	  .form-submit {
-			margin: 0 !important;
 	  }
 
 	  .current-status {
 			display: none;
 			font-weight: 700;
-			margin-#{opposite-position($from-direction)}: $gutter-width;
 	  }
 	}
 
@@ -720,7 +715,8 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 	}
 
 	.report-activity-edit-status {
-
+		// position: relative;
+		
 	  &.popover {
 	  	position: absolute;
 			background: #fff;
@@ -732,20 +728,49 @@ $report-activity-header-color: 			darken($firefly30, 10%);
         #{opposite-position($from-direction)}: 0;
       }
 			top: auto;
-      bottom: -251px; // -1 * height
+      bottom: -234px; // -1 * height
 			width: 340px;
-			height: 252px;
-			border-right: 1px solid rgba($firefly, 0.05);
-			z-index: 2;
-			@include box-shadow(0px 1px 3px rgba($firefly, 0.05));
+			height: 235px;
+			border: 1px solid $firefly10;
+			z-index: $zindexDropdown;
+			@include box-shadow(0px 2px 5px rgba($firefly, 0.05));
 			@include border-radius(5px);
 
+			// triangle at top
+			&:after {
+				content: "";
+			    border-#{$from-direction}: 12px solid transparent;
+					border-#{opposite-position($from-direction)}: 12px solid transparent;
+					border-bottom: 12px solid $firefly5;
+			    width: 0;
+			    height: 0;
+			    position: absolute;
+			    top: -12px;
+			    bottom: 0;
+			    #{$from-direction}: 157px;
+			    z-index: $zindexDropdown + 1;
+			}
+			// triangle at top
+			&:before {
+				content: "";
+			    border-#{$from-direction}: 13px solid transparent;
+					border-#{opposite-position($from-direction)}: 13px solid transparent;
+					border-bottom: 13px solid $firefly10;
+			    width: 0;
+			    height: 0;
+			    position: absolute;
+			    top: -13px;
+			    bottom: 0;
+			    #{$from-direction}: 156px;
+			    z-index: $zindexDropdown;
+			}
+
 			label {
-			  width: 166.5px;
+			  width: 169px;
 			  display: block;
 			  float: $from-direction;
-			  height: 49px;
-			  line-height: 49px;
+			  height: 50px;
+			  line-height: 50px;
 			  text-align: center;
 				color: $firefly40;
 				font-size: 16px;
@@ -755,12 +780,6 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 			  &:hover {
 			  	color: $firefly60;
 			  }
-			}
-
-			.form-type-radio {
-				display: inline-block;
-			  padding-left: 0;
-			  min-height: 0;
 			}
 
 			.form-type-radios > label {
@@ -780,7 +799,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 			.description {
 			  padding: 5px $gutter-width 0;
 			  height: 45px;
-			  width: 339px;
+			  width: 310px;
 			  position: absolute;
 			  left: 0;
 			  top: 34px;
@@ -789,42 +808,66 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 				line-height: 1.2;
 			  background: $firefly5;
 			  text-align: center;
-			  width: auto;
+			  border-bottom: 1px solid $firefly10;
 			}
 
 			.form-radios {
 			  position: absolute;
 			  top: 84px;
 			  left: 0;
-			}
 
-			.form-radio {
-			  display: none;
-			}
-			
-			.form-radios .form-item:last-child label {
-			  width: 340px;
-			  color: $firefly20;
+			  .form-type-radio {
+					float: $alpha;
+				  padding-left: 0;
+				  min-height: 0;
+				}
+
+				.form-radio {
+				  display: none;
+				}
+
+				& > .false, & > .undetermined {
+					& > label {
+						width: 170px;
+					}
+					border-#{opposite-position($from-direction)}: 1px solid $firefly5;
+					border-bottom: 1px solid $firefly5;
+				}
+
+				& > .verified, & > .in-progress {
+					border-#{opposite-position($from-direction)}: 0 none;
+					border-bottom: 1px solid $firefly5;
+				}
+
+
+				
+				// status: not applicable
+				.form-item:last-child label {
+				  width: 340px;
+				  color: $firefly20;
+				}
+
+
 			}
 
 	  }
 
-	  .popover-arrow {
-			border-bottom-color: $firefly5;
-			#{$from-direction}: 160px;
-			top: -10px; 
-  			border-left: 10px solid transparent;
-  			border-right: 10px solid transparent;
-  			border-bottom: 10px solid $firefly5;
-	  }
+	  // .popover-arrow {
+			// border-bottom-color: $firefly5;
+			// #{$from-direction}: 160px;
+			// top: -10px; 
+  	// 		border-left: 10px solid transparent;
+  	// 		border-right: 10px solid transparent;
+  	// 		border-bottom: 10px solid $firefly5;
+	  // }
 
-	  .popover-arrow + .popover-arrow {
-			border-left: 12px solid transparent;
-			border-right: 12px solid transparent;
-			border-bottom: 12px solid $firefly2;
-			#{$from-direction}: 163px;
-			top: -12px;
-	  }
+	  // .popover-arrow + .popover-arrow {
+			// border-left: 12px solid transparent;
+			// border-right: 12px solid transparent;
+			// border-bottom: 12px solid $firefly2;
+			// #{$from-direction}: 163px;
+			// top: -12px;
+	  // }
 	}
 	} // report activity
 

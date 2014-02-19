@@ -5903,6 +5903,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity section#comment-form form .form-actions input {
   font-size: 16px;
+  margin-right: 15px;
   margin-left: 0;
   margin-top: -5px;
 }
@@ -5925,18 +5926,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   font-size: 15px;
   color: #9fa6ac;
   cursor: pointer;
-  margin-left: 15px;
 }
 .report .report-activity .form-actions span.edit-status.active {
-  font-style: italic;
-}
-.report .report-activity .form-actions .form-submit {
-  margin: 0 !important;
+  color: #6f7a82;
 }
 .report .report-activity .form-actions .current-status {
   display: none;
   font-weight: 700;
-  margin-left: 15px;
 }
 .report .report-activity .current-status.verified:before,
 .report .report-activity label.option.verified:before {
@@ -6029,26 +6025,52 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   right: auto;
   left: 0;
   top: auto;
-  bottom: -251px;
+  bottom: -234px;
   width: 340px;
-  height: 252px;
-  border-right: 1px solid rgba(16, 33, 47, 0.05);
-  z-index: 2;
-  -webkit-box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
-  -moz-box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
-  box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
+  height: 235px;
+  border: 1px solid #e7e8ea;
+  z-index: 900;
+  -webkit-box-shadow: 0px 2px 5px rgba(16, 33, 47, 0.05);
+  -moz-box-shadow: 0px 2px 5px rgba(16, 33, 47, 0.05);
+  box-shadow: 0px 2px 5px rgba(16, 33, 47, 0.05);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
 }
+.report .report-activity .report-activity-edit-status.popover:after {
+  content: "";
+  border-right: 12px solid transparent;
+  border-left: 12px solid transparent;
+  border-bottom: 12px solid #f3f4f4;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -12px;
+  bottom: 0;
+  right: 157px;
+  z-index: 901;
+}
+.report .report-activity .report-activity-edit-status.popover:before {
+  content: "";
+  border-right: 13px solid transparent;
+  border-left: 13px solid transparent;
+  border-bottom: 13px solid #e7e8ea;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -13px;
+  bottom: 0;
+  right: 156px;
+  z-index: 900;
+}
 .report .report-activity .report-activity-edit-status.popover label {
-  width: 166.5px;
+  width: 169px;
   display: block;
   float: right;
-  height: 49px;
-  line-height: 49px;
+  height: 50px;
+  line-height: 50px;
   text-align: center;
   color: #9fa6ac;
   font-size: 16px;
@@ -6058,11 +6080,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .report-activity-edit-status.popover label:hover {
   color: #6f7a82;
-}
-.report .report-activity .report-activity-edit-status.popover .form-type-radio {
-  display: inline-block;
-  padding-left: 0;
-  min-height: 0;
 }
 .report .report-activity .report-activity-edit-status.popover .form-type-radios > label {
   font-weight: 700;
@@ -6084,7 +6101,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity .report-activity-edit-status.popover .description {
   padding: 5px 15px 0;
   height: 45px;
-  width: 339px;
+  width: 310px;
   position: absolute;
   left: 0;
   top: 34px;
@@ -6093,34 +6110,35 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   line-height: 1.2;
   background: #f3f4f4;
   text-align: center;
-  width: auto;
+  border-bottom: 1px solid #e7e8ea;
 }
 .report .report-activity .report-activity-edit-status.popover .form-radios {
   position: absolute;
   top: 84px;
   left: 0;
 }
-.report .report-activity .report-activity-edit-status.popover .form-radio {
+.report .report-activity .report-activity-edit-status.popover .form-radios .form-type-radio {
+  float: right;
+  padding-left: 0;
+  min-height: 0;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios .form-radio {
   display: none;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios > .false, .report .report-activity .report-activity-edit-status.popover .form-radios > .undetermined {
+  border-left: 1px solid #f3f4f4;
+  border-bottom: 1px solid #f3f4f4;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios > .false > label, .report .report-activity .report-activity-edit-status.popover .form-radios > .undetermined > label {
+  width: 170px;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios > .verified, .report .report-activity .report-activity-edit-status.popover .form-radios > .in-progress {
+  border-left: 0 none;
+  border-bottom: 1px solid #f3f4f4;
 }
 .report .report-activity .report-activity-edit-status.popover .form-radios .form-item:last-child label {
   width: 340px;
   color: #cfd3d5;
-}
-.report .report-activity .report-activity-edit-status .popover-arrow {
-  border-bottom-color: #f3f4f4;
-  right: 160px;
-  top: -10px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #f3f4f4;
-}
-.report .report-activity .report-activity-edit-status .popover-arrow + .popover-arrow {
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid #fafbfb;
-  right: 163px;
-  top: -12px;
 }
 .report .end section#comment-form, .report .end .activity-wrapper .activity-list-footer-wrapper {
   position: relative;
