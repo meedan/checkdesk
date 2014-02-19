@@ -740,9 +740,9 @@ $report-activity-header-color: 			darken($firefly30, 10%);
         #{opposite-position($from-direction)}: 0;
       }
 			top: auto;
-      bottom: -234px; // -1 * height
+      bottom: -221px; // -1 * height
 			width: 340px;
-			height: 235px;
+			height: 222px;
 			border: 1px solid $firefly10;
 			z-index: $zindexDropdown;
 			@include box-shadow(0px 2px 5px rgba($firefly, 0.05));
@@ -810,7 +810,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 
 			.description {
 			  padding: 5px $gutter-width 0;
-			  height: 45px;
+			  height: 30px;
 			  width: 310px;
 			  position: absolute;
 			  left: 0;
@@ -825,7 +825,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 
 			.form-radios {
 			  position: absolute;
-			  top: 84px;
+			  top: 70px;
 			  left: 0;
 
 			  .form-type-radio {
