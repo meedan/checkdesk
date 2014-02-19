@@ -5903,6 +5903,8 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity section#comment-form form .form-actions input {
   font-size: 16px;
+  margin-left: 0;
+  margin-top: -5px;
 }
 .report .report-activity section#comment-form form textarea {
   float: none;
@@ -5921,9 +5923,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .form-actions span.edit-status {
   font-size: 15px;
-  color: #6f7a82;
+  color: #9fa6ac;
   cursor: pointer;
-  margin-left: 15px;
+  margin-left: 7.5px;
 }
 .report .report-activity .form-actions span.edit-status.active {
   font-style: italic;
@@ -6019,7 +6021,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .current-status.not-applicable,
 .report .report-activity input[type="radio"]:checked + label.not-applicable {
-  color: black !important;
+  color: #6f7a82 !important;
 }
 .report .report-activity .report-activity-edit-status.popover {
   background: #fff;
@@ -6028,12 +6030,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   left: auto;
   right: auto;
   width: 340px;
-  height: 230px;
-  border: 1px solid #e8e8e8;
+  height: 252px;
+  border-right: 1px solid rgba(16, 33, 47, 0.05);
   z-index: 2;
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
+  -moz-box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
+  box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -6041,47 +6043,56 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   border-radius: 5px;
 }
 .report .report-activity .report-activity-edit-status.popover label {
-  width: 169.5px;
+  width: 166.5px;
   display: block;
   float: right;
   height: 49px;
   line-height: 49px;
   text-align: center;
-  color: #6f7a82;
-  font-weight: bold;
-  border-right: 1px solid #f2f2f2;
-  border-bottom: 1px solid #f2f2f2;
+  color: #9fa6ac;
+  font-size: 16px;
+  font-weight: 700;
   margin-bottom: 0;
   overflow: hidden;
 }
+.report .report-activity .report-activity-edit-status.popover label:hover {
+  color: #6f7a82;
+}
 .report .report-activity .report-activity-edit-status.popover .form-type-radio {
+  display: inline-block;
   padding-left: 0;
   min-height: 0;
 }
 .report .report-activity .report-activity-edit-status.popover .form-type-radios > label {
-  font-weight: bold;
-  width: 339px;
-  background: #f2f2f2;
+  font-weight: 700;
+  width: 100%;
+  background: #f3f4f4;
+  color: #404d59;
   position: absolute;
   left: 0;
   top: 0;
-  color: #303030;
   height: 30px;
   line-height: 30px;
+  padding-top: 6px;
+  border: 0 none;
 }
 .report .report-activity .report-activity-edit-status.popover .description {
-  padding: 0;
-  height: 50px;
+  padding: 5px 15px 0;
+  height: 45px;
+  width: 339px;
   position: absolute;
   left: 0;
-  top: 30px;
-  color: #6f7a82;
-  background: #f2f2f2;
+  top: 34px;
+  font-size: 14px !important;
+  color: #9fa6ac !important;
+  line-height: 1.2;
+  background: #f3f4f4;
   text-align: center;
+  width: auto;
 }
 .report .report-activity .report-activity-edit-status.popover .form-radios {
   position: absolute;
-  top: 80px;
+  top: 84px;
   left: 0;
 }
 .report .report-activity .report-activity-edit-status.popover .form-radio {
@@ -6089,18 +6100,22 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .report-activity-edit-status.popover .form-radios .form-item:last-child label {
   width: 340px;
-  color: #e2e2e2;
+  color: #cfd3d5;
 }
 .report .report-activity .report-activity-edit-status .popover-arrow {
-  border-bottom-color: #e8e8e8;
-  right: 151px;
+  border-bottom-color: #f3f4f4;
+  right: 160px;
+  top: -10px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #f3f4f4;
 }
 .report .report-activity .report-activity-edit-status .popover-arrow + .popover-arrow {
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 15px solid #f2f2f2;
-  right: 153px;
-  top: -15px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #fafbfb;
+  right: 163px;
+  top: -12px;
 }
 .report .end section#comment-form, .report .end .activity-wrapper .activity-list-footer-wrapper {
   position: relative;
@@ -8997,6 +9012,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   *zoom: 1;
   margin: 14.4px 0;
   color: #404d59;
+  font-family: "Mercury SSm A", "Mercury SSm B", Georgia, "Times New Roman", Times, serif;
   font-size: 18px;
   line-height: 1.5;
   font-weight: 400;

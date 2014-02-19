@@ -64,7 +64,7 @@
         <?php if (isset($user_avatar)) : ?>
           <?php print $user_avatar; ?>
         <?php endif; ?>
-        <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?> <?php print $timezone; ?>
+        <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?>
         <?php if (isset($story_commentcount)) { ?>
           <div class="story-commentcount">
             <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">

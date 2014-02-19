@@ -195,7 +195,7 @@
         $pop.parents('.comment-form').find('.form-submit').before($link);
         $pop.parents('.comment-form').find('.form-submit').before($current);
         $pop.prepend('<div class="popover-arrow" />');
-        $pop.prepend('<div class="popover-arrow" />');
+        // $pop.prepend('<div class="popover-arrow" />');
         $pop.addClass('popover');
 
         // Each status inside the popover
