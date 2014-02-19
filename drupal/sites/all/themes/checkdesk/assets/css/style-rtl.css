@@ -6667,7 +6667,7 @@ div.sensitive-hide {
 }
 .update .update-body .node-media {
   *zoom: 1;
-  margin: 6px 0;
+  margin: 0 0 6px 0;
 }
 .update .update-body .node-media:before, .update .update-body .node-media:after {
   display: table;
@@ -6684,6 +6684,9 @@ div.sensitive-hide {
 }
 .update .update-body p:first-child {
   padding-top: 8px;
+}
+.update .update-body .report {
+  margin-top: 0;
 }
 .update .update-footer {
   margin-left: 30px;

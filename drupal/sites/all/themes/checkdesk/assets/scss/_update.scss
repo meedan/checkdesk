@@ -25,7 +25,7 @@
 
 		.node-media {
 			@include ctb-clearfix;
-			margin: $absolute-line-height/4 0;
+			margin: 0 0 $absolute-line-height/4 0;
 		}
 		p {
       font-size: 16px;
@@ -35,6 +35,12 @@
         padding-top: $absolute-line-height/3;
       }
 		}
+
+    // move embeds closer
+    .report {
+      margin-top: 0;
+    }
+
 	} // body
   
   .update-footer {
