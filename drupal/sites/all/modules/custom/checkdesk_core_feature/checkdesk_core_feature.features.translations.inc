@@ -40878,10 +40878,10 @@ Thank you for registering at [site:name]. Your application for an account is cur
     'plural' => 0,
   );
   $translations['ar:default']['0d5b5d1129589a05f459486e07125307'] = array(
-    'source' => 'fact-checking footnotes',
+    'source' => 'verification footnotes',
     'context' => '',
     'location' => '',
-    'translation' => 'ملاحظات للتحقق من صحة المعلومات',
+    'translation' => 'ملاحظات التحقق',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43081,7 +43081,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Undetermined',
     'context' => '',
     'location' => '/ar/liveblog',
-    'translation' => 'لا يمكن التأكد من صحة المعلومات',
+    'translation' => 'غير معروف',
     'plid' => 0,
     'plural' => 0,
   );
@@ -46418,7 +46418,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Undetermined',
     'context' => 'term:ba27bacf-4d99-4c1d-bdce-a7fb35fafd43:name',
     'location' => 'taxonomy:term:ba27bacf-4d99-4c1d-bdce-a7fb35fafd43:name',
-    'translation' => 'لا يمكن التأكد من صحة المعلومات',
+    'translation' => 'غير معروف',
     'plid' => 0,
     'plural' => 0,
   );
