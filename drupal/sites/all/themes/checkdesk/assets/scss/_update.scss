@@ -10,7 +10,7 @@
 
     .update-title {
       font-size: $larger-font-size;
-      line-height: 1.4;
+      line-height: 1.2;
       padding-top: $absolute-line-height/3;
       margin-bottom: $absolute-line-height;
       color: $firefly80;
@@ -25,6 +25,7 @@
 			margin: $absolute-line-height/4 0;
 		}
 		p {
+      font-size: 16px;
 			margin: 0 0 $absolute-line-height*1.2 0;
 		}
 	} // body
@@ -45,8 +46,7 @@
     .update-meta {
     	@include reset-list-style;
       // float: $alpha;
-      font-size: modular-scale(0) - modular-scale(-5); // 16px
-    	font-weight: 700;
+      font-size: 14px; // 16px
     	li {
     		padding: $absolute-line-height/4 0;
     		border-bottom: 1px solid $firefly10;
@@ -68,13 +68,14 @@
 
     // by
     .update-by {
+      line-height: 1;
       @include ctb-clearfix;
 			margin-bottom: $absolute-line-height/4;
       a {
         float: $alpha; 
       }
       a:last-child {
-        width: 80%;
+        width: 78%;
         @include ctb-break-words;
       }
       .gravatar {

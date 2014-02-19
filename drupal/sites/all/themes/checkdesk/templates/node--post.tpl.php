@@ -17,7 +17,7 @@
     <div class="update-footer">
       <ul class="update-meta">
         <li class="update-at">
-          <a href="<?php print $update_link; ?>"><span class="icon-time"></span> <?php print $created_at; ?></a>
+          <a href="<?php print $update_link; ?>"><span class="icon-time"></span><?php print $created_at; ?></a>
         </li>
         <li class="update-by">
           <?php if (isset($user_avatar)) { ?>
