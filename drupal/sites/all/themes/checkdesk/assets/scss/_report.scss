@@ -542,7 +542,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 							display: inline-block;
 							width: 90%;
 							p { 
-								margin: 0;
+								@include reset-box-model;
 								margin-bottom: $absolute-line-height/2; 
 								&:last-child {
 									margin-bottom: 0; 
