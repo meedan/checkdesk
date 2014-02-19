@@ -40,7 +40,7 @@
   .update-footer {
   	margin-#{$omega}: $gutter-width*2;
     margin-bottom: 1em;
-    font-family: $sans-serif-font-stack;
+    @include cd-sans-serif-family;
     color: $firefly20;
     a { 
       color: $firefly20; 

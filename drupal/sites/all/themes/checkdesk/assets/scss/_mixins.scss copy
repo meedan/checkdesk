@@ -554,7 +554,7 @@
         @if $from-direction == 'left' {
           letter-spacing: 0.05em;
         }
-        font-family: $sans-serif-font-stack;
+        @include cd-sans-serif-family;
         font-size: $small-font-size;
         font-weight: 700;
         color: $firefly40;

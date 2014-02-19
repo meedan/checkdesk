@@ -116,7 +116,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 						span { color: $firefly; }
 					}
 					textarea {
-						font-family: $sans-serif-font-stack;
+						@include cd-sans-serif-family;
 						font-size: $small-font-size;
 					}
 				}
@@ -146,7 +146,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 
 	// Main report content
 	.report-content {
-		font-family: $sans-serif-font-stack;
+		@include cd-sans-serif-family;
 		border-left: 1px solid rgba($firefly,.1);
 		border-right: 1px solid rgba($firefly,.1);
 		.report-media {
@@ -366,7 +366,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 
 	// Report activity 
 	.report-activity {
-		font-family: $sans-serif-font-stack;
+		@include cd-sans-serif-family;
 		& > header {
 			@include ctb-clearfix();
 			padding: $absolute-line-height/3 $gutter-width;
@@ -377,7 +377,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 			h3 {
 				@include reset-box-model();
 				float: $from-direction;
-				font-family: $sans-serif-font-stack;
+				@include cd-sans-serif-family;
 				font-size: modular-scale(0) - modular-scale(-5); // 16px
 				font-weight: 700;
 			}
@@ -985,6 +985,6 @@ div.sensitive-hide {
 }
 
 .report-row .sensitive-notification {
-	font-family: $sans-serif-font-stack;
+	@include cd-sans-serif-family;
 	background-color: $firefly5 !important;
 }

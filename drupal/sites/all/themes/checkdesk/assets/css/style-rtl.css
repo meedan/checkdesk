@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -2362,7 +2363,7 @@ nav[role="navigation"] #user-menu .icon-bell:before {
 }
 
 .button-reset-base-class {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -2382,7 +2383,7 @@ nav[role="navigation"] #user-menu .icon-bell:before {
 
 /* incase an inverted custom gradient isn't specified */
 form {
-  margin: 0 0 28.8px;
+  margin: 0 0 24px;
 }
 
 fieldset {
@@ -2395,15 +2396,15 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: 28.8px;
+  margin-bottom: 24px;
   font-size: 27px;
-  line-height: 57.6px;
+  line-height: 48px;
   color: #555555;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
 legend small {
-  font-size: 21.6px;
+  font-size: 18px;
   color: #999999;
 }
 
@@ -2413,7 +2414,7 @@ button,
 select,
 textarea,
 body.cke_editable {
-  font: normal 0.625;
+  font: normal 0.75;
 }
 
 input,
@@ -2421,7 +2422,7 @@ button,
 select,
 textarea,
 body.cke_editable {
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
 }
 
 label {
@@ -2448,11 +2449,11 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   display: inline-block;
-  height: 28.8px;
+  height: 24px;
   padding: 10px 6px;
-  margin-bottom: 7.2px;
+  margin-bottom: 6px;
   font-size: 18px;
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   color: #999999;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -2573,11 +2574,11 @@ input[type="checkbox"] {
 
 select,
 input[type="file"] {
-  height: 46.8px;
+  height: 42px;
   /* In IE7, the height of the select element cannot be changed by height, only font-size */
   *margin-top: 4px;
   /* For IE7, add top margin to align select with labels */
-  line-height: 46.8px;
+  line-height: 42px;
 }
 
 select {
@@ -2613,7 +2614,7 @@ select[size] {
 
 .form-type-radio,
 .form-type-checkbox {
-  min-height: 28.8px;
+  min-height: 24px;
   padding-left: 20px;
 }
 
@@ -2681,7 +2682,7 @@ input[type="checkbox"][readonly] {
 .form-actions {
   margin: 0;
   padding: 0;
-  padding-bottom: 14.4px;
+  padding-bottom: 12px;
   *zoom: 1;
 }
 .form-actions:before, .form-actions:after {
@@ -2722,7 +2723,7 @@ input[type="checkbox"][readonly] {
 
 .nav {
   margin-left: 0;
-  margin-bottom: 28.8px;
+  margin-bottom: 24px;
   list-style: none;
 }
 
@@ -2747,7 +2748,7 @@ input[type="checkbox"][readonly] {
   padding: 3px 15px;
   font-size: 11px;
   font-weight: bold;
-  line-height: 28.8px;
+  line-height: 24px;
   color: #999999;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
@@ -2789,7 +2790,7 @@ input[type="checkbox"][readonly] {
 .nav-list .divider {
   *width: 100%;
   height: 1px;
-  margin: 7.2px 1px;
+  margin: 6px 1px;
   *margin: -5px 0 5px;
   overflow: hidden;
   background-color: #e5e5e5;
@@ -2836,7 +2837,7 @@ input[type="checkbox"][readonly] {
 .nav-tabs > li > a {
   padding-top: 8px;
   padding-bottom: 8px;
-  line-height: 28.8px;
+  line-height: 24px;
   border: 1px solid transparent;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
@@ -2864,10 +2865,9 @@ input[type="checkbox"][readonly] {
   margin: 0;
   padding: 0;
   display: block;
-  padding: 7.2px 0;
-  margin-bottom: 14.4px;
+  padding: 6px 0;
+  margin-bottom: 12px;
   border-top: 1px solid #e7e8ea;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .admin-nav-tabs li {
   list-style: none;
@@ -2938,7 +2938,7 @@ input[type="checkbox"][readonly] {
 }
 
 .admin-nav-tabs > li > a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -3000,7 +3000,7 @@ input[type="checkbox"][readonly] {
 
 .admin-nav-tabs > .active > a,
 .admin-nav-tabs > .active > a:hover {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -3538,7 +3538,7 @@ textarea {
 
 .messages, .user-alert {
   padding: 8px 14px;
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
@@ -3636,7 +3636,7 @@ textarea {
 
 .messages ul {
   padding-left: 30px;
-  margin: 7.2px 0;
+  margin: 6px 0;
 }
 
 .alert .close {
@@ -3661,7 +3661,7 @@ textarea {
   float: left;
   font-size: 20px;
   font-weight: bold;
-  line-height: 28.8px;
+  line-height: 24px;
   color: black;
   text-shadow: 0 1px 0 white;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
@@ -3710,7 +3710,7 @@ textarea {
 .dropdown-menu .divider {
   *width: 100%;
   height: 1px;
-  margin: 7.2px 1px;
+  margin: 6px 1px;
   *margin: -5px 0 5px;
   overflow: hidden;
   background-color: #e5e5e5;
@@ -3722,9 +3722,9 @@ ul.dropdown-menu a {
   float: none;
   padding: 4px 18px;
   clear: both;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-weight: normal;
-  line-height: 28.8px;
+  line-height: 24px;
   white-space: nowrap;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -3891,7 +3891,7 @@ ul.dropdown-menu a:hover {
 }
 .modal-header h4 {
   margin: 0;
-  padding: 14.4px 15px;
+  padding: 12px 15px;
 }
 
 .modal-body {
@@ -3902,7 +3902,7 @@ ul.dropdown-menu a:hover {
 }
 .modal-body .modal-content {
   position: relative;
-  padding: 7.2px 30px;
+  padding: 6px 30px;
   line-height: 24px;
 }
 .modal-body .modal-content form {
@@ -3918,7 +3918,7 @@ ul.dropdown-menu a:hover {
   height: 80px;
 }
 .modal-body #modal-throbber {
-  padding: 7.2px 0;
+  padding: 6px 0;
   margin-left: -7.5px;
 }
 .modal-body .form-actions {
@@ -3937,7 +3937,7 @@ ul.dropdown-menu a:hover {
   padding: 0;
   width: 100%;
   display: block;
-  padding: 14.4px 15px;
+  padding: 12px 15px;
   margin-bottom: 0;
   text-align: right;
   background-color: #f5f5f5;
@@ -3968,7 +3968,7 @@ ul.dropdown-menu a:hover {
 }
 .modal-footer .form-actions input.btn {
   float: right;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -4014,7 +4014,7 @@ ul.dropdown-menu a:hover {
   color: white;
 }
 .modal-footer .form-actions a.btn {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -4094,7 +4094,7 @@ body.no-sidebars #main {
   display: inline;
   padding-right: 5.67376%;
   padding-left: 5.67376%;
-  margin-top: 86.4px;
+  margin-top: 72px;
 }
 
 h1, h2, h3, h4 {
@@ -4194,40 +4194,39 @@ blockquote {
 }
 
 body {
-  line-height: 28.8px;
+  line-height: 24px;
   font-size: 15px;
   color: #10212f;
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   text-align: right;
 }
 
 h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
-  margin-bottom: 14.4px;
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  margin-bottom: 12px;
+  font-family: "Droid Arabic Naskh", serif;
   font-weight: 400;
   font-style: normal;
 }
 
 h1 {
-  font-size: 62px;
-  font-size: 55px;
-  font-weight: 600;
   font-style: normal;
-  line-height: 1;
+  font-size: 50px;
+  line-height: 68px;
+  font-weight: 600;
   color: #283743;
 }
 
 nav {
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 14px;
   font-weight: 400;
   font-style: normal;
 }
 
 #sidebar-first {
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 400;
   font-style: normal;
@@ -4337,7 +4336,7 @@ div.tabs ul.primary li a {
   float: right;
   margin-left: 2.12766%;
   display: inline;
-  line-height: 28.8px;
+  line-height: 24px;
   display: inline-block;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -4367,7 +4366,7 @@ div.tabs ul.primary li a {
 #my-notifications .heartbeat-activity {
   *zoom: 1;
   color: #555555;
-  padding: 14.4px 15px;
+  padding: 12px 15px;
   border-bottom: 1px solid #eeeeee;
   overflow: hidden;
 }
@@ -4408,7 +4407,7 @@ div.tabs ul.primary li a {
   width: 80%;
 }
 #my-notifications .heartbeat-activity .activity-meta {
-  margin-top: 7.2px;
+  margin-top: 6px;
   color: #999999;
 }
 #my-notifications .checkdesk_comment_on_update .heartbeat-time-ago:before {
@@ -4560,7 +4559,7 @@ div.tabs ul.primary li a {
 #my-notifications .view-content {
   height: 200px;
   overflow-y: auto;
-  margin-bottom: 7.2px;
+  margin-bottom: 6px;
 }
 #my-notifications .more-link {
   float: right;
@@ -4576,9 +4575,9 @@ div.tabs ul.primary li a {
   float: none;
   padding: 4px 18px;
   clear: both;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-weight: normal;
-  line-height: 28.8px;
+  line-height: 24px;
   white-space: nowrap;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -4633,8 +4632,8 @@ div.tabs ul.primary li a {
 
 #incoming-reports-filters {
   *zoom: 1;
-  margin-top: 28.8px;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-top: 24px;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
 }
 #incoming-reports-filters:before, #incoming-reports-filters:after {
@@ -4664,7 +4663,7 @@ div.tabs ul.primary li a {
   display: inline-block;
   margin: 0;
   padding: 0;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 20px;
   color: #6f7a82;
 }
@@ -4746,8 +4745,8 @@ div.tabs ul.primary li a {
   display: none;
   position: absolute;
   background-color: #eeeeee;
-  padding: 14.4px 15px;
-  margin-top: 7.2px;
+  padding: 12px 15px;
+  margin-top: 6px;
   z-index: 900;
   width: 410px;
   background-color: #f6f6f6;
@@ -4801,7 +4800,7 @@ div.tabs ul.primary li a {
   display: none;
 }
 #incoming-reports-filters .panels #filter-by .views-submit-button #close {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -4860,7 +4859,7 @@ div.tabs ul.primary li a {
   width: 200px;
 }
 #incoming-reports-filters .panels #sort-by .views-submit-button input {
-  margin-top: 14.4px;
+  margin-top: 12px;
 }
 #incoming-reports-filters .panels .form-type-radio input[type="radio"] {
   margin: 0;
@@ -4880,8 +4879,8 @@ div.tabs ul.primary li a {
 
 #partner-header-inner #partner-header-slogan {
   border-top: 1px solid #e7e8ea;
-  margin-top: 28.8px;
-  padding: 19.2px 30px 0 30px;
+  margin-top: 24px;
+  padding: 16px 30px 0 30px;
   color: #9fa6ac;
 }
 #partner-header-inner #partner-header-slogan a {
@@ -4901,9 +4900,9 @@ div.tabs ul.primary li a {
 
 #footer {
   *zoom: 1;
-  padding-top: 7.2px;
-  margin: 115.2px 0 57.6px 0;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-top: 6px;
+  margin: 96px 0 48px 0;
+  font-family: "Droid Arabic Naskh", serif;
   text-align: center;
 }
 #footer:before, #footer:after {
@@ -4916,7 +4915,7 @@ div.tabs ul.primary li a {
 }
 #footer #footer-menu {
   position: relative;
-  padding-bottom: 14.4px;
+  padding-bottom: 12px;
 }
 #footer #footer-menu:before {
   position: absolute;
@@ -4938,7 +4937,7 @@ div.tabs ul.primary li a {
 }
 #footer #information-menu {
   border-top: 1px solid #f3f4f4;
-  padding-top: 14.4px;
+  padding-top: 12px;
 }
 
 body.widgets #main #footer, body.sidebar-first #main #footer {
@@ -4952,7 +4951,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 
 #footer-inner {
-  padding: 7.2px 0;
+  padding: 6px 0;
 }
 #footer-inner ul {
   margin: 0;
@@ -5007,7 +5006,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: none;
 }
 #footer-inner .factcheck-cta {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -5086,17 +5085,17 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   }
 }
 .static-page {
-  margin-bottom: 115.2px;
+  margin-bottom: 96px;
 }
 .static-page h2 {
   margin: 0;
   padding: 0;
-  margin: 34.56px 0 14.4px 0;
+  margin: 28.8px 0 12px 0;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 .static-page h2:first-child {
-  margin: 0 0 14.4px 0;
+  margin: 0 0 12px 0;
 }
 .static-page h3 {
   margin: 0;
@@ -5118,15 +5117,15 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .static-page ul li {
   margin: 0;
   padding: 0;
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
 }
 .static-page p {
-  margin: 0 0 28.8px;
+  margin: 0 0 24px;
 }
 
 #modalContent .static-page {
   color: #555555;
-  padding: 14.4px 60px;
+  padding: 12px 60px;
 }
 #modalContent .static-page ul li {
   font-size: 88%;
@@ -5173,7 +5172,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report #report-actions {
   position: absolute;
-  top: 14.4px;
+  top: 12px;
   left: -40px;
 }
 .report #report-actions:before {
@@ -5320,7 +5319,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #10212f;
 }
 .report #report-actions ul.content-actions > li .embed textarea {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
 }
 .report #report-actions ul.content-actions > li.open > a {
@@ -5331,7 +5330,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: none;
 }
 .report .report-content {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   border-left: 1px solid rgba(16, 33, 47, 0.1);
   border-right: 1px solid rgba(16, 33, 47, 0.1);
 }
@@ -5358,7 +5357,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-content .report-media .container .oembed--link--meedan-oembed-generic,
 .report .report-content .report-media .container .oembed--link--meedan-oembed-theme-generic {
-  padding: 14.4px 15px;
+  padding: 12px 15px;
 }
 .report .report-content .report-media .container .thumbnail img {
   padding: 15px 0;
@@ -5374,7 +5373,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-content .report-media .container .oembed-attributes {
   *zoom: 1;
-  padding: 7.2px 15px;
+  padding: 6px 15px;
 }
 .report .report-content .report-media .container .oembed-attributes:before, .report .report-content .report-media .container .oembed-attributes:after {
   display: table;
@@ -5448,11 +5447,11 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   max-width: 100%;
 }
 .report .report-content .report-media .container .twitter .oembed-content {
-  padding: 0 15px 7.2px;
+  padding: 0 15px 6px;
 }
 .report .report-content .report-media .container .twitter .oembed-attributes {
   display: none;
-  padding: 0 15px 7.2px;
+  padding: 0 15px 6px;
 }
 .report .report-content .report-media .container .twitter iframe {
   display: inline-block !important;
@@ -5462,10 +5461,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-content .report-media .container .youtube .oembed-attributes {
   display: none;
-  padding: 7.2px 15px 7.2px 15px;
+  padding: 6px 15px 6px 15px;
 }
 .report .report-content .report-media .container .facebook .oembed--link--meedan-oembed-facebook > div {
-  padding: 14.4px 15px;
+  padding: 12px 15px;
 }
 .report .report-content .report-media .container .oembed--link--meedan-oembed-facebook {
   height: 400px;
@@ -5481,7 +5480,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-content .report-media .container .instagram .oembed-title {
   display: block;
-  padding: 14.4px 15px 7.2px;
+  padding: 12px 15px 6px;
 }
 .report .report-content .report-media .container .instagram .oembed-title:hover {
   color: #6f7a82;
@@ -5491,7 +5490,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: inline-block;
 }
 .report .report-content .description {
-  padding: 14.4px 15px;
+  padding: 12px 15px;
   font-size: 18px;
   line-height: 1.4;
   color: #404d59;
@@ -5504,7 +5503,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   *zoom: 1;
   color: #404d59;
   font-size: 14px;
-  padding: 7.2px 15px;
+  padding: 6px 15px;
 }
 .report .report-content .report-attributes:before, .report .report-content .report-attributes:after {
   display: table;
@@ -5550,11 +5549,11 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   font-size: inherit;
 }
 .report .report-activity {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
 }
 .report .report-activity > header {
   *zoom: 1;
-  padding: 9.6px 15px;
+  padding: 8px 15px;
   background-color: #e7e8ea;
   border-left: 1px solid #e7e8ea;
   border-right: 1px solid #e7e8ea;
@@ -5571,7 +5570,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   margin: 0;
   padding: 0;
   float: right;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 16px;
   font-weight: 700;
 }
@@ -5638,7 +5637,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 14.4px 0;
+  padding: 12px 0;
   float: none;
   clear: both;
   position: relative;
@@ -5658,7 +5657,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity .activity-wrapper .pager-load-more a {
   width: 70%;
   text-align: center;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -5721,7 +5720,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity .activity-wrapper .view-content .activity header .actor {
   display: inline-block;
   width: 12%;
-  padding-top: 14.4px;
+  padding-top: 12px;
   padding-left: 22.5px;
   text-align: left;
   vertical-align: top;
@@ -5730,13 +5729,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #6f7a82;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .multiple-lines {
-  padding-top: 7.2px;
+  padding-top: 6px;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .activity-inner-wrapper {
   position: relative;
   display: inline-block;
   width: 65%;
-  padding: 14.4px 0 14.4px 0;
+  padding: 12px 0 12px 0;
   padding-right: 22.5px;
   border-right: 4px solid #e7e8ea;
 }
@@ -5766,7 +5765,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title p {
   margin: 0;
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title p:last-child {
   margin-bottom: 0;
@@ -5809,7 +5808,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .activity-wrapper .activity-list-footer-wrapper .activity-list-footer {
   *zoom: 1;
-  padding: 14.4px 15px 7.2px 15px;
+  padding: 12px 15px 6px 15px;
 }
 .report .report-activity .activity-wrapper .activity-list-footer-wrapper .activity-list-footer:before, .report .report-activity .activity-wrapper .activity-list-footer-wrapper .activity-list-footer:after {
   display: table;
@@ -6278,13 +6277,13 @@ div.sensitive-hide {
 }
 .sensitive-notification .sensitive-notification-text {
   color: #6f7a82;
-  padding: 14.4px 7.5px;
+  padding: 12px 7.5px;
 }
 .sensitive-notification .sensitive-notification-link {
-  padding: 14.4px 7.5px;
+  padding: 12px 7.5px;
 }
 .sensitive-notification .sensitive-notification-link a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -6331,7 +6330,7 @@ div.sensitive-hide {
 }
 
 .report-row .sensitive-notification {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   background-color: #f3f4f4 !important;
 }
 
@@ -6348,7 +6347,7 @@ div.sensitive-hide {
   border-top: 1px solid #f3f4f4;
   margin: 0;
   padding: 0;
-  padding: 7.2px 0;
+  padding: 6px 0;
 }
 .view-desk-reports .pager-load-more:before {
   position: absolute;
@@ -6371,11 +6370,11 @@ div.sensitive-hide {
 
 .filters-summary {
   position: relative;
-  margin-top: 7.2px;
+  margin-top: 6px;
   border-top: 1px solid rgba(16, 33, 47, 0.02);
-  padding: 7.2px 30px 5.76px;
+  padding: 6px 30px 4.8px;
   font-size: 15px;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   color: #9fa6ac;
 }
 .filters-summary:before {
@@ -6400,7 +6399,7 @@ div.sensitive-hide {
 #incoming-reports {
   font-size: 15px;
   color: #555555;
-  padding-top: 14.4px;
+  padding-top: 12px;
 }
 #incoming-reports .ui-draggable-dragging {
   border: 3px solid #efca2b;
@@ -6420,7 +6419,7 @@ div.sensitive-hide {
 .report-row {
   *zoom: 1;
   position: relative;
-  margin-bottom: 4.8px;
+  margin-bottom: 4px;
   border: 3px solid white;
 }
 .report-row:before, .report-row:after {
@@ -6438,11 +6437,11 @@ div.sensitive-hide {
   cursor: move;
   border: 1px solid rgba(16, 33, 47, 0.2);
   background-color: white;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
 }
 .report-row .report-content {
   *zoom: 1;
-  padding: 9.6px 15px 0;
+  padding: 8px 15px 0;
 }
 .report-row .report-content:before, .report-row .report-content:after {
   display: table;
@@ -6460,7 +6459,7 @@ div.sensitive-hide {
   filter: alpha(opacity=90);
 }
 .report-row .report-content .media-type-thumbnail .media-title {
-  margin: 7.2px 0;
+  margin: 6px 0;
   font-size: 15px;
   line-height: 1.1;
   color: #6f7a82;
@@ -6495,7 +6494,7 @@ div.sensitive-hide {
 }
 .report-row .report-attributes {
   *zoom: 1;
-  padding: 7.2px 15px;
+  padding: 6px 15px;
   border-top: 1px solid rgba(16, 33, 47, 0.1);
   font-size: 14px;
   display: block;
@@ -6646,18 +6645,18 @@ div.sensitive-hide {
   clear: both;
 }
 .update .update-body {
-  padding-top: 10.4px;
+  padding-top: 8px;
   color: #404d59;
 }
 .update .update-body .update-title {
   font-size: 29px;
   line-height: 1.2;
-  margin-bottom: 28.8px;
+  margin-bottom: 24px;
   color: #404d59;
 }
 .update .update-body .node-media {
   *zoom: 1;
-  margin: 7.2px 0;
+  margin: 6px 0;
 }
 .update .update-body .node-media:before, .update .update-body .node-media:after {
   display: table;
@@ -6670,15 +6669,15 @@ div.sensitive-hide {
 .update .update-body p {
   font-size: 16px;
   line-height: 1.4;
-  margin: 0 0 28.8px 0;
+  margin: 0 0 24px 0;
 }
 .update .update-body p:first-child {
-  padding-top: 9.6px;
+  padding-top: 8px;
 }
 .update .update-footer {
   margin-left: 30px;
   margin-bottom: 1em;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   color: #cfd3d5;
 }
 .update .update-footer a {
@@ -6697,7 +6696,7 @@ div.sensitive-hide {
   list-style: none;
 }
 .update .update-footer .update-meta li {
-  padding: 7.2px 0;
+  padding: 6px 0;
   border-bottom: 1px solid #e7e8ea;
 }
 .update .update-footer .update-meta li:last-child {
@@ -6745,7 +6744,7 @@ div.sensitive-hide {
 .update .update-footer .update-by {
   line-height: 1;
   *zoom: 1;
-  margin-bottom: 7.2px;
+  margin-bottom: 6px;
 }
 .update .update-footer .update-by:before, .update .update-footer .update-by:after {
   display: table;
@@ -6950,7 +6949,7 @@ html body .livefyre-wrapper {
   margin-top: 15px;
 }
 #meedan_bookmarklet .footer input {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -7014,13 +7013,13 @@ html body .livefyre-wrapper {
 #meedan_bookmarklet #user-login .messages.error {
   position: static;
   font-size: 14px;
-  margin-bottom: 9.6px;
+  margin-bottom: 8px;
 }
 #meedan_bookmarklet #user-login #edit-social-media-signin {
-  margin-top: 14.4px;
+  margin-top: 12px;
 }
 #meedan_bookmarklet #user-login #edit-social-media-signin .item-list li a {
-  padding: 9.6px 15px;
+  padding: 8px 15px;
 }
 #meedan_bookmarklet #user-login .or {
   margin: 0 0;
@@ -7045,7 +7044,7 @@ html body .livefyre-wrapper {
   padding-left: 0;
 }
 #meedan_bookmarklet #user-login .form-actions {
-  margin-top: 14.4px;
+  margin-top: 12px;
 }
 #meedan_bookmarklet .absolute-messages-status, #meedan_bookmarklet .messages.status, #meedan_bookmarklet #absolute-messages-show, #meedan_bookmarklet .absolute-messages-dismiss-all, #meedan_bookmarklet #absolute-messages-messages {
   display: none !important;
@@ -7059,7 +7058,7 @@ html body .livefyre-wrapper {
 }
 #meedan_bookmarklet #meedan_bookmarklet_messages {
   padding: 0;
-  margin: 28.8px 0 0 0;
+  margin: 24px 0 0 0;
   clear: both;
   text-align: center;
 }
@@ -7086,12 +7085,12 @@ html body .livefyre-wrapper {
   color: #cccccc;
   font-size: 18px;
   float: right;
-  margin: 14.4px 0 0 0;
-  line-height: 28.8px;
+  margin: 12px 0 0 0;
+  line-height: 24px;
 }
 #meedan_bookmarklet #meedan_bookmarklet_help {
-  padding-top: 14.4px;
-  line-height: 28.8px;
+  padding-top: 12px;
+  line-height: 24px;
 }
 #meedan_bookmarklet #meedan_bookmarklet_help span {
   display: block;
@@ -7222,12 +7221,12 @@ html body .livefyre-wrapper {
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col {
   float: right;
-  margin-top: -28.8px;
+  margin-top: -24px;
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button {
   position: relative;
   text-align: center;
-  margin-top: -14.4px;
+  margin-top: -12px;
 }
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button:before {
   pointer-events: none;
@@ -7258,7 +7257,7 @@ html body .livefyre-wrapper {
 #modalContent.modal-install-bookmarklet .install-bookmarklet-col #install-bookmarklet-button .description {
   margin: 0;
   padding: 0;
-  margin: 14.4px auto;
+  margin: 12px auto;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.3;
@@ -7315,7 +7314,7 @@ ul.pager {
   margin: 0;
   padding: 0;
   *zoom: 1;
-  margin: 28.8px 0;
+  margin: 24px 0;
   font-size: 15.3px;
 }
 .pager li {
@@ -7365,9 +7364,8 @@ ul.pager {
 }
 
 nav[role="navigation"] {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
-  font-size: 18px;
   float: right;
   background-color: #283743;
   width: 100%;
@@ -7840,9 +7838,9 @@ body.toolbar-drawer #main #content {
   float: none;
   padding: 4px 18px;
   clear: both;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-weight: normal;
-  line-height: 28.8px;
+  line-height: 24px;
   white-space: nowrap;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -7924,7 +7922,7 @@ div.form-item div.password-suggestions ul {
   padding: 0;
   margin: 0;
   padding: 0;
-  margin-top: 7.2px;
+  margin-top: 6px;
 }
 div.form-item div.password-suggestions ul li {
   list-style: none;
@@ -8013,12 +8011,12 @@ select[multiple], select[size] {
 }
 
 form {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
 }
 form input[type="password"],
 form input[type="text"],
 form textarea {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -8075,7 +8073,7 @@ form .description {
   width: 100%;
 }
 form.confirmation .form-actions input {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -8127,7 +8125,7 @@ form .form-actions {
   border-top: 0px none;
 }
 form .form-actions input, form .form-actions a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -8175,7 +8173,7 @@ form .form-actions input:active, form .form-actions input:active:visited, form .
   color: white;
 }
 form .form-actions input:hover, form .form-actions a:hover {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -8224,7 +8222,7 @@ form .form-actions input:hover:active, form .form-actions input:hover:active:vis
 }
 form input#edit-submit,
 form .form-submit {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -8334,8 +8332,8 @@ form.ife .form-type-select label {
   display: inline-block;
   float: right;
   margin-left: 15px;
-  line-height: 28.8px;
-  padding-top: 9.6px;
+  line-height: 24px;
+  padding-top: 8px;
 }
 form.ife .form-type-select select {
   float: right;
@@ -8375,7 +8373,7 @@ form#user-register-form label.danger, form#user-register-form label.error, form#
   position: absolute;
   right: 80%;
   padding-right: 15px;
-  line-height: 43.2px;
+  line-height: 36px;
   width: 30%;
   background: transparent;
 }
@@ -8386,7 +8384,7 @@ form#user-register-form label.success {
   color: #468847;
 }
 form#user-register-form .recaptcha_input_area label {
-  top: 43.2px;
+  top: 36px;
   text-align: right;
 }
 form#user-register-form div.password-confirm {
@@ -8404,7 +8402,7 @@ form .messages-inline {
   display: inline-block;
   margin: 0;
   padding: 0;
-  padding-bottom: 14.4px;
+  padding-bottom: 12px;
   font-size: 15px;
   line-height: 1.4;
 }
@@ -8424,7 +8422,7 @@ form > .form-item .form-item {
 form input[type="password"],
 form input[type="text"],
 form textarea {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   width: 100%;
   float: right;
   margin-left: 2.12766%;
@@ -8459,7 +8457,7 @@ form .image-widget input[type="file"] {
   margin-left: 15px;
   padding: 0 15px;
   background-color: #f3f4f4;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   vertical-align: middle;
   -webkit-border-radius: 3px;
@@ -8469,7 +8467,7 @@ form .image-widget input[type="file"] {
   border-radius: 3px;
 }
 form .image-widget input[type="submit"] {
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
   margin-left: 0;
 }
 form select {
@@ -8479,7 +8477,7 @@ form select {
   display: inline;
   *zoom: 1;
   float: none;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
 }
 form select:before, form select:after {
   display: table;
@@ -8491,11 +8489,11 @@ form select:after {
 }
 form div.form-wrapper {
   clear: both;
-  margin: 14.4px 0;
+  margin: 12px 0;
 }
 form .form-type-textarea {
   *zoom: 1;
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
 }
 form .form-type-textarea:before, form .form-type-textarea:after {
   display: table;
@@ -8527,7 +8525,7 @@ form .form-type-textarea:after {
   form input[type="password"],
   form input[type="text"],
   form textarea {
-    font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Droid Arabic Naskh", serif;
     width: 100%;
     float: right;
     margin-left: 6.66667%;
@@ -8561,7 +8559,7 @@ form .form-type-textarea:after {
     margin-left: 15px;
     padding: 0 15px;
     background-color: #f3f4f4;
-    font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Droid Arabic Naskh", serif;
     font-size: 15px;
     vertical-align: middle;
     -webkit-border-radius: 3px;
@@ -8571,7 +8569,7 @@ form .form-type-textarea:after {
     border-radius: 3px;
   }
   form .image-widget input[type="submit"] {
-    margin-bottom: 14.4px;
+    margin-bottom: 12px;
     margin-left: 0;
   }
   form select {
@@ -8580,7 +8578,7 @@ form .form-type-textarea:after {
     margin-left: 6.66667%;
     *zoom: 1;
     float: none;
-    font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Droid Arabic Naskh", serif;
   }
   form select:before, form select:after {
     display: table;
@@ -8592,11 +8590,11 @@ form .form-type-textarea:after {
   }
   form div.form-wrapper {
     clear: both;
-    margin: 14.4px 0;
+    margin: 12px 0;
   }
   form .form-type-textarea {
     *zoom: 1;
-    margin-bottom: 14.4px;
+    margin-bottom: 12px;
   }
   form .form-type-textarea:before, form .form-type-textarea:after {
     display: table;
@@ -8613,12 +8611,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  margin-bottom: 28.8px;
+  margin-bottom: 24px;
 }
 table th,
 table td {
   padding: 8px;
-  line-height: 28.8px;
+  line-height: 24px;
   text-align: left;
   vertical-align: top;
   border-top: 1px solid #dddddd;
@@ -8721,7 +8719,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more {
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 14.4px 0;
+  padding: 12px 0;
   float: none;
   clear: both;
   position: relative;
@@ -8741,7 +8739,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more li {
 body.page-liveblog #main .view-liveblog .pager-load-more a {
   width: 70%;
   text-align: center;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -8783,15 +8781,15 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 
 .anchor {
   display: block;
-  height: 160.6px;
+  height: 151px;
   /* this is the height of your header */
-  margin-top: -160.6px;
+  margin-top: -151px;
   /* this is again negative value of the height of your header */
   visibility: hidden;
 }
 
 .updates {
-  margin-top: 14.4px;
+  margin-top: 12px;
 }
 .updates .update-row {
   margin-bottom: 24px;
@@ -8802,25 +8800,25 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   float: right;
   margin-left: 2.12766%;
   display: inline;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   color: #cfd3d5;
   border-top: 4px solid #cfd3d5;
-  margin-bottom: 28.8px;
-  padding-top: 14.4px;
+  margin-bottom: 24px;
+  padding-top: 12px;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 14px;
 }
 .updates .update-row .update-info b {
   display: block;
-  padding: 14.4px 0;
+  padding: 12px 0;
   font-size: 47px;
 }
 
 .story {
   *zoom: 1;
   text-align: right;
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
 }
 .story:before, .story:after {
   display: table;
@@ -8832,8 +8830,8 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-meta {
   *zoom: 1;
-  padding-top: 14.4px;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-top: 12px;
+  font-family: "Droid Arabic Naskh", serif;
   color: #6f7a82;
 }
 .story .story-meta:before, .story .story-meta:after {
@@ -8917,8 +8915,8 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-by {
   font-size: 25px;
-  margin-top: 7.2px;
-  margin-bottom: 14.4px;
+  margin-top: 6px;
+  margin-bottom: 12px;
 }
 .story .story-by a {
   color: #999999;
@@ -8937,7 +8935,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-blogger {
   *zoom: 1;
-  margin: 14.4px 0;
+  margin: 12px 0;
 }
 .story .story-blogger:before, .story .story-blogger:after {
   display: table;
@@ -8949,7 +8947,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-blogger .avatar {
   display: inline-block;
-  padding: 14.4px 0;
+  padding: 12px 0;
 }
 .story .story-blogger .avatar .user-picture {
   display: inline-block;
@@ -8992,7 +8990,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -o-border-radius: 4px;
   border-radius: 4px;
   display: inline-block;
-  padding: 14.4px 15px;
+  padding: 12px 15px;
   margin-right: 15px;
 }
 .story .story-blogger .story-blogger-status-offline .blogger-status-indicator {
@@ -9002,13 +9000,13 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   background-color: #46a546;
 }
 .story figure {
-  margin: 14.4px 0;
+  margin: 12px 0;
 }
 .story .story-body {
   *zoom: 1;
-  margin: 14.4px 0;
+  margin: 12px 0;
   color: #404d59;
-  font-family: "Mercury SSm A", "Mercury SSm B", Georgia, "Times New Roman", Times, serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 18px;
   line-height: 1.5;
   font-weight: 400;
@@ -9028,7 +9026,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .compose-update-form {
   *zoom: 1;
-  margin: 28.8px 0;
+  margin: 24px 0;
 }
 .story .compose-update-form:before, .story .compose-update-form:after {
   display: table;
@@ -9040,7 +9038,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .compose-update-form .compose-update-header a {
   display: inline-block;
-  padding: 14.4px 15px;
+  padding: 12px 15px;
   color: white;
   background-color: #2e77fc;
   -webkit-border-radius: 4px;
@@ -9048,7 +9046,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 20px;
   text-decoration: none;
 }
@@ -9073,7 +9071,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
 }
 .story .compose-update-form .node-post-form input[type='submit'] {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -9152,7 +9150,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 14.4px 0;
+  padding: 12px 0;
   float: none;
   clear: both;
   position: relative;
@@ -9172,7 +9170,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-updates-wrapper .pager-load-more a {
   width: 70%;
   text-align: center;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -9197,11 +9195,11 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-footer {
   *zoom: 1;
   display: block;
-  margin-top: 14.4px;
-  padding: 7.2px 0;
+  margin-top: 12px;
+  padding: 6px 0;
   border-top: 1px solid #e7e8ea;
   color: #cfd3d5;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   cursor: pointer;
 }
@@ -9247,15 +9245,15 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   display: inline-block;
 }
 .story .story-comments {
-  margin-top: 28.8px;
+  margin-top: 24px;
 }
 .story .story-comments .livefyre-header, .story .story-comments .fb-comments-header {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 20px;
   font-size: 25px;
   color: #404d59;
   background-color: rgba(0, 0, 0, 0.02);
-  padding: 14.4px 7.5px;
+  padding: 12px 7.5px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -9280,15 +9278,15 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   background-color: #efca2b;
 }
 .story .story-comments .fb-comments {
-  margin-top: 14.4px;
+  margin-top: 12px;
 }
 
 .stories .story-row {
-  padding: 9.6px 0;
+  padding: 8px 0;
   border-bottom: 1px solid #f3f4f4;
 }
 .stories .story-row:first-child {
-  padding: 0 0 9.6px 0;
+  padding: 0 0 8px 0;
 }
 .stories .story-row:last-child {
   margin-bottom: 0;
@@ -9308,7 +9306,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin: 0;
   padding: 0;
   font-size: 16px;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 18px;
   line-height: 1.3;
 }
@@ -9317,7 +9315,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .stories .views-row-first figure {
   display: block;
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
 }
 
 body.sidebar-first #main {
@@ -9354,7 +9352,7 @@ body.sidebar-first #main #sidebar-first.column .pager-load-more {
   *zoom: 1;
   margin: 0;
   padding: 0;
-  padding: 14.4px 0;
+  padding: 12px 0;
   float: none;
   clear: both;
   position: relative;
@@ -9374,7 +9372,7 @@ body.sidebar-first #main #sidebar-first.column .pager-load-more li {
 body.sidebar-first #main #sidebar-first.column .pager-load-more a {
   width: 70%;
   text-align: center;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: 700;
   color: #9fa6ac;
@@ -9459,7 +9457,7 @@ body.widgets #main #widgets.column #widgets-inner .widgets-wrapper {
 }
 body.widgets #main #widgets.column #widgets-inner #partner-header #featured-stories .block,
 body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-stories .block {
-  margin: 14.4px 0;
+  margin: 12px 0;
 }
 body.widgets #main #widgets.column #widgets-inner #partner-header #featured-stories h2,
 body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-stories h2 {
@@ -9567,7 +9565,7 @@ body.widgets #main #content #content-inner:after {
   }
   body.widgets #main #widgets.column #widgets-inner #partner-header #featured-stories .block,
   body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-stories .block {
-    margin: 14.4px 0;
+    margin: 12px 0;
   }
   body.widgets #main #widgets.column #widgets-inner #partner-header #featured-stories h2,
   body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-stories h2 {
@@ -9625,7 +9623,7 @@ body.widgets #main #content #content-inner:after {
   }
   body.widgets #main #widgets.column #widgets-inner #partner-header #featured-stories .block,
   body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-stories .block {
-    margin: 14.4px 0;
+    margin: 12px 0;
   }
   body.widgets #main #widgets.column #widgets-inner #partner-header #featured-stories h2,
   body.widgets #main #widgets.column #widgets-inner .widgets-wrapper #featured-stories h2 {
@@ -9661,7 +9659,7 @@ body.widgets #main #content #content-inner:after {
 }
 #widgets .block {
   *zoom: 1;
-  margin: 14.4px 0;
+  margin: 12px 0;
 }
 #widgets .block:before, #widgets .block:after {
   display: table;
@@ -9677,7 +9675,7 @@ body.widgets #main #content #content-inner:after {
   border-top: 4px solid #e7e8ea;
   padding-top: 12px;
   margin-bottom: 12px;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-weight: 700;
   font-size: 18px;
   color: #9fa6ac;
@@ -9703,7 +9701,7 @@ body.widgets #main #content #content-inner:after {
   float: right;
   border-top: 0px none;
   height: 24px;
-  padding: 14.4px 30px 14.4px 0;
+  padding: 12px 30px 12px 0;
   font-size: 11px;
   font-size: 29px;
   height: 20px;
@@ -9723,7 +9721,7 @@ body.widgets #main #content #content-inner:after {
 }
 #widgets .elsewhere ul li a {
   display: block;
-  padding: 7.2px 7.5px;
+  padding: 6px 7.5px;
   vertical-align: top;
   line-height: 1.4;
   height: 36px;
@@ -9815,7 +9813,7 @@ body.page-user.logged-in .user-info .linked-accounts a {
   color: #10212f;
 }
 body.page-user.logged-in .user-info .profile-links a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -10044,7 +10042,7 @@ body.page-user-password #content-header {
   display: inline;
   padding-right: 17.77778%;
   padding-left: 17.77778%;
-  margin-top: 28.8px;
+  margin-top: 24px;
 }
 #user-login label, #user-register-form label {
   color: #6f7a82;
@@ -10085,8 +10083,8 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin .item-list li a, #user-register-form #edit-social-media-signin .item-list li a {
   float: none;
   display: inline-block;
-  padding: 14.4px 30px;
-  margin-bottom: 14.4px;
+  padding: 12px 30px;
+  margin-bottom: 12px;
   color: white;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -10151,10 +10149,10 @@ body.page-user-password #content-header {
 }
 #user-login .or, #user-register-form .or {
   *zoom: 1;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   color: #999999;
   text-align: center;
-  margin: 14.4px 0;
+  margin: 12px 0;
 }
 #user-login .or:before, #user-login .or:after, #user-register-form .or:before, #user-register-form .or:after {
   display: table;
@@ -10180,7 +10178,7 @@ body.page-user-password #content-header {
 }
 #user-login .user-links, #user-register-form .user-links {
   *zoom: 1;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -10199,7 +10197,7 @@ body.page-user-password #content-header {
 #user-login .form-item-remember-me label, #user-register-form .form-item-remember-me label {
   display: inline-block;
   color: #999999;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -10215,8 +10213,8 @@ body.page-user-password #content-header {
 }
 #user-login .form-actions .user-new-account-link, #user-register-form .form-actions .user-new-account-link {
   float: left;
-  margin-top: 7.2px;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-top: 6px;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   color: #999999;
 }
@@ -10227,7 +10225,7 @@ body.page-user-password #content-header {
   margin: 0;
   padding: 0;
   background: none;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   font-weight: normal;
   color: #0088cc;
@@ -10237,10 +10235,10 @@ body.page-user-password #content-header {
 }
 
 .view-administer-users fieldset {
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
 }
 .view-administer-users select {
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
 }
 
 /**
@@ -10278,7 +10276,7 @@ body.page-user-password #content-header {
   border: none;
 }
 #nav-discussion-form .form-actions #edit-submit-story {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -10332,7 +10330,7 @@ body.page-user-password #content-header {
   width: 98%;
   background: #f3f4f4;
   padding: 0;
-  margin-bottom: 7.2px;
+  margin-bottom: 6px;
   border: 0;
 }
 #nav-discussion-form .customfile .customfile {
@@ -10341,14 +10339,14 @@ body.page-user-password #content-header {
 #nav-discussion-form .customfile .customfile-button {
   background: #cfd3d5;
   float: left;
-  padding: 9.6px 5px;
+  padding: 8px 5px;
   border: 0;
   width: auto;
   min-width: 120px;
   font-weight: normal;
 }
 #nav-discussion-form .customfile .customfile-feedback {
-  padding: 7.2px 7.5px;
+  padding: 6px 7.5px;
   text-align: right;
   overflow: hidden;
   color: #555555;
@@ -10481,11 +10479,11 @@ body.page-reports #reports:after, .profile #reports:after {
 body.page-reports #reports .report-item, .profile #reports .report-item {
   min-width: 180px;
   width: 32%;
-  margin-bottom: 14.4px;
+  margin-bottom: 12px;
 }
 body.page-reports #reports .report-item .report-row-container, .profile #reports .report-item .report-row-container {
   text-align: right;
-  padding: 14.4px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #cccccc;
   -webkit-transition: opacity 0.3s linear;
   -moz-transition: opacity 0.3s linear;
@@ -10515,7 +10513,7 @@ body.page-reports #reports .report-item .report-content .media-type-thumbnail .m
   filter: alpha(opacity=90);
 }
 body.page-reports #reports .report-item .report-content .media-type-thumbnail .media-title, .profile #reports .report-item .report-content .media-type-thumbnail .media-title {
-  margin: 7.2px 0;
+  margin: 6px 0;
   font-size: 15.3px;
   line-height: 1.2;
   color: #555555;
@@ -10603,7 +10601,7 @@ body.page-reports #reports .report-item .in_progress span:before, .profile #repo
   font-weight: normal;
 }
 body.page-reports #reports .report-item .report-detail-link a, .profile #reports .report-item .report-detail-link a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -10928,14 +10926,47 @@ html body.i18n-ar,
   text-align: right;
 }
 
-html body.i18n-ar {
-  font-size: 20px;
+#toolbar {
+  font-family: "Droid Arabic Naskh", serif;
 }
 
 #partner-header-slogan {
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
+  font-size: 18px;
+}
+
+.story .story-body {
+  font-size: 20px;
+  line-height: 36px;
+}
+
+.stories .story-row h3 {
+  font-size: 18px;
+  line-height: 26px;
 }
 
 .posts h3 a {
-  font-family: "Arial", "Verdana", "Tahoma", sans-serif;
+  font-family: "Droid Arabic Naskh", serif;
+}
+
+.update .update-body .update-title {
+  margin-top: 8px;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.update .update-body p {
+  line-height: 30px;
+}
+
+.report {
+  font-size: 16px;
+}
+
+.report .report-activity .activity-wrapper .view-content .activity {
+  line-height: 26px;
+}
+
+.report .report-activity .activity-wrapper .view-content .activity header .actor {
+  padding-top: 18px;
 }

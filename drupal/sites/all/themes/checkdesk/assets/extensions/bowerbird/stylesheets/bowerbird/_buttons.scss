@@ -42,7 +42,7 @@
 $include-border: false !default;
 $include-text-shadow: false !default;
 $inner-box-shadow: false !default;
-$button-font-family: $sans-serif-font-stack !default;
+// $button-font-family: $sans-serif-font-stack !default;
 $button-font-weight: 400 !default; 
 $button-gradient-style: matte !default;
 $button-invert-on-click: 0 !default;
@@ -270,7 +270,8 @@ $button-darken-amount: 12 !default;
 @mixin button-reset($font-weight: $button-font-weight) {
   
   // updated font-family to include configurable font - CGB nov 2012
-  font-family: $button-font-family, "Lucida Grande", Lucida, Arial, sans-serif;
+  // font-family: $button-font-family, "Lucida Grande", Lucida, Arial, sans-serif;
+  @include cd-sans-serif-family;
   // Disabled background image support CGB Nov 2012
   // background: #{$button-image-path} repeat-x bottom left;
   margin: 0;

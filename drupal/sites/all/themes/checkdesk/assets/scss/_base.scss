@@ -16,17 +16,6 @@ $icon-position: before !default;
 @import "bowerbird/typography";
 @import "fonts";
 
-// mixin to set direction
-// 
-@mixin checkdesk-layout($direction) {
-  text-align: $direction;
-  @if $direction == 'right' {
-    direction: rtl;
-  } @else {
-    direction: ltr;
-  }
-}
-
 // Compass utility configuration
 //
 // vertical baseline support
@@ -79,8 +68,6 @@ $x-large-font-size:   29px; // 2
 $xx-large-font-size:  40px; // 3
 $xxx-large-font-size: 47px; // 4
 $largest-font-size:   65px; // 5
-
-@debug ms(0);
 
 // Main sections
 // =============================================================================

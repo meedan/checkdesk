@@ -4,7 +4,7 @@
 %filters {
   @include ctb-clearfix;
   margin-top: $absolute-line-height;
-  font-family: $sans-serif-font-stack;
+  @include cd-sans-serif-family;
   font-size: $small-font-size;
 
   .filters-wrapper {
@@ -17,7 +17,7 @@
     h2 {
       display: inline-block;
       @include reset-box-model;
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
       font-size: $large-font-size;
       color: $firefly60;
     }

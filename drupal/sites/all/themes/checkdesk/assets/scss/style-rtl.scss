@@ -3,12 +3,13 @@
 //
 // 0.
 // ensure we have the original variables loaded
-@import "base"; 
+@import "base";
+
 
 // 1.
 // re-configuration of default variables for this RTL stylesheet
 $from-direction: right;
-$absolute-line-height: $absolute-line-height * 1.2; // increase to account for arabic 
+// $absolute-line-height: $absolute-line-height * 1.2; // increase to account for arabic 
 $header-font-stack: $ar-header-font-stack;
 $body-font-stack: $ar-body-font-stack;
 $nav-font-stack: $ar-body-font-stack;
@@ -25,6 +26,8 @@ $nav-font-stack: $ar-body-font-stack;
 @import "style"; 
 @import "replace_drupal/vertical-tabs-rtl";
 
+
+
 // 4.
 // Override the text direction
 html body.i18n-ar, 
@@ -32,18 +35,64 @@ html body.i18n-ar,
   direction: rtl;
   text-align: right;
 }
+
 // set font size for Arabic
 html body.i18n-ar {
-	font-size: $large-font-size;
+	// font-size: $large-font-size;
 }
 
 // Specific overrides where we can not simply match the English font selection
+
+#toolbar {
+	font-family: $ar-sans-serif-font-stack;
+}
+
 #partner-header-slogan {
 	font-family: $ar-header-font-stack;
+	font-size: 18px;
 }
+
+// stories
+.story .story-body {
+	font-size: 20px;
+	line-height: 36px;
+}
+
+.stories .story-row h3 {
+	font-size: 18px;
+	line-height: 26px;
+}
+
+
+// update
 
 .posts {
   h3 a {
     font-family: $ar-body-font-stack;
   }
+}
+
+.update .update-body .update-title {
+	margin-top: $absolute-line-height/3;
+	font-size: 36px;
+	font-weight: 600;
+}
+
+.update .update-body p {
+	line-height: 30px;
+}
+
+// report
+
+.report {
+	font-size: 16px;
+}
+
+.report .report-activity .activity-wrapper .view-content .activity {
+	line-height: 26px;
+}
+
+.report .report-activity .activity-wrapper .view-content .activity header .actor {
+	// TEMP until English characters get properly rendered with unicode range
+	padding-top: 18px;
 }

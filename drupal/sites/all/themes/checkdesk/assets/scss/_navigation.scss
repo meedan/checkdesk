@@ -139,11 +139,8 @@ $icon-position: 'before';
 // This nav contains two rows of nav-items with icons.
 nav[role="navigation"] {
   // @include ctb-box-shadow(0px 1px 3px 1px rgba(0, 0, 0, 0.5));
-  font-family: $sans-serif-font-stack;
+  @include cd-sans-serif-family;
   font-size: $small-font-size;
-  @if $from-direction == 'right' {
-    font-size: $base-font-size;
-  }
   float: $from-direction;
   background-color: $nav-container-bkg-color;
   width: 100%;
