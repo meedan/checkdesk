@@ -146,8 +146,6 @@
   display: block;
   padding: $absolute-line-height/4 0;
   margin-bottom: $absolute-line-height/2;
-  border-top: 1px solid $firefly10;
-  // @include cd-sans-serif-family;
 }
 
 .admin-nav-tabs > li {
@@ -164,16 +162,20 @@
 }
 
 .admin-nav-tabs > li > a {
-  @include checkdesk-button($grayLight);
+  @include checkdesk-button(rgba($firefly, 0.4));
   @include button-size(13px);
-  @include box-shadow(0 1px 2px $firefly5);
+  @include box-shadow(0 1px 2px rgba($firefly, 0.05));
+  &:hover {
+    @include checkdesk-button(rgba($firefly, 0.6));
+    @include button-size(13px);
+  }
 }
 
 .admin-nav-tabs > .active > a,
 .admin-nav-tabs > .active > a:hover {
-  @include checkdesk-button($gray);
+  @include checkdesk-button(rgba($firefly, 0.8));
   @include button-size(13px);
-  @include box-shadow(0 1px 2px $firefly10);
+  @include box-shadow(0 1px 2px rgba($firefly, 0.05));
 }
 
 

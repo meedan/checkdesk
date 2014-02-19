@@ -2867,7 +2867,6 @@ input[type="checkbox"][readonly] {
   display: block;
   padding: 6px 0;
   margin-bottom: 12px;
-  border-top: 1px solid #e7e8ea;
 }
 .admin-nav-tabs li {
   list-style: none;
@@ -2956,7 +2955,7 @@ input[type="checkbox"][readonly] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #999999;
+  background-color: rgba(3, 34, 60, 0.4);
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -2971,9 +2970,9 @@ input[type="checkbox"][readonly] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  -webkit-box-shadow: 0 1px 2px #f3f4f4;
-  -moz-box-shadow: 0 1px 2px #f3f4f4;
-  box-shadow: 0 1px 2px #f3f4f4;
+  -webkit-box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
+  box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
 }
 .admin-nav-tabs > li > a::-moz-focus-inner {
   border: none;
@@ -2986,15 +2985,72 @@ input[type="checkbox"][readonly] {
   color: white;
 }
 .admin-nav-tabs > li > a:hover, .admin-nav-tabs > li > a:focus {
-  background-color: #919191;
+  background-color: rgba(3, 26, 45, 0.4);
 }
 .admin-nav-tabs > li > a:hover, .admin-nav-tabs > li > a:hover:visited, .admin-nav-tabs > li > a:focus, .admin-nav-tabs > li > a:focus:visited {
   color: white;
 }
 .admin-nav-tabs > li > a:active {
-  background-color: #8a8a8a;
+  background-color: rgba(2, 18, 31, 0.4);
 }
 .admin-nav-tabs > li > a:active, .admin-nav-tabs > li > a:active:visited {
+  color: white;
+}
+.admin-nav-tabs > li > a:hover {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: rgba(3, 34, 60, 0.6);
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 400;
+  margin-right: 1em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+}
+.admin-nav-tabs > li > a:hover::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+.admin-nav-tabs > li > a:hover:focus {
+  outline: none;
+}
+.admin-nav-tabs > li > a:hover, .admin-nav-tabs > li > a:hover:visited {
+  color: white;
+}
+.admin-nav-tabs > li > a:hover:hover, .admin-nav-tabs > li > a:hover:focus {
+  background-color: rgba(3, 26, 45, 0.6);
+}
+.admin-nav-tabs > li > a:hover:hover, .admin-nav-tabs > li > a:hover:hover:visited, .admin-nav-tabs > li > a:hover:focus, .admin-nav-tabs > li > a:hover:focus:visited {
+  color: white;
+}
+.admin-nav-tabs > li > a:hover:active {
+  background-color: rgba(2, 18, 31, 0.6);
+}
+.admin-nav-tabs > li > a:hover:active, .admin-nav-tabs > li > a:hover:active:visited {
   color: white;
 }
 
@@ -3018,7 +3074,7 @@ input[type="checkbox"][readonly] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #555555;
+  background-color: rgba(3, 34, 60, 0.8);
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -3033,9 +3089,9 @@ input[type="checkbox"][readonly] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  -webkit-box-shadow: 0 1px 2px #e7e8ea;
-  -moz-box-shadow: 0 1px 2px #e7e8ea;
-  box-shadow: 0 1px 2px #e7e8ea;
+  -webkit-box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
+  box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
 }
 .admin-nav-tabs > .active > a::-moz-focus-inner,
 .admin-nav-tabs > .active > a:hover::-moz-focus-inner {
@@ -3054,7 +3110,7 @@ input[type="checkbox"][readonly] {
 .admin-nav-tabs > .active > a:hover, .admin-nav-tabs > .active > a:focus,
 .admin-nav-tabs > .active > a:hover:hover,
 .admin-nav-tabs > .active > a:hover:focus {
-  background-color: #4d4d4d;
+  background-color: rgba(3, 26, 45, 0.8);
 }
 .admin-nav-tabs > .active > a:hover, .admin-nav-tabs > .active > a:hover:visited, .admin-nav-tabs > .active > a:focus, .admin-nav-tabs > .active > a:focus:visited,
 .admin-nav-tabs > .active > a:hover:hover,
@@ -3065,7 +3121,7 @@ input[type="checkbox"][readonly] {
 }
 .admin-nav-tabs > .active > a:active,
 .admin-nav-tabs > .active > a:hover:active {
-  background-color: #464646;
+  background-color: rgba(2, 18, 31, 0.8);
 }
 .admin-nav-tabs > .active > a:active, .admin-nav-tabs > .active > a:active:visited,
 .admin-nav-tabs > .active > a:hover:active,
