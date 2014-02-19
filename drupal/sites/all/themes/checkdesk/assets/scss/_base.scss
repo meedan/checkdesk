@@ -16,17 +16,6 @@ $icon-position: before !default;
 @import "bowerbird/typography";
 @import "fonts";
 
-// mixin to set direction
-// 
-@mixin checkdesk-layout($direction) {
-  text-align: $direction;
-  @if $direction == 'right' {
-    direction: rtl;
-  } @else {
-    direction: ltr;
-  }
-}
-
 // Compass utility configuration
 //
 // vertical baseline support
