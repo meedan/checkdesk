@@ -46134,6 +46134,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['c119d8d17c06f82122ed485128be3bfb'] = array(
+    'source' => 'Cancel deletion request',
+    'context' => '',
+    'location' => '/ar/admin/content',
+    'translation' => 'إلغاء طلب الحذف',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
