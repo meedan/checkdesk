@@ -2361,7 +2361,7 @@ function checkdesk_core_form_comment_form_alter(&$form, &$form_state) {
   $form['field_rating'][LANGUAGE_NONE]['#prefix'] = '<div class="report-activity-edit-status"><span class="current-status ' . preg_replace('/\s+/', '-', trim(strtolower($term->name))) . '">' . t($term->name) . '</span>';
   $form['field_rating'][LANGUAGE_NONE]['#suffix'] = '</div>';
   $form['field_rating'][LANGUAGE_NONE]['#title'] = t('Edit Status');
-  $form['field_rating'][LANGUAGE_NONE]['#description'] = t('Pick the status that reflects the state of the verification process');
+  $form['field_rating'][LANGUAGE_NONE]['#description'] = t('Pick the appropriate verification status');
 
   // Options
   $options = array();

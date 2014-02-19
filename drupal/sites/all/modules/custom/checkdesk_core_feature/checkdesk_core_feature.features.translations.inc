@@ -46114,15 +46114,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Edit Status',
     'context' => '',
     'location' => 'sites/all/themes/checkdesk/assets/js/report.js',
-    'translation' => 'TODO',
+    'translation' => 'غيّر الحالة',
     'plid' => 0,
     'plural' => 0,
   );
   $translations['ar:default']['d060d6682f61dc6a50259f7325f965ee'] = array(
-    'source' => 'Pick the status that reflects the state of the verification process',
+    'source' => 'Pick the appropriate verification status',
     'context' => '',
     'location' => '/ar/node/1993',
-    'translation' => 'TODO',
+    'translation' => 'اختر حالة التحقق المناسبة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -46130,7 +46130,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'New Status',
     'context' => '',
     'location' => 'sites/all/themes/checkdesk/assets/js/report.js',
-    'translation' => 'TODO',
+    'translation' => 'حالة جديدة',
     'plid' => 0,
     'plural' => 0,
   );
