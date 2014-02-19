@@ -289,9 +289,13 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 				.oembed--link--meedan-oembed-generic {
 					.title {
 						padding: 0;
+						@include cd-sans-serif-family;
 						font-weight: bold;
 						font-size: $x-large-font-size;
 						line-height: 1.3;
+					}
+					.oembed-attributes {
+						padding: $absolute-line-height/2 0;
 					}
 				}
 
