@@ -40865,7 +40865,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
     'source' => 'In Progress',
     'context' => '',
     'location' => '',
-    'translation' => 'التحقق من صحة المعلومات جارٍ',
+    'translation' => 'جارٍ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -40878,10 +40878,10 @@ Thank you for registering at [site:name]. Your application for an account is cur
     'plural' => 0,
   );
   $translations['ar:default']['0d5b5d1129589a05f459486e07125307'] = array(
-    'source' => 'fact-checking footnotes',
+    'source' => 'verification footnotes',
     'context' => '',
     'location' => '',
-    'translation' => 'ملاحظات للتحقق من صحة المعلومات',
+    'translation' => 'ملاحظات التحقق',
     'plid' => 0,
     'plural' => 0,
   );
@@ -43081,7 +43081,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Undetermined',
     'context' => '',
     'location' => '/ar/liveblog',
-    'translation' => 'لا يمكن التأكد من صحة المعلومات',
+    'translation' => 'غير معروف',
     'plid' => 0,
     'plural' => 0,
   );
@@ -46114,15 +46114,15 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Edit Status',
     'context' => '',
     'location' => 'sites/all/themes/checkdesk/assets/js/report.js',
-    'translation' => 'TODO',
+    'translation' => 'غيّر الحالة',
     'plid' => 0,
     'plural' => 0,
   );
   $translations['ar:default']['d060d6682f61dc6a50259f7325f965ee'] = array(
-    'source' => 'Pick the status that reflects the state of the verification process',
+    'source' => 'Pick the appropriate verification status',
     'context' => '',
     'location' => '/ar/node/1993',
-    'translation' => 'TODO',
+    'translation' => 'اختر حالة التحقق المناسبة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -46130,7 +46130,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'New Status',
     'context' => '',
     'location' => 'sites/all/themes/checkdesk/assets/js/report.js',
-    'translation' => 'TODO',
+    'translation' => 'حالة جديدة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -46410,7 +46410,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'In Progress',
     'context' => 'term:502ab059-26b9-4947-92e5-3e1a6de4d91e:name',
     'location' => 'taxonomy:term:502ab059-26b9-4947-92e5-3e1a6de4d91e:name',
-    'translation' => 'جار',
+    'translation' => 'جارٍ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -46418,7 +46418,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Undetermined',
     'context' => 'term:ba27bacf-4d99-4c1d-bdce-a7fb35fafd43:name',
     'location' => 'taxonomy:term:ba27bacf-4d99-4c1d-bdce-a7fb35fafd43:name',
-    'translation' => 'لا يمكن التأكد من صحة المعلومات',
+    'translation' => 'غير معروف',
     'plid' => 0,
     'plural' => 0,
   );
