@@ -95,7 +95,10 @@ function meedan_oembed_twitter_handler($provider, $url) {
     $text = preg_replace('/@[^\s]+/', '', $text);
     if (preg_match('/\p{Arabic}/u', $text)) {
       $embed->dir = 'rtl';
-      $embed->html = preg_replace('/^<blockquote /', '<blockquote lang="ar"', $embed->html);
+      // FIXME
+      // If there is at least one embed in Arabic, all others on the page are rendered as RTL,
+      // even if lang="en" is defined on them
+      // $embed->html = preg_replace('/^<blockquote /', '<blockquote lang="ar"', $embed->html);
     }
     else {
       $embed->dir = 'ltr';
