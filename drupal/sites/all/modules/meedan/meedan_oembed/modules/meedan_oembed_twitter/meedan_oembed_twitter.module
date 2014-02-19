@@ -89,6 +89,21 @@ function meedan_oembed_twitter_handler($provider, $url) {
     $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
     $embed->provider = $provider;
 
+    // Let's try to identify language based on the Unicode
+    // First, remove links and Twitter names
+    $text = preg_replace('/http:\/\/[^\s]+/', '', $embed->description);
+    $text = preg_replace('/@[^\s]+/', '', $text);
+    if (preg_match('/\p{Arabic}/u', $text)) {
+      $embed->dir = 'rtl';
+      // FIXME
+      // If there is at least one embed in Arabic, all others on the page are rendered as RTL,
+      // even if lang="en" is defined on them
+      // $embed->html = preg_replace('/^<blockquote /', '<blockquote lang="ar"', $embed->html);
+    }
+    else {
+      $embed->dir = 'ltr';
+    }
+    
     return $embed;
   } catch (Exception $e) {
     watchdog('MeedanOEmbedTwitter', t('Could not handle Twitter: ') . $e->getMessage());
