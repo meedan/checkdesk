@@ -40865,7 +40865,7 @@ Thank you for registering at [site:name]. Your application for an account is cur
     'source' => 'In Progress',
     'context' => '',
     'location' => '',
-    'translation' => 'التحقق من صحة المعلومات جارٍ',
+    'translation' => 'جارٍ',
     'plid' => 0,
     'plural' => 0,
   );
@@ -46410,7 +46410,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'In Progress',
     'context' => 'term:502ab059-26b9-4947-92e5-3e1a6de4d91e:name',
     'location' => 'taxonomy:term:502ab059-26b9-4947-92e5-3e1a6de4d91e:name',
-    'translation' => 'جار',
+    'translation' => 'جارٍ',
     'plid' => 0,
     'plural' => 0,
   );
