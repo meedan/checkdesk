@@ -668,11 +668,11 @@ $report-activity-header-color: 			darken($firefly30, 10%);
       }
 
       .form-submit {
-        margin: 0;
+        margin: 0 !important;
       }
 
       .current-status {
-        display: inline-block;
+        display: none;
         font-weight: bold;
         margin-#{opposite-position($from-direction)}: $gutter-width;
       }
@@ -720,16 +720,17 @@ $report-activity-header-color: 			darken($firefly30, 10%);
     .report-activity-edit-status {
 
       &.popover {
+        position: absolute;
         background: #fff;
-        margin-top: 40px;
+        #{$from-direction}: auto;
 	      @if $from-direction == left {
-          margin-left: 80px;
+          #{opposite-position($from-direction)}: 32px;
 	      }
 	      @if $from-direction == right {
-          margin-right: 130px;
+          #{opposite-position($from-direction)}: 0;
 	      }
-        left: auto;
-        right: auto;
+        top: auto;
+        bottom: -230px; // -1 * height
         width: 340px;
         height: 230px;
         border: 1px solid #e8e8e8;
