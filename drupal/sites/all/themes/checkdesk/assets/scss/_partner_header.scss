@@ -11,15 +11,22 @@
 
   #partner-header-slogan {
     border-top: 1px solid $firefly10;
-    color: $firefly60;
     margin-top: $absolute-line-height;
     padding: $absolute-line-height/1.5 $gutter-width*2 0 $gutter-width*2;
-
+    font-family: $en-header-font-stack;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 18px;
+    @if $from-direction == 'left' {
+      letter-spacing: 0.45px;
+    }
+    color: $firefly40;
+    
     a {
-      color: $firefly60;
+      color: $firefly40;
       &:hover { 
         text-decoration: none;
-        color: $firefly80; 
+        color: $firefly60; 
       }
     }
 
