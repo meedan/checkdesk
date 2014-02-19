@@ -46126,6 +46126,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['e122241934ef47527b4b9217d5a439f1'] = array(
+    'source' => 'New Status',
+    'context' => '',
+    'location' => 'sites/all/themes/checkdesk/assets/js/report.js',
+    'translation' => 'TODO',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['70f1bb6629458cf9d5dd79f4ad9d0598'] = array(
     'source' => 'Comment',
     'context' => 'comment_body:comment_node_page:label',
