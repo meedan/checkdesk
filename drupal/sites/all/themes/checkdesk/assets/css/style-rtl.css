@@ -5925,17 +5925,17 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   font-size: 15px;
   color: #9fa6ac;
   cursor: pointer;
-  margin-left: 7.5px;
+  margin-left: 15px;
 }
 .report .report-activity .form-actions span.edit-status.active {
   font-style: italic;
 }
 .report .report-activity .form-actions .form-submit {
-  margin: 0;
+  margin: 0 !important;
 }
 .report .report-activity .form-actions .current-status {
-  display: inline-block;
-  font-weight: bold;
+  display: none;
+  font-weight: 700;
   margin-left: 15px;
 }
 .report .report-activity .current-status.verified:before,
@@ -6024,11 +6024,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #6f7a82 !important;
 }
 .report .report-activity .report-activity-edit-status.popover {
+  position: absolute;
   background: #fff;
-  margin-top: 40px;
-  margin-right: 130px;
-  left: auto;
   right: auto;
+  left: 0;
+  top: auto;
+  bottom: -251px;
   width: 340px;
   height: 252px;
   border-right: 1px solid rgba(16, 33, 47, 0.05);
@@ -6074,7 +6075,11 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   height: 30px;
   line-height: 30px;
   padding-top: 6px;
-  border: 0 none;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -ms-border-radius: 5px 5px 0 0;
+  -o-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 .report .report-activity .report-activity-edit-status.popover .description {
   padding: 5px 15px 0;
@@ -9324,117 +9329,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin-bottom: 14.4px;
 }
 
-body.sidebar-first #main {
-  margin: 0;
-  padding: 0;
-  *zoom: 1;
-  max-width: -2px;
-  _width: -2px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
-body.sidebar-first #main:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-body.sidebar-first #main #sidebar-first.column {
-  position: fixed;
-  max-width: 360px;
-  right: 0;
-  top: 103px;
-  width: 30%;
-  border-left: 1px solid #e7e8ea;
-  background-color: white;
-  z-index: 1;
-}
-body.sidebar-first #main #sidebar-first.column .view-desk-reports .view-content {
-  height: 400px;
-  overflow-y: auto;
-}
-body.sidebar-first #main #sidebar-first.column .pager-load-more {
-  *zoom: 1;
-  margin: 0;
-  padding: 0;
-  padding: 14.4px 0;
-  float: none;
-  clear: both;
-  position: relative;
-  text-align: center;
-}
-body.sidebar-first #main #sidebar-first.column .pager-load-more:before, body.sidebar-first #main #sidebar-first.column .pager-load-more:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.sidebar-first #main #sidebar-first.column .pager-load-more:after {
-  clear: both;
-}
-body.sidebar-first #main #sidebar-first.column .pager-load-more li {
-  list-style: none;
-}
-body.sidebar-first #main #sidebar-first.column .pager-load-more a {
-  width: 70%;
-  text-align: center;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #9fa6ac;
-  background-color: rgba(255, 255, 255, 0.8);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-body.sidebar-first #main #sidebar-first.column .pager-load-more a:hover {
-  color: white;
-  background-color: #2e77fc;
-  border: 1px solid #2e77fc;
-}
-body.sidebar-first #main #sidebar-first.column .pager-load-more .ajax-progress-throbber {
-  position: absolute;
-  top: 4px;
-  left: 15px;
-}
-body.sidebar-first #main #sidebar-first.column .pager-load-more .ajax-progress-throbber .throbber {
-  background: url("../imgs/icons/loader_white.gif");
-}
-body.sidebar-first #main #content {
-  margin-right: 30%;
-}
-body.sidebar-first #main #content #content-inner {
-  *zoom: 1;
-  max-width: 850px;
-  margin-top: 38px;
-  padding-top: 48px;
-  padding-right: 5.67376%;
-  padding-left: 5.67376%;
-}
-body.sidebar-first #main #content #content-inner:before, body.sidebar-first #main #content #content-inner:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-body.sidebar-first #main #content #content-inner:after {
-  clear: both;
-}
-
-@media (min-width: 465px) {
-  body.sidebar-first #main #content {
-    margin-right: 30%;
-  }
-}
-@media (min-width: 945px) {
-  body.sidebar-first #main #content {
-    margin-right: 360px;
-  }
-}
-@media (min-width: 1905px) {
-  body.sidebar-first #main #content {
-    margin-right: 360px;
-  }
-}
 body.widgets #main {
   margin: 0;
   padding: 0;
