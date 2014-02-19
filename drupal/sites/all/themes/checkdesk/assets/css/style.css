@@ -6651,12 +6651,13 @@ div.sensitive-hide {
   color: #404d59;
 }
 .update .update-body .update-title {
-  font-size: 25px;
+  font-size: 29px;
   line-height: 1.2;
-  padding-top: 8px;
   margin-bottom: 24px;
   color: #404d59;
-  letter-spacing: -.03em;
+  letter-spacing: -0.6px;
+  font-weight: 600;
+  font-style: normal;
 }
 .update .update-body .node-media {
   *zoom: 1;
@@ -6672,7 +6673,11 @@ div.sensitive-hide {
 }
 .update .update-body p {
   font-size: 16px;
-  margin: 0 0 28.8px 0;
+  line-height: 1.4;
+  margin: 0 0 24px 0;
+}
+.update .update-body p:first-child {
+  padding-top: 8px;
 }
 .update .update-footer {
   margin-right: 30px;
@@ -8143,7 +8148,7 @@ form .form-actions input, form .form-actions a {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #2b76ff;
+  background-color: rgba(3, 34, 60, 0.4);
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -8161,20 +8166,18 @@ form .form-actions input, form .form-actions input:visited, form .form-actions a
   color: white;
 }
 form .form-actions input:hover, form .form-actions input:focus, form .form-actions a:hover, form .form-actions a:focus {
-  background-color: #1c6cff;
+  background-color: rgba(3, 26, 45, 0.4);
 }
 form .form-actions input:hover, form .form-actions input:hover:visited, form .form-actions input:focus, form .form-actions input:focus:visited, form .form-actions a:hover, form .form-actions a:hover:visited, form .form-actions a:focus, form .form-actions a:focus:visited {
   color: white;
 }
 form .form-actions input:active, form .form-actions a:active {
-  background-color: #0c62ff;
+  background-color: rgba(2, 18, 31, 0.4);
 }
 form .form-actions input:active, form .form-actions input:active:visited, form .form-actions a:active, form .form-actions a:active:visited {
   color: white;
 }
-form input#edit-reset,
-form input#edit-draft,
-form input[type="reset"] {
+form .form-actions input:hover, form .form-actions a:hover {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
   margin: 0;
   width: auto;
@@ -8193,60 +8196,33 @@ form input[type="reset"] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #2b76ff;
+  background-color: rgba(3, 34, 60, 0.6);
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
   font-weight: 400;
   margin-right: 1em;
-  border: 1px solid #cccccc;
 }
-form input#edit-reset::-moz-focus-inner,
-form input#edit-draft::-moz-focus-inner,
-form input[type="reset"]::-moz-focus-inner {
+form .form-actions input:hover::-moz-focus-inner, form .form-actions a:hover::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-form input#edit-reset:focus,
-form input#edit-draft:focus,
-form input[type="reset"]:focus {
+form .form-actions input:hover:focus, form .form-actions a:hover:focus {
   outline: none;
 }
-form input#edit-reset, form input#edit-reset:visited,
-form input#edit-draft,
-form input#edit-draft:visited,
-form input[type="reset"],
-form input[type="reset"]:visited {
+form .form-actions input:hover, form .form-actions input:hover:visited, form .form-actions a:hover, form .form-actions a:hover:visited {
   color: white;
 }
-form input#edit-reset:hover, form input#edit-reset:focus,
-form input#edit-draft:hover,
-form input#edit-draft:focus,
-form input[type="reset"]:hover,
-form input[type="reset"]:focus {
-  background-color: #1c6cff;
+form .form-actions input:hover:hover, form .form-actions input:hover:focus, form .form-actions a:hover:hover, form .form-actions a:hover:focus {
+  background-color: rgba(3, 26, 45, 0.6);
 }
-form input#edit-reset:hover, form input#edit-reset:hover:visited, form input#edit-reset:focus, form input#edit-reset:focus:visited,
-form input#edit-draft:hover,
-form input#edit-draft:hover:visited,
-form input#edit-draft:focus,
-form input#edit-draft:focus:visited,
-form input[type="reset"]:hover,
-form input[type="reset"]:hover:visited,
-form input[type="reset"]:focus,
-form input[type="reset"]:focus:visited {
+form .form-actions input:hover:hover, form .form-actions input:hover:hover:visited, form .form-actions input:hover:focus, form .form-actions input:hover:focus:visited, form .form-actions a:hover:hover, form .form-actions a:hover:hover:visited, form .form-actions a:hover:focus, form .form-actions a:hover:focus:visited {
   color: white;
 }
-form input#edit-reset:active,
-form input#edit-draft:active,
-form input[type="reset"]:active {
-  background-color: #0c62ff;
+form .form-actions input:hover:active, form .form-actions a:hover:active {
+  background-color: rgba(2, 18, 31, 0.6);
 }
-form input#edit-reset:active, form input#edit-reset:active:visited,
-form input#edit-draft:active,
-form input#edit-draft:active:visited,
-form input[type="reset"]:active,
-form input[type="reset"]:active:visited {
+form .form-actions input:hover:active, form .form-actions input:hover:active:visited, form .form-actions a:hover:active, form .form-actions a:hover:active:visited {
   color: white;
 }
 form input#edit-submit,
@@ -8269,7 +8245,7 @@ form .form-submit {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #0088ff;
+  background-color: #2b76ff;
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -8293,7 +8269,7 @@ form .form-submit:visited {
 form input#edit-submit:hover, form input#edit-submit:focus,
 form .form-submit:hover,
 form .form-submit:focus {
-  background-color: #0080f0;
+  background-color: #1c6cff;
 }
 form input#edit-submit:hover, form input#edit-submit:hover:visited, form input#edit-submit:focus, form input#edit-submit:focus:visited,
 form .form-submit:hover,
@@ -8304,7 +8280,7 @@ form .form-submit:focus:visited {
 }
 form input#edit-submit:active,
 form .form-submit:active {
-  background-color: #0078e0;
+  background-color: #0c62ff;
 }
 form input#edit-submit:active, form input#edit-submit:active:visited,
 form .form-submit:active,
@@ -8710,7 +8686,6 @@ body.page-liveblog #main .view-liveblog:after {
   clear: both;
 }
 body.page-liveblog #main .view-liveblog .desk {
-  z-index: 1;
   position: relative;
   *zoom: 1;
   margin-bottom: 0;
@@ -10323,7 +10298,52 @@ body.page-user-password #content-header {
   border: none;
 }
 #nav-discussion-form .form-actions #edit-submit-story {
-  background: #2e77fc;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #2b76ff;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 400;
+  margin-right: 1em;
+}
+#nav-discussion-form .form-actions #edit-submit-story::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+#nav-discussion-form .form-actions #edit-submit-story:focus {
+  outline: none;
+}
+#nav-discussion-form .form-actions #edit-submit-story, #nav-discussion-form .form-actions #edit-submit-story:visited {
+  color: white;
+}
+#nav-discussion-form .form-actions #edit-submit-story:hover, #nav-discussion-form .form-actions #edit-submit-story:focus {
+  background-color: #1c6cff;
+}
+#nav-discussion-form .form-actions #edit-submit-story:hover, #nav-discussion-form .form-actions #edit-submit-story:hover:visited, #nav-discussion-form .form-actions #edit-submit-story:focus, #nav-discussion-form .form-actions #edit-submit-story:focus:visited {
+  color: white;
+}
+#nav-discussion-form .form-actions #edit-submit-story:active {
+  background-color: #0c62ff;
+}
+#nav-discussion-form .form-actions #edit-submit-story:active, #nav-discussion-form .form-actions #edit-submit-story:active:visited {
+  color: white;
 }
 #nav-discussion-form .image-widget-data {
   width: 100%;

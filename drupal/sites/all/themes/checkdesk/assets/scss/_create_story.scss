@@ -20,7 +20,7 @@
     background-color: transparent;
     border: none;
     #edit-submit-story {
-      background: $identity;
+      @include checkdesk-button($identity);
     }
   }
 

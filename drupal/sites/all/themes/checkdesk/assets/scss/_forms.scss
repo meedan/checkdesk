@@ -34,22 +34,25 @@
     margin-top: $gutter-width;
     border-top: 0px none;
     input, a {
-      @include checkdesk-button; 
+      @include checkdesk-button(rgba($firefly, 0.4));
+      &:hover {
+        @include checkdesk-button(rgba($firefly, 0.6));
+      }
     }
   }
 
   // De-emphasized buttons
-  input#edit-reset, 
-  input#edit-draft, 
-  input[type="reset"] {
-    @include checkdesk-button();
-    border: 1px solid $grey;
-  }
+  // input#edit-reset, 
+  // input#edit-draft, 
+  // input[type="reset"] {
+  //   @include checkdesk-button(rgba($firefly, 0.05));
+  //   color: $firefly40;
+  // }
 
   // Buttons
   input#edit-submit, 
   .form-submit {
-    @include checkdesk-button($twitter-blueish);
+    @include checkdesk-button();
   }
 
   // Disabled buttons
