@@ -38,6 +38,10 @@ html body.i18n-ar {
 }
 
 // Specific overrides where we can not simply match the English font selection
+#partner-header-slogan {
+	font-family: $ar-header-font-stack;
+}
+
 .posts {
   h3 a {
     font-family: $ar-body-font-stack;

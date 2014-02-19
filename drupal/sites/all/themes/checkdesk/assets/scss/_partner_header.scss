@@ -13,12 +13,12 @@
     border-top: 1px solid $firefly10;
     margin-top: $absolute-line-height;
     padding: $absolute-line-height/1.5 $gutter-width*2 0 $gutter-width*2;
-    font-family: $en-header-font-stack;
-    font-weight: 400;
-    font-style: italic;
-    font-size: 18px;
     @if $from-direction == 'left' {
+      font-size: 18px;
+      font-family: $en-header-font-stack;
       letter-spacing: 0.45px;
+      font-style: italic;
+      font-weight: 400;
     }
     color: $firefly40;
     
