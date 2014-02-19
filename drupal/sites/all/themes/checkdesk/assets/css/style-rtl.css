@@ -7652,6 +7652,9 @@ nav[role="navigation"] #main-menu .dropdown-menu {
   -o-border-radius: 4px 0 4px 4px;
   border-radius: 4px 0 4px 4px;
 }
+nav[role="navigation"] #user-menu {
+  margin-left: 11px;
+}
 nav[role="navigation"] #user-menu .dropdown-menu {
   right: auto;
   left: 0;
@@ -7731,28 +7734,6 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   display: none;
 }
 
-@media (min-width: 465px) {
-  nav[role="navigation"] {
-    padding-right: 3.22581%;
-    padding-left: 3.22581%;
-    width: 76.34409%;
-    float: right;
-    margin-left: 3.22581%;
-    padding-right: 8.60215%;
-    padding-left: 17.2043%;
-  }
-}
-@media (min-width: 945px) {
-  nav[role="navigation"] {
-    padding-right: 1.5873%;
-    padding-left: 1.5873%;
-    width: 79.89418%;
-    float: right;
-    margin-left: 1.5873%;
-    padding-right: 8.46561%;
-    padding-left: 12.69841%;
-  }
-}
 div.region-page-top #toolbar {
   position: fixed;
   z-index: 930;
