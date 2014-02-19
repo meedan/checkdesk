@@ -499,7 +499,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 							font-weight: 700;
 							line-height: 1;
 							color: $firefly60;
-							// @include ctb-break-words;
+							@include ctb-break-words;
 						}
 						.multiple-lines {
 							padding-top: $absolute-line-height/4;
