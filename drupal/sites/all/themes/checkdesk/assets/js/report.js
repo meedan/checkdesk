@@ -169,6 +169,7 @@
             $current.find('.actor').text() === $previous.find('.actor').text()) {
           $current.find('.actor').html('');
           $current.find('.time').html('');
+          $current.find('.title').parent().addClass('grouped');
           $current.parents('.views-row').css('border-top', '0 none');
         }
         $current.addClass('activity-grouped');

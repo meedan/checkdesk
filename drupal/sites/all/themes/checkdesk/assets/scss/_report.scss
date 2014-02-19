@@ -512,6 +512,14 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 							padding-#{$alpha}: $gutter-width*1.5;
 							border-#{$from-direction}: 4px solid $firefly10;
 						}
+						// when grouped with status change
+						.grouped {
+							padding-top: 0;
+							width: 80%;
+							.title {
+								width: auto;
+							}
+						}
 						.icon {
 							position: absolute;
 							display: inline-block;
