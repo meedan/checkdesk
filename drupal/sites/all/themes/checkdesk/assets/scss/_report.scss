@@ -515,7 +515,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 						// when grouped with status change
 						.grouped {
 							padding-top: 0;
-							width: 80%;
+							width: 78%;
 							.title {
 								width: auto;
 							}
@@ -547,6 +547,8 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 								&:last-child {
 									margin-bottom: 0; 
 								}
+								// For URLs inside footnote
+								@include ctb-break-words;
 							}
 							.verified { 
 								color: rgba(0,140,0, 1);

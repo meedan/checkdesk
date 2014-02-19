@@ -5807,7 +5807,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .activity-wrapper .view-content .activity header .grouped {
   padding-top: 0;
-  width: 80%;
+  width: 78%;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .grouped .title {
   width: auto;
@@ -5840,6 +5840,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   margin: 0;
   padding: 0;
   margin-bottom: 12px;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title p:last-child {
   margin-bottom: 0;
