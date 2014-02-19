@@ -188,12 +188,14 @@
 
       // Display the "Edit status" as a popover
       $('.report-activity-edit-status:not(.popover)', context).each(function() {
+
+        // Create the popover for each radios group
         var $pop = $(this);
         $pop.hide();
         var $link = $('<span class="edit-status">' + Drupal.t('Edit Status') + '</span>');
         var $current = $pop.find('.current-status');
-        $pop.parents('.comment-form').find('.form-submit').before($link);
         $pop.parents('.comment-form').find('.form-submit').before($current);
+        $pop.parents('.comment-form').find('.form-submit').before($link);
         $pop.prepend('<div class="popover-arrow" />');
         $pop.prepend('<div class="popover-arrow" />');
         $pop.addClass('popover');
@@ -208,25 +210,34 @@
           $(this).click(function() {
             var rating = $(this).text(),
                 rel = $(this).attr('rel'),
+                $link = $(this).parents('.comment-form').find('.edit-status'),
+                $pop = $(this).parents('.comment-form').find('.popover'),
                 $current = $(this).parents('.comment-form').find('.current-status');
             $current.html(rating);
             $current.attr('class', 'current-status');
             $current.addClass(rel);
+            $current.css('display', 'inline-block');
+            $link.html('(' + Drupal.t('New Status') + ')');
+            if (!$pop.hasClass('updated')) {
+              $pop.addClass('updated');
+            }
+            $link.click();
           });
         });
 
         // 'Edit Status' link is clicked
-        $link.click(function() {
+        $link.click(function(event) {
           $(this).toggleClass('active');
           $(this).parents('.comment-form').find('.popover').toggle();
+          event.stopPropagation();
           return false;
         });
+      });
 
-        // Current status is clicked
-        $current.click(function() {
-          $(this).parents('.comment-form').find('.edit-status').toggleClass('active');
-          $(this).parents('.comment-form').find('.popover').toggle();
-        });
+      // Close all "edit status" popovers
+      $('html').click(function() {
+        $('.comment-form').find('.edit-status').removeClass('active');
+        $('.comment-form').find('.popover').hide();
       });
     }
   };
