@@ -243,7 +243,7 @@ $omega: opposite-position($alpha);
     color: $firefly80;
     font-size: 18px;
     line-height: 1.5;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: -0.4px;
     p {
       margin: 0 0 $base-line-height*1.4 0;
@@ -397,11 +397,11 @@ $omega: opposite-position($alpha);
 
     h3 {
       @include reset-box-model;
-      font-size: modular-scale(0) - modular-scale(-3); // 14px;
+      font-size: 16px;
       @if $from-direction == 'right' {
         font-size: $base-font-size;
       }
-      font-weight: 700;
+      font-weight: 600;
       line-height: 1.4;
     }
     .story-desc {
