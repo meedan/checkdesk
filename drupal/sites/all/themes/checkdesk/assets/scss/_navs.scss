@@ -147,7 +147,7 @@
   padding: $absolute-line-height/4 0;
   margin-bottom: $absolute-line-height/2;
   border-top: 1px solid $firefly10;
-  font-family: $sans-serif-font-stack;
+  @include cd-sans-serif-family;
 }
 
 .admin-nav-tabs > li {

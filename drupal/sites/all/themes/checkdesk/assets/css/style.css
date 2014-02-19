@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
@@ -2362,7 +2363,7 @@ nav[role="navigation"] #user-menu .icon-bell:before {
 }
 
 .button-reset-base-class {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -2866,8 +2867,6 @@ input[type="checkbox"][readonly] {
   display: block;
   padding: 6px 0;
   margin-bottom: 12px;
-  border-top: 1px solid #e7e8ea;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .admin-nav-tabs li {
   list-style: none;
@@ -2938,7 +2937,7 @@ input[type="checkbox"][readonly] {
 }
 
 .admin-nav-tabs > li > a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -2956,7 +2955,7 @@ input[type="checkbox"][readonly] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #999999;
+  background-color: rgba(3, 34, 60, 0.4);
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -2971,9 +2970,9 @@ input[type="checkbox"][readonly] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  -webkit-box-shadow: 0 1px 2px #f3f4f4;
-  -moz-box-shadow: 0 1px 2px #f3f4f4;
-  box-shadow: 0 1px 2px #f3f4f4;
+  -webkit-box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
+  box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
 }
 .admin-nav-tabs > li > a::-moz-focus-inner {
   border: none;
@@ -2986,21 +2985,19 @@ input[type="checkbox"][readonly] {
   color: white;
 }
 .admin-nav-tabs > li > a:hover, .admin-nav-tabs > li > a:focus {
-  background-color: #919191;
+  background-color: rgba(3, 26, 45, 0.4);
 }
 .admin-nav-tabs > li > a:hover, .admin-nav-tabs > li > a:hover:visited, .admin-nav-tabs > li > a:focus, .admin-nav-tabs > li > a:focus:visited {
   color: white;
 }
 .admin-nav-tabs > li > a:active {
-  background-color: #8a8a8a;
+  background-color: rgba(2, 18, 31, 0.4);
 }
 .admin-nav-tabs > li > a:active, .admin-nav-tabs > li > a:active:visited {
   color: white;
 }
-
-.admin-nav-tabs > .active > a,
-.admin-nav-tabs > .active > a:hover {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+.admin-nav-tabs > li > a:hover {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -3018,7 +3015,7 @@ input[type="checkbox"][readonly] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #555555;
+  background-color: rgba(3, 34, 60, 0.6);
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -3033,9 +3030,68 @@ input[type="checkbox"][readonly] {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  -webkit-box-shadow: 0 1px 2px #e7e8ea;
-  -moz-box-shadow: 0 1px 2px #e7e8ea;
-  box-shadow: 0 1px 2px #e7e8ea;
+}
+.admin-nav-tabs > li > a:hover::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+.admin-nav-tabs > li > a:hover:focus {
+  outline: none;
+}
+.admin-nav-tabs > li > a:hover, .admin-nav-tabs > li > a:hover:visited {
+  color: white;
+}
+.admin-nav-tabs > li > a:hover:hover, .admin-nav-tabs > li > a:hover:focus {
+  background-color: rgba(3, 26, 45, 0.6);
+}
+.admin-nav-tabs > li > a:hover:hover, .admin-nav-tabs > li > a:hover:hover:visited, .admin-nav-tabs > li > a:hover:focus, .admin-nav-tabs > li > a:hover:focus:visited {
+  color: white;
+}
+.admin-nav-tabs > li > a:hover:active {
+  background-color: rgba(2, 18, 31, 0.6);
+}
+.admin-nav-tabs > li > a:hover:active, .admin-nav-tabs > li > a:hover:active:visited {
+  color: white;
+}
+
+.admin-nav-tabs > .active > a,
+.admin-nav-tabs > .active > a:hover {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: rgba(3, 34, 60, 0.8);
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 400;
+  margin-right: 1em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  -webkit-box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
+  box-shadow: 0 1px 2px rgba(16, 33, 47, 0.05);
 }
 .admin-nav-tabs > .active > a::-moz-focus-inner,
 .admin-nav-tabs > .active > a:hover::-moz-focus-inner {
@@ -3054,7 +3110,7 @@ input[type="checkbox"][readonly] {
 .admin-nav-tabs > .active > a:hover, .admin-nav-tabs > .active > a:focus,
 .admin-nav-tabs > .active > a:hover:hover,
 .admin-nav-tabs > .active > a:hover:focus {
-  background-color: #4d4d4d;
+  background-color: rgba(3, 26, 45, 0.8);
 }
 .admin-nav-tabs > .active > a:hover, .admin-nav-tabs > .active > a:hover:visited, .admin-nav-tabs > .active > a:focus, .admin-nav-tabs > .active > a:focus:visited,
 .admin-nav-tabs > .active > a:hover:hover,
@@ -3065,7 +3121,7 @@ input[type="checkbox"][readonly] {
 }
 .admin-nav-tabs > .active > a:active,
 .admin-nav-tabs > .active > a:hover:active {
-  background-color: #464646;
+  background-color: rgba(2, 18, 31, 0.8);
 }
 .admin-nav-tabs > .active > a:active, .admin-nav-tabs > .active > a:active:visited,
 .admin-nav-tabs > .active > a:hover:active,
@@ -3968,7 +4024,7 @@ ul.dropdown-menu a:hover {
 }
 .modal-footer .form-actions input.btn {
   float: left;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -4014,7 +4070,7 @@ ul.dropdown-menu a:hover {
   color: white;
 }
 .modal-footer .form-actions a.btn {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -4211,10 +4267,10 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: 62px;
-  font-weight: 600;
   font-style: normal;
+  font-size: 62px;
   letter-spacing: -2px;
+  font-weight: 600;
   line-height: 1;
   color: #283743;
 }
@@ -4801,7 +4857,7 @@ div.tabs ul.primary li a {
   display: none;
 }
 #incoming-reports-filters .panels #filter-by .views-submit-button #close {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -4880,16 +4936,21 @@ div.tabs ul.primary li a {
 
 #partner-header-inner #partner-header-slogan {
   border-top: 1px solid #e7e8ea;
-  color: #6f7a82;
   margin-top: 24px;
   padding: 16px 30px 0 30px;
+  font-size: 18px;
+  font-family: "Mercury Display A", "Mercury Display B", Georgia, "Times New Roman", Times, serif;
+  letter-spacing: 0.45px;
+  font-style: italic;
+  font-weight: 400;
+  color: #9fa6ac;
 }
 #partner-header-inner #partner-header-slogan a {
-  color: #6f7a82;
+  color: #9fa6ac;
 }
 #partner-header-inner #partner-header-slogan a:hover {
   text-decoration: none;
-  color: #404d59;
+  color: #6f7a82;
 }
 #partner-header-inner .checkdesk-slogan-logo {
   display: inline-block;
@@ -5007,7 +5068,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: none;
 }
 #footer-inner .factcheck-cta {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -5475,9 +5536,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-content .report-media .container .oembed--link--meedan-oembed-generic .title {
   padding: 0;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 29px;
   line-height: 1.3;
+}
+.report .report-content .report-media .container .oembed--link--meedan-oembed-generic .oembed-attributes {
+  padding: 12px 0;
 }
 .report .report-content .report-media .container .instagram .oembed-title {
   display: block;
@@ -5729,6 +5794,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   font-weight: 700;
   line-height: 1;
   color: #6f7a82;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .multiple-lines {
   padding-top: 6px;
@@ -5740,6 +5811,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   padding: 12px 0 12px 0;
   padding-left: 22.5px;
   border-left: 4px solid #e7e8ea;
+}
+.report .report-activity .activity-wrapper .view-content .activity header .grouped {
+  padding-top: 0;
+  width: 80%;
+}
+.report .report-activity .activity-wrapper .view-content .activity header .grouped .title {
+  width: auto;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .icon {
   position: absolute;
@@ -5767,6 +5845,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title p {
   margin: 0;
+  padding: 0;
   margin-bottom: 12px;
 }
 .report .report-activity .activity-wrapper .view-content .activity header .title p:last-child {
@@ -5904,6 +5983,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity section#comment-form form .form-actions input {
   font-size: 16px;
+  margin-left: 15px;
   margin-right: 0;
   margin-top: -5px;
 }
@@ -5926,18 +6006,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   font-size: 15px;
   color: #9fa6ac;
   cursor: pointer;
-  margin-right: 15px;
 }
 .report .report-activity .form-actions span.edit-status.active {
-  font-style: italic;
-}
-.report .report-activity .form-actions .form-submit {
-  margin: 0 !important;
+  color: #6f7a82;
 }
 .report .report-activity .form-actions .current-status {
   display: none;
   font-weight: 700;
-  margin-right: 15px;
 }
 .report .report-activity .current-status.verified:before,
 .report .report-activity label.option.verified:before {
@@ -6030,26 +6105,52 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   left: auto;
   right: 15px;
   top: auto;
-  bottom: -251px;
+  bottom: -234px;
   width: 340px;
-  height: 252px;
-  border-right: 1px solid rgba(16, 33, 47, 0.05);
-  z-index: 2;
-  -webkit-box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
-  -moz-box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
-  box-shadow: 0px 1px 3px rgba(16, 33, 47, 0.05);
+  height: 235px;
+  border: 1px solid #e7e8ea;
+  z-index: 900;
+  -webkit-box-shadow: 0px 2px 5px rgba(16, 33, 47, 0.05);
+  -moz-box-shadow: 0px 2px 5px rgba(16, 33, 47, 0.05);
+  box-shadow: 0px 2px 5px rgba(16, 33, 47, 0.05);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
 }
+.report .report-activity .report-activity-edit-status.popover:after {
+  content: "";
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #f3f4f4;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -12px;
+  bottom: 0;
+  left: 157px;
+  z-index: 901;
+}
+.report .report-activity .report-activity-edit-status.popover:before {
+  content: "";
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 13px solid #e7e8ea;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -13px;
+  bottom: 0;
+  left: 156px;
+  z-index: 900;
+}
 .report .report-activity .report-activity-edit-status.popover label {
-  width: 166.5px;
+  width: 169px;
   display: block;
   float: left;
-  height: 49px;
-  line-height: 49px;
+  height: 50px;
+  line-height: 50px;
   text-align: center;
   color: #9fa6ac;
   font-size: 16px;
@@ -6059,11 +6160,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .report .report-activity .report-activity-edit-status.popover label:hover {
   color: #6f7a82;
-}
-.report .report-activity .report-activity-edit-status.popover .form-type-radio {
-  display: inline-block;
-  padding-left: 0;
-  min-height: 0;
 }
 .report .report-activity .report-activity-edit-status.popover .form-type-radios > label {
   font-weight: 700;
@@ -6085,7 +6181,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity .report-activity-edit-status.popover .description {
   padding: 5px 15px 0;
   height: 45px;
-  width: 339px;
+  width: 310px;
   position: absolute;
   left: 0;
   top: 34px;
@@ -6094,34 +6190,35 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   line-height: 1.2;
   background: #f3f4f4;
   text-align: center;
-  width: auto;
+  border-bottom: 1px solid #e7e8ea;
 }
 .report .report-activity .report-activity-edit-status.popover .form-radios {
   position: absolute;
   top: 84px;
   left: 0;
 }
-.report .report-activity .report-activity-edit-status.popover .form-radio {
+.report .report-activity .report-activity-edit-status.popover .form-radios .form-type-radio {
+  float: left;
+  padding-left: 0;
+  min-height: 0;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios .form-radio {
   display: none;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios > .false, .report .report-activity .report-activity-edit-status.popover .form-radios > .undetermined {
+  border-right: 1px solid #f3f4f4;
+  border-bottom: 1px solid #f3f4f4;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios > .false > label, .report .report-activity .report-activity-edit-status.popover .form-radios > .undetermined > label {
+  width: 170px;
+}
+.report .report-activity .report-activity-edit-status.popover .form-radios > .verified, .report .report-activity .report-activity-edit-status.popover .form-radios > .in-progress {
+  border-right: 0 none;
+  border-bottom: 1px solid #f3f4f4;
 }
 .report .report-activity .report-activity-edit-status.popover .form-radios .form-item:last-child label {
   width: 340px;
   color: #cfd3d5;
-}
-.report .report-activity .report-activity-edit-status .popover-arrow {
-  border-bottom-color: #f3f4f4;
-  left: 160px;
-  top: -10px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #f3f4f4;
-}
-.report .report-activity .report-activity-edit-status .popover-arrow + .popover-arrow {
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid #fafbfb;
-  left: 163px;
-  top: -12px;
 }
 .report .end section#comment-form, .report .end .activity-wrapper .activity-list-footer-wrapper {
   position: relative;
@@ -6267,7 +6364,7 @@ div.sensitive-hide {
   padding: 12px 7.5px;
 }
 .sensitive-notification .sensitive-notification-link a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -6633,16 +6730,17 @@ div.sensitive-hide {
   color: #404d59;
 }
 .update .update-body .update-title {
-  font-size: 25px;
+  font-size: 29px;
   line-height: 1.2;
-  padding-top: 8px;
   margin-bottom: 24px;
   color: #404d59;
-  letter-spacing: -.03em;
+  letter-spacing: -0.6px;
+  font-weight: 600;
+  font-style: normal;
 }
 .update .update-body .node-media {
   *zoom: 1;
-  margin: 6px 0;
+  margin: 0 0 6px 0;
 }
 .update .update-body .node-media:before, .update .update-body .node-media:after {
   display: table;
@@ -6654,7 +6752,14 @@ div.sensitive-hide {
 }
 .update .update-body p {
   font-size: 16px;
-  margin: 0 0 28.8px 0;
+  line-height: 1.4;
+  margin: 0 0 24px 0;
+}
+.update .update-body p:first-child {
+  padding-top: 8px;
+}
+.update .update-body .report {
+  margin-top: 0;
 }
 .update .update-footer {
   margin-right: 30px;
@@ -6931,7 +7036,7 @@ html body .livefyre-wrapper {
   margin-top: 15px;
 }
 #meedan_bookmarklet .footer input {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -7620,6 +7725,9 @@ nav[role="navigation"] #main-menu .dropdown-menu {
   -o-border-radius: 0 4px 4px 4px;
   border-radius: 0 4px 4px 4px;
 }
+nav[role="navigation"] #user-menu {
+  margin-right: 11px;
+}
 nav[role="navigation"] #user-menu .dropdown-menu {
   left: auto;
   right: 0;
@@ -7699,28 +7807,6 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   display: none;
 }
 
-@media (min-width: 465px) {
-  nav[role="navigation"] {
-    padding-left: 3.22581%;
-    padding-right: 3.22581%;
-    width: 76.34409%;
-    float: left;
-    margin-right: 3.22581%;
-    padding-left: 8.60215%;
-    padding-right: 17.2043%;
-  }
-}
-@media (min-width: 945px) {
-  nav[role="navigation"] {
-    padding-left: 1.5873%;
-    padding-right: 1.5873%;
-    width: 79.89418%;
-    float: left;
-    margin-right: 1.5873%;
-    padding-left: 8.46561%;
-    padding-right: 12.69841%;
-  }
-}
 div.region-page-top #toolbar {
   position: fixed;
   z-index: 930;
@@ -8055,7 +8141,7 @@ form .description {
   width: 100%;
 }
 form.confirmation .form-actions input {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -8107,7 +8193,7 @@ form .form-actions {
   border-top: 0px none;
 }
 form .form-actions input, form .form-actions a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -8125,7 +8211,7 @@ form .form-actions input, form .form-actions a {
   line-height: 1.5;
   padding: 0.3em 1em;
   border-width: 0px;
-  background-color: #2b76ff;
+  background-color: rgba(3, 34, 60, 0.4);
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -8143,21 +8229,68 @@ form .form-actions input, form .form-actions input:visited, form .form-actions a
   color: white;
 }
 form .form-actions input:hover, form .form-actions input:focus, form .form-actions a:hover, form .form-actions a:focus {
-  background-color: #1c6cff;
+  background-color: rgba(3, 26, 45, 0.4);
 }
 form .form-actions input:hover, form .form-actions input:hover:visited, form .form-actions input:focus, form .form-actions input:focus:visited, form .form-actions a:hover, form .form-actions a:hover:visited, form .form-actions a:focus, form .form-actions a:focus:visited {
   color: white;
 }
 form .form-actions input:active, form .form-actions a:active {
-  background-color: #0c62ff;
+  background-color: rgba(2, 18, 31, 0.4);
 }
 form .form-actions input:active, form .form-actions input:active:visited, form .form-actions a:active, form .form-actions a:active:visited {
   color: white;
 }
-form input#edit-reset,
-form input#edit-draft,
-form input[type="reset"] {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+form .form-actions input:hover, form .form-actions a:hover {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: rgba(3, 34, 60, 0.6);
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 400;
+  margin-right: 1em;
+}
+form .form-actions input:hover::-moz-focus-inner, form .form-actions a:hover::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+form .form-actions input:hover:focus, form .form-actions a:hover:focus {
+  outline: none;
+}
+form .form-actions input:hover, form .form-actions input:hover:visited, form .form-actions a:hover, form .form-actions a:hover:visited {
+  color: white;
+}
+form .form-actions input:hover:hover, form .form-actions input:hover:focus, form .form-actions a:hover:hover, form .form-actions a:hover:focus {
+  background-color: rgba(3, 26, 45, 0.6);
+}
+form .form-actions input:hover:hover, form .form-actions input:hover:hover:visited, form .form-actions input:hover:focus, form .form-actions input:hover:focus:visited, form .form-actions a:hover:hover, form .form-actions a:hover:hover:visited, form .form-actions a:hover:focus, form .form-actions a:hover:focus:visited {
+  color: white;
+}
+form .form-actions input:hover:active, form .form-actions a:hover:active {
+  background-color: rgba(2, 18, 31, 0.6);
+}
+form .form-actions input:hover:active, form .form-actions input:hover:active:visited, form .form-actions a:hover:active, form .form-actions a:hover:active:visited {
+  color: white;
+}
+form input#edit-submit,
+form .form-submit {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -8176,82 +8309,6 @@ form input[type="reset"] {
   padding: 0.3em 1em;
   border-width: 0px;
   background-color: #2b76ff;
-  -webkit-background-clip: padding;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  font-weight: 400;
-  margin-right: 1em;
-  border: 1px solid #cccccc;
-}
-form input#edit-reset::-moz-focus-inner,
-form input#edit-draft::-moz-focus-inner,
-form input[type="reset"]::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-form input#edit-reset:focus,
-form input#edit-draft:focus,
-form input[type="reset"]:focus {
-  outline: none;
-}
-form input#edit-reset, form input#edit-reset:visited,
-form input#edit-draft,
-form input#edit-draft:visited,
-form input[type="reset"],
-form input[type="reset"]:visited {
-  color: white;
-}
-form input#edit-reset:hover, form input#edit-reset:focus,
-form input#edit-draft:hover,
-form input#edit-draft:focus,
-form input[type="reset"]:hover,
-form input[type="reset"]:focus {
-  background-color: #1c6cff;
-}
-form input#edit-reset:hover, form input#edit-reset:hover:visited, form input#edit-reset:focus, form input#edit-reset:focus:visited,
-form input#edit-draft:hover,
-form input#edit-draft:hover:visited,
-form input#edit-draft:focus,
-form input#edit-draft:focus:visited,
-form input[type="reset"]:hover,
-form input[type="reset"]:hover:visited,
-form input[type="reset"]:focus,
-form input[type="reset"]:focus:visited {
-  color: white;
-}
-form input#edit-reset:active,
-form input#edit-draft:active,
-form input[type="reset"]:active {
-  background-color: #0c62ff;
-}
-form input#edit-reset:active, form input#edit-reset:active:visited,
-form input#edit-draft:active,
-form input#edit-draft:active:visited,
-form input[type="reset"]:active,
-form input[type="reset"]:active:visited {
-  color: white;
-}
-form input#edit-submit,
-form .form-submit {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: 400;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 18px;
-  line-height: 1.5;
-  padding: 0.3em 1em;
-  border-width: 0px;
-  background-color: #0088ff;
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -8275,7 +8332,7 @@ form .form-submit:visited {
 form input#edit-submit:hover, form input#edit-submit:focus,
 form .form-submit:hover,
 form .form-submit:focus {
-  background-color: #0080f0;
+  background-color: #1c6cff;
 }
 form input#edit-submit:hover, form input#edit-submit:hover:visited, form input#edit-submit:focus, form input#edit-submit:focus:visited,
 form .form-submit:hover,
@@ -8286,7 +8343,7 @@ form .form-submit:focus:visited {
 }
 form input#edit-submit:active,
 form .form-submit:active {
-  background-color: #0078e0;
+  background-color: #0c62ff;
 }
 form input#edit-submit:active, form input#edit-submit:active:visited,
 form .form-submit:active,
@@ -8692,7 +8749,6 @@ body.page-liveblog #main .view-liveblog:after {
   clear: both;
 }
 body.page-liveblog #main .view-liveblog .desk {
-  z-index: 1;
   position: relative;
   *zoom: 1;
   margin-bottom: 0;
@@ -9102,7 +9158,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGnRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS4xMDD0cqEAAAFiSURBVChTTVPRjsMgDOP/f5QBTUvvCQitznZ20lWssoxLbJKl98Gzxxintb0dYLtflwlM95lzBj/HwK/mnB7sr9FKxh4/hdoagDs/uO9OsB0751EBEhQ4Q0qnovf9pyDvBKgLHhVwaCqfPPT4mqhDhYxBPcXjpEMaCPBOpKQwqzC3pKiV6uBbg1sC6HFKwgYMn2ahQFHUEaCB3s9JJws5Iz1D9/N4FeLZ++e+kfjV6nYEwB7SS+CJaViEhxak3ATbV2d6WgFjLRNHBrlgODsaGBrzhepD0qn0K27F5wcZYC7YoHx+cTz1Hw4eFYahayrCPFeRQ7auXyZAk/d9QwOckAY6DcgDRUR8qOhAWO/79NNCgG9oSU0Z59EItHiDjK7+VNYcmiX2QVPwHK0ARB96v3jHMqAZW5HeagXNTpfynQK8q/KEAresmxxSl4ie1L8d4xkpN8d2awpXRLb2UTb+C34BQ9XkCNuoXd4AAAAASUVORK5CYII=);
 }
 .story .compose-update-form .node-post-form input[type='submit'] {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -9337,7 +9393,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin: 0;
   padding: 0;
   font-size: 16px;
-  font-weight: 600;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.3;
 }
 .stories .story-row .story-desc {
@@ -9843,7 +9899,7 @@ body.page-user.logged-in .user-info .linked-accounts a {
   color: #10212f;
 }
 body.page-user.logged-in .user-info .profile-links a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -10305,7 +10361,52 @@ body.page-user-password #content-header {
   border: none;
 }
 #nav-discussion-form .form-actions #edit-submit-story {
-  background: #2e77fc;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #2b76ff;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 400;
+  margin-right: 1em;
+}
+#nav-discussion-form .form-actions #edit-submit-story::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+#nav-discussion-form .form-actions #edit-submit-story:focus {
+  outline: none;
+}
+#nav-discussion-form .form-actions #edit-submit-story, #nav-discussion-form .form-actions #edit-submit-story:visited {
+  color: white;
+}
+#nav-discussion-form .form-actions #edit-submit-story:hover, #nav-discussion-form .form-actions #edit-submit-story:focus {
+  background-color: #1c6cff;
+}
+#nav-discussion-form .form-actions #edit-submit-story:hover, #nav-discussion-form .form-actions #edit-submit-story:hover:visited, #nav-discussion-form .form-actions #edit-submit-story:focus, #nav-discussion-form .form-actions #edit-submit-story:focus:visited {
+  color: white;
+}
+#nav-discussion-form .form-actions #edit-submit-story:active {
+  background-color: #0c62ff;
+}
+#nav-discussion-form .form-actions #edit-submit-story:active, #nav-discussion-form .form-actions #edit-submit-story:active:visited {
+  color: white;
 }
 #nav-discussion-form .image-widget-data {
   width: 100%;
@@ -10583,7 +10684,7 @@ body.page-reports #reports .report-item .in_progress span:before, .profile #repo
   font-weight: normal;
 }
 body.page-reports #reports .report-item .report-detail-link a, .profile #reports .report-item .report-detail-link a {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   width: auto;
   overflow: visible;

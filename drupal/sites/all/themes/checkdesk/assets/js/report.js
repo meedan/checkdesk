@@ -169,6 +169,7 @@
             $current.find('.actor').text() === $previous.find('.actor').text()) {
           $current.find('.actor').html('');
           $current.find('.time').html('');
+          $current.find('.title').parent().addClass('grouped');
           $current.parents('.views-row').css('border-top', '0 none');
         }
         $current.addClass('activity-grouped');
@@ -194,10 +195,8 @@
         $pop.hide();
         var $link = $('<span class="edit-status">' + Drupal.t('Edit Status') + '</span>');
         var $current = $pop.find('.current-status');
-        $pop.parents('.comment-form').find('.form-submit').before($current);
         $pop.parents('.comment-form').find('.form-submit').before($link);
-        $pop.prepend('<div class="popover-arrow" />');
-        // $pop.prepend('<div class="popover-arrow" />');
+        $pop.parents('.comment-form').find('.form-submit').before($current);
         $pop.addClass('popover');
 
         // Each status inside the popover
@@ -205,6 +204,7 @@
           var name = $(this).prev('input').attr('value').toLowerCase().trim().replace(/\s+/, '-');
           $(this).attr('rel', name);
           $(this).addClass(name);
+          $(this).parent().addClass(name);
 
           // A status is clicked
           $(this).click(function() {
@@ -217,7 +217,7 @@
             $current.attr('class', 'current-status');
             $current.addClass(rel);
             $current.css('display', 'inline-block');
-            $link.html('(' + Drupal.t('New Status') + ')');
+            $link.html(Drupal.t('New Status'));
             if (!$pop.hasClass('updated')) {
               $pop.addClass('updated');
             }

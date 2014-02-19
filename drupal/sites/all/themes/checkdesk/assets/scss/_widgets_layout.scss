@@ -133,7 +133,7 @@ body.widgets { @extend %widgets-layout-1col; }
       border-top: 4px solid rgba(0,0,0,.1);
       padding-top: $base-line-height/2;
       margin-bottom: $base-line-height/2;
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
       font-weight: 700;
       font-size: $base-font-size;
       color: rgba(0,0,0,.4);

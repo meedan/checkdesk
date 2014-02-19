@@ -98,3 +98,22 @@
     font-size: $smaller-font-size;
   }
 }
+
+
+// Set Family Typefaces
+// -------------------------
+@mixin cd-sans-serif-family {
+  @if $from-direction == 'left' {
+    font-family: $sans-serif-font-stack;
+  } @else {
+    font-family: $ar-sans-serif-font-stack;
+  }
+}
+
+@mixin cd-serif-family {
+  @if $from-direction == 'left' {
+    font-family: $serif-font-stack;
+  } @else {
+    font-family: $ar-serif-font-stack;
+  }
+}

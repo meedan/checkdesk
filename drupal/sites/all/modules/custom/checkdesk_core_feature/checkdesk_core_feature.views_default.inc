@@ -742,7 +742,7 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nid']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['nid']['hide_alter_empty'] = FALSE;
-  /* Field: Content: Fact-checking status */
+  /* Field: Field: Fact-checking status */
   $handler->display->display_options['fields']['field_rating']['id'] = 'field_rating';
   $handler->display->display_options['fields']['field_rating']['table'] = 'field_data_field_rating';
   $handler->display->display_options['fields']['field_rating']['field'] = 'field_rating';
@@ -829,7 +829,7 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
   $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
   $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
-  /* Filter criterion: Content: Fact-checking status (field_rating) (translated) */
+  /* Filter criterion: Field: Fact-checking status (field_rating) (translated) */
   $handler->display->display_options['filters']['field_rating_tid_i18n']['id'] = 'field_rating_tid_i18n';
   $handler->display->display_options['filters']['field_rating_tid_i18n']['table'] = 'field_data_field_rating';
   $handler->display->display_options['filters']['field_rating_tid_i18n']['field'] = 'field_rating_tid_i18n';
@@ -928,7 +928,7 @@ print t(\'No content available\');
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nid']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['nid']['hide_alter_empty'] = FALSE;
-  /* Field: Content: Fact-checking status */
+  /* Field: Field: Fact-checking status */
   $handler->display->display_options['fields']['field_rating']['id'] = 'field_rating';
   $handler->display->display_options['fields']['field_rating']['table'] = 'field_data_field_rating';
   $handler->display->display_options['fields']['field_rating']['field'] = 'field_rating';
@@ -1020,7 +1020,7 @@ print t(\'No content available\');
   $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
   $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
   $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
-  /* Filter criterion: Content: Fact-checking status (field_rating) */
+  /* Filter criterion: Field: Fact-checking status (field_rating) */
   $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
   $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';
   $handler->display->display_options['filters']['field_rating_tid']['field'] = 'field_rating_tid';
@@ -1388,7 +1388,7 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
-  $handler->display->display_options['fields']['created']['custom_date_format'] = 'l M d, Y \\a\\t g:ia';
+  $handler->display->display_options['fields']['created']['custom_date_format'] = 'M d Y';
   /* Field: Content: Author uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';
   $handler->display->display_options['fields']['uid']['table'] = 'node';
@@ -1746,7 +1746,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['fields']['nid']['element_type'] = '0';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nid']['element_default_classes'] = FALSE;
-  /* Field: Content: Fact-checking status */
+  /* Field: Field: Fact-checking status */
   $handler->display->display_options['fields']['field_rating']['id'] = 'field_rating';
   $handler->display->display_options['fields']['field_rating']['table'] = 'field_data_field_rating';
   $handler->display->display_options['fields']['field_rating']['field'] = 'field_rating';

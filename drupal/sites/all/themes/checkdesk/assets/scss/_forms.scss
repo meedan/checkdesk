@@ -34,22 +34,25 @@
     margin-top: $gutter-width;
     border-top: 0px none;
     input, a {
-      @include checkdesk-button; 
+      @include checkdesk-button(rgba($firefly, 0.4));
+      &:hover {
+        @include checkdesk-button(rgba($firefly, 0.6));
+      }
     }
   }
 
   // De-emphasized buttons
-  input#edit-reset, 
-  input#edit-draft, 
-  input[type="reset"] {
-    @include checkdesk-button();
-    border: 1px solid $grey;
-  }
+  // input#edit-reset, 
+  // input#edit-draft, 
+  // input[type="reset"] {
+  //   @include checkdesk-button(rgba($firefly, 0.05));
+  //   color: $firefly40;
+  // }
 
   // Buttons
   input#edit-submit, 
   .form-submit {
-    @include checkdesk-button($twitter-blueish);
+    @include checkdesk-button();
   }
 
   // Disabled buttons
@@ -63,7 +66,7 @@
 // Inline form errors
 //
 @mixin form-inline-errors {
-  font-family: $sans-serif-font-stack;
+  @include cd-sans-serif-family;
   // hide labels for forms with ife
   &.ife {
     label {
@@ -238,7 +241,7 @@
     input[type="text"], 
     // input[type="file"], 
     textarea {
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
       @include border-radius(3px);
       display: block;
       line-height: $base-line-height;
@@ -366,7 +369,7 @@
     input[type="text"],
     // input[type="file"],
     textarea {
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
       @include span-columns($w, $w); // small padding with grid accounting
       @include ctb-box-sizing(border-box); // Makes inputs behave like true block-level elements
       padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
@@ -396,7 +399,7 @@
         margin-#{$omega}: $gutter-width;
         padding: 0 $gutter-width;
         background-color: $firefly5;
-        font-family: $sans-serif-font-stack;
+        @include cd-sans-serif-family;
         font-size: $small-font-size;
         vertical-align: middle;
         @include border-radius(3px);
@@ -414,7 +417,7 @@
       @include span-columns($w, $w); // small padding with grid accounting
       @include ctb-clearfix;
       float: none;
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
     }
 
     div.form-wrapper {

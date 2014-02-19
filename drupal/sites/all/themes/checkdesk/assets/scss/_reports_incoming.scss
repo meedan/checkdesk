@@ -44,7 +44,7 @@
   border-top: 1px solid rgba($firefly,.02);
   padding: $absolute-line-height/4 $gutter-width*2 $absolute-line-height/5;
   font-size: $small-font-size;
-  font-family: $sans-serif-font-stack;
+  @include cd-sans-serif-family;
   color: $firefly40;
   // Dropshadow for depth
   &:before {
@@ -102,7 +102,7 @@
     cursor: move;
     border: 1px solid rgba($firefly, .2);
     background-color: $white;
-    font-family: $sans-serif-font-stack;
+    @include cd-sans-serif-family;
   }
 
   .report-content {

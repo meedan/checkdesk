@@ -53,7 +53,7 @@
 
     .update-info {
       @include span-columns(4);
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
       color: $firefly20;
       border-top: 4px solid $firefly20;
       margin-bottom: $absolute-line-height;
@@ -108,7 +108,7 @@ $omega: opposite-position($alpha);
     @include ctb-clearfix;
     // border-top: 4px solid $firefly90;
     padding-top: $absolute-line-height/2;
-    font-family: $sans-serif-font-stack;
+    @include cd-sans-serif-family;
     color: $firefly60; 
     .separator {
       color: $firefly30; 
@@ -241,7 +241,7 @@ $omega: opposite-position($alpha);
     @include ctb-clearfix;
     margin: $absolute-line-height/2 0;
     color: $firefly80;
-    font-family: $serif-font-stack;
+    @include cd-serif-family;
     font-size: 18px;
     line-height: 1.5;
     font-weight: 400;
@@ -267,7 +267,7 @@ $omega: opposite-position($alpha);
         color: $white;
         background-color: $identity;
         @include border-radius(4px);
-        font-family: $sans-serif-font-stack;
+        @include cd-sans-serif-family;
         font-size: $large-font-size;
         text-decoration: none;
       }
@@ -313,7 +313,7 @@ $omega: opposite-position($alpha);
     padding: $absolute-line-height/4 0;
     border-top: 1px solid $firefly10;
     color: $firefly20;
-    font-family: $sans-serif-font-stack;
+    @include cd-sans-serif-family;
     font-size: $small-font-size;
     cursor: pointer;
     a {
@@ -346,7 +346,7 @@ $omega: opposite-position($alpha);
     margin-top: $absolute-line-height;
     .livefyre-header, .fb-comments-header {
       @include icon(comments, $large-font-size);
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
       font-size: $large-font-size;
       @if $from-direction == 'right' {
         font-size: $larger-font-size;
@@ -397,10 +397,10 @@ $omega: opposite-position($alpha);
     h3 {
       @include reset-box-model;
       font-size: 16px;
+      @include cd-sans-serif-family;
       @if $from-direction == 'right' {
         font-size: $base-font-size;
       }
-      font-weight: 600;
       line-height: 1.3;
     }
     .story-desc {

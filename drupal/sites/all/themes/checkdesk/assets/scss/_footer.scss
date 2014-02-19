@@ -4,7 +4,7 @@
   @include ctb-clearfix;
   padding-top: $absolute-line-height/4;
   margin: $absolute-line-height*4 0 $absolute-line-height*2 0;
-  font-family: $sans-serif-font-stack;
+  @include cd-sans-serif-family;
   text-align: center;
 
   #footer-menu {

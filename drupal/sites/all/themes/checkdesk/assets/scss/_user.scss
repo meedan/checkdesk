@@ -255,7 +255,7 @@ body.page-user-password { // both logged in and not logged ins states
 
     .or {
       @include ctb-clearfix;
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
       color: $grayLight;
       text-align: center;
       margin: $absolute-line-height/2 0;
@@ -273,7 +273,7 @@ body.page-user-password { // both logged in and not logged ins states
 
     .user-links {
       @include ctb-clearfix;
-      font-family: $sans-serif-font-stack;
+      @include cd-sans-serif-family;
       font-size: $small-font-size;
       line-height: 1.5;
     }
@@ -284,7 +284,7 @@ body.page-user-password { // both logged in and not logged ins states
       label {
         display: inline-block;
         color: $grayLight;
-        font-family: $sans-serif-font-stack;
+        @include cd-sans-serif-family;
         font-size: $small-font-size;
         line-height: 1.5;
       }
@@ -306,7 +306,7 @@ body.page-user-password { // both logged in and not logged ins states
       .user-new-account-link {
         float: $omega;
         margin-top: $absolute-line-height/4;
-        font-family: $sans-serif-font-stack;
+        @include cd-sans-serif-family;
         font-size: $small-font-size;
         color: $grayLight;
 
@@ -317,7 +317,7 @@ body.page-user-password { // both logged in and not logged ins states
         .register {
           @include reset-box-model;
           background: none;
-          font-family: $sans-serif-font-stack;
+          @include cd-sans-serif-family;
           font-size: $small-font-size;
           font-weight: normal;
           @include ctb-linkColor($linkColor);
