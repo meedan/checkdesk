@@ -1244,7 +1244,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   global $user;
 
   if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
-    $vars['name_i18n'] = t($vars['fields']['field_rating']->content);
+    $vars['name_i18n'] = isset($vars['fields']['field_rating']->content) ? t($vars['fields']['field_rating']->content) : NULL;
 
     if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($vars['fields']['nid']->raw)) {
       $vars['report_published'] = t('Published on update');
