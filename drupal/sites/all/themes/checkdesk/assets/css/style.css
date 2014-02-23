@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
 @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 @font-face {
@@ -2497,9 +2498,9 @@ input[type="color"],
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear, box-shadow linear;
-  -webkit-transition-delay: 0.2s, 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
@@ -2536,6 +2537,7 @@ body.cke_editable {
   box-shadow: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
+  -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
   -webkit-border-radius: none !important;
@@ -3928,6 +3930,7 @@ ul.dropdown-menu a:hover {
 .modal.fade {
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
   -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
   -o-transition: opacity 0.3s linear, top 0.3s ease-out;
   transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
@@ -4322,10 +4325,12 @@ div.tabs ul.primary li.active a {
 div.tabs ul.primary li a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cfd3d5;
@@ -5290,10 +5295,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   text-align: center;
   -webkit-transition-property: all;
   -moz-transition-property: all;
+  -ms-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
@@ -6570,10 +6577,18 @@ div.sensitive-hide {
 .report-row .report-content .media-type-fbpost .fb-post {
   max-width: 100%;
   overflow: hidden;
-  border-right: 1px solid #d3d6db;
   clear: both;
 }
-.report-row .report-content .media-type-fbpost .fb-post > span {
+.report-row .report-content .media-type-fbpost .rtl + script + .fb-post {
+  border-left: 1px solid #d3d6db;
+}
+.report-row .report-content .media-type-fbpost .rtl + script + .fb-post > span {
+  float: right;
+}
+.report-row .report-content .media-type-fbpost .ltr + script + .fb-post {
+  border-right: 1px solid #d3d6db;
+}
+.report-row .report-content .media-type-fbpost .ltr + script + .fb-post > span {
   float: left;
 }
 .report-row .report-content .media-type-fbpost .oembed-title, .report-row .report-content .media-type-fbpost .favicon, .report-row .report-content .media-type-fbpost .domain, .report-row .report-content .media-type-fbpost .author {
@@ -7566,10 +7581,12 @@ nav[role="navigation"] .nav > div h2 {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7631,10 +7648,12 @@ nav[role="navigation"] .nav > a.btn, nav[role="navigation"] .nav > li {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -7752,10 +7771,12 @@ nav[role="navigation"] #user-menu .dropdown-menu {
   position: relative;
   -webkit-transition-property: color;
   -moz-transition-property: color;
+  -ms-transition-property: color;
   -o-transition-property: color;
   transition-property: color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   color: #cfd3d5;
@@ -10189,10 +10210,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li.first a, #user-register-form #edit-social-media-signin li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -10215,10 +10238,12 @@ body.page-user-password #content-header {
 #user-login #edit-social-media-signin li a[class^='facebook'], #user-register-form #edit-social-media-signin li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
+  -ms-transition-property: background-color;
   -o-transition-property: background-color;
   transition-property: background-color;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
+  -ms-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
   background-color: #cccccc;
@@ -10617,10 +10642,18 @@ body.page-reports #reports .report-item .report-content .media-type-tweet iframe
 body.page-reports #reports .report-item .report-content .media-type-fbpost .fb-post, .profile #reports .report-item .report-content .media-type-fbpost .fb-post {
   max-width: 100%;
   overflow: hidden;
-  border-right: 1px solid #d3d6db;
   clear: both;
 }
-body.page-reports #reports .report-item .report-content .media-type-fbpost .fb-post > span, .profile #reports .report-item .report-content .media-type-fbpost .fb-post > span {
+body.page-reports #reports .report-item .report-content .media-type-fbpost .rtl + script + .fb-post, .profile #reports .report-item .report-content .media-type-fbpost .rtl + script + .fb-post {
+  border-left: 1px solid #d3d6db;
+}
+body.page-reports #reports .report-item .report-content .media-type-fbpost .rtl + script + .fb-post > span, .profile #reports .report-item .report-content .media-type-fbpost .rtl + script + .fb-post > span {
+  float: right;
+}
+body.page-reports #reports .report-item .report-content .media-type-fbpost .ltr + script + .fb-post, .profile #reports .report-item .report-content .media-type-fbpost .ltr + script + .fb-post {
+  border-right: 1px solid #d3d6db;
+}
+body.page-reports #reports .report-item .report-content .media-type-fbpost .ltr + script + .fb-post > span, .profile #reports .report-item .report-content .media-type-fbpost .ltr + script + .fb-post > span {
   float: left;
 }
 body.page-reports #reports .report-item .report-content .media-type-fbpost .oembed-title, body.page-reports #reports .report-item .report-content .media-type-fbpost .favicon, body.page-reports #reports .report-item .report-content .media-type-fbpost .domain, body.page-reports #reports .report-item .report-content .media-type-fbpost .author, .profile #reports .report-item .report-content .media-type-fbpost .oembed-title, .profile #reports .report-item .report-content .media-type-fbpost .favicon, .profile #reports .report-item .report-content .media-type-fbpost .domain, .profile #reports .report-item .report-content .media-type-fbpost .author {

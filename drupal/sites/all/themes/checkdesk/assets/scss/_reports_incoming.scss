@@ -145,11 +145,20 @@
       .fb-post {
         max-width: 100%;
         overflow: hidden;
-        border-right: 1px solid #d3d6db;
         clear: both;
+      }
 
+      .rtl + script + .fb-post {
+        border-left: 1px solid #d3d6db;
         & > span {
-          float: left;  // force
+          float: right;
+        }
+      }
+
+      .ltr + script + .fb-post {
+        border-right: 1px solid #d3d6db;
+        & > span {
+          float: left;
         }
       }
 

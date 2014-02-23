@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Implements hook_init().
+ */
+function meedan_oembed_facebook_embed_init() {
+  drupal_add_js(drupal_get_path('module', 'meedan_oembed_facebook_embed') . '/meedan_oembed_facebook_embed.js');
+}
+
+/**
  * Implements hook_theme().
  */
 function meedan_oembed_facebook_embed_theme() {
@@ -15,4 +22,25 @@ function meedan_oembed_facebook_embed_theme() {
       'file' => $file,
     ),
   );
+}
+
+/**
+ * Implements hook_meedan_oembed_embed_alter().
+ * Localize embeds.
+ */
+function meedan_oembed_facebook_embed_meedan_oembed_embed_alter(&$embed) {
+  global $language;
+
+  if ($embed->provider_name === 'Facebook') {
+
+    $locale = 'en_US';
+    $class = 'ltr';
+    
+    if (preg_match('/\p{Arabic}/u', $embed->description)) {
+      $locale = 'ar_AR';
+      $class = 'rtl';
+    }
+
+    $embed->html = preg_replace('/<div id="fb-root"[^>]*>/', "<div id=\"fb-root\" class=\"$class\" data-locale=\"$locale\">", $embed->html);
+  }
 }

@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Implements hook_init().
+ */
+function meedan_oembed_twitter_init() {
+  drupal_add_js(drupal_get_path('module', 'meedan_oembed_twitter') . '/meedan_oembed_twitter.js');
+}
+
+/**
  * Implements hook_meedan_oembed()
  */
 function meedan_oembed_twitter_meedan_oembed() {
@@ -88,25 +95,33 @@ function meedan_oembed_twitter_handler($provider, $url) {
     $embed->original_url = $url;
     $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
     $embed->provider = $provider;
-
-    // Let's try to identify language based on the Unicode
-    // First, remove links and Twitter names
-    $text = preg_replace('/http:\/\/[^\s]+/', '', $embed->description);
-    $text = preg_replace('/@[^\s]+/', '', $text);
-    if (preg_match('/\p{Arabic}/u', $text)) {
-      $embed->dir = 'rtl';
-      // FIXME
-      // If there is at least one embed in Arabic, all others on the page are rendered as RTL,
-      // even if lang="en" is defined on them
-      // $embed->html = preg_replace('/^<blockquote /', '<blockquote lang="ar"', $embed->html);
-    }
-    else {
-      $embed->dir = 'ltr';
-    }
     
     return $embed;
   } catch (Exception $e) {
     watchdog('MeedanOEmbedTwitter', t('Could not handle Twitter: ') . $e->getMessage());
   }
   return NULL;
+}
+
+/**
+ * Implements hook_meedan_oembed_embed_alter().
+ * Localize embeds.
+ */
+function meedan_oembed_twitter_meedan_oembed_embed_alter(&$embed) {
+  global $language;
+
+  if ($embed->provider_name === 'Twitter') {
+    // Let's try to identify language based on the Unicode
+    // First, remove links and Twitter names
+    $text = preg_replace('/http:\/\/[^\s]+/', '', $embed->description);
+    $text = preg_replace('/@[^\s]+/', '', $text);
+
+    $dir = 'ltr';
+    if (preg_match('/\p{Arabic}/u', $text)) {
+      $dir = 'rtl';
+    }
+    if (isset($embed->html)) {
+      $embed->html = preg_replace('/(<span dir="(rtl|ltr)"><\/span>)?<blockquote[^>]*>/', '<span dir="' . $dir . '"></span><blockquote class="twitter-tweet" lang="' . $language->language . '">', $embed->html);
+    }
+  }
 }
