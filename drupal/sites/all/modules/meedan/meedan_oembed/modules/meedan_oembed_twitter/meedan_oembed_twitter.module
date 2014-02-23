@@ -115,11 +115,13 @@ function meedan_oembed_twitter_meedan_oembed_embed_alter(&$embed) {
     // First, remove links and Twitter names
     $text = preg_replace('/http:\/\/[^\s]+/', '', $embed->description);
     $text = preg_replace('/@[^\s]+/', '', $text);
+    $text = preg_replace('/&mdash;.*/', '', $text);
 
     $dir = 'ltr';
     if (preg_match('/\p{Arabic}/u', $text)) {
       $dir = 'rtl';
     }
+
     if (isset($embed->html)) {
       $embed->html = preg_replace('/(<span dir="(rtl|ltr)"><\/span>)?<blockquote[^>]*>/', '<span dir="' . $dir . '"></span><blockquote class="twitter-tweet" lang="' . $language->language . '">', $embed->html);
     }
