@@ -6,7 +6,7 @@
 function template_preprocess_oembed__link__meedan_oembed_twitter(&$vars) {
   $embed = $vars['embed'];
   $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
-  $vars['content'] = $embed->html;
+  $vars['content'] = isset($embed->html) ? $embed->html : NULL;
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 

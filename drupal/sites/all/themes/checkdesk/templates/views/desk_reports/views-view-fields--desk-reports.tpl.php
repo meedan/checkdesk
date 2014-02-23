@@ -3,9 +3,12 @@
 	$source_name = strtolower($fields['source']->raw);
 	$media_type_class = str_replace('.', '_', $source_name);
 	$status_class = str_replace(' ', '_', strtolower($fields['field_rating']->content));
-	//Use google getFavicon service http://getfavicon.appspot.com/
-  	$favicon_url = url('http://g.etfv.co/'. $fields['source_url']->raw, array('absolute' => TRUE));
-  	$favicon = theme('image', array('path' => $favicon_url));
+    //Use google getFavicon service http://getfavicon.appspot.com/
+    $favicon = NULL;
+    if (isset($fields['source_url'])) {
+      $favicon_url = url('http://g.etfv.co/'. $fields['source_url']->raw, array('absolute' => TRUE));
+      $favicon = theme('image', array('path' => $favicon_url));
+    }
 ?>
 <div class="report-row-container <?php print $media_type_class; ?>" id="report-<?php print $fields['nid']->raw; ?>">
 	<?php if ($report_published) { ?>
