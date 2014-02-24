@@ -41,6 +41,6 @@ function meedan_oembed_facebook_embed_meedan_oembed_embed_alter(&$embed) {
       $class = 'rtl';
     }
 
-    $embed->html = preg_replace('/<div id="fb-root"[^>]*>/', "<div id=\"fb-root\" class=\"$class\" data-locale=\"$locale\">", $embed->html);
+    $embed->html = isset($embed->html) ? preg_replace('/<div id="fb-root"[^>]*>/', "<div id=\"fb-root\" class=\"$class\" data-locale=\"$locale\">", $embed->html) : NULL;
   }
 }
