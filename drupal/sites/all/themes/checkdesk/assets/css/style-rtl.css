@@ -2187,14 +2187,6 @@ div.block:hover .edit {
    readers do not read off random characters that represent icons */
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
  * readers do not read off random characters that represent icons */
-#my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before, #my-notifications .checkdesk_fact_checking_set .heartbeat-time-ago:before, #my-notifications .checkdesk_report_published_in_update .heartbeat-time-ago:before {
-  content: "\f005";
-}
-
-#my-notifications .checkdesk_new_user .heartbeat-time-ago:before {
-  content: "\f007";
-}
-
 .admin-nav-tabs > li span.icon-trash:before {
   content: "\f014";
 }
@@ -2215,7 +2207,7 @@ nav[role="navigation"] li.home a:before {
   content: "\f021";
 }
 
-#my-notifications .checkdesk_flag_report .heartbeat-time-ago:before, .report #report-actions ul.content-actions > li > a span.icon-flag:before, .report #report-actions ul.content-actions > li > a.flagged .icon-flag:before {
+.report #report-actions ul.content-actions > li > a span.icon-flag:before, .report #report-actions ul.content-actions > li > a.flagged .icon-flag:before {
   content: "\f024";
 }
 
@@ -2268,17 +2260,13 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
 }
 
 .danger:before,
-.error:before, #my-notifications .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago:before {
+.error:before {
   content: "\f071";
 }
 
 .report .report-activity .current-status.in-progress:before,
 .report .report-activity label.option.in-progress:before, .report .icon-random:before {
   content: "\f074";
-}
-
-#my-notifications .checkdesk_comment_on_update .heartbeat-time-ago:before, #my-notifications .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago:before, #my-notifications .checkdesk_comment_on_report .heartbeat-time-ago:before {
-  content: "\f075";
 }
 
 #my-account .info .linked-account .icon-twitter:before, body.page-user.logged-in .user-info .linked-accounts .icon-twitter:before {
@@ -2310,7 +2298,7 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f0b0";
 }
 
-#my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before, .report #report-actions ul.content-actions > li > a span.icon-link:before, .report .report-content .report-media .container .icon-link:before, .story .story-footer .story-continue:before {
+.report #report-actions ul.content-actions > li > a span.icon-link:before, .report .report-content .report-media .container .icon-link:before, .story .story-footer .story-continue:before {
   content: "\f0c1";
 }
 
@@ -2332,10 +2320,6 @@ nav[role="navigation"] #user-menu .icon-bell:before {
 
 .notifications-preferences .notifications-preferences-email:before {
   content: "\f0e0";
-}
-
-#my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
-  content: "\f0e5";
 }
 
 #footer-inner .icon-comments-alt:before {
@@ -4417,13 +4401,14 @@ div.tabs ul.primary li a {
 #my-notifications {
   width: 360px;
   font-size: 13.5px;
+  font-weight: normal;
   line-height: 1;
 }
 #my-notifications .heartbeat-activity {
   *zoom: 1;
-  color: #555555;
+  color: #6f7a82;
   padding: 12px 15px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid rgba(16, 33, 47, 0.1);
   overflow: hidden;
 }
 #my-notifications .heartbeat-activity:before, #my-notifications .heartbeat-activity:after {
@@ -4433,12 +4418,6 @@ div.tabs ul.primary li a {
 }
 #my-notifications .heartbeat-activity:after {
   clear: both;
-}
-#my-notifications .heartbeat-activity a {
-  color: #555555;
-}
-#my-notifications .heartbeat-activity a:hover {
-  color: black;
 }
 #my-notifications .heartbeat-activity .activity-data {
   *zoom: 1;
@@ -4464,150 +4443,7 @@ div.tabs ul.primary li a {
 }
 #my-notifications .heartbeat-activity .activity-meta {
   margin-top: 6px;
-  color: #999999;
-}
-#my-notifications .checkdesk_comment_on_update .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #cccccc;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_new_update_on_story_i_commented_on_update .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #0065a8;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_reply_to_comment .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #0065a8;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_comment_on_report .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #0065a8;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_fact_checking_on .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #0088ff;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_fact_checking_set .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #0088ff;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_report_suggested_to_story .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #264887;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_fact_status_changed_for_commenter .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: black;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_flag_report .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #f42825;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_report_published_in_update .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #cccccc;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
-}
-#my-notifications .checkdesk_new_user .heartbeat-time-ago:before {
-  font-family: "FontAwesome";
-  font-size: 15px;
-  line-height: inherit;
-  color: #0065a8;
-  margin: 0 7.5px;
-  width: auto;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  font-weight: normal;
-  width: 5%;
+  color: #9fa6ac;
 }
 #my-notifications ul.pager-load-more {
   display: none;
@@ -4642,7 +4478,7 @@ div.tabs ul.primary li a {
   border-radius: 0;
   color: #333333;
   background-color: white;
-  color: #555555;
+  color: #6f7a82;
 }
 #my-notifications .more-link a:hover,
 #my-notifications .notifications-settings-link a:hover {
@@ -4651,7 +4487,7 @@ div.tabs ul.primary li a {
 }
 #my-notifications .more-link a:hover,
 #my-notifications .notifications-settings-link a:hover {
-  color: black;
+  color: #111314;
 }
 #my-notifications .more-link a:hover,
 #my-notifications .notifications-settings-link a:hover {
