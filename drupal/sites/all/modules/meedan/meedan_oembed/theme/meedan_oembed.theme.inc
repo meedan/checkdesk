@@ -9,7 +9,7 @@ function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
   $vars['favicon_link'] = l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE));
   $vars['title_link'] = l($embed->title, $embed->url);
   $vars['content'] = $embed->description;
-  $vars['thumbnail'] = l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE));
+  $vars['thumbnail'] = isset($embed->thumbnail_url) ? l(theme('image', array('path' => $embed->thumbnail_url)), $embed->url, array('html' => TRUE)) : '';
   $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
 }
 
@@ -19,4 +19,16 @@ function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
 function template_preprocess_meedan_oembed_thumbnail_generic(&$vars) {
 	$render = oembedcore_render_cache('oembed_thumbnail', $vars['url'], $vars['attributes']);
   $vars['thumbnail'] = render($render);
+}
+
+/**
+ * Custom link theme function.
+ */
+function theme_meedan_oembed_link($vars) {
+  $link = '';
+  if ($vars['thumbnail_url']) {
+    $link .= theme('image', array('path' => $vars['thumbnail_url']));
+  }
+  $link .= '<a href="' . check_plain(url($vars['path'], $vars['options'])) . '"' . drupal_attributes($vars['options']['attributes']) . '>' . ($vars['options']['html'] ? $vars['text'] : check_plain($vars['text'])) . '</a>';
+  return $link;
 }

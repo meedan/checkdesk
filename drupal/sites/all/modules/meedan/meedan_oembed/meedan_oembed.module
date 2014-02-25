@@ -29,6 +29,11 @@ function meedan_oembed_theme() {
       'path' => $path,
       'file' => $file,
     ),
+    'meedan_oembed_link' => array(
+      'variables' => array('path' => NULL, 'options' => NULL, 'text' => NULL),
+      'path' => $path,
+      'file' => $file,
+    ),
   );
 }
 
@@ -290,7 +295,7 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
     if ($embed->type == 'link') {
       $vars['title_attributes_array']['class'] .= ' oembed-link';
 
-      $vars['theme_hook_suggestions'][] = 'link';
+      $vars['theme_hook_suggestions'][] = 'meedan_oembed_link';
       $vars['path'] = $embed->original_url;
       $vars['text'] = $embed->title;
       $vars['options'] = array(
@@ -298,6 +303,8 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
         'attributes' => $vars['title_attributes_array'],
         'html' => TRUE,
       );
+
+      $vars['thumbnail_url'] = isset($embed->thumbnail_url) ? $embed->thumbnail_url : '';
     }
     $vars['provider_name'] = $embed->provider_name;
     $vars['domain_link'] = l($embed->provider_name, $embed->provider_url);
