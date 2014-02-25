@@ -6,7 +6,7 @@
   var timeout = null;
 
   window.waitForTwitteriFrames = function() {
-    if ($('.oembed.twitter').length === $('.oembed.twitter iframe').contents().find('.standalone-tweet').length) {
+    if ($('.oembed.twitter, .tweet-preview').length === $('.oembed.twitter iframe, .tweet-preview iframe').contents().find('.standalone-tweet').length) {
       clearTimeout(timeout);
       localizeTwitterEmbeds();
     }
@@ -16,7 +16,7 @@
   };
 
   var localizeTwitterEmbeds = function() {
-    $('.oembed.twitter:not(.twitter-embed-localized)').each(function() {
+    $('.oembed.twitter:not(.twitter-embed-localized), .tweet-preview:not(.twitter-embed-localized)').each(function() {
       var direction = $(this).find('span[dir]:first').attr('dir'),
           tweet = $(this).find('iframe').contents().find('.standalone-tweet');
       tweet.attr('dir', direction);

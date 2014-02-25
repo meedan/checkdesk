@@ -33,6 +33,7 @@ jQuery(function($) {
       complete: function (xhr, textStatus) {
         $input.removeClass('meedan-bookmarklet-loading');
         $('#meedan_bookmarklet_preview').show();
+        Drupal.attachBehaviors('#meedan_bookmarklet_preview');
       }
     });
   }
