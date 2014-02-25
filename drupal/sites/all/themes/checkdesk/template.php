@@ -615,7 +615,7 @@ function checkdesk_preprocess_node(&$variables) {
 
   }
 
-  if ($variables['type'] == 'post') {
+  if ($variables['type'] == 'post' && isset($variables['title'])) {
     if ($variables['title'] === _checkdesk_core_auto_title($variables['elements']['#node']) || $variables['title'] === t('Update')) {
       unset($variables['title']);
     }
@@ -718,7 +718,8 @@ function checkdesk_preprocess_node(&$variables) {
         // Drupal.behavior.lazyLoadSrc handles re-applying the src attribute when
         // the iframe tag enters the viewport.
         // See: http://stackoverflow.com/a/7154968/806988
-        $placeholder = base_path() . path_to_theme() . '/assets/imgs/icons/loader_white.gif';
+        // use drupal_get_path to find imgs src instead on path_to_theme as imgs exist only on checkdesk theme
+        $placeholder = base_path() . drupal_get_path('theme', 'checkdesk') . '/assets/imgs/icons/loader_white.gif';
         $field_link_rendered = preg_replace('/<(iframe|img)([^>]*)(src=["\'])/i', '<\1\2src="' . $placeholder . '" data-lazy-load-\3', $field_link_rendered);
 
         // Lazy load classes as well (for dynamic-loaded content, like tweets, for example)

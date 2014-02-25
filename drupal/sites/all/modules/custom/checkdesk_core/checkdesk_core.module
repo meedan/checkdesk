@@ -232,6 +232,17 @@ function _checkdesk_modal_report_view($js = FALSE) {
   $element = node_view($node);
   $element['comments'] = comment_node_page_additions($node);
   $output = drupal_render($element);
+
+  $javascript = drupal_add_js(NULL, NULL);
+  $settings = '';
+  if(isset($javascript['settings'])) {
+    $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
+                drupal_json_encode(call_user_func_array('array_merge_recursive', $javascript['settings']['data'])) .
+                ');</script>';
+  }
+  //Add the settings to the form
+  $output .= $settings;
+
   if ($js) {
     ctools_modal_render($title, $output);
   }
@@ -684,9 +695,9 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       $destination = current_path();
       if (($destination == 'node/' . $node->nid) || (arg(0) == 'report-view-modal' && arg(2) == $node->nid)) {
         if (isset($_SERVER['HTTP_REFERER'])) {
-          $url = parse_url($_SERVER['HTTP_REFERER']);
-          if (@$url['scheme'] . '://' . @$url['host'] == $base_root) {
-            $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $url['path']);
+          $purl = parse_url($_SERVER['HTTP_REFERER']);
+          if (@$purl['scheme'] . '://' . @$purl['host'] == $base_root) {
+            $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $purl['path']);
             if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
               list($langcode, $alias) = explode('/', $alias, 2);
               if (!in_array($langcode, array_keys(language_list()))) {
@@ -713,7 +724,6 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         ),
       );
     }
-
     $share_links = checkdesk_core_share_links($url, $node->title);
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
@@ -774,7 +784,6 @@ function _checkdesk_core_node_links($node, $account = NULL) {
  */
 function checkdesk_core_share_links($url, $title) {
   $links = array();
-
   $links['checkdesk-share-facebook'] = array(
     'title' => t('Share on Facebook'),
     'href' => $url,

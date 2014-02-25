@@ -92,6 +92,9 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed = $cache->data;
     $embed->original_url = $url;
     $embed->provider = $provider;
+    
+    drupal_alter('meedan_oembed_embed', $embed);
+    
     return $embed;
   }
   // Ask for fresh data, remove cache first
@@ -153,6 +156,8 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
     $embed->error = FALSE;
   }
 
+  drupal_alter('meedan_oembed_embed', $embed);
+  
   // Set result to cache, even if error
   cache_set($cache_key, $embed, $element['#cache']['bin'], $element['#cache']['expire']);
 
