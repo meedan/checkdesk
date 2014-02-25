@@ -36,7 +36,7 @@
 
     <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity open">
-          <header<?php if ($status_class) print ' class="' . $status_class . '"'; ?>>
+          <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
             <div class="report-activity-header" href="#">
               <h3 class="report-footnotes-count"><span><?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?></h3>
               <div class="report-status">
