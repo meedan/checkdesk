@@ -2248,12 +2248,15 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
   $element['comments'] = comment_node_page_additions($node);
   $output = drupal_render($element);
 
-  // Keep settings
-  $js = drupal_add_js();
+  $js = drupal_add_js(NULL, NULL);
+  $settings = '';
   if (isset($js['settings'])) {
-    $settings = ajax_command_settings(call_user_func_array('array_merge_recursive', $js['settings']['data']), TRUE);
-    $info['settings'] = $settings['settings'];
+    $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
+                drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
+                ');</script>';
   }
+  // Add the settings to the form
+  $output .= $settings;
 
   $commands = array();
   $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
