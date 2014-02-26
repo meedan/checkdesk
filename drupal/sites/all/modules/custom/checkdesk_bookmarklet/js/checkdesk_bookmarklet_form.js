@@ -13,7 +13,7 @@ jQuery(function($) {
     $input.addClass('meedan-bookmarklet-loading');
 
     $.ajax({
-      url: Drupal.settings.basePath + 'checkdesk/media-preview?' + parseInt(Math.random() * 1000000000, 10),
+      url: Drupal.settings.basePath + Drupal.settings.pathPrefix + 'checkdesk/media-preview?' + parseInt(Math.random() * 1000000000, 10),
       data: { url : $input.val() },
       dataType: 'json',
       success: function (data) {

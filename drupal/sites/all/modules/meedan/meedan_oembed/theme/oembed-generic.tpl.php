@@ -10,6 +10,7 @@
   }
 ?>
 <div class="<?php print $classes . ' ' . $provider_class_name; ?>"<?php print $attributes; ?>>
+  <?php print render($thumbnail); ?>
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <h3 class="title"><a href="<?php print $embed->original_url; ?>"<?php print $title_attributes; ?>><?php print render($title); ?></a></h3>
