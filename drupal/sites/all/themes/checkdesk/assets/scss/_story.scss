@@ -244,8 +244,11 @@ $omega: opposite-position($alpha);
     @include cd-serif-family;
     font-size: 18px;
     line-height: 1.5;
+    font-weight: normal;
     font-weight: 400;
-    letter-spacing: -0.4px;
+    @if $from-direction == left {
+      letter-spacing: -0.4px;
+    }
     p {
       margin: 0 0 $absolute-line-height/2.4 0;
       max-width: 560px;

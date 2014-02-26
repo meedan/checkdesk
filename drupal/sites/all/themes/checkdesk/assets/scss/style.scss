@@ -5,6 +5,7 @@
 
 // Tell the browser about these files and define the font name
 // See base.scss configuration, with overrides in style-rtl.scss
+// @font-face with unciode range declarations are in fonts.scc
 // Icon fonts
 @include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
 // @include bowerbird-font-face("FontAwesomeSocial", "fontawesome-social-webfont");
@@ -14,7 +15,8 @@
 // @include bowerbird-font-face("Merriweather Bold", "merriweather-bold-webfont-webfont");
 // @include bowerbird-font-face("PT Sans", "ptsans-webfont-webfont");
 // @include bowerbird-font-face("PT Sans Bold", "ptsans-bold-webfont-webfont");
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+// @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
 // Arabic fonts
 // @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 // @include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
@@ -22,9 +24,6 @@
 // @include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
 // @include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
 // @include bowerbird-font-face("Andalus", "andlso-webfont");
-
-@include unicode-font-face("Droid Arabic Naskh", "droidnaskh-bold-webfont", 700, "normal");
-@include unicode-font-face("Droid Arabic Naskh", "droidnaskh-regular-webfont", 400, "normal");
 
 // Modular scale  
 // via: gem

@@ -1,34 +1,211 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.svg#droid_arabic_naskhregular") format("svg");
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold") format("svg");
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS55F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.svg#pt_sansregular") format("svg");
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS75F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.svg#pt_sansbold") format("svg");
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS55F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.svg#pt_sansregular") format("svg");
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS75F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.svg#pt_sansbold") format("svg");
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.svg#droid_arabic_naskhregular") format("svg");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold") format("svg");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.svg#droid_arabic_naskhregular") format("svg");
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold") format("svg");
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS55F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.svg#pt_sansregular") format("svg");
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS75F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.svg#pt_sansbold") format("svg");
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS55F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.svg#pt_sansregular") format("svg");
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS75F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.svg#pt_sansbold") format("svg");
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.svg#droid_arabic_naskhregular") format("svg");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold") format("svg");
+  unicode-range: U+0600 – U+06FF;
+}
+
 @font-face {
   font-family: "FontAwesome";
   src: url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.woff') format('woff'), url('/sites/all/themes/checkdesk/assets/extensions/bowerbird/fonts/fontawesome-webfont-webfont.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Droid Arabic Naskh";
-  font-style: "normal";
-  font-weight: 700;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Droid Arabic Naskh";
-  src: local(Georgia);
-  unicode-range: U+0000 – U+007F;
-}
-
-@font-face {
-  font-family: "Droid Arabic Naskh";
-  font-style: "normal";
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
   font-weight: 400;
-  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.svg#droid_arabic_naskhregular") format("svg");
 }
 
 @font-face {
-  font-family: "Droid Arabic Naskh";
-  src: local(Georgia);
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold") format("svg");
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS55F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.svg#pt_sansregular") format("svg");
   unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS75F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.svg#pt_sansbold") format("svg");
+  unicode-range: U+0000 – U+007F;
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS55F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS55F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS55F-webfont.svg#pt_sansregular") format("svg");
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/PTS75F-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/PTS75F-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/PTS75F-webfont.svg#pt_sansbold") format("svg");
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-regular-webfont.svg#droid_arabic_naskhregular") format("svg");
+  unicode-range: U+0600 – U+06FF;
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot");
+  src: url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.woff") format("woff"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf") format("truetype"), url("../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold") format("svg");
+  unicode-range: U+0600 – U+06FF;
 }
 
 /*
@@ -8943,8 +9120,8 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-family: "Droid Arabic Naskh", serif;
   font-size: 18px;
   line-height: 1.5;
+  font-weight: normal;
   font-weight: 400;
-  letter-spacing: -0.4px;
 }
 .story .story-body:before, .story .story-body:after {
   display: table;

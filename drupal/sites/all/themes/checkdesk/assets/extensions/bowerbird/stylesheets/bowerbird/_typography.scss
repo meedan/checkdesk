@@ -29,22 +29,6 @@
   ));
 }
 
-@mixin unicode-font-face($name: "FontName", $file: "fontname-webfont", $weight: normal, $style: normal) {
-  @if $debug {  @debug ">>> loading #{$name}" }
-  @font-face {
-    font-family: "#{$name}";
-    font-style: $style;
-    font-weight: $weight;
-    src:  url("../extensions/bowerbird/fonts/#{$file}.woff") format('woff'),
-          url("../extensions/bowerbird/fonts/#{$file}.ttf") format('truetype');
-  }
-  @font-face {
-    font-family: "#{$name}";
-    src: local(Georgia);
-    unicode-range: U+0000 – U+007F;
-  }
-}
-
 // bowerbird type defaults
 @mixin bowerbird-typography-defaults {
   
