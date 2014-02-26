@@ -171,6 +171,9 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 				.oembed--link--meedan-oembed-generic,
 				.oembed--link--meedan-oembed-theme-generic {
 					padding: $absolute-line-height/2 $gutter-width;
+					a img {
+						margin-bottom: $absolute-line-height/2;
+					}
 				}
 
 				.thumbnail img {
