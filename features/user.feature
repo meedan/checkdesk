@@ -31,3 +31,11 @@ Scenario: User goes to profile
   Then I should be on "/en/user"
   And I wait for 10 seconds
   And I should see "Meedan's reports"
+
+@api
+Scenario: Sign in link
+  Given I am on the homepage
+  When I am not logged in
+  Then I should see the link "Sign in"
+  When I am logged in as a user with the "citizen journalist" role
+  Then I should not see the link "Sign in"
