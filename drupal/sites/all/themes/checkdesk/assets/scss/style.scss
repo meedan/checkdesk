@@ -16,12 +16,15 @@
 // @include bowerbird-font-face("PT Sans Bold", "ptsans-bold-webfont-webfont");
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
 // Arabic fonts
-@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+// @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 // @include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
 // @include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
 // @include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
 // @include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
 // @include bowerbird-font-face("Andalus", "andlso-webfont");
+
+@include unicode-font-face("Droid Arabic Naskh", "droidnaskh-bold-webfont", 700, "normal");
+@include unicode-font-face("Droid Arabic Naskh", "droidnaskh-regular-webfont", 400, "normal");
 
 // Modular scale  
 // via: gem
