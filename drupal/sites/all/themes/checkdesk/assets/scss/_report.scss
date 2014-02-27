@@ -376,7 +376,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 		@include cd-sans-serif-family;
 		& > header {
 			@include ctb-clearfix();
-			padding: $absolute-line-height/3 $gutter-width;
+			padding: $absolute-line-height/3 $gutter-width $absolute-line-height/4.5;
 			background-color: $firefly10;
 			border-left: 1px solid $firefly10;
 			border-right: 1px solid $firefly10;

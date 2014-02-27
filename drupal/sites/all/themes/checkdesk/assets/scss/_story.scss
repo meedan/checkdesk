@@ -243,11 +243,11 @@ $omega: opposite-position($alpha);
     color: $firefly80;
     @include cd-serif-family;
     font-size: 18px;
-    line-height: 1.5;
+    line-height: 30px;
     font-weight: normal;
     font-weight: 400;
     @if $from-direction == left {
-      letter-spacing: -0.4px;
+      letter-spacing: -0.5px;
     }
     p {
       margin: 0 0 $absolute-line-height/2.4 0;
