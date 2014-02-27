@@ -21,6 +21,7 @@
         url('../extensions/bowerbird/fonts/droidnaskh-bold-webfont.ttf') format('truetype'),
         url('../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold') format('svg');
 }
+@media screen and (-webkit-min-device-pixel-ratio:0) {
 // Render English text in PT Sans Regular within Droid Arabic Naskh Regular
 @font-face {
   font-family: 'Droid Arabic Naskh';
@@ -46,6 +47,7 @@
         url('../extensions/bowerbird/fonts/PTS75F-webfont.ttf') format('truetype'),
         url('../extensions/bowerbird/fonts/PTS75F-webfont.svg#pt_sansbold') format('svg');
   unicode-range: U+0000 – U+007F;
+}
 }
 
 // English font stack
@@ -76,6 +78,19 @@
         url('../extensions/bowerbird/fonts/PTS75F-webfont.ttf') format('truetype'),
         url('../extensions/bowerbird/fonts/PTS75F-webfont.svg#pt_sansbold') format('svg');
 }
+// Italic
+@font-face {
+  font-family: 'PT Sans';
+  font-style: italic;
+  font-weight: 400;
+  src:  url('../extensions/bowerbird/fonts/PTS56F-webfont.eot');
+  src:  local('PT Sans Italic'), local('PT-Sans-Italic'),
+        url('../extensions/bowerbird/fonts/PTS56F-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/PTS56F-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/PTS56F-webfont.ttf') format('truetype'),
+        url('../extensions/bowerbird/fonts/PTS56F-webfont.svg#pt_sansitalic') format('svg');
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
 // Render Arabic text in Droid Arabic Naskh Regular within PT Sans Regular
 @font-face {
   font-family: 'PT Sans';
@@ -102,17 +117,6 @@
         url('../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold') format('svg');
   unicode-range: U+0600 – U+06FF;
 }
-// Italic
-@font-face {
-  font-family: 'PT Sans';
-  font-style: italic;
-  font-weight: 400;
-  src:  url('../extensions/bowerbird/fonts/PTS56F-webfont.eot');
-  src:  local('PT Sans Italic'), local('PT-Sans-Italic'),
-        url('../extensions/bowerbird/fonts/PTS56F-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../extensions/bowerbird/fonts/PTS56F-webfont.woff') format('woff'),
-        url('../extensions/bowerbird/fonts/PTS56F-webfont.ttf') format('truetype'),
-        url('../extensions/bowerbird/fonts/PTS56F-webfont.svg#pt_sansitalic') format('svg');
 }
 
 // Serif for English
@@ -138,6 +142,18 @@
         url('../extensions/bowerbird/fonts/merriweather-bold-webfont.ttf') format('truetype'),
         url('../extensions/bowerbird/fonts/merriweather-bold-webfont.svg#merriweatherbold') format('svg');
 }
+// Italic
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-weight: 700;
+  src:  url('../extensions/bowerbird/fonts/merriweather-italic-webfont.eot');
+  src:  url('../extensions/bowerbird/fonts/merriweather-italic-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.woff') format('woff'),
+        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.ttf') format('truetype'),
+        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.svg#merriweatheritalic') format('svg');
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
 // Render Arabic text in Droid Arabic Naskh Regular within Merriweather Regular
 @font-face {
   font-family: 'Merriweather';
@@ -164,17 +180,8 @@
         url('../extensions/bowerbird/fonts/droidnaskh-bold-webfont.svg#droid_arabic_naskhbold') format('svg');
   unicode-range: U+0600 – U+06FF;
 }
-// Italic
-@font-face {
-  font-family: 'Merriweather';
-  font-style: italic;
-  font-weight: 700;
-  src:  url('../extensions/bowerbird/fonts/merriweather-italic-webfont.eot');
-  src:  url('../extensions/bowerbird/fonts/merriweather-italic-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.woff') format('woff'),
-        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.ttf') format('truetype'),
-        url('../extensions/bowerbird/fonts/merriweather-italic-webfont.svg#merriweatheritalic') format('svg');
 }
+
 
 // Sans and Serif
 $sans-serif-font-stack: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;

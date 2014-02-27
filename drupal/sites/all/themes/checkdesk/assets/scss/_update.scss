@@ -9,13 +9,12 @@
     color: $firefly80;
 
     .update-title {
-      font-size: $large-font-size;
+      font-size: $larger-font-size;
       line-height: 1.2;
       margin-bottom: $absolute-line-height;
       color: $firefly80;
       @if $from-direction == 'left' {
         @include cd-sans-serif-family;
-        letter-spacing: -0.6px;
         font-style: normal;
       }
       // padding-bottom: $absolute-line-height/2;
