@@ -700,9 +700,13 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         if (isset($_SERVER['HTTP_REFERER'])) {
           $purl = parse_url($_SERVER['HTTP_REFERER']);
           if (@$purl['scheme'] . '://' . @$purl['host'] == $base_root) {
+            $langcode = '';
             $alias = preg_replace('/^' . preg_quote($base_path, '/') . '/', '', $purl['path']);
             if (variable_get('locale_language_negotiation_url_part', LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) == LOCALE_LANGUAGE_NEGOTIATION_URL_PREFIX) {
-              list($langcode, $alias) = explode('/', $alias, 2);
+              $alias_list = explode('/', $alias, 2);
+              if (count($alias_list) == 2) {
+                list($langcode, $alias) = $alias_list;
+              }
               if (!in_array($langcode, array_keys(language_list()))) {
                 $alias = $langcode . '/' . $alias;
               }
