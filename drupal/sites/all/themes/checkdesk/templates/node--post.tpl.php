@@ -1,5 +1,7 @@
 <?php
-  // dsm($content);
+//echo "melsawy";
+//print_r($content);
+//exit;
   // dsm($node);
   global $language;
   $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
@@ -25,10 +27,8 @@
           <?php } ?>
           <?php print $created_by; ?>
         </li>
-        <!-- <li class="share">
-          <a href="#"><span class="icon-share"></span> <?php print t('Share'); ?></a>
-        </li> -->
         <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) { ?>
+          <?php print render($content['links']); ?>
           <li class="update-edit">
             <?php print l('<span class="icon-edit-sign"></span>'. t('Edit'), 'node/' . $node->nid . '/edit', array('html'=>TRUE)); ?>
           </li>
