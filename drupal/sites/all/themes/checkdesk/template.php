@@ -1252,7 +1252,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   }
 
   if ($vars['view']->name === 'liveblog') {
-    $vars['updates'] = $vars['view']->result[$vars['view']->row_index]->updates;
+    $vars['updates'] = isset($vars['view']->result[$vars['view']->row_index]->updates) ? $vars['view']->result[$vars['view']->row_index]->updates : '';
 
     // Comments count
     $theme = NULL;
