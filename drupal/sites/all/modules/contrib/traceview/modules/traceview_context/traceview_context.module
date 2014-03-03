@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Module file for traceview_context module.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function traceview_context_init() {
+  if ($plugin = context_get_plugin('reaction', 'traceview_partition')) {
+    $plugin->execute($region);
+  }
+}
+
+/**
+ * Implements hook_context_plugins().
+ */
+function traceview_context_context_plugins() {
+  $plugins = array();
+  $plugins['traceview_partition'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'traceview_context') . '/plugins',
+      'file' => 'traceview_partition_context_reaction.inc',
+      'class' => 'traceview_partition',
+      'parent' => 'context_reaction',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry().
+ */
+function traceview_context_context_registry() {
+  return array(
+    'reactions' => array(
+      'traceview_partition' => array(
+        'title' => t('TraceView traffic partition'),
+        'description' => t('Set the traceview traffic partition.'),
+        'plugin' => 'traceview_partition',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ *
+ * Notify CTools that we'll be using the plugin API with Context module
+ */
+function traceview_context_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
