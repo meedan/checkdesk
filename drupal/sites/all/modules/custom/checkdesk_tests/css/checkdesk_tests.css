@@ -148,3 +148,46 @@
 #edit-checkdesk-tests-title {
   width: 98%;
 }
+
+#checkdesk-tests-new-steps .sort-up,
+#checkdesk-tests-new-steps .sort-down,
+#checkdesk-tests-new-steps .remove {
+  position: absolute;
+  display: block;
+  width: 9px;
+  height: 9px;
+  text-indent: -5000em;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#checkdesk-tests-new-steps .sort-up {
+  left: 3px;
+  top: 11px;
+  background-image: url(up.png);
+}
+
+#checkdesk-tests-new-steps .sort-up:hover {
+  background-image: url(up-hover.png);
+}
+
+#checkdesk-tests-new-steps .sort-down {
+  left: 3px;
+  top: 23px;
+  background-image: url(down.png);
+}
+
+#checkdesk-tests-new-steps .sort-down:hover {
+  background-image: url(down-hover.png);
+}
+
+#checkdesk-tests-new-steps .remove {
+  right: 2px;
+  top: 16px;
+  background-image: url(remove.png);
+}
+
+#checkdesk-tests-new-steps .remove:hover {
+  background-image: url(remove-hover.png);
+}

@@ -77,6 +77,7 @@ else if (document.selection) {
   'use strict';
 
   // Display available steps on a modal window
+
   $(window).load(function() {
     $('#checkdesk-tests-steps-link').click(function() {
       $('#checkdesk-tests-steps').modal();
@@ -91,6 +92,40 @@ else if (document.selection) {
                .replace(/([\|:])\|/g, '$1<br />|')
                .replace(/\|(.*)\|/, '<pre class="step-param">|$1|</pre>')
                .replace(/\|/g, '<span class="step-no-param">|</span>');
+  };
+
+  // Sort steps
+
+  var sortfunction = function(link, direction) {
+    
+    var appendfunction, selectfunction;
+
+    if (direction == 'up') {
+      appendfunction = 'before';
+      selectfunction = 'prev';
+    }
+    else if (direction == 'down') {
+      appendfunction = 'after';
+      selectfunction = 'next';
+    }
+    else return false;
+
+    var $current = $(link).closest('.form-wrapper'),
+        $other   = $current[selectfunction]('.form-wrapper');
+
+    if ($other.length) {
+      $other[appendfunction]($current);
+
+      // Rename fields, otherwise it won't make any difference when form is submitted
+      var currenttextname = $current.find('.form-text').attr('name'),
+          currentselectname = $current.find('.form-select').attr('name');
+      $current.find('.form-text').attr('name', $other.find('.form-text').attr('name'));
+      $current.find('.form-select').attr('name', $other.find('.form-select').attr('name'));
+      $other.find('.form-text').attr('name', currenttextname);
+      $other.find('.form-select').attr('name', currentselectname);
+    }
+
+    return false;
   };
 
   Drupal.behaviors.enrichStepFields = {
@@ -119,6 +154,23 @@ else if (document.selection) {
           restoreSelection(this, savedSel);
           $plain.keyup(); // In order to trigger auto-complete
         });
+
+        // Steps should be sortable and removable
+        var $actions  = $('<div class="step-actions" />'),
+            $sortup   = $('<a href="#" class="sort-up"></a>').attr('title', Drupal.t('Move this step up')).html(Drupal.t('Up')),
+            $sortdown = $('<a href="#" class="sort-down"></a>').attr('title', Drupal.t('Move this step down')).html(Drupal.t('Down')),
+            $remove   = $('<a href="#" class="remove"></a>').attr('title', Drupal.t('Remove this step')).html(Drupal.t('Remove'));
+
+        $actions.append($sortup).append($sortdown).append($remove);
+        $(this).closest('.fieldset-wrapper').find('.form-type-select').before($actions);
+
+        $sortup.click(function() { return sortfunction(this, 'up'); });
+        $sortdown.click(function() { return sortfunction(this, 'down'); });
+
+        $remove.click(function() {
+          $(this).closest('.form-wrapper').remove();
+          return false;
+        });
       });
 
       // Make autocomplete work
@@ -139,6 +191,7 @@ else if (document.selection) {
         $(this).parents('.field-rich-wrapper').height($rich.height() - 2);
         $(this).parents('#autocomplete').remove();
       });
+
     }
   };
 
