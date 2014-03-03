@@ -2414,3 +2414,13 @@ function checkdesk_core_search_preprocess($text) {
   return $text;
 }
 
+/**
+ * Implements of hook_system_info_alter().
+ */
+function checkdesk_core_system_info_alter(&$info, $file, $type) {
+  //prevent overlay module from being enabled Issue #2039.
+  if ($file->name == 'overlay' && $type == 'module') {
+    //add dependencies to non exist module.
+    $info['dependencies'] = array('checkdesk_not_exist');
+  }
+}
