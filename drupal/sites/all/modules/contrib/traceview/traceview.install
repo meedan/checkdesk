@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * @file
+ * traceview module install file
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function traceview_install() {
+  // Attempt to copy variable values from variables belonging to the tracelytics
+  // module.
+  $tracelytics_vars = array(
+    'tracelytics_partition_traffic' => 'traceview_partition_traffic',
+    'tracelytics_track_menu' => 'traceview_track_menu',
+    'tracelytics_log_errors' => 'traceview_log_errors',
+    'tracelytics_layers' => 'traceview_layers',
+    'tracelytics_partition_drush_traffic' => 'traceview_partition_drush_traffic',
+    'tracelytics_track_drush_commands' => 'traceview_track_drush_commands',
+    'tracelytics_drupal_http_request' => 'traceview_drupal_http_request',
+    'tracelytics_key' => 'traceview_key',
+    'tracelytics_annotation_appname' => 'traceview_annotation_appname',
+    'tracelytics_annotation_username' => 'traceview_annotation_username',
+    'tracelytics_annotate_modules' => 'traceview_annotate_modules',
+  );
+  foreach($tracelytics_vars as $tracelytics_var => $traceview_var) {
+    $variable_value = variable_get($tracelytics_var, NULL);
+    if ($variable_value !== NULL) {
+      variable_set($traceview_var, $variable_value);
+    }
+  }
+
+  // If the tracelytics module is enabled, disable and uninstall all
+  // tracelytics modules and attempt to enable any matching TraceView
+  // submodules.
+  if (module_exists('tracelytics')) {
+    $tracelytics_submodules = array(
+      'tracelytics_context' => 'traceview_context',
+      'tracelytics_early' => 'traceview_early',
+      'tracelytics_late' => 'traceview_late',
+      'tracelytics_services' => 'traceview_services',
+    );
+    $traceview_submodules = array();
+    foreach ($tracelytics_submodules as $tracelytics_module => $traceview_module) {
+      if (module_exists($tracelytics_module)) {
+        $traceview_submodules[] = $traceview_module;
+      }
+    }
+    module_disable(array('tracelytics'), TRUE);
+    drupal_uninstall_modules(array('tracelytics'), TRUE);
+    module_enable($traceview_submodules, TRUE);
+  }
+
+  // @todo remove this and reset module weight to 0 after traceview fixes
+  // the bug.
+  // Tracelytics needs to run its hook_X calls immediately before
+  // traceview_early so that 'info' layer calls are not wrapped in
+  // custom drupal_X layers to work around a bug in traceview oboe_log.
+  db_update('system')
+    ->fields(array('weight' => -10001))
+    ->condition('name', 'traceview', '=')
+    ->execute();
+}
+
+/**
+ * Implements hook_requirements().
+ *
+ * Indicate whether the oboe php extension requirement is met.
+ */
+function traceview_requirements($phase) {
+  $requirements = array();
+
+  switch ($phase) {
+    case 'install':
+    case 'runtime':
+      if (!extension_loaded('oboe')) {
+        $requirements['traceview'] = array(
+          'value' => t('Not installed'),
+          'severity' => REQUIREMENT_ERROR,
+          'description' => t('The TraceView module requires the oboe php extension to be installed.'),
+        );
+      }
+      else {
+        $requirements['traceview'] = array(
+          'value' => t('Installed'),
+          'severity' => REQUIREMENT_OK,
+        );
+      }
+      $requirements['traceview']['title'] = t('Oboe PHP Extension (traceview)');
+      break;
+
+    case 'update':
+      // Partition update traffic.
+      if (variable_get('traceview_partition_traffic', FALSE)) {
+        traceview_set_partition('Update');
+      }
+
+      // Track active menu item.
+      if (variable_get('traceview_track_menu', FALSE)) {
+        $controller = array(
+          'Controller' => 'update',
+          'Action' => NULL,
+        );
+        traceview_set_controller($controller, TRUE, FALSE);
+      }
+      break;
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function traceview_uninstall() {
+  $traceview_vars = array(
+    'traceview_partition_traffic',
+    'traceview_track_menu',
+    'traceview_log_errors',
+    'traceview_layers',
+    'traceview_partition_drush_traffic',
+    'traceview_track_drush_commands',
+    'traceview_drupal_http_request',
+    'traceview_key',
+    'traceview_annotation_appname',
+    'traceview_annotation_username',
+    'traceview_annotate_modules',
+  );
+  foreach ($traceview_vars as $var) {
+    variable_del($var);
+  }
+}

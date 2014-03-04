@@ -221,6 +221,14 @@ function _checkdesk_tests_new($form, $form_state) {
     '#prefix' => '<div id="checkdesk-tests-new-steps">',
     '#suffix' => '</div>',
   );
+
+  // Remove blank steps
+  foreach ($form_state['input']['checkdesk_tests_steps'] as $id => $input) {
+    if (empty($input['type']) && empty($input['step'])) {
+      unset($form_state['input']['checkdesk_tests_steps'][$id]);
+      $form_state['storage']['steps']--;
+    }
+  }
   
   $form_state['storage']['steps']++;
 

@@ -1,0 +1,25 @@
+<?php
+
+function traceview_services_traceview_controller_alter(&$controller) {
+  $traceview_controller = traceview_services_set_controller();
+  if (!empty($traceview_controller)) {
+    $controller = $traceview_controller;
+  }
+}
+
+function traceview_services_services_request_preprocess_alter(&$controller, $args, $options) {
+  $endpoint_name = services_get_server_info('endpoint');
+  $action = $controller['callback'];
+  traceview_services_set_controller($endpoint_name, $action);
+}
+
+function traceview_services_set_controller($controller = NULL, $action = NULL) {
+  static $traceview_controller = array();
+  if (!empty($controller) && !empty($action)) {
+    $traceview_controller = array(
+      'Controller' => $controller,
+      'Action' => $action,
+    );
+  }
+  return $traceview_controller;
+}

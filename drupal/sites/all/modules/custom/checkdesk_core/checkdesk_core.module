@@ -682,8 +682,8 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   }
 
   // Reports or stories can be shared, edited or deleted
-  if (in_array($node->type, array('discussion', 'media'))) {
-    if (node_access('update', $node)) {
+  if (in_array($node->type, array('discussion', 'media', 'post'))) {
+    if (node_access('update', $node) && $node->type != 'post') {
       $links['checkdesk-edit'] = array(
         'title' => t('Edit'),
         'href' => 'node/' . $node->nid . '/edit',
@@ -692,8 +692,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         ),
       );
     }
-    if (node_access('delete', $node)) {
-
+    if (node_access('delete', $node) && $node->type != 'post') {
       // After deleting the report, redirect to current page or previous page, if the current page is the report to be removed
       $destination = current_path();
       if (($destination == 'node/' . $node->nid) || (arg(0) == 'report-view-modal' && arg(2) == $node->nid)) {
@@ -722,7 +721,6 @@ function _checkdesk_core_node_links($node, $account = NULL) {
           $destination = '<front>';
         }
       }
-
       $links['checkdesk-delete'] = array(
         'title' => t('Delete'),
         'href' => 'node/' . $node->nid . '/delete',
@@ -735,23 +733,13 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
     }
-
-    if ($node->type == 'discussion') {
-      // parent share link with title
-      $links['checkdesk-share'] = array(
-        'title' => t('Share'),
-        'href' => '#',
-        'attributes' => array('title' => $node->title),
-      );
-    }
-
+    // parent share link with title
+    $links['checkdesk-share'] = array(
+      'title' => ($node->type == 'media') ? '' : t('Share'),
+      'href' => '#',
+      'attributes' => array('title' => $node->title),
+    );
     if ($node->type == 'media') {
-      // parent share link without title
-      $links['checkdesk-share'] = array(
-        'title' => '',
-        'href' => '#',
-        'attributes' => array('title' => $node->title),
-      );
       $links['checkdesk-share-embed'] = array(
         'html' => TRUE,
         'title' => t('Embed this report') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
@@ -760,7 +748,6 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       );
     }
   }
-
   // Links for stories, not as a dropdown menu.
   // if ($node->type == 'discussion') {
   //   if (node_access('update', $node)) {
@@ -2427,3 +2414,13 @@ function checkdesk_core_search_preprocess($text) {
   return $text;
 }
 
+/**
+ * Implements of hook_system_info_alter().
+ */
+function checkdesk_core_system_info_alter(&$info, $file, $type) {
+  //prevent overlay module from being enabled Issue #2039.
+  if ($file->name == 'overlay' && $type == 'module') {
+    //add dependencies to non exist module.
+    $info['dependencies'] = array('checkdesk_not_exist');
+  }
+}
