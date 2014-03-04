@@ -2452,3 +2452,10 @@ function checkdesk_core_direction_settings() {
 
   return $layout;
 }
+/*
+ * Implements of hook_core_pathauto_alias_alter().
+ */
+function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
+  // Force all aliases to be saved as language neutral.
+  $context['language'] = LANGUAGE_NONE;
+}
