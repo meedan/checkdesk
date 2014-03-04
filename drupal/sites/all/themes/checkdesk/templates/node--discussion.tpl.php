@@ -1,10 +1,17 @@
-<?php
-  // dsm($content);
-  // dsm($node);
-?>
-
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
+
+    <?php if(isset($content['field_lead_image'])) { ?>
+      <figure>
+        <?php print render(field_view_field('node', $node, 'field_lead_image', 'featured_image')); ?>
+      </figure>
+    <?php } ?>
+
+    <h1 class="title">
+      <?php print render($node->title); ?>
+    </h1>
+
+
     <div class="story-meta">
       <div class="story-attributes">
         <?php if (isset($user_avatar)) : ?>
@@ -14,7 +21,7 @@
         <?php if (isset($story_commentcount)) { ?>
         <div class="story-commentcount">
           <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
-            <span class="icon-comment"><?php print render($story_commentcount); ?></span>
+            <span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
           </a>
         </div>
       <?php } ?>
@@ -28,12 +35,6 @@
   	<?php // print render($content['story_status']); ?>
   	<?php // print render($content['story_drafts']); ?>
   	<?php // print render($content['story_blogger']); ?>
-
-    <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
-        <?php print render(field_view_field('node', $node, 'field_lead_image', 'featured_image')); ?>
-      </figure>
-    <?php } ?>
 
   	<div class="story-body">
   		<?php print render($content['body']); ?>

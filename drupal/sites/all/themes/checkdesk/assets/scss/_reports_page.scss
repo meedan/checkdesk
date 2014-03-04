@@ -152,15 +152,15 @@ body.page-reports, .profile {
       // status icons
       .verified span {
         color: $green;
-        @include icon(ok-sign, 16px, darken($green, 15%)); 
+        @include icon(check-circle, 16px, darken($green, 15%)); 
       }
       .false span {
         color: $red;
-        @include icon(remove-sign, 16px, darken($red, 15%)); 
+        @include icon(times-circle, 16px, darken($red, 15%)); 
       }
       .undetermined span {
         color: $orange;
-        @include icon(question-sign, 16px, darken($orange, 15%)); 
+        @include icon(question-circle, 16px, darken($orange, 15%)); 
       }
       .in_progress span {
         color: $yellow;
@@ -192,7 +192,7 @@ body.page-reports, .profile {
         @if $alpha == 'right' {
           background-image: url(../imgs/published-ar.png);
         }
-        // @include icon(file-alt, 22px, $black, 'after');
+        // @include icon(file-o, 22px, $black, 'after');
 
         span {
           display: none;

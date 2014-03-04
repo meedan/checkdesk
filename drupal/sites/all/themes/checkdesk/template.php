@@ -191,6 +191,12 @@ function checkdesk_preprocess_page(&$variables) {
     }
   }
 
+  // Page templates for each node type
+  if (isset($variables['node'])) {
+  // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
+   $variables['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $variables['node']->type);
+  }
+
   // dsm($variables['language']->language);
 
   // Unescape HTML in title
@@ -528,19 +534,6 @@ function checkdesk_preprocess_page(&$variables) {
 function checkdesk_preprocess_node(&$variables) {
 
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
-    //Add author info to variables
-    $user = user_load($variables['elements']['#node']->uid);
-    $user_picture = $user->picture;
-    if (!empty($user_picture)) {
-      $options = array(
-        'html' => TRUE,
-        'attributes' => array(
-          'class' => 'gravatar'
-        )    
-      );
-      $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
-    }
-
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
     $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
@@ -578,6 +571,21 @@ function checkdesk_preprocess_node(&$variables) {
       '!interval' => format_interval((time() - $variables['changed']), 1),
       '!timezone' => $timezone,
     ));
+  }
+
+  if($variables['type'] == 'post') {
+    //Add author info to variables
+    $user = user_load($variables['elements']['#node']->uid);
+    $user_picture = $user->picture;
+    if (!empty($user_picture)) {
+      $options = array(
+        'html' => TRUE,
+        'attributes' => array(
+          'class' => 'gravatar'
+        )    
+      );
+      $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
+    }
   }
 
   if ($variables['type'] == 'discussion') {
@@ -631,7 +639,7 @@ function checkdesk_preprocess_node(&$variables) {
           'class' => 'gravatar'
         )    
       );
-      $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
+      // $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time
     $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>', array(
@@ -661,7 +669,7 @@ function checkdesk_preprocess_node(&$variables) {
         $icon = '';
         if ($status_name == 'Verified') {
           $status_class = 'verified';
-          $icon = '<span class="icon-ok-sign"></span> ';
+          $icon = '<span class="icon-check-circle"></span> ';
         }
         elseif ($status_name == 'In Progress') {
           $status_class = 'in-progress';
@@ -669,11 +677,11 @@ function checkdesk_preprocess_node(&$variables) {
         }
         elseif ($status_name == 'Undetermined') {
           $status_class = 'undetermined';
-          $icon = '<span class="icon-question-sign"></span> ';
+          $icon = '<span class="icon-question-circle"></span> ';
         }
         elseif ($status_name == 'False') {
           $status_class = 'false';
-          $icon = '<span class="icon-remove-sign"></span> ';
+          $icon = '<span class="icon-times-circle"></span> ';
         }
         // Display "{status} by {partner site name}" for all statuses
         // except when the report is in progress
@@ -694,7 +702,7 @@ function checkdesk_preprocess_node(&$variables) {
         $variables['media_activity_footer'] = '';
       }
       else {
-        $icon = '<span class="icon-question-sign"></span> ';
+        $icon = '<span class="icon-question-circle"></span> ';
         $link = l(t('About verification process'), 'modal/ajax/content/fact-checking-statement', array('html' => 'true', 'language' => $language, 'attributes' => array('class' => array('use-ajax', 'ctools-modal-modal-popup-large'))));
         $variables['media_activity_footer'] = '<span class="cta">' . t('To help verify this report, please <a href="@login_url">sign in</a>', array('@login_url' => url('user/login'))) . '</span><span class="helper">' . $icon . $link . '</span>';
       }
@@ -815,7 +823,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-horizontal">&nbsp;</span></a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h">&nbsp;</span></a>';
       $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';

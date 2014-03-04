@@ -66,20 +66,20 @@
     }
 
     // icons
-    .icon-time {
-    	@include icon(time, $base-font-size, $firefly20);
+    .icon-clock-o {
+    	@include icon(clock-o, $base-font-size, $firefly20);
     }
     .icon-share {
       @include icon(share, $small-font-size, $firefly20);
     }
-    .icon-edit-sign {
-      @include icon(edit-sign, $small-font-size, $firefly20);
+    .icon-pencil-square {
+      @include icon(pencil-square, $small-font-size, $firefly20);
     }
 
     // by
     .update-by {
       @include ctb-clearfix;
-			margin-bottom: $absolute-line-height/4;
+			// margin-bottom: $absolute-line-height/4;
       a {
         float: $alpha; 
       }
@@ -123,8 +123,8 @@
 								color: $identity;
 							}	
 							
-							&.icon-reorder {
-								@include icon(reorder, $small-font-size, $darker-grey);
+							&.icon-bars {
+								@include icon(bars, $small-font-size, $darker-grey);
 								margin-#{$omega}: $gutter-width;
 							}
 						}

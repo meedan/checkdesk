@@ -51,15 +51,18 @@ $large-icon-font-size: 18px;
     @extend %icon-#{$icon}:before; // 2. class selector with dynamic name w/ @extend'ed placeholder
 
     // 3. basic layout
-    font-size: $size;
-    line-height: inherit;
-    color: $color;
+    display: inline-block;
     margin: $margin;
-    width: auto;
+    *margin-right: .3em; // fixes ie7 issues
+    
+    color: $color;
+    font-size: $size;
+    font-style: normal;
+    font-weight: normal;
+    line-height: inherit;
     vertical-align: baseline;
     -webkit-font-smoothing: antialiased;
-    *margin-right: .3em; // fixes ie7 issues
-    font-weight: normal;
+    -moz-osx-font-smoothing: grayscale;
 
     // 4. content (for any extra)
     @content;

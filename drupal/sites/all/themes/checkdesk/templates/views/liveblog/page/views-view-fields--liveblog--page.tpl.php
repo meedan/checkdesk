@@ -57,18 +57,22 @@
 ?>
 <div class="desk" id="desk-<?php print $fields['nid']->raw; ?>" style="clear: both;">
   <article class="story">
+    
+    <?php if(isset($fields['field_lead_image']->content)) { ?>
+      <figure>
+        <?php print render($fields['field_lead_image']->content); ?>
+      </figure>
+    <?php } ?>
+
     <h1><?php print l($fields['title']->raw, 'node/' . $fields['nid']->raw); ?></h1>
 
     <div class="story-meta">
       <div class="story-attributes">
-        <?php if (isset($user_avatar)) : ?>
-          <?php print $user_avatar; ?>
-        <?php endif; ?>
         <?php print $author; ?> <span class="separator">&#9679;</span> <?php print render($fields['created']->content); ?>
         <?php if (isset($story_commentcount)) { ?>
           <div class="story-commentcount">
             <a href="<?php print url('node/' . $fields['nid']->raw, array('fragment' => 'story-comments-' . $fields['nid']->raw)); ?>">
-              <span class="icon-comment"><?php print render($story_commentcount); ?></span>
+              <span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
             </a>
           </div>
         <?php } ?>
@@ -77,12 +81,6 @@
         <?php print $share_link; ?>
       </ul>
     </div>
-
-    <?php if(isset($fields['field_lead_image']->content)) { ?>
-      <figure>
-        <?php print render($fields['field_lead_image']->content); ?>
-      </figure>
-    <?php } ?>
 
     <div class="story-body">
       <?php print render($fields['body']->content); ?>

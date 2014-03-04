@@ -77,18 +77,18 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   // Step one  ...
   h2 {
     @include reset-box-model;
-    color: $grey;
+    color: $firefly60;
     font-size: $base-font-size;
     float: $from-direction;
-    margin: $absolute-line-height/2 0 0 0;
+    // margin: $absolute-line-height/2 0 0 0;
     line-height: $absolute-line-height;
   }
 
   #meedan_bookmarklet_help {
     // position: absolute;
     // top: 0;
-    padding-top: $absolute-line-height / 2;
-    line-height: $absolute-line-height;
+    // padding-top: $absolute-line-height / 2;
+    line-height: 1.2;
     // #{$omega-float}: $gutter-width;
 
     span {
@@ -152,7 +152,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   }
 
   #meedan_bookmarklet_preview_gc {
-    background: $grey;
+    background: $firefly40;
     color: $firefly60;
     padding-top: 85px;
     height: $bookmarklet-preview-max-height;
@@ -346,7 +346,8 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   font-size: $small-font-size;
   overflow: hidden;
   position: relative;
-  padding: 0;
+  padding: 0 !important;
+  margin: 5px $gutter-width !important;
   @include bookmarklet-forms;
   @include bookmarklet-login;
   @include bookmarklet-alerts;
@@ -356,8 +357,8 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
 
 #meedan_bookmarklet_close {
   position: absolute;
-  #{opposite-position($from-direction)}: $gutter-width;
-  top: 2px;
+  #{opposite-position($from-direction)}: 0;
+  top: -2px;
   z-index: 2;
 }
 

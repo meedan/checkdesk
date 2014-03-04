@@ -28,20 +28,8 @@ h1, h2, h3, h4 {
 
 h1 {
   font-style: normal;
-  @if $from-direction == 'right' {
-    font-size: 46px;
-    line-height: 66px;
-    font-weight: 700;
-  }
-  
-  @if $from-direction == 'left' {
-    font-size: 48px;
-    letter-spacing: -1px;
-    font-weight: 700;
-    line-height: 56px;
-  }
-  
   color: $firefly90;
+  line-height: 1.2;
 }
 
 // Navigation 
