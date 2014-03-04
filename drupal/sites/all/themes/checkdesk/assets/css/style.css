@@ -2034,10 +2034,6 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f0c1";
 }
 
-.update .update-footer .update-actions ul.content-actions > li > a span.icon-bars:before {
-  content: "\f0c9";
-}
-
 #widgets .elsewhere ul li span.icon-google-plus:before {
   content: "\f0d4";
 }
@@ -3519,7 +3515,7 @@ ul.dropdown-menu a {
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0;
-  color: #333333;
+  color: #404d59;
   background-color: white;
 }
 ul.dropdown-menu a:hover {
@@ -4222,7 +4218,7 @@ div.tabs ul.primary li a {
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0;
-  color: #333333;
+  color: #404d59;
   background-color: white;
   color: #6f7a82;
 }
@@ -4871,6 +4867,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
+  color: #283743;
 }
 .report #report-actions ul.content-actions > li > a:hover {
   color: #10212f;
@@ -6398,32 +6395,43 @@ div.sensitive-hide {
   margin-right: 30px;
   margin-bottom: 1em;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #cfd3d5;
-}
-.update .update-footer a {
-  color: #cfd3d5;
-}
-.update .update-footer a:hover {
-  color: #6f7a82;
-  text-decoration: none;
 }
 .update .update-footer .update-meta {
   margin: 0;
   padding: 0;
-  font-size: 14px;
 }
 .update .update-footer .update-meta li {
   list-style: none;
 }
-.update .update-footer .update-meta li {
+.update .update-footer .update-meta > li {
+  font-size: 14px;
+  color: #cfd3d5;
   padding: 6px 0;
   border-bottom: 1px solid #e7e8ea;
 }
-.update .update-footer .update-meta li:last-child {
+.update .update-footer .update-meta > li a {
+  color: #cfd3d5;
+}
+.update .update-footer .update-meta > li a:hover {
+  color: #6f7a82;
+  text-decoration: none;
+}
+.update .update-footer .update-meta > li:last-child {
   border-bottom: 0px none;
 }
-.update .update-footer .update-meta li span {
+.update .update-footer .update-meta > li span {
   font-weight: 400;
+}
+.update .update-footer .update-share .dropdown-menu {
+  font-size: 15px;
+  color: #283743;
+}
+.update .update-footer .update-share .dropdown-menu a {
+  color: #283743;
+}
+.update .update-footer .update-share .dropdown-menu a:hover {
+  color: white;
+  text-decoration: none;
 }
 .update .update-footer .icon-clock-o:before {
   font-family: "FontAwesome";
@@ -6498,56 +6506,6 @@ div.sensitive-hide {
 .update .update-footer .update-by .gravatar img {
   width: 15px;
   height: 15px;
-}
-.update .update-footer .update-actions ul.content-actions {
-  margin: 0;
-  padding: 0;
-  margin: 0;
-  padding: 0;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  display: block;
-}
-.update .update-footer .update-actions ul.content-actions li {
-  list-style: none;
-}
-.update .update-footer .update-actions ul.content-actions > li > a {
-  margin: 0;
-  padding: 0;
-  color: #6f7a82;
-  display: block;
-}
-.update .update-footer .update-actions ul.content-actions > li > a:hover {
-  color: #10212f;
-  text-decoration: none;
-}
-.update .update-footer .update-actions ul.content-actions > li > a span {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-}
-.update .update-footer .update-actions ul.content-actions > li > a span:hover {
-  color: #2e77fc;
-}
-.update .update-footer .update-actions ul.content-actions > li > a span.icon-bars {
-  margin-right: 15px;
-}
-.update .update-footer .update-actions ul.content-actions > li > a span.icon-bars:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: black;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 html body .fyre-widget {
@@ -7567,7 +7525,7 @@ body.toolbar-drawer #main #content {
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0;
-  color: #333333;
+  color: #404d59;
   background-color: white;
 }
 #my-account #account-menu a:hover {

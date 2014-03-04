@@ -28,7 +28,9 @@
           <?php print $created_by; ?>
         </li>
         <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) { ?>
-          <?php print render($content['links']); ?>
+          <li class="update-share">
+            <?php print render($content['links']); ?>
+          </li>
           <li class="update-edit">
             <?php print l('<span class="icon-pencil-square"></span>'. t('Edit'), 'node/' . $node->nid . '/edit', array('html'=>TRUE)); ?>
           </li>

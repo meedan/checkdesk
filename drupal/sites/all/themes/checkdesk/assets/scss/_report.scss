@@ -85,6 +85,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 					text-align: center;
 					@include transition-property(all);
 					@include transition-duration(0.2s);
+					color: $firefly90;
 					&:hover { 
 						color: $firefly;
 						text-decoration: none;

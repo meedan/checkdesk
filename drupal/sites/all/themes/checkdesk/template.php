@@ -743,7 +743,7 @@ function checkdesk_links__node($variables) {
   $class[] = 'content-actions';
 
   // get $alpha and $omega 
-  $layout = checkdesk_direction_settings();
+  $layout = checkdesk_core_direction_settings();
 
   $output = '';
 
@@ -770,7 +770,8 @@ function checkdesk_links__node($variables) {
       $output .= '<li class="share-on">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . $links['checkdesk-share']['title'] . '</span></a>';
       
-      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
+      $output .= '<ul class="dropdown-menu pull-'. $links['dropdown-direction'] .'">';
+
       if (isset($links['checkdesk-share-facebook'])) {
         $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
       }
@@ -1307,25 +1308,6 @@ function checkdesk_preprocess_user_profile(&$variables) {
   $variables['reports'] = $reports->preview('block_1');
   $reports->destroy();
 }
-
-/**
- * Utility function to set $alpha and $omega for layouts
- */
-function checkdesk_direction_settings() {
-  // set $alpha and $omega for language directions
-  global $language;
-  $layout = array();
-  if ($language->direction == LANGUAGE_RTL) {
-    $layout['alpha'] = 'right';
-    $layout['omega'] = 'left';
-  } else {
-    $layout['alpha'] = 'left';
-    $layout['omega'] = 'right';
-  }
-
-  return $layout;
-}
-
 
 /* 
  * Utility function to set timezone as City, Country

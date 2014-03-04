@@ -729,6 +729,16 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         ),
       );
     }
+
+    // set direction of the dropdown
+    $layout = checkdesk_core_direction_settings();
+    // Set direction for Updates
+    if ($node->type == 'post') {
+      $links['dropdown-direction'] = $layout['alpha'];
+    } else {
+      $links['dropdown-direction'] = $layout['omega'];
+    }
+    
     $share_links = checkdesk_core_share_links($url, $node->title);
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
@@ -2423,4 +2433,22 @@ function checkdesk_core_system_info_alter(&$info, $file, $type) {
     //add dependencies to non exist module.
     $info['dependencies'] = array('checkdesk_not_exist');
   }
+}
+
+/**
+ * Utility function to set $alpha and $omega for layouts
+ */
+function checkdesk_core_direction_settings() {
+  // set $alpha and $omega for language directions
+  global $language;
+  $layout = array();
+  if ($language->direction == LANGUAGE_RTL) {
+    $layout['alpha'] = 'right';
+    $layout['omega'] = 'left';
+  } else {
+    $layout['alpha'] = 'left';
+    $layout['omega'] = 'right';
+  }
+
+  return $layout;
 }

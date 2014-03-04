@@ -18,7 +18,7 @@
 
   $links = array();
   $url = url('node/' . $fields['nid']->raw, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
-  $layout = checkdesk_direction_settings();
+  $layout = checkdesk_core_direction_settings();
   $share_links = checkdesk_core_share_links($url, $fields['title']->raw);
   foreach ($share_links as $id => $link) {
     $links[$id] = $link;
