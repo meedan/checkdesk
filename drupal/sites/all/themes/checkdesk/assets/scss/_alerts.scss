@@ -65,24 +65,26 @@
 }
 
 // Dismiss alert
-.alert .close {
+.messages .messageclose, .alert .close {
   float: $omega;
-  font-size: $fontSizeSmall;
+  font-size: 24px;
   font-weight: bold;
   line-height: 1;
-  color: $black;
-  @include cd-dark-text-shadow;
-  @include opacity(0.2);
+  color: rgba($firefly, 0.80);
   &:hover {
-    color: $black;
+    color: $firefly;
     text-decoration: none;
     cursor: pointer;
-    @include opacity(0.4);
   }
 }
 
+// When inline add space
+.messages-inline .messageclose {
+  margin-#{$from-direction}: $gutter-width;
+}
+
 // Close icons
-.close, .user-alert-close {
+.messageclose, .close, .user-alert-close {
   float: $omega;
   font-size: 20px;
   font-weight: bold;

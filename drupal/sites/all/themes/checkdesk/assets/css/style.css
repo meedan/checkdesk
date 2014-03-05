@@ -3423,25 +3423,24 @@ textarea {
   margin: 6px 0;
 }
 
-.alert .close {
+.messages .messageclose, .alert .close {
   float: right;
-  font-size: 15.3px;
+  font-size: 24px;
   font-weight: bold;
   line-height: 1;
-  color: black;
-  text-shadow: rgba(0, 0, 0, 0.8) 0 1px 0;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
-  opacity: 0.2;
+  color: rgba(16, 33, 47, 0.8);
 }
-.alert .close:hover {
-  color: black;
+.messages .messageclose:hover, .alert .close:hover {
+  color: #10212f;
   text-decoration: none;
   cursor: pointer;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
-  opacity: 0.4;
 }
 
-.close, .user-alert-close {
+.messages-inline .messageclose {
+  margin-left: 15px;
+}
+
+.messageclose, .close, .user-alert-close {
   float: right;
   font-size: 20px;
   font-weight: bold;
@@ -3451,7 +3450,7 @@ textarea {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
   opacity: 0.2;
 }
-.close:hover, .user-alert-close:hover {
+.messageclose:hover, .close:hover, .user-alert-close:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;

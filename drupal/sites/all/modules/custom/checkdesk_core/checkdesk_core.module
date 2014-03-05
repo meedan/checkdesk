@@ -1663,7 +1663,7 @@ function checkdesk_core_user_register_form_submit(&$form, &$form_state) {
 function checkdesk_core_user_insert(&$edit, $account, $category) {
   module_load_include('lib.php', 'twitter');
   //Add new citizen journalist role to all registered users if they don't have another role
-  if (!isset($edit['roles']) || empty($edit['roles']) || array_keys($edit['roles']) === array(DRUPAL_AUTHENTICATED_RID)) {
+  if ((!isset($edit['roles']) || empty($edit['roles']) || array_keys($edit['roles']) === array(DRUPAL_AUTHENTICATED_RID)) && !isset($account->role)) {
     $user_roles = array_flip(user_roles(TRUE));
     $account->roles = array($user_roles['citizen journalist'] => $user_roles['citizen journalist']) + $edit['roles'];
   }
