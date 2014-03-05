@@ -44,20 +44,20 @@
   	margin-#{$omega}: $gutter-width*2;
     margin-bottom: 1em;
     @include cd-sans-serif-family;
-    color: $firefly20;
-    a { 
-      color: $firefly20; 
-      &:hover { 
-        color: $firefly60; 
-        text-decoration: none;
-      }
-    }
 
     .update-meta {
     	@include reset-list-style;
-      // float: $alpha;
-      font-size: 14px; // 16px
-    	li {
+    	& > li {
+        font-size: 14px;
+        color: $firefly20;
+        a { 
+          color: $firefly20; 
+          &:hover { 
+            color: $firefly60; 
+            text-decoration: none;
+          }
+        }
+
     		padding: $absolute-line-height/4 0;
     		border-bottom: 1px solid $firefly10;
     		&:last-child { border-bottom: 0px none; }
@@ -65,21 +65,36 @@
     	}
     }
 
+    // share
+    .update-share {
+      .dropdown-menu {
+        font-size: 15px;
+        color: $firefly90;
+        a { 
+          color: $firefly90; 
+          &:hover { 
+            color: $white; 
+            text-decoration: none;
+          }
+        }
+      }
+    } // update share
+
     // icons
-    .icon-time {
-    	@include icon(time, $base-font-size, $firefly20);
+    .icon-clock-o {
+    	@include icon(clock-o, $base-font-size, $firefly20);
     }
     .icon-share {
       @include icon(share, $small-font-size, $firefly20);
     }
-    .icon-edit-sign {
-      @include icon(edit-sign, $small-font-size, $firefly20);
+    .icon-pencil-square {
+      @include icon(pencil-square, $small-font-size, $firefly20);
     }
 
     // by
     .update-by {
       @include ctb-clearfix;
-			margin-bottom: $absolute-line-height/4;
+			// margin-bottom: $absolute-line-height/4;
       a {
         float: $alpha; 
       }
@@ -97,40 +112,5 @@
       }
 		} 
 
-		// actions
-	  .update-actions {
-      ul.content-actions {
-        @include reset-box-model;
-        @include reset-list-style;
-        @include border-radius(4px);
-        display: block;
-
-        & > li {
-          & > a {
-						@include reset-box-model;
-            color: $firefly60;
-						display: block;
-
-						&:hover { 
-							color: $firefly;
-							text-decoration: none;
-						}
-
-						span {
-							@include reset-box-model;
-							display: inline-block;
-							&:hover {
-								color: $identity;
-							}	
-							
-							&.icon-reorder {
-								@include icon(reorder, $small-font-size, $darker-grey);
-								margin-#{$omega}: $gutter-width;
-							}
-						}
-    			}
-        }
-      } // content actions
-	  } // update actions
   } // update footer
 } // update

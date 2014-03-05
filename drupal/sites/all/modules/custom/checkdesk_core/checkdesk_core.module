@@ -629,7 +629,14 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     $account = $user;
   }
   $links = array();
-  $url = url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
+  if ($node->type == 'post') {
+    $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+    $update_anchor = 'update-' . $node->nid;
+    $url = url('node/'.$parent_story_id, array('absolute' => TRUE, 'alias' => TRUE, 'fragment' => $update_anchor, 'language' => $language));
+  }
+  else {
+    $url = url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
+  }
 
   // Try to gracefully redirect the user back to where they were. In some cases
   // this is not a simple task. Ajax based UI is especially difficult.
@@ -729,6 +736,16 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         ),
       );
     }
+
+    // set direction of the dropdown
+    $layout = checkdesk_core_direction_settings();
+    // Set direction for Updates
+    if ($node->type == 'post') {
+      $links['dropdown-direction'] = $layout['alpha'];
+    } else {
+      $links['dropdown-direction'] = $layout['omega'];
+    }
+    
     $share_links = checkdesk_core_share_links($url, $node->title);
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
@@ -2423,4 +2440,29 @@ function checkdesk_core_system_info_alter(&$info, $file, $type) {
     //add dependencies to non exist module.
     $info['dependencies'] = array('checkdesk_not_exist');
   }
+}
+
+/**
+ * Utility function to set $alpha and $omega for layouts
+ */
+function checkdesk_core_direction_settings() {
+  // set $alpha and $omega for language directions
+  global $language;
+  $layout = array();
+  if ($language->direction == LANGUAGE_RTL) {
+    $layout['alpha'] = 'right';
+    $layout['omega'] = 'left';
+  } else {
+    $layout['alpha'] = 'left';
+    $layout['omega'] = 'right';
+  }
+
+  return $layout;
+}
+/*
+ * Implements of hook_core_pathauto_alias_alter().
+ */
+function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
+  // Force all aliases to be saved as language neutral.
+  $context['language'] = LANGUAGE_NONE;
 }

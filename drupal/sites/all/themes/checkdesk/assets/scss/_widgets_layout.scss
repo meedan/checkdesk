@@ -88,7 +88,7 @@
       #content-inner {
         @include ctb-clearfix;
         max-width: 850px;
-        padding-top: $base-line-height*2;
+        padding-top: $absolute-line-height*1.5;
         @include pad(1,2, $breakpoint);
       }
     }
@@ -188,7 +188,7 @@ body.widgets { @extend %widgets-layout-1col; }
         span {
           &.icon-facebook  { @include icon("facebook", $larger-font-size, $facebook-blue); } 
           &.icon-twitter  { @include icon("twitter", $larger-font-size, $twitter-blue); }
-          &.icon-google-plus  { @include icon("google-plus-sign", 40px, $red); }
+          &.icon-google-plus  { @include icon("google-plus-square", 40px, $red); }
           // social icons seem to be larger
           &.icon-youtube  { 
             @include icon("youtube", $larger-font-size, $red); 

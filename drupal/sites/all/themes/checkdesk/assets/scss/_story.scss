@@ -77,9 +77,6 @@
   }
 }
 
-// ark_20130126: Omega not set, not sure why?
-$omega: opposite-position($alpha);
-
 .story {
   @include ctb-clearfix;
   text-align: $alpha;
@@ -104,39 +101,66 @@ $omega: opposite-position($alpha);
   //   }
   // }
 
+  figure {
+    // margin: 0 0 $absolute-line-height/2 0;
+  }
+
+
+  h1 {
+    font-style: normal;
+    @if $from-direction == 'right' {
+      font-size: 46px;
+      line-height: 66px;
+      font-weight: 700;
+    }
+    
+    @if $from-direction == 'left' {
+      font-size: 48px;
+      letter-spacing: -1px;
+      font-weight: 700;
+      line-height: 56px;
+    }
+    
+    color: $firefly90;
+    margin: $absolute-line-height*1.25 0 $absolute-line-height/1.5;
+  }
+
   .story-meta {
     @include ctb-clearfix;
-    // border-top: 4px solid $firefly90;
-    padding-top: $absolute-line-height/2;
     @include cd-sans-serif-family;
-    color: $firefly60; 
+    color: $thatch80;
     .separator {
-      color: $firefly30; 
+      color: rgba($thatch, .60);
+      font-size: 10px;
+      margin: 0 2px;
     }
     .gravatar {
       margin-#{$omega}: $gutter-width/2;
     }
-    a.contributor { 
-      font-weight: 700;
-      color: $firefly60; 
+    a.contributor {
+      font-family: $serif-font-stack;
+      font-style: italic;
+      color: $thatch80; 
       &:hover { 
-        color: $firefly80; 
+        color: $thatch; 
         text-decoration: none;
       }
     }
     .story-attributes {
       float: $alpha;
+      width: 80%;
       .story-commentcount {
+        margin-#{$from-direction}: $gutter-width/2;
         display: inline-block;
         a {
-          color: $firefly60; 
+          color: $dodgerBlue60; 
           &:hover {
-            color: $firefly80; 
+            color: $dodgerBlue80; 
             text-decoration: none;
           }
         }
-        .icon-comment {
-          @include icon(comments, $base-font-size, $firefly30);  
+        .icon-comment-o {
+          @include icon(comment-o, $base-font-size);  
         }
         
       }
@@ -145,6 +169,7 @@ $omega: opposite-position($alpha);
     ul.content-actions {
       @include reset-list-style;
       float: $omega;
+      width: 20%;
       .add-to {
         display: none;
       }
@@ -164,6 +189,27 @@ $omega: opposite-position($alpha);
           letter-spacing: 0.08em;
           color: $firefly30;
         }
+      }
+    }
+  }
+
+  .story-body {  
+    @include ctb-clearfix;
+    margin: $absolute-line-height*2.5 0 $absolute-line-height/2;
+    color: $firefly80;
+    @include cd-serif-family;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: normal;
+    font-weight: 400;
+    @if $from-direction == left {
+      letter-spacing: -0.5px;
+    }
+    p {
+      margin: 0 0 $absolute-line-height/2.4 0;
+      max-width: 560px;
+      &:first-child {
+        // margin: 0 0;
       }
     }
   }
@@ -233,30 +279,7 @@ $omega: opposite-position($alpha);
     .story-blogger-status-online .blogger-status-indicator { background-color: $green; }
   }
 
-  figure {
-    margin: $absolute-line-height/2 0;
-  }
-
-  .story-body {  
-    @include ctb-clearfix;
-    margin: $absolute-line-height/2 0;
-    color: $firefly80;
-    @include cd-serif-family;
-    font-size: 18px;
-    line-height: 30px;
-    font-weight: normal;
-    font-weight: 400;
-    @if $from-direction == left {
-      letter-spacing: -0.5px;
-    }
-    p {
-      margin: 0 0 $absolute-line-height/2.4 0;
-      max-width: 560px;
-      &:first-child {
-        // margin: 0 0;
-      }
-    }
-  }
+  
 
   // compose / create update form
   .compose-update-form {

@@ -234,3 +234,32 @@ function checkdesk_core_update_7023() {
   //Update alias for update content.
   db_query("INSERT INTO {url_alias} (source, alias, language) ( SELECT CONCAT('node/', nid) as source, CONCAT('update/', nid) as alias, language FROM {node} WHERE type = 'post')");
 }
+
+/**
+ * Redirect all update content to new alias {update/[nid]}
+ * Issue #2010
+ */
+function checkdesk_core_update_7024() {
+  $result =  db_query("
+    SELECT CONCAT('node/', n.nid) FROM {node} n 
+    INNER JOIN {url_alias} ua ON CONCAT('node/', n.nid) = ua.source 
+    WHERE n.type = 'post' AND alias LIKE 'liveblog/%'
+    ")->fetchAllKeyed(0, 0); 
+  db_update('url_alias')
+    ->fields(array(
+      'language' => 'und',
+    ))  
+    ->condition('source', $result, 'IN')
+    ->execute();
+}
+
+/**
+ * Update alias language to be 'und'
+ */
+function checkdesk_core_update_7025() {
+  db_update('url_alias')
+    ->fields(array(
+      'language' => 'und',
+    ))  
+    ->execute();
+}

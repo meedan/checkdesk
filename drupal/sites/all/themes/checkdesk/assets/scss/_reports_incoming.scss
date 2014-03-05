@@ -222,17 +222,17 @@
   .verified {
     color: rgba(0,140,0,1);
     background-color: rgba(0,140,0,.2);
-    span { @include icon(ok-sign, 16px); }
+    span { @include icon(check-circle, 16px); }
   }
   .false {
     color: $red;
     background-color: lighten($red, 50%);
-    span { @include icon(remove-sign, 16px); }
+    span { @include icon(times-circle, 16px); }
   }
   .undetermined {
     color: darken($orange, 10%);
     background-color: lighten($orange, 30%);
-    span { @include icon(question-sign, 16px); }
+    span { @include icon(question-circle, 16px); }
   }
   .in_progress {
     color: rgba(239,202,43,1);
@@ -258,7 +258,7 @@
     @if $alpha == 'right' {
       background-image: url(../imgs/published-ar.png);
     }
-    // @include icon(file-alt, 22px, $black, 'after');
+    // @include icon(file-o, 22px, $black, 'after');
 
     span {
       display: none;

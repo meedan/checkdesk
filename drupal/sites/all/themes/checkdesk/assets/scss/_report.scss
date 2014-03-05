@@ -39,6 +39,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 		position: absolute;
 		top: $absolute-line-height/2;
 		#{$omega}: -40px;
+		z-index: 0;
 		// Checkdesk icon
 		&:before {
 			position: absolute;
@@ -59,17 +60,17 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 			// @include transition-duration(0.2s);
 			position: relative;
 			// Dropshadow for depth
-			&:before {
-				position: absolute;
-				content: "";
-				z-index: -1;
-				top: 0;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				width: 10px;
-				@include ctb-gradient-horizontal($firefly5, rgba($firefly,0));
-			}
+			// &:before {
+			// 	position: absolute;
+			// 	content: "";
+			// 	z-index: -800;
+			// 	top: 0;
+			// 	bottom: 0;
+			// 	left: 0;
+			// 	right: 0;
+			// 	width: 10px;
+			// 	@include ctb-gradient-horizontal($firefly5, rgba($firefly,0));
+			// }
 
 
 			& > li {
@@ -84,6 +85,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 					text-align: center;
 					@include transition-property(all);
 					@include transition-duration(0.2s);
+					color: $firefly90;
 					&:hover { 
 						color: $firefly;
 						text-decoration: none;
@@ -98,7 +100,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 
 						// Flag and share on the top of the report
 						&.icon-link    			   { @include icon(link, $large-font-size); }
-						&.icon-ellipsis-horizontal { @include icon(ellipsis-horizontal, $large-font-size); }
+						&.icon-ellipsis-h { @include icon(ellipsis-h, $large-font-size); }
 						&.icon-flag    			   { @include icon(flag, $large-font-size); }
 						&.icon-share  			   { @include icon(share, $large-font-size); }
 					}
@@ -376,7 +378,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 		@include cd-sans-serif-family;
 		& > header {
 			@include ctb-clearfix();
-			padding: $absolute-line-height/3 $gutter-width $absolute-line-height/4.5;
+			padding: $absolute-line-height/3 $gutter-width;
 			background-color: $firefly10;
 			border-left: 1px solid $firefly10;
 			border-right: 1px solid $firefly10;
@@ -387,6 +389,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 				@include cd-sans-serif-family;
 				font-size: modular-scale(0) - modular-scale(-5); // 16px
 				font-weight: 700;
+				line-height: 1.5;
 			}
 			.report-status {
 				float: opposite-position($from-direction);
@@ -696,19 +699,19 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 	.current-status,
 	label.option {
 		  &.verified {
-			@include icon(ok-sign, $base-font-size);
+			@include icon(check-circle, $base-font-size);
 	  }
 		&.in-progress {
 			@include icon(random, $small-font-size);
 		}
 		&.false {
-			@include icon(remove-sign, $base-font-size);
+			@include icon(times-circle, $base-font-size);
 		}
 		&.undetermined {
-			@include icon(question-sign, $base-font-size);
+			@include icon(question-circle, $base-font-size);
 		}
 	  &.not-applicable {
-			@include icon(ban-circle, $base-font-size);
+			@include icon(ban, $base-font-size);
 	  }
 	}
 
@@ -946,9 +949,9 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 		$position: "before";
 	}
 	// verified
-	.icon-ok-sign { 
+	.icon-check-circle { 
 		color: rgba(0,140,0,1);
-		@include icon(ok-sign, $base-font-size);
+		@include icon(check-circle, $base-font-size);
 	}
 	// in-progress
 	.icon-random { 
@@ -959,14 +962,14 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 		color: rgba(239,202,43,1);
 	}
 	// undetermined
-	.icon-question-sign { 
+	.icon-question-circle { 
 		color: $orange; 
-		@include icon(question-sign, $base-font-size);
+		@include icon(question-circle, $base-font-size);
 	}
 	// false
-	.icon-remove-sign { 
+	.icon-times-circle { 
 		color: $red; 
-		@include icon(remove-sign, $base-font-size);
+		@include icon(times-circle, $base-font-size);
 	}
 
 } // report

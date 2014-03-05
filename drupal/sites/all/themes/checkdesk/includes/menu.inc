@@ -69,7 +69,7 @@ function checkdesk_menu_local_task($variables) {
   }
   // delete tab
   if($link['path'] == 'node/%/delete') {
-    $icon = '<span class="icon-trash"></span> ';
+    $icon = '<span class="icon-trash-o"></span> ';
   }
   // devel tab
   if($link['path'] == 'node/%/devel') {

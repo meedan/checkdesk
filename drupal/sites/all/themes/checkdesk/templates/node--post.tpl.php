@@ -19,7 +19,7 @@
     <div class="update-footer">
       <ul class="update-meta">
         <li class="update-at">
-          <a href="<?php print $update_link; ?>"><span class="icon-time"></span><?php print $created_at; ?></a>
+          <a href="<?php print $update_link; ?>"><span class="icon-clock-o"></span><?php print $created_at; ?></a>
         </li>
         <li class="update-by">
           <?php if (isset($user_avatar)) { ?>
@@ -28,9 +28,11 @@
           <?php print $created_by; ?>
         </li>
         <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) { ?>
-          <?php print render($content['links']); ?>
+          <li class="update-share">
+            <?php print render($content['links']); ?>
+          </li>
           <li class="update-edit">
-            <?php print l('<span class="icon-edit-sign"></span>'. t('Edit'), 'node/' . $node->nid . '/edit', array('html'=>TRUE)); ?>
+            <?php print l('<span class="icon-pencil-square"></span>'. t('Edit'), 'node/' . $node->nid . '/edit', array('html'=>TRUE)); ?>
           </li>
         <?php } ?>
       </ul>
