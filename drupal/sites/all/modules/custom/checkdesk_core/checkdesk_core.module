@@ -629,7 +629,14 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     $account = $user;
   }
   $links = array();
-  $url = url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
+  if ($node->type == 'post') {
+    $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+    $update_anchor = 'update-' . $node->nid;
+    $url = url('node/'.$parent_story_id, array('absolute' => TRUE, 'alias' => TRUE, 'fragment' => $update_anchor, 'language' => $language));
+  }
+  else {
+    $url = url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
+  }
 
   // Try to gracefully redirect the user back to where they were. In some cases
   // this is not a simple task. Ajax based UI is especially difficult.
