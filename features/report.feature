@@ -19,3 +19,27 @@ Scenario: Submit report
   And I press "Submit"
   And I wait for 10 seconds
   Then I should see "Success: Report created"
+
+@api
+Scenario: Flag Icon - Journalist
+  Given I am on the homepage
+  When I am logged in as a user with the "journalist" role
+  Then I should not see the link "Flag spam"
+  And I should see the link "Flag graphic content"
+  And I should not see the link "Flag for fact-checking"
+
+@api
+Scenario: Flag Icon - Citizen Journalist
+  Given I am on the homepage
+  When I am logged in as a user with the "citizen journalist" role
+  Then I should see the link "Flag spam"
+  And I should see the link "Flag graphic content"
+  And I should see the link "Flag for fact-checking"
+
+@api
+Scenario: Flag Icon - Anonymous
+  Given I am on the homepage
+  When I am an anonymous user
+  Then I should not see the link "Flag spam"
+  And I should not see the link "Flag graphic content"
+  And I should not see the link "Flag for fact-checking"
