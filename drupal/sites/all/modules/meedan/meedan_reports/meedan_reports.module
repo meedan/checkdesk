@@ -11,7 +11,7 @@ function meedan_reports_menu() {
     'page callback' => 'system_admin_menu_block_page',
     'access arguments' => array('access administration pages'),
     'position' => 'left',
-    'weight' => 6,
+    'weight' => 5,
     'file' => 'system.admin.inc', 
     'file path' => drupal_get_path('module', 'system'),
   );
