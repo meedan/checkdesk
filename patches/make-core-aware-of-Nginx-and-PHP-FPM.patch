@@ -1,0 +1,114 @@
+From 8820cbd79c982c8e1d6b5452d5622b42de8cd25d Mon Sep 17 00:00:00 2001
+From: Barracuda Team <admin@omega8.cc>
+Date: Tue, 26 Nov 2013 01:28:44 +0100
+Subject: [PATCH 1508/1508] Issue #1559116 by mva.name, omega8cc - Make core
+ aware of Nginx and PHP-FPM to avoid confusing alerts.
+
+Note that particularly SA-CORE-2013-003 added serious confusion by displaying horrifying alerts on Nginx, where .htaccess is never used anyway.
+---
+ includes/file.inc             | 17 +++++++++++++++++
+ modules/file/file.install     | 25 +++++++++++++++++++------
+ modules/system/system.install | 17 +++++++++++++++--
+ 3 files changed, 51 insertions(+), 8 deletions(-)
+
+diff --git a/includes/file.inc b/includes/file.inc
+index 0ec69b7..8216da2 100644
+--- a/includes/file.inc
++++ b/includes/file.inc
+@@ -475,6 +475,23 @@ function file_ensure_htaccess() {
+  *   already present. Defaults to FALSE.
+  */
+ function file_create_htaccess($directory, $private = TRUE, $force_overwrite = FALSE) {
++
++  // Test the web server identity.
++  if (isset($_SERVER['SERVER_SOFTWARE']) && preg_match("/Apache/i", $_SERVER['SERVER_SOFTWARE'])) {
++    $is_apache = TRUE;
++  }
++  elseif (!isset($_SERVER['SERVER_SOFTWARE'])) {
++    // Skip this in Drush where SERVER_SOFTWARE is not set and .htaccess never used anyway.
++    $is_apache = FALSE;
++  }
++  else {
++    $is_apache = FALSE;
++  }
++
++  if (!$is_apache) {
++    return;
++  }
++
+   if (file_uri_scheme($directory)) {
+     $directory = file_stream_wrapper_uri_normalize($directory);
+   }
+diff --git a/modules/file/file.install b/modules/file/file.install
+index 47ee4fd..981cd35 100644
+--- a/modules/file/file.install
++++ b/modules/file/file.install
+@@ -53,18 +53,31 @@ function file_requirements($phase) {
+ 
+   // Check the server's ability to indicate upload progress.
+   if ($phase == 'runtime') {
+-    $implementation = file_progress_implementation();
+-    $apache = strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== FALSE;
+-    $fastcgi = strpos($_SERVER['SERVER_SOFTWARE'], 'mod_fastcgi') !== FALSE || strpos($_SERVER["SERVER_SOFTWARE"], 'mod_fcgi') !== FALSE;
+     $description = NULL;
+-    if (!$apache) {
++    $implementation = file_progress_implementation();
++
++    // Test the web server identity.
++    if (isset($_SERVER['SERVER_SOFTWARE']) && preg_match("/Apache/i", $_SERVER['SERVER_SOFTWARE'])) {
++      $is_apache = TRUE;
++      $fastcgi = strpos($_SERVER['SERVER_SOFTWARE'], 'mod_fastcgi') !== FALSE || strpos($_SERVER["SERVER_SOFTWARE"], 'mod_fcgi') !== FALSE;
++    }
++    elseif (isset($_SERVER['SERVER_SOFTWARE']) && preg_match("/Nginx/i", $_SERVER['SERVER_SOFTWARE'])) {
++      $is_nginx = TRUE;
++      $fastcgi = FALSE;
++    }
++    else {
++      $is_apache = FALSE;
++      $is_nginx = FALSE;
++    }
++
++    if (!$is_apache && !$is_nginx) {
+       $value = t('Not enabled');
+-      $description = t('Your server is not capable of displaying file upload progress. File upload progress requires an Apache server running PHP with mod_php.');
++      $description = t('Your server is not capable of displaying file upload progress. File upload progress requires an Apache server running PHP with mod_php or Nginx with PHP-FPM.');
+       $severity = REQUIREMENT_INFO;
+     }
+     elseif ($fastcgi) {
+       $value = t('Not enabled');
+-      $description = t('Your server is not capable of displaying file upload progress. File upload progress requires PHP be run with mod_php and not as FastCGI.');
++      $description = t('Your server is not capable of displaying file upload progress. File upload progress requires PHP be run with mod_php or PHP-FPM and not as FastCGI.');
+       $severity = REQUIREMENT_INFO;
+     }
+     elseif (!$implementation && extension_loaded('apc')) {
+diff --git a/modules/system/system.install b/modules/system/system.install
+index 7d3c959..64c106d 100644
+--- a/modules/system/system.install
++++ b/modules/system/system.install
+@@ -253,8 +253,21 @@ function system_requirements($phase) {
+     $requirements['settings.php']['title'] = $t('Configuration file');
+   }
+ 
+-  // Test the contents of the .htaccess files.
+-  if ($phase == 'runtime') {
++  // Test the web server identity.
++  if (isset($_SERVER['SERVER_SOFTWARE']) && preg_match("/Apache/i", $_SERVER['SERVER_SOFTWARE'])) {
++    $is_apache = TRUE;
++  }
++  elseif (!isset($_SERVER['SERVER_SOFTWARE'])) {
++    // Skip this in Drush where SERVER_SOFTWARE is not set and .htaccess never used anyway.
++    $is_apache = FALSE;
++  }
++  else {
++    $is_apache = FALSE;
++  }
++
++  // Test the contents of the .htaccess files only for Apache web server.
++  // The .htaccess is never used in other popular web servers, like Nginx.
++  if ($phase == 'runtime' && $is_apache) {
+     // Try to write the .htaccess files first, to prevent false alarms in case
+     // (for example) the /tmp directory was wiped.
+     file_ensure_htaccess();
+-- 
+1.8.3.4 (Apple Git-47)
+
