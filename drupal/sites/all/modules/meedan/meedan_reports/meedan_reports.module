@@ -47,24 +47,24 @@ function _meedan_reports_get_info() {
 function meedan_reports_meedan_reports_info() {
   return  array (
     'user_registered' => array(
-      'title' => t('Registered users reports'),
-      'description' => t('Show number of registered users categorized by Year-Month.'),
+      'title' => t('Registered Users'),
+      'description' => t('Number of users who register to use Checkdesk in any given month.'),
     ),
     'reports_count' => array(
-      'title' => t('Citizen reports'),
-      'description' => t('Show number of submitted reports by all roles categorized by Year-Month'),
+      'title' => t('Citizen Reports'),
+      'description' => t('The total number of reports submitted in any given month.'),
     ),
     'different_sources' => array(
-      'title' => t('Different sources reports'),
-      'description' => t('Show count for each source (twitter, youtube, facebook, etc) categorized by Year-Month.'),
+      'title' => t('Number of different sources'),
+      'description' => t('Source frequency of reports in any given month.'),
     ),
     'most_active_users' => array(
-      'title' => t('Most active users reports'),
-      'description' => t('Show number of submitted reports for each user categorized by Year-Month, i.e userx submitted n reports on March 2013.'),
+      'title' => t('Most Active Users'),
+      'description' => t('Number of reports submitted by the most active user in any given month.'),
     ),
     'active_users' => array(
       'title' => t('Active Users'),
-      'description' => t('Show number of submitted reports (story, report or update) categorized by Year-Month.'),
+      'description' => t('The number of users who have submitted a report in any given month'),
     ),
   );
 }
