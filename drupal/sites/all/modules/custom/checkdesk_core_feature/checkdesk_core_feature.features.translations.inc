@@ -6179,7 +6179,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => 'Checkdesk Reports',
     'context' => '',
     'location' => '/checkdesk/ar/admin/meedan/reports',
-    'translation' => 'Checkdesk تقارير ',
+    'translation' => 'تقارير تشك دسك',
     'plid' => 0,
     'plural' => 0,
   );

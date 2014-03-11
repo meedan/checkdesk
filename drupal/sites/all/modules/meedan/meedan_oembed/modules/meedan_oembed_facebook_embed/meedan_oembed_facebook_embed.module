@@ -36,7 +36,7 @@ function meedan_oembed_facebook_embed_meedan_oembed_embed_alter(&$embed) {
     $locale = 'en_US';
     $class = 'ltr';
     
-    if (preg_match('/\p{Arabic}/u', $embed->description)) {
+    if (isset($embed->description) && preg_match('/\p{Arabic}/u', $embed->description)) {
       $locale = 'ar_AR';
       $class = 'rtl';
     }
