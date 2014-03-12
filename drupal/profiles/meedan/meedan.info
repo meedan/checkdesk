@@ -2,8 +2,7 @@ name = Meedan Checkdesk
 description = Kicks off the installation of a Meedan Checkdesk site.
 version = 7.x-1.0
 core = 7.x
-
-; Core modules
+;core modules
 dependencies[] = block
 dependencies[] = color
 dependencies[] = comment
@@ -21,43 +20,136 @@ dependencies[] = dblog
 dependencies[] = search
 dependencies[] = shortcut
 dependencies[] = toolbar
-dependencies[] = overlay
 dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = rdf
 dependencies[] = locale
 dependencies[] = translation
-
-; Feature handling
-dependencies[] = features
-dependencies[] = strongarm
-dependencies[] = node_export
-dependencies[] = uuid
-dependencies[] = features_translations
-
-; Important contrib modules
-dependencies[] = ctools
-dependencies[] = views
-dependencies[] = context
-dependencies[] = date
-dependencies[] = link
+dependencies[] = syslog
+;contrib module
+dependencies[] = varnish    
+dependencies[] = context_ui 
+dependencies[] = date 
+dependencies[] = date_api 
+dependencies[] = devel
+dependencies[] = fe_nodequeue
 dependencies[] = field_group
-dependencies[] = pathauto
+dependencies[] = heartbeat_ui
+dependencies[] = l10n_client 
 dependencies[] = l10n_update
-dependencies[] = l10n_client
+dependencies[] = i18n_field 
+dependencies[] = i18n_menu 
+dependencies[] = i18n_menu_link_uuid 
+dependencies[] = nodequeue 
+dependencies[] = entity_menu_links 
+dependencies[] = scheduler 
+dependencies[] = rules_admin 
+dependencies[] = services 
+dependencies[] = services_views
+dependencies[] = views_ui 
+;other contrib modules copied from features dependencies
+dependencies[] = admin_views
+dependencies[] = auto_nodetitle
+dependencies[] = better_exposed_filters
+dependencies[] = better_formats
+dependencies[] = block
+dependencies[] = clientside_validation
+dependencies[] = clientside_validation_form
+dependencies[] = comment
+dependencies[] = comment_goodness
+dependencies[] = context
+dependencies[] = contextual
+dependencies[] = ctools
+dependencies[] = dashboard
+dependencies[] = email_registration
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = fboauth
+dependencies[] = features
+dependencies[] = features_translations
+dependencies[] = field_permissions
+dependencies[] = file
+dependencies[] = filter
+dependencies[] = flag
+dependencies[] = globalredirect
+dependencies[] = heartbeat
+dependencies[] = heartbeat_comments
+dependencies[] = heartbeat_plugins
+dependencies[] = heartbeat_rules
+dependencies[] = htmlmail
 dependencies[] = i18n_taxonomy
-dependencies[] = i18n_menu
-dependencies[] = i18n_menu_link_uuid
-dependencies[] = i18n_field
+dependencies[] = i18n_variable
+dependencies[] = ife
+dependencies[] = image
+dependencies[] = libraries
+dependencies[] = link
+dependencies[] = maillog
+dependencies[] = mailsystem
+dependencies[] = markdown
+dependencies[] = maxlength
+dependencies[] = menu
+dependencies[] = menu_attributes
+dependencies[] = messageclose
+dependencies[] = metatag
+dependencies[] = metatag_twitter_cards
+dependencies[] = node
+dependencies[] = oembed
+dependencies[] = oembed_thumbnail
+dependencies[] = oembedcore
+dependencies[] = oembedembedly
+dependencies[] = oembedfield
+dependencies[] = oembedprovider
+dependencies[] = options
+dependencies[] = path
+dependencies[] = pathauto
+dependencies[] = php
+dependencies[] = recaptcha
 dependencies[] = redis
-dependencies[] = varnish
-
-;;; ADD MEEDAN MODULES HERE
-; dependencies[] = meedan_general
-
-;;; ADD FEATURE MODULES HERE
-dependencies[] = checkdesk_core_feature
-
-;;; ADD CUSTOM MODULES HERE
-; dependencies[] = mysite_example_module
-
+dependencies[] = remember_me
+dependencies[] = roleassign
+dependencies[] = rules
+dependencies[] = rules_scheduler
+dependencies[] = save_draft
+dependencies[] = search
+dependencies[] = shortcut
+dependencies[] = strongarm
+dependencies[] = system
+dependencies[] = taxonomy
+dependencies[] = text
+dependencies[] = toolbar
+dependencies[] = translation_helpers
+dependencies[] = twitter
+dependencies[] = twitter_signin
+dependencies[] = user
+dependencies[] = user_registrationpassword
+dependencies[] = uuid
+dependencies[] = uuid_features
+dependencies[] = views
+dependencies[] = views_autocomplete_filters
+dependencies[] = views_autorefresh
+dependencies[] = views_bulk_operations
+dependencies[] = views_fluid_grid
+dependencies[] = views_load_more
+dependencies[] = wysiwyg
+;meedan modules
+dependencies[] = meedan_bookmarklet
+dependencies[] = meedan_custom_css
+dependencies[] = meedan_facebook
+dependencies[] = meedan_iframes
+dependencies[] = meedan_livefyre
+dependencies[] = meedan_notifications
+dependencies[] = meedan_oembed
+dependencies[] = meedan_oembed_facebook_embed
+dependencies[] = meedan_oembed_twitter
+dependencies[] = meedan_reports
+dependencies[] = meedan_sensitive_content
+dependencies[] = meedan_sources
+;checkdesk modules
+dependencies[] = checkdesk_bookmarklet
+dependencies[] = checkdesk_core
+dependencies[] = checkdesk_hacks
+dependencies[] = checkdesk_notifications
+dependencies[] = checkdesk_oembed
+dependencies[] = checkdesk_oembed_almasryalyoum
+dependencies[] = checkdesk_tour
+dependencies[] = checkdesk_featured_stories_feature
