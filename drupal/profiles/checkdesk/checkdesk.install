@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Install, update and uninstall functions for the standard installation profile.
+ */
 
 /**
  * Implements hook_install().
@@ -7,7 +11,7 @@
  *
  * @see system_install()
  */
-function meedan_install() {
+function checkdesk_install() {
   include_once DRUPAL_ROOT . '/profiles/standard/standard.install';
   standard_install();
 }
