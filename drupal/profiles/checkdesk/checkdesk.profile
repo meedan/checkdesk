@@ -98,6 +98,8 @@ function cd_configration_form_submit($form, &$form_state) {
   if ($form_state['values']['enable_multilingual'][1]) {
     module_enable(array('checkdesk_multilingual_feature'));
   }
+  variable_set('l10n_update_download_store', 'sites/all/translations');
+  variable_set('l10n_update_check_mode', '2');
   //revert some feature components
   features_revert(array('checkdesk_core_feature' => array('user_permission')));
   features_revert(array('checkdesk_featured_stories_feature' => array('user_permission')));
