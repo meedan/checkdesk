@@ -1,4 +1,4 @@
--- see install_db.sh
+-- see install_cd_db.sh
 -- this file should get sed'd for all the ddVARNAMEdd
 CREATE DATABASE IF NOT EXISTS ddINSTANCEdd;
 CREATE USER 'ddINSTANCEdd'@'%' IDENTIFIED BY 'ddPASSWORDdd';

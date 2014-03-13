@@ -16,39 +16,58 @@ usage() {
 \nInstall a new Checkdesk Database
 \n
 \nusage:
-\n\t${0} instance_name [dbhost]
+\n\t${0} instance_name [dbhost] [redishost]
 \n
 EOF
 
 }
 
-if [ "$1" = "" ];
+INSTANCE=$1;
+if [ "$INSTANCE" = "" ];
 then
     echo -e $(usage);
     exit;
 fi
 
-INSTANCE=$1;
 DBHOST=$2;
 if [ "$DBHOST" = "" ];
 then
     DBHOST="localhost";
 fi
 
+REDISHOST=$3
+if [ "$REDISHOST" = "" ];
+then
+    REDISHOST="localhost";
+fi
+
 PASSWORD=$(genpasswd);
 
-echo "creating checkdesk instance for ${1}";
-echo "new password for DB user ${1} is:";
-echo -e "\033[1m${PASSWORD}\033[0m";
+echo -e "\setting up checkdesk instance for ${1}";
+echo -e "\nnew password for DB user ${1} is:";
+echo -e "\t\033[1m${PASSWORD}\033[0m";
+echo -e "\nsanity check these:"
 
-cp create_database_and_user.sql.template create_database_and_user.sql;
+for TEMPLATE in $(ls *.template)
+do
+    FILE=$(basename $TEMPLATE .template);
 
-sed -i "s/ddINSTANCEdd/$INSTANCE/g" create_database_and_user.sql;
-sed -i "s/ddPASSWORDdd/$PASSWORD/g" create_database_and_user.sql;
+    cp $TEMPLATE $FILE;
+    echo -e "\t$FILE";
+    sed -i "s/ddINSTANCEdd/$INSTANCE/g" $FILE;
+    sed -i "s/ddPASSWORDdd/$PASSWORD/g" $FILE;
+    sed -i "s/ddDBHOSTdd/$DBHOST/g" $FILE;
+    sed -i "s/ddREDISHOSTdd/$REDISHOST/g" $FILE;
 
-echo "mysql -u root -h ${DBHOST} -p < create_database_and_user.sql";
+done
 
-echo "mysql -u $INSTANCE -h ${DBHOST} -p$PASSWORD $INSTANCE < checkdesk.sql";
+
+echo -e "
+and then run these:
+\tmysql -u root -h ${DBHOST} -p < create_database_and_user.sql
+\tmysql -u $INSTANCE -h ${DBHOST} -p$PASSWORD $INSTANCE < checkdesk.sql
+
+"
 
 
 
