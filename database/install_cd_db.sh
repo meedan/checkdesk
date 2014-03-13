@@ -43,7 +43,7 @@ fi
 
 PASSWORD=$(genpasswd);
 
-echo -e "\setting up checkdesk instance for ${1}";
+echo -e "setting up checkdesk instance for ${1}";
 echo -e "\nnew password for DB user ${1} is:";
 echo -e "\t\033[1m${PASSWORD}\033[0m";
 echo -e "\nsanity check these:"
