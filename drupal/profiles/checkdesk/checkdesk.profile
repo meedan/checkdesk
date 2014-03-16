@@ -27,10 +27,33 @@ function checkdesk_install_tasks($install_state) {
     'display' => TRUE,
     'type' => 'form',
     'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-    //'function' => 'cd_configration_form',
   );
-  return $tasks;
+  $tasks['cd_cleanup'] = array(
+    'display_name' => st('Cleanup'),
+    'type' => 'batch',
+  );
+ return $tasks;
 }
+
+function cd_import_translations() {
+  include_once DRUPAL_ROOT . '/includes/locale.inc';
+  module_load_include('check.inc', 'l10n_update');
+  module_load_include('batch.inc', 'l10n_update');
+  $translations = array('ar');
+  // Prepare batch process to enable languages and download translations.
+  $operations = array();
+  foreach ($translations as $translation) {
+    locale_add_language(strtolower($translation));
+    // Build batch with l10n_update module.
+    $history = l10n_update_get_history();
+    $available = l10n_update_available_releases();
+    $updates = l10n_update_build_updates($history, $available);
+    $operations = array_merge($operations, _l10n_update_prepare_updates($updates, NULL, array()));
+  }
+  $batch = l10n_update_batch_multiple($operations, LOCALE_IMPORT_KEEP);
+  return $batch;
+}
+
 
 function cd_configration_form($form, &$form_state, &$install_state) {
   $form['twitter_oauth'] = array(
@@ -94,37 +117,38 @@ function cd_configration_form_submit($form, &$form_state) {
   variable_set('twitter_consumer_secret', $form_state['values']['twitter_consumer_secret']);
   variable_set('fboauth_id', $form_state['values']['fboauth_id']);
   variable_set('fboauth_secret', $form_state['values']['fboauth_secret']);
+  //enable core feature
   module_enable(array('checkdesk_core_feature'));
   if ($form_state['values']['enable_multilingual'][1]) {
     module_enable(array('checkdesk_multilingual_feature'));
   }
+  //change l18n_update setting to import translation from local server.
   variable_set('l10n_update_download_store', 'sites/all/translations');
   variable_set('l10n_update_check_mode', '2');
-  //revert some feature components
-  features_revert(array('checkdesk_core_feature' => array('user_permission')));
-  features_revert(array('checkdesk_featured_stories_feature' => array('user_permission')));
 }
 
-function cd_import_translations() {
-  include_once DRUPAL_ROOT . '/includes/locale.inc';
-  module_load_include('check.inc', 'l10n_update');
-  module_load_include('batch.inc', 'l10n_update');
-  $translations = array('ar');
-  // Prepare batch process to enable languages and download translations.
+
+function cd_cleanup() {
   $operations = array();
-  foreach ($translations as $translation) {
-    locale_add_language(strtolower($translation));
-
-    // Build batch with l10n_update module.
-    $history = l10n_update_get_history();
-    $available = l10n_update_available_releases();
-    $updates = l10n_update_build_updates($history, $available);
-
-    $operations = array_merge($operations, _l10n_update_prepare_updates($updates, NULL, array()));
-  }
-
-  $batch = l10n_update_batch_multiple($operations, LOCALE_IMPORT_KEEP);
+  $operations[] = array('_cd_cleanup_batch', array('checkdesk_featured_stories_feature', 'checkdesk_featured_stories_feature'));
+  $batch = array(
+    'operations' => $operations,
+    'title' => st('Cleanup installation'),
+    'error_message' => st('The installation has encountered an error.'),
+    'finished' => '_cd_cleanup_finished',
+  );
   return $batch;
 }
 
+function _cd_cleanup_batch($module, $module_name, &$context) {
+  module_enable(array($module), FALSE);
+  $context['results'][] = $module;
+  $context['message'] = st('Installed %module module.', array('%module' => $module_name));
+}
+
+function _cd_cleanup_finished($success, $results, $operations) {
+  //revert features
+  //drupal_flush_all_caches();
+  //update language settings
+}
 
