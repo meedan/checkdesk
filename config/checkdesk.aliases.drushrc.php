@@ -132,6 +132,7 @@ $aliases['local-alias'] = array(
       'confirm-sanitizations' => TRUE,
       'no-ordered-dump' => TRUE,
       'no-cache' => TRUE,
+      'create-db' => TRUE,
       'enable' => array(
         'checkdesk_devel_feature',
       ),
