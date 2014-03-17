@@ -477,7 +477,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "LABEL" : "Notify subscribed users: new user",
       "PLUGIN" : "action set",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "user" : { "label" : "User", "type" : "user" } },
       "ACTION SET" : [
         { "notify_subscribers" : {

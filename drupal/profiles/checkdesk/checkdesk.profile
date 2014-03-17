@@ -130,7 +130,12 @@ function cd_configration_form_submit($form, &$form_state) {
 
 function cd_cleanup() {
   $operations = array();
-  $operations[] = array('_cd_cleanup_batch', array('checkdesk_featured_stories_feature', 'checkdesk_featured_stories_feature'));
+  $operations[] = array('_cd_cleanup_install_batch', array('checkdesk_featured_stories_feature', 'Checkdesk Featured Stories'));
+  //$components = array('translations', 'menu_links', 'uuid_node');
+  $components = array('translations');
+  foreach ($components as $component) {
+    $operations[] = array('_cd_cleanup_revert_batch', array('checkdesk_core_feature', $component));
+  }
   $batch = array(
     'operations' => $operations,
     'title' => st('Cleanup installation'),
@@ -140,10 +145,22 @@ function cd_cleanup() {
   return $batch;
 }
 
-function _cd_cleanup_batch($module, $module_name, &$context) {
+/**
+ * 
+ */
+function _cd_cleanup_install_batch($module, $module_name, &$context) {
   module_enable(array($module), FALSE);
   $context['results'][] = $module;
   $context['message'] = st('Installed %module module.', array('%module' => $module_name));
+}
+
+/**
+ * Revert overridden component
+ */
+function _cd_cleanup_revert_batch($feature, $component, &$context) {
+  features_revert(array($feature => array($component)));
+  $context['results'][] = $component;
+  $context['message'] = st('Reverted %feature -- %component.', array('%feature' => $feature, '%component' => $component));
 }
 
 function _cd_cleanup_finished($success, $results, $operations) {
