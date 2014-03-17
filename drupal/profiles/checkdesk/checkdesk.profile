@@ -56,6 +56,45 @@ function cd_import_translations() {
 
 
 function cd_configration_form($form, &$form_state, &$install_state) {
+  $form['cd_information'] = array(
+    '#type' => 'fieldset',
+    '#title' => st('Checkdesk Information'),
+    '#collapsible' => FALSE,
+  );
+  $form['cd_information']['site_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Site name [English]'),
+    '#default_value' => variable_get('site_name', 'Drupal'),
+    '#required' => TRUE,
+  );
+  $form['cd_information']['site_name_ar'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Site name [Arabic]'),
+    '#default_value' => variable_get('site_name', 'Drupal'),
+    '#required' => TRUE
+  );
+  $form['cd_information']['site_slogan'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Slogan [English]'),
+    '#description' => t("How this is used depends on your site's theme."),
+  );
+  $form['cd_information']['site_slogan_ar'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Slogan [Arabic]'),
+    '#description' => t("How this is used depends on your site's theme."),
+  );
+  $form['cd_information']['checkdesk_site_owner'] = array(
+    '#title' => st('Site owner [English]'),
+    '#type' => 'textfield',
+  );
+  $form['cd_information']['checkdesk_site_owner_ar'] = array(
+    '#title' => st('Site owner [Arabic]'),
+    '#type' => 'textfield',
+  );
+  $form['cd_information']['checkdesk_site_owner_url'] = array(
+    '#title' => st('Site owner URL'),
+    '#type' => 'textfield',
+  );
   $form['twitter_oauth'] = array(
     '#type' => 'fieldset',
     '#title' => st('Twitter Configration'),
@@ -113,10 +152,30 @@ function cd_configration_form($form, &$form_state, &$install_state) {
 }
 
 function cd_configration_form_submit($form, &$form_state) {
-  variable_set('twitter_consumer_key', $form_state['values']['twitter_consumer_key']);
-  variable_set('twitter_consumer_secret', $form_state['values']['twitter_consumer_secret']);
-  variable_set('fboauth_id', $form_state['values']['fboauth_id']);
-  variable_set('fboauth_secret', $form_state['values']['fboauth_secret']);
+  $values = $form_state['values'];
+  if(isset($values['site_name'])) {
+    i18n_variable_set('site_name', $values['site_name'], 'en');
+  }
+  if (isset($values['site_name_ar'])) {
+    i18n_variable_set('site_name', $values['site_name_ar'], 'ar');
+  }
+  if (isset($values['site_slogan'])) {
+    i18n_variable_set('site_slogan', $values['site_slogan'], 'en');
+  }
+  if (isset($values['site_slogan_ar'])) {
+    i18n_variable_set('site_slogan', $values['site_slogan_ar'], 'ar');
+  }
+  if (isset($values['checkdesk_site_owner'])) {
+    i18n_variable_set('checkdesk_site_owner', $values['checkdesk_site_owner'], 'en');
+  }
+  if (isset($values['checkdesk_site_owner_ar'])) {
+    i18n_variable_set('checkdesk_site_owner', $values['checkdesk_site_owner_ar'], 'ar');
+  }
+  variable_set('checkdesk_site_owner_url', $values['checkdesk_site_owner_url']);
+  variable_set('twitter_consumer_key', $values['twitter_consumer_key']);
+  variable_set('twitter_consumer_secret', $values['twitter_consumer_secret']);
+  variable_set('fboauth_id', $values['fboauth_id']);
+  variable_set('fboauth_secret', $values['fboauth_secret']);
   //enable core feature
   module_enable(array('checkdesk_core_feature'));
   if ($form_state['values']['enable_multilingual'][1]) {
