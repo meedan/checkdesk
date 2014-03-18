@@ -37,8 +37,10 @@ function checkdesk_install_tasks($install_state) {
 
 function cd_import_translations() {
   include_once DRUPAL_ROOT . '/includes/locale.inc';
+  include_once DRUPAL_ROOT . '/includes/language.inc';
   module_load_include('check.inc', 'l10n_update');
   module_load_include('batch.inc', 'l10n_update');
+  //make translation as array to enforce adding multilanguage on future.
   $translations = array('ar');
   // Prepare batch process to enable languages and download translations.
   $operations = array();
@@ -50,6 +52,19 @@ function cd_import_translations() {
     $updates = l10n_update_build_updates($history, $available);
     $operations = array_merge($operations, _l10n_update_prepare_updates($updates, NULL, array()));
   }
+  //configure language settings.
+  $providers = language_negotiation_info();
+  $negotiation = array();
+  $negotiation['locale-url'] = $providers['locale-url'];
+  $negotiation['language-default'] = $providers['language-default'];
+  language_negotiation_set('language', $negotiation);
+  //update prefix for english language
+  db_update('languages')
+    ->fields(array(
+      'prefix' => 'en',
+    ))   
+    ->condition('language', 'en')
+    ->execute();
   $batch = l10n_update_batch_multiple($operations, LOCALE_IMPORT_KEEP);
   return $batch;
 }
