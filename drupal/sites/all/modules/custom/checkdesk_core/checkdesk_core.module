@@ -147,7 +147,7 @@ function _checkdesk_core_take_tour() {
 function _checkdesk_core_can_take_tour() {
   global $user;
   $roles = array_values($user->roles);
-  return in_array('journalist', $roles) || in_array('citizen journalist', $roles);
+  return ($user->uid == 1) || in_array('journalist', $roles) || in_array('citizen journalist', $roles);
 }
 
 /**

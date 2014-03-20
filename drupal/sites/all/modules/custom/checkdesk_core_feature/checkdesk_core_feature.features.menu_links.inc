@@ -54,7 +54,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'customized' => 1,
     'language' => 'und',
     'menu_links_customized' => 1,
-    'uuid' => '1aabba86-d2db-4ee0-9956-24815b9ad3b1',
+    'uuid' => '90476ce1-c57a-48e8-b95a-abc56aae9886',
     'menu_links_language' => 'und',
     'menu_links_customized_2' => 1,
     'parent_identifier' => 'main-menu_:<sub>',
