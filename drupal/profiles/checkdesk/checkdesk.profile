@@ -18,24 +18,33 @@ function checkdesk_form_install_configure_form_alter(&$form, $form_state) {
  * Implements hook_install_tasks().
  */
 function checkdesk_install_tasks($install_state) {
-  $tasks['cd_import_translations'] = array(
-    'display_name' => st('Import translations'),
-    'type' => 'batch',
-  );
   $tasks['cd_configration_form'] = array(
-    'display_name' => st('Checkdesk Configration'),
+    'display_name' => st('Checkdesk Configuration'),
     'display' => TRUE,
     'type' => 'form',
     'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
   );
-  $tasks['cd_cleanup'] = array(
-    'display_name' => st('Cleanup'),
+  $tasks['cd_apps_form'] = array(
+    'display_name' => st('Apps Configuration'),
+    'display' => TRUE,
+    'type' => 'form',
+    'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+  );
+  $tasks['cd_import_translations'] = array(
+    'display_name' => st('Import translations'),
     'type' => 'batch',
   );
+  #$tasks['cd_cleanup'] = array(
+  #  'display_name' => st('Cleanup'),
+  #  'type' => 'batch',
+  #);
  return $tasks;
 }
 
 function cd_import_translations() {
+  module_enable(array('l10n_update'));
+  variable_set('l10n_update_download_store', 'sites/all/translations');
+  variable_set('l10n_update_check_mode', '2');
   include_once DRUPAL_ROOT . '/includes/locale.inc';
   include_once DRUPAL_ROOT . '/includes/language.inc';
   module_load_include('check.inc', 'l10n_update');
@@ -110,42 +119,6 @@ function cd_configration_form($form, &$form_state, &$install_state) {
     '#title' => st('Site owner URL'),
     '#type' => 'textfield',
   );
-  $form['twitter_oauth'] = array(
-    '#type' => 'fieldset',
-    '#title' => st('Twitter Configration'),
-    '#collapsible' => FALSE,
-  );
-  $form['twitter_oauth']['twitter_consumer_key'] = array(
-    '#type' => 'textfield',
-    '#title' => t('OAuth Consumer key'),
-    '#default_value' => variable_get('twitter_consumer_key', NULL),
-  );  
-  $form['twitter_oauth']['twitter_consumer_secret'] = array(
-    '#type' => 'textfield',
-    '#title' => t('OAuth Consumer secret'),
-    '#default_value' => variable_get('twitter_consumer_secret', NULL),
-  ); 
-  $form['facebook'] = array(
-    '#type' => 'fieldset',
-    '#title' => st('Facebook Configration'),
-    '#collapsible' => FALSE,
-  );
-  $form['facebook']['fboauth_id'] = array(
-    '#type' => 'textfield',
-    '#title' => t('App ID'),
-    '#size' => 20, 
-    '#maxlengh' => 50, 
-    '#description' => t('To use Facebook connect, a Facebook Application must be created. Set up your app in <a href="http://www.facebook.com/developers/apps.php">my apps</a> on Facebook.') . ' ' . t('Enter your App ID here.'),
-    '#default_value' => variable_get('fboauth_id', ''),
-  );  
-  $form['facebook']['fboauth_secret'] = array(
-    '#type' => 'textfield',
-    '#title' => t('App Secret'),
-    '#size' => 40, 
-    '#maxlengh' => 50, 
-    '#description' => t('To use Facebook connect, a Facebook Application must be created. Set up your app in <a href="http://www.facebook.com/developers/apps.php">my apps</a> on Facebook.') . ' ' . t('Enter your App Secret here.'),
-    '#default_value' => variable_get('fboauth_secret', ''),
-  ); 
   $form['cd_multilingual'] = array(
     '#type' => 'fieldset',
     '#title' => st('Multilingual feature'),
@@ -187,20 +160,70 @@ function cd_configration_form_submit($form, &$form_state) {
     i18n_variable_set('checkdesk_site_owner', $values['checkdesk_site_owner_ar'], 'ar');
   }
   variable_set('checkdesk_site_owner_url', $values['checkdesk_site_owner_url']);
-  variable_set('twitter_consumer_key', $values['twitter_consumer_key']);
-  variable_set('twitter_consumer_secret', $values['twitter_consumer_secret']);
-  variable_set('fboauth_id', $values['fboauth_id']);
-  variable_set('fboauth_secret', $values['fboauth_secret']);
   //enable core feature
   module_enable(array('checkdesk_core_feature'));
   if ($form_state['values']['enable_multilingual'][1]) {
     module_enable(array('checkdesk_multilingual_feature'));
   }
-  //change l18n_update setting to import translation from local server.
-  variable_set('l10n_update_download_store', 'sites/all/translations');
-  variable_set('l10n_update_check_mode', '2');
 }
 
+function cd_apps_form($form, &$form_state, &$install_state) {
+  $form['twitter_oauth'] = array(
+    '#type' => 'fieldset',
+    '#title' => st('Twitter Configration'),
+    '#collapsible' => FALSE,
+  );
+  $form['twitter_oauth']['twitter_consumer_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('OAuth Consumer key'),
+    '#default_value' => variable_get('twitter_consumer_key', NULL),
+  );  
+  $form['twitter_oauth']['twitter_consumer_secret'] = array(
+    '#type' => 'textfield',
+    '#title' => t('OAuth Consumer secret'),
+    '#default_value' => variable_get('twitter_consumer_secret', NULL),
+  ); 
+  $form['facebook'] = array(
+    '#type' => 'fieldset',
+    '#title' => st('Facebook Configration'),
+    '#collapsible' => FALSE,
+  );
+  $form['facebook']['fboauth_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('App ID'),
+    '#size' => 20, 
+    '#maxlengh' => 50, 
+    '#description' => t('To use Facebook connect, a Facebook Application must be created. Set up your app in <a href="http://www.facebook.com/developers/apps.php">my apps</a> on Facebook.') . ' ' . t('Enter your App ID here.'),
+    '#default_value' => variable_get('fboauth_id', ''),
+  );  
+  $form['facebook']['fboauth_secret'] = array(
+    '#type' => 'textfield',
+    '#title' => t('App Secret'),
+    '#size' => 40, 
+    '#maxlengh' => 50, 
+    '#description' => t('To use Facebook connect, a Facebook Application must be created. Set up your app in <a href="http://www.facebook.com/developers/apps.php">my apps</a> on Facebook.') . ' ' . t('Enter your App Secret here.'),
+    '#default_value' => variable_get('fboauth_secret', ''),
+  ); 
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => st('Save and continue'),
+    '#weight' => 15,
+  );
+  return $form;
+}
+
+function cd_apps_form_submit($form, &$form_state) {
+  $values = $form_state['values'];
+  variable_set('twitter_consumer_key', $values['twitter_consumer_key']);
+  variable_set('twitter_consumer_secret', $values['twitter_consumer_secret']);
+  variable_set('fboauth_id', $values['fboauth_id']);
+  variable_set('fboauth_secret', $values['fboauth_secret']);
+  //change l18n_update setting to import translation from local server.
+  module_enable(array('checkdesk_featured_stories_feature'));
+  features_revert(array('checkdesk_core_feature' => array('translations')));
+  features_revert(array('checkdesk_featured_stories_feature' => array('user_permission')));
+}
 
 function cd_cleanup() {
   $operations = array();
