@@ -221,7 +221,7 @@ function cd_apps_form_submit($form, &$form_state) {
   variable_set('fboauth_secret', $values['fboauth_secret']);
   //change l18n_update setting to import translation from local server.
   module_enable(array('checkdesk_featured_stories_feature'));
-  features_revert(array('checkdesk_core_feature' => array('translations')));
+  features_revert(array('checkdesk_core_feature' => array('translations', 'menu_links', 'uuid_node')));
   features_revert(array('checkdesk_featured_stories_feature' => array('user_permission')));
 }
 
