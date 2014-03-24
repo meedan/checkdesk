@@ -1,0 +1,13 @@
+diff --git a/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module b/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
+index d537616..2cc1be2 100644
+--- a/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
++++ b/drupal/sites/all/modules/contrib/recaptcha/recaptcha.module
+@@ -195,7 +195,7 @@ function _recaptcha_test_recaptcha_server() {
+ function recaptcha_captcha_validation($solution = NULL, $response = NULL) {
+   global $user;
+   $recaptcha_private_key = variable_get('recaptcha_private_key', FALSE);
+-  $challenge = $_POST['recaptcha_challenge_field'];
++  $challenge = isset($_POST['recaptcha_challenge_field']) ? $_POST['recaptcha_challenge_field'] : NULL;
+   $answer = $_POST['recaptcha_response_field'];
+   $key = 'recaptcha:' . $answer;
+   if (isset($_SESSION[$key])) {
