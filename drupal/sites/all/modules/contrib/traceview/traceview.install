@@ -5,6 +5,8 @@
  * traceview module install file
  */
 
+include_once 'traceview.inc';
+
 
 /**
  * Implements hook_install().
@@ -77,16 +79,45 @@ function traceview_requirements($phase) {
     case 'runtime':
       if (!extension_loaded('oboe')) {
         $requirements['traceview'] = array(
-          'value' => t('Not installed'),
+          'value' => t('Not Installed'),
           'severity' => REQUIREMENT_ERROR,
           'description' => t('The TraceView module requires the oboe php extension to be installed.'),
         );
       }
       else {
-        $requirements['traceview'] = array(
-          'value' => t('Installed'),
-          'severity' => REQUIREMENT_OK,
-        );
+        $using_bad_version = FALSE;
+        $bad_versions = unserialize(TRACEVIEW_BAD_VERSIONS);
+        foreach ($bad_versions as $bad_version) {
+          $using_bad_version || $using_bad_version = version_compare(phpversion('oboe'), $bad_version, '=');
+        }
+        if ($using_bad_version){
+          $requirements['traceview'] = array(
+            'value' => t('Bad Version (version @ver)', array('@ver' => phpversion('oboe'))),
+            'severity' => REQUIREMENT_WARNING,
+            'description' => t('The TraceView module recommends avoiding <a href="@notes">some versions (@versions)</a> of the Oboe PHP extension.  Please upgrade to the latest tested version (@latest_version).', array(
+                '@notes' => 'https://support.tv.appneta.com/support/solutions/articles/86405-php-instrumentation-release',
+                '@versions' => implode(',', $bad_versions),
+                '@latest_version' => TRACEVIEW_LATEST_CONFIRMED_VERSION,
+              )
+            ),
+          );
+        }
+        elseif (version_compare(phpversion('oboe'), TRACEVIEW_LATEST_CONFIRMED_VERSION, '>')) {
+          $requirements['traceview'] = array(
+            'value' => t('Untested Version (version @ver)', array('@ver' => phpversion('oboe'))),
+            'severity' => REQUIREMENT_INFO,
+            'description' => t('The TraceView module has been tested to work with Oboe PHP extension versions <= @version.', array(
+                '@version' => TRACEVIEW_LATEST_CONFIRMED_VERSION,
+              )
+            ),
+          );
+        }
+        else {
+          $requirements['traceview'] = array(
+            'value' => t('Installed (version @ver)', array('@ver' => phpversion('oboe'))),
+            'severity' => REQUIREMENT_OK,
+          );
+        }
       }
       $requirements['traceview']['title'] = t('Oboe PHP Extension (traceview)');
       break;

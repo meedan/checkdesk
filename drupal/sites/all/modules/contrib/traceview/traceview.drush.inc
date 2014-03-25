@@ -25,4 +25,5 @@ function traceview_drush_exit() {
     );
     traceview_set_controller($controller, TRUE, FALSE);
   }
+  traceview_set_attributes();
 }
