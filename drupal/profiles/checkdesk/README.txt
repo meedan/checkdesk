@@ -17,7 +17,7 @@ B.1 pass configuration to drush site-install
 ; site configuration
 --site-name                                                   site name
 --account-mail                                                uid1 mail
---account-name                                                uid1 usernam
+--account-name                                                uid1 username
 --account-pass                                                uid1 password
 
 ; checkdesk configuration
