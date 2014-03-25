@@ -43,3 +43,13 @@ Scenario: Flag Icon - Anonymous
   Then I should not see the link "Flag spam"
   And I should not see the link "Flag graphic content"
   And I should not see the link "Flag for fact-checking"
+
+@api @javascript
+Scenario: Add footnote
+  Given I am on the homepage
+  And I am logged in as a user with the "citizen journalist" role
+  When I fill in "comment_body[und][0][value]" with "Footnote test"
+  And press "Add footnote"
+  And I wait for 10 seconds
+  Then I should see "Footnote test"
+  And the "comment_body[und][0][value]" field should contain ""
