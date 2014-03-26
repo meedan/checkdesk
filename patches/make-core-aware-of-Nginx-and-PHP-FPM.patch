@@ -55,6 +55,7 @@ index 47ee4fd..981cd35 100644
 +    $implementation = file_progress_implementation();
 +
 +    // Test the web server identity.
++    $is_apache = $is_nginx = FALSE; 
 +    if (isset($_SERVER['SERVER_SOFTWARE']) && preg_match("/Apache/i", $_SERVER['SERVER_SOFTWARE'])) {
 +      $is_apache = TRUE;
 +      $fastcgi = strpos($_SERVER['SERVER_SOFTWARE'], 'mod_fastcgi') !== FALSE || strpos($_SERVER["SERVER_SOFTWARE"], 'mod_fcgi') !== FALSE;
@@ -63,10 +64,9 @@ index 47ee4fd..981cd35 100644
 +      $is_nginx = TRUE;
 +      $fastcgi = FALSE;
 +    }
-+    else {
-+      $is_apache = FALSE;
-+      $is_nginx = FALSE;
-+    }
++    
++    
++    
 +
 +    if (!$is_apache && !$is_nginx) {
        $value = t('Not enabled');
