@@ -170,7 +170,7 @@ function theme_meedan_notifications_checkboxes($variable) {
     unset($element[$name]['#title']);
     $rows[$event][$i] = render($element[$name]);
   }
-  return theme_table(array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => 'notifications-preferences')));
+  return theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('notifications-preferences'))));
 }
 
 /**

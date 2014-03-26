@@ -165,6 +165,8 @@ function cd_configration_form_submit($form, &$form_state) {
   if ($form_state['values']['enable_multilingual'][1]) {
     module_enable(array('checkdesk_multilingual_feature'));
   }
+  //set error msg to display to be none.
+  variable_set('error_level', 0);
 }
 
 function cd_apps_form($form, &$form_state, &$install_state) {
