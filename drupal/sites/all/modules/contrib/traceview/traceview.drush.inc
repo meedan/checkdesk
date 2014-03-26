@@ -11,6 +11,8 @@
  * Record traceview traffic partitioning and controller within drush.
  */
 function traceview_drush_exit() {
+  if (!function_exists('traceview_init')) return;
+
   // Partition drush commands.
   if (variable_get('traceview_partition_drush_traffic', FALSE)) {
     traceview_set_partition('Drush');
