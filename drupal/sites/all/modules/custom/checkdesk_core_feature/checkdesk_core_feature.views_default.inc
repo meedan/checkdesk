@@ -1592,6 +1592,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
   $handler->display->display_options['defaults']['footer'] = FALSE;
+  $handler->display->display_options['defaults']['empty'] = FALSE;
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = ' ';
+  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
 
   /* Display: Services */
   $handler = $view->new_display('services', 'Services', 'services_1');
@@ -1663,6 +1671,7 @@ $interval = 5000;
 $path = drupal_get_path(\'module\', \'checkdesk_notifications\') . \'/ping.php?user=\' . $user->uid;
 print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_field\' => TRUE, \'incremental\' => FALSE, \'ping\' => array(\'ping_base_path\' =>  $path)));
 ?>'),
+    t(' '),
     t('Services'),
     t('activity_message'),
     t('timestamp'),
