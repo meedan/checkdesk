@@ -9,6 +9,14 @@
  */
 function checkdesk_core_feature_translations_defaults() {
   $translations = array();
+  $translations['ar:default']['0015b64f0747dd1206adf2a68995fd6a'] = array(
+    'source' => 'Source frequency of reports in any given month.',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'تعداد المصادر المختلفة في شهر معين',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['0046311d21a0ef8a6b714966cd1ccfd3'] = array(
     'source' => 'The module\'s database schema version number. -1 if the module is not installed (its tables do not exist); 0 or the largest N of the module\'s hook_update_N() function that has either been run or existed when the module was first installed.',
     'context' => '',
@@ -1399,6 +1407,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['2899a088c8f70f1d255b74775d765b91'] = array(
+    'source' => 'Citizen Reports',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'تقارير المواطنين',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['28fcca0aa4d724a66a3afca960a279d4'] = array(
     'source' => 'Language of the user',
     'context' => '',
@@ -1891,6 +1907,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['398e2880f76a64629d159199ecfa3bda'] = array(
+    'source' => 'Registered Users',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'المستخدمون المسجلون',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['39b4022ca6555741f998cbf041c67f5e'] = array(
     'source' => 'Please log in or register to relate your Twitter account with a user.',
     'context' => '',
@@ -2307,6 +2331,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'لغة المحتوى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['43efe0a13f5e3ed356f742abcfeffb47'] = array(
+    'source' => 'The number of users who have submitted a report in any given month',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'عدد المستخدمين الذين قاموا بإرسال التقارير في شهر معين',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2790,6 +2822,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['553edaa445c153674ca749a9ffeb5b77'] = array(
+    'source' => 'Active Users',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'المستخدمون النشطون',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['55642fb5f45a7ee4218655c0cecf2389'] = array(
     'source' => 'If you need to translate Views labels into other languages, consider installing the <a href="!path">Internationalization</a> package\'s Views translation module.',
     'context' => '',
@@ -2884,6 +2924,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/',
     'translation' => 'مدونة Checkdesk مباشرة من <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a> ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['57c37f0965364db27543f04520990ca6'] = array(
+    'source' => 'Most Active Users',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'أكثر المستخدمين نشاطاً',
     'plid' => 0,
     'plural' => 0,
   );
@@ -3054,6 +3102,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'context' => '',
     'location' => '/ar/flag/flag/factcheck_journalist/2447?destination=report-view-modal/ajax/2447&token=KPFawrLou6qfujz-SsQucRW0B_4hr8CIbDcZBfbnrBo',
     'translation' => 'تم تفعيل التحقق من صحة معلومات <a href="[node:url:unaliased]"> تقرير [node:author] </a>.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['5caa90bd0bad9b86a3904caea31ee740'] = array(
+    'source' => 'Number of reports submitted by the most active user in any given month.',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'عدد التقارير المرسلة من أكثر المستخدمين نشاطاً في شهر معين',
     'plid' => 0,
     'plural' => 0,
   );
@@ -3969,6 +4025,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'ملف مقترن بمصطلح التصنيف، لأنها عادة ما تكون في حقل على مصطلح  التصنيف.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['74a123e8b1e69b74268be68db119746d'] = array(
+    'source' => 'Number of different sources',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'عدد المصادر المختلفة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -6111,6 +6175,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['aff68a5a38953a62748b240971fd8028'] = array(
+    'source' => 'Checkdesk Reports',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'تقارير تشك دسك',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['b10b8bdfffa84e0f75fc4501b6b666f1'] = array(
     'source' => 'Check your e-mail to confirm your account',
     'context' => '',
@@ -6829,6 +6901,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['c25e57e2341e66806cc34b7c332a2ae8'] = array(
+    'source' => 'The total number of reports submitted in any given month.',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'العدد الكلي للتقارير في شهر معين',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['c28517c56d669b4ce6c8db6adfcb62e9'] = array(
     'source' => 'The last comment of a node.',
     'context' => '',
@@ -7544,6 +7624,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'term from !field_name',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d5c20a760c506d4b9085e9b24cdeeb03'] = array(
+    'source' => 'Number of users who register to use Checkdesk in any given month.',
+    'context' => '',
+    'location' => '/checkdesk/ar/admin/meedan/reports',
+    'translation' => 'عدد المستخدمين الذين أنشؤوا حساباً على تشك دسك في شهر معين',
     'plid' => 0,
     'plural' => 0,
   );

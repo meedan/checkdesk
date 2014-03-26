@@ -6,21 +6,22 @@
 function meedan_reports_menu() {
   $items = array();
   $items['admin/meedan/reports'] = array(
-    'title' => t('Meedan Reports'),
-    'description' => t('Meedan reports for reviewing how the site is performing'),
+    'title' => t('Checkdesk Reports'),
+    'description' => t('Checkdesk reports for reviewing how the site is performing'),
     'page callback' => 'system_admin_menu_block_page',
     'access arguments' => array('access administration pages'),
     'position' => 'left',
-    'weight' => 6,
+    'weight' => 5,
     'file' => 'system.admin.inc', 
     'file path' => drupal_get_path('module', 'system'),
   );
   $reports = _meedan_reports_get_info(); 
-  foreach ($reports as $path => $title) {
+  foreach ($reports as $path => $value) {
     $items['admin/meedan/reports/'.$path] = array(
       'page callback' => 'drupal_get_form',
       'page arguments' => array('meedan_reports_statistics_filter_form', 3),
-      'title' => $title,
+      'title' => $value['title'],
+      'description' => $value['description'],
       'access arguments' => array('administer site configuration'),
     );
   }
@@ -44,12 +45,27 @@ function _meedan_reports_get_info() {
  * Cached must be cleared to add new reports
  */
 function meedan_reports_meedan_reports_info() {
-   return  array (
-    'user_registered' => t('Registered users reports'),
-    'reports_count' => t('Citizen reports'),
-    'different_sources' => t('Different sources reports'),
-    'most_active_users' => t('Most active users reports'),
-    'active_users' => t('Active Users'),
+  return  array (
+    'user_registered' => array(
+      'title' => t('Registered Users'),
+      'description' => t('Number of users who register to use Checkdesk in any given month.'),
+    ),
+    'reports_count' => array(
+      'title' => t('Citizen Reports'),
+      'description' => t('The total number of reports submitted in any given month.'),
+    ),
+    'different_sources' => array(
+      'title' => t('Number of different sources'),
+      'description' => t('Source frequency of reports in any given month.'),
+    ),
+    'most_active_users' => array(
+      'title' => t('Most Active Users'),
+      'description' => t('Number of reports submitted by the most active user in any given month.'),
+    ),
+    'active_users' => array(
+      'title' => t('Active Users'),
+      'description' => t('The number of users who have submitted a report in any given month'),
+    ),
   );
 }
 
@@ -60,22 +76,29 @@ function meedan_reports_statistics_filter_form($form, &$form_state, $type) {
   $query = db_select('node', 'n');
   $query->addExpression('FROM_UNIXTIME(created, \'%Y\')', 'year');
   $query->distinct();
-  $result = $query->execute();
-  $years = array('' => t('All'));
-  while ($year = $result->fetchfield()) {
-    $years[$year] = $year;
-  }
+  $result = $query->execute()->fetchAllKeyed(0, 0);
+  $years = array('' => t('All')) + $result;
   $year_val = '';
   if (isset($_SESSION['report_year'])) {
     $year_val = $_SESSION['report_year'];
-    $form['year_val'] = array(
-      '#type' => 'hidden',
-      '#value' => $year_val,
-    );
     unset($_SESSION['report_year']);
   }
-
+  else {
+    $year_val = date('Y');
+  }
+  $form['year_val'] = array(
+    '#type' => 'hidden',
+    '#value' => $year_val,
+  );
+  //get report description
+  $reports = _meedan_reports_get_info();
+  $form['description'] = array(
+    '#markup' => $reports[$type]['description'],
+    '#weight' => -110,
+  );
   $form['year'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#suffix' => '</div>',
     '#title' => t('Select year'),
     '#type' => 'select',
     '#options' => $years,
@@ -141,7 +164,9 @@ function theme_meedan_reports_statistics_filter_form($form) {
     $row_json[] = array('Date' => $result->date, 'Count' => (int) $result->count, 'Info' => $info);
     $total += $result->count;
   }
-  $row[] = array('' , t('Total')." $total");
+  //dispaly date on most recent order
+  $row = array_reverse($row, TRUE);
+  $row[] = array('' , t('Total @total', array('@total' => $total)));
   $output .= '<div id="tabs">';
   $output .= '
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">

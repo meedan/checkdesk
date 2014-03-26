@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the standard installation profile.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function checkdesk_install() {
+  include_once DRUPAL_ROOT . '/profiles/standard/standard.install';
+  standard_install();
+}

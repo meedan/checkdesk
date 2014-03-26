@@ -1,0 +1,7 @@
+-- see install_cd_db.sh
+-- this file should get sed'd for all the ddVARNAMEdd
+CREATE DATABASE IF NOT EXISTS ddINSTANCEdd;
+CREATE USER 'ddINSTANCEdd'@'%' IDENTIFIED BY 'ddPASSWORDdd';
+GRANT ALL PRIVILEGES ON ddINSTANCEdd.* TO 'ddINSTANCEdd'@'%';
+REVOKE GRANT OPTION ON ddINSTANCEdd.* FROM 'ddINSTANCEdd'@'%';
+FLUSH PRIVILEGES;

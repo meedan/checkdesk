@@ -5,6 +5,8 @@
  * Module file for traceview module
  */
 
+include_once 'traceview.inc';
+
 /**
  * Implements hook_init().
  *
@@ -292,7 +294,7 @@ function traceview_watchdog($log_entry) {
         }
         break;
     }
-    traceview_oboe_log('info', array('ErrorClass' => $log_entry['type'], 'ErrorMsg' => $message), NULL, TRUE);
+    traceview_oboe_log(NULL, 'info', array('ErrorClass' => $log_entry['type'], 'ErrorMsg' => $message), TRUE);
   }
 }
 
@@ -302,26 +304,33 @@ function traceview_watchdog($log_entry) {
  * Record traceview traffic partitioning and controller.
  */
 function traceview_exit() {
+  traceview_set_attributes();
+}
+
+/**
+ * Sets the Partition, Controller and Action trace attributes.
+ */
+function traceview_set_attributes() {
   global $user;
 
   // Partition traffic.
   if (variable_get('traceview_partition_traffic', FALSE)) {
     $traceview_partition = traceview_set_partition();
     if (!empty($traceview_partition)) {
-      traceview_oboe_log('info', array('Partition' => $traceview_partition));
+      traceview_oboe_log(NULL, 'info', array('Partition' => $traceview_partition));
     }
     else {
       switch ($user->uid) {
         case 1:
-          traceview_oboe_log('info', array('Partition' => 'Admin'));
+          traceview_oboe_log(NULL, 'info', array('Partition' => 'Admin'));
           break;
 
         case 0:
-          traceview_oboe_log('info', array('Partition' => 'Anonymous'));
+          traceview_oboe_log(NULL, 'info', array('Partition' => 'Anonymous'));
           break;
 
         default:
-          traceview_oboe_log('info', array('Partition' => 'Authenticated'));
+          traceview_oboe_log(NULL, 'info', array('Partition' => 'Authenticated'));
           break;
       }
     }
@@ -365,7 +374,7 @@ function traceview_exit() {
 
   $controller = traceview_set_controller(NULL, FALSE, TRUE);
   if (!empty($controller)) {
-    traceview_oboe_log('info', $controller);
+    traceview_oboe_log(NULL, 'info', $controller);
   }
 }
 
@@ -413,6 +422,10 @@ function traceview_cron() {
     );
     traceview_set_controller($controller, TRUE);
   }
+
+  // We call traceview_set_attributes here because cron.php doesn't respect
+  // hook_exit().
+  traceview_set_attributes();
 }
 
 /**
@@ -544,6 +557,9 @@ function traceview_get_action($argument) {
  *
  * @param string $partition
  *   Traffic partition name.
+ *
+ * @return string
+ *   Traffic partition name.
  */
 function traceview_set_partition($partition = NULL) {
   static $traceview_partition;
@@ -557,32 +573,60 @@ function traceview_set_partition($partition = NULL) {
  * Wrapper function for oboe_log to support different library versions, which
  * have different function signatures.
  *
- * @param string $param1
- * @param mixed $param2
- * @param mixed $param3
+ * @param string $layer
+ * @param mixed $label
+ * @param mixed $info
  * @param boolean $backtrace
+ * @param mixed $edge
  */
-function traceview_oboe_log($param1, $param2, $param3 = NULL, $backtrace = NULL) {
-  // By default, log a backtrace for all layer entry calles, unless explicitly
-  // disabled by setting $backtrace to FALSE.
-  if ($backtrace === NULL && $param2 == 'entry') {
-    $backtrace = TRUE;
+function traceview_oboe_log($layer, $label, $info = NULL, $backtrace = NULL, $edge = NULL) {
+  // The backtrace option was added in version 1.1.2 and will not be used in
+  // earlier versions.
+  if ($backtrace === NULL) {
+    $backtrace = ($label === 'entry' || $label === 'profile_entry') ? TRUE : FALSE;
   }
-  if (!$backtrace || version_compare(phpversion('oboe'), '1.1.2', '<')) {
-      if ($param3 === NULL) {
-        oboe_log($param1, $param2);
+
+  // @see https://support.tv.appneta.com/support/articles/86405-php-instrumentation-release
+  switch (TRUE) {
+    // Versions ? - 1.1.1
+    case version_compare(phpversion('oboe'), '1.1.2', '<'):
+      if ($info === NULL) {
+        oboe_log($layer, $label);
+      }
+      elseif ($layer == NULL) {
+        oboe_log($label, $info);
       }
       else {
-        oboe_log($param1, $param2, $param3);
+        oboe_log($layer, $label, $info);
       }
-  }
-  else {
-    if ($param3 === NULL) {
-      oboe_log($param1, $param2, TRUE);
-    }
-    else {
-      oboe_log($param1, $param2, $param3, TRUE);
-    }
+      break;
+
+    // Versions 1.1.2 - 1.4.1
+    // Added the backtrace parameter.
+    case version_compare(phpversion('oboe'), '1.4.2', '<'):
+      if ($info === NULL) {
+        oboe_log($layer, $label, $backtrace);
+      }
+      elseif ($layer == NULL) {
+        oboe_log($label, $info, $backtrace);
+      }
+      else {
+        oboe_log($layer, $label, $info, $backtrace);
+      }
+      break;
+
+    // Versions 1.4.2 - 1.4.4
+    // These versions broke backwards compatibility such that some calls result
+    // in deprecation warnings.  Using @ to suppress warnings is a bad idea, but
+    // it's the best option for these versions.
+    case version_compare(phpversion('oboe'), '1.4.5', '<'):
+      @oboe_log($layer, $label, $info, $backtrace, $edge);
+      break;
+
+    // Version 1.4.5+
+    default:
+      oboe_log($layer, $label, $info, $backtrace, $edge);
+      break;
   }
 }
 

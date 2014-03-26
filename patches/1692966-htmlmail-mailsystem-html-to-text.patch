@@ -1,0 +1,20 @@
+diff --git a/htmlmail.mail.inc b/htmlmail.mail.inc
+index 16fe7cd..fcb6d2f 100644
+--- a/htmlmail.mail.inc
++++ b/htmlmail.mail.inc
+@@ -59,6 +59,7 @@ class HTMLMailSystem implements MailSystemInterface {
+         $body = $message['body'];
+       }
+       // @todo Change to drupal_html_to_text when issue #299138 gets resolved.
++      module_load_include('inc', 'mailsystem', 'html_to_text');
+       $plain = mailsystem_html_to_text($body);
+       if ($body && !$plain) {
+         watchdog(
+@@ -185,6 +186,7 @@ class HTMLMailSystem implements MailSystemInterface {
+     $body = theme('htmlmail', $email);
+     $mime->setHTMLBody($body);
+     // @todo Change to drupal_html_to_text when issue #299138 gets resolved.
++    module_load_include('inc', 'mailsystem', 'html_to_text');
+     $mime->setTXTBody(mailsystem_html_to_text($body));
+     $message['MailMIME'] = &$mime;
+     return $body;

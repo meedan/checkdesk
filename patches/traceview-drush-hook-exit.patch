@@ -1,0 +1,13 @@
+diff --git a/drupal/sites/all/modules/contrib/traceview/traceview.drush.inc b/drupal/sites/all/modules/contrib/traceview/traceview.drush.inc
+index 174859a..fce2b41 100644
+--- a/drupal/sites/all/modules/contrib/traceview/traceview.drush.inc
++++ b/drupal/sites/all/modules/contrib/traceview/traceview.drush.inc
+@@ -11,6 +11,8 @@
+  * Record traceview traffic partitioning and controller within drush.
+  */
+ function traceview_drush_exit() {
++  if (!function_exists('traceview_init')) return;
++
+   // Partition drush commands.
+   if (variable_get('traceview_partition_drush_traffic', FALSE)) {
+     traceview_set_partition('Drush');

@@ -123,7 +123,7 @@
     <!-- ______________________ FOOTER _______________________ -->
 
     <?php if (checkdesk_footer_visibility()) : ?>        
-    <?php if ($information_nav || $footer_nav): ?>
+    <?php if (isset($information_nav) || isset($footer_nav)): ?>
       <div id="footer">
         <div id="footer-inner" class="inner">
           <?php if($page['footer']): ?>
