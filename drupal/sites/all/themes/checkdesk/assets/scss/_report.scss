@@ -554,7 +554,9 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 									margin-bottom: 0; 
 								}
 								// For URLs inside footnote
-								@include ctb-break-words;
+								a {
+									@include ctb-break-words;	
+								}
 							}
 							.verified { 
 								color: rgba(0,140,0, 1);
