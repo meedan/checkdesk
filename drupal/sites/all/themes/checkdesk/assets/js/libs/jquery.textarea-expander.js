@@ -80,6 +80,7 @@
 				this.Initialized = true;
 				if($.browser.mozilla) {
 					$(this).css("padding-top", 0).css("padding-bottom", 0);
+					// plus zero padding on left or right depending on language
 					if(Drupal.settings.language.language == 'en') {
 						$(this).css("padding-right", 0);
 					} else {
