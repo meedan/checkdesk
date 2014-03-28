@@ -5079,7 +5079,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['93935b770e5254fea51e01a17c591296'] = array(
     'source' => 'Hello !recipient_name,
 
-!author has added footnote to the following report "!title":
+!author has added a footnote to the following report "!title":
 
 !body
 
