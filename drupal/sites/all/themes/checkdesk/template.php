@@ -42,10 +42,11 @@ function checkdesk_preprocess_html(&$variables) {
    $variables['classes_array'][] = $class;
   }
 
-  // set body class for language
+  // set body class for language and language object to Drupal.settings
   if ($variables['language']) {
     $class = 'body-' . $variables['language']->language;
     $variables['classes_array'][] = $class;
+    drupal_add_js(array('language' => $variables['language']), 'setting');
   }
 
   // 404 HTML template
@@ -1032,6 +1033,7 @@ function checkdesk_form_comment_form_alter(&$form, &$form_state) {
   $form['author']['homepage'] = NULL;
   $form['author']['mail'] = NULL;
   $form['actions']['submit']['#attributes']['class'] = array('btn');
+  $form['comment_body']['und'][0]['#attributes']['class'] = array('expand');
   $form['actions']['submit']['#value'] = t('Add footnote');
   $form['actions']['submit']['#ajax'] = array(
     'callback' => '_checkdesk_comment_form_submit',
