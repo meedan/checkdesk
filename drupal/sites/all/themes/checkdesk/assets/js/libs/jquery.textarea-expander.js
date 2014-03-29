@@ -36,7 +36,8 @@
 	// jQuery plugin definition
 	$.fn.TextAreaExpander = function(minHeight, maxHeight) {
 
-		var hCheck = !($.browser.msie || $.browser.opera);
+		// Browser sniffing and IE11 detection
+		var hCheck = !($.browser.msie || $.browser.opera || !!navigator.userAgent.match(/Trident\/7\./));
 
 		// resize a textarea
 		function ResizeTextarea(e) {
