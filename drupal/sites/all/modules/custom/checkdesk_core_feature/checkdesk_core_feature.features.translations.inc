@@ -6205,7 +6205,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translations['ar:default']['aff68a5a38953a62748b240971fd8028'] = array(
-    'source' => 'Checkdesk Reports',
+    'source' => 'Checkdesk reports',
     'context' => '',
     'location' => '/checkdesk/ar/admin/meedan/reports',
     'translation' => 'تقارير تشك دسك',
