@@ -2377,8 +2377,6 @@ function _checkdesk_validation_ajax_unique_field() {
  * Implements hook_form_FORM_ID_alter() for `comment_form`.
  */
 function checkdesk_core_form_comment_form_alter(&$form, &$form_state) {
-  $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
-
   $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add footnote');
 
   $term = $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'];

@@ -4819,19 +4819,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   position: absolute;
   top: 12px;
   left: -40px;
-  z-index: 0;
-}
-.report #report-actions:before {
-  position: absolute;
-  content: "";
-  z-index: -1;
-  top: -7px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 7px;
-  background-color: #f3f4f4;
-  background-color: #e7e8ea;
 }
 .report #report-actions ul.content-actions {
   margin: 0;
@@ -5381,7 +5368,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #6f7a82;
   -ms-word-break: break-all;
   word-break: break-all;
-  word-break: break-word;
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
@@ -5439,7 +5425,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity .activity-wrapper .view-content .activity header .title p a {
   -ms-word-break: break-all;
   word-break: break-all;
-  word-break: break-word;
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
@@ -6487,7 +6472,6 @@ div.sensitive-hide {
   width: 78%;
   -ms-word-break: break-all;
   word-break: break-all;
-  word-break: break-word;
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
@@ -8104,7 +8088,7 @@ form textarea {
   box-sizing: border-box;
   padding-top: 7.5px;
   padding-bottom: 7.5px;
-  height: auto !important;
+  height: auto;
 }
 form .image-widget {
   -webkit-border-radius: 3px;
@@ -8206,7 +8190,7 @@ form .form-type-textarea:after {
     box-sizing: border-box;
     padding-top: 7.5px;
     padding-bottom: 7.5px;
-    height: auto !important;
+    height: auto;
   }
   form .image-widget {
     -webkit-border-radius: 3px;

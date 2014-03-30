@@ -373,7 +373,7 @@
       @include span-columns($w, $w); // small padding with grid accounting
       @include ctb-box-sizing(border-box); // Makes inputs behave like true block-level elements
       padding: { top: $gutter-width/2; bottom: $gutter-width/2; } // match the padding on top and bottom
-      height: auto !important;
+      height: auto;
     }
 
     // image field
