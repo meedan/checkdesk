@@ -227,21 +227,26 @@ function _checkdesk_core_report_can_suggest($report) {
 function _checkdesk_modal_report_view($js = FALSE) {
   ctools_include('modal');
   $nid = arg(2);
-  $node = node_load($nid);
-  $title = $node->title;
-  $element = node_view($node);
-  $element['comments'] = comment_node_page_additions($node);
-  $output = drupal_render($element);
+  $output = '';
+  if (is_numeric($nid)) {
+    $node = node_load($nid);
+    if (is_object($node)) {
+      $title = $node->title;
+      $element = node_view($node);
+      $element['comments'] = comment_node_page_additions($node);
+      $output = drupal_render($element);
 
-  $javascript = drupal_add_js(NULL, NULL);
-  $settings = '';
-  if(isset($javascript['settings'])) {
-    $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
-                drupal_json_encode(call_user_func_array('array_merge_recursive', $javascript['settings']['data'])) .
-                ');</script>';
+      $javascript = drupal_add_js(NULL, NULL);
+      $settings = '';
+      if(isset($javascript['settings'])) {
+        $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
+          drupal_json_encode(call_user_func_array('array_merge_recursive', $javascript['settings']['data'])) .
+          ');</script>';
+      }
+      //Add the settings to the form
+      $output .= $settings;
+    }
   }
-  //Add the settings to the form
-  $output .= $settings;
 
   if ($js) {
     ctools_modal_render($title, $output);
@@ -910,6 +915,10 @@ function checkdesk_core_contextual_links_view_alter(&$element, $items) {
 function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   global $user;
 
+  // Adjust compose update form
+  $form['title']['#attributes']['placeholder'] = t('Update headline');
+  $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Write text and drag reports here to compose the update');
+
   // Are we showing the post form on the desk page?
   if (($node = menu_get_object()) && $node->type == 'discussion') {
     // Hard-code desk reference to current desk.
@@ -999,6 +1008,18 @@ function _checkdesk_core_post_node_form_validate($form, &$form_state) {
  * Ajax-enable the discussion form as requested.
  */
 function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
+
+  //Adjust create story form
+  $form['title']['#title'] = t('Story title');
+  $form['title']['#attributes']['placeholder'] = t('Story title');
+
+  $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
+  $form['body'][LANGUAGE_NONE][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
+
+  $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload">';
+  $form['field_lead_image']['#suffix'] = '</div">';
+  $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
+
   if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
     return;
   }
@@ -2457,6 +2478,7 @@ function checkdesk_core_direction_settings() {
 
   return $layout;
 }
+
 /*
  * Implements of hook_core_pathauto_alias_alter().
  */
@@ -2464,3 +2486,17 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
   // Force all aliases to be saved as language neutral.
   $context['language'] = LANGUAGE_NONE;
 }
+
+/**
+ * Implements of hook_form_BASE_FORM_ID_alter().
+ */
+function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
+  // Adjust edit node form
+  $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
+  if (isset($form['nid']['#value'])) {
+    $node = $form['#node'];
+    unset($form['field_stories']);
+    drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+  }
+}
+
