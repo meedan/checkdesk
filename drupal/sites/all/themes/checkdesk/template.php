@@ -380,9 +380,9 @@ function checkdesk_preprocess_page(&$variables) {
     if (in_array('checkdesk-use-modal', $classes)) {
       $alias = drupal_lookup_path('alias', $item['link']['href']);
       $path = $alias ? $alias : $item['link']['href'];
-      $tree[$id]['link']['link_path'] = 'modal/ajax/' . $path;
-      $tree[$id]['link']['href'] = 'modal/ajax/' . $path;
-      $tree[$id]['link']['class'] = array_merge($classes, array('use-ajax', 'ctools-modal-modal-popup-large'));
+      $tree[$id]['link']['link_path'] = $path;
+      $tree[$id]['link']['href'] = $path;
+      $tree[$id]['link']['class'] = $classes;
     }
   }
 
