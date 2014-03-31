@@ -213,7 +213,6 @@ function checkdesk_preprocess_page(&$variables) {
     // Build links
     $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
 
-
     // Remove empty expanded menus
     foreach ($tree as $id => $item) {
       if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
@@ -228,40 +227,6 @@ function checkdesk_preprocess_page(&$variables) {
     }
 
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
-
-    foreach ($variables['main_menu'] as $id => $item) {
-      // Change "Submit Report" link
-      if ($item['link_path'] == 'node/add/media') {
-        $src = url('node/add/media', array('query' => array('meedan_bookmarklet' => '1')));
-        $content = array(
-          '#type' => 'markup',
-          '#markup' => theme('meedan_iframe', array('src' => $src, 'attributes' => array('style' => 'width: 100%;'))),
-        );
-
-        $variables['main_menu'][$id]['html'] = TRUE;
-        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => t('Submit report')));
-        $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
-        $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
-        $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
-        $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-media-form', 'content' => $content));
-      }
-      else if ($item['link_path'] == 'node/add/discussion') {
-        module_load_include('inc', 'node', 'node.pages');
-        $node = (object) array('uid' => $user->uid, 'name' => (isset($user->name) ? $user->name : ''), 'type' => 'discussion', 'language' => LANGUAGE_NONE);
-        // The third 'ajax' parameter is a flag for checkdesk_core
-        $content = drupal_get_form('discussion_node_form', $node, 'ajax');
-
-        $variables['main_menu'][$id]['html'] = TRUE;
-        $variables['main_menu'][$id]['title'] = theme('checkdesk_dropdown_menu_item', array('title' => t('Create story')));
-        $variables['main_menu'][$id]['attributes']['data-toggle'] = 'dropdown';
-        $variables['main_menu'][$id]['attributes']['class'] = array('dropdown-toggle');
-        $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
-        $variables['main_menu'][$id]['suffix'] = theme('checkdesk_dropdown_menu_content', array('id' => 'nav-discussion-form', 'content' => $content));
-      }
-      else if ($item['link_path'] == 'node/add/post') {
-        $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
-      }
-    }
 
     // Build list
     $variables['primary_nav'] = theme('checkdesk_links', array(
@@ -1144,35 +1109,6 @@ function checkdesk_twitter_signin_button() {
   return l(t('Twitter'), 'twitter/redirect', $link);
 }
 
-
-
-/**
- * Adjust compose update form
- */
-function checkdesk_form_post_node_form_alter(&$form, &$form_state) {
-  $form['title']['#attributes']['placeholder'] = t('Update headline');
-
-  // $form['body'][LANGUAGE_NONE][0]['#title'] = NULL;
-  $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Write text and drag reports here to compose the update');
-}
-
-/**
- * Adjust create story form
- */
-function checkdesk_form_discussion_node_form_alter(&$form, &$form_state) {
-  $form['title']['#title'] = t('Story title');
-  $form['title']['#attributes']['placeholder'] = t('Story title');
-
-  $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
-  $form['body'][LANGUAGE_NONE][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
-
-  $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload">';
-  $form['field_lead_image']['#suffix'] = '</div">';
-  $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
-}
-
-
-
 /**
  * Theme views
  */
@@ -1232,18 +1168,6 @@ function _checkdesk_ensure_reports_modal_js() {
     ),
   );
   drupal_add_js($modal_style, 'setting');
-}
-
-/**
- * Adjust edit node form
- */
-function checkdesk_form_media_node_form_alter(&$form, &$form_state) {
-  $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
-  if (isset($form['nid']['#value'])) {
-    $node = $form['#node'];
-    unset($form['field_stories']);
-    drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
-  }
 }
 
 /**
