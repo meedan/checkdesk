@@ -21,8 +21,9 @@ function translations_features_export_options() {
   $options = array();
   $textgroups = module_invoke_all('locale', 'groups');
   foreach (language_list() as $langcode => $language) {
-    if ($langcode == translations_features_string_source_language()) continue;
     foreach ($textgroups as $textgroup => $label) {
+      if ($textgroup == 'default' && $langcode == 'en') continue;
+      if ($textgroup != 'default' && $langcode == translations_features_string_source_language()) continue;
       $options[$langcode . ':' . $textgroup] = t($language->name) . ': ' . $label;
     }
   }
@@ -58,7 +59,11 @@ function translations_features_export_render($module_name, $data, $export = NULL
   $code[] = '  $translations = array();';
   $files = array();
   if (module_exists('l10n_update')) {
-    $files = l10n_update_get_history(TRUE);
+    if (function_exists('l10n_update_get_history')) { // l10n_update-7.x-1.x
+      $files = l10n_update_get_history(TRUE); 
+    } else { // l10n_update-7.x-2.x
+      $files = l10n_update_get_file_history(); 
+    }
   }
   foreach ($data as $component) {
     list($langcode, $textgroup) = explode(':', $component);

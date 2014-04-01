@@ -281,6 +281,8 @@ function metatag_config_edit_form($form, &$form_state, $config) {
     else {
       $options['token types'] = array($contexts[0]);
     }
+    // Allow hook_metatag_token_types_alter() to modify the defined tokens.
+    drupal_alter('metatag_token_types', $options);
   }
 
   // Ensure that this configuration is properly compared to its parent 'default'
@@ -488,23 +490,23 @@ function metatag_bulk_revert_batch_operation($entity_type, $bundle, &$context) {
   // Process 25 entities per iteration.
   $query->range(0, 25);
   $result = $query->execute();
-  $ids = !empty($result[$entity_type]) ? array_keys($result[$entity_type]) : array();
-  foreach ($ids as $id) {
-    $metatags = metatag_metatags_load($entity_type, $id);
+  $entity_ids = !empty($result[$entity_type]) ? array_keys($result[$entity_type]) : array();
+  foreach ($entity_ids as $entity_id) {
+    $metatags = metatag_metatags_load($entity_type, $entity_id);
     if (!empty($metatags)) {
       db_delete('metatag')->condition('entity_type', $entity_type)
-        ->condition('entity_id', $id)
+        ->condition('entity_id', $entity_id)
         ->execute();
-      metatag_metatags_cache_clear($entity_type, $id);
+      metatag_metatags_cache_clear($entity_type, $entity_id);
       $context['results'][] = t('Reverted metatags for @bundle with id @id.', array(
         '@bundle' => $entity_type . ': ' . $bundle,
-        '@id' => $id,
+        '@id' => $entity_id,
       ));
     }
   }
 
-  $context['sandbox']['count'] += count($ids);
-  $context['sandbox']['current'] = max($ids);
+  $context['sandbox']['count'] += count($entity_ids);
+  $context['sandbox']['current'] = max($entity_ids);
 
   if ($context['sandbox']['count'] != $context['sandbox']['total']) {
     $context['finished'] = $context['sandbox']['count'] / $context['sandbox']['total'];

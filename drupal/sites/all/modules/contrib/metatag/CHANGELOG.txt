@@ -1,3 +1,132 @@
+Metatag 7.x-1.0-beta9, 2014-01-18
+---------------------------------
+#2174363 by DamienMcKenna: Changed update 7018 to avoid attempting to create
+  duplicate records when updating; instead should there be a collision the
+  record with revision_id 0 will be deleted.
+#2176351 by DamienMcKenna: 403 and 404 error pages will use the global default
+  for the page title instead of copying the homepage's.
+#2175843 by DamienMcKenna: It was possible to get to update 7016 without the
+  revision_id field existing, so make sure it exists.
+#2081787 by attila.fekete: Don't let Metatag:Views overwrite the frontpage meta
+  tag config, matching how Metatag:Panels works.
+#2176375 by DamienMcKenna: Added note to README.txt about the Textimage module's
+  compatibility with Metatag.
+#2170771 by DamieMcKenna: Added support for the og:image:secure_url meta tag.
+
+
+Metatag 7.x-1.0-beta8, 2014-01-15
+---------------------------------
+#1995284 by DamienMcKenna: Replace $_SERVER['REQUEST_URI'] with request_uri().
+By DamienMcKenna: Updated the README.txt's Credits section to match the project
+  page.
+#1978708 by DamienMcKenna: Added a note to the README.txt, hook_install and
+  hook_requirements to mention that RDF can cause validation errors for the
+  Open Graph meta tag output.
+#1977640 by dsdeiz: Fixed a comment typo.
+#1978730 by DamienMcKenna: Added an installation note to read the README.txt
+  file.
+#1978568 by DamienMcKenna: Strip line breaks in all tag output.
+#1961354 by DamienMcKenna, thesame: Optionally provide additional permissions
+  so that access to modify each meta tag can be controlled individually, see
+  README.txt for more details.
+#1933678 by DamienMcKenna: Default Context configurations for the user login and
+  registration pages.
+#1816856 by DamienMcKenna: Default Context configuration for the main forum
+  page.
+#1292612 by DamienMcKenna: Default Context configuration for the main blog
+  page.
+#1988346 by DamienMcKenna: Form permissions were being overridden thus making
+  the Metatag fieldset visible when it shouldn't have been.
+#1994352 by AmbikaFR: Two strings were not translatable.
+#1970064 by Jorrit: Metatag:Panels did not load the data correctly.
+#1994634 by DamienMcKenna: DrupalTextMetaTag::getValue fails if
+  $options['instance'] element doesn't exist.
+#1994630 by DamienMcKenna: Cleanup/filter all meta tag output.
+By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
+#1982164 by DamienMcKenna: Added hook_requirements note to ensure that Entity
+  Translation is up-to-date.
+#2020565 by DamienMcKenna: Save the correct language value on initial entity
+  creation.
+#1876034 by DamienMcKenna: Updated a comment to indicate that there was a
+  problem with Metatag itself when saving records via node_save(), not
+  Workbench Moderation after all.
+#2024277 by greggles, DamienMcKenna: Don't output a meta tag if the string is
+  blank, but still allow "0" to be output when needed.
+#1999936 by DamienMcKenna: Fixed poor logic for checking if a valid language
+  was available in metatag_metatags_values().
+#2024277 by DamienMcKenna: Follow-up to fix all meta tag output.
+#1498764 by nick_schuch, DamienMcKenna: Added the Revisit-After meta tag.
+#1671846 by benys, DamienMcKenna: Expose meta tags as tokens.
+#1830952 by DYdave, DamienMcKenna: Allow token types and patterns to be altered.
+#1859136 by plopesc, DamienMcKenna: Properly update meta tag records.
+#2045855 by czigor: Fix translation of meta tag info labels.
+#1572474 by PieIsGood, Dan Reinders, DamienMcKenna: Entity revision support.
+#2051401 by cha0s: Remove errant dpm() left in from earlier testing.
+#2037677 by adnasa, DamienMcKenna, tsvenson: UX improvement for the token popup.
+#1985932 by kolier: Correct the taxonomy term token on Panels pages.
+#2033723 by som30ind, DamienMcKenna: Fixed occasional error saving array values,
+  e.g. the ROBOTS tag.
+#1959830 by DamienMcKenna: Added a note to README.txt about Node Form Panes.
+#2061511 by amanire: Verify view display 'path' option exists before using it.
+#1776836 by kobee, DamienMcKenna: Added the Standout meta tag.
+#2095397 by DamienMcKenna: Allow method to skip skipping metatag_entity_view().
+#2095501 by DamienMcKenna: Logic mistake in metatag_metatags_delete_multiple()
+  meant records were never deleted.
+#2072087 by brunascle: Twitter Cards changed to use correct 'name' attribute.
+#2086037 by greggles: Only show schema warning messages to appropriate people.
+#1311050 by pasive, DamienMcKenna: Added the og:locale meta tag.
+#2082539 by DamienMcKenna, hswong3i: {metatag}.revision_id cannot be null.
+#2082539 by DamienMcKenna: Follow-up to make all revision_id values numeric.
+#1848338 by DamienMcKenna: Added a list of test scenarios that need to be added.
+#2152043 by DamienMcKenna: Devel Generate integration via Metatag:Devel
+  submodule.
+#2152043 by DamienMcKenna: Expanded Devel Generate integration to cover almost
+  all included meta tags.
+#1572474 by DamienMcKenna, HyperGlide, jyee, Kristen Pol, sylus: Fixes for
+  revisions support.
+#1876042 by DamienMcKenna: Rename variables to use $entity_id instead of $id
+  in metatag.admin.inc, $entity_type instead of $type in metatag.migrate.inc.
+#2157689/#2088299 by travelertt, iMiksu, DamienMcKenna: JS error broke
+  CKEditor, etc.
+#2168343 by DamienMcKenna: Clear EntityCache bins.
+#2062379 by DamienMcKenna: Restructured caching.
+#2168939 by DamienMcKenna: Don't skip batch processing on updates ran via Drush.
+#2169547 by DamienMcKenna: Clarification on Workbench Moderation support.
+#2090557 by Kristen Pol, DamienMcKenna: Don't cache tags on 403/404 error pages.
+#1848622 by DamienMcKenna: Translation helper for 'bar'.
+#1967856 by duozersk: Support for the noimageindex and notranslate robots tag
+  options.
+#2140463 by zhuber: Small misspelling in a comment.
+#1963678 by DC_Marc, gnuget, Albert Volkman: Additional Twitter Card meta tags.
+#2170363 by juampy: Incorrect data handling in DrupalDefaultMetaTag.
+#1286270 by DamienMcKenna: Provide options for disabling meta tags on specific
+  entity types or entity bundles, see README.txt for details.
+#2071649 by eelkeblok, DamienMcKenna: Verify the entity still exists when
+  loading meta tag data in metatag_ctools_render_alter() and
+  metatag_views_post_render().
+#2126157 by hefox: metatag_entity_has_metatags() returns TRUE for disabled
+  entities, not FALSE.
+#2001178 by jantoine, DamienMcKenna: Verify the language exists before saving.
+#1864306 by hefox: Export the 'disabled' state via Features, thus allowing
+  disabled configurations to be exported too.
+#2172883 by Kristen Pol, DamienMcKenna: Only use Workbench Moderation functions
+  on nodes.
+#1975552 by pivica, DamienMcKenna: Fixed errors when changing {metatag} table's
+  primary keys.
+#1864306 by DamienMcKenna: Follow-on to only export the $config->disabled
+  setting if it exists.
+#2173271 by deetergp: Spelling and grammer fixes for README.txt.
+#2172433 by fabsor, DamienMcKenna: Ensure that update 7015 runs early enough to
+  avoid data corruption or errors during other updates.
+#2156261 by plopesc, DamienMcKenna: Allow meta tags for 403/404 error pages to
+  be configured, along with some reasonable defaults; removed previous option to
+  control caching on these pages, the meta tags are now always cached.
+#2173863 by DamienMcKenna: Don't load meta tags on admin pages, provide setting
+  to override this.
+#2174363 by DamienMcKenna: Don't attempt to create revision records in update
+  7018 if one already exists.
+
+
 Metatag 7.x-1.0-beta7, 2013-04-22
 ---------------------------------
 #1970946 by laura s: Twitter Cards no longer requires SSL.

@@ -82,14 +82,14 @@ function metatag_migrate_api() {
 class MigrateMetatagHandler extends MigrateDestinationHandler {
 
   public function __construct() {
-    $types = array();
+    $entity_types = array();
     foreach (entity_get_info() as $entity_type => $entity_info) {
       if (isset($entity_info['metatags']) && $entity_info['metatags']) {
-        $types[] = $entity_type;
+        $entity_types[] = $entity_type;
       }
     }
 
-    $this->registerTypes($types);
+    $this->registerTypes($entity_types);
   }
 
   /**
