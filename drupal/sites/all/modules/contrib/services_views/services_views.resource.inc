@@ -11,21 +11,21 @@
  *   String. The views name.
  * @param $display_id
  *   String (optional). The views display name.
+ * @param $args
+ *   Array (optional). A list of arguments to pass to the view.
  * @param $offset
  *   Integer (optional). An offset integer for paging.
  * @param $limit
  *   Integer (optional). A limit integer for paging.
- * @param $args
- *   Array (optional). A list of arguments to pass to the view.
  * @param $return_type
  *   String (optional). Whether to return the raw data results (FALSE), the entire views object ('view') or themed results ('theme').
- * @param $args
+ * @param $filters
  *   Array (optional). A list of exposed filters to pass to the view.
  *
  * @return
  *  Array. The views return.
  */
-function services_views_retrieve($view_name, $display_id = 'default', $args = array(), $offset = 0, $limit = 10, $return_type = FALSE, $filters = array()) {
+function services_views_retrieve($view_name, $display_id = 'default', $args = array(), $offset = 0, $limit = -1, $return_type = FALSE, $filters = array()) {
   $result = array();
   $view = views_get_view($view_name);
 
@@ -39,14 +39,16 @@ function services_views_retrieve($view_name, $display_id = 'default', $args = ar
     // If offset is set we can't have a user pager.
     if (empty($offset)) {
       $view->set_use_pager(TRUE);
-      $view->set_items_per_page($limit);
+      if ($limit >= 0) {
+        $view->set_items_per_page($limit);
+      }
     }
     else {
       // Disable the user pager.
       $view->set_use_pager(FALSE);
     }
   }
-  else {
+  elseif ($limit >= 0) {
     $view->set_items_per_page($limit);
   }
 
@@ -104,14 +106,19 @@ function services_views_retrieve($view_name, $display_id = 'default', $args = ar
 /**
  * Execute a view and return results.
  */
-function services_views_execute_view($view_info) {
-  $view_name = $view_info['view_name'];
-  $display_id = $view_info['display_id'];
+function services_views_execute_view($view_info, $view = NULL, $display_id = NULL) {
+  if (!empty($view_info)) {
+    $view_name = $view_info['view_name'];
+    $display_id = $view_info['display_id'];
 
-  $args = array();
+    $args = array();
 
-  $view = views_get_view($view_name);
-  $view->set_arguments($args);
+    $view = views_get_view($view_name);
+    $view->set_arguments($args);
+  }
+
+  // Avoid translation of the field labels.
+  $view->localization_plugin = views_get_plugin('localization', 'none');
 
   // Execute a view.
   $output = $view->render($display_id);
@@ -130,7 +137,7 @@ function services_views_execute_view($view_info) {
           continue;
         }
 
-        if (isset($field->options['label'])) {
+        if (isset($field->options['label']) && !empty($field->options['label'])) {
           $target_key = $field->options['label'];
         }
 
@@ -171,6 +178,8 @@ function services_views_execute_view($view_info) {
       }
     }
   }
+
+  drupal_alter('services_views_execute_view', $output, $view);
 
   $view->destroy();
   return $output;

@@ -11,6 +11,8 @@
  */
 class views_plugin_display_services extends views_plugin_display {
 
+  function has_path() {return TRUE; }
+
   function option_definition() {
     $options = parent::option_definition();
 
@@ -59,7 +61,8 @@ class views_plugin_display_services extends views_plugin_display {
   }
 
   function preview() {
-    return '<pre>' . var_export($this->execute(), TRUE) . '</pre>';
+    module_load_include('resource.inc', 'services_views');
+    return '<pre>' . var_export(services_views_execute_view(NULL, $this->view, $this->display->id), TRUE) . '</pre>';
   }
 
   /**
@@ -110,8 +113,31 @@ class views_plugin_display_services extends views_plugin_display {
     }
   }
 
+  function options_validate(&$form, &$form_state) {
+    // It is very important to call the parent function here.
+    parent::options_validate($form, $form_state);
+    if ($form_state['section'] == 'path') {
+
+      if (preg_match('/[^a-zA-Z0-9-_]+/', $form_state['values']['path'])) {
+        form_error($form['path'], t('Use only alphanumeric characters, "-" and "_" for resource name'));
+      }
+
+      // Get current path and see if it was changed.
+      $current_path = $this->get_option('path');
+      if ($current_path != $form_state['values']['path']) {
+        // We build resources from database to bypass cache.
+        module_load_include('inc', 'services', 'includes/services.resource_build');
+        $resources = _services_build_resources();
+
+        if (array_key_exists($form_state['values']['path'], $resources)) {
+          form_error($form['path'], t('Resource with this path already exists.'));
+        }
+      }
+    }
+  }
+
   function options_submit(&$form, &$form_state) {
-    // It is very important to call the parent function here:
+    // It is very important to call the parent function here.
     parent::options_submit($form, $form_state);
     switch ($form_state['section']) {
       case 'path':
