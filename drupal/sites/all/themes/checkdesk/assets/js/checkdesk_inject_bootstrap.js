@@ -11,6 +11,7 @@ jQuery(function () {
     .append('<script src="' + tp + '/assets/js/libs/bootstrap-tab.js"><\/script>')
     .append('<script src="' + tp + '/assets/js/libs/bootstrap-dropdown.js"><\/script>')
     .append('<script src="' + tp + '/assets/js/libs/bootstrap-modal.js"><\/script>')
+    .append('<script src="' + tp + '/assets/js/libs/jquery.expanding.js"><\/script>')
     // Create a jQuery_182 variable which can be used later in the execution
     .append('<script>var jQuery_182 = jQuery.noConflict(true);</script>');
     // Now $ and jQuery refer to jQuery-1.4.4 again, @see $.noConflict()
