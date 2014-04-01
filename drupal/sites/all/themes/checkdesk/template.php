@@ -999,7 +999,7 @@ function checkdesk_form_comment_form_alter(&$form, &$form_state) {
   $form['author']['mail'] = NULL;
   $form['actions']['submit']['#attributes']['class'] = array('btn');
   $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
-  $form['comment_body']['und'][0]['#attributes']['class'] = array('expand');
+  $form['comment_body']['und'][0]['#attributes']['class'] = array('expanding');
   $form['actions']['submit']['#value'] = t('Add footnote');
   $form['actions']['submit']['#ajax'] = array(
     'callback' => '_checkdesk_comment_form_submit',

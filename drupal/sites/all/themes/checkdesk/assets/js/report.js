@@ -57,7 +57,7 @@
         }
       });
 
-      $('textarea[class*=expand]').TextAreaExpander();
+      
 
       // add class 'long' to big actor/usernames inside the fact-checking log
       // $(window).resize(function() {
