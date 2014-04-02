@@ -6662,6 +6662,24 @@ html body .livefyre-wrapper {
 #meedan_bookmarklet .footer input:active, #meedan_bookmarklet .footer input:active:visited {
   color: white;
 }
+#meedan_bookmarklet #edit-body {
+  float: right;
+  clear: both;
+  margin-top: 0;
+}
+#meedan_bookmarklet #edit-graphic-content {
+  float: left;
+  margin: 0;
+  margin-top: 15px;
+  width: auto;
+}
+#meedan_bookmarklet #edit-graphic-content > .form-type-checkbox {
+  width: 100%;
+}
+#meedan_bookmarklet #edit-graphic-content .form-item label:hover,
+#meedan_bookmarklet #edit-graphic-content .form-item input[type="checkbox"]:hover {
+  color: #2e77fc;
+}
 #meedan_bookmarklet #user-login label,
 #meedan_bookmarklet #user-login input[type=text],
 #meedan_bookmarklet #user-login input[type=password],
@@ -6838,30 +6856,73 @@ html body .livefyre-wrapper {
   float: right;
   clear: both;
 }
-#meedan_bookmarklet #edit-body {
-  float: right;
-  clear: both;
-  margin-top: 0;
-}
-#meedan_bookmarklet #edit-graphic-content {
-  float: left;
-  margin: 0;
-  margin-top: 15px;
-  width: auto;
-}
-#meedan_bookmarklet #edit-graphic-content > .form-type-checkbox {
-  width: 100%;
-}
-#meedan_bookmarklet #edit-graphic-content .form-item label:hover,
-#meedan_bookmarklet #edit-graphic-content .form-item input[type="checkbox"]:hover {
-  color: #2e77fc;
-}
 
 #meedan_bookmarklet_close {
   position: absolute;
   left: 0;
   top: -2px;
   z-index: 2;
+}
+
+#media-node-form .meedan-bookmarklet-loading {
+  background: white url(../imgs/icons/bookmarklet-loading.gif) left center no-repeat;
+}
+#media-node-form #meedan_bookmarklet_preview {
+  clear: both;
+  color: #6f7a82;
+  margin: 15px 0;
+}
+#media-node-form #meedan_bookmarklet_preview_content img {
+  width: auto;
+  clear: both;
+}
+#media-node-form .bookmarklet-preview {
+  width: 100%;
+}
+#media-node-form #meedan_bookmarklet_preview_content,
+#media-node-form #meedan_bookmarklet_preview_gc {
+  height: auto;
+  width: 100%;
+  max-height: 345px;
+  display: inline-block;
+  overflow: hidden;
+}
+#media-node-form #meedan_bookmarklet_preview_gc {
+  background: #9fa6ac;
+  color: #6f7a82;
+  padding-top: 85px;
+  height: 345px;
+  max-height: 145px;
+}
+#media-node-form #meedan_bookmarklet_preview_gc span, #media-node-form #meedan_bookmarklet_preview_gc a {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+#media-node-form #meedan_bookmarklet_preview_gc span {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+#media-node-form #meedan_bookmarklet_preview_gc a, #media-node-form #meedan_bookmarklet_preview_gc a:visited, #media-node-form #meedan_bookmarklet_preview_gc a:link, #media-node-form #meedan_bookmarklet_preview_gc a:hover {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+#media-node-form .fb-status-preview {
+  background: #b7bcc0;
+  padding: 15px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+#media-node-form .fb-status-preview .author {
+  float: right;
+  clear: both;
+}
+#media-node-form #meedan_bookmarklet_preview_content {
+  max-height: none;
 }
 
 #modalContent.modal-install-bookmarklet {

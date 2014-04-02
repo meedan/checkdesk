@@ -57,7 +57,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['report_preview']['#weight'] = 0;
 
     // Change field attributes
-    $form['body']['und'][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 5);
+    $form['body']['und'][0]['#attributes'] = array('placeholder' => t('Add more info or write a description. What\'s the context? Does this link need to be fact-checked? What evidence do you have?'), 'rows' => 3);
 
     // Description textarea should not be resizable
     $form['body']['und'][0]['#resizable'] = FALSE;
