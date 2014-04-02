@@ -9,16 +9,21 @@
  */
 function uuid_term_features_export_options() {
   $options = array();
-
-  $query = 'SELECT t.tid, t.name, v.name AS vname, t.uuid
-    FROM {taxonomy_term_data} t
-    INNER JOIN {taxonomy_vocabulary} v ON t.vid = v.vid
-    ORDER BY v.name ASC, t.name ASC';
-  $results = db_query($query);
-  foreach ($results as $term) {
-    $options[$term->uuid] = $term->vname . ' - ' . $term->name;
+  $vocabs = variable_get('uuid_features_entity_taxonomy_term', FALSE);
+  if (!empty($vocabs)) {
+    $query = db_select('taxonomy_term_data', 't');
+    $query->innerJoin('taxonomy_vocabulary', 'v', 't.vid = v.vid');
+    $query->condition('v.machine_name', $vocabs)
+     ->fields('t', array('tid', 'name', 'uuid'))
+     ->addField('v', 'name', 'vname');
+    $query->orderBy('v.name', 'ASC');
+    $query->orderBy('t.name', 'ASC');
+    $results = $query->execute()->fetchAll();
+    foreach ($results as $term) {
+      $options[$term->uuid] = $term->vname . ' - ' . $term->name;
+    }
   }
-
+  drupal_alter('uuid_term_features_export_options', $options);
   return $options;
 }
 
@@ -39,11 +44,17 @@ function uuid_term_features_export($data, &$export, $module_name = '') {
 /**
  * Adds terms and its dependencies to the export.
  *
- * Parents and term references are handled recrusively, other references are not
+ * Parents and term references are handled recursively, other references are not
  * yet supported.
  */
 function uuid_term_features_get_dependencies(&$export, $uuid) {
   $terms = entity_uuid_load('taxonomy_term', array($uuid));
+  if (!isset($export['features']['uuid_term'])) {
+    $export['features']['uuid_term'] = array();
+  }
+  if (!isset($export['features']['taxonomy'])) {
+    $export['features']['taxonomy'] = array();
+  }
   if (count($terms)) {
     $term = reset($terms);
     $export['features']['uuid_term'][$uuid] = $uuid;
@@ -83,8 +94,7 @@ function uuid_term_features_export_render($module = 'foo', $data) {
   $code[] = '  $terms = array();';
   $code[] = '';
   foreach ($data as $uuid) {
-    // @todo reset = TRUE as otherwise references (parent, fields) were destroyed.
-    $terms = entity_uuid_load('taxonomy_term', array($uuid), array(), TRUE);
+    $terms = entity_uuid_load('taxonomy_term', array($uuid));
     if (!count($terms)) {
       continue;
     }
@@ -98,20 +108,21 @@ function uuid_term_features_export_render($module = 'foo', $data) {
       }
     }
 
-    $export = reset($terms);
+    $first_term = reset($terms);
+    $export = clone $first_term;
 
     // Do not export ids.
     unset($export->vid);
     unset($export->tid);
     // No need to export the rdf mapping.
     unset($export->rdf_mapping);
+    uuid_features_file_field_export($export, 'taxonomy_term');
     $code[] = '  $terms[] = ' . features_var_export($export, '  ') . ';';
   }
 
   if (!empty($translatables)) {
     $code[] = features_translatables_export($translatables, '  ');
   }
-
   $code[] = '  return $terms;';
   $code = implode("\n", $code);
   return array('uuid_features_default_terms' => $code);
@@ -131,6 +142,7 @@ function uuid_term_features_revert($module) {
 function uuid_term_features_rebuild($module) {
   // Import the vocabularies first.
   taxonomy_features_rebuild($module);
+  field_features_rebuild($module);
 
   $terms = module_invoke($module, 'uuid_features_default_terms');
   if (!empty($terms)) {
@@ -155,8 +167,10 @@ function uuid_term_features_rebuild($module) {
       $voc = taxonomy_vocabulary_machine_name_load($term->vocabulary_machine_name);
       if ($voc) {
         $term->vid = $voc->vid;
+        uuid_features_file_field_import($term, 'taxonomy_term');
         entity_uuid_save('taxonomy_term', $term);
       }
     }
   }
 }
+
