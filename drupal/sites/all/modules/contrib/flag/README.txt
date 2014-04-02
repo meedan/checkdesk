@@ -53,6 +53,7 @@ Recommended Modules
 -------------------
 - Views
 - Session API
+- Token, which is required for Flag to provide tokens on flagged entities.
 
 Installation
 ------------

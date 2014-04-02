@@ -1,8 +1,8 @@
-name = Flag hook_flag_access test
-description = Tests for hook_flag_access
-core = 7.x
+name = Flag Hooks Test
+description = Test module for invocation of flag hooks.
 dependencies[] = flag
-package = Flags
+dependencies[] = rules
+core = 7.x
 hidden = TRUE
 
 ; Information added by Drupal.org packaging script on 2014-03-18
