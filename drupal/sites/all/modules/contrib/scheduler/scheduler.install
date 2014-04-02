@@ -47,22 +47,32 @@ function scheduler_schema() {
  * Implements hook_uninstall().
  */
 function scheduler_uninstall() {
+  // Keep variables in alphabetic order for easier maintenance and patching.
   $variables = array(
+    'scheduler_allow_date_only',
     'scheduler_date_format',
-    'scheduler_field_type',
+    'scheduler_date_only_format',
+    'scheduler_default_time',
     'scheduler_extra_info',
+    'scheduler_date_popup_minute_increment',
+    'scheduler_field_type',
+    'scheduler_lightweight_log',
+    'scheduler_time_only_format',
   );
 
   $types = node_type_get_types();
   foreach ($types as $type) {
     $type_name = $type->type;
+    $variables[] = "scheduler_expand_fieldset_" . $type_name;
     $variables[] = "scheduler_publish_enable_" . $type_name;
     $variables[] = "scheduler_publish_touch_" . $type_name;
     $variables[] = "scheduler_publish_required_" . $type_name;
     $variables[] = "scheduler_publish_revision_" . $type_name;
+    $variables[] = "scheduler_publish_past_date_" . $type_name;
     $variables[] = "scheduler_unpublish_enable_" . $type_name;
     $variables[] = "scheduler_unpublish_required_" . $type_name;
     $variables[] = "scheduler_unpublish_revision_" . $type_name;
+    $variables[] = "scheduler_use_vertical_tabs_" . $type_name;
   }
 
   foreach ($variables as $variable) {
@@ -70,44 +80,11 @@ function scheduler_uninstall() {
   }
 }
 
-function scheduler_update_6100() {
-  if (db_field_exists('scheduler', 'timezone')) {
-    $entries = db_select('scheduler', 's')
-      ->fields('s', array('nid', 'publish_on', 'unpublish_on', 'timezone'))
-      ->execute();
-
-    foreach ($entries as $entry) {
-      if ($entry->publish_on != 0) {
-        db_merge('scheduler')
-          ->key(array('nid' => $entry->nid))
-          ->fields(array('publish_on' => $entry->publish_on - $entry->timezone))
-          ->execute();
-      }
-      if ($entry->unpublish_on != 0) {
-        db_merge('scheduler')
-          ->key(array('nid' => $entry->nid))
-          ->fields(array('unpublish_on' => $entry->unpublish_on - $entry->timezone))
-          ->execute();
-      }
-    }
-    db_drop_field('scheduler', 'timezone');
-  }
-}
-
-function scheduler_update_6101() {
-  $ret = array();
-  $types = node_type_get_types();
-  foreach ($types as $type) {
-    $type_name = $type->type;
-  	$publish_enable = variable_get('scheduler_'. $type_name, 0);
-  	$publish_touch = variable_get('scheduler_touch_'. $type_name, 0);
-
-  	variable_set('scheduler_publish_enable_'. $type_name, $publish_enable);
-  	variable_set('scheduler_unpublish_enable_'. $type_name, $publish_enable);
-   	variable_set('scheduler_publish_touch_'. $type_name, $publish_touch);
-
-  	variable_del('scheduler_touch_'. $type_name);
-  	variable_del('scheduler_'. $type_name);
-  }
-  return $ret;
+/**
+ * Implements hook_update_last_removed().
+ */
+function scheduler_update_last_removed() {
+  // The updates for Scheduler 6.x are no longer required in this file.
+  // This function shows that the last update was scheduler_update_6101.
+  return 6101;
 }
