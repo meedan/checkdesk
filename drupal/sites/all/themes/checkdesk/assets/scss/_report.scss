@@ -443,6 +443,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 			@include ctb-load-more-pager;
 
 			// bg only on the view
+			// Set verification log height
 			.view {
 				// background-image: $striped_lens;
 				background-color: rgba($thatch,.02);
@@ -452,6 +453,10 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 				-webkit-overflow-scrolling: touch;
 			}
 
+			// No max height on detail page
+			.page-node & .view {
+				max-height: none;
+			}
 
 			// activity items
 			.view-content {

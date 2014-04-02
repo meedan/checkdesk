@@ -5329,6 +5329,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
+.page-node .report .report-activity .activity-wrapper .view {
+  max-height: none;
+}
 .report .report-activity .activity-wrapper .view-content {
   padding: 0 15px;
 }
@@ -7037,7 +7040,7 @@ nav[role="navigation"] {
   float: left;
   background-color: #283743;
   width: 100%;
-  padding: 7px 0;
+  padding: 6.66667px 0;
 }
 nav[role="navigation"] li:last-of-type:after {
   float: left;
