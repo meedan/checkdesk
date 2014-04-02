@@ -37,7 +37,8 @@ jQuery(function($) {
       }
     });
   }
-
+  //hide description and graphic content
+  jQuery('#edit-body, #edit-graphic-content').hide();
   // Update preview if URL changes
   $('#edit-field-link-und-0-url').keyup(function() {
     var url = $(this).val(),

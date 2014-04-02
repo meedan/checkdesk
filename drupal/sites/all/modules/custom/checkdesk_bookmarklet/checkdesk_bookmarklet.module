@@ -36,13 +36,6 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
   // Custom report form for bookmarklet
   if ($form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
     global $user;
-
-    // Just show explanation about the bookmarklet
-    $form['help'] = array(
-      '#markup' => '<div id="meedan_bookmarklet_help"><span>' . t('Help') . '<p>' . t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team.') . '</p></span></div>',
-      '#weight' => -1,
-    );
-
     // Check for graphic content
     $flag = ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) ? 'graphic_journalist' : 'graphic');
     $form['graphic_content'] = array(
@@ -77,6 +70,12 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['actions']['draft']['#access'] = FALSE;
 
     if (!empty($GLOBALS['meedan_bookmarklet_page_template'])) {
+      // Just show explanation about the bookmarklet
+      $form['help'] = array(
+        '#markup' => '<div id="meedan_bookmarklet_help"><span>' . t('Help') . '<p>' . t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team.') . '</p></span></div>',
+        '#weight' => -1,
+      );
+
       $form['actions']['cancel'] = array(
         '#markup' => '<input type="reset" onclick="window.parent.postMessage(\'close\', \'*\'); return false;" class="form-submit" value="' . t('Cancel') . '" id="meedan_bookmarklet_cancel_button" />',
         '#weight' => 100,
@@ -92,8 +91,10 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
       }
     }
     else {
+      drupal_set_title(t('Submit report'));
+      $form['field_link'][LANGUAGE_NONE][0]['#description'] = t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team.');
       //redirect user to reports page
-      $form['actions']['submit']['#submit'][] = '_cd_report_redirect';
+      //$form['actions']['submit']['#submit'][] = '_cd_report_redirect';
     }
 
   }
@@ -205,6 +206,7 @@ function checkdesk_bookmarklet_node_insert($node) {
       // Hack to avoid other hooks from not being called: http://drupal.org/node/130734#comment-3835244
       $_GET['destination'] = 'meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=' . $node->nid . '&meedan_bookmarklet_url=' . urlencode($node->field_link[LANGUAGE_NONE][0]['url']);
     }
+    /*
     else {
       global $user;
       if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
@@ -213,6 +215,7 @@ function checkdesk_bookmarklet_node_insert($node) {
         )));
       }
     }
+    */
   }
 }
 
