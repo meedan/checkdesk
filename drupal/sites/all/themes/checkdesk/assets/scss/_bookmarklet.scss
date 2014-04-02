@@ -372,8 +372,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   }
   // preview and graphic content styles
   @include bookmarklet-step-two;
-  #meedan_bookmarklet_preview_content, 
-  #meedan_bookmarklet_preview_gc {
+  #meedan_bookmarklet_preview_content {
     max-height: none;
   }
 }
