@@ -28,10 +28,6 @@
     else if (choice) {
       $.extend(true, opts, choice);
     }
-    // Default modal.
-    else {
-      choice = 'default';
-    }
 
     var defaults = {
       modalTheme: 'CToolsModalDialog',
@@ -101,8 +97,13 @@
     resize();
 
     $('span.modal-title', Drupal.CTools.Modal.modal).html(Drupal.CTools.Modal.currentSettings.loadingText);
-    Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed, choice);
+    Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed);
     $('#modalContent .modal-content').html(Drupal.theme(settings.throbberTheme));
+
+    // Position autocomplete results based on the scroll position of the modal.
+    $('#modalContent .modal-content').delegate('input.form-autocomplete', 'keyup', function() {
+      $('#autocomplete').css('top', $(this).position().top + $(this).outerHeight() + $(this).offsetParent().filter('#modal-content').scrollTop());
+    });
   };
 
   /**
@@ -226,7 +227,11 @@
         // AJAX submits specified in this manner automatically submit to the
         // normal form action.
         element_settings.url = Drupal.CTools.Modal.findURL(this);
+        if (element_settings.url == '') {
+          element_settings.url = $(this).closest('form').attr('action');
+        }
         element_settings.event = 'click';
+        element_settings.setClick = true;
 
         var base = $this.attr('id');
         Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
@@ -286,7 +291,10 @@
     // content. This is helpful for allowing users to see error messages at the
     // top of a form, etc.
     $('#modal-content').html(response.output).scrollTop(0);
-    Drupal.attachBehaviors();
+
+    // Attach behaviors within a modal dialog.
+    var settings = response.settings || ajax.settings || Drupal.settings;
+    Drupal.attachBehaviors('#modalContent', settings);
   }
 
   /**
@@ -338,7 +346,7 @@
    * @param animation (fadeIn, slideDown, show)
    * @param speed (valid animation speeds slow, medium, fast or # in ms)
    */
-  Drupal.CTools.Modal.modalContent = function(content, css, animation, speed, choice) {
+  Drupal.CTools.Modal.modalContent = function(content, css, animation, speed) {
     // If our animation isn't set, make it just show/pop
     if (!animation) {
       animation = 'show';
@@ -390,7 +398,7 @@
     if( docHeight < winHeight ) docHeight = winHeight;
 
     // Create our divs
-    $('body').append('<div id="modalBackdrop" class="backdrop-' + choice + '" style="z-index: 1000; display: none;"></div><div id="modalContent" class="modal-' + choice + '" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
+    $('body').append('<div id="modalBackdrop" style="z-index: 1000; display: none;"></div><div id="modalContent" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
 
     // Keyboard and focus event handler ensures focus stays on modal elements only
     modalEventHandler = function( event ) {
