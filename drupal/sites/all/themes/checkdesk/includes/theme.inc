@@ -317,9 +317,10 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   }
 
   $output .= '</span>';
-  $output .= '<time class="time" title=' . format_date($message->timestamp, 'custom', t('g:ia')) . '>';
-  $output .= checkdesk_core_custom_format_interval($message->timestamp);
-  $output .= '</time>';
+  $output .= t('<time title="!datetime" datetime="!datetime" class="time">!inverval</time>', array(
+      '!inverval' => checkdesk_core_custom_format_interval($message->timestamp),
+      '!datetime' => format_date($message->timestamp, 'custom', t('l M d, Y \a\t g:i:sa'))
+  ));
   $output .= '</header>';
   return $output;
 }
