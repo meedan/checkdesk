@@ -239,30 +239,32 @@ function meedan_bookmarklet_preprocess_page(&$variables, $hook) {
  * Hide chosen fields from display and prepopulate some fields.
  */
 function meedan_bookmarklet_form_alter(&$form, $form_state, $form_id) {
-  if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
-    drupal_add_js(array('meedanIframes' => array('contentSelector' => '#main')), 'setting');
+  if ($form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
+    if (!empty($GLOBALS['meedan_bookmarklet_page_template'])) {
 
-    // Prepopulate fields
-    // FIXME Not sure if all cases are handled here, or if it is the best approach... maybe use entityreference_prepopulate? Or prepopulate? Functions from Field API? From Entity API? From both?
-    if (isset($_REQUEST['meedan_bookmarklet_prepopulate'])) {
-      foreach ($_REQUEST['meedan_bookmarklet_prepopulate'] as $field => $value) {
-        if (array_key_exists('#default_value', $form[$field])) $form[$field]['#default_value'] = $value;
-        else {
-          $lang = $form[$field]['#language'];
-          foreach ($form[$field][$lang] as $index => $settings) {
-            if (is_numeric($index) && is_array($settings) && array_key_exists('#default_value', $settings)) {
-              if ($settings['#type'] == 'link_field') $form[$field][$lang][$index]['#default_value']['url'] = $value;
-              else $form[$field][$lang][$index]['#default_value'] = $value;
-            }
-            else if ($index == '#default_value') {
-              if (is_array($form[$field][$lang][$index])) $form[$field][$lang][$index] = explode(',', $value);
-              else $form[$field][$lang][$index] = $value;
+      drupal_add_js(array('meedanIframes' => array('contentSelector' => '#main')), 'setting');
+
+      // Prepopulate fields
+      // FIXME Not sure if all cases are handled here, or if it is the best approach... maybe use entityreference_prepopulate? Or prepopulate? Functions from Field API? From Entity API? From both?
+      if (isset($_REQUEST['meedan_bookmarklet_prepopulate'])) {
+        foreach ($_REQUEST['meedan_bookmarklet_prepopulate'] as $field => $value) {
+          if (array_key_exists('#default_value', $form[$field])) $form[$field]['#default_value'] = $value;
+          else {
+            $lang = $form[$field]['#language'];
+            foreach ($form[$field][$lang] as $index => $settings) {
+              if (is_numeric($index) && is_array($settings) && array_key_exists('#default_value', $settings)) {
+                if ($settings['#type'] == 'link_field') $form[$field][$lang][$index]['#default_value']['url'] = $value;
+                else $form[$field][$lang][$index]['#default_value'] = $value;
+              }
+              else if ($index == '#default_value') {
+                if (is_array($form[$field][$lang][$index])) $form[$field][$lang][$index] = explode(',', $value);
+                else $form[$field][$lang][$index] = $value;
+              }
             }
           }
         }
       }
     }
-
     // Hide fields
     foreach (variable_get('meedan_bookmarklet_hidden_fields', array()) as $field) {
       $form[$field]['#access'] = FALSE;

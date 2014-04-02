@@ -34,7 +34,7 @@ function checkdesk_bookmarklet_menu() {
 function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
 
   // Custom report form for bookmarklet
-  if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
+  if ($form_id == variable_get('meedan_bookmarklet_content_type', 'page') . '_node_form') {
     global $user;
 
     // Just show explanation about the bookmarklet
@@ -48,7 +48,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     $form['graphic_content'] = array(
       '#type' => 'checkboxes',
       '#options' => array($flag => t('Graphic content')),
-      '#weight' => 999,
+      '#weight' => 99,
     );
 
     // Show media preview just after the link field
@@ -75,21 +75,37 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     // Two buttons: submit and cancel
     $form['actions']['submit']['#value'] = t('Submit');
     $form['actions']['draft']['#access'] = FALSE;
-    $form['actions']['cancel'] = array(
-      '#markup' => '<input type="reset" onclick="window.parent.postMessage(\'close\', \'*\'); return false;" class="form-submit" value="' . t('Cancel') . '" id="meedan_bookmarklet_cancel_button" />',
-      '#weight' => 100,
-    );
 
-    // Additional processing for internal bookmarklet
-    global $base_url;
-    if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {
-      foreach (array('title', 'body', 'field_link') as $field) {
-        if (isset($form[$field])) $form[$field]['und'][0]['#default_value'] = '';
+    if (!empty($GLOBALS['meedan_bookmarklet_page_template'])) {
+      $form['actions']['cancel'] = array(
+        '#markup' => '<input type="reset" onclick="window.parent.postMessage(\'close\', \'*\'); return false;" class="form-submit" value="' . t('Cancel') . '" id="meedan_bookmarklet_cancel_button" />',
+        '#weight' => 100,
+      );
+
+      // Additional processing for internal bookmarklet
+      global $base_url;
+      if ((isset($_GET['meedan_bookmarklet_prepopulate']) && preg_match('/^' . preg_quote($base_url, '/') . '/', $_GET['meedan_bookmarklet_prepopulate']['field_link'])) || empty($_GET['meedan_bookmarklet_prepopulate']['field_link'])) {
+        foreach (array('title', 'body', 'field_link') as $field) {
+          if (isset($form[$field])) $form[$field]['und'][0]['#default_value'] = '';
+        }
+        $form['#after_build'][] = '_checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet';
       }
-      $form['#after_build'][] = '_checkdesk_bookmarklet_load_javascript_for_internal_bookmarklet';
+    }
+    else {
+      //redirect user to reports page
+      $form['actions']['submit']['#submit'][] = '_cd_report_redirect';
     }
 
   }
+}
+
+/**
+ * Custom code to redirect user after submit new report.
+ */
+function _cd_report_redirect($form, &$form_state) {
+  global $user;
+  //redirect to user report page.
+  $form_state['redirect'] = 'user/'. $user->uid;
 }
 
 /*
@@ -184,9 +200,19 @@ function checkdesk_bookmarklet_node_insert($node) {
     }
   }
 
-  if (!empty($GLOBALS['meedan_bookmarklet_page_template']) && $node->type == variable_get('meedan_bookmarklet_content_type', 'page')) {
-    // Hack to avoid other hooks from not being called: http://drupal.org/node/130734#comment-3835244
-    $_GET['destination'] = 'meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=' . $node->nid . '&meedan_bookmarklet_url=' . urlencode($node->field_link[LANGUAGE_NONE][0]['url']);
+  if ($node->type == variable_get('meedan_bookmarklet_content_type', 'page')) {
+    if (!empty($GLOBALS['meedan_bookmarklet_page_template'])) {
+      // Hack to avoid other hooks from not being called: http://drupal.org/node/130734#comment-3835244
+      $_GET['destination'] = 'meedan_bookmarklet/message?meedan_bookmarklet=1&meedan_bookmarklet_submitted=1&meedan_bookmarklet_nid=' . $node->nid . '&meedan_bookmarklet_url=' . urlencode($node->field_link[LANGUAGE_NONE][0]['url']);
+    }
+    else {
+      global $user;
+      if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
+        drupal_set_message(t('Now let\'s !blog.', array(
+          '!blog' => l(t('blog about it'), url('node/add/post', array('absolute' => TRUE, 'query' => array('report' => $node->nid)))),
+        )));
+      }
+    }
   }
 }
 
