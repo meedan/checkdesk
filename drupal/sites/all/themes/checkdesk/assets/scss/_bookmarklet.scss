@@ -71,6 +71,29 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     }
   }
 
+  #edit-body {
+    float: $from-direction;
+    clear: both;
+    margin-top: 0;
+  }
+
+  #edit-graphic-content {
+    float: opposite-position($from-direction);
+    margin: 0;
+    margin-top: $gutter-width;
+    width: auto;
+    & > .form-type-checkbox {
+      width: 100%;
+    }
+    .form-item label,
+    .form-item input[type="checkbox"] {
+      // padding: $gutter-width 2px; // pad for the hover
+      &:hover {
+        color: $identity;
+      }
+    }
+  }
+
 }
 
 @mixin bookmarklet-step-one() {
@@ -184,28 +207,7 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
     }
   }
 
-  #edit-body {
-    float: $from-direction;
-    clear: both;
-    margin-top: 0;
-  }
-
-  #edit-graphic-content {
-    float: opposite-position($from-direction);
-    margin: 0;
-    margin-top: $gutter-width;
-    width: auto;
-    & > .form-type-checkbox {
-      width: 100%;
-    }
-    .form-item label,
-    .form-item input[type="checkbox"] {
-      // padding: $gutter-width 2px; // pad for the hover
-      &:hover {
-        color: $identity;
-      }
-    }
-  }
+  
 }
 
 // Alerts in bookmarklet
@@ -360,6 +362,20 @@ $bookmarklet-height: $bookmarklet-width + ($bookmarklet-width * 0.61803);
   #{opposite-position($from-direction)}: 0;
   top: -2px;
   z-index: 2;
+}
+
+// when as regular form with some temporary duplicates from bookmarklet
+#media-node-form {
+  // Loading ..
+  .meedan-bookmarklet-loading {
+    background: $white url(../imgs/icons/bookmarklet-loading.gif) opposite-position($from-direction) center no-repeat;
+  }
+  // preview and graphic content styles
+  @include bookmarklet-step-two;
+  #meedan_bookmarklet_preview_content, 
+  #meedan_bookmarklet_preview_gc {
+    max-height: none;
+  }
 }
 
 // ===========================================================================
