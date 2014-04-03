@@ -221,11 +221,4 @@
     }
   });
 
-  // Initialize for footnote textarea
-  Drupal.behaviors.footnote = {
-    attach: function () {
-      $('textarea[class*=expanding]').expanding();
-    }
-  };
-
 }));

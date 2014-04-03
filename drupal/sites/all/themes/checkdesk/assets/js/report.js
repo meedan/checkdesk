@@ -18,9 +18,6 @@
     }
   });
 
-  
-
-
   Drupal.behaviors.reports = {
     attach: function (context, settings) {
       // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
@@ -255,6 +252,12 @@
       });
     }
   };
+
+  Drupal.behaviors.footnotes = {
+    attach: function(context, settings) {
+      $('textarea[class*=expanding]', context).expanding();
+    }
+  }
 
   // This callback is invoked when a new footnote is added
   $.fn.footnoteCallback = function(nid, output) {
