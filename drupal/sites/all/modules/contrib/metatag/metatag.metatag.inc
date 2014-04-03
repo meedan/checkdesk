@@ -30,6 +30,26 @@ function metatag_metatag_config_default() {
   $configs[$config->instance] = $config;
 
   $config = new stdClass();
+  $config->instance = 'global:403';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'canonical' => array('value' => '[site:url]'),
+    'shortlink' => array('value' => '[site:url]'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
+  $config->instance = 'global:404';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'canonical' => array('value' => '[site:url]'),
+    'shortlink' => array('value' => '[site:url]'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
   $config->instance = 'node';
   $config->api_version = 1;
   $config->disabled = FALSE;
@@ -69,9 +89,8 @@ function metatag_metatag_config_default() {
 function metatag_metatag_config_instance_info() {
   $info['global']           = array('label' => t('Global'));
   $info['global:frontpage'] = array('label' => t('Front page'));
-  // @todo The 403 and 404 meta tag contexts are disabled until they can be properly implemented.
-  //$info['global:403']       = array('label' => t('403 page not found'));
-  //$info['global:404']       = array('label' => t('404 page not found'));
+  $info['global:403']       = array('label' => t('403 access denied'));
+  $info['global:404']       = array('label' => t('404 page not found'));
 
   // Add instance information for entities.
   $entity_types = entity_get_info();
@@ -153,6 +172,8 @@ function metatag_metatag_info() {
         'nosnippet' => t('Prevents a description from appearing below the page in the search results, as well as prevents caching of the page.'),
         'noodp' => t('Blocks the <a href="@odp-url">Open Directory Project</a> description of the page from being used in the description that appears below the page in the search results.', array('@odp-url' => 'http://www.dmoz.org/')),
         'noydir' => t('Prevents Yahoo! from listing this page in the <a href="@ydir">Yahoo! Directory</a>.', array('@ydir' => 'http://dir.yahoo.com/')),
+        'noimageindex' => t('Prevent search engines from indexing images on this page.'),
+        'notranslate' => t('Prevent search engines from offering to translation this page in search results.'),
       ),
     ),
     'group' => 'advanced',
@@ -161,6 +182,13 @@ function metatag_metatag_info() {
   $info['tags']['news_keywords'] = array(
     'label' => t('Google News Keywords'),
     'description' => t('A comma-separated list of keywords about the page. This meta tag is used as an indicator in <a href="@google_news">Google News</a>.', array('@google_news' => 'http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297')),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+  );
+  
+  $info['tags']['standout'] = array(
+    'label' => t('Google Standout'),
+    'description' => t("Highlight standout journalism on the web, especially for breaking news; used as an indicator in <a href=\"@google_news\">Google News</a>. Warning: Don't abuse it, to be used a maximum of 7 times per calendar week!", array('@google_news' => 'https://support.google.com/news/publisher/answer/191283?hl=en&ref_topic=2484650')),
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
   );
@@ -186,6 +214,12 @@ function metatag_metatag_info() {
     'description' => t("An image associated with this page, for use as a thumbnail in social networks and other services."),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
   );
 
   $info['tags']['canonical'] = array(
@@ -193,6 +227,9 @@ function metatag_metatag_info() {
     'description' => t("Tells search engines where the preferred location or URL is for this page to help eliminate self-created duplicate content for search engines."),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'canonical',
+    ),
   );
 
   $info['tags']['shortlink'] = array(
@@ -200,6 +237,9 @@ function metatag_metatag_info() {
     'description' => '',
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'shortlink',
+    ),
   );
 
   $info['tags']['publisher'] = array(
@@ -207,13 +247,19 @@ function metatag_metatag_info() {
     'description' => '',
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
 
   $info['tags']['author'] = array(
     'label' => t('Author URL'),
-    'description' => "Used by some search engines to confirm authorship of the content on a page. Should be either the full URL for the author's Google+ profile page or a local page with information about the author.",
+    'description' => t("Used by some search engines to confirm authorship of the content on a page. Should be either the full URL for the author's Google+ profile page or a local page with information about the author."),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
 
   $info['tags']['original-source'] = array(
@@ -221,8 +267,21 @@ function metatag_metatag_info() {
     'description' => '',
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
-    'description' => "Used to indicate the URL that broke the story, and can link to either an internal URL or an external source. If the full URL is not known it is acceptable to use a partial URL or just the domain name.",
+    'description' => t("Used to indicate the URL that broke the story, and can link to either an internal URL or an external source. If the full URL is not known it is acceptable to use a partial URL or just the domain name."),
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
+
+   $info['tags']['revisit-after'] = array(
+     'label' => t('Revisit After'),
+     'description' => t('Tell search engines when to index the page again. Very few search engines support this tag, it is more useful to use an <a href="@xmlsitemap">XML Sitemap</a> file.', array('@xmlsitemap' => 'http://drupal.org/project/xmlsitemap')),
+     'class' => 'DrupalDateIntervalMetaTag',
+     'group' => 'advanced',
+     'devel_generate' => array(
+       'type' => 'date',
+     ),
+   );
 
   return $info;
 }

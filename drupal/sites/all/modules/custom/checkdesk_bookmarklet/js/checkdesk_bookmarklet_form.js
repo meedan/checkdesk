@@ -37,9 +37,8 @@ jQuery(function($) {
       }
     });
   }
-
   // Update preview if URL changes
-  $('#edit-field-link-und-0-url').keyup(function() {
+  $('#edit-field-link-und-0-url').bind('keyup keypress', function() {
     var url = $(this).val(),
         done = $('#edit-submit'),
         wait;

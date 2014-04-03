@@ -435,7 +435,7 @@ function meedan_notifications_mail_alter(&$message) {
  */
 function meedan_notifications_get_last_time_menu_opened($user) {
   $last = db_query('SELECT timestamp FROM {meedan_notifications_last_opened_menu} WHERE uid = ' . $user->uid)->fetchField();
-  if (!$last) $last = $user->login;
+  $last = $last ? $last : 0;
   return $last;
 }
 

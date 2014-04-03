@@ -8,7 +8,7 @@
 /**
  * Implements hook_uuid_node_features_export_render_alter().
  *
- * For most CCK fields, it is enough to simply add the values from each db
+ * For most fields, it is enough to simply add the values from each db
  * column into a field array.
  */
 function content_uuid_node_features_export_render_alter(&$export, $node, $module) {

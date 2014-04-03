@@ -19,6 +19,8 @@ interface DrupalMetaTagInterface {
   function getValue();
 
   function getElement();
+
+  function tidyValue($value);
 }
 
 class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
@@ -38,7 +40,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
   }
 
   public function getValue(array $options = array()) {
-    return $this->data['value'];
+    return $this->tidyValue($this->data['value']);
   }
 
   public function getElement(array $options = array()) {
@@ -65,6 +67,31 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     return array(
       '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
     );
+  }
+
+  /**
+   * Remove unwanted formatting from a meta tag.
+   *
+   * @param $value string
+   *   The meta tag value to be tidied up.
+   *
+   * @return string
+   *   The meta tag value after it has been tidied up.
+   */
+  public function tidyValue($value) {
+    // Convert any HTML entities into regular characters.
+    $value = decode_entities($value);
+
+    // Remove any HTML code that might have been included.
+    $value = strip_tags($value);
+
+    // Strip errant whitespace.
+    $value = str_replace(array("\r\n", "\n", "\r", "\t"), ' ', $value);
+    $value = str_replace('  ', ' ', $value);
+    $value = str_replace('  ', ' ', $value);
+    $value = trim($value);
+
+    return $value;
   }
 }
 
@@ -94,14 +121,15 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
   }
 
   public function getValue(array $options = array()) {
-    $name = "metatag:" . $options["instance"] . ":" . $this->info["name"];
-
     $options += array(
+      'instance' => '',
       'token data' => array(),
       'clear' => TRUE,
       'sanitize' => TRUE,
       'raw' => FALSE,
     );
+
+    $name = "metatag:" . $options["instance"] . ":" . $this->info["name"];
 
     $value = metatag_translate($name, $this->data['value']);
     if (empty($options['raw'])) {
@@ -110,9 +138,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       drupal_alter('metatag_pattern', $value, $options['token data']);
       $value = token_replace($value, $options['token data'], $options);
     }
-    $value = strip_tags(decode_entities($value));
-    $value = trim($value);
-    return $value;
+    return $this->tidyValue($value);
   }
 }
 
@@ -171,6 +197,16 @@ class DrupalTitleMetaTag extends DrupalTextMetaTag {
  */
 class DrupalListMetaTag extends DrupalDefaultMetaTag {
 
+  function __construct(array $info, array $data = NULL) {
+    // Ensure that the $data['value] argument is an array.
+    if (empty($data['value'])) {
+      $data['value'] = array();
+    }
+    $data['value'] = (array) $data['value'];
+
+    parent::__construct($info, $data);
+  }
+
   public function getForm(array $options = array()) {
     $form['value'] = isset($this->info['form']) ? $this->info['form'] : array();
 
@@ -187,6 +223,50 @@ class DrupalListMetaTag extends DrupalDefaultMetaTag {
   public function getValue(array $options = array()) {
     $values = array_keys(array_filter($this->data['value']));
     sort($values);
-    return implode(', ', $values);
+    $value = implode(', ', $values);
+    return $this->tidyValue($value);
+  }
+}
+
+/**
+ * Date interval meta tag controller.
+ */
+class DrupalDateIntervalMetaTag extends DrupalDefaultMetaTag {
+
+  public function getForm(array $options = array()) {
+    $form['value'] = array(
+      '#type' => 'textfield',
+      '#title' => t('@title interval', array('@title' => $this->info['label'])),
+      '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
+      '#element_validate' => array('element_validate_integer_positive'),
+      '#maxlength' => 4,
+      '#description' => isset($this->info['description']) ? $this->info['description'] : '',
+    );
+    $form['period'] = array(
+      '#type' => 'select',
+      '#title' => t('@title interval type', array('@title' => $this->info['label'])),
+      '#default_value' => isset($this->data['period']) ? $this->data['period'] : '',
+      '#options' => array(
+        '' => t('- none -'),
+        'day' => t('Day(s)'),
+        'week' => t('Week(s)'),
+        'month' => t('Month(s)'),
+        'year' => t('Year(s)'),
+      ),
+    );
+
+    return $form;
+  }
+
+  public function getValue(array $options = array()) {
+    $value = '';
+    if (!empty($this->data['value'])) {
+      $interval = intval($this->data['value']);
+      if (!empty($interval) && !empty($this->data['period'])) {
+        $period = $this->data['period'];
+        $value = format_plural($interval, '@count ' . $period, '@count ' . $period . 's');
+      }
+    }
+    return $value;
   }
 }

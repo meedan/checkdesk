@@ -51,9 +51,15 @@ class flag_entity extends flag_flag {
     // Add checkboxes to show flag link on each entity view mode.
     $options = array();
     $defaults = array();
-    foreach ($entity_info['view modes'] as $name => $view_mode) {
+    $entity_view_modes = $entity_info['view modes'];
+    foreach ($entity_view_modes as $name => $view_mode) {
       $options[$name] = t('Display on @name view mode', array('@name' => $view_mode['label']));
       $defaults[$name] = !empty($this->show_in_links[$name]) ? $name : 0;
+    }
+    // Select the first display option by default if this is a new flag.
+    if (empty($this->fid)) {
+      $first_view_mode = reset(array_keys($entity_view_modes));
+      $defaults[$first_view_mode] = $first_view_mode;
     }
 
     $form['display']['show_in_links'] = array(

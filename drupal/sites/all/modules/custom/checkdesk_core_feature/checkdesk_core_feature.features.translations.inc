@@ -4580,6 +4580,35 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['8366ee26cfb407ef55685715b3322b01'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added a footnote to the following report "!title":
+
+!body
+
+<a href="!url">Click here</a> to respond or change the status of the report.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/meedan/meedan-checkdesk/drupal/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+لقد قام !author بإضافة معلومات جديدة للتحقق من صحة المعلومات في التقرير التالي "!title":
+
+!body
+
+<a href="!url">اضغط هنا</a> لترد أو تغير حالة التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['8371d13f0990707879c1e3e0d0835cf1'] = array(
     'source' => 'Evaluates a mathematical expression and displays it.',
     'context' => '',
@@ -6176,7 +6205,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plural' => 0,
   );
   $translations['ar:default']['aff68a5a38953a62748b240971fd8028'] = array(
-    'source' => 'Checkdesk Reports',
+    'source' => 'Checkdesk reports',
     'context' => '',
     'location' => '/checkdesk/ar/admin/meedan/reports',
     'translation' => 'تقارير تشك دسك',
@@ -6341,6 +6370,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/',
     'translation' => 'غيّر الحالة إلى ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['b5ca46625fd570744643befe7c73679c'] = array(
+    'source' => '@count Comments (Be the first!)',
+    'context' => '',
+    'location' => '/checkdesk/ar',
+    'translation' => 'أضف تعليقك!',
     'plid' => 0,
     'plural' => 0,
   );

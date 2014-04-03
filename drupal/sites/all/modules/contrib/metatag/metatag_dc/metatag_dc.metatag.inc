@@ -25,6 +25,15 @@ function metatag_dc_metatag_config_default_alter(array &$configs) {
         );
         break;
 
+      // On error pages point everything to the homepage.
+      case 'global:403':
+      case 'global:404':
+        $config->config += array(
+          'dcterms.title' => array('value' => '[site:name]'),
+          'dcterms.identifier' => array('value' => '[site:url]'),
+        );
+        break;
+
       case 'node':
         $config->config += array(
           'dcterms.title' => array('value' => '[node:title]'),
@@ -130,6 +139,9 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
   );
   $info['tags']['dcterms.type'] = array(
     'label' => t('Dublin Core Type'),
@@ -152,6 +164,9 @@ function metatag_dc_metatag_info() {
     'group' => 'dublin-core',
     'element' => array(
       '#theme' => 'metatag_dc',
+    ),
+    'devel_generate' => array(
+      'maxlength' => 1,
     ),
   );
   $info['tags']['dcterms.identifier'] = array(
@@ -179,6 +194,9 @@ function metatag_dc_metatag_info() {
     'group' => 'dublin-core',
     'element' => array(
       '#theme' => 'metatag_dc',
+    ),
+    'devel_generate' => array(
+      'maxlength' => 1,
     ),
   );
   $info['tags']['dcterms.relation'] = array(

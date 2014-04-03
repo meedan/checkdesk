@@ -5,19 +5,19 @@
  */
 function meedan_reports_menu() {
   $items = array();
-  $items['admin/meedan/reports'] = array(
-    'title' => t('Checkdesk Reports'),
+  $items['admin/reports/reports'] = array(
+    'title' => t('Checkdesk reports'),
     'description' => t('Checkdesk reports for reviewing how the site is performing'),
     'page callback' => 'system_admin_menu_block_page',
     'access arguments' => array('access administration pages'),
-    'position' => 'left',
-    'weight' => 5,
+    //'position' => 'left',
+    'weight' => -60,
     'file' => 'system.admin.inc', 
     'file path' => drupal_get_path('module', 'system'),
   );
   $reports = _meedan_reports_get_info(); 
   foreach ($reports as $path => $value) {
-    $items['admin/meedan/reports/'.$path] = array(
+    $items['admin/reports/reports/'.$path] = array(
       'page callback' => 'drupal_get_form',
       'page arguments' => array('meedan_reports_statistics_filter_form', 3),
       'title' => $value['title'],

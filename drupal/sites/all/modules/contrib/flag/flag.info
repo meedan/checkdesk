@@ -4,6 +4,9 @@ core = 7.x
 package = Flags
 configure = admin/structure/flags
 
+test_dependencies[] = token
+test_dependencies[] = rules
+
 ; Files that contain classes.
 ; Flag classes
 files[] = includes/flag/flag_flag.inc
@@ -26,9 +29,9 @@ files[] = includes/views/flag_handler_relationships.inc
 files[] = includes/views/flag_plugin_argument_validate_flaggability.inc
 files[] = tests/flag.test
 
-; Information added by Drupal.org packaging script on 2014-01-26
-version = "7.x-3.3"
+; Information added by Drupal.org packaging script on 2014-03-18
+version = "7.x-3.4"
 core = "7.x"
 project = "flag"
-datestamp = "1390732707"
+datestamp = "1395128956"
 

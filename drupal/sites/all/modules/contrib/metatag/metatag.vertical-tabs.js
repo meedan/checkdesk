@@ -6,7 +6,12 @@ Drupal.behaviors.metatagFieldsetSummaries = {
     $('fieldset.metatags-form', context).drupalSetSummary(function (context) {
       var vals = [];
       $("input[type='text'], select, textarea", context).each(function() {
-        var default_name = $(this).attr('name').replace(/\[value\]/, '[default]');
+        var input_field = $(this).attr('name');
+        // Verify the field exists before proceeding.
+        if (input_field === undefined) {
+          return false;
+        }
+        var default_name = input_field.replace(/\[value\]/, '[default]');
         var default_value = $("input[type='hidden'][name='" + default_name + "']", context);
         if (default_value.length && default_value.val() == $(this).val()) {
           // Meta tag has a default value and form value matches default value.

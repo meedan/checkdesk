@@ -57,14 +57,21 @@ function metatag_views_views_preview_info_alter(&$rows, $view) {
  * Implements hook_page_alter().
  */
 function metatag_views_page_alter(&$page) {
-  if ($view = views_get_page_view()) {
+  $view = views_get_page_view();
+  // Check if Views metatags are enabled.
+  if (!empty($view) && metatag_config_is_enabled('view')) {
     // The following is taken from views_get_page_view().
     // If a module is still putting in the display like we used to, catch that.
     if (is_subclass_of($view, 'views_plugin_display')) {
       $view = $view->view;
     }
 
-    // Load the
+    // Prevent Views settings from overwriting global:frontpage.
+    if (drupal_is_front_page() && metatag_config_is_enabled('global:frontpage')) {
+      return;
+    }
+
+    // Load the meta tags for this view.
     if (metatag_views_views_display_has_metatags($view->display_handler)) {
       $saved_metatags = $view->display_handler->get_option('metatags');
       $metatags = array();

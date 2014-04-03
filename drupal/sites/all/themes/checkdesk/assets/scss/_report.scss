@@ -39,39 +39,10 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 		position: absolute;
 		top: $absolute-line-height/2;
 		#{$omega}: -40px;
-		z-index: 0;
-		// Checkdesk icon
-		&:before {
-			position: absolute;
-			content: "";
-			z-index: -1;
-			top: -7px;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 7px;
-			@include ctb-bg($firefly5, $firefly10);
-		}
 
 		ul.content-actions {
 			@include reset-list-style;
-			// @include ctb-opacity(0.8);
-			// @include transition-property(opacity);
-			// @include transition-duration(0.2s);
 			position: relative;
-			// Dropshadow for depth
-			// &:before {
-			// 	position: absolute;
-			// 	content: "";
-			// 	z-index: -800;
-			// 	top: 0;
-			// 	bottom: 0;
-			// 	left: 0;
-			// 	right: 0;
-			// 	width: 10px;
-			// 	@include ctb-gradient-horizontal($firefly5, rgba($firefly,0));
-			// }
-
 
 			& > li {
 				display: block;
@@ -472,6 +443,7 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 			@include ctb-load-more-pager;
 
 			// bg only on the view
+			// Set verification log height
 			.view {
 				// background-image: $striped_lens;
 				background-color: rgba($thatch,.02);
@@ -481,6 +453,10 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 				-webkit-overflow-scrolling: touch;
 			}
 
+			// No max height on detail page
+			.page-node & .view {
+				max-height: none;
+			}
 
 			// activity items
 			.view-content {
@@ -554,7 +530,9 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 									margin-bottom: 0; 
 								}
 								// For URLs inside footnote
-								@include ctb-break-words;
+								a {
+									@include ctb-break-words;	
+								}
 							}
 							.verified { 
 								color: rgba(0,140,0, 1);

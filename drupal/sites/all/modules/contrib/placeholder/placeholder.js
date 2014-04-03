@@ -7,7 +7,7 @@
 (function ($) {
   Drupal.behaviors.placeholder = {
     attach: function () {
-      $("input[placeholder], textarea[placeholder]").placeholder();
+      $("input[placeholder], textarea[placeholder], password[placeholder]").placeholder();
     }
   };
 

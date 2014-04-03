@@ -601,6 +601,8 @@ function flag_permission() {
     ),
   );
 
+  // Reset static cache to ensure all flag permissions are available.
+  drupal_static_reset('flag_get_flags');
   $flags = flag_get_flags();
   // Provide flag and unflag permissions for each flag.
   foreach ($flags as $flag_name => $flag) {
@@ -1183,7 +1185,7 @@ function flag_user_delete($account) {
 function flag_user_account_removal($account) {
   // Remove flags by this user.
   $query = db_select('flagging', 'fc');
-  $query->leftJoin('flag_counts', 'c', 'fc.entity_id = c.entity_id AND fc.entity_type = c.entity_type');
+  $query->leftJoin('flag_counts', 'c', 'fc.entity_id = c.entity_id AND fc.entity_type = c.entity_type AND fc.fid = c.fid');
   $result = $query
     ->fields('fc', array('fid', 'entity_id'))
     ->fields('c', array('count'))
@@ -1695,6 +1697,15 @@ function _flag_link_type_descriptions() {
 /**
  * Get the count of flags for a particular entity type.
  *
+ * When called during a flagging or unflagging (such as from a hook
+ * implementation or from Rules), the flagging or unflagging that is in the
+ * process of being performed:
+ *  - will be included during a flagging operation
+ *  - will STILL be included during an unflagging operation. That is, the count
+ *    will not yet have been decreased.
+ * This is because this queries the {flagging} table, which only has its record
+ * deleted at the very end of the unflagging process.
+ *
  * @param $flag
  *   The flag.
  * @param $entity_type
@@ -1726,6 +1737,15 @@ function flag_get_entity_flag_counts($flag, $entity_type) {
 /**
  * Get the user's flag count.
  *
+ * When called during a flagging or unflagging (such as from a hook
+ * implementation or from Rules), the flagging or unflagging that is in the
+ * process of being performed:
+ *  - will be included during a flagging operation
+ *  - will STILL be included during an unflagging operation. That is, the count
+ *    will not yet have been decreased.
+ * This is because this queries the {flagging} table, which only has its record
+ * deleted at the very end of the unflagging process.
+ *
  * @param $flag
  *   The flag.
  * @param $user
@@ -1756,6 +1776,10 @@ function flag_get_user_flag_counts($flag, $user) {
 
 /**
  * Get flag counts for all flags on a node.
+ *
+ * When called during a flagging or unflagging (such as from a hook
+ * implementation or from Rules), the count this returns takes into account the
+ * the flagging or unflagging that is in the process of being performed.
  *
  * @param $entity_type
  *   The entity type (usually 'node').
@@ -1789,6 +1813,10 @@ function flag_get_counts($entity_type, $entity_id) {
 /**
  * Get the total count of items flagged within a flag.
  *
+ * When called during a flagging or unflagging (such as from a hook
+ * implementation or from Rules), the count this returns takes into account the
+ * the flagging or unflagging that is in the process of being performed.
+ *
  * @param $flag_name
  *   The flag name for which to retrieve a flag count.
  * @param $reset
@@ -1803,7 +1831,7 @@ function flag_get_flag_counts($flag_name, $reset = FALSE) {
   if (!isset($counts[$flag_name])) {
     $flag = flag_get_flag($flag_name);
     $counts[$flag_name] = db_select('flag_counts', 'fc')
-      ->fields('fc', array('flagging_id'))
+      ->fields('fc', array('fid'))
       ->condition('fid', $flag->fid)
       ->countQuery()
       ->execute()
@@ -2017,6 +2045,15 @@ function flag_get_flag_flagging_data($flag_name) {
 /**
  * Find what a user has flagged, either a single entity or on the entire site.
  *
+ * When called during a flagging or unflagging (such as from a hook
+ * implementation or from Rules), the flagging or unflagging that is in the
+ * process of being performed:
+ *  - will be included during a flagging operation
+ *  - will STILL be included during an unflagging operation. That is, the count
+ *    will not yet have been decreased.
+ * This is because this queries the {flagging} table, which only has its record
+ * deleted at the very end of the unflagging process.
+ *
  * @param $entity_type
  *   The type of entity that will be retrieved. Usually 'node'.
  * @param $entity_id
@@ -2092,6 +2129,15 @@ function flag_get_user_flags($entity_type, $entity_id = NULL, $uid = NULL, $sid 
 /**
  * Return a list of users who have flagged an entity.
  *
+ * When called during a flagging or unflagging (such as from a hook
+ * implementation or from Rules), the flagging or unflagging that is in the
+ * process of being performed:
+ *  - will be included during a flagging operation
+ *  - will STILL be included during an unflagging operation. That is, the count
+ *    will not yet have been decreased.
+ * This is because this queries the {flagging} table, which only has its record
+ * deleted at the very end of the unflagging process.
+ *
  * @param $entity_type
  *   The type of entity that will be retrieved. Usually 'node'.
  * @param $entity_id
@@ -2100,10 +2146,14 @@ function flag_get_user_flags($entity_type, $entity_id = NULL, $uid = NULL, $sid 
  *   (optional) The name of a flag if wanting a list specific to a single flag.
  *
  * @return
- *   If no flag name is given, an array of flagging data, keyed by the user
- *   ID that flagged the entity. Each flagging array is structured as
- *   an array of flag information for each flag, keyed by the flag name. If
- *   a flag name is specified, only the information for that flag is returned.
+ *   A nested array of flagging records (i.e. rows from the {flagging} table,
+ *   rather than complete Flagging entities). The structure depends on the
+ *   presence of the $flag_name parameter:
+ *    - if $flag_name is omitted, the array is keyed first by the user ID of
+ *      the users that flagged the entity, then by flag name. Each value is
+ *      then the flagging record.
+ *    - if $flag_name is given, the array is keyed only by user ID. Each value
+ *      is the flagging record.
  *   If no flags were found an empty array is returned.
  */
 function flag_get_entity_flags($entity_type, $entity_id, $flag_name = NULL) {

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Metatag integration for the metatag_opengraph module.
@@ -19,6 +18,7 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
           'og:url' => array('value' => '[current-page:url:absolute]'),
         );
         break;
+
       case 'global:frontpage':
         $config->config += array(
           'og:type' => array('value' => 'website'),
@@ -26,18 +26,31 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
           'og:url' => array('value' => '[site:url]'),
         );
         break;
+
+      // On error pages point everything to the homepage.
+      case 'global:403':
+      case 'global:404':
+        $config->config += array(
+          'og:type' => array('value' => 'website'),
+          'og:title' => array('value' => '[site:name]'),
+          'og:url' => array('value' => '[site:url]'),
+        );
+        break;
+
       case 'node':
         $config->config += array(
           'og:title' => array('value' => '[node:title]'),
           'og:description' => array('value' => '[node:summary]'),
         );
         break;
+
       case 'taxonomy_term':
         $config->config += array(
           'og:title' => array('value' => '[term:name]'),
           'og:description' => array('value' => '[term:description]'),
         );
         break;
+
       case 'user':
         $config->config += array(
           'og:type' => array('value' => 'profile'),
@@ -81,6 +94,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'integer',
     ),
   );
   if (module_exists('fb_social')) {
@@ -145,11 +161,27 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:image'] = array(
     'label' => t('Open Graph image'),
-    'description' => t('An image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. We support PNG, JPEG and GIF formats.'),
+    'description' => t('An image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
+  );
+
+  $info['tags']['og:image:secure_url'] = array(
+    'label' => t('Open Graph secure image'),
+    'description' => t('A secure (HTTPS) image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'image',
     ),
   );
 
@@ -161,6 +193,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'canonical',
+    ),
   );
 
   $info['tags']['og:latitude'] = array(
@@ -171,6 +206,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'float',
+    ),
   );
   $info['tags']['og:longitude'] = array(
     'label' => t('Open Graph Longitude'),
@@ -179,6 +217,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'float',
     ),
   );
 
@@ -236,6 +277,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'email',
+    ),
   );
   $info['tags']['og:phone_number'] = array(
     'label' => t('Open Graph Phone Number'),
@@ -245,6 +289,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'phone',
+    ),
   );
   $info['tags']['og:fax_number'] = array(
     'label' => t('Open Graph Fax Number'),
@@ -253,6 +300,22 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'phone',
+    ),
+  );
+
+  $info['tags']['og:locale'] = array(
+    'label' => t('Open Graph Locale'),
+    'description' => 'The locale these tags are marked up in. Of the format language_TERRITORY. Default is en_US.',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'maxlength' => 1,
     ),
   );
 
@@ -264,6 +327,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
   $info['tags']['og:video:secure_url'] = array(
     'label' => t('Open Graph Video Secure'),
@@ -272,6 +338,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'url',
     ),
   );
   $info['tags']['og:video:width'] = array(
@@ -282,6 +351,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'integer',
+    ),
   );
   $info['tags']['og:video:height'] = array(
     'label' => t('Open Graph Video Height'),
@@ -290,6 +362,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'integer',
     ),
   );
   $info['tags']['og:video:type'] = array(
@@ -320,7 +395,7 @@ function _metatag_opengraph_type_options() {
       'sport' => t('Sport'),
     ),
     t('Businesses') => array(
-      'bar' => t('Bar'),
+      'bar' => t('Bar', array('context' => 'an establishment')),
       'company' => t('Company'),
       'cafe' => t('Cafe'),
       'hotel' => t('Hotel'),

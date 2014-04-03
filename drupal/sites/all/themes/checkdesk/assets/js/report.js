@@ -18,7 +18,6 @@
     }
   });
 
-
   Drupal.behaviors.reports = {
     attach: function (context, settings) {
       // Remove duplicates added incrementally by views_autorefresh after loading more content with views_load_more
@@ -163,17 +162,29 @@
 
     group: function(content) {
       var $previous = null;
+      var $comment = null;
+      var $status = null;
       content.find('.activity-content:not(activity-grouped)').each(function() {
-        var $current = $(this);
-        if ($previous !== null && $current.hasClass('new_comment_report') && $previous.hasClass('status_report') &&
-            $current.find('.actor').text() === $previous.find('.actor').text()) {
-          $current.find('.actor').html('');
-          $current.find('.time').html('');
-          $current.find('.title').parent().addClass('grouped');
-          $current.parents('.views-row').css('border-top', '0 none');
+        // set comment
+        if($(this).hasClass('new_comment_report')) {
+          $comment = $(this);
         }
-        $current.addClass('activity-grouped');
-        $previous = $current;
+        // set status
+        if($(this).hasClass('status_report')) {
+          $status = $(this);
+        }
+        // group if actor and timestamps are the same
+        if ($status !== null && $comment !== null && $comment.hasClass('new_comment_report') && $status.hasClass('status_report') &&
+            $comment.find('.actor').text() === $status.find('.actor').text() && $comment.find('.time').attr('datetime') === $status.find('.time').attr('datetime')) {
+          $comment.find('.actor').html('');
+          $comment.find('.time').html('');
+          $comment.find('.title').parent().addClass('grouped');
+          $comment.parents('.views-row').css('border-top', '0 none');
+          $status.addClass('activity-parent');
+          $comment.addClass('activity-grouped');
+          // move the status before the comment
+          $comment.parent().before($status.parent());
+        }
       });
     },
 
@@ -241,6 +252,12 @@
       });
     }
   };
+
+  Drupal.behaviors.footnotes = {
+    attach: function(context, settings) {
+      $('textarea[class*=expanding]', context).expanding();
+    }
+  }
 
   // This callback is invoked when a new footnote is added
   $.fn.footnoteCallback = function(nid, output) {

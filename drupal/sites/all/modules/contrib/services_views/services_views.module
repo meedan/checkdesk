@@ -68,7 +68,7 @@ function services_views_services_resources() {
         'description' => 'The total number of entries to list.',
         'source' => array('param' => 'limit'),
         'optional' => TRUE,
-        'default value' => 10,
+        'default value' => -1,
       ),
       'format_output' => array(
         'name' => 'format_output',
@@ -90,28 +90,36 @@ function services_views_services_resources() {
   );
 
   // Retrieve all views that have "services" display.
-  $results = db_query('SELECT vv.name, vd.id FROM {views_display} AS vd LEFT JOIN {views_view} AS vv ON vd.vid = vv.vid WHERE vd.display_plugin = :display_name', array(':display_name' => 'services'))->fetchAll();
-  foreach ($results as $result) {
-    $view_name = $result->name;
-    $view_display = $result->id;
-    $view = views_get_view($view_name);
+  $views = views_get_enabled_views();
+  foreach ($views as $view_name => $view) {
+    foreach ($view->display as $view_display => $display) {
+      if ($display->display_plugin !== 'services') {
+        continue;
+      }
 
-    $path = $view->display[$view_display]->display_options['path'];
+      $path = $display->display_options['path'];
 
-    $resources[$path] = array();
-    $resources[$path]['index'] = array(
-      'view info' => array('view_name' => $view_name, 'display_id' => $view_display),
-      'help' => filter_xss('View: ' . $view->human_name),
-      'file' => array(
-        'type' => 'inc',
-        'module' => 'services_views',
-        'name' => 'services_views.resource',
-      ),
-      'callback' => 'services_views_execute_view',
-        // Reuse services_views_access access callback.
-      'access callback' => 'services_views_access',
-      'access arguments' => array('view', array('view_name' => $view_name, 'display_id' => $view_display)),
-    );
+      $resources[$path] = array();
+      $resources[$path]['index'] = array(
+        'view info' => array('view_name' => $view_name, 'display_id' => $view_display),
+        'help' => filter_xss('View: ' . $view->human_name),
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'services_views',
+          'name' => 'services_views.resource',
+        ),
+        'callback' => 'services_views_execute_view',
+          // Reuse services_views_access access callback.
+        'access callback' => 'services_views_access',
+        'access arguments' => array(
+          'view',
+          array(
+            'view_name' => $view_name,
+            'display_id' => $view_display,
+          ),
+        ),
+      );
+    }
   }
 
   return $resources;
@@ -212,8 +220,10 @@ function services_views_field_formatter_info_alter(&$formatters) {
 
   $formatters['services'] = array(
     'label' => t('Services Raw'),
+    'description' => t('Formatter for Services to provide value as it is in entity object.'),
     'field types' => $field_types,
     'module' => 'services_views',
+    'settings' => array(),
   );
 }
 

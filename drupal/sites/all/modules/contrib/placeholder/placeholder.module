@@ -13,6 +13,7 @@ function placeholder_element_info_alter(&$types) {
     switch ($type) {
       case 'textfield':
       case 'textarea':
+      case 'password':
         $types[$type]['#process'][] = 'placeholder_process_placeholder';
         break;
     }
@@ -35,9 +36,9 @@ function placeholder_process_placeholder($element) {
       $element['#attributes']['placeholder'] = $element['#placeholder'];
     }
     // Add the library, if it's available.
-    if (($library = libraries_load('placeholder', 'minified')) && !empty($library['loaded'])) {
+    if (($library = libraries_detect('placeholder')) && !empty($library['installed'])) {
       // Attach the library files.
-      libraries_load_files($library);
+      $element['#attached']['libraries_load'][] = array('placeholder', 'minified');
       // Attach the module js file. This will actually invoke the library.
       $element['#attached']['js'] = array(
         drupal_get_path('module', 'placeholder') . '/placeholder.js',
@@ -56,7 +57,7 @@ function placeholder_libraries_info() {
 
   $libraries['placeholder'] = array(
     'title' => 'jQuery-Placeholder',
-    'vendor url' => 'https://github.com/danielstocks/jQuery-Placeholder',
+    'vendor url' => 'https://github.com/mathiasbynens/jquery-placeholder',
     'version' => '1.0',
     'files' => array(
       'js' => array(

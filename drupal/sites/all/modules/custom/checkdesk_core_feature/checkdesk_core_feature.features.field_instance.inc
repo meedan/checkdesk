@@ -486,17 +486,18 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'exclude_cv' => 0,
     'field_name' => 'body',
     'label' => 'Description',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'filtered_html' => 'filtered_html',
+          'filtered_html' => 0,
           'full_html' => 0,
           'liveblog' => 0,
           'php_code' => 0,
-          'plain_text' => 0,
+          'plain_text' => 'plain_text',
         ),
         'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
@@ -529,7 +530,11 @@ function checkdesk_core_feature_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'rows' => 20,
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
+        'rows' => 5,
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',

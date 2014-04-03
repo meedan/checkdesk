@@ -38,7 +38,12 @@ function metatag_panels_form($form, $form_state) {
   $token_types = array();
 
   foreach ($contexts as $context) {
-    $token_types[] = $context->keyword;
+    if ($context->keyword == 'taxonomy_term') {
+      $token_types[] = 'term';
+    }
+    else {
+      $token_types[] = $context->keyword;
+    }
   }
 
   // Allow the user to enable/disable meta tags for this panel.
@@ -94,6 +99,13 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     return;
   }
 
+  $metatags = $handler->conf['metatag_panels']['metatags'];
+  $metatags += metatag_config_load_with_defaults('');
+
+  if (empty($metatags)) {
+    return;
+  }
+
   // Get the contexts that exist within this panel.
   ctools_include('context-task-handler');
   $task_object = ctools_context_handler_get_task_object($context['task'], $context['subtask'], $context['handler']);
@@ -106,20 +118,20 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
   }
 
   // Build the Metatag.
-  $metatags = $handler->conf['metatag_panels']['metatags'];
-  $metatags += metatag_config_load_with_defaults('');
-
+  $options = array(
+    'instance' => 'panels:' . $handler->name,
+    'token data' => $tokens,
+  );
   foreach ($metatags as $metatag => $data) {
     $metatag_instance = metatag_get_instance($metatag, $data);
 
     if ($metatag_instance) {
-      $output[$metatag] = $metatag_instance->getElement(array('token data' => $tokens));
+      $output[$metatag] = $metatag_instance->getElement($options);
     }
   }
 
   // Give third-parties the opportunity to alter the metatag for a given instance.
-  $instance = 'panels:' . $handler->name;
-  drupal_alter('metatag_metatags_view', $output, $instance);
+  drupal_alter('metatag_metatags_view', $output, $options['instance']);
 }
 
 /**

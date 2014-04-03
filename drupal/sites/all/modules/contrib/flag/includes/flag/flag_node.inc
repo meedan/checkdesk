@@ -55,6 +55,12 @@ class flag_node extends flag_entity {
       '#title' => t('Display checkbox on node edit form'),
       '#description' => t('If you elect to have a checkbox on the node edit form, you may specify its initial state in the settings form <a href="@content-types-url">for each content type</a>.', array('@content-types-url' => url('admin/structure/types'))),
     ) + $form['display']['show_on_form'];
+
+    // Add the 'teaser' view mode as a default value for the entity link display
+    // option if this is a new flag.
+    if (empty($this->fid)) {
+      $form['display']['show_in_links']['#default_value']['teaser'] = 'teaser';
+    }
   }
 
   function type_access_multiple($entity_ids, $account) {
