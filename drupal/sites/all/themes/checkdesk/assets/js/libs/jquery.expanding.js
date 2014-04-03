@@ -58,8 +58,6 @@
     return v;
   })();
 
-  console.log(ieVersion);
-
   // Check for oninput support
   // IE9 supports oninput, but not when deleting text, so keyup is used.
   // onpropertychange _is_ supported by IE8/9, but may not be fired unless
