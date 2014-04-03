@@ -18,6 +18,8 @@
     }
   });
 
+  
+
 
   Drupal.behaviors.reports = {
     attach: function (context, settings) {
@@ -56,8 +58,6 @@
           $(this).parents('.report-activity').removeClass('end');
         }
       });
-
-      
 
       // add class 'long' to big actor/usernames inside the fact-checking log
       // $(window).resize(function() {
