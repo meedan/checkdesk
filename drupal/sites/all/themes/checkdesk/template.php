@@ -228,6 +228,18 @@ function checkdesk_preprocess_page(&$variables) {
 
     $variables['main_menu'] = checkdesk_menu_navigation_links($tree);
 
+    foreach ($variables['main_menu'] as $id => $item) {
+      if ($item['link_path'] == 'node/add/media') {
+        $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
+      }
+      else if ($item['link_path'] == 'node/add/discussion') {
+        $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
+      }
+      else if ($item['link_path'] == 'node/add/post') {
+        $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
+      }
+    }
+
     // Build list
     $variables['primary_nav'] = theme('checkdesk_links', array(
       'links' => $variables['main_menu'],
