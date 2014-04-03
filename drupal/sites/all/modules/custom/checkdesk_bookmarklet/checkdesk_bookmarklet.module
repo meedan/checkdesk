@@ -93,6 +93,13 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     else {
       drupal_set_title(t('Submit report'));
       $form['field_link'][LANGUAGE_NONE][0]['#description'] = t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team.');
+      if (!isset($form['nid']['#value'])) {
+        //hide description and graphic content
+        $form['#attached']['js'][] = array(
+          'data' => 'jQuery(function() { jQuery("#edit-body, #edit-graphic-content").hide();});',
+          'type' => 'inline',
+        );
+      }
       //redirect user to reports page
       //$form['actions']['submit']['#submit'][] = '_cd_report_redirect';
     }

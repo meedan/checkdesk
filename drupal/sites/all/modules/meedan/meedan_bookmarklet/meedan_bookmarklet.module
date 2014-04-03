@@ -265,9 +265,11 @@ function meedan_bookmarklet_form_alter(&$form, $form_state, $form_id) {
         }
       }
     }
-    // Hide fields
-    foreach (variable_get('meedan_bookmarklet_hidden_fields', array()) as $field) {
-      $form[$field]['#access'] = FALSE;
+    // Hide fields on form creation
+    if (!isset($form['nid']['#value'])) {
+      foreach (variable_get('meedan_bookmarklet_hidden_fields', array()) as $field) {
+        $form[$field]['#access'] = FALSE;
+      }
     }
   }
 }
