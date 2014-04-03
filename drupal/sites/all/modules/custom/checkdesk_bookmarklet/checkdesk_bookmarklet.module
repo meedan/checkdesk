@@ -92,7 +92,6 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
     }
     else {
       drupal_set_title(t('Submit report'));
-      $form['field_link'][LANGUAGE_NONE][0]['#prefix'] = '<span class="cd-link-title">'. t('Add a link') . '</span>';
       $form['field_link'][LANGUAGE_NONE][0]['#description'] = t('When you submit a report it becomes available for fact-checking and may be included in a blog post by our team.');
       //redirect user to reports page
       //$form['actions']['submit']['#submit'][] = '_cd_report_redirect';
@@ -114,6 +113,8 @@ function _cd_report_redirect($form, &$form_state) {
  * Load JavaScript file for bookmarklet form
  */
 function _checkdesk_bookmarklet_load_javascript_for_bookmarklet_form($form, &$form_state) {
+  //add placeholder to link field
+  $form['field_link'][LANGUAGE_NONE][0]['url']['#attributes']['placeholder'] = t('Add a link');
   drupal_add_js(drupal_get_path('module', 'checkdesk_bookmarklet') . '/js/checkdesk_bookmarklet_form.js');
   // Coming from Facebook login? (Facebook removes referer, so we need to use the parameters)
   if (isset($_REQUEST['state']) && isset($_REQUEST['code'])) drupal_add_js("window.opener.location.reload(); window.close();", "inline");
