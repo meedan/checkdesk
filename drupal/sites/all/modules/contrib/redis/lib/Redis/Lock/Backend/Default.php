@@ -3,7 +3,9 @@
 /**
  * Lock backend shared methods.
  */
-abstract class Redis_Lock_Backend_Default implements Redis_Lock_Backend_Interface {
+abstract class Redis_Lock_Backend_Default extends Redis_AbstractBackend implements
+    Redis_Lock_Backend_Interface
+{
   /**
    * Current page lock token identifier.
    *
@@ -76,7 +78,11 @@ abstract class Redis_Lock_Backend_Default implements Redis_Lock_Backend_Interfac
   /**
    * Generate a redis key name for the current lock name
    */
-  public function getLockKeyName($name) {
-    return 'lock:' . $name;
+  public function getKey($name = null) {
+    if (null === $name) {
+      return parent::getKey('lock');
+    } else {
+      return parent::getKey('lock:' . $name);
+    }
   }
 }

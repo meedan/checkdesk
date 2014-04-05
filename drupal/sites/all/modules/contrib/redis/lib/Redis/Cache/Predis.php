@@ -6,8 +6,9 @@
 class Redis_Cache_Predis extends Redis_Cache_Base {
 
   function get($cid) {
-    $client     = Redis_Client::getClient();
-    $key        = $this->getKey($cid);
+
+    $client = Redis_Client::getClient();
+    $key    = $this->getKey($cid);
 
     $cached = $client->hgetall($key);
 
@@ -25,10 +26,10 @@ class Redis_Cache_Predis extends Redis_Cache_Base {
   }
 
   function getMultiple(&$cids) {
-    $client = Redis_Client::getClient();
 
-    $ret = $keys = array();
-    $keys = array_map(array($this, 'getKey'), $cids);
+    $client = Redis_Client::getClient();
+    $ret    = $keys = array();
+    $keys   = array_map(array($this, 'getKey'), $cids);
 
     $replies = $client->pipeline(function($pipe) use ($keys) {
       foreach ($keys as $key) {
@@ -71,10 +72,13 @@ class Redis_Cache_Predis extends Redis_Cache_Base {
   }
 
   function set($cid, $data, $expire = CACHE_PERMANENT) {
-    $client = Redis_Client::getClient();
-    $key    = $this->getKey($cid);
 
-    $client->pipeline(function($pipe) use ($cid, $key, $data, $expire) {
+    $client = Redis_Client::getClient();
+    $skey   = $this->getKey(Redis_Cache_Base::TEMP_SET);
+    $key    = $this->getKey($cid);
+    $self   = $this;
+
+    $client->pipeline(function($pipe) use ($cid, $key, $skey, $data, $expire, $self) {
 
       $hash = array(
         'cid' => $cid,
@@ -95,52 +99,93 @@ class Redis_Cache_Predis extends Redis_Cache_Base {
 
       switch ($expire) {
 
-        // FIXME: Handle CACHE_TEMPORARY correctly.
         case CACHE_TEMPORARY:
+          $lifetime = variable_get('cache_lifetime', Redis_Cache_Base::LIFETIME_DEFAULT);
+          if (0 < $lifetime) {
+            $pipe->expire($key, $lifetime);
+          }
+          $pipe->sadd($skey, $cid);
+          break;
+
         case CACHE_PERMANENT:
-          // We dont need the PERSIST command, since it's the default.
+          if (0 !== ($ttl = $self->getPermTtl())) {
+            $pipe->expire($key, $ttl);
+          }
+          // We dont need the PERSIST command we want the cache item to
+          // never expire.
           break;
 
         default:
-          $delay = $expire - time();
-          $pipe->expire($key, $delay);
+          // If caller gives us an expiry timestamp in the past
+          // the key will expire now and will never be read.
+          $ttl = $expire - time();
+          $pipe->expire($key, $ttl);
+          if (0 < $ttl) {
+            $pipe->sadd($skey, $cid);
+          }
+          break;
       }
     });
   }
 
   function clear($cid = NULL, $wildcard = FALSE) {
+
+    $keys   = array();
+    $skey   = $this->getKey(Redis_Cache_Base::TEMP_SET);
     $client = Redis_Client::getClient();
-    $many   = FALSE;
 
-    // We cannot determine which keys are going to expire, so we need to flush
-    // the full bin case we have an explicit NULL provided. This means that
-    // stuff like block and cache pages may be expired too often.
     if (NULL === $cid) {
-      $key = $this->getKey('*');
-      $many = TRUE;
-    }
-    else if ('*' !== $cid && $wildcard) {
-      $key  = $this->getKey($cid . '*');
-      $many = TRUE;
-    }
-    else if ('*' === $cid) {
-      $key  = $this->getKey($cid);
-      $many = TRUE;
-    }
-    else {
-      $key = $this->getKey($cid);
-    }
+      switch ($this->getClearMode()) {
 
-    if ($many) {
-      $keys = $client->keys($key);
+        // One and only case of early return.
+        case Redis_Cache_Base::FLUSH_NOTHING:
+          return;
 
-      // Attempt to clear an empty array will raise exceptions.
-      if (!empty($keys)) {
-        $client->del($keys);
+        // Default behavior.
+        case Redis_Cache_Base::FLUSH_TEMPORARY:
+          if (Redis_Cache_Base::LIFETIME_INFINITE == variable_get('cache_lifetime', Redis_Cache_Base::LIFETIME_DEFAULT)) {
+            $keys[] = $skey;
+            foreach ($client->smembers($skey) as $tcid) {
+              $keys[] = $this->getKey($tcid);
+            }
+          }
+          break;
+
+        // Fallback on most secure mode: flush full bin.
+        default:
+        case Redis_Cache_Base::FLUSH_ALL:
+          $keys[] = $skey;
+          $cid = '*';
+          $wildcard = true;
+          break;
       }
     }
-    else {
-      $client->del($key);
+
+    if ('*' !== $cid && $wildcard) {
+      // Prefix flush.
+      $keys = array_merge($keys, $client->keys($this->getKey($cid . '*')));
+    }
+    else if ('*' === $cid) {
+      // Full bin flush.
+      $keys = array_merge($keys, $client->keys($this->getKey('*')));
+    }
+    else if (empty($keys) && !empty($cid)) {
+      // Single key drop.
+      $keys[] = $key = $this->getKey($cid);
+      $client->srem($skey, $key);
+    }
+
+    if (!empty($keys)) {
+      if (count($keys) < Redis_Cache_Base::KEY_THRESHOLD) {
+        $client->del($keys);
+      } else {
+        $client->pipeline(function($pipe) use ($keys) {
+          do {
+            $buffer = array_splice($keys, 0, Redis_Cache_Base::KEY_THRESHOLD);
+            $pipe->del($buffer);
+          } while (!empty($keys));
+        });
+      }
     }
   }
 
