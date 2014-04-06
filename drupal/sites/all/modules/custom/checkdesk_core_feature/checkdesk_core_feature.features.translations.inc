@@ -6377,7 +6377,7 @@ This was an auto-generated email from !site; please do not respond directly to t
     'source' => '@count Comments (Be the first!)',
     'context' => '',
     'location' => '/checkdesk/ar',
-    'translation' => 'أضف تعليقك!',
+    'translation' => 'التعليقات 0 (أضف تعليقك!)',
     'plid' => 0,
     'plural' => 0,
   );
