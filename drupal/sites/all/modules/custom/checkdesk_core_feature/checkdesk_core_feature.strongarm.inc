@@ -585,7 +585,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'honeypot_element_name';
-  $strongarm->value = 'name';
+  $strongarm->value = 'email';
   $export['honeypot_element_name'] = $strongarm;
 
   $strongarm = new stdClass();
