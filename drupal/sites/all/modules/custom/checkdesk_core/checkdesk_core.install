@@ -253,3 +253,11 @@ function checkdesk_core_update_7026() {
   variable_set('l10n_update_download_store', 'sites/all/translations');
   variable_set('l10n_update_check_mode', '2');
 }
+
+/**
+ * Disable captcha / recaptcha modules.
+ */
+function checkdesk_core_update_7027() {
+  module_disable(array('captcha'));
+}
+

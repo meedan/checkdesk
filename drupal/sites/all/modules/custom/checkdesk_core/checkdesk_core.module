@@ -2347,8 +2347,8 @@ function checkdesk_core_clientside_validation_form_alter(&$form, &$form_state, &
     _clientside_validation_set_email($form['account']['mail']['#name'], $form['account']['mail']['#title'], $js_rules, t('invalid'));
 
     // Captcha
-    _clientside_validation_set_captcha('recaptcha_response_field', t('Captcha'), $form['captcha']['#captcha_validate'], $js_rules, t('wrong'));
-    _clientside_validation_set_required('recaptcha_response_field', t('Captcha'), TRUE, $js_rules, t('required'));
+    //_clientside_validation_set_captcha('recaptcha_response_field', t('Captcha'), $form['captcha']['#captcha_validate'], $js_rules, t('wrong'));
+    //_clientside_validation_set_required('recaptcha_response_field', t('Captcha'), TRUE, $js_rules, t('required'));
 
     // Customize error messages to shorter strings
     foreach (array('name', 'mail', 'pass[pass1]', 'pass[pass2]') as $field) {

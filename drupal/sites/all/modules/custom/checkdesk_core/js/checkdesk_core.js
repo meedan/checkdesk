@@ -226,7 +226,7 @@
   Drupal.behaviors.clientSideValidations = {
     attach: function (context) {
       $(document).bind('clientsideValidationAddCustomRules', function(event) {
-
+        /*
         // Overwrite default captcha validator to support reCAPTCHA
         jQuery.validator.addMethod('captcha', function (value, element, param) {
           var result = false;
@@ -255,7 +255,7 @@
           }
           return result.result;
         }, jQuery.format(Drupal.t('wrong')));
-
+        */
         // Check if username or e-mail is taken
         jQuery.validator.addMethod('unique', function (value, element, param) {
           var result = false;
