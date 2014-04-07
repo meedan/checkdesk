@@ -44,13 +44,11 @@ Scenario: Display compose update form on story page
   And I remove the created nodes
 
 @api @javascript
-Scenario: Open create story modal
+Scenario: Open create story page
   Given I am logged in as a user with the "journalist" role
-  When I go to the homepage
-  Then element ".create-story" should not be expanded
+  And I go to the homepage
   When I click "Create story"
-  And I wait for 5 seconds
-  Then element ".create-story" should be expanded
+  Then I should be on "/en/node/add/discussion"
 
 @api @javascript
 Scenario: Sharing options for stories
