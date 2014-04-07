@@ -268,6 +268,9 @@
     $('#node-' + nid + ' .activity-wrapper').append($form);
     $form.show();
     $form.find('textarea').val('');
+    //destory then re-assign expanding to fix issue #2119.
+    $form.find('textarea').expanding('destroy');
+    $form.find('textarea').expanding();
     Drupal.attachBehaviors($('#node-' + nid));
   };
 
