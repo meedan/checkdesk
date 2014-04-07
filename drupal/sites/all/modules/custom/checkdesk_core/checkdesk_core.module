@@ -2500,3 +2500,19 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   }
 }
 
+/**
+ * Implements of hook_comment_delete().
+ */
+function checkdesk_core_comment_delete($comment) {
+  // Delete messages from deleted comments.
+  $query = db_select('heartbeat_activity', 'ha');
+  $query->addField('ha', 'uaid');
+  $query->condition('cid', $comment->cid);
+  $query->condition('nid', $comment->nid);
+  foreach ($query->execute() as $row_object) {
+    $uaids[] = $row_object->uaid;
+  }
+  if (!empty($uaids)) {
+    heartbeat_activity_delete($uaids);
+  }
+}
