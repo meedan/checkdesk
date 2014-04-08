@@ -261,3 +261,19 @@ function checkdesk_core_update_7027() {
   module_disable(array('captcha'));
 }
 
+/**
+ * Remove deleted comments from heartbeat activity.
+ */
+function checkdesk_core_update_7028() {
+  $query = db_select('heartbeat_activity', 'ha');
+  $query->addField('ha', 'uaid');
+  $query->leftJoin('comment', 'c', 'ha.cid = c.cid');
+  $query->condition('ha.cid', 0, '!=');
+  $query->condition('c.cid', NULL, 'IS');
+  foreach ($query->execute() as $row_object) {
+    $uaids[] = $row_object->uaid;
+  }
+  if (!empty($uaids)) {
+    heartbeat_activity_delete($uaids);
+  }
+}
