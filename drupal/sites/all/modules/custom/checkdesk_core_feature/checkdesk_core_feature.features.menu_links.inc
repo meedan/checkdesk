@@ -460,6 +460,34 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'menu_links_language' => 'ar',
     'menu_links_customized_2' => 1,
   );
+  // Exported menu link: menu-information_--:content/تنصيب-إضافة-المتصفح
+  $menu_links['menu-information_--:content/تنصيب-إضافة-المتصفح'] = array(
+    'menu_name' => 'menu-information',
+    'link_path' => 'content/تنصيب-إضافة-المتصفح',
+    'router_path' => 'modal/%',
+    'link_title' => ' إضافة المتصفح',
+    'options' => array(
+      'attributes' => array(
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
+      ),
+      'alter' => TRUE,
+      'identifier' => 'menu-information_--:content/تنصيب-إضافة-المتصفح',
+    ),
+    'module' => 'menu',
+    'hidden' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'expanded' => 0,
+    'weight' => 0,
+    'customized' => 1,
+    'language' => 'ar',
+    'menu_links_customized' => 1,
+    'uuid' => '70468a91-c4d2-4a27-9a1b-c85b7f133967',
+    'menu_links_language' => 'ar',
+    'menu_links_customized_2' => 1,
+  );
   // Exported menu link: menu-information_-:content/شروط-الاستخدام
   $menu_links['menu-information_-:content/شروط-الاستخدام'] = array(
     'menu_name' => 'menu-information',
@@ -630,6 +658,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
+  t(' إضافة المتصفح');
   t('...');
   t('<user>');
   t('About Checkdesk');
