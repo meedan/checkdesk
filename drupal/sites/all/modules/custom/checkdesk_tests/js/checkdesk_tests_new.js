@@ -86,10 +86,10 @@ else if (document.selection) {
   });
 
   // Replace step fields by rich text fields
-
+  alert('Bli');
   var syntaxHighlight = function(text) {
-    return text.replace(/((\([^\)]*\))|( [0-9]+ ))/g, '<span class=\'step-param\'>$1</span>')
-               .replace(/"([a-zA-Z0-9\[\]_\- ]+)"/g, '"<span class=\'step-param\'>$1</span>"')
+    return text.replace(/((\([^\)]*\))|(( |(&nbsp;))[0-9]+( |(&nbsp;))))/g, '<span class=\'step-param\'>$1</span>')
+               .replace(/"([a-zA-Z0-9\[\]_\-:\/\. ]+)"/g, '"<span class=\'step-param\'>$1</span>"')
                .replace(/([\|:])\|/g, '$1<br />|')
                .replace(/\|(.*)\|/, '<pre class="step-param">|$1|</pre>')
                .replace(/\|/g, '<span class="step-no-param">|</span>');

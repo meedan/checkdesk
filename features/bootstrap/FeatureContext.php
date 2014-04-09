@@ -86,7 +86,10 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
      */
     public function aStoryWithTheFollowingUpdates($story_title, TableNode $updates)
     {
-      $this->nodes_to_be_removed = array();
+      if (!isset($this->nodes_to_be_removed)) {
+        $this->nodes_to_be_removed = array();
+      }
+
       $story = (object) array(
         'title' => $story_title,
         'type' => 'discussion',
@@ -108,6 +111,45 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
 
       // For some reason, if we add the nodes to $this->nodes, they are removed before we go to the next page
       $this->nodes_to_be_removed[] = $story;
+    }
+
+    /**
+     * @Given /^I go to the last node$/
+     */
+    function iGoToTheLastNode() {
+      $nid = db_query('SELECT nid FROM {node} ORDER BY nid DESC LIMIT 1')->fetchField();
+      $this->getSession()->visit($this->locatePath('/node/' . $nid));
+    }
+
+    /**
+     * @Given /^a report from URL "([^"]*)"$/
+     */
+    public function aReportFromUrl($url)
+    {
+      if (!isset($this->nodes_to_be_removed)) {
+        $this->nodes_to_be_removed = array();
+      }
+
+      $report = (object) array(
+        'type' => 'media',
+        'language' => 'en',
+        'status' => 1,
+        'uid' => 1,
+        'comment' => 2,
+        'promote' => 1,
+      );
+      $report->field_link[LANGUAGE_NONE][0]['url'] = $url;
+
+      /*
+      // If we need to set the status as well
+      $tids = array_keys(taxonomy_get_term_by_name($status));
+      $report->field_rating[LANGUAGE_NONE][0]['tid'] = $tids[0];
+      */
+
+      node_save($report);
+
+      // For some reason, if we add the nodes to $this->nodes, they are removed before we go to the next page
+      $this->nodes_to_be_removed[] = $report;
     }
 
     /**
