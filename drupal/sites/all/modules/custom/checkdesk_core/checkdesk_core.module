@@ -158,6 +158,8 @@ function checkdesk_core_menu_alter(&$items) {
   $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
   // make nodequeue tab localizable
   $items['node/%node/nodequeue']['title callback'] = 'checkdesk_core_nodequeue_tab_title';
+  //deny access to node page
+  $items['node']['access callback'] = FALSE;
 }
 
 /**
