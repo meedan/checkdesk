@@ -802,7 +802,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h">&nbsp;</span></a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h"><span>' . t('Actions') . '</span></span></a>';
       $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';

@@ -72,6 +72,40 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     }
 
     /**
+     * @When /^I click on ([^ ]*) "([^"]*)"$/
+     */
+    public function iClickOn($tag, $text)
+    {
+      $page = $this->getSession()->getPage();
+      foreach ($page->findAll('css', $tag) as $element) {
+        if (trim(strip_tags($element->getHtml())) === $text) {
+          $element->click();
+          return;
+        }
+      }
+      throw new \Exception('Element not found');
+    }
+
+    /**
+     * @When /^I check the "([^"]*)" radio button$/
+     */
+    public function iCheckTheRadioButton($labeltext)
+    {
+      $page = $this->getSession()->getPage();
+      foreach ($page->findAll('css', 'label') as $label) {
+        if (trim($labeltext) === trim(strip_tags($label->getHtml()))) {
+          foreach ($page->findAll('css', 'input[type="radio"]') as $radio) {
+            if ($radio->getAttribute('id') === $label->getAttribute('for')) {
+              $this->fillField($radio->getAttribute('name'), $radio->getAttribute('value'));
+              return;
+            }
+          }
+        }
+      }
+      throw new \Exception('Radio button not found');
+    }
+
+    /**
      * @Given /^I press "([^"]*)" in "([^"]*)"$/
      */
     public function iPressIn($button, $form)
@@ -140,13 +174,38 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
       );
       $report->field_link[LANGUAGE_NONE][0]['url'] = $url;
 
-      /*
-      // If we need to set the status as well
+      node_save($report);
+
+      // For some reason, if we add the nodes to $this->nodes, they are removed before we go to the next page
+      $this->nodes_to_be_removed[] = $report;
+    }
+
+    /**
+     * @Given /^a report from URL "([^"]*)" flagged as "([^"]*)" and with status "([^"]*)"$/
+     */
+    public function aReportFromUrlFlaggedAsAndWithStatus($url, $flag_name, $status)
+    {
+      if (!isset($this->nodes_to_be_removed)) {
+        $this->nodes_to_be_removed = array();
+      }
+
+      $report = (object) array(
+        'type' => 'media',
+        'language' => 'en',
+        'status' => 1,
+        'uid' => 1,
+        'comment' => 2,
+        'promote' => 1,
+      );
+      $report->field_link[LANGUAGE_NONE][0]['url'] = $url;
+
       $tids = array_keys(taxonomy_get_term_by_name($status));
       $report->field_rating[LANGUAGE_NONE][0]['tid'] = $tids[0];
-      */
 
       node_save($report);
+
+      $flag = flag_get_flag($flag_name);
+      $flag->flag('flag', $report->nid);
 
       // For some reason, if we add the nodes to $this->nodes, they are removed before we go to the next page
       $this->nodes_to_be_removed[] = $report;
