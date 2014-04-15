@@ -247,6 +247,9 @@ function menu_links_features_export_render($module, $data, $export = NULL) {
        unset($link['plid']);
        unset($link['mlid']);
 
+      // Sort the link keys to avoid confusing the diff algorithm.
+      ksort($link);
+
       $code[] = "  // Exported menu link: {$new_identifier}";
       $code[] = "  \$menu_links['{$new_identifier}'] = ". features_var_export($link, '  ') .";";
       $translatables[] = $link['link_title'];
