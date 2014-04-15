@@ -74,6 +74,8 @@ function cd_import_translations() {
     ))   
     ->condition('language', 'en')
     ->execute();
+  //add sample content
+  _cd_create_sample_content();
   $batch = l10n_update_batch_multiple($operations, LOCALE_IMPORT_KEEP);
   return $batch;
 }
@@ -225,8 +227,6 @@ function cd_apps_form_submit($form, &$form_state) {
   module_enable(array('checkdesk_featured_stories_feature'));
   features_revert(array('checkdesk_core_feature' => array('translations', 'menu_links', 'uuid_node')));
   features_revert(array('checkdesk_featured_stories_feature' => array('user_permission')));
-  //add sample content
-  _cd_create_sample_content();
 }
 
 function cd_cleanup() {
