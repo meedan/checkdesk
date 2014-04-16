@@ -179,6 +179,7 @@ function theme_meedan_notifications_checkboxes($variable) {
 function meedan_notifications_user_page_submit($form, &$form_state) {
   $account = user_load($form_state['values']['account_uid']);
   user_save($account, array('data' => array('meedan_notifications' => $form_state['values']['subscriptions'])));
+  drupal_set_message(t('The configuration options have been saved.'));
 }
 
 /**

@@ -12,9 +12,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_comment_deleted'] = entity_import('rules_config', '{ "rules_comment_deleted" : {
       "LABEL" : "Comment deleted",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "comment" ],
-      "ON" : [ "comment_delete" ],
+      "ON" : { "comment_delete" : [] },
       "DO" : [
         { "mail" : {
             "to" : [ "comment:author:mail" ],
@@ -30,9 +31,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_comment_footnote_on_a_report'] = entity_import('rules_config', '{ "rules_comment_footnote_on_a_report" : {
       "LABEL" : "Comment (footnote) on a report",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "comment" ],
-      "ON" : [ "comment_insert" ],
+      "ON" : { "comment_insert" : [] },
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "comment:node" ],
@@ -66,9 +68,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_comment_on_an_update'] = entity_import('rules_config', '{ "rules_comment_on_an_update" : {
       "LABEL" : "Comment on an update",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "comment" ],
-      "ON" : [ "comment_insert" ],
+      "ON" : { "comment_insert" : [] },
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "comment:node" ],
@@ -102,9 +105,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_existing_report_suggested_to_a_story'] = entity_import('rules_config', '{ "rules_existing_report_suggested_to_a_story" : {
       "LABEL" : "Existing report suggested to a story",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : [ "node_update" ],
+      "ON" : { "node_update" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
         { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_stories" } },
@@ -144,9 +148,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_fact_checking_status_changed'] = entity_import('rules_config', '{ "rules_fact_checking_status_changed" : {
       "LABEL" : "Fact-checking status changed",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : [ "node_update" ],
+      "ON" : { "node_update" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
         { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_rating" } },
@@ -202,9 +207,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_fact_checking_turned_off_for_report'] = entity_import('rules_config', '{ "rules_fact_checking_turned_off_for_report" : {
       "LABEL" : "Fact-checking turned off for report",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "flag" ],
-      "ON" : [ "flag_unflagged_factcheck_journalist" ],
+      "ON" : { "flag_unflagged_factcheck_journalist" : [] },
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "flagged-node" ],
@@ -220,9 +226,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_new_report'] = entity_import('rules_config', '{ "rules_new_report" : {
       "LABEL" : "New report",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules" ],
-      "ON" : [ "node_insert" ],
+      "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } }
       ],
@@ -241,9 +248,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_new_report_comment'] = entity_import('rules_config', '{ "rules_new_report_comment" : {
       "LABEL" : "New report comment",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "comment" ],
-      "ON" : [ "comment_insert" ],
+      "ON" : { "comment_insert" : [] },
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "comment:node" ],
@@ -268,9 +276,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_new_update'] = entity_import('rules_config', '{ "rules_new_update" : {
       "LABEL" : "New update",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : [ "node_insert" ],
+      "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
         { "NOT data_is_empty" : { "data" : [ "node:field_desk" ] } }
@@ -300,9 +309,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_new_user'] = entity_import('rules_config', '{ "rules_new_user" : {
       "LABEL" : "New user",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : [ "user_insert" ],
+      "ON" : { "user_insert" : [] },
       "IF" : [ { "user_is_blocked" : { "account" : [ "account" ] } } ],
       "DO" : [
         { "heartbeat_activity_checkdesk_new_user" : {
@@ -327,6 +337,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users'] = entity_import('rules_config', '{ "rules_notify_subscribed_users" : {
       "LABEL" : "Notify subscribed users: fact-checking on",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
@@ -349,6 +360,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_comment_on_update'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_comment_on_update" : {
       "LABEL" : "Notify subscribed users: comment on update",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
@@ -368,6 +380,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_existing_report_suggested_to_story'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_existing_report_suggested_to_story" : {
       "LABEL" : "Notify subscribed users: existing report suggested to story",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
@@ -391,6 +404,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_fact_checking_status_changed_for_c'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_fact_checking_status_changed_for_c" : {
       "LABEL" : "Notify subscribed users: fact-checking status changed for commenter",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
@@ -413,6 +427,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_fact_checking_status_changed_for_s'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_fact_checking_status_changed_for_s" : {
       "LABEL" : "Notify subscribed users: fact-checking status changed for submitter",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
@@ -435,6 +450,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_footnote'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_footnote" : {
       "LABEL" : "Notify subscribed users: footnote",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
@@ -454,6 +470,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_new_update'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_new_update" : {
       "LABEL" : "Notify subscribed users: new update",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
@@ -476,6 +493,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_new_user'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_new_user" : {
       "LABEL" : "Notify subscribed users: new user",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "user" : { "label" : "User", "type" : "user" } },
@@ -495,6 +513,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_reply_to_comment'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_reply_to_comment" : {
       "LABEL" : "Notify subscribed users: reply to comment",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
@@ -514,6 +533,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_report_published'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_report_published" : {
       "LABEL" : "Notify subscribed users: report published",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
@@ -536,6 +556,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_report_suggested_to_story'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_report_suggested_to_story" : {
       "LABEL" : "Notify subscribed users: report suggested to story",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
@@ -558,6 +579,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_notify_subscribed_users_report_was_flagged'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_report_was_flagged" : {
       "LABEL" : "Notify subscribed users: report was flagged",
       "PLUGIN" : "action set",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
@@ -582,9 +604,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_publish_report'] = entity_import('rules_config', '{ "rules_publish_report" : {
       "LABEL" : "Publish report",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules" ],
-      "ON" : [ "node_insert" ],
+      "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
         { "NOT data_is_empty" : { "data" : [ "node:field_desk" ] } }
@@ -612,9 +635,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_replies_to_a_comment'] = entity_import('rules_config', '{ "rules_replies_to_a_comment" : {
       "LABEL" : "Replies to a comment",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "comment" ],
-      "ON" : [ "comment_insert" ],
+      "ON" : { "comment_insert" : [] },
       "IF" : [
         { "entity_is_of_type" : { "entity" : [ "comment:parent" ], "type" : "comment" } }
       ],
@@ -643,9 +667,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_report_published_in_a_new_update'] = entity_import('rules_config', '{ "rules_report_published_in_a_new_update" : {
       "LABEL" : "Report published in a new update",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : [ "node_insert" ],
+      "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
         { "NOT data_is_empty" : { "data" : [ "node:reports:0:nid" ] } }
@@ -681,9 +706,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_report_published_in_an_update'] = entity_import('rules_config', '{ "rules_report_published_in_an_update" : {
       "LABEL" : "Report published in an update",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : [ "node_update" ],
+      "ON" : { "node_update" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
         { "NOT data_is_empty" : { "data" : [ "node:reports:0:nid" ] } },
@@ -720,9 +746,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_report_suggested_to_a_story'] = entity_import('rules_config', '{ "rules_report_suggested_to_a_story" : {
       "LABEL" : "Report suggested to a story",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : [ "node_insert" ],
+      "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
         { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_stories" } },
@@ -762,9 +789,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_report_was_flagged_under_fact_checking_'] = entity_import('rules_config', '{ "rules_report_was_flagged_under_fact_checking_" : {
       "LABEL" : "Fact-checking turned on for report",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "php", "flag" ],
-      "ON" : [ "flag_flagged_factcheck_journalist" ],
+      "ON" : { "flag_flagged_factcheck_journalist" : [] },
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "flagged-node" ],
@@ -799,15 +827,16 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_report_was_flagged_under_graphic_content_'] = entity_import('rules_config', '{ "rules_report_was_flagged_under_graphic_content_" : {
       "LABEL" : "Report was flagged",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
-      "ON" : [
-        "flag_flagged_factcheck",
-        "flag_flagged_graphic_journalist",
-        "flag_flagged_spam",
-        "flag_flagged_graphic",
-        "flag_flagged_delete"
-      ],
+      "ON" : {
+        "flag_flagged_factcheck" : [],
+        "flag_flagged_graphic_journalist" : [],
+        "flag_flagged_spam" : [],
+        "flag_flagged_graphic" : [],
+        "flag_flagged_delete" : []
+      },
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "flagged-node" ],
@@ -843,9 +872,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_status_report'] = entity_import('rules_config', '{ "rules_status_report" : {
       "LABEL" : "Status report",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules" ],
-      "ON" : [ "node_update" ],
+      "ON" : { "node_update" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
         { "NOT data_is" : {
@@ -869,9 +899,10 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_user_banned_and_comments_deleted'] = entity_import('rules_config', '{ "rules_user_banned_and_comments_deleted" : {
       "LABEL" : "User banned and comments deleted",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules" ],
-      "ON" : [ "user_update" ],
+      "ON" : { "user_update" : [] },
       "IF" : [ { "data_is" : { "data" : [ "account:status" ], "value" : "0" } } ],
       "DO" : [
         { "mail" : {

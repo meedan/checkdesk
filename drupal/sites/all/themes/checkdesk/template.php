@@ -802,7 +802,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<li class="add-to">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h">&nbsp;</span></a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h"><span>' . t('Actions') . '</span></span></a>';
       $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
@@ -999,51 +999,6 @@ function checkdesk_checkdesk_core_report_source(&$variables) {
   $output .= $variables['source_author'];
 
   return $output;
-}
-
-
-/**
- * Adjust node comments form
- */
-function checkdesk_form_comment_form_alter(&$form, &$form_state) {
-  $nid = $form['#node']->nid;
-  $form['author']['homepage'] = NULL;
-  $form['author']['mail'] = NULL;
-  $form['actions']['submit']['#attributes']['class'] = array('btn');
-  $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['rows'] = 1;
-  $form['comment_body']['und'][0]['#attributes']['class'] = array('expanding');
-  $form['actions']['submit']['#value'] = t('Add footnote');
-  $form['actions']['submit']['#ajax'] = array(
-    'callback' => '_checkdesk_comment_form_submit',
-    'wrapper' => 'node-' . $nid,
-    'method' => 'replace',
-    'effect' => 'fade',
-  );
-  $form_state['ctools comment alter'] = FALSE;
-}
-
-function _checkdesk_comment_form_submit($form, &$form_state) {
-  global $user;
-
-  drupal_get_messages();
-  
-  $nid = $form['#node']->nid;
-  $node = node_load($nid);
-
-  // Change report status
-  if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
-    $node->field_rating[LANGUAGE_NONE][0]['tid'] = $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'];
-    node_save($node);
-  }
-
-  $node_view = node_view($node);
-  // $node_view['comments'] = comment_node_page_additions($node);
-  $output = drupal_render($node_view);
-
-  $commands = array();
-  $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output));
-
-  return array('#type' => 'ajax', '#commands' => $commands);
 }
 
 function checkdesk_field__field_rating(&$variables) {

@@ -25,7 +25,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'tnid' => 153,
   'translate' => 0,
   'uuid' => '07d83a6f-e26f-4dd6-9002-a7730dc6250f',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -220,7 +220,8 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'foaf:Document',
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -272,10 +273,6 @@ function checkdesk_core_feature_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -296,7 +293,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'tnid' => 1,
   'translate' => 0,
   'uuid' => '1244c020-f663-b564-b94c-2cf29b12afa4',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -328,7 +325,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'foaf:Document',
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -380,10 +378,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -404,7 +398,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 153,
   'translate' => 0,
   'uuid' => '31710726-27dc-4c80-99fc-cb2c79a84053',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -625,7 +619,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'foaf:Document',
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -677,10 +672,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -701,7 +692,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 155,
   'translate' => 0,
   'uuid' => '698c6a43-1950-4dd4-bcc2-655f08f49cd8',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -749,7 +740,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'foaf:Document',
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -801,10 +793,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -825,7 +813,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 154,
   'translate' => 0,
   'uuid' => '9ff42c15-5459-4a62-94c2-f45fe8aab3d5',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -862,7 +850,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'foaf:Document',
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -914,10 +903,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -938,7 +923,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 1,
   'translate' => 0,
   'uuid' => 'b9dfa9a5-9654-8894-d51b-027bff47c7f1',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -970,7 +955,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'foaf:Document',
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -1022,10 +1008,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -1046,7 +1028,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 155,
   'translate' => 0,
   'uuid' => 'd3c58330-cc88-4e2c-8cc5-e60c4cac0803',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1094,7 +1076,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'foaf:Document',
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -1146,10 +1129,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
@@ -1170,7 +1149,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'tnid' => 154,
   'translate' => 0,
   'uuid' => 'f71822ad-79b3-4479-bd09-10a9a8ba1223',
-  'revision_uid' => 1,
+  'revision_uid' => 0,
   'body' => array(
     'und' => array(
       0 => array(
@@ -1184,7 +1163,8 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'foaf:Document',
+      0 => 'sioc:Item',
+      1 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -1236,10 +1216,6 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
-  'cid' => 0,
-  'last_comment_name' => NULL,
-  'last_comment_uid' => 0,
-  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,

@@ -71,9 +71,14 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 
 						// Flag and share on the top of the report
 						&.icon-link    			   { @include icon(link, $large-font-size); }
-						&.icon-ellipsis-h { @include icon(ellipsis-h, $large-font-size); }
 						&.icon-flag    			   { @include icon(flag, $large-font-size); }
 						&.icon-share  			   { @include icon(share, $large-font-size); }
+						&.icon-ellipsis-h      {
+              @include icon(ellipsis-h, $large-font-size);
+              span {
+                display: none;
+              }
+            }
 					}
 					// highlight flagged reports
 					&.flagged .icon-flag {

@@ -74,6 +74,8 @@ function cd_import_translations() {
     ))   
     ->condition('language', 'en')
     ->execute();
+  //add sample content
+  _cd_create_sample_content();
   $batch = l10n_update_batch_multiple($operations, LOCALE_IMPORT_KEEP);
   return $batch;
 }
@@ -268,3 +270,55 @@ function _cd_cleanup_finished($success, $results, $operations) {
   //update language settings
 }
 
+/**
+ * Function to create sample story and update.
+ */
+function _cd_create_sample_content() {
+  //create stories
+  $node = new stdClass(); 
+  $node->type = 'discussion';
+  $node->title = 'This is a Story!';
+  $node->language = 'en'; 
+  $node->uid = 1;
+  node_object_prepare($node); 
+  $node->body['und'][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p><p>&nbsp;</p>';
+  $node->body['und'][0]['summary'] = '';
+  $node->body['und'][0]['format'] = 'filtered_html'; 
+  node_save($node); 
+  //create arabic stories
+  $node = new stdClass(); 
+  $node->type = 'discussion';
+  $node->title = 'هذا هو الموضوع!';
+  $node->language = 'ar'; 
+  $node->uid = 1;
+  node_object_prepare($node); 
+  $node->body['und'][0]['value'] = '<p>هذا الموضوع له عنوان ويتضمن فقرة قصيرة تتضمن شرحاً يوفر السياق للتحديثات (أدناه). كما يمكنك إضافة صورة مختارة له.</p><p>&nbsp;</p>';
+  $node->body['und'][0]['summary'] = '';
+  $node->body['und'][0]['format'] = 'filtered_html';
+  node_save($node); 
+  $target_ar_nid = $node->nid;
+  //create updates ...
+  $node = new stdClass(); 
+  $node->type = 'post';
+  $node->title = 'وهذا تحديث آخر';
+  $node->language = 'ar'; 
+  $node->uid = 1;
+  node_object_prepare($node); 
+  $node->body['und'][0]['value'] = '<p>تضمين التقارير من الإعلام الاجتماعي ليس إجبارياً (على الرغم من أن التحديثات تبدو أفضل عندما تتضمن بعض التقارير)، حيث يمكن أن يكون التحديث عبارة عن نص <a href="http://meedan.org/category/checkdesk/">وروابط</a> فقط.</p><p>تظهر التحديثات ضمن الموضوع مرتباً زمنياً من الأحدث للأقدم (على غرار تويتر). التحديثات مرقمة (انظر بجانب التحديث) ويظهر تاريخ إنشائها تحت ذلك الرقم. ويمكنك الضغط على تاريخ الإنشاء للحصول على رابط ذلك التحديث حصراً ومشاركته على الشبكات الاجتماعية.</p>';
+  $node->body['und'][0]['summary'] = NULL;
+  $node->body['und'][0]['format'] = 'liveblog';
+  $node->field_desk['und'][0]['target_id'] = $target_ar_nid;
+  node_save($node); 
+
+  $node = new stdClass(); 
+  $node->type = 'post';
+  $node->title = 'هذا أول تحديث!';
+  $node->language = 'ar'; 
+  $node->uid = 1;
+  node_object_prepare($node); 
+  $node->body['und'][0]['value'] = '<p>تتم إضافة التحديثات على الموضوع ويتضمن التحديث تقارير من الشبكات الإجتماعية والإعلام الجديد. يمكنك إضافة تحديثات جديدة مع تطور الأحداث المتعلقة بالموضوع. كما يمكنك إضافة أي عدد من التقارير التي تحتاجها ضمن تحديث واحد، كما يمكنك النص قبل التقارير...</p><p>[تْشِك-دِسْك-عربي:1677]</p><p>..أو بعدها، حسب الحاجة</p>';
+  $node->body['und'][0]['summary'] = NULL;
+  $node->body['und'][0]['format'] = 'liveblog';
+  $node->field_desk['und'][0]['target_id'] = $target_ar_nid;
+  node_save($node); 
+}
