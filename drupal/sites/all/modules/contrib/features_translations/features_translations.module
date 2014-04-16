@@ -59,10 +59,11 @@ function translations_features_export_render($module_name, $data, $export = NULL
   $code[] = '  $translations = array();';
   $files = array();
   if (module_exists('l10n_update')) {
-    if (function_exists('l10n_update_get_history')) { // l10n_update-7.x-1.x
-      $files = l10n_update_get_history(TRUE); 
-    } else { // l10n_update-7.x-2.x
-      $files = l10n_update_get_file_history(); 
+    $dir = variable_get('l10n_update_download_store', 'sites/all/translations');
+    foreach($languages as $key => $value) {
+      if ($key != 'en') {
+        $files[$key] = _features_translations_load_po_files($dir, $key);
+      }
     }
   }
   foreach ($data as $component) {
@@ -129,9 +130,9 @@ function translations_features_revert($module_name) {
 function _features_translations_locale_export_get_strings($language, $group, $files) {
    //get unchanged strings and write these strings on DB
   $uclids = array();
-  if (count($files)) {
-    foreach ($files as $key => $value) {
-      $file_uri = $value[$language->language]->uri;
+  if (isset($language->language) && count($files[$language->language])) {
+    foreach ($files[$language->language] as $key => $value) {
+      $file_uri = $value->uri;
       if (is_string($file_uri)) {
         $file = new stdClass();
         $file->uri = $file_uri;
@@ -423,4 +424,25 @@ function _features_translations_update_locale_find_one_string_db($langcode, $con
     }
   }
   return $lid_target;
+}
+
+/**
+ * Load po files
+ */
+function _features_translations_load_po_files($dir, $langcode) {
+  $files = $po_files = array();
+  $po_files = file_scan_directory($dir, "/.*\.$langcode.po$/", array('key' => 'name'));
+  foreach($po_files as $key => $file) {
+    $name = explode('-', $key, 2);
+    $k = $name[0];
+    if (array_key_exists($k, $files)) {
+      if (filemtime($file->uri) > filemtime($files[$k]->uri)) {
+        $files[$k] = $file;
+      }
+    }
+    else {
+      $files[$k] = $file;
+    }
+  }
+  return $files;
 }
