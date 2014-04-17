@@ -246,10 +246,12 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     $actor = $message->variables['!username'];
     // 
     $title = $message->variables['!comment'];
-    $delete_footnote = l(t('Delete'), 'comment/'. $message->cid .'/delete', array(
-      'query' => drupal_get_destination(),
-      'attributes' => array('class' => 'icon-delete-footnote', 'title' => t('Delete')),
-    ));
+    if (isset($message->cid) && user_access('administer comments')) {
+      $delete_footnote = l(t('Delete'), 'comment/'. $message->cid .'/delete', array(
+        'query' => drupal_get_destination(),
+        'attributes' => array('class' => 'icon-delete-footnote', 'title' => t('Delete')),
+      ));
+    }
   }
 
 
