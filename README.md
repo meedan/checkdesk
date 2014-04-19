@@ -3,7 +3,7 @@ Checkdesk is a multilingual custom CMS tailored for the verification and liveblo
 # Application model
 Checkdesk allows *citizen journalists* to submit social media links for *verification*. The purpose of verification is to check the veracity of the information presented by the media item. On Checkdesk, verification is a social activity that is carried out by the users. 
 
-A new media link becomes a *report* around which the verification activity is conducted. A *professional journalist* is notified of the submission of a new report, and upon examination, can decide to publish it in an *update* to one of the running *stories* on the site. 
+A new media link becomes a *report* around which the verification activity is conducted. A *professional journalist* is notified of the submission of a new report, and upon review, can decide to publish it in an *update* to one of the running *stories* on the site. 
 
 The community of users can then proceed to add *verification footnotes* to the report, where they discuss the veracity of the information. Users can also *flag* the report for spam, graphic scenes, etc. Journalists can change the *verification status* of the report to such states as "verified", "false", "pending verification", etc.
 
