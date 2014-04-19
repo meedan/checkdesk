@@ -20,12 +20,15 @@ During installation, you will be prompted for a few 3rd party keys:
 
 # Project layout
 
-   meedan-checkdesk/
-      |-config                                      # configuration files
-      |-drupal                                      # Drupal application root
-      |-patches                                     # patches to Drupal core, modules, other components
-      |-test                                        # testing files
-      |---behat                                     # Behat tests
-      |---html                                      # HTML tests
-      |-ui                                          # experimental Angular.js front-end
+    meedan-checkdesk/
+       |-config                                      # configuration files
+       |-drupal                                      # Drupal application root
+       |-patches                                     # patches to Drupal core, modules, other components
+       |-test                                        # testing files
+       |---behat                                     # Behat tests
+       |---html                                      # HTML tests
+       |-ui                                          # experimental Angular.js front-end
       
+# Feedback
+Please submit issues to report problems.
+.
