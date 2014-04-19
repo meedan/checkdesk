@@ -31,4 +31,3 @@ During installation, you will be prompted for a few 3rd party keys:
       
 # Feedback
 Please [submit issues](https://github.com/meedan/meedan-checkdesk/issues) to report problems.
-.
