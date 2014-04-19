@@ -5,18 +5,28 @@ Checkdesk allows *citizen journalists* to submit social media links for *verific
 
 A new media link becomes a *report* around which the verification activity is conducted. A *professional journalist* is notified of the submission of a new report, and upon review, can decide to publish it in an *update* to one of the running *stories* on the site. 
 
-The community of users can then proceed to add *verification footnotes* to the report, where they discuss the veracity of the information. Users can also *flag* the report for spam, graphic scenes, etc. Journalists can change the *verification status* of the report to such states as "verified", "false", "pending verification", etc.
+The community of users can then proceed to add *verification footnotes* to the report, where they discuss the veracity of the information. Users can also *flag* the report for spam, graphic scenes, etc. Journalists can change the *verification status* of the report to such states as "verified", "false", "pending verification", etc. The report's *verification log* reflects this fact-checking activity.
 
 A published update shows up on the public view of the associated story, which is a *liveblog*. The public landing page is an aggregated liveblog of all running stories.
+
+Users and visitors can *share* stories, updates and reports to various social networks, as well as *embed* those objects on their own pages, using oEmbed codes.
 
 # Installation
 Checkdesk installation is similar to a [standard Drupal installation](https://drupal.org/documentation/install). When the Drupal installer runs, choose the *Checkdesk* installation profile.
 
 During installation, you will be prompted for a few 3rd party keys:
 
-* Twitter, to allow logging in through Twitter
-* Facebook, for the same purpose
-* [Embedly](http://embed.ly/), which is a web service that renders links into embeddable HTML components using oEmbed.
+* Twitter, to allow logging in through Twitter. To fill in:
+  * Create a new Twitter application 
+  * Set the **Callback URL** is set to `http://<checkdesk.domain.name>/twitter/oauth`
+  * Set the **Access level** to `Read-only`
+  * Turn ON the option **Allow this application to be used to Sign in with Twitter**
+* Facebook, to allow logging in through Facebook. To fill in:
+  * Create a new Facebook application
+  * Add a **Website** Platform
+  * Set the **Site URL** to `http://<checkdesk.domain.name>`
+  * Turn ON **Advanced >> Client OAuth Login** and **Embedded browser OAuth Login**
+* [Embedly](http://embed.ly/), which is a web service that renders links into embeddable HTML components using oEmbed. Sign up for a free account and copy your account's key.
 
 # Project layout
 
