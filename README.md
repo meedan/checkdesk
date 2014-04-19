@@ -16,7 +16,7 @@ During installation, you will be prompted for a few 3rd party keys:
 
 * Twitter, to allow logging in through Twitter
 * Facebook, for the same purpose
-* Embedly, which is a web service that renders links into embeddable HTML components using oEmbed.
+* [Embedly](http://embed.ly/), which is a web service that renders links into embeddable HTML components using oEmbed.
 
 # Project layout
 
@@ -30,5 +30,5 @@ During installation, you will be prompted for a few 3rd party keys:
        |-ui                                          # experimental Angular.js front-end
       
 # Feedback
-Please submit issues to report problems.
+Please [submit issues](https://github.com/meedan/meedan-checkdesk/issues) to report problems.
 .
