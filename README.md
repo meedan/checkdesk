@@ -38,6 +38,9 @@ During installation, you will be prompted for a few 3rd party keys:
        |---behat                                     # Behat tests
        |---html                                      # HTML tests
        |-ui                                          # experimental Angular.js front-end
-      
+
+# Running Behat tests
+Checkdesk allows Behat test cases to be written and ran on the admin front end. Refer to [TESTING.txt](https://github.com/meedan/meedan-checkdesk/blob/master/TESTING.txt) for instructions on setting up and running Behat tests.
+
 # Feedback
 Please [submit issues](https://github.com/meedan/meedan-checkdesk/issues) to report problems.
