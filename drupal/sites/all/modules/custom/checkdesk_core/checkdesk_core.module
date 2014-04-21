@@ -2178,6 +2178,7 @@ function _checkdesk_core_filter_tips($filter, $format, $long = FALSE) {
  * Implements hook_node_insert().
  */
 function checkdesk_core_node_insert($node) {
+  checkdesk_varnish_pages_to_purge('node', $node, 'insert');
   if ($node->type === 'post') {
     // Update story when a new update is created in this story
     if (isset($node->field_desk)) {
@@ -2194,6 +2195,7 @@ function checkdesk_core_node_insert($node) {
  * Implements hook_node_update().
  */
 function checkdesk_core_node_update($node) {
+  checkdesk_varnish_pages_to_purge('node', $node, 'update');
   if ($node->type === 'post') {
     //link report to update
     checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
@@ -2204,6 +2206,7 @@ function checkdesk_core_node_update($node) {
  * Implements hook_node_delete().
  */
 function checkdesk_core_node_delete($node) {
+  checkdesk_varnish_pages_to_purge('node', $node, 'delete');
   if ($node->type === 'post') {
     db_delete('checkdesk_reports_updates')
       ->condition('update_nid', $node->nid)
@@ -2593,11 +2596,23 @@ function checkdesk_core_comment_delete($comment) {
 }
 
 /**
+ * Implements of hook_cron().
+ */
+function checkdesk_core_cron() {
+  if (module_exists('l10n_update')) {
+    $queue = DrupalQueue::get('checkdesk_varnish');
+    while($item = $queue->claimItem()) {
+      varnish_expire_cache($item->data);
+      $queue->deleteItem($item);
+    }
+  }
+}
+/**
  *
  */
 function checkdesk_log_reports_updates($op, $text, $update_nid) {
   //link report to created update
-  if ($op == 'update' || $op == 'delete') {
+  if ($op == 'update') {
     db_delete('checkdesk_reports_updates')
       ->condition('update_nid', $update_nid)
       ->execute();
@@ -2610,5 +2625,58 @@ function checkdesk_log_reports_updates($op, $text, $update_nid) {
         db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
       }
     }
+  }
+}
+
+/**
+ *
+ */
+function checkdesk_varnish_pages_to_purge($type, $object, $op) {
+  if (!module_exists('l10n_update')) {
+    return;
+  }
+  $pages = array();
+  if ($type == 'node') {
+    //check insert 
+    //only published content that will need to purge from varnish cache
+    //no need to check media content as it does not include on any update yet.
+    if ($op == 'insert' && $object->status != 0) {
+      switch($object->type) {
+      case 'discussion':
+        $pages[] = 'node/'. $object->nid;
+        break;
+      case 'post':
+        //get story nid
+        $pages[] = $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+        break;
+      }
+    }
+    //case update 
+    if ($op == 'update' || $op == 'delete') {
+      switch($object->type) {
+      case 'discussion':
+        $pages[] = 'node/'. $object->nid;
+        break;
+      case 'post':
+        //get story nid
+        $pages[] = $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+        break;
+      case 'media':
+        $pages[] = 'node/'. $object->nid;
+        //get all stories that hold updates contain this report
+        $query = db_select('checkdesk_reports_updates', 'ru');
+        $query->join('field_data_field_desk', 'fd', 'ru.update_nid = fd.entity_id');
+        $query->condition('ru.report_nid', $object->nid);
+        $query->addExpression('CONCAT("node/", fd.field_desk_target_id)', 'story_url');
+        $pages = $query->execute()->fetchCol();
+        break;
+      }
+    }
+  }
+  if (count($pages)) {
+    $pages[] = '<front>';
+    //store pages on Queue to purge them on cron task.
+    $queue = DrupalQueue::get('checkdesk_varnish');
+    $queue->createItem($pages);
   }
 }
