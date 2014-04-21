@@ -2599,7 +2599,7 @@ function checkdesk_core_comment_delete($comment) {
  * Implements of hook_cron().
  */
 function checkdesk_core_cron() {
-  if (module_exists('l10n_update')) {
+  if (module_exists('varnish')) {
     $queue = DrupalQueue::get('checkdesk_varnish');
     while($item = $queue->claimItem()) {
       varnish_expire_cache($item->data);
@@ -2632,7 +2632,7 @@ function checkdesk_log_reports_updates($op, $text, $update_nid) {
  *
  */
 function checkdesk_varnish_pages_to_purge($type, $object, $op) {
-  if (!module_exists('l10n_update')) {
+  if (!module_exists('varnish')) {
     return;
   }
   $pages = array();
@@ -2651,7 +2651,7 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
         break;
       }
     }
-    //case update 
+    //case update or delete
     if ($op == 'update' || $op == 'delete') {
       switch($object->type) {
       case 'discussion':

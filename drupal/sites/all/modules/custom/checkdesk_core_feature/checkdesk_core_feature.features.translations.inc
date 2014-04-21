@@ -197,7 +197,7 @@ function checkdesk_core_feature_translations_defaults() {
   $translations['ar:default']['04a55ebfc194b30d936a86b219f894b9'] = array(
     'source' => 'Searching for matches...',
     'context' => '',
-    'location' => '',
+    'location' => '; misc/autocomplete.js',
     'translation' => 'البحث عن نتائج مطابقة...',
     'plid' => 0,
     'plural' => 0,
@@ -1776,7 +1776,7 @@ This was an auto-generated email from !site, please do not respond directly to t
   $translations['ar:default']['25e8f2fd2871c8423bbe4e254066cd98'] = array(
     'source' => 'Please wait...',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/modules/contrib/l10n_client/l10n_client.js; misc/ajax.js',
     'translation' => 'انتظر من فضلك...',
     'plid' => 0,
     'plural' => 0,
@@ -1967,6 +1967,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'معلومات المصدر الإعلامي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['2b3077f16d277c79a4f54126f6881450'] = array(
+    'source' => 'This image style is being provided by %module module and may not be renamed.',
+    'context' => '',
+    'location' => '',
+    'translation' => 'نمط هذه الصورة موفر من طرف وحدة %module ولا يجب تعديل اسمه.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2427,6 +2435,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => 'Autocomplete term widget (tagging)',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['32cc6878b4e213bb98bf0870384d97ea'] = array(
+    'source' => 'Language negotiation',
+    'context' => '',
+    'location' => '',
+    'translation' => 'انتقاء اللغة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -3369,6 +3385,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['47dd36999849370d5f86e6aa873fafa7'] = array(
+    'source' => 'Theme key "@key" not found.',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مفتاح القالب "@key" غير موجود.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['47e5e964a2256af18dc7dce0addb5aee'] = array(
     'source' => 'Cron run failed.',
     'context' => '',
@@ -3540,7 +3564,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['4c231e0da3eaaa6a9752174f7f9cfb31'] = array(
     'source' => 'Confirm password',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/themes/checkdesk/assets/js/inline_errors.js',
     'translation' => 'أكِّد كلمة السر',
     'plid' => 0,
     'plural' => 0,
@@ -6995,7 +7019,7 @@ This was an auto-generated email from !site, please do not respond directly to t
   $translations['ar:default']['94c1d6864547ef4201c4a1ff982909ae'] = array(
     'source' => 'Debugging information follows.',
     'context' => '',
-    'location' => '',
+    'location' => '; misc/drupal.js',
     'translation' => 'معلومات التصحيح التالي.',
     'plid' => 0,
     'plural' => 0,
@@ -9112,6 +9136,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['bce46bafce92be3557f73d7e33ba5d3b'] = array(
+    'source' => 'Highlighted content',
+    'context' => '',
+    'location' => '',
+    'translation' => 'محتوى مميز',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['bcfaccebf745acfd5e75351095a5394a'] = array(
     'source' => 'Disable',
     'context' => '',
@@ -9254,6 +9286,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'وصول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['bf899e1fe3039ab3aebca3969dfbefb5'] = array(
+    'source' => 'Cannot use %author token in this context.',
+    'context' => '',
+    'location' => '',
+    'translation' => 'لا يمكن استخدام %author في هذا السياق.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -10789,7 +10829,7 @@ This was an auto-generated email from !site, please do not respond directly to t
   $translations['ar:default']['dc647eb65e6711e155375218212b3964'] = array(
     'source' => 'Password',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/themes/checkdesk/assets/js/inline_errors.js',
     'translation' => 'كلمة السر',
     'plid' => 0,
     'plural' => 0,
@@ -10823,6 +10863,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'السماح باستخدام خانات / أزارير الراديو يتعرض للمرشحات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['dd1f775e443ff3b9a89270713580a51b'] = array(
+    'source' => 'Previous',
+    'context' => '',
+    'location' => '',
+    'translation' => 'السابق',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11860,7 +11908,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['f1206f9fadc5ce41694f69129aecac26'] = array(
     'source' => 'Configure',
     'context' => '',
-    'location' => '',
+    'location' => '; modules/contextual/contextual.js',
     'translation' => 'اضبط',
     'plid' => 0,
     'plural' => 0,
@@ -12430,6 +12478,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'Count DISTINCT',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['fe4c6a5e7bd6793b37370e4e46daf998'] = array(
+    'source' => 'Advanced settings',
+    'context' => '',
+    'location' => '',
+    'translation' => 'إعدادات متقدمة',
     'plid' => 0,
     'plural' => 0,
   );
