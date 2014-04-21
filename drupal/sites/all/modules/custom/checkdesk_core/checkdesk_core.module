@@ -2601,6 +2601,10 @@ function checkdesk_core_comment_delete($comment) {
 function checkdesk_core_cron() {
   if (module_exists('varnish')) {
     $queue = DrupalQueue::get('checkdesk_varnish');
+    //any action reflect on frontpage 
+    if ($queue->numberOfItems()) {
+      varnish_expire_cache(array('<front>'));
+    }
     while($item = $queue->claimItem()) {
       varnish_expire_cache($item->data);
       $queue->deleteItem($item);
@@ -2647,7 +2651,7 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
         break;
       case 'post':
         //get story nid
-        $pages[] = $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+        $pages[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
         break;
       }
     }
@@ -2659,7 +2663,7 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
         break;
       case 'post':
         //get story nid
-        $pages[] = $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+        $pages[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
         break;
       case 'media':
         $pages[] = 'node/'. $object->nid;
@@ -2674,7 +2678,6 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
     }
   }
   if (count($pages)) {
-    $pages[] = '<front>';
     //store pages on Queue to purge them on cron task.
     $queue = DrupalQueue::get('checkdesk_varnish');
     $queue->createItem($pages);

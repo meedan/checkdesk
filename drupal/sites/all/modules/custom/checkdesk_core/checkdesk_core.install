@@ -296,7 +296,7 @@ function checkdesk_core_update_7029() {
 /**
  * Log existing updates and reports.
  */
-function checkdesk_core_update_7030(&$sandbox){
+function checkdesk_core_update_7030(&$sandbox) {
   if(!isset($sandbox['progress'])){
     $sandbox['progress'] = 0;
     $sandbox['last_nid'] = 0;
@@ -316,4 +316,11 @@ function checkdesk_core_update_7030(&$sandbox){
   }
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
   $sandbox['last_nid'] = $nid;
+}
+
+/**
+ * Just to update schema version.
+ */
+function checkdesk_core_update_7031() {
+
 }
