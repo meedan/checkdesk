@@ -2603,14 +2603,46 @@ function checkdesk_core_cron() {
     $queue = DrupalQueue::get('checkdesk_varnish');
     //any action reflect on frontpage 
     if ($queue->numberOfItems()) {
-      varnish_expire_cache(array('<front>'));
+      $paths[] = '<front>';
     }
+    $languages = language_list();
+    $sites = variable_get('site_urls', array());
     while($item = $queue->claimItem()) {
-      varnish_expire_cache($item->data);
+      $paths = array_merge($paths, $item->data);
       $queue->deleteItem($item);
+    }
+    //remove duplicate items
+    $paths = array_flip(array_flip($paths));
+    foreach ($sites as $site) {
+      $urls = array();
+      foreach ($paths as $path) {
+        foreach($languages as $key => $value) {
+          $urls[] = url($path, array(
+            'absolute' => TRUE,
+            'language' => $languages[$key],
+            'base_url' => $site,
+          ));
+        }
+      }
+      $parts = parse_url($site);
+      //log urls and host name
+      $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $parts['host'], '!urls' => theme('item_list', array('items' => $urls))));
+      watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
+      checkdesk_varnish_expire_cache($urls, $parts['host']);
     }
   }
 }
+
+/**
+ * Clone varnish_expire_cache().
+ */
+function checkdesk_varnish_expire_cache($paths, $host) {
+  $base = base_path();
+  $purge = implode('$|^' . $base, $paths);
+  $purge = '^'. $base . $purge .'$';
+  varnish_purge($host, $purge);
+}
+
 /**
  *
  */
@@ -2639,7 +2671,7 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
   if (!module_exists('varnish')) {
     return;
   }
-  $pages = array();
+  $paths = array();
   if ($type == 'node') {
     //check insert 
     //only published content that will need to purge from varnish cache
@@ -2647,11 +2679,11 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
     if ($op == 'insert' && $object->status != 0) {
       switch($object->type) {
       case 'discussion':
-        $pages[] = 'node/'. $object->nid;
+        $paths[] = 'node/'. $object->nid;
         break;
       case 'post':
         //get story nid
-        $pages[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+        $paths[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
         break;
       }
     }
@@ -2659,27 +2691,27 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
     if ($op == 'update' || $op == 'delete') {
       switch($object->type) {
       case 'discussion':
-        $pages[] = 'node/'. $object->nid;
+        $paths[] = 'node/'. $object->nid;
         break;
       case 'post':
         //get story nid
-        $pages[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+        $paths[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
         break;
       case 'media':
-        $pages[] = 'node/'. $object->nid;
         //get all stories that hold updates contain this report
         $query = db_select('checkdesk_reports_updates', 'ru');
         $query->join('field_data_field_desk', 'fd', 'ru.update_nid = fd.entity_id');
         $query->condition('ru.report_nid', $object->nid);
-        $query->addExpression('CONCAT("node/", fd.field_desk_target_id)', 'story_url');
-        $pages = $query->execute()->fetchCol();
+        $query->addExpression("CONCAT('node/', fd.field_desk_target_id)", 'story_url');
+        $paths = $query->execute()->fetchCol();
+        $paths[] = 'node/'. $object->nid;
         break;
       }
     }
   }
-  if (count($pages)) {
+  if (count($paths)) {
     //store pages on Queue to purge them on cron task.
     $queue = DrupalQueue::get('checkdesk_varnish');
-    $queue->createItem($pages);
+    $queue->createItem($paths);
   }
 }
