@@ -544,6 +544,34 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '6b224c9f-ab09-421d-a672-0305c98e1fa2',
     'weight' => -48,
   );
+  // Exported menu link: menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح
+  $menu_links['menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 0,
+    'language' => 'ar',
+    'link_path' => 'content/تنصيب-إضافة-المتصفح',
+    'link_title' => 'إضافة المتصفح',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'ar',
+    'menu_name' => 'menu-information',
+    'module' => 'menu',
+    'options' => array(
+      'attributes' => array(
+        'class' => array(
+          0 => 'checkdesk-use-modal',
+        ),
+      ),
+      'alter' => TRUE,
+      'identifier' => 'menu-information_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح',
+    ),
+    'router_path' => 'modal/%',
+    'uuid' => '70468a91-c4d2-4a27-9a1b-c85b7f133967',
+    'weight' => 0,
+  );
   // Exported menu link: menu-information_بيان-التحقق-من-صحة-المعلومات:content/بيان-التحقق-من-صحة-المعلومات
   $menu_links['menu-information_بيان-التحقق-من-صحة-المعلومات:content/بيان-التحقق-من-صحة-المعلومات'] = array(
     'customized' => 1,
