@@ -2603,32 +2603,37 @@ function checkdesk_core_cron() {
     $queue = DrupalQueue::get('checkdesk_varnish');
     //any action reflect on frontpage 
     if ($queue->numberOfItems()) {
-      $paths[] = '<front>';
-    }
-    $languages = language_list();
-    $sites = variable_get('site_urls', array());
-    while($item = $queue->claimItem()) {
-      $paths = array_merge($paths, $item->data);
-      $queue->deleteItem($item);
-    }
-    //remove duplicate items
-    $paths = array_flip(array_flip($paths));
-    foreach ($sites as $site) {
-      $urls = array();
-      foreach ($paths as $path) {
-        foreach($languages as $key => $value) {
-          $urls[] = url($path, array(
-            'absolute' => TRUE,
-            'language' => $languages[$key],
-            'base_url' => $site,
-          ));
-        }
+      $languages = language_list();
+      $sites = variable_get('site_urls', array());
+      $paths = array();
+      while($item = $queue->claimItem()) {
+        $paths = array_merge($paths, $item->data);
+        $queue->deleteItem($item);
       }
-      $parts = parse_url($site);
-      //log urls and host name
-      $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $parts['host'], '!urls' => theme('item_list', array('items' => $urls))));
-      watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
-      checkdesk_varnish_expire_cache($urls, $parts['host']);
+      //remove duplicate items
+      $paths = array_flip(array_flip($paths));
+      foreach ($sites as $site) {
+        $urls = array();
+        foreach ($paths as $path) {
+          foreach($languages as $key => $value) {
+            $urls[] = url($path, array(
+              'absolute' => TRUE,
+              'language' => $languages[$key],
+              'base_url' => $site,
+            ));
+          }
+        }
+        //add front page
+        $urls[] = url('<front>', array(
+          'absolute' => TRUE,
+          'base_url' => $site,
+        ));
+        $parts = parse_url($site);
+        //log urls and host name
+        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $parts['host'], '!urls' => theme('item_list', array('items' => $urls))));
+        watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
+        checkdesk_varnish_expire_cache($urls, $parts['host']);
+      }
     }
   }
 }
