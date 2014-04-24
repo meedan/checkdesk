@@ -1,11 +1,16 @@
 @charset "UTF-8";
+
 @import "compass/utilities";
-@import "fonts"; // including blokkfont for drawing
+@import "fonts";
+@import "colors";
+
+// including blokkfont for drawing
 @import "admin";
-@import "about"; // this will move to develop branch
+@import "about";
+
+// this will move to develop branch
 @import "story_embed";
 @import "compass/css3";
-
 
 body {
   margin: 0;
@@ -23,6 +28,10 @@ body {
 
 #header ul li {
   display: inline-block;
+}
+
+section.video {
+  background-color: $firefly;
 }
 
 #video {
@@ -57,7 +66,7 @@ input {
   height: 45px;
   padding: 2px;
   float: left;
-  font-size: 20px;  
+  font-size: 20px;
   color: #999;
 }
 
@@ -70,7 +79,7 @@ input {
   float: left;
   clear: both;
   font-size: 18px;
-  margin-left: 5px; 
+  margin-left: 5px;
   cursor: pointer;
   margin-top: 21px;
 }
@@ -99,7 +108,7 @@ form span {
 }
 
 .partners ul li {
-  display: inline-block;  
+  display: inline-block;
   margin: 5px;
   img {
     max-height: 55px;
@@ -123,7 +132,6 @@ form span {
   margin: 0 auto;
   margin-top: 20px;
   @include clearfix;
-
   form {
     width: 700px;
     margin: 0 auto;
@@ -134,15 +142,13 @@ form span {
       clear: none;
     }
   }
-
   span.label,
   span.spacer,
   span.multiple span {
-    width:120px;
-    float:left;
-  } 
-  
+    width: 120px;
+    float: left;
+  }
   span.multiple {
-    float:left;
-  } 
+    float: left;
+  }
 }
