@@ -107,6 +107,22 @@ form span {
   }
 }
 
+.partners p {
+  width: 80%;
+  margin: 10px auto;
+}
+
+.partners ul.team {
+  li {
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      max-width: 50px;
+      max-height: 50px;
+    }
+  }
+}
+
 .partners ul li {
   display: inline-block;
   margin: 5px;
