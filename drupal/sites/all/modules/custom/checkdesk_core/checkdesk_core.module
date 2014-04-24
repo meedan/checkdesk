@@ -2617,16 +2617,16 @@ function checkdesk_core_cron() {
         foreach ($paths as $path) {
           foreach($languages as $key => $value) {
             $urls[] = url($path, array(
-              'absolute' => TRUE,
+              //'absolute' => TRUE,
               'language' => $languages[$key],
-              'base_url' => $site,
+              //'base_url' => $site,
             ));
           }
         }
         //add front page
         $urls[] = url('<front>', array(
-          'absolute' => TRUE,
-          'base_url' => $site,
+          //'absolute' => TRUE,
+          //'base_url' => $site,
         ));
         $parts = parse_url($site);
         //log urls and host name
@@ -2642,9 +2642,8 @@ function checkdesk_core_cron() {
  * Clone varnish_expire_cache().
  */
 function checkdesk_varnish_expire_cache($paths, $host) {
-  $base = base_path();
-  $purge = implode('$|^' . $base, $paths);
-  $purge = '^'. $base . $purge .'$';
+  $purge = implode('$|^', $paths);
+  $purge = '^'. $purge .'$';
   varnish_purge($host, $purge);
 }
 
