@@ -14,19 +14,21 @@ Users and visitors can *share* stories, updates and reports to various social ne
 # Installation
 Checkdesk installation is similar to a [standard Drupal installation](https://drupal.org/documentation/install). When the Drupal installer runs, choose the *Checkdesk* installation profile.
 
-During installation, you will be prompted for a few 3rd party keys:
+During installation, you will be asked to configure a few Web services:
 
+* [Embedly](http://embed.ly/), a service that renders links into embeddable HTML components using oEmbed. Sign up for a free account and copy your account's **API Key** to the corresponding form field.
 * Twitter, to allow logging in through Twitter. To fill in:
   * Create a new Twitter application 
   * Set the **Callback URL** is set to `http://<checkdesk.domain.name>/twitter/oauth`
   * Set the **Access level** to `Read-only`
   * Turn ON the option **Allow this application to be used to Sign in with Twitter**
+  * Once the application is saved, copy the **API key** and **API secret** to the corresponding form fields
 * Facebook, to allow logging in through Facebook. To fill in:
   * Create a new Facebook application
   * Add a **Website** Platform
   * Set the **Site URL** to `http://<checkdesk.domain.name>`
   * Turn ON **Advanced >> Client OAuth Login** and **Embedded browser OAuth Login**
-* [Embedly](http://embed.ly/), which is a web service that renders links into embeddable HTML components using oEmbed. Sign up for a free account and copy your account's key.
+  * Once the application is saved, copy the **App ID** and **App Secret** to the corresponding form fields
 
 # Project layout
 
@@ -39,8 +41,22 @@ During installation, you will be prompted for a few 3rd party keys:
        |---html                                      # HTML tests
        |-ng-ui                                       # experimental Angular.js front-end
 
+# Compiling SASS
+The Checkdesk theme uses [SASS](http://sass-lang.com/). Although the repo contains the pre-compiled CSS files, you will need to setup a working SASS development environment if you wish to modify the theme. Install [Ruby](https://www.ruby-lang.org) then type the following in a console from the Checkdesk root folder:
+    
+    > gem install bundler
+    > bundle install
+    > bundle exec guard start 
+
+The last command should start a script that watches the contents of the SCSS files in the Checkdesk theme folder, and trigger a recompilation of the CSS if the files are changed.
+
+# Running a development environment
+While developing, it is useful to turn on debugging features on Drupal and modules. Debugging settings are all bundled in a configuration feature called *Checkdesk Devel*. To turn it on, install [Drush](https://github.com/drush-ops/drush) then type the following from the Checkdesk `/drupal` folder:
+    
+    > drush en -y checkdesk_devel_feature
+
 # Running Behat tests
-Checkdesk allows Behat test cases to be written and ran on the admin front end. Refer to [TESTING.txt](https://github.com/meedan/meedan-checkdesk/blob/master/TESTING.txt) for instructions on setting up and running Behat tests.
+Checkdesk comes with a number of [Behat](http://behat.org/) test cases, and allows more cases to be written and ran via the Drupal admin interface. Refer to [TESTING.txt](https://github.com/meedan/meedan-checkdesk/blob/master/TESTING.txt) for instructions on setting up and running Behat tests.
 
 # Feedback
-Please [submit issues](https://github.com/meedan/meedan-checkdesk/issues) to report problems.
+Please [submit issues](https://github.com/meedan/meedan-checkdesk/issues) to report problems. Pull requests are welcome!
