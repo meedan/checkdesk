@@ -74,6 +74,8 @@ done
 echo -e "
 and then run these:
 \tmysql -u root -h ${DBHOST} -p < create_database_and_user.sql
+
+\tmv create_database_and_user.sql settings.local.php ../
 "
 
 

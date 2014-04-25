@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Benjamin Foote
+# March 2014
+# used to validate the checkdesk production environment
+
 ROOT=/var/www/checkdesk.prod
 INSTANCE=$1
 DOMAIN=$2
