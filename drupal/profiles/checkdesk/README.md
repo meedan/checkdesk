@@ -1,7 +1,8 @@
-# Checkdesk installation using drush site-install
+# Installation using drush site-install
+Run the following commands from the Checkdesk `/drupal` folder to install the Checkdesk installation profile using drush:
 
-		drush si checkdesk [installation-parameters]`
-		drush fra -y
+		> drush si checkdesk [installation-parameters]`
+		> drush fra -y
 
 # Installation parameters
 
@@ -23,7 +24,7 @@
 		cd_configuration_form.checkdesk_site_owner_url                Site owner URL
 
 		; web services configuration
-		cd_apps_form.oembedembedly_api_key														Embedly API Key
+		cd_apps_form.oembedembedly_api_key                            Embedly API Key
 		cd_apps_form.twitter_consumer_key                             Twitter Key
 		cd_apps_form.twitter_consumer_secret                          Twitter Secret
 		cd_apps_form.fboauth_secret                                   Facebook Secret
