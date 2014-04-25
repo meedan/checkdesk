@@ -11,21 +11,21 @@
  */
 function checkdesk_form_install_configure_form_alter(&$form, $form_state) {
   // Pre-populate the site name with the server name.
-  $form['site_information']['site_name']['#default_value'] = $_SERVER['SERVER_NAME'];
+  $form['site_information']['site_name']['#default_value'] = st('Checkdesk');
 }
 
 /**
  * Implements hook_install_tasks().
  */
 function checkdesk_install_tasks($install_state) {
-  $tasks['cd_configration_form'] = array(
-    'display_name' => st('Checkdesk Configuration'),
+  $tasks['cd_configuration_form'] = array(
+    'display_name' => st('Configure Checkdesk'),
     'display' => TRUE,
     'type' => 'form',
     'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
   );
   $tasks['cd_apps_form'] = array(
-    'display_name' => st('Apps Configuration'),
+    'display_name' => st('Configure Web services'),
     'display' => TRUE,
     'type' => 'form',
     'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
@@ -81,33 +81,31 @@ function cd_import_translations() {
 }
 
 
-function cd_configration_form($form, &$form_state, &$install_state) {
+function cd_configuration_form($form, &$form_state, &$install_state) {
   $form['cd_information'] = array(
     '#type' => 'fieldset',
-    '#title' => st('Checkdesk Information'),
+    '#title' => st('Checkdesk information'),
     '#collapsible' => FALSE,
   );
   $form['cd_information']['site_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('Site name [English]'),
+    '#title' => st('Site name [English]'),
     '#default_value' => variable_get('site_name', 'Drupal'),
     '#required' => TRUE,
   );
   $form['cd_information']['site_name_ar'] = array(
     '#type' => 'textfield',
-    '#title' => t('Site name [Arabic]'),
+    '#title' => st('Site name [Arabic]'),
     '#default_value' => variable_get('site_name', 'Drupal'),
     '#required' => TRUE
   );
   $form['cd_information']['site_slogan'] = array(
     '#type' => 'textfield',
-    '#title' => t('Slogan [English]'),
-    '#description' => t("How this is used depends on your site's theme."),
+    '#title' => st('Slogan [English]'),
   );
   $form['cd_information']['site_slogan_ar'] = array(
     '#type' => 'textfield',
-    '#title' => t('Slogan [Arabic]'),
-    '#description' => t("How this is used depends on your site's theme."),
+    '#title' => st('Slogan [Arabic]'),
   );
   $form['cd_information']['checkdesk_site_owner'] = array(
     '#title' => st('Site owner [English]'),
@@ -141,7 +139,7 @@ function cd_configration_form($form, &$form_state, &$install_state) {
   return $form;
 }
 
-function cd_configration_form_submit($form, &$form_state) {
+function cd_configuration_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   if(isset($values['site_name'])) {
     i18n_variable_set('site_name', $values['site_name'], 'en');
@@ -172,40 +170,53 @@ function cd_configration_form_submit($form, &$form_state) {
 }
 
 function cd_apps_form($form, &$form_state, &$install_state) {
-  $form['twitter_oauth'] = array(
+  $form['embedly'] = array(
     '#type' => 'fieldset',
-    '#title' => st('Twitter Configration'),
+    '#title' => st('Embedly configuration'),
     '#collapsible' => FALSE,
   );
-  $form['twitter_oauth']['twitter_consumer_key'] = array(
+  $form['embedly']['oembedembedly_api_key'] = array(
     '#type' => 'textfield',
-    '#title' => t('OAuth Consumer key'),
+    '#title' => st('API Key'),
+    '#default_value' => variable_get('oembedembedly_api_key', NULL),
+    '#required' => TRUE,
+  );
+
+  $form['twitter'] = array(
+    '#type' => 'fieldset',
+    '#title' => st('Twitter configuration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['twitter']['twitter_consumer_key'] = array(
+    '#type' => 'textfield',
+    '#title' => st('API key'),
     '#default_value' => variable_get('twitter_consumer_key', NULL),
   );  
-  $form['twitter_oauth']['twitter_consumer_secret'] = array(
+  $form['twitter']['twitter_consumer_secret'] = array(
     '#type' => 'textfield',
-    '#title' => t('OAuth Consumer secret'),
+    '#title' => st('API secret'),
     '#default_value' => variable_get('twitter_consumer_secret', NULL),
-  ); 
+  );
+
   $form['facebook'] = array(
     '#type' => 'fieldset',
-    '#title' => st('Facebook Configration'),
-    '#collapsible' => FALSE,
+    '#title' => st('Facebook configuration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
   $form['facebook']['fboauth_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('App ID'),
+    '#title' => st('App ID'),
     '#size' => 20, 
     '#maxlengh' => 50, 
-    '#description' => t('To use Facebook connect, a Facebook Application must be created. Set up your app in <a href="http://www.facebook.com/developers/apps.php">my apps</a> on Facebook.') . ' ' . t('Enter your App ID here.'),
     '#default_value' => variable_get('fboauth_id', ''),
   );  
   $form['facebook']['fboauth_secret'] = array(
     '#type' => 'textfield',
-    '#title' => t('App Secret'),
+    '#title' => st('App Secret'),
     '#size' => 40, 
     '#maxlengh' => 50, 
-    '#description' => t('To use Facebook connect, a Facebook Application must be created. Set up your app in <a href="http://www.facebook.com/developers/apps.php">my apps</a> on Facebook.') . ' ' . t('Enter your App Secret here.'),
     '#default_value' => variable_get('fboauth_secret', ''),
   ); 
   $form['actions'] = array('#type' => 'actions');
@@ -219,6 +230,7 @@ function cd_apps_form($form, &$form_state, &$install_state) {
 
 function cd_apps_form_submit($form, &$form_state) {
   $values = $form_state['values'];
+  variable_set('oembedembedly_api_key', $values['oembedembedly_api_key']);
   variable_set('twitter_consumer_key', $values['twitter_consumer_key']);
   variable_set('twitter_consumer_secret', $values['twitter_consumer_secret']);
   variable_set('fboauth_id', $values['fboauth_id']);
@@ -281,9 +293,9 @@ function _cd_create_sample_content() {
   $node->language = 'en'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body['und'][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p><p>&nbsp;</p>';
-  $node->body['und'][0]['summary'] = '';
-  $node->body['und'][0]['format'] = 'filtered_html'; 
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p><p>&nbsp;</p>';
+  $node->body[LANGUAGE_NONE][0]['summary'] = '';
+  $node->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
   node_save($node); 
   //create arabic stories
   $node = new stdClass(); 
@@ -292,9 +304,9 @@ function _cd_create_sample_content() {
   $node->language = 'ar'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body['und'][0]['value'] = '<p>هذا الموضوع له عنوان ويتضمن فقرة قصيرة تتضمن شرحاً يوفر السياق للتحديثات (أدناه). كما يمكنك إضافة صورة مختارة له.</p><p>&nbsp;</p>';
-  $node->body['und'][0]['summary'] = '';
-  $node->body['und'][0]['format'] = 'filtered_html';
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>هذا الموضوع له عنوان ويتضمن فقرة قصيرة تتضمن شرحاً يوفر السياق للتحديثات (أدناه). كما يمكنك إضافة صورة مختارة له.</p><p>&nbsp;</p>';
+  $node->body[LANGUAGE_NONE][0]['summary'] = '';
+  $node->body[LANGUAGE_NONE][0]['format'] = 'filtered_html';
   node_save($node); 
   $target_ar_nid = $node->nid;
   //create updates ...
@@ -304,10 +316,10 @@ function _cd_create_sample_content() {
   $node->language = 'ar'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body['und'][0]['value'] = '<p>تضمين التقارير من الإعلام الاجتماعي ليس إجبارياً (على الرغم من أن التحديثات تبدو أفضل عندما تتضمن بعض التقارير)، حيث يمكن أن يكون التحديث عبارة عن نص <a href="http://meedan.org/category/checkdesk/">وروابط</a> فقط.</p><p>تظهر التحديثات ضمن الموضوع مرتباً زمنياً من الأحدث للأقدم (على غرار تويتر). التحديثات مرقمة (انظر بجانب التحديث) ويظهر تاريخ إنشائها تحت ذلك الرقم. ويمكنك الضغط على تاريخ الإنشاء للحصول على رابط ذلك التحديث حصراً ومشاركته على الشبكات الاجتماعية.</p>';
-  $node->body['und'][0]['summary'] = NULL;
-  $node->body['und'][0]['format'] = 'liveblog';
-  $node->field_desk['und'][0]['target_id'] = $target_ar_nid;
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>تضمين التقارير من الإعلام الاجتماعي ليس إجبارياً (على الرغم من أن التحديثات تبدو أفضل عندما تتضمن بعض التقارير)، حيث يمكن أن يكون التحديث عبارة عن نص <a href="http://meedan.org/category/checkdesk/">وروابط</a> فقط.</p><p>تظهر التحديثات ضمن الموضوع مرتباً زمنياً من الأحدث للأقدم (على غرار تويتر). التحديثات مرقمة (انظر بجانب التحديث) ويظهر تاريخ إنشائها تحت ذلك الرقم. ويمكنك الضغط على تاريخ الإنشاء للحصول على رابط ذلك التحديث حصراً ومشاركته على الشبكات الاجتماعية.</p>';
+  $node->body[LANGUAGE_NONE][0]['summary'] = NULL;
+  $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
+  $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_ar_nid;
   node_save($node); 
 
   $node = new stdClass(); 
@@ -316,9 +328,9 @@ function _cd_create_sample_content() {
   $node->language = 'ar'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body['und'][0]['value'] = '<p>تتم إضافة التحديثات على الموضوع ويتضمن التحديث تقارير من الشبكات الإجتماعية والإعلام الجديد. يمكنك إضافة تحديثات جديدة مع تطور الأحداث المتعلقة بالموضوع. كما يمكنك إضافة أي عدد من التقارير التي تحتاجها ضمن تحديث واحد، كما يمكنك النص قبل التقارير...</p><p>[تْشِك-دِسْك-عربي:1677]</p><p>..أو بعدها، حسب الحاجة</p>';
-  $node->body['und'][0]['summary'] = NULL;
-  $node->body['und'][0]['format'] = 'liveblog';
-  $node->field_desk['und'][0]['target_id'] = $target_ar_nid;
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>تتم إضافة التحديثات على الموضوع ويتضمن التحديث تقارير من الشبكات الإجتماعية والإعلام الجديد. يمكنك إضافة تحديثات جديدة مع تطور الأحداث المتعلقة بالموضوع. كما يمكنك إضافة أي عدد من التقارير التي تحتاجها ضمن تحديث واحد، كما يمكنك النص قبل التقارير...</p><p>[تْشِك-دِسْك-عربي:1677]</p><p>..أو بعدها، حسب الحاجة</p>';
+  $node->body[LANGUAGE_NONE][0]['summary'] = NULL;
+  $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
+  $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_ar_nid;
   node_save($node); 
 }
