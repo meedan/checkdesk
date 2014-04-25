@@ -44,7 +44,7 @@ The server configuration proxies requests from some paths through to the Drupal 
     server {
         listen       80;
         server_name  angular.checkdesk.localhost;
-        root   /Users/james/Code/Meedan/Checkdesk/ui/public;
+        root   /Users/james/Code/Meedan/Checkdesk/ng-ui/public;
     
         # misc, modules, sites, themes all contain Drupal static content
         # it is important to proxy these.
@@ -112,7 +112,7 @@ The server configuration proxies requests from some paths through to the Drupal 
 
 ## Project layout
 
-    meedan-checkdesk/ui
+    meedan-checkdesk/ng-ui
        |-build                             # Compiled files, eg: checkdesk.js
        |-docs                              # Project documentation
        |-docs/public                       # Browseable documentation
