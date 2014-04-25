@@ -12,10 +12,31 @@ h1, h2, h3, h4 {
   padding: 0;
   border: 0;
   font-family: "Mercury Display A", "Mercury Display B", Georgia, "Times New Roman", Times, serif;
-  font-size: 29.12461px;
   line-height: 1.2;
   margin-bottom: 24px;
   color: #404d59;
+}
+
+h1 {
+  color: #283743;
+  font-size: 48px;
+  letter-spacing: -1px;
+  font-weight: 700;
+  line-height: 56px;
+}
+h1 a {
+  display: block;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.01);
+  color: #283743;
+}
+h1 a:hover {
+  background-color: #efefef;
+  background-color: #f3f4f4;
+  border-bottom: 1px dotted #e7e8ea;
+  text-decoration: none;
+}
+h1 a:active {
+  background-color: #c5d9fe;
 }
 
 h2 {
@@ -26,9 +47,6 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-h2:first-child {
-  margin: 0 0 12px 0;
-}
 
 h3 {
   margin: 0;
@@ -38,7 +56,10 @@ h3 {
 }
 
 a {
-  color: #2e77fc;
+  color: #7db1fe;
+}
+a:hover {
+  color: #3b8afd;
   text-decoration: none;
 }
 
@@ -127,6 +148,78 @@ blockquote {
   border: 0;
   border-left: 5px solid #b7bcc0;
   font-size: 15px;
+}
+
+p {
+  font-size: 18px;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+  line-height: 30px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+#connect {
+  margin: 0 auto;
+  margin-top: 20px;
+}
+#connect form {
+  width: 845.61689px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+}
+#connect form > div {
+  margin: 10px 10px 0 0;
+  float: left;
+  clear: none;
+}
+#connect span.label,
+#connect span.spacer,
+#connect span.multiple span {
+  width: 220px;
+  float: left;
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-weight: 100;
+}
+#connect span.multiple {
+  float: left;
+}
+
+input {
+  border-width: 0;
+  background-color: white;
+  border-bottom: 1px solid #b7bcc0;
+  height: 45px;
+  padding: 2px;
+  float: left;
+  font-size: 24.86232px;
+  color: #999;
+  color: #b89892;
+}
+
+.button input {
+  background-color: rgba(16, 33, 47, 0.4);
+  border-radius: 0;
+  color: #fff;
+  padding: 6px 12px;
+  text-align: center;
+  font-size: 18px;
+  margin-left: 5px;
+  cursor: pointer;
+  margin-top: 24px;
+}
+.button input:hover {
+  background-color: rgba(16, 33, 47, 0.6);
+}
+
+form div,
+form span {
+  float: left;
+  clear: both;
+}
+
+.button:hover {
+  opacity: 0.8;
 }
 
 .image-header {
@@ -273,7 +366,7 @@ article.story .story-reports .report-icon {
 body {
   margin: 0;
   padding: 0px;
-  background-color: #e7e8ea;
+  background-color: #fbfaf9;
   background-size: cover;
   min-width: 845.61689px;
   -webkit-box-sizing: border-box;
@@ -281,37 +374,35 @@ body {
   box-sizing: border-box;
 }
 
-section.inner {
+section {
+  overflow: hidden;
   width: 845.61689px;
-  margin: 0 auto;
+  margin: 38.4px auto;
 }
 
-#header {
-  padding-top: 20px;
-  color: #333;
-  padding: 20px;
-}
-#header img {
+section#header img {
   width: 150px;
 }
-
-#header ul li {
+section#header ul li {
   display: inline-block;
 }
 
 section.video {
-  background-color: #10212f;
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #e7e8ea;
+  border-bottom: 1px solid #e7e8ea;
 }
 section.video .inner {
-  margin: 0 auto;
+  margin: 12px auto;
   width: 845.61689px;
 }
 section.video p {
   float: left;
   width: 20%;
-  color: #b7bcc0 !important;
+  color: #b7bcc0;
   font-size: 20px;
-  padding: 10px 25px 10px 0;
+  padding: 0 29.12461px 10px 0;
 }
 section.video #video {
   padding-bottom: 10px;
@@ -328,48 +419,6 @@ section.video #video iframe {
   margin-top: 10px;
 }
 
-.partners ul li {
-  display: block;
-}
-
-input {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  height: 45px;
-  padding: 2px;
-  float: left;
-  font-size: 20px;
-  color: #999;
-}
-
-.button input {
-  background-color: #ECBF1D;
-  border-radius: 5px;
-  color: #fff;
-  padding: 6px 12px;
-  text-align: center;
-  float: left;
-  clear: both;
-  font-size: 18px;
-  margin-left: 5px;
-  cursor: pointer;
-  margin-top: 21px;
-  border: 1px solid;
-}
-
-form div,
-form span {
-  float: left;
-  clear: both;
-}
-
-.button:hover {
-  opacity: 0.8;
-}
-
 p {
   margin: 10px 0;
 }
@@ -378,84 +427,80 @@ ul {
   list-style-type: none;
 }
 
+ul.team li {
+  display: block;
+}
 ul.team li img {
+  vertical-align: middle;
   border-radius: 50%;
   overflow: hidden;
   width: 30px;
   height: 30px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 
-#meedan-logo {
-  float: left;
-  clear: none;
-}
-
-.partners {
+section.partners {
   width: 100%;
-  text-align: center;
-  color: #666;
-  font-size: 17px;
   float: left;
   clear: both;
-  margin: 10px 0 30px;
-  padding: 10px 0;
+  border-top: 1px solid #e7e8ea;
+  border-bottom: 1px solid #e7e8ea;
+  margin: 24px 0 30px;
+  padding: 24px 0;
+  background: white;
 }
-.partners.logos {
-  background: #fff;
+section.partners .inner {
+  width: 845.61689px;
+  margin: 24px auto;
 }
-
-.partners ul li {
+section.partners h2 {
+  margin-top: 24px;
+}
+section.partners ul li {
   display: inline-block;
   margin: 5px;
 }
-.partners ul li img {
+section.partners ul li img {
   max-height: 55px;
   max-width: 100px;
   vertical-align: middle;
   display: inline-block;
 }
 
-#meedan {
-  padding-top: 10px;
-  padding-bottom: 10px;
+.installation {
+  float: left;
+  background-color: white;
+  border: 1px solid #e7e8ea;
+  border-bottom: 1px solid #e7e8ea;
+  width: 410px;
+  padding: 24px;
 }
-#meedan img {
-  vertical-align: middle;
+.installation a {
+  color: #b89892;
+}
+
+aside {
+  width: 300px;
+  padding: 0 24px;
+  float: right;
+}
+aside p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  float: right;
+}
+aside .attribution {
   display: inline-block;
-}
-
-section {
-  overflow: hidden;
-}
-
-#connect {
-  margin: 0 auto;
-  margin-top: 20px;
-}
-#connect form {
-  width: 845.61689px;
-  margin: 0 auto;
-  padding: 0;
-  overflow: hidden;
-}
-#connect form > div {
-  margin: 10px 10px 0 0;
-  float: left;
-  clear: none;
-}
-#connect span.label,
-#connect span.spacer,
-#connect span.multiple span {
-  width: 120px;
-  float: left;
-}
-#connect span.multiple {
-  float: left;
 }
 
 .footer {
   width: 845.61689px;
-  overflow: hidden;
-  margin: 0 auto;
+  margin: 24px auto;
+}
+
+#meedan-logo {
+  float: left;
+  clear: none;
+  margin-left: -30px;
 }

@@ -1,0 +1,64 @@
+// Form
+#connect {
+  margin: 0 auto;
+  margin-top: 20px;
+  form {
+    width: $default-width;
+    margin: 0 auto;
+    padding: 0;
+    @include clearfix;
+    & > div {
+      margin: 10px 10px 0 0;
+      float: left;
+      clear: none;
+    }
+  }
+  span.label,
+  span.spacer,
+  span.multiple span {
+    width: 220px;
+    float: left;
+    font-family: $mono-font-stack;
+    font-weight: 100;
+  }
+  span.multiple {
+    float: left;
+  }
+}
+
+input {
+  border-width: 0;
+  background-color: white;
+  border-bottom: 1px solid $firefly30;
+  height: 45px;
+  padding: 2px;
+  float: left;
+  font-size: ms(1);
+  color: #999;
+  color: $thatch;
+}
+
+.button input {
+  background-color: rgba($firefly, 0.4);
+  &:hover {
+    background-color: rgba($firefly, 0.6);
+  }
+  border-radius: 0;
+  color: #fff;
+  padding: 6px 12px;
+  text-align: center;
+  font-size: ms(0);
+  margin-left: 5px;
+  cursor: pointer;
+  margin-top: $base-line-height;
+}
+
+form div,
+form span {
+  float: left;
+  clear: both;
+}
+
+.button:hover {
+  opacity: 0.8;
+}

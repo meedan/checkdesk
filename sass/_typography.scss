@@ -2,24 +2,53 @@
 
 @import url(http://fonts.googleapis.com/css?family=Merriweather);
 
-$en-body-font-stack: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$en-header-font-stack: "Mercury Display A", "Mercury Display B", Georgia, "Times New Roman", Times, serif;
+$body-font-stack: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$body-secondary-font-stack: "Merriweather", Georgia, "Times New Roman", Times, serif;
+$header-font-stack: "Mercury Display A", "Mercury Display B", Georgia, "Times New Roman", Times, serif;
+$mono-font-stack: Monaco, Menlo, Consolas, "Courier New", monospace !default;
 
+// Background color with alpha fallback
+//
+@mixin background($hex: #333333, $rgba: rgba(0, 0, 0, 0.8)) {
+  background-color: $hex;
+  background-color: $rgba;
+}
+
+// body defaults
 body {
-  font-family: $en-body-font-stack;
+  font-family: $body-font-stack;
   color: $firefly80;
   margin-bottom: $absolute-line-height * 4;
 }
 
-// Meedan type defaults
-
+// header defaults
 h1, h2, h3, h4 {
   @include reset-box-model;
-  font-family: $en-header-font-stack;
-  font-size: $x-large-font-size;
+  font-family: $header-font-stack;
   line-height: 1.2;
   margin-bottom: $absolute-line-height;
   color: $firefly80;
+}
+
+h1 {
+  color: $firefly90;
+  font-size: 48px;
+  letter-spacing: -1px;
+  font-weight: 700;
+  line-height: 56px;
+  a {
+    display: block;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.01);
+    color: $firefly90;
+    &:hover {
+      @include background(#efefef, $firefly5);
+      border-bottom: 1px dotted $firefly10;
+      text-decoration: none;
+    }
+    &:active {
+      background-color: lighten($link-color, 30);
+    }
+  }
 }
 
 h2 {
@@ -27,9 +56,6 @@ h2 {
   margin: $absolute-line-height * 1.2 0 $absolute-line-height / 2 0;
   text-transform: uppercase;
   letter-spacing: 1px;
-  &:first-child {
-    margin: 0 0 $absolute-line-height / 2 0;
-  }
 }
 
 h3 {
@@ -38,8 +64,11 @@ h3 {
 }
 
 a {
-  color: $link-color;
-  text-decoration: none;
+  color: $dodger-blue60;
+  &:hover {
+    color: $dodger-blue80;
+    text-decoration: none;
+  }
 }
 
 a:hover {
@@ -125,4 +154,34 @@ blockquote {
   @include reset-box-model;
   border-#{$from-direction}: 5px solid $firefly30;
   font-size: $small-font-size;
+}
+
+// The story body text
+%story-body {
+  font-size: ms(0);
+  font-family: $body-secondary-font-stack;
+  line-height: 30px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+p {
+  @extend %story-body;
+}
+
+// In the style of a checkdesk update
+// the sidebar with the light text
+//
+%update-info {
+  font-family: $body-font-stack;
+  color: $firefly20;
+  border-top: 4px solid $firefly20;
+  margin-bottom: $absolute-line-height;
+  padding-top: $absolute-line-height / 1.6;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  @if $from-direction == "left" {
+    letter-spacing: 0.15em;
+  }
 }

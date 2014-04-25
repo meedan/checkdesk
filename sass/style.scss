@@ -2,6 +2,7 @@
 @import "compass/utilities";
 @import "colors";
 @import "typography";
+@import "forms";
 
 @import "about";
 
@@ -12,43 +13,45 @@
 body {
   margin: 0;
   padding: 0px;
-  background-color: $firefly10;
+  background-color: $thatch5;
   background-size: cover;
   min-width: $default-width;
   @include box-sizing(border-box);
 }
 
-section.inner {
+// the full width sections
+section {
+  @include clearfix;
   width: $default-width;
-  margin: 0 auto;
+  margin: $base-line-height * 1.6 auto;
 }
 
 // Logo header
-#header {
-  padding-top: 20px;
-  color: #333;
-  padding: 20px;
+section#header {
   img {
     width: 150px;
   }
+  ul li {
+    display: inline-block;
+  }
 }
 
-#header ul li {
-  display: inline-block;
-}
-
+// The video section
 section.video {
-  background-color: $firefly;
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid $firefly10;
+  border-bottom: 1px solid $firefly10;
   .inner {
-    margin: 0 auto;
+    margin: $base-line-height / 2 auto;
     width: $default-width;
   }
   p {
     float: left;
     width: 20%;
-    color: $firefly30 !important;
+    color: $firefly30;
     font-size: $large-font-size;
-    padding: 10px 25px 10px 0;
+    padding: 0 ms(2) 10px 0;
   }
   // the video
   #video {
@@ -65,48 +68,6 @@ section.video {
   width: 400px;
   margin: 0 auto;
   margin-top: 10px;
-}
-
-.partners ul li {
-  display: block;
-}
-
-input {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  height: 45px;
-  padding: 2px;
-  float: left;
-  font-size: 20px;
-  color: #999;
-}
-
-.button input {
-  background-color: #ECBF1D;
-  border-radius: 5px;
-  color: #fff;
-  padding: 6px 12px;
-  text-align: center;
-  float: left;
-  clear: both;
-  font-size: 18px;
-  margin-left: 5px;
-  cursor: pointer;
-  margin-top: 21px;
-  border: 1px solid;
-}
-
-form div,
-form span {
-  float: left;
-  clear: both;
-}
-
-.button:hover {
-  opacity: 0.8;
 }
 
 // Mixins
@@ -130,86 +91,83 @@ ul {
 // team images
 ul.team {
   li {
+    display: block;
     img {
+      vertical-align: middle;
       @include circle(30px);
-      margin: 0 auto;
+      margin: 10px auto;
+    }
+    span.contact {}
+  }
+}
+
+// Partner section with partner logos
+section.partners {
+  width: 100%;
+  float: left;
+  clear: both;
+  border-top: 1px solid $firefly10;
+  border-bottom: 1px solid $firefly10;
+  margin: $base-line-height 0 30px;
+  padding: $base-line-height 0;
+  background: white;
+  .inner {
+    width: $default-width;
+    margin: $base-line-height auto;
+  }
+  h2 {
+    margin-top: $base-line-height;
+  }
+  ul {
+    li {
+      display: inline-block;
+      margin: 5px;
+      img {
+        max-height: 55px;
+        max-width: 100px;
+        vertical-align: middle;
+        display: inline-block;
+      }
     }
   }
+}
+
+// installation and aside
+.installation {
+  float: left;
+  background-color: white;
+  border: 1px solid $firefly10;
+  border-bottom: 1px solid $firefly10;
+  width: 410px;
+  padding: $base-line-height;
+  a {
+    color: $thatch;
+  }
+}
+
+aside {
+  width: 300px;
+  padding: 0 $base-line-height;
+  float: right;
+  p {
+    margin: 0;
+    font-size: $small-font-size;
+    line-height: 1.65;
+    float: right;
+  }
+  .attribution {
+    display: inline-block;
+  }
+}
+
+// The footer with a meedan logo
+.footer {
+  width: $default-width;
+  margin: $base-line-height auto;
 }
 
 #meedan-logo {
   float: left;
   clear: none;
-}
-
-// Partner section with partner logos
-.partners {
-  width: 100%;
-  text-align: center;
-  color: #666;
-  font-size: 17px;
-  float: left;
-  clear: both;
-  margin: 10px 0 30px;
-  padding: 10px 0;
-  &.logos {
-    background: #fff;
-  }
-}
-
-// partner images
-.partners ul li {
-  display: inline-block;
-  margin: 5px;
-  img {
-    max-height: 55px;
-    max-width: 100px;
-    vertical-align: middle;
-    display: inline-block;
-  }
-}
-
-#meedan {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  img {
-    vertical-align: middle;
-    display: inline-block;
-  }
-}
-
-section {
-  @include clearfix;
-}
-
-// Form
-#connect {
-  margin: 0 auto;
-  margin-top: 20px;
-  form {
-    width: $default-width;
-    margin: 0 auto;
-    padding: 0;
-    @include clearfix;
-    & > div {
-      margin: 10px 10px 0 0;
-      float: left;
-      clear: none;
-    }
-  }
-  span.label,
-  span.spacer,
-  span.multiple span {
-    width: 120px;
-    float: left;
-  }
-  span.multiple {
-    float: left;
-  }
-}
-
-.footer {
-  width: $default-width;
-  @include clearfix;
-  margin: 0 auto;
+  margin-left: -30px;
 }
