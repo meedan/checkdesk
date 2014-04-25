@@ -29,11 +29,15 @@ $xx-large-font-size: ms(3); // 29px
 $xxx-large-font-size: ms(4); // 40px
 $largest-font-size: ms(5); // 29px
 
+$video-width: 640px;
+$primary-width: ms(17); // top of the scale, 1168
+$secondary-width: $primary-width - $video-width;
+$default-width: ms(16); // 845px, the inner layout width
+
 // These are legacy values from bootstrap
 $font-size-large: $base-font-size * 1.25;
 $font-size-small: $base-font-size * 0.85;
 $font-size-mini: $base-font-size * 0.75;
-
 
 // Compass browser support configuration
 //
@@ -93,4 +97,3 @@ $notifications-icon-selector: ".heartbeat-time-ago";
 // Misc
 $radius: 4px;
 $debug: true !default;
-$avatar-size: 50px;

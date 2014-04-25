@@ -1,8 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
+@import url(http://fonts.googleapis.com/css?family=Merriweather);
+
 $en-body-font-stack: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $en-header-font-stack: "Mercury Display A", "Mercury Display B", Georgia, "Times New Roman", Times, serif;
 
 body {
   font-family: $en-body-font-stack;
+  color: $firefly80;
+  margin-bottom: $absolute-line-height * 4;
 }
 
 // Meedan type defaults
@@ -10,6 +16,25 @@ body {
 h1, h2, h3, h4 {
   @include reset-box-model;
   font-family: $en-header-font-stack;
+  font-size: $x-large-font-size;
+  line-height: 1.2;
+  margin-bottom: $absolute-line-height;
+  color: $firefly80;
+}
+
+h2 {
+  @include reset-box-model;
+  margin: $absolute-line-height * 1.2 0 $absolute-line-height / 2 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  &:first-child {
+    margin: 0 0 $absolute-line-height / 2 0;
+  }
+}
+
+h3 {
+  @include reset-box-model;
+  font-size: $base-font-size;
 }
 
 a {

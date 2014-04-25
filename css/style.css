@@ -1,45 +1,10 @@
 @import url(normalize-css/normalize.css);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
-@font-face {
-  font-family: 'DroidNaskhReg';
-  src: url("fonts/droidnaskh-regular-webfont.eot");
-  src: url("fonts/droidnaskh-regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/droidnaskh-regular-webfont.woff") format("woff"), url("fonts/droidnaskh-regular-webfont.ttf") format("truetype"), url("fonts/droidnaskh-regular-webfont.svg#MerriweatherBold") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'DroidNaskhBold';
-  src: url("fonts/droidnaskh-bold-webfont.eot");
-  src: url("fonts/droidnaskh-bold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/droidnaskh-bold-webfont.woff") format("woff"), url("fonts/droidnaskh-bold-webfont.ttf") format("truetype"), url("fonts/droidnaskh-bold-webfont.svg#MerriweatherBold") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'BLOKKNeue-Regular';
-  src: url("BLOKKNeue-Regular.eot");
-  src: url("BLOKKNeue-Regular.eot?#iefix") format("embedded-opentype"), url("BLOKKNeue-Regular.woff") format("woff"), url("BLOKKNeue-Regular.svg#BLOKKNeue-Regular") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-:lang(en) {
-  font-family: "Helvetica Neue";
-}
-
-:lang(ar) {
-  font-family: 'DroidNaskhReg', georgia, serif;
-  text-align: right;
-  direction: rtl;
-}
-
-:lang(loremipsum) {
-  font-family: 'BLOKKNeue-Regular', sans-serif;
-}
-
+@import url(http://fonts.googleapis.com/css?family=Merriweather);
 body {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #404d59;
+  margin-bottom: 96px;
 }
 
 h1, h2, h3, h4 {
@@ -47,6 +12,29 @@ h1, h2, h3, h4 {
   padding: 0;
   border: 0;
   font-family: "Mercury Display A", "Mercury Display B", Georgia, "Times New Roman", Times, serif;
+  font-size: 29.12461px;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  color: #404d59;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  margin: 28.8px 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+h2:first-child {
+  margin: 0 0 12px 0;
+}
+
+h3 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 18px;
 }
 
 a {
@@ -285,19 +273,26 @@ article.story .story-reports .report-icon {
 body {
   margin: 0;
   padding: 0px;
-  background-color: #f1f1f1;
+  background-color: #e7e8ea;
   background-size: cover;
+  min-width: 845.61689px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 section.inner {
-  width: 80%;
+  width: 845.61689px;
   margin: 0 auto;
 }
 
 #header {
-  width: 100%;
   padding-top: 20px;
   color: #333;
+  padding: 20px;
+}
+#header img {
+  width: 150px;
 }
 
 #header ul li {
@@ -307,14 +302,23 @@ section.inner {
 section.video {
   background-color: #10212f;
 }
-
-#video {
+section.video .inner {
+  margin: 0 auto;
+  width: 845.61689px;
+}
+section.video p {
+  float: left;
+  width: 20%;
+  color: #b7bcc0 !important;
+  font-size: 20px;
+  padding: 10px 25px 10px 0;
+}
+section.video #video {
   padding-bottom: 10px;
   padding-top: 10px;
 }
-#video iframe {
+section.video #video iframe {
   display: block;
-  margin: 0 auto;
 }
 
 #follow {
@@ -345,7 +349,7 @@ input {
   background-color: #ECBF1D;
   border-radius: 5px;
   color: #fff;
-  padding: 6px;
+  padding: 6px 12px;
   text-align: center;
   float: left;
   clear: both;
@@ -353,6 +357,7 @@ input {
   margin-left: 5px;
   cursor: pointer;
   margin-top: 21px;
+  border: 1px solid;
 }
 
 form div,
@@ -365,6 +370,27 @@ form span {
   opacity: 0.8;
 }
 
+p {
+  margin: 10px 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ul.team li img {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+}
+
+#meedan-logo {
+  float: left;
+  clear: none;
+}
+
 .partners {
   width: 100%;
   text-align: center;
@@ -372,28 +398,11 @@ form span {
   font-size: 17px;
   float: left;
   clear: both;
-  margin-top: 10px;
+  margin: 10px 0 30px;
+  padding: 10px 0;
 }
 .partners.logos {
   background: #fff;
-}
-
-p {
-  width: 80%;
-  margin: 10px auto;
-}
-
-ul.team li span {
-  border-radius: 50%;
-  overflow: hidden;
-  width: 50px;
-  height: 50px;
-  border: 1px solid red;
-  margin: 0 auto;
-}
-ul.team li span img {
-  max-width: 50px;
-  max-height: 50px;
 }
 
 .partners ul li {
@@ -416,18 +425,22 @@ ul.team li span img {
   display: inline-block;
 }
 
+section {
+  overflow: hidden;
+}
+
 #connect {
   margin: 0 auto;
   margin-top: 20px;
-  overflow: hidden;
 }
 #connect form {
-  width: 700px;
+  width: 845.61689px;
   margin: 0 auto;
+  padding: 0;
   overflow: hidden;
 }
 #connect form > div {
-  margin: 10px;
+  margin: 10px 10px 0 0;
   float: left;
   clear: none;
 }
@@ -439,4 +452,10 @@ ul.team li span img {
 }
 #connect span.multiple {
   float: left;
+}
+
+.footer {
+  width: 845.61689px;
+  overflow: hidden;
+  margin: 0 auto;
 }

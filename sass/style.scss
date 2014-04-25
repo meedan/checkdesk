@@ -1,6 +1,5 @@
 @import "base.scss";
 @import "compass/utilities";
-@import "fonts";
 @import "colors";
 @import "typography";
 
@@ -15,19 +14,25 @@
 body {
   margin: 0;
   padding: 0px;
-  background-color: #f1f1f1;
+  background-color: $firefly10;
   background-size: cover;
+  min-width: $default-width;
+  @include box-sizing(border-box);
 }
 
 section.inner {
-  width: 80%;
+  width: $default-width;
   margin: 0 auto;
 }
 
+// Logo header
 #header {
-  width: 100%;
   padding-top: 20px;
   color: #333;
+  padding: 20px;
+  img {
+    width: 150px;
+  }
 }
 
 #header ul li {
@@ -36,14 +41,24 @@ section.inner {
 
 section.video {
   background-color: $firefly;
-}
-
-#video {
-  padding-bottom: 10px;
-  padding-top: 10px;
-  iframe {
-    display: block;
+  .inner {
     margin: 0 auto;
+    width: $default-width;
+  }
+  p {
+    float: left;
+    width: 20%;
+    color: $firefly30 !important;
+    font-size: $large-font-size;
+    padding: 10px 25px 10px 0;
+  }
+  // the video
+  #video {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    iframe {
+      display: block;
+    }
   }
 }
 
@@ -75,7 +90,7 @@ input {
   background-color: #ECBF1D;
   border-radius: 5px;
   color: #fff;
-  padding: 6px;
+  padding: 6px 12px;
   text-align: center;
   float: left;
   clear: both;
@@ -83,6 +98,7 @@ input {
   margin-left: 5px;
   cursor: pointer;
   margin-top: 21px;
+  border: 1px solid;
 }
 
 form div,
@@ -95,6 +111,40 @@ form span {
   opacity: 0.8;
 }
 
+// Mixins
+@mixin circle($size) {
+  border-radius: 50%;
+  overflow: hidden;
+  width: $size;
+  height: $size;
+}
+
+// Paragraphs
+p {
+  margin: 10px 0;
+}
+
+// List reset
+ul {
+  list-style-type: none;
+}
+
+// team images
+ul.team {
+  li {
+    img {
+      @include circle(30px);
+      margin: 0 auto;
+    }
+  }
+}
+
+#meedan-logo {
+  float: left;
+  clear: none;
+}
+
+// Partner section with partner logos
 .partners {
   width: 100%;
   text-align: center;
@@ -102,34 +152,14 @@ form span {
   font-size: 17px;
   float: left;
   clear: both;
-  margin-top: 10px;
+  margin: 10px 0 30px;
+  padding: 10px 0;
   &.logos {
     background: #fff;
   }
 }
 
-p {
-  width: 80%;
-  margin: 10px auto;
-}
-
-@mixin circle-avatar($size) {
-  border-radius: 50%;
-  overflow: hidden;
-  width: $size;
-  height: $size;
-  border: 1px solid red;
-  img {
-    max-width: $size;
-    max-height: $size;
-  }
-}
-
-ul.team li span {
-  @include circle-avatar($avatar-size);
-  margin: 0 auto;
-}
-
+// partner images
 .partners ul li {
   display: inline-block;
   margin: 5px;
@@ -150,17 +180,21 @@ ul.team li span {
   }
 }
 
+section {
+  @include clearfix;
+}
+
 // Form
 #connect {
   margin: 0 auto;
   margin-top: 20px;
-  @include clearfix;
   form {
-    width: 700px;
+    width: $default-width;
     margin: 0 auto;
+    padding: 0;
     @include clearfix;
     & > div {
-      margin: 10px;
+      margin: 10px 10px 0 0;
       float: left;
       clear: none;
     }
@@ -174,4 +208,10 @@ ul.team li span {
   span.multiple {
     float: left;
   }
+}
+
+.footer {
+  width: $default-width;
+  @include clearfix;
+  margin: 0 auto;
 }

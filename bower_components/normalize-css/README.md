@@ -53,5 +53,6 @@ Please read the CONTRIBUTING.md
 
 ## Acknowledgements
 
-Normalize.css is a project by [Nicolas Gallagher](https://github.com/necolas),
+*Normalize.css is a project by [Nicolas Gallagher](https://github.com/necolas),
 co-created with [Jonathan Neal](https://github.com/jonathantneal).
+* Image courtesy mojombo's [github ribbons](https://github.com/blog/273-github-ribbons)
