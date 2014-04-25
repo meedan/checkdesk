@@ -1,7 +1,7 @@
 # Installation using drush site-install
 Run the following commands from the Checkdesk `/drupal` folder to install the Checkdesk installation profile using drush:
 
-		> drush si checkdesk [installation-parameters]`
+		> drush si checkdesk [installation-parameters]
 		> drush fra -y
 
 # Installation parameters
