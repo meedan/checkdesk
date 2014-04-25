@@ -1,8 +1,8 @@
-@charset "UTF-8";
-
+@import "base.scss";
 @import "compass/utilities";
 @import "fonts";
 @import "colors";
+@import "typography";
 
 // including blokkfont for drawing
 @import "admin";
@@ -19,9 +19,13 @@ body {
   background-size: cover;
 }
 
+section.inner {
+  width: 80%;
+  margin: 0 auto;
+}
+
 #header {
   width: 100%;
-  text-align: center;
   padding-top: 20px;
   color: #333;
 }
@@ -35,15 +39,12 @@ section.video {
 }
 
 #video {
-  embed {
-    width: 50%;
-    display: inline;
-  }
-  text-align: center;
-  // @include filter(hue-rotate(90deg));
   padding-bottom: 10px;
   padding-top: 10px;
-  // @include opacity(0.5);
+  iframe {
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 #follow {
@@ -107,20 +108,26 @@ form span {
   }
 }
 
-.partners p {
+p {
   width: 80%;
   margin: 10px auto;
 }
 
-.partners ul.team {
-  li {
-    border-radius: 50%;
-    overflow: hidden;
-    img {
-      max-width: 50px;
-      max-height: 50px;
-    }
+@mixin circle-avatar($size) {
+  border-radius: 50%;
+  overflow: hidden;
+  width: $size;
+  height: $size;
+  border: 1px solid red;
+  img {
+    max-width: $size;
+    max-height: $size;
   }
+}
+
+ul.team li span {
+  @include circle-avatar($avatar-size);
+  margin: 0 auto;
 }
 
 .partners ul li {

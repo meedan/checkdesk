@@ -1,0 +1,96 @@
+
+// First: Apply Normalize.css
+//
+// This standardizes browser behavior.
+@import "normalize-css/normalize.css";
+
+// Line heights
+//
+// Defaults in both relative and absolute units are helpful.
+$relative-line-height: 1.5;
+$absolute-line-height: 24px;
+$base-font-size: 18px;
+$base-line-height: $absolute-line-height;
+
+// ## Modular scale
+//
+@import "modular-scale";
+
+$ms-base: 18px 1168px;
+
+$smallest-font-size: ms(-2);
+$smaller-font-size: ms(-1); // 7px
+$small-font-size: 15px; // 11px
+$base-font-size: ms(0); // half step down
+$large-font-size: 20px; // 18px
+$larger-font-size: ms(1); // half step up
+$x-large-font-size: ms(2); // 25px
+$xx-large-font-size: ms(3); // 29px
+$xxx-large-font-size: ms(4); // 40px
+$largest-font-size: ms(5); // 29px
+
+// These are legacy values from bootstrap
+$font-size-large: $base-font-size * 1.25;
+$font-size-small: $base-font-size * 0.85;
+$font-size-mini: $base-font-size * 0.75;
+
+
+// Compass browser support configuration
+//
+$legacy-support-for-ie6: false;
+$legacy-support-for-ie7: false;
+
+// Now that default variables are set, import compass
+//
+@import "compass/support";
+@import "compass/css3/box-sizing";
+// @import "compass/typography/vertical_rhythm";
+// @import "compass/reset/utilities";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/css3/font-face";
+
+// Layout — The main layout shared by all pages
+//
+@import "susy";
+
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
+
+// Z-indexes
+// 
+$z-index-dropdown: 900 !default;
+$z-index-popover: 910 !default;
+$z-index-tooltip: 930 !default;
+$z-index-fixed-navbar: 930 !default;
+$z-index-modal-backdrop: 940 !default;
+$z-index-modal: 950 !default;
+
+// Navigation configuration
+//
+$navbar-height: 38px;
+$nav-width: $container-width;
+$nav-font-size: 14px;
+$nav-icon-height: 15px;
+$nav-line-height: $nav-icon-height;
+$nav-height: $nav-icon-height + 7 * 2;
+$nav-gutter: 11px;
+
+// Admin toolbar and drawer
+//
+$toolbar-menu-height: 30px;
+$drawer-menu-height: 35px;
+$toolbar-height: $toolbar-menu-height + $drawer-menu-height;
+
+// Notifications (currently in navigation)
+//
+$notification-dropdown-width: modular-scale(11);
+$notification-width: 5;
+$notification-icon-size: $small-font-size;
+$notification-image-width: 5%;
+$notifications-icon-selector: ".heartbeat-time-ago";
+
+// Misc
+$radius: 4px;
+$debug: true !default;
+$avatar-size: 50px;

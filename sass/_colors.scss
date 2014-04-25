@@ -10,3 +10,207 @@ $firefly20: #cfd3d5;
 $firefly10: #e7e8ea;
 $firefly5: #f3f4f4;
 $firefly2: #fafbfb;
+
+// Bootstrap 2.3.1 grays
+// #FIXME integrate with the greys below, review the theme to ensure consistent use.
+//
+$black: black;
+$gray-darker: #222222 !default;
+$gray-dark: #333333 !default;
+$gray: #555555 !default;
+$gray-light: #999999 !default;
+$gray-lighter: #eeeeee !default;
+$white: white !default;
+
+// greys
+$lightest-grey: hsl(0, 0, 97%);
+$light-grey: hsl(0, 0, 93%);
+$grey: hsl(0, 0, 80%);
+$medium-grey: darken($grey, 15%);
+$dark-grey: darken($grey, 45%);
+$darker-grey: darken($dark-grey, 35%);
+$darkest-grey: darken($darker-grey, 25%);
+
+// bootstrap accent colors
+//
+$blue: #049cdb !default;
+$bluedark: #0064cd !default;
+$green: #46a546;
+$red: #9d261d !default;
+$yellow: #ffc40d !default;
+$orange: #f89406 !default;
+$pink: #c3325f !default;
+$purple: #7a43b6;
+
+// bootstrap scaffolding
+//
+$body-background: $white;
+$textcolor: $gray-dark !default;
+
+// Checkdesk colors
+//
+// see also meedan/colors
+$bright-blue: hsl(204, 100%, 45%);
+$firetruck-red: hsl(3, 100%, 36%);
+$verdun-green: hsl(90, 100%, 20%);
+$yellow-orange: hsl(32, 100%, 79%);
+$postit-yellow: hsl(46, 100%, 95%);
+$dark-blue: hsl(204, 100%, 33%);
+$twitter-blue: hsl(203, 75%, 45%);
+$facebook-blue: hsl(219, 56%, 34%);
+$youtube-red: hsl(1, 90%, 55%);
+
+$firefly: #10212f;
+$firefly90: #283743;
+$firefly80: #404d59;
+$firefly60: #6f7a82;
+$firefly40: #9fa6ac;
+$firefly30: #b7bcc0;
+$firefly20: #cfd3d5;
+$firefly10: #e7e8ea;
+$firefly5: #f3f4f4;
+$firefly2: #fafbfb;
+
+$dodger-blue: #2e77fc;
+
+// $thatch: #b89892;
+// $thatch5: #fbfaf9;
+// $thatch2: #fefdfd;
+
+// $whitesmoke: whitesmoke;
+
+// identity
+$identity: $dodger-blue;
+
+// basics
+$bkg-color: $white;
+$input-background: $white;
+$hr-color: $firefly20;
+$text-color: $firefly;
+$link-color: $identity;
+
+// // susy grid colors
+// $grid-background-gutter-color: $postit-yellow;
+// $grid-background-column-color: $white;
+
+// // links colors for compass links helper
+$links-color: $identity;
+$links-active-color: $firefly80;
+$links-visited-color: $identity;
+
+// // form colors for forms.scss
+// $form-primary-accent: $bright-blue;
+// $form-validation-error: $firetruck-red;
+// $form-validation-success: $verdun-green;
+// $form-validation-warning: $yellow-orange;
+
+// // a debugging theme
+// $debug-bkg: lighten(hsl(212, 75%, 14%), 30%);
+// $debug-one: hsl(344, 100%, 69%);
+// $debug-two: hsl(104, 100%, 43%);
+// $debug-three: hsl(208, 100%, 50%);
+// $debug-four: hsl(151, 100%, 75%);
+// $debug-five: hsl(52, 100%, 50%);
+// $debug-six: hsl(37, 100%, 50%);
+// $default-debug-color: $debug-six;
+
+// // notifications theme
+// $notification-count-color: hsl(222, 59%, 45%);
+// $notification-count-bkg-color: rgba($identity, 0.5);
+
+// // navigation
+// $nav-color: $firefly20;
+// $nav-bkg-color: $firefly90;
+// $nav-active-color: $nav-bkg-color;
+
+// // active text
+// $nav-active-bkg-color: $firefly10;
+// $nav-container-bkg-color: $nav-bkg-color;
+
+// //wrapper on nav
+// $nav-hover-bkg-color: transparent;
+// $nav-hover-color: $white;
+
+// // tabs
+// $tabs-color: $firefly80;
+// $tabs-bkg-color: $firefly20;
+// $tabs-active-color: $firefly;
+
+// // active text
+// $tabs-active-bkg-color: $firefly40;
+
+// // dropdowns
+// $dropdown-bkg: $white;
+// $dropdown-border: $firefly20;
+// $dropdown-divider-top: $firefly30;
+// $dropdown-divider-bottom: $white;
+// $dropdown-link-color: $firefly60;
+// $dropdown-link-color-hover: $white;
+// $dropdown-link-color-active: $dodger-blue;
+// $dropdown-link-bkg-active: darken($link-color, 5%);
+// $dropdown-link-bkg-hover: darken($dropdown-link-bkg-active, 10%);
+
+// // buttons
+// $button-color: $identity;
+// $active-button-color: $identity;
+
+// // bootstraplinks
+// //
+$link-color: #0088cc !default;
+$link-color-hover: darken($link-color, 15%) !default;
+
+// // tables
+// //
+// $table-background: transparent !default;
+
+// // overall background-color
+// $table-background-accent: #f9f9f9 !default;
+
+// // for striping
+// $table-background-hover: $whitesmoke !default;
+
+// // for hover
+// $table-border: #dddddd !default;
+
+// // table and cell border
+
+// // form-colors
+// //
+// $input-background: $white !default;
+// $input-border: #cccccc !default;
+// $input-disabled-background: $gray-lighter !default;
+// $form-actions-background: $whitesmoke !default;
+// $input-height: $absolute-line-height + 18px;
+
+// // dropdowns
+// //
+// $dropdown-background: $white !default;
+// $dropdown-border: $firefly20 !default;
+// $dropdown-divider-top: #e5e5e5 !default;
+// $dropdown-divider-bottom: $white !default;
+
+// $dropdown-link-color: $gray-dark !default;
+// $dropdown-link-color-hover: $white !default;
+// $dropdown-link-color-active: $dropdown-link-color !default;
+
+// $dropdown-link-background-active: $link-color !default;
+// $dropdown-link-background-hover: $dropdown-link-background-active !default;
+
+// // form states and alerts
+// //
+// $warning-text: #c09853 !default;
+// $warning-background: #fcf8e3 !default;
+// $warning-border: darken(adjust-hue($warning-background, -10), 3%) !default;
+// $warning-link: darken($warning-text, 20%) !default;
+
+// $error-text: #b94a48 !default;
+// $error-background: #f9e8e8 !default;
+// $error-border: darken(adjust-hue($error-background, -10), 3%) !default;
+
+// $success-text: #468847 !default;
+// $success-background: #dff0d8 !default;
+// $success-border: darken(adjust-hue($success-background, -10), 5%) !default;
+
+// $info-text: #3a87ad !default;
+// $info-background: #d9edf7 !default;
+// $info-border: darken(adjust-hue($info-background, -10), 7%) !default;
