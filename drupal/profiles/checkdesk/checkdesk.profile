@@ -297,6 +297,43 @@ function _cd_create_sample_content() {
   $node->body[LANGUAGE_NONE][0]['summary'] = '';
   $node->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
   node_save($node); 
+  $target_en_nid = $node->nid;
+  //add english report
+  $node = new stdClass(); 
+  $node->type = 'media';
+  $node->language = 'en'; 
+  $node->uid = 1;
+  node_object_prepare($node); 
+  $node->field_link[LANGUAGE_NONE][0]['url'] = 'https://www.youtube.com/watch?v=iwMO84pJwMs&list=UUL6xkW90kBI76OuApogUbFQ&feature=share&index=1'; 
+  node_save($node); 
+  $report_nid_en = $node->nid;
+  //create updates ...
+  $node = new stdClass(); 
+  $node->type = 'post';
+  $node->title = 'Another update';
+  $node->language = 'en'; 
+  $node->uid = 1;
+  node_object_prepare($node); 
+  $node->body[LANGUAGE_NONE][0]['value'] = 'another update';
+  $node->body[LANGUAGE_NONE][0]['summary'] = NULL;
+  $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
+  $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_en_nid;
+  node_save($node); 
+
+  $node = new stdClass(); 
+  $node->type = 'post';
+  $node->title = 'First update';
+  $node->language = 'en'; 
+  $node->uid = 1;
+  node_object_prepare($node); 
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>&nbsp;first update</p><p>[checkdesk-english:report-en-nid]</p>';
+  //embed report into update
+  $node->body[LANGUAGE_NONE][0]['value'] = str_replace('report-en-nid', $report_nid_en, $node->body[LANGUAGE_NONE][0]['value']);
+  $node->body[LANGUAGE_NONE][0]['summary'] = NULL;
+  $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
+  $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_en_nid;
+  node_save($node); 
+
   //create arabic stories
   $node = new stdClass(); 
   $node->type = 'discussion';
@@ -309,6 +346,15 @@ function _cd_create_sample_content() {
   $node->body[LANGUAGE_NONE][0]['format'] = 'filtered_html';
   node_save($node); 
   $target_ar_nid = $node->nid;
+  //add arabic report
+  $node = new stdClass(); 
+  $node->type = 'media';
+  $node->language = 'ar'; 
+  $node->uid = 1;
+  node_object_prepare($node); 
+  $node->field_link[LANGUAGE_NONE][0]['url'] = 'https://www.youtube.com/watch?v=-2ch6n9SdZc&list=UUL6xkW90kBI76OuApogUbFQ&feature=share'; 
+  node_save($node); 
+  $report_nid_ar = $node->nid;
   //create updates ...
   $node = new stdClass(); 
   $node->type = 'post';
@@ -328,9 +374,12 @@ function _cd_create_sample_content() {
   $node->language = 'ar'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = '<p>تتم إضافة التحديثات على الموضوع ويتضمن التحديث تقارير من الشبكات الإجتماعية والإعلام الجديد. يمكنك إضافة تحديثات جديدة مع تطور الأحداث المتعلقة بالموضوع. كما يمكنك إضافة أي عدد من التقارير التي تحتاجها ضمن تحديث واحد، كما يمكنك النص قبل التقارير...</p><p>[تْشِك-دِسْك-عربي:1677]</p><p>..أو بعدها، حسب الحاجة</p>';
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>تتم إضافة التحديثات على الموضوع ويتضمن التحديث تقارير من الشبكات الإجتماعية والإعلام الجديد. يمكنك إضافة تحديثات جديدة مع تطور الأحداث المتعلقة بالموضوع. كما يمكنك إضافة أي عدد من التقارير التي تحتاجها ضمن تحديث واحد، كما يمكنك النص قبل التقارير...</p><p>[تْشِك-دِسْك-عربي:report-ar-nid]</p><p>..أو بعدها، حسب الحاجة</p>';
+  //embed report into update
+  $node->body[LANGUAGE_NONE][0]['value'] = str_replace('report-ar-nid', $report_nid_ar, $node->body[LANGUAGE_NONE][0]['value']);
   $node->body[LANGUAGE_NONE][0]['summary'] = NULL;
   $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
   $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_ar_nid;
   node_save($node); 
 }
+
