@@ -2187,7 +2187,9 @@ function checkdesk_core_node_insert($node) {
       node_save($story); // Update updated time
     }
     //link report to created update
-    checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+    if (isset($node->body)) {
+      checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+    }
   }
 }
 
