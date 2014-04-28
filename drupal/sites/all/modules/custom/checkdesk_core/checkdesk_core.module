@@ -2596,6 +2596,26 @@ function checkdesk_core_comment_delete($comment) {
 }
 
 /**
+ * Implements of hook_flag_flag().
+ */
+function checkdesk_core_flag_flag($flag, $entity_id, $account, $flagging) {
+  if ($flag->name == 'graphic_journalist') {
+    $node = node_load($entity_id);
+    checkdesk_varnish_pages_to_purge($flag->entity_type, $node, 'update');
+  }
+}
+
+/**
+ * Implements of hook_flag_unflag().
+ */
+function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
+  if ($flag->name == 'graphic_journalist') {
+    $node = node_load($entity_id);
+    checkdesk_varnish_pages_to_purge($flag->entity_type, $node, 'update');
+  }
+}
+
+/**
  * Implements of hook_cron().
  */
 function checkdesk_core_cron() {
