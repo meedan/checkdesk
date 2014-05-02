@@ -514,6 +514,19 @@ $conf['404_fast_html'] = '<html xmlns="http://www.w3.org/1999/xhtml"><head><titl
 // Hardcode i18n_string_source_language to prevent nasty surprises.
 $conf['i18n_string_source_language'] = 'en';
 
-// Include the local configuration file and boilerplate additions
-require 'meedan_boilerplate.php';
+// The constant MEEDAN_ENVIRONMENT will fairly reliably determine if a site is
+// running on production or not.  When uncertain it always assumes it is running
+// in production, for safety.
+// 
+// DO NOT use this constant for important or dangerous tasks!
+$is_dev  = preg_match('@(local(host)?$|(^|\.)dev\.)@', $_SERVER['HTTP_HOST']);
+$is_test = preg_match('@(^|\.)(test|testing|qa)\.@', $_SERVER['HTTP_HOST']);
+
+define('MEEDAN_ENVIRONMENT', ($is_dev ? 'DEV' : ($is_test ? 'TEST' : 'LIVE')));
+
+// Fixes an issue ind D7 core where url('', array('https' => TRUE)); would not
+// force HTTPS on an SSL enabled server.
+$conf['https'] = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off');
+
+// Include the local configuration file.
 require 'settings.local.php';

@@ -10,7 +10,6 @@ DOMAIN=$2
 
 # sites
 SITES=$ROOT/current/drupal/sites/$DOMAIN;
-BOILER="${SITES}/meedan_boilerplate.php";
 SITESETTINGS="${SITES}/settings.php";
 SITESFILES="${SITES}/files";                    # links to shared
 SITESSETLOCAL="${SITES}/settings.local.php";    # links to shared
@@ -25,7 +24,7 @@ NFS=$ROOT/nfs/$DOMAIN;
 NFSFILES="${NFS}/files";                  
 NFSSETLOCAL="${NFS}/settings.local.php";  
 
-FILES=($SITES $BOILER $SITESETTINGS $SHARED $NFS $NFSFILES $NFSSETLOCAL);
+FILES=($SITES $SITESETTINGS $SHARED $NFS $NFSFILES $NFSSETLOCAL);
 
 LINKS=($SITESFILES $SITESSETLOCAL $SHAREDFILES);
 
