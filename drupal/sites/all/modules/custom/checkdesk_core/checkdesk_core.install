@@ -309,13 +309,17 @@ function checkdesk_core_update_7030(&$sandbox) {
   if(!isset($sandbox['progress'])){
     $sandbox['progress'] = 0;
     $sandbox['last_nid'] = 0;
-    $sandbox['limit'] = 5;
-    $sandbox['max'] = db_query('SELECT COUNT(nid) FROM {node} WHERE type = :type', array(':type' => 'post'))->fetchField() - 1;
+    $sandbox['limit'] = 20;
+    $max = db_query('SELECT COUNT(nid) FROM {node} WHERE type = :type', array(':type' => 'post'))->fetchField();
+    if ($max) {
+      $sandbox['max'] = $max - 1;
+    }
   }
   $query = db_select('node', 'n');
   $query->addField('n', 'nid');
   $query->condition('n.type', 'post');
   $query->condition('n.nid', $sandbox['last_nid'], '>');
+  $query->orderBy('n.nid', 'ASC');
   $query->range(0, $sandbox['limit']);
   $result = $query->execute()->fetchCol();
   foreach ($result as $nid) {
