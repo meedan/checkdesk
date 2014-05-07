@@ -319,6 +319,7 @@ function checkdesk_core_update_7030(&$sandbox) {
   $query->addField('n', 'nid');
   $query->condition('n.type', 'post');
   $query->condition('n.nid', $sandbox['last_nid'], '>');
+  $query->orderBy('n.nid', 'ASC');
   $query->range(0, $sandbox['limit']);
   $result = $query->execute()->fetchCol();
   foreach ($result as $nid) {
