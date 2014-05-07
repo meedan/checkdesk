@@ -324,7 +324,9 @@ function checkdesk_core_update_7030(&$sandbox) {
   $result = $query->execute()->fetchCol();
   foreach ($result as $nid) {
     $node = node_load($nid);
-    node_save($node);
+    if (isset($node->body)) {
+      checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+    }
     $sandbox['progress']++;
   }
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
