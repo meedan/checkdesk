@@ -105,3 +105,48 @@ Scenario: Change status to verified
   Then I should see "Verified"
   And I should not see "In Progress"
   And I remove the created nodes
+
+@api @javascript
+Scenario: Journalist - Edit status (false)
+  Given a report from URL "http://meedan.org" flagged as "factcheck_journalist" and with status "In Progress"
+  And I am logged in as a user with the "journalist" role
+  When I go to the last node
+  Then I should see "In Progress"
+  And  should not see "False"
+  When I click on span "Edit Status"
+  When I click on label "False"
+  And press "Add footnote"
+  And  I wait for 10 seconds
+  Then I should see "False"
+  And I should not see "In Progress"
+  And I remove the created nodes
+
+@api @javascript
+Scenario: Journalist - Edit status (undetermined)
+  Given a report from URL "http://meedan.org" flagged as "factcheck_journalist" and with status "In Progress"
+  And I am logged in as a user with the "journalist" role
+  When I go to the last node
+  Then I should see "In Progress"
+  And  I should not see "Undetermined"
+  When I click on span "Edit Status"
+  When I click on label "Undetermined"
+  And press "Add footnote"
+  And  I wait for 10 seconds
+  Then I should see "Undetermined"
+  And I should not see "In Progress"
+  And I remove the created nodes
+
+@api @javascript
+Scenario: Journalist - Edit status (not applicable)
+  Given a report from URL "http://meedan.org" flagged as "factcheck_journalist" and with status "In Progress"
+  And I am logged in as a user with the "journalist" role
+  When I go to the last node
+  Then I should see "In Progress"
+  And  I should not see "Not Applicable"
+  When I click on span "Edit Status"
+  When I click on label "Not Applicable"
+  And press "Add footnote"
+  And  I wait for 10 seconds
+  Then I should see "Not Applicable"
+  And I should not see "In Progress"
+  And I remove the created nodes

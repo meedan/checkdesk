@@ -26,3 +26,9 @@ drupal/FirePHPCore
 # Stuff added by composer (e.g, Behat)
 bin
 vendor
+
+# configuration files are created from templates
+config/create_database_and_user.sql
+config/settings.local.php
+config/setup/create_database_and_user.sql
+config/setup/settings.local.php

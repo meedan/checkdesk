@@ -11,6 +11,22 @@ function checkdesk_core_enable() {
 }
 
 /**
+ * Implements hook_schema().
+ */
+function checkdesk_core_schema() {
+  $schema['checkdesk_reports_updates'] = array(
+    'description' => 'The base table to associate reports with updates.',
+    'fields' => array(
+      'update_nid' => array('type' => 'int', 'length' => 10 , 'unsigned' => TRUE,  'not null' => TRUE),
+      'report_nid' => array('type' => 'int', 'length' => 10 , 'unsigned' => TRUE,  'not null' => TRUE),
+    ),
+    'primary key' => array('update_nid', 'report_nid'),
+  );
+  
+  return $schema;
+}
+
+/**
  * Implements hook_update_N().
  * Enable remember me and change checkdesk_core weight
  */
@@ -276,4 +292,44 @@ function checkdesk_core_update_7028() {
   if (!empty($uaids)) {
     heartbeat_activity_delete($uaids);
   }
+}
+
+/**
+ * Create table for log updates_reports.
+ */
+function checkdesk_core_update_7029() {
+  $schema = checkdesk_core_schema();
+  db_create_table('checkdesk_reports_updates', $schema['checkdesk_reports_updates']);
+}
+
+/**
+ * Log existing updates and reports.
+ */
+function checkdesk_core_update_7030(&$sandbox) {
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_nid'] = 0;
+    $sandbox['limit'] = 5;
+    $sandbox['max'] = db_query('SELECT COUNT(nid) FROM {node} WHERE type = :type', array(':type' => 'post'))->fetchField() - 1;
+  }
+  $query = db_select('node', 'n');
+  $query->addField('n', 'nid');
+  $query->condition('n.type', 'post');
+  $query->condition('n.nid', $sandbox['last_nid'], '>');
+  $query->range(0, $sandbox['limit']);
+  $result = $query->execute()->fetchCol();
+  foreach ($result as $nid) {
+    $node = node_load($nid);
+    node_save($node);
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_nid'] = $nid;
+}
+
+/**
+ * Just to update schema version.
+ */
+function checkdesk_core_update_7031() {
+
 }

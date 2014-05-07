@@ -1,7 +1,7 @@
-diff --git a/htmlmail.mail.inc b/htmlmail.mail.inc
+diff --git a/drupal/sites/all/modules/contrib/htmlmail/htmlmail.mail.inc b/drupal/sites/all/modules/contrib/htmlmail/htmlmail.mail.inc
 index 16fe7cd..fcb6d2f 100644
---- a/htmlmail.mail.inc
-+++ b/htmlmail.mail.inc
+--- a/drupal/sites/all/modules/contrib/htmlmail/htmlmail.mail.inc
++++ b/drupal/sites/all/modules/contrib/htmlmail/htmlmail.mail.inc
 @@ -59,6 +59,7 @@ class HTMLMailSystem implements MailSystemInterface {
          $body = $message['body'];
        }

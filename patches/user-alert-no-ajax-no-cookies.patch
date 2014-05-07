@@ -9,10 +9,10 @@ Subject: [PATCH] No Ajax and no cookies
  user_alert.module  |   74 +++++----------------------------------------------
  3 files changed, 21 insertions(+), 111 deletions(-)
 
-diff --git a/js/user-alert.js b/js/user-alert.js
+diff --git a/drupal/sites/all/modules/contrib/user_alert/js/user-alert.js b/drupal/sites/all/modules/contrib/user_alert/js/user-alert.js
 index 883b8e8..024c530 100644
---- a/js/user-alert.js
-+++ b/js/user-alert.js
+--- a/drupal/sites/all/modules/contrib/user_alert/js/user-alert.js
++++ b/drupal/sites/all/modules/contrib/user_alert/js/user-alert.js
 @@ -1,14 +1,6 @@
  (function ($) {
    Drupal.behaviors.user_alert_get_message = {
@@ -30,8 +30,8 @@ index 883b8e8..024c530 100644
          $.ajax({
 diff --git a/user_alert.install b/user_alert.install
 index 158b1a8..0fa6d91 100644
---- a/user_alert.install
-+++ b/user_alert.install
+--- a/drupal/sites/all/modules/contrib/user_alert/user_alert.install
++++ b/drupal/sites/all/modules/contrib/user_alert/user_alert.install
 @@ -5,38 +5,6 @@
   */
  
@@ -103,8 +103,8 @@ index 158b1a8..0fa6d91 100644
 +}
 diff --git a/user_alert.module b/user_alert.module
 index df5d837..afb88cb 100644
---- a/user_alert.module
-+++ b/user_alert.module
+--- a/drupal/sites/all/modules/contrib/user_alert/user_alert.module
++++ b/drupal/sites/all/modules/contrib/user_alert/user_alert.module
 @@ -2,15 +2,8 @@
  
  /**

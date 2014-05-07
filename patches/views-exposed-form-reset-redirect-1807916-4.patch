@@ -1,7 +1,7 @@
-diff --git a/plugins/views_plugin_exposed_form.inc b/plugins/views_plugin_exposed_form.inc
+diff --git a/drupal/sites/all/modules/contrib/views/plugins/views_plugin_exposed_form.inc b/drupal/sites/all/modules/contrib/views/plugins/views_plugin_exposed_form.inc
 index 2e0ad7d..343eee8 100644
---- a/plugins/views_plugin_exposed_form.inc
-+++ b/plugins/views_plugin_exposed_form.inc
+--- a/drupal/sites/all/modules/contrib/views/plugins/views_plugin_exposed_form.inc
++++ b/drupal/sites/all/modules/contrib/views/plugins/views_plugin_exposed_form.inc
 @@ -324,6 +324,7 @@ class views_plugin_exposed_form extends views_plugin {
        $this->view->exposed_data = array();
      }

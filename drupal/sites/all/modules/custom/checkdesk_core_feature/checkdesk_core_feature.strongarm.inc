@@ -1101,13 +1101,6 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'oembedembedly_api_key';
-  $strongarm->value = 'c5a85c42019611e190444040d3dc5c07';
-  $export['oembedembedly_api_key'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'oembedembedly_default';
   $strongarm->value = '1';
   $export['oembedembedly_default'] = $strongarm;

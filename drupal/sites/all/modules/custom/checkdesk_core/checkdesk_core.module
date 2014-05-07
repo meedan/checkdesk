@@ -2178,11 +2178,46 @@ function _checkdesk_core_filter_tips($filter, $format, $long = FALSE) {
  * Implements hook_node_insert().
  */
 function checkdesk_core_node_insert($node) {
-  // Update story when a new update is created in this story
-  if ($node->type === 'post' && isset($node->field_desk)) {
-    $story = node_load($node->field_desk[LANGUAGE_NONE][0]['target_id']);
-    $story->changed = $node->changed;
-    node_save($story); // Update updated time
+  checkdesk_varnish_pages_to_purge('node', $node, 'insert');
+  if ($node->type === 'post') {
+    // Update story when a new update is created in this story
+    if (isset($node->field_desk)) {
+      $story = node_load($node->field_desk[LANGUAGE_NONE][0]['target_id']);
+      $story->changed = $node->changed;
+      node_save($story); // Update updated time
+    }
+    //link report to created update
+    if (isset($node->body)) {
+      checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function checkdesk_core_node_update($node) {
+  checkdesk_varnish_pages_to_purge('node', $node, 'update');
+  if ($node->type === 'post') {
+    //link report to update
+    checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function checkdesk_core_node_delete($node) {
+  checkdesk_varnish_pages_to_purge('node', $node, 'delete');
+  if ($node->type === 'post') {
+    db_delete('checkdesk_reports_updates')
+      ->condition('update_nid', $node->nid)
+      ->execute();
+  }
+  elseif ($node->type == 'media') {
+    db_delete('checkdesk_reports_updates')
+      ->condition('report_nid', $node->nid)
+      ->execute();
   }
 }
 
@@ -2559,5 +2594,153 @@ function checkdesk_core_comment_delete($comment) {
   }
   if (!empty($uaids)) {
     heartbeat_activity_delete($uaids);
+  }
+}
+
+/**
+ * Implements of hook_flag_flag().
+ */
+function checkdesk_core_flag_flag($flag, $entity_id, $account, $flagging) {
+  if ($flag->name == 'graphic_journalist') {
+    $node = node_load($entity_id);
+    checkdesk_varnish_pages_to_purge($flag->entity_type, $node, 'update');
+  }
+}
+
+/**
+ * Implements of hook_flag_unflag().
+ */
+function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
+  if ($flag->name == 'graphic_journalist') {
+    $node = node_load($entity_id);
+    checkdesk_varnish_pages_to_purge($flag->entity_type, $node, 'update');
+  }
+}
+
+/**
+ * Implements of hook_cron().
+ */
+function checkdesk_core_cron() {
+  if (module_exists('varnish')) {
+    $queue = DrupalQueue::get('checkdesk_varnish');
+    //any action reflect on frontpage 
+    if ($queue->numberOfItems()) {
+      $languages = language_list();
+      $sites = variable_get('site_urls', array());
+      $paths = array();
+      while($item = $queue->claimItem()) {
+        $paths = array_merge($paths, $item->data);
+        $queue->deleteItem($item);
+      }
+      //remove duplicate items
+      $paths = array_flip(array_flip($paths));
+      foreach ($sites as $site) {
+        $urls = array();
+        foreach ($paths as $path) {
+          foreach($languages as $key => $value) {
+            $urls[] = url($path, array(
+              //'absolute' => TRUE,
+              'language' => $languages[$key],
+              //'base_url' => $site,
+            ));
+          }
+        }
+        //add front page
+        $urls[] = url('<front>', array(
+          //'absolute' => TRUE,
+          //'base_url' => $site,
+        ));
+        $parts = parse_url($site);
+        //log urls and host name
+        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $parts['host'], '!urls' => theme('item_list', array('items' => $urls))));
+        watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
+        checkdesk_varnish_expire_cache($urls, $parts['host']);
+      }
+    }
+  }
+}
+
+/**
+ * Clone varnish_expire_cache().
+ */
+function checkdesk_varnish_expire_cache($paths, $host) {
+  $purge = implode('$|^', $paths);
+  $purge = '^'. $purge .'$';
+  varnish_purge($host, $purge);
+}
+
+/**
+ *
+ */
+function checkdesk_log_reports_updates($op, $text, $update_nid) {
+  //link report to created update
+  if ($op == 'update') {
+    db_delete('checkdesk_reports_updates')
+      ->condition('update_nid', $update_nid)
+      ->execute();
+  }
+  $matches = $reports = array();
+  preg_match_all('/\[[^:]+:([0-9]+)\]/u', $text, $matches);
+  if (count($matches[1])) {
+    foreach ($matches[1] as $key => $nid) {
+      if (is_numeric($nid) && is_object(node_load($nid))) {
+        if(!in_array($nid, $reports)) {
+          $reports[] = $nid;
+          db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
+        }
+      }
+    }
+  }
+}
+
+/**
+ *
+ */
+function checkdesk_varnish_pages_to_purge($type, $object, $op) {
+  if (!module_exists('varnish')) {
+    return;
+  }
+  $paths = array();
+  if ($type == 'node') {
+    //check insert 
+    //only published content that will need to purge from varnish cache
+    //no need to check media content as it does not include on any update yet.
+    if ($op == 'insert' && $object->status != 0) {
+      switch($object->type) {
+      case 'discussion':
+        $paths[] = 'node/'. $object->nid;
+        break;
+      case 'post':
+        //get story nid
+        $paths[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+        break;
+      }
+    }
+    //case update or delete
+    if ($op == 'update' || $op == 'delete') {
+      switch($object->type) {
+      case 'discussion':
+        $paths[] = 'node/'. $object->nid;
+        break;
+      case 'post':
+        //get story nid
+        $paths[] = 'node/'. $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+        break;
+      case 'media':
+        //get all stories that hold updates contain this report
+        $query = db_select('checkdesk_reports_updates', 'ru');
+        $query->join('field_data_field_desk', 'fd', 'ru.update_nid = fd.entity_id');
+        $query->condition('ru.report_nid', $object->nid);
+        $query->addExpression("CONCAT('node/', fd.field_desk_target_id)", 'story_url');
+        $paths = $query->execute()->fetchCol();
+        $paths[] = 'node/'. $object->nid;
+        break;
+      }
+    }
+  }
+  if (count($paths)) {
+    //store pages on Queue to purge them on cron task.
+    $queue = DrupalQueue::get('checkdesk_varnish');
+    $queue->createItem($paths);
   }
 }

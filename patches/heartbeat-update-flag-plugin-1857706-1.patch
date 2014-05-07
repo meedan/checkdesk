@@ -1,5 +1,7 @@
---- heartbeatflagplugin.inc	2012-12-14 21:06:06.768767886 +0200
-+++ heartbeatflagplugin.inc-new	2012-12-14 21:06:52.612766714 +0200
+diff --git a/drupal/sites/all/modules/contrib/heartbeat/modules/heartbeat_plugins/includes/heartbeatflagplugin.inc b/drupal/sites/all/modules/contrib/heartbeat/modules/heartbeat_plugins/includes/heartbeatflagplugin.inc
+index 3d97ecd..f3768a3 100644
+--- a/drupal/sites/all/modules/contrib/heartbeat/modules/heartbeat_plugins/includes/heartbeatflagplugin.inc
++++ b/drupal/sites/all/modules/contrib/heartbeat/modules/heartbeat_plugins/includes/heartbeatflagplugin.inc
 @@ -10,7 +10,7 @@
  function heartbeat_plugins_modal_flagging_users($js, $heartbeatActivity) {
  
@@ -9,7 +11,7 @@
  
    $output = '';
    $list = array();
-@@ -84,9 +84,9 @@
+@@ -84,9 +84,9 @@ class HeartbeatFlagPlugin extends HeartbeatBasePlugin {
     * removeFlagContent().
     */
    public function removeFlagContent($activityId) {
@@ -22,7 +24,7 @@
        ->execute();
    }
  
-@@ -95,16 +95,16 @@
+@@ -95,16 +95,16 @@ class HeartbeatFlagPlugin extends HeartbeatBasePlugin {
     */
    public function activityRemoved($uaids, $all) {
  

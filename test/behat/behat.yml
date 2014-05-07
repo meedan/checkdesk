@@ -10,9 +10,9 @@ default:
       blackbox: ~
       api_driver: 'drupal'
       drush:
-        root: drupal
+        root: ../../drupal
       drupal:
-        drupal_root: drupal
+        drupal_root: ../../drupal
       text:
         log_out: 'Logout'
         log_in: 'Sign in'
