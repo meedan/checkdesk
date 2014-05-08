@@ -320,14 +320,16 @@ function checkdesk_core_update_7030() {
       foreach ($matches[1] as $key => $nid) {
         if(!in_array($nid, $reports)) {
           $reports[] = $nid;
-          $data[] = "($row->nid, $nid)";
+          $data[] = array('update_nid' =>$row->nid, 'report_nid' => $nid);
         }
       }
     }
   }
   if (count($data)) {
-    $values = implode(',', $data);
-    $query = "INSERT INTO {checkdesk_reports_updates} VALUES $values";
-    db_query($query);
+    $query = db_insert('checkdesk_reports_updates')->fields(array('update_nid', 'report_nid'));
+    foreach ($data as $record) {
+      $query->values($record);
+    }
+    $query->execute();
   }
 }
