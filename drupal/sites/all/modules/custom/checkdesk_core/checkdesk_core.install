@@ -305,35 +305,31 @@ function checkdesk_core_update_7029() {
 /**
  * Log existing updates and reports.
  */
-function checkdesk_core_update_7030(&$sandbox) {
-  if(!isset($sandbox['progress'])){
-    $sandbox['progress'] = 0;
-    $sandbox['last_nid'] = 0;
-    $sandbox['limit'] = 20;
-    $max = db_query('SELECT COUNT(nid) FROM {node} WHERE type = :type', array(':type' => 'post'))->fetchField();
-    if ($max) {
-      $sandbox['max'] = $max - 1;
-    }
-  }
+function checkdesk_core_update_7030() {
   $query = db_select('node', 'n');
   $query->addField('n', 'nid');
+  $query->addField('fdb', 'body_value');
+  $query->join('field_data_body', 'fdb', 'n.nid = fdb.entity_id');
   $query->condition('n.type', 'post');
-  $query->condition('n.nid', $sandbox['last_nid'], '>');
-  $query->orderBy('n.nid', 'ASC');
-  $query->range(0, $sandbox['limit']);
-  $result = $query->execute()->fetchCol();
-  foreach ($result as $nid) {
-    $node = node_load($nid);
-    node_save($node);
-    $sandbox['progress']++;
+  $result = $query->execute()->fetchAll();
+  $data = array();
+  foreach ($result as $row) {
+    $matches = $reports = array();
+    preg_match_all('/\[[^:]+:([0-9]+)\]/u', $row->body_value, $matches);
+    if (count($matches[1])) {
+      foreach ($matches[1] as $key => $nid) {
+        if(!in_array($nid, $reports)) {
+          $reports[] = $nid;
+          $data[] = array('update_nid' =>$row->nid, 'report_nid' => $nid);
+        }
+      }
+    }
   }
-  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
-  $sandbox['last_nid'] = $nid;
-}
-
-/**
- * Just to update schema version.
- */
-function checkdesk_core_update_7031() {
-
+  if (count($data)) {
+    $query = db_insert('checkdesk_reports_updates')->fields(array('update_nid', 'report_nid'));
+    foreach ($data as $record) {
+      $query->values($record);
+    }
+    $query->execute();
+  }
 }
