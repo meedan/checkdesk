@@ -305,7 +305,7 @@ function checkdesk_core_update_7029() {
 /**
  * Log existing updates and reports.
  */
-function checkdesk_core_update_7031() {
+function checkdesk_core_update_7030() {
   $query = db_select('node', 'n');
   $query->addField('n', 'nid');
   $query->addField('fdb', 'body_value');
