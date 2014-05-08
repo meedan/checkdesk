@@ -327,7 +327,7 @@ function checkdesk_core_update_7030() {
   }
   if (count($data)) {
     $values = implode(',', $data);
-    $query = "INSERT INTO checkdesk_reports_updates VALUES $values";
+    $query = "INSERT INTO {checkdesk_reports_updates} VALUES $values";
     db_query($query);
   }
 }
