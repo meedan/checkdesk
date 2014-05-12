@@ -12,9 +12,23 @@ A published update shows up on the public view of the associated story, which is
 Users and visitors can *share* stories, updates and reports to various social networks, as well as *embed* those objects on their own pages, using oEmbed codes.
 
 # Installation
-Checkdesk installation is similar to a [standard Drupal installation](https://drupal.org/documentation/install). When the Drupal installer runs, choose the *Checkdesk* installation profile.
+Checkdesk installation is similar to a [standard Drupal installation](https://drupal.org/documentation/install), with minor twists:
 
-During installation, you will be asked to configure a few Web services:
+1. Create a blank MySQL database, e.g. `checkdesk` and grant all permissions to some user, e.g. `'checkdesk'@'localhost'`.
+2. In your `/drupal/sites/default` folder (where your `settings.php` file resides), create a new file `settings.local.php` where you enter your database configuration, e.g.:
+
+    <?php
+
+    $databases['default']['default'] = array(
+      'driver'   => 'mysql',
+      'database' => 'checkdesk',
+      'username' => 'checkdesk',
+      'password' => '',
+      'host'     => 'localhost',
+      'prefix'   => '',
+    );
+
+3. You're now ready to run the Drupal installer. Choose the **Checkdesk** installation profile. During installation, you will be asked to configure a few Web services:
 
 * [Embedly](http://embed.ly/), a service that renders links into embeddable HTML components using oEmbed. Sign up for a free account and copy your account's **API Key** to the corresponding form field.
 * Twitter, to allow logging in through Twitter. To fill in:
