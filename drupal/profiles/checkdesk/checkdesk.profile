@@ -76,6 +76,8 @@ function cd_import_translations() {
     ->execute();
   //add sample content
   _cd_create_sample_content();
+  //add translation for administer users.
+  _cd_translate_system_menu();
   $batch = l10n_update_batch_multiple($operations, LOCALE_IMPORT_KEEP);
   return $batch;
 }
@@ -280,6 +282,31 @@ function _cd_cleanup_finished($success, $results, $operations) {
   //revert features
   //drupal_flush_all_caches();
   //update language settings
+}
+
+/**
+ * Workaround to translate Administer users menu.
+ */
+function _cd_translate_system_menu() {
+  $object_type = 'menu_link';
+  $query = db_select('menu_links', 'ml');
+  $query->addField('ml', 'mlid');
+  $query->condition('menu_name', 'main-menu');
+  $query->condition('link_title', 'Administer users');
+  $mlid = $query->execute()->fetchField();
+  $object_value = menu_link_load($mlid);
+  $object_value['localized_options'] = $object_value['options'];
+  $object_value['i18n_menu'] = 1;
+  $object = i18n_object($object_type, $object_value);
+  $strings = $object->get_strings(array('empty' => TRUE));
+  foreach ($strings as $item) {
+    $status = $item->update(array('messages' => TRUE));
+  }
+  foreach ($strings as $name => $value) {
+    list($textgroup, $context) = i18n_string_context(explode(':', $name));
+    i18n_string_textgroup($textgroup)->build_string($context, $name);
+    $result = i18n_string_textgroup($textgroup)->update_translation($context, 'ar', 'إدارة المستخدمين');
+  }
 }
 
 /**
