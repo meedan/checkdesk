@@ -17,16 +17,16 @@ Checkdesk installation is similar to a [standard Drupal installation](https://dr
 1. Create a blank MySQL database, e.g. `checkdesk` and grant all permissions to some user, e.g. `'checkdesk'@'localhost'`.
 2. In your `/drupal/sites/default` folder (where your `settings.php` file resides), create a new file `settings.local.php` where you enter your database configuration, e.g.:
 
-    <?php
+        <?php
 
-    $databases['default']['default'] = array(
-      'driver'   => 'mysql',
-      'database' => 'checkdesk',
-      'username' => 'checkdesk',
-      'password' => '',
-      'host'     => 'localhost',
-      'prefix'   => '',
-    );
+        $databases['default']['default'] = array(
+          'driver'   => 'mysql',
+          'database' => 'checkdesk',
+          'username' => 'checkdesk',
+          'password' => '',
+          'host'     => 'localhost',
+          'prefix'   => '',
+        );
 
 3. You're now ready to run the Drupal installer. Choose the **Checkdesk** installation profile. During installation, you will be asked to configure a few Web services:
 
