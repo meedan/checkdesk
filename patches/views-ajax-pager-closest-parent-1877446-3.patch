@@ -7,10 +7,10 @@ Subject: [PATCH 1/3] The Ajax pager handler must be attached by the closest pare
  js/ajax_view.js |   11 ++---------
  1 files changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/js/ajax_view.js b/js/ajax_view.js
+diff --git a/drupal/sites/all/modules/contrib/views/js/ajax_view.js b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
 index 2a4012f..c108d05 100644
---- a/js/ajax_view.js
-+++ b/js/ajax_view.js
+--- a/drupal/sites/all/modules/contrib/views/js/ajax_view.js
++++ b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
 @@ -62,9 +62,6 @@ Drupal.views.ajaxView = function(settings) {
  
    // Add the ajax to pagers.
@@ -80,10 +80,10 @@ Subject: [PATCH 3/3] Fixing syntax
  js/ajax_view.js |    4 +++-
  1 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/js/ajax_view.js b/js/ajax_view.js
+diff --git a/drupal/sites/all/modules/contrib/views/js/ajax_view.js b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
 index 9cd3248..6663521 100644
---- a/js/ajax_view.js
-+++ b/js/ajax_view.js
+--- a/drupal/sites/all/modules/contrib/views/js/ajax_view.js
++++ b/drupal/sites/all/modules/contrib/views/js/ajax_view.js
 @@ -86,7 +86,9 @@ Drupal.views.ajaxView.prototype.attachPagerAjax = function() {
  Drupal.views.ajaxView.prototype.attachPagerLinkAjax = function(id, link) {
    var $link = $(link);

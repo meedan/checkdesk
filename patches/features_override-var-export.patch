@@ -1,7 +1,7 @@
-diff --git a/features_override.export.inc b/features_override.export.inc
+diff --git a/drupal/sites/all/modules/contrib/features_override/features_override.export.inc b/drupal/sites/all/modules/contrib/features_override/features_override.export.inc
 index 38ab684..e23a41b 100644
---- a/features_override.export.inc
-+++ b/features_override.export.inc
+--- a/drupal/sites/all/modules/contrib/features_override/features_override.export.inc
++++ b/drupal/sites/all/modules/contrib/features_override/features_override.export.inc
 @@ -83,7 +83,7 @@ function features_override_get_overrides($component_key = FALSE, $element_key =
      module_load_include('inc', 'features', 'features.export');
      features_include();

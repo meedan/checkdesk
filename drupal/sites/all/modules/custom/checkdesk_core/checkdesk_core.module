@@ -2679,12 +2679,15 @@ function checkdesk_log_reports_updates($op, $text, $update_nid) {
       ->condition('update_nid', $update_nid)
       ->execute();
   }
-  $matches = array();
+  $matches = $reports = array();
   preg_match_all('/\[[^:]+:([0-9]+)\]/u', $text, $matches);
   if (count($matches[1])) {
     foreach ($matches[1] as $key => $nid) {
       if (is_numeric($nid) && is_object(node_load($nid))) {
-        db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
+        if(!in_array($nid, $reports)) {
+          $reports[] = $nid;
+          db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
+        }
       }
     }
   }
