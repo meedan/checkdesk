@@ -51,5 +51,4 @@ Scenario: Notifications
   And I wait for 10 seconds
   When I am logged in as a user with the "journalist" role
   Then the ".notifications-count" element should contain "1"
-  When I click on span ".notifications-count"
-  Then the ".notifications-count" element should contain "0"
+  And I remove the created nodes
