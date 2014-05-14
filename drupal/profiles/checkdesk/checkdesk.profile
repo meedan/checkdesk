@@ -320,7 +320,7 @@ function _cd_create_sample_content() {
   $node->language = 'en'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p><p>&nbsp;</p>';
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p>';
   $node->body[LANGUAGE_NONE][0]['summary'] = '';
   $node->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
   node_save($node); 
@@ -341,7 +341,7 @@ function _cd_create_sample_content() {
   $node->language = 'en'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = 'another update';
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>Including reports in a story update is optional (although updates with reports do look better) - an update can consist only of text and <a href="http://meedan.org/category/checkdesk/">links</a>.</p><p>Updates appear chronologically on the story page, most recent first (just like Twitter). Updates are also numbered (look to the side of this update) and timestamped. The timestamp provides a direct link to the update which can be shared on social networks.</p>';
   $node->body[LANGUAGE_NONE][0]['summary'] = NULL;
   $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
   $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_en_nid;
@@ -353,7 +353,7 @@ function _cd_create_sample_content() {
   $node->language = 'en'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = '<p>&nbsp;first update</p><p>[checkdesk-english:report-en-nid]</p>';
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>Updates are added to a story, as new events unfold. Updates include reports from social networks and new media. A single update can include multiple reports, within a narrative that you compose.</p><p>[checkdesk-english:report-en-nid]</p>';
   //embed report into update
   $node->body[LANGUAGE_NONE][0]['value'] = str_replace('report-en-nid', $report_nid_en, $node->body[LANGUAGE_NONE][0]['value']);
   $node->body[LANGUAGE_NONE][0]['summary'] = NULL;
