@@ -78,11 +78,14 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
     {
       $page = $this->getSession()->getPage();
       foreach ($page->findAll('css', $tag) as $element) {
-        if (trim(strip_tags($element->getHtml())) === $text) {
+        if (
+          (trim(strip_tags($element->getHtml())) === $text) ||
+          (preg_match('/^\./', $text) && preg_match('/(^| )' . preg_replace('/^\./', '', $text) . '( |$)/', $element->getAttribute('class')))
+        ) {
           $element->click();
-          return;
         }
       }
+      return;
       throw new \Exception('Element not found');
     }
 
