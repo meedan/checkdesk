@@ -1568,7 +1568,6 @@ function checkdesk_core_form_node_form_alter(&$form, &$form_state) {
  * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
-
   // Add a class to forms which should display inline errors
   $ife_form_ids = checkdesk_core_ife_form_ids();
   foreach ($ife_form_ids as $fid => $row) {
@@ -1577,21 +1576,27 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     }
   }
 
-  // dsm($form_id);
   if (in_array($form_id, array('user_login', 'user_login_block', 'user_register_form'))) {
     $items = array();
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
-    $items[] = twitter_signin_button();
-    $items[] = $fb_block['content'];
-    $form['social_media_signin'] = array(
-      '#type' => 'item',
-      '#title' => t('Sign in with :'),
-      '#markup' => theme('item_list', array('items' => $items)),
-      '#weight' => '-99',
-    );
+    if (isset($fb_block['content'])) {
+      $items[] = $fb_block['content'];
+    }
+    $twitter_key = variable_get('twitter_consumer_key', NULL);
+    $twitter_secret = variable_get('twitter_consumer_secret', NULL);
+    if ($twitter_key && $twitter_secret) {
+      $items[] = twitter_signin_button();
+    }
+    if (count($items)) {
+      $form['social_media_signin'] = array(
+        '#type' => 'item',
+        '#markup' => theme('item_list', array('items' => $items)),
+        '#weight' => '-99',
+        '#suffix' => '<div class="or"><span>' . t('or') . '</span></div>',
+      );
+    }
     unset($form['twitter_signin']);
-  } 
-  
+  }
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $form['pass']['#title'] = $form['pass']['#title'] . l(t('(forgot?)'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
     $items = array();
@@ -1600,6 +1605,21 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     }
     $form['links'] = array('#markup' => theme('item_list', array('items' => $items)));
     $form['actions']['submit']['#value'] = t('Sign in');
+    unset($form['name']['#description']);
+    unset($form['pass']['#description']);
+    $form['pass']['#title'] = t('Password');
+    // Add forgot link and a wrapper around forgot pass and remember me
+    $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
+    $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
+    $form['remember_me']['#suffix'] = '</div>';
+    // add a wrapper around new account link
+    unset($form['links']);
+    $link['attributes']['class'][] = 'register';
+    $link['attributes']['title'] = t('Sign Up');
+    $new_account_link = l(t('Sign Up'), 'user/register', $link);
+    $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
+    ' . $new_account_link . '</div>';    
+
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {
@@ -1636,9 +1656,12 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
     }
-
     // Hook on submit to remove misleading message.
     $form['#submit'][] = 'checkdesk_core_user_register_form_submit';
+    unset($form['account']['name']['#description']);
+    unset($form['account']['pass']['#description']);
+    $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
+    $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
   }
 
   // theme file field
