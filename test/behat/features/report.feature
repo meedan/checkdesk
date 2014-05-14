@@ -150,3 +150,17 @@ Scenario: Journalist - Edit status (not applicable)
   Then I should see "Not Applicable"
   And I should not see "In Progress"
   And I remove the created nodes
+
+@api @javascript
+Scenario: Flag report as spam
+  Given a report from URL "http://meedan.org"
+  And I am logged in as a user with the "flag spam" permission
+  When I go to the last node
+  And I click on span ".flag-icon"
+  And I click "Flag spam"
+  And I wait for 20 seconds
+  And I fill in "Reason" with "Test"
+  And press "Flag spam"
+  And I wait for 10 seconds
+  And I click on span ".flag-icon"
+  Then I should see "Unflag spam"
