@@ -83,9 +83,9 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
           (preg_match('/^\./', $text) && preg_match('/(^| )' . preg_replace('/^\./', '', $text) . '( |$)/', $element->getAttribute('class')))
         ) {
           $element->click();
+          return;
         }
       }
-      return;
       throw new \Exception('Element not found');
     }
 
