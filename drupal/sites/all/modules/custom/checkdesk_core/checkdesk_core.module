@@ -1582,9 +1582,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     if (isset($fb_block['content'])) {
       $items[] = $fb_block['content'];
     }
-    $twitter_key = variable_get('twitter_consumer_key', NULL);
-    $twitter_secret = variable_get('twitter_consumer_secret', NULL);
-    if ($twitter_key && $twitter_secret) {
+    if (twitter_api_keys()) {
       $items[] = twitter_signin_button();
     }
     if (count($items)) {
