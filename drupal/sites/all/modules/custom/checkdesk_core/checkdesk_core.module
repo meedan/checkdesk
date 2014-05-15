@@ -1663,6 +1663,9 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
     $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
   }
+  if ($form_id == 'user_pass') {
+    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
+  }
 
   // theme file field
   if ($form_id == 'discussion_node_form') {
