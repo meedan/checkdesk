@@ -1578,12 +1578,12 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
 
   if (in_array($form_id, array('user_login', 'user_login_block', 'user_register_form'))) {
     $items = array();
+    if (twitter_api_keys()) {
+      $items[] = twitter_signin_button();
+    }
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
     if (isset($fb_block['content'])) {
       $items[] = $fb_block['content'];
-    }
-    if (twitter_api_keys()) {
-      $items[] = twitter_signin_button();
     }
     if (count($items)) {
       $form['social_media_signin'] = array(
