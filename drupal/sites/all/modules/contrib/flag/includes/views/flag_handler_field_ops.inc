@@ -35,7 +35,8 @@ class flag_handler_field_ops extends views_handler_field {
   function get_parent_relationship() {
     $parent = $this->view->relationship[$this->options['relationship']]->options['relationship'];
     if (!$parent || $parent == 'none') {
-      return NULL; // Base query table.
+      // Base query table.
+      return NULL;
     }
     else {
       return $this->view->relationship[$parent]->alias;
@@ -66,7 +67,8 @@ class flag_handler_field_ops extends views_handler_field {
    */
   function query() {
     if (!($flag = $this->get_flag())) {
-      return; // Error message is printed in render().
+      // Error message is printed in render().
+      return;
     }
     $info = $flag->get_views_info();
     $parent = $this->get_parent_relationship();
@@ -128,7 +130,8 @@ class flag_handler_field_ops extends views_handler_field {
    */
   function pre_render(&$values) {
     if (!($flag = $this->get_flag())) {
-      return; // Error message is printed in render().
+      // Error message is printed in render().
+      return;
     }
 
     $ids = array();
@@ -144,7 +147,8 @@ class flag_handler_field_ops extends views_handler_field {
 
   function render($values) {
     if (!($flag = $this->get_flag())) {
-      return t('Missing flag'); // get_flag() itself will print a more detailed message.
+      // get_flag() itself will print a more detailed message.
+      return t('Missing flag');
     }
 
     $entity_id = $values->{$this->aliases['entity_id']};

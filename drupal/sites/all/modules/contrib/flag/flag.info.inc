@@ -1,7 +1,8 @@
 <?php
 
 /**
- * @file Contains Entity API property information.
+ * @file
+ * Contains Entity API property information.
  */
 
 /**
