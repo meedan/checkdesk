@@ -113,7 +113,7 @@ function flag_schema() {
         'not null' => TRUE,
         'default' => 0,
         'disp-size' => 11,
-      )
+      ),
     ),
     'primary key' => array('flagging_id'),
     'unique keys' => array(
@@ -121,7 +121,12 @@ function flag_schema() {
     ),
     'indexes' => array(
       'entity_type_uid_sid' => array('entity_type', 'uid', 'sid'),
-      'entity_type_entity_id_uid_sid' => array('entity_type', 'entity_id', 'uid', 'sid'),
+      'entity_type_entity_id_uid_sid' => array(
+        'entity_type',
+        'entity_id',
+        'uid',
+        'sid',
+      ),
       'entity_id_fid' => array('entity_id', 'fid'),
     ),
   );
@@ -190,7 +195,7 @@ function flag_schema() {
         'not null' => TRUE,
         'default' => 0,
         'disp-size' => 11,
-      )
+      ),
     ),
     'primary key' => array('fid', 'entity_id'),
     'indexes' => array(
@@ -296,7 +301,11 @@ function flag_update_6200() {
 function flag_update_6201() {
   // Remove "content type" from one key, see http://drupal.org/node/612602.
   db_drop_unique_key('flag_content', 'fid_content_type_content_id_uid');
-  db_add_unique_key('flag_content', 'fid_content_id_uid', array('fid', 'content_id', 'uid'));
+  db_add_unique_key('flag_content', 'fid_content_id_uid', array(
+    'fid',
+    'content_id',
+    'uid',
+  ));
 
   // Add a count index, see http://drupal.org/node/489610.
   db_add_index('flag_counts', 'count', array('count'));
@@ -311,11 +320,25 @@ function flag_update_6202() {
   db_drop_index('flag_content', 'content_type_uid');
 
   // Add the column.
-  db_add_field('flag_content', 'sid', array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0));
+  db_add_field('flag_content', 'sid', array(
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+    'default' => 0,
+  ));
 
   // Re-add the removed keys.
-  db_add_unique_key('flag_content', 'fid_content_id_uid_sid', array('fid', 'content_id', 'uid', 'sid'));
-  db_add_index('flag_content', 'content_type_uid_sid', array('content_type', 'uid', 'sid'));
+  db_add_unique_key('flag_content', 'fid_content_id_uid_sid', array(
+    'fid',
+    'content_id',
+    'uid',
+    'sid',
+  ));
+  db_add_index('flag_content', 'content_type_uid_sid', array(
+    'content_type',
+    'uid',
+    'sid',
+  ));
 }
 
 /**
@@ -357,14 +380,25 @@ function flag_update_6206() {
     db_drop_unique_key('flag_content', 'content_type_content_id_uid_sid');
   }
 
-  db_add_index('flag_content', 'content_type_content_id_uid_sid', array('content_type', 'content_id', 'uid', 'sid'));
+  db_add_index('flag_content', 'content_type_content_id_uid_sid', array(
+    'content_type',
+    'content_id',
+    'uid',
+    'sid',
+  ));
 }
 
 /**
  * Adds column last_updated to flag_counts table.
  */
 function flag_update_6207() {
-  db_add_field('flag_counts', 'last_updated', array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'disp-size' => 11), array('indexes' => array('last_updated' => array('last_updated'))));
+  db_add_field('flag_counts', 'last_updated', array(
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+    'default' => 0,
+    'disp-size' => 11),
+    array('indexes' => array('last_updated' => array('last_updated'))));
 }
 
 /**
@@ -482,7 +516,12 @@ function flag_update_7303() {
       ),
       'indexes' => array(
         'entity_type_uid_sid' => array('entity_type', 'uid', 'sid'),
-        'entity_type_content_id_uid_sid' => array('entity_type', 'content_id', 'uid', 'sid'),
+        'entity_type_content_id_uid_sid' => array(
+          'entity_type',
+          'content_id',
+          'uid',
+          'sid',
+        ),
         'content_id_fid' => array('content_id', 'fid'),
       ),
     )
@@ -510,7 +549,12 @@ function flag_update_7303() {
         'fid_entity_id_uid_sid' => array('fid', 'entity_id', 'uid', 'sid'),
       ),
       'indexes' => array(
-        'entity_type_entity_id_uid_sid' => array('entity_type', 'entity_id', 'uid', 'sid'),
+        'entity_type_entity_id_uid_sid' => array(
+          'entity_type',
+          'entity_id',
+          'uid',
+          'sid',
+        ),
         'entity_id_fid' => array('entity_id', 'fid'),
       ),
     )
@@ -569,7 +613,7 @@ function flag_update_7304() {
       'indexes' => array(
         'fid_entity_type' => array('fid', 'entity_type'),
         'entity_type_content_id' => array('entity_type', 'content_id'),
-      )
+      ),
     )
   );
 
@@ -671,7 +715,8 @@ function flag_update_7306() {
     }
 
     // Update show_on_comment and show_on_entity properties to use new view
-    // mode settings. Since the old logic was to show on all view modes, do that.
+    // mode settings. Since the old logic was to show on all view modes, do
+    // that.
     if (!empty($flag->show_on_entity) || !empty($flag->show_on_comment)) {
       if ($entity_info = entity_get_info($flag->entity_type)) {
         foreach ($entity_info['view modes'] as $view_mode => $value) {

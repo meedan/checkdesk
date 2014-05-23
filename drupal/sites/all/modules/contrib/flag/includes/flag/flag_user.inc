@@ -2,7 +2,7 @@
 
 /**
  * @file
- *   Contains the flag_user class.
+ * Contains the flag_user class.
  */
 
 /**

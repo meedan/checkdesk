@@ -34,11 +34,8 @@ $conf['locale_custom_strings_en'][''] = array(
 );
 
 
-
-
 BUGS, FEATURES, QUESTIONS
 =========================
 Post any bugs, features or questions to the issue queue:
 
 http://drupal.org/project/issues/email_registration
-

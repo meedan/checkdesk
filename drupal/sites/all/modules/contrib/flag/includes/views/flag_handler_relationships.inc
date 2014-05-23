@@ -264,4 +264,3 @@ class flag_handler_relationship_user_content extends flag_handler_relationship {
     parent::query();
   }
 }
-

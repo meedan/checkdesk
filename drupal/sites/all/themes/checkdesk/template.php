@@ -1009,17 +1009,6 @@ function checkdesk_field__field_rating(&$variables) {
   return $output;
 }
 
-
-/**
- * Adjust user login form
- */
-function checkdesk_form_alter(&$form, &$form_state) {
-  // forgot password form
-  if($form['form_id']['#id'] == 'edit-user-pass') {
-    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
-  }
-}
-
 function checkdesk_fboauth_action__connect(&$variables) {
   $action = $variables['action'];
   $link = $variables['properties'];

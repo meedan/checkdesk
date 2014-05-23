@@ -34,11 +34,7 @@ function checkdesk_install_tasks($install_state) {
     'display_name' => st('Import translations'),
     'type' => 'batch',
   );
-  #$tasks['cd_cleanup'] = array(
-  #  'display_name' => st('Cleanup'),
-  #  'type' => 'batch',
-  #);
- return $tasks;
+  return $tasks;
 }
 
 function cd_import_translations() {
@@ -233,31 +229,22 @@ function cd_apps_form($form, &$form_state, &$install_state) {
 function cd_apps_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   variable_set('oembedembedly_api_key', $values['oembedembedly_api_key']);
-  variable_set('twitter_consumer_key', $values['twitter_consumer_key']);
-  variable_set('twitter_consumer_secret', $values['twitter_consumer_secret']);
-  variable_set('fboauth_id', $values['fboauth_id']);
-  variable_set('fboauth_secret', $values['fboauth_secret']);
+  if (isset($values['twitter_consumer_key'])) {
+    variable_set('twitter_consumer_key', $values['twitter_consumer_key']);
+  }
+  if (isset($values['twitter_consumer_secret'])) {
+    variable_set('twitter_consumer_secret', $values['twitter_consumer_secret']);
+  }
+  if (isset($values['fboauth_id'])) {
+    variable_set('fboauth_id', $values['fboauth_id']);
+  }
+  if (isset($values['fboauth_secret'])) {
+    variable_set('fboauth_secret', $values['fboauth_secret']);
+  }
   //change l18n_update setting to import translation from local server.
   module_enable(array('checkdesk_featured_stories_feature'));
   features_revert(array('checkdesk_core_feature' => array('translations', 'menu_links', 'uuid_node')));
   features_revert(array('checkdesk_featured_stories_feature' => array('user_permission')));
-}
-
-function cd_cleanup() {
-  $operations = array();
-  $operations[] = array('_cd_cleanup_install_batch', array('checkdesk_featured_stories_feature', 'Checkdesk Featured Stories'));
-  //$components = array('translations', 'menu_links', 'uuid_node');
-  $components = array('translations');
-  foreach ($components as $component) {
-    $operations[] = array('_cd_cleanup_revert_batch', array('checkdesk_core_feature', $component));
-  }
-  $batch = array(
-    'operations' => $operations,
-    'title' => st('Cleanup installation'),
-    'error_message' => st('The installation has encountered an error.'),
-    'finished' => '_cd_cleanup_finished',
-  );
-  return $batch;
 }
 
 /**

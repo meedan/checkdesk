@@ -2,7 +2,7 @@
 
 /**
  * @file
- *   Contains the flag_entity class.
+ * Contains the flag_entity class.
  */
 
 /**
@@ -58,7 +58,8 @@ class flag_entity extends flag_flag {
     }
     // Select the first display option by default if this is a new flag.
     if (empty($this->fid)) {
-      $first_view_mode = reset(array_keys($entity_view_modes));
+      $first_view_mode_keys = array_keys($entity_view_modes);
+      $first_view_mode = reset($first_view_mode_keys);
       $defaults[$first_view_mode] = $first_view_mode;
     }
 
@@ -157,6 +158,37 @@ class flag_entity extends flag_flag {
         )),
       ),
     );
+  }
+
+  /**
+   * Invoke a Rules event in reaction to a flagging or unflagging.
+   *
+   * @param $action
+   *   Either 'flag' or 'unflag'.
+   * @param $flagging
+   *  The flagging entity that is to be removed.
+   * @param $entity_id
+   *  The entity ID of entity being unflagged.
+   * @param $account
+   *  The account performing the unflagging.
+   */
+  protected function invoke_rules_event($action, $flagging, $entity_id, $account) {
+    switch ($action) {
+      case 'flag':
+        $event_name = 'flag_flagged_' . $this->name;
+        break;
+      case 'unflag':
+        $event_name = 'flag_unflagged_' . $this->name;
+        break;
+    }
+
+    $variables = array(
+      'flag' => $this,
+      'flagged_' . $this->entity_type => $entity_id,
+      'flagging_user' => $account,
+      'flagging' => $flagging,
+    );
+    rules_invoke_event_by_args($event_name, $variables);
   }
 
   /**

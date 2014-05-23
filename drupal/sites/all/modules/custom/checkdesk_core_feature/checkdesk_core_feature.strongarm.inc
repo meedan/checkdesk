@@ -1641,6 +1641,20 @@ password: Your password
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'varnish_cache_clear';
+  $strongarm->value = '0';
+  $export['varnish_cache_clear'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'varnish_flush_cron';
+  $strongarm->value = '0';
+  $export['varnish_flush_cron'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'views_defaults';
   $strongarm->value = array(
     'admin_views_user' => TRUE,

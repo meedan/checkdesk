@@ -67,6 +67,9 @@ function file_requirements($phase) {
       $fastcgi = FALSE;
     }
     
+    
+    
+
     if (!$is_apache && !$is_nginx) {
       $value = t('Not enabled');
       $description = t('Your server is not capable of displaying file upload progress. File upload progress requires an Apache server running PHP with mod_php or Nginx with PHP-FPM.');

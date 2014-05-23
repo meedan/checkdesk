@@ -2,7 +2,7 @@
 
 /**
  * @file
- *   Contains the flag_node class.
+ * Contains the flag_node class.
  */
 
 /**
@@ -89,6 +89,7 @@ class flag_node extends flag_entity {
    *
    * @param $entity_id
    *   The nid for the content.
+   *
    * @return
    *   The tnid if available, the nid otherwise.
    */

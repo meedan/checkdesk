@@ -2,7 +2,7 @@
 
 /**
  * @file
- *   Contains the FlagCookieStorage class.
+ * Contains the FlagCookieStorage class.
  */
 
 /**

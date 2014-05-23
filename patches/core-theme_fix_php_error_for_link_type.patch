@@ -1,0 +1,17 @@
+diff --git a/drupal/includes/theme.inc b/drupal/includes/theme.inc
+index ee73965..e799da8 100644
+--- a/drupal/includes/theme.inc
++++ b/drupal/includes/theme.inc
+@@ -1733,8 +1733,10 @@ function theme_links($variables) {
+       $output .= '<li' . drupal_attributes(array('class' => $class)) . '>';
+ 
+       if (isset($link['href'])) {
+-        // Pass in $link as $options, they share the same keys.
+-        $output .= l($link['title'], $link['href'], $link);
++        if(is_array($link)) {
++          // Pass in $link as $options, they share the same keys.
++          $output .= l($link['title'], $link['href'], $link);
++        }
+       }
+       elseif (!empty($link['title'])) {
+         // Some links are actually not links, but we wrap these in <span> for adding title and class attributes.

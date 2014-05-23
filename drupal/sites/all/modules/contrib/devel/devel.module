@@ -1789,7 +1789,7 @@ function drupal_debug($data, $label = NULL) {
   $out = ($label ? $label . ': ' : '') . print_r($data, TRUE) . "\n";
 
   // The temp directory does vary across multiple simpletest instances.
-  $file = 'temporary://drupal_debug.txt';
+  $file = file_directory_temp() . '/drupal_debug.txt';
   if (file_put_contents($file, $out, FILE_APPEND) === FALSE) {
     drupal_set_message(t('Devel was unable to write to %file.', array('%file' => $file)), 'error');
     return FALSE;

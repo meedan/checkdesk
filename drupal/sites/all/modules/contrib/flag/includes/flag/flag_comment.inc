@@ -2,7 +2,7 @@
 
 /**
  * @file
- *   Contains the flag_comment class.
+ * Contains the flag_comment class.
  */
 
 /**

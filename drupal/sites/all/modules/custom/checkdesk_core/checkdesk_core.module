@@ -1575,17 +1575,19 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       $form['#attributes']['class'][] = 'ife';
     }
   }
+  if ($form_id == 'system_site_information_settings' || $form_id == '_checkdesk_core_settings') {
+    //alter submit to purge all varnish caches
+    $form['#submit'][] = 'checkdesk_core_site_information_submit';
+  }
 
   if (in_array($form_id, array('user_login', 'user_login_block', 'user_register_form'))) {
     $items = array();
+    if (twitter_api_keys()) {
+      $items[] = twitter_signin_button();
+    }
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
     if (isset($fb_block['content'])) {
       $items[] = $fb_block['content'];
-    }
-    $twitter_key = variable_get('twitter_consumer_key', NULL);
-    $twitter_secret = variable_get('twitter_consumer_secret', NULL);
-    if ($twitter_key && $twitter_secret) {
-      $items[] = twitter_signin_button();
     }
     if (count($items)) {
       $form['social_media_signin'] = array(
@@ -1662,6 +1664,9 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     unset($form['account']['pass']['#description']);
     $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
     $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
+  }
+  if ($form_id == 'user_pass') {
+    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
   }
 
   // theme file field
@@ -2649,35 +2654,39 @@ function checkdesk_core_cron() {
     //any action reflect on frontpage 
     if ($queue->numberOfItems()) {
       $languages = language_list();
-      $sites = variable_get('site_urls', array());
+      $hostnames = variable_get('hostnames', array());
       $paths = array();
+      //define purge_all variable as no need to generate  URLs if purge all exist.
+      $purge_all = FALSE;
       while($item = $queue->claimItem()) {
         $paths = array_merge($paths, $item->data);
         $queue->deleteItem($item);
       }
       //remove duplicate items
       $paths = array_flip(array_flip($paths));
-      foreach ($sites as $site) {
+      if (in_array('varnish_purge_all_pages', $paths)) {
+        $purge_all = TRUE;
+      }
+      foreach ($hostnames as $hostname) {
         $urls = array();
-        foreach ($paths as $path) {
-          foreach($languages as $key => $value) {
-            $urls[] = url($path, array(
-              //'absolute' => TRUE,
-              'language' => $languages[$key],
-              //'base_url' => $site,
-            ));
+        if (!$purge_all) {
+          foreach ($paths as $path) {
+            foreach($languages as $key => $value) {
+              $urls[] = url($path, array(
+                'language' => $languages[$key],
+              ));
+            }
           }
+          //add front page
+          $urls[] = url('<front>', array());
         }
-        //add front page
-        $urls[] = url('<front>', array(
-          //'absolute' => TRUE,
-          //'base_url' => $site,
-        ));
-        $parts = parse_url($site);
+        else {
+          $urls = array(base_path());
+        }
         //log urls and host name
-        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $parts['host'], '!urls' => theme('item_list', array('items' => $urls))));
+        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
         watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
-        checkdesk_varnish_expire_cache($urls, $parts['host']);
+        checkdesk_varnish_expire_cache($urls, $hostname);
       }
     }
   }
@@ -2714,6 +2723,17 @@ function checkdesk_log_reports_updates($op, $text, $update_nid) {
       }
     }
   }
+}
+
+/**
+ *
+ */
+function checkdesk_core_site_information_submit(&$form, &$form_state) {
+  $paths = array();
+  //add static keyword to identify purged all caches
+  $paths[] = 'varnish_purge_all_pages';
+  $queue = DrupalQueue::get('checkdesk_varnish');
+  $queue->createItem($paths);
 }
 
 /**

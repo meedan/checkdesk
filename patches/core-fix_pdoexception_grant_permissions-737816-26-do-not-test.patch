@@ -1,8 +1,8 @@
 diff --git a/drupal/modules/user/user.module b/drupal/modules/user/user.module
-index c1c7ec2..712aec9 100644
+index b239799..a5202dd 100644
 --- a/drupal/modules/user/user.module
 +++ b/drupal/modules/user/user.module
-@@ -3065,15 +3065,17 @@ function user_role_grant_permissions($rid, array $permissions = array()) {
+@@ -3102,15 +3102,17 @@ function user_role_grant_permissions($rid, array $permissions = array()) {
    $modules = user_permission_get_modules();
    // Grant new permissions for the role.
    foreach ($permissions as $name) {

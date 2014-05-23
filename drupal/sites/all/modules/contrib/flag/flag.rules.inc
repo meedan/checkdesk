@@ -81,7 +81,7 @@ class FlagRulesUIClass extends RulesDataUI implements RulesDataDirectInputFormIn
       '#required' => empty($info['optional']),
       '#multiple' => FALSE,
       '#default_value' => $settings[$name],
-      '#empty' => t('There is no suiting flag available.')
+      '#empty' => t('There is no suiting flag available.'),
     );
     return $form;
   }
@@ -375,9 +375,10 @@ function flag_rules_action_info() {
       'access callback' => 'flag_rules_integration_access',
     );
   }
-  // For backward compatibility sake. This was the original name of the 'fetch node by user'.
+  // For backward compatibility sake. This was the original name of the
+  // 'fetch node by user'.
   $items['flag_fetch_entity_by_user'] = $items['flag_fetch_node_by_user'];
-  $items['flag_fetch_entity_by_user']['label'] .= ' '. t('(Legacy)');
+  $items['flag_fetch_entity_by_user']['label'] .= ' ' . t('(Legacy)');
   return $items;
 }
 
@@ -424,19 +425,23 @@ function flag_rules_action_fetch_users($flag, $entity) {
 }
 
 /**
- * Base action implementation: Fetch entities who were flagged a user.
+ * Base action implementation: Fetch entities flagged by a user.
  */
 function flag_rules_action_fetch_entity_by_user($flag, $entity) {
-  $user = entity_metadata_wrapper('user', $entity);
-  $sid = $user->flag_sid->value();
   $query = db_select('flagging', 'fc')
     ->fields('fc', array('entity_id'))
     ->condition('entity_type', $flag->entity_type)
-    ->condition('uid', $user->uid->value())
     ->condition('fid', $flag->fid);
-  // Filter out any bad session ids and any users that aren't anonymous.
-  if (!empty($sid) && $sid != -1) {
-    $query->condition('sid', $sid);
+  // For global flags the user parameter is ignored, so we add the
+  // extra 'uid' condition when the flag is NOT global.
+  if (!$flag->global) {
+    $user = entity_metadata_wrapper('user', $entity);
+    $sid = $user->flag_sid->value();
+    $query = $query->condition('uid', $user->uid->value());
+    // Filter out any bad session ids and any users that aren't anonymous.
+    if (!empty($sid) && $sid != -1) {
+      $query->condition('sid', $sid);
+    }
   }
   $result = $query->execute();
   $flagged = $result->fetchCol();
@@ -469,7 +474,8 @@ function flag_rules_get_flag_types() {
 }
 
 /**
- * Base action implementation: Fetch count of flags for a particular entity type.
+ * Base action implementation: Fetch count of flags for a particular entity
+ * type.
  *
  * During a flagging, the current flagging will be included in the count.
  * During an unflagging, the current flagging being removed will not yet have
@@ -509,7 +515,7 @@ function flag_rules_condition_info() {
             'type' => 'flag',
             'label' => t('Flag'),
             'flag_type' => $type,
-            'description' => t('The flag to check for.')
+            'description' => t('The flag to check for.'),
           ),
           $type => array(
             'type' => $type,
@@ -545,7 +551,7 @@ function flag_rules_condition_info() {
             'type' => 'flag',
             'label' => t('Flag'),
             'flag_type' => $type,
-            'description' => t('The flag to check for.')
+            'description' => t('The flag to check for.'),
           ),
           $type => array(
             'type' => $type,
@@ -566,7 +572,8 @@ function flag_rules_condition_info() {
 }
 
 /**
- * Options list callback for the operator parameter of the flagging threshold condition.
+ * Options list callback for the operator parameter of the flagging threshold
+ * condition.
  */
 function flag_rules_condition_threshold_operator_options() {
   return array(
@@ -588,10 +595,10 @@ function flag_rules_condition_threshold($flag, $entity, $number, $operator = '='
   $count = $flag->get_count($flag->get_entity_id($entity));
 
   switch ($operator) {
-    case '>' : return $count >  $number;
+    case '>': return $count > $number;
     case '>=': return $count >= $number;
-    case '=' : return $count == $number;
-    case '<' : return $count <  $number;
+    case '=': return $count == $number;
+    case '<': return $count < $number;
     case '<=': return $count <= $number;
   }
 }

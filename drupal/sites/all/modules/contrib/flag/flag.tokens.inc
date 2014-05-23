@@ -123,6 +123,7 @@ function flag_tokens($type, $tokens, array $data = array(), array $options = arr
         case 'name':
           $replacements[$original] = $sanitize ? check_plain($flag->name) : $flag->name;
           break;
+
         case 'title':
           $replacements[$original] = $sanitize ? check_plain($flag->get_title()) : $flag->get_title();
           break;
@@ -149,18 +150,23 @@ function flag_tokens($type, $tokens, array $data = array(), array $options = arr
         case 'action':
           $replacements[$original] = $action->action;
           break;
+
         case 'entity-url':
           $replacements[$original] = $sanitize ? check_url($action->entity_url) : $action->entity_url;
           break;
+
         case 'entity-title':
           $replacements[$original] = $sanitize ? check_plain($action->entity_title) : $action->entity_title;
           break;
+
         case 'entity-type':
           $replacements[$original] = $action->entity_type;
           break;
+
         case 'entity-id':
           $replacements[$original] = $action->entity_id;
           break;
+
         case 'count':
           $replacements[$original] = $action->count;
           break;

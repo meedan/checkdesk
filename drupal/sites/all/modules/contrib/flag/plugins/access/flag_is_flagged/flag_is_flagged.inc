@@ -31,7 +31,7 @@ function flag_flag_is_flagged_access_get_children($plugin, $parent) {
 
   foreach ($entities as $entity_type => $info) {
     if (entity_type_supports($entity_type, 'view')) {
-      $plugin['title'] =  t('@entity_type is flagged', array('@entity_type' => $info['label']));
+      $plugin['title'] = t('@entity_type is flagged', array('@entity_type' => $info['label']));
       $plugin['keyword'] = $entity_type;
       $plugin['name'] = $parent . ':' . $entity_type;
       $plugin['required context'] = new ctools_context_required(t('Entity'), $entity_type);
@@ -103,7 +103,7 @@ function flag_flag_is_flagged_access_check($conf, $context) {
 }
 
 /**
- * Provide a summary description based upon the specified context
+ * Provide a summary description based upon the specified context.
  */
 function flag_flag_is_flagged_access_summary($conf, $context) {
   $flag = flag_get_flag($conf['flag_name']);
