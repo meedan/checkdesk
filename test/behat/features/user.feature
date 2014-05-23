@@ -52,3 +52,18 @@ Scenario: Notifications
   When I am logged in as a user with the "journalist" role
   Then the ".notifications-count" element should contain "1"
   And I remove the created nodes
+
+@api @javascript
+Scenario: Notifications - Report flagged as spam
+  Given I am logged in as a user with the "citizen journalist" role
+  And a report from URL "http://meedan.org"
+  When I go to the last node
+  And I click on span ".icon-flag"
+  And I click "Flag spam"
+  And I wait for 20 seconds
+  And I fill in "Reason" with "Test"
+  And press "Flag spam"
+  And I wait for 10 seconds
+  When I am logged in as a user with the "journalist" role
+  Then the ".notifications-count" element should contain "1"
+  And I remove the created nodes
