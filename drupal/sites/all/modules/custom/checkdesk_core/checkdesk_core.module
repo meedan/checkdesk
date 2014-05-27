@@ -2646,24 +2646,34 @@ function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
 }
 
 /**
+ * Implements of hook_cron_queue_info().
+ */
+function checkdesk_core_cron_queue_info() {
+  $queues['checkdesk_varnish'] = array(
+    'worker callback' => '_checkdesk_purge_varnish',
+    'skip on cron' => TRUE,
+  );
+  return $queues;
+}
+
+/**
+ * Implements of hook_cron_queue_info_alter().
+ */
+function checkdesk_core_cron_queue_info_alter(&$queues) {
+  $queues['rules_scheduler_tasks']['skip on cron'] = TRUE;
+}
+
+/**
  * Implements of hook_cron().
  */
-function checkdesk_core_cron() {
+function _checkdesk_purge_varnish($paths) {
   if (module_exists('varnish')) {
-    $queue = DrupalQueue::get('checkdesk_varnish');
     //any action reflect on frontpage 
-    if ($queue->numberOfItems()) {
+    if (count($paths)) {
       $languages = language_list();
       $hostnames = variable_get('hostnames', array());
-      $paths = array();
       //define purge_all variable as no need to generate  URLs if purge all exist.
       $purge_all = FALSE;
-      while($item = $queue->claimItem()) {
-        $paths = array_merge($paths, $item->data);
-        $queue->deleteItem($item);
-      }
-      //remove duplicate items
-      $paths = array_flip(array_flip($paths));
       if (in_array('varnish_purge_all_pages', $paths)) {
         $purge_all = TRUE;
       }
