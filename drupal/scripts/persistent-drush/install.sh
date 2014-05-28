@@ -23,5 +23,5 @@ fi
 
 apt-get install -qy supervisor;
 cp ${PWD}/${CONF} /etc/supervisor/conf.d/drush-queues.conf;
-ln -s /usr/local/bin/drush-queues.sh ${PWD}/drush-queues.sh;
+cp ${PWD}/drush-queues.sh /usr/local/bin/drush-queues.sh;
 service supervisor restart;
