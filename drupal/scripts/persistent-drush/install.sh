@@ -3,9 +3,12 @@
 # install script for drush-queues.sh
 # http://mantis.meedan.net/view.php?id=2976#c7977
 
-LINK=$1;
+# bfoote
+# 2014-05-28
 
-if [ "" = "${LINK}" ]
+CONF=$1;
+
+if [ "" = "${CONF}" ]
 then
     cat <<EOF
 
@@ -18,7 +21,7 @@ EOF
     exit;
 fi
 
-apt-get install -qy supervisord
-ln -s ${PWD}/supervisor.conf ${PWD}/$LINK
-ln -s /etc/supervisor/conf.d/drush-queues.conf ${PWD}/supervisor.conf
-ln -s /usr/local/bin/drush-queues.sh ${PWD}/drush-queues.sh
+apt-get install -qy supervisor;
+cp ${PWD}/${CONF} /etc/supervisor/conf.d/drush-queues.conf;
+ln -s /usr/local/bin/drush-queues.sh ${PWD}/drush-queues.sh;
+service supervisor restart;

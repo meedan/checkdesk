@@ -3,3 +3,4 @@ command=/usr/local/bin/drush-queues.sh @checkdesk.dev
 stdout_logfile=/var/log/supervisor/%(program_name)s.log
 stderr_logfile=/var/log/supervisor/%(program_name)s.log
 autorestart=true
+user=checkdeskdeploy
