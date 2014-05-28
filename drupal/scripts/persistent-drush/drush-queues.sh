@@ -14,7 +14,7 @@ ALIAS=$1
 
 while true;
 do
-   drush $ALIAS queue-run checkdesk_varnish;
-   drush $ALIAS queue-run rules_scheduler_tasks;
+   drush $ALIAS -y queue-run checkdesk_varnish;
+   drush $ALIAS -y queue-run rules_scheduler_tasks;
    sleep 20;
 done
