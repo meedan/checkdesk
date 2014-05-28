@@ -2430,6 +2430,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['328efbdcd88b8229d03d3572d99a27ca'] = array(
+    'source' => 'This report is no longer available. It could have been deleted by the user or host service.',
+    'context' => '',
+    'location' => '',
+    'translation' => 'هذا التقرير غير موجود. قد يكون تم إزالته من قبل المستخدم أو المنصة المقدمة للخدمة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['32cb6604fda2b2344ebeb14819f23965'] = array(
     'source' => 'Autocomplete term widget (tagging)',
     'context' => '',
