@@ -14,6 +14,8 @@ ALIAS=$1
 
 while true;
 do
+   drush $ALIAS -y php-eval "cache_clear_all('*', 'cache_rules', TRUE);";
+   drush $ALIAS -y rusch;
    drush $ALIAS -y queue-run checkdesk_varnish;
    drush $ALIAS -y queue-run rules_scheduler_tasks;
    sleep 20;
