@@ -77,10 +77,10 @@ function theme_flag_admin_listing($variables) {
 
   foreach ($flags as $flag) {
     $ops = array(
-      'flags_edit' =>  array('title' => t('edit'), 'href' => $flag->admin_path('edit')),
-      'flags_fields' =>  array('title' => t('manage fields'), 'href' => $flag->admin_path('fields')),
-      'flags_delete' =>  array('title' => t('delete'), 'href' => $flag->admin_path('delete')),
-      'flags_export' =>  array('title' => t('export'), 'href' => $flag->admin_path('export')),
+      'flags_edit' => array('title' => t('edit'), 'href' => $flag->admin_path('edit')),
+      'flags_fields' => array('title' => t('manage fields'), 'href' => $flag->admin_path('fields')),
+      'flags_delete' => array('title' => t('delete'), 'href' => $flag->admin_path('delete')),
+      'flags_export' => array('title' => t('export'), 'href' => $flag->admin_path('export')),
     );
     if (!module_exists('field_ui')) {
       unset($ops['flags_fields']);
@@ -116,7 +116,13 @@ function theme_flag_admin_listing($variables) {
   if (count($flags) > 1) {
     $header[] = t('Weight');
   }
-  $header = array_merge($header, array(t('Flag type'), t('Roles'), t('Entity bundles'), t('Global?'), t('Operations')));
+  $header = array_merge($header, array(
+    t('Flag type'),
+    t('Roles'),
+    t('Entity bundles'),
+    t('Global?'),
+    t('Operations'),
+  ));
   $output .= theme('table', array(
     'header' => $header,
     'rows' => $rows,
@@ -142,7 +148,11 @@ function theme_flag_admin_listing_disabled($variables) {
       $ops = array();
       if (!$flag->is_compatible()) {
         $flag_updates_needed = TRUE;
-        $ops['flags_update'] = array('title' => '<strong>' . t('update code') . '</strong>', 'href' => $flag->admin_path('update'), 'html' => TRUE);
+        $ops['flags_update'] = array(
+          'title' => '<strong>' . t('update code') . '</strong>',
+          'href' => $flag->admin_path('update'),
+          'html' => TRUE,
+        );
       }
       else {
         $ops['flags_enable'] = array('title' => t('enable'), 'href' => $flag->admin_path('edit'));
@@ -163,7 +173,12 @@ function theme_flag_admin_listing_disabled($variables) {
   }
 
   if (!empty($rows)) {
-    $header = array(t('Disabled Flags'), t('Module'), t('Flag type'), t('Operations'));
+    $header = array(
+      t('Disabled Flags'),
+      t('Module'),
+      t('Flag type'),
+      t('Operations'),
+    );
     $output .= theme('table', array('header' => $header, 'rows' => $rows));
   }
 
@@ -379,17 +394,17 @@ function flag_form($form, &$form_state, $flag) {
     '#title' => t('Token replacement'),
     '#type' => 'fieldset',
     '#description' =>
-      '<p>' . t('The above six texts may contain any of the tokens listed below. For example, <em>"Flag link text"</em> could be entered as:') . '</p>' .
-      theme('item_list', array(
-        'items' => array(
-          t('Add &lt;em&gt;[node:title]&lt;/em&gt; to your favorites'),
-          t('Add this [node:type] to your favorites'),
-          t('Vote for this proposal ([node:flag-vote-count] people have already done so)'),
-        ),
-        'attributes' => array('class' => 'token-examples'),
-      )) .
-      '<p>' . t('These tokens will be replaced with the appropriate fields from the node (or user, or comment).') . '</p>' .
-      theme('flag_tokens_browser', array('types' => $flag->get_labels_token_types())),
+    '<p>' . t('The above six texts may contain any of the tokens listed below. For example, <em>"Flag link text"</em> could be entered as:') . '</p>' .
+    theme('item_list', array(
+      'items' => array(
+        t('Add &lt;em&gt;[node:title]&lt;/em&gt; to your favorites'),
+        t('Add this [node:type] to your favorites'),
+        t('Vote for this proposal ([node:flag-vote-count] people have already done so)'),
+      ),
+      'attributes' => array('class' => 'token-examples'),
+    )) .
+    '<p>' . t('These tokens will be replaced with the appropriate fields from the node (or user, or comment).') . '</p>' .
+    theme('flag_tokens_browser', array('types' => $flag->get_labels_token_types())),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );

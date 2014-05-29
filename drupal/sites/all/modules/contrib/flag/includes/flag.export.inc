@@ -15,7 +15,8 @@
  *   in hook_flag_default_flags().
  */
 function flag_export_flags($flags = array(), $module = '', $indent = '') {
-  module_load_include('inc', 'features', 'features.export'); // For features_var_export() (optional).
+  // For features_var_export() (optional).
+  module_load_include('inc', 'features', 'features.export');
   $output = $indent . '$flags = array();' . "\n";
   foreach ($flags as $item) {
     if (is_object($item)) {
@@ -269,7 +270,7 @@ function flag_update_export(&$flag) {
     if (substr($class, 0, 11) == 'FlagUpdate_') {
       // @todo: change this to work with the static class when we drop support
       // for PHP 5.2: see commit d5b517.
-      $update_handler = new $class;
+      $update_handler = new $class();
       // Cast to string, as decimals as array keys seem to be rounded down to
       // ints, WTF PHP?
       $version = (string) $update_handler->old_api_version;
@@ -364,7 +365,8 @@ class FlagUpdate_3 {
     }
 
     // Update show_on_comment and show_on_entity properties to use new view
-    // mode settings. Since the old logic was to show on all view modes, do that.
+    // mode settings. Since the old logic was to show on all view modes, do
+    // that.
     if (!empty($flag->show_on_entity) || !empty($flag->show_on_comment)) {
       if ($entity_info = entity_get_info($flag->entity_type)) {
         foreach ($entity_info['view modes'] as $view_mode => $value) {

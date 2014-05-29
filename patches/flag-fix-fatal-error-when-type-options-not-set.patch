@@ -1,8 +1,8 @@
 diff --git a/drupal/sites/all/modules/contrib/flag/includes/flag/flag_flag.inc b/drupal/sites/all/modules/contrib/flag/includes/flag/flag_flag.inc
-index 071b148..dfd29e2 100644
+index aa9b5b2..385cac8 100644
 --- a/drupal/sites/all/modules/contrib/flag/includes/flag/flag_flag.inc
 +++ b/drupal/sites/all/modules/contrib/flag/includes/flag/flag_flag.inc
-@@ -127,7 +127,7 @@ class flag_flag {
+@@ -129,7 +129,7 @@ class flag_flag {
  
      // Populate the options with the defaults.
      $options = (array) unserialize($row->options);
@@ -11,7 +11,7 @@ index 071b148..dfd29e2 100644
  
      // Make the unserialized options accessible as normal properties.
      foreach ($options as $option => $value) {
-@@ -196,7 +196,7 @@ class flag_flag {
+@@ -200,7 +200,7 @@ class flag_flag {
  
      // Merge in options from the current link type.
      $link_type = $this->get_link_type();

@@ -1009,50 +1009,6 @@ function checkdesk_field__field_rating(&$variables) {
   return $output;
 }
 
-
-/**
- * Adjust user login form
- */
-function checkdesk_form_alter(&$form, &$form_state) {
-
-  if ($form['form_id']['#id'] == 'edit-user-login' || $form['form_id']['#id'] == 'edit-user-register-form') {
-    unset($form['social_media_signin']['#title']);
-    // $form['social_media_signin']['#prefix'] = '<div class="social-media-signin-label"><span>' . t('Sign in with:') . '</span></div>';
-    $form['social_media_signin']['#suffix'] = '<div class="or"><span>' . t('or') . '</span></div>';
-  }
-
-  // user login form
-  if($form['form_id']['#id'] == 'edit-user-login') {
-    unset($form['name']['#description']);
-    // unset($form['name']['#title']);
-    unset($form['pass']['#description']);
-    $form['pass']['#title'] = t('Password');
-    // unset($form['pass']['#title']);
-    // Add forgot link and a wrapper around forgot pass and remember me
-    $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
-    $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
-    $form['remember_me']['#suffix'] = '</div>';
-    // add a wrapper around new account link
-    unset($form['links']);
-    $link['attributes']['class'][] = 'register';
-    $link['attributes']['title'] = t('Sign Up');
-    $new_account_link = l(t('Sign Up'), 'user/register', $link);
-    $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
-    ' . $new_account_link . '</div>';    
-  }
-  // create new account form
-  if($form['form_id']['#id'] == 'edit-user-register-form') {  
-    unset($form['account']['name']['#description']);
-    unset($form['account']['pass']['#description']);
-    $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
-    $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
-  }
-  // forgot password form
-  if($form['form_id']['#id'] == 'edit-user-pass') {
-    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
-  }
-}
-
 function checkdesk_fboauth_action__connect(&$variables) {
   $action = $variables['action'];
   $link = $variables['properties'];

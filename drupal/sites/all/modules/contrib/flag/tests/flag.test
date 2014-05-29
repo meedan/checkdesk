@@ -43,7 +43,7 @@ class FlagFlaggingCRUDTestCase extends FlagTestCaseBase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Flagging CRUD',
+      'name' => 'CRUD API',
       'description' => 'Basic CRUD operations on flagging entities.',
       'group' => 'Flag',
     );
@@ -216,14 +216,14 @@ class FlagFlaggingCRUDTestCase extends FlagTestCaseBase {
  * Test Flag admin UI.
  */
 class FlagAdminTestCase extends FlagTestCaseBase {
-  var $_flag = FALSE;
+  public $_flag = FALSE;
 
   /**
    * Implements getInfo().
    */
   public static function getInfo() {
     return array(
-      'name' => 'Flag admin tests',
+      'name' => 'Admin UI',
       'description' => 'Add, edit and delete flags.',
       'group' => 'Flag',
     );
@@ -235,7 +235,7 @@ class FlagAdminTestCase extends FlagTestCaseBase {
   function setUp() {
     parent::setUp('flag');
 
-    // Create and login user
+    // Create and login user.
     $admin_user = $this->drupalCreateUser(array('access administration pages', 'administer flags'));
     $this->drupalLogin($admin_user);
   }
@@ -277,7 +277,13 @@ class FlagAdminTestCase extends FlagTestCaseBase {
     $saved = $edit;
     $saved['roles'] = array('flag' => array(2), 'unflag' => array(2));
     $saved['types'] = array('page');
-    $saved['show_in_links'] = array('full' => 0, 'teaser' => 0, 'rss' => 0, 'search_index' => 0, 'search_result' => 0);
+    $saved['show_in_links'] = array(
+      'full' => 0,
+      'teaser' => 0,
+      'rss' => 0,
+      'search_index' => 0,
+      'search_result' => 0,
+    );
     unset($saved['roles[flag][2]'], $saved['roles[unflag][2]'], $saved['types[article]'], $saved['types[page]'], $saved['show_in_links[full]'], $saved['show_in_links[teaser]'], $saved['show_in_links[rss]'], $saved['show_in_links[search_index]'], $saved['show_in_links[search_result]']);
 
     $this->drupalPost(FLAG_ADMIN_PATH . '/add/node', $edit, t('Save flag'));
@@ -299,7 +305,7 @@ class FlagAdminTestCase extends FlagTestCaseBase {
     $permissions = user_role_permissions(user_roles());
     foreach ($saved['roles'] as $action => $rids) {
       foreach ($rids as $rid) {
-        $permission_string = "$action ". $saved['name'];
+        $permission_string = "$action " . $saved['name'];
         $this->assertTrue(isset($permissions[$rid][$permission_string]), t('Permission %perm set for flag.', array(
           '%perm' => $permission_string,
         )));
@@ -331,7 +337,13 @@ class FlagAdminTestCase extends FlagTestCaseBase {
     $saved = $edit;
     $saved['roles'] = array('flag' => array(2), 'unflag' => array(2));
     $saved['types'] = array('article');
-    $saved['show_in_links'] = array('full' => TRUE, 'teaser' => TRUE, 'rss' => 0, 'search_index' => 0, 'search_result' => 0);
+    $saved['show_in_links'] = array(
+      'full' => TRUE,
+      'teaser' => TRUE,
+      'rss' => 0,
+      'search_index' => 0,
+      'search_result' => 0,
+    );
     unset($saved['roles[flag][2]'], $saved['roles[unflag][2]'], $saved['types[article]'], $saved['types[page]'], $saved['show_in_links[full]'], $saved['show_in_links[teaser]'], $saved['show_in_links[rss]'], $saved['show_in_links[search_index]'], $saved['show_in_links[search_result]']);
 
     $this->drupalPost(FLAG_ADMIN_PATH . '/manage/' . $flag->name, $edit, t('Save flag'));
@@ -358,7 +370,7 @@ class FlagAdminTestCase extends FlagTestCaseBase {
 
     foreach ($saved['roles'] as $action => $rids) {
       foreach ($rids as $rid) {
-        $permission_string = "$action ". $saved['name'];
+        $permission_string = "$action " . $saved['name'];
         $this->assertTrue(isset($permissions[$rid][$permission_string]), t('Permission %perm set for flag.', array(
           '%perm' => $permission_string,
         )));
@@ -385,7 +397,7 @@ class FlagAccessFormTestCase extends FlagTestCaseBase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Flag access: entity forms',
+      'name' => 'Access to flags via entity forms',
       'description' => 'Access to flag and unflag entities via entity forms.',
       'group' => 'Flag',
     );
@@ -439,7 +451,7 @@ class FlagAccessFormTestCase extends FlagTestCaseBase {
 
     $this->drupalGet('node/add/article');
 
-    // Check that the flag form element cannot be seen
+    // Check that the flag form element cannot be seen.
     $this->assertNoText('Flag this item', t('Flag form element was not found.'));
 
     // Have the user create a node.
@@ -481,7 +493,7 @@ class FlagEntityTokensTestCase extends FlagTestCaseBase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Flag: Entity tokens',
+      'name' => 'Entity tokens',
       'description' => 'Tokens for flag count on entities.',
       'group' => 'Flag',
     );
@@ -636,7 +648,7 @@ class FlagAccessLinkTestCase extends FlagTestCaseBase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Flag access tests',
+      'name' => 'Access to flags via basic link',
       'description' => 'Access to flag and unflag entities using the basic link.',
       'group' => 'Flag',
     );
@@ -762,7 +774,7 @@ class FlagLinkTypeConfirmTestCase extends DrupalWebTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Flag confirm link tests',
+      'name' => 'Confirm form',
       'description' => 'Flag confirm form link type.',
       'group' => 'Flag',
     );
@@ -784,7 +796,7 @@ class FlagLinkTypeConfirmTestCase extends DrupalWebTestCase {
       'types' => array(
         0 => 'article',
       ),
-      'flag_short' => 'Flag this item',
+      'flag_short' => 'Flag <em>this</em> item',
       'flag_long' => '',
       'flag_message' => 'You have flagged this item.',
       'unflag_short' => 'Unflag this item',
@@ -838,10 +850,21 @@ class FlagLinkTypeConfirmTestCase extends DrupalWebTestCase {
     // Look at our node.
     $this->drupalGet('node/' . $this->nid);
 
-    $this->assertLink($this->flag_data['flag_short'], 0, 'The flag link appears on the page');
+    $flag_short_label = strip_tags($this->flag_data['flag_short']);
+
+    $this->assertRaw($this->flag_data['flag_short'], 'The flag text, including HTML, appears on the page.');
+
+    // assertLink() appears to have interesting problems dealing with an A
+    // element which contains other tags. However, the xpath it uses appears to
+    // be fine with being given just the portion of the link text that comes
+    // before the interior tag.
+    // Fortunately, there will be no other text on the page that matches 'Flag'.
+    $this->assertLink('Flag', 0, 'The flag link appears on the page.');
 
     // Click the link to flag the node.
-    $this->clickLink($this->flag_data['flag_short']);
+    // clickLink() has the same problem, as it uses the same xpath expression as
+    // assertLink().
+    $this->clickLink('Flag');
 
     $this->assertUrl('flag/confirm/flag/test_flag/' . $this->nid, array(
       'query' => array(
@@ -851,8 +874,10 @@ class FlagLinkTypeConfirmTestCase extends DrupalWebTestCase {
 
     $this->assertText($this->flag_data['flag_confirmation'], 'The flag confirmation text appears as the confirmation page title.');
 
+    $this->assertPattern('@<input [^>]* value="' . $flag_short_label . '" [^>]*>@', 'The flag text, excluding HTML, is shown in the button.');
+
     // Click the button to confirm the flagging.
-    $this->drupalPost(NULL, array(), $this->flag_data['flag_short']);
+    $this->drupalPost(NULL, array(), $flag_short_label);
 
     $this->assertText($this->flag_data['flag_message'], 'The flag message appears once the item has been flagged.');
     $this->assertLink($this->flag_data['unflag_short'], 0, 'The unflag link appears once the item has been flagged.');
@@ -894,7 +919,7 @@ class FlagHookFlagAccessTestCase extends FlagTestCaseBase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Flag hook_flag_access() tests',
+      'name' => 'hook_flag_access()',
       'description' => 'Checks the ability of modules to use hook_flag_access().',
       'group' => 'Flag',
     );
@@ -1002,7 +1027,8 @@ class FlagHookFlagAccessTestCase extends FlagTestCaseBase {
   }
 
   /**
-   * Verifies that the user sees the flag if a module returns TRUE (Allow) to override default access check.
+   * Verifies that the user sees the flag if a module returns TRUE (Allow) to
+   * override default access check.
    */
   function testFlagAccessAllowOverride() {
     variable_set('FlagHookFlagAccessTestCaseMode', 'allow');
@@ -1026,7 +1052,8 @@ class FlagHookFlagAccessTestCase extends FlagTestCaseBase {
   }
 
   /**
-   * Verifies that the user does not see the flag if a module returns FALSE (Deny).
+   * Verifies that the user does not see the flag if a module returns FALSE
+   * (Deny).
    */
   function testFlagAccessDeny() {
     variable_set('FlagHookFlagAccessTestCaseMode', 'deny');
@@ -1042,6 +1069,83 @@ class FlagHookFlagAccessTestCase extends FlagTestCaseBase {
 }
 
 /**
+ * Test use of fields on flagging entities.
+ */
+class FlagFlaggingFieldTestCase extends FlagTestCaseBase {
+
+  /**
+   * Implements getInfo().
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Flagging fields',
+      'description' => 'Fields on Flagging entities.',
+      'group' => 'Flag',
+    );
+  }
+
+  /**
+   * Implements setUp().
+   */
+  function setUp() {
+    parent::setUp('flag', 'flag_fields_test');
+  }
+
+  function testFlaggingFields() {
+    $this->assertTrue(1);
+
+    $flag_user = $this->drupalCreateUser(array(
+      'flag flag_fields_test_flag',
+      'unflag flag_fields_test_flag',
+    ));
+    $this->drupalLogin($flag_user);
+
+    $node = $this->drupalCreateNode();
+
+    $this->drupalGet('node/' . $node->nid);
+
+    $this->clickLink('Flag with the test flag');
+
+    // Try to fail the form validation by providing something non-numeric.
+    // This validation is only present in the widget validation: this is a core
+    // bug, but lets us test widget validation works correctly until it's fixed.
+    $edit = array(
+      'flag_fields_test_integer[und][0][value]' => 'banana',
+    );
+    $this->drupalPost(NULL, $edit, 'Flag with the test flag');
+
+    $this->assertText("Only numbers are allowed in Test integer.", "Form validation correctly failed the input.");
+
+    // Try to fail the form validation by a number that's out of bounds.
+    $edit = array(
+      'flag_fields_test_integer[und][0][value]' => 12,
+    );
+    $this->drupalPost(NULL, $edit, 'Flag with the test flag');
+
+    $this->assertText("Test integer: the value may be no greater than 11.", "Form validation correctly failed the input.");
+
+    $edit = array(
+      'flag_fields_test_integer[und][0][value]' => 6,
+    );
+    $this->drupalPost(NULL, $edit, 'Flag with the test flag');
+
+    $this->assertUrl('node/' . $node->nid, array(), "The flagging form submission succeeded.");
+
+    // Try to load the flagging, querying for the field value.
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'flagging')
+      ->entityCondition('bundle', 'flag_fields_test_flag')
+      ->propertyCondition('entity_id', $node->nid)
+      ->fieldCondition('flag_fields_test_integer', 'value', 6);
+
+    $result = $query->execute();
+
+    $this->assertEqual(count($result['flagging']), 1, "The Flagging entity was found with the correct field values.");
+  }
+
+}
+
+/**
  * Test use of EntityFieldQueries with flagging entities.
  */
 class FlagEntityFieldQueryTestCase extends FlagTestCaseBase {
@@ -1050,8 +1154,8 @@ class FlagEntityFieldQueryTestCase extends FlagTestCaseBase {
    * Implements getInfo().
    */
   public static function getInfo() {
-     return array(
-      'name' => 'Flagging Entity Field Query Extension',
+    return array(
+      'name' => 'Entity Field Query',
       'description' => 'Entity Field Query for flagging entities.',
       'group' => 'Flag',
     );
@@ -1099,7 +1203,12 @@ class FlagEntityFieldQueryTestCase extends FlagTestCaseBase {
     $this->flag3 = $this->createFlag($flag_data);
 
     // Create test user who can flag and unflag.
-    $this->flag_unflag_user = $this->drupalCreateUser(array('flag test_flag_1', 'unflag test_flag_1', 'flag test_flag_2', 'unflag test_flag_2'));
+    $this->flag_unflag_user = $this->drupalCreateUser(array(
+      'flag test_flag_1',
+      'unflag test_flag_1',
+      'flag test_flag_2',
+      'unflag test_flag_2',
+    ));
     $this->drupalLogin($this->flag_unflag_user);
 
   }
@@ -1108,7 +1217,7 @@ class FlagEntityFieldQueryTestCase extends FlagTestCaseBase {
    * Test use of EntityFieldQuery with flagging entities.
    */
   function testEntityFieldQuery() {
-     $node_settings = array(
+    $node_settings = array(
       'title' => $this->randomName(),
       'body' => array(LANGUAGE_NONE => array(array('value' => $this->randomName(32)))),
       'uid' => 1,
@@ -1150,8 +1259,8 @@ class FlagHookInvocationsTestCase extends FlagTestCaseBase {
    * Implements getInfo().
    */
   public static function getInfo() {
-     return array(
-      'name' => 'Flag hook invocations',
+    return array(
+      'name' => 'Hook invocations',
       'description' => 'Invocation of flag and entity hooks and rules during flagging and unflagging.',
       'group' => 'Flag',
     );
@@ -1217,12 +1326,9 @@ class FlagHookInvocationsTestCase extends FlagTestCaseBase {
 
     // Check the parameters received by hook_entity_presave().
     // Param 0: $flagging.
-    // There is a bug with what is passed to entity hooks; for now, just check
-    // the things that do get passed.
-    // See https://drupal.org/node/2196055.
     $this->assertEqual($hook_data_variable['hook_entity_presave']['parameters'][0]->flag_name, $flag->name, "The Flagging entity passed to hook_entity_presave() has the expected flag name property.");
-    //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->fid, $flag->fid);
-    //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->entity_type, 'node');
+    $this->assertEqual($hook_data_variable['hook_entity_presave']['parameters'][0]->fid, $flag->fid, "The Flagging entity passed to hook_entity_presave() has the expected fid property.");
+    $this->assertEqual($hook_data_variable['hook_entity_presave']['parameters'][0]->entity_type, 'node', "The Flagging entity passed to hook_entity_presave() has the expected entity type property.");
     $this->assertEqual($hook_data_variable['hook_entity_presave']['parameters'][0]->entity_id, $node->nid, "The Flagging entity passed to hook_entity_presave() has the expected entity ID property.");
     $this->assertEqual($hook_data_variable['hook_entity_presave']['parameters'][0]->uid, $this->flag_unflag_user->uid, "The Flagging entity passed to hook_entity_presave() has the expected uid property.");
     // Param 1: $entity_type.
@@ -1240,10 +1346,9 @@ class FlagHookInvocationsTestCase extends FlagTestCaseBase {
 
     // Check the parameters received by hook_entity_insert().
     // Param 0: $flagging.
-    // See https://drupal.org/node/2196055.
     $this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->flag_name, $flag->name, "The Flagging entity passed to hook_entity_insert() has the expected flag name property.");
-    //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->fid, $flag->fid);
-    //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->entity_type, 'node');
+    $this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->fid, $flag->fid, "The Flagging entity passed to hook_entity_insert() has the expected fid property.");
+    $this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->entity_type, 'node', "The Flagging entity passed to hook_entity_insert() has the expected entity type property.");
     $this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->entity_id, $node->nid, "The Flagging entity passed to hook_entity_insert() has the expected entity ID property.");
     $this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->uid, $this->flag_unflag_user->uid, "The Flagging entity passed to hook_entity_insert() has the expected uid property.");
     $this->assertTrue(!empty($hook_data_variable['hook_entity_insert']['parameters'][0]->flagging_id), "The Flagging entity passed to hook_entity_insert() has the flagging ID set.");
@@ -1287,10 +1392,9 @@ class FlagHookInvocationsTestCase extends FlagTestCaseBase {
     // Param 2: $account.
     $this->assertEqual($hook_data_variable['hook_flag_flag']['parameters'][2]->uid, $this->flag_unflag_user->uid, "The user account is passed to hook_flag_flag().");
     // Param 3: $flagging.
-    // See https://drupal.org/node/2196055.
     $this->assertEqual($hook_data_variable['hook_flag_flag']['parameters'][3]->flag_name, $flag->name, "The Flagging entity passed to hook_flag_flag() has the expected flag name property.");
-    //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][3]->fid, $flag->fid);
-    //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][3]->entity_type, 'node');
+    $this->assertEqual($hook_data_variable['hook_flag_flag']['parameters'][3]->fid, $flag->fid, "The Flagging entity passed to hook_flag_flag() has the expected fid property.");
+    $this->assertEqual($hook_data_variable['hook_flag_flag']['parameters'][3]->entity_type, 'node', "The Flagging entity passed to hook_flag_flag() has the expected entity type property.");
     $this->assertEqual($hook_data_variable['hook_flag_flag']['parameters'][3]->entity_id, $node->nid, "The Flagging entity passed to hook_flag_flag() has the expected entity ID property.");
     $this->assertEqual($hook_data_variable['hook_flag_flag']['parameters'][3]->uid, $this->flag_unflag_user->uid, "The Flagging entity passed to hook_flag_flag() has the expected uid property.");
 
@@ -1359,9 +1463,6 @@ class FlagHookInvocationsTestCase extends FlagTestCaseBase {
 
     // Check the parameters received by hook_entity_presave().
     // Param 0: $flagging.
-    // There is a bug with what is passed to entity hooks; for now, just check
-    // the things that do get passed.
-    // See https://drupal.org/node/2196055.
     $this->assertEqual($hook_data_variable['hook_entity_presave']['parameters'][0]->flag_name, $flag->name, "The Flagging entity passed to hook_entity_presave() has the expected flag name property.");
     //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->fid, $flag->fid);
     //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][0]->entity_type, 'node');
@@ -1401,10 +1502,9 @@ class FlagHookInvocationsTestCase extends FlagTestCaseBase {
 
     // Check the parameters received by hook_entity_update().
     // Param 0: $flagging.
-    // See https://drupal.org/node/2196055.
     $this->assertEqual($hook_data_variable['hook_entity_update']['parameters'][0]->flag_name, $flag->name, "The Flagging entity passed to hook_entity_update() has the expected flag name property.");
-    //$this->assertEqual($hook_data_variable['hook_entity_update']['parameters'][0]->fid, $flag->fid);
-    //$this->assertEqual($hook_data_variable['hook_entity_update']['parameters'][0]->entity_type, 'node');
+    $this->assertEqual($hook_data_variable['hook_entity_presave']['parameters'][0]->fid, $flag->fid, "The Flagging entity passed to hook_entity_presave() has the expected fid property.");
+    $this->assertEqual($hook_data_variable['hook_entity_presave']['parameters'][0]->entity_type, 'node', "The Flagging entity passed to hook_entity_presave() has the expected entity type property.");
     $this->assertEqual($hook_data_variable['hook_entity_update']['parameters'][0]->entity_id, $node->nid, "The Flagging entity passed to hook_entity_update() has the expected entity ID property.");
     $this->assertEqual($hook_data_variable['hook_entity_update']['parameters'][0]->uid, $this->flag_unflag_user->uid, "The Flagging entity passed to hook_entity_update() has the expected uid property.");
     $this->assertTrue(!empty($hook_data_variable['hook_entity_update']['parameters'][0]->flagging_id), "The Flagging entity passed to hook_entity_update() has the flagging ID set.");
@@ -1467,10 +1567,9 @@ class FlagHookInvocationsTestCase extends FlagTestCaseBase {
     // Param 2: $account.
     $this->assertEqual($hook_data_variable['hook_flag_unflag']['parameters'][2]->uid, $this->flag_unflag_user->uid, "The user account is passed to hook_flag_unflag().");
     // Param 3: $flagging.
-    // See https://drupal.org/node/2196055.
     $this->assertEqual($hook_data_variable['hook_flag_unflag']['parameters'][3]->flag_name, $flag->name, "The Flagging entity passed to hook_flag_unflag() has the expected flag name property.");
-    //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][3]->fid, $flag->fid);
-    //$this->assertEqual($hook_data_variable['hook_entity_insert']['parameters'][3]->entity_type, 'node');
+    $this->assertEqual($hook_data_variable['hook_flag_unflag']['parameters'][3]->fid, $flag->fid, "The Flagging entity passed to hook_entity_presave() has the expected fid property.");
+    $this->assertEqual($hook_data_variable['hook_flag_unflag']['parameters'][3]->entity_type, 'node', "The Flagging entity passed to hook_entity_presave() has the expected entity type property.");
     $this->assertEqual($hook_data_variable['hook_flag_unflag']['parameters'][3]->entity_id, $node->nid, "The Flagging entity passed to hook_flag_unflag() has the expected entity ID property.");
     $this->assertEqual($hook_data_variable['hook_flag_unflag']['parameters'][3]->uid, $this->flag_unflag_user->uid, "The Flagging entity passed to hook_flag_unflag() has the expected uid property.");
 
@@ -1511,10 +1610,9 @@ class FlagHookInvocationsTestCase extends FlagTestCaseBase {
 
     // Check the parameters received by hook_entity_delete().
     // Param 0: $flagging.
-    // See https://drupal.org/node/2196055.
     $this->assertEqual($hook_data_variable['hook_entity_delete']['parameters'][0]->flag_name, $flag->name, "The Flagging entity passed to hook_entity_delete() has the expected flag name property.");
-    //$this->assertEqual($hook_data_variable['hook_entity_delete']['parameters'][0]->fid, $flag->fid);
-    //$this->assertEqual($hook_data_variable['hook_entity_delete']['parameters'][0]->entity_type, 'node');
+    $this->assertEqual($hook_data_variable['hook_entity_delete']['parameters'][0]->fid, $flag->fid, "The Flagging entity passed to hook_entity_presave() has the expected fid property.");
+    $this->assertEqual($hook_data_variable['hook_entity_delete']['parameters'][0]->entity_type, 'node', "The Flagging entity passed to hook_entity_presave() has the expected entity type property.");
     $this->assertEqual($hook_data_variable['hook_entity_delete']['parameters'][0]->entity_id, $node->nid, "The Flagging entity passed to hook_entity_delete() has the expected entity ID property.");
     $this->assertEqual($hook_data_variable['hook_entity_delete']['parameters'][0]->uid, $this->flag_unflag_user->uid, "The Flagging entity passed to hook_entity_delete() has the expected uid property.");
     $this->assertTrue(!empty($hook_data_variable['hook_entity_delete']['parameters'][0]->flagging_id), "The Flagging entity passed to hook_entity_delete() has the flagging ID set.");

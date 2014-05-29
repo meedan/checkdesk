@@ -379,7 +379,7 @@ function theme_flag_actions_add_form($variables) {
   $fieldset = array(
     '#type' => 'fieldset',
     '#title' => t('Add a new flag action'),
-    '#children' => '<div class="container-inline">'. drupal_render($form['flag']) . drupal_render($form['submit']) .'</div>',
+    '#children' => '<div class="container-inline">' . drupal_render($form['flag']) . drupal_render($form['submit']) . '</div>',
     '#parents' => array('add_action'),
     '#attributes' => array(),
     '#groups' => array('add_action' => array()),
@@ -397,7 +397,6 @@ function theme_flag_actions_add_form($variables) {
  *   If editing an action, an action ID must be passed in.
  * @param $flag_name
  *   If adding a new action to a flag, a flag name must be specified.
- *
  */
 function flag_actions_form($form, &$form_state, $aid = NULL, $flag_name = NULL) {
   // This is a multistep form. Get the callback value if set and continue.
@@ -422,7 +421,7 @@ function flag_actions_form($form, &$form_state, $aid = NULL, $flag_name = NULL) 
 
   $form['new'] = array(
     '#type' => 'value',
-    '#value' => isset($callback) ? FALSE: TRUE,
+    '#value' => isset($callback) ? FALSE : TRUE,
   );
 
   if (!isset($callback)) {
@@ -430,7 +429,7 @@ function flag_actions_form($form, &$form_state, $aid = NULL, $flag_name = NULL) 
 
     $actions = $flag->get_valid_actions();
     $options = array();
-    foreach($actions as $key => $action) {
+    foreach ($actions as $key => $action) {
       $options[$key] = $action['label'];
     }
 
@@ -449,7 +448,7 @@ function flag_actions_form($form, &$form_state, $aid = NULL, $flag_name = NULL) 
   }
   elseif (!isset($action)) {
     $actions = $flag->get_valid_actions();
-    $action = (object)$actions[$callback];
+    $action = (object) $actions[$callback];
     $action->parameters = array();
     $action->event = 'flag';
     $action->threshold = 10;
@@ -512,7 +511,7 @@ function flag_actions_form($form, &$form_state, $aid = NULL, $flag_name = NULL) 
   }
 
   // Merge in the standard flag action form.
-  $action_form = $callback .'_form';
+  $action_form = $callback . '_form';
   $edit = array();
   if (function_exists($action_form)) {
     $edit += $action->parameters;
@@ -524,7 +523,7 @@ function flag_actions_form($form, &$form_state, $aid = NULL, $flag_name = NULL) 
   }
 
   // Add a few customizations to existing flag actions.
-  $flag_actions_form = 'flag_actions_'. $callback .'_form';
+  $flag_actions_form = 'flag_actions_' . $callback . '_form';
   if (function_exists($flag_actions_form)) {
     $flag_actions_form($form, $flag, $edit);
   }

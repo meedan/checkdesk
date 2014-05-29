@@ -13,7 +13,7 @@
  */
 function flag_bookmark_enable() {
   // Load the flag API in case we want to use it when enabling.
-  include_once(drupal_get_path('module', 'flag') . '/flag.module');
+  include_once drupal_get_path('module', 'flag') . '/flag.module';
 
   if (!flag_get_flags()) {
     // Install a demonstration flag only if no flag exists. This is to prevent
@@ -21,24 +21,24 @@ function flag_bookmark_enable() {
     // flag is overwritten or re-created.
     $flag = flag_flag::factory_by_entity_type('node');
     $configuration = array(
-        'name' => 'bookmarks',
-        'global' => 0,
-        'show_in_links' => array(
-          'full' => 1,
-          'teaser' => 1,
-        ),
-        'show_on_form' => 1,
-        // The following UI labels aren't wrapped in t() because they are written
-        // to the DB in English. They are passed to t() later, thus allowing for
-        // multilingual sites.
-        'title' => 'Bookmarks',
-        'flag_short' => 'Bookmark this',
-        'flag_long' => 'Add this post to your bookmarks',
-        'flag_message' => 'This post has been added to your bookmarks',
-        'unflag_short' => 'Unbookmark this',
-        'unflag_long' => 'Remove this post from your bookmarks',
-        'unflag_message' => 'This post has been removed from your bookmarks',
-        'types' => _flag_bookmark_install_get_suggested_node_types(),
+      'name' => 'bookmarks',
+      'global' => 0,
+      'show_in_links' => array(
+        'full' => 1,
+        'teaser' => 1,
+      ),
+      'show_on_form' => 1,
+      // The following UI labels aren't wrapped in t() because they are written
+      // to the DB in English. They are passed to t() later, thus allowing for
+      // multilingual sites.
+      'title' => 'Bookmarks',
+      'flag_short' => 'Bookmark this',
+      'flag_long' => 'Add this post to your bookmarks',
+      'flag_message' => 'This post has been added to your bookmarks',
+      'unflag_short' => 'Unbookmark this',
+      'unflag_long' => 'Remove this post from your bookmarks',
+      'unflag_message' => 'This post has been removed from your bookmarks',
+      'types' => _flag_bookmark_install_get_suggested_node_types(),
     );
     $flag->form_input($configuration);
     $flag->save();
@@ -53,7 +53,8 @@ function flag_bookmark_enable() {
 }
 
 /**
- * Returns some node types to which the demonstration 'bookmarks' flag will apply.
+ * Returns some node types to which the demonstration 'bookmarks' flag will
+ * apply.
  */
 function _flag_bookmark_install_get_suggested_node_types() {
   $preferred = array('article', 'story', 'forum', 'blog');
@@ -64,4 +65,3 @@ function _flag_bookmark_install_get_suggested_node_types() {
   }
   return $existing;
 }
-

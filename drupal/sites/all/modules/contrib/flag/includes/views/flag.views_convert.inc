@@ -57,6 +57,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
           $new_rel = 'flag_content_rel';
           $flag_content_rel_user = 'current';
           break;
+
         case 'count':
           $new_field = array(
             'label' => $field['label'],
@@ -67,6 +68,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
           );
           $new_rel = 'flag_counts_rel';
           break;
+
         case 'name':
           $new_field = array(
             'label' => $field['label'],
@@ -95,6 +97,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
           // Remove the old filter.
           $view->set_item('default', $type, $id, NULL);
           break;
+
         case 'timestamp':
           $new_field = array(
             'operator' => $field['operator'],
@@ -109,6 +112,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
           $new_rel = 'flag_content_rel';
           drupal_set_message(t('Flag is not able to convert the <em>Flagged time</em> filter. It\'s value is currently empty, but needs to be populated to work properly.'), 'warning');
           break;
+
         case 'count':
           $new_field = array(
             'operator' => $field['operator'],
@@ -151,6 +155,7 @@ function flag_views_convert($display, $type, &$view, $field, $id) {
           );
           $new_rel = 'flag_counts_rel';
           break;
+
         case 'timestamp':
           $new_field = array(
             'order' => $field['sortorder'],

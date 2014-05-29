@@ -27,6 +27,35 @@ function checkdesk_core_schema() {
 }
 
 /**
+ * Implements hook_requirements().
+ */
+function checkdesk_core_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+  if ($phase == 'runtime') {
+    // Verify that the Facebook application keys are set.
+    $requirements['facebook_keys'] = array('title' => $t('Facebook application keys'));
+    $fboauth_id = variable_get('fboauth_id', NULL);
+    $fboauth_secret = variable_get('fboauth_secret', NULL);
+    if (!($fboauth_id && $fboauth_secret)) {
+      $requirements['facebook_keys']['value'] = $t('Missing');
+      $requirements['facebook_keys']['description'] =
+        $t('In order to interact with Facebook, you need to create an application at ' .
+           '<a href="https://developers.facebook.com/apps" target="_blank">Facebook Developers</a> ' .
+           'and set the generated application keys at the ' .
+           '<a href="/admin/config/people/fboauth">Facebook OAuth settings page</a>.');
+      $requirements['facebook_keys']['severity'] = REQUIREMENT_WARNING;
+    }
+    else {
+      $requirements['facebook_keys']['value'] = $t('Configured');
+      $requirements['facebook_keys']['severity'] = REQUIREMENT_OK;
+    }
+  }
+  return $requirements;
+
+}
+
+/**
  * Implements hook_update_N().
  * Enable remember me and change checkdesk_core weight
  */

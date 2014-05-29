@@ -34,11 +34,7 @@ function checkdesk_install_tasks($install_state) {
     'display_name' => st('Import translations'),
     'type' => 'batch',
   );
-  #$tasks['cd_cleanup'] = array(
-  #  'display_name' => st('Cleanup'),
-  #  'type' => 'batch',
-  #);
- return $tasks;
+  return $tasks;
 }
 
 function cd_import_translations() {
@@ -76,6 +72,8 @@ function cd_import_translations() {
     ->execute();
   //add sample content
   _cd_create_sample_content();
+  //add translation for administer users.
+  _cd_translate_system_menu();
   $batch = l10n_update_batch_multiple($operations, LOCALE_IMPORT_KEEP);
   return $batch;
 }
@@ -231,31 +229,22 @@ function cd_apps_form($form, &$form_state, &$install_state) {
 function cd_apps_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   variable_set('oembedembedly_api_key', $values['oembedembedly_api_key']);
-  variable_set('twitter_consumer_key', $values['twitter_consumer_key']);
-  variable_set('twitter_consumer_secret', $values['twitter_consumer_secret']);
-  variable_set('fboauth_id', $values['fboauth_id']);
-  variable_set('fboauth_secret', $values['fboauth_secret']);
+  if (isset($values['twitter_consumer_key'])) {
+    variable_set('twitter_consumer_key', $values['twitter_consumer_key']);
+  }
+  if (isset($values['twitter_consumer_secret'])) {
+    variable_set('twitter_consumer_secret', $values['twitter_consumer_secret']);
+  }
+  if (isset($values['fboauth_id'])) {
+    variable_set('fboauth_id', $values['fboauth_id']);
+  }
+  if (isset($values['fboauth_secret'])) {
+    variable_set('fboauth_secret', $values['fboauth_secret']);
+  }
   //change l18n_update setting to import translation from local server.
   module_enable(array('checkdesk_featured_stories_feature'));
   features_revert(array('checkdesk_core_feature' => array('translations', 'menu_links', 'uuid_node')));
   features_revert(array('checkdesk_featured_stories_feature' => array('user_permission')));
-}
-
-function cd_cleanup() {
-  $operations = array();
-  $operations[] = array('_cd_cleanup_install_batch', array('checkdesk_featured_stories_feature', 'Checkdesk Featured Stories'));
-  //$components = array('translations', 'menu_links', 'uuid_node');
-  $components = array('translations');
-  foreach ($components as $component) {
-    $operations[] = array('_cd_cleanup_revert_batch', array('checkdesk_core_feature', $component));
-  }
-  $batch = array(
-    'operations' => $operations,
-    'title' => st('Cleanup installation'),
-    'error_message' => st('The installation has encountered an error.'),
-    'finished' => '_cd_cleanup_finished',
-  );
-  return $batch;
 }
 
 /**
@@ -283,6 +272,31 @@ function _cd_cleanup_finished($success, $results, $operations) {
 }
 
 /**
+ * Workaround to translate Administer users menu.
+ */
+function _cd_translate_system_menu() {
+  $object_type = 'menu_link';
+  $query = db_select('menu_links', 'ml');
+  $query->addField('ml', 'mlid');
+  $query->condition('menu_name', 'main-menu');
+  $query->condition('link_title', 'Administer users');
+  $mlid = $query->execute()->fetchField();
+  $object_value = menu_link_load($mlid);
+  $object_value['localized_options'] = $object_value['options'];
+  $object_value['i18n_menu'] = 1;
+  $object = i18n_object($object_type, $object_value);
+  $strings = $object->get_strings(array('empty' => TRUE));
+  foreach ($strings as $item) {
+    $status = $item->update(array('messages' => TRUE));
+  }
+  foreach ($strings as $name => $value) {
+    list($textgroup, $context) = i18n_string_context(explode(':', $name));
+    i18n_string_textgroup($textgroup)->build_string($context, $name);
+    $result = i18n_string_textgroup($textgroup)->update_translation($context, 'ar', 'إدارة المستخدمين');
+  }
+}
+
+/**
  * Function to create sample story and update.
  */
 function _cd_create_sample_content() {
@@ -293,7 +307,7 @@ function _cd_create_sample_content() {
   $node->language = 'en'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p><p>&nbsp;</p>';
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p>';
   $node->body[LANGUAGE_NONE][0]['summary'] = '';
   $node->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
   node_save($node); 
@@ -314,7 +328,7 @@ function _cd_create_sample_content() {
   $node->language = 'en'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = 'another update';
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>Including reports in a story update is optional (although updates with reports do look better) - an update can consist only of text and <a href="http://meedan.org/category/checkdesk/">links</a>.</p><p>Updates appear chronologically on the story page, most recent first (just like Twitter). Updates are also numbered (look to the side of this update) and timestamped. The timestamp provides a direct link to the update which can be shared on social networks.</p>';
   $node->body[LANGUAGE_NONE][0]['summary'] = NULL;
   $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
   $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_en_nid;
@@ -326,7 +340,7 @@ function _cd_create_sample_content() {
   $node->language = 'en'; 
   $node->uid = 1;
   node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = '<p>&nbsp;first update</p><p>[checkdesk-english:report-en-nid]</p>';
+  $node->body[LANGUAGE_NONE][0]['value'] = '<p>Updates are added to a story, as new events unfold. Updates include reports from social networks and new media. A single update can include multiple reports, within a narrative that you compose.</p><p>[checkdesk-english:report-en-nid]</p>';
   //embed report into update
   $node->body[LANGUAGE_NONE][0]['value'] = str_replace('report-en-nid', $report_nid_en, $node->body[LANGUAGE_NONE][0]['value']);
   $node->body[LANGUAGE_NONE][0]['summary'] = NULL;

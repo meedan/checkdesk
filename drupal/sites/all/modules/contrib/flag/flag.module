@@ -163,14 +163,15 @@ function flagging_save($flagging) {
 // @todo: flag_reset_flag():
 // - it should delete the flaggings.
 // - (it has other issues; see http://drupal.org/node/894992.)
-// - (is problematic: it might not be possible to delete all data in a single page request.)
+// - (is problematic: it might not be possible to delete all data in a single
+//   page request.)
 
 // @todo: Discuss: Note that almost all functions/identifiers dealing with
 // flaggings *aren't* prefixed by "flag_". For example:
-//  - The menu argument is %flagging, not %flag_flagging.
-//  - The entity type is "flagging", not "flag_flagging".
-// On the one hand this succinct version is readable and nice. On the other hand, it isn't
-// very "correct".
+// - The menu argument is %flagging, not %flag_flagging.
+// - The entity type is "flagging", not "flag_flagging".
+// On the one hand this succinct version is readable and nice. On the other
+// hand, it isn't very "correct".
 
 /**
  * Implements hook_entity_query_alter().
@@ -185,7 +186,8 @@ function flag_entity_query_alter(EntityFieldQuery $query) {
 
   // Alter only flagging queries with bundle conditions.
   if (isset($conditions['entity_type']) && $conditions['entity_type']['value'] == 'flagging' && isset($conditions['bundle'])) {
-    $query->addTag('flagging_flag_names'); // Add tag to alter query.
+    // Add tag to alter query.
+    $query->addTag('flagging_flag_names');
     // Make value and operator of the bundle condition accessible
     // in hook_query_TAG_alter.
     $query->addMetaData('flag_name_value', $conditions['bundle']['value']);
@@ -256,7 +258,8 @@ function flag_menu() {
   );
 
   $items[FLAG_ADMIN_PATH . '/manage/%flag'] = array(
-    'load arguments' => array(TRUE), // Allow for disabled flags.
+    // Allow for disabled flags.
+    'load arguments' => array(TRUE),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('flag_form', FLAG_ADMIN_PATH_START + 1),
     'access callback' => 'user_access',
@@ -268,7 +271,8 @@ function flag_menu() {
     'title arguments' => array(FLAG_ADMIN_PATH_START + 1),
   );
   $items[FLAG_ADMIN_PATH . '/manage/%flag/edit'] = array(
-    'load arguments' => array(TRUE), // Allow for disabled flags.
+    // Allow for disabled flags.
+    'load arguments' => array(TRUE),
     'title' => 'Edit flag',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
@@ -292,7 +296,8 @@ function flag_menu() {
     'type' => MENU_CALLBACK,
   );
   $items[FLAG_ADMIN_PATH . '/manage/%flag/update'] = array(
-    'load arguments' => array(TRUE), // Allow for disabled flags.
+    // Allow for disabled flags.
+    'load arguments' => array(TRUE),
     'title' => 'Update',
     'page callback' => 'flag_update_page',
     'page arguments' => array(FLAG_ADMIN_PATH_START + 1),
@@ -419,9 +424,11 @@ function flag_help($path, $arg) {
     case FLAG_ADMIN_PATH:
       $output = '<p>' . t('This page lists all the <em>flags</em> that are currently defined on this system.') . '</p>';
       return $output;
+
     case FLAG_ADMIN_PATH . '/add':
       $output = '<p>' . t('Select the type of flag to create. An individual flag can only affect one type of object. This cannot be changed once the flag is created.') . '</p>';
       return $output;
+
     case FLAG_ADMIN_PATH . '/manage/%/fields':
       // Get the existing link types that provide a flagging form.
       $link_types = flag_get_link_types();
@@ -575,10 +582,10 @@ function flag_get_types() {
 function flag_create_handler($entity_type) {
   $definition = flag_fetch_definition($entity_type);
   if (isset($definition) && class_exists($definition['handler'])) {
-    $handler = new $definition['handler'];
+    $handler = new $definition['handler']();
   }
   else {
-    $handler = new flag_broken;
+    $handler = new flag_broken();
   }
   $handler->entity_type = $entity_type;
   $handler->construct();
@@ -665,7 +672,7 @@ function flag_field_extra_fields() {
         $extra[$flag->entity_type][$bundle_name]['form']['flag'] = array(
           'label' => t('Flags'),
           'description' => t('Checkboxes for toggling flags'),
-          'weight' => 10
+          'weight' => 10,
         );
       }
 
@@ -733,7 +740,7 @@ function flag_form_node_type_form_alter(&$form, &$form_state, $form_id) {
  * Warning: will not work on entity types that are not fieldable, as this relies
  * on a field module hook.
  *
- * @see flag_field_attach_submit().
+ * @see flag_field_attach_submit()
  */
 function flag_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
   list($id) = entity_extract_ids($entity_type, $entity);
@@ -842,7 +849,7 @@ function flag_field_attach_form($entity_type, $entity, &$form, &$form_state, $la
 /**
  * Implements hook_field_attach_submit().
  *
- * @see flag_field_attach_form().
+ * @see flag_field_attach_form()
  */
 function flag_field_attach_submit($entity_type, $entity, $form, &$form_state) {
   // This is invoked for each flag_field_attach_form(), but possibly more than
@@ -880,7 +887,7 @@ function flag_field_attach_update($entity_type, $entity) {
 /**
  * Shared saving routine between flag_field_attach_insert/update().
  *
- * @see flag_field_attach_form().
+ * @see flag_field_attach_form()
  */
 function flag_field_attach_save($entity_type, $entity) {
   list($id) = entity_extract_ids($entity_type, $entity);
@@ -921,13 +928,14 @@ function flag_contextual_links_view_alter(&$element, $items) {
 
       list($entity_id) = entity_extract_ids($entity_type, $entity);
       if (!$flag->access($entity_id) && (!$flag->is_flagged($entity_id) || !$flag->access($entity_id, 'flag'))) {
-        // User has no permission to use this flag or flag does not apply to this
-        // object. The link is not skipped if the user has "flag" access but
-        // not "unflag" access (this way the unflag denied message is shown).
+        // User has no permission to use this flag or flag does not apply to
+        // this object. The link is not skipped if the user has "flag" access
+        // but not "unflag" access (this way the unflag denied message is
+        // shown).
         continue;
       }
 
-      $element['#links']['flag-'. $name] = array(
+      $element['#links']['flag-' . $name] = array(
         'title' => $flag->theme($flag->is_flagged($entity_id) ? 'unflag' : 'flag', $entity_id),
         'html' => TRUE,
       );
@@ -984,7 +992,7 @@ function flag_entity_view($entity, $type, $view_mode, $langcode) {
     // The pseudofield output.
     if ($flag->show_as_field) {
       $entity->content['flag_' . $flag->name] = array(
-       '#markup' => $flag->theme($flag->is_flagged($entity_id) ? 'unflag' : 'flag', $entity_id, array('needs_wrapping_element' => TRUE)),
+        '#markup' => $flag->theme($flag->is_flagged($entity_id) ? 'unflag' : 'flag', $entity_id, array('needs_wrapping_element' => TRUE)),
       );
     }
   }
@@ -1362,8 +1370,9 @@ function flag_flag_trigger($action, $flag, $entity_id, $account, $flagging) {
   $object = $flag->fetch_entity($entity_id);
 
   // Generic "all flags" actions.
-  foreach (trigger_get_assigned_actions('flag_' . $action)  as $aid => $action_info) {
-    // The 'if ($aid)' is a safeguard against http://drupal.org/node/271460#comment-886564
+  foreach (trigger_get_assigned_actions('flag_' . $action) as $aid => $action_info) {
+    // The 'if ($aid)' is a safeguard against
+    // http://drupal.org/node/271460#comment-886564
     if ($aid) {
       actions_do($aid, $object, $context);
     }
@@ -1562,7 +1571,7 @@ function template_preprocess_flag(&$variables) {
   $flag =& $variables['flag'];
   $action = $variables['action'];
   $entity_id = $variables['entity_id'];
-  $errors = join('<br />', $variables['errors']);
+  $errors = implode('<br />', $variables['errors']);
   $flag_css_name = str_replace('_', '-', $flag->name);
 
   // Generate the link URL.
@@ -1632,7 +1641,8 @@ function template_preprocess_flag(&$variables) {
       $variables['message_classes_array'][] = 'flag-' . $variables['status'] . '-message';
       $variables['message_text'] = $flag->get_label($inverse_action . '_message', $entity_id);
       $variables['flag_classes_array'][] = $variables['status'];
-      // By default we make our JS code remove, after a few seconds, only success messages.
+      // By default we make our JS code remove, after a few seconds, only
+      // success messages.
       $variables['message_classes_array'][] = 'flag-auto-remove';
     }
   }
@@ -1728,7 +1738,7 @@ function flag_get_entity_flag_counts($flag, $entity_type) {
       ->countQuery()
       ->execute()
       ->fetchField();
-    $counts[$flag->name][$entity_type] =  $result;
+    $counts[$flag->name][$entity_type] = $result;
   }
 
   return $counts[$flag->name][$entity_type];
@@ -1897,7 +1907,14 @@ function flag_get_flags($entity_type = NULL, $content_subtype = NULL, $account =
     $query = db_select('flag', 'f');
     $query->leftJoin('flag_types', 'fn', 'fn.fid = f.fid');
     $result = $query
-      ->fields('f', array('fid', 'entity_type', 'name', 'title', 'global', 'options'))
+      ->fields('f', array(
+        'fid',
+        'entity_type',
+        'name',
+        'title',
+        'global',
+        'options',
+      ))
       ->fields('fn', array('type'))
       ->execute();
     foreach ($result as $row) {
@@ -1922,7 +1939,8 @@ function flag_get_flags($entity_type = NULL, $content_subtype = NULL, $account =
         // Ensure overridden flags are associated with their parent module.
         $flags[$name]->module = $default_flag->module;
 
-        // Update the flag with any properties that are "locked" by the code version.
+        // Update the flag with any properties that are "locked" by the code
+        // version.
         if (isset($default_flag->locked)) {
           $flags[$name]->locked = $default_flag->locked;
           foreach ($default_flag->locked as $property) {
@@ -1991,32 +2009,39 @@ function flag_get_default_flags($include_disabled = FALSE) {
   $default_flags = array();
   $flag_status = variable_get('flag_default_flag_status', array());
 
+  $default_flags_info = array();
   foreach (module_implements('flag_default_flags') as $module) {
     $function = $module . '_flag_default_flags';
     foreach ($function() as $flag_name => $flag_info) {
       // Backward compatibility: old exported default flags have their names
-      // in $flag_info instead, so we use the += operator to not overwrite it.
-      $flag_info += array(
+      // in $flag_info instead, so we use the + operator to not overwrite it.
+      $default_flags_info[$flag_name] = $flag_info + array(
         'name' => $flag_name,
         'module' => $module,
       );
-      $flag = flag_flag::factory_by_array($flag_info);
+    }
+  }
 
-      // Disable flags that are not at the current API version.
-      if (!$flag->is_compatible()) {
-        $flag->status = FALSE;
-      }
+  // Allow modules to alter definitions using hook_flag_default_flags_alter().
+  drupal_alter('flag_default_flags', $default_flags_info);
 
-      // Add flags that have been enabled.
-      if ((!isset($flag_status[$flag->name]) && (!isset($flag->status) || $flag->status)) || !empty($flag_status[$flag->name])) {
-        $flag->status = TRUE;
-        $default_flags[$flag->name] = $flag;
-      }
-      // Add flags that have been disabled.
-      elseif ($include_disabled) {
-        $flag->status = FALSE;
-        $default_flags[$flag->name] = $flag;
-      }
+  foreach ($default_flags_info as $flag_info) {
+    $flag = flag_flag::factory_by_array($flag_info);
+
+    // Disable flags that are not at the current API version.
+    if (!$flag->is_compatible()) {
+      $flag->status = FALSE;
+    }
+
+    // Add flags that have been enabled.
+    if ((!isset($flag_status[$flag->name]) && (!isset($flag->status) || $flag->status)) || !empty($flag_status[$flag->name])) {
+      $flag->status = TRUE;
+      $default_flags[$flag->name] = $flag;
+    }
+    // Add flags that have been disabled.
+    elseif ($include_disabled) {
+      $flag->status = FALSE;
+      $default_flags[$flag->name] = $flag;
     }
   }
 
@@ -2070,11 +2095,15 @@ function flag_get_flag_flagging_data($flag_name) {
  * @return
  *   If returning a single item's flags (that is, when $entity_id isn't NULL),
  *   an array of the structure
- *   [flag_name] => (flagging_id => [flagging_id], uid => [uid], entity_id => [entity_id], timestamp => [timestamp], ...)
+ *   [flag_name] => (
+ *     flagging_id => [flagging_id],
+ *     uid => [uid],
+ *     entity_id => [entity_id],
+ *     timestamp => [timestamp],
+ *     ...)
  *
  *   If returning all items' flags, an array of arrays for each flag:
  *   [flag_name] => [entity_id] => Object from above.
- *
  */
 function flag_get_user_flags($entity_type, $entity_id = NULL, $uid = NULL, $sid = NULL) {
   $flagged_content = &drupal_static(__FUNCTION__);
@@ -2253,10 +2282,10 @@ function flag_trim_flag($flag, $account, $cutoff_size, $trim_newest, $permission
     $query->orderBy('timestamp', 'ASC');
   }
   else {
-    $query->orderBy('timestamp', 'DESC') ;
+    $query->orderBy('timestamp', 'DESC');
   }
 
-  // Execute the query
+  // Execute the query.
   $result = $query->execute();
 
   $i = 1;
@@ -2292,7 +2321,7 @@ function flag_reset_flag($flag, $entity_id = NULL) {
   }
   module_invoke_all('flag_reset', $flag, $entity_id, $rows);
 
-  $query = db_delete('flagging')->condition('fid' , $flag->fid);
+  $query = db_delete('flagging')->condition('fid', $flag->fid);
   // Update the flag_counts table.
   $count_query = db_delete('flag_counts')->condition('fid', $flag->fid);
   if ($entity_id) {
@@ -2611,6 +2640,6 @@ function flag_properties_get_flagging_users($entity, array $options, $name, $ent
  * @ingroup callbacks
  */
 function flag_properties_get_user_sid($entity, array $options, $name, $entity_type, $property_info) {
-  $sid =  flag_get_sid($entity->uid, FALSE);
+  $sid = flag_get_sid($entity->uid, FALSE);
   return $sid;
 }

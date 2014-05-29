@@ -1568,7 +1568,6 @@ function checkdesk_core_form_node_form_alter(&$form, &$form_state) {
  * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
-
   // Add a class to forms which should display inline errors
   $ife_form_ids = checkdesk_core_ife_form_ids();
   foreach ($ife_form_ids as $fid => $row) {
@@ -1576,22 +1575,30 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       $form['#attributes']['class'][] = 'ife';
     }
   }
+  if ($form_id == 'system_site_information_settings' || $form_id == '_checkdesk_core_settings') {
+    //alter submit to purge all varnish caches
+    $form['#submit'][] = 'checkdesk_core_site_information_submit';
+  }
 
-  // dsm($form_id);
   if (in_array($form_id, array('user_login', 'user_login_block', 'user_register_form'))) {
     $items = array();
+    if (twitter_api_keys()) {
+      $items[] = twitter_signin_button();
+    }
     $fb_block = module_invoke('fboauth', 'block_view', 'login');
-    $items[] = twitter_signin_button();
-    $items[] = $fb_block['content'];
-    $form['social_media_signin'] = array(
-      '#type' => 'item',
-      '#title' => t('Sign in with :'),
-      '#markup' => theme('item_list', array('items' => $items)),
-      '#weight' => '-99',
-    );
+    if (isset($fb_block['content'])) {
+      $items[] = $fb_block['content'];
+    }
+    if (count($items)) {
+      $form['social_media_signin'] = array(
+        '#type' => 'item',
+        '#markup' => theme('item_list', array('items' => $items)),
+        '#weight' => '-99',
+        '#suffix' => '<div class="or"><span>' . t('or') . '</span></div>',
+      );
+    }
     unset($form['twitter_signin']);
-  } 
-  
+  }
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     $form['pass']['#title'] = $form['pass']['#title'] . l(t('(forgot?)'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
     $items = array();
@@ -1600,6 +1607,21 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     }
     $form['links'] = array('#markup' => theme('item_list', array('items' => $items)));
     $form['actions']['submit']['#value'] = t('Sign in');
+    unset($form['name']['#description']);
+    unset($form['pass']['#description']);
+    $form['pass']['#title'] = t('Password');
+    // Add forgot link and a wrapper around forgot pass and remember me
+    $forgot_pass_link = l(t('Forgot your password?'), 'user/password');
+    $form['pass']['#suffix'] = '<div class="user-links"><div class="user-forgot-pass-link">' . $forgot_pass_link . '</div>';
+    $form['remember_me']['#suffix'] = '</div>';
+    // add a wrapper around new account link
+    unset($form['links']);
+    $link['attributes']['class'][] = 'register';
+    $link['attributes']['title'] = t('Sign Up');
+    $new_account_link = l(t('Sign Up'), 'user/register', $link);
+    $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
+    ' . $new_account_link . '</div>';    
+
   }
 
   if ($form_id == '_checkdesk_core_report_suggest') {
@@ -1636,9 +1658,15 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
     }
-
     // Hook on submit to remove misleading message.
     $form['#submit'][] = 'checkdesk_core_user_register_form_submit';
+    unset($form['account']['name']['#description']);
+    unset($form['account']['pass']['#description']);
+    $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
+    $form['account']['mail']['#description'] = t('Check your e-mail to confirm your account');
+  }
+  if ($form_id == 'user_pass') {
+    $form['name']['#attributes']['placeholder'] = t('Username or e-mail address');
   }
 
   // theme file field
@@ -2618,43 +2646,57 @@ function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
 }
 
 /**
+ * Implements of hook_cron_queue_info().
+ */
+function checkdesk_core_cron_queue_info() {
+  $queues['checkdesk_varnish'] = array(
+    'worker callback' => '_checkdesk_purge_varnish',
+    'skip on cron' => TRUE,
+  );
+  return $queues;
+}
+
+/**
+ * Implements of hook_cron_queue_info_alter().
+ */
+function checkdesk_core_cron_queue_info_alter(&$queues) {
+  $queues['rules_scheduler_tasks']['skip on cron'] = TRUE;
+}
+
+/**
  * Implements of hook_cron().
  */
-function checkdesk_core_cron() {
+function _checkdesk_purge_varnish($paths) {
   if (module_exists('varnish')) {
-    $queue = DrupalQueue::get('checkdesk_varnish');
     //any action reflect on frontpage 
-    if ($queue->numberOfItems()) {
+    if (count($paths)) {
       $languages = language_list();
-      $sites = variable_get('site_urls', array());
-      $paths = array();
-      while($item = $queue->claimItem()) {
-        $paths = array_merge($paths, $item->data);
-        $queue->deleteItem($item);
+      $hostnames = variable_get('hostnames', array());
+      //define purge_all variable as no need to generate  URLs if purge all exist.
+      $purge_all = FALSE;
+      if (in_array('varnish_purge_all_pages', $paths)) {
+        $purge_all = TRUE;
       }
-      //remove duplicate items
-      $paths = array_flip(array_flip($paths));
-      foreach ($sites as $site) {
+      foreach ($hostnames as $hostname) {
         $urls = array();
-        foreach ($paths as $path) {
-          foreach($languages as $key => $value) {
-            $urls[] = url($path, array(
-              //'absolute' => TRUE,
-              'language' => $languages[$key],
-              //'base_url' => $site,
-            ));
+        if (!$purge_all) {
+          foreach ($paths as $path) {
+            foreach($languages as $key => $value) {
+              $urls[] = url($path, array(
+                'language' => $languages[$key],
+              ));
+            }
           }
+          //add front page
+          $urls[] = url('<front>', array());
         }
-        //add front page
-        $urls[] = url('<front>', array(
-          //'absolute' => TRUE,
-          //'base_url' => $site,
-        ));
-        $parts = parse_url($site);
+        else {
+          $urls = array(base_path());
+        }
         //log urls and host name
-        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $parts['host'], '!urls' => theme('item_list', array('items' => $urls))));
+        $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
         watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
-        checkdesk_varnish_expire_cache($urls, $parts['host']);
+        checkdesk_varnish_expire_cache($urls, $hostname);
       }
     }
   }
@@ -2691,6 +2733,17 @@ function checkdesk_log_reports_updates($op, $text, $update_nid) {
       }
     }
   }
+}
+
+/**
+ *
+ */
+function checkdesk_core_site_information_submit(&$form, &$form_state) {
+  $paths = array();
+  //add static keyword to identify purged all caches
+  $paths[] = 'varnish_purge_all_pages';
+  $queue = DrupalQueue::get('checkdesk_varnish');
+  $queue->createItem($paths);
 }
 
 /**
