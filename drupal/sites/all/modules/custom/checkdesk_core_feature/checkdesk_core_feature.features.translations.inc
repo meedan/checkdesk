@@ -65,14 +65,6 @@ function checkdesk_core_feature_translations_defaults() {
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['0175dd5c43229b54c942ecc26a34185e'] = array(
-    'source' => 'Translate Text',
-    'context' => '',
-    'location' => 'sites/all/modules/contrib/l10n_client/l10n_client.js',
-    'translation' => 'ترجمة النص',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['019d3a9016bc113135b655858ecbbcfa'] = array(
     'source' => 'User page',
     'context' => '',
@@ -973,14 +965,6 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['15bedca480f622eba43f2aa6628689e7'] = array(
-    'source' => 'An HTTP error @status occured.',
-    'context' => '',
-    'location' => 'sites/all/modules/contrib/l10n_client/l10n_client.js',
-    'translation' => 'An HTTP error @status occured.',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['15e2e38189dd8d6b714b8979b3da9284'] = array(
     'source' => 'Node ID used in the activity message',
     'context' => '',
@@ -1776,7 +1760,7 @@ This was an auto-generated email from !site, please do not respond directly to t
   $translations['ar:default']['25e8f2fd2871c8423bbe4e254066cd98'] = array(
     'source' => 'Please wait...',
     'context' => '',
-    'location' => '; sites/all/modules/contrib/l10n_client/l10n_client.js; misc/ajax.js',
+    'location' => '; misc/ajax.js',
     'translation' => 'انتظر من فضلك...',
     'plid' => 0,
     'plural' => 0,

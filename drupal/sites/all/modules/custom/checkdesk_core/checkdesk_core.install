@@ -112,7 +112,7 @@ function checkdesk_core_update_7004() {
  * Enable needed modules.
  */
 function checkdesk_core_update_7005() {
-  module_enable(array('locale', 'l10n_update', 'l10n_client'));
+  module_enable(array('locale', 'l10n_update'));
   $languages = language_list();
   if (!isset($languages['ar'])) {
     locale_add_language('ar');

@@ -73,7 +73,6 @@ $omega: opposite-position($from-direction);
 @import "replace_drupal/contextual";
 @import "replace_drupal/rules";
 @import "replace_drupal/context_reaction_block";
-@import "replace_drupal/l10n_client";
 @import "replace_drupal/vertical-tabs";
 
 // Bowerbird Drupal touchups
@@ -256,28 +255,6 @@ body.no-sidebars {
 
 // Reports pages
 @import "reports_page";
-
-// ====================================================================== 
-// Styles in progress
-//
-
-// @include version-banner;
-
-
-// Translation client
-#l10n-client {
-	display: block !important;
-	visibility: visible !important;
-	form {
-		width: 100%;
-		.form-item {
-			textarea {
-				clear: both;
-				float: none;
-			}			
-		}
-	}
-}
 
 // ====================================================================== 
 
