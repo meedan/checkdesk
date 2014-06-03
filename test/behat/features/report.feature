@@ -190,5 +190,5 @@ Scenario: Journalist Flag Graphic
   And I click "Flag graphic content"
   And I wait for 20 seconds
   And I click on span ".icon-ellipsis-h"
-  Then I should see "Unflag graphic content"
+  Then I should not see "Flag graphic content"
   And I remove the created nodes
