@@ -128,7 +128,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Turn off fact-checking',
     'unflag_long' => '',
     'unflag_message' => 'Fact-checking has been disabled for <a href="[node:url:unaliased]">[node:author]\'s report</a>.',
-    'unflag_denied_text' => '',
+    'unflag_denied_text' => 'Fact-checking turned on',
     'link_type' => 'toggle',
     'weight' => -10,
     'show_in_links' => array(
