@@ -65,6 +65,14 @@ function checkdesk_core_feature_translations_defaults() {
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['0175dd5c43229b54c942ecc26a34185e'] = array(
+    'source' => 'Translate Text',
+    'context' => '',
+    'location' => 'sites/all/modules/contrib/l10n_client/l10n_client.js',
+    'translation' => 'ترجمة النص',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['019d3a9016bc113135b655858ecbbcfa'] = array(
     'source' => 'User page',
     'context' => '',
@@ -111,6 +119,14 @@ function checkdesk_core_feature_translations_defaults() {
     'context' => '',
     'location' => '',
     'translation' => 'الكاتب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['02f3f89d7acb7536a8a2085625824420'] = array(
+    'source' => 'Flagged for spam',
+    'context' => '',
+    'location' => '/ar/node/flag/confirm/flag/spam/14/ajax',
+    'translation' => 'تم تنبيه السخام',
     'plid' => 0,
     'plural' => 0,
   );
@@ -962,6 +978,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'The internal Drupal path of the current page request.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['15bedca480f622eba43f2aa6628689e7'] = array(
+    'source' => 'An HTTP error @status occured.',
+    'context' => '',
+    'location' => 'sites/all/modules/contrib/l10n_client/l10n_client.js',
+    'translation' => 'An HTTP error @status occured.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -2446,6 +2470,25 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['33173aa7d8ee25654236f372dd8a28c5'] = array(
+    'source' => 'Hello !recipient_name,
+
+A new user called <a href="!url">!name </a>has registered. If you want to accept this registration, please mark this user as "active".
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط". 
+
+يمكنك تغيير إعدادات التنبيهات من <a href="!recipient_url">هنا</a>. هذه رسالة تلقائية من !site ويرجى عدم الرد عليها.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['33235e680d5086275b36d4695c09d046'] = array(
     'source' => 'Story title',
     'context' => '',
@@ -2827,6 +2870,25 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => 'إلغاء الحساب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3d21531686999c4fcddef6c5092407b9'] = array(
+    'source' => 'Hello !recipient_name,
+
+A new user <a href="!url">!name </a>has registered. If you want to accept this registration, please mark this user as "active".
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+لقد سجل مستخدم جديد باسم "<a href="!url">!name</a>". إذا كت تريد قبول تسجيله يرجى تغيير حالة حسابه إلى  "نشط". 
+
+يمكنك تغيير إعدادات التنبيهات من <a href="!recipient_url">هنا</a>. هذه رسالة تلقائية من !site ويرجى عدم الرد عليها.
+',
     'plid' => 0,
     'plural' => 0,
   );
@@ -3870,6 +3932,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/meedan/meedan-checkdesk/drupal/ar/node/886',
     'translation' => 'يرجى <a href="@login_url">تسجيل الدخول</a> لتتمكن من إضافة الملاحظات والمساهمة في التحقق من صحة المعلومات لهذا التقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['53eb8dc10383325f4acdf55e8508c9cc'] = array(
+    'source' => 'Flagged for fact-checking',
+    'context' => '',
+    'location' => '/ar/node/flag/confirm/flag/factcheck/14/ajax',
+    'translation' => 'تم تنبيه التحقق',
     'plid' => 0,
     'plural' => 0,
   );
@@ -12843,8 +12913,8 @@ This was an auto-generated email from !site; please do not respond directly to t
   );
   $translations['ar:menu']['c7aacf2150aba3307c7356604ab3ddc9'] = array(
     'source' => 'Administer users',
-    'context' => 'item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
-    'location' => 'menu:item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'context' => 'item:09718b34-de51-4935-bff9-923c9deff48e:title',
+    'location' => 'menu:item:09718b34-de51-4935-bff9-923c9deff48e:title',
     'translation' => 'إدارة المستخدمين',
     'plid' => 0,
     'plural' => 0,

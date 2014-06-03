@@ -48,7 +48,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Cancel deletion request',
     'unflag_long' => '',
     'unflag_message' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged for deletion.',
-    'unflag_denied_text' => '',
+    'unflag_denied_text' => 'Flagged for deletion',
     'link_type' => 'checkdesk_modal',
     'weight' => -6,
     'show_in_links' => array(
@@ -88,7 +88,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Unflag for fact-checking',
     'unflag_long' => '',
     'unflag_message' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged for fact-checking.',
-    'unflag_denied_text' => 'Flagged for fact-checking.',
+    'unflag_denied_text' => 'Flagged for fact-checking',
     'link_type' => 'checkdesk_modal',
     'weight' => -7,
     'show_in_links' => array(
@@ -128,7 +128,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Turn off fact-checking',
     'unflag_long' => '',
     'unflag_message' => 'Fact-checking has been disabled for <a href="[node:url:unaliased]">[node:author]\'s report</a>.',
-    'unflag_denied_text' => 'Fact-checking turned on',
+    'unflag_denied_text' => 'Fact-checking activated',
     'link_type' => 'toggle',
     'weight' => -10,
     'show_in_links' => array(
@@ -165,7 +165,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Unflag graphic content',
     'unflag_long' => '',
     'unflag_message' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged as containing graphic content.',
-    'unflag_denied_text' => '',
+    'unflag_denied_text' => 'Flagged for graphic content',
     'link_type' => 'checkdesk_modal',
     'weight' => -8,
     'show_in_links' => array(
@@ -205,7 +205,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Unflag graphic content',
     'unflag_long' => '',
     'unflag_message' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged as containing graphic content.',
-    'unflag_denied_text' => '',
+    'unflag_denied_text' => 'Flagged for graphic content',
     'link_type' => 'toggle',
     'weight' => -11,
     'show_in_links' => array(
@@ -242,7 +242,7 @@ function checkdesk_core_feature_flag_default_flags() {
     'unflag_short' => 'Unflag spam',
     'unflag_long' => '',
     'unflag_message' => '<a href="[node:url:unaliased]">[node:author]\'s report</a> was unflagged as spam.',
-    'unflag_denied_text' => 'Flagged as spam.',
+    'unflag_denied_text' => 'Flagged for spam',
     'link_type' => 'checkdesk_modal',
     'weight' => -9,
     'show_in_links' => array(
