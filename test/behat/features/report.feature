@@ -180,3 +180,18 @@ Scenario: Flag a report for fact-checking
   And I click on span ".icon-flag"
   Then  I should see "Flagged for fact-checking"
   And I remove the created nodes
+
+@api @javascript
+Scenario: Journalist Flag Graphic
+  Given a report from URL "http://meedan.org"
+  And I am logged in as a user with the "flag graphic_journalist" permission
+  When I go to the last node
+  And I click on span ".icon-ellipsis-h"
+  And I click "Flag graphic content"
+  And I wait for 20 seconds
+  And I fill in "Reason" with "Test"
+  And press "Flag graphic content"
+  And I wait for 10 seconds
+  And I click on span ".icon-ellipsis-h"
+  Then I should see "Flagged graphic content"
+  And I remove the created nodes
