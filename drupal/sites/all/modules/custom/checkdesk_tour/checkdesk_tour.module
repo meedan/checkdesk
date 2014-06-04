@@ -9,7 +9,7 @@
  */
 function checkdesk_tour_init() {
   drupal_add_js(array('basePathCheckdeskTourPath' => '/' . drupal_get_path('module', 'checkdesk_tour')), 'setting');
-  drupal_add_js(drupal_get_path('module', 'checkdesk_tour') . '/js/inject_bootstrap.js');
+  //drupal_add_js(drupal_get_path('module', 'checkdesk_tour') . '/js/inject_bootstrap.js');
   drupal_add_js(drupal_get_path('module', 'checkdesk_tour') . '/js/tour.js');
 }
 

@@ -42,6 +42,7 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'name' => 'flag factcheck_journalist',
     'roles' => array(
       'administrator' => 'administrator',
+      'citizen journalist' => 'citizen journalist',
       'journalist' => 'journalist',
     ),
     'module' => 'flag',

@@ -832,6 +832,14 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
       return FALSE;
     }
   }
+  global $user;
+  //do not allow unflag not allowed text to appear to citizen journalist.
+  if (in_array('citizen journalist', $user->roles) && $flag->name == 'factcheck_journalist') {
+    $flag_factcheck = flag_get_flag('factcheck_journalist');
+    if ($flag_factcheck->is_flagged($entity_id)) {
+      return FALSE;
+    }
+  }
 }
 
 /**
