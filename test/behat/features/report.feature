@@ -192,3 +192,17 @@ Scenario: Journalist Flag Graphic
   And I click on span ".icon-ellipsis-h"
   Then I should not see "Flag graphic content"
   And I remove the created nodes
+
+@api @javascript
+Scenario: Flag Graphic Citizen 
+  Given a report from URL "http://meedan.org"
+  And I am logged in as a user with the "flag graphic" permission
+  When I go to the last node
+  And I click on span ".icon-flag"
+  And I click "Flag graphic content"
+  And I wait for 20 seconds
+  And I fill in "Reason" with "Test"
+  And press "Flag graphic content"
+  And I click on span ".icon-flag"
+  Then I should not see "Flag graphic content"
+  And I remove the created nodes
