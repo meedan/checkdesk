@@ -223,6 +223,32 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_fact_checking_turned_on_for_report_by_citizen_journalist'] = entity_import('rules_config', '{ "rules_fact_checking_turned_on_for_report_by_citizen_journalist" : {
+      "LABEL" : "Fact-checking turned on for report by citizen journalist",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "rules_scheduler", "flag" ],
+      "ON" : { "flag_flagged_factcheck_journalist" : [] },
+      "IF" : [
+        { "user_has_role" : { "account" : [ "flagging-user" ], "roles" : { "value" : { "4" : "4" } } } },
+        { "node_is_of_type" : {
+            "node" : [ "flagged-node" ],
+            "type" : { "value" : { "media" : "media" } }
+          }
+        }
+      ],
+      "DO" : [
+        { "schedule" : {
+            "component" : "rules_notify_subscribed_users_citizen",
+            "date" : "now",
+            "param_flagged_node" : [ "flagged-node" ],
+            "param_flagging_user" : [ "flagging-user" ]
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_new_report'] = entity_import('rules_config', '{ "rules_new_report" : {
       "LABEL" : "New report",
       "PLUGIN" : "reaction rule",
@@ -350,6 +376,29 @@ function checkdesk_core_feature_default_rules_configuration() {
             "event" : "email_fact_checking_on",
             "subject" : "Fact-checking turned on",
             "message" : "Hello !recipient_name,\\r\\n\\r\\n!actor has turned on fact-checking for a \\u003Ca href=\\u0022!url\\u0022\\u003Ereport\\u003C\\/a\\u003E you submitted.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
+            "actor" : [ "flagging-user" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!actor\\u0027 =\\u003E $flagging_user-\\u003Ename, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $flagged_node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_notify_subscribed_users_citizen'] = entity_import('rules_config', '{ "rules_notify_subscribed_users_citizen" : {
+      "LABEL" : "Notify subscribed users: fact-checking on by citizen",
+      "PLUGIN" : "action set",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "USES VARIABLES" : {
+        "flagged_node" : { "label" : "Flagged node", "type" : "node" },
+        "flagging_user" : { "label" : "Flagging user", "type" : "user" }
+      },
+      "ACTION SET" : [
+        { "notify_subscribers" : {
+            "object" : [ "flagged-node" ],
+            "event" : "email_fact_checking_set_by_citizen",
+            "subject" : "Fact-checking turned on",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\n!actor has turned on fact-checking for a \\u003Ca href=\\u0022!url\\u0022\\u003Ereport\\u003C\\/a\\u003E .\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
             "actor" : [ "flagging-user" ],
             "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!actor\\u0027 =\\u003E $flagging_user-\\u003Ename, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $flagged_node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
           }

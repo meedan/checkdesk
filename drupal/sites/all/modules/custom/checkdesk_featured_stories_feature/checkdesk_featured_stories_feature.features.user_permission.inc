@@ -31,9 +31,7 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
   // Exported permission: 'flag factcheck'.
   $permissions['flag factcheck'] = array(
     'name' => 'flag factcheck',
-    'roles' => array(
-      'citizen journalist' => 'citizen journalist',
-    ),
+    'roles' => array(),
     'module' => 'flag',
   );
 

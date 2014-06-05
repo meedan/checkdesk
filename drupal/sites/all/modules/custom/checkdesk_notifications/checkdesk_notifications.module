@@ -124,6 +124,10 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
       'label' => $label . t('Fact-checking set on a report I submitted'),
       'token type' => 'node',
     );
+    $events[$context . '_fact_checking_set_by_citizen'] = array(
+      'label' => $label . t('Fact-checking set on a report by citizen journalist'),
+      'token type' => 'node',
+    );
     $events[$context . '_fact_status_changed_for_commenter'] = array(
       'label' => $label . t('Fact-checking set on a report I added footnote to'),
       'token type' => 'node',
@@ -227,6 +231,9 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       break;
     case 'email_fact_checking_set':
       $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
+      break;
+    case 'email_fact_checking_set_by_citizen':
+      $uids = db_query("SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id")->fetchCol();
       break;
     case 'email_fact_status_changed_for_commenter':
       $uids = db_query("SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid")->fetchCol();
