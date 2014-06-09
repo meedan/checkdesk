@@ -243,7 +243,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_fact_checking_on_by_citizen';
   $heartbeatmessagetemplate->description = 'Fact-checking turned on for a report by citizen journalist';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong>. Fact checking is in progress.</p>';
+  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> they submitted. Fact checking is in progress.</p>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
