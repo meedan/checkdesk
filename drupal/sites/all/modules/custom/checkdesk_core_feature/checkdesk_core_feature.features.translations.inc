@@ -138,6 +138,14 @@ function checkdesk_core_feature_translations_defaults() {
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['034a9d61a9484ff68025fb7e0a6e43c1'] = array(
+    'source' => 'Fact-checking set on a report by citizen journalist',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تفعيل تقصي صحة المعلومات على تقرير من قبل مواطن صحفى',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['0379554cecb3334c680d03942465f821'] = array(
     'source' => 'Save translation',
     'context' => '',
