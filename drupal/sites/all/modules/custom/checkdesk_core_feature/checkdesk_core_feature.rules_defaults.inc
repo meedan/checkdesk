@@ -239,6 +239,17 @@ function checkdesk_core_feature_default_rules_configuration() {
         }
       ],
       "DO" : [
+        { "heartbeat_activity_checkdesk_fact_checking_on_by_citizen" : {
+            "nid" : [ "flagged-node:nid" ],
+            "uid" : [ "flagging-user:uid" ],
+            "nid_target" : "0",
+            "uid_target" : "0",
+            "message_id" : { "value" : { "checkdesk_fact_checking_on_by_citizen" : "checkdesk_fact_checking_on_by_citizen" } },
+            "!user_url" : [ "flagging-user:url" ],
+            "!username" : [ "flagging-user:name" ],
+            "!report_url" : [ "flagged-node:url" ]
+          }
+        },
         { "schedule" : {
             "component" : "rules_notify_subscribed_users_citizen",
             "date" : "now",

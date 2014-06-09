@@ -177,6 +177,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       if ($subscriptions['site_comment_on_report']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report'");
       if ($subscriptions['site_comment_on_update']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_update' AND n.uid = :uid", array(':uid' => $params[':uid']));
       if ($subscriptions['site_new_user']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_user'");
+      if ($subscriptions['site_fact_checking_set_by_citizen']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on_by_citizen'");
+      }
     }
 
     // Activities for a normal user
