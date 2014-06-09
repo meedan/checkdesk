@@ -5653,6 +5653,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['7649ed456b93adee79960d8d82e58069'] = array(
+    'source' => '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong>. Fact checking is in progress.</p>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => '<p>قام <strong><a href="!user_url">!username</a></strong> بتفعيل التحقق من صحة المعلومات <strong><a href="!report_url">للتقرير</a></strong> . التحقق من صحة المعلومات جارٍ.</p>',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['76761bf4bd769b01af2bc9fe48b62681'] = array(
     'source' => '@entity entity referenced from !field_name',
     'context' => '',
