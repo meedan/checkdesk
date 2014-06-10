@@ -177,9 +177,7 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       if ($subscriptions['site_comment_on_report']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report'");
       if ($subscriptions['site_comment_on_update']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_update' AND n.uid = :uid", array(':uid' => $params[':uid']));
       if ($subscriptions['site_new_user']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_user'");
-      if ($subscriptions['site_fact_checking_set_by_citizen']) {
-        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on_by_citizen'");
-      }
+      if ($subscriptions['site_fact_checking_set_by_citizen']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on_by_citizen' AND n.uid = :uid", array(':uid' => $params[':uid']));
     }
 
     // Activities for a normal user
@@ -236,7 +234,7 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
       break;
     case 'email_fact_checking_set_by_citizen':
-      $uids = db_query("SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id")->fetchCol();
+      $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
       break;
     case 'email_fact_status_changed_for_commenter':
       $uids = db_query("SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.nid = $object->nid")->fetchCol();
