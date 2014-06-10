@@ -14,7 +14,7 @@ function checkdesk_notifications_install() {
 function checkdesk_notifications_update_7001() {
   $query = db_select('users_roles', 'ur');
   $query->addField('ur', 'uid');
-  $query->condition('ur.uid', 5);
+  $query->condition('ur.rid', 5);
   $result = $query->execute()->fetchCol();
   foreach ($result as $uid) {
     $user = user_load($uid);
