@@ -362,3 +362,16 @@ function checkdesk_core_update_7030() {
     $query->execute();
   }
 }
+
+/**
+ * Remove old revisions.
+ */
+function checkdesk_core_update_7031() {
+  $nids = db_query('SELECT nid FROM node_revision GROUP BY nid HAVING COUNT(nid) > 1')->fetchCol();
+  foreach (node_load_multiple($nids) as $node) {
+    // Delete sub revisions.
+    foreach (node_revision_list($node) as $vid => $revision) {
+      node_revision_delete($vid);
+    }
+  }
+}
