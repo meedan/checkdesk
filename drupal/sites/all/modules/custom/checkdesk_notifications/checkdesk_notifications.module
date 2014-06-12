@@ -172,26 +172,53 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
 
     // Activities for journalists only
     if (in_array('journalist', $user->roles)) {
-      if ($subscriptions['site_report_flagged']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_flag_report'");
-      if ($subscriptions['site_report_suggested']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_suggested_to_story'");
-      if ($subscriptions['site_comment_on_report']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report'");
-      if ($subscriptions['site_comment_on_update']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_update' AND n.uid = :uid", array(':uid' => $params[':uid']));
-      if ($subscriptions['site_new_user']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_user'");
-      if ($subscriptions['site_fact_checking_set_by_citizen']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on_by_citizen' AND n.uid = :uid", array(':uid' => $params[':uid']));
+      if ($subscriptions['site_report_flagged']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_flag_report'");
+      }
+      if ($subscriptions['site_report_suggested']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_suggested_to_story'");
+      }
+      if ($subscriptions['site_comment_on_report']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report'");
+      }
+      if ($subscriptions['site_comment_on_update']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_update' AND n.uid = :uid", array(':uid' => $params[':uid']));
+      }
+      if ($subscriptions['site_new_user']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_user'");
+      }
+      if ($subscriptions['site_fact_checking_set_by_citizen']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on_by_citizen'");
+      }
     }
 
     // Activities for a normal user
     else {
-      if ($subscriptions['site_update_on_story_i_commented_on_update']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND heartbeat_activity.nid_target IN (SELECT field_desk_target_id FROM field_data_field_desk f INNER JOIN comment c ON c.nid = f.entity_id WHERE entity_type = 'node' AND bundle = 'post' AND c.uid = :uid AND c.created < heartbeat_activity.timestamp)", array(':uid' => $params[':uid']));
-      if ($subscriptions['site_report_published_in_update']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_published_in_update' AND heartbeat_activity.uid_target = :uid", array(':uid' => $params[':uid']));
-      if ($subscriptions['site_comment_on_report']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report' AND c2.uid = :uid AND heartbeat_activity.timestamp > c2.created", array(':uid' => $params[':uid']));
+      if ($subscriptions['site_update_on_story_i_commented_on_update']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND heartbeat_activity.nid_target IN (SELECT field_desk_target_id FROM field_data_field_desk f INNER JOIN comment c ON c.nid = f.entity_id WHERE entity_type = 'node' AND bundle = 'post' AND c.uid = :uid AND c.created < heartbeat_activity.timestamp)", array(':uid' => $params[':uid']));
+      }
+      if ($subscriptions['site_report_published_in_update']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_published_in_update' AND heartbeat_activity.uid_target = :uid", array(':uid' => $params[':uid']));
+      }
+      if ($subscriptions['site_comment_on_report']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report' AND c2.uid = :uid AND heartbeat_activity.timestamp > c2.created", array(':uid' => $params[':uid']));
+      }
     }
 
     // Activities for any user
-    if ($subscriptions['site_reply_to_comment']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_reply_to_comment' AND c.uid = :uid", array(':uid' => $params[':uid']));
-    if ($subscriptions['site_fact_checking_on']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on' AND n.uid = :uid", array(':uid' => $params[':uid']));
-    if ($subscriptions['site_fact_checking_set']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_set' AND n.uid = :uid", array(':uid' => $params[':uid']));
-    if ($subscriptions['site_fact_status_changed_for_commenter']) $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_status_changed_for_commenter' AND c2.uid = :uid AND heartbeat_activity.timestamp > c2.created", array(':uid' => $params[':uid']));
+    if ($subscriptions['site_reply_to_comment']) {
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_reply_to_comment' AND c.uid = :uid", array(':uid' => $params[':uid']));
+    }
+    if ($subscriptions['site_fact_checking_on']) {
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on' AND n.uid = :uid", array(':uid' => $params[':uid']));
+    }
+    if ($subscriptions['site_fact_checking_set']) {
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_set' AND n.uid = :uid", array(':uid' => $params[':uid']));
+    }
+    if ($subscriptions['site_fact_status_changed_for_commenter']) {
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_status_changed_for_commenter' AND c2.uid = :uid AND heartbeat_activity.timestamp > c2.created", array(':uid' => $params[':uid']));
+    }
+
     $query->add_where_expression(1, "FALSE");
 
     // Just show activities that happened after the user has been created
@@ -219,6 +246,7 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
     case 'email_report_flagged':
     case 'email_report_suggested':
     case 'email_new_user':
+    case 'email_fact_checking_set_by_citizen':
       $uids = db_query("SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id")->fetchCol(); // all journalists
       break;
     case 'email_comment_on_update':
@@ -231,9 +259,6 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
       break;
     case 'email_fact_checking_set':
-      $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
-      break;
-    case 'email_fact_checking_set_by_citizen':
       $uids = db_query("SELECT uid FROM {node} WHERE nid = $object->nid")->fetchCol();
       break;
     case 'email_fact_status_changed_for_commenter':
