@@ -1667,7 +1667,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
     }
     // Hook on submit to remove misleading message.
-    $form['#submit'][] = 'checkdesk_core_user_register_form_submit';
+    //$form['#submit'][] = 'checkdesk_core_user_register_form_submit';
     unset($form['account']['name']['#description']);
     unset($form['account']['pass']['#description']);
     $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
