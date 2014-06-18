@@ -36,7 +36,7 @@ function theme_meedan_oembed_link($vars) {
 /**
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_twitter'.
  */
-function template_preprocess_meedan_oembed_thumbnail_google(&$vars) {
+function template_preprocess_meedan_oembed_thumbnail_googlemaps(&$vars) {
   $render = oembedcore_render_cache('oembed', $vars['url'], $vars['attributes']);
   $vars['thumbnail'] = render($render);
 }
