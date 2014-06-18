@@ -246,8 +246,8 @@ function checkdesk_core_update_7031() {
 
 /**
  * Uninstall  modules.
- */
 function checkdesk_core_update_7032() {
   drupal_uninstall_modules(array('overlay', 'meedan_oembed_facebook', 'recaptcha'), FALSE);
   drupal_uninstall_modules(array('captcha'), FALSE);
 }
+*/
