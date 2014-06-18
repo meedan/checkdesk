@@ -677,9 +677,9 @@ return _checkdesk_core_auto_title($node);
   $strongarm->value = array(
     'title' => 'title',
     'field_rating' => 'field_rating',
-    'field_stories' => 'field_stories',
     'body' => 0,
     'field_link' => 0,
+    'field_stories' => 0,
   );
   $export['meedan_bookmarklet_hidden_fields'] = $strongarm;
 

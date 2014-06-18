@@ -321,7 +321,7 @@ function checkdesk_core_feature_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_stories',
     'field_permissions' => array(
-      'type' => 2,
+      'type' => 0,
     ),
     'foreign keys' => array(
       'node' => array(

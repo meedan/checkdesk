@@ -358,8 +358,7 @@ function meedan_report_assign_new_story_submit($form, &$form_state) {
 }
 
 function meedan_report_assign_new_story($node, $context) {
-  global $language;
-  global $user;
+  global $language, $user;
   //create stories
   $snode = new stdClass(); 
   $snode->type = 'discussion';
@@ -371,5 +370,5 @@ function meedan_report_assign_new_story($node, $context) {
   $snode->body[LANGUAGE_NONE][0]['summary'] = '';
   $snode->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
   node_save($snode); 
-  $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $snode->nid;
+  $node->field_stories[LANGUAGE_NONE][0]['target_id'] = $snode->nid;
 }

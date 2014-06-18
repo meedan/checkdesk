@@ -2611,7 +2611,6 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
   if (isset($form['nid']['#value'])) {
     $node = $form['#node'];
-    unset($form['field_stories']);
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
   }
 }
