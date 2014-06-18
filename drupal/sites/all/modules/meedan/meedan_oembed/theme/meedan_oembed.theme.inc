@@ -32,3 +32,11 @@ function theme_meedan_oembed_link($vars) {
   $link .= '<a href="' . check_plain(url($vars['path'], $vars['options'])) . '"' . drupal_attributes($vars['options']['attributes']) . '>' . ($vars['options']['html'] ? $vars['text'] : check_plain($vars['text'])) . '</a>';
   return $link;
 }
+
+/**
+ * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_twitter'.
+ */
+function template_preprocess_meedan_oembed_thumbnail_googlemaps(&$vars) {
+  $render = oembedcore_render_cache('oembed', $vars['url'], $vars['attributes']);
+  $vars['thumbnail'] = render($render);
+}
