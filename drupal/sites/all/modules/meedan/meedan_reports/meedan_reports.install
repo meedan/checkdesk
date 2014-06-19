@@ -3,15 +3,55 @@
 
 /**
  * Link reports and stories.
+ * Insert reports with single story
  */
 function meedan_reports_update_7001() {
+  //Truncate existing table
+  db_delete('field_data_field_stories')->execute();
+  db_delete('field_revision_field_stories')->execute();
   db_query("
-    INSERT INTO {field_data_field_desk} (
+    INSERT INTO {field_data_field_stories} (
       SELECT 'node', n.type, 0, n.nid, n.vid, 'und', 0, field_desk_target_id 
       FROM {checkdesk_reports_updates} ru 
       INNER JOIN {node} n ON ru.report_nid = n.nid 
       INNER JOIN {field_data_field_desk} fd ON ru.update_nid = fd.entity_id
-      GROUP BY n.nid
+      GROUP BY n.nid HAVING COUNT(n.nid) = 1
     )
     ");
+  db_query("
+    INSERT INTO {field_revision_field_stories} (
+      SELECT 'node', n.type, 0, n.nid, n.vid, 'und', 0, field_desk_target_id 
+      FROM {checkdesk_reports_updates} ru 
+      INNER JOIN {node} n ON ru.report_nid = n.nid 
+      INNER JOIN {field_data_field_desk} fd ON ru.update_nid = fd.entity_id
+      GROUP BY n.nid HAVING COUNT(n.nid) = 1
+    )
+    ");
+}
+
+/**
+ * Link reports and stories.
+ * Insert reports with multiple stories
+ */
+function meedan_reports_update_7002() {
+  $result = db_query("SELECT n.nid, n.vid, GROUP_CONCAT(field_desk_target_id SEPARATOR ',') AS stories 
+    FROM {checkdesk_reports_updates} ru        
+    INNER {JOIN node n ON ru.report_nid} = n.nid        
+    INNER {JOIN field_data_field_desk} fd ON ru.update_nid = fd.entity_id 
+    GROUP BY n.nid HAVING COUNT(n.nid) > 1
+    ")->fetchAll();
+  $values = array();
+  //build insert values on SQL format.
+  foreach ($result as $row) {
+    $stories = explode(',', $row->stories);
+    $delta = 0;
+    foreach($stories as $nid) {
+      $values[] = "('node', 'media', 0, {$row->nid}, {$row->vid}, 'und', $delta, $nid)";
+      $delta++;
+    }
+  }
+  $sql = "INSERT INTO {field_data_field_stories} VALUES ". implode(',', $values);
+  $sql_revision = "INSERT INTO {field_revision_field_stories} VALUES ". implode(',', $values);
+  db_query($sql);
+  db_query($sql_revision);
 }
