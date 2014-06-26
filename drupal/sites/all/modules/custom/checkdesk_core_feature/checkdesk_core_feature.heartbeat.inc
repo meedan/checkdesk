@@ -241,6 +241,60 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
   $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */
   $heartbeatmessagetemplate->api_version = 1;
+  $heartbeatmessagetemplate->message_id = 'checkdesk_fact_checking_on_by_citizen';
+  $heartbeatmessagetemplate->description = 'Fact-checking turned on for a report by citizen journalist';
+  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> they submitted. Fact checking is in progress.</p>';
+  $heartbeatmessagetemplate->message_concat = '';
+  $heartbeatmessagetemplate->perms = 4;
+  $heartbeatmessagetemplate->group_type = 'single';
+  $heartbeatmessagetemplate->concat_args = array(
+    'group_by' => 'none',
+    'group_target' => '',
+    'group_by_target' => '',
+    'group_num_max' => '',
+    'merge_separator' => '',
+    'merge_end_separator' => '',
+    'roles' => array(
+      1 => 0,
+      2 => 0,
+      3 => 0,
+      5 => 0,
+      4 => 0,
+    ),
+  );
+  $heartbeatmessagetemplate->variables = array(
+    '!user_url' => '',
+    '!username' => '',
+    '!report_url' => '',
+  );
+  $heartbeatmessagetemplate->attachments = array(
+    'buttons' => array(
+      'weight' => array(
+        'activitycomments' => '2',
+      ),
+      'settings' => array(
+        'activitycomments' => array(
+          'activitycomments_node' => 0,
+        ),
+      ),
+      'enabled' => array(
+        'activitycomments' => 0,
+      ),
+    ),
+    'content' => array(
+      'weight' => array(
+        'activitycomments' => '2',
+      ),
+      'enabled' => array(
+        'activitycomments' => 0,
+      ),
+    ),
+  );
+  $export['checkdesk_fact_checking_on_by_citizen'] = $heartbeatmessagetemplate;
+
+  $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
+  $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */
+  $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_fact_checking_set';
   $heartbeatmessagetemplate->description = 'Fact-checking was set or changed';
   $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has changed the fact-checking status for a <strong><a href="!report_url">report</a></strong> you submitted to <strong>!fact_checking_status</strong></p>';

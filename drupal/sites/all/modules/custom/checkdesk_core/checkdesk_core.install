@@ -4,8 +4,6 @@
  * Implements hook_enable().
  */
 function checkdesk_core_enable() {
-  // Ensure CAPTCHA points are installed for new sites
-  checkdesk_core_update_7015();
   // Resize "uri" column on "file_managed" table
   checkdesk_core_update_7018();
 }
@@ -60,31 +58,6 @@ function checkdesk_core_requirements($phase) {
  * Enable remember me and change checkdesk_core weight
  */
 function checkdesk_core_update_7001() {
-  module_enable(array('remember_me', 'fboauth', 'twitter_signin'));
-  //change module weight to get twitter_signin alteration
-  db_update('system')
-    ->fields(array(
-      'weight' => 5,
-    ))
-    ->condition('name', 'checkdesk_core')
-    ->execute();
-}
-
-/**
- * Implements hook_update_N().
- * Disable unneeded modules.
- */
-function checkdesk_core_update_7002() {
-  module_disable(array('meedan_media', 'meedan_discussion'), FALSE);
-}
-
-/**
- * Implements hook_update_N().
- * Disable unneeded modules.
- */
-function checkdesk_core_update_7003() {
-  module_disable(array('auto_nodetitle'), FALSE);
-  drupal_uninstall_modules(array('auto_nodetitle'), FALSE);
   //change module weight to get twitter_signin alteration
   db_update('system')
     ->fields(array(
@@ -123,32 +96,8 @@ function checkdesk_core_update_7005() {
  * Implements hook_update_N().
  * Enable needed modules.
  */
-function checkdesk_core_update_7006() {
-  module_enable(array('redis'));
-}
-
-/**
- * Implements hook_update_N().
- * Enable needed modules.
- */
 function checkdesk_core_update_7007() {
-  module_enable(array('i18n_taxonomy', 'i18n_menu'));
-}
-
-/**
- * Implements hook_update_N().
- * Enable needed modules.
- */
-function checkdesk_core_update_7008() {
-  module_enable(array('varnish'));
-}
-
-/**
- * Implements hook_update_N().
- * Enable needed modules.
- */
-function checkdesk_core_update_7009() {
-  module_enable(array('i18n_field'));
+  module_enable(array('i18n_menu', 'varnish', 'i18n_field'));
 }
 
 /**
@@ -156,31 +105,7 @@ function checkdesk_core_update_7009() {
  * Enable needed modules.
  */
 function checkdesk_core_update_7010() {
-  module_enable(array('translation'));
-}
-
-/**
- * Implements hook_update_N().
- * Enable needed modules.
- */
-function checkdesk_core_update_7011() {
-  module_enable(array('i18n_menu_link_uuid'));
-}
-
-/**
- * Implements hook_update_N().
- * Enable needed modules.
- */
-function checkdesk_core_update_7012() {
-  module_enable(array('translation_helpers'));
-}
-
-/**
- * Implements hook_update_N().
- * Enable needed modules.
- */
-function checkdesk_core_update_7013() {
-  module_enable(array('features_translations'));
+  module_enable(array('translation', 'i18n_menu_link_uuid'));
 }
 
 /**
@@ -191,35 +116,10 @@ function checkdesk_core_update_7014() {
 }
 
 /**
- * Installing CAPTCHA points.
- */
-function checkdesk_core_update_7015() {
-  if (db_table_exists('captcha_points')) {
-    // MySQL specific code here
-    db_query("REPLACE INTO captcha_points VALUES('user_pass', NULL, 'default')");
-    db_query("REPLACE INTO captcha_points VALUES('user_register_form', NULL, 'default')");
-    // db_query("REPLACE INTO captcha_points VALUES('webform_client_form_1', NULL, 'default')");
-  }
-}
-
-/**
  * Enable the featured stories feature.
  */
 function checkdesk_core_update_7016() {
   module_enable(array('checkdesk_featured_stories_feature'));
-}
-
-/**
- * Implements hook_update_N().
- * Change checkdesk_core weight
- */
-function checkdesk_core_update_7017() {
-  db_update('system')
-    ->fields(array(
-      'weight' => 6,
-    ))
-    ->condition('name', 'checkdesk_core')
-    ->execute();
 }
 
 /**
@@ -240,31 +140,6 @@ function checkdesk_core_update_7018() {
 function checkdesk_core_update_7019() {
   db_query("ALTER TABLE file_managed MODIFY uri VARCHAR(1024) COLLATE utf8_bin"); // Resize the column
   db_query("ALTER TABLE file_managed ENGINE=innodb"); // Rebuild the index
-}
-
-/**
- * Implements hook_update_N().
- * Disable module meedan_oembed_facebook for #1619.
- */
-function checkdesk_core_update_7021() {
-  $modules = array('meedan_oembed_facebook');
-  module_disable($modules);
-  drupal_uninstall_modules($modules);
-}
-
-/**
- * Implements hook_update_N().
- * Disable module user_alert and delete content for #1915.
- */
-function checkdesk_core_update_7022() {
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'user_alert');
-  $result = $query->execute();
-  node_delete_multiple(array_keys($result['node']));
-  $modules = array('user_alert');
-  module_disable($modules);
-  drupal_uninstall_modules($modules);
 }
 
 /**
@@ -297,13 +172,6 @@ function checkdesk_core_update_7025() {
 function checkdesk_core_update_7026() {
   variable_set('l10n_update_download_store', 'sites/all/translations');
   variable_set('l10n_update_check_mode', '2');
-}
-
-/**
- * Disable captcha / recaptcha modules.
- */
-function checkdesk_core_update_7027() {
-  module_disable(array('captcha'));
 }
 
 /**
@@ -362,3 +230,24 @@ function checkdesk_core_update_7030() {
     $query->execute();
   }
 }
+
+/**
+ * Remove old revisions.
+ */
+function checkdesk_core_update_7031() {
+  $nids = db_query('SELECT nid FROM node_revision GROUP BY nid HAVING COUNT(nid) > 1')->fetchCol();
+  foreach (node_load_multiple($nids) as $node) {
+    // Delete sub revisions.
+    foreach (node_revision_list($node) as $vid => $revision) {
+      node_revision_delete($vid);
+    }
+  }
+}
+
+/**
+ * Uninstall  modules.
+function checkdesk_core_update_7032() {
+  drupal_uninstall_modules(array('overlay', 'meedan_oembed_facebook', 'recaptcha'), FALSE);
+  drupal_uninstall_modules(array('captcha'), FALSE);
+}
+*/

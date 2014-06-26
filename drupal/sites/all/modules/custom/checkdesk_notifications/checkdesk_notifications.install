@@ -7,3 +7,19 @@ function checkdesk_notifications_install() {
   // Should run after Heartbeat
   db_query("UPDATE {system} SET weight = 1 WHERE name = 'checkdesk_notifications'");
 }
+
+/**
+ * Set Fact-checking by citizen to checked by default.
+ */
+function checkdesk_notifications_update_7001() {
+  $query = db_select('users_roles', 'ur');
+  $query->addField('ur', 'uid');
+  $query->condition('ur.rid', 5);
+  $result = $query->execute()->fetchCol();
+  foreach ($result as $uid) {
+    $user = user_load($uid);
+    $user->data['meedan_notifications']['site_fact_checking_set_by_citizen'] = 'site_fact_checking_set_by_citizen';
+    $user->data['meedan_notifications']['email_fact_checking_set_by_citizen'] = 'email_fact_checking_set_by_citizen';
+    user_save($user);
+  }
+}

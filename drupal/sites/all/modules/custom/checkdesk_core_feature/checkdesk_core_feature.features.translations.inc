@@ -130,6 +130,14 @@ function checkdesk_core_feature_translations_defaults() {
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['034a9d61a9484ff68025fb7e0a6e43c1'] = array(
+    'source' => 'Fact-checking set on a report by citizen journalist',
+    'context' => '',
+    'location' => '',
+    'translation' => 'تفعيل تقصي صحة المعلومات على تقرير من قبل مواطن صحفى',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['0379554cecb3334c680d03942465f821'] = array(
     'source' => 'Save translation',
     'context' => '',
@@ -6181,6 +6189,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'مرجع المستخدم ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['80b2c2498f5d0d32e2881aedadf79f37'] = array(
+    'source' => '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> they submitted. Fact checking is in progress.</p>',
+    'context' => '',
+    'location' => '/checkdesk-p/ar',
+    'translation' => '<p>قام <strong><a href="!user_url">!username</a></strong> بتفعيل التحقق من صحة المعلومات <strong><a href="!report_url">للتقرير</a></strong> الذي تم انشائه. التحقق من صحة المعلومات جارٍ.</p>',
     'plid' => 0,
     'plural' => 0,
   );

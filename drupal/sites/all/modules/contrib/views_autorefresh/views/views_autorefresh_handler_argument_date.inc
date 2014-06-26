@@ -15,14 +15,14 @@ class views_autorefresh_handler_argument_date extends views_handler_argument {
    */
   function summary_name($data) {
     $created = $data->{$this->name_alias};
-    return format_date(strtotime($created), 'custom', $this->format, NULL);
+    return empty($created) ? NULL : format_date(strtotime($created), 'custom', $this->format, NULL);
   }
 
   /**
    * Provide a link to the next level of the view
    */
   function title() {
-    return format_date($this->argument, 'custom', $this->format, NULL);
+    return empty($this->argument) ? NULL : format_date($this->argument, 'custom', $this->format, NULL);
   }
 
   /**
