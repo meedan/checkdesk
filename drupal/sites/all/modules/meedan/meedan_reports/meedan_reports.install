@@ -50,8 +50,10 @@ function meedan_reports_update_7002() {
       $delta++;
     }
   }
-  $sql = "INSERT INTO {field_data_field_stories} VALUES ". implode(',', $values);
-  $sql_revision = "INSERT INTO {field_revision_field_stories} VALUES ". implode(',', $values);
-  db_query($sql);
-  db_query($sql_revision);
+  if (count($values)) {
+    $sql = "INSERT INTO {field_data_field_stories} VALUES ". implode(',', $values);
+    $sql_revision = "INSERT INTO {field_revision_field_stories} VALUES ". implode(',', $values);
+    db_query($sql);
+    db_query($sql_revision);
+  }
 }
