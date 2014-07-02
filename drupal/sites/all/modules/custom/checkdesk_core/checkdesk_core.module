@@ -1572,10 +1572,25 @@ function checkdesk_core_form_node_form_alter(&$form, &$form_state) {
   }
 }
 
+function _redirect_footnote_delete($form, &$form_state) {
+  if (isset($form_state['redirect'])) {
+    $form_state['redirect'] = $_SESSION['comment_referer'];
+    unset($_SESSION['comment_referer']);
+  }
+}
+
 /**
  * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
+  //Redirect user to right place after delete footnote
+  if ($form_id == 'comment_confirm_delete' && $form['#comment']->node_type == 'comment_node_media') {
+    if(!isset($_SESSION['comment_referer'])) {
+      //use session to catch referer as destination did not work well with AJAX requests 
+      $_SESSION['comment_referer'] = $_SERVER['HTTP_REFERER']; 
+    }
+    $form['#submit'][] = '_redirect_footnote_delete';
+  }
   // Add a class to forms which should display inline errors
   $ife_form_ids = checkdesk_core_ife_form_ids();
   foreach ($ife_form_ids as $fid => $row) {

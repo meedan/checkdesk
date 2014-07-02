@@ -248,7 +248,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     $title = $message->variables['!comment'];
     if (isset($message->cid) && user_access('administer comments')) {
       $delete_footnote = l('<span class="icon-trash-o"></span>', 'comment/'. $message->cid .'/delete', array(
-        'query' => drupal_get_destination(),
+        //'query' => drupal_get_destination(),
         'attributes' => array('class' => 'delete-footnote', 'title' => t('Delete')),
         'html' => TRUE,
       ));
