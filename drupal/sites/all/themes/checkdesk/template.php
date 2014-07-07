@@ -231,6 +231,9 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($variables['main_menu'] as $id => $item) {
       if ($item['link_path'] == 'node/add/media') {
         $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
+        if (arg(0) == 'node' && is_numeric(arg(1))) {
+          $variables['main_menu'][$id]['query'] = array('ref_nid' => arg(1));
+        }
       }
       else if ($item['link_path'] == 'node/add/discussion') {
         $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
