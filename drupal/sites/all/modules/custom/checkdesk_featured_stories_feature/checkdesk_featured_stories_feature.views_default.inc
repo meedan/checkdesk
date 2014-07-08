@@ -536,5 +536,109 @@ function checkdesk_featured_stories_feature_views_default_views() {
   );
   $export['featured_stories'] = $view;
 
+  $view = new view();
+  $view->name = 'story_collaboration';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'heartbeat_activity';
+  $view->human_name = 'story collaboration';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'collaboration';
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['row_plugin'] = 'heartbeat_activity';
+  $handler->display->display_options['row_options']['links'] = 1;
+  $handler->display->display_options['row_options']['comments'] = 0;
+  /* Header: Global: Autorefresh */
+  $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
+  $handler->display->display_options['header']['autorefresh']['incremental'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['display'] = 'page_1';
+  $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['ping_base_path'] = 'sites/all/modules/custom/checkdesk_core/autorefresh/collaboration.php';
+  /* Field: Heartbeat activity: Activity message */
+  $handler->display->display_options['fields']['message']['id'] = 'message';
+  $handler->display->display_options['fields']['message']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['message']['field'] = 'message';
+  $handler->display->display_options['fields']['message']['exclude'] = TRUE;
+  /* Field: Heartbeat activity: Activity message */
+  $handler->display->display_options['fields']['message_1']['id'] = 'message_1';
+  $handler->display->display_options['fields']['message_1']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['message_1']['field'] = 'message';
+  /* Field: Heartbeat activity: Creation date */
+  $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['date_format'] = 'long';
+  /* Contextual filter: Heartbeat activity: Node target ID */
+  $handler->display->display_options['arguments']['nid_target']['id'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['arguments']['nid_target']['field'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['nid_target']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid_target']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid_target']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid_target']['summary_options']['items_per_page'] = '25';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'story-collaboration';
+
+  /* Display: Autorefresh */
+  $handler = $view->new_display('page', 'Autorefresh', 'page_1');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Heartbeat activity: Node target ID */
+  $handler->display->display_options['arguments']['nid_target']['id'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['arguments']['nid_target']['field'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['nid_target']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid_target']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid_target']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid_target']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Heartbeat activity: Creation date (with operator) */
+  $handler->display->display_options['arguments']['created_at_operator']['id'] = 'created_at_operator';
+  $handler->display->display_options['arguments']['created_at_operator']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['arguments']['created_at_operator']['field'] = 'created_at_operator';
+  $handler->display->display_options['arguments']['created_at_operator']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['created_at_operator']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['created_at_operator']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['created_at_operator']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['path'] = 'story-collaboration/autorefresh/%';
+  $translatables['story_collaboration'] = array(
+    t('Master'),
+    t('collaboration'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Activity message'),
+    t('Creation date'),
+    t('All'),
+    t('Page'),
+    t('Autorefresh'),
+  );
+  $export['story_collaboration'] = $view;
+
   return $export;
 }
