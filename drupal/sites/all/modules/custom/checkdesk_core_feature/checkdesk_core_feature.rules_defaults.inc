@@ -46,7 +46,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_comment_on_report" : {
             "nid" : [ "comment:node:nid" ],
             "uid" : [ "comment:author:uid" ],
-            "nid_target" : "0",
+            "nid_target" : [ "comment:node:field-stories:nid" ],
             "uid_target" : "0",
             "cid" : [ "comment:cid" ],
             "message_id" : { "value" : { "checkdesk_comment_on_report" : "checkdesk_comment_on_report" } },
@@ -115,31 +115,25 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "php_eval" : { "code" : "$obj = entity_metadata_wrapper(\\u0027node\\u0027, $node);\\r\\n$new = array();\\r\\n$values = $obj-\\u003Efield_stories-\\u003Evalue();\\r\\nforeach ($values as $value) {\\r\\n  $new[] = $value-\\u003Enid;\\r\\n}\\r\\n$obj = entity_metadata_wrapper(\\u0027node\\u0027, $node_unchanged);\\r\\n$old = array();\\r\\n$values = $obj-\\u003Efield_stories-\\u003Evalue();\\r\\nforeach ($values as $value) {\\r\\n  $old[] = $value-\\u003Enid;\\r\\n}\\r\\n$diff = array_diff($new, $old);\\r\\nreturn count($diff) \\u003E 0;" } }
       ],
       "DO" : [
-        { "LOOP" : {
-            "USING" : { "list" : [ "node:field-stories" ] },
-            "ITEM" : { "list_item" : "Current list item" },
-            "DO" : [
-              { "heartbeat_activity_checkdesk_report_suggested_to_story" : {
-                  "nid" : "[node:nid]",
-                  "uid" : "[site:current-user:uid]",
-                  "uid_target" : "0",
-                  "message_id" : { "value" : { "checkdesk_report_suggested_to_story" : "checkdesk_report_suggested_to_story" } },
-                  "!user_url" : "[site:current-user:url]",
-                  "!username" : "[site:current-user:name]",
-                  "!report_url" : "[node:url]",
-                  "!story_url" : "[list-item:url]",
-                  "!story" : "[list-item:title]"
-                }
-              },
-              { "schedule" : {
-                  "component" : "rules_notify_subscribed_users_existing_report_suggested_to_story",
-                  "date" : "now",
-                  "param_node" : [ "node" ],
-                  "param_list_item" : [ "list-item" ],
-                  "param_current_user" : [ "site:current-user" ]
-                }
-              }
-            ]
+        { "heartbeat_activity_checkdesk_report_suggested_to_story" : {
+            "nid" : "[node:nid]",
+            "uid" : "[site:current-user:uid]",
+            "nid_target" : [ "node:field-stories:nid" ],
+            "uid_target" : "0",
+            "message_id" : { "value" : { "checkdesk_report_suggested_to_story" : "checkdesk_report_suggested_to_story" } },
+            "!user_url" : "[site:current-user:url]",
+            "!username" : "[site:current-user:name]",
+            "!report_url" : "[node:url]",
+            "!story_url" : "[list-item:url]",
+            "!story" : "[list-item:title]"
+          }
+        },
+        { "schedule" : {
+            "component" : "rules_notify_subscribed_users_existing_report_suggested_to_story",
+            "date" : "now",
+            "param_node" : [ "node" ],
+            "param_list_item" : [ "node:field-stories" ],
+            "param_current_user" : [ "site:current-user" ]
           }
         }
       ]
@@ -178,7 +172,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_fact_status_changed_for_commenter" : {
             "nid" : [ "node:nid" ],
             "uid" : [ "site:current-user:uid" ],
-            "nid_target" : "0",
+            "nid_target" : [ "node:field-stories:nid" ],
             "uid_target" : "0",
             "message_id" : { "value" : { "checkdesk_fact_status_changed_for_commenter" : "checkdesk_fact_status_changed_for_commenter" } },
             "!user_url" : [ "site:current-user:uid" ],
@@ -228,7 +222,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "rules_scheduler", "flag" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
       "ON" : { "flag_flagged_factcheck_journalist" : [] },
       "IF" : [
         { "user_has_role" : { "account" : [ "flagging-user" ], "roles" : { "value" : { "4" : "4" } } } },
@@ -274,6 +268,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_new_report" : {
             "nid" : [ "node:nid" ],
             "uid" : [ "node:author:uid" ],
+            "nid_target" : [ "node:field-stories:nid" ],
             "message_id" : { "value" : { "new_report" : "new_report" } },
             "!title" : [ "node:title" ],
             "!username" : [ "node:author:name" ]
@@ -680,6 +675,7 @@ function checkdesk_core_feature_default_rules_configuration() {
               { "heartbeat_activity_publish_report" : {
                   "nid" : [ "report:nid" ],
                   "uid" : [ "site:current-user:uid" ],
+                  "nid_target" : [ "node:field-desk:nid" ],
                   "message_id" : { "value" : { "publish_report" : "publish_report" } },
                   "!publisher" : [ "site:current-user:name" ],
                   "!story_url" : [ "node:field_desk:url" ],
@@ -743,7 +739,7 @@ function checkdesk_core_feature_default_rules_configuration() {
               { "heartbeat_activity_checkdesk_report_published_in_update" : {
                   "nid" : [ "report:nid" ],
                   "uid" : [ "site:current-user:uid" ],
-                  "nid_target" : [ "node:nid" ],
+                  "nid_target" : [ "node:field-desk:nid" ],
                   "uid_target" : [ "report:author:uid" ],
                   "message_id" : { "value" : { "checkdesk_report_published_in_update" : "checkdesk_report_published_in_update" } },
                   "!report_url" : [ "report:url" ],
@@ -816,31 +812,24 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "php_eval" : { "code" : "$obj = entity_metadata_wrapper(\\u0027node\\u0027, $node);\\r\\n$field = $obj-\\u003Efield_stories-\\u003Evalue();\\r\\nreturn count($field) \\u003E 0;" } }
       ],
       "DO" : [
-        { "LOOP" : {
-            "USING" : { "list" : [ "node:field-stories" ] },
-            "ITEM" : { "list_item" : "Current list item" },
-            "DO" : [
-              { "heartbeat_activity_checkdesk_report_suggested_to_story" : {
-                  "nid" : "[node:nid]",
-                  "uid" : "[site:current-user:uid]",
-                  "nid_target" : "[list-item:nid]",
-                  "uid_target" : "0",
-                  "message_id" : { "value" : { "checkdesk_report_suggested_to_story" : "checkdesk_report_suggested_to_story" } },
-                  "!user_url" : "[site:current-user:url]",
-                  "!username" : "[site:current-user:name]",
-                  "!report_url" : "[node:url]",
-                  "!story_url" : "[list-item:url]",
-                  "!story" : "[list-item:title]"
-                }
-              },
-              { "schedule" : {
-                  "component" : "rules_notify_subscribed_users_report_suggested_to_story",
-                  "date" : "now",
-                  "param_node" : [ "node" ],
-                  "param_list_item" : [ "list-item" ]
-                }
-              }
-            ]
+        { "heartbeat_activity_checkdesk_report_suggested_to_story" : {
+            "nid" : "[node:nid]",
+            "uid" : "[site:current-user:uid]",
+            "nid_target" : [ "node:field-stories:nid" ],
+            "uid_target" : "0",
+            "message_id" : { "value" : { "checkdesk_report_suggested_to_story" : "checkdesk_report_suggested_to_story" } },
+            "!user_url" : "[site:current-user:url]",
+            "!username" : "[site:current-user:name]",
+            "!report_url" : "[node:url]",
+            "!story_url" : [ "node:field-stories:url" ],
+            "!story" : [ "node:field-stories:title" ]
+          }
+        },
+        { "schedule" : {
+            "component" : "rules_notify_subscribed_users_report_suggested_to_story",
+            "date" : "now",
+            "param_node" : [ "node" ],
+            "param_list_item" : [ "node:field-stories" ]
           }
         }
       ]
@@ -865,7 +854,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "nid" : [ "flagged-node:nid" ],
             "uid" : [ "flagging-user:uid" ],
             "nid_target" : "0",
-            "uid_target" : "0",
+            "uid_target" : [ "flagged-node:field-stories:nid" ],
             "message_id" : { "value" : { "checkdesk_fact_checking_on" : "checkdesk_fact_checking_on" } },
             "!user_url" : [ "flagging-user:url" ],
             "!username" : [ "flagging-user:name" ],
@@ -908,7 +897,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_flag_report" : {
             "nid" : "[flagged-node:nid]",
             "uid" : "[flagging-user:uid]",
-            "nid_target" : "0",
+            "nid_target" : [ "flagged-node:field-stories:nid" ],
             "uid_target" : [ "flagging-user:uid" ],
             "message_id" : { "value" : { "checkdesk_flag_report" : "checkdesk_flag_report" } },
             "!flag_author_url" : [ "flagging-user:url" ],
@@ -948,6 +937,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_status_report" : {
             "nid" : [ "node:nid" ],
             "uid" : [ "site:current-user:uid" ],
+            "nid_target" : [ "node:field-stories:nid" ],
             "message_id" : { "value" : { "status_report" : "status_report" } },
             "!status" : [ "node:field-rating:name" ],
             "!editor" : [ "site:current-user:name" ]
