@@ -83,7 +83,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_comment_on_update" : {
             "nid" : [ "comment:node:nid" ],
             "uid" : [ "comment:author:uid" ],
-            "nid_target" : "0",
+            "nid_target" : [ "comment:node:field-desk:nid" ],
             "uid_target" : "0",
             "cid" : [ "comment:cid" ],
             "message_id" : { "value" : { "checkdesk_comment_on_update" : "checkdesk_comment_on_update" } },
@@ -160,7 +160,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_fact_checking_set" : {
             "nid" : [ "node:nid" ],
             "uid" : [ "site:current-user:uid" ],
-            "nid_target" : "0",
+            "nid_target" : [ "node:field-stories:nid" ],
             "uid_target" : "0",
             "message_id" : { "value" : { "checkdesk_fact_checking_set" : "checkdesk_fact_checking_set" } },
             "!user_url" : [ "site:current-user:uid" ],
@@ -236,7 +236,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_fact_checking_on_by_citizen" : {
             "nid" : [ "flagged-node:nid" ],
             "uid" : [ "flagging-user:uid" ],
-            "nid_target" : "0",
+            "nid_target" : [ "flagged-node:field-stories:nid" ],
             "uid_target" : "0",
             "message_id" : { "value" : { "checkdesk_fact_checking_on_by_citizen" : "checkdesk_fact_checking_on_by_citizen" } },
             "!user_url" : [ "flagging-user:url" ],
@@ -295,7 +295,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_new_comment_report" : {
             "nid" : [ "comment:node:nid" ],
             "uid" : [ "comment:author:uid" ],
-            "nid_target" : [ "" ],
+            "nid_target" : [ "comment:node:field-stories:nid" ],
             "cid" : [ "comment:cid" ],
             "message_id" : { "value" : { "new_comment_report" : "new_comment_report" } },
             "!username" : [ "comment:author:name" ],

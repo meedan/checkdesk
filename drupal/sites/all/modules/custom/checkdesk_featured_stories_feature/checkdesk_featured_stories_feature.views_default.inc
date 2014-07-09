@@ -556,7 +556,10 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'list';
   $handler->display->display_options['row_plugin'] = 'heartbeat_activity';
   $handler->display->display_options['row_options']['links'] = 1;
@@ -581,6 +584,11 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
   $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
   $handler->display->display_options['fields']['created_at']['date_format'] = 'long';
+  /* Sort criterion: Heartbeat activity: Creation date */
+  $handler->display->display_options['sorts']['created_at']['id'] = 'created_at';
+  $handler->display->display_options['sorts']['created_at']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['sorts']['created_at']['field'] = 'created_at';
+  $handler->display->display_options['sorts']['created_at']['order'] = 'DESC';
   /* Contextual filter: Heartbeat activity: Node target ID */
   $handler->display->display_options['arguments']['nid_target']['id'] = 'nid_target';
   $handler->display->display_options['arguments']['nid_target']['table'] = 'heartbeat_activity';
