@@ -548,7 +548,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'collaboration';
+  $handler->display->display_options['title'] = 'Collaboration';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
@@ -619,6 +619,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['arguments']['created_at_operator']['id'] = 'created_at_operator';
   $handler->display->display_options['arguments']['created_at_operator']['table'] = 'heartbeat_activity';
   $handler->display->display_options['arguments']['created_at_operator']['field'] = 'created_at_operator';
+  $handler->display->display_options['arguments']['created_at_operator']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['created_at_operator']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['created_at_operator']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['created_at_operator']['summary']['format'] = 'default_summary';
@@ -626,7 +627,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['path'] = 'story-collaboration/autorefresh/%';
   $translatables['story_collaboration'] = array(
     t('Master'),
-    t('collaboration'),
+    t('Collaboration'),
     t('more'),
     t('Apply'),
     t('Reset'),
