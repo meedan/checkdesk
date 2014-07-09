@@ -345,7 +345,10 @@ function checkdesk_core_feature_default_rules_configuration() {
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
       "ON" : { "user_insert" : [] },
-      "IF" : [ { "user_is_blocked" : { "account" : [ "account" ] } } ],
+      "IF" : [
+        { "php_eval" : { "code" : "if (variable_get(\\u0027user_register\\u0027, USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) == USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) {\\r\\n  return TRUE;\\r\\n}\\r\\nreturn FALSE;" } },
+        { "user_is_blocked" : { "account" : [ "account" ] } }
+      ],
       "DO" : [
         { "heartbeat_activity_checkdesk_new_user" : {
             "nid" : "[account:uid]",

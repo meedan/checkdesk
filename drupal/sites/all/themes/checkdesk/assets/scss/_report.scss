@@ -552,15 +552,30 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 								color: $red; 
 							}
 						}
-						.time {
+						.activity-end-wrapper {
 							padding: 14px 0;
 							position: absolute;
 							top: 0;
 							#{$omega}: 0;
+						}
+						.delete-footnote {
+							display: none;
+							.icon-trash-o { 
+								color: $firefly30;
+								@include icon(trash-o);
+							}
+						}
+						.time {
 							text-align: $omega;
 							width: 16%;
 							color: $firefly30;
 							font-size: modular-scale(0) - modular-scale(-3); // 14px
+						}
+						&:hover {
+							// display delete icon only on hover
+							.delete-footnote {
+								display: inline-block;
+							}
 						}
 					} // header
 				} // activity
@@ -990,4 +1005,15 @@ div.sensitive-hide {
 .report-row .sensitive-notification {
 	@include cd-sans-serif-family;
 	background-color: $firefly5 !important;
+}
+
+// Missing reports
+.meedan-oembed-missing {
+	display: table-cell;
+	height: 200px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: $firefly5 !important;
+	padding: 0 $gutter-width*4;
+	color: $firefly60;
 }

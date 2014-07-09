@@ -1,0 +1,13 @@
+diff --git a/drupal/modules/comment/comment.module b/drupal/modules/comment/comment.module
+index 3c94200..ce77b2c 100644
+--- a/drupal/modules/comment/comment.module
++++ b/drupal/modules/comment/comment.module
+@@ -725,7 +725,7 @@ function comment_node_page_additions($node) {
+   // Only attempt to render comments if the node has visible comments.
+   // Unpublished comments are not included in $node->comment_count, so show
+   // comments unconditionally if the user is an administrator.
+-  if (($node->comment_count && user_access('access comments')) || user_access('administer comments')) {
++  if ((isset($node->comment_count) && user_access('access comments')) || user_access('administer comments')) {
+     $mode = variable_get('comment_default_mode_' . $node->type, COMMENT_MODE_THREADED);
+     $comments_per_page = variable_get('comment_default_per_page_' . $node->type, 50);
+     if ($cids = comment_get_thread($node, $mode, $comments_per_page)) {

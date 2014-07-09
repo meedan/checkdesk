@@ -245,9 +245,24 @@ function checkdesk_core_update_7031() {
 }
 
 /**
- * Uninstall  modules.
- */
+ * Uninstall recaptcha modules.
+*/
 function checkdesk_core_update_7032() {
-  drupal_uninstall_modules(array('overlay', 'meedan_oembed_facebook', 'recaptcha'), FALSE);
+  drupal_uninstall_modules(array('recaptcha'), FALSE);
   drupal_uninstall_modules(array('captcha'), FALSE);
+}
+
+/**
+ * Enable auto-approved for some partners.
+ */
+function checkdesk_core_update_7033() {
+  $hostnames = variable_get('hostnames', array());
+  $auto_approved = array('qa.checkdesk.org', '7iber.checkdesk.org', 'weladelbalad.checkdesk.org', 'maan.checkdesk.org', 'smex.checkdesk.org');
+  $result = array_intersect($hostnames, $auto_approved);
+  if (count($result)) {
+    variable_set('user_register', USER_REGISTER_VISITORS);
+  }
+  else {
+    variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
+  }
 }

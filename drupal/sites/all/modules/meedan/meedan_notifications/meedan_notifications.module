@@ -395,6 +395,11 @@ function meedan_notifications_mail($key, &$message, $params) {
   if (isset($object->nid)) {
     $message['headers']['X-Checkdesk-ID'] = $object->nid;
   }
+  //force new account mail to be HTML
+  if ($key == 'email_new_user') {
+    $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+  }
+
 }
 
 /**
