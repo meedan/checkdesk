@@ -106,11 +106,11 @@ Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
 
     // If there's a ping URL, hit it first.
     if (ping_base_path) {
+      var pingData = { 'timestamp': Drupal.settings.views_autorefresh[view_name].timestamp };
+      $.extend(pingData, Drupal.settings.views_autorefresh[view_name].ping.ping_args);
       $.ajax({
         url: Drupal.settings.basePath + ping_base_path,
-        data: {
-          timestamp: Drupal.settings.views_autorefresh[view_name].timestamp
-        },
+        data: pingData,
         success: function(response) {
           if (response.pong && parseInt(response.pong) > 0) {
             $(target).trigger('autorefresh.ping', parseInt(response.pong));

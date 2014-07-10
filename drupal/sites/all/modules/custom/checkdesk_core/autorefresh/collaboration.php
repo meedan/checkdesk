@@ -13,7 +13,12 @@ $mysql->exec('SET NAMES utf8');
 $timestamp = intval($_REQUEST['timestamp']);
 
 $sql = "SELECT COUNT(*) FROM heartbeat_activity WHERE timestamp > " . $timestamp;
-//ToDO: add target nid to SQL query
+
+if (!empty($_REQUEST['story_nid'])) {
+  $nid = intval($_REQUEST['story_nid']);
+  $sql .= " AND nid_target = " . $nid;
+}
+
 $query = $mysql->prepare($sql);
 $query->execute();
 $count = $query->fetchColumn();

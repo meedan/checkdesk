@@ -565,11 +565,17 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['row_options']['links'] = 1;
   $handler->display->display_options['row_options']['comments'] = 0;
   /* Header: Global: Autorefresh */
+  $handler->display->display_options['header']['autorefresh']['id'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['table'] = 'views';
+  $handler->display->display_options['header']['autorefresh']['field'] = 'autorefresh';
   $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
   $handler->display->display_options['header']['autorefresh']['incremental'] = TRUE;
   $handler->display->display_options['header']['autorefresh']['display'] = 'page_1';
   $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
   $handler->display->display_options['header']['autorefresh']['ping_base_path'] = 'sites/all/modules/custom/checkdesk_core/autorefresh/collaboration.php';
+  $handler->display->display_options['header']['autorefresh']['ping_arguments'] = 'return array(
+\'story_nid\' => arg(1),
+);';
   /* Field: Heartbeat activity: Activity message */
   $handler->display->display_options['fields']['message']['id'] = 'message';
   $handler->display->display_options['fields']['message']['table'] = 'heartbeat_activity';
