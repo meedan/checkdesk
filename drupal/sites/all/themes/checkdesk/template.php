@@ -514,6 +514,30 @@ function checkdesk_preprocess_page(&$variables) {
  */
 function checkdesk_preprocess_node(&$variables) {
 
+  if($variables['view_mode'] == 'checkdesk_collaborate') {
+    $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__checkdesk_collaborate';
+    if ($variables['type'] == 'post') {
+      //collect update reports 
+      $query = db_select('checkdesk_reports_updates', 'ru');
+      $query->join('node', 'n', 'ru.report_nid = n.nid');
+      $query->join('users', 'u', 'n.uid = u.uid');
+      $query->fields('ru', array('report_nid', 'update_nid'));
+      $query->fields('n', array('title', 'uid'));
+      $query->fields('u', array('name'));
+      $query->condition('update_nid', 4109);
+      $result = $query->execute()->fetchAll();
+      $users = $reports = array();
+      foreach ($result as $row) {
+        $users[$row->uid] = l($row->name, 'user/'. $row->uid);
+        $reports[] = l($row->title, 'node/'. $row->report_nid);
+      }
+      if (count($reports)) {
+        $reports_title = t('Uses reports added by !users', array('!users' => implode(' and ', $users)));
+        $variables['update_reports'] = theme('item_list', array('items' => $reports, 'title' => $reports_title));
+        $variables['update_reports_count'] = format_plural(count($reports), '1 report', '@count reports');
+      }
+    } 
+  }
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();

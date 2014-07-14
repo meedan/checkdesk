@@ -251,6 +251,10 @@ function meedan_oembed_entity_info_alter(&$entity_info) {
     'label' => t('Meedan oEmbed'),
     'custom settings' => TRUE,
   );
+  $entity_info['node']['view modes']['checkdesk_collaborate'] = array(
+    'label' => t('Checkdesk collaborate'),
+    'custom settings' => TRUE,
+  );
 }
 
 /**
