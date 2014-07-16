@@ -2830,3 +2830,26 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
     $queue->createItem($paths);
   }
 }
+
+function _cd_story_collaborate($row) {
+  //watchdog('SAWY-DATA', print_r($row, TRUE));
+  switch($row->heartbeat_activity_message_id) {
+  case 'checkdesk_new_update_on_story_i_commented_on_update':
+  case 'new_report':
+  case 'checkdesk_report_suggested_to_story':
+  case 'checkdesk_report_published_in_update':
+  case 'publish_report':
+    $node = node_load($row->node_heartbeat_activity_nid);
+    $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
+    break;
+  case 'status_report':
+    $output = 'Change report status';
+    break;
+  case 'new_comment_report':
+    $output = '';
+    break;
+  default:
+    $output = 'MELSAWY';
+  }
+  return $output;
+}

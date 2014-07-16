@@ -590,25 +590,34 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['picture']['label'] = '';
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['picture']['image_style'] = 'activity_avatar';
+  /* Field: Heartbeat activity: Creation date */
+  $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['label'] = '';
+  $handler->display->display_options['fields']['created_at']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created_at']['date_format'] = 'raw time ago';
   /* Field: Heartbeat activity: Activity message */
   $handler->display->display_options['fields']['message_1']['id'] = 'message_1';
   $handler->display->display_options['fields']['message_1']['table'] = 'heartbeat_activity';
   $handler->display->display_options['fields']['message_1']['field'] = 'message';
   $handler->display->display_options['fields']['message_1']['label'] = '';
   $handler->display->display_options['fields']['message_1']['element_label_colon'] = FALSE;
-  /* Field: Heartbeat activity: Creation date */
-  $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
-  $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
-  $handler->display->display_options['fields']['created_at']['date_format'] = 'long';
   /* Field: Content: Node field */
   $handler->display->display_options['fields']['nodefield']['id'] = 'nodefield';
   $handler->display->display_options['fields']['nodefield']['table'] = 'node';
   $handler->display->display_options['fields']['nodefield']['field'] = 'nodefield';
   $handler->display->display_options['fields']['nodefield']['relationship'] = 'nid';
+  $handler->display->display_options['fields']['nodefield']['exclude'] = TRUE;
   $handler->display->display_options['fields']['nodefield']['build_mode'] = 'checkdesk_collaborate';
   $handler->display->display_options['fields']['nodefield']['links'] = 0;
   $handler->display->display_options['fields']['nodefield']['comments'] = 0;
+  /* Field: Heartbeat activity: Heartbeat template */
+  $handler->display->display_options['fields']['message_id']['id'] = 'message_id';
+  $handler->display->display_options['fields']['message_id']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['message_id']['field'] = 'message_id';
+  $handler->display->display_options['fields']['message_id']['label'] = '';
+  $handler->display->display_options['fields']['message_id']['element_label_colon'] = FALSE;
   /* Sort criterion: Heartbeat activity: Creation date */
   $handler->display->display_options['sorts']['created_at']['id'] = 'created_at';
   $handler->display->display_options['sorts']['created_at']['table'] = 'heartbeat_activity';
@@ -673,7 +682,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('last »'),
     t('User ID'),
     t('content'),
-    t('Creation date'),
     t('Node field'),
     t('All'),
     t('Page'),

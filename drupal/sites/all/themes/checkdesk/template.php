@@ -524,7 +524,7 @@ function checkdesk_preprocess_node(&$variables) {
       $query->fields('ru', array('report_nid', 'update_nid'));
       $query->fields('n', array('title', 'uid'));
       $query->fields('u', array('name'));
-      $query->condition('update_nid', 4109);
+      $query->condition('update_nid', $variables['nid']);
       $result = $query->execute()->fetchAll();
       $users = $reports = array();
       foreach ($result as $row) {
