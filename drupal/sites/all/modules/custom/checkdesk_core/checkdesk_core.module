@@ -1402,9 +1402,12 @@ function checkdesk_core_block_info() {
     'info' => 'Report form block',
     'cache' => DRUPAL_NO_CACHE,
   );
-
   $blocks['checkdesk_user_info'] = array(
     'info'   => t('Checkdesk user information'),
+    'cache'  => DRUPAL_NO_CACHE,
+  );
+  $blocks['checkdesk_story_collaborators'] = array(
+    'info'   => t('Checkdesk story collaborators'),
     'cache'  => DRUPAL_NO_CACHE,
   );
 
@@ -1420,6 +1423,8 @@ function checkdesk_core_block_view($delta = '') {
       return checkdesk_core_report_form_block();
     case 'checkdesk_user_info':
       return checkdesk_core_user_info_block();
+    case 'checkdesk_story_collaborators':
+      return checkdesk_story_collaborators();
   }
 }
 
@@ -2850,6 +2855,36 @@ function _cd_story_collaborate($row) {
     break;
   default:
     $output = '';
+  }
+  return $output;
+}
+
+/**
+ * Function to list story collaborators 
+ *  @param story_nid
+ */
+function checkdesk_story_collaborators() {
+  $output = '';
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    //ToDO check node type
+    $users = db_query('
+      SELECT DISTINCT ha.uid, u.name, f.fid, f.uri 
+      FROM {heartbeat_activity} ha 
+      INNER JOIN {users} u ON ha.uid = u.uid 
+      LEFT JOIN {file_managed} f ON u.picture = f.fid 
+      WHERE nid_target = :nid
+      ', array(':nid' => arg(1)))->fetchAll();
+    if (count($users)) {
+      $title = format_plural(count($users), '1 collaborator', '@count collaborators');
+      $uitems = $pitems = array();
+      foreach ($users as $user) {
+        $uitems[] = l($user->name, 'user/'. $user->uid);
+        $avatar = theme('image_style', array('style_name' => 'activity_avatar', 'path' => $user->uri, 'getsize' => TRUE, 'attributes' => array('class' => 'user-avatar')));
+        $pitems[] = l($avatar, 'user/'. $uid);
+      }
+      $output .= theme('item_list', array('items' => $uitems, 'title' => $title, 'attributes' => array('class' => 'story-collaborators-users')));
+      $output .= theme('item_list', array('items' => $pitems, 'title' => '', 'attributes' => array('class' => 'story-collaborators-users-avatars')));
+    }
   }
   return $output;
 }
