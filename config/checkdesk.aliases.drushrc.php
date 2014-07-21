@@ -10,7 +10,8 @@ $aliases['prod'] = array(
     '@prod.weladelbalad', 
     '@prod.thetribune', 
     '@prod.madamasr', 
-    '@prod.smex'
+    '@prod.smex',
+    '@prod.bellingcat'
   ),
 );
 $aliases['qa'] = array(
@@ -72,6 +73,10 @@ $aliases['prod.madamasr'] = array (
 $aliases['prod.smex'] = array (
   'parent' => '@prod-alias',
   'uri' => 'smex.checkdesk.org',
+);
+$aliases['prod.bellingcat'] = array (
+  'parent' => '@prod-alias',
+  'uri' => 'bellingcat.checkdesk.org',
 );
 
 // qa aliases
