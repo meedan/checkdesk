@@ -855,7 +855,7 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
   if ($node->type == 'post' && $view_mode == 'checkdesk_collaborate') {
-    $node->body['und'][0]['value'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body['und'][0]['value']);
+    $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body['und'][0]['value']);
   }
   // Get node links.
   $links = _checkdesk_core_node_links($node);
@@ -2841,15 +2841,14 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
   }
 }
 
-function _cd_story_collaborate($row) {
-  //watchdog('SAWY-DATA', print_r($row, TRUE));
+function checkdesk_story_collaborate_render_object($row) {
   switch($row->heartbeat_activity_message_id) {
   case 'checkdesk_new_update_on_story_i_commented_on_update':
   case 'new_report':
   case 'checkdesk_report_suggested_to_story':
   case 'checkdesk_report_published_in_update':
   case 'publish_report':
-    $node = node_load($row->node_heartbeat_activity_nid);
+    $node = node_load($row->heartbeat_activity_nid);
     $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
     break;
   case 'status_report':
@@ -2863,5 +2862,4 @@ function _cd_story_collaborate($row) {
   }
   return $output;
 }
-
 

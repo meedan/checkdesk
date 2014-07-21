@@ -23,6 +23,5 @@
  */
 ?>
 <?php 
-print _cd_story_collaborate($row);
-//print $output; 
+print checkdesk_story_collaborate_render_object($row);
 ?>

@@ -578,10 +578,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'heartbeat_activity';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-  /* Relationship: Heartbeat activity: Node ID */
-  $handler->display->display_options['relationships']['nid']['id'] = 'nid';
-  $handler->display->display_options['relationships']['nid']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   /* Field: User: Picture */
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
   $handler->display->display_options['fields']['picture']['table'] = 'users';
@@ -603,15 +599,11 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['created_at']['label'] = '';
   $handler->display->display_options['fields']['created_at']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['created_at']['date_format'] = 'raw time ago';
-  /* Field: Content: Node field */
-  $handler->display->display_options['fields']['nodefield']['id'] = 'nodefield';
-  $handler->display->display_options['fields']['nodefield']['table'] = 'node';
-  $handler->display->display_options['fields']['nodefield']['field'] = 'nodefield';
-  $handler->display->display_options['fields']['nodefield']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['nodefield']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nodefield']['build_mode'] = 'checkdesk_collaborate';
-  $handler->display->display_options['fields']['nodefield']['links'] = 0;
-  $handler->display->display_options['fields']['nodefield']['comments'] = 0;
+  /* Field: Heartbeat activity: Node ID */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   /* Field: Heartbeat activity: Heartbeat template */
   $handler->display->display_options['fields']['message_id']['id'] = 'message_id';
   $handler->display->display_options['fields']['message_id']['table'] = 'heartbeat_activity';
@@ -635,8 +627,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'story-collaborationtest';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'story-collaboration-tab';
   $handler->display->display_options['menu']['title'] = 'Collaboration';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 1;
@@ -681,8 +672,9 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('next ›'),
     t('last »'),
     t('User ID'),
-    t('content'),
-    t('Node field'),
+    t('Node ID'),
+    t('.'),
+    t(','),
     t('All'),
     t('Page'),
     t('Autorefresh'),
