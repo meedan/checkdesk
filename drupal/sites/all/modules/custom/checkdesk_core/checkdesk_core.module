@@ -121,6 +121,13 @@ function checkdesk_core_menu() {
     'access callback' => '_checkdesk_core_can_take_tour',
     'type' => MENU_CALLBACK,
   );
+  $items['story-collaboration/%'] = array(
+    'title' => t('Collaboration'),
+    'page callback' => '_checkdesk_story_collaboration',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'file' => 'checkdesk_core.pages.inc',
+  );
 
   return $items;
 }
@@ -846,6 +853,10 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
  * Implements hook_node_view().
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
+
+  if ($node->type == 'post' && $view_mode == 'checkdesk_collaborate') {
+    $node->body['und'][0]['value'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body['und'][0]['value']);
+  }
   // Get node links.
   $links = _checkdesk_core_node_links($node);
   if (!empty($links)) {
@@ -1406,11 +1417,7 @@ function checkdesk_core_block_info() {
     'info'   => t('Checkdesk user information'),
     'cache'  => DRUPAL_NO_CACHE,
   );
-  $blocks['checkdesk_story_collaborators'] = array(
-    'info'   => t('Checkdesk story collaborators'),
-    'cache'  => DRUPAL_NO_CACHE,
-  );
-
+  
   return $blocks;
 }
 
@@ -1423,8 +1430,6 @@ function checkdesk_core_block_view($delta = '') {
       return checkdesk_core_report_form_block();
     case 'checkdesk_user_info':
       return checkdesk_core_user_info_block();
-    case 'checkdesk_story_collaborators':
-      return checkdesk_story_collaborators();
   }
 }
 
@@ -2859,32 +2864,4 @@ function _cd_story_collaborate($row) {
   return $output;
 }
 
-/**
- * Function to list story collaborators 
- *  @param story_nid
- */
-function checkdesk_story_collaborators() {
-  $output = '';
-  if (arg(0) == 'node' && is_numeric(arg(1))) {
-    //ToDO check node type
-    $users = db_query('
-      SELECT DISTINCT ha.uid, u.name, f.fid, f.uri 
-      FROM {heartbeat_activity} ha 
-      INNER JOIN {users} u ON ha.uid = u.uid 
-      LEFT JOIN {file_managed} f ON u.picture = f.fid 
-      WHERE nid_target = :nid
-      ', array(':nid' => arg(1)))->fetchAll();
-    if (count($users)) {
-      $title = format_plural(count($users), '1 collaborator', '@count collaborators');
-      $uitems = $pitems = array();
-      foreach ($users as $user) {
-        $uitems[] = l($user->name, 'user/'. $user->uid);
-        $avatar = theme('image_style', array('style_name' => 'activity_avatar', 'path' => $user->uri, 'getsize' => TRUE, 'attributes' => array('class' => 'user-avatar')));
-        $pitems[] = l($avatar, 'user/'. $uid);
-      }
-      $output .= theme('item_list', array('items' => $uitems, 'title' => $title, 'attributes' => array('class' => 'story-collaborators-users')));
-      $output .= theme('item_list', array('items' => $pitems, 'title' => '', 'attributes' => array('class' => 'story-collaborators-users-avatars')));
-    }
-  }
-  return $output;
-}
+

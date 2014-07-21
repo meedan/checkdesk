@@ -590,6 +590,12 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['picture']['label'] = '';
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['picture']['image_style'] = 'activity_avatar';
+  /* Field: Heartbeat activity: Activity message */
+  $handler->display->display_options['fields']['message_1']['id'] = 'message_1';
+  $handler->display->display_options['fields']['message_1']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['message_1']['field'] = 'message';
+  $handler->display->display_options['fields']['message_1']['label'] = '';
+  $handler->display->display_options['fields']['message_1']['element_label_colon'] = FALSE;
   /* Field: Heartbeat activity: Creation date */
   $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
   $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
@@ -597,12 +603,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['created_at']['label'] = '';
   $handler->display->display_options['fields']['created_at']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['created_at']['date_format'] = 'raw time ago';
-  /* Field: Heartbeat activity: Activity message */
-  $handler->display->display_options['fields']['message_1']['id'] = 'message_1';
-  $handler->display->display_options['fields']['message_1']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['message_1']['field'] = 'message';
-  $handler->display->display_options['fields']['message_1']['label'] = '';
-  $handler->display->display_options['fields']['message_1']['element_label_colon'] = FALSE;
   /* Field: Content: Node field */
   $handler->display->display_options['fields']['nodefield']['id'] = 'nodefield';
   $handler->display->display_options['fields']['nodefield']['table'] = 'node';
@@ -635,7 +635,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'story-collaboration';
+  $handler->display->display_options['path'] = 'story-collaborationtest';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Collaboration';
   $handler->display->display_options['menu']['weight'] = '0';
