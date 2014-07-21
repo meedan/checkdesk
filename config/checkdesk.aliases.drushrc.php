@@ -10,7 +10,8 @@ $aliases['prod'] = array(
     '@prod.weladelbalad', 
     '@prod.thetribune', 
     '@prod.madamasr', 
-    '@prod.smex'
+    '@prod.smex',
+    '@prod.bellingcat'
   ),
 );
 $aliases['qa'] = array(
@@ -73,13 +74,10 @@ $aliases['prod.smex'] = array (
   'parent' => '@prod-alias',
   'uri' => 'smex.checkdesk.org',
 );
-$aliases['prod.smex'] = array (
+$aliases['prod.bellingcat'] = array (
   'parent' => '@prod-alias',
-  'uri' => 'smex.checkdesk.org',
-  'root' => '/var/www/checkdesk.prod/current/drupal',
+  'uri' => 'bellingcat.checkdesk.org',
 );
-
-
 
 // qa aliases
 $aliases['qa-alias'] = array (
