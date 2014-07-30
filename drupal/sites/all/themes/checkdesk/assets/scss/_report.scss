@@ -28,9 +28,12 @@ $report-activity-header-color: 			darken($firefly30, 10%);
 	font-size: $small-font-size;
 	
 	a {
-		color: $report-text-color;
+		color: $dodgerStrong;
 		&:hover {
-			color: $identity;
+			color: $dodgerStrong;
+		}
+		&:visited {
+			color: lighten($dodgerStrong, 20%);
 		}
 	}
 

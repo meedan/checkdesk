@@ -4566,10 +4566,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   width: 92%;
 }
 .report a {
-  color: #6f7a82;
+  color: #2155b4;
 }
 .report a:hover {
-  color: #2e77fc;
+  color: #2155b4;
+}
+.report a:visited {
+  color: #5a8ae1;
 }
 .report #report-actions {
   position: absolute;
@@ -8350,12 +8353,12 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story h1 {
   font-style: normal;
-  font-size: 48px;
-  letter-spacing: -1px;
-  font-weight: 700;
+  font-size: 42px;
+  letter-spacing: -1.68px;
+  font-weight: 400;
   line-height: 56px;
   color: #283743;
-  margin: 30px 0 16px;
+  margin: 30px 0 0;
 }
 .story .story-meta {
   *zoom: 1;
@@ -8379,8 +8382,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin-right: 7.5px;
 }
 .story .story-meta a.contributor {
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-style: italic;
   color: #bfa29c;
 }
 .story .story-meta a.contributor:hover {
@@ -8490,7 +8491,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-body p {
   margin: 0 0 10px 0;
-  max-width: 585px;
+  max-width: 600px;
 }
 .story .story-by {
   font-size: 25px;
