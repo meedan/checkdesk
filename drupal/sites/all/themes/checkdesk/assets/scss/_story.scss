@@ -115,14 +115,14 @@
     }
     
     @if $from-direction == 'left' {
-      font-size: 48px;
-      letter-spacing: -1px;
-      font-weight: 700;
+      font-size: 42px;
+      letter-spacing: -1.68px;
+      font-weight: 400;
       line-height: 56px;
     }
     
     color: $firefly90;
-    margin: $absolute-line-height*1.25 0 $absolute-line-height/1.5;
+    margin: $absolute-line-height*1.25 0 0;
   }
 
   .story-meta {
@@ -138,8 +138,6 @@
       margin-#{$omega}: $gutter-width/2;
     }
     a.contributor {
-      font-family: $serif-font-stack;
-      font-style: italic;
       color: $thatch80; 
       &:hover { 
         color: $thatch; 
@@ -207,7 +205,7 @@
     }
     p {
       margin: 0 0 $absolute-line-height/2.4 0;
-      max-width: 585px; // roughly avg. 64 characters per line
+      max-width: 600px; // avg. 75 characters per line
       &:first-child {
         // margin: 0 0;
       }

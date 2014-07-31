@@ -164,6 +164,7 @@
       var $previous = null;
       var $comment = null;
       var $status = null;
+      var $delete_footnote = null;
       content.find('.activity-content:not(activity-grouped)').each(function() {
         // set comment
         if($(this).hasClass('new_comment_report')) {
@@ -173,6 +174,7 @@
         if($(this).hasClass('status_report')) {
           $status = $(this);
         }
+
         // group if actor and timestamps are the same
         if ($status !== null && $comment !== null && $comment.hasClass('new_comment_report') && $status.hasClass('status_report') &&
             $comment.find('.actor').text() === $status.find('.actor').text() && $comment.find('.time').attr('datetime') === $status.find('.time').attr('datetime')) {
@@ -184,6 +186,9 @@
           $comment.addClass('activity-grouped');
           // move the status before the comment
           $comment.parent().before($status.parent());
+
+          // move the trash icon for deleting comments to the parent
+          $status.find('.activity-end-wrapper').prepend($comment.find('.delete-footnote'));
         }
       });
     },
