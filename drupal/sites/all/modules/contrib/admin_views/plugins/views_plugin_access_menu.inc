@@ -21,11 +21,11 @@ class views_plugin_access_menu extends views_plugin_access {
   function access($account) {
     // If we are on the original router path, the menu system has checked access already.
     $item = menu_get_item();
-    if ($item['path'] == $_GET['q']) {
+    if ($item['href'] == $_GET['q']) {
       return TRUE;
     }
     // Retrieve the original router path for this view, and check access to it.
-    $path = $this->view->get_option('path');
+    $path = $this->view->display_handler->get_option('path');
     $item = menu_get_item($path);
 
     return $item['access'];

@@ -133,8 +133,15 @@ $handler->display->display_options['fields']['views_bulk_operations']['vbo_opera
     'label' => '',
     'postpone_processing' => 0,
   ),
-  'action::views_bulk_operations_delete_item' => array(
+  'action::views_bulk_operations_user_cancel_action' => array(
     'selected' => 1,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+    'postpone_processing' => 0,
+  ),
+  'action::views_bulk_operations_delete_item' => array(
+    'selected' => 0,
     'skip_confirmation' => 0,
     'override_label' => 1,
     'label' => 'Delete',
