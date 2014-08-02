@@ -129,11 +129,10 @@ function clientside_validation_field_validation_after_build_recurse($form_id, &$
 }
 
 function clientside_validation_field_validation_regular($form_id, $element, $rule, &$js_rules) {
-  if (isset($rule['col']) && $rule['col'] === 'value') {
-    if (strpos($element['#name'], '[format]') === strlen($element['#name']) - strlen('[format]')) {
-      return;
-    }
-    if (strpos($element['#name'], '[summary]') === strlen($element['#name']) - strlen('[summary]')) {
+  if (isset($rule['col']) && $rule['col'] !== '') {
+    $parent_last = end($element['#parents']);
+    reset($element['#parents']);
+    if (($parent_last !== FALSE) && ($parent_last !== $rule['col'])) {
       return;
     }
   }

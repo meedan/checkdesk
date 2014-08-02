@@ -36,7 +36,7 @@ function clientside_validation_js_alter(&$javascript) {
 function clientside_validation_ajax_render_alter(&$commands) {
   $cv_settings = &drupal_static('clientside_validation_settings', array());
   foreach ($commands as $delta => $command) {
-    if ($command['command'] == 'settings') {
+    if (isset($command['command']) && $command['command'] == 'settings') {
       $commands[$delta]['settings'] = drupal_array_merge_deep($command['settings'], $cv_settings);
     }
   }
@@ -163,6 +163,14 @@ function clientside_validation_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+
+  $items['clientside_validation/drupalURL'] = array(
+    'title' => 'Clientside validation validate url callback',
+    'page callback' => '_clientside_validation_url_validation_callback',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
@@ -212,7 +220,6 @@ function _clientside_validation_ajax_captcha() {
     if (!function_exists($captcha_validate)) {
        $captcha_validate = 'captcha_validate_strict_equality';
     }
-    watchdog($solution, $captcha_response);
     if ($captcha_validate($solution, $captcha_response)) {
       return drupal_json_output(array('result' => TRUE));
     }
@@ -580,64 +587,67 @@ function _clientside_validation_set_number_decimal($name, $title, $decimalpoint,
 /**
  * Set validation rule for fields with a minimum and/or a maximum value.
  */
-function _clientside_validation_set_minmax($name, $title, $min, $max, &$js_rules, $message = '') {
+function _clientside_validation_set_minmax($name, $title, $min, $max, &$js_rules, $message = '', $decimal_separator = '.') {
   $title = _clientside_validation_set_title($title);
   if (isset($min) && $min !== '' && isset($max) && $max !== '') {
-    $js_rules[$name]['range'] = array($min, $max);
+    $rule = $decimal_separator == '.' ? 'range' : 'range_comma';
+    $js_rules[$name][$rule] = array($min, $max);
     if (empty($message)) {
       $variables = array(
         'message' => '!title field has to be between !min and !max.',
         'placeholders' => array('!title' => $title, '!min' => $min, '!max' => $max),
-        'error_type' => 'range',
+        'error_type' => $rule,
         'element_name' => $name,
       );
     }
     else {
       $variables = array(
         'message' => $message,
-        'error_type' => 'range',
+        'error_type' => $rule,
         'element_name' => $name,
       );
     }
-    $js_rules[$name]['messages']['range'] = theme('clientside_error', $variables);
+    $js_rules[$name]['messages'][$rule] = theme('clientside_error', $variables);
   }
   elseif (isset($min) && $min !== '') {
-    $js_rules[$name]['min'] = $min;
+    $rule = $decimal_separator == '.' ? 'min' : 'min_comma';
+    $js_rules[$name][$rule] = $min;
     if (empty($message)) {
       $variables = array(
         'message' => '!title field has to be greater than !min.',
         'placeholders' => array('!title' => $title, '!min' => $min),
-        'error_type' => 'min',
+        'error_type' => $rule,
         'element_name' => $name,
       );
     }
     else {
       $variables = array(
         'message' => $message,
-        'error_type' => 'min',
+        'error_type' => $rule,
         'element_name' => $name,
       );
     }
-    $js_rules[$name]['messages']['min'] = theme('clientside_error', $variables);
+    $js_rules[$name]['messages'][$rule] = theme('clientside_error', $variables);
   }
   elseif (isset($max) && $max !== '') {
-    $js_rules[$name]['max'] = $max;
+    $rule = $decimal_separator == '.' ? 'max' : 'max_comma';
+    $js_rules[$name][$rule] = $max;
     if (empty($message)) {
       $variables = array(
         'message' => '!title field has to be smaller than !max.',
         'placeholders' => array('!title' => $title, '!max' => $max),
-        'error_type' => 'max',
+        'error_type' => $rule,
         'element_name' => $name,
       );
     }
     else {
       $variables = array(
         'message' => $message,
-        'error_type' => 'max',
+        'error_type' => $rule,
         'element_name' => $name,
       );
     }
-    $js_rules[$name]['messages']['max'] = theme('clientside_error', $variables);
+    $js_rules[$name]['messages'][$rule] = theme('clientside_error', $variables);
   }
 }
 
@@ -1224,7 +1234,7 @@ function _clientside_validation_set_email($name, $title, &$js_rules, $message = 
  */
 function _clientside_validation_set_url($name, $title, &$js_rules, $message = '') {
   $title = _clientside_validation_set_title($title);
-  $js_rules[$name]['url'] = TRUE;
+  $js_rules[$name]['drupalURL'] = TRUE;
   $variables = array(
     'message' => empty($message) ? 'The value in !title is not a valid url.' : $message,
     'placeholders' => empty($message) ? array('!title' => $title) : array(),
@@ -1580,4 +1590,51 @@ function clientside_validation_library_alter(&$libraries, $module) {
     $libraries['jquery.form']['js']['misc/jquery.form.js']['data'] = $path . '/jquery.form.js';
     $libraries['jquery.form']['version'] = '3.09';
   }
+}
+
+/**
+ * Check that a path is valid and accessible for internal and aliased paths, also if the path is an
+ * external url, it is validated according to RFC 2396.
+ *
+ * @param $path
+ *   The path to check is valid.
+ */
+function _clientside_validation_url_validation_callback() {
+  $path = $_POST['value'];
+  $result = array();
+  $result['result'] = FALSE;
+
+  // Check if the url is valid according to RFC 2396.
+  if (filter_var($path, FILTER_VALIDATE_URL)) {
+    $result['result'] = TRUE;
+  }
+
+  // If we have an internal URL, strip out the query string and fragment
+  // before attempting to validate the URL.
+  if (!url_is_external($path)) {
+    $parsed_path = parse_url($path);
+    if (isset($parsed_path['query'])) {
+      $query = drupal_get_query_array($parsed_path['query']);
+    }
+    if (isset($parsed_path['fragment'])) {
+      $fragment = $parsed_path['fragment'];
+    }
+    if ($path != $parsed_path['path']) {
+      $path = $parsed_path['path'];
+    }
+  }
+
+  // Checks a path exists and the current user has access to it.
+  if (trim($path) && drupal_valid_path($path)) {
+    $result['result'] = TRUE;
+  }
+  else {
+    // Check if the aliased path, exists and the current user has access to it.
+    $lookup_path = drupal_lookup_path('source', $path);
+    if (drupal_valid_path($lookup_path)) {
+      $result['result'] = TRUE;
+    }
+  }
+
+  drupal_json_output($result);
 }
