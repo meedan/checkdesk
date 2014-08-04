@@ -218,7 +218,7 @@ $handler->override_option('cache', array(
 ));
 $handler->override_option('title', 'Maillog');
 $handler->override_option('empty', 'Maillog is currently empty. Send a mail!');
-$handler->override_option('empty_format', '1');
+$handler->override_option('empty_format', 'plain_text');
 $handler->override_option('use_pager', '1');
 $handler->override_option('style_plugin', 'table');
 $handler = $view->new_display('page', 'Page', 'page_1');

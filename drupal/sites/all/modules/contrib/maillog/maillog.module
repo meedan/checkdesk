@@ -138,15 +138,15 @@ function maillog_admin_settings() {
     '#title' => t("Display the e-mails on page using devel module (if enabled)."),
     '#default_value' => variable_get('maillog_devel', TRUE),
   );
-  if (module_exists('mimemail')) {
-    $engines = mimemail_get_engines();
+  if (module_exists('mailsystem')) {
+    $mailsystem_classes = mailsystem_get_classes();
     // maillog will be unset, because ist would cause an recursion
-    unset($engines['maillog']);
+    unset($mailsystem_classes['MaillogMailSystem']);
     $form['maillog_engine'] = array(
       '#type' => 'select',
-      '#title' => t("Select the mailengine which should be used."),
-      '#default_value' => variable_get('maillog_engine', 'mimemail'),
-      '#options' => $engines,
+      '#title' => t("Select the mail system which should be used."),
+      '#default_value' => variable_get('maillog_engine', 'DefaultMailSystem'),
+      '#options' => $mailsystem_classes,
     );
   }
   return system_settings_form($form);
