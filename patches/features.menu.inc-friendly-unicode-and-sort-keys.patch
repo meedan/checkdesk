@@ -1,8 +1,18 @@
 diff --git a/drupal/sites/all/modules/contrib/features/includes/features.menu.inc b/drupal/sites/all/modules/contrib/features/includes/features.menu.inc
-index 1ea7da6..3eac19d 100644
+index c883e6a..771248e 100644
 --- a/drupal/sites/all/modules/contrib/features/includes/features.menu.inc
 +++ b/drupal/sites/all/modules/contrib/features/includes/features.menu.inc
-@@ -408,7 +408,7 @@ function features_menu_link_load($identifier) {
+@@ -248,6 +248,9 @@ function menu_links_features_export_render($module, $data, $export = NULL) {
+        unset($link['plid']);
+        unset($link['mlid']);
+ 
++      // Sort the link keys to avoid confusing the diff algorithm.
++      ksort($link);
++
+       $code[] = "  // Exported menu link: {$new_identifier}";
+       $code[] = "  \$menu_links['{$new_identifier}'] = ". features_var_export($link, '  ') .";";
+       $translatables[] = $link['link_title'];
+@@ -420,7 +423,7 @@ function features_menu_link_load($identifier) {
   * Returns a lowercase clean string with only letters, numbers and dashes
   */
  function features_clean_title($str) {
