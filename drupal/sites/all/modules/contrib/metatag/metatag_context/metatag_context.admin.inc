@@ -19,8 +19,8 @@ function metatag_context_context_overview() {
     // metatag admin page".
     if (isset($context->reactions['metatag_context_reaction']['metatag_admin']) &&  $context->reactions['metatag_context_reaction']['metatag_admin']) {
       $ops = array(
-        l('Edit', 'admin/config/search/metatags/context/' . $context->name, array('query' => array('destination' => 'admin/config/search/metatags/context'))),
-        l('Delete', 'admin/config/search/metatags/context/' . $context->name . '/delete', array('query' => array('destination' => 'admin/config/search/metatags/context'))),
+        l(t('Edit'), 'admin/config/search/metatags/context/' . $context->name, array('query' => array('destination' => 'admin/config/search/metatags/context'))),
+        l(t('Delete'), 'admin/config/search/metatags/context/' . $context->name . '/delete', array('query' => array('destination' => 'admin/config/search/metatags/context'))),
       );
       $rows[] = array(
         $context->name,

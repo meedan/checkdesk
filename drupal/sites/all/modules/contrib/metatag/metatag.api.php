@@ -115,6 +115,21 @@ function hook_metatag_config_default() {
 }
 
 /**
+ * Internal hook for adding further configuration values in bundled submodules.
+ *
+ * The defaults provided by the main Metatag module need to be extended by the
+ * bundled submodules before they are presented to other modules for altering
+ * via hook_metatag_config_default_alter(), in case differences in module
+ * weights and loading priorities cause the submodules' settings to run after
+ * those of any custom modules.
+ *
+ * @see hook_metatag_config_default()
+ * @see hook_metatag_config_default_alter()
+ */
+function hook_metatag_bundled_config_alter(&$config) {
+}
+  
+/**
  * 
  */
 function hook_metatag_config_default_alter(&$config) {
@@ -170,7 +185,61 @@ function hook_metatag_config_update($config) {
 }
 
 /**
- * 
+ * Definition of the meta tags and groups.
+ *
+ * @return array
+ *   A nested array of 'tags' and 'groups', each keyed off the machine name for
+ *   their respective structure type, with the following values:
+ *   Tags:
+ *     'label' - The name for this meta tag.
+ *     'description' - An explanation of what this meta tag is used for and what
+ *       values are permissible.
+ *     'class' - The class name that controls this meta tag.
+ *     'weight' - Used to sort the meta tags during output.
+ *     'group' - The machine name of a group this meta tag will be contained
+ *       within.
+ *     'context' - Optionally control the type of configuration the meta tag
+ *       will be available from. Possible values are:
+ *       [empty] - All meta tags apply to all possible objects, by default.
+ *       'global' - This will make it only show in the global meta tag
+ *         configuration form.
+ *       [entity type] - Makes the meta tag only show for specific entity types.
+ *     'header' - Optionally output the meta tag as an HTTP header value.
+ *     'element' - Optional attributes for rendering the meta tag. Should
+ *       contain the following:
+ *       '#theme' - The theming function used to render the meta tag.
+ *     'replaces' - An optional array of meta tags that this meta tag replaces.
+ *       Used to indicate that these deprecated meta tags will be replaced by
+ *       this newer one, their values will be used, upon the next object save
+ *       the deprecated tag will be entirely replaced by the new meta tag. While
+ *       one meta tag can replace several others, only one of the possible
+ *       values will be used, the others will be silently purged upon the next
+ *       configuration/object save.
+ *     'form' - Optional items to be passed directly to the form; uses standard
+ *       Form API values.
+ *     'devel_generate' - Optional values to be passed to the Devel Generate
+ *       submodule. Should be an array containing one of the following values:
+ *       'type' - One of the following:
+ *         'canonical' - The token for the absolute URL for the current page.
+ *         'email' - An email address randomly generated at the site's hostname.
+ *         'float' - A random floating point number between 0.0 and 999.999.
+ *         'image' - A randomly generated image.
+ *         'integer' - A random integer between 0 and 999.
+ *         'phone' - A phone number in the format 999-999-9999.
+ *         'select' - A value randomly selected from the available form options.
+ *         'text' - Random text string.
+ *         'twitter' - A Twitter username.
+ *         'url' - A randomly generated URL on this site.
+ *       'maxlength' - The maximum length / number of iterations of this value,
+ *         defaults to 10.
+ *   Groups:
+ *     'label' - The name for this group.
+ *     'description' - A detailed explanation of these meta tags.
+ *     'form' - Additional items to be passed directly to the form.
+ *   Note: 'label', 'description', and any text strings passed in 'form', should
+ *   be translated.
+ *
+ * @see metatag_metatag_info().
  */
 function hook_metatag_info() {
   return array();

@@ -18,6 +18,8 @@ interface DrupalMetaTagInterface {
 
   function getValue();
 
+  function getWeight();
+
   function getElement();
 
   function tidyValue($value);
@@ -27,12 +29,30 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
 
   protected $info;
   protected $data = array('value' => '');
+  protected $weight = 0;
 
   function __construct(array $info, array $data = NULL) {
     $this->info = $info;
     if (isset($data)) {
       $this->data = $data;
     }
+  }
+
+  /**
+   * Calculate the weight or this meta tag.
+   *
+   * @return integer
+   */
+  public function getWeight() {
+    static $counter = 0;
+
+    // If no weight value is found, stack this meta tag at the end.
+    $weight = 100;
+    if (!empty($this->info['weight'])) {
+      $weight = $this->info['weight'];
+    }
+
+    return $weight + ($counter++ * 0.1);
   }
 
   public function getForm(array $options = array()) {
@@ -44,29 +64,61 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
   }
 
   public function getElement(array $options = array()) {
-    $element = isset($this->info['element']) ? $this->info['element'] : array();
-
     $value = $this->getValue($options);
     if (strlen($value) === 0) {
       return array();
     }
 
-    $element += array(
-      '#theme' => 'metatag',
-      '#tag' => 'meta',
-      '#id' => 'metatag_' . $this->info['name'],
-      '#name' => $this->info['name'],
-      '#value' => $value,
-    );
+    // The stack of elements that will be output.
+    $elements = array();
 
-    // Add header information if desired.
-    if (!empty($this->info['header'])) {
-      $element['#attached']['drupal_add_http_header'][] = array($this->info['header'], $value);
+    // Dynamically add each option to this setting.
+    $base_element = isset($this->info['element']) ? $this->info['element'] : array();
+
+    // Single item.
+    if (empty($this->info['multiple'])) {
+      $values = array($value);
     }
 
-    return array(
-      '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
-    );
+    // Multiple items.
+    else {
+      $values = array_filter(explode(',', $value));
+    }
+
+    // Loop over each item.
+    if (!empty($values)) {
+      foreach ($values as $ctr => $value) {
+        $value = trim($value);
+
+        // Some meta tags must be output as secure URLs.
+        if (!empty($this->info['secure'])) {
+          $value = str_replace('http://', 'https://', $value);
+        }
+
+        // Combine the base configuration for this meta tag with the value.
+        $element = $base_element + array(
+          '#theme' => 'metatag',
+          '#tag' => 'meta',
+          '#id' => 'metatag_' . $this->info['name'] . '_' . $ctr,
+          '#name' => $this->info['name'],
+          '#value' => $value,
+          '#weight' => $this->getWeight(),
+        );
+
+        // Add header information if desired.
+        if (!empty($this->info['header'])) {
+          $element['#attached']['drupal_add_http_header'][] = array($this->info['header'], $value);
+        }
+
+        $elements[] = array($element, $element['#id']);
+      }
+    }
+
+    if (!empty($elements)) {
+      return array(
+        '#attached' => array('drupal_add_html_head' => $elements),
+      );
+    }
   }
 
   /**
@@ -117,6 +169,10 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       '#maxlength' => 1024,
     );
 
+    if (!empty($this->info['multiple'])) {
+      $form['value']['#description'] .= ' ' . t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
+    }
+
     return $form;
   }
 
@@ -161,6 +217,7 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
       '#id' => 'metatag_' . $this->info['name'],
       '#name' => $this->info['name'],
       '#value' => $value,
+      '#weight' => $this->getWeight(),
     );
 
     if (!isset($this->info['header']) || !empty($this->info['header'])) {
