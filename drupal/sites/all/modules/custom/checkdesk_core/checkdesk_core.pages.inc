@@ -1,9 +1,28 @@
 <?php
 
 /**
- * Function to render collaborate page.
+ * Set collaboration page title
+ * @parm object $node
+ *     node object
+ *
+ * @return string
+ *  node title
  */
-function _checkdesk_story_collaboration($nid) {
+function story_collaborate_title($node) {
+  return is_object($node) ? $node->title : NULL;
+}
+
+/**
+ * Render collaborate page.
+ *
+ * @parm object $node
+ *    story node object
+ *
+ * @return  
+ *   Return a story collaboration page.
+ */
+function _checkdesk_story_collaboration($node) {
+  $nid = $node->nid;
   $output = '';
   //collaboration header
   $output .= '<div class="collaborate-header">';

@@ -121,8 +121,10 @@ function checkdesk_core_menu() {
     'access callback' => '_checkdesk_core_can_take_tour',
     'type' => MENU_CALLBACK,
   );
-  $items['story-collaboration/%'] = array(
-    'title' => t('Collaboration'),
+  $items['story-collaboration/%node'] = array(
+    'title' => 'Collaboration',
+    'title callback' => 'story_collaborate_title',
+    'title arguments' => array(1),
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
@@ -854,8 +856,14 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
-  if ($node->type == 'post' && $view_mode == 'checkdesk_collaborate') {
-    $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body['und'][0]['value']);
+  if ($view_mode == 'checkdesk_collaborate') {
+    if ($node->type == 'post') {
+      $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body['und'][0]['value']);
+    }
+    if ($node->type == 'media') {
+      //unset($node->content['field_link']);
+      $node->content['comments'] = comment_node_page_additions($node);
+    }
   }
   // Get node links.
   $links = _checkdesk_core_node_links($node);
@@ -2852,6 +2860,9 @@ function checkdesk_story_collaborate_render_object($row) {
     $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
     break;
   case 'status_report':
+    $node = node_load($row->heartbeat_activity_nid);
+    $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
+    break;
     $output = 'Change report status';
     break;
   case 'new_comment_report':
