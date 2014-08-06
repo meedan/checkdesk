@@ -594,17 +594,27 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if ($variables['type'] == 'discussion') {
-    // get updates for a particular story
-    $view = views_get_view('updates_for_stories');
-    $view->set_arguments(array($variables['nid']));
-    $view->get_total_rows = TRUE;
-    $view_output = $view->preview('block');
-    $total_rows = $view->total_rows;
-    $view->destroy();
-    if ($total_rows) {
-      $variables['updates'] = $view_output;
+    // Add tab (update & collaborate) to story
+    $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
+    if($variables['view_mode'] == 'checkdesk_collaborate') {
+      // Collaboration header for story.
+      $variables['story_links'] = _checkdesk_story_links($variables['nid']);
+      $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+      // Get heartbeat activity for particular story
+      $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
     }
-
+    else {
+      // get updates for a particular story
+      $view = views_get_view('updates_for_stories');
+      $view->set_arguments(array($variables['nid']));
+      $view->get_total_rows = TRUE;
+      $view_output = $view->preview('block');
+      $total_rows = $view->total_rows;
+      $view->destroy();
+      if ($total_rows) {
+        $variables['updates'] = $view_output;
+      }
+    }
     // Comments count
     $theme = NULL;
     // Livefyre comments count

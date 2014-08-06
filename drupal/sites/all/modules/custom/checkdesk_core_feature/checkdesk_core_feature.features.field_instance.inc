@@ -318,9 +318,10 @@ function checkdesk_core_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'checkdesk_collaborate' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'text_default',
         'weight' => 0,
       ),
       'default' => array(
@@ -410,9 +411,13 @@ function checkdesk_core_feature_field_default_field_instances() {
     'display' => array(
       'checkdesk_collaborate' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => 'featured_image',
+        ),
+        'type' => 'image',
+        'weight' => 1,
       ),
       'default' => array(
         'label' => 'above',
@@ -475,8 +480,9 @@ function checkdesk_core_feature_field_default_field_instances() {
     'display' => array(
       'checkdesk_collaborate' => array(
         'label' => 'above',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'text_default',
         'weight' => 0,
       ),
       'default' => array(
@@ -569,8 +575,12 @@ function checkdesk_core_feature_field_default_field_instances() {
     'display' => array(
       'checkdesk_collaborate' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'module' => 'oembedfield',
+        'settings' => array(
+          'maxheight' => '',
+          'maxwidth' => '',
+        ),
+        'type' => 'oembed_default',
         'weight' => 0,
       ),
       'default' => array(
@@ -650,8 +660,9 @@ function checkdesk_core_feature_field_default_field_instances() {
     'display' => array(
       'checkdesk_collaborate' => array(
         'label' => 'above',
+        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'taxonomy_term_reference_link',
         'weight' => 0,
       ),
       'default' => array(
@@ -701,8 +712,11 @@ function checkdesk_core_feature_field_default_field_instances() {
     'display' => array(
       'checkdesk_collaborate' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
         'weight' => 0,
       ),
       'default' => array(

@@ -1,15 +1,19 @@
 <?php
 
 /**
- * Set collaboration page title
- * @parm object $node
- *     node object
  *
- * @return string
- *  node title
  */
-function story_collaborate_title($node) {
-  return is_object($node) ? $node->title : NULL;
+function _checkdesk_story_tabs($nid) {
+  $items = array();
+  $items[] = array(
+    'data' => l(t('Updates'), 'node/'. $nid),
+    'class' => array('story-tab-updates'),
+  );
+  $items[] = array(
+    'data' => l(t('Collaboration'), 'story-collaboration/'. $nid),
+    'class' => array('story-tab-collaboration'),
+  );
+  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-tabs')));
 }
 
 /**
@@ -22,18 +26,15 @@ function story_collaborate_title($node) {
  *   Return a story collaboration page.
  */
 function _checkdesk_story_collaboration($node) {
-  $nid = $node->nid;
-  $output = '';
-  //collaboration header
-  $output .= '<div class="collaborate-header">';
-  $output .= checkdesk_story_links($nid);
-  $output .= checkdesk_story_get_collaborators($nid);
-  $output .= '</div>';
-  $output .= views_embed_view('story_collaboration', 'page', $nid);
+  $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
   return $output;
 }
 
-function checkdesk_story_links($nid) {
+/**
+ *
+ *
+ */
+function _checkdesk_story_links($nid) {
   global $user;
   $items = array();
   if ($user->uid) {
@@ -50,10 +51,11 @@ function checkdesk_story_links($nid) {
 }
 
 /**
- * Function to list story collaborators 
+ * List story collaborators 
  *  @param story_nid
+ *
  */
-function checkdesk_story_get_collaborators($nid) {
+function _checkdesk_story_get_collaborators($nid) {
   $output = '';
   //ToDO check node type
   $users = db_query('

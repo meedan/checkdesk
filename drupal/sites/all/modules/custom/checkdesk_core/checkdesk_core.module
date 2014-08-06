@@ -122,9 +122,6 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['story-collaboration/%node'] = array(
-    'title' => 'Collaboration',
-    'title callback' => 'story_collaborate_title',
-    'title arguments' => array(1),
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
