@@ -516,27 +516,6 @@ function checkdesk_preprocess_node(&$variables) {
 
   if($variables['view_mode'] == 'checkdesk_collaborate') {
     $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__checkdesk_collaborate';
-    if ($variables['type'] == 'post') {
-      //collect update reports 
-      $query = db_select('checkdesk_reports_updates', 'ru');
-      $query->join('node', 'n', 'ru.report_nid = n.nid');
-      $query->join('users', 'u', 'n.uid = u.uid');
-      $query->fields('ru', array('report_nid', 'update_nid'));
-      $query->fields('n', array('title', 'uid'));
-      $query->fields('u', array('name'));
-      $query->condition('update_nid', $variables['nid']);
-      $result = $query->execute()->fetchAll();
-      $users = $reports = array();
-      foreach ($result as $row) {
-        $users[$row->uid] = l($row->name, 'user/'. $row->uid);
-        $reports[] = l($row->title, 'node/'. $row->report_nid);
-      }
-      if (count($reports)) {
-        $reports_title = t('Uses reports added by !users', array('!users' => implode(' and ', $users)));
-        $variables['update_reports'] = theme('item_list', array('items' => $reports, 'title' => $reports_title));
-        $variables['update_reports_count'] = format_plural(count($reports), '1 report', '@count reports');
-      }
-    } 
   }
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt
@@ -597,6 +576,14 @@ function checkdesk_preprocess_node(&$variables) {
     // Add tab (update & collaborate) to story
     $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
     if($variables['view_mode'] == 'checkdesk_collaborate') {
+      // Add follow checkbox
+      $story_follow = array();
+      $story_follow['story_follow'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Follow story'),
+        '#attributes'=> array('id' => array('checkdesk-follow-story')),
+      );
+      $variables['story_follow'] = drupal_render($story_follow);
       // Collaboration header for story.
       $variables['story_links'] = _checkdesk_story_links($variables['nid']);
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
@@ -658,6 +645,7 @@ function checkdesk_preprocess_node(&$variables) {
     }
     //Add node creation info(author name plus creation time
     if($variables['view_mode'] == 'checkdesk_collaborate') {
+      //$variables['favicon_link'] = l(theme('image', array('path' => $variables['embed']->favicon_link)), $variables['embed']->provider_url, array('html' => TRUE));
       $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>', array(
         '@url' => url('node/'. $variables['nid']),
         '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),

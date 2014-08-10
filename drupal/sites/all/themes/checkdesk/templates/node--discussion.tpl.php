@@ -1,12 +1,6 @@
 <section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
 
-    <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
-        <?php print render(field_view_field('node', $node, 'field_lead_image', 'featured_image')); ?>
-      </figure>
-    <?php } ?>
-
     <h1 class="title">
       <?php print render($node->title); ?>
     </h1>
@@ -38,7 +32,17 @@
 
   	<div class="story-body">
   		<?php print render($content['body']); ?>
-  	</div>
+    </div>
+
+    <div class="story-tabs-wrapper">
+        <?php print $story_tabs; ?>
+    </div>
+
+    <?php if(isset($content['field_lead_image'])) { ?>
+      <figure>
+        <?php print render($content['field_lead_image']); ?>
+      </figure>
+    <?php } ?>
 
     <?php
       // get compose update form

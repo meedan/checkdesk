@@ -21,7 +21,7 @@
         </div>
       <?php } ?>
       </div>
-
+      <?php print $story_follow; ?>
       <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
         <?php print render($content['links']); ?>
       <?php } ?>
@@ -31,16 +31,17 @@
   	<div class="story-body">
   		<?php print render($content['body']); ?>
     </div>
-   
+        
+    <div class="story-tabs-wrapper">
+        <?php print $story_tabs; ?>
+    </div>
+
     <?php if(isset($content['field_lead_image'])) { ?>
       <figure>
         <?php print render($content['field_lead_image']); ?>
       </figure>
     <?php } ?>
     <!-- collaboration -->
-      <div class="story-tabs-wrapper">
-         <?php print $story_tabs; ?>
-      </div>
       <div class="story-collaboration-header-wrapper">
         <?php print $story_links; ?>
         <?php if(isset($story_collaborators)) { ?>    

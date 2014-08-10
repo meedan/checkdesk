@@ -856,6 +856,24 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
   if ($view_mode == 'checkdesk_collaborate') {
     if ($node->type == 'post') {
       $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body['und'][0]['value']);
+      //collect reports
+      $reports = $matches = array();
+      preg_match_all('/\[[^:]+:([0-9]+)\]/u', $node->body['und'][0]['value'], $matches);
+      if (count($matches[1])) {
+        foreach ($matches[1] as $key => $nid) {
+          $entity = node_load($nid);
+          if (is_object($entity)) {
+            $reports[] = $entity;
+          }
+        }
+      }
+      if (count($reports)) {
+        $node->content['update_reports'] = array(
+          '#theme' => 'checkdesk_core_update_reports',
+          '#reports' => $reports,
+        );
+        $node->content['update_reports_count'] = format_plural(count($reports), '1 report', '@count reports');
+      }
     }
     if ($node->type == 'media') {
       //unset($node->content['field_link']);
@@ -1367,6 +1385,13 @@ function checkdesk_core_theme() {
     'template' => 'user_info',
     'variables' => array(
       'user' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_update_reports'] = array(
+    'template' => 'update_reports',
+    'variables' => array(
+      'reports' => NULL,
     ),
   ) + $base;
 
@@ -2860,8 +2885,6 @@ function checkdesk_story_collaborate_render_object($row) {
     $node = node_load($row->heartbeat_activity_nid);
     $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
     break;
-    $output = 'Change report status';
-    break;
   case 'new_comment_report':
     $output = '';
     break;
@@ -2869,5 +2892,21 @@ function checkdesk_story_collaborate_render_object($row) {
     $output = '';
   }
   return $output;
+}
+
+/**
+ *
+ */
+function _checkdesk_story_tabs($nid) {
+  $items = array();
+  $items[] = array(
+    'data' => l(t('Updates'), 'node/'. $nid),
+    'class' => array('story-tab-updates'),
+  );
+  $items[] = array(
+    'data' => l(t('Collaboration'), 'story-collaboration/'. $nid),
+    'class' => array('story-tab-collaboration'),
+  );
+  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-tabs')));
 }
 

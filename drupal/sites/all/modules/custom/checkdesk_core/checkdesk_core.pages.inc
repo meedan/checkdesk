@@ -1,20 +1,5 @@
 <?php
 
-/**
- *
- */
-function _checkdesk_story_tabs($nid) {
-  $items = array();
-  $items[] = array(
-    'data' => l(t('Updates'), 'node/'. $nid),
-    'class' => array('story-tab-updates'),
-  );
-  $items[] = array(
-    'data' => l(t('Collaboration'), 'story-collaboration/'. $nid),
-    'class' => array('story-tab-collaboration'),
-  );
-  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-tabs')));
-}
 
 /**
  * Render collaborate page.
