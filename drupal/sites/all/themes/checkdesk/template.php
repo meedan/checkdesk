@@ -514,8 +514,8 @@ function checkdesk_preprocess_page(&$variables) {
  */
 function checkdesk_preprocess_node(&$variables) {
 
-  if($variables['view_mode'] == 'checkdesk_collaborate') {
-    $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__checkdesk_collaborate';
+  if($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'collaborate_status') {
+    $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
   }
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt

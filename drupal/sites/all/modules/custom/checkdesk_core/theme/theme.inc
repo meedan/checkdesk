@@ -109,7 +109,7 @@ function checkdesk_core_preprocess_checkdesk_core_user_info(&$variables) {
 }
 
 /**
- * Template preprocessor for `checkdesk_core_report_source`.
+ * Template preprocessor for `checkdesk_core_update_reports`.
  */
 function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
   $reports_tmp = $users = array();
@@ -133,4 +133,27 @@ function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
   $variables['reports_author'] = t('Uses reports added by !users', array('!users' => $reports_author));
   $variables['reports'] = $reports_tmp;
  }
+
+/**
+ * Template preprocessor for `checkdesk_core_report_activity_status`.
+ */
+function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$variables) {
+  $activity = $variables['activity'];
+  $icon = '';
+  $status_name = $activity->variables['!status'];
+  if ($status_name == 'Verified') {
+    $icon = '<span class="icon-check-circle"></span> ';
+  }
+  elseif ($status_name == 'In Progress') {
+    $icon = '<span class="icon-random"></span> ';
+  }    
+  elseif ($status_name == 'Undetermined') {
+    $icon = '<span class="icon-question-circle"></span> ';
+  }    
+  elseif ($status_name == 'False') {
+    $icon = '<span class="icon-times-circle"></span> ';
+  }    
+  $variables['activity_status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+  // TODO Get status footnote if exist
+}
 

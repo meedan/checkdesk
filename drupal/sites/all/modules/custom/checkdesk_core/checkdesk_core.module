@@ -880,6 +880,16 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       $node->content['comments'] = comment_node_page_additions($node);
     }
   }
+  
+  // Add report status with comment to collaboration page
+  if ($view_mode == 'collaborate_status' && $node->type == 'media') {
+    $activity = heartbeat_activity_load($node->uaid);
+    $node->content['report_activity_status'] = array(
+      '#theme' => 'checkdesk_core_report_activity_status',
+      '#activity' => $activity,
+    );
+  }
+
   // Get node links.
   $links = _checkdesk_core_node_links($node);
   if (!empty($links)) {
@@ -1392,6 +1402,13 @@ function checkdesk_core_theme() {
     'template' => 'update_reports',
     'variables' => array(
       'reports' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_report_activity_status'] = array(
+    'template' => 'report_activity_status',
+    'variables' => array(
+      'activity' => NULL,
     ),
   ) + $base;
 
@@ -2883,7 +2900,8 @@ function checkdesk_story_collaborate_render_object($row) {
     break;
   case 'status_report':
     $node = node_load($row->heartbeat_activity_nid);
-    $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
+    $node->uaid = $row->uaid;
+    $output = drupal_render(node_view($node, 'collaborate_status'));
     break;
   case 'new_comment_report':
     $output = '';

@@ -610,6 +610,13 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['message_id']['field'] = 'message_id';
   $handler->display->display_options['fields']['message_id']['label'] = '';
   $handler->display->display_options['fields']['message_id']['element_label_colon'] = FALSE;
+  /* Field: Heartbeat activity: User activity ID */
+  $handler->display->display_options['fields']['uaid']['id'] = 'uaid';
+  $handler->display->display_options['fields']['uaid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['uaid']['field'] = 'uaid';
+  $handler->display->display_options['fields']['uaid']['label'] = '';
+  $handler->display->display_options['fields']['uaid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uaid']['element_label_colon'] = FALSE;
   /* Sort criterion: Heartbeat activity: Creation date */
   $handler->display->display_options['sorts']['created_at']['id'] = 'created_at';
   $handler->display->display_options['sorts']['created_at']['table'] = 'heartbeat_activity';
@@ -624,6 +631,17 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['arguments']['nid_target']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid_target']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid_target']['summary_options']['items_per_page'] = '25';
+  /* Filter criterion: Heartbeat activity: Heartbeat template */
+  $handler->display->display_options['filters']['message_id']['id'] = 'message_id';
+  $handler->display->display_options['filters']['message_id']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['filters']['message_id']['field'] = 'message_id';
+  $handler->display->display_options['filters']['message_id']['value'] = array(
+    'checkdesk_report_published_in_update' => 'checkdesk_report_published_in_update',
+    'status_report' => 'status_report',
+    'checkdesk_new_update_on_story_i_commented_on_update' => 'checkdesk_new_update_on_story_i_commented_on_update',
+    'publish_report' => 'publish_report',
+    'checkdesk_report_suggested_to_story' => 'checkdesk_report_suggested_to_story',
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
