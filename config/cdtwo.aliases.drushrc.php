@@ -6,8 +6,8 @@ $aliases['dev'] = array(
 
 // dev aliases
 $aliases['dev-alias'] = array (
-  'remote-host' => 'cd-two.dev.meedan.net',
-  'ssh-options' => '-p 8922',
+//   'remote-host' => 'cd-two.dev.meedan.net',
+//   'ssh-options' => '-p 8922',
   'path-aliases' => array (
     '%drush' => '/usr/share/php/drush',
   ),
