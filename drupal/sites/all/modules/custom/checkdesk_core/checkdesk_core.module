@@ -121,6 +121,12 @@ function checkdesk_core_menu() {
     'access callback' => '_checkdesk_core_can_take_tour',
     'type' => MENU_CALLBACK,
   );
+  $items['story-collaboration/%node'] = array(
+    'page callback' => '_checkdesk_story_collaboration',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'file' => 'checkdesk_core.pages.inc',
+  );
 
   return $items;
 }
@@ -846,6 +852,44 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
  * Implements hook_node_view().
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
+
+  if ($view_mode == 'checkdesk_collaborate') {
+    if ($node->type == 'post') {
+      $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body['und'][0]['value']);
+      //collect reports
+      $reports = $matches = array();
+      preg_match_all('/\[[^:]+:([0-9]+)\]/u', $node->body['und'][0]['value'], $matches);
+      if (count($matches[1])) {
+        foreach ($matches[1] as $key => $nid) {
+          $entity = node_load($nid);
+          if (is_object($entity)) {
+            $reports[] = $entity;
+          }
+        }
+      }
+      if (count($reports)) {
+        $node->content['update_reports'] = array(
+          '#theme' => 'checkdesk_core_update_reports',
+          '#reports' => $reports,
+        );
+        $node->content['update_reports_count'] = format_plural(count($reports), '1 report', '@count reports');
+      }
+    }
+    if ($node->type == 'media') {
+      //unset($node->content['field_link']);
+      $node->content['comments'] = comment_node_page_additions($node);
+    }
+  }
+  
+  // Add report status with comment to collaboration page
+  if ($view_mode == 'collaborate_status' && $node->type == 'media') {
+    $activity = heartbeat_activity_load($node->uaid);
+    $node->content['report_activity_status'] = array(
+      '#theme' => 'checkdesk_core_report_activity_status',
+      '#activity' => $activity,
+    );
+  }
+
   // Get node links.
   $links = _checkdesk_core_node_links($node);
   if (!empty($links)) {
@@ -1354,6 +1398,20 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_update_reports'] = array(
+    'template' => 'update_reports',
+    'variables' => array(
+      'reports' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_report_activity_status'] = array(
+    'template' => 'report_activity_status',
+    'variables' => array(
+      'activity' => NULL,
+    ),
+  ) + $base;
+
   return $themes;
 }
 
@@ -1402,12 +1460,11 @@ function checkdesk_core_block_info() {
     'info' => 'Report form block',
     'cache' => DRUPAL_NO_CACHE,
   );
-
   $blocks['checkdesk_user_info'] = array(
     'info'   => t('Checkdesk user information'),
     'cache'  => DRUPAL_NO_CACHE,
   );
-
+  
   return $blocks;
 }
 
@@ -1572,10 +1629,25 @@ function checkdesk_core_form_node_form_alter(&$form, &$form_state) {
   }
 }
 
+function _redirect_footnote_delete($form, &$form_state) {
+  if (isset($form_state['redirect'])) {
+    $form_state['redirect'] = $_SESSION['comment_referer'];
+    unset($_SESSION['comment_referer']);
+  }
+}
+
 /**
  * Implements hook_form_alter().
  */
 function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
+  //Redirect user to right place after delete footnote
+  if ($form_id == 'comment_confirm_delete' && $form['#comment']->node_type == 'comment_node_media') {
+    if(!isset($_SESSION['comment_referer'])) {
+      //use session to catch referer as destination did not work well with AJAX requests 
+      $_SESSION['comment_referer'] = $_SERVER['HTTP_REFERER']; 
+    }
+    $form['#submit'][] = '_redirect_footnote_delete';
+  }
   // Add a class to forms which should display inline errors
   $ife_form_ids = checkdesk_core_ife_form_ids();
   foreach ($ife_form_ids as $fid => $row) {
@@ -1667,7 +1739,10 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
       $form['account']['roles']['#options'] = array_diff($form['account']['roles']['#options'], array('administrator'));
     }
     // Hook on submit to remove misleading message.
-    $form['#submit'][] = 'checkdesk_core_user_register_form_submit';
+    // when registeration required admin approval.
+    if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) == USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) {
+      $form['#submit'][] = 'checkdesk_core_user_register_form_submit';
+    }
     unset($form['account']['name']['#description']);
     unset($form['account']['pass']['#description']);
     $form['account']['mail']['#title'] = t('E-mail address <span>(never shared)</span>');
@@ -2613,6 +2688,12 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     $node = $form['#node'];
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
   }
+  else {
+    //set default story if exist.
+    if (isset($_GET['ref_nid'])) {
+      $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
+    }
+  }
 }
 
 /**
@@ -2702,8 +2783,10 @@ function _checkdesk_purge_varnish($paths) {
         }
         //log urls and host name
         $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
-        watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
+        //watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
         checkdesk_varnish_expire_cache($urls, $hostname);
+        //adding sleep for 2 seconds 
+        sleep(2);
       }
     }
   }
@@ -2804,3 +2887,44 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
     $queue->createItem($paths);
   }
 }
+
+function checkdesk_story_collaborate_render_object($row) {
+  switch($row->heartbeat_activity_message_id) {
+  case 'checkdesk_new_update_on_story_i_commented_on_update':
+  case 'new_report':
+  case 'checkdesk_report_suggested_to_story':
+  case 'checkdesk_report_published_in_update':
+  case 'publish_report':
+    $node = node_load($row->heartbeat_activity_nid);
+    $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
+    break;
+  case 'status_report':
+    $node = node_load($row->heartbeat_activity_nid);
+    $node->uaid = $row->uaid;
+    $output = drupal_render(node_view($node, 'collaborate_status'));
+    break;
+  case 'new_comment_report':
+    $output = '';
+    break;
+  default:
+    $output = '';
+  }
+  return $output;
+}
+
+/**
+ *
+ */
+function _checkdesk_story_tabs($nid) {
+  $items = array();
+  $items[] = array(
+    'data' => l(t('Updates'), 'node/'. $nid),
+    'class' => array('story-tab-updates'),
+  );
+  $items[] = array(
+    'data' => l(t('Collaboration'), 'story-collaboration/'. $nid),
+    'class' => array('story-tab-collaboration'),
+  );
+  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-tabs')));
+}
+

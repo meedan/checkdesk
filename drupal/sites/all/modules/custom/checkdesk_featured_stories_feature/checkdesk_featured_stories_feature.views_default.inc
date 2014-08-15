@@ -536,5 +536,261 @@ function checkdesk_featured_stories_feature_views_default_views() {
   );
   $export['featured_stories'] = $view;
 
+  $view = new view();
+  $view->name = 'story_collaboration';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'heartbeat_activity';
+  $view->human_name = 'story collaboration';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Collaboration';
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Autorefresh */
+  $handler->display->display_options['header']['autorefresh']['id'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['table'] = 'views';
+  $handler->display->display_options['header']['autorefresh']['field'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
+  $handler->display->display_options['header']['autorefresh']['incremental'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['display'] = 'page_1';
+  $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['ping_base_path'] = 'sites/all/modules/custom/checkdesk_core/autorefresh/collaboration.php';
+  $handler->display->display_options['header']['autorefresh']['ping_arguments'] = 'return array(
+\'story_nid\' => arg(1),
+);';
+  /* Relationship: Heartbeat activity: User ID */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  /* Field: User: Picture */
+  $handler->display->display_options['fields']['picture']['id'] = 'picture';
+  $handler->display->display_options['fields']['picture']['table'] = 'users';
+  $handler->display->display_options['fields']['picture']['field'] = 'picture';
+  $handler->display->display_options['fields']['picture']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['picture']['label'] = '';
+  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['picture']['image_style'] = 'activity_avatar';
+  /* Field: Heartbeat activity: Activity message */
+  $handler->display->display_options['fields']['message_1']['id'] = 'message_1';
+  $handler->display->display_options['fields']['message_1']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['message_1']['field'] = 'message';
+  $handler->display->display_options['fields']['message_1']['label'] = '';
+  $handler->display->display_options['fields']['message_1']['element_label_colon'] = FALSE;
+  /* Field: Heartbeat activity: Creation date */
+  $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
+  $handler->display->display_options['fields']['created_at']['label'] = '';
+  $handler->display->display_options['fields']['created_at']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created_at']['date_format'] = 'raw time ago';
+  /* Field: Heartbeat activity: Node ID */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  /* Field: Heartbeat activity: Heartbeat template */
+  $handler->display->display_options['fields']['message_id']['id'] = 'message_id';
+  $handler->display->display_options['fields']['message_id']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['message_id']['field'] = 'message_id';
+  $handler->display->display_options['fields']['message_id']['label'] = '';
+  $handler->display->display_options['fields']['message_id']['element_label_colon'] = FALSE;
+  /* Field: Heartbeat activity: User activity ID */
+  $handler->display->display_options['fields']['uaid']['id'] = 'uaid';
+  $handler->display->display_options['fields']['uaid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['uaid']['field'] = 'uaid';
+  $handler->display->display_options['fields']['uaid']['label'] = '';
+  $handler->display->display_options['fields']['uaid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uaid']['element_label_colon'] = FALSE;
+  /* Sort criterion: Heartbeat activity: Creation date */
+  $handler->display->display_options['sorts']['created_at']['id'] = 'created_at';
+  $handler->display->display_options['sorts']['created_at']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['sorts']['created_at']['field'] = 'created_at';
+  $handler->display->display_options['sorts']['created_at']['order'] = 'DESC';
+  /* Contextual filter: Heartbeat activity: Node target ID */
+  $handler->display->display_options['arguments']['nid_target']['id'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['arguments']['nid_target']['field'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['nid_target']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid_target']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid_target']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid_target']['summary_options']['items_per_page'] = '25';
+  /* Filter criterion: Heartbeat activity: Heartbeat template */
+  $handler->display->display_options['filters']['message_id']['id'] = 'message_id';
+  $handler->display->display_options['filters']['message_id']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['filters']['message_id']['field'] = 'message_id';
+  $handler->display->display_options['filters']['message_id']['value'] = array(
+    'checkdesk_report_published_in_update' => 'checkdesk_report_published_in_update',
+    'status_report' => 'status_report',
+    'checkdesk_new_update_on_story_i_commented_on_update' => 'checkdesk_new_update_on_story_i_commented_on_update',
+    'publish_report' => 'publish_report',
+    'checkdesk_report_suggested_to_story' => 'checkdesk_report_suggested_to_story',
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'story-collaboration-tab';
+  $handler->display->display_options['menu']['title'] = 'Collaboration';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 1;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Autorefresh */
+  $handler = $view->new_display('page', 'Autorefresh', 'page_1');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Heartbeat activity: Node target ID */
+  $handler->display->display_options['arguments']['nid_target']['id'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['arguments']['nid_target']['field'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['nid_target']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid_target']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid_target']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid_target']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Heartbeat activity: Creation date (with operator) */
+  $handler->display->display_options['arguments']['created_at_operator']['id'] = 'created_at_operator';
+  $handler->display->display_options['arguments']['created_at_operator']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['arguments']['created_at_operator']['field'] = 'created_at_operator';
+  $handler->display->display_options['arguments']['created_at_operator']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['created_at_operator']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['created_at_operator']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['created_at_operator']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['created_at_operator']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['path'] = 'story-collaboration/autorefresh/%';
+  $translatables['story_collaboration'] = array(
+    t('Master'),
+    t('Collaboration'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('User ID'),
+    t('Node ID'),
+    t('.'),
+    t(','),
+    t('All'),
+    t('Page'),
+    t('Autorefresh'),
+  );
+  $export['story_collaboration'] = $view;
+
+  $view = new view();
+  $view->name = 'story_collaborators';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'heartbeat_activity';
+  $view->human_name = 'story collaborators';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
+  $handler->display->display_options['query']['options']['pure_distinct'] = TRUE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Relationship: Heartbeat activity: User ID */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Field: User: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  /* Sort criterion: User: Uid */
+  $handler->display->display_options['sorts']['uid']['id'] = 'uid';
+  $handler->display->display_options['sorts']['uid']['table'] = 'users';
+  $handler->display->display_options['sorts']['uid']['field'] = 'uid';
+  $handler->display->display_options['sorts']['uid']['relationship'] = 'uid';
+  /* Contextual filter: Heartbeat activity: Node target ID */
+  $handler->display->display_options['arguments']['nid_target']['id'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['arguments']['nid_target']['field'] = 'nid_target';
+  $handler->display->display_options['arguments']['nid_target']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['nid_target']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid_target']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid_target']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid_target']['summary_options']['items_per_page'] = '25';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['header']['result']['content'] = '@total Collaborators';
+
+  /* Display: Attachment */
+  $handler = $view->new_display('attachment', 'Attachment', 'attachment_1');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Picture */
+  $handler->display->display_options['fields']['picture']['id'] = 'picture';
+  $handler->display->display_options['fields']['picture']['table'] = 'users';
+  $handler->display->display_options['fields']['picture']['field'] = 'picture';
+  $handler->display->display_options['fields']['picture']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['picture']['label'] = '';
+  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['picture']['image_style'] = 'activity_avatar';
+  $handler->display->display_options['displays'] = array(
+    'block' => 'block',
+    'default' => 0,
+  );
+  $handler->display->display_options['attachment_position'] = 'after';
+  $translatables['story_collaborators'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('User ID'),
+    t('All'),
+    t('Block'),
+    t('@total Collaborators'),
+    t('Attachment'),
+  );
+  $export['story_collaborators'] = $view;
+
   return $export;
 }

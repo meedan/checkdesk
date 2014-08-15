@@ -92,6 +92,43 @@ function honeypot_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements hook_trigger_info().
+ */
+function honeypot_trigger_info() {
+  return array(
+    'honeypot' => array(
+      'honeypot_reject' => array(
+        'label' => t('Honeypot rejection'),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_rules_event_info()
+ */
+function honeypot_rules_event_info() {
+  return array(
+    'honeypot_reject' => array(
+      'label' => t('Honeypot rejection'),
+      'group' => t('Honeypot'),
+      'variables' => array(
+        'form_id' => array(
+          'type' => 'text',
+          'label' => t('Form ID of the form the user was disallowed from submitting.'),
+        ),
+        // Don't provide 'uid' in context because it is available as
+        // site:current-user:uid.
+        'type' => array(
+          'type' => 'text',
+          'label' => t('String indicating the reason the submission was blocked.'),
+        ),
+      ),
+    ),
+  );
+}
+
+/**
  * Build an array of all the protected forms on the site, by form_id.
  *
  * @todo - Add in API call/hook to allow modules to add to this array.
@@ -223,7 +260,8 @@ function _honeypot_time_restriction_validate($element, &$form_state) {
   // If not, throw an error.
   if (time() < ($honeypot_time + $time_limit)) {
     _honeypot_log($form_state['values']['form_id'], 'honeypot_time');
-    $time_limit = honeypot_get_time_limit();
+    // Get the time limit again, since it increases after first failure.
+    $time_limit = honeypot_get_time_limit($form_state['values']);
     $form_state['values']['honeypot_time'] = time();
     form_set_error('', t('There was a problem with your form submission. Please wait @limit seconds and try again.', array('@limit' => $time_limit)));
   }
@@ -275,7 +313,7 @@ function honeypot_get_time_limit($form_values = array()) {
       ))->fetchField();
     }
     // Don't add more than 30 days' worth of extra time.
-    $honeypot_time_limit = $honeypot_time_limit + (int) min($honeypot_time_limit + exp($number), 2592000);
+    $honeypot_time_limit = (int) min($honeypot_time_limit + exp($number) - 1, 2592000);
     $additions = module_invoke_all('honeypot_time_limit', $honeypot_time_limit, $form_values, $number);
     if (count($additions)) {
       $honeypot_time_limit += array_sum($additions);
@@ -313,4 +351,24 @@ function honeypot_log_failure($form_id, $type) {
 
   // Allow other modules to react to honeypot rejections.
   module_invoke_all('honeypot_reject', $form_id, $user->uid, $type);
+
+  // Trigger honeypot_reject action.
+  if (module_exists('trigger')) {
+    $aids = trigger_get_assigned_actions('honeypot_reject');
+    $context = array(
+      'group' => 'honeypot',
+      'hook' => 'honeypot_reject',
+      'form_id' => $form_id,
+      // Do not provide $user in context because it is available as a global.
+      'type' => $type,
+    );
+    // Honeypot does not act on any specific object.
+    $object = NULL;
+    actions_do(array_keys($aids), $object, $context);
+  }
+
+  // Trigger rules honeypot_reject event.
+  if (module_exists('rules')) {
+    rules_invoke_event('honeypot_reject', $form_id, $type);
+  }
 }

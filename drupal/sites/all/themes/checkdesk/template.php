@@ -231,6 +231,9 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($variables['main_menu'] as $id => $item) {
       if ($item['link_path'] == 'node/add/media') {
         $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
+        if (arg(0) == 'node' && is_numeric(arg(1))) {
+          $variables['main_menu'][$id]['query'] = array('ref_nid' => arg(1));
+        }
       }
       else if ($item['link_path'] == 'node/add/discussion') {
         $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
@@ -511,6 +514,9 @@ function checkdesk_preprocess_page(&$variables) {
  */
 function checkdesk_preprocess_node(&$variables) {
 
+  if($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'collaborate_status') {
+    $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
+  }
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
@@ -567,17 +573,35 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if ($variables['type'] == 'discussion') {
-    // get updates for a particular story
-    $view = views_get_view('updates_for_stories');
-    $view->set_arguments(array($variables['nid']));
-    $view->get_total_rows = TRUE;
-    $view_output = $view->preview('block');
-    $total_rows = $view->total_rows;
-    $view->destroy();
-    if ($total_rows) {
-      $variables['updates'] = $view_output;
+    // Add tab (update & collaborate) to story
+    $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
+    if($variables['view_mode'] == 'checkdesk_collaborate') {
+      // Add follow checkbox
+      $story_follow = array();
+      $story_follow['story_follow'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Follow story'),
+        '#attributes'=> array('id' => array('checkdesk-follow-story')),
+      );
+      $variables['story_follow'] = drupal_render($story_follow);
+      // Collaboration header for story.
+      $variables['story_links'] = _checkdesk_story_links($variables['nid']);
+      $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+      // Get heartbeat activity for particular story
+      $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
     }
-
+    else {
+      // get updates for a particular story
+      $view = views_get_view('updates_for_stories');
+      $view->set_arguments(array($variables['nid']));
+      $view->get_total_rows = TRUE;
+      $view_output = $view->preview('block');
+      $total_rows = $view->total_rows;
+      $view->destroy();
+      if ($total_rows) {
+        $variables['updates'] = $view_output;
+      }
+    }
     // Comments count
     $theme = NULL;
     // Livefyre comments count
@@ -620,14 +644,25 @@ function checkdesk_preprocess_node(&$variables) {
       // $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     //Add node creation info(author name plus creation time
-    $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>', array(
-      '@user' => url('user/'. $variables['uid']),
-      '!user' => $variables['elements']['#node']->name,
-      '@url' => url('node/'. $variables['nid']),
-      '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
-      '!interval' => format_interval(time() - $variables['created'], 1),
-    ));
+    if($variables['view_mode'] == 'checkdesk_collaborate') {
+      //$variables['favicon_link'] = l(theme('image', array('path' => $variables['embed']->favicon_link)), $variables['embed']->provider_url, array('html' => TRUE));
+      $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>', array(
+        '@url' => url('node/'. $variables['nid']),
+        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
+        '!interval' => format_interval(time() - $variables['created'], 1),
+      ));
+    }
+    else {
+      $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>', array(
+        '@user' => url('user/'. $variables['uid']),
+        '!user' => $variables['elements']['#node']->name,
+        '@url' => url('node/'. $variables['nid']),
+        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
+        '!interval' => format_interval(time() - $variables['created'], 1),
+      ));
+    }
     //Add activity report with status
     $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
       $variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 

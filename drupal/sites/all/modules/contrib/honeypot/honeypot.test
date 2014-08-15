@@ -98,7 +98,7 @@ class HoneypotFormTestCase extends DrupalWebTestCase {
     $this->drupalPost('user/register', $edit, t('Create new account'));
 
     // Form should have error message.
-    $this->assertText(t('There was a problem with your form submission. Please wait'), 'Registration form protected by time limit.');
+    $this->assertText(t('There was a problem with your form submission. Please wait 6 seconds and try again.'), 'Registration form protected by time limit.');
   }
 
   /**
@@ -168,5 +168,62 @@ class HoneypotFormTestCase extends DrupalWebTestCase {
     $edit["title"] = 'Test Page';
     $this->drupalPost('node/add/article', $edit, t('Preview'));
     $this->assertNoText(t('There was a problem with your form submission.'), 'Honeypot not blocking node form previews.');
+  }
+}
+
+/**
+ * Test the functionality of the Honeypot module's integration with Trigger.
+ */
+class HoneypotTriggerTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Honeypot Trigger integration',
+      'description' => 'Ensure that Honeypot triggers events correctly.',
+      'group' => 'Form API',
+    );
+  }
+
+  public function setUp() {
+    // Enable modules required for this test.
+    parent::setUp(array('honeypot', 'trigger'));
+
+    // Set up required Honeypot variables.
+    variable_set('honeypot_element_name', 'url');
+    // Disable time_limit protection.
+    variable_set('honeypot_time_limit', 0);
+    // Test protecting all forms.
+    variable_set('honeypot_protect_all_forms', TRUE);
+    variable_set('honeypot_log', FALSE);
+
+    // Set up other required variables.
+    variable_set('user_email_verification', TRUE);
+    variable_set('user_register', USER_REGISTER_VISITORS);
+
+    // Assign new action to Honeypot form rejection Trigger.
+    db_insert('trigger_assignments')
+      ->fields(array(
+        'hook' => 'honeypot_reject',
+        'aid' => 'system_block_ip_action',
+        'weight' => 1,
+      ))
+      ->execute();
+  }
+
+  /**
+   * Test trigger integration.
+   */
+  public function testHoneypotTriggerIntegration() {
+    // Set up form and submit it.
+    $edit['name'] = $this->randomName();
+    $edit['mail'] = $edit['name'] . '@example.com';
+    $edit['url'] = 'http://www.example.com/';
+    $this->drupalPost('user/register', $edit, t('Create new account'));
+
+    // Make sure Honeypot is working.
+    $this->assertText(t('There was a problem with your form submission.'), 'Honeypot working correctly.');
+
+    // Visit the home page and make sure the user is banned.
+    $this->drupalGet('node');
+    $this->assertText(t('has been banned'), 'User banned successfully.');
   }
 }

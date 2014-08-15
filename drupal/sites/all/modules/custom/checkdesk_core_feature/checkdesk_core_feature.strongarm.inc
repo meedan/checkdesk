@@ -440,7 +440,68 @@ return _checkdesk_core_auto_title($node);
           'weight' => '5',
         ),
       ),
-      'display' => array(),
+      'display' => array(
+        'flag_graphic_journalist' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_factcheck_journalist' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_spam' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_graphic' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_factcheck' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_delete' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__media'] = $strongarm;
@@ -1486,13 +1547,6 @@ Your account on [site:name] has been canceled.
   $strongarm->name = 'user_picture_style';
   $strongarm->value = 'thumbnail';
   $export['user_picture_style'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_register';
-  $strongarm->value = '2';
-  $export['user_register'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

@@ -1667,7 +1667,7 @@ div.block:hover .edit {
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-.admin-nav-tabs > li span.icon-trash-o:before {
+.admin-nav-tabs > li span.icon-trash-o:before, .report .report-activity .activity-wrapper .view-content .activity header .delete-footnote .icon-trash-o:before {
   content: "\f014";
 }
 
@@ -5199,15 +5199,40 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .report .report-activity .activity-wrapper .view-content .activity header .title .false {
   color: #9d261d;
 }
-.report .report-activity .activity-wrapper .view-content .activity header .time {
+.report .report-activity .activity-wrapper .view-content .activity header .activity-end-wrapper {
   padding: 14px 0;
   position: absolute;
   top: 0;
   left: 0;
+}
+.report .report-activity .activity-wrapper .view-content .activity header .delete-footnote {
+  display: none;
+}
+.report .report-activity .activity-wrapper .view-content .activity header .delete-footnote .icon-trash-o {
+  color: #b7bcc0;
+}
+.report .report-activity .activity-wrapper .view-content .activity header .delete-footnote .icon-trash-o:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.report .report-activity .activity-wrapper .view-content .activity header .time {
   text-align: left;
   width: 16%;
   color: #b7bcc0;
   font-size: 14px;
+}
+.report .report-activity .activity-wrapper .view-content .activity header:hover .delete-footnote {
+  display: inline-block;
 }
 .report .report-activity .activity-wrapper .activity-list-footer-wrapper {
   *zoom: 1;
@@ -5767,6 +5792,16 @@ div.sensitive-hide {
 .report-row .sensitive-notification {
   font-family: "Droid Arabic Naskh", serif;
   background-color: #f3f4f4 !important;
+}
+
+.meedan-oembed-missing {
+  display: table-cell;
+  height: 200px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #f3f4f4 !important;
+  padding: 0 60px;
+  color: #6f7a82;
 }
 
 .view-desk-reports .view-content {

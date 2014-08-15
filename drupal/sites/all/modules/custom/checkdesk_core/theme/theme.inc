@@ -107,3 +107,53 @@ function checkdesk_core_preprocess_checkdesk_core_user_info(&$variables) {
     $variables['edit_notifications'] = l(t('Notifications'), 'user/' . $account->uid . '/notifications');
   }
 }
+
+/**
+ * Template preprocessor for `checkdesk_core_update_reports`.
+ */
+function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
+  $reports_tmp = $users = array();
+  $reports = $variables['reports'];
+  foreach ($reports as $report) {
+    $embed = $report->embed;
+    $reports_tmp[] = array(
+      'favicon_link' => l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE)),
+      'title' => l($report->title, 'node/'. $report->nid),
+      'description' => $report->body[LANGUAGE_NONE][0]['value'],
+    );
+    $users[$report->uid] = l($report->name, 'user/'. $report->uid);
+  }
+  if (count($users) > 2) {
+    $last_user = array_pop($users);
+    $reports_author = implode(', ', $users) . t(' and ') . $last_user;
+  }
+  else {
+    $reports_author  = implode(t(' and '), $users);
+  }
+  $variables['reports_author'] = t('Uses reports added by !users', array('!users' => $reports_author));
+  $variables['reports'] = $reports_tmp;
+ }
+
+/**
+ * Template preprocessor for `checkdesk_core_report_activity_status`.
+ */
+function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$variables) {
+  $activity = $variables['activity'];
+  $icon = '';
+  $status_name = $activity->variables['!status'];
+  if ($status_name == 'Verified') {
+    $icon = '<span class="icon-check-circle"></span> ';
+  }
+  elseif ($status_name == 'In Progress') {
+    $icon = '<span class="icon-random"></span> ';
+  }    
+  elseif ($status_name == 'Undetermined') {
+    $icon = '<span class="icon-question-circle"></span> ';
+  }    
+  elseif ($status_name == 'False') {
+    $icon = '<span class="icon-times-circle"></span> ';
+  }    
+  $variables['activity_status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+  // TODO Get status footnote if exist
+}
+
