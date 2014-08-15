@@ -15,7 +15,7 @@ $aliases['dev-alias'] = array (
 $aliases['dev.meedan'] = array (
   'parent' => '@dev-alias',
   'uri' => 'cd-two.dev.meedan.net',
-  'root' => '/var/www/cdtwo/current/drupal',
+  'root' => '/var/www/cd-two/current/drupal',
 );
 
 // dev template
