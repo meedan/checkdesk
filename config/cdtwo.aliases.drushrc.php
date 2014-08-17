@@ -6,8 +6,8 @@ $aliases['dev'] = array(
 
 // dev aliases
 $aliases['dev-alias'] = array (
-  'remote-host' => 'cd-two.dev.meedan.net',
-  'ssh-options' => '-p 8922',
+//   'remote-host' => 'cd-two.dev.meedan.net',
+//   'ssh-options' => '-p 8922',
   'path-aliases' => array (
     '%drush' => '/usr/share/php/drush',
   ),
@@ -15,7 +15,7 @@ $aliases['dev-alias'] = array (
 $aliases['dev.meedan'] = array (
   'parent' => '@dev-alias',
   'uri' => 'cd-two.dev.meedan.net',
-  'root' => '/var/www/cdtwo/current/drupal',
+  'root' => '/var/www/cd-two/current/drupal',
 );
 
 // dev template
