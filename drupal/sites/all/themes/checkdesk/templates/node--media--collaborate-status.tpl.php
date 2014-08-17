@@ -34,14 +34,8 @@
 
           <div class="activity-wrapper">
 
-            <?php render($content['report_activity_status']); ?>
-<!--
-             <div class="report-status">
-                <?php if ($status): ?>
-                  <?php print $status; ?>
-                <?php endif; ?>
-              </div>
--->
+            <?php print render($content['report_activity_status']); ?>
+
             <?php if ($media_activity_footer) : ?>
               <div class="activity-list-footer-wrapper">
                 <div class="activity-list-footer">

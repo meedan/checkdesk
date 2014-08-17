@@ -883,10 +883,10 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
   
   // Add report status with comment to collaboration page
   if ($view_mode == 'collaborate_status' && $node->type == 'media') {
-    $activity = heartbeat_activity_load($node->uaid);
+    $heartbeat_activity = heartbeat_activity_load($node->uaid);
     $node->content['report_activity_status'] = array(
       '#theme' => 'checkdesk_core_report_activity_status',
-      '#activity' => $activity,
+      '#heartbeat_activity' => $heartbeat_activity,
     );
   }
 
@@ -1408,7 +1408,7 @@ function checkdesk_core_theme() {
   $themes['checkdesk_core_report_activity_status'] = array(
     'template' => 'report_activity_status',
     'variables' => array(
-      'activity' => NULL,
+      'heartbeat_activity' => NULL,
     ),
   ) + $base;
 

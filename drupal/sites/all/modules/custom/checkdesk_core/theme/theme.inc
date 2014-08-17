@@ -138,7 +138,7 @@ function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
  * Template preprocessor for `checkdesk_core_report_activity_status`.
  */
 function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$variables) {
-  $activity = $variables['activity'];
+  $activity = $variables['heartbeat_activity'];
   $icon = '';
   $status_name = $activity->variables['!status'];
   if ($status_name == 'Verified') {
@@ -154,6 +154,23 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$varia
     $icon = '<span class="icon-times-circle"></span> ';
   }    
   $variables['activity_status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
-  // TODO Get status footnote if exist
+  
+  if($status_name != 'In Progress') {
+    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
+  }
+
+  // display status with an icon and "x by partner"
+  if(isset($status_name) && isset($icon) && isset($status_by)) {
+    $variables['activity_status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
+  } else { // display status with an icon only
+    $variables['activity_status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+  }
+  // Get status footnote if exist
+  // always footnote for change status is uaid of status - 3
+  $footnote_uaid = $activity->uaid - 3;
+  $footnote =  heartbeat_activity_load($footnote_uaid);
+  if ($footnote->message_id == 'new_comment_report' && $footnote->nid_target == $activity->nid_target) {
+    $variables['activity_status_footnote'] = $footnote->variables['!comment'];
+  }
 }
 
