@@ -2895,6 +2895,8 @@ function checkdesk_story_collaborate_render_object($row) {
   case 'checkdesk_report_suggested_to_story':
   case 'checkdesk_report_published_in_update':
   case 'publish_report':
+  case 'checkdesk_flag_report':
+  case 'checkdesk_comment_on_report':
     $node = node_load($row->heartbeat_activity_nid);
     $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
     break;
@@ -2902,9 +2904,6 @@ function checkdesk_story_collaborate_render_object($row) {
     $node = node_load($row->heartbeat_activity_nid);
     $node->uaid = $row->uaid;
     $output = drupal_render(node_view($node, 'collaborate_status'));
-    break;
-  case 'new_comment_report':
-    $output = '';
     break;
   default:
     $output = '';
