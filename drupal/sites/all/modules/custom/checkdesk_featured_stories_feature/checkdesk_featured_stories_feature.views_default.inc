@@ -636,11 +636,13 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['filters']['message_id']['table'] = 'heartbeat_activity';
   $handler->display->display_options['filters']['message_id']['field'] = 'message_id';
   $handler->display->display_options['filters']['message_id']['value'] = array(
+    'checkdesk_comment_on_report' => 'checkdesk_comment_on_report',
     'checkdesk_report_published_in_update' => 'checkdesk_report_published_in_update',
     'status_report' => 'status_report',
+    'checkdesk_fact_checking_on' => 'checkdesk_fact_checking_on',
     'checkdesk_new_update_on_story_i_commented_on_update' => 'checkdesk_new_update_on_story_i_commented_on_update',
-    'publish_report' => 'publish_report',
     'checkdesk_report_suggested_to_story' => 'checkdesk_report_suggested_to_story',
+    'checkdesk_flag_report' => 'checkdesk_flag_report',
   );
 
   /* Display: Page */
