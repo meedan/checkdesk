@@ -119,7 +119,7 @@ function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
     $reports_tmp[] = array(
       'favicon_link' => l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE)),
       'title' => l($report->title, 'node/'. $report->nid),
-      'description' => $report->body[LANGUAGE_NONE][0]['value'],
+      'description' => truncate_utf8($report->body[LANGUAGE_NONE][0]['value'], 150, TRUE, TRUE),
     );
     $users[$report->uid] = l($report->name, 'user/'. $report->uid);
   }
