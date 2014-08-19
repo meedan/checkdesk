@@ -14,9 +14,6 @@
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>
-      <?php if (isset($title)) { ?>
-        <h2 class="media-title"><?php print $title; ?></h2>
-      <?php } ?>
       <?php if (isset($content['body'])) : ?>
         <div class="description">
           <?php print render($content['body']); ?>
@@ -39,7 +36,18 @@
 
     <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity open">
+          <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
+            <div class="report-activity-header" href="#">
+              <h3 class="report-footnotes-count"><span><?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?></h3>
+              <div class="report-status">
+                <?php if ($status): ?>
+                  <?php print $status; ?>
+                <?php endif; ?>
+              </div>
+            </div>
+          </header>
           <div class="activity-wrapper">
+            <?php print $media_activity_report; ?>
             <?php print render($content['comments']); ?>
             <?php if ($media_activity_footer) : ?>
               <div class="activity-list-footer-wrapper">
