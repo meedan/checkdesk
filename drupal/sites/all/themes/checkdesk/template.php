@@ -645,13 +645,21 @@ function checkdesk_preprocess_node(&$variables) {
     }
     //Add node creation info(author name plus creation time
     if($variables['view_mode'] == 'checkdesk_collaborate') {
-      //$variables['favicon_link'] = l(theme('image', array('path' => $variables['embed']->favicon_link)), $variables['embed']->provider_url, array('html' => TRUE));
       $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>', array(
         '@url' => url('node/'. $variables['nid']),
         '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
         '!interval' => format_interval(time() - $variables['created'], 1),
       ));
+      // Set favicon 
+      if (isset($variables['embed']->favicon_link)) {
+        $variables['favicon_link'] = l(
+          theme('image', array( 'path' => $variables['embed']->favicon_link)),
+          $variables['embed']->provider_url, array('html' => TRUE)
+        );
+      }
+      // Set author name
+      $variables['author_name'] = $variables['embed']->author_url ? l($variables['embed']->author_name, $variables['embed']->author_url) : $variables['embed']->author_name;
     }
     else {
       $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <a href="@url"><time class="date-time" datetime="!timestamp">!interval ago</time></a>', array(

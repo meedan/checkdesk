@@ -19,13 +19,22 @@
           <?php print render($content['body']); ?>
         </div>
       <?php endif; ?>
+      <?php print $title; ?>
       <div class="report-attributes">
-        <div class="added-by">
-          <?php if (isset($user_avatar)) : ?>
-              <?php print $user_avatar; ?>
-          <?php endif; ?>
+       <?php if(isset($author_name)) : ?>
+         <div class="checkdesk-collaborate-author-name">
+           <?php print $author_name ?>
+         </div>
+       <?php endif; ?>
+       <?php if(isset($favicon_link)) : ?>
+         <div class="checkdesk-collaborate-favicon">
+           <?php print $favicon_link ?>
+         </div>
+       <?php endif; ?>
+        <div class="creation-info">
           <?php print $media_creation_info; ?>
         </div>
+
       </div>
     </section>
 
