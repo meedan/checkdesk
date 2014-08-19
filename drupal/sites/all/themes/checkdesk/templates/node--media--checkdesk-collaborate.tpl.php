@@ -14,12 +14,15 @@
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>
-      <?php if (isset($content['body'])) : ?>
-        <div class="description">
-          <?php print render($content['body']); ?>
-        </div>
-      <?php endif; ?>
+      
+     <?php if (isset($node->uaid)) : ?>
+         <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'meedan_oembed_thumbnail'))); ?>
+     <?php endif; ?>
+
+     <?php if (!isset($node->uaid)) : ?>
       <?php print $title; ?>
+     <?php endif; ?>
+
       <div class="report-attributes">
        <?php if(isset($author_name)) : ?>
          <div class="checkdesk-collaborate-author-name">
@@ -34,8 +37,18 @@
         <div class="creation-info">
           <?php print $media_creation_info; ?>
         </div>
-
       </div>
+
+      <?php if (isset($content['body'])) : ?>
+        <div class="description">
+          <?php print render($content['body']); ?>
+        </div>
+      <?php endif; ?>
+      
+      <?php if (isset($node->uaid)) : ?>
+        <?php print render($content['report_activity_status']); ?>
+      <?php endif; ?>
+
     </section>
 
 
