@@ -876,20 +876,19 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       }
     }
     if ($node->type == 'media') {
-      //unset($node->content['field_link']);
       $node->content['comments'] = comment_node_page_additions($node);
+      if (isset($node->uaid)) {
+        // Add report status with comment to collaboration page
+        unset($node->content['field_link']);
+        $heartbeat_activity = heartbeat_activity_load($node->uaid);
+        $node->content['report_activity_status'] = array(
+          '#theme' => 'checkdesk_core_report_activity_status',
+          '#heartbeat_activity' => $heartbeat_activity,
+        );
+      }
     }
   }
   
-  // Add report status with comment to collaboration page
-  if ($view_mode == 'collaborate_status' && $node->type == 'media') {
-    $heartbeat_activity = heartbeat_activity_load($node->uaid);
-    $node->content['report_activity_status'] = array(
-      '#theme' => 'checkdesk_core_report_activity_status',
-      '#heartbeat_activity' => $heartbeat_activity,
-    );
-  }
-
   // Get node links.
   $links = _checkdesk_core_node_links($node);
   if (!empty($links)) {
@@ -2903,7 +2902,7 @@ function checkdesk_story_collaborate_render_object($row) {
   case 'status_report':
     $node = node_load($row->heartbeat_activity_nid);
     $node->uaid = $row->uaid;
-    $output = drupal_render(node_view($node, 'collaborate_status'));
+    $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
     break;
   default:
     $output = '';

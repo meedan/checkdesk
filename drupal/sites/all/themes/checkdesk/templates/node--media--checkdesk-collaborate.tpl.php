@@ -14,22 +14,41 @@
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>
-      <?php if (isset($title)) { ?>
-        <h2 class="media-title"><?php print $title; ?></h2>
-      <?php } ?>
+      
+     <?php if (isset($node->uaid)) : ?>
+         <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'meedan_oembed_thumbnail'))); ?>
+     <?php endif; ?>
+
+     <?php if (!isset($node->uaid)) : ?>
+      <?php print $title; ?>
+     <?php endif; ?>
+
+      <div class="report-attributes">
+       <?php if(isset($author_name)) : ?>
+         <div class="checkdesk-collaborate-author-name">
+           <?php print $author_name ?>
+         </div>
+       <?php endif; ?>
+       <?php if(isset($favicon_link)) : ?>
+         <div class="checkdesk-collaborate-favicon">
+           <?php print $favicon_link ?>
+         </div>
+       <?php endif; ?>
+        <div class="creation-info">
+          <?php print $media_creation_info; ?>
+        </div>
+      </div>
+
       <?php if (isset($content['body'])) : ?>
         <div class="description">
           <?php print render($content['body']); ?>
         </div>
       <?php endif; ?>
-      <div class="report-attributes">
-        <div class="added-by">
-          <?php if (isset($user_avatar)) : ?>
-              <?php print $user_avatar; ?>
-          <?php endif; ?>
-          <?php print $media_creation_info; ?>
-        </div>
-      </div>
+      
+      <?php if (isset($node->uaid)) : ?>
+        <?php print render($content['report_activity_status']); ?>
+      <?php endif; ?>
+
     </section>
 
 
@@ -39,7 +58,18 @@
 
     <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity open">
+          <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
+            <div class="report-activity-header" href="#">
+              <h3 class="report-footnotes-count"><span><?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?></h3>
+              <div class="report-status">
+                <?php if ($status): ?>
+                  <?php print $status; ?>
+                <?php endif; ?>
+              </div>
+            </div>
+          </header>
           <div class="activity-wrapper">
+            <?php print $media_activity_report; ?>
             <?php print render($content['comments']); ?>
             <?php if ($media_activity_footer) : ?>
               <div class="activity-list-footer-wrapper">
