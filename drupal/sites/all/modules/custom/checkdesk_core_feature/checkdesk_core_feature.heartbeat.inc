@@ -469,7 +469,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_new_update_on_story_i_commented_on_update';
   $heartbeatmessagetemplate->description = 'New update on a story I commented on an update before';
-  $heartbeatmessagetemplate->message = '<p>Story <strong><a href="!story_url">!story_title</a></strong> which you commented on has a new <strong><a href="!update_url">update</a></strong></p>';
+  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> added an <strong><a href="!update_url">update</a></strong></p>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -484,18 +484,18 @@ function checkdesk_core_feature_heartbeat_template_info() {
       1 => 0,
       2 => 0,
       3 => 0,
+      5 => 0,
       4 => 0,
     ),
   );
   $heartbeatmessagetemplate->variables = array(
-    '!story_url' => '',
-    '!story_title' => '',
+    '!user_url' => '',
+    '!username' => '',
     '!update_url' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'settings' => array(
@@ -504,17 +504,14 @@ function checkdesk_core_feature_heartbeat_template_info() {
         ),
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
     'content' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
@@ -692,7 +689,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_report_suggested_to_story';
   $heartbeatmessagetemplate->description = 'Report suggested to story';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has suggested a <strong><a href="!report_url">report</a></strong> to <strong><a href="!story_url">!story</a></strong></p>';
+  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> added a <strong><a href="!report_url">report</a></strong> to <strong><a href="!story_url">!story</a></strong></p>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -707,6 +704,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
       1 => 0,
       2 => 0,
       3 => 0,
+      5 => 0,
       4 => 0,
     ),
   );
@@ -720,7 +718,6 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'settings' => array(
@@ -729,17 +726,14 @@ function checkdesk_core_feature_heartbeat_template_info() {
         ),
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
     'content' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
@@ -908,7 +902,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'status_report';
   $heartbeatmessagetemplate->description = 'Change of report status';
-  $heartbeatmessagetemplate->message = 'Status set to !status by !editor.';
+  $heartbeatmessagetemplate->message = '<p><strong><a href="!editor_url">!editor</a></strong> changed <strong><a href="!report_url">report</a></strong> status to !status';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -923,17 +917,19 @@ function checkdesk_core_feature_heartbeat_template_info() {
       1 => 0,
       2 => 0,
       3 => 0,
+      5 => 0,
       4 => 0,
     ),
   );
   $heartbeatmessagetemplate->variables = array(
-    '!status' => '',
+    '!editor_url' => '',
     '!editor' => '',
+    '!report_url' => '',
+    '!status' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'settings' => array(
@@ -942,17 +938,14 @@ function checkdesk_core_feature_heartbeat_template_info() {
         ),
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
     'content' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),

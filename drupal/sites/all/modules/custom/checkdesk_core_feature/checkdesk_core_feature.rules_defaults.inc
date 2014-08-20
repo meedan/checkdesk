@@ -50,8 +50,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "uid_target" : "0",
             "cid" : [ "comment:cid" ],
             "message_id" : { "value" : { "checkdesk_comment_on_report" : "checkdesk_comment_on_report" } },
-            "!user_url" : [ "comment:author:url" ],
-            "!username" : [ "comment:author:name" ],
+            "!user_url" : [ "comment:node:author:url" ],
+            "!username" : [ "comment:node:author:name" ],
             "!report_url" : [ "comment:node:url" ],
             "!report_title" : [ "comment:node:title" ]
           }
@@ -323,8 +323,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "nid_target" : [ "node:field-desk:nid" ],
             "uid_target" : "0",
             "message_id" : { "value" : { "checkdesk_new_update_on_story_i_commented_on_update" : "checkdesk_new_update_on_story_i_commented_on_update" } },
-            "!story_url" : [ "node:field-desk:url" ],
-            "!story_title" : [ "node:field-desk:title" ],
+            "!user_url" : [ "node:author:url" ],
+            "!username" : [ "node:author:name" ],
             "!update_url" : [ "node:url" ]
           }
         },
@@ -942,8 +942,10 @@ function checkdesk_core_feature_default_rules_configuration() {
             "uid" : [ "site:current-user:uid" ],
             "nid_target" : [ "node:field-stories:nid" ],
             "message_id" : { "value" : { "status_report" : "status_report" } },
-            "!status" : [ "node:field-rating:name" ],
-            "!editor" : [ "site:current-user:name" ]
+            "!editor_url" : [ "site:current-user:url" ],
+            "!editor" : [ "site:current-user:name" ],
+            "!report_url" : [ "node:url" ],
+            "!status" : [ "node:field-rating:name" ]
           }
         }
       ]
