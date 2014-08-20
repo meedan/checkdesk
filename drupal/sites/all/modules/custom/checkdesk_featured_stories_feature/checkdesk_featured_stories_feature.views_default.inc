@@ -562,6 +562,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
   /* Header: Global: Autorefresh */
   $handler->display->display_options['header']['autorefresh']['id'] = 'autorefresh';
   $handler->display->display_options['header']['autorefresh']['table'] = 'views';
@@ -578,20 +579,14 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'heartbeat_activity';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-  /* Field: User: Picture */
-  $handler->display->display_options['fields']['picture']['id'] = 'picture';
-  $handler->display->display_options['fields']['picture']['table'] = 'users';
-  $handler->display->display_options['fields']['picture']['field'] = 'picture';
-  $handler->display->display_options['fields']['picture']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['picture']['label'] = '';
-  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['picture']['image_style'] = 'activity_avatar';
   /* Field: Heartbeat activity: Activity message */
   $handler->display->display_options['fields']['message_1']['id'] = 'message_1';
   $handler->display->display_options['fields']['message_1']['table'] = 'heartbeat_activity';
   $handler->display->display_options['fields']['message_1']['field'] = 'message';
   $handler->display->display_options['fields']['message_1']['label'] = '';
+  $handler->display->display_options['fields']['message_1']['element_type'] = '0';
   $handler->display->display_options['fields']['message_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['message_1']['element_default_classes'] = FALSE;
   /* Field: Heartbeat activity: Creation date */
   $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
   $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
@@ -615,8 +610,15 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['uaid']['table'] = 'heartbeat_activity';
   $handler->display->display_options['fields']['uaid']['field'] = 'uaid';
   $handler->display->display_options['fields']['uaid']['label'] = '';
-  $handler->display->display_options['fields']['uaid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['uaid']['element_label_colon'] = FALSE;
+  /* Field: Heartbeat activity: User ID */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'heartbeat_activity';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = '';
+  $handler->display->display_options['fields']['uid']['element_type'] = '0';
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['element_default_classes'] = FALSE;
   /* Sort criterion: Heartbeat activity: Creation date */
   $handler->display->display_options['sorts']['created_at']['id'] = 'created_at';
   $handler->display->display_options['sorts']['created_at']['table'] = 'heartbeat_activity';
