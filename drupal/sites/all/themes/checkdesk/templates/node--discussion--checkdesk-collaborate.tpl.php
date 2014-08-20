@@ -21,7 +21,6 @@
         </div>
       <?php } ?>
       </div>
-      <?php print $story_follow; ?>
       <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
         <?php print render($content['links']); ?>
       <?php } ?>
@@ -30,10 +29,7 @@
 
   	<div class="story-body">
   		<?php print render($content['body']); ?>
-    </div>
-        
-    <div class="story-tabs-wrapper">
-        <?php print $story_tabs; ?>
+      <?php print $story_follow; ?>
     </div>
 
     <?php if(isset($content['field_lead_image'])) { ?>
@@ -41,6 +37,12 @@
         <?php print render($content['field_lead_image']); ?>
       </figure>
     <?php } ?>
+        
+    <div class="story-tabs-wrapper">
+        <?php print $story_tabs; ?>
+    </div>
+
+    
     <!-- collaboration -->
       <div class="story-collaboration-header-wrapper">
         <?php print $story_links; ?>
@@ -54,6 +56,7 @@
           <?php print $story_collaboration; ?>
         <?php  } ?>
       </div>
+
     <!-- story comments -->
     <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
       <?php if (isset($content['custom_comments'])) print render($content['custom_comments']); ?>

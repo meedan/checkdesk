@@ -31,11 +31,8 @@
   	<?php // print render($content['story_blogger']); ?>
 
   	<div class="story-body">
-  		<?php print render($content['body']); ?>
-    </div>
-
-    <div class="story-tabs-wrapper">
-        <?php print $story_tabs; ?>
+      <?php print render($content['body']); ?>
+      <?php print $story_follow; ?>
     </div>
 
     <?php if(isset($content['field_lead_image'])) { ?>
@@ -43,6 +40,10 @@
         <?php print render($content['field_lead_image']); ?>
       </figure>
     <?php } ?>
+
+    <div class="story-tabs-wrapper">
+        <?php print $story_tabs; ?>
+    </div>
 
     <?php
       // get compose update form

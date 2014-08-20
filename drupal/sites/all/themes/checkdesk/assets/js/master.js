@@ -60,6 +60,9 @@
         }
         return false;
       });
+
+      // Add active class to the story tab which is active
+      $('.story-tabs li a.active').parents('li').addClass('active');
     }
   };
 

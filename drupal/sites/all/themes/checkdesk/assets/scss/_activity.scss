@@ -1,0 +1,157 @@
+// Thumbnail Sizes
+.thumb-60 {
+	@include ctb-size(60px, 60px);
+}
+
+.thumb-38 {
+	@include ctb-size(38px, 38px);
+}
+
+.thumb-48 {
+	@include ctb-size(48px, 48px);
+}
+
+// icons
+// TODO bring icons out of reports and declare them for all
+// update FA
+.icon-share { @include icon(share, 20px);	}
+.icon-flag-o { @include icon(flag-o, 20px);	}
+.icon-plus-square-o { @include icon(plus-square-o, 20px); }
+.icon-youtube-play { 
+	@include icon(youtube-play);
+	&:before, &:after { margin: 0; } // no margins
+ }
+ .icon-check-circle {
+ 	@include icon(check-circle, 16px);
+ 	&:before, &:after { margin: 0; } // no margins
+ }
+
+.activity {
+	
+}
+
+.activity-item {
+	position: relative;
+	padding: 0;
+	padding-#{$from-direction}: (60px + $gutter-width);
+	font-size: 16px;
+	color: $firefly60;
+	word-wrap: break-word;
+	margin-top: 30px;
+
+	.avatar {
+		position: absolute;
+		top: 0;
+		#{$from-direction}: 0;
+		float: $from-direction;
+
+		background-size: 100%;
+		background-repeat: no-repeat;
+		display: inline-block;
+		@include border-radius(4px);
+	}
+
+	.activity-item-wrapper {
+		background-color: #fff;
+		@include border-radius(4px 4px 0 0);
+		padding: 15px 20px;
+	}
+
+	.activity-item-footer {
+		@include ctb-bg($firefly5, rgba($firefly, 0.05));
+		@include border-radius(0 0 4px 4px);
+		padding: 12px 20px;
+		color: $firefly40;
+		.meta, .actions {
+			display: table-cell;
+			width: 100%;
+		}
+		.meta {
+			font-weight: 700;
+		}
+		.actions {
+			font-size: 20px;
+			white-space: nowrap;
+		}
+
+	}
+
+	.actor {
+		font-weight: 700;
+		color: $firefly;
+	}
+
+	.timestamp {
+		float: opposite-position($from-direction);
+		font-size: 14px;
+		color: $firefly20;
+	}
+
+	.activity-item-content {
+		display: block;
+	}
+
+	@include ctb-clearfix;
+} // activity-item 
+
+.inline-attachment {
+	
+	margin: 20px 0 15px 0;
+
+	.content {
+		display: table-cell;
+		padding: 0;
+		padding-#{$from-direction}: 15px;
+		width: 100%;
+	}
+
+	.inline-attachment-bar {
+		display: table-cell;
+		width: 4px;
+		@include border-radius(2px);
+		background-color: $firefly10;
+		.indent {
+			width: 4px;
+		}
+	}
+
+	.inline-holder {
+		margin: .25rem 0;
+	}
+
+	.inline-img-thumb-holder {
+		float: opposite-position($from-direction);
+	}
+
+	.inline-img-thumb {
+		width: 100%;
+		@include ctb-size(74px, 120px);
+		@include border-radius(4px);
+		margin-top: 4px;
+		margin-#{$from-direction}: $gutter-width/2;
+	}
+
+	.content-details {
+		& > span {
+			display: block;
+			font-size: 14px;
+			color: $firefly40;
+			line-height: 1.4;
+		}
+
+		.title {
+			font-size: 18px;
+			color: $firefly80;
+		}
+	} // content-details
+
+	.inline-attachment-status {
+		display: block;
+		margin-top: 30px;
+
+		.verified {
+			color: $verified-green;
+		}
+	}
+
+} // inline-attachment

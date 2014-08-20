@@ -54,12 +54,18 @@ function _checkdesk_story_get_collaborators($nid) {
     $title = format_plural(count($users), '1 collaborator', '@count collaborators');
     $uitems = $pitems = array();
     foreach ($users as $user) {
-      $uitems[] = l($user->name, 'user/'. $user->uid);
-      $avatar = theme('image_style', array('style_name' => 'activity_avatar', 'path' => $user->uri, 'getsize' => TRUE, 'attributes' => array('class' => 'user-avatar')));
-      $pitems[] = l($avatar, 'user/'. $user->uid, array('html' => TRUE));
+      // split user name into first name and last
+      $fullname = explode(' ', $user->name);
+      $fname = array_shift($fullname);
+      $uitems[] = l($fname, 'user/'. $user->uid);
+      $pitems[] = l('', 'user/'. $user->uid, array('html' => TRUE, 'attributes' => array('style' => 'background-image: url("' . image_style_url('activity_avatar', $user->uri). '")')));
     }
-    $output .= theme('item_list', array('items' => $uitems, 'title' => $title, 'attributes' => array('class' => 'story-collaborators-users')));
-    $output .= theme('item_list', array('items' => $pitems, 'title' => '', 'attributes' => array('class' => 'story-collaborators-avatars')));
+    $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems) . '</span>';
+    $output .= '<span class="sc-avatars">';
+    foreach ($pitems as $pitem) {
+      $output .= $pitem;
+    }
+    $output .= '</span></div></div>';
   }
   return $output;
 }
