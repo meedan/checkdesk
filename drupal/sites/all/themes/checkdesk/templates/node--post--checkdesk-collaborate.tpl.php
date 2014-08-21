@@ -16,7 +16,7 @@
     <?php 
       $update_body_text = render($content['body']);
       if (drupal_strlen($update_body_text) > 260) {
-        print views_trim_text(array('max_length' => 260, 'word_boundary' => TRUE, 'ellipsis' => FALSE), $update_body_text);
+        print text_summary($update_body_text, 1, 260);
         print '<p>[&hellip;]</p>';
       } else {
         print $update_body_text;
