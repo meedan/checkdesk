@@ -2932,3 +2932,22 @@ function _checkdesk_story_tabs($nid) {
   return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-tabs')));
 }
 
+/**
+ * Custom favicons via FontAwesome
+ */
+function _checkdesk_favicons($provider) {
+  $output = '';
+  if($provider == 'youtube') {
+    $output = '<span class="icon-youtube-play"></span>';
+  } else {
+    $output = '<span class="icon-' . $provider . '"></span>';
+  }
+  return $output;
+}
+
+function _checkdesk_providers() {
+  $providers = array(
+    'youtube', 'twitter', 'vimeo'
+    );
+  return $providers;
+}

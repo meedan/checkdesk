@@ -116,8 +116,16 @@ function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
   $reports = $variables['reports'];
   foreach ($reports as $report) {
     $embed = $report->embed;
+    // add custom favicons
+    $providers = _checkdesk_providers();
+    if(in_array(drupal_strtolower($embed->provider_name), $providers)) {
+      $favicon = l(_checkdesk_favicons(drupal_strtolower($embed->provider_name)), 'node/'. $report->nid, array('html' => TRUE));
+    } else {
+      $favicon = l(theme('image', array('path' => $embed->favicon_link)), 'node/'. $report->nid, array('html' => TRUE));
+    }
+
     $reports_tmp[] = array(
-      'favicon_link' => l(theme('image', array('path' => $embed->favicon_link)), $embed->provider_url, array('html' => TRUE)),
+      'favicon_link' => $favicon,
       'title' => l($report->title, 'node/'. $report->nid),
       'description' => truncate_utf8($report->body[LANGUAGE_NONE][0]['value'], 150, TRUE, TRUE),
     );
@@ -173,4 +181,3 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$varia
     $variables['activity_status_footnote'] = $footnote->variables['!comment'];
   }
 }
-
