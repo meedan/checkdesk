@@ -7,6 +7,7 @@
     $provider = strtolower($node->embed->provider_name);
     $provider_class_name = str_replace('.', '_', $provider) . '-wrapper';
   }
+  $heartbeat_row = $node->heartbeat_row;
 ?>
 
 <div class="activity-item-content-wrapper <?php if (isset($status_class)) { print $status_class; } ?>">
@@ -15,18 +16,22 @@
       <div class="inline-attachment-wrapper">
         <div class="inline-attachment-bar"><div class="indent"></div></div>
         <div class="content">
-          <?php if (isset($node->uaid)) : ?>
-            <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'meedan_oembed_thumbnail'))); ?>
+          <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') : ?>
+             <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'oembed_default'))); ?>
           <?php endif; ?>
-          
+          <?php if (isset($content['field_link'])) : ?>
+             <?php print render($content['field_link']); ?> 
+          <?php endif; ?>
           <div class="content-details">
-            <?php if (isset($node->uaid)) : ?><span class="title"><?php print $title; ?></span><?php endif; ?>
+            <?php if ($heartbeat_row->heartbeat_activity_message_id != 'checkdesk_report_suggested_to_story') : ?>
+                   <span class="title"><?php print $title; ?></span>
+            <?php endif; ?>
             <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
             <span>
               <?php if(isset($favicon_link)) : ?><span class="provider-icon"><?php print $favicon_link ?></span><?php endif; ?> <span class="ts"><?php print $media_creation_info; ?></span>
             </span>
           </div>
-          <?php if (isset($node->uaid)) : ?>
+          <?php if ($heartbeat_row->heartbeat_activity_message_id == 'status_report') : ?>
             <span class="inline-attachment-status report-status">
               <?php print render($content['report_activity_status']); ?>
             </span>
@@ -35,7 +40,7 @@
       </div>
     </div> <!-- /inline-attachment -->
 
-    <?php if (isset($node->uaid)) : ?>
+    <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_comment_on_report') : ?>
       <?php if (isset($content['report_verification_footnote'])) : ?>
         <div class="report-verification-footnote">
           <?php print render($content['report_verification_footnote']); ?>
