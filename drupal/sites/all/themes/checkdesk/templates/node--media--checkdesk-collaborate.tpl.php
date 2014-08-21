@@ -1,4 +1,7 @@
 <?php 
+  
+  // dsm($node);
+
   // set embed media type class
   if(isset($node->embed->provider_name)) {
     $provider = strtolower($node->embed->provider_name);
@@ -6,86 +9,46 @@
   }
 ?>
 
-<section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
-  <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
-    <section class="report-content">
-      <div class="report-media">
-        <div class="container <?php print $provider_class_name; ?>">
-          <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
-        </div>
-      </div>
-      
-     <?php if (isset($node->uaid)) : ?>
-         <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'meedan_oembed_thumbnail'))); ?>
-     <?php endif; ?>
-
-     <?php if (!isset($node->uaid)) : ?>
-      <?php print $title; ?>
-     <?php endif; ?>
-
-      <div class="report-attributes">
-       <?php if(isset($author_name)) : ?>
-         <div class="checkdesk-collaborate-author-name">
-           <?php print $author_name ?>
-         </div>
-       <?php endif; ?>
-       <?php if(isset($favicon_link)) : ?>
-         <div class="checkdesk-collaborate-favicon">
-           <?php print $favicon_link ?>
-         </div>
-       <?php endif; ?>
-        <div class="creation-info">
-          <?php print $media_creation_info; ?>
-        </div>
-      </div>
-
-      <?php if (isset($content['body'])) : ?>
-        <div class="description">
-          <?php print render($content['body']); ?>
-        </div>
-      <?php endif; ?>
-      
-      <?php if (isset($node->uaid)) : ?>
-        <?php print render($content['report_activity_status']); ?>
-      <?php endif; ?>
-
-    </section>
-
-
-      <div id="report-actions">
-        <?php print render($content['links']); ?>
-      </div>
-
-    <?php if (isset($media_activity_report_count)) : ?>
-      <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity open">
-          <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
-            <div class="report-activity-header" href="#">
-              <h3 class="report-footnotes-count"><span><?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?></h3>
-              <div class="report-status">
-                <?php if ($status): ?>
-                  <?php print $status; ?>
-                <?php endif; ?>
-              </div>
-            </div>
-          </header>
-          <div class="activity-wrapper">
-            <?php print $media_activity_report; ?>
-            <?php print render($content['comments']); ?>
-            <?php if ($media_activity_footer) : ?>
-              <div class="activity-list-footer-wrapper">
-                <div class="activity-list-footer">
-                  <?php print $media_activity_footer; ?>
-                </div>
-              </div>
-            <?php endif; ?>
+<div class="activity-item-content-wrapper <?php if (isset($status_class)) { print $status_class; } ?>">
+  <span class="activity-item-content">
+    <div class="inline-attachment <?php print $provider_class_name; ?>">
+      <div class="inline-attachment-wrapper">
+        <div class="inline-attachment-bar"><div class="indent"></div></div>
+        <div class="content">
+          <?php if (isset($node->uaid)) : ?>
+            <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'meedan_oembed_thumbnail'))); ?>
+          <?php endif; ?>
+          
+          <div class="content-details">
+            <?php if (isset($node->uaid)) : ?><span class="title"><?php print $title; ?></span><?php endif; ?>
+            <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
+            <span>
+              <?php if(isset($favicon_link)) : ?><span class="provider-icon"><?php print $favicon_link ?></span><?php endif; ?> <span class="ts"><?php print $media_creation_info; ?></span>
+            </span>
           </div>
+          <?php if (isset($node->uaid)) : ?>
+            <span class="inline-attachment-status report-status">
+              <?php print render($content['report_activity_status']); ?>
+            </span>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div> <!-- /inline-attachment -->
 
-      </section>
+    Given the weight of reporting in world media, the number of photos and videos from different angles, and an “apology” from the perpetrator, we can say this is “verified”, though questions certainly remain as to the identity of the man being kicked.
+
+  </span> <!-- /activity-item-content -->
+</div> <!-- /activity-item-content-wrapper -->
+
+<div class="activity-item-footer">
+  <div class="meta">
+    <?php if (isset($media_activity_report_count)) : ?>
+      <?php print $media_activity_report_count . ' ' . t('verification footnotes'); ?>
     <?php endif; ?>
-  </article>
-
-  <?php if (isset($modal_class_hack)): ?>
-    <?php print $modal_class_hack; ?>
-  <?php endif; ?>
-
-</section>
+  </div>
+  <div class="actions" role="toolbar">
+    <span class="icon-share"></span>
+    <span class="icon-flag-o"></span>
+    <span class="icon-plus-square-o"></span>
+  </div>
+</div> <!-- /activity-item-footer -->

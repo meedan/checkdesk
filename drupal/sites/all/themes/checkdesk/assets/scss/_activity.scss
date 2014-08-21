@@ -39,6 +39,10 @@
 	word-wrap: break-word;
 	margin-top: 30px;
 
+	a {
+		color: $firefly60;
+	}
+
 	.avatar {
 		position: absolute;
 		top: 0;
@@ -54,7 +58,15 @@
 	.activity-item-wrapper {
 		background-color: #fff;
 		@include border-radius(4px 4px 0 0);
-		padding: 15px 20px;
+		// padding: 15px 20px;
+	}
+
+	.activity-item-message {
+		padding: 15px 20px 0 20px;
+	}
+
+	.activity-item-content-wrapper {
+		padding: 0 20px 15px 20px;
 	}
 
 	.activity-item-footer {
@@ -76,7 +88,7 @@
 
 	}
 
-	.actor {
+	a.actor {
 		font-weight: 700;
 		color: $firefly;
 	}
@@ -142,6 +154,7 @@
 		.title {
 			font-size: 18px;
 			color: $firefly80;
+			margin-bottom: 5px;
 		}
 	} // content-details
 

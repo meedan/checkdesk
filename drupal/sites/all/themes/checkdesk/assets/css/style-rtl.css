@@ -9073,6 +9073,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin-top: 30px;
   *zoom: 1;
 }
+.activity-item a {
+  color: #6f7a82;
+}
 .activity-item .avatar {
   position: absolute;
   top: 0;
@@ -9094,7 +9097,12 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -ms-border-radius: 4px 4px 0 0;
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
-  padding: 15px 20px;
+}
+.activity-item .activity-item-message {
+  padding: 15px 20px 0 20px;
+}
+.activity-item .activity-item-content-wrapper {
+  padding: 0 20px 15px 20px;
 }
 .activity-item .activity-item-footer {
   background-color: #f3f4f4;
@@ -9118,7 +9126,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-size: 20px;
   white-space: nowrap;
 }
-.activity-item .actor {
+.activity-item a.actor {
   font-weight: 700;
   color: #10212f;
 }
@@ -9188,6 +9196,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .inline-attachment .content-details .title {
   font-size: 18px;
   color: #404d59;
+  margin-bottom: 5px;
 }
 .inline-attachment .inline-attachment-status {
   display: block;
