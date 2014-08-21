@@ -40,6 +40,11 @@ function meedan_oembed_theme() {
       'path' => $path,
       'file' => $file,
     ),
+    'meedan_inline_thumbnail' => array(
+      'variables' => array('element' => NULL),
+      'path' => $path,
+      'file' => $file,
+    ),
   );
 }
 
@@ -339,11 +344,19 @@ function meedan_oembed_field_formatter_info() {
       'description' => t('Embeds links as thumbnails if possible - otherwise just links them.'),
       'settings' => array('imagestyle' => ''),
     ),
+    'meedan_inline_thumbnail' => array(
+      'label' => t('Meedan inline thumbnail'),
+      'field types' => array('link_field'),
+      'description' => t('Embeds inline thmbnail.'),
+    ),
   );
 
   return $formatters;
 }
 
+function theme_meedan_inline_thumbnail($element) {
+  return 'render inline thumbnail';
+}
 /**
  * Implements hook_field_formatter_settings_form().
  */
@@ -382,6 +395,11 @@ function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $inst
     else {
       $element[$delta] = array('#markup' => theme('meedan_oembed_thumbnail_generic', $args));
     }
+  }
+  foreach ($items as $delta => $item) {
+    $element[$delta] = array(
+      '#markup' => theme('meedan_inline_thumbnail', array('element' => $item, 'field' => $instance)),
+    );
   }
   return $element;
 }

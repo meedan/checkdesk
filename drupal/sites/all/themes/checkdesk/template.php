@@ -30,6 +30,17 @@ function checkdesk_theme() {
     ),
   );
 }
+ 
+function checkdesk_preprocess_field(&$variables, $hook) {
+  $element = $variables['element'];
+  if ($element['#field_name'] == 'field_link' && $element['#formatter'] == 'meedan_inline_thumbnail') {
+    $embed = $element['#object']->embed;
+    $variables['theme_hook_suggestions'] = array(
+      'meedan_inline_thumbnail__'. strtolower($embed->provider_name),
+      'meedan_inline_thumbnail__generic',
+    );
+  }
+}
 
 /**
  * Preprocess variables for html.tpl.php
