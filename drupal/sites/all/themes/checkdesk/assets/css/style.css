@@ -9176,6 +9176,39 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   clear: both;
 }
 
+.activity .update-added .activity-item-content {
+  border-top: 1px dotted rgba(16, 33, 47, 0.1);
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.activity .update-added h3.update-title {
+  margin: 0;
+  padding: 0;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+.activity .update-added h3.update-title a {
+  color: #10212f;
+}
+.activity .update-added h3.update-title a:hover {
+  color: black;
+}
+.activity .update-added .checkdesk-update-reports-wrapper {
+  margin-top: 8px;
+}
+.activity .update-added .update-reports-authors {
+  font-weight: 700;
+  color: #404d59;
+  font-size: 16px;
+}
+.activity .update-added .update-reports-authors a {
+  color: #404d59;
+}
+.activity .update-added .update-reports-authors a:hover {
+  color: black;
+}
+
 .inline-attachment {
   margin: 20px 0 15px 0;
 }

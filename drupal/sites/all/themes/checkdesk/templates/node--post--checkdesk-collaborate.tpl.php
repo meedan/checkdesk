@@ -1,28 +1,41 @@
+<?php
+  global $language;
+  $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+  $update_anchor = 'update-' . $node->nid;
+  $update_link = url('node/'.$parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
+?>
 
-<section class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <article class="update <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
+<div class="activity-item-content-wrapper update-added <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
+  <span class="activity-item-content">
+    
+    <?php if (isset($title)) { ?>
+      <h3 class="update-title">
+        <a href="<?php print $update_link; ?>"><?php print $title; ?></a>
+      </h3>
+    <?php } ?>
+    <?php 
+      $update_body_text = render($content['body']);
+      if (drupal_strlen($update_body_text) > 260) {
+        print views_trim_text(array('max_length' => 260, 'word_boundary' => TRUE, 'ellipsis' => FALSE), $update_body_text);
+        print '<p>[&hellip;]</p>';
+      } else {
+        print $update_body_text;
+      } 
+    ?>
+    <?php print render($content['update_reports']); ?>
 
-    <div class="update-body">
-      <?php if (isset($title)) { ?>
-        <h2 class="update-title"><?php print $title; ?></h2>
-      <?php } ?>
-      <?php print render($content['body']); ?>
-      <?php print render($content['update_reports']); ?>
-    </div>
+  </span> <!-- /activity-item-content -->
+</div> <!-- /activity-item-content-wrapper -->
 
-    <div class="collaborate-update-footer">
-        <ul class="collaborate-update">
-           <?php if(!empty($content['update_reports_count'])): ?>
-              <li class="update-reports-count"><?php print render($content['update_reports_count']); ?></li>
-           <?php endif ?>
-           <li class="update-share"><?php print render($content['links']); ?></li>
-           <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) : ?>
-           <li class="update-edit">
-            <?php print l('<span class="icon-pencil-square"></span>'. t('Edit'), 'node/' . $node->nid . '/edit', array('query' => drupal_get_destination(), 'html'=>TRUE)); ?>
-           </li>
-           <?php endif; ?>
-        </ul>
-    </div>
-
-  </article>
-</section>
+<div class="activity-item-footer">
+  <div class="meta">
+    <?php if(!empty($content['update_reports_count'])): ?>
+      <?php print render($content['update_reports_count']); ?>
+    <?php endif; ?>
+  </div>
+  <div class="actions" role="toolbar">
+    <span class="icon-share"></span>
+    <span class="icon-flag-o"></span>
+    <span class="icon-plus-square-o"></span>
+  </div>
+</div> <!-- /activity-item-footer -->

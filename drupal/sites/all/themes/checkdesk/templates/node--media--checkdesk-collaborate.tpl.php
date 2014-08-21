@@ -35,10 +35,12 @@
       </div>
     </div> <!-- /inline-attachment -->
 
-    <?php if (isset($content['report_verification_footnote'])) : ?>
-      <div class="report-verification-footnote">
-        <?php print render($content['report_verification_footnote']); ?>
-      </div>
+    <?php if (isset($node->uaid)) : ?>
+      <?php if (isset($content['report_verification_footnote'])) : ?>
+        <div class="report-verification-footnote">
+          <?php print render($content['report_verification_footnote']); ?>
+        </div>
+      <?php endif; ?>
     <?php endif; ?>
 
   </span> <!-- /activity-item-content -->

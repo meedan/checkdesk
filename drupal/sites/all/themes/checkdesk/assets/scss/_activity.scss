@@ -106,6 +106,39 @@
 	@include ctb-clearfix;
 } // activity-item 
 
+
+
+// specific styles for different activity types
+// when an update is added to a story
+.activity .update-added {
+	.activity-item-content {
+		border-top: 1px dotted rgba($firefly, 0.1);
+		margin-top: 10px;
+		padding-top: 10px;
+	}
+
+	h3.update-title {
+		@include reset-box-model;
+		@include cd-sans-serif-family;
+		font-size: 18px;
+		font-weight: 700;
+		a { @include ctb-linkColor($firefly); }
+	}
+
+	.checkdesk-update-reports-wrapper {
+		margin-top: 8px;
+	}
+
+ 	.update-reports-authors {
+ 		font-weight: 700;
+ 		color: $firefly80;
+ 		font-size: 16px;
+ 		a { @include ctb-linkColor($firefly80); }
+ 	}
+
+}
+
+
 .inline-attachment {
 	
 	margin: 20px 0 15px 0;
