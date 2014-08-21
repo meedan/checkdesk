@@ -35,7 +35,11 @@
       </div>
     </div> <!-- /inline-attachment -->
 
-    Given the weight of reporting in world media, the number of photos and videos from different angles, and an “apology” from the perpetrator, we can say this is “verified”, though questions certainly remain as to the identity of the man being kicked.
+    <?php if (isset($content['report_verification_footnote'])) : ?>
+      <div class="report-verification-footnote">
+        <?php print render($content['report_verification_footnote']); ?>
+      </div>
+    <?php endif; ?>
 
   </span> <!-- /activity-item-content -->
 </div> <!-- /activity-item-content-wrapper -->
