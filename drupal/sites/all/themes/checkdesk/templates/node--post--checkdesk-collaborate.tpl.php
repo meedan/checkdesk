@@ -3,7 +3,6 @@
   $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
   $update_anchor = 'update-' . $node->nid;
   $update_link = url('node/'.$parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
-  dsm(render($content['links']));
 ?>
 
 <div class="activity-item-content-wrapper update-added <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
