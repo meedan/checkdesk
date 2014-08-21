@@ -382,25 +382,29 @@ function meedan_oembed_field_formatter_settings_form($field, $instance, $view_mo
  */
 function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
-  foreach ($items as $delta => $item) {
-    $attributes = array();
-    $attributes = array_filter($display['settings']);
-    $url = url($item['url'], $item + array('external' => TRUE));
-    $domain = _meedan_oembed_get_domain_name($url);
-    $theme = 'meedan_oembed_thumbnail_' . $domain;
-    $args = array('title' => $entity->title, 'url' => $url, 'attributes' => $attributes);
-    $hooks = theme_get_registry(FALSE);
-    if (isset($hooks[$theme])) {
-      $element[$delta] = array('#markup' => theme($theme, $args));
-    }
-    else {
-      $element[$delta] = array('#markup' => theme('meedan_oembed_thumbnail_generic', $args));
+  if ($display['type'] == 'meedan_inline_thumbnail') {
+    foreach ($items as $delta => $item) {
+      $element[$delta] = array(
+        '#markup' => theme('meedan_inline_thumbnail', array('element' => $item, 'field' => $instance)),
+      );
     }
   }
-  foreach ($items as $delta => $item) {
-    $element[$delta] = array(
-      '#markup' => theme('meedan_inline_thumbnail', array('element' => $item, 'field' => $instance)),
-    );
+  else {
+    foreach ($items as $delta => $item) {
+      $attributes = array();
+      $attributes = array_filter($display['settings']);
+      $url = url($item['url'], $item + array('external' => TRUE));
+      $domain = _meedan_oembed_get_domain_name($url);
+      $theme = 'meedan_oembed_thumbnail_' . $domain;
+      $args = array('title' => $entity->title, 'url' => $url, 'attributes' => $attributes);
+      $hooks = theme_get_registry(FALSE);
+      if (isset($hooks[$theme])) {
+        $element[$delta] = array('#markup' => theme($theme, $args));
+      }
+      else {
+        $element[$delta] = array('#markup' => theme('meedan_oembed_thumbnail_generic', $args));
+      }
+    }
   }
   return $element;
 }
