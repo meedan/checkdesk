@@ -42,6 +42,7 @@ function meedan_oembed_theme() {
     ),
     'meedan_inline_thumbnail' => array(
       'variables' => array('element' => NULL),
+      'template' => 'meedan-inline-thumbnail--generic',
       'path' => $path,
       'file' => $file,
     ),

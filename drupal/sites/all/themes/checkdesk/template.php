@@ -37,7 +37,6 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     $embed = $element['#object']->embed;
     $variables['theme_hook_suggestions'] = array(
       'meedan_inline_thumbnail__'. strtolower($embed->provider_name),
-      'meedan_inline_thumbnail__generic',
     );
   }
 }
