@@ -881,10 +881,16 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
         // Add report status with comment to collaboration page
         unset($node->content['field_link']);
         $heartbeat_activity = heartbeat_activity_load($node->uaid);
-        $node->content['report_activity_status'] = array(
-          '#theme' => 'checkdesk_core_report_activity_status',
-          '#heartbeat_activity' => $heartbeat_activity,
-        );
+        if ($heartbeat_activity->message_id == 'checkdesk_comment_on_report') {
+          $footnote = comment_load($heartbeat_activity->cid);
+          $node->content['report_verification_footnote'] = $footnote->comment_body[LANGUAGE_NONE][0]['value'];
+        }
+        else {
+          $node->content['report_activity_status'] = array(
+            '#theme' => 'checkdesk_core_report_activity_status',
+            '#heartbeat_activity' => $heartbeat_activity,
+          );
+        }
       }
     }
   }
@@ -2895,11 +2901,11 @@ function checkdesk_story_collaborate_render_object($row) {
   case 'checkdesk_report_published_in_update':
   case 'publish_report':
   case 'checkdesk_flag_report':
-  case 'checkdesk_comment_on_report':
     $node = node_load($row->heartbeat_activity_nid);
     $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
     break;
   case 'status_report':
+  case 'checkdesk_comment_on_report':
     $node = node_load($row->heartbeat_activity_nid);
     $node->uaid = $row->uaid;
     $output = drupal_render(node_view($node, 'checkdesk_collaborate'));

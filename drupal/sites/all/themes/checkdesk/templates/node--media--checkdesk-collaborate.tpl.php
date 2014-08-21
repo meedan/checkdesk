@@ -46,8 +46,18 @@
       <?php endif; ?>
       
       <?php if (isset($node->uaid)) : ?>
-        <?php print render($content['report_activity_status']); ?>
-      <?php endif; ?>
+        
+         <?php if (isset($content['report_activity_status'])) : ?>
+            <?php print render($content['report_activity_status']); ?>
+         <?php endif; ?>
+        
+         <?php if (isset($content['report_verification_footnote'])) : ?>
+           <div class="report-verification-footnote">
+              <?php print render($content['report_verification_footnote']); ?>
+           </div>
+         <?php endif; ?>
+
+     <?php endif; ?>
 
     </section>
 
