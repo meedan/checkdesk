@@ -3,6 +3,7 @@
   $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
   $update_anchor = 'update-' . $node->nid;
   $update_link = url('node/'.$parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
+  dsm(render($content['links']));
 ?>
 
 <div class="activity-item-content-wrapper update-added <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
@@ -34,8 +35,11 @@
     <?php endif; ?>
   </div>
   <div class="actions" role="toolbar">
-    <span class="icon-share"></span>
-    <span class="icon-flag-o"></span>
-    <span class="icon-plus-square-o"></span>
+    <?php print render($content['links']); ?>
+    <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) : ?>
+      <div class="update-edit">
+      <?php print l('<span class="icon-pencil-square-o"></span>', 'node/' . $node->nid . '/edit', array('query' => drupal_get_destination(), 'html'=>TRUE)); ?>
+      </div>
+    <?php endif; ?>
   </div>
 </div> <!-- /activity-item-footer -->

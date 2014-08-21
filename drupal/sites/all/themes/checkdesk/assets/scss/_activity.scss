@@ -16,6 +16,7 @@
 // update FA
 .icon-share { @include icon(share, 20px);	}
 .icon-flag-o { @include icon(flag-o, 20px);	}
+.icon-pencil-square-o { @include icon(pencil-square-o, 20px); }
 .icon-plus-square-o { @include icon(plus-square-o, 20px); }
 .icon-youtube-play { 
 	@include icon(youtube-play);
@@ -58,7 +59,6 @@
 	.activity-item-wrapper {
 		background-color: #fff;
 		@include border-radius(4px 4px 0 0);
-		// padding: 15px 20px;
 	}
 
 	.activity-item-message {
@@ -82,8 +82,14 @@
 			font-weight: 700;
 		}
 		.actions {
-			font-size: 20px;
 			white-space: nowrap;
+			span[class^="icon-"], span[class*="icon-"] { 
+				font-size: 20px;
+				color: $firefly40;
+			}
+			div {
+				display: inline-block;
+			}
 		}
 
 	}

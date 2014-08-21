@@ -754,7 +754,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     $layout = checkdesk_core_direction_settings();
     // Set direction for Updates
     if ($node->type == 'post') {
-      $links['dropdown-direction'] = $layout['alpha'];
+      $links['dropdown-direction'] = $layout['omega'];
     } else {
       $links['dropdown-direction'] = $layout['omega'];
     }

@@ -1707,7 +1707,8 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f040";
 }
 
-.admin-nav-tabs > li span.icon-pencil:before {
+.admin-nav-tabs > li span.icon-pencil:before,
+.icon-pencil-square-o:before {
   content: "\f044";
 }
 
@@ -9041,6 +9042,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-pencil-square-o:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .icon-plus-square-o:before {
   font-family: "FontAwesome";
   display: inline-block;
@@ -9152,8 +9168,14 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-weight: 700;
 }
 .activity-item .activity-item-footer .actions {
-  font-size: 20px;
   white-space: nowrap;
+}
+.activity-item .activity-item-footer .actions span[class^="icon-"], .activity-item .activity-item-footer .actions span[class*="icon-"] {
+  font-size: 20px;
+  color: #9fa6ac;
+}
+.activity-item .activity-item-footer .actions div {
+  display: inline-block;
 }
 .activity-item a.actor {
   font-weight: 700;

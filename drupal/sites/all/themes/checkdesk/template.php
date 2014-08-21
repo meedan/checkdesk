@@ -776,7 +776,7 @@ function checkdesk_links__node($variables) {
   ctools_add_js('checkdesk_core', 'checkdesk_core');
 
   if (arg(0) != 'embed' && count($links) > 0) {
-    $output = '<ul' . drupal_attributes(array('class' => $class)) . '>';
+    $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
 
     // if (isset($links['checkdesk-view-original'])) {
     //   $output .= '<li>' . l('<span class="icon-link"></span>', $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
@@ -789,7 +789,7 @@ function checkdesk_links__node($variables) {
         isset($links['checkdesk-share-embed'])
     ) {
       // Share on
-      $output .= '<li class="share-on">';
+      $output .= '<span class="share-on">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . $links['checkdesk-share']['title'] . '</span></a>';
       
       $output .= '<ul class="dropdown-menu pull-'. $links['dropdown-direction'] .'">';
@@ -807,7 +807,7 @@ function checkdesk_links__node($variables) {
         $output .= '<li class="divider"></li>';
         $output .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-embed']) . '</li>';
       }
-      $output .= '</ul></li>'; 
+      $output .= '</ul></span>'; 
     }
 
     if (isset($links['flag-spam']) || 
@@ -879,7 +879,7 @@ function checkdesk_links__node($variables) {
       }
     }
 
-    $output .= '</ul>';
+    $output .= '</div>';
   }
 
   return $output;
