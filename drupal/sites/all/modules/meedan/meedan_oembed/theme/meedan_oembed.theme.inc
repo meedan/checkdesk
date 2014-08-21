@@ -18,7 +18,7 @@ function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
  */
 function template_preprocess_meedan_oembed_thumbnail_generic(&$vars) {
 	$render = oembedcore_render_cache('oembed_thumbnail', $vars['url'], $vars['attributes']);
-  $vars['thumbnail'] = '<img class="inline-img-thumb" src="https://dl.dropboxusercontent.com/u/450152/cover-photo.png" />';
+  $vars['thumbnail'] = render($render);
 }
 
 /**

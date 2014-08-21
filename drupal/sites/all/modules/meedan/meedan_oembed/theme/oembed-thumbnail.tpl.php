@@ -3,8 +3,12 @@
  * @file
  * Default template file for media thumbnail
  */
-	// dsm($thumbnail);
 ?>
-<div class="inline-holder inline-img-thumb-holder">
-	<a href="#"><?php print $thumbnail; ?></a>
+<div class="media-type-thumbnail">
+  <div class="media-thumbnail">
+    <?php print $thumbnail; ?>
+  </div>
+  <div class="media-title">
+    <?php print $title; ?>
+  </div>
 </div>
