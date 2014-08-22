@@ -13,10 +13,10 @@
       <div class="inline-attachment-wrapper">
         <div class="inline-attachment-bar"><div class="indent"></div></div>
         <div class="media-holder media-inline-holder">
-          <?php if (isset($content['field_link'])) : ?>
+          <?php if ($heartbeat_row->heartbeat_activity_message_id != 'checkdesk_report_suggested_to_story') : ?>
             <!-- render as inline thumbnail -->
             <div class="media-content">
-              <?php print render($content['field_link']); ?> 
+              <?php print render($content['field_link']); ?>
             </div>
           <?php endif; ?>
 

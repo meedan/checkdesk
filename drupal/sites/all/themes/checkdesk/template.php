@@ -527,8 +527,9 @@ function checkdesk_preprocess_node(&$variables) {
 
   if($variables['view_mode'] == 'checkdesk_collaborate') {
     if ($variables['type'] == 'media') {
+      $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
       $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
-      //$variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'] . '__' . 'reportstatus';
+      $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'] . '__' . $message_id;
     }
     else {
       $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];

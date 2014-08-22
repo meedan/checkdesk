@@ -93,6 +93,13 @@ function checkdesk_core_menu() {
     'page arguments' => array('_checkdesk_core_settings'),
     'access arguments' => array('administer site configuration'),
   );
+  $items['admin/config/system/activity-formatter'] = array(
+    'title' => 'Checkdesk',
+    'description' => 'Manage hearbeat activity type and formatter.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_checkdesk_activity_formatter_mapping'),
+    'access arguments' => array('administer site configuration'),
+  );
   $items['report-view-modal/%ctools_js'] = array(
     'title' => 'Report view (modal)',
     'page callback' => '_checkdesk_modal_report_view',
@@ -299,6 +306,14 @@ function _checkdesk_core_settings($form, $form_state) {
     '#type' => 'textarea',
     '#default_value' => variable_get('checkdesk_factchecking_statement', ''),
   );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Form function for `_checkdesk_activity_formatter_mapping`.
+ */
+function _checkdesk_activity_formatter_mapping($form, $form_state) {
 
   return system_settings_form($form);
 }
@@ -892,10 +907,12 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
         $footnote = comment_load($heartbeat_activity->cid);
         $node->content['report_verification_footnote'] = $footnote->comment_body[LANGUAGE_NONE][0]['value'];
       }
-      
+      $node->content['field_link'] = _meedan_render_oembed_activity_type($node, $heartbeat_row); 
+      /*     
       if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') {
         unset($node->content['field_link']);
       }
+       */
 
     }
   }
