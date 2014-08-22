@@ -35,6 +35,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
   if ($element['#field_name'] == 'field_link' && $element['#formatter'] == 'meedan_inline_thumbnail') {
     $embed = $element['#object']->embed;
+    $variables['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE));
     $variables['theme_hook_suggestions'] = array(
       'meedan_inline_thumbnail__'. strtolower($embed->provider_name),
     );

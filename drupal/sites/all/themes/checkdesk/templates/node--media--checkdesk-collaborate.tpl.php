@@ -15,16 +15,19 @@
     <div class="inline-attachment <?php print $provider_class_name; ?>">
       <div class="inline-attachment-wrapper">
         <div class="inline-attachment-bar"><div class="indent"></div></div>
-        <div class="content">
-          <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') : ?>
-             <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'oembed_default'))); ?>
-          <?php endif; ?>
-          <?php if (isset($content['field_link'])) : ?>
-             <?php print render($content['field_link']); ?> 
-          <?php endif; ?>
-          <div class="content-details">
+        <div class="media-holder media-inline-holder">
+          <div class="media-content">
+            <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') : ?>
+               <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'oembed_default'))); ?>
+            <?php endif; ?>
+            <?php if (isset($content['field_link'])) : ?>
+               <?php print render($content['field_link']); ?> 
+            <?php endif; ?>
+          </div>
+
+          <div class="media-details">
             <?php if ($heartbeat_row->heartbeat_activity_message_id != 'checkdesk_report_suggested_to_story') : ?>
-                   <span class="title"><?php print $title; ?></span>
+              <span class="title"><?php print $title; ?></span>
             <?php endif; ?>
             <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
             <span>
@@ -32,11 +35,11 @@
             </span>
           </div>
           <?php if ($heartbeat_row->heartbeat_activity_message_id == 'status_report') : ?>
-            <span class="inline-attachment-status report-status">
+            <span class="inline-attachment-status media-status">
               <?php print render($content['report_activity_status']); ?>
             </span>
           <?php endif; ?>
-        </div>
+        </div> <!-- /media-holder -->
       </div>
     </div> <!-- /inline-attachment -->
 
