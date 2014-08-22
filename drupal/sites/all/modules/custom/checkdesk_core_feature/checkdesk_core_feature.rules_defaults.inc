@@ -52,8 +52,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_comment_on_report" : "checkdesk_comment_on_report" } },
             "!user_url" : [ "comment:node:author:url" ],
             "!username" : [ "comment:node:author:name" ],
-            "!report_url" : [ "comment:node:url" ],
-            "!report_title" : [ "comment:node:title" ]
+            "!report_url" : [ "comment:node:url" ]
           }
         },
         { "schedule" : {
@@ -123,9 +122,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_report_suggested_to_story" : "checkdesk_report_suggested_to_story" } },
             "!user_url" : "[site:current-user:url]",
             "!username" : "[site:current-user:name]",
-            "!report_url" : "[node:url]",
-            "!story_url" : "[list-item:url]",
-            "!story" : "[list-item:title]"
+            "!report_url" : "[node:url]"
           }
         },
         { "schedule" : {
@@ -343,7 +340,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
+      "REQUIRES" : [ "php", "rules", "heartbeat_rules", "rules_scheduler" ],
       "ON" : { "user_insert" : [] },
       "IF" : [
         { "php_eval" : { "code" : "if (variable_get(\\u0027user_register\\u0027, USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) == USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) {\\r\\n  return TRUE;\\r\\n}\\r\\nreturn FALSE;" } },
@@ -823,9 +820,7 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_report_suggested_to_story" : "checkdesk_report_suggested_to_story" } },
             "!user_url" : "[site:current-user:url]",
             "!username" : "[site:current-user:name]",
-            "!report_url" : "[node:url]",
-            "!story_url" : [ "node:field-stories:url" ],
-            "!story" : [ "node:field-stories:title" ]
+            "!report_url" : "[node:url]"
           }
         },
         { "schedule" : {

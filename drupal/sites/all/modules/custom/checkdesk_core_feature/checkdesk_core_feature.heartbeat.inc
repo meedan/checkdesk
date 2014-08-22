@@ -70,7 +70,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_comment_on_report';
   $heartbeatmessagetemplate->description = 'A comment (footnote) was added to a report';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has added footnote to report <strong><a href="!report_url">!report_title</a></strong></p>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added footnote to <a href="!report_url">report</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -85,6 +85,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
       1 => 0,
       2 => 0,
       3 => 0,
+      5 => 0,
       4 => 0,
     ),
   );
@@ -92,12 +93,10 @@ function checkdesk_core_feature_heartbeat_template_info() {
     '!user_url' => '',
     '!username' => '',
     '!report_url' => '',
-    '!report_title' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'settings' => array(
@@ -106,17 +105,14 @@ function checkdesk_core_feature_heartbeat_template_info() {
         ),
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
     'content' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
@@ -469,7 +465,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_new_update_on_story_i_commented_on_update';
   $heartbeatmessagetemplate->description = 'New update on a story I commented on an update before';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> added an <strong><a href="!update_url">update</a></strong></p>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added an <a href="!update_url">update</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -689,7 +685,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_report_suggested_to_story';
   $heartbeatmessagetemplate->description = 'Report suggested to story';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> added a <strong><a href="!report_url">report</a></strong> to <strong><a href="!story_url">!story</a></strong></p>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a <a href="!report_url">report</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -712,8 +708,6 @@ function checkdesk_core_feature_heartbeat_template_info() {
     '!user_url' => '',
     '!username' => '',
     '!report_url' => '',
-    '!story_url' => '',
-    '!story' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
@@ -902,7 +896,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'status_report';
   $heartbeatmessagetemplate->description = 'Change of report status';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!editor_url">!editor</a></strong> changed <strong><a href="!report_url">report</a></strong> status to !status';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!editor_url">!editor</a> changed <a href="!report_url">report</a> status to !status';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';

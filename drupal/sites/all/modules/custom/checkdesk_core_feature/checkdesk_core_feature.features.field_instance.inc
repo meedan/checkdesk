@@ -594,10 +594,8 @@ function checkdesk_core_feature_field_default_field_instances() {
       'checkdesk_collaborate' => array(
         'label' => 'above',
         'module' => 'meedan_oembed',
-        'settings' => array(
-          'imagestyle' => 'report_thumbnail',
-        ),
-        'type' => 'meedan_oembed_thumbnail',
+        'settings' => array(),
+        'type' => 'meedan_inline_thumbnail',
         'weight' => 0,
       ),
       'collaborate_status' => array(
