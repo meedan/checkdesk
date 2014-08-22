@@ -39,8 +39,8 @@
 	  }
 	}
 
-	.media-details {
-		// margin-bottom: .25rem;
+	.media-info {
+		margin-bottom: .25rem;
 		color: $firefly40;
 		a { @include ctb-linkColor($firefly40); }
 
@@ -92,7 +92,7 @@
 			color: $in-progress;
 		}
 	}
-	
+
 	// remove the margins around the icon
 	span[class^="icon-"], span[class*="icon-"] {
 		&:before, &:after { margin: 0; } // no margins
@@ -103,7 +103,7 @@
 
 .inline-attachment {
 
-	margin: 10px 0 0 0;
+	margin: 10px 0;
 
 	.inline-attachment-bar {
 		display: table-cell;

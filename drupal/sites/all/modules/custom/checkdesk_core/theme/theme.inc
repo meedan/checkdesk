@@ -149,19 +149,24 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$varia
   $activity = $variables['heartbeat_activity'];
   $icon = '';
   $status_name = $activity->variables['!status'];
+  $status_class = '';
   if ($status_name == 'Verified') {
+    $status_class = 'verified';
     $icon = '<span class="icon-check-circle"></span> ';
   }
   elseif ($status_name == 'In Progress') {
+    $status_class = 'in-progress';
     $icon = '<span class="icon-random"></span> ';
   }    
   elseif ($status_name == 'Undetermined') {
+    $status_class = 'undetermined';
     $icon = '<span class="icon-question-circle"></span> ';
   }    
   elseif ($status_name == 'False') {
+    $status_class = 'false';
     $icon = '<span class="icon-times-circle"></span> ';
   }    
-  $variables['activity_status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+  $variables['activity_status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   
   if($status_name != 'In Progress') {
     $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
@@ -169,9 +174,9 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$varia
 
   // display status with an icon and "x by partner"
   if(isset($status_name) && isset($icon) && isset($status_by)) {
-    $variables['activity_status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
+    $variables['activity_status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
   } else { // display status with an icon only
-    $variables['activity_status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+    $variables['activity_status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   }
   // Get status footnote if exist
   // always footnote for change status is uaid of status - 3
