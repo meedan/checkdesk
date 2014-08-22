@@ -20,12 +20,46 @@
 .icon-plus-square-o { @include icon(plus-square-o, 20px); }
 .icon-youtube-play { 
 	@include icon(youtube-play);
-	&:before, &:after { margin: 0; } // no margins
  }
  .icon-check-circle {
  	@include icon(check-circle, 16px);
- 	&:before, &:after { margin: 0; } // no margins
  }
+
+span[class^="icon-"], span[class*="icon-"] {
+	&:before, &:after { margin: 0; } // no margins
+}
+
+ // Report status icons in activity log's header
+$position:  "before";
+@if $from-direction == left {
+	$position: "after";
+}
+@if $from-direction == right {
+	$position: "before";
+}
+// verified
+.icon-check-circle { 
+	color: $verified;
+	@include icon(check-circle);
+}
+// in-progress
+.icon-random { 
+	color: $in-progress;
+	@include icon(random);
+}
+.icon-circle { 
+	color: rgba(239,202,43,1);
+}
+// undetermined
+.icon-question-circle { 
+	color: $undetermined;
+	@include icon(question-circle);
+}
+// false
+.icon-times-circle { 
+	color: $false; 
+	@include icon(times-circle);
+}
 
 .activity {
 	

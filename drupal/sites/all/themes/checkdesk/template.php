@@ -733,9 +733,9 @@ function checkdesk_preprocess_node(&$variables) {
         $variables['status_class'] = $status_class;
         // display status with an icon and "x by partner"
         if(isset($status_name) && isset($icon) && isset($status_by)) {
-          $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
+          $variables['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
         } else { // display status with an icon only
-          $variables['status'] = $icon . '<span class="status-name">' . t($status_name) . '</span>';
+          $variables['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
         }
       }
       if (user_is_logged_in()) {

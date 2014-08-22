@@ -1,6 +1,6 @@
 <?php 
   
-  // dsm($node);
+  dsm($content);
 
   // set embed media type class
   if(isset($node->embed->provider_name)) {
@@ -54,7 +54,7 @@
   </span> <!-- /activity-item-content -->
 </div> <!-- /activity-item-content-wrapper -->
 
-<div class="activity-item-footer">
+<div class="activity-item-footer ">
   <div class="meta">
     <?php if (isset($media_activity_report_count)) : ?>
       <?php print $media_activity_report_count . ' ' . t('verification footnotes'); ?>

@@ -1708,7 +1708,7 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f044";
 }
 
-.report-row .false span:before, body.page-reports #reports .report-item .false span:before, .profile #reports .report-item .false span:before {
+.report-row .false span:before, .icon-times-circle:before, body.page-reports #reports .report-item .false span:before, .profile #reports .report-item .false span:before {
   content: "\f057";
 }
 
@@ -1716,7 +1716,7 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
   content: "\f058";
 }
 
-.report-row .undetermined span:before, body.page-reports #reports .report-item .undetermined span:before, .profile #reports .report-item .undetermined span:before {
+.report-row .undetermined span:before, .icon-question-circle:before, body.page-reports #reports .report-item .undetermined span:before, .profile #reports .report-item .undetermined span:before {
   content: "\f059";
 }
 
@@ -1733,6 +1733,10 @@ nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .
 .danger:before,
 .error:before {
   content: "\f071";
+}
+
+.icon-random:before {
+  content: "\f074";
 }
 
 #my-account .info .linked-account .icon-twitter:before, body.page-user.logged-in .user-info .linked-accounts .icon-twitter:before {
@@ -4532,6 +4536,15 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: block;
 }
 
+.media-holder {
+  color: #9fa6ac;
+}
+.media-holder a {
+  color: #9fa6ac;
+}
+.media-holder a:hover {
+  color: #3b4044;
+}
 .media-holder .media {
   margin: .25rem 0;
   position: relative;
@@ -4584,12 +4597,36 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .media-details .title a:hover {
   color: #101b2e;
 }
+.media-holder .media-details .media-description {
+  font-size: 16px;
+  color: #6f7a82;
+  margin-bottom: 5px;
+}
+.media-holder .media-details .media-description a {
+  color: #6f7a82;
+}
+.media-holder .media-details .media-description a:hover {
+  color: #111314;
+}
 .media-holder .media-status {
+  font-size: 16px;
   display: block;
   margin-top: 30px;
 }
+.media-holder .media-status .status-name {
+  font-weight: 700;
+}
 .media-holder .media-status .verified {
   color: #399664;
+}
+.media-holder .media-status .undetermined {
+  color: #ec9131;
+}
+.media-holder .media-status .false {
+  color: #cc4f43;
+}
+.media-holder .media-status .in-progress {
+  color: #f5a623;
 }
 
 .inline-attachment {
@@ -7869,9 +7906,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-youtube-play:before, .icon-youtube-play:after {
-  margin: 0;
-}
 
 .icon-check-circle:before {
   font-family: "FontAwesome";
@@ -7887,8 +7921,85 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-check-circle:before, .icon-check-circle:after {
+
+span[class^="icon-"]:before, span[class^="icon-"]:after, span[class*="icon-"]:before, span[class*="icon-"]:after {
   margin: 0;
+}
+
+.icon-check-circle {
+  color: #399664;
+}
+.icon-check-circle:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-random {
+  color: #f5a623;
+}
+.icon-random:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-circle {
+  color: #efca2b;
+}
+
+.icon-question-circle {
+  color: #ec9131;
+}
+.icon-question-circle:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-times-circle {
+  color: #cc4f43;
+}
+.icon-times-circle:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .activity-item {

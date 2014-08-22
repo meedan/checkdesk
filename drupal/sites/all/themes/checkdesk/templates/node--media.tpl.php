@@ -14,14 +14,13 @@
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>
-      <?php if (isset($content['body'])) : ?>
-        <div class="media-description">
-          <?php print render($content['body']); ?>
-        </div>
-      <?php endif; ?>
-      
       <div class="media-details">
         <span class="title"><?php print l($title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
+        <?php if (isset($content['body'])) : ?>
+        <span class="media-description">
+          <?php print render($content['body']); ?>
+        </span>
+      <?php endif; ?>
         <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
         <span>
           <?php if(isset($favicon_link)) : ?><span class="provider-icon"><?php print $favicon_link ?></span><?php endif; ?> <span class="ts"><?php print $media_timestamp; ?></span>
@@ -35,7 +34,6 @@
       <?php if ($status): ?>
         <span class="media-status"><?php print $status; ?></span>
       <?php endif; ?>
-
     </section>
 
     <?php if (isset($media_activity_report_count)) : ?>
@@ -45,7 +43,7 @@
               <div class="report-footnotes-count">
                 <h3><span><?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?></h3>
               </div>
-              <div class="report-actions" role="toolbar">
+              <div class="actions" role="toolbar">
                 <?php print render($content['links']); ?>
               </div>
             </div>
