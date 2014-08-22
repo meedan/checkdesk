@@ -10,7 +10,7 @@
   <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
     <section class="media-holder">
       <div class="media-content">
-        <div class="media <?php print $provider_class_name; ?>">
+        <div class="media embed-responsive-16by9 <?php print $provider_class_name; ?>">
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>

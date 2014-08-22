@@ -18,10 +18,12 @@
         <div class="media-holder media-inline-holder">
           <div class="media-content">
             <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') : ?>
-               <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'oembed_default'))); ?>
+              <div class="media embed-responsive-16by9 <?php print $provider_class_name; ?>">
+              <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'oembed_default'))); ?>
+              </div>
             <?php endif; ?>
             <?php if (isset($content['field_link'])) : ?>
-               <?php print render($content['field_link']); ?> 
+              <?php print render($content['field_link']); ?> 
             <?php endif; ?>
           </div>
 
