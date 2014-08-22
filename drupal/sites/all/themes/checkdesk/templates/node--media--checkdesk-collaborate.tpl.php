@@ -27,7 +27,7 @@
 
           <div class="media-details">
             <?php if ($heartbeat_row->heartbeat_activity_message_id != 'checkdesk_report_suggested_to_story') : ?>
-              <span class="title"><?php print $title; ?></span>
+                <?php print l('<span class="title">'. $title. '</span>', 'node/' . $node->nid , array('html' => TRUE)); ?>
             <?php endif; ?>
             <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
             <span>
