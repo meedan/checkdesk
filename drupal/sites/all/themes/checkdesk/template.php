@@ -33,12 +33,12 @@ function checkdesk_theme() {
  
 function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
-  if ($element['#field_name'] == 'field_link' && $element['#formatter'] == 'meedan_inline_thumbnail') {
+  if ($element['#field_name'] == 'field_link') {
     $embed = $element['#object']->embed;
-    $variables['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE));
-    $variables['theme_hook_suggestions'] = array(
-      'meedan_inline_thumbnail__'. strtolower($embed->provider_name),
-    );
+    $variables['theme_hook_suggestions'][] = $element['#formatter'] . '__' . strtolower($embed->provider_name);
+    if ($element['#formatter'] == 'meedan_inline_thumbnail') {
+      $variables['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE));
+    }
   }
 }
 
@@ -525,8 +525,14 @@ function checkdesk_preprocess_page(&$variables) {
  */
 function checkdesk_preprocess_node(&$variables) {
 
-  if($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'collaborate_status') {
-    $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
+  if($variables['view_mode'] == 'checkdesk_collaborate') {
+    if ($variables['type'] == 'media') {
+      $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
+      //$variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'] . '__' . 'reportstatus';
+    }
+    else {
+      $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
+    }
   }
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt

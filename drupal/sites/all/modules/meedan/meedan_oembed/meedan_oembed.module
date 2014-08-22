@@ -46,6 +46,13 @@ function meedan_oembed_theme() {
       'path' => $path,
       'file' => $file,
     ),
+    'meedan_full_mode' => array(
+      'variables' => array('element' => NULL),
+      'template' => 'meedan-full-mode--generic',
+      'path' => $path,
+      'file' => $file,
+    ),
+
   );
 }
 
@@ -348,7 +355,12 @@ function meedan_oembed_field_formatter_info() {
     'meedan_inline_thumbnail' => array(
       'label' => t('Meedan inline thumbnail'),
       'field types' => array('link_field'),
-      'description' => t('Embeds inline thmbnail.'),
+      'description' => t('Embeds links as inline thmbnail.'),
+    ),
+    'meedan_full_mode' => array(
+      'label' => t('Meedan full mode'),
+      'field types' => array('link_field'),
+      'description' => t('Embeds links as full mode.'),
     ),
   );
 
@@ -386,6 +398,13 @@ function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $inst
     foreach ($items as $delta => $item) {
       $element[$delta] = array(
         '#markup' => theme('meedan_inline_thumbnail', array('element' => $item, 'field' => $instance)),
+      );
+    }
+  }
+  elseif ($display['type'] == 'meedan_full_mode') {
+    foreach ($items as $delta => $item) {
+      $element[$delta] = array(
+        '#markup' => theme('meedan_full_mode', array('element' => $item, 'field' => $instance)),
       );
     }
   }
