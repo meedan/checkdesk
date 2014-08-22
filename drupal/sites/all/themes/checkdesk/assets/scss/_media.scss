@@ -1,5 +1,5 @@
 .media-holder {
-	
+
 	.media-content {
 		
 	}
@@ -11,7 +11,10 @@
 	  height: 0;
 	  padding: 0;
 	  overflow: hidden;
-	  .oembed,
+
+
+	  // for videos
+	  .oembed-video,
 	  iframe,
 	  embed,
 	  object {
@@ -24,17 +27,20 @@
 	    border: 0;
 	  }
 	  // Modifier class for 16:9 aspect ratio
-	  &.embed-responsive-16by9 {
+	  &.video-16by9 {
 	    padding-bottom: 56.25%;
 	  }
 
 	  // Modifier class for 4:3 aspect ratio
-	  &.embed-responsive-4by3 {
+	  &.video-4by3 {
 	    padding-bottom: 75%;
 	  }
 	}
 
 	.media-details {
+		color: $firefly40;
+		a { @include ctb-linkColor($firefly40); }
+
 		& > span {
 			display: block;
 			font-size: 14px;
@@ -44,7 +50,7 @@
 
 		.title {
 			font-size: 18px;
-			color: $activityBlue80;
+			a { @include ctb-linkColor($activityBlue80); }
 			font-weight: 700;
 			margin-bottom: 5px;
 		}
@@ -63,7 +69,7 @@
 
 .inline-attachment {
 
-	margin: 20px 0 15px 0;
+	margin: 10px 0 0 0;
 
 	.inline-attachment-bar {
 		display: table-cell;

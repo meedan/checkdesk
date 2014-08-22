@@ -18,7 +18,7 @@
         <div class="media-holder media-inline-holder">
           <div class="media-content">
             <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') : ?>
-              <div class="media embed-responsive-16by9 <?php print $provider_class_name; ?>">
+              <div class="media video video-16by9 <?php print $provider_class_name; ?>">
               <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'oembed_default'))); ?>
               </div>
             <?php endif; ?>
@@ -28,9 +28,7 @@
           </div>
 
           <div class="media-details">
-            <?php if ($heartbeat_row->heartbeat_activity_message_id != 'checkdesk_report_suggested_to_story') : ?>
-                <?php print l('<span class="title">'. $title. '</span>', 'node/' . $node->nid , array('html' => TRUE)); ?>
-            <?php endif; ?>
+            <span class="title"><?php print l($title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
             <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
             <span>
               <?php if(isset($favicon_link)) : ?><span class="provider-icon"><?php print $favicon_link ?></span><?php endif; ?> <span class="ts"><?php print $media_creation_info; ?></span>
