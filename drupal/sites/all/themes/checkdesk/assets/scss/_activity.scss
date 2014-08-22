@@ -25,10 +25,6 @@
  	@include icon(check-circle, 16px);
  }
 
-span[class^="icon-"], span[class*="icon-"] {
-	&:before, &:after { margin: 0; } // no margins
-}
-
  // Report status icons in activity log's header
 $position:  "before";
 @if $from-direction == left {

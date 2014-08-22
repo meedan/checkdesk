@@ -40,8 +40,8 @@
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity open">
           <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
             <div class="report-activity-header" href="#">
-              <div class="report-footnotes-count">
-                <h3><span><?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?></h3>
+              <div class="meta">
+                <?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?>
               </div>
               <div class="actions" role="toolbar">
                 <?php print render($content['links']); ?>

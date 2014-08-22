@@ -4632,6 +4632,9 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .media-status .in-progress {
   color: #f5a623;
 }
+.media-holder span[class^="icon-"]:before, .media-holder span[class^="icon-"]:after, .media-holder span[class*="icon-"]:before, .media-holder span[class*="icon-"]:after {
+  margin: 0;
+}
 
 .inline-attachment {
   margin: 10px 0 0 0;
@@ -7948,10 +7951,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-span[class^="icon-"]:before, span[class^="icon-"]:after, span[class*="icon-"]:before, span[class*="icon-"]:after {
-  margin: 0;
 }
 
 .icon-check-circle {
