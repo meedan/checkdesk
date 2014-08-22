@@ -1,45 +1,12 @@
 .media-holder {
 	color: $firefly40;
 	a { @include ctb-linkColor($firefly40); }
-	.media-content {
-		
-	}
 
 	.media {
 		margin: .25rem 0;
-		position: relative;
-	  display: block;
-	  height: 0;
-	  padding: 0;
-	  overflow: hidden;
-
-
-
-	  // for videos
-	  .oembed-video,
-	  iframe,
-	  embed,
-	  object {
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    bottom: 0;
-	    height: 100%;
-	    width: 100%;
-	    border: 0;
-	  }
-	  // Modifier class for 16:9 aspect ratio
-	  &.video-16by9 {
-	    padding-bottom: 56.25%;
-	  }
-
-	  // Modifier class for 4:3 aspect ratio
-	  &.video-4by3 {
-	    padding-bottom: 75%;
-	  }
 	}
 
-	.media-info {
+	.media-content {
 		margin-bottom: .25rem;
 		color: $firefly40;
 		a { @include ctb-linkColor($firefly40); }
@@ -65,7 +32,7 @@
 			a { @include ctb-linkColor($firefly60); }
 		}
 
-	} // media-details
+	} // media-content
 
 	.media-status {
 		font-size: 16px;
@@ -91,12 +58,46 @@
 		.in-progress {
 			color: $in-progress;
 		}
-	}
+	} // media-status
 
 	// remove the margins around the icon
 	span[class^="icon-"], span[class*="icon-"] {
 		&:before, &:after { margin: 0; } // no margins
 	}
+
+
+	// for videos
+	.video-holder {
+		position: relative;
+	  display: block;
+	  height: 0;
+	  padding: 0;
+	  overflow: hidden;
+	  
+	  .oembed-video,
+	  iframe,
+	  embed,
+	  object {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    bottom: 0;
+	    height: 100%;
+	    width: 100%;
+	    border: 0;
+	  }
+	  // Modifier class for 16:9 aspect ratio
+	  &.video-16by9 {
+	    padding-bottom: 56.25%;
+	  }
+
+	  // Modifier class for 4:3 aspect ratio
+	  &.video-4by3 {
+	    padding-bottom: 75%;
+	  }
+	}
+
+
 
 } // media-holder
 

@@ -4551,66 +4551,43 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .media-holder .media {
   margin: .25rem 0;
-  position: relative;
-  display: block;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
 }
-.media-holder .media .oembed-video,
-.media-holder .media iframe,
-.media-holder .media embed,
-.media-holder .media object {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  border: 0;
-}
-.media-holder .media.video-16by9 {
-  padding-bottom: 56.25%;
-}
-.media-holder .media.video-4by3 {
-  padding-bottom: 75%;
-}
-.media-holder .media-info {
+.media-holder .media-content {
   margin-bottom: .25rem;
   color: #9fa6ac;
 }
-.media-holder .media-info a {
+.media-holder .media-content a {
   color: #9fa6ac;
 }
-.media-holder .media-info a:hover {
+.media-holder .media-content a:hover {
   color: #3b4044;
 }
-.media-holder .media-info > span {
+.media-holder .media-content > span {
   display: block;
   font-size: 14px;
   color: #9fa6ac;
   line-height: 1.4;
 }
-.media-holder .media-info .title {
+.media-holder .media-content .title {
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 5px;
 }
-.media-holder .media-info .title a {
+.media-holder .media-content .title a {
   color: #4a74c0;
 }
-.media-holder .media-info .title a:hover {
+.media-holder .media-content .title a:hover {
   color: #101b2e;
 }
-.media-holder .media-info .media-description {
+.media-holder .media-content .media-description {
   font-size: 16px;
   color: #6f7a82;
   margin-bottom: 5px;
 }
-.media-holder .media-info .media-description a {
+.media-holder .media-content .media-description a {
   color: #6f7a82;
 }
-.media-holder .media-info .media-description a:hover {
+.media-holder .media-content .media-description a:hover {
   color: #111314;
 }
 .media-holder .media-status {
@@ -4636,9 +4613,34 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder span[class^="icon-"]:before, .media-holder span[class^="icon-"]:after, .media-holder span[class*="icon-"]:before, .media-holder span[class*="icon-"]:after {
   margin: 0;
 }
+.media-holder .video-holder {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.media-holder .video-holder .oembed-video,
+.media-holder .video-holder iframe,
+.media-holder .video-holder embed,
+.media-holder .video-holder object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
+.media-holder .video-holder.video-16by9 {
+  padding-bottom: 56.25%;
+}
+.media-holder .video-holder.video-4by3 {
+  padding-bottom: 75%;
+}
 
 .inline-attachment {
-  margin: 10px 0 0;
+  margin: 10px 0;
 }
 .inline-attachment .inline-attachment-bar {
   display: table-cell;
@@ -8133,10 +8135,10 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-weight: 700;
 }
 .activity .update-added h3.update-title a {
-  color: #404d59;
+  color: #4a74c0;
 }
 .activity .update-added h3.update-title a:hover {
-  color: black;
+  color: #101b2e;
 }
 .activity .update-added .checkdesk-update-reports-wrapper {
   margin-top: 8px;

@@ -22,7 +22,9 @@
         print $update_body_text;
       } 
     ?>
-    <?php print render($content['update_reports']); ?>
+    <?php if(!empty($content['update_reports'])): ?>
+      <?php print render($content['update_reports']); ?>
+    <?php endif; ?>
 
   </span> <!-- /activity-item-content -->
 </div> <!-- /activity-item-content-wrapper -->

@@ -13,14 +13,11 @@
       <div class="inline-attachment-wrapper">
         <div class="inline-attachment-bar"><div class="indent"></div></div>
         <div class="media-holder media-inline-holder">
-          <?php if ($heartbeat_row->heartbeat_activity_message_id != 'checkdesk_report_suggested_to_story') : ?>
-            <!-- render as inline thumbnail -->
-            <div class="media-content">
+          <div class="media-content">
+            <?php if ($heartbeat_row->heartbeat_activity_message_id != 'checkdesk_report_suggested_to_story') : ?>
+              <!-- render as inline thumbnail -->
               <?php print render($content['field_link']); ?>
-            </div>
-          <?php endif; ?>
-
-          <div class="media-info">
+            <?php endif; ?>
             <span class="title"><?php print l($title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
             <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
             <span>
@@ -34,10 +31,8 @@
           <?php endif; ?>
           <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') : ?>
             <!-- render as full view -->
-            <div class="media-content">
-              <div class="media video video-16by9 <?php print $provider_class_name; ?>">
-                <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'oembed_default'))); ?>
-              </div>
+            <div class="media <?php print $provider_class_name; ?>">
+              <?php print render(field_view_field('node', $node, 'field_link', array('type' => 'meedan_full_mode'))); ?>
             </div>
           <?php endif; ?>
           

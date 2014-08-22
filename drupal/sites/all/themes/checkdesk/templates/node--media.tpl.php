@@ -10,35 +10,30 @@
   <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
     <section class="media-holder">
 
-      <div class="media-info">
+      <div class="media-content">
         <span class="title"><?php print l($title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
         <?php if (isset($content['body'])) : ?>
-        <span class="media-description">
-          <?php print render($content['body']); ?>
-        </span>
-      <?php endif; ?>
+          <span class="media-description">
+            <?php print render($content['body']); ?>
+          </span>
+        <?php endif; ?>
         <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
         <span>
           <?php if(isset($favicon_link)) : ?><span class="provider-icon"><?php print $favicon_link ?></span><?php endif; ?> <span class="ts"><?php print $media_timestamp; ?></span>
         </span>
-      </div>
-      <?php if ($status): ?>
-        <span class="media-status"><?php print $status; ?></span>
-      <?php endif; ?>
-
-      <div class="media-content">
-        <div class="media video video-16by9 <?php print $provider_class_name; ?>">
+        <?php if ($status): ?>
+          <span class="media-status"><?php print $status; ?></span>
+        <?php endif; ?>
+        <div class="media">
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </div>
-
 
       <?php if (isset($media_creation_info)) : ?>
         <span class="added-by">
           <?php print $media_creation_info; ?>
         </span>
       <?php endif; ?>
-      
     </section>
 
     <?php if (isset($media_activity_report_count)) : ?>
