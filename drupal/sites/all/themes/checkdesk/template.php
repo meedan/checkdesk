@@ -35,7 +35,39 @@ function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
   if ($element['#field_name'] == 'field_link') {
     $embed = $element['#object']->embed;
+    $node = $element['#object'];
+    $variables['embed'] = $embed;
+    $variables['node'] = $node;
     $variables['theme_hook_suggestions'][] = $element['#formatter'] . '__' . strtolower($embed->provider_name);
+    // set provider class name
+    $provider = strtolower($embed->provider_name);
+    $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+    // Set author name
+    $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+    // Set favicon 
+    if (isset($embed->favicon_link)) {
+      $variables['favicon_link'] = l(
+        theme('image', array( 'path' => $embed->favicon_link)),
+        $embed->provider_url, array('html' => TRUE)
+      );
+    }
+    // timestamp
+    // TODO: make this source media timestamp
+    $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+        '@url' => url('node/'. $node->nid),
+        '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
+        '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
+        '!interval' => format_interval(time() - $node->created, 1),
+      ));
+
+    // Load report status
+    if(isset($node->field_rating)) {
+      if($node->field_rating['und'][0]['tid'] == 2) {
+        $variables['report_status'] = _checkdesk_report_status($node);
+      }
+    }
+    // Inline thumbnail
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
       $variables['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE));
     }
@@ -1250,4 +1282,85 @@ function checkdesk_get_timezone() {
   }
 
   return $site_timezone;
+}
+
+
+/**
+ * Custom favicons via FontAwesome
+ */
+function _checkdesk_favicons($provider) {
+  $output = '';
+  if($provider == 'youtube') {
+    $output = '<span class="icon-youtube-play"></span>';
+  } else {
+    $output = '<span class="icon-' . $provider . '"></span>';
+  }
+  return $output;
+}
+
+/**
+ * List of media providers 
+ */
+function _checkdesk_providers() {
+  $providers = array(
+    'youtube', 'twitter', 'vimeo'
+    );
+  return $providers;
+}
+
+/**
+ * Get status of a report
+ */
+function _checkdesk_report_status($report) {
+  global $language;
+  // dsm($report);
+  $report_status = array();
+  $icon = '';
+
+  $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
+      $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 
+      taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
+  $status_name = $term->name;
+
+
+
+  $status_class = '';
+  if ($status_name == 'Verified') {
+    $status_class = 'verified';
+    $icon = '<span class="icon-check-circle"></span> ';
+  }
+  elseif ($status_name == 'In Progress') {
+    $status_class = 'in-progress';
+    $icon = '<span class="icon-random"></span> ';
+  }    
+  elseif ($status_name == 'Undetermined') {
+    $status_class = 'undetermined';
+    $icon = '<span class="icon-question-circle"></span> ';
+  }    
+  elseif ($status_name == 'False') {
+    $status_class = 'false';
+    $icon = '<span class="icon-times-circle"></span> ';
+  }    
+  $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
+  
+  if($status_name != 'In Progress') {
+    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
+  }
+
+  // display status with an icon and "x by partner"
+  if(isset($status_name) && isset($icon) && isset($status_by)) {
+    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
+  } else { // display status with an icon only
+    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
+  }
+  // Get status footnote if exist
+  // always footnote for change status is uaid of status - 3
+  // $footnote_uaid = $activity->uaid - 3;
+  // $footnote =  heartbeat_activity_load($footnote_uaid);
+  // if ($footnote->message_id == 'new_comment_report' && $footnote->nid_target == $activity->nid_target) {
+    // $report_status['footnote'] = $footnote->variables['!comment'];
+  // }
+
+  // dsm($report_status);
+  return $report_status;
 }
