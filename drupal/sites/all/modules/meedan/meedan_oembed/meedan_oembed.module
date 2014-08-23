@@ -432,11 +432,11 @@ function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
   // TODO: get this mapping from admin interface.
   // for now will use mapping array with key = activity type and value = formatter name.
   $mapping = array(
-    'checkdesk_report_suggested_to_story' => 'oembed_default',
+    'checkdesk_report_suggested_to_story' => 'meedan_full_mode',
   );
 
-  if (isset($mapping[$row->heartbeat_activity_message_id])) {
-    $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$row->heartbeat_activity_message_id]));
+  if (isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
+    $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
   }
   else {
     $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
