@@ -8,11 +8,9 @@
 // @font-face with unciode range declarations are in fonts.scc
 // Icon fonts
 @include bowerbird-font-face("FontAwesome", "fontawesome-webfont-webfont");
+
 // English fonts
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Merriweather:400,400italic,700);
-
-// Arabic fonts
-@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
 // Modular scale  
 // via: gem
@@ -42,7 +40,7 @@ $omega: opposite-position($from-direction);
 // Set the default position of icons
 // $icon-position: 'before';
 // @if $from-direction == 'right' {
-// 	$icon-position: 'after';
+//  $icon-position: 'after';
 // }
 
 // Drupal styles
@@ -55,13 +53,16 @@ $omega: opposite-position($from-direction);
 // @import "replace_drupal/html5bp_defaults"; // this seems like it is asking for trouble, do we need it?
 @import "replace_drupal/system_base";
 @import "replace_drupal/system_menus";
+
 // @import "replace_drupal/system_messages";
 // @import "replace_drupal/system_theme"; // hoping i can remove this huge one ....
 @import "replace_drupal/jquery_ui_core";
+
 // @import "jquery_ui_theme"; // this is pretty big do we really need it?
 @import "replace_drupal/comment";
 @import "replace_drupal/field";
 @import "replace_drupal/node";
+
 // @import "replace_drupal/search";
 // @import "replace_drupal/user";
 // @import "replace_drupal/views";
@@ -128,19 +129,29 @@ $omega: opposite-position($from-direction);
 @import "replace_ctb/forms";
 @import "replace_ctb/navs";
 @import "compass_twitter_bootstrap/reset";
+
 // @import "compass_twitter_bootstrap/code"; // TB Syntax highlighting
 // @import "compass_twitter_bootstrap/tables"; // TB Tabular data
 
 // TB utilities
-@import "compass_twitter_bootstrap/utilities";   // Should come last of TB
+@import "compass_twitter_bootstrap/utilities";
+
+// Should come last of TB
 
 // Checkdesk mixins
 //
-@import "mixins"; // Completely unrelated to Twitter Bootstrap mixins file
-@import "alerts"; // Mix of Drupal alerts and Twitter Bootstrap alerts.
-@import "dropdowns"; // Based on Twitter Bootstrap dropdowns
-@import "modals"; // Based on Twitter Bootstrap modals
+@import "mixins";
 
+// Completely unrelated to Twitter Bootstrap mixins file
+@import "alerts";
+
+// Mix of Drupal alerts and Twitter Bootstrap alerts.
+@import "dropdowns";
+
+// Based on Twitter Bootstrap dropdowns
+@import "modals";
+
+// Based on Twitter Bootstrap modals
 
 // ====================================================================== 
 //  Default checkdesk layout
@@ -154,15 +165,18 @@ html {
 }
 
 body {
-  @include container($container-width $break-small $break-medium); // establish three breakpoints
+  @include container($container-width $break-small $break-medium);
+  // establish three breakpoints
 }
+
 // when no sidebars
 body.no-sidebars {
-	#main {
-		@include span-columns($container-width - 2, $container-width); //outermost container
-	  @include pad(1, 1, $container-width);
-	  margin-top: $absolute-line-height*3;
-	}
+  #main {
+    @include span-columns($container-width - 2, $container-width);
+    //outermost container
+    @include pad(1, 1, $container-width);
+    margin-top: $absolute-line-height * 3;
+  }
 }
 
 // ====================================================================== 
@@ -171,12 +185,18 @@ body.no-sidebars {
 
 //  Checkdesk typography
 //  And a reponsive typography mixin which is applied in layout.
-@import "bowerbird/_typography"; //defaults
-@import "typography"; //checkdesk specific
+@import "bowerbird/_typography";
+
+//defaults
+@import "typography";
+
+//checkdesk specific
 
 // Checkdesk Drupal tabs
 // .tabs - the containing element which has a ul.primary and ul.secondary
-@import "bowerbird/tabs";  // defaults
+@import "bowerbird/tabs";
+
+// defaults
 @import "tabs";
 
 // Checkdesk notifications
@@ -216,7 +236,9 @@ body.no-sidebars {
 @import "account";
 
 // Tabs
-@import "bowerbird/tabs"; // reset
+@import "bowerbird/tabs";
+
+// reset
 // @import "tabs";  // checkdesk styles
 
 // Form: password strength section
@@ -256,7 +278,7 @@ body.no-sidebars {
 // Reports pages
 @import "reports_page";
 
-// ====================================================================== 
+// ======================================================================
 
 // #sidebar-first.column,
 // .desk { background-color: white; }
@@ -268,12 +290,15 @@ body.no-sidebars {
   text-align: right;
   direction: rtl;
 }
+
 .ltr {
   text-align: left;
-  direction: ltr;        
+  direction: ltr;
 }
 
-@import "tour"; // Based on bootstrap-tour default CSS
+@import "tour";
+
+// Based on bootstrap-tour default CSS
 
 // ====================================================================== 
 // Lastly: hacks to be removed
