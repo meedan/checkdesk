@@ -625,14 +625,6 @@ function checkdesk_preprocess_node(&$variables) {
   if ($variables['type'] == 'discussion') {
     // Add tab (update & collaborate) to story
     $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
-    // Add follow checkbox
-    $story_follow = array();
-    $story_follow['story_follow'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Follow story'),
-      '#attributes'=> array('id' => array('checkdesk-follow-story')),
-    );
-    $variables['story_follow'] = drupal_render($story_follow);
     if($variables['view_mode'] == 'checkdesk_collaborate') {
       // Collaboration header for story.
       $variables['story_links'] = _checkdesk_story_links($variables['nid']);

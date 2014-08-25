@@ -9,6 +9,23 @@
  */
 function checkdesk_core_feature_default_rules_configuration() {
   $items = array();
+  $items['checkdesk_core_feature_follow_story'] = entity_import('rules_config', '{ "checkdesk_core_feature_follow_story" : {
+      "LABEL" : "follow story",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "flag" ],
+      "ON" : { "flag_flagged_follow_story" : [] },
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "flagged-node" ],
+            "type" : { "value" : { "discussion" : "discussion" } }
+          }
+        }
+      ],
+      "DO" : []
+    }
+  }');
   $items['rules_comment_deleted'] = entity_import('rules_config', '{ "rules_comment_deleted" : {
       "LABEL" : "Comment deleted",
       "PLUGIN" : "reaction rule",
