@@ -388,7 +388,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" }
@@ -411,7 +411,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" }
@@ -434,7 +434,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
       "ACTION SET" : [
         { "notify_subscribers" : {
@@ -454,7 +454,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "list_item" : { "label" : "List Item", "type" : "node" },
@@ -478,7 +478,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "current_user" : { "label" : "Current user", "type" : "user" }
@@ -501,7 +501,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "current_user" : { "label" : "Current user", "type" : "user" }
@@ -524,7 +524,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
       "ACTION SET" : [
         { "notify_subscribers" : {
@@ -544,7 +544,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "story" : { "label" : "Story", "type" : "node" }
@@ -567,7 +567,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "user" : { "label" : "User", "type" : "user" } },
       "ACTION SET" : [
         { "notify_subscribers" : {
@@ -587,7 +587,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : { "comment" : { "label" : "Comment", "type" : "comment" } },
       "ACTION SET" : [
         { "notify_subscribers" : {
@@ -607,7 +607,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "report" : { "label" : "Report", "type" : "node" }
@@ -630,7 +630,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
         "list_item" : { "label" : "List item", "type" : "node" }
@@ -653,7 +653,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "meedan_notifications" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "flagged_node" : { "label" : "Flagged node", "type" : "node" },
         "flagging_user" : { "label" : "Flagging user", "type" : "user" },
@@ -893,7 +893,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "flag" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "flag" ],
       "ON" : {
         "flag_flagged_factcheck" : [],
         "flag_flagged_graphic_journalist" : [],
@@ -978,6 +978,33 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message" : "Your comment was deleted and you have been banned by a moderator for violating terms of service or comment policy. If you think this decision was an error you can contact us at: [site:mail]\\r\\nNote from moderator:\\r\\n\\r\\nRegards,\\r\\n[site:name]",
             "from" : "[site:mail]",
             "language" : [ "" ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_user_follow_story'] = entity_import('rules_config', '{ "rules_user_follow_story" : {
+      "LABEL" : "User follow story",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "flag" ],
+      "ON" : { "flag_flagged_follow_story" : [] },
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "flagged-node" ],
+            "type" : { "value" : { "discussion" : "discussion" } }
+          }
+        }
+      ],
+      "DO" : [
+        { "heartbeat_activity_checkdesk_follow_story" : {
+            "nid" : [ "flagged-node:nid" ],
+            "uid" : [ "flagging-user:uid" ],
+            "nid_target" : [ "flagged-node:nid" ],
+            "message_id" : { "value" : { "checkdesk_follow_story" : "checkdesk_follow_story" } },
+            "!flag_author_url" : [ "flagging-user:url" ],
+            "!flag_author_name" : [ "flagging-user:name" ]
           }
         }
       ]
