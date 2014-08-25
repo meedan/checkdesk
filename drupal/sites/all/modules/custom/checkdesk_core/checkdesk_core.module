@@ -2721,6 +2721,17 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
       $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
     }
   }
+  // Redirect user to collaboration page.
+  $form['actions']['submit']['#submit'][] = '_redirect_report';
+}
+
+/**
+ * Redirect user to collaboration page.
+ */
+function _redirect_report($form, &$form_state) {
+  if (!empty($form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
+    $form_state['redirect'] = 'story-collaboration/' . $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'];
+  }
 }
 
 /**
