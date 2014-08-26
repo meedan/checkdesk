@@ -30,6 +30,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
       1 => 0,
       2 => 0,
       3 => 0,
+      5 => 0,
       4 => 0,
     ),
   );
@@ -39,7 +40,6 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'settings' => array(
@@ -48,17 +48,14 @@ function checkdesk_core_feature_heartbeat_template_info() {
         ),
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
     'content' => array(
       'weight' => array(
-        'flagattachment:like' => '0',
         'activitycomments' => '2',
       ),
       'enabled' => array(
-        'flagattachment:like' => 0,
         'activitycomments' => 0,
       ),
     ),
@@ -459,6 +456,59 @@ function checkdesk_core_feature_heartbeat_template_info() {
     ),
   );
   $export['checkdesk_flag_report'] = $heartbeatmessagetemplate;
+
+  $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
+  $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */
+  $heartbeatmessagetemplate->api_version = 1;
+  $heartbeatmessagetemplate->message_id = 'checkdesk_follow_story';
+  $heartbeatmessagetemplate->description = 'Follow story';
+  $heartbeatmessagetemplate->message = '<p><a href="!flag_author_url">!flag_author_name</a></strong> followed this story.</p>';
+  $heartbeatmessagetemplate->message_concat = '';
+  $heartbeatmessagetemplate->perms = 4;
+  $heartbeatmessagetemplate->group_type = 'single';
+  $heartbeatmessagetemplate->concat_args = array(
+    'group_by' => 'none',
+    'group_target' => '',
+    'group_by_target' => '',
+    'group_num_max' => '',
+    'merge_separator' => '',
+    'merge_end_separator' => '',
+    'roles' => array(
+      1 => 0,
+      2 => 0,
+      3 => 0,
+      5 => 0,
+      4 => 0,
+    ),
+  );
+  $heartbeatmessagetemplate->variables = array(
+    '!flag_author_url' => '',
+    '!flag_author_name' => '',
+  );
+  $heartbeatmessagetemplate->attachments = array(
+    'buttons' => array(
+      'weight' => array(
+        'activitycomments' => '2',
+      ),
+      'settings' => array(
+        'activitycomments' => array(
+          'activitycomments_node' => 0,
+        ),
+      ),
+      'enabled' => array(
+        'activitycomments' => 0,
+      ),
+    ),
+    'content' => array(
+      'weight' => array(
+        'activitycomments' => '2',
+      ),
+      'enabled' => array(
+        'activitycomments' => 0,
+      ),
+    ),
+  );
+  $export['checkdesk_follow_story'] = $heartbeatmessagetemplate;
 
   $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
   $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */

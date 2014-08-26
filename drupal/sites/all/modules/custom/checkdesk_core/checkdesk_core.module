@@ -2721,6 +2721,17 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
       $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
     }
   }
+  // Redirect user to collaboration page.
+  $form['actions']['submit']['#submit'][] = '_redirect_report';
+}
+
+/**
+ * Redirect user to collaboration page.
+ */
+function _redirect_report($form, &$form_state) {
+  if (!empty($form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
+    $form_state['redirect'] = 'story-collaboration/' . $form_state['values']['field_stories'][LANGUAGE_NONE][0]['target_id'];
+  }
 }
 
 /**
@@ -2915,6 +2926,14 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
   }
 }
 
+/**
+ * Render heartbeat activity on story collaboration page.
+ *
+ * @param onject $row
+ *  heartbeat activity object 
+ *
+ * @return HTML for target node (update/report)
+ */
 function checkdesk_story_collaborate_render_object($row) {
   $node = node_load($row->heartbeat_activity_nid);
   $node->heartbeat_row = $row;  
@@ -2923,7 +2942,10 @@ function checkdesk_story_collaborate_render_object($row) {
 }
 
 /**
+ * Add updates/collaboration tab to story node.
  *
+ * @param int $nid
+ *  story nid
  */
 function _checkdesk_story_tabs($nid) {
   $items = array();
@@ -2936,4 +2958,19 @@ function _checkdesk_story_tabs($nid) {
     'class' => array('story-tab-collaboration'),
   );
   return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-tabs')));
+}
+
+/**
+ * Return story nid to filler incomming rports view. 
+ */
+function _get_desk_reports_args() {
+  $story_nid = 0;
+  // Show incomming reports on story page
+  if (is_numeric(arg(1))) {
+     $story_nid = arg(1);
+  }
+  elseif (isset($_GET['story']) && is_numeric($_GET['story'])) {
+    $story_nid = $_GET['story'];
+  }
+  return $story_nid;
 }
