@@ -404,7 +404,7 @@ function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $inst
   elseif ($display['type'] == 'meedan_full_mode') {
     foreach ($items as $delta => $item) {
       $element[$delta] = array(
-        '#markup' => theme('meedan_full_mode', array('element' => $item, 'field' => $instance)),
+        '#markup' => theme('meedan_full_mode', array('element' => $item, 'entity' => $entity)),
       );
     }
   }
