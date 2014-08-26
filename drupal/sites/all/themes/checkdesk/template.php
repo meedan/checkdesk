@@ -42,8 +42,12 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // set provider class name
     $provider = strtolower($embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
-    // Set author name
-    $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+    // Set author name or provider name
+    if(isset($embed->original_url) && isset($embed->provider_name)) {
+      $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
+    } else {
+      $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+    }
     // Set favicon 
     if (isset($embed->favicon_link)) {
       $variables['favicon_link'] = l(
@@ -625,6 +629,14 @@ function checkdesk_preprocess_node(&$variables) {
   if ($variables['type'] == 'discussion') {
     // Add tab (update & collaborate) to story
     $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
+    // Add follow checkbox
+    $story_follow = array();
+    $story_follow['story_follow'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Follow story'),
+      '#attributes'=> array('id' => array('checkdesk-follow-story')),
+    );
+    $variables['story_follow'] = drupal_render($story_follow);
     if($variables['view_mode'] == 'checkdesk_collaborate') {
       // Collaboration header for story.
       $variables['story_links'] = _checkdesk_story_links($variables['nid']);
@@ -685,15 +697,9 @@ function checkdesk_preprocess_node(&$variables) {
       );
       // $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
-    // Set author name
-    $variables['author_name'] = $variables['embed']->author_url ? l($variables['embed']->author_name, $variables['embed']->author_url) : $variables['embed']->author_name;
-    // Set favicon 
-    if (isset($variables['embed']->favicon_link)) {
-      $variables['favicon_link'] = l(
-        theme('image', array( 'path' => $variables['embed']->favicon_link)),
-        $variables['embed']->provider_url, array('html' => TRUE)
-      );
-    }
+    // set provider class name
+    $provider = strtolower($variables['elements']['#node']->embed->provider_name);
+    $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
     //Add node creation info(author name plus creation time
     if($variables['view_mode'] == 'checkdesk_collaborate') {
       $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(

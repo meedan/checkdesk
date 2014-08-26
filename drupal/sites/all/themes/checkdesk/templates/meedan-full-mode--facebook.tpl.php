@@ -1,6 +1,6 @@
 <div class="media-holder">
   <div class="media">
-    <div class="tweet-holder">
+    <div class="facebook-holder">
       <?php print $embed->html; ?>
     </div>
   </div>
