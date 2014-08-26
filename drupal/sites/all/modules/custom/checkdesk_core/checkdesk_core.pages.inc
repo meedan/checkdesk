@@ -27,10 +27,13 @@ function _checkdesk_story_links($nid) {
       'data' => l(t('Add a report'), 'node/add/media', array('query' => array('ref_nid' => $nid, drupal_get_destination()))),
       'class' => array('submit-report'),
     );
-    $items[] = array(
-      'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid, drupal_get_destination()))),
-      'class' => array('compose-update'),
-    );
+
+    if (user_access('create post content')) {
+      $items[] = array(
+        'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid, drupal_get_destination()))),
+        'class' => array('compose-update'),
+      );
+    }
   }
   return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-collaborate-links')));
 }
