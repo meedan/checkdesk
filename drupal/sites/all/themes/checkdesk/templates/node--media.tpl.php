@@ -9,24 +9,8 @@
 <section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
     <section class="media-holder">
-
-      <div class="media-content">
-        <span class="title"><?php print l($title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
-        <?php if (isset($content['body'])) : ?>
-          <span class="media-description">
-            <?php print render($content['body']); ?>
-          </span>
-        <?php endif; ?>
-        <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
-        <span>
-          <?php if(isset($favicon_link)) : ?><span class="provider-icon"><?php print $favicon_link ?></span><?php endif; ?> <span class="ts"><?php print $media_timestamp; ?></span>
-        </span>
-        <?php if ($status): ?>
-          <span class="media-status"><?php print $status; ?></span>
-        <?php endif; ?>
-        <div class="media">
-          <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
-        </div>
+      <div class="media">
+        <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
       </div>
 
       <?php if (isset($media_creation_info)) : ?>
@@ -35,7 +19,6 @@
         </span>
       <?php endif; ?>
     </section>
-
     <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity open">
           <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>

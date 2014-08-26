@@ -46,6 +46,12 @@ function meedan_oembed_theme() {
       'path' => $path,
       'file' => $file,
     ),
+    'meedan_inline_full_mode' => array(
+      'variables' => array('element' => NULL),
+      'template' => 'meedan-inline-full-mode--generic',
+      'path' => $path,
+      'file' => $file,
+    ),
     'meedan_full_mode' => array(
       'variables' => array('element' => NULL),
       'template' => 'meedan-full-mode--generic',
@@ -357,6 +363,11 @@ function meedan_oembed_field_formatter_info() {
       'field types' => array('link_field'),
       'description' => t('Embeds links as inline thmbnail.'),
     ),
+    'meedan_inline_full_mode' => array(
+      'label' => t('Meedan inline full mode'),
+      'field types' => array('link_field'),
+      'description' => t('Embeds links as inline full mode.'),
+    ),
     'meedan_full_mode' => array(
       'label' => t('Meedan full mode'),
       'field types' => array('link_field'),
@@ -397,14 +408,21 @@ function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $inst
   if ($display['type'] == 'meedan_inline_thumbnail') {
     foreach ($items as $delta => $item) {
       $element[$delta] = array(
-        '#markup' => theme('meedan_inline_thumbnail', array('element' => $item, 'field' => $instance)),
+        '#markup' => theme('meedan_inline_thumbnail', array('element' => $item, 'field' => $instance, 'entity' => $entity)),
+      );
+    }
+  }
+  elseif ($display['type'] == 'meedan_inline_full_mode') {
+    foreach ($items as $delta => $item) {
+      $element[$delta] = array(
+        '#markup' => theme('meedan_inline_full_mode', array('element' => $item, 'entity' => $entity)),
       );
     }
   }
   elseif ($display['type'] == 'meedan_full_mode') {
     foreach ($items as $delta => $item) {
       $element[$delta] = array(
-        '#markup' => theme('meedan_full_mode', array('element' => $item, 'field' => $instance)),
+        '#markup' => theme('meedan_full_mode', array('element' => $item, 'entity' => $entity)),
       );
     }
   }
@@ -432,7 +450,7 @@ function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
   // TODO: get this mapping from admin interface.
   // for now will use mapping array with key = activity type and value = formatter name.
   $mapping = array(
-    'checkdesk_report_suggested_to_story' => 'meedan_full_mode',
+    'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
   );
 
   if (isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
