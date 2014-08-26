@@ -146,7 +146,6 @@ function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
  * Template preprocessor for `checkdesk_core_report_activity_status`.
  */
 function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$variables) {
-  dsm($variables);
   global $language;
 
   $activity = $variables['heartbeat_activity'];

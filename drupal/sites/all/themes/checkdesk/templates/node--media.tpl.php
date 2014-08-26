@@ -1,11 +1,3 @@
-<?php 
-  // set embed media type class
-  if(isset($node->embed->provider_name)) {
-    $provider = strtolower($node->embed->provider_name);
-    $provider_class_name = str_replace('.', '_', $provider) . '-wrapper';
-  }
-?>
-
 <section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
     <section class="media-holder">

@@ -24,6 +24,7 @@ function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
  */
 function template_preprocess_meedan_inline_full_mode(&$vars) {
+
   $embed = $vars['entity']->embed;
   $node = $vars['entity'];
   $vars['embed'] = $embed;
@@ -32,8 +33,12 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
   // set provider class name
   $provider = strtolower($embed->provider_name);
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
-  // Set author name
-  $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+  // Set author name or provider name
+  if(isset($embed->original_url) && isset($embed->provider_name)) {
+    $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
+  } elseif(isset($embed->author_url) && isset($embed->author_name)) {
+    $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+  }
   // Set favicon 
   if (isset($embed->favicon_link)) {
     $vars['favicon_link'] = l(
