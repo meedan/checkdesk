@@ -18,12 +18,9 @@
 .icon-flag-o { @include icon(flag-o, 20px);	}
 .icon-pencil-square-o { @include icon(pencil-square-o, 20px); }
 .icon-plus-square-o { @include icon(plus-square-o, 20px); }
-.icon-youtube-play { 
-	@include icon(youtube-play);
- }
- .icon-check-circle {
- 	@include icon(check-circle, 16px);
- }
+.icon-ellipsis-h { @include icon(ellipsis-h, 20px); }
+.icon-youtube-play { @include icon(youtube-play); }
+.icon-check-circle { @include icon(check-circle, 16px);}
 
  // Report status icons in activity log's header
 $position:  "before";

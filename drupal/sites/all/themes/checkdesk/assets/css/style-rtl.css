@@ -1813,7 +1813,7 @@ nav[role="navigation"] #user-menu .icon-bell:before {
   content: "\f11d";
 }
 
-nav[role="navigation"] li.additional a.dropdown-toggle:before {
+nav[role="navigation"] li.additional a.dropdown-toggle:before, .icon-ellipsis-h:before {
   content: "\f141";
 }
 
@@ -8254,6 +8254,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 
 .icon-plus-square-o:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ellipsis-h:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;

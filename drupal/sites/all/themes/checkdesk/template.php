@@ -872,7 +872,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Flag as
       $output .= '<span class="flag-as">';
-      $output .= l('<span class="icon-flag"></span>', $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
+      $output .= l('<span class="icon-flag-o"></span>', $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
       $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
 
       if (isset($links['flag-spam'])) {
@@ -901,7 +901,7 @@ function checkdesk_links__node($variables) {
     ) {
       // Add to
       $output .= '<span class="add-to">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h"><span>' . t('Actions') . '</span></span></a>';
+      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h"></span></a>';
       $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-suggest'])) {
         $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
