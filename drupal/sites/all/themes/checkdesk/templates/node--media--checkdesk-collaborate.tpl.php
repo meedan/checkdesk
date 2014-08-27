@@ -9,7 +9,7 @@
 
     <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_comment_on_report') : ?>
       <?php if (isset($content['report_verification_footnote'])) : ?>
-        <div class="report-verification-footnote">
+        <div class="report-verification-footnote item-message">
           <?php print render($content['report_verification_footnote']); ?>
         </div>
       <?php endif; ?>

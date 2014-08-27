@@ -4685,6 +4685,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 section#comment-form {
   *zoom: 1;
   position: relative;
+  margin-top: 8px;
 }
 section#comment-form:before, section#comment-form:after {
   display: table;
@@ -8377,6 +8378,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-size: 16px;
   color: #6f7a82;
   word-wrap: break-word;
+  *zoom: 1;
 }
 .item a {
   color: #6f7a82;
@@ -8395,6 +8397,25 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .item .item-message {
   padding: 15px 20px 0 20px;
   background-color: #fff;
+}
+.nested .item .item-message {
+  padding: 0;
+  background: none;
+}
+.item .item-message p {
+  margin: 0;
+  padding: 0;
+}
+.item .item-message p:first-child {
+  margin: 0;
+  padding: 0;
+  margin-top: 5px;
+}
+.item .item-message p a {
+  color: #4a74c0;
+}
+.item .item-message p a:hover {
+  color: #101b2e;
 }
 .item .item-content-wrapper {
   padding: 20px 20px 15px 20px;
@@ -8431,6 +8452,17 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-size: 16px;
   color: #9fa6ac;
 }
+.item .open {
+  color: #404d59;
+}
+.item:before, .item:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.item:after {
+  clear: both;
+}
 
 .activity-item {
   position: relative;
@@ -8441,8 +8473,17 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .nested .activity-item {
   padding-right: 53px;
+  padding-top: 6px;
   margin-top: 20px;
+  min-height: 32px;
   line-height: 22px;
+  color: #404d59;
+}
+.nested .activity-item a {
+  color: #404d59;
+}
+.nested .activity-item a:hover {
+  color: black;
 }
 .activity-item .avatar {
   position: absolute;
@@ -8465,6 +8506,13 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
+.nested .activity-item .activity-item-message {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+}
 .activity-item .activity-item-content-wrapper {
   padding: 10px 20px 15px 20px;
   -webkit-border-radius: 0px;
@@ -8478,8 +8526,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   color: #10212f;
 }
 .nested .activity-item a.actor {
-  display: block;
-  margin-top: -3px;
+  margin-top: 8px;
 }
 .activity-item .timestamp {
   float: left;

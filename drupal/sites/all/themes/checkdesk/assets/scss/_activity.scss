@@ -73,6 +73,18 @@ $position:  "before";
 	.item-message {
 		padding: 15px 20px 0 20px;
 		background-color: #fff;
+		.nested & {
+			padding: 0;
+			background: none;
+		}
+		p {
+			@include reset-box-model;
+			&:first-child {
+				@include reset-box-model;
+				margin-top: 5px;
+			}
+			a { @include ctb-linkColor($strongBlue80); }
+		}
 	}
 
 	.item-content-wrapper {
@@ -111,10 +123,15 @@ $position:  "before";
 		color: $firefly40;
 	} // item-nested-content-wrapper
 
+	.open {
+		color: $firefly80;
+	}
+
 	.item-nested-content {
 
 	} // item-nested-content
 
+	@include ctb-clearfix;
 
 } // item
 
@@ -133,8 +150,12 @@ $position:  "before";
 	// e.g. in verfication log
 	.nested & {
 		padding-#{$from-direction}: (38px + $gutter-width);
+		padding-top: 6px;
 		margin-top: 20px;
+		min-height: 32px;
 		line-height: 22px;
+		color: $firefly80;
+		a { @include ctb-linkColor($firefly80); }
 	}
 
 	.avatar {
@@ -151,6 +172,9 @@ $position:  "before";
 
 	.activity-item-message {
 		@include border-radius(4px 4px 0 0);
+		.nested & {
+			@include border-radius(0px);
+		}
 	}
 
 	.activity-item-content-wrapper {
@@ -167,8 +191,8 @@ $position:  "before";
 		font-weight: 700;
 		color: $firefly;
 		.nested & { 
-			display: block; 
-			margin-top: -3px;
+			// display: block; 
+			margin-top: 8px;
 		}
 	}
 
