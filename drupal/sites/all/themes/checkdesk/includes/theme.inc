@@ -248,7 +248,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     // set actor / editor / user
     $actor = l($message->variables['!username'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
     // 
-    $title = $message->variables['!comment'];
+    $comment_text = $message->variables['!comment'];
     if (isset($message->cid) && user_access('administer comments')) {
       $delete_footnote = l('<span class="icon-trash-o"></span>', 'comment/'. $message->cid .'/delete', array(
         //'query' => drupal_get_destination(),
@@ -331,7 +331,9 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   }
 
   if(isset($title)) {
-    $output .= '<span class="report-verification-footnote">' . $title . '</span>';
+    $output .= '<span class="title">' . $title . '</span>';
+  } elseif (isset($comment_text)) {
+    $output .= '<span class="report-verification-footnote item-content-text">' . $comment_text . '</span>';
   } else {
     $output .= $message->message;
   }

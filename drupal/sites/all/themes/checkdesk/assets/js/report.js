@@ -177,11 +177,11 @@
 
         // group if actor and timestamps are the same
         if ($status !== null && $comment !== null && $comment.hasClass('new_comment_report') && $status.hasClass('status_report') &&
-            $comment.find('.actor').text() === $status.find('.actor').text() && $comment.find('.time').attr('datetime') === $status.find('.time').attr('datetime')) {
+            $comment.find('.actor').text() === $status.find('.actor').text() && $comment.find('.timestamp').attr('datetime') === $status.find('.timestamp').attr('datetime')) {
           $comment.find('.actor').html('');
-          $comment.find('.time').html('');
-          $comment.find('.title').parent().addClass('grouped');
-          $comment.parents('.views-row').css('border-top', '0 none');
+          $comment.find('.timestamp').html('');
+          $comment.find('.report-verification-footnote').parent().parent().addClass('grouped-item');
+          // $comment.parents('.views-row').css('border-top', '0 none');
           $status.addClass('activity-parent');
           $comment.addClass('activity-grouped');
           // move the status before the comment

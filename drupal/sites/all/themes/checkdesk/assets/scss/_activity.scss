@@ -121,6 +121,10 @@ $position:  "before";
 		padding: 10px 20px;
 		font-size: 16px;
 		color: $firefly40;
+		
+		// add styles for load more pager
+		@include ctb-load-more-pager;
+
 	} // item-nested-content-wrapper
 
 	.open {
@@ -184,7 +188,8 @@ $position:  "before";
 
 	.media-status {
 		// add styles for media status
-		@extend .media-status;
+		@include media-status-styles;
+		@include clear-icon-margins;
 	}
 
 	a.actor {
@@ -204,6 +209,15 @@ $position:  "before";
 
 	@include ctb-clearfix;
 } // activity-item 
+
+// when grouped together
+.nested .grouped-item {
+	padding-top: 0;
+	margin-top: -10px;
+	.avatar {
+		display: none;
+	}
+}
 
 
 

@@ -67,7 +67,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
 
     // Load report status
     if(isset($node->field_rating)) {
-      if($node->field_rating['und'][0]['tid'] == 2) {
+      if($node->field_rating['und'][0]['tid'] != 4) {
         $variables['report_status'] = _checkdesk_report_status($node);
       }
     }

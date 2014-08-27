@@ -4549,25 +4549,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: block;
 }
 
-.media-status, .media-holder .media-status, .activity-item .media-status {
-  font-size: 16px;
-}
-.media-status .status-name {
-  font-weight: 700;
-}
-.media-status .verified {
-  color: #399664;
-}
-.media-status .undetermined {
-  color: #ec9131;
-}
-.media-status .false {
-  color: #cc4f43;
-}
-.media-status .in-progress {
-  color: #f5a623;
-}
-
 .media-holder {
   color: #9fa6ac;
 }
@@ -4622,6 +4603,21 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: block;
   margin-top: 30px;
 }
+.media-holder .media-status .status-name {
+  font-weight: 700;
+}
+.media-holder .media-status .verified {
+  color: #399664;
+}
+.media-holder .media-status .undetermined {
+  color: #ec9131;
+}
+.media-holder .media-status .false {
+  color: #cc4f43;
+}
+.media-holder .media-status .in-progress {
+  color: #f5a623;
+}
 .media-holder .video-holder {
   position: relative;
   display: block;
@@ -4649,6 +4645,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 .media-holder span[class^="icon-"]:before, .media-holder span[class^="icon-"]:after, .media-holder span[class*="icon-"]:before, .media-holder span[class*="icon-"]:after {
   margin: 0;
+  font-size: 16px;
 }
 
 .inline-attachment {
@@ -4690,6 +4687,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 
 section#comment-form {
+  clear: both;
   *zoom: 1;
   position: relative;
   margin-top: 8px;
@@ -8497,6 +8495,53 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   font-size: 16px;
   color: #9fa6ac;
 }
+.item .item-nested-content-wrapper .pager-load-more {
+  *zoom: 1;
+  margin: 0;
+  padding: 0;
+  padding: 12px 0;
+  float: none;
+  clear: both;
+  position: relative;
+  text-align: center;
+}
+.item .item-nested-content-wrapper .pager-load-more:before, .item .item-nested-content-wrapper .pager-load-more:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.item .item-nested-content-wrapper .pager-load-more:after {
+  clear: both;
+}
+.item .item-nested-content-wrapper .pager-load-more li {
+  list-style: none;
+}
+.item .item-nested-content-wrapper .pager-load-more a {
+  width: 70%;
+  text-align: center;
+  letter-spacing: 0.05em;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #9fa6ac;
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.item .item-nested-content-wrapper .pager-load-more a:hover {
+  color: white;
+  background-color: #2e77fc;
+  border: 1px solid #2e77fc;
+}
+.item .item-nested-content-wrapper .pager-load-more .ajax-progress-throbber {
+  position: absolute;
+  top: 4px;
+  right: 15px;
+}
+.item .item-nested-content-wrapper .pager-load-more .ajax-progress-throbber .throbber {
+  background: url("../imgs/icons/loader_white.gif");
+}
 .item .open {
   color: #404d59;
 }
@@ -8566,6 +8611,25 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -o-border-radius: 0px;
   border-radius: 0px;
 }
+.activity-item .media-status .status-name {
+  font-weight: 700;
+}
+.activity-item .media-status .verified {
+  color: #399664;
+}
+.activity-item .media-status .undetermined {
+  color: #ec9131;
+}
+.activity-item .media-status .false {
+  color: #cc4f43;
+}
+.activity-item .media-status .in-progress {
+  color: #f5a623;
+}
+.activity-item .media-status span[class^="icon-"]:before, .activity-item .media-status span[class^="icon-"]:after, .activity-item .media-status span[class*="icon-"]:before, .activity-item .media-status span[class*="icon-"]:after {
+  margin: 0;
+  font-size: 16px;
+}
 .activity-item a.actor {
   font-weight: 700;
   color: #10212f;
@@ -8585,6 +8649,14 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .activity-item:after {
   clear: both;
+}
+
+.nested .grouped-item {
+  padding-top: 0;
+  margin-top: -10px;
+}
+.nested .grouped-item .avatar {
+  display: none;
 }
 
 .activity .update-added .activity-item-content {
