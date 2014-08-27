@@ -4536,6 +4536,28 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: block;
 }
 
+.media-status, .media-holder .media-status, .activity-item .media-status {
+  font-size: 16px;
+}
+.media-status .status-name {
+  font-weight: 700;
+}
+.media-status .verified {
+  color: #399664;
+}
+.media-status .undetermined {
+  color: #ec9131;
+}
+.media-status .false {
+  color: #cc4f43;
+}
+.media-status .in-progress {
+  color: #f5a623;
+}
+.media-status span[class^="icon-"]:before, .media-status span[class^="icon-"]:after, .media-status span[class*="icon-"]:before, .media-status span[class*="icon-"]:after {
+  margin: 0;
+}
+
 .media-holder {
   color: #9fa6ac;
 }
@@ -4587,27 +4609,8 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   color: #111314;
 }
 .media-holder .media-status {
-  font-size: 16px;
   display: block;
   margin-top: 30px;
-}
-.media-holder .media-status .status-name {
-  font-weight: 700;
-}
-.media-holder .media-status .verified {
-  color: #399664;
-}
-.media-holder .media-status .undetermined {
-  color: #ec9131;
-}
-.media-holder .media-status .false {
-  color: #cc4f43;
-}
-.media-holder .media-status .in-progress {
-  color: #f5a623;
-}
-.media-holder span[class^="icon-"]:before, .media-holder span[class^="icon-"]:after, .media-holder span[class*="icon-"]:before, .media-holder span[class*="icon-"]:after {
-  margin: 0;
 }
 .media-holder .video-holder {
   position: relative;
@@ -8001,7 +8004,18 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -moz-osx-font-smoothing: grayscale;
 }
 
-.item .item-wrapper {
+.item {
+  font-size: 16px;
+  color: #6f7a82;
+  word-wrap: break-word;
+}
+.item a {
+  color: #6f7a82;
+}
+.item a:hover {
+  color: #111314;
+}
+.item .item-content-wrapper {
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   -ms-border-radius: 4px 4px 0 0;
@@ -8011,6 +8025,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .item .item-message {
   padding: 15px 20px 0 20px;
+  background-color: #fff;
 }
 .item .item-content-wrapper {
   padding: 20px 20px 15px 20px;
@@ -8018,7 +8033,24 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .item .item-content {
   display: block;
 }
-.item .item-footer {
+.item .item-controls .meta, .item .item-controls .actions {
+  display: table-cell;
+  width: 100%;
+}
+.item .item-controls .meta {
+  font-weight: 700;
+}
+.item .item-controls .actions {
+  white-space: nowrap;
+}
+.item .item-controls .actions span[class^="icon-"], .item .item-controls .actions span[class*="icon-"] {
+  font-size: 20px;
+  color: #9fa6ac;
+}
+.item .item-controls .actions div {
+  display: inline-block;
+}
+.item .item-nested-content-wrapper {
   background-color: #f3f4f4;
   background-color: rgba(16, 33, 47, 0.05);
   -webkit-border-radius: 0 0 4px 4px;
@@ -8027,41 +8059,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
   padding: 10px 20px;
+  font-size: 16px;
   color: #9fa6ac;
-}
-.item .item-footer .meta, .item .item-footer .actions {
-  display: table-cell;
-  width: 100%;
-}
-.item .item-footer .meta {
-  font-weight: 700;
-}
-.item .item-footer .actions {
-  white-space: nowrap;
-}
-.item .item-footer .actions span[class^="icon-"], .item .item-footer .actions span[class*="icon-"] {
-  font-size: 20px;
-  color: #9fa6ac;
-}
-.item .item-footer .actions div {
-  display: inline-block;
 }
 
 .activity-item {
   position: relative;
   padding: 0;
   padding-right: 75px;
-  font-size: 16px;
-  color: #6f7a82;
-  word-wrap: break-word;
   margin-top: 30px;
   *zoom: 1;
 }
-.activity-item a {
-  color: #6f7a82;
-}
-.activity-item a:hover {
-  color: #111314;
+.nested .activity-item {
+  padding-right: 53px;
+  margin-top: 20px;
+  line-height: 22px;
 }
 .activity-item .avatar {
   position: absolute;
@@ -8077,12 +8089,28 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -o-border-radius: 4px;
   border-radius: 4px;
 }
+.activity-item .activity-item-message {
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  -ms-border-radius: 4px 4px 0 0;
+  -o-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
 .activity-item .activity-item-content-wrapper {
   padding: 10px 20px 15px 20px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
 }
 .activity-item a.actor {
   font-weight: 700;
   color: #10212f;
+}
+.nested .activity-item a.actor {
+  display: block;
+  margin-top: -6px;
 }
 .activity-item .timestamp {
   float: left;

@@ -60,13 +60,19 @@ $position:  "before";
 // generalized item with white background and grey
 .item {
 
-	.item-wrapper {
+	font-size: 16px;
+	color: $firefly60;
+	word-wrap: break-word;
+	a { @include ctb-linkColor($firefly60); }
+
+	.item-content-wrapper {
 		@include border-radius(4px 4px 0 0);
 		background-color: #fff;
 	} //item-content-wrapper
 
 	.item-message {
 		padding: 15px 20px 0 20px;
+		background-color: #fff;
 	}
 
 	.item-content-wrapper {
@@ -77,11 +83,7 @@ $position:  "before";
 		display: block;
 	}
 
-	.item-footer {
-		@include ctb-bg($firefly5, rgba($firefly, 0.05));
-		@include border-radius(0 0 4px 4px);
-		padding: 10px 20px;
-		color: $firefly40;
+	.item-controls {
 		.meta, .actions {
 			display: table-cell;
 			width: 100%;
@@ -99,11 +101,20 @@ $position:  "before";
 				display: inline-block;
 			}
 		}
-	} // item-footer
+	} // item-controls
 
-	.item-details {
+	.item-nested-content-wrapper {
+		@include ctb-bg($firefly5, rgba($firefly, 0.05));
+		@include border-radius(0 0 4px 4px);
+		padding: 10px 20px;
+		font-size: 16px;
+		color: $firefly40;
+	} // item-nested-content-wrapper
 
-	} // item-details
+	.item-nested-content {
+
+	} // item-nested-content
+
 
 } // item
 
@@ -116,11 +127,15 @@ $position:  "before";
 	position: relative;
 	padding: 0;
 	padding-#{$from-direction}: (60px + $gutter-width);
-	font-size: 16px;
-	color: $firefly60;
-	word-wrap: break-word;
 	margin-top: 30px;
-	a { @include ctb-linkColor($firefly60); }
+
+	// when nested inside a parent 
+	// e.g. in verfication log
+	.nested & {
+		padding-#{$from-direction}: (38px + $gutter-width);
+		margin-top: 20px;
+		line-height: 22px;
+	}
 
 	.avatar {
 		position: absolute;
@@ -134,13 +149,27 @@ $position:  "before";
 		@include border-radius(4px);
 	}
 
+	.activity-item-message {
+		@include border-radius(4px 4px 0 0);
+	}
+
 	.activity-item-content-wrapper {
 		padding: 10px 20px 15px 20px;
+		@include border-radius(0px);
+	}
+
+	.media-status {
+		// add styles for media status
+		@extend .media-status;
 	}
 
 	a.actor {
 		font-weight: 700;
 		color: $firefly;
+		.nested & { 
+			display: block; 
+			margin-top: -6px;
+		}
 	}
 
 	.timestamp {

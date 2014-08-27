@@ -18,15 +18,20 @@
   </span> <!-- /activity-item-content -->
 </div> <!-- /activity-item-content-wrapper -->
 
-<div class="activity-item-footer item-footer">
-  <div class="meta">
-    <?php if (isset($media_activity_report_count)) : ?>
-      <?php print $media_activity_report_count . ' ' . t('verification footnotes'); ?>
-    <?php endif; ?>
+<div class="item-nested-content-wrapper">
+  <div class="activity-item-controls item-controls">
+    <div class="meta">
+      <?php if (isset($media_activity_report_count)) : ?>
+        <?php print $media_activity_report_count . ' ' . t('verification footnotes'); ?>
+      <?php endif; ?>
+    </div>
+    <div class="actions" role="toolbar">
+      <span class="icon-share"></span>
+      <span class="icon-flag-o"></span>
+      <span class="icon-plus-square-o"></span>
+    </div>
+  </div> <!-- /activity-item-controls -->
+  <div class="item-nested-content">
+    <!-- add report verification log -->
   </div>
-  <div class="actions" role="toolbar">
-    <span class="icon-share"></span>
-    <span class="icon-flag-o"></span>
-    <span class="icon-plus-square-o"></span>
-  </div>
-</div> <!-- /activity-item-footer -->
+</div>

@@ -5,7 +5,7 @@
     </div>
   </div>
   <?php if(isset($report_status['status'])) : ?>
-    <span class="inline-attachment-status media-status">
+    <span class="media-status">
       <?php print $report_status['status']; ?>
     </span>
   <?php endif; ?>

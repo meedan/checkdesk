@@ -1,3 +1,33 @@
+.media-status {
+	font-size: 16px;
+
+	.status-name {
+		font-weight: 700;
+	}
+
+	.verified {
+		color: $verified;
+	}
+
+	.undetermined {
+		color: $undetermined;
+	}
+
+	.false {
+		color: $false;
+	}
+
+	.in-progress {
+		color: $in-progress;
+	}
+
+	// remove the margins around the icon
+	span[class^="icon-"], span[class*="icon-"] {
+		&:before, &:after { margin: 0; } // no margins
+	}
+
+} // media-status
+
 .media-holder {
 	color: $firefly40;
 	a { @include ctb-linkColor($firefly40); }
@@ -35,36 +65,11 @@
 	} // media-content
 
 	.media-status {
-		font-size: 16px;
+		// add styles for media status
+		@extend .media-status;
 		display: block;
 		margin-top: 30px;
-
-		.status-name {
-			font-weight: 700;
-		}
-
-		.verified {
-			color: $verified;
-		}
-
-		.undetermined {
-			color: $undetermined;
-		}
-
-		.false {
-			color: $false;
-		}
-
-		.in-progress {
-			color: $in-progress;
-		}
-	} // media-status
-
-	// remove the margins around the icon
-	span[class^="icon-"], span[class*="icon-"] {
-		&:before, &:after { margin: 0; } // no margins
 	}
-
 
 	// for videos
 	.video-holder {
@@ -96,8 +101,6 @@
 	    padding-bottom: 75%;
 	  }
 	}
-
-
 
 } // media-holder
 

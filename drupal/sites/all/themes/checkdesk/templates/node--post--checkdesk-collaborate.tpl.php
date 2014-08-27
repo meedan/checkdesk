@@ -29,18 +29,23 @@
   </span> <!-- /activity-item-content -->
 </div> <!-- /activity-item-content-wrapper -->
 
-<div class="activity-item-footer item-footer">
-  <div class="meta">
-    <?php if(!empty($content['update_reports_count'])): ?>
-      <?php print render($content['update_reports_count']); ?>
-    <?php endif; ?>
+<div class="item-nested-content-wrapper">
+  <div class="activity-item-controls item-controls">
+    <div class="meta">
+      <?php if(!empty($content['update_reports_count'])): ?>
+        <?php print render($content['update_reports_count']); ?>
+      <?php endif; ?>
+    </div>
+    <div class="actions" role="toolbar">
+      <?php print render($content['links']); ?>
+      <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) : ?>
+        <div class="update-edit">
+        <?php print l('<span class="icon-pencil-square-o"></span>', 'node/' . $node->nid . '/edit', array('query' => drupal_get_destination(), 'html'=>TRUE)); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+  </div> <!-- /activity-item-controls -->
+  <div class="item-nested-content">
+    <!-- add report verification log -->
   </div>
-  <div class="actions" role="toolbar">
-    <?php print render($content['links']); ?>
-    <?php if (in_array('administrator', $user->roles) || in_array('journalist', $user->roles)) : ?>
-      <div class="update-edit">
-      <?php print l('<span class="icon-pencil-square-o"></span>', 'node/' . $node->nid . '/edit', array('query' => drupal_get_destination(), 'html'=>TRUE)); ?>
-      </div>
-    <?php endif; ?>
-  </div>
-</div> <!-- /activity-item-footer -->
+</div>
