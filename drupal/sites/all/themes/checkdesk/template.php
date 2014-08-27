@@ -43,10 +43,10 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     $provider = strtolower($embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
     // Set author name or provider name
-    if(isset($embed->original_url) && isset($embed->provider_name)) {
-      $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
-    } else {
+    if(isset($embed->author_url) && isset($embed->author_name)) {
       $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+    } else {
+      $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
     // Set favicon 
     if (isset($embed->favicon_link)) {
@@ -871,7 +871,7 @@ function checkdesk_links__node($variables) {
         isset($links['flag-delete'])
     ) {
       // Flag as
-      $output .= '<li class="flag-as">';
+      $output .= '<span class="flag-as">';
       $output .= l('<span class="icon-flag"></span>', $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
       $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
 
@@ -890,7 +890,7 @@ function checkdesk_links__node($variables) {
         $output .= '<li class="divider"></li>';
         $output .= '<li>' . $links['flag-delete']['title'] . '</li>';
       }
-      $output .= '</ul></li>'; 
+      $output .= '</ul></span>'; 
     }
      
     if (isset($links['checkdesk-suggest']) || 
@@ -900,7 +900,7 @@ function checkdesk_links__node($variables) {
         isset($links['flag-graphic_journalist'])
     ) {
       // Add to
-      $output .= '<li class="add-to">';
+      $output .= '<span class="add-to">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h"><span>' . t('Actions') . '</span></span></a>';
       $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
       if (isset($links['checkdesk-suggest'])) {
@@ -919,7 +919,7 @@ function checkdesk_links__node($variables) {
       if (isset($links['flag-graphic_journalist'])) {
         $output .= '<li>' . $links['flag-graphic_journalist']['title'] .'</li>';
       }
-      $output .= '</ul></li>';
+      $output .= '</ul></span>';
     }
 
     if (isset($links['checkdesk-edit-flat']) || 
@@ -1311,7 +1311,6 @@ function _checkdesk_providers() {
  */
 function _checkdesk_report_status($report) {
   global $language;
-  // dsm($report);
   $report_status = array();
   $icon = '';
 

@@ -5,8 +5,8 @@
   $update_link = url('node/'.$parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
 ?>
 
-<div class="activity-item-content-wrapper update-added <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
-  <span class="activity-item-content">
+<div class="activity-item-content-wrapper item-content-wrapper update-added <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
+  <span class="activity-item-content item-content">
     
     <?php if (isset($title)) { ?>
       <h3 class="update-title">
@@ -29,7 +29,7 @@
   </span> <!-- /activity-item-content -->
 </div> <!-- /activity-item-content-wrapper -->
 
-<div class="activity-item-footer">
+<div class="activity-item-footer item-footer">
   <div class="meta">
     <?php if(!empty($content['update_reports_count'])): ?>
       <?php print render($content['update_reports_count']); ?>

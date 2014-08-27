@@ -7,8 +7,8 @@
 ?>
 
 <?php print $avatar; ?>
-<div class="activity-item-wrapper report-status-change">
-  <div class="activity-item-message">
+<div class="activity-item-wrapper item-wrapper">
+  <div class="activity-item-message item-message">
     <time class="timestamp"><?php print $fields['created_at']->content; ?></time>
     <?php print $fields['message_1']->content; ?>
   </div> <!-- /activity-item-messsage -->

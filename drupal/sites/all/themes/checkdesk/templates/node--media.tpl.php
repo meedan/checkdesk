@@ -1,6 +1,5 @@
-<section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
-  <article class="report <?php if (isset($status_class)) { print $status_class; } ?>">   
-    <section class="media-holder">
+<section id="node-<?php print $node->nid; ?>" class="item node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
+  <article class="report item-wrapper <?php if (isset($status_class)) { print $status_class; } ?>">   <section class="media-holder item-content-wrapper">
       <div class="media">
         <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
       </div>
@@ -14,7 +13,7 @@
     <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity open">
           <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
-            <div class="report-activity-header" href="#">
+            <div class="report-activity-header item-footer" href="#">
               <div class="meta">
                 <?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?>
               </div>
@@ -23,7 +22,7 @@
               </div>
             </div>
           </header>
-          <div class="activity-wrapper">
+          <div class="activity item-details">
             <?php print $media_activity_report; ?>
             <?php print render($content['comments']); ?>
             <?php if ($media_activity_footer) : ?>

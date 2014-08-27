@@ -1,4 +1,9 @@
 <div class="media-holder">
+  <div class="media">
+    <div class="video-holder video-16by9">
+      <?php print $embed->html; ?>
+    </div>
+  </div>
   <div class="media-content">
     <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
     <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
@@ -11,9 +16,5 @@
       <?php print $report_status['status']; ?>
     </span>
   <?php endif; ?>
-  <div class="media">
-    <div class="video-holder video-16by9">
-			<?php print $embed->html; ?>
-		</div>
-  </div>
+  
 </div> <!-- /media-holder -->

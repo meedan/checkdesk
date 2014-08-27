@@ -57,49 +57,27 @@ $position:  "before";
 	@include icon(times-circle);
 }
 
-.activity {
-	
-}
+// generalized item with white background and grey
+.item {
 
-.activity-item {
-	position: relative;
-	padding: 0;
-	padding-#{$from-direction}: (60px + $gutter-width);
-	font-size: 16px;
-	color: $firefly60;
-	word-wrap: break-word;
-	margin-top: 30px;
-
-	a {
-		color: $firefly60;
-	}
-
-	.avatar {
-		position: absolute;
-		top: 0;
-		#{$from-direction}: 0;
-		float: $from-direction;
-
-		background-size: 100%;
-		background-repeat: no-repeat;
-		display: inline-block;
-		@include border-radius(4px);
-	}
-
-	.activity-item-wrapper {
-		background-color: #fff;
+	.item-wrapper {
 		@include border-radius(4px 4px 0 0);
-	}
+		background-color: #fff;
+	} //item-content-wrapper
 
-	.activity-item-message {
+	.item-message {
 		padding: 15px 20px 0 20px;
 	}
 
-	.activity-item-content-wrapper {
-		padding: 0 20px 15px 20px;
+	.item-content-wrapper {
+		padding: 20px 20px 15px 20px;
 	}
 
-	.activity-item-footer {
+	.item-content {
+		display: block;
+	}
+
+	.item-footer {
 		@include ctb-bg($firefly5, rgba($firefly, 0.05));
 		@include border-radius(0 0 4px 4px);
 		padding: 10px 20px;
@@ -121,7 +99,43 @@ $position:  "before";
 				display: inline-block;
 			}
 		}
+	} // item-footer
 
+	.item-details {
+
+	} // item-details
+
+} // item
+
+
+.activity {
+	
+}
+
+.activity-item {
+	position: relative;
+	padding: 0;
+	padding-#{$from-direction}: (60px + $gutter-width);
+	font-size: 16px;
+	color: $firefly60;
+	word-wrap: break-word;
+	margin-top: 30px;
+	a { @include ctb-linkColor($firefly60); }
+
+	.avatar {
+		position: absolute;
+		top: 0;
+		#{$from-direction}: 0;
+		float: $from-direction;
+
+		background-size: 100%;
+		background-repeat: no-repeat;
+		display: inline-block;
+		@include border-radius(4px);
+	}
+
+	.activity-item-content-wrapper {
+		padding: 10px 20px 15px 20px;
 	}
 
 	a.actor {
@@ -135,10 +149,6 @@ $position:  "before";
 		color: $firefly20;
 	}
 
-	.activity-item-content {
-		display: block;
-	}
-
 	@include ctb-clearfix;
 } // activity-item 
 
@@ -149,7 +159,7 @@ $position:  "before";
 .activity .update-added {
 	.activity-item-content {
 		border-top: 1px dotted rgba($firefly, 0.1);
-		margin-top: 10px;
+		// margin-top: 10px;
 		padding-top: 10px;
 	}
 
