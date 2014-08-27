@@ -331,7 +331,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   }
 
   if(isset($title)) {
-    $output .= '<span class="report-verification-footnote item-message">' . $title . '</span>';
+    $output .= '<span class="report-verification-footnote">' . $title . '</span>';
   } else {
     $output .= $message->message;
   }

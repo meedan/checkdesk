@@ -9,7 +9,7 @@
 
     <?php if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_comment_on_report') : ?>
       <?php if (isset($content['report_verification_footnote'])) : ?>
-        <div class="report-verification-footnote item-message">
+        <div class="report-verification-footnote">
           <?php print render($content['report_verification_footnote']); ?>
         </div>
       <?php endif; ?>
@@ -26,9 +26,7 @@
       <?php endif; ?>
     </div>
     <div class="actions" role="toolbar">
-      <span class="icon-share"></span>
-      <span class="icon-flag-o"></span>
-      <span class="icon-plus-square-o"></span>
+      <?php print render($content['links']); ?>
     </div>
   </div> <!-- /activity-item-controls -->
   <div class="item-nested-content">

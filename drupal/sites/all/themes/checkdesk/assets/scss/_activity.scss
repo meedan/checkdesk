@@ -70,18 +70,6 @@ $position:  "before";
 	.item-message {
 		padding: 15px 20px 0 20px;
 		background-color: #fff;
-		.nested & {
-			padding: 0;
-			background: none;
-		}
-		p {
-			@include reset-box-model;
-			&:first-child {
-				@include reset-box-model;
-				margin-top: 5px;
-			}
-			a { @include ctb-linkColor($strongBlue80); }
-		}
 	}
 
 	.item-content-wrapper {
@@ -90,6 +78,17 @@ $position:  "before";
 
 	.item-content {
 		display: block;
+
+		p {
+			@include reset-box-model;
+			&:first-child {
+				@include reset-box-model;
+				margin-top: 5px;
+			}
+			a { @include ctb-linkColor($strongBlue80); }
+		}
+
+		
 	}
 
 	.item-controls {
@@ -109,6 +108,10 @@ $position:  "before";
 			div {
 				display: inline-block;
 			}
+		}
+		// hide any labels
+		.label {
+			display: none;
 		}
 	} // item-controls
 

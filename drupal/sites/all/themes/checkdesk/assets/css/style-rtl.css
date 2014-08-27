@@ -4563,9 +4563,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-status .in-progress {
   color: #f5a623;
 }
-.media-status span[class^="icon-"]:before, .media-status span[class^="icon-"]:after, .media-status span[class*="icon-"]:before, .media-status span[class*="icon-"]:after {
-  margin: 0;
-}
 
 .media-holder {
   color: #9fa6ac;
@@ -4646,7 +4643,13 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .video-holder.video-4by3 {
   padding-bottom: 75%;
 }
+.media-holder span[class^="icon-"]:before, .media-holder span[class^="icon-"]:after, .media-holder span[class*="icon-"]:before, .media-holder span[class*="icon-"]:after {
+  margin: 0;
+}
 
+.inline-attachment {
+  margin-bottom: 10px;
+}
 .inline-attachment .inline-attachment-bar {
   display: table-cell;
   width: 4px;
@@ -8413,30 +8416,26 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   padding: 15px 20px 0 20px;
   background-color: #fff;
 }
-.nested .item .item-message {
-  padding: 0;
-  background: none;
-}
-.item .item-message p {
-  margin: 0;
-  padding: 0;
-}
-.item .item-message p:first-child {
-  margin: 0;
-  padding: 0;
-  margin-top: 5px;
-}
-.item .item-message p a {
-  color: #4a74c0;
-}
-.item .item-message p a:hover {
-  color: #101b2e;
-}
 .item .item-content-wrapper {
   padding: 20px 20px 15px 20px;
 }
 .item .item-content {
   display: block;
+}
+.item .item-content p {
+  margin: 0;
+  padding: 0;
+}
+.item .item-content p:first-child {
+  margin: 0;
+  padding: 0;
+  margin-top: 5px;
+}
+.item .item-content p a {
+  color: #4a74c0;
+}
+.item .item-content p a:hover {
+  color: #101b2e;
 }
 .item .item-controls .meta, .item .item-controls .actions {
   display: table-cell;
@@ -8454,6 +8453,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .item .item-controls .actions div {
   display: inline-block;
+}
+.item .item-controls .label {
+  display: none;
 }
 .item .item-nested-content-wrapper {
   background-color: #f3f4f4;

@@ -780,7 +780,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     }
     // parent share link with title
     $links['checkdesk-share'] = array(
-      'title' => ($node->type == 'media') ? '' : t('Share'),
+      'title' => ($node->type == 'media') ? '' : '<span class="label">' . t('Share') . '</span>',
       'href' => '#',
       'attributes' => array('title' => $node->title),
     );

@@ -20,13 +20,14 @@
 	.in-progress {
 		color: $in-progress;
 	}
+} // media-status
 
+@mixin clear-icon-margins {
 	// remove the margins around the icon
 	span[class^="icon-"], span[class*="icon-"] {
 		&:before, &:after { margin: 0; } // no margins
 	}
-
-} // media-status
+}
 
 .media-holder {
 	color: $firefly40;
@@ -102,10 +103,14 @@
 	  }
 	}
 
+	@include clear-icon-margins;
+
 } // media-holder
 
 
 .inline-attachment {
+
+	margin-bottom: 10px;
 
 	.inline-attachment-bar {
 		display: table-cell;
