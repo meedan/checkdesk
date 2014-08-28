@@ -52,7 +52,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     if (isset($embed->favicon_link)) {
       $variables['favicon_link'] = l(
         theme('image', array( 'path' => $embed->favicon_link)),
-        $embed->original_url, array('html' => TRUE)
+        $embed->original_url, array('html' => TRUE, 'attributes' => array('class' => array('favicon')))
       );
     }
     // timestamp

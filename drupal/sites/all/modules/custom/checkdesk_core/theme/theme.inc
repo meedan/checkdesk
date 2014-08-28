@@ -119,9 +119,9 @@ function checkdesk_core_preprocess_checkdesk_core_update_reports(&$variables) {
     // add custom favicons
     $providers = _checkdesk_providers();
     if(in_array(drupal_strtolower($embed->provider_name), $providers)) {
-      $favicon = l(_checkdesk_favicons(drupal_strtolower($embed->provider_name)), 'node/'. $report->nid, array('html' => TRUE));
+      $favicon = l(_checkdesk_favicons(drupal_strtolower($embed->provider_name)), 'node/'. $report->nid, array('html' => TRUE, 'attributes' => array('class' => array('favicon'))));
     } else {
-      $favicon = l(theme('image', array('path' => $embed->favicon_link)), 'node/'. $report->nid, array('html' => TRUE));
+      $favicon = l(theme('image', array('path' => $embed->favicon_link)), 'node/'. $report->nid, array('html' => TRUE, 'attributes' => array('class' => array('favicon'))));
     }
 
     $reports_tmp[] = array(

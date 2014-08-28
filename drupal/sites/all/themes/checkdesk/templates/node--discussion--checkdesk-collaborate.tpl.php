@@ -44,18 +44,24 @@
 
     
     <!-- collaboration -->
-      <div class="story-collaboration-header-wrapper">
-        <?php print $story_links; ?>
-        <?php if(isset($story_collaborators)) { ?>    
-           <?php print $story_collaborators; ?>
-        <?php  } ?>
-      </div>
+    <div class="story-collaboration-header-wrapper">
+      <?php print $story_links; ?>
+      <?php if(isset($story_collaborators)) { ?>    
+         <?php print $story_collaborators; ?>
+      <?php  } ?>
+    </div>
 
-      <div class="story-collaboration-activity-wrapper">
-        <?php if(isset($story_collaboration)) { ?>    
-          <?php print $story_collaboration; ?>
-        <?php  } ?>
+    <div class="story-collaboration-activity-wrapper">
+      <?php if(isset($story_collaboration)) { ?>    
+        <?php print $story_collaboration; ?>
+      <?php  } ?>
+    </div>
+
+    <div class="story-footer">
+      <div class="story-updated-at">
+        <?php print t('Updated at ') . $updated_at; ?>
       </div>
+    </div>
 
     <!-- story comments -->
     <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
