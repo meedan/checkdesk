@@ -4599,6 +4599,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .media-content .description a:hover {
   color: #111314;
 }
+.media-holder .media-content .provider-icon img {
+  max-width: 16px;
+  vertical-align: text-top;
+}
 .media-holder .media-status {
   display: block;
   margin-top: 30px;
@@ -8451,17 +8455,18 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .item .item-content p {
   margin: 0;
   padding: 0;
-}
-.item .item-content p:first-child {
-  margin: 0;
-  padding: 0;
-  margin-top: 5px;
+  color: #404d59;
 }
 .item .item-content p a {
   color: #4a74c0;
 }
 .item .item-content p a:hover {
   color: #101b2e;
+}
+.item .item-content p:first-child {
+  margin: 0;
+  padding: 0;
+  margin-top: 5px;
 }
 .item .item-controls .meta, .item .item-controls .actions {
   display: table-cell;
@@ -8567,13 +8572,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin-top: 20px;
   min-height: 32px;
   line-height: 22px;
-  color: #404d59;
-}
-.nested .activity-item a {
-  color: #404d59;
-}
-.nested .activity-item a:hover {
-  color: black;
 }
 .activity-item .avatar {
   position: absolute;
@@ -8676,7 +8674,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .activity .update-added h3.update-title a:hover {
   color: #101b2e;
 }
-.activity .update-added .checkdesk-update-reports-wrapper {
+.activity .update-added .checkdesk-update-reports {
   margin-top: 8px;
 }
 .activity .update-added .update-reports-authors {

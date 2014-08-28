@@ -35,7 +35,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
   if (isset($embed->favicon_link)) {
     $vars['favicon_link'] = l(
       theme('image', array( 'path' => $embed->favicon_link)),
-      $embed->provider_url, array('html' => TRUE)
+      $embed->original_url, array('html' => TRUE)
     );
   }
 
@@ -56,7 +56,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
 
   // Load report status
   if(isset($node->field_rating)) {
-    if($node->field_rating['und'][0]['tid'] == 2) {
+    if($node->field_rating['und'][0]['tid'] != 4) {
       $variables['report_status'] = _checkdesk_report_status($node);
     }
   }
@@ -85,7 +85,7 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
   if (isset($embed->favicon_link)) {
     $vars['favicon_link'] = l(
       theme('image', array( 'path' => $embed->favicon_link)),
-      $embed->provider_url, array('html' => TRUE)
+      $embed->original_url, array('html' => TRUE)
     );
   }
 

@@ -5,25 +5,21 @@
         <div class="media">
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
-
-        <?php if (isset($media_creation_info)) : ?>
-          <span class="added-by">
-            <?php print $media_creation_info; ?>
-          </span>
-        <?php endif; ?>
-      </section>
-      <?php if (isset($media_activity_report_count)) : ?>
-        <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity item-nested-content-wrapper open">
-            <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
-              <div class="report-activity-header item-controls" href="#">
-                <div class="meta">
-                  <?php print $media_activity_report_count . '</span> ' . t('verification footnotes'); ?>
-                </div>
-                <div class="actions" role="toolbar">
-                  <?php print render($content['links']); ?>
-                </div>
+      </section> 
+      <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity item-nested-content-wrapper open">
+          <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
+            <div class="report-activity-header item-controls" href="#">
+              <div class="meta">
+                <?php if(isset($media_activity_report_count)) : ?>
+                  <?php print $media_activity_report_count . t(' verification footnotes'); ?>
+                <?php endif; ?>
               </div>
-            </header>
+              <div class="actions" role="toolbar">
+                <?php print render($content['links']); ?>
+              </div>
+            </div>
+          </header>
+          <?php if(isset($media_activity_report)) : ?>
             <div class="activity nested item-nested-content">
               <?php print $media_activity_report; ?>
               <?php print render($content['comments']); ?>
@@ -35,8 +31,8 @@
                 </div>
               <?php endif; ?>
             </div>
-        </section>
-      <?php endif; ?>
+          <?php endif; ?>
+      </section>
     </div>
   </article>
 

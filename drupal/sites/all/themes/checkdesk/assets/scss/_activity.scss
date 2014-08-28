@@ -81,11 +81,12 @@ $position:  "before";
 
 		p {
 			@include reset-box-model;
+			color: $firefly80;
+			a { @include ctb-linkColor($strongBlue80); }
 			&:first-child {
 				@include reset-box-model;
 				margin-top: 5px;
 			}
-			a { @include ctb-linkColor($strongBlue80); }
 		}
 
 		
@@ -140,9 +141,7 @@ $position:  "before";
 } // item
 
 
-.activity {
-	
-}
+// activity
 
 .activity-item {
 	position: relative;
@@ -158,8 +157,6 @@ $position:  "before";
 		margin-top: 20px;
 		min-height: 32px;
 		line-height: 22px;
-		color: $firefly80;
-		a { @include ctb-linkColor($firefly80); }
 	}
 
 	.avatar {
@@ -238,7 +235,7 @@ $position:  "before";
 		a { @include ctb-linkColor($strongBlue80); }
 	}
 
-	.checkdesk-update-reports-wrapper {
+	.checkdesk-update-reports {
 		margin-top: 8px;
 	}
 

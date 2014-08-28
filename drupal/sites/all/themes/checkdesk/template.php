@@ -52,7 +52,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     if (isset($embed->favicon_link)) {
       $variables['favicon_link'] = l(
         theme('image', array( 'path' => $embed->favicon_link)),
-        $embed->provider_url, array('html' => TRUE)
+        $embed->original_url, array('html' => TRUE)
       );
     }
     // timestamp
@@ -74,6 +74,12 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // Inline thumbnail
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
       $variables['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE));
+    }
+    // Large image in case of Flickr
+    if ($element['#formatter'] == 'meedan_inline_full_mode' || $element['#formatter'] == 'meedan_full_mode') {
+      if(isset($embed->url)) {
+        $variables['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid , array('html' => TRUE));
+      }
     }
   }
 }

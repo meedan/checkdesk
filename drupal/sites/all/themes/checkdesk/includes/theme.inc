@@ -284,7 +284,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
 
     // set actor / editor / user
     $actor = l($message->variables['!editor'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
-    $title = t('Changed status to ');
+    $title = t('changed status to ');
     if (isset($icon)) {
       $title .= '<span class="media-status"><span class="icon">' . $icon . '</span>';
     }
@@ -297,19 +297,16 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     // set actor / editor / user / publisher
     $actor = l($message->variables['!publisher'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
     $story = l($message->variables['!story'], $message->variables['!story_url'], array('html' => TRUE, 'attributes' => array('class' => array('story_link'))));
-    $title = t('Published on ') . $story;
+    $title = t('published on ') . $story;
   }
 
   // set variables for new_report
   if ($message->message_id == 'new_report') {
     // set actor / editor / user / publisher
     $actor = l($message->variables['!username'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
-    $title = t('Added this report');
+    $title = t('added this report');
     // $title = t('Added ') . $message->variables['!title'];
   }
-  
-  // $actor_short = (strlen($actor) > 8) ? substr($actor,0,6).'...' : $actor;
-
 
   // format status report as
   // Noha Aziz changed status to {status icon} verified (different color and add hover info on verified) {timestamp}
