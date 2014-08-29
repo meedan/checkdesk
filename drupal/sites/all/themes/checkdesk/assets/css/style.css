@@ -8101,7 +8101,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-footer {
   *zoom: 1;
   display: block;
-  margin-top: 12px;
+  margin: 20px 0 30px 0;
   padding: 6px 0;
   border-top: 1px solid #e7e8ea;
   color: #cfd3d5;
@@ -8154,6 +8154,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-comments {
   margin-top: 24px;
+  margin-bottom: 60px;
 }
 .story .story-comments .livefyre-header, .story .story-comments .fb-comments-header {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -8557,10 +8558,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .item:after {
   clear: both;
-}
-
-.activity {
-  margin-bottom: 30px;
 }
 
 .activity-item {

@@ -57,12 +57,6 @@
       <?php  } ?>
     </div>
 
-    <div class="story-footer">
-      <div class="story-updated-at">
-        <?php print t('Updated at ') . $updated_at; ?>
-      </div>
-    </div>
-
     <!-- story comments -->
     <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
       <?php if (isset($content['custom_comments'])) print render($content['custom_comments']); ?>
