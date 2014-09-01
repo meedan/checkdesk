@@ -641,6 +641,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     'checkdesk_comment_on_report' => 'checkdesk_comment_on_report',
     'status_report' => 'status_report',
     'checkdesk_fact_checking_on' => 'checkdesk_fact_checking_on',
+    'checkdesk_follow_story' => 'checkdesk_follow_story',
     'checkdesk_new_update_on_story_i_commented_on_update' => 'checkdesk_new_update_on_story_i_commented_on_update',
     'checkdesk_report_suggested_to_story' => 'checkdesk_report_suggested_to_story',
     'checkdesk_flag_report' => 'checkdesk_flag_report',

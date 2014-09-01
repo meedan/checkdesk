@@ -32,7 +32,9 @@
 
   	<div class="story-body">
       <?php print render($content['body']); ?>
-      <?php print flag_create_link('follow_story', $node->nid); ?>
+      <?php if (isset($follow_story)) : ?>
+          <?php print $follow_story; ?>
+      <?php endif; ?>
     </div>
 
     <?php if(isset($content['field_lead_image'])) { ?>

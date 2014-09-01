@@ -2936,8 +2936,13 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
  */
 function checkdesk_story_collaborate_render_object($row) {
   $node = node_load($row->heartbeat_activity_nid);
-  $node->heartbeat_row = $row;  
-  $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
+  $node->heartbeat_row = $row;
+  if ($row->heartbeat_activity_message_id == 'checkdesk_follow_story') {
+    $output = drupal_render(node_view($node));
+  }
+  else {
+    $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
+  }
   return $output;
 }
 
@@ -2973,4 +2978,28 @@ function _get_desk_reports_args() {
     $story_nid = $_GET['story'];
   }
   return $story_nid;
+}
+
+/**
+ * Function to delete follow story activity (unfollow action)
+ *
+ * @param int $target_nid
+ *  story nid
+ * @param int $uid
+ *  user uid
+ */
+function _checkdesk_delete_follow_story_activity($target_nid, $uid = 0) {
+  if (!$uid) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $uaids = db_query('
+  SELECT uaid
+  FROM {heartbeat_activity}
+  WHERE message_id = :message_id AND nid_target = :target_nid AND uid = :uid
+  ', array(':message_id' => 'checkdesk_follow_story', ':target_nid' => $target_nid, ':uid' => $uid))->fetchCol();
+
+  if (count($uaids)) {
+    heartbeat_activity_delete($uaids);
+  }
 }
