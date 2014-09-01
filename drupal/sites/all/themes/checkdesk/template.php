@@ -639,7 +639,7 @@ function checkdesk_preprocess_node(&$variables) {
   if ($variables['type'] == 'discussion') {
     // Add tab (update & collaborate) to story
     $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
-    // Add follow checkbox
+    // Add follow story flag
     global $user;
     if ($user->uid) {
       $follow_story = flag_create_link('follow_story', $variables['nid']);
@@ -1239,6 +1239,14 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
         '#node' => node_load($vars['fields']['nid']->raw),
       );
     }
+    // Add follow story flag
+    if ($user->uid) {
+      $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
+    }
+    else {
+      $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+    }
+    $vars['follow_story'] = $follow_story;
   }
 
   if ($vars['view']->name === 'updates_for_stories') {

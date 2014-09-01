@@ -20,7 +20,11 @@
         </div>
       <?php } ?>
       </div>
-
+      <?php if (isset($follow_story)) : ?>
+        <div class="checkdesk-follow-story">
+          <?php print $follow_story; ?>
+        </div>
+      <?php endif; ?>
       <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
         <?php print render($content['links']); ?>
       <?php } ?>
@@ -32,9 +36,7 @@
 
   	<div class="story-body">
       <?php print render($content['body']); ?>
-      <?php if (isset($follow_story)) : ?>
-          <?php print $follow_story; ?>
-      <?php endif; ?>
+
     </div>
 
     <?php if(isset($content['field_lead_image'])) { ?>
