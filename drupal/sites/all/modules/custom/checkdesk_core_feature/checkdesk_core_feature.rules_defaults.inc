@@ -946,6 +946,25 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_unfollow_story'] = entity_import('rules_config', '{ "rules_unfollow_story" : {
+      "LABEL" : "unfollow story",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "php", "flag" ],
+      "ON" : { "flag_unflagged_follow_story" : [] },
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "flagged-node" ],
+            "type" : { "value" : { "discussion" : "discussion" } }
+          }
+        }
+      ],
+      "DO" : [
+        { "php_eval" : { "code" : "_checkdesk_delete_follow_story_activity($flagged_node-\\u003Enid);" } }
+      ]
+    }
+  }');
   $items['rules_user_banned_and_comments_deleted'] = entity_import('rules_config', '{ "rules_user_banned_and_comments_deleted" : {
       "LABEL" : "User banned and comments deleted",
       "PLUGIN" : "reaction rule",
