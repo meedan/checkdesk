@@ -132,6 +132,18 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
       'label' => $label . t('Fact-checking set on a report I added footnote to'),
       'token type' => 'node',
     );
+    $events[$context . '_update_on_story_i_followed'] = array(
+      'label' => $label . t('New update on a story I followed'),
+      'token type' => 'node',
+    );
+    $events[$context . '_report_on_story_i_followed'] = array(
+      'label' => $label . t('New report on a story I followed'),
+      'token type' => 'node',
+    );
+    $events[$context . '_report_status_on_story_i_followed'] = array(
+      'label' => $label . t('Change report status on a story I followed'),
+      'token type' => 'node',
+    );
   }
 }
 
@@ -206,6 +218,10 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     }
 
     // Activities for any user
+
+    // Collect followed stories by current user.
+    $followed_stories = _checkdesk_followed_stories();
+
     if ($subscriptions['site_reply_to_comment']) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_reply_to_comment' AND c.uid = :uid", array(':uid' => $params[':uid']));
     }
@@ -217,6 +233,21 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     }
     if ($subscriptions['site_fact_status_changed_for_commenter']) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_status_changed_for_commenter' AND c2.uid = :uid AND heartbeat_activity.timestamp > c2.created", array(':uid' => $params[':uid']));
+    }
+    if ($subscriptions['site_update_on_story_i_followed'] && count($followed_stories)) {
+      $target_stories = implode(',', $followed_stories);
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update'
+      AND heartbeat_activity.nid_target IN ($target_stories)");
+    }
+    if ($subscriptions['site_report_on_story_i_followed'] && count($followed_stories)) {
+      $target_stories = implode(',', $followed_stories);
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_suggested_to_story'
+      AND heartbeat_activity.nid_target IN ($target_stories)");
+    }
+    if ($subscriptions['site_report_status_on_story_i_followed']&& count($followed_stories)) {
+      $target_stories = implode(',', $followed_stories);
+      $query->add_where_expression(1, "heartbeat_activity.message_id = 'status_report'
+      AND heartbeat_activity.nid_target IN ($target_stories)");
     }
 
     $query->add_where_expression(1, "FALSE");
@@ -337,4 +368,18 @@ function checkdesk_notifications_tokens($type, $tokens, array $data = array(), a
     $replacements[$original] = url('user/' . $user->uid . '/notifications', array('absolute' => TRUE, 'alias' => TRUE, 'language' => $options['language']));
   }
   return $replacements;
+}
+
+/**
+ *  Get followed stories
+ *
+ */
+function _checkdesk_followed_stories($uid = 0) {
+  if (!$uid) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $result = db_query('SELECT DISTINCT nid_target FROM {heartbeat_activity} WHERE uid = :uid',
+    array(':uid' => $uid))->fetchCol();
+  return $result;
 }
