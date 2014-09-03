@@ -76,3 +76,40 @@ function meedan_reports_update_7003() {
       ->execute();
   }
 }
+
+/**
+ * Set missing variables for old update templates
+ */
+function meedan_reports_update_7004() {
+  $result = db_query('
+    SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, u.name, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON ha.nid_target = n.nid
+    INNER JOIN {users} u ON ha.uid = u.uid
+    WHERE message_id = :message_id
+    ', array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update'));
+
+  foreach ($result as $row) {
+    if (strpos($row->variables, '!username') === FALSE) {
+      $temp = explode('-|-', $row->variables);
+      $new_vars['user_url'] = array(
+        '!user_url',
+        url('user/' . $row->uid),
+      );
+      $new_vars['username'] = array(
+        '!username',
+        $row->name,
+      );
+      $new_vars['story'] = array(
+        '!story',
+        $row->title,
+      );
+      foreach ($new_vars as $var) {
+        $temp[] = implode('=|=', $var);
+      }
+      $new_var_str = implode('-|-', $temp);
+      db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+        , array(':variables' => $new_var_str, ':uaid' => $row->uaid));
+    }
+  }
+}
