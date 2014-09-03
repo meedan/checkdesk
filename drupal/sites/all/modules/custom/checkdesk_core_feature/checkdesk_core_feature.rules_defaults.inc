@@ -122,7 +122,9 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_report_suggested_to_story" : "checkdesk_report_suggested_to_story" } },
             "!user_url" : "[site:current-user:url]",
             "!username" : "[site:current-user:name]",
-            "!report_url" : "[node:url]"
+            "!report_url" : "[node:url]",
+            "!story_url" : [ "node:field-stories:url" ],
+            "!story" : [ "node:field-stories:title" ]
           }
         },
         { "schedule" : {
@@ -322,7 +324,9 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_new_update_on_story_i_commented_on_update" : "checkdesk_new_update_on_story_i_commented_on_update" } },
             "!user_url" : [ "node:author:url" ],
             "!username" : [ "node:author:name" ],
-            "!update_url" : [ "node:url" ]
+            "!update_url" : [ "node:url" ],
+            "!story_url" : [ "node:field-desk:url" ],
+            "!story" : [ "node:field-desk:title" ]
           }
         },
         { "schedule" : {
@@ -820,7 +824,9 @@ function checkdesk_core_feature_default_rules_configuration() {
             "message_id" : { "value" : { "checkdesk_report_suggested_to_story" : "checkdesk_report_suggested_to_story" } },
             "!user_url" : "[site:current-user:url]",
             "!username" : "[site:current-user:name]",
-            "!report_url" : "[node:url]"
+            "!report_url" : "[node:url]",
+            "!story_url" : [ "node:field-stories:url" ],
+            "!story" : [ "node:field-stories:title" ]
           }
         },
         { "schedule" : {

@@ -515,7 +515,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_new_update_on_story_i_commented_on_update';
   $heartbeatmessagetemplate->description = 'New update on a story I commented on an update before';
-  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added an <a href="!update_url">update</a>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added an <a href="!update_url">update</a> to <a href="!story_url">!story</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -538,6 +538,8 @@ function checkdesk_core_feature_heartbeat_template_info() {
     '!user_url' => '',
     '!username' => '',
     '!update_url' => '',
+    '!story_url' => '',
+    '!story' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
@@ -735,7 +737,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_report_suggested_to_story';
   $heartbeatmessagetemplate->description = 'Report suggested to story';
-  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a <a href="!report_url">report</a>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a <a href="!report_url">report</a> to <a href="!story_url">!story</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -758,6 +760,8 @@ function checkdesk_core_feature_heartbeat_template_info() {
     '!user_url' => '',
     '!username' => '',
     '!report_url' => '',
+    '!story_url' => '',
+    '!story' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(

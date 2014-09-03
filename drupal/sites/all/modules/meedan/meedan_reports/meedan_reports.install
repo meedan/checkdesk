@@ -57,3 +57,22 @@ function meedan_reports_update_7002() {
     db_query($sql_revision);
   }
 }
+
+/**
+ * Update nid_target on hearbeat_activity table.
+ */
+function meedan_reports_update_7003() {
+  $result = db_query('
+       SELECT field_stories_target_id, GROUP_CONCAT(entity_id) AS reports
+       FROM {field_data_field_stories}
+       GROUP BY field_stories_target_id
+    ')->fetchAllKeyed(0);
+  foreach ($result as $story => $nids) {
+    db_update('heartbeat_activity')
+      ->fields(array(
+        'nid_target' => $story,
+         ))
+      ->condition('nid', explode(',', $nids), 'IN')
+      ->execute();
+  }
+}
