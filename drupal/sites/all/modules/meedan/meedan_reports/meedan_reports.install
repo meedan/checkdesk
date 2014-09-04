@@ -80,36 +80,71 @@ function meedan_reports_update_7003() {
 /**
  * Set missing variables for old update templates
  */
-function meedan_reports_update_7004() {
-  $result = db_query('
+function meedan_reports_update_7004(&$sandbox) {
+
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_uaid'] = 0;
+    $sandbox['limit'] = 400;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(uaid) FROM {heartbeat_activity}
+        WHERE message_id = :message_id', array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update'))->fetchField();
+  }
+
+  $result = db_query_range('
     SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, u.name, n.title
     FROM {heartbeat_activity} ha
     INNER JOIN {node} n ON ha.nid_target = n.nid
     INNER JOIN {users} u ON ha.uid = u.uid
-    WHERE message_id = :message_id
-    ', array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update'));
+    WHERE message_id = :message_id AND uaid > :uaid
+    ', 0, $sandbox['limit'],
+    array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update', ':uaid' => $sandbox['last_uaid']));
 
   foreach ($result as $row) {
-    if (strpos($row->variables, '!username') === FALSE) {
-      $temp = explode('-|-', $row->variables);
-      $new_vars['user_url'] = array(
-        '!user_url',
-        url('user/' . $row->uid),
-      );
-      $new_vars['username'] = array(
-        '!username',
-        $row->name,
-      );
-      $new_vars['story'] = array(
-        '!story',
-        $row->title,
-      );
-      foreach ($new_vars as $var) {
-        $temp[] = implode('=|=', $var);
-      }
-      $new_var_str = implode('-|-', $temp);
+    $variables = heartbeat_decode_message_variables($row->variables);
+    if (!array_key_exists('!story', $variables)) {
+      $variables['!user_url'] = url('user/' . $row->uid);
+      $variables['!username'] = $row->name;
+      $variables['!story'] = $row->title;
       db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
-        , array(':variables' => $new_var_str, ':uaid' => $row->uaid));
+        , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
     }
+    $sandbox['progress']++;
   }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_uaid'] = $row->uaid;
+}
+
+/**
+ *  * Set missing variables for old reports (status_report)
+ */
+function meedan_reports_update_7005(&$sandbox) {
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_uaid'] = 0;
+    $sandbox['limit'] = 400;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(uaid) FROM {heartbeat_activity}
+        WHERE message_id = :message_id', array(':message_id' => 'status_report'))->fetchField();
+  }
+  $result = db_query_range('
+    SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, u.name, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON ha.nid = n.nid
+    INNER JOIN {users} u ON ha.uid = u.uid
+    WHERE message_id = :message_id AND uaid > :uaid
+    ',0, $sandbox['limit'], array(':message_id' => 'status_report', ':uaid' => $sandbox['last_uaid']));
+
+  foreach ($result as $row) {
+    $variables = heartbeat_decode_message_variables($row->variables);
+    if (!array_key_exists('!report_url', $variables)) {
+      $variables['!editor_url'] = url('user/' . $row->uid);
+      $variables['!report_url'] = url('node/' . $row->nid);
+      db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+        , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+    }
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_uaid'] = $row->uaid;
 }
