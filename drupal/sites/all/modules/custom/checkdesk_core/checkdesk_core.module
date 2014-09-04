@@ -2977,6 +2977,9 @@ function _get_desk_reports_args() {
   elseif (isset($_GET['story']) && is_numeric($_GET['story'])) {
     $story_nid = $_GET['story'];
   }
+  else {
+    $story_nid = 'all';
+  }
   return $story_nid;
 }
 
