@@ -589,7 +589,13 @@ function checkdesk_preprocess_node(&$variables) {
     if ($site_timezone['city'] == 'Jerusalem') {
       $timezone = t('Jerusalem, Palestine');
     }
-
+    $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+        '@url' => url('node/'. $variables['nid']),
+        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
+        '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
+        '!interval' => format_interval(time() - $variables['created'], 1),
+      ));
     // Add creation info
     $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime !timezone</time>', array(
       '@user' => url('user/'. $variables['uid']),
@@ -639,6 +645,8 @@ function checkdesk_preprocess_node(&$variables) {
   if ($variables['type'] == 'discussion') {
     // Add tab (update & collaborate) to story
     $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
+    // Format lead image as thumbnail for activity template
+    $variables['inline_thumbnail'] = l(theme('image_style', array('path' => $variables['field_lead_image'][0]['uri'], 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'report_thumbnail', 'attributes' => array('class' => 'inline-img-thumb'))), 'node/' . $variables['nid'] , array('html' => TRUE));
     // Add follow story flag
     global $user;
     if ($user->uid) {
@@ -654,6 +662,9 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
       // Get heartbeat activity for particular story
       $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
+      
+
+      // l(theme_image(array('path' => $variables['field_lead_image'][0]['uri'], 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $variables['nid'] , array('html' => TRUE));
     }
     else {
       // get updates for a particular story

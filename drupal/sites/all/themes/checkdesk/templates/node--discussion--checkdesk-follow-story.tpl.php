@@ -1,47 +1,39 @@
-<section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <article class="story">
-
-    <h1 class="title">
-      <?php print render($node->title); ?>
-    </h1>
-
-
-    <div class="story-meta">
-      <div class="story-attributes">
-        <?php if (isset($user_avatar)) : ?>
-          <?php print $user_avatar; ?>
-        <?php endif; ?>
-        <?php print $creation_info_short; ?>
-        <?php if (isset($story_commentcount)) { ?>
-          <div class="story-commentcount">
-            <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
-              <span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
-            </a>
+<div class="activity-item-content-wrapper item-content-wrapper">
+  <span class="activity-item-content item-content">
+      
+    <div class="inline-attachment">
+      <div class="inline-attachment-wrapper">
+        <div class="inline-attachment-bar"><div class="indent"></div></div>
+        <div class="media-holder media-inline-holder">
+          <div class="media-content">
+            <?php if(isset($inline_thumbnail)) : ?>
+              <div class="media">
+                <div class="inline-holder inline-img-thumb-holder">
+                  <?php print $inline_thumbnail; ?>
+                </div>
+              </div>
+            <?php endif; ?>
+            <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
+            <?php if(isset($node->name)) : ?><span class="author"><?php print $node->name; ?></span><?php endif; ?>
+            <span>
+              <span class="ts"><?php print $media_creation_info; ?></span>
+            </span>
           </div>
-        <?php } ?>
+        </div> <!-- /media-holder -->
       </div>
+    </div> <!-- /inline-attachment -->
 
-      <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
-        <?php print render($content['links']); ?>
-      <?php } ?>
+  </span> <!-- /activity-item-content -->
+</div> <!-- /activity-item-content-wrapper -->
+
+<div class="item-nested-content-wrapper">
+  <div class="activity-item-controls item-controls">
+    <div class="meta">
+      
     </div>
-
-
-    <div class="story-body">
-      <?php print render($content['body']); ?>
+    <div class="actions" role="toolbar">
+      <?php print render($content['links']); ?>
     </div>
-    <!-- ARK use this to render with specific image style -->
-    <?php print render(field_view_field('node', $node, 'field_lead_image', array(
-      'type' => 'image',
-      'settings' => array('image_style' => 'report_thumbnail'),
-    ))); ?>
-    <!-- ARK use this to render default image display -->
-    <!--
-    <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
-        <?php print render($content['field_lead_image']); ?>
-      </figure>
-    <?php } ?>
-   -->
-  </article>
-</section>
+  </div> <!-- /activity-item-controls -->
+</div>
+
