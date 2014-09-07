@@ -36,19 +36,15 @@ function meedan_reports_update_7001() {
 function meedan_reports_update_7002() {
   $result = db_query("SELECT n.nid, n.vid, GROUP_CONCAT(field_desk_target_id SEPARATOR ',') AS stories 
     FROM {checkdesk_reports_updates} ru        
-    INNER {JOIN node n ON ru.report_nid} = n.nid        
-    INNER {JOIN field_data_field_desk} fd ON ru.update_nid = fd.entity_id 
+    INNER JOIN {node} n ON ru.report_nid} = n.nid
+    INNER JOIN {field_data_field_desk} fd ON ru.update_nid = fd.entity_id
     GROUP BY n.nid HAVING COUNT(n.nid) > 1
     ")->fetchAll();
   $values = array();
   //build insert values on SQL format.
   foreach ($result as $row) {
-    $stories = explode(',', $row->stories);
-    $delta = 0;
-    foreach($stories as $nid) {
-      $values[] = "('node', 'media', 0, {$row->nid}, {$row->vid}, 'und', $delta, $nid)";
-      $delta++;
-    }
+    $nid = max(explode(',', $row->stories));
+    $values[] = "('node', 'media', 0, {$row->nid}, {$row->vid}, 'und', 0, $nid)";
   }
   if (count($values)) {
     $sql = "INSERT INTO {field_data_field_stories} VALUES ". implode(',', $values);
