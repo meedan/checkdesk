@@ -737,7 +737,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_report_suggested_to_story';
   $heartbeatmessagetemplate->description = 'Report suggested to story';
-  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a <a href="!report_url">report</a> to <a href="!story_url">!story</a>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a new  <a href="!report_url">report</a> to <a href="!story_url">!story</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
