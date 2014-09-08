@@ -1900,6 +1900,14 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
       $query->add_groupby('node.nid');
       $query->orderby = array(array('field' => "(f.field_stories_target_id IS NOT NULL AND f.field_stories_target_id = $story_id)", 'direction' => 'DESC'), array('field' => 'node.created', 'direction' => $sort_order));
+      // Collect existing reports
+      $reports = db_query('
+          SELECT report_nid FROM {checkdesk_reports_updates} ru
+          INNER JOIN {field_data_field_desk} fd ON ru.update_nid = fd.entity_id
+          WHERE field_desk_target_id = :story_id', array(':story_id' => arg(1)))->fetchCol();
+      if (count($reports)) {
+        $query->add_where(1,'node.nid', $reports, 'NOT IN');
+      }
     }
   }
 
@@ -2738,7 +2746,7 @@ function _redirect_report($form, &$form_state) {
   $values = $form_state['values'];
   if (!empty($values['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
     // Before redirect should compose update with this report to show it on updates tab.
-    if (user_access('add report to story')) {
+    if (user_access('create post content')) {
       $update_node = new stdClass();
       $update_node->type = 'post';
       $update_node->language = $values['language'];
