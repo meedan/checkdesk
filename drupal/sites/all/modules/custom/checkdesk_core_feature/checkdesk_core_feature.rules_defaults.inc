@@ -335,13 +335,6 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_node" : [ "node" ],
             "param_story" : [ "node:field-desk" ]
           }
-        },
-        { "schedule" : {
-            "component" : "rules_notify_follower_users_new_update",
-            "date" : "now",
-            "param_node" : [ "node" ],
-            "param_story" : [ "node:field-desk" ]
-          }
         }
       ]
     }
@@ -377,24 +370,25 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
-  $items['rules_notify_follower_users_new_update'] = entity_import('rules_config', '{ "rules_notify_follower_users_new_update" : {
-      "LABEL" : "Notify follower users: new update",
+  $items['rules_notify_follower_users_change_report_status'] = entity_import('rules_config', '{ "rules_notify_follower_users_change_report_status" : {
+      "LABEL" : "Notify follower users: change report status",
       "PLUGIN" : "action set",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
       "USES VARIABLES" : {
         "node" : { "label" : "Node", "type" : "node" },
-        "story" : { "label" : "Story", "type" : "node" }
+        "story" : { "label" : "Story", "type" : "node" },
+        "current_user" : { "label" : "Current user", "type" : "user" }
       },
       "ACTION SET" : [
         { "notify_subscribers" : {
             "object" : [ "node" ],
-            "event" : "email_update_on_story_i_followed",
-            "subject" : "New update",
-            "message" : "Hello !recipient_name,\\r\\n\\r\\nStory \\u0022!title\\u0022 which you followed has a \\u003Ca href=\\u0022!url\\u0022\\u003Enew update\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
-            "actor" : [ "node:author" ],
-            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!title\\u0027 =\\u003E $story-\\u003Etitle, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
+            "event" : "email_report_on_story_i_followed",
+            "subject" : "Change report status",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\n!actor has changed report \\u0022!node_title\\u0022  status .\\r\\n\\r\\n\\u003Ca href=\\u0022!story_url\\u0022\\u003EClick here\\u003C\\/a\\u003E to compose a new update to the story using that report.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site, please do not respond directly to this email.",
+            "actor" : [ "current-user" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!actor\\u0027 =\\u003E $current_user-\\u003Ename, \\u0027!story_title\\u0027 =\\u003E $list_item-\\u003Etitle, \\u0027!node_title\\u0027 =\\u003E $node-\\u003Etitle, \\u0027!story_url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $list_item-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
           }
         }
       ]
@@ -486,6 +480,15 @@ function checkdesk_core_feature_default_rules_configuration() {
             "actor" : [ "current-user" ],
             "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!actor\\u0027 =\\u003E $current_user-\\u003Ename, \\u0027!story_title\\u0027 =\\u003E $list_item-\\u003Etitle, \\u0027!node_title\\u0027 =\\u003E $node-\\u003Etitle, \\u0027!story_url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $list_item-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
           }
+        },
+        { "notify_subscribers" : {
+            "object" : [ "node" ],
+            "event" : "email_report_on_story_i_followed",
+            "subject" : "Report added to story",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\n!actor has added a new report \\u0022!node_title\\u0022 to this story \\u0022!story_title\\u0022.\\r\\n\\r\\n\\u003Ca href=\\u0022!story_url\\u0022\\u003EClick here\\u003C\\/a\\u003E to compose a new update to the story using that report.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site, please do not respond directly to this email.",
+            "actor" : [ "current-user" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!actor\\u0027 =\\u003E $current_user-\\u003Ename, \\u0027!story_title\\u0027 =\\u003E $list_item-\\u003Etitle, \\u0027!node_title\\u0027 =\\u003E $node-\\u003Etitle, \\u0027!story_url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $list_item-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
+          }
         }
       ]
     }
@@ -572,6 +575,15 @@ function checkdesk_core_feature_default_rules_configuration() {
             "event" : "email_update_on_story_i_commented_on_update",
             "subject" : "New update",
             "message" : "Hello !recipient_name,\\r\\n\\r\\nStory \\u0022!title\\u0022 which you commented on has a \\u003Ca href=\\u0022!url\\u0022\\u003Enew update\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
+            "actor" : [ "node:author" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!title\\u0027 =\\u003E $story-\\u003Etitle, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
+          }
+        },
+        { "notify_subscribers" : {
+            "object" : [ "node" ],
+            "event" : "email_update_on_story_i_followed",
+            "subject" : "New update",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\nStory \\u0022!title\\u0022 which you followed has a \\u003Ca href=\\u0022!url\\u0022\\u003Enew update\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
             "actor" : [ "node:author" ],
             "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!title\\u0027 =\\u003E $story-\\u003Etitle, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
           }
@@ -957,7 +969,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
       "ON" : { "node_update" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
@@ -977,6 +989,14 @@ function checkdesk_core_feature_default_rules_configuration() {
             "!editor" : [ "site:current-user:name" ],
             "!report_url" : [ "node:url" ],
             "!status" : [ "node:field-rating:name" ]
+          }
+        },
+        { "schedule" : {
+            "component" : "rules_notify_follower_users_change_report_status",
+            "date" : "now",
+            "param_node" : [ "node" ],
+            "param_story" : [ "node:field-stories" ],
+            "param_current_user" : [ "site:current-user" ]
           }
         }
       ]

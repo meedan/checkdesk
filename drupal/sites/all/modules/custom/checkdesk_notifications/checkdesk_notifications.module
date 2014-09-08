@@ -304,6 +304,18 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
     case 'email_comment_on_report':
       $uids = db_query("(SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id) UNION (SELECT DISTINCT(c.uid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid LEFT JOIN {users_roles} ur ON ur.uid = c.uid WHERE ur.rid = $citizen_role_id AND c.nid = $object->nid)")->fetchCol();
       break;
+    case 'email_update_on_story_i_followed':
+      $nid_target = $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+      $uids = db_query("SELECT DISTINCT(ha.uid) FROM {heartbeat_activity} ha  WHERE nid_target = $nid_target")->fetchCol();
+      break;
+    case 'email_report_on_story_i_followed':
+      $nid_target = $object->field_desk[LANGUAGE_NONE][0]['target_id'];
+      $uids = db_query("SELECT DISTINCT(ha.uid) FROM {heartbeat_activity} ha  WHERE nid_target = $nid_target")->fetchCol();
+      break;
+    case 'email_report_status_on_story_i_followed':
+      $nid_target = $object->field_stories[LANGUAGE_NONE][0]['target_id'];
+      $uids = db_query("SELECT DISTINCT(ha.uid) FROM {heartbeat_activity} ha  WHERE nid_target = $nid_target")->fetchCol();
+      break;
   }
   return $uids;
 }

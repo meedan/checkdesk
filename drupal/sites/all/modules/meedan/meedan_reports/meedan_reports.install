@@ -112,7 +112,7 @@ function meedan_reports_update_7004(&$sandbox) {
 }
 
 /**
- *  * Set missing variables for old reports (status_report)
+ * Set missing variables for old reports (status_report)
  */
 function meedan_reports_update_7005(&$sandbox) {
   if(!isset($sandbox['progress'])){
