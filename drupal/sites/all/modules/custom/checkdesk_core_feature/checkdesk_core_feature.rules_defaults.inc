@@ -335,6 +335,13 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_node" : [ "node" ],
             "param_story" : [ "node:field-desk" ]
           }
+        },
+        { "schedule" : {
+            "component" : "rules_notify_follower_users_new_update",
+            "date" : "now",
+            "param_node" : [ "node" ],
+            "param_story" : [ "node:field-desk" ]
+          }
         }
       ]
     }
@@ -365,6 +372,29 @@ function checkdesk_core_feature_default_rules_configuration() {
             "component" : "rules_notify_subscribed_users_new_user",
             "date" : "now",
             "param_user" : [ "account" ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_notify_follower_users_new_update'] = entity_import('rules_config', '{ "rules_notify_follower_users_new_update" : {
+      "LABEL" : "Notify follower users: new update",
+      "PLUGIN" : "action set",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "php", "rules", "meedan_notifications" ],
+      "USES VARIABLES" : {
+        "node" : { "label" : "Node", "type" : "node" },
+        "story" : { "label" : "Story", "type" : "node" }
+      },
+      "ACTION SET" : [
+        { "notify_subscribers" : {
+            "object" : [ "node" ],
+            "event" : "email_update_on_story_i_followed",
+            "subject" : "New update",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\nStory \\u0022!title\\u0022 which you followed has a \\u003Ca href=\\u0022!url\\u0022\\u003Enew update\\u003C\\/a\\u003E.\\r\\n\\r\\nYou can edit your notification settings from your \\u003Ca href=\\u0022!recipient_url\\u0022\\u003Eprofile page\\u003C\\/a\\u003E.\\r\\n\\r\\nThis was an auto-generated email from !site; please do not respond directly to this email.",
+            "actor" : [ "node:author" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!title\\u0027 =\\u003E $story-\\u003Etitle, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
           }
         }
       ]
