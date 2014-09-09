@@ -1052,12 +1052,8 @@ function _checkdesk_core_post_node_form_submit($form, &$form_state) {
   }
 
   // Redirect to story page
-  if (arg(0) == 'node' && is_numeric(arg(1))) {
-    $form_state['redirect'] = array('node/' . $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id']);
-  }
-  else {
-    $form_state['redirect'] = array('story-collaboration/' . $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id']);
-  }
+  $form_state['redirect'] = array('story-collaboration/' . $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id']);
+  
   // drupal_set_message(t('Update has been added to this story.'));
   // $form_state['redirect'] = array('node/' . $form['field_desk'][LANGUAGE_NONE]['#default_value'], array('fragment' => 'update-'. $form_state['nid']));
 }
