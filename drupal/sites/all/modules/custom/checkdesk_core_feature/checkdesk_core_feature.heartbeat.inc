@@ -121,7 +121,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_comment_on_update';
   $heartbeatmessagetemplate->description = 'Comment on an update';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has commented on <strong><a href="!update_url">!update_title</a></strong></p>';
+  $heartbeatmessagetemplate->message = '<a href="!user_url" class="actor">!username</a> has commented on <a href="!update_url">!update_title</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -179,7 +179,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_fact_checking_on';
   $heartbeatmessagetemplate->description = 'Fact-checking turned on for a report';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> you submitted. Fact checking is in progress.</p>';
+  $heartbeatmessagetemplate->message = '<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a> you added';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -236,7 +236,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_fact_checking_on_by_citizen';
   $heartbeatmessagetemplate->description = 'Fact-checking turned on for a report by citizen journalist';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has turned on fact-checking for a <strong><a href="!report_url">report</a></strong> they submitted. Fact checking is in progress.</p>';
+  $heartbeatmessagetemplate->message = '<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a> they submitted. Fact checking is in progress.';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -290,7 +290,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_fact_checking_set';
   $heartbeatmessagetemplate->description = 'Fact-checking was set or changed';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has changed the fact-checking status for a <strong><a href="!report_url">report</a></strong> you submitted to <strong>!fact_checking_status</strong></p>';
+  $heartbeatmessagetemplate->message = '<a href="!user_url" class="actor">!username</a> has changed the fact-checking status for a <a href="!report_url">report</a> you submitted to !fact_checking_status';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -348,7 +348,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_fact_status_changed_for_commenter';
   $heartbeatmessagetemplate->description = 'Fact status changed on a report commented';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has changed the fact-checking status for a <strong><a href="!report_url">report</a></strong> you added footnote to to <strong>!fact_checking_status</strong></p>';
+  $heartbeatmessagetemplate->message = '<a href="!user_url" class="actor">!username</a> has changed the fact-checking status for a <a href="!report_url">report</a> you added footnote to to !fact_checking_status';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -407,7 +407,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_flag_report';
   $heartbeatmessagetemplate->description = 'Report was flagged';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> as <span class="notification-flag">!flag_type</span>.</p>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!flag_author_url">!flag_author_name</a> has flagged a <a href="!report_url">report</a> as <span class="notification-flag">!flag_type</span>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -462,7 +462,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_follow_story';
   $heartbeatmessagetemplate->description = 'Follow story';
-  $heartbeatmessagetemplate->message = '<p><a href="!flag_author_url">!flag_author_name</a></strong> followed this story.</p>';
+  $heartbeatmessagetemplate->message = '<a href="!flag_author_url" class="actor">!flag_author_name</a> followed this story';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -571,7 +571,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_new_user';
   $heartbeatmessagetemplate->description = 'New user registered';
-  $heartbeatmessagetemplate->message = '<p>A new user <strong><a href="!url">!name</a></strong> has registered. Please mark him as <em>active</em>, if you want to accept this registration.</p>';
+  $heartbeatmessagetemplate->message = 'A new user <a href="!url">!name</a> has registered. Please mark him as <em>active</em>, if you want to accept this registration.';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -624,7 +624,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_reply_to_comment';
   $heartbeatmessagetemplate->description = 'A comment was replied';
-  $heartbeatmessagetemplate->message = '<p><strong><a href="!user_url">!username</a></strong> has replied to your <strong><a href="!comment_url">comment</a></strong></p>';
+  $heartbeatmessagetemplate->message = '<a href="!user_url" class="actor">!username</a> has replied to your <a href="!comment_url">comment</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -681,7 +681,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_report_published_in_update';
   $heartbeatmessagetemplate->description = 'A report was published in an update';
-  $heartbeatmessagetemplate->message = '<p>A <strong><a href="!report_url">report</a></strong> which you have submitted has been published in an <strong><a href="!update_url">update</a></strong></p>';
+  $heartbeatmessagetemplate->message = 'A <a href="!report_url">report</a> which you have submitted has been published in an <a href="!update_url">update</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
