@@ -646,7 +646,7 @@ function checkdesk_preprocess_node(&$variables) {
     // Add tab (update & collaborate) to story
     $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
     // Format lead image as thumbnail for activity template
-    $variables['inline_thumbnail'] = l(theme('image_style', array('path' => $variables['field_lead_image'][0]['uri'], 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'report_thumbnail', 'attributes' => array('class' => 'inline-img-thumb'))), 'node/' . $variables['nid'] , array('html' => TRUE));
+    $variables['inline_thumbnail'] = l(theme('image_style', array('path' => $variables['field_lead_image'][0]['uri'], 'alt' => t(check_plain($variables['elements']['#node']->title)), 'style_name' => 'report_thumbnail', 'attributes' => array('class' => 'inline-img-thumb'))), 'node/' . $variables['nid'] , array('html' => TRUE));
     // Add follow story flag
     global $user;
     if ($user->uid) {

@@ -5,11 +5,6 @@
         <div class="media">
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
-        <?php if(isset($content['field_stories'])): ?>
-        <div class="checkdesk-story-wrapper">
-          <?php print render($content['field_stories']); ?>
-        </div>
-        <?php endif ?>
       </section> 
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity item-nested-content-wrapper open">
           <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
@@ -37,6 +32,13 @@
               <?php endif; ?>
             </div>
           <?php endif; ?>
+      </section>
+      <section class="report-detail">
+        <?php if(isset($content['field_stories'])): ?>
+          <div class="checkdesk-story-wrapper">
+            Published in <?php print render($content['field_stories']); ?>
+          </div>
+        <?php endif ?>
       </section>
     </div>
   </article>
