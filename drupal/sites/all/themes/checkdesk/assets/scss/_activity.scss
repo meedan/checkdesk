@@ -156,11 +156,30 @@ $position:  "before";
 
 // activity
 
+.view-story-collaboration {
+	// add styles for load more pager
+	@include ctb-load-more-pager;
+
+	.pager-load-more {
+		// border-top: 1px solid rgba($firefly, .1);
+		margin-top: 30px;
+	}
+}
+
 .activity-item {
 	position: relative;
 	padding: 0;
 	padding-#{$from-direction}: (60px + $gutter-width);
 	margin-top: 30px;
+	padding-top: 20px;
+	border-top: 1px solid rgba($firefly, .05);
+
+	// no top border and padding for first item
+	&:first-child {
+		border-top: 0;
+		padding-top: 0;
+		.avatar { top: 0; }
+	}
 
 	// when nested inside a parent 
 	// e.g. in verfication log
@@ -170,11 +189,20 @@ $position:  "before";
 		margin-top: 20px;
 		min-height: 32px;
 		line-height: 22px;
+		border: 0 none;
+		// avatar default position
+		.avatar { top: 0; }
+		// show delete icon on hover
+		&:hover {
+			.inline-delete-item {
+				display: inline-block;
+			}
+		}
 	}
 
 	.avatar {
 		position: absolute;
-		top: 0;
+		top: 20px;
 		#{$from-direction}: 0;
 		float: $from-direction;
 
@@ -221,12 +249,6 @@ $position:  "before";
 	.inline-delete-item {
 		float: opposite-position($from-direction);
 		display: none;
-	}
-
-	&:hover {
-		.inline-delete-item {
-			display: inline-block;
-		}
 	}
 
 	@include ctb-clearfix;
