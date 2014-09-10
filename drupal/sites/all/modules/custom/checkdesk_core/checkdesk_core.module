@@ -2746,19 +2746,6 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
 function _redirect_report($form, &$form_state) {
   $values = $form_state['values'];
   if (!empty($values['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
-    // Before redirect should compose update with this report to show it on updates tab.
-    if (user_access('create post content')) {
-      $update_node = new stdClass();
-      $update_node->type = 'post';
-      $update_node->language = $values['language'];
-      $update_node->uid = $values['uid'];
-      node_object_prepare($update_node);
-      $report_node = node_load($values['nid']);
-      $update_node->body[LANGUAGE_NONE][0]['value'] = checkdesk_core_droppable_reference($report_node);
-      $update_node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
-      $update_node->field_desk[LANGUAGE_NONE][0]['target_id'] = $values['field_stories'][LANGUAGE_NONE][0]['target_id'];
-      node_save($update_node);
-    }
     $form_state['redirect'] = 'story-collaboration/' . $values['field_stories'][LANGUAGE_NONE][0]['target_id'];
   }
 }
