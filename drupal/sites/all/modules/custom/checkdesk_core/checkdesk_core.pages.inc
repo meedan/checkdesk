@@ -51,8 +51,8 @@ function _checkdesk_story_get_collaborators($nid) {
     FROM {heartbeat_activity} ha 
     INNER JOIN {users} u ON ha.uid = u.uid 
     LEFT JOIN {file_managed} f ON u.picture = f.fid 
-    WHERE nid_target = :nid
-    ', array(':nid' => arg(1)))->fetchAll();
+    WHERE nid_target = :nid AND message_id != :message_id
+    ', array(':nid' => arg(1), ':message_id' => 'checkdesk_follow_story'))->fetchAll();
   if (count($users)) {
     $title = format_plural(count($users), '1 collaborator', '@count collaborators');
     $uitems = $pitems = array();
