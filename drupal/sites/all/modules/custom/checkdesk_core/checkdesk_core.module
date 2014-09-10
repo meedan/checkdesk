@@ -2463,27 +2463,29 @@ function checkdesk_core_ajax_command_attach_behaviors($selector = NULL) {
  * Implements hook_flag_javascript_info_alter().
  */
 function checkdesk_core_flag_javascript_info_alter(&$info) {
-  $nid = $info['contentId'];
-  $node = node_load($nid);
-  $element = node_view($node);
-  $element['comments'] = comment_node_page_additions($node);
-  $output = drupal_render($element);
+  if ($info['flagName'] != 'follow_story') {
+    $nid = $info['contentId'];
+    $node = node_load($nid);
+    $element = node_view($node);
+    $element['comments'] = comment_node_page_additions($node);
+    $output = drupal_render($element);
 
-  $js = drupal_add_js(NULL, NULL);
-  $settings = '';
-  if (isset($js['settings'])) {
-    $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
-                drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
-                ');</script>';
+    $js = drupal_add_js(NULL, NULL);
+    $settings = '';
+    if (isset($js['settings'])) {
+      $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
+        drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
+        ');</script>';
+    }
+    // Add the settings to the form
+    $output .= $settings;
+
+    $commands = array();
+    $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
+    $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
+
+    $info['commands'] = $commands;
   }
-  // Add the settings to the form
-  $output .= $settings;
-
-  $commands = array();
-  $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
-  $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
-
-  $info['commands'] = $commands;
 }
 
 /**
