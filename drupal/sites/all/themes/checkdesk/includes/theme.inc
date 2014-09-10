@@ -252,7 +252,7 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     if (isset($message->cid) && user_access('administer comments')) {
       $delete_footnote = l('<span class="icon-trash-o"></span>', 'comment/'. $message->cid .'/delete', array(
         //'query' => drupal_get_destination(),
-        'attributes' => array('class' => 'delete-footnote', 'title' => t('Delete')),
+        'attributes' => array('class' => 'inline-delete-item', 'title' => t('Delete')),
         'html' => TRUE,
       ));
     }
@@ -323,6 +323,10 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   ));
 
 
+  if (isset($delete_footnote)) {
+    $output .= $delete_footnote;
+  }
+
   if(isset($actor)) {
     $output .= '<span>' . $actor . '</span> ';  
   }
@@ -334,11 +338,6 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   } else {
     $output .= $message->message;
   }
-
-  if (isset($delete_footnote)) {
-    $output .= $delete_footnote;
-  }
-  
 
   return $output;
 }
