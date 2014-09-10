@@ -1667,7 +1667,7 @@ div.block:hover .edit {
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-.admin-nav-tabs > li span.icon-trash-o:before {
+.admin-nav-tabs > li span.icon-trash-o:before, .icon-trash-o:before {
   content: "\f014";
 }
 
@@ -8360,6 +8360,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-trash-o:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .icon-check-circle {
   color: #399664;
 }
@@ -8663,6 +8678,13 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   float: right;
   font-size: 14px;
   color: #cfd3d5;
+}
+.activity-item .inline-delete-item {
+  float: right;
+  display: none;
+}
+.activity-item:hover .inline-delete-item {
+  display: inline-block;
 }
 .activity-item:before, .activity-item:after {
   display: table;

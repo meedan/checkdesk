@@ -21,6 +21,7 @@
 .icon-ellipsis-h { @include icon(ellipsis-h, 20px); }
 .icon-youtube-play { @include icon(youtube-play); }
 .icon-check-circle { @include icon(check-circle, 16px);}
+.icon-trash-o { @include icon(trash-o, 16px);}
 
  // Report status icons in activity log's header
 $position:  "before";
@@ -215,6 +216,17 @@ $position:  "before";
 		float: opposite-position($from-direction);
 		font-size: 14px;
 		color: $firefly20;
+	}
+
+	.inline-delete-item {
+		float: opposite-position($from-direction);
+		display: none;
+	}
+
+	&:hover {
+		.inline-delete-item {
+			display: inline-block;
+		}
 	}
 
 	@include ctb-clearfix;

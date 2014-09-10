@@ -188,7 +188,8 @@
           $comment.parent().before($status.parent());
 
           // move the trash icon for deleting comments to the parent
-          $status.find('.activity-end-wrapper').prepend($comment.find('.delete-footnote'));
+          // Currently doesn't delete both items
+          // $status.find('.timestamp').after($comment.find('.inline-delete-item'));
         }
       });
     },
