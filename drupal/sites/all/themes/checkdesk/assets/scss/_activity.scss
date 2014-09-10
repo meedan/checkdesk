@@ -93,6 +93,10 @@ $position:  "before";
 	}
 
 	.item-controls {
+		.page-story-collaboration & {
+			cursor: pointer;
+		}
+
 		.meta, .actions {
 			display: table-cell;
 			width: 100%;
@@ -110,10 +114,16 @@ $position:  "before";
 				display: inline-block;
 			}
 		}
+		
 		// hide any labels
 		.label {
 			display: none;
 		}
+
+		&:hover .meta {
+			color: $firefly80;
+		}
+		
 	} // item-controls
 
 	.item-nested-content-wrapper {
@@ -133,7 +143,9 @@ $position:  "before";
 	}
 
 	.item-nested-content {
-
+		.page-story-collaboration & {
+			display: none;
+		}
 	} // item-nested-content
 
 	@include ctb-clearfix;

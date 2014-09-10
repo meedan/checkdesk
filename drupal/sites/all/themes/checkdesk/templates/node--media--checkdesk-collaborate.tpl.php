@@ -28,8 +28,18 @@
     <div class="actions" role="toolbar">
       <?php print render($content['links']); ?>
     </div>
-  </div> <!-- /activity-item-controls -->
-  <div class="item-nested-content">
-    <!-- add report verification log -->
-  </div>
+  </div> <!-- /activity-item-controls --> 
+  <?php if(isset($media_activity_report)) : ?>
+    <div class="activity nested item-nested-content">
+      <?php print $media_activity_report; ?>
+      <?php print render($content['comments']); ?>
+      <?php if ($media_activity_footer) : ?>
+        <div class="activity-list-footer-wrapper">
+          <div class="activity-list-footer">
+            <?php print $media_activity_footer; ?>
+          </div>
+        </div>
+      <?php endif; ?>
+    </div>
+  <?php endif; ?>
 </div>
