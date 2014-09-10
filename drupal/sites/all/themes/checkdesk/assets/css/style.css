@@ -1691,7 +1691,7 @@ nav[role="navigation"] a[href*="add/discussion"]:before {
   content: "\f02b";
 }
 
-nav[role="navigation"] li.submit-report a:before {
+nav[role="navigation"] li.submit-report a:before, .story .story-collaborate-links li.submit-report a:before {
   content: "\f02e";
 }
 
@@ -1699,7 +1699,7 @@ nav[role="navigation"] li.submit-report a:before {
   content: "\f03e";
 }
 
-nav[role="navigation"] a[href*="add/post"]:before, .story .compose-update-form .compose-update-header a:before, .story .open .compose-update-header a:before {
+nav[role="navigation"] a[href*="add/post"]:before, .story .story-collaborate-links li.compose-update a:before, .story .compose-update-form .compose-update-header a:before, .story .open .compose-update-header a:before {
   content: "\f040";
 }
 
@@ -7850,6 +7850,34 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-collaborate-links li:last-child {
   margin-right: 0;
+}
+.story .story-collaborate-links li.submit-report a:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.story .story-collaborate-links li.compose-update a:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .story .story-collaborators {
   text-align: right;
