@@ -1097,6 +1097,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload">';
   $form['field_lead_image']['#suffix'] = '</div">';
   $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
+  $form['actions']['submit']['#submit'][] = '_redirect_story';
 
   if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
     return;
@@ -1147,6 +1148,17 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   );
   drupal_add_js(array('fileInput' => $fileinput), 'setting');
   drupal_add_css(libraries_get_path('fileinput') . '/fileinput.css');
+}
+
+/**
+ * Redirect story to collaboration page.
+ */
+function _redirect_story($form, &$form_state) {
+  $values = $form_state['values'];
+  $form_state['redirect'] = 'story-collaboration/' . $values['nid'];
+  drupal_set_message(t('Now add a !report', array(
+    '!report' => l('report', 'node/add/media', array('query' => array('ref_nid' => $values['nid'])))
+  )));
 }
 
 /**
