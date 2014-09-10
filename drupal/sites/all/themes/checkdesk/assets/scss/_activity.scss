@@ -123,7 +123,7 @@ $position:  "before";
 		&:hover .meta {
 			color: $firefly80;
 		}
-		
+
 	} // item-controls
 
 	.item-nested-content-wrapper {
@@ -181,6 +181,7 @@ $position:  "before";
 		background-repeat: no-repeat;
 		display: inline-block;
 		@include border-radius(4px);
+		background-color: $firefly20;
 	}
 
 	.activity-item-message {
