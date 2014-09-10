@@ -8568,12 +8568,71 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   clear: both;
 }
 
+.view-story-collaboration .pager-load-more {
+  *zoom: 1;
+  margin: 0;
+  padding: 0;
+  padding: 12px 0;
+  float: none;
+  clear: both;
+  position: relative;
+  text-align: center;
+}
+.view-story-collaboration .pager-load-more:before, .view-story-collaboration .pager-load-more:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.view-story-collaboration .pager-load-more:after {
+  clear: both;
+}
+.view-story-collaboration .pager-load-more li {
+  list-style: none;
+}
+.view-story-collaboration .pager-load-more a {
+  width: 70%;
+  text-align: center;
+  font-family: "Droid Arabic Naskh", serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #9fa6ac;
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.view-story-collaboration .pager-load-more a:hover {
+  color: white;
+  background-color: #2e77fc;
+  border: 1px solid #2e77fc;
+}
+.view-story-collaboration .pager-load-more .ajax-progress-throbber {
+  position: absolute;
+  top: 4px;
+  left: 15px;
+}
+.view-story-collaboration .pager-load-more .ajax-progress-throbber .throbber {
+  background: url("../imgs/icons/loader_white.gif");
+}
+.view-story-collaboration .pager-load-more {
+  margin-top: 30px;
+}
+
 .activity-item {
   position: relative;
   padding: 0;
   padding-right: 75px;
   margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(16, 33, 47, 0.05);
   *zoom: 1;
+}
+.activity-item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.activity-item:first-child .avatar {
+  top: 0;
 }
 .nested .activity-item {
   padding-right: 53px;
@@ -8581,10 +8640,17 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin-top: 20px;
   min-height: 32px;
   line-height: 22px;
+  border: 0 none;
+}
+.nested .activity-item .avatar {
+  top: 0;
+}
+.nested .activity-item:hover .inline-delete-item {
+  display: inline-block;
 }
 .activity-item .avatar {
   position: absolute;
-  top: 0;
+  top: 20px;
   right: 0;
   float: right;
   background-size: 100%;
@@ -8653,9 +8719,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .activity-item .inline-delete-item {
   float: left;
   display: none;
-}
-.activity-item:hover .inline-delete-item {
-  display: inline-block;
 }
 .activity-item:before, .activity-item:after {
   display: table;
