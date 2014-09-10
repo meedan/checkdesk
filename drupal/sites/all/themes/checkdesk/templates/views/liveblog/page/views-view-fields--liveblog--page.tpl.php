@@ -72,11 +72,6 @@
           </div>
         <?php } ?>
       </div>
-      <?php if (isset($follow_story)) : ?>
-        <div class="checkdesk-follow-story">
-          <?php print $follow_story; ?>
-        </div>
-      <?php endif; ?>
       <ul class="content-actions">
         <?php print $share_link; ?>
       </ul>

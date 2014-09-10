@@ -1,11 +1,9 @@
 <section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
 
-   
     <h1 class="title">
       <?php print render($node->title); ?>
     </h1>
-
 
     <div class="story-meta">
       <div class="story-attributes">
@@ -21,20 +19,20 @@
         </div>
       <?php } ?>
       </div>
-      <?php if (isset($follow_story)) : ?>
-        <div class="checkdesk-follow-story">
-          <?php print $follow_story; ?>
-        </div>
-      <?php endif; ?>
       <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
         <?php print render($content['links']); ?>
       <?php } ?>
     </div>
 
-
   	<div class="story-body">
-        <?php print render($content['body']); ?>
+      <?php print render($content['body']); ?>
     </div>
+
+    <?php if (isset($follow_story)) : ?>
+      <div class="story-follow">
+        <?php print $follow_story; ?>
+      </div>
+    <?php endif; ?>
 
     <?php if(isset($content['field_lead_image'])) { ?>
       <figure>
@@ -43,9 +41,8 @@
     <?php } ?>
         
     <div class="story-tabs-wrapper">
-        <?php print $story_tabs; ?>
+      <?php print $story_tabs; ?>
     </div>
-
     
     <!-- collaboration -->
     <div class="story-collaboration-header-wrapper">

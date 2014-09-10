@@ -1733,9 +1733,17 @@ label.option.not-applicable:before {
 }
 
 .update .update-footer .icon-share:before,
-.story .story-meta ul.content-actions .share-on > a .icon-share:before,
+.story .story-meta .content-actions .share-on > a .icon-share:before,
 .icon-share:before {
   content: "\f064";
+}
+
+.story .story-follow a.flag-action:before {
+  content: "\f067";
+}
+
+.story .story-follow a.unflag-action:before {
+  content: "\f068";
 }
 
 .danger:before,
@@ -7595,6 +7603,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story:after {
   clear: both;
 }
+.story figure {
+  margin-top: 20px;
+}
 .story h1 {
   font-style: normal;
   font-size: 40px;
@@ -7661,24 +7672,24 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.story .story-meta ul.content-actions {
+.story .story-meta .content-actions {
   margin: 0;
   padding: 0;
   float: left;
   width: 20%;
 }
-.story .story-meta ul.content-actions li {
+.story .story-meta .content-actions li {
   list-style: none;
 }
-.story .story-meta ul.content-actions .add-to {
+.story .story-meta .content-actions .add-to {
   display: none;
 }
-.story .story-meta ul.content-actions .share-on > a {
+.story .story-meta .content-actions .share-on > a {
   float: left;
   font-weight: 700;
   color: #b7bcc0;
 }
-.story .story-meta ul.content-actions .share-on > a .icon-share:before {
+.story .story-meta .content-actions .share-on > a .icon-share:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -7692,13 +7703,13 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.story .story-meta ul.content-actions .share-on > a:hover {
+.story .story-meta .content-actions .share-on > a:hover {
   color: #404d59;
   text-decoration: none;
 }
 .story .story-body {
   *zoom: 1;
-  margin: 30px 0 12px;
+  margin: 30px 0 0;
   color: #404d59;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 18px;
@@ -7716,6 +7727,48 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-body p {
   margin: 0 0 10px 0;
+}
+.story .story-body p:first-child {
+  margin: 0 0;
+}
+.story .story-follow {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.story .story-follow a {
+  color: #b89892;
+}
+.story .story-follow a:hover {
+  color: #4c3632;
+}
+.story .story-follow a.flag-action:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.story .story-follow a.unflag-action:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .story .story-tabs-wrapper {
   margin: 30px 0 24px;
