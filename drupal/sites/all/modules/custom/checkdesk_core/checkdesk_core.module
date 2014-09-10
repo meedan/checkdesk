@@ -1378,6 +1378,10 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
     //Fix reset button
     $form['#action'] = url($_GET['q']);
+    if (_get_desk_reports_args() !== 'all') {
+      unset($form['field_stories_target_id']);
+      unset($form['#info']['filter-field_stories_target_id']);
+    }
   }
 }
 
