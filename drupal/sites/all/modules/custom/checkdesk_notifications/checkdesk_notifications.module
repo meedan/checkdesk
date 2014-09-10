@@ -309,9 +309,6 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
       $uids = db_query("SELECT DISTINCT(ha.uid) FROM {heartbeat_activity} ha  WHERE nid_target = $nid_target")->fetchCol();
       break;
     case 'email_report_on_story_i_followed':
-      $nid_target = $object->field_desk[LANGUAGE_NONE][0]['target_id'];
-      $uids = db_query("SELECT DISTINCT(ha.uid) FROM {heartbeat_activity} ha  WHERE nid_target = $nid_target")->fetchCol();
-      break;
     case 'email_report_status_on_story_i_followed':
       $nid_target = $object->field_stories[LANGUAGE_NONE][0]['target_id'];
       $uids = db_query("SELECT DISTINCT(ha.uid) FROM {heartbeat_activity} ha  WHERE nid_target = $nid_target")->fetchCol();
