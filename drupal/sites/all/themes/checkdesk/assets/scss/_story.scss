@@ -102,7 +102,6 @@
   // }
 
   figure {
-    margin-top: 20px;
     margin-bottom: 30px;
     blockquote {
       // p { @include icon("camera"); }
@@ -224,6 +223,7 @@
 
   .story-follow {
     margin-top: 30px;
+    margin-bottom: 20px;
     a { 
       @include ctb-linkColor($thatch); 
       text-decoration: none;
@@ -570,6 +570,9 @@
     figure {
       display: block;
       margin-bottom: $absolute-line-height/2;
+      blockquote {
+        display: none;
+      }
     }
   }
 }

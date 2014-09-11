@@ -7624,7 +7624,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   clear: both;
 }
 .story figure {
-  margin-top: 20px;
   margin-bottom: 30px;
 }
 .story figure blockquote {
@@ -7781,6 +7780,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-follow {
   margin-top: 30px;
+  margin-bottom: 20px;
   font-size: 20px;
   font-weight: 700;
 }
@@ -8339,6 +8339,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .stories .views-row-first figure {
   display: block;
   margin-bottom: 12px;
+}
+.stories .views-row-first figure blockquote {
+  display: none;
 }
 
 .thumb-60 {
