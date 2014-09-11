@@ -149,6 +149,30 @@ $position:  "before";
 		}
 	} // item-nested-content
 
+	.item-nested-footer {
+		margin-top: 30px;
+		padding-top: 8px;
+		margin-bottom: 2px;
+		border-top: 1px solid rgba($firefly, .05);
+		.cta, .helper {
+			display: table-cell;
+			width: 100%;
+			color: $firefly60;
+		}
+		.cta {
+			font-size: 16px;
+			a { @include ctb-linkColor($strongBlue80); }
+		}
+		.helper {
+			font-size: 14px;
+			white-space: nowrap;
+			span[class^="icon-"], span[class*="icon-"], a {
+				color: $firefly30;
+				text-decoration: none;
+			}
+		}
+	}
+
 	@include ctb-clearfix;
 
 } // item
@@ -243,7 +267,7 @@ $position:  "before";
 	.timestamp {
 		float: opposite-position($from-direction);
 		font-size: 14px;
-		color: $firefly20;
+		color: $firefly30;
 	}
 
 	.inline-delete-item {
