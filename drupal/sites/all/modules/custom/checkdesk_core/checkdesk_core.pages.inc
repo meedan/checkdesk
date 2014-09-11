@@ -61,7 +61,9 @@ function _checkdesk_story_get_collaborators($nid) {
       $fullname = explode(' ', $user->name);
       $fname = array_shift($fullname);
       $uitems[] = l($fname, 'user/'. $user->uid);
-      $pitems[] = l('', 'user/'. $user->uid, array('html' => TRUE, 'attributes' => array('style' => 'background-image: url("' . image_style_url('activity_avatar', $user->uri). '")')));
+      if (!empty($user->uri)) {
+        $pitems[] = l('', 'user/'. $user->uid, array('html' => TRUE, 'attributes' => array('style' => 'background-image: url("' . image_style_url('activity_avatar', $user->uri). '")')));
+      }
     }
     $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems) . '</span>';
     $output .= '<span class="sc-avatars">';
