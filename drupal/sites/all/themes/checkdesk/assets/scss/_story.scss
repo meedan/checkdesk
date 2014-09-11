@@ -214,7 +214,10 @@
 
   .story-follow {
     margin-top: 30px;
-    a { @include ctb-linkColor($thatch); }
+    a { 
+      @include ctb-linkColor($thatch); 
+      text-decoration: none;
+    }
     font-size: 20px;
     font-weight: 700;
     a.flag-action {
