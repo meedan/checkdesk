@@ -1747,8 +1747,9 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == '_checkdesk_core_report_suggest') {
     $form['story']['#prefix'] = '<div class="modal-content-wrapper">';
     $form['story']['#suffix'] = '</div>';
-
-    $form['submit']['#prefix'] = '<div class="modal-footer"><div class="form-actions form-wrapper"><a id="close" class="btn" data-dismiss="modal" aria-hidden="true">' . t('Close') . '</a>';
+    $form['submit']['#prefix'] = '<div class="modal-footer"><div class="form-actions form-wrapper">
+                <a id="close" class="btn" data-dismiss="modal" aria-hidden="true"
+                onClick="jQuery(\'#close\').trigger(\'click\');" >' . t('Close') . '</a>';
     $form['submit']['#suffix'] = '</div></div>';
     $form['submit']['#value'] = t('Continue');
     $form['submit']['#attributes']['class'] = array('btn', 'btn-primary');
