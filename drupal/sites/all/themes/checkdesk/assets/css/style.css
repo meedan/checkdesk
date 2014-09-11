@@ -7224,9 +7224,16 @@ form .image-widget {
 form .image-widget .image-preview {
   display: inline-block;
   margin-right: 15px;
+  vertical-align: top;
 }
 form .image-widget .image-widget-data {
   display: inline-block;
+}
+form .image-widget .text-format-wrapper label {
+  display: inline;
+}
+form .image-widget .cke_contents {
+  height: 100px !important;
 }
 form .image-widget input[type="file"] {
   margin: 0;
@@ -7326,9 +7333,16 @@ form .form-type-textarea:after {
   form .image-widget .image-preview {
     display: inline-block;
     margin-right: 15px;
+    vertical-align: top;
   }
   form .image-widget .image-widget-data {
     display: inline-block;
+  }
+  form .image-widget .text-format-wrapper label {
+    display: inline;
+  }
+  form .image-widget .cke_contents {
+    height: 100px !important;
   }
   form .image-widget input[type="file"] {
     margin: 0;
@@ -7611,6 +7625,14 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story figure {
   margin-top: 20px;
+  margin-bottom: 30px;
+}
+.story figure blockquote {
+  border: 0 none;
+  color: #9fa6ac;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 5px;
 }
 .story h1 {
   font-style: normal;
@@ -7798,7 +7820,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -moz-osx-font-smoothing: grayscale;
 }
 .story .story-tabs-wrapper {
-  margin: 30px 0 24px;
+  margin: 0 0 24px;
 }
 .story .story-tabs-wrapper ul {
   display: table;

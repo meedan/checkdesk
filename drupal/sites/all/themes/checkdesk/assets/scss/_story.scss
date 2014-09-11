@@ -103,6 +103,16 @@
 
   figure {
     margin-top: 20px;
+    margin-bottom: 30px;
+    blockquote {
+      // p { @include icon("camera"); }
+      border: 0 none;
+      color: $firefly40;
+      font-size: 16px;
+      line-height: 20px;
+      margin-top: 5px;
+    }
+
   }
 
 
@@ -229,7 +239,7 @@
   }
 
   .story-tabs-wrapper {
-    margin: 30px 0 24px;
+    margin: 0 0 24px;
     ul {
       display: table;
       width: 100%;
