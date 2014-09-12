@@ -5374,6 +5374,9 @@ div.sensitive-hide {
 #modalContent.modal-report {
   z-index: 950;
 }
+#modalContent.modal-report .modal {
+  background-color: #fbfaf9;
+}
 
 @media all and (min-height: 40em) {
   #modalContent.modal-report {
@@ -7113,6 +7116,7 @@ form.ife .form-type-select select {
   float: right;
   margin-left: 2.12766%;
   display: inline;
+  padding: 0;
 }
 form#user-login label {
   display: block;

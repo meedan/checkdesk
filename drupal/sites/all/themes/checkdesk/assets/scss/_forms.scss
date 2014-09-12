@@ -90,6 +90,7 @@
       select {
         float: $alpha;
         @include span-columns($container-width/2);
+        padding: 0;
       }
     }
   }
