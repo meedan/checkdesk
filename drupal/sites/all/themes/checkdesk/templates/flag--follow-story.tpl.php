@@ -44,11 +44,18 @@
  * some advanced theming you may have to remove all the whitespace.
  */
 ?>
+<?php
+$flag_follow = flag_get_flag('follow_story');
+$follow_count = $flag_follow->get_count($entity_id);
+?>
 <?php if ($needs_wrapping_element): ?>
   <div class="flag-outer flag-outer-<?php print $flag_name_css; ?>">
 <?php endif; ?>
 <span class="<?php print $flag_wrapper_classes; ?>">
   <?php if ($link_href): ?>
+    <?php if($follow_count) :?>
+      <span class="follow_count"> <?php print $follow_count; ?></span>
+    <?php endif; ?>
     <a href="<?php print $link_href; ?>" title="<?php print $link_title; ?>" class="<?php print $flag_classes ?>" rel="nofollow"><?php print $link_text; ?></a><span class="flag-throbber">&nbsp;</span>
   <?php else: ?>
     <span class="<?php print $flag_classes ?>"><?php print $link_text; ?></span>
