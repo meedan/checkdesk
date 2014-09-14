@@ -34,10 +34,8 @@
       <?php print $media_activity_report; ?>
       <?php print render($content['comments']); ?>
       <?php if ($media_activity_footer) : ?>
-        <div class="activity-list-footer-wrapper">
-          <div class="activity-list-footer">
-            <?php print $media_activity_footer; ?>
-          </div>
+        <div class="item-nested-footer">
+          <?php print $media_activity_footer; ?>
         </div>
       <?php endif; ?>
     </div>

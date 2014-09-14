@@ -4627,9 +4627,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .media-status .false {
   color: #cc4f43;
 }
-.media-holder .media-status .in-progress {
-  color: #f5a623;
-}
 .media-holder .video-holder {
   position: relative;
   display: block;
@@ -5380,6 +5377,9 @@ div.sensitive-hide {
 
 #modalContent.modal-report {
   z-index: 950;
+}
+#modalContent.modal-report .modal {
+  background-color: #fbfaf9;
 }
 
 @media all and (min-height: 40em) {
@@ -7122,6 +7122,7 @@ form.ife .form-type-select select {
   float: left;
   margin-right: 2.12766%;
   display: inline;
+  padding: 0l;
 }
 form#user-login label {
   display: block;
@@ -7227,9 +7228,16 @@ form .image-widget {
 form .image-widget .image-preview {
   display: inline-block;
   margin-right: 15px;
+  vertical-align: top;
 }
 form .image-widget .image-widget-data {
   display: inline-block;
+}
+form .image-widget .text-format-wrapper label {
+  display: inline;
+}
+form .image-widget .cke_contents {
+  height: 100px !important;
 }
 form .image-widget input[type="file"] {
   margin: 0;
@@ -7329,9 +7337,16 @@ form .form-type-textarea:after {
   form .image-widget .image-preview {
     display: inline-block;
     margin-right: 15px;
+    vertical-align: top;
   }
   form .image-widget .image-widget-data {
     display: inline-block;
+  }
+  form .image-widget .text-format-wrapper label {
+    display: inline;
+  }
+  form .image-widget .cke_contents {
+    height: 100px !important;
   }
   form .image-widget input[type="file"] {
     margin: 0;
@@ -7613,7 +7628,14 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   clear: both;
 }
 .story figure {
-  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.story figure blockquote {
+  border: 0 none;
+  color: #9fa6ac;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 5px;
 }
 .story h1 {
   font-style: normal;
@@ -7762,11 +7784,13 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-follow {
   margin-top: 30px;
+  margin-bottom: 20px;
   font-size: 20px;
   font-weight: 700;
 }
 .story .story-follow a {
   color: #b89892;
+  text-decoration: none;
 }
 .story .story-follow a:hover {
   color: #4c3632;
@@ -7800,7 +7824,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -moz-osx-font-smoothing: grayscale;
 }
 .story .story-tabs-wrapper {
-  margin: 30px 0 24px;
+  margin: 0 0 24px;
 }
 .story .story-tabs-wrapper ul {
   display: table;
@@ -8320,6 +8344,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   display: block;
   margin-bottom: 12px;
 }
+.stories .views-row-first figure blockquote {
+  display: none;
+}
 
 .thumb-60 {
   width: 60px;
@@ -8474,9 +8501,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-random {
-  color: #f5a623;
-}
 .icon-random:before {
   font-family: "FontAwesome";
   display: inline-block;
@@ -8669,6 +8693,34 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .page-story-collaboration .item .item-nested-content {
   display: none;
 }
+.item .item-nested-footer {
+  margin-top: 30px;
+  padding-top: 8px;
+  margin-bottom: 2px;
+  border-top: 1px solid rgba(16, 33, 47, 0.05);
+}
+.item .item-nested-footer .cta, .item .item-nested-footer .helper {
+  display: table-cell;
+  width: 100%;
+  color: #6f7a82;
+}
+.item .item-nested-footer .cta {
+  font-size: 16px;
+}
+.item .item-nested-footer .cta a {
+  color: #4a74c0;
+}
+.item .item-nested-footer .cta a:hover {
+  color: #101b2e;
+}
+.item .item-nested-footer .helper {
+  font-size: 14px;
+  white-space: nowrap;
+}
+.item .item-nested-footer .helper span[class^="icon-"], .item .item-nested-footer .helper span[class*="icon-"], .item .item-nested-footer .helper a {
+  color: #b7bcc0;
+  text-decoration: none;
+}
 .item:before, .item:after {
   display: table;
   content: "";
@@ -8808,9 +8860,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .activity-item .media-status .false {
   color: #cc4f43;
 }
-.activity-item .media-status .in-progress {
-  color: #f5a623;
-}
 .activity-item .media-status span[class^="icon-"]:before, .activity-item .media-status span[class^="icon-"]:after, .activity-item .media-status span[class*="icon-"]:before, .activity-item .media-status span[class*="icon-"]:after {
   margin: 0;
   font-size: 16px;
@@ -8825,7 +8874,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .activity-item .timestamp {
   float: right;
   font-size: 14px;
-  color: #cfd3d5;
+  color: #b7bcc0;
 }
 .activity-item .inline-delete-item {
   float: right;

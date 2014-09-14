@@ -72,11 +72,6 @@
           </div>
         <?php } ?>
       </div>
-      <?php if (isset($follow_story)) : ?>
-        <div class="checkdesk-follow-story">
-          <?php print $follow_story; ?>
-        </div>
-      <?php endif; ?>
       <ul class="content-actions">
         <?php print $share_link; ?>
       </ul>
@@ -85,6 +80,12 @@
     <div class="story-body">
       <?php print render($fields['body']->content); ?>
     </div>
+
+    <?php if (isset($follow_story)) : ?>
+      <div class="story-follow">
+        <?php print $follow_story; ?>
+      </div>
+    <?php endif; ?>
 
     <?php if(isset($fields['field_lead_image']->content)) { ?>
       <figure>
