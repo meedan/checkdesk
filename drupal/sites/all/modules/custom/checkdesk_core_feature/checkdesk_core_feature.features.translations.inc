@@ -5274,6 +5274,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['6f50ede78277226f2743d806b03106dc'] = array(
+    'source' => '@count[2] collaborators',
+    'context' => '',
+    'location' => '/ar/story-collaboration/13',
+    'translation' => 'مشاركان',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['6f5487b0443b91cd62a1fbec949f56e2'] = array(
     'source' => 'Database log messages to keep',
     'context' => '',
@@ -7678,6 +7686,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['9fe9f09793f82c6333c8477b239c2cd5'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> added an <a href="!update_url">update</a> to <a href="!story_url">!story</a>',
+    'context' => '',
+    'location' => '/ar/story/36',
+    'translation' => '<a class="actor" href="!user_url">!username</a> أضاف <a href="!update_url">تحديثاً</a> للموضوع <a href="!story_url">!story</a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['a0448ff71e1ef8ffc22797a82aba270a'] = array(
     'source' => 'A file that is associated with this user, usually because it is in a field on the user.',
     'context' => '',
@@ -10072,6 +10088,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['cbaaeca438c03039dbe4d94987e4a3ad'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> added a new  <a href="!report_url">report</a> to <a href="!story_url">!story</a>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => '<a class="actor" href="!user_url">!username</a> أضاف  <a href="!report_url">تقريراً</a> جديداً للموضوع <a href="!story_url">!story</a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['cbb37401d648375c9a32619279b03418'] = array(
     'source' => 'Stories',
     'context' => '',
@@ -10422,6 +10446,14 @@ This link can only be used once to log in and will lead you to a page where you 
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['d23808be4cf3016a3c9d1982cd7d5915'] = array(
+    'source' => '@count[3] collaborators',
+    'context' => '',
+    'location' => '/ar/story-collaboration/13',
+    'translation' => '@count[3] مشاركين',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['d2536fa35a304b26c1c9f510c71b0386'] = array(
     'source' => '@label (!name:delta)',
     'context' => '',
@@ -10579,6 +10611,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/checkdesk/ar/admin/meedan/reports',
     'translation' => 'عدد المستخدمين الذين أنشؤوا حساباً على تشك دسك في شهر معين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d5c34c3920aac6484a88000f1278d380'] = array(
+    'source' => '1 collaborator',
+    'context' => '',
+    'location' => '/ar/story-collaboration/35',
+    'translation' => '1 مشارك',
     'plid' => 0,
     'plural' => 0,
   );
