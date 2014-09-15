@@ -908,7 +908,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "heartbeat_activity_checkdesk_fact_checking_on" : {
             "nid" : [ "flagged-node:nid" ],
             "uid" : [ "flagging-user:uid" ],
-            "nid_target" : "0",
+            "nid_target" : [ "flagged-node:field-stories:nid" ],
             "uid_target" : [ "flagged-node:field-stories:nid" ],
             "message_id" : { "value" : { "checkdesk_fact_checking_on" : "checkdesk_fact_checking_on" } },
             "!user_url" : [ "flagging-user:url" ],
