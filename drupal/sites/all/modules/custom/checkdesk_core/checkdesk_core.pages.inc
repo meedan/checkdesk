@@ -11,7 +11,7 @@
  *   Return a story collaboration page.
  */
 function _checkdesk_story_collaboration($node) {
-  $output = drupal_render(node_view($node, 'checkdesk_collaborate'));
+  $output = render(node_view($node, 'checkdesk_collaborate'));
   return $output;
 }
 

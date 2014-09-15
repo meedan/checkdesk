@@ -1,9 +1,16 @@
 <?php 
-  // dsm($fields);
-  // prep user picture
-  $user = user_load($fields['uid']->raw);
-  // dsm($user);
-  $avatar = l('', 'user/'. $user->uid, array('html' => TRUE, 'attributes' => array('class' => array('avatar', 'thumb-60'), 'title' => $user->name, 'style' => 'background-image: url("' . image_style_url('activity_avatar', $user->picture->uri). '")')));
+// dsm($fields);
+// prep user picture
+$avatar = '';
+$user = user_load($fields['uid']->raw);
+if (isset($user->picture->uri)) {
+  $avatar = l('', 'user/'. $user->uid, array('html' => TRUE, 
+    'attributes' => array(
+      'class' => array('avatar', 'thumb-60'), 
+      'title' => $user->name, 
+      'style' => 'background-image: url("' . image_style_url('activity_avatar', $user->picture->uri). '")'
+    )));
+}
 ?>
 
 <?php print $avatar; ?>
