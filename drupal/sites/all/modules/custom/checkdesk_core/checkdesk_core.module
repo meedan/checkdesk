@@ -233,7 +233,7 @@ function checkdesk_core_modal_callback($js = FALSE) {
  */
 function _checkdesk_core_report_can_suggest($report) {
   global $user;
-  return user_access('add report to story') || ($report->uid === $user->uid);
+  return user_access('add report to story');
 }
 
 /**
