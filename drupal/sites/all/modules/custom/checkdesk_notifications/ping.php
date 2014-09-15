@@ -1,6 +1,7 @@
 <?php
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past (HTTP 1.0)
+
 $server_name = $_SERVER['HTTP_HOST'];
 
 require("../../../../{$server_name}/settings.php");
@@ -52,17 +53,19 @@ if ($is_journalist) {
   if (should_notify($data, 'site_report_published_in_update')) $query .= "(ha.message_id = 'checkdesk_report_published_in_update' AND ha.uid_target = $uid) OR ";
 }
 
+$follow_story_query = 'SELECT entity_id FROM flag f INNER JOIN flagging fi ON f.fid = fi.fid AND f.name = "follow_story" WHERE uid = '. $uid;
+
 if (should_notify($data, 'site_update_on_story_i_followed')) {
   $query .= "(ha.message_id = 'checkdesk_new_update_on_story_i_commented_on_update'
-  AND ha.nid_target IN (SELECT DISTINCT nid_target FROM heartbeat_activity WHERE uid = $uid)) OR ";
+  AND ha.nid_target IN ($follow_story_query)) OR ";
 }
 if (should_notify($data, 'site_report_on_story_i_followed')) {
   $query .= "(ha.message_id = 'checkdesk_report_suggested_to_story'
-  AND ha.nid_target IN (SELECT DISTINCT nid_target FROM heartbeat_activity WHERE uid = $uid)) OR ";
+  AND ha.nid_target IN ($follow_story_query)) OR ";
 }
 if (should_notify($data, 'site_report_status_on_story_i_followed')) {
   $query .= "(ha.message_id = 'status_report'
-  AND ha.nid_target IN (SELECT DISTINCT nid_target FROM heartbeat_activity WHERE uid = $uid)) OR ";
+  AND ha.nid_target IN ($follow_story_query)) OR ";
 }
 $query .= "FALSE) AND ha.timestamp > $timestamp AND ha.uid != $uid";
 // Execute query
