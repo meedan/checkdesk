@@ -388,7 +388,6 @@ function _checkdesk_followed_stories($uid = 0) {
     global $user;
     $uid = $user->uid;
   }
-  $result = db_query('SELECT DISTINCT nid_target FROM {heartbeat_activity} WHERE uid = :uid',
-    array(':uid' => $uid))->fetchCol();
-  return $result;
+  $result = flag_get_user_flags('node', NULL, $uid);
+  return array_keys($result['follow_story']);
 }
