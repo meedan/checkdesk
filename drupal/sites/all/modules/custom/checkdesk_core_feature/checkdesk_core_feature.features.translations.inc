@@ -5893,6 +5893,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['7a6e01461cfd434dfc38ca5e009a68b4'] = array(
+    'source' => '- Select a value -',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => '- إختر قيمة -',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['7a803f79addebadbebc457f24f6de1b2'] = array(
     'source' => 'View all @total footnotes',
     'context' => '',
