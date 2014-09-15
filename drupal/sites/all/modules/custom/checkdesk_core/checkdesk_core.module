@@ -3023,3 +3023,33 @@ function _checkdesk_delete_follow_story_activity($target_nid, $uid = 0) {
     heartbeat_activity_delete($uaids);
   }
 }
+
+/**
+ * implements of hook_rules_action_info().
+ */
+function checkdesk_core_rules_action_info() {
+  $actions = array(
+    'checkdesk_core_actions_set_followers' => array(
+      'label' => t('Set current user as follower'),
+      'group' => t('Node'),
+      'parameter' => array(
+        'node' => array(
+          'type' => 'node',
+          'label' => t('Node to follow.'),
+        ),
+      ),
+    ),
+  );
+  return $actions;
+}
+
+function checkdesk_core_actions_set_followers($node) {
+  global $user;
+  // Check if current user already follow this node.
+  $flag = flag_get_flag('follow_story');
+  if ($flag && !$flag->is_flagged($node->nid, $user->uid)) {
+    $flag->skip_heartbeat_log = TRUE;
+    $flag->flag('flag', $node->nid, $user);
+    //watchdog('User follow story', t('@user follow this story @title', array('@user' => $user->name, '@title' => $node->title)));
+  }
+}

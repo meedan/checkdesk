@@ -33,7 +33,13 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "comment" ],
+      "REQUIRES" : [
+        "rules",
+        "heartbeat_rules",
+        "rules_scheduler",
+        "checkdesk_core",
+        "comment"
+      ],
       "ON" : { "comment_insert" : [] },
       "IF" : [
         { "node_is_of_type" : {
@@ -60,7 +66,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "date" : "now",
             "param_comment" : [ "comment" ]
           }
-        }
+        },
+        { "checkdesk_core_actions_set_followers" : { "node" : [ "comment:node:field-stories" ] } }
       ]
     }
   }');
@@ -309,7 +316,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "checkdesk_core" ],
       "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
@@ -335,7 +342,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_node" : [ "node" ],
             "param_story" : [ "node:field-desk" ]
           }
-        }
+        },
+        { "checkdesk_core_actions_set_followers" : { "node" : [ "node:field-desk" ] } }
       ]
     }
   }');
@@ -850,7 +858,7 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "checkdesk_core" ],
       "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
@@ -877,7 +885,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_node" : [ "node" ],
             "param_list_item" : [ "node:field-stories" ]
           }
-        }
+        },
+        { "checkdesk_core_actions_set_followers" : { "node" : [ "node:field-stories" ] } }
       ]
     }
   }');
@@ -924,7 +933,14 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "flag" ],
+      "REQUIRES" : [
+        "rules",
+        "php",
+        "heartbeat_rules",
+        "rules_scheduler",
+        "checkdesk_core",
+        "flag"
+      ],
       "ON" : {
         "flag_flagged_factcheck" : [],
         "flag_flagged_graphic_journalist" : [],
@@ -960,7 +976,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_flag" : "[flag:name]",
             "param_reason" : "[flagging:field_reason]"
           }
-        }
+        },
+        { "checkdesk_core_actions_set_followers" : { "node" : [ "flagged-node:field-stories" ] } }
       ]
     }
   }');
@@ -1046,14 +1063,15 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "heartbeat_rules", "flag" ],
+      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "flag" ],
       "ON" : { "flag_flagged_follow_story" : [] },
       "IF" : [
         { "node_is_of_type" : {
             "node" : [ "flagged-node" ],
             "type" : { "value" : { "discussion" : "discussion" } }
           }
-        }
+        },
+        { "php_eval" : { "code" : "if (isset($flag-\\u003Eskip_heartbeat_log) \\u0026\\u0026 $flag-\\u003Eskip_heartbeat_log) {\\r\\n    return FALSE;\\r\\n}\\r\\nreturn TRUE;" } }
       ],
       "DO" : [
         { "heartbeat_activity_checkdesk_follow_story" : {
