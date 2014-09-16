@@ -61,8 +61,9 @@ function _checkdesk_story_get_collaborators($nid) {
       $fullname = explode(' ', $user->name);
       $fname = array_shift($fullname);
       $uitems[] = l($fname, 'user/'. $user->uid);
-      if (!empty($user->uri)) {
-        $pitems[] = l('', 'user/'. $user->uid, array('html' => TRUE, 'attributes' => array('style' => 'background-image: url("' . image_style_url('activity_avatar', $user->uri). '")')));
+      $avatar = _set_user_avatar_bg(user_load($user->uid));
+      if ($avatar) {
+        $pitems[] = $avatar;
       }
     }
     $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems) . '</span>';

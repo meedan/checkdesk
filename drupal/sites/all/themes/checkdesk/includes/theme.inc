@@ -240,15 +240,8 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
   $message = $variables['message'];
 
   // prep user picture
-  $avatar = '';
   $user = user_load($message->uid);
-  if (isset($user->picture->uri)) {
-    $avatar = l('', 'user/'. $user->uid, array('html' => TRUE, 'attributes' => array(
-      'class' => array('avatar', 'thumb-38'), 
-      'title' => $user->name, 
-      'style' => 'background-image: url("' . image_style_url('activity_avatar', $user->picture->uri). '")'
-    )));
-  }
+  $avatar = _set_user_avatar_bg($user,array('avatar', 'thumb-38'));
   // set variables for new comment aka fact-checking footnote
   if ($message->message_id == 'new_comment_report') {
     // set actor / editor / user
