@@ -1735,6 +1735,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     unset($form['links']);
     $link['attributes']['class'][] = 'register';
     $link['attributes']['title'] = t('Sign Up');
+    $link['query'] = drupal_get_destination();
     $new_account_link = l(t('Sign Up'), 'user/register', $link);
     $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
     ' . $new_account_link . '</div>';    
