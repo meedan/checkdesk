@@ -169,7 +169,8 @@ function _checkdesk_core_report_details($form, $form_state) {
 /**
  * A modal login callback.
  */
-function story_collaboration_anonymous_login($js = NULL, $story_nid) {
+function story_collaboration_anonymous_login($js = NULL) {
+  $story_nid = arg(3);
   // Fall back if $js is not set.
   if (!$js) {
     return drupal_get_form('user_login');

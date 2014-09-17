@@ -142,15 +142,14 @@ function checkdesk_core_menu() {
     'access arguments' => array('access content'),
     'file' => 'checkdesk_core.pages.inc',
   );
-  $items['story-collaboration-anonymous/%ctools_js/login/%nid'] = array(
+  $items['story-collaboration-anonymous/%ctools_js/login'] = array(
     'title' => 'Login',
     'page callback' => 'story_collaboration_anonymous_login',
-    'page arguments' => array(1, 3),
+    'page arguments' => array(1),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
     'file' => 'checkdesk_core.pages.inc',
   );
-
   return $items;
 }
 
