@@ -42,7 +42,7 @@ function _checkdesk_story_collaboration($node) {
     $output .= '<div id="cd-collaboration-semi-frosted" style="display:none" >' . ctools_modal_text_button(t('Modal Login (custom style)'),
       'story-collaboration-anonymous/nojs/login/'. arg(1), t('Login via modal'),
       'ctools-modal-modal-popup-login') .'</div>';
-    drupal_add_js('jQuery(function() {jQuery("#cd-collaboration-semi-frosted a").trigger("click");});', 'inline');
+    drupal_add_js('jQuery(window).bind("load", function() {jQuery(".ctools-modal-modal-popup-login").click();});', 'inline');
   }
   $output .= render(node_view($node, 'checkdesk_collaborate'));
   return $output;
