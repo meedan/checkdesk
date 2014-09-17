@@ -54,8 +54,21 @@ function _checkdesk_story_collaboration($node) {
  */
 function _checkdesk_story_links($nid) {
   global $user;
-  $items = array();
+  $output = '';
   if ($user->uid) {
+    $items = array();
+    // Add tooltip for add a report.
+    if (isset($_SESSION['report_tooltip'])) {
+      $tour = checkdesk_tour_preset_load('journalist');
+      $tooltip = '<div class="popover tour-tour fade right in collaboration-report-tooltip">';
+      $tooltip .= '  <div class="popover-arrow"></div>';
+      $tooltip .= '  <div class="popover-close" data-role="end" onclick="jQuery(this).parent().hide();"><span>[X]</span></div>';
+      $tooltip .= '  <h3><span class="popover-title">' . t($tour->steps[0]['title']) . '</span></h3>';
+      $tooltip .= '  <div class="popover-content">' . t($tour->steps[0]['content']) . '</div>';
+      $tooltip .= '</div>';
+      $output .= $tooltip;
+      unset($_SESSION['report_tooltip']);
+    }
     $items[] = array(
       'data' => l(t('Add a report'), 'node/add/media', array('query' => array('ref_nid' => $nid, drupal_get_destination()))),
       'class' => array('submit-report'),
@@ -67,8 +80,9 @@ function _checkdesk_story_links($nid) {
         'class' => array('compose-update'),
       );
     }
+    $output .= theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-collaborate-links')));
   }
-  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-collaborate-links')));
+  return $output;
 }
 
 /**
