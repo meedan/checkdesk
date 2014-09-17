@@ -166,7 +166,7 @@ function checkdesk_core_feature_flag_default_flags() {
       0 => 'discussion',
     ),
     'flag_short' => 'Follow story',
-    'flag_long' => '',
+    'flag_long' => 'Explaining text for follow story',
     'flag_message' => '',
     'unflag_short' => 'Unfollow story',
     'unflag_long' => '',
