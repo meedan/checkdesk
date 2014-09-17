@@ -93,6 +93,13 @@ function checkdesk_core_menu() {
     'page arguments' => array('_checkdesk_core_settings'),
     'access arguments' => array('administer site configuration'),
   );
+  $items['admin/config/system/activity-formatter'] = array(
+    'title' => 'Checkdesk',
+    'description' => 'Manage hearbeat activity type and formatter.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_checkdesk_activity_formatter_mapping'),
+    'access arguments' => array('administer site configuration'),
+  );
   $items['report-view-modal/%ctools_js'] = array(
     'title' => 'Report view (modal)',
     'page callback' => '_checkdesk_modal_report_view',
@@ -101,7 +108,15 @@ function checkdesk_core_menu() {
     //'modal' => TRUE,
     'type' => MENU_CALLBACK,
   );
-
+  $items['report-view-leave/%ctools_js'] = array(
+    'title' => 'Confirm leave page',
+    'page callback' => '_checkdesk_modal_report_view_leave',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    //'modal' => TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'checkdesk_core.pages.inc',
+  );
   $items['modal/%ctools_js'] = array(
     'page callback' => 'checkdesk_core_modal_callback',
     'page arguments' => array(1),
@@ -121,7 +136,20 @@ function checkdesk_core_menu() {
     'access callback' => '_checkdesk_core_can_take_tour',
     'type' => MENU_CALLBACK,
   );
-
+  $items['story-collaboration/%node'] = array(
+    'page callback' => '_checkdesk_story_collaboration',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'file' => 'checkdesk_core.pages.inc',
+  );
+  $items['story-collaboration-anonymous/%ctools_js/login'] = array(
+    'title' => 'Login',
+    'page callback' => 'story_collaboration_anonymous_login',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'checkdesk_core.pages.inc',
+  );
   return $items;
 }
 
@@ -220,7 +248,7 @@ function checkdesk_core_modal_callback($js = FALSE) {
  */
 function _checkdesk_core_report_can_suggest($report) {
   global $user;
-  return user_access('add report to story') || ($report->uid === $user->uid);
+  return user_access('add report to story');
 }
 
 /**
@@ -298,6 +326,14 @@ function _checkdesk_core_settings($form, $form_state) {
 }
 
 /**
+ * Form function for `_checkdesk_activity_formatter_mapping`.
+ */
+function _checkdesk_activity_formatter_mapping($form, $form_state) {
+
+  return system_settings_form($form);
+}
+
+/**
  * Load function for reports.
  */
 function checkdesk_report_load($nid) {
@@ -333,14 +369,9 @@ function _checkdesk_core_report_suggest($form, $form_state, $report = NULL) {
     SELECT nid, concat(substring(title, 1, 48), '...') as title
     FROM {node}
     WHERE type='discussion'
-    AND nid NOT IN (
-      SELECT field_stories_target_id
-      FROM {field_data_field_stories}
-      WHERE entity_id = :report
-    )
     ORDER BY created DESC
     LIMIT 10
-    ", array(':report' => $report->nid))->fetchAllKeyed();
+    ")->fetchAllKeyed();
   $form['story'] = array(
     '#type' => 'select',
     '#options' => $stories,
@@ -759,7 +790,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     }
     // parent share link with title
     $links['checkdesk-share'] = array(
-      'title' => ($node->type == 'media') ? '' : t('Share'),
+      'title' => ($node->type == 'media') ? '' : '<span class="label">' . t('Share') . '</span>',
       'href' => '#',
       'attributes' => array('title' => $node->title),
     );
@@ -846,6 +877,56 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
  * Implements hook_node_view().
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
+
+  if ($view_mode == 'checkdesk_collaborate') {
+    if ($node->type == 'post') {
+      $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body['und'][0]['value']);
+      //collect reports
+      $reports = $matches = array();
+      preg_match_all('/\[[^:]+:([0-9]+)\]/u', $node->body['und'][0]['value'], $matches);
+      if (count($matches[1])) {
+        foreach ($matches[1] as $key => $nid) {
+          $entity = node_load($nid);
+          if (is_object($entity)) {
+            $reports[] = $entity;
+          }
+        }
+      }
+      if (count($reports)) {
+        $node->content['update_reports'] = array(
+          '#theme' => 'checkdesk_core_update_reports',
+          '#reports' => $reports,
+        );
+        $node->content['update_reports_count'] = format_plural(count($reports), '1 report', '@count reports');
+      }
+    }
+    if ($node->type == 'media') {
+      $node->content['comments'] = comment_node_page_additions($node);
+      $heartbeat_row = $node->heartbeat_row;
+      // Load activity status with verification footnote
+      if ($heartbeat_row->heartbeat_activity_message_id == 'status_report') {
+        $heartbeat_activity = heartbeat_activity_load($heartbeat_row->uaid);
+        $node->content['report_activity_status'] = array(
+          '#theme' => 'checkdesk_core_report_activity_status',
+          '#heartbeat_activity' => $heartbeat_activity,
+        );
+      }
+      // Load verification footnote
+      if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_comment_on_report') {
+        $heartbeat_activity = heartbeat_activity_load($heartbeat_row->uaid);
+        $footnote = comment_load($heartbeat_activity->cid);
+        $node->content['report_verification_footnote'] = $footnote->comment_body[LANGUAGE_NONE][0]['value'];
+      }
+      $node->content['field_link'] = _meedan_render_oembed_activity_type($node, $heartbeat_row); 
+      /*     
+      if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') {
+        unset($node->content['field_link']);
+      }
+       */
+
+    }
+  }
+  
   // Get node links.
   $links = _checkdesk_core_node_links($node);
   if (!empty($links)) {
@@ -979,8 +1060,10 @@ function _checkdesk_core_post_node_form_submit($form, &$form_state) {
   if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
     drupal_set_message(t('@type %title saved as draft.', array('@type' => t('Update'), '%title' => $form_state['values']['title'])));
   }
+
   // Redirect to story page
-  $form_state['redirect'] = array('node/' . $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id']);
+  $form_state['redirect'] = array('story-collaboration/' . $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id']);
+  
   // drupal_set_message(t('Update has been added to this story.'));
   // $form_state['redirect'] = array('node/' . $form['field_desk'][LANGUAGE_NONE]['#default_value'], array('fragment' => 'update-'. $form_state['nid']));
 }
@@ -1029,6 +1112,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload">';
   $form['field_lead_image']['#suffix'] = '</div">';
   $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
+  $form['actions']['submit']['#submit'][] = '_redirect_story';
 
   if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
     return;
@@ -1079,6 +1163,15 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   );
   drupal_add_js(array('fileInput' => $fileinput), 'setting');
   drupal_add_css(libraries_get_path('fileinput') . '/fileinput.css');
+}
+
+/**
+ * Redirect story to collaboration page.
+ */
+function _redirect_story($form, &$form_state) {
+  $values = $form_state['values'];
+  $_SESSION['report_tooltip'] = TRUE;
+  $form_state['redirect'] = 'story-collaboration/' . $values['nid'];
 }
 
 /**
@@ -1305,6 +1398,10 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
     //Fix reset button
     $form['#action'] = url($_GET['q']);
+    if (_get_desk_reports_args() !== 'all') {
+      unset($form['field_stories_target_id']);
+      unset($form['#info']['filter-field_stories_target_id']);
+    }
   }
 }
 
@@ -1351,6 +1448,20 @@ function checkdesk_core_theme() {
     'template' => 'user_info',
     'variables' => array(
       'user' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_update_reports'] = array(
+    'template' => 'update_reports',
+    'variables' => array(
+      'reports' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_report_activity_status'] = array(
+    'template' => 'report_activity_status',
+    'variables' => array(
+      'heartbeat_activity' => NULL,
     ),
   ) + $base;
 
@@ -1402,12 +1513,11 @@ function checkdesk_core_block_info() {
     'info' => 'Report form block',
     'cache' => DRUPAL_NO_CACHE,
   );
-
   $blocks['checkdesk_user_info'] = array(
     'info'   => t('Checkdesk user information'),
     'cache'  => DRUPAL_NO_CACHE,
   );
-
+  
   return $blocks;
 }
 
@@ -1641,6 +1751,13 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     unset($form['links']);
     $link['attributes']['class'][] = 'register';
     $link['attributes']['title'] = t('Sign Up');
+    // Set destination with story collaboration page if login using modal
+    if (isset($form_state['ajax'])) {
+      $link['query']['destination'] = 'story-collaboration/' . $form_state['story'];
+    }
+    else {
+      $link['query'] = drupal_get_destination();
+    }
     $new_account_link = l(t('Sign Up'), 'user/register', $link);
     $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
     ' . $new_account_link . '</div>';    
@@ -1650,8 +1767,9 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == '_checkdesk_core_report_suggest') {
     $form['story']['#prefix'] = '<div class="modal-content-wrapper">';
     $form['story']['#suffix'] = '</div>';
-
-    $form['submit']['#prefix'] = '<div class="modal-footer"><div class="form-actions form-wrapper"><a id="close" class="btn" data-dismiss="modal" aria-hidden="true">' . t('Close') . '</a>';
+    $form['submit']['#prefix'] = '<div class="modal-footer"><div class="form-actions form-wrapper">
+                <a id="close" class="btn" data-dismiss="modal" aria-hidden="true"
+                onClick="jQuery(\'#close\').trigger(\'click\');" >' . t('Close') . '</a>';
     $form['submit']['#suffix'] = '</div></div>';
     $form['submit']['#value'] = t('Continue');
     $form['submit']['#attributes']['class'] = array('btn', 'btn-primary');
@@ -2369,27 +2487,29 @@ function checkdesk_core_ajax_command_attach_behaviors($selector = NULL) {
  * Implements hook_flag_javascript_info_alter().
  */
 function checkdesk_core_flag_javascript_info_alter(&$info) {
-  $nid = $info['contentId'];
-  $node = node_load($nid);
-  $element = node_view($node);
-  $element['comments'] = comment_node_page_additions($node);
-  $output = drupal_render($element);
+  if ($info['flagName'] != 'follow_story') {
+    $nid = $info['contentId'];
+    $node = node_load($nid);
+    $element = node_view($node);
+    $element['comments'] = comment_node_page_additions($node);
+    $output = drupal_render($element);
 
-  $js = drupal_add_js(NULL, NULL);
-  $settings = '';
-  if (isset($js['settings'])) {
-    $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
-                drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
-                ');</script>';
+    $js = drupal_add_js(NULL, NULL);
+    $settings = '';
+    if (isset($js['settings'])) {
+      $settings = '<script type="text/javascript">jQuery.extend(Drupal.settings, ' .
+        drupal_json_encode(call_user_func_array('array_merge_recursive', $js['settings']['data'])) .
+        ');</script>';
+    }
+    // Add the settings to the form
+    $output .= $settings;
+
+    $commands = array();
+    $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
+    $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
+
+    $info['commands'] = $commands;
   }
-  // Add the settings to the form
-  $output .= $settings;
-
-  $commands = array();
-  $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
-  $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
-
-  $info['commands'] = $commands;
 }
 
 /**
@@ -2629,8 +2749,25 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
   if (isset($form['nid']['#value'])) {
     $node = $form['#node'];
-    unset($form['field_stories']);
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+  }
+  else {
+    //set default story if exist.
+    if (isset($_GET['ref_nid'])) {
+      $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
+    }
+  }
+  // Redirect user to collaboration page.
+  $form['actions']['submit']['#submit'][] = '_redirect_report';
+}
+
+/**
+ * Redirect user to collaboration page.
+ */
+function _redirect_report($form, &$form_state) {
+  $values = $form_state['values'];
+  if (!empty($values['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
+    $form_state['redirect'] = 'story-collaboration/' . $values['field_stories'][LANGUAGE_NONE][0]['target_id'];
   }
 }
 
@@ -2824,4 +2961,143 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
     $queue = DrupalQueue::get('checkdesk_varnish');
     $queue->createItem($paths);
   }
+}
+
+/**
+ * Render heartbeat activity on story collaboration page.
+ *
+ * @param onject $row
+ *  heartbeat activity object 
+ *
+ * @return HTML for target node (update/report)
+ */
+function checkdesk_story_collaborate_render_object($row) {
+  $node = node_load($row->heartbeat_activity_nid);
+  $node->heartbeat_row = $row;
+  if ($row->heartbeat_activity_message_id == 'checkdesk_follow_story') {
+    $output =  render(node_view($node));
+  }
+  else {
+    $output = render(node_view($node, 'checkdesk_collaborate'));
+  }
+  return $output;
+}
+
+/**
+ * Add updates/collaboration tab to story node.
+ *
+ * @param int $nid
+ *  story nid
+ */
+function _checkdesk_story_tabs($nid) {
+  $items = array();
+  $items[] = array(
+    'data' => l(t('Updates'), 'node/'. $nid),
+    'class' => array('story-tab-updates'),
+  );
+  $items[] = array(
+    'data' => l(t('Collaboration'), 'story-collaboration/'. $nid),
+    'class' => array('story-tab-collaboration'),
+  );
+  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-tabs')));
+}
+
+/**
+ * Return story nid to filler incomming rports view. 
+ */
+function _get_desk_reports_args() {
+  $story_nid = 0;
+  // Show incomming reports on story page
+  if (is_numeric(arg(1))) {
+     $story_nid = arg(1);
+  }
+  elseif (isset($_GET['story']) && is_numeric($_GET['story'])) {
+    $story_nid = $_GET['story'];
+  }
+  else {
+    $story_nid = 'all';
+  }
+  return $story_nid;
+}
+
+/**
+ * Function to delete follow story activity (unfollow action)
+ *
+ * @param int $target_nid
+ *  story nid
+ * @param int $uid
+ *  user uid
+ */
+function _checkdesk_delete_follow_story_activity($target_nid, $uid = 0) {
+  if (!$uid) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $uaids = db_query('
+  SELECT uaid
+  FROM {heartbeat_activity}
+  WHERE message_id = :message_id AND nid_target = :target_nid AND uid = :uid
+  ', array(':message_id' => 'checkdesk_follow_story', ':target_nid' => $target_nid, ':uid' => $uid))->fetchCol();
+
+  if (count($uaids)) {
+    heartbeat_activity_delete($uaids);
+  }
+}
+
+/**
+ * implements of hook_rules_action_info().
+ */
+function checkdesk_core_rules_action_info() {
+  $actions = array(
+    'checkdesk_core_actions_set_followers' => array(
+      'label' => t('Set current user as follower'),
+      'group' => t('Node'),
+      'parameter' => array(
+        'node' => array(
+          'type' => 'node',
+          'label' => t('Node to follow.'),
+        ),
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Set Action for checkdesk_core_actions_set_followers.
+ */
+function checkdesk_core_actions_set_followers($node) {
+  global $user;
+  // Check if current user already follow this node.
+  $flag = flag_get_flag('follow_story');
+  if ($flag && !$flag->is_flagged($node->nid, $user->uid)) {
+    $flag->skip_heartbeat_log = TRUE;
+    $flag->flag('flag', $node->nid, $user);
+    //watchdog('User follow story', t('@user follow this story @title', array('@user' => $user->name, '@title' => $node->title)));
+  }
+}
+
+function _set_user_avatar_bg($account, $classes = array()) {
+
+  if (isset($account->picture->uri)) {
+    $avatar_uri = $account->picture->uri;
+  }
+  else {
+    $avatar_uri = variable_get('user_picture_default', '') ? variable_get('user_picture_default', '') : '';
+  }
+
+  $avatar = '';
+  if ($avatar_uri) {
+    $derivative_uri = image_style_path('activity_avatar', $avatar_uri);
+    $success = file_exists($derivative_uri) || image_style_create_derivative('activity_avatar', $avatar_uri, $derivative_uri);
+
+    $new_image_url = file_create_url($derivative_uri);
+    $avatar = l('', 'user/' . $account->uid, array('html' => TRUE,
+      'attributes' => array(
+        'class' => is_array($classes) ? $classes : array(),
+        'title' => $account->name,
+        'style' => 'background-image: url("' . $new_image_url . '")'
+      )));
+  }
+  return $avatar;
 }

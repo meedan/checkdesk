@@ -546,6 +546,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['0b9dbff101eb8cc6a90677677cb83167'] = array(
+    'source' => 'Uses reports added by !users',
+    'context' => '',
+    'location' => '/ar/story-collaboration/112',
+    'translation' => 'يحتوي على تقارير من !users',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['0c44eee1298157ea76fa8600aaa6dc85'] = array(
     'source' => 'Shows result summary, for example the items per page.',
     'context' => '',
@@ -938,6 +946,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'قيمة ثابتة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['1442d3819f05ac0a87e5e953060fff43'] = array(
+    'source' => 'New report on a story I followed',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => 'تقرير جديد لموضوع متابع',
     'plid' => 0,
     'plural' => 0,
   );
@@ -1709,6 +1725,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['2443bda544a5189c28ba7c1408e285f3'] = array(
+    'source' => 'Following story',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'موضوع مُتابَع',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['2491bc9c7d8731e1ae33124093bc7026'] = array(
     'source' => 'Twitter',
     'context' => '',
@@ -2206,6 +2230,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['2f3c3082abe80f4d4c9b48fceef56e61'] = array(
+    'source' => 'Follow story',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => 'متابعة الموضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['2faec1f9f8cc7f8f40d521c4dd574f49'] = array(
     'source' => 'Enable',
     'context' => '',
@@ -2513,6 +2545,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['337e8f4aa741ef97ec3ed8fd7b1accb7'] = array(
+    'source' => 'Collaboration',
+    'context' => '',
+    'location' => '/ar/story/35',
+    'translation' => 'مشاركة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['33d8042bd735c559cc3206f4bc99aedc'] = array(
     'source' => 'Sort by',
     'context' => '',
@@ -2654,6 +2694,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'Allows content to be submitted using Markdown, a simple plain-text syntax that is filtered into valid XHTML.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3710562ccfb57f5402d86b1519385b6e'] = array(
+    'source' => 'Add a report',
+    'context' => '',
+    'location' => '/ar/story-collaboration/35',
+    'translation' => 'أضف تقرير',
     'plid' => 0,
     'plural' => 0,
   );
@@ -5242,6 +5290,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['6f50ede78277226f2743d806b03106dc'] = array(
+    'source' => '@count[2] collaborators',
+    'context' => '',
+    'location' => '/ar/story-collaboration/13',
+    'translation' => 'مشاركان',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['6f5487b0443b91cd62a1fbec949f56e2'] = array(
     'source' => 'Database log messages to keep',
     'context' => '',
@@ -5402,6 +5458,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'تاشيرات المستخدم ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['71b024bf94fdf30de0b560cd1b6abca5'] = array(
+    'source' => 'Change report status on a story I followed',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => 'تم تعديل حالة تقرير لموضوع متابع',
     'plid' => 0,
     'plural' => 0,
   );
@@ -5845,6 +5909,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['7a6e01461cfd434dfc38ca5e009a68b4'] = array(
+    'source' => '- Select a value -',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => '- إختر قيمة -',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['7a803f79addebadbebc457f24f6de1b2'] = array(
     'source' => 'View all @total footnotes',
     'context' => '',
@@ -6011,7 +6083,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['7dce122004969d56ae2e0245cb754d35'] = array(
     'source' => 'Edit',
     'context' => '',
-    'location' => '',
+    'location' => '; misc/machine-name.js; sites/all/modules/contrib/features/features.js',
     'translation' => 'حرر',
     'plid' => 0,
     'plural' => 0,
@@ -7358,6 +7430,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['9ac41b6a577daadd588f0fcde0071e8b'] = array(
+    'source' => 'Updates',
+    'context' => '',
+    'location' => '/ar/story/35',
+    'translation' => 'تحديثات',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['9ac723d332fe0dd76b7c322c3dee9664'] = array(
     'source' => '<p><strong><a href="!flag_author_url">!flag_author_name</a></strong> has flagged a <strong><a href="!report_url">report</a></strong> !preposition !flag_type</p>',
     'context' => '',
@@ -7627,6 +7707,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'ملف مرفق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['9fe9f09793f82c6333c8477b239c2cd5'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> added an <a href="!update_url">update</a> to <a href="!story_url">!story</a>',
+    'context' => '',
+    'location' => '/ar/story/36',
+    'translation' => '<a class="actor" href="!user_url">!username</a> أضاف <a href="!update_url">تحديثاً</a> للموضوع <a href="!story_url">!story</a>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -9840,6 +9928,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['c8ef1aecbd4980a757dbb03c395123a7'] = array(
+    'source' => '<a href="!flag_author_url" class="actor">!flag_author_name</a> followed this story',
+    'context' => '',
+    'location' => '/ar/story-collaboration/112',
+    'translation' => '<a href="!flag_author_url" class="actor">!flag_author_name</a> تابع هذا الموضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['c9093ae39a3e21c99a7f6ebd38fb1376'] = array(
     'source' => 'Are you sure you want to flag this report?',
     'context' => '',
@@ -10013,6 +10109,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'حُذف الإجراء %action',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['cbaaeca438c03039dbe4d94987e4a3ad'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> added a new  <a href="!report_url">report</a> to <a href="!story_url">!story</a>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => '<a class="actor" href="!user_url">!username</a> أضاف  <a href="!report_url">تقريراً</a> جديداً للموضوع <a href="!story_url">!story</a>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -10366,6 +10470,14 @@ This link can only be used once to log in and will lead you to a page where you 
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['d23808be4cf3016a3c9d1982cd7d5915'] = array(
+    'source' => '@count[3] collaborators',
+    'context' => '',
+    'location' => '/ar/story-collaboration/13',
+    'translation' => '@count[3] مشاركين',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['d2536fa35a304b26c1c9f510c71b0386'] = array(
     'source' => '@label (!name:delta)',
     'context' => '',
@@ -10523,6 +10635,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/checkdesk/ar/admin/meedan/reports',
     'translation' => 'عدد المستخدمين الذين أنشؤوا حساباً على تشك دسك في شهر معين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d5c34c3920aac6484a88000f1278d380'] = array(
+    'source' => '1 collaborator',
+    'context' => '',
+    'location' => '/ar/story-collaboration/35',
+    'translation' => '1 مشارك',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11101,6 +11221,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '/ar/user',
     'translation' => 'تحرير ملف المستخدم',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['e0070a483b18685510cb5d1be6bdbf7a'] = array(
+    'source' => 'New update on a story I followed',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => 'تحديث جديد لموضوع متابع',
     'plid' => 0,
     'plural' => 0,
   );
@@ -11726,7 +11854,7 @@ print theme(\'views_autorefresh\', array(
   $translations['ar:default']['ec211f7c20af43e742bf2570c3cb84f9'] = array(
     'source' => 'Add',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/modules/contrib/views/js/views-admin.js',
     'translation' => 'أضف',
     'plid' => 0,
     'plural' => 0,
@@ -11864,6 +11992,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/ar',
     'translation' => 'ملف مقترن بهذا التعليق، لأنه عادة في حقل على التعليق.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['edfc4d97ab67e3bbf00018eba2b5a09c'] = array(
+    'source' => 'Unfollow story',
+    'context' => '',
+    'location' => '/ar/flag/flag/follow_story/13?destination=story-collaboration/13&token=oLBeN_SG-PkEhp5jsIeZ4spHgNg_cDe-bTzZ685AYow',
+    'translation' => 'إيقاف متابعة الموضوع',
     'plid' => 0,
     'plural' => 0,
   );
@@ -12929,8 +13065,8 @@ This was an auto-generated email from !site; please do not respond directly to t
   );
   $translations['ar:menu']['c7aacf2150aba3307c7356604ab3ddc9'] = array(
     'source' => 'Administer users',
-    'context' => 'item:09718b34-de51-4935-bff9-923c9deff48e:title',
-    'location' => 'menu:item:09718b34-de51-4935-bff9-923c9deff48e:title',
+    'context' => 'item:20134122-a116-4a1c-8ba5-2082a75a5931:title',
+    'location' => 'menu:item:20134122-a116-4a1c-8ba5-2082a75a5931:title',
     'translation' => 'إدارة المستخدمين',
     'plid' => 0,
     'plural' => 0,

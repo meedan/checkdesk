@@ -430,6 +430,12 @@ return _checkdesk_core_auto_title($node);
       'meedan_oembed' => array(
         'custom_settings' => TRUE,
       ),
+      'checkdesk_collaborate' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -440,7 +446,140 @@ return _checkdesk_core_auto_title($node);
           'weight' => '5',
         ),
       ),
-      'display' => array(),
+      'display' => array(
+        'flag_graphic_journalist' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'default' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'teaser' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_factcheck_journalist' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'default' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'teaser' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_spam' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'default' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'teaser' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_graphic' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'default' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'teaser' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_factcheck' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'default' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'teaser' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+        'flag_delete' => array(
+          'checkdesk_collaborate' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'collaborate_status' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'default' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'teaser' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__media'] = $strongarm;
@@ -677,9 +816,9 @@ return _checkdesk_core_auto_title($node);
   $strongarm->value = array(
     'title' => 'title',
     'field_rating' => 'field_rating',
-    'field_stories' => 'field_stories',
     'body' => 0,
     'field_link' => 0,
+    'field_stories' => 0,
   );
   $export['meedan_bookmarklet_hidden_fields'] = $strongarm;
 
@@ -1449,7 +1588,7 @@ Your account on [site:name] has been canceled.
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_picture_default';
-  $strongarm->value = '';
+  $strongarm->value = 'public://pictures/user_default.png';
   $export['user_picture_default'] = $strongarm;
 
   $strongarm = new stdClass();

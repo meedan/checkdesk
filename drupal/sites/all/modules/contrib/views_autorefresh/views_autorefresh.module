@@ -68,9 +68,9 @@ function theme_views_autorefresh($variables) {
  */
 function views_autorefresh_views_ajax_data_alter(&$commands, $view) {
   $replace = isset($_REQUEST['autorefreshRequest']);
-  if ($replace && !empty($view->autorefresh['incremental'])) {
+  if ($replace && !empty($view->autorefresh['interval'])) {
     foreach ($commands as $key => &$command) {
-      if ($command['command'] == 'insert' && $command['selector'] == ('.view-dom-id-' . $view->dom_id)) {
+      if (!empty($view->autorefresh['incremental']) && $command['command'] == 'insert' && $command['selector'] == ('.view-dom-id-' . $view->dom_id)) {
         $command['command'] = 'viewsAutoRefreshIncremental';
         $command['view_name'] = $view->name;
       }
@@ -78,8 +78,6 @@ function views_autorefresh_views_ajax_data_alter(&$commands, $view) {
         unset($commands[$key]);
       }
     }
-  }
-  if ($replace && !empty($view->autorefresh['interval'])) {
     $commands[] = array(
       'command' => 'viewsAutoRefreshTriggerUpdate',
       'selector' => '.view-dom-id-' . $view->dom_id,

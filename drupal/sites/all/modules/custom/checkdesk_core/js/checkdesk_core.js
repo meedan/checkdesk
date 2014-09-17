@@ -318,4 +318,35 @@
       });
     }
   }
+
 }(jQuery));
+
+function _checkdesk_report_view_redirect(nid) {
+  var title = jQuery('form#post-node-form input#edit-title').val();
+  var placeholder = jQuery('form#post-node-form #edit-body #edit-body-und-0-value').attr('placeholder');
+  var desc  = jQuery('form#post-node-form #edit-body iframe').contents().find('body').html();
+  if (title) {
+    modal = true;
+  }
+  if (desc && placeholder != desc) {
+    modal = true;
+  }
+  if(modal) {
+    var selector = 'div#cd-report-view-links-' +  nid +' a#cd-report-confirm';
+    jQuery(selector).trigger('click');
+  }
+  else {
+    var selector = 'div#cd-report-view-links-' +  nid +' a#cd-report-default';
+    var href = jQuery(selector).attr('href');
+    window.location.href = href;
+  }
+}
+
+jQuery(function() {
+    jQuery('.flag-follow-story a.unflag-action').bind( "mouseenter", function() {
+            jQuery(this).text(Drupal.t('Unfollow story'));
+        })
+        .bind( "mouseleave", function() {
+            jQuery(this).text(Drupal.t('Following story'));
+        });
+});

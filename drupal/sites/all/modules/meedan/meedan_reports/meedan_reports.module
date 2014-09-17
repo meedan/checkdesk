@@ -311,3 +311,64 @@ function meedan_reports_meedan_reports_query($type, $year) {
   );
 }
 
+/**
+ * Implements hook_action_info().
+ */
+function meedan_reports_action_info() {
+  return array(
+    'meedan_report_assign_new_story' => array(
+      'type' => 'node',
+      'label' => t('Assign to new story'),
+      'configurable' => TRUE,
+      'behavior' => array('changes_property'),
+      'triggers' => array(
+        'node_presave',
+        'node_insert',
+        'node_update',
+      ),
+    ),
+  );
+}
+
+/**
+ * Configuration form for create new story.
+ */
+function meedan_report_assign_new_story_form($context) {
+  $form['story_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Story title'),
+    '#maxlength' => '60',
+    '#required' => TRUE,
+  );
+  $form['story_desc'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+  );
+ return $form;
+}
+
+/**
+ * Submit handler for assign report to new story action configuration.
+ */
+function meedan_report_assign_new_story_submit($form, &$form_state) {
+  return array(
+    'story_title' => $form_state['values']['story_title'],
+    'story_desc' => $form_state['values']['story_desc'],
+  );
+}
+
+function meedan_report_assign_new_story($node, $context) {
+  global $language, $user;
+  //create stories
+  $snode = new stdClass(); 
+  $snode->type = 'discussion';
+  $snode->title = $context['story_title'];
+  $snode->language = $language->language; 
+  $snode->uid = $user->uid;
+  node_object_prepare($snode); 
+  $snode->body[LANGUAGE_NONE][0]['value'] = $context['story_desc'];
+  $snode->body[LANGUAGE_NONE][0]['summary'] = '';
+  $snode->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
+  node_save($snode); 
+  $node->field_stories[LANGUAGE_NONE][0]['target_id'] = $snode->nid;
+}

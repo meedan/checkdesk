@@ -46,6 +46,21 @@
 
   Drupal.behaviors.story = {
     attach: function (context, settings) {
+      // Show nested activity
+      $('.item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
+        var target = $(this).parent(),
+            element = target.parent();
+        if (element.find('.item-nested-content').is(':visible')) {
+          element.find('.item-nested-content').slideUp('fast');
+          element.removeClass('open');
+        }
+        else {
+          element.find('.item-nested-content').slideDown('fast');
+          element.addClass('open');
+        }
+        return false;
+      });
+
       // show or hide compose update form
       $('.compose-update-form .compose-update-header').unbind('click').click(function(event) {
         var target = $(this),
@@ -60,6 +75,9 @@
         }
         return false;
       });
+
+      // Add active class to the story tab which is active
+      $('.story-tabs li a.active').parents('li').addClass('active');
     }
   };
 

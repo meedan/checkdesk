@@ -211,8 +211,12 @@ body.no-sidebars {
 @import "footer";
 @import "static";
 
+// Checkdesk media
+@import "media";
+
 // Checkdesk reports
 @import "report";
+@import "report_detail";
 @import "reports_incoming";
 
 // Checkdesk updates
@@ -260,6 +264,9 @@ body.no-sidebars {
 
 // Story blog page with discussion
 @import "story";
+
+// Story colloboration activity
+@import "activity";
 
 // Create update page
 // Sidebar layout with main and secondary cols

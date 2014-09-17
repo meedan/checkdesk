@@ -1,0 +1,152 @@
+@mixin media-status-styles {
+	.status-name {
+		font-weight: 700;
+	}
+
+	.verified {
+		color: $verified;
+	}
+
+	.undetermined {
+		color: $undetermined;
+	}
+
+	.false {
+		color: $false;
+	}
+
+	.in-progress {
+		
+	}
+} // media-status
+
+@mixin clear-icon-margins {
+	// remove the margins around the icon
+	span[class^="icon-"], span[class*="icon-"] {
+		&:before, &:after { 
+			margin: 0; // no margins
+			font-size: 16px; 
+		} 
+	}
+}
+
+.media-holder {
+	color: $firefly40;
+	a { @include ctb-linkColor($firefly40); }
+
+	.media {
+		margin: .25rem 0;
+	}
+
+	.media-content {
+		margin-bottom: .25rem;
+		color: $firefly40;
+		a { @include ctb-linkColor($firefly40); }
+
+		& > span {
+			display: block;
+			font-size: 14px;
+			color: $firefly40;
+			line-height: 1.4;
+		}
+
+		.title {
+			font-size: 18px;
+			a { @include ctb-linkColor($strongBlue80); }
+			font-weight: 700;
+			margin-bottom: 5px;
+		}
+
+		.description {
+			font-size: 16px;
+			color: $firefly60;
+			margin-bottom: 5px;
+			a { @include ctb-linkColor($firefly60); }
+		}
+
+		.provider-icon, .favicon {
+			img {
+				max-width: 16px;
+				vertical-align: text-top;
+			}
+		}
+
+	} // media-content
+
+	.media-status {
+		// add styles for media status
+		@include media-status-styles;
+		display: block;
+		margin-top: 30px;
+	}
+
+	// for videos
+	.video-holder {
+		position: relative;
+	  display: block;
+	  height: 0;
+	  padding: 0;
+	  overflow: hidden;
+	  
+	  .oembed-video,
+	  iframe,
+	  embed,
+	  object {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    bottom: 0;
+	    height: 100%;
+	    width: 100%;
+	    border: 0;
+	  }
+	  // Modifier class for 16:9 aspect ratio
+	  &.video-16by9 {
+	    padding-bottom: 56.25%;
+	  }
+
+	  // Modifier class for 4:3 aspect ratio
+	  &.video-4by3 {
+	    padding-bottom: 75%;
+	  }
+	}
+
+	@include clear-icon-margins;
+
+} // media-holder
+
+
+.inline-attachment {
+
+	margin-bottom: 10px;
+
+	.inline-attachment-bar {
+		display: table-cell;
+		width: 4px;
+		@include border-radius(2px);
+		background-color: $firefly10;
+		.indent {
+			width: 4px;
+		}
+	}
+
+	.inline-img-thumb-holder, .inline-video-thumb-holder {
+		float: opposite-position($from-direction);
+	}
+
+	.inline-img-thumb, .inline-video-thumb {
+		width: 100%;
+		@include ctb-size(74px, 120px);
+		@include border-radius(4px);
+		margin-top: 4px;
+		margin-#{$from-direction}: $gutter-width/2;
+	}
+
+	.media-inline-holder {
+		display: table-cell;
+		padding: 0;
+		padding-#{$from-direction}: 15px;
+		width: 100%;
+	}
+
+} // inline-attachment

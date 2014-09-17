@@ -1,0 +1,319 @@
+// Thumbnail Sizes
+.thumb-60 {
+	@include ctb-size(60px, 60px);
+}
+
+.thumb-38 {
+	@include ctb-size(38px, 38px);
+}
+
+.thumb-48 {
+	@include ctb-size(48px, 48px);
+}
+
+// icons
+// TODO bring icons out of reports and declare them for all
+// update FA
+.icon-share { @include icon(share, 20px);	}
+.icon-flag-o { @include icon(flag-o, 20px);	}
+.icon-pencil-square-o { @include icon(pencil-square-o, 20px); }
+.icon-plus-square-o { @include icon(plus-square-o, 20px); }
+.icon-ellipsis-h { @include icon(ellipsis-h, 20px); }
+.icon-youtube-play { @include icon(youtube-play); }
+.icon-check-circle { @include icon(check-circle, 16px);}
+.icon-trash-o { @include icon(trash-o, 16px);}
+
+ // Report status icons in activity log's header
+$position:  "before";
+@if $from-direction == left {
+	$position: "after";
+}
+@if $from-direction == right {
+	$position: "before";
+}
+// verified
+.icon-check-circle { 
+	color: $verified;
+	@include icon(check-circle);
+}
+// in-progress
+.icon-random { 
+	@include icon(random);
+}
+.icon-circle { 
+	color: rgba(239,202,43,1);
+}
+// undetermined
+.icon-question-circle { 
+	color: $undetermined;
+	@include icon(question-circle);
+}
+// false
+.icon-times-circle { 
+	color: $false; 
+	@include icon(times-circle);
+}
+
+// generalized item with white background and grey
+.item {
+
+	font-size: 16px;
+	color: $firefly60;
+	word-wrap: break-word;
+	a { @include ctb-linkColor($firefly60); }
+
+	.item-content-wrapper {
+		@include border-radius(4px 4px 0 0);
+		background-color: #fff;
+	} //item-content-wrapper
+
+	.item-message {
+		padding: 15px 20px 0 20px;
+		background-color: #fff;
+	}
+
+	.item-content-wrapper {
+		padding: 20px 20px 15px 20px;
+	}
+
+	.item-content {
+		display: block;
+
+		p {
+			@include reset-box-model;
+			color: $firefly80;
+			a { @include ctb-linkColor($strongBlue80); }
+			&:first-child {
+				@include reset-box-model;
+				margin-top: 5px;
+			}
+		}
+
+		
+	}
+
+	.item-controls {
+		.page-story-collaboration & {
+			cursor: pointer;
+		}
+
+		.meta, .actions {
+			display: table-cell;
+			width: 100%;
+		}
+		.meta {
+			font-weight: 700;
+		}
+		.actions {
+			white-space: nowrap;
+			span[class^="icon-"], span[class*="icon-"] { 
+				font-size: 20px;
+				color: $firefly40;
+			}
+			div {
+				display: inline-block;
+			}
+		}
+		
+		// hide any labels
+		.label {
+			display: none;
+		}
+
+		&:hover .meta {
+			color: $firefly80;
+		}
+
+	} // item-controls
+
+	.item-nested-content-wrapper {
+		@include ctb-bg($firefly5, rgba($firefly, 0.05));
+		@include border-radius(0 0 4px 4px);
+		padding: 10px 20px;
+		font-size: 16px;
+		color: $firefly40;
+		
+		// add styles for load more pager
+		@include ctb-load-more-pager;
+
+	} // item-nested-content-wrapper
+
+	.open {
+		color: $firefly80;
+	}
+
+	.item-nested-content {
+		.page-story-collaboration & {
+			display: none;
+		}
+	} // item-nested-content
+
+	.item-nested-footer {
+		margin-top: 30px;
+		padding-top: 8px;
+		margin-bottom: 2px;
+		border-top: 1px solid rgba($firefly, .05);
+		.cta, .helper {
+			display: table-cell;
+			width: 100%;
+			color: $firefly60;
+		}
+		.cta {
+			font-size: 16px;
+			a { @include ctb-linkColor($strongBlue80); }
+		}
+		.helper {
+			font-size: 14px;
+			white-space: nowrap;
+			span[class^="icon-"], span[class*="icon-"], a {
+				color: $firefly30;
+				text-decoration: none;
+			}
+		}
+	}
+
+	@include ctb-clearfix;
+
+} // item
+
+
+// activity
+
+.view-story-collaboration {
+	// add styles for load more pager
+	@include ctb-load-more-pager;
+
+	.pager-load-more {
+		// border-top: 1px solid rgba($firefly, .1);
+		margin-top: 30px;
+	}
+}
+
+.activity-item {
+	position: relative;
+	padding: 0;
+	padding-#{$from-direction}: (60px + $gutter-width);
+	margin-top: 30px;
+	padding-top: 20px;
+	border-top: 1px solid rgba($firefly, .05);
+
+	// no top border and padding for first item
+	&:first-child {
+		border-top: 0;
+		padding-top: 0;
+		.avatar { top: 0; }
+	}
+
+	// when nested inside a parent 
+	// e.g. in verfication log
+	.nested & {
+		padding-#{$from-direction}: (38px + $gutter-width);
+		padding-top: 6px;
+		margin-top: 20px;
+		min-height: 32px;
+		line-height: 22px;
+		border: 0 none;
+		// avatar default position
+		.avatar { top: 0; }
+		// show delete icon on hover
+		&:hover {
+			.inline-delete-item {
+				display: inline-block;
+			}
+		}
+	}
+
+	.avatar {
+		position: absolute;
+		top: 20px;
+		#{$from-direction}: 0;
+		float: $from-direction;
+
+		background-size: 100%;
+		background-repeat: no-repeat;
+		display: inline-block;
+		@include border-radius(4px);
+		background-color: $firefly20;
+	}
+
+	.activity-item-message {
+		@include border-radius(4px 4px 0 0);
+		.nested & {
+			@include border-radius(0px);
+		}
+	}
+
+	.activity-item-content-wrapper {
+		padding: 10px 20px 15px 20px;
+		@include border-radius(0px);
+	}
+
+	.media-status {
+		// add styles for media status
+		@include media-status-styles;
+		@include clear-icon-margins;
+	}
+
+	a.actor {
+		font-weight: 700;
+		color: $firefly;
+		.nested & { 
+			// display: block; 
+			margin-top: 8px;
+		}
+	}
+
+	.timestamp {
+		float: opposite-position($from-direction);
+		font-size: 14px;
+		color: $firefly30;
+	}
+
+	.inline-delete-item {
+		float: opposite-position($from-direction);
+		display: none;
+	}
+
+	@include ctb-clearfix;
+} // activity-item 
+
+// when grouped together
+.nested .grouped-item {
+	padding-top: 0;
+	margin-top: -10px;
+	.avatar {
+		display: none;
+	}
+}
+
+
+
+// specific styles for different activity types
+// when an update is added to a story
+.activity .update-added {
+	.activity-item-content {
+		border-top: 1px dotted rgba($firefly, 0.1);
+		// margin-top: 10px;
+		padding-top: 10px;
+	}
+
+	h3.update-title {
+		@include reset-box-model;
+		@include cd-sans-serif-family;
+		font-size: 18px;
+		font-weight: 700;
+		a { @include ctb-linkColor($strongBlue80); }
+	}
+
+	.checkdesk-update-reports {
+		margin-top: 8px;
+	}
+
+ 	.update-reports-authors {
+ 		font-weight: 700;
+ 		color: $firefly80;
+ 		font-size: 16px;
+ 		a { @include ctb-linkColor($firefly80); }
+ 	}
+
+}
