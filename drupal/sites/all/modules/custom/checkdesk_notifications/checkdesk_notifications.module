@@ -85,10 +85,12 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
         'label' => $label . t('Report flagged'),
         'token type' => 'node',
       );
+      /*
       $events[$context . '_report_suggested'] = array(
         'label' => $label . t('Report suggested to story'),
         'token type' => 'node',
       );
+       */
       $events[$context . '_comment_on_update'] = array(
         'label' => $label . t('Comment on update'),
         'token type' => 'node',
@@ -187,9 +189,11 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       if ($subscriptions['site_report_flagged']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_flag_report'");
       }
+      /*
       if ($subscriptions['site_report_suggested']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_suggested_to_story'");
       }
+       */
       if ($subscriptions['site_comment_on_report']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_comment_on_report'");
       }
@@ -275,7 +279,7 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
   $citizen_role_id = $roles['citizen journalist'];
   switch ($context['event']) {
     case 'email_report_flagged':
-    case 'email_report_suggested':
+    //case 'email_report_suggested':
     case 'email_new_user':
     case 'email_fact_checking_set_by_citizen':
       $uids = db_query("SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id")->fetchCol(); // all journalists
