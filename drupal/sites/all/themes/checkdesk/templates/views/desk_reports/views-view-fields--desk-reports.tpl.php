@@ -19,8 +19,17 @@
 	<div class="report-content">
     <?php print $fields['field_link']->content; ?>
 	</div>
-	<a class="report-attributes <?php print $status_class; ?> ctools-use-modal ctools-modal-modal-popup-report" data-toggle="dropdown" href="<?php print url('report-view-modal/nojs/' . $fields['nid']->raw); ?>">
-		<div class="report-meta">
+  <!-- Hidden div that include links for report view -->
+  <div id="cd-report-view-links-<?php print $fields['nid']->raw; ?>" style="display: none;">
+    <a id="cd-report-default" href="<?php print url('node/' . $fields['nid']->raw); ?>">basic link</a>
+    <a id="cd-report-confirm"
+       class="ctools-use-modal ctools-modal-modal-popup-report"
+       href="<?php print url('report-view-leave/nojs/' . $fields['nid']->raw); ?>" >
+      Modal link</a>
+  </div>
+	 <a class="report-attributes <?php print $status_class; ?>" data-toggle="dropdown"
+      onclick="_checkdesk_report_view_redirect(<?php print $fields['nid']->raw; ?>);" >
+    <div class="report-meta">
 			<?php if ($favicon) : ?>
 		      <div class="favicon"><?php print $favicon; ?></div>
 		    <?php endif ?>

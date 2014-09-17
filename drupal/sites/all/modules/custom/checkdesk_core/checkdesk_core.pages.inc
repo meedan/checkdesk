@@ -75,3 +75,60 @@ function _checkdesk_story_get_collaborators($nid) {
   }
   return $output;
 }
+
+/**
+ * Menu function for `report-view-leave/%ctools_js`.
+ */
+function _checkdesk_modal_report_view_leave($js = FALSE) {
+  $nid = arg(2);
+  if (!$js) {
+    drupal_goto('node/' . $nid);
+    return;
+  }
+
+  ctools_include('modal');
+  ctools_include('ajax');
+
+  $form_state = array(
+    'ajax' => TRUE,
+    'title' => t('Are you sure you want to leave this page?'),
+    'report_nid' => $nid,
+  );
+
+  $commands = ctools_modal_form_wrapper('_checkdesk_core_report_details', $form_state);
+
+  if (!empty($form_state['executed'])) {
+    // Add the responder javascript, required by ctools
+    ctools_add_js('ajax-responder');
+    // Array with ajax response.
+    $commands = array();
+    $commands[] = ctools_modal_command_dismiss();
+    $commands[] = ctools_ajax_command_redirect('node/' . $nid);
+  }
+  print ajax_render($commands);
+  exit;
+}
+
+/**
+ * Form for confirm leave post.
+ */
+function _checkdesk_core_report_details($form, $form_state) {
+  $form['report_nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $form_state['report_nid'],
+  );
+  $form['description'] = array(
+    '#markup' => t('You haven\'t finish your post yet. Do you want to leave without finishing?'),
+  );
+  $form['cancel'] = array(
+    '#markup' => '<div><a id="close" class="btn" data-dismiss="modal" aria-hidden="true"
+                onClick="jQuery(\'#close\').trigger(\'click\');" >' . t('Stay on this page') . '</a></div>',
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Leave this page'),
+  );
+
+  return $form;
+}
