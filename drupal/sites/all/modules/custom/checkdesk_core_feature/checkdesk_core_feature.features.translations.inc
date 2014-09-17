@@ -1725,6 +1725,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['2443bda544a5189c28ba7c1408e285f3'] = array(
+    'source' => 'Following story',
+    'context' => '',
+    'location' => 'sites/all/modules/custom/checkdesk_core/js/checkdesk_core.js',
+    'translation' => 'موضوع مُتابَع',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['2491bc9c7d8731e1ae33124093bc7026'] = array(
     'source' => 'Twitter',
     'context' => '',
@@ -2686,6 +2694,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'Allows content to be submitted using Markdown, a simple plain-text syntax that is filtered into valid XHTML.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3710562ccfb57f5402d86b1519385b6e'] = array(
+    'source' => 'Add a report',
+    'context' => '',
+    'location' => '/ar/story-collaboration/35',
+    'translation' => 'أضف تقرير',
     'plid' => 0,
     'plural' => 0,
   );

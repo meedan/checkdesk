@@ -318,6 +318,7 @@
       });
     }
   }
+
 }(jQuery));
 
 function _checkdesk_report_view_redirect(nid) {
@@ -340,3 +341,12 @@ function _checkdesk_report_view_redirect(nid) {
     window.location.href = href;
   }
 }
+
+jQuery(function() {
+    jQuery('.flag-follow-story a.unflag-action').bind( "mouseenter", function() {
+            jQuery(this).text(Drupal.t('Unfollow story'));
+        })
+        .bind( "mouseleave", function() {
+            jQuery(this).text(Drupal.t('Following story'));
+        });
+});
