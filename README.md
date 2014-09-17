@@ -49,13 +49,13 @@ Checkdesk installation is similar to a [standard Drupal installation](https://dr
 # Project layout
 
     meedan-checkdesk/
+       |-bin                                         # executable scripts needed for build
        |-config                                      # configuration files
        |-drupal                                      # Drupal application root
        |-patches                                     # patches to Drupal core, modules, other components
        |-test                                        # testing files
        |---behat                                     # Behat tests
        |---html                                      # HTML tests
-       |-ng-ui                                       # experimental Angular.js front-end
 
 # Compiling SASS
 The Checkdesk theme uses [SASS](http://sass-lang.com/). Although the repo contains the pre-compiled CSS files, you will need to setup a working SASS development environment if you wish to modify the theme. Install [Ruby](https://www.ruby-lang.org) then type the following in a console from the Checkdesk root folder:
