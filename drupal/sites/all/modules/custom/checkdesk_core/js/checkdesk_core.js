@@ -325,6 +325,7 @@ function _checkdesk_report_view_redirect(nid) {
   var title = jQuery('form#post-node-form input#edit-title').val();
   var placeholder = jQuery('form#post-node-form #edit-body #edit-body-und-0-value').attr('placeholder');
   var desc  = jQuery('form#post-node-form #edit-body iframe').contents().find('body').html();
+  var modal = false;
   if (title) {
     modal = true;
   }
