@@ -271,7 +271,7 @@
     $form.hide();
     $form.appendTo($('html'));
     $('#node-' + nid).replaceWith(output);
-    $('#node-' + nid + ' .activity-wrapper').append($form);
+    $('#node-' + nid + ' .item-nested-content').append($form);
     $form.show();
     $form.find('textarea').val('');
     //destory then re-assign expanding to fix issue #2119.

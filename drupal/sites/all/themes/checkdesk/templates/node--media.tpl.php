@@ -6,6 +6,7 @@
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </section> 
+      <?php if (isset($media_activity_report_count)) : ?>
       <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity item-nested-content-wrapper open">
           <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
             <div class="report-activity-header item-controls" href="#">
@@ -31,6 +32,8 @@
             </div>
           <?php endif; ?>
       </section>
+      <?php endif; ?>
+      <?php if (isset($content['field_stories'])) : ?>
       <section class="report-detail">
         <?php if(isset($content['field_stories'])): ?>
           <div class="checkdesk-story-wrapper">
@@ -38,6 +41,7 @@
           </div>
         <?php endif ?>
       </section>
+      <?php endif; ?>
     </div>
   </article>
 
