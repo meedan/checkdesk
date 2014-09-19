@@ -7782,10 +7782,19 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   margin: 0 0;
 }
 .story .story-follow {
+  *zoom: 1;
   margin-top: 30px;
   margin-bottom: 20px;
-  font-size: 20px;
+  color: #b89892;
   font-weight: 700;
+}
+.story .story-follow:before, .story .story-follow:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.story .story-follow:after {
+  clear: both;
 }
 .story .story-follow a {
   color: #b89892;
@@ -7793,6 +7802,10 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-follow a:hover {
   color: #4c3632;
+}
+.story .story-follow a:hover {
+  background-color: #f3f4f4;
+  background-color: rgba(16, 33, 47, 0.05);
 }
 .story .story-follow a.flag-action:before {
   font-family: "FontAwesome";
@@ -7808,6 +7821,10 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.story .story-follow a.flag-action:before, .story .story-follow a.flag-action:after {
+  margin: 0 7.5px 0 0;
+  font-size: 17px;
+}
 .story .story-follow a.unflag-action:before {
   font-family: "FontAwesome";
   display: inline-block;
@@ -7821,6 +7838,38 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.story .story-follow a.unflag-action:before, .story .story-follow a.unflag-action:after {
+  margin: 0 7.5px 0 0;
+  font-size: 17px;
+}
+.story .story-follow .flag, .story .story-follow .follow-count {
+  padding: 4px 10px;
+  border: 1px solid rgba(16, 33, 47, 0.1);
+}
+.story .story-follow .flag {
+  float: left;
+  border: 1px solid rgba(16, 33, 47, 0.1);
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  -ms-border-radius: 4px 0 0 4px;
+  -o-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+  font-size: 17px;
+  line-height: 28px;
+  vertical-align: middle;
+}
+.story .story-follow .follow-count {
+  float: left;
+  font-size: 18px;
+  line-height: 28px;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  -o-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+  vertical-align: middle;
+  border-left: 0 none;
 }
 .story .story-tabs-wrapper {
   margin: 0 0 24px;

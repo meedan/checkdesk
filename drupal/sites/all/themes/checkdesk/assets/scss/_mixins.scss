@@ -118,6 +118,37 @@
   }
 }
 
+// Media Status
+// -------------------------
+@mixin media-status-styles {
+  .status-name {
+    font-weight: 700;
+  }
 
+  .verified {
+    color: $verified;
+  }
 
+  .undetermined {
+    color: $undetermined;
+  }
+
+  .false {
+    color: $false;
+  }
+
+  .in-progress {
+    
+  }
+} // media-status
+
+@mixin clear-icon-margins {
+  // remove the margins around the icon
+  span[class^="icon-"], span[class*="icon-"] {
+    &:before, &:after { 
+      margin: 0; // no margins
+      font-size: 16px; 
+    } 
+  }
+}
 
