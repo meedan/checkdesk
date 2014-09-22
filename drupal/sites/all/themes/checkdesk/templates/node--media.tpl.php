@@ -1,4 +1,4 @@
-<section id="node-<?php print $node->nid; ?>" class="item node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
+<section id="node-<?php print $node->nid; ?>" class="default-view-node-<?php print $node->nid; ?> item node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="report item <?php if (isset($status_class)) { print $status_class; } ?>">   
     <div class="item-wrapper">
       <section class="media-holder item-content-wrapper">

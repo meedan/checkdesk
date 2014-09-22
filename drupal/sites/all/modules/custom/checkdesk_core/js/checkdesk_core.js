@@ -168,6 +168,7 @@
             }
           }
         }
+        $('span.add-to').removeClass('open')
       });
     }
   };

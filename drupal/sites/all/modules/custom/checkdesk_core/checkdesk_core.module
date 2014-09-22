@@ -2505,7 +2505,7 @@ function checkdesk_core_flag_javascript_info_alter(&$info) {
     $output .= $settings;
 
     $commands = array();
-    $commands[] = ajax_command_invoke('.node-' . $nid, 'replaceWith', array($output));
+    $commands[] = ajax_command_invoke('.default-view-node-' . $nid, 'replaceWith', array($output));
     $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid);
 
     $info['commands'] = $commands;
