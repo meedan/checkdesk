@@ -56,8 +56,8 @@ function checkdesk_core_feature_default_rules_configuration() {
             "uid_target" : "0",
             "cid" : [ "comment:cid" ],
             "message_id" : { "value" : { "checkdesk_comment_on_report" : "checkdesk_comment_on_report" } },
-            "!user_url" : [ "comment:node:author:url" ],
-            "!username" : [ "comment:node:author:name" ],
+            "!user_url" : [ "comment:author:url" ],
+            "!username" : [ "comment:author:name" ],
             "!report_url" : [ "comment:node:url" ]
           }
         },
