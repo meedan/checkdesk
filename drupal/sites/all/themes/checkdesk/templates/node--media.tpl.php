@@ -5,21 +5,20 @@
         <div class="media">
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
-      </section> 
+      </section>
+
       <?php if (isset($media_activity_report_count)) : ?>
-      <section id="report-activity-node-<?php print $node->nid; ?>" class="report-activity item-nested-content-wrapper open">
-          <header<?php if (isset($status_class)) { print ' class="' . $status_class . '"'; } ?>>
-            <div class="report-activity-header item-controls" href="#">
-              <div class="meta">
-                <?php if(isset($media_activity_report_count)) : ?>
-                  <?php print $media_activity_report_count . t(' verification footnotes'); ?>
-                <?php endif; ?>
-              </div>
-              <div class="actions" role="toolbar">
-                <?php print render($content['links']); ?>
-              </div>
+        <div id="report-activity-node-<?php print $node->nid; ?>" class="item-nested-content-wrapper open">
+          <div class="activity-item-controls item-controls">
+            <div class="meta">
+              <?php if (isset($media_activity_report_count)) : ?>
+                <?php print $media_activity_report_count . ' ' . t('verification footnotes'); ?>
+              <?php endif; ?>
             </div>
-          </header>
+            <div class="actions" role="toolbar">
+              <?php print render($content['links']); ?>
+            </div>
+          </div> <!-- /activity-item-controls -->
           <?php if(isset($media_activity_report)) : ?>
             <div class="activity nested item-nested-content">
               <?php print $media_activity_report; ?>
@@ -31,8 +30,9 @@
               <?php endif; ?>
             </div>
           <?php endif; ?>
-      </section>
+        </div>
       <?php endif; ?>
+
       <?php if (isset($content['field_stories'])) : ?>
       <section class="report-detail">
         <?php if(isset($content['field_stories'])): ?>

@@ -1,7 +1,7 @@
 <?php 
   $heartbeat_row = $node->heartbeat_row;
 ?>
-
+<section id="node-<?php print $node->nid; ?>" class="item node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
 <div class="activity-item-content-wrapper item-content-wrapper <?php if (isset($status_class)) { print $status_class; } ?>">
   <span class="activity-item-content item-content">
       
@@ -18,7 +18,7 @@
   </span> <!-- /activity-item-content -->
 </div> <!-- /activity-item-content-wrapper -->
 
-<div class="item-nested-content-wrapper">
+<div id="report-activity-node-<?php print $node->nid; ?>" class="item-nested-content-wrapper">
   <div class="activity-item-controls item-controls">
     <div class="meta">
       <?php if (isset($media_activity_report_count)) : ?>
@@ -41,3 +41,4 @@
     </div>
   <?php endif; ?>
 </div>
+</section>

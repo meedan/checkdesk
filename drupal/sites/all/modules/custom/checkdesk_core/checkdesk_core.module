@@ -2677,8 +2677,9 @@ function _checkdesk_comment_form_submit($form, &$form_state) {
 
   $node_view = node_view($node);
   // $node_view['comments'] = comment_node_page_additions($node);
-  $output = drupal_render($node_view);
-
+  //$output = drupal_render($node_view);
+  //TODO use theme function instead of writing HTML
+  $output = _checkdesk_render_footnotes($node);
   $commands = array();
   $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output));
 
@@ -3100,4 +3101,37 @@ function _set_user_avatar_bg($account, $classes = array()) {
       )));
   }
   return $avatar;
+}
+
+/**
+ * Render footnote HTML for footnote ajax submit
+ * @param object $node
+ * @return HTML
+ */
+function _checkdesk_render_footnotes($node) {
+  $node_view = node_view($node);
+  $view = views_get_view('activity_report');
+  $view->set_arguments(array($node->nid));
+  $view->get_total_rows = TRUE;
+  $view_output = $view->preview('block');
+  $total_rows = $view->total_rows;
+  $view->destroy();
+  if ($total_rows) {
+    $media_activity_report_count = $total_rows;
+    $media_activity_report = $view_output;
+  }
+  $html = '<div id="report-activity-node-' . $node->nid . '" class="item-nested-content-wrapper open">';
+  $html .= '<div class="activity-item-controls item-controls">';
+  $html .= '    <div class="meta">';
+  $html .= $media_activity_report_count . ' '. t('verification footnotes');
+  $html .= '</div>';
+  $html .= '<div class="actions" role="toolbar">';
+  $html .= render($node_view['links']);
+  $html .= '</div>';
+  $html .= '</div>';
+  $html .= ' <div class="activity nested item-nested-content open" style="display: block;">';
+  $html .= $media_activity_report;
+  $html .= '  </div>';
+  $html .= '  </div>';
+  return $html;
 }

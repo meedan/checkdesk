@@ -267,11 +267,11 @@
 
   // This callback is invoked when a new footnote is added
   $.fn.footnoteCallback = function(nid, output) {
-    var $form = $('#node-' + nid + ' section#comment-form');
+    var $form = $('#node-' + nid + ' .open section#comment-form');
     $form.hide();
     $form.appendTo($('html'));
-    $('#node-' + nid).replaceWith(output);
-    $('#node-' + nid + ' .item-nested-content').append($form);
+    $('.open#report-activity-node-' + nid).replaceWith(output);
+    $('.open#report-activity-node-' + nid + ' .item-nested-content').append($form);
     $form.show();
     $form.find('textarea').val('');
     //destory then re-assign expanding to fix issue #2119.
