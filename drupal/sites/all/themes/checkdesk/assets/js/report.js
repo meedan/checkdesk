@@ -277,6 +277,10 @@
     //destory then re-assign expanding to fix issue #2119.
     $form.find('textarea').expanding('destroy');
     $form.find('textarea').expanding();
+    // Scroll to new footnote
+    $('html, body').animate({
+        scrollTop: $('.open#report-activity-node-' + nid).offset().top - 150
+    }, 'slow');
     Drupal.attachBehaviors($('#node-' + nid));
   };
 
