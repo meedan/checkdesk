@@ -10708,6 +10708,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['3eb2f3bea511ad4d4ab98586b8fdb3a3'] = array(
+    'source' => '1 report',
+    'context' => '',
+    'location' => '/ar/story-collaboration/10970',
+    'translation' => '1 تقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['3eb561697a0a623d2dd363fa4ef867b9'] = array(
     'source' => 'JavaScript translation file %file.js was lost.',
     'context' => '',
@@ -22818,6 +22826,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['8139011e0206a59a0e90a567e769ddbe'] = array(
+    'source' => '@count[2] reports',
+    'context' => '',
+    'location' => '/ar/story-collaboration/12183',
+    'translation' => 'تقريران',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['8143c78b882b6aa88b1e2b3b86478e09'] = array(
     'source' => 'The Search module includes a default <em>Search form</em> block, which can be enabled and configured on the <a href="@blocks">Blocks administration page</a>. The block is available to users with the <em>Search content</em> permission.',
     'context' => '',
@@ -25528,6 +25544,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'يجب أن يكون حجم الصور بين !min و !max بيكسل.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['911482c6aecc4cc54ba5a82a0971ec5b'] = array(
+    'source' => '@count[3] reports',
+    'context' => '',
+    'location' => '/ar/story-collaboration/10970',
+    'translation' => '@count[3] تقريرات',
     'plid' => 0,
     'plural' => 0,
   );
