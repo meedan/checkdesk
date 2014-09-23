@@ -12305,6 +12305,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['4700c47fcd5dd07cb982f1e082b5e4eb'] = array(
+    'source' => 'Follow a story to stay up to date with the latest developments',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تابع الموضوع لمواكبة آخر الأحداث',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['4707f4837789c2eee1615d954b1220c9'] = array(
     'source' => 'Can not determine status',
     'context' => '',
@@ -18031,7 +18039,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $translations['ar:default']['660e4a8134a4f7bcadda750f209279a8'] = array(
     'source' => 'Apply (all displays)',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/modules/contrib/views/js/views-admin.js',
     'translation' => 'تطبيق (كل العروض)',
     'plid' => 0,
     'plural' => 0,
@@ -43969,7 +43977,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['f8f3b13428b80832fb1fc78a1cac557e'] = array(
     'source' => 'Apply (this display)',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/modules/contrib/views/js/views-admin.js',
     'translation' => 'تطبيق (هذا العرض)',
     'plid' => 0,
     'plural' => 0,
