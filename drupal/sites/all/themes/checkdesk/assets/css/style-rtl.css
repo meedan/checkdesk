@@ -7795,7 +7795,8 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -moz-osx-font-smoothing: grayscale;
 }
 .story .story-follow a.flag-action:before, .story .story-follow a.flag-action:after {
-  margin: 0 7.5px 0 0;
+  margin: 0 0 0 0;
+  margin-left: 7.5px;
   font-size: 17px;
 }
 .story .story-follow a.unflag-action:before {
@@ -7813,7 +7814,8 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -moz-osx-font-smoothing: grayscale;
 }
 .story .story-follow a.unflag-action:before, .story .story-follow a.unflag-action:after {
-  margin: 0 7.5px 0 0;
+  margin: 0 0 0 0;
+  margin-left: 7.5px;
   font-size: 17px;
 }
 .story .story-follow .flag, .story .story-follow .follow-count {
@@ -7823,11 +7825,11 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-follow .flag {
   float: right;
   border: 1px solid rgba(16, 33, 47, 0.1);
-  -webkit-border-radius: 4px 0 0 4px;
-  -moz-border-radius: 4px 0 0 4px;
-  -ms-border-radius: 4px 0 0 4px;
-  -o-border-radius: 4px 0 0 4px;
-  border-radius: 4px 0 0 4px;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  -o-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
   font-size: 17px;
   line-height: 28px;
   vertical-align: middle;
@@ -7836,13 +7838,14 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   float: right;
   font-size: 18px;
   line-height: 28px;
-  -webkit-border-radius: 0 4px 4px 0;
-  -moz-border-radius: 0 4px 4px 0;
-  -ms-border-radius: 0 4px 4px 0;
-  -o-border-radius: 0 4px 4px 0;
-  border-radius: 0 4px 4px 0;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  -ms-border-radius: 4px 0 0 4px;
+  -o-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
   vertical-align: middle;
   border-right: 0 none;
+  min-height: 30px;
 }
 .story .story-tabs-wrapper {
   margin: 0 0 24px;
