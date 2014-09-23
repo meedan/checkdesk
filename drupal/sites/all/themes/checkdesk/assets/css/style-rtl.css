@@ -1764,11 +1764,11 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f086";
 }
 
-#widgets .elsewhere ul li span.icon-twitter:before, #user-login #edit-social-media-signin li.first a:before, #user-register-form #edit-social-media-signin li.first a:before {
+#widgets .elsewhere ul li span.icon-twitter:before, .user-login-wrapper .social-signin-wrapper li.first a:before, .user-register-wrapper .social-signin-wrapper li.first a:before {
   content: "\f099";
 }
 
-#widgets .elsewhere ul li span.icon-facebook:before, #user-login #edit-social-media-signin li a[class^='facebook']:before, #user-register-form #edit-social-media-signin li a[class^='facebook']:before {
+#widgets .elsewhere ul li span.icon-facebook:before, .user-login-wrapper .social-signin-wrapper li a[class^='facebook']:before, .user-register-wrapper .social-signin-wrapper li a[class^='facebook']:before {
   content: "\f09a";
 }
 
@@ -5755,10 +5755,10 @@ html body .livefyre-wrapper {
   font-size: 14px;
   margin-bottom: 8px;
 }
-#meedan_bookmarklet #user-login #edit-social-media-signin {
+#meedan_bookmarklet #user-login .social-signin-wrapper {
   margin-top: 12px;
 }
-#meedan_bookmarklet #user-login #edit-social-media-signin .item-list li a {
+#meedan_bookmarklet #user-login .social-signin-wrapper .item-list li a {
   padding: 8px 15px;
 }
 #meedan_bookmarklet #user-login .or {
@@ -9675,14 +9675,14 @@ body.page-user-password #content-header {
   padding-left: 17.77778%;
 }
 @media (min-width: 465px) {
-  body.page-user-login form #edit-social-media-signin a,
-  body.page-user-register form #edit-social-media-signin a,
-  body.page-user-password form #edit-social-media-signin a {
+  body.page-user-login form .social-signin-wrapper a,
+  body.page-user-register form .social-signin-wrapper a,
+  body.page-user-password form .social-signin-wrapper a {
     font-size: 20px !important;
   }
 }
 
-#user-login, #user-register-form {
+.user-login-wrapper, .user-register-wrapper {
   width: 64.44444%;
   float: right;
   margin-left: 6.66667%;
@@ -9690,44 +9690,45 @@ body.page-user-password #content-header {
   padding-right: 17.77778%;
   padding-left: 17.77778%;
   margin-top: 24px;
+  margin-bottom: 24px;
 }
-#user-login label, #user-register-form label {
+.user-login-wrapper label, .user-register-wrapper label {
   color: #6f7a82;
 }
-#user-login input[type="text"], #user-login input[type="password"], #user-register-form input[type="text"], #user-register-form input[type="password"] {
+.user-login-wrapper input[type="text"], .user-login-wrapper input[type="password"], .user-register-wrapper input[type="text"], .user-register-wrapper input[type="password"] {
   margin-top: 0;
 }
-#user-login .form-required, #user-register-form .form-required {
+.user-login-wrapper .form-required, .user-register-wrapper .form-required {
   display: none;
 }
-#user-login > div > .item-list, #user-register-form > div > .item-list {
+.user-login-wrapper > div > .item-list, .user-register-wrapper > div > .item-list {
   display: none;
 }
-#user-login #edit-social-media-signin, #user-register-form #edit-social-media-signin {
+.user-login-wrapper .social-signin-wrapper, .user-register-wrapper .social-signin-wrapper {
   float: none;
 }
-#user-login #edit-social-media-signin .item-list, #user-register-form #edit-social-media-signin .item-list {
+.user-login-wrapper .social-signin-wrapper .item-list, .user-register-wrapper .social-signin-wrapper .item-list {
   *zoom: 1;
   text-align: center;
 }
-#user-login #edit-social-media-signin .item-list:before, #user-login #edit-social-media-signin .item-list:after, #user-register-form #edit-social-media-signin .item-list:before, #user-register-form #edit-social-media-signin .item-list:after {
+.user-login-wrapper .social-signin-wrapper .item-list:before, .user-login-wrapper .social-signin-wrapper .item-list:after, .user-register-wrapper .social-signin-wrapper .item-list:before, .user-register-wrapper .social-signin-wrapper .item-list:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#user-login #edit-social-media-signin .item-list:after, #user-register-form #edit-social-media-signin .item-list:after {
+.user-login-wrapper .social-signin-wrapper .item-list:after, .user-register-wrapper .social-signin-wrapper .item-list:after {
   clear: both;
 }
-#user-login #edit-social-media-signin .item-list li, #user-register-form #edit-social-media-signin .item-list li {
+.user-login-wrapper .social-signin-wrapper .item-list li, .user-register-wrapper .social-signin-wrapper .item-list li {
   margin: 0;
   padding: 0;
   display: inline;
   margin-left: 15px;
 }
-#user-login #edit-social-media-signin .item-list li li, #user-register-form #edit-social-media-signin .item-list li li {
+.user-login-wrapper .social-signin-wrapper .item-list li li, .user-register-wrapper .social-signin-wrapper .item-list li li {
   list-style: none;
 }
-#user-login #edit-social-media-signin .item-list li a, #user-register-form #edit-social-media-signin .item-list li a {
+.user-login-wrapper .social-signin-wrapper .item-list li a, .user-register-wrapper .social-signin-wrapper .item-list li a {
   float: none;
   display: inline-block;
   padding: 12px 30px;
@@ -9739,10 +9740,10 @@ body.page-user-password #content-header {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-#user-login #edit-social-media-signin .item-list li a:hover, #user-register-form #edit-social-media-signin .item-list li a:hover {
+.user-login-wrapper .social-signin-wrapper .item-list li a:hover, .user-register-wrapper .social-signin-wrapper .item-list li a:hover {
   text-decoration: none;
 }
-#user-login #edit-social-media-signin li.first a, #user-register-form #edit-social-media-signin li.first a {
+.user-login-wrapper .social-signin-wrapper li.first a, .user-register-wrapper .social-signin-wrapper li.first a {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -9753,10 +9754,10 @@ body.page-user-password #content-header {
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-#user-login #edit-social-media-signin li.first a:hover, #user-register-form #edit-social-media-signin li.first a:hover {
+.user-login-wrapper .social-signin-wrapper li.first a:hover, .user-register-wrapper .social-signin-wrapper li.first a:hover {
   background-color: #1d87c9;
 }
-#user-login #edit-social-media-signin li.first a:before, #user-register-form #edit-social-media-signin li.first a:before {
+.user-login-wrapper .social-signin-wrapper li.first a:before, .user-register-wrapper .social-signin-wrapper li.first a:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -9770,7 +9771,7 @@ body.page-user-password #content-header {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#user-login #edit-social-media-signin li a[class^='facebook'], #user-register-form #edit-social-media-signin li a[class^='facebook'] {
+.user-login-wrapper .social-signin-wrapper li a[class^='facebook'], .user-register-wrapper .social-signin-wrapper li a[class^='facebook'] {
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -9781,10 +9782,10 @@ body.page-user-password #content-header {
   transition-duration: 0.2s;
   background-color: #cccccc;
 }
-#user-login #edit-social-media-signin li a[class^='facebook']:hover, #user-register-form #edit-social-media-signin li a[class^='facebook']:hover {
+.user-login-wrapper .social-signin-wrapper li a[class^='facebook']:hover, .user-register-wrapper .social-signin-wrapper li a[class^='facebook']:hover {
   background-color: #264887;
 }
-#user-login #edit-social-media-signin li a[class^='facebook']:before, #user-register-form #edit-social-media-signin li a[class^='facebook']:before {
+.user-login-wrapper .social-signin-wrapper li a[class^='facebook']:before, .user-register-wrapper .social-signin-wrapper li a[class^='facebook']:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -9798,22 +9799,22 @@ body.page-user-password #content-header {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#user-login .or, #user-register-form .or {
+.user-login-wrapper .or, .user-register-wrapper .or {
   *zoom: 1;
   font-family: "Droid Arabic Naskh", serif;
   color: #999999;
   text-align: center;
   margin: 12px 0;
 }
-#user-login .or:before, #user-login .or:after, #user-register-form .or:before, #user-register-form .or:after {
+.user-login-wrapper .or:before, .user-login-wrapper .or:after, .user-register-wrapper .or:before, .user-register-wrapper .or:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#user-login .or:after, #user-register-form .or:after {
+.user-login-wrapper .or:after, .user-register-wrapper .or:after {
   clear: both;
 }
-#user-login .or span, #user-register-form .or span {
+.user-login-wrapper .or span, .user-register-wrapper .or span {
   display: inline-block;
   border: 1px solid #cccccc;
   width: 40px;
@@ -9827,52 +9828,52 @@ body.page-user-password #content-header {
   -o-border-radius: 1000px;
   border-radius: 1000px;
 }
-#user-login .user-links, #user-register-form .user-links {
+.user-login-wrapper .user-links, .user-register-wrapper .user-links {
   *zoom: 1;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   line-height: 1.5;
 }
-#user-login .user-links:before, #user-login .user-links:after, #user-register-form .user-links:before, #user-register-form .user-links:after {
+.user-login-wrapper .user-links:before, .user-login-wrapper .user-links:after, .user-register-wrapper .user-links:before, .user-register-wrapper .user-links:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#user-login .user-links:after, #user-register-form .user-links:after {
+.user-login-wrapper .user-links:after, .user-register-wrapper .user-links:after {
   clear: both;
 }
-#user-login .form-item-remember-me, #user-register-form .form-item-remember-me {
+.user-login-wrapper .form-item-remember-me, .user-register-wrapper .form-item-remember-me {
   float: right;
   padding-right: 30px;
 }
-#user-login .form-item-remember-me label, #user-register-form .form-item-remember-me label {
+.user-login-wrapper .form-item-remember-me label, .user-register-wrapper .form-item-remember-me label {
   display: inline-block;
   color: #999999;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   line-height: 1.5;
 }
-#user-login .form-item-remember-me input[type="checkbox"], #user-register-form .form-item-remember-me input[type="checkbox"] {
+.user-login-wrapper .form-item-remember-me input[type="checkbox"], .user-register-wrapper .form-item-remember-me input[type="checkbox"] {
   float: right;
   width: auto;
 }
-#user-login .user-forgot-pass-link, #user-register-form .user-forgot-pass-link {
+.user-login-wrapper .user-forgot-pass-link, .user-register-wrapper .user-forgot-pass-link {
   float: left;
 }
-#user-login .form-actions .form-submit, #user-register-form .form-actions .form-submit {
+.user-login-wrapper .form-actions .form-submit, .user-register-wrapper .form-actions .form-submit {
   float: right;
 }
-#user-login .form-actions .user-new-account-link, #user-register-form .form-actions .user-new-account-link {
+.user-login-wrapper .form-actions .user-new-account-link, .user-register-wrapper .form-actions .user-new-account-link {
   float: left;
   margin-top: 6px;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
   color: #999999;
 }
-#user-login .form-actions .user-new-account-link span, #user-register-form .form-actions .user-new-account-link span {
+.user-login-wrapper .form-actions .user-new-account-link span, .user-register-wrapper .form-actions .user-new-account-link span {
   display: inline-block;
 }
-#user-login .form-actions .user-new-account-link .register, #user-register-form .form-actions .user-new-account-link .register {
+.user-login-wrapper .form-actions .user-new-account-link .register, .user-register-wrapper .form-actions .user-new-account-link .register {
   margin: 0;
   padding: 0;
   background: none;
@@ -9881,7 +9882,7 @@ body.page-user-password #content-header {
   font-weight: normal;
   color: #2e77fc;
 }
-#user-login .form-actions .user-new-account-link .register:hover, #user-register-form .form-actions .user-new-account-link .register:hover {
+.user-login-wrapper .form-actions .user-new-account-link .register:hover, .user-register-wrapper .form-actions .user-new-account-link .register:hover {
   color: #01225d;
 }
 

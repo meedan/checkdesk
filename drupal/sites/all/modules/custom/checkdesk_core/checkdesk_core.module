@@ -1727,12 +1727,15 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
         '#type' => 'item',
         '#markup' => theme('item_list', array('items' => $items)),
         '#weight' => '-99',
-        '#suffix' => '<div class="or"><span>' . t('or') . '</span></div>',
+        '#prefix' => '<div class="social-signin-wrapper">',
+        '#suffix' => '</div><div class="or"><span>' . t('or') . '</span></div>',
       );
     }
     unset($form['twitter_signin']);
   }
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+    $form['#prefix'] = '<div class="user-login-wrapper">';
+    $form['#suffix'] = '</div>';
     $form['pass']['#title'] = $form['pass']['#title'] . l(t('(forgot?)'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
     $items = array();
     if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
@@ -1794,6 +1797,8 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   }
 
   if ($form_id == 'user_register_form') {
+    $form['#prefix'] = '<div class="user-register-wrapper">';
+    $form['#suffix'] = '</div>';
     global $user;
     //Hide administer role so journalist can not give his account a higher role.
     if (!in_array('administrator', $user->roles) && in_array('journalist', $user->roles)) {
