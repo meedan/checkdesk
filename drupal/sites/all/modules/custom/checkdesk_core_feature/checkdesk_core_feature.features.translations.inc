@@ -12485,7 +12485,7 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'source' => '<a class="actor" href="!flag_author_url">!flag_author_name</a> has flagged a <a href="!report_url">report</a> as <span class="notification-flag">!flag_type</span>',
     'context' => '',
     'location' => '/ar/story-collaboration/12289',
-    'translation' => 'قام <a href="!flag_author_url">!flag_author_name</a> بتنبيه فريق العمل عن <a href="!report_url">التقرير الآتي</a> بأنه <span class="notification-flag">!flag_type</span>.',
+    'translation' => 'قام <a href="!flag_author_url">!flag_author_name</a>  بتنبيه فريق العمل عن <a href="!report_url">التقرير الآتي</a> بأنه <span class="notification-flag">!flag_type</span>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -22871,6 +22871,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'تاريخ التحميل ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['819435a40717b38800b17c9d4d83a1fa'] = array(
+    'source' => '<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a> you added',
+    'context' => '',
+    'location' => '/ar/story-collaboration/12289',
+    'translation' => 'لقد فعل <a href="!user_url">!username</a>التحقق من صحة المعلومات لدى <a href="!report_url">تقريرك</a>',
     'plid' => 0,
     'plural' => 0,
   );
