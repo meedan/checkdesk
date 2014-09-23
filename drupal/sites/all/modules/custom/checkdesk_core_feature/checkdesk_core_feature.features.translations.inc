@@ -3101,6 +3101,27 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['1312a237d758e6e17af7be28d206c76d'] = array(
+    'source' => 'Hello !recipient_name,
+
+Story "!title" which you followed has a <a href="!url">new update</a>.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+ تم إضافة <a href="!url">تحديث جديد</a>  لموضوع متابع "!title" .
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['1313d16ac2db09f613b7387936b6f710'] = array(
     'source' => 'A translation of %title in %language already exists, a new %type will be created instead of a translation.',
     'context' => '',
@@ -17988,6 +18009,30 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['657e1522bc784d2cb9140ada5a11b15c'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has changed report "!node_title"  status.
+
+<a href="!story_url">Click here</a> to compose a new update to the story using that report.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site, please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor بتغيير حالة هذا التقرير "!node_title" .
+
+<a href="!story_url">اضغط هنا</a> لكتابة تحديث جديد على ذلك الخبر باستخدام ذاك التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['65829faaff5956b12c5b204ee07f7386'] = array(
     'source' => 'Comments of the node',
     'context' => '',
@@ -21660,6 +21705,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'تفاصيل الموقع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['7aefaa0e44a5357451f661648f216eeb'] = array(
+    'source' => 'Change report status',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'تم تعديل حالة التقرير',
     'plid' => 0,
     'plural' => 0,
   );
@@ -29425,6 +29478,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'أنت تستخدم الآن مجموعة الاختصارات الجديدة %set_name. يمكنك تغييرها من خلال هذه الصفحة أو <a href="@switch-url">التغيير لمجموعة مختلفة</a>.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['a70bf5b15f959872a625d3adfcbf7781'] = array(
+    'source' => 'New update',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'تحديث جديد',
     'plid' => 0,
     'plural' => 0,
   );
