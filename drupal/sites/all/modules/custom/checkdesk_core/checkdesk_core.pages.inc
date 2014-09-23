@@ -39,10 +39,18 @@ function _checkdesk_story_collaboration($node) {
       ),
     );
     drupal_add_js($modal_style_login, 'setting');
-    $output .= '<div id="cd-collaboration-semi-frosted" style="display:none" >' . ctools_modal_text_button(t('Modal Login (custom style)'),
+    $output .= '<div id="cd-collaboration-semi-frosted" style="display:none">' . ctools_modal_text_button(t('Modal Login (custom style)'),
       'story-collaboration-anonymous/nojs/login/'. arg(1), t('Login via modal'),
       'ctools-modal-modal-popup-login') .'</div>';
-    drupal_add_js('jQuery(window).bind("load", function() {jQuery(".ctools-modal-modal-popup-login").click();});', 'inline');
+    drupal_add_js('
+    jQuery(window).bind("load", function() {
+      jQuery(".ctools-modal-modal-popup-login").click();
+      jQuery(".ctools-modal-content .modal-header").hide();
+      jQuery(document).unbind("keydown", modalEventEscapeCloseHandler);
+      setTimeout(function(){
+        jQuery("#modalBackdrop").unbind("click");
+        }, 300);
+    });', 'inline');
   }
   $output .= render(node_view($node, 'checkdesk_collaborate'));
   return $output;
@@ -197,6 +205,7 @@ function story_collaboration_anonymous_login($js = NULL) {
     'ajax' => TRUE,
     'story' => $story_nid,
   );
+
   $output = ctools_modal_form_wrapper('user_login', $form_state);
   if (!empty($form_state['executed'])) {
     ctools_add_js('ajax-responder');
