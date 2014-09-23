@@ -4333,6 +4333,30 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['1a0c8cc66f051451049b4c6c827efffd'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has added a new report "!node_title" to this story "!story_title".
+
+Go to !story_url to compose a new update to the story using that report.
+
+You can edit your notification settings from !recipient_url.
+
+This was an auto-generated email from !site, please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor بإضافة تقرير جديد "!node_title" إلى هذا الموضوع "!story_title".
+
+<a href="!story_url">اضغط هنا</a> لكتابة تحديث جديد على ذلك الخبر باستخدام ذاك التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['1a305ff595deff1aaaef3a15200c5e35'] = array(
     'source' => 'This text will be displayed at the top of the page when creating or editing content of this type.',
     'context' => '',
@@ -26288,6 +26312,35 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['94cd80c8bca610d44ba3ccfab5825473'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added a footnote to the following report "!title":
+
+!body
+
+<a href="!url">Click here</a> to respond or change the status of the report.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+لقد قام !author بإضافة معلومات جديدة للتحقق من صحة المعلومات في التقرير التالي "!title":
+
+!body
+
+<a href="!url">اضغط هنا</a> لترد أو تغير حالة التقرير.
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['94cdb538e3890d574c9c40cca7cee6b9'] = array(
     'source' => 'Nocturnal',
     'context' => '',
@@ -36813,6 +36866,14 @@ This link can only be used once to log in and will lead you to a page where you 
     'context' => '',
     'location' => '',
     'translation' => 'تم اكتمال التثبيت بنجاح. تم رفع حالة الصيانة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['cef932f678ad3188ab46051ae381a2e4'] = array(
+    'source' => 'Report added to story',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'تم إضافة تقرير لموضوع',
     'plid' => 0,
     'plural' => 0,
   );

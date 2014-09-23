@@ -681,6 +681,15 @@ function checkdesk_core_feature_default_rules_configuration() {
             "actor" : [ "node:author" ],
             "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!actor\\u0027 =\\u003E user_load($node-\\u003Euid)-\\u003Ename, \\u0027!story_title\\u0027 =\\u003E $list_item-\\u003Etitle, \\u0027!node_title\\u0027 =\\u003E $node-\\u003Etitle, \\u0027!story_url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $list_item-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
           }
+        },
+        { "notify_subscribers" : {
+            "object" : [ "node" ],
+            "event" : "email_report_on_story_i_followed",
+            "subject" : "Report added to story",
+            "message" : "Hello !recipient_name,\\r\\n\\r\\n!actor has added a new report \\u0022!node_title\\u0022 to this story \\u0022!story_title\\u0022.\\r\\n\\r\\nGo to !story_url to compose a new update to the story using that report.\\r\\n\\r\\nYou can edit your notification settings from !recipient_url.\\r\\n\\r\\nThis was an auto-generated email from !site, please do not respond directly to this email.",
+            "actor" : [ "node:author" ],
+            "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!actor\\u0027 =\\u003E user_load($node-\\u003Euid)-\\u003Ename, \\u0027!story_title\\u0027 =\\u003E $list_item-\\u003Etitle, \\u0027!node_title\\u0027 =\\u003E $node-\\u003Etitle, \\u0027!story_url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $list_item-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
+          }
         }
       ]
     }
