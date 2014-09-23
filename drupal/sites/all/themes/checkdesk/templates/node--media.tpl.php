@@ -35,7 +35,7 @@
       <section class="report-detail">
         <?php if(isset($content['field_stories'])): ?>
           <div class="checkdesk-story-wrapper">
-            Published in <?php print render($content['field_stories']); ?>
+            <?php  print t('Published in ') . render($content['field_stories']); ?>
           </div>
         <?php endif ?>
       </section>

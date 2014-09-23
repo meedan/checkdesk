@@ -17316,6 +17316,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['620c0e2624a5a25c2240bea3cf66a418'] = array(
+    'source' => 'Published in ',
+    'context' => '',
+    'location' => '/ar/report/12301',
+    'translation' => 'نُشر في ',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['621b4a72b1516a94b6b6fae36485acce'] = array(
     'source' => 'Second sidebar',
     'context' => '',
