@@ -135,10 +135,9 @@ function checkdesk_core_feature_field_default_field_bases() {
           ),
         ),
         'sort' => array(
-          'direction' => 'ASC',
-          'field' => 'body:value',
-          'property' => 'nid',
-          'type' => 'none',
+          'direction' => 'DESC',
+          'property' => 'created',
+          'type' => 'property',
         ),
         'target_bundles' => array(
           'discussion' => 'discussion',
