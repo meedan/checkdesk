@@ -8790,6 +8790,26 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['3346d59010e3b7cd2f44af838316bdad'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has changed report "!node_title"  status.
+
+You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
+
+This was an auto-generated email from !site, please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor بتغيير حالة هذا التقرير "!node_title" .
+
+بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+
+هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['334c4a4c42fdb79d7ebc3e73b517e6f8'] = array(
     'source' => 'none',
     'context' => '',
