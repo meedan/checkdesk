@@ -35860,6 +35860,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['c8eb7c7555661c616b2a40bccb51cb2f'] = array(
+    'source' => 'Followed stories',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'موضوعات متتبعه',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['c8ebaffa45baabb4958cf82d03142fb5'] = array(
     'source' => 'There was an error saving the menu link.',
     'context' => '',
