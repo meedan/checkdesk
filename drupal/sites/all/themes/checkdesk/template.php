@@ -977,6 +977,11 @@ function checkdesk_links__node($variables) {
  */
 function checkdesk_widgets_visibility() {
   global $user;
+  // Always display on front page
+  if (drupal_is_front_page()) {
+    return TRUE;
+  }
+
   $current_node = menu_get_object();
   // what to check for
   $roles = array('administrator', 'journalist');
@@ -994,7 +999,7 @@ function checkdesk_widgets_visibility() {
   $check_user_page = empty($check_user_page) ? FALSE : TRUE;
 
   // node types to check for anonymous user
-  $anon_node_types = array('media', 'discussion', 'post');
+  $anon_node_types = array('media', 'post');
   // node types to check for logged in user
   $user_node_types = array('media', 'post');
 
@@ -1016,11 +1021,6 @@ function checkdesk_widgets_visibility() {
   // for user login, register and forgot pass page
   } elseif (arg(0) == 'user' && $check_user_page) {
       return TRUE;
-  }
-
-  // Always display on front page
-  if (drupal_is_front_page()) {
-    return TRUE;
   }
   return FALSE;
 }
