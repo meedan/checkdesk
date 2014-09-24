@@ -113,7 +113,7 @@ Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
         data: pingData,
         success: function(response) {
           if (response.pong && parseInt(response.pong) > 0) {
-            $(target).trigger('autorefresh.ping', parseInt(response.pong));
+            $(target).trigger('autorefresh_ping', parseInt(response.pong));
             $(anchor).trigger('click');
           }
           else {
@@ -131,7 +131,7 @@ Drupal.views_autorefresh.timer = function(view_name, anchor, target) {
 }
 
 Drupal.ajax.prototype.commands.viewsAutoRefreshTriggerUpdate = function (ajax, response, status) {
-  $(response.selector).trigger('autorefresh.update', response.timestamp);
+  $(response.selector).trigger('autorefresh_update', response.timestamp);
 }
 
 // http://stackoverflow.com/questions/1394020/jquery-each-backwards
