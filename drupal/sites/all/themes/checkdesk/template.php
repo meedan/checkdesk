@@ -58,7 +58,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // timestamp
     // TODO: make this source media timestamp
     $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-        '@url' => url('node/'. $node->nid),
+        '@url' => $node->embed->original_url,
         '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
         '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
         '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
@@ -734,7 +734,7 @@ function checkdesk_preprocess_node(&$variables) {
     //Add node creation info(author name plus creation time
     if($variables['view_mode'] == 'checkdesk_collaborate') {
       $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-        '@url' => url('node/'. $variables['nid']),
+        '@url' => $node->embed->original_url,
         '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
         '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),

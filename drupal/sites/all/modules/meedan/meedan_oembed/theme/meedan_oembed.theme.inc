@@ -42,7 +42,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
   // timestamp
   // TODO: make this source media timestamp
   $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-      '@url' => url('node/'. $node->nid),
+      '@url' => $embed->original_url,
       '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
       '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
@@ -92,7 +92,7 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
   // timestamp
   // TODO: make this source media timestamp
   $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-      '@url' => url('node/'. $node->nid),
+      '@url' => $embed->original_url,
       '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
       '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
@@ -143,7 +143,7 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
   // timestamp
   // TODO: make this source media timestamp
   $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-      '@url' => url('node/'. $node->nid),
+      '@url' => $embed->original_url,
       '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
       '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
       '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
