@@ -999,9 +999,9 @@ function checkdesk_widgets_visibility() {
   $check_user_page = empty($check_user_page) ? FALSE : TRUE;
 
   // node types to check for anonymous user
-  $anon_node_types = array('media', 'post');
+  $anon_node_types = array('media', 'post', 'discussion');
   // node types to check for logged in user
-  $user_node_types = array('media', 'post');
+  $user_node_types = array('media', 'post', 'discussion');
 
   // for anonymous user
   if (isset($current_node->type) && !$check_role && $status != "404 Not Found") {
