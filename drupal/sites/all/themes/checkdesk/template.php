@@ -983,6 +983,11 @@ function checkdesk_widgets_visibility() {
   }
 
   $current_node = menu_get_object();
+
+  // Display on collaboration page
+  if ($current_node->type == 'discussion' && arg(0) == 'story-collaboration' && is_numeric(arg(1))) {
+    return TRUE;
+  }
   // what to check for
   $roles = array('administrator', 'journalist');
   $check_role = array_intersect($roles, array_values($user->roles));
@@ -1016,7 +1021,7 @@ function checkdesk_widgets_visibility() {
       if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page && $status != "404 Not Found") {
         return TRUE; 
       }
-      
+
     }
   // for user login, register and forgot pass page
   } elseif (arg(0) == 'user' && $check_user_page) {
