@@ -108,15 +108,6 @@ function checkdesk_core_menu() {
     //'modal' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  $items['report-view-leave/%ctools_js'] = array(
-    'title' => 'Confirm leave page',
-    'page callback' => '_checkdesk_modal_report_view_leave',
-    'page arguments' => array(1),
-    'access callback' => TRUE,
-    //'modal' => TRUE,
-    'type' => MENU_CALLBACK,
-    'file' => 'checkdesk_core.pages.inc',
-  );
   $items['modal/%ctools_js'] = array(
     'page callback' => 'checkdesk_core_modal_callback',
     'page arguments' => array(1),
