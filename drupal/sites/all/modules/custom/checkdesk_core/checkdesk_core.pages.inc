@@ -43,14 +43,19 @@ function _checkdesk_story_collaboration($node) {
       'story-collaboration-anonymous/nojs/login/'. arg(1), t('Login via modal'),
       'ctools-modal-modal-popup-login') .'</div>';
     drupal_add_js('
-    jQuery(window).bind("load", function() {
-      jQuery(".ctools-modal-modal-popup-login").click();
-      jQuery(".ctools-modal-content .modal-header").hide();
-      jQuery(document).unbind("keydown", modalEventEscapeCloseHandler);
-      setTimeout(function(){
-        jQuery("#modalBackdrop").unbind("click");
-        }, 300);
-    });', 'inline');
+      jQuery(window).bind("load", function() {
+        jQuery(".ctools-modal-modal-popup-login").click();
+      });
+      jQuery(function() {
+        Drupal.behaviors.collanon = {
+          attach: function (context, settings) {
+            jQuery(".ctools-modal-content .modal-header").hide();
+            jQuery(document).unbind("keydown", modalEventEscapeCloseHandler);
+            jQuery("#modalBackdrop").unbind("click");
+          }
+        };
+      });
+      ', 'inline');
   }
   $output .= render(node_view($node, 'checkdesk_collaborate'));
   return $output;
