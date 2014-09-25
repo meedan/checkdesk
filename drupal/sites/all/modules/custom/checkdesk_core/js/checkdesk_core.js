@@ -333,7 +333,7 @@ function _checkdesk_report_view_redirect() {
     modal = true;
   }
   if(modal) {
-    return 'Confirm leave';
+    return 'You have unsaved changes that will be lost if you decide to continue.';
   }
 }
 
