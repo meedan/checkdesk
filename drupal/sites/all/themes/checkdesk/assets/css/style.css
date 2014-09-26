@@ -7907,6 +7907,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   border-top: 4px solid #2e77fc;
 }
 .story .story-collaboration-header-wrapper {
+  position: relative;
   display: table;
   width: 100%;
   table-layout: fixed;
@@ -7956,6 +7957,35 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.story .collaboration-report-tooltip {
+  left: 0;
+  top: 38px;
+  width: 400px;
+  -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.story .collaboration-report-tooltip h3, .story .collaboration-report-tooltip .popover-content {
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
+  color: #9fa6ac;
+}
+.story .collaboration-report-tooltip h3 span, .story .collaboration-report-tooltip .popover-content span {
+  color: #6f7a82;
+}
+.story .collaboration-report-tooltip h3 {
+  line-height: 48px;
+}
+.story .collaboration-report-tooltip .popover-arrow {
+  left: 28px;
+}
+.story .story-collaboration-activity-wrapper {
+  min-height: 200px;
 }
 .story .story-collaborators {
   text-align: right;
