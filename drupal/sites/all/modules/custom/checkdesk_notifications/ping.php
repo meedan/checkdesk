@@ -18,6 +18,21 @@ function get_result($sql, $mysql) {
   return $query->fetchColumn();
 }
 
+function get_followed_stories($sql, $mysql) {
+  $followed_stories_condition = NULL;
+  $query = $mysql->prepare($sql);
+  $query->execute();
+  $followed_stories = $query->fetchAll();
+  if (count($followed_stories)) {
+    $or_rows = array();
+    foreach ($followed_stories as $flag_info) {
+      // Build query condition
+      $or_rows[] = "(nid_target = {$flag_info['entity_id']} AND timestamp > {$flag_info['timestamp']})";
+    }
+    $followed_stories_condition = implode(' OR ', $or_rows);
+  }
+  return $followed_stories_condition;
+}
 // Handle parameters - call intval to avoid injection of non-sense stuff
 $timestamp = intval($_REQUEST['timestamp']);
 $uid = intval($_REQUEST['user']);
@@ -52,20 +67,19 @@ if ($is_journalist) {
   if (should_notify($data, 'site_update_on_story_i_commented_on_update')) $query .= "(ha.message_id = 'checkdesk_new_update_on_story_i_commented_on_update' AND ha.nid_target IN (SELECT field_desk_target_id FROM field_data_field_desk f INNER JOIN comment c ON c.nid = f.entity_id WHERE entity_type = 'node' AND bundle = 'post' AND c.uid = $uid AND c.created < ha.timestamp)) OR ";
   if (should_notify($data, 'site_report_published_in_update')) $query .= "(ha.message_id = 'checkdesk_report_published_in_update' AND ha.uid_target = $uid) OR ";
 }
-
-$follow_story_query = 'SELECT entity_id FROM flag f INNER JOIN flagging fi ON f.fid = fi.fid AND f.name = "follow_story" WHERE uid = '. $uid;
-
-if (should_notify($data, 'site_update_on_story_i_followed')) {
+$follow_story_query = 'SELECT entity_id, timestamp FROM flag f INNER JOIN flagging fi ON f.fid = fi.fid AND f.name = "follow_story" WHERE uid = '. $uid;
+$followed_stories_condition = get_followed_stories($follow_story_query, $mysql);
+if (should_notify($data, 'site_update_on_story_i_followed') && $followed_stories_condition) {
   $query .= "(ha.message_id = 'checkdesk_new_update_on_story_i_commented_on_update'
-  AND ha.nid_target IN ($follow_story_query)) OR ";
+  AND ($followed_stories_condition)) OR ";
 }
-if (should_notify($data, 'site_report_on_story_i_followed')) {
+if (should_notify($data, 'site_report_on_story_i_followed') && $followed_stories_condition) {
   $query .= "(ha.message_id = 'checkdesk_report_suggested_to_story'
-  AND ha.nid_target IN ($follow_story_query)) OR ";
+  AND ($followed_stories_condition)) OR ";
 }
-if (should_notify($data, 'site_report_status_on_story_i_followed')) {
+if (should_notify($data, 'site_report_status_on_story_i_followed') && $followed_stories_condition) {
   $query .= "(ha.message_id = 'status_report'
-  AND ha.nid_target IN ($follow_story_query)) OR ";
+  AND ($followed_stories_condition)) OR ";
 }
 $query .= "FALSE) AND ha.timestamp > $timestamp AND ha.uid != $uid";
 // Execute query
