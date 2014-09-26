@@ -224,8 +224,17 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     // Activities for any user
 
     // Collect followed stories by current user.
+    $is_follower = FALSE;
     $followed_stories = _checkdesk_followed_stories();
-
+    if (count($followed_stories)) {
+      $is_follower = TRUE;
+      $or_rows = array();
+      foreach ($followed_stories as $flag_info) {
+        // Build query condition
+        $or_rows[] = "(nid_target = {$flag_info->entity_id} AND timestamp > {$flag_info->timestamp})";
+      }
+      $followed_stories_condition = implode(' OR ', $or_rows);
+    }
     if ($subscriptions['site_reply_to_comment']) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_reply_to_comment' AND c.uid = :uid", array(':uid' => $params[':uid']));
     }
@@ -238,20 +247,17 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
     if ($subscriptions['site_fact_status_changed_for_commenter']) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_status_changed_for_commenter' AND c2.uid = :uid AND heartbeat_activity.timestamp > c2.created", array(':uid' => $params[':uid']));
     }
-    if ($subscriptions['site_update_on_story_i_followed'] && count($followed_stories)) {
-      $target_stories = implode(',', $followed_stories);
+    if ($subscriptions['site_update_on_story_i_followed'] && $is_follower) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_new_update_on_story_i_commented_on_update'
-      AND heartbeat_activity.nid_target IN ($target_stories)");
+      AND ( $followed_stories_condition )");
     }
-    if ($subscriptions['site_report_on_story_i_followed'] && count($followed_stories)) {
-      $target_stories = implode(',', $followed_stories);
+    if ($subscriptions['site_report_on_story_i_followed'] && $is_follower) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_report_suggested_to_story'
-      AND heartbeat_activity.nid_target IN ($target_stories)");
+      AND ( $followed_stories_condition )");
     }
-    if ($subscriptions['site_report_status_on_story_i_followed']&& count($followed_stories)) {
-      $target_stories = implode(',', $followed_stories);
+    if ($subscriptions['site_report_status_on_story_i_followed']&& $is_follower) {
       $query->add_where_expression(1, "heartbeat_activity.message_id = 'status_report'
-      AND heartbeat_activity.nid_target IN ($target_stories)");
+      AND ( $followed_stories_condition )");
     }
 
     $query->add_where_expression(1, "FALSE");
@@ -393,5 +399,5 @@ function _checkdesk_followed_stories($uid = 0) {
     $uid = $user->uid;
   }
   $result = flag_get_user_flags('node', NULL, $uid);
-  return array_keys($result['follow_story']);
+  return $result['follow_story'];
 }
