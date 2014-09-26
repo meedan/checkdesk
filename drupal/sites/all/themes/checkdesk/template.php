@@ -1186,7 +1186,12 @@ function checkdesk_preprocess_views_view(&$vars) {
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if ($vars['display_id'] == 'block') {
     //_checkdesk_ensure_reports_modal_js();
-    drupal_add_js('jQuery(function() {window.onbeforeunload = _checkdesk_report_view_redirect});', 'inline');
+    drupal_add_js('jQuery(function() {
+      window.onbeforeunload = _checkdesk_report_view_redirect;
+      jQuery( "#post-node-form" ).submit(function( event ) {
+        window.onbeforeunload = "";
+      });
+    });', 'inline');
   }
 }
 
