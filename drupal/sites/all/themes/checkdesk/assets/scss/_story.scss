@@ -353,7 +353,7 @@
   }
 
   .collaboration-report-tooltip {
-    left: 0;
+    #{$from-direction}: 0;
     top: 40px;
     width: 400px;
     @include cd-box-shadow;
@@ -368,7 +368,7 @@
       line-height: 48px;
     }
     .popover-arrow {
-      left: 28px;
+      #{$from-direction}: 28px;
     }
   }
 
