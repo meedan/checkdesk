@@ -1161,7 +1161,9 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
  */
 function _redirect_story($form, &$form_state) {
   $values = $form_state['values'];
-  $_SESSION['report_tooltip'] = TRUE;
+  if (!$form['nid']['#value']) {
+    $_SESSION['report_tooltip'] = TRUE;
+  }
   $form_state['redirect'] = 'story-collaboration/' . $values['nid'];
 }
 
