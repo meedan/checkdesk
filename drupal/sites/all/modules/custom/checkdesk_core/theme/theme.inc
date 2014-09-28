@@ -100,9 +100,9 @@ function checkdesk_core_preprocess_checkdesk_core_user_info(&$variables) {
     $linked_accounts .= implode(', ', $to_join);
   }
   $variables['linked_accounts'] = $linked_accounts;
-  $variables['followed_stories'] = l(t('Followed stories'), 'user-followed-stories');
   // Just show links when the current user is seeing his own profile
   if ($user->uid === $account->uid) {
+    $variables['followed_stories'] = l(t('Followed stories'), 'user-followed-stories');
     $variables['edit_profile'] = l(t('Edit profile'), 'user/' . $account->uid . '/edit');
     $variables['edit_notifications'] = l(t('Notifications'), 'user/' . $account->uid . '/notifications');
   }
