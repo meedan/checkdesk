@@ -2538,6 +2538,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['0ff05cf7cd12d0e9065b434347ff3413'] = array(
+    'source' => '<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a> they submitted. Fact checking is in progress.',
+    'context' => '',
+    'location' => '/ar/flag/flag/factcheck_journalist/12312?destination=story-collaboration/12311&token=HZIGWOz96F2ZQRh8YYhqs1any5x1BiNmA9ybc8HnFNo',
+    'translation' => 'قام <a href="!user_url">!username</a> بتفعيل التحقق من صحة المعلومات <a href="!report_url">للتقرير</a> الذي تم انشائه. التحقق من صحة المعلومات جارٍ.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['0ff2956fba62bd358de817d5c738196a'] = array(
     'source' => 'Add numbers',
     'context' => '',
@@ -39021,6 +39029,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'ليختنشتاين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['da583538f76deb6e2defe0ed3dcdf350'] = array(
+    'source' => '<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a>',
+    'context' => '',
+    'location' => '/ar/story-collaboration/12311',
+    'translation' => 'لقد فعل <a href="!user_url">!username</a>التحقق من صحة المعلومات  <a href="!report_url">للتقرير</a>',
     'plid' => 0,
     'plural' => 0,
   );
