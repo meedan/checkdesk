@@ -44,6 +44,15 @@
 		}
 	};
 
+  // format select element
+  Drupal.behaviors.customSelect = {
+    attach: function(context) {
+      // apply js plugin
+      $('#edit-field-stories-und').chosen();
+      $('#edit-field-desk-und').chosen();
+    }
+  };
+
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // Show nested activity
