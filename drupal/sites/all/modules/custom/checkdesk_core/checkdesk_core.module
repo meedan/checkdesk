@@ -892,7 +892,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       }
     }
     if ($node->type == 'media') {
-      $node->content['comments'] = comment_node_page_additions($node);
+      // $node->content['comments'] = comment_node_page_additions($node);
       $heartbeat_row = $node->heartbeat_row;
       // Load activity status with verification footnote
       if ($heartbeat_row->heartbeat_activity_message_id == 'status_report') {
@@ -1295,6 +1295,18 @@ function checkdesk_core_views_pre_render(&$view) {
       if ($total_rows) {
         $view->result[$id]->updates = $output;
       }
+    }
+  }
+  elseif ($view->name == 'story_collaboration') {
+    foreach ($view->result as $k => $v) {
+      // Localize some variables
+      $variables = heartbeat_decode_message_variables($v->heartbeat_activity_variables);
+      foreach ($variables as $key => $value) {
+        if (in_array($key, array('!flag_type', '!fact_checking_status', '!status'))) {
+          $variables[$key] = t($value);
+        }   
+      }
+      $view->result[$k]->heartbeat_activity_variables = heartbeat_encode_message_variables($variables);
     }
   }
 }
