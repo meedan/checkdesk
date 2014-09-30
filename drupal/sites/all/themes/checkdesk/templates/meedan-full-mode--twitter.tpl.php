@@ -1,7 +1,9 @@
 <div class="media-holder">
   <div class="media">
     <div class="tweet-holder">
-      <?php print $embed->html; ?>
+      <?php if (isset($embed->html)) : ?>
+        <?php print $embed->html; ?>
+      <?php endif; ?>
     </div>
   </div>
   <?php if(isset($report_status['status'])) : ?>

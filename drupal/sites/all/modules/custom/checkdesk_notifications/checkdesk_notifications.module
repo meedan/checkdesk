@@ -399,5 +399,5 @@ function _checkdesk_followed_stories($uid = 0) {
     $uid = $user->uid;
   }
   $result = flag_get_user_flags('node', NULL, $uid);
-  return $result['follow_story'];
+  return isset($result['follow_story']) ? $result['follow_story'] : array();
 }
