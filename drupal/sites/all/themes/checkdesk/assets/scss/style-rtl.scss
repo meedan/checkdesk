@@ -1,68 +1,60 @@
-
 // RTL
 //
 // 0.
 // ensure we have the original variables loaded
 @import "base";
 
-
 // 1.
 // re-configuration of default variables for this RTL stylesheet
 $from-direction: right;
-// $absolute-line-height: $absolute-line-height * 1.2; // increase to account for arabic 
+
+// $absolute-line-height: $absolute-line-height * 1.2; // increase to account for arabic
 $header-font-stack: $ar-header-font-stack;
 $body-font-stack: $ar-body-font-stack;
 $nav-font-stack: $ar-body-font-stack;
 
-// 2. Tell the browser about our Arabic fonts
-// @include bowerbird-font-face("Amiri", "amiri-regular-webfont", "normal", "normal");
-// @include bowerbird-font-face("Amiri Bold", "amiri-bold-webfont", "bold", "normal");
-// @include bowerbird-font-face("Droid Naskh", "droidnaskh-bold-webfont", "bold", "normal");
-// @include bowerbird-font-face("Droid Naskh", "droidnaskh-regular-webfont", "normal", "normal");
-// @include bowerbird-font-face("Andalus", "andlso-webfont");
+// 2. Arabic fonts
+@import url(https://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
 // 3.
 // Now we reload all styles with this updated configuration
-@import "style"; 
+@import "style";
 @import "replace_drupal/vertical-tabs-rtl";
-
-
 
 // 4.
 // Override the text direction
-html body.i18n-ar, 
-.rtl { 
+html body.i18n-ar,
+.rtl {
   direction: rtl;
   text-align: right;
 }
 
 // set font size for Arabic
 html body.i18n-ar {
-	// font-size: $large-font-size;
+  // font-size: $large-font-size;
 }
 
 // Specific overrides where we can not simply match the English font selection
 
 #toolbar {
-	font-family: $ar-sans-serif-font-stack;
+  font-family: $ar-sans-serif-font-stack;
 }
 
 #partner-header-slogan {
-	font-family: $ar-header-font-stack;
-	font-size: 18px;
+  font-family: $ar-header-font-stack;
+  font-size: 18px;
 }
 
 // stories
 .story .story-body {
-	font-size: 20px;
-	line-height: 36px;
+  font-size: 20px;
+  line-height: 36px;
 }
 
 .stories .story-row h3 {
-	font-size: 18px;
-	line-height: 26px;
+  font-size: 18px;
+  line-height: 26px;
 }
-
 
 // update
 
@@ -73,35 +65,33 @@ html body.i18n-ar {
 }
 
 .update .update-body .update-title {
-	margin-top: $absolute-line-height/2;
-	font-size: 34px;
-	font-weight: 600;
+  margin-top: $absolute-line-height / 2;
+  font-size: 34px;
+  font-weight: 600;
 }
 
 .update .update-body p {
-	line-height: 30px;
+  line-height: 30px;
 }
 
 // report
 
 .report .activity {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 .report .activity-list-footer {
-	font-size: 15px;
-	.helper {
-		display: none;
-	}
+  font-size: 15px;
+  .helper {
+    display: none;
+  }
 }
 
-
-
 .report .report-activity .activity-wrapper .view-content .activity {
-	line-height: 26px;
+  line-height: 26px;
 }
 
 .report .report-activity .activity-wrapper .view-content .activity header .actor {
-	// TEMP until English characters get properly rendered with unicode range
-	padding-top: 18px;
+  // TEMP until English characters get properly rendered with unicode range
+  padding-top: 18px;
 }

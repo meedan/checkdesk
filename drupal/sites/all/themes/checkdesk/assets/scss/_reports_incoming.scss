@@ -70,6 +70,7 @@
   
   // while dragging
   .ui-draggable-dragging {
+    width: 300px !important;
     border: 3px solid rgb(239,202,43);
     .report-row-container {
       border: 3px solid rgb(239,202,43);
@@ -272,8 +273,7 @@
 #modalContent.modal-report {
   z-index: $zindexModal;
   .modal {
-    
-    
+    background-color: $thatch5;
   }
 }
 // Fixed only for normal screen sizes

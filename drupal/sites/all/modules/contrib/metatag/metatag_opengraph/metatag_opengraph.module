@@ -20,27 +20,6 @@ function metatag_opengraph_ctools_plugin_api($owner, $api) {
   }
 }
 
-/**
- * Implements hook_theme().
- */
-function metatag_opengraph_theme() {
-  $info['metatag_opengraph'] = array(
-    'render element' => 'element',
-  );
-
-  return $info;
-}
-
-/**
- * Theme callback for an OpenGraph meta tag.
- */
-function theme_metatag_opengraph($variables) {
-  $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'property', '#value' => 'content'));
-  unset($element['#value']);
-  return theme('html_tag', $variables);
-}
-
 /*
 og:title = [node:title] / [user:name]
 og:type = article / profile
@@ -74,7 +53,4 @@ og:audio:type
 
 og:upc
 og:isbn
-
-fb:admins
-fb:app_id
 */

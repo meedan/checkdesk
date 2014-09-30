@@ -8,7 +8,8 @@ meta tags may help improve your site's & pages' ranking, thus may aid with
 achieving a more prominent display of your content within search engine
 results. Additionally, using meta tags can help control the summary content
 that is used within social networks when visitors link to your site,
-particularly the Open Graph submodule for use with Facebook (see below).
+particularly the Open Graph submodule for use with Facebook, LinkedIn, etc (see
+below).
 
 This version of the module only works with Drupal 7.15 and newer.
 
@@ -18,7 +19,7 @@ Features
 The primary features include:
 
 * The current supported basic meta tags are ABSTRACT, DESCRIPTION, CANONICAL,
-  COPYRIGHT, GENERATOR, IMAGE_SRC, KEYWORDS, PUBLISHER, REVISIT-AFTER, ROBOTS,
+  GENERATOR, IMAGE_SRC, KEYWORDS, PUBLISHER, REVISIT-AFTER, RIGHTS, ROBOTS,
   SHORTLINK and the page's TITLE tag.
 
 * Multi-lingual support using the Entity Translation module.
@@ -41,11 +42,17 @@ The primary features include:
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
   enabling the "Metatag: Dublin Core" submodule.
 
-* The Open Graph Protocol meta tags, as used by Facebook, may be added by
-  enabling the "Metatag: Open Graph" submodule.
+* The Open Graph Protocol meta tags, as used by Facebook, LinkedIn and other
+  sites, may be added by enabling the "Metatag: Open Graph" submodule.
 
 * The Twitter Cards meta tags may be added by enabling the "Metatag: Twitter
   Cards" submodule.
+
+* Facebook's fb:app_id and fb:admins meta tags may be added by enabling the
+  "Metatag: Facebook" submodule. These are useful for sites which are using
+  Facebook widgets or are building custom integration with Facebook's APIs,
+  but they are not needed by most sites and have no bearing on the Open Graph
+  meta tags.
 
 * An API allowing for additional meta tags to be added, beyond what is provided
   by this module - see metatag.api.php for full details.
@@ -61,6 +68,9 @@ The primary features include:
 
 * Integrates with Workbench Moderation v1 allowing meta tags on nodes to be
   managed through the workflow process.
+
+* The Transliteration and Imagecache Token modules (see below) are highly
+  recommended when using image meta tags, e.g. og:image.
 
 
 Configuration
@@ -135,12 +145,12 @@ Fine Tuning
   Admin Menu (flush all caches), or the "Clear all caches" button on
   admin/config/development/performance.
 * By default Metatag will not display meta tags on admin pages. To enable meta
-  tags on admin pages simply set the 'metatag_load_all_pages' variable to TRUE
+  tags on admin pages simply set the 'metatag_tag_admin_pages' variable to TRUE
   through one of the following methods:
   * Use Drush to set the value:
-    drush vset metatag_load_all_pages TRUE
+    drush vset metatag_tag_admin_pages TRUE
   * Hardcode the value in the site's settings.php file:
-    $conf['metatag_load_all_pages'] = TRUE;
+    $conf['metatag_tag_admin_pages'] = TRUE;
   To re-enable this option simply set the value to FALSE or delete the
   settings.php line.
 
@@ -156,6 +166,10 @@ further details and example code.
 
 Troubleshooting / Known Issues
 ------------------------------------------------------------------------------
+* Image fields do not output very easily in meta tags, e.g. for og:image,
+  without use of the Imagecache Token module (see below). This also provides a
+  way of using an image style to resize the original images first, rather than
+  requiring visitors download multi-megabyte original images.
 * When using custom page template files, e.g., page--front.tpl.php, it is
   important to ensure that the following code is present in the template file:
     <?php render($page['content']); ?>
@@ -166,15 +180,9 @@ Troubleshooting / Known Issues
   taxonomy term pages to work correctly.
 * Using Metatag with values assigned for the page title and the Page Title
   module simultaneously can cause conflicts and unexpected results.
-* Using the Exclude Node Title module will cause the [node:title] token to be
-  empty on node pages, so using [current-page:title] will work around the
-  issue. Note: it isn't possible to "fix" this as it's a by-product of what
-  Exclude Node Title does - it removes the node title from display.
 * When customizing the meta tags for user pages, it is strongly recommended to
   not use the [current-user] tokens, these pertain to the person *viewing* the
   page and not e.g., the person who authored a page.
-* If images being displayed in image tags need to be resized to fit a specific
-  requirements, use the Imagecache Token module to customize the value.
 * Certain browser plugins, e.g., on Chrome, can cause the page title to be
   displayed with additional double quotes, e.g., instead of:
     <title>The page title | My cool site</title>
@@ -186,26 +194,36 @@ Troubleshooting / Known Issues
   tags output by the Metatag:OpenGraph module. Unless it is actually needed for
   the site, it may be worthwhile to disable the RDF module to avoid any
   possible problems for the Open Graph integration.
+* If the Administration Language (admin_language) module is installed, it is
+  recommended to disable the "Force language neutral aliases" setting on the
+  Admin Language settings page, i.e. set the "admin_language_force_neutral"
+  variable to FALSE. Failing to do so can lead to data loss in Metatag.
 
 
 Related modules
 ------------------------------------------------------------------------------
 Some modules are available that extend Metatag with additional functionality:
 
+* Imagecache Token
+  https://www.drupal.org/project/imagecache_token
+  Provides additional tokens for image fields that can be used in e.g. the
+  og:image meta tag; ultimately makes it possible to actually use image meta
+  tags without writing custom code.
+
+* Transliteration
+  https://drupal.org/project/transliteration
+  Tidies up filenames for uploaded files, e.g. it can remove commas from
+  filenames that could otherwise break certain meta tags.
+
 * Domain Meta Tags
-  http://drupal.org/project/domain_meta
+  https://drupal.org/project/domain_meta
   Integrates with the Domain Access module, so each site of a multi-domain
   install can separately control their meta tags.
 
 * Select or Other
-  http://drupal.org/project/select_or_other
+  https://drupal.org/project/select_or_other
   Enhances the user experience of the metatag_opengraph submodule by allowing
   the creation of custom Open Graph types.
-
-* Imagecache Token
-  http://drupal.org/project/imagecache_token
-  Provide tokens to load fields using an image style preset, for when meta tags
-  need to fix exact requirements.
 
 * Node Form Panes
   https://drupal.org/project/node_form_panes

@@ -119,7 +119,54 @@ function clientside_validation_update_7100() {
  */
 function clientside_validation_update_7101() {
   if (!db_table_exists('clientside_validation_settings')) {
-    db_create_table('clientside_validation_settings', drupal_get_schema('clientside_validation_settings', TRUE));
+    $schema['clientside_validation_settings'] = array(
+      'description' => 'Table for storing Clientside Validation Settings',
+      'fields' => array(
+        'cvsid' => array(
+          'description' => 'The primary identifier for the clientside validation settings',
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'type' => array(
+          'description' => 'The type of setting: content_type, webform or custom',
+          'type' => 'varchar',
+          'length' => 32,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        'status' => array(
+          'description' => 'The status for this form. 1 for enabled (validate), 0 for disabled (don\'t validate)',
+          'type' => 'int',
+          'not null' => TRUE,
+          'default' => 0,
+          'size' => 'tiny',
+        ),
+        'form_id' => array(
+          'description' => 'The form id these settings apply to',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        'settings' => array(
+          'type' => 'blob',
+          'not null' => TRUE,
+          'size' => 'big',
+          'translatable' => TRUE,
+        ),
+      ),
+      'indexes' => array(
+        'clientside_validation_settings_form_id' => array('form_id'),
+        'clientside_validation_settings_type' => array('type'),
+        'clientside_validation_settings_form_id_type' => array('form_id', 'type'),
+      ),
+      'unique keys' => array(
+        'cvs_form_id' => array('form_id'),
+      ),
+      'primary key' => array('cvsid'),
+    );
+    db_create_table('clientside_validation_settings', $schema['clientside_validation_settings']);
   }
   // @TODO: Convert old settings to new
   // 1. fill in clientside_validation_default_settings
@@ -276,6 +323,7 @@ function clientside_validation_update_7103() {
     // Nothing to do here.
     return;
   }
+  module_load_include('module', 'clientside_validation', 'clientside_validation');
   $default_settings = clientside_validation_settings_load_defaults();
   if (!isset($default_settings['validate_options']['captcha'])) {
     $default_settings['validate_options']['captcha'] = 1;

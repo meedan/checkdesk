@@ -90,6 +90,7 @@
       select {
         float: $alpha;
         @include span-columns($container-width/2);
+        padding: 0;
       }
     }
   }
@@ -387,10 +388,19 @@
       .image-preview {
         display: inline-block;
         margin-#{$omega}: $gutter-width;
+        vertical-align: top;
       }
 
       .image-widget-data {
         display: inline-block;
+      }
+
+      .text-format-wrapper label {
+        display: inline;
+      }
+
+      .cke_contents {
+        height: 100px !important;
       }
       
       input[type="file"] {

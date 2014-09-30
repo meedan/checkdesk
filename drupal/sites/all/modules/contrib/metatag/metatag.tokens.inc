@@ -157,7 +157,13 @@ function metatag_token_generate_array($entity, $entity_type, $bundle) {
     $options['token data'][$token_type] = $entity;
     $options['entity'] = $entity;
 
-    $metatags = isset($entity->metatags) ? $entity->metatags : array();
+    $metatags = array();
+    if (!empty($entity->metatags)) {
+      $language = metatag_entity_get_language($entity_type, $entity);
+      if (!empty($entity->metatags[$language])) {
+        $metatags = $entity->metatags[$language];
+      }
+    }
     $metatags += metatag_config_load_with_defaults($instance);
 
     $result = array();

@@ -107,7 +107,11 @@ function clientside_validation_regular($form_id, $element, &$js_rules, $form_sta
               $max = $instance['settings']['max'];
             }
             if ($min !== '' || $max !== '') {
-              _clientside_validation_set_minmax($el_name, $el_title, $min, $max, $js_rules);
+              $decimal_separator = '.';
+              if (isset($field['settings']['decimal_separator'])) {
+                $decimal_separator = $field['settings']['decimal_separator'];
+              }
+              _clientside_validation_set_minmax($el_name, $el_title, $min, $max, $js_rules, '', $decimal_separator);
             }
 
             if (isset($field['settings']['decimal_separator'])) {
@@ -205,7 +209,7 @@ function clientside_validation_regular($form_id, $element, &$js_rules, $form_sta
         break;
       case 'date_popup':
       case 'date_text':
-        $date_title = ($element['#type'] == 'date_popup') ? $element['date']['#title'] : $element['#date_title'];
+        $date_title = ($element['#type'] == 'date_popup' || !isset($element['#date_title'])) ? $element['date']['#title'] : $element['#date_title'];
         if (isset($element['date'])) {
           _clientside_validation_set_required($element['date']['#name'], $date_title, isset($element['#required']) ? $element['#required'] : FALSE, $js_rules);
           $granularity = date_format_order($element['#date_format']);

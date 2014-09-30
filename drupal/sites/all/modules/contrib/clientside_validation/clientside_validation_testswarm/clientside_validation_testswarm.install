@@ -8,7 +8,7 @@
 /**
  * Implements hook_uninstall().
  */
-function clientside_validation_uninstall() {
+function clientside_validation_testswarm_uninstall() {
   variable_del('clientside_validation_rules_added');
   variable_del('clientside_validation_testswarm_nodenames');
 }

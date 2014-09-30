@@ -1,3 +1,61 @@
+Metatag 7.x-1.0-rc1, 2014-07-12
+-------------------------------
+By DamienMcKenna: Small improvement to the comment on update 7007.
+#2196393 by generalconsensus, aprohl5: Typo in hook_install().
+#2237507 by SebCorbin: Only delete all records when editing one entity revision.
+#2056739 by B-Prod: Incorrect language handling when displaying entity pages
+  using Panels.
+#2205675 by Romlam, greggles: Typo in variable name caused data to not load.
+#2265447 by opdavies: Ignore comment entities, conflict with comment_fragment.
+#2271685 by adee147: Typos in metatag_metatags_cache_clear().
+#2271811 by DamienMcKenna: Replaced theme_metatag_opengraph() with
+  theme_metatag_property().
+#1282636 by DamienMcKenna: Support meta tags that allow multiple values; first
+  supported tags are og:image and og:image:secure_url.
+#2273459 by DamienMcKenna: Improved Twitter Cards default values.
+#2273241 by DamienMcKenna: Use the new hook_metatag_bundled_config_alter() to
+  load settings from submodules.
+#2273493 by DamienMcKenna: Improved Dublin Core default values.
+#2274921 by DamienMcKenna: Token browser link missing on settings pages.
+#2277787 by eugene.ilyin: Missing translations in metatag_context.
+By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
+#2282903 by DamienMcKenna: Special handling for meta tags that need to output a
+  secure URL, replace 'http://' with 'https://'.
+#2281833 by DamienMcKenna: Ensure multi-item values are output in a consistent
+  order.
+#2275323 by drastik: Provide link to settings page in Metatag:Context module.
+#1284810 by DamienMcKenna: Really recommend installing Imagecache Token.
+#1809356 by DamienMcKenna: Sort all meta tags.
+#2276361 by DamienMcKenna: Move Facebook meta tags into a separate submodule.
+#2185943 by fizk: Remove warnings about Exclude Node Title.
+#2266595 by hefox: Change watchdog() message to a warning not critical, to avoid
+  problems with Jenkins.
+#2193195 by 75th Trombone: Corrected a variable usage in README.txt.
+#1338612 by Lasac, DamienMcKenna: Added the content-language meta tag.
+#2291993 by DamienMcKenna: Duplicate fb meta tags causes lots of errors.
+#2285787 by SebCorbin: Entity Translation problems with revisions.
+#2025425 by moonray, David_Rothstein, hefox, DamienMcKenna: Cache improvement
+  to separate entity vs page language.
+#2186241 by nnevill.io1, DamienMcKenna: Revisions support for Panels.
+#2051407 by cha0s, DamienMcKenna: Language support for token integration.
+#2183203 by mikeytown2, juampy, DamienMcKenna: Improved queries in
+  metatag_metatags_load_multiple().
+#2227377 by DamienMcKenna: taxonomy_vocabulary_load() caused problems when
+  executed during hook_entity_info_alter().
+#1995564 by DamienMcKenna, willieseabrook: Added a warning about a possible
+  conflict with the Admin Language module.
+#2298337 by DamienMcKenna: Added an API option to indicate one meta tag replaces
+  another; updated API docs accordingly.
+#2267501 by DamienMcKenna: Renamed the 'twitter:image' meta tag to the correct
+  'twitter:image:src'.
+#2121437 by DamienMcKenna: Renamed the 'copyright' meta tag to the correct
+  'rights' tag.
+#2177455 by DamienMcKenna: Avoid errors when updating from older releases due
+  to missing revision_id field.
+#2178411 by DamienMcKenna, kporras07: Language not assigned correctly on CTools
+  -based pages.
+
+
 Metatag 7.x-1.0-beta9, 2014-01-18
 ---------------------------------
 #2174363 by DamienMcKenna: Changed update 7018 to avoid attempting to create
@@ -11,7 +69,7 @@ Metatag 7.x-1.0-beta9, 2014-01-18
   tag config, matching how Metatag:Panels works.
 #2176375 by DamienMcKenna: Added note to README.txt about the Textimage module's
   compatibility with Metatag.
-#2170771 by DamieMcKenna: Added support for the og:image:secure_url meta tag.
+#2170771 by DamienMcKenna: Added support for the og:image:secure_url meta tag.
 
 
 Metatag 7.x-1.0-beta8, 2014-01-15

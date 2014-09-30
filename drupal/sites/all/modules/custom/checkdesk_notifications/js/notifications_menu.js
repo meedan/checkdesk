@@ -44,12 +44,12 @@ Drupal.behaviors.alert_new_notifications = {
   attach: function (context, settings) {
     var block, counter;
     block = $('#my-notifications');
-    block.unbind('autorefresh.update');
-    block.bind('autorefresh.update', function(e, nid) {
+    block.unbind('autorefresh_update');
+    block.bind('autorefresh_update', function(e, nid) {
       Drupal.behaviors.meedan_notifications_load_more.attach();
     });
-    block.unbind('autorefresh.ping');
-    block.bind('autorefresh.ping', function(e, count) {
+    block.unbind('autorefresh_ping');
+    block.bind('autorefresh_ping', function(e, count) {
       counter = $('#my-notifications-menu-link').find('.notifications-count');
       if (counter.html() === '') {
         counter.html('<span>' + count + '</span>');

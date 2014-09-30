@@ -46,6 +46,15 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'module' => 'flag',
   );
 
+  // Exported permission: 'flag follow_story'.
+  $permissions['flag follow_story'] = array(
+    'name' => 'flag follow_story',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'flag',
+  );
+
   // Exported permission: 'flag graphic'.
   $permissions['flag graphic'] = array(
     'name' => 'flag graphic',
@@ -116,6 +125,15 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'journalist' => 'journalist',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: 'unflag follow_story'.
+  $permissions['unflag follow_story'] = array(
+    'name' => 'unflag follow_story',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );

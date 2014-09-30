@@ -323,6 +323,7 @@ $.extend($.validator, {
 				var validator = $.data(this[0].form, "validator"),
 					eventType = "on" + event.type.replace(/^validate/, "");
 				if (validator.settings[eventType]) {
+          validator.settings['name_event'] = eventType;
 					validator.settings[eventType].call(validator, this[0], event);
 				}
 			}

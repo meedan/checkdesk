@@ -177,18 +177,19 @@
 
         // group if actor and timestamps are the same
         if ($status !== null && $comment !== null && $comment.hasClass('new_comment_report') && $status.hasClass('status_report') &&
-            $comment.find('.actor').text() === $status.find('.actor').text() && $comment.find('.time').attr('datetime') === $status.find('.time').attr('datetime')) {
+            $comment.find('.actor').text() === $status.find('.actor').text() && $comment.find('.timestamp').attr('datetime') === $status.find('.timestamp').attr('datetime')) {
           $comment.find('.actor').html('');
-          $comment.find('.time').html('');
-          $comment.find('.title').parent().addClass('grouped');
-          $comment.parents('.views-row').css('border-top', '0 none');
+          $comment.find('.timestamp').html('');
+          $comment.find('.report-verification-footnote').parent().parent().addClass('grouped-item');
+          // $comment.parents('.views-row').css('border-top', '0 none');
           $status.addClass('activity-parent');
           $comment.addClass('activity-grouped');
           // move the status before the comment
           $comment.parent().before($status.parent());
 
           // move the trash icon for deleting comments to the parent
-          $status.find('.activity-end-wrapper').prepend($comment.find('.delete-footnote'));
+          // Currently doesn't delete both items
+          // $status.find('.timestamp').after($comment.find('.inline-delete-item'));
         }
       });
     },
@@ -266,16 +267,20 @@
 
   // This callback is invoked when a new footnote is added
   $.fn.footnoteCallback = function(nid, output) {
-    var $form = $('#node-' + nid + ' section#comment-form');
+    var $form = $('#node-' + nid + ' .open section#comment-form');
     $form.hide();
     $form.appendTo($('html'));
-    $('#node-' + nid).replaceWith(output);
-    $('#node-' + nid + ' .activity-wrapper').append($form);
+    $('.open#report-activity-node-' + nid).replaceWith(output);
+    $('.open#report-activity-node-' + nid + ' .item-nested-content').append($form);
     $form.show();
     $form.find('textarea').val('');
     //destory then re-assign expanding to fix issue #2119.
     $form.find('textarea').expanding('destroy');
     $form.find('textarea').expanding();
+    // Scroll to new footnote
+    $('html, body').animate({
+        scrollTop: $('.open#report-activity-node-' + nid).offset().top - 150
+    }, 'slow');
     Drupal.attachBehaviors($('#node-' + nid));
   };
 

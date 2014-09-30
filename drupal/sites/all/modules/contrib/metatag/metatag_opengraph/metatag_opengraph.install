@@ -35,3 +35,15 @@ function metatag_opengraph_install() {
     drupal_set_message(t('The core RDF module is known to cause validation problems for Open Graph meta tags. Unless it is actually needed for the site, it may be worthwhile to disable the RDF module to avoid any possible problems for the Open Graph integration.'));
   }
 }
+
+/**
+ * Implementations of hook_update_N().
+ */
+
+/**
+ * Enable the new Metatag:Facebook submodule.
+ */
+function metatag_opengraph_update_7100() {
+  module_enable(array('metatag_facebook'));
+  drupal_set_message(t('Enabled the new Metatag:Facebook submodule. If the Facebook meta tags are not being used then it is safe to disable.'));
+}

@@ -102,27 +102,34 @@
   // }
 
   figure {
-    // margin: 0 0 $absolute-line-height/2 0;
+    margin-bottom: 30px;
+    blockquote {
+      // p { @include icon("camera"); }
+      border: 0 none;
+      color: $firefly40;
+      font-size: 16px;
+      line-height: 20px;
+      margin-top: 5px;
+    }
+
   }
 
 
   h1 {
     font-style: normal;
     @if $from-direction == 'right' {
-      font-size: 46px;
-      line-height: 66px;
-      font-weight: 700;
+      font-size: 40px;
+      line-height: 60px;
     }
     
     @if $from-direction == 'left' {
       font-size: 42px;
       letter-spacing: -1.68px;
-      font-weight: 400;
-      line-height: 56px;
+      line-height: 52px;
     }
     
     color: $firefly90;
-    margin: $absolute-line-height*1.25 0 0;
+    margin: $absolute-line-height*1.25 0 10px;
   }
 
   .story-meta {
@@ -138,6 +145,8 @@
       margin-#{$omega}: $gutter-width/2;
     }
     a.contributor {
+      font-family: $serif-font-stack;
+      font-style: italic;
       color: $thatch80; 
       &:hover { 
         color: $thatch; 
@@ -164,7 +173,7 @@
       }
     }
 
-    ul.content-actions {
+    .content-actions {
       @include reset-list-style;
       float: $omega;
       width: 20%;
@@ -175,13 +184,13 @@
         float: $omega;
         font-weight: 700;
         color: $firefly30;
-        .icon-share { @include icon(share); }
+        .icon-share { @include icon("share"); }
         &:hover {
           color: $firefly80;
           text-decoration: none;
         }
         @if $from-direction == 'left' {
-          .icon-share { @include icon(share, modular-scale(0) - modular-scale(-3)); }
+          .icon-share { @include icon("share", modular-scale(0) - modular-scale(-3)); }
           font-size: modular-scale(0) - modular-scale(-3); // 14px;
           text-transform: uppercase;
           letter-spacing: 0.08em;
@@ -193,7 +202,7 @@
 
   .story-body {  
     @include ctb-clearfix;
-    margin: $absolute-line-height*2.5 0 $absolute-line-height/2;
+    margin: 30px 0 0;
     color: $firefly80;
     @include cd-serif-family;
     font-size: 18px;
@@ -205,9 +214,207 @@
     }
     p {
       margin: 0 0 $absolute-line-height/2.4 0;
-      max-width: 600px; // avg. 75 characters per line
+      // max-width: 585px; // roughly avg. 64 characters per line
       &:first-child {
-        // margin: 0 0;
+        margin: 0 0;
+      }
+    }
+  }
+
+  .story-follow {
+    @include ctb-clearfix;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: $thatch;
+    a { 
+      @include ctb-linkColor($thatch); 
+      text-decoration: none;
+      &:hover {
+        @include ctb-bg($firefly5, rgba($firefly, 0.05));
+      }
+    }
+    font-weight: 700; 
+    
+    a.flag-action {
+      @include icon("plus");
+      &:before, &:after { 
+        margin: 0 0 0 0;
+        margin-#{$omega}: 7.5px;
+        font-size: 17px; 
+      }
+    }
+    a.unflag-action {
+      @include icon("minus");
+      &:before, &:after { 
+        margin: 0 0 0 0;
+        margin-#{$omega}: 7.5px;
+        font-size: 17px; 
+      }
+    }
+    .flag, .follow-count {
+      padding: 4px 10px;
+      border: 1px solid rgba($firefly, 0.1);
+    }
+    .flag {
+      float: $from-direction;
+      border: 1px solid rgba($firefly, 0.1);
+      @if $from-direction == left {
+        @include border-radius(4px 0 0 4px);
+      } @else {
+        @include border-radius(0 4px 4px 0);
+      }
+      font-size: 17px;
+      line-height: 28px;
+      vertical-align: middle;
+    }
+    .follow-count {
+      float: $from-direction;
+      font-size: 18px;
+      line-height: 28px;
+      @if $from-direction == left {
+        @include border-radius(0 4px 4px 0);
+      } @else {
+        @include border-radius(4px 0 0 4px);
+      }
+      
+      vertical-align: middle;
+      border-#{$alpha}: 0 none;
+      @if $from-direction == right {
+        min-height: 30px;
+      }
+    }
+  }
+
+  .story-tabs-wrapper {
+    margin: 0 0 24px;
+    ul {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: separate;
+      li {
+        display: table-cell;
+        float: none;
+        height: 43px;
+        vertical-align: middle;
+        font-size: 20px;
+        @include ctb-bg($firefly5, rgba($firefly, 0.05));
+        border-bottom: 1px solid rgba($firefly, 0.01);
+        a { 
+          color: $firefly80; 
+          display: block; 
+          padding: 0 15px;
+          &.active {
+            color: $firefly;
+          }
+        }
+        &.active {
+          background-color: transparent;
+          border-bottom: 0 none;
+          border-top: 4px solid $dodgerBlue;
+        }
+      }
+    }
+  }
+
+  .story-collaboration-header-wrapper {
+    position: relative;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-bottom: 1px solid rgba($firefly, 0.1);
+    padding-bottom: 15px;
+    & > div {
+      display: table-cell;
+      width: 100%;
+      vertical-align: bottom;
+    }
+    // HACK: until we implement show more collaborators list
+    .story-collaborators-wrapper {
+      width: 160%;
+    }
+  }
+
+  .story-collaborate-links {
+    li {
+      display: inline;
+      margin-#{opposite-position($from-direction)}: 30px;
+      font-size: 18px;
+      &:last-child {
+        margin-#{opposite-position($from-direction)}: 0;
+      }
+      &.submit-report a {
+        @include icon("bookmark", 18px);
+      }
+      &.compose-update a {
+        @include icon("pencil", 18px);
+      }
+    }
+  }
+
+  .collaboration-report-tooltip {
+    #{$from-direction}: 0;
+    top: 40px;
+    width: 400px;
+    @include cd-box-shadow;
+    @include background-clip(padding-box);
+    h3, .popover-content {
+      @include reset-box-model;
+      padding-#{$alpha}: 10px;
+      color: $firefly40;
+      span { color: $firefly60; }
+    }
+    h3 {
+      line-height: 48px;
+    }
+    .popover-arrow {
+      #{$from-direction}: 28px;
+    }
+  }
+
+  .story-collaboration-activity-wrapper {
+    min-height: 200px;
+  }
+
+  .story-collaborators {
+    text-align: opposite-position($from-direction);
+    .sc-users, .sc-avatars {
+      display: inline-block;
+    }
+    .sc-users {
+      font-size: 14px;
+      line-height: 1;
+      color: $firefly40;
+      margin-#{opposite-position($from-direction)}: 15px;
+      h3 {
+        @include reset-box-model;
+        @include cd-sans-serif-family;
+        font-weight: 700;
+        font-size: 18px;
+        color: $firefly60;
+        margin-bottom: 4px;
+      }
+      a {
+        color: $firefly40;
+      }
+    }
+    .sc-avatars {
+      a {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: inline-block;
+        @include ctb-size(48px, 48px);
+        vertical-align: bottom;
+        &:first-child {
+          @include border-radius(4px 0 0 4px);
+        }
+        &:last-child {
+          @include border-radius(0 4px 4px 0); 
+        }
+        &:only-child {
+          @include border-radius(4px);  
+        }
       }
     }
   }
@@ -333,7 +540,7 @@
   .story-footer {
     @include ctb-clearfix;
     display: block;
-    margin-top: $absolute-line-height/2;
+    margin: 20px 0 30px 0;
     padding: $absolute-line-height/4 0;
     border-top: 1px solid $firefly10;
     color: $firefly20;
@@ -368,6 +575,7 @@
 
   .story-comments {
     margin-top: $absolute-line-height;
+    margin-bottom: 60px;
     .livefyre-header, .fb-comments-header {
       @include icon(comments, $large-font-size);
       @include cd-sans-serif-family;
@@ -437,6 +645,9 @@
     figure {
       display: block;
       margin-bottom: $absolute-line-height/2;
+      blockquote {
+        display: none;
+      }
     }
   }
 }
