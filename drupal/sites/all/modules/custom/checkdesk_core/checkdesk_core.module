@@ -7,7 +7,7 @@ function checkdesk_core_init() {
   drupal_add_library('system', 'ui.draggable');
   drupal_add_library('system', 'ui.droppable');
   drupal_add_library('system', 'drupal.ajax');
-    
+
   drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_core.js');
 
   // HACK: This enables the #ajax submission of the node form. Currently
@@ -567,7 +567,7 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js) {
 
     // Array with ajax response
     $commands = array();
-    
+
     // Refresh messages
     $commands[] = ajax_command_html('#messages-container', theme('status_messages'));
     $new_link = trim(flag_create_link($flag->name, $nid));
@@ -575,7 +575,7 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js) {
     // Update link (we need to wrap the link in order to get the correct behavior)
     $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-' . $flag->name, 'replaceWith', array($new_link));
     $commands[] = checkdesk_core_ajax_command_attach_behaviors('.node-' . $nid . ' .flag-as');
-    
+
     // Check if this report is flagged and highlight icon or not
     $flags = flag_get_flags('node');
     $class = 'unflagged';
@@ -586,13 +586,13 @@ function _checkdesk_core_flags_confirm_modal($action, $flag, $nid, $js) {
     }
     $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-as > a', 'removeClass', array('flagged unflagged'));
     $commands[] = ajax_command_invoke('.node-' . $nid . ' .flag-as > a', 'addClass', array($class));
-    
+
     // Dismiss modal
     $commands[] = ctools_modal_command_dismiss();
   }
 
   print ajax_render($commands);
-  
+
   exit();
 }
 
@@ -774,7 +774,7 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     } else {
       $links['dropdown-direction'] = $layout['omega'];
     }
-    
+
     $share_links = checkdesk_core_share_links($url, $node->title);
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
@@ -908,8 +908,8 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
         $footnote = comment_load($heartbeat_activity->cid);
         $node->content['report_verification_footnote'] = $footnote->comment_body[LANGUAGE_NONE][0]['value'];
       }
-      $node->content['field_link'] = _meedan_render_oembed_activity_type($node, $heartbeat_row); 
-      /*     
+      $node->content['field_link'] = _meedan_render_oembed_activity_type($node, $heartbeat_row);
+      /*
       if ($heartbeat_row->heartbeat_activity_message_id == 'checkdesk_report_suggested_to_story') {
         unset($node->content['field_link']);
       }
@@ -917,7 +917,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
     }
   }
-  
+
   // Get node links.
   $links = _checkdesk_core_node_links($node);
   if (!empty($links)) {
@@ -1054,7 +1054,7 @@ function _checkdesk_core_post_node_form_submit($form, &$form_state) {
 
   // Redirect to story page
   $form_state['redirect'] = array('story-collaboration/' . $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id']);
-  
+
   // drupal_set_message(t('Update has been added to this story.'));
   // $form_state['redirect'] = array('node/' . $form['field_desk'][LANGUAGE_NONE]['#default_value'], array('fragment' => 'update-'. $form_state['nid']));
 }
@@ -1118,8 +1118,8 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
 
   $file_size = $form['field_lead_image'][LANGUAGE_NONE][0]['#upload_validators']['file_validate_size'][0];
   $formats = $form['field_lead_image'][LANGUAGE_NONE][0]['#upload_validators']['file_validate_extensions'][0];
-  $file_upload_description = t('Image must be less than !size.', array('!size' => format_size($file_size))) . 
-                             ' ' . 
+  $file_upload_description = t('Image must be less than !size.', array('!size' => format_size($file_size))) .
+                             ' ' .
                              t('Allowed file types: !extensions.', array('!extensions' => $formats));
   $form['field_lead_image'][LANGUAGE_NONE][0]['#description'] = $file_upload_description;
 
@@ -1510,7 +1510,7 @@ function checkdesk_core_block_info() {
     'info'   => t('Checkdesk user information'),
     'cache'  => DRUPAL_NO_CACHE,
   );
-  
+
   return $blocks;
 }
 
@@ -1689,8 +1689,8 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
   //Redirect user to right place after delete footnote
   if ($form_id == 'comment_confirm_delete' && $form['#comment']->node_type == 'comment_node_media') {
     if(!isset($_SESSION['comment_referer'])) {
-      //use session to catch referer as destination did not work well with AJAX requests 
-      $_SESSION['comment_referer'] = $_SERVER['HTTP_REFERER']; 
+      //use session to catch referer as destination did not work well with AJAX requests
+      $_SESSION['comment_referer'] = $_SERVER['HTTP_REFERER'];
     }
     $form['#submit'][] = '_redirect_footnote_delete';
   }
@@ -1756,7 +1756,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     }
     $new_account_link = l(t('Sign Up'), 'user/register', $link);
     $form['actions']['submit']['#suffix'] = '<div class="user-new-account-link"><span>' . t('Don\'t have an account? ') . '</span>
-    ' . $new_account_link . '</div>';    
+    ' . $new_account_link . '</div>';
 
   }
 
@@ -2478,7 +2478,7 @@ function checkdesk_core_ajax_command_attach_behaviors($selector = NULL) {
     'command' => 'attachBehaviors',
     'selector' => $selector,
   );
- return $command; 
+ return $command;
 }
 
 /**
@@ -2551,7 +2551,7 @@ function checkdesk_core_clientside_validation_form_alter(&$form, &$form_state, &
       _clientside_validation_set_minmaxlength($form['account']['pass']['pass1']['#name'], $form['account']['pass']['pass1']['#title'], $min, 1, $js_rules, t('too short'));
       _clientside_validation_set_minmaxlength($form['account']['pass']['pass2']['#name'], $form['account']['pass']['pass2']['#title'], $min, 1, $js_rules, t('too short'));
     }
-    
+
     // E-mail must be valid
     _clientside_validation_set_email($form['account']['mail']['#name'], $form['account']['mail']['#title'], $js_rules, t('invalid'));
 
@@ -2626,7 +2626,7 @@ function checkdesk_core_form_comment_form_alter(&$form, &$form_state) {
   $form['comment_body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add footnote');
 
   $term = $form['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'];
-  
+
   $form['field_rating'][LANGUAGE_NONE]['#default_value'] = $term->name;
 
   $form['field_rating'][LANGUAGE_NONE]['#prefix'] = '<div class="report-activity-edit-status"><span class="current-status ' . preg_replace('/\s+/', '-', trim(strtolower($term->name))) . '">' . t($term->name) . '</span>';
@@ -2649,7 +2649,7 @@ function checkdesk_core_form_comment_form_alter(&$form, &$form_state) {
 function _checkdesk_core_comment_form_validate($form, &$form_state) {
 
   // Get tid from name
-  if (isset($form_state['values']['field_rating'])) { 
+  if (isset($form_state['values']['field_rating'])) {
     $tids = array_keys(taxonomy_get_term_by_name($form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid']));
     $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'] = $tids[0];
   }
@@ -2663,7 +2663,7 @@ function _checkdesk_comment_form_submit($form, &$form_state) {
   global $user;
 
   drupal_get_messages();
-  
+
   $nid = $form['#node']->nid;
   $node = node_load($nid);
 
@@ -2830,7 +2830,7 @@ function checkdesk_core_cron_queue_info_alter(&$queues) {
  */
 function _checkdesk_purge_varnish($paths) {
   if (module_exists('varnish')) {
-    //any action reflect on frontpage 
+    //any action reflect on frontpage
     if (count($paths)) {
       $languages = language_list();
       $hostnames = variable_get('hostnames', array());
@@ -2859,7 +2859,7 @@ function _checkdesk_purge_varnish($paths) {
         $message = t('Purge was executed on !host for the next URLs: !urls', array('!host' => $hostname, '!urls' => theme('item_list', array('items' => $urls))));
         //watchdog('checkdesk-varnish', $message, array(), WATCHDOG_DEBUG);
         checkdesk_varnish_expire_cache($urls, $hostname);
-        //adding sleep for 2 seconds 
+        //adding sleep for 2 seconds
         sleep(2);
       }
     }
@@ -2919,7 +2919,7 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
   }
   $paths = array();
   if ($type == 'node') {
-    //check insert 
+    //check insert
     //only published content that will need to purge from varnish cache
     //no need to check media content as it does not include on any update yet.
     if ($op == 'insert' && $object->status != 0) {
@@ -2966,7 +2966,7 @@ function checkdesk_varnish_pages_to_purge($type, $object, $op) {
  * Render heartbeat activity on story collaboration page.
  *
  * @param onject $row
- *  heartbeat activity object 
+ *  heartbeat activity object
  *
  * @return HTML for target node (update/report)
  */
@@ -2974,11 +2974,12 @@ function checkdesk_story_collaborate_render_object($row) {
   $node = node_load($row->heartbeat_activity_nid);
   $node->heartbeat_row = $row;
   if ($row->heartbeat_activity_message_id == 'checkdesk_follow_story') {
-    $output =  render(node_view($node));
+    $node_view = node_view($node);
   }
   else {
-    $output = render(node_view($node, 'checkdesk_collaborate'));
+    $node_view = node_view($node, 'checkdesk_collaborate');
   }
+  $output = render($node_view);
   return $output;
 }
 
@@ -3002,7 +3003,7 @@ function _checkdesk_story_tabs($nid) {
 }
 
 /**
- * Return story nid to filler incomming rports view. 
+ * Return story nid to filler incomming rports view.
  */
 function _get_desk_reports_args() {
   $story_nid = 0;

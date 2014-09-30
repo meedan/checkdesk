@@ -7,7 +7,7 @@
  * @parm object $node
  *    story node object
  *
- * @return  
+ * @return
  *   Return a story collaboration page.
  */
 function _checkdesk_story_collaboration($node) {
@@ -57,7 +57,8 @@ function _checkdesk_story_collaboration($node) {
       });
       ', 'inline');
   }
-  $output .= render(node_view($node, 'checkdesk_collaborate'));
+  $node_view = node_view($node, 'checkdesk_collaborate');
+  $output .= render($node_view);
   return $output;
 }
 
@@ -70,7 +71,7 @@ function _checkdesk_story_links($nid) {
   $output = '';
   if ($user->uid) {
     $items = array();
-    
+
     $items[] = array(
       'data' => l(t('Add a report'), 'node/add/media', array('query' => array('ref_nid' => $nid, drupal_get_destination()))),
       'class' => array('submit-report'),
@@ -102,7 +103,7 @@ function _checkdesk_story_links($nid) {
 }
 
 /**
- * List story collaborators 
+ * List story collaborators
  *  @param story_nid
  *
  */
@@ -110,10 +111,10 @@ function _checkdesk_story_get_collaborators($nid) {
   $output = '';
   //ToDO check node type
   $users = db_query('
-    SELECT DISTINCT ha.uid, u.name, f.fid, f.uri 
-    FROM {heartbeat_activity} ha 
-    INNER JOIN {users} u ON ha.uid = u.uid 
-    LEFT JOIN {file_managed} f ON u.picture = f.fid 
+    SELECT DISTINCT ha.uid, u.name, f.fid, f.uri
+    FROM {heartbeat_activity} ha
+    INNER JOIN {users} u ON ha.uid = u.uid
+    LEFT JOIN {file_managed} f ON u.picture = f.fid
     WHERE nid_target = :nid AND message_id != :message_id
     ', array(':nid' => arg(1), ':message_id' => 'checkdesk_follow_story'))->fetchAll();
   if (count($users)) {
