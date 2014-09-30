@@ -6,7 +6,7 @@ include_once(drupal_get_path('theme', 'checkdesk') . '/includes/theme.inc');
 include_once(drupal_get_path('theme', 'checkdesk') . '/includes/menu.inc');
 
 /**
- * hook_theme() 
+ * hook_theme()
  */
 function checkdesk_theme() {
   return array(
@@ -30,7 +30,7 @@ function checkdesk_theme() {
     ),
   );
 }
- 
+
 function checkdesk_preprocess_field(&$variables, $hook) {
   $element = $variables['element'];
   if ($element['#field_name'] == 'field_link') {
@@ -48,7 +48,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     } else {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
-    // Set favicon 
+    // Set favicon
     if (isset($embed->favicon_link)) {
       $variables['favicon_link'] = l(
         theme('image', array( 'path' => $embed->favicon_link)),
@@ -103,7 +103,7 @@ function checkdesk_preprocess_html(&$variables) {
   }
 
   // 404 HTML template
-  $status = drupal_get_http_header("status");  
+  $status = drupal_get_http_header("status");
   if($status == "404 Not Found") {
     if ($variables['language']->language == 'ar') {
       $variables['theme_hook_suggestions'][] = 'html__404__rtl';
@@ -156,7 +156,7 @@ function checkdesk_preprocess_html(&$variables) {
       'every_page' => TRUE,
     )
   );
-  
+
   $head_title = array();
   $title = drupal_get_title();
   if (!empty($title)) {
@@ -177,7 +177,7 @@ function checkdesk_preprocess_region(&$variables) {
     // define custom header settings
     $variables['header_image'] = '';
     $image = theme_get_setting('header_image_path');
-    
+
     if (!empty($image) && theme_get_setting('header_image_enabled')) {
       $header_image_data = array(
         'style_name' => 'partner_logo',
@@ -194,14 +194,14 @@ function checkdesk_preprocess_region(&$variables) {
 
     $slogan = $variables['header_slogan'] = t('A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language)), '@partner_url' => variable_get_value('checkdesk_site_owner_url', array('language' => $language)) ));
     $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
-    $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right'); 
+    $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
   }
 
   if ($variables['region'] == 'footer') {
     // define custom header settings
     $variables['footer_image'] = '';
     $image = theme_get_setting('footer_image_path');
-    
+
     if (!empty($image)) {
       $footer_image_data = array(
         'style_name' => 'footer_partner_logo',
@@ -223,7 +223,7 @@ function checkdesk_preprocess_block(&$variables) {
   $variables['elements']['#block']->subject = '';
   // Add Compose Update on update form
   if($variables['elements']['#block']->bid == 'checkdesk_core-post') {
-    $variables['elements']['#block']->subject = t('Compose Update'); 
+    $variables['elements']['#block']->subject = t('Compose Update');
   }
 }
 
@@ -234,9 +234,9 @@ function checkdesk_preprocess_block(&$variables) {
  */
 function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
-  
+
   // 404 PAGE template
-  $status = drupal_get_http_header("status");  
+  $status = drupal_get_http_header("status");
   if($status == "404 Not Found") {
     if ($variables['language']->language == 'ar') {
       $variables['theme_hook_suggestions'][] = 'page__404__rtl';
@@ -391,7 +391,7 @@ function checkdesk_preprocess_page(&$variables) {
   $menu = menu_load('menu-information');
 
   $tree = menu_tree_page_data($menu['menu_name']);
-  
+
   // Remove items that are not from this language or that does not have children
   foreach ($tree as $id => $item) {
     if ($item['link']['hidden']) {
@@ -402,7 +402,7 @@ function checkdesk_preprocess_page(&$variables) {
       if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
     }
   }
-  
+
 
   // Add classes for modal
   foreach ($tree as $id => $item) {
@@ -453,7 +453,7 @@ function checkdesk_preprocess_page(&$variables) {
   //     $tree[$id]['link']['class'] = array('checkdesk');
   //   }
   // }
-  
+
   // $partner_url = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
   // Add partner logo class
   // foreach ($tree as $id => $item) {
@@ -539,7 +539,7 @@ function checkdesk_preprocess_page(&$variables) {
   // define custom header settings
   $variables['header_image'] = '';
   $image = theme_get_setting('header_image_path');
-  
+
   if (!empty($image) && theme_get_setting('header_image_enabled')) {
     $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
@@ -566,6 +566,7 @@ function checkdesk_preprocess_page(&$variables) {
  * Override or insert variables into the node template.
  */
 function checkdesk_preprocess_node(&$variables) {
+  $node = @$variables['elements']['#node'];
 
   if($variables['view_mode'] == 'checkdesk_collaborate') {
     if ($variables['type'] == 'media') {
@@ -577,7 +578,7 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
     }
   }
-  elseif ($variables['type'] == 'discussion') {
+  elseif ($variables['type'] == 'discussion' && !empty($variables['heartbeat_row'])) {
     $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
     $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $message_id;
   }
@@ -599,20 +600,20 @@ function checkdesk_preprocess_node(&$variables) {
     // Add creation info
     $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime !timezone</time>', array(
       '@user' => url('user/'. $variables['uid']),
-      '!user' => $variables['elements']['#node']->name,
+      '!user' => $node->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
       '!timezone' => $timezone,
     ));
     $variables['creation_info_short'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
       '@user' => url('user/'. $variables['uid']),
-      '!user' => $variables['elements']['#node']->name,
+      '!user' => $node->name,
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
     ));
     $variables['created_by'] = t('<a href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
-      '!user' => $variables['elements']['#node']->name,
+      '!user' => $node->name,
     ));
     $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
@@ -629,16 +630,16 @@ function checkdesk_preprocess_node(&$variables) {
 
   if($variables['type'] == 'post') {
     //Add author info to variables
-    $user = user_load($variables['elements']['#node']->uid);
+    $user = user_load($node->uid);
     $user_picture = $user->picture;
     if (!empty($user_picture)) {
       $options = array(
         'html' => TRUE,
         'attributes' => array(
           'class' => 'gravatar'
-        )    
+        )
       );
-      $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
+      $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($node->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
   }
 
@@ -648,9 +649,9 @@ function checkdesk_preprocess_node(&$variables) {
     // Format lead image as thumbnail for activity template
     if (isset($variables['field_lead_image'][0]['uri'])) {
       $variables['inline_thumbnail'] = l(theme('image_style', array(
-        'path' => $variables['field_lead_image'][0]['uri'], 
-        'alt' => t(check_plain($variables['elements']['#node']->title)), 
-        'style_name' => 'report_thumbnail', 
+        'path' => $variables['field_lead_image'][0]['uri'],
+        'alt' => t(check_plain($node->title)),
+        'style_name' => 'report_thumbnail',
         'attributes' => array('class' => 'inline-img-thumb'))), 'node/' . $variables['nid'] , array('html' => TRUE));
     }
     else {
@@ -671,7 +672,7 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
       // Get heartbeat activity for particular story
       $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
-      
+
 
       // l(theme_image(array('path' => $variables['field_lead_image'][0]['uri'], 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $variables['nid'] , array('html' => TRUE));
     }
@@ -707,29 +708,29 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if ($variables['type'] == 'post' && isset($variables['title'])) {
-    if ($variables['title'] === _checkdesk_core_auto_title($variables['elements']['#node']) || $variables['title'] === t('Update')) {
+    if ($variables['title'] === _checkdesk_core_auto_title($node) || $variables['title'] === t('Update')) {
       unset($variables['title']);
     }
   }
 
   $variables['icon'] = '';
-  
+
   if ($variables['type'] == 'media') {
     global $language;
     //Add author info to variables
-    $user = user_load($variables['elements']['#node']->uid);
+    $user = user_load($node->uid);
     $user_picture = $user->picture;
     if (!empty($user_picture)) {
       $options = array(
         'html' => TRUE,
         'attributes' => array(
           'class' => 'gravatar'
-        )    
+        )
       );
-      // $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($variables['elements']['#node']->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
+      // $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($node->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     // set provider class name
-    $provider = strtolower($variables['elements']['#node']->embed->provider_name);
+    $provider = strtolower($node->embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
     //Add node creation info(author name plus creation time
     if($variables['view_mode'] == 'checkdesk_collaborate') {
@@ -751,7 +752,7 @@ function checkdesk_preprocess_node(&$variables) {
       ));
       $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <a href="@url"><time class="date-time" datetime="!timestamp">!datetime</time></a>', array(
         '@user' => url('user/'. $variables['uid']),
-        '!user' => $variables['elements']['#node']->name,
+        '!user' => $node->name,
         '@url' => url('node/'. $variables['nid']),
         '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
@@ -759,9 +760,9 @@ function checkdesk_preprocess_node(&$variables) {
       ));
     }
     //Add activity report with status
-    $term = isset($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
-      $variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 
-      taxonomy_term_load($variables['elements']['#node']->field_rating[LANGUAGE_NONE][0]['tid']);
+    $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
+      $node->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+      taxonomy_term_load($node->field_rating[LANGUAGE_NONE][0]['tid']);
     $status_name = $term->name;
     if ($status_name !== 'Not Applicable') {
       $view = views_get_view('activity_report');
@@ -793,7 +794,7 @@ function checkdesk_preprocess_node(&$variables) {
         }
         // Display "{status} by {partner site name}" for all statuses
         // except when the report is in progress
-        
+
         if($status_name != 'In Progress') {
           $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
         }
@@ -850,7 +851,7 @@ function checkdesk_links__node($variables) {
 
   $class[] = 'content-actions';
 
-  // get $alpha and $omega 
+  // get $alpha and $omega
   $layout = checkdesk_core_direction_settings();
 
   $output = '';
@@ -869,15 +870,15 @@ function checkdesk_links__node($variables) {
     // }
 
     if (isset($links['checkdesk-share']) ||
-        isset($links['checkdesk-share-facebook']) || 
-        isset($links['checkdesk-share-twitter']) || 
+        isset($links['checkdesk-share-facebook']) ||
+        isset($links['checkdesk-share-twitter']) ||
         isset($links['checkdesk-share-google']) ||
         isset($links['checkdesk-share-embed'])
     ) {
       // Share on
       $output .= '<span class="share-on">';
       $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . $links['checkdesk-share']['title'] . '</span></a>';
-      
+
       $output .= '<ul class="dropdown-menu pull-'. $links['dropdown-direction'] .'">';
 
       if (isset($links['checkdesk-share-facebook'])) {
@@ -893,12 +894,12 @@ function checkdesk_links__node($variables) {
         $output .= '<li class="divider"></li>';
         $output .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-embed']) . '</li>';
       }
-      $output .= '</ul></span>'; 
+      $output .= '</ul></span>';
     }
 
-    if (isset($links['flag-spam']) || 
-        isset($links['flag-graphic']) || 
-        isset($links['flag-factcheck']) || 
+    if (isset($links['flag-spam']) ||
+        isset($links['flag-graphic']) ||
+        isset($links['flag-factcheck']) ||
         isset($links['flag-delete'])
     ) {
       // Flag as
@@ -921,11 +922,11 @@ function checkdesk_links__node($variables) {
         $output .= '<li class="divider"></li>';
         $output .= '<li>' . $links['flag-delete']['title'] . '</li>';
       }
-      $output .= '</ul></span>'; 
+      $output .= '</ul></span>';
     }
-     
-    if (isset($links['checkdesk-suggest']) || 
-        isset($links['checkdesk-edit']) || 
+
+    if (isset($links['checkdesk-suggest']) ||
+        isset($links['checkdesk-edit']) ||
         isset($links['checkdesk-delete']) ||
         isset($links['flag-factcheck_journalist']) ||
         isset($links['flag-graphic_journalist'])
@@ -953,7 +954,7 @@ function checkdesk_links__node($variables) {
       $output .= '</ul></span>';
     }
 
-    if (isset($links['checkdesk-edit-flat']) || 
+    if (isset($links['checkdesk-edit-flat']) ||
         isset($links['checkdesk-delete-flat'])
     ) {
       // Edit or delete, but not as a dropdown menu
@@ -985,7 +986,7 @@ function checkdesk_widgets_visibility() {
   $current_node = menu_get_object();
 
   // Display on collaboration page
-  if ($current_node->type == 'discussion' && arg(0) == 'story-collaboration' && is_numeric(arg(1))) {
+  if (!empty($current_node) && $current_node->type == 'discussion' && arg(0) == 'story-collaboration' && is_numeric(arg(1))) {
     return TRUE;
   }
   // what to check for
@@ -1019,7 +1020,7 @@ function checkdesk_widgets_visibility() {
     foreach ($user_node_types as $node_type) {
       // matches node types and does not include any pages
       if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page && $status != "404 Not Found") {
-        return TRUE; 
+        return TRUE;
       }
 
     }
@@ -1049,10 +1050,10 @@ function checkdesk_footer_visibility() {
     foreach ($node_types as $node_type) {
       // matches node types and does not include any pages
       if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page) {
-        return TRUE; 
-      } 
+        return TRUE;
+      }
     }
-  } 
+  }
 
   // Always display on front page
   if (drupal_is_front_page()) {
@@ -1082,7 +1083,7 @@ function checkdesk_page_alter(&$page) {
           '#region' => 'widgets',
           '#theme_wrappers' => array('region'),
         );
-      }  
+      }
     }
   }
 }
@@ -1139,7 +1140,7 @@ function checkdesk_checkdesk_core_report_source(&$variables) {
 function checkdesk_field__field_rating(&$variables) {
   $output = '';
   foreach($variables['items'] as $key => $tag) {
-      $output = $tag['#title']; 
+      $output = $tag['#title'];
   }
   return $output;
 }
@@ -1175,7 +1176,7 @@ function checkdesk_preprocess_views_view(&$vars) {
   $vars['base_path'] = $base_path;
   // set template functions for individual views
   if (isset($vars['view']->name)) {
-    $function = 'checkdesk_preprocess_views_view__'.$vars['view']->name; 
+    $function = 'checkdesk_preprocess_views_view__'.$vars['view']->name;
     if (function_exists($function)) {
       $function($vars);
     }
@@ -1198,7 +1199,7 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
 /* Desk Updates */
 function checkdesk_preprocess_views_view__desk_updates(&$vars) {
   if ($vars['display_id'] == 'block') {
-    
+
   }
 }
 
@@ -1308,7 +1309,7 @@ function checkdesk_preprocess_user_profile(&$variables) {
   $reports->destroy();
 }
 
-/* 
+/*
  * Utility function to set timezone as City, Country
  */
 function checkdesk_get_timezone() {
@@ -1317,7 +1318,7 @@ function checkdesk_get_timezone() {
   $timezone = date_default_timezone();
   if($timezone) {
     $timezone_array = explode('/', $timezone);
-    $site_timezone['city'] = str_replace('_', ' ', array_pop($timezone_array));  
+    $site_timezone['city'] = str_replace('_', ' ', array_pop($timezone_array));
   }
   $site_country_code = variable_get('site_default_country', '');
   if($site_country_code) {
@@ -1347,7 +1348,7 @@ function _checkdesk_favicons($provider) {
 }
 
 /**
- * List of media providers 
+ * List of media providers
  */
 function _checkdesk_providers() {
   $providers = array(
@@ -1364,8 +1365,8 @@ function _checkdesk_report_status($report) {
   $report_status = array();
   $icon = '';
 
-  $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ? 
-      $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] : 
+  $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
+      $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
       taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
   $status_name = $term->name;
 
@@ -1379,17 +1380,17 @@ function _checkdesk_report_status($report) {
   elseif ($status_name == 'In Progress') {
     $status_class = 'in-progress';
     $icon = '<span class="icon-random"></span> ';
-  }    
+  }
   elseif ($status_name == 'Undetermined') {
     $status_class = 'undetermined';
     $icon = '<span class="icon-question-circle"></span> ';
-  }    
+  }
   elseif ($status_name == 'False') {
     $status_class = 'false';
     $icon = '<span class="icon-times-circle"></span> ';
-  }    
+  }
   $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-  
+
   if($status_name != 'In Progress') {
     $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
   }
