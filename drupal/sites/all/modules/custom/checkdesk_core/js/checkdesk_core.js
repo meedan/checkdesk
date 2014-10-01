@@ -142,15 +142,6 @@
         Drupal.CTools.Modal.dismiss();
       });
 
-      // $(".flag-link-confirm", context).once('checkdesk-modal', function () {
-      //   this.href = this.href.replace(/flag\/confirm\/flag\/graphic/,'node/flag/nojs/confirm/flag/graphic');
-      // }).addClass('ctools-use-modal ctools-modal-checkdesk-style');
-
-      // Trigger
-      // $('.some-class').click(function() {
-      //   Drupal.ajax['checkdesk_core_message_settings'].setMessages();
-      // });
-
       // Show messages when an item is flagged/unflagged
       $(document).bind('flagGlobalAfterLinkUpdate', function(event, data) {
         Drupal.ajax.checkdesk_core_message_settings.setMessages();
