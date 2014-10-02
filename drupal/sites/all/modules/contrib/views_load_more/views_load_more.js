@@ -57,10 +57,15 @@
       new_content.find(content_query).children().hide();
     }
 
-    // Update the pager
-    // Find both for the wrapper as the newly loaded content the direct child
-    // .item-list in case of nested pagers
-    wrapper.find(pager_selector).replaceWith(new_content.find(pager_selector));
+    if (settings.viewsLoadMoreAllLoaded && settings.viewsLoadMoreAllLoaded[wrapper.selector.replace('.view-dom-id-', '')]) {
+      wrapper.find(pager_selector).remove();
+    }
+    else {
+      // Update the pager
+      // Find both for the wrapper as the newly loaded content the direct child
+      // .item-list in case of nested pagers
+      wrapper.find(pager_selector).replaceWith(new_content.find(pager_selector));
+    }
 
     // Add the new content to the page.
     wrapper.find(content_query)[method](new_content.find(content_query).children());
