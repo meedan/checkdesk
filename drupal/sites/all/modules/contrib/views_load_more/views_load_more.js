@@ -11,11 +11,11 @@
   Drupal.ajax.prototype.commands.viewsLoadMoreAppend = function (ajax, response, status) {
     // Get information from the response. If it is not there, default to
     // our presets.
-    var wrapper_selector = response.selector || ajax.wrapper;
-    var wrapper = $(wrapper_selector);
+    var wrapper = response.selector ? $(response.selector) : $(ajax.wrapper);
     var method = response.method || ajax.method;
     var targetList = response.targetList || '';
     var effect = ajax.getEffect(response);
+    var pager_selector = response.options.pager_selector ? response.options.pager_selector : '.pager-load-more';
 
     // We don't know what response.data contains: it might be a string of text
     // without HTML, so don't rely on jQuery correctly iterpreting
@@ -50,32 +50,23 @@
     // jquery selector to replace the content with.
     // Provide sensible defaults for unordered list, ordered list and table
     // view styles.
-    var content_query = targetList && !response.options.content ? '.view-content ' + targetList : response.options.content || '.view-content';
-    var pager_query = '.pager';
-
-    // Ignore nested views
-    pager_query = pager_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + pager_query + ')';
-    content_query = '.view-content:not(' + wrapper_selector + ' .view-content .view-content)';
-
-    // Additional processing over new content
-    wrapper.trigger('views_load_more.new_content', new_content.clone());
+    var content_query = targetList && !response.options.content ? '> .view-content ' + targetList : response.options.content || '> .view-content';
 
     // If we're using any effects. Hide the new content before adding it to the DOM.
     if (effect.showEffect != 'show') {
       new_content.find(content_query).children().hide();
     }
 
+    // Update the pager
+    // Find both for the wrapper as the newly loaded content the direct child
+    // .item-list in case of nested pagers
+    wrapper.find(pager_selector).replaceWith(new_content.find(pager_selector));
+
     // Add the new content to the page.
-    if (settings.viewsLoadMoreAllLoaded && settings.viewsLoadMoreAllLoaded[wrapper.selector.replace('.view-dom-id-', '')]) {
-      wrapper.find(pager_query).remove();
-    }
-    else {
-      wrapper.find(pager_query + ' a').remove();
-      wrapper.find(pager_query).parent('.item-list').html(new_content.find(pager_query));
-    }
     wrapper.find(content_query)[method](new_content.find(content_query).children());
 
     // Re-class the loaded content.
+    // @todo this is faulty in many ways.  first of which is that user may have configured view to not have these classes at all.
     wrapper.find(content_query).children()
       .removeClass('views-row-first views-row-last views-row-odd views-row-even')
       .filter(':first')
@@ -104,35 +95,45 @@
     var classes = wrapper.attr('class');
     var onceClass = classes.match(/jquery-once-[0-9]*-[a-z]*/);
     wrapper.removeClass(onceClass[0]);
-    var settings = response.settings || ajax.settings || Drupal.settings;
+    settings = response.settings || ajax.settings || Drupal.settings;
     Drupal.attachBehaviors(wrapper, settings);
-  }
+  };
 
   /**
    * Attaches the AJAX behavior to Views Load More waypoint support.
    */
   Drupal.behaviors.ViewsLoadMore = {
     attach: function (context, settings) {
-      if (settings && settings.viewsLoadMore && settings.views.ajaxViews) {
-        opts = {
+      var default_opts = {
           offset: '100%'
         };
+
+      if (settings && settings.viewsLoadMore && settings.views && settings.views.ajaxViews) {
         $.each(settings.viewsLoadMore, function(i, setting) {
-          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a';
+          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a',
+            opts = {};
+
+          $.extend(opts, default_opts, settings.viewsLoadMore[i].opts);
+
+          $(view).waypoint('destroy');
           $(view).waypoint(function(event, direction) {
-            $(view).waypoint('remove');
             $(view).click();
           }, opts);
         });
       }
     },
     detach: function (context, settings, trigger) {
-      if (settings && Drupal.settings.viewsLoadMore && settings.views.ajaxViews) {
+      if (settings && settings.viewsLoadMore && settings.views && settings.views.ajaxViews) {
         $.each(settings.viewsLoadMore, function(i, setting) {
-          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a';
-          $(view, context).waypoint('destroy');
+          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id;
+          if ($(context).is(view)) {
+            $('.pager-next a', view).waypoint('destroy');
+          }
+          else {
+            $(view, context).waypoint('destroy');
+          }
         });
       }
     }
-     };
+  };
 })(jQuery);
