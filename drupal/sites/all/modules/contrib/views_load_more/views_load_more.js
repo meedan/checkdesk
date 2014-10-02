@@ -11,7 +11,8 @@
   Drupal.ajax.prototype.commands.viewsLoadMoreAppend = function (ajax, response, status) {
     // Get information from the response. If it is not there, default to
     // our presets.
-    var wrapper = response.selector ? $(response.selector) : $(ajax.wrapper);
+    var wrapper_selector = response.selector || ajax.wrapper;
+    var wrapper = $(wrapper_selector);
     var method = response.method || ajax.method;
     var targetList = response.targetList || '';
     var effect = ajax.getEffect(response);
@@ -51,6 +52,14 @@
     // Provide sensible defaults for unordered list, ordered list and table
     // view styles.
     var content_query = targetList && !response.options.content ? '> .view-content ' + targetList : response.options.content || '> .view-content';
+    var pager_query = '.pager';
+
+    // Ignore nested views
+    pager_query = pager_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + pager_query + ')';
+    content_query = '.view-content:not(' + wrapper_selector + ' .view-content .view-content)';
+
+    // Additional processing over new content
+    wrapper.trigger('views_load_more.new_content', new_content.clone());
 
     // If we're using any effects. Hide the new content before adding it to the DOM.
     if (effect.showEffect != 'show') {
@@ -68,6 +77,8 @@
     }
 
     // Add the new content to the page.
+    wrapper.find(pager_query + ' a').remove();
+    wrapper.find(pager_query).parent('.item-list').html(new_content.find(pager_query));
     wrapper.find(content_query)[method](new_content.find(content_query).children());
 
     // Re-class the loaded content.

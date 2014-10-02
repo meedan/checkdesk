@@ -1,14 +1,5 @@
-From b76e87062986cf9c29bc3d810efa925ed727b97a Mon Sep 17 00:00:00 2001
-From: Caio SBA <caiosba@gmail.com>
-Date: Wed, 20 Feb 2013 21:18:25 -0300
-Subject: [PATCH] Nested views support
-
----
- views_load_more.js |   12 +++++++++---
- 1 files changed, 9 insertions(+), 3 deletions(-)
-
 diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
-index 0914e05..c986a18 100644
+index 8026b2e..fadb876 100644
 --- a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 +++ b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 @@ -11,7 +11,8 @@
@@ -19,12 +10,12 @@ index 0914e05..c986a18 100644
 +    var wrapper_selector = response.selector || ajax.wrapper;
 +    var wrapper = $(wrapper_selector);
      var method = response.method || ajax.method;
+     var targetList = response.targetList || '';
      var effect = ajax.getEffect(response);
- 
-@@ -47,6 +48,11 @@
-     // change there views layout classes. This allows them to write there own
-     // jquery selector to replace the content with.
-     var content_query = response.options.content || '.view-content';
+@@ -51,6 +52,11 @@
+     // Provide sensible defaults for unordered list, ordered list and table
+     // view styles.
+     var content_query = targetList && !response.options.content ? '> .view-content ' + targetList : response.options.content || '> .view-content';
 +    var pager_query = '.pager';
 +
 +    // Ignore nested views
@@ -33,17 +24,12 @@ index 0914e05..c986a18 100644
  
      // If we're using any effects. Hide the new content before adding it to the DOM.
      if (effect.showEffect != 'show') {
-@@ -54,8 +60,8 @@
+@@ -68,6 +74,8 @@
      }
  
      // Add the new content to the page.
--    wrapper.find('.pager a').remove();
--    wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
 +    wrapper.find(pager_query + ' a').remove();
 +    wrapper.find(pager_query).parent('.item-list').html(new_content.find(pager_query));
      wrapper.find(content_query)[method](new_content.find(content_query).children());
-     if (effect.showEffect != 'show') {
-       wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
--- 
-1.7.2.5
-
+ 
+     // Re-class the loaded content.

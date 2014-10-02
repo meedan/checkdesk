@@ -1,19 +1,10 @@
-From 82dcc7fb40e38bcb37df50d07612015376078dc5 Mon Sep 17 00:00:00 2001
-From: Caio SBA <caiosba@gmail.com>
-Date: Sun, 17 Feb 2013 23:45:39 -0300
-Subject: [PATCH 2/2] Trigger custom event
-
----
- views_load_more.js |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
-
 diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
-index 6d12f2a..86707a7 100644
+index fadb876..570f91a 100644
 --- a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
 +++ b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
-@@ -55,6 +55,9 @@
-       content_query = content_query + ':not(' + content_query + ' ' + content_query + ')';
-     }
+@@ -58,6 +58,9 @@
+     pager_query = pager_query + ':not(' + wrapper_selector + ' ' + content_query + ' ' + pager_query + ')';
+     content_query = '.view-content:not(' + wrapper_selector + ' .view-content .view-content)';
  
 +    // Additional processing over new content
 +    wrapper.trigger('views_load_more.new_content', new_content.clone());
@@ -21,6 +12,3 @@ index 6d12f2a..86707a7 100644
      // If we're using any effects. Hide the new content before adding it to the DOM.
      if (effect.showEffect != 'show') {
        new_content.find(content_query).children().hide();
--- 
-1.7.2.5
-
