@@ -324,13 +324,6 @@ function checkdesk_preprocess_page(&$variables) {
     }
   }
 
-  // Add classes for modal
-  foreach ($tree as $id => &$item) {
-    // if (strpos($item['link']['link_path'], '/ajax/') !== FALSE) {
-    //   $item['link']['class'] = array('use-ajax', 'ctools-modal-modal-popup-bookmarklet');
-    // }
-  }
-
   $variables['secondary_menu'] = checkdesk_menu_navigation_links($tree);
 
   // Change links
@@ -431,52 +424,7 @@ function checkdesk_preprocess_page(&$variables) {
     'heading' => NULL,
   ));
 
-  // footer nav
-  // $variables['footer_nav'] = FALSE;
-  // $menu = menu_load('menu-footer');
-  // $tree = menu_tree_page_data($menu['menu_name']);
-
-  // Remove items that are not from this language or that does not have children
-  // foreach ($tree as $id => $item) {
-  //   if (preg_match('/^<[^>]*>$/', $item['link']['link_path']) && $item['link']['expanded'] && count($item['below']) == 0) {
-  //     unset($tree[$id]);
-  //   }
-  //   if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
-  //   foreach ($item['below'] as $subid => $subitem) {
-  //     if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
-  //   }
-  // }
-
-  // Add checkdesk logo class
-  // foreach ($tree as $id => $item) {
-  //   if($tree[$id]['link']['link_path'] == 'http://checkdesk.org') {
-  //     $tree[$id]['link']['class'] = array('checkdesk');
-  //   }
-  // }
-
-  // $partner_url = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
-  // Add partner logo class
-  // foreach ($tree as $id => $item) {
-    // if($tree[$id]['link']['link_path'] == $partner_url) {
-      // $tree[$id]['link']['class'] = array('partner-logo');
-    // }
-  // }
-
-
-  // $variables['footer_menu'] = checkdesk_menu_navigation_links($tree);
-
-  // Build list
-  // $variables['footer_nav'] = theme('checkdesk_links', array(
-  //   'links' => $variables['footer_menu'],
-  //   'attributes' => array(
-  //     'id' => 'footer-menu',
-  //     'class' => array('nav'),
-  //   ),
-  //   'heading' => NULL,
-  // ));
-
   // ctools modal
-
   ctools_include('modal');
   ctools_modal_add_js();
 
@@ -865,10 +813,6 @@ function checkdesk_links__node($variables) {
   if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
 
-    // if (isset($links['checkdesk-view-original'])) {
-    //   $output .= '<li>' . l('<span class="icon-link"></span>', $links['checkdesk-view-original']['href'], array_merge($links['checkdesk-view-original'], array('html' => TRUE))) . '</li>';
-    // }
-
     if (isset($links['checkdesk-share']) ||
         isset($links['checkdesk-share-facebook']) ||
         isset($links['checkdesk-share-twitter']) ||
@@ -911,7 +855,6 @@ function checkdesk_links__node($variables) {
         $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
       }
       if (isset($links['flag-graphic'])) {
-        // $output .= '<li>' . ctools_modal_text_button('Custom title', 'node/nojs/flag/confirm/flag/graphic/74', 'Another title',  'ctools-modal-checkdesk-style') .'</li>';
         $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
       }
       if (isset($links['flag-factcheck'])) {
@@ -1186,7 +1129,6 @@ function checkdesk_preprocess_views_view(&$vars) {
 /* Desk Reports */
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if ($vars['display_id'] == 'block') {
-    //_checkdesk_ensure_reports_modal_js();
     drupal_add_js('jQuery(function() {
       window.onbeforeunload = _checkdesk_report_view_redirect;
       jQuery( "#post-node-form" ).submit(function( event ) {
@@ -1196,43 +1138,10 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   }
 }
 
-/* Desk Updates */
-function checkdesk_preprocess_views_view__desk_updates(&$vars) {
-  if ($vars['display_id'] == 'block') {
-
-  }
-}
-
 /* Reports page */
 function checkdesk_preprocess_views_view__reports(&$vars) {
   // add masonry library
   drupal_add_js(drupal_get_path('theme', 'checkdesk') .'/assets/js/libs/jquery.masonry.min.js', 'file', array('group' => JS_THEME, 'every_page' => FALSE));
-  _checkdesk_ensure_reports_modal_js();
-}
-
-function _checkdesk_ensure_reports_modal_js() {
-  ctools_include('modal');
-  ctools_modal_add_js();
-  $modal_style = array(
-    'modal-popup-report' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 700,
-        'height' => 540,
-        'addWidth' => 0,
-        'addHeight' => 0
-      ),
-      'modalOptions' => array(
-        'opacity' => .5,
-        'background-color' => '#000',
-      ),
-      'animation' => 'show',
-      'animationSpeed' => 40,
-      'modalTheme' => 'CToolsModalDialog',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
-    ),
-  );
-  drupal_add_js($modal_style, 'setting');
 }
 
 /**

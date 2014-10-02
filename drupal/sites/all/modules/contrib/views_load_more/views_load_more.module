@@ -49,13 +49,19 @@ function views_load_more_views_ajax_data_alter(&$commands, $view) {
       }
       // the replace should the only one, but just in case, we'll make sure.
       if ($command['command'] == 'insert' && $command['selector'] == '.view-dom-id-' . $view->dom_id) {
-        if (isset($view->style_plugin->options['type']) && (($view->style_plugin->options['type'] == 'ul') || $view->style_plugin->options['type'] == 'ol')) {
-          $target = ".{$view->style_plugin->options['wrapper_class']} > {$view->style_plugin->options['type']}:not(.links)";
+        if ($view->style_plugin->plugin_name == 'list' && in_array($view->style_plugin->options['type'], array('ul', 'ol'))) {
+          if (empty($view->style_plugin->options['wrapper_class'])) {
+            $target = "> {$view->style_plugin->options['type']}:not(.links)";
+          }
+          else {
+            $wrapper_classes = explode(' ', $view->style_plugin->options['wrapper_class']);
+            $wrapper_classes = implode('.', $wrapper_classes);
+            $target = ".{$wrapper_classes} > {$view->style_plugin->options['type']}:not(.links)";
+          }
           $commands[$key]['targetList'] = $target;
         }
-        if ($view->style_plugin->plugin_name == 'table') {
-          $target = '.views-table tbody';
-          $commands[$key]['targetList'] = $target;
+        else if ($view->style_plugin->plugin_name == 'table') {
+          $commands[$key]['targetList'] = '.views-table tbody';
         }
 
         $commands[$key]['command'] = 'viewsLoadMoreAppend';
@@ -65,7 +71,9 @@ function views_load_more_views_ajax_data_alter(&$commands, $view) {
           $commands[$key]['speed'] = $view->query->pager->options['effects']['speed'];
         }
         $commands[$key]['options'] = array(
+          // @todo change to content_selector
           'content' => $view->query->pager->options['advance']['content_class'],
+          'pager_selector' => $view->query->pager->options['advance']['pager_selector'],
         );
       }
     }
@@ -80,8 +88,11 @@ function theme_views_load_more_pager($vars) {
   $parameters = $vars['parameters'];
   $total = $vars['total'];
 
+  $pager_classes = array('pager', 'pager-load-more');
+
   $li_next = theme('pager_next',
     array(
+      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'])),
       'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'], array('@total' => $total))),
       'element' => $element,
       'interval' => 1,
@@ -89,7 +100,12 @@ function theme_views_load_more_pager($vars) {
     )
   );
   if (empty($li_next)) {
-    $li_next = "&nbsp;";
+    $li_next = empty($vars['more_button_empty_text']) ? '&nbsp;' : t($vars['more_button_empty_text']);
+    $pager_classes[] = 'pager-load-more-empty';
+  }
+  // Compatibility with tao theme's pager
+  elseif (is_array($li_next) && isset($li_next['title'], $li_next['href'], $li_next['attributes'], $li_next['query'])) {
+    $li_next = l($li_next['title'], $li_next['href'], array('attributes' => $li_next['attributes'], 'query' => $li_next['query']));
   }
 
   if ($pager_total[$element] > 1) {
@@ -102,7 +118,7 @@ function theme_views_load_more_pager($vars) {
         'items' => $items,
         'title' => NULL,
         'type' => 'ul',
-        'attributes' => array('class' => array('pager', 'pager-load-more')),
+        'attributes' => array('class' => $pager_classes),
       )
     );
   }
@@ -128,6 +144,8 @@ function views_load_more_views_pre_execute(&$view) {
   global $pager_page_array;
   $page = (isset($view->query->pager->options['id']) ? $pager_page_array[$view->query->pager->options['id']] : 0);
   if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all'] && $page > 0) {
-    $view->query->limit = NULL;
+    $query = $view->build_info['query'];
+    $offset = $view->query->limit;
+    $query->range($offset, PHP_INT_MAX);
   }
 }
