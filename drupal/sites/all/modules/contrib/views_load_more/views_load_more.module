@@ -104,7 +104,7 @@ function theme_views_load_more_pager($vars) {
     $pager_classes[] = 'pager-load-more-empty';
   }
   // Compatibility with tao theme's pager
-  else if (isset($li_next['title'], $li_next['href'], $li_next['attributes'], $li_next['query'])) {
+  elseif (is_array($li_next) && isset($li_next['title'], $li_next['href'], $li_next['attributes'], $li_next['query'])) {
     $li_next = l($li_next['title'], $li_next['href'], array('attributes' => $li_next['attributes'], 'query' => $li_next['query']));
   }
 
