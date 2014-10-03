@@ -5,24 +5,25 @@
  */
 
 /**
- * Implements hook_metatag_config_default_alter().
+ * Implements hook_metatag_bundled_config_alter().
  */
-function metatag_opengraph_metatag_config_default_alter(array &$configs) {
+function metatag_opengraph_metatag_bundled_config_alter(array &$configs) {
   foreach ($configs as &$config) {
     switch ($config->instance) {
       case 'global':
         $config->config += array(
-          'og:type' => array('value' => 'article'),
-          'og:title' => array('value' => '[current-page:title]'),
           'og:site_name' => array('value' => '[site:name]'),
+          'og:title' => array('value' => '[current-page:title]'),
+          'og:type' => array('value' => 'article'),
           'og:url' => array('value' => '[current-page:url:absolute]'),
         );
         break;
 
       case 'global:frontpage':
         $config->config += array(
-          'og:type' => array('value' => 'website'),
+          'og:description' => array('value' => '[site:slogan]'),
           'og:title' => array('value' => '[site:name]'),
+          'og:type' => array('value' => 'website'),
           'og:url' => array('value' => '[site:url]'),
         );
         break;
@@ -31,37 +32,36 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
       case 'global:403':
       case 'global:404':
         $config->config += array(
-          'og:type' => array('value' => 'website'),
           'og:title' => array('value' => '[site:name]'),
+          'og:type' => array('value' => 'website'),
           'og:url' => array('value' => '[site:url]'),
         );
         break;
 
       case 'node':
         $config->config += array(
-          'og:title' => array('value' => '[node:title]'),
           'og:description' => array('value' => '[node:summary]'),
+          'og:title' => array('value' => '[node:title]'),
         );
         break;
 
       case 'taxonomy_term':
         $config->config += array(
-          'og:title' => array('value' => '[term:name]'),
           'og:description' => array('value' => '[term:description]'),
+          'og:title' => array('value' => '[term:name]'),
         );
         break;
 
       case 'user':
         $config->config += array(
-          'og:type' => array('value' => 'profile'),
           'og:title' => array('value' => '[user:name]'),
+          'og:type' => array('value' => 'profile'),
         );
         if (variable_get('user_pictures')) {
           $config->config += array(
             'og:image' => array('value' => '[user:picture:url]'),
           );
         }
-
         break;
     }
   }
@@ -78,77 +78,48 @@ function metatag_opengraph_metatag_info() {
     ),
   );
 
-  $info['tags']['fb:admins'] = array(
-    'label' => t('Facebook Admins'),
-    'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page. Most sites will only need to assign this on the global settings page.'),
+  // Default values for each meta tag.
+  $tag_info_defaults = array(
+    'description' => '',
     'class' => 'DrupalTextMetaTag',
     'group' => 'open-graph',
     'element' => array(
-      '#theme' => 'metatag_opengraph',
+      '#theme' => 'metatag_property',
     ),
   );
-  $info['tags']['fb:app_id'] = array(
-    'label' => t('Facebook Application ID'),
-    'description' => t('A comma-separated list of Facebook Platform Application IDs applicable for this site. Most sites will only need to assign this on the global settings page.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-    'devel_generate' => array(
-      'type' => 'integer',
-    ),
-  );
-  if (module_exists('fb_social')) {
-    $info['tags']['fb:app_id']['form']['#disabled'] = TRUE;
-    $info['tags']['fb:app_id']['form']['#description'] = t('The FB_Social module will automatically output this meta tag, go to the <a href="!fb_social">FB_Social settings page</a> to customize it.', array('!fb_social' => url('admin/config/user-interface/fb_social')));
-  }
+
+  // Open Graph meta tags stack after the Facebook tags.
+  $weight = 25;
 
   $info['tags']['og:site_name'] = array(
     'label' => t('Open Graph site name'),
     'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
     'context' => array('global'),
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
 
   $info['tags']['og:title'] = array(
     'label' => t('Open Graph title'),
     'description' => t('The title of your object as it should appear within the graph, e.g., <em>The Rock</em>.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
 
   $info['tags']['og:description'] = array(
     'label' => t('Open Graph description'),
     'description' => t('A one to two sentence description of your page.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
 
   $info['tags']['og:type'] = array(
     'label' => t('Open Graph type'),
     'description' => t('The type of your object, e.g., <em>movie</em>.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'form' => array(
       '#type' => 'select',
       '#options' => _metatag_opengraph_type_options(),
       '#empty_option' => t('- None -'),
     ),
-  );
+  ) + $tag_info_defaults;
 
   if (module_exists('select_or_other')) {
     // Enhance the og:type field to support custom types.
@@ -162,219 +133,137 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:image'] = array(
     'label' => t('Open Graph image'),
     'description' => t('An image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'multiple' => TRUE,
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'image',
     ),
-  );
+  ) + $tag_info_defaults;
 
   $info['tags']['og:image:secure_url'] = array(
     'label' => t('Open Graph secure image'),
-    'description' => t('A secure (HTTPS) image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'description' => t('A secure (HTTPS) image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats. All "http://" URLs will automatically be converted to "https://".'),
+    'multiple' => TRUE,
+    'secure' => TRUE,
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'image',
     ),
-  );
+  ) + $tag_info_defaults;
 
   $info['tags']['og:url'] = array(
     'label' => t('Open Graph URL'),
     'description' => t('The canonical URL of your object that will be used as its permanent ID in the graph, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'canonical',
     ),
-  );
+  ) + $tag_info_defaults;
 
   $info['tags']['og:latitude'] = array(
     'label' => t('Open Graph Latitude'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'float',
     ),
-  );
+  ) + $tag_info_defaults;
   $info['tags']['og:longitude'] = array(
     'label' => t('Open Graph Longitude'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'float',
     ),
-  );
+  ) + $tag_info_defaults;
 
   $info['tags']['og:street-address'] = array(
     'label' => t('Open Graph Street Address'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
   $info['tags']['og:locality'] = array(
     'label' => t('Open Graph Locality'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
   $info['tags']['og:region'] = array(
     'label' => t('Open Graph Region'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
   $info['tags']['og:postal-code'] = array(
     'label' => t('Open Graph Postal Code'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
   $info['tags']['og:country-name'] = array(
     'label' => t('Open Graph Country Name'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
 
   $info['tags']['og:email'] = array(
     'label' => t('Open Graph Email'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'email',
     ),
-  );
+  ) + $tag_info_defaults;
   $info['tags']['og:phone_number'] = array(
     'label' => t('Open Graph Phone Number'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'phone',
     ),
-  );
+  ) + $tag_info_defaults;
   $info['tags']['og:fax_number'] = array(
     'label' => t('Open Graph Fax Number'),
-    'description' => '',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'phone',
     ),
-  );
+  ) + $tag_info_defaults;
 
   $info['tags']['og:locale'] = array(
     'label' => t('Open Graph Locale'),
     'description' => 'The locale these tags are marked up in. Of the format language_TERRITORY. Default is en_US.',
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'maxlength' => 1,
     ),
-  );
+  ) + $tag_info_defaults;
 
   $info['tags']['og:video'] = array(
-    'label' => t('Open Graph Video (URL)'),
+    'label' => t('Open Graph Video URL'),
     'description' => t('A URL to a video file that complements this object.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'url',
     ),
-  );
+  ) + $tag_info_defaults;
   $info['tags']['og:video:secure_url'] = array(
-    'label' => t('Open Graph Video Secure'),
-    'description' => t('A URL to a video file that complements this object using the HTTPS protocol.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'label' => t('Open Graph Video Secure URL'),
+    'description' => t('A URL to a video file that complements this object using the HTTPS protocol. All "http://" URLs will automatically be converted to "https://".'),
+    'secure' => TRUE,
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'url',
     ),
-  );
+  ) + $tag_info_defaults;
   $info['tags']['og:video:width'] = array(
     'label' => t('Open Graph Video Width'),
     'description' => t('The width of the video.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',
     ),
-  );
+  ) + $tag_info_defaults;
   $info['tags']['og:video:height'] = array(
     'label' => t('Open Graph Video Height'),
     'description' => t('The height of the video.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',
     ),
-  );
+  ) + $tag_info_defaults;
   $info['tags']['og:video:type'] = array(
     'label' => t('Open Graph Video Type'),
     'description' => t('The type of the video file.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
+    'weight' => ++$weight,
     'form' => array(
       '#type' => 'select',
       '#options' => array(
@@ -383,7 +272,7 @@ function metatag_opengraph_metatag_info() {
       ),
       '#empty_option' => t('- None -'),
     ),
-  );
+  ) + $tag_info_defaults;
 
   return $info;
 }

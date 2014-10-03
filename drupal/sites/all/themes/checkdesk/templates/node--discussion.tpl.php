@@ -1,11 +1,5 @@
-<section id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<section id="node-<?php print $node->nid; ?>" class="node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
   <article class="story">
-
-    <?php if(isset($content['field_lead_image'])) { ?>
-      <figure>
-        <?php print render(field_view_field('node', $node, 'field_lead_image', 'featured_image')); ?>
-      </figure>
-    <?php } ?>
 
     <h1 class="title">
       <?php print render($node->title); ?>
@@ -26,7 +20,6 @@
         </div>
       <?php } ?>
       </div>
-
       <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
         <?php print render($content['links']); ?>
       <?php } ?>
@@ -37,24 +30,24 @@
   	<?php // print render($content['story_blogger']); ?>
 
   	<div class="story-body">
-  		<?php print render($content['body']); ?>
-  	</div>
+      <?php print render($content['body']); ?>
+    </div>
 
-    <?php
-      // get compose update form
-      $block = block_load('checkdesk_core', 'post');
-      $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
-      if(isset($render_array['checkdesk_core_post'])) {
-        $compose_update_form = render($render_array);
-      }
-    ?>
-
-    <?php if (isset($compose_update_form)) { ?>
-      <div class="compose-update-form">
-        <div class="compose-update-header"><a href="#"><?php print t('Compose Update'); ?></a></div>
-        <?php print $compose_update_form; ?>
+    <?php if (isset($follow_story)) : ?>
+      <div class="story-follow">
+        <?php print $follow_story; ?>
       </div>
+    <?php endif; ?>
+
+    <?php if(isset($content['field_lead_image'])) { ?>
+      <figure>
+        <?php print render($content['field_lead_image']); ?>
+      </figure>
     <?php } ?>
+
+    <div class="story-tabs-wrapper">
+        <?php print $story_tabs; ?>
+    </div>
 
     <?php if (isset($updates)) { ?>
       <div class="story-updates-wrapper">

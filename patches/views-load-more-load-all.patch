@@ -1,38 +1,43 @@
-From 21cc8069f86f5fc71298f54cd9dc5d7924af9ad0 Mon Sep 17 00:00:00 2001
+From b0dcd52e838f7b96b23c77c47a381130e96b92f3 Mon Sep 17 00:00:00 2001
 From: Caio SBA <caiosba@gmail.com>
-Date: Mon, 18 Feb 2013 23:59:55 -0300
-Subject: [PATCH] Load all
+Date: Fri, 19 Sep 2014 22:39:28 -0300
+Subject: [PATCH] Issue #1868898 by caiosba: Option to load all remaining
+ content of a view
 
 ---
- views_load_more.js               |    9 +++++++--
- views_load_more.module           |   16 ++++++++++++++--
+ views_load_more.js               |   13 +++++++++----
+ views_load_more.module           |   17 ++++++++++++++++-
  views_plugin_pager_load_more.inc |   15 +++++++++++++++
- 3 files changed, 36 insertions(+), 4 deletions(-)
+ 3 files changed, 40 insertions(+), 5 deletions(-)
 
-diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
-index 0914e05..48c70d3 100644
---- a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
-+++ b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.js
-@@ -54,8 +54,13 @@
+diff --git a/views_load_more.js b/views_load_more.js
+index 5506eec..8026b2e 100644
+--- a/views_load_more.js
++++ b/views_load_more.js
+@@ -57,10 +57,15 @@
+       new_content.find(content_query).children().hide();
      }
  
-     // Add the new content to the page.
--    wrapper.find('.pager a').remove();
--    wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
+-    // Update the pager
+-    // Find both for the wrapper as the newly loaded content the direct child
+-    // .item-list in case of nested pagers
+-    wrapper.find(pager_selector).replaceWith(new_content.find(pager_selector));
 +    if (settings.viewsLoadMoreAllLoaded && settings.viewsLoadMoreAllLoaded[wrapper.selector.replace('.view-dom-id-', '')]) {
-+      wrapper.find('.pager').remove();
++      wrapper.find(pager_selector).remove();
 +    }
 +    else {
-+      wrapper.find('.pager a').remove();
-+      wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
++      // Update the pager
++      // Find both for the wrapper as the newly loaded content the direct child
++      // .item-list in case of nested pagers
++      wrapper.find(pager_selector).replaceWith(new_content.find(pager_selector));
 +    }
+ 
+     // Add the new content to the page.
      wrapper.find(content_query)[method](new_content.find(content_query).children());
-     if (effect.showEffect != 'show') {
-       wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
-diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.module b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.module
-index 4205e55..df7705e 100644
---- a/drupal/sites/all/modules/contrib/views_load_more/views_load_more.module
-+++ b/drupal/sites/all/modules/contrib/views_load_more/views_load_more.module
+diff --git a/views_load_more.module b/views_load_more.module
+index 2b0f18e..e0b0e5f 100644
+--- a/views_load_more.module
++++ b/views_load_more.module
 @@ -22,7 +22,7 @@ function views_load_more_views_api() {
  function views_load_more_theme() {
    return array(
@@ -42,22 +47,24 @@ index 4205e55..df7705e 100644
        'pattern' => 'views_load_more_pager__',
      ),
    );
-@@ -71,10 +71,11 @@ function theme_views_load_more_pager($vars) {
+@@ -86,12 +86,14 @@ function theme_views_load_more_pager($vars) {
    $tags = $vars['tags'];
    $element = $vars['element'];
    $parameters = $vars['parameters'];
 +  $total = $vars['total'];
  
+   $pager_classes = array('pager', 'pager-load-more');
+ 
    $li_next = theme('pager_next',
      array(
--      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'])),
+       'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'])),
 +      'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'], array('@total' => $total))),
        'element' => $element,
        'interval' => 1,
        'parameters' => $parameters,
-@@ -99,3 +100,14 @@ function theme_views_load_more_pager($vars) {
-     );
-   }
+@@ -134,3 +136,16 @@ function views_load_more_views_pre_render(&$view) {
+ 
+   drupal_add_js(drupal_get_path('module', 'views_load_more') . '/views_load_more.js');
  }
 +
 +/**
@@ -67,15 +74,17 @@ index 4205e55..df7705e 100644
 +  global $pager_page_array;
 +  $page = (isset($view->query->pager->options['id']) ? $pager_page_array[$view->query->pager->options['id']] : 0);
 +  if (is_a($view->query->pager, 'views_plugin_pager_load_more') && isset($view->query->pager->options['load_all']) && $view->query->pager->options['load_all'] && $page > 0) {
-+    $view->query->limit = NULL;
++    $query = $view->build_info['query'];
++    $offset = $view->query->limit;
++    $query->range($offset, PHP_INT_MAX);
 +  }
 +}
-diff --git a/drupal/sites/all/modules/contrib/views_load_more/views_plugin_pager_load_more.inc b/drupal/sites/all/modules/contrib/views_load_more/views_plugin_pager_load_more.inc
-index 936bba4..7172313 100644
---- a/drupal/sites/all/modules/contrib/views_load_more/views_plugin_pager_load_more.inc
-+++ b/drupal/sites/all/modules/contrib/views_load_more/views_plugin_pager_load_more.inc
-@@ -40,6 +40,9 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
-         'content_class' => array('default' => ''),
+diff --git a/views_plugin_pager_load_more.inc b/views_plugin_pager_load_more.inc
+index 5847ca0..2053ed4 100644
+--- a/views_plugin_pager_load_more.inc
++++ b/views_plugin_pager_load_more.inc
+@@ -51,6 +51,9 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
+         'speed' => array('default' => ''),
        ),
      );
 +    $options['load_all'] = array(
@@ -84,7 +93,7 @@ index 936bba4..7172313 100644
      return $options;
    }
  
-@@ -126,6 +129,13 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
+@@ -160,6 +163,13 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
        '#title' => t('Effect Speed'),
        '#default_value' => $this->options['effects']['speed'],
      );
@@ -98,8 +107,8 @@ index 936bba4..7172313 100644
    }
  
    /**
-@@ -143,12 +153,17 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
-       drupal_add_js(array('viewsLoadMore' => $viewsLoadMore),'setting');
+@@ -182,6 +192,10 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
+       drupal_add_js(array('viewsLoadMore' => $viewsLoadMore), 'setting');
      }
  
 +    if ($this->options['load_all']) {
@@ -109,13 +118,14 @@ index 936bba4..7172313 100644
      $pager_theme = views_theme_functions('views_load_more_pager', $this->view, $this->display);
  
      $vars = array(
-       'parameters' => $input,
+@@ -189,6 +203,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
        'element' => $this->options['id'],
        'more_button_text' => $this->options['more_button_text'],
+       'more_button_empty_text' => $this->options['more_button_empty_text'],
 +      'total' => $this->view->total_rows,
      );
  
      return theme($pager_theme, $vars);
 -- 
-1.7.2.5
+1.7.9.5
 

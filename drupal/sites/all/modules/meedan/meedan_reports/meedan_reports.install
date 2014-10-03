@@ -1,0 +1,185 @@
+<?php
+
+
+/**
+ * Link reports and stories.
+ * Insert reports with single story
+ */
+function meedan_reports_update_7001() {
+  //Truncate existing table
+  db_delete('field_data_field_stories')->execute();
+  db_delete('field_revision_field_stories')->execute();
+  db_query("
+    INSERT INTO {field_data_field_stories} (
+      SELECT 'node', n.type, 0, n.nid, n.vid, 'und', 0, field_desk_target_id 
+      FROM {checkdesk_reports_updates} ru 
+      INNER JOIN {node} n ON ru.report_nid = n.nid 
+      INNER JOIN {field_data_field_desk} fd ON ru.update_nid = fd.entity_id
+      GROUP BY n.nid HAVING COUNT(n.nid) = 1
+    )
+    ");
+  db_query("
+    INSERT INTO {field_revision_field_stories} (
+      SELECT 'node', n.type, 0, n.nid, n.vid, 'und', 0, field_desk_target_id 
+      FROM {checkdesk_reports_updates} ru 
+      INNER JOIN {node} n ON ru.report_nid = n.nid 
+      INNER JOIN {field_data_field_desk} fd ON ru.update_nid = fd.entity_id
+      GROUP BY n.nid HAVING COUNT(n.nid) = 1
+    )
+    ");
+}
+
+/**
+ * Link reports and stories.
+ * Insert reports with multiple stories
+ */
+function meedan_reports_update_7002() {
+  $result = db_query("SELECT n.nid, n.vid, GROUP_CONCAT(field_desk_target_id SEPARATOR ',') AS stories 
+    FROM {checkdesk_reports_updates} ru        
+    INNER JOIN {node} n ON ru.report_nid} = n.nid
+    INNER JOIN {field_data_field_desk} fd ON ru.update_nid = fd.entity_id
+    GROUP BY n.nid HAVING COUNT(n.nid) > 1
+    ")->fetchAll();
+  $values = array();
+  //build insert values on SQL format.
+  foreach ($result as $row) {
+    $nid = max(explode(',', $row->stories));
+    $values[] = "('node', 'media', 0, {$row->nid}, {$row->vid}, 'und', 0, $nid)";
+  }
+  if (count($values)) {
+    $sql = "INSERT INTO {field_data_field_stories} VALUES ". implode(',', $values);
+    $sql_revision = "INSERT INTO {field_revision_field_stories} VALUES ". implode(',', $values);
+    db_query($sql);
+    db_query($sql_revision);
+  }
+}
+
+/**
+ * Update nid_target on hearbeat_activity table.
+ */
+function meedan_reports_update_7003() {
+  $result = db_query('
+       SELECT field_stories_target_id, GROUP_CONCAT(entity_id) AS reports
+       FROM {field_data_field_stories}
+       GROUP BY field_stories_target_id
+    ')->fetchAllKeyed(0);
+  foreach ($result as $story => $nids) {
+    db_update('heartbeat_activity')
+      ->fields(array(
+        'nid_target' => $story,
+         ))
+      ->condition('nid', explode(',', $nids), 'IN')
+      ->execute();
+  }
+}
+
+/**
+ * Set missing variables for old reports (status_report)
+ */
+function meedan_reports_update_7004(&$sandbox) {
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_uaid'] = 0;
+    $sandbox['limit'] = 400;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(uaid) FROM {heartbeat_activity}
+        WHERE message_id = :message_id', array(':message_id' => 'status_report'))->fetchField();
+  }
+  $result = db_query_range('
+    SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, u.name, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON ha.nid = n.nid
+    INNER JOIN {users} u ON ha.uid = u.uid
+    WHERE message_id = :message_id AND uaid > :uaid
+    ',0, $sandbox['limit'], array(':message_id' => 'status_report', ':uaid' => $sandbox['last_uaid']));
+
+  foreach ($result as $row) {
+    $variables = heartbeat_decode_message_variables($row->variables);
+    if (!array_key_exists('!report_url', $variables)) {
+      $variables['!editor_url'] = url('user/' . $row->uid);
+      $variables['!report_url'] = url('node/' . $row->nid);
+      db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+        , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+    }
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_uaid'] = $row->uaid;
+}
+
+/**
+ * Set missing variables for old update templates
+ */
+function meedan_reports_update_7006(&$sandbox) {
+
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_uaid'] = 0;
+    $sandbox['limit'] = 400;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(uaid) FROM {heartbeat_activity}
+        WHERE message_id = :message_id', array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update'))->fetchField();
+  }
+
+  $result = db_query_range('
+    SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, u.name, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON ha.nid_target = n.nid
+    INNER JOIN {users} u ON ha.uid = u.uid
+    WHERE message_id = :message_id AND uaid > :uaid
+    ', 0, $sandbox['limit'],
+    array(':message_id' => 'checkdesk_new_update_on_story_i_commented_on_update', ':uaid' => $sandbox['last_uaid']));
+
+  foreach ($result as $row) {
+    $variables = heartbeat_decode_message_variables($row->variables);
+    if (!array_key_exists('!story', $variables)) {
+      $variables['!user_url'] = url('user/' . $row->uid);
+      $variables['!username'] = $row->name;
+      $variables['!story'] = $row->title;
+      db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+        , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+    }
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_uaid'] = $row->uaid;
+}
+
+/**
+ * Set collaborators as followers for existing stories.
+ */
+function meedan_reports_update_7007(&$sandbox) {
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_nid'] = 0;
+    $sandbox['limit'] = 500;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(DISTINCT nid_target)
+        FROM {heartbeat_activity}
+        WHERE nid_target != :nid', array(':nid' => 0))->fetchField();
+  }
+  $result = db_query_range('
+    SELECT nid_target, GROUP_CONCAT(DISTINCT uid) as uids
+    FROM {heartbeat_activity}
+    WHERE nid_target != :nid AND nid_target > :nid_target
+    GROUP BY nid_target
+    ORDER BY nid_target
+    ',0, $sandbox['limit'], array(':nid' => 0, ':nid_target' => $sandbox['last_nid']))->fetchAllKeyed(0);
+  $flag = flag_get_flag('follow_story');
+  $flag->skip_heartbeat_log = TRUE;
+  foreach ($result as $nid => $value) {
+    if (!empty($value)) {
+      $uids = explode(',', $value);
+      foreach ($uids as $uid) {
+        if ($flag && !$flag->is_flagged($nid, $uid)) {
+          $account = user_load($uid);
+          $flag->flag('flag', $nid, $account);
+        }
+      }
+    }
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_nid'] = $nid;
+}
+

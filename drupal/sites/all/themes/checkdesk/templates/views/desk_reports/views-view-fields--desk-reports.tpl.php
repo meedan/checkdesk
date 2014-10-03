@@ -19,7 +19,7 @@
 	<div class="report-content">
     <?php print $fields['field_link']->content; ?>
 	</div>
-	<a class="report-attributes <?php print $status_class; ?> ctools-use-modal ctools-modal-modal-popup-report" data-toggle="dropdown" href="<?php print url('report-view-modal/nojs/' . $fields['nid']->raw); ?>">
+	<a class="report-attributes <?php print $status_class; ?> "  href="<?php print url('node/' . $fields['nid']->raw); ?>">
 		<div class="report-meta">
 			<?php if ($favicon) : ?>
 		      <div class="favicon"><?php print $favicon; ?></div>

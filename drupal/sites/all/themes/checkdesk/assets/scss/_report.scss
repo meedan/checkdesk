@@ -4,979 +4,232 @@
 //
 // Compatibility: untested
 
-$report-background-color: 				darken($firefly30, 5%);
-$report-description-background-color: 	$firefly30;
-$report-footer-color: 					darken($firefly30, 15%);
-$report-footnotes-background-color: 	darken($firefly30, 10%);
-$report-text-color: 					$firefly60;
-$report-activity-header-color: 			darken($firefly30, 10%);
-
-
-.report {
+section#comment-form {
+	clear: both;
 	@include ctb-clearfix;
-	float: $from-direction;
 	position: relative;
-	margin: { top: $gutter-width; bottom: $gutter-width; }
-	width: 100%; //default
-	// when inside a modal window
-	.modal-content & { 
-		width: 92%; 
+	margin-top: 8px;
+
+	label {
+		display: none;
 	}
-	border-top: 4px solid $firefly40;
-	border-bottom: 1px solid $firefly10;
-	text-align: $alpha;
-	font-size: $small-font-size;
-	
-	a {
-		color: $report-text-color;
-		&:hover {
-			color: $identity;
+
+	.field-name-field-rating label {
+		display: block;
+	}
+
+	form { 
+		@include reset-box-model;
+		.form-actions {
+			padding-bottom: 0;
+			input {
+				font-size: 16px;
+				margin-#{$from-direction}: $gutter-width;
+				margin-#{opposite-position($from-direction)}: 0;
+				// align with edit status
+				margin-top: -5px;
+			}
+		}
+		textarea {
+			float: none;
+			@include ctb-clearfix;
 		}
 	}
+}
 
-	// Report actions
-	#report-actions {
-		position: absolute;
-		top: $absolute-line-height/2;
-		#{$omega}: -40px;
+section#comment-form .form-actions {
+	text-align: opposite-position($from-direction);
 
-		ul.content-actions {
-			@include reset-list-style;
-			position: relative;
+  span.edit-status {
+		font-size: $small-font-size;
+		color: $firefly40;
+		cursor: pointer;
 
-			& > li {
-				display: block;
-				margin-bottom: 1px;
-				& > a {
-					@include reset-box-model;
-					@include ctb-bg(#eee, $firefly5);
-					display: block;
-					padding: 16px 0 12px 0;
-					width: 40px;
-					text-align: center;
-					@include transition-property(all);
-					@include transition-duration(0.2s);
-					color: $firefly90;
-					&:hover { 
-						color: $firefly;
-						text-decoration: none;
-						@include ctb-bg(#ccc, $firefly10);
-						span { color: $firefly90; }
-					}
-					span {
-						color: $firefly60;
-						&:hover {
-							color: $firefly90;
-						}
+		&.active {
+		  color: $firefly60;
+		}
+  }
 
-						// Flag and share on the top of the report
-						&.icon-link    			   { @include icon(link, $large-font-size); }
-						&.icon-flag    			   { @include icon(flag, $large-font-size); }
-						&.icon-share  			   { @include icon(share, $large-font-size); }
-						&.icon-ellipsis-h      {
-              @include icon(ellipsis-h, $large-font-size);
-              span {
-                display: none;
-              }
-            }
-					}
-					// highlight flagged reports
-					&.flagged .icon-flag {
-						@include icon(flag, $large-font-size, $red);
-					}
-				}
-				// share embed
-				.embed {
-					&:hover { 
-						color: $firefly;
-						text-decoration: none;
-						background: none;
-						span { color: $firefly; }
-					}
-					textarea {
-						@include cd-sans-serif-family;
-						font-size: $small-font-size;
-					}
-				}
+  .current-status {
+		display: none;
+		font-weight: 700;
+  }
+}
+
+.current-status,
+label.option {
+	  &.verified {
+		@include icon(check-circle, $base-font-size);
+  }
+	&.in-progress {
+		@include icon(random, $small-font-size);
+	}
+	&.false {
+		@include icon(times-circle, $base-font-size);
+	}
+	&.undetermined {
+		@include icon(question-circle, $base-font-size);
+	}
+  &.not-applicable {
+		@include icon(ban, $base-font-size);
+  }
+}
+
+.current-status,
+input[type="radio"]:checked + label {
+	  &.verified {
+	color: rgba(0, 140, 0, 1);
+  }
+	&.in-progress {
+		color: rgba(239, 202, 43, 1);
+	}
+	&.false {
+		color: $red;
+	}
+	&.undetermined {
+		color: $orange; 
+	}
+  &.not-applicable {
+	color: $firefly60 !important;
+  }
+}
 
 
+.report-activity-edit-status {
+	// position: relative;
+	
+  &.popover {
+  	position: absolute;
+		background: #fff;
+		#{$from-direction}: auto;
+    @if $from-direction == left {
+      #{opposite-position($from-direction)}: $gutter-width;
+    }
+    @if $from-direction == right {
+      #{opposite-position($from-direction)}: 0;
+    }
+		top: auto;
+    bottom: -221px; // -1 * height
+		width: 340px;
+		height: 222px;
+		border: 1px solid $firefly10;
+		z-index: $zindexDropdown;
+		@include box-shadow(0px 2px 5px rgba($firefly, 0.05));
+		@include border-radius(5px);
 
-				// when dropdown is open
-				&.open > a {
-					@include ctb-bg(#ccc, $firefly20);
-				}
+		// triangle at top
+		&:after {
+			content: "";
+	    border-#{$from-direction}: 12px solid transparent;
+			border-#{opposite-position($from-direction)}: 12px solid transparent;
+			border-bottom: 12px solid $firefly5;
+	    width: 0;
+	    height: 0;
+	    position: absolute;
+	    top: -12px;
+	    bottom: 0;
+	    #{$from-direction}: 157px;
+	    z-index: $zindexDropdown + 1;
+		}
+		// triangle at top
+		&:before {
+			content: "";
+	    border-#{$from-direction}: 13px solid transparent;
+			border-#{opposite-position($from-direction)}: 13px solid transparent;
+			border-bottom: 13px solid $firefly10;
+	    width: 0;
+	    height: 0;
+	    position: absolute;
+	    top: -13px;
+	    bottom: 0;
+	    #{$from-direction}: 156px;
+	    z-index: $zindexDropdown;
+		}
 
-				// hide ajax throbber in dropdown
-				.ajax-progress-throbber {
-					display: none;
-				}
+		label {
+		  width: 169px;
+		  display: block;
+		  float: $from-direction;
+		  height: 50px;
+		  line-height: 50px;
+		  text-align: center;
+			color: $firefly40;
+			font-size: 16px;
+		  font-weight: 700;
+		  margin-bottom: 0;
+		  overflow: hidden;
+		  &:hover {
+		  	color: $firefly60;
+		  }
+		}
 
-			} // li
-
-			// Hover on report actions
-			&:hover {
-				// @include ctb-opacity(1);
-			}
-
-
-		} // ul
-	} // report actions
-
-	// Main report content
-	.report-content {
-		@include cd-sans-serif-family;
-		border-left: 1px solid rgba($firefly,.1);
-		border-right: 1px solid rgba($firefly,.1);
-		.report-media {
-			border-bottom: 1px solid rgba($firefly,.05);
-			text-align: center;
-			background-color: rgba($firefly, .05);
-			.container {
-				max-width: 100%;
-				// since we stack the report actions vertically
-				// on media item's side
-				min-height: 260px;
-				text-align: $from-direction;
-
-				.oembed-content {
-					@include ctb-clearfix;
-				}
-				
-				.oembed-content img {
-					// width: $report-width-px; // enlarge photos to fit ...
-				}
-
-				.oembed--link--meedan-oembed-generic,
-				.oembed--link--meedan-oembed-theme-generic {
-					padding: $absolute-line-height/2 $gutter-width;
-					a img {
-						margin-bottom: $absolute-line-height/2;
-					}
-				}
-
-				.thumbnail img {
-					padding: $gutter-width 0;
-				}
-
-				.oembed-title {
-					display: none;
-				}
-				
-				.title {
-					padding: 0;
-				}
-				
-				.content {
-					padding: 0;
-				}
-				
-				.oembed-attributes {
-					@include ctb-clearfix();
-					padding: $absolute-line-height/4 $gutter-width;
-				}
-				.favicon {
-					float: $alpha;
-					margin-#{$omega}: $gutter-width;
-					img { 
-						width: 16px; 
-						vertical-align: text-top;
-					}
-				}
-				.author, .domain {
-					float: $alpha;
-				}
-
-				.icon-link { @include icon(link); }
-				.permalink {
-					float: $omega;
-					a {
-					  color: $firefly20;
-					  &:hover {
-						color: $firefly40;
-						text-decoration: none;
-					  }
-					}
-				}
-
-				img,
-				embed,
-				object,
-				video,
-				iframe {
-					max-width: 100%;
-				}
-
-				.fb_iframe_widget iframe {
-					max-width: none;
-				}
-
-				// scale videos proportionally
-				.oembed-video .oembed-content {
-					position: relative;
-					padding-bottom: 56.25%;
-					height: 0; 
-					overflow: hidden;
-					embed,
-					object,
-					iframe {
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: 100%;
-						height: 100%;
-						display: inline-block;
-					}
-				}
-
-				.twitter {
-					width: 100%;
-					max-width: 100%;
-					.oembed-content {
-						// padding: 0 $gutter-width;
-						padding: 0 $gutter-width $absolute-line-height/4;
-					}
-					.oembed-attributes {
-						// hiding attributes
-						display: none;
-						padding: 0 $gutter-width $absolute-line-height/4;
-					}
-					// avoid width to collapse
-					iframe {
-						display: inline-block !important; // centralizes
-						width: 100% !important;
-						min-width: 400px !important;
-						margin-bottom: 0!important; // brings attributes closer
-					}
-				}
-
-				.youtube {
-					.oembed-attributes {
-						// hiding attributes
-						display: none;
-						padding: $absolute-line-height/4 $gutter-width $absolute-line-height/4 $gutter-width;
-					}
-				}
-				.facebook {
-					.oembed--link--meedan-oembed-facebook > div {
-						padding: $absolute-line-height/2 $gutter-width;
-					}
-				}
-				.oembed--link--meedan-oembed-facebook {
-					height: 400px;
-					iframe {
-						width: 100%;
-					}
-				}
-				.oembed--link--meedan-oembed-generic {
-					.title {
-						padding: 0;
-						@include cd-sans-serif-family;
-						font-weight: bold;
-						font-size: $x-large-font-size;
-						line-height: 1.3;
-					}
-					.oembed-attributes {
-						padding: $absolute-line-height/2 0;
-					}
-				}
-
-				.instagram {
-					.oembed-title {
-						display: block;
-						padding: $absolute-line-height/2 $gutter-width $absolute-line-height/4;
-						&:hover {
-							color: $report-text-color;
-							text-decoration: none;
-						}
-					}
-				}
-			}
-
-			// centralize twitter embeds
-			.twitter-wrapper {
-				display: inline-block;
-			}
-
+		.form-type-radios > label {
+		  font-weight: 700;
+		  width: 100%;
+		  background: $firefly5;
+		  color: $firefly80;
+		  position: absolute;
+		  left: 0;
+		  top: 0;
+		  height: 30px;
+		  line-height: 30px;
+		  padding-top: 6px;
+		  @include border-radius(5px 5px 0 0);
 		}
 
 		.description {
-			padding: $absolute-line-height/2 $gutter-width;
-			font-size: $base-font-size;
-			line-height: 1.4;
-			color: $firefly80;
-
-			p {
-				clear: both;
-				margin-bottom: 0;
-			}
+		  padding: 5px $gutter-width 0;
+		  height: 30px;
+		  width: 310px;
+		  position: absolute;
+		  left: 0;
+		  top: 34px;
+		  font-size: 14px !important;
+			color: $firefly40 !important;
+			line-height: 1.2;
+		  background: $firefly5;
+		  text-align: center;
+		  border-bottom: 1px solid $firefly10;
 		}
 
-		.report-attributes {
-			@include ctb-clearfix();
-			color: $firefly80;
-			font-size: modular-scale(0) - modular-scale(-3); // 14px
-			padding: $absolute-line-height/4 $gutter-width;
+		.form-radios {
+		  position: absolute;
+		  top: 70px;
+		  left: 0;
 
-			// added by
-			.added-by {
+		  .form-type-radio {
 				float: $alpha;
-				.separator {
-					color: $firefly40;
-					font-size: $smaller-font-size;
-				}
-			}
-		}
-		
-		.gravatar {
-			img {
-				vertical-align: text-bottom;
-				@include ctb-square(20px);
-				margin-#{$omega}: $gutter-width/3;
-			}	
-		}
-	} // report content
-
-	// Twitter customizations
-	h3 > a[href*="twitter.com"] { 
-		@include icon('twitter') {
-			margin: 1px;
-		}
-		&:before {
-			display: inline-block;
-			@include transform(rotate(-19deg)); // new twitter logo :)
-			font-size: inherit;
-		}
-	}
-
-
-	// Report activity 
-	.report-activity {
-		@include cd-sans-serif-family;
-		& > header {
-			@include ctb-clearfix();
-			padding: $absolute-line-height/3 $gutter-width;
-			background-color: $firefly10;
-			border-left: 1px solid $firefly10;
-			border-right: 1px solid $firefly10;
-			
-			h3 {
-				@include reset-box-model();
-				float: $from-direction;
-				@include cd-sans-serif-family;
-				font-size: modular-scale(0) - modular-scale(-5); // 16px
-				font-weight: 700;
-				line-height: 1.5;
-			}
-			.report-status {
-				float: opposite-position($from-direction);
-				text-align: opposite-position($from-direction);
-				font-size: modular-scale(0) - modular-scale(-5); // 16px
-				font-weight: 700;
-				// icon in the status
-				span[class^="icon-"], span[class*="icon-"] {
-					float: $alpha;
-					font-weight: normal;
-				}
-				span.status-name {
-					text-align: opposite-position($from-direction);
-					overflow: visible;
-					// margin-#{opposite-position($from-direction)}:5px; 
-				}
-				span.status-by {
-					font-size: modular-scale(0) - modular-scale(-3); // 14px
-					font-weight: 400;
-				}
-			}
-			// header hover
-			// &:hover {
-			// 	background-color: rgba(0, 0, 0, 0.5);
-			// 	color: $white;
-			// 	a { color: $white; }
-			// }
-		}
-
-		// header status
-		& > .in-progress {
-			background-color: rgba(239,202,43,.2);
-			color: rgba(239,202,43,1);
-			a { color: rgba(239,202,43,1); }
-			// &:hover {
-			// 	color: $white;
-			// 	background-color: rgba(239,202,43,1);
-			// 	span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-			// }
-		}
-		& > .undetermined {
-			background-color: lighten($orange, 30%);
-			color: darken($orange, 10%);
-			a { color: darken($orange, 10%); }
-			// &:hover {
-			// 	color: darken($orange, 10%);
-			// 	background-color: lighten($orange, 20%);
-			// 	span[class^="icon-"], span[class*="icon-"], a {	color: darken($orange, 10%); }
-			// }
-		}
-		& > .verified {
-			background-color: rgba(0,140,0,.2);
-			color: rgba(0,140,0,1);
-			a { color: rgba(0,140,0,1); }
-			// &:hover {
-			// 	color: $white;
-			// 	background-color: rgba(0,140,0,.8);
-			// 	span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-			// }
-		}	
-		& > .false {
-			background-color: lighten($red, 50%);
-			color: $red;
-			a { color: $red; }
-			// &:hover {
-			// 	color: darken($red, 10%);
-			// 	background-color: lighten($red, 40%);
-			// 	span[class^="icon-"], span[class*="icon-"], a {	color: darken($red, 10%); }
-			// }
-		}
-
-		// report activity
-		// fact-checking log
-		.activity-wrapper {
-			@include ctb-clearfix;
-			border-left: 1px solid $firefly10;
-			border-right: 1px solid $firefly10;
-			
-			// add styles for load more pager
-			@include ctb-load-more-pager;
-
-			// bg only on the view
-			// Set verification log height
-			.view {
-				// background-image: $striped_lens;
-				background-color: rgba($thatch,.02);
-				max-height: 230px;
-				overflow: auto;
-				// to test
-				-webkit-overflow-scrolling: touch;
+			  padding-left: 0;
+			  min-height: 0;
 			}
 
-			// No max height on detail page
-			.page-node & .view {
-				max-height: none;
+			.form-radio {
+			  display: none;
 			}
 
-			// activity items
-			.view-content {
-				padding: 0 $gutter-width;
-				.activity {
-					@include ctb-clearfix;
-					// margin-#{$from-direction}: $gutter-width/2;
-					border-top: 1px dotted $firefly10;
-					&:first-child { border-top: 0px none; }
-					color: $firefly60;
-					line-height: 1.3;
-					header {
-						@include ctb-clearfix;
-						position: relative;
-						.actor {
-							display: inline-block;
-							width: 12%;
-							padding-top: $absolute-line-height/2;
-							padding-#{$omega}: $gutter-width*1.5;
-							text-align: $omega;
-							vertical-align: top;
-							font-weight: 700;
-							line-height: 1;
-							color: $firefly60;
-							@include ctb-break-words;
-						}
-						.multiple-lines {
-							padding-top: $absolute-line-height/4;
-						}
-						.activity-inner-wrapper {
-							position: relative;
-							display: inline-block;
-							width: 65%;
-							padding: $absolute-line-height/2 0 $absolute-line-height/2 0;
-							padding-#{$alpha}: $gutter-width*1.5;
-							border-#{$from-direction}: 4px solid $firefly10;
-						}
-						// when grouped with status change
-						.grouped {
-							padding-top: 0;
-							width: 78%;
-							.title {
-								width: auto;
-							}
-						}
-						.icon {
-							position: absolute;
-							display: inline-block;
-							top: 9px;
-							border-radius: 50%;
-							width: 24px;
-							line-height: 24px;
-							height: 24px;
-							margin-#{$from-direction}: -36px;
-							background-color: $white;
-							span[class^="icon-"], span[class*="icon-"] {
-								text-align: center;
-								position: absolute;
-								width: 100%;
-								height: 100%;
-								&:before {margin: 0;}
-							}
-						}
-						.title {
-							display: inline-block;
-							width: 90%;
-							p { 
-								@include reset-box-model;
-								margin-bottom: $absolute-line-height/2; 
-								&:last-child {
-									margin-bottom: 0; 
-								}
-								// For URLs inside footnote
-								a {
-									@include ctb-break-words;	
-								}
-							}
-							.verified { 
-								color: rgba(0,140,0, 1);
-							}
-							.in-progress { 
-								color: rgba(239,202,43, 1);
-							}
-							.undetermined { 
-								color: $orange; 
-							}
-							.false { 
-								color: $red; 
-							}
-						}
-						.activity-end-wrapper {
-							padding: 14px 0;
-							position: absolute;
-							top: 0;
-							#{$omega}: 0;
-						}
-						.delete-footnote {
-							display: none;
-							.icon-trash-o { 
-								color: $firefly30;
-								@include icon(trash-o);
-							}
-						}
-						.time {
-							text-align: $omega;
-							width: 16%;
-							color: $firefly30;
-							font-size: modular-scale(0) - modular-scale(-3); // 14px
-						}
-						&:hover {
-							// display delete icon only on hover
-							.delete-footnote {
-								display: inline-block;
-							}
-						}
-					} // header
-				} // activity
-			} // view-content
-
-			.activity-list-footer-wrapper {
-				@include ctb-clearfix;
-				border-top: 1px solid $firefly10;
-				color: $firefly60;
-
-				.activity-list-footer {
-					@include ctb-clearfix;
-					padding: $absolute-line-height/2 $gutter-width $absolute-line-height/4 $gutter-width;
+			& > .false, & > .undetermined {
+				& > label {
+					width: 170px;
 				}
-
-				position: relative;
-				// gradient for depth
-				&:before {
-					position: absolute;
-					content: "";
-					z-index: -1;
-					top: -10px;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					height: 10px;
-					width: 100%;
-					@include ctb-gradient-vertical(rgba(255,255,255,0), rgba(0,0,0,.02));
-				}
-
-
-				a {
-					color: $link-color;
-				}
-				.cta {
-					float: $from-direction;
-				}
-				.helper {
-					float: opposite-position($from-direction);
-					text-align: opposite-position($from-direction);
-					span[class^="icon-"], span[class*="icon-"], a {
-						float: $alpha;
-						font-weight: normal;
-						font-size: 14px;
-						color: $firefly40;
-						text-decoration: none;
-					}
-				}
-			}
-		} // activity wrapper
-
-		section#comment-form {
-			@include ctb-clearfix;
-			border-top: 1px solid $firefly10;
-			
-			position: relative;
-			// gradient for depth
-			&:before {
-				position: absolute;
-				content: "";
-				z-index: -1;
-				top: -10px;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				height: 10px;
-				width: 100%;
-				@include ctb-gradient-vertical(rgba(255,255,255,0), rgba(0,0,0,.02));
+				border-#{opposite-position($from-direction)}: 1px solid $firefly5;
+				border-bottom: 1px solid $firefly5;
 			}
 
-
-			label {
-				display: none;
+			& > .verified, & > .in-progress {
+				border-#{opposite-position($from-direction)}: 0 none;
+				border-bottom: 1px solid $firefly5;
 			}
 
-	  .field-name-field-rating label {
-		display: block;
-	  }
-
-			form { 
-				@include reset-box-model;
-				margin: 0 $gutter-width;
-				.form-actions {
-					padding-bottom: 0;
-					input {
-						font-size: 16px;
-						margin-#{$from-direction}: $gutter-width;
-						margin-#{opposite-position($from-direction)}: 0;
-						// align with edit status
-						margin-top: -5px;
-					}
-				}
-				textarea {
-					float: none;
-					@include ctb-clearfix;
-				}
+			// status: not applicable
+			.form-item:last-child label {
+			  width: 340px;
+			  color: $firefly20;
 			}
+
 		}
 
-	.form-actions {
-		text-align: opposite-position($from-direction);
-
-	  span.edit-status {
-			font-size: $small-font-size;
-			color: $firefly40;
-			cursor: pointer;
-
-			&.active {
-			  color: $firefly60;
-			}
-	  }
-
-	  .current-status {
-			display: none;
-			font-weight: 700;
-	  }
-	}
-
-	.current-status,
-	label.option {
-		  &.verified {
-			@include icon(check-circle, $base-font-size);
-	  }
-		&.in-progress {
-			@include icon(random, $small-font-size);
-		}
-		&.false {
-			@include icon(times-circle, $base-font-size);
-		}
-		&.undetermined {
-			@include icon(question-circle, $base-font-size);
-		}
-	  &.not-applicable {
-			@include icon(ban, $base-font-size);
-	  }
-	}
-
-	.current-status,
-	input[type="radio"]:checked + label {
-		  &.verified {
-		color: rgba(0, 140, 0, 1);
-	  }
-		&.in-progress {
-			color: rgba(239, 202, 43, 1);
-		}
-		&.false {
-			color: $red;
-		}
-		&.undetermined {
-			color: $orange; 
-		}
-	  &.not-applicable {
-		color: $firefly60 !important;
-	  }
-	}
-
-	.report-activity-edit-status {
-		// position: relative;
-		
-	  &.popover {
-	  	position: absolute;
-			background: #fff;
-			#{$from-direction}: auto;
-      @if $from-direction == left {
-        #{opposite-position($from-direction)}: $gutter-width;
-      }
-      @if $from-direction == right {
-        #{opposite-position($from-direction)}: 0;
-      }
-			top: auto;
-      bottom: -221px; // -1 * height
-			width: 340px;
-			height: 222px;
-			border: 1px solid $firefly10;
-			z-index: $zindexDropdown;
-			@include box-shadow(0px 2px 5px rgba($firefly, 0.05));
-			@include border-radius(5px);
-
-			// triangle at top
-			&:after {
-				content: "";
-			    border-#{$from-direction}: 12px solid transparent;
-					border-#{opposite-position($from-direction)}: 12px solid transparent;
-					border-bottom: 12px solid $firefly5;
-			    width: 0;
-			    height: 0;
-			    position: absolute;
-			    top: -12px;
-			    bottom: 0;
-			    #{$from-direction}: 157px;
-			    z-index: $zindexDropdown + 1;
-			}
-			// triangle at top
-			&:before {
-				content: "";
-			    border-#{$from-direction}: 13px solid transparent;
-					border-#{opposite-position($from-direction)}: 13px solid transparent;
-					border-bottom: 13px solid $firefly10;
-			    width: 0;
-			    height: 0;
-			    position: absolute;
-			    top: -13px;
-			    bottom: 0;
-			    #{$from-direction}: 156px;
-			    z-index: $zindexDropdown;
-			}
-
-			label {
-			  width: 169px;
-			  display: block;
-			  float: $from-direction;
-			  height: 50px;
-			  line-height: 50px;
-			  text-align: center;
-				color: $firefly40;
-				font-size: 16px;
-			  font-weight: 700;
-			  margin-bottom: 0;
-			  overflow: hidden;
-			  &:hover {
-			  	color: $firefly60;
-			  }
-			}
-
-			.form-type-radios > label {
-			  font-weight: 700;
-			  width: 100%;
-			  background: $firefly5;
-			  color: $firefly80;
-			  position: absolute;
-			  left: 0;
-			  top: 0;
-			  height: 30px;
-			  line-height: 30px;
-			  padding-top: 6px;
-			  @include border-radius(5px 5px 0 0);
-			}
-
-			.description {
-			  padding: 5px $gutter-width 0;
-			  height: 30px;
-			  width: 310px;
-			  position: absolute;
-			  left: 0;
-			  top: 34px;
-			  font-size: 14px !important;
-				color: $firefly40 !important;
-				line-height: 1.2;
-			  background: $firefly5;
-			  text-align: center;
-			  border-bottom: 1px solid $firefly10;
-			}
-
-			.form-radios {
-			  position: absolute;
-			  top: 70px;
-			  left: 0;
-
-			  .form-type-radio {
-					float: $alpha;
-				  padding-left: 0;
-				  min-height: 0;
-				}
-
-				.form-radio {
-				  display: none;
-				}
-
-				& > .false, & > .undetermined {
-					& > label {
-						width: 170px;
-					}
-					border-#{opposite-position($from-direction)}: 1px solid $firefly5;
-					border-bottom: 1px solid $firefly5;
-				}
-
-				& > .verified, & > .in-progress {
-					border-#{opposite-position($from-direction)}: 0 none;
-					border-bottom: 1px solid $firefly5;
-				}
-
-
-				
-				// status: not applicable
-				.form-item:last-child label {
-				  width: 340px;
-				  color: $firefly20;
-				}
-
-
-			}
-
-	  }
-
-	  // .popover-arrow {
-			// border-bottom-color: $firefly5;
-			// #{$from-direction}: 160px;
-			// top: -10px; 
-  	// 		border-left: 10px solid transparent;
-  	// 		border-right: 10px solid transparent;
-  	// 		border-bottom: 10px solid $firefly5;
-	  // }
-
-	  // .popover-arrow + .popover-arrow {
-			// border-left: 12px solid transparent;
-			// border-right: 12px solid transparent;
-			// border-bottom: 12px solid $firefly2;
-			// #{$from-direction}: 163px;
-			// top: -12px;
-	  // }
-	}
-	} // report activity
-
-	// indicate when report activity
-	// view's scoll reaches the end
-	.end section#comment-form, .end .activity-wrapper .activity-list-footer-wrapper {
-		position: relative;
-		// blueish gradient indicating end
-		&:before {
-			position: absolute;
-			content: "";
-			z-index: -1;
-			top: -15px;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 15px;
-			width: 100%;
-			@include ctb-gradient-vertical(rgba(255, 255, 255,0), rgba(38, 125, 253,.08));
-		}
-	}
-
-	// Activity header when open
-
-	.open > header {
-		color: $white;
-		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-	}
-
-	.open > .in-progress {
-		color: $white;
-		background-color: rgba(239,202,43,1);
-		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-	}
-	.open > .verified {
-		color: $white;
-		background-color: rgba(0,140,0,.8);
-		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-	}
-
-	.open > .false {
-		color: $white;
-		background-color: $red;
-		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-	}
-
-	.open > .undetermined {
-		color: $white;
-		background-color: $orange;
-		span[class^="icon-"], span[class*="icon-"], a {	color: $white; }
-	}
-
-	// Report status icons in activity log's header
-	$position:  "before";
-	@if $from-direction == left {
-		$position: "after";
-	}
-	@if $from-direction == right {
-		$position: "before";
-	}
-	// verified
-	.icon-check-circle { 
-		color: rgba(0,140,0,1);
-		@include icon(check-circle, $base-font-size);
-	}
-	// in-progress
-	.icon-random { 
-		color: rgba(239,202,43,1);
-		@include icon(random, $small-font-size);
-	}
-	.icon-circle { 
-		color: rgba(239,202,43,1);
-	}
-	// undetermined
-	.icon-question-circle { 
-		color: $orange; 
-		@include icon(question-circle, $base-font-size);
-	}
-	// false
-	.icon-times-circle { 
-		color: $red; 
-		@include icon(times-circle, $base-font-size);
-	}
-
-} // report
-
-// Report status color bar at the top of a report
-article.in-progress {
-	border-top: 4px solid $yellow;
+  }
 }
-
 
 // Sensitive content handling
 div.sensitive-hide {

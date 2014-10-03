@@ -289,7 +289,7 @@ class views_plugin_display_system extends views_plugin_display {
         // before. Otherwise, for example, example_module could inherit a 'file'
         // property of 'node.admin.inc', so the actual include path would be
         // something like .../modules/example_module/node.admin.inc.
-        if (!$file && ($child['module'] != $parent['module'])) {
+        if (!$file && isset($child['module'], $parent['module']) && ($child['module'] != $parent['module'])) {
           unset($child['file']);
         }
         // Last catch-22, insert new default properties and their default values

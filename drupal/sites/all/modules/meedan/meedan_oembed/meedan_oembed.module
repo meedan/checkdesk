@@ -40,6 +40,25 @@ function meedan_oembed_theme() {
       'path' => $path,
       'file' => $file,
     ),
+    'meedan_inline_thumbnail' => array(
+      'variables' => array('element' => NULL),
+      'template' => 'meedan-inline-thumbnail--generic',
+      'path' => $path,
+      'file' => $file,
+    ),
+    'meedan_inline_full_mode' => array(
+      'variables' => array('element' => NULL),
+      'template' => 'meedan-inline-full-mode--generic',
+      'path' => $path,
+      'file' => $file,
+    ),
+    'meedan_full_mode' => array(
+      'variables' => array('element' => NULL),
+      'template' => 'meedan-full-mode--generic',
+      'path' => $path,
+      'file' => $file,
+    ),
+
   );
 }
 
@@ -251,6 +270,10 @@ function meedan_oembed_entity_info_alter(&$entity_info) {
     'label' => t('Meedan oEmbed'),
     'custom settings' => TRUE,
   );
+  $entity_info['node']['view modes']['checkdesk_collaborate'] = array(
+    'label' => t('Checkdesk collaborate'),
+    'custom settings' => TRUE,
+  );
 }
 
 /**
@@ -335,11 +358,29 @@ function meedan_oembed_field_formatter_info() {
       'description' => t('Embeds links as thumbnails if possible - otherwise just links them.'),
       'settings' => array('imagestyle' => ''),
     ),
+    'meedan_inline_thumbnail' => array(
+      'label' => t('Meedan inline thumbnail'),
+      'field types' => array('link_field'),
+      'description' => t('Embeds links as inline thmbnail.'),
+    ),
+    'meedan_inline_full_mode' => array(
+      'label' => t('Meedan inline full mode'),
+      'field types' => array('link_field'),
+      'description' => t('Embeds links as inline full mode.'),
+    ),
+    'meedan_full_mode' => array(
+      'label' => t('Meedan full mode'),
+      'field types' => array('link_field'),
+      'description' => t('Embeds links as full mode.'),
+    ),
   );
 
   return $formatters;
 }
 
+function theme_meedan_inline_thumbnail($element) {
+  return 'render inline thumbnail';
+}
 /**
  * Implements hook_field_formatter_settings_form().
  */
@@ -364,20 +405,59 @@ function meedan_oembed_field_formatter_settings_form($field, $instance, $view_mo
  */
 function meedan_oembed_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
-  foreach ($items as $delta => $item) {
-    $attributes = array();
-    $attributes = array_filter($display['settings']);
-    $url = url($item['url'], $item + array('external' => TRUE));
-    $domain = _meedan_oembed_get_domain_name($url);
-    $theme = 'meedan_oembed_thumbnail_' . $domain;
-    $args = array('title' => $entity->title, 'url' => $url, 'attributes' => $attributes);
-    $hooks = theme_get_registry(FALSE);
-    if (isset($hooks[$theme])) {
-      $element[$delta] = array('#markup' => theme($theme, $args));
+  if ($display['type'] == 'meedan_inline_thumbnail') {
+    foreach ($items as $delta => $item) {
+      $element[$delta] = array(
+        '#markup' => theme('meedan_inline_thumbnail', array('element' => $item, 'field' => $instance, 'entity' => $entity)),
+      );
     }
-    else {
-      $element[$delta] = array('#markup' => theme('meedan_oembed_thumbnail_generic', $args));
+  }
+  elseif ($display['type'] == 'meedan_inline_full_mode') {
+    foreach ($items as $delta => $item) {
+      $element[$delta] = array(
+        '#markup' => theme('meedan_inline_full_mode', array('element' => $item, 'entity' => $entity)),
+      );
+    }
+  }
+  elseif ($display['type'] == 'meedan_full_mode') {
+    foreach ($items as $delta => $item) {
+      $element[$delta] = array(
+        '#markup' => theme('meedan_full_mode', array('element' => $item, 'entity' => $entity)),
+      );
+    }
+  }
+  else {
+    foreach ($items as $delta => $item) {
+      $attributes = array();
+      $attributes = array_filter($display['settings']);
+      $url = url($item['url'], $item + array('external' => TRUE));
+      $domain = _meedan_oembed_get_domain_name($url);
+      $theme = 'meedan_oembed_thumbnail_' . $domain;
+      $args = array('title' => $entity->title, 'url' => $url, 'attributes' => $attributes);
+      $hooks = theme_get_registry(FALSE);
+      if (isset($hooks[$theme])) {
+        $element[$delta] = array('#markup' => theme($theme, $args));
+      }
+      else {
+        $element[$delta] = array('#markup' => theme('meedan_oembed_thumbnail_generic', $args));
+      }
     }
   }
   return $element;
+}
+
+function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
+  // TODO: get this mapping from admin interface.
+  // for now will use mapping array with key = activity type and value = formatter name.
+  $mapping = array(
+    'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
+  );
+
+  if (isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
+    $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
+  }
+  else {
+    $output = field_view_field('node', $node, 'field_link', array('type' => 'meedan_inline_thumbnail'));
+  }
+  return $output;
 }

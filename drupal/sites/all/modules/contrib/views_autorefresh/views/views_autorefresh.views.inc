@@ -20,7 +20,8 @@ function views_autorefresh_views_data_alter(&$data) {
         $date = $field_info;
         $date['title'] = $field_info['title'] . ' (with operator)';
         $date['argument']['handler'] = 'views_autorefresh_handler_argument_date';
-        $date['argument']['field'] = empty($date['field']['field']) ? $field_name : $date['field']['field'];
+        $date['argument']['field'] = !empty($date['field']['field']) ? $date['field']['field'] :
+          (!empty($date['real field']) ? $date['real field'] : $field_name);
         unset($date['filter'], $date['field'], $date['relationship'], $date['sort']);
         $data[$table_name][$field_name . '_operator'] = $date;
       }

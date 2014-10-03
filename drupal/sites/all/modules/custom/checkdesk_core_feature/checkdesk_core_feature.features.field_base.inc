@@ -135,10 +135,9 @@ function checkdesk_core_feature_field_default_field_bases() {
           ),
         ),
         'sort' => array(
-          'direction' => 'ASC',
-          'field' => 'body:value',
-          'property' => 'nid',
-          'type' => 'none',
+          'direction' => 'DESC',
+          'property' => 'created',
+          'type' => 'property',
         ),
         'target_bundles' => array(
           'discussion' => 'discussion',
@@ -316,12 +315,12 @@ function checkdesk_core_feature_field_default_field_bases() {
   // Exported field_base: 'field_stories'
   $field_bases['field_stories'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_stories',
     'field_permissions' => array(
-      'type' => 2,
+      'type' => 0,
     ),
     'foreign keys' => array(
       'node' => array(
@@ -347,7 +346,9 @@ function checkdesk_core_feature_field_default_field_bases() {
           ),
         ),
         'sort' => array(
-          'type' => 'none',
+          'direction' => 'DESC',
+          'property' => 'created',
+          'type' => 'property',
         ),
         'target_bundles' => array(
           'discussion' => 'discussion',

@@ -181,17 +181,18 @@ body.page-user-password { // both logged in and not logged ins states
   // Break small
   @include at-breakpoint($break-small) {
     form {
-      #edit-social-media-signin a {
+      .social-signin-wrapper a {
         font-size: $large-font-size !important;
       }
     }
   }
 }
 
-#user-login, #user-register-form {
+.user-login-wrapper, .user-register-wrapper {
     @include span-columns(4, 6);
     @include pad(1, 1, 6);
     margin-top: $absolute-line-height;
+    margin-bottom: $absolute-line-height;
 
     // when labels are visible
     label {
@@ -214,7 +215,7 @@ body.page-user-password { // both logged in and not logged ins states
     }
 
     // The social media sign-in boxes
-    #edit-social-media-signin {
+    .social-signin-wrapper {
       float: none;
       .item-list {
         @include ctb-clearfix;

@@ -14,7 +14,8 @@ class MaillogMailSystem implements MailSystemInterface {
    *   The formatted $message.
    */
   public function format(array $message) {
-    $default = new DefaultMailSystem();
+    $mailclass = variable_get('maillog_engine', 'DefaultMailSystem');
+    $default = new $mailclass();
     return $default->format($message);
   }
 
@@ -90,7 +91,8 @@ class MaillogMailSystem implements MailSystemInterface {
     }
 
     if (variable_get('maillog_send', TRUE)) {
-      $default = new DefaultMailSystem();
+      $mailclass = variable_get('maillog_engine', 'DefaultMailSystem');
+      $default = new $mailclass();
       $result = $default->mail($message);
     }
     elseif (user_access('administer maillog')) {

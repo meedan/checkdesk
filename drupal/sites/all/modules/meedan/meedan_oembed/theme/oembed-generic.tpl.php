@@ -38,6 +38,6 @@
     <?php endif ?>
   </div>
   <?php if (isset($embed_error)) : ?>
-    <div class="embederror"><?php print $embed_error ?></div>
+    <div class="embederror"><?php print $embed_error; ?></div>
   <?php endif ?>
 </div>

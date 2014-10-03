@@ -237,19 +237,21 @@ function _checkdesk_alter($files, $type) {
 // }
 
 function checkdesk_checkdesk_heartbeat_content($variables) {
-
   $message = $variables['message'];
 
+  // prep user picture
+  $user = user_load($message->uid);
+  $avatar = _set_user_avatar_bg($user,array('avatar', 'thumb-38'));
   // set variables for new comment aka fact-checking footnote
   if ($message->message_id == 'new_comment_report') {
     // set actor / editor / user
-    $actor = $message->variables['!username'];
+    $actor = l($message->variables['!username'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
     // 
-    $title = $message->variables['!comment'];
+    $comment_text = $message->variables['!comment'];
     if (isset($message->cid) && user_access('administer comments')) {
       $delete_footnote = l('<span class="icon-trash-o"></span>', 'comment/'. $message->cid .'/delete', array(
         //'query' => drupal_get_destination(),
-        'attributes' => array('class' => 'delete-footnote', 'title' => t('Delete')),
+        'attributes' => array('class' => 'inline-delete-item', 'title' => t('Delete')),
         'html' => TRUE,
       ));
     }
@@ -280,61 +282,62 @@ function checkdesk_checkdesk_heartbeat_content($variables) {
     }
 
     // set actor / editor / user
-    $actor = $message->variables['!editor'];
-    $title = t('Changed status to ') . '<strong class="' . $status_class_name . '">' . strtolower($message->variables['!status']) . '</strong>';
+    $actor = l($message->variables['!editor'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
+    $title = t('changed status to ');
+    if (isset($icon)) {
+      $title .= '<span class="media-status"><span class="icon">' . $icon . '</span>';
+    }
+    $title .= ' <span class="status-name ' . $status_class_name . '">' . strtolower($message->variables['!status']) . '</span></span>';
     
   }
 
   // set variables for publish_report
   if ($message->message_id == 'publish_report') {
     // set actor / editor / user / publisher
-    $actor = $message->variables['!publisher'];
-    $title = t('Published on live blog under ') . '<strong>' . $message->variables['!story'] . '</strong>';
+    $actor = l($message->variables['!publisher'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
+    $story = l($message->variables['!story'], $message->variables['!story_url'], array('html' => TRUE, 'attributes' => array('class' => array('story_link'))));
+    $title = t('published on ') . $story;
   }
 
   // set variables for new_report
   if ($message->message_id == 'new_report') {
     // set actor / editor / user / publisher
-    $actor = $message->variables['!username'];
-    $title = t('Added ') . '<strong>' . $message->variables['!title'] . '</strong>';
+    $actor = l($message->variables['!username'], 'user/'. $message->uid, array('html' => TRUE, 'attributes' => array('class' => array('actor'))));
+    $title = t('added this report');
+    // $title = t('Added ') . $message->variables['!title'];
   }
-  
-  // $actor_short = (strlen($actor) > 8) ? substr($actor,0,6).'...' : $actor;
-
 
   // format status report as
-  // Noha Aziz {status icon} Changed status to verified (different color and add hover info on verified) {timestamp}
+  // Noha Aziz changed status to {status icon} verified (different color and add hover info on verified) {timestamp}
 
   // format comments as
   // Noha Aziz {comment} {timestamp}
 
   $output = '';
-  $output .= '<header>';
+  $output = $avatar;
+
+  $output .= t('<time title="!datetime" datetime="!datetime" class="timestamp">!inverval</time>', array(
+      '!inverval' => checkdesk_core_custom_format_interval($message->timestamp),
+      '!datetime' => format_date($message->timestamp, 'custom', t('l M d, Y \a\t g:i:sa'))
+  ));
+
+
+  if (isset($delete_footnote)) {
+    $output .= $delete_footnote;
+  }
+
   if(isset($actor)) {
-    $output .= '<span class="actor">' . $actor . '</span>';  
+    $output .= '<span>' . $actor . '</span> ';  
   }
-  $output .= '<span class="activity-inner-wrapper">';
-  if (isset($icon)) {
-    $output .= '<span class="icon">' . $icon . '</span>';
-  }
+
   if(isset($title)) {
     $output .= '<span class="title">' . $title . '</span>';
+  } elseif (isset($comment_text)) {
+    $output .= '<span class="report-verification-footnote item-content-text">' . $comment_text . '</span>';
   } else {
     $output .= $message->message;
   }
 
-  $output .= '</span>';
-
-  $output .= '<span class="activity-end-wrapper">';
-  if (isset($delete_footnote)) {
-    $output .= $delete_footnote;
-  }
-  $output .= t('<time title="!datetime" datetime="!datetime" class="time">!inverval</time>', array(
-      '!inverval' => checkdesk_core_custom_format_interval($message->timestamp),
-      '!datetime' => format_date($message->timestamp, 'custom', t('l M d, Y \a\t g:i:sa'))
-  ));
-  $output .= '</span>'; 
-  $output .= '</header>';
   return $output;
 }
 

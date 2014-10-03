@@ -27,7 +27,7 @@ function theme_livefyre_commentcount($variables) {
   drupal_add_js(drupal_get_path('module', 'meedan_livefyre') . '/meedan_livefyre_commentcount.js');
   $class_attribute = (variable_get('meedan_livefyre_lazy_load_comments', false) ? 'data-lazy-load-class' : 'class');
   $output  = '<span ' . $class_attribute . '="livefyre-commentcount" data-lf-site-id="' . variable_get('meedan_livefyre_siteid', '') . '" data-lf-article-id="' . $node->nid . '">';
-  $output .= t('@count Comments (Be the first!)', array('@count' => 0));
+  $output .= t('@count', array('@count' => 0));
   $output .= '</span>';
   return $output;
 }

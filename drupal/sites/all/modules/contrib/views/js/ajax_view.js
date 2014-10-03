@@ -63,6 +63,11 @@ Drupal.views.ajaxView = function(settings) {
   // Add the ajax to pagers.
   this.$view
     .once(jQuery.proxy(this.attachPagerAjax, this));
+
+  // Add a trigger to update this view specifically.
+  var self_settings = this.element_settings;
+  self_settings.event = 'RefreshView';
+  this.refreshViewAjax = new Drupal.ajax(this.selector, this.$view, self_settings);
 };
 
 Drupal.views.ajaxView.prototype.attachExposedFormAjax = function() {

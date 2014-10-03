@@ -8,6 +8,10 @@
     <?php print $linked_accounts; ?>
   </div>
 
+  <div class="followed-stories">
+    <?php print $followed_stories; ?>
+  </div>
+
   <div class="profile-links">
      <?php if (isset($edit_profile)): ?>
        <?php print $edit_profile; ?>

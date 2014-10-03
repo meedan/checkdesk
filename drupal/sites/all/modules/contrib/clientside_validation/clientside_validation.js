@@ -366,19 +366,29 @@
                 }
               }
               if (self.forms[f].general.scrollTo) {
-                var x;
-                if ($("#" + errorel).length) {
-                  $("#" + errorel).show();
-                  x = $("#" + errorel).offset().top - $("#" + errorel).height() - 100; // provides buffer in viewport
+                if (!$('html, body').hasClass('cv-scrolling')) {
+                  var x;
+                  if ($("#" + errorel).length) {
+                    $("#" + errorel).show();
+                    x = $("#" + errorel).offset().top - $("#" + errorel).height() - 100; // provides buffer in viewport
+                  }
+                  else {
+                    x = $(validator.errorList[0].element).offset().top - $(validator.errorList[0].element).height() - 100;
+                  }
+                  $('html, body').addClass('cv-scrolling').animate(
+                    {scrollTop: x},
+                    {
+                      duration: self.forms[f].general.scrollSpeed,
+                      complete: function () {
+                        $('html, body').removeClass('cv-scrolling')
+                      }
+                    }
+                  );
+                  $('.wysiwyg-toggle-wrapper a').each(function() {
+                    $(this).click();
+                    $(this).click();
+                  });
                 }
-                else {
-                  x = $(validator.errorList[0].element).offset().top - $(validator.errorList[0].element).height() - 100;
-                }
-                $('html, body').animate({scrollTop: x}, self.forms[f].general.scrollSpeed);
-                $('.wysiwyg-toggle-wrapper a').each(function() {
-                  $(this).click();
-                  $(this).click();
-                });
               }
 
               /**
@@ -707,16 +717,31 @@
       jQuery.each (self.forms[formid].checkboxrules, function(r) {
         var $checkboxes = $form.find(this.checkboxgroupminmax[2]).find('input[type="checkbox"]');
         if ($checkboxes.length) {
-          $checkboxes.addClass('require-one');
+          var identifier = 'require-one-' + this.checkboxgroupminmax[2].substring(1);
+          var min = this.checkboxgroupminmax[0];
+          var message = this.messages.checkboxgroupminmax;
+          $checkboxes.addClass(identifier);
           $checkboxes.each(function(){
-            var rule = self.forms[formid].checkboxrules[r];
-            if (typeof self.validators[formid].settings.messages[r] === 'undefined') {
-              self.validators[formid].settings.messages[r] = {};
+            var $checkbox = $(this);
+            var newrule = {
+              require_from_group: [min, '.' + identifier]
+            };
+            $checkbox.rules("add", newrule);
+            $checkbox.change(hideErrordiv);
+
+            if (typeof self.validators[formid].settings.messages[$checkbox.attr('name')] === 'undefined') {
+              self.validators[formid].settings.messages[$checkbox.attr('name')] = {};
             }
-            $.extend(self.validators[formid].settings.messages[r], rule.messages);
-            delete rule.messages;
-            $(this).rules("add", rule);
-            $(this).change(hideErrordiv);
+            $.extend(self.validators[formid].settings.messages[$checkbox.attr('name')], {
+              require_from_group: message
+            });
+          });
+
+          if (typeof self.validators[formid].settings.messages['.' + identifier] === 'undefined') {
+            self.validators[formid].settings.messages['.' + identifier] = {};
+          }
+          $.extend(self.validators[formid].settings.messages['.' + identifier], {
+            require_from_group: message
           });
         }
       });
@@ -726,7 +751,8 @@
       self.time.start('daterangerules');
       jQuery.each (self.forms[formid].daterangerules, function(r) {
         $form.find('#' + r).find('input, select').not('input[type=image]').each(function(){
-          var rule = self.forms[formid].daterangerules[r];
+          // Make sure we are working with the copy of rules object.
+          var rule = jQuery.extend(true, {}, self.forms[formid].daterangerules[r]);
           if (typeof self.validators[formid].settings.messages[r] === 'undefined') {
             self.validators[formid].settings.messages[r] = {};
           }
@@ -743,7 +769,8 @@
       self.time.start('dateminrules');
       jQuery.each (self.forms[formid].dateminrules, function(r) {
         $form.find('#' + r).find('input, select').not('input[type=image]').each(function(){
-          var rule = self.forms[formid].dateminrules[r];
+          // Make sure we are working with the copy of rules object.
+          var rule = jQuery.extend(true, {}, self.forms[formid].dateminrules[r]);
           if (typeof self.validators[formid].settings.messages[r] === 'undefined') {
             self.validators[formid].settings.messages[r] = {};
           }
@@ -760,7 +787,8 @@
       self.time.start('datemaxrules');
       jQuery.each (self.forms[formid].datemaxrules, function(r) {
         $form.find('#' + r).find('input, select').not('input[type=image]').each(function(){
-          var rule = self.forms[formid].datemaxrules[r];
+          // Make sure we are working with the copy of rules object.
+          var rule = jQuery.extend(true, {}, self.forms[formid].datemaxrules[r]);
           if (typeof self.validators[formid].settings.messages[r] === 'undefined') {
             self.validators[formid].settings.messages[r] = {};
           }
@@ -775,7 +803,8 @@
 
     if ('rules' in self.forms[formid]) {
       self.time.start('rules');
-      var rules = self.forms[formid].rules;
+      // Make sure we are working with the copy of rules object.
+      var rules = jQuery.extend(true, {}, self.forms[formid].rules);
       // :input can be slow, see http://jsperf.com/input-vs-input/2
       $form.find('input, textarea, select').each(function(idx, elem) {
         var rule = rules[elem.name];
@@ -804,6 +833,21 @@
 
     jQuery.validator.addMethod("numberDE", function(value, element) {
       return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d+)?$/.test(value);
+    });
+
+    jQuery.validator.addMethod("min_comma", function(value, element, param) {
+      var real_val = Number(value.replace(',', '.'));
+      return this.optional(element) || real_val >= param;
+    });
+
+    jQuery.validator.addMethod("max_comma", function(value, element, param) {
+      var real_val = Number(value.replace(',', '.'));
+      return this.optional(element) || real_val <= param;
+    });
+
+    jQuery.validator.addMethod("range_comma", function(value, element, param) {
+      var real_val = Number(value.replace(',', '.'));
+      return this.optional(element) || (real_val >= param[0] && real_val <= param[1]);
     });
 
     // Min a and maximum b checkboxes from a group
@@ -942,7 +986,12 @@
         return this.optional(element);
       }
       else {
-        var regexp = new RegExp(param.regex[0], param.regex[1]);
+        var modifier = param.regex[1];
+        var valid_modifiers = ['i', 'g', 'm'];
+        if (jQuery.inArray(modifier, valid_modifiers) === -1) {
+          modifier = '';
+        }
+        var regexp = new RegExp(param.regex[0], modifier);
         if(regexp.test(value)){
           return !param.negate;
         }
@@ -1214,13 +1263,13 @@
         var year = parseInt(parts[param.yearpos], 10);
         var date = new Date();
         var result = true;
-        if (parts[param.daypos].toString().length !== parts[param.daypos].length){
+        if (param.daypos !== false && parts[param.daypos].toString().length !== parts[param.daypos].length){
           result = false;
         }
-        if (parts[param.monthpos].toString().length !== parts[param.monthpos].length){
+        if (param.monthpos !== false && parts[param.monthpos].toString().length !== parts[param.monthpos].length){
           result = false;
         }
-        if (parts[param.yearpos].toString().length !== parts[param.yearpos].length){
+        if (param.yearpos !== false && parts[param.yearpos].toString().length !== parts[param.yearpos].length){
           result = false;
         }
         if (param.yearpos !== false){
@@ -1276,6 +1325,30 @@
       });
       return ret;
     }, jQuery.format('Please fill in at least one of the fields'));
+
+    // Support for Drupal urls.
+    jQuery.validator.addMethod("drupalURL", function(value, element) {
+      var result = false;
+      if (this.settings['name_event'] == 'onkeyup') {
+        return true;
+      }
+      if (jQuery.validator.methods.url.call(this, value, element)) {
+        return true;
+      }
+      jQuery.ajax({
+        'url': Drupal.settings.basePath + 'clientside_validation/drupalURL',
+        'type': "POST",
+        'data': {
+          'value': value
+        },
+        'dataType': 'json',
+        'async': false,
+        'success': function(res){
+          result = res;
+        }
+      });
+      return result.result;
+    }, jQuery.format('Please fill in a valid url'));
 
     // Support for phone
     jQuery.validator.addMethod("phone", function(value, element, param) {
@@ -1335,6 +1408,28 @@
       }
     }, jQuery.format('Not a valid EAN number.'));
 
+    jQuery.validator.addMethod("require_from_group", function(value, element, options) {
+      var $fields = $(options[1], element.form),
+        $fieldsFirst = $fields.eq(0),
+        validator = $fieldsFirst.data("valid_req_grp") ? $fieldsFirst.data("valid_req_grp") : $.extend({}, this),
+        isValid = $fields.filter(function() {
+          return validator.elementValue(this);
+        }).length >= options[0];
+
+      // Store the cloned validator for future validation
+      $fieldsFirst.data("valid_req_grp", validator);
+
+      // If element isn't being validated, run each require_from_group field's validation rules
+      if (!$(element).data("being_validated")) {
+        $fields.data("being_validated", true);
+        $fields.each(function() {
+          validator.element(this);
+        });
+        $fields.data("being_validated", false);
+      }
+      return isValid;
+    }, jQuery.validator.format("Please fill at least {0} of these fields."));
+
     /**
      * Allow other modules to add more rules.
      * @event clientsideValidationAddCustomRules
@@ -1383,7 +1478,7 @@
       }
       // Set validation for ctools modal forms
       for (var ajax_el in Drupal.ajax) {
-        if (typeof Drupal.ajax[ajax_el] !== 'undefined') {
+        if (Drupal.ajax.hasOwnProperty(ajax_el) && typeof Drupal.ajax[ajax_el] !== 'undefined') {
           var $ajax_el = jQuery(Drupal.ajax[ajax_el].element);
           var ajax_form = $ajax_el.is('form') ? $ajax_el.attr('id') : $ajax_el.closest('form').attr('id');
           var change_ajax = true;
