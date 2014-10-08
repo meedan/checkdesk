@@ -588,9 +588,6 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
       // Get heartbeat activity for particular story
       $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
-
-
-      // l(theme_image(array('path' => $variables['field_lead_image'][0]['uri'], 'attributes' => array('class' => array('inline-img-thumb')))), 'node/' . $variables['nid'] , array('html' => TRUE));
     }
     else {
       // get updates for a particular story
@@ -643,7 +640,6 @@ function checkdesk_preprocess_node(&$variables) {
           'class' => 'gravatar'
         )
       );
-      // $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($node->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
     }
     // set provider class name
     $provider = strtolower($node->embed->provider_name);
@@ -674,6 +670,17 @@ function checkdesk_preprocess_node(&$variables) {
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
         '!interval' => format_interval(time() - $variables['created'], 1),
       ));
+      // Set published stories
+      $published_stories = db_query('
+          SELECT DISTINCT nid_target, n.title
+          FROM {heartbeat_activity} ha
+          INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid
+          WHERE message_id IN (:status)
+          ', array(':nid' => $variables['nid'], ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
+      )->fetchAllKeyed(0);
+      foreach ($published_stories as $k => $v) {
+        $variables['published_stories'] .= ' ' . l($v, 'node/' . $k);
+      }
     }
     //Add activity report with status
     $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
@@ -733,10 +740,6 @@ function checkdesk_preprocess_node(&$variables) {
       }
     }
 
-    // HACK: Refs #1338, add a unique class to the ctools modal for a report
-    if (arg(0) == 'report-view-modal') {
-      $variables['modal_class_hack'] = '<script>jQuery("#modalContent, #modalBackdrop").addClass("modal-report");</script>';
-    }
 
     if (isset($variables['content']['field_link'])) {
       $field_link_rendered = render($variables['content']['field_link']);
