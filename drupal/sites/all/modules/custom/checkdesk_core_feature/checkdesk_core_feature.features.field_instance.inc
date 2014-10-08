@@ -773,7 +773,7 @@ function checkdesk_core_feature_field_default_field_instances() {
     'entity_type' => 'node',
     'exclude_cv' => 0,
     'field_name' => 'field_stories',
-    'label' => 'Stories',
+    'label' => 'Story',
     'required' => 0,
     'settings' => array(
       'exclude_cv' => FALSE,
@@ -1169,7 +1169,6 @@ function checkdesk_core_feature_field_default_field_instances() {
   t('Lead image');
   t('Media');
   t('Reason');
-  t('Stories');
   t('Story');
   t('Upload some file to be attached to content.');
 
