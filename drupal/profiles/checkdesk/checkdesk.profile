@@ -245,6 +245,15 @@ function cd_apps_form_submit($form, &$form_state) {
   module_enable(array('checkdesk_featured_stories_feature'));
   features_revert(array('checkdesk_core_feature' => array('translations', 'menu_links', 'uuid_node')));
   features_revert(array('checkdesk_featured_stories_feature' => array('user_permission')));
+  // Copy default user picture
+  $uri = variable_get('user_picture_default', '');
+  if ($uri) {
+    $default_picture =  basename($uri);
+    $directory = str_replace($default_picture, '', $uri);
+    drupal_mkdir($directory, NULL, TRUE);
+    // Copy default picture
+    file_unmanaged_copy('sites/all/themes/checkdesk/assets/imgs/' . $default_picture, $directory, FILE_EXISTS_REPLACE );
+  }
 }
 
 /**
