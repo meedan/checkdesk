@@ -46871,5 +46871,445 @@ This was an auto-generated email from !site; please do not respond directly to t
     'plid' => 'd91ecc37b1d237e7ab90ff60ad379353',
     'plural' => 5,
   );
+  $translations['ar:field']['0367519a2eeb0f7c3317ae7732f8e523'] = array(
+    'source' => 'Body',
+    'context' => 'body:page:label',
+    'location' => 'field:body:page:label',
+    'translation' => 'المحتوى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['0858ab2077ed271bb86d469d83bc6499'] = array(
+    'source' => 'Comment',
+    'context' => 'comment_body:comment_node_article:label',
+    'location' => 'field:comment_body:comment_node_article:label',
+    'translation' => 'التعليق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['10f0a1d9e764e142178fcc7b87447fdd'] = array(
+    'source' => 'Comment',
+    'context' => 'comment_body:comment_node_media:label',
+    'location' => 'field:comment_body:comment_node_media:label',
+    'translation' => 'التعليق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['125f56179b693b24fdde52339970b200'] = array(
+    'source' => 'Comment',
+    'context' => 'comment_body:comment_node_post:label',
+    'location' => 'field:comment_body:comment_node_post:label',
+    'translation' => 'التعليق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['199b1a676eb1d459b958f4d3353ceb98'] = array(
+    'source' => 'Comment',
+    'context' => 'comment_body:comment_node_discussion:label',
+    'location' => 'field:comment_body:comment_node_discussion:label',
+    'translation' => 'التعليق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['1a206884c12fc2eb51849b188507640f'] = array(
+    'source' => 'Comment',
+    'context' => 'comment_body:comment_node_page:label',
+    'location' => 'field:comment_body:comment_node_page:label',
+    'translation' => 'التعليق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['1b0ff4dd282a9f2e6ebbc631b8cc581a'] = array(
+    'source' => 'Attachment',
+    'context' => 'field_attachment:comment_node_discussion:label',
+    'location' => 'field:field_attachment:comment_node_discussion:label',
+    'translation' => 'مرفقات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['33895ff9c24f27f9070d8a905e6b1e08'] = array(
+    'source' => 'Body',
+    'context' => 'body:article:label',
+    'location' => 'field:body:article:label',
+    'translation' => 'المحتوى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['506d65ddd7b5fbd4b76b1ae0b9461216'] = array(
+    'source' => 'Description',
+    'context' => 'body:media:label',
+    'location' => 'field:body:media:label',
+    'translation' => 'الوصف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['5af8ee85abe76eb31c17c7dd48fee8f3'] = array(
+    'source' => 'Reason',
+    'context' => 'field_reason:spam:label',
+    'location' => 'field:field_reason:spam:label',
+    'translation' => 'السبب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['66b873725237788cb3f1ed4a89a95988'] = array(
+    'source' => 'Fact-checking status',
+    'context' => 'field_rating:media:label',
+    'location' => 'field:field_rating:media:label',
+    'translation' => 'حالة التحقق من صحة المعلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['6caecad86e78083b9cf8525bc53ca181'] = array(
+    'source' => 'Body',
+    'context' => 'body:post:label',
+    'location' => 'field:body:post:label',
+    'translation' => 'المحتوى',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['7684a7df2325f2729e7de796f3ca1899'] = array(
+    'source' => 'Story',
+    'context' => 'field_desk:post:label',
+    'location' => 'field:field_desk:post:label',
+    'translation' => 'الموضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['9810583d5816898e30b4c16172caf32a'] = array(
+    'source' => 'Media',
+    'context' => 'field_link:media:label',
+    'location' => 'field:field_link:media:label',
+    'translation' => 'رابط الميديا',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['ae3d8c1a1b2798487836735a185857b3'] = array(
+    'source' => 'Reason',
+    'context' => 'field_reason:factcheck:label',
+    'location' => 'field:field_reason:factcheck:label',
+    'translation' => 'السبب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['ae936378eee55faa55542ca5161f26fd'] = array(
+    'source' => 'Story',
+    'context' => 'field_stories:media:label',
+    'location' => 'field:field_stories:media:label',
+    'translation' => 'الخبر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['c6dca5331105c2ae1c8e54c19f424767'] = array(
+    'source' => 'Story',
+    'context' => 'body:discussion:label',
+    'location' => 'field:body:discussion:label',
+    'translation' => 'الموضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['ce712a6b64fc4b03e3e3bb31c91590db'] = array(
+    'source' => 'Reason',
+    'context' => 'field_reason:graphic:label',
+    'location' => 'field:field_reason:graphic:label',
+    'translation' => 'السبب',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['088c54353062fa1753915940e4554a57'] = array(
+    'source' => 'Supported by Meedan',
+    'context' => 'item:93091458-8370-4ca5-9fae-2ac710021e68:title',
+    'location' => 'menu:item:93091458-8370-4ca5-9fae-2ac710021e68:title',
+    'translation' => 'بدعم من ميدان',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['0eb75c5777c828137fbcf49daefd4d36'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:09718b34-de51-4935-bff9-923c9deff48e:title',
+    'location' => 'menu:item:09718b34-de51-4935-bff9-923c9deff48e:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['17e27e281a78c343adb7d06e100ebe3f'] = array(
+    'source' => 'Notifications',
+    'context' => 'item:5626ddfd-e3f6-7ba4-f9ff-f8c36ff9d636:title',
+    'location' => 'menu:item:5626ddfd-e3f6-7ba4-f9ff-f8c36ff9d636:title',
+    'translation' => 'تنبيهات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['45faaba81f618ac1d4e843e6cdc83305'] = array(
+    'source' => 'Powered by',
+    'context' => 'item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
+    'location' => 'menu:item:46a9effa-0a43-41c2-a150-dee7ed74c01f:title',
+    'translation' => 'تطوير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['4a96915db3dd45df3b923cc0948cd434'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'location' => 'menu:item:1aabba86-d2db-4ee0-9956-24815b9ad3b1:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['52ba2c9f975966a942f5583ae8fd5453'] = array(
+    'source' => 'Logout',
+    'context' => 'item:391be377-17db-a134-4d21-c6742d07ca4e:title',
+    'location' => 'menu:item:391be377-17db-a134-4d21-c6742d07ca4e:title',
+    'translation' => 'تسجيل خروج',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['586d5b816e7ac4d0b6e436f7ebce4323'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
+    'location' => 'menu:item:64169bde-0a83-4c3c-96b8-029a860cdd3e:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['5cf36afb9ce6ecdf2895b7b364262da2'] = array(
+    'source' => 'Main menu',
+    'context' => 'menu:main-menu:title',
+    'location' => 'menu:menu:main-menu:title',
+    'translation' => 'القائمة الرئيسية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['5d1ed88d7b62faf70088c982fa425477'] = array(
+    'source' => 'My account',
+    'context' => 'item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title',
+    'location' => 'menu:item:42e9e86e-42ae-8d04-0d50-e42bde8cbbda:title',
+    'translation' => 'حسابي',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['5f86b2e80a57e6e9aea1ceeed72fadfd'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
+    'location' => 'menu:item:90119a03-9ff0-9324-11f8-f501ab2a5135:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['66124c1bf88fc3c69212b7baa7ec4020'] = array(
+    'source' => 'Create story',
+    'context' => 'item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'location' => 'menu:item:c4c92459-99c2-52b4-958e-8c889d557fed:title',
+    'translation' => 'أنشئ خبر',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['6af2b2a74a46e161bf78b738d6778c87'] = array(
+    'source' => 'Update story',
+    'context' => 'item:d1a4a4e9-b0c3-8d94-11a4-34f35bda25c1:title',
+    'location' => 'menu:item:d1a4a4e9-b0c3-8d94-11a4-34f35bda25c1:title',
+    'translation' => 'تحديث موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['7190454c99aee4c465d058e2ead671b5'] = array(
+    'source' => 'Edit fact-checking statement',
+    'context' => 'item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
+    'location' => 'menu:item:2643d8bd-eb4d-16f4-1928-3013705c11af:title',
+    'translation' => 'حرر بيان التحقق من صحة المعلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['844ea0efec81ac18372868128eab065f'] = array(
+    'source' => 'Compose update',
+    'context' => 'item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
+    'location' => 'menu:item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
+    'translation' => 'اكتب تحديث',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['84b3c2c103f5c88ee8936d99839a16f2'] = array(
+    'source' => 'Create story',
+    'context' => 'item:edc54df9-4aa8-bf84-dd89-ca0a351af23b:title',
+    'location' => 'menu:item:edc54df9-4aa8-bf84-dd89-ca0a351af23b:title',
+    'translation' => 'أنشئ موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['99587ebeab067902fc9abbe600007820'] = array(
+    'source' => 'Submit report',
+    'context' => 'item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title',
+    'location' => 'menu:item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title',
+    'translation' => 'أضف تقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['b48b9a053ce15999a9da52bbe0a59d88'] = array(
+    'source' => 'Sign in',
+    'context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'location' => 'menu:item:9a684326-a352-d454-517b-878bb9468e91:title',
+    'translation' => 'تسجيل دخول',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['ccad5ea8329325c1f37b39e288708bcc'] = array(
+    'source' => 'Update story',
+    'context' => 'item::title',
+    'location' => 'menu:item::title',
+    'translation' => 'تحديث موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['d018096dec8b344b7ebb52b9633093e4'] = array(
+    'source' => 'Take tour',
+    'context' => 'item::title',
+    'location' => 'menu:item::title',
+    'translation' => 'تحديث موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['d992247deb6fe04e5f08c9bf081af1f4'] = array(
+    'source' => 'Submit report',
+    'context' => 'item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
+    'location' => 'menu:item:6c3c1244-f5c9-64f4-4575-27d76fef7679:title',
+    'translation' => 'أضف تقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['dfbb19bb84cd0197993b8291d5358659'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:16dcd9b5-d588-4ee8-a112-d99ce98f0f11:title',
+    'location' => 'menu:item:16dcd9b5-d588-4ee8-a112-d99ce98f0f11:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['f43197b87055e4e538fac1fb2ede2082'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:37f9c620-24cb-4b3d-9f9d-abf9c5bb0a9d:title',
+    'location' => 'menu:item:37f9c620-24cb-4b3d-9f9d-abf9c5bb0a9d:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['f474d46deac46f4afa0574c64664d368'] = array(
+    'source' => 'Information',
+    'context' => 'item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'location' => 'menu:item:02e041f6-6c32-c594-8d35-79cb52a371d8:title',
+    'translation' => 'معلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['f62799e0b42171ab73ee0e833dabe923'] = array(
+    'source' => 'Edit fact-checking statement',
+    'context' => 'item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
+    'location' => 'menu:item:4099b12c-67ba-76a4-95fc-7aedf02ef067:title',
+    'translation' => 'حرر بيان التحقق من صحة المعلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['f7002eb573f7ed7cd44f52ebca8a0b5f'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'location' => 'menu:item:dbb94a78-169f-6a54-f507-7701e610920a:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['fa1d5eeb06066a579cb6222441a37541'] = array(
+    'source' => 'Administer users',
+    'context' => 'item:90476ce1-c57a-48e8-b95a-abc56aae9886:title',
+    'location' => 'menu:item:90476ce1-c57a-48e8-b95a-abc56aae9886:title',
+    'translation' => 'إدارة المستخدمين',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['12813189e549be09a79e6442d4671fac'] = array(
+    'source' => 'Undetermined',
+    'context' => 'term:ba27bacf-4d99-4c1d-bdce-a7fb35fafd43:name',
+    'location' => 'taxonomy:term:ba27bacf-4d99-4c1d-bdce-a7fb35fafd43:name',
+    'translation' => 'غير معروف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['1a58c846423a41abf4262dc9e2c4b61f'] = array(
+    'source' => 'In Progress',
+    'context' => 'term:502ab059-26b9-4947-92e5-3e1a6de4d91e:name',
+    'location' => 'taxonomy:term:502ab059-26b9-4947-92e5-3e1a6de4d91e:name',
+    'translation' => 'جارٍ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['1c2b3ccbfcd5f6eee5394ab2a9f89e5f'] = array(
+    'source' => 'False',
+    'context' => 'term:3:name',
+    'location' => 'taxonomy:term:3:name',
+    'translation' => 'خطأ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['1ce09cf2f73f699d9eeda14385be399c'] = array(
+    'source' => 'Verified',
+    'context' => 'term:3c7ab283-8d43-4913-a293-0db16f025fb1:name',
+    'location' => 'taxonomy:term:3c7ab283-8d43-4913-a293-0db16f025fb1:name',
+    'translation' => 'صحيح',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['2498d77005c1421b9b649187d404882f'] = array(
+    'source' => 'False',
+    'context' => 'term:547bb9d2-1dd3-4116-9001-61dfdf877a78:name',
+    'location' => 'taxonomy:term:547bb9d2-1dd3-4116-9001-61dfdf877a78:name',
+    'translation' => 'خطأ',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['35af701ac47f0324dd10422ce1bfcdb4'] = array(
+    'source' => 'Homs',
+    'context' => 'term:4f914782-a8c4-4979-b93b-a5a1ebf12998:name',
+    'location' => 'taxonomy:term:4f914782-a8c4-4979-b93b-a5a1ebf12998:name',
+    'translation' => 'حمص',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['5d80392aa8a464926f90ec69314df555'] = array(
+    'source' => 'Undetermined',
+    'context' => 'term:5:name',
+    'location' => 'taxonomy:term:5:name',
+    'translation' => 'لا يمكن التأكد من صحة المعلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['e0614833806d7345c3147ae56df31c6a'] = array(
+    'source' => 'Not Applicable',
+    'context' => 'term:4:name',
+    'location' => 'taxonomy:term:4:name',
+    'translation' => 'لا ينطبق',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['e183e793254d72dba9d591f1c500f24e'] = array(
+    'source' => 'In Progress',
+    'context' => 'term:2:name',
+    'location' => 'taxonomy:term:2:name',
+    'translation' => 'جار',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['f5573f68669e8dadaa039f1125401556'] = array(
+    'source' => 'Verified',
+    'context' => 'term:1:name',
+    'location' => 'taxonomy:term:1:name',
+    'translation' => 'صحيح',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['ff776b8cf6a645e574b270dff9ad105e'] = array(
+    'source' => 'Not Applicable',
+    'context' => 'term:a312dcad-5904-423c-9be9-d8537a2e72cb:name',
+    'location' => 'taxonomy:term:a312dcad-5904-423c-9be9-d8537a2e72cb:name',
+    'translation' => 'لا ينطبق',
+    'plid' => 0,
+    'plural' => 0,
+  );
   return $translations;
 }
