@@ -2768,6 +2768,9 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
       $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
     }
   }
+  foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
+    $option = decode_entities($option);
+  }
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
 }
