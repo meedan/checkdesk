@@ -15,3 +15,13 @@ Install
 
 3) Now when you create a new node, a 'Save as Draft' button will be
    added to the form.
+
+
+Developers
+----------
+If your module adds a button to the node form module and are using the
+"Skip required validation" option you can allow your button to also skip
+required validation by adding the #skip_required_validation property to your
+button. For example, if you are adding a button 'my_button' to the form actions
+you would add this property also:
+$form['actions']['my_button']['#skip_required_validation'] = TRUE;
