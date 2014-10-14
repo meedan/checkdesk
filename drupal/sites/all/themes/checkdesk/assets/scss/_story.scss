@@ -102,6 +102,7 @@
   // }
 
   figure {
+    @include reset-box-model;
     margin-bottom: 30px;
     blockquote {
       // p { @include icon("camera"); }
