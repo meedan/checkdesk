@@ -2570,6 +2570,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['102cd9777c5cb9b3fdff5c8c1fcccf5f'] = array(
+    'source' => 'Note: Your story won\'t be published to the liveblog homepage until you add an update to your story.',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => '.ملحوظة: لن يتم نشر موضوعك إلا بعد إضافة تحديث له',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['103357e3e40a9c0e4e9d36110f7bbc7a'] = array(
     'source' => 'Thailand',
     'context' => '',
@@ -33270,7 +33278,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['b9f5c797ebbf55adccdd8539a65a0241'] = array(
     'source' => 'Disabled',
     'context' => '',
-    'location' => '',
+    'location' => '; sites/all/modules/contrib/auto_nodetitle/auto_nodetitle.js; sites/all/modules/contrib/save_draft/save_draft.js',
     'translation' => 'مُعَطَّل',
     'plid' => 0,
     'plural' => 0,

@@ -1104,7 +1104,11 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_lead_image']['#suffix'] = '</div">';
   $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
   $form['actions']['submit']['#submit'][] = '_redirect_story';
-
+  $form['actions']['submit']['#value'] = t('Create story');
+  $form['actions']['submit']['#suffix'] =
+    '<div class="cd-create-story-tooltip">'.
+    t('Note: Your story won\'t be published to the liveblog homepage until you add an update to your story.') .
+    '</div>';
   if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
     return;
   }
