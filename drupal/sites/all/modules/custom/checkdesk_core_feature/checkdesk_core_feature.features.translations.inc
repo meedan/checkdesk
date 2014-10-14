@@ -2574,7 +2574,7 @@ This was an auto-generated email from !site, please do not respond directly to t
     'source' => 'Note: Your story won\'t be published to the liveblog homepage until you add an update to your story.',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => '.ملحوظة: لن يتم نشر موضوعك إلا بعد إضافة تحديث له',
+    'translation' => 'ملحوظة: لن يتم نشر موضوعك إلا بعد إضافة تحديث له.',
     'plid' => 0,
     'plural' => 0,
   );
