@@ -484,8 +484,6 @@
     .story-blogger-status-online .blogger-status-indicator { background-color: $green; }
   }
 
-  
-
   // compose / create update form
   .compose-update-form {
     @include ctb-clearfix();
@@ -598,6 +596,20 @@
     }
   }
 }
+
+// create story note 
+.node-discussion-form {
+  .form-actions .description {
+    padding-top: 10px;
+    span {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $yellow;
+      font-weight: 700;
+    }
+  }
+}
+
 
 // story lists
 .stories {
