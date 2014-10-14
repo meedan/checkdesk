@@ -765,6 +765,20 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_discussion';
+  $strongarm->value = '0';
+  $export['language_content_type_discussion'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_media';
+  $strongarm->value = '0';
+  $export['language_content_type_media'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'language_content_type_page';
   $strongarm->value = '2';
   $export['language_content_type_page'] = $strongarm;
@@ -1321,16 +1335,16 @@ return _checkdesk_core_auto_title($node);
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'save_draft_enabled_discussion';
-  $strongarm->value = 0;
-  $export['save_draft_enabled_discussion'] = $strongarm;
+  $strongarm->name = 'save_draft_enabled_post';
+  $strongarm->value = 1;
+  $export['save_draft_enabled_post'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'save_draft_enabled_media';
+  $strongarm->name = 'save_draft_skip_required_post';
   $strongarm->value = 0;
-  $export['save_draft_enabled_media'] = $strongarm;
+  $export['save_draft_skip_required_post'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
