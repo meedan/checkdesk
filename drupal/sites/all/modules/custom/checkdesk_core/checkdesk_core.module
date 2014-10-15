@@ -662,6 +662,8 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     $update_anchor = 'update-' . $node->nid;
     $url = url('node/'.$parent_story_id, array('absolute' => TRUE, 'alias' => TRUE, 'fragment' => $update_anchor, 'language' => $language));
+    // Replace anchor # with %23 to force anchor on share link
+    $url = str_replace('#' . $update_anchor, '%23' . $update_anchor, $url);
   }
   else {
     $url = url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
