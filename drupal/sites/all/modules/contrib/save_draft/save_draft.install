@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the save draft module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function save_draft_uninstall() {
+  foreach (node_type_get_names('names') as $type => $type_name) {
+    variable_del('save_draft_enabled_' . $type);
+    variable_del('save_draft_skip_required_' . $type);
+  }
+}

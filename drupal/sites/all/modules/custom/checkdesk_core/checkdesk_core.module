@@ -662,6 +662,8 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     $parent_story_id = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     $update_anchor = 'update-' . $node->nid;
     $url = url('node/'.$parent_story_id, array('absolute' => TRUE, 'alias' => TRUE, 'fragment' => $update_anchor, 'language' => $language));
+    // Replace anchor # with %23 to force anchor on share link
+    $url = str_replace('#' . $update_anchor, '%23' . $update_anchor, $url);
   }
   else {
     $url = url('node/' . $node->nid, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
@@ -1104,7 +1106,11 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_lead_image']['#suffix'] = '</div">';
   $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
   $form['actions']['submit']['#submit'][] = '_redirect_story';
-
+  $form['actions']['submit']['#value'] = t('Create story');
+  $form['actions']['submit']['#suffix'] =
+    '<div class="description">'.
+    t('<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.') .
+    '</div>';
   if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
     return;
   }
@@ -2768,6 +2774,9 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
       $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
     }
   }
+  foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
+    $option = decode_entities($option);
+  }
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
 }
@@ -3145,4 +3154,24 @@ function _checkdesk_render_footnotes($node) {
   $html .= '  </div>';
   $html .= '  </div>';
   return $html;
+}
+
+/**
+ * Return active story
+ */
+function _checkdesk_active_story() {
+  $time =  strtotime("-". variable_get('checkdesk_active_story_time', '1 week'));
+  //TODO get stories with recent activity
+  $result = db_query_range('
+        SELECT nid, title
+        FROM {node} n
+        WHERE n.type = :type AND n.created > :time
+        ORDER BY nid DESC
+  ', 0, 10, array(':type' => 'discussion', ':time' => $time))->fetchAllKeyed(0);
+  $items = array();
+  print_r($result);
+  foreach ($result as $k => $v) {
+    $items[] = l($v, 'node/'. $k);
+  }
+  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'checkdesk-active-story')));
 }
