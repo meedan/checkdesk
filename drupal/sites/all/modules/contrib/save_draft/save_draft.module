@@ -6,66 +6,112 @@
  */
 
 /**
+ * Save draft functionality is disabled.
+ */
+define('SAVE_DRAFT_DISABLED', 0);
+
+/**
+ * Save draft functionality is enabled.
+ */
+define('SAVE_DRAFT_ENABLED', 1);
+
+/**
  * Implements hook_permission().
  */
 function save_draft_permission() {
   return array(
     'save draft' => array(
       'title' => t('Save content as draft'),
-      'description' => t('Allows a user to save a draft of their content.'),
+      'description' => t('Allows people with permission to view and edit their own unpublished content to change the published state of their content when saving it.'),
     ),
   );
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * For users with permission to choose the published state of the node being
+ * edited, improves the content editing workflow by removing the Published
+ * checkbox and replacing the Save button with two buttons: the original for
+ * saving the node as published, and a new one for saving the node as
+ * unpublished.
  */
 function save_draft_form_node_form_alter(&$form, &$form_state) {
-  if (user_access('save draft')) {
-    $form['options']['#title'] = t('Promotion settings');
-    $form['options']['#attributes']['class'] = array('node-promotion-options');
-    $form['options']['#attached'] = array(
-      'js' => array(
-        'vertical-tabs' => drupal_get_path('module', 'save_draft') . '/save_draft.js',
-      ),
-    );
-    $form['options']['status'] = false;
+  if (variable_get('save_draft_enabled_' . $form['#node']->type, SAVE_DRAFT_ENABLED) && save_draft_access($form, $form_state)) {
+    // Remove the status checkbox from the options fieldset, and adjust the
+    // fieldset accordingly.
+    if (isset($form['options']['status'])) {
+      $form['options']['status']['#access'] = FALSE;
+      $form['options']['#title'] = t('Promotion settings');
+      $form['options']['#attributes']['class'] = array('node-promotion-options');
+      $form['options']['#attached'] = array(
+        'js' => array(
+          'vertical-tabs' => drupal_get_path('module', 'save_draft') . '/save_draft.js',
+        ),
+      );
+    }
+
+    // Add a validation handler to set $form_state['values']['status'] based on
+    // which button is clicked.
     if (empty($form['#validate'])) {
       $form['#validate'] = array();
     }
     array_unshift($form['#validate'], 'save_draft_validate');
-    if (isset($form['nid']['#value'])) {
-      if ($form['#node']->status == 1) {
-        $form['actions']['draft'] = array(
-          '#type' => 'submit',
-          '#class' => 'form-submit',
-          '#value' => t('Unpublish'),
-          '#weight' => '9',
-          '#submit' => array('save_draft_submit')
-        );
-        $form['actions']['submit']['#value'] = t('Save');
-      }
-      else {
-        $form['actions']['draft'] = array(
-          '#type' => 'submit',
-          '#class' => 'form-submit',
-          '#value' => t('Save'),
-          '#weight' => '0',
-          '#submit' => array('save_draft_submit')
-        );
-        $form['actions']['submit']['#value'] = t('Publish');
-      }
-    }
-    else {
-      $form['actions']['draft'] = array(
-        '#type' => 'submit',
-        '#class' => 'form-submit',
-        '#value' => t('Save as draft'),
-        '#weight' => '9',
-        '#submit' => array('save_draft_submit')
-      );
+
+    // The form already has a $form['actions']['submit'] button, which we'll
+    // use for saving the node as published. Here, add a second button for
+    // saving the node as unpublished.
+    $form['actions']['draft'] = array(
+      '#type' => 'submit',
+      '#class' => 'form-submit',
+      '#submit' => array('save_draft_draft_button_submit'),
+      // Between the default Save and Preview buttons.
+      '#weight' => 9,
+    );
+
+    // Button labels when adding a new node.
+    if (!isset($form_state['node']->nid)) {
       $form['actions']['submit']['#value'] = t('Publish');
+      $form['actions']['draft']['#value'] = t('Save as draft');
     }
+    // Button labels when editing an existing draft.
+    elseif (!$form_state['node']->status) {
+      $form['actions']['submit']['#value'] = t('Publish');
+      $form['actions']['draft']['#value'] = t('Save');
+      // Move the draft button before the submit button, so that the
+      // "Save" action is always first when editing existing content.
+      $form['actions']['draft']['#weight'] = 0;
+    }
+    // Button labels when editing an already published node.
+    else {
+      $form['actions']['submit']['#value'] = t('Save');
+      $form['actions']['draft']['#value'] = t('Unpublish');
+    }
+
+    if (variable_get('save_draft_skip_required_' . $form['#node']->type, FALSE)) {
+      // Add a flag to buttons that can skip required validation.
+      $form['actions']['draft']['#skip_required_validation'] = TRUE;
+      if (isset($form['actions']['preview'])) {
+        $form['actions']['preview']['#skip_required_validation'] = TRUE;
+      }
+      if (isset($form['actions']['delete'])) {
+        $form['actions']['delete']['#skip_required_validation'] = TRUE;
+      }
+      // Add an after build callback so we can modify the form before validation
+      // in the case that a button is clicked that can skip validation.
+      $form['#after_build'][] = 'save_draft_form_after_build';
+    }
+  }
+}
+
+/**
+ * Submit handler for the save as draft button.
+ *
+ * Calls all submit handlers on the save button.
+ */
+function save_draft_draft_button_submit($form, &$form_state) {
+  foreach ($form['actions']['submit']['#submit'] as $submit) {
+    $submit($form, $form_state);
   }
 }
 
@@ -84,8 +130,131 @@ function save_draft_validate($form, &$form_state) {
 }
 
 /**
- * Handles save draft form submission
+ * Implements hook_form_FORM_ID_alter() for the node type form.
  */
-function save_draft_submit($form, &$form_state) {
-  node_form_submit($form, $form_state);
+function save_draft_form_node_type_form_alter(&$form, &$form_state) {
+  $enabled = variable_get('save_draft_enabled_' . $form['#node_type']->type, SAVE_DRAFT_ENABLED);
+
+  $form['save_draft'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Enable "Save draft" button'),
+    '#weight' => 1,
+    '#collapsible' => TRUE,
+    '#collapsed' => !$enabled,
+    '#group' => 'additional_settings',
+    '#attached' => array(
+      'js' => array(
+        'save-draft' => drupal_get_path('module', 'save_draft') . '/save_draft.js',
+      ),
+    ),
+  );
+
+  $form['save_draft']['save_draft_enabled'] = array(
+    '#title' => t('Enabled'),
+    '#type' => 'checkbox',
+    '#description' => t('Enable save as draft functionality for this content type.'),
+    '#default_value' => $enabled,
+  );
+
+  $form['save_draft']['save_draft_skip_required'] = array(
+    '#title' => t('Skip required validation'),
+    '#type' => 'checkbox',
+    '#description' => t('Allow users to save a draft without having entered a value for required fields. If unchecked, all required fields must be filled before a draft can be saved.'),
+    '#default_value' => variable_get('save_draft_skip_required_' . $form['#node_type']->type, FALSE),
+  );
+}
+
+/**
+ * Returns TRUE if the currently logged in user has permission to choose the published state for the node being edited.
+ */
+function save_draft_access($form, &$form_state) {
+  // Determine if the user has access to publish / unpublish this node via the
+  // status checkbox.
+  $element = $form;
+  $access = TRUE;
+  foreach (array('options', 'status') as $key) {
+    if (!isset($element[$key])) {
+      $access = FALSE;
+      break;
+    }
+    $element = $element[$key];
+    if ((isset($element['#access']) && !$element['#access']) || !empty($element['#disabled'])) {
+      $access = FALSE;
+      break;
+    }
+  }
+
+  // If not, but the user has the 'save draft' permission, determine if the user
+  // has access to view and edit this node if it were unpublished. Don't allow a
+  // user to save a draft that they won't be able to get back to.
+  if (!$access && user_access('save draft')) {
+    $node = clone($form_state['node']);
+    $node->status = FALSE;
+
+    // This might be a new node, and node_access() throws PHP warnings if nid
+    // isn't defined.
+    if (!isset($node->nid)) {
+      $node->nid = NULL;
+    }
+
+    $access = node_access('update', $node) && node_access('view', $node);
+  }
+
+  return $access;
+}
+
+/**
+ * Implements hook_node_type_delete().
+ */
+function save_draft_node_type_delete($info) {
+  variable_del('save_draft_enabled_' . $info->type);
+}
+
+/**
+ * After build callback for the save draft module.
+ *
+ * This is used to modify the form after it has been submitted, but before it
+ * has been validated.
+ * This means we can remove required flags if someone has pressed the save draft
+ * button.
+ *
+ * @param array $element
+ *   An associative array containing the structure of a form element.
+ *   In this case the form.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   An associative array containing the structure of a form element.
+ */
+function save_draft_form_after_build($element, &$form_state) {
+  // Check that the form has been submitted.
+  if ($form_state['process_input']) {
+    // If the save draft button was pressed.
+    if (!empty($form_state['triggering_element']['#skip_required_validation'])) {
+      _save_draft_remove_required($element);
+    }
+  }
+  return $element;
+}
+
+/**
+ * Make all elements of a form not required.
+ *
+ * This is used only when saving drafts, so that users can save an unfinished
+ * form that is missing required values.
+ *
+ * @param array $elements
+ *   An associative array containing the structure of a form.
+ */
+function _save_draft_remove_required(&$elements) {
+  // Recurse through all children.
+  foreach (element_children($elements) as $key) {
+    if (isset($elements[$key]) && $elements[$key]) {
+      _save_draft_remove_required($elements[$key]);
+    }
+  }
+  if (!empty($elements['#required'])) {
+    $elements['#required'] = FALSE;
+  }
 }

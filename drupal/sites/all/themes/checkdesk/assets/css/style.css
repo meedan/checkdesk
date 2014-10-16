@@ -8218,6 +8218,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-meta .content-actions .share-on > a {
   float: right;
+  cursor: pointer;
   font-weight: 700;
   color: #b7bcc0;
   font-size: 14px;
@@ -8891,6 +8892,16 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-comments .fb-comments {
   margin-top: 12px;
+}
+
+.node-discussion-form .form-actions .description {
+  padding-top: 10px;
+}
+.node-discussion-form .form-actions .description span {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffc40d;
+  font-weight: 700;
 }
 
 .stories .story-row {

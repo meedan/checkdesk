@@ -3,6 +3,8 @@
     <div class="tweet-holder">
       <?php if (isset($embed->html)) : ?>
         <?php print $embed->html; ?>
+      <?php else: ?>
+        <?php print theme('image', array('path' => $embed->thumbnail_url)); ?>
       <?php endif; ?>
     </div>
   </div>

@@ -4,7 +4,11 @@
     <div class="media-holder media-inline-holder">
       <div class="media">
         <div class="inline-holder inline-tweet-holder tweet-holder">
-          <?php print $embed->html; ?>
+          <?php if (isset($embed->html)) : ?>
+            <?php print $embed->html; ?>
+          <?php else: ?>
+            <?php print theme('image', array('path' => $embed->thumbnail_url)); ?>
+          <?php endif; ?>
         </div>
       </div>
       <?php if(isset($report_status['status'])) : ?>
