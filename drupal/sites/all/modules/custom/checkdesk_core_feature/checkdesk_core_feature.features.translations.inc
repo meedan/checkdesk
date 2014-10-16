@@ -2571,10 +2571,10 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translations['ar:default']['102cd9777c5cb9b3fdff5c8c1fcccf5f'] = array(
-    'source' => 'Note: Your story won\'t be published to the liveblog homepage until you add an update to your story.',
+    'source' => '<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'ملحوظة: لن يتم نشر موضوعك إلا بعد إضافة تحديث له.',
+    'translation' => '<span>ملحوظة:</span> لن يتم نشر موضوعك إلا بعد إضافة تحديث له.',
     'plid' => 0,
     'plural' => 0,
   );
