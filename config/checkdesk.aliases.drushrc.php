@@ -11,10 +11,11 @@ $aliases['prod'] = array(
     '@prod.thetribune', 
     '@prod.madamasr', 
     '@prod.smex',
-    '@prod.bellingcat',
-    '@prod.globalvoices'
+    '@prod.bellingcat'
   ),
 );
+// temporarily remove gv
+//    '@prod.globalvoices'
 $aliases['qa'] = array(
   'site-list' => array('@qa.meedan'),
 );
