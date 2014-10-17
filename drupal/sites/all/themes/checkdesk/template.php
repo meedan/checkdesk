@@ -671,6 +671,7 @@ function checkdesk_preprocess_node(&$variables) {
         '!interval' => format_interval(time() - $variables['created'], 1),
       ));
       // Set published stories
+      $variables['published_stories'] = '';
       $published_stories = db_query('
           SELECT DISTINCT nid_target, n.title
           FROM {heartbeat_activity} ha
