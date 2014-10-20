@@ -104,11 +104,12 @@ $aliases['qa.meedan'] = array (
 // dev aliases
 $aliases['dev-alias'] = array (
   'remote-host' => 'dev.checkdesk.org',
-  'ssh-options' => '-p 43896',
+  'ssh-options' => '-p 9922',
   'path-aliases' => array (
     '%drush' => '/usr/share/php/drush',
   ),
 );
+
 $aliases['dev.meedan'] = array (
   'parent' => '@dev-alias',
   'uri' => 'dev.checkdesk.org',
