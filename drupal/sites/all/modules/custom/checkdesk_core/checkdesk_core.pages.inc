@@ -79,7 +79,7 @@ function _checkdesk_story_links($nid) {
 
     if (user_access('create post content')) {
       $items[] = array(
-        'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid, drupal_get_destination()))),
+        'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid))),
         'class' => array('compose-update'),
       );
     }
