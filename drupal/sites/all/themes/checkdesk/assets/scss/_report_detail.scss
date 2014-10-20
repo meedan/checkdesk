@@ -7,4 +7,8 @@
     a { @include ctb-linkColor($strongBlue80); }
   }
 
+  .separator {
+  	margin-#{$from-direction}: 1px;
+  }
+
 }
