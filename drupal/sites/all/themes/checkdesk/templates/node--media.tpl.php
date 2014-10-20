@@ -30,7 +30,6 @@
           </div>
         <?php endif; ?>
       </div>
-
       <?php if (isset($published_stories)) : ?>
       <section class="report-detail">
           <div class="checkdesk-story-wrapper">
