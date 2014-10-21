@@ -672,6 +672,7 @@ function checkdesk_preprocess_node(&$variables) {
       ));
       // Set published stories
       $variables['published_stories'] = '';
+      $published_stories_links = array();
       $published_stories = db_query('
           SELECT DISTINCT nid_target, n.title
           FROM {heartbeat_activity} ha
@@ -680,8 +681,9 @@ function checkdesk_preprocess_node(&$variables) {
           ', array(':nid' => $variables['nid'], ':language' => $language->language ,':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
       )->fetchAllKeyed(0);
       foreach ($published_stories as $k => $v) {
-        $variables['published_stories'] .= ' ' . l($v, 'node/' . $k);
+         array_push($published_stories_links, l($v, 'node/' . $k));
       }
+      $variables['published_stories'] .= implode('<span class="separator">,</span> ', $published_stories_links);
     }
     //Add activity report with status
     $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
