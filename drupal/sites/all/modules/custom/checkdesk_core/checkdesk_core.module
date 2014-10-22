@@ -2762,16 +2762,24 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   // Adjust edit node form
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
+  $as_extra = array();
   if (isset($form['nid']['#value'])) {
     $node = $form['#node'];
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
+    if (isset($node->field_stories[LANGUAGE_NONE][0]['target_id'])) {
+      $as_extra[] = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+    }
   }
   else {
     //set default story if exist.
     if (isset($_GET['ref_nid'])) {
       $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
+      $as_extra[] = $_GET['ref_nid'];
     }
   }
+  // Limit stories options to active stories only.
+  $active_stories = array('_none' => t('- None -')) +  _checkdesk_active_story(array('theme' => FALSE, 'extra_nids' => $as_extra));
+  $form['field_stories'][LANGUAGE_NONE]['#options'] = $active_stories;
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
   }
@@ -3155,15 +3163,28 @@ function _checkdesk_render_footnotes($node) {
 }
 
 /**
- * Return active story
+ * @param array $options
+ *   An associative array with the following keys
+ *   theme : bool(default TRUE) set TRUE to return active stories as HTML list F
+ *           FALSE to return associative array nid => title
+ *   extra_nids : array with nids to be added to active stories.
+ *   time : the base item for active stories
+ *
+ * @return string/array
  */
-function _checkdesk_active_story() {
-  $time =  strtotime("-". variable_get('checkdesk_active_story_time', '1 week'));
+function _checkdesk_active_story($options = array()) {
+  $time =  isset($options['time']) ? $options['time'] : strtotime("-". variable_get('checkdesk_active_story_time', '1 week'));
+  if (!isset($options['extra_nids'])) {
+    $options['extra_nids'] = array(-1);
+  }
+  if (!isset($options['theme'])) {
+    $options['theme'] = TRUE;
+  }
   $result = db_query('
               (
               SELECT nid, title
               FROM {node} n
-              WHERE n.type = :type AND created > :time
+              WHERE n.type = :type AND (changed > :time OR nid IN (:extra_nids))
               )
               UNION
               (
@@ -3173,10 +3194,13 @@ function _checkdesk_active_story() {
               WHERE timestamp > :time
               )
               ORDER BY nid DESC
-           ', array(':type' => 'discussion', ':time' => $time))->fetchAllKeyed(0);
-  $items = array();
-  foreach ($result as $k => $v) {
-    $items[] = l($v, 'node/'. $k);
+           ', array(':type' => 'discussion', ':time' => $time, ':extra_nids' => $options['extra_nids']))->fetchAllKeyed(0);
+  if ($options['theme']) {
+    $items = array();
+    foreach ($result as $k => $v) {
+      $items[] = l($v, 'node/'. $k);
+    }
+    return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'checkdesk-active-story')));
   }
-  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'checkdesk-active-story')));
+  return $result;
 }
