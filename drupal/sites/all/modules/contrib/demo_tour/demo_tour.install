@@ -1,0 +1,137 @@
+<?php
+/**
+ * @file
+ * Install file for demo_tour
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function demo_tour_schema() {
+
+  // Tours are stored here
+  $schema['demo_tour_presets'] = array(
+    'description' => 'Presets for the demo_tour module',
+    'export' => array(
+      'key' => 'name',
+      // Exports will be as $preset.
+      'identifier' => 'preset',
+      // Function hook name.
+      'default hook' => 'default_demo_tour_presets',
+      'api' => array(
+        'owner' => 'demo_tour',
+        // Base name for api include files.
+        'api' => 'default_demo_tour_presets',
+        'minimum_version' => 1,
+        'current_version' => 1,
+      ),
+    ),
+    'fields' => array(
+      'id' => array(
+        'description' => 'Internal primary key',
+        'type' => 'serial',
+        'not null' => TRUE,
+        'no export' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'Machine name',
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'description' => 'Readable name',
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => FALSE,
+      ),
+      'roles' => array(
+        'description' => 'Roles that have access to this tour',
+        'type' => 'text',
+        'not null' => FALSE,
+        'serialize' => TRUE,
+      ),
+      'paths' => array(
+        'description' => 'Paths of this tour',
+        'type' => 'text',
+        'not null' => FALSE,
+        'serialize' => FALSE,
+      ),
+      'steps' => array(
+        'description' => 'Steps of this tour',
+        'type' => 'text',
+        'not null' => FALSE,
+        'serialize' => TRUE,
+      ),
+      'auto' => array(
+        'description' => 'Whether this tour should be taken automatically by users',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'name' => array('name'),
+    ),
+  );
+
+  // Here we store which tours each user has taken
+	$schema['demo_tour_users'] = array(
+    'description' => '',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The serial ID',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'tid' => array(
+        'description' => 'The unique name of a tour',
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The UID of the user',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => '0',
+      ),
+	  ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_update_N().
+ * Adds a "paths" field to the presets table.
+ */
+function demo_tour_update_7100() {
+  $ret = array();
+  $spec = array(
+    'description' => 'Paths of this tour',
+    'type' => 'text',
+    'not null' => FALSE,
+    'serialize' => FALSE,
+  );
+  db_add_field('demo_tour_presets', 'paths', $spec, $ret);
+  return $ret;
+}
+
+/**
+ * Implements hook_update_N().
+ * Changes type of "roles" column
+ */
+function demo_tour_update_7101() {
+  $spec = array(
+    'description' => 'Roles that have access to this tour',
+    'type' => 'text',
+    'not null' => FALSE,
+    'serialize' => TRUE,
+  );
+  return db_change_field('demo_tour_presets', 'roles', 'roles', $spec);
+}

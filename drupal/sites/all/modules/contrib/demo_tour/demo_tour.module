@@ -1,0 +1,180 @@
+<?php
+/**
+ * @file
+ * Main demo_tour file
+ */
+
+/**
+ * Implements hook_init().
+ */
+function demo_tour_init() {
+  drupal_add_js(array('basePathDemoTourPath' => '/' . drupal_get_path('module', 'demo_tour')), 'setting');
+  drupal_add_js(drupal_get_path('module', 'demo_tour') . '/js/inject_bootstrap.js');
+  drupal_add_js(drupal_get_path('module', 'demo_tour') . '/js/tour.js');
+
+  drupal_add_css(drupal_get_path('module', 'demo_tour') . '/css/bootstrap.css');
+  drupal_add_css(drupal_get_path('module', 'demo_tour') . '/css/bootstrap-tour.min.css');
+  drupal_add_css(drupal_get_path('module', 'demo_tour') . '/css/tour.css');
+}
+
+/**
+ * Check if a user has taken a tour
+ */
+function _demo_tour_user_took_tour($user, $tour) {
+  $count = db_query("SELECT COUNT(uid) FROM {demo_tour_users} WHERE uid = :uid AND tid = :tour", array(':uid' => $user->uid, ':tour' => $tour->name))->fetchField();
+  return (bool)$count;
+}
+
+/**
+ * User takes tour.
+ */
+function _demo_tour_user_takes_tour($user, $tour) {
+  // Add other bootstrap-tour options here
+  foreach ($tour->steps as $index => $step) {
+    $tour->steps[$index]['title'] = t($tour->steps[$index]['title']);
+    $tour->steps[$index]['content'] = t($tour->steps[$index]['content']);
+    $tour->steps[$index]['placement'] = 'bottom';
+    $tour->steps[$index]['tid'] = $tour->name;
+  }
+
+  drupal_add_js(array('demoTour' => array($tour->name => array('steps' => $tour->steps))), 'setting');
+  if ($user) {
+    db_insert('demo_tour_users')->fields(array('uid' => $user->uid, 'tid' => $tour->name))->execute();
+  }
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function demo_tour_page_build(&$page) {
+  global $user;
+
+  // If tour is in URL, play this tour
+  if (isset($_GET['tour'])) {
+    $tour = demo_tour_preset_load($_GET['tour']);
+    if ($tour) {
+      _demo_tour_user_takes_tour(NULL, $tour);
+    }
+  }
+
+  // Otherwise, check if there is any auto tour to be displayed
+  else {
+    ctools_include('export');
+    $tours = ctools_export_load_object('demo_tour_presets');
+
+    foreach ($tours as $tour) {
+
+      if ($tour->auto && !empty($tour->roles) && !_demo_tour_user_took_tour($user, $tour)) {
+
+        // Check if roles match
+        $roles = array();
+        foreach ($tour->roles as $rid => $selected) {
+          if ($selected) {
+            $roles[] = $rid;
+          }
+        }
+        $roles_match = array_intersect(array_keys($user->roles), $roles);
+
+        // Check if path matches
+        $path_matches = true;
+        if (!empty($tour->paths)) {
+          $path_matches = drupal_match_path(current_path(), $tour->paths);
+        }
+
+        if (!empty($roles_match) && $path_matches) {
+          _demo_tour_user_takes_tour($user, $tour);
+        }
+
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function demo_tour_permission() {
+  return array(
+    'administer demo tour' => array(
+      'title' => 'Administer Demo Tour',
+    ),
+  );
+}
+
+/**
+ * Implements of hook_ctools_plugin_directory().
+ */
+function demo_tour_ctools_plugin_directory($module, $type) {
+  if ($type == 'export_ui') {
+    return 'plugins/export_ui';
+  }
+}
+
+/**
+ * Implements of hook_ctools_plugin_api().
+ */
+function demo_tour_ctools_plugin_api($owner, $api) {
+  if ($owner == 'demo_tour' && $api == 'default_demo_tour_presets') {
+    return array('version' => 1);
+  }
+}
+
+/**
+ * Implements hook_default_demo_tour_presets().
+ *
+ * Provide a default preset.
+ */
+function demo_tour_default_demo_tour_presets() {
+  $export = array();
+
+  $preset = new stdClass();
+  $preset->api_version = 1;
+  $preset->name = 'demo_tour_default_preset';
+  $preset->title = 'Default Preset';
+  $preset->roles = array();
+  $preset->steps = array();
+  $preset->auto = 1;
+  $preset->paths = '';
+  $export['demo_tour_default_presets'] = $preset;
+
+  return $export;
+}
+
+/**
+ * Load a single preset.
+ *
+ * @param string $pid
+ *   The preset identifier.
+ */
+function demo_tour_preset_load($pid) {
+  ctools_include('export');
+  $result = ctools_export_load_object('demo_tour_presets', 'names', array($pid));
+  if (isset($result[$pid])) {
+    return $result[$pid];
+  }
+}
+
+/**
+ * Export a demo_tour_preset.
+ *
+ * @param object $obj
+ *   The demo_tour object.
+ * @param string $indent
+ *   An identifier.
+ *
+ * @return string
+ *   The export definition.
+ */
+function demo_tour_preset_export($obj, $indent = '') {
+  ctools_include('export');
+  $output = ctools_export_object('demo_tour_presets', $obj, $indent);
+  return $output;
+}
+
+/**
+ * Load JavaScript file for form.
+ */
+function _demo_tour_load_form_javascript($form, &$form_state) {
+  drupal_add_js(drupal_get_path('module', 'demo_tour') . '/js/tour_form.js');
+  return $form;
+}

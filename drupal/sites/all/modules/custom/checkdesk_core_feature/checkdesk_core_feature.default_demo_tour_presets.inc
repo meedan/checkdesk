@@ -7,7 +7,7 @@
 /**
  * Implements hook_default_checkdesk_tour_presets().
  */
-function checkdesk_core_feature_default_checkdesk_tour_presets() {
+function checkdesk_core_feature_default_demo_tour_presets() {
   $export = array();
 
   $preset = new stdClass();
