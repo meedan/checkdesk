@@ -14,6 +14,9 @@ function checkdesk_core_feature_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "context" && $api == "context") {
     return array("version" => "3");
   }
+  if ($module == "demo_tour" && $api == "default_demo_tour_presets") {
+    return array("version" => "1");
+  }
   if ($module == "heartbeat" && $api == "heartbeat") {
     return array("version" => "1");
   }
@@ -527,5 +530,6 @@ function checkdesk_core_feature_node_info() {
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }

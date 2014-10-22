@@ -1,11 +1,11 @@
 <?php
 /**
  * @file
- * checkdesk_core_feature.default_checkdesk_tour_presets.inc
+ * checkdesk_core_feature.default_demo_tour_presets.inc
  */
 
 /**
- * Implements hook_default_checkdesk_tour_presets().
+ * Implements hook_default_demo_tour_presets().
  */
 function checkdesk_core_feature_default_demo_tour_presets() {
   $export = array();
@@ -22,6 +22,7 @@ function checkdesk_core_feature_default_demo_tour_presets() {
     3 => 0,
     5 => 0,
   );
+  $preset->paths = '';
   $preset->steps = array(
     0 => array(
       'element' => '#menu-submit-report',
@@ -54,16 +55,17 @@ function checkdesk_core_feature_default_demo_tour_presets() {
     3 => 0,
     4 => 0,
   );
+  $preset->paths = '';
   $preset->steps = array(
     0 => array(
-      'element' => '#menu-submit-report',
-      'title' => 'Submit Report',
-      'content' => 'Quickly add newsworthy links from social media. Then you can fact-check and publish them.',
-    ),
-    1 => array(
       'element' => '#discussion-form-menu-link',
       'title' => 'Create a Story',
       'content' => 'Pen a headline and brief intro about the topic. Include a featured image, and start adding updates!',
+    ),
+    1 => array(
+      'element' => '#menu-submit-report',
+      'title' => 'Submit Report',
+      'content' => 'Quickly add newsworthy links from social media. Then you can fact-check and publish them.',
     ),
     2 => array(
       'element' => '#update-story-menu-link',

@@ -81,7 +81,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'router_path' => 'node/add/discussion',
     'uuid' => 'edc54df9-4aa8-bf84-dd89-ca0a351af23b',
-    'weight' => -48,
+    'weight' => -49,
   );
   // Exported menu link: main-menu_edit-fact-checking-statement:admin/config/system/checkdesk
   $menu_links['main-menu_edit-fact-checking-statement:admin/config/system/checkdesk'] = array(
@@ -154,7 +154,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'router_path' => 'node/add/media',
     'uuid' => '0bc3af5d-28a8-c864-bd93-f17d8bea2366',
-    'weight' => -49,
+    'weight' => -48,
   );
   // Exported menu link: main-menu_update-story:node/add/post
   $menu_links['main-menu_update-story:node/add/post'] = array(

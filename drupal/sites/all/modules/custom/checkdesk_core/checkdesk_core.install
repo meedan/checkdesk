@@ -266,3 +266,12 @@ function checkdesk_core_update_7033() {
     variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
   }
 }
+
+/**
+ * Disable and uninstall checkdesk_tour
+ */
+function checkdesk_core_update_7034() {
+  $module_list = array('checkdesk_tour');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
