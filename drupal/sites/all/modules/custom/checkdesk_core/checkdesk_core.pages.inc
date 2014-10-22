@@ -139,7 +139,9 @@ function _checkdesk_story_get_collaborators($nid) {
       }
     }
     $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems) . '</span>';
-    $output .= '<span class="sc-extra-users">+ '. $extra_users .'</span>';
+    if ($extra_users) {
+      $output .= '<span class="sc-extra-users">+ '. $extra_users .'</span>';
+    }
     $output .= '<span class="sc-avatars">';
     foreach ($pitems as $pitem) {
       $output .= $pitem;
