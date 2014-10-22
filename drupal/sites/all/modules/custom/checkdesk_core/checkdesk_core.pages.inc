@@ -111,15 +111,23 @@ function _checkdesk_story_get_collaborators($nid) {
   $output = '';
   //ToDO check node type
   $users = db_query('
-    SELECT DISTINCT ha.uid, u.name, f.fid, f.uri
+    SELECT ha.uid, u.name, f.fid, f.uri
     FROM {heartbeat_activity} ha
     INNER JOIN {users} u ON ha.uid = u.uid
     LEFT JOIN {file_managed} f ON u.picture = f.fid
     WHERE nid_target = :nid AND message_id != :message_id
+    GROUP BY ha.uid
+    ORDER BY COUNT(ha.uid) DESC
     ', array(':nid' => arg(1), ':message_id' => 'checkdesk_follow_story'))->fetchAll();
-  if (count($users)) {
-    $title = format_plural(count($users), '1 collaborator', '@count collaborators');
+  $total_users = count($users);
+  if ($total_users) {
+    $num_to_show = variable_get('collaborators_display_count', 3);
+    $title = format_plural($total_users, '1 collaborator', '@count collaborators');
+    $extra_users = $total_users > $num_to_show ? $total_users - $num_to_show : 0;
     $uitems = $pitems = array();
+    if ($extra_users) {
+      $users = array_slice($users, 0, $num_to_show);
+    }
     foreach ($users as $user) {
       // split user name into first name and last
       $fullname = explode(' ', $user->name);
@@ -131,6 +139,7 @@ function _checkdesk_story_get_collaborators($nid) {
       }
     }
     $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems) . '</span>';
+    $output .= '<span class="sc-extra-users">+ '. $extra_users .'</span>';
     $output .= '<span class="sc-avatars">';
     foreach ($pitems as $pitem) {
       $output .= $pitem;
