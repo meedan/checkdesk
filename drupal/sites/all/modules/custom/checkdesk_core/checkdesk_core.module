@@ -3173,7 +3173,7 @@ function _checkdesk_render_footnotes($node) {
  * @return string/array
  */
 function _checkdesk_active_story($options = array()) {
-  $time =  isset($options['time']) ? $options['time'] : strtotime("-". variable_get('checkdesk_active_story_time', '1 week'));
+  $time =  isset($options['time']) ? $options['time'] : strtotime("-". variable_get('checkdesk_active_story_time', '3 day'));
   if (!isset($options['extra_nids'])) {
     $options['extra_nids'] = array(-1);
   }
@@ -3191,10 +3191,10 @@ function _checkdesk_active_story($options = array()) {
               SELECT DISTINCT nid_target, n.title
               FROM {heartbeat_activity} ha
               INNER JOIN {node} n on ha.nid_target = n.nid AND n.type = :type
-              WHERE timestamp > :time
+              WHERE message_id = :message_id AND timestamp > :time
               )
               ORDER BY nid DESC
-           ', array(':type' => 'discussion', ':time' => $time, ':extra_nids' => $options['extra_nids']))->fetchAllKeyed(0);
+           ', array(':type' => 'discussion', ':time' => $time, ':message_id' => 'checkdesk_report_suggested_to_story', ':extra_nids' => $options['extra_nids']))->fetchAllKeyed(0);
   if ($options['theme']) {
     $items = array();
     foreach ($result as $k => $v) {
