@@ -1032,9 +1032,15 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   $form['#validate'][] = '_checkdesk_core_post_node_form_validate';
   $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
 
-  // Handle HTML entities
-  foreach ($form['field_desk']['und']['#options'] as $key => $value) {
-    $form['field_desk']['und']['#options'][$key] = htmlspecialchars_decode($value);
+  if ($form['field_desk']['#access']) {
+    // Limit stories options to active stories only.
+    $as_extra = count($form['field_desk'][LANGUAGE_NONE]['#default_value']) ? $form['field_desk'][LANGUAGE_NONE]['#default_value'] : array(0);
+    $active_stories = array('_none' => t('- None -')) +  _checkdesk_active_story(array('theme' => FALSE, 'extra_nids' => $as_extra));
+    $form['field_desk'][LANGUAGE_NONE]['#options'] = $active_stories;
+    // Handle HTML entities
+    foreach ($form['field_desk'][LANGUAGE_NONE]['#options'] as $key => $value) {
+      $form['field_desk'][LANGUAGE_NONE]['#options'][$key] = htmlspecialchars_decode($value);
+    }
   }
 
   if (!in_array('administrator', array_values($user->roles))) {
@@ -2762,7 +2768,7 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   // Adjust edit node form
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
-  $as_extra = array();
+  $as_extra = array(0);
   if (isset($form['nid']['#value'])) {
     $node = $form['#node'];
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
@@ -2770,12 +2776,10 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
       $as_extra[] = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
     }
   }
-  else {
-    //set default story if exist.
-    if (isset($_GET['ref_nid'])) {
-      $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
-      $as_extra[] = $_GET['ref_nid'];
-    }
+  //set default story if exist.
+  elseif (isset($_GET['ref_nid'])) {
+    $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
+    $as_extra[] = $_GET['ref_nid'];
   }
   // Limit stories options to active stories only.
   $active_stories = array('_none' => t('- None -')) +  _checkdesk_active_story(array('theme' => FALSE, 'extra_nids' => $as_extra));
@@ -2832,6 +2836,23 @@ function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
     $node = node_load($entity_id);
     checkdesk_varnish_pages_to_purge($flag->entity_type, $node, 'update');
   }
+}
+
+/**
+ * Implements of hook_cron().
+ */
+function checkdesk_core_cron() {
+  //Remove active story (older than 2 weeks)
+  $time = strtotime("-2 week");
+  db_query('
+     UPDATE {field_data_field_active_story}
+     SET field_active_story_value = :inactive_story
+     WHERE entity_id IN (SELECT nid FROM {node} WHERE type = :type AND changed < :time)
+  ', array(
+      ':inactive_story' => 0,
+      ':type' => 'discussion',
+      ':time' => $time,
+    ));
 }
 
 /**
@@ -3181,20 +3202,29 @@ function _checkdesk_active_story($options = array()) {
     $options['theme'] = TRUE;
   }
   $result = db_query('
-              (
-              SELECT nid, title
-              FROM {node} n
-              WHERE n.type = :type AND (changed > :time OR nid IN (:extra_nids))
-              )
-              UNION
-              (
-              SELECT DISTINCT nid_target, n.title
-              FROM {heartbeat_activity} ha
-              INNER JOIN {node} n on ha.nid_target = n.nid AND n.type = :type
-              WHERE message_id = :message_id AND timestamp > :time
-              )
-              ORDER BY nid DESC
-           ', array(':type' => 'discussion', ':time' => $time, ':message_id' => 'checkdesk_report_suggested_to_story', ':extra_nids' => $options['extra_nids']))->fetchAllKeyed(0);
+    (
+      SELECT nid, title
+      FROM {node} n
+      LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid
+      WHERE n.type = :type AND (n.changed > :time OR acs.field_active_story_value = :active OR n.nid IN (:extra_nids))
+    )
+      UNION
+    (
+      SELECT DISTINCT nid_target, n.title
+      FROM {heartbeat_activity} ha
+      INNER JOIN {node} n on ha.nid_target = n.nid AND n.type = :type
+      WHERE message_id IN (:message_id ) AND timestamp > :time
+    )
+      ORDER BY nid DESC
+    ',
+    array(
+      ':type' => 'discussion',
+      ':time' => $time,
+      ':active' => 1,
+      ':message_id' => array('checkdesk_report_suggested_to_story', 'checkdesk_report_published_in_update'),
+      ':extra_nids' => $options['extra_nids']
+    )
+  )->fetchAllKeyed(0);
   if ($options['theme']) {
     $items = array();
     foreach ($result as $k => $v) {
