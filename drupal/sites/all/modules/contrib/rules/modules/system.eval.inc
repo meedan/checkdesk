@@ -190,14 +190,8 @@ class RulesTokenEvaluator extends RulesDataInputEvaluator {
     foreach (token_scan($whole_text) as $var_name => $tokens) {
       $var_name = str_replace('-', '_', $var_name);
       if (isset($var_info[$var_name]) && ($token_type = _rules_system_token_map_type($var_info[$var_name]['type']))) {
-        if (($entity = $state->get($var_name)) && $entity instanceof EntityDrupalWrapper) {
-          $token_type = $entity->type();
-          $data = rules_unwrap_data(array($token_type => $entity->value()), array($token_type => $var_info[$var_name]));
-        }
-        else {
-          // We have to key $data with the type token uses for the variable.
-          $data = rules_unwrap_data(array($token_type => $state->get($var_name)), array($token_type => $var_info[$var_name]));
-        }
+        // We have to key $data with the type token uses for the variable.
+        $data = rules_unwrap_data(array($token_type => $state->get($var_name)), array($token_type => $var_info[$var_name]));
         $replacements += token_generate($token_type, $tokens, $data, $options);
       }
       else {

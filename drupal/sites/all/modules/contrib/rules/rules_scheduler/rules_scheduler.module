@@ -45,6 +45,7 @@ function rules_scheduler_run_task(array $task) {
     if (isset($task['state'])) {
       $task['data'] = $task['state'];
     }
+    cache_clear_all('comp_', 'cache_rules', TRUE);
     rules_scheduler_task_handler($task)->runTask();
   }
   catch (RulesEvaluationException $e) {
