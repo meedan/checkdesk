@@ -171,6 +171,7 @@ function checkdesk_core_feature_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('View all @total footnotes'),
     t('Node ID'),
     t('.'),
     t(','),
@@ -694,7 +695,7 @@ print t(\'No content available\');
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'Date';
-  /* Contextual filter: Content: Stories (field_stories) */
+  /* Contextual filter: Content: Story (field_stories) */
   $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
   $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
   $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
@@ -885,7 +886,7 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  /* Filter criterion: Content: Stories (field_stories) */
+  /* Filter criterion: Content: Story (field_stories) */
   $handler->display->display_options['filters']['field_stories_target_id']['id'] = 'field_stories_target_id';
   $handler->display->display_options['filters']['field_stories_target_id']['table'] = 'field_data_field_stories';
   $handler->display->display_options['filters']['field_stories_target_id']['field'] = 'field_stories_target_id';
@@ -1067,7 +1068,7 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  /* Filter criterion: Content: Stories (field_stories) */
+  /* Filter criterion: Content: Story (field_stories) */
   $handler->display->display_options['filters']['field_stories_target_id']['id'] = 'field_stories_target_id';
   $handler->display->display_options['filters']['field_stories_target_id']['table'] = 'field_data_field_stories';
   $handler->display->display_options['filters']['field_stories_target_id']['field'] = 'field_stories_target_id';
@@ -1102,6 +1103,7 @@ print t(\'No content available\');
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('Auto-Refresh'),
     t('<?php
 print theme(\'views_autorefresh\', array(
@@ -1228,6 +1230,7 @@ print t(\'No content available\');
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('All'),
     t('Block'),
   );
@@ -1506,6 +1509,7 @@ print theme(\'views_autorefresh\', array(
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more stories'),
     t('Autorefresh'),
     t('<?php
 print theme(\'views_autorefresh\', array(
@@ -1676,6 +1680,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('Activity message'),
     t('Page'),
     t('Block'),
@@ -1863,6 +1868,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('Media sources'),
     t('Parent'),
     t('.'),
@@ -2078,6 +2084,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more updates'),
   );
   $export['updates_for_stories'] = $view;
 

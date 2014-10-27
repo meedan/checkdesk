@@ -2570,14 +2570,6 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:default']['102cd9777c5cb9b3fdff5c8c1fcccf5f'] = array(
-    'source' => '<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.',
-    'context' => '',
-    'location' => '/ar/node/add/discussion',
-    'translation' => '<span>ملحوظة:</span> لن يتم نشر موضوعك إلا بعد إضافة تحديث له.',
-    'plid' => 0,
-    'plural' => 0,
-  );
   $translations['ar:default']['103357e3e40a9c0e4e9d36110f7bbc7a'] = array(
     'source' => 'Thailand',
     'context' => '',
@@ -2693,7 +2685,7 @@ This was an auto-generated email from !site, please do not respond directly to t
   $translations['ar:default']['10ac3d04253ef7e1ddc73e6091c0cd55'] = array(
     'source' => 'Next',
     'context' => '',
-    'location' => '; sites/all/modules/custom/checkdesk_tour/js/tour.js',
+    'location' => '; sites/all/modules/custom/checkdesk_tour/js/tour.js; sites/all/modules/contrib/demo_tour/js/tour.js',
     'translation' => 'التالي',
     'plid' => 0,
     'plural' => 0,
@@ -34081,7 +34073,7 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['be11c74c1dd7f307bb80183a90dc2067'] = array(
     'source' => 'Get started',
     'context' => '',
-    'location' => 'sites/all/themes/checkdesk/assets/js/tour.js; sites/all/modules/custom/checkdesk_tour/js/tour.js',
+    'location' => 'sites/all/themes/checkdesk/assets/js/tour.js; sites/all/modules/custom/checkdesk_tour/js/tour.js; sites/all/modules/contrib/demo_tour/js/tour.js',
     'translation' => 'ابدأ',
     'plid' => 0,
     'plural' => 0,
@@ -34180,6 +34172,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'جزر تيركس وكايكوس',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['be80e17e7a78fada1f5c8ca0655bae99'] = array(
+    'source' => '<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => '<span>ملحوظة:</span> لن يتم نشر موضوعك إلا بعد إضافة تحديث له.',
     'plid' => 0,
     'plural' => 0,
   );
