@@ -1047,8 +1047,6 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
       '#title' => t('Add to old stories'),
       '#default_value' => FASE,
       '#weight' => 2,
-      '#entity_type' => 'node',
-      '#bundle' => 'post',
     );
     $form['cd_field_old_stories'] = array(
       '#type' => 'select',
@@ -2809,11 +2807,32 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
     $as_extra[] = $_GET['ref_nid'];
   }
+  // Add old stories list
+  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_active_stories.js');
+  $cd_active_stories = _checkdesk_active_story(array('theme' => FALSE, 'extra_nids' => $as_extra));
+  $old_stories = array_diff_key($form['field_stories'][LANGUAGE_NONE]['#options'], $cd_active_stories);
+  $old_stories = array('_none' => t('- None -')) + $old_stories;
   // Limit stories options to active stories only.
-  $active_stories = array('_none' => t('- None -')) +  _checkdesk_active_story(array('theme' => FALSE, 'extra_nids' => $as_extra));
+  $active_stories = array('_none' => t('- None -')) +  $cd_active_stories;
   $form['field_stories'][LANGUAGE_NONE]['#options'] = $active_stories;
+
+  $form['cd_field_old_stories_check'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Add to old stories'),
+    '#default_value' => FASE,
+    '#weight' => 5,
+  );
+  $form['cd_field_old_stories'] = array(
+    '#type' => 'select',
+    '#options' => $old_stories,
+    '#weight' => 6,
+  );
+  // Handle HTML entities
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
+  }
+  foreach ($form['cd_field_old_stories']['#options'] as $key => $value) {
+    $form['cd_field_old_stories']['#options'][$key] = htmlspecialchars_decode($value);
   }
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
@@ -2826,6 +2845,9 @@ function _redirect_report($form, &$form_state) {
   $values = $form_state['values'];
   if (!empty($values['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
     $form_state['redirect'] = 'story-collaboration/' . $values['field_stories'][LANGUAGE_NONE][0]['target_id'];
+  }
+  elseif (!empty($values['cd_field_old_stories']))  {
+    $form_state['redirect'] = 'story-collaboration/' . $values['cd_field_old_stories'];
   }
 }
 
@@ -3282,9 +3304,10 @@ function _checkdesk_core_active_stories_validate($form, &$form_state) {
  * Implements of hook_node_presave().
  */
 function checkdesk_core_node_presave($node) {
-  if ($node->type == 'post') {
-    if ($node->cd_field_old_stories_check) {
-      $node->field_desk[LANGUAGE_NONE] = array(
+  if ($node->type == 'post' || $node->type == 'media') {
+    $field_name = ($node->type == 'post') ? 'field_desk' : 'field_stories';
+    if ($node->cd_field_old_stories_check && $node->cd_field_old_stories) {
+      $node->{$field_name}[LANGUAGE_NONE] = array(
         0 => array('target_id' => $node->cd_field_old_stories),
       );
     }

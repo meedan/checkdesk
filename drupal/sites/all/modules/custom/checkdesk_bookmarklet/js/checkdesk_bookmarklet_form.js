@@ -8,7 +8,7 @@ jQuery(function($) {
   function getMediaPreview() {
     var $input = $('#edit-field-link-und-0-url'),
         $preview = $('#meedan_bookmarklet_preview_content'),
-        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, #edit-title, #edit-field-stories');
+        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, #edit-title, #edit-field-stories, .form-item-cd-field-old-stories-check, .form-item-cd-field-old-stories');
 
     $input.addClass('meedan-bookmarklet-loading');
 
