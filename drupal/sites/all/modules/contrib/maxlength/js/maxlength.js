@@ -13,13 +13,13 @@
             ml[editor]();
           }
         });
-      } else if (Drupal.settings.ckeditor != undefined) {
+      } else if (Drupal.settings.ckeditor != undefined && typeof(CKEDITOR) != 'undefined') {
         ml.ckeditor();
       }
 
       $('.maxlength', context).once('maxlength', function() {
         var options = {};
-        options['counterText'] = $(this).attr('maxlength_js_label');  
+        options['counterText'] = $(this).attr('maxlength_js_label');
         if ($(this).hasClass('maxlength_js_enforce')) {
           options['enforce'] = true;
         }
@@ -109,7 +109,7 @@
       counter.removeClass(options.cssExceeded);
     }
 
-    counter.html(options.counterText.replace('@limit', limit).replace('@remaining', available));
+    counter.html(options.counterText.replace('@limit', limit).replace('@remaining', available).replace('@count', count));
   };
 
   /**
@@ -121,7 +121,7 @@
   ml.twochar_lineending = function(str) {
     return str.replace(/(\r\n|\r|\n)/g, "\r\n");
   };
-  
+
   ml.strip_tags = function(input, allowed) {
     // making the lineendings with two chars
     input = ml.twochar_lineending(input);
@@ -139,7 +139,7 @@
          return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
      });
   };
-  
+
   /**
    * Cuts a html text up to limit characters. Still experimental.
    */
@@ -265,7 +265,13 @@
       return 'removed';
     }
 
-    $(this).after('<' + options.counterElement + ' id="' + $(this).attr('id') + '-' + options.css + '" class="' + options.css + '"></' + options.counterElement + '>');
+    var counterElement = $('<' + options.counterElement + ' id="' + $(this).attr('id') + '-' + options.css + '" class="' + options.css + '"></' + options.counterElement + '>');
+    if ($(this).next('div.grippie').length) {
+      $(this).next('div.grippie').after(counterElement);
+    } else {
+      $(this).after(counterElement);
+    }
+
     ml.calculate($(this), options);
     $(this).keyup(function() {
       ml.calculate($(this), options);
@@ -324,12 +330,12 @@
       ml.calculate($(ed.getElement()), options, ml.twochar_lineending(ml.tinymceGetData(ed)).length, ed, 'tinymceGetData', 'tinymceSetData');
     }
   };
-  
+
   // Gets the data from the tinyMCE. Not tested yet.
   ml.tinymceGetData = function(e) {
     return e.getContent();
   }
-  
+
   // Sets the data into a tinyMCE. Not tested yet.
   ml.tinymceSetData = function(e, data) {
     e.setContent(data);
@@ -383,12 +389,12 @@
       ml.calculate($('#' + e.editor.element.getId()), options, ml.twochar_lineending(ml.ckeditorGetData(e)).length, e, 'ckeditorGetData', 'ckeditorSetData');
     }
   };
-  
+
   // Gets the data from the ckeditor.
   ml.ckeditorGetData = function(e) {
     return e.editor.getData();
   }
-  
+
   // Sets the data into a ckeditor.
   ml.ckeditorSetData = function(e, data) {
     e.editor.setData(data);
