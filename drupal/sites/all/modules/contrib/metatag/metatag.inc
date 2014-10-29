@@ -131,6 +131,11 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
    *   The meta tag value after it has been tidied up.
    */
   public function tidyValue($value) {
+    // Specifically replace encoded spaces, because some WYSIWYG editors are
+    // silly. Do this before decoding the other HTML entities so that the output
+    // doesn't end up with a bunch of a-circumflex characters.
+    $value = str_replace('&nbsp;', ' ', $value);
+
     // Convert any HTML entities into regular characters.
     $value = decode_entities($value);
 
@@ -173,6 +178,17 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       $form['value']['#description'] .= ' ' . t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
     }
 
+    // Support for dependencies, using Form API's #states system.
+    // @see metatag.api.php.
+    // @see https://api.drupal.org/drupal_process_states
+    if (!empty($this->info['dependencies'])) {
+      foreach ($this->info['dependencies'] as $specs) {
+        $form['value']['#states']['visible'][':input[name*="[' . $specs['dependency'] . '][' . $specs['attribute'] . ']"]'] = array(
+          $specs['condition'] => $specs['value'],
+        );
+      }
+    }
+
     return $form;
   }
 
@@ -191,7 +207,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     if (empty($options['raw'])) {
       // Give other modules the opportunity to use hook_metatag_pattern_alter()
       // to modify defined token patterns and values before replacement.
-      drupal_alter('metatag_pattern', $value, $options['token data']);
+      drupal_alter('metatag_pattern', $value, $options['token data'], $this->info['name']);
       $value = token_replace($value, $options['token data'], $options);
     }
     return $this->tidyValue($value);
@@ -223,7 +239,7 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
     if (!isset($this->info['header']) || !empty($this->info['header'])) {
       // Also send the generator in the HTTP header.
       // @todo This does not support 'rev' or alternate link headers.
-      $element['#attached']['drupal_add_http_header'][] = array('Link', '<' . check_plain($value) . '>;' . drupal_http_header_attributes(array('rel' => $element['#name'])), TRUE);
+      $element['#attached']['drupal_add_http_header'][] = array('Link', '<' . $value . '>;' . drupal_http_header_attributes(array('rel' => $element['#name'])), TRUE);
     }
 
     return array(
@@ -242,7 +258,7 @@ class DrupalTitleMetaTag extends DrupalTextMetaTag {
 
   public function getElement(array $options = array()) {
     $element = array();
-    $value = check_plain($this->getValue($options));
+    $value = $this->getValue($options);
     $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_title', $value);
     $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_array', array('title' => $value));
     return $element;

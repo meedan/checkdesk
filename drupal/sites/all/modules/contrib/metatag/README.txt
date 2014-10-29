@@ -11,7 +11,7 @@ that is used within social networks when visitors link to your site,
 particularly the Open Graph submodule for use with Facebook, LinkedIn, etc (see
 below).
 
-This version of the module only works with Drupal 7.15 and newer.
+This version of the module only works with Drupal 7.28 and newer.
 
 
 Features
@@ -48,6 +48,9 @@ The primary features include:
 * The Twitter Cards meta tags may be added by enabling the "Metatag: Twitter
   Cards" submodule.
 
+* Certain meta tags used by Google+ may be added by enabling the "Metatag:
+  Google+" submodule.
+
 * Facebook's fb:app_id and fb:admins meta tags may be added by enabling the
   "Metatag: Facebook" submodule. These are useful for sites which are using
   Facebook widgets or are building custom integration with Facebook's APIs,
@@ -66,11 +69,13 @@ The primary features include:
 * Integrates with Devel_Generate, part of the Devel module, to automatically
   generate meta tags for generated nodes, via the Metatag:Devel submodule.
 
-* Integrates with Workbench Moderation v1 allowing meta tags on nodes to be
-  managed through the workflow process.
+* Integrates with Workbench Moderation (both v1 and v2) allowing meta tags on
+  nodes to be managed through the workflow process.
 
 * The Transliteration and Imagecache Token modules (see below) are highly
   recommended when using image meta tags, e.g. og:image.
+
+* Several advanced options may be controlled via the Advanced Settings page.
 
 
 Configuration
@@ -113,6 +118,16 @@ page" configuration will show up in the Translate Interface admin page
 
 Fine Tuning
 ------------------------------------------------------------------------------
+All of these may be controlled from the advanced settings page:
+admin/config/search/metatags/settings
+
+* It is possible to "disable" the meta tags provided by Drupal core, i.e.
+  "generator", "canonical URL" and "shortlink", though it may not be completely
+  obvious. Metatag takes over the display of these tags, thus any changes made
+  to them in Metatag will supercede Drupal's normal output. To hide a tag, all
+  that is necessary is to clear the default value for that tag, e.g. on the
+  global settings for nodes, which will result in the tag not being output for
+  those pages.
 * By default Metatag will load the global default values for all pages that do
   not have meta tags assigned via the normal entity display or via Metatag
   Context. This may be disabled by setting the variable 'metatag_load_all_pages'
@@ -153,6 +168,13 @@ Fine Tuning
     $conf['metatag_tag_admin_pages'] = TRUE;
   To re-enable this option simply set the value to FALSE or delete the
   settings.php line.
+* When loading an entity with multiple languages for a specific language the
+  meta tag values saved for that language will be used if they exist, otherwise
+  values assigned to the entity's default language will be used. This
+  may be disabled using the enabling the "Don't load entity's default language
+  values if no languages match" option on the Advanced Settings page, which will
+  cause default values to be used should there not be any values assigned for
+  the current requested language.
 
 
 Developers
@@ -162,6 +184,11 @@ Full API documentation is available in metatag.api.php.
 To enable Metatag support in custom entities, add 'metatag' => TRUE to either
 the entity or bundle definition in hook_entity_info(); see metatag.api.php for
 further details and example code.
+
+The meta tags for a given entity object (node, etc) can be obtained as follows:
+  $metatags = metatags_get_entity_metatags($entity_id, $entity_type, $langcode);
+The result will be a nested array of meta tag structures ready for either output
+via drupal_render(), or examining to identify the actual text values.
 
 
 Troubleshooting / Known Issues

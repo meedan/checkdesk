@@ -30,13 +30,13 @@ function metatag_facebook_metatag_info() {
   );
 
   $info['tags']['fb:admins'] = array(
-    'label' => t('Facebook Admins'),
+    'label' => t('Admins'),
     'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page.'),
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   $info['tags']['fb:app_id'] = array(
-    'label' => t('Facebook Application ID'),
+    'label' => t('Application ID'),
     'description' => t('A comma-separated list of Facebook Platform Application IDs applicable for this site.'),
     'weight' => ++$weight,
     'devel_generate' => array(

@@ -165,7 +165,7 @@ function metatag_metatag_info() {
 
   $info['tags']['keywords'] = array(
     'label' => t('Keywords'),
-    'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> used by most search engines."),
+    'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines."),
     'class' => 'DrupalTextMetaTag',
     'weight' => ++$weight,
   );
@@ -181,11 +181,11 @@ function metatag_metatag_info() {
       '#options' => array(
         'index' => t('Allow search engines to index this page (assumed).'),
         'follow' => t('Allow search engines to follow links on this page (assumed).'),
-        'noindex' => t('Prevent search engines from indexing this page.'),
-        'nofollow' => t('Prevent search engines from following links on this page.'),
-        'noarchive' => t('Prevent a cached copy of this page from being available in the search results.'),
-        'nosnippet' => t('Prevents a description from appearing below the page in the search results, as well as prevents caching of the page.'),
-        'noodp' => t('Blocks the <a href="@odp-url">Open Directory Project</a> description of the page from being used in the description that appears below the page in the search results.', array('@odp-url' => 'http://www.dmoz.org/')),
+        'noindex' => t('Prevents search engines from indexing this page.'),
+        'nofollow' => t('Prevents search engines from following links on this page.'),
+        'noarchive' => t('Prevents cached copies of this page from appearing in search results.'),
+        'nosnippet' => t('Prevents descriptions from appearing in search results, and prevents page caching.'),
+        'noodp' => t('Blocks the !opendirectory description from appearing in search results.', array('!opendirectory' => l('Open Directory Project', 'http://www.dmoz.org/'))),
         'noydir' => t('Prevents Yahoo! from listing this page in the <a href="@ydir">Yahoo! Directory</a>.', array('@ydir' => 'http://dir.yahoo.com/')),
         'noimageindex' => t('Prevent search engines from indexing images on this page.'),
         'notranslate' => t('Prevent search engines from offering to translation this page in search results.'),
@@ -221,7 +221,7 @@ function metatag_metatag_info() {
 
   $info['tags']['rights'] = array(
     'label' => t('Rights'),
-    'description' => t("Details a copyright, trademark, patent, or other information that pertains to intellectual property about this page. Note that this will not automatically protect your site's content or your intellectual property."),
+    'description' => t("Details about intellectual property, such as copyright or trademarks; does not automatically protect the site's content or intellectual property."),
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,
@@ -243,7 +243,7 @@ function metatag_metatag_info() {
 
   $info['tags']['canonical'] = array(
     'label' => t('Canonical URL'),
-    'description' => t("Tells search engines where the preferred location or URL is for this page to help eliminate self-created duplicate content for search engines."),
+    'description' => t("Preferred page location or URL to help eliminate duplicate content for search engines."),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,
@@ -254,7 +254,7 @@ function metatag_metatag_info() {
 
   $info['tags']['shortlink'] = array(
     'label' => t('Shortlink URL'),
-    'description' => '',
+    'description' => t('A brief URL, often created by a URL shortening service.'),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,

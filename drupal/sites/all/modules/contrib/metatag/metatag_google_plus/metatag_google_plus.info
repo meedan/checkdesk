@@ -1,9 +1,11 @@
-name = Metatag:Devel
-description = Provides development / debugging functionality for the Metatag module. Integrates with Devel Generate.
-package = Development
+name = Metatag: Google+
+description = "Provides support for Google+ 'itemscope' meta tags."
+package = SEO
 core = 7.x
-tags[] = developer
+
 dependencies[] = metatag
+
+files[] = metatag_google_plus.inc
 
 ; Information added by Drupal.org packaging script on 2014-10-10
 version = "7.x-1.4"
