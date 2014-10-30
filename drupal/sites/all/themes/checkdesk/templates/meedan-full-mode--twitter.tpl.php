@@ -7,6 +7,11 @@
         <?php print theme('image', array('path' => $embed->thumbnail_url)); ?>
       <?php endif; ?>
     </div>
+    <?php if(isset($media_description)) : ?>
+      <div class="media-content">
+        <span class="description"><?php print $media_description; ?></span>
+      </div>
+    <?php endif; ?>
   </div>
   <?php if(isset($report_status['status'])) : ?>
     <span class="media-status">

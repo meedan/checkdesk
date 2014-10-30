@@ -48,6 +48,10 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     } else {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
+    // Media description
+    if(isset($node->body['und'][0]['value'])) {
+      $variables['media_description'] = $node->body['und'][0]['value'];
+    }
     // Set favicon
     if (isset($embed->favicon_link)) {
       $variables['favicon_link'] = l(

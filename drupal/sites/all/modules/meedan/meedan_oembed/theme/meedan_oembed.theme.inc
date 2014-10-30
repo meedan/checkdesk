@@ -27,10 +27,14 @@ function template_preprocess_meedan_full_mode(&$vars) {
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
-      $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+      $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
   } else {
-    $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
+    $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
   }
+  // Media description
+    if(isset($node->body['und'][0]['value'])) {
+      $vars['media_description'] = $node->body['und'][0]['value'];
+    }
   // Set favicon 
   if (isset($embed->favicon_link)) {
     $vars['favicon_link'] = l(
@@ -57,7 +61,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
   // Load report status
   if(isset($node->field_rating)) {
     if($node->field_rating['und'][0]['tid'] != 4) {
-      $variables['report_status'] = _checkdesk_report_status($node);
+      $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
 }
@@ -77,9 +81,9 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
-      $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+      $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
   } else {
-    $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
+    $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
@@ -107,7 +111,7 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
   // Load report status
   if(isset($node->field_rating)) {
     if($node->field_rating['und'][0]['tid'] == 2) {
-      $variables['report_status'] = _checkdesk_report_status($node);
+      $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
 
@@ -128,9 +132,9 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
-      $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
+      $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
   } else {
-    $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
+    $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
@@ -158,7 +162,7 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
   // Load report status
   if(isset($node->field_rating)) {
     if($node->field_rating['und'][0]['tid'] == 2) {
-      $variables['report_status'] = _checkdesk_report_status($node);
+      $vars['report_status'] = _checkdesk_report_status($node);
     }
   }
  

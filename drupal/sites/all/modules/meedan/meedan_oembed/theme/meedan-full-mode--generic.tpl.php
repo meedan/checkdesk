@@ -8,7 +8,9 @@
   <?php endif; ?>
   <div class="media-content">
     <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
-    <?php if (isset($embed->description)) : ?>
+    <?php if(isset($media_description)) : ?>
+      <span class="description"><?php print $media_description; ?></span>
+    <?php elseif (isset($embed->description)) : ?>
        <span class="description"><?php print $embed->description; ?></span>
     <?php endif; ?>
     <?php if(isset($author_name)) : ?>

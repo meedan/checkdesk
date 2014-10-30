@@ -16,19 +16,19 @@
 			font-size: 14px;
 			color: $firefly40;
 			line-height: 1.4;
+			margin-top: 2px;
 		}
 
 		.title {
 			font-size: 18px;
 			a { @include ctb-linkColor($strongBlue80); }
 			font-weight: 700;
-			margin-bottom: 5px;
 		}
 
 		.description {
 			font-size: 16px;
 			color: $firefly60;
-			margin-bottom: 5px;
+			margin-top: 0;
 			a { @include ctb-linkColor($firefly60); }
 		}
 
