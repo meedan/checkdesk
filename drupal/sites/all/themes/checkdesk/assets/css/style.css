@@ -10997,12 +10997,12 @@ body.page-reports .pager-load-more a, .profile .pager-load-more a {
   -moz-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.8);
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.8);
 }
-.popover h3 {
+.popover h4 {
   line-height: 74px;
   background: white;
   margin: 0;
 }
-.popover h3 b {
+.popover h4 b {
   display: block;
   width: 34px;
   line-height: 34px;
@@ -11013,7 +11013,7 @@ body.page-reports .pager-load-more a, .profile .pager-load-more a {
   float: left;
   margin: 20px;
 }
-.popover h3 span {
+.popover h4 span {
   color: #1986ff;
   font-weight: bold;
 }
@@ -11032,12 +11032,12 @@ body.page-reports .pager-load-more a, .profile .pager-load-more a {
   position: absolute;
   display: block;
   left: 185px;
-  top: -17px;
+  top: -10px;
   width: 0;
   height: 0;
-  border-left: 17px solid transparent;
-  border-right: 17px solid transparent;
-  border-bottom: 17px solid white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
   font-size: 0;
   line-height: 0;
 }
@@ -11062,6 +11062,7 @@ body.page-reports .pager-load-more a, .profile .pager-load-more a {
   margin: 10px;
   margin-left: 0;
   border-radius: 50%;
+  text-indent: -4000px;
 }
 .popover-navigation li.tour-current-step {
   background-color: #1885fe;
@@ -11084,6 +11085,18 @@ body.page-reports .pager-load-more a, .profile .pager-load-more a {
 
 .popover-footer {
   clear: both;
+}
+
+#step-0 .popover-arrow {
+  left: 110px !important;
+}
+
+#step-3 .popover-arrow {
+  left: 262px !important;
+}
+
+#step-4 .popover-arrow {
+  left: 320px !important;
 }
 
 .filter-wrapper {
