@@ -795,6 +795,14 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
       );
     }
+    if ($node->type == 'discussion') {
+      $links['checkdesk-share-embed'] = array(
+        'html' => TRUE,
+        'title' => t('Embed this story') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
+        'href' => $url,
+        'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
+      );  
+    }
   }
   // Links for stories, not as a dropdown menu.
   // if ($node->type == 'discussion') {
