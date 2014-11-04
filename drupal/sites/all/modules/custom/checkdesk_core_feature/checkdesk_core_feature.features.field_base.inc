@@ -91,13 +91,13 @@ function checkdesk_core_feature_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => '',
-        1 => '',
+        1 => 'Active',
+        0 => 'Inactive',
       ),
       'allowed_values_function' => '',
     ),
     'translatable' => 0,
-    'type' => 'list_boolean',
+    'type' => 'list_integer',
   );
 
   // Exported field_base: 'field_bio'

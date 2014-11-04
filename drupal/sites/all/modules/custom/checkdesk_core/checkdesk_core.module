@@ -3264,21 +3264,22 @@ function _checkdesk_active_story($options = array()) {
       SELECT nid, title
       FROM {node} n
       LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid
-      WHERE n.type = :type AND (n.changed > :time OR acs.field_active_story_value = :active OR n.nid IN (:extra_nids))
+      WHERE n.type = :type AND ((n.changed > :time AND acs.field_active_story_value != :inactive) OR n.nid IN (:extra_nids))
     )
       UNION
     (
       SELECT DISTINCT nid_target, n.title
       FROM {heartbeat_activity} ha
       INNER JOIN {node} n on ha.nid_target = n.nid AND n.type = :type
-      WHERE message_id IN (:message_id ) AND timestamp > :time
+      LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid
+      WHERE message_id IN (:message_id ) AND timestamp > :time AND acs.field_active_story_value IS NULL
     )
       ORDER BY nid DESC
     ',
     array(
       ':type' => 'discussion',
       ':time' => $time,
-      ':active' => 1,
+      ':inactive' => 0,
       ':message_id' => array('checkdesk_report_suggested_to_story', 'checkdesk_report_published_in_update'),
       ':extra_nids' => $options['extra_nids']
     )
