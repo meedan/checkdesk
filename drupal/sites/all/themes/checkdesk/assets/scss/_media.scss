@@ -104,7 +104,10 @@
 
 	.inline-img-thumb, .inline-video-thumb {
 		width: 100%;
-		@include ctb-size(74px, 120px);
+		// @include ctb-size(74px, 120px);
+		width: 120px;
+		height: auto;
+		overflow: hidden;
 		@include border-radius(4px);
 		margin-top: 4px;
 		margin-#{$from-direction}: $gutter-width/2;

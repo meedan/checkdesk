@@ -5175,7 +5175,8 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .inline-attachment .inline-img-thumb, .inline-attachment .inline-video-thumb {
   width: 100%;
   width: 120px;
-  height: 74px;
+  height: auto;
+  overflow: hidden;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
