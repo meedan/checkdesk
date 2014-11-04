@@ -23,7 +23,7 @@ function checkdesk_oembed_custom_theme() {
 function checkdesk_oembed_menu() {
   $items = array();
   $items['embed/%node'] = array(
-    'title' => 'Embedded Checkdesk reports',
+    'title' => 'Embedded Checkdesk reports or stories',
     'page callback' => 'checkdesk_oembed_embed',
     'page arguments' => array(1),
     'access callback' => 'checkdesk_oembed_embed_access',
