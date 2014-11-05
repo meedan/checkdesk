@@ -32,9 +32,9 @@ function template_preprocess_meedan_full_mode(&$vars) {
     $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
   }
   // Media description
-    if(isset($node->body['und'][0]['value'])) {
-      $vars['media_description'] = $node->body['und'][0]['value'];
-    }
+  if(isset($node->body['und'][0]['value'])) {
+    $vars['media_description'] = $node->body['und'][0]['value'];
+  }
   // Set favicon 
   if (isset($embed->favicon_link)) {
     $vars['favicon_link'] = l(
@@ -84,6 +84,10 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
       $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
   } else {
     $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
+  }
+  // Media description
+  if(isset($node->body['und'][0]['value'])) {
+    $vars['media_description'] = $node->body['und'][0]['value'];
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
@@ -135,6 +139,10 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
       $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
   } else {
     $vars['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
+  }
+  // Media description
+  if(isset($node->body['und'][0]['value'])) {
+    $vars['media_description'] = $node->body['und'][0]['value'];
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
