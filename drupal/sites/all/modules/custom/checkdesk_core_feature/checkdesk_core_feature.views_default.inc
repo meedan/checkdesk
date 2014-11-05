@@ -701,7 +701,7 @@ print t(\'No content available\');
   $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
   $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
   $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'php';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return _get_desk_reports_args();';
+  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return checkdesk_core__get_desk_reports_args();';
   $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';

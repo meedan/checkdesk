@@ -1053,7 +1053,7 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
     $form['cd_field_old_stories_check'] = array(
       '#type' => 'checkbox',
       '#title' => t('Add to old stories'),
-      '#default_value' => FASE,
+      '#default_value' => FALSE,
       '#weight' => 2,
     );
     $form['cd_field_old_stories'] = array(
@@ -1447,7 +1447,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
     //Fix reset button
     $form['#action'] = url($_GET['q']);
-    if (_get_desk_reports_args() !== 'all') {
+    if (checkdesk_core__get_desk_reports_args() !== 'all') {
       unset($form['field_stories_target_id']);
       unset($form['#info']['filter-field_stories_target_id']);
     }
@@ -2827,7 +2827,7 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   $form['cd_field_old_stories_check'] = array(
     '#type' => 'checkbox',
     '#title' => t('Add to old stories'),
-    '#default_value' => FASE,
+    '#default_value' => FALSE,
     '#weight' => 5,
   );
   $form['cd_field_old_stories'] = array(
@@ -3111,17 +3111,21 @@ function _checkdesk_story_tabs($nid) {
 /**
  * Return story nid to filler incomming rports view.
  */
-function _get_desk_reports_args() {
-  $story_nid = 0;
-  // Show incomming reports on story page
+function checkdesk_core__get_desk_reports_args() {
+  $story_nid = 'all';
+  // Show incoming reports on story page or update form.
   if (is_numeric(arg(1))) {
-     $story_nid = arg(1);
+    $nid = arg(1);
+    $node = node_load($nid);
+    if ($node->type == 'discussion') {
+      $story_nid = $nid;
+    }
+    else if ($node->type == 'post' && isset($node->field_desk[LANGUAGE_NONE][0]['target_id'])) {
+      $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+    }
   }
   elseif (isset($_GET['story']) && is_numeric($_GET['story'])) {
     $story_nid = $_GET['story'];
-  }
-  else {
-    $story_nid = 'all';
   }
   return $story_nid;
 }
