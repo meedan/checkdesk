@@ -1327,7 +1327,6 @@ function checkdesk_core_views_pre_render(&$view) {
     // Send view results to client.
     drupal_add_js(array('checkdesk' => array('reports' => $data)), 'setting');
   }
-
   else if ($view->name == 'liveblog') {
     foreach ($view->result as $id => $story) {
       $updates = views_get_view('updates_for_stories');
@@ -1351,6 +1350,21 @@ function checkdesk_core_views_pre_render(&$view) {
         }   
       }
       $view->result[$k]->heartbeat_activity_variables = heartbeat_encode_message_variables($variables);
+    }
+  }
+  elseif ($view->name == 'updates_for_stories') {
+    if ($view->current_display == 'block' && isset($_REQUEST['autorefreshRequest'])) {
+      // Update total rows so autorefresh can set correct update numbers 'update #'
+      $nid = $_REQUEST['original_view_data']['view_args'];
+      if ($nid) {
+        $updates_count = db_query(' SELECT COUNT(*)
+                  FROM {node} n
+                  INNER JOIN {field_data_field_desk} fd ON n.nid = fd.entity_id
+                  WHERE n.type = :type AND n.status = :status AND field_desk_target_id = :nid
+                  ', array(':type' => 'post', ':status' => 1, ':nid' => $nid)
+        )->fetchField();
+        $view->total_rows = $updates_count;
+      }
     }
   }
 }
