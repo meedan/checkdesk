@@ -30,7 +30,7 @@
           </div>
         <?php endif; ?>
       </div>
-      <?php if (isset($published_stories)) : ?>
+      <?php if (!empty($published_stories)) : ?>
       <section class="report-detail">
           <div class="checkdesk-story-wrapper">
             <?php  print t('Published in ') . $published_stories; ?>
