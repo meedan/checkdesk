@@ -53,6 +53,22 @@
     }
   };
 
+  // text expander for report description
+  Drupal.behaviors.customSelect = {
+    attach: function(context) {
+      $('span.expandable').expander({
+        slicePoint: 180,
+        expandPrefix: ' ',
+        expandText: 'Show more&hellip;',
+        expandEffect: 'fadeIn',
+        expandSpeed: 300,
+        moreClass: 'show-more',
+        userCollapse: false,
+        preserveWords: true,
+      });
+    }
+  };
+
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // Show nested activity

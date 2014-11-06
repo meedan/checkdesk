@@ -12,7 +12,7 @@
         </div>
         <?php if(isset($media_description)) : ?>
           <div class="media-content">
-            <span class="description"><?php print $media_description; ?></span>
+            <span class="description expandable"><?php print $media_description; ?></span>
           </div>
         <?php endif; ?>
       </div>
