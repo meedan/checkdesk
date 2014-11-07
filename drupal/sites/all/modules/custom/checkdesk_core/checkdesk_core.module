@@ -2119,13 +2119,11 @@ function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
   $settings['linkShowTargetTab'] = FALSE;
 
 
-  if($context['profile']->editor == 'ckeditor') {
+  if ($context['profile']->editor == 'ckeditor') {
     $settings['forcePasteAsPlainText'] = TRUE;
     $settings['disableNativeSpellChecker'] = FALSE;
+    $settings['fillEmptyBlocks'] = FALSE;
   }
-
-
-
 }
 
 /**
