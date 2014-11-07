@@ -7,7 +7,8 @@
 	.update-body {
     padding-top: $absolute-line-height/1.6; // to align with update number
     color: $firefly80;
-
+    word-wrap: break-word;
+    
     .update-title {
       font-size: $larger-font-size;
       line-height: 1.2;

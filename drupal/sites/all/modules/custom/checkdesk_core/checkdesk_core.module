@@ -2117,6 +2117,15 @@ function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
   // Hide crazy link settings
   $settings['linkShowAdvancedTab'] = FALSE;
   $settings['linkShowTargetTab'] = FALSE;
+
+
+  if($context['profile']->editor == 'ckeditor') {
+    $settings['forcePasteAsPlainText'] = TRUE;
+    $settings['disableNativeSpellChecker'] = FALSE;
+  }
+
+
+
 }
 
 /**
