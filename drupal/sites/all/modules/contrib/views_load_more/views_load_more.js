@@ -77,8 +77,8 @@
     }
 
     // Add the new content to the page.
-    wrapper.find(pager_query + ' a').remove();
-    wrapper.find(pager_query).parent('.item-list').html(new_content.find(pager_query));
+    //wrapper.find(pager_query + ' a').remove();
+    //wrapper.find(pager_query).parent('.item-list').html(new_content.find(pager_query));
     wrapper.find(content_query)[method](new_content.find(content_query).children());
 
     // Re-class the loaded content.
