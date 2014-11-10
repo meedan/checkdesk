@@ -25,6 +25,7 @@
 			@include ctb-clearfix;
 			margin: 0 0 $absolute-line-height/4 0;
 		}
+
 		p {
       font-size: 16px;
       line-height: 1.4;
@@ -33,6 +34,11 @@
         padding-top: $absolute-line-height/3;
       }
 		}
+
+    & > ul, & > ol {
+      margin: 0 0 $absolute-line-height/2.4 0; // 10px 
+      padding-#{$alpha}: $gutter-width*2;
+    }
 
     // move embeds closer
     .report {
