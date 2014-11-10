@@ -89,6 +89,15 @@ $position:  "before";
 			}
 		}
 
+		.item-body-text {
+			color: $firefly80;
+			a { @include ctb-linkColor($strongBlue80); }
+
+			ul, ol {
+	      margin: 0 0 $absolute-line-height/2.4 0; // 10px 
+	      padding-#{$alpha}: $gutter-width*2;
+	    }
+		}
 		
 	}
 

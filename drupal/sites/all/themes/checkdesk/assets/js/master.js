@@ -54,10 +54,10 @@
   };
 
   // text expander for report description
-  Drupal.behaviors.customSelect = {
+  Drupal.behaviors.textExpander = {
     attach: function(context) {
       $('span.expandable').expander({
-        slicePoint: 180,
+        slicePoint: 120,
         expandPrefix: ' ',
         expandText: 'Show more&hellip;',
         expandEffect: 'fadeIn',
