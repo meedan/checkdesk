@@ -13,7 +13,7 @@
         <a href="<?php print $update_link; ?>"><?php print $title; ?></a>
       </h3>
     <?php } ?>
-    <?php if(!empty($content['update_reports'])): ?>
+    <?php if(!empty($content['body'])): ?>
       <div class="item-body-text">
         <?php 
           $update_body_text = render($content['body']);
