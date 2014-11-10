@@ -1765,7 +1765,7 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f086";
 }
 
-#widgets .elsewhere ul li span.icon-twitter:before, .user-login-wrapper .social-signin-wrapper li.first a:before, .user-register-wrapper .social-signin-wrapper li.first a:before {
+.icon-twitter:before, #widgets .elsewhere ul li span.icon-twitter:before, .user-login-wrapper .social-signin-wrapper li.first a:before, .user-register-wrapper .social-signin-wrapper li.first a:before {
   content: "\f099";
 }
 
@@ -9001,6 +9001,21 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 
 .icon-youtube-play:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-twitter:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;

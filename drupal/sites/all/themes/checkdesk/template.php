@@ -684,10 +684,13 @@ function checkdesk_preprocess_node(&$variables) {
           WHERE n.language = :language AND message_id IN (:status)
           ', array(':nid' => $variables['nid'], ':language' => $language->language ,':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
       )->fetchAllKeyed(0);
-      foreach ($published_stories as $k => $v) {
-         array_push($published_stories_links, l($v, 'node/' . $k));
+      // display published in story if more than one or its the report/media page
+      if(count($published_stories) > 1 || $variables['page'] == TRUE) {
+        foreach ($published_stories as $k => $v) {
+           array_push($published_stories_links, l($v, 'node/' . $k));
+        }
+        $variables['published_stories'] .= implode('<span class="separator">,</span> ', $published_stories_links);
       }
-      $variables['published_stories'] .= implode('<span class="separator">,</span> ', $published_stories_links);
     }
     //Add activity report with status
     $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
