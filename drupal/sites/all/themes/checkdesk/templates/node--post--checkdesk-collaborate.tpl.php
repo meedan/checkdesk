@@ -13,15 +13,19 @@
         <a href="<?php print $update_link; ?>"><?php print $title; ?></a>
       </h3>
     <?php } ?>
-    <?php 
-      $update_body_text = render($content['body']);
-      if (drupal_strlen($update_body_text) > 260) {
-        print text_summary($update_body_text, 1, 260);
-        print '<p>[&hellip;]</p>';
-      } else {
-        print $update_body_text;
-      } 
-    ?>
+    <?php if(!empty($content['update_reports'])): ?>
+      <div class="item-body-text">
+        <?php 
+          $update_body_text = render($content['body']);
+          if (drupal_strlen($update_body_text) > 260) {
+            print text_summary($update_body_text, 1, 260);
+            print '<p>[&hellip;]</p>';
+          } else {
+            print $update_body_text;
+          } 
+        ?>
+      </div>
+    <?php endif; ?>
     <?php if(!empty($content['update_reports'])): ?>
       <?php print render($content['update_reports']); ?>
     <?php endif; ?>
