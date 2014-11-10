@@ -409,57 +409,6 @@ function checkdesk_core_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-discussion-field_active_story'
-  $field_instances['node-discussion-field_active_story'] = array(
-    'bundle' => 'discussion',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'checkdesk_collaborate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 2,
-      ),
-      'meedan_oembed' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'exclude_cv' => 0,
-    'field_name' => 'field_active_story',
-    'label' => 'Active story',
-    'required' => 0,
-    'settings' => array(
-      'exclude_cv' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 2,
-    ),
-  );
-
   // Exported field_instance: 'node-discussion-field_lead_image'
   $field_instances['node-discussion-field_lead_image'] = array(
     'bundle' => 'discussion',
@@ -1214,7 +1163,6 @@ function checkdesk_core_feature_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Active story');
   t('Attachment');
   t('Bio');
   t('Body');

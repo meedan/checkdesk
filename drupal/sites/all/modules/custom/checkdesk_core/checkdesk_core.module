@@ -1041,34 +1041,10 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
 
   if ($form['field_desk']['#access']) {
-    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_active_stories.js');
-    $as_extra = count($form['field_desk'][LANGUAGE_NONE]['#default_value']) ? $form['field_desk'][LANGUAGE_NONE]['#default_value'] : array(0);
-    $cd_active_stories = _checkdesk_active_story(array('theme' => FALSE, 'extra_nids' => $as_extra));
-    $old_stories = array_diff_key($form['field_desk'][LANGUAGE_NONE]['#options'], $cd_active_stories);
-    $old_stories = array('_none' => t('- None -')) + $old_stories;
-    // Limit stories options to active stories only.
-    $active_stories = array('_none' => t('- None -')) +  $cd_active_stories;
-    $form['field_desk'][LANGUAGE_NONE]['#options'] = $active_stories;
-    $form['field_desk'][LANGUAGE_NONE]['#required'] = FALSE;
-    $form['cd_field_old_stories_check'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Add to old stories'),
-      '#default_value' => FALSE,
-      '#weight' => 2,
-    );
-    $form['cd_field_old_stories'] = array(
-      '#type' => 'select',
-      '#options' => $old_stories,
-      '#weight' => 3,
-    );
     // Handle HTML entities
     foreach ($form['field_desk'][LANGUAGE_NONE]['#options'] as $key => $value) {
       $form['field_desk'][LANGUAGE_NONE]['#options'][$key] = htmlspecialchars_decode($value);
     }
-    foreach ($form['cd_field_old_stories']['#options'] as $key => $value) {
-      $form['cd_field_old_stories']['#options'][$key] = htmlspecialchars_decode($value);
-    }
-    $form['#validate'][] = '_checkdesk_core_active_stories_validate';
   }
 
   if (!in_array('administrator', array_values($user->roles))) {
@@ -1087,13 +1063,7 @@ function _checkdesk_core_post_node_form_submit($form, &$form_state) {
   if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
     drupal_set_message(t('@type %title saved as draft.', array('@type' => t('Update'), '%title' => $form_state['values']['title'])));
   }
-  // Redirect to story page
-  if ($form_state['values']['cd_field_old_stories_check']) {
-    $redirect_nid = $form_state['values']['cd_field_old_stories'];
-  }
-  else {
-    $redirect_nid = $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id'];
-  }
+  $redirect_nid = $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id'];
   $form_state['redirect'] = array('node/' . $redirect_nid, array('fragment' => 'update-'. $form_state['nid']));
 }
 
@@ -2823,45 +2793,17 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   // Adjust edit node form
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
-  $as_extra = array(0);
   if (isset($form['nid']['#value'])) {
     $node = $form['#node'];
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
-    if (isset($node->field_stories[LANGUAGE_NONE][0]['target_id'])) {
-      $as_extra[] = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
-    }
   }
   //set default story if exist.
   elseif (isset($_GET['ref_nid'])) {
     $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
-    $as_extra[] = $_GET['ref_nid'];
   }
-  // Add old stories list
-  drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_active_stories.js');
-  $cd_active_stories = _checkdesk_active_story(array('theme' => FALSE, 'extra_nids' => $as_extra));
-  $old_stories = array_diff_key($form['field_stories'][LANGUAGE_NONE]['#options'], $cd_active_stories);
-  $old_stories = array('_none' => t('- None -')) + $old_stories;
-  // Limit stories options to active stories only.
-  $active_stories = array('_none' => t('- None -')) +  $cd_active_stories;
-  $form['field_stories'][LANGUAGE_NONE]['#options'] = $active_stories;
-
-  $form['cd_field_old_stories_check'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Add to old stories'),
-    '#default_value' => FALSE,
-    '#weight' => 5,
-  );
-  $form['cd_field_old_stories'] = array(
-    '#type' => 'select',
-    '#options' => $old_stories,
-    '#weight' => 6,
-  );
   // Handle HTML entities
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
-  }
-  foreach ($form['cd_field_old_stories']['#options'] as $key => $value) {
-    $form['cd_field_old_stories']['#options'][$key] = htmlspecialchars_decode($value);
   }
   // Redirect user to collaboration page.
   $form['actions']['submit']['#submit'][] = '_redirect_report';
@@ -2874,9 +2816,6 @@ function _redirect_report($form, &$form_state) {
   $values = $form_state['values'];
   if (!empty($values['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
     $form_state['redirect'] = 'story-collaboration/' . $values['field_stories'][LANGUAGE_NONE][0]['target_id'];
-  }
-  elseif (!empty($values['cd_field_old_stories']))  {
-    $form_state['redirect'] = 'story-collaboration/' . $values['cd_field_old_stories'];
   }
 }
 
@@ -3319,32 +3258,3 @@ function _checkdesk_active_story($options = array()) {
   return $result;
 }
 
-/**
- * Implements of hook_validate().
- */
-function _checkdesk_core_active_stories_validate($form, &$form_state) {
-  $values = $form_state['values'];
-  if ($values['cd_field_old_stories_check']) {
-    if (empty($values['cd_field_old_stories'])) {
-      form_set_error('field_desk', t('Story field is required.'));
-    }
-  }
-  elseif(empty($values['field_desk'][LANGUAGE_NONE][0]['target_id'])) {
-    form_set_error('field_desk', t('Story field is required.'));
-  }
-}
-
-/**
- * Implements of hook_node_presave().
- */
-function checkdesk_core_node_presave($node) {
-  if ($node->type == 'post' || $node->type == 'media') {
-    $field_name = ($node->type == 'post') ? 'field_desk' : 'field_stories';
-    if ($node->cd_field_old_stories_check && $node->cd_field_old_stories) {
-      $node->{$field_name}[LANGUAGE_NONE] = array(
-        0 => array('target_id' => $node->cd_field_old_stories),
-      );
-    }
-    unset($node->cd_field_old_stories_check, $node->cd_field_old_stories);
-  }
-}
