@@ -88,12 +88,15 @@ function _checkdesk_story_links($nid) {
 
   // Add tooltip for add a report.
   if (isset($_SESSION['report_tooltip'])) {
-    $tour = demo_tour_preset_load('journalist');
+    $tour = array(
+      'title' => 'Submit Report',
+      'content' => 'Quickly add newsworthy links from social media. Then you can fact-check and publish them.',
+    );
     $tooltip = '<span class="popover tour-tour fade right in collaboration-report-tooltip">';
     $tooltip .= '  <div class="popover-arrow"></div>';
     $tooltip .= '  <div class="popover-close" data-role="end" onclick="jQuery(this).parent().hide();"><span>[X]</span></div>';
-    $tooltip .= '  <h3><span class="popover-title">' . t($tour->steps[1]['title']) . '</span></h3>';
-    $tooltip .= '  <div class="popover-content">' . t($tour->steps[1]['content']) . '</div>';
+    $tooltip .= '  <h3><span class="popover-title">' . t($tour['title']) . '</span></h3>';
+    $tooltip .= '  <div class="popover-content">' . t($tour['content']) . '</div>';
     $tooltip .= '</span>';
     $output .= $tooltip;
     unset($_SESSION['report_tooltip']);

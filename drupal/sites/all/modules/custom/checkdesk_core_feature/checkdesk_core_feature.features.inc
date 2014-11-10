@@ -8,14 +8,8 @@
  * Implements hook_ctools_plugin_api().
  */
 function checkdesk_core_feature_ctools_plugin_api($module = NULL, $api = NULL) {
-  if ($module == "checkdesk_tour" && $api == "default_checkdesk_tour_presets") {
-    return array("version" => "1");
-  }
   if ($module == "context" && $api == "context") {
     return array("version" => "3");
-  }
-  if ($module == "demo_tour" && $api == "default_demo_tour_presets") {
-    return array("version" => "1");
   }
   if ($module == "heartbeat" && $api == "heartbeat") {
     return array("version" => "1");
