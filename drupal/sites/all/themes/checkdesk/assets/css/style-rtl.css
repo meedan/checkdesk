@@ -1511,6 +1511,7 @@ div.vertical-tabs {
   border: 1px solid #ccc;
   position: relative;
   /* IE6/7 */
+  clear: both;
 }
 
 .vertical-tabs ul.vertical-tabs-list {
@@ -5903,6 +5904,7 @@ div.sensitive-hide {
 .update .update-body {
   padding-top: 15px;
   color: #404d59;
+  word-wrap: break-word;
 }
 .update .update-body .update-title {
   font-size: 25px;
@@ -8226,6 +8228,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   line-height: 30px;
   font-weight: normal;
   font-weight: 400;
+  word-wrap: break-word;
 }
 .story .story-body:before, .story .story-body:after {
   display: table;

@@ -57,14 +57,7 @@
           // into the text editor.
           if (CKEDITOR && $ckeditor && CKEDITOR.instances[$textarea.attr('id')]) {
             instance = CKEDITOR.instances[$textarea.attr('id')];
-
-            // Slight abuse of the CKEDITOR input filtering to close the previous
-            // <p> for line break. A new opening <p> is automatically created
-            // by CKEDITOR. Annoyingly, putting this all into one insertHtml()
-            // call does not seem to work.
-            instance.insertHtml('</p>');
             instance.insertHtml(data.droppable_ref);
-            instance.insertHtml('</p>');
           } else {
             $textarea.insertAtCaret("\n" + data.droppable_ref + "\n");
           }

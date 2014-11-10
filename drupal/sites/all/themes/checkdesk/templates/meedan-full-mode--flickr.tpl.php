@@ -17,5 +17,4 @@
       <?php print $report_status['status']; ?>
     </span>
   <?php endif; ?>
-  
 </div> <!-- /media-holder -->

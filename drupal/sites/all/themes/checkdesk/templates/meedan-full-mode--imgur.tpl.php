@@ -1,7 +1,7 @@
 <div class="media-holder">
   <div class="media">
     <?php if(isset($embed->html)) : ?>
-      <div class="imgur-holder">
+      <div class="video-holder video-4by3">
         <?php print $embed->html; ?>
       </div>
     <?php elseif (isset($full_image)) : ?>
