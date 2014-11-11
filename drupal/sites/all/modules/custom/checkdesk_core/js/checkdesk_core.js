@@ -49,15 +49,18 @@
 
           // Retrieve the Views information from the DOM.
           var data       = $(ui.draggable).data('views'),
-              $ckeditor  = $('.cke', this),
               $textarea  = $('textarea', this),
               instance;
 
           // Either insert the text into CKEDITOR, if available, else directly
           // into the text editor.
-          if (CKEDITOR && $ckeditor && CKEDITOR.instances[$textarea.attr('id')]) {
+          if (typeof CKEDITOR != 'undefined' && CKEDITOR.instances[$textarea.attr('id')]) {
             instance = CKEDITOR.instances[$textarea.attr('id')];
             instance.insertHtml(data.droppable_ref);
+            // add newline.
+            instance.execCommand( 'enter' );
+            // remember the inserted report.
+            instance.checkdeskReports[data.nid] = data.droppable_ref;
           } else {
             $textarea.insertAtCaret("\n" + data.droppable_ref + "\n");
           }
@@ -79,6 +82,23 @@
               currentDialog.getContentElement('info','protocol').disable();
             };
           }
+        });
+        // Listen to CKEditor content changes and hide/unhide reports accordingly.
+        CKEDITOR.on('instanceReady', function(ev) {
+          var editor = ev.editor;
+          editor.checkdeskReports = {};
+          editor.on('change', function(ev) {
+            var data = editor.getData();
+            $.each(editor.checkdeskReports, function(nid, ref) {
+              if (-1 !== data.indexOf(ref)) {
+                // report is there: hide in sidebar.
+                $('#report-'+nid).parent().hide();
+              } else {
+                // report is not there: show in sidebar.
+                $('#report-'+nid).parent().show();
+              }
+            })
+          })
         });
       }
 

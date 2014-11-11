@@ -31,11 +31,11 @@
         <?php endif; ?>
       </div>
       <?php if (!empty($published_stories)) : ?>
-      <section class="report-detail">
+        <section class="report-detail">
           <div class="checkdesk-story-wrapper">
             <?php  print t('Published in ') . $published_stories; ?>
           </div>
-      </section>
+        </section>
       <?php endif; ?>
     </div>
   </article>

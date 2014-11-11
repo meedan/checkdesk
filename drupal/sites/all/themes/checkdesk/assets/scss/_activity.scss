@@ -20,6 +20,7 @@
 .icon-plus-square-o { @include icon(plus-square-o, 20px); }
 .icon-ellipsis-h { @include icon(ellipsis-h, 20px); }
 .icon-youtube-play { @include icon(youtube-play); }
+.icon-twitter { @include icon(twitter); }
 .icon-check-circle { @include icon(check-circle, 16px);}
 .icon-trash-o { @include icon(trash-o, 16px);}
 
@@ -89,6 +90,15 @@ $position:  "before";
 			}
 		}
 
+		.item-body-text {
+			color: $firefly80;
+			a { @include ctb-linkColor($strongBlue80); }
+
+			ul, ol {
+	      margin: 0 0 $absolute-line-height/2.4 0; // 10px 
+	      padding-#{$alpha}: $gutter-width*2;
+	    }
+		}
 		
 	}
 
