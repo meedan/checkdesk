@@ -52,8 +52,6 @@
               $textarea  = $('textarea', this),
               instance;
 
-              console.log(data);
-
           // Either insert the text into CKEDITOR, if available, else directly
           // into the text editor.
           if (typeof CKEDITOR != 'undefined' && CKEDITOR.instances[$textarea.attr('id')]) {
