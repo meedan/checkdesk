@@ -13098,6 +13098,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['4b2d409cedb1b9fa83986ea457a0c075'] = array(
+    'source' => 'Embed this story',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'ضمّن هذا الموضوع على موقعك',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['4b343951770ec836b6d1a28523fdeb81'] = array(
     'source' => 'View own unpublished content',
     'context' => '',

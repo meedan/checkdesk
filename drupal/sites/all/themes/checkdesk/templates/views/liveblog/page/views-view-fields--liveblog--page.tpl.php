@@ -24,6 +24,12 @@
   foreach ($share_links as $id => $link) {
     $links[$id] = $link;
   }
+  $links['checkdesk-share-embed'] = array(
+    'html' => TRUE,
+    'title' => t('Embed this story') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($fields['nid']->raw)) . '</textarea>',
+    'href' => $url,
+    'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
+  );  
   // theme share links into a dropdown
   if (isset($links['checkdesk-share-facebook']) || 
       isset($links['checkdesk-share-twitter']) || 
@@ -44,6 +50,7 @@
     if (isset($links['checkdesk-share-google'])) {
       $share_link .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
     }
+    $share_link .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-embed']['href'], $links['checkdesk-share-embed']) . '</li>';
     $share_link .= '</ul></li>'; 
   }
 
