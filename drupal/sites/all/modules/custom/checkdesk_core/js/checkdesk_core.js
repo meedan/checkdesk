@@ -57,6 +57,8 @@
           if (typeof CKEDITOR != 'undefined' && CKEDITOR.instances[$textarea.attr('id')]) {
             instance = CKEDITOR.instances[$textarea.attr('id')];
             instance.insertHtml(data.droppable_ref);
+            // add newline.
+            instance.execCommand( 'enter' );
             // remember the inserted report.
             instance.checkdeskReports[data.nid] = data.droppable_ref;
           } else {
@@ -94,8 +96,6 @@
               } else {
                 // report is not there: show in sidebar.
                 $('#report-'+nid).parent().show();
-                // forget the report.
-                delete editor.checkdeskReports[nid];
               }
             })
           })
