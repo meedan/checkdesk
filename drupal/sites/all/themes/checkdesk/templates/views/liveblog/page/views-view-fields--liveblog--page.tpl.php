@@ -24,12 +24,11 @@
   foreach ($share_links as $id => $link) {
     $links[$id] = $link;
   }
-  $node = node_load($fields['nid']->raw);
   $links['checkdesk-share-embed'] = array(
     'html' => TRUE,
     'title' => t('Embed this story') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($fields['nid']->raw)) . '</textarea>',
     'href' => $url,
-    'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
+    'attributes' => array('title' => $fields['title']->raw, 'class' => array('embed'), 'onclick' => 'return false;'),
   );
   // theme share links into a dropdown
   if (isset($links['checkdesk-share-facebook']) ||
