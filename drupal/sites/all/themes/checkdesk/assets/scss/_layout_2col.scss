@@ -16,7 +16,7 @@
     position: fixed;
     max-width: 360px;
     #{$alpha}: 0;
-    top: $toolbarHeight + $navbarHeight;
+    top: $navbarHeight;
     width: 30%;
     border-#{$omega}: 1px solid $firefly10;
     background-color: $white;
@@ -58,6 +58,14 @@ body.sidebar-first {
   $primary-width: $container-width;
   #main {
     @include layout-2col($secondary-width, $primary-width);   
+  }
+}
+
+body.toolbar {
+  #main {
+    #sidebar-first.column {
+      top: $toolbarHeight + $navbarHeight;
+    }
   }
 }
 
