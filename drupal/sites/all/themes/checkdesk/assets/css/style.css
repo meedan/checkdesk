@@ -9565,7 +9565,7 @@ body.sidebar-first #main #sidebar-first.column {
   position: fixed;
   max-width: 360px;
   left: 0;
-  top: 103px;
+  top: 38px;
   width: 30%;
   border-right: 1px solid #e7e8ea;
   background-color: white;
@@ -9640,6 +9640,10 @@ body.sidebar-first #main #content #content-inner:before, body.sidebar-first #mai
 }
 body.sidebar-first #main #content #content-inner:after {
   clear: both;
+}
+
+body.toolbar #main #sidebar-first.column {
+  top: 103px;
 }
 
 @media (min-width: 465px) {
