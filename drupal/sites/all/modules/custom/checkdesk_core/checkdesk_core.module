@@ -1041,9 +1041,8 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
 
   if ($form['field_desk']['#access']) {
-    $options = array('_none' => t('- Select a value -')) + _checkdesk_active_story(array('theme' => FALSE));
-    $other_options = array_diff($form['field_desk'][LANGUAGE_NONE]['#options'], $options);
-    $form['field_desk'][LANGUAGE_NONE]['#options'] = $options + $other_options;
+    $options = array('_none' => t('- Select a value -')) + _checkdesk_get_stories_by_activity();
+    $form['field_desk'][LANGUAGE_NONE]['#options'] = $options;
     // Handle HTML entities
     foreach ($form['field_desk'][LANGUAGE_NONE]['#options'] as $key => $value) {
       $form['field_desk'][LANGUAGE_NONE]['#options'][$key] = htmlspecialchars_decode($value);
@@ -2805,9 +2804,8 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
   }
 
-  $options = array('_none' => t('- None -')) + _checkdesk_active_story(array('theme' => FALSE));
-  $other_options = array_diff($form['field_stories'][LANGUAGE_NONE]['#options'], $options);
-  $form['field_stories'][LANGUAGE_NONE]['#options'] = $options + $other_options;
+  $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity();
+  $form['field_stories'][LANGUAGE_NONE]['#options'] = $optionq;
   // Handle HTML entities
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
@@ -3263,6 +3261,20 @@ function _checkdesk_active_story($options = array()) {
     }
     return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'checkdesk-active-story')));
   }
+  return $result;
+}
+
+/**
+ * @return array
+ *  List of stories sorted by activity.
+ */
+function _checkdesk_get_stories_by_activity() {
+  $result = db_query('
+    SELECT n.nid, n.title
+    FROM heartbeat_activity ha
+    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type
+    ORDER BY ha.timestamp DESC 
+    ', array(':type' => 'discussion'))->fetchAllKeyed(0);
   return $result;
 }
 

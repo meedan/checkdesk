@@ -311,6 +311,25 @@ function checkdesk_core_feature_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_new_story'] = entity_import('rules_config', '{ "rules_new_story" : {
+      "LABEL" : "New story",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "heartbeat_rules", "rules" ],
+      "ON" : { "node_insert--discussion" : { "bundle" : "discussion" } },
+      "DO" : [
+        { "heartbeat_activity_checkdesk_add_story" : {
+            "nid" : [ "node:nid" ],
+            "uid" : [ "site:current-user:uid" ],
+            "nid_target" : [ "node:nid" ],
+            "message_id" : { "value" : { "checkdesk_add_story" : "checkdesk_add_story" } },
+            "!username" : [ "site:current-user:name" ]
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_new_update'] = entity_import('rules_config', '{ "rules_new_update" : {
       "LABEL" : "New update",
       "PLUGIN" : "reaction rule",
