@@ -2805,7 +2805,7 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   }
 
   $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity();
-  $form['field_stories'][LANGUAGE_NONE]['#options'] = $optionq;
+  $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
   // Handle HTML entities
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
