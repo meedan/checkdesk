@@ -1041,6 +1041,9 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
 
   if ($form['field_desk']['#access']) {
+    $options = array('_none' => t('- Select a value -')) + _checkdesk_active_story(array('theme' => FALSE));
+    $other_options = array_diff($form['field_desk'][LANGUAGE_NONE]['#options'], $options);
+    $form['field_desk'][LANGUAGE_NONE]['#options'] = $options + $other_options;
     // Handle HTML entities
     foreach ($form['field_desk'][LANGUAGE_NONE]['#options'] as $key => $value) {
       $form['field_desk'][LANGUAGE_NONE]['#options'][$key] = htmlspecialchars_decode($value);
@@ -2801,6 +2804,10 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   elseif (isset($_GET['ref_nid'])) {
     $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
   }
+
+  $options = array('_none' => t('- None -')) + _checkdesk_active_story(array('theme' => FALSE));
+  $other_options = array_diff($form['field_stories'][LANGUAGE_NONE]['#options'], $options);
+  $form['field_stories'][LANGUAGE_NONE]['#options'] = $options + $other_options;
   // Handle HTML entities
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
@@ -2859,6 +2866,7 @@ function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
 /**
  * Implements of hook_cron().
  */
+/** Disable it for now
 function checkdesk_core_cron() {
   //Remove active story (older than 2 weeks)
   $time = strtotime("-2 week");
@@ -2872,7 +2880,7 @@ function checkdesk_core_cron() {
       ':time' => $time,
     ));
 }
-
+ */
 /**
  * Implements of hook_cron_queue_info().
  */
@@ -3227,16 +3235,16 @@ function _checkdesk_active_story($options = array()) {
     (
       SELECT nid, title
       FROM {node} n
-      LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid
-      WHERE n.type = :type AND ((n.changed > :time AND acs.field_active_story_value != :inactive) OR n.nid IN (:extra_nids))
+      /*LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid*/
+      WHERE n.type = :type AND ((n.changed > :time /*AND acs.field_active_story_value != :inactive*/) OR n.nid IN (:extra_nids))
     )
       UNION
     (
       SELECT DISTINCT nid_target, n.title
       FROM {heartbeat_activity} ha
       INNER JOIN {node} n on ha.nid_target = n.nid AND n.type = :type
-      LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid
-      WHERE message_id IN (:message_id ) AND timestamp > :time AND acs.field_active_story_value IS NULL
+      /*LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid*/
+      WHERE message_id IN (:message_id ) AND timestamp > :time /*AND acs.field_active_story_value IS NULL*/
     )
       ORDER BY nid DESC
     ',
