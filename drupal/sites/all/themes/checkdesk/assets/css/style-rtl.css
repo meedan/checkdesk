@@ -5947,6 +5947,7 @@ div.sensitive-hide {
 .update .update-footer .update-meta {
   margin: 0;
   padding: 0;
+  position: relative;
 }
 .update .update-footer .update-meta li {
   list-style: none;
@@ -6023,36 +6024,21 @@ div.sensitive-hide {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.update .update-footer .update-by {
-  *zoom: 1;
+.update .update-footer .avatar {
+  position: absolute;
+  right: 0;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  display: inline-block;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #cfd3d5;
 }
-.update .update-footer .update-by:before, .update .update-footer .update-by:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.update .update-footer .update-by:after {
-  clear: both;
-}
-.update .update-footer .update-by a {
-  float: right;
-}
-.update .update-footer .update-by a:last-child {
-  width: 78%;
-  -ms-word-break: break-all;
-  word-break: break-all;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
-}
-.update .update-footer .update-by .gravatar {
-  width: 15px;
-  margin: 0 7.5px;
-  text-align: center;
-}
-.update .update-footer .update-by .gravatar img {
-  width: 15px;
-  height: 15px;
+.update .update-footer .actor {
+  margin-right: 30px;
 }
 
 html body .fyre-widget {
@@ -8923,6 +8909,11 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .thumb-48 {
   width: 48px;
   height: 48px;
+}
+
+.thumb-22 {
+  width: 22px;
+  height: 22px;
 }
 
 .icon-share:before {

@@ -54,6 +54,7 @@
 
     .update-meta {
     	@include reset-list-style;
+      position: relative;
     	& > li {
         font-size: 14px;
         color: $firefly20;
@@ -98,26 +99,22 @@
       @include icon(pencil-square, $small-font-size, $firefly20);
     }
 
-    // by
-    .update-by {
-      @include ctb-clearfix;
-			// margin-bottom: $absolute-line-height/4;
-      a {
-        float: $alpha; 
-      }
-      a:last-child {
-        width: 78%;
-        @include ctb-break-words;
-      }
-      .gravatar {
-        width: 15px;
-        margin: 0 $gutter-width/2;
-        text-align: center;
-        img {
-          @include ctb-square(15px);
-        }
-      }
-		} 
+    .avatar {
+      position: absolute;
+      // top: -2px;
+      #{$from-direction}: 0;
+      // float: $from-direction;
+
+      background-size: 100%;
+      background-repeat: no-repeat;
+      display: inline-block;
+      @include border-radius(4px);
+      background-color: $firefly20;
+    }
+
+    .actor {
+      margin-#{$from-direction}: 30px;
+    }
 
   } // update footer
 } // update
