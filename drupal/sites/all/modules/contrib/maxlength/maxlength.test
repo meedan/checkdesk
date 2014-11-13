@@ -24,7 +24,7 @@ class MaxlengthTestCase extends DrupalWebTestCase {
     $this->hyphen_type = str_replace('_', '-', $this->type);
     $this->admin = $this->drupalCreateUser(array('administer content types', 'bypass node access'));
   }
-  
+
   /**
    * Test fieldapi field.
    */
@@ -47,12 +47,15 @@ class MaxlengthTestCase extends DrupalWebTestCase {
         case 'class':
           $this->assertTrue(strpos($value, 'maxlength'), 'Take sure the maxlength class is existant');
           break;
+
         case 'maxlength_js':
           $this->assertTrue($value, 'Take sure that the maxlenght_js attribute is set.');
           break;
+
         case 'maxlength_js_label':
           $this->assertEqual($edit['instance[widget][settings][maxlength_js_label]'], $value, 'Take sure that the maxlenght_js_label is the defined one.');
           break;
+
         case 'maxlength':
           $this->assertEqual($edit['instance[widget][settings][maxlength_js]'], $value);
       }
@@ -77,26 +80,27 @@ class MaxlengthTestCase extends DrupalWebTestCase {
     // Check the maxlength html attributes.
     $elements = $this->xpath('//input[@id=:id]', array(':id' => 'edit-title'));
 
-//     foreach ($elements[0]->attributes() as $key => $value) {
-//       switch ($key) {
-//         case 'class':
-//           $this->assertTrue(strpos($value, 'maxlength'), 'Take sure the maxlength class is existant');
-//           break;
-//         case 'maxlength_js':
-//           $this->assertTrue($value, 'Take sure that the maxlenght_js attribute is set.');
-//           break;
-//         case 'maxlength_js_label':
-//           $this->assertEqual($edit['maxlength_js_label'], $value, 'Take sure that the maxlenght_js_label is the defined one.');
-//           break;
-//         case 'maxlength':
-//           $this->assertEqual($edit['maxlenght_js'], $value);
-//           break;
-//       }
-//     }
-  }
+/*
+    foreach ($elements[0]->attributes() as $key => $value) {
+      switch ($key) {
+        case 'class':
+          $this->assertTrue(strpos($value, 'maxlength'), 'Take sure the maxlength class is existant');
+          break;
 
-   /**
-    * Test general api.
-    */
+        case 'maxlength_js':
+          $this->assertTrue($value, 'Take sure that the maxlenght_js attribute is set.');
+          break;
+
+        case 'maxlength_js_label':
+          $this->assertEqual($edit['maxlength_js_label'], $value, 'Take sure that the maxlenght_js_label is the defined one.');
+          break;
+
+        case 'maxlength':
+          $this->assertEqual($edit['maxlenght_js'], $value);
+          break;
+      }
+    }
+*/
+  }
 
 }

@@ -47,3 +47,10 @@ function metatag_opengraph_update_7100() {
   module_enable(array('metatag_facebook'));
   drupal_set_message(t('Enabled the new Metatag:Facebook submodule. If the Facebook meta tags are not being used then it is safe to disable.'));
 }
+
+/**
+ * Leave a warning about the two og:type value changes.
+ */
+function metatag_opengraph_update_7101() {
+  drupal_set_message(t('The "Movie" and "TV Show" values for the "Content type" open graph meta tag changed, if this site used those values they will need to be manually updated.'));
+}

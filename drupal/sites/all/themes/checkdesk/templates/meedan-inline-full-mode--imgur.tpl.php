@@ -15,7 +15,7 @@
       </div>
       <div class="media-content">
         <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
-        <span class="description"><?php print $embed->description; ?></span>
+        <?php if(isset($media_description)) : ?><span class="description expandable"><?php print $media_description; ?></span><?php endif; ?>
         <?php if(isset($author_name)) : ?>
           <span class="author"><?php print $author_name ?></span>
         <?php elseif(isset($provider_name)) : ?>

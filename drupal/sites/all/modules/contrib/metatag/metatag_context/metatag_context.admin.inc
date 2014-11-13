@@ -101,8 +101,15 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
   $instance = "";
   $options = array();
 
+  $metatags = $context->reactions['metatag_context_reaction']['metatags'];
+  if (!isset($metatags[LANGUAGE_NONE])) {
+    $metatags = array(
+      LANGUAGE_NONE => $metatags,
+    );
+  }
+
   // Load the METATAG form.
-  metatag_metatags_form($form, $instance, $context->reactions['metatag_context_reaction']['metatags'], $options);
+  metatag_metatags_form($form, $instance, $metatags[LANGUAGE_NONE], $options);
 
   $form['paths'] = array(
     '#title' => 'Path',

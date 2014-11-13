@@ -260,6 +260,15 @@ function meedan_notifications_action_submit($form, $form_state) {
  * Sends email to computed recipients of the event.
  */
 function meedan_notifications_action($object, $context) {
+  if (isset($context['t_args'][0]) || !count($context['t_args'])) {
+    if (variable_get('meedan_notifications_log_errors', TRUE)) {
+      $log_errors = array();
+      $log_errors['event'] = $context['event'];
+      $log_errors['nid'] = isset($object->nid) ? $object->nid : 0;
+      watchdog('meedan_notifications_send_mail_error', print_r($log_errors, TRUE));
+    }
+    return;
+  }
   if (variable_get('meedan_notifications_enabled', TRUE)) {
     // Get recipients.
     $uids = NULL;//drupal_static(__FUNCTION__);

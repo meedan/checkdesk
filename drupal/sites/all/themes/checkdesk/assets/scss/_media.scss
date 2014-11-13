@@ -16,20 +16,20 @@
 			font-size: 14px;
 			color: $firefly40;
 			line-height: 1.4;
+			margin-top: 2px;
 		}
 
 		.title {
 			font-size: 18px;
 			a { @include ctb-linkColor($strongBlue80); }
 			font-weight: 700;
-			margin-bottom: 5px;
 		}
 
 		.description {
 			font-size: 16px;
 			color: $firefly60;
-			margin-bottom: 5px;
-			a { @include ctb-linkColor($firefly60); }
+			margin-top: 0;
+			a { @include ctb-linkColor($strongBlue80); }
 		}
 
 		.provider-icon, .favicon {
@@ -104,7 +104,10 @@
 
 	.inline-img-thumb, .inline-video-thumb {
 		width: 100%;
-		@include ctb-size(74px, 120px);
+		// @include ctb-size(74px, 120px);
+		width: 120px;
+		height: auto;
+		overflow: hidden;
 		@include border-radius(4px);
 		margin-top: 4px;
 		margin-#{$from-direction}: $gutter-width/2;

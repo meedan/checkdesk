@@ -54,7 +54,6 @@
   iframe.setAttribute('frameborder', '0');
   iframe.setAttribute('scrolling', 'no');
   iframe.setAttribute('seamless', '');
-  iframe.setAttribute('name', 'seamless');
 
   for (i in params) {
     if (params.hasOwnProperty(i)) {

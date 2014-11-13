@@ -34,7 +34,7 @@ function checkdesk_core_feature_filter_default_formats() {
         'weight' => -48,
         'status' => 1,
         'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>',
+          'allowed_html' => '<a> <em> <strong> <blockquote> <ul> <ol> <li><p>',
           'filter_html_help' => 1,
           'filter_html_nofollow' => 0,
         ),
@@ -98,6 +98,15 @@ function checkdesk_core_feature_filter_default_formats() {
     'status' => 1,
     'weight' => -98,
     'filters' => array(
+      'filter_html' => array(
+        'weight' => -10,
+        'status' => 1,
+        'settings' => array(
+          'allowed_html' => '<a> <em> <strong> <blockquote> <ul> <ol> <li><p>',
+          'filter_html_help' => 1,
+          'filter_html_nofollow' => 0,
+        ),
+      ),
       'filter_checkdesk_markup' => array(
         'weight' => 0,
         'status' => 1,
@@ -107,6 +116,13 @@ function checkdesk_core_feature_filter_default_formats() {
         'weight' => 0,
         'status' => 1,
         'settings' => array(),
+      ),
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(
+          'filter_url_length' => 72,
+        ),
       ),
       'filter_markdown' => array(
         'weight' => 0,

@@ -56,7 +56,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'parent_identifier' => 'main-menu_:<sub>',
     'router_path' => 'admin/people',
-    'uuid' => '1aabba86-d2db-4ee0-9956-24815b9ad3b1',
+    'uuid' => '90476ce1-c57a-48e8-b95a-abc56aae9886',
     'weight' => -49,
   );
   // Exported menu link: main-menu_create-story:node/add/discussion
@@ -81,7 +81,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'router_path' => 'node/add/discussion',
     'uuid' => 'edc54df9-4aa8-bf84-dd89-ca0a351af23b',
-    'weight' => -48,
+    'weight' => -49,
   );
   // Exported menu link: main-menu_edit-fact-checking-statement:admin/config/system/checkdesk
   $menu_links['main-menu_edit-fact-checking-statement:admin/config/system/checkdesk'] = array(
@@ -154,7 +154,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'router_path' => 'node/add/media',
     'uuid' => '0bc3af5d-28a8-c864-bd93-f17d8bea2366',
-    'weight' => -49,
+    'weight' => -48,
   );
   // Exported menu link: main-menu_update-story:node/add/post
   $menu_links['main-menu_update-story:node/add/post'] = array(
@@ -360,7 +360,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'expanded' => 0,
     'external' => 0,
     'has_children' => 0,
-    'hidden' => 0,
+    'hidden' => 1,
     'language' => 'und',
     'link_path' => 'checkdesk_take_tour',
     'link_title' => 'Take tour',

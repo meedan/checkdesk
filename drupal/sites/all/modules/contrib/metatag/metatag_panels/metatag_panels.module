@@ -56,10 +56,15 @@ function metatag_panels_form($form, $form_state) {
   // Don't set any metatag instance name as the configuration data is managed locally within panels.
   $instance = '';
   $options = array('token types' => $token_types);
-  $conf = empty($handler->conf['metatag_panels']) ? array() : $handler->conf['metatag_panels']['metatags'];
+  $metatags = empty($handler->conf['metatag_panels']) ? array() : $handler->conf['metatag_panels']['metatags'];
+
+  // This leaves some possibility for future versions to support translation.
+  if (!isset($metatags[LANGUAGE_NONE])) {
+    $metatags = array(LANGUAGE_NONE => $metatags);
+  }
 
   // Load the metatag form (passed by reference).
-  metatag_metatags_form($form, $instance, $conf, $options);
+  metatag_metatags_form($form, $instance, $metatags[LANGUAGE_NONE], $options);
 
   // Modify metatag form defaults.
   $form['metatags']['#collapsible'] = FALSE;
@@ -81,7 +86,7 @@ function metatag_panels_form($form, $form_state) {
 function metatag_panels_form_submit($form, $form_state) {
   $conf = array(
     'enabled' => $form_state['values']['metatags_enabled'],
-    'metatags' => $form_state['values']['metatags'],
+    'metatags' => $form_state['values']['metatags'][LANGUAGE_NONE],
   );
 
   $form_state['handler']->conf['metatag_panels'] = $conf;
@@ -99,8 +104,26 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     return;
   }
 
+  // This leaves some possibility for future versions to support translation.
   $metatags = $handler->conf['metatag_panels']['metatags'];
-  $metatags += metatag_config_load_with_defaults('');
+  if (!is_array($metatags) || empty($metatags)) {
+    $metatags = array();
+  }
+
+  // If meta tags were found but they're not nested for the language, fix it.
+  // This leaves some possibility for future versions to support translation.
+  if (!empty($metatags) && !isset($metatags[LANGUAGE_NONE])) {
+    $metatags = array(LANGUAGE_NONE => $metatags);
+  }
+
+  // Append global defaults.
+  $all_metatags = array();
+  foreach ($metatags as $langcode => $values) {
+    if (!empty($values)) {
+      $all_metatags = $values + metatag_config_load_with_defaults('');
+    }
+  }
+  $metatags = $all_metatags;
 
   if (empty($metatags)) {
     return;
@@ -115,6 +138,13 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
   $tokens = array();
   foreach ($task_contexts as $task_context) {
     $tokens[$task_context->keyword] = $task_context->data;
+  }
+
+  // Because of page execution order, sometimes the page title does not get set
+  // by Panels in time for metatags to use it, so we'll explicitly set it here
+  // if we need to.
+  if (!empty($info['title'])) {
+    drupal_set_title($info['title'], PASS_THROUGH);
   }
 
   // Build the Metatag.

@@ -40,6 +40,7 @@ function metatag_dc_metatag_bundled_config_alter(array &$configs) {
         $config->config += array(
           'dcterms.creator' => array('value' => '[node:author]'),
           'dcterms.date' => array('value' => '[node:created:custom:Y-m-d\TH:iP]'),
+          'dcterms.modified' => array('value' => '[node:changed:custom:Y-m-d\TH:iP]'),
           'dcterms.description' => array('value' => '[node:summary]'),
           'dcterms.language' => array('value' => '[node:language]'),
           'dcterms.title' => array('value' => '[node:title]'),
@@ -144,6 +145,19 @@ function metatag_dc_metatag_info() {
   $info['tags']['dcterms.date'] = array(
     'label' => t('Dublin Core Date'),
     'description' => t('A point or period of time associated with an event in the lifecycle of the resource. Date may be used to express temporal information at any level of granularity.  Recommended best practice is to use an encoding scheme, such as the W3CDTF profile of ISO 8601 [W3CDTF].'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'dublin-core',
+    'element' => array(
+      '#theme' => 'metatag_dc',
+    ),
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
+  );
+  $info['tags']['dcterms.modified'] = array(
+    'label' => t('Dublin Core Modified Date'),
+    'description' => t('Date on which the resource was changed.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'dublin-core',
     'element' => array(

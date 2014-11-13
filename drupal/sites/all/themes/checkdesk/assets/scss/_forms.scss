@@ -425,7 +425,6 @@
 
     select {
       @include span-columns($w, $w); // small padding with grid accounting
-      @include ctb-clearfix;
       float: none;
       @include cd-sans-serif-family;
     }

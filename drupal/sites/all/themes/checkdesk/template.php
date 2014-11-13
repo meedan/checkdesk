@@ -48,6 +48,10 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     } else {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
+    // Media description
+    if(isset($node->body['und'][0]['value'])) {
+      $variables['media_description'] = $node->body['und'][0]['value'];
+    }
     // Set favicon
     if (isset($embed->favicon_link)) {
       $variables['favicon_link'] = l(
@@ -75,7 +79,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
       $variables['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE));
     }
-    // Large image in case of Flickr or imgur
+    // Large image in case of Flickr or imgur or instagram
     if ($element['#formatter'] == 'meedan_inline_full_mode' || $element['#formatter'] == 'meedan_full_mode') {
       if(isset($embed->url)) {
         $variables['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid , array('html' => TRUE));
@@ -527,7 +531,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
     ));
-    $variables['created_by'] = t('<a href="@user">!user</a>', array(
+    $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $node->name,
     ));
@@ -545,18 +549,8 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if($variables['type'] == 'post') {
-    //Add author info to variables
-    $user = user_load($node->uid);
-    $user_picture = $user->picture;
-    if (!empty($user_picture)) {
-      $options = array(
-        'html' => TRUE,
-        'attributes' => array(
-          'class' => 'gravatar'
-        )
-      );
-      $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($node->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
-    }
+    $user = user_load($variables['uid']);
+    $variables['user_avatar'] = _set_user_avatar_bg($user, array('avatar', 'thumb-22'));
   }
 
   if ($variables['type'] == 'discussion') {
@@ -671,6 +665,8 @@ function checkdesk_preprocess_node(&$variables) {
         '!interval' => format_interval(time() - $variables['created'], 1),
       ));
       // Set published stories
+      $variables['published_stories'] = '';
+      $published_stories_links = array();
       $published_stories = db_query('
           SELECT DISTINCT nid_target, n.title
           FROM {heartbeat_activity} ha
@@ -678,8 +674,12 @@ function checkdesk_preprocess_node(&$variables) {
           WHERE n.language = :language AND message_id IN (:status)
           ', array(':nid' => $variables['nid'], ':language' => $language->language ,':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
       )->fetchAllKeyed(0);
-      foreach ($published_stories as $k => $v) {
-        $variables['published_stories'] .= ' ' . l($v, 'node/' . $k);
+      // display published in story if more than one or its the report/media page
+      if(count($published_stories) > 1 || $variables['page'] == TRUE) {
+        foreach ($published_stories as $k => $v) {
+           array_push($published_stories_links, l($v, 'node/' . $k));
+        }
+        $variables['published_stories'] .= implode('<span class="separator">,</span> ', $published_stories_links);
       }
     }
     //Add activity report with status
@@ -1163,12 +1163,11 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
 
   if ($vars['view']->name === 'updates_for_stories') {
     $vars['counter'] = intval($vars['view']->total_rows) - intval(strip_tags($vars['fields']['counter']->content)) + 1;
+    $vars['update_id'] = $vars['fields']['nid']->raw;
     if ($vars['counter'] === $vars['view']->total_rows) {
-      $vars['update_id'] = $vars['fields']['nid']->raw;
       $vars['update'] = $vars['fields']['rendered_entity']->content;
     }
     else {
-      $vars['update_id'] = $vars['fields']['nid']->raw;
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
   }

@@ -9,6 +9,18 @@ function metatag_opengraph_preprocess_html(&$variables) {
   if (!module_exists('rdf')) {
     $variables['rdf_namespaces'] .= "\n  xmlns:og=\"http://ogp.me/ns#\"";
   }
+
+  // @TODO Would it be worth dynamically identifying whether these should be
+  // added, or just output them all?
+
+  // Need an extra namespace for the "article" tags.
+  $variables['rdf_namespaces'] .= "\n  xmlns:article=\"http://ogp.me/ns/article#\"";
+  // Need an extra namespace for the "book" tags.
+  $variables['rdf_namespaces'] .= "\n  xmlns:book=\"http://ogp.me/ns/book#\"";
+  // Need an extra namespace for the "profile" tags.
+  $variables['rdf_namespaces'] .= "\n  xmlns:profile=\"http://ogp.me/ns/profile#\"";
+  // Need an extra namespace for the "video" tags.
+  $variables['rdf_namespaces'] .= "\n  xmlns:video=\"http://ogp.me/ns/video#\"";
 }
 
 /**

@@ -131,6 +131,8 @@ function checkdesk_core_update_7018() {
   db_query("ALTER TABLE file_managed MODIFY uri VARCHAR(1024) COLLATE utf8_bin"); // Resize the column
   db_query("CREATE UNIQUE INDEX uri ON file_managed (uri(255))"); // Recreate the index without exceeding the InnoDB index size
   db_query("ALTER TABLE file_managed ENGINE=innodb"); // Rebuild the index
+  // Resize file name issue #3302
+  db_query("ALTER TABLE file_managed MODIFY filename VARCHAR(1024)");
 }
 
 /**
@@ -265,4 +267,20 @@ function checkdesk_core_update_7033() {
   else {
     variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
   }
+}
+
+/**
+ * Disable and uninstall checkdesk_tour
+ */
+function checkdesk_core_update_7034() {
+  $module_list = array('checkdesk_tour');
+  module_disable($module_list);
+  drupal_uninstall_modules($module_list, FALSE);
+}
+
+/**
+ * Resizing "filename" column on "file_managed" table
+ */
+function checkdesk_core_update_7035() {
+  db_query("ALTER TABLE file_managed MODIFY filename VARCHAR(1024)");
 }

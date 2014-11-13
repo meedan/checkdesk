@@ -397,6 +397,12 @@ return _checkdesk_core_auto_title($node);
         'title' => array(
           'weight' => '0',
         ),
+        'metatags' => array(
+          'weight' => '5',
+        ),
+        'path' => array(
+          'weight' => '4',
+        ),
       ),
       'display' => array(),
     ),
@@ -1743,9 +1749,10 @@ password: Your password
   $strongarm->api_version = 1;
   $strongarm->name = 'variable_realm_list_language';
   $strongarm->value = array(
-    0 => 'checkdesk_site_owner',
-    1 => 'site_name',
-    2 => 'site_slogan',
+    0 => 'site_name',
+    1 => 'site_slogan',
+    2 => 'theme_[theme]_settings',
+    3 => 'checkdesk_site_owner',
   );
   $export['variable_realm_list_language'] = $strongarm;
 

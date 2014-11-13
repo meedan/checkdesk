@@ -1,4 +1,4 @@
-<?php  
+<?php
 
 /**
  * @file
@@ -7,7 +7,7 @@
 
 /**
  * @todo: Migrate node title
- * @todo: Should we use maxlength_ for hook_uninstall instead of maxlength_js_
+ * @todo: Should we use maxlength_ for hook_uninstall instead of maxlength_js_.
  */
 
 
@@ -23,11 +23,11 @@ function maxlength_uninstall() {
 /**
  * Implements hook_update_N().
  *
- * Migrate from maxlength2 to maxlength3
+ * Migrate from maxlength2 to maxlength3.
  */
 function maxlength_update_7300() {
   $ret = array();
-  // Migrate node body
+  // Migrate node body.
   foreach (node_type_get_names() as $type => $name) {
     $maxlength = variable_get('maxlength_body_' . $type, 0);
     variable_del('maxlength_body_' . $type);
@@ -36,7 +36,7 @@ function maxlength_update_7300() {
 
     if ($maxlength) {
       $instance = field_read_instance('node', 'body', $type);
-      // Body is a text_textarea_with_summary
+      // Body is a text_textarea_with_summary.
       $instance['widget']['settings']['maxlength_js'] = $maxlength;
       $instance['widget']['settings']['maxlength_js_label'] = $label;
       field_update_instance($instance);
@@ -53,7 +53,7 @@ function maxlength_update_7300() {
 function maxlength_update_7301() {
   $ret = array();
   // The 7.x-2.x seems to support only global settings for fields not per instance
-  // so setup the maxlength for each instance of the field
+  // so setup the maxlength for each instance of the field.
   foreach (field_read_fields() as $field) {
     if (!empty($field['settings']['max_length'])) {
       $maxlength = $field['settings']['max_length'];
@@ -74,7 +74,7 @@ function maxlength_update_7301() {
  */
 function maxlength_update_7302() {
   $ret = array();
-  // Migrate node body
+  // Migrate node body.
   foreach (node_type_get_names() as $type => $name) {
     $maxlength = variable_get('maxlength_comment_comment_' . $type, 0);
     variable_del('maxlength_comment_comment_' . $type);
@@ -82,7 +82,7 @@ function maxlength_update_7302() {
     variable_del('maxlength_comment_comment_text_' . $type);
     if ($maxlength) {
       $instance = field_read_instance('comment', 'comment_body', $type);
-      // Body is a text_textarea_with_summary
+      // Body is a text_textarea_with_summary.
       $instance['widget']['settings']['maxlength_js'] = $maxlength;
       $instance['widget']['settings']['maxlength_js_label'] = $label;
       field_update_instance($instance);

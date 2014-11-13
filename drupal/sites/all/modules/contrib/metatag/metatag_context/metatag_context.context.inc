@@ -11,11 +11,21 @@ class metatag_context_reaction extends context_reaction {
     // Don't care about the instance name, the data is being managed by
     // Context and not Metatag.
     $instance = "";
+
     // Load the previously saved settings.
     $data = $this->fetch_from_context($context);
     if (!isset($data['metatags'])) {
       $data['metatags'] = array();
     }
+
+    // Support the pre-v1.0 data structures that were not nested with the
+    // language code.
+    if (!isset($data['metatags'][LANGUAGE_NONE])) {
+      $data['metatags'] = array(
+        LANGUAGE_NONE => $data['metatags'],
+      );
+    }
+
     // No options currently available.
     $options = array();
 
@@ -32,7 +42,7 @@ class metatag_context_reaction extends context_reaction {
     );
 
     // Load the basic Metatag form.
-    metatag_metatags_form($form, $instance, $data['metatags'], $options);
+    metatag_metatags_form($form, $instance, $data['metatags'][LANGUAGE_NONE], $options);
 
     // Stop the meta tag fields appearing within a fieldset.
     $form['metatags']['#type'] = 'container';
@@ -43,30 +53,30 @@ class metatag_context_reaction extends context_reaction {
     // Flatten the fieldsets because otherwise the Context module will not save
     // them properly.
     // TODO: Perhaps it can be done in a better way with #tree and #parents?
-    foreach (array('advanced', 'dublin-core', 'open-graph') as $fieldset) {
-      if (isset($form['metatags'][$fieldset])) {
-        $form['metatags'][$fieldset . '_heading'] = array(
+    foreach (array('advanced', 'dublin-core', 'open-graph', 'twitter-cards') as $fieldset) {
+      if (isset($form['metatags'][LANGUAGE_NONE][$fieldset])) {
+        $form['metatags'][LANGUAGE_NONE][$fieldset . '_heading'] = array(
           '#prefix' => '<hr /><h3>',
-          '#markup' => $form['metatags'][$fieldset]['#title'],
+          '#markup' => $form['metatags'][LANGUAGE_NONE][$fieldset]['#title'],
           '#suffix' => '</h3>',
         );
-        if (isset($form['metatags'][$fieldset]['#description'])) {
-          $form['metatags'][$fieldset . '_description'] = array(
+        if (isset($form['metatags'][LANGUAGE_NONE][$fieldset]['#description'])) {
+          $form['metatags'][LANGUAGE_NONE][$fieldset . '_description'] = array(
             '#prefix' => '<p>',
-            '#markup' => $form['metatags'][$fieldset]['#description'],
+            '#markup' => $form['metatags'][LANGUAGE_NONE][$fieldset]['#description'],
             '#suffix' => '</p>',
           );
         }
-        foreach ($form['metatags'][$fieldset] as $key => $value) {
+        foreach ($form['metatags'][LANGUAGE_NONE][$fieldset] as $key => $value) {
           if (substr($key, 0, 1) == '#') {
-            unset ($form['metatags'][$fieldset][$key]);
+            unset($form['metatags'][LANGUAGE_NONE][$fieldset][$key]);
             continue;
           }
-          $form['metatags'][$key] = $value;
-          unset($form['metatags'][$key]['#parents']);
-          unset($form['metatags'][$fieldset][$key]);
+          $form['metatags'][LANGUAGE_NONE][$key] = $value;
+          unset($form['metatags'][LANGUAGE_NONE][$key]['#parents']);
+          unset($form['metatags'][LANGUAGE_NONE][$fieldset][$key]);
         }
-        unset($form['metatags'][$fieldset]);
+        unset($form['metatags'][LANGUAGE_NONE][$fieldset]);
       }
     }
 
@@ -99,6 +109,9 @@ class metatag_context_reaction extends context_reaction {
       foreach ($contexts as $context) {
         if (!empty($context->reactions['metatag_context_reaction']['metatags'])) {
           $metadata_array = $context->reactions['metatag_context_reaction']['metatags'];
+          if (isset($metadata_array[LANGUAGE_NONE])) {
+            $metadata_array = $metadata_array[LANGUAGE_NONE];
+          }
           foreach ($metadata_array as $key => $data) {
             if (!empty($data['value'])) {
               $metatags[$key] = $data;//t(check_plain($data['value']));

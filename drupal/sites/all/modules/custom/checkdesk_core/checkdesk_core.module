@@ -795,6 +795,14 @@ function _checkdesk_core_node_links($node, $account = NULL) {
         'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
       );
     }
+    if ($node->type == 'discussion') {
+      $links['checkdesk-share-embed'] = array(
+        'html' => TRUE,
+        'title' => t('Embed this story') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
+        'href' => $url,
+        'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
+      );  
+    }
   }
   // Links for stories, not as a dropdown menu.
   // if ($node->type == 'discussion') {
@@ -1032,9 +1040,13 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   $form['#validate'][] = '_checkdesk_core_post_node_form_validate';
   $form['actions']['submit']['#submit'][] = $form['actions']['draft']['#submit'][] = '_checkdesk_core_post_node_form_submit';
 
-  // Handle HTML entities
-  foreach ($form['field_desk']['und']['#options'] as $key => $value) {
-    $form['field_desk']['und']['#options'][$key] = htmlspecialchars_decode($value);
+  if ($form['field_desk']['#access']) {
+    $options = array('_none' => t('- Select a value -')) + _checkdesk_get_stories_by_activity();
+    $form['field_desk'][LANGUAGE_NONE]['#options'] = $options;
+    // Handle HTML entities
+    foreach ($form['field_desk'][LANGUAGE_NONE]['#options'] as $key => $value) {
+      $form['field_desk'][LANGUAGE_NONE]['#options'][$key] = htmlspecialchars_decode($value);
+    }
   }
 
   if (!in_array('administrator', array_values($user->roles))) {
@@ -1053,12 +1065,8 @@ function _checkdesk_core_post_node_form_submit($form, &$form_state) {
   if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
     drupal_set_message(t('@type %title saved as draft.', array('@type' => t('Update'), '%title' => $form_state['values']['title'])));
   }
-
-  // Redirect to story page
-  $form_state['redirect'] = array('story-collaboration/' . $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id']);
-
-  // drupal_set_message(t('Update has been added to this story.'));
-  // $form_state['redirect'] = array('node/' . $form['field_desk'][LANGUAGE_NONE]['#default_value'], array('fragment' => 'update-'. $form_state['nid']));
+  $redirect_nid = $form_state['values']['field_desk'][LANGUAGE_NONE][0]['target_id'];
+  $form_state['redirect'] = array('node/' . $redirect_nid, array('fragment' => 'update-'. $form_state['nid']));
 }
 
 /**
@@ -1106,11 +1114,13 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_lead_image']['#suffix'] = '</div">';
   $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
   $form['actions']['submit']['#submit'][] = '_redirect_story';
-  $form['actions']['submit']['#value'] = t('Create story');
-  $form['actions']['submit']['#suffix'] =
-    '<div class="description">'.
-    t('<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.') .
-    '</div>';
+  if (!$form['nid']['#value']) {
+    $form['actions']['submit']['#value'] = t('Create story');
+    $form['actions']['submit']['#suffix'] =
+      '<div class="description">'.
+      t('<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.') .
+      '</div>';
+  }
   if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
     return;
   }
@@ -1289,7 +1299,6 @@ function checkdesk_core_views_pre_render(&$view) {
     // Send view results to client.
     drupal_add_js(array('checkdesk' => array('reports' => $data)), 'setting');
   }
-
   else if ($view->name == 'liveblog') {
     foreach ($view->result as $id => $story) {
       $updates = views_get_view('updates_for_stories');
@@ -1313,6 +1322,21 @@ function checkdesk_core_views_pre_render(&$view) {
         }   
       }
       $view->result[$k]->heartbeat_activity_variables = heartbeat_encode_message_variables($variables);
+    }
+  }
+  elseif ($view->name == 'updates_for_stories') {
+    if ($view->current_display == 'block' && isset($_REQUEST['autorefreshRequest'])) {
+      // Update total rows so autorefresh can set correct update numbers 'update #'
+      $nid = $_REQUEST['original_view_data']['view_args'];
+      if ($nid) {
+        $updates_count = db_query(' SELECT COUNT(*)
+                  FROM {node} n
+                  INNER JOIN {field_data_field_desk} fd ON n.nid = fd.entity_id
+                  WHERE n.type = :type AND n.status = :status AND field_desk_target_id = :nid
+                  ', array(':type' => 'post', ':status' => 1, ':nid' => $nid)
+        )->fetchField();
+        $view->total_rows = $updates_count;
+      }
     }
   }
 }
@@ -1409,7 +1433,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['source']['#attributes']['placeholder'] = 'YouTube'; // don't translate this as the sources database won't understand the translation.
     //Fix reset button
     $form['#action'] = url($_GET['q']);
-    if (_get_desk_reports_args() !== 'all') {
+    if (checkdesk_core__get_desk_reports_args() !== 'all') {
       unset($form['field_stories_target_id']);
       unset($form['#info']['filter-field_stories_target_id']);
     }
@@ -2065,6 +2089,13 @@ function checkdesk_core_wysiwyg_editor_settings_alter(&$settings, $context) {
   // Hide crazy link settings
   $settings['linkShowAdvancedTab'] = FALSE;
   $settings['linkShowTargetTab'] = FALSE;
+
+
+  if ($context['profile']->editor == 'ckeditor') {
+    $settings['forcePasteAsPlainText'] = TRUE;
+    $settings['disableNativeSpellChecker'] = FALSE;
+    $settings['fillEmptyBlocks'] = FALSE;
+  }
 }
 
 /**
@@ -2768,12 +2799,14 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
     $node = $form['#node'];
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
   }
-  else {
-    //set default story if exist.
-    if (isset($_GET['ref_nid'])) {
-      $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
-    }
+  //set default story if exist.
+  elseif (isset($_GET['ref_nid'])) {
+    $form['field_stories'][LANGUAGE_NONE]['#default_value'] = array($_GET['ref_nid']);
   }
+
+  $options = array('_none' => t('- None -')) + _checkdesk_get_stories_by_activity();
+  $form['field_stories'][LANGUAGE_NONE]['#options'] = $options;
+  // Handle HTML entities
   foreach ($form['field_stories'][LANGUAGE_NONE]['#options'] as &$option) {
     $option = decode_entities($option);
   }
@@ -2828,6 +2861,24 @@ function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
   }
 }
 
+/**
+ * Implements of hook_cron().
+ */
+/** Disable it for now
+function checkdesk_core_cron() {
+  //Remove active story (older than 2 weeks)
+  $time = strtotime("-2 week");
+  db_query('
+     UPDATE {field_data_field_active_story}
+     SET field_active_story_value = :inactive_story
+     WHERE entity_id IN (SELECT nid FROM {node} WHERE type = :type AND changed < :time)
+  ', array(
+      ':inactive_story' => 0,
+      ':type' => 'discussion',
+      ':time' => $time,
+    ));
+}
+ */
 /**
  * Implements of hook_cron_queue_info().
  */
@@ -3026,17 +3077,21 @@ function _checkdesk_story_tabs($nid) {
 /**
  * Return story nid to filler incomming rports view.
  */
-function _get_desk_reports_args() {
-  $story_nid = 0;
-  // Show incomming reports on story page
+function checkdesk_core__get_desk_reports_args() {
+  $story_nid = 'all';
+  // Show incoming reports on story page or update form.
   if (is_numeric(arg(1))) {
-     $story_nid = arg(1);
+    $nid = arg(1);
+    $node = node_load($nid);
+    if ($node->type == 'discussion') {
+      $story_nid = $nid;
+    }
+    else if ($node->type == 'post' && isset($node->field_desk[LANGUAGE_NONE][0]['target_id'])) {
+      $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+    }
   }
   elseif (isset($_GET['story']) && is_numeric($_GET['story'])) {
     $story_nid = $_GET['story'];
-  }
-  else {
-    $story_nid = 'all';
   }
   return $story_nid;
 }
@@ -3157,21 +3212,69 @@ function _checkdesk_render_footnotes($node) {
 }
 
 /**
- * Return active story
+ * @param array $options
+ *   An associative array with the following keys
+ *   theme : bool(default TRUE) set TRUE to return active stories as HTML list F
+ *           FALSE to return associative array nid => title
+ *   extra_nids : array with nids to be added to active stories.
+ *   time : the base item for active stories
+ *
+ * @return string/array
  */
-function _checkdesk_active_story() {
-  $time =  strtotime("-". variable_get('checkdesk_active_story_time', '1 week'));
-  //TODO get stories with recent activity
-  $result = db_query_range('
-        SELECT nid, title
-        FROM {node} n
-        WHERE n.type = :type AND n.created > :time
-        ORDER BY nid DESC
-  ', 0, 10, array(':type' => 'discussion', ':time' => $time))->fetchAllKeyed(0);
-  $items = array();
-  print_r($result);
-  foreach ($result as $k => $v) {
-    $items[] = l($v, 'node/'. $k);
+function _checkdesk_active_story($options = array()) {
+  $time =  isset($options['time']) ? $options['time'] : strtotime("-". variable_get('checkdesk_active_story_time', '3 day'));
+  if (!isset($options['extra_nids'])) {
+    $options['extra_nids'] = array(-1);
   }
-  return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'checkdesk-active-story')));
+  if (!isset($options['theme'])) {
+    $options['theme'] = TRUE;
+  }
+  $result = db_query('
+    (
+      SELECT nid, title
+      FROM {node} n
+      /*LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid*/
+      WHERE n.type = :type AND ((n.changed > :time /*AND acs.field_active_story_value != :inactive*/) OR n.nid IN (:extra_nids))
+    )
+      UNION
+    (
+      SELECT DISTINCT nid_target, n.title
+      FROM {heartbeat_activity} ha
+      INNER JOIN {node} n on ha.nid_target = n.nid AND n.type = :type
+      /*LEFT JOIN {field_data_field_active_story} acs ON acs.entity_id = n.nid*/
+      WHERE message_id IN (:message_id ) AND timestamp > :time /*AND acs.field_active_story_value IS NULL*/
+    )
+      ORDER BY nid DESC
+    ',
+    array(
+      ':type' => 'discussion',
+      ':time' => $time,
+      ':inactive' => 0,
+      ':message_id' => array('checkdesk_report_suggested_to_story', 'checkdesk_report_published_in_update'),
+      ':extra_nids' => $options['extra_nids']
+    )
+  )->fetchAllKeyed(0);
+  if ($options['theme']) {
+    $items = array();
+    foreach ($result as $k => $v) {
+      $items[] = l($v, 'node/'. $k);
+    }
+    return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'checkdesk-active-story')));
+  }
+  return $result;
 }
+
+/**
+ * @return array
+ *  List of stories sorted by activity.
+ */
+function _checkdesk_get_stories_by_activity() {
+  $result = db_query('
+    SELECT n.nid, n.title
+    FROM heartbeat_activity ha
+    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type
+    ORDER BY ha.timestamp DESC 
+    ', array(':type' => 'discussion'))->fetchAllKeyed(0);
+  return $result;
+}
+

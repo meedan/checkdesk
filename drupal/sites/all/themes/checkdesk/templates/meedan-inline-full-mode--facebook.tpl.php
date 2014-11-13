@@ -13,6 +13,11 @@
           </div>
         <?php endif ;?>
       </div>
+      <?php if(isset($media_description)) : ?>
+        <div class="media-content">
+          <span class="description expandable"><?php print $media_description; ?></span>
+        </div>
+      <?php endif; ?>
       <?php if(isset($report_status['status'])) : ?>
         <span class="inline-attachment-status media-status">
           <?php print $report_status['status']; ?>

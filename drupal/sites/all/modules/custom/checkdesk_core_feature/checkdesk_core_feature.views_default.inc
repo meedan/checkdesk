@@ -171,6 +171,7 @@ function checkdesk_core_feature_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('View all @total footnotes'),
     t('Node ID'),
     t('.'),
     t(','),
@@ -694,13 +695,13 @@ print t(\'No content available\');
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'Date';
-  /* Contextual filter: Content: Stories (field_stories) */
+  /* Contextual filter: Content: Story (field_stories) */
   $handler->display->display_options['arguments']['field_stories_target_id']['id'] = 'field_stories_target_id';
   $handler->display->display_options['arguments']['field_stories_target_id']['table'] = 'field_data_field_stories';
   $handler->display->display_options['arguments']['field_stories_target_id']['field'] = 'field_stories_target_id';
   $handler->display->display_options['arguments']['field_stories_target_id']['default_action'] = 'default';
   $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_type'] = 'php';
-  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return _get_desk_reports_args();';
+  $handler->display->display_options['arguments']['field_stories_target_id']['default_argument_options']['code'] = 'return checkdesk_core__get_desk_reports_args();';
   $handler->display->display_options['arguments']['field_stories_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_stories_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_stories_target_id']['summary_options']['items_per_page'] = '25';
@@ -885,7 +886,7 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  /* Filter criterion: Content: Stories (field_stories) */
+  /* Filter criterion: Content: Story (field_stories) */
   $handler->display->display_options['filters']['field_stories_target_id']['id'] = 'field_stories_target_id';
   $handler->display->display_options['filters']['field_stories_target_id']['table'] = 'field_data_field_stories';
   $handler->display->display_options['filters']['field_stories_target_id']['field'] = 'field_stories_target_id';
@@ -1067,7 +1068,7 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  /* Filter criterion: Content: Stories (field_stories) */
+  /* Filter criterion: Content: Story (field_stories) */
   $handler->display->display_options['filters']['field_stories_target_id']['id'] = 'field_stories_target_id';
   $handler->display->display_options['filters']['field_stories_target_id']['table'] = 'field_data_field_stories';
   $handler->display->display_options['filters']['field_stories_target_id']['field'] = 'field_stories_target_id';
@@ -1102,6 +1103,7 @@ print t(\'No content available\');
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('Auto-Refresh'),
     t('<?php
 print theme(\'views_autorefresh\', array(
@@ -1228,6 +1230,7 @@ print t(\'No content available\');
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('All'),
     t('Block'),
   );
@@ -1506,6 +1509,7 @@ print theme(\'views_autorefresh\', array(
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more stories'),
     t('Autorefresh'),
     t('<?php
 print theme(\'views_autorefresh\', array(
@@ -1676,6 +1680,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('Activity message'),
     t('Page'),
     t('Block'),
@@ -1863,6 +1868,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('Media sources'),
     t('Parent'),
     t('.'),
@@ -1988,6 +1994,18 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Autorefresh */
+  $handler->display->display_options['header']['autorefresh']['id'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['table'] = 'views';
+  $handler->display->display_options['header']['autorefresh']['field'] = 'autorefresh';
+  $handler->display->display_options['header']['autorefresh']['interval'] = '5000';
+  $handler->display->display_options['header']['autorefresh']['incremental'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['display'] = 'page_1';
+  $handler->display->display_options['header']['autorefresh']['ping'] = TRUE;
+  $handler->display->display_options['header']['autorefresh']['ping_base_path'] = 'sites/all/modules/custom/checkdesk_core/autorefresh/story_update.php';
+  $handler->display->display_options['header']['autorefresh']['ping_arguments'] = 'return array(
+\'story_nid\' => arg(1),
+);';
   /* Field: Content: Rendered Node */
   $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
   $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_node';
@@ -2047,6 +2065,29 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
 
+  /* Display: Auto-refresh */
+  $handler = $view->new_display('page', 'Auto-refresh', 'page_1');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Story (field_desk) */
+  $handler->display->display_options['arguments']['field_desk_target_id']['id'] = 'field_desk_target_id';
+  $handler->display->display_options['arguments']['field_desk_target_id']['table'] = 'field_data_field_desk';
+  $handler->display->display_options['arguments']['field_desk_target_id']['field'] = 'field_desk_target_id';
+  $handler->display->display_options['arguments']['field_desk_target_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_desk_target_id']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['field_desk_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_desk_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_desk_target_id']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Content: Post date (with operator) */
+  $handler->display->display_options['arguments']['created_operator']['id'] = 'created_operator';
+  $handler->display->display_options['arguments']['created_operator']['table'] = 'node';
+  $handler->display->display_options['arguments']['created_operator']['field'] = 'created_operator';
+  $handler->display->display_options['arguments']['created_operator']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['created_operator']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['created_operator']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['created_operator']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['created_operator']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['path'] = 'updates_for_stories/autorefresh/%';
+
   /* Display: Liveblog Block */
   $handler = $view->new_display('block', 'Liveblog Block', 'block_1');
   $handler->display->display_options['defaults']['pager'] = FALSE;
@@ -2057,6 +2098,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['more_button_text'] = 'Load more updates';
   $handler->display->display_options['pager']['options']['load_all'] = 0;
+  $handler->display->display_options['defaults']['header'] = FALSE;
   $translatables['updates_for_stories'] = array(
     t('Master'),
     t('Updates for stories'),
@@ -2070,6 +2112,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('Nid'),
     t('All'),
     t('Block'),
+    t('Auto-refresh'),
     t('Liveblog Block'),
     t('Items per page'),
     t('- All -'),
@@ -2078,6 +2121,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more updates'),
   );
   $export['updates_for_stories'] = $view;
 

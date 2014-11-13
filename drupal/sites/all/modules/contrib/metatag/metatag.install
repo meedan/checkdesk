@@ -12,7 +12,48 @@ function metatag_requirements($phase) {
   // Ensure translations don't break during installation.
   $t = get_t();
 
-  if ($phase == 'runtime') {
+  if ($phase == 'install') {
+    // Handle scenarios where the site had the legacy "metatags" module
+    // installed but then had Metatag installed on top of it.
+    if (function_exists('db_table_exists') && function_exists('db_field_exists') && function_exists('db_query') && Database::isActiveConnection()) {
+      // Check if the primary table already exists.
+      if (db_table_exists('metatag')) {
+        // Check to see if all of the fields exist in the table. If one of the
+        // fields does not exist, proceed with the fix.
+        $fields = array(
+          'entity_type',
+          'entity_id',
+          'revision_id',
+          'language',
+          'data',
+        );
+        foreach ($fields as $field) {
+          // This field doesn't exist, so determine what to do.
+          if (!db_field_exists('metatag', $field)) {
+            // The table contains data, so rename it.
+            if (db_query("SELECT COUNT(*) FROM {metatag}")->fetchField() > 0) {
+              db_query("RENAME TABLE {metatag} TO {metatag}_legacy");
+              $message = 'An out-of-date version of the {metatag} table was discovered. As the table contained data it was renamed with a suffix of "_legacy". This will not prevent installation from continuing, but will need to be dealt with later. See <a href="https://www.drupal.org/node/1391554">https://www.drupal.org/node/1391554</a> for further details.';
+            }
+            // The table is empty, so delete it.
+            else {
+              db_query("DROP TABLE {metatag}");
+              $message = 'An out-of-date version of the {metatag} table was discovered. As the table was empty it was simply removed so that it could be recreated in the correct format. Installation may now proceed. See <a href="https://www.drupal.org/node/1391554">https://www.drupal.org/node/1391554</a> for further details.';
+            }
+            $requirements['metatag'] = array(
+              'severity' => REQUIREMENT_WARNING,
+              'title' => 'Metatag',
+              'value' => $t('Legacy data discovered.'),
+              'description' => $t($message),
+            );
+            drupal_set_message($t($message), 'warning');
+            break;
+          }
+        }
+      }
+    }
+  }
+  elseif ($phase == 'runtime') {
     // Work out the release of D7 that is currently running.
     list($major, $minor) = explode('.', VERSION);
     // Strip off any suffixes on the version string, e.g. "17-dev".
@@ -20,24 +61,14 @@ function metatag_requirements($phase) {
       list($minor, $suffix) = explode('-', $minor);
     }
 
-    // Releases of Drupal older than 7.15 did not have entity_language(), which
-    // is now required.
-    if ($minor < 15) {
+    // Releases of Drupal older than 7.28 did not have entity_language(), which
+    // is now required, and had a broken [node:summary] token.
+    if ($minor < 28) {
       $requirements['metatag'] = array(
         'severity' => REQUIREMENT_WARNING,
         'title' => 'Metatag',
-        'value' => $t('Upgrade Drupal core to v7.15 or newer'),
-        'description' => $t("This older version of Drupal core is missing functionality necessary for the module's multilingual support, it must be upgraded to at least version 7.15."),
-      );
-    }
-    // Releases of Drupal older than 7.17 did not trigger hook_entity_view on
-    // term pages, so recommend updating.
-    elseif ($minor < 17) {
-      $requirements['metatag'] = array(
-        'severity' => REQUIREMENT_WARNING,
-        'title' => 'Metatag',
-        'value' => $t('Upgrade Drupal core to v7.17 or newer'),
-        'description' => $t('Your older version of Drupal core is missing functionality necessary for taxonomy term pages to work correctly, it is strongly recommended to upgrade to the latest release.'),
+        'value' => $t('Upgrade Drupal core to v7.28 or newer'),
+        'description' => $t("This older version of Drupal core is missing functionality necessary for the module's multilingual support and contains a broken [node:summary] token, it must be upgraded to version 7.28 or newer."),
       );
     }
     // Everything's OK.
@@ -46,7 +77,7 @@ function metatag_requirements($phase) {
         'severity' => REQUIREMENT_OK,
         'title' => 'Metatag',
         'value' => $t('Drupal core is compatible'),
-        'description' => $t('Older versions of Drupal core were missing functionality necessary for taxonomy term pages to work correctly, but this version <em>will</em> work correctly.'),
+        'description' => $t('Older versions of Drupal core contained bugs that made them incompatible with Metatag, but this version will work correctly.'),
       );
     }
 
@@ -85,24 +116,14 @@ function metatag_requirements($phase) {
       }
     }
 
-    // Check for Workbench Moderation v2, which Metatag doesn't work with yet.
-    if (module_exists('workbench_moderation') && !function_exists('workbench_moderation_node_type_moderated')) {
-      $requirements['metatag_wm2'] = array(
-        'severity' => REQUIREMENT_ERROR,
-        'title' => 'Metatag',
-        'value' => $t('Incompatible with <a href="@url">Workbench Moderation</a> v2', array('@url' => 'http://drupal.org/project/workbench_moderation')),
-        'description' => $t('Metatag is not currently compatible with Entity_Translation v2.'),
-      );
-    }
-
     // It's recommended to install the Transliteration module to clean up file
     // paths for use with image meta tags.
     if (!module_exists('transliteration')) {
       $requirements['metatag_transliteration'] = array(
-        'severity' => REQUIREMENT_WARNING,
+        'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
-        'value' => $t('The Transliteration module is not installed.'),
-        'description' => $t("It is highly recommended to install the <a href=\"@url\">Transliteration module</a> to clean up filenames of uploaded files that may be used with image meta tags.", array('@url' => 'https://drupal.org/project/transliteration')),
+        'value' => $t('The Transliteration module is recommended.'),
+        'description' => $t("It is recommended to install the <a href=\"@url\">Transliteration module</a> to clean up filenames of uploaded files that may be used with image meta tags.", array('@url' => 'https://drupal.org/project/transliteration')),
       );
     }
 
@@ -110,10 +131,10 @@ function metatag_requirements($phase) {
     // tokens easier to do.
     if (!module_exists('imagecache_token')) {
       $requirements['metatag_imagecache_token'] = array(
-        'severity' => REQUIREMENT_WARNING,
+        'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
-        'value' => $t('The Imagecache Token module is not installed.'),
-        'description' => $t("It is highly recommended to install the <a href=\"@url\">Imagecache Token module</a> to make it easier to control image meta tags, e.g. og:image.", array('@url' => 'https://drupal.org/project/imagecache_token')),
+        'value' => $t('The Imagecache Token module is recommended.'),
+        'description' => $t("It is recommended to install the <a href=\"@url\">Imagecache Token module</a> to make it easier to control image meta tags, e.g. og:image.", array('@url' => 'https://drupal.org/project/imagecache_token')),
       );
     }
 
@@ -219,6 +240,9 @@ function metatag_schema() {
         'serialize' => TRUE,
       ),
     ),
+    'indexes' => array(
+      'type_revision' => array('entity_type','revision_id'),
+    ),
     'primary key' => array('entity_type', 'entity_id', 'revision_id', 'language'),
   );
 
@@ -252,6 +276,10 @@ function metatag_uninstall() {
   // Used to note that the schema for the main {metatag} table were sufficiently
   // updated.
   variable_del('metatag_has_revision_id');
+
+  // Used to force an entity's default language values to be used if nothing
+  // else matched.
+  variable_del('metatag_entity_no_lang_default');
 }
 
 /**
@@ -1016,7 +1044,7 @@ function metatag_update_7017() {
   if (!variable_get('metatag_skip_update_7017', FALSE)) {
     // Let's add a temporary unique key so MySQL will let it go.
     db_add_unique_key('metatag', 'temp_key', array('entity_type', 'entity_id', 'revision_id', 'language'));
-    
+
     // Now remove the PK before changing a field from serial.
     db_drop_primary_key('metatag');
 
@@ -1357,42 +1385,10 @@ function metatag_update_7024() {
 }
 
 /**
- * Rename the 'twitter:image' meta tag to 'twitter:image:src', part 2.
+ * Replaced by update 7030.
  */
 function metatag_update_7025() {
-  // Find all {metatag_config} records that contained an entry for the old meta
-  // tag.
-  $records = db_query("SELECT cid, config
-    FROM {metatag_config}
-    WHERE config LIKE '%twitter:image%'");
-  // This message will be returned if nothing needed to be updated.
-  $none_message = t('No Metatag configuration records needed to have the "twitter:image" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.');
-
-  // Loop over the values and correct them.
-  if ($records->rowCount() == 0) {
-    drupal_set_message($none_message);
-  }
-  else {
-    $keys = array('cid');
-
-    // Loop over the values and correct them.
-    $counter = 0;
-    foreach ($records as $record) {
-      $record->config = unserialize($record->config);
-      if (isset($record->config['twitter:image'])) {
-        $record->config['twitter:image:src'] = $record->config['twitter:image'];
-        unset($record->config['twitter:image']);
-        drupal_write_record('metatag', $record, $keys);
-        $counter++;
-      }
-    }
-    if ($counter == 0) {
-      drupal_set_message($none_message);
-    }
-    else {
-      drupal_set_message(t('Converted the "twitter:image" meta tag for @count configurations to the correct "twitter:image:src" meta tag.', array('@count' => $counter)));
-    }
-  }
+  // Do nothing.
 }
 
 /**
@@ -1433,9 +1429,70 @@ function metatag_update_7026() {
 }
 
 /**
- * Rename the 'copyright' meta tag to 'rights', part 2.
+ * Replaced by update 7031.
  */
 function metatag_update_7027() {
+  // Do nothing.
+}
+
+/**
+ * Clear the menu cache so the new Advanced Settings page will be picked up.
+ */
+function metatag_update_7028() {
+  variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * Add an index to the {metatag} table to speed up some queries.
+ */
+function metatag_update_7029() {
+  db_add_index('metatag', 'type_revision', array('entity_type', 'revision_id'));
+  drupal_set_message(t('Added an index to the main Metatag table that will hopefully improve performance a little.'));
+}
+
+/**
+ * Rename the 'twitter:image' meta tag to 'twitter:image:src', part 2.
+ */
+function metatag_update_7030() {
+  // Find all {metatag_config} records that contained an entry for the old meta
+  // tag.
+  $records = db_query("SELECT cid, config
+    FROM {metatag_config}
+    WHERE config LIKE '%twitter:image%'");
+  // This message will be returned if nothing needed to be updated.
+  $none_message = t('No Metatag configuration records needed to have the "twitter:image" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.');
+
+  // Loop over the values and correct them.
+  if ($records->rowCount() == 0) {
+    drupal_set_message($none_message);
+  }
+  else {
+    $keys = array('cid');
+
+    // Loop over the values and correct them.
+    $counter = 0;
+    foreach ($records as $record) {
+      $record->config = unserialize($record->config);
+      if (isset($record->config['twitter:image'])) {
+        $record->config['twitter:image:src'] = $record->config['twitter:image'];
+        unset($record->config['twitter:image']);
+        drupal_write_record('metatag_config', $record, $keys);
+        $counter++;
+      }
+    }
+    if ($counter == 0) {
+      drupal_set_message($none_message);
+    }
+    else {
+      drupal_set_message(t('Converted the "twitter:image" meta tag for @count configurations to the correct "twitter:image:src" meta tag.', array('@count' => $counter)));
+    }
+  }
+}
+
+/**
+ * Rename the 'copyright' meta tag to 'rights', part 2.
+ */
+function metatag_update_7031() {
   // Find all {metatag_config} records that contained an entry for the old meta
   // tag.
   $records = db_query("SELECT cid, config
@@ -1458,7 +1515,7 @@ function metatag_update_7027() {
       if (isset($record->config['copyright'])) {
         $record->config['rights'] = $record->config['copyright'];
         unset($record->config['copyright']);
-        drupal_write_record('metatag', $record, $keys);
+        drupal_write_record('metatag_config', $record, $keys);
         $counter++;
       }
     }
@@ -1469,4 +1526,26 @@ function metatag_update_7027() {
       drupal_set_message(t('Converted the "copyright" meta tag for @count configurations to the correct "rights" meta tag.', array('@count' => $counter)));
     }
   }
+}
+
+/**
+ * Clear the Metatag cache.
+ */
+function metatag_update_7032() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  return t('All Metatag caches cleared.');
+}
+
+/**
+ * These originally removed the 'author' meta tag, but it was subsequently
+ * decided that this was not the correct approach, that the meta tag should not
+ * be removed after all.
+ *
+ * @see https://www.drupal.org/node/2330823
+ */
+function metatag_update_7033() {
+}
+function metatag_update_7034() {
+}
+function metatag_update_7035() {
 }

@@ -481,7 +481,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 41,
+      'weight' => 3,
     ),
   );
 
@@ -1077,6 +1077,7 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'exclude_cv' => 0,
     'field_name' => 'field_desk',
     'label' => 'Story',
     'required' => 1,
@@ -1087,7 +1088,9 @@ function checkdesk_core_feature_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+      ),
       'type' => 'options_select',
       'weight' => 2,
     ),

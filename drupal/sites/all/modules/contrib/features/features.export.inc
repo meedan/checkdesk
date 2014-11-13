@@ -45,7 +45,10 @@ function features_populate($info, $module_name) {
  * @return fully populated $export array.
  */
 function _features_populate($pipe, &$export, $module_name = '', $reset = FALSE) {
-  $processed = &drupal_static(__FUNCTION__, array(), $reset);
+  if ($reset) {
+    drupal_static_reset(__FUNCTION__);
+  }
+  $processed = &drupal_static(__FUNCTION__, array());
   features_include();
   foreach ($pipe as $component => $data) {
     // Convert already defined items to dependencies.
@@ -707,7 +710,10 @@ function features_semaphore($op, $component) {
  * Get normal objects for a given module/component pair.
  */
 function features_get_normal($component, $module_name, $reset = FALSE) {
-  $cache = &drupal_static(__FUNCTION__, array(), $reset);
+  if ($reset) {
+    drupal_static_reset(__FUNCTION__);
+  }
+  $cache = &drupal_static(__FUNCTION__, array());
   if (!isset($cache[$module_name][$component])) {
     features_include();
     $code = NULL;
@@ -857,7 +863,10 @@ function features_get_default_map($component, $attribute = NULL, $callback = NUL
  * Retrieve an array of features/components and their current states.
  */
 function features_get_component_states($features = array(), $rebuild_only = TRUE, $reset = FALSE) {
-  $cache = &drupal_static(__FUNCTION__, array(), $reset);
+  if ($reset) {
+    drupal_static_reset(__FUNCTION__);
+  }
+  $cache = &drupal_static(__FUNCTION__, array());
 
   $all_features = features_get_features();
   $features = !empty($features) ? $features : array_keys($all_features);

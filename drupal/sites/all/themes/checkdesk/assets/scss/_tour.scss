@@ -51,8 +51,9 @@
   width: 455px;
   left: 0;
   @include box-shadow(0px 1px 15px rgba($black, 0.8));
+  background-color: #fff;
 
-  h3 {
+  h4 {
     line-height: 74px;
     background: $white;
     margin: 0;
@@ -90,12 +91,12 @@
   position: absolute;
   display: block;
   #{$alpha}: 185px;
-  top: -17px;
+  top: -10px;
   width: 0; 
   height: 0; 
-  border-left: 17px solid transparent;
-  border-right: 17px solid transparent;
-  border-bottom: 17px solid $white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid $white;
   font-size: 0;
   line-height: 0;
 }
@@ -121,7 +122,7 @@
     margin: 10px;
     margin-#{$alpha}: 0;
     border-radius: 50%;
-
+    text-indent: -4000px;
     &.tour-current-step {
       background-color: #1885fe;
     }
@@ -146,4 +147,18 @@
 
 .popover-footer {
   clear: both;
+}
+
+// Overrides for the elements touching the margins
+
+#step-0 .popover-arrow {
+  #{$alpha}: 110px !important;
+}
+
+#step-3 .popover-arrow {
+  #{$alpha}: 262px !important;
+}
+
+#step-4 .popover-arrow {
+  #{$alpha}: 320px !important;
 }

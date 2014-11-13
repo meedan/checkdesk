@@ -232,6 +232,19 @@ function hook_metatag_config_update($config) {
  *         'url' - A randomly generated URL on this site.
  *       'maxlength' - The maximum length / number of iterations of this value,
  *         defaults to 10.
+ *     'dependencies' - Optional nested array of values to indicate other meta
+ *       tags that must be present in order for this meta tag to be visible. See
+ *       The Open Graph and Twitter Cards submodules for example usage. Each
+ *       dependency must contain the following elements:
+ *       'dependency' - The name of the meta tag that is required.
+ *       'attribute' - The name of the other meta tag that is to be checked,
+ *         most meta tags use "value" as the attribute name.
+ *       'condition' - The state condition to be checked against, e.g. "filled"
+ *         to check text values, "checked" for a checkbox, "value" to compare
+ *         the raw selection; see https://api.drupal.org/drupal_process_states
+ *         for more details.
+ *       'value' - The field value to check the 'condition' against. see
+ *         https://api.drupal.org/drupal_process_states for further details.
  *   Groups:
  *     'label' - The name for this group.
  *     'description' - A detailed explanation of these meta tags.
@@ -268,8 +281,10 @@ function hook_metatag_load_entity_from_path_alter(&$path, $result) {
  * @param string $instance
  *   An identifier for the current page's page type, typically a combination
  *   of the entity name and bundle name, e.g. "node:story".
+ * @param array $options
+ *   All of the options used to generate the meta tags.
  */
-function hook_metatag_metatags_view_alter(&$output, $instance) {
+function hook_metatag_metatags_view_alter(&$output, $instance, $options) {
   if (isset($output['description']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
     $output['description']['#attached']['drupal_add_html_head'][0][0]['#value'] = 'O rly?';
   }
@@ -339,10 +354,12 @@ function hook_metatag_token_types_alter(&$options) {
  *   user object being the value. Some token types, like 'site', do not require
  *   any explicit information from $data and can be replaced even if it is
  *   empty.
+ * @param string $tag_name
+ *   The name of the meta tag being altered.
  *
  * @see DrupalTextMetaTag::getValue()
  */
-function hook_metatag_pattern_alter(&$pattern, &$types) {
+function hook_metatag_pattern_alter(&$pattern, &$types, $tag_name) {
   if (strpos($pattern, 'token_type1') !== FALSE) {
     $types['token_type1'] = "data to be used in hook_tokens for replacement";
   }

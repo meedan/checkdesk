@@ -79,7 +79,7 @@ function _checkdesk_story_links($nid) {
 
     if (user_access('create post content')) {
       $items[] = array(
-        'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid, drupal_get_destination()))),
+        'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid))),
         'class' => array('compose-update'),
       );
     }
@@ -88,12 +88,15 @@ function _checkdesk_story_links($nid) {
 
   // Add tooltip for add a report.
   if (isset($_SESSION['report_tooltip'])) {
-    $tour = checkdesk_tour_preset_load('journalist');
+    $tour = array(
+      'title' => 'Submit Report',
+      'content' => 'Quickly add newsworthy links from social media. Then you can fact-check and publish them.',
+    );
     $tooltip = '<span class="popover tour-tour fade right in collaboration-report-tooltip">';
     $tooltip .= '  <div class="popover-arrow"></div>';
     $tooltip .= '  <div class="popover-close" data-role="end" onclick="jQuery(this).parent().hide();"><span>[X]</span></div>';
-    $tooltip .= '  <h3><span class="popover-title">' . t($tour->steps[0]['title']) . '</span></h3>';
-    $tooltip .= '  <div class="popover-content">' . t($tour->steps[0]['content']) . '</div>';
+    $tooltip .= '  <h3><span class="popover-title">' . t($tour['title']) . '</span></h3>';
+    $tooltip .= '  <div class="popover-content">' . t($tour['content']) . '</div>';
     $tooltip .= '</span>';
     $output .= $tooltip;
     unset($_SESSION['report_tooltip']);
@@ -111,15 +114,23 @@ function _checkdesk_story_get_collaborators($nid) {
   $output = '';
   //ToDO check node type
   $users = db_query('
-    SELECT DISTINCT ha.uid, u.name, f.fid, f.uri
+    SELECT ha.uid, u.name, f.fid, f.uri
     FROM {heartbeat_activity} ha
     INNER JOIN {users} u ON ha.uid = u.uid
     LEFT JOIN {file_managed} f ON u.picture = f.fid
     WHERE nid_target = :nid AND message_id != :message_id
+    GROUP BY ha.uid
+    ORDER BY COUNT(ha.uid) DESC
     ', array(':nid' => arg(1), ':message_id' => 'checkdesk_follow_story'))->fetchAll();
-  if (count($users)) {
-    $title = format_plural(count($users), '1 collaborator', '@count collaborators');
+  $total_users = count($users);
+  if ($total_users) {
+    $num_to_show = variable_get('collaborators_display_count', 3);
+    $title = format_plural($total_users, '1 collaborator', '@count collaborators');
+    $extra_users = $total_users > $num_to_show ? $total_users - $num_to_show : 0;
     $uitems = $pitems = array();
+    if ($extra_users) {
+      $users = array_slice($users, 0, $num_to_show);
+    }
     foreach ($users as $user) {
       // split user name into first name and last
       $fullname = explode(' ', $user->name);
@@ -130,7 +141,11 @@ function _checkdesk_story_get_collaborators($nid) {
         $pitems[] = $avatar;
       }
     }
-    $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems) . '</span>';
+    $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems);
+    if ($extra_users) {
+      $output .= ' <span class="sc-extra-users">+ '. $extra_users .'</span>';
+    }
+    $output .= '</span>'; // closing sc-users
     $output .= '<span class="sc-avatars">';
     foreach ($pitems as $pitem) {
       $output .= $pitem;
