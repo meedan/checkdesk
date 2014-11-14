@@ -209,7 +209,9 @@ function meedan_oembed_add_extra_information(&$embed) {
       if(isset($original_image)) { 
         $embed->thumbnail_url = $embed->original_url;
       }
-    } else {
+    } 
+    // if still empty then use placeholder image
+    if (empty($embed->thumbnail_url)) {
       $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));  
     }
   }
