@@ -100,16 +100,7 @@
     }
 
     .avatar {
-      position: absolute;
-      // top: -2px;
-      #{$from-direction}: 0;
-      // float: $from-direction;
-
-      background-size: 100%;
-      background-repeat: no-repeat;
-      display: inline-block;
-      @include border-radius(4px);
-      background-color: $firefly20;
+      @include cd-avatar('inline', 20px, 0);
     }
 
     .actor {

@@ -238,16 +238,7 @@ $position:  "before";
 	}
 
 	.avatar {
-		position: absolute;
-		top: 20px;
-		#{$from-direction}: 0;
-		float: $from-direction;
-
-		background-size: 100%;
-		background-repeat: no-repeat;
-		display: inline-block;
-		@include border-radius(4px);
-		background-color: $firefly20;
+		@include cd-avatar('pulled-out', 20px, 0);
 	}
 
 	.activity-item-message {

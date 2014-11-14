@@ -6026,7 +6026,6 @@ div.sensitive-hide {
 }
 .update .update-footer .avatar {
   position: absolute;
-  right: 0;
   background-size: 100%;
   background-repeat: no-repeat;
   display: inline-block;
@@ -9392,9 +9391,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .activity-item .avatar {
   position: absolute;
+  float: right;
   top: 20px;
   right: 0;
-  float: right;
   background-size: 100%;
   background-repeat: no-repeat;
   display: inline-block;
