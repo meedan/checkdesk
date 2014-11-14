@@ -202,7 +202,16 @@ function meedan_oembed_add_extra_information(&$embed) {
   $embed->favicon_link = url('http://g.etfv.co/'. $embed->original_url, array('absolute' => TRUE));
   // TODO Get thumbnail.
   if (empty($embed->thumbnail_url)) {
-    $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
+    if($embed->type == 'photo') {
+      // put original url as thumbnail url
+      // if original url is itself an image path
+      $original_image = getimagesize($embed->original_url);
+      if(isset($original_image)) { 
+        $embed->thumbnail_url = $embed->original_url;
+      }
+    } else {
+      $embed->thumbnail_url = url(drupal_get_path('module', 'meedan_oembed') . '/theme/thumbnail.png', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));  
+    }
   }
 }
 
