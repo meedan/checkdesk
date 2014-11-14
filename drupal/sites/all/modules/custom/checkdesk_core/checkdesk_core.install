@@ -20,7 +20,6 @@ function checkdesk_core_schema() {
     ),
     'primary key' => array('update_nid', 'report_nid'),
   );
-  
   return $schema;
 }
 
@@ -127,12 +126,12 @@ function checkdesk_core_update_7016() {
  * Fixes #1861 on Mantis, by resizing "uri" column on "file_managed" table
  */
 function checkdesk_core_update_7018() {
-  db_query("ALTER TABLE file_managed DROP KEY uri"); // Drop the `uri` index
-  db_query("ALTER TABLE file_managed MODIFY uri VARCHAR(1024) COLLATE utf8_bin"); // Resize the column
-  db_query("CREATE UNIQUE INDEX uri ON file_managed (uri(255))"); // Recreate the index without exceeding the InnoDB index size
-  db_query("ALTER TABLE file_managed ENGINE=innodb"); // Rebuild the index
+  db_query("ALTER TABLE {file_managed} DROP KEY uri"); // Drop the `uri` index
+  db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8_bin"); // Resize the column
+  db_query("CREATE UNIQUE INDEX uri ON {file_managed} (uri(255))"); // Recreate the index without exceeding the InnoDB index size
+  db_query("ALTER TABLE {file_managed} ENGINE=innodb"); // Rebuild the index
   // Resize file name issue #3302
-  db_query("ALTER TABLE file_managed MODIFY filename VARCHAR(1024)");
+  db_query("ALTER TABLE {file_managed} MODIFY filename VARCHAR(1024)");
 }
 
 /**
@@ -140,8 +139,8 @@ function checkdesk_core_update_7018() {
  * Revert "uri" to utf8_bin collation.
  */
 function checkdesk_core_update_7019() {
-  db_query("ALTER TABLE file_managed MODIFY uri VARCHAR(1024) COLLATE utf8_bin"); // Resize the column
-  db_query("ALTER TABLE file_managed ENGINE=innodb"); // Rebuild the index
+  db_query("ALTER TABLE {file_managed} MODIFY uri VARCHAR(1024) COLLATE utf8_bin"); // Resize the column
+  db_query("ALTER TABLE {file_managed} ENGINE=innodb"); // Rebuild the index
 }
 
 /**
@@ -164,7 +163,7 @@ function checkdesk_core_update_7025() {
   db_update('url_alias')
     ->fields(array(
       'language' => 'und',
-    ))  
+    ))
     ->execute();
 }
 
@@ -237,7 +236,7 @@ function checkdesk_core_update_7030() {
  * Remove old revisions.
  */
 function checkdesk_core_update_7031() {
-  $nids = db_query('SELECT nid FROM node_revision GROUP BY nid HAVING COUNT(nid) > 1')->fetchCol();
+  $nids = db_query('SELECT nid FROM {node_revision} GROUP BY nid HAVING COUNT(nid) > 1')->fetchCol();
   foreach (node_load_multiple($nids) as $node) {
     // Delete sub revisions.
     foreach (node_revision_list($node) as $vid => $revision) {
@@ -282,5 +281,28 @@ function checkdesk_core_update_7034() {
  * Resizing "filename" column on "file_managed" table
  */
 function checkdesk_core_update_7035() {
-  db_query("ALTER TABLE file_managed MODIFY filename VARCHAR(1024)");
+  db_query("ALTER TABLE {file_managed} MODIFY filename VARCHAR(1024)");
+}
+
+/**
+ * Rename usernames by stripping their "_{uid}" part.
+ */
+function checkdesk_core_update_7036() {
+  $users = db_query("
+SELECT uid, name
+FROM {users}
+WHERE name
+REGEXP '^[[:alnum:]_-]+_[[:digit:]]+$'
+  ")->fetchAll();
+  foreach ($users as $user) {
+    $user->name = preg_replace('/^([\\w_-]+)_[\\d]+$/', '$1', $user->name);
+    db_query("
+UPDATE {users}
+SET name = :name
+WHERE uid = :uid
+    ", array(
+      ':name' => $user->name,
+      ':uid' => $user->uid,
+    ));
+  }
 }
