@@ -1621,7 +1621,7 @@ function checkdesk_core_user_info_block() {
 }
 
 /**
- * Implementation of hook_heartbeat_theme_alter()
+ * Implements hook_heartbeat_theme_alter()
  */
 function checkdesk_core_heartbeat_theme_alter(&$messages, HeartbeatStream $heartbeatStream) {
   global $base_path, $base_root, $language;
@@ -2023,25 +2023,18 @@ function checkdesk_core_views_default_views_alter(&$data) {
 }
 
 /**
-/**
- * Register a directory containing Wysiwyg plugins.
- *
- * @param $type
- *   The type of objects being collected: either 'plugins' or 'editors'.
- * @return
- *   A sub-directory of the implementing module that contains the corresponding
- *   plugin files. This directory must only contain integration files for
- *   Wysiwyg module.
+ * Implements hook_email_registration_name().
  */
-function checkdesk_core_wysiwyg_include_directory($type) {
-  switch ($type) {
-    case 'plugins':
-      return 'ckeditor/' . $type;
-  }
+function checkdesk_core_email_registration_name($edit, $account) {
+  // Strip off everything after the @ sign.
+  $new_name = preg_replace('/@.*$/', '', $edit['mail']);
+  // Clean up the username.
+  $new_name = email_registration_cleanup_username($new_name);
+  return $new_name;
 }
 
 /**
- * Implements hook_wysiwyg_plugin()
+ * Implements hook_wysiwyg_plugin().
  */
 function checkdesk_core_wysiwyg_plugin($editor, $version) {
   switch ($editor) {
@@ -2049,7 +2042,7 @@ function checkdesk_core_wysiwyg_plugin($editor, $version) {
       if ($version >= 4) {
         return array(
           'confighelper' => array(
-            'vendor url' => 'http://alfonsoml.blogspot.com/2012/02/configuration-helper-for-ckeditor.html',
+            'vendor url' => 'http://ckeditor.com/addon/confighelper',
             'path' => drupal_get_path('module', 'checkdesk_core') . '/ckeditor/plugins/confighelper',
             'filename' => 'plugin.js',
             'extensions' => array(
@@ -2064,7 +2057,7 @@ function checkdesk_core_wysiwyg_plugin($editor, $version) {
 }
 
 /**
- * Implementation of hook_wysiwyg_editor_settings_alter().
+ * Implements hook_wysiwyg_editor_settings_alter().
  *
  * Have the editor use the current language. There are open bugs for WYSIWYG
  * module to do this automatically..
@@ -2753,7 +2746,7 @@ function checkdesk_core_search_preprocess($text) {
 }
 
 /**
- * Implements of hook_system_info_alter().
+ * Implements hook_system_info_alter().
  */
 function checkdesk_core_system_info_alter(&$info, $file, $type) {
   //prevent overlay module from being enabled Issue #2039.
@@ -2782,7 +2775,7 @@ function checkdesk_core_direction_settings() {
 }
 
 /*
- * Implements of hook_core_pathauto_alias_alter().
+ * Implements hook_core_pathauto_alias_alter().
  */
 function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
   // Force all aliases to be saved as language neutral.
@@ -2790,7 +2783,7 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
 }
 
 /**
- * Implements of hook_form_BASE_FORM_ID_alter().
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   // Adjust edit node form
@@ -2825,7 +2818,7 @@ function _redirect_report($form, &$form_state) {
 }
 
 /**
- * Implements of hook_comment_delete().
+ * Implements hook_comment_delete().
  */
 function checkdesk_core_comment_delete($comment) {
   // Delete messages from deleted comments.
@@ -2842,7 +2835,7 @@ function checkdesk_core_comment_delete($comment) {
 }
 
 /**
- * Implements of hook_flag_flag().
+ * Implements hook_flag_flag().
  */
 function checkdesk_core_flag_flag($flag, $entity_id, $account, $flagging) {
   if ($flag->name == 'graphic_journalist') {
@@ -2852,7 +2845,7 @@ function checkdesk_core_flag_flag($flag, $entity_id, $account, $flagging) {
 }
 
 /**
- * Implements of hook_flag_unflag().
+ * Implements hook_flag_unflag().
  */
 function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
   if ($flag->name == 'graphic_journalist') {
@@ -2862,7 +2855,7 @@ function checkdesk_core_flag_unflag($flag, $entity_id, $account, $flagging) {
 }
 
 /**
- * Implements of hook_cron().
+ * Implements hook_cron().
  */
 /** Disable it for now
 function checkdesk_core_cron() {
@@ -2880,7 +2873,7 @@ function checkdesk_core_cron() {
 }
  */
 /**
- * Implements of hook_cron_queue_info().
+ * Implements hook_cron_queue_info().
  */
 function checkdesk_core_cron_queue_info() {
   $queues['checkdesk_varnish'] = array(
@@ -2891,14 +2884,14 @@ function checkdesk_core_cron_queue_info() {
 }
 
 /**
- * Implements of hook_cron_queue_info_alter().
+ * Implements hook_cron_queue_info_alter().
  */
 function checkdesk_core_cron_queue_info_alter(&$queues) {
   $queues['rules_scheduler_tasks']['skip on cron'] = TRUE;
 }
 
 /**
- * Implements of hook_cron().
+ * Implements hook_cron().
  */
 function _checkdesk_purge_varnish($paths) {
   if (module_exists('varnish')) {

@@ -531,7 +531,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
     ));
-    $variables['created_by'] = t('<a href="@user">!user</a>', array(
+    $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
       '@user' => url('user/'. $variables['uid']),
       '!user' => $node->name,
     ));
@@ -549,18 +549,8 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if($variables['type'] == 'post') {
-    //Add author info to variables
-    $user = user_load($node->uid);
-    $user_picture = $user->picture;
-    if (!empty($user_picture)) {
-      $options = array(
-        'html' => TRUE,
-        'attributes' => array(
-          'class' => 'gravatar'
-        )
-      );
-      $variables['user_avatar'] = l(theme('image_style', array('path' => $user_picture->uri, 'alt' => t(check_plain($node->name)), 'style_name' => 'navigation_avatar')), 'user/'. $variables['uid'], $options);
-    }
+    $user = user_load($variables['uid']);
+    $variables['user_avatar'] = _set_user_avatar_bg($user, array('avatar', 'thumb-22'));
   }
 
   if ($variables['type'] == 'discussion') {
