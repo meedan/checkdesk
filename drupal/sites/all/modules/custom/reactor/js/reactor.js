@@ -22,6 +22,7 @@
       }, Drupal.settings.reactor.interval);
 
       // Set up SSE event listening.
+      /*
       var sse = new EventSource(Drupal.settings.reactor.sse_path);
       sse.onmessage = function(e) {
         console.log('SSE no-event', e.data);
@@ -29,6 +30,7 @@
       sse.addEventListener('ping', function(e) {
         console.log('SSE ping', JSON.parse(e.data));
       });
+      */
     }
   }
 
