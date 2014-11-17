@@ -1,0 +1,264 @@
+<?php
+
+/**
+ * Implements hook_node_view().
+ */
+function reactor_node_view($node, $view_mode, $langcode) {
+
+  if ($node->type == 'media' && $view_mode == 'full') {
+    reactor_activate(array(
+      'context' => 'report_activity',
+      'node' => $node->nid,
+      'view_mode' => $view_mode,
+      'langcode' => $langcode,
+    ));
+  }
+  
+  if (FALSE) {
+    reactor_activate(array(
+      'context' => 'story_report_activity',
+      'node' => $node->nid,
+      'view_mode' => $view_mode,
+      'langcode' => $langcode,
+    ));
+    reactor_activate(array(
+      'context' => 'node',
+      'node' => $node->nid,
+      'view_mode' => $view_mode,
+      'langcode' => $langcode,
+    ));
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function reactor_menu() {
+  return array(
+    'reactor' => array(
+      'page callback' => 'reactor_json',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+    ),
+  );
+}
+
+/**
+ * Activate reactors for given context.
+ */
+function reactor_activate($context) {
+  // Context-specific settings.
+  drupal_add_library('system', 'drupal.ajax');
+  drupal_add_js(drupal_get_path('module', 'reactor') . '/js/reactor.js');
+  drupal_add_js(array(
+    'reactor' => array(
+      'contexts' => array(
+        $context['context'] => array(
+          'context' => $context,
+          'signatures' => reactor_signatures($context),
+        ),
+      ),
+    ),
+  ), 'setting');
+
+  // Reactor-specific settings.
+  foreach (reactor_get_reactors($context['context']) as $reactor) {
+    $reactor->activate($context);
+  }
+
+  // Global settings.
+  static $once = FALSE;
+  if (empty($once)) {
+    drupal_add_js(array(
+      'reactor' => array(
+        'interval' => variable_get('reactor_interval', 5000),
+        'sse_path' => '/' . drupal_get_path('module', 'reactor') . '/reactor.sse.php?q=' . $_GET['q'],
+      ),
+    ), 'setting');
+  }
+}
+
+/**
+ * Get all reactors for given context.
+ */
+function reactor_get_reactors($context_name = NULL) {
+  $reactors = &drupal_static(__FUNCTION__);
+  if (empty($reactors)) {
+    $plugins = module_invoke_all('reactor_plugins');
+    drupal_alter('reactor_plugins', $plugins);
+    foreach ($plugins as $classname => $plugin) {
+      $reactors[$plugin['context']][$classname] = new $classname;
+    }
+  }
+  return empty($context_name) ? (array)$reactors : (array)$reactors[$context_name];
+}
+
+/**
+ * Implements hook_reactor_plugins().
+ */
+function reactor_reactor_plugins() {
+  return array(
+    'NodeCommentsReactor' => array(
+      'context' => 'node',
+    ),
+    'ReportActivityReactor' => array(
+      'context' => 'report_activity',
+    ),
+    /*
+    'StoryCollaborateReportActivityReactor' => array(
+      'context' => 'story_report_activity',
+    ),
+    */
+  );
+}
+
+/**
+ * Get signatures from reactors for current context.
+ */
+function reactor_signatures($context) {
+  $signatures = array();
+  foreach (reactor_get_reactors($context['context']) as $classname => $reactor) {
+    $signatures[$classname] = $reactor->signature($context);
+  }
+  return $signatures;
+}
+
+/**
+ * Refresh reactors for all given contexts.
+ */
+function reactor_json($callback) {
+  $commands = array();
+  $contexts = $_REQUEST['contexts'];
+  foreach ($contexts as $context_name => $context) {
+    $new_signatures = reactor_signatures($context['context']);
+    foreach (reactor_get_reactors($context_name) as $classname => $reactor) {
+      if ($new_signatures[$classname] == $context['signatures'][$classname]) continue;
+      $commands[] = reactor_ajax_command_signature($classname, $context_name, $new_signatures[$classname]);
+      $commands = array_merge($commands, $reactor->refresh($context['context'], $context['signatures'][$classname]));
+    }
+  }
+  print ajax_render($commands);
+  ajax_footer();
+  exit;
+}
+
+/**
+ * Send an AJAX signature command.
+ */
+function reactor_ajax_command_signature($reactor, $context, $signature) {
+  return array(
+    'command' => 'reactorSignature',
+    'reactor' => $reactor,
+    'context' => $context,
+    'signature' => $signature,
+  );
+}
+
+/**
+ * Send an AJAX insert command.
+ */
+function reactor_ajax_command_insert($selector, $html, $method, $settings = NULL) {
+  return array(
+    'command' => 'reactorInsert',
+    'method' => $method,
+    'selector' => $selector,
+    'data' => $html,
+    'settings' => $settings,
+  );
+}
+
+/**
+ * Base class for reactors.
+ */
+class Reactor {
+  /**
+   * @param $context
+   */
+  public function activate($context) {}
+  /**
+   * @param $context
+   * @return
+   *   mixed opaque signature value.
+   */
+  public function signature($context) {}
+  /**
+   * @param $context
+   * @param $signature
+   * @return
+   *   array of AJAX commands.
+   */
+  public function refresh($context, $signature) {}
+}
+
+/**
+ * Node comments reactor.
+ */
+class NodeCommentsReactor extends Reactor {
+  public function signature($context) {
+    $node = node_load($context['node']);
+    return $node->last_comment_timestamp;
+  }
+  public function refresh($context, $signature) {
+    $commands = array();
+    $cids = db_query("
+SELECT cid FROM {comment}
+WHERE nid = :nid
+AND changed > :last_changed
+ORDER BY changed DESC
+    ", array(':nid' => $context['node'], ':last_changed' => $signature))
+    ->fetchCol();
+    $comments = comment_load_multiple($cids);
+    $node = node_load($context['node']);
+    foreach ($comments as $comment) {
+      $renderable = comment_view($comment, $node, $context['view_mode'], $context['langcode']);
+      $commands[] = reactor_ajax_command_insert('#comments h2:first', drupal_render($renderable), 'after');
+    }
+    return $commands;
+  }
+}
+
+/**
+ * Node comments reactor.
+ */
+class ReportActivityReactor extends Reactor {
+  public function signature($context) {
+    $timestamp = db_query('SELECT MAX(timestamp) FROM {heartbeat_activity} WHERE nid = :nid'
+    , array(':nid' => $context['node']))->fetchField();
+    return $timestamp;
+  }
+  public function refresh($context, $signature) {
+    $commands = array();
+    $node = node_load($context['node']);
+    $report_activity = _reactor_render_activity($node);
+    // Update media count
+    $commands[] = reactor_ajax_command_insert('.media-activity-count-node-'. $node->nid, $report_activity['count'], 'replaceWith');
+    // Update media activity
+    $commands[] = reactor_ajax_command_insert('.media-activity-node-'. $node->nid, $report_activity['activity'], 'replaceWith');
+    return $commands;
+  }
+}
+
+function _reactor_render_activity($node) {
+  $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
+    $node->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+    taxonomy_term_load($node->field_rating[LANGUAGE_NONE][0]['tid']);
+  $status_name = $term->name;
+  if ($status_name !== 'Not Applicable') {
+    $view = views_get_view('activity_report');
+    $view->set_arguments(array($node->nid));
+    $view->get_total_rows = TRUE;
+    $view_output = $view->preview('block');
+    $total_rows = $view->total_rows;
+    $view->destroy();
+    $activity = $count = '0 count';
+    $media_activity_report = $view_output;
+    if ($total_rows) {
+      $count = $total_rows . ' ' . t('verification footnotes');
+      $activity = $view_output;
+    }
+  }
+  return array(
+    'count' => '<div class="meta media-activity-count-node-'. $node->nid.'">'. $count.'</div>',
+    'activity' => '<div class="media-activity-node-'. $node->nid.'">'. $activity.'</div>',
+  );
+}
