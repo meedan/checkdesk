@@ -9,15 +9,7 @@ function reactor_node_view($node, $view_mode, $langcode) {
     reactor_activate(array(
       'context' => 'report_activity',
       'node' => $node->nid,
-      'view_mode' => $view_mode,
-      'langcode' => $langcode,
-    ));
-  }
-  elseif ($node->type == 'discussion' && $view_mode == 'checkdesk_collaborate') {
-    reactor_activate(array(
-      'context' => 'story_report_activity',
-      'node' => $node->nid,
-      'view_mode' => $view_mode,
+      //'view_mode' => $view_mode,
       'langcode' => $langcode,
     ));
   }
@@ -104,9 +96,6 @@ function reactor_reactor_plugins() {
     ),
     'ReportActivityReactor' => array(
       'context' => 'report_activity',
-    ),
-    'StoryCollaborateReportActivityReactor' => array(
-      'context' => 'story_report_activity',
     ),
   );
 }
@@ -227,37 +216,21 @@ class ReportActivityReactor extends Reactor {
   }
   public function refresh($context, $signature) {
     $commands = array();
-    $node = node_load($context['node']);
-    $activity = db_query('SELECT DISTINCT message_id FROM {heartbeat_activity}
+    if ($signature) {
+      /*
+      $activity = db_query('SELECT DISTINCT message_id FROM {heartbeat_activity}
         WHERE nid = :nid AND timestamp > :timestamp'
-      ,array(':nid' => $node->nid, ':timestamp' => $signature))->fetchCol();
-    if (in_array('checkdesk_comment_on_report', $activity)) {
-      $report_activity = _reactor_render_activity($node);
-      // Update media count
-      $commands[] = reactor_ajax_command_insert('.media-activity-count-node-'. $node->nid, $report_activity['count'], 'replaceWith');
-      // Update media activity
-      $commands[] = reactor_ajax_command_insert('.media-activity-node-'. $node->nid, $report_activity['activity'], 'replaceWith');
+        , array(':nid' => $context['node'], ':timestamp' => $signature))->fetchCol();
+      */
+      //if (in_array('checkdesk_comment_on_report', $activity)) {
+        $node = node_load($context['node']);
+        $report_activity = _reactor_render_activity($node);
+        // Update media count
+        $commands[] = reactor_ajax_command_insert('.media-activity-count-node-' . $node->nid, $report_activity['count'], 'replaceWith');
+        // Update media activity
+        $commands[] = reactor_ajax_command_insert('.media-activity-node-' . $node->nid, $report_activity['activity'], 'replaceWith');
+      //}
     }
-    else {
-      // render node
-      $node_view = node_view($node);
-      $commands[] = reactor_ajax_command_insert('#node-'. $node->nid, render($node_view), 'replaceWith');
-    }
-    return $commands;
-  }
-}
-
-/**
- * Story Report activity reactor.
- */
-class StoryCollaborateReportActivityReactor extends Reactor {
-  public function signature($context) {
-    $timestamp = db_query('SELECT MAX(timestamp) FROM {heartbeat_activity} WHERE nid_target = :nid'
-      , array(':nid' => $context['node']))->fetchField();
-    return $timestamp;
-  }
-  public function refresh($context, $signature) {
-    $commands = array();
     return $commands;
   }
 }
@@ -267,6 +240,7 @@ function _reactor_render_activity($node) {
     $node->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
     taxonomy_term_load($node->field_rating[LANGUAGE_NONE][0]['tid']);
   $status_name = $term->name;
+  $activity = $count = '';
   if ($status_name !== 'Not Applicable') {
     $view = views_get_view('activity_report');
     $view->set_arguments(array($node->nid));
@@ -274,15 +248,17 @@ function _reactor_render_activity($node) {
     $view_output = $view->preview('block');
     $total_rows = $view->total_rows;
     $view->destroy();
-    $activity = $count = '0 count';
-    $media_activity_report = $view_output;
     if ($total_rows) {
-      $count = $total_rows . ' ' . t('verification footnotes');
-      $activity = $view_output;
+      $count = theme(
+        'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $node->nid)
+      );
+      $activity =  theme(
+        'checkdesk_core_report_activity_stream', array('activity' => $view_output, 'nid' => $node->nid)
+      );
     }
   }
   return array(
-    'count' => '<div class="meta media-activity-count-node-'. $node->nid.'">'. $count.'</div>',
-    'activity' => '<div class="media-activity-node-'. $node->nid.'">'. $activity.'</div>',
+    'count' => $count,
+    'activity' => $activity,
   );
 }
