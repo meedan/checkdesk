@@ -1500,6 +1500,22 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_report_activity_count'] = array(
+    'template' => 'report_activity_count',
+    'variables' => array(
+      'count' => NULL,
+      'nid' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_report_activity_stream'] = array(
+    'template' => 'report_activity_stream',
+    'variables' => array(
+      'activity' => NULL,
+      'nid' => NULL,
+    ),
+  ) + $base;
+
   return $themes;
 }
 

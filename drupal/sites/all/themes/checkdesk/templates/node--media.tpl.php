@@ -9,20 +9,14 @@
 
       <div id="report-activity-node-<?php print $node->nid; ?>" class="item-nested-content-wrapper open">
         <div class="activity-item-controls item-controls">
-          <div class="meta media-activity-count-node-<?php print $node->nid; ?>">
-            <?php if (isset($media_activity_report_count)) : ?>
-              <?php print $media_activity_report_count . ' ' . t('verification footnotes'); ?>
-            <?php endif; ?>
-          </div>
+          <?php print $media_activity_report_count; ?>
           <div class="actions" role="toolbar">
             <?php print render($content['links']); ?>
           </div>
         </div> <!-- /activity-item-controls -->
         <?php if(isset($media_activity_report)) : ?>
           <div class="activity nested item-nested-content">
-            <div class="media-activity-node-<?php print $node->nid; ?>">
-              <?php print $media_activity_report; ?>
-            </div>
+            <?php print $media_activity_report; ?>
             <?php print render($content['comments']); ?>
             <?php if ($media_activity_footer) : ?>
               <div class="item-nested-footer">

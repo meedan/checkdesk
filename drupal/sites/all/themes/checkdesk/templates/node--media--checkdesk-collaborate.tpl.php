@@ -20,11 +20,7 @@
 
 <div id="report-activity-node-<?php print $node->nid; ?>" class="item-nested-content-wrapper">
   <div class="activity-item-controls item-controls">
-    <div class="meta">
-      <?php if (isset($media_activity_report_count)) : ?>
-        <?php print $media_activity_report_count . ' ' . t('verification footnotes'); ?>
-      <?php endif; ?>
-    </div>
+     <?php print $media_activity_report_count;?>
     <div class="actions" role="toolbar">
       <?php print render($content['links']); ?>
     </div>
