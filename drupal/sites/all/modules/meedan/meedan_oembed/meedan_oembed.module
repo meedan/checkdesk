@@ -34,12 +34,6 @@ function meedan_oembed_theme() {
       'path' => $path,
       'file' => $file,
     ),
-    'meedan_oembed_thumbnail_googlemaps' => array(
-      'variables' => array('url' => NULL, 'attributes' => NULL, 'title' => NULL),
-      'template' => 'oembed-thumbnail-googlemaps',
-      'path' => $path,
-      'file' => $file,
-    ),
     'meedan_inline_thumbnail' => array(
       'variables' => array('element' => NULL),
       'template' => 'meedan-inline-thumbnail--generic',

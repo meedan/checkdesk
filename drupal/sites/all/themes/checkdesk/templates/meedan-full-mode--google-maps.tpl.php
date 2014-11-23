@@ -21,5 +21,4 @@
       <?php print $report_status['status']; ?>
     </span>
   <?php endif; ?>
-  What the fuck.
 </div> <!-- /media-holder -->

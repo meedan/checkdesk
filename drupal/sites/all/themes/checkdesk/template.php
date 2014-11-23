@@ -38,9 +38,9 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     $node = $element['#object'];
     $variables['embed'] = $embed;
     $variables['node'] = $node;
-    $variables['theme_hook_suggestions'][] = $element['#formatter'] . '__' . strtolower($embed->provider_name);
+    $variables['theme_hook_suggestions'][] = $element['#formatter'] . '__' . strtolower(str_replace(' ', '_', $embed->provider_name));
     // set provider class name
-    $provider = strtolower($embed->provider_name);
+    $provider = strtolower(str_replace(' ', '_', $embed->provider_name));
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
     // Set author name or provider name
     if(isset($embed->author_url) && isset($embed->author_name)) {
@@ -193,10 +193,6 @@ function checkdesk_preprocess_region(&$variables) {
 function checkdesk_preprocess_block(&$variables) {
   // remove subjects for all blocks
   $variables['elements']['#block']->subject = '';
-  // Add Compose Update on update form
-  if($variables['elements']['#block']->bid == 'checkdesk_core-post') {
-    $variables['elements']['#block']->subject = t('Compose Update');
-  }
 }
 
 /**
@@ -331,11 +327,6 @@ function checkdesk_preprocess_page(&$variables) {
       else {
         unset($variables['secondary_menu'][$id]);
       }
-    }
-
-    else if ($item['link_path'] == 'checkdesk_take_tour') {
-      $variables['secondary_menu'][$id]['attributes']['id'] = 'take-tour-menu-link';
-      $variables['secondary_menu'][$id]['title'] = t('?');
     }
 
   }
