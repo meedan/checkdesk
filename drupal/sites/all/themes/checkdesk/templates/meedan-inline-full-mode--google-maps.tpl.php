@@ -2,20 +2,14 @@
   <div class="inline-attachment-wrapper">
     <div class="inline-attachment-bar"><div class="indent"></div></div>
     <div class="media-holder media-inline-holder">
-      <div class="media">
-        <?php if(isset($embed->html)) : ?>
-          <div class="re-holder media-4by3">
-            <?php print $embed->html; ?>
-          </div>
-        <?php elseif (isset($full_image)) : ?>
-          <div class="img-holder">
-            <?php print $full_image; ?>
-          </div>
-        <?php endif ;?>
-      </div>
+      <?php if(isset($embed->html)) : ?>
+        <div class="media re-holder media-4by3">
+          <?php print $embed->html; ?>
+        </div>
+      <?php endif; ?>
       <div class="media-content">
         <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
-        <?php if(isset($media_description)) : ?><span class="description expandable"><?php print $media_description; ?></span><?php endif; ?>
+        <span class="description expandable"><?php print $embed->description; ?></span>
         <?php if(isset($author_name)) : ?>
           <span class="author"><?php print $author_name ?></span>
         <?php elseif(isset($provider_name)) : ?>

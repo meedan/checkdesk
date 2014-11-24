@@ -5127,7 +5127,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .media-status .false {
   color: #cc4f43;
 }
-.media-holder .video-holder {
+.media-holder .video-holder, .media-holder .re-holder {
   position: relative;
   display: block;
   height: 0;
@@ -5137,7 +5137,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .video-holder .oembed-video,
 .media-holder .video-holder iframe,
 .media-holder .video-holder embed,
-.media-holder .video-holder object {
+.media-holder .video-holder object, .media-holder .re-holder .oembed-video,
+.media-holder .re-holder iframe,
+.media-holder .re-holder embed,
+.media-holder .re-holder object {
   position: absolute;
   top: 0;
   left: 0;
@@ -5146,10 +5149,10 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   width: 100%;
   border: 0;
 }
-.media-holder .video-holder.video-16by9 {
+.media-holder .video-holder.media-16by9, .media-holder .re-holder.media-16by9 {
   padding-bottom: 56.25%;
 }
-.media-holder .video-holder.video-4by3 {
+.media-holder .video-holder.media-4by3, .media-holder .re-holder.media-4by3 {
   padding-bottom: 75%;
 }
 .media-holder span[class^="icon-"]:before, .media-holder span[class^="icon-"]:after, .media-holder span[class*="icon-"]:before, .media-holder span[class*="icon-"]:after {

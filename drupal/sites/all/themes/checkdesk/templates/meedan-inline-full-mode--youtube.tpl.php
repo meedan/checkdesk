@@ -17,7 +17,7 @@
       <?php endif; ?>
       <!-- render as full view -->
       <div class="media">
-        <div class="inline-holder inline-video-holder video-holder video-16by9">
+        <div class="inline-holder inline-video-holder video-holder media-16by9">
 					<?php print $embed->html; ?>
 				</div>
       </div>
