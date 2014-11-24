@@ -1325,7 +1325,7 @@ function checkdesk_core_views_pre_render(&$view) {
     }
   }
   elseif ($view->name == 'updates_for_stories') {
-    if ($view->current_display == 'block' && isset($_REQUEST['autorefreshRequest'])) {
+    if ($view->current_display == 'page_1' && isset($_REQUEST['autorefreshRequest'])) {
       // Update total rows so autorefresh can set correct update numbers 'update #'
       $nid = $_REQUEST['original_view_data']['view_args'];
       if ($nid) {
