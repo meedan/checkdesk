@@ -2,7 +2,9 @@
   <div class="activity-item-controls item-controls">
     <?php print $media_activity_report_count; ?>
     <div class="actions" role="toolbar">
-       <?php print render($content['links']); ?>
+       <div class="media-links-node-<?php print $node->nid;?>">
+        <?php print render($content['links']); ?>
+       </div>
     </div>
   </div> <!-- /activity-item-controls -->
   <?php if(isset($media_activity_report)) : ?>

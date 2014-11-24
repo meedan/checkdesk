@@ -12,6 +12,10 @@ function reactor_node_view($node, $view_mode, $langcode) {
       //'view_mode' => $view_mode,
       'langcode' => $langcode,
     ));
+    reactor_activate(array(
+      'context' => 'report_flagging',
+      'node' => $node->nid,
+    ));
   }
   if (FALSE) {
     reactor_activate(array(
@@ -96,6 +100,9 @@ function reactor_reactor_plugins() {
     ),
     'ReportActivityReactor' => array(
       'context' => 'report_activity',
+    ),
+    'ReportFlaggingReactor' => array(
+      'context' => 'report_flagging',
     ),
   );
 }
@@ -249,6 +256,43 @@ class ReportActivityReactor extends Reactor {
           // Update media activity
           $commands[] = reactor_ajax_command_insert('.media-activity-node-' . $node->nid, $report_activity['activity'], 'replaceWith');
         }
+      }
+    }
+    return $commands;
+  }
+}
+
+/**
+ * Report falgging reactor.
+ */
+class ReportFlaggingReactor extends Reactor {
+  public function signature($context) {
+    $timestamp =
+      db_query('
+        SELECT MAX(fe.timestamp)
+        FROM flagging fe
+        INNER JOIN flag f ON fe.fid = f.fid
+        WHERE f.name IN (:types) AND entity_id = :nid
+        ', array(':types' => array('spam', 'delete', 'graphic'), ':nid' => $context['node'])
+      )->fetchField();
+    return $timestamp;
+  }
+  public function refresh($context, $signature) {
+    $commands = array();
+    if ($signature) {
+      $count = db_query('
+        SELECT COUNT(fe.fid)
+        FROM flagging fe
+        INNER JOIN flag f ON fe.fid = f.fid
+        WHERE f.name IN (:types) AND entity_id = :nid AND fe.timestamp > :timestamp
+        ', array(':types' => array('spam', 'delete', 'graphic'), ':nid' => $context['node'], ':timestamp' => $signature)
+      )->fetchField();
+      // render links
+      if ($count) {
+        $node = node_load($context['node']);
+        $node_view = node_view($node);
+        $links = '<div class="sawysawy media-links-node-'. $node->nid.'">'. render($node_view['links']).'</div>';
+        $commands[] = reactor_ajax_command_insert('.media-links-node-' . $node->nid, $links, 'replaceWith');
       }
     }
     return $commands;
