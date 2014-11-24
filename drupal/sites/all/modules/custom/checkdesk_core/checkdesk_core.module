@@ -1493,6 +1493,15 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_report_activity'] = array(
+      'template' => 'report_activity',
+      'variables' => array(
+        'node' => NULL,
+        'content' => NULL,
+        'view_mode' => NULL,
+      ),
+    ) + $base;
+
   $themes['checkdesk_core_report_activity_status'] = array(
     'template' => 'report_activity_status',
     'variables' => array(

@@ -217,19 +217,39 @@ class ReportActivityReactor extends Reactor {
   public function refresh($context, $signature) {
     $commands = array();
     if ($signature) {
-      /*
-      $activity = db_query('SELECT DISTINCT message_id FROM {heartbeat_activity}
-        WHERE nid = :nid AND timestamp > :timestamp'
-        , array(':nid' => $context['node'], ':timestamp' => $signature))->fetchCol();
-      */
-      //if (in_array('checkdesk_comment_on_report', $activity)) {
-        $node = node_load($context['node']);
-        $report_activity = _reactor_render_activity($node);
-        // Update media count
-        $commands[] = reactor_ajax_command_insert('.media-activity-count-node-' . $node->nid, $report_activity['count'], 'replaceWith');
-        // Update media activity
-        $commands[] = reactor_ajax_command_insert('.media-activity-node-' . $node->nid, $report_activity['activity'], 'replaceWith');
-      //}
+
+      $activity = db_query("
+                    SELECT DISTINCT message_id FROM {heartbeat_activity}
+                    WHERE nid = :nid AND timestamp > :timestamp
+                 ", array(':nid' => $context['node'], ':timestamp' => $signature)
+                  )->fetchCol();
+
+      $node = node_load($context['node']);
+
+      if (count(array_intersect(
+        array('checkdesk_fact_checking_set', 'checkdesk_fact_checking_on'),
+        $activity))
+      ) {
+        $node_view = node_view($node);
+        $node_view['comments'] = comment_node_page_additions($node);
+        $report_activity = theme(
+          'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
+        );
+        $commands[] = reactor_ajax_command_insert('#report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
+      }
+      else {
+        if (count(array_intersect(
+          array('checkdesk_comment_on_report', 'new_comment_report'),
+          $activity))
+        ) {
+          // load activity
+          $report_activity = _reactor_render_activity($node);
+          // Update media count
+          $commands[] = reactor_ajax_command_insert('.media-activity-count-node-' . $node->nid, $report_activity['count'], 'replaceWith');
+          // Update media activity
+          $commands[] = reactor_ajax_command_insert('.media-activity-node-' . $node->nid, $report_activity['activity'], 'replaceWith');
+        }
+      }
     }
     return $commands;
   }
