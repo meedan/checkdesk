@@ -4,7 +4,7 @@
     <div class="media-holder media-inline-holder">
       <div class="media">
         <?php if(isset($embed->html)) : ?>
-          <div class="re-holder media-4by3">
+          <div class="re-holder media-1by1">
             <?php print $embed->html; ?>
           </div>
         <?php elseif (isset($full_image)) : ?>

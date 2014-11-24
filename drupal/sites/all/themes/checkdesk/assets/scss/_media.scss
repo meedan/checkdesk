@@ -77,6 +77,11 @@
 	  &.media-4by3 {
 	    padding-bottom: 75%;
 	  }
+
+	  // Modifier class for 1:1 aspect ratio
+	  &.media-1by1 {
+	    padding-bottom: 100%;
+	  }
 	}
 
 	@include clear-icon-margins;
