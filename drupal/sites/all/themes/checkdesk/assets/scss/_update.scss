@@ -38,6 +38,9 @@
     & > ul, & > ol {
       margin: 0 0 $absolute-line-height/2.4 0; // 10px 
       padding-#{$alpha}: $gutter-width*2;
+      ul, ol {
+        padding-#{$alpha}: $gutter-width*2;
+      }
     }
 
     // move embeds closer

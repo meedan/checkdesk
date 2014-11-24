@@ -5942,6 +5942,9 @@ div.sensitive-hide {
   margin: 0 0 10px 0;
   padding-right: 30px;
 }
+.update .update-body > ul ul, .update .update-body > ul ol, .update .update-body > ol ul, .update .update-body > ol ol {
+  padding-right: 30px;
+}
 .update .update-body .report {
   margin-top: 0;
 }
@@ -8238,6 +8241,13 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-body p:first-child {
   margin: 0 0;
+}
+.story .story-body > ul, .story .story-body > ol {
+  margin: 0 0 10px 0;
+  padding-right: 30px;
+}
+.story .story-body > ul ul, .story .story-body > ul ol, .story .story-body > ol ul, .story .story-body > ol ol {
+  padding-right: 30px;
 }
 .story .story-follow {
   *zoom: 1;
