@@ -289,20 +289,24 @@ function checkdesk_core_update_7035() {
  */
 function checkdesk_core_update_7036() {
   $users = db_query("
-SELECT uid, name
-FROM {users}
-WHERE name
-REGEXP '^[[:alnum:]_-]+_[[:digit:]]+$'
-  ")->fetchAll();
+    SELECT uid, name
+    FROM {users}
+    WHERE name
+    REGEXP '^[[:alnum:]_-]+_[[:digit:]]+$'
+    ")->fetchAll();
   foreach ($users as $user) {
     $user->name = preg_replace('/^([\\w_-]+)_[\\d]+$/', '$1', $user->name);
-    db_query("
-UPDATE {users}
-SET name = :name
-WHERE uid = :uid
-    ", array(
-      ':name' => $user->name,
-      ':uid' => $user->uid,
-    ));
+    // Check if new name already exist on DB
+    $exist = db_query('SELECT COUNT(uid) FROM {users} WHERE name = :name', array(':name' => $user->name))->fetchField();
+    if (!$exist) {
+      db_query("
+        UPDATE {users}
+        SET name = :name
+        WHERE uid = :uid
+        ", array(
+          ':name' => $user->name,
+          ':uid' => $user->uid,
+        ));
+    }
   }
 }
