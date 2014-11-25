@@ -221,6 +221,13 @@
         margin: 0 0;
       }
     }
+    & > ul, & > ol {
+      margin: 0 0 $absolute-line-height/2.4 0; // 10px 
+      padding-#{$alpha}: $gutter-width*2;
+      ul, ol {
+        padding-#{$alpha}: $gutter-width*2;
+      }
+    }
   }
 
   .story-follow {
@@ -330,10 +337,6 @@
       display: table-cell;
       width: 100%;
       vertical-align: bottom;
-    }
-    // HACK: until we implement show more collaborators list
-    .story-collaborators-wrapper {
-      width: 160%;
     }
   }
 

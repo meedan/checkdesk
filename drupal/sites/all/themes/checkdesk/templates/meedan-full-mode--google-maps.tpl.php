@@ -1,7 +1,9 @@
 <div class="media-holder media-inline-holder">
   <?php if(isset($embed->html)) : ?>
     <div class="media">
-      <?php print $embed->html; ?>
+      <div class="re-holder media-4by3">
+        <?php print $embed->html; ?>
+      </div>
     </div>
   <?php endif; ?>
   <div class="media-content">
@@ -21,5 +23,4 @@
       <?php print $report_status['status']; ?>
     </span>
   <?php endif; ?>
-  What the fuck.
 </div> <!-- /media-holder -->

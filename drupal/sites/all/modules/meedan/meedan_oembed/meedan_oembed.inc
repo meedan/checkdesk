@@ -19,10 +19,6 @@ function meedan_oembed_get_handler_for_domain($domain) {
  * Choose largest token of the host.
  */
 function _meedan_oembed_get_domain_name($url) {
-  //set domain for google maps including short link
-  if (stripos($url, 'maps.google') || stripos($url, 'goo.gl/maps')) {
-    return 'googlemaps';
-  }
   $parts = explode('.', parse_url($url, PHP_URL_HOST));
   $domain = '';
   foreach ($parts as $part) {

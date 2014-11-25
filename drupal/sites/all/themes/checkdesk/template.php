@@ -38,9 +38,9 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     $node = $element['#object'];
     $variables['embed'] = $embed;
     $variables['node'] = $node;
-    $variables['theme_hook_suggestions'][] = $element['#formatter'] . '__' . strtolower($embed->provider_name);
+    $variables['theme_hook_suggestions'][] = $element['#formatter'] . '__' . strtolower(str_replace(' ', '_', $embed->provider_name));
     // set provider class name
-    $provider = strtolower($embed->provider_name);
+    $provider = strtolower(str_replace(' ', '_', $embed->provider_name));
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
     // Set author name or provider name
     if(isset($embed->author_url) && isset($embed->author_name)) {
@@ -193,10 +193,6 @@ function checkdesk_preprocess_region(&$variables) {
 function checkdesk_preprocess_block(&$variables) {
   // remove subjects for all blocks
   $variables['elements']['#block']->subject = '';
-  // Add Compose Update on update form
-  if($variables['elements']['#block']->bid == 'checkdesk_core-post') {
-    $variables['elements']['#block']->subject = t('Compose Update');
-  }
 }
 
 /**
@@ -331,11 +327,6 @@ function checkdesk_preprocess_page(&$variables) {
       else {
         unset($variables['secondary_menu'][$id]);
       }
-    }
-
-    else if ($item['link_path'] == 'checkdesk_take_tour') {
-      $variables['secondary_menu'][$id]['attributes']['id'] = 'take-tour-menu-link';
-      $variables['secondary_menu'][$id]['title'] = t('?');
     }
 
   }
@@ -682,64 +673,10 @@ function checkdesk_preprocess_node(&$variables) {
         $variables['published_stories'] .= implode('<span class="separator">,</span> ', $published_stories_links);
       }
     }
-    //Add activity report with status
-    $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
-      $node->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
-      taxonomy_term_load($node->field_rating[LANGUAGE_NONE][0]['tid']);
-    $status_name = $term->name;
-    if ($status_name !== 'Not Applicable') {
-      $view = views_get_view('activity_report');
-      $view->set_arguments(array($variables['nid']));
-      $view->get_total_rows = TRUE;
-      $view_output = $view->preview('block');
-      $total_rows = $view->total_rows;
-      $view->destroy();
-      if ($total_rows) {
-        $variables['media_activity_report_count'] = $total_rows;
-        $variables['media_activity_report'] = $view_output;
-        $status_class = '';
-        $icon = '';
-        if ($status_name == 'Verified') {
-          $status_class = 'verified';
-          $icon = '<span class="icon-check-circle"></span> ';
-        }
-        elseif ($status_name == 'In Progress') {
-          $status_class = 'in-progress';
-          $icon = '<span class="icon-random"></span> ';
-        }
-        elseif ($status_name == 'Undetermined') {
-          $status_class = 'undetermined';
-          $icon = '<span class="icon-question-circle"></span> ';
-        }
-        elseif ($status_name == 'False') {
-          $status_class = 'false';
-          $icon = '<span class="icon-times-circle"></span> ';
-        }
-        // Display "{status} by {partner site name}" for all statuses
-        // except when the report is in progress
-
-        if($status_name != 'In Progress') {
-          $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
-        }
-
-        $variables['status_class'] = $status_class;
-        // display status with an icon and "x by partner"
-        if(isset($status_name) && isset($icon) && isset($status_by)) {
-          $variables['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
-        } else { // display status with an icon only
-          $variables['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-        }
-      }
-      if (user_is_logged_in()) {
-        $variables['media_activity_footer'] = '';
-      }
-      else {
-        $icon = '<span class="icon-question-circle"></span> ';
-        $link = l(t('About verification process'), 'modal/ajax/content/fact-checking-statement', array('html' => 'true', 'language' => $language, 'attributes' => array('class' => array('use-ajax', 'ctools-modal-modal-popup-large'))));
-        $variables['media_activity_footer'] = '<span class="cta">' . t('To help verify this report, please <a href="@login_url">sign in</a>', array('@login_url' => url('user/login'))) . '</span><span class="helper">' . $icon . $link . '</span>';
-      }
-    }
-
+    $variables['report_activity'] = theme(
+      'checkdesk_core_report_activity',
+      array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
+    );
 
     if (isset($variables['content']['field_link'])) {
       $field_link_rendered = render($variables['content']['field_link']);
@@ -1242,52 +1179,35 @@ function _checkdesk_providers() {
 function _checkdesk_report_status($report) {
   global $language;
   $report_status = array();
-  $icon = '';
-
+  $icon_class = '';
   $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
       $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
       taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
   $status_name = $term->name;
 
-
-
-  $status_class = '';
+  $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
   if ($status_name == 'Verified') {
-    $status_class = 'verified';
-    $icon = '<span class="icon-check-circle"></span> ';
+    $icon_class = 'icon-check-circle';
   }
   elseif ($status_name == 'In Progress') {
-    $status_class = 'in-progress';
-    $icon = '<span class="icon-random"></span> ';
+    $icon_class = 'icon-random';
   }
   elseif ($status_name == 'Undetermined') {
-    $status_class = 'undetermined';
-    $icon = '<span class="icon-question-circle"></span> ';
+    $icon_class = 'icon-question-circle';
   }
   elseif ($status_name == 'False') {
-    $status_class = 'false';
-    $icon = '<span class="icon-times-circle"></span> ';
+    $icon_class = 'icon-times-circle';
   }
+  $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
   $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-
   if($status_name != 'In Progress') {
     $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
   }
-
   // display status with an icon and "x by partner"
   if(isset($status_name) && isset($icon) && isset($status_by)) {
     $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
   } else { // display status with an icon only
     $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   }
-  // Get status footnote if exist
-  // always footnote for change status is uaid of status - 3
-  // $footnote_uaid = $activity->uaid - 3;
-  // $footnote =  heartbeat_activity_load($footnote_uaid);
-  // if ($footnote->message_id == 'new_comment_report' && $footnote->nid_target == $activity->nid_target) {
-    // $report_status['footnote'] = $footnote->variables['!comment'];
-  // }
-
-  // dsm($report_status);
   return $report_status;
 }

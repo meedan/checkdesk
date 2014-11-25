@@ -116,7 +116,7 @@ function meedan_oembed_twitter_handler($provider, $url) {
 function meedan_oembed_twitter_meedan_oembed_embed_alter(&$embed) {
   global $language;
 
-  if ($embed->provider_name === 'Twitter') {
+  if (isset($embed->provider_name) && $embed->provider_name === 'Twitter') {
     // Let's try to identify language based on the Unicode
     // First, remove links and Twitter names
     $dir = 'ltr';

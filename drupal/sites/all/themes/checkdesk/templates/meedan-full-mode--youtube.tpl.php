@@ -1,6 +1,6 @@
 <div class="media-holder">
   <div class="media">
-    <div class="video-holder video-16by9">
+    <div class="video-holder media-16by9">
       <?php print $embed->html; ?>
     </div>
   </div>

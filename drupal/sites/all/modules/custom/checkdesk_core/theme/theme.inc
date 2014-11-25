@@ -149,25 +149,23 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$varia
   global $language;
 
   $activity = $variables['heartbeat_activity'];
-  $icon = '';
+  $icon_class = '';
   $status_name = $activity->variables['!status'];
-  $status_class = '';
+  $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
   if ($status_name == 'Verified') {
-    $status_class = 'verified';
-    $icon = '<span class="icon-check-circle"></span> ';
+    $icon_class = 'icon-check-circle';
   }
   elseif ($status_name == 'In Progress') {
-    $status_class = 'in-progress';
-    $icon = '<span class="icon-random"></span> ';
-  }    
+    $icon_class = 'icon-random';
+  }
   elseif ($status_name == 'Undetermined') {
-    $status_class = 'undetermined';
-    $icon = '<span class="icon-question-circle"></span> ';
-  }    
+    $icon_class = 'icon-question-circle';
+  }
   elseif ($status_name == 'False') {
-    $status_class = 'false';
-    $icon = '<span class="icon-times-circle"></span> ';
-  }    
+    $icon_class = 'icon-times-circle';
+  }
+  $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
+
   $variables['activity_status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   
   if($status_name != 'In Progress') {
@@ -187,4 +185,47 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity_status(&$varia
   if ($footnote->message_id == 'new_comment_report' && $footnote->nid_target == $activity->nid_target) {
     $variables['activity_status_footnote'] = $footnote->variables['!comment'];
   }
+}
+
+/**
+ * Template preprocessor for `checkdesk_core_report_activity`.
+ */
+function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
+  global $language;
+  $node = $variables['node'];
+  $variables['nid'] = $node->nid;
+  $variables['collapsed'] = ($variables['view_mode'] == 'checkdesk_collaborate') ? '' : 'open';
+  //Add activity report with status
+  $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
+    $node->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+    taxonomy_term_load($node->field_rating[LANGUAGE_NONE][0]['tid']);
+  $status_name = $term->name;
+  $total_rows = '';
+  if ($status_name !== 'Not Applicable') {
+    $view = views_get_view('activity_report');
+    $view->set_arguments(array($variables['nid']));
+    $view->get_total_rows = TRUE;
+    $view_output = $view->preview('block');
+    $total_rows = $view->total_rows;
+    $view->destroy();
+    if ($total_rows) {
+      $variables['media_activity_report'] = theme(
+        'checkdesk_core_report_activity_stream', array('activity' => $view_output, 'nid' => $variables['nid'])
+      );
+      $variables['status_class'] = strtolower(str_replace(' ', '-', $status_name));
+
+    }
+    if (user_is_logged_in()) {
+      $variables['media_activity_footer'] = '';
+    }
+    else {
+      $icon = '<span class="icon-question-circle"></span> ';
+      $link = l(t('About verification process'), 'modal/ajax/content/fact-checking-statement', array('html' => 'true', 'language' => $language, 'attributes' => array('class' => array('use-ajax', 'ctools-modal-modal-popup-large'))));
+      $variables['media_activity_footer'] = '<span class="cta">' . t('To help verify this report, please <a href="@login_url">sign in</a>', array('@login_url' => url('user/login'))) . '</span><span class="helper">' . $icon . $link . '</span>';
+    }
+  }
+  $variables['media_activity_report_count'] = theme(
+    'checkdesk_core_report_activity_count', array('count' => $total_rows, 'nid' => $variables['nid'])
+  );
+
 }
