@@ -6035,7 +6035,11 @@ div.sensitive-hide {
 }
 .update .update-footer .avatar {
   position: absolute;
-  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
   display: inline-block;
   -webkit-border-radius: 4px;
@@ -9407,7 +9411,11 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   float: right;
   top: 20px;
   right: 0;
-  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
   display: inline-block;
   -webkit-border-radius: 4px;

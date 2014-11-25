@@ -160,8 +160,11 @@
     top: $top; 
     #{$from-direction}: $indent;
   }
-
-  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
   display: inline-block;
   @include border-radius(4px);
