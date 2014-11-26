@@ -712,10 +712,19 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       }
     }
     $links['checkdesk-flag'] = array(
-      'title' => t('Flag'),
+      'title' => '',
       'href' => '#',
       'attributes' => array('class' => 'dropdown-toggle ' . ($flagged ? 'flagged' : 'unflagged'), 'data-toggle' => 'dropdown'),
       'html' => TRUE,
+      'cd_group' => 'checkdesk-flag',
+    );
+
+    $links['checkdesk-ellipsis'] = array(
+      'title' => '',
+      'href' => '#',
+      'attributes' => array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'),
+      'html' => TRUE,
+      'cd_group' => 'checkdesk-ellipsis',
     );
   }
 
@@ -776,79 +785,68 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     } else {
       $links['dropdown-direction'] = $layout['omega'];
     }
-
-    $share_links = checkdesk_core_share_links($url, $node->title);
+    $embed_data = array();
+    if ($node->type == 'media' || $node->type == 'discussion') {
+      $embed_title = 'Embed this ';
+      $embed_title .= ($node->type == 'media') ? 'report' : 'story';
+      $embed_data = array('nid' => $node->nid, 'title' => $embed_title);
+    }
+    $share_links = checkdesk_core_share_links($url, $node->title, $node->type, $embed_data);
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
     }
-    // parent share link with title
-    $links['checkdesk-share'] = array(
-      'title' => ($node->type == 'media') ? '' : '<span class="label">' . t('Share') . '</span>',
-      'href' => '#',
-      'attributes' => array('title' => $node->title),
-    );
-    if ($node->type == 'media') {
-      $links['checkdesk-share-embed'] = array(
-        'html' => TRUE,
-        'title' => t('Embed this report') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
-        'href' => $url,
-        'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
-      );
-    }
-    if ($node->type == 'discussion') {
-      $links['checkdesk-share-embed'] = array(
-        'html' => TRUE,
-        'title' => t('Embed this story') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
-        'href' => $url,
-        'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
-      );  
-    }
   }
-  // Links for stories, not as a dropdown menu.
-  // if ($node->type == 'discussion') {
-  //   if (node_access('update', $node)) {
-  //     $links['checkdesk-edit-flat'] = array(
-  //       'title' => t('Edit'),
-  //       'href' => 'node/' . $node->nid . '/edit',
-  //       'query' => array(
-  //         'destination' => $destination,
-  //       ),
-  //     );
-  //   }
-  //   if (node_access('delete', $node)) {
-  //     $links['checkdesk-delete-flat'] = array(
-  //       'title' => t('Delete'),
-  //       'href' => 'node/' . $node->nid . '/delete',
-  //       'query' => array(
-  //         'destination' => '<front>',
-  //       ),
-  //     );
-  //   }
-  // }
-
   return $links;
 }
 
 /**
  * Returns an array containing share links for a node
  */
-function checkdesk_core_share_links($url, $title) {
+function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
   $links = array();
+  // parent share link with title
+  $links['checkdesk-share'] = array(
+    'title' => ($type == 'media') ? '' : '<span class="label">' . t('Share') . '</span>',
+    'href' => '#',
+    'attributes' => array('title' => $title, 'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'),
+    'html' => TRUE,
+    'cd_group' => 'checkdesk-share',
+  );
   $links['checkdesk-share-facebook'] = array(
     'title' => t('Share on Facebook'),
     'href' => $url,
     'attributes' => array('title' => $title, 'class' => array('facebook')),
+    'link_type' => 'link',
+    'cd_group' => 'checkdesk-share',
   );
   $links['checkdesk-share-twitter'] = array(
     'title' => t('Share on Twitter'),
     'href' => $url,
     'attributes' => array('title' => $title, 'class' => array('twitter')),
+    'link_type' => 'link',
+    'cd_group' => 'checkdesk-share',
   );
   $links['checkdesk-share-google'] = array(
     'title' => t('Share on Google+'),
     'href' => $url,
     'attributes' => array('title' => $title, 'class' => array('google')),
+    'link_type' => 'link',
+    'cd_group' => 'checkdesk-share',
   );
+  // show embed if nid has a value
+  if (isset($embed['nid'])) {
+    if (!isset($embed['title'])) {
+      $embed['title'] = 'Embed this story';
+    }
+    $links['checkdesk-share-embed'] = array(
+      'html' => TRUE,
+      'title' => t($embed['title']) . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($embed['nid'])) . '</textarea>',
+      'href' => $url,
+      'attributes' => array('title' => $title, 'class' => array('embed'), 'onclick' => 'return false;'),
+      'link_type' => 'link',
+      'cd_group' => 'checkdesk-share',
+    );
+  }
 
   return $links;
 }
@@ -1518,6 +1516,12 @@ function checkdesk_core_theme() {
     'variables' => array(
       'activity' => NULL,
       'nid' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_render_links'] = array(
+    'variables' => array(
+      'options' => NULL,
     ),
   ) + $base;
 

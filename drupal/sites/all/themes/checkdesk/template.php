@@ -702,6 +702,7 @@ function checkdesk_preprocess_node(&$variables) {
 
 function checkdesk_links__node($variables) {
   $links = $variables['links'];
+
   $attributes = $variables['attributes'];
   $heading = $variables['heading'];
 
@@ -717,105 +718,53 @@ function checkdesk_links__node($variables) {
   ctools_include('ajax');
   ctools_modal_add_js();
   ctools_add_js('checkdesk_core', 'checkdesk_core');
-
   if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
+    // Add share links    
+    $options = array('links' => $links, 'direction' => $links['dropdown-direction'], 
+      'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share'); 
+    $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
-    if (isset($links['checkdesk-share']) ||
-        isset($links['checkdesk-share-facebook']) ||
-        isset($links['checkdesk-share-twitter']) ||
-        isset($links['checkdesk-share-google']) ||
-        isset($links['checkdesk-share-embed'])
-    ) {
-      // Share on
-      $output .= '<span class="share-on">';
-      $output .= '<a class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . $links['checkdesk-share']['title'] . '</span></a>';
+    if (isset($links['flag-spam'])) {
+      $links['flag-spam']['cd_group'] = 'checkdesk-flag';
+    }
+    if (isset($links['flag-graphic'])) {
+      $links['flag-graphic']['cd_group'] = 'checkdesk-flag';
+    }
+    if (isset($links['flag-factcheck'])) {
+      $links['flag-factcheck']['cd_group'] = 'checkdesk-flag';
+    }
+    if (isset($links['flag-delete'])) {
+      $links['flag-delete']['cd_group'] = 'checkdesk-flag';
+    }
+    // add flag links
+    $options = array('links' => $links, 'direction' => $layout['omega'], 
+      'type' => 'checkdesk-flag', 'wrapper_class' => 'flag-as', 'icon_class' => 'icon-flag-o'); 
+    $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
-      $output .= '<ul class="dropdown-menu pull-'. $links['dropdown-direction'] .'">';
-
-      if (isset($links['checkdesk-share-facebook'])) {
-        $output .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
-      }
-      if (isset($links['checkdesk-share-twitter'])) {
-        $output .= '<li>' . l($links['checkdesk-share-twitter']['title'], $links['checkdesk-share-twitter']['href'], $links['checkdesk-share-twitter']) . '</li>';
-      }
-      if (isset($links['checkdesk-share-google'])) {
-        $output .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
-      }
-      if (isset($links['checkdesk-share-embed'])) {
-        $output .= '<li class="divider"></li>';
-        $output .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-embed']) . '</li>';
-      }
-      $output .= '</ul></span>';
+    if (isset($links['checkdesk-suggest'])) {
+      $links['checkdesk-suggest']['cd_group'] = 'checkdesk-ellipsis';
+      $links['checkdesk-suggest']['link_type'] = 'modal';
+      $links['checkdesk-suggest']['modal_class'] = 'ctools-modal-modal-popup-medium';
+    }
+    if (isset($links['checkdesk-edit'])) {
+      $links['checkdesk-edit']['cd_group'] = 'checkdesk-ellipsis';
+      $links['checkdesk-edit']['link_type'] = 'link';
+    }
+    if (isset($links['checkdesk-delete'])) {
+      $links['checkdesk-delete']['cd_group'] = 'checkdesk-ellipsis';
+      $links['checkdesk-delete']['link_type'] = 'link';
+    }
+    if (isset($links['flag-factcheck_journalist'])) {
+      $links['flag-factcheck_journalist']['cd_group'] = 'checkdesk-ellipsis';
+    }
+    if (isset($links['flag-graphic_journalist'])) {
+      $links['flag-graphic_journalist']['cd_group'] = 'checkdesk-ellipsis';
     }
 
-    if (isset($links['flag-spam']) ||
-        isset($links['flag-graphic']) ||
-        isset($links['flag-factcheck']) ||
-        isset($links['flag-delete'])
-    ) {
-      // Flag as
-      $output .= '<span class="flag-as">';
-      $output .= l('<span class="icon-flag-o"></span>', $links['checkdesk-flag']['href'], $links['checkdesk-flag']);
-      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
-
-      if (isset($links['flag-spam'])) {
-        $output .= '<li>' . $links['flag-spam']['title'] . '</li>';
-      }
-      if (isset($links['flag-graphic'])) {
-        $output .= '<li>' . $links['flag-graphic']['title'] . '</li>';
-      }
-      if (isset($links['flag-factcheck'])) {
-        $output .= '<li>' . $links['flag-factcheck']['title'] . '</li>';
-      }
-
-      if (isset($links['flag-delete'])) {
-        $output .= '<li class="divider"></li>';
-        $output .= '<li>' . $links['flag-delete']['title'] . '</li>';
-      }
-      $output .= '</ul></span>';
-    }
-
-    if (isset($links['checkdesk-suggest']) ||
-        isset($links['checkdesk-edit']) ||
-        isset($links['checkdesk-delete']) ||
-        isset($links['flag-factcheck_journalist']) ||
-        isset($links['flag-graphic_journalist'])
-    ) {
-      // Add to
-      $output .= '<span class="add-to">';
-      $output .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-ellipsis-h"></span></a>';
-      $output .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
-      if (isset($links['checkdesk-suggest'])) {
-        $output .= '<li>' . ctools_modal_text_button($links['checkdesk-suggest']['title'], $links['checkdesk-suggest']['href'], $links['checkdesk-suggest']['title'],  'ctools-modal-modal-popup-medium') .'</li>';
-      }
-      if (isset($links['checkdesk-edit'])) {
-        $output .= '<li>' . l($links['checkdesk-edit']['title'], $links['checkdesk-edit']['href'], $links['checkdesk-edit']) .'</li>';
-      }
-      if (isset($links['checkdesk-delete'])) {
-        $output .= '<li>' . l($links['checkdesk-delete']['title'], $links['checkdesk-delete']['href'], $links['checkdesk-delete']) .'</li>';
-      }
-      if (isset($links['flag-factcheck_journalist'])) {
-        $output .= '<li class="divider"></li>';
-        $output .= '<li>' . $links['flag-factcheck_journalist']['title'] .'</li>';
-      }
-      if (isset($links['flag-graphic_journalist'])) {
-        $output .= '<li>' . $links['flag-graphic_journalist']['title'] .'</li>';
-      }
-      $output .= '</ul></span>';
-    }
-
-    if (isset($links['checkdesk-edit-flat']) ||
-        isset($links['checkdesk-delete-flat'])
-    ) {
-      // Edit or delete, but not as a dropdown menu
-      if (isset($links['checkdesk-edit-flat'])) {
-        $output .= '<li>' . l($links['checkdesk-edit-flat']['title'], $links['checkdesk-edit-flat']['href'], $links['checkdesk-edit-flat']) .'</li>';
-      }
-      if (isset($links['checkdesk-delete-flat'])) {
-        $output .= '<li>' . l($links['checkdesk-delete-flat']['title'], $links['checkdesk-delete-flat']['href'], $links['checkdesk-delete-flat']) .'</li>';
-      }
-    }
+    $options = array('links' => $links, 'direction' => $layout['omega'], 
+      'type' => 'checkdesk-ellipsis', 'wrapper_class' => 'add-to', 'icon_class' => 'icon-ellipsis-h'); 
+    $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
     $output .= '</div>';
   }
@@ -1210,4 +1159,55 @@ function _checkdesk_report_status($report) {
     $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   }
   return $report_status;
+}
+
+/**
+ * Theme function to render node-links - checkdesk style
+ * $params array
+ *  An associative array with the following keys.
+ *  links => array of links
+ *  wrapper_class => class for parent spam
+ *  icon_class => title icon
+ *
+ */
+function checkdesk_checkdesk_core_render_links($variables) {
+  $output = '';
+  $options = $variables['options'];
+  $links = array();
+  if (isset($options['type'])) {
+    foreach ($options['links'] as $k => $link) {
+      if ($link['cd_group'] == $options['type']) {
+        $links[$k] = $link;
+      }
+    }
+  }
+  if (!isset($links[$options['type']])) {
+    return $output;
+  }
+  $wrapper_class = $options['wrapper_class'];
+  $icon_class = $options['icon_class'];
+  $output .= '<span class="'. $wrapper_class .'">';
+  $list_title = '<span class="'. $icon_class .'">'. $links[$options['type']]['title'] .'</span>';
+  $output .= l($list_title, $links[$options['type']]['href'], $links[$options['type']]);
+  $items = array();
+  unset($links[$options['type']]);
+  foreach ($links as $link) {
+    if (isset($link['link_type'])) {
+      if ($link['link_type'] == 'link') {
+        // l link
+        $items[] = l($link['title'], $link['href'], $link);
+      }
+      else {
+        // modal link
+        $items[] = ctools_modal_text_button($link['title'], $link['href'], $link['title'],  $link['modal_class']);
+      }
+    }
+    else {
+      $items[] = $link['title'];
+    }
+  }
+  $output .= theme('item_list', array('items' => $items, 'title' => '', 
+    'attributes' => array('class' => 'dropdown-menu pull-'. $options['direction'])));
+  $output .= '</span>';
+  return $output;
 }

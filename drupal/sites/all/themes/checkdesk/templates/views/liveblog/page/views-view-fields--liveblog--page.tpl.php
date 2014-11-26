@@ -20,40 +20,15 @@
   $links = array();
   $url = url('node/' . $fields['nid']->raw, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
   $layout = checkdesk_core_direction_settings();
-  $share_links = checkdesk_core_share_links($url, $fields['title']->raw);
+  $share_links = checkdesk_core_share_links($url, $fields['title']->raw, 'discussion', array('nid' => $fields['nid']->raw));
   foreach ($share_links as $id => $link) {
     $links[$id] = $link;
   }
-  $links['checkdesk-share-embed'] = array(
-    'html' => TRUE,
-    'title' => t('Embed this story') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($fields['nid']->raw)) . '</textarea>',
-    'href' => $url,
-    'attributes' => array('title' => $fields['title']->raw, 'class' => array('embed'), 'onclick' => 'return false;'),
-  );
-  // theme share links into a dropdown
-  if (isset($links['checkdesk-share-facebook']) ||
-      isset($links['checkdesk-share-twitter']) ||
-      isset($links['checkdesk-share-google'])
-  ) {
-    $share_link = '';
-    // Share on
-    $share_link .= '<li class="share-on">';
-
-    $share_link .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-share">' . t('Share') . '</span></a>';
-    $share_link .= '<ul class="dropdown-menu pull-'. $layout['omega'] .'">';
-    if (isset($links['checkdesk-share-facebook'])) {
-      $share_link .= '<li>' . l($links['checkdesk-share-facebook']['title'], $links['checkdesk-share-facebook']['href'], $links['checkdesk-share-facebook']) . '</li>';
-    }
-    if (isset($links['checkdesk-share-twitter'])) {
-      $share_link .= '<li>' . l($links['checkdesk-share-twitter']['title'], $links['checkdesk-share-twitter']['href'], $links['checkdesk-share-twitter']) . '</li>';
-    }
-    if (isset($links['checkdesk-share-google'])) {
-      $share_link .= '<li>' . l($links['checkdesk-share-google']['title'], $links['checkdesk-share-google']['href'], $links['checkdesk-share-google']) . '</li>';
-    }
-    $share_link .= '<li>' . l($links['checkdesk-share-embed']['title'], $links['checkdesk-share-embed']['href'], $links['checkdesk-share-embed']) . '</li>';
-    $share_link .= '</ul></li>';
-  }
-
+  // Add share links    
+  $options = array('links' => $links, 'direction' => $layout['omega'], 
+    'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share'); 
+  $share_link = theme('checkdesk_core_render_links', array('options' => $options));
+  
   // get timezone information to display in timestamps e.g. Cairo, Egypt
   $site_timezone = checkdesk_get_timezone();
   $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
