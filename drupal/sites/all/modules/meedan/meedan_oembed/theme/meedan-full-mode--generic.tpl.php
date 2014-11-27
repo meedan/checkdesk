@@ -27,9 +27,11 @@
       <?php print $report_status['status']; ?>
     </span>
   <?php endif; ?>
-  <?php if(isset($embed->html)) : ?>
+  <?php if(isset($embed->html) && $embed->type == 'rich') : ?>
     <div class="media">
-      <?php print $embed->html; ?>
+      <div class="re-holder media-1by1">
+        <?php print $embed->html; ?>
+      </div>
     </div>
   <?php endif; ?>
 </div> <!-- /media-holder -->
