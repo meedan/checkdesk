@@ -28,10 +28,6 @@
     else if (choice) {
       $.extend(true, opts, choice);
     }
-    // Default modal.
-    else {
-      choice = 'default';
-    }
 
     var defaults = {
       modalTheme: 'CToolsModalDialog',
@@ -101,7 +97,7 @@
     resize();
 
     $('span.modal-title', Drupal.CTools.Modal.modal).html(Drupal.CTools.Modal.currentSettings.loadingText);
-    Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed, choice);
+    Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed);
     $('#modalContent .modal-content').html(Drupal.theme(settings.throbberTheme));
 
     // Position autocomplete results based on the scroll position of the modal.
@@ -262,6 +258,10 @@
         $('input[type=submit], button', this).click(function(event) {
           Drupal.ajax[base].element = this;
           this.form.clk = this;
+          // Stop autocomplete from submitting.
+          if (Drupal.autocompleteSubmit && !Drupal.autocompleteSubmit()) {
+            return false;
+          }
           // An empty event means we were triggered via .click() and
           // in jquery 1.4 this won't trigger a submit.
           if (event.bubbles == undefined) {
@@ -350,7 +350,7 @@
    * @param animation (fadeIn, slideDown, show)
    * @param speed (valid animation speeds slow, medium, fast or # in ms)
    */
-  Drupal.CTools.Modal.modalContent = function(content, css, animation, speed, choice) {
+  Drupal.CTools.Modal.modalContent = function(content, css, animation, speed) {
     // If our animation isn't set, make it just show/pop
     if (!animation) {
       animation = 'show';
@@ -402,7 +402,7 @@
     if( docHeight < winHeight ) docHeight = winHeight;
 
     // Create our divs
-    $('body').append('<div id="modalBackdrop" class="backdrop-' + choice + '" style="z-index: 1000; display: none;"></div><div id="modalContent" class="modal-' + choice + '" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
+    $('body').append('<div id="modalBackdrop" style="z-index: 1000; display: none;"></div><div id="modalContent" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
 
     // Keyboard and focus event handler ensures focus stays on modal elements only
     modalEventHandler = function( event ) {
