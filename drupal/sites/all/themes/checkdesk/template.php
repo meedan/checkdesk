@@ -1176,7 +1176,7 @@ function checkdesk_checkdesk_core_render_links($variables) {
   $links = array();
   if (isset($options['type'])) {
     foreach ($options['links'] as $k => $link) {
-      if ($link['cd_group'] == $options['type']) {
+      if (isset($link['cd_group']) && $link['cd_group'] == $options['type']) {
         $links[$k] = $link;
       }
     }
