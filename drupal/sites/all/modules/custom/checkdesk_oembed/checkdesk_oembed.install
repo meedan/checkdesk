@@ -20,3 +20,11 @@ function checkdesk_oembed_uninstall() {
 function checkdesk_oembed_update_7000() {
   checkdesk_oembed_install();
 }
+
+/**
+ * Remove old entries of type photo to force re-generation
+ * Issue #3315
+ */
+function checkdesk_oembed_update_7001) {
+  db_query('DELETE FROM {cache_oembed} WHERE data LIKE :type', array(':type' => '%s:4:"type";s:5:"photo";%'));
+}
