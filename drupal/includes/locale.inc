@@ -398,7 +398,7 @@ function locale_language_switcher_session($type, $path) {
       $links[$langcode]['query'][$param] = $langcode;
     }
     else {
-      $links[$langcode]['attributes']['class'][] = ' session-active';
+      $links[$langcode]['attributes']['class'][] = 'session-active';
     }
   }
 
@@ -523,16 +523,7 @@ function locale_language_url_rewrite_session(&$path, &$options) {
  * possible attack vector (img).
  */
 function locale_string_is_safe($string) {
-  // Replace tokens with friendly text that will not trip up filter_xss().
-  // @see token_scan().
-  $string = preg_replace('/
-      \[             # [ - pattern start
-      ([^\s\[\]:]*)  # match $type not containing whitespace : [ or ]
-      :              # : - separator
-      ([^\[\]]*)     # match $name not containing [ or ]
-      \]             # ] - pattern end
-      /x', 'token', $string);
-  return decode_entities($string) == decode_entities(filter_xss($string, array('a', 'abbr', 'acronym', 'address', 'article', 'aside', 'b', 'bdi', 'bdo', 'big', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'command', 'dd', 'del', 'details', 'dfn', 'dl', 'dt', 'em', 'figcaption', 'figure', 'footer', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hgroup', 'hr', 'i', 'ins', 'kbd', 'li', 'mark', 'menu', 'meter', 'nav', 'ol', 'output', 'p', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'section', 'small', 'span', 'strong', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'time', 'tr', 'tt', 'u', 'ul', 'var', 'wbr')));
+  return decode_entities($string) == decode_entities(filter_xss($string, array('a', 'abbr', 'acronym', 'address', 'b', 'bdo', 'big', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'dd', 'del', 'dfn', 'dl', 'dt', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i', 'ins', 'kbd', 'li', 'ol', 'p', 'pre', 'q', 'samp', 'small', 'span', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'ul', 'var')));
 }
 
 /**
