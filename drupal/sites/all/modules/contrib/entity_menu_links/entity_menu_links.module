@@ -12,6 +12,7 @@ function entity_menu_links_entity_info() {
     'label' => t('Menu link'),
     'controller class' => 'EntityMenuLinkController',
     'base table' => 'menu_links',
+    'module' => 'entity_menu_links',
     'revision table' => 'menu_links_revision',
     'uri callback' => 'entity_menu_links_uri',
     'label callback' => 'entity_menu_links_label',
@@ -55,7 +56,7 @@ function entity_menu_links_entity_info() {
  */
 function entity_menu_links_uri($menu_link) {
   return array(
-    'path' => $menu_link->link_path,
+    'path' => 'admin/structure/menu/item/' . $menu_link->mlid,
   );
 }
 
@@ -63,14 +64,15 @@ function entity_menu_links_uri($menu_link) {
  * Entity label callback.
  */
 function entity_menu_links_label($menu_link) {
-  return $menu_link['title'];
+  $menu_link = (object) $menu_link;
+  return $menu_link->title;
 }
 
 /**
  * Implements hook_menu_link_alter().
  */
 function entity_menu_links_menu_link_alter(&$menu_link) {
-  if ($menu_link['module'] == 'menu') {
+  if (isset($menu_link['module']) && $menu_link['module'] == 'menu') {
     $entity = (object) $menu_link;
     module_invoke_all('entity_presave', $entity, 'menu_link');
   }
@@ -85,6 +87,9 @@ function entity_menu_links_menu_link_insert($menu_link) {
       $menu_link['uuid'] = uuid_generate();
     }
     $menu_link['vid'] = entity_menu_links_insert_revision($menu_link);
+    if (!empty($menu_link['plid']) && $parent_link = menu_link_load($menu_link['plid'])) {
+      entity_menu_links_menu_link_update($parent_link);
+    }
 
     db_update('menu_links')
       ->fields(array('uuid' => $menu_link['uuid'], 'vid' => $menu_link['vid']))
@@ -104,6 +109,9 @@ function entity_menu_links_menu_link_update($menu_link) {
     $original = isset($menu_link['original_item']) ? $menu_link['original_item'] : (array) entity_load_unchanged('menu_link', $menu_link['mlid']);
     $menu_link['uuid'] = empty($original['uuid']) ? uuid_generate() : $original['uuid'];
     $menu_link['vid'] = entity_menu_links_insert_revision($menu_link);
+    if (!empty($menu_link['plid']) && $parent_link = menu_link_load($menu_link['plid'])) {
+      entity_menu_links_menu_link_update($parent_link);
+    }
 
     db_update('menu_links')
       ->fields(array('uuid' => $menu_link['uuid'], 'vid' => $menu_link['vid']))
@@ -133,7 +141,9 @@ function entity_menu_links_menu_link_delete($menu_link) {
  */
 function entity_menu_links_insert_revision($menu_link) {
   $revision = entity_menu_links_create_revision($menu_link);
-  $revision['vuuid'] = uuid_generate();
+  if (empty($revision['vuuid'])) {
+    $revision['vuuid'] = uuid_generate();
+  }
 
   $vid = db_insert('menu_links_revision')
     ->fields($revision)
@@ -163,4 +173,198 @@ function entity_menu_links_create_revision($menu_link) {
   unset($fields['vid']);
   $fields['timestamp'] = time();
   return $fields;
+}
+
+/**
+ * Returns an array of all the parent properties for menu_links
+ * Eg. array('plid', 'p1', 'p2', 'p3' etc...) based on the MENU_MAX_DEPTH constant defined in menu.inc
+ */
+function entity_menu_links_parent_properties() {
+  $i = 0;
+  $properties = array('plid');
+  while ($i++ < MENU_MAX_DEPTH) {
+    $properties[] = "p$i";
+  }
+  return $properties;
+}
+
+/**
+ * Returns an array with info about the entity that a menu_link links to based on it's link_path.
+ *
+ * @param object $menu_link
+ *  The menu_link entity
+ * @param bool $universalised
+ *  Whether the menu_link entity is universalised
+ * @return array | FALSE
+ *  Eg. array('type' => 'node', 'id' => 123) OR
+ *      array('type' => 'node', 'uuid' => <uuid> ) if $universalised = TRUE OR
+ *      FALSE if the menu_link doesn't link to an entity.
+ */
+function entity_menu_links_linked_entity($menu_link, $universalised = FALSE) {
+  static $linked_entities = array();
+  $cid = ($universalised ? 'uuid' : 'id') . $menu_link->mlid;
+
+  if (isset($linked_entities[$cid])) {
+    return $linked_entities[$cid];
+  }
+
+  $linked_entity = FALSE;
+  drupal_alter('entity_menu_links_linked_entity', $linked_entity, $menu_link, $universalised);
+
+  if ($universalised) {
+    $regexp = '#([^/]+)/(' . UUID_PATTERN . ')$#';
+  }
+  else {
+    $regexp = '#([^/]+)/(\d+)#';
+  }
+
+  if (empty($linked_entity) && preg_match($regexp, $menu_link->link_path, $matches)) {
+    $type = $matches[1];
+    $id = $matches[2];
+    $info = entity_get_info($type);
+
+    if (!empty($info['uuid'])) {
+      $linked_entity = array('type' => $type);
+      if ($universalised) {
+        $linked_entity['uuid'] = $id;
+      }
+      else {
+        $linked_entity['id'] = $id;
+      }
+    }
+  }
+
+  return $linked_entities[$cid] = $linked_entity;
+}
+
+/**
+ * Implements hook_entity_dependencies().
+ */
+function entity_menu_links_entity_dependencies($entity, $entity_type) {
+  if ($entity_type == 'menu_link') {
+    $dependencies = array();
+
+    // Eg. array('p1', 'p2', ... 'p9')
+    $parent_property_names = entity_menu_links_parent_properties();
+    $plids = array();
+    foreach ($parent_property_names as $pn) {
+      $plids[] = (int) $entity->$pn;
+    }
+    $plids = implode(',', $plids);
+
+    // Don't add system menu items as dependencies, since they are not
+    // considered entities by entity_menu_links.
+    $menu_links = db_query("
+      SELECT mlid FROM {menu_links}
+      WHERE mlid IN ($plids)
+      AND module = :module",
+      array(
+        ':module' => 'menu',
+      )
+    )->fetchAllAssoc('mlid');
+
+    foreach ($menu_links as $menu_link) {
+      $dependencies[] = array('type' => $entity_type, 'id' => $menu_link->mlid);
+    }
+
+    // Add the entity this menu_link links to, if one exists (eg. a node).
+    $linked_entity = entity_menu_links_linked_entity($entity);
+    if (!empty($linked_entity)) {
+      $dependencies[] = $linked_entity;
+    }
+    return $dependencies;
+  }
+}
+
+/**
+ * Implements hook_entity_uuid_load().
+ */
+function entity_menu_links_entity_uuid_load(&$entities, $entity_type) {
+  if ($entity_type == 'menu_link') {
+    $properties = entity_menu_links_parent_properties();
+    entity_property_id_to_uuid($entities, 'menu_link', $properties);
+
+    foreach ($entities as &$entity) {
+      $linked_entity = entity_menu_links_linked_entity($entity);
+      if ($linked_entity) {
+        $uuids = entity_get_uuid_by_id($linked_entity['type'], array($linked_entity['id']));
+        $entity->link_path = $linked_entity['type'] . '/' . $uuids[$linked_entity['id']];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_uuid_presave().
+ */
+function entity_menu_links_entity_uuid_presave(&$entity, $entity_type) {
+  if ($entity_type == 'menu_link') {
+    $properties = entity_menu_links_parent_properties();
+    entity_property_uuid_to_id($entity, 'menu_link', $properties);
+
+    $linked_entity = entity_menu_links_linked_entity($entity, TRUE);
+    if ($linked_entity) {
+      $type = $linked_entity['type'];
+      $linked_entity = reset(entity_uuid_load($type, array($linked_entity['uuid'])));
+      $uri = entity_uri($type, $linked_entity);
+      $entity->link_path = $uri['path'];
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function entity_menu_links_theme_registry_alter(&$theme_registry) {
+  // Make sure that menu links don't get themed like regular entities.
+  $hooks = preg_grep('/^menu_link(\.|__).+$/', array_keys($theme_registry));
+  foreach ($hooks as $hook) {
+    $theme_registry[$hook]['base hook'] = 'menu_link';
+  }
+}
+
+/**
+ * Implements hook form_alter().
+ */
+function entity_menu_links_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'menu_edit_item') {
+    // Check to see if module enabled, make dependency?
+    if (module_exists('deploy_managed_ui')) {
+      deploy_managed_ui_form_elements($form, 'entity_menu_links_entity_form_submit');
+    }
+  }
+}
+
+/**
+ * Submit handler for edit link forms to add to deployment plan.
+ */
+function entity_menu_links_entity_form_submit(&$form, &$form_state) {
+  foreach ($form_state['values']['deploy_managed_ui']['plans'] as $plan => $checked) {
+    if ($checked) {
+      $mlid = $form['mlid']['#value'];
+      // Reload entity resetting internal cache otherwise it will use original revision.
+      $menu_link = entity_load('menu_link', array($mlid), array(), TRUE);
+      deploy_manager_add_to_plan($plan, 'menu_link', $menu_link[$mlid]);
+    }
+  }
+}
+
+/**
+ * Implements hook_modules_installed().
+ */
+function entity_menu_links_modules_installed($modules) {
+  if (in_array('i18n_menu', $modules)) {
+    module_load_install('i18n');
+    i18n_install_create_fields('menu_links_revision', array('language', 'i18n_tsid'));
+  }
+}
+
+/**
+ * Implements hook_modules_uninstalled().
+ */
+function entity_menu_links_modules_uninstalled($modules) {
+  if (in_array('i18n_menu', $modules)) {
+    db_drop_field('menu_links_revision', 'language');
+    db_drop_field('menu_links_revision', 'i18n_tsid');
+  }
 }
