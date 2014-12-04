@@ -123,7 +123,7 @@
       }
     } // thumbnail type
 
-    .media-type-tweet {
+    .media-type-rich {
       & > div > a { display: none;}
       // keeps embedded iframe
       // inside sidebar
@@ -140,6 +140,12 @@
       }
       .favicon, .domain, .author {
         display: none;
+      }
+      // modifier class for gmaps
+      &.map {
+        iframe {
+          max-height: 250px;    
+        }
       }
     }
     .media-type-fbpost {

@@ -5711,21 +5711,24 @@ div.sensitive-hide {
   line-height: 1.1;
   color: #6f7a82;
 }
-.report-row .report-content .media-type-tweet > div > a {
+.report-row .report-content .media-type-rich > div > a {
   display: none;
 }
-.report-row .report-content .media-type-tweet iframe {
+.report-row .report-content .media-type-rich iframe {
   min-width: 100% !important;
   width: 100% !important;
 }
-.report-row .report-content .media-type-tweet iframe {
+.report-row .report-content .media-type-rich iframe {
   padding: 0 !important;
   margin: 0 !important;
   border: 0 none !important;
   box-shadow: none !important;
 }
-.report-row .report-content .media-type-tweet .favicon, .report-row .report-content .media-type-tweet .domain, .report-row .report-content .media-type-tweet .author {
+.report-row .report-content .media-type-rich .favicon, .report-row .report-content .media-type-rich .domain, .report-row .report-content .media-type-rich .author {
   display: none;
+}
+.report-row .report-content .media-type-rich.map iframe {
+  max-height: 250px;
 }
 .report-row .report-content .media-type-fbpost .fb-post {
   max-width: 100%;
