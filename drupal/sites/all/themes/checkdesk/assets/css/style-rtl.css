@@ -10752,12 +10752,24 @@ body.page-reports #reports .report-item .report-content .media-type-thumbnail .m
   line-height: 1.2;
   color: #555555;
 }
-body.page-reports #reports .report-item .report-content .media-type-tweet > div > a, .profile #reports .report-item .report-content .media-type-tweet > div > a {
+body.page-reports #reports .report-item .report-content .media-type-rich > div > a, .profile #reports .report-item .report-content .media-type-rich > div > a {
   display: none;
 }
-body.page-reports #reports .report-item .report-content .media-type-tweet iframe, .profile #reports .report-item .report-content .media-type-tweet iframe {
+body.page-reports #reports .report-item .report-content .media-type-rich iframe, .profile #reports .report-item .report-content .media-type-rich iframe {
   min-width: 100% !important;
   width: 100% !important;
+}
+body.page-reports #reports .report-item .report-content .media-type-rich iframe, .profile #reports .report-item .report-content .media-type-rich iframe {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 none !important;
+  box-shadow: none !important;
+}
+body.page-reports #reports .report-item .report-content .media-type-rich .favicon, body.page-reports #reports .report-item .report-content .media-type-rich .domain, body.page-reports #reports .report-item .report-content .media-type-rich .author, .profile #reports .report-item .report-content .media-type-rich .favicon, .profile #reports .report-item .report-content .media-type-rich .domain, .profile #reports .report-item .report-content .media-type-rich .author {
+  display: none;
+}
+body.page-reports #reports .report-item .report-content .media-type-rich.map iframe, .profile #reports .report-item .report-content .media-type-rich.map iframe {
+  max-height: 250px;
 }
 body.page-reports #reports .report-item .report-content .media-type-fbpost .fb-post, .profile #reports .report-item .report-content .media-type-fbpost .fb-post {
   max-width: 100%;

@@ -108,13 +108,29 @@ body.page-reports, .profile {
           }
         } // thumbnail type
 
-        .media-type-tweet {
+        .media-type-rich {
           & > div > a { display: none;}
           // keeps embedded iframe
           // inside sidebar
           iframe {
             min-width: 100% !important;
             width: 100% !important;
+          }
+          // remove iframe chrome
+          iframe {
+            padding: 0 !important;
+            margin: 0 !important;
+            border: 0 none !important;
+            box-shadow: none !important;
+          }
+          .favicon, .domain, .author {
+            display: none;
+          }
+          // modifier class for gmaps
+          &.map {
+            iframe {
+              max-height: 250px;    
+            }
           }
         }
         .media-type-fbpost {
