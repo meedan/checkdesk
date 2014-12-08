@@ -2425,7 +2425,8 @@ function checkdesk_core_node_insert($node) {
     }
     //link report to created update
     if (isset($node->body)) {
-      checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+      $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+      checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
     }
   }
 }
@@ -2435,9 +2436,10 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
-  if ($node->type === 'post') {
+  if ($node->type === 'post' && isset($node->body)) {
+    $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
-    checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+    checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
   }
 }
 
@@ -2968,7 +2970,7 @@ function checkdesk_varnish_expire_cache($paths, $host) {
 /**
  *
  */
-function checkdesk_log_reports_updates($op, $text, $update_nid) {
+function checkdesk_log_reports_updates($op, $text, $update_nid, $story_nid) {
   //link report to created update
   if ($op == 'update') {
     db_delete('checkdesk_reports_updates')
@@ -2983,6 +2985,13 @@ function checkdesk_log_reports_updates($op, $text, $update_nid) {
         if(!in_array($nid, $reports)) {
           $reports[] = $nid;
           db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
+          //Link report to story
+          $report = node_load($nid);
+          if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) || 
+            $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $story_nid) {
+              $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $story_nid;
+              node_save($report);
+            }
         }
       }
     }
