@@ -1,9 +1,9 @@
 <?php
 /**
  * @file
- * Twitter template file for media thumbnail
+ * Google Maps template file for media thumbnail
  */
 ?>
-<div class="media-type-tweet">
+<div class="media-type-rich map">
   <?php print $thumbnail; ?>
 </div>
