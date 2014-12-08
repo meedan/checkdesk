@@ -1982,8 +1982,8 @@ function _twitter_signin_get_picture($account, $twitter_account) {
 function checkdesk_core_views_query_alter(&$view, &$query) {
   // On desk reports, show suggested reports first
   if ($view->name == 'desk_reports') {
-    if (is_numeric(arg(1))) {
-      $story_id = arg(1);
+    if (is_numeric($_GET['story'])) {
+      $story_id = $_GET['story'];
       $sort_order = isset($_REQUEST['sort_order']) ? $_REQUEST['sort_order'] : 'DESC';
       // Another approach to do the same thing, but probably slower
       // $view->query->orderby[0]['field'] = "(SELECT COUNT(*) FROM {field_data_field_stories} WHERE entity_id = node.nid AND field_stories_target_id = $story_id)";

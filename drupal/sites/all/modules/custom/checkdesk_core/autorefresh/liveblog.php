@@ -13,8 +13,12 @@ $mysql->exec('SET NAMES utf8');
 $timestamp = intval($_REQUEST['timestamp']);
 $type = preg_replace('/[^a-zA-Z0-9_]/', '', $_REQUEST['type']);
 $field = preg_replace('/[^a-zA-Z0-9_]/', '', $_REQUEST['field']);
-
-$sql = "SELECT COUNT(nid) FROM node WHERE type='" . $type . "' AND " . $field . " > " . $timestamp;
+$join = '';
+if ($type == 'media' && $_REQUEST['story']) {
+  $story = intval($_REQUEST['story']);
+  $join = "INNER JOIN field_data_field_stories fs ON node.nid = fs.entity_id AND fs.field_stories_target_id = $story";
+}
+$sql = "SELECT COUNT(nid) FROM node $join WHERE type='" . $type . "' AND " . $field . " > " . $timestamp;
 if (!empty($_REQUEST['uid'])) {
   $uid = intval($_REQUEST['uid']);
   $sql .= " AND uid = " . $uid;
