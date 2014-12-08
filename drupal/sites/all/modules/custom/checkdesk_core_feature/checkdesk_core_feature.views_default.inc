@@ -641,9 +641,12 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['header']['area']['label'] = 'Auto-Refresh';
   $handler->display->display_options['header']['area']['empty'] = TRUE;
   $handler->display->display_options['header']['area']['content'] = '<?php
+$story = isset($_GET[\'story\']) ? $_GET[\'story\'] : 0;
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
-  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media&field=created\'),
+  \'ping\' => array(
+          \'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media&field=created&story=\'. $story
+    ),
   \'incremental\' => array(
     \'view_base_path\' => \'desk-reports/autorefresh\',
     \'view_display_id\' => \'page_1\',
@@ -1106,9 +1109,12 @@ print t(\'No content available\');
     t('Load more'),
     t('Auto-Refresh'),
     t('<?php
+$story = isset($_GET[\'story\']) ? $_GET[\'story\'] : 0;
 print theme(\'views_autorefresh\', array(
   \'interval\' => 5000, 
-  \'ping\' => array(\'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media&field=created\'),
+  \'ping\' => array(
+          \'ping_base_path\' => drupal_get_path(\'module\', \'checkdesk_core\') . \'/autorefresh/liveblog.php?type=media&field=created&story=\'. $story
+    ),
   \'incremental\' => array(
     \'view_base_path\' => \'desk-reports/autorefresh\',
     \'view_display_id\' => \'page_1\',
