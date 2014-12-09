@@ -309,18 +309,26 @@ function _cd_translate_system_menu() {
  * Function to create sample story and update.
  */
 function _cd_create_sample_content() {
+  global $user;
   //create stories
-  $node = new stdClass(); 
-  $node->type = 'discussion';
-  $node->title = 'This is a Story!';
-  $node->language = 'en'; 
-  $node->uid = 1;
-  node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p>';
-  $node->body[LANGUAGE_NONE][0]['summary'] = '';
-  $node->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
-  node_save($node); 
-  $target_en_nid = $node->nid;
+  $story = new stdClass(); 
+  $story->type = 'discussion';
+  $story->title = 'This is a Story!';
+  $story->language = 'en'; 
+  $story->uid = 1;
+  node_object_prepare($story); 
+  $story->body[LANGUAGE_NONE][0]['value'] = '<p>The story is the topic headline and a short paragraph that provides context for updates (see below). We can also add a featured image.</p>';
+  $story->body[LANGUAGE_NONE][0]['summary'] = '';
+  $story->body[LANGUAGE_NONE][0]['format'] = 'filtered_html'; 
+  node_save($story); 
+  $target_en_nid = $story->nid;
+  // initiate heartbeat variables 
+  $heartbeat_variables = array(
+    '!user_url' => url('user/'. $user->uid),
+    '!username' => $user->name,
+    '!story_url' => url('node/'. $target_en_nid),
+    '!story' => $story->title,
+  );
   //add english report
   $node = new stdClass(); 
   $node->type = 'media';
@@ -330,6 +338,11 @@ function _cd_create_sample_content() {
   $node->field_link[LANGUAGE_NONE][0]['url'] = 'https://www.youtube.com/watch?v=iwMO84pJwMs&list=UUL6xkW90kBI76OuApogUbFQ&feature=share&index=1'; 
   node_save($node); 
   $report_nid_en = $node->nid;
+  // log activity for english report
+  $variables = $heartbeat_variables;
+  $variables['!report_url'] = url('node/'. $report_nid_en);
+  heartbeat_api_log('checkdesk_report_suggested_to_story', $user->uid, 0, $report_nid_en, $target_en_nid, $variables);
+
   //create updates ...
   $node = new stdClass(); 
   $node->type = 'post';
@@ -342,6 +355,10 @@ function _cd_create_sample_content() {
   $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
   $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_en_nid;
   node_save($node); 
+  //log activity for update
+  $variables = $heartbeat_variables;
+  $variables['!update_url'] = url('node/'. $node->nid);
+  heartbeat_api_log('checkdesk_new_update_on_story_i_commented_on_update', $user->uid, 0, $node->nid, $target_en_nid, $variables);
 
   $node = new stdClass(); 
   $node->type = 'post';
@@ -356,19 +373,30 @@ function _cd_create_sample_content() {
   $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
   $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_en_nid;
   node_save($node); 
+  //log activity for update
+  $variables['update_url'] = url('node/'. $node->nid);
+  heartbeat_api_log('checkdesk_new_update_on_story_i_commented_on_update', $user->uid, 0, $node->nid, $target_en_nid, $variables);
 
   //create arabic stories
-  $node = new stdClass(); 
-  $node->type = 'discussion';
-  $node->title = 'هذا هو الموضوع!';
-  $node->language = 'ar'; 
-  $node->uid = 1;
-  node_object_prepare($node); 
-  $node->body[LANGUAGE_NONE][0]['value'] = '<p>هذا الموضوع له عنوان ويتضمن فقرة قصيرة تتضمن شرحاً يوفر السياق للتحديثات (أدناه). كما يمكنك إضافة صورة مختارة له.</p><p>&nbsp;</p>';
-  $node->body[LANGUAGE_NONE][0]['summary'] = '';
-  $node->body[LANGUAGE_NONE][0]['format'] = 'filtered_html';
-  node_save($node); 
-  $target_ar_nid = $node->nid;
+  $story = new stdClass(); 
+  $story->type = 'discussion';
+  $story->title = 'هذا هو الموضوع!';
+  $story->language = 'ar'; 
+  $story->uid = 1;
+  node_object_prepare($story); 
+  $story->body[LANGUAGE_NONE][0]['value'] = '<p>هذا الموضوع له عنوان ويتضمن فقرة قصيرة تتضمن شرحاً يوفر السياق للتحديثات (أدناه). كما يمكنك إضافة صورة مختارة له.</p><p>&nbsp;</p>';
+  $story->body[LANGUAGE_NONE][0]['summary'] = '';
+  $story->body[LANGUAGE_NONE][0]['format'] = 'filtered_html';
+  node_save($story); 
+  $target_ar_nid = $story->nid;
+  // initiate heartbeat variables 
+  $heartbeat_variables = array(
+    '!user_url' => url('user/'. $user->uid),
+    '!username' => $user->name,
+    '!story_url' => url('node/'. $target_ar_nid),
+    '!story' => $story->title,
+  );
+
   //add arabic report
   $node = new stdClass(); 
   $node->type = 'media';
@@ -378,6 +406,10 @@ function _cd_create_sample_content() {
   $node->field_link[LANGUAGE_NONE][0]['url'] = 'https://www.youtube.com/watch?v=-2ch6n9SdZc&list=UUL6xkW90kBI76OuApogUbFQ&feature=share'; 
   node_save($node); 
   $report_nid_ar = $node->nid;
+  // log activity for arabic report
+  $variables = $heartbeat_variables;
+  $variables['!report_url'] = url('node/'. $report_nid_ar);
+  heartbeat_api_log('checkdesk_report_suggested_to_story', $user->uid, 0, $report_nid_ar, $target_ar_nid, $variables);
   //create updates ...
   $node = new stdClass(); 
   $node->type = 'post';
@@ -390,7 +422,11 @@ function _cd_create_sample_content() {
   $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
   $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_ar_nid;
   node_save($node); 
-
+  //log activity for update
+  $variables = $heartbeat_variables;
+  $variables['!update_url'] = url('node/'. $node->nid);
+  heartbeat_api_log('checkdesk_new_update_on_story_i_commented_on_update', $user->uid, 0, $node->nid, $target_ar_nid, $variables);
+  
   $node = new stdClass(); 
   $node->type = 'post';
   $node->title = 'هذا أول تحديث!';
@@ -404,5 +440,10 @@ function _cd_create_sample_content() {
   $node->body[LANGUAGE_NONE][0]['format'] = 'liveblog';
   $node->field_desk[LANGUAGE_NONE][0]['target_id'] = $target_ar_nid;
   node_save($node); 
+  //log activity for update
+  $variables = $heartbeat_variables;
+  $variables['!update_url'] = url('node/'. $node->nid);
+  heartbeat_api_log('checkdesk_new_update_on_story_i_commented_on_update', $user->uid, 0, $node->nid, $target_ar_nid, $variables);
+
 }
 
