@@ -96,7 +96,7 @@ function checkdesk_bookmarklet_form_alter(&$form, $form_state, $form_id) {
       if (!isset($form['nid']['#value'])) {
         //hide description and graphic content
         $form['#attached']['js'][] = array(
-          'data' => 'jQuery(function() { jQuery("#edit-body, #edit-graphic-content, #edit-field-stories").hide();});',
+          'data' => 'jQuery(function() { jQuery("#edit-body, #edit-graphic-content").hide();});',
           'type' => 'inline',
         );
       }
