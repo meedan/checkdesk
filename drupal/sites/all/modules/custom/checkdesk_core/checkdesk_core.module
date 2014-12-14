@@ -3296,12 +3296,13 @@ function _checkdesk_active_story($options = array()) {
  *  List of stories sorted by activity.
  */
 function _checkdesk_get_stories_by_activity() {
+  global $language;
   $result = db_query('
     SELECT n.nid, n.title
     FROM heartbeat_activity ha
-    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type
+    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type AND n.language = :language
     ORDER BY ha.timestamp DESC 
-    ', array(':type' => 'discussion'))->fetchAllKeyed(0);
+    ', array(':type' => 'discussion', ':language' => $language->language))->fetchAllKeyed(0);
   return $result;
 }
 
