@@ -1206,9 +1206,9 @@ function checkdesk_checkdesk_core_render_links($variables) {
     $wrapper_class = $options['wrapper_class'];
     $icon_class = $options['icon_class'];
     $output .= '<span class="'. $wrapper_class .'">';
-    $list_title = isset($link_type[$options['type']]['title']) ? $link_type[$options['type']]['title'] : '';
+    $list_title = isset($link_type['title']) ? $link_type['title'] : '';
     $list_title = '<span class="'. $icon_class .'">'. $list_title .'</span>';
-    $href = isset($link_type[$options['type']]['href']) ? $link_type[$options['type']]['href'] : '#';
+    $href = isset($link_type['href']) ? $link_type['href'] : '#';
     $output .= l($list_title, $href, $link_type);
     $output .= '<ul class="dropdown-menu pull-'. $options['direction'] .'">';
     foreach($items as $item) {
