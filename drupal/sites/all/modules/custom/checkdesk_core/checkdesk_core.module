@@ -1037,6 +1037,7 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   if ($form['field_desk']['#access']) {
     $options = array('_none' => t('- Select a value -')) + _checkdesk_get_stories_by_activity();
     $form['field_desk'][LANGUAGE_NONE]['#options'] = $options;
+    $form['field_desk'][LANGUAGE_NONE]['#attributes']['onchange'] = "_checkdesk_filter_reports(jQuery(this).val());";
     // Handle HTML entities
     foreach ($form['field_desk'][LANGUAGE_NONE]['#options'] as $key => $value) {
       $form['field_desk'][LANGUAGE_NONE]['#options'][$key] = htmlspecialchars_decode($value);

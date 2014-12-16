@@ -341,6 +341,11 @@ function _checkdesk_report_view_redirect() {
   }
 }
 
+function _checkdesk_filter_reports(story_nid) {
+  jQuery('select#edit-field-stories-target-id').val(story_nid);
+  jQuery('#edit-submit-desk-reports').trigger('click');
+}
+
 jQuery(function() {
     jQuery('.flag-follow-story a.unflag-action').bind( "mouseenter", function() {
             jQuery(this).text(Drupal.t('Unfollow story'));
