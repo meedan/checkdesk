@@ -54,7 +54,7 @@ function meedan_oembed_twitter_handler($provider, $url) {
   try {
     
     $curl_request = curl_init();
-    curl_setopt($curl_request, CURLOPT_URL, 'https://api.twitter.com/1.1/statuses/oembed.json?url=' . $url);
+    curl_setopt($curl_request, CURLOPT_URL, 'https://api.twitter.com/1/statuses/oembed.json?url=' . $url);
     curl_setopt($curl_request, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl_request, CURLOPT_SSL_VERIFYPEER, false);
     $json = curl_exec($curl_request);
