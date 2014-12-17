@@ -712,10 +712,19 @@ function _checkdesk_core_node_links($node, $account = NULL) {
       }
     }
     $links['checkdesk-flag'] = array(
-      'title' => t('Flag'),
+      'title' => '',
       'href' => '#',
       'attributes' => array('class' => 'dropdown-toggle ' . ($flagged ? 'flagged' : 'unflagged'), 'data-toggle' => 'dropdown'),
       'html' => TRUE,
+      'cd_group' => 'checkdesk-flag',
+    );
+
+    $links['checkdesk-ellipsis'] = array(
+      'title' => '',
+      'href' => '#',
+      'attributes' => array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'),
+      'html' => TRUE,
+      'cd_group' => 'checkdesk-ellipsis',
     );
   }
 
@@ -776,79 +785,68 @@ function _checkdesk_core_node_links($node, $account = NULL) {
     } else {
       $links['dropdown-direction'] = $layout['omega'];
     }
-
-    $share_links = checkdesk_core_share_links($url, $node->title);
+    $embed_data = array();
+    if ($node->type == 'media' || $node->type == 'discussion') {
+      $embed_title = 'Embed this ';
+      $embed_title .= ($node->type == 'media') ? 'report' : 'story';
+      $embed_data = array('nid' => $node->nid, 'title' => $embed_title);
+    }
+    $share_links = checkdesk_core_share_links($url, $node->title, $node->type, $embed_data);
     foreach ($share_links as $id => $link) {
       $links[$id] = $link;
     }
-    // parent share link with title
-    $links['checkdesk-share'] = array(
-      'title' => ($node->type == 'media') ? '' : '<span class="label">' . t('Share') . '</span>',
-      'href' => '#',
-      'attributes' => array('title' => $node->title),
-    );
-    if ($node->type == 'media') {
-      $links['checkdesk-share-embed'] = array(
-        'html' => TRUE,
-        'title' => t('Embed this report') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
-        'href' => $url,
-        'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
-      );
-    }
-    if ($node->type == 'discussion') {
-      $links['checkdesk-share-embed'] = array(
-        'html' => TRUE,
-        'title' => t('Embed this story') . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($node->nid)) . '</textarea>',
-        'href' => $url,
-        'attributes' => array('title' => $node->title, 'class' => array('embed'), 'onclick' => 'return false;'),
-      );  
-    }
   }
-  // Links for stories, not as a dropdown menu.
-  // if ($node->type == 'discussion') {
-  //   if (node_access('update', $node)) {
-  //     $links['checkdesk-edit-flat'] = array(
-  //       'title' => t('Edit'),
-  //       'href' => 'node/' . $node->nid . '/edit',
-  //       'query' => array(
-  //         'destination' => $destination,
-  //       ),
-  //     );
-  //   }
-  //   if (node_access('delete', $node)) {
-  //     $links['checkdesk-delete-flat'] = array(
-  //       'title' => t('Delete'),
-  //       'href' => 'node/' . $node->nid . '/delete',
-  //       'query' => array(
-  //         'destination' => '<front>',
-  //       ),
-  //     );
-  //   }
-  // }
-
   return $links;
 }
 
 /**
  * Returns an array containing share links for a node
  */
-function checkdesk_core_share_links($url, $title) {
+function checkdesk_core_share_links($url, $title, $type, $embed = array()) {
   $links = array();
+  // parent share link with title
+  $links['checkdesk-share'] = array(
+    'title' => ($type == 'media') ? '' : '<span class="label">' . t('Share') . '</span>',
+    'href' => '#',
+    'attributes' => array('title' => $title, 'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'),
+    'html' => TRUE,
+    'cd_group' => 'checkdesk-share',
+  );
   $links['checkdesk-share-facebook'] = array(
     'title' => t('Share on Facebook'),
     'href' => $url,
     'attributes' => array('title' => $title, 'class' => array('facebook')),
+    'link_type' => 'link',
+    'cd_group' => 'checkdesk-share',
   );
   $links['checkdesk-share-twitter'] = array(
     'title' => t('Share on Twitter'),
     'href' => $url,
     'attributes' => array('title' => $title, 'class' => array('twitter')),
+    'link_type' => 'link',
+    'cd_group' => 'checkdesk-share',
   );
   $links['checkdesk-share-google'] = array(
     'title' => t('Share on Google+'),
     'href' => $url,
     'attributes' => array('title' => $title, 'class' => array('google')),
+    'link_type' => 'link',
+    'cd_group' => 'checkdesk-share',
   );
+  // show embed if nid has a value
+  if (isset($embed['nid'])) {
+    if (!isset($embed['title'])) {
+      $embed['title'] = 'Embed this story';
+    }
+    $links['checkdesk-share-embed'] = array(
+      'html' => TRUE,
+      'title' => t($embed['title']) . '<br><textarea class="embed-code" onclick="this.select();" readonly>' . check_plain(checkdesk_oembed_embed_code($embed['nid'])) . '</textarea>',
+      'href' => $url,
+      'attributes' => array('title' => $title, 'class' => array('embed'), 'onclick' => 'return false;'),
+      'link_type' => 'link',
+      'cd_group' => 'checkdesk-share',
+    );
+  }
 
   return $links;
 }
@@ -1039,6 +1037,7 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   if ($form['field_desk']['#access']) {
     $options = array('_none' => t('- Select a value -')) + _checkdesk_get_stories_by_activity();
     $form['field_desk'][LANGUAGE_NONE]['#options'] = $options;
+    $form['field_desk'][LANGUAGE_NONE]['#attributes']['onchange'] = "_checkdesk_filter_reports(jQuery(this).val());";
     // Handle HTML entities
     foreach ($form['field_desk'][LANGUAGE_NONE]['#options'] as $key => $value) {
       $form['field_desk'][LANGUAGE_NONE]['#options'][$key] = htmlspecialchars_decode($value);
@@ -1521,6 +1520,12 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_render_links'] = array(
+    'variables' => array(
+      'options' => NULL,
+    ),
+  ) + $base;
+
   return $themes;
 }
 
@@ -1978,8 +1983,8 @@ function _twitter_signin_get_picture($account, $twitter_account) {
 function checkdesk_core_views_query_alter(&$view, &$query) {
   // On desk reports, show suggested reports first
   if ($view->name == 'desk_reports') {
-    if (is_numeric(arg(1))) {
-      $story_id = arg(1);
+    if (isset($_GET['story']) && is_numeric($_GET['story'])) {
+      $story_id = $_GET['story'];
       $sort_order = isset($_REQUEST['sort_order']) ? $_REQUEST['sort_order'] : 'DESC';
       // Another approach to do the same thing, but probably slower
       // $view->query->orderby[0]['field'] = "(SELECT COUNT(*) FROM {field_data_field_stories} WHERE entity_id = node.nid AND field_stories_target_id = $story_id)";
@@ -2421,7 +2426,8 @@ function checkdesk_core_node_insert($node) {
     }
     //link report to created update
     if (isset($node->body)) {
-      checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+      $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+      checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
     }
   }
 }
@@ -2431,9 +2437,10 @@ function checkdesk_core_node_insert($node) {
  */
 function checkdesk_core_node_update($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'update');
-  if ($node->type === 'post') {
+  if ($node->type === 'post' && isset($node->body)) {
+    $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
     //link report to update
-    checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid);
+    checkdesk_log_reports_updates('update', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
   }
 }
 
@@ -2964,7 +2971,7 @@ function checkdesk_varnish_expire_cache($paths, $host) {
 /**
  *
  */
-function checkdesk_log_reports_updates($op, $text, $update_nid) {
+function checkdesk_log_reports_updates($op, $text, $update_nid, $story_nid) {
   //link report to created update
   if ($op == 'update') {
     db_delete('checkdesk_reports_updates')
@@ -2979,6 +2986,13 @@ function checkdesk_log_reports_updates($op, $text, $update_nid) {
         if(!in_array($nid, $reports)) {
           $reports[] = $nid;
           db_insert('checkdesk_reports_updates')->fields(array('report_nid' => $nid, 'update_nid'  => $update_nid))->execute();
+          //Link report to story
+          $report = node_load($nid);
+          if (!isset($report->field_stories[LANGUAGE_NONE][0]['target_id']) || 
+            $report->field_stories[LANGUAGE_NONE][0]['target_id'] != $story_nid) {
+              $report->field_stories[LANGUAGE_NONE][0]['target_id'] = $story_nid;
+              node_save($report);
+            }
         }
       }
     }
@@ -3283,12 +3297,13 @@ function _checkdesk_active_story($options = array()) {
  *  List of stories sorted by activity.
  */
 function _checkdesk_get_stories_by_activity() {
+  global $language;
   $result = db_query('
     SELECT n.nid, n.title
     FROM heartbeat_activity ha
-    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type
+    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type AND n.language = :language
     ORDER BY ha.timestamp DESC 
-    ', array(':type' => 'discussion'))->fetchAllKeyed(0);
+    ', array(':type' => 'discussion', ':language' => $language->language))->fetchAllKeyed(0);
   return $result;
 }
 

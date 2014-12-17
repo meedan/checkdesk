@@ -1,8 +1,8 @@
 diff --git a/drupal/includes/theme.inc b/drupal/includes/theme.inc
-index ee73965..e799da8 100644
+index ed34b82..1c57b08 100644
 --- a/drupal/includes/theme.inc
 +++ b/drupal/includes/theme.inc
-@@ -1733,8 +1733,10 @@ function theme_links($variables) {
+@@ -1805,8 +1805,10 @@ function theme_links($variables) {
        $output .= '<li' . drupal_attributes(array('class' => $class)) . '>';
  
        if (isset($link['href'])) {

@@ -44,7 +44,8 @@ class EntityMenuLinkController extends EntityAPIController {
           if (!empty($item['load_functions']) && !_menu_load_objects($item, $map)) {
             // An error occurred loading an object.
             $item['access'] = FALSE;
-            return FALSE;
+            $item = (object) $item;
+            continue;
           }
           _menu_check_access($item, $map);
         }

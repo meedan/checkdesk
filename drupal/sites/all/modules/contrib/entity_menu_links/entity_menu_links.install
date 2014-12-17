@@ -18,6 +18,12 @@ function entity_menu_links_install() {
   db_add_field('menu_links', 'uuid', $fields['uuid']);
   entity_menu_links_install_revisions();
   uuid_sync_all();
+
+  // Ensure entity menu links runs after i18n and entity_translation.
+  db_update('system')
+    ->fields(array('weight' => 15))
+    ->condition('name', 'entity_menu_links')
+    ->execute();
 }
 
 /**
@@ -28,10 +34,10 @@ function entity_menu_links_install_revisions() {
   $revisions = drupal_get_schema('menu_links_revision');
 
   $rev_fields = $revisions['fields'];
-  unset($rev_fields['vuuid'], $rev_fields['timestamp']);
+  unset($rev_fields['vuuid'], $rev_fields['timestamp'], $rev_fields['vid']);
 
   $links_fields = $links['fields'];
-  unset($links_fields['uuid']);
+  unset($links_fields['uuid'], $links_fields['vid']);
 
   $menu_links_revision_fields = implode(',', array_keys($rev_fields)) . ', timestamp';
   $menu_links_fields = implode(',', array_keys($links_fields)) . ', ' . time();
@@ -39,7 +45,7 @@ function entity_menu_links_install_revisions() {
   $query = "INSERT INTO {menu_links_revision} ($menu_links_revision_fields) SELECT $menu_links_fields FROM {menu_links} WHERE module = :module";
   db_query($query, array(':module' => 'menu'));
 
-  $query = 'UPDATE {menu_links} ml SET ml.vid = (SELECT vid FROM {menu_links_revision} WHERE ml.mlid = mlid) WHERE module = :module';
+  $query = 'UPDATE {menu_links} SET vid = (SELECT vid FROM {menu_links_revision} WHERE {menu_links}.mlid = mlid) WHERE module = :module';
   db_query($query, array(':module' => 'menu'));
 }
 
@@ -118,4 +124,15 @@ function entity_menu_links_schema_alter(&$schema = array()) {
       ),
     ),
   );
+}
+
+/**
+ * Set module weight.
+ */
+function entity_menu_links_update_7101() {
+  // Ensure entity menu links runs after i18n and entity_translation.
+  db_update('system')
+    ->fields(array('weight' => 15))
+    ->condition('name', 'entity_menu_links')
+    ->execute();
 }

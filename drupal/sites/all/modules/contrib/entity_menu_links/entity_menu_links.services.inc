@@ -10,111 +10,114 @@
  */
 function entity_menu_links_services_resources() {
   $resources = array(
+    '#api_version' => 3002,
     'menu_link' => array(
-      'retrieve' => array(
-        'help' => t('This method returns a menu_link.'),
-        'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
-        'callback' => 'entity_menu_links_services_retrieve',
-        'access arguments' => array('administer menu'),
-        'args' => array(
-          array(
-            'name' => 'mlid',
-            'type' => 'int',
-            'description' => t('The id of the menu_link to get.'),
-            'source' => array('path' => '0'),
-            'optional' => FALSE,
+      'operations' => array(
+        'retrieve' => array(
+          'help' => t('This method returns a menu_link.'),
+          'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
+          'callback' => 'entity_menu_links_services_retrieve',
+          'access arguments' => array('administer menu'),
+          'args' => array(
+            array(
+              'name' => 'mlid',
+              'type' => 'int',
+              'description' => t('The id of the menu_link to get.'),
+              'source' => array('path' => '0'),
+              'optional' => FALSE,
+            ),
           ),
         ),
-      ),
-      'create' => array(
-        'help' => t('This method creates a menu_link.'),
-        'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
-        'callback' => 'entity_menu_links_services_create',
-        'access arguments' => array('administer menu'),
-        'args' => array(
-          array(
-            'name' => 'data',
-            'type' => 'struct',
-            'description' => t('An object representing the menu_link.'),
-            'source' => 'data',
-            'optional' => FALSE,
+        'create' => array(
+          'help' => t('This method creates a menu_link.'),
+          'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
+          'callback' => 'entity_menu_links_services_create',
+          'access arguments' => array('administer menu'),
+          'args' => array(
+            array(
+              'name' => 'data',
+              'type' => 'struct',
+              'description' => t('An object representing the menu_link.'),
+              'source' => 'data',
+              'optional' => FALSE,
+            ),
           ),
         ),
-      ),
-      'update' => array(
-        'help' => t('This method updates a menu_link.'),
-        'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
-        'callback' => 'entity_menu_links_services_update',
-        'access arguments' => array('administer menu'),
-        'args' => array(
-          array(
-            'name' => 'mlid',
-            'type' => 'int',
-            'description' => t('The id of the menu_link to update.'),
-            'source' => array('path' => '0'),
-            'optional' => FALSE,
-          ),
-          array(
-            'name' => 'data',
-            'type' => 'struct',
-            'description' => t('An object representing the menu_link.'),
-            'source' => 'data',
-            'optional' => FALSE,
-          ),
-        ),
-      ),
-      'delete' => array(
-        'help' => t('This method deletes a menu_link.'),
-        'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
-        'callback' => 'entity_menu_links_services_delete',
-        'access arguments' => array('administer menu'),
-        'args' => array(
-          array(
-            'name' => 'mlid',
-            'type' => 'int',
-            'description' => t('The id of the menu_link to delete.'),
-            'source' => array('path' => '0'),
-            'optional' => FALSE,
+        'update' => array(
+          'help' => t('This method updates a menu_link.'),
+          'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
+          'callback' => 'entity_menu_links_services_update',
+          'access arguments' => array('administer menu'),
+          'args' => array(
+            array(
+              'name' => 'mlid',
+              'type' => 'int',
+              'description' => t('The id of the menu_link to update.'),
+              'source' => array('path' => '0'),
+              'optional' => FALSE,
+            ),
+            array(
+              'name' => 'data',
+              'type' => 'struct',
+              'description' => t('An object representing the menu_link.'),
+              'source' => 'data',
+              'optional' => FALSE,
+            ),
           ),
         ),
-      ),
-      'index' => array(
-        'help' => t('This method returns a listing of menu_links.'),
-        'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
-        'callback' => 'entity_menu_links_services_index',
-        'access arguments' => array('administer menu'),
-        'args' => array(
-          array(
-            'name' => 'page',
-            'optional' => TRUE,
-            'type' => 'int',
-            'description' => t('The zero-based index of the page to get, defaults to 0.'),
-            'default value' => 0,
-            'source' => array('param' => 'page'),
+        'delete' => array(
+          'help' => t('This method deletes a menu_link.'),
+          'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
+          'callback' => 'entity_menu_links_services_delete',
+          'access arguments' => array('administer menu'),
+          'args' => array(
+            array(
+              'name' => 'mlid',
+              'type' => 'int',
+              'description' => t('The id of the menu_link to delete.'),
+              'source' => array('path' => '0'),
+              'optional' => FALSE,
+            ),
           ),
-          array(
-            'name' => 'fields',
-            'optional' => TRUE,
-            'type' => 'string',
-            'description' => t('The fields to return.'),
-            'default value' => '*',
-            'source' => array('param' => 'fields'),
-          ),
-          array(
-            'name' => 'parameters',
-            'optional' => TRUE,
-            'type' => 'array',
-            'description' => t('Fields an values to filter the list by.'),
-            'default value' => array(),
-            'source' => array('param' => 'parameters'),
-          ),
-          array(
-            'name' => 'pagesize',
-            'optional' => TRUE,
-            'type' => 'int',
-            'description' => t('Number of records to get per page.'),
-            'default value' => 20,
-            'source' => array('param' => 'pagesize'),
+        ),
+        'index' => array(
+          'help' => t('This method returns a listing of menu_links.'),
+          'file' => array('type' => 'inc', 'module' => 'entity_menu_links', 'name' => 'entity_menu_links.services'),
+          'callback' => 'entity_menu_links_services_index',
+          'access arguments' => array('administer menu'),
+          'args' => array(
+            array(
+              'name' => 'page',
+              'optional' => TRUE,
+              'type' => 'int',
+              'description' => t('The zero-based index of the page to get, defaults to 0.'),
+              'default value' => 0,
+              'source' => array('param' => 'page'),
+            ),
+            array(
+              'name' => 'fields',
+              'optional' => TRUE,
+              'type' => 'string',
+              'description' => t('The fields to return.'),
+              'default value' => '*',
+              'source' => array('param' => 'fields'),
+            ),
+            array(
+              'name' => 'parameters',
+              'optional' => TRUE,
+              'type' => 'array',
+              'description' => t('Fields an values to filter the list by.'),
+              'default value' => array(),
+              'source' => array('param' => 'parameters'),
+            ),
+            array(
+              'name' => 'pagesize',
+              'optional' => TRUE,
+              'type' => 'int',
+              'description' => t('Number of records to get per page.'),
+              'default value' => 20,
+              'source' => array('param' => 'pagesize'),
+            ),
           ),
         ),
       ),

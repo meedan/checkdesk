@@ -1,7 +1,9 @@
 <div class="media-holder media-inline-holder">
   <?php if(isset($embed->html)) : ?>
     <div class="media">
-      <?php print $embed->html; ?>
+      <div class="re-holder media-1by1">
+        <?php print $embed->html; ?>
+      </div>
     </div>
   <?php endif; ?>
   <div class="media-content">

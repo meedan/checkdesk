@@ -1,5 +1,5 @@
 diff --git a/drupal/sites/all/modules/contrib/ctools/js/modal.js b/drupal/sites/all/modules/contrib/ctools/js/modal.js
-index 33f071f..26d1af8 100644
+index 98f3609..f335206 100644
 --- a/drupal/sites/all/modules/contrib/ctools/js/modal.js
 +++ b/drupal/sites/all/modules/contrib/ctools/js/modal.js
 @@ -28,6 +28,10 @@
@@ -22,7 +22,7 @@ index 33f071f..26d1af8 100644
      $('#modalContent .modal-content').html(Drupal.theme(settings.throbberTheme));
  
      // Position autocomplete results based on the scroll position of the modal.
-@@ -346,7 +350,7 @@
+@@ -350,7 +354,7 @@
     * @param animation (fadeIn, slideDown, show)
     * @param speed (valid animation speeds slow, medium, fast or # in ms)
     */
@@ -31,7 +31,7 @@ index 33f071f..26d1af8 100644
      // If our animation isn't set, make it just show/pop
      if (!animation) {
        animation = 'show';
-@@ -398,7 +402,7 @@
+@@ -402,7 +406,7 @@
      if( docHeight < winHeight ) docHeight = winHeight;
  
      // Create our divs

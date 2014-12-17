@@ -199,3 +199,10 @@ function theme_meedan_oembed_link($vars) {
   return $link;
 }
 
+/**
+ * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_google_maps'.
+ */
+function template_preprocess_meedan_oembed_thumbnail_google_maps(&$vars) {
+  $render = oembedcore_render_cache('oembed', $vars['url'], $vars['attributes']);
+  $vars['thumbnail'] = render($render);
+}
