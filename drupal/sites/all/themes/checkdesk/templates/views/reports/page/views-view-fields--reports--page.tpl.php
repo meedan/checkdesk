@@ -2,8 +2,7 @@
 	// determine what kind of media it is
 	$url = $fields['source_url']->raw;
 	$url = parse_url($url);
-	$media_type = $url['host'];
-	$media_type_class = str_replace('.', '_', $media_type);
+	$media_type_class = isset($url['host']) ? str_replace('.', '_', $url['host']) : '';
 ?>
 <div class="report-row-container <?php print $media_type_class; ?>" id="report-<?php print $fields['nid']->raw; ?>">
 	<?php if ($report_published) { ?>
@@ -23,11 +22,6 @@
 		</div>
 	<?php } ?>
 	<div class="report-detail-link">
-		<?php 
-			//$link['attributes']['class'] = array('ctools-use-modal', 'ctools-modal-modal-popup-report');
-      //$link['attributes']['data-toggle'] = 'dropdown';
-	    //$link['href'] = 'node/' . $fields['nid']->raw;
-	    print l(t('Details'), 'node/'. $fields['nid']->raw);
-		?>
+	   <?php print l(t('Details'), 'node/'. $fields['nid']->raw); ?>
 	</div>
 </div> 
