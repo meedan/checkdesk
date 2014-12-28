@@ -449,7 +449,10 @@ return _checkdesk_core_auto_title($node);
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '6',
+        ),
+        'metatags' => array(
+          'weight' => '7',
         ),
       ),
       'display' => array(
