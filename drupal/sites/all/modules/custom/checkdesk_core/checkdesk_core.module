@@ -1103,6 +1103,7 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['title']['#attributes']['placeholder'] = t('Story title');
 
   $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
+  $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
   $form['body'][LANGUAGE_NONE][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
 
   $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload">';
@@ -2816,6 +2817,8 @@ function checkdesk_core_pathauto_alias_alter(&$alias, array &$context) {
 function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
   // Adjust edit node form
   $form['field_link'][LANGUAGE_NONE][0]['#title'] = t('URL');
+  $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
+
   if (isset($form['nid']['#value'])) {
     $node = $form['#node'];
     drupal_set_title(t('Edit @type <em>@title</em>', array('@type' => t('Report'), '@title' => $node->title)), PASS_THROUGH);
