@@ -121,7 +121,7 @@ function reactor_signatures($context) {
 /**
  * Refresh reactors for all given contexts.
  */
-function reactor_json($callback) {
+function reactor_json() {
   $commands = array();
   $contexts = $_REQUEST['contexts'];
   foreach ($contexts as $context_name => $context) {
