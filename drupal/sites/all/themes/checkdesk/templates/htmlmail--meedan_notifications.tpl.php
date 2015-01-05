@@ -103,7 +103,7 @@ $image = empty($logo_path) ? '' : image_style_url('partner_logo', $logo_path);
               valign="top">
               <?php if ($image) : ?>
                 <img id="logo" src="<?php print $image ?>"
-                   style="box-sizing: border-box; display: block; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0 auto; max-width: 100%; padding: 10px; width: 60%"/>
+                   style="box-sizing: border-box; display: block; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; margin: 0 auto; max-width: 100%; padding: 10px; width: 20%"/>
               <?php endif; ?>
             </td>
           </tr>
