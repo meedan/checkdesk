@@ -1073,7 +1073,10 @@ function checkdesk_core_feature_default_rules_configuration() {
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules" ],
       "ON" : { "user_update" : [] },
-      "IF" : [ { "data_is" : { "data" : [ "account:status" ], "value" : "0" } } ],
+      "IF" : [
+        { "data_is" : { "data" : [ "account:status" ], "value" : "0" } },
+        { "data_is" : { "data" : [ "account-unchanged:status" ], "value" : "1" } }
+      ],
       "DO" : [
         { "mail" : {
             "to" : [ "account:mail" ],
