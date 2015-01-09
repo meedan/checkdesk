@@ -14284,6 +14284,18 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['51f5a7cc0d2eaf4aa430c5cc83ccf616'] = array(
+    'source' => 'Hello !recipient_name,
+
+!actor has turned on fact-checking for a <a href="!url">report</a> .',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !actor بتفعيل التحقق من صحة المعلومات لهذا <a href="!url">التقرير</a>.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['51f8d265524f3db841024a7cc96dfe19'] = array(
     'source' => 'Maldivian',
     'context' => '',
