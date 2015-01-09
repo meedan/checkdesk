@@ -8818,20 +8818,12 @@ This was an auto-generated email from !site; please do not respond directly to t
   $translations['ar:default']['3346d59010e3b7cd2f44af838316bdad'] = array(
     'source' => 'Hello !recipient_name,
 
-!actor has changed report "!node_title"  status.
-
-You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
-
-This was an auto-generated email from !site, please do not respond directly to this email.',
+!actor has changed report "!node_title"  status.',
     'context' => '',
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-قام !actor بتغيير حالة هذا التقرير "!node_title" .
-
-بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
-
-هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
+قام !actor بتغيير حالة هذا التقرير "!node_title" .',
     'plid' => 0,
     'plural' => 0,
   );
@@ -23235,11 +23227,7 @@ This was an auto-generated email from !site; please do not respond directly to t
 
 !body
 
-<a href="!url">Click here</a> to respond or change the status of the report.
-
-You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
-
-This was an auto-generated email from !site; please do not respond directly to this email.',
+<a href="!url">Click here</a> to respond or change the status of the report.',
     'context' => '',
     'location' => '/meedan/meedan-checkdesk/drupal/index.php',
     'translation' => 'مرحباً !recipient_name،
@@ -23249,10 +23237,6 @@ This was an auto-generated email from !site; please do not respond directly to t
 !body
 
 <a href="!url">اضغط هنا</a> لترد أو تغير حالة التقرير.
-
-بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
-
-هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
 ',
     'plid' => 0,
     'plural' => 0,
@@ -26441,11 +26425,7 @@ This was an auto-generated email from !site, please do not respond directly to t
 
 !body
 
-<a href="!url">Click here</a> to respond or change the status of the report.
-
-You can edit your notification settings from your <a href="!recipient_url">profile page</a>.
-
-This was an auto-generated email from !site; please do not respond directly to this email.',
+<a href="!url">Click here</a> to respond or change the status of the report.',
     'context' => '',
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
@@ -26454,12 +26434,7 @@ This was an auto-generated email from !site; please do not respond directly to t
 
 !body
 
-<a href="!url">اضغط هنا</a> لترد أو تغير حالة التقرير.
-
-بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
-
-هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.
-',
+<a href="!url">اضغط هنا</a> لترد أو تغير حالة التقرير.',
     'plid' => 0,
     'plural' => 0,
   );
