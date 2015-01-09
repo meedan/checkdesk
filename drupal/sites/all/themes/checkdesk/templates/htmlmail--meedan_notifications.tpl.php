@@ -11,10 +11,11 @@ $languages = language_list();
 $recipient_url = url("user/{$account->uid}/edit", array('language' => $languages[$account->language], 
                     'absolute' => TRUE, 'alias' => TRUE));
 $footer = array();
-$footer[] = t('You can edit your notification settings from your <a href="!recipient_url">profile page</a>.', 
-                    array('!recipient_url', $recipient_url), array('langcode' => $account->language));
-$footer[] = t('You can follow <a href="!follow_link"> @Checkdesk on Twitter </a>.', 
-                               array('!follow_link', 'http://twitter.com/checkdesk'), array('langcode' => $account->language));
+
+$footer[] = t('You can edit your notification settings from your <a href="!recipient_url">profile page</a>.', array('!recipient_url' => $re    cipient_url), array('langcode' => $account->language));
+
+$footer[] = t('You can follow <a href="!link"> @Checkdesk on Twitter </a>.', array('!link' => 'http://twitter.com/checkdesk'), array('langc    ode' => $account->language));
+
 $footer[] = t('This was an auto-generated email from !site; please do not respond directly to this email.', 
                                array('!site' =>  variable_get('site_name', 'Checkdesk')), array('langcode' => $account->language));
 ?>
