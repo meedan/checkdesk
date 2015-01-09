@@ -12600,7 +12600,7 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'source' => 'You can follow <a href="!link"> @Checkdesk on Twitter </a>.',
     'context' => '',
     'location' => '/index.php',
-    'translation' => 'يمكنك متابعة<a href="!link"> @ﺖْﺸِﻛ ﺪِﺴْﻛ ﻊﻟﻯ ﺕﻮﻴﺗﺭ </a>.',
+    'translation' => 'يمكنك متابعة<a href="!link"> @تشك دسك على تويتر </a>.',
     'plid' => 0,
     'plural' => 0,
   );
