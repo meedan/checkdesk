@@ -6,7 +6,17 @@
 // set checkdesk log
 $logo_path = theme_get_setting('header_image_path');
 $image = empty($logo_path) ? '' : image_style_url('partner_logo', $logo_path);
-
+$account = $params['account'];
+$languages = language_list();
+$recipient_url = url("user/{$account->uid}/edit", array('language' => $languages[$account->language], 
+                    'absolute' => TRUE, 'alias' => TRUE));
+$footer = array();
+$footer[] = t('You can edit your notification settings from your <a href="!recipient_url">profile page</a>.', 
+                    array('!recipient_url', $recipient_url), array('langcode' => $account->language));
+$footer[] = t('You can follow <a href="!follow_link"> @Checkdesk on Twitter </a>.', 
+                               array('!follow_link', 'http://twitter.com/checkdesk'), array('langcode' => $account->language));
+$footer[] = t('This was an auto-generated email from !site; please do not respond directly to this email.', 
+                               array('!site' =>  variable_get('site_name', 'Checkdesk')), array('langcode' => $account->language));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -35,6 +45,16 @@ $image = empty($logo_path) ? '' : image_style_url('partner_logo', $logo_path);
 
   body {
     background-color: #f6f6f6;
+  }
+
+  a {
+    box-sizing: border-box; 
+    color: #999; 
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    font-size: 12px; 
+    margin: 0; 
+    padding: 0; 
+    text-decoration: underline;
   }
 
   @media only screen and (max-width: 600px) {
@@ -131,15 +151,13 @@ $image = empty($logo_path) ? '' : image_style_url('partner_logo', $logo_path);
                 				<p class="aligncenter" style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: center" align="center">Don't like these emails? <a href="#" style="box-sizing: border-box; color: #999; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; margin: 0; padding: 0; text-decoration: underline"><unsubscribe style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; margin: 0; padding: 0">Unsubscribe</unsubscribe></a>.
                 </p>
                 -->
+                <?php foreach ($footer as $f_row) : ?>
                 <p class="aligncenter"
                    style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: center"
                    align="center">
-                  <?php print t('You can follow'); ?>
-                  <a href="http://twitter.com/checkdesk"
-                     style="box-sizing: border-box; color: #999; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; margin: 0; padding: 0; text-decoration: underline">
-                    <?php print t('@Checkdesk on Twitter'); ?></a>.
+                  <?php print $f_row; ?>
                 </p>
-
+                <?php endforeach; ?>
               </td>
             </tr>
           </table>
@@ -152,9 +170,4 @@ $image = empty($logo_path) ? '' : image_style_url('partner_logo', $logo_path);
   </tr>
 </table>
 </body>
-<?php if ($debug): ?>
-<p><code><pre>
-$params = <?php echo check_plain(print_r($params, 1)); ?>
-  </pre></code></p>
-<?php endif; ?>
 </html>
