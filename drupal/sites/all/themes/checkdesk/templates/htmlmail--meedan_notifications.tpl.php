@@ -152,6 +152,8 @@ $footer[] = t('This was an auto-generated email from !site; please do not respon
                 				<p class="aligncenter" style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: center" align="center">Don't like these emails? <a href="#" style="box-sizing: border-box; color: #999; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; margin: 0; padding: 0; text-decoration: underline"><unsubscribe style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; margin: 0; padding: 0">Unsubscribe</unsubscribe></a>.
                 </p>
                 -->
+ 
+              <div class="htmlmail-body" dir="<?php echo $direction; ?>">
                 <?php foreach ($footer as $f_row) : ?>
                 <p class="aligncenter"
                    style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: center"
@@ -159,6 +161,7 @@ $footer[] = t('This was an auto-generated email from !site; please do not respon
                   <?php print $f_row; ?>
                 </p>
                 <?php endforeach; ?>
+              </div>
               </td>
             </tr>
           </table>

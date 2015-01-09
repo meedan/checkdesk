@@ -1186,6 +1186,15 @@ function checkdesk_core_feature_translations_defaults() {
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['0719cfa6d7799fec6a6562d6e298dd75'] = array(
+    'source' => 'You can edit your notification settings from your <a href="!recipient_url">profile page</a>.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'بإمكانك تعديل إعدادات التنبيهات الخاصة بك من صفحة <a href="!recipient_url">الحساب الشخصي</a> الخاصة بك.
+',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['072b4665bd3df41ebd773e8667037c8c'] = array(
     'source' => 'Main background',
     'context' => '',
@@ -2567,6 +2576,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'أياً',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['102cd9777c5cb9b3fdff5c8c1fcccf5f'] = array(
+    'source' => 'Note: Your story won\'t be published to the liveblog homepage until you add an update to your story.',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => 'ملحوظة: لن يتم نشر موضوعك إلا بعد إضافة تحديث له.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -12642,6 +12659,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['4812662d52f49fddda9719bd375005b4'] = array(
+    'source' => 'You can follow <a href="!link"> @Checkdesk on Twitter </a>.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'يمكنك متابعة<a href="!link"> @ﺖْﺸِﻛ ﺪِﺴْﻛ ﻊﻟﻯ ﺕﻮﻴﺗﺭ </a>.',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['481dc67d0e5f07c8e29443d681669c44'] = array(
     'source' => 'General discussion',
     'context' => '',
@@ -18730,6 +18755,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'تعذر استرداد مشروع دروبال من %url.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['68ff7cb937fbac2695ea1e68722970f8'] = array(
+    'source' => 'This was an auto-generated email from !site; please do not respond directly to this email.',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'هذه رسالة مولدة بشكل تلقائي من !site، يرجى عدم الرد على هذه الرسالة.',
     'plid' => 0,
     'plural' => 0,
   );
