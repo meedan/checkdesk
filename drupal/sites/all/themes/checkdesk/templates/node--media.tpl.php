@@ -6,10 +6,15 @@
           <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
         </div>
       </section>
+      <?php if (isset($content['field_tags'])) : ?>
+      <div class="cd-tags">
+          <?php print render($content['field_tags']); ?>
+      </div>
+      <?php endif; ?>
       <?php print $report_activity; ?>
       <?php if (!empty($published_stories)) : ?>
         <section class="report-detail">
-          <div class="checkdesk-story-wrapper">
+         <div class="checkdesk-story-wrapper">
             <?php  print t('Published in ') . $published_stories; ?>
           </div>
         </section>

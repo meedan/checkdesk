@@ -1,24 +1,51 @@
 <?php
+
 /**
  * @file
- * Checkdesk template for notifications mail
+ * Sample template for sending user password reset messages with HTML Mail
+ *
+ * The following variables are available in this template:
+ *
+ *  - $message_id: The email message id, which is 'user_password_reset'
+ *  - $module: The sending module, which is 'user'.
+ *  - $key: The user email action, which is 'password_reset'.
+ *  - $headers: An array of email (name => value) pairs.
+ *  - $from: The configured sender address.
+ *  - $to: The recipient email address.
+ *  - $subject: The message subject line.
+ *  - $body: The formatted message body.
+ *  - $language: The language object for this message.
+ *  - $params: An array containing the following keys:
+ *    - account: The user object whose password is being requested, which
+ *      contains the following useful properties:
+ *      - uid: The user-id number.
+ *      - name: The user login name.
+ *      - mail: The user email address.  Should be the same as $to.
+ *      - theme: The user-chosen theme, or a blank string if unset.
+ *      - signature: The user signature block.
+ *      - signature_format: The text input filter used to format the signature.
+ *      - created: Account creation date, as a unix timestamp.
+ *      - access: Account access date, as a unix timestamp.
+ *      - login: Account login date, as a unix timestamp.
+ *      - status: Integer 0 = disabled; 1 = enabled.
+ *      - timezone: User timezone, or NULL if unset.
+ *      - language: User language, or blank string if unset.
+ *      - picture: Path to user picture, or blank string if unset.
+ *      - init: The email address used to initially register this account.
+ *      - data: User profile data, as a serialized string.
+ *      - roles: Array of roles assigned to this user, as (rid => role_name)
+ *        pairs.
+ *  - $template_path: The relative path to the template directory.
+ *  - $template_url: The absolute url to the template directory.
+ *  - $theme: The name of the selected Email theme.
+ *  - $theme_path: The relative path to the Email theme directory.
+ *  - $theme_url: The absolute url to the Email theme directory.
  */
-// set checkdesk log
 $logo_path = theme_get_setting('header_image_path');
 $image = empty($logo_path) ? '' : image_style_url('partner_logo', $logo_path);
-$account = $params['account'];
-$languages = language_list();
-$recipient_url = url("user/{$account->uid}/edit", array('language' => $languages[$account->language], 
-                    'absolute' => TRUE, 'alias' => TRUE));
-$footer = array();
 
-$footer[] = t('You can edit your notification settings from your <a href="!recipient_url">profile page</a>.', array('!recipient_url' => $recipient_url), array('langcode' => $account->language));
-
-$footer[] = t('You can follow <a href="!link"> @Checkdesk on Twitter </a>.', array('!link' => 'http://twitter.com/checkdesk'), array('langcode' => $account->language));
-
-$footer[] = t('This was an auto-generated email from !site; please do not respond directly to this email.', 
-                               array('!site' =>  variable_get('site_name', 'Checkdesk')), array('langcode' => $account->language));
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml"
@@ -46,16 +73,6 @@ $footer[] = t('This was an auto-generated email from !site; please do not respon
 
   body {
     background-color: #f6f6f6;
-  }
-
-  a {
-    box-sizing: border-box; 
-    color: #999; 
-    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    font-size: 12px; 
-    margin: 0; 
-    padding: 0; 
-    text-decoration: underline;
   }
 
   @media only screen and (max-width: 600px) {
@@ -152,16 +169,15 @@ $footer[] = t('This was an auto-generated email from !site; please do not respon
                 				<p class="aligncenter" style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: center" align="center">Don't like these emails? <a href="#" style="box-sizing: border-box; color: #999; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; margin: 0; padding: 0; text-decoration: underline"><unsubscribe style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; margin: 0; padding: 0">Unsubscribe</unsubscribe></a>.
                 </p>
                 -->
- 
-              <div class="htmlmail-body" dir="<?php echo $direction; ?>">
-                <?php foreach ($footer as $f_row) : ?>
                 <p class="aligncenter"
                    style="box-sizing: border-box; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: center"
                    align="center">
-                  <?php print $f_row; ?>
+                  <?php print t('You can follow'); ?>
+                  <a href="http://twitter.com/checkdesk"
+                     style="box-sizing: border-box; color: #999; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; margin: 0; padding: 0; text-decoration: underline">
+                    <?php print t('@Checkdesk on Twitter'); ?></a>.
                 </p>
-                <?php endforeach; ?>
-              </div>
+
               </td>
             </tr>
           </table>

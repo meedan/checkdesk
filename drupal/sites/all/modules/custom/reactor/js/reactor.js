@@ -48,7 +48,7 @@
     // response.data contains top-level text nodes, they get lost with either
     // $(response.data) or $('<div></div>').replaceWith(response.data).
     var new_content_wrapped = $('<div></div>').html(response.data);
-    var new_content = new_content_wrapped.contents();
+    var new_content = new_content_wrapped.html();
 
     /*
     // <!--DIFFERENCE-->
@@ -75,9 +75,8 @@
       case 'empty':
       case 'remove':
         var settings = response.settings || ajax.settings || Drupal.settings;
-        Drupal.detachBehaviors(wrapper, settings);
+       Drupal.detachBehaviors(wrapper, settings);
     }
-
     // Add the new content to the page.
     wrapper[method](new_content);
 
@@ -100,11 +99,11 @@
     // Attach all JavaScript behaviors to the new content, if it was successfully
     // added to the page, this if statement allows #ajax['wrapper'] to be
     // optional.
-    if (new_content.parents('html').length > 0) {
+    //if (new_content.parents('html').length > 0) {
       // Apply any settings from the returned JSON if available.
       var settings = response.settings || ajax.settings || Drupal.settings;
       Drupal.attachBehaviors(new_content, settings);
-    }
+    //}
   }
 
   Drupal.ajax.prototype.commands.reactorSignature = function(ajax, response, status) {

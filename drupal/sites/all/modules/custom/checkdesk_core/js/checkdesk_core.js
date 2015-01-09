@@ -174,6 +174,12 @@
         }
         $('span.add-to').removeClass('open')
       });
+      // Show throbber after change stories on node/add/post form.
+      jQuery('#edit-submit-desk-reports').click(function () {
+        jQuery('.view-filters .ajax-progress').remove();
+        jQuery('.view-filters').append('<div class="ajax-progress"><div class="throbber">&nbsp;</div></div>'); 
+      });
+
     }
   };
 
