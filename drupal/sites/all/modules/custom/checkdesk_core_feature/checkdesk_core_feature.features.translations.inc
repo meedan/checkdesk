@@ -3118,6 +3118,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['130d74c3ba60e43c646b8d2ae2e189f7'] = array(
+    'source' => 'Add tags',
+    'context' => '',
+    'location' => '/ar/node/add/media',
+    'translation' => 'أضف وسومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['13112f6f4b2f0874ed895ba8f7b60a75'] = array(
     'source' => 'Inline fields',
     'context' => '',
@@ -46817,6 +46825,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:field']['2d291378a8a29af401a45aec8688733a'] = array(
+    'source' => 'Tags',
+    'context' => 'field_tags:media:label',
+    'location' => 'field:field_tags:media:label',
+    'translation' => 'وسومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:field']['33895ff9c24f27f9070d8a905e6b1e08'] = array(
     'source' => 'Body',
     'context' => 'body:article:label',
@@ -46830,6 +46846,14 @@ print theme(\'views_autorefresh\', array(
     'context' => 'body:media:label',
     'location' => 'field:body:media:label',
     'translation' => 'الوصف',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:field']['56d713560c0681c819be51b9f6caf91f'] = array(
+    'source' => 'Tags',
+    'context' => 'field_tags:discussion:label',
+    'location' => 'field:field_tags:discussion:label',
+    'translation' => 'وسومات',
     'plid' => 0,
     'plural' => 0,
   );
@@ -47166,6 +47190,14 @@ print theme(\'views_autorefresh\', array(
     'context' => 'term:5:name',
     'location' => 'taxonomy:term:5:name',
     'translation' => 'لا يمكن التأكد من صحة المعلومات',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:taxonomy']['6a9bd15a2dbd2b910f9533044fa3e01b'] = array(
+    'source' => 'Tags',
+    'context' => 'vocabulary:1:name',
+    'location' => 'taxonomy:vocabulary:1:name',
+    'translation' => 'وسومات',
     'plid' => 0,
     'plural' => 0,
   );
