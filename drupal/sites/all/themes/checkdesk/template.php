@@ -77,7 +77,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     }
     // Inline thumbnail
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
-      $variables['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE));
+      $variables['inline_thumbnail'] = isset($embed->thumbnail_url) ? l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE)) : '';
     }
     // Large image in case of Flickr or imgur or instagram
     if ($element['#formatter'] == 'meedan_inline_full_mode' || $element['#formatter'] == 'meedan_full_mode') {
