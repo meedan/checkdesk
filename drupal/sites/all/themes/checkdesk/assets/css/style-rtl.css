@@ -5054,6 +5054,68 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   display: block;
 }
 
+.cd-container {
+  overflow: hidden;
+  *zoom: 1;
+}
+
+.cd-container__inner {
+  margin: 20px 0 30px 0;
+  padding: 20px 0;
+}
+.cd-container .cd-container__inner {
+  border-top: 1px solid #e7e8ea;
+}
+
+.cd-container__header {
+  float: right;
+  width: 140px;
+  width: 20.56738%;
+  float: right;
+  margin-left: 2.12766%;
+  display: inline;
+}
+
+.cd-container__header__title {
+  font-family: "Droid Arabic Naskh", serif;
+  color: #9fa6ac;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.cd-container__body {
+  padding-bottom: 20px;
+}
+
+.tags {
+  margin: 0;
+  padding: 0;
+}
+.tags li {
+  list-style: none;
+}
+
+.tag {
+  float: right;
+  padding-left: 45px;
+}
+.tag a {
+  color: #6f7a82;
+}
+.tag a:hover {
+  color: #111314;
+}
+
+.tag__name {
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+  font-size: 20px;
+}
+
+.tag__count {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
 .media-holder {
   color: #9fa6ac;
 }
@@ -8776,11 +8838,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   display: block;
   margin: 20px 0 30px 0;
   padding: 6px 0;
-  border-top: 1px solid #e7e8ea;
   color: #cfd3d5;
   font-family: "Droid Arabic Naskh", serif;
   font-size: 15px;
-  cursor: pointer;
 }
 .story .story-footer:before, .story .story-footer:after {
   display: table;
@@ -8789,13 +8849,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-footer:after {
   clear: both;
-}
-.story .story-footer a {
-  color: #cfd3d5;
-}
-.story .story-footer a:hover {
-  color: #9fa6ac;
-  text-decoration: none;
 }
 .story .story-footer .story-continue {
   float: right;
@@ -8816,11 +8869,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-footer .story-continue .permalink {
   display: none;
-}
-.story .story-footer .story-updated-at {
-  float: left;
-  text-align: left;
-  font-style: italic;
 }
 .story .story-footer:hover .story-continue .permalink {
   display: inline-block;

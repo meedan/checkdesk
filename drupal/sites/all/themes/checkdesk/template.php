@@ -945,6 +945,39 @@ function checkdesk_field__field_rating(&$variables) {
   return $output;
 }
 
+/**
+ * Field: Tags
+ */
+function checkdesk_field__field_tags(&$variables) {
+  $type = $variables['element']['#bundle'];
+  
+  if($type == 'media') {
+    $alt_type = array(
+      'singular' => 'report',
+      'plural' => 'reports'
+    );
+  } elseif ($type == 'discussion') {
+    $alt_type = array(
+      'singular' => 'story',
+      'plural' => 'stories'
+    );
+  }
+
+  $output = '<ul class="tags unstyled">';
+  foreach($variables['items'] as $key => $tag) {
+    $output .= '<li class="tag">';
+    $ltag = '<div class="tag__name">' . l($tag['#title'], $tag['#href'], array('attributes' => array(
+      'title' => t("@title", array('@title' => $tag['#title'])),
+      ),
+    )) . '</div>';
+    $tag_count = _checkdesk_term_nc($tag['#options']['entity']->tid, FALSE, $type);
+    $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
+    $output .= $ltag . $count . '</li>';
+  }
+  $output .= '</ul>';
+  return $output;
+}
+
 function checkdesk_fboauth_action__connect(&$variables) {
   $action = $variables['action'];
   $link = $variables['properties'];
@@ -1217,4 +1250,59 @@ function checkdesk_checkdesk_core_render_links($variables) {
     $output .= '</ul></span>';
   }
   return $output;
+}
+
+/**
+ * @param tid
+ *   Term ID
+ * @param child_count
+ *   TRUE - Also count all nodes in child terms (if they exists) - Default
+ *   FALSE - Count only nodes related to Term ID
+ * @param type
+ *   Type of Node
+ */
+function _checkdesk_term_nc($tid, $child_count = TRUE, $type) {
+  $tids = array($tid);
+
+  if ($child_count) {
+    $tids = array_merge($tids, _checkdesk_term_get_children_ids($tid));
+  }
+
+  global $language;
+  $langs = array($language->language);
+  $langs[] = 'und';
+
+  $query = db_select('taxonomy_index', 't');
+  $query->condition('tid', $tids, 'IN');
+  $query->join('node', 'n', 't.nid = n.nid');
+  $query->condition('n.status', 1, '=');
+  $query->condition('n.status', 1, '=');
+  $query->condition('n.language', $langs, 'IN');
+  if ($type)  {
+    $query->condition('n.type', $type);
+  }
+
+  $count = $query->countQuery()->execute()->fetchField();
+  return  $count;
+}
+
+/**
+ * Retrieve ids of term children.
+ *
+ * @param $tid
+ *   The term's ID.
+ * @param $tids
+ *   An array where ids of term children will be added
+ */
+function _checkdesk_term_get_children_ids($tid) {
+  $children = taxonomy_get_children($tid);
+  $tids=array();
+
+  if (!empty($children)) {
+    foreach($children as $child) {
+      $tids[] = $child->tid;
+      $tids = array_merge($tids, term_get_children_ids($child->tid));
+    }
+  }
+  return $tids;
 }

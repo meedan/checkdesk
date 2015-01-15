@@ -55,11 +55,30 @@
       </div>
     <?php } ?>
 
-    <div class="story-footer">
+    <aside class="story-footer">
       <div class="story-updated-at">
         <?php print t('Updated at ') . $updated_at; ?>
       </div>
-    </div>
+
+      <?php if(isset($content['field_tags'])) { ?>
+        <!-- tags -->
+        <section id="media-tags" class="cd-container">
+          <div class="cd-container__inner">
+            <div class="cd-container__header">
+              <div class="cd-container__header__title">
+                <?php print t('Published in'); ?>
+              </div>
+            </div>
+            <div class="cd-container__body">
+              <div class="cd-slice-wrapper">
+                <?php print render($content['field_tags']); ?>
+              </div>
+            </div>
+          </div>
+        </section>
+      <?php } ?>
+
+    </aside>
 
     <!-- story comments -->
     <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">

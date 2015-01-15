@@ -545,18 +545,11 @@
     display: block;
     margin: 20px 0 30px 0;
     padding: $absolute-line-height/4 0;
-    border-top: 1px solid $firefly10;
     color: $firefly20;
     @include cd-sans-serif-family;
     font-size: $small-font-size;
-    cursor: pointer;
-    a {
-      color: $firefly20;
-      &:hover {
-        color: $firefly40;
-        text-decoration: none;
-      }
-    }
+    // cursor: pointer;
+    
     .story-continue {
       @include icon('link', $small-font-size);
       float: $alpha;
@@ -567,9 +560,9 @@
     }
 
     .story-updated-at {
-      float: $omega;
-      text-align: $omega;
-      font-style: italic;
+      // float: $omega;
+      // text-align: $omega;
+      // font-style: italic;
     }
     &:hover {
       .story-continue .permalink { display: inline-block; }
