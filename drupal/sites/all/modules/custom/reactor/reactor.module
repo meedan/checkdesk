@@ -5,13 +5,18 @@
  */
 function reactor_node_view($node, $view_mode, $langcode) {
 
-  if ($node->type == 'media' && $view_mode == 'checkdesk_collaborate') {
+  if ($node->type == 'discussion' && $view_mode == 'checkdesk_collaborate') {
+    //Get published reports
+    $nids = db_query('SELECT entity_id 
+                      FROM {field_data_field_stories} 
+                      WHERE field_stories_target_id = :nid
+                      ', array(':nid' => $node->nid))->fetchCol();
     reactor_activate(array(
       'context' => 'report_activity',
-      'node' => $node->nid,
+      'node' => $nids,
       //'view_mode' => $view_mode,
       'langcode' => $langcode,
-      'destination' => drupal_get_destination(),
+      'destination' => 'story-collaboration/'. $node->nid,
     ));
   }
   if (FALSE) {
@@ -129,7 +134,6 @@ function reactor_json() {
     $new_signatures = reactor_signatures($context['context']);
     foreach (reactor_get_reactors($context_name) as $classname => $reactor) {
       if ($new_signatures[$classname] == $context['signatures'][$classname]) continue;
-      $_GET['destination'] = $context['context']['destination']['destination'];
       $commands[] = reactor_ajax_command_signature($classname, $context_name, $new_signatures[$classname]);
       $commands = array_merge($commands, $reactor->refresh($context['context'], $context['signatures'][$classname]));
     }
@@ -220,32 +224,39 @@ ORDER BY changed DESC
 class ReportActivityReactor extends Reactor {
   // Handle fact-checking as a start of reactor module.
   public function signature($context) {
-    $timestamp = db_query('SELECT MAX(timestamp) FROM {heartbeat_activity} WHERE message_id IN (:message_id) AND nid = :nid'
-    , array(':message_id' => array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_set'), ':nid' => $context['node']))->fetchField();
+    $timestamp = db_query('
+                    SELECT MAX(timestamp) 
+                    FROM {heartbeat_activity} 
+                    WHERE message_id IN (:message_id) AND nid IN (:nid)
+                    ', array(':message_id' => array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_set'), 
+                    ':nid' => $context['node'])
+                  )->fetchField();
     return $timestamp;
   }
   public function refresh($context, $signature) {
+    $_GET['destination'] = $context['context']['destination'];
     $commands = array();
     if ($signature) {
+      foreach ($context['node'] as $nid) {
+        $activity = db_query('
+          SELECT COUNT(uaid) FROM heartbeat_activity
+          WHERE nid = :nid AND message_id IN (:message_id)
+          AND timestamp > :timestamp
+          ', array(':nid' => $nid, ':message_id' => array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_set'), 
+          ':timestamp' => $signature)
+        )->fetchField();
 
-      $activity = db_query('
-                    SELECT COUNT(uaid) FROM heartbeat_activity
-                    WHERE nid = :nid AND message_id IN (:message_id)
-                    AND timestamp > :timestamp
-                 ', array(':nid' => $context['node'], ':message_id' => array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_set'), ':timestamp' => $signature)
-               )->fetchField();
-
-      if ($activity) {
-        $node = node_load($context['node']);
-        $node_view = node_view($node);
-        $node_view['comments'] = comment_node_page_additions($node);
-        // update activity stream
-        $report_activity = theme(
-          'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
-        );
-        $commands[] = reactor_ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
-      }
-      // other activities 
+        if ($activity) {
+          $node = node_load($nid);
+          $node_view = node_view($node);
+          $node_view['comments'] = comment_node_page_additions($node);
+          // update activity stream
+          $report_activity = theme(
+            'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
+          );
+          $commands[] = reactor_ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
+        }
+        // other activities 
       /*
       if (count(array_intersect(
         array('checkdesk_fact_checking_set', 'checkdesk_fact_checking_on'),
@@ -272,6 +283,7 @@ class ReportActivityReactor extends Reactor {
         }
       }
        */
+      }
     }
     return $commands;
   }
