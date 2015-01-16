@@ -1734,7 +1734,7 @@ label.option.not-applicable:before {
 }
 
 .update .update-footer .icon-share:before,
-.story .content-actions .share-on > a .icon-share:before,
+.story .story-footer .content-actions .share-on > a .icon-share:before,
 .icon-share:before {
   content: "\f064";
 }
@@ -8921,6 +8921,39 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-footer:after {
   clear: both;
 }
+.story .story-footer .content-actions {
+  margin: 0;
+  padding: 0;
+}
+.story .story-footer .content-actions li {
+  list-style: none;
+}
+.story .story-footer .content-actions .add-to {
+  display: none;
+}
+.story .story-footer .content-actions .share-on > a {
+  cursor: pointer;
+  font-weight: 700;
+  color: #9fa6ac;
+}
+.story .story-footer .content-actions .share-on > a .icon-share:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.story .story-footer .content-actions .share-on > a:hover {
+  color: #404d59;
+  text-decoration: none;
+}
 .story .story-updated-at .icon-clock-o:before {
   font-family: "FontAwesome";
   display: inline-block;
@@ -8937,39 +8970,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 }
 .story .story-updated-at .icon-clock-o:before {
   vertical-align: middle;
-}
-.story .content-actions {
-  margin: 0;
-  padding: 0;
-}
-.story .content-actions li {
-  list-style: none;
-}
-.story .content-actions .add-to {
-  display: none;
-}
-.story .content-actions .share-on > a {
-  cursor: pointer;
-  font-weight: 700;
-  color: #9fa6ac;
-}
-.story .content-actions .share-on > a .icon-share:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.story .content-actions .share-on > a:hover {
-  color: #404d59;
-  text-decoration: none;
+  margin-right: 0;
 }
 .story .story-comments {
   margin-top: 24px;

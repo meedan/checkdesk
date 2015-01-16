@@ -19,9 +19,6 @@
         </div>
       <?php } ?>
       </div>
-      <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
-        <?php print render($content['links']); ?>
-      <?php } ?>
     </div>
 
   	<div class="story-body">
@@ -57,6 +54,33 @@
         <?php print $story_collaboration; ?>
       <?php  } ?>
     </div>
+
+    <aside class="story-footer">
+      <section class="cd-container cd-container--first">
+        <div clas="cd-container__inner">
+          <div class="story-updated-at pull-<?php print $layout['alpha']; ?>">
+            <span class="icon-clock-o"></span><span class="story-updated-at-text"><?php print t('Updated at ') . $updated_at; ?></span>
+          </div>
+          <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
+            <div class="story-links pull-<?php print $layout['omega']; ?>">
+              <?php print render($content['links']); ?>
+            </div>
+          <?php } ?>
+        </div>
+      </section>
+
+      <?php if(isset($content['field_tags'])) { ?>
+        <!-- tag list -->
+        <section id="media-tags" class="cd-container">
+          <div class="cd-container__inner">
+            <div class="submeta">
+              <h2 class="submeta__header"><?php print t('Published in'); ?></h2>
+              <?php print render($content['field_tags']); ?>
+            </div>
+          </div>
+        </section>
+      <?php } ?>
+    </aside>
 
     <!-- story comments -->
     <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
