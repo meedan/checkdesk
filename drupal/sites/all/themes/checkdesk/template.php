@@ -479,6 +479,9 @@ function checkdesk_preprocess_page(&$variables) {
 function checkdesk_preprocess_node(&$variables) {
   $node = @$variables['elements']['#node'];
 
+  // get $alpha and $omega
+  $variables['layout'] = checkdesk_core_direction_settings();
+
   if($variables['view_mode'] == 'checkdesk_collaborate') {
     if ($variables['type'] == 'media') {
       $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
@@ -533,7 +536,7 @@ function checkdesk_preprocess_node(&$variables) {
     ));
     $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
       '!interval' => format_interval((time() - $variables['changed']), 1),
       '!timezone' => $timezone,
     ));
@@ -963,16 +966,19 @@ function checkdesk_field__field_tags(&$variables) {
     );
   }
 
-  $output = '<ul class="tags unstyled">';
+  $output = '<ul class="tag-list u-unstyled inline-list">';
   foreach($variables['items'] as $key => $tag) {
-    $output .= '<li class="tag">';
-    $ltag = '<div class="tag__name">' . l($tag['#title'], $tag['#href'], array('attributes' => array(
-      'title' => t("@title", array('@title' => $tag['#title'])),
-      ),
-    )) . '</div>';
+    $tag_name = '<div class="tag__name">' . $tag['#title'] . '</div>';  
     $tag_count = _checkdesk_term_nc($tag['#options']['entity']->tid, FALSE, $type);
     $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
-    $output .= $ltag . $count . '</li>';
+
+    $output .= '<li class="inline-list__item">';
+    $output .= l($tag_name . $count, $tag['#href'], array('html' => TRUE, 'attributes' => array(
+      'title' => t("@title", array('@title' => $tag['#title'])),
+      'class' => array('btn', 'btn--transparent', 'btn--tag'),
+      ),
+    ));
+    $output .= '</li>';
   }
   $output .= '</ul>';
   return $output;

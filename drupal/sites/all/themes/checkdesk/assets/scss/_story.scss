@@ -172,33 +172,6 @@
         
       }
     }
-
-    .content-actions {
-      @include reset-list-style;
-      float: $omega;
-      width: 20%;
-      .add-to {
-        display: none;
-      }
-      .share-on > a {
-        float: $omega;
-        cursor: pointer;
-        font-weight: 700;
-        color: $firefly30;
-        .icon-share { @include icon("share"); }
-        &:hover {
-          color: $firefly80;
-          text-decoration: none;
-        }
-        @if $from-direction == 'left' {
-          .icon-share { @include icon("share", modular-scale(0) - modular-scale(-3)); }
-          font-size: modular-scale(0) - modular-scale(-3); // 14px;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: $firefly30;
-        }
-      }
-    }
   }
 
   .story-body {  
@@ -545,27 +518,37 @@
     display: block;
     margin: 20px 0 30px 0;
     padding: $absolute-line-height/4 0;
-    color: $firefly20;
+    color: $firefly40;
     @include cd-sans-serif-family;
     font-size: $small-font-size;
-    // cursor: pointer;
-    
-    .story-continue {
-      @include icon('link', $small-font-size);
-      float: $alpha;
-      
-      .permalink {
-        display: none;
-      }
-    }
+  }
 
-    .story-updated-at {
-      // float: $omega;
-      // text-align: $omega;
-      // font-style: italic;
+  .story-updated-at {
+    .icon-clock-o { 
+      @include icon("clock-o", $larger-font-size, $firefly30); 
+      &:before { vertical-align: middle; }
     }
-    &:hover {
-      .story-continue .permalink { display: inline-block; }
+  }
+
+  .content-actions {
+    @include reset-list-style;
+    .add-to {
+      display: none;
+    }
+    .share-on > a {
+      cursor: pointer;
+      font-weight: 700;
+      color: $firefly40;
+      .icon-share { @include icon("share"); }
+      &:hover {
+        color: $firefly80;
+        text-decoration: none;
+      }
+      @if $from-direction == 'left' {
+        .icon-share { @include icon("share", $small-font-size, $firefly30); }
+        font-size: $small-font-size;
+        color: $firefly30;
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 // Checkdesk Sass Theme
-@import "base";
+@import "base/base";
 
 // Tell the browser about these files and define the font name
 // See base.scss configuration, with overrides in style-rtl.scss
@@ -16,16 +16,14 @@
 // via: gem
 @import "modular-scale";
 
+// Mixins
+@import "mixins";
+
 // Colors
 // via: bowerbird sass extension
 // note: We always want to use colors by name, to facilitate readbility + discussion.
 // note: hsl() values preferred for readability
 @import "bowerbird/colors";
-
-// Checkdesk configuration 
-// Requires colors, modular-scale
-@import "base";
-@import "mixins";
 
 // Bowerbird Compass Extension
 // See also README.md and ../bowerbird/README.md
@@ -189,7 +187,9 @@ body.no-sidebars {
 @import "bowerbird/_typography";
 
 //defaults
-@import "typography";
+@import "base/typography";
+@import "base/lists";
+@import "buttons";
 
 //checkdesk specific
 
@@ -214,9 +214,10 @@ body.no-sidebars {
 
 // Container
 @import "container";
+@import "containers";
 
 // Tags
-@import "tags";
+@import "tag-list";
 
 // Checkdesk media
 @import "media";
@@ -242,6 +243,7 @@ body.no-sidebars {
 
 // Primary Navigation and Drupal nav at very top
 @import "navigation";
+@import "submeta";
 
 // Checkdesk user accounts
 @import "account";
@@ -257,7 +259,7 @@ body.no-sidebars {
 
 // Forms, Tables
 @import "forms";
-@import "tables";
+@import "base/tables";
 
 // ====================================================================== 
 // Checkdesk pages 

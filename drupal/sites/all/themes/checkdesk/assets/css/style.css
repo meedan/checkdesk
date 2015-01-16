@@ -1679,7 +1679,7 @@ nav[role="navigation"] li.home a:before {
   content: "\f016";
 }
 
-.update .update-footer .icon-clock-o:before {
+.update .update-footer .icon-clock-o:before, .story .story-updated-at .icon-clock-o:before {
   content: "\f017";
 }
 
@@ -1733,7 +1733,7 @@ label.option.not-applicable:before {
 }
 
 .update .update-footer .icon-share:before,
-.story .story-meta .content-actions .share-on > a .icon-share:before,
+.story .content-actions .share-on > a .icon-share:before,
 .icon-share:before {
   content: "\f064";
 }
@@ -1783,10 +1783,6 @@ nav[role="navigation"] #user-menu .icon-bell:before {
 
 #incoming-reports-filters .icon-filter:before {
   content: "\f0b0";
-}
-
-.story .story-footer .story-continue:before {
-  content: "\f0c1";
 }
 
 #widgets .elsewhere ul li span.icon-google-plus:before {
@@ -4280,6 +4276,110 @@ nav {
   font-style: normal;
 }
 
+dt {
+  font-weight: bold;
+}
+
+menu,
+ol,
+ul {
+  padding: 0;
+  margin-left: 25px;
+}
+
+nav ul,
+nav ol {
+  list-style: none;
+  list-style-image: none;
+}
+
+.u-unstyled, .inline-list {
+  margin: 0;
+  list-style: none;
+}
+
+.inline-list__item {
+  display: inline-block;
+}
+
+.btn:hover, .btn:focus, .btn:active {
+  text-decoration: none;
+}
+
+.btn--primary {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0px;
+  background-color: #2b76ff;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  font-weight: 400;
+  margin-right: 1em;
+}
+.btn--primary::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+.btn--primary:focus {
+  outline: none;
+}
+.btn--primary, .btn--primary:visited {
+  color: white;
+}
+.btn--primary:hover, .btn--primary:focus {
+  background-color: #1c6cff;
+}
+.btn--primary:hover, .btn--primary:hover:visited, .btn--primary:focus, .btn--primary:focus:visited {
+  color: white;
+}
+.btn--primary:active {
+  background-color: #0c62ff;
+}
+.btn--primary:active, .btn--primary:active:visited {
+  color: white;
+}
+
+.btn--transparent {
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 0.3em 1em;
+  border-width: 0;
+  padding: 0 0;
+  border-width: 0;
+}
+.btn--transparent::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+.btn--transparent:focus {
+  outline: none;
+}
+
 div.tabs {
   margin: 0;
   padding: 0;
@@ -5058,8 +5158,15 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 
 .cd-container {
-  overflow: hidden;
   *zoom: 1;
+}
+.cd-container:before, .cd-container:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.cd-container:after {
+  clear: both;
 }
 
 .cd-container__inner {
@@ -5091,23 +5198,26 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   padding-bottom: 20px;
 }
 
-.tags {
-  margin: 0;
-  padding: 0;
+.cd-container--first {
+  margin-top: 0;
+  padding-top: 0;
 }
-.tags li {
-  list-style: none;
+.cd-container--first .cd-container__inner {
+  border: 0;
 }
 
-.tag {
-  float: left;
-  padding-right: 45px;
-}
-.tag a {
+.btn--tag {
+  display: inline-block;
+  margin-right: 45px;
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
   color: #6f7a82;
 }
-.tag a:hover {
-  color: #111314;
+.btn--tag:hover {
+  color: #404d59;
 }
 
 .tag__name {
@@ -5119,6 +5229,7 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
+  color: #9fa6ac;
 }
 
 .media-holder {
@@ -7131,6 +7242,20 @@ body.toolbar-drawer #main #content {
   margin-top: 103px !important;
 }
 
+.submeta__header {
+  float: left;
+  width: 140px;
+  width: 20.56738%;
+  float: left;
+  margin-right: 2.12766%;
+  display: inline;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #9fa6ac;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+}
+
 #my-account {
   width: 438px;
 }
@@ -8261,60 +8386,6 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.story .story-meta .content-actions {
-  margin: 0;
-  padding: 0;
-  float: right;
-  width: 20%;
-}
-.story .story-meta .content-actions li {
-  list-style: none;
-}
-.story .story-meta .content-actions .add-to {
-  display: none;
-}
-.story .story-meta .content-actions .share-on > a {
-  float: right;
-  cursor: pointer;
-  font-weight: 700;
-  color: #b7bcc0;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #b7bcc0;
-}
-.story .story-meta .content-actions .share-on > a .icon-share:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.story .story-meta .content-actions .share-on > a:hover {
-  color: #404d59;
-  text-decoration: none;
-}
-.story .story-meta .content-actions .share-on > a .icon-share:before {
-  font-family: "FontAwesome";
-  display: inline-block;
-  margin: 0 7.5px;
-  *margin-right: .3em;
-  color: "black";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: inherit;
-  vertical-align: baseline;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 .story .story-body {
   *zoom: 1;
   margin: 30px 0 0;
@@ -8868,7 +8939,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   display: block;
   margin: 20px 0 30px 0;
   padding: 6px 0;
-  color: #cfd3d5;
+  color: #9fa6ac;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
 }
@@ -8880,16 +8951,13 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-footer:after {
   clear: both;
 }
-.story .story-footer .story-continue {
-  float: left;
-}
-.story .story-footer .story-continue:before {
+.story .story-updated-at .icon-clock-o:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
   *margin-right: .3em;
-  color: "black";
-  font-size: 15px;
+  color: #b7bcc0;
+  font-size: 25px;
   font-style: normal;
   font-weight: normal;
   line-height: inherit;
@@ -8897,11 +8965,57 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.story .story-footer .story-continue .permalink {
+.story .story-updated-at .icon-clock-o:before {
+  vertical-align: middle;
+}
+.story .content-actions {
+  margin: 0;
+  padding: 0;
+}
+.story .content-actions li {
+  list-style: none;
+}
+.story .content-actions .add-to {
   display: none;
 }
-.story .story-footer:hover .story-continue .permalink {
+.story .content-actions .share-on > a {
+  cursor: pointer;
+  font-weight: 700;
+  color: #9fa6ac;
+  font-size: 15px;
+  color: #b7bcc0;
+}
+.story .content-actions .share-on > a .icon-share:before {
+  font-family: "FontAwesome";
   display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.story .content-actions .share-on > a:hover {
+  color: #404d59;
+  text-decoration: none;
+}
+.story .content-actions .share-on > a .icon-share:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: #b7bcc0;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .story .story-comments {
   margin-top: 24px;
