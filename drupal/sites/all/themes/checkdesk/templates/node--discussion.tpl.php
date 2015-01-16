@@ -73,7 +73,6 @@
           </div>
         </section>
       <?php } ?>
-
     </aside>
 
     <!-- story comments -->
