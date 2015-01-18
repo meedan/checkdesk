@@ -13,7 +13,6 @@
           submit: {
             contexts: Drupal.settings.reactor.contexts,
           },
-          success: function(data) {},
           error: function(XMLHttpRequest, textStatus, errorThrown) {},
         }
         );
