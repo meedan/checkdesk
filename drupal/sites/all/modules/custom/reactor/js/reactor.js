@@ -7,7 +7,7 @@
         'reactor',
         document.body,
         {
-          url: '/reactor',
+          url: '/'+ Drupal.settings.language.language +'/reactor',
           event: 'reactor',
           keypress: false,
           submit: {
