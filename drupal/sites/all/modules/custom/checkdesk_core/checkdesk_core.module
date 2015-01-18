@@ -682,6 +682,9 @@ function _checkdesk_core_node_links($node, $account = NULL) {
   if (strstr($destination, 'ajax')) {
     $destination = 'reports';
   }
+  if (arg(0) == 'reactor') {
+    $destination = $_GET['destination'];
+  }
 
   // Links for reports only.
   if ($node->type == 'media') {
