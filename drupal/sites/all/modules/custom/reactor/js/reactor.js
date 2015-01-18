@@ -12,9 +12,11 @@
           keypress: false,
           submit: {
             contexts: Drupal.settings.reactor.contexts,
-          }
+          },
+          success: function(data) {},
+          error: function(XMLHttpRequest, textStatus, errorThrown) {},
         }
-      );
+        );
 
       // Set up the polling timer.
       Drupal.settings.reactor.timer = Drupal.settings.reactor.timer || window.setInterval(function() {
