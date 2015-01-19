@@ -2080,6 +2080,19 @@ function checkdesk_core_wysiwyg_plugin($editor, $version) {
             ),
             'load' => TRUE,
           ),
+          //
+          'mediaoembed' => array(
+            'path' => drupal_get_path('module', 'checkdesk_core') . '/ckeditor/plugins/mediaoembed',
+            'filename' => 'plugin.js',
+            'extensions' => array(
+              'mediaoembed' => t('Media Oembed'),
+            ),
+            'load' => TRUE,
+            'buttons' => array(
+              'mediaoembed' => t('Media Oembed'),
+            ),
+          ),
+
         );
       }
       break;
