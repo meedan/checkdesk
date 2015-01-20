@@ -966,21 +966,25 @@ function checkdesk_field__field_tags(&$variables) {
     );
   }
 
-  $output = '<ul class="tag-list u-unstyled inline-list">';
-  foreach($variables['items'] as $key => $tag) {
-    $tag_name = '<div class="tag__name">' . $tag['#title'] . '</div>';  
-    $tag_count = _checkdesk_term_nc($tag['#options']['entity']->tid, FALSE, $type);
+  $output = '<section id="media-tags" class="cd-container">';
+  $output .= '<div class="cd-container__inner">';
+  $output .= '<div class="submeta"><h2 class="submeta__header">'. t('Published in') . '</h2>';
+  $output .= '<ul class="tag-list u-unstyled inline-list">';
+  foreach($variables['element']['#items'] as $key => $item) {
+    $tag = taxonomy_term_load($item['tid']);
+    $tag_name = '<div class="tag__name">' . $tag->name. '</div>';  
+    $tag_count = _checkdesk_term_nc($item['tid'], FALSE, $type);
     $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
 
     $output .= '<li class="inline-list__item">';
-    $output .= l($tag_name . $count, $tag['#href'], array('html' => TRUE, 'attributes' => array(
-      'title' => t("@title", array('@title' => $tag['#title'])),
+    $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'] , array('html' => TRUE, 'attributes' => array(
+      'title' => t("@title", array('@title' => $tag->name)),
       'class' => array('btn', 'btn--transparent', 'btn--tag'),
       ),
     ));
     $output .= '</li>';
   }
-  $output .= '</ul>';
+  $output .= '</ul></div></div></section>';
   return $output;
 }
 
