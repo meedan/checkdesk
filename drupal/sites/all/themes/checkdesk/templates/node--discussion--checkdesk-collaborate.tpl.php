@@ -68,18 +68,12 @@
           <?php } ?>
         </div>
       </section>
+ 
+     <!-- tag list -->
+      <?php if (isset($content['field_tags'])) : ?>
+        <?php print render($content['field_tags']); ?>    
+      <?php endif; ?>
 
-      <?php if(isset($content['field_tags'])) { ?>
-        <!-- tag list -->
-        <section id="media-tags" class="cd-container">
-          <div class="cd-container__inner">
-            <div class="submeta">
-              <h2 class="submeta__header"><?php print t('Published in'); ?></h2>
-              <?php print render($content['field_tags']); ?>
-            </div>
-          </div>
-        </section>
-      <?php } ?>
     </aside>
 
     <!-- story comments -->

@@ -18,10 +18,10 @@
   </article>
 
   <aside class="report-footer">
-    <?php if(isset($content['field_tags'])) { ?>
-      <!-- tag list -->
+    <!-- tag list -->
+    <?php if(isset($content['field_tags'])) : ?>
       <?php print render($content['field_tags']); ?>    
-    <?php } ?>
+    <?php endif ?>
   </aside>
 
   <?php if (isset($modal_class_hack)): ?>

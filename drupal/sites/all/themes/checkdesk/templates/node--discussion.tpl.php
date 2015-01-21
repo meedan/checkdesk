@@ -61,11 +61,12 @@
           <?php } ?>
         </div>
       </section>
-
-      <?php if(isset($content['field_tags'])) { ?>
-        <!-- tag list -->
+        
+     <!-- tag list -->
+      <?php if (isset($content['field_tags'])) : ?>
         <?php print render($content['field_tags']); ?>    
-      <?php } ?>
+      <?php endif; ?>
+
     </aside>
 
     <!-- story comments -->

@@ -971,14 +971,13 @@ function checkdesk_field__field_tags(&$variables) {
   $output .= '<div class="submeta"><h2 class="submeta__header">'. t('Published in') . '</h2>';
   $output .= '<ul class="tag-list u-unstyled inline-list">';
   foreach($variables['element']['#items'] as $key => $item) {
-    $tag = taxonomy_term_load($item['tid']);
-    $tag_name = '<div class="tag__name">' . $tag->name. '</div>';  
+    $tag_name = '<div class="tag__name">' . $item['taxonomy_term']->name. '</div>';  
     $tag_count = _checkdesk_term_nc($item['tid'], FALSE, $type);
     $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
 
     $output .= '<li class="inline-list__item">';
     $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'] , array('html' => TRUE, 'attributes' => array(
-      'title' => t("@title", array('@title' => $tag->name)),
+      'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
       'class' => array('btn', 'btn--transparent', 'btn--tag'),
       ),
     ));
@@ -1284,15 +1283,15 @@ function _checkdesk_term_nc($tid, $child_count = TRUE, $type) {
 
   $query = db_select('taxonomy_index', 't');
   $query->condition('tid', $tids, 'IN');
+  $query->addExpression('COUNT(*)', 'count_nodes');
   $query->join('node', 'n', 't.nid = n.nid');
-  $query->condition('n.status', 1, '=');
   $query->condition('n.status', 1, '=');
   $query->condition('n.language', $langs, 'IN');
   if ($type)  {
     $query->condition('n.type', $type);
   }
 
-  $count = $query->countQuery()->execute()->fetchField();
+  $count = $query->execute()->fetchField();
   return  $count;
 }
 
