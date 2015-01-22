@@ -55,6 +55,7 @@
           // Either insert the text into CKEDITOR, if available, else directly
           // into the text editor.
           if (typeof CKEDITOR != 'undefined' && CKEDITOR.instances[$textarea.attr('id')]) {
+            //var mediaoembed_template = '<span class="test" datasource="12523">' + data.droppable_ref + '</span>';
             instance = CKEDITOR.instances[$textarea.attr('id')];
             instance.insertHtml(data.droppable_ref);
             // add newline.
@@ -177,9 +178,15 @@
       // Show throbber after change stories on node/add/post form.
       jQuery('#edit-submit-desk-reports').click(function () {
         jQuery('.view-filters .ajax-progress').remove();
-        jQuery('.view-filters').append('<div class="ajax-progress"><div class="throbber">&nbsp;</div></div>'); 
+        jQuery('.view-filters').append('<div class="ajax-progress"><div class="throbber">&nbsp;</div></div>');
       });
-
+      //Bind auto-refresh update to hide embeded reports
+        jQuery('#block-views-desk-reports-block').unbind('autorefresh_update');
+        jQuery('#block-views-desk-reports-block').bind('autorefresh_update', function(e, nid) {
+            //Add this value to trigger CKEDITOR instanceReady
+            var instance = CKEDITOR.instances['edit-body-und-0-value'];
+            instance.insertHtml(' ');
+        });
     }
   };
 
@@ -347,9 +354,17 @@ function _checkdesk_report_view_redirect() {
   }
 }
 
+
 function _checkdesk_filter_reports(story_nid) {
-  jQuery('select#edit-field-stories-target-id').val(story_nid);
-  jQuery('#edit-submit-desk-reports').trigger('click');
+    jQuery('#block-views-desk-reports-block').bind('ajaxComplete', function( event, xhr, settings ) {
+        if (typeof settings.extraData != 'undefined' && settings.extraData.view_name == 'desk_reports') {
+            //Add this value to trigger CKEDITOR instanceReady
+            var instance = CKEDITOR.instances['edit-body-und-0-value'];
+            instance.insertHtml(' ');
+        }
+    });
+    jQuery('select#edit-field-stories-target-id').val(story_nid);
+    jQuery('#edit-submit-desk-reports').trigger('click');
 }
 
 jQuery(function() {
