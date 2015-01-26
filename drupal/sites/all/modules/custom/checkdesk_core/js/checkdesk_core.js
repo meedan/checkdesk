@@ -361,6 +361,8 @@ function _checkdesk_filter_reports(story_nid) {
             //Add this value to trigger CKEDITOR instanceReady
             var instance = CKEDITOR.instances['edit-body-und-0-value'];
             instance.insertHtml(' ');
+            //resize reports sidebar
+            jQuery(window).trigger('resize');
         }
     });
     jQuery('select#edit-field-stories-target-id').val(story_nid);
