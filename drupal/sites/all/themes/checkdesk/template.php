@@ -977,11 +977,15 @@ function checkdesk_field__field_tags(&$variables) {
     $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
 
     $output .= '<li class="inline-list__item">';
-    $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'] , array('html' => TRUE, 'attributes' => array(
-      'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
-      'class' => array('btn', 'btn--transparent', 'btn--tag'),
+    /*
+      $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'] , array('html' => TRUE, 'attributes' => array(
+          'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
+          'class' => array('btn', 'btn--transparent', 'btn--tag'),
       ),
-    ));
+      ));
+    */
+    $output .= '<div class="btn btn--transparent btn--tag">' . $tag_name . $count . '</div>';
+    
     $output .= '</li>';
   }
   $output .= '</ul></div></div></section>';
