@@ -1050,14 +1050,17 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   global $user;
 
   if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
+    $report_nid = $vars['fields']['nid']->raw;
     $vars['name_i18n'] = isset($vars['fields']['field_rating']->content) ? t($vars['fields']['field_rating']->content) : NULL;
 
-    if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($vars['fields']['nid']->raw)) {
+    if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($report_nid)) {
       $vars['report_published'] = t('Published on update');
     }
     else {
       $vars['report_published'] = FALSE;
     }
+    // Get embed type
+    $vars['media_type_class'] = checkdesk_oembed_embed_class_type($report_nid);
   }
 
   if ($vars['view']->name === 'liveblog') {

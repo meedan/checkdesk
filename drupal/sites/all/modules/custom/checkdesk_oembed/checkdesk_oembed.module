@@ -114,3 +114,17 @@ function checkdesk_oembed_meedan_oembed_embed_alter($embed) {
     }, $embed->title);
   }
 }
+
+/**
+ * Helper function to set class based on media type.
+ */
+function checkdesk_oembed_embed_class_type($nid) {
+  $class = 'report-type-default';
+  if (is_numeric($nid)) {
+    $node = node_load($nid);
+    if ($node->type == 'media') {
+      $class = 'report-type-'. $node->embed->type;
+    }
+  }
+  return $class;
+}
