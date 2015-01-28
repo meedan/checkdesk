@@ -1103,15 +1103,19 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
 
   //Adjust create story form
   $form['title']['#title'] = t('Story title');
-  $form['title']['#attributes']['placeholder'] = t('Story title');
+  // $form['title']['#attributes']['placeholder'] = t('Story title');
 
   $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Add a brief description of the story (optional)');
   $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('Add tags');
+
+  $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
   $form['body'][LANGUAGE_NONE][0]['#description'] = t('A story contains one or more liveblog updates. The story will remain unpublished until the first update is created.');
 
-  $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload">';
+  // add custom class for image uploader plus hide description with class nodescription
+  $form['field_lead_image']['#prefix'] = '<div class="custom_file_upload nodescription">';
   $form['field_lead_image']['#suffix'] = '</div">';
   $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
+  $form['field_lead_image']['#description'] = '';
   $form['actions']['submit']['#submit'][] = '_redirect_story';
   if (!$form['nid']['#value']) {
     $form['actions']['submit']['#value'] = t('Create story');
