@@ -2609,14 +2609,13 @@ function checkdesk_core_preprocess_user_alert(&$vars) {
  * Helper function to check whether a report was published on an update before
  */
 function checkdesk_core_report_published_on_update($nid) {
-  $node = node_load(intval($nid));
-  if ($node && $node->type === 'media') {
-    $count = db_query("SELECT COUNT(*) FROM {heartbeat_activity} WHERE message_id = 'checkdesk_report_published_in_update' AND nid = :nid", array(':nid' => $node->nid))->fetchField();
-    return intval($count);
+  if (is_numeric($nid)) {
+    $count = db_query(
+      'SELECT COUNT(*) FROM {checkdesk_reports_updates} WHERE report_nid = :nid', array(':nid' => $nid)
+    )->fetchField();
+    return $count ? $count : FALSE;
   }
-  else {
-    return FALSE;
-  }
+  return FALSE;
 }
 
 /**
