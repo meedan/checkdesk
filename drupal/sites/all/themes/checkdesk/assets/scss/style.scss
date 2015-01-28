@@ -56,7 +56,7 @@ $omega: opposite-position($from-direction);
 // @import "replace_drupal/system_theme"; // hoping i can remove this huge one ....
 @import "replace_drupal/jquery_ui_core";
 
-// @import "jquery_ui_theme"; // this is pretty big do we really need it?
+
 @import "replace_drupal/comment";
 @import "replace_drupal/field";
 @import "replace_drupal/node";
@@ -260,6 +260,9 @@ body.no-sidebars {
 // Forms, Tables
 @import "forms";
 @import "base/tables";
+
+// Forms autocomplete and jquery ui
+@import "replace_drupal/jquery.ui.autocomplete";
 @import "replace_drupal/autocomplete";
 
 // ====================================================================== 

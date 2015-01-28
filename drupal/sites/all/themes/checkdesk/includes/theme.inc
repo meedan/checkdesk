@@ -169,7 +169,6 @@ function checkdesk_css_alter(&$css) {
   }
   // keep css for some modules
   $keep_css = array(
-    'misc/ui/jquery.ui.autocomplete.css',
     'misc/ui/jquery.ui.theme.css',
   );
   $restore_css = array();

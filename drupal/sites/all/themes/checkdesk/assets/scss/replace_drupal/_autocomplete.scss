@@ -5,6 +5,10 @@ ul.ui-autocomplete {
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 3px;
+  @if $from-direction == right {
+    padding: 3px 0 3px $gutter-width*2;
+    // #{$from-direction}: 0 !important;
+  }
 }
 
 a.autocomplete-deluxe-single:hover {
@@ -32,8 +36,8 @@ a.autocomplete-deluxe-single:hover {
   background: no-repeat -38px -22px, linear-gradient(top, #eeeeee 1%, #ffffff 15%);
 }
 div.autocomplete-deluxe-container input.autocomplete-deluxe-form {
-  background: #fff no-repeat -38px -22px;
-  padding: 4px 5px 4px 5px;
+  // background: #fff no-repeat -38px -22px;
+  padding: 0 5px;
   border: none;
 }
 
@@ -58,7 +62,7 @@ div.autocomplete-deluxe-container input.autocomplete-deluxe-form-single  {
 
 span.autocomplete-deluxe-value-delete {
   display: inline-block;
-  float: right;
+  float: opposite-position($from-direction);
   // background:url('x.gif') no-repeat center;
   width: 18px;
   width: 18px;
@@ -101,7 +105,7 @@ div.autocomplete-deluxe-multiple {
   @include border-radius(3px);
   display: inline-block;
   position: relative;
-  padding: $absolute-line-height/4 $gutter-width/2 4px;
+  padding: $absolute-line-height/4 $gutter-width/2 2px;
   cursor: text;
   height: auto !important;
   margin: 0;
@@ -134,14 +138,22 @@ div.autocomplete-deluxe-throbber {
 
 .autocomplete-deluxe-item {
   float: $from-direction;
+  position: relative;
   @include border-radius(3px);
   background-clip: padding-box;
   background-color: $firefly10;
   border: 1px solid $firefly20;
   cursor: default;
-  margin: 3px $gutter-width/2 3px 5px;
-  padding: 3px $gutter-width*2 3px 5px;
-  position: relative;
+  @if $from-direction == left {
+    margin: 3px $gutter-width/2 3px 5px;
+  } @else { 
+    margin: 3px 5px 3px $gutter-width/2;
+  }
+  @if $from-direction == left {
+    padding: 3px $gutter-width*2 3px 5px;
+  } @else {
+    padding: 3px 5px 3px $gutter-width*2;
+  }
   color: $firefly80;
 }
 
@@ -150,7 +162,7 @@ div.autocomplete-deluxe-throbber {
   color: $firefly40;
   display: block;
   position: absolute;
-  right: $gutter-width;
+  #{opposite-position($from-direction)}: $gutter-width;
   top: 3px;
   width: 12px;
   &:hover {
