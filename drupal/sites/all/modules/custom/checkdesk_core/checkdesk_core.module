@@ -1005,7 +1005,8 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   global $user;
 
   // Adjust compose update form
-  $form['title']['#attributes']['placeholder'] = t('Update headline');
+  $form['title']['#title'] = t('Update headline');
+  $form['body'][LANGUAGE_NONE][0]['#title'] = t('Text');
   $form['body'][LANGUAGE_NONE][0]['#attributes']['placeholder'] = t('Write text and drag reports here to compose the update');
 
   // Are we showing the post form on the desk page?
