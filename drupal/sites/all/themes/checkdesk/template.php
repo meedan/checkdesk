@@ -102,8 +102,8 @@ function checkdesk_preprocess_html(&$variables) {
 
   // set body class for language and language object to Drupal.settings
   if ($variables['language']) {
-    $class = 'body-' . $variables['language']->language;
-    $variables['classes_array'][] = $class;
+    $language_class = 'body-' . $variables['language']->language;
+    $variables['classes_array'][] = $language_class;
     drupal_add_js(array('language' => $variables['language']), 'setting');
   }
 
@@ -116,7 +116,6 @@ function checkdesk_preprocess_html(&$variables) {
       $variables['theme_hook_suggestions'][] = 'html__404';
     }
   }
-  // dsm($variables['theme_hook_suggestions']);
 
   // Add classes about widgets sidebar
    if (checkdesk_widgets_visibility()) {
