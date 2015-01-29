@@ -23695,6 +23695,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['85eb6423b752c09262d8263767619d0d'] = array(
+    'source' => 'Add feature image',
+    'context' => '',
+    'location' => '/ar//',
+    'translation' => 'أضف الصورة الرئيسية',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['85f91038b6848d1c11b61ac8622714db'] = array(
     'source' => 'Greenbeam',
     'context' => '',
@@ -31490,6 +31498,14 @@ password: Your password
     'context' => '',
     'location' => '',
     'translation' => 'تدير عرض المساعدة عالخط.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['b12f9025f7cb70c5d73a4d0f3147cc6c'] = array(
+    'source' => 'The tag \'@term\' will be added.',
+    'context' => '',
+    'location' => '/ar/node/add/discussion',
+    'translation' => 'سوف يتم إضافة المصطلح \'@term\'',
     'plid' => 0,
     'plural' => 0,
   );

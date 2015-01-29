@@ -283,7 +283,7 @@ function autocomplete_deluxe_element_process($element) {
     'min_length' => isset($element['#min_length']) ? $element['#min_length'] : 0,
     'use_synonyms' => isset($element['#use_synonyms']) ? $element['#use_synonyms'] : 0,
     'delimiter' => isset($element['#delimiter']) ? $element['#delimiter'] : '',
-    'not_found_message' => isset($element['#not_found_message']) ? $element['#not_found_message'] : "The term '@term' will be added.",
+    'not_found_message' => isset($element['#not_found_message']) ? t($element['#not_found_message']) : t("The term '@term' will be added."),
   );
 
   if (isset($element['#autocomplete_deluxe_path'])) {
