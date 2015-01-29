@@ -7,14 +7,15 @@
         'reactor',
         document.body,
         {
-          url: '/reactor',
+          url: '/'+ Drupal.settings.language.language +'/reactor',
           event: 'reactor',
           keypress: false,
           submit: {
             contexts: Drupal.settings.reactor.contexts,
-          }
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {},
         }
-      );
+        );
 
       // Set up the polling timer.
       Drupal.settings.reactor.timer = Drupal.settings.reactor.timer || window.setInterval(function() {

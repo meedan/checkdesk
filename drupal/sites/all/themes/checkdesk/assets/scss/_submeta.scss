@@ -1,0 +1,20 @@
+.submeta {
+	
+
+}
+
+.submeta__header {
+	float: $from-direction;
+	width: 140px;
+	@include span-columns(4);
+
+	@include cd-sans-serif-family;
+  color: $firefly40;
+  text-transform: uppercase;
+  font-size: 12px;
+  @if $from-direction == 'left' {
+    letter-spacing: 0.15em;
+  }
+
+
+}

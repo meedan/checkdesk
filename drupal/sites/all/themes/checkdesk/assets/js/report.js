@@ -133,7 +133,7 @@
       // Incoming reports sidebar
       $(window).resize(function() {
         if ($('.view-desk-reports .view-content').length) {
-          var difference = $('.view-desk-reports .view-content').offset().top + $('.view-desk-reports .pager').outerHeight(true);
+          var difference = $('#content-area').offset().top + $('.view-desk-reports .pager').outerHeight(true);
           var height = $(window).height() - difference;
           $('.view-desk-reports .view-content').height(height);
         }

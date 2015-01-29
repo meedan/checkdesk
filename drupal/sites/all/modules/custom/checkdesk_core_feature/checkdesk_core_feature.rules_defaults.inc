@@ -1069,6 +1069,7 @@ function checkdesk_core_feature_default_rules_configuration() {
   $items['rules_user_banned_and_comments_deleted'] = entity_import('rules_config', '{ "rules_user_banned_and_comments_deleted" : {
       "LABEL" : "User banned and comments deleted",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules" ],

@@ -481,7 +481,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -493,13 +493,14 @@ function checkdesk_core_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'checkdesk_collaborate' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 2,
       ),
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'i18n_taxonomy',
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
@@ -528,14 +529,18 @@ function checkdesk_core_feature_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
+      'active' => 1,
+      'module' => 'autocomplete_deluxe',
       'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
+        'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+        'delimiter' => '',
+        'limit' => 10,
+        'min_length' => 0,
+        'not_found_message' => 'The tag \'@term\' will be added.',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 2,
+      'type' => 'autocomplete_deluxe_taxonomy',
+      'weight' => 3,
     ),
   );
 
@@ -591,13 +596,13 @@ function checkdesk_core_feature_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'filtered_html' => 0,
+          'filtered_html' => 'filtered_html',
           'full_html' => 0,
           'liveblog' => 0,
           'php_code' => 0,
-          'plain_text' => 'plain_text',
+          'plain_text' => 0,
         ),
-        'allowed_formats_toggle' => 1,
+        'allowed_formats_toggle' => 0,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -631,6 +636,8 @@ function checkdesk_core_feature_field_default_field_instances() {
         'maxlength_js' => '',
         'maxlength_js_enforce' => 0,
         'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_label_summary' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_summary' => '',
         'maxlength_js_truncate_html' => 0,
         'rows' => 5,
         'summary_rows' => 5,
@@ -860,10 +867,10 @@ function checkdesk_core_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
+        'label' => 'hidden',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
+        'type' => 'i18n_taxonomy_term_reference_link',
         'weight' => 4,
       ),
       'meedan_oembed' => array(
@@ -889,13 +896,17 @@ function checkdesk_core_feature_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
+      'active' => 1,
+      'module' => 'autocomplete_deluxe',
       'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
+        'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+        'delimiter' => '',
+        'limit' => 10,
+        'min_length' => 0,
+        'not_found_message' => 'The tag \'@term\' will be added.',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'autocomplete_deluxe_taxonomy',
       'weight' => 5,
     ),
   );

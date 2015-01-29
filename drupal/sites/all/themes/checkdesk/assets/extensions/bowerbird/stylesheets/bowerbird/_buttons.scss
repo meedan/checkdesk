@@ -138,6 +138,11 @@ $button-darken-amount: 12 !default;
   @include button-colors-matte($color);
 }
 
+@mixin button-transparent($font-size: $button-font-size, $radius: $button-radius, $border-width: $button-border-width) {
+  @include button-structure($font-size, 0, 0);
+  @include button-padding(0, 0, 0);
+}
+
 @mixin button-custom($color: $button-color, $font-size: $button-font-size, $radius: $button-radius, $border-width: $button-border-width) {
   @include button-structure($font-size, $radius, $border-width);
   @include button-colors-custom($color, $font-size, $radius, $border-width);

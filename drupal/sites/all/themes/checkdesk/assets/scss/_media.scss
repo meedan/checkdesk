@@ -30,6 +30,7 @@
 			color: $firefly60;
 			margin-top: 0;
 			a { @include ctb-linkColor($strongBlue80); }
+			.show-more { padding-#{$from-direction}: $gutter-width/2; }
 		}
 
 		.provider-icon, .favicon {

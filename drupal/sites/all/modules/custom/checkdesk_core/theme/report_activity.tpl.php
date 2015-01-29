@@ -1,4 +1,4 @@
-<div id="report-activity-node-<?php print $node->nid; ?>" class="item-nested-content-wrapper <?php print $collapsed ?>">
+<div id="report-activity-node-<?php print $node->nid; ?>" class="report-activity-node-<?php print $node->nid; ?> item-nested-content-wrapper <?php print $collapsed ?>">
   <div class="activity-item-controls item-controls">
     <?php print $media_activity_report_count; ?>
     <div class="actions" role="toolbar">

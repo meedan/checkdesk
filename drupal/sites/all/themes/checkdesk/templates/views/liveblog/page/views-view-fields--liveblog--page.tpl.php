@@ -16,18 +16,6 @@
     '@user' => url('user/'. $user->uid),
     '!user' => $user->name,
   ));
-
-  $links = array();
-  $url = url('node/' . $fields['nid']->raw, array('absolute' => TRUE, 'alias' => TRUE, 'language' => $language));
-  $layout = checkdesk_core_direction_settings();
-  $share_links = checkdesk_core_share_links($url, $fields['title']->raw, 'discussion', array('nid' => $fields['nid']->raw));
-  foreach ($share_links as $id => $link) {
-    $links[$id] = $link;
-  }
-  // Add share links    
-  $options = array('links' => $links, 'direction' => $layout['omega'], 
-    'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share'); 
-  $share_link = theme('checkdesk_core_render_links', array('options' => $options));
   
   // get timezone information to display in timestamps e.g. Cairo, Egypt
   $site_timezone = checkdesk_get_timezone();
@@ -54,9 +42,6 @@
           </div>
         <?php } ?>
       </div>
-      <ul class="content-actions">
-        <?php print $share_link; ?>
-      </ul>
     </div>
 
     <div class="story-body">
@@ -78,14 +63,5 @@
     <div class="story-updates-wrapper">
       <?php print $updates; ?>
     </div>
-
-    <a class="story-footer" href="<?php print url('node/' . $fields['nid']->raw); ?>">
-      <div class="story-continue">
-        <span class="link"></span> <span class="permalink"><?php print t('Go to story'); ?></span>
-      </div>
-      <div class="story-updated-at">
-        <?php print t('Updated at ') . render($fields['changed']->content) . ' ' . $timezone; ?>
-      </div>
-    </a>
   </article>
 </div>

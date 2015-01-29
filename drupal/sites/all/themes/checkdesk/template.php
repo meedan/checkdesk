@@ -49,8 +49,9 @@ function checkdesk_preprocess_field(&$variables, $hook) {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
     // Media description
-    if(isset($node->body['und'][0]['value'])) {
-      $variables['media_description'] = $node->body['und'][0]['value'];
+    if(isset($node->body[LANGUAGE_NONE][0]['value'])) {
+      $body_data = field_view_field('node', $node, 'body');
+      $variables['media_description'] = render($body_data);
     }
     // Set favicon
     if (isset($embed->favicon_link)) {
@@ -77,7 +78,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     }
     // Inline thumbnail
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
-      $variables['inline_thumbnail'] = l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE));
+      $variables['inline_thumbnail'] = isset($embed->thumbnail_url) ? l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE)) : '';
     }
     // Large image in case of Flickr or imgur or instagram
     if ($element['#formatter'] == 'meedan_inline_full_mode' || $element['#formatter'] == 'meedan_full_mode') {
@@ -101,8 +102,8 @@ function checkdesk_preprocess_html(&$variables) {
 
   // set body class for language and language object to Drupal.settings
   if ($variables['language']) {
-    $class = 'body-' . $variables['language']->language;
-    $variables['classes_array'][] = $class;
+    $language_class = 'body-' . $variables['language']->language;
+    $variables['classes_array'][] = $language_class;
     drupal_add_js(array('language' => $variables['language']), 'setting');
   }
 
@@ -115,7 +116,6 @@ function checkdesk_preprocess_html(&$variables) {
       $variables['theme_hook_suggestions'][] = 'html__404';
     }
   }
-  // dsm($variables['theme_hook_suggestions']);
 
   // Add classes about widgets sidebar
    if (checkdesk_widgets_visibility()) {
@@ -479,6 +479,9 @@ function checkdesk_preprocess_page(&$variables) {
 function checkdesk_preprocess_node(&$variables) {
   $node = @$variables['elements']['#node'];
 
+  // get $alpha and $omega
+  $variables['layout'] = checkdesk_core_direction_settings();
+
   if($variables['view_mode'] == 'checkdesk_collaborate') {
     if ($variables['type'] == 'media') {
       $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
@@ -533,7 +536,7 @@ function checkdesk_preprocess_node(&$variables) {
     ));
     $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['changed'], 'custom', t('M d, Y \a\t g:ia')),
+      '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
       '!interval' => format_interval((time() - $variables['changed']), 1),
       '!timezone' => $timezone,
     ));
@@ -945,6 +948,49 @@ function checkdesk_field__field_rating(&$variables) {
   return $output;
 }
 
+/**
+ * Field: Tags
+ */
+function checkdesk_field__field_tags(&$variables) {
+  $type = $variables['element']['#bundle'];
+  
+  if($type == 'media') {
+    $alt_type = array(
+      'singular' => 'report',
+      'plural' => 'reports'
+    );
+  } elseif ($type == 'discussion') {
+    $alt_type = array(
+      'singular' => 'story',
+      'plural' => 'stories'
+    );
+  }
+
+  $output = '<section id="media-tags" class="cd-container">';
+  $output .= '<div class="cd-container__inner">';
+  $output .= '<div class="submeta"><h2 class="submeta__header">'. t('Published in') . '</h2>';
+  $output .= '<ul class="tag-list u-unstyled inline-list">';
+  foreach($variables['element']['#items'] as $key => $item) {
+    $tag_name = '<div class="tag__name">' . $item['taxonomy_term']->name. '</div>';  
+    $tag_count = _checkdesk_term_nc($item['tid'], FALSE, $type);
+    $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
+
+    $output .= '<li class="inline-list__item">';
+    /*
+      $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'] , array('html' => TRUE, 'attributes' => array(
+          'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
+          'class' => array('btn', 'btn--transparent', 'btn--tag'),
+      ),
+      ));
+    */
+    $output .= '<div class="btn btn--transparent btn--tag">' . $tag_name . $count . '</div>';
+    
+    $output .= '</li>';
+  }
+  $output .= '</ul></div></div></section>';
+  return $output;
+}
+
 function checkdesk_fboauth_action__connect(&$variables) {
   $action = $variables['action'];
   $link = $variables['properties'];
@@ -1008,14 +1054,17 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
   global $user;
 
   if (in_array($vars['view']->name, array('reports', 'desk_reports'))) {
+    $report_nid = $vars['fields']['nid']->raw;
     $vars['name_i18n'] = isset($vars['fields']['field_rating']->content) ? t($vars['fields']['field_rating']->content) : NULL;
 
-    if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($vars['fields']['nid']->raw)) {
+    if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($report_nid)) {
       $vars['report_published'] = t('Published on update');
     }
     else {
       $vars['report_published'] = FALSE;
     }
+    // Get embed type
+    $vars['media_type_class'] = checkdesk_oembed_embed_class_type($report_nid);
   }
 
   if ($vars['view']->name === 'liveblog') {
@@ -1217,4 +1266,59 @@ function checkdesk_checkdesk_core_render_links($variables) {
     $output .= '</ul></span>';
   }
   return $output;
+}
+
+/**
+ * @param tid
+ *   Term ID
+ * @param child_count
+ *   TRUE - Also count all nodes in child terms (if they exists) - Default
+ *   FALSE - Count only nodes related to Term ID
+ * @param type
+ *   Type of Node
+ */
+function _checkdesk_term_nc($tid, $child_count = TRUE, $type) {
+  $tids = array($tid);
+
+  if ($child_count) {
+    $tids = array_merge($tids, _checkdesk_term_get_children_ids($tid));
+  }
+
+  global $language;
+  $langs = array($language->language);
+  $langs[] = 'und';
+
+  $query = db_select('taxonomy_index', 't');
+  $query->condition('tid', $tids, 'IN');
+  $query->addExpression('COUNT(*)', 'count_nodes');
+  $query->join('node', 'n', 't.nid = n.nid');
+  $query->condition('n.status', 1, '=');
+  $query->condition('n.language', $langs, 'IN');
+  if ($type)  {
+    $query->condition('n.type', $type);
+  }
+
+  $count = $query->execute()->fetchField();
+  return  $count;
+}
+
+/**
+ * Retrieve ids of term children.
+ *
+ * @param $tid
+ *   The term's ID.
+ * @param $tids
+ *   An array where ids of term children will be added
+ */
+function _checkdesk_term_get_children_ids($tid) {
+  $children = taxonomy_get_children($tid);
+  $tids=array();
+
+  if (!empty($children)) {
+    foreach($children as $child) {
+      $tids[] = $child->tid;
+      $tids = array_merge($tids, term_get_children_ids($child->tid));
+    }
+  }
+  return $tids;
 }
