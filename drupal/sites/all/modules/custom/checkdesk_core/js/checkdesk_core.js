@@ -55,9 +55,9 @@
           // Either insert the text into CKEDITOR, if available, else directly
           // into the text editor.
           if (typeof CKEDITOR != 'undefined' && CKEDITOR.instances[$textarea.attr('id')]) {
-            //var mediaoembed_template = '<span class="test" datasource="12523">' + data.droppable_ref + '</span>';
             instance = CKEDITOR.instances[$textarea.attr('id')];
-            instance.insertHtml(data.droppable_ref);
+            var mediaoembed_template = '<md class="tagMediaOembedClass" datasource="'+ data.nid +'">' + data.droppable_ref + '</md>';
+            instance.insertHtml(mediaoembed_template);
             // add newline.
             instance.execCommand( 'enter' );
             // remember the inserted report.
