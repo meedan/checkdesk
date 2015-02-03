@@ -25,6 +25,13 @@ function checkdesk_bookmarklet_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['checkdesk/media-widget/%'] = array(
+    'page callback' => '_checkdesk_media_widget_callback',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
@@ -199,6 +206,20 @@ function _checkdesk_bookmarklet_media_preview($path) {
 function _checkdesk_bookmarklet_media_preview_callback() {
   $path = (isset($_GET['url']) ? $_GET['url'] : FALSE);
   drupal_json_output(_checkdesk_bookmarklet_media_preview($path));
+}
+
+/**
+ *
+ */
+function _checkdesk_media_widget_callback($nid) {
+  $node = node_load($nid);
+  $render = field_view_field('node', $node, 'field_link', array('type' => 'meedan_oembed_thumbnail'));
+  $media_ref = checkdesk_core_droppable_reference($node);
+  $response = array(
+    'preview' => 'Show preview thumbnail for reprt - '. $nid,//render($render),
+    'media_ref' => $media_ref,
+  );
+  drupal_json_output($response);
 }
 
 /*

@@ -167,6 +167,16 @@ function checkdesk_css_alter(&$css) {
   if ($language->direction == LANGUAGE_RTL) {
     unset($css['sites/all/themes/checkdesk/assets/css/style.css']);
   }
+  // keep css for some modules
+  $keep_css = array(
+    'misc/ui/jquery.ui.theme.css',
+  );
+  $restore_css = array();
+  foreach ($keep_css as $k) {
+    if (isset($css[$k])) {
+      $restore_css[$k] = $css[$k];
+    }
+  }
   // Excludes from .info
   $excludes = _checkdesk_alter(checkdesk_theme_get_info('exclude'), 'css');
 
@@ -174,6 +184,8 @@ function checkdesk_css_alter(&$css) {
   foreach ($css as $path => $data) {
     if (preg_match("/^($pattern)/", $path)) unset($css[$path]);
   }
+  // add css again to $css
+  $css = $css + $restore_css;
 }
 
 /**

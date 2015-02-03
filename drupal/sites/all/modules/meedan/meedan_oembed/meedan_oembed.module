@@ -218,14 +218,9 @@ function meedan_oembed_add_extra_information(&$embed) {
  */
 function meedan_oembed_node_load($nodes, $types) {
   foreach ($nodes as $nid => $node) {
-    if ($node->type != 'media') {
-      continue;
+    if ($node->type == 'media' && isset($node->field_link[LANGUAGE_NONE][0]['url'])) {
+      $nodes[$nid]->embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
     }
-    if (!isset($node->field_link) || !isset($node->field_link[LANGUAGE_NONE]) || !isset($node->field_link[LANGUAGE_NONE][0])) {
-      continue;
-    }
-
-    $nodes[$nid]->embed = meedan_oembed_data($node->field_link[LANGUAGE_NONE][0]['url']);
   }
 }
 

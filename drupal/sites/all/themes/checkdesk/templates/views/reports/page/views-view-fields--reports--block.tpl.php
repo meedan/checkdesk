@@ -2,10 +2,9 @@
 	// determine what kind of media it is
 	$url = $fields['source_url']->raw;
 	$url = parse_url($url);
-	$media_type = $url['host'];
-	$media_type_class = str_replace('.', '_', $media_type);
+	$media_host_class = isset($url['host']) ? str_replace('.', '_', $url['host']) : '';
 ?>
-<div class="report-row-container <?php print $media_type_class; ?>" id="report-<?php print $fields['nid']->raw; ?>">
+<div class="report-row-container <?php print $media_type_class; ?>  <?php print $media_host_class; ?>" id="report-<?php print $fields['nid']->raw; ?>">
 	<div class="report-content">
 		<?php print $fields['field_link']->content; ?>
 	</div>

@@ -1,0 +1,18 @@
+// Some list helpers
+%u-unstyled {
+  margin: 0;
+  list-style: none;
+}
+
+// Remove margin and bullets from lists.
+.u-unstyled {
+    @extend %u-unstyled;
+}
+
+// List of inline items
+.inline-list {
+    @extend %u-unstyled;
+}
+.inline-list__item {
+    display: inline-block; // Prevent linebreak within an item
+}

@@ -30,9 +30,11 @@
 //
 
 @mixin form-actions {
-  .form-actions {
-    margin-top: $gutter-width;
-    border-top: 0px none;
+  div.form-actions {
+    @include ctb-clearfix;
+    margin: $absolute-line-height 0;
+    border-top: 1px solid $firefly10;
+    padding-top: $absolute-line-height;
     input, a {
       @include checkdesk-button(rgba($firefly, 0.4));
       &:hover {
@@ -70,26 +72,26 @@
   // hide labels for forms with ife
   &.ife {
     label {
-      display: none;
+      // display: none;
     }
     .form-type-checkbox, .form-type-radio {
       label {
-        display: inline-block;
+        // display: inline-block;
       }
     }
     // unless it is a select field
     .form-type-select {
       @include ctb-clearfix;
       label {
-        display: inline-block;
-        float: $alpha;
+        // display: inline-block;
+        // float: $alpha;
         margin-#{$omega}: $gutter-width;
         line-height: $absolute-line-height;
         padding-top: $absolute-line-height/3;
       }
       select {
-        float: $alpha;
-        @include span-columns($container-width/2);
+        // float: $alpha;
+        // @include span-columns($container-width/2);
         padding: 0;
       }
     }
@@ -248,7 +250,7 @@
       line-height: $base-line-height;
       background-color: $input-background;
       border: 1px solid $grey;
-      margin-top: $gutter-width;
+      // margin-top: $gutter-width;
 
       // focus state
       &:focus {
@@ -285,10 +287,9 @@
     // Default labels
     label {
       font-size: $small-font-size;
-      display: inline-block;
       font-weight: normal;
-      padding { top: $gutter-width; bottom: $gutter-width; }
-
+      padding { top: $gutter-width; bottom: 0; }
+      color: $firefly80;
       &[for="edit-pass"] {
         a  {
           padding: $gutter-width;
@@ -304,6 +305,10 @@
       font-size: $small-font-size !important;
       color: $firefly30 !important;
       width: 100%;
+    }
+
+    .nodescription .description {
+      display: none;
     }
 
     // little links: create new account, forgot password 
@@ -392,11 +397,20 @@
       }
 
       .image-widget-data {
-        display: inline-block;
+        width: 100%;
+      }
+
+      // hide the text/tooltip 
+      .image-widget-data input[type='file'] {
+        // color: transparent;
+      }
+
+      .image-widget-data input[type="submit"] {
+        margin-bottom: 0;
       }
 
       .text-format-wrapper label {
-        display: inline;
+        // display: inline;
       }
 
       .cke_contents {
@@ -406,17 +420,24 @@
       input[type="file"] {
         @include reset-box-model;
         display: inline-block;
-        margin-#{$omega}: $gutter-width;
-        padding: 0 $gutter-width;
+        width: 100%;
+        // margin-#{$omega}: $gutter-width;
+        @include box-sizing(border-box);
+        padding: $absolute-line-height/2 $gutter-width;
         background-color: $firefly5;
         @include cd-sans-serif-family;
         font-size: $small-font-size;
         vertical-align: middle;
         @include border-radius(3px);
+        height: auto;
+        line-height: 1;
+
       }
 
       input[type="submit"] {
-        margin-bottom: $absolute-line-height/2;
+        display: inline-block;
+        @include checkdesk-button(rgba($gray, 0.6));
+        margin: $absolute-line-height/2 0;
         margin-#{$omega}: 0;
       }
     }
@@ -429,7 +450,7 @@
       @include cd-sans-serif-family;
     }
 
-    div.form-wrapper {
+    .form-wrapper {
       clear: both;
       // @include span-columns($w, $w);
       margin: $absolute-line-height/2 0;
