@@ -91,7 +91,9 @@
           editor.on('change', function(ev) {
             var data = editor.getData();
             $.each(editor.checkdeskReports, function(nid, ref) {
-              if (-1 !== data.indexOf(ref)) {
+                //check if ref exist return wrong value if contain EN+AR
+                // Ticket #3404 - changed to check with last part of ref ":report-id]"
+              if (-1 !== data.indexOf(":" + nid + "]")) {
                 // report is there: hide in sidebar.
                 $('#report-'+nid).parent().hide();
               } else {
