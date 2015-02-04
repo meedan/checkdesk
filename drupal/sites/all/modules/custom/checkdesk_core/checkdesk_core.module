@@ -3333,8 +3333,13 @@ function _checkdesk_get_stories_by_activity() {
 /**
  * Delete update activity when user change story for existing one
  */
-function _checkdesk_delete_update_activity($node) {
-  $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+function _checkdesk_delete_heartbeat_activity ($node) {
+  if ($node->type == 'post') {
+    $story_nid = $node->field_desk[LANGUAGE_NONE][0]['target_id'];
+  }
+  else {
+    $story_nid = $node->field_stories[LANGUAGE_NONE][0]['target_id'];
+  }
   $uaids = db_query('
             SELECT uaid FROM {heartbeat_activity} WHERE nid = :nid AND nid_target = :nid_target
           ', array(':nid' => $node->nid, ':nid_target' => $story_nid))->fetchCol();

@@ -38,7 +38,7 @@ function checkdesk_core_feature_default_rules_configuration() {
           }
         },
         { "checkdesk_core_actions_set_followers" : { "node" : [ "node:field-desk" ] } },
-        { "php_eval" : { "code" : "_checkdesk_delete_update_activity($node_unchanged);" } }
+        { "php_eval" : { "code" : "_checkdesk_delete_heartbeat_activity($node_unchanged);" } }
       ]
     }
   }');
@@ -146,12 +146,15 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler" ],
-      "ON" : { "node_update" : [] },
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "checkdesk_core", "php" ],
+      "ON" : { "node_update--media" : { "bundle" : "media" } },
       "IF" : [
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
-        { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_stories" } },
-        { "php_eval" : { "code" : "$obj = entity_metadata_wrapper(\\u0027node\\u0027, $node);\\r\\n$new = array();\\r\\n$values = $obj-\\u003Efield_stories-\\u003Evalue();\\r\\nforeach ($values as $value) {\\r\\n  $new[] = $value-\\u003Enid;\\r\\n}\\r\\n$obj = entity_metadata_wrapper(\\u0027node\\u0027, $node_unchanged);\\r\\n$old = array();\\r\\n$values = $obj-\\u003Efield_stories-\\u003Evalue();\\r\\nforeach ($values as $value) {\\r\\n  $old[] = $value-\\u003Enid;\\r\\n}\\r\\n$diff = array_diff($new, $old);\\r\\nreturn count($diff) \\u003E 0;" } }
+        { "NOT data_is_empty" : { "data" : [ "node:field-stories:nid" ] } },
+        { "NOT data_is" : {
+            "data" : [ "node-unchanged:field-stories:nid" ],
+            "value" : [ "node:field-stories:nid" ]
+          }
+        }
       ],
       "DO" : [
         { "heartbeat_activity_checkdesk_report_suggested_to_story" : {
@@ -174,7 +177,9 @@ function checkdesk_core_feature_default_rules_configuration() {
             "param_list_item" : [ "node:field-stories" ],
             "param_current_user" : [ "site:current-user" ]
           }
-        }
+        },
+        { "checkdesk_core_actions_set_followers" : { "node" : [ "node:field-stories" ] } },
+        { "php_eval" : { "code" : "_checkdesk_delete_heartbeat_activity($node_unchanged);" } }
       ]
     }
   }');
@@ -919,13 +924,9 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "rules", "php", "heartbeat_rules", "rules_scheduler", "checkdesk_core" ],
-      "ON" : { "node_insert" : [] },
-      "IF" : [
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "media" : "media" } } } },
-        { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_stories" } },
-        { "php_eval" : { "code" : "$obj = entity_metadata_wrapper(\\u0027node\\u0027, $node);\\r\\n$field = $obj-\\u003Efield_stories-\\u003Evalue();\\r\\nreturn count($field) \\u003E 0;" } }
-      ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "checkdesk_core" ],
+      "ON" : { "node_insert--media" : { "bundle" : "media" } },
+      "IF" : [ { "NOT data_is_empty" : { "data" : [ "node:field-stories:nid" ] } } ],
       "DO" : [
         { "heartbeat_activity_checkdesk_report_suggested_to_story" : {
             "nid" : "[node:nid]",
