@@ -9,6 +9,39 @@
  */
 function checkdesk_core_feature_default_rules_configuration() {
   $items = array();
+  $items['checkdesk_core_feature_update_an_update'] = entity_import('rules_config', '{ "checkdesk_core_feature_update_an_update" : {
+      "LABEL" : "Update an update",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "checkdesk" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "checkdesk_core", "php" ],
+      "ON" : { "node_update--post" : { "bundle" : "post" } },
+      "IF" : [
+        { "NOT data_is" : {
+            "data" : [ "node-unchanged:field-desk:nid" ],
+            "value" : [ "node:field-desk:nid" ]
+          }
+        }
+      ],
+      "DO" : [
+        { "heartbeat_activity_checkdesk_new_update_on_story_i_commented_on_update" : {
+            "nid" : [ "node:nid" ],
+            "uid" : [ "node:author:uid" ],
+            "nid_target" : [ "node:field-desk:nid" ],
+            "uid_target" : "0",
+            "message_id" : { "value" : { "checkdesk_new_update_on_story_i_commented_on_update" : "checkdesk_new_update_on_story_i_commented_on_update" } },
+            "!user_url" : [ "node:author:url" ],
+            "!username" : [ "node:author:name" ],
+            "!update_url" : [ "node:url" ],
+            "!story_url" : [ "node:field-desk:url" ],
+            "!story" : [ "node:field-desk:title" ]
+          }
+        },
+        { "checkdesk_core_actions_set_followers" : { "node" : [ "node:field-desk" ] } },
+        { "php_eval" : { "code" : "_checkdesk_delete_update_activity($node_unchanged);" } }
+      ]
+    }
+  }');
   $items['rules_comment_deleted'] = entity_import('rules_config', '{ "rules_comment_deleted" : {
       "LABEL" : "Comment deleted",
       "PLUGIN" : "reaction rule",
