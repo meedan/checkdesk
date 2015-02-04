@@ -310,3 +310,12 @@ function checkdesk_core_update_7036() {
     }
   }
 }
+
+/**
+ * Disable and uninstall services module
+ */
+function checkdesk_core_update_7037() {
+  $module_list = array('services_views', 'services');
+  module_disable($module_list, FALSE);
+  drupal_uninstall_modules($module_list, FALSE);
+}
