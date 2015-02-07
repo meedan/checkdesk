@@ -5264,6 +5264,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .media-content .description a:hover {
   color: #101b2e;
 }
+.media-holder .media-content .description p {
+  margin-bottom: 8px;
+}
+.media-holder .media-content .description p:last-child {
+  margin-bottom: 0;
+}
 .media-holder .media-content .description .show-more {
   padding-right: 7.5px;
 }

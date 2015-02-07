@@ -30,6 +30,12 @@
 			color: $firefly60;
 			margin-top: 0;
 			a { @include ctb-linkColor($strongBlue80); }
+			p { 
+				margin-bottom: $absolute-line-height/3;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
 			.show-more { padding-#{$from-direction}: $gutter-width/2; }
 		}
 

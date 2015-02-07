@@ -33,7 +33,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
   }
   // Media description
   if(isset($node->body['und'][0]['value'])) {
-    $vars['media_description'] = $node->body['und'][0]['value'];
+    $vars['media_description'] = check_markup($node->body['und'][0]['value'], 'filtered_html');
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
@@ -87,7 +87,7 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
   }
   // Media description
   if(isset($node->body['und'][0]['value'])) {
-    $vars['media_description'] = $node->body['und'][0]['value'];
+    $vars['media_description'] = check_markup($node->body['und'][0]['value'], 'filtered_html');
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {
@@ -142,7 +142,7 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
   }
   // Media description
   if(isset($node->body['und'][0]['value'])) {
-    $vars['media_description'] = $node->body['und'][0]['value'];
+    $vars['media_description'] = check_markup($node->body['und'][0]['value'], 'filtered_html');
   }
   // Set favicon 
   if (isset($embed->favicon_link)) {

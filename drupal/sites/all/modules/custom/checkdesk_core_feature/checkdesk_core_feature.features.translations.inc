@@ -3739,6 +3739,14 @@ Story "!title" which you followed has a <a href="!url">new update</a>.',
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['16356638a5eda6ffe47028f13974b764'] = array(
+    'source' => 'Add \'@term\' as a tag',
+    'context' => '',
+    'location' => '',
+    'translation' => 'أضف \'@term\' كمصطلح',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['1645b18382afc99783c533803a982114'] = array(
     'source' => 'Disable text format',
     'context' => '',
