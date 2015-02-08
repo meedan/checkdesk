@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Views nodejs integration module.
+ */
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function views_nodejs_preprocess_views_view(&$vars) {
+  $view = $vars['view'];
+  // Send identifying data about this view.
+  if (empty($view->is_attachment) && empty($view->live_preview)) {
+    $settings = array(
+      'viewsNodejs' => array(
+        'ajax_path' => url('views/ajax'),
+        'views' => array(
+          'views_dom_id:' . $vars['dom_id'] => array(
+            'href' => url(current_path(), array('query' => drupal_get_query_parameters())),
+            'settings' => array(
+              'view_name' => $view->name,
+              'view_display_id' => $view->current_display,
+              'view_args' => check_plain(implode('/', $view->args)),
+              'view_path' => check_plain(current_path()),
+              'view_base_path' => $view->get_path(),
+              'view_dom_id' => $vars['dom_id'],
+              'pager_element' => isset($view->query->pager) ? $view->query->pager->get_pager_id() : 0,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    // Send view settings to js.
+    drupal_add_js($settings, 'setting');
+
+    // Add js for proper work Views with nodejs.
+    $folder = drupal_get_path('module', 'views_nodejs');
+    drupal_add_js($folder . '/js/views_nodejs.js');
+    views_add_js('ajax_view');
+
+    // Enable channel for current view.
+    nodejs_send_content_channel_token('views_nodejs_' . $view->name . $view->current_display);
+  }
+}
