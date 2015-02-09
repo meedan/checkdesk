@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Update meedan_sensitive_content weight.
+ */
+function meedan_sensitive_content_update_7000() {
+  db_update('system')
+    ->fields(array(
+      'weight' => 8,
+    ))
+    ->condition('name', 'meedan_sensitive_content')
+    ->execute();
+}

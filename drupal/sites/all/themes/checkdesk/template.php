@@ -50,8 +50,7 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     }
     // Media description
     if(isset($node->body[LANGUAGE_NONE][0]['value'])) {
-      $body_data = field_view_field('node', $node, 'body');
-      $variables['media_description'] = render($body_data);
+      $variables['media_description'] = check_markup($node->body[LANGUAGE_NONE][0]['value'], 'filtered_html');
     }
     // Set favicon
     if (isset($embed->favicon_link)) {
