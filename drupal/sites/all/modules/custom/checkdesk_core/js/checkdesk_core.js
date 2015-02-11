@@ -55,9 +55,9 @@
           // Either insert the text into CKEDITOR, if available, else directly
           // into the text editor.
           if (typeof CKEDITOR != 'undefined' && CKEDITOR.instances[$textarea.attr('id')]) {
-            //var mediaoembed_template = '<span class="test" datasource="12523">' + data.droppable_ref + '</span>';
             instance = CKEDITOR.instances[$textarea.attr('id')];
-            instance.insertHtml(data.droppable_ref);
+            var mediaoembed_template = '<md class="tagMediaOembedClass" datasource="'+ data.nid +'">' + data.droppable_ref + '</md>';
+            instance.insertHtml(mediaoembed_template);
             // add newline.
             instance.execCommand( 'enter' );
             // remember the inserted report.
@@ -91,7 +91,9 @@
           editor.on('change', function(ev) {
             var data = editor.getData();
             $.each(editor.checkdeskReports, function(nid, ref) {
-              if (-1 !== data.indexOf(ref)) {
+                //check if ref exist return wrong value if contain EN+AR
+                // Ticket #3404 - changed to check with last part of ref ":report-id]"
+              if (-1 !== data.indexOf(":" + nid + "]")) {
                 // report is there: hide in sidebar.
                 $('#report-'+nid).parent().hide();
               } else {

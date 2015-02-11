@@ -9,20 +9,20 @@ CKEDITOR.plugins.add('mediaoembed', {
     label: Drupal.t('Media Oembed'),
     command: 'mediaoembed',
     icon : this.path + 'icon-mediaoembed.png',
-  }); 
+  });
 
   // Register the widget.
   editor.widgets.add( 'mediaoembed', {
     // This will be inserted into the editor if the button is clicked.
-    template: '<span class="tagSpecialClass" datasource="12515">Add content here</span>',
+    template: '<md class="tagMediaOembedClass" datasource="0"></md>',
     // A rule for ACF, which permits span.tagSpecialClass in this editor.
-    allowedContent: 'span(tagSpecialClass)',
-    
+    allowedContent: 'md(tagMediaOembedClass)[!datasource];iframe span img div(*)[*]',
+
     // When editor is initialized, this function will be called
     // for every single element. If element matches, it will be
     // upcasted as a "mediaoembed".
     upcast: function( el ) {
-      return el.name == 'span' && el.hasClass( 'tagSpecialClass' );
+      return el.name == 'md' && el.hasClass( 'tagMediaOembedClass' );
     },
 
     // This is what happens with existing widget, when
@@ -39,7 +39,7 @@ CKEDITOR.plugins.add('mediaoembed', {
     init: function() {
       //console.log(this.element);
       var datasource = this.element.getAttribute('datasource');
-      if (datasource) {
+      if (datasource > 0) {
         var mediapreview = this.element;
         jQuery.ajax({
           url: Drupal.settings.basePath + Drupal.settings.pathPrefix + 'checkdesk/media-widget/' + datasource,

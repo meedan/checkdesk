@@ -189,8 +189,7 @@
     }
     p {
       margin: 0 0 $absolute-line-height/2.4 0;
-      // max-width: 585px; // roughly avg. 64 characters per line
-      &:first-child {
+      &:last-child {
         margin: 0 0;
       }
     }

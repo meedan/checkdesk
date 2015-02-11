@@ -5269,6 +5269,12 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 .media-holder .media-content .description a:hover {
   color: #101b2e;
 }
+.media-holder .media-content .description p {
+  margin-bottom: 8px;
+}
+.media-holder .media-content .description p:last-child {
+  margin-bottom: 0;
+}
 .media-holder .media-content .description .show-more {
   padding-left: 7.5px;
 }
@@ -8751,7 +8757,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
 .story .story-body p {
   margin: 0 0 10px 0;
 }
-.story .story-body p:first-child {
+.story .story-body p:last-child {
   margin: 0 0;
 }
 .story .story-body > ul, .story .story-body > ol {
