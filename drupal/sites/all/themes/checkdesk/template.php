@@ -251,7 +251,7 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($variables['main_menu'] as $id => $item) {
       if ($item['link_path'] == 'node/add/media') {
         $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
-        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1))) {
+        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1)) && $variables['node']->type == 'discussion') {
           $variables['main_menu'][$id]['query'] = array('ref_nid' => arg(1));
         }
       }
@@ -260,7 +260,7 @@ function checkdesk_preprocess_page(&$variables) {
       }
       else if ($item['link_path'] == 'node/add/post') {
         $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
-        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1))) {
+        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1)) && $variables['node']->type == 'discussion') {
           $variables['main_menu'][$id]['query'] = array('story' => arg(1));
         }
       }
