@@ -572,10 +572,12 @@ function checkdesk_preprocess_node(&$variables) {
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
     }
     $variables['follow_story'] = $follow_story;
+
+    // Collaboration header for story.
+    $variables['story_links'] = _checkdesk_story_links($variables['nid']);
+    $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+
     if($variables['view_mode'] == 'checkdesk_collaborate') {
-      // Collaboration header for story.
-      $variables['story_links'] = _checkdesk_story_links($variables['nid']);
-      $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
       // Get heartbeat activity for particular story
       $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
     }
