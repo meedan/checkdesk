@@ -8609,12 +8609,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   visibility: hidden;
 }
 
-.updates {
-  margin-top: 12px;
-}
 .updates .update-row {
   margin-bottom: 24px;
-  border-top: 2px solid #cfd3d5;
+  border-top: 1px solid rgba(16, 33, 47, 0.1);
 }
 .updates .update-row .update-info {
   width: 20.56738%;
@@ -8623,9 +8620,9 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   display: inline;
   font-family: "Droid Arabic Naskh", serif;
   color: #cfd3d5;
-  border-top: 4px solid #cfd3d5;
+  border-top: 2px solid rgba(16, 33, 47, 0.1);
   margin-bottom: 24px;
-  padding-top: 15px;
+  padding-top: 20px;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 14px;
@@ -8887,8 +8884,10 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   display: table;
   width: 100%;
   table-layout: fixed;
-  border-bottom: 1px solid rgba(16, 33, 47, 0.1);
   padding-bottom: 15px;
+}
+body.page-story-collaboration .story .story-collaboration-header-wrapper {
+  border-bottom: 1px solid rgba(16, 33, 47, 0.1);
 }
 .story .story-collaboration-header-wrapper > div {
   display: table-cell;
