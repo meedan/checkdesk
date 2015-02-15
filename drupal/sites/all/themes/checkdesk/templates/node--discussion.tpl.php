@@ -43,12 +43,14 @@
     </div>
 
     <!-- collaboration -->
-    <div class="story-collaboration-header-wrapper">
-      <?php print $story_links; ?>
-      <?php if(isset($story_collaborators)) { ?>    
-         <?php print $story_collaborators; ?>
-      <?php  } ?>
-    </div>
+    <?php if($story_links) { ?>
+      <div class="story-collaboration-header-wrapper">
+        <?php print $story_links; ?>
+        <?php if(isset($story_collaborators)) { ?>    
+           <?php print $story_collaborators; ?>
+        <?php } ?>
+      </div>
+    <?php } ?>
 
     <?php if (isset($updates)) { ?>
       <div class="story-updates-wrapper">
