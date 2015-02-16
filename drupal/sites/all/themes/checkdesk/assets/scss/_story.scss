@@ -206,63 +206,39 @@
     margin-top: 30px;
     margin-bottom: 20px;
     color: $thatch;
-    a { 
-      @include ctb-linkColor($thatch); 
+    a {
+      @include ctb-linkColor($thatch);
       text-decoration: none;
-      &:hover {
-        @include ctb-bg($firefly5, rgba($firefly, 0.05));
-      }
     }
-    font-weight: 700; 
+
+    a:first-child { 
+      float: $from-direction;
+      font-size: 18px;
+      font-weight: 700;
+    }
     
     a.flag-action {
       @include icon("plus");
       &:before, &:after { 
         margin: 0 0 0 0;
         margin-#{$omega}: 7.5px;
-        font-size: 17px; 
       }
     }
+    
     a.unflag-action {
       @include icon("minus");
       &:before, &:after { 
         margin: 0 0 0 0;
         margin-#{$omega}: 7.5px;
-        font-size: 17px; 
       }
     }
-    .flag, .follow-count {
-      padding: 4px 10px;
-      border: 1px solid rgba($firefly, 0.1);
-    }
-    .flag {
-      float: $from-direction;
-      border: 1px solid rgba($firefly, 0.1);
-      @if $from-direction == left {
-        @include border-radius(4px 0 0 4px);
-      } @else {
-        @include border-radius(0 4px 4px 0);
-      }
-      font-size: 17px;
-      line-height: 28px;
-      vertical-align: middle;
-    }
+
     .follow-count {
       float: $from-direction;
-      font-size: 18px;
-      line-height: 28px;
-      @if $from-direction == left {
-        @include border-radius(0 4px 4px 0);
-      } @else {
-        @include border-radius(4px 0 0 4px);
-      }
-      
-      vertical-align: middle;
-      border-#{$alpha}: 0 none;
-      @if $from-direction == right {
-        min-height: 30px;
-      }
+      margin-#{$from-direction}: $gutter-width;
     }
+
+
   }
 
   .story-tabs-wrapper {
