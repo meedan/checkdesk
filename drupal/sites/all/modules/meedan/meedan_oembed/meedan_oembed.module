@@ -161,8 +161,6 @@ function meedan_oembed_data($url, $attributes = array(), $retry_if_error = FALSE
       $embed = (object) $embed;
       unset($embed->scalar);
 
-
-      dsm($embed);
       $url_info = parse_url($url);
 
       $embed->type          = 'link';
@@ -336,6 +334,7 @@ function meedan_oembed_preprocess_oembed(&$vars, $hook) {
         'attributes' => $vars['title_attributes_array'],
         'html' => TRUE,
       );
+
       $vars['thumbnail_url'] = isset($embed->thumbnail_url) ? $embed->thumbnail_url : '';
     }
     $vars['provider_name'] = $embed->provider_name;
