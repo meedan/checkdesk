@@ -484,7 +484,7 @@ function checkdesk_preprocess_node(&$variables) {
   // get $alpha and $omega
   $variables['layout'] = checkdesk_core_direction_settings();
 
-  if($variables['view_mode'] == 'checkdesk_collaborate') {
+  if($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'checkdesk_search') {
     if ($variables['type'] == 'media') {
       $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
       $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
@@ -498,6 +498,7 @@ function checkdesk_preprocess_node(&$variables) {
     $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
     $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $message_id;
   }
+
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
@@ -527,15 +528,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
     ));
-    $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
-      '@user' => url('user/'. $variables['uid']),
-      '!user' => $node->name,
-    ));
-    $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
-      '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
-      '!interval' => format_interval((time() - $variables['created']), 1),
-    ));
+
     $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
@@ -545,8 +538,22 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if($variables['type'] == 'post') {
+      $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
+          '@user' => url('user/'. $variables['uid']),
+          '!user' => $node->name,
+      ));
+      $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
+          '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+          '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+          '!interval' => format_interval((time() - $variables['created']), 1),
+      ));
     $user = user_load($variables['uid']);
     $variables['user_avatar'] = _set_user_avatar_bg($user, array('avatar', 'thumb-22'));
+    if (isset($variables['title'])) {
+        if ($variables['title'] === _checkdesk_core_auto_title($node) || $variables['title'] === t('Update')) {
+            unset($variables['title']);
+        }
+    }
   }
 
   if ($variables['type'] == 'discussion') {
@@ -612,11 +619,7 @@ function checkdesk_preprocess_node(&$variables) {
 
   }
 
-  if ($variables['type'] == 'post' && isset($variables['title'])) {
-    if ($variables['title'] === _checkdesk_core_auto_title($node) || $variables['title'] === t('Update')) {
-      unset($variables['title']);
-    }
-  }
+
 
   $variables['icon'] = '';
 

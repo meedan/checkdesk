@@ -477,6 +477,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
         ),
         'flag_factcheck_journalist' => array(
           'checkdesk_collaborate' => array(
@@ -496,6 +500,10 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
             'weight' => '10',
             'visible' => TRUE,
           ),
@@ -521,6 +529,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
         ),
         'flag_graphic' => array(
           'checkdesk_collaborate' => array(
@@ -540,6 +552,10 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
             'weight' => '10',
             'visible' => TRUE,
           ),
@@ -565,6 +581,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
         ),
         'flag_delete' => array(
           'checkdesk_collaborate' => array(
@@ -584,6 +604,10 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'meedan_oembed' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
             'weight' => '10',
             'visible' => TRUE,
           ),
