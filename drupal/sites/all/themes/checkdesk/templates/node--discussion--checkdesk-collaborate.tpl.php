@@ -42,17 +42,19 @@
     </div>
     
     <!-- collaboration -->
-    <div class="story-collaboration-header-wrapper">
-      <?php print $story_links; ?>
-      <?php if(isset($story_collaborators)) { ?>    
-         <?php print $story_collaborators; ?>
-      <?php  } ?>
-    </div>
+    <?php if($story_links) { ?>
+      <div class="story-collaboration-header-wrapper">
+        <?php print $story_links; ?>
+        <?php if(isset($story_collaborators)) { ?>    
+           <?php print $story_collaborators; ?>
+        <?php } ?>
+      </div>
+    <?php } ?>
 
     <div class="story-collaboration-activity-wrapper">
       <?php if(isset($story_collaboration)) { ?>    
         <?php print $story_collaboration; ?>
-      <?php  } ?>
+      <?php } ?>
     </div>
 
     <aside class="story-footer">

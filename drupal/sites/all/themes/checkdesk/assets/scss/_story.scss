@@ -46,18 +46,17 @@
 
 // "Published" updates
 .updates {
-  margin-top: $absolute-line-height/2;
   .update-row {
     margin-bottom: $base-line-height;
-    border-top: 2px solid $firefly20;
+    border-top: 1px solid rgba($firefly, 0.1);
 
     .update-info {
       @include span-columns(4);
       @include cd-sans-serif-family;
       color: $firefly20;
-      border-top: 4px solid $firefly20;
+      border-top: 2px solid rgba($firefly, 0.1);
       margin-bottom: $absolute-line-height;
-      padding-top: $absolute-line-height/1.6;
+      padding-top: $absolute-line-height/1.2;
       text-transform: uppercase;
       font-weight: 700;
       font-size: modular-scale(0) - modular-scale(-3); // 14px
@@ -82,29 +81,9 @@
   text-align: $alpha;
   margin-bottom: $absolute-line-height/2;
 
-  // #story-actions {
-  //   ul.content-actions {
-  //     @include reset-box-model;
-  //     @include reset-list-style;
-  //     display: block;
-  //     @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
-  //     @include border-radius(4px);
-  //     padding: $absolute-line-height/4 $gutter-width;
-  //     margin-bottom: $absolute-line-height/2;
-  //     li {
-  //       display: inline-block;
-  //       a {
-  //         @include checkdesk-button($grayLight);
-  //         @include button-size(13px);
-  //       }
-  //     }
-  //   }
-  // }
-
   figure {
     margin-bottom: 30px;
     blockquote {
-      // p { @include icon("camera"); }
       border: 0 none;
       color: $firefly40;
       font-size: 16px;
@@ -118,14 +97,14 @@
   h1 {
     font-style: normal;
     @if $from-direction == 'right' {
-      font-size: 40px;
-      line-height: 60px;
+      font-size: 38px;
+      line-height: 58px;
     }
     
     @if $from-direction == 'left' {
-      font-size: 42px;
-      letter-spacing: -1.68px;
-      line-height: 52px;
+      font-size: 40px;
+      letter-spacing: -1.48px;
+      line-height: 50px;
     }
     
     color: $firefly90;
@@ -180,12 +159,12 @@
     color: $firefly80;
     @include cd-serif-family;
     font-size: 18px;
-    line-height: 30px;
+    line-height: 28px;
     font-weight: normal;
     font-weight: 400;
     word-wrap: break-word;
     @if $from-direction == left {
-      letter-spacing: -0.5px;
+      letter-spacing: -0.45px;
     }
     p {
       margin: 0 0 $absolute-line-height/2.4 0;
@@ -207,63 +186,39 @@
     margin-top: 30px;
     margin-bottom: 20px;
     color: $thatch;
-    a { 
-      @include ctb-linkColor($thatch); 
+    a {
+      @include ctb-linkColor($thatch);
       text-decoration: none;
-      &:hover {
-        @include ctb-bg($firefly5, rgba($firefly, 0.05));
-      }
     }
-    font-weight: 700; 
+
+    a:first-child { 
+      float: $from-direction;
+      font-size: 18px;
+      font-weight: 700;
+    }
     
     a.flag-action {
       @include icon("plus");
       &:before, &:after { 
         margin: 0 0 0 0;
         margin-#{$omega}: 7.5px;
-        font-size: 17px; 
       }
     }
+    
     a.unflag-action {
       @include icon("minus");
       &:before, &:after { 
         margin: 0 0 0 0;
         margin-#{$omega}: 7.5px;
-        font-size: 17px; 
       }
     }
-    .flag, .follow-count {
-      padding: 4px 10px;
-      border: 1px solid rgba($firefly, 0.1);
-    }
-    .flag {
-      float: $from-direction;
-      border: 1px solid rgba($firefly, 0.1);
-      @if $from-direction == left {
-        @include border-radius(4px 0 0 4px);
-      } @else {
-        @include border-radius(0 4px 4px 0);
-      }
-      font-size: 17px;
-      line-height: 28px;
-      vertical-align: middle;
-    }
+
     .follow-count {
       float: $from-direction;
-      font-size: 18px;
-      line-height: 28px;
-      @if $from-direction == left {
-        @include border-radius(0 4px 4px 0);
-      } @else {
-        @include border-radius(4px 0 0 4px);
-      }
-      
-      vertical-align: middle;
-      border-#{$alpha}: 0 none;
-      @if $from-direction == right {
-        min-height: 30px;
-      }
+      margin-#{$from-direction}: $gutter-width;
     }
+
+
   }
 
   .story-tabs-wrapper {
@@ -303,7 +258,9 @@
     display: table;
     width: 100%;
     table-layout: fixed;
-    border-bottom: 1px solid rgba($firefly, 0.1);
+    body.page-story-collaboration & { 
+      border-bottom: 1px solid rgba($firefly, 0.1);
+    }
     padding-bottom: 15px;
     & > div {
       display: table-cell;
@@ -625,9 +582,6 @@
       @include reset-box-model;
       font-size: 16px;
       @include cd-sans-serif-family;
-      @if $from-direction == 'right' {
-        font-size: $base-font-size;
-      }
       line-height: 1.3;
     }
     .story-desc {

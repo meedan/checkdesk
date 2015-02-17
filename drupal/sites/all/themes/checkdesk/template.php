@@ -572,10 +572,12 @@ function checkdesk_preprocess_node(&$variables) {
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
     }
     $variables['follow_story'] = $follow_story;
+
+    // Collaboration header for story.
+    $variables['story_links'] = _checkdesk_story_links($variables['nid']);
+    $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+
     if($variables['view_mode'] == 'checkdesk_collaborate') {
-      // Collaboration header for story.
-      $variables['story_links'] = _checkdesk_story_links($variables['nid']);
-      $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
       // Get heartbeat activity for particular story
       $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
     }
@@ -1173,44 +1175,6 @@ function _checkdesk_providers() {
   return $providers;
 }
 
-/**
- * Get status of a report
- */
-function _checkdesk_report_status($report) {
-  global $language;
-  $report_status = array();
-  $icon_class = '';
-  $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
-      $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
-      taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
-  $status_name = $term->name;
-
-  $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
-  if ($status_name == 'Verified') {
-    $icon_class = 'icon-check-circle';
-  }
-  elseif ($status_name == 'In Progress') {
-    $icon_class = 'icon-random';
-  }
-  elseif ($status_name == 'Undetermined') {
-    $icon_class = 'icon-question-circle';
-  }
-  elseif ($status_name == 'False') {
-    $icon_class = 'icon-times-circle';
-  }
-  $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
-  $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-  if($status_name != 'In Progress') {
-    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
-  }
-  // display status with an icon and "x by partner"
-  if(isset($status_name) && isset($icon) && isset($status_by)) {
-    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
-  } else { // display status with an icon only
-    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-  }
-  return $report_status;
-}
 
 /**
  * Theme function to render node-links - checkdesk style
