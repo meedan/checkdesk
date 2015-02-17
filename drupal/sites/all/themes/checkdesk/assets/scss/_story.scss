@@ -81,29 +81,9 @@
   text-align: $alpha;
   margin-bottom: $absolute-line-height/2;
 
-  // #story-actions {
-  //   ul.content-actions {
-  //     @include reset-box-model;
-  //     @include reset-list-style;
-  //     display: block;
-  //     @include ctb-bg(#fff, rgba(255, 255, 255, 0.6));
-  //     @include border-radius(4px);
-  //     padding: $absolute-line-height/4 $gutter-width;
-  //     margin-bottom: $absolute-line-height/2;
-  //     li {
-  //       display: inline-block;
-  //       a {
-  //         @include checkdesk-button($grayLight);
-  //         @include button-size(13px);
-  //       }
-  //     }
-  //   }
-  // }
-
   figure {
     margin-bottom: 30px;
     blockquote {
-      // p { @include icon("camera"); }
       border: 0 none;
       color: $firefly40;
       font-size: 16px;
@@ -117,14 +97,14 @@
   h1 {
     font-style: normal;
     @if $from-direction == 'right' {
-      font-size: 40px;
-      line-height: 60px;
+      font-size: 38px;
+      line-height: 58px;
     }
     
     @if $from-direction == 'left' {
-      font-size: 42px;
-      letter-spacing: -1.68px;
-      line-height: 52px;
+      font-size: 40px;
+      letter-spacing: -1.48px;
+      line-height: 50px;
     }
     
     color: $firefly90;
@@ -179,12 +159,12 @@
     color: $firefly80;
     @include cd-serif-family;
     font-size: 18px;
-    line-height: 30px;
+    line-height: 28px;
     font-weight: normal;
     font-weight: 400;
     word-wrap: break-word;
     @if $from-direction == left {
-      letter-spacing: -0.5px;
+      letter-spacing: -0.45px;
     }
     p {
       margin: 0 0 $absolute-line-height/2.4 0;
