@@ -172,6 +172,13 @@
       .oembed-title, .favicon, .domain, .author, .title, .title + div {
         display: none;
       }
+      
+      .oembed-video {
+        .oembed-content, .oembed-wrapper, iframe {
+          max-width: 271px !important;
+          max-height: 122px !important;
+        }
+      }
     }
 
   } // report content

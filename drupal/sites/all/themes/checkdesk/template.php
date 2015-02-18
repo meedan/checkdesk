@@ -42,6 +42,10 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // set provider class name
     $provider = strtolower(str_replace(' ', '_', $embed->provider_name));
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+    // set embed type as class name
+    $item_type = strtolower($node->embed->type);
+    $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
     // Set author name or provider name
     if(isset($embed->author_url) && isset($embed->author_name)) {
       $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
@@ -636,6 +640,13 @@ function checkdesk_preprocess_node(&$variables) {
     // set provider class name
     $provider = strtolower($node->embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+    // set status class name
+    $status = strtolower($node->field_rating['und'][0]['taxonomy_term']->name);
+    $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);
+    // set embed type as class name
+    $item_type = strtolower($node->embed->type);
+    $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
     //Add node creation info(author name plus creation time
     if($variables['view_mode'] == 'checkdesk_collaborate') {
       $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(

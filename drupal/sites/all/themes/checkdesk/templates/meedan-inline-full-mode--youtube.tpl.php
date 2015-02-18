@@ -1,7 +1,7 @@
 <div class="inline-attachment <?php print $provider_class_name; ?>">
   <div class="inline-attachment-wrapper">
     <div class="inline-attachment-bar"><div class="indent"></div></div>
-    <div class="media-holder media-inline-holder">
+    <div class="media-holder media-inline-holder<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
       <div class="media-content">
         <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
         <?php if(isset($media_description)) : ?><span class="description expandable"><?php print $media_description; ?></span><?php endif; ?>

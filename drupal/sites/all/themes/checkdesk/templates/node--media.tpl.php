@@ -1,10 +1,8 @@
 <section id="node-<?php print $node->nid; ?>" class="default-view-node-<?php print $node->nid; ?> item node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
-  <article class="report item <?php if (isset($status_class)) { print $status_class; } ?>">   
+  <article class="report item<?php if (isset($status_class)) { print ' ' . $status_class; } ?>">   
     <div class="item-wrapper">
-      <section class="media-holder item-content-wrapper">
-        <div class="media">
-          <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
-        </div>
+      <section class="media-holder item-content-wrapper<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
+        <?php if(isset($field_link_lazy_load)) { print $field_link_lazy_load; } ?>
       </section>
       <?php print $report_activity; ?>
       <?php if (!empty($published_stories)) : ?>
