@@ -573,7 +573,10 @@ function checkdesk_preprocess_node(&$variables) {
       $follow_story = flag_create_link('follow_story', $variables['nid']);
     }
     else {
+      $flag_count = flag_get_counts('node', $variables['nid']);
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+      // append count
+      $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
     }
     $variables['follow_story'] = $follow_story;
 
@@ -1106,7 +1109,10 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
     }
     else {
+      $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+      // append count
+      $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
     }
     $vars['follow_story'] = $follow_story;
   }
