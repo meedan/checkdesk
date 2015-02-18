@@ -959,8 +959,8 @@ function checkdesk_field__field_rating(&$variables) {
  * Field: Tags
  */
 function checkdesk_field__field_tags(&$variables) {
+  if ($variables['element']['#view_mode'] == 'full') {
   $type = $variables['element']['#bundle'];
-  
   if($type == 'media') {
     $alt_type = array(
       'singular' => 'report',
@@ -996,6 +996,7 @@ function checkdesk_field__field_tags(&$variables) {
   }
   $output .= '</ul></div></div></section>';
   return $output;
+  }
 }
 
 function checkdesk_fboauth_action__connect(&$variables) {

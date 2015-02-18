@@ -2,29 +2,24 @@
   <article class="story">
 
     <h1 class="title">
-      <?php print render($node->title); ?>
+      <?php print l(render($node->title), 'node/'. $node->nid); ?>
     </h1>
 
+    <?php //print submitted; ?>
+      <?php if (isset($content['field_tags'])) : ?>
+          <?php print render($content['field_tags']); ?>
+      <?php endif; ?>
 
-    <div class="story-meta">
-      <div class="story-attributes">
-        <?php if (isset($user_avatar)) : ?>
-          <?php print $user_avatar; ?>
-        <?php endif; ?>
-        <?php print $creation_info_short; ?>
-        <?php if (isset($story_commentcount)) { ?>
-        <div class="story-commentcount">
-          <a href="<?php print url('node/' . $node->nid, array('fragment' => 'story-comments-' . $node->nid)); ?>">
-            <span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
-          </a>
-        </div>
-      <?php } ?>
+      <div class="story-meta">
+          <div class="story-attributes">
+              <?php print $media_creation_info; ?>
+              <?php if (isset($story_commentcount)) : ?>
+                  <div class="story-commentcount">
+                      <span class="icon-comment-o"><?php print render($story_commentcount); ?></span>
+                  </div>
+              <?php endif; ?>
+          </div>
       </div>
-    </div>
-
-  	<div class="story-body">
-      <?php print render($content['body']); ?>
-    </div>
 
     <?php if(isset($content['field_lead_image'])) { ?>
       <figure>
@@ -32,32 +27,6 @@
       </figure>
     <?php } ?>
 
-
-    <aside class="story-footer">
-      <section class="cd-container cd-container--first">
-        <div clas="cd-container__inner">
-          <div class="story-updated-at pull-<?php print $layout['alpha']; ?>">
-            <span class="icon-clock-o"></span><span class="story-updated-at-text"><?php print t('Updated at ') . $updated_at; ?></span>
-          </div>
-          <?php if(isset($content['links']['checkdesk']['#links'])) { ?>
-            <div class="story-links pull-<?php print $layout['omega']; ?>">
-              <?php print render($content['links']); ?>
-            </div>
-          <?php } ?>
-        </div>
-      </section>
-        
-     <!-- tag list -->
-      <?php if (isset($content['field_tags'])) : ?>
-        <?php print render($content['field_tags']); ?>    
-      <?php endif; ?>
-
-    </aside>
-
-    <!-- story comments -->
-    <div class="story-comments" id="story-comments-<?php print $node->nid; ?>">
-      <?php if (isset($content['custom_comments'])) print render($content['custom_comments']); ?>
-    </div>
 
   </article>
 </section>
