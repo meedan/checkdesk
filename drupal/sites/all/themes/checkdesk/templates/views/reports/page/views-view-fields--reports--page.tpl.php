@@ -15,7 +15,7 @@
 			<span><?php print $name_i18n; ?></span>
 		</div>
 	<?php } ?>
-	<div class="report-detail-link"> Hello
+	<div class="report-detail-link">
 	   <?php print l(t('Details'), 'node/'. $fields['nid']->raw); ?>
 	</div>
 </div> 

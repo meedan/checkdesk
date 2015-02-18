@@ -11,7 +11,6 @@
 		</div>
 	<?php } ?>
 	<div class="report-detail-link">
-		hello
 		<?php
     //$link['attributes']['class'] = array('ctools-use-modal', 'ctools-modal-modal-popup-report');
     //$link['attributes']['data-toggle'] = 'dropdown';
