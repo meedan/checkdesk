@@ -7984,7 +7984,7 @@ print theme(\'views_autorefresh\', array(
     'source' => 'Follow story',
     'context' => '',
     'location' => '/ar/node/add/discussion',
-    'translation' => 'متابعة الموضوع',
+    'translation' => 'تابع الموضوع',
     'plid' => 0,
     'plural' => 0,
   );
@@ -12360,7 +12360,7 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'source' => 'Follow a story to stay up to date with the latest developments',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تابع الموضوع لمواكبة آخر الأحداث',
+    'translation' => 'تابع الموضوع للحصول على تنبيهات حول التحديثات الجديدة',
     'plid' => 0,
     'plural' => 0,
   );
