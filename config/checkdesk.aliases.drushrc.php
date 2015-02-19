@@ -1,17 +1,18 @@
 <?php
 $aliases['prod'] = array(
   'site-list' => array(
-    '@prod.7iber', 
-    '@prod.alayyam', 
-    '@prod.almasryalyoum', 
-    '@prod.annahar', 
-    '@prod.maan', 
-    '@prod.meedan', 
-    '@prod.weladelbalad', 
-    '@prod.thetribune', 
-    '@prod.madamasr', 
+    '@prod.7iber',
+    '@prod.alayyam',
+    '@prod.almasryalyoum',
+    '@prod.annahar',
+    '@prod.maan',
+    '@prod.meedan',
+    '@prod.weladelbalad',
+    '@prod.thetribune',
+    '@prod.madamasr',
     '@prod.smex',
-    '@prod.bellingcat'
+    '@prod.bellingcat',
+    '@prod.globalvoices',
   ),
 );
 // temporarily remove gv

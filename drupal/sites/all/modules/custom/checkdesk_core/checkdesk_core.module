@@ -3347,3 +3347,135 @@ function _checkdesk_delete_heartbeat_activity ($node) {
     heartbeat_activity_delete($uaids);
   }
 }
+
+/**
+ *
+ */
+function _checkdesk_story_links($nid) {
+  global $user;
+  $output = '';
+  if ($user->uid) {
+    $items = array();
+
+    $items[] = array(
+      'data' => l(t('Add a report'), 'node/add/media', array('query' => array('ref_nid' => $nid, drupal_get_destination()))),
+      'class' => array('submit-report'),
+    );
+
+    if (user_access('create post content')) {
+      $items[] = array(
+        'data' => l(t('Compose update'), 'node/add/post', array('query' => array('story' => $nid))),
+        'class' => array('compose-update'),
+      );
+    }
+    $output .= theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-collaborate-links')));
+  }
+
+  // Add tooltip for add a report.
+  if (isset($_SESSION['report_tooltip'])) {
+    $tour = array(
+      'title' => 'Submit Report',
+      'content' => 'Quickly add newsworthy links from social media. Then you can fact-check and publish them.',
+    );
+    $tooltip = '<span class="popover tour-tour fade right in collaboration-report-tooltip">';
+    $tooltip .= '  <div class="popover-arrow"></div>';
+    $tooltip .= '  <div class="popover-close" data-role="end" onclick="jQuery(this).parent().hide();"><span>[X]</span></div>';
+    $tooltip .= '  <h3><span class="popover-title">' . t($tour['title']) . '</span></h3>';
+    $tooltip .= '  <div class="popover-content">' . t($tour['content']) . '</div>';
+    $tooltip .= '</span>';
+    $output .= $tooltip;
+    unset($_SESSION['report_tooltip']);
+  }
+
+  return $output;
+}
+
+/**
+ * List story collaborators
+ *  @param story_nid
+ *
+ */
+function _checkdesk_story_get_collaborators($nid) {
+  $output = '';
+  //ToDO check node type
+  $users = db_query('
+    SELECT ha.uid, u.name, f.fid, f.uri
+    FROM {heartbeat_activity} ha
+    INNER JOIN {users} u ON ha.uid = u.uid
+    LEFT JOIN {file_managed} f ON u.picture = f.fid
+    WHERE nid_target = :nid AND message_id != :message_id
+    GROUP BY ha.uid
+    ORDER BY COUNT(ha.uid) DESC
+    ', array(':nid' => arg(1), ':message_id' => 'checkdesk_follow_story'))->fetchAll();
+  $total_users = count($users);
+  if ($total_users) {
+    $num_to_show = variable_get('collaborators_display_count', 3);
+    $title = format_plural($total_users, '1 collaborator', '@count collaborators');
+    $extra_users = $total_users > $num_to_show ? $total_users - $num_to_show : 0;
+    $uitems = $pitems = array();
+    if ($extra_users) {
+      $users = array_slice($users, 0, $num_to_show);
+    }
+    foreach ($users as $user) {
+      // split user name into first name and last
+      $fullname = explode(' ', $user->name);
+      $fname = array_shift($fullname);
+      $uitems[] = l($fname, 'user/'. $user->uid);
+      $avatar = _set_user_avatar_bg(user_load($user->uid));
+      if ($avatar) {
+        $pitems[] = $avatar;
+      }
+    }
+    $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems);
+    if ($extra_users) {
+      $output .= ' <span class="sc-extra-users">+ '. $extra_users .'</span>';
+    }
+    $output .= '</span>'; // closing sc-users
+    $output .= '<span class="sc-avatars">';
+    foreach ($pitems as $pitem) {
+      $output .= $pitem;
+    }
+    $output .= '</span></div></div>';
+  }
+  return $output;
+}
+
+/**
+ * Get status of a report
+ */
+function _checkdesk_report_status($report) {
+  global $language;
+  $report_status = array();
+  $icon_class = '';
+  $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
+      $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
+      taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
+  $status_name = $term->name;
+
+  $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
+  if ($status_name == 'Verified') {
+    $icon_class = 'icon-check-circle';
+  }
+  elseif ($status_name == 'In Progress') {
+    $icon_class = 'icon-random';
+  }
+  elseif ($status_name == 'Undetermined') {
+    $icon_class = 'icon-question-circle';
+  }
+  elseif ($status_name == 'False') {
+    $icon_class = 'icon-times-circle';
+  }
+  $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
+  $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
+  if($status_name != 'In Progress') {
+    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
+  }
+  // display status with an icon and "x by partner"
+  if(isset($status_name) && isset($icon) && isset($status_by)) {
+    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
+  } else { // display status with an icon only
+    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
+  }
+  return $report_status;
+}
+

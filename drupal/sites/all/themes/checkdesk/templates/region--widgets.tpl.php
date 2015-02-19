@@ -11,6 +11,7 @@
 	</div>
 </header>
 <div class="widgets-wrapper">
+	<?php print $content; ?>
 	<?php
 	  // get featured stories
 	  $block = block_load('views', 'featured_stories-block');
@@ -24,5 +25,5 @@
 			<?php print $featured_stories; ?>
 		</div>
 	<?php endif; ?>
-	<?php print $content; ?>
+	
 </div>

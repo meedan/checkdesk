@@ -12,13 +12,12 @@
     .update-title {
       font-size: $larger-font-size;
       line-height: 1.2;
-      margin-bottom: $absolute-line-height;
+      margin-bottom: $absolute-line-height/2;
       color: $firefly80;
       @if $from-direction == 'left' {
         @include cd-sans-serif-family;
-        font-style: normal;
+        font-style: normal; 
       }
-      // padding-bottom: $absolute-line-height/2;
     }
 
 		.node-media {

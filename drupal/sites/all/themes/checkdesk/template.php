@@ -42,6 +42,10 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // set provider class name
     $provider = strtolower(str_replace(' ', '_', $embed->provider_name));
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+    // set embed type as class name
+    $item_type = strtolower($node->embed->type);
+    $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
     // Set author name or provider name
     if(isset($embed->author_url) && isset($embed->author_name)) {
       $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
@@ -251,7 +255,7 @@ function checkdesk_preprocess_page(&$variables) {
     foreach ($variables['main_menu'] as $id => $item) {
       if ($item['link_path'] == 'node/add/media') {
         $variables['main_menu'][$id]['attributes']['id'] = 'menu-submit-report';
-        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1))) {
+        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1)) && $variables['node']->type == 'discussion') {
           $variables['main_menu'][$id]['query'] = array('ref_nid' => arg(1));
         }
       }
@@ -260,7 +264,7 @@ function checkdesk_preprocess_page(&$variables) {
       }
       else if ($item['link_path'] == 'node/add/post') {
         $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
-        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1))) {
+        if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1)) && $variables['node']->type == 'discussion') {
           $variables['main_menu'][$id]['query'] = array('story' => arg(1));
         }
       }
@@ -569,13 +573,18 @@ function checkdesk_preprocess_node(&$variables) {
       $follow_story = flag_create_link('follow_story', $variables['nid']);
     }
     else {
+      $flag_count = flag_get_counts('node', $variables['nid']);
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+      // append count
+      $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
     }
     $variables['follow_story'] = $follow_story;
+
+    // Collaboration header for story.
+    $variables['story_links'] = _checkdesk_story_links($variables['nid']);
+    $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+
     if($variables['view_mode'] == 'checkdesk_collaborate') {
-      // Collaboration header for story.
-      $variables['story_links'] = _checkdesk_story_links($variables['nid']);
-      $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
       // Get heartbeat activity for particular story
       $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
     }
@@ -634,6 +643,13 @@ function checkdesk_preprocess_node(&$variables) {
     // set provider class name
     $provider = strtolower($node->embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+    // set status class name
+    $status = strtolower($node->field_rating['und'][0]['taxonomy_term']->name);
+    $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);
+    // set embed type as class name
+    $item_type = strtolower($node->embed->type);
+    $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
     //Add node creation info(author name plus creation time
     if($variables['view_mode'] == 'checkdesk_collaborate') {
       $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
@@ -1093,7 +1109,10 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
     }
     else {
+      $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+      // append count
+      $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
     }
     $vars['follow_story'] = $follow_story;
   }
@@ -1173,44 +1192,6 @@ function _checkdesk_providers() {
   return $providers;
 }
 
-/**
- * Get status of a report
- */
-function _checkdesk_report_status($report) {
-  global $language;
-  $report_status = array();
-  $icon_class = '';
-  $term = isset($report->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
-      $report->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
-      taxonomy_term_load($report->field_rating[LANGUAGE_NONE][0]['tid']);
-  $status_name = $term->name;
-
-  $status_class = empty($status_name) ? '' : strtolower(str_replace(' ', '-', $status_name));;
-  if ($status_name == 'Verified') {
-    $icon_class = 'icon-check-circle';
-  }
-  elseif ($status_name == 'In Progress') {
-    $icon_class = 'icon-random';
-  }
-  elseif ($status_name == 'Undetermined') {
-    $icon_class = 'icon-question-circle';
-  }
-  elseif ($status_name == 'False') {
-    $icon_class = 'icon-times-circle';
-  }
-  $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
-  $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-  if($status_name != 'In Progress') {
-    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
-  }
-  // display status with an icon and "x by partner"
-  if(isset($status_name) && isset($icon) && isset($status_by)) {
-    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>&nbsp;<span class="status-by">' . $status_by . '</span>';
-  } else { // display status with an icon only
-    $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
-  }
-  return $report_status;
-}
 
 /**
  * Theme function to render node-links - checkdesk style

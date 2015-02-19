@@ -55,7 +55,7 @@ $follow_count = $flag_follow->get_count($entity_id);
   <?php if ($link_href): ?>
     <a href="<?php print $link_href; ?>" title="<?php print $link_title; ?>" class="<?php print $flag_classes ?>" rel="nofollow"><?php print $link_text; ?></a><span class="flag-throbber">&nbsp;</span>
     <?php if($follow_count) :?>
-      <span class="follow-count"> <?php print $follow_count; ?></span>
+      <span class="follow-count" href="<?php print $link_href; ?>"><?php print $follow_count; ?></span>
     <?php endif; ?>
   <?php else: ?>
     <span class="<?php print $flag_classes ?>"><?php print $link_text; ?></span>
