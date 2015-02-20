@@ -1,7 +1,7 @@
 <div class="inline-attachment <?php print $provider_class_name; ?>">
   <div class="inline-attachment-wrapper">
     <div class="inline-attachment-bar"><div class="indent"></div></div>
-    <div class="media-holder media-inline-holder">
+    <div class="media-holder media-inline-holder<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
       <div class="media-content">
       	<div class="media">
 	        <div class="inline-holder inline-img-thumb-holder">

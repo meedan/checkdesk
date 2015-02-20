@@ -25,6 +25,10 @@ function template_preprocess_meedan_full_mode(&$vars) {
   // set provider class name
   $provider = strtolower($embed->provider_name);
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+  // set embed type as class name
+  $item_type = strtolower($embed->type);
+  $vars['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+  
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
       $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
@@ -79,6 +83,11 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
   // set provider class name
   $provider = strtolower($embed->provider_name);
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+  // set embed type as class name
+  $item_type = strtolower($embed->type);
+  $vars['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
+
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
       $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
@@ -134,6 +143,10 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
   // set provider class name
   $provider = strtolower($embed->provider_name);
   $vars['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+  // set embed type as class name
+  $item_type = strtolower($embed->type);
+  $vars['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
   // Set author name or provider name
   if(isset($embed->author_url) && isset($embed->author_name)) {
       $vars['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;

@@ -1023,6 +1023,13 @@ function checkdesk_core_form_post_node_form_alter(&$form, &$form_state) {
   $form['body']['#prefix'] = '<div class="droppable">';
   $form['body']['#suffix'] = '</div>';
 
+  // Set language
+  global $language;
+  $form['language'] = array(
+    '#type' => 'value',
+    '#value' => $language->language,
+  );
+
   // Set default parameters if any.
   if (isset($_GET['story'])) {
     // Hard-code desk reference to given desk.
@@ -1118,12 +1125,18 @@ function checkdesk_core_form_discussion_node_form_alter(&$form, &$form_state) {
   $form['field_lead_image'][LANGUAGE_NONE][0]['#title'] = t('Add feature image');
   $form['field_lead_image']['#description'] = '';
   $form['actions']['submit']['#submit'][] = '_redirect_story';
+  // language field
+  $form['language']['#weight'] = 99;
+  unset($form['language']['#options'][LANGUAGE_NONE]);
   if (!$form['nid']['#value']) {
+    global $language;
     $form['actions']['submit']['#value'] = t('Create story');
     $form['actions']['submit']['#suffix'] =
       '<div class="description">'.
       t('<span>Note:</span> Your story won\'t be published to the liveblog homepage until you add an update to your story.') .
       '</div>';
+    //Set default language value
+    $form['language']['#default_value'] = $language->language;
   }
   if (count($form_state['build_info']['args']) <= 1 || $form_state['build_info']['args'][1] != 'ajax') {
     return;
@@ -1736,19 +1749,6 @@ function checkdesk_core_module_implements_alter(&$implementations, $hook) {
     $group = $implementations['checkdesk_core'];
     unset($implementations['checkdesk_core']);
     $implementations['checkdesk_core'] = $group;
-  }
-}
-
-/**
- * Implements hook_form_BASE_FORM_ID_alter().
- */
-function checkdesk_core_form_node_form_alter(&$form, &$form_state) {
-  if (in_array($form['#node']->type, array('discussion', 'post'))) {
-    global $language;
-    $form['language'] = array(
-      '#type' => 'value',
-      '#value' => $language->language,
-    );
   }
 }
 

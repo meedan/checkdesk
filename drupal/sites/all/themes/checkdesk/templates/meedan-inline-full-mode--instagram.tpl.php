@@ -1,7 +1,7 @@
 <div class="inline-attachment">
   <div class="inline-attachment-wrapper">
     <div class="inline-attachment-bar"><div class="indent"></div></div>
-    <div class="media-holder media-inline-holder">
+    <div class="media-holder media-inline-holder<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
       <div class="media">
         <?php if(isset($embed->html)) : ?>
           <div class="re-holder media-1by1">

@@ -2,7 +2,7 @@
   $heartbeat_row = $node->heartbeat_row;
 ?>
 <section id="node-<?php print $node->nid; ?>" class="item node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
-<div class="activity-item-content-wrapper item-content-wrapper <?php if (isset($status_class)) { print $status_class; } ?>">
+<div class="activity-item-content-wrapper item-content-wrapper<?php if (isset($status_class)) { print ' ' . $status_class; } ?>">
   <span class="activity-item-content item-content">
       
     <?php print render($content['field_link']); ?>

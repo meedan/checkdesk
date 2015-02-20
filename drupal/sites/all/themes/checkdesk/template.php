@@ -42,6 +42,10 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // set provider class name
     $provider = strtolower(str_replace(' ', '_', $embed->provider_name));
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+    // set embed type as class name
+    $item_type = strtolower($node->embed->type);
+    $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
     // Set author name or provider name
     if(isset($embed->author_url) && isset($embed->author_name)) {
       $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
@@ -576,7 +580,10 @@ function checkdesk_preprocess_node(&$variables) {
       $follow_story = flag_create_link('follow_story', $variables['nid']);
     }
     else {
+      $flag_count = flag_get_counts('node', $variables['nid']);
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+      // append count
+      $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
     }
     $variables['follow_story'] = $follow_story;
 
@@ -639,6 +646,13 @@ function checkdesk_preprocess_node(&$variables) {
     // set provider class name
     $provider = strtolower($node->embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
+    // set status class name
+    $status = strtolower($node->field_rating['und'][0]['taxonomy_term']->name);
+    $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);
+    // set embed type as class name
+    $item_type = strtolower($node->embed->type);
+    $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
+
     //Add node creation info(author name plus creation time
     if($variables['view_mode'] == 'checkdesk_collaborate') {
       $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
@@ -1099,7 +1113,10 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
     }
     else {
+      $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+      // append count
+      $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
     }
     $vars['follow_story'] = $follow_story;
   }

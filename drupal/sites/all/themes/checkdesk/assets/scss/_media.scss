@@ -95,6 +95,14 @@
 
 } // media-holder
 
+// Icons for media content title
+.media--video .title a {
+	@include icon(video-camera, 16px, $firefly40);
+	&:before, &:after { 
+    margin: 0 0 0 0;
+    margin-#{$omega}: 7.5px;
+  }
+}
 
 .inline-attachment {
 
