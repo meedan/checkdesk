@@ -8,13 +8,14 @@
     var $input = $('#edit-field-link-und-0-url'),
         $preview = $('#meedan_bookmarklet_preview'),
         $preview_content = $('#meedan_bookmarklet_preview_content'),
-        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, #form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating');
+        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating'),
+        url = $input.val().trim();
 
     $input.addClass('meedan-bookmarklet-loading');
 
     $.ajax({
       url: Drupal.settings.basePath + Drupal.settings.pathPrefix + 'checkdesk/media-preview?' + parseInt(Math.random() * 1000000000, 10),
-      data: { url : $input.val() },
+      data: { url : url },
       dataType: 'json',
       success: function (data) {
         if (data.error) {
@@ -64,23 +65,18 @@
       }
 
       // Update preview if URL changes.
-      var typingTimer,
-          urlPrevious;
+      var typingTimer;
       $('#edit-field-link-und-0-url', context).keyup(function(e) {
         clearTimeout(typingTimer);
-        var url = $(this).val(),
+        var url = $(this).val().trim(),
             done = $('#edit-submit');
         if (/https?:\/\/[^.]+\.[^.]+/.test(url)) {
           done.removeAttr('disabled');
-          if (url !== urlPrevious) {
-            urlPrevious = url;
-            typingTimer = setTimeout(getMediaPreview, 500);
-          }
+          typingTimer = setTimeout(getMediaPreview, 500);
         }
         else {
-          urlPrevious = null;
           done.attr('disabled', 'disabled');
-          $('#edit-body, #edit-graphic-content, #edit-submit, #form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating').hide();
+          $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating').hide();
           $('#meedan_bookmarklet_preview_content').html('');
         }
       });
