@@ -8,7 +8,7 @@
     var $input = $('#edit-field-link-und-0-url'),
         $preview = $('#meedan_bookmarklet_preview'),
         $preview_content = $('#meedan_bookmarklet_preview_content'),
-        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, #edit-title, #edit-field-tags, #edit-field-stories');
+        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, #form-item-title, #edit-field-tags, #edit-field-stories, $edit-field-rating');
 
     $input.addClass('meedan-bookmarklet-loading');
 
@@ -78,8 +78,9 @@
           }
         }
         else {
+          urlPrevious = null;
           done.attr('disabled', 'disabled');
-          $('#edit-body, #edit-graphic-content, #edit-submit, #edit-title, #edit-field-tags, #edit-field-stories').hide();
+          $('#edit-body, #edit-graphic-content, #edit-submit, #form-item-title, #edit-field-tags, #edit-field-stories, $edit-field-rating').hide();
           $('#meedan_bookmarklet_preview_content').html('');
         }
       });
