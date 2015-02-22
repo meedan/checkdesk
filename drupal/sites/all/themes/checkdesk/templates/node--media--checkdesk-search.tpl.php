@@ -1,21 +1,14 @@
-<section id="node-<?php print $node->nid; ?>" class="default-view-node-<?php print $node->nid; ?> item node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
-    <article class="report item <?php if (isset($status_class)) { print $status_class; } ?>">
 
-        <h1 class="title">
-            <?php print l(render($node->title), 'node/'. $node->nid); ?>
-        </h1>
+<section id="node-<?php print $node->nid; ?>" class="item node-<?php print $node->nid; ?> <?php print $classes; ?>"<?php print $attributes; ?>>
+<div class="activity-item-content-wrapper item-content-wrapper<?php if (isset($status_class)) { print ' ' . $status_class; } ?>">
+  <span class="activity-item-content item-content">
+      
+    <?php print render($content['field_link']); ?>
 
-        <?php if(isset($content['field_tags'])) : ?>
-            <?php print render($content['field_tags']); ?>
-        <?php endif ?>
 
-        <?php print render($content['field_link']); ?>
+  </span> <!-- /activity-item-content -->
+</div> <!-- /activity-item-content-wrapper -->
 
-        <div class="item-wrapper">
-            <?php print $report_activity; ?>
-
-        </div>
-    </article>
-
+<?php print $report_activity; ?>
 
 </section>

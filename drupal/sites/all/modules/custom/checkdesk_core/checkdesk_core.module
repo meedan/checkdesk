@@ -880,7 +880,23 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
-  if ($view_mode == 'checkdesk_collaborate') {
+  if ($view_mode == 'checkdesk_search') {
+    if ($node->type == 'discussion') {
+      $updates = db_query('
+          SELECT COUNT(entity_id) FROM {field_data_field_desk} WHERE field_desk_target_id = :nid
+      ', array(':nid' => $node->nid))->fetchField();
+      $node->content['story_updates_count'] = $updates ? format_plural($updates, '1 update', '@count updates') : NULL;
+      // collaborators count
+      $collaborators = db_query('
+          SELECT COUNT(ha.uid)
+          FROM {heartbeat_activity} ha
+          WHERE nid_target = :nid AND message_id != :message_id
+      ', array(':nid' => $node->nid, ':message_id' => 'checkdesk_follow_story'))->fetchField();
+      $node->content['story_collaborators_count'] = $collaborators ? format_plural($collaborators, '1 collaborator', '@count collaborators') : NULL;
+    }
+  }
+
+  if ($view_mode == 'checkdesk_collaborate' || $view_mode == 'checkdesk_search') {
     if ($node->type == 'post') {
       if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
         $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body[LANGUAGE_NONE][0]['value']);
@@ -3395,7 +3411,13 @@ function _checkdesk_story_links($nid) {
  *  @param story_nid
  *
  */
-function _checkdesk_story_get_collaborators($nid) {
+function _checkdesk_story_get_collaborators($nid, $options = array()) {
+  if (!isset($options['extra_users'])) {
+    $options['extra_users'] = TRUE;
+  }
+  if (!isset($options['show_avatars'])) {
+    $options['show_avatars'] = TRUE;
+  }
   $output = '';
   //ToDO check node type
   $users = db_query('
@@ -3406,12 +3428,15 @@ function _checkdesk_story_get_collaborators($nid) {
     WHERE nid_target = :nid AND message_id != :message_id
     GROUP BY ha.uid
     ORDER BY COUNT(ha.uid) DESC
-    ', array(':nid' => arg(1), ':message_id' => 'checkdesk_follow_story'))->fetchAll();
+    ', array(':nid' => $nid, ':message_id' => 'checkdesk_follow_story'))->fetchAll();
   $total_users = count($users);
   if ($total_users) {
-    $num_to_show = variable_get('collaborators_display_count', 3);
+    $extra_users = 0;
     $title = format_plural($total_users, '1 collaborator', '@count collaborators');
-    $extra_users = $total_users > $num_to_show ? $total_users - $num_to_show : 0;
+    if ($options['extra_users']) {
+      $num_to_show = variable_get('collaborators_display_count', 3);
+      $extra_users = $total_users > $num_to_show ? $total_users - $num_to_show : 0;
+    }
     $uitems = $pitems = array();
     if ($extra_users) {
       $users = array_slice($users, 0, $num_to_show);
@@ -3421,22 +3446,30 @@ function _checkdesk_story_get_collaborators($nid) {
       $fullname = explode(' ', $user->name);
       $fname = array_shift($fullname);
       $uitems[] = l($fname, 'user/'. $user->uid);
-      $avatar = _set_user_avatar_bg(user_load($user->uid));
-      if ($avatar) {
-        $pitems[] = $avatar;
+      if ($options['show_avatars']) {
+        $avatar = _set_user_avatar_bg(user_load($user->uid));
+        if ($avatar) {
+          $pitems[] = $avatar;
+        }
       }
     }
+
+
     $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems);
     if ($extra_users) {
       $output .= ' <span class="sc-extra-users">+ '. $extra_users .'</span>';
     }
     $output .= '</span>'; // closing sc-users
-    $output .= '<span class="sc-avatars">';
-    foreach ($pitems as $pitem) {
-      $output .= $pitem;
+    if ($options['show_avatars']) {
+      $output .= '<span class="sc-avatars">';
+      foreach ($pitems as $pitem) {
+        $output .= $pitem;
+      }
+      $output .= '</span>';
     }
-    $output .= '</span></div></div>';
+    $output .= '</div></div>';
   }
+
   return $output;
 }
 

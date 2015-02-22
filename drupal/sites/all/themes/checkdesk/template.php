@@ -487,15 +487,12 @@ function checkdesk_preprocess_node(&$variables) {
 
   // get $alpha and $omega
   $variables['layout'] = checkdesk_core_direction_settings();
+  $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
 
-  if($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'checkdesk_search') {
+  if($variables['view_mode'] == 'checkdesk_collaborate') {
     if ($variables['type'] == 'media') {
       $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
-      $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
       $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'] . '__' . $message_id;
-    }
-    else {
-      $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
     }
   }
   elseif ($variables['type'] == 'discussion' && !empty($variables['heartbeat_row'])) {
@@ -589,6 +586,7 @@ function checkdesk_preprocess_node(&$variables) {
 
     // Collaboration header for story.
     $variables['story_links'] = _checkdesk_story_links($variables['nid']);
+
     $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
 
     if($variables['view_mode'] == 'checkdesk_collaborate') {
@@ -722,6 +720,7 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
   }
+  
 }
 
 function checkdesk_links__node($variables) {

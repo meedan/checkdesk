@@ -584,7 +584,7 @@ function theme_select_as_links($vars) {
       jQuery(function() {
         jQuery("#search-flag").fastLiveFilter(".search-list .form-item");
         })', 'inline');
-   $output .= '<input class="search" id="search-flag" placeholder="filter by tag" /><div class="search-list">';
+   $output .= '<input class="search" id="search-flag" placeholder="Search for Tag" /><div class="search-list">';
   }
 
   $output .= theme('form_element', array('element' => $properties));
