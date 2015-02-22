@@ -1,96 +1,43 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 
-// Stuff here happens after bookmarklet form is rendered
-jQuery(function($) {
+(function ($) {
   'use strict';
 
-  // Function to retrive a media preview from a URL
+  // Function to retrieve a media preview from a URL.
   function getMediaPreview() {
     var $input = $('#edit-field-link-und-0-url'),
-        $preview = $('#meedan_bookmarklet_preview_content'),
-        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, #edit-title, #edit-field-tags');
+        $preview = $('#meedan_bookmarklet_preview'),
+        $preview_content = $('#meedan_bookmarklet_preview_content'),
+        $controls = $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating'),
+        url = $input.val().trim();
 
     $input.addClass('meedan-bookmarklet-loading');
 
     $.ajax({
       url: Drupal.settings.basePath + Drupal.settings.pathPrefix + 'checkdesk/media-preview?' + parseInt(Math.random() * 1000000000, 10),
-      data: { url : $input.val() },
+      data: { url : url },
       dataType: 'json',
       success: function (data) {
         if (data.error) {
-          $preview.addClass('error').html(data.error.message);
+          $preview_content.addClass('error').html(data.error.message);
           $controls.hide();
         } else {
-          $preview.removeClass('error').html(data.preview);
+          $preview_content.removeClass('error').html(data.preview);
           if (data.title) $('#edit-title').val(data.title);
           $controls.show();
         }
       },
       error: function (xhr, textStatus, error) {
-        $preview.addClass('error').html(Drupal.t('An error occurred while communicating with Checkdesk. Please try again.'));
+        $preview_content.addClass('error').html(Drupal.t('An error occurred while communicating with Checkdesk. Please try again.'));
         $controls.hide();
       },
       complete: function (xhr, textStatus) {
         $input.removeClass('meedan-bookmarklet-loading');
-        $('#meedan_bookmarklet_preview').show();
-        Drupal.attachBehaviors('#meedan_bookmarklet_preview');
+        $preview.show();
+        Drupal.attachBehaviors($preview[0]);
       }
     });
   }
-  // Update preview if URL changes
-  $('#edit-field-link-und-0-url').bind('keyup keypress', function() {
-    var url = $(this).val(),
-        done = $('#edit-submit'),
-        wait;
-    if (/https?:\/\/[^.]+\.[^.]+/.test(url)) {
-      done.removeAttr('disabled');
-      clearTimeout($.data(this, 'timer'));
-      wait = setTimeout(getMediaPreview, 1500);
-      $(this).data('timer', wait);
-    }
-    else {
-      done.attr('disabled', 'disabled');
-    }
-    
-    if (/https?:\/\/([^.]+\.)?facebook\.com/.test(url)) {
-      $('.fb-message .description').show();
-    }
-    else {
-      $('.fb-message .description').hide();
-    }
-  });
-
-  // Disable submission on pressing ENTER key
-  $('#edit-field-link-und-0-url').keydown(function(e) {
-    if (e.keyCode == 13) {
-      return false;
-    }
-  });
-
-  // Hide preview if graphic content is checked
-  $('#edit-graphic-content-graphic, #edit-graphic-content-graphic-journalist').click(function() {
-    var mask = $('#meedan_bookmarklet_preview_gc'),
-        content = $('#meedan_bookmarklet_preview_content');
-    if ($(this).is(':checked')) {
-      mask.show();
-      content.hide();
-    } else {
-      mask.hide();
-      content.show();
-    }
-  });
-  $('#meedan_bookmarklet_preview_gc a').click(function() {
-    $('#meedan_bookmarklet_preview_gc').hide();
-    $('#meedan_bookmarklet_preview_content').show();
-    return false;
-  });
-
-  // Disable submit button if link field is empty
-  $('#edit-submit').click(function() {
-    if ($('#edit-field-link-und-0-url').val() === '') {
-      return false;
-    }
-  });
 
   // Watch the height of the iframe, inform the parent every time it changes
   var htmlHeight = 0;
@@ -102,9 +49,70 @@ jQuery(function($) {
     }
     setTimeout(checkHTMLHeight, 30);
   }
-  // Start the checker
-  checkHTMLHeight();
 
-  window.parent.postMessage('loaded', '*');
+  Drupal.behaviors.checkdeskBookmarklet = {
+    attach: function(context, settings) {
 
-});
+      // Start the checker.
+      checkHTMLHeight();
+
+      // Inform the parent.
+      window.parent.postMessage('loaded', '*');
+
+      // Preview media if any.
+      if ($('#edit-field-link-und-0-url', context).val()) {
+        getMediaPreview();
+      }
+
+      // Update preview if URL changes.
+      var typingTimer;
+      $('#edit-field-link-und-0-url', context).keyup(function(e) {
+        clearTimeout(typingTimer);
+        var url = $(this).val().trim(),
+            done = $('#edit-submit');
+        if (/https?:\/\/[^.]+\.[^.]+/.test(url)) {
+          done.removeAttr('disabled');
+          typingTimer = setTimeout(getMediaPreview, 500);
+        }
+        else {
+          done.attr('disabled', 'disabled');
+          $('#edit-body, #edit-graphic-content, #edit-submit, .form-item-title, #edit-field-tags, #edit-field-stories, #edit-field-rating').hide();
+          $('#meedan_bookmarklet_preview_content').html('');
+        }
+      });
+
+      $('#edit-field-link-und-0-url', context).keydown(function(e) {
+        clearTimeout(typingTimer);
+        if (e.keyCode == 13) {
+          e.preventDefault();
+        }
+      });
+
+      // Hide preview if graphic content is checked
+      $('#edit-graphic-content-graphic, #edit-graphic-content-graphic-journalist', context).click(function() {
+        var mask = $('#meedan_bookmarklet_preview_gc'),
+            content = $('#meedan_bookmarklet_preview_content');
+        if ($(this).is(':checked')) {
+          mask.show();
+          content.hide();
+        } else {
+          mask.hide();
+          content.show();
+        }
+      });
+      $('#meedan_bookmarklet_preview_gc a', context).click(function() {
+        $('#meedan_bookmarklet_preview_gc').hide();
+        $('#meedan_bookmarklet_preview_content').show();
+        return false;
+      });
+
+      // Disable submit button if link field is empty
+      $('#edit-submit', context).click(function() {
+        if (!$('#edit-field-link-und-0-url').val()) {
+          return false;
+        }
+      });
+    }
+  };
+
+})(jQuery);
