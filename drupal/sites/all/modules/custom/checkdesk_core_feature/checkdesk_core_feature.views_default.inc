@@ -559,8 +559,7 @@ function checkdesk_core_feature_views_default_views() {
         'collapsible' => 0,
         'collapsible_label' => 'Sort options',
         'combine' => 1,
-        'combine_rewrite' => 'Post date Asc|Oldest
-Post date Desc|Newest',
+        'combine_rewrite' => '',
         'reset' => 0,
         'reset_label' => '',
         'is_secondary' => 0,
@@ -621,6 +620,25 @@ Post date Desc|Newest',
         ),
       ),
     ),
+    'field_rating_tid' => array(
+      'bef_format' => 'bef_links',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'any_label' => 'Any status',
+        'enable_fastlivefilter' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+      ),
+    ),
   );
   $handler->display->display_options['exposed_form']['options']['input_required'] = 0;
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
@@ -659,6 +677,16 @@ Post date Desc|Newest',
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'node';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'media' => 'media',
+    'discussion' => 'discussion',
+    'post' => 'post',
+  );
+  $handler->display->display_options['filters']['type_1']['group'] = 1;
   /* Filter criterion: Search: Search Terms */
   $handler->display->display_options['filters']['keys']['id'] = 'keys';
   $handler->display->display_options['filters']['keys']['table'] = 'search_index';
@@ -703,6 +731,7 @@ Post date Desc|Newest',
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_tags_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_tags_tid']['expose']['operator_id'] = 'field_tags_tid_op';
   $handler->display->display_options['filters']['field_tags_tid']['expose']['label'] = 'Tags';
@@ -717,18 +746,37 @@ Post date Desc|Newest',
   );
   $handler->display->display_options['filters']['field_tags_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'tags';
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
-  $handler->display->display_options['filters']['type_1']['table'] = 'node';
-  $handler->display->display_options['filters']['type_1']['field'] = 'type';
-  $handler->display->display_options['filters']['type_1']['value'] = array(
-    'media' => 'media',
-    'discussion' => 'discussion',
-    'post' => 'post',
+  /* Filter criterion: Field: Fact-checking status (field_rating) */
+  $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
+  $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';
+  $handler->display->display_options['filters']['field_rating_tid']['field'] = 'field_rating_tid';
+  $handler->display->display_options['filters']['field_rating_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_rating_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['operator_id'] = 'field_rating_tid_op';
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['label'] = 'Verification status';
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['operator'] = 'field_rating_tid_op';
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['identifier'] = 'field_rating_tid';
+  $handler->display->display_options['filters']['field_rating_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
   );
+  $handler->display->display_options['filters']['field_rating_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_rating_tid']['vocabulary'] = 'media_rating';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = '<?php
+print _checkdesk_search_header();
+?>';
+  $handler->display->display_options['header']['area']['format'] = 'php_code';
   $handler->display->display_options['path'] = 'checkdesk-search';
 
   /* Display: Attachment */
@@ -745,8 +793,8 @@ Post date Desc|Newest',
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['inline'] = array(
-    'type' => 'type',
     'type_1' => 'type_1',
+    'type' => 'type',
   );
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
@@ -790,7 +838,11 @@ Post date Desc|Newest',
     t('Load more'),
     t('Post date'),
     t('Tags'),
+    t('Verification status'),
     t('Page'),
+    t('<?php
+print _checkdesk_search_header();
+?>'),
     t('Attachment'),
   );
   $export['checkdesk_search'] = $view;

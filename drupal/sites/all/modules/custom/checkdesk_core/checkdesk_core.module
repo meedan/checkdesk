@@ -1471,6 +1471,22 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       $form['#info']['filter-field_stories_target_id'] = FALSE;
     }
   }
+
+  if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
+    //Hide/show media reports based on type filter
+    if ($_GET['type'] != 'media') {
+      $form['#info']['filter-field_rating_tid']['label'] = NULL;
+      $form['field_rating_tid']['#type'] = 'hidden';
+      unset($form['field_rating_tid']['#theme']);
+
+    }
+    // Change type labels
+    $form['type']['#options']['All'] = t('Everything');
+    $form['type']['#options']['media'] = t('Reports');
+    $form['type']['#options']['discussion'] = t('Stories');
+    $form['type']['#options']['post'] = t('Updates');
+
+  }
 }
 
 
@@ -1561,6 +1577,13 @@ function checkdesk_core_theme() {
   $themes['checkdesk_core_render_links'] = array(
     'variables' => array(
       'options' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_render_search_header'] = array(
+      'template' => 'checkdesk_search_header',
+      'variables' => array(
+      'links' => NULL,
     ),
   ) + $base;
 
@@ -3512,3 +3535,18 @@ function _checkdesk_report_status($report) {
   return $report_status;
 }
 
+
+function _checkdesk_search_header() {
+  $links = array();
+  $path = '';
+  //$link[] = l(t('Newest'), bef_replace_query_string_arg('created ASC', 'sort_bef_combine', FALSE, TRUE, $path));
+  $links[] = l(t('Newest'), bef_replace_query_string_arg('sort_bef_combine', 'created DESC', FALSE, FALSE, $path));
+  $links[] = l(t('Oldest'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
+  // Add filters for media only
+  if ($_GET['type'] == 'media') {
+    $links[] = l(t('Verified'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
+    $links[] = l(t('In Progress'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
+    $links[] = l(t('Spam'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
+  }
+  return theme('checkdesk_core_render_search_header', array('links' => $links));
+}
