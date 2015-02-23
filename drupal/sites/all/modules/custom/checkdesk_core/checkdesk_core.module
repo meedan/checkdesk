@@ -1478,14 +1478,28 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       $form['#info']['filter-field_rating_tid']['label'] = NULL;
       $form['field_rating_tid']['#type'] = 'hidden';
       unset($form['field_rating_tid']['#theme']);
-
+    }
+    else {
+      $form['media_flags'] = array(
+        '#type' => 'select',
+        '#title' => 'Flags',
+        '#options' => array(
+          'All' => t('Any flag'),
+          'flagged_gc' => t('Graphic content'),
+          'flagged_spam' => t('Spam'),
+        ),
+        //'#multiple' => TRUE,
+        '#theme' => 'select_as_links',
+      );
     }
     // Change type labels
     $form['type']['#options']['All'] = t('Everything');
     $form['type']['#options']['media'] = t('Reports');
     $form['type']['#options']['discussion'] = t('Stories');
     $form['type']['#options']['post'] = t('Updates');
-
+    // Change -Any- status label
+    $form['field_rating_tid']['#options']['All'] = t('Any status');
+    $form['sort_bef_combine']['#type'] = 'hidden';
   }
 }
 
@@ -2052,6 +2066,37 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     $query->add_relationship('f', $join, 'field_data_field_desk');
     $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
     $query->add_groupby('node.nid');
+  }
+
+  if ($view->name == 'checkdesk_search') {
+    //print_r($query);
+    //exit;
+    // Add where condition based on flag type for reports.
+    if (isset($_GET['type']) && $_GET['type'] == 'media' && isset($_GET['media_flags'])) {
+      switch($_GET['media_flags']) {
+        case 'flagged_spam':
+          $query->add_where(1,'flagging_node.uid', 1, 'IS NOT NULL');
+          break;
+        case 'flagged_gc':
+          $query->add_where(1,'flagging_node_1.uid', 1, 'IS NOT NULL');
+        break;
+      }
+    }
+    // Remove status condition if user selected type not reports
+    if (isset($_GET['type']) && $_GET['type'] != 'media' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
+      $conditions = $query->where[1]['conditions'];
+      foreach($conditions as $k => $v) {
+        if (is_string($v['field']) && $v['field'] == 'field_data_field_rating.field_rating_tid') {
+          unset($query->table_queue['field_data_field_rating']);
+          unset($query->where[1]['conditions'][$k]);
+          break;
+        }
+      }
+    }
+    // Fix helper text in case of search by keyword
+    if ($view->current_display == 'attachment_1') {
+      $query->having = $query->groupby = array();
+    }
   }
 }
 
@@ -3539,14 +3584,13 @@ function _checkdesk_report_status($report) {
 function _checkdesk_search_header() {
   $links = array();
   $path = '';
-  //$link[] = l(t('Newest'), bef_replace_query_string_arg('created ASC', 'sort_bef_combine', FALSE, TRUE, $path));
   $links[] = l(t('Newest'), bef_replace_query_string_arg('sort_bef_combine', 'created DESC', FALSE, FALSE, $path));
   $links[] = l(t('Oldest'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
   // Add filters for media only
   if ($_GET['type'] == 'media') {
-    $links[] = l(t('Verified'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
-    $links[] = l(t('In Progress'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
-    $links[] = l(t('Spam'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
+    $links[] = l(t('Verified'), bef_replace_query_string_arg('field_rating_tid', 1, FALSE, FALSE, $path));
+    $links[] = l(t('In Progress'), bef_replace_query_string_arg('field_rating_tid', 2, FALSE, FALSE, $path));
+    $links[] = l(t('Spam'), bef_replace_query_string_arg('media_flags', 'flagged_spam', FALSE, FALSE, $path));
   }
   return theme('checkdesk_core_render_search_header', array('links' => $links));
 }

@@ -478,8 +478,8 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '10',
-            'visible' => TRUE,
+            'weight' => '8',
+            'visible' => FALSE,
           ),
         ),
         'flag_factcheck_journalist' => array(
@@ -504,8 +504,8 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '10',
-            'visible' => TRUE,
+            'weight' => '7',
+            'visible' => FALSE,
           ),
         ),
         'flag_spam' => array(
@@ -530,8 +530,8 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '10',
-            'visible' => TRUE,
+            'weight' => '9',
+            'visible' => FALSE,
           ),
         ),
         'flag_graphic' => array(
@@ -556,8 +556,8 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '10',
-            'visible' => TRUE,
+            'weight' => '6',
+            'visible' => FALSE,
           ),
         ),
         'flag_factcheck' => array(
@@ -582,8 +582,8 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '10',
-            'visible' => TRUE,
+            'weight' => '4',
+            'visible' => FALSE,
           ),
         ),
         'flag_delete' => array(
@@ -608,8 +608,8 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '10',
-            'visible' => TRUE,
+            'weight' => '5',
+            'visible' => FALSE,
           ),
         ),
       ),
@@ -799,7 +799,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'language_content_type_discussion';
-  $strongarm->value = '0';
+  $strongarm->value = '1';
   $export['language_content_type_discussion'] = $strongarm;
 
   $strongarm = new stdClass();
