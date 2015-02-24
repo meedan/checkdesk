@@ -65,12 +65,14 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     }
     // timestamp
     // TODO: make this source media timestamp
-    $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+    $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
         '@url' => $node->embed->original_url,
         '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
         '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
         '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
         '!interval' => format_interval(time() - $node->created, 1),
+        '@user' => url('user/'. $node->uid),
+        '!user' => $node->name,
       ));
 
     // Load report status
