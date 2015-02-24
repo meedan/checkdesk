@@ -1480,6 +1480,8 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       unset($form['field_rating_tid']['#theme']);
     }
     else {
+      // Change -Any- status label
+      $form['field_rating_tid']['#options']['All'] = t('Any status');
       $form['media_flags'] = array(
         '#type' => 'select',
         '#title' => 'Flags',
@@ -1497,9 +1499,9 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['type']['#options']['media'] = t('Reports');
     $form['type']['#options']['discussion'] = t('Stories');
     $form['type']['#options']['post'] = t('Updates');
-    // Change -Any- status label
-    $form['field_rating_tid']['#options']['All'] = t('Any status');
+    // Hide sort and submit button
     $form['sort_bef_combine']['#type'] = 'hidden';
+    $form['submit']['#attributes']['class'][] = 'js-hide';
   }
 }
 

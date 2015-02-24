@@ -543,6 +543,7 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Search';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -554,7 +555,7 @@ function checkdesk_core_feature_views_default_views() {
       'secondary_label' => 'Advanced options',
     ),
     'sort' => array(
-      'bef_format' => 'bef_links',
+      'bef_format' => 'default',
       'advanced' => array(
         'collapsible' => 0,
         'collapsible_label' => 'Sort options',
@@ -562,7 +563,7 @@ function checkdesk_core_feature_views_default_views() {
         'combine_rewrite' => '',
         'reset' => 0,
         'reset_label' => '',
-        'is_secondary' => 0,
+        'is_secondary' => 1,
       ),
     ),
     'status' => array(
@@ -705,7 +706,6 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
-  $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'entity';
   $handler->display->display_options['row_options']['view_mode'] = 'checkdesk_search';
