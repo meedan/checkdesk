@@ -905,7 +905,7 @@ function checkdesk_core_feature_views_default_views() {
 print _checkdesk_search_header();
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
-  $handler->display->display_options['path'] = 'checkdesk-search';
+  $handler->display->display_options['path'] = 'search';
 
   /* Display: Attachment */
   $handler = $view->new_display('attachment', 'Attachment', 'attachment_1');

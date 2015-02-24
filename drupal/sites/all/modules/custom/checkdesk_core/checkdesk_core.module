@@ -2069,8 +2069,6 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
   }
 
   if ($view->name == 'checkdesk_search') {
-    //print_r($query);
-    //exit;
     // Add where condition based on flag type for reports.
     if (isset($_GET['type']) && $_GET['type'] == 'media' && isset($_GET['media_flags'])) {
       switch($_GET['media_flags']) {
@@ -3580,7 +3578,10 @@ function _checkdesk_report_status($report) {
   return $report_status;
 }
 
-
+/**
+ * Add header for search page
+ * i.e - sort filter + basic filters for each content type.
+ */
 function _checkdesk_search_header() {
   $links = array();
   $path = '';
