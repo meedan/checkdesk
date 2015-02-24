@@ -1,9 +1,6 @@
-<div class="activity-item-content-wrapper item-content-wrapper">
-  <span class="activity-item-content item-content">
+<div class="item-content-wrapper">
+  <span class="item-content">
       
-    <div class="inline-attachment">
-      <div class="inline-attachment-wrapper">
-        <div class="inline-attachment-bar"><div class="indent"></div></div>
         <div class="media-holder media-inline-holder">
           <div class="media-content">
             <?php if(isset($inline_thumbnail)) : ?>
@@ -30,14 +27,12 @@
             </span>
           </div>
         </div> <!-- /media-holder -->
-      </div>
-    </div> <!-- /inline-attachment -->
 
-  </span> <!-- /activity-item-content -->
-</div> <!-- /activity-item-content-wrapper -->
+  </span> <!-- /item-content -->
+</div> <!-- /item-content-wrapper -->
 
 <div class="item-nested-content-wrapper">
-  <div class="activity-item-controls item-controls">
+  <div class="item-controls">
     <div class="meta">
       <?php print $content['story_updates_count']; ?>
       <?php print $content['story_collaborators_count']; ?>
@@ -45,6 +40,5 @@
     <div class="actions" role="toolbar">
       <?php print render($content['links']); ?>
     </div>
-  </div> <!-- /activity-item-controls -->
+  </div> <!-- /item-controls -->
 </div>
-

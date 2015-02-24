@@ -5352,6 +5352,11 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   margin-left: 7.5px;
 }
 
+.video--facebook iframe {
+  max-width: 100% !important;
+  max-height: 420px !important;
+}
+
 .inline-attachment {
   margin-bottom: 10px;
 }
@@ -10519,6 +10524,28 @@ body.widgets #main #content #content-inner:after {
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body.sidebar-second #content {
+  *zoom: 1;
+  width: 80%;
+  position: relative;
+}
+body.sidebar-second #content:before, body.sidebar-second #content:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body.sidebar-second #content:after {
+  clear: both;
+}
+
+body.sidebar-second aside#sidebar-second {
+  width: 15%;
+  position: fixed;
+  left: 30px;
+  overflow: auto;
+  top: 103px !important;
 }
 
 body.page-user.logged-in #sidebar-first {

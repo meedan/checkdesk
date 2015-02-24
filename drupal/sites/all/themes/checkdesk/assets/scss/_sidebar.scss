@@ -1,0 +1,14 @@
+// Page with sidebar second
+body.sidebar-second #content {
+	@include ctb-clearfix;
+	width: 80%;
+	position: relative;
+}
+
+body.sidebar-second aside#sidebar-second {
+	width: 15%;
+	position: fixed;
+	#{opposite-position($from-direction)}: $gutter-width*2;
+	overflow: auto;
+	top: ($toolbarHeight + $navbarHeight) !important;
+}
