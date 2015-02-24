@@ -319,3 +319,10 @@ function checkdesk_core_update_7037() {
   module_disable($module_list, FALSE);
   drupal_uninstall_modules($module_list, FALSE);
 }
+
+/**
+ * Enable save draft - stories
+ */
+function checkdesk_core_update_7038() {
+  variable_set('save_draft_enabled_discussion', 1);
+}
