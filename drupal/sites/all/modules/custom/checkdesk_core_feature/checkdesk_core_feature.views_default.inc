@@ -543,7 +543,6 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Search';
-  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -564,6 +563,25 @@ function checkdesk_core_feature_views_default_views() {
         'reset' => 0,
         'reset_label' => '',
         'is_secondary' => 0,
+      ),
+    ),
+    'status' => array(
+      'bef_format' => 'bef_hidden',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'enable_fastlivefilter' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
       ),
     ),
     'keys' => array(
@@ -721,17 +739,6 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'Post date';
-  /* Sort criterion: Search: Score */
-  $handler->display->display_options['sorts']['score']['id'] = 'score';
-  $handler->display->display_options['sorts']['score']['table'] = 'search_index';
-  $handler->display->display_options['sorts']['score']['field'] = 'score';
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
   $handler->display->display_options['filters']['type_1']['table'] = 'node';
@@ -742,6 +749,24 @@ function checkdesk_core_feature_views_default_views() {
     'post' => 'post',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 'All';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+  );
   /* Filter criterion: Search: Search Terms */
   $handler->display->display_options['filters']['keys']['id'] = 'keys';
   $handler->display->display_options['filters']['keys']['table'] = 'search_index';
@@ -834,6 +859,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['flagged']['field'] = 'flagged';
   $handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['filters']['flagged']['value'] = 'All';
+  $handler->display->display_options['filters']['flagged']['group'] = 1;
   $handler->display->display_options['filters']['flagged']['exposed'] = TRUE;
   $handler->display->display_options['filters']['flagged']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['flagged']['expose']['label'] = 'Spam';
@@ -852,6 +878,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['flagged_1']['field'] = 'flagged';
   $handler->display->display_options['filters']['flagged_1']['relationship'] = 'flag_content_rel_1';
   $handler->display->display_options['filters']['flagged_1']['value'] = 'All';
+  $handler->display->display_options['filters']['flagged_1']['group'] = 1;
   $handler->display->display_options['filters']['flagged_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['flagged_1']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['flagged_1']['expose']['label'] = 'Flagged';
@@ -940,6 +967,7 @@ print _checkdesk_search_header();
     t('flag_spam'),
     t('flag_gc'),
     t('Post date'),
+    t('Published'),
     t('Tags'),
     t('Verification status'),
     t('Fact-checking status (field_rating)'),

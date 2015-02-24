@@ -1050,6 +1050,24 @@ function checkdesk_preprocess_views_view(&$vars) {
   }
 }
 
+function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
+  // Set page title
+  $view = $vars['view'];
+  $page_title = t('Search');
+  if (isset($_GET['type'])) {
+    if($_GET['type'] == 'media') {
+      $page_title = t('Reports');
+    }
+    elseif ($_GET['type'] == 'post') {
+      $page_title = t('Updates');
+    }
+    elseif ($_GET['type'] == 'discussion') {
+      $page_title = t('Stories');
+    }
+  }
+  $view->set_title($page_title);
+}
+
 /* Desk Reports */
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if ($vars['display_id'] == 'block') {

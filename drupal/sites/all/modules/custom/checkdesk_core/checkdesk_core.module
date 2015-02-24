@@ -3586,11 +3586,20 @@ function _checkdesk_search_header() {
   $path = '';
   $links[] = l(t('Newest'), bef_replace_query_string_arg('sort_bef_combine', 'created DESC', FALSE, FALSE, $path));
   $links[] = l(t('Oldest'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path));
-  // Add filters for media only
-  if ($_GET['type'] == 'media') {
-    $links[] = l(t('Verified'), bef_replace_query_string_arg('field_rating_tid', 1, FALSE, FALSE, $path));
-    $links[] = l(t('In Progress'), bef_replace_query_string_arg('field_rating_tid', 2, FALSE, FALSE, $path));
-    $links[] = l(t('Spam'), bef_replace_query_string_arg('media_flags', 'flagged_spam', FALSE, FALSE, $path));
+  if (isset($_GET['type'])) {
+    switch ($_GET['type']) {
+      case 'media':
+        // Add filters for media only
+        $links[] = l(t('Verified'), bef_replace_query_string_arg('field_rating_tid', 1, FALSE, FALSE, $path));
+        $links[] = l(t('In Progress'), bef_replace_query_string_arg('field_rating_tid', 2, FALSE, FALSE, $path));
+        $links[] = l(t('Spam'), bef_replace_query_string_arg('media_flags', 'flagged_spam', FALSE, FALSE, $path));
+        break;
+      case 'discussion':
+      case 'post':
+        $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path));
+        $links[] = l(t('Published'), bef_replace_query_string_arg('status', 1, FALSE, FALSE, $path));
+        break;
+    }
   }
   return theme('checkdesk_core_render_search_header', array('links' => $links));
 }
