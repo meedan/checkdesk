@@ -3606,3 +3606,20 @@ function _checkdesk_search_header() {
   }
   return theme('checkdesk_core_render_search_header', array('links' => $links));
 }
+
+/**
+ * Implements of hook_url_outbound_alter().
+ */
+function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
+  //This is a taxonomy page
+  if (preg_match('|^taxonomy/term/([0-9]*)|', $original_path, $matches)) {
+    if (is_numeric($matches[1])) {
+      $tags = taxonomy_vocabulary_machine_name_load('tags');
+      $term = taxonomy_term_load($matches[1]);
+      if ($tags->vid == $term->vid) {
+        $path = 'search';
+        $options['query']['field_tags_tid'] = $matches[1];
+      }
+    }
+  }
+}

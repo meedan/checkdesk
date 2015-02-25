@@ -996,15 +996,15 @@ function checkdesk_field__field_tags(&$variables) {
     $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
 
     $output .= '<li class="inline-list__item">';
-    /*
-      $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'] , array('html' => TRUE, 'attributes' => array(
-          'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
-          'class' => array('btn', 'btn--transparent', 'btn--tag'),
+
+    $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'], array(
+      'html' => TRUE,
+      'attributes' => array(
+        'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
+        'class' => array('btn', 'btn--transparent', 'btn--tag'),
       ),
-      ));
-    */
-    $output .= '<div class="btn btn--transparent btn--tag">' . $tag_name . $count . '</div>';
-    
+    ));
+
     $output .= '</li>';
   }
   $output .= '</ul></div></div></section>';
@@ -1050,11 +1050,14 @@ function checkdesk_preprocess_views_view(&$vars) {
   }
 }
 
+/**
+ * checkdesk_search view.
+ */
 function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
   // Set page title
   $view = $vars['view'];
   $page_title = t('Search');
-  if (isset($_GET['type'])) {
+  if (isset($_GET['type']) && $_GET['type'] != 'All') {
     if($_GET['type'] == 'media') {
       $page_title = t('Reports');
     }
@@ -1064,6 +1067,11 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
     elseif ($_GET['type'] == 'discussion') {
       $page_title = t('Stories');
     }
+  }
+  elseif (is_numeric($_GET['field_tags_tid'])) {
+    //Set taxonomy name as title
+    $term = taxonomy_term_load($_GET['field_tags_tid']);
+    $page_title = $term->name;
   }
   $view->set_title($page_title);
 }
