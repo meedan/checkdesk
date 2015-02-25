@@ -1,5 +1,5 @@
-<div>
+<ul class="control-page-items">
   <?php foreach ($links as $link) : ?>
-    <div><?php print $link; ?></div>
+    <li class="filter"><?php print $link; ?></li>
   <?php endforeach; ?>
-</div>
+</ul>

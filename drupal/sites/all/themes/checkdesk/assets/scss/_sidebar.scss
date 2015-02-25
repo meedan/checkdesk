@@ -3,12 +3,17 @@ body.sidebar-second #content {
 	@include ctb-clearfix;
 	width: 80%;
 	position: relative;
+	padding-top: $absolute-line-height;
+	padding-#{$from-direction}: 50px;
+	padding-#{opposite-position($from-direction)}: 75px;
+	@include box-sizing(border-box);
 }
 
 body.sidebar-second aside#sidebar-second {
-	width: 15%;
+	width: 20%;
 	position: fixed;
-	#{opposite-position($from-direction)}: $gutter-width*2;
+	#{opposite-position($from-direction)}: 50px;
 	overflow: auto;
-	top: ($toolbarHeight + $navbarHeight) !important;
+	top: $toolbarHeight + $navbarHeight + $absolute-line-height;
+	@include box-sizing(border-box);
 }

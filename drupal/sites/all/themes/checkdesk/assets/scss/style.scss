@@ -278,6 +278,10 @@ body.no-sidebars {
 // Story blog page with discussion
 @import "story";
 
+// Common item styles
+@import "items";
+@import "item";
+
 // Story colloboration activity
 @import "activity";
 
@@ -285,7 +289,7 @@ body.no-sidebars {
 // Sidebar layout with main and secondary cols
 @import "_layout_2col";
 
-// Widgets and Sidebars
+// Widgets
 @import "widgets";
 @import "sidebar";
 
