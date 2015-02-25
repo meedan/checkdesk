@@ -28,7 +28,7 @@
 			color: $firefly80;	
 		}
 		&:active {
-			color: $strongBlue;
+			color: $dodgerBlue;
 		}
 	}
 	a.selected {
@@ -48,5 +48,101 @@
 	margin-top: 20px;
 	&:first-child {
 		margin-top: 0;
+	}
+}
+
+.content-filter {
+	@include border-radius(4px);
+	background-color: #fff;
+	padding: 15px;
+	margin-bottom: 20px;
+}
+
+.filter-list {
+	@include reset-list-style;
+	margin: 0 -15px;
+	li {
+		display: block;
+	}
+}
+
+.views-exposed-widget label {
+	display: block;
+	padding: 12px 15px 10px;
+	padding-#{opposite-position($from-direction)}: 30px;
+	margin-bottom: 0;
+	@include box-sizing(border-box);
+	background-color: #fff;
+	border-bottom: 1px solid rgba($firefly, 0.05);
+	color: $firefly40;
+	font-weight: 700;
+	&:hover {
+		color: $firefly80;
+	}
+}
+
+.form-type-bef-link a {
+	display: block;
+	padding: 12px 15px 10px;
+	@include box-sizing(border-box);
+	background-color: #F3F4F4;
+	border-bottom: 1px solid rgba($firefly, 0.05);
+	text-decoration: none;
+	&:hover {
+		background-color: #fff;
+	}
+}
+
+input.search {
+	@include box-sizing(border-box);
+	border: 0;
+	display: block;
+	padding: 12px 15px 10px;
+	background-color: #F3F4F4;
+	border-bottom: 1px solid rgba($firefly, 0.05);
+	@include cd-sans-serif-family;
+	color: $firefly40;
+	height: 45px;
+	width: 100%;
+	&:focus {
+		background-color: #fff;
+		color: $firefly60;
+		border-bottom-color: $dodgerBlue;
+		outline: 0;
+	}
+}
+
+input#edit-keys {
+	@include box-sizing(border-box);
+	@include border-radius(4px 4px 0 0);
+	@include box-shadow(none);
+	@include cd-sans-serif-family;
+	color: $firefly40;
+	font-size: 16px;
+	height: 45px;
+	border: 0;
+	display: block;
+	padding: 12px 15px 10px;
+	float: none;
+	clear: both;
+	margin-top: -15px;
+	margin-bottom: 0;
+	background-color: #E7E8EA;
+	border-bottom: 1px solid rgba($firefly, 0.05);
+	&:focus {
+		background-color: #fff;
+		color: $firefly60;
+		border-bottom-color: $dodgerBlue;
+		outline: 0;
+	}
+}
+
+.form-type-textfield {
+	@include icon(search, 18px, $firefly60);
+	position: relative;
+	&:before {
+		position: absolute;
+		top: 10px;
+		#{opposite-position($from-direction)}: 10px;
 	}
 }

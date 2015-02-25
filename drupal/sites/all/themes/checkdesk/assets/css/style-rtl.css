@@ -1668,6 +1668,10 @@ div.block:hover .edit {
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
+.form-type-textfield:before, .icon-search:before {
+  content: "\f002";
+}
+
 .autocomplete-deluxe-item-delete:before {
   content: "\f00d";
 }
@@ -9473,7 +9477,7 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
   color: #404d59;
 }
 .control-page-items a:active {
-  color: #2155b4;
+  color: #2e77fc;
 }
 .control-page-items a.selected {
   color: #404d59;
@@ -9492,6 +9496,137 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 }
 .items .item:first-child {
   margin-top: 0;
+}
+
+.content-filter {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.filter-list {
+  margin: 0;
+  padding: 0;
+  margin: 0 -15px;
+}
+.filter-list li {
+  list-style: none;
+}
+.filter-list li {
+  display: block;
+}
+
+.views-exposed-widget label {
+  display: block;
+  padding: 12px 15px 10px;
+  padding-left: 30px;
+  margin-bottom: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
+  color: #9fa6ac;
+  font-weight: 700;
+}
+.views-exposed-widget label:hover {
+  color: #404d59;
+}
+
+.form-type-bef-link a {
+  display: block;
+  padding: 12px 15px 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #F3F4F4;
+  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
+  text-decoration: none;
+}
+.form-type-bef-link a:hover {
+  background-color: #fff;
+}
+
+input.search {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 0;
+  display: block;
+  padding: 12px 15px 10px;
+  background-color: #F3F4F4;
+  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
+  font-family: "Droid Arabic Naskh", serif;
+  color: #9fa6ac;
+  height: 45px;
+  width: 100%;
+}
+input.search:focus {
+  background-color: #fff;
+  color: #6f7a82;
+  border-bottom-color: #2e77fc;
+  outline: 0;
+}
+
+input#edit-keys {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  -ms-border-radius: 4px 4px 0 0;
+  -o-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: "Droid Arabic Naskh", serif;
+  color: #9fa6ac;
+  font-size: 16px;
+  height: 45px;
+  border: 0;
+  display: block;
+  padding: 12px 15px 10px;
+  float: none;
+  clear: both;
+  margin-top: -15px;
+  margin-bottom: 0;
+  background-color: #E7E8EA;
+  border-bottom: 1px solid rgba(16, 33, 47, 0.05);
+}
+input#edit-keys:focus {
+  background-color: #fff;
+  color: #6f7a82;
+  border-bottom-color: #2e77fc;
+  outline: 0;
+}
+
+.form-type-textfield {
+  position: relative;
+}
+.form-type-textfield:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: #6f7a82;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.form-type-textfield:before {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
 .item {
@@ -9836,6 +9971,21 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 }
 
 .icon-video-camera:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-search:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
