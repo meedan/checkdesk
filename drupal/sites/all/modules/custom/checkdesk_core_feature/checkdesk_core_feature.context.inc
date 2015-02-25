@@ -105,7 +105,13 @@ function checkdesk_core_feature_context_default_contexts() {
   $context->name = 'search';
   $context->description = 'search form';
   $context->tag = 'checkdesk';
-  $context->conditions = array();
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'search' => 'search',
+      ),
+    ),
+  );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(

@@ -1494,6 +1494,16 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         '#theme' => 'select_as_links',
       );
     }
+    $form['keys']['#attributes']['placeholder'] = t('Search');
+    // Add author filter
+    $form['author'] = array(
+      '#type' => 'select',
+      '#title' => 'Author',
+      '#options' => array(
+      ),
+      '#theme' => 'select_as_links',
+      '#weight' => -99,
+    );
     // Change type labels
     $form['type']['#options']['All'] = t('Everything');
     $form['type']['#options']['media'] = t('Reports');
@@ -2093,6 +2103,8 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
         }
       }
     }
+    // Add author condition
+    //$query->add_where(1,'users_node.name', 'melsawy', 'LIKE');
     // Fix helper text in case of search by keyword
     if ($view->current_display == 'attachment_1') {
       $query->having = $query->groupby = array();
