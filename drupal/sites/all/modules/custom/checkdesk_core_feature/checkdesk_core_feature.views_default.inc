@@ -726,6 +726,11 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel_1']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel_1']['flag'] = 'graphic_journalist';
   $handler->display->display_options['relationships']['flag_content_rel_1']['user_scope'] = 'any';
+  /* Relationship: Content: Author */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -974,6 +979,7 @@ print _checkdesk_search_header();
     t('Load more'),
     t('flag_spam'),
     t('flag_gc'),
+    t('author'),
     t('Post date'),
     t('Published'),
     t('Tags'),
