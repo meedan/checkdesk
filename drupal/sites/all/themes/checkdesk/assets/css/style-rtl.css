@@ -9444,27 +9444,47 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 }
 
 .control-container {
-  padding: 15px 20px;
+  padding: 0 20px 15px;
 }
 
-.filter, .result {
+.filter {
   display: inline-block;
+  margin-left: 30px;
 }
 
 .control-page-items {
   margin: 0;
   padding: 0;
   border-bottom: 1px solid #f3f4f4;
-  padding-bottom: 10px;
   margin-bottom: 10px;
 }
 .control-page-items li {
   list-style: none;
 }
+.control-page-items a {
+  display: block;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  color: #b7bcc0;
+  font-weight: 700;
+  text-decoration: none;
+}
+.control-page-items a:hover {
+  color: #404d59;
+}
+.control-page-items a:active {
+  color: #2155b4;
+}
+.control-page-items a.selected {
+  color: #404d59;
+}
 
 .page-results {
   font-size: 14px;
   color: #b7bcc0;
+}
+.page-results .result {
+  display: inline-block;
 }
 
 .items .item {
