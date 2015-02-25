@@ -1668,7 +1668,7 @@ div.block:hover .edit {
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-.form-type-textfield:before, .icon-search:before {
+.content-filter .form-type-textfield:before, .icon-search:before {
   content: "\f002";
 }
 
@@ -9538,21 +9538,37 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
   color: #404d59;
 }
 
-.form-type-bef-link a {
+.content-filter .form-type-bef-link a {
   display: block;
+  position: relative;
   padding: 12px 15px 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #F3F4F4;
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
+  color: #6f7a82;
   text-decoration: none;
 }
-.form-type-bef-link a:hover {
+.content-filter .form-type-bef-link a:hover {
   background-color: #fff;
 }
 
-input.search {
+.content-filter .selected a {
+  color: #2e77fc;
+  font-weight: 700;
+}
+.content-filter .selected a:before {
+  content: "";
+  width: 5px;
+  background: #2e77fc;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.content-filter input.search {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -9566,14 +9582,14 @@ input.search {
   height: 45px;
   width: 100%;
 }
-input.search:focus {
+.content-filter input.search:focus {
   background-color: #fff;
   color: #6f7a82;
   border-bottom-color: #2e77fc;
   outline: 0;
 }
 
-input#edit-keys {
+.content-filter input#edit-keys {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -9599,17 +9615,17 @@ input#edit-keys {
   background-color: #E7E8EA;
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
 }
-input#edit-keys:focus {
+.content-filter input#edit-keys:focus {
   background-color: #fff;
   color: #6f7a82;
   border-bottom-color: #2e77fc;
   outline: 0;
 }
 
-.form-type-textfield {
+.content-filter .form-type-textfield {
   position: relative;
 }
-.form-type-textfield:before {
+.content-filter .form-type-textfield:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -9623,7 +9639,7 @@ input#edit-keys:focus {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.form-type-textfield:before {
+.content-filter .form-type-textfield:before {
   position: absolute;
   top: 10px;
   left: 10px;
