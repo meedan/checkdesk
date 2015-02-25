@@ -55,6 +55,11 @@
           <?php endif; ?>
         </li>
       <?php endforeach; ?>
+
+      <div class="views-exposed-widget views-submit-button">
+        <?php print $button; ?>
+      </div>
+
     </ul>
 
     <?php if (!empty($sort_by)): ?>
@@ -77,10 +82,6 @@
         <?php print $offset; ?>
       </div>
     <?php endif; ?>
-    
-    <div class="views-exposed-widget views-submit-button">
-      <?php print $button; ?>
-    </div>
     
     <?php if (!empty($reset_button)): ?>
       <div class="views-exposed-widget views-reset-button">
