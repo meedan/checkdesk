@@ -1474,6 +1474,14 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
 
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
+    drupal_add_js('
+      jQuery(function() {
+        jQuery("#edit-field-tags-tid").attr("placeholder", Drupal.t("Search for tag"));
+        jQuery("#edit-field-tags-tid").fastLiveFilter(".search-list-edit-field-tags-tid .form-item");
+        jQuery("#edit-author").attr("placeholder", Drupal.t("Search for author"));
+        jQuery("#edit-author").fastLiveFilter(".search-list-edit-author .form-item");
+        })', 'inline');
+
     //Hide/show media reports based on type filter
     if ($_GET['type'] != 'media') {
       $form['#info']['filter-field_rating_tid']['label'] = NULL;
