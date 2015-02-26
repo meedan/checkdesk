@@ -9788,9 +9788,6 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
   margin: 0 0 10px 0;
   padding-left: 30px;
 }
-.page-story-collaboration .item .item-controls {
-  cursor: pointer;
-}
 .item .item-controls .meta, .item .item-controls .actions {
   display: table-cell;
   width: 100%;
@@ -9798,7 +9795,11 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 .item .item-controls .meta {
   font-weight: 700;
 }
+.item .item-controls .populated {
+  cursor: pointer;
+}
 .item .item-controls .actions {
+  cursor: pointer;
   white-space: nowrap;
 }
 .item .item-controls .actions span[class^="icon-"], .item .item-controls .actions span[class*="icon-"] {
@@ -9876,8 +9877,11 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 .item .open {
   color: #404d59;
 }
-.page-story-collaboration .item .item-nested-content {
+.item .item-nested-content {
   display: none;
+}
+.node-type-media .item .item-nested-content {
+  display: block;
 }
 .item .item-nested-footer {
   margin-top: 30px;

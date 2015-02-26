@@ -46,18 +46,22 @@
 	}
 
 	.item-controls {
-		.page-story-collaboration & {
-			cursor: pointer;
-		}
 
 		.meta, .actions {
 			display: table-cell;
 			width: 100%;
 		}
+		
 		.meta {
 			font-weight: 700;
 		}
+
+		.populated {
+			cursor: pointer;
+		}
+
 		.actions {
+			cursor: pointer;
 			white-space: nowrap;
 			span[class^="icon-"], span[class*="icon-"] { 
 				font-size: 20px;
@@ -96,8 +100,9 @@
 	}
 
 	.item-nested-content {
-		.page-story-collaboration & {
-			display: none;
+		display: none;
+		.node-type-media & {
+			display: block;
 		}
 	} // item-nested-content
 
