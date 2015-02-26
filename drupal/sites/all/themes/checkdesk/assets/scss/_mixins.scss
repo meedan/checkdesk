@@ -170,3 +170,23 @@
   @include border-radius(4px);
   background-color: $firefly20;
 }
+
+@mixin cd-simple-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+   
+  /* Track */
+  &::-webkit-scrollbar-track {
+    @include border-radius(2px);
+  }
+   
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    @include border-radius(2px);
+    background: $firefly20;
+  }
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: $firefly20;
+  }
+}

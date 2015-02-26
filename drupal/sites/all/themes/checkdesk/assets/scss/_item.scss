@@ -61,6 +61,7 @@
 		}
 
 		.actions {
+			padding-#{opposite-position($from-direction)}: 20px;
 			cursor: pointer;
 			white-space: nowrap;
 			span[class^="icon-"], span[class*="icon-"] { 
@@ -87,6 +88,7 @@
 		@include ctb-bg($firefly5, rgba($firefly, 0.05));
 		@include border-radius(0 0 4px 4px);
 		padding: 10px 20px;
+		padding-#{opposite-position($from-direction)}: 0;
 		font-size: 16px;
 		color: $firefly40;
 		
@@ -101,13 +103,21 @@
 
 	.item-nested-content {
 		display: none;
+		& > div { 
+			position: relative;
+			margin-top: 20px;
+			max-height: 300px;
+			overflow: auto;
+			padding-#{opposite-position($from-direction)}: 20px;
+			@include cd-simple-scrollbar;
+		}
 		.node-type-media & {
 			display: block;
 		}
 	} // item-nested-content
 
 	.item-nested-footer {
-		margin-top: 30px;
+		margin-top: 20px;
 		padding-top: 8px;
 		margin-bottom: 2px;
 		border-top: 1px solid rgba($firefly, .05);

@@ -106,6 +106,9 @@ $position:  "before";
 				display: inline-block;
 			}
 		}
+		&:first-child {
+			margin-top: 0;
+		}
 	}
 
 	.avatar {
