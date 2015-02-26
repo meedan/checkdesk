@@ -1,4 +1,5 @@
 .media-holder {
+	overflow: auto; // keeps it from collapsing
 	color: $firefly40;
 	a { @include ctb-linkColor($firefly40); }
 
@@ -111,8 +112,22 @@
 	}
 }
 
-.inline-attachment {
+.media .inline-img-thumb, .media .inline-video-thumb {
+	width: 100%;
+	width: 120px;
+	height: auto;
+	overflow: hidden;
+	@include border-radius(4px);
+	margin-top: 4px;
+	margin-#{$from-direction}: $gutter-width/2;
+}
 
+.media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
+	float: opposite-position($from-direction);
+}
+
+.inline-attachment {
+	
 	margin-bottom: 10px;
 
 	.inline-attachment-bar {
@@ -123,21 +138,6 @@
 		.indent {
 			width: 4px;
 		}
-	}
-
-	.inline-img-thumb-holder, .inline-video-thumb-holder {
-		float: opposite-position($from-direction);
-	}
-
-	.inline-img-thumb, .inline-video-thumb {
-		width: 100%;
-		// @include ctb-size(74px, 120px);
-		width: 120px;
-		height: auto;
-		overflow: hidden;
-		@include border-radius(4px);
-		margin-top: 4px;
-		margin-#{$from-direction}: $gutter-width/2;
 	}
 
 	.media-inline-holder {

@@ -1,10 +1,10 @@
 <div class="media-holder media-inline-holder<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
-  <div class="media-content">
-  	<div class="media">
-      <div class="inline-holder inline-video-thumb-holder">
-				<?php print $inline_thumbnail; ?>
-			</div>
+  <div class="media">
+    <div class="inline-holder inline-video-thumb-holder">
+      <?php print $inline_thumbnail; ?>
     </div>
+  </div>
+  <div class="media-content">
     <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
     <?php if(isset($author_name)) : ?><span class="author"><?php print $author_name ?></span><?php endif; ?>
     <span>

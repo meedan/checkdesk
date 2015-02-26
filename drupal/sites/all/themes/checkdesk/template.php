@@ -645,8 +645,10 @@ function checkdesk_preprocess_node(&$variables) {
     $provider = strtolower($node->embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
     // set status class name
-    $status = strtolower($node->field_rating['und'][0]['taxonomy_term']->name);
-    $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);
+    if(isset($node->field_rating['und'][0]['taxonomy_term']->name)) {
+      $status = strtolower($node->field_rating['und'][0]['taxonomy_term']->name);
+      $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);  
+    }
     // set embed type as class name
     $item_type = strtolower($node->embed->type);
     $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
