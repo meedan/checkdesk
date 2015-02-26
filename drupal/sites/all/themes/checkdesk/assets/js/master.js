@@ -108,12 +108,23 @@
 
   Drupal.behaviors.searchPage = {
     attach: function (context, settings) {
-      // filter group collapse/expand
-      $('.filter-list > .views-exposed-widget label').parent().addClass('open');
-      // set default states
-      $('.form-item-media-flags').removeClass('open').find('.bef-select-as-links').slideUp('fast');
-      $('.views-widget-filter-field_rating_tid').removeClass('open').find('.views-widget').slideUp('fast');
+      
+      // collapse a few by default
+      // $('.form-item-media-flags').each(function() {
+      //   if($(this).find('.selected').index() == 0) {
+      //     $(this).removeClass('open').find('.bef-select-as-links').slideUp('fast');
+      //   }
+      // });
 
+      // $('.views-widget-filter-field_rating_tid').each(function() {
+      //   if($(this).find('.selected').index() == 0) {
+      //     $(this).removeClass('open').find('.views-widget').slideUp('fast');
+      //   }
+      // });
+
+      // set default to open
+      $('.filter-list > .views-exposed-widget label').parent().addClass('open');
+      // filter group collapse/expand
       $('.filter-list > .views-exposed-widget label').unbind('click').click(function(event) {
         var target = $(this).parent();
         if (target.find('.views-widget, > .bef-select-as-links').is(':visible')) {

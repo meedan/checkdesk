@@ -7,6 +7,7 @@ body.sidebar-second #content {
 	padding-#{$from-direction}: 50px;
 	padding-#{opposite-position($from-direction)}: 75px;
 	@include box-sizing(border-box);
+	overflow: auto;
 }
 
 body.sidebar-second aside#sidebar-second {
@@ -14,6 +15,7 @@ body.sidebar-second aside#sidebar-second {
 	position: absolute;
 	#{opposite-position($from-direction)}: 50px;
 	overflow: auto;
+	height: auto;
 	top: $toolbarHeight + $navbarHeight + $absolute-line-height;
 	@include box-sizing(border-box);
 }

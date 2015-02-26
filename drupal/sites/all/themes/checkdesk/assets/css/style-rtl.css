@@ -10849,6 +10849,7 @@ body.sidebar-second #content {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  overflow: auto;
 }
 body.sidebar-second #content:before, body.sidebar-second #content:after {
   display: table;
@@ -10864,6 +10865,7 @@ body.sidebar-second aside#sidebar-second {
   position: absolute;
   left: 50px;
   overflow: auto;
+  height: auto;
   top: 127px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
