@@ -5265,6 +5265,20 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   line-height: 1.4;
   margin-top: 2px;
 }
+.media-holder .media-content .media-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #9fa6ac;
+}
+.media-holder .media-content .media-label .draft {
+  color: #ec9131;
+}
+.media-holder .media-content .media-label .published {
+  color: #399664;
+}
+.media-holder .media-content .media-label .media-type {
+  font-weight: 300;
+}
 .media-holder .media-content .title {
   font-size: 18px;
   font-weight: 700;
@@ -5376,21 +5390,61 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
 }
 
 .media .inline-img-thumb, .media .inline-video-thumb {
-  width: 100%;
-  width: 120px;
+  width: 142px;
+  min-height: 88px;
   height: auto;
-  overflow: hidden;
+  overflow: auto;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
-  margin-top: 4px;
-  margin-left: 7.5px;
+}
+
+.item-type-story .media .inline-img-thumb-holder {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.item-type-story .media .inline-img-thumb-holder:after {
+  position: absolute;
+  content: "";
+  z-index: -1;
+  top: 6px;
+  left: 6px;
+  bottom: 0;
+  background: #f3f4f4;
+  border: 1px solid #e7e8ea;
+  width: 90%;
+  height: 85%;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+.item-type-story .media .inline-img-thumb-holder:before {
+  position: absolute;
+  content: "";
+  z-index: -1;
+  top: 12px;
+  left: 0;
+  bottom: 0;
+  background: #f3f4f4;
+  border: 1px solid #e7e8ea;
+  width: 90%;
+  height: 85%;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
 }
 
 .media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
   float: right;
+  padding-left: 12px;
+  padding-bottom: 12px;
 }
 
 .inline-attachment {

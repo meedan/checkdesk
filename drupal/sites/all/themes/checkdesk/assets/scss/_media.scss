@@ -20,6 +20,21 @@
 			margin-top: 2px;
 		}
 
+		.media-label {
+			font-size: 14px;
+			font-weight: 700;
+			color: $firefly40;
+			.draft {
+				color: $undetermined;
+			}
+			.published {
+				color: $verified;
+			}
+			.media-type {
+				font-weight: 300;
+			}
+		}
+
 		.title {
 			font-size: 18px;
 			a { @include ctb-linkColor($strongBlue80); }
@@ -113,17 +128,51 @@
 }
 
 .media .inline-img-thumb, .media .inline-video-thumb {
-	width: 100%;
-	width: 120px;
+	width: 142px;
+	min-height: 88px;
 	height: auto;
-	overflow: hidden;
+	overflow: auto;
 	@include border-radius(4px);
-	margin-top: 4px;
-	margin-#{$from-direction}: $gutter-width/2;
+}
+
+.item-type-story .media .inline-img-thumb-holder {
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	// backrgound frame first
+	&:after {
+		position: absolute;
+		content: "";
+		z-index: -1;
+		top: 6px;
+		#{$from-direction}: 6px;
+		bottom: 0;
+		background: $firefly5;
+		border: 1px solid $firefly10;
+		width: 90%;
+		height: 85%;
+		@include border-radius(4px);
+	}
+	// backrgound frame second
+	&:before {
+		position: absolute;
+		content: "";
+		z-index: -1;
+		top: 12px;
+		#{$from-direction}: 0;
+		bottom: 0;
+		background: $firefly5;
+		border: 1px solid $firefly10;
+		width: 90%;
+		height: 85%;
+		@include border-radius(4px);
+	}
 }
 
 .media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
 	float: opposite-position($from-direction);
+	padding-#{$from-direction}: 12px;
+	padding-bottom: 12px;
 }
 
 .inline-attachment {
