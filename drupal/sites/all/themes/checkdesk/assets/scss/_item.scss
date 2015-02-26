@@ -113,6 +113,10 @@
 		}
 		.node-type-media & {
 			display: block;
+			& > div { 
+				overflow: visible;
+				max-height: none;
+			}
 		}
 	} // item-nested-content
 

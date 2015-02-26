@@ -9910,6 +9910,10 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 .node-type-media .item .item-nested-content {
   display: block;
 }
+.node-type-media .item .item-nested-content > div {
+  overflow: visible;
+  max-height: none;
+}
 .item .item-nested-footer {
   margin-top: 20px;
   padding-top: 8px;
