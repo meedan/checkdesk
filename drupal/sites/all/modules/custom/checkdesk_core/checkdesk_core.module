@@ -1483,7 +1483,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         })', 'inline');
 
     //Hide/show media reports based on type filter
-    if ($_GET['type'] != 'media') {
+  if (isset($_GET['type']) && $_GET['type'] != 'media') {
       $form['#info']['filter-field_rating_tid']['label'] = NULL;
       $form['field_rating_tid']['#type'] = 'hidden';
       unset($form['field_rating_tid']['#theme']);

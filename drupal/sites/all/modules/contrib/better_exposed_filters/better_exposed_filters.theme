@@ -578,7 +578,7 @@ function theme_select_as_links($vars) {
 
   $output = '<div class="bef-select-as-links">';
 
-  if ($element['#bef_enable_fastlivefilter']) {
+  if (isset($element['#bef_enable_fastlivefilter']) && $element['#bef_enable_fastlivefilter']) {
     $filter_id = $element['#id'];
     $output .= '<input class="search" id="'. $filter_id .'"  />';
     $output .= '<div class="search-list search-list-'.$filter_id.'">';
@@ -596,7 +596,7 @@ function theme_select_as_links($vars) {
     }
   }
 
-  if ($element['#bef_enable_fastlivefilter']) {
+  if (isset($element['#bef_enable_fastlivefilter']) && $element['#bef_enable_fastlivefilter']) {
     $output .= '</div>';
   }
 

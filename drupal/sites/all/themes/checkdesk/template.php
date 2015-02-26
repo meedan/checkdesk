@@ -1070,7 +1070,7 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
       $page_title = t('Stories');
     }
   }
-  elseif (is_numeric($_GET['field_tags_tid'])) {
+  elseif (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
     //Set taxonomy name as title
     $term = taxonomy_term_load($_GET['field_tags_tid']);
     $page_title = $term->name;
