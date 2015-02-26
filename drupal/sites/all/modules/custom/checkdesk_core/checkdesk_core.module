@@ -1513,7 +1513,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     // Add author filter
     global $user;
     $users = db_query('
-              SELECT name FROM {users} WHERE status = :status AND uid != :uid
+              SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
     ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
     $users = array('All' => t('-Any-'), $user->name => t('-Mine-')) + $users;
     $form['author'] = array(

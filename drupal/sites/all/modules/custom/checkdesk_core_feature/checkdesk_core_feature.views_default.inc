@@ -918,6 +918,16 @@ function checkdesk_core_feature_views_default_views() {
 print _checkdesk_search_header();
 ?>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
+  $handler->display->display_options['defaults']['empty'] = FALSE;
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '<?php
+print t(\'Your selection produced no results\');
+?>';
+  $handler->display->display_options['empty']['area']['format'] = 'php_code';
   $handler->display->display_options['path'] = 'search';
 
   /* Display: Attachment */
@@ -990,6 +1000,9 @@ print _checkdesk_search_header();
     t('Page'),
     t('<?php
 print _checkdesk_search_header();
+?>'),
+    t('<?php
+print t(\'Your selection produced no results\');
 ?>'),
     t('Attachment'),
   );
