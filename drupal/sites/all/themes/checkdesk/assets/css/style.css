@@ -1768,6 +1768,14 @@ label.option.in-progress:before, .icon-random:before {
   content: "\f074";
 }
 
+.views-exposed-widget label:before, .icon-chevron-up:before {
+  content: "\f077";
+}
+
+.open > label:before, .icon-chevron-down:before {
+  content: "\f078";
+}
+
 #my-account .info .linked-account .icon-twitter:before, body.page-user.logged-in .user-info .linked-accounts .icon-twitter:before {
   content: "\f081";
 }
@@ -9561,9 +9569,52 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
   color: #9fa6ac;
   font-weight: 700;
+  position: relative;
 }
 .views-exposed-widget label:hover {
   color: #404d59;
+}
+.views-exposed-widget label:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.views-exposed-widget label:before {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}
+
+.open > label {
+  position: relative;
+}
+.open > label:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.open > label:before {
+  position: absolute;
+  top: 12px;
+  right: 10px;
 }
 
 .content-filter .form-type-bef-link a {
@@ -10036,6 +10087,36 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 }
 
 .icon-search:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-chevron-down:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: "black";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-chevron-up:before {
   font-family: "FontAwesome";
   display: inline-block;
   margin: 0 7.5px;
@@ -10811,13 +10892,19 @@ body.sidebar-second #content:after {
 
 body.sidebar-second aside#sidebar-second {
   width: 20%;
-  position: fixed;
+  position: absolute;
   right: 50px;
   overflow: auto;
   top: 127px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+body.sidebar-second h1 {
+  font-size: 28px;
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
 }
 
 body.page-user.logged-in #sidebar-first {

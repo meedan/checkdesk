@@ -79,6 +79,25 @@
 	&:hover {
 		color: $firefly80;
 	}
+	// chevron down for closed filter group
+	@include icon(chevron-up, 12px);
+	position: relative;
+	&:before {
+		position: absolute;
+		top: 12px;
+		#{opposite-position($from-direction)}: 10px;
+	}
+}
+
+// chevron up for open filter group
+.open > label {
+	@include icon(chevron-down, 12px);
+	position: relative;
+	&:before {
+		position: absolute;
+		top: 12px;
+		#{opposite-position($from-direction)}: 10px;
+	}
 }
 
 .content-filter .form-type-bef-link a {

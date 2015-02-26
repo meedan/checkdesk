@@ -11,9 +11,15 @@ body.sidebar-second #content {
 
 body.sidebar-second aside#sidebar-second {
 	width: 20%;
-	position: fixed;
+	position: absolute;
 	#{opposite-position($from-direction)}: 50px;
 	overflow: auto;
 	top: $toolbarHeight + $navbarHeight + $absolute-line-height;
 	@include box-sizing(border-box);
+}
+
+body.sidebar-second h1 {
+	font-size: 28px;
+	@include cd-sans-serif-family;
+	font-weight: 700;
 }

@@ -106,6 +106,29 @@
     }
   };
 
+  Drupal.behaviors.searchPage = {
+    attach: function (context, settings) {
+      // filter group collapse/expand
+      $('.filter-list > .views-exposed-widget label').parent().addClass('open');
+      // set default states
+      $('.form-item-media-flags').removeClass('open').find('.bef-select-as-links').slideUp('fast');
+      $('.views-widget-filter-field_rating_tid').removeClass('open').find('.views-widget').slideUp('fast');
+
+      $('.filter-list > .views-exposed-widget label').unbind('click').click(function(event) {
+        var target = $(this).parent();
+        if (target.find('.views-widget, > .bef-select-as-links').is(':visible')) {
+          target.find('.views-widget, > .bef-select-as-links').slideUp('fast');
+          target.removeClass('open');
+        }
+        else {
+          target.find('.views-widget, > .bef-select-as-links').slideDown('fast');
+          target.addClass('open');
+        }
+        return false;
+      });
+    }
+  };
+
   $.fn.scrollToHere = function(speed) {
     $('html, body').animate({ scrollTop : $(this).offset().top - $('#toolbar').height() - $('#navbar').height() }, speed);
   };
