@@ -28,6 +28,9 @@
 .icon-check-circle { @include icon(check-circle, 16px);}
 .icon-trash-o { @include icon(trash-o, 16px);}
 .icon-video-camera { @include icon(video-camera, 16px);}
+.icon-search { @include icon(search, 16px);}
+.icon-chevron-down { @include icon(chevron-down, 16px);}
+.icon-chevron-up { @include icon(chevron-up, 16px);}
 
  // Report status icons in activity log's header
 $position:  "before";
@@ -60,140 +63,7 @@ $position:  "before";
 	@include icon(times-circle);
 }
 
-// generalized item with white background and grey
-.item {
-
-	font-size: 16px;
-	color: $firefly60;
-	word-wrap: break-word;
-	a { @include ctb-linkColor($firefly60); }
-
-	.item-content-wrapper {
-		@include border-radius(4px 4px 0 0);
-		background-color: #fff;
-	} //item-content-wrapper
-
-	.item-message {
-		padding: 15px 20px 0 20px;
-		background-color: #fff;
-	}
-
-	.item-content-wrapper {
-		padding: 20px 20px 15px 20px;
-	}
-
-	.item-content {
-		display: block;
-
-		p {
-			@include reset-box-model;
-			color: $firefly80;
-			a { @include ctb-linkColor($strongBlue80); }
-			&:first-child {
-				@include reset-box-model;
-				margin-top: 5px;
-			}
-		}
-
-		.item-body-text {
-			color: $firefly80;
-			a { @include ctb-linkColor($strongBlue80); }
-
-			ul, ol {
-	      margin: 0 0 $absolute-line-height/2.4 0; // 10px 
-	      padding-#{$alpha}: $gutter-width*2;
-	    }
-		}
-		
-	}
-
-	.item-controls {
-		.page-story-collaboration & {
-			cursor: pointer;
-		}
-
-		.meta, .actions {
-			display: table-cell;
-			width: 100%;
-		}
-		.meta {
-			font-weight: 700;
-		}
-		.actions {
-			white-space: nowrap;
-			span[class^="icon-"], span[class*="icon-"] { 
-				font-size: 20px;
-				color: $firefly40;
-			}
-			div {
-				display: inline-block;
-			}
-		}
-		
-		// hide any labels
-		.label {
-			display: none;
-		}
-
-		&:hover .meta {
-			color: $firefly80;
-		}
-
-	} // item-controls
-
-	.item-nested-content-wrapper {
-		@include ctb-bg($firefly5, rgba($firefly, 0.05));
-		@include border-radius(0 0 4px 4px);
-		padding: 10px 20px;
-		font-size: 16px;
-		color: $firefly40;
-		
-		// add styles for load more pager
-		@include ctb-load-more-pager;
-
-	} // item-nested-content-wrapper
-
-	.open {
-		color: $firefly80;
-	}
-
-	.item-nested-content {
-		.page-story-collaboration & {
-			display: none;
-		}
-	} // item-nested-content
-
-	.item-nested-footer {
-		margin-top: 30px;
-		padding-top: 8px;
-		margin-bottom: 2px;
-		border-top: 1px solid rgba($firefly, .05);
-		.cta, .helper {
-			display: table-cell;
-			width: 100%;
-			color: $firefly60;
-		}
-		.cta {
-			font-size: 16px;
-			a { @include ctb-linkColor($strongBlue80); }
-		}
-		.helper {
-			font-size: 14px;
-			white-space: nowrap;
-			span[class^="icon-"], span[class*="icon-"], a {
-				color: $firefly30;
-				text-decoration: none;
-			}
-		}
-	}
-
-	@include ctb-clearfix;
-
-} // item
-
-
 // activity
-
 .view-story-collaboration {
 	// add styles for load more pager
 	@include ctb-load-more-pager;
@@ -235,6 +105,9 @@ $position:  "before";
 			.inline-delete-item {
 				display: inline-block;
 			}
+		}
+		&:first-child {
+			margin-top: 0;
 		}
 	}
 

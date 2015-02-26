@@ -880,7 +880,23 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
 
-  if ($view_mode == 'checkdesk_collaborate') {
+  if ($view_mode == 'checkdesk_search') {
+    if ($node->type == 'discussion') {
+      $updates = db_query('
+          SELECT COUNT(entity_id) FROM {field_data_field_desk} WHERE field_desk_target_id = :nid
+      ', array(':nid' => $node->nid))->fetchField();
+      $node->content['story_updates_count'] = $updates ? format_plural($updates, '1 update', '@count updates') : NULL;
+      // collaborators count
+      $collaborators = db_query('
+          SELECT COUNT(ha.uid)
+          FROM {heartbeat_activity} ha
+          WHERE nid_target = :nid AND message_id != :message_id
+      ', array(':nid' => $node->nid, ':message_id' => 'checkdesk_follow_story'))->fetchField();
+      $node->content['story_collaborators_count'] = $collaborators ? format_plural($collaborators, '1 collaborator', '@count collaborators') : NULL;
+    }
+  }
+
+  if ($view_mode == 'checkdesk_collaborate' || $view_mode == 'checkdesk_search') {
     if ($node->type == 'post') {
       if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
         $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body[LANGUAGE_NONE][0]['value']);
@@ -1455,6 +1471,62 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       $form['#info']['filter-field_stories_target_id'] = FALSE;
     }
   }
+
+  if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
+    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
+    drupal_add_js('
+      jQuery(function() {
+        jQuery("#edit-field-tags-tid").attr("placeholder", Drupal.t("Search for tag"));
+        jQuery("#edit-field-tags-tid").fastLiveFilter(".search-list-edit-field-tags-tid .form-item");
+        jQuery("#edit-author").attr("placeholder", Drupal.t("Search for author"));
+        jQuery("#edit-author").fastLiveFilter(".search-list-edit-author .form-item");
+        })', 'inline');
+
+    //Hide/show media reports based on type filter
+  if (isset($_GET['type']) && $_GET['type'] != 'media') {
+      $form['#info']['filter-field_rating_tid']['label'] = NULL;
+      $form['field_rating_tid']['#type'] = 'hidden';
+      unset($form['field_rating_tid']['#theme']);
+    }
+    else {
+      // Change -Any- status label
+      $form['field_rating_tid']['#options']['All'] = t('Any status');
+      $form['media_flags'] = array(
+        '#type' => 'select',
+        '#title' => 'Flags',
+        '#options' => array(
+          'All' => t('Any flag'),
+          'flagged_gc' => t('Graphic content'),
+          'flagged_spam' => t('Spam'),
+        ),
+        //'#multiple' => TRUE,
+        '#theme' => 'select_as_links',
+      );
+    }
+    $form['keys']['#attributes']['placeholder'] = t('Search');
+
+    // Change type labels
+    $form['type']['#options']['All'] = t('Everything');
+    $form['type']['#options']['media'] = t('Reports');
+    $form['type']['#options']['discussion'] = t('Stories');
+    $form['type']['#options']['post'] = t('Updates');
+    // Add author filter
+    global $user;
+    $users = db_query('
+              SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
+    ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
+    $users = array('All' => t('-Any-'), $user->name => t('-Mine-')) + $users;
+    $form['author'] = array(
+      '#type' => 'select',
+      '#title' => 'Author',
+      '#options' => $users,
+      '#theme' => 'select_as_links',
+      '#bef_enable_fastlivefilter' => 1,
+    );
+    // Hide sort and submit button
+    $form['sort_bef_combine']['#type'] = 'hidden';
+    $form['submit']['#attributes']['class'][] = 'js-hide';
+  }
 }
 
 
@@ -1545,6 +1617,13 @@ function checkdesk_core_theme() {
   $themes['checkdesk_core_render_links'] = array(
     'variables' => array(
       'options' => NULL,
+    ),
+  ) + $base;
+
+  $themes['checkdesk_core_render_search_header'] = array(
+      'template' => 'checkdesk_search_header',
+      'variables' => array(
+      'links' => NULL,
     ),
   ) + $base;
 
@@ -2013,6 +2092,39 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     $query->add_relationship('f', $join, 'field_data_field_desk');
     $query->add_field('node', 'nid', 'nid', array('function' => 'groupby'));
     $query->add_groupby('node.nid');
+  }
+
+  if ($view->name == 'checkdesk_search') {
+    // Add where condition based on flag type for reports.
+    if (isset($_GET['type']) && $_GET['type'] == 'media' && isset($_GET['media_flags'])) {
+      switch($_GET['media_flags']) {
+        case 'flagged_spam':
+          $query->add_where(1,'flagging_node.uid', 1, 'IS NOT NULL');
+          break;
+        case 'flagged_gc':
+          $query->add_where(1,'flagging_node_1.uid', 1, 'IS NOT NULL');
+        break;
+      }
+    }
+    // Remove status condition if user selected type not reports
+    if (isset($_GET['type']) && $_GET['type'] != 'media' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
+      $conditions = $query->where[1]['conditions'];
+      foreach($conditions as $k => $v) {
+        if (is_string($v['field']) && $v['field'] == 'field_data_field_rating.field_rating_tid') {
+          unset($query->table_queue['field_data_field_rating']);
+          unset($query->where[1]['conditions'][$k]);
+          break;
+        }
+      }
+    }
+    // Add author condition
+    if (isset($_GET['author']) && $_GET['author'] != 'All') {
+      $query->add_where(1,'users_node.name', $_GET['author'], 'LIKE');
+    }
+    // Fix helper text in case of search by keyword
+    if ($view->current_display == 'attachment_1') {
+      $query->having = $query->groupby = array();
+    }
   }
 }
 
@@ -3395,7 +3507,13 @@ function _checkdesk_story_links($nid) {
  *  @param story_nid
  *
  */
-function _checkdesk_story_get_collaborators($nid) {
+function _checkdesk_story_get_collaborators($nid, $options = array()) {
+  if (!isset($options['extra_users'])) {
+    $options['extra_users'] = TRUE;
+  }
+  if (!isset($options['show_avatars'])) {
+    $options['show_avatars'] = TRUE;
+  }
   $output = '';
   //ToDO check node type
   $users = db_query('
@@ -3406,12 +3524,15 @@ function _checkdesk_story_get_collaborators($nid) {
     WHERE nid_target = :nid AND message_id != :message_id
     GROUP BY ha.uid
     ORDER BY COUNT(ha.uid) DESC
-    ', array(':nid' => arg(1), ':message_id' => 'checkdesk_follow_story'))->fetchAll();
+    ', array(':nid' => $nid, ':message_id' => 'checkdesk_follow_story'))->fetchAll();
   $total_users = count($users);
   if ($total_users) {
-    $num_to_show = variable_get('collaborators_display_count', 3);
+    $extra_users = 0;
     $title = format_plural($total_users, '1 collaborator', '@count collaborators');
-    $extra_users = $total_users > $num_to_show ? $total_users - $num_to_show : 0;
+    if ($options['extra_users']) {
+      $num_to_show = variable_get('collaborators_display_count', 3);
+      $extra_users = $total_users > $num_to_show ? $total_users - $num_to_show : 0;
+    }
     $uitems = $pitems = array();
     if ($extra_users) {
       $users = array_slice($users, 0, $num_to_show);
@@ -3421,22 +3542,30 @@ function _checkdesk_story_get_collaborators($nid) {
       $fullname = explode(' ', $user->name);
       $fname = array_shift($fullname);
       $uitems[] = l($fname, 'user/'. $user->uid);
-      $avatar = _set_user_avatar_bg(user_load($user->uid));
-      if ($avatar) {
-        $pitems[] = $avatar;
+      if ($options['show_avatars']) {
+        $avatar = _set_user_avatar_bg(user_load($user->uid));
+        if ($avatar) {
+          $pitems[] = $avatar;
+        }
       }
     }
+
+
     $output .= '<div class="story-collaborators-wrapper"><div class="story-collaborators"><span class="sc-users"><h3>' . $title . '</h3>' . implode(', ', $uitems);
     if ($extra_users) {
       $output .= ' <span class="sc-extra-users">+ '. $extra_users .'</span>';
     }
     $output .= '</span>'; // closing sc-users
-    $output .= '<span class="sc-avatars">';
-    foreach ($pitems as $pitem) {
-      $output .= $pitem;
+    if ($options['show_avatars']) {
+      $output .= '<span class="sc-avatars">';
+      foreach ($pitems as $pitem) {
+        $output .= $pitem;
+      }
+      $output .= '</span>';
     }
-    $output .= '</span></div></div>';
+    $output .= '</div></div>';
   }
+
   return $output;
 }
 
@@ -3479,3 +3608,76 @@ function _checkdesk_report_status($report) {
   return $report_status;
 }
 
+/**
+ * Add header for search page
+ * i.e - sort filter + basic filters for each content type.
+ */
+function _checkdesk_search_header() {
+  $links = array();
+  $path = '';
+  $selected = '';
+  if (isset($_GET['sort_bef_combine'])) {
+    $selected = ($_GET['sort_bef_combine'] == 'created ASC') ? 'ASC' : 'DESC';
+  }
+  $links[] = l(t('Newest'), bef_replace_query_string_arg('sort_bef_combine', 'created DESC', FALSE, FALSE, $path),
+    array('attributes' => array('class' => ($selected == 'DESC') ? 'selected' : '')));
+  $links[] = l(t('Oldest'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path),
+    array('attributes' => array('class' => ($selected == 'ASC') ? 'selected' : '')));
+  if (isset($_GET['type'])) {
+    switch ($_GET['type']) {
+      case 'media':
+        // Add filters for media only
+        $selected = 'All';
+        if (isset($_GET['field_rating_tid'])) {
+          if($_GET['field_rating_tid'] == 1) {
+            $selected = 'verified';
+          }
+          elseif ($_GET['field_rating_tid'] == 2) {
+            $selected = 'in-progress';
+          }
+        }
+        $links[] = l(t('Verified'), bef_replace_query_string_arg('field_rating_tid', 1, FALSE, FALSE, $path),
+          array('attributes' => array('class' => ($selected == 'verified') ? 'selected' : '')));
+        $links[] = l(t('In Progress'), bef_replace_query_string_arg('field_rating_tid', 2, FALSE, FALSE, $path),
+          array('attributes' => array('class' => ($selected == 'in-progress') ? 'selected' : '')));
+
+        $selected = 'All';
+        if (isset($_GET['media_flags']) && $_GET['media_flags'] == 'flagged_spam') {
+          $selected = 'spam';
+        }
+        $links[] = l(t('Spam'), bef_replace_query_string_arg('media_flags', 'flagged_spam', FALSE, FALSE, $path),
+          array('attributes' => array('class' => ($selected == 'spam') ? 'selected' : '')));
+
+        break;
+      case 'discussion':
+      case 'post':
+      $selected = 'All';
+        if (isset($_GET['status'])) {
+          $selected = ($_GET['status'] == 0) ? 'drafts' : 'published';
+        }
+        $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
+          array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
+        $links[] = l(t('Published'), bef_replace_query_string_arg('status', 1, FALSE, FALSE, $path),
+          array('attributes' => array('class' => ($selected == 'published') ? 'selected' : '')));
+      break;
+    }
+  }
+  return theme('checkdesk_core_render_search_header', array('links' => $links));
+}
+
+/**
+ * Implements of hook_url_outbound_alter().
+ */
+function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
+  //This is a taxonomy page
+  if (preg_match('|^taxonomy/term/([0-9]*)|', $original_path, $matches)) {
+    if (is_numeric($matches[1])) {
+      $tags = taxonomy_vocabulary_machine_name_load('tags');
+      $term = taxonomy_term_load($matches[1]);
+      if ($tags->vid == $term->vid) {
+        $path = 'search';
+        $options['query']['field_tags_tid'] = $matches[1];
+      }
+    }
+  }
+}

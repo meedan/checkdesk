@@ -12,6 +12,7 @@ section#comment-form {
 	@include ctb-clearfix;
 	position: relative;
 	margin-top: 8px;
+	padding-#{opposite-position($from-direction)}: 20px;
 
 	label {
 		display: none;

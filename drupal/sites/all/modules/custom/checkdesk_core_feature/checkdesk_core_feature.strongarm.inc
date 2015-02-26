@@ -477,6 +477,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '8',
+            'visible' => FALSE,
+          ),
         ),
         'flag_factcheck_journalist' => array(
           'checkdesk_collaborate' => array(
@@ -498,6 +502,10 @@ return _checkdesk_core_auto_title($node);
           'meedan_oembed' => array(
             'weight' => '10',
             'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
+            'weight' => '7',
+            'visible' => FALSE,
           ),
         ),
         'flag_spam' => array(
@@ -521,6 +529,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '9',
+            'visible' => FALSE,
+          ),
         ),
         'flag_graphic' => array(
           'checkdesk_collaborate' => array(
@@ -542,6 +554,10 @@ return _checkdesk_core_auto_title($node);
           'meedan_oembed' => array(
             'weight' => '10',
             'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
+            'weight' => '6',
+            'visible' => FALSE,
           ),
         ),
         'flag_factcheck' => array(
@@ -565,6 +581,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '10',
             'visible' => TRUE,
           ),
+          'checkdesk_search' => array(
+            'weight' => '4',
+            'visible' => FALSE,
+          ),
         ),
         'flag_delete' => array(
           'checkdesk_collaborate' => array(
@@ -586,6 +606,10 @@ return _checkdesk_core_auto_title($node);
           'meedan_oembed' => array(
             'weight' => '10',
             'visible' => TRUE,
+          ),
+          'checkdesk_search' => array(
+            'weight' => '5',
+            'visible' => FALSE,
           ),
         ),
       ),
@@ -775,7 +799,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'language_content_type_discussion';
-  $strongarm->value = '0';
+  $strongarm->value = '1';
   $export['language_content_type_discussion'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1354,6 +1378,30 @@ return _checkdesk_core_auto_title($node);
   $strongarm->name = 'save_draft_skip_required_post';
   $strongarm->value = 0;
   $export['save_draft_skip_required_post'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'search_active_modules';
+  $strongarm->value = array(
+    'node' => 'node',
+    'user' => 0,
+  );
+  $export['search_active_modules'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'search_cron_limit';
+  $strongarm->value = '100';
+  $export['search_cron_limit'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'search_default_module';
+  $strongarm->value = 'node';
+  $export['search_default_module'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

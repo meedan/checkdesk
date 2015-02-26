@@ -489,21 +489,19 @@ function checkdesk_preprocess_node(&$variables) {
 
   // get $alpha and $omega
   $variables['layout'] = checkdesk_core_direction_settings();
+  $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
 
   if($variables['view_mode'] == 'checkdesk_collaborate') {
     if ($variables['type'] == 'media') {
       $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
-      $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
       $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'] . '__' . $message_id;
-    }
-    else {
-      $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
     }
   }
   elseif ($variables['type'] == 'discussion' && !empty($variables['heartbeat_row'])) {
     $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
     $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $message_id;
   }
+
   if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
@@ -533,15 +531,7 @@ function checkdesk_preprocess_node(&$variables) {
       '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
     ));
-    $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
-      '@user' => url('user/'. $variables['uid']),
-      '!user' => $node->name,
-    ));
-    $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
-      '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
-      '!interval' => format_interval((time() - $variables['created']), 1),
-    ));
+
     $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
       '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
       '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
@@ -551,8 +541,22 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if($variables['type'] == 'post') {
+      $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
+          '@user' => url('user/'. $variables['uid']),
+          '!user' => $node->name,
+      ));
+      $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
+          '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+          '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+          '!interval' => format_interval((time() - $variables['created']), 1),
+      ));
     $user = user_load($variables['uid']);
     $variables['user_avatar'] = _set_user_avatar_bg($user, array('avatar', 'thumb-22'));
+    if (isset($variables['title'])) {
+        if ($variables['title'] === _checkdesk_core_auto_title($node) || $variables['title'] === t('Update')) {
+            unset($variables['title']);
+        }
+    }
   }
 
   if ($variables['type'] == 'discussion') {
@@ -584,6 +588,7 @@ function checkdesk_preprocess_node(&$variables) {
 
     // Collaboration header for story.
     $variables['story_links'] = _checkdesk_story_links($variables['nid']);
+
     $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
 
     if($variables['view_mode'] == 'checkdesk_collaborate') {
@@ -621,11 +626,7 @@ function checkdesk_preprocess_node(&$variables) {
 
   }
 
-  if ($variables['type'] == 'post' && isset($variables['title'])) {
-    if ($variables['title'] === _checkdesk_core_auto_title($node) || $variables['title'] === t('Update')) {
-      unset($variables['title']);
-    }
-  }
+
 
   $variables['icon'] = '';
 
@@ -646,8 +647,10 @@ function checkdesk_preprocess_node(&$variables) {
     $provider = strtolower($node->embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
     // set status class name
-    $status = strtolower($node->field_rating['und'][0]['taxonomy_term']->name);
-    $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);
+    if(isset($node->field_rating['und'][0]['taxonomy_term']->name)) {
+      $status = strtolower($node->field_rating['und'][0]['taxonomy_term']->name);
+      $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);  
+    }
     // set embed type as class name
     $item_type = strtolower($node->embed->type);
     $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
@@ -721,6 +724,7 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
   }
+  
 }
 
 function checkdesk_links__node($variables) {
@@ -972,8 +976,8 @@ function checkdesk_field__field_rating(&$variables) {
  * Field: Tags
  */
 function checkdesk_field__field_tags(&$variables) {
+  if ($variables['element']['#view_mode'] == 'full') {
   $type = $variables['element']['#bundle'];
-  
   if($type == 'media') {
     $alt_type = array(
       'singular' => 'report',
@@ -996,19 +1000,20 @@ function checkdesk_field__field_tags(&$variables) {
     $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
 
     $output .= '<li class="inline-list__item">';
-    /*
-      $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'] , array('html' => TRUE, 'attributes' => array(
-          'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
-          'class' => array('btn', 'btn--transparent', 'btn--tag'),
+
+    $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'], array(
+      'html' => TRUE,
+      'attributes' => array(
+        'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
+        'class' => array('btn', 'btn--transparent', 'btn--tag'),
       ),
-      ));
-    */
-    $output .= '<div class="btn btn--transparent btn--tag">' . $tag_name . $count . '</div>';
-    
+    ));
+
     $output .= '</li>';
   }
   $output .= '</ul></div></div></section>';
   return $output;
+  }
 }
 
 function checkdesk_fboauth_action__connect(&$variables) {
@@ -1047,6 +1052,32 @@ function checkdesk_preprocess_views_view(&$vars) {
       $function($vars);
     }
   }
+}
+
+/**
+ * checkdesk_search view.
+ */
+function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
+  // Set page title
+  $view = $vars['view'];
+  $page_title = t('Search');
+  if (isset($_GET['type']) && $_GET['type'] != 'All') {
+    if($_GET['type'] == 'media') {
+      $page_title = t('Reports');
+    }
+    elseif ($_GET['type'] == 'post') {
+      $page_title = t('Updates');
+    }
+    elseif ($_GET['type'] == 'discussion') {
+      $page_title = t('Stories');
+    }
+  }
+  elseif (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
+    //Set taxonomy name as title
+    $term = taxonomy_term_load($_GET['field_tags_tid']);
+    $page_title = $term->name;
+  }
+  $view->set_title($page_title);
 }
 
 /* Desk Reports */
