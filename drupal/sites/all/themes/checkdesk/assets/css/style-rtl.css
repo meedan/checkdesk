@@ -10960,10 +10960,14 @@ body.widgets #main #content #content-inner:after {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.sidebar-second #main {
+  max-width: 1280px;
+  position: relative;
+}
+
 body.sidebar-second #content {
   *zoom: 1;
   width: 80%;
-  position: relative;
   padding-top: 24px;
   padding-right: 50px;
   padding-left: 75px;

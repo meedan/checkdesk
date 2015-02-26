@@ -1,8 +1,13 @@
 // Page with sidebar second
+
+body.sidebar-second #main {
+	max-width: 1280px;
+	position: relative;
+}
+
 body.sidebar-second #content {
 	@include ctb-clearfix;
 	width: 80%;
-	position: relative;
 	padding-top: $absolute-line-height;
 	padding-#{$from-direction}: 50px;
 	padding-#{opposite-position($from-direction)}: 75px;
