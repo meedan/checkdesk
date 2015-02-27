@@ -58,9 +58,6 @@
 				color: $firefly40;
 				text-decoration: none;
 				margin-#{opposite-position($from-direction)}: 30px;
-				&:last-child {
-					margin-#{opposite-position($from-direction)}: 0;
-				}
 				&:hover {
 					color: $firefly80;
 				}
