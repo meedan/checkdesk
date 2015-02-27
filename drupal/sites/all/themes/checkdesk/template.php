@@ -485,6 +485,7 @@ function checkdesk_preprocess_page(&$variables) {
  * Override or insert variables into the node template.
  */
 function checkdesk_preprocess_node(&$variables) {
+  global $language;
   $node = @$variables['elements']['#node'];
 
   // get $alpha and $omega
@@ -502,7 +503,7 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $message_id;
   }
 
-  if ($variables['type'] == 'post' || $variables['type'] == 'discussion') {
+  if ($variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
     $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
@@ -510,6 +511,7 @@ function checkdesk_preprocess_node(&$variables) {
     if ($site_timezone['city'] == 'Jerusalem') {
       $timezone = t('Jerusalem, Palestine');
     }
+
     $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
         '@url' => url('node/'. $variables['nid']),
         '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
@@ -541,15 +543,28 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if($variables['type'] == 'post') {
-      $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
-          '@user' => url('user/'. $variables['uid']),
-          '!user' => $node->name,
+    $parent_story_id = $variables['field_desk'][LANGUAGE_NONE][0]['target_id'];
+    $update_anchor = 'update-' . $variables['nid'];
+    $update_link = url('node/'.$parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
+    $variables['update_link'] = $update_link;
+
+    $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+        '@url' => $update_link,
+        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
+        '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
+        '!interval' => format_interval(time() - $variables['created'], 1),
       ));
-      $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
-          '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-          '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
-          '!interval' => format_interval((time() - $variables['created']), 1),
-      ));
+
+    $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
+        '@user' => url('user/'. $variables['uid']),
+        '!user' => $node->name,
+    ));
+    $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
+        '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
+        '!interval' => format_interval((time() - $variables['created']), 1),
+    ));
     $user = user_load($variables['uid']);
     $variables['user_avatar'] = _set_user_avatar_bg($user, array('avatar', 'thumb-22'));
     if (isset($variables['title'])) {

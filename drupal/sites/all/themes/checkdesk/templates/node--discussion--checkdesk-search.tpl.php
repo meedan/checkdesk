@@ -17,7 +17,7 @@
               <?php else: ?>
                  <span class="draft"><?php print t('Draft'); ?></span>
               <?php endif; ?>
-              <span class="media-type"> <?php print t('liveblog'); ?></span>
+              <span class="media-type"> <?php print t('Liveblog'); ?></span>
             </span>
 
             <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
