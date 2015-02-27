@@ -9845,6 +9845,17 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 .item .item-controls .meta {
   font-weight: 700;
 }
+.item .item-controls .meta .count {
+  color: #9fa6ac;
+  text-decoration: none;
+  margin-left: 30px;
+}
+.item .item-controls .meta .count:last-child {
+  margin-left: 0;
+}
+.item .item-controls .meta .count:hover {
+  color: #404d59;
+}
 .item .item-controls .populated {
   cursor: pointer;
 }

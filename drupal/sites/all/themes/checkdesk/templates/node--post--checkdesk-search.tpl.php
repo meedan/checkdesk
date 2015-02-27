@@ -50,7 +50,9 @@
   <div class="item-controls">
     <div class="meta">
       <?php if(!empty($content['update_reports_count'])): ?>
-        <?php print render($content['update_reports_count']); ?>
+        <a class="count count-reports" href="<?php print $update_link; ?>">
+          <?php print render($content['update_reports_count']); ?>
+        </a>
       <?php endif; ?>
     </div>
     <div class="actions" role="toolbar">

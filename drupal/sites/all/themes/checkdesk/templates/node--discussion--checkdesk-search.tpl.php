@@ -36,8 +36,12 @@
 <div class="item-nested-content-wrapper">
   <div class="item-controls">
     <div class="meta">
-      <?php print $content['story_updates_count']; ?>
-      <?php print $content['story_collaborators_count']; ?>
+      <a class="count count-updates" href="<?php print url('node/'. $node->nid); ?>">
+        <span><?php print $content['story_updates_count']; ?></span>
+      </a>
+      <a class="count count-collaborators" href="<?php print url('story-collaboration/'. $node->nid); ?>">
+        <?php print $content['story_collaborators_count']; ?>
+      </a>
     </div>
     <div class="actions" role="toolbar">
       <?php print render($content['links']); ?>
