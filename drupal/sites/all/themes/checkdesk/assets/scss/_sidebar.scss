@@ -13,6 +13,17 @@ body.sidebar-second #content {
 	padding-#{opposite-position($from-direction)}: 75px;
 	@include box-sizing(border-box);
 	overflow: auto;
+	// checkdesk search
+	.view-checkdesk-search { 
+		@include ctb-clearfix;
+		margin-bottom: 60px;
+		// add styles for load more pager
+    @include ctb-load-more-pager;
+    .pager-load-more {
+    	margin-top: 30px;
+
+    }
+	}
 }
 
 body.sidebar-second aside#sidebar-second {

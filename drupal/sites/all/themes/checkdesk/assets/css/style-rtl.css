@@ -10992,6 +10992,67 @@ body.sidebar-second #content:before, body.sidebar-second #content:after {
 body.sidebar-second #content:after {
   clear: both;
 }
+body.sidebar-second #content .view-checkdesk-search {
+  *zoom: 1;
+  margin-bottom: 60px;
+}
+body.sidebar-second #content .view-checkdesk-search:before, body.sidebar-second #content .view-checkdesk-search:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body.sidebar-second #content .view-checkdesk-search:after {
+  clear: both;
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more {
+  *zoom: 1;
+  margin: 0;
+  padding: 0;
+  padding: 12px 0;
+  float: none;
+  clear: both;
+  position: relative;
+  text-align: center;
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more:before, body.sidebar-second #content .view-checkdesk-search .pager-load-more:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more:after {
+  clear: both;
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more li {
+  list-style: none;
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more a {
+  width: 70%;
+  text-align: center;
+  font-family: "Droid Arabic Naskh", serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #9fa6ac;
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more a:hover {
+  color: white;
+  background-color: #2e77fc;
+  border: 1px solid #2e77fc;
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more .ajax-progress-throbber {
+  position: absolute;
+  top: 4px;
+  left: 15px;
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more .ajax-progress-throbber .throbber {
+  background: url("../imgs/icons/loader_white.gif");
+}
+body.sidebar-second #content .view-checkdesk-search .pager-load-more {
+  margin-top: 30px;
+}
 
 body.sidebar-second aside#sidebar-second {
   width: 20%;
