@@ -11007,6 +11007,7 @@ body.sidebar-second #main {
 body.sidebar-second #content {
   *zoom: 1;
   width: 80%;
+  margin-top: 38px;
   padding-top: 24px;
   padding-left: 50px;
   padding-right: 75px;
@@ -11092,10 +11093,14 @@ body.sidebar-second aside#sidebar-second {
   right: 50px;
   overflow: auto;
   height: auto;
-  top: 127px;
+  top: 107px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+body.toolbar-drawer #main aside#sidebar-second {
+  top: 172px !important;
 }
 
 body.sidebar-second h1 {

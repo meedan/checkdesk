@@ -8,6 +8,7 @@ body.sidebar-second #main {
 body.sidebar-second #content {
 	@include ctb-clearfix;
 	width: 80%;
+	margin-top: $navbarHeight;
 	padding-top: $absolute-line-height;
 	padding-#{$from-direction}: 50px;
 	padding-#{opposite-position($from-direction)}: 75px;
@@ -24,7 +25,7 @@ body.sidebar-second #content {
 
     }
 	}
-}
+}	
 
 body.sidebar-second aside#sidebar-second {
 	width: 20%;
@@ -32,8 +33,12 @@ body.sidebar-second aside#sidebar-second {
 	#{opposite-position($from-direction)}: 50px;
 	overflow: auto;
 	height: auto;
-	top: $toolbarHeight + $navbarHeight + $absolute-line-height;
+	top: $navbarHeight + $absolute-line-height + 45px; // 45px for header
 	@include box-sizing(border-box);
+}
+
+body.toolbar-drawer {
+  #main aside#sidebar-second { top: ($toolbarHeight + $navbarHeight + $absolute-line-height + 45px) !important; }
 }
 
 body.sidebar-second h1 {
