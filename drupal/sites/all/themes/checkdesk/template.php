@@ -991,7 +991,7 @@ function checkdesk_field__field_rating(&$variables) {
  * Field: Tags
  */
 function checkdesk_field__field_tags(&$variables) {
-  if ($variables['element']['#view_mode'] == 'full') {
+  if ($variables['element']['#view_mode'] == 'full' || $variables['element']['#view_mode'] == 'checkdesk_collaborate') {
   $type = $variables['element']['#bundle'];
   if($type == 'media') {
     $alt_type = array(
