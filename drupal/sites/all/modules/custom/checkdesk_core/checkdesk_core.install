@@ -321,10 +321,17 @@ function checkdesk_core_update_7037() {
 }
 
 /**
+ * Enable save draft - stories
+ */
+function checkdesk_core_update_7038() {
+  variable_set('save_draft_enabled_discussion', 1);
+}
+
+/**
  * Fix URLs in heartbeat messages that were fomratted before patching filter module to support "@" in URLs
  * @param type $sandbox
  */
-function checkdesk_core_update_7038(&$sandbox) {
+function checkdesk_core_update_7039(&$sandbox) {
   if(!isset($sandbox['progress'])){
     $sandbox['progress'] = 0;
     $sandbox['last_uaid'] = 0;

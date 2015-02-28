@@ -56,25 +56,6 @@
         }
       });
 
-      // add class 'long' to big actor/usernames inside the fact-checking log
-      // $(window).resize(function() {
-      //   console.log($('.report-activity .activity .actor').width());
-      //   $('.report-activity .activity .actor').each(function() {
-      //     if($(this).width() < 60 && $(this).width() != 39) {
-      //       $(this).addClass('multiple-lines');
-      //     } else {
-      //       $(this).removeClass('multiple-lines');
-      //     }
-      //   });
-      // });
-
-      // scroll to the bottom of modal when interacting with report actions
-      // $('#modalContent #report-actions a').click(function (event) {
-      // 	$('.modal-body').animate({
-      //       scrollTop: 400
-      //     }, 'slow');
-      // });
-
       $('a.twitter').click(function(event) {
         event.preventDefault();
         // set URL

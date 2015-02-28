@@ -72,7 +72,7 @@
   Drupal.behaviors.story = {
     attach: function (context, settings) {
       // Show nested activity
-      $('.item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
+      $('.node-media .item-nested-content-wrapper > .item-controls > .meta').unbind('click').click(function(event) {
         var target = $(this).parent(),
             element = target.parent();
         if (element.find('.item-nested-content').is(':visible')) {
@@ -103,6 +103,40 @@
 
       // Add active class to the story tab which is active
       $('.story-tabs li a.active').parents('li').addClass('active');
+    }
+  };
+
+  Drupal.behaviors.searchPage = {
+    attach: function (context, settings) {
+      
+      // collapse a few by default
+      // $('.form-item-media-flags').each(function() {
+      //   if($(this).find('.selected').index() == 0) {
+      //     $(this).removeClass('open').find('.bef-select-as-links').slideUp('fast');
+      //   }
+      // });
+
+      // $('.views-widget-filter-field_rating_tid').each(function() {
+      //   if($(this).find('.selected').index() == 0) {
+      //     $(this).removeClass('open').find('.views-widget').slideUp('fast');
+      //   }
+      // });
+
+      // set default to open
+      $('.filter-list > .views-exposed-widget label').parent().addClass('open');
+      // filter group collapse/expand
+      $('.filter-list > .views-exposed-widget label').unbind('click').click(function(event) {
+        var target = $(this).parent();
+        if (target.find('.views-widget, > .bef-select-as-links').is(':visible')) {
+          target.find('.views-widget, > .bef-select-as-links').slideUp('fast');
+          target.removeClass('open');
+        }
+        else {
+          target.find('.views-widget, > .bef-select-as-links').slideDown('fast');
+          target.addClass('open');
+        }
+        return false;
+      });
     }
   };
 

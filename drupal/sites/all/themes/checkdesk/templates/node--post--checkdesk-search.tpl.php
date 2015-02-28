@@ -1,8 +1,17 @@
-<div class="activity-item-content-wrapper item-content-wrapper update-added <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
-  <span class="activity-item-content item-content">
+<div class="item-content-wrapper item-type-update update-added <?php if (isset($title)) { print ' with-title'; } else { ' no-title'; }?>">
+  <span class="item-content">
     <div class="media-holder media-inline-holder">
       <div class="media-content">
-      
+        
+        <span class="media-label">
+          <?php if ($status) : ?>
+            <span class="published"><?php print t('Published '); ?></span>
+          <?php else: ?>
+             <span class="draft"><?php print t('Draft'); ?></span>
+          <?php endif; ?>
+          <span class="media-type"> <?php print t('Liveblog update'); ?></span>
+        </span>
+        
         <?php if (isset($title)) { ?>
           <span class="title">
             <a href="<?php print $update_link; ?>"><?php print $title; ?></a>
@@ -27,18 +36,23 @@
         <?php if(!empty($content['update_reports'])): ?>
           <?php print render($content['update_reports']); ?>
         <?php endif; ?>
-        
+
+        <?php if(isset($node->name)) : ?>
+          <span class="author"><?php print $node->name; ?></span>
+        <?php endif; ?>
+        <span class="ts"><?php print $media_creation_info; ?></span>
       </div> <!-- /media-content -->  
     </div> <!-- /media-holder -->
-
-  </span> <!-- /activity-item-content -->
-</div> <!-- /activity-item-content-wrapper -->
+  </span> <!-- /item-content -->
+</div> <!-- /item-content-wrapper -->
 
 <div class="item-nested-content-wrapper">
-  <div class="activity-item-controls item-controls">
+  <div class="item-controls">
     <div class="meta">
       <?php if(!empty($content['update_reports_count'])): ?>
-        <?php print render($content['update_reports_count']); ?>
+        <a class="count count-reports" href="<?php print $update_link; ?>">
+          <?php print render($content['update_reports_count']); ?>
+        </a>
       <?php endif; ?>
     </div>
     <div class="actions" role="toolbar">
@@ -49,8 +63,5 @@
         </div>
       <?php endif; ?>
     </div>
-  </div> <!-- /activity-item-controls -->
-  <div class="item-nested-content">
-    <!-- add report verification log -->
-  </div>
+  </div> <!-- /item-controls -->
 </div>
