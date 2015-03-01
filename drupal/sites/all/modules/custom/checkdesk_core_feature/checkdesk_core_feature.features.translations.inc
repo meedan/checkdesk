@@ -738,6 +738,14 @@ function checkdesk_core_feature_translations_defaults() {
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['04ec3b36351857d6430b295f91a19688'] = array(
+    'source' => 'Liveblog update',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مدونة مباشرة تحديث',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['04f605836f660d879bf3fb2b3643d16b'] = array(
     'source' => 'Lithuanian',
     'context' => '',
@@ -13636,6 +13644,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['4df211924b23a31142bb7a6ac9a33832'] = array(
+    'source' => 'Oldest',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1327',
+    'translation' => 'الأقدم',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['4df71f30dd633e566ebbee8192bb3323'] = array(
     'source' => 'Operating in maintenance mode. <a href="@url">Go online.</a>',
     'context' => '',
@@ -19355,6 +19371,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['6c9a23eaeb00919052b742ea29cff589'] = array(
+    'source' => 'Verification status',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1327',
+    'translation' => ' حالة التحقق',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['6ca3ecf50542c6c5e396347936b994f6'] = array(
     'source' => 'New field name',
     'context' => '',
@@ -20104,6 +20128,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'context' => '',
     'location' => '',
     'translation' => 'إخفاء الرؤية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['709468af25e91284821d1bdbfdded24c'] = array(
+    'source' => 'Everything',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1327',
+    'translation' => 'كل المحتوى',
     'plid' => 0,
     'plural' => 0,
   );
@@ -25903,6 +25935,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['928b0f4d797f95cb8429e86b3e0adbcb'] = array(
+    'source' => 'Any status',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1327',
+    'translation' => 'أي حالة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['928edd9cc0ed0f47c2cdb87658cb942b'] = array(
     'source' => 'Titles plus teaser',
     'context' => '',
@@ -30542,6 +30582,14 @@ This was an auto-generated email from !site; please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'المسار',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['ac71d8452c267207bcf9f1c93c6419e8'] = array(
+    'source' => 'Newest',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1327',
+    'translation' => 'الأحدث',
     'plid' => 0,
     'plural' => 0,
   );
@@ -39138,6 +39186,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['db3af42ba64b595db6ab3ea999fe0bb1'] = array(
+    'source' => 'Drafts',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=All&type=post',
+    'translation' => 'مسودات',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['db4b760ffe002e0ea11bc6318b05e741'] = array(
     'source' => 'Complete the registration by filling out the form below. If you already have an account, you can <a href="@login">log in</a> now and add your OpenID under "My account".',
     'context' => '',
@@ -42758,6 +42814,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/ar/node/flag/confirm/flag/graphic/11/ajax',
     'translation' => 'تم تنبيه المشرف على احتواء التقرير على محتوى أو صور صادمة.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['f03ab16cd58372c77ba45a3d9a5a1cb9'] = array(
+    'source' => 'Draft',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=All',
+    'translation' => 'مسودة',
     'plid' => 0,
     'plural' => 0,
   );
