@@ -3891,6 +3891,14 @@ They provided the following explanation for flagging:
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['16d73e61e27ea523e65e071f262b710e'] = array(
+    'source' => 'Any flag',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1327',
+    'translation' => 'أي إشارة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['17025b3fb1b2ebb76f6c26ca7dda1458'] = array(
     'source' => 'Delete the selected comments',
     'context' => '',
