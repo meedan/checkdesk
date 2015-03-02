@@ -338,15 +338,21 @@ function checkdesk_core_update_7039(&$sandbox) {
     $sandbox['limit'] = 400;
     $sandbox['max'] = db_query('
         SELECT COUNT(uaid) FROM {heartbeat_activity}
-        WHERE message_id = :message_id', array(':message_id' => 'new_comment_report'))->fetchField();
+        WHERE message_id = :message_id AND variables LIKE :term
+        ', array(':message_id' => 'new_comment_report', ':term' =>'%/</a>@%'))->fetchField();
   }
   $result = db_query_range('
     SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, ha.cid , u.name, n.title
     FROM {heartbeat_activity} ha
     INNER JOIN {node} n ON ha.nid = n.nid
     INNER JOIN {users} u ON ha.uid = u.uid
-    WHERE message_id = :message_id AND uaid > :uaid
-    ',0, $sandbox['limit'], array(':message_id' => 'new_comment_report', ':uaid' => $sandbox['last_uaid']));
+    WHERE message_id = :message_id AND variables LIKE :term AND uaid > :uaid
+    ',0, $sandbox['limit'], array(
+      ':message_id' => 'new_comment_report',
+      ':term' => '%/</a>@%',
+      ':uaid' => $sandbox['last_uaid']
+    )
+  );
 
   foreach ($result as $row) {
     if ($row->cid != 0) {
