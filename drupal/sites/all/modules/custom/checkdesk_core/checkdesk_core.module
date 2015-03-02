@@ -3611,14 +3611,16 @@ function _checkdesk_report_status($report) {
 function _checkdesk_search_header() {
   $links = array();
   $path = '';
-  $selected = '';
+  $selected = 'DESC';
   if (isset($_GET['sort_bef_combine'])) {
     $selected = ($_GET['sort_bef_combine'] == 'created ASC') ? 'ASC' : 'DESC';
   }
+
   $links[] = l(t('Newest'), bef_replace_query_string_arg('sort_bef_combine', 'created DESC', FALSE, FALSE, $path),
     array('attributes' => array('class' => ($selected == 'DESC') ? 'selected' : '')));
   $links[] = l(t('Oldest'), bef_replace_query_string_arg('sort_bef_combine', 'created ASC', FALSE, FALSE, $path),
     array('attributes' => array('class' => ($selected == 'ASC') ? 'selected' : '')));
+
   if (isset($_GET['type'])) {
     switch ($_GET['type']) {
       case 'media':
