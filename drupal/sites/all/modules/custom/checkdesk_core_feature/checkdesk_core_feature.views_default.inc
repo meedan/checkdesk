@@ -933,7 +933,7 @@ print _checkdesk_search_header();
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = '<?php
-print t(\'Your selection produced no results\');
+print t(\'Your search yielded no results\');
 ?>';
   $handler->display->display_options['empty']['area']['format'] = 'php_code';
   $handler->display->display_options['path'] = 'search';
@@ -1010,7 +1010,7 @@ print t(\'Your selection produced no results\');
 print _checkdesk_search_header();
 ?>'),
     t('<?php
-print t(\'Your selection produced no results\');
+print t(\'Your search yielded no results\');
 ?>'),
     t('Attachment'),
   );
