@@ -17,7 +17,7 @@
     <?php if(isset($favicon_link)) : ?>
         <span class="provider-icon"><?php print $favicon_link ?></span>
     <?php endif; ?>
-        <span class="ts"><?php print $media_creation_info; ?></span>
+        <span class="ts"><?php print $media_creation_info; ?> </span>
   </span>
 </div>
 <?php if(isset($report_status['status'])) : ?>

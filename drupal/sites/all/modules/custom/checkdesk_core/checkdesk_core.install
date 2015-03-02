@@ -319,3 +319,53 @@ function checkdesk_core_update_7037() {
   module_disable($module_list, FALSE);
   drupal_uninstall_modules($module_list, FALSE);
 }
+
+/**
+ * Enable save draft - stories
+ */
+function checkdesk_core_update_7038() {
+  variable_set('save_draft_enabled_discussion', 1);
+}
+
+/**
+ * Fix URLs in heartbeat messages that were fomratted before patching filter module to support "@" in URLs
+ * @param type $sandbox
+ */
+function checkdesk_core_update_7039(&$sandbox) {
+  if(!isset($sandbox['progress'])){
+    $sandbox['progress'] = 0;
+    $sandbox['last_uaid'] = 0;
+    $sandbox['limit'] = 400;
+    $sandbox['max'] = db_query('
+        SELECT COUNT(uaid) FROM {heartbeat_activity}
+        WHERE message_id = :message_id AND variables LIKE :term
+        ', array(':message_id' => 'new_comment_report', ':term' =>'%/</a>@%'))->fetchField();
+  }
+  $result = db_query_range('
+    SELECT uaid, variables, ha.nid, ha.uid, ha.nid_target, ha.cid , u.name, n.title
+    FROM {heartbeat_activity} ha
+    INNER JOIN {node} n ON ha.nid = n.nid
+    INNER JOIN {users} u ON ha.uid = u.uid
+    WHERE message_id = :message_id AND variables LIKE :term AND uaid > :uaid
+    ',0, $sandbox['limit'], array(
+      ':message_id' => 'new_comment_report',
+      ':term' => '%/</a>@%',
+      ':uaid' => $sandbox['last_uaid']
+    )
+  );
+
+  foreach ($result as $row) {
+    if ($row->cid != 0) {
+      $variables = heartbeat_decode_message_variables($row->variables);
+      $comment = comment_load($row->cid);
+      if (array_key_exists('!comment', $variables)) {
+        $variables['!comment'] = check_markup($comment->comment_body[LANGUAGE_NONE][0]['value'], $comment->comment_body[LANGUAGE_NONE][0]['format']);
+        db_query('UPDATE {heartbeat_activity} SET variables = :variables WHERE uaid = :uaid'
+                , array(':variables' => heartbeat_encode_message_variables($variables), ':uaid' => $row->uaid));
+      }
+    }
+    $sandbox['progress']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+  $sandbox['last_uaid'] = $row->uaid;
+}

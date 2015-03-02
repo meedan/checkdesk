@@ -892,9 +892,7 @@ function checkdesk_core_feature_user_default_permissions() {
   // Exported permission: 'search content'.
   $permissions['search content'] = array(
     'name' => 'search content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
+    'roles' => array(),
     'module' => 'search',
   );
 

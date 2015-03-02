@@ -1,7 +1,7 @@
 <div class="media">
   <?php if(isset($embed->html)) : ?>
       <?php if($embed->type == 'video') : ?>
-        <div class="video-holder media-16by9">
+        <div class="video--facebook">
           <?php print $embed->html; ?>
         </div>
       <?php else : ?>

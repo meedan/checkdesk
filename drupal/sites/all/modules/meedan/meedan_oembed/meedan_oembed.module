@@ -268,14 +268,18 @@ function meedan_oembed_pre_render_fetch($element) {
  * Implements hook_entity_info_alter().
  */
 function meedan_oembed_entity_info_alter(&$entity_info) {
-  $entity_info['node']['view modes']['meedan_oembed'] = array(
-    'label' => t('Meedan oEmbed'),
-    'custom settings' => TRUE,
-  );
-  $entity_info['node']['view modes']['checkdesk_collaborate'] = array(
-    'label' => t('Checkdesk collaborate'),
-    'custom settings' => TRUE,
-  );
+    $entity_info['node']['view modes']['meedan_oembed'] = array(
+        'label' => t('Meedan oEmbed'),
+        'custom settings' => TRUE,
+    );
+    $entity_info['node']['view modes']['checkdesk_collaborate'] = array(
+        'label' => t('Checkdesk collaborate'),
+        'custom settings' => TRUE,
+    );
+    $entity_info['node']['view modes']['checkdesk_search'] = array(
+        'label' => t('Checkdesk search'),
+        'custom settings' => TRUE,
+    );
 }
 
 /**
@@ -455,7 +459,7 @@ function _meedan_render_oembed_activity_type($node, $heartbeat_row) {
     'checkdesk_report_suggested_to_story' => 'meedan_inline_full_mode',
   );
 
-  if (isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
+  if ($heartbeat_row && isset($mapping[$heartbeat_row->heartbeat_activity_message_id])) {
     $output = field_view_field('node', $node, 'field_link', array('type' => $mapping[$heartbeat_row->heartbeat_activity_message_id]));
   }
   else {

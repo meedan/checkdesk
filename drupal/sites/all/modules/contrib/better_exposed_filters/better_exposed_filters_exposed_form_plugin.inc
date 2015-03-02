@@ -491,6 +491,19 @@ Title Desc|Z -> A</pre> Leave the replacement value blank to remove an option al
         '#description' => t('Leave blank to use views default value. <em>Note: overriding this label will break translations and localizations. Leave this field blank if preserving internationalization is important to your site.</em>'),
       );
 
+      // Add jquery-fastLiveFilter plugin
+      $bef_options[$label]['more_options']['enable_fastlivefilter'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Enable fastLiveFilter plugin for links.'),
+        '#default_value' => $existing[$label]['more_options']['enable_fastlivefilter'],
+        '#states' => array(
+          'visible' => array(
+            ':input[name="enable_fastlivefilter"]' => array('checked' => TRUE),
+          ),
+        ),
+        '#description' => t('Enable fastLiveFilter plugin for links.'),
+      );
+
       // Build a description option form element -- available to all exposed
       // filters.
       $bef_options[$label]['more_options']['bef_filter_description'] = array(
@@ -1145,7 +1158,7 @@ Title Desc|Z -> A</pre> Leave the replacement value blank to remove an option al
         case 'bef_links':
           $show_apply = TRUE;
           $form[$field_id]['#theme'] = 'select_as_links';
-
+          $form[$field_id]['#bef_enable_fastlivefilter'] = $options['more_options']['enable_fastlivefilter'];
           // Exposed form displayed as blocks can appear on pages other than
           // the view results appear on. This can cause problems with
           // select_as_links options as they will use the wrong path. We provide
@@ -1544,6 +1557,7 @@ Title Desc|Z -> A</pre> Leave the replacement value blank to remove an option al
         'bef_select_all_none_nested' => FALSE,
         'bef_collapsible' => FALSE,
         'is_secondary' => FALSE,
+        'enable_fastlivefilter' => FALSE,
         'bef_filter_description' => '',
         'any_label' => '',
         'tokens' => array(

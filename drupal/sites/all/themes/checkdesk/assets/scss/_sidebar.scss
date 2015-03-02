@@ -1,0 +1,48 @@
+// Page with sidebar second
+
+body.sidebar-second #main {
+	max-width: 1280px;
+	position: relative;
+}
+
+body.sidebar-second #content {
+	@include ctb-clearfix;
+	width: 80%;
+	margin-top: $navbarHeight;
+	padding-top: $absolute-line-height;
+	padding-#{$from-direction}: 50px;
+	padding-#{opposite-position($from-direction)}: 75px;
+	@include box-sizing(border-box);
+	overflow: auto;
+	// checkdesk search
+	.view-checkdesk-search { 
+		@include ctb-clearfix;
+		margin-bottom: 160px;
+		// add styles for load more pager
+    @include ctb-load-more-pager;
+    .pager-load-more {
+    	margin-top: 30px;
+
+    }
+	}
+}	
+
+body.sidebar-second aside#sidebar-second {
+	width: 20%;
+	position: absolute;
+	#{opposite-position($from-direction)}: 50px;
+	overflow: auto;
+	height: auto;
+	top: $navbarHeight + $absolute-line-height + 45px; // 45px for header
+	@include box-sizing(border-box);
+}
+
+body.toolbar-drawer {
+  #main aside#sidebar-second { top: ($toolbarHeight + $navbarHeight + $absolute-line-height + 45px) !important; }
+}
+
+body.sidebar-second h1 {
+	font-size: 28px;
+	@include cd-sans-serif-family;
+	font-weight: 700;
+}

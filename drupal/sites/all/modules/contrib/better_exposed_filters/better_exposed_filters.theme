@@ -577,6 +577,18 @@ function theme_select_as_links($vars) {
   );
 
   $output = '<div class="bef-select-as-links">';
+
+  if (isset($element['#bef_enable_fastlivefilter']) && $element['#bef_enable_fastlivefilter']) {
+    $filter_id = $element['#id'];
+    //add required js
+    drupal_add_js('
+      jQuery(function() {
+        jQuery("#fastlivefilter-'.$filter_id .'").fastLiveFilter(".search-list-'. $filter_id .' .form-item");
+        })', 'inline');
+    $output .= '<input class="search" id="fastlivefilter-'. $filter_id .'" placeholder="'. $element['#fastlivefilte_placeholder'] .'"  />';
+    $output .= '<div class="search-list search-list-'.$filter_id.'">';
+  }
+
   $output .= theme('form_element', array('element' => $properties));
   if (!empty($element['#value'])) {
     if (is_array($element['#value'])) {
@@ -588,6 +600,11 @@ function theme_select_as_links($vars) {
       $output .= '<input type="hidden" name="' . $name . '" value="' . $element['#value'] . '" />';
     }
   }
+
+  if (isset($element['#bef_enable_fastlivefilter']) && $element['#bef_enable_fastlivefilter']) {
+    $output .= '</div>';
+  }
+
   $output .= '</div>';
 
   return $output;

@@ -113,11 +113,11 @@
     
 
     <?php if ($page['sidebar_second']): ?>
-      <div id="sidebar-second" class="column sidebar second">
+      <aside id="sidebar-second" class="column sidebar-second">
         <div id="sidebar-second-inner" class="inner">
           <?php print render($page['sidebar_second']); ?>
         </div>
-      </div>
+      </aside>
     <?php endif; ?> <!-- /sidebar-second -->
 
     <!-- ______________________ FOOTER _______________________ -->
