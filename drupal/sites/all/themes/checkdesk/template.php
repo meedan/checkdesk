@@ -597,7 +597,9 @@ function checkdesk_preprocess_node(&$variables) {
       $flag_count = flag_get_counts('node', $variables['nid']);
       $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
       // append count
-      $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
+      if (isset($flag_count['follow_story'])) {
+        $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
+      }
     }
     $variables['follow_story'] = $follow_story;
 
