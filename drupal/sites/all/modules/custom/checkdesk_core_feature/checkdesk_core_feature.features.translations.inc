@@ -3895,7 +3895,7 @@ They provided the following explanation for flagging:
     'source' => 'Any flag',
     'context' => '',
     'location' => '/ar/search?field_tags_tid=1327',
-    'translation' => 'أي إشارة',
+    'translation' => 'أي تحذير',
     'plid' => 0,
     'plural' => 0,
   );
@@ -35542,6 +35542,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'نوع المحتوى %rowtype كانت به المرفقات معطلة لكنه يحتوي على ملفات مرفقة. تم تمكين المرفقات لنقل البيانات الموجودة. يجب عليك حذف الحقل "ملف مرفق" في النوع %rowtype إذا كان هذا الحقل غير ضروري.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['c633174be171bb10874104d5176929c1'] = array(
+    'source' => '- Mine -',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=122',
+    'translation' => '- مشاركاتي -',
     'plid' => 0,
     'plural' => 0,
   );
