@@ -1477,16 +1477,9 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
 
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
-    drupal_add_js('
-      jQuery(function() {
-        jQuery("#fastlivefilter-edit-field-tags-tid").attr("placeholder", Drupal.t("Search for tag"));
-        jQuery("#fastlivefilter-edit-field-tags-tid").fastLiveFilter(".search-list-edit-field-tags-tid .form-item");
-        jQuery("#fastlivefilter-edit-author").attr("placeholder", Drupal.t("Search for author"));
-        jQuery("#fastlivefilter-edit-author").fastLiveFilter(".search-list-edit-author .form-item");
-        })', 'inline');
-
+    $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     //Hide/show media reports based on type filter
-  if (isset($_GET['type']) && $_GET['type'] != 'media') {
+    if (isset($_GET['type']) && $_GET['type'] != 'media') {
       $form['#info']['filter-field_rating_tid']['label'] = NULL;
       $form['field_rating_tid']['#type'] = 'hidden';
       unset($form['field_rating_tid']['#theme']);
@@ -1519,17 +1512,18 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
               SELECT name FROM {users} WHERE status = :status AND uid != :uid ORDER BY name
     ', array(':status' => 1, ':uid' => $user->uid))->fetchAllKeyed(0, 0);
     if ($user->uid) {
-      $users = array('All' => t('-Any-'), $user->name => t('-Mine-')) + $users;
+      $users = array('All' => t('- Any -'), $user->name => t('- Mine -')) + $users;
     }
     else {
-      $users = array('All' => t('-Any-')) + $users;
+      $users = array('All' => t('- Any -')) + $users;
     }
     $form['author'] = array(
       '#type' => 'select',
-      '#title' => 'Author',
+      '#title' => t('Authors'),
       '#options' => $users,
       '#theme' => 'select_as_links',
       '#bef_enable_fastlivefilter' => 1,
+      '#fastlivefilte_placeholder' => t('Search for author'),
     );
     // Hide sort and submit button
     $form['sort_bef_combine']['#type'] = 'hidden';

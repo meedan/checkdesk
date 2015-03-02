@@ -580,7 +580,12 @@ function theme_select_as_links($vars) {
 
   if (isset($element['#bef_enable_fastlivefilter']) && $element['#bef_enable_fastlivefilter']) {
     $filter_id = $element['#id'];
-    $output .= '<input class="search" id="'. $filter_id .'"  />';
+    //add required js
+    drupal_add_js('
+      jQuery(function() {
+        jQuery("#fastlivefilter-'.$filter_id .'").fastLiveFilter(".search-list-'. $filter_id .' .form-item");
+        })', 'inline');
+    $output .= '<input class="search" id="fastlivefilter-'. $filter_id .'" placeholder="'. $element['#fastlivefilte_placeholder'] .'"  />';
     $output .= '<div class="search-list search-list-'.$filter_id.'">';
   }
 

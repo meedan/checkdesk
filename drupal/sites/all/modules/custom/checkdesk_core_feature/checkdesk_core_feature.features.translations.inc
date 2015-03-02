@@ -338,6 +338,14 @@ function checkdesk_core_feature_translations_defaults() {
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['02684cc6b6ea1811a064f475a5fd1d18'] = array(
+    'source' => 'Authors',
+    'context' => '',
+    'location' => '/ar/search?type=discussion',
+    'translation' => 'المؤلفين',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['026a34da7de7546b9b1e3e96386f2a47'] = array(
     'source' => 'The comment will be unpublished if it contains any of the phrases above. Use a case-sensitive, comma-separated list of phrases. Example: funny, bungee jumping, "Company, Inc."',
     'context' => '',
@@ -10488,6 +10496,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['3cca452b26a98e0e61597cb62062931f'] = array(
+    'source' => '@count[4] collaborators',
+    'context' => '',
+    'location' => '/ar/story-collaboration/12404',
+    'translation' => '@count[4] مشاركين',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['3cd90538b3f3d83bffc9da807c9e1917'] = array(
     'source' => 'Install new module',
     'context' => '',
@@ -14768,6 +14784,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['54088ddd65b9ab4a650de36c2e883946'] = array(
+    'source' => 'Search for author',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => 'البحث عن مؤلف',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['541bfdf122c812d6d1964441a079d8bc'] = array(
     'source' => 'For more information, refer to the specific topics listed in the next section or to the <a href="@handbook">online Drupal handbooks</a>. You may also post at the <a href="@forum">Drupal forum</a> or view the wide range of <a href="@support">other support options</a> available.',
     'context' => '',
@@ -15718,6 +15742,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'context' => '',
     'location' => '',
     'translation' => 'عند كتابة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['590cc198b971e4c56d8b3b03743db969'] = array(
+    'source' => '@count[4] updates',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1327',
+    'translation' => '@count[4] تحديثات',
     'plid' => 0,
     'plural' => 0,
   );
@@ -26776,6 +26808,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['9702d6df178b1fefb34c5a7f7c00c60e'] = array(
+    'source' => '@count[3] updates',
+    'context' => '',
+    'location' => '/ar/search?type=discussion',
+    'translation' => '@count[3] تحديثات',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['9706f65a1331c0ee5c4453f1847a82d0'] = array(
     'source' => 'A <a href="@aggregator-opml">machine-readable OPML file</a> of all feeds is available. OPML is an XML-based file format used to share outline-structured information such as a list of RSS feeds. Feeds can also be <a href="@import-opml">imported via an OPML file</a>.',
     'context' => '',
@@ -27357,6 +27397,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'النسخة المركبة حاليا غير مدعومة الآن، ولم تعد متاحة للتنزيل. يُنصح بشدة تعطيل كل شيء مدرج في هذه النسخة أو الترقية.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['9a834e7046636c78f60eacb9161801ba'] = array(
+    'source' => 'Search for tag',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => 'البحث عن وسم',
     'plid' => 0,
     'plural' => 0,
   );
@@ -32603,6 +32651,14 @@ password: Your password
     'context' => '',
     'location' => '',
     'translation' => 'اعرض تقارير تحوي هذه الكلمة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['b6967e02cd075afa2c640f4da5c3e05e'] = array(
+    'source' => '1 update',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=All&type=discussion',
+    'translation' => '1 تحديث',
     'plid' => 0,
     'plural' => 0,
   );
@@ -37992,6 +38048,14 @@ This link can only be used once to log in and will lead you to a page where you 
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['d45edf6c0246717ae211f343a29ceb8b'] = array(
+    'source' => 'Published ',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1327',
+    'translation' => 'تم نشره',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['d46bafd645c490bd4be22c4226619db9'] = array(
     'source' => 'JPEG quality',
     'context' => '',
@@ -42458,6 +42522,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '/ar',
     'translation' => 'مرقّى إلى الصفحة الرئيسية',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['ee4181df7255f98ce59f28ece4dd1f39'] = array(
+    'source' => '@count[2] updates',
+    'context' => '',
+    'location' => '/ar/search?field_tags_tid=1328',
+    'translation' => 'تحديثان',
     'plid' => 0,
     'plural' => 0,
   );
