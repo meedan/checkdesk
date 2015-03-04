@@ -17,7 +17,7 @@ function reactor_node_view($node, $view_mode, $langcode) {
         'node' => $nids,
         //'view_mode' => $view_mode,
         'langcode' => $langcode,
-        'destination' => 'story-collaboration/'. $node->nid,
+        'destination' => 'node/'. $node->nid . '/collaboration',
       ));
     }
   }
