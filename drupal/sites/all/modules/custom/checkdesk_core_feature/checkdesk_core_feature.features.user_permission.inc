@@ -438,6 +438,7 @@ function checkdesk_core_feature_user_default_permissions() {
     'name' => 'change own username',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'user',
   );
