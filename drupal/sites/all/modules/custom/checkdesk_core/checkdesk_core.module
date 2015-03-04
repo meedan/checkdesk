@@ -127,7 +127,7 @@ function checkdesk_core_menu() {
     'access callback' => '_checkdesk_core_can_take_tour',
     'type' => MENU_CALLBACK,
   );
-  $items['story-collaboration/%node'] = array(
+  $items['node/%node/collaboration'] = array(
     'page callback' => '_checkdesk_story_collaboration',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
@@ -1216,7 +1216,7 @@ function _redirect_story($form, &$form_state) {
   if (!$form['nid']['#value']) {
     $_SESSION['report_tooltip'] = TRUE;
   }
-  $form_state['redirect'] = 'story-collaboration/' . $values['nid'];
+  $form_state['redirect'] = 'node/' . $values['nid'] . '/collaboration';
 }
 
 /**
@@ -1945,7 +1945,7 @@ function checkdesk_core_form_alter(&$form, $form_state, $form_id) {
     $link['attributes']['title'] = t('Sign Up');
     // Set destination with story collaboration page if login using modal
     if (isset($form_state['ajax'])) {
-      $link['query']['destination'] = 'story-collaboration/' . $form_state['story'];
+      $link['query']['destination'] = 'node/' . $form_state['story'] . '/collaboration';
     }
     else {
       $link['query'] = drupal_get_destination();
@@ -2604,6 +2604,13 @@ function checkdesk_core_node_insert($node) {
       checkdesk_log_reports_updates('insert', $node->body[LANGUAGE_NONE][0]['value'], $node->nid, $story_nid);
     }
   }
+  elseif ($node->type == 'discussion') {
+    $path = array(
+      'source' => 'node/' . $node->nid . '/collaboration',
+      'alias' => 'story/' . $node->nid . '/collaboration',
+    );
+    path_save($path);
+  }
 }
 
 /**
@@ -2973,7 +2980,7 @@ function checkdesk_core_form_media_node_form_alter(&$form, &$form_state) {
 function _redirect_report($form, &$form_state) {
   $values = $form_state['values'];
   if (!empty($values['field_stories'][LANGUAGE_NONE][0]['target_id'])) {
-    $form_state['redirect'] = 'story-collaboration/' . $values['field_stories'][LANGUAGE_NONE][0]['target_id'];
+    $form_state['redirect'] = 'node/' . $values['field_stories'][LANGUAGE_NONE][0]['target_id'] . '/collaboration';
   }
 }
 
@@ -3228,7 +3235,7 @@ function _checkdesk_story_tabs($nid) {
     'class' => array('story-tab-updates'),
   );
   $items[] = array(
-    'data' => l(t('Collaboration'), 'story-collaboration/'. $nid),
+    'data' => l(t('Collaboration'), 'node/'. $nid .'/collaboration'),
     'class' => array('story-tab-collaboration'),
   );
   return theme('item_list', array('items' => $items, 'title' => '', 'attributes' => array('class' => 'story-tabs')));

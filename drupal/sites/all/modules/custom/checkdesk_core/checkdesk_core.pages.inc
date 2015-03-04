@@ -84,7 +84,7 @@ function story_collaboration_anonymous_login($js = NULL) {
   if (!empty($form_state['executed'])) {
     ctools_add_js('ajax-responder');
     //$commands[] = ctools_modal_command_dismiss();
-    $commands[] = ctools_ajax_command_redirect('story-collaboration/' . $form_state['story']);
+    $commands[] = ctools_ajax_command_redirect('node/' . $form_state['story'] . '/collaboration');
     print ajax_render($commands);
     exit();
   }
