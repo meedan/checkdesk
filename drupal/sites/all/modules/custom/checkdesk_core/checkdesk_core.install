@@ -369,3 +369,11 @@ function checkdesk_core_update_7039(&$sandbox) {
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
   $sandbox['last_uaid'] = $row->uaid;
 }
+
+/**
+ * Set collaboration alias for existing stories
+ */
+function checkdesk_core_update_7040() {
+  // Set collaboration alias for existing stories
+  db_query("INSERT INTO {url_alias} (source, alias, language) ( SELECT CONCAT('node/', nid, '/collaboration') as source, CONCAT('story/', nid, '/collaboration') as alias, 'und' FROM {node} WHERE type = 'discussion')");
+}
