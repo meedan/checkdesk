@@ -888,7 +888,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
       $node->content['story_updates_count'] = $updates ? format_plural($updates, '1 update', '@count updates') : NULL;
       // collaborators count
       $collaborators = db_query('
-          SELECT COUNT(ha.uid)
+          SELECT COUNT(DISTINCT ha.uid)
           FROM {heartbeat_activity} ha
           WHERE nid_target = :nid AND message_id != :message_id
       ', array(':nid' => $node->nid, ':message_id' => 'checkdesk_follow_story'))->fetchField();
