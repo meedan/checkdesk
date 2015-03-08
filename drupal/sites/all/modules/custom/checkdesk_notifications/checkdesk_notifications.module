@@ -103,6 +103,10 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
         'label' => $label . t('Fact-checking set on a report by citizen journalist'),
         'token type' => 'node',
       );
+      $events[$context . '_new_story'] = array(
+        'label' => $label . t('New story'),
+        'token type' => 'node',
+      );
     }
     if (!in_array('journalist', $user->roles) || in_array('administrator', $user->roles) || $user->uid == 0) {
       $events[$context . '_update_on_story_i_commented_on_update'] = array(
@@ -206,6 +210,9 @@ function checkdesk_notifications_views_query_alter(&$view, &$query) {
       if ($subscriptions['site_fact_checking_set_by_citizen']) {
         $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_fact_checking_on_by_citizen'");
       }
+      if ($subscriptions['site_new_story']) {
+        $query->add_where_expression(1, "heartbeat_activity.message_id = 'checkdesk_add_story'");
+      }
     }
 
     // Activities for a normal user
@@ -288,6 +295,7 @@ function checkdesk_notifications_meedan_notifications_recipients($object, $conte
     //case 'email_report_suggested':
     case 'email_new_user':
     case 'email_fact_checking_set_by_citizen':
+    case 'email_new_story':
       $uids = db_query("SELECT DISTINCT(uid) FROM {users_roles} WHERE rid = $journalist_role_id")->fetchCol(); // all journalists
       break;
     case 'email_comment_on_update':
