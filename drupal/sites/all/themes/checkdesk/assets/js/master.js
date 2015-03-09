@@ -103,6 +103,9 @@
 
       // Add active class to the story tab which is active
       $('.story-tabs li a.active').parents('li').addClass('active');
+      
+      // Initiate timeago
+      $('.timeago').timeago();
     }
   };
 

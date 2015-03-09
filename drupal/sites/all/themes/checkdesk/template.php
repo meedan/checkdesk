@@ -207,6 +207,10 @@ function checkdesk_preprocess_block(&$variables) {
  */
 function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
+  
+  // load timeago library along with localized file
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago.js");
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago." . $language->language . ".js");
 
   // 404 PAGE template
   $status = drupal_get_http_header("status");
@@ -487,7 +491,7 @@ function checkdesk_preprocess_page(&$variables) {
 function checkdesk_preprocess_node(&$variables) {
   global $language;
   $node = @$variables['elements']['#node'];
-
+  
   // get $alpha and $omega
   $variables['layout'] = checkdesk_core_direction_settings();
   $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
@@ -560,10 +564,11 @@ function checkdesk_preprocess_node(&$variables) {
         '@user' => url('user/'. $variables['uid']),
         '!user' => $node->name,
     ));
-    $variables['created_at'] = t('<time datetime="!date">!interval ago</time>', array(
+    $variables['created_at'] = t('<time datetime="!isodatetime" class="timeago">!interval ago</time>', array(
         '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia')),
         '!interval' => format_interval((time() - $variables['created']), 1),
+        '!isodatetime' => format_date($variables['created'], 'custom', 'c'),
     ));
     $user = user_load($variables['uid']);
     $variables['user_avatar'] = _set_user_avatar_bg($user, array('avatar', 'thumb-22'));
