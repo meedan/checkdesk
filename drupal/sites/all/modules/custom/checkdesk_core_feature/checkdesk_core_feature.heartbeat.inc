@@ -15,7 +15,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_add_story';
   $heartbeatmessagetemplate->description = 'A new story was added';
-  $heartbeatmessagetemplate->message = '<p>!username created a new story.</p>';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> added a new <a href="!story_url">story</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -35,7 +35,9 @@ function checkdesk_core_feature_heartbeat_template_info() {
     ),
   );
   $heartbeatmessagetemplate->variables = array(
+    '!user_url' => '',
     '!username' => '',
+    '!story_url' => '',
   );
   $heartbeatmessagetemplate->attachments = array(
     'buttons' => array(
@@ -179,7 +181,7 @@ function checkdesk_core_feature_heartbeat_template_info() {
   $heartbeatmessagetemplate->api_version = 1;
   $heartbeatmessagetemplate->message_id = 'checkdesk_fact_checking_on';
   $heartbeatmessagetemplate->description = 'Fact-checking turned on for a report';
-+  $heartbeatmessagetemplate->message = '<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a>';
+  $heartbeatmessagetemplate->message = '<a href="!user_url" class="actor">!username</a> has turned on fact-checking for a <a href="!report_url">report</a>';
   $heartbeatmessagetemplate->message_concat = '';
   $heartbeatmessagetemplate->perms = 4;
   $heartbeatmessagetemplate->group_type = 'single';
@@ -787,6 +789,60 @@ function checkdesk_core_feature_heartbeat_template_info() {
     ),
   );
   $export['checkdesk_report_suggested_to_story'] = $heartbeatmessagetemplate;
+
+  $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
+  $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */
+  $heartbeatmessagetemplate->api_version = 1;
+  $heartbeatmessagetemplate->message_id = 'checkdesk_update_story';
+  $heartbeatmessagetemplate->description = 'Existing story was updated';
+  $heartbeatmessagetemplate->message = '<a class="actor" href="!user_url">!username</a> update <a href="!story_url">story</a>';
+  $heartbeatmessagetemplate->message_concat = '';
+  $heartbeatmessagetemplate->perms = 4;
+  $heartbeatmessagetemplate->group_type = 'single';
+  $heartbeatmessagetemplate->concat_args = array(
+    'group_by' => 'none',
+    'group_target' => '',
+    'group_by_target' => '',
+    'group_num_max' => '',
+    'merge_separator' => '',
+    'merge_end_separator' => '',
+    'roles' => array(
+      1 => 0,
+      2 => 0,
+      3 => 0,
+      5 => 0,
+      4 => 0,
+    ),
+  );
+  $heartbeatmessagetemplate->variables = array(
+    '!user_url' => '',
+    '!username' => '',
+    '!story_url' => '',
+  );
+  $heartbeatmessagetemplate->attachments = array(
+    'buttons' => array(
+      'weight' => array(
+        'activitycomments' => '2',
+      ),
+      'settings' => array(
+        'activitycomments' => array(
+          'activitycomments_node' => 0,
+        ),
+      ),
+      'enabled' => array(
+        'activitycomments' => 0,
+      ),
+    ),
+    'content' => array(
+      'weight' => array(
+        'activitycomments' => '2',
+      ),
+      'enabled' => array(
+        'activitycomments' => 0,
+      ),
+    ),
+  );
+  $export['checkdesk_update_story'] = $heartbeatmessagetemplate;
 
   $heartbeatmessagetemplate = new HeartbeatMessageTemplate();
   $heartbeatmessagetemplate->disabled = FALSE; /* Edit this to true to make a default heartbeatmessagetemplate disabled initially */
