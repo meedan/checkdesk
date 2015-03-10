@@ -76,6 +76,8 @@ if ($is_journalist) {
     $query .= "(ha.message_id = 'checkdesk_new_user') OR ";
   if (should_notify($data, 'site_new_story'))
     $query .= "(ha.message_id = 'checkdesk_add_story') OR ";
+  if (should_notify($data, 'site_update_story'))
+    $query .= "(ha.message_id = 'checkdesk_update_story') OR ";
 } else {
   if (should_notify($data, 'site_reply_to_comment'))
     $query .= "(ha.message_id = 'checkdesk_reply_to_comment' AND c.uid = $uid) OR ";

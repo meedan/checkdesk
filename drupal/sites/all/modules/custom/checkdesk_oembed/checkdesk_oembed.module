@@ -126,3 +126,28 @@ function checkdesk_oembed_embed_class_type($nid) {
   }
   return $class;
 }
+
+
+
+/**
+ * Custom favicons via FontAwesome
+ */
+function _checkdesk_favicons($provider) {
+  $output = '';
+  if($provider == 'youtube') {
+    $output = '<span class="icon-youtube-play"></span>';
+  } else {
+    $output = '<span class="icon-' . $provider . '"></span>';
+  }
+  return $output;
+}
+
+/**
+ * List of media providers
+ */
+function _checkdesk_providers() {
+  $providers = array(
+    'youtube', 'twitter', 'vimeo'
+  );
+  return $providers;
+}

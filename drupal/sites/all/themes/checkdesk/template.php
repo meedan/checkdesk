@@ -941,7 +941,7 @@ function checkdesk_checkdesk_core_story_blogger(&$variables) {
 /**
  * Adjust story status (blog by and it is currently)
  */
-function checkdesk_checkdesk_core_story_status(&$variables) {
+function ___checkdesk_checkdesk_core_story_status(&$variables) {
   $output = '';
 
   $output .= '<div class="story-by">' . $variables['story_status'] . '</div>';

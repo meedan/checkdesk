@@ -350,6 +350,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -464,6 +471,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -535,6 +548,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -603,6 +622,13 @@ function checkdesk_core_feature_field_default_field_instances() {
       ),
       'meedan_oembed' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -723,6 +749,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'meedan_full_mode',
         'weight' => 3,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'meedan_oembed',
@@ -810,6 +842,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 2,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -877,6 +915,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -935,6 +979,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1174,6 +1224,13 @@ function checkdesk_core_feature_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -1270,6 +1327,12 @@ function checkdesk_core_feature_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'above',
