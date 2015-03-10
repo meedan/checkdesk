@@ -954,7 +954,7 @@ function checkdesk_checkdesk_core_story_blogger(&$variables) {
 /**
  * Adjust story status (blog by and it is currently)
  */
-function checkdesk_checkdesk_core_story_status(&$variables) {
+function ___checkdesk_checkdesk_core_story_status(&$variables) {
   $output = '';
 
   $output .= '<div class="story-by">' . $variables['story_status'] . '</div>';
@@ -1222,31 +1222,6 @@ function checkdesk_get_timezone() {
 
   return $site_timezone;
 }
-
-
-/**
- * Custom favicons via FontAwesome
- */
-function _checkdesk_favicons($provider) {
-  $output = '';
-  if($provider == 'youtube') {
-    $output = '<span class="icon-youtube-play"></span>';
-  } else {
-    $output = '<span class="icon-' . $provider . '"></span>';
-  }
-  return $output;
-}
-
-/**
- * List of media providers
- */
-function _checkdesk_providers() {
-  $providers = array(
-    'youtube', 'twitter', 'vimeo'
-    );
-  return $providers;
-}
-
 
 /**
  * Theme function to render node-links - checkdesk style
