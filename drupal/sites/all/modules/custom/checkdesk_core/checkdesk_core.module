@@ -1629,6 +1629,15 @@ function checkdesk_core_theme() {
     ),
   ) + $base;
 
+  $themes['checkdesk_core_main_navigation'] = array(
+      'template' => 'checkdesk_main_navigation',
+      'variables' => array(
+      'first_group' => NULL,
+      'second_group' => NULL,
+      'third_group' => NULL,
+    ),
+  ) + $base;
+
   return $themes;
 }
 
@@ -3685,4 +3694,106 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
       }
     }
   }
+}
+
+/**
+ * @return string
+ */
+function _checkdesk_main_navigation() {
+  $items = array();
+  $a_class = 'main-navigation-link'; //global class for a
+  $li_class = 'main-navigation-item'; //global class for item
+  //Build first group links
+  //homepage, add a report, write a story and search
+  $items[] = array(
+    'data' => l(t('Homepage'), '<front>', array(
+      'attributes' => array('class' => array($a_class, 'homepage-link'))
+    )),
+    'class' => array($li_class, 'homepage'),
+  );
+  $ref_nid = 0;
+  if (arg(0) == 'node' && is_numeric(arg(1)) /*&& $node->type == 'discussion'*/) {
+    $ref_nid = arg(1);
+  }
+  $items[] = array(
+    'data' => l(t('Submit report'), 'node/add/media', array(
+      'attributes' => array('class' => array($a_class, 'create-report-link')),
+      'query' => array('ref_nid' => $ref_nid),
+    )),
+    'class' => array($li_class, 'create-report'),
+  );
+  $items[] = array(
+    'data' => l(t('Create story'), 'node/add/discussion', array(
+      'attributes' => array('class' => array($a_class, 'create-story-link')),
+      'query' => array('ref_nid' => arg(1)),
+    )),
+    'class' => array($li_class, 'create-story'),
+  );
+  $items[] = array(
+    'data' => l(t('Search'), 'search', array(
+      'attributes' => array('class' => array($a_class, 'checkdesk-search-link')),
+    )),
+    'class' => array($li_class, 'checkdesk-search'),
+  );
+
+  $first_group = theme('item_list', array(
+    'items' => $items, 'title' => '', 'type' => 'ul',
+    'attributes' => array('class' => 'first-group')
+  ));
+  // Second group
+  // reports, stories and updates
+  $items = array();
+  $items[] = array(
+    'data' => l(t('Reports'), 'search', array(
+      'attributes' => array('class' => array($a_class, 'reports-link')),
+      'query' => array('type' => 'media'),
+    )),
+    'class' => array($li_class, 'reports'),
+  );
+  $items[] = array(
+    'data' => l(t('Stories'), 'search', array(
+      'attributes' => array('class' => array($a_class, 'stories-link')),
+      'query' => array('type' => 'discussion'),
+    )),
+    'class' => array($li_class, 'stories'),
+  );
+  $items[] = array(
+    'data' => l(t('Updates'), 'search', array(
+      'attributes' => array('class' => array($a_class, 'updates-link')),
+      'query' => array('type' => 'post'),
+    )),
+    'class' => array($li_class, 'updates'),
+  );
+
+  $second_group = theme('item_list', array(
+    'items' => $items, 'title' => '', 'type' => 'ul',
+    'attributes' => array('class' => 'second-group')
+  ));
+
+  // Third group
+  // manage users and about checkdesk
+  $items = array();
+  $items[] = array(
+    'data' => l(t('Administer users'), 'search', array(
+      'attributes' => array('class' => array($a_class, 'administer-users-link')),
+    )),
+    'class' => array($li_class, 'administer-users'),
+  );
+  $items[] = array(
+    'data' => l(t('About Checkdesk'), 'about-checkdesk', array(
+      'attributes' => array('class' => array($a_class, 'about-checkdesk-link')),
+    )),
+    'class' => array($li_class, 'about-checkdesk'),
+  );
+
+  $third_group = theme('item_list', array(
+    'items' => $items, 'title' => '', 'type' => 'ul',
+    'attributes' => array('class' => 'third-group')
+  ));
+
+  return theme('checkdesk_core_main_navigation', array(
+    'first_group' => $first_group,
+    'second_group' => $second_group,
+    'third_group' => $third_group,
+  ));
 }
