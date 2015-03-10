@@ -203,6 +203,7 @@ function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
 
   // load timeago library along with localized file
+
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago.js");
   $localized_timeago = drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago." . $language->language . ".js";
   if (file_exists($localized_timeago)) {
@@ -1206,29 +1207,6 @@ function checkdesk_get_timezone() {
   }
 
   return $site_timezone;
-}
-
-/**
- * Custom favicons via FontAwesome
- */
-function _checkdesk_favicons($provider) {
-  $output = '';
-  if ($provider == 'youtube') {
-    $output = '<span class="icon-youtube-play"></span>';
-  } else {
-    $output = '<span class="icon-' . $provider . '"></span>';
-  }
-  return $output;
-}
-
-/**
- * List of media providers
- */
-function _checkdesk_providers() {
-  $providers = array(
-      'youtube', 'twitter', 'vimeo'
-  );
-  return $providers;
 }
 
 /**
