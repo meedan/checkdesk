@@ -1,6 +1,5 @@
 <?php
 
-
 include_once(drupal_get_path('theme', 'checkdesk') . '/includes/checkdesk.inc');
 include_once(drupal_get_path('theme', 'checkdesk') . '/includes/theme.inc');
 include_once(drupal_get_path('theme', 'checkdesk') . '/includes/menu.inc');
@@ -10,24 +9,24 @@ include_once(drupal_get_path('theme', 'checkdesk') . '/includes/menu.inc');
  */
 function checkdesk_theme() {
   return array(
-    'checkdesk_links' => array(
-      'variables' => array('links' => array(), 'attributes' => array(), 'heading' => NULL),
-    ),
-    'checkdesk_user_menu_item' => array(
-      'variables' => array('attributes' => array(), 'type' => NULL),
-    ),
-    'checkdesk_user_menu_content' => array(
-      'variables' => array('items' => array()),
-    ),
-    'checkdesk_dropdown_menu_item' => array(
-      'variables' => array('title' => NULL, 'attributes' => array()),
-    ),
-    'checkdesk_dropdown_menu_content' => array(
-      'variables' => array('id' => NULL, 'content' => array()),
-    ),
-    'checkdesk_heartbeat_content' => array(
-      'variables' => array('message' => array(), 'node' => array()),
-    ),
+      'checkdesk_links' => array(
+          'variables' => array('links' => array(), 'attributes' => array(), 'heading' => NULL),
+      ),
+      'checkdesk_user_menu_item' => array(
+          'variables' => array('attributes' => array(), 'type' => NULL),
+      ),
+      'checkdesk_user_menu_content' => array(
+          'variables' => array('items' => array()),
+      ),
+      'checkdesk_dropdown_menu_item' => array(
+          'variables' => array('title' => NULL, 'attributes' => array()),
+      ),
+      'checkdesk_dropdown_menu_content' => array(
+          'variables' => array('id' => NULL, 'content' => array()),
+      ),
+      'checkdesk_heartbeat_content' => array(
+          'variables' => array('message' => array(), 'node' => array()),
+      ),
   );
 }
 
@@ -47,20 +46,19 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
 
     // Set author name or provider name
-    if(isset($embed->author_url) && isset($embed->author_name)) {
+    if (isset($embed->author_url) && isset($embed->author_name)) {
       $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
     } else {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
     // Media description
-    if(isset($node->body[LANGUAGE_NONE][0]['value'])) {
+    if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
       $variables['media_description'] = check_markup($node->body[LANGUAGE_NONE][0]['value'], 'filtered_html');
     }
     // Set favicon
     if (isset($embed->favicon_link)) {
       $variables['favicon_link'] = l(
-        theme('image', array( 'path' => $embed->favicon_link)),
-        $embed->original_url, array('html' => TRUE, 'attributes' => array('class' => array('favicon')))
+              theme('image', array('path' => $embed->favicon_link)), $embed->original_url, array('html' => TRUE, 'attributes' => array('class' => array('favicon')))
       );
     }
     // timestamp
@@ -71,24 +69,24 @@ function checkdesk_preprocess_field(&$variables, $hook) {
         '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
         '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
         '!interval' => format_interval(time() - $node->created, 1),
-        '@user' => url('user/'. $node->uid),
+        '@user' => url('user/' . $node->uid),
         '!user' => $node->name,
-      ));
+    ));
 
     // Load report status
-    if(isset($node->field_rating)) {
-      if($node->field_rating['und'][0]['tid'] != 4) {
+    if (isset($node->field_rating)) {
+      if ($node->field_rating['und'][0]['tid'] != 4) {
         $variables['report_status'] = _checkdesk_report_status($node);
       }
     }
     // Inline thumbnail
     if ($element['#formatter'] == 'meedan_inline_thumbnail') {
-      $variables['inline_thumbnail'] = isset($embed->thumbnail_url) ? l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid , array('html' => TRUE)) : '';
+      $variables['inline_thumbnail'] = isset($embed->thumbnail_url) ? l(theme_image(array('path' => $embed->thumbnail_url, 'attributes' => array('class' => array('inline-video-thumb')))), 'node/' . $element['#object']->nid, array('html' => TRUE)) : '';
     }
     // Large image in case of Flickr or imgur or instagram
     if ($element['#formatter'] == 'meedan_inline_full_mode' || $element['#formatter'] == 'meedan_full_mode') {
-      if(isset($embed->url)) {
-        $variables['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid , array('html' => TRUE));
+      if (isset($embed->url)) {
+        $variables['full_image'] = l(theme_image(array('path' => $embed->url, 'attributes' => array('class' => array('img')))), 'node/' . $node->nid, array('html' => TRUE));
       }
     }
   }
@@ -100,9 +98,9 @@ function checkdesk_preprocess_field(&$variables, $hook) {
  * @see html.tpl.php
  */
 function checkdesk_preprocess_html(&$variables) {
-  if(arg(0) == 'user' && arg(1) == '') {
-   $class = 'page-user-login';
-   $variables['classes_array'][] = $class;
+  if (arg(0) == 'user' && arg(1) == '') {
+    $class = 'page-user-login';
+    $variables['classes_array'][] = $class;
   }
 
   // set body class for language and language object to Drupal.settings
@@ -114,7 +112,7 @@ function checkdesk_preprocess_html(&$variables) {
 
   // 404 HTML template
   $status = drupal_get_http_header("status");
-  if($status == "404 Not Found") {
+  if ($status == "404 Not Found") {
     if ($variables['language']->language == 'ar') {
       $variables['theme_hook_suggestions'][] = 'html__404__rtl';
     } else {
@@ -123,13 +121,12 @@ function checkdesk_preprocess_html(&$variables) {
   }
 
   // Add classes about widgets sidebar
-   if (checkdesk_widgets_visibility()) {
+  if (checkdesk_widgets_visibility()) {
     if (!empty($variables['page']['widgets'])) {
       $variables['classes_array'][] = 'widgets';
       // remove no-sidebars class from drupal
       $variables['classes_array'] = array_diff($variables['classes_array'], array('no-sidebars'));
-    }
-    else {
+    } else {
       $variables['classes_array'][] = 'no-widgets';
     }
   }
@@ -141,7 +138,6 @@ function checkdesk_preprocess_html(&$variables) {
   }
   $head_title[] = variable_get('site_name', 'Drupal');
   $variables['head_title'] = strip_tags(implode(' | ', $head_title));
-
 }
 
 /**
@@ -157,8 +153,8 @@ function checkdesk_preprocess_region(&$variables) {
 
     if (!empty($image) && theme_get_setting('header_image_enabled')) {
       $header_image_data = array(
-        'style_name' => 'partner_logo',
-        'path' => $image,
+          'style_name' => 'partner_logo',
+          'path' => $image,
       );
       $variables['header_image'] = l(theme('image_style', $header_image_data), '<front>', array('html' => TRUE, 'attributes' => array('class' => array('partner_logo'))));
     }
@@ -169,7 +165,7 @@ function checkdesk_preprocess_region(&$variables) {
     $bg = theme_get_setting('header_bg_path');
     $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
 
-    $slogan = $variables['header_slogan'] = t('A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language)), '@partner_url' => variable_get_value('checkdesk_site_owner_url', array('language' => $language)) ));
+    $slogan = $variables['header_slogan'] = t('A Checkdesk live blog by <a href="@partner_url" target="_blank"><span class="checkdesk-slogan-partner">@partner</span></a>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language)), '@partner_url' => variable_get_value('checkdesk_site_owner_url', array('language' => $language))));
     $variables['header_slogan'] = (empty($slogan) ? '' : $slogan);
     $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
   }
@@ -181,16 +177,14 @@ function checkdesk_preprocess_region(&$variables) {
 
     if (!empty($image)) {
       $footer_image_data = array(
-        'style_name' => 'footer_partner_logo',
-        'path' => $image,
+          'style_name' => 'footer_partner_logo',
+          'path' => $image,
       );
       $variables['footer_image'] = theme('image_style', $footer_image_data);
       $variables['partner_url'] = variable_get_value('checkdesk_site_owner_url', array('language' => $language));
     }
   }
-
 }
-
 
 /**
  * Preprocess variables for blocks
@@ -207,14 +201,17 @@ function checkdesk_preprocess_block(&$variables) {
  */
 function checkdesk_preprocess_page(&$variables) {
   global $user, $language;
-  
+
   // load timeago library along with localized file
   drupal_add_js(drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago.js");
-  drupal_add_js(drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago." . $language->language . ".js");
+  $localized_timeago = drupal_get_path('theme', 'checkdesk') . "/assets/js/libs/jquery.timeago." . $language->language . ".js";
+  if (file_exists($localized_timeago)) {
+    drupal_add_js($localized_timeago);
+  }
 
   // 404 PAGE template
   $status = drupal_get_http_header("status");
-  if($status == "404 Not Found") {
+  if ($status == "404 Not Found") {
     if ($variables['language']->language == 'ar') {
       $variables['theme_hook_suggestions'][] = 'page__404__rtl';
     } else {
@@ -224,12 +221,11 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Page templates for each node type
   if (isset($variables['node'])) {
-  // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
-   $variables['theme_hook_suggestions'][] = 'page__'. str_replace('_', '--', $variables['node']->type);
+    // If the node type is "discussion" the template suggestion will be "page--discussion.tpl.php".
+    $variables['theme_hook_suggestions'][] = 'page__' . str_replace('_', '--', $variables['node']->type);
   }
 
   // dsm($variables['language']->language);
-
   // Unescape HTML in title
   $variables['title'] = htmlspecialchars_decode(drupal_get_title());
 
@@ -264,11 +260,9 @@ function checkdesk_preprocess_page(&$variables) {
         if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1)) && $variables['node']->type == 'discussion') {
           $variables['main_menu'][$id]['query'] = array('ref_nid' => arg(1));
         }
-      }
-      else if ($item['link_path'] == 'node/add/discussion') {
+      } else if ($item['link_path'] == 'node/add/discussion') {
         $variables['main_menu'][$id]['attributes']['id'] = 'discussion-form-menu-link';
-      }
-      else if ($item['link_path'] == 'node/add/post') {
+      } else if ($item['link_path'] == 'node/add/post') {
         $variables['main_menu'][$id]['attributes']['id'] = 'update-story-menu-link';
         if ((arg(0) == 'node' || arg(0) == 'story-collaboration') && is_numeric(arg(1)) && $variables['node']->type == 'discussion') {
           $variables['main_menu'][$id]['query'] = array('story' => arg(1));
@@ -278,12 +272,12 @@ function checkdesk_preprocess_page(&$variables) {
 
     // Build list
     $variables['primary_nav'] = theme('checkdesk_links', array(
-      'links' => $variables['main_menu'],
-      'attributes' => array(
-        'id' => 'main-menu',
-        'class' => array('nav'),
-      ),
-      'heading' => NULL,
+        'links' => $variables['main_menu'],
+        'attributes' => array(
+            'id' => 'main-menu',
+            'class' => array('nav'),
+        ),
+        'heading' => NULL,
     ));
   }
 
@@ -298,9 +292,11 @@ function checkdesk_preprocess_page(&$variables) {
       unset($tree[$id]);
     }
 
-    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
+    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language)
+      unset($tree[$id]);
     foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language)
+        unset($tree[$id]['below'][$subid]);
     }
   }
 
@@ -312,8 +308,10 @@ function checkdesk_preprocess_page(&$variables) {
     if ($item['title'] === '<user>') {
       foreach ($item['below'] as $subid => $subitem) {
         if ($subitem['link_path'] == 'user/login') {
-          if (user_is_logged_in()) unset($variables['secondary_menu'][$id]['below'][$subid]);
-          else $variables['secondary_menu'][$id] = $subitem;
+          if (user_is_logged_in())
+            unset($variables['secondary_menu'][$id]['below'][$subid]);
+          else
+            $variables['secondary_menu'][$id] = $subitem;
         }
       }
       if (user_is_logged_in()) {
@@ -325,13 +323,12 @@ function checkdesk_preprocess_page(&$variables) {
 
         unset($variables['secondary_menu'][$id]['below']);
       }
-    }
-
-    else if ($item['link_path'] == 'my-notifications') {
+    } else if ($item['link_path'] == 'my-notifications') {
       if (user_is_logged_in()) {
         $count = checkdesk_notifications_number_of_new_items($user);
         $counter = '';
-        if ($count > 0) $counter = '<span>' . $count . '</span>';
+        if ($count > 0)
+          $counter = '<span>' . $count . '</span>';
         $variables['secondary_menu'][$id]['attributes']['id'] = 'my-notifications-menu-link';
         $variables['secondary_menu'][$id]['html'] = TRUE;
         $variables['secondary_menu'][$id]['title'] = '<span class="icon-bell"></span><span class="notifications-count">' . $counter . '</span>';
@@ -340,17 +337,16 @@ function checkdesk_preprocess_page(&$variables) {
         unset($variables['secondary_menu'][$id]);
       }
     }
-
   }
 
   // Build list
   $variables['secondary_nav'] = theme('checkdesk_links', array(
-    'links' => $variables['secondary_menu'],
-    'attributes' => array(
-      'id' => 'user-menu',
-      'class' => array('nav'),
-    ),
-    'heading' => NULL,
+      'links' => $variables['secondary_menu'],
+      'attributes' => array(
+          'id' => 'user-menu',
+          'class' => array('nav'),
+      ),
+      'heading' => NULL,
   ));
 
 
@@ -365,9 +361,11 @@ function checkdesk_preprocess_page(&$variables) {
     if ($item['link']['hidden']) {
       unset($tree[$id]);
     }
-    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language) unset($tree[$id]);
+    if ($item['link']['language'] != LANGUAGE_NONE && $item['link']['language'] != $language->language)
+      unset($tree[$id]);
     foreach ($item['below'] as $subid => $subitem) {
-      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language) unset($tree[$id]['below'][$subid]);
+      if ($subitem['link']['language'] != LANGUAGE_NONE && $subitem['link']['language'] != $language->language)
+        unset($tree[$id]['below'][$subid]);
     }
   }
 
@@ -391,12 +389,12 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Build list
   $variables['information_nav'] = theme('checkdesk_links', array(
-    'links' => $variables['information_menu'],
-    'attributes' => array(
-      'id' => 'information-menu',
-      'class' => array('nav'),
-    ),
-    'heading' => NULL,
+      'links' => $variables['information_menu'],
+      'attributes' => array(
+          'id' => 'information-menu',
+          'class' => array('nav'),
+      ),
+      'heading' => NULL,
   ));
 
   // ctools modal
@@ -405,57 +403,57 @@ function checkdesk_preprocess_page(&$variables) {
 
   // Custom modal settings arrays
   $modal_style = array(
-    'modal-popup-small' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 420,
-        'height' => 300,
-        'addWidth' => 0,
-        'addHeight' => 0
+      'modal-popup-small' => array(
+          'modalSize' => array(
+              'type' => 'fixed',
+              'width' => 420,
+              'height' => 300,
+              'addWidth' => 0,
+              'addHeight' => 0
+          ),
+          'modalOptions' => array(
+              'opacity' => .5,
+              'background-color' => '#000',
+          ),
+          'animation' => 'show',
+          'animationSpeed' => 40,
+          'modalTheme' => 'CheckDeskModal',
+          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
       ),
-      'modalOptions' => array(
-        'opacity' => .5,
-        'background-color' => '#000',
+      'modal-popup-medium' => array(
+          'modalSize' => array(
+              'type' => 'fixed',
+              'width' => 520,
+              'height' => 350,
+              'addWidth' => 0,
+              'addHeight' => 0
+          ),
+          'modalOptions' => array(
+              'opacity' => .5,
+              'background-color' => '#000',
+          ),
+          'animation' => 'show',
+          'animationSpeed' => 40,
+          'modalTheme' => 'CheckDeskModal',
+          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
       ),
-      'animation' => 'show',
-      'animationSpeed' => 40,
-      'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
-    ),
-    'modal-popup-medium' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 520,
-        'height' => 350,
-        'addWidth' => 0,
-        'addHeight' => 0
+      'modal-popup-large' => array(
+          'modalSize' => array(
+              'type' => 'fixed',
+              'width' => 700,
+              'height' => 400,
+              'addWidth' => 0,
+              'addHeight' => 0
+          ),
+          'modalOptions' => array(
+              'opacity' => .5,
+              'background-color' => '#000',
+          ),
+          'animation' => 'show',
+          'animationSpeed' => 40,
+          'modalTheme' => 'CheckDeskModal',
+          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
       ),
-      'modalOptions' => array(
-        'opacity' => .5,
-        'background-color' => '#000',
-      ),
-      'animation' => 'show',
-      'animationSpeed' => 40,
-      'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
-    ),
-    'modal-popup-large' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 700,
-        'height' => 400,
-        'addWidth' => 0,
-        'addHeight' => 0
-      ),
-      'modalOptions' => array(
-        'opacity' => .5,
-        'background-color' => '#000',
-      ),
-      'animation' => 'show',
-      'animationSpeed' => 40,
-      'modalTheme' => 'CheckDeskModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'checkdesk_core'), 'alt' => t('Loading'), 'title' => t('Loading'))),
-    ),
   );
   drupal_add_js($modal_style, 'setting');
 
@@ -481,9 +479,7 @@ function checkdesk_preprocess_page(&$variables) {
 
   // set page variable if widgets should be visible
   $variables['show_footer'] = checkdesk_footer_visibility();
-
 }
-
 
 /**
  * Override or insert variables into the node template.
@@ -491,18 +487,17 @@ function checkdesk_preprocess_page(&$variables) {
 function checkdesk_preprocess_node(&$variables) {
   global $language;
   $node = @$variables['elements']['#node'];
-  
+
   // get $alpha and $omega
   $variables['layout'] = checkdesk_core_direction_settings();
   $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'];
 
-  if($variables['view_mode'] == 'checkdesk_collaborate') {
+  if ($variables['view_mode'] == 'checkdesk_collaborate') {
     if ($variables['type'] == 'media') {
       $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
       $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $variables['view_mode'] . '__' . $message_id;
     }
-  }
-  elseif ($variables['type'] == 'discussion' && !empty($variables['heartbeat_row'])) {
+  } elseif ($variables['type'] == 'discussion' && !empty($variables['heartbeat_row'])) {
     $message_id = $variables['heartbeat_row']->heartbeat_activity_message_id;
     $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $message_id;
   }
@@ -517,39 +512,39 @@ function checkdesk_preprocess_node(&$variables) {
     }
 
     $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-        '@url' => url('node/'. $variables['nid']),
+        '@url' => url('node/' . $variables['nid']),
         '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
         '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
         '!interval' => format_interval(time() - $variables['created'], 1),
-      ));
+    ));
     // Add creation info
     $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime !timezone</time>', array(
-      '@user' => url('user/'. $variables['uid']),
-      '!user' => $node->name,
-      '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
-      '!timezone' => $timezone,
+        '@user' => url('user/' . $variables['uid']),
+        '!user' => $node->name,
+        '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+        '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
+        '!timezone' => $timezone,
     ));
     $variables['creation_info_short'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
-      '@user' => url('user/'. $variables['uid']),
-      '!user' => $node->name,
-      '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
+        '@user' => url('user/' . $variables['uid']),
+        '!user' => $node->name,
+        '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+        '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
     ));
 
     $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
-      '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
-      '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
-      '!interval' => format_interval((time() - $variables['changed']), 1),
-      '!timezone' => $timezone,
+        '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
+        '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
+        '!interval' => format_interval((time() - $variables['changed']), 1),
+        '!timezone' => $timezone,
     ));
   }
 
-  if($variables['type'] == 'post') {
+  if ($variables['type'] == 'post') {
     $parent_story_id = $variables['field_desk'][LANGUAGE_NONE][0]['target_id'];
     $update_anchor = 'update-' . $variables['nid'];
-    $update_link = url('node/'.$parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
+    $update_link = url('node/' . $parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
     $variables['update_link'] = $update_link;
 
     $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
@@ -558,10 +553,10 @@ function checkdesk_preprocess_node(&$variables) {
         '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
         '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
         '!interval' => format_interval(time() - $variables['created'], 1),
-      ));
+    ));
 
     $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
-        '@user' => url('user/'. $variables['uid']),
+        '@user' => url('user/' . $variables['uid']),
         '!user' => $node->name,
     ));
     $variables['created_at'] = t('<time datetime="!isodatetime" class="timeago">!interval ago</time>', array(
@@ -573,9 +568,9 @@ function checkdesk_preprocess_node(&$variables) {
     $user = user_load($variables['uid']);
     $variables['user_avatar'] = _set_user_avatar_bg($user, array('avatar', 'thumb-22'));
     if (isset($variables['title'])) {
-        if ($variables['title'] === _checkdesk_core_auto_title($node) || $variables['title'] === t('Update')) {
-            unset($variables['title']);
-        }
+      if ($variables['title'] === _checkdesk_core_auto_title($node) || $variables['title'] === t('Update')) {
+        unset($variables['title']);
+      }
     }
   }
 
@@ -585,25 +580,23 @@ function checkdesk_preprocess_node(&$variables) {
     // Format lead image as thumbnail for activity template
     if (isset($variables['field_lead_image'][0]['uri'])) {
       $variables['inline_thumbnail'] = l(theme('image_style', array(
-        'path' => $variables['field_lead_image'][0]['uri'],
-        'alt' => t(check_plain($node->title)),
-        'style_name' => 'report_thumbnail',
-        'attributes' => array('class' => 'inline-img-thumb'))), 'node/' . $variables['nid'] , array('html' => TRUE));
-    }
-    else {
+          'path' => $variables['field_lead_image'][0]['uri'],
+          'alt' => t(check_plain($node->title)),
+          'style_name' => 'report_thumbnail',
+          'attributes' => array('class' => 'inline-img-thumb'))), 'node/' . $variables['nid'], array('html' => TRUE));
+    } else {
       $variables['inline_thumbnail'] = '';
     }
     // Add follow story flag
     global $user;
     if ($user->uid) {
       $follow_story = flag_create_link('follow_story', $variables['nid']);
-    }
-    else {
+    } else {
       $flag_count = flag_get_counts('node', $variables['nid']);
-      $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+      $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
       // append count
       if (isset($flag_count['follow_story'])) {
-        $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
+        $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
       }
     }
     $variables['follow_story'] = $follow_story;
@@ -613,11 +606,10 @@ function checkdesk_preprocess_node(&$variables) {
 
     $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
 
-    if($variables['view_mode'] == 'checkdesk_collaborate') {
+    if ($variables['view_mode'] == 'checkdesk_collaborate') {
       // Get heartbeat activity for particular story
       $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
-    }
-    else {
+    } else {
       // get updates for a particular story
       $view = views_get_view('updates_for_stories');
       $view->set_arguments(array($variables['nid']));
@@ -641,11 +633,10 @@ function checkdesk_preprocess_node(&$variables) {
     }
     if ($theme) {
       $variables['story_commentcount'] = array(
-        '#theme' => $theme,
-        '#node' => node_load($variables['nid']),
+          '#theme' => $theme,
+          '#node' => node_load($variables['nid']),
       );
     }
-
   }
 
 
@@ -659,49 +650,48 @@ function checkdesk_preprocess_node(&$variables) {
     $user_picture = $user->picture;
     if (!empty($user_picture)) {
       $options = array(
-        'html' => TRUE,
-        'attributes' => array(
-          'class' => 'gravatar'
-        )
+          'html' => TRUE,
+          'attributes' => array(
+              'class' => 'gravatar'
+          )
       );
     }
     // set provider class name
     $provider = strtolower($node->embed->provider_name);
     $variables['provider_class_name'] = str_replace('.', '_', $provider) . '-wrapper';
     // set status class name
-    if(isset($node->field_rating['und'][0]['taxonomy_term']->name)) {
+    if (isset($node->field_rating['und'][0]['taxonomy_term']->name)) {
       $status = strtolower($node->field_rating['und'][0]['taxonomy_term']->name);
-      $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);  
+      $variables['status_class'] = 'status-' . str_replace(' ', '-', $status);
     }
     // set embed type as class name
     $item_type = strtolower($node->embed->type);
     $variables['media_type_class'] = 'media--' . str_replace(' ', '-', $item_type);
 
     //Add node creation info(author name plus creation time
-    if($variables['view_mode'] == 'checkdesk_collaborate') {
+    if ($variables['view_mode'] == 'checkdesk_collaborate') {
       $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-        '@url' => $node->embed->original_url,
-        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
-        '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
-        '!interval' => format_interval(time() - $variables['created'], 1),
+          '@url' => $node->embed->original_url,
+          '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+          '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
+          '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
+          '!interval' => format_interval(time() - $variables['created'], 1),
       ));
-    }
-    else {
+    } else {
       $variables['media_timestamp'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-        '@url' => url('node/'. $variables['nid']),
-        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
-        '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
-        '!interval' => format_interval(time() - $variables['created'], 1),
+          '@url' => url('node/' . $variables['nid']),
+          '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+          '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
+          '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
+          '!interval' => format_interval(time() - $variables['created'], 1),
       ));
       $variables['media_creation_info'] = t('Added by <a class="contributor" href="@user">!user</a> <a href="@url"><time class="date-time" datetime="!timestamp">!datetime</time></a>', array(
-        '@user' => url('user/'. $variables['uid']),
-        '!user' => $node->name,
-        '@url' => url('node/'. $variables['nid']),
-        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
-        '!interval' => format_interval(time() - $variables['created'], 1),
+          '@user' => url('user/' . $variables['uid']),
+          '!user' => $node->name,
+          '@url' => url('node/' . $variables['nid']),
+          '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+          '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
+          '!interval' => format_interval(time() - $variables['created'], 1),
       ));
       // Set published stories
       $variables['published_stories'] = '';
@@ -711,19 +701,18 @@ function checkdesk_preprocess_node(&$variables) {
           FROM {heartbeat_activity} ha
           INNER JOIN {node} n ON ha.nid_target = n.nid AND ha.nid = :nid
           WHERE n.language = :language AND message_id IN (:status)
-          ', array(':nid' => $variables['nid'], ':language' => $language->language ,':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
-      )->fetchAllKeyed(0);
+          ', array(':nid' => $variables['nid'], ':language' => $language->language, ':status' => array('checkdesk_report_suggested_to_story', 'publish_report'))
+              )->fetchAllKeyed(0);
       // display published in story if more than one or its the report/media page
-      if(count($published_stories) > 1 || $variables['page'] == TRUE) {
+      if (count($published_stories) > 1 || $variables['page'] == TRUE) {
         foreach ($published_stories as $k => $v) {
-           array_push($published_stories_links, l($v, 'node/' . $k));
+          array_push($published_stories_links, l($v, 'node/' . $k));
         }
         $variables['published_stories'] .= implode('<span class="separator">,</span> ', $published_stories_links);
       }
     }
     $variables['report_activity'] = theme(
-      'checkdesk_core_report_activity',
-      array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
+            'checkdesk_core_report_activity', array('node' => $node, 'content' => $variables['content'], 'view_mode' => $variables['view_mode'])
     );
 
     if (isset($variables['content']['field_link'])) {
@@ -746,7 +735,6 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['field_link_lazy_load'] = $field_link_rendered;
     }
   }
-  
 }
 
 function checkdesk_links__node($variables) {
@@ -770,8 +758,8 @@ function checkdesk_links__node($variables) {
   if (arg(0) != 'embed' && count($links) > 0) {
     $output = '<div' . drupal_attributes(array('class' => $class)) . '>';
     // Add share links    
-    $options = array('links' => $links, 'direction' => $links['dropdown-direction'], 
-      'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share'); 
+    $options = array('links' => $links, 'direction' => $links['dropdown-direction'],
+        'type' => 'checkdesk-share', 'wrapper_class' => 'share-on', 'icon_class' => 'icon-share');
     $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
     if (isset($links['flag-spam'])) {
@@ -787,8 +775,8 @@ function checkdesk_links__node($variables) {
       $links['flag-delete']['cd_group'] = 'checkdesk-flag';
     }
     // add flag links
-    $options = array('links' => $links, 'direction' => $layout['omega'], 
-      'type' => 'checkdesk-flag', 'wrapper_class' => 'flag-as', 'icon_class' => 'icon-flag-o'); 
+    $options = array('links' => $links, 'direction' => $layout['omega'],
+        'type' => 'checkdesk-flag', 'wrapper_class' => 'flag-as', 'icon_class' => 'icon-flag-o');
     $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
     if (isset($links['checkdesk-suggest'])) {
@@ -811,8 +799,8 @@ function checkdesk_links__node($variables) {
       $links['flag-graphic_journalist']['cd_group'] = 'checkdesk-ellipsis';
     }
 
-    $options = array('links' => $links, 'direction' => $layout['omega'], 
-      'type' => 'checkdesk-ellipsis', 'wrapper_class' => 'add-to', 'icon_class' => 'icon-ellipsis-h'); 
+    $options = array('links' => $links, 'direction' => $layout['omega'],
+        'type' => 'checkdesk-ellipsis', 'wrapper_class' => 'add-to', 'icon_class' => 'icon-ellipsis-h');
     $output .= theme('checkdesk_core_render_links', array('options' => $options));
 
     $output .= '</div>';
@@ -820,7 +808,6 @@ function checkdesk_links__node($variables) {
 
   return $output;
 }
-
 
 /**
  * Utitity function to determine whether to show widgets or not
@@ -862,20 +849,20 @@ function checkdesk_widgets_visibility() {
   if (isset($current_node->type) && !$check_role && $status != "404 Not Found") {
     foreach ($anon_node_types as $node_type) {
       // matches node types
-      if ($node_type == $current_node->type) return TRUE;
+      if ($node_type == $current_node->type)
+        return TRUE;
     }
-  // for logged in users with specific role
+    // for logged in users with specific role
   } elseif (isset($current_node->type) && $check_role) {
     foreach ($user_node_types as $node_type) {
       // matches node types and does not include any pages
       if ($node_type == $current_node->type && arg(0) == 'node' && !$check_page && $status != "404 Not Found") {
         return TRUE;
       }
-
     }
-  // for user login, register and forgot pass page
+    // for user login, register and forgot pass page
   } elseif (arg(0) == 'user' && $check_user_page) {
-      return TRUE;
+    return TRUE;
   }
   return FALSE;
 }
@@ -920,17 +907,17 @@ function checkdesk_page_alter(&$page) {
     // Footer
     if (in_array($region, array('footer'))) {
       $page['footer'] = array(
-        '#region' => 'footer',
-        '#weight' => '-10',
-        '#theme_wrappers' => array('region'),
+          '#region' => 'footer',
+          '#weight' => '-10',
+          '#theme_wrappers' => array('region'),
       );
     }
     // Sidebar
-    if(!isset($page['widgets'])){
+    if (!isset($page['widgets'])) {
       if (in_array($region, array('widgets'))) {
         $page['widgets'] = array(
-          '#region' => 'widgets',
-          '#theme_wrappers' => array('region'),
+            '#region' => 'widgets',
+            '#theme_wrappers' => array('region'),
         );
       }
     }
@@ -943,9 +930,9 @@ function checkdesk_page_alter(&$page) {
 function checkdesk_checkdesk_core_story_blogger(&$variables) {
   $output = '';
 
-  $output .= '<div class="story-blogger '. $variables['classes'] .'">';
+  $output .= '<div class="story-blogger ' . $variables['classes'] . '">';
   $output .= '<div class="avatar">' . $variables['blogger_picture'] . $variables['blogger_name'] . '</div>';
-  $output .= '<div class="blogger-status '. $variables['blogger_status_class'] .'"><span class="blogger-status-indicator"></span><span class="blogger-status-text">' . $variables['blogger_status_text'] . '</span></div>';
+  $output .= '<div class="blogger-status ' . $variables['blogger_status_class'] . '"><span class="blogger-status-indicator"></span><span class="blogger-status-text">' . $variables['blogger_status_text'] . '</span></div>';
   $output .= '</div>';
 
   return $output;
@@ -969,7 +956,8 @@ function checkdesk_checkdesk_core_story_status(&$variables) {
 function checkdesk_checkdesk_core_story_drafts(&$variables) {
   $output = '';
 
-  if (isset($variables['story_drafts']) && !empty($variables['story_drafts'])) $output .= '<div class="story-drafts">' . $variables['story_drafts'] . '</div>';
+  if (isset($variables['story_drafts']) && !empty($variables['story_drafts']))
+    $output .= '<div class="story-drafts">' . $variables['story_drafts'] . '</div>';
 
   return $output;
 }
@@ -988,8 +976,8 @@ function checkdesk_checkdesk_core_report_source(&$variables) {
 
 function checkdesk_field__field_rating(&$variables) {
   $output = '';
-  foreach($variables['items'] as $key => $tag) {
-      $output = $tag['#title'];
+  foreach ($variables['items'] as $key => $tag) {
+    $output = $tag['#title'];
   }
   return $output;
 }
@@ -999,42 +987,42 @@ function checkdesk_field__field_rating(&$variables) {
  */
 function checkdesk_field__field_tags(&$variables) {
   if ($variables['element']['#view_mode'] == 'full' || $variables['element']['#view_mode'] == 'checkdesk_collaborate') {
-  $type = $variables['element']['#bundle'];
-  if($type == 'media') {
-    $alt_type = array(
-      'singular' => 'report',
-      'plural' => 'reports'
-    );
-  } elseif ($type == 'discussion') {
-    $alt_type = array(
-      'singular' => 'story',
-      'plural' => 'stories'
-    );
-  }
+    $type = $variables['element']['#bundle'];
+    if ($type == 'media') {
+      $alt_type = array(
+          'singular' => 'report',
+          'plural' => 'reports'
+      );
+    } elseif ($type == 'discussion') {
+      $alt_type = array(
+          'singular' => 'story',
+          'plural' => 'stories'
+      );
+    }
 
-  $output = '<section id="media-tags" class="cd-container">';
-  $output .= '<div class="cd-container__inner">';
-  $output .= '<div class="submeta"><h2 class="submeta__header">'. t('Published in') . '</h2>';
-  $output .= '<ul class="tag-list u-unstyled inline-list">';
-  foreach($variables['element']['#items'] as $key => $item) {
-    $tag_name = '<div class="tag__name">' . $item['taxonomy_term']->name. '</div>';  
-    $tag_count = _checkdesk_term_nc($item['tid'], FALSE, $type);
-    $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
+    $output = '<section id="media-tags" class="cd-container">';
+    $output .= '<div class="cd-container__inner">';
+    $output .= '<div class="submeta"><h2 class="submeta__header">' . t('Published in') . '</h2>';
+    $output .= '<ul class="tag-list u-unstyled inline-list">';
+    foreach ($variables['element']['#items'] as $key => $item) {
+      $tag_name = '<div class="tag__name">' . $item['taxonomy_term']->name . '</div>';
+      $tag_count = _checkdesk_term_nc($item['tid'], FALSE, $type);
+      $count = '<div class="tag__count">' . format_plural($tag_count, '1 @singular', '@count @plural', array('@count' => $tag_count, '@singular' => $alt_type['singular'], '@plural' => $alt_type['plural'])) . '</div>';
 
-    $output .= '<li class="inline-list__item">';
+      $output .= '<li class="inline-list__item">';
 
-    $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'], array(
-      'html' => TRUE,
-      'attributes' => array(
-        'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
-        'class' => array('btn', 'btn--transparent', 'btn--tag'),
-      ),
-    ));
+      $output .= l($tag_name . $count, 'taxonomy/term/' . $item['tid'], array(
+          'html' => TRUE,
+          'attributes' => array(
+              'title' => t("@title", array('@title' => $item['taxonomy_term']->name)),
+              'class' => array('btn', 'btn--transparent', 'btn--tag'),
+          ),
+      ));
 
-    $output .= '</li>';
-  }
-  $output .= '</ul></div></div></section>';
-  return $output;
+      $output .= '</li>';
+    }
+    $output .= '</ul></div></div></section>';
+    return $output;
   }
 }
 
@@ -1069,7 +1057,7 @@ function checkdesk_preprocess_views_view(&$vars) {
   $vars['base_path'] = $base_path;
   // set template functions for individual views
   if (isset($vars['view']->name)) {
-    $function = 'checkdesk_preprocess_views_view__'.$vars['view']->name;
+    $function = 'checkdesk_preprocess_views_view__' . $vars['view']->name;
     if (function_exists($function)) {
       $function($vars);
     }
@@ -1084,17 +1072,14 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
   $view = $vars['view'];
   $page_title = t('Search');
   if (isset($_GET['type']) && $_GET['type'] != 'All') {
-    if($_GET['type'] == 'media') {
+    if ($_GET['type'] == 'media') {
       $page_title = t('Reports');
-    }
-    elseif ($_GET['type'] == 'post') {
+    } elseif ($_GET['type'] == 'post') {
       $page_title = t('Updates');
-    }
-    elseif ($_GET['type'] == 'discussion') {
+    } elseif ($_GET['type'] == 'discussion') {
       $page_title = t('Stories');
     }
-  }
-  elseif (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
+  } elseif (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
     //Set taxonomy name as title
     $term = taxonomy_term_load($_GET['field_tags_tid']);
     $page_title = $term->name;
@@ -1103,6 +1088,7 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
 }
 
 /* Desk Reports */
+
 function checkdesk_preprocess_views_view__desk_reports(&$vars) {
   if ($vars['display_id'] == 'block') {
     drupal_add_js('jQuery(function() {
@@ -1115,9 +1101,10 @@ function checkdesk_preprocess_views_view__desk_reports(&$vars) {
 }
 
 /* Reports page */
+
 function checkdesk_preprocess_views_view__reports(&$vars) {
   // add masonry library
-  drupal_add_js(drupal_get_path('theme', 'checkdesk') .'/assets/js/libs/jquery.masonry.min.js', 'file', array('group' => JS_THEME, 'every_page' => FALSE));
+  drupal_add_js(drupal_get_path('theme', 'checkdesk') . '/assets/js/libs/jquery.masonry.min.js', 'file', array('group' => JS_THEME, 'every_page' => FALSE));
 }
 
 /**
@@ -1132,8 +1119,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
 
     if ((in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) && checkdesk_core_report_published_on_update($report_nid)) {
       $vars['report_published'] = t('Published on update');
-    }
-    else {
+    } else {
       $vars['report_published'] = FALSE;
     }
     // Get embed type
@@ -1155,19 +1141,18 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     }
     if ($theme) {
       $vars['story_commentcount'] = array(
-        '#theme' => $theme,
-        '#node' => node_load($vars['fields']['nid']->raw),
+          '#theme' => $theme,
+          '#node' => node_load($vars['fields']['nid']->raw),
       );
     }
     // Add follow story flag
     if ($user->uid) {
       $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
-    }
-    else {
+    } else {
       $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
-      $follow_story = l(t('Follow story'), 'user/login' , array('query'=> array(drupal_get_destination())));
+      $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
       // append count
-      $follow_story .= '<span class="follow-count" >'. $flag_count['follow_story'].'</span>';
+      $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
     }
     $vars['follow_story'] = $follow_story;
   }
@@ -1177,8 +1162,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     $vars['update_id'] = $vars['fields']['nid']->raw;
     if ($vars['counter'] === $vars['view']->total_rows) {
       $vars['update'] = $vars['fields']['rendered_entity']->content;
-    }
-    else {
+    } else {
       $vars['update'] = $vars['fields']['rendered_entity_1']->content;
     }
   }
@@ -1202,20 +1186,21 @@ function checkdesk_preprocess_user_profile(&$variables) {
 /*
  * Utility function to set timezone as City, Country
  */
+
 function checkdesk_get_timezone() {
   // set timezone as Cairo, Egypt
   $site_timezone = array();
   $timezone = date_default_timezone();
-  if($timezone) {
+  if ($timezone) {
     $timezone_array = explode('/', $timezone);
     $site_timezone['city'] = str_replace('_', ' ', array_pop($timezone_array));
   }
   $site_country_code = variable_get('site_default_country', '');
-  if($site_country_code) {
+  if ($site_country_code) {
     $countries = country_get_list();
     foreach ($countries as $cc => $country) {
-      if($cc == $site_country_code) {
-          $site_timezone['country'] = $country;
+      if ($cc == $site_country_code) {
+        $site_timezone['country'] = $country;
       }
     }
   }
@@ -1223,13 +1208,12 @@ function checkdesk_get_timezone() {
   return $site_timezone;
 }
 
-
 /**
  * Custom favicons via FontAwesome
  */
 function _checkdesk_favicons($provider) {
   $output = '';
-  if($provider == 'youtube') {
+  if ($provider == 'youtube') {
     $output = '<span class="icon-youtube-play"></span>';
   } else {
     $output = '<span class="icon-' . $provider . '"></span>';
@@ -1242,11 +1226,10 @@ function _checkdesk_favicons($provider) {
  */
 function _checkdesk_providers() {
   $providers = array(
-    'youtube', 'twitter', 'vimeo'
-    );
+      'youtube', 'twitter', 'vimeo'
+  );
   return $providers;
 }
-
 
 /**
  * Theme function to render node-links - checkdesk style
@@ -1279,26 +1262,24 @@ function checkdesk_checkdesk_core_render_links($variables) {
       if ($link['link_type'] == 'link') {
         // l link
         $items[] = l($link['title'], $link['href'], $link);
-      }
-      else {
+      } else {
         // modal link
-        $items[] = ctools_modal_text_button($link['title'], $link['href'], $link['title'],  $link['modal_class']);
+        $items[] = ctools_modal_text_button($link['title'], $link['href'], $link['title'], $link['modal_class']);
       }
-    }
-    else {
+    } else {
       $items[] = $link['title'];
     }
   }
   if (count($items)) {
     $wrapper_class = $options['wrapper_class'];
     $icon_class = $options['icon_class'];
-    $output .= '<span class="'. $wrapper_class .'">';
+    $output .= '<span class="' . $wrapper_class . '">';
     $list_title = isset($link_type['title']) ? $link_type['title'] : '';
-    $list_title = '<span class="'. $icon_class .'">'. $list_title .'</span>';
+    $list_title = '<span class="' . $icon_class . '">' . $list_title . '</span>';
     $href = isset($link_type['href']) ? $link_type['href'] : '#';
     $output .= l($list_title, $href, $link_type);
-    $output .= '<ul class="dropdown-menu pull-'. $options['direction'] .'">';
-    foreach($items as $item) {
+    $output .= '<ul class="dropdown-menu pull-' . $options['direction'] . '">';
+    foreach ($items as $item) {
       $output .= '<li>' . $item . '</li>';
     }
     $output .= '</ul></span>';
@@ -1332,12 +1313,12 @@ function _checkdesk_term_nc($tid, $child_count = TRUE, $type) {
   $query->join('node', 'n', 't.nid = n.nid');
   $query->condition('n.status', 1, '=');
   $query->condition('n.language', $langs, 'IN');
-  if ($type)  {
+  if ($type) {
     $query->condition('n.type', $type);
   }
 
   $count = $query->execute()->fetchField();
-  return  $count;
+  return $count;
 }
 
 /**
@@ -1350,10 +1331,10 @@ function _checkdesk_term_nc($tid, $child_count = TRUE, $type) {
  */
 function _checkdesk_term_get_children_ids($tid) {
   $children = taxonomy_get_children($tid);
-  $tids=array();
+  $tids = array();
 
   if (!empty($children)) {
-    foreach($children as $child) {
+    foreach ($children as $child) {
       $tids[] = $child->tid;
       $tids = array_merge($tids, term_get_children_ids($child->tid));
     }
