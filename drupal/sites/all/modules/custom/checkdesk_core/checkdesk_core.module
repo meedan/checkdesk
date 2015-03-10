@@ -3785,14 +3785,14 @@ function _checkdesk_main_navigation() {
   $items = array();
   if (user_access('administer users')) {
     $items[] = array(
-      'data' => l(t('Administer users'), 'search', array(
+      'data' => l(t('Administer users'), 'admin/people', array(
         'attributes' => array('class' => array($a_class, 'administer-users-link')),
       )),
       'class' => array($li_class, 'administer-users'),
     );
   }
   $items[] = array(
-    'data' => l(t('About Checkdesk'), 'about-checkdesk', array(
+    'data' => l(t('About Checkdesk'), 'content/about-checkdesk', array(
       'attributes' => array('class' => array($a_class, 'about-checkdesk-link')),
     )),
     'class' => array($li_class, 'about-checkdesk'),
