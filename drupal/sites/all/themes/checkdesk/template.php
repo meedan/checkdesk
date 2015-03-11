@@ -503,6 +503,12 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '__' . $message_id;
   }
 
+  // Do nothing if view mode is search index
+  // as we only need to index title & body
+  // check search index display settings
+  if ($variables['view_mode'] == 'search_index') {
+    return;
+  }
   if ($variables['type'] == 'discussion') {
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();

@@ -879,7 +879,12 @@ function checkdesk_core_flag_access($flag, $entity_id, $action, $account) {
  * Implements hook_node_view().
  */
 function checkdesk_core_node_view($node, $view_mode, $langcode) {
-
+  // Do nothing if view mode is search index
+  // as we only need to index title & body
+  // check search index display settings
+  if ($view_mode == 'search_index') {
+    return;
+  }
   if ($view_mode == 'checkdesk_search') {
     if ($node->type == 'discussion') {
       $updates = db_query('
@@ -955,7 +960,7 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
   }
 
   // Add decorations to story nodes.
-  if ($node->type == 'discussion' && $view_mode != 'search_index') {
+  if ($node->type == 'discussion') {
     $node->content['story_blogger'] = array(
       '#theme' => 'checkdesk_core_story_blogger',
       '#story' => $node,
