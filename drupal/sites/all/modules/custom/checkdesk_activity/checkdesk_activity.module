@@ -1,0 +1,60 @@
+<?php
+
+function checkdesk_activity_menu() {
+  return array(
+    'activity' => array(
+      'title' => 'Activity stream feed',
+      'page callback' => 'checkdesk_activity_feed',
+      'access callback' => TRUE,
+    ),
+  );
+}
+
+function checkdesk_activity_feed($since = NULL) {
+  if (empty($since) && !empty($_REQUEST['since'])) {
+    $since = $_REQUEST['since'];
+  }
+  $query = db_select('heartbeat_activity', 'ha')
+  ->fields('ha')
+  ->orderBy('timestamp', 'DESC')
+  ->range(0, 100);
+  if (!empty($since)) {
+    $query->condition('timestamp', $since, '>');
+  }
+  $stream = _checkdesk_activity_json($query->execute()->fetchAll());
+  return drupal_json_output($stream);
+}
+
+function _checkdesk_activity_json($stream) {
+  // Convert to activitystrea.ms format
+  // @see http://activitystrea.ms/specs/json/1.0/
+  $json = array();
+  foreach ($stream as $activity) {
+    $json[] = _checkdesk_activity_json_single($activity);
+  }
+  return $json;
+}
+
+function _checkdesk_activity_json_single($activity) {
+  $variables = heartbeat_decode_message_variables($activity->variables);
+  $template = heartbeat_message_template_load($activity->message_id);
+  return (object)array(
+    'published' => date('c', $activity->timestamp),
+    'title' => t($template->message, $variables),
+    'actor' => array(
+      'url' => url('user/' . $activity->uid, array('absolute' => TRUE)),
+      'objectType' => 'person',
+      'id' => $activity->uid,
+      'image' => array(
+        'url',
+        'width',
+        'height',
+      ),
+    ),
+    'verb' => 'post',
+    'object' => array(
+      'url' => url('node/' . $activity->nid, array('absolute' => TRUE)),
+      'id' => $activity->nid,
+    ),
+  );
+}
