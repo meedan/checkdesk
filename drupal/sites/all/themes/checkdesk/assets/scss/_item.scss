@@ -27,10 +27,10 @@
 			@include reset-box-model;
 			color: $firefly80;
 			a { @include ctb-linkColor($strongBlue80); }
-			&:first-child {
-				@include reset-box-model;
-				margin-top: 5px;
-			}
+			// &:first-child {
+				// @include reset-box-model;
+				// margin-top: 5px;
+			// }
 		}
 
 		.item-body-text {
@@ -60,6 +60,9 @@
 				margin-#{opposite-position($from-direction)}: 30px;
 				&:hover {
 					color: $firefly80;
+				}
+				.node-type-media & {
+					color: $firefly80;	
 				}
 			}
 		}
