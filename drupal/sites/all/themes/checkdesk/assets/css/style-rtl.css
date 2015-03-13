@@ -9615,6 +9615,9 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
   margin: 0 0 10px 0;
   padding-right: 30px;
 }
+.item .open .item-controls .meta .count {
+  color: #404d59;
+}
 .item .item-controls .meta, .item .item-controls .actions {
   display: table-cell;
   width: 100%;
@@ -9714,6 +9717,9 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
   background: url("../imgs/icons/loader_white.gif");
 }
 .item .open {
+  color: #404d59;
+}
+.item .open .count {
   color: #404d59;
 }
 .item .item-nested-content {

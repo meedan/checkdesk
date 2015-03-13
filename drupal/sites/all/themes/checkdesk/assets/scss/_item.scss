@@ -45,6 +45,10 @@
 		
 	}
 
+	.open .item-controls .meta .count {
+		color: $firefly80;	
+	}
+
 	.item-controls {
 
 		.meta, .actions {
@@ -110,6 +114,9 @@
 
 	.open {
 		color: $firefly80;
+		.count {
+			color: $firefly80;
+		}
 	}
 
 	.item-nested-content {

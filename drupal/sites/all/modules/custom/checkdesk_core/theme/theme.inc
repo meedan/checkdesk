@@ -194,7 +194,7 @@ function checkdesk_core_preprocess_checkdesk_core_report_activity(&$variables) {
   global $language;
   $node = $variables['node'];
   $variables['nid'] = $node->nid;
-  $variables['collapsed'] = ($variables['view_mode'] == 'checkdesk_collaborate') ? '' : 'open';
+  $variables['collapsed'] = ($variables['view_mode'] == 'full') ? 'open' : '';
   //Add activity report with status
   $term = isset($node->field_rating[LANGUAGE_NONE][0]['taxonomy_term']) ?
     $node->field_rating[LANGUAGE_NONE][0]['taxonomy_term'] :
