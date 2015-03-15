@@ -27,10 +27,10 @@
 			@include reset-box-model;
 			color: $firefly80;
 			a { @include ctb-linkColor($strongBlue80); }
-			&:first-child {
-				@include reset-box-model;
-				margin-top: 5px;
-			}
+			// &:first-child {
+				// @include reset-box-model;
+				// margin-top: 5px;
+			// }
 		}
 
 		.item-body-text {
@@ -43,6 +43,10 @@
 	    }
 		}
 		
+	}
+
+	.open .item-controls .meta .count {
+		color: $firefly80;	
 	}
 
 	.item-controls {
@@ -60,6 +64,9 @@
 				margin-#{opposite-position($from-direction)}: 30px;
 				&:hover {
 					color: $firefly80;
+				}
+				.node-type-media & {
+					color: $firefly80;	
 				}
 			}
 		}
@@ -107,6 +114,9 @@
 
 	.open {
 		color: $firefly80;
+		.count {
+			color: $firefly80;
+		}
 	}
 
 	.item-nested-content {
