@@ -21,21 +21,21 @@ function checkdesk_activity_feed($since = NULL) {
   if (!empty($since)) {
     $query->condition('timestamp', $since, '>');
   }
-  $stream = _checkdesk_activity_json($query->execute()->fetchAll());
-  return drupal_json_output($stream);
+  $activities = checkdesk_activity__activities($query->execute()->fetchAll());
+  return drupal_json_output($activities);
 }
 
-function _checkdesk_activity_json($stream) {
+function checkdesk_activity__activities($stream) {
   // Convert to activitystrea.ms format
   // @see http://activitystrea.ms/specs/json/1.0/
-  $json = array();
+  $activities = array();
   foreach ($stream as $activity) {
-    $json[] = _checkdesk_activity_json_single($activity);
+    $activities[] = checkdesk_activity__activity($activity);
   }
-  return $json;
+  return $activities;
 }
 
-function _checkdesk_activity_json_single($activity) {
+function checkdesk_activity__activity($activity) {
   $variables = heartbeat_decode_message_variables($activity->variables);
   $template = heartbeat_message_template_load($activity->message_id);
   return (object)array(
@@ -45,16 +45,21 @@ function _checkdesk_activity_json_single($activity) {
       'url' => url('user/' . $activity->uid, array('absolute' => TRUE)),
       'objectType' => 'person',
       'id' => $activity->uid,
-      'image' => array(
-        'url',
-        'width',
-        'height',
-      ),
+      'image' => checkdesk_activity__user_picture($activity->uid, 'activity_avatar'),
     ),
     'verb' => 'post',
     'object' => array(
       'url' => url('node/' . $activity->nid, array('absolute' => TRUE)),
       'id' => $activity->nid,
     ),
+  );
+}
+
+function checkdesk_activity__user_picture($uid, $style) {
+  $account = user_load($uid);
+  return array(
+    'url',
+    'width',
+    'height',
   );
 }
