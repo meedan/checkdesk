@@ -3626,6 +3626,7 @@ function _checkdesk_report_status($report) {
   } else { // display status with an icon only
     $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   }
+  $report_status['status'] = '<span class="media-status-report-'. $report->nid .'">' . $report_status['status'] .'</span>';
   return $report_status;
 }
 

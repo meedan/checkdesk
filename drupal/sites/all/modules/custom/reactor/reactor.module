@@ -21,6 +21,15 @@ function reactor_node_view($node, $view_mode, $langcode) {
       ));
     }
   }
+  if ($user->uid && $node->type == 'media' && $view_mode == 'full') {
+    reactor_activate(array(
+      'context' => 'report_activity',
+      'node' => array($node->nid),
+      //'view_mode' => $view_mode,
+      'langcode' => $langcode,
+      'destination' => 'node/'. $node->nid,
+    ));
+  }
   if (FALSE) {
     reactor_activate(array(
       'context' => 'report_flagging',
@@ -241,15 +250,16 @@ class ReportActivityReactor extends Reactor {
     if ($signature) {
       foreach ($context['node'] as $nid) {
         $activity = db_query('
-          SELECT COUNT(uaid) FROM heartbeat_activity
-          WHERE nid = :nid AND message_id IN (:message_id)
+          SELECT DISTINCT message_id FROM heartbeat_activity
+          WHERE nid = :nid
           AND timestamp > :timestamp
-          ', array(':nid' => $nid, ':message_id' => array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_set'), 
-          ':timestamp' => $signature)
-        )->fetchField();
-
-        if ($activity) {
-          $node = node_load($nid);
+          ', array(':nid' => $nid, ':timestamp' => $signature)
+        )->fetchCol();
+        $node = node_load($nid);
+        if (count(array_intersect(
+          array('checkdesk_fact_checking_on', 'checkdesk_fact_checking_on'),
+          $activity))
+        ) {
           $node_view = node_view($node);
           $node_view['comments'] = comment_node_page_additions($node);
           // update activity stream
@@ -258,33 +268,12 @@ class ReportActivityReactor extends Reactor {
           );
           $commands[] = reactor_ajax_command_insert('.report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
         }
-        // other activities 
-      /*
-      if (count(array_intersect(
-        array('checkdesk_fact_checking_set', 'checkdesk_fact_checking_on'),
-        $activity))
-      ) {
-        $node_view = node_view($node);
-        $node_view['comments'] = comment_node_page_additions($node);
-        $report_activity = theme(
-          'checkdesk_core_report_activity', array('node' => $node, 'content' => $node_view)
-        );
-        $commands[] = reactor_ajax_command_insert('#report-activity-node-' . $node->nid, $report_activity, 'replaceWith');
-      }
-      else {
-        if (count(array_intersect(
-          array('checkdesk_comment_on_report', 'new_comment_report'),
-          $activity))
-        ) {
-          // load activity
-          $report_activity = _reactor_render_activity($node);
-          // Update media count
-          $commands[] = reactor_ajax_command_insert('.media-activity-count-node-' . $node->nid, $report_activity['count'], 'replaceWith');
-          // Update media activity
-          $commands[] = reactor_ajax_command_insert('.media-activity-node-' . $node->nid, $report_activity['activity'], 'replaceWith');
+        // Change report status activity
+        if (in_array('status_report', $activity)) {
+          $report_status = _checkdesk_report_status($node);
+          //watchdog('DebugReportStatus', '<pre>'. print_r($report_status, true).'</pre>');
+          $commands[] = reactor_ajax_command_insert('.media-status-report-' . $node->nid, $report_status['status'], 'replaceWith');
         }
-      }
-       */
       }
     }
     return $commands;
