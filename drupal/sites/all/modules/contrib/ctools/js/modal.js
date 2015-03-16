@@ -28,6 +28,10 @@
     else if (choice) {
       $.extend(true, opts, choice);
     }
+    // Default modal.
+    else {
+      choice = 'default';
+    }
 
     var defaults = {
       modalTheme: 'CToolsModalDialog',
@@ -97,7 +101,7 @@
     resize();
 
     $('span.modal-title', Drupal.CTools.Modal.modal).html(Drupal.CTools.Modal.currentSettings.loadingText);
-    Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed);
+    Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed, choice);
     $('#modalContent .modal-content').html(Drupal.theme(settings.throbberTheme));
 
     // Position autocomplete results based on the scroll position of the modal.
@@ -350,7 +354,7 @@
    * @param animation (fadeIn, slideDown, show)
    * @param speed (valid animation speeds slow, medium, fast or # in ms)
    */
-  Drupal.CTools.Modal.modalContent = function(content, css, animation, speed) {
+  Drupal.CTools.Modal.modalContent = function(content, css, animation, speed, choice) {
     // If our animation isn't set, make it just show/pop
     if (!animation) {
       animation = 'show';
@@ -402,7 +406,7 @@
     if( docHeight < winHeight ) docHeight = winHeight;
 
     // Create our divs
-    $('body').append('<div id="modalBackdrop" style="z-index: 1000; display: none;"></div><div id="modalContent" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
+    $('body').append('<div id="modalBackdrop" class="backdrop-' + choice + '" style="z-index: 1000; display: none;"></div><div id="modalContent" class="modal-' + choice + '" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
 
     // Keyboard and focus event handler ensures focus stays on modal elements only
     modalEventHandler = function( event ) {
