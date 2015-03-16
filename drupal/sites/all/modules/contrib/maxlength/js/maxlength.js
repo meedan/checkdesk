@@ -249,7 +249,7 @@
       counterElement: 'div',
       cssWarning: 'messages warning',
       cssExceeded: 'error',
-      counterText: Drupal.t('Content limited to @limit characters, remaining: <strong>@remaining</strong>'),
+      counterText: Drupal.t('Content limitedd to @limit characters, remaining: <strong>@remaining</strong>'),
       action: 'attach',
       enforce: false,
       truncateHtml: false
@@ -323,11 +323,30 @@
   ml.tinymceChange = function(ed) {
     // CLone to avoid changing defaults
     var options = $.extend({}, ml.options[ed.editorId]);
+    /* The following lines take the text from the wysiwyg and
+      strip out some html and special characters so an accurate character
+      count can be taken. */
+    var bodyContent = ml.tinymceGetData(ed);
+    bodyContent = bodyContent.replace(/&gt;/g, ' ');
+    bodyContent = bodyContent.replace(/&lt;/g, ' ');
+    bodyContent = bodyContent.replace(/&amp;/g, ' ');
+    bodyContent = bodyContent.replace(/<\/?[^>]+(>|$)/g, "");
+    bodyContent = bodyContent.replace(/\<p>/g, "");
+    bodyContent = bodyContent.replace(/\<\/p>/g, "");
+    bodyContent = bodyContent.replace(/[\n\r]/g, '');
+    bodyContent = bodyContent.replace(/&amp;/g, '&');
+    bodyContent = bodyContent.replace(/&nbsp;/g, ' ');
+    bodyContent = bodyContent.replace(/\<span>/g, ' ');
+    bodyContent = bodyContent.replace(/\<\/span>/g, ' ');
+    bodyContent = bodyContent.replace(/\<br>/g, ' ');
+    bodyContent = bodyContent.replace(/\<BR>/g, ' ');
+    bodyLength = bodyContent.length;
+
     if (options.truncateHtml){
-      ml.calculate($(ed.getElement()), options, ml.strip_tags(ml.tinymceGetData(ed)).length, ed, 'tinymceGetData', 'tinymceSetData');
+      ml.calculate($(ed.getElement()), options, bodyLength, 'tinymceGetData', 'tinymceSetData');
     }
     else {
-      ml.calculate($(ed.getElement()), options, ml.twochar_lineending(ml.tinymceGetData(ed)).length, ed, 'tinymceGetData', 'tinymceSetData');
+      ml.calculate($(ed.getElement()), options, bodyLength, ed, 'tinymceGetData', 'tinymceSetData');
     }
   };
 
