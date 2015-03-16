@@ -28,10 +28,6 @@
     else if (choice) {
       $.extend(true, opts, choice);
     }
-    // Default modal.
-    else {
-      choice = 'default';
-    }
 
     var defaults = {
       modalTheme: 'CToolsModalDialog',
@@ -101,7 +97,7 @@
     resize();
 
     $('span.modal-title', Drupal.CTools.Modal.modal).html(Drupal.CTools.Modal.currentSettings.loadingText);
-    Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed, choice);
+    Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed);
     $('#modalContent .modal-content').html(Drupal.theme(settings.throbberTheme));
 
     // Position autocomplete results based on the scroll position of the modal.
@@ -354,7 +350,7 @@
    * @param animation (fadeIn, slideDown, show)
    * @param speed (valid animation speeds slow, medium, fast or # in ms)
    */
-  Drupal.CTools.Modal.modalContent = function(content, css, animation, speed, choice) {
+  Drupal.CTools.Modal.modalContent = function(content, css, animation, speed) {
     // If our animation isn't set, make it just show/pop
     if (!animation) {
       animation = 'show';
@@ -383,9 +379,9 @@
     css.filter = 'alpha(opacity=' + (100 * css.opacity) + ')';
     content.hide();
 
-    // if we already ahve a modalContent, remove it
-    if ( $('#modalBackdrop')) $('#modalBackdrop').remove();
-    if ( $('#modalContent')) $('#modalContent').remove();
+    // If we already have modalContent, remove it.
+    if ($('#modalBackdrop').length) $('#modalBackdrop').remove();
+    if ($('#modalContent').length) $('#modalContent').remove();
 
     // position code lifted from http://www.quirksmode.org/viewport/compatibility.html
     if (self.pageYOffset) { // all except Explorer
@@ -406,7 +402,7 @@
     if( docHeight < winHeight ) docHeight = winHeight;
 
     // Create our divs
-    $('body').append('<div id="modalBackdrop" class="backdrop-' + choice + '" style="z-index: 1000; display: none;"></div><div id="modalContent" class="modal-' + choice + '" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
+    $('body').append('<div id="modalBackdrop" style="z-index: 1000; display: none;"></div><div id="modalContent" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
 
     // Keyboard and focus event handler ensures focus stays on modal elements only
     modalEventHandler = function( event ) {
@@ -425,12 +421,17 @@
           return true;
         }
       }
-      if( $(target).filter('*:visible').parents('#modalContent').size()) {
-        // allow the event only if target is a visible child node of #modalContent
+
+      if ($(target).is('#modalContent, body') || $(target).filter('*:visible').parents('#modalContent').length) {
+        // Allow the event only if target is a visible child node
+        // of #modalContent.
         return true;
       }
-      if ( $('#modalContent')) $('#modalContent').get(0).focus();
-      return false;
+      else {
+        $('#modalContent').focus();
+      }
+
+      event.preventDefault();
     };
     $('body').bind( 'focus', modalEventHandler );
     $('body').bind( 'keypress', modalEventHandler );
@@ -481,6 +482,16 @@
 
     // Move and resize the modalBackdrop and modalContent on resize of the window
      modalContentResize = function(){
+
+      // position code lifted from http://www.quirksmode.org/viewport/compatibility.html
+      if (self.pageYOffset) { // all except Explorer
+      var wt = self.pageYOffset;
+      } else if (document.documentElement && document.documentElement.scrollTop) { // Explorer 6 Strict
+        var wt = document.documentElement.scrollTop;
+      } else if (document.body) { // all other Explorers
+        var wt = document.body.scrollTop;
+      }
+
       // Get our heights
       var docHeight = $(document).height();
       var docWidth = $(document).width();
@@ -490,7 +501,7 @@
 
       // Get where we should move content to
       var modalContent = $('#modalContent');
-      var mdcTop = ( winHeight / 2 ) - (  modalContent.outerHeight() / 2);
+      var mdcTop = wt + ( winHeight / 2 ) - ( modalContent.outerHeight() / 2);
       var mdcLeft = ( winWidth / 2 ) - ( modalContent.outerWidth() / 2);
 
       // Apply the changes
