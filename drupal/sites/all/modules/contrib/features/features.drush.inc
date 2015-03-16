@@ -43,6 +43,7 @@ function features_drush_command() {
       'destination' => "Destination path (from Drupal root) of the exported feature. Defaults to '" . $path . "'.",
       'version-set' => "Specify a version number for the feature.",
       'version-increment' => "Increment the feature's version number.",
+      'ignore-conflicts' => "Ignore conflicts and export all components.",
     ),
     'drupal dependencies' => array('features'),
     'aliases' => array('fe'),
@@ -71,6 +72,9 @@ function features_drush_command() {
       ),
       'not-exported' => array(
         'description' => 'Show only components that have not been exported.',
+      ),
+      'info-style' => array(
+        'description' => 'Export components in format suitable for using in an info file.',
       ),
     ),
     'aliases' => array('fc'),
@@ -253,10 +257,13 @@ function drush_features_components() {
   elseif (drush_get_option(array('not-exported', 'o'), NULL)) {
     $options['exported'] = FALSE;
   }
+  if (drush_get_option(array('info-style', 'is'), NULL)) {
+    $options['info style'] = TRUE;
+  }
 
   $filtered_components = _drush_features_component_filter($components, $args, $options);
   if ($filtered_components){
-    _drush_features_component_print($filtered_components);
+    _drush_features_component_print($filtered_components, $options);
   }
 }
 
@@ -421,11 +428,17 @@ function _drush_features_component_filter($all_components, $patterns = array(), 
 /**
  * Prints a list of filtered components.
  */
-function _drush_features_component_print($filtered_components) {
+function _drush_features_component_print($filtered_components, $options = array()) {
   $rows = array(array(dt('Available sources')));
   foreach ($filtered_components['components'] as $source => $components) {
     foreach ($components as $name => $value) {
-      $row = array($source .':'. $name);
+      if (!empty($options['info style'])) {
+        // Output as .info file style.
+        $row = array('features[' . $source . '][] = "' . $name . '"');
+      }
+      else {
+        $row = array($source .':'. $name);
+      }
       if (isset($filtered_components['sources'][$source .':'. $name])) {
         $row[] = dt('Provided by') . ': ' . $filtered_components['sources'][$source .':'. $name];
       }
@@ -447,9 +460,11 @@ function drush_features_export() {
       return drush_set_error('', 'No components supplied.');
     }
     $components = _drush_features_component_list();
-    $options = array(
-      'exported' => FALSE,
-    );
+    $options = array();
+
+    if (!drush_get_option('ignore-conflicts', FALSE)) {
+      $options['exported'] = FALSE;
+    }
 
     $filtered_components = _drush_features_component_filter($components, $args, $options);
     $items = $filtered_components['components'];
