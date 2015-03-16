@@ -2891,18 +2891,20 @@ function _checkdesk_comment_form_submit($form, &$form_state) {
   $nid = $form['#node']->nid;
   $node = node_load($nid);
 
+  $commands = array();
   // Change report status
   if (in_array('journalist', $user->roles) || in_array('administrator', $user->roles)) {
     $node->field_rating[LANGUAGE_NONE][0]['tid'] = $form_state['values']['field_rating'][LANGUAGE_NONE][0]['tid'];
     node_save($node);
+    // Update report status on report display
+    $report_status = _checkdesk_report_status($node);
+    $commands[] = ajax_command_replace('.media-status-report-' . $node->nid, $report_status['status']);
   }
-
-  $node_view = node_view($node);
+  //$node_view = node_view($node);
   // $node_view['comments'] = comment_node_page_additions($node);
   //$output = drupal_render($node_view);
   //TODO use theme function instead of writing HTML
   $output = _checkdesk_render_footnotes($node);
-  $commands = array();
   $commands[] = ajax_command_invoke(NULL, 'footnoteCallback', array($nid, $output));
 
   return array('#type' => 'ajax', '#commands' => $commands);
