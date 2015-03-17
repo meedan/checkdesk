@@ -509,44 +509,6 @@ function checkdesk_preprocess_node(&$variables) {
   if ($variables['view_mode'] == 'search_index') {
     return;
   }
-  if ($variables['type'] == 'discussion') {
-    // get timezone information to display in timestamps e.g. Cairo, Egypt
-    $site_timezone = checkdesk_get_timezone();
-    $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
-    // FIXME: Ugly hack
-    if ($site_timezone['city'] == 'Jerusalem') {
-      $timezone = t('Jerusalem, Palestine');
-    }
-
-    $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-        '@url' => url('node/' . $variables['nid']),
-        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
-        '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
-        '!interval' => format_interval(time() - $variables['created'], 1),
-    ));
-    // Add creation info
-    $variables['creation_info'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime !timezone</time>', array(
-        '@user' => url('user/' . $variables['uid']),
-        '!user' => $node->name,
-        '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-        '!datetime' => format_date($variables['created'], 'custom', t('l M d, Y \a\t g:ia')),
-        '!timezone' => $timezone,
-    ));
-    $variables['creation_info_short'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
-        '@user' => url('user/' . $variables['uid']),
-        '!user' => $node->name,
-        '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
-        '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
-    ));
-
-    $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
-        '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
-        '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
-        '!interval' => format_interval((time() - $variables['changed']), 1),
-        '!timezone' => $timezone,
-    ));
-  }
 
   if ($variables['type'] == 'post') {
     $parent_story_id = $variables['field_desk'][LANGUAGE_NONE][0]['target_id'];
@@ -582,70 +544,109 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if ($variables['type'] == 'discussion') {
-    // Add tab (update & collaborate) to story
-    $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
-    // Format lead image as thumbnail for activity template
-    if (isset($variables['field_lead_image'][0]['uri'])) {
-      $variables['inline_thumbnail'] = l(theme('image_style', array(
+
+    // get timezone information to display in timestamps e.g. Cairo, Egypt
+    $site_timezone = checkdesk_get_timezone();
+    $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
+    // FIXME: Ugly hack
+    if ($site_timezone['city'] == 'Jerusalem') {
+      $timezone = t('Jerusalem, Palestine');
+    }
+
+
+    if ($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'full' ) {
+
+      $variables['creation_info_short'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+        '@user' => url('user/' . $variables['uid']),
+        '!user' => $node->name,
+        '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
+        '!datetime' => format_date($variables['created'], 'custom', t('M d Y')),
+      ));
+
+      $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
+        '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
+        '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
+        '!interval' => format_interval((time() - $variables['changed']), 1),
+        '!timezone' => $timezone,
+      ));
+      // Add tab (update & collaborate) to story
+      $variables['story_tabs'] = _checkdesk_story_tabs($variables['nid']);
+      // Add follow story flag
+      global $user;
+      if ($user->uid) {
+        $follow_story = flag_create_link('follow_story', $variables['nid']);
+      } else {
+        $flag_count = flag_get_counts('node', $variables['nid']);
+        $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
+        // append count
+        if (isset($flag_count['follow_story'])) {
+          $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
+        }
+      }
+      $variables['follow_story'] = $follow_story;
+      // Collaboration header for story.
+      $variables['story_links'] = _checkdesk_story_links($variables['nid']);
+      $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+      // Comments count
+      $theme = NULL;
+      // Livefyre comments count
+      if (!variable_get('meedan_livefyre_disable', FALSE)) {
+        $theme = 'livefyre_commentcount';
+      }
+      // Facebook comments count
+      else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
+        $theme = 'facebook_commentcount';
+      }
+      if ($theme) {
+        $variables['story_commentcount'] = array(
+          '#theme' => $theme,
+          '#node' => node_load($variables['nid']),
+        );
+      }
+      if ($variables['view_mode'] == 'checkdesk_collaborate') {
+        // Get heartbeat activity for particular story
+        $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
+      }
+      elseif ($variables['view_mode'] == 'full') {
+        // get updates for a particular story
+        $view = views_get_view('updates_for_stories');
+        $view->set_arguments(array($variables['nid']));
+        $view->get_total_rows = TRUE;
+        $view_output = $view->preview('block');
+        $total_rows = $view->total_rows;
+        $view->destroy();
+        if ($total_rows) {
+          $variables['updates'] = $view_output;
+        }
+      }
+    }
+    elseif ($variables['view_mode'] == 'checkdesk_search') {
+      $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
+    }
+
+    if ($variables['view_mode'] == 'checkdesk_search' || !empty($variables['heartbeat_row'])) {
+      // Format lead image as thumbnail for activity template & search template
+      $variables['inline_thumbnail'] = '';
+
+      if (isset($variables['field_lead_image'][0]['uri'])) {
+        $variables['inline_thumbnail'] = l(theme('image_style', array(
           'path' => $variables['field_lead_image'][0]['uri'],
           'alt' => t(check_plain($node->title)),
           'style_name' => 'report_thumbnail',
-          'attributes' => array('class' => 'inline-img-thumb'))), 'node/' . $variables['nid'], array('html' => TRUE));
-    } else {
-      $variables['inline_thumbnail'] = '';
-    }
-    // Add follow story flag
-    global $user;
-    if ($user->uid) {
-      $follow_story = flag_create_link('follow_story', $variables['nid']);
-    } else {
-      $flag_count = flag_get_counts('node', $variables['nid']);
-      $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
-      // append count
-      if (isset($flag_count['follow_story'])) {
-        $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
+          'attributes' => array('class' => 'inline-img-thumb')
+        )), 'node/' . $variables['nid'], array('html' => TRUE));
       }
+      // use media creation info for activity templates & search template
+      $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+        '@url' => url('node/' . $variables['nid']),
+        '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
+        '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
+        '!interval' => format_interval(time() - $variables['created'], 1),
+      ));
     }
-    $variables['follow_story'] = $follow_story;
 
-    // Collaboration header for story.
-    $variables['story_links'] = _checkdesk_story_links($variables['nid']);
-
-    $variables['story_collaborators'] = _checkdesk_story_get_collaborators($variables['nid']);
-
-    if ($variables['view_mode'] == 'checkdesk_collaborate') {
-      // Get heartbeat activity for particular story
-      $variables['story_collaboration'] = views_embed_view('story_collaboration', 'page', $variables['nid']);
-    } else {
-      // get updates for a particular story
-      $view = views_get_view('updates_for_stories');
-      $view->set_arguments(array($variables['nid']));
-      $view->get_total_rows = TRUE;
-      $view_output = $view->preview('block');
-      $total_rows = $view->total_rows;
-      $view->destroy();
-      if ($total_rows) {
-        $variables['updates'] = $view_output;
-      }
-    }
-    // Comments count
-    $theme = NULL;
-    // Livefyre comments count
-    if (!variable_get('meedan_livefyre_disable', FALSE)) {
-      $theme = 'livefyre_commentcount';
-    }
-    // Facebook comments count
-    else if (!variable_get('meedan_facebook_comments_disable', FALSE)) {
-      $theme = 'facebook_commentcount';
-    }
-    if ($theme) {
-      $variables['story_commentcount'] = array(
-          '#theme' => $theme,
-          '#node' => node_load($variables['nid']),
-      );
-    }
   }
-
 
 
   $variables['icon'] = '';
