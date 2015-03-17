@@ -55,11 +55,26 @@ function checkdesk_activity__activity($activity) {
   );
 }
 
-function checkdesk_activity__user_picture($uid, $style) {
+function checkdesk_activity__user_picture($uid, $style = '') {
   $account = user_load($uid);
+  $filepath = NULL;
+  if (!empty($account->picture)) {
+    if (is_numeric($account->picture)) {
+      $account->picture = file_load($account->picture);
+    }
+    if (!empty($account->picture->uri)) {
+      $filepath = $account->picture->uri;
+    }
+  }
+  elseif (variable_get('user_picture_default', '')) {
+    $filepath = variable_get('user_picture_default', '');
+  }
+  $style = empty($style) ? variable_get('user_picture_style', '') : $style;
+  $stylepath = image_style_path($style, $filepath);
+  $dimensions = @getimagesize($stylepath);
   return array(
-    'url',
-    'width',
-    'height',
+    'url' => image_style_url($style, $filepath),
+    'width' => @$dimensions[0],
+    'height' => @$dimensions[1],
   );
 }
