@@ -63,12 +63,14 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     }
     // timestamp
     // TODO: make this source media timestamp
-    $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
+    global $language;
+    // Set custom format based on language.
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
+    $variables['media_creation_info'] =
+      t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
         '@url' => $node->embed->original_url,
         '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
-        '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
-        '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
-        '!interval' => format_interval(time() - $node->created, 1),
+        '!daydatetime' => format_date($node->created, 'custom', $custom_format),
         '@user' => url('user/' . $node->uid),
         '!user' => $node->name,
     ));
@@ -515,13 +517,14 @@ function checkdesk_preprocess_node(&$variables) {
     $update_anchor = 'update-' . $variables['nid'];
     $update_link = url('node/' . $parent_story_id, array('fragment' => $update_anchor, 'language' => $language));
     $variables['update_link'] = $update_link;
-
-    $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+    global $language;
+    // Set custom format based on language.
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
+    $variables['media_creation_info'] =
+      t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
         '@url' => $update_link,
         '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
-        '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
-        '!interval' => format_interval(time() - $variables['created'], 1),
+        '!daydatetime' => format_date($variables['created'], 'custom', $custom_format),
     ));
 
     $variables['created_by'] = t('<a class="actor" href="@user">!user</a>', array(
@@ -544,7 +547,6 @@ function checkdesk_preprocess_node(&$variables) {
   }
 
   if ($variables['type'] == 'discussion') {
-
     // get timezone information to display in timestamps e.g. Cairo, Egypt
     $site_timezone = checkdesk_get_timezone();
     $timezone = t('!city, !country', array('!city' => t($site_timezone['city']), '!country' => t($site_timezone['country'])));
@@ -553,10 +555,10 @@ function checkdesk_preprocess_node(&$variables) {
       $timezone = t('Jerusalem, Palestine');
     }
 
-
     if ($variables['view_mode'] == 'checkdesk_collaborate' || $variables['view_mode'] == 'full' ) {
 
-      $variables['creation_info_short'] = t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
+      $variables['creation_info_short'] =
+        t('<a class="contributor" href="@user">!user</a> <span class="separator">&#9679;</span> <time datetime="!date">!datetime</time>', array(
         '@user' => url('user/' . $variables['uid']),
         '!user' => $node->name,
         '!date' => format_date($variables['created'], 'custom', 'Y-m-d'),
@@ -566,7 +568,6 @@ function checkdesk_preprocess_node(&$variables) {
       $variables['updated_at'] = t('<time datetime="!date">!datetime !timezone</time>', array(
         '!date' => format_date($variables['changed'], 'custom', 'Y-m-d'),
         '!datetime' => format_date($variables['changed'], 'custom', t('g:ia \o\n M d, Y')),
-        '!interval' => format_interval((time() - $variables['changed']), 1),
         '!timezone' => $timezone,
       ));
       // Add tab (update & collaborate) to story
@@ -637,12 +638,14 @@ function checkdesk_preprocess_node(&$variables) {
         )), 'node/' . $variables['nid'], array('html' => TRUE));
       }
       // use media creation info for activity templates & search template
-      $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+      global $language;
+      // Set custom format based on language.
+      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
+      $variables['media_creation_info'] =
+        t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
         '@url' => url('node/' . $variables['nid']),
         '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-        '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
-        '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
-        '!interval' => format_interval(time() - $variables['created'], 1),
+        '!daydatetime' => format_date($variables['created'], 'custom', $custom_format),
       ));
     }
 
@@ -678,14 +681,17 @@ function checkdesk_preprocess_node(&$variables) {
 
     //Add node creation info(author name plus creation time
     if ($variables['view_mode'] == 'checkdesk_collaborate') {
-      $variables['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
+      global $language;
+      // Set custom format based on language.
+      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
+      $variables['media_creation_info'] =
+        t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
           '@url' => $node->embed->original_url,
           '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
-          '!datetime' => format_date($variables['created'], 'custom', t('M d, Y \a\t g:ia e')),
-          '!daydatetime' => format_date($variables['created'], 'custom', t('D, F j\t\h \a\t g:i A')),
-          '!interval' => format_interval(time() - $variables['created'], 1),
+          '!daydatetime' => format_date($variables['created'], 'custom', $custom_format),
       ));
-    } else {
+    }
+    else {
       $variables['media_timestamp'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
           '@url' => url('node/' . $variables['nid']),
           '!timestamp' => format_date($variables['created'], 'custom', 'Y-m-d\TH:i:sP'),
