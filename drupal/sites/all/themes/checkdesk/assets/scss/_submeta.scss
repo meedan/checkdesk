@@ -1,6 +1,5 @@
 .submeta {
-	
-
+	@include ctb-clearfix;
 }
 
 .submeta__header {
@@ -15,6 +14,9 @@
   @if $from-direction == 'left' {
     letter-spacing: 0.15em;
   }
+}
 
-
+.submeta__content {
+  @include span-columns(14);
+  margin-#{$omega}: 0;
 }

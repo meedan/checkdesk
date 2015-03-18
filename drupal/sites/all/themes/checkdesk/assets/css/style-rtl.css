@@ -5212,7 +5212,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 140px;
   color: #6f7a82;
 }
 .btn--tag:hover {
@@ -7338,6 +7337,18 @@ body.toolbar-drawer #main #content {
   margin-top: 103px !important;
 }
 
+.submeta {
+  *zoom: 1;
+}
+.submeta:before, .submeta:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.submeta:after {
+  clear: both;
+}
+
 .submeta__header {
   float: right;
   width: 140px;
@@ -7349,6 +7360,14 @@ body.toolbar-drawer #main #content {
   color: #9fa6ac;
   text-transform: uppercase;
   font-size: 12px;
+}
+
+.submeta__content {
+  width: 77.30496%;
+  float: right;
+  margin-left: 2.12766%;
+  display: inline;
+  margin-left: 0;
 }
 
 #my-account {
