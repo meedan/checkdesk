@@ -1499,6 +1499,12 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   }
 
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
+    // Change type labels
+    $form['type']['#options']['All'] = t('Everything');
+    $form['type']['#options']['media'] = t('Reports');
+    $form['type']['#options']['discussion'] = t('Stories');
+    $form['type']['#options']['post'] = t('Updates');
+    // Add required js for fastLiveFilter plugin
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     //Hide/show media reports based on type filter
@@ -1523,13 +1529,20 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
         '#theme' => 'select_as_links',
       );
     }
+    // Hide tag filter for updates
+    if (isset($_GET['type']) && $_GET['type'] == 'post') {
+      $form['#info']['filter-field_tags_tid']['label'] = NULL;
+      $form['field_tags_tid']['#type'] = 'hidden';
+      unset($form['field_tags_tid']['#theme']);
+    }
+    // Hide update choice if user filter by tag.
+    if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
+      unset($form['type']['#options']['post']);
+    }
+
     $form['keys']['#attributes']['placeholder'] = t('Search');
 
-    // Change type labels
-    $form['type']['#options']['All'] = t('Everything');
-    $form['type']['#options']['media'] = t('Reports');
-    $form['type']['#options']['discussion'] = t('Stories');
-    $form['type']['#options']['post'] = t('Updates');
+
     // Add author filter for admin or journalist
     global $user;
     if ($user->uid) {
