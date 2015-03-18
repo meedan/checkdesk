@@ -10982,6 +10982,9 @@ body.sidebar-second h1 {
   border-bottom: 1px solid rgba(16, 33, 47, 0.05);
   color: #6f7a82;
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .content-filter .form-type-bef-link a:hover {
   background-color: #fff;

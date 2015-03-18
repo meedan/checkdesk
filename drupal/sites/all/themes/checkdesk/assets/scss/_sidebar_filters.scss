@@ -56,6 +56,9 @@
 	border-bottom: 1px solid rgba($firefly, 0.05);
 	color: $firefly60;
 	text-decoration: none;
+	white-space: nowrap;
+  overflow: hidden;
+	text-overflow: ellipsis;
 	&:hover {
 		background-color: #fff;
 	}
