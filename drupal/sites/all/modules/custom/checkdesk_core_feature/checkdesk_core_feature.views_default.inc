@@ -550,7 +550,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Reset all filters';
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Reset';
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
@@ -984,7 +984,7 @@ print t(\'Your search yielded no results\');
     t('Search'),
     t('more'),
     t('Apply'),
-    t('Reset all filters'),
+    t('Reset'),
     t('Sort by'),
     t('Asc'),
     t('Desc'),
@@ -1015,7 +1015,6 @@ print _checkdesk_search_header();
 print t(\'Your search yielded no results\');
 ?>'),
     t('Attachment'),
-    t('Reset'),
   );
   $export['checkdesk_search'] = $view;
 
