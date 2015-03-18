@@ -23,6 +23,7 @@ function checkdesk_core_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Fact-checking activity';
+  $handler->display->display_options['css_class'] = 'view-activity-report-content';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_text'] = 'View all';
@@ -37,6 +38,9 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['id'] = '1';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['more_button_text'] = 'View all @total footnotes';
+  $handler->display->display_options['pager']['options']['advance']['content_class'] = '> .view-activity-report-content .view-content';
+  $handler->display->display_options['pager']['options']['advance']['pager_selector'] = '.activity-report-pager .pager-load-more';
+  $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
   $handler->display->display_options['pager']['options']['load_all'] = 1;
   $handler->display->display_options['style_plugin'] = 'list';
   $handler->display->display_options['row_plugin'] = 'heartbeat_activity';
@@ -116,45 +120,6 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['path'] = 'report_activity/%';
-
-  /* Display: Services */
-  $handler = $view->new_display('services', 'Services', 'services_1');
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Heartbeat activity: Creation date */
-  $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
-  $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
-  $handler->display->display_options['fields']['created_at']['label'] = 'creation_date';
-  $handler->display->display_options['fields']['created_at']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['created_at']['date_format'] = 'custom';
-  $handler->display->display_options['fields']['created_at']['custom_date_format'] = 'c';
-  /* Field: Heartbeat activity: Activity message */
-  $handler->display->display_options['fields']['message']['id'] = 'message';
-  $handler->display->display_options['fields']['message']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['message']['field'] = 'message';
-  $handler->display->display_options['fields']['message']['label'] = 'activity_message';
-  $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['message']['element_default_classes'] = FALSE;
-  /* Field: Heartbeat activity: Node ID */
-  $handler->display->display_options['fields']['nid']['id'] = 'nid';
-  $handler->display->display_options['fields']['nid']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid']['label'] = 'nid';
-  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['nid']['separator'] = '';
-  /* Field: Heartbeat activity: User ID */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = 'uid';
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['separator'] = '';
   $translatables['activity_report'] = array(
     t('Master'),
     t('Fact-checking activity'),
@@ -182,11 +147,6 @@ function checkdesk_core_feature_views_default_views() {
     t('Block'),
     t('more'),
     t('Page'),
-    t('Services'),
-    t('creation_date'),
-    t('activity_message'),
-    t('nid'),
-    t('uid'),
   );
   $export['activity_report'] = $view;
 
@@ -550,7 +510,6 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Reset';
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
@@ -1824,6 +1783,7 @@ print t(\'No content available\');
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['css_class'] = 'view-liveblog-content';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -1837,6 +1797,9 @@ print t(\'No content available\');
   $handler->display->display_options['pager']['options']['id'] = '2';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['more_button_text'] = 'Load more stories';
+  $handler->display->display_options['pager']['options']['advance']['content_class'] = '> .view-liveblog-content .view-content';
+  $handler->display->display_options['pager']['options']['advance']['pager_selector'] = '.view-liveblog-pager .pager-load-more';
+  $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
   $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -1985,9 +1948,6 @@ print theme(\'views_autorefresh\', array(
   $handler->display->display_options['arguments']['changed_operator']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['changed_operator']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['path'] = 'liveblog/autorefresh/%';
-
-  /* Display: Services */
-  $handler = $view->new_display('services', 'Services', 'services_1');
   $translatables['liveblog'] = array(
     t('Master'),
     t('more'),
@@ -2020,7 +1980,6 @@ print theme(\'views_autorefresh\', array(
     t('Feed'),
     t('Autorefresh Page'),
     t('All'),
-    t('Services'),
   );
   $export['liveblog'] = $view;
 
@@ -2115,49 +2074,6 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = ' ';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
-
-  /* Display: Services */
-  $handler = $view->new_display('services', 'Services', 'services_1');
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Heartbeat activity: Activity message */
-  $handler->display->display_options['fields']['message']['id'] = 'message';
-  $handler->display->display_options['fields']['message']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['message']['field'] = 'message';
-  $handler->display->display_options['fields']['message']['label'] = 'activity_message';
-  $handler->display->display_options['fields']['message']['element_label_colon'] = FALSE;
-  /* Field: Heartbeat activity: Creation date */
-  $handler->display->display_options['fields']['created_at']['id'] = 'created_at';
-  $handler->display->display_options['fields']['created_at']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['created_at']['field'] = 'created_at';
-  $handler->display->display_options['fields']['created_at']['label'] = 'timestamp';
-  $handler->display->display_options['fields']['created_at']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['created_at']['date_format'] = 'custom';
-  $handler->display->display_options['fields']['created_at']['custom_date_format'] = 'c';
-  /* Field: Heartbeat activity: Node ID */
-  $handler->display->display_options['fields']['nid']['id'] = 'nid';
-  $handler->display->display_options['fields']['nid']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid']['label'] = 'nid';
-  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['nid']['separator'] = '';
-  /* Field: Heartbeat activity: User ID */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'heartbeat_activity';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = 'uid';
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['separator'] = '';
   $translatables['my_notifications'] = array(
     t('Master'),
     t('My Notifications'),
@@ -2188,12 +2104,6 @@ $path = drupal_get_path(\'module\', \'checkdesk_notifications\') . \'/ping.php?u
 print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_field\' => TRUE, \'incremental\' => FALSE, \'ping\' => array(\'ping_base_path\' =>  $path)));
 ?>'),
     t(' '),
-    t('Services'),
-    t('activity_message'),
-    t('timestamp'),
-    t('nid'),
-    t('.'),
-    t('uid'),
   );
   $export['my_notifications'] = $view;
 
@@ -2478,6 +2388,7 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Updates for stories';
+  $handler->display->display_options['css_class'] = 'updates-for-stories-content';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -2591,6 +2502,9 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['more_button_text'] = 'Load more updates';
+  $handler->display->display_options['pager']['options']['advance']['content_class'] = '> .updates-for-stories-content .view-content';
+  $handler->display->display_options['pager']['options']['advance']['pager_selector'] = '.updates-for-stories-pager .pager-load-more';
+  $handler->display->display_options['pager']['options']['effects']['speed'] = 'slow';
   $handler->display->display_options['pager']['options']['load_all'] = 0;
   $handler->display->display_options['defaults']['header'] = FALSE;
   $translatables['updates_for_stories'] = array(
