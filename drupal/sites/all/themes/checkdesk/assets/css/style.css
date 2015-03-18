@@ -6001,6 +6001,9 @@ div.sensitive-hide {
 .report-row .report-content .media-type-rich.map iframe {
   max-height: 250px;
 }
+.report-row .report-content .media-type-rich .oembed-rich {
+  pointer-events: none !important;
+}
 .report-row .report-content .media-type-fbpost .fb-post {
   max-width: 100%;
   overflow: hidden;
