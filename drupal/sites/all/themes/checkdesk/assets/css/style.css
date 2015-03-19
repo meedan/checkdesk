@@ -9606,9 +9606,14 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 }
 
 .page-results {
+  margin: 0;
+  padding: 0;
   float: left;
   font-size: 14px;
   color: #b7bcc0;
+}
+.page-results li {
+  list-style: none;
 }
 .page-results .result {
   display: inline-block;

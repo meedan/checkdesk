@@ -38,6 +38,7 @@
 }
 
 .page-results {
+	@include reset-list-style;
 	float: $alpha;
 	font-size: 14px;
 	color: $firefly30;
