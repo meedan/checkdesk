@@ -509,7 +509,6 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
-  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
@@ -893,9 +892,10 @@ print _checkdesk_search_header();
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<?php
-print t(\'Your search yielded no results\');
-?>';
+  $handler->display->display_options['empty']['area']['content'] = '<?php print t(\'Your search yielded no results\'); ?>
+<div class="search-reset-filters">
+  <?php print l(t(\'Reset\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
+</div>';
   $handler->display->display_options['empty']['area']['format'] = 'php_code';
   $handler->display->display_options['path'] = 'search';
 
@@ -970,9 +970,10 @@ print t(\'Your search yielded no results\');
     t('<?php
 print _checkdesk_search_header();
 ?>'),
-    t('<?php
-print t(\'Your search yielded no results\');
-?>'),
+    t('<?php print t(\'Your search yielded no results\'); ?>
+<div class="search-reset-filters">
+  <?php print l(t(\'Reset\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
+</div>'),
     t('Attachment'),
   );
   $export['checkdesk_search'] = $view;

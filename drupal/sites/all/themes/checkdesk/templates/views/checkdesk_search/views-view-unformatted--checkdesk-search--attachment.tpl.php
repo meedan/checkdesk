@@ -17,3 +17,6 @@
   	</li>
 	<?php endforeach; ?>
 </ul>
+<div class="search-reset-filters">
+  <?php print l(t('Reset'), 'search', array('attributes' => array('class' => array('search-reset')))); ?>
+</div>
