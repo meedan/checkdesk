@@ -13,9 +13,13 @@
 <?php endif; ?>
 <ul class="page-results">
 	<?php foreach ($rows as $id => $row): ?>
-		<?php if($total > 1 && $id != $total) : ?>
+		<?php if($total > 1 && $id != $total && $id != 1) : ?>
 	  	<li<?php if ($classes_array[$id]) { print ' class="result ' . $classes_array[$id] .'"';  } ?>>
 	    	<?php print $row . t(','); ?>
+	  	</li>
+	  <?php elseif($total == 2 && $id == 1) : ?>
+	  	<li<?php if ($classes_array[$id]) { print ' class="result ' . $classes_array[$id] .'"';  } ?>>
+	    	<?php print $row . t(', and'); ?>
 	  	</li>
 	  <?php elseif($total == 1 && $id == 0) : ?>
 	  	<li<?php if ($classes_array[$id]) { print ' class="result ' . $classes_array[$id] .'"';  } ?>>
