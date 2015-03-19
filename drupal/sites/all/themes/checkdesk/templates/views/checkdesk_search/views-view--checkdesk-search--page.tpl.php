@@ -43,6 +43,11 @@
     <?php if ($attachment_before): ?>
       <?php print $attachment_before; ?>
     <?php endif; ?>
+
+    <?php if (isset($empty)): ?>
+      <?php print $empty; ?>
+    <?php endif; ?>
+
   </div>
 
   <?php if ($exposed): ?>
@@ -54,10 +59,6 @@
   <?php if ($rows): ?>
     <div class="view-content items">
       <?php print $rows; ?>
-    </div>
-  <?php elseif ($empty): ?>
-    <div class="view-empty">
-      <?php print $empty; ?>
     </div>
   <?php endif; ?>
 

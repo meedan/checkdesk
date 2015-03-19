@@ -11,7 +11,7 @@
 <?php if (!empty($title)): ?>
   <h3><?php print $title; ?></h3>
 <?php endif; ?>
-<ul class="page-results">
+<ul class="page-results list">
 	<?php foreach ($rows as $id => $row): ?>
 		<?php if($total > 1 && $id != $total && $id != 1) : ?>
 	  	<li<?php if ($classes_array[$id]) { print ' class="result ' . $classes_array[$id] .'"';  } ?>>

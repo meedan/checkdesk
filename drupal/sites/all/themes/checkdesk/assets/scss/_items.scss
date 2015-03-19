@@ -38,14 +38,25 @@
 }
 
 .page-results {
-	@include reset-list-style;
-	float: $alpha;
 	font-size: 14px;
 	color: $firefly30;
+	float: $alpha;
+
+	&.list {
+		@include reset-list-style;
+	}
+
+	&.empty {
+		font-size: 16px;
+		color: $undetermined;
+	}
+
 	.result {
 		display: inline-block;
 	}
 }
+
+
 
 .search-reset-filters {
 	float: $omega;

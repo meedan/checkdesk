@@ -9606,14 +9606,20 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 }
 
 .page-results {
-  margin: 0;
-  padding: 0;
-  float: left;
   font-size: 14px;
   color: #b7bcc0;
+  float: left;
 }
-.page-results li {
+.page-results.list {
+  margin: 0;
+  padding: 0;
+}
+.page-results.list li {
   list-style: none;
+}
+.page-results.empty {
+  font-size: 16px;
+  color: #ec9131;
 }
 .page-results .result {
   display: inline-block;

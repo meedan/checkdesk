@@ -892,9 +892,11 @@ print _checkdesk_search_header();
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<?php print t(\'Your search yielded no results\'); ?>
+  $handler->display->display_options['empty']['area']['content'] = '<div class="page-results empty">
+  <?php print t(\'There are no results that match your search.\'); ?>
+</div>
 <div class="search-reset-filters">
-  <?php print l(t(\'Reset\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
+  <?php print l(t(\'Reset all filters\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
 </div>';
   $handler->display->display_options['empty']['area']['format'] = 'php_code';
   $handler->display->display_options['path'] = 'search';
@@ -970,9 +972,11 @@ print _checkdesk_search_header();
     t('<?php
 print _checkdesk_search_header();
 ?>'),
-    t('<?php print t(\'Your search yielded no results\'); ?>
+    t('<div class="page-results empty">
+  <?php print t(\'There are no results that match your search.\'); ?>
+</div>
 <div class="search-reset-filters">
-  <?php print l(t(\'Reset\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
+  <?php print l(t(\'Reset all filters\'), \'search\', array(\'attributes\' => array(\'class\' => array(\'search-reset\')))); ?>
 </div>'),
     t('Attachment'),
   );
