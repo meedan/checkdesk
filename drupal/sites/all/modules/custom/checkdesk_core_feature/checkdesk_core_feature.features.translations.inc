@@ -8904,6 +8904,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['33ba2886eae2bbca019c6d3e28495e25'] = array(
+    'source' => 'There are no results that match your search.',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=meme&type=All&field_tags_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC',
+    'translation' => 'لم يتم العثور على نتائج مطابقة للبحث',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['33bea6fac54e7e125e4340478b0a93e3'] = array(
     'source' => 'This discussion is closed: you can\'t post new comments.',
     'context' => '',
@@ -24500,6 +24508,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'context' => '',
     'location' => '',
     'translation' => 'المملكة المتحدة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['8a0e2b549d223aba55a866c38d1c9275'] = array(
+    'source' => ', and',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => 'و',
     'plid' => 0,
     'plural' => 0,
   );
@@ -41070,6 +41086,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '/ar',
     'translation' => 'Heartbeat activity',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['e63c4d4f19d79e32fa4ca3eee94ba383'] = array(
+    'source' => 'Reset all filters',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'أعد الضبط',
     'plid' => 0,
     'plural' => 0,
   );

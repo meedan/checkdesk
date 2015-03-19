@@ -27,7 +27,7 @@
 	  	</li>
 	 	<?php elseif($id == $total) : ?>
 	  	<li<?php if ($classes_array[$id]) { print ' class="result ' . $classes_array[$id] .'"';  } ?>>
-	    	<?php print $row . t(' found'); ?>
+            <?php print $row /* . t(' found')*/; ?>
 	  	</li>
 	  <?php else : ?>
 	  	<li<?php if ($classes_array[$id]) { print ' class="result ' . $classes_array[$id] .'"';  } ?>>
