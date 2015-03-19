@@ -114,8 +114,10 @@
       // set focus on search field when /search page is loaded
       var pathname = window.location.pathname;
       var url = window.location.href; 
-      var search = window.location.search; 
-      if(pathname == '/search' && search == '') {
+      var search = window.location.search;
+      var path = pathname.split('/');
+
+      if((path[1] == 'search' || path[2] == 'search') && (search == '')) {
         var target = $('.filter-list > .views-exposed-widget input[type=text]');
         target.focus().select().parent().addClass('selected');
       }
