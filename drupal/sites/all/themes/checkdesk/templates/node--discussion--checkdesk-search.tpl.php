@@ -42,7 +42,7 @@
         </a>
       <?php endif; ?>
       <?php if(!empty($content['story_collaborators_count'])): ?>
-        <a class="count count-collaborators" href="<?php print url('story-collaboration/'. $node->nid); ?>">
+        <a class="count count-collaborators" href="<?php print url('node/'. $node->nid . '/collaboration'); ?>">
           <?php print $content['story_collaborators_count']; ?>
         </a>
       <?php endif; ?>

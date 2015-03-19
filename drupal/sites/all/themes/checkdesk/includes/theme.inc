@@ -105,6 +105,9 @@ function checkdesk_checkdesk_links($variables) {
           if($link['href'] == '<front>') {
             $output .= '<a href="' . url('<front>') . '"><span class="icon-home"></span></a>';
           } 
+          elseif($link['href'] == 'search') {
+            $output .= '<a href="' . url('search') . '"><span class="icon-search"></span></a>';
+          }
           // add notifications panel as drop down
           elseif($link['href'] == 'my-notifications') {
             $link['attributes']['class'][] = 'dropdown-toggle';

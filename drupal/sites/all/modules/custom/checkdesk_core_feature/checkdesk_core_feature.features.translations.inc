@@ -1523,6 +1523,14 @@ function checkdesk_core_feature_translations_defaults() {
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['095969ebb082c6853ba327cd61748063'] = array(
+    'source' => 'New story created',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تم إضافة موضوع جديد',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['095c01a42605c07173e86307517ebda2'] = array(
     'source' => 'Caches cleared.',
     'context' => '',
@@ -1816,6 +1824,40 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'اسم الاستمارة المحدد يحتوي حرفا واحدا على الأقل غير مسموح به. غير مسموح بالمسافات أو أي حروف خاصة باستثناء الشرطة (-) و الشرطة على السطر (_).',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['3a98dd4359cc6d58ae300d878db201f1'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has updated the story !story.
+
+<a href="!url">Click here </a> to view or update this story.
+',
+    'context' => '',
+    'location' => '',
+    'translation' => 'مرحباً !recipient_name, 
+
+قام !author بتحديث الموضوع !story.
+
+ <a href="!url"> اضغط هنا </a> لمعرفة أو تحديث هذا الموضوع.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['0b0c468b3b9ad3a1ffc254cf9bffacb8'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added a new story !story.
+
+<a href="!url">Click here </a> to view or update this story.
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name, 
+
+قام !author بإضافة موضوع جديد !story.
+
+ <a href="!url"> اضغط هنا </a> لمعرفة أو تحديث هذا الموضوع.',
     'plid' => 0,
     'plural' => 0,
   );
@@ -8901,6 +8943,14 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => 'استخدام تسمية الحقل بدلا من التسمية "قيمة نعم".',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['33ba2886eae2bbca019c6d3e28495e25'] = array(
+    'source' => 'There are no results that match your search.',
+    'context' => '',
+    'location' => '/ar/search?status=All&keys=meme&type=All&field_tags_tid=All&field_rating_tid=All&flagged_spam=All&flagged_gc=All&sort_bef_combine=created+DESC',
+    'translation' => 'لم يتم العثور على نتائج مطابقة للبحث',
     'plid' => 0,
     'plural' => 0,
   );
@@ -24503,6 +24553,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['8a0e2b549d223aba55a866c38d1c9275'] = array(
+    'source' => ', and',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => 'و',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['8a103f1691c806d1d65ff45c6e039fff'] = array(
     'source' => 'Converts Twitter-style #hashtags into links to hashtags.org.',
     'context' => '',
@@ -26028,6 +26086,14 @@ print theme(\'views_autorefresh\', array(\'interval\' => $interval, \'use_base_f
     'context' => '',
     'location' => '',
     'translation' => '!date بواسطة !username',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['92ddf975b48818fa61a45896684cb337'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> update <a href="!story_url">story</a>',
+    'context' => '',
+    'location' => '/ar/node/add/post',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بتحديث <a href="!story_url"> هذا الموضوع </a>',
     'plid' => 0,
     'plural' => 0,
   );
@@ -27637,6 +27703,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'العناوين فقط',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['9b782af6fff9d4b67e7d40466afee8eb'] = array(
+    'source' => 'Existing story updated',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'تحرير موضوع منشور',
     'plid' => 0,
     'plural' => 0,
   );
@@ -41073,6 +41147,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['e63c4d4f19d79e32fa4ca3eee94ba383'] = array(
+    'source' => 'Reset all filters',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'أعد الضبط',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['e65a0ed0e39dd14a9e5af441efb09b37'] = array(
     'source' => 'Bhutan',
     'context' => '',
@@ -41718,6 +41800,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'context' => '',
     'location' => '',
     'translation' => 'فبراير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['ea2337393dd487ccd50084e2506638b8'] = array(
+    'source' => '<a class="actor" href="!user_url">!username</a> added a new <a href="!story_url">story</a>',
+    'context' => '',
+    'location' => '/ar',
+    'translation' => 'قام <a class="actor" href="!user_url">!username</a> بإضافة <a href="!story_url">موضوع جديد</a>',
     'plid' => 0,
     'plural' => 0,
   );

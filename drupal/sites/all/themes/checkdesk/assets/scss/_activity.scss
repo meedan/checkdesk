@@ -153,6 +153,10 @@ $position:  "before";
 		display: none;
 	}
 
+	.item-content-text p {
+		margin-#{opposite-position($from-direction)}: 30px;
+	}
+
 	@include ctb-clearfix;
 } // activity-item 
 

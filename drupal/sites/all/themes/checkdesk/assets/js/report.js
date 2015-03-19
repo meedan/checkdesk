@@ -114,7 +114,8 @@
       // Incoming reports sidebar
       $(window).resize(function() {
         if ($('.view-desk-reports .view-content').length) {
-          var difference = $('#content-area').offset().top + $('.view-desk-reports .pager').outerHeight(true);
+           // add fixed pixels to difference to adjust load more for ar
+          var difference = $('#messages-container').offset().top + $('.view-desk-reports .pager').outerHeight(true) + 20;
           var height = $(window).height() - difference;
           $('.view-desk-reports .view-content').height(height);
         }

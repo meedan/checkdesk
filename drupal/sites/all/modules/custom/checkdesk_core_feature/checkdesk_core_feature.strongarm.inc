@@ -386,9 +386,24 @@ return _checkdesk_core_auto_title($node);
         'custom_settings' => FALSE,
       ),
       'search_index' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'search_result' => array(
+        'custom_settings' => FALSE,
+      ),
+      'meedan_oembed' => array(
+        'custom_settings' => TRUE,
+      ),
+      'checkdesk_collaborate' => array(
+        'custom_settings' => TRUE,
+      ),
+      'checkdesk_search' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
         'custom_settings' => FALSE,
       ),
     ),
@@ -425,7 +440,7 @@ return _checkdesk_core_auto_title($node);
         'custom_settings' => FALSE,
       ),
       'search_index' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'search_result' => array(
         'custom_settings' => FALSE,
@@ -441,6 +456,9 @@ return _checkdesk_core_auto_title($node);
       ),
       'diff_standard' => array(
         'custom_settings' => FALSE,
+      ),
+      'checkdesk_search' => array(
+        'custom_settings' => TRUE,
       ),
     ),
     'extra_fields' => array(
@@ -481,6 +499,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '8',
             'visible' => FALSE,
           ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
         ),
         'flag_factcheck_journalist' => array(
           'checkdesk_collaborate' => array(
@@ -505,6 +527,10 @@ return _checkdesk_core_auto_title($node);
           ),
           'checkdesk_search' => array(
             'weight' => '7',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
             'visible' => FALSE,
           ),
         ),
@@ -533,6 +559,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '9',
             'visible' => FALSE,
           ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
         ),
         'flag_graphic' => array(
           'checkdesk_collaborate' => array(
@@ -557,6 +587,10 @@ return _checkdesk_core_auto_title($node);
           ),
           'checkdesk_search' => array(
             'weight' => '6',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
             'visible' => FALSE,
           ),
         ),
@@ -585,6 +619,10 @@ return _checkdesk_core_auto_title($node);
             'weight' => '4',
             'visible' => FALSE,
           ),
+          'search_index' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
         ),
         'flag_delete' => array(
           'checkdesk_collaborate' => array(
@@ -609,6 +647,10 @@ return _checkdesk_core_auto_title($node);
           ),
           'checkdesk_search' => array(
             'weight' => '5',
+            'visible' => FALSE,
+          ),
+          'search_index' => array(
+            'weight' => '10',
             'visible' => FALSE,
           ),
         ),
@@ -656,9 +698,24 @@ return _checkdesk_core_auto_title($node);
         'custom_settings' => FALSE,
       ),
       'search_index' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'search_result' => array(
+        'custom_settings' => FALSE,
+      ),
+      'meedan_oembed' => array(
+        'custom_settings' => TRUE,
+      ),
+      'checkdesk_collaborate' => array(
+        'custom_settings' => TRUE,
+      ),
+      'checkdesk_search' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
         'custom_settings' => FALSE,
       ),
     ),
