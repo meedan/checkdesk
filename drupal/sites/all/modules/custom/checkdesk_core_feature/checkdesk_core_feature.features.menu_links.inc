@@ -56,7 +56,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'parent_identifier' => 'main-menu_:<sub>',
     'router_path' => 'admin/people',
-    'uuid' => '90476ce1-c57a-48e8-b95a-abc56aae9886',
+    'uuid' => '64951ef2-f0ea-4842-a761-c42b353bbf41',
     'weight' => -49,
   );
   // Exported menu link: main-menu_create-story:node/add/discussion
@@ -200,36 +200,8 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'parent_identifier' => 'main-menu_:<sub>',
     'router_path' => 'reports',
-    'uuid' => '50e68ce2-956c-6f64-1914-5e6a93778baf',
+    'uuid' => '4b8ad97a-37bb-4bb0-bd69-0e115158ee77',
     'weight' => -50,
-  );
-  // Exported menu link: menu-common_bookmarklet:content/install-bookmarklet
-  $menu_links['menu-common_bookmarklet:content/install-bookmarklet'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 1,
-    'language' => 'en',
-    'link_path' => 'content/install-bookmarklet',
-    'link_title' => 'Bookmarklet',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'en',
-    'menu_name' => 'menu-common',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(
-        'class' => array(
-          0 => 'checkdesk-use-modal',
-        ),
-      ),
-      'alter' => TRUE,
-      'identifier' => 'menu-common_bookmarklet:content/install-bookmarklet',
-    ),
-    'router_path' => 'modal/%',
-    'uuid' => 'd1606646-9485-5154-e504-9eabb5782cc6',
-    'weight' => -45,
   );
   // Exported menu link: menu-common_information:<nolink>
   $menu_links['menu-common_information:<nolink>'] = array(
@@ -327,6 +299,35 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'router_path' => 'my-notifications',
     'uuid' => '5626ddfd-e3f6-7ba4-f9ff-f8c36ff9d636',
+    'weight' => -47,
+  );
+  // Exported menu link: menu-common_search:search
+  $menu_links['menu-common_search:search'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 0,
+    'language' => 'und',
+    'link_path' => 'search',
+    'link_title' => 'Search',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'und',
+    'menu_name' => 'menu-common',
+    'module' => 'menu',
+    'options' => array(
+      'attributes' => array(),
+      'item_attributes' => array(
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+      'alter' => TRUE,
+      'identifier' => 'menu-common_search:search',
+    ),
+    'router_path' => 'search',
+    'uuid' => '4f72ba17-81dc-46f1-96bf-ab4ae0bed92e',
     'weight' => -48,
   );
   // Exported menu link: menu-common_sign-in:user/login
@@ -354,32 +355,6 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => '9a684326-a352-d454-517b-878bb9468e91',
     'weight' => -47,
   );
-  // Exported menu link: menu-common_take-tour:checkdesk_take_tour
-  $menu_links['menu-common_take-tour:checkdesk_take_tour'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 1,
-    'language' => 'und',
-    'link_path' => 'checkdesk_take_tour',
-    'link_title' => 'Take tour',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'und',
-    'menu_name' => 'menu-common',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(
-        'id' => 'take-tour-link',
-      ),
-      'alter' => TRUE,
-      'identifier' => 'menu-common_take-tour:checkdesk_take_tour',
-    ),
-    'router_path' => 'checkdesk_take_tour',
-    'uuid' => '15e60957-a3ae-4474-acc9-1c77ab8c6fbf',
-    'weight' => -50,
-  );
   // Exported menu link: menu-common_user:<sub>
   $menu_links['menu-common_user:<sub>'] = array(
     'customized' => 1,
@@ -402,35 +377,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'router_path' => '<sub>',
     'uuid' => '919ac829-ba90-aaa4-1546-5188241b9d5b',
-    'weight' => -46,
-  );
-  // Exported menu link: menu-common_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح
-  $menu_links['menu-common_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح'] = array(
-    'customized' => 1,
-    'expanded' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'hidden' => 1,
-    'language' => 'ar',
-    'link_path' => 'content/تنصيب-إضافة-المتصفح',
-    'link_title' => 'إضافة المتصفح',
-    'menu_links_customized' => 1,
-    'menu_links_customized_2' => 1,
-    'menu_links_language' => 'ar',
-    'menu_name' => 'menu-common',
-    'module' => 'menu',
-    'options' => array(
-      'attributes' => array(
-        'class' => array(
-          0 => 'checkdesk-use-modal',
-        ),
-      ),
-      'alter' => TRUE,
-      'identifier' => 'menu-common_إضافة-المتصفح:content/تنصيب-إضافة-المتصفح',
-    ),
-    'router_path' => 'modal/%',
-    'uuid' => '302da736-6f32-4024-695a-49ecde0f8091',
-    'weight' => -47,
+    'weight' => -45,
   );
   // Exported menu link: menu-information_about-checkdesk:content/about-checkdesk
   $menu_links['menu-information_about-checkdesk:content/about-checkdesk'] = array(
@@ -671,9 +618,9 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Logout');
   t('My account');
   t('Notifications');
+  t('Search');
   t('Sign in');
   t('Submit report');
-  t('Take tour');
   t('Terms of use');
   t('Update story');
   t('View incoming citizen reports');
