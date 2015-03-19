@@ -1524,10 +1524,10 @@ function checkdesk_core_feature_translations_defaults() {
     'plural' => 0,
   );
   $translations['ar:default']['095969ebb082c6853ba327cd61748063'] = array(
-    'source' => 'New story',
+    'source' => 'New story created',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'موضوع جديد',
+    'translation' => 'تم إضافة موضوع جديد',
     'plid' => 0,
     'plural' => 0,
   );
@@ -1830,7 +1830,7 @@ This was an auto-generated email from !site, please do not respond directly to t
   $translations['ar:default']['3a98dd4359cc6d58ae300d878db201f1'] = array(
     'source' => 'Hello !recipient_name,
 
-!author has update a story !story.
+!author has updated the story !story.
 
 <a href="!url">Click here </a> to view or update this story.
 ',
@@ -27707,10 +27707,10 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plural' => 0,
   );
   $translations['ar:default']['9b782af6fff9d4b67e7d40466afee8eb'] = array(
-    'source' => 'Update story',
+    'source' => 'Existing story updated',
     'context' => '',
     'location' => '/ar',
-    'translation' => 'تحديث موضوع',
+    'translation' => 'تحرير موضوع منشور',
     'plid' => 0,
     'plural' => 0,
   );

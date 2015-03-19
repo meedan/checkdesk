@@ -104,11 +104,11 @@ function checkdesk_notifications_meedan_notifications_events_alter(&$events) {
         'token type' => 'node',
       );
       $events[$context . '_new_story'] = array(
-        'label' => $label . t('New story'),
+        'label' => $label . t('New story created'),
         'token type' => 'node',
       );
       $events[$context . '_update_story'] = array(
-        'label' => $label . t('Update story'),
+        'label' => $label . t('Existing story updated'),
         'token type' => 'node',
       );
     }
