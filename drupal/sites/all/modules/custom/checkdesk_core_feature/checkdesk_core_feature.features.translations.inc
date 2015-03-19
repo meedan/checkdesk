@@ -1836,7 +1836,7 @@ This was an auto-generated email from !site, please do not respond directly to t
 ',
     'context' => '',
     'location' => '',
-    'translation' => 'Hello !recipient_name,
+    'translation' => 'مرحباً !recipient_name, 
 
 قام !author بتحديث الموضوع !story.
 
