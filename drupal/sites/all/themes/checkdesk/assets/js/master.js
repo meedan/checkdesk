@@ -111,19 +111,22 @@
 
   Drupal.behaviors.searchPage = {
     attach: function (context, settings) {
-      
-      // collapse a few by default
-      // $('.form-item-media-flags').each(function() {
-      //   if($(this).find('.selected').index() == 0) {
-      //     $(this).removeClass('open').find('.bef-select-as-links').slideUp('fast');
-      //   }
-      // });
+      // set focus on search field when /search page is loaded
+      var pathname = window.location.pathname;
+      var url = window.location.href; 
+      var search = window.location.search; 
+      if(pathname == '/search' && search == '') {
+        var target = $('.filter-list > .views-exposed-widget input[type=text]');
+        target.focus().select().parent().addClass('selected');
+      }
 
-      // $('.views-widget-filter-field_rating_tid').each(function() {
-      //   if($(this).find('.selected').index() == 0) {
-      //     $(this).removeClass('open').find('.views-widget').slideUp('fast');
-      //   }
-      // });
+      $('.filter-list > .views-exposed-widget input[type=text]').focus(function() {
+        $(this).parent().addClass('selected');
+      });
+
+      $('.filter-list > .views-exposed-widget input[type=text]').focusout(function() {
+        $(this).parent().removeClass('selected');
+      });
 
       // set default to open
       $('.filter-list > .views-exposed-widget label').parent().addClass('open');

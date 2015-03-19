@@ -1017,7 +1017,7 @@ function checkdesk_field__field_tags(&$variables) {
     $output = '<section id="media-tags" class="cd-container">';
     $output .= '<div class="cd-container__inner">';
     $output .= '<div class="submeta"><h2 class="submeta__header">' . t('Published in') . '</h2>';
-    $output .= '<ul class="tag-list u-unstyled inline-list">';
+    $output .= '<ul class="tag-list u-unstyled inline-list submeta__content">';
     foreach ($variables['element']['#items'] as $key => $item) {
       $tag_name = '<div class="tag__name">' . $item['taxonomy_term']->name . '</div>';
       $tag_count = _checkdesk_term_nc($item['tid'], FALSE, $type);

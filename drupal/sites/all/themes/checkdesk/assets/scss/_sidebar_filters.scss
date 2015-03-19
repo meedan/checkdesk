@@ -56,6 +56,9 @@
 	border-bottom: 1px solid rgba($firefly, 0.05);
 	color: $firefly60;
 	text-decoration: none;
+	white-space: nowrap;
+  overflow: hidden;
+	text-overflow: ellipsis;
 	&:hover {
 		background-color: #fff;
 	}
@@ -110,17 +113,32 @@
 	margin-top: -15px;
 	margin-bottom: 0;
 	background-color: #E7E8EA;
+	border-top: 1px solid #E7E8EA;
+	border-#{$from-direction}: 1px solid #E7E8EA;
+	border-#{opposite-position($from-direction)}: 1px solid #E7E8EA;
 	border-bottom: 1px solid rgba($firefly, 0.05);
 	&:focus {
-		background-color: #fff;
-		color: $firefly60;
+		background-color: white;
+		color: $dodgerBlue;
+		border: 1px solid rgba($firefly, 0.10);
 		border-bottom-color: $dodgerBlue;
 		outline: 0;
+		@include ctb-transition(all 0.3s linear);
 	}
 }
 
 .content-filter .form-type-textfield {
 	@include icon(search, 18px, $firefly60);
+	position: relative;
+	&:before {
+		position: absolute;
+		top: 10px;
+		#{opposite-position($from-direction)}: 10px;
+	}
+}
+
+.content-filter .selected {
+	@include icon(search, 18px, $dodgerBlue);
 	position: relative;
 	&:before {
 		position: absolute;
