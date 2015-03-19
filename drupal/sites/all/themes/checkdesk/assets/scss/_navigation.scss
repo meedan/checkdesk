@@ -69,7 +69,7 @@ $icon-position: 'before';
   // z-index: $zindexDropdown + 1; 
   & > a {
     // font-weight: 100;
-    padding: 0 $nav-gutter;
+    padding: 4px $nav-gutter;
     letter-spacing: 0.05px;
     text-decoration: none;
     line-height: $nav-height - 4px;
@@ -103,9 +103,9 @@ $icon-position: 'before';
   &.active,
   &.active:hover,
   &:active {
-    margin-bottom: -7px;
+    // margin-bottom: -7px;
     background-color: $nav-active-bkg-color;
-    @include border-radius($radius $radius 0 0);
+    @include border-radius($radius);
 
     color: $nav-active-color;
     font-weight: 700;
@@ -116,7 +116,7 @@ $icon-position: 'before';
     & > a:active {
       color: $nav-active-color;
       cursor: default;
-      padding-bottom: 8px;
+      padding-bottom: 5px;
 
       // don't forget the icons
       &:before {
