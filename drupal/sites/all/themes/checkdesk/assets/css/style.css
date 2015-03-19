@@ -9561,7 +9561,16 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 }
 
 .control-container {
+  *zoom: 1;
   padding: 0 20px 15px;
+}
+.control-container:before, .control-container:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.control-container:after {
+  clear: both;
 }
 
 .filter {
@@ -9597,11 +9606,24 @@ body.page-story-collaboration .story .story-collaboration-header-wrapper {
 }
 
 .page-results {
+  float: left;
   font-size: 14px;
   color: #b7bcc0;
 }
 .page-results .result {
   display: inline-block;
+}
+
+.search-reset-filters {
+  float: right;
+  font-size: 14px;
+}
+.search-reset-filters a {
+  color: #b7bcc0;
+  text-decoration: none;
+}
+.search-reset-filters a:hover {
+  color: #3e4c57;
 }
 
 .items .item {

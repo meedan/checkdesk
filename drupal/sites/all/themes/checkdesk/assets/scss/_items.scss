@@ -5,6 +5,7 @@
 }
 
 .control-container {
+	@include ctb-clearfix;
 	padding: 0 20px 15px;
 }
 
@@ -37,10 +38,23 @@
 }
 
 .page-results {
+	float: $alpha;
 	font-size: 14px;
 	color: $firefly30;
 	.result {
 		display: inline-block;
+	}
+}
+
+.search-reset-filters {
+	float: $omega;
+	font-size: 14px;
+	a {
+		color: $firefly30;
+		text-decoration: none;
+		&:hover {
+			color: $firefly80;
+		}	
 	}
 }
 
