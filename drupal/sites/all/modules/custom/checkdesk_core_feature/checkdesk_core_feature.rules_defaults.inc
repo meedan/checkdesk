@@ -87,8 +87,9 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "heartbeat_rules", "rules", "rules_scheduler" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
       "ON" : { "node_update--discussion" : { "bundle" : "discussion" } },
+      "IF" : [ { "node_is_published" : { "node" : [ "node" ] } } ],
       "DO" : [
         { "heartbeat_activity_checkdesk_update_story" : {
             "nid" : [ "node:nid" ],
@@ -421,8 +422,9 @@ function checkdesk_core_feature_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
-      "REQUIRES" : [ "heartbeat_rules", "rules", "rules_scheduler" ],
+      "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler" ],
       "ON" : { "node_insert--discussion" : { "bundle" : "discussion" } },
+      "IF" : [ { "node_is_published" : { "node" : [ "node" ] } } ],
       "DO" : [
         { "heartbeat_activity_checkdesk_add_story" : {
             "nid" : [ "node:nid" ],
@@ -449,10 +451,10 @@ function checkdesk_core_feature_default_rules_configuration() {
       "OWNER" : "rules",
       "TAGS" : [ "checkdesk" ],
       "REQUIRES" : [ "rules", "heartbeat_rules", "rules_scheduler", "checkdesk_core" ],
-      "ON" : { "node_insert" : [] },
+      "ON" : { "node_insert--post" : { "bundle" : "post" } },
       "IF" : [
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "post" : "post" } } } },
-        { "NOT data_is_empty" : { "data" : [ "node:field_desk" ] } }
+        { "NOT data_is_empty" : { "data" : [ "node:field_desk" ] } },
+        { "node_is_published" : { "node" : [ "node" ] } }
       ],
       "DO" : [
         { "heartbeat_activity_checkdesk_new_update_on_story_i_commented_on_update" : {
