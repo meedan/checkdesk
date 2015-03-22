@@ -3659,7 +3659,10 @@ function _checkdesk_report_status($report) {
   $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
   $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   if($status_name != 'In Progress') {
-    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
+    $partner = i18n_variable_get('checkdesk_site_owner', $language->language) ?
+      i18n_variable_get('checkdesk_site_owner', $language->language) : i18n_variable_get('checkdesk_site_owner', 'en');
+    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>',
+      array('@partner' => $partner));
   }
   // display status with an icon and "x by partner"
   if(isset($status_name) && isset($icon) && isset($status_by)) {
