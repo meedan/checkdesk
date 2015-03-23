@@ -2187,6 +2187,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
   }
 
   if ($view->name == 'checkdesk_search') {
+    global $user;
     // Add where condition based on flag type for reports.
     if (isset($_GET['type']) && $_GET['type'] == 'media' && isset($_GET['media_flags'])) {
       switch($_GET['media_flags']) {
@@ -2208,6 +2209,10 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
           break;
         }
       }
+    }
+    // Add status condition for anonymous and citizen users
+    if (!$user->uid || in_array('citizen journalist', $user->roles) ) {
+      $query->add_where(1,'node.status', 1, '=');
     }
     // Add author condition
     if (isset($_GET['author']) && $_GET['author'] != 'All') {
