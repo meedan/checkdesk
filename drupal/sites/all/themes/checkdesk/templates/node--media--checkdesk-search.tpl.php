@@ -4,5 +4,10 @@
 	    <?php print render($content['field_link']); ?>
 	  </span> <!-- /item-content -->
 	</div> <!-- /content-wrapper -->
-	<?php print $report_activity; ?>
+
+    <?php if (isset($content['body'])) : ?>
+      <?php print render($content['body']); ?>
+    <?php endif; ?>
+  
+   <?php print $report_activity; ?>
 </section>

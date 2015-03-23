@@ -530,9 +530,10 @@ function checkdesk_core_feature_field_default_field_instances() {
         'weight' => 2,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'taxonomy_term_reference_link',
         'weight' => 2,
       ),
       'default' => array(
@@ -605,7 +606,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'collaborate_status' => array(
         'label' => 'above',
@@ -820,7 +821,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 3,
       ),
       'collaborate_status' => array(
         'label' => 'above',
@@ -892,7 +893,7 @@ function checkdesk_core_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 4,
       ),
       'collaborate_status' => array(
         'label' => 'above',
@@ -962,10 +963,11 @@ function checkdesk_core_feature_field_default_field_instances() {
         'weight' => 0,
       ),
       'checkdesk_search' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 2,
       ),
       'default' => array(
         'label' => 'hidden',

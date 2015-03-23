@@ -886,6 +886,9 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
     return;
   }
   if ($view_mode == 'checkdesk_search') {
+    if (!empty($_GET['keys']) && isset($node->body[LANGUAGE_NONE][0]['value'])) {
+      $node->content['body'] = search_excerpt($_GET['keys'], $node->body[LANGUAGE_NONE][0]['value']);
+    }
     if ($node->type == 'discussion') {
       $updates = db_query('
           SELECT COUNT(entity_id) FROM {field_data_field_desk} WHERE field_desk_target_id = :nid
@@ -3679,6 +3682,7 @@ function _checkdesk_report_status($report) {
  * i.e - sort filter + basic filters for each content type.
  */
 function _checkdesk_search_header() {
+  global $user;
   $links = array();
   $path = '';
   $selected = 'DESC';
@@ -3723,8 +3727,10 @@ function _checkdesk_search_header() {
         if (isset($_GET['status'])) {
           $selected = ($_GET['status'] == 0) ? 'drafts' : 'published';
         }
-        $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
-          array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
+        if ($user->uid &&  (in_array('administrator', $user->roles) || in_array('journalist', $user->roles))) {
+          $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
+            array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
+        }
         $links[] = l(t('Published'), bef_replace_query_string_arg('status', 1, FALSE, FALSE, $path),
           array('attributes' => array('class' => ($selected == 'published') ? 'selected' : '')));
       break;

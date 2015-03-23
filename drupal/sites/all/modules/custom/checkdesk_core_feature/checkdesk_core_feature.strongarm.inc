@@ -573,7 +573,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '8',
+            'weight' => '9',
             'visible' => FALSE,
           ),
           'search_index' => array(
@@ -603,7 +603,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '7',
+            'weight' => '8',
             'visible' => FALSE,
           ),
           'search_index' => array(
@@ -633,7 +633,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '9',
+            'weight' => '10',
             'visible' => FALSE,
           ),
           'search_index' => array(
@@ -663,7 +663,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '6',
+            'weight' => '7',
             'visible' => FALSE,
           ),
           'search_index' => array(
@@ -693,7 +693,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '4',
+            'weight' => '5',
             'visible' => FALSE,
           ),
           'search_index' => array(
@@ -723,7 +723,7 @@ return _checkdesk_core_auto_title($node);
             'visible' => TRUE,
           ),
           'checkdesk_search' => array(
-            'weight' => '5',
+            'weight' => '6',
             'visible' => FALSE,
           ),
           'search_index' => array(
