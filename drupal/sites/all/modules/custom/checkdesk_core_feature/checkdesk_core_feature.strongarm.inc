@@ -370,7 +370,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'extlink_class';
-  $strongarm->value = 'ext';
+  $strongarm->value = 0;
   $export['extlink_class'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -412,7 +412,7 @@ return _checkdesk_core_auto_title($node);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'extlink_mailto_class';
-  $strongarm->value = 'mailto';
+  $strongarm->value = 0;
   $export['extlink_mailto_class'] = $strongarm;
 
   $strongarm = new stdClass();
