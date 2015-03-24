@@ -1099,11 +1099,6 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
     $page_title = $term->name;
   }
   $view->set_title($page_title);
-  //foreach($vars['view']->result as &$row) {
-  //  $row->node_type_1 = 'Sawy';
-  //}
-  //print_r($vars['view']->result);
-  //exit;
 }
 
 /* Desk Reports */
