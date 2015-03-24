@@ -32908,6 +32908,14 @@ A <a href="!report_url">report</a> which you have submitted has been published i
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['b73a34b9df122196adcf78238e170411'] = array(
+    'source' => ' found',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => ' تم العثور على',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['b73c2ae6b27bd1777ecadbf28c2361d7'] = array(
     'source' => 'A search form with advanced options.',
     'context' => '',

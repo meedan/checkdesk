@@ -1099,6 +1099,11 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
     $page_title = $term->name;
   }
   $view->set_title($page_title);
+  //foreach($vars['view']->result as &$row) {
+  //  $row->node_type_1 = 'Sawy';
+  //}
+  //print_r($vars['view']->result);
+  //exit;
 }
 
 /* Desk Reports */
@@ -1162,14 +1167,11 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     // Add follow story flag
     if ($user->uid) {
       $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
-    }
-    else {
+    }   else {
       $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
       $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
       // append count
-      if (isset($flag_count['follow_story'])) {
-        $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
-      }
+      $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
     }
     $vars['follow_story'] = $follow_story;
   }
