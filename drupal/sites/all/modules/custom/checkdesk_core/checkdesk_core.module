@@ -1403,9 +1403,16 @@ function checkdesk_core_views_pre_render(&$view) {
           }
         }
       }
+      $types = array(
+        'media' => array('s' => 'Report', 'p' => 'Reports'),
+        'post' => array('s' => 'Update', 'p' => 'Updates'),
+        'discussion' => array('s' => 'Story', 'p' => 'Stories'),
+      );
+      foreach ($view->result as $k => &$row) {
+        $row->node_type_1 = ($row->node_type > 1) ? t($types[$row->node_type_1]['p']) : t($types[$row->node_type_1]['s']);
+      }
     }
   }
-
 }
 
 /**
@@ -3764,6 +3771,10 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
         $options['query']['field_tags_tid'] = $matches[1];
       }
     }
+  }
+  elseif ($original_path == 'reports') {
+    $path = 'search';
+    $options['query']['type'] = 'media';
   }
 }
 

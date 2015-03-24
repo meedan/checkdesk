@@ -1179,7 +1179,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     // Add follow story flag
     if ($user->uid) {
       $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
-    } else {
+    }   else {
       $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
       $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
       // append count
