@@ -139,6 +139,9 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 1;
+	.inline-img-thumb {
+		border: 1px solid $firefly10;
+	}
 	// backrgound frame first
 	&:after {
 		position: absolute;

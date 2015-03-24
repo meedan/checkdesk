@@ -1,16 +1,18 @@
-<div class="media-holder media-inline-holder">
-  <?php if(isset($embed->html)) : ?>
-    <div class="inline-holder inline-amazon-holder amazon-holder">
-      <?php print $embed->html; ?>
-    </div>
-  <?php endif ;?>
+<div class="media-holder media-inline-holder<?php if (isset($media_type_class)) { print ' ' . $media_type_class; } ?>">
+  <div class="media">
+    <?php if(isset($embed->html)) : ?>
+      <div class="re-holder media-1by1">
+        <?php print $embed->html; ?>
+      </div>
+    <?php elseif (isset($full_image)) : ?>
+      <div class="img-holder">
+        <?php print $full_image; ?>
+      </div>
+    <?php endif ;?>
+  </div>
   <div class="media-content">
     <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
-    <?php if(isset($media_description)) : ?>
-      <span class="description expandable"><?php print $media_description; ?></span>
-    <?php elseif (isset($embed->description)) : ?>
-       <span class="description expandable"><?php print $embed->description; ?></span>
-    <?php endif; ?>
+    <?php if(isset($media_description)) : ?><span class="description expandable"><?php print $media_description; ?></span><?php endif; ?>
     <?php if(isset($author_name)) : ?>
       <span class="author"><?php print $author_name ?></span>
     <?php elseif(isset($provider_name)) : ?>
