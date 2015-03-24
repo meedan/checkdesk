@@ -3765,6 +3765,9 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
       }
     }
   }
+  elseif ($original_path == 'reports') {
+    $path = 'search';
+    $options['query']['type'] = 'media';
 }
 
 /**
