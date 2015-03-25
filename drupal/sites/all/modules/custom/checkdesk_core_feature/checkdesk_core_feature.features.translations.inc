@@ -38261,13 +38261,13 @@ This link can only be used once to log in and will lead you to a page where you 
   $translations['ar:default']['d4e30390e2facaa6eb74dc56eba6e5e2'] = array(
     'source' => 'Hello !recipient_name,
 
-!autho has drafted a <a href="!url">new update</a> to the story "!title".
+!author has drafted a <a href="!url">new update</a> to the story "!title".
 ',
     'context' => '',
     'location' => '/index.php',
     'translation' => 'مرحباً !recipient_name،
 
-قام !autho بكتابة <a href="!url"> مسودة تحديث </a> للموضوع "!title".',
+قام !author بكتابة <a href="!url"> مسودة تحديث </a> للموضوع "!title".',
     'plid' => 0,
     'plural' => 0,
   );

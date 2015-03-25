@@ -2670,10 +2670,13 @@ function checkdesk_core_node_insert($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'insert');
   if ($node->type === 'post') {
     // Update story when a new update is created in this story
-    if (isset($node->field_desk)) {
-      $story = node_load($node->field_desk[LANGUAGE_NONE][0]['target_id']);
-      $story->changed = $node->changed;
-      node_save($story); // Update updated time
+    if (isset($node->field_desk[LANGUAGE_NONE][0]['target_id'])) {
+      db_update('node')
+        ->fields(array(
+          'changed' => $node->changed,
+        ))
+        ->condition('nid', $node->field_desk[LANGUAGE_NONE][0]['target_id'])
+        ->execute();
     }
     //link report to created update
     if (isset($node->body)) {
