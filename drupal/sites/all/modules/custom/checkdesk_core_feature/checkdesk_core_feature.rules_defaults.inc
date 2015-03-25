@@ -65,7 +65,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "notify_subscribers" : {
             "object" : [ "node" ],
             "event" : "email_new_update",
-            "subject" : "New draft update",
+            "subject" : "An update has been drafted to a story",
             "message" : "Hello !recipient_name,\\r\\n\\r\\n!autho has drafted a \\u003Ca href=\\u0022!url\\u0022\\u003Enew update\\u003C\\/a\\u003E to the story \\u0022!title\\u0022.\\r\\n",
             "actor" : [ "node:author" ],
             "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!author\\u0027 =\\u003E user_load($story-\\u003Euid)-\\u003Ename, \\u0027!title\\u0027 =\\u003E $story-\\u003Etitle, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
@@ -778,7 +778,7 @@ function checkdesk_core_feature_default_rules_configuration() {
         { "notify_subscribers" : {
             "object" : [ "node" ],
             "event" : "email_new_update",
-            "subject" : "New update",
+            "subject" : "An update has been added to a story",
             "message" : "Hello !recipient_name,\\r\\n\\r\\n!author has added a \\u003Ca href=\\u0022!url\\u0022\\u003Enew update\\u003C\\/a\\u003E to the story \\u0022!title\\u0022.\\r\\n",
             "actor" : [ "node:author" ],
             "t_args" : "\\u003C?php\\r\\nreturn serialize(array(\\u0027!author\\u0027 =\\u003E user_load($story-\\u003Euid)-\\u003Ename, \\u0027!title\\u0027 =\\u003E $story-\\u003Etitle, \\u0027!url\\u0027 =\\u003E url(\\u0027node\\/\\u0027 . $node-\\u003Enid, array(\\u0027absolute\\u0027 =\\u003E TRUE, \\u0027alias\\u0027 =\\u003E TRUE)), \\u0027!site\\u0027 =\\u003E variable_get(\\u0027site_name\\u0027, \\u0027Checkdesk\\u0027), \\u0027!recipient_name\\u0027 =\\u003E \\u0027[recipient:name]\\u0027, \\u0027!recipient_url\\u0027 =\\u003E \\u0027[recipient:edit-url]\\u0027)); \\r\\n?\\u003E"
