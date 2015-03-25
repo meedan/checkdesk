@@ -10868,19 +10868,19 @@ body.sidebar-second #content:before, body.sidebar-second #content:after {
 body.sidebar-second #content:after {
   clear: both;
 }
-body.sidebar-second #content .view-checkdesk-search {
+body.sidebar-second #content .cd-container {
   *zoom: 1;
   margin-bottom: 160px;
 }
-body.sidebar-second #content .view-checkdesk-search:before, body.sidebar-second #content .view-checkdesk-search:after {
+body.sidebar-second #content .cd-container:before, body.sidebar-second #content .cd-container:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.sidebar-second #content .view-checkdesk-search:after {
+body.sidebar-second #content .cd-container:after {
   clear: both;
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more {
+body.sidebar-second #content .cd-container .pager-load-more {
   *zoom: 1;
   margin: 0;
   padding: 0;
@@ -10890,18 +10890,18 @@ body.sidebar-second #content .view-checkdesk-search .pager-load-more {
   position: relative;
   text-align: center;
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more:before, body.sidebar-second #content .view-checkdesk-search .pager-load-more:after {
+body.sidebar-second #content .cd-container .pager-load-more:before, body.sidebar-second #content .cd-container .pager-load-more:after {
   display: table;
   content: "";
   line-height: 0;
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more:after {
+body.sidebar-second #content .cd-container .pager-load-more:after {
   clear: both;
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more li {
+body.sidebar-second #content .cd-container .pager-load-more li {
   list-style: none;
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more a {
+body.sidebar-second #content .cd-container .pager-load-more a {
   width: 70%;
   text-align: center;
   letter-spacing: 0.05em;
@@ -10914,20 +10914,20 @@ body.sidebar-second #content .view-checkdesk-search .pager-load-more a {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more a:hover {
+body.sidebar-second #content .cd-container .pager-load-more a:hover {
   color: white;
   background-color: #2e77fc;
   border: 1px solid #2e77fc;
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more .ajax-progress-throbber {
+body.sidebar-second #content .cd-container .pager-load-more .ajax-progress-throbber {
   position: absolute;
   top: 4px;
   right: 15px;
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more .ajax-progress-throbber .throbber {
+body.sidebar-second #content .cd-container .pager-load-more .ajax-progress-throbber .throbber {
   background: url("../imgs/icons/loader_white.gif");
 }
-body.sidebar-second #content .view-checkdesk-search .pager-load-more {
+body.sidebar-second #content .cd-container .pager-load-more {
   margin-top: 30px;
 }
 

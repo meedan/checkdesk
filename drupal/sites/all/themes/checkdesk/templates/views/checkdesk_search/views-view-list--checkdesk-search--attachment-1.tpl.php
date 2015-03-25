@@ -15,24 +15,21 @@ $total = count($rows) - 1;
     <h3><?php print $title; ?></h3>
   <?php endif; ?>
   <?php print $list_type_prefix; ?>
-    <?php foreach ($rows as $id => $row): ?>
-      <?php
-          $separator = '';
-          if($total > 1 && $id != $total && $id != 1) {
-            $separator = t(',');
-          }
-          elseif($total == 2 && $id == 1) {
-            $separator = t(', and');
-          }
-          elseif($total == 1 && $id == 0) {
-            $separator = t(' and');
-          }
-          elseif($id == $total) {
-            $separator = t(' found');
-          }
-      ?>
-      <li class="<?php print $classes_array[$id]; ?>"><?php print $row . $separator; ?></li>
-    <?php endforeach; ?>
+    <?php
+      // the "and" shit
+      if (count($rows) == 2) {
+        $results = $rows[0] . ' ' . t('and') . ' ' . $rows[1];
+      }
+      else if (count($rows) > 2) {
+        $rows[ count($rows) - 1 ] = t('and') . ' ' . $rows[ count($rows) - 1 ];
+        $results = implode(t(',') . ' ', $rows);
+      }
+      else {
+        $results = $rows[0];
+      }
+      $result_text = t('!results found', array('!results' => $results));
+      print $result_text;
+    ?>
   <?php print $list_type_suffix; ?>
 <?php print $wrapper_suffix; ?>
 

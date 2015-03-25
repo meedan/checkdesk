@@ -27,7 +27,7 @@
  * @ingroup views_templates
  */
 ?>
-<div class="<?php print $classes; ?>">
+<div id="search" class="cd-container <?php print $classes; ?>">
   
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>

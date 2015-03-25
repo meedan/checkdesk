@@ -25,10 +25,6 @@
               <span class="author"><?php print $node->name; ?></span>
             <?php endif; ?>
 
-            <?php if (isset($content['body'])) : ?>
-              <?php print render($content['body']); ?>
-            <?php endif; ?>
-
             <?php if (isset($content['field_tags'])) :?>
               <span class="story-tag"><?php print render($content['field_tags']); ?></span>
             <?php endif; ?>
