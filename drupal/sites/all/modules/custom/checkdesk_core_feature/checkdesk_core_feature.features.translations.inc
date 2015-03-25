@@ -13022,6 +13022,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['4a0d7cfb81a42ddcfa269d248c79d099'] = array(
+    'source' => 'An update has been drafted to a story',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'تم إضافة مسودة جديدة لموضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['4a169763e9dc163461589d93ac7cd520'] = array(
     'source' => 'Display the comment with standard comment view.',
     'context' => '',
@@ -35451,6 +35459,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['c4f1d6fc103b47f2fcc24cd750716c9b'] = array(
+    'source' => 'An update has been added to a story',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'تم إضافة تحديث جديد لموضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['c4f5929e88dd80d9f391b8699f5d7f51'] = array(
     'source' => 'The path to the file you would like to use as your logo file instead of the default logo.',
     'context' => '',
@@ -36648,7 +36664,7 @@ They provided the following explanation for flagging:
     'source' => 'Stories',
     'context' => '',
     'location' => '',
-    'translation' => 'الأخبار',
+    'translation' => 'أخبار',
     'plid' => 0,
     'plural' => 0,
   );
@@ -38239,6 +38255,19 @@ This link can only be used once to log in and will lead you to a page where you 
     'context' => '',
     'location' => '',
     'translation' => 'لا منتديات معرفة',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['d4e30390e2facaa6eb74dc56eba6e5e2'] = array(
+    'source' => 'Hello !recipient_name,
+
+!autho has drafted a <a href="!url">new update</a> to the story "!title".
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !autho بكتابة <a href="!url"> مسودة تحديث </a> للموضوع "!title".',
     'plid' => 0,
     'plural' => 0,
   );
@@ -44285,6 +44314,20 @@ print theme(\'views_autorefresh\', array(
     'context' => '',
     'location' => '',
     'translation' => 'عرض نتيجة الاختبارات.',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['f83d3f92b4c3e69c85e00cc74fab0545'] = array(
+    'source' => 'Hello !recipient_name,
+
+!author has added a <a href="!url">new update</a> to the story "!title".
+',
+    'context' => '',
+    'location' => '/index.php',
+    'translation' => 'مرحباً !recipient_name،
+
+قام !author بإضافة  <a href="!url"> تحديث </a> للموضوع "!title".
+',
     'plid' => 0,
     'plural' => 0,
   );
