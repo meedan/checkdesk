@@ -297,7 +297,9 @@ function meedan_oembed_node_presave($node) {
         $node->title = truncate_utf8($embed->title, 255);
       }
       else {
-        $node->title = t('report-!user-!datetime', array('!user' => $node->name, '!datetime' => date('U', $node->created)));
+        // auto-generate report title (ticket #3314)
+        $embed_source = isset($embed->author_name) ? $embed->author_name : $embed->provider_name;
+        $node->title = t('!type from !source', array('!type' => $embed->type, '!source' => $embed_source));
       }
     }
     if (!empty($embed->description) && 

@@ -40,6 +40,7 @@
         <?php if(isset($node->name)) : ?>
           <span class="author"><?php print $node->name; ?></span>
         <?php endif; ?>
+
         <span class="ts"><?php print $media_creation_info; ?></span>
       </div> <!-- /media-content -->  
     </div> <!-- /media-holder -->

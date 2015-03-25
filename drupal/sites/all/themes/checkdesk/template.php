@@ -65,7 +65,12 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // TODO: make this source media timestamp
     global $language;
     // Set custom format based on language.
-    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
+    if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+    } else {
+      $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+    }
+    
     $variables['media_creation_info'] =
       t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
         '@url' => $node->embed->original_url,
@@ -519,7 +524,11 @@ function checkdesk_preprocess_node(&$variables) {
     $variables['update_link'] = $update_link;
     global $language;
     // Set custom format based on language.
-    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
+    if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+    } else {
+      $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+    }
     $variables['media_creation_info'] =
       t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
         '@url' => $update_link,
@@ -640,7 +649,11 @@ function checkdesk_preprocess_node(&$variables) {
       // use media creation info for activity templates & search template
       global $language;
       // Set custom format based on language.
-      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
+      if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+        $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+      } else {
+        $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+      }
       $variables['media_creation_info'] =
         t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
         '@url' => url('node/' . $variables['nid']),
@@ -683,7 +696,11 @@ function checkdesk_preprocess_node(&$variables) {
     if ($variables['view_mode'] == 'checkdesk_collaborate') {
       global $language;
       // Set custom format based on language.
-      $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');
+      if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+        $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+      } else {
+        $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+      }
       $variables['media_creation_info'] =
         t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
           '@url' => $node->embed->original_url,
@@ -1162,7 +1179,7 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
     // Add follow story flag
     if ($user->uid) {
       $follow_story = flag_create_link('follow_story', $vars['fields']['nid']->raw);
-    } else {
+    }   else {
       $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
       $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
       // append count

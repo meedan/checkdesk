@@ -173,6 +173,7 @@ function checkdesk_css_alter(&$css) {
   // keep css for some modules
   $keep_css = array(
     'misc/ui/jquery.ui.theme.css',
+    'sites/all/modules/contrib/extlink/extlink.css',
   );
   $restore_css = array();
   foreach ($keep_css as $k) {

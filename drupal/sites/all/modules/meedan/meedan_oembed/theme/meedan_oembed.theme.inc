@@ -17,6 +17,7 @@ function template_preprocess_oembed__link__meedan_oembed_generic(&$vars) {
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
  */
 function template_preprocess_meedan_full_mode(&$vars) {
+  global $language;
 	$embed = $vars['entity']->embed;
   $node = $vars['entity'];
   $vars['embed'] = $embed;
@@ -49,11 +50,17 @@ function template_preprocess_meedan_full_mode(&$vars) {
 
   // timestamp
   // TODO: make this source media timestamp
+  // Set custom format based on language.
+  if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+  } else {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+  }
   $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
         '@url' => $node->embed->original_url,
         '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
         '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
-        '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
+        '!daydatetime' => format_date($node->created, 'custom', $custom_format),
         '!interval' => format_interval(time() - $node->created, 1),
         '@user' => url('user/'. $node->uid),
         '!user' => $node->name,
@@ -76,7 +83,7 @@ function template_preprocess_meedan_full_mode(&$vars) {
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
  */
 function template_preprocess_meedan_inline_full_mode(&$vars) {
-
+  global $language;
   $embed = $vars['entity']->embed;
   $node = $vars['entity'];
   $vars['embed'] = $embed;
@@ -110,11 +117,17 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
 
   // timestamp
   // TODO: make this source media timestamp
+  // Set custom format based on language.
+  if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+  } else {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+  }
   $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
         '@url' => $node->embed->original_url,
         '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
         '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
-        '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
+        '!daydatetime' => format_date($node->created, 'custom', $custom_format),
         '!interval' => format_interval(time() - $node->created, 1),
         '@user' => url('user/'. $node->uid),
         '!user' => $node->name,
@@ -138,8 +151,8 @@ function template_preprocess_meedan_inline_full_mode(&$vars) {
  * Template preprocessor for 'meedan_oembed_thumbnail_generic' with provider 'meedan_oembed_generic'.
  */
 function template_preprocess_meedan_inline_thumbnail(&$vars) {
-
- $embed = $vars['entity']->embed;
+  global $language;
+  $embed = $vars['entity']->embed;
   $node = $vars['entity'];
   $vars['embed'] = $embed;
   $vars['node'] = $node;
@@ -171,13 +184,21 @@ function template_preprocess_meedan_inline_thumbnail(&$vars) {
 
   // timestamp
   // TODO: make this source media timestamp
-  $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a>', array(
-      '@url' => $embed->original_url,
-      '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
-      '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
-      '!daydatetime' => format_date($node->created, 'custom', t('D, F j\t\h \a\t g:i A')),
-      '!interval' => format_interval(time() - $node->created, 1),
-    ));
+  // Set custom format based on language.
+  if(date('Y') == format_date($node->created, 'custom', 'Y')) {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h \a\t g:i A') : t('D, j F g:i A');  
+  } else {
+    $custom_format = ($language->language == 'en') ? t('D, F j\t\h Y \a\t g:i A') : t('D, j F Y g:i A');
+  }
+  $vars['media_creation_info'] = t('<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>', array(
+        '@url' => $node->embed->original_url,
+        '!timestamp' => format_date($node->created, 'custom', 'Y-m-d\TH:i:sP'),
+        '!datetime' => format_date($node->created, 'custom', t('M d, Y \a\t g:ia e')),
+        '!daydatetime' => format_date($node->created, 'custom', $custom_format),
+        '!interval' => format_interval(time() - $node->created, 1),
+        '@user' => url('user/'. $node->uid),
+        '!user' => $node->name,
+      ));
 
   // Inline thumbnail
   if(isset($embed->thumbnail_url)) {

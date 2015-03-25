@@ -1,11 +1,9 @@
 <div class="media-holder media-inline-holder">
-  <div class="media">
-    <?php if (isset($full_image)) : ?>
-      <div class="img-holder">
-        <?php print $full_image; ?>
-      </div>
-    <?php endif ;?>
-  </div>
+  <?php if(isset($embed->html)) : ?>
+    <div class="inline-holder inline-amazon-holder amazon-holder">
+      <?php print $embed->html; ?>
+    </div>
+  <?php endif ;?>
   <div class="media-content">
     <span class="title"><?php print l($node->title, 'node/' . $node->nid , array('html' => TRUE)); ?></span>
     <?php if(isset($media_description)) : ?>

@@ -1,1 +1,3 @@
-<?php print $rows; ?>
+<?php if ($rows): ?>
+  <?php print $rows; ?>
+<?php endif; ?>

@@ -883,9 +883,17 @@ function checkdesk_core_node_view($node, $view_mode, $langcode) {
   // as we only need to index title & body
   // check search index display settings
   if ($view_mode == 'search_index') {
+    if ($node->type == 'post') {
+      if (isset($node->body[LANGUAGE_NONE][0]['value'])) {
+        $node->content['body'] = preg_replace('/\[[^:]+:([0-9]+)\]/u', NULL, $node->body[LANGUAGE_NONE][0]['value']);
+      }
+    }
     return;
   }
   if ($view_mode == 'checkdesk_search') {
+    if (!empty($_GET['keys']) && isset($node->body[LANGUAGE_NONE][0]['value'])) {
+      $node->content['body'] = search_excerpt($_GET['keys'], $node->body[LANGUAGE_NONE][0]['value']);
+    }
     if ($node->type == 'discussion') {
       $updates = db_query('
           SELECT COUNT(entity_id) FROM {field_data_field_desk} WHERE field_desk_target_id = :nid
@@ -1395,9 +1403,16 @@ function checkdesk_core_views_pre_render(&$view) {
           }
         }
       }
+      $types = array(
+        'media' => array('s' => 'Report', 'p' => 'Reports'),
+        'post' => array('s' => 'Update', 'p' => 'Updates'),
+        'discussion' => array('s' => 'Story', 'p' => 'Stories'),
+      );
+      foreach ($view->result as $k => &$row) {
+        $row->node_type_1 = ($row->node_type > 1) ? t($types[$row->node_type_1]['p']) : t($types[$row->node_type_1]['s']);
+      }
     }
   }
-
 }
 
 /**
@@ -1506,6 +1521,7 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
     $form['type']['#options']['post'] = t('Updates');
     // Add required js for fastLiveFilter plugin
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
+    drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     //Hide/show media reports based on type filter
     if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] != 'media')) {
@@ -2179,6 +2195,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
   }
 
   if ($view->name == 'checkdesk_search') {
+    global $user;
     // Add where condition based on flag type for reports.
     if (isset($_GET['type']) && $_GET['type'] == 'media' && isset($_GET['media_flags'])) {
       switch($_GET['media_flags']) {
@@ -2200,6 +2217,10 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
           break;
         }
       }
+    }
+    // Add status condition for anonymous and citizen users
+    if (!$user->uid || in_array('citizen journalist', $user->roles) ) {
+      $query->add_where(1,'node.status', 1, '=');
     }
     // Add author condition
     if (isset($_GET['author']) && $_GET['author'] != 'All') {
@@ -2649,10 +2670,13 @@ function checkdesk_core_node_insert($node) {
   checkdesk_varnish_pages_to_purge('node', $node, 'insert');
   if ($node->type === 'post') {
     // Update story when a new update is created in this story
-    if (isset($node->field_desk)) {
-      $story = node_load($node->field_desk[LANGUAGE_NONE][0]['target_id']);
-      $story->changed = $node->changed;
-      node_save($story); // Update updated time
+    if (isset($node->field_desk[LANGUAGE_NONE][0]['target_id'])) {
+      db_update('node')
+        ->fields(array(
+          'changed' => $node->changed,
+        ))
+        ->condition('nid', $node->field_desk[LANGUAGE_NONE][0]['target_id'])
+        ->execute();
     }
     //link report to created update
     if (isset($node->body)) {
@@ -3659,7 +3683,10 @@ function _checkdesk_report_status($report) {
   $icon = empty($icon_class) ? '' : '<span class="'. $icon_class .'"></span> ';
   $report_status['status'] = $icon . '<span class="status-name ' . $status_class . '">' . t($status_name) . '</span>';
   if($status_name != 'In Progress') {
-    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
+    $partner = i18n_variable_get('checkdesk_site_owner', $language->language) ?
+      i18n_variable_get('checkdesk_site_owner', $language->language) : i18n_variable_get('checkdesk_site_owner', 'en');
+    $status_by = t('by <span class="checkdesk-status-partner">@partner</span>',
+      array('@partner' => $partner));
   }
   // display status with an icon and "x by partner"
   if(isset($status_name) && isset($icon) && isset($status_by)) {
@@ -3676,6 +3703,7 @@ function _checkdesk_report_status($report) {
  * i.e - sort filter + basic filters for each content type.
  */
 function _checkdesk_search_header() {
+  global $user;
   $links = array();
   $path = '';
   $selected = 'DESC';
@@ -3720,8 +3748,10 @@ function _checkdesk_search_header() {
         if (isset($_GET['status'])) {
           $selected = ($_GET['status'] == 0) ? 'drafts' : 'published';
         }
-        $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
-          array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
+        if ($user->uid &&  (in_array('administrator', $user->roles) || in_array('journalist', $user->roles))) {
+          $links[] = l(t('Drafts'), bef_replace_query_string_arg('status', 0, FALSE, FALSE, $path),
+            array('attributes' => array('class' => ($selected == 'drafts') ? 'selected' : '')));
+        }
         $links[] = l(t('Published'), bef_replace_query_string_arg('status', 1, FALSE, FALSE, $path),
           array('attributes' => array('class' => ($selected == 'published') ? 'selected' : '')));
       break;
@@ -3744,6 +3774,10 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
         $options['query']['field_tags_tid'] = $matches[1];
       }
     }
+  }
+  elseif ($original_path == 'reports') {
+    $path = 'search';
+    $options['query']['type'] = 'media';
   }
 }
 
