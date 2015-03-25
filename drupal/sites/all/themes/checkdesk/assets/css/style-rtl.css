@@ -1854,6 +1854,10 @@ nav[role="navigation"] li.additional a.dropdown-toggle:before, .icon-ellipsis-h:
   content: "\f16a";
 }
 
+#widgets .elsewhere ul li span.icon-tumblr:before {
+  content: "\f173";
+}
+
 .icon-plus-square-o:before {
   content: "\f196";
 }
@@ -10788,8 +10792,22 @@ body.widgets #main #content #content-inner:after {
   display: inline-block;
   margin: 0 7.5px;
   *margin-right: .3em;
-  color: #9d261d;
-  font-size: 40px;
+  color: #dd4b39;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#widgets .elsewhere ul li span.icon-tumblr:before {
+  font-family: "FontAwesome";
+  display: inline-block;
+  margin: 0 7.5px;
+  *margin-right: .3em;
+  color: #36465d;
+  font-size: 25px;
   font-style: normal;
   font-weight: normal;
   line-height: inherit;
@@ -10802,7 +10820,7 @@ body.widgets #main #content #content-inner:after {
   display: inline-block;
   margin: 0 7.5px;
   *margin-right: .3em;
-  color: #9d261d;
+  color: #cd201f;
   font-size: 25px;
   font-style: normal;
   font-weight: normal;
