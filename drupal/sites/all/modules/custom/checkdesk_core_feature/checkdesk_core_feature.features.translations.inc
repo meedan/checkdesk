@@ -2533,6 +2533,14 @@ This was an auto-generated email from !site, please do not respond directly to t
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['0f4b6239381f5c56d5831751a96e1e74'] = array(
+    'source' => '!results found',
+    'context' => '',
+    'location' => '/ar/search',
+    'translation' => 'تم العثور على !results ',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['0f6969d7052da9261e31ddb6e88c136e'] = array(
     'source' => 'remove',
     'context' => '',
@@ -32905,14 +32913,6 @@ A <a href="!report_url">report</a> which you have submitted has been published i
     'context' => '',
     'location' => '',
     'translation' => 'الشرح',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:default']['b73a34b9df122196adcf78238e170411'] = array(
-    'source' => ' found',
-    'context' => '',
-    'location' => '/ar/search',
-    'translation' => ' تم العثور على',
     'plid' => 0,
     'plural' => 0,
   );
