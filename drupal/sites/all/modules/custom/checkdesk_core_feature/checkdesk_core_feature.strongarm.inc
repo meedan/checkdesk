@@ -1948,10 +1948,19 @@ password: Your password
   $strongarm->api_version = 1;
   $strongarm->name = 'variable_realm_list_language';
   $strongarm->value = array(
-    0 => 'site_name',
-    1 => 'site_slogan',
-    2 => 'theme_[theme]_settings',
-    3 => 'checkdesk_site_owner',
+    0 => 'checkdesk_site_owner',
+    1 => 'site_name',
+    2 => 'site_slogan',
+    3 => 'theme_[theme]_settings',
+    4 => 'user_mail_register_admin_created_[mail_part]',
+    5 => 'user_mail_register_no_approval_required_[mail_part]',
+    6 => 'user_mail_register_pending_approval_[mail_part]',
+    7 => 'user_mail_password_reset_[mail_part]',
+    8 => 'user_mail_status_activated_[mail_part]',
+    9 => 'user_mail_status_blocked_[mail_part]',
+    10 => 'user_mail_cancel_confirm_[mail_part]',
+    11 => 'user_mail_status_canceled_[mail_part]',
+    12 => 'user_registrationpassword_register_[mail_part]',
   );
   $export['variable_realm_list_language'] = $strongarm;
 
