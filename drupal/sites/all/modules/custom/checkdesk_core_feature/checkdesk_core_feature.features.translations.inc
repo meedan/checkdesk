@@ -8246,6 +8246,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['3006d30ccd8d97b4bd95821f305aa27a'] = array(
+    'source' => '<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>',
+    'context' => '',
+    'location' => '/ar/story/13',
+    'translation' => '<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> من قبل <a class="contributor" href="@user">!user</a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['301a5b45ff198a1e7e243b6f19da8d1e'] = array(
     'source' => 'No containers or forums available. <a href="@container">Add container</a> or <a href="@forum">Add forum</a>.',
     'context' => '',
