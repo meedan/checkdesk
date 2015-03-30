@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Implementation of hook_menu().
+ */
 function checkdesk_activity_menu() {
   return array(
     'activity' => array(
@@ -10,6 +13,9 @@ function checkdesk_activity_menu() {
   );
 }
 
+/**
+ * Menu handler for `/activity'.
+ */
 function checkdesk_activity_feed($since = NULL) {
   if (empty($since) && !empty($_REQUEST['since'])) {
     $since = $_REQUEST['since'];
@@ -25,6 +31,9 @@ function checkdesk_activity_feed($since = NULL) {
   return drupal_json_output($activities);
 }
 
+/**
+ * Helper function to convert Heartbeat stream to JSON format.
+ */
 function checkdesk_activity__activities($stream) {
   // Convert to activitystrea.ms format
   // @see http://activitystrea.ms/specs/json/1.0/
@@ -35,6 +44,9 @@ function checkdesk_activity__activities($stream) {
   return $activities;
 }
 
+/**
+ * Helper function to convert single Heartbeat activity to JSON format.
+ */
 function checkdesk_activity__activity($activity) {
   $variables = heartbeat_decode_message_variables($activity->variables);
   $template = heartbeat_message_template_load($activity->message_id);
@@ -55,6 +67,9 @@ function checkdesk_activity__activity($activity) {
   );
 }
 
+/**
+ * Helper function to extract user picture.
+ */
 function checkdesk_activity__user_picture($uid, $style = '') {
   $account = user_load($uid);
   $filepath = NULL;
