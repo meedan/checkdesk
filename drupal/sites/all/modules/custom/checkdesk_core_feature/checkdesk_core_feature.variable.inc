@@ -102,7 +102,7 @@ Your account on [site:name] has been canceled.
 
 شكراً لتسجيلك على [site:name]. يمكنك الآن تسجيل الدخول بالضغط على الرابط التالي أو نسخه ولصقه في شريط العنوان في المتصفح: 
 
-[user:one-time-login-url]
+[user:registrationpassword-url]
 
 يمكن استخدام هذا الرابط لتسجيل الدخول مرة واحد فقط وسيقودك إلى صفحة لضبط كلمة السر. 
 
