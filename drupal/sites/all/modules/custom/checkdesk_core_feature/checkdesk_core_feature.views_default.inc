@@ -759,28 +759,6 @@ function checkdesk_core_feature_views_default_views() {
     4 => 0,
   );
   $handler->display->display_options['filters']['keys']['remove_score'] = TRUE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'media' => 'media',
-    'discussion' => 'discussion',
-    'post' => 'post',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
-  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
-  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
-  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    5 => 0,
-    4 => 0,
-  );
-  $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
   /* Filter criterion: Content: Tags (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';

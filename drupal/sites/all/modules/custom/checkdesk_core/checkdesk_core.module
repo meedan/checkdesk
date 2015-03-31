@@ -1514,23 +1514,40 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
   }
 
   if ($form['#id'] == 'views-exposed-form-checkdesk-search-page') {
-    // Change type labels
-    $form['type']['#options']['All'] = t('Everything');
-    $form['type']['#options']['media'] = t('Reports');
-    $form['type']['#options']['discussion'] = t('Stories');
-    $form['type']['#options']['post'] = t('Updates');
+    // Add custom filed for type
+    $form['type'] = array(
+      '#type' => 'select',
+      '#title' => '',
+      '#options' => array(
+        'All' => t('Everything'),
+        'report' => t('Reports'),
+        'story' => t('Stories'),
+        'update' => t('Updates'),
+      ),
+      '#theme' => 'select_as_links',
+    );
+    // this value determines the position of the new element.
+    $insert_index = 2;
+    $element_to_insert = array();
+    $element_to_insert['filter-type'] = array(
+      'value' => 'type',
+    );
+    $form_info_top = array_slice($form['#info'], 0, $insert_index);
+    $form_info_bottom = array_slice($form['#info'], $insert_index);
+    $new_form_info = $form_info_top + $element_to_insert + $form_info_bottom;
+    $form['#info'] = $new_form_info;
     // Add required js for fastLiveFilter plugin
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/jquery-fastLiveFilter/jquery.fastLiveFilter.js');
     drupal_add_js(drupal_get_path('module', 'checkdesk_core') . '/js/checkdesk_search.js');
     $form['field_tags_tid']['#fastlivefilte_placeholder'] = t('Search for tag');
     //Hide/show media reports based on type filter
-    if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] != 'media')) {
+    if (!isset($_GET['type']) || (isset($_GET['type']) && $_GET['type'] != 'report')) {
       $form['#info']['filter-field_rating_tid']['label'] = NULL;
       $form['field_rating_tid']['#type'] = 'hidden';
       unset($form['field_rating_tid']['#theme']);
     }
     // Media filters
-    if (isset($_GET['type']) && $_GET['type'] == 'media') {
+    if (isset($_GET['type']) && $_GET['type'] == 'report') {
       // Change -Any- status label
       $form['field_rating_tid']['#options']['All'] = t('Any status');
       $form['media_flags'] = array(
@@ -1546,18 +1563,17 @@ function checkdesk_core_form_views_exposed_form_alter(&$form, &$form_state) {
       );
     }
     // Hide tag filter for updates
-    if (isset($_GET['type']) && $_GET['type'] == 'post') {
+    if (isset($_GET['type']) && $_GET['type'] == 'update') {
       $form['#info']['filter-field_tags_tid']['label'] = NULL;
       $form['field_tags_tid']['#type'] = 'hidden';
       unset($form['field_tags_tid']['#theme']);
     }
     // Hide update choice if user filter by tag.
     if (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
-      unset($form['type']['#options']['post']);
+      unset($form['type']['#options']['update']);
     }
 
     $form['keys']['#attributes']['placeholder'] = t('Search');
-
 
     // Add author filter for admin or journalist
     global $user;
@@ -2196,8 +2212,19 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
 
   if ($view->name == 'checkdesk_search') {
     global $user;
+    // Update type condition with right values
+    if (isset($_GET['type']) && $_GET['type'] != 'All') {
+      foreach($query->where[1]['conditions'] as $k => $v) {
+        if (is_string($v['field']) && $v['field'] == 'node.type') {
+          $selected_type = ($_GET['type'] == 'report') ? array('media') :
+            ($_GET['type'] == 'update') ? array('post') : array('discussion');
+          $query->where[1]['conditions'][$k]['value'] = $selected_type;
+          break;
+        }
+      }
+    }
     // Add where condition based on flag type for reports.
-    if (isset($_GET['type']) && $_GET['type'] == 'media' && isset($_GET['media_flags'])) {
+    if (isset($_GET['type']) && $_GET['type'] == 'report' && isset($_GET['media_flags'])) {
       switch($_GET['media_flags']) {
         case 'flagged_spam':
           $query->add_where(1,'flagging_node.uid', 1, 'IS NOT NULL');
@@ -2208,7 +2235,7 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
       }
     }
     // Remove status condition if user selected type not reports
-    if (isset($_GET['type']) && $_GET['type'] != 'media' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
+    if (isset($_GET['type']) && $_GET['type'] != 'report' && isset($_GET['field_rating_tid']) && is_numeric($_GET['field_rating_tid'])) {
       $conditions = $query->where[1]['conditions'];
       foreach($conditions as $k => $v) {
         if (is_string($v['field']) && $v['field'] == 'field_data_field_rating.field_rating_tid') {
@@ -3718,7 +3745,7 @@ function _checkdesk_search_header() {
 
   if (isset($_GET['type'])) {
     switch ($_GET['type']) {
-      case 'media':
+      case 'report':
         // Add filters for media only
         $selected = 'All';
         if (isset($_GET['field_rating_tid'])) {
@@ -3742,8 +3769,8 @@ function _checkdesk_search_header() {
           array('attributes' => array('class' => ($selected == 'spam') ? 'selected' : '')));
 
         break;
-      case 'discussion':
-      case 'post':
+      case 'story':
+      case 'update':
       $selected = 'All';
         if (isset($_GET['status'])) {
           $selected = ($_GET['status'] == 0) ? 'drafts' : 'published';
@@ -3777,7 +3804,7 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
   }
   elseif ($original_path == 'reports') {
     $path = 'search';
-    $options['query']['type'] = 'media';
+    $options['query']['type'] = 'report';
   }
 }
 
