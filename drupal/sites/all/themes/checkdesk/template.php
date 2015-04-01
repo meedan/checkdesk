@@ -48,7 +48,8 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // Set author name or provider name
     if (isset($embed->author_url) && isset($embed->author_name)) {
       $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
-    } else {
+    }
+    elseif (isset($embed->original_url) && isset($embed->provider_name)) {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
     // Media description
@@ -145,6 +146,15 @@ function checkdesk_preprocess_html(&$variables) {
   }
   $head_title[] = variable_get('site_name', 'Drupal');
   $variables['head_title'] = strip_tags(implode(' | ', $head_title));
+  // Add meta tag for twitter:widgets:csp ticket #3628
+  $twitter_csp = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'twitter:widgets:csp',
+      'content' => 'on',
+    ),
+  );
+  drupal_add_html_head($twitter_csp, 'twitter:widgets:csp');
 }
 
 /**
