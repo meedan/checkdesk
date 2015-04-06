@@ -253,21 +253,8 @@ function system_requirements($phase) {
     $requirements['settings.php']['title'] = $t('Configuration file');
   }
 
-  // Test the web server identity.
-  if (isset($_SERVER['SERVER_SOFTWARE']) && preg_match("/Apache/i", $_SERVER['SERVER_SOFTWARE'])) {
-    $is_apache = TRUE;
-  }
-  elseif (!isset($_SERVER['SERVER_SOFTWARE'])) {
-    // Skip this in Drush where SERVER_SOFTWARE is not set and .htaccess never used anyway.
-    $is_apache = FALSE;
-  }
-  else {
-    $is_apache = FALSE;
-  }
-
-  // Test the contents of the .htaccess files only for Apache web server.
-  // The .htaccess is never used in other popular web servers, like Nginx.
-  if ($phase == 'runtime' && $is_apache) {
+  // Test the contents of the .htaccess files.
+  if ($phase == 'runtime') {
     // Try to write the .htaccess files first, to prevent false alarms in case
     // (for example) the /tmp directory was wiped.
     file_ensure_htaccess();
@@ -2867,7 +2854,14 @@ function system_update_7061(&$sandbox) {
         // We will convert filepaths to URI using the default scheme
         // and stripping off the existing file directory path.
         $file['uri'] = $scheme . preg_replace('!^' . preg_quote($basename) . '!', '', $file['filepath']);
-        $file['uri'] = file_stream_wrapper_uri_normalize($file['uri']);
+        // Normalize the URI but don't call file_stream_wrapper_uri_normalize()
+        // directly, since that is a higher-level API function which invokes
+        // hooks while validating the scheme, and those will not work during
+        // the upgrade. Instead, use a simpler version that just assumes the
+        // scheme from above is already valid.
+        if (($file_uri_scheme = file_uri_scheme($file['uri'])) && ($file_uri_target = file_uri_target($file['uri']))) {
+          $file['uri'] = $file_uri_scheme . '://' . $file_uri_target;
+        }
         unset($file['filepath']);
         // Insert into the file_managed table.
         // Each fid should only be stored once in file_managed.

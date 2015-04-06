@@ -475,23 +475,6 @@ function file_ensure_htaccess() {
  *   already present. Defaults to FALSE.
  */
 function file_create_htaccess($directory, $private = TRUE, $force_overwrite = FALSE) {
-
-  // Test the web server identity.
-  if (isset($_SERVER['SERVER_SOFTWARE']) && preg_match("/Apache/i", $_SERVER['SERVER_SOFTWARE'])) {
-    $is_apache = TRUE;
-  }
-  elseif (!isset($_SERVER['SERVER_SOFTWARE'])) {
-    // Skip this in Drush where SERVER_SOFTWARE is not set and .htaccess never used anyway.
-    $is_apache = FALSE;
-  }
-  else {
-    $is_apache = FALSE;
-  }
-
-  if (!$is_apache) {
-    return;
-  }
-
   if (file_uri_scheme($directory)) {
     $directory = file_stream_wrapper_uri_normalize($directory);
   }
@@ -1576,7 +1559,7 @@ function file_save_upload($form_field_name, $validators = array(), $destination 
     return FALSE;
   }
 
-  // Add in our check of the the file name length.
+  // Add in our check of the file name length.
   $validators['file_validate_name_length'] = array();
 
   // Call the validation functions specified by this function's caller.
