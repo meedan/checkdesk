@@ -1,8 +1,8 @@
-diff --git a/modules/filter/filter.module b/modules/filter/filter.module
-index 5c2b8c9..133892d 100644
+diff --git a/drupal/modules/filter/filter.module b/drupal/modules/filter/filter.module
+index 74621f1..f0f23e9 100644
 --- a/drupal/modules/filter/filter.module
 +++ b/drupal/modules/filter/filter.module
-@@ -1471,7 +1471,7 @@ function _filter_url($text, $filter) {
+@@ -1469,7 +1469,7 @@ function _filter_url($text, $filter) {
    $domain = '(?:[A-Za-z0-9._+-]+\.)?[A-Za-z]{2,64}\b';
    $ip = '(?:[0-9]{1,3}\.){3}[0-9]{1,3}';
    $auth = '[a-zA-Z0-9:%_+*~#?&=.,/;-]+@';
@@ -11,7 +11,7 @@ index 5c2b8c9..133892d 100644
  
    // Prepare pattern for optional trailing punctuation.
    // Even these characters could have a valid meaning for the URL, such usage is
-diff --git a/modules/filter/tests/filter.url-input.txt b/modules/filter/tests/filter.url-input.txt
+diff --git a/drupal/modules/filter/tests/filter.url-input.txt b/drupal/modules/filter/tests/filter.url-input.txt
 index 7b33af5..4cbd452 100644
 --- a/drupal/modules/filter/tests/filter.url-input.txt
 +++ b/drupal/modules/filter/tests/filter.url-input.txt
@@ -23,7 +23,7 @@ index 7b33af5..4cbd452 100644
 +
  This is the end!
 \ No newline at end of file
-diff --git a/modules/filter/tests/filter.url-output.txt b/modules/filter/tests/filter.url-output.txt
+diff --git a/drupal/modules/filter/tests/filter.url-output.txt b/drupal/modules/filter/tests/filter.url-output.txt
 index 9cc5073..c013bbe 100644
 --- a/drupal/modules/filter/tests/filter.url-output.txt
 +++ b/drupal/modules/filter/tests/filter.url-output.txt
