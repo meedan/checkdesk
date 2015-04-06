@@ -508,10 +508,9 @@ class RulesData  {
         // before the child-wrapper is created.
         if (count($parts) == 1) {
           // Support asserting a type in case of generic entity references only.
-          if (isset($assertion['type']) && $var_info[$parts[0]]['type'] == 'entity') {
-            if (entity_get_info($assertion['type'])) {
-              $var_info[$parts[0]]['type'] = $assertion['type'];
-            }
+          $var_type = &$var_info[$parts[0]]['type'];
+          if (isset($assertion['type']) && ($var_type == 'entity' || $var_type == 'list<entity>')) {
+            $var_type = $assertion['type'];
             unset($assertion['type']);
           }
           // Add any single bundle directly to the variable info, so the
@@ -616,7 +615,7 @@ class RulesData  {
    * @see RulesPlugin::availableVariables()
    */
   public static function addSiteMetadata(EntityMetadataWrapper $wrapper, $property_info) {
-    $site_info = entity_get_property_info('site') + array('properties' => array());
+    $site_info = entity_get_property_info('site');
     $property_info['properties'] += $site_info['properties'];
     // Also invoke the usual callback for altering metadata, in case actions
     // have specified further metadata.
