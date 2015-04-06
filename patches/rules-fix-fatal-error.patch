@@ -1,8 +1,8 @@
 diff --git a/drupal/sites/all/modules/contrib/rules/includes/rules.state.inc b/drupal/sites/all/modules/contrib/rules/includes/rules.state.inc
-index a4150e7..7166d9e 100644
+index 98ef016..2fa90b6 100644
 --- a/drupal/sites/all/modules/contrib/rules/includes/rules.state.inc
 +++ b/drupal/sites/all/modules/contrib/rules/includes/rules.state.inc
-@@ -616,7 +616,7 @@ class RulesData  {
+@@ -615,7 +615,7 @@ class RulesData  {
     * @see RulesPlugin::availableVariables()
     */
    public static function addSiteMetadata(EntityMetadataWrapper $wrapper, $property_info) {
@@ -11,3 +11,15 @@ index a4150e7..7166d9e 100644
      $property_info['properties'] += $site_info['properties'];
      // Also invoke the usual callback for altering metadata, in case actions
      // have specified further metadata.
+diff --git a/drupal/sites/all/modules/contrib/rules/rules_scheduler/rules_scheduler.module b/drupal/sites/all/modules/contrib/rules/rules_scheduler/rules_scheduler.module
+index b74973d..c059b61 100644
+--- a/drupal/sites/all/modules/contrib/rules/rules_scheduler/rules_scheduler.module
++++ b/drupal/sites/all/modules/contrib/rules/rules_scheduler/rules_scheduler.module
+@@ -45,6 +45,7 @@ function rules_scheduler_run_task(array $task) {
+     if (isset($task['state'])) {
+       $task['data'] = $task['state'];
+     }
++    cache_clear_all('comp_', 'cache_rules', TRUE);
+     rules_scheduler_task_handler($task)->runTask();
+   }
+   catch (RulesEvaluationException $e) {
