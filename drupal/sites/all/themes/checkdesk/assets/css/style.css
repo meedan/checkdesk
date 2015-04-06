@@ -5392,6 +5392,19 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   max-height: 420px !important;
 }
 
+.media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
+  float: right;
+  padding-left: 12px;
+  padding-bottom: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 142px;
+  min-height: 88px;
+  text-align: center;
+}
+
 .media .inline-img-thumb, .media .inline-video-thumb {
   width: 142px;
   min-height: 88px;
@@ -5402,6 +5415,19 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
+}
+
+/* Hack to make the loader gif not resize as media thumbnails */
+.media .inline-img-thumb-holder img[src*="loader_white.gif"] {
+  width: auto !important;
+  min-height: 0 !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  border: 0 none !important;
 }
 
 .item-type-story .media .inline-img-thumb-holder {
@@ -5445,12 +5471,6 @@ body.widgets #main #footer #footer-inner, body.sidebar-first #main #footer #foot
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
-}
-
-.media .inline-img-thumb-holder, .media .inline-video-thumb-holder {
-  float: right;
-  padding-left: 12px;
-  padding-bottom: 12px;
 }
 
 .inline-attachment {
@@ -8999,7 +9019,7 @@ body.page-liveblog #main .view-liveblog .pager-load-more .ajax-progress-throbber
   table-layout: fixed;
   padding-bottom: 15px;
 }
-body.page-story-collaboration .story .story-collaboration-header-wrapper {
+body.page-node-collaboration .story .story-collaboration-header-wrapper {
   border-bottom: 1px solid rgba(16, 33, 47, 0.1);
 }
 .story .story-collaboration-header-wrapper > div {

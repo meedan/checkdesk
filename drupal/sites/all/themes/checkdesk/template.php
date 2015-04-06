@@ -168,7 +168,7 @@ function checkdesk_preprocess_region(&$variables) {
     $variables['header_image'] = '';
     $image = theme_get_setting('header_image_path');
 
-    if (!empty($image) && theme_get_setting('header_image_enabled')) {
+    if (!empty($image)) {
       $header_image_data = array(
           'style_name' => 'partner_logo',
           'path' => $image,
@@ -479,18 +479,11 @@ function checkdesk_preprocess_page(&$variables) {
   $variables['header_image'] = '';
   $image = theme_get_setting('header_image_path');
 
-  if (!empty($image) && theme_get_setting('header_image_enabled')) {
+  if (!empty($image)) {
     $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
 
-  $position = theme_get_setting('header_image_position');
-  $variables['header_image_position'] = (empty($position) ? 'left' : $position);
-
-  $bg = theme_get_setting('header_bg_path');
-  $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
-
   $variables['header_slogan'] = t('A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
-  $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
 
   // set page variable if widgets should be visible
   $variables['show_widgets'] = checkdesk_widgets_visibility();
