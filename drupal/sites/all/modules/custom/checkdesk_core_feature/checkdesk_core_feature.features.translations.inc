@@ -15210,6 +15210,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['55fd42f424d5885f56ac0b31fe1db676'] = array(
+    'source' => 'Draft updates',
+    'context' => '',
+    'location' => '/ar/search?type=update&status=0',
+    'translation' => 'مسودة التحديثات',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['55fdef3b4d1b5e1fd6acc250d1340f07'] = array(
     'source' => 'Bolded',
     'context' => '',
@@ -32709,6 +32717,14 @@ password: Your password
     'context' => '',
     'location' => '',
     'translation' => 'ضروري',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['b654546df4ebb62a392730e0b0f4e087'] = array(
+    'source' => 'Draft stories',
+    'context' => '',
+    'location' => '/ar/search?type=update&status=0',
+    'translation' => 'مسودة اﻷخبار',
     'plid' => 0,
     'plural' => 0,
   );
