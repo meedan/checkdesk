@@ -23,9 +23,6 @@ $aliases['qa'] = array(
 $aliases['dev'] = array(
   'site-list' => array('@dev.meedan'),
 );
-$aliases['ooew'] = array(
-  'site-list' => array('@ooew.prod', '@ooew.dev'),
-);
 
 // prod aliases
 $aliases['prod-alias'] = array (
@@ -115,26 +112,6 @@ $aliases['dev.meedan'] = array (
   'parent' => '@dev-alias',
   'uri' => 'dev.checkdesk.org',
   'root' => '/var/www/checkdesk.dev/current/drupal',
-);
-
-// ooew aliases
-$aliases['ooew-alias'] = array (
-  'ssh-options' => '-p 43896',
-  'path-aliases' => array (
-    '%drush' => '/usr/share/php/drush',
-  ),
-);
-$aliases['ooew.prod'] = array (
-  'parent' => '@ooew-alias',
-  'remote-host' => 'www2.checkdesk.org',
-  'uri' => 'ooew.checkdesk.org',
-  'root' => '/var/www/ooew.prod/current/drupal',
-);
-$aliases['ooew.dev'] = array (
-  'parent' => '@ooew-alias',
-  'remote-host' => 'dev.checkdesk.org',
-  'uri' => 'dev.ooew.checkdesk.org',
-  'root' => '/var/www/ooew.dev/current/drupal',
 );
 
 // dev template
