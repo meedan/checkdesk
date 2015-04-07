@@ -1098,16 +1098,6 @@ function checkdesk_core_feature_user_default_permissions() {
     'module' => 'heartbeat',
   );
 
-  // Exported permission: 'view any unpublished discussion content'.
-  $permissions['view any unpublished discussion content'] = array(
-    'name' => 'view any unpublished discussion content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'journalist' => 'journalist',
-    ),
-    'module' => 'view_unpublished',
-  );
-
   // Exported permission: 'view field_bio'.
   $permissions['view field_bio'] = array(
     'name' => 'view field_bio',
