@@ -1,5 +1,9 @@
 jQuery(function() {
 
+    var url = window.location.href;
+    if (url.indexOf('?') == -1) {
+        window.location.href = url + '?type=All';
+    }
     jQuery('#views-exposed-form-checkdesk-search-page .form-item-type .form-item div a').each(function() {
         var href = jQuery(this).attr('href');
         var new_href = href.split("?")[0].split("#")[0];
