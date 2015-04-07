@@ -47358,6 +47358,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:menu']['74857388f13b7ba4ed758b80ffdfe7ad'] = array(
+    'source' => 'Draft stories',
+    'context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
+    'location' => 'menu:item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
+    'translation' => 'مسودة اﻷخبار',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:menu']['844ea0efec81ac18372868128eab065f'] = array(
     'source' => 'Compose update',
     'context' => 'item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
@@ -47403,6 +47411,14 @@ print theme(\'views_autorefresh\', array(
     'context' => 'item::title',
     'location' => 'menu:item::title',
     'translation' => 'تحديث موضوع',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['d12b5d4fb18ea4e9373e9b731f06d6ca'] = array(
+    'source' => 'Draft updates',
+    'context' => 'item:5452488b-84b8-4398-9078-9814050cc153:title',
+    'location' => 'menu:item:5452488b-84b8-4398-9078-9814050cc153:title',
+    'translation' => 'مسودة التحديثات',
     'plid' => 0,
     'plural' => 0,
   );

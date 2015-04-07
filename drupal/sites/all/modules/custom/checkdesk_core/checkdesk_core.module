@@ -141,9 +141,28 @@ function checkdesk_core_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'checkdesk_core.pages.inc',
   );
+  $items['checkdesk/draft_stories'] = array(
+    'title' => 'Draft stories',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array('search'),
+    'access callback' => '_checkdesk_is_journalist',
+  );
+  $items['checkdesk/draft_updates'] = array(
+    'title' => 'Draft updates',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array('search'),
+    'access callback' => '_checkdesk_is_journalist',
+  );
   return $items;
 }
 
+function _checkdesk_is_journalist() {
+  global $user;
+  if ($user->uid == 1 || in_array('journalist', $user->roles)) {
+    return TRUE;
+  }
+  return FALSE;
+}
 /**
  * Menu callback function for `checkdesk_take_tour`
  */
@@ -3805,6 +3824,14 @@ function checkdesk_core_url_outbound_alter(&$path, &$options, $original_path) {
   elseif ($original_path == 'reports') {
     $path = 'search';
     $options['query']['type'] = 'report';
+  }
+  elseif ($original_path == 'checkdesk/draft_stories') {
+    $path = 'search';
+    $options['query'] = array('type' => 'story', 'status' => 0);
+  }
+  elseif ($original_path == 'checkdesk/draft_updates') {
+    $path = 'search';
+    $options['query'] = array('type' => 'update', 'status' => 0);
   }
 }
 

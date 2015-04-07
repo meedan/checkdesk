@@ -1105,18 +1105,34 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
   // Set page title
   $view = $vars['view'];
   $page_title = t('Search');
-  if (isset($_GET['type']) && $_GET['type'] != 'All') {
-    if ($_GET['type'] == 'media') {
+  $get_args = $_GET;
+  unset($get_args['q']);
+  // Set title based on type filter
+  if (count($get_args) == 1 && isset($get_args['type'])) {
+    if ($_GET['type'] == 'report') {
       $page_title = t('Reports');
-    } elseif ($_GET['type'] == 'post') {
+    } elseif ($_GET['type'] == 'update') {
       $page_title = t('Updates');
-    } elseif ($_GET['type'] == 'discussion') {
+    } elseif ($_GET['type'] == 'story') {
       $page_title = t('Stories');
     }
-  } elseif (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
+  }
+  // Set title based on tag filter
+  elseif (count($get_args) == 1 && isset($get_args['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
     //Set taxonomy name as title
     $term = taxonomy_term_load($_GET['field_tags_tid']);
     $page_title = $term->name;
+  }
+  // Set title based on type and status filter 
+  elseif (count($get_args) == 2 && isset($get_args['type']) && isset($get_args['status'])) {
+    if (!$get_args['status']) {
+      if ($_GET['type'] == 'story') {
+        $page_title = t('Draft stories');
+      }
+      elseif ($_GET['type'] == 'update') {
+        $page_title = t('Draft updates');
+      }
+    }
   }
   $view->set_title($page_title);
 }
