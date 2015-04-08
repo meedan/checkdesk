@@ -220,8 +220,7 @@ function checkdesk_core_feature_uuid_features_default_content() {
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -273,10 +272,14 @@ function checkdesk_core_feature_uuid_features_default_content() {
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
+  'date' => '2013-03-04 20:45:20 +0000',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -325,8 +328,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -378,10 +380,14 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
+  'date' => '2013-03-04 20:45:20 +0000',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -619,8 +625,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -672,10 +677,14 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
+  'date' => '2013-03-04 20:45:20 +0000',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -740,8 +749,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -793,10 +801,14 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
+  'date' => '2013-03-04 20:45:20 +0000',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -850,8 +862,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -903,10 +914,14 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
+  'date' => '2013-03-04 20:45:20 +0000',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -955,8 +970,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -1008,10 +1022,14 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
+  'date' => '2013-03-04 20:45:20 +0000',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -1076,8 +1094,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -1129,10 +1146,14 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
+  'date' => '2013-03-04 20:45:20 +0000',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -1163,8 +1184,7 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
   'metatags' => array(),
   'rdf_mapping' => array(
     'rdftype' => array(
-      0 => 'sioc:Item',
-      1 => 'foaf:Document',
+      0 => 'foaf:Document',
     ),
     'title' => array(
       'predicates' => array(
@@ -1216,10 +1236,14 @@ jQuery("#modalContent, #modalBackdrop").addClass("modal-install-bookmarklet");
       'callback' => 'date_iso8601',
     ),
   ),
+  'cid' => 0,
+  'last_comment_name' => NULL,
+  'last_comment_uid' => 0,
+  'comment_count' => 0,
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2013-03-04 22:45:20 +0200',
+  'date' => '2013-03-04 20:45:20 +0000',
 );
   return $nodes;
 }
