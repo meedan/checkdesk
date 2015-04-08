@@ -56,7 +56,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'parent_identifier' => 'main-menu_:<sub>',
     'router_path' => 'admin/people',
-    'uuid' => '64951ef2-f0ea-4842-a761-c42b353bbf41',
+    'uuid' => '485c5e2e-cc65-4904-91e1-1ec580b522d5',
     'weight' => -49,
   );
   // Exported menu link: main-menu_create-story:node/add/discussion
@@ -82,6 +82,66 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'router_path' => 'node/add/discussion',
     'uuid' => 'edc54df9-4aa8-bf84-dd89-ca0a351af23b',
     'weight' => -49,
+  );
+  // Exported menu link: main-menu_draft--stories:checkdesk/draft_stories
+  $menu_links['main-menu_draft--stories:checkdesk/draft_stories'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 0,
+    'language' => 'und',
+    'link_path' => 'checkdesk/draft_stories',
+    'link_title' => 'Draft  stories',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'und',
+    'menu_name' => 'main-menu',
+    'module' => 'menu',
+    'options' => array(
+      'alter' => TRUE,
+      'identifier' => 'main-menu_draft--stories:checkdesk/draft_stories',
+      'attributes' => array(),
+      'item_attributes' => array(
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+    ),
+    'parent_identifier' => 'main-menu_:<sub>',
+    'router_path' => 'checkdesk/draft_stories',
+    'uuid' => '2821e682-4a21-4a62-87b5-9c98675c7813',
+    'weight' => -47,
+  );
+  // Exported menu link: main-menu_draft--updates:checkdesk/draft_updates
+  $menu_links['main-menu_draft--updates:checkdesk/draft_updates'] = array(
+    'customized' => 1,
+    'expanded' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'hidden' => 0,
+    'language' => 'und',
+    'link_path' => 'checkdesk/draft_updates',
+    'link_title' => 'Draft  updates',
+    'menu_links_customized' => 1,
+    'menu_links_customized_2' => 1,
+    'menu_links_language' => 'und',
+    'menu_name' => 'main-menu',
+    'module' => 'menu',
+    'options' => array(
+      'alter' => TRUE,
+      'identifier' => 'main-menu_draft--updates:checkdesk/draft_updates',
+      'attributes' => array(),
+      'item_attributes' => array(
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+    ),
+    'parent_identifier' => 'main-menu_:<sub>',
+    'router_path' => 'checkdesk/draft_updates',
+    'uuid' => '5452488b-84b8-4398-9078-9814050cc153',
+    'weight' => -46,
   );
   // Exported menu link: main-menu_edit-fact-checking-statement:admin/config/system/checkdesk
   $menu_links['main-menu_edit-fact-checking-statement:admin/config/system/checkdesk'] = array(
@@ -200,7 +260,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     ),
     'parent_identifier' => 'main-menu_:<sub>',
     'router_path' => 'reports',
-    'uuid' => '4b8ad97a-37bb-4bb0-bd69-0e115158ee77',
+    'uuid' => 'e48d5c0f-0c1a-49ca-8a8d-b785b7bc8514',
     'weight' => -50,
   );
   // Exported menu link: menu-common_information:<nolink>
@@ -611,6 +671,8 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Administer users');
   t('Bookmarklet');
   t('Create story');
+  t('Draft  stories');
+  t('Draft  updates');
   t('Edit fact-checking statement');
   t('Fact-checking statement');
   t('Home');

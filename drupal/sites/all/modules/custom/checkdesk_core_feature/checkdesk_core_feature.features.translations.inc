@@ -8246,6 +8246,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['3006d30ccd8d97b4bd95821f305aa27a'] = array(
+    'source' => '<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> added by <a class="contributor" href="@user">!user</a>',
+    'context' => '',
+    'location' => '/ar/story/13',
+    'translation' => '<a href="@url"><time class="date-time" datetime="!timestamp">!daydatetime</time></a> من قبل <a class="contributor" href="@user">!user</a>',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['301a5b45ff198a1e7e243b6f19da8d1e'] = array(
     'source' => 'No containers or forums available. <a href="@container">Add container</a> or <a href="@forum">Add forum</a>.',
     'context' => '',
@@ -15199,6 +15207,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'context' => '',
     'location' => '',
     'translation' => 'حجم الملف %filesize وهو ما قد يتجاوز حصتك من القرص (%quota).',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:default']['55fd42f424d5885f56ac0b31fe1db676'] = array(
+    'source' => 'Draft updates',
+    'context' => '',
+    'location' => '/ar/search?type=update&status=0',
+    'translation' => 'تحديثات غير منشورة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -32704,6 +32720,14 @@ password: Your password
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:default']['b654546df4ebb62a392730e0b0f4e087'] = array(
+    'source' => 'Draft stories',
+    'context' => '',
+    'location' => '/ar/search?type=update&status=0',
+    'translation' => 'موضوعات غير منشورة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:default']['b65d50673fb197078c78f3a448a958bf'] = array(
     'source' => 'emergency',
     'context' => '',
@@ -47350,6 +47374,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:menu']['7d2e19a2830737e72b8ccbb648fca6fc'] = array(
+    'source' => 'Draft  updates',
+    'context' => 'item:5452488b-84b8-4398-9078-9814050cc153:title',
+    'location' => 'menu:item:5452488b-84b8-4398-9078-9814050cc153:title',
+    'translation' => 'تحديثات غير منشورة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:menu']['844ea0efec81ac18372868128eab065f'] = array(
     'source' => 'Compose update',
     'context' => 'item:bd1dbda7-948e-7ab4-2541-f97399a649fd:title',
@@ -47371,6 +47403,14 @@ print theme(\'views_autorefresh\', array(
     'context' => 'item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title',
     'location' => 'menu:item:0bc3af5d-28a8-c864-bd93-f17d8bea2366:title',
     'translation' => 'أضف تقرير',
+    'plid' => 0,
+    'plural' => 0,
+  );
+  $translations['ar:menu']['b2d30a94203b8b6f25b7e1c4d6f4dd6a'] = array(
+    'source' => 'Draft  stories',
+    'context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
+    'location' => 'menu:item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
+    'translation' => 'موضوعات غير منشورة',
     'plid' => 0,
     'plural' => 0,
   );

@@ -164,5 +164,15 @@ function checkdesk_featured_stories_feature_user_default_permissions() {
     'module' => 'flag',
   );
 
+  // Exported permission: 'view any unpublished discussion content'.
+  $permissions['view any unpublished discussion content'] = array(
+    'name' => 'view any unpublished discussion content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'journalist' => 'journalist',
+    ),
+    'module' => 'view_unpublished',
+  );
+
   return $permissions;
 }

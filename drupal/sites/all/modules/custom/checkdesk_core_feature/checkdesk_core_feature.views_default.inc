@@ -711,6 +711,7 @@ function checkdesk_core_feature_views_default_views() {
   $handler->display->display_options['filters']['language']['field'] = 'language';
   $handler->display->display_options['filters']['language']['value'] = array(
     '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
+    'und' => 'und',
   );
   $handler->display->display_options['filters']['language']['group'] = 1;
   /* Filter criterion: Content: Type */
@@ -758,28 +759,6 @@ function checkdesk_core_feature_views_default_views() {
     4 => 0,
   );
   $handler->display->display_options['filters']['keys']['remove_score'] = TRUE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'media' => 'media',
-    'discussion' => 'discussion',
-    'post' => 'post',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
-  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
-  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
-  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    5 => 0,
-    4 => 0,
-  );
-  $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
   /* Filter criterion: Content: Tags (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
@@ -1300,11 +1279,6 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
   /* Filter criterion: Field: Fact-checking status (field_rating) (translated) */
   $handler->display->display_options['filters']['field_rating_tid_i18n']['id'] = 'field_rating_tid_i18n';
   $handler->display->display_options['filters']['field_rating_tid_i18n']['table'] = 'field_data_field_rating';
@@ -1491,11 +1465,6 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
   /* Filter criterion: Field: Fact-checking status (field_rating) */
   $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
   $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';

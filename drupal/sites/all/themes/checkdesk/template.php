@@ -48,7 +48,8 @@ function checkdesk_preprocess_field(&$variables, $hook) {
     // Set author name or provider name
     if (isset($embed->author_url) && isset($embed->author_name)) {
       $variables['author_name'] = $embed->author_url ? l($embed->author_name, $embed->author_url) : $embed->author_name;
-    } else {
+    }
+    elseif (isset($embed->original_url) && isset($embed->provider_name)) {
       $variables['provider_name'] = $embed->original_url ? l($embed->provider_name, $embed->original_url) : $embed->provider_name;
     }
     // Media description
@@ -145,6 +146,15 @@ function checkdesk_preprocess_html(&$variables) {
   }
   $head_title[] = variable_get('site_name', 'Drupal');
   $variables['head_title'] = strip_tags(implode(' | ', $head_title));
+  // Add meta tag for twitter:widgets:csp ticket #3628
+  $twitter_csp = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'twitter:widgets:csp',
+      'content' => 'on',
+    ),
+  );
+  drupal_add_html_head($twitter_csp, 'twitter:widgets:csp');
 }
 
 /**
@@ -158,7 +168,7 @@ function checkdesk_preprocess_region(&$variables) {
     $variables['header_image'] = '';
     $image = theme_get_setting('header_image_path');
 
-    if (!empty($image) && theme_get_setting('header_image_enabled')) {
+    if (!empty($image)) {
       $header_image_data = array(
           'style_name' => 'partner_logo',
           'path' => $image,
@@ -469,18 +479,11 @@ function checkdesk_preprocess_page(&$variables) {
   $variables['header_image'] = '';
   $image = theme_get_setting('header_image_path');
 
-  if (!empty($image) && theme_get_setting('header_image_enabled')) {
+  if (!empty($image)) {
     $variables['header_image'] = l(theme('image', array('path' => file_create_url($image))), '<front>', array('html' => TRUE));
   }
 
-  $position = theme_get_setting('header_image_position');
-  $variables['header_image_position'] = (empty($position) ? 'left' : $position);
-
-  $bg = theme_get_setting('header_bg_path');
-  $variables['header_bg'] = (empty($bg) ? '' : file_create_url($bg));
-
   $variables['header_slogan'] = t('A <span class="checkdesk-slogan-logo">Checkdesk</span> Liveblog by <span class="checkdesk-slogan-partner">@partner</span>', array('@partner' => variable_get_value('checkdesk_site_owner', array('language' => $language))));
-  $variables['header_slogan_position'] = ((!empty($position) && in_array($position, array('center', 'right'))) ? 'left' : 'right');
 
   // set page variable if widgets should be visible
   $variables['show_widgets'] = checkdesk_widgets_visibility();
@@ -1102,18 +1105,34 @@ function checkdesk_preprocess_views_view__checkdesk_search(&$vars) {
   // Set page title
   $view = $vars['view'];
   $page_title = t('Search');
-  if (isset($_GET['type']) && $_GET['type'] != 'All') {
-    if ($_GET['type'] == 'media') {
+  $get_args = $_GET;
+  unset($get_args['q']);
+  // Set title based on type filter
+  if (count($get_args) == 1 && isset($get_args['type'])) {
+    if ($_GET['type'] == 'report') {
       $page_title = t('Reports');
-    } elseif ($_GET['type'] == 'post') {
+    } elseif ($_GET['type'] == 'update') {
       $page_title = t('Updates');
-    } elseif ($_GET['type'] == 'discussion') {
+    } elseif ($_GET['type'] == 'story') {
       $page_title = t('Stories');
     }
-  } elseif (isset($_GET['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
+  }
+  // Set title based on tag filter
+  elseif (count($get_args) == 1 && isset($get_args['field_tags_tid']) && is_numeric($_GET['field_tags_tid'])) {
     //Set taxonomy name as title
     $term = taxonomy_term_load($_GET['field_tags_tid']);
     $page_title = $term->name;
+  }
+  // Set title based on type and status filter 
+  elseif (count($get_args) == 2 && isset($get_args['type']) && isset($get_args['status'])) {
+    if (!$get_args['status']) {
+      if ($_GET['type'] == 'story') {
+        $page_title = t('Draft stories');
+      }
+      elseif ($_GET['type'] == 'update') {
+        $page_title = t('Draft updates');
+      }
+    }
   }
   $view->set_title($page_title);
 }
@@ -1183,7 +1202,9 @@ function checkdesk_preprocess_views_view_fields(&$vars) {
       $flag_count = flag_get_counts('node', $vars['fields']['nid']->raw);
       $follow_story = l(t('Follow story'), 'user/login', array('query' => array(drupal_get_destination())));
       // append count
-      $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
+      if (isset($flag_count['follow_story'])) {
+        $follow_story .= '<span class="follow-count" >' . $flag_count['follow_story'] . '</span>';
+      }
     }
     $vars['follow_story'] = $follow_story;
   }
