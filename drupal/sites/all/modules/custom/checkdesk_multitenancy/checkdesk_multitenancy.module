@@ -1,0 +1,42 @@
+<?php
+/**
+ * @file
+ * Main checkdesk_multitenancy file
+ */
+
+define('CHECKDESK_MULTITENANCY_GROUP_TYPE', 'newsroom');
+
+/**
+ * Implements hook_node_info().
+ */
+function checkdesk_multitenancy_node_info() {
+  return array(
+    CHECKDESK_MULTITENANCY_GROUP_TYPE => array(
+      'name' => t('Newsroom'),
+      'base' => 'node_content',
+      'has_title' => TRUE,
+      'title_label' => t('Name'),
+      'description' => t('A newsroom is a single Checkdesk instance (tenant) inside the whole Checkdesk environment.'),
+      'comment' => array('status' => 2),
+    )
+  );
+}
+
+/**
+ * Implements hook_form().
+ */
+function checkdesk_multitenancy_form($node, $form_state) {
+  return node_content_form($node, $form_state);
+}
+
+/**
+ * Implements hook_og_default_roles_alter().
+ */
+function checkdesk_multitenancy_og_default_roles_alter(&$roles) {
+}
+
+/**
+ * Implements hook_og_permission_alter().
+ */
+function checkdesk_multitenancy_og_permission_alter(&$perms) {
+}

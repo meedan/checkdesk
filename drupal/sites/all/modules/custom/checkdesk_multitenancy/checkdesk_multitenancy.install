@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Implements hook_enable().
+ */
+function checkdesk_multitenancy_enable() {
+  variable_set('og_group_type_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, TRUE);
+  og_create_field(OG_GROUP_FIELD, 'node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
+}
+
+/**
+ * Implements hook_install().
+ * Checkdesk Multitenancy should run before OG.
+ */
+function checkdesk_multitenancy_install() {
+  $weight = db_query("SELECT weight from {system} WHERE name = 'og' AND type = 'module'")->fetchField();
+  db_update('system')
+  ->fields(array('weight' => $weight + 1))
+  ->condition('name', 'checkdesk_multitenancy', '=')
+  ->execute();
+}
+
+/**
+ * Implements hook_update_N().
+ * Checkdesk Multitenancy should run before OG.
+ */
+function checkdesk_multitenancy_update_7005() {
+  $weight = db_query("SELECT weight from {system} WHERE name = 'og' AND type = 'module'")->fetchField();
+  db_update('system')
+  ->fields(array('weight' => $weight + 1))
+  ->condition('name', 'checkdesk_multitenancy', '=')
+  ->execute();
+}
