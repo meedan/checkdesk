@@ -83,8 +83,8 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'uuid' => 'edc54df9-4aa8-bf84-dd89-ca0a351af23b',
     'weight' => -49,
   );
-  // Exported menu link: main-menu_draft-stories:checkdesk/draft_stories
-  $menu_links['main-menu_draft-stories:checkdesk/draft_stories'] = array(
+  // Exported menu link: main-menu_draft--stories:checkdesk/draft_stories
+  $menu_links['main-menu_draft--stories:checkdesk/draft_stories'] = array(
     'customized' => 1,
     'expanded' => 0,
     'external' => 0,
@@ -92,7 +92,7 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'hidden' => 0,
     'language' => 'und',
     'link_path' => 'checkdesk/draft_stories',
-    'link_title' => 'Draft stories',
+    'link_title' => 'Draft  stories',
     'menu_links_customized' => 1,
     'menu_links_customized_2' => 1,
     'menu_links_language' => 'und',
@@ -100,21 +100,21 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'module' => 'menu',
     'options' => array(
       'alter' => TRUE,
+      'identifier' => 'main-menu_draft--stories:checkdesk/draft_stories',
       'attributes' => array(),
       'item_attributes' => array(
         'id' => '',
         'class' => '',
         'style' => '',
       ),
-      'identifier' => 'main-menu_draft-stories:checkdesk/draft_stories',
     ),
     'parent_identifier' => 'main-menu_:<sub>',
     'router_path' => 'checkdesk/draft_stories',
     'uuid' => '2821e682-4a21-4a62-87b5-9c98675c7813',
     'weight' => -47,
   );
-  // Exported menu link: main-menu_draft-updates:checkdesk/draft_updates
-  $menu_links['main-menu_draft-updates:checkdesk/draft_updates'] = array(
+  // Exported menu link: main-menu_draft--updates:checkdesk/draft_updates
+  $menu_links['main-menu_draft--updates:checkdesk/draft_updates'] = array(
     'customized' => 1,
     'expanded' => 0,
     'external' => 0,
@@ -122,21 +122,21 @@ function checkdesk_core_feature_menu_default_menu_links() {
     'hidden' => 0,
     'language' => 'und',
     'link_path' => 'checkdesk/draft_updates',
-    'link_title' => 'Draft updates',
+    'link_title' => 'Draft  updates',
     'menu_links_customized' => 1,
     'menu_links_customized_2' => 1,
     'menu_links_language' => 'und',
     'menu_name' => 'main-menu',
     'module' => 'menu',
     'options' => array(
+      'alter' => TRUE,
+      'identifier' => 'main-menu_draft--updates:checkdesk/draft_updates',
       'attributes' => array(),
       'item_attributes' => array(
         'id' => '',
         'class' => '',
         'style' => '',
       ),
-      'alter' => TRUE,
-      'identifier' => 'main-menu_draft-updates:checkdesk/draft_updates',
     ),
     'parent_identifier' => 'main-menu_:<sub>',
     'router_path' => 'checkdesk/draft_updates',
@@ -671,8 +671,8 @@ function checkdesk_core_feature_menu_default_menu_links() {
   t('Administer users');
   t('Bookmarklet');
   t('Create story');
-  t('Draft stories');
-  t('Draft updates');
+  t('Draft  stories');
+  t('Draft  updates');
   t('Edit fact-checking statement');
   t('Fact-checking statement');
   t('Home');

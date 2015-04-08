@@ -1279,11 +1279,6 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
   /* Filter criterion: Field: Fact-checking status (field_rating) (translated) */
   $handler->display->display_options['filters']['field_rating_tid_i18n']['id'] = 'field_rating_tid_i18n';
   $handler->display->display_options['filters']['field_rating_tid_i18n']['table'] = 'field_data_field_rating';
@@ -1470,11 +1465,6 @@ print t(\'No content available\');
     4 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
   /* Filter criterion: Field: Fact-checking status (field_rating) */
   $handler->display->display_options['filters']['field_rating_tid']['id'] = 'field_rating_tid';
   $handler->display->display_options['filters']['field_rating_tid']['table'] = 'field_data_field_rating';

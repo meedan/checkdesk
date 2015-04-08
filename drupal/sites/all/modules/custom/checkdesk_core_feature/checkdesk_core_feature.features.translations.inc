@@ -15214,7 +15214,7 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'source' => 'Draft updates',
     'context' => '',
     'location' => '/ar/search?type=update&status=0',
-    'translation' => 'مسودة التحديثات',
+    'translation' => 'تحديثات غير منشورة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -32724,7 +32724,7 @@ password: Your password
     'source' => 'Draft stories',
     'context' => '',
     'location' => '/ar/search?type=update&status=0',
-    'translation' => 'مسودة اﻷخبار',
+    'translation' => 'موضوعات غير منشورة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -47374,11 +47374,11 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
-  $translations['ar:menu']['74857388f13b7ba4ed758b80ffdfe7ad'] = array(
-    'source' => 'Draft stories',
-    'context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
-    'location' => 'menu:item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
-    'translation' => 'مسودة اﻷخبار',
+  $translations['ar:menu']['7d2e19a2830737e72b8ccbb648fca6fc'] = array(
+    'source' => 'Draft  updates',
+    'context' => 'item:5452488b-84b8-4398-9078-9814050cc153:title',
+    'location' => 'menu:item:5452488b-84b8-4398-9078-9814050cc153:title',
+    'translation' => 'تحديثات غير منشورة',
     'plid' => 0,
     'plural' => 0,
   );
@@ -47406,6 +47406,14 @@ print theme(\'views_autorefresh\', array(
     'plid' => 0,
     'plural' => 0,
   );
+  $translations['ar:menu']['b2d30a94203b8b6f25b7e1c4d6f4dd6a'] = array(
+    'source' => 'Draft  stories',
+    'context' => 'item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
+    'location' => 'menu:item:2821e682-4a21-4a62-87b5-9c98675c7813:title',
+    'translation' => 'موضوعات غير منشورة',
+    'plid' => 0,
+    'plural' => 0,
+  );
   $translations['ar:menu']['b48b9a053ce15999a9da52bbe0a59d88'] = array(
     'source' => 'Sign in',
     'context' => 'item:9a684326-a352-d454-517b-878bb9468e91:title',
@@ -47427,14 +47435,6 @@ print theme(\'views_autorefresh\', array(
     'context' => 'item::title',
     'location' => 'menu:item::title',
     'translation' => 'تحديث موضوع',
-    'plid' => 0,
-    'plural' => 0,
-  );
-  $translations['ar:menu']['d12b5d4fb18ea4e9373e9b731f06d6ca'] = array(
-    'source' => 'Draft updates',
-    'context' => 'item:5452488b-84b8-4398-9078-9814050cc153:title',
-    'location' => 'menu:item:5452488b-84b8-4398-9078-9814050cc153:title',
-    'translation' => 'مسودة التحديثات',
     'plid' => 0,
     'plural' => 0,
   );
