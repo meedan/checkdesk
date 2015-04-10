@@ -6,6 +6,10 @@
 
 define('CHECKDESK_MULTITENANCY_GROUP_TYPE', 'newsroom');
 
+function _checkdesk_multitenancy_roles() {
+  return array('group journalist', 'group citizen journalist', 'group admin');
+}
+
 /**
  * Implements hook_node_info().
  */
@@ -33,10 +37,16 @@ function checkdesk_multitenancy_form($node, $form_state) {
  * Implements hook_og_default_roles_alter().
  */
 function checkdesk_multitenancy_og_default_roles_alter(&$roles) {
+  $roles = _checkdesk_multitenancy_roles();
 }
 
 /**
- * Implements hook_og_permission_alter().
+ * Implements hook_node_insert()
  */
-function checkdesk_multitenancy_og_permission_alter(&$perms) {
+function checkdesk_multitenancy_node_insert($node){
+  if (og_is_group_type('node', $node->type)) {
+    $og_roles = og_roles('node', $node->type);
+    $rid = array_search('group journalist', $og_roles);
+    og_role_grant('node', $node->nid, $node->uid, $rid);
+  }
 }
