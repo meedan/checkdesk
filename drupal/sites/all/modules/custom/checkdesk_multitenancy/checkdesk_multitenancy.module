@@ -5,6 +5,7 @@
  */
 
 define('CHECKDESK_MULTITENANCY_GROUP_TYPE', 'newsroom');
+define('CHECKDESK_MULTITENANCY_GROUPED_TYPE', 'discussion');
 
 function _checkdesk_multitenancy_roles() {
   return array('group journalist', 'group citizen journalist', 'group admin');
@@ -41,12 +42,36 @@ function checkdesk_multitenancy_og_default_roles_alter(&$roles) {
 }
 
 /**
- * Implements hook_node_insert()
+ * Implements hook_node_insert().
  */
-function checkdesk_multitenancy_node_insert($node){
+function checkdesk_multitenancy_node_insert($node) {
   if (og_is_group_type('node', $node->type)) {
     $og_roles = og_roles('node', $node->type);
     $rid = array_search('group journalist', $og_roles);
     og_role_grant('node', $node->nid, $node->uid, $rid);
+    $rid = array_search('group admin', $og_roles);
+    og_role_grant('node', $node->nid, $node->uid, $rid);
+  }
+}
+
+/**
+ * Implements hook_og_permission_alter().
+ */
+function checkdesk_multitenancy_og_permission_alter(&$perms) {
+  // Admins can do everything
+  foreach ($perms as &$perm) {
+    $perm['default role'][] = 'group admin';
+  }
+
+  // Any member can invite other user
+  $perms['invite any user']['default role'][] = 'member';
+
+  // Journalists can assign roles
+  $perms['manage members']['default role'][] = 'group journalist';
+
+  // Journalists can manage stories inside newsrooms
+  $story_permissions = array_keys(og_list_permissions(CHECKDESK_MULTITENANCY_GROUPED_TYPE));
+  foreach ($story_permissions as $name) {
+    $perms[$name]['default role'][] = 'group journalist';
   }
 }

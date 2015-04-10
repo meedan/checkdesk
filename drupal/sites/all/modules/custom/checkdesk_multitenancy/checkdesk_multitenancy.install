@@ -6,4 +6,16 @@
 function checkdesk_multitenancy_install() {
   variable_set('og_group_type_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, TRUE);
   og_create_field(OG_GROUP_FIELD, 'node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
+
+  $og_field = og_fields_info(OG_AUDIENCE_FIELD);
+  $og_field['field']['settings']['target_type'] = 'node';
+  
+  // Enable Entity reference prepopulate.
+  $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
+    'status' => TRUE,
+    'action' => 'none',
+    'fallback' => 'none',
+    'skip_perm' => FALSE,
+  );  
+  og_create_field(OG_AUDIENCE_FIELD, 'node', CHECKDESK_MULTITENANCY_GROUPED_TYPE, $og_field);
 }
