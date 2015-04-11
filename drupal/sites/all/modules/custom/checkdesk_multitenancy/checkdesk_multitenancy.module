@@ -8,7 +8,13 @@ define('CHECKDESK_MULTITENANCY_GROUP_TYPE', 'newsroom');
 define('CHECKDESK_MULTITENANCY_GROUPED_TYPE', 'discussion');
 
 function _checkdesk_multitenancy_roles() {
-  return array('group journalist', 'group citizen journalist', 'group admin');
+  $roles = array();
+  foreach (user_roles(TRUE) as $rid => $name) {
+    if ($rid != DRUPAL_AUTHENTICATED_RID) {
+      $roles[] = $name;
+    }
+  }
+  return $roles;
 }
 
 /**
@@ -47,9 +53,9 @@ function checkdesk_multitenancy_og_default_roles_alter(&$roles) {
 function checkdesk_multitenancy_node_insert($node) {
   if (og_is_group_type('node', $node->type)) {
     $og_roles = og_roles('node', $node->type);
-    $rid = array_search('group journalist', $og_roles);
+    $rid = array_search('journalist', $og_roles);
     og_role_grant('node', $node->nid, $node->uid, $rid);
-    $rid = array_search('group admin', $og_roles);
+    $rid = array_search('administrator', $og_roles);
     og_role_grant('node', $node->nid, $node->uid, $rid);
   }
 }
@@ -58,20 +64,20 @@ function checkdesk_multitenancy_node_insert($node) {
  * Implements hook_og_permission_alter().
  */
 function checkdesk_multitenancy_og_permission_alter(&$perms) {
-  // Admins can do everything
-  foreach ($perms as &$perm) {
-    $perm['default role'][] = 'group admin';
-  }
-
   // Any member can invite other user
-  $perms['invite any user']['default role'][] = 'member';
+  $perms['invite any user']['default role'][] = OG_AUTHENTICATED_ROLE;
 
   // Journalists can assign roles
-  $perms['manage members']['default role'][] = 'group journalist';
+  $perms['manage members']['default role'][] = 'journalist';
 
   // Journalists can manage stories inside newsrooms
   $story_permissions = array_keys(og_list_permissions(CHECKDESK_MULTITENANCY_GROUPED_TYPE));
   foreach ($story_permissions as $name) {
-    $perms[$name]['default role'][] = 'group journalist';
+    $perms[$name]['default role'] = array('journalist');
+  }
+
+  // Owners can do everything
+  foreach ($perms as &$perm) {
+    $perm['default role'][] = 'administrator';
   }
 }

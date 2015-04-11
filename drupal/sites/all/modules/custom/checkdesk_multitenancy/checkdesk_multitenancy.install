@@ -4,13 +4,21 @@
  * Implements hook_install().
  */
 function checkdesk_multitenancy_install() {
+
+  // Ensure the newsroom node type is available
+
+  node_types_rebuild();
+
+  // Mark the "newsroom" content type as a "group" 
+
   variable_set('og_group_type_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, TRUE);
   og_create_field(OG_GROUP_FIELD, 'node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
+
+  // Add the group audience field to the "story" content type
 
   $og_field = og_fields_info(OG_AUDIENCE_FIELD);
   $og_field['field']['settings']['target_type'] = 'node';
   
-  // Enable Entity reference prepopulate.
   $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
     'status' => TRUE,
     'action' => 'none',
@@ -18,4 +26,17 @@ function checkdesk_multitenancy_install() {
     'skip_perm' => FALSE,
   );  
   og_create_field(OG_AUDIENCE_FIELD, 'node', CHECKDESK_MULTITENANCY_GROUPED_TYPE, $og_field);
+
+  // Create group permissions for journalists related to stories inside groups
+
+  $og_roles = og_roles('node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
+  $story_permissions = array_keys(og_list_permissions(CHECKDESK_MULTITENANCY_GROUPED_TYPE));
+  $rid = array_search('journalist', $og_roles);
+  og_role_grant_permissions($rid, $story_permissions);
+
+  // Create permissions for users related to newsrooms
+
+  $type = CHECKDESK_MULTITENANCY_GROUP_TYPE;
+  $perms = array("create $type content", "delete own $type content", "edit own $type content");
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $perms);
 }
