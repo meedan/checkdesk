@@ -81,3 +81,26 @@ function checkdesk_multitenancy_og_permission_alter(&$perms) {
     $perm['default role'][] = 'administrator';
   }
 }
+
+/**
+ * Returns the current newsroom.
+ */
+function _checkdesk_multitenancy_current_newsroom() {
+  // TODO
+  return 0;
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function checkdesk_multitenancy_node_access($node, $op, $account) {
+  if ($node->type == CHECKDESK_MULTITENANCY_GROUPED_TYPE) {
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $gid = $wrapper->{OG_AUDIENCE_FIELD}->get(0)->getIdentifier();
+    $current = _checkdesk_multitenancy_current_newsroom();
+    if ($current && $current != $gid) {
+      return NODE_ACCESS_DENY;
+    }
+  }
+  return NODE_ACCESS_IGNORE;
+}
