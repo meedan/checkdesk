@@ -27,7 +27,8 @@ function checkdesk_multitenancy_install() {
   );  
   og_create_field(OG_AUDIENCE_FIELD, 'node', CHECKDESK_MULTITENANCY_GROUPED_TYPE, $og_field);
 
-  // Create group permissions for journalists related to stories inside groups
+  // Create group permissions for journalists related to stories inside newsrooms
+  // But they can't create stories outside newsrooms anymore
 
   $og_roles = og_roles('node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
   $story_permissions = array_keys(og_list_permissions(CHECKDESK_MULTITENANCY_GROUPED_TYPE));
@@ -39,4 +40,18 @@ function checkdesk_multitenancy_install() {
   $type = CHECKDESK_MULTITENANCY_GROUP_TYPE;
   $perms = array("create $type content", "delete own $type content", "edit own $type content");
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $perms);
+
+  // Change the weight
+
+  db_update('system')
+  ->fields(array('weight' => 99))
+  ->condition('name', 'checkdesk_multitenancy', '=')
+  ->execute();
+
+  // Revoke site-wide permissions for journalists related to stories.
+
+  $roles = user_roles(TRUE);
+  $story_permissions = array_keys(node_list_permissions(CHECKDESK_MULTITENANCY_GROUPED_TYPE));
+  $rid = array_search('journalist', $roles);
+  user_role_revoke_permissions($rid, $story_permissions);
 }
