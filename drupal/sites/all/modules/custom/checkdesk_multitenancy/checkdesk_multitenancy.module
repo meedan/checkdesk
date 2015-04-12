@@ -96,6 +96,7 @@ function _checkdesk_multitenancy_current_newsroom() {
 function checkdesk_multitenancy_node_access($node, $op, $account) {
   if ($node->type == CHECKDESK_MULTITENANCY_GROUPED_TYPE) {
     $wrapper = entity_metadata_wrapper('node', $node);
+    // FIXME: Assuming only one newsroom per story here
     $gid = $wrapper->{OG_AUDIENCE_FIELD}->get(0)->getIdentifier();
     $current = _checkdesk_multitenancy_current_newsroom();
     if ($current && $current != $gid) {

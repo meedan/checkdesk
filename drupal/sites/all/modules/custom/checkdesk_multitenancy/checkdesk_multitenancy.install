@@ -14,6 +14,10 @@ function checkdesk_multitenancy_install() {
   variable_set('og_group_type_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, TRUE);
   og_create_field(OG_GROUP_FIELD, 'node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
 
+  // Some more options for newsrooms
+  variable_set('comment_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, 0);
+  variable_set('node_options_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, array('status'));
+
   // Add the group audience field to the "story" content type
 
   $og_field = og_fields_info(OG_AUDIENCE_FIELD);
