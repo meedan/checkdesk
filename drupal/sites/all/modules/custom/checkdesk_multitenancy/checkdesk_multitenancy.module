@@ -105,3 +105,21 @@ function checkdesk_multitenancy_node_access($node, $op, $account) {
   }
   return NODE_ACCESS_IGNORE;
 }
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function checkdesk_multitenancy_query_checkdesk_stories_alter($query) {
+  global $user;
+  $groups = og_get_groups_by_user($user, 'node');
+
+  // Show nothing if user is not subscribed to any group
+  if (!$groups || empty($groups)) {
+    $query->condition('1', '2', '=');
+  }
+
+  else {
+    $query->innerJoin('og_membership', 'ogm', 'ogm.etid = n.nid AND ogm.entity_type = :entity_type', array(':entity_type' => 'node'));
+    $query->condition('ogm.gid', array_values($groups), 'IN');
+  }
+}

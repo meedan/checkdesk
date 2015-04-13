@@ -3519,12 +3519,12 @@ function _checkdesk_active_story($options = array()) {
  */
 function _checkdesk_get_stories_by_activity() {
   global $language;
-  $result = db_query('
-    SELECT n.nid, n.title
-    FROM heartbeat_activity ha
-    INNER JOIN node n ON n.nid = ha.nid_target AND n.type = :type AND n.language = :language
-    ORDER BY ha.timestamp DESC 
-    ', array(':type' => 'discussion', ':language' => $language->language))->fetchAllKeyed(0);
+  $query = db_select('heartbeat_activity', 'ha')->fields('n', array('nid', 'title'));
+  $query->innerJoin('node', 'n', 'n.nid = ha.nid_target AND n.type = :type AND n.language = :language',
+                    array(':type' => 'discussion', ':language' => $language->language));
+  $query->orderBy('ha.timestamp', 'DESC');
+  $query->addTag('checkdesk_stories');
+  $result = $query->execute()->fetchAllKeyed(0);
   return $result;
 }
 
