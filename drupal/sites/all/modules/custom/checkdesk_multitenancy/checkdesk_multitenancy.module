@@ -123,3 +123,76 @@ function checkdesk_multitenancy_query_checkdesk_stories_alter($query) {
     $query->condition('ogm.gid', array_values($groups), 'IN');
   }
 }
+
+/**
+ * Implements hook_node_type_insert().
+ */
+function checkdesk_multitenancy_node_type_insert($content_type) {
+  if ($content_type->type == CHECKDESK_MULTITENANCY_GROUP_TYPE) {
+    
+    $body_instance = node_add_body_field($content_type, t('Description about this newsroom'));
+    field_update_instance($body_instance);
+
+    foreach (_checkdesk_multitenancy_installed_fields() as $field) {
+      field_create_field($field);
+    }
+
+    foreach (_checkdesk_multitenancy_installed_instances() as $instance) {
+      $instance['entity_type'] = 'node';
+      $instance['bundle'] = CHECKDESK_MULTITENANCY_GROUP_TYPE;
+      field_create_instance($instance);
+    }
+  }
+}
+
+function _checkdesk_multitenancy_installed_fields() {
+
+  // Prefix all field names with the group type name
+  $p = CHECKDESK_MULTITENANCY_GROUP_TYPE;
+
+  return array(
+    $p . '_twitter_bot' => array(
+      'field_name' => $p . '_twitter_bot',
+      'cardinality' => 1,
+      'type'        => 'text',
+    ),
+    $p . '_url' => array(
+      'field_name'  => $p . '_url',
+      'cardinality' => 1,
+      'type'        => 'text',
+    ),
+    $p . '_logo' => array(
+      'field_name' => $p . '_logo',
+      'type'       => 'image',
+      'cardinality' => 1,
+    ),
+  );
+}
+
+function _checkdesk_multitenancy_installed_instances() {
+
+  // Prefix all field names with the group type name
+  $p = CHECKDESK_MULTITENANCY_GROUP_TYPE;
+
+  return array(
+    $p . '_twitter_bot' => array(
+      'field_name' => $p . '_twitter_bot',
+      'label'      => t('Twitter Bot'),
+      'widget'     => array('type' => 'text_textfield'),
+    ),
+    $p . '_url' => array(
+      'field_name' => $p . '_url',
+      'label'      => t('URL prefix (e.g., checkdesk.org/<prefix>'),
+      'widget'     => array('type' => 'text_textfield'),
+    ),
+    $p . '_logo' => array(
+      'field_name' => $p . '_logo',
+      'label'      => t('Logo'),
+      'required'   => FALSE,
+      'widget' => array(
+        'type'    => 'image_image',
+        'weight'  => 2.10,
+      ),
+    ),
+  );
+}
