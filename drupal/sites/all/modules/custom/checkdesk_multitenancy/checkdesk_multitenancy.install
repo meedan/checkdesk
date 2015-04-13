@@ -17,6 +17,7 @@ function checkdesk_multitenancy_install() {
   // Some more options for newsrooms
   variable_set('comment_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, 0);
   variable_set('node_options_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, array('status'));
+  variable_set('pathauto_node_' . CHECKDESK_MULTITENANCY_GROUP_TYPE . '_pattern', '[node:newsroom_url]');
 
   // Add the group audience field to the "story" content type
 
