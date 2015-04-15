@@ -20,9 +20,6 @@ $aliases['prod'] = array(
 $aliases['qa'] = array(
   'site-list' => array('@qa.meedan'),
 );
-$aliases['dev'] = array(
-  'site-list' => array('@dev.meedan'),
-);
 
 // prod aliases
 $aliases['prod-alias'] = array (
@@ -97,21 +94,6 @@ $aliases['qa.meedan'] = array (
   'parent' => '@qa-alias',
   'uri' => 'qa.checkdesk.org',
   'root' => '/var/www/checkdesk.qa/current/drupal',
-);
-
-// dev aliases
-$aliases['dev-alias'] = array (
-  'remote-host' => 'dev.checkdesk.org',
-  'ssh-options' => '-p 9922',
-  'path-aliases' => array (
-    '%drush' => '/usr/share/php/drush',
-  ),
-);
-
-$aliases['dev.meedan'] = array (
-  'parent' => '@dev-alias',
-  'uri' => 'dev.checkdesk.org',
-  'root' => '/var/www/checkdesk.dev/current/drupal',
 );
 
 // dev template
