@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * @file
+ *   Drupal translation template extractor.
+ *
+ *   This module helps people extract translatable strings from Drupal source
+ *   code. The user interface allows translators to choose which part of the
+ *   current Drupal instance to translate. The module also provides an API for
+ *   other modules (such as coder and l10n_server) to use.
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function potx_help($path, $arg) {
+  switch ($path) {
+    case 'admin/config/regional/translate/extract':
+      return '<p>'. t('This page allows you to generate translation templates for module and theme files. Select the module or theme you wish to generate a template file for. A single Gettext Portable Object (Template) file is generated, so you can easily save it and start translation.') .'</p>';
+  }
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function potx_menu() {
+  $items['admin/config/regional/translate/extract'] = array(
+    'title' => 'Extract',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('potx_select_component_form'),
+    'access arguments' => array('translate interface'),
+    'weight' => 200,
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'potx.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_reviews(). Coder module integration.
+ *
+ * Provides the list of reviews provided by this module.
+ */
+function potx_reviews() {
+  $review = array(
+    '#title' => t('Interface text translatability'),
+    '#link' => 'http://drupal.org/translators',
+    '#rules' => array(
+      array(
+        '#type' => 'callback',
+        '#value' => 'potx_coder_review',
+      ),
+    )
+  );
+  return array('potx' => $review);
+}
+
+/**
+ * Callback implementation for coder review of one file.
+ */
+function potx_coder_review(&$coder_args, $review, $rule, $lines, &$results) {
+
+  // Include potx API.
+  include_once drupal_get_path('module', 'potx') .'/potx.inc';
+
+  // Request collection of error messages internally in a structured format.
+  potx_status('set', POTX_STATUS_STRUCTURED);
+
+  // Process the file (but throw away the result). We are only interested in
+  // the errors found, no the strings identified.
+  $filename = realpath($coder_args['#filename']);
+  _potx_process_file($filename);
+
+  // Grab the errors and empty the error list.
+  $errors = potx_status('get', TRUE);
+
+  $severity_name = _coder_severity_name($coder_args, $review, $rule);
+  foreach ($errors as $error) {
+    // Errors contain the message, file name (which we did not use here), in
+    // most cases the line number and in some cases a code excerpt for the
+    // error. Not all errors know about the exact line number, so it might
+    // not be there, in which case we provide some sensible defaults.
+    list($message, $file, $lineno, $excerpt, $docs_url) = $error;
+    if (empty($lineno)) {
+      // $lineno might be NULL so set to 0.
+      $lineno = 0;
+      $line = '';
+    }
+    else {
+      // potx numbers lines from 1 (as in text editors),
+      // coder from 0 (as in the array index I guess).
+      $lineno--;
+      $line = $coder_args['#all_lines'][$lineno];
+    }
+    $rule['#warning'] = htmlspecialchars_decode($message, ENT_QUOTES) . (!empty($docs_url) ? (' <a href="'. $docs_url .'">'. t('Read the documentation') .'</a>.') : '');
+    _coder_error($results, $rule, $severity_name, $lineno, $line);
+  }
+}

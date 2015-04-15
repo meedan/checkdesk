@@ -1,0 +1,41 @@
+test.settings:
+  type: mapping
+  mapping:
+    test_int:
+      type: integer
+      label: 'Test integer'
+    test_string:
+      type: string
+      label: 'Test string with "quotes"'
+    test_date_format:
+      type: date_format
+    translatable_string:
+      type: translatable_string
+    untranslatable_text:
+      type: untranslatable_text
+    test_translatable_context:
+      type: translatable_with_context
+    test_label_context:
+      type: label_with_context
+    test_context_override:
+      type: label_context_override
+    test_mapping:
+      type: simple_mapping
+    mapping_with_type:
+      type: mapping_with_type
+    test_sequence:
+      type: simple_sequence
+    typed_sequence:
+      type: typed_sequence
+    sequence_of_sequence:
+      type: sequence_of_sequence
+    test_variable:
+      type: basic_variable
+    parent_variable_test:
+      type: parent_variable.test
+    parent_variable_test2:
+      type: parent_variable.test2
+    key_variable:
+      type: key_variable
+    complex_variable:
+      type: complex_variable

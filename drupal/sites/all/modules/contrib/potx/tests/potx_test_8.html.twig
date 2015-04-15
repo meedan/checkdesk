@@ -1,0 +1,107 @@
+{#
+/**
+ * @file
+ * A test Twig template for potx.
+ */
+#}
+<div id="test">
+  {% if variable %}
+    <span>{{ variable }}</span>
+    {{ 'This is a translated string.'|t }}
+  {% endif %}
+</div>
+
+<div>{{ 'Here\'s a string with an escaped quote.'|t }}</div>
+<div>{{ "A double-quoted string"|t }}</div>
+<div>{{ "Here's a double-quoted \"and escaped\" string."|t }}</div>
+
+{{ 'This is a concatenated string ' . 'that should not be picked up.'|t }}
+{{ 'This is an untranslated string.' }}
+
+{# Test trans tag with string argument. #}
+<div>
+  {% trans 'Hello sun.' %}
+</div>
+{# Test trans tag with string argument and context #}
+<div>
+  {% trans 'Hello sun, with context.' with {'context': 'Lolspeak'} %}
+</div>
+{# Test trans filter. #}
+<div>
+  {{ 'Hello Earth.'|trans }}
+</div>
+{# Test trans tag with text content. #}
+<div>
+  {% trans %}
+    Hello moon.
+  {% endtrans %}
+</div>
+{# Test trans/plural tag where count = 1. #}
+<div>
+  {% set count = 1 %}
+  {% trans %}
+    Hello star.
+  {% plural count %}
+    Hello {{ count }} stars.
+  {% endtrans %}
+</div>
+{# Test trans/plural tag where count = 2. #}
+<div>
+  {% set count = 2 %}
+  {% trans %}
+    Hello star.
+  {% plural count %}
+    Hello {{ count }} stars.
+  {% endtrans %}
+</div>
+{# Test trans tag with different filters applied to tokens. #}
+{% set string = '&"<>' %}
+<div>
+  {% trans %}
+    Escaped: {{ string }}
+  {% endtrans %}
+</div>
+<div>
+  {% trans %}
+    Pass-through: {{ string|passthrough }}
+  {% endtrans %}
+</div>
+<div>
+  {% trans %}
+    Placeholder: {{ string|placeholder }}
+  {% endtrans %}
+</div>
+{# Test trans tag with complex tokens. #}
+{% set node = {'type': 'complex token', 'numbers': '12345', 'bad_text': '&"<>' } %}
+{% set author = {'name': 'foo'} %}
+{% set count = token|length %}
+<div>
+  {% trans %}
+    This {{ node.type }} is submitted by {{ author.name }}, and has a length of: {{ count }}. It contains: {{ node.numbers|placeholder }} and {{ node.bad_text }}. Lets pass the bad text through: {{ node.bad_text|passthrough }}.
+  {% endtrans %}
+</div>
+{# Test trans tag with context. #}
+<div>
+  {% trans with {'context': 'Lolspeak'} %}
+    I have context.
+  {% endtrans %}
+</div>
+{# Test trans tag with a parameter that isn't 'context'. #}
+<div>
+  {% trans with {'langcode': 'zz'} %}
+    I have no context.
+  {% endtrans %}
+</div>
+{# Test trans tag with context and another parameter. #}
+<div>
+  {% trans with {'context': 'Lolspeak', 'langcode': 'zz'} %}
+    I have context and another parameter.
+  {% endtrans %}
+</div>
+{# Test a multiline trans tag. #}
+<div>
+  {% trans %}
+    A multiline
+    trans block.
+  {% endtrans %}
+</div>
