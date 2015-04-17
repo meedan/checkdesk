@@ -64,7 +64,7 @@ function translations_features_export_render($module_name, $data, $export = NULL
     foreach ($strings as $md5 => $string) {
       $code[] = "  \$translations['{$langcode}:{$textgroup}']['{$md5}'] = " . features_var_export($string, '  ') . ";";
       // potx compatibility
-      $code[] = "  \$translatables[] = t('" . str_replace("'", "\'", $string->source) . "');";
+      $code[] = "  \$translatables[] = t('" . str_replace("'", "\'", $string->source) . "', array(), array('context' => '" . str_replace("'", "\'", $string->context) . "'));";
     }
   }
   $code[] = '  return $translations;';
