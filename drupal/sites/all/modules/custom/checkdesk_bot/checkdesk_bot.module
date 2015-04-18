@@ -21,5 +21,9 @@ function checkdesk_bot_menu() {
 function checkdesk_bot_response() {
   $input = file_get_contents("php://input",  TRUE);
   $json = drupal_json_decode($input, TRUE);
-  drupal_json_output(array('reply' => $json['tweet']));
+  $tweet = $json['tweet'];
+  $reply = array(
+    'status' => '@' . $tweet['user']['screen_name'] . ' ¡Holá!',
+  );
+  drupal_json_output(array('reply' => $reply));
 }
