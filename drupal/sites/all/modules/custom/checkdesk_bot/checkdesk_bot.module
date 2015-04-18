@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Implementation of hook_menu().
+ */
+function checkdesk_bot_menu() {
+  return array(
+    'api/v1/bot' => array(
+      'title' => 'Checky',
+      'page callback' => 'checkdesk_bot_response',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+    ),
+  );
+}
+
+/**
+ * JSON endpoint for bot.
+ * @see http://www.drupalconnect.com/blog/articles/programming-restful-endpoints-accept-post-drupal
+ */
+function checkdesk_bot_response() {
+  $input = file_get_contents("php://input",  TRUE);
+  $json = drupal_json_decode($input, TRUE);
+  drupal_json_output(array('reply' => $json['tweet']));
+}
