@@ -21,9 +21,97 @@ function checkdesk_bot_menu() {
 function checkdesk_bot_response() {
   $input = file_get_contents("php://input",  TRUE);
   $json = drupal_json_decode($input, TRUE);
-  $tweet = $json['tweet'];
-  $reply = array(
-    'status' => '@' . $tweet['user']['screen_name'] . ' ¡Holá!',
-  );
+  $reply = checkdesk_bot__generate_response($json['tweet']);
   drupal_json_output(array('reply' => $reply));
+}
+
+/**
+ * Main function for generating bot response.
+ */
+function checkdesk_bot__generate_response($tweet) {
+  // Find Drupal username of sender if any.
+  $sender_uid = db_query(
+    "SELECT uid FROM {twitter_account} WHERE twitter_uid = :twitter_id",
+    array('twitter_id' => $tweet['user']['id_str'])
+  )->fetchField();
+
+  // Detect tweet language if any.
+  global $language;
+  $languages = language_list();
+  $langcode = $tweet['lang'] === 'und' ? $language->language : $langcode;
+
+  // Detect URL if any.
+  if (1 === count($tweet['entities']['urls'])) {
+    $report_url = $tweet['entities']['urls']['expanded_url'];
+  }
+  else {
+    // Tell user we can only parse a single URL and exit.
+    return t(
+      'Sorry !screen_name, I can only understand a single URL to import. '
+      'We don\'t want to lose your contributions! Please adjust and resend :-)',
+      array(
+        '!screen_name' => $tweet['user']['screen_name'],
+      ),
+      array(
+        'langcode' => $langcode,
+      )
+    );
+  }
+
+  // Detect duplicate URL.
+  if ($duplicates = checkdesk_bot__duplicates($report_url)) {
+    // TODO Tell user about duplicates and exit.
+  }
+
+  // Detect story hashtag if any.
+  $story_nid = NULL;
+  if ($stories = checkdesk_bot__detect_stories($tweet['entities']['hashtags'])) {
+    // Silently take first matching story.
+    $story_nid = $stories[0];
+  }
+
+  // If not found, generate a URL to the report form.
+  if (empty($sender_uid)) {
+    return t(
+      'Hello !screen_name, thanks for your contribution! You can visit !site_name to submit your report: !url',
+      array(
+        '!screen_name' => $tweet['user']['screen_name'],
+        '!site_name' => variable_get('site_name', t('Checkdesk')),
+        '!url' => $report_url
+      ),
+      array(
+        'langcode' => $langcode,
+      )
+    );
+  }
+
+  // Otherwise, import the report on behalf of the sender and generate a reply.
+  // TODO Handle report creation failure.
+  $report = checkdesk_bot__import_report($report_url, $sender_uid, $story_nid, $tweet);
+
+  return t(
+    'Thanks !screen_name for submitting this report to !site_name. You can access it here: !url',
+    array(
+      '!screen_name' => $tweet['user']['screen_name'],
+      '!site_name' => variable_get('site_name', t('Checkdesk')),
+      '!url' => url('node/' . $report->nid, array('absolute' => TRUE)),
+    ),
+    array(
+      'langcode' => $langcode,
+    )
+  );
+}
+
+function checkdesk_bot__detect_stories($hashtags) {
+  // TODO Match each hashtag to the field_hashtag of a story and return nids of matching stories.
+  return array();
+}
+
+function checkdesk_bot__duplicates($report_url) {
+  // TODO Match $report_url with existing ones and return matching report nodes. Remember to normalize URL.
+  return array();
+}
+
+function checkdesk_bot__import_report($report_url, $sender_uid, $story_nid, $tweet) {
+  // TODO Create new report node with given parameters and return node object.
 }
