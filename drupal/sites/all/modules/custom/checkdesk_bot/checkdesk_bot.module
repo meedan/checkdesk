@@ -2,6 +2,8 @@
 
 /**
  * Implementation of hook_menu().
+ *
+ * curl -H "Content-Type: application/json" -X POST -d '@tweet.json' http://checkdesk.local/en/api/v1/bot
  */
 function checkdesk_bot_menu() {
   return array(
@@ -42,15 +44,17 @@ function checkdesk_bot__generate_response($tweet) {
 
   // Detect URL if any.
   if (1 === count($tweet['entities']['urls'])) {
-    $report_url = $tweet['entities']['urls']['expanded_url'];
+    $report_url = !empty($tweet['entities']['urls']['expanded_url']) ?
+      $tweet['entities']['urls']['expanded_url'] :
+      $tweet['entities']['urls']['url'];
   }
   else {
     // Tell user we can only parse a single URL and exit.
     return t(
-      'Sorry !screen_name, I can only understand a single URL to import. '
+      'Sorry !screen_name, I can only understand a single URL to import. ' .
       'We don\'t want to lose your contributions! Please adjust and resend :-)',
       array(
-        '!screen_name' => $tweet['user']['screen_name'],
+        '!screen_name' => '@' . $tweet['user']['screen_name'],
       ),
       array(
         'langcode' => $langcode,
@@ -75,7 +79,7 @@ function checkdesk_bot__generate_response($tweet) {
     return t(
       'Hello !screen_name, thanks for your contribution! You can visit !site_name to submit your report: !url',
       array(
-        '!screen_name' => $tweet['user']['screen_name'],
+        '!screen_name' => '@' . $tweet['user']['screen_name'],
         '!site_name' => variable_get('site_name', t('Checkdesk')),
         '!url' => $report_url
       ),
@@ -92,7 +96,7 @@ function checkdesk_bot__generate_response($tweet) {
   return t(
     'Thanks !screen_name for submitting this report to !site_name. You can access it here: !url',
     array(
-      '!screen_name' => $tweet['user']['screen_name'],
+      '!screen_name' => '@' . $tweet['user']['screen_name'],
       '!site_name' => variable_get('site_name', t('Checkdesk')),
       '!url' => url('node/' . $report->nid, array('absolute' => TRUE)),
     ),
