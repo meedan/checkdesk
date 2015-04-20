@@ -2235,8 +2235,16 @@ function checkdesk_core_views_query_alter(&$view, &$query) {
     if (isset($_GET['type']) && $_GET['type'] != 'All') {
       foreach($query->where[1]['conditions'] as $k => $v) {
         if (is_string($v['field']) && $v['field'] == 'node.type') {
-          $selected_type = ($_GET['type'] == 'report') ? array('media') :
-            ($_GET['type'] == 'update') ? array('post') : array('discussion');
+          $selected_type = array();
+          if ($_GET['type'] == 'report') {
+            $selected_type = array('media');
+          }
+          elseif ($_GET['type'] == 'update') {
+            $selected_type = array('post');
+          }
+          elseif ($_GET['type'] == 'story') {
+            $selected_type = array('discussion');
+          }
           $query->where[1]['conditions'][$k]['value'] = $selected_type;
           break;
         }
