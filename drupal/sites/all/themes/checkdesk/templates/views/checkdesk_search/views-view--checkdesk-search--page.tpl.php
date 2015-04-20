@@ -63,7 +63,9 @@
   <?php endif; ?>
 
   <?php if ($pager): ?>
+    <div class="view-checkdesk-search-pager">
     <?php print $pager; ?>
+    </div>
   <?php endif; ?>
 
   <?php if ($attachment_after): ?>
