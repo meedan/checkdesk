@@ -166,6 +166,26 @@ function _checkdesk_multitenancy_installed_fields() {
       'type'       => 'image',
       'cardinality' => 1,
     ),
+    $p . '_slogan' => array(
+      'field_name' => $p . '_slogan',
+      'type'       => 'text',
+      'cardinality' => 1,
+    ),
+    $p . '_owner' => array(
+      'field_name' => $p . '_owner',
+      'type'       => 'text',
+      'cardinality' => 1,
+    ),
+    $p . '_owner_url' => array(
+      'field_name' => $p . '_owner_url',
+      'type'       => 'text',
+      'cardinality' => 1,
+    ),
+    $p . '_owner_email' => array(
+      'field_name' => $p . '_owner_email',
+      'type'       => 'text',
+      'cardinality' => 1,
+    ),
   );
 }
 
@@ -193,6 +213,26 @@ function _checkdesk_multitenancy_installed_instances() {
         'type'    => 'image_image',
         'weight'  => 2.10,
       ),
+    ),
+    $p . '_slogan' => array(
+      'field_name' => $p . '_slogan',
+      'label'      => t('Slogan'),
+      'widget' => array('type' => 'text_textfield'),
+    ),
+    $p . '_owner' => array(
+      'field_name' => $p . '_owner',
+      'label'      => t('Owner'),
+      'widget' => array('type' => 'text_textfield'),
+    ),
+    $p . '_owne_url' => array(
+      'field_name' => $p . '_owner_url',
+      'label'      => t('Owner Website'),
+      'widget' => array('type' => 'text_textfield'),
+    ),
+    $p . '_owner_email' => array(
+      'field_name' => $p . '_owner_email',
+      'label'      => t('Owner e-mail'),
+      'widget' => array('type' => 'text_textfield'),
     ),
   );
 }
