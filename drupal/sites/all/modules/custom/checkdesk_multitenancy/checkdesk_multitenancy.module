@@ -162,14 +162,15 @@ function _checkdesk_multitenancy_installed_fields() {
       'type'        => 'text',
     ),
     $p . '_logo' => array(
-      'field_name' => $p . '_logo',
-      'type'       => 'image',
+      'field_name'  => $p . '_logo',
+      'type'        => 'image',
       'cardinality' => 1,
     ),
     $p . '_slogan' => array(
-      'field_name' => $p . '_slogan',
-      'type'       => 'text',
-      'cardinality' => 1,
+      'field_name'   => $p . '_slogan',
+      'type'         => 'text',
+      'cardinality'  => 1,
+      'translatable' => true,
     ),
     $p . '_owner' => array(
       'field_name' => $p . '_owner',
