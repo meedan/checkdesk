@@ -14,12 +14,18 @@ function checkdesk_multitenancy_install() {
   variable_set('og_group_type_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, TRUE);
   og_create_field(OG_GROUP_FIELD, 'node', CHECKDESK_MULTITENANCY_GROUP_TYPE);
 
-  // Some more options for newsrooms
+  // Some more options for newsrooms (variables, basically)
+
   variable_set('comment_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, 0);
   variable_set('node_options_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, array('status'));
   variable_set('pathauto_node_' . CHECKDESK_MULTITENANCY_GROUP_TYPE . '_pattern', '[node:newsroom_url]');
   variable_set('entity_translation_entity_types', array('node' => 'node'));
   variable_set('language_content_type_' . CHECKDESK_MULTITENANCY_GROUP_TYPE, ENTITY_TRANSLATION_ENABLED);
+  variable_set('title_node', array('auto_attach' => array('title' => 'title')));
+
+  // Replace title field by a translatable field
+
+  title_field_replacement_toggle('node', CHECKDESK_MULTITENANCY_GROUP_TYPE, 'title');
 
   // Add the group audience field to the "story" content type
 
