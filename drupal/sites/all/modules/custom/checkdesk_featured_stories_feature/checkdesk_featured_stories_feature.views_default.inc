@@ -336,7 +336,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Stories */
+  /* Field: Content: Story */
   $handler->display->display_options['fields']['field_stories']['id'] = 'field_stories';
   $handler->display->display_options['fields']['field_stories']['table'] = 'field_data_field_stories';
   $handler->display->display_options['fields']['field_stories']['field'] = 'field_stories';
@@ -386,12 +386,6 @@ function checkdesk_featured_stories_feature_views_default_views() {
     5 => 0,
     4 => 0,
   );
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '10';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_min_chars'] = '0';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -416,7 +410,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('- Choose an operation -'),
     t('Assign to existing story'),
     t('Title'),
-    t('Stories'),
+    t('Story'),
     t('Post date'),
     t('Report title'),
     t('Page'),
@@ -695,6 +689,7 @@ function checkdesk_featured_stories_feature_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Load more'),
     t('User ID'),
     t('Node ID'),
     t('.'),

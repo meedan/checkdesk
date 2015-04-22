@@ -1,0 +1,11 @@
+test_translation_action:
+  route_name: build_translation_test
+  title: 'Local action translation test'
+  appears_on:
+    - build_translation_test
+test_translation_action_with_context:
+  route_name: build_translation_test
+  title: 'Local action translation with context test'
+  title_context: 'Local action context'
+  appears_on:
+    - build_translation_test

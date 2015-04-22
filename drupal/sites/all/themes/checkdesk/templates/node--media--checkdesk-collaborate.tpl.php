@@ -19,4 +19,7 @@
       <?php endif; ?>
     </span> <!-- /activity-item-content -->
   </div> <!-- /activity-item-content-wrapper -->
+
+  <?php print $report_activity; ?>
+  
 </section>

@@ -1,0 +1,31 @@
+translatable_string:
+  type: string
+  translatable: true
+untranslatable_text:
+  type: text
+  translatable: false
+translatable_with_context:
+  type: string
+  translatable: true
+  translation context: 'Test context'
+label_with_context:
+  type: label
+  translation context: 'Test label with context'
+label_context_override:
+  type: label_with_context
+  translation context: 'Test context override'
+simple_mapping:
+  type: mapping
+  mapping:
+    id:
+      type: integer
+      label: 'Mapping integer'
+    name:
+      type: label
+    code:
+      type: translatable_string
+mapping_with_type:
+  type: simple_mapping
+  mapping:
+    extra_label:
+      type: label

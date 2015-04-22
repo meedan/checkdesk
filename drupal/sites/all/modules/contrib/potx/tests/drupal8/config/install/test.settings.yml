@@ -1,0 +1,57 @@
+# tests for base.data_types.schema.yml
+test_int: 1
+test_string: 'A simple string'
+test_date_format: 'Y-m-d'
+translatable_string: 'A string with "translatable: true" property'
+untranslatable_text: 'A text with "translatable: false" property'
+test_translatable_context: 'Test string with context'
+test_label_context: 'Test label with context'
+test_context_override: 'Test overriding context'
+test_mapping:
+  id: 2
+  name: 'Simple mapping name'
+  code: 'Simple mapping code'
+mapping_with_type:
+  id: 3
+  name: 'Mapping with type - name'
+  code: 'Mapping with type - code'
+  extra_label: 'Mapping with type - extra label'
+
+# tests for sequences.schema.yml
+test_sequence:
+  - 'Simple sequence - Item 1'
+  - 'Simple sequence - Item 2'
+typed_sequence:
+  - id: 4
+    name: 'Typed sequence - Item 1 name'
+    code: 'Typed sequence - Item 1 code'
+  - id: 5
+    name: 'Typed sequence - Item 2 name'
+    code: 'Typed sequence - Item 2 code'
+sequence_of_sequence:
+  sq1:
+    - id: 6
+      description: 'Sequence of sequence - Description 1'
+  sq2:
+    - id: 7
+      description: 'Sequence of sequence - Description 2'
+
+# tests for variables.schema.yml
+test_variable:
+  - plugin_id: 'text'
+    value: 'Basic variable (text)'
+  - plugin_id: 'custom'
+    value: 'Basic variable (custom)'
+parent_variable_test:
+  id: 'text'
+  value: 'Parent variable (text)'
+parent_variable_test2:
+  id: 'custom'
+  value: 'Parent variable (custom)'
+key_variable:
+  text: 'Key variable (text)'
+  custom: 'Key variable (custom)'
+complex_variable:
+  key1:
+    key2: 'text'
+  value: 'Complex variable test'

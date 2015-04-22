@@ -1,0 +1,48 @@
+variable.plugin.text:
+  type: mapping
+  mapping:
+    plugin_id:
+      type: string
+    value:
+      type: text
+variable.plugin.*:
+  type: mapping
+  mapping:
+    plugin_id:
+      type: string
+    value:
+      type: string
+
+basic_variable:
+  type: sequence
+  sequence:
+    - type: variable.plugin.[plugin_id]
+
+variable.text:
+  type: text
+variable.*:
+  type: string
+
+parent_variable.*:
+  type: mapping
+  mapping:
+    id:
+      type: string
+    value:
+      type: variable.[%parent.id]
+
+key_variable:
+  type: sequence
+  sequence:
+    - type: variable.[%key]
+
+complex_variable:
+  type: mapping
+  mapping:
+    key1:
+      type: mapping
+      mapping:
+        key2:
+          type: string
+    value:
+      type: variable.[%parent.key1.key2]
