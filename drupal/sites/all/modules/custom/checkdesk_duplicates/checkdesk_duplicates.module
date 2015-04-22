@@ -1,0 +1,11 @@
+<?php
+/**
+ * Normalize URL
+ * @param $url
+ * @return mixed
+ */
+function _checkdesk_normalize_url($url) {
+  require_once drupal_get_path('module', 'checkdesk_duplicates') .'/url-normalizer/src/URL/Normalizer.php';
+  $un = new URL\Normalizer($url);
+  return $un->normalize();
+}
